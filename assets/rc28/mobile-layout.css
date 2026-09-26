@@ -147,3 +147,25 @@ html.hapil-touch-v31366 .hm-stick,html.hapil-touch-v31366 .hm-actions button{
 }
 html.hapil-touch-v31366 .hm-actions button:disabled{opacity:.48!important}
 html.hapil-touch-v31366 .hm-actions button[data-held]{border-color:#fff!important}
+
+/* RC31: the phone battle canvas fills the viewport. Controls float above it. */
+html.hapil-touch-v31366 .game>.game-stage{position:relative!important}
+html.hapil-touch-v31366 .game>.game-stage>canvas{
+  position:absolute!important;inset:0!important;display:block!important;
+  width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+  aspect-ratio:auto!important;object-fit:cover!important;object-position:center!important;flex:none!important;
+}
+/* Mobile combat UI is limited to settings, movement, resonance and blink.
+   The boss health bar beneath its sprite remains part of the canvas. */
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339,
+html.hapil-touch-v31366 #rc24-bossbar,
+html.hapil-touch-v31366 .hm-status,
+html.hapil-touch-v31366 .game-stage>.toast,
+html.hapil-touch-v31366 .game-stage>.minimap,
+html.hapil-touch-v31366 .game-stage>.target-status,
+html.hapil-touch-v31366 .game-stage>.boss-warning,
+html.hapil-touch-v31366 .game-stage>.boss-skill-callout-v31219,
+html.hapil-touch-v31366 .game-stage>.combat-encounter-intro,
+html.hapil-touch-v31366 .game-stage>.combat-narrative-manifest,
+html.hapil-touch-v31366 .game-stage>.radio-dialog{display:none!important}
+html.hapil-touch-v31366 .game:after{content:none!important}

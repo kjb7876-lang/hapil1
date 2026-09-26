@@ -3,7 +3,7 @@
    step, ability cooldown, auto combat selection or world geometry changes. */
 (()=>{'use strict';
  if(window.__HAPIL_MOBILE_V31366__?.installed)return;
- const VERSION='3.29-MOBILE',KEY='hapil-mobile-view-v31366',SETTINGS_KEY='mongse_settings_v1';
+ const VERSION='3.31-MOBILE',KEY='hapil-mobile-view-v31366',SETTINGS_KEY='mongse_settings_v1';
  const C=()=>window.__HAPIL_CONTROLS_V31329__,D=()=>window.__HAPIL_CHANNEL_V31364__,L=()=>window.__HAPIL_LOOP_V31365__;
  const pointers=new Map(),downClicks=new WeakMap();
  const metrics={downs:0,ups:0,cancels:0,clears:0,duplicatePresses:0,unrelatedCancels:0,renderCaps:0};
@@ -24,9 +24,10 @@
   if(!enabled()||mobileDefaultsApplied||!b?.settings?.current)return;
   mobileDefaultsApplied=true;
   try{const saved=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}'),patch={};
-   if(!Object.prototype.hasOwnProperty.call(saved,'lowFx'))patch.lowFx=true;
-   if(!Object.prototype.hasOwnProperty.call(saved,'reducedFlash'))patch.reducedFlash=true;
-   if(!Object.prototype.hasOwnProperty.call(saved,'screenShakeV31336'))patch.screenShakeV31336=false;
+   if(saved.lowFx!==true)patch.lowFx=true;
+   if(saved.reducedFlash!==true)patch.reducedFlash=true;
+   if(saved.showCombatInfo!==false)patch.showCombatInfo=false;
+   if(saved.screenShakeV31336!==false)patch.screenShakeV31336=false;
    if(Object.keys(patch).length){if(typeof b.setSettings==='function')b.setSettings(s=>({...s,...patch}));else b.settings.current={...b.settings.current,...patch};}
   }catch{}
  }
@@ -93,18 +94,18 @@
   // of accidental high-power releases. A damaged/canceled hold stays canceled.
   if(!paused&&s&&L()?.awake(s))for(const r of pointers.values())if(r.s===s&&r.keys.has('KeyA')&&!r.canceled&&r.egoUntil!==s.awakeningUntil){r.egoUntil=s.awakeningUntil;L().pressA(s);r.chargeToken=L().chargeToken(s)??null;}
  }
- function backingScale(base){if(!enabled()||options.quality==='full')return base;const cap=options.quality==='battery'?.55:.82,result=Math.min(base,cap);if(result<base)metrics.renderCaps++;return result;}
+ function backingScale(base){if(!enabled())return base;const cap=({battery:.32,balanced:.40,full:.52})[options.quality]??.32,result=Math.min(base,cap);if(result<base)metrics.renderCaps++;return result;}
  const setText=(el,t)=>{if(!el||el.textContent===t)return;if(el.firstChild?.nodeType===3&&el.childNodes.length===1)el.firstChild.nodeValue=t;else el.textContent=t;};
  function ensureSettingsControl(){const list=document.querySelector('.settings-layout > .settings-list');if(!list)return;
   let row=list.querySelector('[data-hapil-mobile-quality]');if(!row){row=document.createElement('label');row.dataset.hapilMobileQuality='';
-   row.innerHTML='<span><b>모바일 성능</b><small>화면 해상도만 조절합니다. 판정·피해량은 그대로입니다.</small></span><select aria-label="모바일 성능"><option value="battery">절전 · 렉 줄이기</option><option value="balanced">균형</option><option value="full">원본 화질</option></select>';
+   row.innerHTML='<span><b>모바일 성능</b><small>화면 해상도만 조절합니다. 판정·피해량은 그대로입니다.</small></span><select aria-label="모바일 성능"><option value="battery">절전 · 렉 줄이기</option><option value="balanced">균형</option><option value="full">고화질 · 모바일 최상</option></select>';
    row.querySelector('select').addEventListener('change',event=>setQuality(event.target.value));list.prepend(row);}
   const select=row.querySelector('select');if(select&&select.value!==options.quality)select.value=options.quality;
  }
  function button(k,label){const b=document.createElement('button');b.type='button';b.dataset.mobileAction=k;b.setAttribute('aria-label',k==='Menu'?'설정 메뉴 열기':k==='S'?'블링크 대시':k==='D'?'공명 유지 · 손을 떼면 종료':label);b.innerHTML='<b></b><small></small>';b.firstChild.textContent=k==='Menu'?'⚙':k==='Quality'?'◐':k==='Party'?'✦':k==='S'?'↗':k==='D'?'◉':k==='Tab'?'표적':k==='Collab'?'협동':k;b.lastChild.textContent=label;return b;}
  function mount(next){if(next===game&&root?.isConnected)return;if(root)root.remove();game=next;root=null;if(!game)return;
   root=document.createElement('div');root.id='hapil-mobile-controls-v31366';
-  const toolbar=document.createElement('div');toolbar.className='hm-toolbar';toolbar.innerHTML='<span class="hm-status" aria-label="영웅 체력·공명"></span>';toolbar.append(button('Menu','설정'));
+  const toolbar=document.createElement('div');toolbar.className='hm-toolbar';toolbar.append(button('Menu','설정'));
   const movement=document.createElement('div');movement.className='hm-movement';movement.innerHTML='<div class="hm-stick" data-mobile-stick role="group" aria-label="8방향 터치 이동 휠"><span></span></div>';
   const actions=document.createElement('div');actions.className='hm-actions';actions.setAttribute('role','group');actions.setAttribute('aria-label','전투 터치 버튼');
   for(const row of [['S','블링크'],['D','공명']])actions.append(button(...row));
@@ -114,9 +115,7 @@
  function update(){if(document.hidden)return;lastTick=performance.now();touch=matchMedia('(pointer:coarse)').matches;const b=C()?.binding,next=document.querySelector('.game'),active=enabled()&&!!next&&b?.phase==='game'&&!C()?.localTwo?.();applyMobileDefaults(b);
   if(uiActive!==active){clear('ui-mode');uiActive=active;}document.documentElement.classList.toggle('hapil-touch-v31366',active);dimensions();mount(active?next:null);
   if(enabled()&&b?.modal?.current)ensureSettingsControl();
-  if(!root||!b||document.hidden)return;const s=b.state.current,st=root.querySelector('.hm-status');root.style.setProperty('--hm-color',L()?.color?.(s.activeHeroId)||'#edf7ff');
-  setText(st,'HP '+Math.ceil(s.hp)+' / '+Math.ceil(s.maxHp)+' · 공명 '+Math.floor(s.resonance));
-  const bossbar=document.getElementById('rc24-bossbar');root.classList.toggle('hm-boss',!!bossbar&&!bossbar.hidden);
+  if(!root||!b||document.hidden)return;const s=b.state.current;
   const blocked=!canInput('A');root.classList.toggle('hm-blocked',blocked);
   for(const el of root.querySelectorAll('.hm-actions [data-mobile-action]')){const k=el.dataset.mobileAction;
    const native=document.querySelector('.combat-hud [data-control-key="'+k+'"]'),remain=Math.max(0,finite(s.cooldowns?.[k])-s.time),owned=[...pointers.values()].some(p=>p.target===el),locked=blocked||(!owned&&(remain>.001||native?.disabled||k!=='D'&&D()?.active(s)));
@@ -134,9 +133,9 @@
   let lastWidth=innerWidth;const refreshStickRects=()=>{for(const r of pointers.values())if(r.stick)r.stickRect=r.target.getBoundingClientRect();};
   window.addEventListener('resize',()=>{if(Math.abs(innerWidth-lastWidth)>8)clear('resize');lastWidth=innerWidth;dimensions();refreshStickRects();},{passive:true});window.visualViewport?.addEventListener('resize',()=>{dimensions();refreshStickRects();},{passive:true});
   window.__HAPIL_MOBILE_V31366__=Object.freeze({installed:true,version:VERSION,enabled,owns,hasPointers:()=>pointers.size>0,clear,beforeFrame,chargeCancelled,backingScale,setMode,setQuality,update,metrics:()=>({...metrics}),snapshot:()=>({enabled:enabled(),uiActive,options:{...options},pointers:[...pointers].map(([id,r])=>({id,keys:[...r.keys],canceled:r.canceled,stick:r.stick})),lastTick,logicalWorld:[1280,720]})});
-  window.MONGSE_ASSET_VERSION='31400';document.title='合一 · 합일 RC30 보스 연출 수정';
-  window.__HAPIL_V31366_RELEASE__=Object.freeze({installed:true,version:VERSION,cacheKey:31408,saveRevision:14,baseVersion:'3.13.65-RC1',activeBundle:'index-v31526.js'});
-  update();timer=setInterval(update,250);
+  window.MONGSE_ASSET_VERSION='31400';document.title='合一 · 합일 RC31 보스·모바일 최적화';
+  window.__HAPIL_V31366_RELEASE__=Object.freeze({installed:true,version:VERSION,cacheKey:33101,saveRevision:14,baseVersion:'3.13.65-RC1',activeBundle:'index-v31526.js'});
+  update();timer=setInterval(update,450);
  }
  boot();
 })();

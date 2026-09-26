@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="dist00-boss root-heart boss laser" data-owner="dist00-boss" data-motif="root-heart">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#d86589" stop-opacity="0"/><stop offset=".16" stop-color="#d86589" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#d86589"/><stop offset="1" stop-color="#d86589" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#d86589" stop-opacity="0"/><stop offset=".24" stop-color="#d86589"/><stop offset=".78" stop-color="#d86589"/><stop offset="1" stop-color="#d86589" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#d86589" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><path d="M322 72 C344 42 369 43 384 72 C399 43 424 42 446 72 C424 103 399 101 384 72 C369 101 344 103 322 72Z" fill="none" stroke="#d86589" stroke-width="5"/><path d="M335 72 C305 37 286 38 267 21 M335 72 C305 107 286 106 267 123 M433 72 C463 37 482 38 501 21 M433 72 C463 107 482 106 501 123" fill="none" stroke="#d86589" stroke-width="4"/><path d="M267 21l-18 3 8 15m10 84-18-3 8-15m244-84 18 3-8 15m-10 84 18-3-8-15" fill="none" stroke="#ffe8ee" stroke-width="3"/></g>
+<g fill="#d86589" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="dist06-boss balrog-magma-fangs boss laser" data-owner="dist06-boss" data-motif="balrog-magma-fangs">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#ff8b35" stop-opacity="0"/><stop offset=".16" stop-color="#ff8b35" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#ff8b35"/><stop offset="1" stop-color="#ff8b35" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#ff8b35" stop-opacity="0"/><stop offset=".24" stop-color="#ff8b35"/><stop offset=".78" stop-color="#ff8b35"/><stop offset="1" stop-color="#ff8b35" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#ff8b35" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><path d="M298 72L278 42 311 53 300 24 337 55 329 15 365 61 384 29 399 61 439 17 430 55 468 27 455 60 492 40 474 72 492 104 455 84 468 117 430 89 439 127 399 83 384 115 365 83 329 129 337 89 300 120 311 91 278 102Z" fill="none" stroke="#ff8b35" stroke-width="6" stroke-linejoin="miter"/><path d="M314 72h140m-112-10 83 20" stroke="#fff0c8" stroke-width="3"/></g>
+<g fill="#ff8b35" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

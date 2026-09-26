@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="b03-boss leviathan-tide boss laser" data-owner="b03-boss" data-motif="leviathan-tide">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#69d4c1" stop-opacity="0"/><stop offset=".16" stop-color="#69d4c1" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#69d4c1"/><stop offset="1" stop-color="#69d4c1" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#69d4c1" stop-opacity="0"/><stop offset=".24" stop-color="#69d4c1"/><stop offset=".78" stop-color="#69d4c1"/><stop offset="1" stop-color="#69d4c1" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#69d4c1" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><path d="M276 72c17-26 34-26 51 0s34 26 51 0 34-26 51 0 34 26 51 0 34-26 51 0M276 88c17-19 34-19 51 0s34 19 51 0 34-19 51 0 34 19 51 0 34-19 51 0" fill="none" stroke="#69d4c1" stroke-width="5"/><path d="M371 55l13-19 13 19m-26 34 13 19 13-19" fill="none" stroke="#dcfff9" stroke-width="3"/><circle cx="384" cy="72" r="7" fill="#effffb"/></g>
+<g fill="#69d4c1" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

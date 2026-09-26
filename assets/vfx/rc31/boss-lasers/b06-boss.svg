@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="b06-boss mammon-ledger-coins boss laser" data-owner="b06-boss" data-motif="mammon-ledger-coins">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#e2ba4e" stop-opacity="0"/><stop offset=".16" stop-color="#e2ba4e" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#e2ba4e"/><stop offset="1" stop-color="#e2ba4e" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#e2ba4e" stop-opacity="0"/><stop offset=".24" stop-color="#e2ba4e"/><stop offset=".78" stop-color="#e2ba4e"/><stop offset="1" stop-color="#e2ba4e" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#e2ba4e" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><g fill="none" stroke="#e2ba4e" stroke-width="5"><circle cx="336" cy="72" r="23"/><circle cx="432" cy="72" r="23"/><circle cx="336" cy="72" r="13"/><circle cx="432" cy="72" r="13"/></g><path d="M361 46h46l13 26-13 26h-46l-13-26zM384 55v34m-10-25h17c10 0 10 10 0 10h-14c-10 0-10 10 0 10h17" fill="none" stroke="#fff0ba" stroke-width="4"/></g>
+<g fill="#e2ba4e" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

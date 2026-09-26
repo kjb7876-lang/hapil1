@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="kair-great-02 gate-violet-crystal boss laser" data-owner="kair-great-02" data-motif="gate-violet-crystal">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#b864b5" stop-opacity="0"/><stop offset=".16" stop-color="#b864b5" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#b864b5"/><stop offset="1" stop-color="#b864b5" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#b864b5" stop-opacity="0"/><stop offset=".24" stop-color="#b864b5"/><stop offset=".78" stop-color="#b864b5"/><stop offset="1" stop-color="#b864b5" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#b864b5" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><path d="M384 20l25 29-8 47-17 29-17-29-8-47z" fill="none" stroke="#b864b5" stroke-width="5"/><path d="M359 49h50m-42 47h34m-17-76v105m-42-34h84" stroke="#fbe7ff" stroke-width="3"/><path d="M333 72l15-15 15 15-15 15zm102 0 15-15 15 15-15 15z" fill="none" stroke="#b864b5" stroke-width="4"/></g>
+<g fill="#b864b5" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

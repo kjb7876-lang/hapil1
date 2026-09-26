@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="u203-boss memory-gate-archive boss laser" data-owner="u203-boss" data-motif="memory-gate-archive">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#c456d9" stop-opacity="0"/><stop offset=".16" stop-color="#c456d9" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#c456d9"/><stop offset="1" stop-color="#c456d9" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#c456d9" stop-opacity="0"/><stop offset=".24" stop-color="#c456d9"/><stop offset=".78" stop-color="#c456d9"/><stop offset="1" stop-color="#c456d9" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#c456d9" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><path d="M337 105V49q0-31 47-31t47 31v56M351 105V53q0-20 33-20t33 20v52" fill="none" stroke="#c456d9" stroke-width="5"/><path d="M359 72h50m-25-25v50m-18-37 36 24m0-24-36 24" stroke="#f9dfff" stroke-width="3"/><path d="M320 72l12-12 12 12-12 12zm128 0 12-12 12 12-12 12z" fill="none" stroke="#c456d9" stroke-width="4"/></g>
+<g fill="#c456d9" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="kair-great-04 gate-twin-portals boss laser" data-owner="kair-great-04" data-motif="gate-twin-portals">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#9c81c7" stop-opacity="0"/><stop offset=".16" stop-color="#9c81c7" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#9c81c7"/><stop offset="1" stop-color="#9c81c7" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#9c81c7" stop-opacity="0"/><stop offset=".24" stop-color="#9c81c7"/><stop offset=".78" stop-color="#9c81c7"/><stop offset="1" stop-color="#9c81c7" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#9c81c7" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><ellipse cx="347" cy="72" rx="22" ry="42" fill="none" stroke="#9c81c7" stroke-width="5"/><ellipse cx="421" cy="72" rx="22" ry="42" fill="none" stroke="#eee5ff" stroke-width="3"/><path d="M369 72h30m-15-16 15 16-15 16m-29-41-12-14-12 14m96 0 12-14 12 14m-96 55-12 14-12-14m96 0 12 14 12-14" fill="none" stroke="#9c81c7" stroke-width="4"/></g>
+<g fill="#9c81c7" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

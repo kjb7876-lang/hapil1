@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="a11-cosmic-v31318 cosmic-rupture boss laser" data-owner="a11-cosmic-v31318" data-motif="cosmic-rupture">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#d34255" stop-opacity="0"/><stop offset=".16" stop-color="#d34255" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#d34255"/><stop offset="1" stop-color="#d34255" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#d34255" stop-opacity="0"/><stop offset=".24" stop-color="#d34255"/><stop offset=".78" stop-color="#d34255"/><stop offset="1" stop-color="#d34255" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#d34255" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><ellipse cx="384" cy="72" rx="47" ry="59" fill="none" stroke="#d34255" stroke-width="5"/><ellipse cx="384" cy="72" rx="31" ry="49" fill="#150710" stroke="#ffd3d7" stroke-width="2"/><path d="M352 20l-16-16 6 28-20 5 25 14m69-31 16-16-6 28 20 5-25 14M352 124l-16 16 6-28-20-5 25-14m69 31 16 16-6-28 20-5-25-14" fill="none" stroke="#d34255" stroke-width="5"/><circle cx="384" cy="72" r="10" fill="#ffe5e6"/></g>
+<g fill="#d34255" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>

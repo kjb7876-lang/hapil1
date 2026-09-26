@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="144" viewBox="0 0 768 144" role="img" aria-label="b06b-boss young-mammon-winter-thorns boss laser" data-owner="b06b-boss" data-motif="young-mammon-winter-thorns">
+<defs>
+ <linearGradient id="beam" x1="0" x2="1"><stop stop-color="#d98862" stop-opacity="0"/><stop offset=".16" stop-color="#d98862" stop-opacity=".8"/><stop offset=".47" stop-color="#fff"/><stop offset=".72" stop-color="#d98862"/><stop offset="1" stop-color="#d98862" stop-opacity="0"/></linearGradient>
+ <linearGradient id="edge" x1="0" x2="1"><stop stop-color="#d98862" stop-opacity="0"/><stop offset=".24" stop-color="#d98862"/><stop offset=".78" stop-color="#d98862"/><stop offset="1" stop-color="#d98862" stop-opacity="0"/></linearGradient>
+ <filter id="glow" x="-.08" y="-.6" width="1.16" height="2.2"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 72H760" stroke="#d98862" stroke-width="34" opacity=".42" filter="url(#glow)"/>
+ <path d="M0 72H768" stroke="url(#edge)" stroke-width="18" opacity=".7"/>
+ <path d="M0 72H768" stroke="url(#beam)" stroke-width="7"/>
+ <path d="M0 72H768" stroke="#fff" stroke-width="2" opacity=".95"/>
+</g>
+<g opacity=".96" transform="translate(0 39.6) scale(1 .45)"><path d="M384 23l12 31 30-20-12 34 40 4-34 18 28 27-38-8-7 30-19-28-19 28-7-30-38 8 28-27-34-18 40-4-12-34 30 20z" fill="none" stroke="#d98862" stroke-width="4"/><path d="M384 46v52m-26-26h52m-44-18 36 36m0-36-36 36" stroke="#ffe9d6" stroke-width="3"/></g>
+<g fill="#d98862" opacity=".86"><circle cx="226" cy="72" r="3"/><circle cx="542" cy="72" r="3"/><circle cx="605" cy="62" r="2"/><circle cx="162" cy="83" r="2"/></g>
+</svg>
