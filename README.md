@@ -1,4 +1,4 @@
-# 합일 RC28 모바일 업데이트
+# 합일 RC29 모바일 업데이트
 
 GitHub Pages 정적 게임 배포본입니다. 게시 주소는 [https://kjb7876-lang.github.io/hapil1/](https://kjb7876-lang.github.io/hapil1/) 입니다.
 
@@ -18,3 +18,7 @@ GitHub Pages 정적 게임 배포본입니다. 게시 주소는 [https://kjb7876
 ## 검증 범위
 
 RC28 검사에서 활성 JavaScript 41개 문법, HTML 로컬 파일 참조 54개, DOM 모의 실행의 초기화·8방향 이동·멀티터치 공명 취소·설정 진입을 확인했습니다. 실제 iPhone Safari·Android 실기 FPS는 측정하지 못했으므로 기기별 체감 검증이 필요합니다. `RC26_VERIFICATION_KO.md`는 이전 RC26 검증 기록입니다.
+
+## RC29 후속 개선
+
+상단 메시지 정리, 모바일 HUD/보스 알림 DOM 갱신 제한, 비활성 탭 렌더 중단을 적용했습니다. 실제 Chromium 터치·화면 크기·설정·전투 실행 결과와 한계는 [RC29 검증 기록](RC29_VERIFICATION_KO.md)에 있습니다.

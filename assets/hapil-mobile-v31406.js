@@ -3,7 +3,7 @@
    step, ability cooldown, auto combat selection or world geometry changes. */
 (()=>{'use strict';
  if(window.__HAPIL_MOBILE_V31366__?.installed)return;
- const VERSION='3.14.06-RC3',KEY='hapil-mobile-view-v31366',SETTINGS_KEY='mongse_settings_v1';
+ const VERSION='3.29-MOBILE',KEY='hapil-mobile-view-v31366',SETTINGS_KEY='mongse_settings_v1';
  const C=()=>window.__HAPIL_CONTROLS_V31329__,D=()=>window.__HAPIL_CHANNEL_V31364__,L=()=>window.__HAPIL_LOOP_V31365__;
  const pointers=new Map(),downClicks=new WeakMap();
  const metrics={downs:0,ups:0,cancels:0,clears:0,duplicatePresses:0,unrelatedCancels:0,renderCaps:0};
@@ -87,6 +87,7 @@
  function beforeFrame(s,paused){const key=s?String(s.zone)+'|'+String(s.activeHeroId):'';
   if(world&&world!==s||contextKey&&contextKey!==key||paused){clear('frame-reset');}
   world=s;contextKey=key;
+  if(!pointers.size)return;
   for(const [id,r] of [...pointers])if(!sameContext(r)||!canInput('A'))release(id,true);
   // A held before EGO conversion becomes one charge, not a continuous stream
   // of accidental high-power releases. A damaged/canceled hold stays canceled.
@@ -110,7 +111,7 @@
   root.append(toolbar,movement,actions);game.append(root);
  }
  function dimensions(){const v=window.visualViewport,height=(v?.height??innerHeight).toFixed(2)+'px';if(height!==lastViewportHeight){lastViewportHeight=height;document.documentElement.style.setProperty('--hapil-vh66',height);}}
- function update(){lastTick=performance.now();touch=matchMedia('(pointer:coarse)').matches;const b=C()?.binding,next=document.querySelector('.game'),active=enabled()&&!!next&&b?.phase==='game'&&!C()?.localTwo?.();applyMobileDefaults(b);
+ function update(){if(document.hidden)return;lastTick=performance.now();touch=matchMedia('(pointer:coarse)').matches;const b=C()?.binding,next=document.querySelector('.game'),active=enabled()&&!!next&&b?.phase==='game'&&!C()?.localTwo?.();applyMobileDefaults(b);
   if(uiActive!==active){clear('ui-mode');uiActive=active;}document.documentElement.classList.toggle('hapil-touch-v31366',active);dimensions();mount(active?next:null);
   if(enabled()&&b?.modal?.current)ensureSettingsControl();
   if(!root||!b||document.hidden)return;const s=b.state.current,st=root.querySelector('.hm-status');root.style.setProperty('--hm-color',L()?.color?.(s.activeHeroId)||'#edf7ff');
@@ -133,7 +134,7 @@
   let lastWidth=innerWidth;const refreshStickRects=()=>{for(const r of pointers.values())if(r.stick)r.stickRect=r.target.getBoundingClientRect();};
   window.addEventListener('resize',()=>{if(Math.abs(innerWidth-lastWidth)>8)clear('resize');lastWidth=innerWidth;dimensions();refreshStickRects();},{passive:true});window.visualViewport?.addEventListener('resize',()=>{dimensions();refreshStickRects();},{passive:true});
   window.__HAPIL_MOBILE_V31366__=Object.freeze({installed:true,version:VERSION,enabled,owns,hasPointers:()=>pointers.size>0,clear,beforeFrame,chargeCancelled,backingScale,setMode,setQuality,update,metrics:()=>({...metrics}),snapshot:()=>({enabled:enabled(),uiActive,options:{...options},pointers:[...pointers].map(([id,r])=>({id,keys:[...r.keys],canceled:r.canceled,stick:r.stick})),lastTick,logicalWorld:[1280,720]})});
-  window.MONGSE_ASSET_VERSION='31400';document.title='合一 · 합일 RC28 모바일';
+  window.MONGSE_ASSET_VERSION='31400';document.title='合一 · 합일 RC29 모바일';
   window.__HAPIL_V31366_RELEASE__=Object.freeze({installed:true,version:VERSION,cacheKey:31408,saveRevision:14,baseVersion:'3.13.65-RC1',activeBundle:'index-v31526.js'});
   update();timer=setInterval(update,250);
  }

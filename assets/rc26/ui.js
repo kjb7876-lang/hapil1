@@ -17,6 +17,7 @@
  const status=(a,t)=>[['stunUntil','기절'],['staggerUntil','경직'],['slowUntil','둔화'],['burnUntil','화상'],['poisonUntil','중독'],['invulnerableUntil','무적'],['guardUntil','방어'],['dashingUntil','회피']].filter(([k])=>Number(a?.[k])>t).map(([k,name])=>`${name} ${Math.max(0,a[k]-t).toFixed(1)}초`).join(' · ');
  const line=(label,value)=>`<div class="rc21-line"><span>${esc(label)}</span><b>${esc(value)}</b></div>`;
  function update(){
+  if(document.hidden)return;
   const api=window.__HAPIL_RC15__,binding=window.__HAPIL_CONTROLS_V31329__?.binding;
   const s=binding?.state?.current,live=!!s&&binding.phase==='game';
   if(live&&binding.settings?.current?.showCombatInfo!==false){const next={...binding.settings.current,showCombatInfo:false};binding.settings.current=next;binding.setSettings?.(old=>old?.showCombatInfo===false?old:{...old,showCombatInfo:false});}
@@ -61,7 +62,7 @@
   if(left.innerHTML!==enemy)left.innerHTML=enemy;
   if(right.innerHTML!==ally)right.innerHTML=ally;
  }
- document.title='合一 · 합일 RC28 모바일';
- window.__HAPIL_FINAL_RELEASE__={version:'3.26-STORY-RC28-MOBILE',activeBundle:'index-v31526.js',cacheKey:32801};
+ document.title='合一 · 합일 RC29 모바일';
+ window.__HAPIL_FINAL_RELEASE__={version:'3.26-STORY-RC29-MOBILE',activeBundle:'index-v31526.js',cacheKey:32901};
  setInterval(update,300);update();
 })();

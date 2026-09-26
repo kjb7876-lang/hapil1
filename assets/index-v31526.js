@@ -54092,6 +54092,8 @@ function Ri() {
             a = Math.min(0.04, MONGSE_frameDeltaMs31220 / 1e3);
           n = e;
           if(!window.__HAPIL_COMBAT_V31333__?.installed){t=requestAnimationFrame(i);return;}
+          // Hidden tabs retain simulation state without rendering or polling combat DOM.
+          if(document.hidden){t=requestAnimationFrame(i);return;}
           MONGSE_noteFrameTime31220(
             Me.current,
             MONGSE_frameDeltaMs31220,
@@ -62808,7 +62810,7 @@ function Ri() {
              window.__HAPIL_FEEDBACK_RC22__?.tick(o,ze.current,We,!!MONGSE_audioUnlockedRef.current),
             window.__HAPIL_PARTY_V31322__?.endFrame(o),
             $n(Me.current, o, Pe.current, L.current, ze.current),
-            (window.__HAPIL_ENEMY_FEEL_V31361__?.consumeHud(o) || e - r > (ze.current.lowFx ? 180 : 140)))
+            (window.__HAPIL_MOBILE_V31366__?.enabled() ? e - r > 250 : (window.__HAPIL_ENEMY_FEEL_V31361__?.consumeHud(o) || e - r > (ze.current.lowFx ? 180 : 140))))
           ) {
             r = e;
             let t =
@@ -68166,7 +68168,14 @@ MONGSE_prepareCombatEncounter31226 = function MONGSE_preparePrologueV314RC3(stat
       until: MONGSE_until31219,
     };
   }
+  let mobileCalloutNextRC29=0, mobileCalloutStateRC29=null, mobileCalloutZoneRC29=null;
   function MONGSE_updateBossCallout31219(MONGSE_state31219) {
+    // Only presentation is throttled; boss telegraphs and hit timing remain per frame.
+    if(window.__HAPIL_MOBILE_V31366__?.enabled()){
+      const now=performance.now();
+      if(mobileCalloutStateRC29===MONGSE_state31219 && mobileCalloutZoneRC29===MONGSE_state31219?.zone && now<mobileCalloutNextRC29)return 0;
+      mobileCalloutStateRC29=MONGSE_state31219;mobileCalloutZoneRC29=MONGSE_state31219?.zone;mobileCalloutNextRC29=now+100;
+    }
     if (typeof document === `undefined` || typeof document.querySelector !== `function`)
       return 0;
     const MONGSE_active31219 = MONGSE_bossCalloutState31219(MONGSE_state31219),
