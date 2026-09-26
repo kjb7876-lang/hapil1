@@ -58,7 +58,7 @@
   if(left.innerHTML!==enemy)left.innerHTML=enemy;
   if(right.innerHTML!==ally)right.innerHTML=ally;
  }
- document.title='合一 · 합일 RC26';
- window.__HAPIL_FINAL_RELEASE__={version:'3.26-STORY-RC26',activeBundle:'index-v31526.js',cacheKey:31526};
+ document.title='合一 · 합일 RC27 모바일';
+ window.__HAPIL_FINAL_RELEASE__={version:'3.26-STORY-RC27-MOBILE',activeBundle:'index-v31526.js',cacheKey:32701};
  setInterval(update,300);update();
 })();
