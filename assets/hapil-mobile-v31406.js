@@ -3,7 +3,7 @@
    step, ability cooldown, auto combat selection or world geometry changes. */
 (()=>{'use strict';
  if(window.__HAPIL_MOBILE_V31366__?.installed)return;
- const VERSION='3.31-MOBILE',KEY='hapil-mobile-view-v31366',SETTINGS_KEY='mongse_settings_v1';
+ const VERSION='3.32-MOBILE',KEY='hapil-mobile-view-v31366',SETTINGS_KEY='mongse_settings_v1';
  const C=()=>window.__HAPIL_CONTROLS_V31329__,D=()=>window.__HAPIL_CHANNEL_V31364__,L=()=>window.__HAPIL_LOOP_V31365__;
  const pointers=new Map(),downClicks=new WeakMap();
  const metrics={downs:0,ups:0,cancels:0,clears:0,duplicatePresses:0,unrelatedCancels:0,renderCaps:0};
@@ -133,8 +133,8 @@
   let lastWidth=innerWidth;const refreshStickRects=()=>{for(const r of pointers.values())if(r.stick)r.stickRect=r.target.getBoundingClientRect();};
   window.addEventListener('resize',()=>{if(Math.abs(innerWidth-lastWidth)>8)clear('resize');lastWidth=innerWidth;dimensions();refreshStickRects();},{passive:true});window.visualViewport?.addEventListener('resize',()=>{dimensions();refreshStickRects();},{passive:true});
   window.__HAPIL_MOBILE_V31366__=Object.freeze({installed:true,version:VERSION,enabled,owns,hasPointers:()=>pointers.size>0,clear,beforeFrame,chargeCancelled,backingScale,setMode,setQuality,update,metrics:()=>({...metrics}),snapshot:()=>({enabled:enabled(),uiActive,options:{...options},pointers:[...pointers].map(([id,r])=>({id,keys:[...r.keys],canceled:r.canceled,stick:r.stick})),lastTick,logicalWorld:[1280,720]})});
-  window.MONGSE_ASSET_VERSION='31400';document.title='合一 · 합일 RC31 보스·모바일 최적화';
-  window.__HAPIL_V31366_RELEASE__=Object.freeze({installed:true,version:VERSION,cacheKey:33101,saveRevision:14,baseVersion:'3.13.65-RC1',activeBundle:'index-v31526.js'});
+  window.MONGSE_ASSET_VERSION='31400';document.title='合一 · 합일 RC32 보스 이미지 표시 수정';
+  window.__HAPIL_V31366_RELEASE__=Object.freeze({installed:true,version:VERSION,cacheKey:33201,saveRevision:14,baseVersion:'3.13.65-RC1',activeBundle:'index-v31526.js'});
   update();timer=setInterval(update,450);
  }
  boot();
