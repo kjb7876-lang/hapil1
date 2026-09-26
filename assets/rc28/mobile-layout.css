@@ -1,0 +1,131 @@
+/* RC28: one full battlefield track; touch controls float only in the corners.
+   The native 16:9 ResizeObserver keeps the entire map visible. */
+html.hapil-touch-v31366,html.hapil-touch-v31366 body{overflow:hidden;overscroll-behavior:none}
+html.hapil-touch-v31366 .game{
+  position:relative!important;display:grid!important;box-sizing:border-box!important;
+  grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
+  width:100vw!important;max-width:100vw!important;height:var(--hapil-vh66,100dvh)!important;
+  min-height:0!important;max-height:var(--hapil-vh66,100dvh)!important;
+  padding:0!important;margin:0!important;gap:0!important;overflow:hidden!important;background:#05070d!important;
+}
+html.hapil-touch-v31366 body.rc15-playing .game{width:100vw!important;max-width:100vw!important;margin:0!important}
+html.hapil-touch-v31366 .game>.topbar,
+html.hapil-touch-v31366 .game>.combat-hud,
+html.hapil-touch-v31366 .game .mobile-pad,
+html.hapil-touch-v31366 #rc15-sidepanels,
+html.hapil-touch-v31366 #hapil-party-launcher{display:none!important}
+html.hapil-touch-v31366 .game>.game-stage{
+  grid-column:1!important;grid-row:1!important;min-width:0!important;min-height:0!important;
+  width:100%!important;height:100%!important;overflow:hidden!important;touch-action:none;
+}
+html.hapil-touch-v31366 .game-stage>.minimap:not(.expanded){display:none!important}
+html.hapil-touch-v31366 .game-stage>.toast{bottom:calc(env(safe-area-inset-bottom,0px) + 120px)!important;max-width:66%!important;pointer-events:none}
+html.hapil-touch-v31366 .game:after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+/* Keep essential boss telegraphs; ordinary status, party and narration panels
+   no longer reserve rows or columns or force the canvas to shrink. */
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339{
+  position:absolute!important;grid-column:auto!important;grid-row:auto!important;
+  z-index:26!important;top:calc(env(safe-area-inset-top,0px) + 48px)!important;
+  left:50%!important;transform:translateX(-50%)!important;width:min(68vw,480px)!important;
+  max-width:calc(100vw - 100px)!important;height:auto!important;min-height:0!important;
+  display:flex!important;flex-direction:column!important;gap:3px!important;
+  margin:0!important;padding:0!important;border:0!important;background:none!important;
+  overflow:visible!important;pointer-events:none!important;scrollbar-width:none;
+}
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339>*:not(.boss-skill-callout-v31219):not(.boss-warning):not(.combat-narrative-manifest):not(.radio-dialog){display:none!important}
+html.hapil-touch-v31366 .hapil-combat-rail-v31339>.boss-skill-callout-v31219,
+html.hapil-touch-v31366 .hapil-combat-rail-v31339>.boss-warning{
+  width:100%!important;max-width:100%!important;min-height:0!important;
+  padding:4px 8px!important;margin:0!important;border-radius:7px!important;
+  font-size:10px!important;line-height:1.2!important;background:#191421dc!important;
+  box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+html.hapil-touch-v31366 .hapil-combat-rail-v31339>.combat-narrative-manifest,
+html.hapil-touch-v31366 .hapil-combat-rail-v31339>.radio-dialog{
+  width:100%!important;max-height:min(30vh,120px)!important;overflow:hidden!important;
+  padding:5px 8px!important;margin:0!important;background:#0c1422dc!important;
+  border-radius:7px!important;box-shadow:none!important;backdrop-filter:none!important;
+}
+html.hapil-touch-v31366 #rc24-bossbar{
+  top:calc(env(safe-area-inset-top,0px) + 3px)!important;
+  width:min(56vw,390px)!important;padding:4px 8px!important;
+  box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366{display:contents!important;--hm-color:#edf7ff}
+html.hapil-touch-v31366 .hm-toolbar{
+  position:absolute!important;inset:0!important;z-index:60!important;
+  display:block!important;grid-column:auto!important;grid-row:auto!important;
+  padding:0!important;border:0!important;background:none!important;pointer-events:none!important;
+}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar [data-mobile-action="Menu"]{
+  position:absolute!important;top:calc(env(safe-area-inset-top,0px) + 8px)!important;
+  left:calc(env(safe-area-inset-left,0px) + 8px)!important;
+  width:46px!important;height:46px!important;min-width:46px!important;padding:0!important;
+  border-radius:13px!important;background:#0d1729e8!important;border:1px solid #7792ae!important;
+  color:#ffe2a0!important;pointer-events:auto!important;box-shadow:none!important;
+}
+html.hapil-touch-v31366 .hm-toolbar [data-mobile-action="Menu"] b{display:block!important;font-size:24px!important;line-height:1!important}
+html.hapil-touch-v31366 .hm-toolbar [data-mobile-action="Menu"] small{display:none!important}
+html.hapil-touch-v31366 .hm-status{
+  position:absolute!important;top:calc(env(safe-area-inset-top,0px) + 8px)!important;
+  right:calc(env(safe-area-inset-right,0px) + 8px)!important;
+  max-width:min(32vw,220px)!important;padding:5px 7px!important;border-radius:7px!important;
+  background:#0b1425c9!important;color:#e8f4ff!important;font:700 10px/1.25 system-ui,sans-serif!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;pointer-events:none!important;
+}
+html.hapil-touch-v31366 .hm-pose{display:none!important}
+html.hapil-touch-v31366 .hm-movement,
+html.hapil-touch-v31366 .hm-actions{
+  position:absolute!important;z-index:55!important;grid-column:auto!important;grid-row:auto!important;
+  bottom:calc(env(safe-area-inset-bottom,0px) + 10px)!important;
+  min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;
+  border:0!important;background:none!important;overflow:visible!important;pointer-events:auto!important;
+}
+html.hapil-touch-v31366 .hm-movement{
+  left:calc(env(safe-area-inset-left,0px) + 10px)!important;
+  width:clamp(104px,24vw,132px)!important;height:clamp(104px,24vw,132px)!important;
+  display:block!important;color:transparent!important;
+}
+html.hapil-touch-v31366 .hm-movement>small,
+html.hapil-touch-v31366 .hm-orientation{display:none!important}
+html.hapil-touch-v31366 .hm-stick{
+  box-sizing:border-box!important;width:100%!important;height:100%!important;
+  border:2px solid #81a2bccc!important;border-radius:50%!important;
+  background:#101d30b8!important;box-shadow:none!important;touch-action:none!important;
+}
+html.hapil-touch-v31366 .hm-stick>span{
+  width:38px!important;height:38px!important;left:calc(50% - 19px)!important;top:calc(50% - 19px)!important;
+  border:1px solid #9bb8ce!important;background:#57758ac9!important;box-shadow:none!important;
+}
+html.hapil-touch-v31366 .hm-actions{
+  right:calc(env(safe-area-inset-right,0px) + 10px)!important;
+  display:flex!important;align-items:flex-end!important;justify-content:flex-end!important;gap:8px!important;
+}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button{
+  flex:0 0 auto!important;width:clamp(70px,18vw,88px)!important;height:clamp(70px,18vw,88px)!important;
+  min-width:0!important;min-height:0!important;max-height:none!important;padding:4px!important;
+  border-radius:50%!important;border:2px solid #6897ae!important;background:#152c40d9!important;
+  box-shadow:none!important;gap:2px!important;touch-action:none!important;
+}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button b{font-size:25px!important;line-height:1!important}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button small{font-size:11px!important;font-weight:800!important;line-height:1!important}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions [data-mobile-action="S"]{color:#d3faff!important;border-color:#58bed0!important}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions [data-mobile-action="D"]{color:#ffe8b5!important;border-color:#d4ab60!important;background:#382b20dc!important}
+html.hapil-touch-v31366 .game:has(.hm-blocked) .hm-stick{opacity:.5}
+.settings-layout [data-hapil-mobile-quality] select{
+  min-width:100px;max-width:100%;height:38px;padding:4px 6px;
+  color:#e8f4ff;background:#18283b;border:1px solid #607992;border-radius:6px;
+}
+@media(max-width:600px) and (orientation:portrait){
+  html.hapil-touch-v31366 #rc24-bossbar{width:min(64vw,300px)!important}
+  html.hapil-touch-v31366 .hm-status{top:calc(env(safe-area-inset-top,0px) + 54px)!important;max-width:min(58vw,230px)!important}
+  html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339{top:calc(env(safe-area-inset-top,0px) + 86px)!important;width:min(82vw,320px)!important;max-width:82vw!important}
+}
+@media(max-height:350px) and (orientation:landscape){
+  html.hapil-touch-v31366 .hm-movement{width:88px!important;height:88px!important;bottom:calc(env(safe-area-inset-bottom,0px) + 5px)!important}
+  html.hapil-touch-v31366 .hm-actions{bottom:calc(env(safe-area-inset-bottom,0px) + 5px)!important;gap:5px!important}
+  html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button{width:70px!important;height:70px!important}
+}
+@media(prefers-reduced-motion:reduce){html.hapil-touch-v31366 #hapil-mobile-controls-v31366 *{animation:none!important;transition:none!important}}

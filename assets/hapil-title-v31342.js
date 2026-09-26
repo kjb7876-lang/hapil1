@@ -54,7 +54,7 @@
   const updateTitles = () => {
     const cleared = isCleared();
     document.body?.classList.toggle("hapil-ending-cleared-v31300", cleared);
-    document.title = cleared ? "合一夢世 · 합일몽세 RC27 모바일" : "合一 · 합일 RC27 모바일";
+    document.title = cleared ? "合一夢世 · 합일몽세 RC28 모바일" : "合一 · 합일 RC28 모바일";
     document.querySelectorAll(".title-card h1").forEach((node) => {
       const expected = cleared ? "合一夢世" : "合一";
       if (node.textContent !== expected) node.textContent = expected;
