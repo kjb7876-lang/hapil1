@@ -3,43 +3,56 @@
 (() => {
   'use strict';
 
-  const VERSION = '33301';
+  const VERSION = '33401';
   const ROOT = './assets/vfx/rc33/boss-laser-families/';
+  const MAX_FAMILY_IMAGES = 5;
   const OWNER_FAMILY = Object.freeze({
     'dist00-boss': 'sinful',
-    'dist06-boss': 'infernal',
+    'dist06-boss': 'balrog',
     'a11-boss': 'celestial',
-    'a11-cosmic-v31318': 'celestial',
-    'b02-boss': 'sinful',
-    'b03-boss': 'cyber',
-    'b04-boss': 'sinful',
-    'b05-boss': 'sinful',
-    'b06-boss': 'sinful',
-    'b06b-boss': 'sinful',
-    'b07-boss': 'infernal',
-    'b08-boss': 'sinful',
-    'b09-boss': 'sinful',
-    'u203-boss': 'cyber',
-    'l301-boss': 'celestial',
-    'l303-boss': 'sinful',
+    'a11-cosmic-v31318': 'cosmic-lucifer',
+    'b02-boss': 'sloth',
+    'b03-boss': 'envy',
+    'b04-boss': 'gluttony',
+    'b05-boss': 'lust',
+    'b06-boss': 'greed',
+    'b06b-boss': 'greed',
+    'b07-boss': 'wrath',
+    'b08-boss': 'pride',
+    'b09-boss': 'pride',
+    'u203-boss': 'u2-memory',
+    'l301-boss': 'last-three',
+    'l303-boss': 'last-three',
     'h103-boss': 'cyber',
     'k103-boss': 'sinful',
     'c102-boss': 'cyber',
     'c103-boss': 'cyber',
     'c104-boss': 'cyber',
-    'l305-boss': 'infernal',
-    'kair-great-01': 'celestial',
-    'kair-great-02': 'celestial',
-    'kair-great-03': 'celestial',
-    'kair-great-04': 'celestial',
-    'kair-great-05': 'celestial',
-    'kair-great-06': 'celestial'
+    'l305-boss': 'last-three',
+    'kair-great-01': 'kairo',
+    'kair-great-02': 'kairo',
+    'kair-great-03': 'kairo',
+    'kair-great-04': 'kairo',
+    'kair-great-05': 'kairo',
+    'kair-great-06': 'kairo'
   });
   const FAMILY_HUE = Object.freeze({
     infernal: 18,
     celestial: 278,
     sinful: 348,
-    cyber: 194
+    cyber: 194,
+    sloth: 158,
+    envy: 138,
+    gluttony: 302,
+    lust: 345,
+    greed: 42,
+    wrath: 22,
+    pride: 274,
+    balrog: 18,
+    'cosmic-lucifer': 347,
+    kairo: 190,
+    'last-three': 252,
+    'u2-memory': 188
   });
   const OWNER_IDS = Object.keys(OWNER_FAMILY);
   const ownerColors = new Map();
@@ -54,6 +67,7 @@
     imageLoadsStarted: 0,
     imageLoadsReady: 0,
     imageLoadFailures: 0,
+    imageCacheEvictions: 0,
     drawErrors: 0
   };
   const familyImages = new Map();
@@ -164,7 +178,12 @@
   function preload(id) {
     const family = familyFor(id);
     if (!family || typeof window.Image !== 'function') return null;
-    if (familyImages.has(family)) return familyImages.get(family);
+    if (familyImages.has(family)) {
+      const cached = familyImages.get(family);
+      familyImages.delete(family);
+      familyImages.set(family, cached);
+      return cached;
+    }
     try {
       const image = new window.Image();
       image.decoding = 'async';
@@ -180,11 +199,28 @@
       };
       const base = window.document?.baseURI || window.location?.href || 'http://localhost/';
       image.src = new URL(ROOT + family + '.webp?v=' + VERSION, base).href;
+      trimFamilyImages(family);
       stats.imageLoadsStarted++;
       return image;
     } catch (_) {
       familyImages.delete(family);
       return null;
+    }
+  }
+
+  function trimFamilyImages(protectFamily) {
+    if (familyImages.size <= MAX_FAMILY_IMAGES) return;
+    const activeFamilies = new Set();
+    for (const cast of activeCasts) {
+      const id = ownerIdFromCast(cast, null);
+      const family = familyFor(id);
+      if (family) activeFamilies.add(family);
+    }
+    for (const family of familyImages.keys()) {
+      if (familyImages.size <= MAX_FAMILY_IMAGES) break;
+      if (family === protectFamily || activeFamilies.has(family)) continue;
+      familyImages.delete(family);
+      stats.imageCacheEvictions++;
     }
   }
 
@@ -450,7 +486,7 @@
       ownerIds: Object.freeze(OWNER_IDS.slice()),
       familyFor,
       beamPathFor: beamPath,
-      stats: () => Object.freeze({ ...stats })
+      stats: () => Object.freeze({ ...stats, familyImageCacheEntries: familyImages.size })
     });
   }
 

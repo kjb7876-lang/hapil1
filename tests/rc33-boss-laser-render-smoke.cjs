@@ -16,12 +16,14 @@ const ids = [
   'kair-great-06'
 ];
 
-assert(html.includes('./assets/rc33/boss-laser-render.js?v=33301'),
+assert(html.includes('./assets/rc33/boss-laser-render.js?v=33401'),
   'RC33 beam renderer is not loaded after the older laser patch');
 assert(plugin.includes("source.toLowerCase().includes('boss-laser-families/')"),
   'beam renderer does not recognize the new family textures');
 
-for (const family of ['infernal', 'celestial', 'sinful', 'cyber']) {
+for (const family of ['infernal', 'celestial', 'sinful', 'cyber',
+  'sloth', 'envy', 'gluttony', 'lust', 'greed', 'wrath', 'pride',
+  'balrog', 'cosmic-lucifer', 'kairo', 'last-three', 'u2-memory']) {
   const bytes = fs.readFileSync(path.join(root, 'assets/vfx/rc33/boss-laser-families', family + '.webp'));
   assert.equal(bytes.toString('ascii', 0, 4), 'RIFF', family + ' laser art is not WebP');
   assert.equal(bytes.toString('ascii', 8, 12), 'WEBP', family + ' laser art header is invalid');
@@ -126,9 +128,23 @@ const rc33 = window.__HAPIL_RC33__;
 assert.equal(rc33.installed, true);
 assert.equal(rc33.ownersRouted, 28, 'every mapped episode and cosmic boss needs a routed beam');
 assert.equal(rc33.ownerIds.length, 28);
-assert.equal(rc33.familyFor('dist06-boss'), 'infernal');
-assert.equal(rc33.familyFor('a11-cosmic-v31318'), 'celestial');
-assert.equal(rc33.familyFor('b03-boss'), 'cyber');
+assert.equal(rc33.familyFor('dist06-boss'), 'balrog');
+assert.equal(rc33.familyFor('a11-cosmic-v31318'), 'cosmic-lucifer');
+assert.equal(rc33.familyFor('c103-boss'), 'cyber');
+assert.equal(rc33.familyFor('b02-boss'), 'sloth');
+assert.equal(rc33.familyFor('b03-boss'), 'envy');
+assert.equal(rc33.familyFor('b04-boss'), 'gluttony');
+assert.equal(rc33.familyFor('b05-boss'), 'lust');
+assert.equal(rc33.familyFor('b06-boss'), 'greed');
+assert.equal(rc33.familyFor('b06b-boss'), 'greed');
+assert.equal(rc33.familyFor('b07-boss'), 'wrath');
+assert.equal(rc33.familyFor('b08-boss'), 'pride');
+assert.equal(rc33.familyFor('b09-boss'), 'pride');
+assert.equal(rc33.familyFor('u203-boss'), 'u2-memory');
+assert.equal(rc33.familyFor('l301-boss'), 'last-three');
+assert.equal(rc33.familyFor('l303-boss'), 'last-three');
+assert.equal(rc33.familyFor('l305-boss'), 'last-three');
+assert.equal(rc33.familyFor('kair-great-06'), 'kairo');
 
 const live = api.start({id: 'b09-boss'});
 live.beam = './assets/vfx/rc32/boss-lasers/b09-boss.webp';
@@ -150,7 +166,7 @@ const cosmic = api.start({id: 'a11-cosmic-v31318'});
 assert.equal(cosmic.beam, rc33.beamPathFor('a11-cosmic-v31318'));
 const bloodCtx = new FakeCanvas();
 blood.draw(bloodCtx, cache, {enemies: []}, cosmic, {});
-assert(bloodCtx.calls.some(call => call.source.includes('/celestial.webp?v=33301')),
+assert(bloodCtx.calls.some(call => call.source.includes('/cosmic-lucifer.webp?v=33401')),
   'cosmic blood renderer did not replace its shared beam with generated art');
 assert(!bloodCtx.calls.some(call => call.operation === 'lighter'),
   'common blue core remained in the native cosmic/blood render route');
@@ -169,4 +185,17 @@ assert(stats.fullArtworkDraws > 0, 'full raster art was never drawn');
 assert(stats.blueCoreDrawsSuppressed > 0, 'shared blue additive core was never suppressed');
 assert(stats.imageLoadsReady >= 2, 'boss-owned raster files did not preload at cast start');
 
-console.log('PASS: 28 boss routes, full generated beam art, boss hue tint, cosmic blood replacement, blue-core suppression.');
+api.tick({time: 99, laserCasts: []}, 0.05);
+for (const id of ['b02-boss', 'b03-boss', 'b04-boss', 'b05-boss', 'b06-boss',
+  'b07-boss', 'b08-boss', 'dist06-boss', 'a11-cosmic-v31318', 'kair-great-01',
+  'l303-boss', 'u203-boss']) {
+  const cast = api.start({id});
+  cast.endAt = 0;
+  api.tick({time: 1, laserCasts: []}, 0.05);
+  assert(rc33.stats().familyImageCacheEntries <= 5,
+    'decoded boss beam cache exceeded its mobile memory bound');
+}
+assert(rc33.stats().imageCacheEvictions > 0,
+  'old decoded beam textures were not evicted after boss casts ended');
+
+console.log('PASS: 28 boss routes, 12 bespoke boss beam artworks, bounded decoded image cache, hue tint, cosmic blood replacement, blue-core suppression.');

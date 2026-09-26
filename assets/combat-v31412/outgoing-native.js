@@ -8,6 +8,7 @@
   if(!P||!R||!Re||typeof Ke!=='function'||!native||required.some(k=>typeof native[k]!=='function'))throw Error('Outgoing reducer dependency missing');
   return function outgoing(e,t,n,r=false,i=0,HAPIL_hitSourceV31315=null){
    const world=P.current,core=root.__HAPIL_COMBAT_CORE_V31401__;
+   const lifestealRate=Number.isFinite(i)?Math.max(0,i)*0.5:0;
    return core.enemy(world,e,t,HAPIL_hitSourceV31315,()=>{
     const target=world.enemies.find(x=>x.id===e.id)??e;
     const {MONGSE_objectiveDamageAllowedV31309,HAPIL_claimCounterWindowV31303,sr,ir,HAPIL_effectiveGrowthV31400,gr,MONGSE_infiniteStats,MONGSE_heroOutgoingModeMultiplier31213,HAPIL_applyCounterDamageV31303,MONGSE_triggerEnemyBreak,HAPIL_awardComboMilestoneV31303,HAPIL_bindDamageHitV31315,MONGSE_attachEffectTarget,MONGSE_beginNarrativeAttack,MONGSE_enemyPhase,MONGSE_enemyActivePhase}=native;
@@ -85,7 +86,7 @@
           (window.__HAPIL_LOOP_V31365__ ? void 0 : (a.resonance = Math.min(100, a.resonance + (r ? 7 : 4)))),
           HAPIL_awardComboMilestoneV31303(a),
           a.counterUntil > a.time && ((a.counterUntil = 0), (r = !0)),
-          i > 0 && v > 0 && a.hp < a.maxHp)
+          lifestealRate > 0 && v > 0 && a.hp < a.maxHp)
         ) {
           let MONGSE_lifestealScale =
               a.time < Number(a.lifestealSuppressedUntil ?? 0)
@@ -93,7 +94,7 @@
                 : 1,
             e = Math.min(
               a.maxHp - a.hp,
-              window.__HAPIL_HELL_V31322__?.lifestealAmount(a, v, i, MONGSE_lifestealScale) ?? Math.max(1, Math.round(v * i * MONGSE_lifestealScale)),
+              window.__HAPIL_HELL_V31322__?.lifestealAmount(a, v, lifestealRate, MONGSE_lifestealScale) ?? Math.max(1, Math.round(v * lifestealRate * MONGSE_lifestealScale)),
             );
           a.time >= Number(a.lifestealSuppressedUntil ?? 0) &&
             (a.lifestealMultiplier = 1);
@@ -109,7 +110,7 @@
                 duration: 0.72,
                 text: `흡혈 +${Math.round(e)} EGO`,
                 color: `#8fffc1`,
-                critical: i >= 0.22,
+                critical: lifestealRate >= 0.11,
               })));
         }
         if (
@@ -216,7 +217,7 @@
         }
         o.hp <= 0 && Ke(o);
 
-   },{critical:r,lifesteal:i});
+   },{critical:r,lifesteal:lifestealRate});
   };
  }
  root.__HAPIL_OUTGOING_V31402__=Object.freeze({version:'3.14.02-RC1',installed:true,create,dependencies:Object.freeze(required)});
