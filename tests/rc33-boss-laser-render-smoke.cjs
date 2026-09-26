@@ -1,0 +1,172 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+
+const root = path.resolve(__dirname, '..');
+const plugin = fs.readFileSync(path.join(root, 'assets/rc33/boss-laser-render.js'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const ids = [
+  'dist00-boss', 'dist06-boss', 'a11-boss', 'a11-cosmic-v31318',
+  'b02-boss', 'b03-boss', 'b04-boss', 'b05-boss', 'b06-boss',
+  'b06b-boss', 'b07-boss', 'b08-boss', 'b09-boss', 'u203-boss',
+  'l301-boss', 'l303-boss', 'h103-boss', 'k103-boss', 'c102-boss',
+  'c103-boss', 'c104-boss', 'l305-boss', 'kair-great-01',
+  'kair-great-02', 'kair-great-03', 'kair-great-04', 'kair-great-05',
+  'kair-great-06'
+];
+
+assert(html.includes('./assets/rc33/boss-laser-render.js?v=33301'),
+  'RC33 beam renderer is not loaded after the older laser patch');
+assert(plugin.includes("source.toLowerCase().includes('boss-laser-families/')"),
+  'beam renderer does not recognize the new family textures');
+
+for (const family of ['infernal', 'celestial', 'sinful', 'cyber']) {
+  const bytes = fs.readFileSync(path.join(root, 'assets/vfx/rc33/boss-laser-families', family + '.webp'));
+  assert.equal(bytes.toString('ascii', 0, 4), 'RIFF', family + ' laser art is not WebP');
+  assert.equal(bytes.toString('ascii', 8, 12), 'WEBP', family + ' laser art header is invalid');
+  assert(bytes.length > 50000, family + ' laser art is unexpectedly small');
+}
+
+const colors = {
+  'dist06-boss': '#ff8b35',
+  'b09-boss': '#da4557',
+  'a11-cosmic-v31318': '#d34255'
+};
+const owners = ids.map(id => ({id, beam: './assets/vfx/rc32/boss-lasers/' + id + '.webp',
+  assets: [], color: colors[id] || '#c4a8d5'}));
+class FakeImage {
+  set src(value) {
+    this._src = String(value);
+    this.complete = true;
+    this.naturalWidth = 2172;
+    this.naturalHeight = 724;
+    this.width = 2172;
+    this.height = 724;
+    this.onload?.();
+  }
+  get src() { return this._src; }
+  get currentSrc() { return this._src; }
+}
+class FakeCanvas {
+  constructor() {
+    this.globalCompositeOperation = 'source-over';
+    this.globalAlpha = 1;
+    this.filter = 'none';
+    this.calls = [];
+    this.stack = [];
+  }
+  drawImage(...args) {
+    this.calls.push({
+      args,
+      operation: this.globalCompositeOperation,
+      filter: this.filter,
+      source: String(args[0]?.src || '')
+    });
+  }
+  save() { this.stack.push(this.filter); }
+  restore() { this.filter = this.stack.pop() || 'none'; }
+}
+
+const cache = new Map();
+const api = {
+  installed: true,
+  owners,
+  start(actor) {
+    return {ownerId: actor.id, sourceId: actor.id,
+      beam: './assets/vfx/rc32/boss-lasers/' + actor.id + '.webp',
+      fireAt: 2, endAt: 4};
+  },
+  tick(state) {
+    for (const cast of state.laserCasts || []) {
+      const owner = owners.find(row => row.id === cast.ownerId);
+      if (owner && cast.beam !== owner.beam) cast.invalid = true;
+    }
+  },
+  draw(ctx, imageCache, state) {
+    for (const cast of state.laserCasts || []) {
+      const owner = owners.find(row => row.id === cast.ownerId);
+      assert(owner.assets.includes(cast.beam), 'custom image path is missing from the owner asset whitelist');
+      let image = imageCache.get(cast.beam);
+      if (!image) {
+        image = new FakeImage();
+        image.src = new URL(cast.beam, 'https://example.test/hapil1/').href;
+        imageCache.set(cast.beam, image);
+      }
+      ctx.drawImage(image, 0, image.height * 0.29, image.width, image.height * 0.43, 0, -24, 500, 48);
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.drawImage(image, 0, image.height * 0.38, image.width, image.height * 0.25, 0, -10, 500, 20);
+      ctx.globalCompositeOperation = 'source-over';
+    }
+  }
+};
+const blood = {
+  asset: '',
+  draw(ctx) {
+    const image = new FakeImage();
+    image.src = 'https://example.test/hapil1/assets/vfx/rc32/boss-lasers/a11-cosmic-v31318.webp';
+    ctx.drawImage(image, 0, image.height * 0.22, image.width * 0.61, image.height * 0.40, 0, -32, 500, 64);
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.drawImage(image, 0, image.height * 0.38, image.width, image.height * 0.25, 0, -10, 500, 20);
+    ctx.globalCompositeOperation = 'source-over';
+    return true;
+  }
+};
+const window = {
+  __HAPIL_RC32__: {installed: true},
+  __HAPIL_LASERS_V31330__: api,
+  __HAPIL_BLOOD_RC16__: blood,
+  Image: FakeImage,
+  CanvasRenderingContext2D: FakeCanvas,
+  document: {baseURI: 'https://example.test/hapil1/'}
+};
+vm.runInNewContext(plugin, {window, URL, setTimeout() {}});
+
+const rc33 = window.__HAPIL_RC33__;
+assert.equal(rc33.installed, true);
+assert.equal(rc33.ownersRouted, 28, 'every mapped episode and cosmic boss needs a routed beam');
+assert.equal(rc33.ownerIds.length, 28);
+assert.equal(rc33.familyFor('dist06-boss'), 'infernal');
+assert.equal(rc33.familyFor('a11-cosmic-v31318'), 'celestial');
+assert.equal(rc33.familyFor('b03-boss'), 'cyber');
+
+const live = api.start({id: 'b09-boss'});
+live.beam = './assets/vfx/rc32/boss-lasers/b09-boss.webp';
+const state = {time: 3, laserCasts: [live]};
+api.tick(state, 0.05);
+assert.equal(live.beam, rc33.beamPathFor('b09-boss'), 'live cast did not refresh its owner image before validation');
+assert.equal(live.invalid, undefined);
+const ctx = new FakeCanvas();
+api.draw(ctx, cache, state, {});
+const mainBeam = ctx.calls.find(call => call.source.includes('#owner=b09-boss'));
+assert(mainBeam, 'boss artwork was not sent to canvas.drawImage');
+assert.deepEqual(mainBeam.args.slice(1, 5), [0, 0, 2172, 724],
+  'renderer still crops away most of the boss artwork');
+assert(mainBeam.filter.includes('hue-rotate('), 'beam did not inherit its boss-specific colour');
+assert(!ctx.calls.some(call => call.operation === 'lighter'),
+  'the common bright blue core still rendered with the normal laser');
+
+const cosmic = api.start({id: 'a11-cosmic-v31318'});
+assert.equal(cosmic.beam, rc33.beamPathFor('a11-cosmic-v31318'));
+const bloodCtx = new FakeCanvas();
+blood.draw(bloodCtx, cache, {enemies: []}, cosmic, {});
+assert(bloodCtx.calls.some(call => call.source.includes('/celestial.webp?v=33301')),
+  'cosmic blood renderer did not replace its shared beam with generated art');
+assert(!bloodCtx.calls.some(call => call.operation === 'lighter'),
+  'common blue core remained in the native cosmic/blood render route');
+const unwrappedCtx = new FakeCanvas();
+unwrappedCtx.globalCompositeOperation = 'lighter';
+const genericBeam = new FakeImage();
+genericBeam.src = 'https://example.test/hapil1/assets/vfx/common-blue-beam.webp';
+unwrappedCtx.drawImage(genericBeam, 0, genericBeam.height * 0.38,
+  genericBeam.width, genericBeam.height * 0.25, 0, -10, 500, 20);
+assert.equal(unwrappedCtx.calls.length, 0,
+  'shared blue core escaped the global CanvasRenderingContext2D guard');
+
+const stats = rc33.stats();
+assert(stats.beamImageReplacements > 0, 'legacy beam pixels were never replaced');
+assert(stats.fullArtworkDraws > 0, 'full raster art was never drawn');
+assert(stats.blueCoreDrawsSuppressed > 0, 'shared blue additive core was never suppressed');
+assert(stats.imageLoadsReady >= 2, 'boss-owned raster files did not preload at cast start');
+
+console.log('PASS: 28 boss routes, full generated beam art, boss hue tint, cosmic blood replacement, blue-core suppression.');
