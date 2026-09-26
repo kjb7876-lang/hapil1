@@ -1,0 +1,188 @@
+/* HAPIL v3.13.02 · auto-battle settings and combat-flow readability */
+.auto-battle-settings-v31301 {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: clamp(14px, 2.5vw, 20px);
+  border: 1px solid rgba(95, 240, 223, 0.34);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(74, 223, 205, 0.12), transparent 42%),
+    linear-gradient(145deg, rgba(6, 24, 31, 0.92), rgba(5, 10, 20, 0.94));
+  box-shadow: inset 0 0 36px rgba(62, 220, 207, 0.045);
+}
+
+.auto-battle-settings-v31301 > header span {
+  color: #78f4e2;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: 0.18em;
+}
+
+.auto-battle-settings-v31301 > header h3 {
+  margin: 4px 0 5px;
+  color: #f4ffff;
+}
+
+.auto-battle-settings-v31301 > header p,
+.auto-battle-policy-v31301 {
+  margin: 0;
+  color: #abc8cf;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.auto-battle-settings-grid-v31301 {
+  display: grid;
+  gap: 8px;
+}
+
+.auto-battle-settings-grid-v31301 label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px solid rgba(135, 194, 204, 0.18);
+  border-radius: 12px;
+  background: rgba(8, 17, 27, 0.72);
+  cursor: pointer;
+}
+
+.auto-battle-settings-grid-v31301 label.auto-master-v31301 {
+  border-color: rgba(255, 224, 137, 0.42);
+  background: linear-gradient(90deg, rgba(47, 41, 18, 0.78), rgba(7, 24, 30, 0.74));
+}
+
+.auto-battle-settings-grid-v31301 label > span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.auto-battle-settings-grid-v31301 b {
+  color: #eefeff;
+}
+
+.auto-battle-settings-grid-v31301 small {
+  color: #9bb7bf;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.auto-battle-settings-grid-v31301 input {
+  flex: 0 0 44px;
+  width: 22px;
+  height: 22px;
+  accent-color: #67ead8;
+}
+
+.auto-battle-settings-grid-v31301 label:has(input:disabled) {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.action-utilities .auto[aria-pressed="true"] {
+  border-color: rgba(103, 234, 216, 0.7);
+  box-shadow: 0 0 18px rgba(103, 234, 216, 0.16);
+}
+
+.hapil-clue-overlay-v31301 {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+    max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: rgba(2, 7, 13, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.hapil-clue-overlay-v31301 article {
+  width: min(560px, 100%);
+  max-height: min(76vh, 620px);
+  overflow: auto;
+  padding: clamp(18px, 4vw, 30px);
+  border: 1px solid rgba(112, 240, 221, 0.48);
+  border-radius: 16px;
+  background: linear-gradient(150deg, rgba(8, 24, 31, 0.98), rgba(7, 9, 19, 0.98));
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
+}
+
+.hapil-clue-overlay-v31301 span {
+  color: #78f4e2;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: 0.18em;
+}
+
+.hapil-clue-overlay-v31301 h3 {
+  margin: 7px 0 10px;
+  color: #f4ffff;
+}
+
+.hapil-clue-overlay-v31301 p {
+  margin: 0;
+  color: #c8dde2;
+  line-height: 1.72;
+  white-space: pre-wrap;
+  word-break: keep-all;
+}
+
+.hapil-clue-overlay-v31301 button {
+  margin-top: 18px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid rgba(112, 240, 221, 0.55);
+  border-radius: 10px;
+  color: #efffff;
+  background: rgba(23, 83, 79, 0.72);
+  cursor: pointer;
+}
+
+@media (max-width: 470px), (max-height: 390px) {
+  .auto-battle-settings-v31301 {
+    gap: 9px;
+    margin-bottom: 10px;
+    padding: 11px;
+  }
+
+  .auto-battle-settings-grid-v31301 label {
+    min-height: 56px;
+    padding: 8px 9px;
+  }
+
+  .auto-battle-settings-grid-v31301 small,
+  .auto-battle-policy-v31301 {
+    font-size: 11px;
+  }
+}
+
+.hapil-auto-decision-v31302 {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 5px;
+  padding: 4px 8px;
+  border: 1px solid rgba(120, 244, 226, 0.52);
+  border-radius: 999px;
+  color: #dffffa;
+  background: linear-gradient(90deg, rgba(18, 75, 76, 0.88), rgba(19, 35, 56, 0.88));
+  box-shadow: 0 0 14px rgba(97, 238, 220, 0.14);
+  font: 800 11px/1.2 "Noto Sans KR", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.hapil-auto-decision-v31302 b {
+  color: #78f4e2;
+  font: 900 10px/1.2 ui-monospace, monospace;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 470px), (max-height: 390px) {
+  .hapil-auto-decision-v31302 {
+    margin-top: 3px;
+    padding: 3px 7px;
+    font-size: 10px;
+  }
+}

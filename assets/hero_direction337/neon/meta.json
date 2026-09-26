@@ -1,0 +1,93 @@
+{
+  "heroId": "neon",
+  "generatedBy": "image_gen",
+  "sourceEdit": true,
+  "source": "docs/art337/source/neon.png",
+  "layout": [
+    "n",
+    "s"
+  ],
+  "backgroundExtraction": "Explicit unique production matte converted to real alpha with boundary despill; initial fake checkerboard Hwando output rejected. No original v336 images overwritten.",
+  "poses": {
+    "n": {
+      "path": "./assets/hero_direction337/neon/n.webp",
+      "file": "n.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.4964844,
+        0.0359336
+      ],
+      "weaponBase": [
+        0.4964844,
+        0.2841642
+      ],
+      "chest": [
+        0.4996094,
+        0.4754111
+      ],
+      "anchor": [
+        0.4941406,
+        0.9679694
+      ],
+      "headY": 0.3458316,
+      "bodySpan": 0.6221378,
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        117,
+        9,
+        435,
+        1201
+      ],
+      "nominalAngleDegrees": -90,
+      "aimAngleDegrees": -90,
+      "measuredWeaponAngle": -90,
+      "landmarkMethod": "Manual original 1254px sheet inspection: visible weapon tip/muzzle or palm center, grip axis, head crown, sternum/back counterpart and midpoint between feet. Curved Hwando blade tip uses actual end, not idealized axis."
+    },
+    "s": {
+      "path": "./assets/hero_direction337/neon/s.webp",
+      "file": "s.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.5059681,
+        0.9587766
+      ],
+      "weaponBase": [
+        0.5081866,
+        0.3736702
+      ],
+      "chest": [
+        0.5081866,
+        0.2717199
+      ],
+      "anchor": [
+        0.5059681,
+        0.9676418
+      ],
+      "headY": 0.0844415,
+      "bodySpan": 0.8832003,
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        696,
+        364,
+        449,
+        846
+      ],
+      "nominalAngleDegrees": 90,
+      "aimAngleDegrees": 90.2172,
+      "measuredWeaponAngle": 90.2172,
+      "landmarkMethod": "Manual original 1254px sheet inspection: visible weapon tip/muzzle or palm center, grip axis, head crown, sternum/back counterpart and midpoint between feet. Curved Hwando blade tip uses actual end, not idealized axis."
+    }
+  }
+}

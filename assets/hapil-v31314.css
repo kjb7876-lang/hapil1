@@ -1,0 +1,110 @@
+/* HAPIL v3.13.14: keep the full battlefield, use the available display area.
+ * Loaded after index-DmyDXBKp.css. Logical rendering stays 1280 by 720. */
+.game {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  grid-template-rows: 58px minmax(0, 1fr) auto;
+}
+.game-stage {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  container-type: size;
+}
+.game-stage > canvas {
+  width: var(--hapil-canvas-width-v31314, min(100cqw, 177.777778cqh)) !important;
+  height: var(--hapil-canvas-height-v31314, min(100cqh, 56.25cqw)) !important;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  image-rendering: auto;
+}
+@media (max-width: 760px) {
+  .game { grid-template-rows: 54px minmax(0, 1fr) auto; }
+  .game-stage .boss-skill-callout-v31219 { animation-name: hapil-boss-callout-local-v31314; }
+}
+/* The inherited desktop keyframes contain translateX(-50%). A left-anchored
+ * mobile callout must not inherit that transform through animation-fill:both. */
+@keyframes hapil-boss-callout-local-v31314 {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* The narrow portrait viewport retains the entire 16:9 battlefield. The
+ * natural HUD height and top/bottom safe areas are each paid exactly once. */
+@media (max-width: 760px) and (orientation: portrait) and (pointer: coarse) {
+  .game-stage .boss-skill-callout-v31219 { top: 6px; }
+  .game-stage .target-status.boss.skill-callout-active-v31219 { top: 62px; }
+}
+@media (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .game { grid-template-rows: 46px minmax(0, 1fr) 86px; }
+  .game-stage .boss-skill-callout-v31219 { animation-name: mongse-boss-callout-v31219; }
+}
+/* A side action panel gives landscape phones a taller combat area, without
+ * cropping the map or putting attack buttons on top of hazards. */
+@media (min-width: 700px) and (max-height: 500px) and (min-height: 330px) and (orientation: landscape) and (pointer: coarse) {
+  .game {
+    grid-template-columns: minmax(0, 1fr) 180px;
+    grid-template-rows: 46px minmax(0, 1fr);
+  }
+  .game > .topbar { grid-column: 1 / -1; }
+  .game > .game-stage { grid-column: 1; grid-row: 2; }
+  .game > .combat-hud {
+    grid-column: 2;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 50px minmax(0, 1fr);
+    align-content: start;
+    height: 100%;
+    padding: 5px;
+    gap: 5px;
+    border-top: 0;
+    border-left: 1px solid #263752;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .combat-hud .hero-hud {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 5px;
+    border-right: 0;
+    padding: 0;
+  }
+  .combat-hud .hero-hud > img { width: 34px; height: 34px; }
+  .combat-hud .action-stack { align-content: start; gap: 6px; }
+  .combat-hud .skills { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .combat-hud .skills button { height: 46px; padding: 23px 3px 3px; align-items: center; }
+  .combat-hud .skills kbd { top: 3px; left: 3px; }
+  .combat-hud .skills strong { max-width: 100%; font-size: 8px; white-space: nowrap; }
+  .combat-hud .skills .skill-art { width: 40px; height: 40px; right: -3px; }
+  .combat-hud .action-utilities { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; }
+  .combat-hud .action-utilities button { min-height: 31px; padding: 3px 6px; justify-content: flex-start; font-size: 9px; }
+  .game-stage .minimap { width: 100px; top: 6px; right: 6px; }
+  .game-stage .minimap.expanded { width: min(92%, 520px); }
+  .game-stage .mission-tag, .game-stage .help { display: none; }
+  .game-stage .boss-skill-callout-v31219 {
+    width: calc(100% - 120px);
+    min-height: 42px;
+    top: 5px;
+    left: 6px;
+    transform: none;
+    padding: 4px 7px;
+    animation-name: hapil-boss-callout-local-v31314;
+  }
+  .game-stage .target-status,
+  .game-stage .target-status.boss,
+  .game-stage .target-status.midboss,
+  .game-stage .target-status.elite {
+    width: calc(100% - 120px) !important;
+    max-width: 350px;
+    top: 5px;
+    left: 6px;
+    transform: none;
+    padding: 5px 8px;
+  }
+  .game-stage .target-status.boss.skill-callout-active-v31219 { top: 51px; }
+  .game-stage .combat-narrative-manifest { top: 85px; }
+}

@@ -1,0 +1,17 @@
+/* Controls occupy a fixed compact strip; no resizing of the native battlefield. */
+#hapil-control-hud-v31329{position:fixed;left:12px;top:58px;z-index:38;box-sizing:border-box;width:min(400px,calc(100vw - 24px));padding:9px 12px;color:#e4eaf6;background:rgba(9,15,28,.93);border:1px solid #46556e;border-radius:9px;font:13px/1.45 system-ui,sans-serif;box-shadow:0 3px 20px #0005}
+#hapil-control-hud-v31329[hidden]{display:none!important}
+#hapil-control-hud-v31329>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#hapil-control-hud-v31329 strong{margin-right:auto;letter-spacing:.015em;font-weight:650}
+#hapil-control-hud-v31329 p{margin:5px 0 3px}
+#hapil-control-hud-v31329 small{color:#d9ba90;font-size:12px}
+#hapil-control-hud-v31329 button{border:1px solid #526480;background:#1b2b43;color:#f0f3fa;border-radius:5px;padding:4px 7px;font-size:12px;cursor:pointer}
+#hapil-control-hud-v31329 button:focus-visible{outline:2px solid #e3cb88;outline-offset:2px}
+#hapil-control-hud-v31329 button[hidden]{display:none}
+.hapil-mode-options{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+.hapil-mode-options label{display:flex;gap:8px;align-items:center;min-width:100px;padding:12px;background:#142238;border:1px solid #536781;border-radius:7px}
+.hapil-control-setting{display:flex!important;gap:10px;margin:10px 0;align-items:center}
+.hapil-mode-options input,.hapil-control-setting input{width:18px;height:18px}
+@media(max-height:650px){#hapil-control-hud-v31329{top:58px;padding:5px 9px;font-size:11px;width:330px}#hapil-control-hud-v31329 small{font-size:10px}#hapil-control-hud-v31329 p{margin:3px 0}}
+
+@media(max-width:1100px){#hapil-control-hud-v31329{top:142px;left:8px;width:310px}}

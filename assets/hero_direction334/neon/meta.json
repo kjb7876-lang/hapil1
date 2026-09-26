@@ -1,0 +1,226 @@
+{
+  "heroId": "neon",
+  "generatedBy": "image_gen",
+  "sourceEdit": true,
+  "background": "explicit magenta production plate converted to alpha; fake transparency output rejected",
+  "layout": [
+    "nw",
+    "w",
+    "sw",
+    "ne",
+    "e",
+    "se"
+  ],
+  "poses": {
+    "nw": {
+      "file": "nw.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.118853,
+        0.208408
+      ],
+      "weaponBase": [
+        0.416893,
+        0.401535
+      ],
+      "chest": [
+        0.669977,
+        0.551375
+      ],
+      "anchor": [
+        0.600046,
+        0.954278
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        50,
+        44,
+        461,
+        454
+      ],
+      "aimAngleDegrees": -147.05,
+      "nominalAngleDegrees": -135
+    },
+    "w": {
+      "file": "w.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.11213,
+        0.489874
+      ],
+      "weaponBase": [
+        0.518462,
+        0.499861
+      ],
+      "chest": [
+        0.668339,
+        0.556455
+      ],
+      "anchor": [
+        0.635033,
+        0.954279
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        511,
+        119,
+        475,
+        379
+      ],
+      "aimAngleDegrees": -178.59,
+      "nominalAngleDegrees": 180
+    },
+    "sw": {
+      "file": "sw.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.125,
+        0.92597
+      ],
+      "weaponBase": [
+        0.409368,
+        0.647893
+      ],
+      "chest": [
+        0.557373,
+        0.569632
+      ],
+      "anchor": [
+        0.637195,
+        0.950947
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        1042,
+        128,
+        451,
+        373
+      ],
+      "aimAngleDegrees": 135.68,
+      "nominalAngleDegrees": 135
+    },
+    "ne": {
+      "file": "ne.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.90292,
+        0.214271
+      ],
+      "weaponBase": [
+        0.544954,
+        0.417604
+      ],
+      "chest": [
+        0.338499,
+        0.574271
+      ],
+      "anchor": [
+        0.383453,
+        0.950937
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        44,
+        514,
+        488,
+        450
+      ],
+      "aimAngleDegrees": -29.57,
+      "nominalAngleDegrees": -45
+    },
+    "e": {
+      "file": "e.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.943648,
+        0.496532
+      ],
+      "weaponBase": [
+        0.520809,
+        0.494867
+      ],
+      "chest": [
+        0.344349,
+        0.584752
+      ],
+      "anchor": [
+        0.327702,
+        0.952615
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        526,
+        584,
+        535,
+        379
+      ],
+      "aimAngleDegrees": 0.23,
+      "nominalAngleDegrees": 0
+    },
+    "se": {
+      "file": "se.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.877526,
+        0.937647
+      ],
+      "weaponBase": [
+        0.564171,
+        0.65983
+      ],
+      "chest": [
+        0.452497,
+        0.593287
+      ],
+      "anchor": [
+        0.334155,
+        0.954283
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        1051,
+        591,
+        457,
+        371
+      ],
+      "aimAngleDegrees": 41.61,
+      "nominalAngleDegrees": 45
+    }
+  }
+}

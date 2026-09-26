@@ -1,0 +1,230 @@
+{
+  "version": "3.13.45",
+  "contract": [
+    "width",
+    "height",
+    "left",
+    "top",
+    "rightExclusive",
+    "bottomExclusive"
+  ],
+  "alphaThresholdExclusive": 0,
+  "images": {
+    "./assets/v31345/maps/dist01.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "2966db4a850ecefc2c405068a87b82c3c82c869ccb9f8fb7e56019b73d70041a",
+      "bytes": 1665590
+    },
+    "./assets/v31345/maps/dist02.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "def470ccf337bdfdaff1b1277b16db768e573950de15a969d65a15da93d3f4c6",
+      "bytes": 598440
+    },
+    "./assets/v31345/maps/dist03.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "904546cc8b4eb9decef9cd00dca421e6986faa136543ea56b228008f9a20aa33",
+      "bytes": 625324
+    },
+    "./assets/v31345/maps/dist04.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "23752d48ed3fdb6b1c1125ac079cea47c0cc348814187347c15774e09f174124",
+      "bytes": 603016
+    },
+    "./assets/v31345/maps/dist05.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "238b2903ad8e105c04b77ba0794b1829708b45d92da880dde5d42a60104d2a7c",
+      "bytes": 478308
+    },
+    "./assets/v31345/maps/dist06.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "4ccb43cfbcf03a45f4179da7b8a68a73d9c420ab3e2d8e77fb76c8bc57c7699f",
+      "bytes": 620682
+    },
+    "./assets/v31345/maps/ep1a07.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "223b08fddd039af184904556d3f7a77f3709024dfad7132f000c3ce1307396d2",
+      "bytes": 618766
+    },
+    "./assets/v31345/maps/ep1a08.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "e251d6c6efceb96ce546885cfcf07cbc6eca009ae722a4e01f494d5e6ee9e4e1",
+      "bytes": 473632
+    },
+    "./assets/v31345/maps/ep1a09.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "d776a61822e935835fdaa5ba30c58d3b0ceb1f6e0517c0171844432601c4cee5",
+      "bytes": 756304
+    },
+    "./assets/v31345/maps/ep1a10.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "c628157977ae7026840e7720e518cd646bdf4ae7e850ac5517346a93c88a0b22",
+      "bytes": 934104
+    },
+    "./assets/v31345/maps/ep1a11.webp": {
+      "geometry": [
+        1586,
+        992,
+        0,
+        0,
+        1586,
+        992
+      ],
+      "sha256": "e96f1f020965b4dc8996706d9214b4a95e15a69c9df86c5779350e7a9eb49315",
+      "bytes": 682294
+    },
+    "./assets/v31345/heroes/hwando-walk-atlas.webp": {
+      "geometry": [
+        1254,
+        1254,
+        0,
+        17,
+        1254,
+        1254
+      ],
+      "sha256": "088f15353f541198bb755dbced772f11d44abde21d1f0b41c35c06a3c3d161a7",
+      "bytes": 859536
+    },
+    "./assets/actors/v31345/cosmic-bootloader-atlas-v2.webp": {
+      "geometry": [
+        1536,
+        1024,
+        31,
+        0,
+        1508,
+        1007
+      ],
+      "sha256": "3540838408f6e2877489882471e4747b47d1647013dbc6ce913f2d0f26ba24a1",
+      "bytes": 1992934
+    },
+    "./assets/actors/v31345/guardians/great-01-atlas.webp": {
+      "geometry": [
+        1254,
+        1254,
+        0,
+        0,
+        1238,
+        1254
+      ],
+      "sha256": "063008785c8b0682bfab44f581090979023eca34d6ea9b95b2392bb519dca952",
+      "bytes": 1215066
+    },
+    "./assets/actors/v31345/guardians/great-02-atlas.webp": {
+      "geometry": [
+        1254,
+        1254,
+        0,
+        17,
+        1224,
+        1254
+      ],
+      "sha256": "e0a20ed84e7b7da43174a4dd8fa4f78005a9b17ae1a4e68ed7212d91418af8f4",
+      "bytes": 1234902
+    },
+    "./assets/actors/v31345/guardians/great-04-atlas.webp": {
+      "geometry": [
+        1254,
+        1254,
+        0,
+        0,
+        1236,
+        1226
+      ],
+      "sha256": "6b0d2198b6289b7a342e02c4cc8ae3bb6cea1f8874558b9b76355df35b0231a4",
+      "bytes": 1341970
+    },
+    "./assets/actors/v31345/guardians/great-05-atlas.webp": {
+      "geometry": [
+        1254,
+        1254,
+        0,
+        0,
+        1238,
+        1254
+      ],
+      "sha256": "44b34a1cea8222aaca26c7779ec7c2f05d7f7a2142fcb5c3a4a507b7cff050de",
+      "bytes": 1149182
+    },
+    "./assets/actors/v31345/guardians/great-06-atlas.webp": {
+      "geometry": [
+        1254,
+        1254,
+        0,
+        20,
+        1220,
+        1254
+      ],
+      "sha256": "a12de64fbfa45ba8e5b016271e39d7d1dd11035f1cafb36f3f98c19810ddb371",
+      "bytes": 1112426
+    }
+  }
+}

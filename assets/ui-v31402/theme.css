@@ -1,0 +1,102 @@
+/* v31402: exact source order, specificity and media rules retained. */
+/* Preserved source: ./assets/hapil-v31368.css */
+.patient-overlay{position:fixed;inset:0;z-index:150000;background:#050a11d9;padding:18px;box-sizing:border-box;display:grid;place-items:center;overscroll-behavior:contain}
+.patient-shell{--paper:#f2ead9;--ink:#272b31;--line:#bfb5a0;--muted:#565b5d;background:var(--paper);color:var(--ink);width:min(1180px,100%);height:min(920px,calc(100dvh - 36px));display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 64px #0009;overflow:hidden;font-family:system-ui,'Malgun Gothic',sans-serif}
+.patient-overlay[data-theme=night] .patient-shell{--paper:#111d29;--ink:#e4ecf2;--line:#405165;--muted:#b0becb}
+.patient-header{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:18px 24px;border-bottom:1px solid var(--line)}.patient-brand{font-size:12px;letter-spacing:.12em;color:var(--muted)}.patient-header h1{font-size:26px;margin:2px 0}.patient-header small{font-size:12px}.patient-header button{grid-column:2;grid-row:1/4;align-self:center}
+.patient-shell button,.patient-shell input{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);border-radius:7px;padding:9px 12px;min-height:42px;cursor:pointer;touch-action:manipulation}.patient-shell button:disabled{opacity:.4;cursor:default}.patient-shell button:hover,.patient-shell button[aria-current=true],.patient-shell button[aria-pressed=true]{background:#809b9c2c}.patient-shell :focus-visible{outline:3px solid #648fa5;outline-offset:1px}.patient-tools{display:flex;gap:8px;padding:12px 24px;flex-wrap:wrap;border-bottom:1px solid var(--line);font-size:13px}.patient-tools input{flex:1;min-width:180px;cursor:text}.patient-columns{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:0;flex:1}.patient-index{overflow-y:auto;overscroll-behavior:contain;padding:12px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:7px;touch-action:pan-y}.patient-index button{flex:none;font-size:13px;text-align:left;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.patient-reader{min-height:0;display:flex;flex-direction:column;padding:20px 28px 0;min-width:0}.patient-reader h2{font-size:21px;margin:0 0 8px}.patient-source-title{font-size:14px;line-height:1.5;margin:0 0 5px;max-height:65px;overflow-y:auto;overflow-wrap:anywhere}.patient-zone{font-size:11px;color:var(--muted)}.patient-tabs{display:flex;gap:6px;margin:14px 0;font-size:13px}.patient-body{overflow-y:auto;min-height:0;flex:1;padding:0 14px 28px 0;overscroll-behavior:contain;touch-action:pan-y;scrollbar-gutter:stable}.patient-body h3{font-size:13px;letter-spacing:.07em;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:9px;margin:12px 0 20px}.patient-text{white-space:pre-wrap;font-size:var(--journal-font,18px);line-height:1.95;word-break:keep-all;overflow-wrap:anywhere;max-width:760px}.patient-body section+section{margin-top:40px}.patient-empty{font-size:16px;line-height:1.8}.patient-footer{display:flex;align-items:center;gap:12px;padding:12px 24px;border-top:1px solid var(--line);font-size:13px}.patient-footer small{margin-left:auto;color:var(--muted);max-width:48%;font-size:11px}
+@media(max-width:760px){.patient-overlay{padding:5px}.patient-shell{height:calc(100dvh - 10px);border-radius:9px}.patient-header{padding:10px 14px}.patient-header h1{font-size:22px}.patient-tools{padding:8px;gap:5px}.patient-tools button{font-size:11px;padding:7px;min-height:36px}.patient-columns{grid-template-columns:1fr;grid-template-rows:52px minmax(0,1fr)}.patient-index{flex-direction:row;border-right:0;border-bottom:1px solid var(--line);overflow-y:hidden;padding:6px;gap:5px;touch-action:pan-x}.patient-index button{font-size:12px;min-height:35px;max-width:190px}.patient-reader{padding:12px 14px 0}.patient-reader h2{font-size:17px}.patient-source-title{max-height:40px;font-size:12px}.patient-tabs{margin:6px 0;gap:5px}.patient-tabs button{font-size:12px;padding:6px 10px;min-height:36px}.patient-footer{padding:8px;gap:8px}.patient-footer small{display:none}.patient-text{line-height:1.8}.patient-body{padding-right:6px}}
+@media(orientation:landscape) and (max-height:520px){.patient-header{display:flex;align-items:center;padding:7px 12px}.patient-header h1{font-size:19px}.patient-brand{display:none}.patient-header button{margin-left:auto;min-height:34px;padding:4px 9px}.patient-tools{padding:4px 8px}.patient-tools input{height:34px;min-height:34px}.patient-tools button{min-height:32px;padding:4px 8px}.patient-columns{grid-template-columns:175px minmax(0,1fr);grid-template-rows:minmax(0,1fr)}.patient-index{flex-direction:column;overflow-y:auto}.patient-reader{padding:8px 14px 0}.patient-source-title,.patient-zone{display:none}.patient-tabs{margin:5px 0}.patient-footer{padding:5px 10px}.patient-footer button{padding:4px 8px;min-height:30px}}
+
+.patient-shell button[aria-current=true]{background:#c7d8d8!important;color:#19313b!important}.patient-overlay[data-theme=night] .patient-shell button[aria-current=true]{background:#2b455a!important;color:#ecf4f8!important}
+@media(orientation:landscape) and (max-height:520px){.patient-overlay{padding:6px}.patient-shell{height:calc(100dvh - 12px)}.patient-body h3{margin:4px 0 10px}.patient-tabs button{min-height:32px;padding:5px 10px}.patient-footer small{display:none}}
+
+/* Some source headings contain narrative paragraphs: never hide them on phones. */
+.patient-body>.patient-source-title{display:block;max-height:none;overflow:visible;white-space:pre-wrap;font-size:var(--journal-font,18px);line-height:1.7;color:var(--muted);margin:4px 0 18px}
+
+/* Two combat buttons. HP remains outside the field in its existing layout. */
+body .skills [data-control-key]:not([data-control-key="A"]):not([data-control-key="D"]),body .action-utilities [data-control-key="Collab"]{display:none!important}
+body .action-stack .skills{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}body .action-stack .skills button{min-height:52px}body .skills button small{font-size:11px}body .skills button strong{font-size:13px}
+html.hapil-touch-v31366 #hapil-party-hud{display:none!important}body .mongse-temporal-mini-v31215{display:none!important}body .hero-hud>img{width:42px;height:42px}body .hero-hud{min-width:220px;padding:8px}.hapil-touch-v31366 .game{grid-template-columns:94px minmax(0,1fr) 86px!important;grid-template-rows:38px 28px minmax(0,1fr)!important}
+.hapil-touch-v31366 .hm-actions{grid-template-columns:1fr;grid-template-rows:repeat(2,minmax(62px,1fr));gap:8px;padding:6px}.hapil-touch-v31366 .hm-toolbar{background:#0b1422}.hapil-touch-v31366 .hm-status{flex:0 1 auto;background:#203547;border-radius:6px;padding:5px 8px;font-size:12px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}.hapil-touch-v31366 .hm-stick{width:82px;height:82px}.hapil-touch-v31366 .game>.hapil-combat-rail-v31339{font-size:10px}.hapil-touch-v31366 .game-stage>.toast{max-width:75%;font-size:10px;pointer-events:none}
+#hapil-mobile-controls-v31366 [data-mobile-action="A"] b,#hapil-mobile-controls-v31366 [data-mobile-action="D"] b{font-size:25px}
+@media(orientation:portrait){.hapil-touch-v31366 .game{grid-template-columns:108px minmax(0,1fr)!important;grid-template-rows:42px 38px minmax(0,1fr) 140px!important}.hapil-touch-v31366 .hm-actions{grid-template-columns:repeat(2,1fr);grid-template-rows:1fr}.hapil-touch-v31366 .hm-status{padding:4px;font-size:11px}.hapil-touch-v31366 .hm-pose{display:none}}
+@media(max-width:700px) and (orientation:landscape){.hapil-touch-v31366 .game{grid-template-columns:84px minmax(0,1fr) 78px!important}.hapil-touch-v31366 .hm-stick{width:72px;height:72px}}
+
+/* Preserved source: ./assets/hapil-v31369.css */
+/* The existing viewport observer is the sole canvas fitter.
+   Reclaim the former side rail; keep 16:9 world and input transforms unchanged. */
+html:not(.hapil-touch-v31366) .game{
+ width:100vw!important;max-width:100vw!important;height:100dvh!important;min-height:0!important;
+ grid-template-columns:250px minmax(0,1fr)!important;grid-template-rows:32px minmax(0,1fr) 86px!important;
+}
+html:not(.hapil-touch-v31366) .game>.game-stage{grid-column:1/-1!important;grid-row:2!important;min-width:0!important;min-height:0!important}
+html:not(.hapil-touch-v31366) .game>.topbar{grid-column:1/-1!important;grid-row:1!important;min-height:0!important;max-height:32px!important;padding:3px 10px!important}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339{
+ grid-column:1!important;grid-row:3!important;display:flex!important;flex-direction:column;gap:2px!important;
+ padding:4px 7px!important;min-width:0!important;min-height:0!important;border-top:1px solid #344457;border-right:1px solid #344457;overflow:auto!important;
+}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339>*{margin:0!important;padding:2px 5px!important;flex-shrink:0}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-status>span:first-child{display:none}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-status b{font-size:12px!important;line-height:15px!important}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-status small{font-size:10px!important}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-bars{height:5px;margin:2px 0}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .boss-warning{font-size:10px!important}
+html:not(.hapil-touch-v31366) .game>.combat-hud{grid-column:2!important;grid-row:3!important;min-width:0!important;min-height:0!important;grid-template-columns:220px minmax(0,1fr)!important;padding:4px 6px!important;gap:6px!important;overflow:hidden}
+html:not(.hapil-touch-v31366) .hero-hud{min-width:0!important;padding:3px 5px!important;gap:6px!important}
+html:not(.hapil-touch-v31366) .hero-hud>img{width:34px!important;height:34px!important}
+html:not(.hapil-touch-v31366) .hero-hud .hud-meter{margin-top:2px!important}
+html:not(.hapil-touch-v31366) .hero-hud .hud-meter>img{width:16px!important;height:16px!important}
+html:not(.hapil-touch-v31366) .hero-hud .hp,html:not(.hapil-touch-v31366) .hero-hud .resonance{height:6px!important}
+html:not(.hapil-touch-v31366) .hero-hud>div>b{font-size:12px!important}
+html:not(.hapil-touch-v31366) .hapil-hero-status-v31315{max-height:26px!important;overflow:auto}
+html:not(.hapil-touch-v31366) .action-stack{display:grid!important;grid-template-columns:minmax(0,1fr) 145px!important;gap:6px!important;min-width:0!important;min-height:0!important;overflow:hidden}
+html:not(.hapil-touch-v31366) .action-stack .skills{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;min-height:0!important}
+html:not(.hapil-touch-v31366) .action-stack .skills button{min-width:0!important;min-height:54px!important;max-height:76px!important;padding:5px!important}
+html:not(.hapil-touch-v31366) .skills button strong{font-size:12px!important}
+html:not(.hapil-touch-v31366) .skills button small{font-size:10px!important;line-height:1.15!important;white-space:normal!important}
+html:not(.hapil-touch-v31366) .action-utilities{display:grid!important;grid-template-columns:1fr!important;gap:3px!important;overflow:auto!important}
+html:not(.hapil-touch-v31366) .action-utilities button{min-height:22px!important;padding:2px 5px!important;font-size:10px!important}
+html:not(.hapil-touch-v31366) .action-utilities span{display:none!important}
+body .skills [data-control-key="S"]{display:flex!important}
+/* Higher specificity than the v31368 two-key hide rule, including non-mobile S. */
+body .action-stack .skills button[data-control-key="S"]{display:flex!important}
+.flow-status-v31369{font:10px/1.2 system-ui;color:#bcd7eb;background:#101d2b;border:1px solid #3a5368;border-radius:4px;cursor:pointer;touch-action:manipulation;min-height:20px;padding:3px 5px}
+.flow-status-v31369.error{color:#ffe0a6;border-color:#d2a957}
+/* No HUD is placed over the playable canvas. Three deliberate controls on touch. */
+html.hapil-touch-v31366 .game{grid-template-columns:88px minmax(0,1fr) 80px!important;grid-template-rows:34px 22px minmax(0,1fr)!important}
+html.hapil-touch-v31366 .hm-actions{grid-template-columns:1fr!important;grid-template-rows:repeat(3,minmax(48px,1fr))!important;gap:6px!important;padding:5px!important}
+html.hapil-touch-v31366 .hm-toolbar{padding:1px 4px!important;gap:4px!important}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar button{height:30px!important;min-width:44px!important}
+html.hapil-touch-v31366 .hm-movement{gap:5px!important}
+html.hapil-touch-v31366 .hm-stick{width:78px!important;height:78px!important}
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339{padding:0 3px!important;align-items:center}
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339 .flow-status-v31369{min-height:18px!important;font-size:9px!important}
+html.hapil-touch-v31366 .hm-actions [data-mobile-action="S"] b{font-size:23px}
+@media(max-width:1000px){
+ html:not(.hapil-touch-v31366) .game{grid-template-columns:190px minmax(0,1fr)!important;grid-template-rows:30px minmax(0,1fr) 90px!important}
+ html:not(.hapil-touch-v31366) .game>.combat-hud{grid-template-columns:180px minmax(0,1fr)!important}
+ html:not(.hapil-touch-v31366) .action-stack{grid-template-columns:1fr!important;grid-template-rows:1fr 22px!important}
+ html:not(.hapil-touch-v31366) .action-utilities{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ html:not(.hapil-touch-v31366) .skills button small{display:none!important}
+ html:not(.hapil-touch-v31366) .action-stack .skills button{min-height:40px!important}
+}
+@media(orientation:portrait){
+ html.hapil-touch-v31366 .game{grid-template-columns:98px minmax(0,1fr)!important;grid-template-rows:40px 28px minmax(0,1fr) 116px!important}
+ html.hapil-touch-v31366 .hm-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:1fr!important;grid-column:2;grid-row:4}
+ html.hapil-touch-v31366 .hm-movement{grid-column:1;grid-row:4}
+ html.hapil-touch-v31366 .hm-pose{display:none}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar button{min-width:36px!important;height:34px!important}
+ html.hapil-touch-v31366 .hm-status{font-size:10px!important;padding:3px!important}
+}
+html body .game .combat-hud .action-stack .skills button[data-control-key="S"]{display:flex!important}
+
+/* Preserved source: ./assets/foundation-v31400/ui.css */
+.foundation-options{margin:12px 0 16px;padding:12px;border:1px solid #54728a;border-radius:10px;background:#111d2b;color:#edf7ff}
+.foundation-options h4{margin:0 0 7px}.foundation-options p{font-size:13px;line-height:1.5;margin:6px 0}
+.foundation-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}.foundation-choice button{min-height:48px;padding:8px;border:1px solid #64788c;border-radius:8px;background:#162636;color:#edf7ff;cursor:pointer}
+.foundation-choice button[aria-pressed=true]{border-color:#72f0cd;background:#16483e;box-shadow:inset 0 0 0 1px #72f0cd}
+.foundation-options select{margin-top:10px;max-width:100%;min-height:38px;background:#182739;color:#fff}
+.foundation-collab{border-top:1px solid #405467;margin-top:9px;padding-top:9px;font-size:13px}
+.foundation-run-status{display:inline-block;font-size:10px;color:#acf1d3;padding:1px 4px;line-height:1.3;white-space:nowrap;vertical-align:middle;border:1px solid #38594d;border-radius:3px}
+@media(max-width:560px){.foundation-choice{grid-template-columns:1fr}.foundation-options{padding:9px}}

@@ -1,0 +1,151 @@
+{
+  "version": "3.12.24",
+  "assetCount": 16,
+  "sourceAtlasCount": 4,
+  "assets": [
+    {
+      "atlas": "infernal_heaven",
+      "name": "balrog_gate_meteor",
+      "path": "assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 207986,
+      "sha256": "f6f9b989f5c6e33094440268a7888c71548ac2c6948d0cf4254b2e04aea3d762"
+    },
+    {
+      "atlas": "infernal_heaven",
+      "name": "balrog_chain_whip_wave",
+      "path": "assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 178348,
+      "sha256": "a14c81a226699efa9fe0060ce98c25562925fd70d1867267fad8fbae8a1e6227"
+    },
+    {
+      "atlas": "infernal_heaven",
+      "name": "lucifer_feather_lance",
+      "path": "assets/generated-v31224/boss-vfx/lucifer_feather_lance.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 143392,
+      "sha256": "c0f4cf47147fccb62714d909749e79a72e893b2976943c53e441e8deb9dfc93d"
+    },
+    {
+      "atlas": "infernal_heaven",
+      "name": "lucifer_judgment_sigil",
+      "path": "assets/generated-v31224/boss-vfx/lucifer_judgment_sigil.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 282842,
+      "sha256": "bc7500350a06169b54e59e7524488e895009a8c0b88f2878c5e09b3f1ce0d4f9"
+    },
+    {
+      "atlas": "seven_sins",
+      "name": "envy_mirror_shard",
+      "path": "assets/generated-v31224/boss-vfx/envy_mirror_shard.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 179378,
+      "sha256": "79feb01463759f28a1e5ede94586b944a5c97062f21d54df097d0c6f306fedd6"
+    },
+    {
+      "atlas": "seven_sins",
+      "name": "gluttony_maw_wave",
+      "path": "assets/generated-v31224/boss-vfx/gluttony_maw_wave.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 295074,
+      "sha256": "a30a2c20dbd1adf968d0f737b8836149ce28a62ad68dbf9452ee63c5df4b27fc"
+    },
+    {
+      "atlas": "seven_sins",
+      "name": "greed_coin_saw",
+      "path": "assets/generated-v31224/boss-vfx/greed_coin_saw.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 267494,
+      "sha256": "36355530ef13f3727b36c0458f3b8a40bb31e1c5fd11ad0f58e4c2f4fcfeeb4b"
+    },
+    {
+      "atlas": "seven_sins",
+      "name": "wrath_pride_execution_sigil",
+      "path": "assets/generated-v31224/boss-vfx/wrath_pride_execution_sigil.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 355276,
+      "sha256": "65915cd201d8e7d86df35f269834dec9e3d22492f9642f7da96d4434d919d18b"
+    },
+    {
+      "atlas": "memory_sleepless",
+      "name": "memory_command_syringe",
+      "path": "assets/generated-v31224/boss-vfx/memory_command_syringe.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 116872,
+      "sha256": "2bd08d9d52777f599fc48e8490c19d10ff2ae30776b579a32113813da61410de"
+    },
+    {
+      "atlas": "memory_sleepless",
+      "name": "controller_deletion_core",
+      "path": "assets/generated-v31224/boss-vfx/controller_deletion_core.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 225150,
+      "sha256": "8c196b282773cc06694b7d710ac2599eb8cb1394621b96521f9e9e675195a56b"
+    },
+    {
+      "atlas": "memory_sleepless",
+      "name": "sleepless_six_sword_wave",
+      "path": "assets/generated-v31224/boss-vfx/sleepless_six_sword_wave.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 304428,
+      "sha256": "b1da051a0a55f847892eb299708b9d825fdb87a89cb51f37ad9d1afc68da3637"
+    },
+    {
+      "atlas": "memory_sleepless",
+      "name": "sleepless_gaze_sigil",
+      "path": "assets/generated-v31224/boss-vfx/sleepless_gaze_sigil.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 329590,
+      "sha256": "9116b32bb478da14f817150371eb507e5dc4cf71b25ebedf53f910fe89fe6c60"
+    },
+    {
+      "atlas": "late_realms",
+      "name": "kair_chrono_crescent",
+      "path": "assets/generated-v31224/boss-vfx/kair_chrono_crescent.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 242800,
+      "sha256": "c659a2ef583ec2b25257a16e74217871f358aea0de28452141d8ce2bafa200a0"
+    },
+    {
+      "atlas": "late_realms",
+      "name": "hando_phantom_reclaim_wave",
+      "path": "assets/generated-v31224/boss-vfx/hando_phantom_reclaim_wave.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 327836,
+      "sha256": "e6abe23efe8940dfa19dba8324cc4656757823a1b362b9600beec861780e7221"
+    },
+    {
+      "atlas": "late_realms",
+      "name": "murder_causality_road",
+      "path": "assets/generated-v31224/boss-vfx/murder_causality_road.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 249200,
+      "sha256": "f9c9378d33bbb827682d82537785c18c786242a3dd8ce1e174d18fc05f7d78a5"
+    },
+    {
+      "atlas": "late_realms",
+      "name": "cult_triune_rose_sigil",
+      "path": "assets/generated-v31224/boss-vfx/cult_triune_rose_sigil.webp",
+      "width": 512,
+      "height": 512,
+      "bytes": 369890,
+      "sha256": "6a6604e0239c8ecdc5cad0f94136acdb7da4e970e71335dbe543a0eabc9a5308"
+    }
+  ]
+}

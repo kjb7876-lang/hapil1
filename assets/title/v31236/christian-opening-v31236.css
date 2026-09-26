@@ -1,0 +1,197 @@
+:root {
+  --mongse-opening-ink: #03060d;
+  --mongse-opening-gold: #f3dfae;
+  --mongse-opening-cyan: #a8f1ef;
+}
+
+body.mongse-opening-active {
+  overflow: hidden;
+}
+
+.title-screen .title-card > p:empty {
+  display: none;
+}
+
+.title-screen .title-card h1 {
+  padding-left: .16em;
+  letter-spacing: .16em;
+  font-family: "Noto Serif CJK KR", "Noto Serif KR", "Batang", serif;
+}
+
+.mongse-christian-opening-v31236 {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  min-width: 100vw;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  color: #f7f4ed;
+  background: var(--mongse-opening-ink);
+  opacity: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 720ms ease, visibility 720ms ease;
+}
+
+.mongse-christian-opening-v31236::before {
+  content: "";
+  position: absolute;
+  inset: -2%;
+  z-index: -2;
+  background-color: #050912;
+  background-image: url("./mongse-dream-cover.webp");
+  background-position: center;
+  background-size: cover;
+  filter: saturate(.78) brightness(.72);
+  transform: scale(1.025);
+  animation: mongse-cover-breathe-v31236 9s ease-out both;
+}
+
+.mongse-christian-opening-v31236::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(3, 7, 15, .2) 0 15%, rgba(3, 6, 13, .78) 63%, #010207 100%),
+    linear-gradient(180deg, rgba(1, 3, 8, .45), rgba(1, 3, 8, .18) 45%, rgba(1, 3, 8, .72));
+  box-shadow: inset 0 0 18vmin rgba(0, 0, 0, .7);
+}
+
+.mongse-christian-opening-v31236.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mongse-christian-opening__stage {
+  position: relative;
+  width: min(980px, calc(100vw - 40px));
+  min-height: min(500px, 68dvh);
+  display: grid;
+  place-items: center;
+  padding: max(26px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(34px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+  text-align: center;
+}
+
+.mongse-christian-opening__quote,
+.mongse-christian-opening__mark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  transition: opacity 900ms ease, transform 1100ms cubic-bezier(.2, .75, .15, 1), filter 900ms ease;
+}
+
+.mongse-christian-opening__quote {
+  gap: clamp(19px, 3.2vh, 34px);
+  opacity: 1;
+  transform: translateY(0);
+  text-wrap: balance;
+}
+
+.mongse-christian-opening__quote p {
+  margin: 0;
+  word-break: keep-all;
+  text-shadow: 0 3px 24px rgba(0, 0, 0, .92), 0 0 55px rgba(213, 235, 255, .16);
+}
+
+.mongse-christian-opening__passing {
+  color: var(--mongse-opening-gold);
+  letter-spacing: .18em;
+  font: 650 clamp(18px, 2.7vw, 32px)/1.85 "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
+}
+
+.mongse-christian-opening__awakening {
+  color: #f8fbff;
+  letter-spacing: .035em;
+  font: 500 clamp(19px, 2.9vw, 34px)/1.7 "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
+}
+
+.mongse-christian-opening__source {
+  color: rgba(207, 225, 235, .68);
+  letter-spacing: .14em;
+  font: 500 clamp(11px, 1.45vw, 14px)/1.6 ui-serif, "Noto Serif KR", serif;
+}
+
+.mongse-christian-opening__mark {
+  opacity: 0;
+  transform: scale(.84);
+  filter: blur(15px);
+  color: transparent;
+  background: linear-gradient(180deg, #fffbed 0%, #f5d996 42%, #8ee8ed 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 0 0 75px rgba(139, 226, 237, .25);
+  letter-spacing: .16em;
+  font: 800 clamp(96px, 23vw, 260px)/1 "Noto Serif CJK KR", "Noto Serif KR", "Batang", serif;
+}
+
+.mongse-christian-opening-v31236[data-phase="mark"] .mongse-christian-opening__quote {
+  opacity: 0;
+  transform: translateY(-18px) scale(.97);
+  filter: blur(8px);
+}
+
+.mongse-christian-opening-v31236[data-phase="mark"] .mongse-christian-opening__mark {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.mongse-christian-opening__advance {
+  position: absolute;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 2;
+  border: 0;
+  padding: 10px 12px;
+  color: rgba(222, 239, 245, .58);
+  background: transparent;
+  letter-spacing: .12em;
+  font: 600 11px/1.2 ui-monospace, monospace;
+  cursor: pointer;
+  transition: opacity 400ms ease;
+}
+
+.mongse-christian-opening-v31236[data-phase="mark"] .mongse-christian-opening__advance {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes mongse-cover-breathe-v31236 {
+  from { transform: scale(1.055); filter: saturate(.68) brightness(.58); }
+  to { transform: scale(1.025); filter: saturate(.78) brightness(.72); }
+}
+
+@media (max-width: 560px) {
+  .mongse-christian-opening__stage {
+    width: calc(100vw - 28px);
+    min-height: 72dvh;
+  }
+
+  .mongse-christian-opening__passing {
+    letter-spacing: .1em;
+  }
+
+  .mongse-christian-opening__mark {
+    letter-spacing: .08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mongse-christian-opening-v31236::before {
+    animation: none;
+  }
+
+  .mongse-christian-opening-v31236,
+  .mongse-christian-opening__quote,
+  .mongse-christian-opening__mark {
+    transition-duration: 180ms;
+  }
+}

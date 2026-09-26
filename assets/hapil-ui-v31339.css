@@ -1,0 +1,49 @@
+/* Real grid allocation keeps boss information outside the canvas. */
+.game {grid-template-columns:minmax(0,1fr) 200px!important;grid-template-rows:34px minmax(0,1fr) 100px!important;gap:0!important}
+.game>.topbar {grid-column:1/-1!important;grid-row:1!important;min-height:0;padding:3px 10px}
+.game>.game-stage {grid-column:1!important;grid-row:2!important;min-width:0;min-height:0}
+.game>.combat-hud {grid-column:1/-1!important;grid-row:3!important}
+.game>.hapil-combat-rail-v31339 {grid-column:2;grid-row:2;position:relative;display:flex;flex-direction:column;gap:8px;padding:8px;min-height:0;min-width:0;overflow:auto;box-sizing:border-box;background:#0a101bec;border-left:1px solid #33405a;overscroll-behavior:contain;scrollbar-width:thin}
+.hapil-combat-rail-v31339>.target-status,
+.hapil-combat-rail-v31339>.boss-skill-callout-v31219,
+.hapil-combat-rail-v31339>.boss-warning {position:static!important;inset:auto!important;transform:none!important;animation:none!important;width:100%!important;min-width:0!important;max-width:100%!important;min-height:0!important;height:auto!important;margin:0!important;box-sizing:border-box;padding:8px!important;opacity:1!important;flex-shrink:0;pointer-events:none;text-align:left!important;overflow-wrap:anywhere}
+.hapil-combat-rail-v31339>.target-status{order:0}
+.hapil-combat-rail-v31339>.boss-skill-callout-v31219{order:1;background:#201719;color:#ffe5ae;border:1px solid #aa7554}
+.hapil-combat-rail-v31339>.boss-warning{order:2}
+.hapil-combat-rail-v31339 strong,.hapil-combat-rail-v31339 b{font-size:14px!important;line-height:1.35!important;white-space:normal!important}
+.hapil-combat-rail-v31339 small,.hapil-combat-rail-v31339 span{font-size:11px!important;line-height:1.3!important;white-space:normal!important}
+.game .topbar>.objective,.game .mission-tag,.game .help,.game .action-utilities>span,.game .topbar>.mobile-system-menu{display:none!important}
+.game .minimap.hapil-map-closed-v31339{display:none!important}
+.game .minimap.expanded{max-width:90%;max-height:85%;z-index:25}
+.game .hero-hud>div>span{display:none}
+.game .hero-hud>div{grid-template-rows:16px 18px 18px minmax(0,1fr)}
+.game .skills button{min-height:44px}
+.game .skills small{display:none}
+.game .action-utilities{gap:4px}
+.hapil-system-settings-v31339{grid-column:1/-1;padding:12px;border:1px solid #39435c;border-radius:8px;background:#101725}
+.hapil-system-settings-v31339 nav{display:flex;flex-wrap:wrap;gap:8px}
+.hapil-system-settings-v31339 button{min-height:40px;padding:8px 12px}
+.hapil-system-settings-v31339 p{color:#c2cce0;line-height:1.5}
+@media(max-width:900px){.game{grid-template-columns:minmax(0,1fr) 152px!important}.game>.hapil-combat-rail-v31339{padding:5px;gap:5px}.hapil-combat-rail-v31339 strong,.hapil-combat-rail-v31339 b{font-size:12px!important}}
+@media(max-width:600px) and (orientation:portrait){
+ .game{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:34px minmax(0,1fr) 72px 220px!important}
+ .game>.hapil-combat-rail-v31339{grid-column:1;grid-row:3;flex-direction:row;border-left:0;border-top:1px solid #33405a;gap:6px}
+ .hapil-combat-rail-v31339>.target-status,.hapil-combat-rail-v31339>.boss-skill-callout-v31219,.hapil-combat-rail-v31339>.boss-warning{width:calc(50% - 3px)!important;padding:4px!important}
+ .game>.combat-hud{grid-row:4!important;grid-template-rows:54px minmax(0,1fr)}
+ .game .hero-hud>div{grid-template-rows:16px 18px minmax(0,1fr)}
+}
+@media(max-height:500px) and (orientation:landscape){.game{grid-template-rows:30px minmax(0,1fr) 82px!important;grid-template-columns:minmax(0,1fr) 145px!important}.game>.combat-hud{grid-template-columns:140px minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important}.game .skills{grid-template-columns:repeat(9,minmax(0,1fr))!important}.game .action-utilities{display:flex!important}.game .skills strong{font-size:8px}}
+/* A narrow rail must not retain the old two-column centered banner grid. */
+.hapil-combat-rail-v31339>.target-status,.hapil-combat-rail-v31339>.boss-warning{grid-template-columns:minmax(0,1fr)!important;gap:4px!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.hapil-combat-rail-v31339>.target-status>*,.hapil-combat-rail-v31339>.boss-warning>*{grid-column:1!important;grid-row:auto!important;max-width:100%!important;min-width:0}
+.game .skills button.cooling small{display:block;font-size:10px;color:#fff1b0}
+.game>.combat-hud{padding-top:4px;padding-bottom:4px}
+.hapil-combat-rail-v31339>.combat-narrative-manifest,.hapil-combat-rail-v31339>.radio-dialog{position:static!important;inset:auto!important;transform:none!important;animation:none!important;opacity:1!important;width:100%!important;max-width:100%!important;min-width:0!important;min-height:0!important;box-sizing:border-box;padding:8px!important;margin:0!important;flex-shrink:0;order:3;pointer-events:none;overflow-wrap:anywhere}
+.hapil-combat-rail-v31339 p{font-size:12px!important;line-height:1.5!important;white-space:normal!important;max-height:none!important;overflow:visible!important}
+.hapil-combat-rail-v31339 header,.hapil-combat-rail-v31339 footer{display:flex;flex-wrap:wrap;gap:4px}
+@media(max-width:600px) and (orientation:portrait){.hapil-combat-rail-v31339>.combat-narrative-manifest,.hapil-combat-rail-v31339>.radio-dialog{width:calc(50% - 3px)!important}}
+/* Guide, hit history and practice controls now live in settings. Preserve a
+   compact exceptional save-failure notice so storage failures remain visible. */
+#hapil-control-hud-v31329{top:auto!important;bottom:108px!important;left:8px!important;right:auto!important;width:min(270px,70vw)!important;max-height:70px!important;overflow:auto!important;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;padding:0!important;pointer-events:none}
+#hapil-control-hud-v31329>div,#hapil-control-hud-v31329>p,#hapil-control-hud-v31329>[data-hit]{display:none!important}
+#hapil-control-hud-v31329>[data-save-notice-v31336]:not([hidden]){display:block;background:#301b12;border:1px solid #cb9662;padding:6px;color:#ffe2bf}

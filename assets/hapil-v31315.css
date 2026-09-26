@@ -1,0 +1,128 @@
+/* v3.13.15: HUD text can change, but the battlefield track cannot.
+ * Keep v3.13.14's full 16:9 display fit and existing world camera. */
+.game {
+  box-sizing: border-box;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 58px minmax(0, 1fr) 120px;
+}
+.game > .game-stage {
+  min-width: 0;
+  max-width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+.game > .combat-hud {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  grid-template-columns: 250px minmax(0, 1fr);
+  overflow: hidden;
+}
+.game .hero-hud, .game .action-stack { min-height: 0; min-width: 0; }
+.game .hero-hud > div {
+  min-height: 0;
+  height: 100%;
+  grid-template-rows: 16px 11px 18px 18px minmax(0, 1fr);
+  align-content: start;
+}
+.game .hapil-hero-status-v31315 {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  padding-right: 3px;
+}
+.game .hapil-hero-status-v31315 > small {
+  display: block;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.game .hapil-hero-status-v31315:focus-visible {
+  outline: 1px solid #75c8d1;
+  outline-offset: -1px;
+}
+.game .skills { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+.game .skills strong, .game .skills small {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.game .action-utilities { flex-wrap: nowrap; overflow-x: auto; }
+.game .action-utilities > button { flex-shrink: 0; }
+@media (max-width: 1000px) and (min-width: 761px) {
+  .game > .combat-hud { grid-template-columns: 190px minmax(0, 1fr); }
+  .game .hero-hud { grid-template-columns: 40px minmax(0, 1fr); gap: 5px; }
+  .game .hero-hud > img { width: 38px; height: 38px; }
+  .game .skills button { padding: 26px 3px 3px; }
+  .game .skills strong { font-size: 8px; }
+  .game .skills kbd { top: 3px; left: 3px; }
+}
+@media (max-width: 760px) {
+  .game { grid-template-rows: 54px minmax(0, 1fr) 272px; }
+  .game > .combat-hud {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 66px minmax(0, 1fr);
+    padding: 5px;
+    gap: 4px;
+  }
+  .game .hero-hud { grid-template-columns: 44px minmax(0, 1fr); }
+  .game .hero-hud > div {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 16px 18px minmax(0, 1fr);
+    column-gap: 8px;
+  }
+  .game .hapil-hero-status-v31315 { grid-column: 1 / -1; }
+  .game .skills { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+  .game .skills button { height: 48px; }
+  .game .action-stack { gap: 4px; align-content: start; }
+  .game .action-utilities > button { min-height: 34px; }
+}
+@media (max-width: 760px) and (orientation: portrait) and (pointer: coarse) {
+  .game { grid-template-rows: 54px minmax(0, 1fr) calc(272px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .game { grid-template-rows: 46px minmax(0, 1fr) 86px; }
+  .game > .combat-hud {
+    grid-template-columns: clamp(118px, 19vw, 160px) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 4px;
+    padding: 3px 6px 4px;
+  }
+  .game .hero-hud { grid-template-columns: 38px minmax(0, 1fr); padding: 0 5px 0 0; }
+  .game .hero-hud > img { width: 36px; height: 36px; }
+  .game .hero-hud > div { grid-template-columns: minmax(0, 1fr); grid-template-rows: 12px 10px 15px 15px minmax(0, 1fr); }
+  .game .skills { grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 3px; }
+  .game .skills button { height: 44px; padding: 3px 3px 3px 25px; }
+  .game .action-stack { gap: 3px; }
+  .game .action-utilities > button { min-height: 31px; }
+}
+@media (min-width: 700px) and (max-height: 500px) and (min-height: 330px) and (orientation: landscape) and (pointer: coarse) {
+  .game { grid-template-columns: minmax(0, 1fr) 180px; grid-template-rows: 46px minmax(0, 1fr); }
+  .game > .combat-hud {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 90px minmax(0, 1fr);
+    padding: 5px;
+    gap: 5px;
+    overflow: hidden;
+  }
+  .game .hero-hud { grid-template-columns: 36px minmax(0, 1fr); padding: 0; }
+  .game .hero-hud > img { width: 34px; height: 34px; }
+  .game .skills { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .game .skills button { height: 46px; padding: 23px 3px 3px; }
+  .game .action-stack { overflow-y: auto; overscroll-behavior: contain; align-content: start; }
+  .game .action-utilities { display: grid; grid-template-columns: minmax(0, 1fr); overflow-x: hidden; }
+}
+@media (max-width: 553px) and (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .game > .combat-hud { grid-template-columns: minmax(0, 1fr); }
+}

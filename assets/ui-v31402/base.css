@@ -1,0 +1,684 @@
+/* v31402: exact source order, specificity and media rules retained. */
+/* Preserved source: ./assets/title/v31236/christian-opening-v31236.css */
+:root {
+  --mongse-opening-ink: #03060d;
+  --mongse-opening-gold: #f3dfae;
+  --mongse-opening-cyan: #a8f1ef;
+}
+
+body.mongse-opening-active {
+  overflow: hidden;
+}
+
+.title-screen .title-card > p:empty {
+  display: none;
+}
+
+.title-screen .title-card h1 {
+  padding-left: .16em;
+  letter-spacing: .16em;
+  font-family: "Noto Serif CJK KR", "Noto Serif KR", "Batang", serif;
+}
+
+.mongse-christian-opening-v31236 {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  min-width: 100vw;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  color: #f7f4ed;
+  background: var(--mongse-opening-ink);
+  opacity: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 720ms ease, visibility 720ms ease;
+}
+
+.mongse-christian-opening-v31236::before {
+  content: "";
+  position: absolute;
+  inset: -2%;
+  z-index: -2;
+  background-color: #050912;
+  background-image: url("../title/v31236/mongse-dream-cover.webp");
+  background-position: center;
+  background-size: cover;
+  filter: saturate(.78) brightness(.72);
+  transform: scale(1.025);
+  animation: mongse-cover-breathe-v31236 9s ease-out both;
+}
+
+.mongse-christian-opening-v31236::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(3, 7, 15, .2) 0 15%, rgba(3, 6, 13, .78) 63%, #010207 100%),
+    linear-gradient(180deg, rgba(1, 3, 8, .45), rgba(1, 3, 8, .18) 45%, rgba(1, 3, 8, .72));
+  box-shadow: inset 0 0 18vmin rgba(0, 0, 0, .7);
+}
+
+.mongse-christian-opening-v31236.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mongse-christian-opening__stage {
+  position: relative;
+  width: min(980px, calc(100vw - 40px));
+  min-height: min(500px, 68dvh);
+  display: grid;
+  place-items: center;
+  padding: max(26px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(34px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+  text-align: center;
+}
+
+.mongse-christian-opening__quote,
+.mongse-christian-opening__mark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  transition: opacity 900ms ease, transform 1100ms cubic-bezier(.2, .75, .15, 1), filter 900ms ease;
+}
+
+.mongse-christian-opening__quote {
+  gap: clamp(19px, 3.2vh, 34px);
+  opacity: 1;
+  transform: translateY(0);
+  text-wrap: balance;
+}
+
+.mongse-christian-opening__quote p {
+  margin: 0;
+  word-break: keep-all;
+  text-shadow: 0 3px 24px rgba(0, 0, 0, .92), 0 0 55px rgba(213, 235, 255, .16);
+}
+
+.mongse-christian-opening__passing {
+  color: var(--mongse-opening-gold);
+  letter-spacing: .18em;
+  font: 650 clamp(18px, 2.7vw, 32px)/1.85 "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
+}
+
+.mongse-christian-opening__awakening {
+  color: #f8fbff;
+  letter-spacing: .035em;
+  font: 500 clamp(19px, 2.9vw, 34px)/1.7 "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
+}
+
+.mongse-christian-opening__source {
+  color: rgba(207, 225, 235, .68);
+  letter-spacing: .14em;
+  font: 500 clamp(11px, 1.45vw, 14px)/1.6 ui-serif, "Noto Serif KR", serif;
+}
+
+.mongse-christian-opening__mark {
+  opacity: 0;
+  transform: scale(.84);
+  filter: blur(15px);
+  color: transparent;
+  background: linear-gradient(180deg, #fffbed 0%, #f5d996 42%, #8ee8ed 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: 0 0 75px rgba(139, 226, 237, .25);
+  letter-spacing: .16em;
+  font: 800 clamp(96px, 23vw, 260px)/1 "Noto Serif CJK KR", "Noto Serif KR", "Batang", serif;
+}
+
+.mongse-christian-opening-v31236[data-phase="mark"] .mongse-christian-opening__quote {
+  opacity: 0;
+  transform: translateY(-18px) scale(.97);
+  filter: blur(8px);
+}
+
+.mongse-christian-opening-v31236[data-phase="mark"] .mongse-christian-opening__mark {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.mongse-christian-opening__advance {
+  position: absolute;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 2;
+  border: 0;
+  padding: 10px 12px;
+  color: rgba(222, 239, 245, .58);
+  background: transparent;
+  letter-spacing: .12em;
+  font: 600 11px/1.2 ui-monospace, monospace;
+  cursor: pointer;
+  transition: opacity 400ms ease;
+}
+
+.mongse-christian-opening-v31236[data-phase="mark"] .mongse-christian-opening__advance {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes mongse-cover-breathe-v31236 {
+  from { transform: scale(1.055); filter: saturate(.68) brightness(.58); }
+  to { transform: scale(1.025); filter: saturate(.78) brightness(.72); }
+}
+
+@media (max-width: 560px) {
+  .mongse-christian-opening__stage {
+    width: calc(100vw - 28px);
+    min-height: 72dvh;
+  }
+
+  .mongse-christian-opening__passing {
+    letter-spacing: .1em;
+  }
+
+  .mongse-christian-opening__mark {
+    letter-spacing: .08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mongse-christian-opening-v31236::before {
+    animation: none;
+  }
+
+  .mongse-christian-opening-v31236,
+  .mongse-christian-opening__quote,
+  .mongse-christian-opening__mark {
+    transition-duration: 180ms;
+  }
+}
+
+/* Preserved source: ./assets/dialogue-v31238.css */
+/* MONGSE v3.12.38 exact dialogue presentation. */
+.combat-encounter-intro p.mongse-gungseo-emphasis-v31238 {
+  font-family: Gungsuh, "궁서", "궁서체", Batang, "바탕", serif;
+  font-size: clamp(1.05rem, 1.35vw, 1.36rem);
+  font-weight: 700;
+  line-height: 1.62;
+  letter-spacing: 0.035em;
+  color: #fff4cf;
+  text-wrap: balance;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.9),
+    0 0 12px rgba(255, 207, 104, 0.42),
+    0 0 24px rgba(151, 44, 31, 0.24);
+}
+
+.combat-encounter-intro.has-gungseo-emphasis-v31238 {
+  border-color: rgba(255, 211, 126, 0.72);
+  box-shadow:
+    inset 0 0 22px rgba(119, 35, 25, 0.2),
+    0 0 18px rgba(255, 203, 104, 0.15);
+}
+
+@media (max-width: 720px) {
+  .combat-encounter-intro p.mongse-gungseo-emphasis-v31238 {
+    font-size: clamp(1rem, 4.5vw, 1.2rem);
+    line-height: 1.52;
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .combat-encounter-intro.has-gungseo-emphasis-v31238 {
+    transition: none !important;
+  }
+}
+
+/* v3.12.39: keep long exact dialogue inside compact 16:9 touch screens. */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .combat-encounter-intro {
+    top: auto !important;
+    bottom: 4px !important;
+    min-height: 0 !important;
+    max-height: calc(100% - 8px) !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .combat-encounter-intro figure img {
+    height: 64px !important;
+    max-height: 64px;
+  }
+
+  .combat-encounter-intro section b,
+  .combat-encounter-intro section p {
+    font-size: 11px;
+  }
+
+  .combat-encounter-intro section p {
+    line-height: 1.35;
+  }
+}
+
+/* Preserved source: ./assets/hapil-v31300.css */
+:root {
+  --hapil-gold: #ffe6a6;
+  --hapil-rose: #ef73b7;
+  --hapil-cyan: #91f1ff;
+}
+
+.title-card {
+  isolation: isolate;
+}
+
+.title-card::before {
+  content: "";
+  display: none;
+  position: absolute;
+  z-index: -1;
+  inset: 8% 0 auto;
+  color: transparent;
+  font: 900 clamp(108px, 24vw, 230px)/0.8 ui-monospace, monospace;
+  letter-spacing: -0.18em;
+  -webkit-text-stroke: 1px rgba(139, 238, 255, 0.09);
+  opacity: 0.34;
+  clip-path: polygon(0 12%, 100% 3%, 100% 17%, 0 29%, 0 49%, 100% 38%, 100% 48%, 0 63%, 0 82%, 100% 70%, 100% 77%, 0 94%);
+  filter: blur(0.2px) drop-shadow(0 0 18px rgba(70, 216, 255, 0.08));
+  pointer-events: none;
+}
+
+.title-card h1 {
+  letter-spacing: -0.08em;
+}
+
+body.hapil-ending-cleared-v31300 .title-card::before {
+  opacity: 0;
+}
+
+body.hapil-ending-cleared-v31300 .title-card h1 {
+  font-size: clamp(55px, 10vw, 108px);
+  letter-spacing: -0.12em;
+}
+
+.mongse-christian-opening__mark::after {
+  content: "";
+  display: none;
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(180, 242, 255, 0.075);
+  clip-path: polygon(0 10%, 100% 2%, 100% 16%, 0 26%, 0 52%, 100% 38%, 100% 49%, 0 66%, 0 84%, 100% 73%, 100% 80%, 0 96%);
+  transform: scale(1.36);
+}
+
+.hapil-gungseo-emphasis-v31300 {
+  color: #fff4c7 !important;
+  font-family: Gungsuh, GungSeo, "궁서", "Noto Serif KR", serif !important;
+  font-size: clamp(17px, 2.1vw, 24px) !important;
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 18px rgba(255, 221, 128, 0.45), 0 2px 3px #000 !important;
+}
+
+.interlude-voice p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.interlude-page,
+.interlude-voices {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+#hapil-final-overlay-v31300 {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: max(22px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+  color: #f8fbff;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(61, 11, 52, 0.54), transparent 47%),
+    linear-gradient(180deg, rgba(0, 2, 8, 0.9), rgba(1, 2, 8, 0.97));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+#hapil-final-overlay-v31300.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+#hapil-final-overlay-v31300 .hapil-final-card {
+  width: min(900px, 96vw);
+  max-height: min(84dvh, 720px);
+  overflow: auto;
+  padding: clamp(24px, 6vw, 64px);
+  border: 1px solid rgba(227, 119, 183, 0.35);
+  background: linear-gradient(145deg, rgba(14, 7, 22, 0.91), rgba(2, 7, 14, 0.94));
+  box-shadow: 0 34px 110px rgba(0, 0, 0, 0.78), inset 0 0 90px rgba(204, 67, 160, 0.07);
+}
+
+#hapil-final-overlay-v31300 .hapil-final-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--hapil-rose);
+  letter-spacing: 0.28em;
+  font: 900 10px/1.4 ui-monospace, monospace;
+}
+
+#hapil-final-overlay-v31300 h1 {
+  margin: 0;
+  color: #fff8e8;
+  font: 900 clamp(42px, 11vw, 112px)/0.95 "Noto Serif KR", Georgia, serif;
+  letter-spacing: -0.1em;
+  text-shadow: 0 0 42px rgba(238, 89, 180, 0.38);
+}
+
+#hapil-final-overlay-v31300 h2 {
+  margin: 16px 0 0;
+  color: var(--hapil-cyan);
+  font: 800 clamp(18px, 3.5vw, 34px)/1.25 "Noto Serif KR", Georgia, serif;
+  letter-spacing: 0.08em;
+}
+
+#hapil-final-overlay-v31300 p {
+  max-width: 720px;
+  margin: 24px auto 0;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  color: #d8e1e8;
+  font: 600 clamp(15px, 2vw, 20px)/1.82 "Noto Serif KR", Georgia, serif;
+}
+
+#hapil-final-overlay-v31300[data-phase="death"] h1 {
+  animation: hapil-death-fracture 1.12s steps(2, end) both;
+}
+
+#hapil-final-overlay-v31300[data-phase="samong"] h1 {
+  color: var(--hapil-gold);
+  animation: hapil-samong-rise 0.72s ease-out both;
+}
+
+#hapil-final-overlay-v31300[data-phase="ending-title"] .hapil-final-card {
+  border-color: rgba(255, 231, 160, 0.45);
+  background: radial-gradient(circle, rgba(37, 29, 11, 0.62), rgba(1, 4, 10, 0.96) 68%);
+}
+
+@keyframes hapil-death-fracture {
+  0%, 45% { opacity: 1; transform: none; filter: none; }
+  52% { transform: translate(-8px, 2px) skewX(8deg); filter: blur(1px); }
+  61% { transform: translate(9px, -3px) skewX(-11deg); }
+  72%, 100% { opacity: 0.22; transform: scale(1.08); filter: blur(5px); }
+}
+
+@keyframes hapil-samong-rise {
+  from { opacity: 0; transform: translateY(20px) scale(0.82); filter: blur(9px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@media (max-width: 700px), (max-height: 480px) {
+  #hapil-final-overlay-v31300 { padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+  #hapil-final-overlay-v31300 .hapil-final-card { max-height: 94dvh; padding: 22px 16px; }
+  #hapil-final-overlay-v31300 p { margin-top: 14px; font-size: 14px; line-height: 1.58; }
+  .interlude-panel { max-height: 100dvh; }
+  .interlude-page { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hapil-final-overlay-v31300,
+  #hapil-final-overlay-v31300 h1 { animation: none !important; transition-duration: 1ms !important; }
+}
+
+/* Preserved source: ./assets/hapil-v31302.css */
+/* HAPIL v3.13.02 · auto-battle settings and combat-flow readability */
+.auto-battle-settings-v31301 {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: clamp(14px, 2.5vw, 20px);
+  border: 1px solid rgba(95, 240, 223, 0.34);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(74, 223, 205, 0.12), transparent 42%),
+    linear-gradient(145deg, rgba(6, 24, 31, 0.92), rgba(5, 10, 20, 0.94));
+  box-shadow: inset 0 0 36px rgba(62, 220, 207, 0.045);
+}
+
+.auto-battle-settings-v31301 > header span {
+  color: #78f4e2;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: 0.18em;
+}
+
+.auto-battle-settings-v31301 > header h3 {
+  margin: 4px 0 5px;
+  color: #f4ffff;
+}
+
+.auto-battle-settings-v31301 > header p,
+.auto-battle-policy-v31301 {
+  margin: 0;
+  color: #abc8cf;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.auto-battle-settings-grid-v31301 {
+  display: grid;
+  gap: 8px;
+}
+
+.auto-battle-settings-grid-v31301 label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px solid rgba(135, 194, 204, 0.18);
+  border-radius: 12px;
+  background: rgba(8, 17, 27, 0.72);
+  cursor: pointer;
+}
+
+.auto-battle-settings-grid-v31301 label.auto-master-v31301 {
+  border-color: rgba(255, 224, 137, 0.42);
+  background: linear-gradient(90deg, rgba(47, 41, 18, 0.78), rgba(7, 24, 30, 0.74));
+}
+
+.auto-battle-settings-grid-v31301 label > span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.auto-battle-settings-grid-v31301 b {
+  color: #eefeff;
+}
+
+.auto-battle-settings-grid-v31301 small {
+  color: #9bb7bf;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.auto-battle-settings-grid-v31301 input {
+  flex: 0 0 44px;
+  width: 22px;
+  height: 22px;
+  accent-color: #67ead8;
+}
+
+.auto-battle-settings-grid-v31301 label:has(input:disabled) {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.action-utilities .auto[aria-pressed="true"] {
+  border-color: rgba(103, 234, 216, 0.7);
+  box-shadow: 0 0 18px rgba(103, 234, 216, 0.16);
+}
+
+.hapil-clue-overlay-v31301 {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+    max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: rgba(2, 7, 13, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.hapil-clue-overlay-v31301 article {
+  width: min(560px, 100%);
+  max-height: min(76vh, 620px);
+  overflow: auto;
+  padding: clamp(18px, 4vw, 30px);
+  border: 1px solid rgba(112, 240, 221, 0.48);
+  border-radius: 16px;
+  background: linear-gradient(150deg, rgba(8, 24, 31, 0.98), rgba(7, 9, 19, 0.98));
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
+}
+
+.hapil-clue-overlay-v31301 span {
+  color: #78f4e2;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: 0.18em;
+}
+
+.hapil-clue-overlay-v31301 h3 {
+  margin: 7px 0 10px;
+  color: #f4ffff;
+}
+
+.hapil-clue-overlay-v31301 p {
+  margin: 0;
+  color: #c8dde2;
+  line-height: 1.72;
+  white-space: pre-wrap;
+  word-break: keep-all;
+}
+
+.hapil-clue-overlay-v31301 button {
+  margin-top: 18px;
+  min-height: 44px;
+  padding: 9px 16px;
+  border: 1px solid rgba(112, 240, 221, 0.55);
+  border-radius: 10px;
+  color: #efffff;
+  background: rgba(23, 83, 79, 0.72);
+  cursor: pointer;
+}
+
+@media (max-width: 470px), (max-height: 390px) {
+  .auto-battle-settings-v31301 {
+    gap: 9px;
+    margin-bottom: 10px;
+    padding: 11px;
+  }
+
+  .auto-battle-settings-grid-v31301 label {
+    min-height: 56px;
+    padding: 8px 9px;
+  }
+
+  .auto-battle-settings-grid-v31301 small,
+  .auto-battle-policy-v31301 {
+    font-size: 11px;
+  }
+}
+
+.hapil-auto-decision-v31302 {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 5px;
+  padding: 4px 8px;
+  border: 1px solid rgba(120, 244, 226, 0.52);
+  border-radius: 999px;
+  color: #dffffa;
+  background: linear-gradient(90deg, rgba(18, 75, 76, 0.88), rgba(19, 35, 56, 0.88));
+  box-shadow: 0 0 14px rgba(97, 238, 220, 0.14);
+  font: 800 11px/1.2 "Noto Sans KR", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.hapil-auto-decision-v31302 b {
+  color: #78f4e2;
+  font: 900 10px/1.2 ui-monospace, monospace;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 470px), (max-height: 390px) {
+  .hapil-auto-decision-v31302 {
+    margin-top: 3px;
+    padding: 3px 7px;
+    font-size: 10px;
+  }
+}
+
+/* Preserved source: ./assets/hapil-v31305.css */
+/* HAPIL v3.13.05 — spoiler-safe title, collaboration UI, and visual-integrity layer. */
+
+/* The true title is revealed by the ending-title event.  Never leak 夢世 in
+   the opening mark or the uncleared title card's decorative pseudo layer. */
+.title-card::before,
+.mongse-christian-opening__mark::after {
+  content: "" !important;
+  display: none !important;
+}
+
+.party-picks button.collab-recommended-v31304,
+.roster-list button.collab-recommended-v31304 {
+  border-color: #ffe58a;
+  background: linear-gradient(145deg, rgba(79, 58, 15, 0.44), rgba(13, 25, 36, 0.88));
+  box-shadow: inset 0 0 18px rgba(255, 229, 138, 0.08);
+}
+
+.party-picks button.collab-recommended-v31304.on,
+.roster-list button.collab-recommended-v31304.active {
+  border-color: var(--mint);
+  box-shadow:
+    inset 0 0 22px rgba(114, 255, 208, 0.14),
+    0 0 0 1px rgba(255, 229, 138, 0.32);
+}
+
+.hapil-collab-recommend-v31304 {
+  color: #ffe58a;
+  letter-spacing: 0.035em;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.story-source-locked-v31304 {
+  color: rgba(226, 239, 246, 0.7);
+  font-size: 11px;
+}
+
+.roster-list button.collab-recommended-v31304 i {
+  color: #ffe58a;
+  font-weight: 900;
+}
+
+@media (width <= 760px) {
+  .party-picks button.collab-recommended-v31304 {
+    min-height: 46px;
+  }
+
+  .hapil-collab-recommend-v31304 {
+    font-size: 7px;
+  }
+}

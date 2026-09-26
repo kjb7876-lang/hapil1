@@ -1,0 +1,5 @@
+/* Existing stage ResizeObserver remains the single sizing owner. */
+.game-stage > canvas{aspect-ratio:16 / 9;object-fit:contain;flex-shrink:0;}
+.mongse-temporal-world-v31215,.mongse-temporal-mini-v31215{--th-color:var(--hero-primary-v31364,#edf7ff);border-color:var(--hero-primary-v31364,#edf7ff)!important;color:var(--hero-primary-v31364,#edf7ff)!important;}
+.mongse-temporal-world-v31215[data-resonant="1"]:after{filter:none!important;background-color:var(--hero-primary-v31364,#edf7ff)!important;}
+[data-control-key="D"]{touch-action:none;user-select:none;-webkit-user-select:none;}

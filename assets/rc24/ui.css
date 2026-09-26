@@ -1,0 +1,16 @@
+#rc24-bossbar{position:fixed;z-index:29;top:5px;left:50%;transform:translateX(-50%);width:min(390px,54vw);padding:5px 12px 4px;border:1px solid #f0c77385;border-radius:7px;background:linear-gradient(100deg,#140b16ed,#11101df0 52%,#170d16ed);box-shadow:0 4px 20px #0009,0 0 14px #d58d3a22;color:#fff4dd;pointer-events:none;text-align:center;backdrop-filter:blur(7px)}
+#rc24-bossbar[hidden]{display:none!important}
+.rc24-bossbar-title{display:flex;justify-content:space-between;align-items:center;gap:10px;font:700 11px/1.2 system-ui,sans-serif;letter-spacing:.035em}
+.rc24-bossbar-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc24-bossbar-title b{white-space:nowrap;font-size:10px;color:#ffe8b5}
+#rc24-bossbar>i{display:block;height:5px;margin:4px 0 3px;border-radius:99px;background:linear-gradient(90deg,#551b2b,#301b2a);overflow:hidden}
+#rc24-bossbar>i:after{content:"";display:block;width:var(--boss-hp,100%);height:100%;border-radius:inherit;background:linear-gradient(90deg,#ed385d,#ff9f52 58%,#ffe8a8);box-shadow:0 0 8px #ff5747aa;transition:width .22s ease}
+#rc24-bossbar small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#efd5ad;font:600 9px/1.2 system-ui,sans-serif}
+#rc15-sidepanels .rc24-skill-detail{display:flex;flex-direction:column;gap:2px;margin-top:6px;padding:6px 8px;border-left:2px solid #ffcf73;border-radius:0 5px 5px 0;background:linear-gradient(90deg,#473319a8,#111b2a90);color:#fff0d0}
+#rc15-sidepanels .rc24-skill-detail small{font-size:8px;color:#ffdc98;text-transform:uppercase;letter-spacing:.08em}
+#rc15-sidepanels .rc24-skill-detail strong{font-size:11px}
+#rc15-sidepanels .rc24-skill-detail span{font-size:9px;line-height:1.35;color:#d8e5ec}
+#rc15-sidepanels .rc21-alert em{font-style:normal;font-size:8px;line-height:1.25;color:#f1d5b0}
+#rc15-sidepanels .rc21-alert.rc24-boss-skill{border-color:#ffd470;background:linear-gradient(100deg,#3c1b20e8,#111722e8)}
+@media(max-width:620px){#rc24-bossbar{top:4px;width:min(300px,64vw);padding:4px 8px 3px}.rc24-bossbar-title{font-size:10px}#rc24-bossbar small{font-size:8px}}
+@media(max-height:500px) and (orientation:landscape){#rc24-bossbar{top:3px;width:min(340px,42vw);padding:3px 10px 2px}.rc24-bossbar-title{font-size:10px}#rc24-bossbar>i{height:4px;margin:3px 0 2px}}

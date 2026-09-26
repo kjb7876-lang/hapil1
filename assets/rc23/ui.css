@@ -1,0 +1,47 @@
+/* Full arena canvas; essential information and controls float above it. */
+html body.rc15-playing .game{display:block!important;position:relative!important;width:100vw!important;max-width:none!important;height:100dvh!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+html body.rc15-playing .game>.game-stage{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:none!important;min-height:0!important}
+html body.rc15-playing .game-stage>canvas{width:var(--hapil-canvas-width-v31314,100%)!important;height:var(--hapil-canvas-height-v31314,auto)!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+html body.rc15-playing .game>.topbar{position:absolute!important;inset:0 0 auto!important;height:30px!important;min-height:0!important;z-index:26;background:linear-gradient(#07101fe8,#07101f88)!important;border-bottom:0!important;padding:2px 8px!important}
+html body.rc15-playing .game>.combat-hud{position:absolute!important;inset:auto 0 0!important;height:82px!important;max-height:82px!important;min-height:0!important;z-index:25;background:linear-gradient(0deg,#07101ff5,#07101fc4)!important;border-top:1px solid #9cc6d02b;backdrop-filter:blur(4px)}
+html body.rc15-playing .game>.hapil-combat-rail-v31339{display:none!important}
+html body.rc15-playing .game .mission-tag,html body.rc15-playing .game .help{display:none!important}
+html body.rc15-playing .game .topbar>.mobile-system-menu{display:block!important;min-height:26px!important;height:26px!important;padding:2px 8px!important}
+#rc15-sidepanels{position:fixed!important;inset:36px 10px auto!important;display:flex!important;justify-content:space-between;align-items:flex-start;gap:10px;margin:0!important;padding:0!important;max-width:none!important;pointer-events:none;z-index:24}
+#rc15-sidepanels[hidden]{display:none!important}
+#rc15-sidepanels .rc15-panel{position:static!important;width:auto!important;max-width:43vw;max-height:none!important;padding:6px 9px!important;overflow:visible!important;border-radius:7px!important;background:#071220c7!important;box-shadow:0 3px 15px #0005!important;font-size:10px}
+#rc15-sidepanels h2,#rc15-sidepanels .rc21-kicker,#rc15-sidepanels .rc21-calm,#rc15-sidepanels .rc21-recent,#rc15-sidepanels .rc21-party-title{display:none!important}
+#rc15-sidepanels .rc21-focus{display:flex;align-items:center;gap:12px;padding:0!important;border:0!important}
+#rc15-sidepanels .rc21-focus>strong{font-size:11px;margin:0!important;max-width:160px}
+#rc15-sidepanels .rc21-vitals{min-width:95px}
+#rc15-sidepanels .rc21-vitals>b{font-size:13px;margin:0 0 4px!important}
+#rc15-sidepanels .rc21-line{padding:4px 0 0!important;border:0!important;display:flex;gap:6px}
+#rc15-sidepanels .rc21-line b{font-size:10px}
+#rc15-sidepanels .rc21-alert{padding:5px 7px!important;margin:6px 0 0!important;gap:2px!important;grid-template-columns:auto 1fr auto;align-items:center}
+#rc15-sidepanels .rc21-alert strong{font-size:11px}
+#rc15-sidepanels .rc21-member{padding:3px 0!important;font-size:10px}
+#rc15-sidepanels .rc15-allies .rc21-focus{display:none!important}
+#rc15-sidepanels .rc21-party{margin-top:4px}
+@media(max-height:500px) and (orientation:landscape){
+ html body.rc15-playing .game>.combat-hud{height:66px!important;max-height:66px!important;grid-template-columns:140px minmax(0,1fr)!important}
+ html body.rc15-playing .game .skills button{min-height:32px!important;height:34px!important}
+ #rc15-sidepanels{top:32px!important}
+ #rc15-sidepanels .rc15-panel{padding:4px 6px!important;max-width:44vw}
+ #rc15-sidepanels .rc21-alert small{display:none}
+ #rc15-sidepanels .rc21-alert{grid-template-columns:1fr auto}
+ html body.rc15-playing .game .mobile-pad{bottom:76px!important}
+}
+@media(max-width:620px) and (orientation:portrait){
+ html body.rc15-playing .game>.combat-hud{height:178px!important;max-height:178px!important;grid-template-columns:1fr!important;grid-template-rows:48px minmax(0,1fr)!important}
+ #rc15-sidepanels .rc15-panel{max-width:46vw}
+ #rc15-sidepanels .rc21-focus{display:block}
+ #rc15-sidepanels .rc21-focus>strong{margin-bottom:4px!important}
+ #rc15-sidepanels .rc21-alert{display:block}
+ html body.rc15-playing .game .mobile-pad{bottom:190px!important}
+}
+
+.rc22-fullscreen{position:absolute;top:-33px;left:0;pointer-events:auto;min-height:26px!important;padding:3px 9px!important;border:1px solid #95cabc65;border-radius:5px;background:#0b192bed;color:#d8fff6;font-size:10px;z-index:30}
+html body.rc15-playing .game .brand{visibility:hidden}
+
+#rc15-sidepanels .rc21-party{display:flex;flex-wrap:wrap;gap:2px 10px;max-width:410px}
+#rc15-sidepanels .rc21-member{min-width:95px;flex:1}

@@ -1,0 +1,16 @@
+/* v31404: authored theme painters relocated verbatim. Native budget, owner
+ * image selection and Canvas restoration retain the baseline semantics. */
+(function(root){'use strict';
+ function create(deps){
+  for(const key of ['G','num','clamp','drawSprite','W','opacity','queueImage','budget'])if(typeof deps?.[key]!=='function')throw new TypeError('Theme painter dependency '+key);
+  const {G,num,clamp,drawSprite,W,metrics}=deps;
+  const MONGSE_skillFxOpacity=(...args)=>deps.opacity(...args),MONGSE_queueImage=(...args)=>deps.queueImage(...args);
+function drawTerminal(ctx,cache,e,time,settings={}){return window.__HAPIL_MATERIAL_V31362__?.drawTerminal(ctx,cache,e,time,settings,deps.budget());}
+function drawBomb(ctx,cache,e,time,settings){const u=clamp((time-e.born)/Math.max(.001,e.themeEnd323-e.born),0,1),a=G(e.x,e.y),b=G(e.tx,e.ty),x=a.x+(b.x-a.x)*u,y=a.y+(b.y-a.y)*u-30*(1-u)-4*u*(1-u)*86;ctx.save();try{ctx.globalAlpha=clamp(MONGSE_skillFxOpacity(settings),0,1);drawSprite(ctx,cache,e.sprite,x,y,55,(time-e.born)*7.5,Math.min(1,(time-e.born)/.06));}finally{ctx.restore();}}
+function drawPollution(ctx,cache,e,time,settings){const u=clamp((time-e.born)/e.duration,0,1),p=G(e.x,e.y),r=e.radius*27;ctx.save();try{ctx.globalAlpha=clamp(MONGSE_skillFxOpacity(settings),0,1);for(let i=0;i<5;i++){const a=i*2.399;drawSprite(ctx,cache,e.sprite,p.x+Math.cos(a)*r*.35,p.y+Math.sin(a)*r*.18,r*1.2,a*.2,.36,.48);}}finally{ctx.restore();}}
+function drawCollab(ctx,cache,e,time,settings){const pair=window.__HAPIL_COLLAB_V31315__?.pairTable?.find(p=>p.key===(e.collabPairV31237??e.collabPairV31234??e.collabKey));if(!e.collabV31315||!pair||pair.key==='michaela+seoha')return false;const age=time-e.born,u=clamp(age/Math.max(.1,e.duration),0,1),p=e.collabPointV31315??G(e.x,e.y),main=pair.ids[0],other=pair.ids[1],artA=W(main,'r'),artB=W(other,'r'),alpha=clamp(MONGSE_skillFxOpacity(settings),0,1);ctx.save();try{ctx.globalAlpha=alpha;const impact=clamp((age-.25)/.18,0,1),fade=clamp((1-u)/.35,0,1);if(age<.38){for(let sign of[-1,1])drawSprite(ctx,cache,sign<0?artA:artB,p.x+sign*(1-impact)*130,p.y-28,130+70*impact,sign*(1-impact)*.7,.7*fade);}const corePath=window.__HAPIL_PATTERNS_V31317__?.resolveAsset?.(pair.image)??pair.image,core=MONGSE_queueImage(cache,corePath,'eager');if(core?.complete&&(core.naturalWidth||core.width)){const im=window.__HAPIL_COLLAB_V31315__.tintPair(core,pair),size=Math.min(num(e.collabDiameterV31315,640),640)*(.66+.36*Math.sin(Math.min(1,u*2)*Math.PI/2)),iw=im.width||im.naturalWidth,ih=im.height||im.naturalHeight,scale=size/Math.max(iw,ih);ctx.save();ctx.globalAlpha*=fade;ctx.drawImage(im,p.x-iw*scale/2,p.y-22-ih*scale/2,iw*scale,ih*scale);ctx.restore();}if(age>=.3){const count=settings.lowFx?4:8;for(let i=0;i<count;i++){const a=i*2*Math.PI/count+(pair.key==='hunter+slayer'?age*.6:0),r=(50+u*100);drawSprite(ctx,cache,i%2?artA:artB,p.x+Math.cos(a)*r,p.y-22+Math.sin(a)*r*.45,58*(1-u*.4),a,fade*.58);}}}finally{ctx.restore();}metrics.collabFrames++;return true;}
+
+  return Object.freeze({drawTerminal,drawBomb,drawPollution,drawCollab});
+ }
+ root.__HAPIL_THEME_PAINTERS_V31404__=Object.freeze({version:'3.14.04-RC1',create});
+})(typeof window!=='undefined'?window:globalThis);

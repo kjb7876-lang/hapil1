@@ -1,0 +1,55 @@
+/* RC21: give the 16:9 stage more room and keep the essential combat state in view. */
+#rc15-sidepanels .rc15-panel{
+  overflow:visible;scrollbar-width:none;
+  background:linear-gradient(154deg,#141c2df7 0%,#0c1220f8 65%,#0b121bf8 100%);
+  border:1px solid #6492a260;border-top:2px solid #c7976a;
+  box-shadow:0 14px 38px #0007,inset 0 1px #ffffff17;
+  color:#efe9df;padding:13px 12px 15px;font:12px/1.4 system-ui,sans-serif;
+}
+#rc15-sidepanels .rc15-allies{border-top-color:#78d9cc}
+#rc15-sidepanels h2{font:700 16px/1.1 system-ui,sans-serif;letter-spacing:.02em;margin:0 0 11px;color:#f9eee0}
+#rc15-sidepanels h2 span{font:700 8px/1 system-ui,sans-serif;color:#91afbe;letter-spacing:.15em}
+#rc15-sidepanels .rc21-kicker{font-size:10px;color:#acc0c9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:12px}
+#rc15-sidepanels .rc21-focus{padding:11px 0 12px;border-top:1px solid #ffffff18;border-bottom:1px solid #ffffff18}
+#rc15-sidepanels .rc21-focus>strong{display:block;font-size:13px;line-height:1.35;color:#f3e3cf;overflow-wrap:anywhere;margin-bottom:9px}
+#rc15-sidepanels .rc21-vitals>b{display:block;font:700 17px/1.1 ui-monospace,monospace;color:#fff7e8;margin-bottom:8px}
+#rc15-sidepanels .rc21-vitals small{font-size:10px;color:#9daeba}
+#rc15-sidepanels .rc21-vitals i{display:block;width:100%;height:5px;border-radius:8px;background:linear-gradient(90deg,#e4a075 var(--fill),#ffffff24 var(--fill));box-shadow:0 0 12px #e4a07544}
+#rc15-sidepanels .rc15-allies .rc21-vitals i{background:linear-gradient(90deg,#7fe3d4 var(--fill),#ffffff24 var(--fill));box-shadow:0 0 12px #7fe3d444}
+#rc15-sidepanels .rc21-line{display:grid;gap:2px;padding:10px 0;border-bottom:1px solid #ffffff14}
+#rc15-sidepanels .rc21-line span,#rc15-sidepanels .rc21-party-title{font-size:9px;letter-spacing:.08em;color:#8eacb9}
+#rc15-sidepanels .rc21-line b{font-size:11px;font-weight:600;color:#e7ebed;overflow-wrap:anywhere}
+#rc15-sidepanels .rc21-alert{display:grid;gap:4px;margin-top:12px;padding:10px;background:#9e4f3238;border:1px solid #ef9e646c;border-radius:8px}
+#rc15-sidepanels .rc21-alert small{font-size:9px;color:#ffbc92;letter-spacing:.1em}
+#rc15-sidepanels .rc21-alert strong{font-size:12px;line-height:1.3;color:#fff0dd;overflow-wrap:anywhere}
+#rc15-sidepanels .rc21-alert span{font-size:10px;color:#ffe0c8}
+#rc15-sidepanels .rc21-calm,#rc15-sidepanels .rc21-empty{margin:12px 0 0;color:#9bb6bc;font-size:10px}
+#rc15-sidepanels .rc21-party-title{margin:13px 0 6px}
+#rc15-sidepanels .rc21-party{display:grid;gap:1px}
+#rc15-sidepanels .rc21-member{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 5px;padding:6px 0;border-top:1px solid #ffffff14;line-height:1.25}
+#rc15-sidepanels .rc21-member span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e4e9ee}
+#rc15-sidepanels .rc21-member b{white-space:nowrap;color:#8edfd2;font:700 10px ui-monospace,monospace}
+#rc15-sidepanels .rc21-member small{grid-column:1/-1;color:#e8b096;font-size:9px;line-height:1.35}
+#rc15-sidepanels .rc21-recent{margin-top:12px;padding-top:9px;border-top:1px solid #ffffff19;font-size:10px;color:#8eacb9}
+#rc15-sidepanels .rc21-recent strong{display:block;margin-top:3px;color:#ecd8ae;font-size:11px}
+@media(min-width:1320px){
+ html body.rc15-playing .game{width:calc(100vw - 364px)!important;max-width:1580px!important;margin-inline:auto!important;grid-template-columns:minmax(0,1fr)!important}
+ html body.rc15-playing .game-stage>canvas{width:var(--hapil-canvas-width-v31314,min(100%,177.777778cqh))!important;height:var(--hapil-canvas-height-v31314,auto)!important;max-width:100%!important;max-height:100%!important;object-fit:contain}
+ #rc15-sidepanels .rc15-panel{position:fixed;width:164px;top:70px;bottom:auto;max-height:calc(100dvh - 154px);box-sizing:border-box;overflow:hidden;z-index:12}
+ #rc15-sidepanels .rc15-enemies{left:max(9px,calc((100vw - 1940px)/2))}
+ #rc15-sidepanels .rc15-allies{right:max(9px,calc((100vw - 1940px)/2))}
+}
+@media(min-width:1320px) and (max-height:650px){
+ #rc15-sidepanels .rc15-panel{top:45px;max-height:calc(100dvh - 135px);padding:9px}
+ #rc15-sidepanels .rc21-focus{padding:6px 0}
+ #rc15-sidepanels .rc21-line{padding:6px 0}
+ #rc15-sidepanels .rc21-recent{margin-top:6px;padding-top:5px}
+}
+@media(max-width:1319px){
+ #rc15-sidepanels{max-width:1140px;margin:10px auto;padding:0 10px}
+ #rc15-sidepanels .rc15-panel{position:static;width:auto;max-height:none;overflow:visible}
+}
+@media(max-width:620px){
+ #rc15-sidepanels{gap:8px}
+ #rc15-sidepanels .rc15-panel{padding:10px 12px}
+}

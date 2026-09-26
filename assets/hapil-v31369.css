@@ -1,0 +1,66 @@
+/* The existing viewport observer is the sole canvas fitter.
+   Reclaim the former side rail; keep 16:9 world and input transforms unchanged. */
+html:not(.hapil-touch-v31366) .game{
+ width:100vw!important;max-width:100vw!important;height:100dvh!important;min-height:0!important;
+ grid-template-columns:250px minmax(0,1fr)!important;grid-template-rows:32px minmax(0,1fr) 86px!important;
+}
+html:not(.hapil-touch-v31366) .game>.game-stage{grid-column:1/-1!important;grid-row:2!important;min-width:0!important;min-height:0!important}
+html:not(.hapil-touch-v31366) .game>.topbar{grid-column:1/-1!important;grid-row:1!important;min-height:0!important;max-height:32px!important;padding:3px 10px!important}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339{
+ grid-column:1!important;grid-row:3!important;display:flex!important;flex-direction:column;gap:2px!important;
+ padding:4px 7px!important;min-width:0!important;min-height:0!important;border-top:1px solid #344457;border-right:1px solid #344457;overflow:auto!important;
+}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339>*{margin:0!important;padding:2px 5px!important;flex-shrink:0}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-status>span:first-child{display:none}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-status b{font-size:12px!important;line-height:15px!important}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-status small{font-size:10px!important}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .target-bars{height:5px;margin:2px 0}
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339 .boss-warning{font-size:10px!important}
+html:not(.hapil-touch-v31366) .game>.combat-hud{grid-column:2!important;grid-row:3!important;min-width:0!important;min-height:0!important;grid-template-columns:220px minmax(0,1fr)!important;padding:4px 6px!important;gap:6px!important;overflow:hidden}
+html:not(.hapil-touch-v31366) .hero-hud{min-width:0!important;padding:3px 5px!important;gap:6px!important}
+html:not(.hapil-touch-v31366) .hero-hud>img{width:34px!important;height:34px!important}
+html:not(.hapil-touch-v31366) .hero-hud .hud-meter{margin-top:2px!important}
+html:not(.hapil-touch-v31366) .hero-hud .hud-meter>img{width:16px!important;height:16px!important}
+html:not(.hapil-touch-v31366) .hero-hud .hp,html:not(.hapil-touch-v31366) .hero-hud .resonance{height:6px!important}
+html:not(.hapil-touch-v31366) .hero-hud>div>b{font-size:12px!important}
+html:not(.hapil-touch-v31366) .hapil-hero-status-v31315{max-height:26px!important;overflow:auto}
+html:not(.hapil-touch-v31366) .action-stack{display:grid!important;grid-template-columns:minmax(0,1fr) 145px!important;gap:6px!important;min-width:0!important;min-height:0!important;overflow:hidden}
+html:not(.hapil-touch-v31366) .action-stack .skills{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;min-height:0!important}
+html:not(.hapil-touch-v31366) .action-stack .skills button{min-width:0!important;min-height:54px!important;max-height:76px!important;padding:5px!important}
+html:not(.hapil-touch-v31366) .skills button strong{font-size:12px!important}
+html:not(.hapil-touch-v31366) .skills button small{font-size:10px!important;line-height:1.15!important;white-space:normal!important}
+html:not(.hapil-touch-v31366) .action-utilities{display:grid!important;grid-template-columns:1fr!important;gap:3px!important;overflow:auto!important}
+html:not(.hapil-touch-v31366) .action-utilities button{min-height:22px!important;padding:2px 5px!important;font-size:10px!important}
+html:not(.hapil-touch-v31366) .action-utilities span{display:none!important}
+body .skills [data-control-key="S"]{display:flex!important}
+/* Higher specificity than the v31368 two-key hide rule, including non-mobile S. */
+body .action-stack .skills button[data-control-key="S"]{display:flex!important}
+.flow-status-v31369{font:10px/1.2 system-ui;color:#bcd7eb;background:#101d2b;border:1px solid #3a5368;border-radius:4px;cursor:pointer;touch-action:manipulation;min-height:20px;padding:3px 5px}
+.flow-status-v31369.error{color:#ffe0a6;border-color:#d2a957}
+/* No HUD is placed over the playable canvas. Three deliberate controls on touch. */
+html.hapil-touch-v31366 .game{grid-template-columns:88px minmax(0,1fr) 80px!important;grid-template-rows:34px 22px minmax(0,1fr)!important}
+html.hapil-touch-v31366 .hm-actions{grid-template-columns:1fr!important;grid-template-rows:repeat(3,minmax(48px,1fr))!important;gap:6px!important;padding:5px!important}
+html.hapil-touch-v31366 .hm-toolbar{padding:1px 4px!important;gap:4px!important}
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar button{height:30px!important;min-width:44px!important}
+html.hapil-touch-v31366 .hm-movement{gap:5px!important}
+html.hapil-touch-v31366 .hm-stick{width:78px!important;height:78px!important}
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339{padding:0 3px!important;align-items:center}
+html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339 .flow-status-v31369{min-height:18px!important;font-size:9px!important}
+html.hapil-touch-v31366 .hm-actions [data-mobile-action="S"] b{font-size:23px}
+@media(max-width:1000px){
+ html:not(.hapil-touch-v31366) .game{grid-template-columns:190px minmax(0,1fr)!important;grid-template-rows:30px minmax(0,1fr) 90px!important}
+ html:not(.hapil-touch-v31366) .game>.combat-hud{grid-template-columns:180px minmax(0,1fr)!important}
+ html:not(.hapil-touch-v31366) .action-stack{grid-template-columns:1fr!important;grid-template-rows:1fr 22px!important}
+ html:not(.hapil-touch-v31366) .action-utilities{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ html:not(.hapil-touch-v31366) .skills button small{display:none!important}
+ html:not(.hapil-touch-v31366) .action-stack .skills button{min-height:40px!important}
+}
+@media(orientation:portrait){
+ html.hapil-touch-v31366 .game{grid-template-columns:98px minmax(0,1fr)!important;grid-template-rows:40px 28px minmax(0,1fr) 116px!important}
+ html.hapil-touch-v31366 .hm-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:1fr!important;grid-column:2;grid-row:4}
+ html.hapil-touch-v31366 .hm-movement{grid-column:1;grid-row:4}
+ html.hapil-touch-v31366 .hm-pose{display:none}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar button{min-width:36px!important;height:34px!important}
+ html.hapil-touch-v31366 .hm-status{font-size:10px!important;padding:3px!important}
+}
+html body .game .combat-hud .action-stack .skills button[data-control-key="S"]{display:flex!important}

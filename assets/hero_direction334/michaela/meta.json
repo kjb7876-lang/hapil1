@@ -1,0 +1,219 @@
+{
+  "heroId": "michaela",
+  "generatedBy": "image_gen",
+  "source": "docs/direction334/source/michaela.png",
+  "style": "preserved original hero costume and weapon; articulated six combat poses",
+  "sheetLayout": [
+    [
+      "nw",
+      "w",
+      "sw"
+    ],
+    [
+      "ne",
+      "e",
+      "se"
+    ]
+  ],
+  "backgroundExtraction": "Unique chroma-green matte extracted with edge despill using Sharp; original generation had RGB background.",
+  "poses": {
+    "nw": {
+      "file": "nw.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.171315,
+        0.06583
+      ],
+      "anchor": [
+        0.586476,
+        0.953381
+      ],
+      "chest": [
+        0.559568,
+        0.438525
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        54,
+        13,
+        377,
+        488
+      ],
+      "nominalAngle": -135,
+      "measuredWeaponAngle": -138.58,
+      "angleErrorDegrees": 3.58,
+      "landmarkMethod": "manual inspection of visible muzzle/palm or spear tip and opposite aim point"
+    },
+    "w": {
+      "file": "w.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.101309,
+        0.311149
+      ],
+      "anchor": [
+        0.635459,
+        0.953368
+      ],
+      "chest": [
+        0.58166,
+        0.4419
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        534,
+        50,
+        431,
+        451
+      ],
+      "nominalAngle": 180,
+      "measuredWeaponAngle": -177.02,
+      "angleErrorDegrees": 2.98,
+      "landmarkMethod": "manual inspection of visible muzzle/palm or spear tip and opposite aim point"
+    },
+    "sw": {
+      "file": "sw.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.136185,
+        0.70738
+      ],
+      "anchor": [
+        0.61421,
+        0.953375
+      ],
+      "chest": [
+        0.554697,
+        0.457541
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        1082,
+        64,
+        410,
+        437
+      ],
+      "nominalAngle": 135,
+      "measuredWeaponAngle": 141.34,
+      "angleErrorDegrees": 6.34,
+      "landmarkMethod": "manual inspection of visible muzzle/palm or spear tip and opposite aim point"
+    },
+    "ne": {
+      "file": "ne.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.854358,
+        0.106536
+      ],
+      "anchor": [
+        0.366493,
+        0.953388
+      ],
+      "chest": [
+        0.389542,
+        0.446429
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        58,
+        504,
+        422,
+        476
+      ],
+      "nominalAngle": -45,
+      "measuredWeaponAngle": -41.13,
+      "angleErrorDegrees": 3.87,
+      "landmarkMethod": "manual inspection of visible muzzle/palm or spear tip and opposite aim point"
+    },
+    "e": {
+      "file": "e.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.892896,
+        0.326691
+      ],
+      "anchor": [
+        0.36453,
+        0.953371
+      ],
+      "chest": [
+        0.374137,
+        0.443953
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        565,
+        535,
+        430,
+        444
+      ],
+      "nominalAngle": 0,
+      "measuredWeaponAngle": -0.81,
+      "angleErrorDegrees": 0.81,
+      "landmarkMethod": "manual inspection of visible muzzle/palm or spear tip and opposite aim point"
+    },
+    "se": {
+      "file": "se.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.858052,
+        0.728584
+      ],
+      "anchor": [
+        0.404946,
+        0.955301
+      ],
+      "chest": [
+        0.397267,
+        0.471126
+      ],
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        1078,
+        547,
+        412,
+        430
+      ],
+      "nominalAngle": 45,
+      "measuredWeaponAngle": 39.45,
+      "angleErrorDegrees": 5.55,
+      "landmarkMethod": "manual inspection of visible muzzle/palm or spear tip and opposite aim point"
+    }
+  }
+}

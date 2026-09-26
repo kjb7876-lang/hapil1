@@ -1,0 +1,103 @@
+{
+  "heroId": "lauren",
+  "assetVersion": "v338",
+  "generatedBy": "image_gen",
+  "sourceEdit": true,
+  "source": "QA/lauren_v338_generated_source.png",
+  "layout": [
+    "n",
+    "s"
+  ],
+  "canvas": [
+    1774,
+    887
+  ],
+  "cell": [
+    887,
+    887
+  ],
+  "background": "native transparent alpha; isolated alpha flecks under 8 source pixels removed",
+  "continuity": "Preserves six existing V334 poses; matches their dark-violet coat, silver armor, amethyst spear and detailed painterly 2.5D finish.",
+  "poses": {
+    "n": {
+      "path": "./assets/hero_direction338/lauren/n.webp",
+      "file": "n.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.6291,
+        0.0101
+      ],
+      "weaponBase": [
+        0.6009,
+        0.8929
+      ],
+      "chest": [
+        0.5023,
+        0.4724
+      ],
+      "anchor": [
+        0.5603,
+        0.9459
+      ],
+      "headY": 0.2446,
+      "bodySpan": 0.7013,
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        0,
+        0,
+        887,
+        887
+      ],
+      "nominalAngleDegrees": -90,
+      "aimAngleDegrees": -90,
+      "measuredWeaponAngle": -90,
+      "landmarkMethod": "Manual inspection: amethyst spear tip, shaft counter-tip, sternum, head crown and midpoint between the feet."
+    },
+    "s": {
+      "path": "./assets/hero_direction338/lauren/s.webp",
+      "file": "s.webp",
+      "width": 512,
+      "height": 512,
+      "muzzle": [
+        0.4577,
+        0.9628
+      ],
+      "weaponBase": [
+        0.4599,
+        0.159
+      ],
+      "chest": [
+        0.5004,
+        0.4724
+      ],
+      "anchor": [
+        0.5175,
+        0.9402
+      ],
+      "headY": 0.2244,
+      "bodySpan": 0.7158,
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceCrop": [
+        887,
+        0,
+        887,
+        887
+      ],
+      "nominalAngleDegrees": 90,
+      "aimAngleDegrees": 90,
+      "measuredWeaponAngle": 90,
+      "landmarkMethod": "Manual inspection: amethyst spear tip, shaft counter-tip, sternum, head crown and midpoint between the feet."
+    }
+  }
+}
