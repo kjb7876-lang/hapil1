@@ -40719,6 +40719,17 @@ var wr = (e) => (N[e].order <= N.dreamRest.order ? 11 : ve),
     showAttackTelegraphs: !0,
   },
   Vr = `./`;
+function HAPIL_resolveCombatModeV31329(settings = {}) {
+  const mode = settings?.combatMode;
+  if ([`manual`, `semi`, `full`].includes(mode)) return mode;
+  return settings?.autoCombat === true ? `full` : Br.combatMode;
+}
+function HAPIL_isFullAutoV31329(settings = {}) {
+  const mode = settings?.combatMode;
+  return [`manual`, `semi`, `full`].includes(mode)
+    ? mode === `full`
+    : settings?.autoCombat === true;
+}
 var MONGSE_storageMemory = new Map();
 function MONGSE_storageGet(e) {
   if (typeof window === `undefined`) return MONGSE_storageMemory.get(e) ?? null;
@@ -49723,6 +49734,17 @@ function MONGSE_telegraphDamageMultiplier31226(e, t) {
   }
   return Math.max(0.52, Math.min(1.2, 0.52 + Math.max(0, o) * 0.68));
 }
+function HAPIL_blinkVectorV31345(input, facing, automaticVector = null) {
+  let x = input?.has?.(`ArrowRight`) ? 1 : input?.has?.(`ArrowLeft`) ? -1 : 0;
+  let y = input?.has?.(`ArrowDown`) ? 1 : input?.has?.(`ArrowUp`) ? -1 : 0;
+  if (!x && !y && automaticVector && Number.isFinite(automaticVector.x) && Number.isFinite(automaticVector.y)) {
+    x = automaticVector.x;
+    y = automaticVector.y;
+  }
+  if (!x && !y) x = Number(facing) < 0 ? -1 : 1;
+  const length = Math.max(1, Math.hypot(x, y));
+  return Object.freeze({ x: x / length, y: y / length });
+}
 function MONGSE_planAutoSkill(e, t, n = {}) {
   if (
     !e ||
@@ -50836,9 +50858,11 @@ function Pi() {
         e.visualDefaults388 === !0 ||
         e.visualDefaults387 === !0 ||
         e.visualDefaults385 === !0;
+    const MONGSE_resolvedCombatModeV31329 = HAPIL_resolveCombatModeV31329(e);
     return Object.fromEntries(
       Object.entries(Br).map(([n, r]) => {
-        if (n === `combatMode`) return [n, [`manual`,`semi`,`full`].includes(e[n]) ? e[n] : Object.prototype.hasOwnProperty.call(e,`autoCombat`)?(e.autoCombat===true?`full`:`manual`):r];
+        if (n === `combatMode`) return [n, MONGSE_resolvedCombatModeV31329];
+        if (n === `autoCombat`) return [n, MONGSE_resolvedCombatModeV31329 === `full`];
         if (n === `skillFxOpacity`) {
           return [n, HAPIL_opacityV31317(e[n], r)];
         }
@@ -51367,10 +51391,11 @@ function Ri() {
     }, []);
   let MONGSE_setAutoCombatV31301 = (0, l.useCallback)((enabled) => {
     const next = enabled === !0;
+    const nextMode = next ? `full` : `semi`;
     Re.current = next;
     p(next);
     window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = next;
-    MONGSE_updateSettings31229((current) => ({ ...current, autoCombat: next }));
+    MONGSE_updateSettings31229((current) => ({ ...current, autoCombat: next, combatMode: nextMode }));
     if (!next) {
       if (P.current?.target?.autoProgressV31301 === !0) hi(P.current);
       MONGSE_resetHeroAutoDodge31223(P.current, `toggle-off`);
@@ -51389,12 +51414,12 @@ function Ri() {
       ze.current = v;
     }, [v]),
     (0, l.useEffect)(() => {
-      const active = v.autoCombat === !0;
+      const active = HAPIL_isFullAutoV31329(v);
       Re.current = active;
       p(active);
       window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = active;
       if (!active && P.current?.target?.autoProgressV31301 === !0) hi(P.current);
-    }, [v.autoCombat]),
+    }, [v.autoCombat, v.combatMode]),
     (0, l.useEffect)(() => {
       R.current = m;
     }, [m]),
@@ -52670,21 +52695,11 @@ function Ri() {
       // RC18: blink has no cooldown.
       let n = F.find((e) => e.id === L.current) ?? F[0],
         r = gr(n.id, R.current[fr(n.id)] ?? 0),
-        i = I.current.has(`ArrowRight`)
-          ? 1
-          : I.current.has(`ArrowLeft`)
-            ? -1
-            : 0,
-        a = I.current.has(`ArrowDown`) ? 1 : I.current.has(`ArrowUp`) ? -1 : 0,
-        o = t.enemies.find((e) => e.id === t.targetEnemyId);
-      !(i || a) && o
-        ? ((i = t.x - o.x), (a = t.y - o.y))
-        : !(i || a) && t.target
-          ? ((i = t.target.x - t.x), (a = t.target.y - t.y))
-          : i || a || (i = t.facing);
-      if(t.simpleDodgeVectorV31368){i=t.simpleDodgeVectorV31368.x;a=t.simpleDodgeVectorV31368.y;}
-      let s = Math.max(1, Math.hypot(i, a));
-      ((i /= s), (a /= s));
+        {x:i,y:a}=HAPIL_blinkVectorV31345(
+          I.current,
+          t.facing,
+          t.combatModeV31329 === `full` ? t.simpleDodgeVectorV31368 : null,
+        );
       let c = t.x,
         l = t.y,
         u = { x: b(t.x + i * 2.25), y: b(t.y + a * 2.25) },
@@ -53572,7 +53587,8 @@ function Ri() {
       }
       const step = () => {
         if (window.__HAPIL_PARTY_V31322__?.blocksNativeInput() || window.__HAPIL_CHANNEL_V31364__?.active(P.current)) return;
-        const active = Re.current === !0;
+        const active = HAPIL_isFullAutoV31329(ze.current);
+        Re.current = active;
         window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = active;
         window.__HAPIL_FLOW_V31343__?.bind(P.current,{
           blocked:()=>!!(Ve.current||O),
@@ -99738,7 +99754,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
  */
 
 function HAPIL_autoProgressPlanV31301(state, settings, blocked = false) {
-  const disabled = !state || settings?.autoCombat !== true || settings?.autoPortal === false;
+  const disabled = !state || !HAPIL_isFullAutoV31329(settings) || settings?.autoPortal === false;
   if (disabled) return Object.freeze({ action: "idle", reason: "auto-disabled" });
   if (blocked) return Object.freeze({ action: "wait", reason: "overlay-active" });
   if (Number(state.autoProgressBusyUntilV31301 ?? 0) > Number(state.time ?? 0))
@@ -99796,9 +99812,12 @@ function HAPIL_autoProgressPlanV31301(state, settings, blocked = false) {
 function HAPIL_driveAutoProgressV31301(state, settings, blocked, interact) {
   if (state)
     state.autoProgressEnabledV31301 =
-      settings?.autoCombat === true && settings?.autoPortal !== false;
-  const proximityPlan = HAPIL_autoProgressPlanV31301(state, {...settings,autoCombat:true,autoPortal:true}, blocked || !(state?.hp>0));
-  const plan = proximityPlan.action==='interact' && /portal$/.test(proximityPlan.reason)
+      HAPIL_isFullAutoV31329(settings) && settings?.autoPortal !== false;
+  const canProgress = HAPIL_isFullAutoV31329(settings) && settings?.autoPortal !== false;
+  const proximityPlan = canProgress
+    ? HAPIL_autoProgressPlanV31301(state, {...settings,combatMode:`full`,autoCombat:true,autoPortal:true}, blocked || !(state?.hp>0))
+    : null;
+  const plan = canProgress && proximityPlan?.action==='interact' && /portal$/.test(proximityPlan.reason)
     ? proximityPlan : HAPIL_autoProgressPlanV31301(state, settings, blocked);
   if (!state) return plan;
   state.autoProgressActionV31301 = plan.action;
@@ -99878,12 +99897,12 @@ function HAPIL_ClueOverlayV31301({ clue, close, autoAdvance = false }) {
 }
 
 function HAPIL_AutoBattleSettingsV31301({ settings, set }) {
- const C=window.__HAPIL_CONTROLS_V31329__,mode=C?.effective(settings)??`manual`,two=C?.localTwo();
+ const C=window.__HAPIL_CONTROLS_V31329__,mode=C?.effective(settings)??`semi`,two=C?.localTwo();
  return (0,q.jsxs)(`section`,{className:`auto-battle-settings-v31301`,"data-settings-section":`auto-battle`,children:[
  (0,q.jsx)(`h3`,{children:`전투 모드 · 3단계`}),
- (0,q.jsx)(`p`,{children:two?`2인에서는 반자동 이상을 사용합니다. 1P WASD+1~6 / 2P 방향키+Num1~6 (J K L U I O 대체).`:`수동: A로 공격 / 반자동: 사거리 안에서 자동 공격 / 완전자동: 이동·공격 자동. 모든 모드에서 기술은 공격마다 확률 발동하며 수동 이동·방어가 우선합니다.`}),
+ (0,q.jsx)(`p`,{children:two?`2인에서는 반자동 이상을 사용합니다. 1P WASD+1~6 / 2P 방향키+Num1~6 (J K L U I O 대체).`:`수동: 직접 공격 / 반자동: 가까운 적에 자동 공격·공격 스킬, 이동·블링크는 수동 / 완전자동: 자동 이동·회피와 캠페인 엔딩까지 진행.`}),
  (0,q.jsx)(`div`,{className:`hapil-mode-options`,role:`radiogroup`,"aria-label":`전투 모드`,children:[[`manual`,`수동`],[`semi`,`반자동`],[`full`,`완전자동`]].map(([id,name])=>(0,q.jsxs)(`label`,{children:[(0,q.jsx)(`input`,{type:`radio`,name:`hapil-combat-mode`,checked:mode===id,disabled:two&&id===`manual`,onChange:()=>C?.setMode(id,set)}),name]},id))}),
- (0,q.jsx)(`p`,{children:`1인: 이동 방향키·마우스 / A 공격 · S 회피 · D 방어 · F 상호작용 / 기술 확률 발동 / Shift+A 각성 차지 / 1 공명실 · 2 콜라보 · 3 표적 · 4 지도 · 5 설정`}),
+ (0,q.jsx)(`p`,{children:`1인: 방향키·마우스 이동 / 반자동 공격·공격 스킬 자동 / S+방향키 블링크 · D 방어 · F 상호작용 / 1 공명실 · 2 콜라보 · 3 표적 · 4 지도 · 5 설정`}),
  ...[[`autoPortal`,`완전자동: 전투 후 포탈 이동`],[`autoStoryAdvance`,`완전자동: 대사 자동 진행`],[`autoSkillTree`,`완전자동: 자동 성장`],[`guideHints`,`단계별 첫 전투 안내`]].map(([key,name])=>(0,q.jsxs)(`label`,{className:`hapil-control-setting`,children:[(0,q.jsx)(`input`,{type:`checkbox`,checked:settings[key]===true,disabled:key!==`guideHints`&&mode!==`full`,onChange:()=>set(v=>({...v,[key]:v[key]!==true}))}),name]},key)),
  (0,q.jsx)(`p`,{children:`루시퍼 체험: 게임 화면의 체험 버튼. 본편 저장과 진행도를 유지한 채 패턴을 연습합니다. 2인 추가 행동: 1P Q 공명실 / E 방어 / C 콜라보 / F 상호작용 / V 표적 / B 지도 / F1 설정.`})]});
 }
@@ -121427,8 +121446,8 @@ window.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V3
  const stats={commits:0,blocked:0,attempts:0},stateMemory=new WeakMap(),automaticBasics=new WeakSet();
  function basic(s,automatic,execute){if(!automatic)return execute?.();automaticBasics.add(s);try{return execute?.();}finally{automaticBasics.delete(s);}}
  function manualAwakeningAllowed(s){return !automaticBasics.has(s)||controls()?.effective()==='full';}
- // Classification follows the actual 32-skill data: guard/dash/ultimate remain decisions.
- function repeatSkill(skill){return !!skill&&skill.kind==='damage';}
+ // Repeat offensive attacks and charged ultimates; movement and guard skills remain decisions.
+ function repeatSkill(skill){return !!skill&&['damage','ultimate'].includes(skill.kind);}
  function validTarget(s,t){return !!s&&!!t&&num(t.hp)>0&&Number.isFinite(Number(t.x))&&Number.isFinite(Number(t.y))
   &&!t.visualOnly&&!t.protectedNarrativeTargetV31307&&!t.protectedNarrativeTargetV31238
   &&t.targetable!==false&&t.destructible!==false&&t.autoTarget!==false
@@ -121444,9 +121463,9 @@ window.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V3
   return Math.max(native,awake?c.detectionRange:0,((window.__HAPIL_COMBAT_V31333__?.radius(hero.id)??native)-10)*up.rangeMultiplier+10);}
  function plan(s,hero,passives){if(!s||!hero)return null;const m=memory(s),skills=hero.skills??[];
   for(let offset=0;offset<skills.length;offset++){const index=(m.cursor+offset)%skills.length,skill=skills[index];
-   if(!repeatSkill(skill)||num(s.cooldowns?.[skill.key])>s.time)continue;
+   if(!repeatSkill(skill)||(skill.kind==='ultimate'&&num(s.resonance)<100)||num(s.cooldowns?.[skill.key])>s.time)continue;
    const reach=range(s,hero,index,passives),rows=(s.enemies??[]).filter(t=>validTarget(s,t)&&MONGSE_combatDistance(s,t)<=reach)
-    .sort((a,b)=>Number(b.id===s.targetEnemyId)-Number(a.id===s.targetEnemyId)||J(s,a)-J(s,b));
+    .sort((a,b)=>J(s,a)-J(s,b));
    const target=window.__HAPIL_DIRECTION_V31334__?.candidates(s,s,rows,skill.key,hero.id)?.[0]??rows[0];
    if(target)return {index,key:skill.key,target,reach};
   }return null;}
@@ -123165,7 +123184,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   if((s.enemies??[]).some(e=>e.hp>0&&!e.visualOnly&&J(p,e)<MONGSE_enemyHitRadius(e)+.7))return false;
   return true;
  }
- function evasive(s,dt){if(!(dt>0)||blocked(s)||!awake(s)||D()?.active(s)||isCharging(s)||n(s.invulnerableUntil)>s.time||n(s.timeStopUntil)>s.time||window.__HAPIL_MOVEMENT_V31336__?.statusLocked(s,s))return false;
+ function evasive(s,dt){const control=window.__HAPIL_CONTROLS_V31329__,binding=control?.binding;if(!binding||control.effective(binding.settings?.current)!=='full'||!(dt>0)||blocked(s)||!awake(s)||D()?.active(s)||isCharging(s)||n(s.invulnerableUntil)>s.time||n(s.timeStopUntil)>s.time||window.__HAPIL_MOVEMENT_V31336__?.statusLocked(s,s))return false;
   const m=mem(s);if(s.time<m.blinkAt)return false;const hit=imminent(s);if(!hit)return false;
   const combat=window.__HAPIL_COMBAT_V31333__,context=combat?.dangerContext(s,s);if(!context)return false;
   const target=(s.enemies??[]).filter(t=>valid(s,t)).sort((a,b)=>Number(b.id===s.targetEnemyId)-Number(a.id===s.targetEnemyId)||J(s,a)-J(s,b))[0],ideal=role(s.activeHeroId).hold;
@@ -123326,13 +123345,15 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function noteA(s){if(s&&!casting.has(s))mem(s).intent=s.time+.9;}
  function blocked(s){const b=C()?.binding,common=!b||b.state?.current!==s||b.phase!=='game'||s.hp<=0||b.modal?.current||b.blocked?.()||document.hidden||window.__HAPIL_READING_V31342__?.blocked||P()?.blocksNativeInput?.()||P()?.status?.paused||L()?.blocked(s);return !window.__HAPIL_ACTION_CONTRACT_V31406__.decide('AUTO_SKILL',{blocked:common,defending:!!D()?.active(s),charging:!!L()?.isCharging(s),timeStopped:n(s.timeStopUntil)>s.time,statusLocked:!!window.__HAPIL_MOVEMENT_V31336__?.statusLocked(s,s)}).allowed;}
  function valid(s,e){return e.hp>0&&!e.visualOnly&&!e.objectiveStructureV31238&&!e.protectedNarrativeTargetV31307&&n(e.invulnerableUntil)<=s.time;}
- function dodge(s){if(n(s.invulnerableUntil)>s.time||!L()?.imminent(s,.2))return false;const c=window.__HAPIL_COMBAT_V31333__,ctx=c?.dangerContext(s,s);if(!ctx)return false;const b=C().binding,h=s.activeHeroId,g=gr(h,b.passives?.current?.[fr(h)]??0),distance=2.25+n(g.dashBonus)*.55;
+ function dodge(s){const control=C(),b=control?.binding;if(!b||control.effective(b.settings?.current)!=='full'||n(s.invulnerableUntil)>s.time||!L()?.imminent(s,.2))return false;const c=window.__HAPIL_COMBAT_V31333__,ctx=c?.dangerContext(s,s);if(!ctx)return false;const h=s.activeHeroId,g=gr(h,b.passives?.current?.[fr(h)]??0),distance=2.25+n(g.dashBonus)*.55;
   const risk=p=>Math.max(...[0,.2,.45].map(t=>c.dangerAt(s,p,ctx,t)+(window.__HAPIL_LASERS_V31330__?.danger(s,p,t)??0)+(window.__HAPIL_BOSSES_V31334__?.danger(s,p,t)??0)));
   let best=null;for(let i=0;i<16;i++){const angle=i*Math.PI/8,v={x:Math.cos(angle),y:Math.sin(angle)},p=dt(s.zone,{x:s.x+v.x*distance,y:s.y+v.y*distance},.46);if(!L().safePoint(s,p)||J(s,p)<1)continue;const score=risk(p);if(score>2.5)continue;if(!best||score<best.score)best={v,score};}
   if(!best)return false;const before=s.lastDodgeAt;s.simpleDodgeVectorV31368=best.v;try{b.actions.dash();}finally{delete s.simpleDodgeVectorV31368;}if(s.lastDodgeAt!==before){stats.dodges++;return true;}return false;
  }
  function tick(s,dt){const m=mem(s);if(!(dt>0)||blocked(s)){m.intent=-1;return;}
-  dodge(s);const b=C().binding,mode=C().effective(b.settings?.current),held=C().hasHeldLogical('KeyA')||b.input.current.has('KeyA');
+  const b=C().binding,mode=C().effective(b.settings?.current),held=C().hasHeldLogical('KeyA')||b.input.current.has('KeyA');
+  if(mode==='full')dodge(s);
+  if(mode==='semi'){const nearest=(s.enemies??[]).filter(e=>valid(s,e)&&J(s,e)<=L().role(s.activeHeroId).range*1.3).sort((a,b)=>J(s,a)-J(s,b))[0];if(nearest)s.targetEnemyId=nearest.id;}
   if(!held&&mode==='manual'&&s.time>m.intent)return;
   if(!Number.isFinite(s.lastAttack)||s.lastAttack===m.procAttack||s.time-s.lastAttack>.3)return;m.procAttack=s.lastAttack;
   if(!(s.enemies??[]).some(e=>valid(s,e)&&J(s,e)<=L().role(s.activeHeroId).range*1.3))return;

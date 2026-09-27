@@ -7,8 +7,9 @@ const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const source = fs.readFileSync(path.join(root, 'assets/rc15/hero-controls.js'), 'utf8');
 
-assert(html.includes('./assets/rc15/hero-controls.js?v=33801'),
-  'hero controls must use a fresh cache key for the launch readiness fix');
+const controllerVersion = html.match(/\.\/assets\/rc15\/hero-controls\.js\?v=(\d+)/);
+assert(controllerVersion && Number(controllerVersion[1]) >= 34501,
+  'hero controls must use a fresh cache key for RC45');
 
 const window = {
   addEventListener() {},

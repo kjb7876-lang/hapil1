@@ -39,7 +39,7 @@
  const P2_MOVE={ArrowUp:[0,-1],ArrowLeft:[-1,0],ArrowDown:[0,1],ArrowRight:[1,0]};
  const P2_ACTION={Numpad1:'q',Numpad2:'w',Numpad3:'e',Numpad4:'r',Numpad5:'dash',Numpad6:'attack',KeyJ:'q',KeyK:'w',KeyL:'e',KeyU:'r',KeyI:'dash',KeyO:'attack',KeyP:'guard',Numpad7:'guard'};
  function localTwo(){const p=P();return !!p&&p.status?.role!=='guest'&&(p.roster??[]).some(r=>r.control==='local');}
- function choice(settings=binding?.settings?.current){const v=settings?.combatMode;return MODES.includes(v)?v:settings?.autoCombat===true?'full':'manual';}
+ function choice(settings=binding?.settings?.current){const v=settings?.combatMode;return MODES.includes(v)?v:settings?.autoCombat===true?'full':'semi';}
  function effective(settings=binding?.settings?.current){const m=choice(settings);return localTwo()&&m==='manual'?'semi':m;}
  function label(key){if(localTwo())return ({A:'6',S:'5',Q:'1',W:'2',E:'3',R:'4',G:'Q',D:'E',F:'F',Collab:'C',Tab:'V',M:'B',Settings:'F1'})[key]??key;return ({G:'1',Collab:'2',Tab:'3',M:'4',Settings:'5'})[key]??key;}
  const Action=window.__HAPIL_ACTION_CONTRACT_V31406__;
@@ -120,7 +120,7 @@ if(logical==='KeyA'&&!Array.from(held.values()).includes(logical)&&!(binding.sta
    const motion=s.heroMotion;if(window.__HAPIL_MOVING_V31335__?.hardLocked(s,s)||motion?.until>s.time&&['hurt','dash'].includes(motion.kind))return false;
    const h=native.F.find(h=>h.id===(b.hero?.current??s.activeHeroId))??native.F[0],range=((window.__HAPIL_LOOP_V31365__?.role(h.id).range??(0,native.MONGSE_heroRoleProfile31222)(h.id).basicAttackRange)-10)*(0,native.ar)((0,native.ir)((0,native.HAPIL_effectiveGrowthV31400)(b.passives?.current??{},s),'attack')).reachMultiplier+10;
    const targets=(s.enemies??[]).filter(t=>(window.__HAPIL_COMBAT_V31343__?.validTarget(s,t)??(t.hp>0&&!t.visualOnly&&!t.protectedNarrativeTargetV31307&&!t.phaseTransitionActive&&(0,native.MONGSE_objectiveDamageAllowedV31309)(s,t)))&&(0,native.MONGSE_combatDistance)(s,t)<=range).sort((a,c)=>(0,native.J)(s,a)-(0,native.J)(s,c));
-   if(!targets.length)return false;if(!targets.some(t=>t.id===s.targetEnemyId))s.targetEnemyId=targets[0].id;
+   if(!targets.length)return false;if(m==='semi'||!targets.some(t=>t.id===s.targetEnemyId))s.targetEnemyId=targets[0].id;
    const at=s.lastAttack;const attack=b.actions?.attack??b.attack;if(window.__HAPIL_COMBAT_V31343__)window.__HAPIL_COMBAT_V31343__.basic(s,!manual,attack);else attack?.();if(s.lastAttack!==at){if(m==='semi')diagnostics.semiAttacks++;return true;}return false;
  }
  const localMemory=new WeakMap();
@@ -167,9 +167,12 @@ if(logical==='KeyA'&&!Array.from(held.values()).includes(logical)&&!(binding.sta
  function renderHUD(){if(!binding||!document?.getElementById)return;const s=binding.state.current,root=document.getElementById('hapil-control-hud-v31329');if(!root)return;root.hidden=binding.phase!=='game';if(root.hidden)return;
    const mode=effective(),local=localTwo(),g=guide(s),show=binding.settings.current.guideHints!==false;
    root.querySelector('[data-mode]').textContent=(local?'2인 · ':'')+TITLES[mode]+(s.practiceV31329?(s.raidV31330?' · 루시퍼 협동 체험 (저장 안 함)':' · 루시퍼 체험 (저장 안 함)'):'');
-   const tips=local?['WASD / 방향키로 이동하세요. 기본 공격은 자동입니다.','양쪽 5번으로 예고 범위를 피하세요. 숫자패드 없이 2P I도 가능합니다.','양쪽 1~4로 스킬을 직접 사용하세요. 2P J/K/L/U 대체키도 가능합니다.','1P Q 공명실 · C 콜라보. 본체가 회복하는 틈을 노리세요.','본 공격과 잔류탄을 구별하고 스킬 타이밍을 직접 조절하세요.']:['방향키·마우스로 이동하세요. 전투는 A 사격과 D 공명 방어 중심입니다. A 입력 중 준비된 기술을 순차 사용합니다.','임박한 탄막과 안전 착지가 확인되면 S 블링크가 쿨다운에 맞춰 자동 발동합니다.','Q/W/E/R·공명실·콜라보는 A 입력 또는 자동 모드에서 준비되면 순차 발동합니다. 자동 E는 원거리 투사입니다.','D 유지: 정지·무적·회복 / 실제 차단으로 공명 / 100 EGO / EGO 중 A 홀드·해제 차지','공격 준비 → 위험 회피 → 반격. 5에서 전투 모드를 바꿀 수 있습니다.'];
+   const tips=local?['WASD / 방향키로 이동하세요. 기본 공격은 자동입니다.','양쪽 5번으로 예고 범위를 피하세요. 숫자패드 없이 2P I도 가능합니다.','양쪽 1~4로 스킬을 직접 사용하세요. 2P J/K/L/U 대체키도 가능합니다.','1P Q 공명실 · C 콜라보. 본체가 회복하는 틈을 노리세요.','본 공격과 잔류탄을 구별하고 스킬 타이밍을 직접 조절하세요.']:['반자동은 가장 가까운 적을 우선 공격하고 공격 스킬을 자동 사용합니다. 이동과 S 블링크는 직접 조작하세요.','S와 방향키를 함께 누르면 입력한 방향으로 블링크합니다.','자동 회피와 캠페인 엔딩까지의 자동 진행은 완전자동에서만 작동합니다.','D 유지: 정지·무적·회복 / 실제 차단으로 공명 / 100 EGO / EGO 중 A 홀드·해제 차지','공격 준비 → 위험 회피 → 반격. 5에서 전투 모드를 바꿀 수 있습니다.'];
    root.querySelector('[data-guide]').textContent=show?`${Math.min(4,g.stage+1)}/4 · ${tips[g.stage]}`:(local?'1P WASD + 1~6 / 2P 방향키 + Num1~6 (J K L U I O)':'이동 방향키·마우스 / A S D F · Q W E R · 1 2 3 4 5');
-   const hit=s.combatFeedbackV31329?.at(-1);root.querySelector('[data-hit]').textContent=hit&&s.time-hit.at<8?`${hit.slot} ${hit.kind} −${hit.damage} · ${hit.source}`:'퇴장 이미지는 약한 접촉 피해 · 숨겨진 경로에는 피해 없음';
+   const hit=s.combatFeedbackV31329?.at(-1),event=window.__HAPIL_COMBAT_CORE_V31401__?.snapshot(s)?.events?.at(-1),reasons={'native-invulnerability':'무적 시간 중 접촉','D-held-no-credit':'공명 방어로 차단','ego-protection':'EGO 보호 효과','native-rehit-ledger':'같은 공격 재접촉 제한','rc24-image-contact-cooldown':'같은 연출의 중복 접촉 제한','native-damage-budget':'피해 상한 또는 방어로 피해 0'};
+   const blocked=event?.kind==='CONTACT'&&event.targetId==='__host'&&s.time-event.time<2?reasons[event.reason]:null;
+   const showBlocked=!!blocked&&(!hit||s.time-hit.at>=8||event.time>hit.at);
+   root.querySelector('[data-hit]').textContent=showBlocked?`피격 판정: ${blocked}`:hit&&s.time-hit.at<8?`${hit.slot} ${hit.kind} −${hit.damage} · ${hit.source}`:'최근 피격 기록 없음 · 실제 충돌 후 피해가 적용됩니다';
    window.__HAPIL_READABILITY_V31336__?.presentSaveNotice(root);
    root.querySelector('[data-return]').hidden=!practice||P()?.status?.role==='guest';root.querySelector('[data-practice]').hidden=!!s.practiceV31329||P()?.status?.role==='guest';
    document.body.dataset.hapilGuide=show&&!local?String(g.stage):'4';
