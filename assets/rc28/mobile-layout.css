@@ -98,6 +98,7 @@ html.hapil-touch-v31366 .hm-stick{
 html.hapil-touch-v31366 .hm-stick>span{
   width:38px!important;height:38px!important;left:calc(50% - 19px)!important;top:calc(50% - 19px)!important;
   border:1px solid #9bb8ce!important;background:#57758ac9!important;box-shadow:none!important;
+  transform:translate3d(var(--stick-x,0px),var(--stick-y,0px),0)!important;will-change:transform;
 }
 html.hapil-touch-v31366 .hm-actions{
   right:calc(env(safe-area-inset-right,0px) + 10px)!important;
