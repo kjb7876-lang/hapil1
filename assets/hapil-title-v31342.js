@@ -84,7 +84,8 @@
   };
 
   const show = (phase) => {
-    const values = copy[phase];
+    if(window.__HAPIL_STORY_RC51__?.replacesLegacy && phase!=='ending-title')return;
+    const values = phase==='ending-title' && window.__HAPIL_STORY_DATA_RC51__ ? ['合一夢世','合一夢世','사이비는 사라지고 합일몽세만이 남았다. 나는 그 세계를 유지하는 몽세수호자가 되었다.'] : copy[phase];
     if (!values || !document.body) return;
     const overlay = ensureOverlay();
     overlay.dataset.phase = phase;

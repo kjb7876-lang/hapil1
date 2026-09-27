@@ -22,6 +22,7 @@
         if (!MONGSE_objectiveDamageAllowedV31309(a, o)) { const invulnerable=a.time<(o.invulnerableUntil??0);core.mark(a,o,invulnerable?'INVULNERABLE':'REJECTED',invulnerable?'enemy-invulnerable':'objective-or-target-protected'); return; }
         if (a.time < (o.invulnerableUntil ?? 0)) { core.mark(a, o, 'INVULNERABLE', 'enemy-invulnerable'); return; }
         if (!Number.isFinite(o.hp) || !Number.isFinite(o.maxHp)) { core.mark(a, o, 'REJECTED', 'invalid-enemy-health'); return; }
+        t *= window.__HAPIL_STORY_RC51__?.power(a) ?? 1;
         t *= window.__HAPIL_PARTY_BUFFS_V31322__?.power(a, o, r, HAPIL_hitSourceV31315) ?? 1;
         t *= window.__HAPIL_AI_V31338__?.power(HAPIL_hitSourceV31315?.heroId??HAPIL_hitSourceV31315?.heroId31213??HAPIL_hitSourceV31315?.impactHeroIdV31315??a.activeHeroId) ?? 1;
         t = window.__HAPIL_SKILL_COMPLETION_V31412__?.scaleBasicDamage(t,HAPIL_hitSourceV31315) ?? t;

@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep uploaded canonical prose byte-exact across Windows and Unix checkouts.
+data/rc51/canonical.txt -text -diff
