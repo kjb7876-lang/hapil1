@@ -34308,7 +34308,7 @@ function Gn(e, t, n, r, i) {
         e.moveTo(s.x, s.y - (n.originAdjusted ? 0 : 22)),
         e.lineTo(r, l - MONGSE_projectileLift),
         e.stroke());
-    else if (_ && g) {
+    else if (_ && g && !n.hitArtRC46) {
       let n = i.lowFx ? 1 : 2;
       for (let r = n; r >= 1; r--) {
         let n = Math.max(0, t - r * 0.11),
@@ -34329,10 +34329,12 @@ function Gn(e, t, n, r, i) {
       e.rotate(f === null ? 0 : p),
       _ && g)
     ) {
-      let t = n.ultimate ? 84 : i.lowFx ? 54 : 74;
+      let t = n.hitArtRC46 && Number.isFinite(n.hitArtSizeRC46)
+        ? Math.max(20, Math.min(128, n.hitArtSizeRC46))
+        : n.ultimate ? 84 : i.lowFx ? 54 : 74;
       if (
         (e.save(),
-        (e.globalAlpha *= h),
+        (e.globalAlpha *= h * (n.hitArtRC46 ? Math.max(0, Math.min(1, n.hitArtOpacityRC46 ?? 1)) : 1)),
         e.drawImage(g, -t / 2, -t / 2, t, t),
         e.restore(),
         n.imageOnly)
@@ -124283,7 +124285,7 @@ var HAPIL_RC13_RENDER = (()=>{
   const result=render(view);
   // A small clipped skill must still have a legible central bitmap. Draw its
   // authored motif outside the local effect clip, after the native warning.
-  if(kind==='skill'&&!['safe','donut'].includes(e.impactShape??e.shape)&&largest&&largest.long<128&&largest.matrix){
+  if(kind==='skill'&&!e.hitArtRC46&&!['safe','donut'].includes(e.impactShape??e.shape)&&largest&&largest.long<128&&largest.matrix){
    ctx.save();try{const m=largest.matrix;ctx.setTransform(m.a,m.b,m.c,m.d,m.e,m.f);ctx.globalAlpha=largest.alpha;ctx.globalCompositeOperation=largest.composite;ctx.filter=largest.filter;ctx.drawImage(...enlarge(largest,128));}finally{ctx.restore();}
    e.visibleSkillLongEdgeRC13=128;
   }
@@ -124414,4 +124416,26 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
  const originalManifest=MONGSE_zoneAssetManifest;
  MONGSE_zoneAssetManifest=function HAPIL_bloodiedStoryManifestRC41(zone,...args){const paths=new Set(originalManifest(zone,...args)??[]);for(const route of byId.values())if(route.zone===String(zone))paths.add(route.sprite);return paths;};
  window.__HAPIL_BLOODIED_STORY_RC41__=Object.freeze({version:"RC41",assets,actorRoutes:Object.freeze(Object.fromEntries([...byId].map(([id,row])=>[id,{zone:row.zone,name:row.name,sprite:row.sprite}]))),bossRoutes:Object.freeze(Object.keys(window.__HAPIL_BLOODIED_BOSS_ROUTES_RC41__??{})),audit(){return Object.freeze({assets:Object.values(assets).length,actors:byId.size,bosses:Object.keys(window.__HAPIL_BLOODIED_BOSS_ROUTES_RC41__??{}).length,towerRegistered:!!V.egoDefenseTower&&MONGSE_APPROVED_PROP_SOURCES.has(assets.tower)});}});
+})();
+
+/* RC46: sword projectile variants and restrained incoming-hit art. */
+;(() => {
+  const art = window.__HAPIL_INCOMING_HIT_ART_RC46__;
+  if (!art) throw new Error('RC46 incoming-hit art module is missing');
+  const bindBase = MONGSE_bindProjectileBitmapV31225;
+  MONGSE_bindProjectileBitmapV31225 = function HAPIL_bindSwordProjectileRC46(projectile) {
+    const result = bindBase(projectile);
+    return art.bindProjectile(projectile) ?? result;
+  };
+  const manifestBase = MONGSE_zoneAssetManifest;
+  MONGSE_zoneAssetManifest = function HAPIL_incomingHitAssetManifestRC46(zone, ...args) {
+    return new Set([...(manifestBase(zone, ...args) ?? []), ...art.assets]);
+  };
+  const criticalBase = MONGSE_liveCriticalAssets31220;
+  MONGSE_liveCriticalAssets31220 = function HAPIL_incomingHitCriticalAssetsRC46(state, ...args) {
+    return new Set([...(criticalBase(state, ...args) ?? []), ...art.assets]);
+  };
+  window.__HAPIL_INCOMING_HIT_RUNTIME_RC46__ = Object.freeze({
+    installed: true, assets: art.assets, version: art.version,
+  });
 })();

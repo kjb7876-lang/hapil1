@@ -136,6 +136,7 @@ if(logical==='KeyA'&&!Array.from(held.values()).includes(logical)&&!(binding.sta
    const row={at:s.time,kind:hitType(source),damage:Math.round(loss*10)/10,source:String(actor?.name??source?.label??'적 공격').slice(0,64),slot:a===s?'1P':String(a.slotId??'동료'),mode:s.combatModeV31329??effective()};
    s.combatFeedbackV31329=[...(s.combatFeedbackV31329??[]),row].slice(-8);diagnostics.damageEvents++;if(s.practiceV31329){s.practiceHitCountV31329=n(s.practiceHitCountV31329)+1;s.practiceDamageTakenV31329=n(s.practiceDamageTakenV31329)+loss;}
    if(row.kind==='퇴장 잔류탄')s.floatTexts?.push({id:s.fxSerial++,x:a.x,y:a.y,born:s.time,duration:.65,text:'잔류탄',color:'#e8c895',critical:false});
+   window.__HAPIL_INCOMING_HIT_ART_RC46__?.onPlayerDamage(s,a,source,loss);
  }
  const guideMemory=new WeakMap();
  function guide(s){if(!s)return {stage:0};let g=guideMemory.get(s);if(!g){g={stage:0,x:s.x,y:s.y,distance:0,attack:n(s.basicAttackCount),dash:n(s.lastDodgeAt),skill:Math.max(...['Q','W','E'].map(k=>n(s.cooldowns?.[k]))),at:s.time};guideMemory.set(s,g);}const d=Math.hypot(s.x-g.x,s.y-g.y);if(d<2)g.distance+=d;g.x=s.x;g.y=s.y;

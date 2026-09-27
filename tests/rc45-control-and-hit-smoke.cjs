@@ -276,7 +276,7 @@ assert(main.includes('window.__HAPIL_CONTACT_V31336__?.stamp(s,a,h,{heart:heartT
 assert(main.includes('window.__HAPIL_CONTACT_V31336__?.prepareHost(o,e)'));
 
 const mainBundle = html.match(/\.\/assets\/index-v31526\.js\?v=(\d+)/);
-assert(mainBundle && Number(mainBundle[1]) >= 34501, 'main bundle cache key was not advanced for RC45');
-assert(html.includes('./assets/rc15/hero-controls.js?v=34501'), 'live hero controller cache key was not advanced');
+assert(mainBundle && Number(mainBundle[1]) >= 34601, 'main bundle cache key was not advanced for RC46');
+assert(html.includes('./assets/rc15/hero-controls.js?v=34601'), 'live hero controller cache key was not advanced');
 
 console.log('PASS: legacy mode migration, nearest-target semi attacks and skills, directional blink, full-only auto dodge/progression, area/projectile/laser geometry, and actual incoming HP reduction.');
