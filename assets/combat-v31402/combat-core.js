@@ -5,7 +5,7 @@
  */
 (function (root) {
   'use strict';
-  const VERSION = '3.14.02-RC1';
+  const VERSION = '3.14.03-RC1';
   const LIMIT = 256;
   const CONTACT_RESULTS = Object.freeze(['HIT', 'PARRY', 'GRAZE', 'EVADE', 'INVULNERABLE', 'SHIELD', 'MISS', 'REJECTED']);
   const validResults = new Set([...CONTACT_RESULTS, 'HEAL', 'EGO_STARTED', 'ERROR']);
@@ -177,7 +177,7 @@
     stats.outgoingCalls++;
     if(!object(s)) { stats.invalidInputs++;return undefined; }
     const validId=object(hint)&&(typeof hint.id==='string'||finite(hint.id));
-    const target=validId&&Array.isArray(s.enemies)?s.enemies.find(e=>e.id===hint.id)??hint:{id:'__missing-enemy'};
+    const target=validId&&Array.isArray(s.enemies)?s.enemies.find(e=>e?.id!=null&&String(e.id)===String(hint.id))??hint:{id:'__missing-enemy'};
     return transaction(s,target,source,'enemy-entry',()=>{
       // Invalid packets must not award combo, trigger lifesteal or enter phase logic.
       if(!validId||!Array.isArray(s.enemies)){stats.invalidInputs++;mark(s,target,'REJECTED','invalid-target');return undefined;}

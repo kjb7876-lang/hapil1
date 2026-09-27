@@ -62,7 +62,7 @@ var e = (e, t) => () => (
       Object.keys(MONGSE_BOSS_SIGNATURE_PROFILES_V31212),
     ),
     MONGSE_CAPS_V31219 = Object.freeze({
-      projectiles: 96,
+      projectiles: 64,
       pendingHits: 48,
       lasers: 18,
       effects: 72,
@@ -164,7 +164,7 @@ var e = (e, t) => () => (
                   .padStart(8, `0`)}`,
                 reverse: !!((MONGSE_hash31219 >>> MONGSE_slot31219) & 1),
                 densityScale:
-                  0.9 + ((MONGSE_hash31219 >>> (4 + MONGSE_slot31219 * 3)) % 5) * 0.035,
+                  0.72 + ((MONGSE_hash31219 >>> (4 + MONGSE_slot31219 * 3)) % 5) * 0.03,
                 speedScale:
                   0.94 + ((MONGSE_hash31219 >>> (8 + MONGSE_slot31219 * 4)) % 6) * 0.035,
                 safeWidth:
@@ -225,7 +225,7 @@ var e = (e, t) => () => (
             ).padStart(2, `0`)}`,
             topologyFingerprint: `${MONGSE_archetype31220}:${MONGSE_bossId31220}:${MONGSE_hash31220.toString(16)}`,
             reverse: !!(MONGSE_hash31220 & 1),
-            densityScale: 0.92 + ((MONGSE_hash31220 >>> 3) % 5) * 0.035,
+            densityScale: 0.74 + ((MONGSE_hash31220 >>> 3) % 5) * 0.03,
             speedScale: 0.94 + ((MONGSE_hash31220 >>> 7) % 6) * 0.03,
             safeWidth: 2.35 + ((MONGSE_hash31220 >>> 12) % 4) * 0.14,
             phaseTwist: (((MONGSE_hash31220 >>> 17) % 9) - 4) * 0.022,
@@ -331,7 +331,7 @@ var e = (e, t) => () => (
       ),
       MONGSE_hiddenUntilRelease31219 =
         !!MONGSE_spec31219.hideUntilRelease31219,
-      MONGSE_motionRadius31219 = Number(MONGSE_spec31219.radius ?? 0.52),
+      MONGSE_motionRadius31219 = Number(MONGSE_spec31219.radius ?? 0.52) * 1.22,
       MONGSE_projectile31219 = {
         id: MONGSE_state31219.fxSerial++,
         sourceId: MONGSE_boss31219.id,
@@ -345,6 +345,7 @@ var e = (e, t) => () => (
         vy: Number(MONGSE_spec31219.vy ?? 0),
         curve: Number(MONGSE_spec31219.curve ?? 0),
         radius: MONGSE_motionRadius31219,
+        visualScaleV31224: Math.min(1.5, Math.max(1, Number(MONGSE_spec31219.visualScaleV31224 ?? 1) || 1) * 1.22),
         damage: Number(MONGSE_spec31219.damage ?? 14),
         born: MONGSE_now31219,
         sourceBorn: MONGSE_now31219,
@@ -502,7 +503,7 @@ var e = (e, t) => () => (
     MONGSE_options31219 = {},
   ) {
     const MONGSE_desired31219 = Math.max(
-        12,
+        6,
         Math.round(
           Number(MONGSE_options31219.desired ?? 28) *
             MONGSE_variant31219.densityScale,
@@ -512,7 +513,7 @@ var e = (e, t) => () => (
         MONGSE_state31219,
         MONGSE_desired31219,
         MONGSE_boss31219,
-        Math.min(12, MONGSE_desired31219),
+        Math.min(6, MONGSE_desired31219),
       );
     if (!MONGSE_budget31219) return 0;
     const MONGSE_safeX31219 = Math.max(
@@ -582,7 +583,7 @@ var e = (e, t) => () => (
     MONGSE_options31219 = {},
   ) {
     const MONGSE_desired31219 = Math.max(
-        12,
+        6,
         Math.round(
           Number(MONGSE_options31219.desired ?? 26) *
             MONGSE_variant31219.densityScale,
@@ -592,7 +593,7 @@ var e = (e, t) => () => (
         MONGSE_state31219,
         MONGSE_desired31219,
         MONGSE_boss31219,
-        Math.min(12, MONGSE_desired31219),
+        Math.min(6, MONGSE_desired31219),
       );
     if (!MONGSE_budget31219) return 0;
     const MONGSE_safeY31219 = Math.max(
@@ -662,7 +663,7 @@ var e = (e, t) => () => (
     MONGSE_options31219 = {},
   ) {
     const MONGSE_desired31219 = Math.max(
-        12,
+        6,
         Math.round(
           Number(MONGSE_options31219.desired ?? 24) *
             MONGSE_variant31219.densityScale,
@@ -672,7 +673,7 @@ var e = (e, t) => () => (
         MONGSE_state31219,
         MONGSE_desired31219,
         MONGSE_boss31219,
-        Math.min(12, MONGSE_desired31219),
+        Math.min(6, MONGSE_desired31219),
       );
     if (!MONGSE_budget31219) return 0;
     const MONGSE_bossX31219 = Number(MONGSE_boss31219.x ?? 16),
@@ -932,7 +933,7 @@ var e = (e, t) => () => (
     MONGSE_options31219 = {},
   ) {
     const MONGSE_desired31219 = Math.max(
-        10,
+        6,
         Math.round(
           Number(MONGSE_options31219.desired ?? 18) *
             MONGSE_variant31219.densityScale,
@@ -942,7 +943,7 @@ var e = (e, t) => () => (
         MONGSE_state31219,
         MONGSE_desired31219,
         MONGSE_boss31219,
-        Math.min(10, MONGSE_desired31219),
+        Math.min(6, MONGSE_desired31219),
       );
     if (!MONGSE_budget31219) return 0;
     const MONGSE_bossX31219 = Number(MONGSE_boss31219.x ?? 16),
@@ -1009,27 +1010,45 @@ var e = (e, t) => () => (
     MONGSE_boss31219,
     MONGSE_variant31219,
   ) {
-    const MONGSE_hash31219 = MONGSE_hashString31211(MONGSE_variant31219.familyVariant),
-      MONGSE_first31219 = MONGSE_hash31219 % 2
-        ? MONGSE_spawnVerticalTombstones31219(
-            MONGSE_state31219,
-            MONGSE_boss31219,
-            MONGSE_variant31219,
-            { desired: 12, grammarOverride: `boss-specific-mixed-barrage` },
-          )
-        : MONGSE_spawnHorizontalTombstones31219(
-            MONGSE_state31219,
-            MONGSE_boss31219,
-            MONGSE_variant31219,
-            { desired: 12, grammarOverride: `boss-specific-mixed-barrage` },
-          ),
-      MONGSE_second31219 = MONGSE_spawnDiagonalGraveCross31219(
-        MONGSE_state31219,
-        MONGSE_boss31219,
-        MONGSE_variant31219,
-        { desired: 12, grammarOverride: `boss-specific-mixed-barrage` },
-      );
-    return MONGSE_first31219 + MONGSE_second31219;
+    const MONGSE_cycle31219 = Math.max(
+        0,
+        Math.floor(Number(MONGSE_boss31219.barrageCycle31219 ?? 0)),
+      ),
+      MONGSE_options31219 = {
+        desired: 8,
+        grammarOverride: `boss-specific-mixed-barrage`,
+      };
+    // One readable attack family per cast; rotate directions and radial timing.
+    switch (MONGSE_cycle31219 % 4) {
+      case 0:
+        return MONGSE_spawnVerticalTombstones31219(
+          MONGSE_state31219,
+          MONGSE_boss31219,
+          MONGSE_variant31219,
+          MONGSE_options31219,
+        );
+      case 1:
+        return MONGSE_spawnHorizontalTombstones31219(
+          MONGSE_state31219,
+          MONGSE_boss31219,
+          MONGSE_variant31219,
+          MONGSE_options31219,
+        );
+      case 2:
+        return MONGSE_spawnDiagonalGraveCross31219(
+          MONGSE_state31219,
+          MONGSE_boss31219,
+          MONGSE_variant31219,
+          MONGSE_options31219,
+        );
+      default:
+        return MONGSE_spawnDelayedMonolithBurst31219(
+          MONGSE_state31219,
+          MONGSE_boss31219,
+          MONGSE_variant31219,
+          MONGSE_options31219,
+        );
+    }
   }
 
   function MONGSE_clampWorld31220(MONGSE_value31220, MONGSE_margin31220 = 0.18) {
@@ -2343,7 +2362,10 @@ var e = (e, t) => () => (
         ),
         MONGSE_context31219.restore(),
         (MONGSE_projectile31219.bitmapRendered31222 = !0));
-    } else MONGSE_projectile31219.bitmapFallbackRendered31221 = !0;
+    } else {
+      MONGSE_projectile31219.bitmapFallbackRendered31221 = !0;
+      MONGSE_context31219.scale(1.22, 1.22);
+    }
     if (MONGSE_shape31219 === `giant-orb`) {
       const MONGSE_radius31219 = (MONGSE_lowFx31219 ? 42 : 58) * MONGSE_pulse31219;
       ((MONGSE_context31219.fillStyle = MONGSE_alphaColor31219(
@@ -3466,7 +3488,7 @@ var e = (e, t) => () => (
         MONGSE_cadenceSamples31219.every((MONGSE_sample31219) => MONGSE_sample31219.pass) &&
         MONGSE_giantRegressionSample31219.pass === !0 &&
         MONGSE_rendererSample31219.pass === !0 &&
-        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96 &&
+        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72 &&
         MONGSE_COMBAT_DIRECTOR_V31210.globalPendingLaserCap === 18 &&
         MONGSE_HERO_DAMAGE_WINDOW_RATIO_V31213 === 0.24 &&
         MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 === !0;
@@ -3522,7 +3544,7 @@ var e = (e, t) => () => (
           MONGSE_giantRegressionSample31219,
       },
       mobileBudgets: {
-        logicalProjectileCap: 96,
+        logicalProjectileCap: 64,
         normalRenderedEffects: 56,
         lowFxRenderedEffects: 36,
         normalTrailPixels: 34,
@@ -3730,7 +3752,7 @@ var e = (e, t) => () => (
         MONGSE_heavyCount31220 >= 4 &&
         MONGSE_rhythmSafeWindowPass31220 &&
         MONGSE_HERO_DAMAGE_WINDOW_RATIO_V31213 === 0.24 &&
-        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96 &&
+        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72 &&
         MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 === !0;
     return Object.freeze({
       schema: `mongse-boss-rules-v31220`,
@@ -3826,7 +3848,7 @@ var e = (e, t) => () => (
       newBossPatternVariants: MONGSE_contract31219?.newVariantCount ?? 0,
       minimumNewVariantsPerBoss:
         MONGSE_contract31219?.minimumNewVariantsPerBoss ?? 0,
-      projectileCap: 96,
+      projectileCap: 72,
       pendingHitCap: 48,
       laserCap: 18,
       effectsCap: 72,
@@ -4048,10 +4070,10 @@ var e = (e, t) => () => (
           },
           n = Y(e, 12, 10, 16, t),
           r = e.hp;
-        ((e.time = 0.15), (e.invulnerableUntil = 0));
+        ((e.time = 0.05), (e.invulnerableUntil = 0));
         let i = Y(e, 12, 10, 16, t),
           a = e.hp;
-        ((e.time = 0.301), (e.invulnerableUntil = 0));
+        ((e.time = 0.101), (e.invulnerableUntil = 0));
         let o = Y(e, 12, 10, 16, t),
           s = e.hp,
           c = MONGSE_projectileLifecycleSnapshot31215(e);
@@ -4070,8 +4092,8 @@ var e = (e, t) => () => (
             r === a &&
             s < a &&
             c.hitCooldownSuppressed === 1 &&
-            MONGSE_HAZARD_REHIT_SECONDS_V31215 >= 0.28 &&
-            MONGSE_HAZARD_REHIT_SECONDS_V31215 <= 0.32 &&
+            MONGSE_HAZARD_REHIT_SECONDS_V31215 >= 0.09 &&
+            MONGSE_HAZARD_REHIT_SECONDS_V31215 <= 0.11 &&
             MONGSE_HERO_DAMAGE_WINDOW_SECONDS_V31213 === 1 &&
             MONGSE_HERO_DAMAGE_WINDOW_RATIO_V31213 === 0.24,
         };
@@ -6106,7 +6128,7 @@ queueMicrotask(() => {
         new Set(MONGSE_profiles31213.flatMap((e) => e.skills)).size === 85 &&
         MONGSE_profiles31213.every((e) => e.grammarCount >= 6) &&
         MONGSE_SIGNATURE_GRAMMAR_LIBRARY_V31213.length === 14 &&
-        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96,
+        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72,
     });
   window.__MONGSE_BOSS_COMBAT_V31213__ = MONGSE_bossCombatContract31213;
   if (!new URLSearchParams(window.location.search).has(`qa`)) return;
@@ -19842,7 +19864,7 @@ var te = S(10, 10),
     returningTurnRate: 2.1,
     returningMaxSpeed: 5.4,
     collisionEpsilon: 0.001,
-    projectileCap: 96,
+    projectileCap: 72,
     summonOwnerCap: 4,
     globalEnemyCap: 9,
   }),
@@ -29723,7 +29745,7 @@ var MONGSE_PROJECTILE_LIFECYCLE_EVENT_LIMIT_V31215 = 192,
   MONGSE_PROJECTILE_EGRESS_LEAD_SECONDS_V31215 = 2.25,
   MONGSE_PROJECTILE_EGRESS_MIN_SPEED_V31215 = 4.8,
   MONGSE_PROJECTILE_EGRESS_MAX_SPEED_V31215 = 34,
-  MONGSE_HAZARD_REHIT_SECONDS_V31215 = 0.3,
+  MONGSE_HAZARD_REHIT_SECONDS_V31215 = 0.1,
   MONGSE_PROJECTILE_REMOVAL_REASONS_V31215 = Object.freeze([
     `hero-hit`,
     `parry`,
@@ -30077,9 +30099,9 @@ function MONGSE_reserveHostileHit31215(e, t) {
       : [],
     a = i.find((e) => e.key === r),
     o = Math.max(
-      0.28,
+      0.09,
       Math.min(
-        0.32,
+        0.11,
         Number(t.rehitCooldown31215 ?? MONGSE_HAZARD_REHIT_SECONDS_V31215),
       ),
     );
@@ -37415,13 +37437,15 @@ var K = (e, t, n = {}) => ({
     ],
     ep1b05: [
       K(`아스모데우스 하트탄`, `circle`, {
-        repeats: 4,
+        repeats: 3,
         gap: 0.28,
         radius: 1.7,
         damage: 18,
         color: `#ff3f89`,
         status: `echo`,
         statusValue: 0.42,
+        impactSprite: MONGSE_EP1B_CANON_PHASE0_ASSETS.ep1b05.vfx,
+        impactFallbackSprite: MONGSE_SEVEN_SINS_THROWABLES.lust,
       }),
       K(`붉은 하이힐 절단`, `cross`, {
         anchor: `target`,
@@ -37432,6 +37456,9 @@ var K = (e, t, n = {}) => ({
         accent: `#ffd9e8`,
         status: `delay`,
         statusValue: 0.48,
+        sevenSinMechanic: `lust-charm`,
+        impactSprite: MONGSE_EP1B_CANON_PHASE0_ASSETS.ep1b05.vfx,
+        impactFallbackSprite: MONGSE_SEVEN_SINS_THROWABLES.lust,
       }),
       K(`립스틱 하이힐 인형폭우`, `circle`, {
         windup: 1.42,
@@ -38374,7 +38401,7 @@ var MONGSE_CANON_EP1B_HUMAN_PHASE0_PATTERN_DEFINITIONS = Object.freeze({
   ep1b05: [
     K(`총지배인의 실 · 립스틱 탄환`, `circle`, {
       phaseOnly: [0],
-      repeats: 5,
+      repeats: 3,
       gap: 0.25,
       radius: 1.65,
       damage: 18,
@@ -45826,6 +45853,16 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
     MONGSE_criticalHit = MONGSE_damageSource
       ? MONGSE_bossLikeSource
       : !!i,
+    MONGSE_recentContactHitsV31535 =
+      e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) >= 0 &&
+      e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) <= 1.25 &&
+      Number.isFinite(Number(e.consecutiveContactHitsV31535))
+        ? Math.max(0, Number(e.consecutiveContactHitsV31535))
+        : 0,
+    MONGSE_contactDamageScaleV31535 = Math.max(
+      0.5,
+      1 - Math.min(5, MONGSE_recentContactHitsV31535) * 0.1,
+    ),
     MONGSE_rawDamage31213 = Math.max(
       0,
       Math.round(
@@ -45833,7 +45870,8 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
           MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *
         (Number(e.heroDamageTakenMultiplier) || 1) *
             (window.__HAPIL_HELL_V31322__?.damageMultiplier(e) ?? 1) *
-          (window.__HAPIL_RAID_RC24__?.damageScale?.(e,MONGSE_damageSource) ?? 1),
+          (window.__HAPIL_RAID_RC24__?.damageScale?.(e,MONGSE_damageSource) ?? 1) *
+          MONGSE_contactDamageScaleV31535,
       ),
     ),
     MONGSE_damageBudget31213 = MONGSE_limitHeroDamage31213(
@@ -45848,13 +45886,16 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
       e.heroMotion?.skillIndex === 3 &&
       Number(e.heroMotion?.until ?? 0) > e.time;
   if (!(a > 0)){window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'REJECTED','native-damage-budget');return !1;}
-  window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'HIT','native-player-damage',{appliedDamage:a});
+  e.consecutiveContactHitsV31535 = Math.min(5, MONGSE_recentContactHitsV31535 + 1);
+  e.lastAcceptedContactAtV31535 = e.time;
+  e.contactDamageScaleV31535 = MONGSE_contactDamageScaleV31535;
+  window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'HIT','native-player-damage',{appliedDamage:a,contactDamageScale:MONGSE_contactDamageScaleV31535});
   window.__HAPIL_ENEMY_FEEL_V31361__?.hit(e,e,MONGSE_damageSource,a,{originX:n,originY:r});
   return (
     (e.hp -= a),window.__HAPIL_RAID_RC24__?.afterHit?.(e,MONGSE_damageSource,a),window.__HAPIL_LOOP_V31365__?.onDamage(e,e,a),
     (e.combo = 0),
     (e.comboUntil = 0),
-    (e.invulnerableUntil = e.time + (MONGSE_criticalHit ? 0.68 : 0.5)),
+    (e.invulnerableUntil = e.time + 0.1),
     MONGSE_bossLikeSource &&
       ((e.lifestealSuppressedUntil = Math.max(
         Number(e.lifestealSuppressedUntil ?? 0),
@@ -48151,8 +48192,8 @@ function MONGSE_spawnLaserLattice3129(e, t) {
 }
 function MONGSE_signatureBulletCount31212(e, t) {
   let n = MONGSE_enemyActivePhase(e),
-    r = t === `lane` ? 14 : t === `mine` ? 12 : t === `chain` ? 16 : 18;
-  return Math.min(22, r + Math.max(0, n - 1) * 2);
+    r = t === `lane` ? 10 : t === `mine` ? 9 : t === `chain` ? 11 : 12;
+  return Math.min(16, r + Math.max(0, n - 1));
 }
 function MONGSE_spawnSignatureBullets31212(e, t, n) {
   let r = MONGSE_bossDirectorProfile31210(t),
@@ -48308,7 +48349,7 @@ function MONGSE_spawnSignatureBullets31212(e, t, n) {
       vx: v,
       vy: y,
       curve: i === `fan` ? p * 0.035 : 0,
-      radius: i === `mine` ? 0.58 : 0.5,
+      radius: i === `mine` ? 0.75 : 0.64,
       damage: i === `mine` ? 16 : 14,
       life: l,
       frozenUntil: e.time + MONGSE_beat31213,
@@ -55523,7 +55564,7 @@ function Ri() {
                     MONGSE_shakePass31211 &&
                     MONGSE_castPresentationPass31211 &&
                     MONGSE_atomicMetadataPass31211 &&
-                    MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96;
+                    MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72;
                 return {
                   version: `3.12.11`,
                   pureProbe: !0,
@@ -65810,7 +65851,7 @@ if (!Ki) throw Error(`Game root element is missing.`);
     returningTurnRate: 2.1,
     returningMaxSpeed: 5.4,
     physicsEpsilon: 0.001,
-    projectileCap: 96,
+    projectileCap: 72,
     summonOwnerCap: 4,
     globalEnemyCap: 9,
     bossScaleBase: 238,
@@ -68673,7 +68714,7 @@ MONGSE_prepareCombatEncounter31226 = function MONGSE_preparePrologueV314RC3(stat
       allPass:
         MONGSE_RANGED_HERO_IDS31213.length === 7 &&
         MONGSE_MELEE_HERO_IDS31222.length === 3 &&
-        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96 &&
+        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72 &&
         MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 === !0,
     });
   typeof window !== `undefined` &&
@@ -74948,7 +74989,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31225, 0));
         MONGSE_bossRulesV31225?.allPass === !0,
       MONGSE_combatContractPassV31225 =
         MONGSE_BOSS_PROJECTILE_HARD_MAX_SECONDS_V31214 === 30 &&
-        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96 &&
+        MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72 &&
         MONGSE_HERO_DAMAGE_WINDOW_RATIO_V31213 === 0.24 &&
         MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 === !0 &&
         MONGSE_bossPassV31225;
@@ -74992,7 +75033,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31225, 0));
       exactBossSkillCount: 85,
       bossDistanceCombatCases: 132,
       bossCadenceClassCount: 5,
-      projectileCap: 96,
+      projectileCap: 72,
       pendingHitCap: 48,
       heroDamageWindowRatio: 0.24,
       projectileTerminalOnly: !0,
@@ -75017,7 +75058,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31225, 0));
         projectileLifetime: `terminal-only`,
         bossReflection: `deny-major-boss`,
         terrain: `all-attacks-pierce`,
-        projectileCap: 96,
+        projectileCap: 72,
         pendingHitCap: 48,
         damageWindowSeconds: 1,
         damageWindowRatio: 0.24,
@@ -75384,7 +75425,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31225, 0));
           ) &&
           !/attack_(?:left|right)\.webp/.test(MONGSE_gunnerActionV31226),
         combatContracts:
-          MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96 &&
+          MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72 &&
           MONGSE_HERO_DAMAGE_WINDOW_RATIO_V31213 === 0.24 &&
           MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 === !0,
       }),
@@ -75726,7 +75767,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31225, 0));
           typeof MONGSE_prepareRestEncounter31226 === `function` &&
           typeof MONGSE_tickZoneEntryFlow31226 === `function`,
         autoGrowthSetterCollisionRemoved: MONGSE_autoGrowthProbeV31228.pass,
-        projectileStatePreserved: MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 96,
+        projectileStatePreserved: MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72,
       }),
       MONGSE_allPassV31228 = Object.values(MONGSE_gatesV31228).every(Boolean),
       MONGSE_gameplayApiV31228 = Object.freeze({

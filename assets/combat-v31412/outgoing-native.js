@@ -3,6 +3,8 @@
  * React refs are read at the time of each attack, not copied at installation.
  */
 (function(root){'use strict';
+ const sameId=(a,b)=>a!=null&&b!=null&&String(a)===String(b);
+ const finiteMultiplier=(value,fallback=1)=>{const n=Number(value);return Number.isFinite(n)&&n>=0?n:fallback;};
  const required=["MONGSE_objectiveDamageAllowedV31309", "HAPIL_claimCounterWindowV31303", "sr", "ir", "HAPIL_effectiveGrowthV31400", "gr", "MONGSE_infiniteStats", "MONGSE_heroOutgoingModeMultiplier31213", "HAPIL_applyCounterDamageV31303", "MONGSE_triggerEnemyBreak", "HAPIL_awardComboMilestoneV31303", "HAPIL_bindDamageHitV31315", "MONGSE_attachEffectTarget", "MONGSE_beginNarrativeAttack", "MONGSE_enemyPhase", "MONGSE_enemyActivePhase"];
  function create({P,R,Re,Ke,native}){
   if(!P||!R||!Re||typeof Ke!=='function'||!native||required.some(k=>typeof native[k]!=='function'))throw Error('Outgoing reducer dependency missing');
@@ -10,12 +12,12 @@
    const world=P.current,core=root.__HAPIL_COMBAT_CORE_V31401__;
    const lifestealRate=Number.isFinite(i)?Math.max(0,i)*0.5:0;
    return core.enemy(world,e,t,HAPIL_hitSourceV31315,()=>{
-    const target=world.enemies.find(x=>x.id===e.id)??e;
+    const target=world.enemies.find(x=>sameId(x?.id,e?.id))??e;
     const {MONGSE_objectiveDamageAllowedV31309,HAPIL_claimCounterWindowV31303,sr,ir,HAPIL_effectiveGrowthV31400,gr,MONGSE_infiniteStats,MONGSE_heroOutgoingModeMultiplier31213,HAPIL_applyCounterDamageV31303,MONGSE_triggerEnemyBreak,HAPIL_awardComboMilestoneV31303,HAPIL_bindDamageHitV31315,MONGSE_attachEffectTarget,MONGSE_beginNarrativeAttack,MONGSE_enemyPhase,MONGSE_enemyActivePhase}=native;
 
         if (window.__HAPIL_PARTY_V31322__?.blocksSave()) { core.mark(world, target, 'REJECTED', 'outgoing-authority'); return; }
         let a = P.current,
-          o = a.enemies.find((t) => t.id === e.id);
+          o = a.enemies.find((t) => sameId(t?.id,e?.id));
         if (!o) { core.mark(a, target, 'REJECTED', 'target-not-present'); return; }
         if (!MONGSE_objectiveDamageAllowedV31309(a, o)) { const invulnerable=a.time<(o.invulnerableUntil??0);core.mark(a,o,invulnerable?'INVULNERABLE':'REJECTED',invulnerable?'enemy-invulnerable':'objective-or-target-protected'); return; }
         if (a.time < (o.invulnerableUntil ?? 0)) { core.mark(a, o, 'INVULNERABLE', 'enemy-invulnerable'); return; }
@@ -30,31 +32,31 @@
           l = o.staggerUntil > a.time ? 1.32 : 1,
           u = a.counterUntil > a.time ? 1.7 : 1,
           d = a.damageBuffUntil > a.time ? 1.55 : 1,
-          f = sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), a.activeHeroId, P.current),
-          p = a.awakeningUntil > a.time ? f.damageMultiplier : 1,
-          m = gr(a.activeHeroId, a.activeHeroMastery),
+          f = sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), String(a.activeHeroId??''), P.current),
+          p = a.awakeningUntil > a.time ? finiteMultiplier(f?.damageMultiplier) : 1,
+          m = gr(String(a.activeHeroId??''), a.activeHeroMastery) ?? {level:0,powerMultiplier:1},
           h =
-            a.activeHeroId === `slayer`
-              ? 1 + (1 - a.hp / Math.max(1, a.maxHp)) * m.level * 0.035
+            String(a.activeHeroId??'') === `slayer`
+              ? 1 + (1 - a.hp / Math.max(1, a.maxHp)) * finiteMultiplier(m.level,0) * 0.035
               : 1,
           g = Math.max(
             1,
             Math.round(
               t *
                 (1 + s * 0.12) *
-                m.powerMultiplier *
+                finiteMultiplier(m.powerMultiplier) *
                 h *
                 c *
                 l *
                 u *
-                MONGSE_counterRewardV31303.damageMultiplier *
+                finiteMultiplier(MONGSE_counterRewardV31303?.damageMultiplier) *
                 d *
                 p *
-                MONGSE_infiniteStats(R.current).powerMultiplier *
-                MONGSE_heroOutgoingModeMultiplier31213(
-                  a.activeHeroId,
+                finiteMultiplier(MONGSE_infiniteStats(R.current)?.powerMultiplier) *
+                finiteMultiplier(MONGSE_heroOutgoingModeMultiplier31213(
+                  String(a.activeHeroId??''),
                   Re.current,
-                ),
+                )),
             ),
           ),
           _ = o.hp / o.maxHp,
@@ -220,5 +222,5 @@
    },{critical:r,lifesteal:lifestealRate});
   };
  }
- root.__HAPIL_OUTGOING_V31402__=Object.freeze({version:'3.14.02-RC1',installed:true,create,dependencies:Object.freeze(required)});
+ root.__HAPIL_OUTGOING_V31402__=Object.freeze({version:'3.14.03-RC1',installed:true,create,dependencies:Object.freeze(required)});
 })(typeof window!=='undefined'?window:globalThis);
