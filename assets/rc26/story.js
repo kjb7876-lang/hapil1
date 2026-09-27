@@ -21,22 +21,33 @@
     root: './assets/rc26/audio/root-memory.wav',
   });
 
+  function readiness() {
+    const required = [
+      ['전투', window.__HAPIL_COMBAT_V31333__?.installed],
+      ['보스', window.__HAPIL_BOSSES_V31334__?.installed],
+      ['조작', window.__HAPIL_CONTROLS_V31329__?.installed],
+      ['맵 진행', window.__HAPIL_FLOW_V31343__?.installed],
+      ['맵 로딩', typeof window.__HAPIL_RECOVERY_V31369__?.prepareMap === 'function'],
+      ['정본 서사', window.__HAPIL_STORY_NATIVE_RC51__?.installed],
+    ];
+    const missing = required.filter(([, ready]) => !ready).map(([label]) => label);
+    return {ready: missing.length === 0, missing};
+  }
+
   window.__HAPIL_STORY_RC26__ = Object.freeze({
     text,
     voice,
-    ready: () => new Promise(resolve => {
-      const deadline = performance.now() + 12000;
+    // Inspect live services, not a historical release marker that can lag behind them.
+    readiness: () => readiness(),
+    ready: ({onProgress, timeoutMs = 12000} = {}) => new Promise(resolve => {
+      const deadline = performance.now() + timeoutMs;
+      let reported = '';
       const poll = () => {
-        if (window.__HAPIL_COMBAT_V31333__?.installed &&
-            window.__HAPIL_BOSSES_V31334__?.installed &&
-            window.__HAPIL_V31369_RELEASE__?.installed) {
-          resolve(true);
-          return;
-        }
-        if (performance.now() > deadline) {
-          resolve(false);
-          return;
-        }
+        const status = readiness();
+        const message = status.missing.join(' · ');
+        if (message !== reported) { reported = message; onProgress?.(status); }
+        if (status.ready) { resolve(true); return; }
+        if (performance.now() >= deadline) { resolve(false); return; }
         setTimeout(poll, 40);
       };
       poll();

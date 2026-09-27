@@ -10,7 +10,7 @@ const storyContext = {window: {}};
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/rc26/story.js'), 'utf8'), storyContext);
 const story = storyContext.window.__HAPIL_STORY_RC26__;
 
-assert(html.includes('./assets/rc26/story.js?v=34801'));
+assert(html.includes('./assets/rc26/story.js?v=35201'));
 assert(/\.\/assets\/index-v31526\.js\?v=\d+/.test(html));
 assert(bundle.includes('storySound: v.sound'));
 assert(bundle.includes('storyVolume: v.sfxVolume'));

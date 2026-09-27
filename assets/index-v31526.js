@@ -51263,6 +51263,7 @@ function Ri() {
   let [e, t] = (0, l.useState)(`title`),
     [n, r] = (0, l.useState)(0),
     [i, a] = (0, l.useState)(`hwando`),
+    [HAPIL_launchRC52, HAPIL_setLaunchRC52] = (0, l.useState)({busy:false,error:false,message:''}),
     [o, s] = (0, l.useState)([`seoha`]),
     [MONGSE_modeChoiceV31353, MONGSE_setModeChoiceV31353] = (0, l.useState)(
       () => window.__HAPIL_MODES_V31346__?.mode?.() ?? `STORY`,
@@ -51643,6 +51644,7 @@ function Ri() {
       }
     }, []),
     MONGSE_unlockAudio = (0, l.useCallback)(() => {
+      try {
       window.__HAPIL_STORY_VOICE_RC49__?.unlock(
         MONGSE_assetUrl(window.__HAPIL_STORY_RC26__?.voice?.opening),
       );
@@ -51751,6 +51753,7 @@ function Ri() {
             MONGSE_pendingStillValid() && (e.pending = t);
           }
         }));
+      } catch (error) { console.warn('HAPIL audio remains muted until the next gesture',error); }
     }, [e]),
     Ke = (0, l.useCallback)(
       (e) => {
@@ -53892,9 +53895,16 @@ function Ri() {
     at = (0, l.useCallback)(async () => {
       if (typeof window !== `undefined` && window.__MONGSE_DEPLOYING__) return;
       typeof window !== `undefined` && (window.__MONGSE_DEPLOYING__ = !0);
-      MONGSE_unlockAudio();
+      HAPIL_setLaunchRC52({busy:true,error:false,message:'전투 자료를 준비하고 있습니다…'});
       try {
-        if(!await window.__HAPIL_STORY_RC26__.ready()){B('전투 준비가 완료되지 않았습니다. 잠시 후 접속 버튼을 다시 눌러주세요.');return;}
+        // Audio is optional. A browser audio exception must not strand the launch lock.
+        try { MONGSE_unlockAudio(); } catch (audioError) { console.warn('HAPIL audio unlock deferred',audioError); }
+        const story = window.__HAPIL_STORY_RC26__;
+        if(typeof story?.ready !== 'function' || typeof story?.scene !== 'function')throw new Error('시작 자료를 불러오지 못했습니다. 새로고침 후 다시 시도해주세요.');
+        const ready=await story.ready({onProgress:status=>HAPIL_setLaunchRC52({busy:true,error:false,message:status.missing.length?'준비 중: '+status.missing.join(' · '):'첫 장면을 준비하고 있습니다…'})});
+        if(!ready){const missing=story.readiness?.().missing?.join(' · ')??'전투 자료';throw new Error(missing+' 준비가 지연됐습니다. 다시 접속하거나 새로고침해주세요.');}
+        const openingSceneRC52=story.scene('opening');
+        HAPIL_setLaunchRC52({busy:true,error:false,message:'영웅과 첫 맵을 불러오고 있습니다…'});
         let e =
             MONGSE_corePlayableRosterV31235().find(
               (MONGSE_heroV31235) => MONGSE_heroV31235.id === i,
@@ -53959,11 +53969,19 @@ function Ri() {
           t(`game`),
           MONGSE_seenInterludeSources31229.current.clear(),
           (MONGSE_interludeBypass.current = ''),
-          MONGSE_requestEventInterlude31221(window.__HAPIL_STORY_RC26__.scene('opening'),'rc26-opening'),
+          (MONGSE_interludeRef.current=null),
+          (Ve.current=null),
+          MONGSE_requestEventInterlude31221(openingSceneRC52,'rc26-opening'),
           B(`이동문에 가까이 가면 다음 장소로 이동합니다.`),
           void 0);
+      } catch (error) {
+        const message=error instanceof Error?error.message:'접속을 완료하지 못했습니다. 다시 시도해주세요.';
+        HAPIL_setLaunchRC52({busy:false,error:true,message});
+        B(message);
+        console.error('HAPIL launch failed',error);
       } finally {
         typeof window !== `undefined` && (window.__MONGSE_DEPLOYING__ = !1);
+        HAPIL_setLaunchRC52(value=>({...value,busy:false}));
       }
     }, [i, V, B, MONGSE_unlockAudio, MONGSE_modeChoiceV31353]);
   window.__HAPIL_CONTROLS_V31329__?.bind({phase:e,state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,cache:Pe,modal:Ve,blocked:()=>!!O,unlockAudio:MONGSE_unlockAudio,setSettings:MONGSE_updateSettings31229,notify:B,actions:{attack:()=>Ye(),dash:Xe,guard:Ze,resonance:Qe,skill:et,damage:qe,interact:tt,target:$e,map:()=>M(v=>!v),settings:()=>{I.current.clear();u(`settings`);},escape:()=>{if(MONGSE_interludeRef.current)return;I.current.clear();O?ue(null):u(v=>v?null:e===`game`?`menu`:null);},collab:()=>{const id=Le.current.find(id=>id!==L.current);if(id)Je(id);},dismiss:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}}});
@@ -63333,7 +63351,16 @@ function Ri() {
                     (0, q.jsx)(`button`, {
                       className: `primary deploy`,
                       onClick: at,
-                      children: `이 편성으로 접속`,
+                      disabled: HAPIL_launchRC52.busy,
+                      "aria-busy": HAPIL_launchRC52.busy,
+                      children: HAPIL_launchRC52.busy ? '접속 준비 중…' : HAPIL_launchRC52.error ? '다시 접속' : `이 편성으로 접속`,
+                    }),
+                    HAPIL_launchRC52.message && (0,q.jsx)('p',{
+                      className:'rc52-launch-status',role:HAPIL_launchRC52.error?'alert':'status',
+                      'data-error':HAPIL_launchRC52.error,children:HAPIL_launchRC52.message,
+                    }),
+                    HAPIL_launchRC52.error && (0,q.jsx)('button',{
+                      type:'button',className:'rc52-launch-reload',onClick:()=>window.location.reload(),children:'새로고침',
                     }),
                   ],
                 }),
