@@ -110,16 +110,17 @@ async function run() {
     bundle.slice(codeStart, codeEnd) + '\nreturn {state,draw,sheets};')(
       {__HAPIL_AUTHORED_MOTION_RC4__: {direction: motion => motion.direction}},
       (_cache, file) => {assert(file.endsWith('slayer-down-cleave.png')); return image;},
-      (x, y) => ({x, y}));
+      (x, y) => ({x: 27 * (x-y), y: 13.5 * (x+y)}));
   const downward = {kind: 'attack', direction: 'front', dx: 1, dy: 1, started: 1, until: 1.38};
   const prepare = motion.state('slayer', downward, 1.04);
   const strike = motion.state('slayer', downward, 1.13);
   assert.equal(prepare.sheet, 'down');
   assert.equal(prepare.frame, 0);
   assert.equal(strike.frame, 1);
-  assert.equal(motion.state('slayer', {...downward, direction: 'left'}, 1.13).sheet, 'action',
+  assert.equal(motion.state('slayer', {...downward, direction: 'left', dx: -1, dy: 1}, 1.13).sheet, 'action',
     'side strikes retain their authored side frames');
-  assert.equal(motion.state('slayer', {...downward, kind: 'skill'}, 1.13).sheet, 'action');
+  assert.equal(motion.state('slayer', {...downward, kind: 'skill'}, 1.13).sheet, 'down',
+    'downward skills use the same visible authored strike');
   const ctx = {
     globalAlpha: 1, save() {}, restore() {}, translate(x, y) {drawCalls.push(['at', x, y]);},
     drawImage(...args) {drawCalls.push(['image', ...args]);},

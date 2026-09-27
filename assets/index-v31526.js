@@ -24777,7 +24777,7 @@ var MONGSE_V3128_ASSET_ROOT = './assets/generated-v3128/',
   MONGSE_V3128_EP1B_ACTION_ROOT = './assets/episode1b/generated-v3128/',
   MONGSE_BOSS_PROJECTILE_SPRITES3128 = Object.freeze({
     infernalSkull:
-      './assets/generated-v3128/projectiles/infernal_skull.webp',
+      './assets/vfx/rc50/infernal-skull-clean.png',
     hospitalSyringe:
       './assets/generated-v3128/projectiles/hospital_syringe.webp',
     telekineticDebris:
@@ -31154,7 +31154,7 @@ var Ut = {
     causality: MONGSE_VFX387 + `boss-causality-reversal.webp`,
   },
   MONGSE_BOSS_CAST_VFX = {
-    demonSkull: `${De}assets/vfx/generated/v389/boss-demon-skull-projectile.webp`,
+    demonSkull: `${De}assets/vfx/rc50/demon-skull-cast-clean.png`,
   },
   MONGSE_SEVEN_SINS_ASSET_DIR = `${De}assets/vfx/bosses/v3102/`,
   MONGSE_SEVEN_SINS_ACTOR_DIR = `${De}assets/episode1b/generated-v3102/`,
@@ -32557,6 +32557,11 @@ function MONGSE_resolveHeroMuzzle31213(e, t = `A`, n = `front`) {
 }
 function MONGSE_applyProjectileOrigin(e, t, n, r = `A`) {
   let i = MONGSE_resolveHeroMuzzle31213(t, r, n);
+  if (t === `slayer` && r === `A` && [e?.x, e?.y, e?.tx, e?.ty].every(Number.isFinite)) {
+    const tip = G(e.tx - e.x, e.ty - e.y), center = G(0, 0);
+    if (tip.y > center.y && tip.y - center.y >= Math.abs(tip.x - center.x) * .7)
+      i = MONGSE_resolveHeroMuzzle31213(t, r, `front`);
+  }
   if (!i || e.kind !== `projectile`) return e;
   return (
     (e.startOffsetX = i.x),
@@ -32568,7 +32573,7 @@ function MONGSE_applyProjectileOrigin(e, t, n, r = `A`) {
     (e.heroProjectileTransient31213 = !0),
     (e.heroId31213 = t),
     (e.heroActionKey31213 = r),
-    (e.heroMuzzleDirection31213 = n),
+    (e.heroMuzzleDirection31213 = i.direction),
     e
   );
 }
@@ -34240,65 +34245,22 @@ function Gn(e, t, n, r, i) {
         d = a - s.x,
         f = c - s.y,
         p = Math.max(0.001, Math.hypot(d, f)),
-        m = d / p,
-        h = f / p,
         v = Math.min(
           i.lowFx
             ? MONGSE_HERO_TRACER_TUNING31213.lowFxMaximumTrailPixels
             : MONGSE_HERO_TRACER_TUNING31213.maximumTrailPixels,
           p * 0.5,
         ),
-        y = a - m * v,
-        b = c - h * v;
-      ((e.globalCompositeOperation = `screen`),
-        (e.globalAlpha = Math.max(0, o) * (i.reducedFlash ? 0.7 : 0.92)),
-        (e.shadowColor = `#52efff`),
-        (e.shadowBlur = i.lowFx ? 0 : 8),
-        (e.strokeStyle = `rgba(50,210,255,.22)`),
-        (e.lineWidth = i.lowFx ? 2.8 : 4.8),
-        e.beginPath(),
-        e.moveTo(y, b),
-        e.lineTo(a, c),
-        e.stroke(),
-        (e.strokeStyle = `rgba(185,252,255,.9)`),
-        (e.lineWidth = i.lowFx ? 1.3 : 2),
-        e.beginPath(),
-        e.moveTo(y, b),
-        e.lineTo(a, c),
-        e.stroke(),
-        e.save(),
-        e.translate(a, c),
-        e.rotate(u));
-      let MONGSE_laserBoltLength = i.lowFx
-        ? MONGSE_HERO_TRACER_TUNING31213.lowFxBoltLengthPixels
-        : MONGSE_HERO_TRACER_TUNING31213.boltLengthPixels;
-      ((e.fillStyle = `rgba(82,239,255,.72)`),
-        e.fillRect(
-          -MONGSE_laserBoltLength,
-          -2.1,
-          MONGSE_laserBoltLength + 10,
-          4.2,
-        ),
-        (e.fillStyle = `#ffffff`),
-        e.fillRect(
-          -MONGSE_laserBoltLength + 4,
-          -0.85,
-          MONGSE_laserBoltLength + 8,
-          1.7,
-        ));
-      (e.restore(),
-        t < MONGSE_HERO_TRACER_TUNING31213.muzzleFlashProgress &&
-          (e.save(),
-          e.translate(s.x, s.y),
-          e.rotate(u),
-          (e.globalAlpha *=
-            (1 -
-              t / MONGSE_HERO_TRACER_TUNING31213.muzzleFlashProgress) *
-            0.82),
-          (e.fillStyle = `#d9ffff`),
-          e.fillRect(1, -1.5, i.lowFx ? 8 : 13, 3),
-          e.restore()),
-        e.restore());
+        bolt = MONGSE_queueImage(t, n.sprite ?? MONGSE_GUNNER_LASER, `eager`);
+      if (bolt?.complete && bolt.naturalWidth) {
+        e.globalCompositeOperation = `source-over`;
+        e.globalAlpha = Math.max(0, o) * (i.reducedFlash ? 0.7 : 0.92);
+        e.shadowBlur = 0;
+        e.translate(a, c);
+        e.rotate(Math.atan2(f, d));
+        e.drawImage(bolt, -v, -8, v + 18, 16);
+      }
+      e.restore();
       return;
     }
     if (!n.imageOnly)
@@ -73634,52 +73596,21 @@ queueMicrotask(() => setTimeout(MONGSE_installVfxThemePatchV31225, 0));
         (MONGSE_effect31225?.skillFxAdjustable
           ? MONGSE_skillFxOpacity(MONGSE_render31225)
           : 1),
-      MONGSE_trail31225 = Math.min(
-        MONGSE_render31225.lowFx ? 18 : 34,
-        Math.hypot(
-          MONGSE_frame31225.x - MONGSE_frame31225.startX,
-          MONGSE_frame31225.y - MONGSE_frame31225.startY,
-        ) * 0.5,
-      ),
-      MONGSE_tailX31225 =
-        MONGSE_frame31225.x - MONGSE_frame31225.unitX * MONGSE_trail31225,
-      MONGSE_tailY31225 =
-        MONGSE_frame31225.y - MONGSE_frame31225.unitY * MONGSE_trail31225,
       MONGSE_image31225 = MONGSE_queueImage(
         MONGSE_cache31225,
         MONGSE_effect31225.sprite ?? MONGSE_GUNNER_LASER,
       );
+    if (!MONGSE_image31225?.complete || !MONGSE_image31225.naturalWidth)
+      return MONGSE_frame31225;
     MONGSE_context31225.save();
-    MONGSE_context31225.globalCompositeOperation = `screen`;
+    MONGSE_context31225.globalCompositeOperation = `source-over`;
     MONGSE_context31225.globalAlpha = Math.max(0, MONGSE_opacity31225);
-    MONGSE_context31225.strokeStyle = `rgba(178,250,255,.88)`;
-    MONGSE_context31225.lineWidth = MONGSE_render31225.lowFx ? 1.35 : 2.1;
-    MONGSE_context31225.shadowColor = `#52efff`;
-    MONGSE_context31225.shadowBlur = MONGSE_render31225.lowFx ? 0 : 8;
-    MONGSE_context31225.beginPath();
-    MONGSE_context31225.moveTo(MONGSE_tailX31225, MONGSE_tailY31225);
-    MONGSE_context31225.lineTo(
-      MONGSE_frame31225.x,
-      MONGSE_frame31225.y,
-    );
-    MONGSE_context31225.stroke();
     MONGSE_context31225.translate(
       MONGSE_frame31225.x,
       MONGSE_frame31225.y,
     );
     MONGSE_context31225.rotate(MONGSE_frame31225.angle);
-    if (MONGSE_image31225?.complete && MONGSE_image31225.naturalWidth)
-      MONGSE_context31225.drawImage(
-        MONGSE_image31225,
-        -26,
-        -9,
-        52,
-        18,
-      );
-    else {
-      MONGSE_context31225.fillStyle = `#dfffff`;
-      MONGSE_context31225.fillRect(-14, -1.5, 28, 3);
-    }
+    MONGSE_context31225.drawImage(MONGSE_image31225, -26, -9, 52, 18);
     MONGSE_context31225.restore();
     return MONGSE_frame31225;
   }
@@ -78164,7 +78095,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31230, 0));
 (() => {
   const MONGSE_ASSETS_V31230 = Object.freeze({
       enemyMeleeBasic: `./assets/vfx/enemies/v301/wolf-dream-leap.webp`,
-      enemyRangedBasic: `./assets/generated-v3128/projectiles/infernal_skull.webp`,
+      enemyRangedBasic: `./assets/vfx/rc50/infernal-skull-clean.png`,
       rotatingLine: `./assets/generated-v31224/boss-vfx/kair_chrono_crescent.webp`,
       rollingProjectile: `./assets/generated-v3128/projectiles/greed_coin.webp`,
       snipingSwordWave: `./assets/generated-v31224/boss-vfx/sleepless_six_sword_wave.webp`,
@@ -98632,7 +98563,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       "rolling-ordnance",
       "snipe-sword-wave",
     ]),
-    SAFE_PROJECTILE = "./assets/generated-v3128/projectiles/infernal_skull.webp",
+    SAFE_PROJECTILE = "./assets/vfx/rc50/infernal-skull-clean.png",
     SAFE_TELEGRAPH = "./assets/generated-v31224/boss-vfx/sleepless_six_sword_wave.webp",
     HOOKS = [];
 
@@ -102648,7 +102579,7 @@ if (typeof window !== "undefined") {
       midboss: false,
       x: 12,
       y: 10,
-      sprite: "./assets/generated-v3128/projectiles/infernal_skull.webp",
+      sprite: "./assets/vfx/rc50/infernal-skull-clean.png",
       patternSet: "balrog",
     };
     const state = {
@@ -109728,7 +109659,7 @@ function MONGSE_finalizePendingStrikesV31309(state, plan) {
     dist03Blood: "./assets/vfx/bosses/v393/dist03-blood-oath.webp",
     dist04Cross: "./assets/vfx/bosses/v393/dist04-fallen-cross.webp",
     dist05Glyph: "./assets/vfx/bosses/v393/dist05-message-glyph.webp",
-    infernal: "./assets/generated-v3128/projectiles/infernal_skull.webp",
+    infernal: "./assets/vfx/rc50/infernal-skull-clean.png",
 
     fallenMaw: "./assets/vfx/bosses/v393/ep1a07-void-maw.webp",
     restraint: "./assets/vfx/bosses/v393/ep1a08-restraint-wave.webp",
@@ -112890,7 +112821,7 @@ function MONGSE_shouldBlockZoneTransitionV31310(state) {
   const TIER_A_LIMIT = 20;
 
   const INFERNAL_SKULL =
-    "./assets/generated-v3128/projectiles/infernal_skull.webp";
+    "./assets/vfx/rc50/infernal-skull-clean.png";
   const WRATH_BEAST =
     "./assets/generated-v3128/projectiles/wrath_beast.webp";
   const ENVY_SHARD =
@@ -116594,7 +116525,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     neural: Object.freeze({sprite:ROOT+"control-lance.webp",fallback:"./assets/generated-v3128/projectiles/control_blades.webp",color:"#72ccff",accent:"#d8f6ff",radial:false}),
     chrono: Object.freeze({sprite:ROOT+"chrono-shard.webp",fallback:"./assets/generated-v3128/projectiles/chrono_orb.webp",color:"#9399ff",accent:"#e5ddff",radial:false}),
     seal: Object.freeze({sprite:ROOT+"seal-shard.webp",fallback:"./assets/vfx/generated/v300/cross-seal.webp",color:"#e8bd60",accent:"#fff1c0",radial:false}),
-    infernal: Object.freeze({sprite:ROOT+"inferno-meteor.webp",fallback:"./assets/generated-v3128/projectiles/infernal_skull.webp",color:"#ef7b3e",accent:"#ffdfa0",radial:true}),
+    infernal: Object.freeze({sprite:ROOT+"inferno-meteor.webp",fallback:"./assets/vfx/rc50/infernal-skull-clean.png",color:"#ef7b3e",accent:"#ffdfa0",radial:true}),
     deletion: Object.freeze({sprite:ROOT+"spirit-orb.webp",fallback:"./assets/generated-v3128/projectiles/chrono_orb.webp",color:"#b479ed",accent:"#ebd1ff",radial:true}),
     thread: Object.freeze({sprite:ROOT+"thread-needle.webp",fallback:"./assets/generated-v3128/projectiles/control_blades.webp",color:"#e367b8",accent:"#ffd3ef",radial:false}),
     blood: Object.freeze({sprite:ROOT+"blood-cleaver-wave.webp",fallback:"./assets/vfx/bosses/v31314/blood-oath-arrow.webp",color:"#bc3659",accent:"#ffd0d9",radial:false}),
@@ -119310,8 +119241,10 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
   }
   function drawLaser(ctx,e,time,settings){
     if(!e.partyLaserV31322)return false;const age=time-e.born;if(age<0||age>e.duration)return true;
-    const a=G(e.partyStartV31322.x,e.partyStartV31322.y),b=G(e.partyTargetV31322.x,e.partyTargetV31322.y),strength=MONGSE_skillFxOpacity(settings),wide=e.heroActionKey31213==='R';
-    ctx.save();try{ctx.globalAlpha=strength;ctx.lineCap='round';ctx.strokeStyle='#36e2ce';ctx.lineWidth=wide?13:3;ctx.beginPath();ctx.moveTo(a.x,a.y-43);ctx.lineTo(b.x,b.y-26);ctx.stroke();ctx.strokeStyle='#ddfff9';ctx.lineWidth=wide?4:1;ctx.beginPath();ctx.moveTo(a.x,a.y-43);ctx.lineTo(b.x,b.y-26);ctx.stroke();}finally{ctx.restore();}return true;
+    const cache=bridge?.cache,beam=cache&&MONGSE_queueImage(cache,MONGSE_GUNNER_LASER,'eager');
+    if(!beam?.complete||!beam.naturalWidth)return true;
+    const a=G(e.partyStartV31322.x,e.partyStartV31322.y),b=G(e.partyTargetV31322.x,e.partyTargetV31322.y),dx=b.x-a.x,dy=b.y-a.y+17,length=Math.hypot(dx,dy),wide=e.heroActionKey31213==='R';
+    ctx.save();try{ctx.globalAlpha*=MONGSE_skillFxOpacity(settings);ctx.globalCompositeOperation='source-over';ctx.translate(a.x,a.y-43);ctx.rotate(Math.atan2(dy,dx));ctx.drawImage(beam,0,-(wide?12:6),length,wide?24:12);}finally{ctx.restore();}return true;
   }
   function exportSnapshot(){if(!world||role==='guest')return null;const snap={protocol:1,version:VERSION,seq:++snapshotSeq,zone:world.zone,world:{fields:Object.entries(safeCopy(world))},party:{roster:safeCopy(roster),actors:safeCopy(actors),strikes:safeCopy(strikes),serial,hostDownUntil,hostDownPosition:safeCopy(hostDownPosition),wipeCount,enabled,mode,paused:!!bridge?.paused||MONGSE_isEncounterLocked31226(world)}};return snap;}
   function applySnapshot(snap){
@@ -123966,8 +123899,12 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
    const part=(time-value(m.started))/(value(m.until)-value(m.started));
    stage=part<.23?'PREPARE':part<.73?'STRIKE':'RECOVER';
   }
-  if(hero==='slayer'&&kind==='attack'&&dir==='front'&&stage!=='READY')
-   return{hero,kind,dir,sheet:'down',frame:stage==='PREPARE'?0:1,stage};
+  // The isometric front cone includes slightly diagonal targets below the
+  // actor. Display the authored overhead cut through ordinary and skill casts.
+  const vector=G(value(m.dx),value(m.dy)),origin=G(0,0),sx=vector.x-origin.x,sy=vector.y-origin.y;
+  const downFacing=dir==='front'||(sy>0&&sy>=Math.abs(sx)*.7);
+  if(hero==='slayer'&&['attack','skill'].includes(kind)&&downFacing&&stage!=='READY')
+   return{hero,kind,dir:'front',sheet:'down',frame:stage==='PREPARE'?0:1,stage};
   // Guard/charge/hurt intentionally keep the correct costume and weapon at
   // rest; the game's existing guard, charge, hit and EGO VFX supply the cue.
   return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage};
