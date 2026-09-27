@@ -11,14 +11,15 @@ const geometrySource = read('assets/combat-v31402/contact-geometry.js');
 const coreSource = read('assets/combat-v31402/combat-core.js');
 const outgoingSource = read('assets/combat-v31412/outgoing-native.js');
 
-assert(html.includes('./assets/index-v31526.js?v=33701'),
+const mainBundle = html.match(/\.\/assets\/index-v31526\.js\?v=(\d+)/);
+assert(mainBundle && Number(mainBundle[1]) >= 33701,
   'main bundle cache key was not advanced for RC37');
 assert(html.indexOf('./assets/combat-v31402/combat-core.js?v=33501') <
   html.indexOf('./assets/combat-v31412/outgoing-native.js?v=33501'));
 assert(html.indexOf('./assets/combat-v31412/outgoing-native.js?v=33501') <
   html.indexOf('./assets/combat-v31402/contact-geometry.js?v=33501'));
 assert(html.indexOf('./assets/combat-v31402/contact-geometry.js?v=33501') <
-  html.indexOf('./assets/index-v31526.js?v=33701'));
+  html.indexOf(mainBundle[0]));
 for (const file of ['story-v31300.js', 'story-delta-v314rc3.js', 'patient-journal-v31368.js'])
   assert(html.includes(`./data/${file}?v=33501`), `${file} cache key did not advance`);
 for (const file of ['data/story-v31300.js', 'data/story-delta-v314rc3.js',

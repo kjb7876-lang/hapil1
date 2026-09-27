@@ -29261,6 +29261,7 @@ var Xe = Object.values(V).map((e) => e.source),
       tint: `#54d9c1`,
     },
   };
+V.egoDefenseTower={...B(`egoDefenseTower`,`hwando-ego-defense-tower-bloodied.webp`,150,1.35,!0),source:"./assets/props/v31342/hwando-ego-defense-tower-bloodied.webp"};Xe.push(V.egoDefenseTower.source);
 var MONGSE_APPROVED_PROP_SOURCES = new Set(Xe),
   MONGSE_THEME_PROP_POOLS = Object.freeze({
     DIST: Object.freeze([`./assets/props/v3100/memory_archivist_statue.webp`]),
@@ -29272,6 +29273,7 @@ var MONGSE_APPROVED_PROP_SOURCES = new Set(Xe),
       `./assets/props/v3100/rollback_hourglass_reliquary.webp`,
     ]),
     HANDO: Object.freeze([
+      `egoDefenseTower`,
       `./assets/props/v3100/rollback_hourglass_reliquary.webp`,
     ]),
     MURDER: Object.freeze([`blankMemorial`, `brokenStreetLamp`]),
@@ -74799,7 +74801,7 @@ function MONGSE_installBossCombatV31225() {
     MONGSE_BOSS_COMBAT_API_V31225.exactSignatureCount === 85 &&
     MONGSE_BOSS_COMBAT_API_V31225.distanceCaseCount === 132 &&
     MONGSE_BOSS_COMBAT_API_V31225.cadenceClassCount === 5 &&
-    MONGSE_BOSS_COMBAT_API_V31225.invariants.projectileCap === 96 &&
+    MONGSE_BOSS_COMBAT_API_V31225.invariants.projectileCap === 72 &&
     MONGSE_BOSS_COMBAT_API_V31225.invariants.heroDamageWindowRatio === 0.24;
   return !0;
 }
@@ -74950,7 +74952,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleBossCombatInstallV31225, 0));
           `deny-major-boss` &&
         MONGSE_bossV31225?.invariants?.terrainPolicy ===
           `all-attacks-pierce` &&
-        Number(MONGSE_bossV31225?.invariants?.projectileCap) === 96 &&
+        Number(MONGSE_bossV31225?.invariants?.projectileCap) === 72 &&
         Number(MONGSE_bossV31225?.invariants?.pendingHitCap) === 48 &&
         Number(MONGSE_bossV31225?.invariants?.heroDamageWindowRatio) === 0.24,
       MONGSE_actorPassV31225 =
@@ -77805,7 +77807,7 @@ function MONGSE_probeBossCombatV31230() {
       Math.abs(
         MONGSE_fixtureActorV31230.hp / MONGSE_fixtureActorV31230.maxHp - 0.5,
       ) < 0.011 &&
-      Number(MONGSE_COMBAT_PHYSICS_V3128?.projectileCap ?? 0) === 96,
+      Number(MONGSE_COMBAT_PHYSICS_V3128?.projectileCap ?? 0) === 72,
   };
 }
 
@@ -82722,7 +82724,7 @@ function MONGSE_probeApostateBossV31233() {
           JSON.stringify(MONGSE_discoveryLinesV31233),
         ),
       inheritedCapsUntouched:
-        Number(MONGSE_COMBAT_PHYSICS_V3128?.projectileCap ?? 0) === 96 &&
+        Number(MONGSE_COMBAT_PHYSICS_V3128?.projectileCap ?? 0) === 72 &&
         Number(MONGSE_COMBAT_DIRECTOR_V31210?.globalPendingLaserCap ?? 0) === 18 &&
         Number(MONGSE_COMBAT_DIRECTOR_V31210?.ownerPendingLaserCap ?? 0) === 10,
     });
@@ -119310,8 +119312,18 @@ const allied=e=>!!(e?.heroSkillVfx||e?.heroId31213||e?.heroIdV31313||e?.delivery
 const owner=e=>{if(!e||allied(e))return null;const direct=owners.get(typeof e==='string'?e:(e.themeOwnerV31323??sourceId(e)));if(direct)return direct;if(typeof e==='object'&&sourceId(e)==='ep1b-environment'){const s=renderState??state,a=s?.enemies?.find(a=>a.boss&&a.hp>0);return owners.get(a?.id)??CATALOG.owners.find(r=>r.zone===s?.zone&&r.id.endsWith('-boss'))??null;}return null;};
 const original=p=>assets[clean(p)]?.original??clean(p);
 const actorOf=(s,e)=>(s?.enemies??[]).find(a=>a.id===sourceId(e));
+const BLOODIED_STORY_ASSETS_RC41=Object.freeze({axe:"./assets/generated-v31342-rc39/axe_projectile_bloodied.webp",knife:"./assets/generated-v31342-rc39/kitchen_knife_projectile_bloodied.webp",treasure:"./assets/generated-v31342-rc39/golden_treasure_projectile_bloodied.webp",money:"./assets/generated-v31342-rc39/paper_money_projectile_bloodied.webp",tissue:"./assets/generated-v31342-rc39/dirty_tissue_projectile_bloodied.webp",syringe:"./assets/generated-v31342-rc39/poison_syringe_volley_bloodied.webp",truck:"./assets/generated-v31342-rc39/truck_projectile_bloodied.webp",car:"./assets/generated-v31342-rc39/car_projectile_bloodied.webp",tower:"./assets/props/v31342/hwando-ego-defense-tower-bloodied.webp",zombie:"./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",blindfold:"./assets/cult-v3123/generated-v31342-rc39/blindfold_modern_cultist_bloodied.webp",earcovered:"./assets/cult-v3123/generated-v31342-rc39/earcovered_modern_cultist_bloodied.webp",gargoyle:"./assets/episode1a/generated-v31342-rc39/gargoyle_mob_bloodied.webp",goat:"./assets/episode1a/generated-v31342-rc39/goat_head_demon_mob_bloodied.webp"});window.__HAPIL_BLOODIED_STORY_ASSETS_RC41__=BLOODIED_STORY_ASSETS_RC41;
+function bloodiedMobV31342(actorPath,asset,zone){const row=CATALOG.mobs[actorPath];if(row)CATALOG.mobs[actorPath]={...row,sprite:asset};if(zone){ZONE_MOB_SPRITES[actorPath]??={};ZONE_MOB_SPRITES[actorPath][zone]=asset;}}
+bloodiedMobV31342("./assets/episode1a/corrupted_guardian.webp",BLOODIED_STORY_ASSETS_RC41.axe,"dist03");
+bloodiedMobV31342("./assets/episode1a/hallucinated_orderly.webp",BLOODIED_STORY_ASSETS_RC41.syringe,"ep1a09");
+bloodiedMobV31342("./assets/episode1b/generated-v394/sloth_belphegor.webp",BLOODIED_STORY_ASSETS_RC41.tissue);
+bloodiedMobV31342("./assets/episode1b/generated-v394/glutton_beelzebub.webp",BLOODIED_STORY_ASSETS_RC41.knife);
+bloodiedMobV31342("./assets/episode1b/generated-v394/greed_fox_hound.webp",BLOODIED_STORY_ASSETS_RC41.money);
+bloodiedMobV31342("./assets/episode1b/generated-v394/greed_mammon.webp",BLOODIED_STORY_ASSETS_RC41.treasure);
+const BLOODIED_BOSS_ROUTES_RC41={"mb-dist03":{projectile:BLOODIED_STORY_ASSETS_RC41.axe},"b02-boss":{impact:BLOODIED_STORY_ASSETS_RC41.tissue},"b04-boss":{projectile:BLOODIED_STORY_ASSETS_RC41.knife},"b06-boss":{projectile:BLOODIED_STORY_ASSETS_RC41.money,impact:BLOODIED_STORY_ASSETS_RC41.treasure},"mb-ep1a09":{projectile:BLOODIED_STORY_ASSETS_RC41.syringe},"mb-murder01":{projectile:BLOODIED_STORY_ASSETS_RC41.car},"mb-murder02":{impact:BLOODIED_STORY_ASSETS_RC41.truck}};window.__HAPIL_BLOODIED_BOSS_ROUTES_RC41__=BLOODIED_BOSS_ROUTES_RC41;
+for(const [id,routes] of Object.entries(BLOODIED_BOSS_ROUTES_RC41)){const row=CATALOG.owners.find(owner=>owner.id===id);if(!row)continue;row.bloodiedStoryRoutesRC41={...(row.bloodiedStoryRoutesRC41??{})};for(const [purpose,asset] of Object.entries(routes)){const source=row[purpose];if(source){row.bloodiedStoryRoutesRC41[clean(source)]=asset;for(const [alias,target] of Object.entries(row.mapping??{}))if(clean(target)===clean(source))row.bloodiedStoryRoutesRC41[clean(alias)]=asset;}row.assets.push(asset);}row.assets=[...new Set(row.assets)];}
 function mobProfile(a){if(!a||a.boss||a.midboss||a.visualOnly||a.objectiveStructureV31238||a.protectedNarrativeTargetV31307)return null;const row=CATALOG.mobs[clean(a.sprite)]??null;if(!row)return null;const z=state?.zone??renderState?.zone??a.zone??null,variant=ZONE_MOB_SPRITES[clean(a.sprite)]?.[z];return variant?{...row,sprite:variant,zoneVariant:true,zoneVariantZone:z}:row;}
-function mapAsset(row,p,purpose='projectile'){p=clean(p);if(!row)return p;if(row.assets.includes(p))return p;return row.mapping[p]??row[purpose]??row.projectile;}
+function mapAsset(row,p,purpose='projectile'){p=clean(p);if(!row)return p;const bloodied=row.bloodiedStoryRoutesRC41?.[p];if(bloodied)return bloodied;if(row.assets.includes(p))return p;return row.mapping[p]??row[purpose]??row.projectile;}
 function bind(e,s=state){if(e?.echoBoltV31368)return e;if(!e||allied(e)||e.themeTerminalV31323)return e;window.__HAPIL_EXIT_V31327__?.capture(s,e);const row=owner(e);if(row){for(const k of ['sprite','fallbackSprite','castSprite','impactSpriteV31224','telegraphSpriteV31224','spectacleAssetV31317','cosmicAssetV31318']){if(k==='castSprite'&&!e[k])continue;if(k==='spectacleAssetV31317'&&!e[k])continue;if(k==='cosmicAssetV31318'&&!e[k])continue;e[k]=mapAsset(row,e[k],k==='impactSpriteV31224'?'impact':'projectile');}e.color=row.color;e.accent=row.accent;e.themeOwnerV31323=row.id;metrics.bound++;}
 else{const p=mobProfile(actorOf(s,e));if(p&&(e.kind==='enemyAttack'||e.kind==='projectile'||e.vx!==undefined||e.normalBombV31323)){e.sprite=p.sprite;e.fallbackSprite=p.sprite;e.color=families[p.family].color;e.accent='#e7e0d0';e.themeFamilyV31323=p.family;}}
 return e;}
@@ -119859,7 +119871,10 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
  * Old cosmic Lucifer attacks are retained; new variants supplement other ranked bosses.
  */
 (function install(attempt=0){
- if(!window.__HAPIL_V31329_RELEASE__?.installed){if(attempt<600)setTimeout(()=>install(attempt+1),0);return;}
+ if(!window.__HAPIL_V31329_RELEASE__?.installed||!window.__HAPIL_THEME_V31323__?.installed||typeof window.__HAPIL_THEME_V31323__?.debug?.rankedRows!=='function'){
+  if(attempt<600)setTimeout(()=>install(attempt+1),0);
+  return;
+ }
 
  const VERSION='3.13.30', T=()=>window.__HAPIL_THEME_V31323__,P=()=>window.__HAPIL_PARTY_V31322__;
  const NUM=(v,d=0)=>Number.isFinite(v)?v:d,CL=(v,a,b)=>Math.max(a,Math.min(b,NUM(v,a)));
@@ -124315,3 +124330,21 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
 })();
 
 ;MONGSE_SFX_PROFILE=Object.freeze({...MONGSE_SFX_PROFILE,...Object.fromEntries(Object.values(window.__HAPIL_FEEDBACK_RC22__?.sounds??{}).map(path=>[path,{gain:.85,cooldown:.07,voices:2}]))});
+/* RC41 bloodied story enemy presentation; no HP, AI, or damage tuning changes. */
+(()=>{
+ const assets=window.__HAPIL_BLOODIED_STORY_ASSETS_RC41__;
+ const actors={
+  "dist02-h1":{zone:"dist02",name:"늪의 염소머리 악마",sprite:assets.goat,meta:[0.080078,0.004557,0.964844,0.993490,0.5,0.96]},
+  "dist05-c1":{zone:"dist05",name:"검은기둥 가고일 수호자",sprite:assets.gargoyle,meta:[0.016927,0.006836,0.994141,0.986328,0.5,0.96]},
+  "b08-c1":{zone:"ep1b08",name:"전극을 두른 좀비 수호기사",sprite:assets.zombie,meta:[0.062500,0,0.933594,1,0.5,0.96]},
+  "c101-e1":{zone:"cult01",name:"흑장미 눈가린 신도",sprite:assets.blindfold,meta:[0.109375,0.010417,0.968750,0.991536,0.5,0.96]},
+  "c101-e2":{zone:"cult01",name:"흑장미 귀막은 신도",sprite:assets.earcovered,meta:[0.201172,0.005859,0.866211,0.988281,0.5,0.96]}
+ };
+ const byId=new Map(Object.entries(actors));
+ for(const [id,route] of byId){const actor=N[route.zone]?.enemies?.find(row=>row.id===id);if(actor){actor.sprite=route.sprite;actor.name=route.name;}MONGSE_SPRITE_META[route.sprite]=[...route.meta];}
+ const originalActionSprite=MONGSE_enemyActionSprite;
+ MONGSE_enemyActionSprite=function HAPIL_bloodiedStoryActorRC41(actor,time=0){const route=byId.get(String(actor?.id??""));if(route&&actor?.boss!==true&&actor?.midboss!==true&&!actor?.visualOnly)return route.sprite;return originalActionSprite(actor,time);};
+ const originalManifest=MONGSE_zoneAssetManifest;
+ MONGSE_zoneAssetManifest=function HAPIL_bloodiedStoryManifestRC41(zone,...args){const paths=new Set(originalManifest(zone,...args)??[]);for(const route of byId.values())if(route.zone===String(zone))paths.add(route.sprite);return paths;};
+ window.__HAPIL_BLOODIED_STORY_RC41__=Object.freeze({version:"RC41",assets,actorRoutes:Object.freeze(Object.fromEntries([...byId].map(([id,row])=>[id,{zone:row.zone,name:row.name,sprite:row.sprite}]))),bossRoutes:Object.freeze(Object.keys(window.__HAPIL_BLOODIED_BOSS_ROUTES_RC41__??{})),audit(){return Object.freeze({assets:Object.values(assets).length,actors:byId.size,bosses:Object.keys(window.__HAPIL_BLOODIED_BOSS_ROUTES_RC41__??{}).length,towerRegistered:!!V.egoDefenseTower&&MONGSE_APPROVED_PROP_SOURCES.has(assets.tower)});}});
+})();

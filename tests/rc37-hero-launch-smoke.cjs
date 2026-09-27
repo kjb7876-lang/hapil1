@@ -7,7 +7,8 @@ const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const main = fs.readFileSync(path.join(root, 'assets/index-v31526.js'), 'utf8');
 
-assert(html.includes('./assets/index-v31526.js?v=33701'),
+const bundleVersion = html.match(/\.\/assets\/index-v31526\.js\?v=(\d+)/);
+assert(bundleVersion && Number(bundleVersion[1]) >= 33701,
   'hero-launch fix must bypass the cached broken main bundle');
 
 const marker = 'MONGSE_projectile31219.bitmapFallbackRendered31221 = !0;';
