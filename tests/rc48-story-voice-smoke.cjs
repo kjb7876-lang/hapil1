@@ -11,7 +11,7 @@ vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/rc26/story.js'), 'utf
 const story = storyContext.window.__HAPIL_STORY_RC26__;
 
 assert(html.includes('./assets/rc26/story.js?v=34801'));
-assert(html.includes('./assets/index-v31526.js?v=34801'));
+assert(/\.\/assets\/index-v31526\.js\?v=\d+/.test(html));
 assert(bundle.includes('storySound: v.sound'));
 assert(bundle.includes('storyVolume: v.sfxVolume'));
 for (const [kind, file, frames] of [
@@ -42,33 +42,31 @@ const end = bundle.indexOf('function MONGSE_InterludeScene(', start);
 assert(start > 0 && end > start);
 const effects = [], audioInstances = [], timers = new Map(), listeners = new Map();
 let nextTimer = 1, proceeds = 0, ducks = 0;
-class FakeAudio {
+class FakeClip {
   static blockNext = false;
-  constructor(src) {
+  constructor(src, options) {
     this.src = src;
+    this.volume = options.volume;
+    this.options = options;
     this.paused = true;
     this.ended = false;
     this.playCount = 0;
-    this.events = new Map();
     audioInstances.push(this);
   }
-  setAttribute() {}
-  removeAttribute() {this.src = '';}
-  load() {}
-  addEventListener(name, cb) {this.events.set(name, cb);}
-  removeEventListener(name) {this.events.delete(name);}
   play() {
     this.playCount++;
-    if (FakeAudio.blockNext) {
-      FakeAudio.blockNext = false;
-      return Promise.reject(new Error('browser requires a user gesture'));
+    if (FakeClip.blockNext) {
+      FakeClip.blockNext = false;
+      this.options.onBlocked();
+      return Promise.resolve(false);
     }
     this.paused = false;
     this.ended = false;
-    this.events.get('playing')?.();
-    return Promise.resolve();
+    this.options.onPlaying();
+    return Promise.resolve(true);
   }
   pause() {this.paused = true;}
+  stop() {this.pause(); this.src = '';}
 }
 const l = {
   useRef: value => ({current: value}),
@@ -79,6 +77,7 @@ const l = {
 const q = {jsx: (type, props) => ({type, props}), jsxs: (type, props) => ({type, props})};
 const windowMock = {
   __HAPIL_STORY_RC26__: story,
+  __HAPIL_STORY_VOICE_RC49__: {create: (src, options) => new FakeClip(src, options)},
   setInterval: fn => {const id = nextTimer++; timers.set(id, fn); return id;},
   clearInterval: id => timers.delete(id),
 };
@@ -87,9 +86,9 @@ const documentMock = {
   addEventListener: (name, cb) => listeners.set(name, cb),
   removeEventListener: name => listeners.delete(name),
 };
-const Component = new Function('l','q','window','document','Audio','MONGSE_assetUrl',
+const Component = new Function('l','q','window','document','MONGSE_assetUrl',
   bundle.slice(start, end) + '\nreturn HAPIL_StoryCardRC26;')(
-    l, q, windowMock, documentMock, FakeAudio, path => path + '?v=31332');
+    l, q, windowMock, documentMock, path => path + '?v=31332');
 const find = (tree, className) => {
   if (!tree || typeof tree !== 'object') return null;
   if (tree.props?.className === className) return tree;
@@ -134,7 +133,7 @@ const muted = Component({scene: story.scene('opening'), proceed: () => {}, sound
 effects.shift()();
 assert.equal(audioInstances.length, before, 'muted scenes must stay silent');
 assert.equal(find(muted, 'rc26-story-voice'), null);
-FakeAudio.blockNext = true;
+FakeClip.blockNext = true;
 const fallback = Component({scene: story.scene('opening'), proceed: () => {}, sound: true, voiceVolume: .8});
 const cleanupFallback = effects.shift()();
 const fallbackClip = audioInstances.at(-1);

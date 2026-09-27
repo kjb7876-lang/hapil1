@@ -32513,6 +32513,7 @@ var On = 90,
     }),
     slayer: Object.freeze({
       front: [19, -45], back: [-17, -59], left: [-62, -47], right: [62, -47],
+      A: Object.freeze({ front: [0, -8] }),
     }),
     gunner: Object.freeze({
       front: [17, -47], back: [-14, -59], left: [-55, -48], right: [55, -48],
@@ -51678,6 +51679,9 @@ function Ri() {
       }
     }, []),
     MONGSE_unlockAudio = (0, l.useCallback)(() => {
+      window.__HAPIL_STORY_VOICE_RC49__?.unlock(
+        MONGSE_assetUrl(window.__HAPIL_STORY_RC26__?.voice?.opening),
+      );
       MONGSE_audioUnlockedRef.current = !0;
       let n = MONGSE_bgmRef.current,
         MONGSE_startedOnUnlock = !1;
@@ -52256,7 +52260,7 @@ function Ri() {
           direction: ee,
         };
         window.__HAPIL_CHARACTER_V31342__?.commit(i,i.time);
-        let te = l ? 0.055 : 0,
+        let te = a.id === `slayer` ? 0.11 : l ? 0.055 : 0,
           ne =
             u.strikeCount +
             (f ? d.strikeBonus : 0) +
@@ -64872,41 +64876,29 @@ function HAPIL_StoryCardRC26({scene,proceed,sound,voiceVolume,duckBgm}) {
       setVoiceState('idle');
       return;
     }
-    const clip=new Audio(MONGSE_assetUrl(source));
+    const clip=window.__HAPIL_STORY_VOICE_RC49__?.create(MONGSE_assetUrl(source),{
+      volume:Math.max(0,Math.min(1,Number(voiceVolume)*0.85)),
+      onPlaying:()=>{if(!disposed){setVoiceState('playing');duckRef.current?.();}},
+      onEnded:()=>{if(!disposed)setVoiceState('ended');},
+      onBlocked:()=>{if(!disposed)setVoiceState('blocked');},
+    });
     let disposed=false,resumeOnShow=false;
-    clip.preload='auto';
-    clip.volume=Math.max(0,Math.min(1,Number(voiceVolume)*0.85));
-    clip.setAttribute?.('playsinline','');
+    if(!clip){setVoiceState('blocked');return;}
     voiceRef.current=clip;
-    const onPlaying=()=>{if(!disposed){setVoiceState('playing');duckRef.current?.();}};
-    const onEnded=()=>{if(!disposed)setVoiceState('ended');};
-    const play=()=>{
-      if(disposed)return;
-      try{
-        const request=clip.play();
-        request?.catch?.(()=>{if(!disposed)setVoiceState('blocked');});
-      }catch{if(!disposed)setVoiceState('blocked');}
-    };
     const visibility=()=>{
       if(document.hidden){resumeOnShow=!clip.paused&&!clip.ended;clip.pause();}
-      else if(resumeOnShow){resumeOnShow=false;play();}
+      else if(resumeOnShow){resumeOnShow=false;clip.play();}
     };
-    clip.addEventListener('playing',onPlaying);
-    clip.addEventListener('ended',onEnded);
     document.addEventListener('visibilitychange',visibility);
     const duckTimer=window.setInterval(()=>{
-      if(!clip.paused&&!clip.ended)duckRef.current?.();
+      if(clip.playing)duckRef.current?.();
     },600);
-    if(document.hidden)resumeOnShow=true;else play();
+    if(document.hidden)resumeOnShow=true;else clip.play();
     return()=>{
       disposed=true;
       window.clearInterval(duckTimer);
       document.removeEventListener('visibilitychange',visibility);
-      clip.removeEventListener('playing',onPlaying);
-      clip.removeEventListener('ended',onEnded);
-      clip.pause();
-      clip.removeAttribute?.('src');
-      clip.load?.();
+      clip.stop();
       if(voiceRef.current===clip)voiceRef.current=null;
     };
   },[scene.rc26Story,sound,voiceVolume]);
@@ -64914,11 +64906,7 @@ function HAPIL_StoryCardRC26({scene,proceed,sound,voiceVolume,duckBgm}) {
     const clip=voiceRef.current;
     if(!clip)return;
     if(!clip.paused&&!clip.ended){clip.pause();setVoiceState('paused');return;}
-    if(clip.ended)clip.currentTime=0;
-    try{
-      const request=clip.play();
-      request?.catch?.(()=>setVoiceState('blocked'));
-    }catch{setVoiceState('blocked');}
+    clip.play();
   };
   const continueScene=()=>{voiceRef.current?.pause();proceed();};
   (0,l.useLayoutEffect)(()=>{
@@ -123918,7 +123906,8 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
  const root='./assets/hero-authored-v314rc5/';
  const sheets=Object.freeze({
   hwando:Object.freeze({action:root+'hwando-action-atlas.png',walk:root+'hwando-walk-atlas.png'}),
-  slayer:Object.freeze({action:root+'slayer-action-atlas.png',walk:root+'slayer-walk-atlas.png'})
+  slayer:Object.freeze({action:root+'slayer-action-atlas.png',walk:root+'slayer-walk-atlas.png',
+   down:'./assets/hero-authored-v314rc49/slayer-down-cleave.png'})
  });
  const headings=Object.freeze({front:0,back:1,left:2,right:3});
  // Feet are measured in source pixels in each individual 4x2 cell. Keeping
@@ -123972,11 +123961,13 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   if(kind==='attack'&&value(m.until)>time&&time>=value(m.started)){
    const span=value(m.until)-value(m.started),part=(time-value(m.started))/span;
    stage=hero==='hwando'?window.__HAPIL_CHARACTER_V31342__?.phase({id:hero},m,time)
-    :(part<.16?'PREPARE':part<.62?'STRIKE':'RECOVER');
+    :(part<(dir==='front' ? .23 : .16)?'PREPARE':part<.62?'STRIKE':'RECOVER');
   }else if(kind==='skill'&&value(m.until)>time&&time>=value(m.started)){
    const part=(time-value(m.started))/(value(m.until)-value(m.started));
    stage=part<.23?'PREPARE':part<.73?'STRIKE':'RECOVER';
   }
+  if(hero==='slayer'&&kind==='attack'&&dir==='front'&&stage!=='READY')
+   return{hero,kind,dir,sheet:'down',frame:stage==='PREPARE'?0:1,stage};
   // Guard/charge/hurt intentionally keep the correct costume and weapon at
   // rest; the game's existing guard, charge, hit and EGO VFX supply the cue.
   return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage};
@@ -123985,6 +123976,20 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   const path=sheets[p.hero][p.sheet],im=MONGSE_queueImage(cache,path,'eager');
   if(!im?.complete||!(im.naturalWidth||im.width)){counters.fallback++;return false;}
   const w=im.naturalWidth||im.width,h=im.naturalHeight||im.height;
+  if(p.sheet==='down'){
+   // Both generated frames use the same body scale, with measured boot centers
+   // and floor positions. The sword, including its overhead windup, stays intact.
+   const cell=Math.round(w/2),x0=p.frame*cell,anchorX=[546,366][p.frame],footY=[860,875][p.frame];
+   const scale=Math.min(66,value(size,66))/605,at=G(x,y);
+   ctx.save();try{
+    ctx.globalAlpha*=opts?.alpha??1;
+    if(opts?.hit)ctx.filter='brightness(1.3) saturate(1.1)';
+    ctx.translate(at.x,at.y);
+    ctx.drawImage(im,x0,0,cell,h,-anchorX*scale,-footY*scale,cell*scale,h*scale);
+   }finally{ctx.restore();}
+   counters.draws++;counters.attack++;
+   return true;
+  }
   const row=p.frame>>2,col=p.frame&3;
   const x0=Math.round(col*w/4),x1=Math.round((col+1)*w/4);
   const y0=Math.round(row*h/2),y1=Math.round((row+1)*h/2)+(bottomOverflow[p.hero]?.[p.sheet]?.[p.frame]??0);
