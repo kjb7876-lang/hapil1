@@ -1,1 +1,52 @@
-(()=>{'use strict';const text={"opening": ["나에 대해서 대부분이 기억이 나지 않는다. 과거를 더듬을 때마다 깨진 유리 같은 장면만 번뜩였다가 사라지고는 할뿐이다.", "그래도 몇가지 기억은 가지고 있다.", "나는 악마가 점령한 세계에 남은 마지막 수호자라는것...!", "자아를 잃지 않은 유일한 에고(Ego).", "세상은 본래 천사들이 관리했었다. 그러나 어느 날, 궁전 정원 한가운데에 악마화 나무가 자라기 시작했다. 악마화 나무는 이내 성 전체를 물들이고 천사들을 악마로 타락시켰다.", "그리고 그들은 ID(이드)라고 불리우게 된다.", "나무는 육체만을 빼앗지 않았다. 기억을 먹고 감정을 바꾸며, 바라보는 현실 자체를 뒤틀었다.", "EGO의 손에는 이름 모를 무기가 들려 있었다."], "root": ["나는 악마화 나무가 천사로 형상화된 악의 근원과 치열한 전투를 벌였고, 그 결과 파편 같은 기억 만을 가지고 어떠한 장소에서 홀로 깨어나게 되었다."]};window.__HAPIL_STORY_RC26__=Object.freeze({text,ready:()=>new Promise(resolve=>{const deadline=performance.now()+12000;const poll=()=>{if(window.__HAPIL_COMBAT_V31333__?.installed&&window.__HAPIL_BOSSES_V31334__?.installed&&window.__HAPIL_V31369_RELEASE__?.installed){resolve(true);return;}if(performance.now()>deadline){resolve(false);return;}setTimeout(poll,40);};poll();}),scene(kind,nextZone='hub'){return {rc26Story:kind,zone:'hub',nextZone,tone:'void',title:'',arc:'',order:0,presentationSourceZones31221:['rc26-'+kind],slides:[{id:'rc26-'+kind,body:text[kind].join('\n'),voices:[]}]};}});})();
+(() => {
+  'use strict';
+
+  const text = {
+    opening: [
+      '나에 대해서 대부분이 기억이 나지 않는다. 과거를 더듬을 때마다 깨진 유리 같은 장면만 번뜩였다가 사라지고는 할뿐이다.',
+      '그래도 몇가지 기억은 가지고 있다.',
+      '나는 악마가 점령한 세계에 남은 마지막 수호자라는것...!',
+      '자아를 잃지 않은 유일한 에고(Ego).',
+      '세상은 본래 천사들이 관리했었다. 그러나 어느 날, 궁전 정원 한가운데에 악마화 나무가 자라기 시작했다. 악마화 나무는 이내 성 전체를 물들이고 천사들을 악마로 타락시켰다.',
+      '그리고 그들은 ID(이드)라고 불리우게 된다.',
+      '나무는 육체만을 빼앗지 않았다. 기억을 먹고 감정을 바꾸며, 바라보는 현실 자체를 뒤틀었다.',
+      'EGO의 손에는 이름 모를 무기가 들려 있었다.',
+    ],
+    root: [
+      '나는 악마화 나무가 천사로 형상화된 악의 근원과 치열한 전투를 벌였고, 그 결과 파편 같은 기억 만을 가지고 어떠한 장소에서 홀로 깨어나게 되었다.',
+    ],
+  };
+  const voice = Object.freeze({
+    opening: './assets/rc26/audio/opening-memory.wav',
+    root: './assets/rc26/audio/root-memory.wav',
+  });
+
+  window.__HAPIL_STORY_RC26__ = Object.freeze({
+    text,
+    voice,
+    ready: () => new Promise(resolve => {
+      const deadline = performance.now() + 12000;
+      const poll = () => {
+        if (window.__HAPIL_COMBAT_V31333__?.installed &&
+            window.__HAPIL_BOSSES_V31334__?.installed &&
+            window.__HAPIL_V31369_RELEASE__?.installed) {
+          resolve(true);
+          return;
+        }
+        if (performance.now() > deadline) {
+          resolve(false);
+          return;
+        }
+        setTimeout(poll, 40);
+      };
+      poll();
+    }),
+    scene(kind, nextZone = 'hub') {
+      return {
+        rc26Story: kind, zone: 'hub', nextZone, tone: 'void', title: '', arc: '', order: 0,
+        presentationSourceZones31221: ['rc26-' + kind],
+        slides: [{ id: 'rc26-' + kind, body: text[kind].join('\n'), voices: [] }],
+      };
+    },
+  });
+})();

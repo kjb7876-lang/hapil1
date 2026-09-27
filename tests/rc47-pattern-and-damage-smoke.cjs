@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'assets/index-v31526.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 assert(html.includes('./assets/rc47/combat-expansion.js?v=34701'));
-assert(html.includes('./assets/index-v31526.js?v=34701'));
+assert(Number(html.match(/\.\/assets\/index-v31526\.js\?v=(\d+)/)?.[1]) >= 34701);
 
 const client = {coarse: false, effects: [], floatTexts: [], fxSerial: 1};
 const context = {window: {matchMedia: () => ({matches: client.coarse})}, module: {exports: {}}};

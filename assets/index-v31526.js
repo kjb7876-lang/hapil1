@@ -64068,6 +64068,9 @@ function Ri() {
                 continueStory: () => MONGSE_finishInterlude(!1),
                 skip: () => MONGSE_finishInterlude(!0),
                 autoAdvance: f && v.autoStoryAdvance !== !1,
+                storySound: v.sound,
+                storyVolume: v.sfxVolume,
+                duckStoryBgm: () => MONGSE_duckBgm(MONGSE_bgmRef.current, 0.4, 900),
               }),
             O &&
               (0, q.jsx)(HAPIL_ClueOverlayV31301, {
@@ -64858,8 +64861,66 @@ function MONGSE_storyBlocks(e) {
               ),
     );
 }
-function HAPIL_StoryCardRC26({scene,proceed}) {
+function HAPIL_StoryCardRC26({scene,proceed,sound,voiceVolume,duckBgm}) {
   const panel=(0,l.useRef)(null),copy=(0,l.useRef)(null);
+  const voiceRef=(0,l.useRef)(null),duckRef=(0,l.useRef)(duckBgm);
+  const [voiceState,setVoiceState]=(0,l.useState)('idle');
+  duckRef.current=duckBgm;
+  (0,l.useEffect)(()=>{
+    const source=window.__HAPIL_STORY_RC26__.voice?.[scene.rc26Story];
+    if(!source||!sound||!(Number(voiceVolume)>0)){
+      setVoiceState('idle');
+      return;
+    }
+    const clip=new Audio(MONGSE_assetUrl(source));
+    let disposed=false,resumeOnShow=false;
+    clip.preload='auto';
+    clip.volume=Math.max(0,Math.min(1,Number(voiceVolume)*0.85));
+    clip.setAttribute?.('playsinline','');
+    voiceRef.current=clip;
+    const onPlaying=()=>{if(!disposed){setVoiceState('playing');duckRef.current?.();}};
+    const onEnded=()=>{if(!disposed)setVoiceState('ended');};
+    const play=()=>{
+      if(disposed)return;
+      try{
+        const request=clip.play();
+        request?.catch?.(()=>{if(!disposed)setVoiceState('blocked');});
+      }catch{if(!disposed)setVoiceState('blocked');}
+    };
+    const visibility=()=>{
+      if(document.hidden){resumeOnShow=!clip.paused&&!clip.ended;clip.pause();}
+      else if(resumeOnShow){resumeOnShow=false;play();}
+    };
+    clip.addEventListener('playing',onPlaying);
+    clip.addEventListener('ended',onEnded);
+    document.addEventListener('visibilitychange',visibility);
+    const duckTimer=window.setInterval(()=>{
+      if(!clip.paused&&!clip.ended)duckRef.current?.();
+    },600);
+    if(document.hidden)resumeOnShow=true;else play();
+    return()=>{
+      disposed=true;
+      window.clearInterval(duckTimer);
+      document.removeEventListener('visibilitychange',visibility);
+      clip.removeEventListener('playing',onPlaying);
+      clip.removeEventListener('ended',onEnded);
+      clip.pause();
+      clip.removeAttribute?.('src');
+      clip.load?.();
+      if(voiceRef.current===clip)voiceRef.current=null;
+    };
+  },[scene.rc26Story,sound,voiceVolume]);
+  const toggleVoice=()=>{
+    const clip=voiceRef.current;
+    if(!clip)return;
+    if(!clip.paused&&!clip.ended){clip.pause();setVoiceState('paused');return;}
+    if(clip.ended)clip.currentTime=0;
+    try{
+      const request=clip.play();
+      request?.catch?.(()=>setVoiceState('blocked'));
+    }catch{setVoiceState('blocked');}
+  };
+  const continueScene=()=>{voiceRef.current?.pause();proceed();};
   (0,l.useLayoutEffect)(()=>{
     const fit=()=>{const box=panel.current,body=copy.current;if(!box||!body)return;
       let size=Math.min(23,window.innerWidth<600?16:19);body.style.fontSize=size+'px';
@@ -64874,12 +64935,15 @@ function HAPIL_StoryCardRC26({scene,proceed}) {
     (0,q.jsx)('div',{className:'rc26-memory-glass','aria-hidden':true}),
     (0,q.jsxs)('section',{className:'rc26-story-card',children:[
       (0,q.jsx)('div',{className:'rc26-story-copybox',ref:panel,children:(0,q.jsx)('article',{className:'rc26-story-copy',ref:copy,children:(paragraphs.length>1?[paragraphs.slice(0,4),paragraphs.slice(4)]:[paragraphs]).map((group,j)=>(0,q.jsx)('div',{className:'rc26-copy-column',children:group.map((text,i)=>(0,q.jsx)('p',{children:text},i))},j))})}),
-      (0,q.jsx)('button',{type:'button',className:'rc26-story-continue',onClick:proceed,children:scene.rc26Story==='root'?'전투로 진입':'기억을 따라가기'})
+      (0,q.jsxs)('div',{className:'rc26-story-actions',children:[
+        sound&&Number(voiceVolume)>0&&(0,q.jsx)('button',{type:'button',className:'rc26-story-voice',onClick:toggleVoice,children:voiceState==='playing'?'음성 일시정지':voiceState==='ended'?'다시 듣기':'음성 재생'}),
+        (0,q.jsx)('button',{type:'button',className:'rc26-story-continue',onClick:continueScene,children:scene.rc26Story==='root'?'전투로 진입':'기억을 따라가기'})
+      ]})
     ]})
   ]});
 }
 
-function MONGSE_InterludeScene({ scene: e, continueStory: t, skip: n, autoAdvance: MONGSE_autoAdvanceV31301 = !1 }) {
+function MONGSE_InterludeScene({ scene: e, continueStory: t, skip: n, autoAdvance: MONGSE_autoAdvanceV31301 = !1, storySound, storyVolume, duckStoryBgm }) {
   let [paused342,setPaused342]=(0,l.useState)(false);
   let [r, i] = (0, l.useState)(0),
     a = e?.slides ?? [],
@@ -64889,21 +64953,23 @@ function MONGSE_InterludeScene({ scene: e, continueStory: t, skip: n, autoAdvanc
     u = () => i((e) => Math.max(0, e - 1));
   ((0, l.useEffect)(() => i(0), [e?.zone]),
     (0, l.useEffect)(() => {
-      let e = (e) => {
-        if(!["Escape","Enter","Space","ArrowLeft"].includes(e.code))return; e.stopImmediatePropagation(); if(e.repeat){e.preventDefault();return;}
-        if (e.code === `Escape`) {
-          (e.preventDefault(), n());
+      let keyEvent = (event) => {
+        if(!["Escape","Enter","Space","ArrowLeft"].includes(event.code))return;
+        if(event.target?.closest?.('.rc26-story-voice')&&["Enter","Space"].includes(event.code))return;
+        event.stopImmediatePropagation(); if(event.repeat){event.preventDefault();return;}
+        if (event.code === `Escape`) {
+          (event.preventDefault(), n());
           return;
         }
-        if (e.code === `Enter` || e.code === `Space`) {
-          (e.preventDefault(), c());
+        if (event.code === `Enter` || event.code === `Space`) {
+          (event.preventDefault(), c());
           return;
         }
-        e.code === `ArrowLeft` && (e.preventDefault(), u());
+        event.code === `ArrowLeft` && (event.preventDefault(), u());
       };
       return (
-        window.addEventListener(`keydown`, e, { passive: !1, capture:true }),
-        () => window.removeEventListener(`keydown`, e, true)
+        window.addEventListener(`keydown`, keyEvent, { passive: !1, capture:true }),
+        () => window.removeEventListener(`keydown`, keyEvent, true)
       );
     }, [r, s, e?.zone]),
     (0, l.useEffect)(() => {
@@ -64915,7 +64981,7 @@ function MONGSE_InterludeScene({ scene: e, continueStory: t, skip: n, autoAdvanc
       return () => window.clearTimeout(timer);
     }, [MONGSE_autoAdvanceV31301, paused342, r, e?.zone, e?.slides?.length]));
   if (!e || !o) return null;
-  if(e.rc26Story)return (0,q.jsx)(HAPIL_StoryCardRC26,{scene:e,proceed:t});
+  if(e.rc26Story)return (0,q.jsx)(HAPIL_StoryCardRC26,{scene:e,proceed:t,sound:storySound,voiceVolume:storyVolume,duckBgm:duckStoryBgm});
   let d = N[e.zone],
     f = N[e.nextZone],
     p =
