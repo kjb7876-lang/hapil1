@@ -81,6 +81,6 @@ assert.ok(bundle.includes('HAPIL_bloodiedStoryManifestRC41'), 'actor art must be
 assert.ok(bundle.includes('HAPIL_bloodiedStoryActorRC41'), 'actor art must be selected by the enemy renderer');
 assert.ok(readme.includes('assets/props/v31342/hwando-ego-defense-tower-bloodied.webp'), 'README must use the real EGO tower asset path');
 assert.ok(!readme.includes('hwando_ego_defense_tower_bloodied.webp'), 'README must not mention the nonexistent underscore filename');
-assert.match(html, /index-v31526\.js\?v=34201/, 'main bundle cache key must be bumped');
+assert.match(html, /index-v31526\.js\?v=34301/, 'main bundle cache key must be bumped');
 
 console.log(`RC41 bloodied story asset smoke passed (${assets.length} WebP assets, 7 boss routes, 5 enemy placements).`);

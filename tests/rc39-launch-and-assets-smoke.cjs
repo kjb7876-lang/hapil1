@@ -35,7 +35,7 @@ boss.invariants.projectileCap = 96;
 assert.equal(vm.runInNewContext(bossGate, {MONGSE_BOSS_COMBAT_API_V31225: boss}), false);
 
 assert.match(bundle, /if\(!window\.__HAPIL_V31329_RELEASE__\?\.installed\|\|!window\.__HAPIL_THEME_V31323__\?\.installed\|\|typeof window\.__HAPIL_THEME_V31323__\?\.debug\?\.rankedRows!==\x27function\x27\)/);
-assert.match(html, /assets\/index-v31526\.js\?v=34201/);
+assert.match(html, /assets\/index-v31526\.js\?v=34301/);
 
 const omitted = new Set([
   './assets/probe-boss-theme.webp', './assets/probe-generic-mark.webp',
