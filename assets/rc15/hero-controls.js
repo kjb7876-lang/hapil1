@@ -30,7 +30,7 @@
 (()=>{'use strict';
  const VERSION='3.13.29', MODES=['manual','semi','full'], TITLES={manual:'수동',semi:'반자동',full:'완전자동'};
  const n=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d, P=()=>window.__HAPIL_PARTY_V31322__;
- let binding=null, previousMode=null, previousLocal=null, practice=null, practicePending=false, installTries=0;
+ let binding=null, previousMode=null, previousLocal=null, practice=null, practicePending=false;
  const keyScopes=new Map();let lastScope=null,clearingInput=false;
  const inputMetrics={orphanRepeatsIgnored:0,staleReleasesCancelled:0,lifecycleClears:0};
  const held=new Map(), diagnostics={actions:0,semiAttacks:0,blocked:0,modeChanges:0,practiceStarts:0,damageEvents:0};
@@ -175,7 +175,9 @@ if(logical==='KeyA'&&!Array.from(held.values()).includes(logical)&&!(binding.sta
    document.body.dataset.hapilGuide=show&&!local?String(g.stage):'4';
    if(s.practiceV31329&&s.cosmicEncounterV31318?.stage==='complete')root.querySelector('[data-guide]').textContent=`체험전 승리 · ${Math.max(0,n(s.practiceFinishedAtV31329,s.time)-n(s.practiceStartedAtV31329)).toFixed(0)}초 · 파티 피격 ${n(s.practiceHitCountV31329)}회 · 캠페인 복귀로 종료`;
  }
- function install(){if(!window.__HAPIL_V31327_RELEASE__){if(++installTries<512)setTimeout(install,0);return false;}
+ // Exit visuals are optional; every exit call below uses optional chaining. Do
+ // not let a delayed exit-module release block hero controls or new-game launch.
+ function install(){
    const write=native.MONGSE_writeSave;native.MONGSE_writeSave=function(...args){if(practice||practicePending||binding?.state?.current?.practiceV31329)return {ok:false,persistent:false,reason:'isolated-practice'};return write(...args);};
    const progress=native.HAPIL_driveAutoProgressV31301;native.HAPIL_driveAutoProgressV31301=function(s,settings,blocked,...a){if(s?.practiceV31329)return {action:'wait',reason:'isolated-practice'};return progress(s,settings,blocked,...a);};
    // Player damage notices follow theme status in combat-core-v31401.
