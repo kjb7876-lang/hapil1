@@ -2364,7 +2364,7 @@ var e = (e, t) => () => (
         (MONGSE_projectile31219.bitmapRendered31222 = !0));
     } else {
       MONGSE_projectile31219.bitmapFallbackRendered31221 = !0;
-      MONGSE_context31219.scale(1.22, 1.22);
+      if (typeof MONGSE_context31219.scale === `function`) MONGSE_context31219.scale(1.22, 1.22);
     }
     if (MONGSE_shape31219 === `giant-orb`) {
       const MONGSE_radius31219 = (MONGSE_lowFx31219 ? 42 : 58) * MONGSE_pulse31219;

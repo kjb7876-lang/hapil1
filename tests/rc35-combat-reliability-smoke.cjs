@@ -11,14 +11,14 @@ const geometrySource = read('assets/combat-v31402/contact-geometry.js');
 const coreSource = read('assets/combat-v31402/combat-core.js');
 const outgoingSource = read('assets/combat-v31412/outgoing-native.js');
 
-assert(html.includes('./assets/index-v31526.js?v=33501'),
-  'main bundle cache key was not advanced for RC35');
+assert(html.includes('./assets/index-v31526.js?v=33701'),
+  'main bundle cache key was not advanced for RC37');
 assert(html.indexOf('./assets/combat-v31402/combat-core.js?v=33501') <
   html.indexOf('./assets/combat-v31412/outgoing-native.js?v=33501'));
 assert(html.indexOf('./assets/combat-v31412/outgoing-native.js?v=33501') <
   html.indexOf('./assets/combat-v31402/contact-geometry.js?v=33501'));
 assert(html.indexOf('./assets/combat-v31402/contact-geometry.js?v=33501') <
-  html.indexOf('./assets/index-v31526.js?v=33501'));
+  html.indexOf('./assets/index-v31526.js?v=33701'));
 for (const file of ['story-v31300.js', 'story-delta-v314rc3.js', 'patient-journal-v31368.js'])
   assert(html.includes(`./data/${file}?v=33501`), `${file} cache key did not advance`);
 for (const file of ['data/story-v31300.js', 'data/story-delta-v314rc3.js',
@@ -130,6 +130,8 @@ assert(main.includes('MONGSE_HAZARD_REHIT_SECONDS_V31215 = 0.1'));
 assert(main.includes('MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72'));
 assert(main.includes('projectiles: 64'));
 assert(main.includes('visualScaleV31224: Math.min(1.5'));
+assert(main.includes('typeof MONGSE_context31219.scale === `function`'),
+  'fallback rendering calls scale on test contexts without that Canvas API');
 assert(main.includes('MONGSE_context31219.scale(1.22, 1.22)'));
 
 const mixedStart = main.indexOf('function MONGSE_spawnBossSpecificMixed31219');
