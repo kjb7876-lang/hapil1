@@ -31,6 +31,7 @@ const game = {
   MONGSE_zoneAssetManifest: () => new Set(),
   MONGSE_zoneAssetPlan31220: () => ({}),
   MONGSE_bossPatternBusyV31230: () => false,
+  MONGSE_runtimeProjectileCapRC47: () => game.window.__HAPIL_COMBAT_RC47__?.projectileCap?.() ?? 72,
   MONGSE_isEncounterLocked31226: () => false,
   MONGSE_enemyActivePhase: () => 1,
   MONGSE_bossBarragePalette: () => ({color: '#cf5060', accent: '#fff3e5'}),
@@ -93,6 +94,30 @@ for (const q of s.hostileProjectiles) {
 assert.ok(boss.recoverUntil >= last + 10 / 3.6 + .85 - 1e-8);
 assert.equal(danmaku.trySchedule(s, boss, 'snipe-sword-wave', 0), null,
   'a second barrage cannot overlap the active cast');
+
+let mobileRC47 = false;
+game.window.__HAPIL_COMBAT_RC47__ = {
+  mobile: () => mobileRC47,
+  projectileCap: () => mobileRC47 ? 72 : Infinity,
+  barrageCap: () => mobileRC47 ? 48 : Infinity
+};
+const scattered = state(), scatteredBoss = scattered.enemies[0];
+const scatteredPlan = danmaku.plan(scattered, scatteredBoss, 'snipe-sword-wave', 4);
+assert.equal(scatteredPlan.mode, 'scatter');
+assert.equal(scatteredPlan.count, 60, 'PC scatters more images than the old 48 shot gate');
+const scatteredCast = danmaku.trySchedule(scattered, scatteredBoss, 'snipe-sword-wave', 4);
+assert.equal(scatteredCast.projectiles, 60);
+scatteredBoss.x = 4;
+scattered.time += .1;
+danmaku.tick(scattered);
+assert(scattered.hostileProjectiles.every(q => q.x === 4 && q.previousX === 4),
+  'pending volleys must depart from the moving boss');
+assert(scatteredBoss.danmakuChoreoUntilV31316 > scattered.time);
+mobileRC47 = true;
+const compact = state();
+assert.equal(danmaku.plan(compact, compact.enemies[0], 'snipe-sword-wave', 4).count, 36);
+assert.equal(danmaku.trySchedule(compact, compact.enemies[0], 'snipe-sword-wave', 4).projectiles, 36);
+mobileRC47 = false;
 
 const first = Math.min(...s.hostileProjectiles.map(q => q.motionReleaseAt31219));
 s.time = first - .01;

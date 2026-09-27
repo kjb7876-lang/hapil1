@@ -17,7 +17,14 @@ function classifyRelative(r0,r1,body,heart){const dx=r1.x-r0.x,dy=r1.y-r0.y,ll=d
  if(Number.isFinite(ht))return{hit:true,heart:true,t:ht,d};
  // Entry at the outer body boundary is provisional. Wait for measured closest approach.
  const passed=ll<1e-12||proj<=1,hit=d<=body&&passed;return{hit,heart:false,t:hit?u:Infinity,d};}
-function projectile(s,a,q){if(!hero(a)||C().frozen(s,q)||a.hp<=0)return{hit:false,heart:false,t:Infinity};const now=C().core(a),before=previous(s,a),b0=bullet(q,true),b1=bullet(q),r=Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile'};}
+function projectile(s,a,q){if(!hero(a)||C().frozen(s,q)||a.hp<=0)return{hit:false,heart:false,t:Infinity};const now=C().core(a),before=previous(s,a),b0=bullet(q,true),b1=bullet(q),scale=Math.max(1,Math.min(1.5,N(q.visualScaleV31224,1))),physical=Math.max(0,N(q.radius,.2))*27*scale;
+ // The bitmap is larger than the old physical radius for many boss weapons.
+ // Enclose its active image footprint; release/telegraph gating remains in the projectile pipeline.
+ const extent=q.danmakuV31316?(q.danmakuRadialV31316?32:40):q.boss?68:q.midboss?56:50;
+ const visual=q.sprite&&!q.narrativeGlyph?
+   (String(q.sourceId)==='dist00-boss'?Math.hypot(70,35):extent*Math.SQRT2*.5)*scale-cfg.bodyRadius:0;
+ const r=Math.max(physical,visual);
+ return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile'};}
 function stamp(s,a,h,evidence){if(evidence?.kind==='projectile'&&evidence.hit&&!C().piercing(h)&&Number.isFinite(evidence.t)){h.x=N(h.previousX,h.x)+(h.x-N(h.previousX,h.x))*evidence.t;h.y=N(h.previousY,h.y)+(h.y-N(h.previousY,h.y))*evidence.t;}h.heartContactV31336={target:key(s,a),time:s.time,heart:!!evidence?.heart};combat?.captureEvidence(s,a,h,evidence);return h;}
 function first(s,q,actors,hostAlive=true){let best=null;for(const a of [...(hostAlive?[s]:[]),...actors]){const k=key(s,a);if(a.hp<=0||C().seen(q,k))continue;const evidence=projectile(s,a,q);if(evidence.hit&&(!best||evidence.t<best.t||evidence.t===best.t&&k<best.key))best={a,t:evidence.t,key:k,evidence};}return best;}
 function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}
