@@ -142,7 +142,7 @@ for(const sprite of companionAudit.assets)
 assert(bundle.includes('“나는 부활이요 생명이니”'));
 assert(bundle.includes('요한복음 11:25'));
 assert(bundle.includes('로마서 6:23'));
-assert.match(read('index.html'),/index-v31526\.js\?v=36201/,
+assert(Number(read('index.html').match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36301,
   'the current release must invalidate the previous browser cache');
 
 console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and paired midboss restores verified.');

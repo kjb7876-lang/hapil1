@@ -12,7 +12,7 @@ const bundle = fs.readFileSync(path.join(root, 'assets/index-v31526.js'), 'utf8'
 const mapStart = bundle.indexOf('/* RC54: align story maps with their time period');
 const projectileStart = bundle.indexOf('/* RC54: story-matched projectile for the blue-light executor');
 const mapSource = bundle.slice(mapStart, projectileStart);
-const projectileSource = bundle.slice(projectileStart);
+const projectileSource = bundle.slice(projectileStart, bundle.indexOf('/* RC55:', projectileStart));
 const routes = {
   dist00: './assets/maps/rc53/dist00-demon-tree.webp',
   dist01: './assets/maps/rc53/dist01-spider-cave.webp',

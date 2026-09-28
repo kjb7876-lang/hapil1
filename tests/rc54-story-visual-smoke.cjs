@@ -53,7 +53,7 @@ assert.match(bundle, /cache\[rows\[next\]\] = fallback/);
 assert.match(bundle, /ep1a_08_blood_hospital_rc24\.png/);
 assert(!bundle.includes("ep1a08: './assets/maps/rc53/ep1a08-blood-hospital.webp'"),
   'the generated open arena must not replace the enclosed hospital map');
-assert.match(html, /index-v31526\.js\?v=36201/);
+assert(Number(html.match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36301);
 
 for (const [zone, asset] of Object.entries(routes)) {
   if(zone==='ep1a07')assert(!records.some(record=>record.zone===zone),'deleted slot must stay inactive');

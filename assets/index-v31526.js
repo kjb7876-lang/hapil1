@@ -51385,6 +51385,8 @@ function Ri() {
       } catch {}
       y(MONGSE_next31229);
     }, []);
+  const MONGSE_modeChoiceRefV31353=(0,l.useRef)(MONGSE_modeChoiceV31353);
+  MONGSE_modeChoiceRefV31353.current=MONGSE_modeChoiceV31353;
   let MONGSE_setAutoCombatV31301 = (0, l.useCallback)((enabled) => {
     const next = enabled === !0;
     const nextMode = next ? `full` : `semi`;
@@ -53904,6 +53906,7 @@ function Ri() {
       typeof window !== `undefined` && (window.__MONGSE_DEPLOYING__ = !0);
       HAPIL_setLaunchRC52({busy:true,error:false,message:'전투 자료를 준비하고 있습니다…'});
       try {
+        const launchMode=MONGSE_modeChoiceRefV31353.current;
         // Audio is optional. A browser audio exception must not strand the launch lock.
         try { MONGSE_unlockAudio(); } catch (audioError) { console.warn('HAPIL audio unlock deferred',audioError); }
         await HAPIL_waitForLaunchRC61();
@@ -53956,7 +53959,7 @@ function Ri() {
         if(!await window.__HAPIL_RECOVERY_V31369__.prepareMap(Pe.current,'dist00'))throw new Error('첫 맵을 불러오지 못했습니다. 다시 접속해주세요.');
         ((P.current = oi()),
           window.__HAPIL_MODES_V31346__?.set?.(
-            MONGSE_modeChoiceV31353,
+            launchMode,
             P.current,
           ),
           window.__HAPIL_RUN_V31400__.init(P.current,i),
@@ -53967,7 +53970,7 @@ function Ri() {
           (Le.current=[window.__HAPIL_POLICY_V31400__.partner(i)]),
           window.__HAPIL_PARTY_V31322__?.configure?.({
             ...window.__HAPIL_RUN_V31400__.configFor(P.current,i),
-            hell: MONGSE_modeChoiceV31353 !== `STORY`,
+            hell: launchMode !== `STORY`,
           }),
           (Be.current = 0),
           _(0),
@@ -53992,7 +53995,7 @@ function Ri() {
       }
     }, [i, V, B, MONGSE_unlockAudio, MONGSE_modeChoiceV31353]);
   window.__HAPIL_CONTROLS_V31329__?.bind({phase:e,state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,cache:Pe,modal:Ve,blocked:()=>!!O,unlockAudio:MONGSE_unlockAudio,setSettings:MONGSE_updateSettings31229,notify:B,actions:{attack:()=>Ye(),dash:Xe,guard:Ze,resonance:Qe,skill:et,damage:qe,interact:tt,target:$e,map:()=>M(v=>!v),settings:()=>{I.current.clear();u(`settings`);},escape:()=>{if(MONGSE_interludeRef.current)return;I.current.clear();O?ue(null):u(v=>v?null:e===`game`?`menu`:null);},collab:()=>{const id=Le.current.find(id=>id!==L.current);if(id)Je(id);},dismiss:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}}});
-  window.__HAPIL_PARTY_LAUNCH_V31322__ = {phase:e, start:()=>e===`game`?Promise.resolve():at(), getSupport:()=>window.__HAPIL_POLICY_V31400__.partner(L.current), setSupport:(id,leader=L.current)=>{const next=MONGSE_coreApplySupportChoiceV31235(leader,Le.current,id);Le.current=next;s(next);}, setLeader:(id)=>{if(F.some(h=>h.id===id)){L.current=id;a(id);}}, dismissGuestUI:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}};
+  window.__HAPIL_PARTY_LAUNCH_V31322__ = {phase:e, start:()=>e===`game`?Promise.resolve():at(), getSupport:()=>window.__HAPIL_POLICY_V31400__.partner(L.current), setSupport:(id,leader=L.current)=>{const next=MONGSE_coreApplySupportChoiceV31235(leader,Le.current,id);Le.current=next;s(next);}, setLeader:(id)=>{if(F.some(h=>h.id===id)){L.current=id;a(id);}}, setGameMode:(value)=>{const next=['STORY','HELL','DREAM'].includes(String(value).toUpperCase())?String(value).toUpperCase():'STORY';MONGSE_modeChoiceRefV31353.current=next;MONGSE_setModeChoiceV31353(next);window.__HAPIL_MODES_V31346__?.set?.(next);return next;}, getGameMode:()=>MONGSE_modeChoiceRefV31353.current, dismissGuestUI:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}};
   ((0, l.useEffect)(() => {
     let t =
         e === `game` && v.music
