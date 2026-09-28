@@ -7,7 +7,7 @@ const data=window.__HAPIL_STORY_DATA_RC51__,api=window.__HAPIL_STORY_RC51__;
 const sourcePath=path.join(root,'data/rc57/voice-monologue.txt'),sourceBytes=fs.readFileSync(sourcePath),uploadedText=sourceBytes.toString('utf8').replace(/^\uFEFF/,'').replace(/\r\n/g,'\n');
 const fixes=[['보라검천사','보라검 천사'],['스쳐지나갔다','스쳐 지나갔다'],['악마였던건지','악마였던 건지'],['경고와함께','경고와 함께'],['머리속','머릿속'],['문을 잠군','문을 잠근'],['기리고','그리고'],['수호자로써','수호자로서'],['남겨져있었다','남겨져 있었다'],['남은채','남은 채'],['거였던거','거였던 것'],['대리고','데리고'],['되기위한','되기 위한'],['문들 부터','문들부터'],['정당화 해','정당화해'],['정렬되 있었다','정렬되어 있었다'],['어려워 졌','어려워졌다'],['누를 수 밖에','누를 수밖에'],['기억 조차','기억조차'],['존재 하고 있었다','존재하고 있었다'],['책망 하였고','책망하였고'],['밀어 벼렸다','밀어 버렸다'],['보내었다','보냈다'],['바랬기에','바랐기에'],['한이경 이였다','한이경이었다'],['둘이상','둘 이상'],['뿐이였','뿐이었다'],['소멸 되어 버렸다','소멸되어 버렸다'],['강제로 묶였던 자아들... 그들의 각자의 이름과 기억이 되찾아 갔다.','강제로 묶였던 자아들은 각자의 이름과 기억을 되찾아 갔다.']];
 const sourceText=fixes.reduce((text,[from,to])=>text.replaceAll(from,to),uploadedText);
-assert.equal(data.version,'RC57');assert.equal(data.sourceFile,'data/rc57/voice-monologue.txt');
+assert.equal(data.version,'RC58');assert.equal(data.sourceFile,'data/rc57/voice-monologue.txt');assert.equal(data.sourceBytes,sourceBytes.length);
 assert.equal(data.sourceSha256,crypto.createHash('sha256').update(sourceBytes).digest('hex'));
 assert.equal(data.raw,sourceText,'the active story source must match the upload except for previously requested surface corrections');
 assert(!fs.existsSync(path.join(root,'data/rc51/canonical.txt')),'the superseded canonical-file path must be removed');
@@ -40,14 +40,35 @@ const prologue=window.__HAPIL_PATIENT_DATA_RC51__.records[0].body;
 assert.equal(prologue,data.raw.slice(0,data.raw.indexOf('[01 · dist00]')).trim(),'voice 1/2 remain available in the opening story record');
 assert.equal(api.replacesLegacy,true);
 for(const r of data.records){if(r.rest)continue;assert(r.pre&&r.post,`missing battle card ${r.zone}`);for(const k of ['pre','post','firstPost','awakenPre'])assert((r[k]?.length??0)<=900,`${r.zone} ${k} exceeds layout budget`);}
+const mapCards=read('data/rc57/voice-monologue-map-cards.txt');
+const mapAudit=read('docs/RC58-story-map-mob-combat-audit.md');
+assert.equal((mapCards.match(/^## /gm)||[]).length,56,'the text export must contain every combat map exactly once');
+assert.equal((mapCards.match(/^### 전투 전$/gm)||[]).length,56,'each map needs a pre-battle card');
+assert.equal((mapCards.match(/^### 전투 후$/gm)||[]).length,55,'cult04 uses its explicit multi-phase post labels');
+assert(mapCards.includes('### 1차 전투 후')&&mapCards.includes('### 사몽 각성 전')&&mapCards.includes('### 최종 전투 후'));
+for(const r of data.records.filter(r=>!r.rest)){
+ const block=mapCards.split(`## ${r.zone} · ${r.title}\n`)[1]?.split(/^## /m)[0];assert(block,`${r.zone} missing from paragraph text export`);
+ for(const key of ['pre','post','firstPost','awakenPre'])if(r[key])assert(block.includes(r[key]),`${r.zone} ${key} differs from the in-game card`);
+}
+assert.equal((mapAudit.match(/^\| \d{2} \|/gm)||[]).length,56,'the audit must account for each battle map');
+assert.equal((mapAudit.match(/^\| `(dist|ep1a|ep1b|u2|last|kair|hando|murder|cult)[^|]*\|/gm)||[]).length,56,'the audit must include each map profile, hazard and combat tempo');
+for(const r of data.records.filter(r=>!r.rest))assert(mapAudit.includes(`| \`${r.zone}\` | ${r.title} |`),`${r.zone} missing from the map/mob audit`);
+assert(mapAudit.includes('`blood-hospital`')&&mapAudit.includes('`beds-and-help-wall`'),'hospital environment must be in the profile audit');
+assert(mapAudit.includes('`rooftop-mobius-cycle`')&&mapAudit.includes('`six-limbed-throne`'),'late loop and final arena profiles must be audited');
 const state=()=>({time:100,hp:240,zone:'cult04',gameModeV31346:'STORY',activeHeroId:'hwando',hapilSamongActiveV31300:true,hapilFinalBattleV31300:{stage:7,secondPhaseActive:true,completed:false},lastAttack:100,cooldowns:{Q:101},heroMotion:{started:100,until:101},pendingStrikes:[{at:100.2}],effects:[{heroSkillVfx:true,born:100,size:50},{boss:true,born:100,size:50}]});
 const entryState=state();entryState.encounterDialogue31226={kind:'legacy',lines:['상호 대사']};entryState.encounterLockUntil31226=110;entryState.encounterWallUnlockAtV31227=Date.now()+3300;entryState.invulnerableUntil=110;entryState.enemies=[{readyAt:110,patternReadyAt:111,invulnerableUntil:110}];api.suppressEntry(entryState);assert.equal(entryState.encounterDialogue31226,null);assert.equal(entryState.restDialogueComplete31226,true);assert(entryState.invulnerableUntil<=entryState.time+.12);assert(entryState.enemies[0].readyAt<=entryState.time+.14);assert(entryState.enemies[0].patternReadyAt<=entryState.time+.28);entryState.enemies[0].readyAt=entryState.time+9;api.suppressEntry(entryState);assert.equal(entryState.enemies[0].readyAt,entryState.time+9,'ongoing enemy attack cadence is left alone once the old dialogue has been cleared');
 let s=state();assert(api.active(s));assert.equal(api.clock(s,.04),0);assert(s.lastAttack<100);assert(s.cooldowns.Q<101);assert(s.pendingStrikes[0].at<100.2);assert.equal(s.effects[1].born,100);assert.equal(s.effects[1].size,50);assert.equal(s.effects[0].size,77.5);assert.equal(api.power(s),5);assert.equal(api.incoming(s),.12);
 let stopped=0,slow=0;for(let i=0;i<150;i++){const dt=api.clock(s,.04);assert(dt===0||Math.abs(dt-.0064)<1e-9);if(dt===0)stopped++;else slow++;s.time+=dt;}assert(stopped>50&&slow>50,'recurrent stops and slow motion both occur');
 for(const modify of [s=>s.gameModeV31346='HELL',s=>s.gameModeV31346='DREAM',s=>s.practiceV31329=true,s=>s.zone='cult03',s=>s.hapilFinalBattleV31300.stage=6,s=>s.hapilFinalBattleV31300.completed=true,s=>s.hp=0,s=>s.activeHeroId='slayer']){s=state();modify(s);assert(!api.active(s));assert.equal(api.clock(s,.04),.04);assert.equal(api.power(s),1);assert.equal(api.incoming(s),1);assert(!classes.has('rc51-samong'));assert(!classes.has('rc51-time-stop'));}
-const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=35701'));
-assert(main.includes('if(!scene?.rc26Story && window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
+const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=35801'));
+assert(main.includes('if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
 assert(main.includes('function HAPIL_installCanonicalStoryRC51(){'));
 assert(main.includes('prepareCombat(s,z,false);api.suppressEntry(s);'));
 assert(main.includes('tickBasic(o,HAPIL_heroDeltaRC51,'));assert(main.includes('MONGSE_currentEncounterDialogue31226=()=>null'));
-console.log('RC57 PASS: uploaded monologue only, 56 pre/post battle pairs, legacy pair suppression without stale entry lock, final phase cards, clock isolation, mode boundaries.');
+assert(main.includes("interludes:Object.freeze({}),"));assert(main.includes("MONGSE_resolveInterlude=()=>null;"));
+assert(main.includes('window.__HAPIL_LEGACY_STORY_RC58__=Object.freeze'));
+assert(main.includes("if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return clearDialogue(s,'combat');"));
+assert(!main.includes("const openingSceneRC52=story.scene('opening')"),'launch must not wait on the superseded opening scene');
+assert(!html.includes('assets/rc26/story.js'),'old reciprocal story source must not be loaded');
+assert(!html.includes('christian-opening-v31236'),'the non-uploaded opening scene must not gate or precede the monologue');
+console.log('RC58 PASS: uploaded monologue only, 56 exported pre/post pairs, old dialogue/interlude APIs cleared, no stale entry lock, final phase cards, clock isolation, mode boundaries.');

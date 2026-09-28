@@ -18,7 +18,7 @@ assert.deepEqual(JSON.parse(JSON.stringify(records.filter(record => /^murder0[1-
 
 const bundle = read('assets/index-v31526.js');
 const html = read('index.html');
-assert.match(html, /index-v31526\.js\?v=35502/,
+assert.match(html, /index-v31526\.js\?v=35801/,
   'the active bundle URL must invalidate the prior browser cache');
 const marker = '/* RC56: restore the enclosed HELP ME ward';
 const start = bundle.indexOf(marker);

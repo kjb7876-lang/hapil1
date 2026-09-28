@@ -1,4 +1,6 @@
-# RC57 story, map, and enemy alignment
+# RC57 story, map, and enemy alignment — historical
+
+> Superseded by RC58: legacy combat/rest dialogue APIs and interludes are now inert, the unrelated opening overlay is removed, and the uploaded monologue is the only map-story text. See `RC58-story-map-mob-combat-audit.md` for the active 56-map audit.
 
 ## Source and presentation
 
@@ -6,7 +8,7 @@ The active story now uses `data/rc57/voice-monologue.txt`, the byte-preserved us
 
 The 56 combat maps each show a monologue before and after combat. The opening voice 1 text is on the first map's pre-battle card and voice 2 is on its post-battle card. Each of the six rest sections appears before the next combat map. The empty `[08-삭제된기록]` marker stays empty; `ep1a07` receives the two fall-memory paragraphs that continue `[07 · dist06]`. The final `cult04` encounter keeps its two stage-transition cards for the defeat/recollection and samong awakening.
 
-The active reading card is still a no-scroll dialog with a 900-character budget. The generated story currently has a longest card of 825 characters. In STORY mode, encounter and rest exchanges are cleared before rendering, and their stale intro lock and enemy delay are removed once at entry. The episode archive and interlude resolver also use the uploaded monologue source, so the old back-and-forth text is not an alternate story view. The previously restored Christian opening scene remains ahead of the map sequence.
+At RC57, the active reading card was a no-scroll dialog with a 900-character budget, and old exchanges were cleared before rendering. RC58 replaces those retained legacy records with empty structural rows, disables both interlude request paths, removes their launch dependency, and removes the non-uploaded Christian opening overlay. The uploaded monologue now begins directly on the first map's pre-battle card.
 
 ## Route and narrative alignment
 

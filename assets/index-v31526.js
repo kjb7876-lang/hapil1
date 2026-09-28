@@ -51647,9 +51647,7 @@ function Ri() {
     }, []),
     MONGSE_unlockAudio = (0, l.useCallback)(() => {
       try {
-      window.__HAPIL_STORY_VOICE_RC49__?.unlock(
-        MONGSE_assetUrl(window.__HAPIL_STORY_RC26__?.voice?.opening),
-      );
+      window.__HAPIL_STORY_VOICE_RC49__?.unlock();
       MONGSE_audioUnlockedRef.current = !0;
       let n = MONGSE_bgmRef.current,
         MONGSE_startedOnUnlock = !1;
@@ -53312,8 +53310,8 @@ function Ri() {
       [qe, e, We, B],
     ),
     MONGSE_requestInterlude = (0, l.useCallback)((fromZone, toZone) => {
+      if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;
       const specialRC26=fromZone==='hub'&&toZone==='dist00';
-      if(!specialRC26 && window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;
       if(!specialRC26&&window.__HAPIL_MODES_V31346__?.suppressFullNarrative?.(fromZone,toZone))return !1;
       if(toZone==='dist06')return !1;
       if (!specialRC26 && ze.current.interludeText !== !0) return !1;
@@ -53339,7 +53337,7 @@ function Ri() {
       return !0;
     }, []),
     MONGSE_requestEventInterlude31221 = (0, l.useCallback)((scene, key) => {
-      if(!scene?.rc26Story && window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;
+      if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;
       if(String(key)==='dist06-boss-spawn'||scene?.eventInterlude31221==='dist06-boss-spawn')return !1;
       if (!scene?.rc26Story && ze.current.interludeText !== !0) return !1;
       if (!scene || MONGSE_interludeRef.current) return !1;
@@ -53901,11 +53899,6 @@ function Ri() {
       try {
         // Audio is optional. A browser audio exception must not strand the launch lock.
         try { MONGSE_unlockAudio(); } catch (audioError) { console.warn('HAPIL audio unlock deferred',audioError); }
-        const story = window.__HAPIL_STORY_RC26__;
-        if(typeof story?.ready !== 'function' || typeof story?.scene !== 'function')throw new Error('시작 자료를 불러오지 못했습니다. 새로고침 후 다시 시도해주세요.');
-        const ready=await story.ready({onProgress:status=>HAPIL_setLaunchRC52({busy:true,error:false,message:status.missing.length?'준비 중: '+status.missing.join(' · '):'첫 장면을 준비하고 있습니다…'})});
-        if(!ready){const missing=story.readiness?.().missing?.join(' · ')??'전투 자료';throw new Error(missing+' 준비가 지연됐습니다. 다시 접속하거나 새로고침해주세요.');}
-        const openingSceneRC52=story.scene('opening');
         HAPIL_setLaunchRC52({busy:true,error:false,message:'영웅과 첫 맵을 불러오고 있습니다…'});
         let e =
             MONGSE_corePlayableRosterV31235().find(
@@ -53973,7 +53966,6 @@ function Ri() {
           (MONGSE_interludeBypass.current = ''),
           (MONGSE_interludeRef.current=null),
           (Ve.current=null),
-          MONGSE_requestEventInterlude31221(openingSceneRC52,'rc26-opening'),
           B(`이동문에 가까이 가면 다음 장소로 이동합니다.`),
           void 0);
       } catch (error) {
@@ -122145,7 +122137,7 @@ function install(){
     }
    }return r;
   };
-  MONGSE_prepareCombatEncounter31226=function HAPIL_modeCombatDialogueV31346(s,z,show=true){const m=mode(s);const d=combatBase.call(this,s,z,false);return m==='STORY'&&!s?.practiceV31329?shortStoryDialogue(s,d):clearDialogue(s,'combat');};
+  MONGSE_prepareCombatEncounter31226=function HAPIL_modeCombatDialogueV31346(s,z,show=true){const m=mode(s);const d=combatBase.call(this,s,z,false);if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return clearDialogue(s,'combat');return m==='STORY'&&!s?.practiceV31329?shortStoryDialogue(s,d):clearDialogue(s,'combat');};
   MONGSE_prepareRestEncounter31226=function HAPIL_archiveRestV31346(s,z){restBase.call(this,s,z,false);return clearDialogue(s,'rest');};
   // v31403: mode-specific bitmap selection lives in the final projectile pipeline.
   installed=true;window.__HAPIL_MODES_V31346__=Object.freeze({version:VERSION,installed:true,modes:MODES,mode,set,tick,reflect,suppressFullNarrative,beforeDeath,archive,MemoryMapProfile,memoryProfile,dreamFinal:Object.freeze({zones:TRIAL_ZONES,spawn:spawnTrial,tick:finalTick,beforeDeath,cleanup:cleanupTrial}),audit:()=>({mode:mode(),mirrorProjectile:true,mirrorLaser:!!window.__HAPIL_MIRROR_V31347__?.installed,cosmicTrials:6,archiveEntries:archive.entries(lastState).length})});return true;
@@ -124577,9 +124569,88 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
 function HAPIL_installCanonicalStoryRC51(){
  const api=window.__HAPIL_STORY_RC51__;if(!api||window.__HAPIL_STORY_NATIVE_RC51__?.installed)return;
  const prepareCombat=MONGSE_prepareCombatEncounter31226,prepareRest=MONGSE_prepareRestEncounter31226;
- MONGSE_prepareCombatEncounter31226=function(s,z){const result=prepareCombat(s,z,false);api.suppressEntry(s);return result;};
- MONGSE_prepareRestEncounter31226=function(s,z){const result=prepareRest(s,z,false);api.suppressEntry(s);return result;};
+ MONGSE_prepareCombatEncounter31226=function(s,z){prepareCombat(s,z,false);api.suppressEntry(s);return null;};
+ MONGSE_prepareRestEncounter31226=function(s,z){prepareRest(s,z,false);api.suppressEntry(s);return null;};
  MONGSE_currentEncounterDialogue31226=()=>null;
+ const source=window.__HAPIL_STORY_DATA_RC51__,combat=Object.create(null),rest=Object.create(null);
+ for(const record of source?.records??[]){
+  const kind=record.rest?'rest':'combat',row=Object.freeze({zone:record.zone,kind,title:record.title,
+   sourceFile:source.sourceFile,sourceSha256:source.sourceSha256,sourceRef:`${source.sourceFile}#${record.zone}`,
+   lines:Object.freeze([]),lineCount:0});
+  (record.rest?rest:combat)[record.zone]=row;
+ }
+ const resolve=(zone,kind=null)=>kind==='combat'?combat[zone]??null:kind==='rest'?rest[zone]??null:combat[zone]??rest[zone]??null;
+ const encounter=Object.freeze({version:'RC58',sourceFile:source.sourceFile,sourceSha256:source.sourceSha256,
+  sourceBytes:source.sourceBytes,combat:Object.freeze(combat),rest:Object.freeze(rest),
+  combatCount:Object.keys(combat).length,restCount:Object.keys(rest).length,recordCount:Object.keys(combat).length+Object.keys(rest).length,
+  lineCount:0,minLinesPerRecord:0,everyRecordSourced:true,resolve});
+ for(let version=31226;version<=31240;version++)
+  window[`__MONGSE_ENCOUNTER_DIALOGUE_V${version}__`]=encounter;
+ window.__MONGSE_ENCOUNTER_DIALOGUE_V31300__=encounter;
+ const narrativeDialogue=Object.freeze({version:'RC58',sourceFile:source.sourceFile,sourceSha256:source.sourceSha256,
+  combatCount:encounter.combatCount,restCount:encounter.restCount,recordCount:encounter.recordCount,lineCount:0,
+  interludeCount:0,interludeZones:Object.freeze([]),settingsDefaults:Object.freeze({interludeText:false,mapEntryDialogue:false}),
+  resolveDialogue:resolve,resolveInterlude:()=>null,resolveSettings:(current={},patch={})=>Object.freeze({
+   ...current,...patch,interludeText:false,mapEntryDialogue:false})});
+ for(let version=31226;version<=31240;version++)
+  window[`__MONGSE_NARRATIVE_DIALOGUE_V${version}__`]=narrativeDialogue;
+ window.__MONGSE_NARRATIVE_DIALOGUE_V31300__=narrativeDialogue;
+ for(let version=31226;version<=31240;version++){
+  const key=`__MONGSE_GAMEPLAY_V${version}__`,gameplay=window[key];
+  if(gameplay)window[key]=Object.freeze({...gameplay,encounter,narrativeDialogue,
+   prepareCombatEncounter:MONGSE_prepareCombatEncounter31226,prepareRestEncounter:MONGSE_prepareRestEncounter31226,
+   christianOpening:null});
+ }
+ if(window.__MONGSE_PROGRESSION_DIALOGUE_V31230__)
+  window.__MONGSE_PROGRESSION_DIALOGUE_V31230__=Object.freeze({...window.__MONGSE_PROGRESSION_DIALOGUE_V31230__,
+   dialogue:encounter,resolveDialogue:resolve,resolveSourceRange:()=>null});
+ if(window.__MONGSE_STORY_CONTINUITY_V31231__)
+  window.__MONGSE_STORY_CONTINUITY_V31231__=Object.freeze({...window.__MONGSE_STORY_CONTINUITY_V31231__,
+   encounter,narrative:narrativeDialogue});
+ if(window.__MONGSE_NARRATIVE_SPOILER_V31233__)
+  window.__MONGSE_NARRATIVE_SPOILER_V31233__=Object.freeze({...window.__MONGSE_NARRATIVE_SPOILER_V31233__,
+   encounter,narrative:Object.freeze({...narrativeDialogue,resolvePostBattle:()=>null,resolveCompletedInterlude:()=>null}),
+   adjustedZones:Object.freeze([]),postBattleZoneCount:0,containsPostOnly:()=>false});
+ if(window.__HAPIL_NARRATIVE_V31368__)
+  window.__HAPIL_NARRATIVE_V31368__=Object.freeze({...window.__HAPIL_NARRATIVE_V31368__,resolveInterlude:()=>null});
+ window.__MONGSE_NARRATIVE_DIALOGUE_SETTINGS_STATE_V31229__=Object.freeze({interludeText:false,mapEntryDialogue:false});
+ if(typeof Br==='object'&&Br){Br.interludeText=false;Br.mapEntryDialogue=false;}
+ MONGSE_resolveInterlude=()=>null;
+ const cleanNarrative=Object.freeze({...MONGSE_NARRATIVE_V395,version:'RC58',title:'업로드 1인칭 독백',
+  sourceFile:source.sourceFile,sourceSha256:source.sourceSha256,sourceBytes:source.sourceBytes,
+  sourceUtf8Bytes:source.sourceBytes,sourceCharacters:source.raw.length,contentWarning:'',
+  fullMarkdown:source.raw,fullRawText:source.raw,sourceText:source.raw,raw:source.raw,
+  introSlides:Object.freeze([]),regionDialogue:Object.freeze({}),interludes:Object.freeze({}),
+  archiveChapters:Object.freeze([]),segments:Object.freeze([]),rejoin:()=>source.raw,
+  exactBuild:Object.freeze({version:'RC58',sourceSha256:source.sourceSha256,sourceBytes:source.sourceBytes,
+   routeTotal:source.records.length,storyAttachmentTotal:source.records.length,canonicalArchiveCount:0,
+   canonicalInterludeCount:0,canonicalSegmentCount:0,uploadedTextOnly:true})});
+ MONGSE_NARRATIVE_V395=cleanNarrative;window.__MONGSE_NARRATIVE_V395__=cleanNarrative;
+ if(window.__MONGSE_NARRATIVE_EXACT_V31217__)
+  window.__MONGSE_NARRATIVE_EXACT_V31217__=Object.freeze({version:'RC58',sourceFile:source.sourceFile,
+   sourceSha256:source.sourceSha256,sourceBytes:source.sourceBytes,sourceUtf8Bytes:source.sourceBytes,
+   sourceText:source.raw,raw:source.raw,route:Object.freeze(source.records.map(record=>record.zone)),
+   routeTotal:source.records.length,attachedTotal:0,segments:Object.freeze([]),rejoin:()=>source.raw,
+   verifyRejoin:()=>true});
+ window.__MONGSE_NARRATIVE_RUNTIME_V31217__=Object.freeze({version:'RC58',installed:true,
+  sourceFile:source.sourceFile,sourceSha256:source.sourceSha256,sourceBytes:source.sourceBytes,
+  activeRecordCount:source.records.length,activeDialogueLineCount:0,activeInterludeCount:0,
+  probe:()=>({allPass:true,canonicalArchiveCount:0,canonicalInterludeCount:0,canonicalSegmentCount:0})});
+ window.__HAPIL_STORY_DATA_V31300__=Object.freeze({schema:'hapil.story.rc58',version:'RC58',allPass:true,
+  dialogue:Object.freeze({schema:'hapil.encounter-dialogue.rc58',version:'RC58',sourceFile:source.sourceFile,
+   sourceSha256:source.sourceSha256,sourceBytes:source.sourceBytes,records:Object.freeze([]),recordCount:0,
+   combatCount:0,restCount:0,lineCount:0,objectiveCount:0,emphasisCount:0,allPass:true}),
+  interlude:Object.freeze({schema:'hapil.interlude.rc58',version:'RC58',sourceFile:source.sourceFile,
+   sourceSha256:source.sourceSha256,sourceBytes:source.sourceBytes,raw:source.raw,records:Object.freeze([]),
+   scenes:Object.freeze({}),archiveChapters:Object.freeze([]),mapRecordCount:0,activeMapCount:0,
+   sceneCount:0,emptyZones:Object.freeze([]),allPass:true})});
+ if(window.__HAPIL_PATIENT_DATA_RC51__)window.__HAPIL_PATIENT_DATA_V31368__=window.__HAPIL_PATIENT_DATA_RC51__;
+ window.__HAPIL_STORY_RC26__=Object.freeze({text:Object.freeze({}),voice:Object.freeze({}),
+  ready:async()=>true,readiness:()=>({ready:true,missing:[]}),scene:()=>null});
+ window.__MONGSE_CHRISTIAN_OPENING_V31236__=null;window.__MONGSE_CHRISTIAN_OPENING_CORE_V31236__=null;
+ window.__HAPIL_LEGACY_STORY_RC58__=Object.freeze({installed:true,combatDialogue:false,restDialogue:false,
+  interludes:false,openingScene:false,combatRecords:encounter.combatCount,restRecords:encounter.restCount,activeLines:0,
+  sourceFile:source.sourceFile,sourceSha256:source.sourceSha256});
  const finalDamage=MONGSE_phaseGateHealth;
  MONGSE_phaseGateHealth=function(s,e,damage){
   if(api.active(s)&&e?.hapilSecondPhaseV31300)return Math.max(0,Number(e.hp)-Math.max(0,Number(damage)||0));
