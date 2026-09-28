@@ -106,11 +106,14 @@ assert.equal(enteredPair.length,2);
 assert(Math.hypot(enteredPair[0].x-enteredPair[1].x,enteredPair[0].y-enteredPair[1].y)>=4.2,
   'the partner must reposition beside the leader after route admission moves the leader');
 const multiRoster=context.MONGSE_initialRosterPlanV31228('distMulti').enemies;
-assert.equal(multiRoster.filter(actor=>actor.midboss).length,6,
-  'all three original midbosses must each receive a partner');
+assert.equal(multiRoster.filter(actor=>actor.midboss).length,3,
+  'an authored three-midboss encounter stays a readable trio instead of doubling to six');
 assert(multiRoster.length<=8,'pairing must respect the compact encounter roster cap');
-assert(!context.MONGSE_initialRosterPlanV31228('cult03').enemies.some(actor=>String(actor.id).endsWith('-duo-rc59')),
-  'RC56’s existing cult03 apostate duo must stay intact');
+const cultPlan=context.MONGSE_initialRosterPlanV31228('cult03');
+assert.equal(cultPlan.enemies.filter(actor=>actor.midboss).length,2,
+  'the cult03 midboss must receive a partner while the authored boss remains present');
+assert.equal(cultPlan.enemies.filter(actor=>actor.boss).length,1,
+  'adding a midboss partner must preserve the named apostate boss');
 
 const legacySave={zone:'dist01',spawnedWaves:[1,2,3],enemies:[{id:'d01-mid',hp:37,x:18,y:11}]};
 assert.equal(context.Ii(legacySave).filter(actor=>actor.midboss).length,2,
@@ -145,4 +148,4 @@ assert(bundle.includes('로마서 6:23'));
 assert(Number(read('index.html').match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36301,
   'the current release must invalidate the previous browser cache');
 
-console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and paired midboss restores verified.');
+console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and 2–3 midboss groups verified.');

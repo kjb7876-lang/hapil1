@@ -32,9 +32,12 @@ const game = {
   MONGSE_zoneAssetPlan31220: () => ({}),
   MONGSE_bossPatternBusyV31230: () => false,
   MONGSE_runtimeProjectileCapRC47: () => game.window.__HAPIL_COMBAT_RC47__?.projectileCap?.() ?? 72,
-  MONGSE_isEncounterLocked31226: () => false,
+  MONGSE_isEncounterLocked31226: s => !!s.dialogueLocked,
   MONGSE_enemyActivePhase: () => 1,
+  MONGSE_bossBarrageTheme: () => 'sevenSins',
   MONGSE_bossBarragePalette: () => ({color: '#cf5060', accent: '#fff3e5'}),
+  ft: (_zone, boss, delta) => ({x: boss.x + delta.x, y: boss.y + delta.y}),
+  J: (a, b) => Math.hypot(b.x - a.x, b.y - a.y),
   MONGSE_bossDirectorProfile31210: () => ({speedScale: 1, sizeScale: 1}),
   MONGSE_lockAtomicBossCast31210: () => 'cast-44',
   MONGSE_pushThemeProjectile3129: (s, a, options) => s.hostileProjectiles.push({
@@ -42,7 +45,18 @@ const game = {
   }),
   MONGSE_queueImage: () => ({complete: true, naturalWidth: 64, naturalHeight: 64}),
   MONGSE_skillFxOpacity: () => 1,
-  MONGSE_compensateGlobalTimeStop31216: () => {},
+  MONGSE_compensateGlobalTimeStop31216: (s, q) => {
+    const now = Number(s.time ?? 0), until = Number(s.timeStopUntil ?? 0);
+    const previous = Number(q.globalTimeStopCompensatedUntil31216 ?? now);
+    const shift = Math.max(0, until - Math.max(now, previous));
+    if (!shift) return 0;
+    for (const key of ['expiresAt', 'telegraphUntil31210', 'bossCastResolveAt31210',
+      'interruptProtectedUntil31210', 'motionReleaseAt31219', 'collisionDisabledUntil31219',
+      'collisionDisabledUntilV31226', 'frozenUntil'])
+      if (Number.isFinite(Number(q[key]))) q[key] = Number(q[key]) + shift;
+    q.globalTimeStopCompensatedUntil31216 = until;
+    return shift;
+  },
   MONGSE_extendProjectileTimeline31214: () => {},
   MONGSE_enemyAttackSfx: () => 'boss-fire.wav',
   We: (file, gain) => sound.push([file, gain]),
@@ -62,6 +76,10 @@ vm.runInNewContext(
   section('/* v31365: deliberate family order', '/* v31365: boss pattern record room'),
   game
 );
+vm.runInNewContext(
+  section('function MONGSE_planBossMovementSmartR1(', 'function MONGSE_wrapAngleSmartR1(') +
+  'globalThis.__planDanmakuBossMove = MONGSE_planBossMovementSmartR1;', game
+);
 const danmaku = game.window.__HAPIL_DANMAKU_V31316__;
 const grammar = game.window.__HAPIL_GRAMMAR_V31365__;
 assert.equal(danmaku.audit().allPass, true);
@@ -76,11 +94,34 @@ function state(extra = {}) {
 const s = state(), boss = s.enemies[0], plan = danmaku.plan(s, boss, 'snipe-sword-wave');
 assert.equal(plan.mode, 'fan');
 assert.equal(plan.count, 18);
+assert.equal(danmaku.deck.length, 16);
+assert.equal(new Set(danmaku.rankedRows().map(row => row.danmakuColorV31316)).size, 71);
+const pathState = {zone: 'dist00', x: 12, y: 8, time: .5};
+const pathBoss = {x: 2, y: 8, danmakuChoreoStartedV31316: 0, danmakuChoreoUntilV31316: 2,
+  danmakuChoreoSideV31316: 0, danmakuChoreoModeV31316: 'gate'};
+const sweepMove = game.__planDanmakuBossMove(pathState, pathBoss, {}, 1, 1, false, 10);
+pathBoss.danmakuChoreoModeV31316 = 'orbit';
+const orbitMove = game.__planDanmakuBossMove(pathState, pathBoss, {}, 1, 1, false, 10);
+assert(sweepMove && orbitMove && Math.hypot(sweepMove.x - orbitMove.x, sweepMove.y - orbitMove.y) > 1,
+  'lane-sweep and orbit attacks drive visibly different boss trajectories');
+for (let i = 0; i < danmaku.deck.length; i++) {
+  const varied = danmaku.plan(s, boss, 'snipe-sword-wave', i * 4);
+  assert.equal(varied.mode, danmaku.deck[i]);
+  for (const beat of varied.beats) for (const angle of beat.angles) {
+    const offset = Math.abs(Math.atan2(Math.sin(angle - varied.aim), Math.cos(angle - varied.aim)));
+    assert(offset >= varied.gap, `${varied.mode} keeps its declared safe corridor`);
+  }
+}
 const selected = grammar.schedule(s, boss, 'snipe-sword-wave', 0);
 assert.equal(selected.danmakuV31316, true);
 assert.equal(selected.name, plan.name);
 assert.equal(native, 0, 'one director slot must not also create a native attack');
 assert.equal(s.hostileProjectiles.length, 18);
+assert(s.hostileProjectiles.every(q => q.danmakuColorV31316 === plan.color && q.danmakuAccentV31316 === plan.accent),
+  'the attacker signature color is carried by each common jellybean bullet');
+assert.equal(boss.danmakuChoreoModeV31316, plan.mode);
+assert.equal(boss.danmakuChoreoStartedV31316, s.time + .3,
+  'the boss starts moving after the pattern telegraph begins');
 assert.equal(s.pendingHits.length, 0, 'the native projectile queue owns damage');
 assert.equal(boss.shmupPatternPlanV31365.label, selected.name);
 const last = Math.max(...s.hostileProjectiles.map(q => q.motionReleaseAt31219));
@@ -102,10 +143,10 @@ game.window.__HAPIL_COMBAT_RC47__ = {
   barrageCap: () => mobileRC47 ? 48 : Infinity
 };
 const scattered = state(), scatteredBoss = scattered.enemies[0];
-const scatteredPlan = danmaku.plan(scattered, scatteredBoss, 'snipe-sword-wave', 4);
+const scatteredPlan = danmaku.plan(scattered, scatteredBoss, 'rotating-laser', 16);
 assert.equal(scatteredPlan.mode, 'scatter');
 assert.equal(scatteredPlan.count, 60, 'PC scatters more images than the old 48 shot gate');
-const scatteredCast = danmaku.trySchedule(scattered, scatteredBoss, 'snipe-sword-wave', 4);
+const scatteredCast = danmaku.trySchedule(scattered, scatteredBoss, 'rotating-laser', 16);
 assert.equal(scatteredCast.projectiles, 60);
 scatteredBoss.x = 4;
 scattered.time += .1;
@@ -113,13 +154,79 @@ danmaku.tick(scattered);
 assert(scattered.hostileProjectiles.every(q => q.x === 4 && q.previousX === 4),
   'pending volleys must depart from the moving boss');
 assert(scatteredBoss.danmakuChoreoUntilV31316 > scattered.time);
+scattered.time = 10.35;
+danmaku.tick(scattered);
+scattered.time = 10.4;
+scatteredBoss.x = 4.4;
+danmaku.tick(scattered);
+assert(scattered.effects.find(e => e.danmakuCueV31316).movementTrailV31316.length >= 2,
+  'the tell captures the boss path after its movement phase begins');
 mobileRC47 = true;
 const compact = state();
-assert.equal(danmaku.plan(compact, compact.enemies[0], 'snipe-sword-wave', 4).count, 36);
-assert.equal(danmaku.trySchedule(compact, compact.enemies[0], 'snipe-sword-wave', 4).projectiles, 36);
+assert.equal(danmaku.plan(compact, compact.enemies[0], 'rotating-laser', 16).count, 36);
+assert.equal(danmaku.trySchedule(compact, compact.enemies[0], 'rotating-laser', 16).projectiles, 36);
+for (let i = 0; i < danmaku.deck.length; i++) {
+  const mobilePlan = danmaku.plan(compact, compact.enemies[0], 'snipe-sword-wave', i * 4);
+  assert(mobilePlan.count <= 48, `${mobilePlan.mode} remains below the mobile admission cap`);
+  for (const beat of mobilePlan.beats) for (const angle of beat.angles) {
+    const offset = Math.abs(Math.atan2(Math.sin(angle - mobilePlan.aim), Math.cos(angle - mobilePlan.aim)));
+    assert(offset >= mobilePlan.gap, `mobile ${mobilePlan.mode} retains its safe corridor`);
+  }
+}
 mobileRC47 = false;
 
+const stopped = state(), stoppedBoss = stopped.enemies[0];
+danmaku.trySchedule(stopped, stoppedBoss, 'snipe-sword-wave', 0);
+const stoppedCue = stopped.effects.find(e => e.danmakuCueV31316);
+stoppedCue.movementTrailV31316.push({x: stoppedBoss.x, y: stoppedBoss.y, at: 10.31});
+const stoppedFirst = Math.min(...stopped.hostileProjectiles.map(q => q.motionReleaseAt31219));
+stopped.time = 10.4;
+stopped.timeStopUntil = 11.3;
+danmaku.tick(stopped);
+assert.equal(stoppedCue.danmakuPausedV31316, true);
+assert(Math.abs(stoppedBoss.danmakuChoreoStartedV31316 - 11.2) < 1e-9,
+  'time stop shifts the boss choreography by the unelapsed stopped interval');
+assert(Math.abs(stoppedCue.movementTrailV31316[0].at - 11.21) < 1e-9,
+  'the movement echo pauses on the same timeline as the boss');
+assert(stopped.hostileProjectiles.every(q => !q.bodySpawned31219 && q.motionReleaseAt31219 >= stoppedFirst + .9),
+  'time stop keeps unreleased bullets hidden and delays their collision window');
+stopped.time = 11.35;
+stopped.timeStopUntil = 0;
+danmaku.tick(stopped);
+assert.equal(stoppedCue.danmakuPausedV31316, false);
+assert(stopped.hostileProjectiles.every(q => !q.bodySpawned31219),
+  'the resumed pattern does not release bullets before their shifted beat');
+stopped.time = stoppedFirst + .91;
+danmaku.tick(stopped);
+assert.equal(stopped.hostileProjectiles.filter(q => q.bodySpawned31219).length, 6,
+  'the first volley releases once after the shifted time-stop deadline');
+
+const dialogue = state(), dialogueBoss = dialogue.enemies[0];
+danmaku.trySchedule(dialogue, dialogueBoss, 'snipe-sword-wave', 0);
+const dialogueCue = dialogue.effects.find(e => e.danmakuCueV31316);
+const dialogueFirst = Math.min(...dialogue.hostileProjectiles.map(q => q.motionReleaseAt31219));
+dialogue.dialogueLocked = true;
+dialogue.time = 11.4;
+danmaku.tick(dialogue);
+assert.equal(dialogueCue.danmakuPausedV31316, true);
+assert(Math.abs(dialogueBoss.danmakuChoreoStartedV31316 - 11.7) < 1e-9,
+  'dialogue lock extends the movement tell and volley schedule together');
+assert(dialogue.hostileProjectiles.every(q => !q.bodySpawned31219 && q.motionReleaseAt31219 >= dialogueFirst + 1.4),
+  'dialogue lock does not let a scheduled volley leak into the pause');
+dialogue.dialogueLocked = false;
+dialogue.time = 11.5;
+danmaku.tick(dialogue);
+assert.equal(dialogueCue.danmakuPausedV31316, false);
+assert(dialogue.hostileProjectiles.every(q => !q.bodySpawned31219),
+  'dialogue resume waits for the shifted beat instead of firing immediately');
+dialogue.time = dialogueFirst + 1.41;
+danmaku.tick(dialogue);
+assert.equal(dialogue.hostileProjectiles.filter(q => q.bodySpawned31219).length, 6,
+  'dialogue resume releases the first volley once at its extended deadline');
+
 const first = Math.min(...s.hostileProjectiles.map(q => q.motionReleaseAt31219));
+sound.length = 0;
+boss.x = 12.8; boss.y = 8.5; s.x = 14; s.y = 10;
 s.time = first - .01;
 danmaku.tick(s);
 assert.equal(sound.length, 0);
@@ -128,22 +235,45 @@ s.time = first + .01;
 danmaku.tick(s);
 assert.equal(sound.length, 1, 'one sound cue is emitted per volley, not per bullet');
 assert.equal(s.hostileProjectiles.filter(q => q.bodySpawned31219).length, 6);
+const releaseAim = Math.atan2(s.y - boss.y, s.x - boss.x);
+const releaseDistance = Math.hypot(s.x - boss.x, s.y - boss.y);
+const releaseGap = Math.max(.32, Math.asin(Math.min(.98, 1.22 / releaseDistance)) + .08);
+for (const q of s.hostileProjectiles.filter(q => q.bodySpawned31219)) {
+  const offset = Math.abs(Math.atan2(Math.sin(q.danmakuAngleV31316 - releaseAim), Math.cos(q.danmakuAngleV31316 - releaseAim)));
+  assert.equal(q.danmakuGapV31316, releaseGap,
+    'moving-origin volley recomputes a distance-scaled safe gap at release');
+  assert(offset >= releaseGap, 'the moving-origin volley keeps the recalculated safe gap');
+  assert.equal(q.x, boss.x);
+  assert.equal(q.y, boss.y);
+}
 
 const calls = [];
 const ctx = {
   globalAlpha: 1, save() {}, restore() {}, translate() {}, rotate() {},
-  beginPath() {}, moveTo() {}, lineTo() {}, stroke() {calls.push('trail');},
+  beginPath() {}, moveTo() {}, lineTo() {}, closePath() {}, ellipse() {},
+  stroke() {calls.push('stroke');}, fill() {calls.push('glow');},
   drawImage() {calls.push('bitmap');}, setLineDash() {}, arc() {calls.push('pulse');}
 };
 const shot = s.hostileProjectiles.find(q => q.bodySpawned31219);
 assert.equal(danmaku.drawShot(ctx, {}, shot, s.time, {}), true);
-assert.ok(calls.includes('trail') && calls.includes('bitmap'));
+assert.ok(calls.includes('bitmap') && calls.includes('glow') && calls.includes('stroke'),
+  'the shared round jellybean gains the firing enemy color glow and signature motif');
 calls.length = 0;
 danmaku.drawShot(ctx, {}, shot, s.time, {lowFx: true});
-assert.deepEqual(calls, ['bitmap'], 'low FX draws the same bullet without extra strokes');
+assert.deepEqual(calls, ['bitmap'], 'low FX suppresses cosmetic glow without changing the hit sprite');
 calls.length = 0;
 danmaku.drawCue(ctx, {}, s.effects.find(e => e.danmakuCueV31316), first - .2, {});
 assert.ok(calls.includes('pulse'));
+const movementCue = s.effects.find(e => e.danmakuCueV31316);
+movementCue.movementTrailV31316 = [{x: 2, y: 8, at: first - .2}, {x: 3, y: 8.2, at: first - .1}];
+calls.length = 0;
+danmaku.drawCue(ctx, {}, movementCue, first - .05, {});
+assert(calls.filter(call => call === 'pulse').length >= 3,
+  'boss movement reads as a short color-matched wake during the danmaku tell');
+calls.length = 0;
+danmaku.drawCue(ctx, {}, movementCue, first - .05, {lowFx: true});
+assert.equal(calls.filter(call => call === 'pulse').length, 0,
+  'low FX removes the movement wake without affecting projectile collision');
 
 const crowded = state({bossLaserCastsV31330: [{endAt: 20}]});
 assert.equal(danmaku.trySchedule(crowded, crowded.enemies[0], 'snipe-sword-wave', 0), null);
@@ -208,7 +338,7 @@ vm.runInNewContext(
 const visible = {...shot, sprite: bloodied, fallbackSprite: bloodied};
 assert.equal(render.repair(visible).sprite, bloodied, 'owner repair retains a valid RC43 art path');
 calls.length = 0;
-const paint = {...ctx, drawImage(img) {calls.push(img.src);}};
+const paint = {...ctx, stroke() {calls.push('trail');}, drawImage(img) {calls.push(img.src);}};
 assert.equal(render.bullet(paint, {}, visible, s.time, {}), true);
 assert.deepEqual(calls, ['trail', bloodied], 'the active renderer draws the RC43 art and its trail');
 assert.equal(visible.ordnanceBitmapPathV31322, bloodied);
@@ -219,4 +349,4 @@ calls.length = 0;
 render.bullet(paint, {}, {...visible, bodySpawned31219: false}, s.time, {});
 assert.deepEqual(calls, [], 'the bitmap stays hidden before its scheduled launch');
 
-console.log('RC44: authored patterns, safe lane, timing, recovery, audio, production bitmap/RC43 art, low FX and fallback OK');
+console.log('RC44: movement patterns/trails, safe lane, time-stop/dialogue timing, recovery, audio, production bitmap/RC43 art, low FX and fallback OK');

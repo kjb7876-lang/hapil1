@@ -9,7 +9,8 @@ function world(){
  vm.runInContext(read('data/story-rc51.js'),c);
  c.he=Object.values(c.N).filter(z=>!z.rest&&!['hub','village'].includes(z.id)).map(z=>z.id);
  c.window.__HAPIL_RC59_RELEASE__={installed:true};c.ji=raw=>raw;
- vm.runInContext(bundle.slice(bundle.indexOf('/* RC60:')),c);
+ const rc64Start=bundle.indexOf('/* RC64:');
+ vm.runInContext(bundle.slice(bundle.indexOf('/* RC60:'),rc64Start),c);
  return c;
 }
 const c=world(),story=c.window.__HAPIL_STORY_DATA_RC51__;

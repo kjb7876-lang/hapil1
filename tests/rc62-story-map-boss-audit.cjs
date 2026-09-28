@@ -167,7 +167,8 @@ const calloutContext = {
   MONGSE_BOSS_SIGNATURE_PROFILES_V31212: signatureProfiles,
 };
 vm.createContext(calloutContext);
-vm.runInContext(bundle.slice(rc62Start), calloutContext);
+const rc62End = bundle.indexOf('/* RC64: stable danmaku', rc62Start);
+vm.runInContext(bundle.slice(rc62Start, rc62End < 0 ? bundle.length : rc62End), calloutContext);
 const namesApi = calloutContext.window.__HAPIL_BOSS_PATTERN_NAMES_RC62__;
 assert(namesApi?.installed, 'RC62 signature callout hook did not install');
 assert.equal(namesApi.signatureCount, 85);

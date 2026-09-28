@@ -36,7 +36,7 @@ assert.equal(rc.drawGold(canvas, state.effects[0], 3.1, {}, (x,y)=>({x,y})), tru
 assert(canvas.arcs >= 2, 'an absorbed hit draws a directional gold shield');
 
 // Execute the shipped geometry function itself, with the same clip contract.
-const start = source.indexOf(' function geometry(c){if(cachedGeometry.has(c))');
+const start = source.indexOf(' function geometry(c,time=c.fireAt){');
 const end = source.indexOf(' function canStart(s,a){', start);
 assert(start > 0 && end > start);
 const clip = (a,b) => {
