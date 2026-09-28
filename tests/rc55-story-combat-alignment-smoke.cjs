@@ -31,21 +31,30 @@ assert.match(prose, /각자의 이름으로 살아가며 스스로 선택할 수
 
 const bundle = read('assets/index-v31526.js');
 const html = read('index.html');
-assert.match(html, /assets\/index-v31526\.js\?v=35501/);
+assert.match(html, /assets\/index-v31526\.js\?v=35502/);
 assert.match(bundle, /MONGSE_ZONE_DISPLAY_NAMES31222/);
 assert.match(bundle, /black_rose_ego_core_prison\.jpg/);
 assert.match(bundle, /"c103-boss": \{ deck: \[`id-chase`, `superego-judgment`, `ego-triad`, `harvest-composite`\]/);
+assert.match(bundle, /actorId: `c103-mid`,[\s\S]{0,180}spriteArt: `\.\/assets\/vfx\/rc55\/cult03-heretic-han\.png`/,
+  'Han must use the actual apostate midboss actor and generated art');
+assert.match(bundle, /actorId: `c103-boss`,[\s\S]{0,180}spriteArt: `\.\/assets\/vfx\/rc55\/cult03-heretic-baek\.png`/,
+  'Baek must use the actual apostate boss actor and generated art');
+assert.match(bundle, /actorId: `c103-mid`,[\s\S]{0,260}patternSet: `rc55-c103-han`/);
+assert.match(bundle, /actorId: `c103-boss`,[\s\S]{0,260}patternSet: `rc55-c103-baek`/);
 
 const marker = '/* RC55: bind the cult03 heretics to their story and paired golden attacks. */';
 const start = bundle.indexOf(marker);
 assert(start >= 0, 'RC55 encounter bridge is missing');
-const bridge = bundle.slice(start);
+const rc56Start = bundle.indexOf('/* RC56: restore the enclosed HELP ME ward', start);
+assert(rc56Start > start, 'RC56 must follow the cult03 route bridge');
+const bridge = bundle.slice(start, rc56Start);
 const actors = [
   {id: 'c103-e2', kind: 'void', name: 'SUPER EGO 절개결정', hp: 266, x: 14, y: 6},
   {id: 'c103-e3', kind: 'ghoul', name: 'ID 잔류 점액체', hp: 246, x: 7, y: 14},
-  {id: 'c103-mid', kind: 'tank', name: '삼중자아 수확기', hp: 840, x: 10, y: 9, midboss: true, patternSet: 'final-hando'},
-  {id: 'c103-boss', kind: 'commandBoss', name: '삼중수확체', hp: 1620, x: 15, y: 14, boss: true, patternSet: 'final-hando', phaseCount: 3},
+  {id: 'c103-mid', kind: 'siren', name: 'apostate template', hp: 840, x: 11.8, y: 16.4, midboss: true, patternSet: 'final-kairo', actionSprites: {idle: 'old-han-idle', attackA: 'old-han-attack'}},
+  {id: 'c103-boss', kind: 'tank', name: 'apostate template', hp: 1620, x: 23.4, y: 16.8, boss: true, patternSet: 'final-hando', phaseCount: 3, actionSprites: {idle: 'old-baek-idle', attackA: 'old-baek-attack'}},
 ];
+const ordinaryBefore = JSON.stringify(actors.slice(0, 2));
 const N = {cult03: {id: 'cult03', map: './assets/maps/latest-v3123/black_rose_ego_core_prison.jpg', enemies: actors}};
 const emptyPlan = () => Object.fromEntries(
   ['all', 'A', 'B', 'C', 'deferred', 'pins'].map(key => [key, new Set()]),
@@ -62,15 +71,32 @@ vm.runInNewContext(bridge, context);
 const api = context.window.__HAPIL_STORY_COMBAT_ALIGNMENT_RC55__;
 assert(api, 'RC55 story/combat audit API was not installed');
 const audit = JSON.parse(JSON.stringify(api.audit()));
-assert.deepEqual(audit.heretics, ['이단 의목사 한리안', '이단 의목사 백이온']);
+assert.deepEqual(audit.heretics, ['이단의목사 한리안', '이단의목사 백이온']);
 assert.deepEqual(audit.sprites, [api.assets.han, api.assets.baek],
   'the generated character art must be assigned to the matching story enemies');
-assert.deepEqual(audit.hereticPatterns.map(deck => deck.length), [2, 2]);
+assert.deepEqual(audit.portraits, [api.assets.han, api.assets.baek],
+  'the generated apostate art must also reach their portrait path');
+assert.deepEqual(audit.actorIds, ['c103-mid', 'c103-boss'],
+  'the story names must bind to the apostate duo, not regular add slots');
+assert.deepEqual(audit.ranks, [true, true], 'midboss/boss combat rank must stay intact');
+assert.equal(audit.duplicateHereticActors, 2,
+  'each named apostate should exist exactly once in the enemy roster');
+assert.deepEqual(audit.hereticPatterns.map(deck => deck.length), [3, 3]);
 assert(audit.hereticPatterns[0].some(pattern => pattern.shape === 'cross'));
 assert(audit.hereticPatterns[1].some(pattern => pattern.shape === 'cone'));
-assert.equal(audit.circuitPatternSet, 'rc55-cult03-circuit');
-assert.deepEqual(audit.circuitPatterns.map(pattern => pattern.shape), ['cross', 'donut']);
-assert.equal(audit.coreBoss, true, 'the triadic core remains the zone boss');
+assert(audit.hereticPatterns[0].some(pattern => pattern.name.includes('황금 격자')),
+  'Han’s pattern deck must include the circuit attack described by the encounter');
+assert(audit.hereticPatterns[1].some(pattern => pattern.shape === 'donut'),
+  'Baek’s pattern deck must include the paired circuit ring');
+assert.equal(JSON.stringify(actors.slice(0, 2)), ordinaryBefore,
+  'ordinary c103-e2/e3 enemies must not be replaced by the named apostates');
+assert.equal(actors.length, 4, 'the encounter actor count must stay stable');
+assert.deepEqual(JSON.parse(JSON.stringify(actors[2].actionSprites)), {
+  idle: api.assets.han, attackA: 'old-han-attack', move: api.assets.han,
+}, 'Han’s generated image must be used in idle/move while preserving attack animation');
+assert.deepEqual(JSON.parse(JSON.stringify(actors[3].actionSprites)), {
+  idle: api.assets.baek, attackA: 'old-baek-attack', move: api.assets.baek,
+}, 'Baek’s generated image must be used in idle/move while preserving attack animation');
 assert.equal(audit.manifest, true);
 assert.equal(audit.plan, true);
 assert.equal(actors.find(actor => actor.id === 'c103-e2').midboss, undefined,
@@ -84,4 +110,4 @@ for (const file of [api.assets.han, api.assets.baek]) {
   assert.equal(png[25], 6, `${file} must preserve alpha for sprite compositing`);
 }
 
-console.log('RC55 PASS: 62 story entries proofread; cult03 heretics, gold patterns, and sprite asset routes align.');
+console.log('RC55/56 PASS: story entries retained; cult03 apostates bind to their real boss slots.');

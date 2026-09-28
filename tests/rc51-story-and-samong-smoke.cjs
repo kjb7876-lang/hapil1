@@ -18,4 +18,4 @@ for(const modify of [s=>s.gameModeV31346='HELL',s=>s.gameModeV31346='DREAM',s=>s
 const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));
 assert(main.includes('if(!scene?.rc26Story && window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
 assert(main.includes('tickBasic(o,HAPIL_heroDeltaRC51,'));assert(main.includes('MONGSE_currentEncounterDialogue31226=()=>null'));
-console.log('RC51 PASS: source conservation, 56 battle pairs, final phase cards, clock isolation, mode boundaries.');
+console.log('RC51 PASS: stored prose/card order, 56 battle pairs, final phase cards, clock isolation, mode boundaries.');

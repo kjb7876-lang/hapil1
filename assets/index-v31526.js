@@ -82147,8 +82147,9 @@ var MONGSE_APOSTATE_BOSS_VERSION_V31233 = `3.12.33`,
       actorId: `c103-mid`,
       sourceHeroId: `rian`,
       name: `이단의목사 한리안`,
+      spriteArt: `./assets/vfx/rc55/cult03-heretic-han.png`,
       rank: `midboss`,
-      patternSet: `final-kairo`,
+      patternSet: `rc55-c103-han`,
       allyOf: `c104-boss`,
       sourceFacing: `right`,
     }),
@@ -82157,8 +82158,9 @@ var MONGSE_APOSTATE_BOSS_VERSION_V31233 = `3.12.33`,
       actorId: `c103-boss`,
       sourceHeroId: `ion`,
       name: `이단의목사 백이온`,
+      spriteArt: `./assets/vfx/rc55/cult03-heretic-baek.png`,
       rank: `boss`,
-      patternSet: `final-hando`,
+      patternSet: `rc55-c103-baek`,
       allyOf: `c104-boss`,
       sourceFacing: `right`,
     }),
@@ -82230,10 +82232,19 @@ function MONGSE_apostateBossSpecV31233(MONGSE_actorV31233) {
 function MONGSE_apostateActionSheetV31233(MONGSE_heroIdV31233) {
   const MONGSE_directionV31233 = `right`,
     MONGSE_baseV31233 = `${MONGSE_ACTION_CONSISTENT}${MONGSE_heroIdV31233}`,
-    MONGSE_v3126V31233 = `${MONGSE_ACTION_V3126}${MONGSE_heroIdV31233}`;
+    MONGSE_v3126V31233 = `${MONGSE_ACTION_V3126}${MONGSE_heroIdV31233}`,
+    MONGSE_specV31233 = MONGSE_APOSTATE_BOSS_SPECS_V31233.find(
+      (MONGSE_candidateV31233) =>
+        MONGSE_candidateV31233.sourceHeroId === MONGSE_heroIdV31233,
+    ),
+    MONGSE_spriteArtV31233 = MONGSE_specV31233?.spriteArt;
   return Object.freeze({
-    idle: `${Dt}${MONGSE_heroIdV31233}-${MONGSE_directionV31233}.webp`,
-    move: `${MONGSE_v3126V31233}-move-${MONGSE_directionV31233}.webp`,
+    idle:
+      MONGSE_spriteArtV31233 ??
+      `${Dt}${MONGSE_heroIdV31233}-${MONGSE_directionV31233}.webp`,
+    move:
+      MONGSE_spriteArtV31233 ??
+      `${MONGSE_v3126V31233}-move-${MONGSE_directionV31233}.webp`,
     windup: `${MONGSE_baseV31233}-guard-${MONGSE_directionV31233}.webp`,
     attackA: `${MONGSE_baseV31233}-attack-${MONGSE_directionV31233}.webp`,
     attackB: `${MONGSE_baseV31233}-skill-${MONGSE_directionV31233}.webp`,
@@ -82870,7 +82881,8 @@ function MONGSE_installApostateBossV31233() {
       name: MONGSE_specV31233.name,
       kind: MONGSE_specV31233.sourceHeroId === `rian` ? `siren` : `tank`,
       sprite: MONGSE_actionsV31233.idle,
-      portraitV31233: MONGSE_heroV31233.portrait,
+      portraitV31233:
+        MONGSE_specV31233.spriteArt ?? MONGSE_heroV31233.portrait,
       facing: -1,
       sourceFacing31223: MONGSE_specV31233.sourceFacing,
       patternSet: MONGSE_specV31233.patternSet,
@@ -124787,11 +124799,10 @@ function HAPIL_installCanonicalStoryRC51(){
     throw new Error('RC55 cult03 encounter is missing');
 
   const actors = new Map(zone.enemies.map(actor => [actor.id, actor]));
-  const han = actors.get('c103-e2');
-  const baek = actors.get('c103-e3');
-  const circuit = actors.get('c103-mid');
-  const core = actors.get('c103-boss');
-  if (![han, baek, circuit, core].every(Boolean))
+  const han = actors.get('c103-mid');
+  const baek = actors.get('c103-boss');
+  const ordinaryEnemies = [actors.get('c103-e2'), actors.get('c103-e3')];
+  if (![han, baek, ...ordinaryEnemies].every(Boolean))
     throw new Error('RC55 cult03 story actors are incomplete');
 
   const assets = Object.freeze({
@@ -124799,18 +124810,18 @@ function HAPIL_installCanonicalStoryRC51(){
     baek: './assets/vfx/rc55/cult03-heretic-baek.png',
   });
   Object.assign(han, {
-    kind: 'mage', name: '이단 의목사 한리안', x: 6.8, y: 6.2, hp: 360,
-    sprite: assets.han, facing: -1, eliteName: '두려움의 서약',
-    patternSet: 'rc55-c103-han', scale: 1.04,
+    name: '이단의목사 한리안', sprite: assets.han,
+    portraitV31233: assets.han,
+    actionSprites: { ...han.actionSprites, idle: assets.han, move: assets.han },
+    eliteName: '역산의 성도 · 황금 격자',
+    patternSet: 'rc55-c103-han',
   });
   Object.assign(baek, {
-    kind: 'seal', name: '이단 의목사 백이온', x: 14.4, y: 6.2, hp: 372,
-    sprite: assets.baek, facing: 1, eliteName: '생존의 방벽',
-    patternSet: 'rc55-c103-baek', scale: 1.04,
-  });
-  Object.assign(circuit, {
-    patternSet: 'rc55-cult03-circuit',
-    eliteName: '황금 역십자가 · 질서 방벽',
+    name: '이단의목사 백이온', sprite: assets.baek,
+    portraitV31233: assets.baek,
+    actionSprites: { ...baek.actionSprites, idle: assets.baek, move: assets.baek },
+    eliteName: '질서의 방벽 · 합일 명령',
+    patternSet: 'rc55-c103-baek',
   });
 
   er['rc55-c103-han'] = [
@@ -124822,6 +124833,10 @@ function HAPIL_installCanonicalStoryRC51(){
       anchor: 'boss', windup: 1.18, cooldown: 4.2, radius: 7.2,
       width: 0.42, damage: 12, color: '#65364d', accent: '#f5d1dc',
     }),
+    K('삼중자아 회로 · 황금 격자', 'cross', {
+      anchor: 'arena', windup: 2.0, cooldown: 5.6, radius: 8.2,
+      width: 0.44, damage: 18, color: '#dcb646', accent: '#fff5cb',
+    }),
   ];
   er['rc55-c103-baek'] = [
     K('백이온 · 질서의 방벽', 'cross', {
@@ -124832,12 +124847,6 @@ function HAPIL_installCanonicalStoryRC51(){
       anchor: 'boss', windup: 1.4, cooldown: 4.6, radius: 6.4,
       width: 0.62, repeats: 3, gap: 0.32, damage: 13,
       color: '#f0e8cb', accent: '#d1b257',
-    }),
-  ];
-  er['rc55-cult03-circuit'] = [
-    K('삼중자아 회로 · 황금 격자', 'cross', {
-      anchor: 'arena', windup: 2.0, cooldown: 5.6, radius: 8.2,
-      width: 0.44, damage: 18, color: '#dcb646', accent: '#fff5cb',
     }),
     K('삼중자아 회로 · 질서 고리', 'donut', {
       anchor: 'boss', windup: 1.55, cooldown: 5.1, radius: 5.2,
@@ -124880,15 +124889,138 @@ function HAPIL_installCanonicalStoryRC51(){
         installed: true,
         heretics: [han.name, baek.name],
         sprites: [han.sprite, baek.sprite],
+        portraits: [han.portraitV31233, baek.portraitV31233],
         hereticPatterns: [patterns(han), patterns(baek)],
-        circuitPatternSet: circuit.patternSet,
-        circuitPatterns: patterns(circuit),
-        coreName: core.name,
-        coreBoss: core.boss === true,
+        actorIds: [han.id, baek.id],
+        ranks: [han.midboss === true, baek.boss === true],
+        ordinaryEnemies: ordinaryEnemies.map(actor => ({
+          id: actor.id, name: actor.name, sprite: actor.sprite,
+          patternSet: actor.patternSet,
+        })),
+        duplicateHereticActors: zone.enemies.filter(actor =>
+          actor.name === han.name || actor.name === baek.name).length,
         manifest: Object.values(assets).every(path => manifest.has(path)),
         plan: ['all', 'A', 'pins'].every(key =>
           Object.values(assets).every(path => plan?.[key]?.has(path))),
       });
     },
+  });
+})();
+
+/* RC56: restore the enclosed HELP ME ward and give the murder loop its rooftop. */
+;(() => {
+  'use strict';
+  const rows = Object.freeze({
+    ep1a08: './assets/maps/ep1a_08_blood_hospital_rc24.png',
+    murder03: './assets/maps/rc56/murder03-rooftop-loop.webp',
+  });
+  const fallbackMapByZone = Object.freeze({
+    ep1a08: './assets/v31345/maps/ep1a08.webp',
+    murder03:
+      window.__HAPIL_MAP_ART_RC54__?.originals?.murder03?.fallbackMap ??
+      './assets/maps/murder_03_rooftop_loop.jpg',
+  });
+  const originals = Object.create(null);
+  for (const [id, path] of Object.entries(rows)) {
+    const zone = N[id];
+    if (!zone?.map) throw new Error(`RC56 map route is missing: ${id}`);
+    originals[id] = Object.freeze({
+      map: zone.map,
+      mapVariants: Object.freeze([...(zone.mapVariants ?? [])]),
+      fallbackMap: fallbackMapByZone[id],
+    });
+    zone.map = path;
+    zone.mapVariants = [];
+  }
+
+  const previousManifest = MONGSE_zoneAssetManifest;
+  MONGSE_zoneAssetManifest = function HAPIL_storyMapManifestRC56(id, ...args) {
+    const result = new Set(previousManifest(id, ...args) ?? []);
+    const prior = originals[id];
+    if (prior) {
+      for (const path of prior.mapVariants) result.delete(path);
+      if (prior.map !== prior.fallbackMap) result.delete(prior.map);
+      result.add(rows[id]);
+      result.add(prior.fallbackMap);
+    }
+    return result;
+  };
+
+  const previousPlan = MONGSE_zoneAssetPlan31220;
+  MONGSE_zoneAssetPlan31220 = function HAPIL_storyMapPlanRC56(id, ...args) {
+    const base = previousPlan.apply(this, [id, ...args]);
+    const result = { ...base };
+    for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins'])
+      result[key] = new Set(base?.[key] ?? []);
+    const prior = originals[id];
+    if (prior) {
+      for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins']) {
+        for (const path of prior.mapVariants) result[key].delete(path);
+        if (prior.map !== prior.fallbackMap) result[key].delete(prior.map);
+      }
+      for (const key of ['all', 'A', 'pins']) {
+        result[key].add(rows[id]);
+        result[key].add(prior.fallbackMap);
+      }
+      for (const key of ['B', 'C', 'deferred']) result[key].delete(rows[id]);
+    }
+    return result;
+  };
+
+  let fallbackLoads = 0;
+  const recovery = window.__HAPIL_RECOVERY_V31369__;
+  if (typeof recovery?.prepareMap === 'function') {
+    const prepare = recovery.prepareMap;
+    window.__HAPIL_RECOVERY_V31369__ = Object.freeze({
+      ...recovery,
+      async prepareMap(cache, next) {
+        try {
+          return await prepare.call(recovery, cache, next);
+        } catch (primaryError) {
+          const prior = originals[next], zone = N[next];
+          if (!prior?.fallbackMap || !zone) throw primaryError;
+          const activeMap = zone.map, activeVariants = zone.mapVariants;
+          try {
+            zone.map = prior.fallbackMap;
+            zone.mapVariants = [];
+            const ready = await prepare.call(recovery, cache, next);
+            const fallback = cache[prior.fallbackMap];
+            if (!ready || !fallback?.complete || !(fallback.naturalWidth > 0))
+              throw primaryError;
+            cache[rows[next]] = fallback;
+            fallbackLoads++;
+            return true;
+          } finally {
+            zone.map = activeMap;
+            zone.mapVariants = activeVariants;
+          }
+        }
+      },
+    });
+  }
+
+  function audit() {
+    return Object.fromEntries(Object.entries(rows).map(([id, path]) => {
+      const manifest = MONGSE_zoneAssetManifest(id);
+      const plan = MONGSE_zoneAssetPlan31220(id, 'hwando', [], null);
+      const prior = originals[id];
+      return [id, {
+        active: N[id]?.map === path,
+        manifest: manifest.has(path),
+        plan: ['all', 'A', 'pins'].every(key => plan?.[key]?.has(path)),
+        fallback: prior.fallbackMap,
+        fallbackManifest: manifest.has(prior.fallbackMap),
+        staleMapQueued: [prior.map, ...prior.mapVariants]
+          .filter(old => old !== prior.fallbackMap && old !== path)
+          .some(old => manifest.has(old) || plan?.all?.has(old)),
+      }];
+    }));
+  }
+  window.__HAPIL_MAP_ART_RC56__ = Object.freeze({
+    version: 'RC56', installed: true, rows,
+    originals: Object.freeze(originals), audit,
+    prepareMap: (cache, id) =>
+      window.__HAPIL_RECOVERY_V31369__?.prepareMap(cache, id),
+    metrics: () => ({ fallbackLoads }),
   });
 })();
