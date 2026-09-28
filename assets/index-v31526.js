@@ -20024,7 +20024,7 @@ var te = S(10, 10),
           A + `horned_swamp_demon.webp`,
           1,
         ),
-        M(`dist02-g1`, `ghoul`, `독안개 구울`, 14, 7, 112, D + `ghoul.png`, -1),
+        M(`dist02-g1`, `ghoul`, `늪에서 되살아난 전우`, 14, 7, 112, A + `corrupted_guardian.webp`, -1),
         M(
           `dist02-m1`,
           `mage`,
@@ -20284,7 +20284,7 @@ var te = S(10, 10),
           !0,
         ),
       ],
-      next: `ep1a07`,
+      next: `ep1a08`,
     },
     ep1a07: {
       id: `ep1a07`,
@@ -25103,8 +25103,8 @@ const MONGSE_ZONE_DISPLAY_NAMES31222 = Object.freeze({
   hub: `악마가 점령한 세계`,
   dist01: `거미동굴`,
   dist02: `검은 늪지대`,
-  dist03: `소환 도시 접근로`,
-  dist04: `쓰러진 수호자의 묘도`,
+  dist03: `무너진 성`,
+  dist04: `시체들이 되살아난 밤`,
   dist05: `일곱 검은 기둥`,
   dist06: `지옥의 소환진`,
   ep1a07: `추락의 소용돌이`,
@@ -50579,6 +50579,7 @@ function MONGSE_migrateKairSave31221(e, t, n) {
 }
 function ji(e) {
   if (!e || typeof e != `object`) return null;
+  e = HAPIL_migrateDeletedRecordRC60(e);
   e=window.__HAPIL_POLICY_V31400__.migrate(e);
   let t = e,
     n =
@@ -104141,25 +104142,9 @@ if (typeof window !== "undefined") {
   }
 
   function sameArcMapPaths(state) {
-    const record = N?.[state?.zone];
-    if (!record) return [];
-    const current = mapPathsForZone(state.zone);
-    const nextPhaseIndex = Math.min(
-      current.length - 1,
-      Math.max(0, current.indexOf(desiredMapPath(state)) + 1),
-    );
-    const neighbor = record.next ? mapPathsForZone(record.next) : [];
-    const sameArc = Object.entries(N ?? {})
-      .filter(([, candidate]) => candidate?.arc === record.arc)
-      .flatMap(([zone]) => mapPathsForZone(zone));
-    return uniquePaths([
-      desiredMapPath(state),
-      current[nextPhaseIndex],
-      ...current,
-      ...neighbor,
-      lastGoodMapByArc.get(record.arc),
-      ...sameArc,
-    ]).slice(0, 12);
+    // RC60: a loading scene must never borrow another story map. DIST contains
+    // both medieval memories and the modern hospital, so arc identity is insufficient.
+    return uniquePaths([desiredMapPath(state), ...mapPathsForZone(state?.zone)]);
   }
 
   function visibleHeroRows(state = activeRender?.state) {
@@ -118387,7 +118372,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     }finally{ctx.restore();}
     return true;
   }
-  function mapFor(s,fallback) {const art=window.__HAPIL_MAP_ART_V31345__?.path(s?.zone);return art??(s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?(assets()?.arenaMap??fallback):fallback);}
+  function mapFor(s,fallback) {const art=window.__HAPIL_MAP_ART_RC56__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_RC54__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_V31345__?.path(s?.zone);return art??(s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?(assets()?.arenaMap??fallback):fallback);}
   function cameraFor(s,fallback) {return s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?{x:140.8,y:30,scale:.78}:fallback;}
   function shouldDrawFront(s,a) {return own(a)&&a.hp>0&&(s?.effects??[]).some(e=>e.cosmicImpactV31318&&e.cosmicModeV31318==='blood-beam'&&e.sourceId===a.id&&s.time>=e.born&&s.time<e.born+e.duration);}
   function drawFront(ctx,cache,s,settings) {const a=actorFor(s);return shouldDrawFront(s,a)?draw(ctx,cache,a,s.time,settings):false;}
@@ -121942,6 +121927,7 @@ let attempts=0;
 function install(){
  if(!window.__HAPIL_V31344_RELEASE__?.installed){if(++attempts<800)setTimeout(install,0);return;}
  const originals={};
+ for(const id of ids) rows[id]=window.__HAPIL_MAP_ART_RC56__?.rows?.[id]??window.__HAPIL_MAP_ART_RC54__?.rows?.[id]??rows[id];
  for(const id of ids){if(!N[id])throw Error('Missing v345 map '+id);originals[id]={map:N[id].map,mapVariants:[...(N[id].mapVariants??[])]};N[id].map=rows[id];N[id].mapVariants=[];}
  const baseManifest=MONGSE_zoneAssetManifest;
  MONGSE_zoneAssetManifest=function HAPIL_mapArtManifestV31345(id,...args){const paths=new Set(baseManifest(id,...args));if(rows[id])paths.add(rows[id]);return paths;};
@@ -125496,7 +125482,7 @@ function HAPIL_showDeathVerseRC59(state, pending) {
         String(save.zone??'').startsWith('ep1b');
       save.lastShelterZoneRC59=HAPIL_isShelterRC59(raw?.lastShelterZoneRC59)
         ? raw.lastShelterZoneRC59 : null;
-      save.midbossDuoSpawnedRC59=raw?.midbossDuoSpawnedRC59===true;
+      save.midbossDuoSpawnedRC59=raw?.zone!=='ep1a07'&&raw?.midbossDuoSpawnedRC59===true;
       return save;
     };
     HAPIL_restoreEntryFlowV31301=function HAPIL_restoreEpisode1DeathStateRC59(state,save,...args){
@@ -125547,3 +125533,36 @@ function HAPIL_showDeathVerseRC59(state, pending) {
   }
   schedule();
 })(0);
+
+/* RC60: remove the empty record without shifting stable map or actor IDs. */
+function HAPIL_migrateDeletedRecordRC60(raw) {
+  if (!raw || typeof raw !== 'object') return raw;
+  const save = {...raw};
+  if (Array.isArray(save.completedZones)) save.completedZones=save.completedZones.filter(id=>id!=='ep1a07');
+  if (save.frontierZone==='ep1a07') save.frontierZone='ep1a08';
+  if (save.zone==='ep1a07') {
+    save.zone='ep1a08';
+    save.frontierZone='ep1a08';
+    save.completedZones=(save.completedZones??[]).filter(id=>id!=='ep1a08');
+    // An absent saved roster starts the destination's native encounter.
+    delete save.enemies;
+    save.spawnedWaves=[];
+    save.completedWaves31228=[];
+    save.bossDefeated=false;
+    save.activeGhosts=[];
+    save.midbossDuoSpawnedRC59=false;
+    save.x=7;save.y=25;
+  }
+  return save;
+}
+;(function installRC60(attempt=0) {
+  if(!window.__HAPIL_RC59_RELEASE__?.installed){if(attempt<900)setTimeout(()=>installRC60(attempt+1),0);return;}
+  const deletedIndex=he.indexOf('ep1a07');if(deletedIndex>=0)he.splice(deletedIndex,1);
+  const records=window.__HAPIL_STORY_DATA_RC51__?.records??[];
+  const episode=records.filter(r=>!r.rest&&/^(dist0[0-6]|ep1a(08|09|10|11))$/.test(r.zone));
+  episode.forEach((r,i)=>{if(N[r.zone]){N[r.zone].stage=i+1;N[r.zone].stageCount=episode.length;}});
+  for(const r of records)if(N[r.zone])N[r.zone].name=r.title;
+  window.__HAPIL_STORY_ROUTE_RC60__=Object.freeze({version:'RC60',records:records.length,
+    combatMaps:records.filter(r=>!r.rest).length,removedZone:'ep1a07',
+    migrate:HAPIL_migrateDeletedRecordRC60});
+})();

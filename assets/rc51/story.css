@@ -6,3 +6,5 @@ html.rc51-samong{filter:grayscale(1)}html.rc51-time-stop .game-canvas,html.rc51-
 @media(max-height:540px) and (orientation:landscape){.rc51-panel{padding:9px 18px;gap:5px}.rc51-header{display:flex;align-items:center;gap:18px}.rc51-header h1{font-size:19px;margin:0}.rc51-copy{line-height:1.45;column-gap:24px}.rc51-footer button{min-height:30px;padding:3px 12px;font-size:12px}}
 
 .rc51-copy p{margin:0 0 .4em;white-space:pre-wrap}.rc51-copy p:last-child{margin-bottom:0}
+
+.rc51-story[data-flashback="medieval"] .rc51-panel{background:linear-gradient(145deg,rgba(22,24,32,.92),rgba(8,10,16,.92))}

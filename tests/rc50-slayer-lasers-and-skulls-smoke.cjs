@@ -11,7 +11,7 @@ const slice = (start, end) => {
   return source.slice(a, b);
 };
 
-assert(html.includes('index-v31526.js?v=35901'), 'modified bundle must bypass the previous HTML cache');
+assert(html.includes('index-v31526.js?v=36001'), 'modified bundle must bypass the previous HTML cache');
 const poseRoute = slice('/* HAPIL FINAL RC5: canonical', '/* HAPIL FINAL RC6:');
 let imagePath = '', draws = 0, legacy = 0;
 const newImage = {complete: true, naturalWidth: 1774, naturalHeight: 887};

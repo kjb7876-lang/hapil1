@@ -9,8 +9,8 @@ const storyWindow = {};
 vm.runInNewContext(read('data/story-rc51.js'), { window: storyWindow });
 const story = storyWindow.__HAPIL_STORY_DATA_RC51__;
 const records = story.records;
-assert.equal(records.length, 62, 'the authored story route must retain all 62 records');
-assert.equal(new Set(records.map(record => record.zone)).size, 62,
+assert.equal(records.length, 61, 'the authored story route must retain all 61 records');
+assert.equal(new Set(records.map(record => record.zone)).size, 61,
   'each story card must still belong to one unique zone');
 assert.deepEqual(JSON.parse(JSON.stringify(records.filter(record => /^murder0[1-4]$/.test(record.zone))
   .map(record => record.zone))), ['murder01', 'murder02', 'murder04', 'murder03'],
@@ -18,12 +18,12 @@ assert.deepEqual(JSON.parse(JSON.stringify(records.filter(record => /^murder0[1-
 
 const bundle = read('assets/index-v31526.js');
 const html = read('index.html');
-assert.match(html, /index-v31526\.js\?v=35901/,
+assert.match(html, /index-v31526\.js\?v=36001/,
   'the active bundle URL must invalidate the prior browser cache');
 const marker = '/* RC56: restore the enclosed HELP ME ward';
 const start = bundle.indexOf(marker);
 assert(start >= 0, 'RC56 map-route bridge is missing');
-const source = bundle.slice(start);
+const source = bundle.slice(start, bundle.indexOf('/* RC59:', start));
 const paths = {
   ep1a08: './assets/maps/ep1a_08_blood_hospital_rc24.png',
   murder03: './assets/maps/rc56/murder03-rooftop-loop.webp',

@@ -17,9 +17,10 @@
  function show(s,r,kind,text,callback){if(root||!text)return false;owner=s;done=callback;previousFocus=document.activeElement;previousBlocked=!!window.__HAPIL_READING_V31342__?.blocked;if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;clearInput();
   root=el('div','rc51-story');root.id='hapil-story-rc51';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-labelledby','rc51-title');
   root.dataset.zone=s.zone;root.dataset.phase=kind;
+  if(kind==='post'&&r.postBackdrop){root.style.backgroundImage=`linear-gradient(rgba(3,5,12,.55),rgba(3,5,12,.75)),url("${r.postBackdrop}")`;root.style.backgroundSize='cover';root.style.backgroundPosition='center';root.dataset.flashback='medieval';}
   const panel=el('section','rc51-panel'),head=el('header','rc51-header');
   head.append(el('small','rc51-kicker',kind==='pre'?'전투 전 · 기억':kind==='firstPost'?'전투 후 · 돌아오는 현실':kind==='awakenPre'?'전투 전 · 사몽 각성':'전투 후 · 남겨진 기억'));
-  const title=el('h1','',r.title);title.id='rc51-title';head.append(title);panel.append(head);
+  const title=el('h1','',`${String(r.index).padStart(2,'0')} · ${r.title}`);title.id='rc51-title';head.append(title);panel.append(head);
   const box=el('div','rc51-copybox'),copy=el('article','rc51-copy');for(const paragraph of text.split(/\n\s*\n/))copy.append(el('p','',paragraph));box.append(copy);panel.append(box);
   const footer=el('footer','rc51-footer'),pause=el('button','','자동 넘김 멈춤'),next=el('button','','계속 · Enter');pause.type=next.type='button';
   const full=window.__HAPIL_CONTROLS_V31329__?.effective?.()==='full';autoLeft=full?Math.max(12,text.length/9):0;autoPaused=false;lastUi=performance.now();pause.hidden=!full;

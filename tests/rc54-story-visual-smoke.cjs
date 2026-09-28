@@ -8,12 +8,12 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const storyWindow = {};
 vm.runInNewContext(read('data/story-rc51.js'), { window: storyWindow });
 const records = storyWindow.__HAPIL_STORY_DATA_RC51__.records;
-assert.equal(records.length, 62, 'RC54 must preserve the complete 62-map story');
+assert.equal(records.length, 61, 'RC60 removes only the empty story slot');
 
 const earlyZones = new Set(['dist00', 'dist01', 'dist02', 'dist03', 'dist04', 'dist05', 'dist06', 'ep1a07']);
 const modernTerms = /횡단보도|승용차|자동차|신호등|새빛호텔|아파트/;
 const early = records.filter(record => earlyZones.has(record.zone));
-assert.equal(early.length, 8, 'all seven demon maps plus the medieval fall map must remain present');
+assert.equal(early.length, 7, 'seven medieval battle maps remain; fall narration belongs to dist06');
 for (const record of early) {
   const text = `${record.pre ?? ''}\n${record.post ?? ''}`;
   assert(!modernTerms.test(text), `${record.zone} contains modern city imagery in the demon-memory arc`);
@@ -53,10 +53,11 @@ assert.match(bundle, /cache\[rows\[next\]\] = fallback/);
 assert.match(bundle, /ep1a_08_blood_hospital_rc24\.png/);
 assert(!bundle.includes("ep1a08: './assets/maps/rc53/ep1a08-blood-hospital.webp'"),
   'the generated open arena must not replace the enclosed hospital map');
-assert.match(html, /index-v31526\.js\?v=35901/);
+assert.match(html, /index-v31526\.js\?v=36001/);
 
 for (const [zone, asset] of Object.entries(routes)) {
-  assert(records.some(record => record.zone === zone), `story map ${zone} is absent`);
+  if(zone==='ep1a07')assert(!records.some(record=>record.zone===zone),'deleted slot must stay inactive');
+  else assert(records.some(record => record.zone === zone), `story map ${zone} is absent`);
   assert(bundle.includes(`${zone}: './${asset}'`), `runtime route ${zone} is absent`);
   const image = fs.readFileSync(path.join(root, asset));
   assert(image.length > 20_000 && image.length < 2_000_000, `${asset} has an implausible size`);
@@ -164,5 +165,5 @@ const cache = {};
     { id: 'blue-executor' }, 'murder03', 'major');
   assert.equal(resolvedMajor.projectile, projectile);
   assert.equal(resolvedMajor.major, true, 'visual replacement must preserve major-skill state');
-  console.log('RC54 STORY VISUAL PASS: 62 story records audited; medieval flashback and murder-city art routes, hospital retention, projectile profile, and fallback verified.');
+  console.log('RC54 STORY VISUAL PASS: 61 story records audited; medieval flashback and murder-city art routes, hospital retention, projectile profile, and fallback verified.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

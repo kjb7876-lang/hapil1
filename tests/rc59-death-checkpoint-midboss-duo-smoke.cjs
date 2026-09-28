@@ -62,7 +62,7 @@ const context = {
   setTimeout:()=>0,
 };
 vm.createContext(context);
-vm.runInContext(bundle.slice(sourceStart), context);
+vm.runInContext(bundle.slice(sourceStart, bundle.indexOf('/* RC60:', sourceStart)), context);
 const api = context.window.__HAPIL_EPISODE1_RC59__;
 assert(api?.installed, 'RC59 installer should attach to the runtime');
 
@@ -142,7 +142,7 @@ for(const sprite of companionAudit.assets)
 assert(bundle.includes('“나는 부활이요 생명이니”'));
 assert(bundle.includes('요한복음 11:25'));
 assert(bundle.includes('로마서 6:23'));
-assert.match(read('index.html'),/index-v31526\.js\?v=35901/,
+assert.match(read('index.html'),/index-v31526\.js\?v=36001/,
   'RC59 must invalidate the RC58 browser cache');
 
 console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and paired midboss restores verified.');

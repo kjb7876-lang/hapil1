@@ -10,12 +10,12 @@ vm.runInNewContext(read('data/story-rc51.js'), { window: storyWindow });
 const story = storyWindow.__HAPIL_STORY_DATA_RC51__;
 const records = story.records;
 
-assert.equal(story.editorialRevision, 'RC58');
-assert.equal(records.length, 62, 'all authored map and rest records must remain');
-assert.equal(new Set(records.map(record => record.zone)).size, 62,
+assert.equal(story.editorialRevision, 'RC60');
+assert.equal(records.length, 61, 'all authored map and rest records must remain');
+assert.equal(new Set(records.map(record => record.zone)).size, 61,
   'every story entry must target a distinct playable zone');
-assert.equal(records.filter(record => !record.rest).length, 56,
-  'the 56 battle entries must keep their before/after cards');
+assert.equal(records.filter(record => !record.rest).length, 55,
+  'the 55 battle entries must keep their before/after cards');
 for (const record of records) {
   if (record.rest) continue;
   for (const field of ['pre', 'post', 'firstPost', 'awakenPre'])
@@ -31,7 +31,7 @@ assert.match(prose, /이곳에 남은 사람들이 자기 이름으로 살아갈
 
 const bundle = read('assets/index-v31526.js');
 const html = read('index.html');
-assert.match(html, /assets\/index-v31526\.js\?v=35901/);
+assert.match(html, /assets\/index-v31526\.js\?v=36001/);
 assert.match(bundle, /MONGSE_ZONE_DISPLAY_NAMES31222/);
 assert.match(bundle, /black_rose_ego_core_prison\.jpg/);
 assert.match(bundle, /"c103-boss": \{ deck: \[`id-chase`, `superego-judgment`, `ego-triad`, `harvest-composite`\]/);
@@ -110,4 +110,4 @@ for (const file of [api.assets.han, api.assets.baek]) {
   assert.equal(png[25], 6, `${file} must preserve alpha for sprite compositing`);
 }
 
-console.log('RC55/56 PASS: story entries retained; cult03 apostates bind to their real boss slots.');
+console.log('RC55/60 PASS: story entries retained; cult03 apostates bind to their real boss slots.');
