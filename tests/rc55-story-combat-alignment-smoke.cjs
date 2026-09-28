@@ -10,7 +10,7 @@ vm.runInNewContext(read('data/story-rc51.js'), { window: storyWindow });
 const story = storyWindow.__HAPIL_STORY_DATA_RC51__;
 const records = story.records;
 
-assert.equal(story.editorialRevision, 'RC55');
+assert.equal(story.editorialRevision, 'RC57');
 assert.equal(records.length, 62, 'all authored map and rest records must remain');
 assert.equal(new Set(records.map(record => record.zone)).size, 62,
   'every story entry must target a distinct playable zone');
@@ -22,12 +22,12 @@ for (const record of records) {
     assert((record[field]?.length ?? 0) <= 900, `${record.zone} ${field} exceeds the card layout limit`);
 }
 const prose = story.raw;
-assert(!/악마였던건지|경고와함께|머리속|문을 잠군|기리고|수호자로써|남겨져있었다|남은채|완치되었|거였던거|대리고|되기위한|문들 부터|정당화 해|정렬되 있었다|어려워 졌|누를 수 밖에|기억 조차|존재 하고 있었다|책망 하였고|밀어 벼렸다|보내었다|바랬기에|한이경 이였다|둘이상|뿐이였|소멸 되어 버렸다|그들의 각자/.test(prose),
+assert(!/악마였던건지|경고와함께|머리속|문을 잠군|기리고|수호자로써|남겨져있었다|남은채|거였던거|대리고|되기위한|문들 부터|정당화 해|정렬되 있었다|어려워 졌|누를 수 밖에|기억 조차|존재 하고 있었다|책망 하였고|밀어 벼렸다|보내었다|바랬기에|한이경 이였다|둘이상|뿐이였|소멸 되어 버렸다|그들의 각자/.test(prose),
   'the reviewed story still contains known spelling or spacing errors');
 const cultRecord = records.find(record => record.zone === 'cult03');
 assert.match(cultRecord.pre, /한리안과 백이온/);
 assert.match(cultRecord.post, /황금 역십자가의 탄막과 질서의 방벽/);
-assert.match(prose, /각자의 이름으로 살아가며 스스로 선택할 수 있는 세계/);
+assert.match(prose, /이곳에 남은 사람들이 자기 이름으로 살아갈 수 있는 자유의지가 존재하는 세계/);
 
 const bundle = read('assets/index-v31526.js');
 const html = read('index.html');

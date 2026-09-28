@@ -1,5 +1,7 @@
 # RC56 story, map, and enemy audit
 
+> Historical note: RC56 inspected the then-active RC55 editorial narrative. Its unresolved-source section was closed in RC57, which restores the user's uploaded monologue as the active source. See `RC57-story-monologue-map-audit.md` for the current narrative and map alignment.
+
 ## Scope and result
 
 Reviewed the 62 story records and their active route order, visually checked the full map set, checked the 72 boss IDs and their visual ownership, and traced the `cult03` apostate actors from the authored story into the combat templates. The route contains 56 combat scenes and 6 rests. All 62 active story-zone map assets were present in Git during the audit.
@@ -31,11 +33,11 @@ Two live presentation/identity defects were fixed in RC56:
 - Murder-loop combat remains separated from the human narrative: the four named memories do not turn the victims into ordinary mob targets; the relevant combat identities are loop/anomaly/device entities.
 - Eight playable heroes remain the player roster. Rian and Ion remain apostate boss/NPC sources, not selectable heroes or party allies.
 
-## Canonical-text provenance: unresolved
+## Canonical-text provenance (resolved in RC57)
 
-The `sourceSha256` field matches the original `data/rc51/canonical.txt` file, but the current `data/story-rc51.js` `raw` string is not byte-for-byte (or normalized-text) identical to that canonical file. After removing BOM/normalizing line endings, the current raw text has 37,034 characters versus 37,043 in canonical text and a different SHA-256. The first observed divergence is already in `dist01` (for example, spacing in “보라검천사” and “스쳐 지나갔다”). RC55 identifies the content as an editorial revision, but the existing smoke test only proves that the current raw string is presented in story cards in order; it does not prove that the current raw equals the uploaded canonical text. Its success message was renamed so it no longer overstates “source conservation.”
+At RC56, the active prose had been rewritten as an RC55 editorial narrative and did not match the uploaded file. The user clarified that the uploaded first-person voice monologue replaces both that version and the older reciprocal dialogue. RC57 moved the byte-preserved source to `data/rc57/voice-monologue.txt`; its SHA-256 is `b7d620e27e9a4d44e0b170f2980047642bcc03b5460b1f8ddcb62ed1040d4add`. The active `raw` and every map card are now rebuilt from that source, with the previously requested spelling and spacing corrections only. The formerly empty `[08-삭제된기록]` marker stays empty; `ep1a07` carries the fall continuation split from `[07 · dist06]`.
 
-No broad prose restoration or further rewriting was made in RC56. The next text pass needs an explicit source-of-truth decision: restore the canonical text exactly, or approve the edited RC55 narrative as the new source. There is also one line worth confirming during that pass: `cult03` says the two priests “betrayed the cult” while protecting the cult leader’s fusion circuit, which may be intentional but reads ambiguously without the surrounding reveal.
+The updated story smoke test verifies the source hash, approved correction map, every record paragraph, each before/after card, rest-text handoff, and legacy-dialogue suppression. It also checks that all story cards fit the 900-character layout budget.
 
 ## Verification limits
 

@@ -1,4 +1,4 @@
-/* RC51: uploaded first-person narrative, one before/after card per battle. */
+/* RC57: uploaded first-person monologue replaces legacy encounter dialogue. */
 (()=>{'use strict';
  const data=window.__HAPIL_STORY_DATA_RC51__, records=new Map(data.records.map(r=>[r.zone,r]));
  const sessions=new WeakMap();let root=null,owner=null,done=null,previousFocus=null,autoLeft=0,autoPaused=false,lastUi=0,previousBlocked=false;
@@ -26,7 +26,21 @@
   pause.onclick=()=>{autoPaused=!autoPaused;pause.textContent=autoPaused?'자동 넘김 계속':'자동 넘김 멈춤';};next.onclick=()=>close();footer.append(pause,next);panel.append(footer);root.append(panel);document.body.append(root);
   fit();document.fonts?.ready.then(()=>{if(root)fit();});next.focus();return true;
  }
- function suppressEntry(s){s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.encounterWallUnlockAtV31227=0;s.restPortalUnlockAt31226=s.time;s.restPortalWallUnlockAtV31227=0;s.restDialogueComplete31226=true;s.zoneEntryFlowZone31226=s.zone;}
+ function suppressEntry(s){
+  if(!s)return;
+  const now=Number.isFinite(s.time)?s.time:0;
+  const hadLegacyDialogue=!!s.encounterDialogue31226||Number(s.encounterLockUntil31226??0)>now||Number(s.encounterWallUnlockAtV31227??0)>0;
+  s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.encounterWallUnlockAtV31227=0;
+  if(hadLegacyDialogue){
+   s.invulnerableUntil=Math.min(Number.isFinite(s.invulnerableUntil)?s.invulnerableUntil:now,now+.12);
+   for(const [i,enemy] of (s.enemies??[]).entries()){
+    enemy.readyAt=Math.min(Number.isFinite(enemy.readyAt)?enemy.readyAt:now,now+.14+i*.015);
+    enemy.patternReadyAt=Math.min(Number.isFinite(enemy.patternReadyAt)?enemy.patternReadyAt:now,now+.28+i*.015);
+    enemy.invulnerableUntil=Math.min(Number.isFinite(enemy.invulnerableUntil)?enemy.invulnerableUntil:now,now+.12);
+   }
+  }
+  s.restPortalUnlockAt31226=now;s.restPortalWallUnlockAtV31227=0;s.restDialogueComplete31226=true;s.zoneEntryFlowZone31226=s.zone;
+ }
  function beforeFrame(s,ctx={}){
   if(root){if(owner!==s||!enabled(s)||s.hp<=0){close(false);}else{const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0)close();}return true;}}
   document.documentElement.classList.toggle('rc51-samong',active(s));
@@ -67,7 +81,7 @@
  for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(!root)return;e.stopImmediatePropagation();if(e.code==='Tab'){const nodes=[...root.querySelectorAll('button:not([hidden])')],at=nodes.indexOf(document.activeElement);e.preventDefault();nodes[(at+(e.shiftKey?-1:1)+nodes.length)%nodes.length]?.focus();return;}e.preventDefault();if(type==='keydown'&&!e.repeat&&['Enter','Space'].includes(e.code))close();},true);
  window.__HAPIL_STORY_RC51__=Object.freeze({enabled,active,beforeFrame,clock,show,close,fit,records,isOpen:()=>!!root,replacesLegacy:true,suppressEntry,
   heroNow:s=>active(s)?(memory(s).startTime??s.time)+memory(s).elapsed*2.2:s.time,heroSpeed:s=>active(s)?1.7:1,heroSize:s=>active(s)?1.3:1,power:s=>active(s)?5:1,incoming:s=>active(s)?.12:1,trails:s=>active(s)?memory(s).trails:[]});
- // All archive entry points resolve to the same uploaded text.
+ // The opening voice monologue and map cards share the same uploaded source.
  window.__HAPIL_PATIENT_DATA_RC51__={...data,records:[{zone:'hub',index:0,title:'남아 있는 기억',entry:'',body:rawPrologue()},...data.records.map(r=>({...r,entry:r.paragraphs[0]??'',body:r.paragraphs.slice(1).join('\n\n')}))]};
  function rawPrologue(){return data.raw.slice(0,data.raw.indexOf('[01 · dist00]')).trim();}
 })();

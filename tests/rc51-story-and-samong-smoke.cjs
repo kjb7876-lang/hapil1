@@ -4,18 +4,50 @@ const classes=new Set(),window={addEventListener(){},innerWidth:1280,innerHeight
 const context={window,document:{documentElement:{classList:{toggle(k,v){v?classes.add(k):classes.delete(k)},remove(k){classes.delete(k)}}}},performance:{now:()=>0}};
 vm.runInNewContext(read('data/story-rc51.js'),context);vm.runInNewContext(read('assets/rc51/story.js'),context);
 const data=window.__HAPIL_STORY_DATA_RC51__,api=window.__HAPIL_STORY_RC51__;
-assert.equal(data.sourceSha256,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'data/rc51/canonical.txt'))).digest('hex'));
-assert.equal(data.records.length,62);assert.equal(data.records.filter(r=>!r.rest).length,56);
-const clean=s=>s.split('\n').filter(l=>!/^제\d+부|^〈|^\[\d+/.test(l.trim())).join('').replace(/\s/g,'');
-const source=clean(data.raw.slice(data.raw.indexOf('[01 · dist00]')));
-const presented=clean(data.records.filter(r=>!r.rest).map(r=>[r.pre,r.firstPost,r.awakenPre,r.post].filter(Boolean).join('\n\n')).join('\n\n'));
-assert.equal(presented,source,'every uploaded prose character appears once, in authored order');
-for(const r of data.records){if(r.rest){assert(!r.pre&&!r.post);continue;}assert(r.pre&&r.post,`missing battle card ${r.zone}`);for(const k of ['pre','post','firstPost','awakenPre'])assert((r[k]?.length??0)<=900,`${r.zone} ${k} exceeds layout budget`);}
+const sourcePath=path.join(root,'data/rc57/voice-monologue.txt'),sourceBytes=fs.readFileSync(sourcePath),uploadedText=sourceBytes.toString('utf8').replace(/^\uFEFF/,'').replace(/\r\n/g,'\n');
+const fixes=[['보라검천사','보라검 천사'],['스쳐지나갔다','스쳐 지나갔다'],['악마였던건지','악마였던 건지'],['경고와함께','경고와 함께'],['머리속','머릿속'],['문을 잠군','문을 잠근'],['기리고','그리고'],['수호자로써','수호자로서'],['남겨져있었다','남겨져 있었다'],['남은채','남은 채'],['거였던거','거였던 것'],['대리고','데리고'],['되기위한','되기 위한'],['문들 부터','문들부터'],['정당화 해','정당화해'],['정렬되 있었다','정렬되어 있었다'],['어려워 졌','어려워졌다'],['누를 수 밖에','누를 수밖에'],['기억 조차','기억조차'],['존재 하고 있었다','존재하고 있었다'],['책망 하였고','책망하였고'],['밀어 벼렸다','밀어 버렸다'],['보내었다','보냈다'],['바랬기에','바랐기에'],['한이경 이였다','한이경이었다'],['둘이상','둘 이상'],['뿐이였','뿐이었다'],['소멸 되어 버렸다','소멸되어 버렸다'],['강제로 묶였던 자아들... 그들의 각자의 이름과 기억이 되찾아 갔다.','강제로 묶였던 자아들은 각자의 이름과 기억을 되찾아 갔다.']];
+const sourceText=fixes.reduce((text,[from,to])=>text.replaceAll(from,to),uploadedText);
+assert.equal(data.version,'RC57');assert.equal(data.sourceFile,'data/rc57/voice-monologue.txt');
+assert.equal(data.sourceSha256,crypto.createHash('sha256').update(sourceBytes).digest('hex'));
+assert.equal(data.raw,sourceText,'the active story source must match the upload except for previously requested surface corrections');
+assert(!fs.existsSync(path.join(root,'data/rc51/canonical.txt')),'the superseded canonical-file path must be removed');
+assert.equal(data.records.length,62);assert.equal(data.records.filter(r=>!r.rest).length,56);assert.equal(data.records.filter(r=>r.rest).length,6);
+const sections=new Map();let current=null;
+for(const line of sourceText.split('\n')){const h=line.match(/^\[(\d+)\s*·\s*([^\]]+)\]\s*(.*)$/);if(h){current={zone:h[2].trim(),title:h[3].trim(),lines:[]};sections.set(current.zone,current);continue;}if(/^\[08-삭제된기록\]/.test(line)){current=null;continue;}if(/^제\d+부|^〈/.test(line.trim()))continue;if(current)current.lines.push(line);}
+const getParas=zone=>sections.get(zone).lines.join('\n').trim().split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
+const join=(...parts)=>parts.flat().filter(Boolean).join('\n\n').trim();
+const voice1Start=sourceText.indexOf('음성 1 — 기억의 독백'),voice2Start=sourceText.indexOf('음성 2 — 전투 후 기억',voice1Start),part1Start=sourceText.indexOf('제1부 — 마지막 수호자 EGO',voice2Start);
+const voice1=sourceText.slice(voice1Start,voice2Start).trim(),voice2=sourceText.slice(voice2Start,part1Start).trim();
+const preCount={dist00:2,dist01:2,dist02:2,dist03:2,dist05:1,dist06:1,ep1a07:1,ep1a08:2,ep1a09:3,ep1a10:3,ep1a11:5,ep1b01:3,ep1b02:3,ep1b03:3,ep1b04:3,ep1b05:3,ep1b06:2,ep1b06b:2,ep1b07:3,ep1b08:3,ep1b09:4,u201:2,u202:4,u204:4,u205:2,u206:4,u203:1,last304:1,last305:2,last301:2,last302:2,last303:2,kair01:2,kair04:2,kair05:2,kair06:1,kair07:2,kair08:1,kair09:1,kair10:2,kair02:2,kair03:5,hando01:1,hando02:2,hando03:2,murder01:1,murder02:5,murder04:7,murder03:3,cult01:3,cult02:2,cult05:2,cult06:2,cult03:4};
+const restBefore={ep1b01:'dreamRest',u201:'restEp1b',last304:'restU2',kair01:'restLast3',hando01:'restKairo',murder01:'restHando'};
+for(const r of data.records){
+ if(r.rest){assert.deepEqual([...r.paragraphs],getParas(r.zone));assert(!r.pre&&!r.post);continue;}
+ let own;
+ if(r.zone==='dist04'){const body=sections.get('dist04').lines.join('\n').trim(),lines=body.split('\n').map(x=>x.trim()).filter(Boolean);own=[body];assert.deepEqual([...r.paragraphs],own);assert.equal(r.pre,lines.slice(0,3).join('\n'));assert.equal(r.post,lines.slice(3).join('\n'));continue;}
+ if(r.zone==='dist06')own=getParas('dist06').slice(0,2);else if(r.zone==='ep1a07')own=getParas('dist06').slice(2);else own=getParas(r.zone);
+ assert.deepEqual([...r.paragraphs],own,`${r.zone} paragraph source`);
+ if(r.zone==='ep1a07'){assert.equal(r.sourceZone,'dist06');assert.equal(r.pre,own[0]);assert.equal(r.post,own[1]);continue;}
+ if(r.zone==='dist06'){assert.equal(r.pre,own[0]);assert.equal(r.post,own[1]);continue;}
+ const cuts=r.zone==='cult04'?[1,7,10]:[preCount[r.zone]],parts=[];let at=0;
+ for(const cut of cuts){parts.push(own.slice(at,cut).join('\n\n'));at=cut;}parts.push(own.slice(at).join('\n\n'));
+ if(restBefore[r.zone])parts[0]=join(getParas(restBefore[r.zone]),parts[0]);
+ if(r.zone==='dist00')parts[0]=join(voice1,parts[0]);if(r.zone==='dist00')parts[1]=join(voice2,parts[1]);
+ assert.equal(r.pre,parts[0],`${r.zone} pre-battle monologue`);
+ if(r.zone==='cult04'){assert.equal(r.firstPost,parts[1]);assert.equal(r.awakenPre,parts[2]);assert.equal(r.post,parts[3]);}
+ else assert.equal(r.post,parts[1],`${r.zone} post-battle monologue`);
+ }
+const prologue=window.__HAPIL_PATIENT_DATA_RC51__.records[0].body;
+assert.equal(prologue,data.raw.slice(0,data.raw.indexOf('[01 · dist00]')).trim(),'voice 1/2 remain available in the opening story record');
+assert.equal(api.replacesLegacy,true);
+for(const r of data.records){if(r.rest)continue;assert(r.pre&&r.post,`missing battle card ${r.zone}`);for(const k of ['pre','post','firstPost','awakenPre'])assert((r[k]?.length??0)<=900,`${r.zone} ${k} exceeds layout budget`);}
 const state=()=>({time:100,hp:240,zone:'cult04',gameModeV31346:'STORY',activeHeroId:'hwando',hapilSamongActiveV31300:true,hapilFinalBattleV31300:{stage:7,secondPhaseActive:true,completed:false},lastAttack:100,cooldowns:{Q:101},heroMotion:{started:100,until:101},pendingStrikes:[{at:100.2}],effects:[{heroSkillVfx:true,born:100,size:50},{boss:true,born:100,size:50}]});
+const entryState=state();entryState.encounterDialogue31226={kind:'legacy',lines:['상호 대사']};entryState.encounterLockUntil31226=110;entryState.encounterWallUnlockAtV31227=Date.now()+3300;entryState.invulnerableUntil=110;entryState.enemies=[{readyAt:110,patternReadyAt:111,invulnerableUntil:110}];api.suppressEntry(entryState);assert.equal(entryState.encounterDialogue31226,null);assert.equal(entryState.restDialogueComplete31226,true);assert(entryState.invulnerableUntil<=entryState.time+.12);assert(entryState.enemies[0].readyAt<=entryState.time+.14);assert(entryState.enemies[0].patternReadyAt<=entryState.time+.28);entryState.enemies[0].readyAt=entryState.time+9;api.suppressEntry(entryState);assert.equal(entryState.enemies[0].readyAt,entryState.time+9,'ongoing enemy attack cadence is left alone once the old dialogue has been cleared');
 let s=state();assert(api.active(s));assert.equal(api.clock(s,.04),0);assert(s.lastAttack<100);assert(s.cooldowns.Q<101);assert(s.pendingStrikes[0].at<100.2);assert.equal(s.effects[1].born,100);assert.equal(s.effects[1].size,50);assert.equal(s.effects[0].size,77.5);assert.equal(api.power(s),5);assert.equal(api.incoming(s),.12);
 let stopped=0,slow=0;for(let i=0;i<150;i++){const dt=api.clock(s,.04);assert(dt===0||Math.abs(dt-.0064)<1e-9);if(dt===0)stopped++;else slow++;s.time+=dt;}assert(stopped>50&&slow>50,'recurrent stops and slow motion both occur');
 for(const modify of [s=>s.gameModeV31346='HELL',s=>s.gameModeV31346='DREAM',s=>s.practiceV31329=true,s=>s.zone='cult03',s=>s.hapilFinalBattleV31300.stage=6,s=>s.hapilFinalBattleV31300.completed=true,s=>s.hp=0,s=>s.activeHeroId='slayer']){s=state();modify(s);assert(!api.active(s));assert.equal(api.clock(s,.04),.04);assert.equal(api.power(s),1);assert.equal(api.incoming(s),1);assert(!classes.has('rc51-samong'));assert(!classes.has('rc51-time-stop'));}
-const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));
+const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=35701'));
 assert(main.includes('if(!scene?.rc26Story && window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
+assert(main.includes('function HAPIL_installCanonicalStoryRC51(){'));
+assert(main.includes('prepareCombat(s,z,false);api.suppressEntry(s);'));
 assert(main.includes('tickBasic(o,HAPIL_heroDeltaRC51,'));assert(main.includes('MONGSE_currentEncounterDialogue31226=()=>null'));
-console.log('RC51 PASS: stored prose/card order, 56 battle pairs, final phase cards, clock isolation, mode boundaries.');
+console.log('RC57 PASS: uploaded monologue only, 56 pre/post battle pairs, legacy pair suppression without stale entry lock, final phase cards, clock isolation, mode boundaries.');
