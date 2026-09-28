@@ -54165,6 +54165,7 @@ function Ri() {
           );
           let o = P.current,
             s = !!(Ve.current || O || window.__HAPIL_READING_V31342__?.blocked);
+          window.__HAPIL_EPISODE1_RC59__?.visit(o);
           s = s || document.hidden===true || window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()===true || window.__HAPIL_RECORDS_V31365__?.isOpen()===true || o.practicePatternV31365?.finished===true;
           s = window.__HAPIL_STORY_RC51__?.beforeFrame(o, {
             blocked:s, clear:MONGSE_zoneCombatCleared(o,o.zone), selectPhysician:HAPIL_selectPhysicianRC51,
@@ -61280,11 +61281,13 @@ function Ri() {
                   o.spawnedWaves.add(3);
                   let e = ni(o.zone, `midboss`);
                   if (e) {
+                    let MONGSE_midbossDuoRC59 = HAPIL_createMidbossDuoRC59(o, e, o.zone);
                     ((e.readyAt = o.time + 1),
                       (e.patternReadyAt = o.time + 1.25),
-                      o.enemies.push(e),
+                      o.enemies.push(e, ...(MONGSE_midbossDuoRC59 ? [MONGSE_midbossDuoRC59] : [])),
                       window.__HAPIL_FLOW_V31343__?.admit(o),
                       MONGSE_forceHeroBossLane(o, e, !0),
+                      MONGSE_midbossDuoRC59 && HAPIL_positionMidbossDuoRC59(o, o.zone, e, MONGSE_midbossDuoRC59),
                       (o.targetEnemyId = e.id),
                       o.effects.push({
                         id: o.fxSerial++,
@@ -61305,7 +61308,7 @@ function Ri() {
                       We(Wr + `boss-heavy-warning.mp3`, 0.28),
                       We(MONGSE_bossVoiceSfx(e), 1),
                       B(
-                        `${e.name} 출현. 일반 개체를 모두 정리해 봉인을 해제했습니다.`,
+                        `${e.name}${MONGSE_midbossDuoRC59 ? ` · ${MONGSE_midbossDuoRC59.name}` : ``} 출현. 일반 개체를 모두 정리해 봉인을 해제했습니다.`,
                       ));
                     let t = MONGSE_beginNarrativeAttack(
                         o,
@@ -62791,14 +62794,15 @@ function Ri() {
                 !o.enemies.some((e) => e.id === o.targetEnemyId) &&
                 (o.targetEnemyId = null),
               (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) &&
-                ((window.__HAPIL_EXIT_V31327__?.reset(o)),
+                ((window.__HAPIL_EPISODE1_RC59__?.beforeRespawn(o)),
+                (window.__HAPIL_EXIT_V31327__?.reset(o)),
                 (o.hp = o.maxHp),
                 (o.x = he.includes(o.zone)
                   ? MONGSE_zonePortalAnchors(o.zone).interactionEntry.x
-                  : te.x),
+                  : MONGSE_isRestZone(o.zone) ? oe.x : te.x),
                 (o.y = he.includes(o.zone)
                   ? MONGSE_zonePortalAnchors(o.zone).interactionEntry.y
-                  : te.y),
+                  : MONGSE_isRestZone(o.zone) ? oe.y : te.y),
                 hi(o),
                 (o.moveVx = 0),
                 (o.moveVy = 0),
@@ -62849,7 +62853,8 @@ function Ri() {
                 (o.awakeningStoredPower = 0),
                 (o.resonance = Math.min(o.resonance, 25)),
                 (o.invulnerableUntil = o.time + 1.2),
-                B(`EGO가 붕괴했지만 공명핵이 육체를 재구성했습니다.`)));
+                B(`EGO가 붕괴했지만 공명핵이 육체를 재구성했습니다.`),
+                window.__HAPIL_EPISODE1_RC59__?.afterRespawn(o)));
           }
           if (!s) { window.__HAPIL_CHANNEL_V31364__?.finish(o);window.__HAPIL_HERO_STYLE_V31364__?.observe(o);window.__HAPIL_THEME_V31323__?.finish(o, a); window.__HAPIL_EXIT_V31327__?.finish(o); }
           if (
@@ -125095,3 +125100,450 @@ function HAPIL_installCanonicalStoryRC51(){
     metrics: () => ({ fallbackLoads }),
   });
 })();
+/* RC59: Episode 1 death checkpoints, scripture card, and paired midbosses. */
+const HAPIL_EPISODE1A_ZONES_RC59 = new Set([
+  'dist00','dist01','dist02','dist03','dist04','dist05','dist06',
+  'ep1a07','ep1a08','ep1a09','ep1a10','ep1a11',
+]);
+const HAPIL_EPISODE1A_RESET_ZONES_RC59 = new Set(HAPIL_EPISODE1A_ZONES_RC59);
+const HAPIL_MIDBOSS_DUO_SUFFIX_RC59 = '-duo-rc59';
+function HAPIL_isShelterRC59(zone) {
+  return !!zone && !['hub','village'].includes(zone) &&
+    (N?.[zone]?.rest === true || MONGSE_isRestZone(zone));
+}
+function HAPIL_isEpisode1ACompleteRC59(state) {
+  const completed = state?.completedZones instanceof Set
+    ? state.completedZones
+    : new Set(Array.isArray(state?.completedZones) ? state.completedZones : []);
+  return state?.episode1ACompleteRC59 === true ||
+    completed.has('ep1a11') ||
+    ['dreamRest','restEp1b'].includes(state?.zone) ||
+    String(state?.zone ?? '').startsWith('ep1b');
+}
+function HAPIL_completedZonesRC59(state) {
+  return state?.completedZones instanceof Set
+    ? state.completedZones
+    : new Set(Array.isArray(state?.completedZones) ? state.completedZones : []);
+}
+function HAPIL_latestShelterRC59(state) {
+  if (HAPIL_isShelterRC59(state?.zone)) return state.zone;
+  if (HAPIL_isShelterRC59(state?.lastShelterZoneRC59))
+    return state.lastShelterZoneRC59;
+  const completed = HAPIL_completedZonesRC59(state);
+  const frontier = Number(N?.[state?.frontierZone]?.order ?? N?.[state?.zone]?.order ?? -1);
+  const visited = Object.keys(N ?? {})
+    .filter(zone => HAPIL_isShelterRC59(zone) &&
+      (completed.has(zone) || Number(N[zone]?.order ?? Infinity) <= frontier))
+    .sort((a,b) => Number(N[a]?.order ?? 0) - Number(N[b]?.order ?? 0));
+  return visited.at(-1) ?? (HAPIL_isShelterRC59('dreamRest') ? 'dreamRest' : null);
+}
+function HAPIL_episode1DeathDestinationRC59(state) {
+  if (!state || state.practiceV31329 || state.practicePatternV31365) return null;
+  if (HAPIL_EPISODE1A_ZONES_RC59.has(state.zone) &&
+      !HAPIL_isEpisode1ACompleteRC59(state)) return 'dist00';
+  return HAPIL_isEpisode1ACompleteRC59(state) ? HAPIL_latestShelterRC59(state) : null;
+}
+function HAPIL_positionMidbossDuoRC59(state, zone, first, second) {
+  if (!zone || !first || !second) return false;
+  let px = Number(state?.x), py = Number(state?.y);
+  if (!Number.isFinite(px) || !Number.isFinite(py)) {
+    try {
+      const entry = MONGSE_zonePortalAnchors(zone)?.interactionEntry;
+      px = Number(entry?.x ?? 16); py = Number(entry?.y ?? 16);
+    } catch { px = 16; py = 16; }
+  }
+  let base = Math.atan2(Number(first.y) - py, Number(first.x) - px);
+  if (!Number.isFinite(base)) base = 0;
+  const radii = [6.1, 5.3, 7.0, 4.7, 7.8];
+  const angles = [Math.PI/2,-Math.PI/2,0,Math.PI,Math.PI/4,-Math.PI/4,3*Math.PI/4,-3*Math.PI/4];
+  let best = null;
+  for (const radius of radii) for (const offset of angles) {
+    const raw = {x:Number(first.x) + Math.cos(base + offset) * radius,
+      y:Number(first.y) + Math.sin(base + offset) * radius};
+    let q = raw;
+    try { q = dt(zone, raw, 0.68) ?? raw; } catch {}
+    if (!Number.isFinite(Number(q?.x)) || !Number.isFinite(Number(q?.y))) continue;
+    const separation = Math.hypot(Number(q.x) - Number(first.x), Number(q.y) - Number(first.y));
+    const playerDistance = Math.hypot(Number(q.x) - px, Number(q.y) - py);
+    if (separation < 4.6 || state && playerDistance < 3.2) continue;
+    let nearest = 20;
+    for (const other of state?.enemies ?? []) {
+      if (!other || other === first || other === second || Number(other.hp) <= 0) continue;
+      nearest = Math.min(nearest, Math.hypot(Number(q.x)-Number(other.x), Number(q.y)-Number(other.y)));
+    }
+    const score = Math.abs(separation - 6.1) + Math.max(0, 4.1 - nearest) * 1.25;
+    if (!best || score < best.score) best = {x:Number(q.x),y:Number(q.y),score};
+  }
+  if (!best) {
+    const raw = {x:Number(first.x)+5.8,y:Number(first.y)+4.2};
+    try { best = dt(zone, raw, 0.68) ?? raw; } catch { best = raw; }
+  }
+  if (!Number.isFinite(Number(best?.x)) || !Number.isFinite(Number(best?.y))) return false;
+  second.x = Number(best.x); second.y = Number(best.y);
+  second.facing = Number(first.facing) < 0 ? 1 : -1;
+  second.duoMateOfRC59 = first.id;
+  delete second.flowFactoryV31343;
+  return Math.hypot(second.x - Number(first.x), second.y - Number(first.y)) >= 4.2;
+}
+function HAPIL_createMidbossDuoRC59(state, first, zone = state?.zone) {
+  if (!first?.midboss || !zone || zone === 'cult03' ||
+      String(first.id ?? '').endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59)) return null;
+  const twinId = String(first.id) + HAPIL_MIDBOSS_DUO_SUFFIX_RC59;
+  if (state?.midbossDuoSpawnedRC59 === true ||
+      (state?.enemies ?? []).some(actor => actor?.id === twinId)) return null;
+  let twin;
+  try { twin = Jr(first, zone); } catch { return null; }
+  if (!twin) return null;
+  twin.id = twinId;
+  twin.name = String(first.name ?? '중간보스') + ' · 짝';
+  twin.boss = false;
+  twin.midboss = true;
+  twin.hp = Math.max(1, Number(first.hp ?? first.maxHp ?? 1));
+  twin.maxHp = Math.max(twin.hp, Number(first.maxHp ?? twin.hp));
+  twin.requiredForClear = first.requiredForClear !== false;
+  twin.duoMateOfRC59 = first.id;
+  twin.isMidbossDuoRC59 = true;
+  if (first.compressedWaveV31228 !== undefined)
+    twin.compressedWaveV31228 = first.compressedWaveV31228;
+  if (first.initialEncounterLeaderV31228 === true)
+    twin.initialEncounterLeaderV31228 = true;
+  first.duoMateOfRC59 = twin.id;
+  first.isMidbossDuoRC59 = true;
+  if (state) state.midbossDuoSpawnedRC59 = true;
+  HAPIL_positionMidbossDuoRC59(state, zone, first, twin);
+  if (state && Number.isFinite(Number(state.time))) {
+    twin.readyAt = Math.max(Number(twin.readyAt ?? 0), Number(state.time) + 1.12);
+    twin.patternReadyAt = Math.max(Number(twin.patternReadyAt ?? 0), Number(state.time) + 1.38);
+    twin.invulnerableUntil = Math.max(Number(twin.invulnerableUntil ?? 0), Number(state.time) + 0.78);
+  }
+  return twin;
+}
+/* Older saves may contain only the first half of a midboss encounter. */
+function HAPIL_restoreMidbossDuoRC59(save, restored) {
+  const zone = String(save?.zone ?? '');
+  if (!zone || zone === 'cult03') return restored;
+  const template = N?.[zone]?.enemies?.find(actor => actor?.midboss);
+  if (!template) return restored;
+  const twinId = String(template.id) + HAPIL_MIDBOSS_DUO_SUFFIX_RC59;
+  const savedTwin = (save?.enemies ?? []).find(actor => actor?.id === twinId);
+  const first = (restored ?? []).find(actor => actor?.midboss);
+  if (!savedTwin && (save?.midbossDuoSpawnedRC59 === true || !first)) return restored;
+  if ((restored ?? []).some(actor => actor?.id === twinId)) return restored;
+  const twin = HAPIL_createMidbossDuoRC59(null, first ?? template, zone);
+  if (!twin) return restored;
+  if (savedTwin) {
+    twin.hp = Math.max(0.1, Math.min(twin.maxHp, Number(savedTwin.hp ?? twin.hp)));
+    twin.x = Number(savedTwin.x ?? twin.x);
+    twin.y = Number(savedTwin.y ?? twin.y);
+    twin.phaseIndex = Number(savedTwin.phaseIndex ?? twin.phaseIndex ?? 0);
+    twin.currentPhase = Number(savedTwin.currentPhase ?? twin.currentPhase ?? 0);
+  }
+  return [...(restored ?? []), twin];
+}
+function HAPIL_showDeathVerseRC59(state, pending) {
+  if (typeof document === 'undefined' || !document.body) return false;
+  document.getElementById('hapil-death-verse-rc59')?.remove();
+  const root = document.createElement('div');
+  root.id = 'hapil-death-verse-rc59';
+  root.tabIndex = -1;
+  root.setAttribute('role','dialog');
+  root.setAttribute('aria-modal','true');
+  root.setAttribute('aria-labelledby','hapil-death-verse-title-rc59');
+  Object.assign(root.style,{position:'fixed',inset:'0',zIndex:'100000',display:'grid',
+    placeItems:'center',boxSizing:'border-box',padding:'max(16px, 4vw)',
+    background:'rgba(3,5,12,.92)',color:'#f4f0e5',fontFamily:'system-ui,sans-serif'});
+  const card=document.createElement('section');
+  Object.assign(card.style,{width:'min(620px,100%)',maxHeight:'calc(100svh - 32px)',
+    overflowY:'auto',boxSizing:'border-box',padding:'clamp(22px,5vw,42px)',
+    border:'1px solid rgba(232,202,125,.75)',borderRadius:'18px',
+    background:'linear-gradient(145deg,#171827,#090c15)',boxShadow:'0 24px 100px rgba(0,0,0,.7)',
+    textAlign:'center'});
+  const eyebrow=document.createElement('p');
+  eyebrow.textContent='EGO COLLAPSE · REBIRTH';
+  Object.assign(eyebrow.style,{letterSpacing:'.16em',fontSize:'12px',color:'#e8ca7d',margin:'0 0 12px'});
+  const title=document.createElement('h2');
+  title.id='hapil-death-verse-title-rc59';
+  title.textContent='죽음은 끝이 아니라 다시 걷는 문턱';
+  Object.assign(title.style,{fontSize:'clamp(24px,5vw,36px)',lineHeight:'1.2',margin:'0 0 20px'});
+  const verse1=document.createElement('blockquote');
+  verse1.textContent='“나는 부활이요 생명이니”';
+  Object.assign(verse1.style,{fontSize:'clamp(21px,4vw,29px)',lineHeight:'1.5',margin:'12px 0 4px',color:'#fff4d1'});
+  const ref1=document.createElement('p');
+  ref1.textContent='요한복음 11:25';
+  Object.assign(ref1.style,{margin:'0 0 20px',fontSize:'14px',color:'#d2c8ab'});
+  const verse2=document.createElement('p');
+  verse2.textContent='“하나님의 은사는 그리스도 예수 안에 있는 영생이니라”';
+  Object.assign(verse2.style,{fontSize:'16px',lineHeight:'1.6',margin:'14px 0 4px',color:'#d9e5ff'});
+  const ref2=document.createElement('p');
+  ref2.textContent='로마서 6:23';
+  Object.assign(ref2.style,{margin:'0 0 18px',fontSize:'13px',color:'#aebbd5'});
+  const route=document.createElement('p');
+  route.textContent=pending?.firstEpisodeRestart
+    ? '에피소드 1의 첫 전장으로 되돌아갑니다.'
+    : '가장 최근에 방문한 쉼터에서 다시 일어납니다.';
+  Object.assign(route.style,{fontSize:'14px',lineHeight:'1.55',margin:'10px 0 22px',color:'#c9cddd'});
+  const button=document.createElement('button');
+  button.type='button';
+  button.textContent=pending?.firstEpisodeRestart ? '처음부터 다시' : '쉼터에서 일어나기';
+  Object.assign(button.style,{minHeight:'48px',padding:'10px 24px',border:'1px solid #f3d88e',
+    borderRadius:'999px',background:'#d9b65e',color:'#11131a',fontSize:'16px',fontWeight:'800',cursor:'pointer'});
+  card.append(eyebrow,title,verse1,ref1,verse2,ref2,route,button);
+  root.append(card);
+  let closed=false;
+  const finish=event=>{
+    if(closed)return;
+    if(event){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();}
+    closed=true;
+    document.removeEventListener('keydown',onKey,true);
+    root.remove();
+    if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=false;
+  };
+  const onKey=event=>{
+    if(event.key==='Enter'||event.key==='Escape'||event.key===' '||event.key==='Spacebar')finish(event);
+    else {event.stopPropagation();event.stopImmediatePropagation?.();}
+  };
+  button.addEventListener('click',finish);
+  document.addEventListener('keydown',onKey,true);
+  document.body.append(root);
+  if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;
+  root.focus();
+  button.focus();
+  return true;
+}
+(function HAPIL_installEpisode1DeathAndMidbossDuoRC59(attempt) {
+  'use strict';
+  const maxAttempts=900;
+  let installed=false;
+  const pendingDeaths=new WeakMap();
+  function complete(state){return HAPIL_isEpisode1ACompleteRC59(state);}
+  function destination(state){return HAPIL_episode1DeathDestinationRC59(state);}
+  function saveCurrent(state){
+    const control=window.__HAPIL_CONTROLS_V31329__;
+    const binding=control?.binding;
+    if (!state || binding?.state?.current!==state ||
+        window.__HAPIL_PARTY_V31322__?.status?.role==='guest' ||
+        window.__HAPIL_PARTY_V31322__?.blocksSave?.()) return false;
+    try {
+      const hero=binding.hero?.current ?? state.activeHeroId ?? 'hwando';
+      const passives=binding.passives?.current ?? {};
+      const shards=binding.shards?.current ?? 0;
+      const payload=Fi(state,hero,[],passives,shards);
+      return MONGSE_writeSave('auto',payload)?.ok===true;
+    } catch { return false; }
+  }
+  function resetAtShelter(state,zone){
+    state.zone=zone;
+    state.enemies=[];
+    state.egoDrops=[];
+    state.effects=[];
+    state.floatTexts=[];
+    state.defeated=[];
+    state.spawnedWaves=new Set();
+    state.completedWaves31228=new Set();
+    state.bossDefeated=HAPIL_completedZonesRC59(state).has(zone);
+    state.targetEnemyId=null;
+    state.supportCall=null;
+    state.midbossDuoSpawnedRC59=false;
+    state.zoneEntryFlowZone31226=zone;
+    state.encounterDialogue31226=null;
+    state.encounterLockUntil31226=0;
+    state.encounterWallUnlockAtV31227=0;
+    state.restDialogueComplete31226=true;
+    state.restPortalUnlockAt31226=Number(state.time??0);
+    state.restPortalWallUnlockAtV31227=0;
+    state.x=Number(oe?.x ?? state.x ?? 16);
+    state.y=Number(oe?.y ?? state.y ?? 16);
+    MONGSE_prepareRestEncounter31226?.(state,zone,false);
+    state.restDialogueComplete31226=true;
+    state.restPortalUnlockAt31226=Number(state.time??0);
+    state.restPortalWallUnlockAtV31227=0;
+    return true;
+  }
+  function beforeRespawn(state){
+    const zone=destination(state);
+    if(!zone)return false;
+    const firstEpisodeRestart=zone==='dist00';
+    if(firstEpisodeRestart){
+      for(const completed of HAPIL_EPISODE1A_RESET_ZONES_RC59)
+        state.completedZones?.delete?.(completed);
+      state.frontierZone='dist00';
+      state.episode1ACompleteRC59=false;
+      state.lastShelterZoneRC59=null;
+      state.midbossDuoSpawnedRC59=false;
+      state.zone='dist00';
+      ii(state,'dist00',false);
+    } else {
+      state.episode1ACompleteRC59=true;
+      state.lastShelterZoneRC59=zone;
+      resetAtShelter(state,zone);
+    }
+    pendingDeaths.set(state,{zone,firstEpisodeRestart});
+    state.deathRespawnZoneRC59=zone;
+    return true;
+  }
+  function afterRespawn(state){
+    const pending=pendingDeaths.get(state);
+    if(!pending)return false;
+    pendingDeaths.delete(state);
+    state.lastDeathScriptureRC59='John 11:25; Romans 6:23';
+    state.deathRespawnZoneRC59=pending.zone;
+    saveCurrent(state);
+    HAPIL_showDeathVerseRC59(state,pending);
+    return true;
+  }
+  function visit(state){
+    if(!state || state.practiceV31329 || state.practicePatternV31365 ||
+        !HAPIL_isShelterRC59(state.zone) || !complete(state)) return false;
+    state.episode1ACompleteRC59=true;
+    if(state.lastShelterZoneRC59===state.zone)return false;
+    state.lastShelterZoneRC59=state.zone;
+    saveCurrent(state);
+    return true;
+  }
+  function pairPlan(zone,plan){
+    if(!plan || !Array.isArray(plan.enemies) || zone==='cult03')return plan;
+    const leaders=plan.enemies.filter(actor=>actor?.midboss);
+    if(!leaders.length)return plan;
+    const leaderIds=new Set(leaders.map(actor=>String(actor.id)));
+    const unpaired=leaders.filter(actor=>
+      !String(actor.id??'').endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59) &&
+      !leaderIds.has(String(actor.id)+HAPIL_MIDBOSS_DUO_SUFFIX_RC59));
+    if(!unpaired.length)return plan;
+    const enemies=[...plan.enemies],twins=[];
+    for(const first of unpaired){
+      const twin=HAPIL_createMidbossDuoRC59(null,first,zone);
+      if(!twin)continue;
+      while(enemies.length+twins.length>=8){
+        let remove=-1;
+        for(let i=enemies.length-1;i>=0;i--)
+          if(enemies[i]!==first&&!enemies[i].boss&&!enemies[i].midboss&&
+             enemies[i].requiredForClear!==false){remove=i;break;}
+        if(remove<0)break;
+        enemies.splice(remove,1);
+      }
+      twins.push(twin);
+    }
+    for(const first of unpaired){
+      const twin=twins.find(actor=>actor.duoMateOfRC59===first.id);
+      if(!twin)continue;
+      const index=enemies.indexOf(first);
+      enemies.splice(index<0?enemies.length:index+1,0,twin);
+    }
+    if(!twins.length)return plan;
+    return {...plan,mode:String(plan.mode??'roster')+'+midboss-duo-rc59',enemies};
+  }
+  function restoreProgress(state,save){
+    if(!state)return false;
+    state.episode1ACompleteRC59=save?.episode1ACompleteRC59===true ||
+      HAPIL_isEpisode1ACompleteRC59(state);
+    const savedShelter=save?.lastShelterZoneRC59;
+    state.lastShelterZoneRC59=HAPIL_isShelterRC59(savedShelter)
+      ? savedShelter
+      : (HAPIL_isShelterRC59(state.zone) && state.episode1ACompleteRC59
+          ? state.zone : HAPIL_latestShelterRC59(state));
+    state.midbossDuoSpawnedRC59=save?.midbossDuoSpawnedRC59===true ||
+      (state.enemies??[]).some(actor=>actor?.midboss&&
+        String(actor.id??'').endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59));
+    return true;
+  }
+  function audit(){
+    const companionRows=(N?.dist04?.enemies??[]).filter(actor=>
+      /되살아난|부활자/.test(String(actor?.name??'')));
+    const firstWave=typeof ti==='function'?ti('dist04',1):[];
+    const present=companionRows.filter(row=>firstWave.some(actor=>actor.id===row.id));
+    const zones=Object.keys(N??{}).filter(zone=>
+      (N[zone]?.enemies??[]).some(actor=>actor?.midboss));
+    return {
+      version:'RC59',
+      deathStartZone:'dist00',
+      episode1AClearMarker:'ep1a11',
+      shelterZones:Object.keys(N??{}).filter(HAPIL_isShelterRC59),
+      companionFight:{zone:'dist04',actors:companionRows.map(actor=>actor.id),
+        firstWaveActors:present.map(actor=>actor.id),
+        assets:companionRows.map(actor=>actor.sprite),allPresent:companionRows.length>=2&&present.length===companionRows.length},
+      midbossZones:zones,
+      cult03PreservedApostateDuo:true,
+    };
+  }
+  function install(){
+    if(installed)return true;
+    if(!window.__HAPIL_V31346_RELEASE__?.installed ||
+       !window.__HAPIL_FLOW_V31345__?.installed ||
+       !window.__HAPIL_MODES_V31346__?.installed ||
+       typeof MONGSE_initialRosterPlanV31228!=='function' ||
+       typeof MONGSE_writeSave!=='function' ||
+       typeof Fi!=='function' || typeof ji!=='function' ||
+       typeof ii!=='function' || typeof Ii!=='function') return false;
+    const serializeBase=Fi,normalizeBase=ji,restoreEntryBase=HAPIL_restoreEntryFlowV31301;
+    const restoreEnemiesBase=Ii,enterBase=ii,rosterBase=MONGSE_initialRosterPlanV31228;
+    Fi=function HAPIL_saveEpisode1DeathStateRC59(state,...args){
+      const payload=serializeBase.call(this,state,...args);
+      if(payload&&state){
+        payload.episode1ACompleteRC59=HAPIL_isEpisode1ACompleteRC59(state);
+        payload.lastShelterZoneRC59=HAPIL_isShelterRC59(state.lastShelterZoneRC59)
+          ? state.lastShelterZoneRC59 : null;
+        payload.midbossDuoSpawnedRC59=state.midbossDuoSpawnedRC59===true;
+      }
+      return payload;
+    };
+    ji=function HAPIL_normalizeEpisode1DeathStateRC59(raw,...args){
+      const save=normalizeBase.call(this,raw,...args);
+      if(!save)return save;
+      const completed=HAPIL_completedZonesRC59(save);
+      save.episode1ACompleteRC59=raw?.episode1ACompleteRC59===true ||
+        completed.has('ep1a11') ||
+        ['dreamRest','restEp1b'].includes(save.zone) ||
+        String(save.zone??'').startsWith('ep1b');
+      save.lastShelterZoneRC59=HAPIL_isShelterRC59(raw?.lastShelterZoneRC59)
+        ? raw.lastShelterZoneRC59 : null;
+      save.midbossDuoSpawnedRC59=raw?.midbossDuoSpawnedRC59===true;
+      return save;
+    };
+    HAPIL_restoreEntryFlowV31301=function HAPIL_restoreEpisode1DeathStateRC59(state,save,...args){
+      const result=restoreEntryBase.call(this,state,save,...args);
+      restoreProgress(state,save);
+      return result;
+    };
+    Ii=function HAPIL_restoreMidbossPairRC59(save,...args){
+      const rows=restoreEnemiesBase.call(this,save,...args);
+      return HAPIL_restoreMidbossDuoRC59(save,rows);
+    };
+    ii=function HAPIL_enterMidbossPairRC59(state,zone,...args){
+      const result=enterBase.call(this,state,zone,...args);
+      if(state){
+        const enemies=state.enemies??[];
+        state.midbossDuoSpawnedRC59=enemies.some(actor=>
+          actor?.midboss&&String(actor.id??'').endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59));
+        for(const first of enemies){
+          if(!first?.midboss||String(first.id??'').endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59))continue;
+          const twin=enemies.find(actor=>actor?.duoMateOfRC59===first.id);
+          if(twin)HAPIL_positionMidbossDuoRC59(state,zone,first,twin);
+        }
+      }
+      return result;
+    };
+    MONGSE_initialRosterPlanV31228=function HAPIL_pairEveryInitialMidbossRC59(zone){
+      return pairPlan(zone,rosterBase.call(this,zone));
+    };
+    installed=true;
+    MONGSE_ASSET_VERSION='31599';
+    window.MONGSE_ASSET_VERSION='31599';
+    window.__HAPIL_RC59_RELEASE__=Object.freeze({
+      installed:true,version:'RC59',cacheKey:35901,baseVersion:'RC58',
+      deathPolicy:'Episode 1-A restarts at dist00 until ep1a11 is cleared; subsequent deaths return to the latest shelter.',
+      midbossPolicy:'Two live midboss actors per encounter; existing cult03 apostate duo is preserved.',
+    });
+    window.__HAPIL_EPISODE1_RC59__=Object.freeze({
+      installed:true,version:'RC59',isEpisode1AComplete:HAPIL_isEpisode1ACompleteRC59,
+      respawnDestination:HAPIL_episode1DeathDestinationRC59,
+      beforeRespawn,afterRespawn,visit,saveCurrent,makeMidbossDuo:HAPIL_createMidbossDuoRC59,
+      positionMidbossDuo:HAPIL_positionMidbossDuoRC59,audit,
+    });
+    return true;
+  }
+  function schedule(){
+    if(install()||++attempt>=maxAttempts)return;
+    if(typeof setTimeout==='function')setTimeout(schedule,0);
+  }
+  schedule();
+})(0);
