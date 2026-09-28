@@ -4178,6 +4178,8 @@ var e = (e, t) => () => (
   });
 })();
 
+
+
 /* MONGSE v3.12.15 · temporal HUD / skill-expression patch.
  * This layer only delays hostile projectiles. It never reflects, deletes,
  * replaces, clones, redirects, or changes their damage/source payload. */
@@ -124773,6 +124775,120 @@ function HAPIL_installCanonicalStoryRC51(){
         hospitalMapPreserved: hospital.endsWith('ep1a_08_blood_hospital_rc24.png'),
         modernLoopMapActive: N.murder03?.map === './assets/maps/rc54/murder03-loop-crosswalk.webp',
       };
+    },
+  });
+})();
+
+/* RC55: bind the cult03 heretics to their story and paired golden attacks. */
+;(() => {
+  'use strict';
+  const zone = N.cult03;
+  if (!zone || !Array.isArray(zone.enemies))
+    throw new Error('RC55 cult03 encounter is missing');
+
+  const actors = new Map(zone.enemies.map(actor => [actor.id, actor]));
+  const han = actors.get('c103-e2');
+  const baek = actors.get('c103-e3');
+  const circuit = actors.get('c103-mid');
+  const core = actors.get('c103-boss');
+  if (![han, baek, circuit, core].every(Boolean))
+    throw new Error('RC55 cult03 story actors are incomplete');
+
+  const assets = Object.freeze({
+    han: './assets/vfx/rc55/cult03-heretic-han.png',
+    baek: './assets/vfx/rc55/cult03-heretic-baek.png',
+  });
+  Object.assign(han, {
+    kind: 'mage', name: '이단 의목사 한리안', x: 6.8, y: 6.2, hp: 360,
+    sprite: assets.han, facing: -1, eliteName: '두려움의 서약',
+    patternSet: 'rc55-c103-han', scale: 1.04,
+  });
+  Object.assign(baek, {
+    kind: 'seal', name: '이단 의목사 백이온', x: 14.4, y: 6.2, hp: 372,
+    sprite: assets.baek, facing: 1, eliteName: '생존의 방벽',
+    patternSet: 'rc55-c103-baek', scale: 1.04,
+  });
+  Object.assign(circuit, {
+    patternSet: 'rc55-cult03-circuit',
+    eliteName: '황금 역십자가 · 질서 방벽',
+  });
+
+  er['rc55-c103-han'] = [
+    K('한리안 · 황금 역십자가', 'cross', {
+      anchor: 'arena', windup: 1.5, cooldown: 4.8, radius: 6.8,
+      width: 0.52, damage: 15, color: '#d1ae50', accent: '#fff0b9',
+    }),
+    K('한리안 · 검은 맹세선', 'line', {
+      anchor: 'boss', windup: 1.18, cooldown: 4.2, radius: 7.2,
+      width: 0.42, damage: 12, color: '#65364d', accent: '#f5d1dc',
+    }),
+  ];
+  er['rc55-c103-baek'] = [
+    K('백이온 · 질서의 방벽', 'cross', {
+      anchor: 'arena', windup: 1.8, cooldown: 5.2, radius: 7.5,
+      width: 0.82, damage: 16, color: '#e8dfc3', accent: '#d4b155',
+    }),
+    K('백이온 · 세 갈래 명령선', 'cone', {
+      anchor: 'boss', windup: 1.4, cooldown: 4.6, radius: 6.4,
+      width: 0.62, repeats: 3, gap: 0.32, damage: 13,
+      color: '#f0e8cb', accent: '#d1b257',
+    }),
+  ];
+  er['rc55-cult03-circuit'] = [
+    K('삼중자아 회로 · 황금 격자', 'cross', {
+      anchor: 'arena', windup: 2.0, cooldown: 5.6, radius: 8.2,
+      width: 0.44, damage: 18, color: '#dcb646', accent: '#fff5cb',
+    }),
+    K('삼중자아 회로 · 질서 고리', 'donut', {
+      anchor: 'boss', windup: 1.55, cooldown: 5.1, radius: 5.2,
+      innerRadius: 2.1, damage: 16, color: '#e8dcaa', accent: '#fff3d0',
+    }),
+  ];
+
+  const previousManifest = MONGSE_zoneAssetManifest;
+  MONGSE_zoneAssetManifest = function HAPIL_cult03StoryManifestRC55(id, ...args) {
+    const result = new Set(previousManifest(id, ...args) ?? []);
+    if (id === 'cult03') for (const path of Object.values(assets)) result.add(path);
+    return result;
+  };
+  const previousPlan = MONGSE_zoneAssetPlan31220;
+  MONGSE_zoneAssetPlan31220 = function HAPIL_cult03StoryPlanRC55(id, ...args) {
+    const base = previousPlan.apply(this, [id, ...args]);
+    const result = { ...base };
+    for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins'])
+      result[key] = new Set(base?.[key] ?? []);
+    if (id === 'cult03') {
+      for (const key of ['all', 'A', 'pins'])
+        for (const path of Object.values(assets)) result[key].add(path);
+      for (const key of ['B', 'C', 'deferred'])
+        for (const path of Object.values(assets)) result[key].delete(path);
+    }
+    return result;
+  };
+
+  window.__HAPIL_STORY_COMBAT_ALIGNMENT_RC55__ = Object.freeze({
+    version: 'RC55',
+    assets,
+    audit() {
+      const manifest = MONGSE_zoneAssetManifest('cult03');
+      const plan = MONGSE_zoneAssetPlan31220('cult03', 'hwando', [], null);
+      const patterns = actor => (er[actor?.patternSet] ?? []).map(pattern => ({
+        name: pattern.name, shape: pattern.shape, windup: pattern.windup,
+        damage: pattern.damage, color: pattern.color,
+      }));
+      return Object.freeze({
+        installed: true,
+        heretics: [han.name, baek.name],
+        sprites: [han.sprite, baek.sprite],
+        hereticPatterns: [patterns(han), patterns(baek)],
+        circuitPatternSet: circuit.patternSet,
+        circuitPatterns: patterns(circuit),
+        coreName: core.name,
+        coreBoss: core.boss === true,
+        manifest: Object.values(assets).every(path => manifest.has(path)),
+        plan: ['all', 'A', 'pins'].every(key =>
+          Object.values(assets).every(path => plan?.[key]?.has(path))),
+      });
     },
   });
 })();

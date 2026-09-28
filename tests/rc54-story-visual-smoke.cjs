@@ -53,7 +53,7 @@ assert.match(bundle, /cache\[rows\[next\]\] = fallback/);
 assert.match(bundle, /ep1a_08_blood_hospital_rc24\.png/);
 assert(!bundle.includes("ep1a08: './assets/maps/rc53/ep1a08-blood-hospital.webp'"),
   'the generated open arena must not replace the enclosed hospital map');
-assert.match(html, /index-v31526\.js\?v=35401/);
+assert.match(html, /index-v31526\.js\?v=35501/);
 
 for (const [zone, asset] of Object.entries(routes)) {
   assert(records.some(record => record.zone === zone), `story map ${zone} is absent`);
@@ -81,7 +81,9 @@ assert.equal(projectileBytes[25], 6, 'generated projectile must retain RGBA tran
 
 const mapStart = bundle.indexOf('/* RC54: align story maps with their time period');
 const projectileStart = bundle.indexOf('/* RC54: story-matched projectile for the blue-light executor');
-assert(mapStart >= 0 && projectileStart > mapStart, 'RC54 runtime blocks must be present in order');
+const rc55Start = bundle.indexOf('/* RC55: bind the cult03 heretics to their story');
+assert(mapStart >= 0 && projectileStart > mapStart && rc55Start > projectileStart,
+  'RC54 runtime blocks must precede RC55');
 const mapSource = bundle.slice(mapStart, projectileStart);
 const zones = Object.fromEntries([...Object.keys(routes), 'ep1a08'].map(id => [id, {
   map: id === 'ep1a08' ? `./${hospital}` : `./legacy/${id}.jpg`,
@@ -123,7 +125,7 @@ const cache = {};
   assert.equal(cache[mapApi.rows.ep1a07], cache[mapApi.originals.ep1a07.fallbackMap]);
   assert.equal(mapApi.metrics().fallbackLoads, 2);
 
-  const projectileSource = bundle.slice(projectileStart);
+  const projectileSource = bundle.slice(projectileStart, rc55Start);
   const legacyProjectile = './assets/generated-v31224/boss-vfx/murder_causality_road.webp';
   const projectileContext = {
     N: { ep1a08: { map: `./${hospital}` }, murder03: { map: `./${routes.murder03}` } },
