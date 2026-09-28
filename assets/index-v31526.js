@@ -116531,22 +116531,75 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
  */
 (() => {
   "use strict";
-  const VERSION="3.13.16", MOBILE_CAP=48, MIN_DISTANCE=4.5, COMMON_BULLET="./assets/rc64/projectiles/danmaku-jellybean.webp", owners=new Map(), live=new WeakMap(), mapArtLocks=new WeakMap();
+  const VERSION="3.13.71", MOBILE_CAP=48, MIN_DISTANCE=4.5, COMMON_BULLET="./assets/rc64/projectiles/danmaku-jellybean.webp", owners=new Map(), live=new WeakMap(), mapArtLocks=new WeakMap(), mapPatternLocks=new WeakMap();
   const names={fan:"조준 부채 · 세 갈래 안전틈",ring:"열린 고리 · 중심 회피로",lanes:"교차 차선 · 좌우 엇박",spiral:"윤회 나선 · 회전하는 틈",rotating:"회전 고리 · 이동하는 안전로",scatter:"산개 성좌 · 박자별 확산",petals:"백화 성단 · 꽃잎 방사",helix:"쌍성 나선 · 엇갈린 회전",curtain:"유성 장막 · 열린 세로틈",cross:"십자 성광 · 교차 파동",wave:"물결 궤도 · 사인 곡선",orbit:"공전 고리 · 두 겹 탄도",gate:"개폐 장벽 · 이동 통로",echo:"잔상 재현 · 되감긴 부채",hexagram:"육망성 성창 · 육방 회전",sixfold:"삼중 육성 · 666 박자 포위"};
   const deck=Object.freeze(["fan","ring","lanes","spiral","rotating","scatter","petals","helix","curtain","cross","wave","orbit","gate","echo","hexagram","sixfold"]);
-  const stats={casts:0,shots:0,rejected:0,cancelled:0,rendered:0,lockResets:0};
+  const stats={casts:0,shots:0,rejected:0,cancelled:0,rendered:0,lockResets:0,ownerBackfills:0,mapSignatureCasts:0};
   let attempts=0;
   const num=(n,f=0)=>Number.isFinite(Number(n))?Number(n):f;
   const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
   const phase=a=>MONGSE_enemyActivePhase(a);
-  const ownerFor=a=>owners.get(String(a?.danmakuOwnerIdV31316??a?.id??""));
+  function ownerFor(a) {
+    for(const id of [a?.danmakuOwnerIdV31316,a?.combatOwnerIdRC69,a?.templateId,a?.id])
+      if(id!=null&&owners.has(String(id)))return owners.get(String(id));
+    return null;
+  }
   function barrageCap(){return window.__HAPIL_COMBAT_RC47__?.mobile?.()===true?MOBILE_CAP:Infinity;}
+  function zoneHash(value){let hash=2166136261;for(const ch of String(value)){hash^=ch.codePointAt(0);hash=Math.imul(hash,16777619);}return hash>>>0;}
+  function actorKeys(actor){return [...new Set([actor?.id,actor?.danmakuOwnerIdV31316,actor?.combatOwnerIdRC69,actor?.templateId].filter(value=>value!=null&&String(value)).map(String))];}
+  function battleZones(){
+    const rows=new Map(),maps=typeof N==="object"&&N?N:{};
+    for(const [zone,map] of Object.entries(maps)){
+      const enemies=(map?.enemies??[]).filter(actor=>actor&&!actor.visualOnly&&!actor.objectiveStructureV31238&&!actor.narrativeStructureV31238);
+      const bosses=enemies.filter(actor=>actor.boss||actor.midboss),actors=bosses.length?bosses:enemies.slice(0,1);
+      if(actors.length)rows.set(zone,{zone,order:num(map?.order,1e9),actors,mapCarrierV31371:bosses.length===0});
+    }
+    for(const row of owners.values())if(row?.zone&&!rows.has(String(row.zone)))
+      rows.set(String(row.zone),{zone:String(row.zone),order:num(maps[row.zone]?.order,1e9),actors:[row.actor]});
+    return [...rows.values()].sort((a,b)=>a.order-b.order||a.zone.localeCompare(b.zone));
+  }
+  function makeSignature(zone,ordinal=0){
+    const seed=zoneHash(zone),mode=deck[((ordinal%deck.length)+deck.length)%deck.length],map=typeof N==="object"&&N?N[zone]:null;
+    const mapEnemies=(map?.enemies??[]).filter(actor=>actor&&!actor.visualOnly&&!actor.objectiveStructureV31238&&!actor.narrativeStructureV31238),
+      mapBosses=mapEnemies.filter(actor=>actor.boss||actor.midboss),ownerRows=[...owners.values()].filter(row=>String(row.zone)===String(zone));
+    const hosts=mapBosses.length?mapBosses:ownerRows.length?ownerRows.map(row=>row.actor):mapEnemies.slice(0,1);
+    const hostIds=[...new Set(hosts.flatMap(actorKeys))];
+    return Object.freeze({zone:String(zone),ordinal,seed,mode,id:String(zone)+":"+mode+":"+seed.toString(36),
+      hostIds,hostId:String(hosts[0]?.id??""),mapCarrierV31371:mapBosses.length===0,
+      label:String(map?.name||map?.origin||zone)+" · "+String(zone),turn:((seed%19)-9)*.013,
+      gapBonus:.004+(seed%6)*.006,tempo:.82+((seed>>>4)%8)*.055,density:seed%3,speedPhase:seed%3});
+  }
+  let signatures=[],signatureByZone=new Map();
+  function rebuildSignatures(){
+    signatures=battleZones().map((row,index)=>makeSignature(row.zone,index));
+    signatureByZone=new Map(signatures.map(row=>[row.zone,row]));
+    return signatures;
+  }
+  function signatureFor(zone){return signatureByZone.get(String(zone))??makeSignature(String(zone),zoneHash(zone)%deck.length);}
+  function mapCoverage(){
+    const zones=battleZones(),ownerZones=new Set([...owners.values()].filter(row=>row?.actor).map(row=>String(row.zone)));
+    const missingOwner=zones.filter(row=>!ownerZones.has(row.zone)).map(row=>row.zone);
+    const ids=signatures.map(row=>row.id);
+    const missingHost=signatures.filter(row=>!row.hostIds?.length).map(row=>row.zone);
+    return {combatMaps:zones.length,coveredMaps:zones.length-missingOwner.length,missingOwner,missingHost,signatureCount:signatures.length,
+      uniqueSignatures:new Set(ids).size===ids.length,rows:signatures.map(({zone,ordinal,mode,id,label,turn,tempo,density,hostIds,hostId,mapCarrierV31371})=>({zone,ordinal,mode,id,label,turn,tempo,density,hostIds:[...hostIds],hostId,mapCarrierV31371}))};
+  }
+  function needsMapSignature(s){const record=s&&mapPatternLocks.get(s);return !!s&&(!record||record.zone!==s.zone||record.used!==true);}
+  function scheduleMapSignature(s){
+    if(!needsMapSignature(s))return null;
+    const signature=signatureFor(s?.zone),ids=new Set(signature.hostIds??[]);
+    const actor=(s?.enemies??[]).find(candidate=>candidate&&num(candidate.hp)>0&&actorKeys(candidate).some(id=>ids.has(id))&&!candidate.visualOnly&&!candidate.objectiveStructureV31238&&!candidate.narrativeStructureV31238);
+    if(!actor)return null;
+    const row=ownerFor(actor);if(!row)return null;
+    if(row.mapCarrierV31371)actor.danmakuOwnerIdV31316=row.actor.id;
+    return trySchedule(s,actor,"map-signature",actor.id==="mb-dist01"?4:0);
+  }
   const deltaAngle=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
   const hero=p=>!!(p?.heroSkillVfx||p?.heroId31213||p?.heroHitVfxV31315||p?.heroProjectileTransient);
   const suppress=s=>num(s?.enemySkillsSuppressedUntilV31309)>num(s?.time);
   function eligible(s,a) {
-    const row=ownerFor(a);
-    return !!(s&&a&&row&&row.zone===s.zone&&(a.boss||a.midboss)&&a.hp>0&&s.hp>0&&s.enemies?.includes(a)&&!a.objectiveStructureV31238&&!a.narrativeStructureV31238);
+    const row=ownerFor(a),mapCarrier=!!row?.mapCarrierV31371&&!(a?.boss||a?.midboss);
+    return !!(s&&a&&row&&row.zone===s.zone&&(a.boss||a.midboss||mapCarrier)&&a.hp>0&&s.hp>0&&s.enemies?.includes(a)&&!a.objectiveStructureV31238&&!a.narrativeStructureV31238);
   }
   function modeFor(a,family,cycle=0) {
     const p=window.__HAPIL_BOSS_V31315__?.profile(a,ownerFor(a)?.zone),theme=p?.theme??MONGSE_bossBarragePalette(a)?.theme;
@@ -116564,20 +116617,21 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(!record.assets.has(key))record.assets.set(key,Object.freeze({...candidate}));
     return record.assets.get(key);
   }
-  function plan(s,a,family,cycle=0) {
+  function plan(s,a,family,cycle=0,forcedMode=null) {
     if(!eligible(s,a))return null;
     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.hypot(dx,dy);
     if(distance<MIN_DISTANCE)return null;
-    const aim=Math.atan2(dy,dx),mode=modeFor(a,family,cycle),art=mapLockedArt(s,a,family,artFor(a,s.zone,family));
+    const signature=signatureFor(s.zone),aim=Math.atan2(dy,dx),mode=forcedMode??modeFor(a,family,cycle),art=mapLockedArt(s,a,family,artFor(a,s.zone,family));
     if(!art)return null;
     // Fixed centre lane: radius .28 + hero .46 + .45 margin, even at entry distance.
-    const gap=Math.max(.32,Math.asin(Math.min(.98,1.22/distance))+.08),beats=[],span=Math.PI*2-gap*2;
+    const gap=Math.max(.32,Math.asin(Math.min(.98,1.22/distance))+.08+signature.gapBonus),beats=[],span=Math.PI*2-gap*2;
+    const mobile=window.__HAPIL_COMBAT_RC47__?.mobile?.()===true,density=mobile?0:signature.density,speeds=[1.15,3.65,6.8];
     const safeAngle=angle=>{const offset=deltaAngle(angle,aim);return Math.abs(offset)>=gap+.025?angle:aim+(offset<0?-1:1)*(gap+.025);};
     const arc=(count,shift=0)=>Array.from({length:count},(_,i)=>aim+gap+span*(i+.5)/count+shift);
     for(let beat=0;beat<(mode==="ring"?2:3);beat++) {
       const angles=[];
       if(mode==="scatter") {
-          const count=window.__HAPIL_COMBAT_RC47__?.mobile?.()?12:30;
+          const count=mobile?12:48+density*8;
         for(let i=0;i<count;i++){
           const base=aim+gap+span*(i+.5)/count;
           const seed=(Math.imul((i+1)*(beat+3),2654435761)^(num(cycle)*2246822519))>>>0;
@@ -116587,31 +116641,31 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
         const step=(Math.PI*2-gap*2)/10;
         for(let i=0;i<10;i++)angles.push(aim+gap+step*(i+.5)+(beat?step*.12:0));
       } else if(mode==="rotating") {
-        const count=12,step=(Math.PI*2-gap*2)/count,rotation=beat*.19;
+        const count=mobile?12:16+density*4,step=(Math.PI*2-gap*2)/count,rotation=beat*.19;
         for(let i=0;i<count;i++)angles.push(aim+gap+step*(i+.5)+rotation);
       } else if(mode==="spiral") {
         const count=9;
         for(let i=0;i<count;i++)angles.push(aim+gap+span*(i+.5)/count+beat*.24+((i%3)-1)*.025);
       } else if(mode==="petals") {
-        const count=window.__HAPIL_COMBAT_RC47__?.mobile?.()?12:24;
+        const count=mobile?12:24+density*6;
         for(let i=0;i<count;i++)angles.push(aim+gap+span*(i+.5)/count+Math.sin(i*Math.PI/6+beat*.4)*.16);
       } else if(mode==="helix") {
         for(let i=0;i<6;i++)for(const arm of [-1,1])angles.push(aim+gap+span*(i+.5)/6+arm*(beat*.12+i*.035));
       } else if(mode==="curtain") {
-        angles.push(...arc(window.__HAPIL_COMBAT_RC47__?.mobile?.()?12:24,(beat-1)*.075));
+        angles.push(...arc(mobile?12:42+density*6,(beat-1)*.075));
       } else if(mode==="cross") {
         for(let i=0;i<12;i++)angles.push(aim+i*Math.PI/6+beat*.045);
       } else if(mode==="wave") {
-        const count=14;
+        const count=mobile?14:24+density*3;
         for(let i=0;i<count;i++)angles.push(aim+gap+span*(i+.5)/count+Math.sin(i*Math.PI/3+beat*.9)*.19);
       } else if(mode==="orbit") {
-        for(let i=0;i<8;i++)for(const ring of [0,1])angles.push(aim+gap+span*(i+.5)/8+ring*Math.PI/8+beat*(ring?.11:-.07));
+        const count=mobile?8:10+density*2;for(let i=0;i<count;i++)for(const ring of [0,1])angles.push(aim+gap+span*(i+.5)/count+ring*Math.PI/count+beat*(ring?.11:-.07));
       } else if(mode==="gate") {
-        const count=window.__HAPIL_COMBAT_RC47__?.mobile?.()?6:12,shift=beat%2?.16:-.16;
+        const count=mobile?6:14+density*2,shift=beat%2?.16:-.16;
         angles.push(...arc(count,shift),...arc(count,-shift));
       } else if(mode==="echo") {
         const side=beat%2?-1:1;
-        const lanes=window.__HAPIL_COMBAT_RC47__?.mobile?.()?6:12;
+        const lanes=mobile?6:10+density*2;
         for(let lane=0;lane<lanes;lane++)angles.push(aim+side*(gap+.10+lane*.18),aim-side*(gap+.10+lane*.18)+beat*.025);
       } else if(mode==="hexagram") {
         for(let i=0;i<6;i++)for(const arm of [-1,1])angles.push(aim+i*Math.PI/3+arm*.035+beat*.055);
@@ -116621,11 +116675,14 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
         const stagger=mode==="lanes"?(beat%2?(side<0?.18:0):(side>0?.18:0)):beat*.065;
         angles.push(aim+side*(gap+.12+lane*.20+stagger));
       }
-      beats.push({beat,delay:1.12+beat*(mode==="ring"?.55:.42),angles:angles.map(safeAngle)});
+      beats.push({beat,delay:1.12+beat*(mode==="ring"?.55:.42)*signature.tempo,
+        speed:speeds[(signature.speedPhase+beat*2)%speeds.length],
+        angles:angles.map(angle=>safeAngle(angle+signature.turn))});
     }
     const palette=MONGSE_bossBarragePalette(a),owner=ownerFor(a),theme=window.__HAPIL_BOSS_V31315__?.profile(a,s.zone)?.theme??palette.theme;
     const variants=[art];
-    return {mode,name:names[mode],aim,gap,art,variants,originX:a.x,originY:a.y,targetX:s.x,targetY:s.y,beats,count:beats.reduce((n,b)=>n+b.angles.length,0),color:owner?.danmakuColorV31316??palette.color??"#ddbdff",accent:owner?.danmakuAccentV31316??palette.accent??"#ffffff",vfxStyle:owner?.danmakuVfxStyleV31316??"sigil"};
+    const mapName=names[mode]+" · "+signature.label;
+    return {mode,name:mapName,mapSignatureV31371:signature.id,signature,aim,gap,art,variants,originX:a.x,originY:a.y,targetX:s.x,targetY:s.y,beats,count:beats.reduce((n,b)=>n+b.angles.length,0),color:owner?.danmakuColorV31316??palette.color??"#ddbdff",accent:owner?.danmakuAccentV31316??palette.accent??"#ffffff",vfxStyle:owner?.danmakuVfxStyleV31316??"sigil"};
   }
   function aimForBeat(s,a) {
     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.max(1.22,Math.hypot(dx,dy));
@@ -116638,8 +116695,9 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
   }
   function trySchedule(s,a,family,cycle) {
     if(num(cycle)%4!==0||(a?.id==="mb-dist01"&&num(cycle)===0))return null;
-    if(!eligible(s,a)||suppress(s)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||MONGSE_bossPatternBusyV31230(s,a))return null;
-    const p=plan(s,a,family,cycle),now=num(s.time);
+    const owner=ownerFor(a),mapCarrier=!!owner?.mapCarrierV31371&&!(a?.boss||a?.midboss);
+    if(!eligible(s,a)||suppress(s)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||(!mapCarrier&&MONGSE_bossPatternBusyV31230(s,a)))return null;
+    const signature=signatureFor(s.zone),firstForMap=needsMapSignature(s),p=plan(s,a,family,cycle,firstForMap?signature.mode:null),now=num(s.time);
     if(!p)return null;
     const shots=s.hostileProjectiles??=[],active=live.get(s);
     const liveLaser=(s.bossLaserCastsV31330??[]).some(c=>num(c.endAt)>now);
@@ -116649,25 +116707,26 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     const beforeFx=new Set(s.effects??[]),castId=MONGSE_lockAtomicBossCast31210(s,a,"danmaku-v31316-"+p.mode,last+.22,"rain");
     // Remove only this synchronous call's four old cosmetic stamps.
     s.effects=(s.effects??[]).filter(e=>beforeFx.has(e)||!(e.sourceId===a.id&&(e.bossCastAura31212||e.bossCastDirectionCue31213||e.bossCastBloom31212||e.bossArenaPulse31214)));
-    const director=MONGSE_bossDirectorProfile31210(a),speed=a.boss?3.6:3.25;
+    const director=MONGSE_bossDirectorProfile31210(a),speedScale=Math.max(.1,num(director.speedScale,1));
     for(const beat of p.beats)for(const [index,angle] of beat.angles.entries()) {
-      const before=s.hostileProjectiles.length,at=now+beat.delay;
+      const before=s.hostileProjectiles.length,at=now+beat.delay,speed=beat.speed/speedScale;
       const art=p.mode==="scatter"?p.variants[(index+beat.beat*7)%p.variants.length]:p.art;
-      MONGSE_pushThemeProjectile3129(s,a,{danmakuV31316:true,x:p.originX,y:p.originY,vx:Math.cos(angle)*speed/Math.max(.1,num(director.speedScale,1)),vy:Math.sin(angle)*speed/Math.max(.1,num(director.speedScale,1)),radius:.28/Math.max(.1,num(director.sizeScale,1)),damage:a.boss?13:10,sprite:art.sprite,color:p.color,accent:p.accent,curve:0,frozenUntil:at,homingMode31212:"none",status:"none",statusValue:0,label:p.name,patternKind:"danmaku-v31316",life:12});
+      MONGSE_pushThemeProjectile3129(s,a,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,x:p.originX,y:p.originY,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28/Math.max(.1,num(director.sizeScale,1)),damage:a.boss?13:10,sprite:art.sprite,color:p.color,accent:p.accent,curve:0,frozenUntil:at,homingMode31212:"none",status:"none",statusValue:0,label:p.name,patternKind:"danmaku-v31316",life:speed<=1.35?22:speed>=6?7.5:12});
       const q=s.hostileProjectiles[before];if(!q)continue;
-      Object.assign(q,{danmakuV31316:true,danmakuZoneV31316:s.zone,danmakuPhaseV31316:phase(a),danmakuArtV31316:art.sprite,danmakuHeadingV31316:art.heading,danmakuRadialV31316:art.radial,danmakuModeV31316:p.mode,danmakuColorV31316:p.color,danmakuAccentV31316:p.accent,danmakuVfxStyleV31316:p.vfxStyle,danmakuBeatV31316:beat.beat,danmakuAimV31316:p.aim,danmakuBaseAimV31316:p.aim,danmakuOffsetV31316:deltaAngle(angle,p.aim),danmakuGapV31316:p.gap,danmakuSpeedV31316:Math.hypot(q.vx,q.vy),danmakuAngleV31316:angle,danmakuReleaseV31316:at,hideUntilRelease31219:true,codeNativeBarrage31219:true,bodySpawned31219:false,motionReleaseAt31219:at,collisionDisabledUntil31219:at,collisionDisabledUntilV31226:at,telegraphUntil31210:at,frozenUntil:Math.max(num(q.frozenUntil),at),sprite:art.sprite,fallbackSprite:art.sprite,spriteHeading:art.heading,imageOnly:true,bitmapRequired:true,curve:0,homingMode31212:"none",scatterHomingPrepared31211:true,bossCastId31210:castId,bossCastResolveAt31210:last+.22,interruptProtectedUntil31210:last+.22,retirePolicy31222:"hero-or-world-boundary"});
+      Object.assign(q,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,danmakuZoneV31316:s.zone,danmakuPhaseV31316:phase(a),danmakuArtV31316:art.sprite,danmakuHeadingV31316:art.heading,danmakuRadialV31316:art.radial,danmakuModeV31316:p.mode,danmakuColorV31316:p.color,danmakuAccentV31316:p.accent,danmakuVfxStyleV31316:p.vfxStyle,danmakuBeatV31316:beat.beat,danmakuAimV31316:p.aim,danmakuBaseAimV31316:p.aim,danmakuOffsetV31316:deltaAngle(angle,p.aim),danmakuGapV31316:p.gap,danmakuSpeedV31316:Math.hypot(q.vx,q.vy),danmakuAngleV31316:angle,danmakuReleaseV31316:at,hideUntilRelease31219:true,codeNativeBarrage31219:true,bodySpawned31219:false,motionReleaseAt31219:at,collisionDisabledUntil31219:at,collisionDisabledUntilV31226:at,telegraphUntil31210:at,frozenUntil:Math.max(num(q.frozenUntil),at),sprite:art.sprite,fallbackSprite:art.sprite,spriteHeading:art.heading,imageOnly:true,bitmapRequired:true,curve:0,homingMode31212:"none",scatterHomingPrepared31211:true,bossCastId31210:castId,bossCastResolveAt31210:last+.22,interruptProtectedUntil31210:last+.22,retirePolicy31222:"hero-or-world-boundary"});
       for(const key of ["homeAt31211","homeUntil31211","returnAt","returnUntil","retargetAt31212"])delete q[key];
       added.push(q);
     }
-    const cue={id:s.fxSerial++,sourceId:a.id,kind:"danmakuCueV31316",danmakuCueV31316:true,danmakuPhaseV31316:phase(a),danmakuZoneV31316:s.zone,x:p.originX,y:p.originY,sourceOffsetY:num(added[0]?.sourceOffsetY,-18),born:now,duration:last-now+.14,sprite:p.art.sprite,color:p.color,accent:p.accent,vfxStyle:p.vfxStyle,aim:p.aim,gap:p.gap,beatTimes:p.beats.map(b=>now+b.delay),movementTrailV31316:[],label:p.name,imageOnly:true,boss:!!a.boss};
+    const cue={id:s.fxSerial++,sourceId:a.id,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,kind:"danmakuCueV31316",danmakuCueV31316:true,danmakuPhaseV31316:phase(a),danmakuZoneV31316:s.zone,x:p.originX,y:p.originY,sourceOffsetY:num(added[0]?.sourceOffsetY,-18),born:now,duration:last-now+.14,sprite:p.art.sprite,color:p.color,accent:p.accent,vfxStyle:p.vfxStyle,aim:p.aim,gap:p.gap,beatTimes:p.beats.map(b=>now+b.delay),movementTrailV31316:[],label:p.name,imageOnly:true,boss:!!a.boss};
     s.effects.push(cue);
     s.floatTexts.push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:1.2,text:p.name+" · 열린 통로 유지",color:p.color,critical:!!a.boss});
     a.lastBossCombatPatternV31230="danmaku-"+p.mode;a.lastBossCombatPatternAtV31230=now;
     a.danmakuChoreoModeV31316=p.mode;a.danmakuChoreoStartedV31316=now+.30;a.danmakuChoreoUntilV31316=last+.12;a.danmakuChoreoSideV31316=num(cycle)%2;
     // Recovery begins after the final volley reaches the aimed lane, leaving
     // a deliberate counterattack window before another boss action starts.
-    const arrival=clamp(Math.hypot(p.targetX-p.originX,p.targetY-p.originY)/speed,.5,3.4);
+    const slowest=Math.min(...p.beats.map(beat=>beat.speed)),arrival=clamp(Math.hypot(p.targetX-p.originX,p.targetY-p.originY)/Math.max(.1,slowest),.5,5.6);
     a.recoverUntil=Math.max(num(a.recoverUntil),last+arrival+.85);a.readyAt=Math.max(num(a.readyAt),last+arrival+.85);a.themedOrdnanceAt=Math.max(num(a.themedOrdnanceAt),last+1.5);
+    if(added.length&&firstForMap){mapPatternLocks.set(s,{zone:s.zone,used:true,signature:p.mapSignatureV31371});stats.mapSignatureCasts++;}
     live.set(s,{actor:a,zone:s.zone,phase:phase(a),shots:added,cue,lastTime:now,paused:false,castId,last,soundedBeats:new Set()});
     stats.casts++;stats.shots+=added.length;
     return {family:"danmaku-"+p.mode,name:p.name,projectiles:added.length,lasers:0,warningAt:now+p.beats[0].delay,danmakuV31316:true};
@@ -116717,7 +116776,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
   }
   function drawShot(ctx,cache,q,time,settings={}) {
     if(!q?.danmakuV31316||hero(q))return false;
-    const row=owners.get(String(q.sourceId));if(!row||row.zone!==q.danmakuZoneV31316)return true;
+    const row=ownerFor(q);if(!row||row.zone!==q.danmakuZoneV31316)return true;
     if(q.bodySpawned31219!==true)return true;
     const im=MONGSE_queueImage(cache,q.danmakuArtV31316,"eager");if(!im?.complete||!im.naturalWidth)return true;
     const point=G(q.x,q.y),next=G(q.x+q.vx,q.y+q.vy),angle=q.danmakuRadialV31316?0:Math.atan2(next.y-point.y,next.x-point.x)-num(q.danmakuHeadingV31316),extent=q.danmakuRadialV31316?26:30,scale=extent/Math.max(im.naturalWidth,im.naturalHeight),age=Math.max(0,time-num(q.danmakuLaunchedAtV31316,q.motionReleaseAt31219)),lift=-18+(num(q.sourceOffsetY,-18)+18)*clamp(1-age/.3,0,1);
@@ -116749,7 +116808,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     } finally {ctx.restore();ctx.beginPath();}
     return true;
   }
-  function audit() {const checks={inherited:window.__HAPIL_V31315_RELEASE__?.allPass===true,rankedOwners:owners.size===71,sourceSchedulerHook:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",patternDeck:Object.keys(names).length>=16,mobileAdmissionCap:MOBILE_CAP===48,desktopAdmissionUnlimited:window.__HAPIL_COMBAT_RC47__?.mobile?.()===true||barrageCap()===Infinity,minimumDodgeDistance:MIN_DISTANCE>=4.5,saveSchemaPreserved:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+  function audit() {const coverage=mapCoverage(),checks={inherited:window.__HAPIL_V31315_RELEASE__?.allPass===true,rankedOwners:owners.size>=71,sourceSchedulerHook:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",patternDeck:Object.keys(names).length>=16,mobileAdmissionCap:MOBILE_CAP===48,desktopAdmissionUnlimited:window.__HAPIL_COMBAT_RC47__?.mobile?.()===true||barrageCap()===Infinity,minimumDodgeDistance:MIN_DISTANCE>=4.5,combatMapOwnerCoverage:coverage.combatMaps>0&&coverage.missingOwner.length===0,mapSignatureCoverage:coverage.signatureCount===coverage.combatMaps&&coverage.missingHost.length===0&&coverage.uniqueSignatures,saveSchemaPreserved:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean),mapCoverage:coverage};}
   function zoneAssets(zone) {
     const paths=new Set();
     for(const row of owners.values())if(row.zone===zone)for(const family of ["rotating-laser","rolling-ordnance","snipe-sword-wave"]){const art=artFor(row.actor,zone,family);if(art?.sprite)paths.add(art.sprite);}
@@ -116759,14 +116818,30 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
   function install() {
     if(window.__HAPIL_DANMAKU_V31316__?.installed)return true;
     if(!window.__HAPIL_V31315_RELEASE__?.allPass)return false;
-    const themeHue={infernal:12,chrono:190,blackSun:288,sevenSins:326,controller:202,last3:258,hando:214,murder:4,cult:274,causality:266};let ownerIndex=0;for(const row of window.__HAPIL_SKILL_VISUAL_V31311__.rankedRows()){const palette=MONGSE_bossBarragePalette(row.actor),theme=MONGSE_bossBarrageTheme(row.actor),signatureHue=String(palette.color??"").match(/hsl\(\s*(\d+(?:\.\d+)?)/i)?.[1],base=Number(signatureHue??themeHue[theme]??266),hue=(base+ownerIndex*137.508)%360,color=`hsl(${hue.toFixed(1)} 90% 63%)`,accent=`hsl(${((hue+48)%360).toFixed(1)} 96% 80%)`,vfxStyle=/chrono|control|controller/.test(theme)?"clock":/infernal|blood|sevenSins|murder/.test(theme)?"flare":/thread|cult/.test(theme)?"thread":"sigil";owners.set(String(row.actor.id),{...row,danmakuColorV31316:color,danmakuAccentV31316:accent,danmakuVfxStyleV31316:vfxStyle});ownerIndex++;}
+    const themeHue={infernal:12,chrono:190,blackSun:288,sevenSins:326,controller:202,last3:258,hando:214,murder:4,cult:274,causality:266};
+    function registerOwner(row,index){
+      const palette=MONGSE_bossBarragePalette(row.actor)??{},theme=MONGSE_bossBarrageTheme(row.actor)??"causality",signatureHue=String(palette.color??"").match(/hsl\(\s*(\d+(?:\.\d+)?)/i)?.[1],base=Number(signatureHue??themeHue[theme]??266),hue=(base+index*137.508)%360,color=`hsl(${hue.toFixed(1)} 90% 63%)`,accent=`hsl(${((hue+48)%360).toFixed(1)} 96% 80%)`,vfxStyle=/chrono|control|controller/.test(theme)?"clock":/infernal|blood|sevenSins|murder/.test(theme)?"flare":/thread|cult/.test(theme)?"thread":"sigil";
+      owners.set(String(row.actor.id),{...row,danmakuColorV31316:color,danmakuAccentV31316:accent,danmakuVfxStyleV31316:vfxStyle});
+    }
+    for(const row of window.__HAPIL_SKILL_VISUAL_V31311__.rankedRows())if(row?.actor?.id!=null&&!owners.has(String(row.actor.id)))registerOwner(row,owners.size);
+    const maps=typeof N==="object"&&N?N:{};
+    for(const [zone,map] of Object.entries(maps))for(const actor of map?.enemies??[]){
+      if(!actor?.id||(!actor.boss&&!actor.midboss)||actor.visualOnly||actor.objectiveStructureV31238||actor.narrativeStructureV31238||owners.has(String(actor.id)))continue;
+      registerOwner({actor:{...actor},zone,rc71RosterBackfill:true},owners.size);stats.ownerBackfills++;
+    }
+    for(const row of battleZones())if(row.mapCarrierV31371){
+      const actor=row.actors.find(candidate=>candidate?.id&&!owners.has(String(candidate.id)));
+      if(actor){registerOwner({actor:{...actor},zone:row.zone,mapCarrierV31371:true,rc71RosterBackfill:true},owners.size);stats.ownerBackfills++;}
+      else for(const owner of owners.values())if(String(owner.zone)===row.zone)owner.mapCarrierV31371=true;
+    }
+    rebuildSignatures();
     const manifest=MONGSE_zoneAssetManifest;
     MONGSE_zoneAssetManifest=function HAPIL_danmakuManifestV31316(zone,...args){const paths=new Set(manifest(zone,...args));for(const p of zoneAssets(zone))paths.add(p);return paths;};
     const assetPlan=MONGSE_zoneAssetPlan31220;
     MONGSE_zoneAssetPlan31220=function HAPIL_danmakuPlanV31316(zone,...args){const p={...assetPlan(zone,...args)},paths=zoneAssets(zone);for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of paths){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}p.danmakuAssetsV31316=paths;return p;};
     const jn=Jn;Jn=function HAPIL_danmakuImageV31316(ctx,cache,q,time,settings={}){if(drawShot(ctx,cache,q,time,settings))return;return jn(ctx,cache,q,time,settings);};
     const gn=Gn;Gn=function HAPIL_danmakuCueV31316(ctx,cache,e,time,settings={}){if(drawCue(ctx,cache,e,time,settings))return;return gn(ctx,cache,e,time,settings);};
-    window.__HAPIL_DANMAKU_V31316__=Object.freeze({installed:true,version:VERSION,commonAsset:COMMON_BULLET,names:Object.freeze({...names}),deck,modeFor,artFor,plan,trySchedule,tick,drawShot,drawCue,zoneAssets,audit,barrageCap,rankedRows:()=>[...owners.values()],active:s=>live.has(s),lockedAsset:(s,a,family)=>mapArtLocks.get(s)?.assets.get(String(a?.id??"boss")+":"+String(family??"danmaku"))?.sprite??null,clearMap:s=>{if(s)mapArtLocks.delete(s);},counters:()=>({...stats})});
+    window.__HAPIL_DANMAKU_V31316__=Object.freeze({installed:true,version:VERSION,commonAsset:COMMON_BULLET,names:Object.freeze({...names}),deck,modeFor,artFor,plan,trySchedule,scheduleMapSignature,tick,drawShot,drawCue,zoneAssets,audit,barrageCap,rankedRows:()=>[...owners.values()],mapSignature:signatureFor,mapSignatures:()=>signatures.map(row=>({...row})),mapCoverage,needsMapSignature,active:s=>live.has(s),lockedAsset:(s,a,family)=>mapArtLocks.get(s)?.assets.get(String(a?.id??"boss")+":"+String(family??"danmaku"))?.sprite??null,clearMap:s=>{if(s){mapArtLocks.delete(s);mapPatternLocks.delete(s);}},counters:()=>({...stats})});
     return audit().allPass;
   }
   function schedule(){if(install())return;if(++attempts<128)setTimeout(schedule,0);}schedule();
@@ -123093,12 +123168,15 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   const f=FAMILIES[seq[m.cursor%seq.length]];a.shmupPatternPlanV31365={family:f,phase:p,index:m.cursor,label:TITLE[f],announcedAt:s.time};stats.planned++;return f;
  }
  function schedule(s,a,f,cycle){if(!s||!a||a.cosmicLuciferV31318)return null;
-  // One director slot owns one attack. The authored siege and danmaku paths
-  // already use native hit/projectile queues; fall back to the native family
-  // when their arena, timing or projectile budget admission rejects the cast.
-  const result=window.__HAPIL_PATTERNS_V31317__?.trySchedule?.(s,a,f,cycle)
-   ??window.__HAPIL_DANMAKU_V31316__?.trySchedule?.(s,a,f,cycle)
-   ??MONGSE_spawnBossCombatPatternV31230(s,a,f);
+  // Guarantee the room's authored signature once; afterwards preserve the
+  // existing siege/danmaku/native priority. A truthy empty result is not a cast.
+  const danmaku=window.__HAPIL_DANMAKU_V31316__,emitted=result=>n(result?.projectiles)+n(result?.lasers)>0;
+  let result=null;
+  if(danmaku?.needsMapSignature?.(s)){const first=danmaku.trySchedule?.(s,a,f,cycle);if(emitted(first))result=first;}
+  if(!result){const preferred=window.__HAPIL_PATTERNS_V31317__?.trySchedule?.(s,a,f,cycle);if(emitted(preferred))result=preferred;}
+  if(!result){const barrage=danmaku?.trySchedule?.(s,a,f,cycle);if(emitted(barrage))result=barrage;}
+  if(!result){const native=MONGSE_spawnBossCombatPatternV31230(s,a,f);if(emitted(native))result=native;}
+  if(!result)return null;
   if(n(result?.projectiles)+n(result?.lasers)>0){const m=state(s,a);m.cursor++;stats.casts++;a.shmupPatternPlanV31365={...a.shmupPatternPlanV31365,family:result.family??f,label:result.name??TITLE[f],announcedAt:s.time};
    const live=s.hostileProjectiles??[];for(const q of live)if(q.sourceId===a.id&&n(q.born)>s.time-.001)q.shmupGrammarFamilyV31365=f;
   }return result;
@@ -125780,5 +125858,47 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
     const checks={installed,correctComradeRegistry:(MONGSE_MIDBOSS_DEFINITIONS??[]).find(a=>a?.id==='mb-dist04')?.sprite===ZOMBIE,dist04MidbossCount:leaders.length===3,threeDistinctComradeAssets:new Set(leaders.map(a=>a.sprite)).size===3,dist06RosterAnchored:fixed.length>0&&fixed.every(a=>a.fixedCombatPositionRC69===true),towerAssetQueued:MONGSE_zoneAssetManifest('dist04').has(ZOMBIE)&&MONGSE_zoneAssetManifest('dist06').has(PILLAR),expandedLaserProfiles:stats.laserProfiles>=100};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean),metrics:()=>({...stats})};},metrics:()=>({...stats})});return true;
  }
  function ready(){if(install())return;if(++attempts<1200)setTimeout(ready,20);}
+ ready();
+})();
+
+/* RC71: restore authored Danmaku at the final bitmap dispatch and audit map coverage. */
+;(()=>{'use strict';
+ const stats={installed:false,projectileHook:false,cueHook:false,projectileDispatches:0,cueDispatches:0};
+ function install(){
+  if(stats.installed)return true;
+  const danmaku=window.__HAPIL_DANMAKU_V31316__;
+  if(!danmaku?.installed||typeof danmaku.drawShot!=='function'||typeof danmaku.drawCue!=='function'||typeof Jn!=='function'||typeof Gn!=='function')return false;
+  const projectileBase=Jn;Jn=function HAPIL_finalDanmakuBitmapRC71(ctx,cache,projectile,time,settings={},...rest){
+   if(projectile?.danmakuV31316){stats.projectileDispatches++;if(danmaku.drawShot(ctx,cache,projectile,time,settings))return;}
+   return projectileBase.call(this,ctx,cache,projectile,time,settings,...rest);
+  };
+  const effectBase=Gn;Gn=function HAPIL_finalDanmakuCueRC71(ctx,cache,effect,time,settings={},...rest){
+   if(effect?.danmakuCueV31316){stats.cueDispatches++;if(danmaku.drawCue(ctx,cache,effect,time,settings))return;}
+   return effectBase.call(this,ctx,cache,effect,time,settings,...rest);
+  };
+  if(typeof MONGSE_tickBossThemeOrdnance==='function'){
+   const themeTickBase=MONGSE_tickBossThemeOrdnance;
+   MONGSE_tickBossThemeOrdnance=function HAPIL_RC71_requiredMapSignatureTick(state,...args){
+    const result=themeTickBase.call(this,state,...args);
+    if(danmaku.needsMapSignature(state))danmaku.scheduleMapSignature(state);
+    return result;
+   };
+   stats.mapTickHook=true;
+  }
+  stats.installed=stats.projectileHook=stats.cueHook=true;
+  MONGSE_ASSET_VERSION='31571';window.MONGSE_ASSET_VERSION='31571';
+  const api=Object.freeze({version:'RC71',installed:true,metrics:()=>({...stats}),audit(){
+   const base=danmaku.audit(),coverage=danmaku.mapCoverage(),mobile=window.__HAPIL_COMBAT_RC47__?.mobile?.()===true,cap=danmaku.barrageCap();
+   const checks={baseDanmaku:base.allPass,finalProjectileRenderer:stats.projectileHook,finalCueRenderer:stats.cueHook,
+    combatMapCoverage:coverage.combatMaps>0&&coverage.missingOwner.length===0,
+    uniqueMapSignatures:coverage.signatureCount===coverage.combatMaps&&coverage.missingHost.length===0&&coverage.uniqueSignatures,
+    combatMapFirstPatternHook:stats.mapTickHook===true,
+    desktopUnlimitedOrMobileBounded:mobile?cap===48:cap===Infinity,
+    saveSchema14:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};
+   return{version:'RC71',checks,allPass:Object.values(checks).every(Boolean),coverage};
+  }});
+  window.__HAPIL_RC71__=api;return true;
+ }
+ let attempts=0;function ready(){if(install())return;if(++attempts<1200)setTimeout(ready,20);}
  ready();
 })();

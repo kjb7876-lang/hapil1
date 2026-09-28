@@ -9,8 +9,8 @@ const bundle = read('assets/index-v31526.js');
 const html = read('index.html');
 const rc64Start = bundle.indexOf('/* RC64: stable danmaku');
 assert(rc64Start >= 0, 'RC64 runtime is missing');
-assert(Number(html.match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36405,
-  'RC68 must invalidate the previous browser cache');
+assert(Number(html.match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 37100,
+  'RC71 must invalidate the previous browser cache');
 const requiredPatterns = ['fan', 'ring', 'lanes', 'spiral', 'rotating', 'scatter',
   'petals', 'helix', 'curtain', 'cross', 'wave', 'orbit', 'gate', 'echo', 'hexagram', 'sixfold'];
 for (const name of requiredPatterns)
@@ -50,7 +50,8 @@ assert.deepEqual([0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60].m
 requiredPatterns,
 'the four-cycle cadence must reach every pattern in the 14-pattern deck');
 const dm=dmContext.window.__HAPIL_DANMAKU_V31316__,actor={id:'boss-0',boss:true,hp:100,x:8,y:8},barrageState={zone:'dist00',hp:240,x:16,y:16,enemies:[actor]};
-assert.equal(dm.barrageCap(),Infinity);assert.equal(dm.plan(barrageState,actor,'normal',20).count,90);
+assert.equal(dm.barrageCap(),Infinity);assert(dm.plan(barrageState,actor,'normal',20).count>=144,
+  'desktop wide-coverage patterns should exceed the old 90-projectile density');
 mobile=true;assert.equal(dm.barrageCap(),48);for(let cycle=0;cycle<64;cycle+=4)assert(dm.plan(barrageState,actor,'normal',cycle).count<=48);mobile=false;
 const ownerColors = dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
   .map(row => row.danmakuColorV31316);

@@ -145,9 +145,12 @@ game.window.__HAPIL_COMBAT_RC47__ = {
 const scattered = state(), scatteredBoss = scattered.enemies[0];
 const scatteredPlan = danmaku.plan(scattered, scatteredBoss, 'rotating-laser', 16);
 assert.equal(scatteredPlan.mode, 'scatter');
-assert.equal(scatteredPlan.count, 60, 'PC scatters more images than the old 48 shot gate');
+assert(scatteredPlan.count >= 144, 'PC scatters more images than the old 48 shot gate');
+const mapFirstPlan = danmaku.plan(scattered, scatteredBoss, 'rotating-laser', 16,
+  danmaku.mapSignature(scattered.zone).mode);
 const scatteredCast = danmaku.trySchedule(scattered, scatteredBoss, 'rotating-laser', 16);
-assert.equal(scatteredCast.projectiles, 60);
+assert.equal(scatteredCast.projectiles, mapFirstPlan.count,
+  'a fresh map opens with its own authored signature before the rotating deck resumes');
 scatteredBoss.x = 4;
 scattered.time += .1;
 danmaku.tick(scattered);
@@ -164,7 +167,8 @@ assert(scattered.effects.find(e => e.danmakuCueV31316).movementTrailV31316.lengt
 mobileRC47 = true;
 const compact = state();
 assert.equal(danmaku.plan(compact, compact.enemies[0], 'rotating-laser', 16).count, 36);
-assert.equal(danmaku.trySchedule(compact, compact.enemies[0], 'rotating-laser', 16).projectiles, 36);
+assert.equal(danmaku.trySchedule(compact, compact.enemies[0], 'rotating-laser', 16).projectiles,
+  danmaku.plan(compact, compact.enemies[0], 'rotating-laser', 16, danmaku.mapSignature(compact.zone).mode).count);
 for (let i = 0; i < danmaku.deck.length; i++) {
   const mobilePlan = danmaku.plan(compact, compact.enemies[0], 'snipe-sword-wave', i * 4);
   assert(mobilePlan.count <= 48, `${mobilePlan.mode} remains below the mobile admission cap`);
