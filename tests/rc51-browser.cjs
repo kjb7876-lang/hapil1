@@ -12,7 +12,7 @@ const assert=require('node:assert/strict');
  const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox']});
  try{
  const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_STORY_NATIVE_RC51__?.installed);await page.evaluate(()=>document.fonts.ready);
+ await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_STORY_NATIVE_RC51__?.installed);await page.evaluate(()=>document.fonts.ready);await page.keyboard.press('Escape');await page.waitForSelector('#mongse-christian-opening-v31236',{state:'detached'});
  const layout=[];
  for(const [width,height] of [[1280,900],[390,844],[360,740],[844,390]]){
   await page.setViewportSize({width,height});
@@ -27,10 +27,7 @@ const assert=require('node:assert/strict');
  assert((await page.locator('#hapil-story-rc51').innerText()).includes('음성 1 — 기억의 독백'),'the uploaded monologue must open directly before the first map');
  const legacy=await page.evaluate(()=>({status:window.__HAPIL_LEGACY_STORY_RC58__,dialogue:window.__MONGSE_ENCOUNTER_DIALOGUE_V31229__?.resolve?.('dist00','combat'),interlude:window.__MONGSE_NARRATIVE_DIALOGUE_V31229__?.resolveInterlude?.('hub','dist00')}));
  assert.equal(legacy.status.activeLines,0);assert.equal(legacy.dialogue.lines.length,0);assert.equal(legacy.interlude,null);
- await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
  await page.waitForFunction(()=>window.__MONGSE_QA_API__&&window.__MONGSE_QA_STATE__);
- await page.evaluate(()=>window.__MONGSE_QA_API__.stageV3128BossShowcase('dist00'));
- await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');
  const frozenTime=await page.evaluate(()=>window.__MONGSE_QA_STATE__.time);await page.waitForTimeout(200);assert.equal(await page.evaluate(()=>window.__MONGSE_QA_STATE__.time),frozenTime,'narration pauses combat');
  await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();await page.waitForTimeout(100);
  await page.evaluate(()=>window.__MONGSE_QA_API__.completeCurrentZone());

@@ -72,6 +72,7 @@
   }
 
   function onKeyDown(event) {
+    if(event.key === "Escape"){event.preventDefault();event.stopImmediatePropagation();finish();return;}
     if (
       event.repeat ||
       (event.code !== "KeyF" &&

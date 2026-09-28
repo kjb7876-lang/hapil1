@@ -20284,7 +20284,7 @@ var te = S(10, 10),
           !0,
         ),
       ],
-      next: `ep1a08`,
+      next: `ep1a07`,
     },
     ep1a07: {
       id: `ep1a07`,
@@ -50579,7 +50579,6 @@ function MONGSE_migrateKairSave31221(e, t, n) {
 }
 function ji(e) {
   if (!e || typeof e != `object`) return null;
-  e = HAPIL_migrateDeletedRecordRC60(e);
   e=window.__HAPIL_POLICY_V31400__.migrate(e);
   let t = e,
     n =
@@ -53900,13 +53899,14 @@ function Ri() {
       try {
         // Audio is optional. A browser audio exception must not strand the launch lock.
         try { MONGSE_unlockAudio(); } catch (audioError) { console.warn('HAPIL audio unlock deferred',audioError); }
+        await HAPIL_waitForLaunchRC61();
         HAPIL_setLaunchRC52({busy:true,error:false,message:'영웅과 첫 맵을 불러오고 있습니다…'});
         let e =
             MONGSE_corePlayableRosterV31235().find(
               (MONGSE_heroV31235) => MONGSE_heroV31235.id === i,
             ) ?? MONGSE_corePlayableRosterV31235()[0],
           n = [
-            N.hub.map,
+            N.dist00.map,
             e.portrait,
             e.sprite,
             ...(fn[e.id] ? Object.values(fn[e.id]) : []),
@@ -53946,12 +53946,17 @@ function Ri() {
               }),
           ),
         );
+        if(!await window.__HAPIL_RECOVERY_V31369__.prepareMap(Pe.current,'dist00'))throw new Error('첫 맵을 불러오지 못했습니다. 다시 접속해주세요.');
         ((P.current = oi()),
           window.__HAPIL_MODES_V31346__?.set?.(
             MONGSE_modeChoiceV31353,
             P.current,
           ),
           window.__HAPIL_RUN_V31400__.init(P.current,i),
+          (P.current.activeHeroId=i),
+          (P.current.zone='dist00'),
+          (P.current.frontierZone='dist00'),
+          ii(P.current,'dist00',false),
           (Le.current=[window.__HAPIL_POLICY_V31400__.partner(i)]),
           window.__HAPIL_PARTY_V31322__?.configure?.({
             ...window.__HAPIL_RUN_V31400__.configFor(P.current,i),
@@ -64127,7 +64132,7 @@ function Ri() {
               }),
             c === `settings` &&
               (0, q.jsx)(zi, {
-                title: `설정 · 진행 지도`,
+                title: `설정`,
                 close: () => {
                   ((Ve.current = null), u(null));
                 },
@@ -65241,316 +65246,20 @@ function MONGSE_archiveUnlockZone31221(e) {
   if ([`dist03`, `dist04`, `dist05`, `dist06`].includes(n)) return `dist06`;
   return n;
 }
-function Gi({
-  settings: e,
-  set: t,
-  zones: n,
-  storyZones: MONGSE_storyZones31222,
-  currentZone: r,
-  revisit: i,
-  returnToTitle: a,
-  applyCode: o,
-  openSystemV31339 = null,
-  objectiveV31339 = ``,
-}) {
-  let [s, c] = (0, l.useState)(``),
-    [u, d] = (0, l.useState)(``),
-    f = (e) => {
-      e.preventDefault();
-      let t = o?.(s) ?? { ok: !1, message: `코드 기능을 불러오지 못했습니다.` };
-      (d(t.message), t.ok && c(``));
-    };
-  return (0, q.jsxs)(`div`, {
-    className: `settings-layout`,
-    children: [
-      HAPIL_SystemSettingsV31339(openSystemV31339, objectiveV31339),
-      (0, q.jsx)(HAPIL_AutoBattleSettingsV31301, {
-        settings: e,
-        set: t,
-      }),
-      (0, q.jsx)(`p`, {className: `story-combat-hint`, children: `심장 피격: 몸통은 기존 피해, 가슴의 작은 코어에 맞으면 최대 HP 10%가 추가됩니다. 같은 지속 공격의 추가분은 영웅마다 1회이며 기존 무적·회피·피해 경감 규칙을 따릅니다. 각성 중에도 수동 이동·회피를 우선합니다.`}),
-      (0, q.jsxs)(`div`, {
-        className: `settings-list`,
-        children: [
-          [`music`, `배경음악`, `맵과 보스 단계에 맞는 테마 음악을 재생`],
-          [`sound`, `효과음`, `공격·피격·보스·사건 효과음을 재생`],
-          [`showCombatInfo`, `전투 기술 정보`, `강공·반격·자동전투 판단 등 보조 문구 표시`],
-          [`showAttackTelegraphs`, `공격 예고 범위`, `적 공격의 피격 예상 범위와 조준선 표시`],
-          [
-            `interludeText`,
-            `인터루드 텍스트`,
-            `발록 등장 전·맵 사이 인터루드 표시. OFF면 생략, 설정은 저장됩니다.`,
-          ],
-          [
-            `mapEntryDialogue`,
-            `맵 시작 맞대사`,
-            `전투·쉼터 진입 시 영웅과 상대의 대화를 표시 (기본 켜짐)`,
-          ],
-          [`lowFx`, `저사양 효과`, `광원과 입자 수를 축소`],
-          [`reducedFlash`, `점멸 감소`, `강한 점멸과 화면 흔들림 억제 · 공격 판정은 유지`],
-          [`screenShakeV31336`, `화면 흔들림`, `끄면 전투 카메라 흔들림 제거 · 점멸 감소와 별도로 끌 수 있음`],
-          [`enemyImpactFeedbackV31361`, `적 공격 타격 피드백`, `접촉 섬광·피격음·짧은 충격을 켭니다. 피해량·판정은 동일합니다.`],
-          [`showHeartV31336`, `심장점 표시`, `가슴 중심 유효 피격은 최대 HP의 10% 추가 피해 · 숨겨도 판정은 유지`],
-          [`heartDebugV31336`, `피격 판정 검사`, `개발용: 몸통·심장점·탄환 이동 구간·공격 범위 표시`],
-          [`largeText`, `큰 글자`, `전투 UI 가독성 확대`],
-          [`mobileUi`, `모바일 UI`, `터치 조작계를 항상 표시`],
-        ]
-          .map(([n, r, i]) =>
-            (0, q.jsxs)(
-              `label`,
-              {
-                children: [
-                  (0, q.jsxs)(`span`, {
-                    children: [
-                      (0, q.jsx)(`b`, { children: r }),
-                      (0, q.jsx)(`small`, { children: i }),
-                    ],
-                  }),
-                  (0, q.jsx)(`input`, {
-                    type: `checkbox`,
-                    checked: e[n],
-                    onChange: () => t((e) => ({ ...e, [n]: !e[n] })),
-                  }),
-                ],
-              },
-              n,
-            ),
-          )
-          .concat([
-            (0, q.jsxs)(
-              `label`,
-              {
-                className: `settings-range`,
-                children: [
-                  (0, q.jsxs)(`span`, {
-                    children: [
-                      (0, q.jsx)(`b`, { children: `배경음악 음량` }),
-                      (0, q.jsx)(`small`, {
-                        children: `맵 전환과 보스 진입 시 부드럽게 교차됩니다.`,
-                      }),
-                    ],
-                  }),
-                  (0, q.jsxs)(`div`, {
-                    children: [
-                      (0, q.jsx)(`input`, {
-                        id: `bgm-volume`,
-                        type: `range`,
-                        min: 0,
-                        max: 100,
-                        step: 5,
-                        value: Math.round((Number(e.bgmVolume) || 0) * 100),
-                        "aria-label": `배경음악 음량`,
-                        "aria-valuetext": `${Math.round((Number(e.bgmVolume) || 0) * 100)}%`,
-                        onChange: (n) =>
-                          t((e) => ({
-                            ...e,
-                            bgmVolume: Math.max(
-                              0,
-                              Math.min(1, Number(n.target.value) / 100),
-                            ),
-                          })),
-                      }),
-                      (0, q.jsx)(`output`, {
-                        htmlFor: `bgm-volume`,
-                        children: `${Math.round((Number(e.bgmVolume) || 0) * 100)}%`,
-                      }),
-                    ],
-                  }),
-                ],
-              },
-              `bgmVolume`,
-            ),
-            (0, q.jsxs)(
-              `label`,
-              {
-                className: `settings-range`,
-                children: [
-                  (0, q.jsxs)(`span`, {
-                    children: [
-                      (0, q.jsx)(`b`, { children: `효과음 음량` }),
-                      (0, q.jsx)(`small`, {
-                        children: `강한 비명과 폭발은 별도 안전 게인이 적용됩니다.`,
-                      }),
-                    ],
-                  }),
-                  (0, q.jsxs)(`div`, {
-                    children: [
-                      (0, q.jsx)(`input`, {
-                        id: `sfx-volume`,
-                        type: `range`,
-                        min: 0,
-                        max: 100,
-                        step: 5,
-                        value: Math.round((Number(e.sfxVolume) || 0) * 100),
-                        "aria-label": `효과음 음량`,
-                        "aria-valuetext": `${Math.round((Number(e.sfxVolume) || 0) * 100)}%`,
-                        onChange: (n) =>
-                          t((e) => ({
-                            ...e,
-                            sfxVolume: Math.max(
-                              0,
-                              Math.min(1, Number(n.target.value) / 100),
-                            ),
-                          })),
-                      }),
-                      (0, q.jsx)(`output`, {
-                        htmlFor: `sfx-volume`,
-                        children: `${Math.round((Number(e.sfxVolume) || 0) * 100)}%`,
-                      }),
-                    ],
-                  }),
-                ],
-              },
-              `sfxVolume`,
-            ),
-            (0, q.jsxs)(
-              `label`,
-              {
-                className: `settings-range`,
-                children: [
-                  (0, q.jsxs)(`span`, {
-                    children: [
-                      (0, q.jsx)(`b`, { children: `스킬 이미지 불투명도` }),
-                      (0, q.jsx)(`small`, {
-                        children: `영웅·보스 스킬에 적용. 100%는 원본의 선명함을 유지합니다.`,
-                      }),
-                    ],
-                  }),
-                  (0, q.jsxs)(`div`, {
-                    children: [
-                      (0, q.jsx)(`input`, {
-                        id: `skill-fx-opacity`,
-                        type: `range`,
-                        min: 0,
-                        max: 100,
-                        step: 5,
-                        value: Math.round(MONGSE_skillFxOpacity(e) * 100),
-                        "aria-label": `스킬 이미지 불투명도`,
-                        "aria-valuetext": `${Math.round(MONGSE_skillFxOpacity(e) * 100)}%`,
-                        onChange: (n) =>
-                          t((e) => ({
-                            ...e,
-                            skillFxOpacity: Math.max(
-                              0,
-                              Math.min(1, Number(n.target.value) / 100),
-                            ),
-                          })),
-                      }),
-                      (0, q.jsx)(`output`, {
-                        htmlFor: `skill-fx-opacity`,
-                        children: `${Math.round(MONGSE_skillFxOpacity(e) * 100)}%`,
-                      }),
-                    ],
-                  }),
-                ],
-              },
-              `skillFxOpacity`,
-            ),
-            (0, q.jsxs)(
-              `form`,
-              {
-                className: `settings-code`,
-                onSubmit: f,
-                children: [
-                  (0, q.jsxs)(`span`, {
-                    children: [
-                      (0, q.jsx)(`b`, { children: `관리 코드` }),
-                      (0, q.jsx)(`small`, {
-                        children: `코드를 입력하면 스킬과 진행 지도 권한이 현재 저장에 즉시 적용됩니다.`,
-                      }),
-                    ],
-                  }),
-                  (0, q.jsxs)(`div`, {
-                    children: [
-                      (0, q.jsx)(`input`, {
-                        type: `password`,
-                        inputMode: `numeric`,
-                        maxLength: 12,
-                        value: s,
-                        onChange: (e) => (c(e.target.value), d(``)),
-                        placeholder: `코드 입력`,
-                        "aria-label": `관리 코드 입력`,
-                        autoComplete: `off`,
-                      }),
-                      (0, q.jsx)(`button`, {
-                        type: `submit`,
-                        children: `적용`,
-                      }),
-                    ],
-                  }),
-                  u &&
-                    (0, q.jsx)(`small`, {
-                      className: `settings-code-result`,
-                      role: `status`,
-                      children: u,
-                    }),
-                ],
-              },
-              `admin-code`,
-            ),
-            (0, q.jsxs)(
-              `div`,
-              {
-                className: `settings-return`,
-                children: [
-                  (0, q.jsx)(`button`, {
-                    className: `return-title-button`,
-                    onClick: a,
-                    children: `시작 화면으로 돌아가기`,
-                  }),
-                  (0, q.jsx)(`small`, {
-                    children: `현재 진행을 자동 저장한 뒤 타이틀 화면으로 이동합니다.`,
-                  }),
-                ],
-              },
-              `return-title`,
-            ),
-          ]),
-      }),
-      (0, q.jsx)(MONGSE_StoryReader, {
-        zones: MONGSE_storyZones31222 ?? [`hub`],
-      }),
-      (0, q.jsxs)(`section`, {
-        className: `memory-revisit`,
-        children: [
-          (0, q.jsx)(`span`, {
-            className: `eyebrow`,
-            children: `RESONANCE MAP // VISITED`,
-          }),
-          (0, q.jsx)(`h3`, { children: `방문한 맵 다시 가기` }),
-          (0, q.jsx)(`p`, {
-            children: `도달했거나 관리 코드로 해금한 지역이 열립니다. 재방문 전투를 해도 지역·보스·EGO 파편 진행도는 유지됩니다.`,
-          }),
-          (0, q.jsx)(`div`, {
-            className: `memory-map-grid`,
-            children: n.map((e) => {
-              let t = N[e];
-              return (0, q.jsxs)(
-                `button`,
-                {
-                  disabled: e === r,
-                  onClick: () => i(e),
-                  children: [
-                    (0, q.jsxs)(`span`, {
-                      children: [
-                        t.arc,
-                        t.stageCount ? ` · ${t.stage}/${t.stageCount}` : ``,
-                      ],
-                    }),
-                    (0, q.jsx)(`b`, { children: t.name }),
-                    (0, q.jsx)(`small`, {
-                      children: e === r ? `현재 지역` : t.subtitle,
-                    }),
-                  ],
-                },
-                e,
-              );
-            }),
-          }),
-        ],
-      }),
-    ],
-  });
+function Gi({settings:e,set:t,zones:n,currentZone:r,revisit:i,returnToTitle:a,openSystemV31339:open}) {
+ const toggle=(key,title,detail)=>(0,q.jsxs)('label',{children:[(0,q.jsxs)('span',{children:[(0,q.jsx)('b',{children:title}),(0,q.jsx)('small',{children:detail})]}),(0,q.jsx)('input',{type:'checkbox','aria-label':title,checked:!!e[key],onChange:()=>t(v=>({...v,[key]:!v[key]}))})]},key);
+ const volume=(key,title)=>(0,q.jsxs)('label',{className:'settings-range',children:[(0,q.jsx)('b',{children:title}),(0,q.jsx)('input',{type:'range',min:0,max:100,step:5,'aria-label':title,value:Math.round((Number(e[key])||0)*100),onChange:event=>{const value=Number(event.target.value)/100;t(v=>({...v,[key]:value}));}})]},key);
+ return (0,q.jsxs)('div',{className:'settings-layout rc61-settings',children:[
+  (0,q.jsx)(HAPIL_AutoBattleSettingsV31301,{settings:e,set:t}),
+  (0,q.jsxs)('section',{children:[(0,q.jsx)('h3',{children:'소리'}),(0,q.jsxs)('div',{className:'settings-list',children:[toggle('music','배경음악','맵과 보스 테마'),volume('bgmVolume','배경음악 음량'),toggle('sound','효과음','공격과 피격 소리'),volume('sfxVolume','효과음 음량')]})]}),
+  (0,q.jsxs)('section',{children:[(0,q.jsx)('h3',{children:'화면 · 터치'}),(0,q.jsxs)('div',{className:'settings-list',children:[
+    toggle('lowFx','저사양 효과','광원과 장식을 줄입니다.'),toggle('reducedFlash','점멸 감소','강한 점멸을 줄입니다.'),toggle('screenShakeV31336','화면 흔들림','끄면 전투 카메라가 흔들리지 않습니다.'),
+    toggle('showAttackTelegraphs','공격 예고 범위','적 공격의 위험 범위를 표시합니다.'),toggle('largeText','큰 글자','전투 정보의 글자를 키웁니다.'),(0,q.jsxs)('label',{children:[(0,q.jsx)('b',{children:'터치 조작'}),(0,q.jsx)('select',{'aria-label':'터치 조작',value:window.__HAPIL_MOBILE_V31366__?.snapshot?.().options.mode??'auto',onChange:event=>{const mode=event.target.value;window.__HAPIL_MOBILE_V31366__?.setMode(mode);t(v=>({...v,mobileUi:mode==='on'}));},children:[['auto','기기에 맞게'],['on','항상 표시'],['off','숨김']].map(([value,label])=>(0,q.jsx)('option',{value,children:label},value))})]})
+  ]})]}),
+  (0,q.jsxs)('section',{children:[(0,q.jsx)('h3',{children:'진행'}),(0,q.jsx)('nav',{children:[['save','저장 · 불러오기'],['growth','공명 강화'],['codex','독백 기록']].map(([id,label])=>(0,q.jsx)('button',{type:'button',onClick:()=>open?.(id),children:label},id))}),
+    (0,q.jsxs)('details',{children:[(0,q.jsx)('summary',{children:'방문한 맵 다시 가기'}),(0,q.jsx)('div',{className:'memory-map-grid',children:n.filter(id=>N[id]&&id!=='ep1a07').map(id=>(0,q.jsx)('button',{disabled:id===r,onClick:()=>i(id),children:N[id].name||id},id))})]}),
+    (0,q.jsx)('button',{className:'return-title-button',onClick:a,children:'자동 저장 후 시작 화면으로'})]})
+ ]});
 }
 
 if (typeof window !== `undefined`)
@@ -98206,16 +97915,16 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
     B.delete(path);
     C.delete(path);
     deferred.delete(path);
-    if (!A.has(path) && A.size >= 20) {
+    while (A.size > (A.has(path) ? 20 : 19)) {
       const candidates = [...A].reverse(),
         evicted = candidates.find((asset) =>
           asset !== path && !/\/maps?\//i.test(String(asset)),
-        ) ?? candidates[0];
+        ) ?? candidates.find((asset) => asset !== path);
       if (evicted) {
         A.delete(evicted);
         pins.delete(evicted);
         B.add(evicted);
-      }
+      } else break;
     }
     A.add(path);
     pins.add(path);
@@ -98690,7 +98399,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
     B.delete(path);
     C.delete(path);
     deferred.delete(path);
-    if (!A.has(path) && A.size >= 20) {
+    while (A.size > (A.has(path) ? 20 : 19)) {
       const candidates = [...A].reverse(),
         evicted = candidates.find((asset) =>
           asset !== path &&
@@ -98701,7 +98410,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
         A.delete(evicted);
         pins.delete(evicted);
         B.add(evicted);
-      }
+      } else break;
     }
     A.add(path);
     pins.add(path);
@@ -98725,7 +98434,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       result.pins.add(asset);
     }
     const protectedPaths = new Set(
-      [result.collabAssetV31240, result.A.values().next().value].filter(Boolean),
+      [result.collabAssetV31240, result.A.values().next().value, ...Object.values(window.__HAPIL_STORY_COMBAT_ALIGNMENT_RC55__?.assets ?? {})].filter(Boolean),
     );
     for (const asset of zonePlan.priority.slice(0, 3)) {
       result = promote(result, asset, protectedPaths);
@@ -99961,7 +99670,7 @@ function HAPIL_AutoBattleSettingsV31301({ settings, set }) {
  (0,q.jsx)(`div`,{className:`hapil-mode-options`,role:`radiogroup`,"aria-label":`전투 모드`,children:[[`manual`,`수동`],[`semi`,`반자동`],[`full`,`완전자동`]].map(([id,name])=>(0,q.jsxs)(`label`,{children:[(0,q.jsx)(`input`,{type:`radio`,name:`hapil-combat-mode`,checked:mode===id,disabled:two&&id===`manual`,onChange:()=>C?.setMode(id,set)}),name]},id))}),
  (0,q.jsx)(`p`,{children:`1인: 방향키·마우스 이동 / 반자동 공격·공격 스킬 자동 / S+방향키 블링크 · D 방어 · F 상호작용 / 1 공명실 · 2 콜라보 · 3 표적 · 4 지도 · 5 설정`}),
  ...[[`autoPortal`,`완전자동: 전투 후 포탈 이동`],[`autoStoryAdvance`,`완전자동: 대사 자동 진행`],[`autoSkillTree`,`완전자동: 자동 성장`],[`guideHints`,`단계별 첫 전투 안내`]].map(([key,name])=>(0,q.jsxs)(`label`,{className:`hapil-control-setting`,children:[(0,q.jsx)(`input`,{type:`checkbox`,checked:settings[key]===true,disabled:key!==`guideHints`&&mode!==`full`,onChange:()=>set(v=>({...v,[key]:v[key]!==true}))}),name]},key)),
- (0,q.jsx)(`p`,{children:`루시퍼 체험: 게임 화면의 체험 버튼. 본편 저장과 진행도를 유지한 채 패턴을 연습합니다. 2인 추가 행동: 1P Q 공명실 / E 방어 / C 콜라보 / F 상호작용 / V 표적 / B 지도 / F1 설정.`})]});
+ (0,q.jsx)('p',{children:'독백은 전투 전후에 표시됩니다. 완전자동에서는 자동 넘김을 멈출 수 있습니다.'})]});
 }
 
 function HAPIL_restoreFinalBattleV31301(state, save) {
@@ -125557,12 +125266,37 @@ function HAPIL_migrateDeletedRecordRC60(raw) {
 }
 ;(function installRC60(attempt=0) {
   if(!window.__HAPIL_RC59_RELEASE__?.installed){if(attempt<900)setTimeout(()=>installRC60(attempt+1),0);return;}
+  N.dist06.next='ep1a08';
+  const flow=window.__HAPIL_FLOW_V31345__?.profile?.('dist06');if(flow)flow.nextMapId='ep1a08';
+  const normalize=ji;ji=function HAPIL_normalizeStoryRouteRC61(raw,...args){return normalize.call(this,HAPIL_migrateDeletedRecordRC60(raw),...args);};
   const deletedIndex=he.indexOf('ep1a07');if(deletedIndex>=0)he.splice(deletedIndex,1);
   const records=window.__HAPIL_STORY_DATA_RC51__?.records??[];
   const episode=records.filter(r=>!r.rest&&/^(dist0[0-6]|ep1a(08|09|10|11))$/.test(r.zone));
   episode.forEach((r,i)=>{if(N[r.zone]){N[r.zone].stage=i+1;N[r.zone].stageCount=episode.length;}});
   for(const r of records)if(N[r.zone])N[r.zone].name=r.title;
-  window.__HAPIL_STORY_ROUTE_RC60__=Object.freeze({version:'RC60',records:records.length,
+  window.__HAPIL_STORY_ROUTE_RC60__=Object.freeze({installed:true,version:'RC60',records:records.length,
     combatMaps:records.filter(r=>!r.rest).length,removedZone:'ep1a07',
     migrate:HAPIL_migrateDeletedRecordRC60});
 })();
+
+/* RC61: enter the game only after real combat and story dependencies are ready. */
+function HAPIL_launchMissingRC61(){
+  return [
+    ['전투',window.__HAPIL_COMBAT_V31333__?.installed],
+    ['시작 대사',window.__HAPIL_STORY_NATIVE_RC51__?.installed],
+    ['맵 경로',window.__HAPIL_STORY_ROUTE_RC60__?.installed],
+    ['영웅 이미지',window.__HAPIL_HERO_CONSISTENCY_RC5__?.installed],
+    ['맵 로더',typeof window.__HAPIL_RECOVERY_V31369__?.prepareMap==='function'],
+  ].filter(row=>!row[1]).map(row=>row[0]);
+}
+function HAPIL_waitForLaunchRC61(timeout=12000){
+  return new Promise((resolve,reject)=>{
+    const started=performance.now();
+    function check(){const missing=HAPIL_launchMissingRC61();
+      if(!missing.length){resolve(true);return;}
+      if(performance.now()-started>=timeout){reject(new Error('접속 준비 실패: '+missing.join(', ')+' 준비가 끝나지 않았습니다. 새로고침 후 다시 접속해주세요.'));return;}
+      setTimeout(check,40);
+    }check();
+  });
+}
+window.__HAPIL_LAUNCH_RC61__=Object.freeze({missing:HAPIL_launchMissingRC61,wait:HAPIL_waitForLaunchRC61});

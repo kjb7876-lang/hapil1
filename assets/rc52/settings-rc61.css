@@ -1,0 +1,15 @@
+.rc61-settings{font-family:'Noto Serif KR',serif;grid-template-columns:1fr!important;gap:18px!important}
+.rc61-settings>section{min-width:0;margin:0;padding:16px;border:1px solid #81bcff38;border-radius:10px;background:#080d1deb}
+.rc61-settings h3{margin:0 0 12px;font-size:18px}
+.rc61-settings .settings-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px!important}
+.rc61-settings .settings-list label{min-width:0;padding:10px 4px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rc61-settings label span{min-width:0}.rc61-settings label small{display:block;line-height:1.5}
+.rc61-settings .settings-range input{width:45%;min-width:80px}
+.rc61-settings input[type=checkbox]{width:20px;height:20px;flex:none}
+.rc61-settings nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.rc61-settings button{min-height:42px;padding:8px 12px;font-family:inherit}
+.rc61-settings details{margin:12px 0}.rc61-settings summary{cursor:pointer;padding:8px 0}
+.rc61-settings .return-title-button{margin-top:12px}
+@media(max-width:600px){.rc61-settings .settings-list{grid-template-columns:1fr}.rc61-settings>section{padding:12px}.rc61-settings .hapil-mode-options{display:flex;flex-wrap:wrap;gap:10px}}
+body:has(.rc61-settings) #hapil-mobile-controls-v31366{visibility:hidden!important;pointer-events:none!important}
+body:has(.rc61-settings) .combat-hud{visibility:hidden!important;pointer-events:none!important}

@@ -23,7 +23,7 @@
   const title=el('h1','',`${String(r.index).padStart(2,'0')} · ${r.title}`);title.id='rc51-title';head.append(title);panel.append(head);
   const box=el('div','rc51-copybox'),copy=el('article','rc51-copy');for(const paragraph of text.split(/\n\s*\n/))copy.append(el('p','',paragraph));box.append(copy);panel.append(box);
   const footer=el('footer','rc51-footer'),pause=el('button','','자동 넘김 멈춤'),next=el('button','','계속 · Enter');pause.type=next.type='button';
-  const full=window.__HAPIL_CONTROLS_V31329__?.effective?.()==='full';autoLeft=full?Math.max(12,text.length/9):0;autoPaused=false;lastUi=performance.now();pause.hidden=!full;
+  const full=window.__HAPIL_CONTROLS_V31329__?.effective?.()==='full';autoLeft=full&&window.__HAPIL_CONTROLS_V31329__?.binding?.settings?.current?.autoStoryAdvance!==false?Math.max(12,text.length/9):0;autoPaused=false;lastUi=performance.now();pause.hidden=!full;
   pause.onclick=()=>{autoPaused=!autoPaused;pause.textContent=autoPaused?'자동 넘김 계속':'자동 넘김 멈춤';};next.onclick=()=>close();footer.append(pause,next);panel.append(footer);root.append(panel);document.body.append(root);
   fit();document.fonts?.ready.then(()=>{if(root)fit();});next.focus();return true;
  }

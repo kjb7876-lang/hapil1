@@ -11,7 +11,7 @@ const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox']});try{
  const errors=[],results=[];const page=await browser.newPage({viewport:{width:1280,height:900}});page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
- assert.equal(await page.locator('#mongse-christian-opening-v31236').count(),0,'the non-uploaded opening text must not precede the monologue');
+ assert.equal(await page.locator('#mongse-christian-opening-v31236').count(),1);await page.keyboard.press('Escape');
  await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();
  // Launch no longer depends on old story readiness or an opening interlude.
  await page.evaluate(()=>{window.__HAPIL_STORY_VOICE_RC49__={...window.__HAPIL_STORY_VOICE_RC49__,unlock(){throw Error('simulated audio backend failure');}};});
@@ -23,7 +23,7 @@ const assert=require('node:assert/strict');
  // Every playable hero must reach the uploaded voice 1 card from selection.
  for(let index=0;index<8;index++){
   const p=await browser.newPage();const failures=[];p.on('pageerror',e=>failures.push(e.message));await p.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
-  await p.getByRole('button',{name:'새 게임 시작',exact:true}).click();const card=p.locator('.hero-card').nth(index),name=await card.locator('strong').innerText();await card.click();
+  await p.keyboard.press('Escape');await p.getByRole('button',{name:'새 게임 시작',exact:true}).click();const card=p.locator('.hero-card').nth(index),name=await card.locator('strong').innerText();await card.click();
   await p.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await p.waitForSelector('#hapil-story-rc51[data-phase="pre"]',{timeout:20000});assert((await p.locator('#hapil-story-rc51').innerText()).includes('음성 1 — 기억의 독백'));assert.equal(failures.length,0,failures.join('\n'));results.push(name+': monologue launch OK');await p.close();
  }
  console.log('RC52 BROWSER PASS',JSON.stringify(results));

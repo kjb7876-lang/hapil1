@@ -8,7 +8,7 @@ function world(){
  vm.runInContext(bundle.slice(start,bundle.indexOf('// The terrain registry',start)),c);
  vm.runInContext(read('data/story-rc51.js'),c);
  c.he=Object.values(c.N).filter(z=>!z.rest&&!['hub','village'].includes(z.id)).map(z=>z.id);
- c.window.__HAPIL_RC59_RELEASE__={installed:true};
+ c.window.__HAPIL_RC59_RELEASE__={installed:true};c.ji=raw=>raw;
  vm.runInContext(bundle.slice(bundle.indexOf('/* RC60:')),c);
  return c;
 }
