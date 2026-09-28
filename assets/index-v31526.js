@@ -5830,7 +5830,13 @@ function MONGSE_resolveNonRepeatingBossSkill31215(e, t) {
 var MONGSE_originalSpawnBossSignatureKind31215 = MONGSE_spawnBossSignatureKind31212;
 MONGSE_spawnBossSignatureKind31212 = function (e, t, n) {
   let r = MONGSE_bossRuleProfile31215(t);
-  if (!r) return MONGSE_originalSpawnBossSignatureKind31215(e, t, n);
+  if (!r) {
+    let base = MONGSE_originalSpawnBossSignatureKind31215(e, t, n),
+      signature = [n, t?.activePattern, t?.castAction31210, base?.signatureKind31212, base?.kind, base?.label]
+        .find(value => window.__HAPIL_BOSS_PATTERN_NAMES_RC62__?.resolve?.(value));
+    signature && window.__HAPIL_BOSS_PATTERN_NAMES_RC62__?.announce?.(t, signature, e?.time);
+    return base;
+  }
   let i = MONGSE_resolveNonRepeatingBossSkill31215(t, n),
     a = e.hostileProjectiles?.length ?? 0,
     o = e.pendingHits?.length ?? 0,
@@ -5846,6 +5852,7 @@ MONGSE_spawnBossSignatureKind31212 = function (e, t, n) {
     (MONGSE_applyBossRuleHazards31215(e, t, r, i, a, o, n),
       (t.lastSignatureSkillV31215 = i),
       (t.bossRuleCastSerialV31215 = Number(t.bossRuleCastSerialV31215 ?? 0) + 1));
+    window.__HAPIL_BOSS_PATTERN_NAMES_RC62__?.announce?.(t, i, e.time);
   }
   return ((t.signatureChoreography31213 = s ?? null), { ...c, kind: i, requestedKindV31215: n });
 };
@@ -68041,7 +68048,7 @@ MONGSE_prepareCombatEncounter31226 = function MONGSE_preparePrologueV314RC3(stat
       MONGSE_calloutNode31219.setAttribute?.(`aria-live`, `polite`);
       const MONGSE_kicker31219 = document.createElement(`span`),
         MONGSE_label31219 = document.createElement(`strong`);
-      MONGSE_kicker31219.textContent = `BOSS SKILL`;
+      MONGSE_kicker31219.textContent = `보스 패턴`;
       MONGSE_calloutNode31219.append?.(MONGSE_kicker31219, MONGSE_label31219);
       MONGSE_stage31219.append?.(MONGSE_calloutNode31219);
     }
@@ -125300,3 +125307,116 @@ function HAPIL_waitForLaunchRC61(timeout=12000){
   });
 }
 window.__HAPIL_LAUNCH_RC61__=Object.freeze({missing:HAPIL_launchMissingRC61,wait:HAPIL_waitForLaunchRC61});
+
+/* RC62: show each authored boss signature as a story-specific Korean attack name. */
+const HAPIL_BOSS_SIGNATURE_NAMES_RC62 = Object.freeze({
+  'hell-gate-columns':'일곱 기둥의 지옥문',
+  'flame-sword-cone':'발록의 불검 부채',
+  'cinder-return':'되돌아오는 잿불',
+  'wing-feather-pairs':'초천사의 쌍익',
+  'halo-safe-seam':'거짓 천국의 광륜',
+  'six-wing-cross':'여섯 날개 심판',
+  'falling-clutter':'무너지는 침실',
+  'stop-go-orbit':'멈춤과 회전의 졸음',
+  'delayed-drowsy-ring':'늦게 닫히는 나태의 고리',
+  'mirror-fan':'깨진 거울 부채',
+  'delayed-reflection':'늦게 비치는 허상',
+  'clone-cross':'원본을 가르는 쌍상',
+  'maw-inhale':'탐식의 들숨',
+  'safe-ring-devour':'안전한 접시의 포식',
+  'spit-fan':'검은 소화액 토출',
+  'puppet-thread-pairs':'인형사의 실쌍',
+  'heart-track':'심장을 쫓는 실',
+  'thread-snap-cross':'끊어지는 실의 교차',
+  'coin-ricochet':'맘몬의 되튐 동전',
+  'contract-grid':'복리 계약 격자',
+  'ledger-fan':'장부 압류 부채꼴',
+  'yoyo-true-return':'돌아오는 요요',
+  'candy-mine':'가시사탕 지뢰',
+  'frost-spiral':'눈보라의 나선',
+  'fire-line-sweep':'화염선 휩쓸기',
+  'beast-triplet-arcs':'사탄의 세 짐승 발톱',
+  'dash-trail-converge':'분노 돌진의 상흔',
+  'command-cross':'왕좌의 지휘 교차',
+  'inverted-safe-lane':'뒤집힌 안전 차선',
+  'corpse-formation':'시체 군진',
+  'throne-lattice':'왕좌의 격자',
+  'leg-scan':'생체 다리 스캔',
+  'observed-lane-replay':'기록된 차선의 재생',
+  'polarity-orbit':'극성 전환 궤도',
+  'black-sun-echo':'검은 태양의 메아리',
+  'deletion-rows':'삭제의 행',
+  'memory-address-grid':'기억 주소 격자',
+  'packet-lock':'봉인 패킷',
+  'flute-sine-wave':'고블린 피리의 정현파',
+  'drum-hop-bomb':'엇박 북폭',
+  'whistle-arrow-volley':'휘파람 화살비',
+  'draw-slash-lanes':'발도선 난도',
+  'afterimage-blades':'여섯 잔상 검',
+  'six-image-charge':'육검 동시 돌격',
+  'black-mist-orbit':'불면귀의 검은안개 궤도',
+  'sleepless-eyes':'잠들지 않는 눈빛',
+  'black-soul-track':'검은 혼의 추적',
+  'frozen-clock-ring':'멈춘 시계의 고리',
+  'slow-fast-alternate':'느림과 빠름의 교대',
+  'rewind-same-angles':'되감긴 궤적',
+  'water-current-sine':'시간수로의 물결',
+  'reverse-current':'역류 명령',
+  'undertow-converge':'저류의 합류',
+  'corridor-shutters':'봉인 셔터',
+  'alternating-gates':'교차하는 회랑 관문',
+  'seal-collapse':'붕괴하는 지연 봉인',
+  'gear-arcs':'톱니 화염 호',
+  'rotating-teeth':'회전 톱니',
+  'forge-cross':'대장간 십자',
+  'neuron-chain':'뉴런 연쇄',
+  'branch-laser':'가지치기 레이저',
+  'delayed-synapse':'지연된 시냅스',
+  'fractured-clock':'파열 시계',
+  'delayed-safe-seam-echo':'안전틈에 남은 지연 잔향',
+  'collapse-lattice':'붕괴 격자',
+  'expanding-note-wave':'확장하는 음표 파동',
+  'rest-crescendo':'쉼표 뒤 크레셴도',
+  'chorus-clock-seams':'합창 시계틈',
+  'white-draw-cut':'백은의 발도',
+  'copied-skill-geometry':'복제된 기술 기하',
+  'return-seal':'귀환 봉인',
+  'traffic-signal-lanes':'파란불 차선',
+  'causal-coordinate-replay':'기록 좌표 재현',
+  'reverse-causal-ring':'역인과 고리',
+  'choir-pulse-bands':'합창 맥동 띠',
+  'antiphonal-left-right':'좌우 대위 교창',
+  'three-voice-lattice':'세 목소리 격자',
+  'id-chase':'ID 추격',
+  'superego-judgment':'SUPER EGO 심판',
+  'ego-triad':'EGO 삼각 봉인',
+  'harvest-composite':'삼중 자아 수확',
+  'human-edict':'인간성의 칙령',
+  'shepherd-six-sweep':'여섯 사도 휩쓸기',
+  'ego-shard-orbit':'자아 파편 궤도',
+  'antichrist-command':'적그리스도 소환명령',
+  '검은 뿌리 직선 찌르기':'검은 뿌리 직선 찌르기',
+  '기억 수액 낙하':'기억 수액 낙하',
+});
+function HAPIL_resolveBossSignatureNameRC62(value){
+  const raw=String(value??'').trim();
+  if(!raw)return null;
+  const candidates=[raw,raw.replace(/^signature[-:]?/i,''),raw.split(':').at(-1),raw.split(':').at(-1).replace(/^signature[-:]?/i,'')];
+  for(const candidate of candidates)if(HAPIL_BOSS_SIGNATURE_NAMES_RC62[candidate])return HAPIL_BOSS_SIGNATURE_NAMES_RC62[candidate];
+  return null;
+}
+const HAPIL_signatureDeckIdsRC62=typeof MONGSE_BOSS_SIGNATURE_PROFILES_V31212==='object'
+  ?Object.values(MONGSE_BOSS_SIGNATURE_PROFILES_V31212).flatMap(profile=>profile.deck??[]):[];
+const HAPIL_missingSignatureNamesRC62=[...new Set(HAPIL_signatureDeckIdsRC62.filter(id=>!HAPIL_BOSS_SIGNATURE_NAMES_RC62[id]))];
+window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
+  installed:true,version:'RC62',nameCount:Object.keys(HAPIL_BOSS_SIGNATURE_NAMES_RC62).length,
+  signatureCount:new Set(HAPIL_signatureDeckIdsRC62).size,missing:Object.freeze(HAPIL_missingSignatureNamesRC62),
+  resolve:HAPIL_resolveBossSignatureNameRC62,names:HAPIL_BOSS_SIGNATURE_NAMES_RC62,
+  announce(boss,signature,now){
+    const label=HAPIL_resolveBossSignatureNameRC62(signature);
+    if(!boss||!label)return null;
+    boss.bossRuleCalloutLabelV31220=label;
+    boss.bossSkillCalloutUntilV31219=Math.max(Number(boss.bossSkillCalloutUntilV31219??0),Number(now??0)+0.9);
+    return label;
+  },
+});

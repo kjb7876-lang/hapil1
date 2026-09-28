@@ -10,7 +10,7 @@ const css = fs.readFileSync(path.join(root, 'assets/rc28/mobile-layout.css'), 'u
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
 assert(html.includes('boss-and-mobile.js?v=33201'), 'RC32 gameplay plugin is not loaded');
-assert(html.includes('hapil-mobile-v31406.js?v=33601'), 'mobile controller cache key is stale');
+assert(html.includes('hapil-mobile-v31406.js?v=33602'), 'mobile controller cache key is stale');
 assert(css.includes('object-fit:cover!important'), 'mobile canvas does not cover the full screen');
 assert(/#rc24-bossbar[\s\S]*?display:none!important/.test(css), 'mobile DOM boss bar is still shown');
 assert(css.includes('.game>.hapil-combat-rail-v31339'), 'mobile boss and combat UI are not hidden');

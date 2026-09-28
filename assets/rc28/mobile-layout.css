@@ -33,6 +33,7 @@ html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339{
   margin:0!important;padding:0!important;border:0!important;background:none!important;
   overflow:visible!important;pointer-events:none!important;scrollbar-width:none;
 }
+html.hapil-touch-v31366 body.rc15-playing .game>.hapil-combat-rail-v31339{display:flex!important}
 html.hapil-touch-v31366 .game>.hapil-combat-rail-v31339>*:not(.boss-skill-callout-v31219):not(.boss-warning):not(.combat-narrative-manifest):not(.radio-dialog){display:none!important}
 html.hapil-touch-v31366 .hapil-combat-rail-v31339>.boss-skill-callout-v31219,
 html.hapil-touch-v31366 .hapil-combat-rail-v31339>.boss-warning{

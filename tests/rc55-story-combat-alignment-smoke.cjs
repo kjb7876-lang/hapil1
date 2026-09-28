@@ -31,7 +31,7 @@ assert.match(prose, /이곳에 남은 사람들이 자기 이름으로 살아갈
 
 const bundle = read('assets/index-v31526.js');
 const html = read('index.html');
-assert.match(html, /assets\/index-v31526\.js\?v=36101/);
+assert.match(html, /assets\/index-v31526\.js\?v=36201/);
 assert.match(bundle, /MONGSE_ZONE_DISPLAY_NAMES31222/);
 assert.match(bundle, /black_rose_ego_core_prison\.jpg/);
 assert.match(bundle, /"c103-boss": \{ deck: \[`id-chase`, `superego-judgment`, `ego-triad`, `harvest-composite`\]/);

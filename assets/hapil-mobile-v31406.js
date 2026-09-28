@@ -110,7 +110,7 @@
  }
  function backingScale(base){if(!enabled())return base;const cap=({battery:.32,balanced:.40,full:.52})[options.quality]??.32,result=Math.min(base,cap);if(result<base)metrics.renderCaps++;return result;}
  const setText=(el,t)=>{if(!el||el.textContent===t)return;if(el.firstChild?.nodeType===3&&el.childNodes.length===1)el.firstChild.nodeValue=t;else el.textContent=t;};
- function ensureSettingsControl(){const list=document.querySelector('.settings-layout > .settings-list');if(!list)return;
+ function ensureSettingsControl(){const list=[...document.querySelectorAll('.settings-layout section')].find(section=>section.querySelector('h3')?.textContent.includes('화면'))?.querySelector('.settings-list');if(!list)return;
   let row=list.querySelector('[data-hapil-mobile-quality]');if(!row){row=document.createElement('label');row.dataset.hapilMobileQuality='';
    row.innerHTML='<span><b>모바일 성능</b><small>화면 해상도만 조절합니다. 판정·피해량은 그대로입니다.</small></span><select aria-label="모바일 성능"><option value="battery">절전 · 렉 줄이기</option><option value="balanced">균형</option><option value="full">고화질 · 모바일 최상</option></select>';
    row.querySelector('select').addEventListener('change',event=>setQuality(event.target.value));list.prepend(row);}
