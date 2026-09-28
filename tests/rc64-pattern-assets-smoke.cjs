@@ -22,8 +22,10 @@ const clarityStart = bundle.indexOf('/* HAPIL_V31316_CLARITY_PATCH', danmakuStar
 assert(danmakuStart >= 0 && clarityStart > danmakuStart, 'Danmaku runtime slice is missing');
 function HAPIL_tickBossPatternsV31310() {}
 const emptySet = () => new Set();
+let mobile=false;
 const dmContext = {
   window: {
+    __HAPIL_COMBAT_RC47__: {mobile:()=>mobile},
     __HAPIL_V31315_RELEASE__: {allPass: true},
     __HAPIL_SKILL_VISUAL_V31311__: {rankedRows: () => Array.from({length: 71}, (_, i) => ({
       actor: {id: `boss-${i}`}, zone: 'dist00',
@@ -47,6 +49,9 @@ assert.deepEqual([0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60].m
   dmContext.window.__HAPIL_DANMAKU_V31316__.modeFor({id: 'boss-0'}, 'normal', cycle)),
 requiredPatterns,
 'the four-cycle cadence must reach every pattern in the 14-pattern deck');
+const dm=dmContext.window.__HAPIL_DANMAKU_V31316__,actor={id:'boss-0',boss:true,hp:100,x:8,y:8},barrageState={zone:'dist00',hp:240,x:16,y:16,enemies:[actor]};
+assert.equal(dm.barrageCap(),Infinity);assert.equal(dm.plan(barrageState,actor,'normal',20).count,90);
+mobile=true;assert.equal(dm.barrageCap(),48);for(let cycle=0;cycle<64;cycle+=4)assert(dm.plan(barrageState,actor,'normal',cycle).count<=48);mobile=false;
 const ownerColors = dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
   .map(row => row.danmakuColorV31316);
 assert.equal(new Set(ownerColors).size, 71, 'each attacker receives a distinct, stable color');
@@ -105,7 +110,7 @@ const context = {
   legacyDraws: 0,
 };
 vm.createContext(context);
-vm.runInContext(bundle.slice(rc64Start), context);
+vm.runInContext(bundle.slice(rc64Start, bundle.indexOf("/* RC69:")), context);
 
 const api = context.window.__HAPIL_RC64__;
 assert(api?.installed, 'RC64 layer should install after its required runtimes');

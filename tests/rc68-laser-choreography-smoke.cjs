@@ -12,8 +12,8 @@ for (const kind of ['sweep', 'fan-sweep', 'orbit-cross']) {
 }
 assert(source.includes("'fan-sweep':'세 갈래 회전 휩쓸기','orbit-cross':'회전 십자 빔'"),
   'the moving patterns have accepted names in the laser scheduler');
-assert(source.includes('(major||root?TYPES:TYPES.slice(0,7))'),
-  'the new moving laser families are available to major bosses');
+assert(source.includes('profiles.set(o.id,TYPES.map'),
+  'the new moving laser families are available to bosses and midbosses');
 assert(source.includes("window.__HAPIL_BLOOD_RC16__.geometry(c,time)"),
   'render and damage geometry must receive the same simulation time');
 assert(source.includes('const future=geometry(c,c.fireAt+c.activeSeconds*fraction)'),

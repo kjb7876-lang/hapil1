@@ -53,7 +53,9 @@ for(const delayed of [false,true]){
  w.MONGSE_zoneAssetPlan31220=id=>Object.fromEntries(['all','A','B','C','deferred','pins'].map(k=>[k,new Set([w.N[id].map])]));
  vm.runInContext(legacy,w);vm.runInContext(map54,w);vm.runInContext(map56,w);
  w.window.__HAPIL_V31344_RELEASE__.installed=true;queue.forEach(fn=>fn());
+ w.ZONE='ep1a11';w.active=()=>false;w.assets=()=>({arenaMap:'cosmic-arena.webp'});
  vm.runInContext(selector,w);
+ assert.equal(w.mapFor({zone:'ep1a11',cosmicEncounterV31318:{stage:'complete'}},'wrong'),'cosmic-arena.webp');
  for(const [id,asset] of Object.entries({...w.window.__HAPIL_MAP_ART_RC54__.rows,...w.window.__HAPIL_MAP_ART_RC56__.rows})){
   assert.equal(w.N[id].map,asset,`${id} active map after delayed=${delayed}`);
   assert.equal(w.mapFor({zone:id},'wrong'),asset,`${id} renderer overrides after delayed=${delayed}`);
