@@ -124573,3 +124573,206 @@ function HAPIL_installCanonicalStoryRC51(){
  };
  window.__HAPIL_STORY_NATIVE_RC51__={installed:true,zones:Object.keys(N),combatZones:[...he]};
 }
+
+/* RC54: align story maps with their time period and move the modern loop to murder03. */
+;(() => {
+  'use strict';
+  const rows = Object.freeze({
+    dist00: './assets/maps/rc53/dist00-demon-tree.webp',
+    dist01: './assets/maps/rc53/dist01-spider-cave.webp',
+    ep1a07: './assets/maps/rc54/ep1a07-darkfall.webp',
+    kair03: './assets/maps/rc53/kair03-siren-timeway.webp',
+    cult04: './assets/maps/rc53/cult04-final-judgment.jpg',
+    murder03: './assets/maps/rc54/murder03-loop-crosswalk.webp',
+  });
+  const fallbackMapByZone = Object.freeze({
+    ep1a07: './assets/v31345/maps/dist06.webp',
+  });
+  const originals = Object.create(null);
+  for (const [id, path] of Object.entries(rows)) {
+    const zone = N[id];
+    if (!zone?.map) throw new Error(`RC54 map route is missing: ${id}`);
+    originals[id] = Object.freeze({
+      map: zone.map,
+      mapVariants: Object.freeze([...(zone.mapVariants ?? [])]),
+      fallbackMap: fallbackMapByZone[id] ?? zone.map,
+    });
+    zone.map = path;
+    zone.mapVariants = [];
+  }
+
+  const previousManifest = MONGSE_zoneAssetManifest;
+  MONGSE_zoneAssetManifest = function HAPIL_storyMapManifestRC54(id, ...args) {
+    const result = new Set(previousManifest(id, ...args) ?? []);
+    const prior = originals[id];
+    if (prior) {
+      for (const path of prior.mapVariants) result.delete(path);
+      if (prior.map !== prior.fallbackMap) result.delete(prior.map);
+      result.add(rows[id]);
+      result.add(prior.fallbackMap);
+    }
+    return result;
+  };
+
+  const previousPlan = MONGSE_zoneAssetPlan31220;
+  MONGSE_zoneAssetPlan31220 = function HAPIL_storyMapPlanRC54(id, ...args) {
+    const base = previousPlan.apply(this, [id, ...args]);
+    const result = { ...base };
+    for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins'])
+      result[key] = new Set(base?.[key] ?? []);
+    const prior = originals[id];
+    if (prior) {
+      for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins']) {
+        for (const path of prior.mapVariants) result[key].delete(path);
+        if (prior.map !== prior.fallbackMap) result[key].delete(prior.map);
+      }
+      for (const key of ['all', 'A', 'pins']) {
+        result[key].add(rows[id]);
+        result[key].add(prior.fallbackMap);
+      }
+      for (const key of ['B', 'C', 'deferred']) result[key].delete(rows[id]);
+    }
+    return result;
+  };
+
+  let fallbackLoads = 0;
+  const recovery = window.__HAPIL_RECOVERY_V31369__;
+  if (typeof recovery?.prepareMap === 'function') {
+    const prepare = recovery.prepareMap;
+    window.__HAPIL_RECOVERY_V31369__ = Object.freeze({
+      ...recovery,
+      async prepareMap(cache, next) {
+        try {
+          return await prepare.call(recovery, cache, next);
+        } catch (primaryError) {
+          const prior = originals[next], zone = N[next];
+          if (!prior?.map || !zone) throw primaryError;
+          const activeMap = zone.map, activeVariants = zone.mapVariants;
+          const fallbackMap = prior.fallbackMap ?? prior.map;
+          try {
+            zone.map = fallbackMap;
+            zone.mapVariants = fallbackMap === prior.map ? [...prior.mapVariants] : [];
+            const ready = await prepare.call(recovery, cache, next);
+            const fallback = cache[fallbackMap];
+            if (!ready || !fallback?.complete || !(fallback.naturalWidth > 0))
+              throw primaryError;
+            cache[rows[next]] = fallback;
+            fallbackLoads++;
+            return true;
+          } finally {
+            zone.map = activeMap;
+            zone.mapVariants = activeVariants;
+          }
+        }
+      },
+    });
+  }
+
+  function audit() {
+    return Object.fromEntries(Object.entries(rows).map(([id, path]) => {
+      const manifest = MONGSE_zoneAssetManifest(id);
+      const plan = MONGSE_zoneAssetPlan31220(id, 'hwando', [], null);
+      return [id, {
+        active: N[id]?.map === path,
+        manifest: manifest.has(path),
+        plan: ['all', 'A', 'pins'].every(key => plan?.[key]?.has(path)),
+        staleMapQueued: [originals[id].map, ...originals[id].mapVariants]
+          .filter(old => old !== originals[id].fallbackMap)
+          .some(old => old !== path && (manifest.has(old) || plan?.all?.has(old))),
+      }];
+    }));
+  }
+  window.__HAPIL_MAP_ART_RC54__ = Object.freeze({
+    version: 'RC54', installed: true, rows, originals: Object.freeze(originals),
+    audit,
+    prepareMap: (cache, id) => window.__HAPIL_RECOVERY_V31369__?.prepareMap(cache, id),
+    metrics: () => ({ fallbackLoads }),
+  });
+})();
+
+/* RC54: story-matched projectile for the blue-light executor in the murder loop. */
+;(() => {
+  'use strict';
+  const projectile = './assets/vfx/rc54/murder03-blue-signal-projectile.png';
+  const bossId = 'blue-executor';
+  const original = MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224[bossId];
+  if (!original || original.zone !== 'murder03')
+    throw new Error('RC54 blue-executor visual profile is missing or assigned to the wrong zone');
+  const retired = [...new Set([
+    original.projectile, original.major, original.telegraph, original.impact,
+  ].filter(Boolean))];
+  MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224 = Object.freeze({
+    ...MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224,
+    [bossId]: Object.freeze({
+      ...original,
+      projectile,
+      major: projectile,
+      telegraph: projectile,
+      impact: projectile,
+      source: 'rc54-blue-signal-loop',
+    }),
+  });
+  const bossVisualApi = window.__MONGSE_BOSS_VISUAL_PATCH_V31224__;
+  const previousResolve = MONGSE_resolveBossVisualV31224;
+  MONGSE_resolveBossVisualV31224 = function HAPIL_storyProjectileResolveRC54(actor, ...args) {
+    const resolved = previousResolve.apply(this, [actor, ...args]);
+    const actorId = String(actor?.id ?? actor?.sourceId ?? '');
+    if (!resolved || actorId !== bossId) return resolved;
+    return {
+      ...resolved,
+      zone: 'murder03',
+      projectile,
+      telegraph: projectile,
+      impact: projectile,
+      source: 'rc54-blue-signal-loop',
+    };
+  };
+  if (bossVisualApi) {
+    bossVisualApi.exactBossVisuals = MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224;
+    bossVisualApi.resolve = MONGSE_resolveBossVisualV31224;
+  }
+
+  const previousManifest = MONGSE_zoneAssetManifest;
+  MONGSE_zoneAssetManifest = function HAPIL_storyProjectileManifestRC54(id, ...args) {
+    const result = new Set(previousManifest(id, ...args) ?? []);
+    if (id === 'murder03') {
+      for (const path of retired) result.delete(path);
+      result.add(projectile);
+    }
+    return result;
+  };
+
+  const previousPlan = MONGSE_zoneAssetPlan31220;
+  MONGSE_zoneAssetPlan31220 = function HAPIL_storyProjectilePlanRC54(id, ...args) {
+    const base = previousPlan.apply(this, [id, ...args]);
+    const result = { ...base };
+    for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins'])
+      result[key] = new Set(base?.[key] ?? []);
+    if (id === 'murder03') {
+      for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins'])
+        for (const path of retired) result[key].delete(path);
+      for (const key of ['all', 'A', 'pins']) result[key].add(projectile);
+      for (const key of ['B', 'C', 'deferred']) result[key].delete(projectile);
+    }
+    return result;
+  };
+
+  window.__HAPIL_STORY_VISUAL_RC54__ = Object.freeze({
+    version: 'RC54', projectile, retired: Object.freeze(retired),
+    audit() {
+      const profile = MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224[bossId];
+      const manifest = MONGSE_zoneAssetManifest('murder03');
+      const plan = MONGSE_zoneAssetPlan31220('murder03', 'hwando', [], null);
+      const hospital = N.ep1a08?.map ?? '';
+      return {
+        projectileActive: profile?.projectile === projectile,
+        profileZone: profile?.zone,
+        manifest: manifest.has(projectile),
+        plan: ['all', 'A', 'pins'].every(key => plan?.[key]?.has(projectile)),
+        retiredQueued: retired.some(path => manifest.has(path) || plan?.all?.has(path)),
+        hospitalMapPreserved: hospital.endsWith('ep1a_08_blood_hospital_rc24.png'),
+        modernLoopMapActive: N.murder03?.map === './assets/maps/rc54/murder03-loop-crosswalk.webp',
+      };
+    },
+  });
+})();
