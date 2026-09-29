@@ -28,7 +28,7 @@ for (const name of ['assets/rc15/hero-controls.js', 'assets/controller-v31406/he
 }
 assert(main.includes('window.__HAPIL_COMBAT_V31333__?.radius(a.id)'), 'native basic attacks must use the shared combat radius');
 assert(main.includes("key==='A'?(window.__HAPIL_COMBAT_V31333__?.radius(a.heroId)??(ranged?10:3.2))"), 'party basic attacks must use the same combat radius');
-assert(html.includes('./assets/index-v31526.js?v=38101'), 'the updated range and skill fallback code must bypass cached bundles');
+assert(html.includes('./assets/index-v31526.js?v=38102'), 'the updated range and skill fallback code must bypass cached bundles');
 
 // Exercise the production warning -> queued impact -> rendered sprite path.
 const clearGapStart = main.indexOf('function MONGSE_impactClearGap(');

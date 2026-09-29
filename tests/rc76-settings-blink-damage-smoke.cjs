@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 const main = fs.readFileSync(path.join(root, 'assets/index-v31526.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
-assert(html.includes('./assets/index-v31526.js?v=38101'),
+assert(html.includes('./assets/index-v31526.js?v=38102'),
   'the browser must load the RC77 game bundle');
 assert(main.includes('MONGSE_applyCheatCode = (0, l.useCallback)'),
   'the 777 progression handler must remain installed');

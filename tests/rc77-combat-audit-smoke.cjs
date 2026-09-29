@@ -10,7 +10,7 @@ const html = read('index.html');
 const beamAsset = read('assets/rc77/connected-laser.js');
 
 // The helper must be available before the module starts drawing boss attacks.
-assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=38101'));
+assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=38102'));
 assert.equal((main.match(/__HAPIL_CONNECTED_LASER_V31377__;/g) || []).length, 3,
   'standard boss, blood laser and final boss beams must share the continuous renderer');
 assert(!main.includes('len+overlap*2'), 'branch beam textures must not restart at every segment');
