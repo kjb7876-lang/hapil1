@@ -61,7 +61,7 @@ var e = (e, t) => () => (
  ];
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  const rotate=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0]*c-p[1]*s,p[0]*s+p[1]*c];};
- function isAnimated(type){return animatedFamilies.has(byType.get(type)?.family);}
+ function isAnimated(type){const spec=byType.get(type);return animatedFamilies.has(spec?.family);}
  function angularDistance(type){return angularDegrees[byType.get(type)?.family]??0;}
  function pairs(c,time,r){
   const spec=byType.get(c?.type);if(!spec)return[];
@@ -102,21 +102,27 @@ var e = (e, t) => () => (
  const stats={installed:false,owners:0,profiles:0,casts:0};
  function audit(){
   const L=window.__HAPIL_LASERS_V31330__,P=window.__HAPIL_LASERS_V31331__?.profiles,B=window.__HAPIL_BLOOD_RC16__;
-  const owners=[...(L?.owners??[])].filter(o=>!o.native),checks={catalog64:catalog.length===64&&new Set(catalog.map(p=>p.type)).size===64,registeredTypes:owners.length>0&&catalog.every(p=>L?.types?.includes(p.type)&&B?.types?.includes(p.type)),ownerProfiles:owners.length>0&&owners.every(o=>catalog.every(p=>P?.get(o.id)?.some(row=>row.type===p.type))),sharedGeometry:typeof L?.geometry==='function'&&typeof L?.contact==='function'&&typeof B?.geometry==='function',spellCardCatalog:window.__HAPIL_DANMAKU_V31316__?.catalog?.length>=64};
+  const owners=[...(L?.owners??[])].filter(o=>!o.native),
+   earlyLaserUse=owners.length>0&&owners.every(o=>{const rows=P?.get(o.id)??[];return rows.slice(0,4).length===4&&rows.slice(0,4).every(row=>catalog.some(card=>card.type===row.type))&&rows.slice(0,5).some(row=>!catalog.some(card=>card.type===row.type));}),
+   checks={catalog64:catalog.length===64&&new Set(catalog.map(p=>p.type)).size===64,registeredTypes:owners.length>0&&catalog.every(p=>L?.types?.includes(p.type)&&B?.types?.includes(p.type)),ownerProfiles:owners.length>0&&owners.every(o=>catalog.every(p=>P?.get(o.id)?.some(row=>row.type===p.type))),earlyLaserUse,sharedGeometry:typeof L?.geometry==='function'&&typeof L?.contact==='function'&&typeof B?.geometry==='function',spellCardCatalog:window.__HAPIL_DANMAKU_V31316__?.catalog?.length>=64};
   return{version:'RC72',checks,allPass:Object.values(checks).every(Boolean),catalog,owners:owners.length,profileCount:owners.reduce((n,o)=>n+(P?.get(o.id)?.length??0),0)};
  }
  function install(attempt=0){
   if(stats.installed)return true;
   const L=window.__HAPIL_LASERS_V31330__,P=window.__HAPIL_LASERS_V31331__,B=window.__HAPIL_BLOOD_RC16__,D=window.__HAPIL_DANMAKU_V31316__;
   if(!L?.installed||!P?.installed||!B?.installed||!D?.installed){if(attempt<1200)setTimeout(()=>install(attempt+1),20);return false;}
-  const owners=[...L.owners].filter(o=>!o.native),types=catalog.map(row=>row.type),labels=Object.fromEntries(catalog.map(row=>[row.type,row.label]));
+  const owners=[...L.owners].filter(o=>!o.native),types=catalog.map(row=>row.type),typeSet=new Set(types),labels=Object.fromEntries(catalog.map(row=>[row.type,row.label]));
   for(const list of[L.types,B.types])for(const type of types)if(!list.includes(type))list.push(type);
   Object.assign(L.labels,labels);Object.assign(B.labels,labels);
   const profiles=P.profiles;
   for(const owner of owners){
-   const old=profiles.get(owner.id)??[],seen=new Set(old.map(row=>row.type));
-   const extra=catalog.filter(row=>!seen.has(row.type)).map((row,index)=>({ownerId:owner.id,key:owner.id+'::rc72::'+row.type,name:owner.name+' · '+row.label,type:row.type,windup:1.62,cooldown:L.ranks.get(owner.id)==='boss'?8.6:10.2,damage:L.ranks.get(owner.id)==='boss'?18:14,radius:6.2,width:.29,activeSeconds:geometryApi.isAnimated(row.type)?1.42:1.18,interval:3,phaseMin:1,priority:14+index,bloodV31516:true,laserPatternFamilyV31372:row.family}));
-   profiles.set(owner.id,[...old,...extra]);stats.profiles+=extra.length;
+   const current=profiles.get(owner.id)??[],legacy=current.filter(row=>!typeSet.has(row.type)),existing=new Map(current.filter(row=>typeSet.has(row.type)).map(row=>[row.type,row]));
+   const extra=catalog.map((row,index)=>existing.get(row.type)??({ownerId:owner.id,key:owner.id+'::rc72::'+row.type,name:owner.name+' · '+row.label,type:row.type,windup:1.62,cooldown:L.ranks.get(owner.id)==='boss'?8.6:10.2,damage:L.ranks.get(owner.id)==='boss'?18:14,radius:6.2,width:.29,activeSeconds:geometryApi.isAnimated(row.type)?1.42:1.18,interval:3,phaseMin:1,priority:14+index,bloodV31516:true,laserPatternFamilyV31372:row.family}));
+   stats.profiles+=catalog.length-existing.size;
+   const seed=Array.from(String(owner.zone??'')+':'+String(owner.id)).reduce((value,char)=>(Math.imul(value^char.charCodeAt(0),16777619)>>>0),2166136261),offset=seed%extra.length,rotated=extra.slice(offset).concat(extra.slice(0,offset)),ordered=[];let legacyIndex=0;
+   for(let index=0;index<rotated.length;index++){ordered.push(rotated[index]);if((index+1)%4===0&&legacyIndex<legacy.length)ordered.push(legacy[legacyIndex++]);}
+   ordered.push(...legacy.slice(legacyIndex));
+   profiles.set(owner.id,ordered);
   }
   stats.owners=owners.length;stats.installed=true;
   const result=audit(),patternCount=[...profiles.values()].reduce((n,rows)=>n+rows.length,0);
@@ -120017,7 +120023,7 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
  function assets(z){return owners.filter(r=>r.zone===z&&!r.native).flatMap(r=>[r.beam,r.tear]);}
  function cache(s){return cacheByState.get(s)??(window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current===s?window.__HAPIL_CONTROLS_V31329__.binding.cache?.current:null);}
  function ready(s,c){const cc=cache(s);if(!cc)return false;const im=MONGSE_queueImage(cc,c.beam,'eager');return !!(im?.complete&&(im.naturalWidth||im.width)>0);}
- function sizing(c,profile){const boss=tier(c)==='boss';if(profile?.bloodV31516){const radius=24,target=c.type==='cataclysm'?.99:['hexagram','death','sixsixsix'].includes(c.type)?.42:['sweep','fan-sweep','orbit-cross'].includes(c.type)?.30:boss?.66:.50,width=window.__HAPIL_LASER_RC22__?.width({...c,radius},target)??(boss?2.4:1.8);return{radius,width,windup:boss?2.7:2.5,active:profile.activeSeconds};}const rawR=NUM(profile?.radius,c.type==='sun'?4.3:6.4),rawW=NUM(profile?.width,c.type==='star'?.26:.32);
+ function sizing(c,profile){const boss=tier(c)==='boss';if(profile?.bloodV31516){const radius=24,target=['cataclysm','rc72-sweep-08'].includes(c.type)?.99:['hexagram','death','sixsixsix'].includes(c.type)?.42:['sweep','fan-sweep','orbit-cross'].includes(c.type)?.30:boss?.66:.50,width=window.__HAPIL_LASER_RC22__?.width({...c,radius},target)??(boss?2.4:1.8);return{radius,width,windup:boss?2.7:2.5,active:profile.activeSeconds};}const rawR=NUM(profile?.radius,c.type==='sun'?4.3:6.4),rawW=NUM(profile?.width,c.type==='star'?.26:.32);
   return{radius:c.type==='sun'?CL(rawR*(boss?1.83:1.45),boss?7.6:5.9,boss?8.7:6.9):CL(rawR*(boss?2.0:1.53),boss?11.6:8.6,boss?16:11.5),
    width:CL(rawW*(boss?2.70:1.85),boss?.70:.46,boss?1.0:.70),
    windup:Math.max(boss?1.85:1.70,NUM(profile?.windup,boss?1.45:1.6)+(boss?.35:.22)),active:NUM(profile?.activeSeconds,c.type==='clock'?2:1.1)};
@@ -124459,10 +124465,12 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
   if(c.type==='sweep'){beam(direction*(progress-.5)*1.50);}
   if(c.type==='fan-sweep'){const a=direction*(progress-.5)*1.12;for(const offset of[-4.2,0,4.2])beam(a,offset);}
   if(c.type==='orbit-cross'){const a=direction*(progress-.5)*.82;beam(a);beam(a+Math.PI/2);}
-  if(c.type==='cataclysm'){
-   // Broad parallel beams cover the authored map. The same segments drive warning, bitmap and collision.
-   const lanes=[];for(let y=1.4;y<=30.55;y+=1.6)lanes.push({a:{x:1.4,y},b:{x:30.6,y},width:c.width});
-   cachedGeometry.set(c,lanes);return lanes;
+  if(c.type==='cataclysm'||c.type==='rc72-sweep-08'){
+   // The 99% spell-card curtain reuses the same calibrated full-field mesh;
+   // its shallow ripple is visible and collides at the exact same positions.
+   const shift=c.type==='rc72-sweep-08'?direction*Math.sin(progress*Math.PI)*.18:0,lanes=[];
+   for(let y=1.4;y<=30.55;y+=1.6){const row=Math.max(1.4,Math.min(30.6,y+shift));lanes.push({a:{x:1.4,y:row},b:{x:30.6,y:row},width:c.width});}
+   if(c.type==='cataclysm')cachedGeometry.set(c,lanes);return lanes;
   }
   const local=p=>({x:c.cx+p[0]/2+p[1],y:c.cy-p[0]/2+p[1]});const out=pairs.map(([a,b])=>window.__HAPIL_LASERS_V31330__.clip(local(a),local(b))).filter(Boolean).map(l=>({...l,width:c.width}));if(!animated)cachedGeometry.set(c,out);return out;
  }

@@ -181,6 +181,15 @@ assert(rc72?.audit().allPass, JSON.stringify(rc72?.audit().checks));
 assert.equal(rc72.catalog.length, 64);
 assert(laserOwners.every(owner => existingProfiles.get(owner.id).filter(row => row.type.startsWith('rc72-')).length === 64),
   'every boss/midboss receives all 64 additional laser recipes');
+assert.equal(rc72.audit().checks.earlyLaserUse, true,
+  'new laser recipes must appear in the live rotation immediately, with legacy patterns retained');
+const earlyPools = laserOwners.map(owner => existingProfiles.get(owner.id).slice(0, 5));
+assert(earlyPools.every(pool => pool.slice(0, 4).every(row => row.type.startsWith('rc72-'))),
+  'the first four scheduled laser casts use the new pattern catalog');
+assert(earlyPools.every(pool => pool.some(row => row.type.startsWith('old-'))),
+  'legacy laser patterns remain in the early rotation');
+assert(new Set(earlyPools.map(pool => pool[0].type)).size > 1,
+  'different owners begin at different catalog patterns');
 
 const geometryStart = bundle.indexOf(' function geometry(c,time=c.fireAt){', rc72End);
 const geometryEnd = bundle.indexOf(' function canStart(s,a){', geometryStart);
@@ -213,6 +222,43 @@ for (const pattern of rc72.catalog) {
   }
 }
 assert.equal(fingerprints.size, 64, 'all 64 laser cards have distinct clipped collision geometry');
+for (const pattern of rc72.catalog) for (const [cx,cy] of [[13.3,13.3],[13.3,18.7],[18.7,13.3],[18.7,18.7]]) {
+  const lines=geometry({id:11,type:pattern.type,cx,cy,radius:24,width:.29,fireAt:2,activeSeconds:1.42},2);
+  assert(lines.length>0,`${pattern.type} remains drawable at arena-edge boss anchors`);
+  assert(lines.every(line=>[line.a,line.b].every(p=>p.x>=1.1-1e-6&&p.x<=30.9+1e-6&&p.y>=1.1-1e-6&&p.y<=30.9+1e-6)),
+    `${pattern.type} clips every edge-anchor segment to the arena`);
+}
+
+// The card advertised as a near-total field curtain must actually cover 99%
+// using the production coverage-based width calculator and the live geometry.
+fakeWindow.__HAPIL_BLOOD_RC16__ = {geometry};
+fakeWindow.__HAPIL_COMBAT_V31333__ = {core: p => ({x:(p.x-p.y)*27,y:(p.x+p.y)*13.5})};
+fakeWindow.__HAPIL_CONTACT_V31336__ = {cfg:{bodyRadius:4.5}};
+const sizingStart = bundle.indexOf(' function sizing(c,profile){');
+const sizingEnd = bundle.indexOf(' function configure(c,a,profile,s)', sizingStart);
+assert(sizingStart > 0 && sizingEnd > sizingStart, 'production laser sizing function is present');
+const sizer = new Function('window','tier','NUM','CL',bundle.slice(sizingStart,sizingEnd)+'\nreturn sizing;')(
+  fakeWindow, () => 'boss', (value,fallback=0) => Number.isFinite(Number(value)) ? Number(value) : fallback,
+  (value,min,max) => Math.max(min,Math.min(max,value)));
+const laserSizerContext = {window:fakeWindow};
+vm.createContext(laserSizerContext);
+vm.runInContext(read('assets/rc23/laser.js'),laserSizerContext);
+fakeWindow.__HAPIL_LASER_RC22__ = laserSizerContext.window.__HAPIL_LASER_RC22__;
+const fieldCast={id:25,type:'rc72-sweep-08',zone:'audit',cx:16,cy:16,radius:24,width:.29,fireAt:2,activeSeconds:1.42};
+const fieldProfile={bloodV31516:true,activeSeconds:1.42};
+const fieldSize=sizer(fieldCast,fieldProfile);
+fieldCast.width=fieldSize.width;
+const fieldGeometry=geometry(fieldCast,fieldCast.fireAt);
+assert(fieldGeometry.length>=18, 'the 99% curtain paints a dense full-map grid');
+assert.notEqual(geoFingerprint(fieldGeometry),geoFingerprint(geometry(fieldCast,fieldCast.fireAt+.71)),
+  'the wide curtain has a visible shallow ripple');
+const screenPoint=p=>({x:(p.x-p.y)*27,y:(p.x+p.y)*13.5});
+const pointLineDistance=(point,a,b)=>{const dx=b.x-a.x,dy=b.y-a.y,len=dx*dx+dy*dy,t=len?Math.max(0,Math.min(1,((point.x-a.x)*dx+(point.y-a.y)*dy)/len)):0;return Math.hypot(point.x-a.x-t*dx,point.y-a.y-t*dy);};
+const coverageSamples=[];
+for(let x=1.65;x<30.6;x+=.65)for(let y=1.65;y<30.6;y+=.65){const p=screenPoint({x,y});coverageSamples.push(Math.min(...fieldGeometry.map(line=>pointLineDistance(p,screenPoint(line.a),screenPoint(line.b)))));}
+const fullFieldCoverage=coverageSamples.filter(distance=>distance<=fieldSize.width*27+4.5+1e-7).length/coverageSamples.length;
+assert(fullFieldCoverage>=.99,`the labeled 99% laser curtain covers ${(fullFieldCoverage*100).toFixed(1)}% of the arena`);
+
 const baseGeometryStart = bundle.indexOf(' function geometry(c,time){if(c.bloodV31516)', 0);
 const baseGeometryEnd = bundle.indexOf(' function dist(p,a,b){', baseGeometryStart);
 const baseGeometry = new Function('window','tier','CL','local','clip',bundle.slice(baseGeometryStart,baseGeometryEnd)+'\nreturn geometry;')(
@@ -229,5 +275,9 @@ const contact = new Function('window','geometry','halfWidth','G','dist',bundle.s
 const probe={id:19,type:rc72.catalog[37].type,cx:16,cy:16,radius:24,width:.29,fireAt:2,activeSeconds:1.42};
 const firstLine=baseGeometry(probe,2)[0],hitPoint={x:(firstLine.a.x+firstLine.b.x)/2,y:(firstLine.a.y+firstLine.b.y)/2};
 assert(contact(probe,hitPoint,2), 'laser damage contact queries the exact same generated lines as the bitmap warning');
+for (const pattern of rc72.catalog) {
+  const cast={...probe,type:pattern.type},line=baseGeometry(cast,2)[0],midpoint={x:(line.a.x+line.b.x)/2,y:(line.a.y+line.b.y)/2};
+  assert(contact(cast,midpoint,2),`${pattern.type} beam centerline produces a live collision hit`);
+}
 
-console.log('RC72 PASS: 55 story battles and the extra EP1-A encounter audited forward/reverse; 64 distinct danmaku cards and 64 distinct laser geometries tested, including mobile cap, safe gaps, owner assignment, clipping, motion, and shared hit geometry.');
+console.log('RC73 PASS: 55 story battles plus the EP1-A memory encounter audited in both directions; 64 spell cards and 64 laser geometries tested for PC/mobile budgets, early live use, edge clipping, 99% field coverage, moving shared collision geometry, and map routing.');
