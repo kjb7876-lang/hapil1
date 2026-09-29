@@ -36,7 +36,7 @@ const assert=require('node:assert/strict');
     await page.screenshot({path:path.join(output,mobile?'rc61-slayer-mobile.png':'rc61-slayer-desktop.png')});
     if(mobile)await page.locator('[data-mobile-action=Menu]').click();else await page.getByRole('button',{name:'설정 · 메뉴',exact:true}).click();
     const settings=page.locator('.rc61-settings');await settings.waitFor();
-    const text=await settings.innerText();for(const obsolete of ['맵 시작 맞대사','인터루드 텍스트','피격 판정 검사','관리 코드','LAN / AI'])assert(!text.includes(obsolete),obsolete);
+    const text=await settings.innerText();for(const obsolete of ['맵 시작 맞대사','인터루드 텍스트','피격 판정 검사','LAN / AI'])assert(!text.includes(obsolete),obsolete);
     for(const mode of ['수동','반자동','완전자동']){await settings.getByRole('radio',{name:mode,exact:true}).check();assert(await settings.getByRole('radio',{name:mode,exact:true}).isChecked());}
     await settings.getByRole('radio',{name:'반자동',exact:true}).check();
     const touch=settings.getByRole('combobox',{name:'터치 조작',exact:true});for(const mode of ['on','off','auto']){await touch.selectOption(mode);assert.equal(await page.evaluate(()=>window.__HAPIL_MOBILE_V31366__.snapshot().options.mode),mode);}

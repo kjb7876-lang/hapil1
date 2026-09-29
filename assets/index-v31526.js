@@ -29570,6 +29570,10 @@ function MONGSE_restTerrainIsEmpty(e) {
 function ut(e, t, n, r = 0.45) {
   return t < 1.4 || t > 30.6 || n < 1.4 || n > 30.6 || !ot(e, t, n);
 }
+// Resolve the live terrain function outside the React component: its local ut is a stat object.
+function HAPIL_blinkWalkableRC85(zone, point) {
+  return !ut(zone, point.x, point.y, 0.46);
+}
 function dt(e, t, n = 0.45) {
   return st(e, t);
 }
@@ -32632,7 +32636,7 @@ var On = 90,
     }),
     slayer: Object.freeze({
       front: [19, -45], back: [-17, -59], left: [-62, -47], right: [62, -47],
-      A: Object.freeze({ front: [0, -8] }),
+      A: Object.freeze({ front: [0, -48] }),
     }),
     gunner: Object.freeze({
       front: [17, -47], back: [-14, -59], left: [-55, -48], right: [55, -48],
@@ -32676,11 +32680,6 @@ function MONGSE_resolveHeroMuzzle31213(e, t = `A`, n = `front`) {
 }
 function MONGSE_applyProjectileOrigin(e, t, n, r = `A`) {
   let i = MONGSE_resolveHeroMuzzle31213(t, r, n);
-  if (t === `slayer` && r === `A` && [e?.x, e?.y, e?.tx, e?.ty].every(Number.isFinite)) {
-    const tip = G(e.tx - e.x, e.ty - e.y), center = G(0, 0);
-    if (tip.y > center.y && tip.y - center.y >= Math.abs(tip.x - center.x) * .7)
-      i = MONGSE_resolveHeroMuzzle31213(t, r, `front`);
-  }
   if (!i || e.kind !== `projectile`) return e;
   return (
     (e.startOffsetX = i.x),
@@ -52864,7 +52863,7 @@ function Ri() {
       let c = t.x,
         l = t.y,
         d = window.__HAPIL_RC79__.blinkDestination(t, {x:i,y:a}, 2.25 + r.dashBonus * 0.55,
-          point => !ut(t.zone, point.x, point.y, 0.46));
+          point => HAPIL_blinkWalkableRC85(t.zone, point));
       ((t.x = d.x), (t.y = d.y), hi(t), (t.moveVx = 0), (t.moveVy = 0));
       let f = t.x - c,
         p = t.y - l,
@@ -120193,7 +120192,7 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
      }ctx.setLineDash([]);
     }else{const im=MONGSE_queueImage(cc,c.beam,'eager');{const iw=im?.naturalWidth||im?.width||0,ih=im?.naturalHeight||im?.height||0,fade=s.time>c.fireAt+c.activeSeconds?CL((c.endAt-s.time)/.22,0,1):1,shock=quiet?0:Math.max(0,1-age/.20),point=a=>window.__HAPIL_COMBAT_V31333__?.core(a)??G(a.x,a.y),projected=geo.map(l=>({a:point(l.a),b:point(l.b)})).filter(l=>Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y)>=1),terminal=p=>projected.reduce((n,l)=>n+(Math.hypot(l.a.x-p.x,l.a.y-p.y)<2?1:0)+(Math.hypot(l.b.x-p.x,l.b.y-p.y)<2?1:0),0)===1;
       const joined=window.__HAPIL_CONNECTED_LASER_V31377__;
-      if(joined?.render)joined.render(ctx,projected,{width:hw,color:c.color,accent:c.accent,alpha:opacity*fade,quiet,low,shock});
+      if(joined?.render)joined.render(ctx,projected,{width:hw,color:c.color,accent:c.accent,image:im,alpha:opacity*fade,quiet,low,shock});
       else{ctx.strokeStyle=c.color;ctx.lineWidth=hw*2;ctx.lineCap='round';ctx.lineJoin='round';ctx.globalAlpha=opacity*fade;for(const l of projected){ctx.beginPath();ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);ctx.stroke();}}
       stats.draws++;
      }}
@@ -120722,7 +120721,7 @@ var HAPIL_DIRECTION_ART_V31334 = {"hwando":{"heroId":"hwando","generatedBy":"ima
    if(c.kind!=='rain'&&now<phaseEnd(c)){const l=L.clip(local(-52,-2,c),local(52,-2,c)),r=L.clip(local(-52,2,c),local(52,2,c));for(const g of[l,r].filter(Boolean))line(ctx,core(g.a),core(g.b),1.5,c.accent,opacity*.42,[5,9]);}
    if(c.kind!=='rain'&&now<c.beamAt+cfg.beamActive+cfg.fade){const warn=now<c.beamAt,fade=warn?1:clamp((c.beamAt+cfg.beamActive+cfg.fade-now)/cfg.fade,0,1),projected=geo.map(g=>({a:core(g.a),b:core(g.b)})).filter(l=>Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y)>=.75);
     if(warn){for(const l of projected){line(ctx,l.a,l.b,c.beamWidth*2,c.color,opacity*(.07+.13*charge));line(ctx,l.a,l.b,2,c.color,opacity*(.45+.45*charge),[12,8]);}}
-    else{const joined=window.__HAPIL_CONNECTED_LASER_V31377__;if(joined?.render)joined.render(ctx,projected,{width:c.beamWidth,color:c.color,accent:c.accent,alpha:opacity*fade,quiet,low,shock:Math.max(0,1-(now-c.beamAt)/.2)});}
+    else{const joined=window.__HAPIL_CONNECTED_LASER_V31377__;if(joined?.render)joined.render(ctx,projected,{width:c.beamWidth,color:c.color,accent:c.accent,image:MONGSE_queueImage(cc,c.beam,'eager'),alpha:opacity*fade,quiet,low,shock:Math.max(0,1-(now-c.beamAt)/.2)});}
    }
    const fallImage=MONGSE_queueImage(cc,c.fall,'eager'),impactImage=MONGSE_queueImage(cc,c.impact,'eager');for(const d of c.drops){const hit=c.fallAt+d.delay,remain=hit-now,p=G(d.x,d.y),age=now-hit;if(remain>cfg.fallWarning||age>cfg.fallActive+cfg.fade)continue;if(remain>0){if(remain<.65){const u=1-remain/.65;stamp(ctx,fallImage,p.x,p.y-18-(1-u)*(1-u)*200,(c.rank==='boss'?112:94),d.rotation+u*.5,opacity*(.3+.7*u));}}else{const fade=clamp(1-age/(cfg.fallActive+cfg.fade),0,1);stamp(ctx,fallImage,p.x,p.y-18,c.rank==='boss'?112:94,d.rotation+.5,opacity*fade);if(!low)stamp(ctx,impactImage,p.x,p.y-10,(c.rank==='boss'?144:118)+age*(c.rank==='boss'?70:56),0,opacity*fade*.55);}}
    // RC25: spoken pattern text belongs to the left status panel; the arena keeps only diegetic telegraphs.metrics.draws++;
@@ -123972,8 +123971,7 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
  const root='./assets/hero-authored-v314rc5/';
  const sheets=Object.freeze({
   hwando:Object.freeze({action:root+'hwando-action-atlas.png',walk:root+'hwando-walk-atlas.png'}),
-  slayer:Object.freeze({action:root+'slayer-action-atlas.png',walk:root+'slayer-walk-atlas.png',
-   down:'./assets/hero-authored-v314rc49/slayer-down-cleave.png'})
+  slayer:Object.freeze({action:root+'slayer-action-atlas.png',walk:root+'slayer-walk-atlas.png'})
  });
  const headings=Object.freeze({front:0,back:1,left:2,right:3});
  // Feet are measured in source pixels in each individual 4x2 cell. Keeping
@@ -124032,12 +124030,7 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
    const part=(time-value(m.started))/(value(m.until)-value(m.started));
    stage=part<.23?'PREPARE':part<.73?'STRIKE':'RECOVER';
   }
-  // The isometric front cone includes slightly diagonal targets below the
-  // actor. Display the authored overhead cut through ordinary and skill casts.
-  const vector=G(value(m.dx),value(m.dy)),origin=G(0,0),sx=vector.x-origin.x,sy=vector.y-origin.y;
-  const downFacing=dir==='front'||(sy>0&&sy>=Math.abs(sx)*.7);
-  if(hero==='slayer'&&['attack','skill'].includes(kind)&&downFacing&&stage!=='READY')
-   return{hero,kind,dir:'front',sheet:'down',frame:stage==='PREPARE'?0:1,stage};
+  // RC85: use the same four-direction action atlas for every Slayer attack.
   // Guard/charge/hurt intentionally keep the correct costume and weapon at
   // rest; the game's existing guard, charge, hit and EGO VFX supply the cue.
   return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage};
@@ -124579,7 +124572,7 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
   ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.lineCap='round';ctx.lineJoin='round';
    const projected=lines.map(l=>({a:projection(l.a),b:projection(l.b)})).filter(l=>Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y)>=.75);
    if(warning){for(const l of projected){ctx.setLineDash([]);ctx.strokeStyle=c.color;ctx.globalAlpha=opacity*(.10+.13*charge);ctx.lineWidth=hw*2;ctx.beginPath();ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);ctx.stroke();ctx.globalAlpha=opacity*.85;ctx.lineWidth=1.4;ctx.setLineDash([7,6]);ctx.beginPath();ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);ctx.stroke();}}
-   else{ctx.setLineDash([]);const joined=window.__HAPIL_CONNECTED_LASER_V31377__;if(joined?.render)joined.render(ctx,projected,{width:hw,color:c.color,accent:c.accent,alpha:opacity*fade,quiet:settings.reducedFlash===true,low:settings.lowFx===true,shock:Math.max(0,1-(now-c.fireAt)/.2)});else if(im?.complete&&im.naturalWidth){for(const l of projected){const len=Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y);ctx.save();ctx.translate(l.a.x,l.a.y);ctx.rotate(Math.atan2(l.b.y-l.a.y,l.b.x-l.a.x));ctx.globalAlpha=opacity*fade;ctx.drawImage(im,im.naturalWidth*.22,im.naturalHeight*.31,im.naturalWidth*.61,im.naturalHeight*.40,-.5,-hw,len+1,hw*2);ctx.restore();}}}
+   else{ctx.setLineDash([]);const joined=window.__HAPIL_CONNECTED_LASER_V31377__;if(joined?.render)joined.render(ctx,projected,{width:hw,color:c.color,accent:c.accent,image:im,alpha:opacity*fade,quiet:settings.reducedFlash===true,low:settings.lowFx===true,shock:Math.max(0,1-(now-c.fireAt)/.2)});else if(im?.complete&&im.naturalWidth){for(const l of projected){const len=Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y);ctx.save();ctx.translate(l.a.x,l.a.y);ctx.rotate(Math.atan2(l.b.y-l.a.y,l.b.x-l.a.x));ctx.globalAlpha=opacity*fade;ctx.drawImage(im,im.naturalWidth*.22,im.naturalHeight*.31,im.naturalWidth*.61,im.naturalHeight*.40,-.5,-hw,len+1,hw*2);ctx.restore();}}}
    if(warning&&(['sweep','fan-sweep','orbit-cross'].includes(c.type)||(window.__HAPIL_LASER_CATALOG_RC72__?.isAnimated?.(c.type)??false))){
     // Mark the moving route before damage starts; these guide marks never deal damage.
     for(const fraction of[.25,.5,.75,1]){const future=geometry(c,c.fireAt+c.activeSeconds*fraction);ctx.strokeStyle=c.accent;ctx.globalAlpha=opacity*(fraction===1?.62:.22);ctx.lineWidth=fraction===1?1.7:1.1;ctx.setLineDash(fraction===1?[4,5]:[2,8]);
@@ -125934,21 +125927,10 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   };
   const patternBase=MONGSE_patternsForEnemy;
   MONGSE_patternsForEnemy=function HAPIL_lockPatternImageRC64(actor,...args){return lockPatternImages(actor,patternBase.call(this,actor,...args));};
-  const optionsBase=An;
-  An=function HAPIL_stableSlayerSideOptionsRC64(options,hero,motion,path){
-   const next=optionsBase.call(this,options,hero,motion,path),selection=sidePose(hero,motion,number(options?.authoredTimeV31345));
-   if(selection)next.stableSideAttackRC64=selection;
-   return next;
-  };
-  const actorBase=Ln;
-  Ln=function HAPIL_stableSlayerSideDrawRC64(ctx,cache,path,x,y,size,options={}){
-   if(options?.stableSideAttackRC64&&drawSide(ctx,cache,x,y,size,options,options.stableSideAttackRC64))return;
-   return actorBase(ctx,cache,path,x,y,size,options);
-  };
+  // RC85: canonical RC5 poses own Slayer in every state; no mixed atlas override.
   const manifestBase=MONGSE_zoneAssetManifest;
   MONGSE_zoneAssetManifest=function HAPIL_rc64Manifest(zone,heroId,partyIds=[],...args){
    const assets=new Set(manifestBase(zone,heroId,partyIds,...args));
-   if([heroId,...(Array.isArray(partyIds)?partyIds:[])].map(String).includes('slayer'))for(const path of Object.values(SIDE))assets.add(path);
    if(window.__HAPIL_DANMAKU_V31316__.zoneAssets(zone).length)assets.add(COMMON);
    return assets;
   };
@@ -125956,15 +125938,13 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   if(typeof planBase==='function')MONGSE_zoneAssetPlan31220=function HAPIL_rc64Plan(zone,heroId,partyIds=[],...args){
    const plan=planBase(zone,heroId,partyIds,...args);if(!plan)return plan;
    for(const key of ['all','A','B','C','deferred','pins'])plan[key]=new Set(plan[key]??[]);
-   if([heroId,...(Array.isArray(partyIds)?partyIds:[])].map(String).includes('slayer'))for(const path of Object.values(SIDE)){plan.all.add(path);plan.A.add(path);plan.pins.add(path);plan.B.delete(path);plan.C.delete(path);plan.deferred.delete(path);}
    if(window.__HAPIL_DANMAKU_V31316__.zoneAssets(zone).length){plan.all.add(COMMON);plan.A.add(COMMON);plan.pins.add(COMMON);plan.B.delete(COMMON);plan.C.delete(COMMON);plan.deferred.delete(COMMON);}
-   plan.rc64StableAssets=[...(plan.rc64StableAssets??[]),...( [heroId,...(Array.isArray(partyIds)?partyIds:[])].map(String).includes('slayer')?Object.values(SIDE):[]),...(window.__HAPIL_DANMAKU_V31316__.zoneAssets(zone).length?[COMMON]:[])];
+   plan.rc64StableAssets=[...(plan.rc64StableAssets??[]),...(window.__HAPIL_DANMAKU_V31316__.zoneAssets(zone).length?[COMMON]:[])];
    return plan;
   };
   const criticalBase=MONGSE_liveCriticalAssets31220;
   MONGSE_liveCriticalAssets31220=function HAPIL_rc64CriticalAssets(state,...args){
    const assets=new Set(criticalBase(state,...args));
-   if(state?.activeHeroId==='slayer'||(window.__HAPIL_PARTY_V31322__?.actors??[]).some(actor=>actor?.heroId==='slayer'))for(const path of Object.values(SIDE))assets.add(path);
    if(window.__HAPIL_DANMAKU_V31316__.zoneAssets(state?.zone).length)assets.add(COMMON);
    return assets;
   };
@@ -126082,7 +126062,7 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   const criticalBase=MONGSE_liveCriticalAssets31220;MONGSE_liveCriticalAssets31220=function HAPIL_RC69_storyCriticalAssets(state,...args){const result=new Set(criticalBase(state,...args));for(const path of assetMap[state?.zone]??[])result.add(path);return result;};
   const stand=window.__HAPIL_STAND_V31335__;if(stand?.drawBody){const bodyBase=stand.drawBody;stand.drawBody=function HAPIL_RC69_authoredBody(ctx,cache,actor,time,settings,sprite,size,transform){if(actor.allyEchoMidbossRC69){const path=actor.comradeArtRC69??actor.sprite,image=MONGSE_queueImage(cache,path,'eager');if(image?.complete&&image.naturalWidth){const p=G(actor.x,actor.y),height=size,width=height*image.naturalWidth/image.naturalHeight;ctx.save();try{ctx.globalAlpha*=transform?.alpha??1;ctx.translate(p.x,p.y);ctx.drawImage(image,-width/2,-height,width,height);}finally{ctx.restore();}return true;}}if(actor.fixedCombatPositionRC69){Ln(ctx,cache,sprite,actor.x,actor.y,size,{...transform,offsetX:0,offsetY:0,rotation:0,visualSizeV31338:size});return true;}return bodyBase.call(this,ctx,cache,actor,time,settings,sprite,size,transform);};}
   const originBase=MONGSE_applyProjectileOrigin;MONGSE_applyProjectileOrigin=function HAPIL_RC69_slayerCoreFlight(effect,heroId,direction,action='A'){const result=originBase.call(this,effect,heroId,direction,action);if(heroId==='slayer'&&action==='A'&&result?.kind==='projectile'){
-    result.slayerForwardCoreFlightRC69=true;result.duration=Math.max(num(result.duration),.52);if(result.heroMuzzleDirection31213==='front'){result.endOffsetY=-8;result.aimOffsetY=-8;}stats.projectileCores++;}return result;};
+    result.slayerForwardCoreFlightRC69=true;result.duration=Math.max(num(result.duration),.52);stats.projectileCores++;}return result;};
   // RC74: the authored crescent is the travelling core; no geometric ring overlay.
   richLasers();
   installed=true;stats.installed=true;window.__HAPIL_RC69__=Object.freeze({version:VERSION,installed:true,assets:Object.freeze(assetMap),groupPlan,completeMidbossWave,markFixed,positionOf,coreFrame,richLasers,enter:(state,zone)=>{state.zone=zone;return ii(state,zone,false);},audit(){const plan=MONGSE_initialRosterPlanV31228('dist04'),leaders=(plan?.enemies??[]).filter(a=>a?.midboss),fixed=MONGSE_initialRosterPlanV31228(FIXED_ZONE)?.enemies??[],lasers=window.__HAPIL_LASERS_V31331__?.profiles;

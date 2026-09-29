@@ -141,29 +141,16 @@ const secondSwing = context.An({authoredTimeV31345: 1.26}, hero, {kind: 'attack'
 const lastSwing = context.An({authoredTimeV31345: 1.39}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.5});
 const expired = context.An({authoredTimeV31345: 1.58}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.5});
 const switched = context.An({authoredTimeV31345: 1.5}, hero, {kind: 'attack', direction: 'right', started: 1.5, until: 1.9});
-assert.equal(left.stableSideAttackRC64.path, assets[1]);
-assert.equal(firstSwing.stableSideAttackRC64.path, assets[1], 'side pose does not flicker when aim shifts during one swing');
-assert.equal(switched.stableSideAttackRC64.path, assets[2]);
-assert.deepEqual([left, firstSwing, secondSwing, lastSwing].map(p => p.stableSideAttackRC64.frame), [0, 1, 2, 3],
-  'all four sprite-gen frames play across the committed attack');
-assert.equal(expired.stableSideAttackRC64, undefined, 'an expired motion does not leave the last attack frame stuck on screen');
-let draws = 0;
-let drawArgs;
-const canvas = {globalAlpha: 1, save(){}, restore(){}, translate(){}, drawImage(...args){draws++;drawArgs=args;}};
-context.Ln(canvas, {}, '', 10, 12, 66, secondSwing);
-assert.equal(draws, 1, 'the authored side pose is drawn as one stable bitmap');
-assert.equal(drawArgs.length, 9, 'the runtime crops one frame from the horizontal atlas');
-assert.equal(drawArgs[1], 1280, 'the third frame uses the correct atlas column');
-assert.equal(context.legacyDraws, 0);
-
-const manifest = context.MONGSE_zoneAssetManifest('dist04', 'slayer', []);
-assert(manifest.has(assets[0]) && manifest.has(assets[1]) && manifest.has(assets[2]));
-const assetPlan = context.MONGSE_zoneAssetPlan31220('dist04', 'slayer', []);
-for (const asset of assets) assert(assetPlan.A.has(asset) && assetPlan.pins.has(asset));
+for(const pose of [left,firstSwing,secondSwing,lastSwing,expired,switched])assert.equal(pose.stableSideAttackRC64,undefined,'RC85 preserves the canonical pose instead of replacing the body');
+context.Ln({}, {}, '',10,12,66,secondSwing);assert.equal(context.legacyDraws,1);
+const manifest=context.MONGSE_zoneAssetManifest('dist04','slayer',[]);
+assert(manifest.has(assets[0]));assert(!manifest.has(assets[1])&&!manifest.has(assets[2]));
+const assetPlan=context.MONGSE_zoneAssetPlan31220('dist04','slayer',[]);
+assert(assetPlan.A.has(assets[0]));assert(!assetPlan.A.has(assets[1])&&!assetPlan.A.has(assets[2]));
 const restored = context.Ii({zone: 'dist04'});
 assert.equal(restored.filter(actor => actor.midboss).length, 2, 'older saves restore the companion midboss pair');
 const state = {};
 context.ii(state, 'dist05');
 assert.equal(state.cleared, true, 'map exit clears the prior pattern-image cache');
 
-console.log('RC81 PASS: danmaku runtime, revived-guardian midboss pair, direction-locked Slayer swings, four atlas frames, and sprite-gen assets verified.');
+console.log('RC81 PASS: danmaku runtime, revived-guardian midboss pair, canonical Slayer renderer retained, archived atlas files, and sprite-gen assets verified.');

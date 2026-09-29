@@ -32,14 +32,14 @@ const route = new Function('window', 'MONGSE_queueImage', 'G', 'HAPIL_RC13_RENDE
     () => {throw Error('RC5 dependencies did not install');});
 const motion = {kind: 'attack', direction: 'front', dx: 1, dy: 1, started: 1, until: 1.38};
 const selection = route.options({authoredTimeV31345: 1.13}, {id: 'slayer'}, motion, 'old.png');
-assert.equal(selection.canonicalHeroRC5.sheet, 'down');
+assert.equal(selection.canonicalHeroRC5.sheet, 'action');
 const ctx = {globalAlpha: 1, save() {}, restore() {}, translate() {},
-  drawImage() {draws++;}};
+  beginPath(){},rect(){},clip(){},drawImage() {draws++;}};
 route.actor(ctx, {}, 'old.png', 12, 13, 66, selection);
 assert.equal(draws, 1, 'the real option/draw wrappers must render the down cleave');
 assert.equal(route.legacy(), 0, 'the old action atlas must not cover this strike');
-assert(imagePath.endsWith('slayer-down-cleave.png'));
-assert(route.api.sheets.slayer.down.endsWith('slayer-down-cleave.png'));
+assert(imagePath.endsWith('slayer-action-atlas.png'));
+assert(route.api.sheets.slayer.action.endsWith('slayer-action-atlas.png'));
 const muzzleCode = slice('function MONGSE_resolveHeroMuzzle31213(', 'function MONGSE_gunnerDashMuzzle(');
 const origin = new Function('MONGSE_HERO_MUZZLE_PROFILES31213',
   'MONGSE_HERO_MUZZLE_ACTION_NUDGES31213', 'G', muzzleCode + '\nreturn MONGSE_applyProjectileOrigin;')(
@@ -48,9 +48,9 @@ const origin = new Function('MONGSE_HERO_MUZZLE_PROFILES31213',
     (x, y) => ({x: 27 * (x-y), y: 13.5 * (x+y)}));
 const diagonalDown = origin({kind: 'projectile', x: 0, y: 0, tx: 1, ty: .5},
   'slayer', 'right', 'A');
-assert.deepEqual([diagonalDown.startOffsetX, diagonalDown.startOffsetY], [0, -8],
-  'the diagonal down cut launches from the downward sword tip');
-assert.equal(diagonalDown.heroMuzzleDirection31213, 'front');
+assert.deepEqual([diagonalDown.startOffsetX, diagonalDown.startOffsetY], [62, -47],
+  'projectile origin respects the committed sprite direction');
+assert.equal(diagonalDown.heroMuzzleDirection31213, 'right');
 const pureSide = origin({kind: 'projectile', x: 0, y: 0, tx: 1, ty: -1},
   'slayer', 'right', 'A');
 assert.deepEqual([pureSide.startOffsetX, pureSide.startOffsetY], [62, -47],

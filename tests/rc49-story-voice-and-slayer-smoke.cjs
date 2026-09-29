@@ -109,41 +109,37 @@ async function run() {
   const motion = new Function('window','MONGSE_queueImage','G',
     bundle.slice(codeStart, codeEnd) + '\nreturn {state,draw,sheets};')(
       {__HAPIL_AUTHORED_MOTION_RC4__: {direction: motion => motion.direction}},
-      (_cache, file) => {assert(file.endsWith('slayer-down-cleave.png')); return image;},
+      (_cache, file) => {assert(file.endsWith('slayer-action-atlas.png')); return image;},
       (x, y) => ({x: 27 * (x-y), y: 13.5 * (x+y)}));
   const downward = {kind: 'attack', direction: 'front', dx: 1, dy: 1, started: 1, until: 1.38};
   const prepare = motion.state('slayer', downward, 1.04);
   const strike = motion.state('slayer', downward, 1.13);
-  assert.equal(prepare.sheet, 'down');
+  assert.equal(prepare.sheet, 'action');
   assert.equal(prepare.frame, 0);
-  assert.equal(strike.frame, 1);
+  assert.equal(strike.frame, 4);
   assert.equal(motion.state('slayer', {...downward, direction: 'left', dx: -1, dy: 1}, 1.13).sheet, 'action',
     'side strikes retain their authored side frames');
-  assert.equal(motion.state('slayer', {...downward, kind: 'skill'}, 1.13).sheet, 'down',
+  assert.equal(motion.state('slayer', {...downward, kind: 'skill'}, 1.13).sheet, 'action',
     'downward skills use the same visible authored strike');
   const ctx = {
     globalAlpha: 1, save() {}, restore() {}, translate(x, y) {drawCalls.push(['at', x, y]);},
-    drawImage(...args) {drawCalls.push(['image', ...args]);},
+    beginPath(){},rect(){},clip(){},drawImage(...args) {drawCalls.push(['image', ...args]);},
   };
   assert(motion.draw(ctx, {}, 100, 200, 66, {}, prepare));
   assert(motion.draw(ctx, {}, 100, 200, 66, {}, strike));
   const frames = drawCalls.filter(call => call[0] === 'image');
-  assert.deepEqual(frames.map(frame => frame[2]), [0, 887], 'two complete, separate frames are drawn');
-  assert(Math.abs(frames[0][6] + 546 * 66 / 605) < .001);
-  assert(Math.abs(frames[1][6] + 366 * 66 / 605) < .001);
-  assert(Math.abs(frames[0][7] + 860 * 66 / 605) < .001);
-  assert(Math.abs(frames[1][7] + 875 * 66 / 605) < .001);
-  const png = fs.readFileSync(path.join(root, 'assets/hero-authored-v314rc49/slayer-down-cleave.png'));
-  assert.equal(png.toString('hex', 0, 8), '89504e470d0a1a0a');
-  assert.equal(png.readUInt32BE(16), 1774);
-  assert.equal(png.readUInt32BE(20), 887);
-  assert.equal(png[25], 6, 'the new two-frame attack sprite has alpha transparency');
+  assert.equal(frames.length,2);
+  assert.equal(frames[0][2],0);assert.equal(frames[1][2],0);
+  assert.equal(frames[0][3],0);assert.equal(frames[1][3],444);
+  assert(Math.abs(frames[0][7] + 468 * 66 / 382) < .001);
+  assert(Math.abs(frames[1][7] + 411 * 66 / 382) < .001);
+  assert.equal(motion.sheets.slayer.down,undefined,'no mismatched down-only costume');
   assert(html.includes('./assets/rc49/story-voice.js?v=34901'));
   assert(bundle.includes('window.__HAPIL_STORY_VOICE_RC49__?.unlock('));
   assert(bundle.includes('a.id === `slayer` ? 0.11'));
-  assert(/slayer: Object\.freeze\(\{\s*front: \[19, -45\][^}]*A: Object\.freeze\(\{ front: \[0, -8\] \}\)/.test(bundle),
+  assert(/slayer: Object\.freeze\(\{\s*front: \[19, -45\][^}]*A: Object\.freeze\(\{ front: \[0, -48\] \}\)/.test(bundle),
     'only the Slayer basic down cleave uses the new sword-tip origin');
-  console.log('RC49: unlocked narration, retry, scene lifecycle, and measured Slayer down cleave OK');
+  console.log('RC49: unlocked narration, retry, scene lifecycle, and canonical Slayer action atlas OK');
 }
 
 run().catch(error => {console.error(error); process.exitCode = 1;});
