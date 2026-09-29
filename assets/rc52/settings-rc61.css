@@ -13,3 +13,10 @@
 @media(max-width:600px){.rc61-settings .settings-list{grid-template-columns:1fr}.rc61-settings>section{padding:12px}.rc61-settings .hapil-mode-options{display:flex;flex-wrap:wrap;gap:10px}}
 body:has(.rc61-settings) #hapil-mobile-controls-v31366{visibility:hidden!important;pointer-events:none!important}
 body:has(.rc61-settings) .combat-hud{visibility:hidden!important;pointer-events:none!important}
+
+.rc61-settings .developer-code-form-v31576{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px}
+.rc61-settings .developer-code-form-v31576 label{display:grid;grid-template-columns:1fr;align-items:stretch;gap:7px;padding:0}
+.rc61-settings .developer-code-form-v31576 input[type=text]{width:100%;min-height:42px;box-sizing:border-box;border:1px solid #81bcff66;border-radius:7px;padding:8px 12px;background:#050914;color:#f4f6ff;font:700 18px ui-monospace,monospace;letter-spacing:.22em}
+.rc61-settings .developer-code-form-v31576 button{min-width:104px}
+.rc61-settings .developer-code-form-v31576 [role=status]{grid-column:1/-1;margin:0;line-height:1.55;color:#a8c9e4}
+@media(max-width:600px){.rc61-settings .developer-code-form-v31576{grid-template-columns:1fr auto}}

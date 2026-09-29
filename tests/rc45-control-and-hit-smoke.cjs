@@ -46,10 +46,15 @@ assert(Math.abs(diagonalBlink.x + Math.SQRT1_2) < 1e-12 && Math.abs(diagonalBlin
 assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(), -1))), {x: -1, y: 0});
 assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowDown']), 1, {x: -1, y: 0}))), {x: 0, y: 1},
   'directional keys take precedence over any automatic evade vector');
+assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowLeft','ArrowRight']), 1))), {x: 1, y: 0},
+  'opposite horizontal inputs cancel and fall back to facing instead of choosing one side');
+assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(['ArrowUp','ArrowDown','ArrowLeft']), 1))), {x: -1, y: 0},
+  'opposite vertical inputs cancel without overriding the remaining horizontal direction');
 assert.deepEqual(JSON.parse(JSON.stringify(blink(new Set(), 1, {x: 0, y: -1}))), {x: 0, y: -1});
 const manualBlink = main.slice(main.indexOf('Xe = (0, l.useCallback)'), main.indexOf('}, [', main.indexOf('Xe = (0, l.useCallback)')));
 assert(manualBlink.includes('HAPIL_blinkVectorV31345'));
-assert(manualBlink.includes('t.combatModeV31329 === `full` ? t.simpleDodgeVectorV31368 : null'));
+assert(manualBlink.includes('t.combatModeV31329 === `full` && t.autoDodgeBlinkDispatchV31576 === true ? t.simpleDodgeVectorV31368 : null'));
+assert(main.includes('s.autoDodgeBlinkDispatchV31576=true'), 'only the explicit full-auto dodge dispatcher may supply an automatic blink vector');
 assert(!manualBlink.includes('t.enemies.find'), 'manual blink must not pick a direction away from an enemy');
 
 const skillStart = main.indexOf('/* HAPIL 3.13.43: repeat offensive skills use the native executor and its cooldown commit. */');
@@ -157,8 +162,10 @@ simpleState.time = 2;
 simpleWindow.__HAPIL_SIMPLE_V31368__.tick(simpleState, .016);
 assert.equal(dashCount, 1, 'full-auto retains its automatic dodge');
 assert(automaticVector && Number.isFinite(automaticVector.x) && Number.isFinite(automaticVector.y));
-assert.match(main, /function evasive\(s,dt\)\{const control=window\.__HAPIL_CONTROLS_V31329__,binding=control\?\.binding;if\(!binding\|\|control\.effective\(binding\.settings\?\.current\)!=='full'/,
-  'the independent reactive evade path must also be full-auto only');
+assert(main.includes('function evasive(){return false;}'),
+  'awakening-specific autonomous blink must stay disabled');
+assert(main.includes("function dodge(s){const control=C(),b=control?.binding;if(!b||control.effective(b.settings?.current)!=='full'"),
+  'the separate full-auto dodge controller must remain restricted to full mode');
 
 const planStart = main.indexOf('function HAPIL_autoProgressPlanV31301');
 const driveStart = main.indexOf('\nfunction HAPIL_driveAutoProgressV31301', planStart);

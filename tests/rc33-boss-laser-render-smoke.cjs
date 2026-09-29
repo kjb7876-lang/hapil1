@@ -16,7 +16,7 @@ const ids = [
   'kair-great-06'
 ];
 
-assert(html.includes('./assets/rc33/boss-laser-render.js?v=33401'),
+assert(html.includes('./assets/rc33/boss-laser-render.js?v=33402'),
   'RC33 beam renderer is not loaded after the older laser patch');
 assert(plugin.includes("source.toLowerCase().includes('boss-laser-families/')"),
   'beam renderer does not recognize the new family textures');
@@ -156,8 +156,10 @@ const ctx = new FakeCanvas();
 api.draw(ctx, cache, state, {});
 const mainBeam = ctx.calls.find(call => call.source.includes('#owner=b09-boss'));
 assert(mainBeam, 'boss artwork was not sent to canvas.drawImage');
-assert.deepEqual(mainBeam.args.slice(1, 5), [0, 0, 2172, 724],
-  'renderer still crops away most of the boss artwork');
+assert.equal(mainBeam.args[1], 0);
+assert(Math.abs(mainBeam.args[2] - 724 * .29) < 1e-9 &&
+  Math.abs(mainBeam.args[4] - 724 * .43) < 1e-9,
+  'owner image replacement must preserve the beam-strip source crop instead of stretching the full family panorama');
 assert(mainBeam.filter.includes('hue-rotate('), 'beam did not inherit its boss-specific colour');
 assert(!ctx.calls.some(call => call.operation === 'lighter'),
   'the common bright blue core still rendered with the normal laser');
@@ -166,7 +168,7 @@ const cosmic = api.start({id: 'a11-cosmic-v31318'});
 assert.equal(cosmic.beam, rc33.beamPathFor('a11-cosmic-v31318'));
 const bloodCtx = new FakeCanvas();
 blood.draw(bloodCtx, cache, {enemies: []}, cosmic, {});
-assert(bloodCtx.calls.some(call => call.source.includes('/cosmic-lucifer.webp?v=33401')),
+assert(bloodCtx.calls.some(call => call.source.includes('/cosmic-lucifer.webp?v=33402')),
   'cosmic blood renderer did not replace its shared beam with generated art');
 assert(!bloodCtx.calls.some(call => call.operation === 'lighter'),
   'common blue core remained in the native cosmic/blood render route');

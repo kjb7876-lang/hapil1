@@ -49851,8 +49851,9 @@ function MONGSE_telegraphDamageMultiplier31226(e, t) {
   return Math.max(0.52, Math.min(1.2, 0.52 + Math.max(0, o) * 0.68));
 }
 function HAPIL_blinkVectorV31345(input, facing, automaticVector = null) {
-  let x = input?.has?.(`ArrowRight`) ? 1 : input?.has?.(`ArrowLeft`) ? -1 : 0;
-  let y = input?.has?.(`ArrowDown`) ? 1 : input?.has?.(`ArrowUp`) ? -1 : 0;
+  const pressed=key=>input?.has?.(key)===true;
+  let x=(pressed(`ArrowRight`)?1:0)-(pressed(`ArrowLeft`)?1:0);
+  let y=(pressed(`ArrowDown`)?1:0)-(pressed(`ArrowUp`)?1:0);
   if (!x && !y && automaticVector && Number.isFinite(automaticVector.x) && Number.isFinite(automaticVector.y)) {
     x = automaticVector.x;
     y = automaticVector.y;
@@ -52820,7 +52821,7 @@ function Ri() {
         {x:i,y:a}=HAPIL_blinkVectorV31345(
           I.current,
           t.facing,
-          t.combatModeV31329 === `full` ? t.simpleDodgeVectorV31368 : null,
+          t.combatModeV31329 === `full` && t.autoDodgeBlinkDispatchV31576 === true ? t.simpleDodgeVectorV31368 : null,
         );
       let c = t.x,
         l = t.y,
@@ -65378,7 +65379,9 @@ function MONGSE_archiveUnlockZone31221(e) {
   if ([`dist03`, `dist04`, `dist05`, `dist06`].includes(n)) return `dist06`;
   return n;
 }
-function Gi({settings:e,set:t,zones:n,currentZone:r,revisit:i,returnToTitle:a,openSystemV31339:open}) {
+function Gi({settings:e,set:t,zones:n,currentZone:r,revisit:i,returnToTitle:a,openSystemV31339:open,applyCode:apply}) {
+ const [developerCode,setDeveloperCode]=(0,l.useState)(""),[developerCodeMessage,setDeveloperCodeMessage]=(0,l.useState)("");
+ const submitDeveloperCode=event=>{event?.preventDefault?.();const result=typeof apply==="function"?apply(developerCode):{ok:false,message:"관리 코드 기능을 사용할 수 없습니다."};setDeveloperCodeMessage(result?.message??(result?.ok?"코드가 적용되었습니다.":"코드를 확인해 주세요."));if(result?.ok)setDeveloperCode("");};
  const toggle=(key,title,detail)=>(0,q.jsxs)('label',{children:[(0,q.jsxs)('span',{children:[(0,q.jsx)('b',{children:title}),(0,q.jsx)('small',{children:detail})]}),(0,q.jsx)('input',{type:'checkbox','aria-label':title,checked:!!e[key],onChange:()=>t(v=>({...v,[key]:!v[key]}))})]},key);
  const volume=(key,title)=>(0,q.jsxs)('label',{className:'settings-range',children:[(0,q.jsx)('b',{children:title}),(0,q.jsx)('input',{type:'range',min:0,max:100,step:5,'aria-label':title,value:Math.round((Number(e[key])||0)*100),onChange:event=>{const value=Number(event.target.value)/100;t(v=>({...v,[key]:value}));}})]},key);
  return (0,q.jsxs)('div',{className:'settings-layout rc61-settings',children:[
@@ -65390,7 +65393,12 @@ function Gi({settings:e,set:t,zones:n,currentZone:r,revisit:i,returnToTitle:a,op
   ]})]}),
   (0,q.jsxs)('section',{children:[(0,q.jsx)('h3',{children:'진행'}),(0,q.jsx)('nav',{children:[['save','저장 · 불러오기'],['growth','공명 강화'],['codex','독백 기록']].map(([id,label])=>(0,q.jsx)('button',{type:'button',onClick:()=>open?.(id),children:label},id))}),
     (0,q.jsxs)('details',{children:[(0,q.jsx)('summary',{children:'방문한 맵 다시 가기'}),(0,q.jsx)('div',{className:'memory-map-grid',children:n.filter(id=>N[id]&&id!=='ep1a07').map(id=>(0,q.jsx)('button',{disabled:id===r,onClick:()=>i(id),children:N[id].name||id},id))})]}),
-    (0,q.jsx)('button',{className:'return-title-button',onClick:a,children:'자동 저장 후 시작 화면으로'})]})
+    (0,q.jsx)('button',{className:'return-title-button',onClick:a,children:'자동 저장 후 시작 화면으로'})]}),
+  (0,q.jsxs)('section',{className:'developer-code-settings-v31576',children:[(0,q.jsx)('h3',{children:'개발자 코드'}),(0,q.jsxs)('form',{className:'developer-code-form-v31576',onSubmit:submitDeveloperCode,children:[
+    (0,q.jsxs)('label',{children:[(0,q.jsx)('b',{children:'관리 코드'}),(0,q.jsx)('input',{type:'text',inputMode:'numeric',autoComplete:'off',maxLength:3,pattern:'[0-9]*',value:developerCode,'aria-label':'개발자 코드',onChange:event=>setDeveloperCode(event.target.value.slice(0,3))})]}),
+    (0,q.jsx)('button',{type:'submit',disabled:!developerCode.trim(),children:'코드 적용'}),
+    (0,q.jsx)('p',{role:'status','aria-live':'polite',children:developerCodeMessage||'777: 모든 영웅 스킬·콜라보 강화와 전체 맵 이동을 해금합니다.'})
+  ]})]})
  ]});
 }
 
@@ -90738,6 +90746,32 @@ function MONGSE_installBossProgressionV31236() {
       MONGSE_actorV31236,
       MONGSE_stateV31236?.zone,
     );
+    // Health can cross a phase threshold while several projectiles are being
+    // resolved in one update. Refresh the phase before gating the next hit.
+    if (!MONGSE_actorV31236.fixedPhase) {
+      const MONGSE_healthPhaseV31576 = MONGSE_enemyPhase(
+        MONGSE_actorV31236,
+      );
+      MONGSE_actorV31236.currentPhase = Math.max(
+        Number(MONGSE_actorV31236.currentPhase ?? MONGSE_healthPhaseV31576),
+        MONGSE_healthPhaseV31576,
+      );
+    }
+    const MONGSE_nowV31576 = MONGSE_finiteBossProgressionV31236(
+        MONGSE_stateV31236?.time,
+        0,
+      ),
+      MONGSE_windowStartV31576 = Number(
+        MONGSE_actorV31236.burstDamageWindowStartV31576,
+      );
+    if (
+      !Number.isFinite(MONGSE_windowStartV31576) ||
+      MONGSE_nowV31576 < MONGSE_windowStartV31576 ||
+      MONGSE_nowV31576 - MONGSE_windowStartV31576 >= 0.2
+    ) {
+      MONGSE_actorV31236.burstDamageWindowStartV31576 = MONGSE_nowV31576;
+      MONGSE_actorV31236.burstDamageWindowSpentV31576 = 0;
+    }
     const MONGSE_damageV31236 = Math.max(
         0,
         MONGSE_finiteBossProgressionV31236(MONGSE_requestedDamageV31236, 0),
@@ -90747,9 +90781,18 @@ function MONGSE_installBossProgressionV31236() {
         Number(MONGSE_actorV31236.maxHp) *
           Number(MONGSE_actorV31236.burstDamageRatioV31236 ?? 0.1),
       ),
+      MONGSE_burstRemainingV31576 = Math.max(
+        0,
+        MONGSE_burstCapV31236 -
+          Number(MONGSE_actorV31236.burstDamageWindowSpentV31576 ?? 0),
+      ),
       MONGSE_appliedDamageV31236 = Math.min(
         MONGSE_damageV31236,
-        MONGSE_burstCapV31236,
+        MONGSE_burstRemainingV31576,
+      ),
+      MONGSE_healthBeforeV31576 = Math.max(
+        0,
+        Number(MONGSE_actorV31236.hp ?? 0),
       );
     if (MONGSE_appliedDamageV31236 < MONGSE_damageV31236) {
       MONGSE_actorV31236.burstDamageCapsV31236 =
@@ -90758,11 +90801,21 @@ function MONGSE_installBossProgressionV31236() {
       MONGSE_actorV31236.lastAppliedDamageCapV31236 =
         MONGSE_appliedDamageV31236;
     }
-    return MONGSE_phaseGateBaseV31236(
+    const MONGSE_gatedHealthV31576 = MONGSE_phaseGateBaseV31236(
       MONGSE_stateV31236,
       MONGSE_actorV31236,
       MONGSE_appliedDamageV31236,
     );
+    MONGSE_actorV31236.burstDamageWindowSpentV31576 =
+      Number(MONGSE_actorV31236.burstDamageWindowSpentV31576 ?? 0) +
+      Math.max(
+        0,
+        Math.min(
+          MONGSE_appliedDamageV31236,
+          MONGSE_healthBeforeV31576 - Number(MONGSE_gatedHealthV31576 ?? 0),
+        ),
+      );
+    return MONGSE_gatedHealthV31576;
   };
   MONGSE_BOSS_PROGRESSION_HOOKS_V31236.push(`MONGSE_phaseGateHealth`);
 
@@ -120039,15 +120092,19 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
       ctx.globalAlpha=opacity*(.55+.40*charge);ctx.lineWidth=2;ctx.setLineDash(charge>.82?[]:[10,7]);ctx.lineCap='butt';
       for(const sign of[-1,1]){ctx.beginPath();ctx.moveTo(p.x+nx*hw*sign,p.y+ny*hw*sign);ctx.lineTo(q.x+nx*hw*sign,q.y+ny*hw*sign);ctx.stroke();}
      }ctx.setLineDash([]);
-    }else{const im=MONGSE_queueImage(cc,c.beam,'eager');if(im?.complete&&(im.naturalWidth||im.width)>0){const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height,fade=s.time>c.fireAt+c.activeSeconds?CL((c.endAt-s.time)/.22,0,1):1,shock=quiet?0:Math.max(0,1-age/.20);
-      for(const l of geo){const point=a=>window.__HAPIL_COMBAT_V31333__?.core(a)??G(a.x,a.y),p=point(l.a),q=point(l.b),len=Math.hypot(q.x-p.x,q.y-p.y);if(len<1)continue;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(Math.atan2(q.y-p.y,q.x-p.x));
-       // Faint wide aura is cosmetic. The central cropped texture owns the exact warned width.
-       ctx.globalAlpha=opacity*fade*(quiet?.11:.18+.07*shock);ctx.drawImage(im,0,-hw*(boss?3.25:2.7),len,hw*(boss?6.5:5.4));
-       if(!low){ctx.globalAlpha=opacity*fade*.25;ctx.drawImage(im,0,-hw*1.75,len,hw*3.5);}
-       ctx.globalAlpha=opacity*fade;ctx.drawImage(im,0,ih*.29,iw,ih*.43,0,-hw,len,hw*2);
-       if(!quiet&&!low){ctx.globalAlpha=opacity*fade*(.26+.25*shock);ctx.globalCompositeOperation='lighter';ctx.drawImage(im,0,ih*.38,iw,ih*.25,0,-hw*.36,len,hw*.72);ctx.globalCompositeOperation='source-over';}
-       // Textured emission flares have no separate hitbox or damage callback.
-       const fl=(boss?hw*3.8:hw*3.1)*(1+.16*shock);ctx.globalAlpha=opacity*fade*(quiet?.22:.46);for(const x of[0,len])ctx.drawImage(im,iw*.35,ih*.18,iw*.23,ih*.66,x-fl/2,-fl/2,fl,fl);
+    }else{const im=MONGSE_queueImage(cc,c.beam,'eager');if(im?.complete&&(im.naturalWidth||im.width)>0){const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height,fade=s.time>c.fireAt+c.activeSeconds?CL((c.endAt-s.time)/.22,0,1):1,shock=quiet?0:Math.max(0,1-age/.20),point=a=>window.__HAPIL_COMBAT_V31333__?.core(a)??G(a.x,a.y),projected=geo.map(l=>({a:point(l.a),b:point(l.b)})).filter(l=>Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y)>=1),terminal=p=>projected.reduce((n,l)=>n+(Math.hypot(l.a.x-p.x,l.a.y-p.y)<2?1:0)+(Math.hypot(l.b.x-p.x,l.b.y-p.y)<2?1:0),0)===1;
+      // One rounded owner-coloured backbone bridges intersections before the cropped art strips are layered on top.
+      ctx.save();ctx.globalAlpha=opacity*fade*(quiet?.18:.30);ctx.strokeStyle=c.color;ctx.lineWidth=Math.max(2,hw*(boss?1.45:1.30));ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor=c.color;ctx.shadowBlur=low?0:quiet?3:10;ctx.beginPath();for(const l of projected){ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);}ctx.stroke();ctx.restore();
+      if(!quiet&&!low){ctx.save();ctx.globalAlpha=opacity*fade*.25;ctx.strokeStyle=c.accent;ctx.lineWidth=Math.max(1,hw*.38);ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();for(const l of projected){ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);}ctx.stroke();ctx.restore();}
+      const overlap=Math.min(8,hw*.62);
+      for(const l of projected){const dx=l.b.x-l.a.x,dy=l.b.y-l.a.y,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;ctx.save();ctx.translate(l.a.x,l.a.y);ctx.rotate(Math.atan2(dy,dx));
+       // Keep the source's narrow beam strip. A small overlap hides seams at connected laser joints.
+       ctx.globalAlpha=opacity*fade;ctx.drawImage(im,0,ih*.29,iw,ih*.43,-overlap,-hw,len+overlap*2,hw*2);
+       if(!quiet&&!low){ctx.globalAlpha=opacity*fade*(.26+.25*shock);ctx.globalCompositeOperation='lighter';ctx.drawImage(im,0,ih*.38,iw,ih*.25,-overlap,-hw*.36,len+overlap*2,hw*.72);ctx.globalCompositeOperation='source-over';}
+       // End caps only belong to true open endpoints; shared joints stay continuous.
+       const fl=(boss?hw*3.0:hw*2.5)*(1+.16*shock);ctx.globalAlpha=opacity*fade*(quiet?.12:.34);
+       if(terminal(l.a))ctx.drawImage(im,iw*.35,ih*.18,iw*.23,ih*.66,-fl/2,-fl/2,fl,fl);
+       if(terminal(l.b))ctx.drawImage(im,iw*.35,ih*.18,iw*.23,ih*.66,len-fl/2,-fl/2,fl,fl);
        ctx.restore();
       }stats.draws++;
      }}
@@ -123194,19 +123251,9 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   if((s.enemies??[]).some(e=>e.hp>0&&!e.visualOnly&&J(p,e)<MONGSE_enemyHitRadius(e)+.7))return false;
   return true;
  }
- function evasive(s,dt){const control=window.__HAPIL_CONTROLS_V31329__,binding=control?.binding;if(!binding||control.effective(binding.settings?.current)!=='full'||!(dt>0)||blocked(s)||!awake(s)||D()?.active(s)||isCharging(s)||n(s.invulnerableUntil)>s.time||n(s.timeStopUntil)>s.time||window.__HAPIL_MOVEMENT_V31336__?.statusLocked(s,s))return false;
-  const m=mem(s);if(s.time<m.blinkAt)return false;const hit=imminent(s);if(!hit)return false;
-  const combat=window.__HAPIL_COMBAT_V31333__,context=combat?.dangerContext(s,s);if(!context)return false;
-  const target=(s.enemies??[]).filter(t=>valid(s,t)).sort((a,b)=>Number(b.id===s.targetEnemyId)-Number(a.id===s.targetEnemyId)||J(s,a)-J(s,b))[0],ideal=role(s.activeHeroId).hold;
-  const risk=q=>Math.max(...[0,.18,.4].map(t=>combat.dangerAt(s,q,context,t)+(window.__HAPIL_LASERS_V31330__?.danger?.(s,q,t)??0)+(window.__HAPIL_BOSSES_V31334__?.danger(s,q,t)??0)));
-  let best=null;for(const radius of [2.2,3.4,4.3])for(let j=0;j<16;j++){const a=j*Math.PI/8,p={x:s.x+Math.cos(a)*radius,y:s.y+Math.sin(a)*radius};if(!safePoint(s,p,target))continue;const r=risk(p);if(r>2.5)continue;
-   const dist=target?J(p,target):ideal;if(target&&role(s.activeHeroId).range>=26&&dist<Math.min(J(s,target)-1,ideal*.65))continue;
-   const score=r*20+radius*.3+Math.abs(dist-ideal)*.35;if(!best||score<best.score)best={...p,score};}
-  if(!best){metrics.unsafeBlink++;m.blinkAt=s.time-.8;return false;}
-  const from={x:s.x,y:s.y};s.x=best.x;s.y=best.y;s.moveVx=s.moveVy=0;hi(s);s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+cfg.blinkGrace);s.autoEvadeUntil31223=0;s.dashingUntil=0;m.blinkAt=s.time;s.blinkResonanceStartedAtV31518=s.time;s.blinkResonanceUntilV31518=s.time+.7;s.blinkResonanceZoneV31518=s.zone;s.blinkResonanceHeroV31518=s.activeHeroId;
-  S()?.emit(s,s,'blink',.48,from);fx(s,'link',from,s,.45,{blink:true});metrics.blink++;
-  const b=C()?.binding;if(target&&J(s,target)<=role(s.activeHeroId).range&&b?.state?.current===s){s.targetEnemyId=target.id;b.actions.attack();}return true;
- }
+ // RC76: awakening visuals no longer trigger an unrequested autonomous blink.
+ // Full-auto's separate, explicit dodge controller remains available.
+ function evasive(){return false;}
  function fields(s,dt,m){if(!awake(s))return;const h=s.activeHeroId;
   if((h==='seoha'||h==='ion')&&s.time>=m.fieldReady){m.fieldReady=s.time+(h==='seoha'?1.2:1.5);const radius=h==='seoha'?4.2:3.2,max=h==='seoha'?4:3,rows=(s.hostileProjectiles??[]).filter(q=>n(q.damage)>0&&HAPIL_projectileVisibleV31355(q,s.time)&&!q.reflected&&!q.friendly&&!q.damageSuppressedV31226&&J(s,q)<=radius).sort((a,b)=>J(s,a)-J(s,b)).slice(0,max);
    for(const q of rows)MONGSE_delayHostileProjectile31214(s,q,{duration:h==='seoha'?.24:.18,source:'ego-'+h});if(rows.length)fx(s,'field',s,s,.32,{radius});}
@@ -123361,7 +123408,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function dodge(s){const control=C(),b=control?.binding;if(!b||control.effective(b.settings?.current)!=='full'||n(s.invulnerableUntil)>s.time||!L()?.imminent(s,.2))return false;const c=window.__HAPIL_COMBAT_V31333__,ctx=c?.dangerContext(s,s);if(!ctx)return false;const h=s.activeHeroId,g=gr(h,b.passives?.current?.[fr(h)]??0),distance=2.25+n(g.dashBonus)*.55;
   const risk=p=>Math.max(...[0,.2,.45].map(t=>c.dangerAt(s,p,ctx,t)+(window.__HAPIL_LASERS_V31330__?.danger(s,p,t)??0)+(window.__HAPIL_BOSSES_V31334__?.danger(s,p,t)??0)));
   let best=null;for(let i=0;i<16;i++){const angle=i*Math.PI/8,v={x:Math.cos(angle),y:Math.sin(angle)},p=dt(s.zone,{x:s.x+v.x*distance,y:s.y+v.y*distance},.46);if(!L().safePoint(s,p)||J(s,p)<1)continue;const score=risk(p);if(score>2.5)continue;if(!best||score<best.score)best={v,score};}
-  if(!best)return false;const before=s.lastDodgeAt;s.simpleDodgeVectorV31368=best.v;try{b.actions.dash();}finally{delete s.simpleDodgeVectorV31368;}if(s.lastDodgeAt!==before){stats.dodges++;return true;}return false;
+  if(!best)return false;const before=s.lastDodgeAt;s.simpleDodgeVectorV31368=best.v;s.autoDodgeBlinkDispatchV31576=true;try{b.actions.dash();}finally{delete s.simpleDodgeVectorV31368;delete s.autoDodgeBlinkDispatchV31576;}if(s.lastDodgeAt!==before){stats.dodges++;return true;}return false;
  }
  function tick(s,dt){const m=mem(s);if(!(dt>0)||blocked(s)){m.intent=-1;return;}
   const b=C().binding,mode=C().effective(b.settings?.current),held=C().hasHeldLogical('KeyA')||b.input.current.has('KeyA');

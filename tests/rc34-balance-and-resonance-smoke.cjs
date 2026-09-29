@@ -13,7 +13,7 @@ const outgoingPlugin = fs.readFileSync(outgoingPath, 'utf8');
 assert(html.indexOf('./assets/rc34/balance-and-resonance.js?v=33401') <
   html.indexOf('./assets/combat-v31412/outgoing-native.js'),
 'the damage bridge must load before the main game bundle binds incoming damage');
-assert(html.includes('./assets/rc33/boss-laser-render.js?v=33401'),
+assert(html.includes('./assets/rc33/boss-laser-render.js?v=33402'),
   'the generated Seven Sins laser routes must load with the RC34 asset version');
 
 const calls = {player: [], ally: [], draws: []};

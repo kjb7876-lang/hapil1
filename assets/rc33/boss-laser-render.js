@@ -3,7 +3,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '33401';
+  const VERSION = '33402';
   const ROOT = './assets/vfx/rc33/boss-laser-families/';
   const MAX_FAMILY_IMAGES = 5;
   const OWNER_FAMILY = Object.freeze({
@@ -323,12 +323,9 @@
     return 'hue-rotate(' + shift.toFixed(1) + 'deg) saturate(1.24) contrast(1.04)';
   }
 
-  function fullImageCall(image, call) {
-    const width = Number(image?.naturalWidth || image?.width) || 0;
-    const height = Number(image?.naturalHeight || image?.height) || 0;
-    if (call.length === 9 && width > 0 && height > 0) {
-      return [image, 0, 0, width, height, call[5], call[6], call[7], call[8]];
-    }
+  function remapImageCall(image, call) {
+    // Preserve the engine's beam-strip crop; replacing it with the whole family
+    // panorama made every segment look like a detached, clipped landscape.
     const copy = call.slice();
     copy[0] = image;
     return copy;
@@ -368,7 +365,7 @@
           const previousFilter = this.filter;
           try {
             this.filter = tintFilter(api, id);
-            const result = original.apply(this, fullImageCall(target, call));
+            const result = original.apply(this, remapImageCall(target, call));
             stats.fullArtworkDraws++;
             if (replacement) stats.beamImageReplacements++;
             return result;
