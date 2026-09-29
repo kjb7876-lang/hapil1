@@ -10,11 +10,11 @@ const html = read('index.html');
 const beamAsset = read('assets/rc77/connected-laser.js');
 
 // The helper must be available before the module starts drawing boss attacks.
-assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=37800'));
+assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=37900'));
 assert.equal((main.match(/__HAPIL_CONNECTED_LASER_V31377__;/g) || []).length, 3,
   'standard boss, blood laser and final boss beams must share the continuous renderer');
 assert(!main.includes('len+overlap*2'), 'branch beam textures must not restart at every segment');
-assert(main.includes('duration: t.boss ? 1.85 : t.midboss ? 1.50 : 0.92'),
+assert(main.includes('duration: t.boss ? 2.1 : t.midboss ? 1.72 : 1.05'),
   'telegraphed enemy skills need visible windup/impact time');
 assert(main.includes('MONGSE_impactFade = 1 - a * 0.50'),
   'skill impact art must fade more slowly');

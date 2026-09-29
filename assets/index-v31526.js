@@ -49715,6 +49715,15 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
           : MONGSE_impactPalette.theme === `infernal` && t.shape !== `safe`
             ? `demonSkull`
             : `${MONGSE_impactPalette.theme}Burst`,
+    MONGSE_skillImpactSprite =
+      t.sevenSinImpactSprite ??
+      t.telekineticSprite ??
+      MONGSE_episodeSkillSprite ??
+      MONGSE_impactPalette.impactSprite,
+    MONGSE_skillImpactFallback =
+      t.impactFallbackSprite ??
+      t.telekineticFallbackSprite ??
+      MONGSE_impactPalette.impactSprite,
     MONGSE_impactVisualSize = Math.max(
       190,
       Math.min(420, t.radius * (n ? 43 : 62)),
@@ -49731,7 +49740,7 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
     rainCount: t.rainCount,
     telekineticPropId: t.telekineticPropId,
     telekineticSprite: t.telekineticSprite,
-    fallbackSprite: t.impactFallbackSprite ?? t.telekineticFallbackSprite,
+    fallbackSprite: MONGSE_skillImpactFallback,
     airborneCenterPivot: !!t.airborneCenterPivot,
     dedicatedSinProp: !!t.dedicatedSinProp,
     sevenSinMechanic: t.sevenSinMechanic,
@@ -49742,17 +49751,12 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
     tx: a,
     ty: o,
     born: e.time,
-    duration: t.boss ? 1.85 : t.midboss ? 1.50 : 0.92,
+    duration: t.boss ? 2.1 : t.midboss ? 1.72 : 1.05,
     color: t.color,
     accent: t.accent,
     size: Math.max(3.2, Math.min(12.5, t.radius * (n ? 1.16 : 1.86))),
     angle: Math.atan2(o - i, a - r),
-    sprite: t.boss
-      ? (t.sevenSinImpactSprite ??
-        t.telekineticSprite ??
-        MONGSE_episodeSkillSprite ??
-        MONGSE_impactPalette.impactSprite)
-      : MONGSE_episodeSkillSprite,
+    sprite: MONGSE_skillImpactSprite,
     castSprite:
       MONGSE_bossSkillClass === `demonSkull`
         ? MONGSE_BOSS_CAST_VFX.demonSkull
@@ -123207,17 +123211,18 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
 }ready();})();
 
 /* HAPIL v31365: ranged-only encounter loop. Simulation events own damage;
- * rendering never moves actors, heals, or grants resonance. */
+ * rendering never moves actors, heals, or grants resonance.
+ * RC78: every hero uses the longest existing baseline attack reach (gunner: 30). */
 (()=>{'use strict';
  const VERSION='3.13.65-RC1',n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,cl=(v,a,b)=>Math.max(a,Math.min(b,v));
  const roles=Object.freeze({
-  hwando:{range:16,hold:11,name:'근중거리 검기',ego:'관통 검흔 · 0.3초 후 재절단'},
-  slayer:{range:16,hold:10.5,name:'근중거리 혈검기',ego:'혈흔 추격탄 · 적중 회복'},
-  neon:{range:21,hold:16,name:'중장거리 성광',ego:'탄도 치유 흔적'},
-  michaela:{range:24,hold:18,name:'장거리 구조광',ego:'각성당 1회 긴급 보호'},
-  hunter:{range:26,hold:20,name:'장거리 추적화살',ego:'다른 표적에게 도탄'},
-  seoha:{range:28,hold:22,name:'초원거리 시간탄',ego:'가까운 위협탄 국소 시차'},
-  lauren:{range:29,hold:23,name:'초원거리 심문탄',ego:'낙인 대상에 역방향 재연결'},
+  hwando:{range:30,hold:11,name:'근중거리 검기',ego:'관통 검흔 · 0.3초 후 재절단'},
+  slayer:{range:30,hold:10.5,name:'근중거리 혈검기',ego:'혈흔 추격탄 · 적중 회복'},
+  neon:{range:30,hold:16,name:'중장거리 성광',ego:'탄도 치유 흔적'},
+  michaela:{range:30,hold:18,name:'장거리 구조광',ego:'각성당 1회 긴급 보호'},
+  hunter:{range:30,hold:20,name:'장거리 추적화살',ego:'다른 표적에게 도탄'},
+  seoha:{range:30,hold:22,name:'초원거리 시간탄',ego:'가까운 위협탄 국소 시차'},
+  lauren:{range:30,hold:23,name:'초원거리 심문탄',ego:'낙인 대상에 역방향 재연결'},
   gunner:{range:30,hold:24,name:'초원거리 기억탄',ego:'3회 적중마다 기억복제'}
  });for(const r of Object.values(roles))Object.freeze(r);
  const cfg=Object.freeze({grazeGain:1,perfectGain:2,streakEvery:5,streakBonus:5,grazePerSecond:12,attackGain:1,
