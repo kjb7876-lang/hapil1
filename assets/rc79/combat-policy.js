@@ -2,6 +2,11 @@
 (() => {
  'use strict';
  const budgets=new WeakMap();
+ function advanceFinalClock(state,dt,blocked){
+   const b=state?.hapilFinalBattleV31300;
+   if(blocked||!state||state.hp<=0||state.zone!=='cult04'||!b||b.stage<7||b.completed||!Number.isFinite(dt)||dt<=0)return;
+   b.combatElapsedRC79=Math.max(0,Number(b.combatElapsedRC79)||0)+Math.min(.25,dt);
+ }
  const isLaser=h=>!!h&&(h.shape==='line'||h.laserV31330===true||h.bloodLaserV31516===true);
  function blinkDestination(origin,vector,distance,walkable){
    let result={x:origin.x,y:origin.y};const steps=Math.max(1,Math.ceil(Math.max(0,distance)/.10));
@@ -13,7 +18,8 @@
    const b=state?.hapilFinalBattleV31300;
    if(state?.zone!=='cult04'||enemy?.id!=='c104-boss'||!enemy.hapilSecondPhaseV31300||!b||b.stage<7)return 0;
    const start=Number.isFinite(b.combatStartedAtRC79)?b.combatStartedAtRC79:Number(b.startedAt)+6.75;
-   const elapsed=Number.isFinite(b.combatElapsedRC79)?Math.max(0,b.combatElapsedRC79):Math.max(0,Number(state.time)-start);
+   const fallback=Number(state.time)-start;
+   const elapsed=Number.isFinite(b.combatElapsedRC79)?Math.max(0,b.combatElapsedRC79):Number.isFinite(fallback)?Math.max(0,fallback):0;
    return elapsed<60?Math.max(1,Math.ceil(enemy.maxHp*(1-elapsed/60))):0;
  }
  function balancedDamage(state,enemy,damage){
@@ -28,5 +34,5 @@
    b.credit=Math.min(enemy.maxHp*rate,b.credit+Math.max(0,clock-b.at)*enemy.maxHp*rate);b.at=clock;
    const applied=Math.max(0,Math.min(damage,b.credit));b.credit-=applied;budgets.set(enemy,b);return applied;
  }
- window.__HAPIL_RC79__=Object.freeze({version:'RC79',isLaser,blinkDestination,finalFloor,balancedDamage});
+ window.__HAPIL_RC79__=Object.freeze({version:'RC80',advanceFinalClock,isLaser,blinkDestination,finalFloor,balancedDamage});
 })();
