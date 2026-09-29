@@ -43,7 +43,7 @@ const prologue=window.__HAPIL_PATIENT_DATA_RC51__.records[0].body;
 assert.equal(prologue,join(voice1,voice2),'the journal opening follows the same recordings');
 assert.equal(api.replacesLegacy,true);
 for(const r of data.records){if(r.rest)continue;assert(r.pre&&r.post,`missing battle card ${r.zone}`);for(const k of ['pre','post','firstPost','awakenPre'])assert((r[k]?.length??0)<=900,`${r.zone} ${k} exceeds layout budget`);}
-const mapCards=read('data/rc57/voice-monologue-map-cards.txt');
+const mapCards=read('data/rc57/voice-monologue-map-cards.txt').replace(/\r\n/g,'\n');
 const mapAudit=read('docs/RC60-story-map-mob-combat-audit.md');
 assert.equal((mapCards.match(/^## /gm)||[]).length,55,'the text export must contain every combat map exactly once');
 assert.equal((mapCards.match(/^### 전투 전$/gm)||[]).length,55,'each map needs a pre-battle card');

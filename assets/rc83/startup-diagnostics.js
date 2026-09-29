@@ -21,6 +21,7 @@
         installed: window.__HAPIL_COMBAT_FLOW_V31303__.installed,
         allPass: window.__HAPIL_COMBAT_FLOW_V31303__.allPass,
         gates: window.__HAPIL_COMBAT_FLOW_V31303__.gates,
+        evidence: window.__HAPIL_COMBAT_FLOW_V31303__.evidence,
       } : null,
       v31316Dependencies: {
         danmaku: !!window.__HAPIL_DANMAKU_V31316__?.installed,

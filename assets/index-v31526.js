@@ -101718,8 +101718,8 @@ function HAPIL_probeCombatFlowV31303() {
       id: "qa-heavy-boss",
       boss: true,
       midboss: false,
-      hp: 500,
-      maxHp: 500,
+      hp: 2000,
+      maxHp: 2000,
       stagger: 0,
       maxStagger: 500,
       readyAt: 0,
@@ -101799,8 +101799,8 @@ function HAPIL_probeCombatFlowV31303() {
       id: "qa-heavy-midboss",
       boss: false,
       midboss: true,
-      hp: 500,
-      maxHp: 500,
+      hp: 2000,
+      maxHp: 2000,
       stagger: 0,
       maxStagger: 500,
       heavyCycleIdV31302: 7,
@@ -101921,16 +101921,16 @@ function HAPIL_probeCombatFlowV31303() {
           Number.POSITIVE_INFINITY,
       actualCounterDamage:
         reward.claimed === true &&
-        damage.hpBefore === 500 &&
-        damage.hpAfter === 382 &&
+        damage.hpBefore === 2000 &&
+        damage.hpAfter === 1882 &&
         damage.appliedDamage === 118 &&
         damage.staggerBonus === 36 &&
         boss.stagger === 36,
       actualMidbossCounterDamage:
         midReward.claimed === true &&
         midReward.damageMultiplier === 1.18 &&
-        midDamage.hpBefore === 500 &&
-        midDamage.hpAfter === 382 &&
+        midDamage.hpBefore === 2000 &&
+        midDamage.hpAfter === 1882 &&
         midDamage.appliedDamage === 118 &&
         midDamage.staggerBonus === 44 &&
         midboss.stagger === 44,

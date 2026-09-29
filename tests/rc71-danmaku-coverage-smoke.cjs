@@ -131,7 +131,9 @@ assert(dense.count >= 144, 'desktop broad patterns exceed the former density');
 // The final wrappers are installed after later renderer replacements.
 const rc71Start = bundle.indexOf('/* RC71: restore authored Danmaku');
 assert(rc71Start > end, 'RC71 hooks are appended after the final legacy renderer');
-vm.runInContext(bundle.slice(rc71Start), context);
+const rc79Start = bundle.indexOf('/* RC79: final authoritative presentation and balance hooks. */', rc71Start);
+assert(rc79Start > rc71Start, 'later presentation hooks follow the final RC71 bitmap dispatch');
+vm.runInContext(bundle.slice(rc71Start, rc79Start), context);
 assert.equal(context.window.__HAPIL_RC71__?.audit?.().allPass, true);
 const nextState = {zone: 'arena-04', time: 1, hp: 180, x: 16, y: 16,
   enemies: [{...zones['arena-04'].enemies[0]}], hostileProjectiles: [], pendingHits: [],
