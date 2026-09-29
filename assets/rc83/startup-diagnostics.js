@@ -2,6 +2,12 @@
 (() => {
   'use strict';
   const started = Date.now();
+  const releaseState = version => {
+    const value = window[`__HAPIL_V${version}_RELEASE__`];
+    if (!value) return null;
+    const gates = value.gates && Object.fromEntries(Object.entries(value.gates).filter(([, result]) => typeof result === 'boolean'));
+    return { installed: value.installed ?? null, allPass: value.allPass ?? null, gates: gates ?? null };
+  };
   const report = () => {
     const v318 = window.__HAPIL_V31318_RELEASE__;
     const v322 = window.__HAPIL_V31322_RELEASE__;
@@ -10,6 +16,13 @@
     const v331 = window.__HAPIL_V31331_RELEASE__;
     return {
       elapsedMs: Date.now() - started,
+      releases: Object.fromEntries(['31309', '31310', '31311', '31312', '31313', '31314', '31315', '31316', '31317', '31318'].map(version => [version, releaseState(version)])),
+      v31316Dependencies: {
+        danmaku: !!window.__HAPIL_DANMAKU_V31316__?.installed,
+        clarity: !!window.__HAPIL_CLARITY_V31316__?.installed,
+        focus: !!window.__HAPIL_FOCUS_V31316__?.installed,
+        audit: !!window.__HAPIL_AUDIT_V31316__?.installed,
+      },
       v31317: window.__HAPIL_V31317_RELEASE__?.allPass ?? null,
       v31318: v318 ? { installed: v318.installed, allPass: v318.allPass, gates: v318.gates } : null,
       v31322: v322 ? { installed: v322.installed, allPass: v322.allPass } : null,
