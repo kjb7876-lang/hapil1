@@ -17,6 +17,11 @@
     return {
       elapsedMs: Date.now() - started,
       releases: Object.fromEntries(Array.from({ length: 19 }, (_, index) => String(31300 + index)).map(version => [version, releaseState(version)])),
+      v31303CombatFlow: window.__HAPIL_COMBAT_FLOW_V31303__ ? {
+        installed: window.__HAPIL_COMBAT_FLOW_V31303__.installed,
+        allPass: window.__HAPIL_COMBAT_FLOW_V31303__.allPass,
+        gates: window.__HAPIL_COMBAT_FLOW_V31303__.gates,
+      } : null,
       v31316Dependencies: {
         danmaku: !!window.__HAPIL_DANMAKU_V31316__?.installed,
         clarity: !!window.__HAPIL_CLARITY_V31316__?.installed,
