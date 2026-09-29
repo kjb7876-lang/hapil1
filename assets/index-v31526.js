@@ -125816,16 +125816,16 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   },
 });
 
-/* RC64: stable danmaku, paired story midbosses, and the authored Slayer side cut. */
+/* RC64: stable danmaku, paired midbosses, and RC81 sprite-gen Slayer attack atlases. */
 ;(()=>{'use strict';
- const VERSION='RC64';
+ const VERSION='RC81';
  const COMMON='./assets/rc64/projectiles/danmaku-jellybean.webp';
  const SIDE=Object.freeze({
-  left:'./assets/hero-authored-v314rc64/slayer-side-left.webp',
-  right:'./assets/hero-authored-v314rc64/slayer-side-right.webp',
+  left:'./assets/hero-authored-v314rc81/slayer-side-left/sprite-sheet-alpha.png',
+  right:'./assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png',
  });
- const PAD=14,sideLocks=new WeakMap(),patternLocks=new WeakMap();
- const stats={installed:false,sideAttackDraws:0,patternRowsLocked:0,midbossPlans:0,midbossRestores:0,assetFallbacks:0};
+ const CELL=640,PAD=24,ART_HEIGHT=390,sideLocks=new WeakMap(),patternLocks=new WeakMap();
+ const stats={installed:false,sideAttackDraws:0,sideAttackFrames:[0,0,0,0],patternRowsLocked:0,midbossPlans:0,midbossRestores:0,assetFallbacks:0};
  const number=(value,fallback=0)=>Number.isFinite(Number(value))?Number(value):fallback;
  function configureRevivedComrade(){
   const actor=N?.dist04?.enemies?.find(row=>row?.id==='mb-dist04');
@@ -125888,25 +125888,29 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   if(hero?.id!=='slayer'||motion?.kind!=='attack')return null;
   const selected=window.__HAPIL_HERO_CONSISTENCY_RC5__?.state?.('slayer',motion,time);
   if(!selected||!['left','right'].includes(selected.dir))return null;
-  const now=number(time),prior=sideLocks.get(hero);
-  let dir=selected.dir;
-  if(prior&&now<prior.until)dir=prior.dir;
-  const until=Math.max(number(motion.until),now+.34);
-  sideLocks.set(hero,{dir,until});
-  return {dir,path:SIDE[dir]};
+  const now=number(time),hasStart=Number.isFinite(Number(motion.started));
+  const started=hasStart?number(motion.started):now,declaredUntil=number(motion.until,started+.32);
+  if(hasStart&&(now<started-.02||now>declaredUntil+.06))return null;
+  const prior=sideLocks.get(hero),sameAttack=!!prior&&now<prior.until&&(!hasStart||Math.abs(prior.started-started)<.001);
+  const dir=sameAttack?prior.dir:selected.dir;
+  const duration=Math.max(.12,declaredUntil-started),progress=Math.max(0,Math.min(.999,(now-started)/duration));
+  const frame=Math.min(3,Math.floor(progress*4)),until=Math.max(declaredUntil,started+.04);
+  sideLocks.set(hero,{dir,started,until});
+  return {dir,path:SIDE[dir],frame};
  }
  function drawSide(ctx,cache,x,y,size,options,selection){
   const image=MONGSE_queueImage(cache,selection.path,'eager');
   if(!image?.complete||!(image.naturalWidth||image.width)){stats.assetFallbacks++;return false;}
   const w=image.naturalWidth||image.width,h=image.naturalHeight||image.height;
-  const visibleHeight=Math.max(1,h-PAD*2),scale=Math.min(72,number(size,66))/visibleHeight;
+  if(w<CELL*4||h<CELL){stats.assetFallbacks++;return false;}
+  const frame=Math.max(0,Math.min(3,Math.floor(number(selection.frame)))),scale=Math.min(72,number(size,66))/ART_HEIGHT;
   const p=G(x,y);ctx.save();try{
    ctx.globalCompositeOperation='source-over';ctx.globalAlpha*=options?.alpha??1;
    if(options?.hit)ctx.filter='brightness(1.3) saturate(1.1)';
    ctx.translate(p.x,p.y);
-   ctx.drawImage(image,-w*scale/2,-(h-PAD)*scale,w*scale,h*scale);
+   ctx.drawImage(image,frame*CELL,0,CELL,CELL,-CELL*scale/2,-(CELL-PAD)*scale,CELL*scale,CELL*scale);
   }finally{ctx.restore();}
-  stats.sideAttackDraws++;return true;
+  stats.sideAttackDraws++;stats.sideAttackFrames[frame]++;return true;
  }
  function setImageMeta(path,w,h,x1,y1,x2,y2){
   if(typeof MONGSE_SPRITE_META==='object'&&MONGSE_SPRITE_META)MONGSE_SPRITE_META[path]=[x1/w,y1/h,(x2-x1)/w,(y2-y1)/h,.5,.98];
@@ -125967,14 +125971,12 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   const enterBase=ii;
   ii=function HAPIL_clearPatternLocksOnMapExitRC64(state,zone,...args){window.__HAPIL_DANMAKU_V31316__?.clearMap?.(state);return enterBase.call(this,state,zone,...args);};
   setImageMeta(COMMON,512,512,37,42,399,479);
-  setImageMeta(SIDE.left,477,328,14,14,463,314);
-  setImageMeta(SIDE.right,484,325,14,14,470,311);
   stats.installed=true;
   window.__HAPIL_RC64__=Object.freeze({version:VERSION,installed:true,commonBullet:COMMON,sideAttackAssets:SIDE,
    lockPatternImages,groupPlan,configureRevivedComrade,audit(){
     const plan=MONGSE_initialRosterPlanV31228('dist04'),leaders=(plan?.enemies??[]).filter(actor=>actor?.midboss);
     const ally=N?.dist04?.enemies?.find(actor=>actor?.id==='mb-dist04');
-    const checks={installed:stats.installed,commonBulletExists:COMMON,dist04UsesRevivedGuardian:ally?.sprite==='./assets/episode1a/corrupted_guardian.webp',dist04MidbossCount:leaders.length>=2&&leaders.length<=3,sideAssets:Object.values(SIDE).every(path=>/\.webp$/.test(path)),patternDeck:Object.keys(window.__HAPIL_DANMAKU_V31316__?.names??{}).length>=6};
+    const checks={installed:stats.installed,commonBulletExists:COMMON,dist04UsesRevivedGuardian:ally?.sprite==='./assets/episode1a/corrupted_guardian.webp',dist04MidbossCount:leaders.length>=2&&leaders.length<=3,sideAssets:Object.values(SIDE).every(path=>/\.png$/.test(path)),patternDeck:Object.keys(window.__HAPIL_DANMAKU_V31316__?.names??{}).length>=6};
     return {version:VERSION,checks,allPass:Object.values(checks).every(Boolean),metrics:()=>({...stats})};
    },metrics:()=>({...stats})});
   return true;

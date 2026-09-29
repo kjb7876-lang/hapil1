@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "slayer-side-left",
+    "description": "",
+    "base_image": "base-source.webp"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 640,
+    "height": 640,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24,
+    "size": 640,
+    "safe_margin": 24
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "attack": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "Four-frame one-shot sword attack, side-view game animation. Frame 1: low forward guard, full sword pointing forward. Frame 2: compact over-shoulder wind-up with the blade raised. Frame 3: one decisive diagonal downward-forward strike, entire blade visible. Frame 4: low recovery guard with the blade angled down-forward, distinct from frame 1. Keep body proportions and apparent scale steady within 10 percent, with the same boot baseline and planted feet. Keep the complete character and sword at least 24 pixels inside every cell edge; do not crop or cross a frame boundary."
+    }
+  },
+  "style": "match the attached base/anchor reference image EXACTLY: same pixel density (logical pixel block size), same body proportions, same outline weight, same palette, same shading style, same level of detail. Do not restyle, do not change proportions, do not add or remove detail density.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "align_x": "bbox-center",
+    "ground_frames": true
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

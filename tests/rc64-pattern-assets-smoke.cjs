@@ -64,8 +64,8 @@ assert(dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
 
 const assets = [
   './assets/rc64/projectiles/danmaku-jellybean.webp',
-  './assets/hero-authored-v314rc64/slayer-side-left.webp',
-  './assets/hero-authored-v314rc64/slayer-side-right.webp',
+  './assets/hero-authored-v314rc81/slayer-side-left/sprite-sheet-alpha.png',
+  './assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png',
 ];
 for (const asset of assets) assert(fs.statSync(path.join(root, asset)).size > 1000, `${asset} is empty`);
 
@@ -101,8 +101,7 @@ const context = {
   MONGSE_patternsForEnemy: () => [{name: 'signature', shape: 'circle', sprite: currentArt}],
   An: () => ({}),
   Ln: () => { context.legacyDraws++; },
-  MONGSE_queueImage: (_cache, path) => ({complete: true, naturalWidth: path.includes('left') ? 477 : 484,
-    naturalHeight: path.includes('left') ? 328 : 325}),
+  MONGSE_queueImage: () => ({complete: true, naturalWidth: 2560, naturalHeight: 640}),
   MONGSE_zoneAssetManifest: () => new Set(),
   MONGSE_zoneAssetPlan31220: () => ({all: new Set(), A: new Set(), B: new Set(), C: new Set(), deferred: new Set(), pins: new Set()}),
   MONGSE_liveCriticalAssets31220: () => new Set(),
@@ -136,16 +135,25 @@ assert.equal(context.MONGSE_patternsForEnemy({id: 'new-map-owner', patternSet: '
   './assets/pattern-changed.webp', 'a new map actor receives a fresh pattern-image lock');
 
 const hero = {id: 'slayer'};
-const left = context.An({authoredTimeV31345: 1}, hero, {kind: 'attack', direction: 'left', started: .9, until: 1.2});
-const held = context.An({authoredTimeV31345: 1.1}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.3});
+const left = context.An({authoredTimeV31345: 1.01}, hero, {kind: 'attack', direction: 'left', started: 1, until: 1.5});
+const firstSwing = context.An({authoredTimeV31345: 1.13}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.5});
+const secondSwing = context.An({authoredTimeV31345: 1.26}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.5});
+const lastSwing = context.An({authoredTimeV31345: 1.39}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.5});
+const expired = context.An({authoredTimeV31345: 1.58}, hero, {kind: 'attack', direction: 'right', started: 1, until: 1.5});
 const switched = context.An({authoredTimeV31345: 1.5}, hero, {kind: 'attack', direction: 'right', started: 1.5, until: 1.9});
 assert.equal(left.stableSideAttackRC64.path, assets[1]);
-assert.equal(held.stableSideAttackRC64.path, assets[1], 'side pose does not flicker when aim shifts during one swing');
+assert.equal(firstSwing.stableSideAttackRC64.path, assets[1], 'side pose does not flicker when aim shifts during one swing');
 assert.equal(switched.stableSideAttackRC64.path, assets[2]);
+assert.deepEqual([left, firstSwing, secondSwing, lastSwing].map(p => p.stableSideAttackRC64.frame), [0, 1, 2, 3],
+  'all four sprite-gen frames play across the committed attack');
+assert.equal(expired.stableSideAttackRC64, undefined, 'an expired motion does not leave the last attack frame stuck on screen');
 let draws = 0;
-const canvas = {globalAlpha: 1, save(){}, restore(){}, translate(){}, drawImage(){draws++;}};
-context.Ln(canvas, {}, '', 10, 12, 66, left);
+let drawArgs;
+const canvas = {globalAlpha: 1, save(){}, restore(){}, translate(){}, drawImage(...args){draws++;drawArgs=args;}};
+context.Ln(canvas, {}, '', 10, 12, 66, secondSwing);
 assert.equal(draws, 1, 'the authored side pose is drawn as one stable bitmap');
+assert.equal(drawArgs.length, 9, 'the runtime crops one frame from the horizontal atlas');
+assert.equal(drawArgs[1], 1280, 'the third frame uses the correct atlas column');
 assert.equal(context.legacyDraws, 0);
 
 const manifest = context.MONGSE_zoneAssetManifest('dist04', 'slayer', []);
@@ -158,4 +166,4 @@ const state = {};
 context.ii(state, 'dist05');
 assert.equal(state.cleared, true, 'map exit clears the prior pattern-image cache');
 
-console.log('RC68 PASS: 16 readable danmaku patterns, moving boss paths and trails, launch-time safe gaps, unique attacker colors/VFX motifs, RC64 assets, revived-guardian duo, and Slayer poses verified.');
+console.log('RC81 PASS: danmaku runtime, revived-guardian midboss pair, direction-locked Slayer swings, four atlas frames, and sprite-gen assets verified.');
