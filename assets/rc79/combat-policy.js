@@ -1,0 +1,32 @@
+/* RC79: deterministic presentation / movement / encounter pacing policy. */
+(() => {
+ 'use strict';
+ const budgets=new WeakMap();
+ const isLaser=h=>!!h&&(h.shape==='line'||h.laserV31330===true||h.bloodLaserV31516===true);
+ function blinkDestination(origin,vector,distance,walkable){
+   let result={x:origin.x,y:origin.y};const steps=Math.max(1,Math.ceil(Math.max(0,distance)/.10));
+   for(let i=1;i<=steps;i++){const p={x:origin.x+vector.x*distance*i/steps,y:origin.y+vector.y*distance*i/steps};
+     if(!walkable(p))break;result=p;
+   }return result;
+ }
+ function finalFloor(state,enemy){
+   const b=state?.hapilFinalBattleV31300;
+   if(state?.zone!=='cult04'||enemy?.id!=='c104-boss'||!enemy.hapilSecondPhaseV31300||!b||b.stage<7)return 0;
+   const start=Number.isFinite(b.combatStartedAtRC79)?b.combatStartedAtRC79:Number(b.startedAt)+6.75;
+   const elapsed=Number.isFinite(b.combatElapsedRC79)?Math.max(0,b.combatElapsedRC79):Math.max(0,Number(state.time)-start);
+   return elapsed<60?Math.max(1,Math.ceil(enemy.maxHp*(1-elapsed/60))):0;
+ }
+ function balancedDamage(state,enemy,damage){
+   if(!Number.isFinite(damage)||damage<=0)return 0;
+   if(!enemy||(!enemy.boss&&!enemy.midboss))return damage;
+   if(!Number.isFinite(enemy.maxHp)||enemy.maxHp<=0)return 0;
+   const now=Number(state?.time)||0,final=state?.zone==='cult04'&&enemy.id==='c104-boss'&&enemy.hapilSecondPhaseV31300;
+   const clock=final ? Number(state.hapilFinalBattleV31300?.combatElapsedRC79)||0 : now;
+   const rate=final ? .014 : enemy.boss ? .08 : .14;
+   let b=budgets.get(enemy);
+   if(!b||b.final!==final||clock<b.at||b.max!==enemy.maxHp)b={at:clock,credit:enemy.maxHp*rate,final,max:enemy.maxHp};
+   b.credit=Math.min(enemy.maxHp*rate,b.credit+Math.max(0,clock-b.at)*enemy.maxHp*rate);b.at=clock;
+   const applied=Math.max(0,Math.min(damage,b.credit));b.credit-=applied;budgets.set(enemy,b);return applied;
+ }
+ window.__HAPIL_RC79__=Object.freeze({version:'RC79',isLaser,blinkDestination,finalFloor,balancedDamage});
+})();

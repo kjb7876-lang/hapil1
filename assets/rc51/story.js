@@ -66,7 +66,7 @@
    if(!m.firstPost){m.firstPost=true;return show(s,r,'firstPost',r.firstPost,()=>{},ctx);}
    if(battle.stage>=5&&!m.awakenPre){m.awakenPre=true;ctx.selectPhysician?.();return show(s,r,'awakenPre',r.awakenPre,()=>{},ctx);}
   }
-  if(!m.post&&ctx.clear){m.post=true;return show(s,r,'post',r.post,()=>{if(s.zone==='cult04')ctx.finish?.();},ctx);}
+  if(!m.post&&ctx.clear&&(s.zone!=='cult04'||(battle?.completed===true&&battle.finalHitCommittedV31377===true&&Number(battle.combatElapsedRC79)>=60))){m.post=true;return show(s,r,'post',r.post,()=>{if(s.zone==='cult04')ctx.finish?.();},ctx);}
   return false;
  }
  // World time is the single clock for enemy AI, attacks, beams and projectiles.

@@ -10,7 +10,7 @@ const html = read('index.html');
 const beamAsset = read('assets/rc77/connected-laser.js');
 
 // The helper must be available before the module starts drawing boss attacks.
-assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=37900'));
+assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=37901'));
 assert.equal((main.match(/__HAPIL_CONNECTED_LASER_V31377__;/g) || []).length, 3,
   'standard boss, blood laser and final boss beams must share the continuous renderer');
 assert(!main.includes('len+overlap*2'), 'branch beam textures must not restart at every segment');
@@ -42,11 +42,12 @@ const lines = [
 ];
 assert.equal(window.__HAPIL_CONNECTED_LASER_V31377__.render(context, lines,
   {width: 7, color: '#ed4c92', accent: '#fff0fa', alpha: 0.9}), true);
-assert.equal(window.__HAPIL_CONNECTED_LASER_V31377__.stats().segments, 3);
-assert(window.__HAPIL_CONNECTED_LASER_V31377__.stats().junctions >= 1,
-  'laser branches must receive a joined glow at their intersection');
-assert.equal(stats.images, 0, 'the joined path must not stitch bitmap strips');
-assert(stats.strokes >= 3 && stats.roundCaps >= 3 && stats.roundJoins >= 3);
+assert.equal(stats.images, 0, 'solid laser must not stitch bitmap strips');
+assert.equal(stats.strokes, 1, 'one solid owner-colour stroke, with no white core or glow');
+assert.equal(context.strokeStyle, '#ed4c92');
+assert.equal(context.lineWidth, 14);
+assert.equal(context.shadowBlur, 0);
+assert.equal(stats.roundCaps, 1);
 
 // Boss palette uniqueness is scoped per encounter map; co-present bosses get clearly separated hues.
 const paletteStart = main.indexOf('    function uniqueOwnerPaletteV31377');
