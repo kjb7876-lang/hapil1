@@ -99412,7 +99412,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
     const battle = state?.hapilFinalBattleV31300;
     if (!battle || battle.completed) return 0;
     const enemy = state.enemies?.find((entry) => entry.id === battle.bossId);
-    if (enemy && !battle.secondPhaseActive) {
+    if (enemy && Number(battle.stage ?? 0) < finalStageAt.length - 1) {
       const elapsed = Number(state.time ?? 0) - Number(battle.startedAt ?? 0);
       for (let stage = battle.stage + 1; stage < finalStageAt.length; stage += 1) {
         if (elapsed < finalStageAt[stage]) break;
@@ -99841,6 +99841,13 @@ function HAPIL_commitFinalEndingV31301(
   state.enemies = [];
   state.egoDrops = [];
   state.spawnedWaves = new Set();
+  // RC75: the village must not inherit live combat bodies or laser contacts.
+  state.hostileProjectiles = [];
+  state.effects = [];
+  state.bossLaserCastsV31330 = [];
+  state.bossUltimateCastsV31334 = [];
+  state.enemyExitFxV31327 = [];
+  state.timeStopUntil = 0;
   state.pendingHits = [];
   state.impactQueue = [];
   state.pendingStrikes = [];
@@ -116840,6 +116847,20 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(!paused)for(const q of run.shots)if(!q.bodySpawned31219&&now>=Math.max(num(q.motionReleaseAt31219),num(q.frozenUntil)))releaseShot(s,a,q,run,now);
     if(now>run.last+.2&&!run.shots.some(q=>!q.bodySpawned31219&&s.hostileProjectiles?.includes(q)))live.delete(s);
   }
+  // RC75: color the bitmap itself, including low-FX/mobile. Cache small canvases per source/color.
+  const shotTintCache=new WeakMap();
+  function tintShot(image,color){
+    if(!color)return image;
+    let variants=shotTintCache.get(image);if(!variants){variants=new Map();shotTintCache.set(image,variants);}
+    if(variants.has(color))return variants.get(color);
+    try{
+      const cv=typeof OffscreenCanvas==='function'?new OffscreenCanvas(64,64):document.createElement('canvas');cv.width=cv.height=64;
+      const cx=cv.getContext('2d');if(!cx)return image;
+      cx.drawImage(image,0,0,64,64);cx.globalCompositeOperation='multiply';cx.fillStyle=color;cx.fillRect(0,0,64,64);
+      cx.globalCompositeOperation='destination-in';cx.drawImage(image,0,0,64,64);cx.globalCompositeOperation='source-over';
+      if(variants.size>=128)variants.delete(variants.keys().next().value);variants.set(color,cv);return cv;
+    }catch{return image;}
+  }
   function drawShot(ctx,cache,q,time,settings={}) {
     if(!q?.danmakuV31316||hero(q))return false;
     const row=ownerFor(q);if(!row||row.zone!==q.danmakuZoneV31316)return true;
@@ -116853,7 +116874,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
         else if(q.danmakuVfxStyleV31316==="thread"){ctx.beginPath();ctx.ellipse(0,0,extent*.77,extent*.30,age*1.8,0,Math.PI*2);ctx.stroke();}
         else {ctx.beginPath();ctx.moveTo(0,-extent*.82);ctx.lineTo(extent*.20,-extent*.60);ctx.lineTo(0,-extent*.38);ctx.lineTo(-extent*.20,-extent*.60);ctx.closePath();ctx.stroke();}
         ctx.globalAlpha=alpha;}
-      ctx.drawImage(im,-im.naturalWidth*scale/2,-im.naturalHeight*scale/2,im.naturalWidth*scale,im.naturalHeight*scale);
+      ctx.drawImage(tintShot(im,q.danmakuColorV31316??q.color),-im.naturalWidth*scale/2,-im.naturalHeight*scale/2,im.naturalWidth*scale,im.naturalHeight*scale);
     }finally{ctx.restore();}
     q.danmakuBitmapRenderedV31316=true;stats.rendered++;return true;
   }
@@ -116886,7 +116907,9 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(!window.__HAPIL_V31315_RELEASE__?.allPass)return false;
     const themeHue={infernal:12,chrono:190,blackSun:288,sevenSins:326,controller:202,last3:258,hando:214,murder:4,cult:274,causality:266};
     function registerOwner(row,index){
-      const palette=MONGSE_bossBarragePalette(row.actor)??{},theme=MONGSE_bossBarrageTheme(row.actor)??"causality",signatureHue=String(palette.color??"").match(/hsl\(\s*(\d+(?:\.\d+)?)/i)?.[1],base=Number(signatureHue??themeHue[theme]??266),hue=(base+index*137.508)%360,color=`hsl(${hue.toFixed(1)} 90% 63%)`,accent=`hsl(${((hue+48)%360).toFixed(1)} 96% 80%)`,vfxStyle=/chrono|control|controller/.test(theme)?"clock":/infernal|blood|sevenSins|murder/.test(theme)?"flare":/thread|cult/.test(theme)?"thread":"sigil";
+      const palette=MONGSE_bossBarragePalette(row.actor)??{},theme=MONGSE_bossBarrageTheme(row.actor)??"causality";
+      const seed=Array.from(String(row.actor.id)).reduce((h,ch)=>(Math.imul(h,31)+ch.charCodeAt(0))>>>0,0),hue=(Number(themeHue[theme]??266)+seed%19-9+360)%360;
+      const color=palette.color||`hsl(${hue} 90% 63%)`,accent=palette.accent||`hsl(${(hue+48)%360} 96% 80%)`,vfxStyle=/chrono|control|controller/.test(theme)?"clock":/infernal|blood|sevenSins|murder/.test(theme)?"flare":/thread|cult/.test(theme)?"thread":"sigil";
       owners.set(String(row.actor.id),{...row,danmakuColorV31316:color,danmakuAccentV31316:accent,danmakuVfxStyleV31316:vfxStyle});
     }
     for(const row of window.__HAPIL_SKILL_VISUAL_V31311__.rankedRows())if(row?.actor?.id!=null&&!owners.has(String(row.actor.id)))registerOwner(row,owners.size);

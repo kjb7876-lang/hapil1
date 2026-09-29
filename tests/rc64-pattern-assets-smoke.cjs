@@ -34,7 +34,7 @@ const dmContext = {
   },
   MONGSE_tickBossCombatPatternsV31230: HAPIL_tickBossPatternsV31310,
   MONGSE_bossBarrageTheme: () => 'causality',
-  MONGSE_bossBarragePalette: () => ({theme: 'causality', color: '#aa66ff', accent: '#ffeedd'}),
+  MONGSE_bossBarragePalette: actor => ({theme: 'causality', color: `hsl(${Number(actor.id.split('-')[1]) * 3} 88% 62%)`, accent: '#ffeedd'}),
   MONGSE_zoneAssetManifest: emptySet,
   MONGSE_zoneAssetPlan31220: () => ({all: emptySet(), A: emptySet(), B: emptySet(), C: emptySet(), pins: emptySet(), deferred: emptySet()}),
   Jn() {}, Gn() {},
@@ -55,7 +55,8 @@ assert.equal(dm.barrageCap(),Infinity);assert(dm.plan(barrageState,actor,'normal
 mobile=true;assert.equal(dm.barrageCap(),48);for(let cycle=0;cycle<256;cycle+=4)assert(dm.plan(barrageState,actor,'normal',cycle).count<=48);mobile=false;
 const ownerColors = dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
   .map(row => row.danmakuColorV31316);
-assert.equal(new Set(ownerColors).size, 71, 'each attacker receives a distinct, stable color');
+assert.equal(new Set(ownerColors).size, 71, 'each attacker receives its assigned distinct, stable color');
+assert(dm.rankedRows().every(row => row.danmakuColorV31316 === dmContext.MONGSE_bossBarragePalette(row.actor).color));
 assert(dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
   .every(row => ['flare', 'clock', 'thread', 'sigil'].includes(row.danmakuVfxStyleV31316)),
 'every attacker receives a matching VFX motif');

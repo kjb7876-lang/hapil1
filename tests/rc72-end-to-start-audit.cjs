@@ -160,6 +160,29 @@ for (const card of mapCards) {
   assert(state.hostileProjectiles.every(q=>q.danmakuPatternIdV31372===card.patternId), `${card.zone} queue keeps its assigned spell card`);
 }
 
+// RC75: exercise every catalog card through scheduling, delayed release and the real bitmap dispatcher.
+const decodedImage={complete:true,naturalWidth:64,naturalHeight:64};data.MONGSE_queueImage=()=>decodedImage;
+data.OffscreenCanvas=class {
+ constructor(w,h){this.width=w;this.height=h;}
+ getContext(){const canvas=this;return{drawImage(){},fillRect(){canvas.tint=this.fillStyle;},globalCompositeOperation:'source-over'};}
+};
+const rendered=[];
+const painter={globalAlpha:1,save(){},restore(){},translate(){},rotate(){},drawImage(image){rendered.push(image);}};
+for(let i=0;i<64;i++){
+ const {state,actor}=stateFor(sampleCard);
+ dm.scheduleMapSignature(state);state.time+=20;dm.tick(state);state.hostileProjectiles=[];
+ const cast=dm.trySchedule(state,actor,'normal',i*4);assert(cast?.projectiles>0,`card ${i} schedules`);
+ assert.equal(cast.patternId,dm.deck[i]);
+ const shots=[...state.hostileProjectiles],end=Math.max(...shots.map(q=>q.motionReleaseAt31219))+.4;
+ while(state.time<end){state.time+=.05;dm.tick(state);}
+ assert(shots.every(q=>q.bodySpawned31219&&Number.isFinite(q.vx)&&Number.isFinite(q.vy)&&Math.hypot(q.vx,q.vy)>0),`card ${i} releases all real bodies`);
+ assert(shots.every(q=>q.danmakuColorV31316==='#a44cff'),'authored owner palette survives scheduling');
+ assert(dm.drawShot(painter,{},shots[0],state.time,{lowFx:true}));
+ assert(rendered.at(-1) instanceof data.OffscreenCanvas,'low-FX renders the tinted bitmap, not only a halo');
+ assert.equal(rendered.at(-1).tint,'#a44cff');
+}
+assert(rendered.every(image=>image===rendered[0]),'repeated palette uses the cached 64px bitmap');
+
 // Install the laser catalog on every existing hostile owner and audit the real shared geometry.
 const rc72Start = bundle.indexOf('/* RC72: named spell-card danmaku');
 const rc72End = bundle.indexOf('\n\n/* MONGSE v3.12.19', rc72Start);

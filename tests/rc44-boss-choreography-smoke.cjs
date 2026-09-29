@@ -95,7 +95,7 @@ const s = state(), boss = s.enemies[0], plan = danmaku.plan(s, boss, 'snipe-swor
 assert.equal(plan.mode, 'fan');
 assert.equal(plan.count, 18);
 assert.equal(danmaku.deck.length, 64);
-assert.equal(new Set(danmaku.rankedRows().map(row => row.danmakuColorV31316)).size, 71);
+assert(danmaku.rankedRows().every(row => row.danmakuColorV31316 === '#cf5060'), 'preserve assigned boss palette rather than rotate it by registration index');
 const pathState = {zone: 'dist00', x: 12, y: 8, time: .5};
 const pathBoss = {x: 2, y: 8, danmakuChoreoStartedV31316: 0, danmakuChoreoUntilV31316: 2,
   danmakuChoreoSideV31316: 0, danmakuChoreoModeV31316: 'gate'};

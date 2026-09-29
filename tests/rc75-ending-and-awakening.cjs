@@ -1,0 +1,27 @@
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8'),code=read('assets/index-v31526.js');
+const events=[],stored=new Map();let saved=null;
+const c={window:{},Date,Math,Number,Set,emit:phase=>events.push(phase),MONGSE_phaseGateHealth:()=>0,MONGSE_isPersistentBossCastActive:()=>false,MONGSE_storageSet:(k,v)=>stored.set(k,v)};vm.createContext(c);
+const a=code.indexOf('  const basePhaseGateHealthV31300 ='),b=code.indexOf('  MONGSE_tickPersistentBossCastProtection = function HAPIL_tickNonInterruptAndFinalV31300',a);
+vm.runInContext(code.slice(a,b)+'\nglobalThis.tick=tickFinalBattle;',c);
+const wa=code.indexOf('  const basePhaseGateHealth = MONGSE_phaseGateHealth;'),wb=code.indexOf('  const basePersistentTick =',wa);vm.runInContext(code.slice(wa,wb),c);
+const boss={id:'c104-boss',hp:25,maxHp:100,phaseMax:3,x:12,y:12};
+const s={zone:'cult04',time:10,hp:20,maxHp:200,resonance:0,enemies:[boss],fxSerial:1,floatTexts:[],x:16,y:16};
+assert.equal(c.MONGSE_phaseGateHealth(s,boss,26),1);assert(s.hapilFinalBattleV31300);assert.equal(s.hapilFinalBattleV31300.stage,0);
+for(let frame=1;frame<=140;frame++){s.time=10+frame*.05;c.tick(s);if(s.hapilFinalBattleV31300.stage<7)assert(c.MONGSE_phaseGateHealth(s,boss,10000)>=1,'transition cannot be killed early');}
+assert.equal(s.hapilFinalBattleV31300.stage,7);assert.equal(s.hapilFinalBattleV31300.secondPhaseActive,true);assert.equal(s.hp,200);assert.equal(boss.maxHp,58);
+assert.deepEqual(events,['first-defeat','hero-down','core-revival','memory','death','samong','duel','resume']);
+c.window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__=true;assert.equal(c.MONGSE_phaseGateHealth(s,boss,10000),0,'full-auto can finish phase two');
+s.enemies=[];s.bossDefeated=true;c.tick(s);assert(s.hapilFinalBattleV31300.completed);assert.equal(events.at(-1),'ending');
+const start=code.indexOf('function HAPIL_commitFinalEndingV31301('),end=code.indexOf('\n}\n',start)+2;
+Object.assign(c,{ie:{x:8,y:8},hi(){},Fi:state=>JSON.parse(JSON.stringify(state)),MONGSE_writeSave:(slot,payload)=>{saved={slot,payload};return{ok:true};}});vm.runInContext(code.slice(start,end),c);
+for(const key of ['hostileProjectiles','effects','bossLaserCastsV31330','bossUltimateCastsV31334','enemyExitFxV31327','pendingHits','impactQueue','pendingStrikes'])s[key]=[{id:1}];s.completedZones=new Set();s.timeStopUntil=100;
+const result=c.HAPIL_commitFinalEndingV31301(s,'hwando',[],{},0);assert(result.ok);assert.equal(s.zone,'village');assert(s.hapilTerminalCompleteV31301&&s.hapilEndingCleared);assert.equal(saved.slot,'auto');assert.equal(saved.payload.zone,'village');assert.equal(stored.get('hapilCampaignCompleteV31301'),'true');
+for(const key of ['hostileProjectiles','effects','bossLaserCastsV31330','bossUltimateCastsV31334','enemyExitFxV31327','pendingHits','impactQueue','pendingStrikes'])assert.equal(s[key].length,0,key+' cleared');
+assert.equal(s.timeStopUntil,0);
+const w={addEventListener(){},innerWidth:1280,innerHeight:900},ctx={window:w,document:{documentElement:{classList:{toggle(){},remove(){}}}},performance:{now:()=>0}};
+vm.runInNewContext(read('data/story-rc51.js'),ctx);vm.runInNewContext(read('assets/rc51/story.js'),ctx);
+const hero={time:10,hp:100,zone:'cult04',gameModeV31346:'STORY',activeHeroId:'hwando',hapilSamongActiveV31300:true,hapilFinalBattleV31300:{stage:7,secondPhaseActive:true},pendingStrikes:[{at:10.4}],effects:[{heroId31213:'hwando',born:10,deliveryRoutesV31322:[{born:10,at:10.4}],deliverySeedV31322:{born:10}}]};
+const dt=w.__HAPIL_STORY_RC51__.clock(hero,.04);assert.equal(dt,0);assert.equal(hero.effects[0].deliveryRoutesV31322[0].at,hero.pendingStrikes[0].at,'accelerated art arrival and damage remain aligned during freeze');
+assert.equal(hero.effects[0].deliverySeedV31322.born,hero.effects[0].born);
+console.log('RC75 PASS: first lethal -> all 8 stages -> full-auto final hit -> ending save/village cleanup; awakening flight clock aligned.');

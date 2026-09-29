@@ -83,6 +83,9 @@
   for(const hit of s.pendingStrikes??[])if(!hit.partySlotV31322){if(Number.isFinite(hit.at))hit.at-=extra;}
   for(const fx of s.effects??[]){if(!(fx.heroSkillVfx||fx.heroId31213||fx.heroIdV31313||fx.heroHitVfxV31315)||fx.partySlotV31322)continue;
    for(const k of ['born','contactAtV31312','impactAt','expiresAt','heroArrivalAtV31312'])if(Number.isFinite(fx[k]))fx[k]-=extra;
+   // The pictured arrival and its scheduled hit share the accelerated hero clock.
+   for(const route of fx.deliveryRoutesV31322??[])for(const k of ['born','at'])if(Number.isFinite(route[k]))route[k]-=extra;
+   if(Number.isFinite(fx.deliverySeedV31322?.born))fx.deliverySeedV31322.born-=extra;
    if(!fx.rc51Enlarged){fx.rc51Enlarged=true;if(Number.isFinite(fx.size))fx.size*=1.55;}
   }
   m.trails.push({x:s.x,y:s.y,at:m.elapsed});m.trails=m.trails.filter(p=>m.elapsed-p.at<.23).slice(-10);
