@@ -9,7 +9,7 @@ const fixes=[['보라검천사','보라검 천사'],['스쳐지나갔다','스�
 const proofread=fixes.reduce((text,[from,to])=>text.replaceAll(from,to),uploadedText);
 let seq=0;
 const sourceText=proofread.replace(/^\[08-삭제된기록\]\s*\n/gm,'').replace(/^\[\d+(\s*·\s*[^\]]+)\]/gm,(_,tail)=>`[${String(++seq).padStart(2,'0')}${tail}]`);
-assert.equal(data.version,'RC60');assert.equal(data.sourceFile,'data/rc57/voice-monologue.txt');assert.equal(data.sourceBytes,sourceBytes.length);
+assert.equal(data.version,'RC74');assert.equal(data.sourceFile,'data/rc57/voice-monologue.txt');assert.equal(data.sourceBytes,sourceBytes.length);
 assert.equal(data.sourceSha256,crypto.createHash('sha256').update(sourceBytes).digest('hex'));
 assert.equal(data.raw,sourceText,'the active story source must match the upload except for previously requested surface corrections');
 assert(!fs.existsSync(path.join(root,'data/rc51/canonical.txt')),'the superseded canonical-file path must be removed');
@@ -18,8 +18,8 @@ const sections=new Map();let current=null;
 for(const line of sourceText.split('\n')){const h=line.match(/^\[(\d+)\s*·\s*([^\]]+)\]\s*(.*)$/);if(h){current={zone:h[2].trim(),title:h[3].trim(),lines:[]};sections.set(current.zone,current);continue;}if(/^\[08-삭제된기록\]/.test(line)){current=null;continue;}if(/^제\d+부|^〈/.test(line.trim()))continue;if(current)current.lines.push(line);}
 const getParas=zone=>sections.get(zone).lines.join('\n').trim().split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
 const join=(...parts)=>parts.flat().filter(Boolean).join('\n\n').trim();
-const voice1Start=sourceText.indexOf('음성 1 — 기억의 독백'),voice2Start=sourceText.indexOf('음성 2 — 전투 후 기억',voice1Start),part1Start=sourceText.indexOf('제1부 — 마지막 수호자 EGO',voice2Start);
-const voice1=sourceText.slice(voice1Start,voice2Start).trim(),voice2=sourceText.slice(voice2Start,part1Start).trim();
+const recorded=JSON.parse(read('data/opening-voice-rc74.json'));
+const voice1=join(recorded.opening.title,recorded.opening.paragraphs),voice2=join(recorded.root.title,recorded.root.paragraphs);
 const preCount={dist00:2,dist01:2,dist02:2,dist03:2,dist05:1,dist06:1,ep1a07:1,ep1a08:2,ep1a09:3,ep1a10:3,ep1a11:5,ep1b01:3,ep1b02:3,ep1b03:3,ep1b04:3,ep1b05:3,ep1b06:2,ep1b06b:2,ep1b07:3,ep1b08:3,ep1b09:4,u201:2,u202:4,u204:4,u205:2,u206:4,u203:1,last304:1,last305:2,last301:2,last302:2,last303:2,kair01:2,kair04:2,kair05:2,kair06:1,kair07:2,kair08:1,kair09:1,kair10:2,kair02:2,kair03:5,hando01:1,hando02:2,hando03:2,murder01:1,murder02:5,murder04:7,murder03:3,cult01:3,cult02:2,cult05:2,cult06:2,cult03:4};
 const restBefore={ep1b01:'dreamRest',u201:'restEp1b',last304:'restU2',kair01:'restLast3',hando01:'restKairo',murder01:'restHando'};
 for(const r of data.records){
@@ -33,14 +33,14 @@ for(const r of data.records){
  const cuts=r.zone==='cult04'?[1,7,10]:[preCount[r.zone]],parts=[];let at=0;
  for(const cut of cuts){parts.push(own.slice(at,cut).join('\n\n'));at=cut;}parts.push(own.slice(at).join('\n\n'));
  if(restBefore[r.zone])parts[0]=join(getParas(restBefore[r.zone]),parts[0]);
- if(r.zone==='dist00')parts[0]=join(voice1,parts[0]);if(r.zone==='dist00')parts[1]=join(voice2,parts[1]);
+ if(r.zone==='dist00'){parts[0]=voice1;parts[1]=voice2;}
  if(r.zone==='dist05')parts[0]=parts[0].replace(/^동료들마저 쓰러뜨리고\n/,'');
  assert.equal(r.pre,parts[0],`${r.zone} pre-battle monologue`);
  if(r.zone==='cult04'){assert.equal(r.firstPost,parts[1]);assert.equal(r.awakenPre,parts[2]);assert.equal(r.post,parts[3]);}
  else assert.equal(r.post,parts[1],`${r.zone} post-battle monologue`);
  }
 const prologue=window.__HAPIL_PATIENT_DATA_RC51__.records[0].body;
-assert.equal(prologue,data.raw.slice(0,data.raw.indexOf('[01 · dist00]')).trim(),'voice 1/2 remain available in the opening story record');
+assert.equal(prologue,join(voice1,voice2),'the journal opening follows the same recordings');
 assert.equal(api.replacesLegacy,true);
 for(const r of data.records){if(r.rest)continue;assert(r.pre&&r.post,`missing battle card ${r.zone}`);for(const k of ['pre','post','firstPost','awakenPre'])assert((r[k]?.length??0)<=900,`${r.zone} ${k} exceeds layout budget`);}
 const mapCards=read('data/rc57/voice-monologue-map-cards.txt');
@@ -63,7 +63,7 @@ const entryState=state();entryState.encounterDialogue31226={kind:'legacy',lines:
 let s=state();assert(api.active(s));assert.equal(api.clock(s,.04),0);assert(s.lastAttack<100);assert(s.cooldowns.Q<101);assert(s.pendingStrikes[0].at<100.2);assert.equal(s.effects[1].born,100);assert.equal(s.effects[1].size,50);assert.equal(s.effects[0].size,77.5);assert.equal(api.power(s),5);assert.equal(api.incoming(s),.12);
 let stopped=0,slow=0;for(let i=0;i<150;i++){const dt=api.clock(s,.04);assert(dt===0||Math.abs(dt-.0064)<1e-9);if(dt===0)stopped++;else slow++;s.time+=dt;}assert(stopped>50&&slow>50,'recurrent stops and slow motion both occur');
 for(const modify of [s=>s.gameModeV31346='HELL',s=>s.gameModeV31346='DREAM',s=>s.practiceV31329=true,s=>s.zone='cult03',s=>s.hapilFinalBattleV31300.stage=6,s=>s.hapilFinalBattleV31300.completed=true,s=>s.hp=0,s=>s.activeHeroId='slayer']){s=state();modify(s);assert(!api.active(s));assert.equal(api.clock(s,.04),.04);assert.equal(api.power(s),1);assert.equal(api.incoming(s),1);assert(!classes.has('rc51-samong'));assert(!classes.has('rc51-time-stop'));}
-const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=36101'));
+const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=37400'));
 assert(main.includes('if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
 assert(main.includes('function HAPIL_installCanonicalStoryRC51(){'));
 assert(main.includes('prepareCombat(s,z,false);api.suppressEntry(s);'));

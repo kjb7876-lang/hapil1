@@ -56,7 +56,7 @@ const ruleSource = sourceObject(
   '\nvar MONGSE_BOSS_RULE_PROFILES_V31215',
 ).MONGSE_BOSS_RULE_PROFILE_SOURCE_V31215;
 
-assert.equal(story.version, 'RC60');
+assert.equal(story.version, 'RC74');
 assert.equal(sourceHash, story.sourceSha256, 'uploaded monologue source bytes changed');
 assert.equal(records.length, 61);
 assert.equal(battles.length, 55);

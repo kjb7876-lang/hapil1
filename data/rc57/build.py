@@ -187,11 +187,10 @@ def build():
     sections = parse_sections(text)
     data = load_metadata()
 
-    voice1_start = text.index('음성 1 — 기억의 독백')
-    voice2_start = text.index('음성 2 — 전투 후 기억', voice1_start)
-    part1_start = text.index('제1부 — 마지막 수호자 EGO', voice2_start)
-    voice1 = text[voice1_start:voice2_start].strip()
-    voice2 = text[voice2_start:part1_start].strip()
+    # The two uploaded recordings are authoritative for the opening cards.
+    voice = json.loads((ROOT / 'data/opening-voice-rc74.json').read_text(encoding='utf-8'))
+    voice1 = join(voice['opening']['title'], '\n\n'.join(voice['opening']['paragraphs']))
+    voice2 = join(voice['root']['title'], '\n\n'.join(voice['root']['paragraphs']))
     records = []
 
     for original in data['records']:
@@ -242,8 +241,8 @@ def build():
         if zone in REST_BEFORE:
             parts[0] = join('\n\n'.join(section_paragraphs(sections, REST_BEFORE[zone])), parts[0])
         if zone == 'dist00':
-            parts[0] = join(voice1, parts[0])
-            parts[1] = join(voice2, parts[1])
+            parts[0] = voice1
+            parts[1] = voice2
 
         if zone == 'dist05':
             parts[0] = parts[0].removeprefix('동료들마저 쓰러뜨리고\n')
@@ -261,7 +260,9 @@ def build():
         records.append(record)
 
     data.update(
-        version='RC60',
+        version='RC74',
+        openingVoice=voice,
+        openingVoiceSource='data/opening-voice-rc74.json',
         sourceFile='data/rc57/voice-monologue.txt',
         sourceSha256=hashlib.sha256(source_bytes).hexdigest(),
         sourceBytes=len(source_bytes),

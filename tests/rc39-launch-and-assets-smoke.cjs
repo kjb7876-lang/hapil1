@@ -45,7 +45,7 @@ const omitted = new Set([
   '/assets/index-v31301.js', '/assets/index-v31302.js',
   '/assets/index-v31303.js', '/assets/vfx/common-blue-beam.webp',
 ]);
-const ref = /(?:\.\/|\/)?(?:assets|data)\/[^\s"'`<>\\{},;()\[\]]+?\.(?:webp|png|jpe?g|svg|woff2?|mp3|wav|js|css)(?:\?[^\s"'`<>\\{},;()\[\]]*)?/gi;
+const ref = /(?:\.\/|\/)?(?:assets|data)\/[^\s"'`<>\\{},;()\[\]]+?\.(?:webp|png|jpe?g|svg|woff2?|mp3|wav|json|js|css)(?:\?[^\s"'`<>\\{},;()\[\]]*)?/gi;
 let checked = 0;
 const missing = new Set();
 function scan(dir) {

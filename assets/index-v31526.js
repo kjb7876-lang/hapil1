@@ -31627,7 +31627,7 @@ var tn = 0,
     michaela: { a: an, q: null, w: null, e: tn, r: null },
     lauren: { a: an, q: an, w: null, e: tn, r: null },
     hunter: { a: an, q: an, w: null, e: -Math.PI * 0.18, r: null },
-    slayer: { a: tn, q: rn, w: null, e: tn, r: null },
+    slayer: { a: Math.PI, q: rn, w: null, e: tn, r: null },
     gunner: { a: tn, q: tn, w: null, e: tn, r: null },
   };
 function sn(e, t) {
@@ -80867,9 +80867,9 @@ var MONGSE_BOSS_PROJECTILE_ROTOR_VERSION_V31232 = `3.12.32`,
     rotorMidbossRadius: 11.8,
     rotorBossWidth: 0.5,
     rotorMidbossWidth: 0.43,
-    transitMinimumSeconds: 0.38,
-    transitMaximumSeconds: 0.72,
-    transitUnitsPerSecond: 19,
+    transitMinimumSeconds: 0.9,
+    transitMaximumSeconds: 1.8,
+    transitUnitsPerSecond: 9,
     transitGlobalVisualCap: 24,
     transitOwnerVisualCap: 4,
   });
@@ -81209,23 +81209,8 @@ function MONGSE_canSpawnImpactTransitV31232(
     MONGSE_hitV31232.giantProjectileTelegraphV31226
   )
     return !1;
-  const MONGSE_activeV31232 = (MONGSE_stateV31232.effects ?? []).filter(
-      (MONGSE_effectV31232) =>
-        MONGSE_effectV31232?.bossImpactTransitV31232 &&
-        Number(MONGSE_effectV31232.born ?? 0) +
-          Number(MONGSE_effectV31232.duration ?? 0) >
-          Number(MONGSE_stateV31232.time ?? 0),
-    ),
-    MONGSE_ownerActiveV31232 = MONGSE_activeV31232.filter(
-      (MONGSE_effectV31232) =>
-        MONGSE_effectV31232.sourceId === MONGSE_hitV31232.sourceId,
-    ).length;
-  return !!(
-    MONGSE_activeV31232.length <
-      MONGSE_BOSS_PROJECTILE_ROTOR_CONFIG_V31232.transitGlobalVisualCap &&
-    MONGSE_ownerActiveV31232 <
-      MONGSE_BOSS_PROJECTILE_ROTOR_CONFIG_V31232.transitOwnerVisualCap
-  );
+  // RC74: visual limits must not make a committed attack invisible.
+  return true;
 }
 
 function MONGSE_spawnImpactTransitV31232(
@@ -84550,8 +84535,8 @@ var MONGSE_COMBAT_AUDIO_TELEGRAPH_VERSION_V31233 = `3.12.33`,
     ordinaryVoiceMaximum: 2,
   }),
   MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233 = Object.freeze({
-    bossDurationSeconds: 0.82,
-    midbossDurationSeconds: 0.72,
+    bossDurationSeconds: 1.3,
+    midbossDurationSeconds: 1.1,
     globalVisualCap: 28,
     ownerVisualCap: 5,
     decodedAlpha: 0.86,
@@ -85133,22 +85118,8 @@ function MONGSE_coverageVisualBudgetV31233(
   MONGSE_stateV31233,
   MONGSE_hitV31233,
 ) {
-  const MONGSE_nowV31233 = Number(MONGSE_stateV31233?.time ?? 0),
-    MONGSE_activeV31233 = (MONGSE_stateV31233?.effects ?? []).filter(
-      (MONGSE_effectV31233) =>
-        MONGSE_effectV31233?.postTelegraphCoverageImageV31233 &&
-        Number(MONGSE_effectV31233.born ?? 0) +
-          Number(MONGSE_effectV31233.duration ?? 0) >
-          MONGSE_nowV31233,
-    );
-  return !!(
-    MONGSE_activeV31233.length <
-      MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.globalVisualCap &&
-    MONGSE_activeV31233.filter(
-      (MONGSE_effectV31233) =>
-        MONGSE_effectV31233.sourceId === MONGSE_hitV31233?.sourceId,
-    ).length < MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.ownerVisualCap
-  );
+  // Mobile reduces stamps per effect; all admitted impacts keep their lifecycle.
+  return !!MONGSE_stateV31233;
 }
 
 function MONGSE_markResolvedCoverageEffectV31233(
@@ -85281,9 +85252,9 @@ function MONGSE_probeCombatAudioTelegraphV31233() {
       }),
       telegraphDurationsFinite:
         MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.bossDurationSeconds > 0 &&
-        MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.bossDurationSeconds <= 1 &&
+        MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.bossDurationSeconds <= 1.5 &&
         MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.midbossDurationSeconds > 0 &&
-        MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.midbossDurationSeconds <= 1,
+        MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.midbossDurationSeconds <= 1.5,
       telegraphVisualCapsBounded:
         MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.globalVisualCap <= 28 &&
         MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233.ownerVisualCap <= 5,
@@ -87551,7 +87522,7 @@ var MONGSE_BOSS_BALANCE_VERSION_V31234 = `3.12.34`,
   MONGSE_BOSS_BALANCE_COVERAGE_V31234 = Object.freeze({
     globalMaximum: 28,
     ownerMaximum: 5,
-    maximumLifetimeSeconds: 1,
+    maximumLifetimeSeconds: 1.5,
   });
 
 function MONGSE_clampBossBalanceV31234(
@@ -88079,48 +88050,8 @@ function MONGSE_pruneCoverageForArrivalV31234(
   );
   const MONGSE_expiredV31234 =
     MONGSE_beforeV31234 - MONGSE_stateV31234.effects.length;
-  let MONGSE_activeV31234 = MONGSE_stateV31234.effects
-      .map((MONGSE_effectV31234, MONGSE_indexV31234) => ({
-        effect: MONGSE_effectV31234,
-        index: MONGSE_indexV31234,
-      }))
-      .filter(
-        (MONGSE_entryV31234) =>
-          MONGSE_entryV31234.effect?.postTelegraphCoverageImageV31233,
-      )
-      .sort(
-        (MONGSE_leftV31234, MONGSE_rightV31234) =>
-          Number(MONGSE_leftV31234.effect.born ?? 0) -
-          Number(MONGSE_rightV31234.effect.born ?? 0),
-      ),
-    MONGSE_ownerV31234 = MONGSE_activeV31234.filter(
-      (MONGSE_entryV31234) =>
-        MONGSE_entryV31234.effect.sourceId === MONGSE_hitV31234?.sourceId,
-    ),
-    MONGSE_removeV31234 = new Set();
-  while (
-    MONGSE_ownerV31234.length >=
-    MONGSE_BOSS_BALANCE_COVERAGE_V31234.ownerMaximum
-  ) {
-    const MONGSE_oldestOwnerV31234 = MONGSE_ownerV31234.shift();
-    MONGSE_removeV31234.add(MONGSE_oldestOwnerV31234.effect);
-    MONGSE_activeV31234 = MONGSE_activeV31234.filter(
-      (MONGSE_entryV31234) =>
-        MONGSE_entryV31234.effect !== MONGSE_oldestOwnerV31234.effect,
-    );
-  }
-  while (
-    MONGSE_activeV31234.length >=
-    MONGSE_BOSS_BALANCE_COVERAGE_V31234.globalMaximum
-  ) {
-    const MONGSE_oldestV31234 = MONGSE_activeV31234.shift();
-    MONGSE_removeV31234.add(MONGSE_oldestV31234.effect);
-  }
-  if (MONGSE_removeV31234.size)
-    MONGSE_stateV31234.effects = MONGSE_stateV31234.effects.filter(
-      (MONGSE_effectV31234) => !MONGSE_removeV31234.has(MONGSE_effectV31234),
-    );
-  return { expired: MONGSE_expiredV31234, evicted: MONGSE_removeV31234.size };
+  // RC74: a new volley must not evict a still-live skill from the same boss.
+  return { expired: MONGSE_expiredV31234, evicted: 0 };
 }
 
 function MONGSE_makeCoverageFallbackV31234(
@@ -119305,6 +119236,7 @@ const ownerEffects=window.__HAPIL_OWNER_PIPELINE_V31404__.startEffects(Gn,drawLa
  // Null remains radial; it must never be coerced to a fictitious zero-degree heading.
  const sourceHeadings=Object.freeze({
   './assets/vfx/heroes/hwando-a.webp':Math.PI,
+  './assets/vfx/heroes/slayer-a.webp':Math.PI,
   './assets/vfx/generated/v315/hwando-ego-phantom-blade.webp':Math.PI*.75,
   './assets/vfx/generated/v315/lauren-true-name-judgment.webp':1.94,
   './assets/vfx/generated/v315/neon-sanctuary-lance.webp':-Math.PI*.75
@@ -122480,6 +122412,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
  const srcHeads=Object.freeze({
   './assets/vfx/heroes/hwando-a.webp':Math.PI,
+  './assets/vfx/heroes/slayer-a.webp':Math.PI,
   './assets/vfx/generated/v315/hwando-ego-phantom-blade.webp':Math.PI*.75,
   './assets/vfx/generated/v315/lauren-true-name-judgment.webp':1.94,
   './assets/vfx/generated/v315/neon-sanctuary-lance.webp':-Math.PI*.75
@@ -125988,9 +125921,7 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   const stand=window.__HAPIL_STAND_V31335__;if(stand?.drawBody){const bodyBase=stand.drawBody;stand.drawBody=function HAPIL_RC69_authoredBody(ctx,cache,actor,time,settings,sprite,size,transform){if(actor.allyEchoMidbossRC69){const path=actor.comradeArtRC69??actor.sprite,image=MONGSE_queueImage(cache,path,'eager');if(image?.complete&&image.naturalWidth){const p=G(actor.x,actor.y),height=size,width=height*image.naturalWidth/image.naturalHeight;ctx.save();try{ctx.globalAlpha*=transform?.alpha??1;ctx.translate(p.x,p.y);ctx.drawImage(image,-width/2,-height,width,height);}finally{ctx.restore();}return true;}}if(actor.fixedCombatPositionRC69){Ln(ctx,cache,sprite,actor.x,actor.y,size,{...transform,offsetX:0,offsetY:0,rotation:0,visualSizeV31338:size});return true;}return bodyBase.call(this,ctx,cache,actor,time,settings,sprite,size,transform);};}
   const originBase=MONGSE_applyProjectileOrigin;MONGSE_applyProjectileOrigin=function HAPIL_RC69_slayerCoreFlight(effect,heroId,direction,action='A'){const result=originBase.call(this,effect,heroId,direction,action);if(heroId==='slayer'&&action==='A'&&result?.kind==='projectile'){
     result.slayerForwardCoreFlightRC69=true;result.duration=Math.max(num(result.duration),.52);if(result.heroMuzzleDirection31213==='front'){result.endOffsetY=-8;result.aimOffsetY=-8;}stats.projectileCores++;}return result;};
-  const drawBase=Gn;Gn=function HAPIL_RC69_drawSlayerCoreFlight(ctx,cache,effect,time,settings={}){const result=drawBase.call(this,ctx,cache,effect,time,settings);if(!effect?.slayerForwardCoreFlightRC69)return result;
-    const p=coreFrame(effect,time),radius=settings.lowFx?6:9;if(p.progress<=0||p.progress>=1)return result;
-    ctx.save();try{ctx.translate(p.x,p.y);ctx.rotate((num(time)-num(effect.born))*5.5);ctx.globalAlpha*=settings.reducedFlash?.55:.9;ctx.globalCompositeOperation='screen';ctx.shadowBlur=settings.reducedFlash?2:9;ctx.shadowColor='#ff493d';ctx.strokeStyle='#ff493d';ctx.lineWidth=settings.lowFx?1.4:2.1;ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.stroke();ctx.globalAlpha*=.78;ctx.strokeStyle='#ffe0c6';ctx.lineWidth=1.1;ctx.beginPath();ctx.ellipse(0,0,radius*.68,radius*.4,0,0,Math.PI*2);ctx.stroke();}finally{ctx.restore();}return result;};
+  // RC74: the authored crescent is the travelling core; no geometric ring overlay.
   richLasers();
   installed=true;stats.installed=true;window.__HAPIL_RC69__=Object.freeze({version:VERSION,installed:true,assets:Object.freeze(assetMap),groupPlan,completeMidbossWave,markFixed,positionOf,coreFrame,richLasers,enter:(state,zone)=>{state.zone=zone;return ii(state,zone,false);},audit(){const plan=MONGSE_initialRosterPlanV31228('dist04'),leaders=(plan?.enemies??[]).filter(a=>a?.midboss),fixed=MONGSE_initialRosterPlanV31228(FIXED_ZONE)?.enemies??[],lasers=window.__HAPIL_LASERS_V31331__?.profiles;
     const checks={installed,correctComradeRegistry:(MONGSE_MIDBOSS_DEFINITIONS??[]).find(a=>a?.id==='mb-dist04')?.sprite===ZOMBIE,dist04MidbossCount:leaders.length===3,threeDistinctComradeAssets:new Set(leaders.map(a=>a.sprite)).size===3,dist06RosterAnchored:fixed.length>0&&fixed.every(a=>a.fixedCombatPositionRC69===true),towerAssetQueued:MONGSE_zoneAssetManifest('dist04').has(ZOMBIE)&&MONGSE_zoneAssetManifest('dist06').has(PILLAR),expandedLaserProfiles:stats.laserProfiles>=100};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean),metrics:()=>({...stats})};},metrics:()=>({...stats})});return true;

@@ -2,7 +2,7 @@
 (()=>{'use strict';
  const data=window.__HAPIL_STORY_DATA_RC51__, records=new Map(data.records.map(r=>[r.zone,r]));
  const sessions=new WeakMap();let root=null,owner=null,done=null,previousFocus=null,autoLeft=0,autoPaused=false,lastUi=0,previousBlocked=false,narration=null,narrationToken=0;
- const openingVoice='./assets/rc26/audio/opening-memory.wav',rootVoice='./assets/rc26/audio/root-memory.wav';
+ const openingVoice=data.openingVoice?.opening.audio??'./assets/rc26/audio/opening-memory.wav',rootVoice=data.openingVoice?.root.audio??'./assets/rc26/audio/root-memory.wav';
  const enabled=s=>!!s&&!s.practiceV31329&&(window.__HAPIL_MODES_V31346__?.mode(s)??s.gameModeV31346??(s.hellModeV31322?'HELL':'STORY'))==='STORY';
  const active=s=>enabled(s)&&s.hp>0&&s.zone==='cult04'&&s.activeHeroId==='hwando'&&s.hapilSamongActiveV31300===true&&s.hapilFinalBattleV31300?.secondPhaseActive===true&&s.hapilFinalBattleV31300.stage>=7&&!s.hapilFinalBattleV31300.completed;
  function memory(s){let m=sessions.get(s);if(!m||s.time<m.last-.5){m={zone:null,last:s.time,pre:false,post:false,firstPost:false,awakenPre:false,elapsed:0,trails:[],wasActive:false};sessions.set(s,m);}m.last=s.time;return m;}
@@ -94,5 +94,5 @@
   heroNow:s=>active(s)?(memory(s).startTime??s.time)+memory(s).elapsed*2.2:s.time,heroSpeed:s=>active(s)?1.7:1,heroSize:s=>active(s)?1.3:1,power:s=>active(s)?5:1,incoming:s=>active(s)?.12:1,trails:s=>active(s)?memory(s).trails:[]});
  // The opening voice monologue and map cards share the same uploaded source.
  window.__HAPIL_PATIENT_DATA_RC51__={...data,records:[{zone:'hub',index:0,title:'남아 있는 기억',entry:'',body:rawPrologue()},...data.records.map(r=>({...r,entry:r.paragraphs[0]??'',body:r.paragraphs.slice(1).join('\n\n')}))]};
- function rawPrologue(){return data.raw.slice(0,data.raw.indexOf('[01 · dist00]')).trim();}
+ function rawPrologue(){return Object.values(data.openingVoice??{}).map(v=>[v.title,...v.paragraphs].join('\n\n')).join('\n\n')||data.raw.slice(0,data.raw.indexOf('[01 · dist00]')).trim();}
 })();
