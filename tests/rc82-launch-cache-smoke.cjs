@@ -9,7 +9,7 @@ const expected = new Map([
   ['./assets/rc15/hero-controls.js', '34602'],
   ['./assets/rc51/story.js', '38002'],
   ['./assets/rc77/connected-laser.js', '38002'],
-  ['./assets/rc83/startup-diagnostics.js', '38302'],
+  ['./assets/rc83/startup-diagnostics.js', '38303'],
   ['./assets/index-v31526.js', '38103'],
 ]);
 
@@ -18,8 +18,8 @@ for (const [asset, version] of expected) {
   assert(fs.existsSync(path.join(root, asset.replace(/^\.\//, ''))), `${asset} must exist`);
 }
 assert(html.indexOf('./assets/rc77/connected-laser.js?v=38002') <
-  html.indexOf('./assets/rc83/startup-diagnostics.js?v=38302'), 'laser helper must load before startup diagnostics');
-assert(html.indexOf('./assets/rc83/startup-diagnostics.js?v=38302') <
+  html.indexOf('./assets/rc83/startup-diagnostics.js?v=38303'), 'laser helper must load before startup diagnostics');
+assert(html.indexOf('./assets/rc83/startup-diagnostics.js?v=38303') <
   html.indexOf('./assets/index-v31526.js?v=38103'), 'startup diagnostics must observe game initialization');
 
 const diagnostic = fs.readFileSync(path.join(root, 'assets/rc83/startup-diagnostics.js'), 'utf8');

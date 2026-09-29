@@ -16,7 +16,7 @@
     const v331 = window.__HAPIL_V31331_RELEASE__;
     return {
       elapsedMs: Date.now() - started,
-      releases: Object.fromEntries(['31309', '31310', '31311', '31312', '31313', '31314', '31315', '31316', '31317', '31318'].map(version => [version, releaseState(version)])),
+      releases: Object.fromEntries(Array.from({ length: 19 }, (_, index) => String(31300 + index)).map(version => [version, releaseState(version)])),
       v31316Dependencies: {
         danmaku: !!window.__HAPIL_DANMAKU_V31316__?.installed,
         clarity: !!window.__HAPIL_CLARITY_V31316__?.installed,
