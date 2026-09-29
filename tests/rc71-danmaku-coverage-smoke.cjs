@@ -8,7 +8,7 @@ const start = bundle.indexOf('/* HAPIL_V31316_DANMAKU_PATCH:');
 const end = bundle.indexOf('/* HAPIL_V31316_CLARITY_PATCH', start);
 assert(start >= 0 && end > start, 'the shipped Danmaku runtime is present');
 assert(Number(fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8')
-  .match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 37100, 'RC71 cache key is active');
+  .match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 37200, 'RC72 cache key is active');
 
 const zones = {};
 for (let i = 0; i < 24; i++) {
@@ -84,6 +84,8 @@ assert.equal(coverage.missingOwner.length, 0);
 assert.equal(coverage.missingHost.length, 0, 'every signature has a live authored host or carrier');
 assert.equal(coverage.signatureCount, coverage.combatMaps);
 assert.equal(coverage.uniqueSignatures, true);
+assert(coverage.uniquePatternPrefix, 'every map within the 64-spell catalog gets a different first card');
+assert.equal(dm.deck.length, 64);
 assert.equal(new Set(dm.mapSignatures().map(row => row.id)).size, 25);
 assert(dm.mapSignatures().every(row => row.hostIds.length > 0), 'each map publishes its host IDs for runtime diagnostics');
 assert(!dm.mapSignatures().some(row => row.zone === 'rest'), 'non-combat rest zones are excluded');

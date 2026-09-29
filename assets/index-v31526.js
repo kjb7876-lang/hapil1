@@ -33,6 +33,102 @@ var e = (e, t) => () => (
   }
 })();
 
+/* RC72: named spell-card danmaku and sixty-four shared-geometry laser forms. */
+;(()=>{'use strict';
+ const GROUPS=[
+  {family:'glyph',labels:['Α 알파 문자','Β 베타 문자','Γ 감마 문자','Δ 델타 문자','Σ 시그마 문자','Ω 오메가 문자','∞ 무한 매듭','死 죽을 사 각인']},
+  {family:'nature',labels:['태양 코로나','초승달 위상','밀물과 썰물','바람개비','태풍의 눈','눈송이 결정','잎맥 분기','오로라 물결']},
+  {family:'math',labels:['피보나치 수열','황금각 배열','뫼비우스 띠','시에르핀스키 삼각','로렌츠 궤도','리사주 곡선','프랙탈 경계','로그나선']},
+  {family:'radial',labels:['육방 탄도','팔방 성좌','꽃잎 열방','십이진 방사','육망성 방진','24방 성창','32방 궤도','64방 별비']},
+  {family:'lattice',labels:['# 사중 격자','체스판 교차','벌집 배열','삼각망','대각선 그물','회전 격자','수렴 장벽','테셀레이션']},
+  {family:'sweep',labels:['단일 휩쓸기','삼중 팬 빔','오중 팬 빔','왕복 레이저','십자 회전광','열린 장막','666 삼중 광선','99% 종말 장막']},
+  {family:'spiral',labels:['아르키메데스 나선','황금 나선','쌍성 나선','삼중 나선','해류 소용돌이','갈라지는 나선','조개 나선','해일 나선']},
+  {family:'orbit',labels:['케플러 공전','삼행성 궤도','달의 고리','타원 공전','로제트 궤적','쌍성 공명','별자리 회전','행성계 합']}
+ ];
+ const catalog=Object.freeze(GROUPS.flatMap((group,g)=>group.labels.map((label,i)=>Object.freeze({type:`rc72-${group.family}-${String(i+1).padStart(2,'0')}`,family:group.family,variant:i,label,group:g}))));
+ const byType=new Map(catalog.map(row=>[row.type,row]));
+ const animatedFamilies=new Set(['nature','math','sweep','spiral','orbit']);
+ const angularDegrees={nature:.42,math:.28,sweep:1.05,spiral:.82,orbit:.72};
+ const glyphs=[
+  [[[-1,1],[0,-1],[1,1]],[[-.56,.16],[.56,.16]]],
+  [[[-1,-1],[-1,1],[-.1,1],[.55,.82],[.72,.50],[.55,.18],[-1,.18]],[[-.1,.18],[.55,-.08],[.72,-.42],[.55,-.82],[-1,-1]]],
+  [[[1,-1],[-.25,-1],[-1,-.55],[-1,.55],[-.25,1],[1,1]]],
+  [[[0,-1],[-1,0],[0,1],[1,0],[0,-1]]],
+  [[[-1,-1],[-1,1]],[[-1,-1],[0,0],[-1,1]],[[0,0],[1,-1],[1,1]]],
+  [[[-1,-.6],[-.72,-.95],[-.2,-1],[.35,-.8],[.72,-.35],[.8,.25],[.55,.82],[.08,1],[-.5,.9],[-.85,.52]]],
+  [[[-1,0],[-.82,-.55],[-.55,-.78],[-.28,-.72],[0,0],[.28,.72],[.55,.78],[.82,.55],[1,0],[.82,-.55],[.55,-.78],[.28,-.72],[0,0],[-.28,.72],[-.55,.78],[-.82,.55],[-1,0]]],
+  [[[-1,-.8],[1,-.8]],[[-1,-.8],[-1,.8]],[[-1,.8],[1,.8]],[[0,-.8],[0,.8]],[[-.6,-.25],[.65,-.25]],[[.25,.05],[.65,.05]],[[.65,.05],[.65,.8]]]
+ ];
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const rotate=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0]*c-p[1]*s,p[0]*s+p[1]*c];};
+ function isAnimated(type){return animatedFamilies.has(byType.get(type)?.family);}
+ function angularDistance(type){return angularDegrees[byType.get(type)?.family]??0;}
+ function pairs(c,time,r){
+  const spec=byType.get(c?.type);if(!spec)return[];
+  const v=spec.variant,progress=clamp((Number(time)-Number(c.fireAt))/Math.max(.01,Number(c.activeSeconds)),0,1),dir=Number(c.id)%2===0?1:-1;
+  const size=Math.max(6,Math.min(24,Number(r)||24)),scale=size*.64,out=[];
+  const line=(a,b)=>out.push([a,b]);
+  const poly=pts=>{for(let i=1;i<pts.length;i++)line(pts[i-1],pts[i]);};
+  const polar=(radius,angle)=>[Math.cos(angle)*radius,Math.sin(angle)*radius];
+  if(spec.family==='glyph'){
+   const shape=glyphs[v];for(const path of shape)poly(path.map(([x,y])=>[x*scale,y*scale]));
+  } else if(spec.family==='nature'){
+   const petals=4+v,pts=[];for(let i=0;i<=48;i++){const t=i/48*Math.PI*2,rad=scale*(.53+.34*Math.cos(petals*t+progress*.35));pts.push(polar(rad,t));}poly(pts);
+   const rays=3+v%5;for(let i=0;i<rays;i++){const a=i*Math.PI*2/rays+progress*.20;line(polar(scale*.18,a),polar(scale*(i%2?.88:.70),a));}
+  } else if(spec.family==='math'){
+   const pts=[];for(let i=0;i<=50;i++){const t=i/50*Math.PI*2,fx=2+(v%4),fy=3+Math.floor(v/2)%4;
+    const x=Math.sin(fx*t+progress*.32)*(.50+.13*Math.cos((v+2)*t))*scale;
+    const y=Math.sin(fy*t+v*.31)*(.48+.12*Math.sin((v+1)*t))*scale;pts.push([x,y]);}poly(pts);
+   if(v===3||v===6){const h=scale*.75,tri=[[0,-h],[-h*.86,h*.5],[h*.86,h*.5],[0,-h]];poly(tri);if(v===6){for(const sign of[-1,1])line([sign*h*.43,h*.5],[0,-h*.25]);}}
+  } else if(spec.family==='radial'){
+   const count=6+v*2,phase=v*Math.PI/37;for(let i=0;i<count;i++){const a=i*Math.PI*2/count+phase,len=scale*(i%3===1?.72:.98),inner=scale*(i%4===0?.10:.19);line(polar(inner,a),polar(len,a));if(v>=4&&i%2===0)line(polar(len*.62,a-.065),polar(len,a+.03));}
+  } else if(spec.family==='lattice'){
+   const count=3+v,step=scale*1.65/count,turn=v*.047;for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*step;line([-scale,offset],[scale,offset]);line([offset,-scale],[offset,scale]);if(v>=3&&i%2===0){line([-scale,offset],[scale,-offset]);}}
+   if(v%2===1){for(let i=0;i<Math.max(2,count-1);i++){const o=(i-(count-2)/2)*step*.7;line([-scale,o-scale*.18],[scale,o+scale*.18]);}}
+   for(let i=0;i<out.length;i++)out[i]=out[i].map(p=>rotate(p,turn));
+  } else if(spec.family==='sweep'){
+   const count=v+1,angle=dir*(progress-.5)*(.65+v*.065),spacing=scale*(.16+.01*v);for(let i=0;i<count;i++){const off=(i-(count-1)/2)*spacing,axis=rotate([-scale,off],angle),end=rotate([scale,off],angle);line(axis,end);}
+  } else if(spec.family==='spiral'){
+   const arms=1+v%4,turns=1.05+v*.18;for(let arm=0;arm<arms;arm++){const pts=[];for(let i=0;i<=32;i++){const t=i/32*Math.PI*2*turns+arm*Math.PI*2/arms+dir*progress*.72;const rad=scale*(.08+.82*i/32);pts.push(polar(rad,t));}poly(pts);}
+  } else if(spec.family==='orbit'){
+   const rings=1+v%3,phase=v*.09+dir*progress*.66,ecc=.34+(v%5)*.075;for(let ring=0;ring<rings;ring++){const rr=scale*(.35+ring*.22+(v%2)*.035),pts=[];for(let i=0;i<=28;i++){const t=i/28*Math.PI*2+phase+ring*Math.PI/rings;pts.push([Math.cos(t)*rr,Math.sin(t)*rr*ecc]);}poly(pts);}
+   const spokes=4+v;for(let i=0;i<spokes;i++){const a=i*Math.PI*2/spokes+phase;line(polar(scale*.18,a),polar(scale*.82,a));}
+  }
+  const family=spec.family,angle=(animatedFamilies.has(family)?dir*progress*angularDistance(spec.type):0)+(family==='glyph'?v*.015:0);
+  return out.map(pair=>pair.map(p=>rotate(p,angle)));
+ }
+ const geometryApi=Object.freeze({version:'RC72',catalog,has:type=>byType.has(type),isAnimated,angularDistance,pairs});
+ window.__HAPIL_LASER_CATALOG_RC72__=geometryApi;
+ const stats={installed:false,owners:0,profiles:0,casts:0};
+ function audit(){
+  const L=window.__HAPIL_LASERS_V31330__,P=window.__HAPIL_LASERS_V31331__?.profiles,B=window.__HAPIL_BLOOD_RC16__;
+  const owners=[...(L?.owners??[])].filter(o=>!o.native),checks={catalog64:catalog.length===64&&new Set(catalog.map(p=>p.type)).size===64,registeredTypes:owners.length>0&&catalog.every(p=>L?.types?.includes(p.type)&&B?.types?.includes(p.type)),ownerProfiles:owners.length>0&&owners.every(o=>catalog.every(p=>P?.get(o.id)?.some(row=>row.type===p.type))),sharedGeometry:typeof L?.geometry==='function'&&typeof L?.contact==='function'&&typeof B?.geometry==='function',spellCardCatalog:window.__HAPIL_DANMAKU_V31316__?.catalog?.length>=64};
+  return{version:'RC72',checks,allPass:Object.values(checks).every(Boolean),catalog,owners:owners.length,profileCount:owners.reduce((n,o)=>n+(P?.get(o.id)?.length??0),0)};
+ }
+ function install(attempt=0){
+  if(stats.installed)return true;
+  const L=window.__HAPIL_LASERS_V31330__,P=window.__HAPIL_LASERS_V31331__,B=window.__HAPIL_BLOOD_RC16__,D=window.__HAPIL_DANMAKU_V31316__;
+  if(!L?.installed||!P?.installed||!B?.installed||!D?.installed){if(attempt<1200)setTimeout(()=>install(attempt+1),20);return false;}
+  const owners=[...L.owners].filter(o=>!o.native),types=catalog.map(row=>row.type),labels=Object.fromEntries(catalog.map(row=>[row.type,row.label]));
+  for(const list of[L.types,B.types])for(const type of types)if(!list.includes(type))list.push(type);
+  Object.assign(L.labels,labels);Object.assign(B.labels,labels);
+  const profiles=P.profiles;
+  for(const owner of owners){
+   const old=profiles.get(owner.id)??[],seen=new Set(old.map(row=>row.type));
+   const extra=catalog.filter(row=>!seen.has(row.type)).map((row,index)=>({ownerId:owner.id,key:owner.id+'::rc72::'+row.type,name:owner.name+' · '+row.label,type:row.type,windup:1.62,cooldown:L.ranks.get(owner.id)==='boss'?8.6:10.2,damage:L.ranks.get(owner.id)==='boss'?18:14,radius:6.2,width:.29,activeSeconds:geometryApi.isAnimated(row.type)?1.42:1.18,interval:3,phaseMin:1,priority:14+index,bloodV31516:true,laserPatternFamilyV31372:row.family}));
+   profiles.set(owner.id,[...old,...extra]);stats.profiles+=extra.length;
+  }
+  stats.owners=owners.length;stats.installed=true;
+  const result=audit(),patternCount=[...profiles.values()].reduce((n,rows)=>n+rows.length,0);
+  window.__HAPIL_LASERS_V31331__=Object.freeze({...P,version:'3.13.72',patternCount,geometryPatternCount:catalog.length,ownerProfileCount:stats.profiles,profiles:P.profiles});
+  window.__HAPIL_V31372_RELEASE__=Object.freeze({version:'RC72',installed:true,allPass:result.allPass,checks:result.checks,cacheKey:37200,saveRevision:14});
+  MONGSE_ASSET_VERSION='31572';window.MONGSE_ASSET_VERSION='31572';
+  return result.allPass;
+ }
+ window.__HAPIL_RC72__=Object.freeze({version:'RC72',catalog,laserCatalog:catalog,geometry:geometryApi,install,audit,metrics:()=>({...stats})});
+ install();
+})();
+
 
 
 
@@ -116531,9 +116627,29 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
  */
 (() => {
   "use strict";
-  const VERSION="3.13.71", MOBILE_CAP=48, MIN_DISTANCE=4.5, COMMON_BULLET="./assets/rc64/projectiles/danmaku-jellybean.webp", owners=new Map(), live=new WeakMap(), mapArtLocks=new WeakMap(), mapPatternLocks=new WeakMap();
+  const VERSION="3.13.72", MOBILE_CAP=48, MIN_DISTANCE=4.5, COMMON_BULLET="./assets/rc64/projectiles/danmaku-jellybean.webp", owners=new Map(), live=new WeakMap(), mapArtLocks=new WeakMap(), mapPatternLocks=new WeakMap();
+  const familyDeck=["fan","ring","lanes","spiral","rotating","scatter","petals","helix","curtain","cross","wave","orbit","gate","echo","hexagram","sixfold"];
   const names={fan:"조준 부채 · 세 갈래 안전틈",ring:"열린 고리 · 중심 회피로",lanes:"교차 차선 · 좌우 엇박",spiral:"윤회 나선 · 회전하는 틈",rotating:"회전 고리 · 이동하는 안전로",scatter:"산개 성좌 · 박자별 확산",petals:"백화 성단 · 꽃잎 방사",helix:"쌍성 나선 · 엇갈린 회전",curtain:"유성 장막 · 열린 세로틈",cross:"십자 성광 · 교차 파동",wave:"물결 궤도 · 사인 곡선",orbit:"공전 고리 · 두 겹 탄도",gate:"개폐 장벽 · 이동 통로",echo:"잔상 재현 · 되감긴 부채",hexagram:"육망성 성창 · 육방 회전",sixfold:"삼중 육성 · 666 박자 포위"};
-  const deck=Object.freeze(["fan","ring","lanes","spiral","rotating","scatter","petals","helix","curtain","cross","wave","orbit","gate","echo","hexagram","sixfold"]);
+  const extendedSpells=[
+    ["glyph-alpha","Α 알파 · 첫 문자 부채","문자"],["glyph-beta","Β 베타 · 겹문장","문자"],["glyph-gamma","Γ 감마 · 꺾인 서광","문자"],["glyph-delta","Δ 델타 · 삼각 낙인","문자"],
+    ["glyph-sigma","Σ 시그마 · 합성 탄도","문자"],["glyph-omega","Ω 오메가 · 종언의 고리","문자"],["glyph-infinity","∞ 무한매듭 · 겹나선","문자"],["glyph-death","死 죽을 사 · 봉인 문자","문자"],
+    ["glyph-phi","Φ 파이 · 축을 가르는 원","문자"],["glyph-psi","Ψ 프시 · 세 갈래 왕관","문자"],["glyph-chi","Χ 카이 · 교차 성흔","문자"],["glyph-lambda","Λ 람다 · 역삼각 문장","문자"],
+    ["glyph-666","666 삼중 숫자 · 죄의 인장","문자"],["glyph-star","✡ 육망성 · 별의 방진","문자"],["glyph-hash","# 격자문 · 봉쇄 각인","문자"],["glyph-pi","π 원주율 · 끝없는 파동","문자"],
+    ["nature-sunrise","새벽 해돋이 · 여명 부채","자연"],["nature-moonphase","달의 위상 · 초승 고리","자연"],["nature-tide","밀물과 썰물 · 조수 장벽","자연"],["nature-windmill","바람개비 · 회전 꽃잎","자연"],
+    ["nature-typhoon","태풍의 눈 · 소용돌이","자연"],["nature-snowflake","눈송이 · 육방 결정","자연"],["nature-leafvein","잎맥 · 가지치는 탄도","자연"],["nature-aurora","오로라 · 흔들리는 장막","자연"],
+    ["nature-raindrop","빗방울 · 겹물결","자연"],["nature-volcano","화산재 · 솟구치는 꽃불","자연"],["nature-ocean","심해 해류 · 공전 파도","자연"],["nature-lightning","번개 · 갈라지는 가지","자연"],
+    ["nature-cherry","벚꽃비 · 흩날리는 꽃잎","자연"],["nature-sunflower","해바라기 · 황금 방사","자연"],["nature-forest","숲의 가지 · 나뭇결","자연"],["nature-eclipse","개기일식 · 빛의 고리","자연"],
+    ["math-fibonacci","피보나치 · 황금 부채","수학"],["math-golden","황금각 · 꽃잎 소용돌이","수학"],["math-mobius","뫼비우스 · 한 면의 나선","수학"],["math-sierpinski","시에르핀스키 · 삼각 분기","수학"],
+    ["math-lorenz","로렌츠 끌개 · 혼돈 궤도","수학"],["math-lissajous","리사주 곡선 · 교차 파동","수학"],["math-fractal","프랙탈 · 자기닮음 장벽","수학"],["math-logspiral","로그나선 · 비례 회전","수학"],
+    ["math-mandelbrot","만델브로 · 경계 성운","수학"],["math-rose","장미곡선 · 극좌표 꽃","수학"],["math-hyperbola","쌍곡선 · 두 초점","수학"],["math-parabola","포물선 · 포위 궤적","수학"],
+    ["math-prime","소수 간격 · 불규칙 별자리","수학"],["math-tessellation","테셀레이션 · 반복 격자","수학"],["math-vector","벡터장 · 회전 좌표","수학"],["math-fourier","푸리에 · 겹주파 파동","수학"]
+  ];
+  const spellCatalog=Object.freeze([
+    ...familyDeck.map(id=>Object.freeze({id,family:id,variant:0,label:names[id],category:"고전"})),
+    ...extendedSpells.map(([id,label,category],index)=>{const row={id,family:familyDeck[index%familyDeck.length],variant:1+Math.floor(index/familyDeck.length),label,category};names[id]=label;return Object.freeze(row);})
+  ]);
+  const spellById=new Map(spellCatalog.map(row=>[row.id,row]));
+  const deck=Object.freeze(spellCatalog.map(row=>row.id));
   const stats={casts:0,shots:0,rejected:0,cancelled:0,rendered:0,lockResets:0,ownerBackfills:0,mapSignatureCasts:0};
   let attempts=0;
   const num=(n,f=0)=>Number.isFinite(Number(n))?Number(n):f;
@@ -116559,12 +116675,12 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     return [...rows.values()].sort((a,b)=>a.order-b.order||a.zone.localeCompare(b.zone));
   }
   function makeSignature(zone,ordinal=0){
-    const seed=zoneHash(zone),mode=deck[((ordinal%deck.length)+deck.length)%deck.length],map=typeof N==="object"&&N?N[zone]:null;
+    const seed=zoneHash(zone),patternId=deck[((ordinal%deck.length)+deck.length)%deck.length],spell=spellById.get(patternId),mode=spell?.family??"fan",map=typeof N==="object"&&N?N[zone]:null;
     const mapEnemies=(map?.enemies??[]).filter(actor=>actor&&!actor.visualOnly&&!actor.objectiveStructureV31238&&!actor.narrativeStructureV31238),
       mapBosses=mapEnemies.filter(actor=>actor.boss||actor.midboss),ownerRows=[...owners.values()].filter(row=>String(row.zone)===String(zone));
     const hosts=mapBosses.length?mapBosses:ownerRows.length?ownerRows.map(row=>row.actor):mapEnemies.slice(0,1);
     const hostIds=[...new Set(hosts.flatMap(actorKeys))];
-    return Object.freeze({zone:String(zone),ordinal,seed,mode,id:String(zone)+":"+mode+":"+seed.toString(36),
+    return Object.freeze({zone:String(zone),ordinal,seed,mode,patternId,id:String(zone)+":"+patternId+":"+seed.toString(36),
       hostIds,hostId:String(hosts[0]?.id??""),mapCarrierV31371:mapBosses.length===0,
       label:String(map?.name||map?.origin||zone)+" · "+String(zone),turn:((seed%19)-9)*.013,
       gapBonus:.004+(seed%6)*.006,tempo:.82+((seed>>>4)%8)*.055,density:seed%3,speedPhase:seed%3});
@@ -116579,10 +116695,11 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
   function mapCoverage(){
     const zones=battleZones(),ownerZones=new Set([...owners.values()].filter(row=>row?.actor).map(row=>String(row.zone)));
     const missingOwner=zones.filter(row=>!ownerZones.has(row.zone)).map(row=>row.zone);
-    const ids=signatures.map(row=>row.id);
+    const ids=signatures.map(row=>row.id),patternIds=signatures.map(row=>row.patternId),uniquePatternSlots=Math.min(signatures.length,deck.length),uniquePatternPrefix=new Set(patternIds.slice(0,uniquePatternSlots)).size===uniquePatternSlots;
     const missingHost=signatures.filter(row=>!row.hostIds?.length).map(row=>row.zone);
     return {combatMaps:zones.length,coveredMaps:zones.length-missingOwner.length,missingOwner,missingHost,signatureCount:signatures.length,
-      uniqueSignatures:new Set(ids).size===ids.length,rows:signatures.map(({zone,ordinal,mode,id,label,turn,tempo,density,hostIds,hostId,mapCarrierV31371})=>({zone,ordinal,mode,id,label,turn,tempo,density,hostIds:[...hostIds],hostId,mapCarrierV31371}))};
+      uniqueSignatures:new Set(ids).size===ids.length,uniquePatternPrefix,uniquePatternCount:new Set(patternIds).size,patternCatalogSize:deck.length,
+      rows:signatures.map(({zone,ordinal,mode,patternId,id,label,turn,tempo,density,hostIds,hostId,mapCarrierV31371})=>({zone,ordinal,mode,patternId,id,label,turn,tempo,density,hostIds:[...hostIds],hostId,mapCarrierV31371}))};
   }
   function needsMapSignature(s){const record=s&&mapPatternLocks.get(s);return !!s&&(!record||record.zone!==s.zone||record.used!==true);}
   function scheduleMapSignature(s){
@@ -116621,7 +116738,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(!eligible(s,a))return null;
     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.hypot(dx,dy);
     if(distance<MIN_DISTANCE)return null;
-    const signature=signatureFor(s.zone),aim=Math.atan2(dy,dx),mode=forcedMode??modeFor(a,family,cycle),art=mapLockedArt(s,a,family,artFor(a,s.zone,family));
+    const signature=signatureFor(s.zone),aim=Math.atan2(dy,dx),patternId=forcedMode??modeFor(a,family,cycle),spell=spellById.get(patternId)??spellById.get("fan"),mode=spell.family,variant=spell.variant,art=mapLockedArt(s,a,family,artFor(a,s.zone,family));
     if(!art)return null;
     // Fixed centre lane: radius .28 + hero .46 + .45 margin, even at entry distance.
     const gap=Math.max(.32,Math.asin(Math.min(.98,1.22/distance))+.08+signature.gapBonus),beats=[],span=Math.PI*2-gap*2;
@@ -116679,10 +116796,22 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
         speed:speeds[(signature.speedPhase+beat*2)%speeds.length],
         angles:angles.map(angle=>safeAngle(angle+signature.turn))});
     }
+    if(variant>0){
+      const baseline=beats.reduce((sum,beat)=>sum+beat.angles.length,0),room=mobile?Math.max(0,MOBILE_CAP-baseline):Infinity;
+      for(const beat of beats){
+        const phaseShift=variant*.027+beat.beat*(variant%3+1)*.013;
+        beat.angles=beat.angles.map((angle,index)=>safeAngle(angle+Math.sin((index+1)*(variant+.5)+beat.beat*.71)*(.018*variant)+phaseShift));
+        const extra=mobile?Math.min(variant,Math.floor(room/beats.length)):variant+2;
+        for(let i=0;i<extra;i++){
+          const fraction=((i+.5)/Math.max(1,extra)+variant*.137+beat.beat*.071)%1;
+          beat.angles.push(safeAngle(aim+gap+span*fraction+signature.turn));
+        }
+      }
+    }
     const palette=MONGSE_bossBarragePalette(a),owner=ownerFor(a),theme=window.__HAPIL_BOSS_V31315__?.profile(a,s.zone)?.theme??palette.theme;
     const variants=[art];
-    const mapName=names[mode]+" · "+signature.label;
-    return {mode,name:mapName,mapSignatureV31371:signature.id,signature,aim,gap,art,variants,originX:a.x,originY:a.y,targetX:s.x,targetY:s.y,beats,count:beats.reduce((n,b)=>n+b.angles.length,0),color:owner?.danmakuColorV31316??palette.color??"#ddbdff",accent:owner?.danmakuAccentV31316??palette.accent??"#ffffff",vfxStyle:owner?.danmakuVfxStyleV31316??"sigil"};
+    const mapName=names[patternId]+" · "+signature.label;
+    return {mode,patternId,patternLabel:names[patternId],category:spell.category,variant,name:mapName,mapSignatureV31371:signature.id,signature,aim,gap,art,variants,originX:a.x,originY:a.y,targetX:s.x,targetY:s.y,beats,count:beats.reduce((n,b)=>n+b.angles.length,0),color:owner?.danmakuColorV31316??palette.color??"#ddbdff",accent:owner?.danmakuAccentV31316??palette.accent??"#ffffff",vfxStyle:owner?.danmakuVfxStyleV31316??"sigil"};
   }
   function aimForBeat(s,a) {
     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.max(1.22,Math.hypot(dx,dy));
@@ -116697,14 +116826,14 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(num(cycle)%4!==0||(a?.id==="mb-dist01"&&num(cycle)===0))return null;
     const owner=ownerFor(a),mapCarrier=!!owner?.mapCarrierV31371&&!(a?.boss||a?.midboss);
     if(!eligible(s,a)||suppress(s)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||(!mapCarrier&&MONGSE_bossPatternBusyV31230(s,a)))return null;
-    const signature=signatureFor(s.zone),firstForMap=needsMapSignature(s),p=plan(s,a,family,cycle,firstForMap?signature.mode:null),now=num(s.time);
+    const signature=signatureFor(s.zone),firstForMap=needsMapSignature(s),p=plan(s,a,family,cycle,firstForMap?signature.patternId:null),now=num(s.time);
     if(!p)return null;
     const shots=s.hostileProjectiles??=[],active=live.get(s);
     const liveLaser=(s.bossLaserCastsV31330??[]).some(c=>num(c.endAt)>now);
     const liveHeavy=[...(s.pendingHits??[]),...(s.impactQueue??[])].some(h=>h.heavyBossSkill&&!h.damageSuppressedV31226&&num(h.impactAt,h.at)>=now);
     if(active||liveLaser||liveHeavy||shots.length+p.count>barrageCap()||(s.pendingHits?.length??0)>=18||shots.some(q=>q.danmakuV31316&&num(q.motionReleaseAt31219)>now)) {stats.rejected++;return null;}
     const last=now+p.beats[p.beats.length-1].delay,added=[];
-    const beforeFx=new Set(s.effects??[]),castId=MONGSE_lockAtomicBossCast31210(s,a,"danmaku-v31316-"+p.mode,last+.22,"rain");
+    const beforeFx=new Set(s.effects??[]),castId=MONGSE_lockAtomicBossCast31210(s,a,"danmaku-v31316-"+p.patternId,last+.22,"rain");
     // Remove only this synchronous call's four old cosmetic stamps.
     s.effects=(s.effects??[]).filter(e=>beforeFx.has(e)||!(e.sourceId===a.id&&(e.bossCastAura31212||e.bossCastDirectionCue31213||e.bossCastBloom31212||e.bossArenaPulse31214)));
     const director=MONGSE_bossDirectorProfile31210(a),speedScale=Math.max(.1,num(director.speedScale,1));
@@ -116713,15 +116842,15 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
       const art=p.mode==="scatter"?p.variants[(index+beat.beat*7)%p.variants.length]:p.art;
       MONGSE_pushThemeProjectile3129(s,a,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,x:p.originX,y:p.originY,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28/Math.max(.1,num(director.sizeScale,1)),damage:a.boss?13:10,sprite:art.sprite,color:p.color,accent:p.accent,curve:0,frozenUntil:at,homingMode31212:"none",status:"none",statusValue:0,label:p.name,patternKind:"danmaku-v31316",life:speed<=1.35?22:speed>=6?7.5:12});
       const q=s.hostileProjectiles[before];if(!q)continue;
-      Object.assign(q,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,danmakuZoneV31316:s.zone,danmakuPhaseV31316:phase(a),danmakuArtV31316:art.sprite,danmakuHeadingV31316:art.heading,danmakuRadialV31316:art.radial,danmakuModeV31316:p.mode,danmakuColorV31316:p.color,danmakuAccentV31316:p.accent,danmakuVfxStyleV31316:p.vfxStyle,danmakuBeatV31316:beat.beat,danmakuAimV31316:p.aim,danmakuBaseAimV31316:p.aim,danmakuOffsetV31316:deltaAngle(angle,p.aim),danmakuGapV31316:p.gap,danmakuSpeedV31316:Math.hypot(q.vx,q.vy),danmakuAngleV31316:angle,danmakuReleaseV31316:at,hideUntilRelease31219:true,codeNativeBarrage31219:true,bodySpawned31219:false,motionReleaseAt31219:at,collisionDisabledUntil31219:at,collisionDisabledUntilV31226:at,telegraphUntil31210:at,frozenUntil:Math.max(num(q.frozenUntil),at),sprite:art.sprite,fallbackSprite:art.sprite,spriteHeading:art.heading,imageOnly:true,bitmapRequired:true,curve:0,homingMode31212:"none",scatterHomingPrepared31211:true,bossCastId31210:castId,bossCastResolveAt31210:last+.22,interruptProtectedUntil31210:last+.22,retirePolicy31222:"hero-or-world-boundary"});
+      Object.assign(q,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,danmakuPatternIdV31372:p.patternId,danmakuPatternCategoryV31372:p.category,danmakuZoneV31316:s.zone,danmakuPhaseV31316:phase(a),danmakuArtV31316:art.sprite,danmakuHeadingV31316:art.heading,danmakuRadialV31316:art.radial,danmakuModeV31316:p.mode,danmakuColorV31316:p.color,danmakuAccentV31316:p.accent,danmakuVfxStyleV31316:p.vfxStyle,danmakuBeatV31316:beat.beat,danmakuAimV31316:p.aim,danmakuBaseAimV31316:p.aim,danmakuOffsetV31316:deltaAngle(angle,p.aim),danmakuGapV31316:p.gap,danmakuSpeedV31316:Math.hypot(q.vx,q.vy),danmakuAngleV31316:angle,danmakuReleaseV31316:at,hideUntilRelease31219:true,codeNativeBarrage31219:true,bodySpawned31219:false,motionReleaseAt31219:at,collisionDisabledUntil31219:at,collisionDisabledUntilV31226:at,telegraphUntil31210:at,frozenUntil:Math.max(num(q.frozenUntil),at),sprite:art.sprite,fallbackSprite:art.sprite,spriteHeading:art.heading,imageOnly:true,bitmapRequired:true,curve:0,homingMode31212:"none",scatterHomingPrepared31211:true,bossCastId31210:castId,bossCastResolveAt31210:last+.22,interruptProtectedUntil31210:last+.22,retirePolicy31222:"hero-or-world-boundary"});
       for(const key of ["homeAt31211","homeUntil31211","returnAt","returnUntil","retargetAt31212"])delete q[key];
       added.push(q);
     }
-    const cue={id:s.fxSerial++,sourceId:a.id,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,kind:"danmakuCueV31316",danmakuCueV31316:true,danmakuPhaseV31316:phase(a),danmakuZoneV31316:s.zone,x:p.originX,y:p.originY,sourceOffsetY:num(added[0]?.sourceOffsetY,-18),born:now,duration:last-now+.14,sprite:p.art.sprite,color:p.color,accent:p.accent,vfxStyle:p.vfxStyle,aim:p.aim,gap:p.gap,beatTimes:p.beats.map(b=>now+b.delay),movementTrailV31316:[],label:p.name,imageOnly:true,boss:!!a.boss};
+    const cue={id:s.fxSerial++,sourceId:a.id,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,danmakuPatternIdV31372:p.patternId,kind:"danmakuCueV31316",danmakuCueV31316:true,danmakuPhaseV31316:phase(a),danmakuZoneV31316:s.zone,x:p.originX,y:p.originY,sourceOffsetY:num(added[0]?.sourceOffsetY,-18),born:now,duration:last-now+.14,sprite:p.art.sprite,color:p.color,accent:p.accent,vfxStyle:p.vfxStyle,aim:p.aim,gap:p.gap,beatTimes:p.beats.map(b=>now+b.delay),movementTrailV31316:[],label:p.name,imageOnly:true,boss:!!a.boss};
     s.effects.push(cue);
     s.floatTexts.push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:1.2,text:p.name+" · 열린 통로 유지",color:p.color,critical:!!a.boss});
-    a.lastBossCombatPatternV31230="danmaku-"+p.mode;a.lastBossCombatPatternAtV31230=now;
-    a.danmakuChoreoModeV31316=p.mode;a.danmakuChoreoStartedV31316=now+.30;a.danmakuChoreoUntilV31316=last+.12;a.danmakuChoreoSideV31316=num(cycle)%2;
+    a.lastBossCombatPatternV31230="danmaku-"+p.patternId;a.lastBossCombatPatternAtV31230=now;
+    a.danmakuChoreoModeV31316=p.mode;a.danmakuPatternIdV31372=p.patternId;a.danmakuChoreoStartedV31316=now+.30;a.danmakuChoreoUntilV31316=last+.12;a.danmakuChoreoSideV31316=num(cycle)%2;
     // Recovery begins after the final volley reaches the aimed lane, leaving
     // a deliberate counterattack window before another boss action starts.
     const slowest=Math.min(...p.beats.map(beat=>beat.speed)),arrival=clamp(Math.hypot(p.targetX-p.originX,p.targetY-p.originY)/Math.max(.1,slowest),.5,5.6);
@@ -116729,7 +116858,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(added.length&&firstForMap){mapPatternLocks.set(s,{zone:s.zone,used:true,signature:p.mapSignatureV31371});stats.mapSignatureCasts++;}
     live.set(s,{actor:a,zone:s.zone,phase:phase(a),shots:added,cue,lastTime:now,paused:false,castId,last,soundedBeats:new Set()});
     stats.casts++;stats.shots+=added.length;
-    return {family:"danmaku-"+p.mode,name:p.name,projectiles:added.length,lasers:0,warningAt:now+p.beats[0].delay,danmakuV31316:true};
+    return {family:"danmaku-"+p.mode,patternId:p.patternId,name:p.name,projectiles:added.length,lasers:0,warningAt:now+p.beats[0].delay,danmakuV31316:true};
   }
   function tick(s) {
     const run=s&&live.get(s);if(!run)return;
@@ -116808,7 +116937,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     } finally {ctx.restore();ctx.beginPath();}
     return true;
   }
-  function audit() {const coverage=mapCoverage(),checks={inherited:window.__HAPIL_V31315_RELEASE__?.allPass===true,rankedOwners:owners.size>=71,sourceSchedulerHook:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",patternDeck:Object.keys(names).length>=16,mobileAdmissionCap:MOBILE_CAP===48,desktopAdmissionUnlimited:window.__HAPIL_COMBAT_RC47__?.mobile?.()===true||barrageCap()===Infinity,minimumDodgeDistance:MIN_DISTANCE>=4.5,combatMapOwnerCoverage:coverage.combatMaps>0&&coverage.missingOwner.length===0,mapSignatureCoverage:coverage.signatureCount===coverage.combatMaps&&coverage.missingHost.length===0&&coverage.uniqueSignatures,saveSchemaPreserved:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean),mapCoverage:coverage};}
+  function audit() {const coverage=mapCoverage(),checks={inherited:window.__HAPIL_V31315_RELEASE__?.allPass===true,rankedOwners:owners.size>=71,sourceSchedulerHook:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",patternDeck:deck.length>=64&&spellById.size===deck.length&&new Set(deck).size===deck.length,mobileAdmissionCap:MOBILE_CAP===48,desktopAdmissionUnlimited:window.__HAPIL_COMBAT_RC47__?.mobile?.()===true||barrageCap()===Infinity,minimumDodgeDistance:MIN_DISTANCE>=4.5,combatMapOwnerCoverage:coverage.combatMaps>0&&coverage.missingOwner.length===0,mapSignatureCoverage:coverage.signatureCount===coverage.combatMaps&&coverage.missingHost.length===0&&coverage.uniqueSignatures,mapPatternDiversity:coverage.uniquePatternPrefix&&coverage.uniquePatternCount>=Math.min(coverage.combatMaps,deck.length),saveSchemaPreserved:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean),mapCoverage:coverage,catalog:spellCatalog};}
   function zoneAssets(zone) {
     const paths=new Set();
     for(const row of owners.values())if(row.zone===zone)for(const family of ["rotating-laser","rolling-ordnance","snipe-sword-wave"]){const art=artFor(row.actor,zone,family);if(art?.sprite)paths.add(art.sprite);}
@@ -116841,7 +116970,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     MONGSE_zoneAssetPlan31220=function HAPIL_danmakuPlanV31316(zone,...args){const p={...assetPlan(zone,...args)},paths=zoneAssets(zone);for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of paths){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}p.danmakuAssetsV31316=paths;return p;};
     const jn=Jn;Jn=function HAPIL_danmakuImageV31316(ctx,cache,q,time,settings={}){if(drawShot(ctx,cache,q,time,settings))return;return jn(ctx,cache,q,time,settings);};
     const gn=Gn;Gn=function HAPIL_danmakuCueV31316(ctx,cache,e,time,settings={}){if(drawCue(ctx,cache,e,time,settings))return;return gn(ctx,cache,e,time,settings);};
-    window.__HAPIL_DANMAKU_V31316__=Object.freeze({installed:true,version:VERSION,commonAsset:COMMON_BULLET,names:Object.freeze({...names}),deck,modeFor,artFor,plan,trySchedule,scheduleMapSignature,tick,drawShot,drawCue,zoneAssets,audit,barrageCap,rankedRows:()=>[...owners.values()],mapSignature:signatureFor,mapSignatures:()=>signatures.map(row=>({...row})),mapCoverage,needsMapSignature,active:s=>live.has(s),lockedAsset:(s,a,family)=>mapArtLocks.get(s)?.assets.get(String(a?.id??"boss")+":"+String(family??"danmaku"))?.sprite??null,clearMap:s=>{if(s){mapArtLocks.delete(s);mapPatternLocks.delete(s);}},counters:()=>({...stats})});
+    window.__HAPIL_DANMAKU_V31316__=Object.freeze({installed:true,version:VERSION,commonAsset:COMMON_BULLET,names:Object.freeze({...names}),deck,catalog:spellCatalog,modeFor,artFor,plan,trySchedule,scheduleMapSignature,tick,drawShot,drawCue,zoneAssets,audit,barrageCap,rankedRows:()=>[...owners.values()],mapSignature:signatureFor,mapSignatures:()=>signatures.map(row=>({...row})),mapCoverage,needsMapSignature,active:s=>live.has(s),lockedAsset:(s,a,family)=>mapArtLocks.get(s)?.assets.get(String(a?.id??"boss")+":"+String(family??"danmaku"))?.sprite??null,clearMap:s=>{if(s){mapArtLocks.delete(s);mapPatternLocks.delete(s);}},counters:()=>({...stats})});
     return audit().allPass;
   }
   function schedule(){if(install())return;if(++attempts<128)setTimeout(schedule,0);}schedule();
@@ -119866,7 +119995,7 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
  const phase=a=>a.boss?MONGSE_enemyPhase(a):a.midboss&&a.hp/a.maxHp<=.5?2:1;
  const point=G, MIN=1.1,MAX=30.9;
  const tier=c=>ranks.get(c.sourceId)==='boss'?'boss':'midboss';
- const halfWidth=c=>c.width*27,angularRate=c=>c.type==='clock'?Math.PI*.64/c.activeSeconds:c.bloodV31516?({sweep:1.50,'fan-sweep':1.12,'orbit-cross':.82}[c.type]??0)/c.activeSeconds:0;
+ const halfWidth=c=>c.width*27,angularRate=c=>c.type==='clock'?Math.PI*.64/c.activeSeconds:c.bloodV31516?(({sweep:1.50,'fan-sweep':1.12,'orbit-cross':.82}[c.type]??window.__HAPIL_LASER_CATALOG_RC72__?.angularDistance?.(c.type)??0)/c.activeSeconds):0;
  const settingsFor=s=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current===s?window.__HAPIL_CONTROLS_V31329__.binding.settings?.current??{}:{};
  function local(p,c){const co=Math.cos(c.angle),si=Math.sin(c.angle),u=p[0]*co-p[1]*si,v=p[0]*si+p[1]*co;return{x:c.cx+u/2+v,y:c.cy-u/2+v};}
  function clip(a,b){let lo=0,hi=1;const dx=b.x-a.x,dy=b.y-a.y;for(const [p,d]of[[a.x,dx],[a.y,dy]]){if(Math.abs(d)<1e-9){if(p<MIN||p>MAX)return null;continue;}let u=(MIN-p)/d,v=(MAX-p)/d;if(u>v)[u,v]=[v,u];lo=Math.max(lo,u);hi=Math.min(hi,v);if(lo>hi)return null;}return{a:{x:a.x+dx*lo,y:a.y+dy*lo},b:{x:a.x+dx*hi,y:a.y+dy*hi}};}
@@ -124296,7 +124425,7 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
  const ASSET='./assets/vfx/v31318/cosmic-lucifer-blood-beam.webp',n=(v,d=0)=>Number.isFinite(v)?v:d,stats={scheduled:0,draws:0,segments:0,admissionDenied:0,completed:0};
  let installed=false;const cycles=new WeakMap(),cachedGeometry=new WeakMap();
  const projection=p=>window.__HAPIL_COMBAT_V31333__?.core(p)??G(p.x,p.y);
- function geometry(c,time=c.fireAt){const animated=['sweep','fan-sweep','orbit-cross'].includes(c.type);if(!animated&&cachedGeometry.has(c))return cachedGeometry.get(c);const r=c.radius,d=4.0;let pairs=[];
+ function geometry(c,time=c.fireAt){const catalog=window.__HAPIL_LASER_CATALOG_RC72__,extended=catalog?.has?.(c.type)===true,animated=['sweep','fan-sweep','orbit-cross'].includes(c.type)||(extended&&catalog.isAnimated(c.type));if(!animated&&cachedGeometry.has(c))return cachedGeometry.get(c);const r=c.radius,d=4.0;let pairs=[];
   const line=(a,b)=>pairs.push([a,b]);const poly=pts=>{for(let i=1;i<pts.length;i++)line(pts[i-1],pts[i]);};
   const progress=Math.max(0,Math.min(1,(time-c.fireAt)/Math.max(.01,c.activeSeconds))),direction=Number(c.id)%2===0?1:-1;
   const rotate=(p,a)=>{const co=Math.cos(a),si=Math.sin(a);return[p[0]*co-p[1]*si,p[0]*si+p[1]*co];};
@@ -124326,6 +124455,7 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
    poly([[offset+2.7,-6.5],[offset-2,-4.8],[offset-2.8,-1],[offset-2.8,3.8]]);
    const loop=[];for(let i=0;i<=14;i++){const a=-Math.PI*.75+i/14*Math.PI*1.9;loop.push([offset+Math.cos(a)*3,3.5+Math.sin(a)*3]);}poly(loop);
   }
+  if(extended)pairs=catalog.pairs(c,time,r);
   if(c.type==='sweep'){beam(direction*(progress-.5)*1.50);}
   if(c.type==='fan-sweep'){const a=direction*(progress-.5)*1.12;for(const offset of[-4.2,0,4.2])beam(a,offset);}
   if(c.type==='orbit-cross'){const a=direction*(progress-.5)*.82;beam(a);beam(a+Math.PI/2);}
@@ -124349,7 +124479,7 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
      // One cosmic texture stamp per segment. Core width equals the warning/contact width.
      ctx.drawImage(im,im.naturalWidth*.22,im.naturalHeight*.31,im.naturalWidth*.61,im.naturalHeight*.40,-.5,-hw,len+1,hw*2);ctx.restore();}
    }
-   if(warning&&['sweep','fan-sweep','orbit-cross'].includes(c.type)){
+   if(warning&&(['sweep','fan-sweep','orbit-cross'].includes(c.type)||(window.__HAPIL_LASER_CATALOG_RC72__?.isAnimated?.(c.type)??false))){
     // Mark the moving route before damage starts; these guide marks never deal damage.
     for(const fraction of[.25,.5,.75,1]){const future=geometry(c,c.fireAt+c.activeSeconds*fraction);ctx.strokeStyle=c.accent;ctx.globalAlpha=opacity*(fraction===1?.62:.22);ctx.lineWidth=fraction===1?1.7:1.1;ctx.setLineDash(fraction===1?[4,5]:[2,8]);
      for(const l of future){const a=projection(l.a),b=projection(l.b);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}

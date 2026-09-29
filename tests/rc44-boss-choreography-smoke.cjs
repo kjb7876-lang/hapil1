@@ -94,7 +94,7 @@ function state(extra = {}) {
 const s = state(), boss = s.enemies[0], plan = danmaku.plan(s, boss, 'snipe-sword-wave');
 assert.equal(plan.mode, 'fan');
 assert.equal(plan.count, 18);
-assert.equal(danmaku.deck.length, 16);
+assert.equal(danmaku.deck.length, 64);
 assert.equal(new Set(danmaku.rankedRows().map(row => row.danmakuColorV31316)).size, 71);
 const pathState = {zone: 'dist00', x: 12, y: 8, time: .5};
 const pathBoss = {x: 2, y: 8, danmakuChoreoStartedV31316: 0, danmakuChoreoUntilV31316: 2,
@@ -106,7 +106,7 @@ assert(sweepMove && orbitMove && Math.hypot(sweepMove.x - orbitMove.x, sweepMove
   'lane-sweep and orbit attacks drive visibly different boss trajectories');
 for (let i = 0; i < danmaku.deck.length; i++) {
   const varied = danmaku.plan(s, boss, 'snipe-sword-wave', i * 4);
-  assert.equal(varied.mode, danmaku.deck[i]);
+  assert.equal(varied.patternId, danmaku.deck[i]);
   for (const beat of varied.beats) for (const angle of beat.angles) {
     const offset = Math.abs(Math.atan2(Math.sin(angle - varied.aim), Math.cos(angle - varied.aim)));
     assert(offset >= varied.gap, `${varied.mode} keeps its declared safe corridor`);
@@ -168,7 +168,7 @@ mobileRC47 = true;
 const compact = state();
 assert.equal(danmaku.plan(compact, compact.enemies[0], 'rotating-laser', 16).count, 36);
 assert.equal(danmaku.trySchedule(compact, compact.enemies[0], 'rotating-laser', 16).projectiles,
-  danmaku.plan(compact, compact.enemies[0], 'rotating-laser', 16, danmaku.mapSignature(compact.zone).mode).count);
+  danmaku.plan(compact, compact.enemies[0], 'rotating-laser', 16, danmaku.mapSignature(compact.zone).patternId).count);
 for (let i = 0; i < danmaku.deck.length; i++) {
   const mobilePlan = danmaku.plan(compact, compact.enemies[0], 'snipe-sword-wave', i * 4);
   assert(mobilePlan.count <= 48, `${mobilePlan.mode} remains below the mobile admission cap`);
@@ -353,4 +353,4 @@ calls.length = 0;
 render.bullet(paint, {}, {...visible, bodySpawned31219: false}, s.time, {});
 assert.deepEqual(calls, [], 'the bitmap stays hidden before its scheduled launch');
 
-console.log('RC44: movement patterns/trails, safe lane, time-stop/dialogue timing, recovery, audio, production bitmap/RC43 art, low FX and fallback OK');
+console.log('RC44: movement choreography, 64 spell cards, safe lanes, time-stop/dialogue timing, recovery, audio, and bitmap fallback OK');
