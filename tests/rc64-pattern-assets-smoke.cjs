@@ -56,7 +56,8 @@ mobile=true;assert.equal(dm.barrageCap(),48);for(let cycle=0;cycle<256;cycle+=4)
 const ownerColors = dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
   .map(row => row.danmakuColorV31316);
 assert.equal(new Set(ownerColors).size, 71, 'each attacker receives its assigned distinct, stable color');
-assert(dm.rankedRows().every(row => row.danmakuColorV31316 === dmContext.MONGSE_bossBarragePalette(row.actor).color));
+assert(dm.rankedRows().every(row => /^hsl\([\d.]+ 96% 62%\)$/.test(row.danmakuColorV31316)),
+  'each boss bullet must use its assigned vivid owner color instead of the shared theme color');
 assert(dmContext.window.__HAPIL_DANMAKU_V31316__.rankedRows()
   .every(row => ['flare', 'clock', 'thread', 'sigil'].includes(row.danmakuVfxStyleV31316)),
 'every attacker receives a matching VFX motif');

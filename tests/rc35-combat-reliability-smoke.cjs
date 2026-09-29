@@ -125,8 +125,10 @@ assert(contact.includes('MONGSE_contactDamageScaleV31535'),
   'consecutive-hit damage attenuation is missing');
 assert(contact.includes('Math.min(5, MONGSE_recentContactHitsV31535) * 0.1'),
   'consecutive-hit ramp or its 50% floor changed unexpectedly');
-assert(contact.includes('e.invulnerableUntil = e.time + 0.1'),
-  'player contact interval is not 0.1 seconds');
+assert(contact.includes('e.invulnerableUntil = e.time'),
+  'accepted contact must not create a general player invulnerability interval');
+assert(contact.includes('MONGSE_contactDamageScaleV31535'),
+  'immediate follow-up hits should use the consecutive-contact damage scale');
 assert(main.includes('MONGSE_HAZARD_REHIT_SECONDS_V31215 = 0.1'));
 assert(main.includes('MONGSE_COMBAT_PHYSICS_V3128.projectileCap === 72'));
 assert(main.includes('projectiles: 64'));
@@ -179,4 +181,4 @@ assert(legacyHeel.includes('impactFallbackSprite: MONGSE_SEVEN_SINS_THROWABLES.l
 assert(main.includes('a11-cosmic-v31318'), 'Cosmic Lucifer second form is missing from the audited bundle');
 assert(read('assets/rc33/boss-laser-render.js').includes('a11-cosmic-v31318'));
 
-console.log('PASS: 777 hero projectile contact across story/hell/boss maps, 180 ms mobile sweep, enlarged contact envelope, mixed-type minion damage, 0.1 s hit interval, streak reduction, rotating readable barrages, Lust high-heel art route, and Cosmic Lucifer route.');
+console.log('PASS: 777 hero projectile contact across story/hell/boss maps, 180 ms mobile sweep, enlarged contact envelope, mixed-type minion damage, no blanket hit invulnerability, streak reduction, rotating readable barrages, Lust high-heel art route, and Cosmic Lucifer route.');

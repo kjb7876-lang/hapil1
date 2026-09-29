@@ -7,8 +7,8 @@ const root = path.resolve(__dirname, '..');
 const main = fs.readFileSync(path.join(root, 'assets/index-v31526.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
-assert(html.includes('./assets/index-v31526.js?v=37700'),
-  'the browser must load the RC76 game bundle');
+assert(html.includes('./assets/index-v31526.js?v=37800'),
+  'the browser must load the RC77 game bundle');
 assert(main.includes('MONGSE_applyCheatCode = (0, l.useCallback)'),
   'the 777 progression handler must remain installed');
 assert(main.includes('applyCode: MONGSE_applyCheatCode'),
@@ -138,7 +138,13 @@ assert(main.includes('tintShot(im,q.danmakuColorV31316??q.color)'),
   'boss-colored jellybean art must be tinted by the owner color at draw time');
 assert(main.includes('ctx.lineCap=\'round\';ctx.lineJoin=\'round\''),
   'connected laser geometry should use rounded joined owner-colored strokes');
-assert(main.includes('len+overlap*2'),
-  'connected laser texture strips should overlap at joints');
+assert((main.match(/__HAPIL_CONNECTED_LASER_V31377__;/g) || []).length >= 3,
+  'standard, blood and final-boss laser renderers must use the shared connected path');
+assert(!main.includes('len+overlap*2'),
+  'branch lasers must not restart cropped art at every segment');
+assert(main.includes('e.invulnerableUntil = e.time'),
+  'accepted damage must not grant a blanket post-hit invulnerability interval');
+assert(main.includes('attackInstanceIdV31377 ?? e.projectileId'),
+  'separate projectiles from one boss skill must keep distinct hit identities');
 
 console.log('PASS: 777 settings submission, directional blink, no awakening auto-blink, boss burst/phase damage limits, rounded laser joins and boss-tinted jellybean rendering.');

@@ -176,10 +176,11 @@ for(let i=0;i<64;i++){
  const shots=[...state.hostileProjectiles],end=Math.max(...shots.map(q=>q.motionReleaseAt31219))+.4;
  while(state.time<end){state.time+=.05;dm.tick(state);}
  assert(shots.every(q=>q.bodySpawned31219&&Number.isFinite(q.vx)&&Number.isFinite(q.vy)&&Math.hypot(q.vx,q.vy)>0),`card ${i} releases all real bodies`);
- assert(shots.every(q=>q.danmakuColorV31316==='#a44cff'),'authored owner palette survives scheduling');
+ const ownerColor=shots[0].danmakuColorV31316;assert(/^hsl\([\d.]+ 96% 62%\)$/.test(ownerColor),'scheduled shots carry a distinct vivid owner color');
+ assert(shots.every(q=>q.danmakuColorV31316===ownerColor),'one boss keeps the same color across its full volley');
  assert(dm.drawShot(painter,{},shots[0],state.time,{lowFx:true}));
  assert(rendered.at(-1) instanceof data.OffscreenCanvas,'low-FX renders the tinted bitmap, not only a halo');
- assert.equal(rendered.at(-1).tint,'#a44cff');
+ assert.equal(rendered.at(-1).tint,ownerColor);
 }
 assert(rendered.every(image=>image===rendered[0]),'repeated palette uses the cached 64px bitmap');
 

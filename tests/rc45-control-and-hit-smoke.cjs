@@ -267,9 +267,10 @@ assert.equal(damageContext.reduce(damagedHero, 9, -1, 0, shot), true);
 assert.equal(damagedHero.hp, 91, 'an accepted enemy hit reduces hero HP');
 assert.equal(marks.at(-1).result, 'HIT');
 damagedHero.time = 1.05;
-assert.equal(damageContext.reduce(damagedHero, 9, -1, 0, {...shot, id: 'second-shot'}), false);
-assert.equal(damagedHero.hp, 91, 'native invulnerability prevents damage only during its short window');
-assert.equal(marks.at(-1).reason, 'native-invulnerability');
+assert.equal(damageContext.reduce(damagedHero, 9, -1, 0, {...shot, id: 'second-shot'}), true);
+assert.equal(damagedHero.hp, 83, 'a distinct follow-up attack hits immediately with the reduced consecutive-hit damage');
+assert.equal(damagedHero.invulnerableUntil, damagedHero.time, 'accepted hits do not create blanket invulnerability');
+assert.equal(marks.at(-1).result, 'HIT');
 
 const projectilePipelineSource = read('assets/combat-v31402/projectile-pipeline.js');
 const pipelineWindow = {};
