@@ -18,7 +18,7 @@ const episodes = [
   {part: 7, zone: 'murder03', triggerId: 'mb-murder03'},
 ];
 
-assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=38703/);
+assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39301/);
 assert.match(bundle, /__HAPIL_EPISODE_COSMIC_V387__\?\.beforeDeath\(t, e\)/,
   'campaign Cosmic final death must enter the regular reward and map-clear route');
 assert.match(bundle, /get zoneCombatCleared\(\)/);

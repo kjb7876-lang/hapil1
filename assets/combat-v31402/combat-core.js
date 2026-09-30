@@ -151,6 +151,7 @@
         const dodge = world?.lastDodgeAt;
         const eligible = world && world.time < world.invulnerableUntil && world.time - dodge <= .52;
         const result = adapters.reducePlayer(world, ...args);
+        if(result)root.__HAPIL_SAMONG_RC91__?.tryRevive?.(world);
         if (eligible && dodge !== -99 && world.lastDodgeAt === -99) {
           step(s, a, 'perfect-dodge-feedback'); adapters.perfectFeedback?.(world);
         }

@@ -12,7 +12,7 @@
     Object.freeze({part: 7, zone: 'murder03', triggerId: 'mb-murder03', cosmicId: 'kair-great-06'}),
   ]);
   const byZone = new Map(EPISODES.map(row => [row.zone, row]));
-  const modeAllowed = mode => mode === 'STORY' || mode === 'HELL';
+  const modeAllowed = mode => mode === 'STORY';
   const finite = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
   const array = value => Array.isArray(value) ? value : [];
   const clue = (spec, status) => `combat:episode-cosmic-v387:${spec.zone}:${status}`;

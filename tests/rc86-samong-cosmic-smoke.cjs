@@ -16,9 +16,9 @@ const art = {
   baekAction: './assets/vfx/rc86/cult03-heretic-baek-attack-v2.png',
 };
 
-assert.match(html, /assets\/index-v31526\.js\?v=39001/);
-assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=39001/);
-assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=38703/);
+assert.match(html, /assets\/index-v31526\.js\?v=39301/);
+assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=39301/);
+assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39301/);
 assert.match(bundle, /__HAPIL_RC86_BRIDGE__/);
 assert.match(bundle, /text:`사몽 시련 \$\{p\.index\} · \$\{p\.role\}`/,
   'regional Dream encounters must not be mislabeled as the six Kair Great bosses');
@@ -200,7 +200,7 @@ const hellState = {
   hapilFinalBattleV31300: {stage: 7, secondPhaseActive: true, monochromeActiveV31377: true, completed: false},
 };
 api.tick(hellState);
-assert.equal(api.snapshot(hellState).status, 'charging', 'Hell Samong finale must also admit the summons');
+assert.equal(api.snapshot(hellState),null,'removed Hell mode never admits a story Samong finale');
 const earlyState = {
   ...state, time: 90, gameModeV31346: 'STORY',
   hapilSamongCosmicWaveV386: undefined,
@@ -209,4 +209,4 @@ const earlyState = {
 };
 api.tick(earlyState);
 assert.equal(earlyState.hapilSamongCosmicWaveV386, undefined, 'summons must not leak into the first phase');
-console.log('RC86 PASS: apostate idle/action art stays identity-consistent; six unique Kair Great decks summon in Story/Hell with bounded cleanup and Dream isolation.');
+console.log('RC86 PASS: apostate idle/action art stays identity-consistent; six unique Kair Great decks summon only in Story with bounded cleanup and Dream isolation.');

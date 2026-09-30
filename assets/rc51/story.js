@@ -4,7 +4,8 @@
  const sessions=new WeakMap();let root=null,owner=null,done=null,previousFocus=null,autoLeft=0,autoPaused=false,lastUi=0,previousBlocked=false,narration=null,narrationToken=0;
  const openingVoice=data.openingVoice?.opening.audio??'./assets/rc26/audio/opening-memory.wav',rootVoice=data.openingVoice?.root.audio??'./assets/rc26/audio/root-memory.wav';
  const enabled=s=>!!s&&!s.practiceV31329&&(window.__HAPIL_MODES_V31346__?.mode(s)??s.gameModeV31346??(s.hellModeV31322?'HELL':'STORY'))==='STORY';
- const active=s=>enabled(s)&&s.hp>0&&s.zone==='cult04'&&s.activeHeroId==='hwando'&&s.hapilSamongActiveV31300===true&&s.hapilFinalBattleV31300?.secondPhaseActive===true&&s.hapilFinalBattleV31300.stage>=7&&!s.hapilFinalBattleV31300.completed;
+ const storyActive=s=>enabled(s)&&s.hp>0&&s.zone==='cult04'&&s.activeHeroId==='hwando'&&s.hapilSamongActiveV31300===true&&s.hapilFinalBattleV31300?.secondPhaseActive===true&&s.hapilFinalBattleV31300.stage>=7&&!s.hapilFinalBattleV31300.completed;
+ const active=s=>storyActive(s)||window.__HAPIL_SAMONG_RC91__?.active(s)===true;
  function memory(s){let m=sessions.get(s);if(!m||s.time<m.last-.5){m={zone:null,last:s.time,pre:false,post:false,firstPost:false,awakenPre:false,elapsed:0,trails:[],wasActive:false};sessions.set(s,m);}m.last=s.time;return m;}
  function el(tag,cls,text){const e=document.createElement(tag);e.className=cls;if(text!=null)e.textContent=text;return e;}
  function clearInput(){window.__HAPIL_CONTROLS_V31329__?.clear?.();}
@@ -54,7 +55,8 @@
  }
  function beforeFrame(s,ctx={}){
   if(root){if(owner!==s||!enabled(s)||s.hp<=0){close(false);}else{const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0)close();}return true;}}
-  document.documentElement.classList.toggle('rc51-samong',active(s));
+  document.documentElement.classList.toggle('rc51-samong',storyActive(s));
+  document.documentElement.classList.toggle('rc91-samong',window.__HAPIL_SAMONG_RC91__?.active(s)===true);
   if(!enabled(s)||ctx.blocked||s.hp<=0)return false;
   const m=memory(s),r=records.get(s.zone);
   if(m.zone!==s.zone){m.zone=s.zone;m.pre=false;m.post=false;m.firstPost=false;m.awakenPre=false;m.elapsed=0;m.trails=[];}
@@ -70,12 +72,12 @@
   return false;
  }
  // World time is the single clock for enemy AI, attacks, beams and projectiles.
- // Only the local awakened physician receives an independent accelerated clock.
- function clock(s,realDt){const m=memory(s);const on=active(s);document.documentElement.classList.toggle('rc51-samong',on);
+ // Only the locally awakened hero receives an independent accelerated clock.
+ function clock(s,realDt){const m=memory(s);const on=active(s);const passive=window.__HAPIL_SAMONG_RC91__?.active(s)===true;document.documentElement.classList.toggle('rc51-samong',on&&!passive);document.documentElement.classList.toggle('rc91-samong',on&&passive);if(passive)realDt=window.__HAPIL_SAMONG_RC91__.delta(s,realDt);
   if(!on){m.wasActive=false;m.trails=[];document.documentElement.classList.remove('rc51-time-stop');return realDt;}
   if(!m.wasActive){m.elapsed=0;m.startTime=s.time;m.wasActive=true;}
-  m.elapsed+=realDt;const frozen=m.elapsed%2.8<1.2,scale=frozen?0:.16,dt=realDt*scale,extra=realDt*2.2-dt;
-  document.documentElement.classList.toggle('rc51-time-stop',frozen);
+  m.elapsed+=realDt;const frozen=m.elapsed%2.8<1.2,scale=frozen?0:.16,dt=Math.min(.04,realDt*scale),extra=realDt*2.2-dt;
+  document.documentElement.classList.toggle('rc51-time-stop',frozen&&!passive);
   if(Number.isFinite(s.lastAttack))s.lastAttack-=extra;
   for(const k of ['autoSkillNextAt','manualControlUntilV31329','heroAttackLockUntilV31336','heroMoveLockUntilV31336','dashingUntil','autoEvadeUntil31223','heroSleepUntil','heroCharmUntil'])if(Number.isFinite(s[k])&&s[k]>s.time)s[k]=Math.max(s.time,s[k]-extra);
   for(const k of Object.keys(s.cooldowns??{}))if(s.cooldowns[k]>s.time)s.cooldowns[k]=Math.max(s.time,s.cooldowns[k]-extra);

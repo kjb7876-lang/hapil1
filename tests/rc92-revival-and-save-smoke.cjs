@@ -1,0 +1,33 @@
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const storage=new Map(),bridge={modeApi:{installed:true,mode:s=>s.gameModeV31346},serializeSave:()=>({}),normalizeSave:r=>({...r}),restoreEntry(){},restoreFinalBattle(){return false;},renderFrame(){return false;}};
+const window={__HAPIL_RC86_BRIDGE__:bridge,__HAPIL_DANMAKU_RPG_RC88__:{installed:true},dispatchEvent(){}};
+const c={window,localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v))},Event:class{},setTimeout(){}};
+vm.createContext(c);vm.runInContext(read('assets/rc91/samong-awakening.js'),c);
+const api=window.__HAPIL_SAMONG_RC91__;
+const main=read('assets/index-v31526.js'),a=main.indexOf('function MONGSE_tickSevenSinHeroEffects('),b=main.indexOf('\nfunction MONGSE_clearSevenSinTransientState',a);
+assert(a>=0&&b>a);vm.runInContext(main.slice(a,b),c);
+const fresh=hero=>({gameModeV31346:'DREAM',activeHeroId:hero,time:10,hp:0,maxHp:240,enemies:[],floatTexts:[],effects:[]});
+api.unlock(null,'777');
+for(const hero of [...api.heroes].reverse()){
+  const s=fresh(hero);s.hp=-4;s.heroHealingBlockedUntil=13.1;s.heroHealingCeiling=-4;
+  assert(api.tryRevive(s));assert.equal(s.hp,120);
+  c.MONGSE_tickSevenSinHeroEffects(s);
+  assert.equal(s.hp,120,hero+': revival must survive a pre-lethal healing ceiling');
+  assert.equal(s.heroHealingBlockedUntil,13.1,'revival does not erase the ordinary healing debuff');
+  s.hp=200;c.MONGSE_tickSevenSinHeroEffects(s);assert.equal(s.hp,120,'the healing ceiling still blocks later ordinary recovery');
+  assert.equal(api.snapshot(s).active,7);assert.equal(api.snapshot(s).cooldown,77);
+}
+storage.clear();const locked={...fresh('hwando'),gameModeV31346:'STORY',hp:240};
+bridge.restoreEntry(locked,{samongRC91:{version:99,unlocked:true}});
+assert.equal(api.unlocked(locked),false,'an invalid save version cannot silently unlock Samong');
+c.normBase=r=>({...r});c.valid=(mode,s)=>api.select(mode,s);
+const normalizer=main.split('\n').find(line=>line.includes('ji=function HAPIL_modeNormalizeV31346'));
+assert(normalizer);vm.runInContext(normalizer,c);
+const malformed=c.ji({gameModeV31346:'DREAM',samongRC91:{version:99,unlocked:true}});
+assert.equal(malformed.gameModeV31346,'STORY');assert.equal(api.unlocked(),false);
+const valid={version:1,unlocked:true,clock:5,active:3,cooldown:50,grace:.2,activations:1,heroId:'slayer',enemies:[]};
+bridge.restoreEntry(fresh('slayer'),{samongRC91:valid});assert.equal(api.unlocked(),true);
+assert.equal(api.sanitize({version:99,unlocked:true}),null);
+assert(main.includes('MONGSE_frameDeltaMs31220 = Math.max(0, e - n)'),'a late visibility event cannot produce negative simulation or passive time');
+console.log('RC92 PASS: reverse eight-hero revival survives glutton healing ceilings, keeps heal suppression, and rejects invalid-version unlock restoration.');

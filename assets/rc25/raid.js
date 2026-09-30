@@ -2,7 +2,7 @@
  const VERSION='3.25-RAID-RC25',CUT=.6;
  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
  const mode=s=>window.__HAPIL_MODES_V31346__?.mode?.(s)||s?.gameModeV31346||'STORY';
- const ratios={STORY:.01,HELL:.03,DREAM:.06};
+ const ratios={STORY:.01,DREAM:.01};
  const metrics={bodyChecks:0,bodyHits:0,damageFloors:0,suppressed:0,statUpdates:0,ultimateDebuffs:0};
  const baseStats=new WeakMap(),tickStates=new WeakMap();
  const flags=(s,h)=>{
@@ -36,7 +36,7 @@
  }
  function afterHit(s,h,applied){const f=flags(s,h);if(!f||!(applied>0))return false;
   const m=mode(s);if(f.ultimate){s.heroHealingReducedUntilRC24=Math.max(num(s.heroHealingReducedUntilRC24),num(s.time)+6);metrics.ultimateDebuffs++;s.floatTexts??=[];s.floatTexts.push({id:s.fxSerial++,x:s.x,y:s.y-.7,born:s.time,duration:1.05,text:'회복량 -66% · 6초',color:'#ffd991',critical:true});}
-  if(f.actor&&f.boss){const leech=m==='DREAM'?.08:m==='HELL'?.055:.025;f.actor.hp=Math.min(num(f.actor.maxHp),num(f.actor.hp)+applied*leech);}
+  if(f.actor&&f.boss){const leech=.025;f.actor.hp=Math.min(num(f.actor.maxHp),num(f.actor.hp)+applied*leech);}
   return true;
  }
  function healing(s,a,amount){const n=num(amount);return num(s?.heroHealingReducedUntilRC24)>num(s?.time)?n*.34:n;}
@@ -48,12 +48,11 @@
   return {color:`hsl(${hue} 86% 60%)`,accent:`hsl(${(hue+48)%360} 96% 78%)`};
  }
  function damagePalette(a,old={}){const p=ownerColor(a);return {...old,color:typeof old?.color==='string'?old.color:p.color,accent:typeof old?.accent==='string'?old.accent:p.accent};}
- function damageScale(s,h){const f=flags(s,h);if(!f?.boss)return 1;const m=mode(s);return m==='DREAM'?1.24:m==='HELL'?1.15:1.05;}
+ function damageScale(s,h){const f=flags(s,h);if(!f?.boss)return 1;const m=mode(s);return 1.05;}
  function tick(s){if(!s||!Array.isArray(s.enemies))return;const now=num(s.time),m=mode(s),previous=tickStates.get(s),dt=previous?.mode===m?Math.max(0,Math.min(.2,now-previous.time)):0;tickStates.set(s,{time:now,mode:m});
-  const hpFactor=m==='DREAM'?1.65:m==='HELL'?1.35:1.08,damageFactor=m==='DREAM'?1.24:m==='HELL'?1.15:1.05,speedFactor=m==='DREAM'?1.16:m==='HELL'?1.10:1.03,regen=m==='DREAM'?.0013:m==='HELL'?.00085:.00038;
-  for(const a of s.enemies){if(!(a.boss||a.midboss)||a.hp<=0||a.visualOnly)continue;let b=baseStats.get(a);if(!b){b={mode:'',maxHp:num(a.maxHp),hp:num(a.hp),fields:{}};for(const k of ['damage','attackDamage','projectileDamage','moveSpeed','speed','attackSpeed','staggerResistance'])if(Number.isFinite(Number(a[k])))b.fields[k]=Number(a[k]);baseStats.set(a,b);}
-   if(b.mode!==m){const ratio=num(a.hp)/Math.max(1,num(a.maxHp));a.maxHp=b.maxHp*hpFactor;a.hp=Math.max(1,a.maxHp*ratio);for(const [k,v] of Object.entries(b.fields)){if(k==='staggerResistance')a[k]=Math.max(0,v*(m==='DREAM'?.82:m==='HELL'?.9:.97));else if(['moveSpeed','speed','attackSpeed'].includes(k))a[k]=v*speedFactor;else a[k]=v*damageFactor;}b.mode=m;metrics.statUpdates++;}
-   if(dt>0){a.hp=Math.min(num(a.maxHp),num(a.hp)+num(a.maxHp)*regen*dt);}
+  window.__HAPIL_SAMONG_RC91__?.scaleEnemies(s);
+  for(const a of s.enemies){if(!(a.boss||a.midboss)||a.hp<=0||a.visualOnly)continue;
+   if(dt>0)a.hp=Math.min(num(a.maxHp),num(a.hp)+num(a.maxHp)*.00038*dt);
    const p=ownerColor(a);a.bossBloodColorRC24=p.color;a.bossBloodAccentRC24=p.accent;
   }
   markLust(s);sweep(s);

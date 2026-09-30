@@ -300,7 +300,7 @@
   function canUseSamong(state, bridge) {
     if (!state || state.zone !== 'cult04') return false;
     const mode = bridge.modeApi?.mode?.(state);
-    if (mode === 'DREAM') return false;
+    if (mode !== 'STORY') return false;
     const battle = state.hapilFinalBattleV31300;
     const boss = finiteArray(state.enemies).find(actor => actor?.id === 'c104-boss');
     return Boolean(

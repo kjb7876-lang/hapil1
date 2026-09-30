@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),output=process.env.HAPIL_QA_OUTPUT||path
 const server=require('node:http').createServer((req,res)=>{
  const url=new URL(req.url,'http://localhost'),file=path.resolve(root,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
  if(!file.startsWith(root+path.sep)){res.statusCode=403;res.end();return;}
- try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(file)]||'application/octet-stream');res.end(file.endsWith('index-v31526.js')?fs.readFileSync(file,'utf8')+'\nwindow.__RC85_TEST__={get An(){return An},get Ln(){return Ln},F,G};':fs.readFileSync(file));}catch{res.statusCode=404;res.end();}
+ try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(file)]||'application/octet-stream');res.end(file.endsWith('index-v31526.js')?fs.readFileSync(file,'utf8')+'\nwindow.__RC85_TEST__={get An(){return An},get Ln(){return Ln},F,G,lineOfSight:(s,a,p)=>!pt(s.zone,a,p,.12)&&!ut(s.zone,p.x,p.y,.18)};':fs.readFileSync(file));}catch{res.statusCode=404;res.end();}
 }).listen(0,'127.0.0.1');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -33,14 +33,23 @@ const assert=require('node:assert/strict');
  await page.waitForFunction(t=>window.__MONGSE_QA_STATE__.time>t+.3,result.time);
  await page.evaluate(()=>{window.__HAPIL_CONTROLS_V31329__.setMode('manual');window.__MONGSE_QA_API__.stageV3128BossShowcase('ep1a11');});
  await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
- const beforeLaser=await page.evaluate(()=>window.__HAPIL_CONNECTED_LASER_V31377__.stats().textured);
+ const beforeLaser=await page.evaluate(()=>window.__HAPIL_CONNECTED_LASER_V31377__.stats().draws);
  // The mask's phase 0 has no laser card. Exercise a real authored combat phase
  // for this separate renderer check; the first encounter above stays natural.
- console.log('LASER_STAGE',await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,a=s.enemies.find(a=>a.boss),b=window.__HAPIL_RC86_BRIDGE__;
+ // Showcase entry can be temporarily locked and preserves the previous hero
+ // position. Prepare a legal in-range target and retry normal admission; never
+ // erase a committed cast or weaken the actual first battle above.
+ await page.waitForFunction(()=>{const s=window.__MONGSE_QA_STATE__,a=s.enemies.find(a=>a.boss),b=window.__HAPIL_RC86_BRIDGE__;
+ if(!a||a.hp<=0)return false;
  const phase=[1,2,3].find(ph=>b.patterns(a,ph).some(p=>p.laserV31331));if(!phase)throw Error('showcase has no native laser card');
  a.humanPhase0=false;a.fixedPhase=phase;a.currentPhase=phase;
- window.__HAPIL_LASERS_V31332__.dispatch(s,a,0);return {id:a.id,phase,casts:s.bossLaserCastsV31330?.map(c=>({beam:c.beam,fireAt:c.fireAt,endAt:c.endAt}))}}));
- await page.waitForFunction(n=>window.__HAPIL_CONNECTED_LASER_V31377__.stats().textured>n,beforeLaser,{timeout:20000});
+ const pattern=b.patterns(a,phase).find(p=>p.laserV31331);
+ for(let i=0;i<24;i++){const angle=i*Math.PI/12,p=b.point(s.zone,a.x+Math.cos(angle)*2,a.y+Math.sin(angle)*2,.48);
+  if(Math.hypot(p.x-a.x,p.y-a.y)<=pattern.radius+.3&&window.__RC85_TEST__.lineOfSight(s,a,p)){s.x=p.x;s.y=p.y;break;}}
+ return (s.bossLaserCastsV31330??[]).some(c=>c.sourceId===a.id&&c.endAt>s.time)||!!window.__HAPIL_LASERS_V31332__.dispatch(s,a,0);
+ },null,{timeout:20000,polling:100});
+ console.log('LASER_STAGE',await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return {casts:s.bossLaserCastsV31330?.map(c=>({beam:c.beam,fireAt:c.fireAt,endAt:c.endAt}))}}));
+ await page.waitForFunction(n=>window.__HAPIL_CONNECTED_LASER_V31377__.stats().draws>n,beforeLaser,{timeout:20000});
  const sprites=await page.evaluate(()=>{const api=window.__HAPIL_HERO_CONSISTENCY_RC5__,t=window.__RC85_TEST__,hero=t.F.find(h=>h.id==='slayer');
  const rows=[];for(const dir of ['front','back','left','right'])for(const kind of ['idle','move','attack','skill','guard','dash','hurt']){
  const m={kind,direction:dir,characterCommitV31342:{sector:{front:'s',back:'n',left:'w',right:'e'}[dir]},dx:dir==='left'?-1:1,dy:dir==='back'?-1:1,started:1,until:1.5,facing:dir==='left'?-1:1};

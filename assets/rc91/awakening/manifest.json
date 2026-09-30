@@ -1,0 +1,143 @@
+{
+  "version": "RC91",
+  "generator": "image_gen",
+  "usage": "7-second Samong mode revival HUD; original hero identity retained",
+  "heroes": [
+    {
+      "hero": "gunner",
+      "path": "./assets/rc91/awakening/gunner.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        41,
+        47,
+        1188,
+        1214
+      ],
+      "transparent": true,
+      "sha256": "3ec597be4553cdc8fbc1f673e15c2826b3f82bbc1dccd79a254a75062b46e4d4"
+    },
+    {
+      "hero": "hunter",
+      "path": "./assets/rc91/awakening/hunter.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        19,
+        1244,
+        1254
+      ],
+      "transparent": true,
+      "sha256": "0b43ee61b633c28114f6148ef10514bf18a91af0a6b73111eb84938ab4bd4d74"
+    },
+    {
+      "hero": "hwando",
+      "path": "./assets/rc91/awakening/hwando.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        0,
+        1210,
+        1254
+      ],
+      "transparent": true,
+      "sha256": "d6e8d76413333323034aeb50552e054467a0f87515efb20f8d0d9c83ae910230"
+    },
+    {
+      "hero": "lauren",
+      "path": "./assets/rc91/awakening/lauren.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        0,
+        1246,
+        1254
+      ],
+      "transparent": true,
+      "sha256": "292772a2caa58f3f60ee6b90da1584071da730ab60611fa962e5856b69d05bfa"
+    },
+    {
+      "hero": "michaela",
+      "path": "./assets/rc91/awakening/michaela.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        1,
+        1230,
+        1254
+      ],
+      "transparent": true,
+      "sha256": "3ef93277ef40ecedbe54941a40cff390e5bfd614e2a059710c0f40e7f58b699e"
+    },
+    {
+      "hero": "neon",
+      "path": "./assets/rc91/awakening/neon.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        8,
+        1234,
+        1254
+      ],
+      "transparent": true,
+      "sha256": "3ca4f5901c31ce3bfa5e4d77240e2aca45b7f8a75902832c883b6493e10eb305"
+    },
+    {
+      "hero": "seoha",
+      "path": "./assets/rc91/awakening/seoha.png",
+      "size": [
+        1179,
+        1334
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        0,
+        1179,
+        1334
+      ],
+      "transparent": true,
+      "sha256": "c931f8970fede0e290b345803bf410a0fae8f1eea3345744716e89de601d4c58"
+    },
+    {
+      "hero": "slayer",
+      "path": "./assets/rc91/awakening/slayer.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        0,
+        16,
+        1242,
+        1254
+      ],
+      "transparent": true,
+      "sha256": "69e79aeb12eb0634b55df85d58f4c134170b32adfcb16d3998828aaa00461da6"
+    }
+  ]
+}

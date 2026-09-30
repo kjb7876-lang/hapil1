@@ -1,0 +1,49 @@
+// Behavioral policy tests; real native reducer/render/load order live in the browser test.
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict'),crypto=require('crypto');
+const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8'),storage=new Map();
+const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v))};
+const window={dispatchEvent(){}};
+const c={window,localStorage,setTimeout(){},Event:class{},Number,Math,Object,Array,Map,Set,JSON};
+vm.createContext(c);vm.runInContext(read('assets/rc91/samong-awakening.js'),c);const api=window.__HAPIL_SAMONG_RC91__;
+const fresh=mode=>({gameModeV31346:mode,activeHeroId:'slayer',hp:240,maxHp:240,time:10,enemies:[]});
+assert(!api.unlocked());assert.equal(api.select('DREAM'),'STORY');assert.equal(api.select('HELL'),'STORY');
+assert(!api.unlock(null,'old-dream-preference'));assert.equal(api.select('DREAM'),'STORY');
+storage.set('hapilEndingCleared','true');assert.equal(api.select('DREAM'),'DREAM');storage.clear();
+assert(api.unlock(null,'777'));assert.equal(api.select('DREAM'),'DREAM');assert.equal(api.select('HELL'),'STORY');
+let s=fresh('STORY');s.hp=0;assert(!api.tryRevive(s));
+s=fresh('DREAM');s.hp=0;assert(api.tryRevive(s));assert.equal(s.hp,120);assert.equal(api.snapshot(s).active,7);assert.equal(api.snapshot(s).cooldown,77);assert.equal(api.incomingBuff(s),.12);
+for(let i=0;i<10;i++)api.advance(s,.1,true);assert.equal(api.snapshot(s).active,7,'paused time is never consumed');
+for(let i=0;i<35;i++)api.advance(s,.1,false);assert(Math.abs(api.snapshot(s).active-3.5)<1e-7);assert.equal(s.time,10,'the awakening clock does not depend on world time');
+const saved=JSON.parse(JSON.stringify(api.snapshot(s))),loaded=fresh('DREAM');api.restore(loaded,saved);
+assert(Math.abs(api.snapshot(loaded).active-3.5)<1e-7);assert(Math.abs(api.snapshot(loaded).cooldown-73.5)<1e-7);
+for(let i=0;i<35;i++)api.advance(loaded,.1,false);assert(!api.active(loaded));assert(Math.abs(api.snapshot(loaded).cooldown-70)<1e-7);
+loaded.hp=0;assert(!api.tryRevive(loaded),'a second lethal hit during cooldown is not another revival');loaded.hp=240;
+const delayed=fresh('DREAM');delayed.hp=0;api.tryRevive(delayed);api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,3.5,'slow frames consume real combat time');api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,0);assert.equal(api.snapshot(delayed).cooldown,70);
+for(let i=0;i<700;i++)api.advance(loaded,.1,false);loaded.hp=0;assert(api.tryRevive(loaded));assert.equal(api.snapshot(loaded).activations,2);
+// Exactly 2x the same Story baseline; repeated ticks/load/mode selection never stack.
+const mob={id:'mob',hp:70,maxHp:100,damage:10,speed:2,attackSpeed:1,defense:3};
+const boss={id:'boss',boss:true,hp:700,maxHp:1000,damage:20,speed:3,attackSpeed:1};
+const friend={id:'friend',friendly:true,hp:100,maxHp:100,damage:8};
+const story=fresh('STORY');story.enemies=[{...mob},{...boss},{...friend}];api.scaleEnemies(story);
+const dream=fresh('DREAM');dream.enemies=[{...mob},{...boss},{...friend}];api.scaleEnemies(dream);
+for(let i=0;i<100;i++)api.scaleEnemies(dream);
+for(let i=0;i<2;i++)for(const k of ['hp','maxHp','damage','speed','attackSpeed'])assert.equal(dream.enemies[i][k],story.enemies[i][k]*2,k);
+assert.equal(dream.enemies[2].maxHp,100);const hp=dream.enemies[0].hp-=17;const ds=api.snapshot(dream),dl=fresh('DREAM');dl.enemies=[{...mob},{...boss}];api.restore(dl,ds);api.scaleEnemies(dl);assert.equal(dl.enemies[0].hp,hp);assert.equal(dl.enemies[0].maxHp,200);
+dl.gameModeV31346='STORY';api.scaleEnemies(dl);assert.equal(dl.enemies[0].maxHp,100);assert.equal(dl.enemies[0].hp,hp/2);
+assert.equal(api.sanitize({version:1,active:999,cooldown:-1,enemies:[]}).active,7);
+// Revival precedes the party reducer's knockdown normalization.
+vm.runInContext(read('assets/combat-v31402/combat-core.js'),c);const core=window.__HAPIL_COMBAT_CORE_V31401__;
+let down=false;core.bind({reducePlayer(world,damage){world.hp-=damage;return true;},route(world,reduce,args){const ok=reduce(world,...args);if(world.hp<=0)down=true;return ok;}});
+s=fresh('DREAM');s.hp=1;assert(core.player(s,30,0,0,{}));assert.equal(s.hp,120);assert(!down);assert(api.active(s));
+// Adjacent curve segments remain in a single path, with owner colors and no tiled imagery.
+vm.runInContext(read('assets/rc77/connected-laser.js'),c);const laser=window.__HAPIL_CONNECTED_LASER_V31377__,records=[];
+const ctx={save(){},restore(){},translate(){},rotate(){},setLineDash(){},beginPath(){this.moves=0;this.lines=0;},moveTo(){this.moves++;},lineTo(){this.lines++;},stroke(){records.push({color:this.strokeStyle,width:this.lineWidth,moves:this.moves,lines:this.lines,join:this.lineJoin});},drawImage(){this.images=(this.images||0)+1;}};
+const curve=Array.from({length:24},(_,i)=>({a:{x:i*8,y:Math.sin(i*.22)*40},b:{x:(i+1)*8,y:Math.sin((i+1)*.22)*40}}));
+laser.render(ctx,curve,{width:16,color:'#ab82ed',accent:'#eedcff',image:{complete:true,width:200,height:48}});
+assert.equal(ctx.images||0,0);assert(records.every(r=>r.moves===1&&r.lines===24&&r.join==='round'));assert(records.some(r=>r.color==='#ab82ed'&&r.width===32));
+laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}});assert.equal(ctx.images,1);
+// All eight generated images are real, distinct, transparent RGBA assets.
+const manifest=JSON.parse(read('assets/rc91/awakening/manifest.json'));assert.equal(manifest.heroes.length,8);const hashes=new Set();
+for(const row of manifest.heroes){const bytes=fs.readFileSync(path.join(root,row.path.replace(/^\.\//,'')));assert.equal(bytes.toString('hex',0,8),'89504e470d0a1a0a');assert.equal(bytes[25],6);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),row.sha256);assert(row.transparent);hashes.add(row.sha256);assert.equal(api.art[row.hero],row.path);}
+assert.equal(hashes.size,8);const html=read('index.html');assert(html.indexOf('rc91/samong-awakening.js')<html.indexOf('index-v31526.js'));assert(html.includes('samong-awakening.js?v=39301'));
+console.log('RC91 PASS: gated two modes, one lethal revival per 77 combat seconds, seven-second buff, pause/load preservation, exact 2x stats, cooperative ordering, continuous curves, eight distinct RGBA assets.');

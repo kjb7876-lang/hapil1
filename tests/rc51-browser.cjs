@@ -45,8 +45,15 @@ const assert=require('node:assert/strict');
  const before=await snapshot();await page.keyboard.down('ArrowRight');await page.waitForTimeout(450);await page.keyboard.up('ArrowRight');const after=await snapshot();
  assert(Math.hypot(after.x-before.x,after.y-before.y)>.2,'physician moves during stopped world time');
  await page.screenshot({path:path.join(output,'samong.png')});console.log('AWAKENING',JSON.stringify({before,after}));
- // Story ending must wait for its final uploaded card, then commit the existing save path.
- await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;s.enemies=[];s.bossDefeated=true;s.spawnedWaves=new Set([1,2,3]);});
+  // RC86/88 require all six Cosmic summons and the real final-hit flag before
+  // the final card. This lifecycle fixture stages the completed fight; full
+  // summon combat and admission are tested separately in RC86/88/90/92.
+  await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,b=s.hapilFinalBattleV31300;
+    if(!b?.secondPhaseActive)throw Error('final second phase did not start');
+    b.stage=7;b.combatElapsedRC79=70;b.finalHitCommittedV31377=true;b.finalHitModeV31377='manual';
+    s.hapilSamongCosmicWaveV386={status:'complete',nextIndex:6,activeId:null,completedAt:70};
+    if(s.rc88Encounter)s.rc88Encounter.cosmicKills=[1,2,3,4,5,6];
+    s.enemies=[];s.bossDefeated=true;s.spawnedWaves=new Set([1,2,3]);});
  await page.waitForSelector('#hapil-story-rc51[data-phase="post"]');
  assert.equal(await page.evaluate(()=>window.__MONGSE_QA_STATE__.zone),'cult04');
  await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__.zone==='village');

@@ -1,4 +1,4 @@
-// RC63: verify all three launch modes and the canonical uploaded-text archive.
+// RC63: verify both launch modes and the canonical uploaded-text archive.
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const http=require('node:http');
@@ -21,7 +21,7 @@ const server=http.createServer((req,res)=>{
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox','--disable-dev-shm-usage']});
   try{
-    for(const mode of ['STORY','HELL','DREAM']){
+    for(const mode of ['STORY','DREAM']){
       const context=await browser.newContext({viewport:{width:1280,height:900}});
       const page=await context.newPage(),errors=[];
       page.on('pageerror',e=>errors.push(e.message));
@@ -30,6 +30,7 @@ const server=http.createServer((req,res)=>{
       await page.waitForFunction(()=>typeof window.__HAPIL_PARTY_UI_V31322__?.open==='function');
       const setter=await page.evaluate(()=>typeof window.__HAPIL_PARTY_LAUNCH_V31322__?.setGameMode);
       assert.equal(setter,'function','the live launch bridge must expose the selected mode');
+      if(mode==='DREAM')await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));
       const preselected=await page.evaluate(value=>({returned:window.__HAPIL_PARTY_LAUNCH_V31322__.setGameMode(value),selected:window.__HAPIL_PARTY_LAUNCH_V31322__.getGameMode()}),mode);
       assert.deepEqual(preselected,{returned:mode,selected:mode});
       await page.evaluate(()=>window.__HAPIL_PARTY_UI_V31322__.open());
@@ -47,7 +48,7 @@ const server=http.createServer((req,res)=>{
           launchMode:window.__HAPIL_PARTY_LAUNCH_V31322__?.getGameMode?.()};
       });
       assert.equal(runtime.mode,mode,`${mode} must survive actual launch configuration`);
-      assert.equal(runtime.hell,mode!=='STORY',`${mode} legacy combat gate must agree`);
+      assert.equal(runtime.hell,false,`${mode} must not re-enable the removed Hell rules`);
       assert.equal(runtime.storyEnabled,mode==='STORY',`${mode} must gate field monologue correctly`);
       assert.equal(runtime.dreamActors,mode==='DREAM',`${mode} Dream awakening must be isolated`);
       assert.equal(runtime.savedMode,mode);

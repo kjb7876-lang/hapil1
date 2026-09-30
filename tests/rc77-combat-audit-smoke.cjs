@@ -10,7 +10,7 @@ const html = read('index.html');
 const beamAsset = read('assets/rc77/connected-laser.js');
 
 // The helper must be available before the module starts drawing boss attacks.
-assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=39001'));
+assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=39301'));
 assert.equal((main.match(/__HAPIL_CONNECTED_LASER_V31377__;/g) || []).length, 3,
   'standard boss, blood laser and final boss beams must share the continuous renderer');
 assert(!main.includes('len+overlap*2'), 'branch beam textures must not restart at every segment');
@@ -43,10 +43,12 @@ const lines = [
 assert.equal(window.__HAPIL_CONNECTED_LASER_V31377__.render(context, lines,
   {width: 7, color: '#ed4c92', accent: '#fff0fa', alpha: 0.9}), true);
 assert.equal(stats.images,0,'missing artwork keeps a visible fallback');
-assert.equal(stats.strokes,3);assert.equal(context.shadowBlur,0);
+assert.equal(stats.strokes,4);assert.equal(context.shadowBlur,0);
 window.__HAPIL_CONNECTED_LASER_V31377__.render(context,lines,{width:7,color:'#ed4c92',image:{complete:true,naturalWidth:768,naturalHeight:144},low:true});
-assert.equal(stats.images,3,'one owner-authored center strip per segment');
-assert.equal(stats.strokes,3,'loaded artwork is not covered by solid geometric bars');
+assert.equal(stats.images,0,'curved/compound paths use continuous owner-colored light, without restarted tiles');
+assert.equal(stats.strokes,7,'low FX preserves the three continuous light layers');
+window.__HAPIL_CONNECTED_LASER_V31377__.render(context,[lines[0]],{width:7,color:'#ed4c92',image:{complete:true,naturalWidth:768,naturalHeight:144}});
+assert.equal(stats.images,1,'a single straight beam retains its owner artwork');
 assert.equal(window.__HAPIL_CONNECTED_LASER_V31377__.stats().textured,1);
 
 // Boss palette uniqueness is scoped per encounter map; co-present bosses get clearly separated hues.
@@ -137,7 +139,7 @@ assert(main.includes('finalBattle?.monochromeActiveV31377 === true'));
 assert(main.includes('finalBattle?.finalHitCommittedV31377 === true'));
 assert(main.includes('Number(finalBattle?.stage ?? 0) >= 7'));
 assert(main.includes('state.bossDefeated === true'));
-assert(main.includes('c.filter = t.zone === "cult04"'));
-assert(main.includes('grayscale(1) contrast(1.08)'));
+assert(main.includes("c.filter = 'none'"));
+assert(read('assets/rc91/samong-awakening.js').includes("ctx.filter='grayscale(1) contrast(1.08)'"),'monochrome is applied once to the complete frame');
 
 console.log('RC77 PASS: grayscale finale gate, all 3 joined laser renderers, distinct vivid owner palettes, real contact damage, no blanket hit i-frames, streak damage reduction, per-projectile repeat guard, and telegraph/impact visibility.');
