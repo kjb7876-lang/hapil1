@@ -35,15 +35,15 @@ assert.equal(api.sanitize({version:1,active:999,cooldown:-1,enemies:[]}).active,
 vm.runInContext(read('assets/combat-v31402/combat-core.js'),c);const core=window.__HAPIL_COMBAT_CORE_V31401__;
 let down=false;core.bind({reducePlayer(world,damage){world.hp-=damage;return true;},route(world,reduce,args){const ok=reduce(world,...args);if(world.hp<=0)down=true;return ok;}});
 s=fresh('DREAM');s.hp=1;assert(core.player(s,30,0,0,{}));assert.equal(s.hp,120);assert(!down);assert(api.active(s));
-// Adjacent curve segments remain in a single path, with owner colors and no tiled imagery.
+// Adjacent segments share one authored texture strip; no repeated muzzle caps.
 vm.runInContext(read('assets/rc77/connected-laser.js'),c);const laser=window.__HAPIL_CONNECTED_LASER_V31377__,records=[];
-const ctx={save(){},restore(){},translate(){},rotate(){},setLineDash(){},beginPath(){this.moves=0;this.lines=0;},moveTo(){this.moves++;},lineTo(){this.lines++;},stroke(){records.push({color:this.strokeStyle,width:this.lineWidth,moves:this.moves,lines:this.lines,join:this.lineJoin});},drawImage(){this.images=(this.images||0)+1;}};
+const ctx={save(){},restore(){},translate(){},rotate(){},transform(){},clip(){},closePath(){},setLineDash(){},beginPath(){this.moves=0;this.lines=0;},moveTo(){this.moves++;},lineTo(){this.lines++;},stroke(){records.push({color:this.strokeStyle,width:this.lineWidth,moves:this.moves,lines:this.lines,join:this.lineJoin});},drawImage(){this.images=(this.images||0)+1;}};
 const curve=Array.from({length:24},(_,i)=>({a:{x:i*8,y:Math.sin(i*.22)*40},b:{x:(i+1)*8,y:Math.sin((i+1)*.22)*40}}));
 laser.render(ctx,curve,{width:16,color:'#ab82ed',accent:'#eedcff',image:{complete:true,width:200,height:48}});
-assert.equal(ctx.images||0,0);assert(records.every(r=>r.moves===1&&r.lines===24&&r.join==='round'));assert(records.some(r=>r.color==='#ab82ed'&&r.width===32));
-laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}});assert.equal(ctx.images,1);
+assert.equal(ctx.images,48);assert.equal(records.length,0,'decoded curved beams use owner artwork');assert.equal(laser.paths(curve).length,1);assert.equal(laser.mesh(laser.paths(curve)[0],16).length,25);
+laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}});assert.equal(ctx.images,49);
 // All eight generated images are real, distinct, transparent RGBA assets.
 const manifest=JSON.parse(read('assets/rc91/awakening/manifest.json'));assert.equal(manifest.heroes.length,8);const hashes=new Set();
 for(const row of manifest.heroes){const bytes=fs.readFileSync(path.join(root,row.path.replace(/^\.\//,'')));assert.equal(bytes.toString('hex',0,8),'89504e470d0a1a0a');assert.equal(bytes[25],6);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),row.sha256);assert(row.transparent);hashes.add(row.sha256);assert.equal(api.art[row.hero],row.path);}
-assert.equal(hashes.size,8);const html=read('index.html');assert(html.indexOf('rc91/samong-awakening.js')<html.indexOf('index-v31526.js'));assert(html.includes('samong-awakening.js?v=39301'));
+assert.equal(hashes.size,8);const html=read('index.html');assert(html.indexOf('rc91/samong-awakening.js')<html.indexOf('index-v31526.js'));assert(Number(html.match(/samong-awakening\.js\?v=(\d+)/)?.[1])>=39301);
 console.log('RC91 PASS: gated two modes, one lethal revival per 77 combat seconds, seven-second buff, pause/load preservation, exact 2x stats, cooperative ordering, continuous curves, eight distinct RGBA assets.');

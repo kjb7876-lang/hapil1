@@ -120155,13 +120155,13 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
   // local() uses SCREEN plane axes; capture the projected direction, not world atan2.
   const dx=NUM(s?.x,16)-a.x,dy=NUM(s?.y,16)-a.y;c.angle=Math.atan2((dx+dy)*.5,dx-dy);
   if(c.bloodV31516)c.angle=0;a.attackDx=dx;a.attackDy=dy;a.attackStarted=c.born;a.attackWindup=c.fireAt-c.born;a.attackAt=c.fireAt;a.attackImpactAt=c.fireAt;
-  a.activePattern=c.patternNameV31331??('광맥 · '+labels[c.type]);a.activePatternUntil=c.endAt;a.recoverUntil=c.endAt+(a.boss?1.05:.9);a.readyAt=a.recoverUntil+.1;a.patternReadyAt=c.endAt+NUM(profile?.cooldown,4.2);a.atomicCastUntil31210=c.endAt;a.laserLockV31332=c.id;
+  a.activePattern=c.patternNameV31331??('광맥 · '+labels[c.type]);a.activePatternUntil=c.endAt;a.recoverUntil=c.endAt+(a.boss?1.05:.9);a.readyAt=a.recoverUntil+.1;a.laserReadyAtRC94=c.endAt+NUM(profile?.cooldown,4.2)*(window.__HAPIL_SAMONG_RC91__?.enabled(s)? .5:1);a.patternReadyAt=a.readyAt+.18;a.atomicCastUntil31210=c.endAt;a.laserLockV31332=c.id;
   window.__HAPIL_ENEMY_V31338__?.laser(s,a,c);pi(a,dx,dy);return c;
  }
  function start(s,a,type){if(window.__HAPIL_ENEMY_V31338__&&!window.__HAPIL_ENEMY_V31338__.actors(s).length)return null;const r=row(a);if(!authority(s)||locked(s)||protectedActor(a)||!r||r.native||(r.zone!==s.zone&&!(s.zone==='cult04'&&a?.dreamCosmicTrialV31346))||!types.includes(type)||phase(a)<0)return null;
   const existing=(s.bossLaserCastsV31330??[]).filter(c=>valid(c,s.zone)&&c.endAt>s.time);s.bossLaserCastsV31330=existing;
   // Admission only. Never erase another committed attack to make room.
-  if(existing.length>=1||window.__HAPIL_BOSSES_V31334__?.busy(s)||!window.__HAPIL_BLOOD_RC16__?.canStart(s,a)||!ready(s,{beam:r.beam})){stats.blocked++;return null;}
+  if(existing.length>=1||Math.max(NUM(a.laserReadyAtRC94),NUM(a.bloodReadyRC16))>s.time||window.__HAPIL_BOSSES_V31334__?.busy(s)||!window.__HAPIL_BLOOD_RC16__?.canStart(s,a)||!ready(s,{beam:r.beam})){stats.blocked++;return null;}
   const t=NUM(s.time),p=phase(a),c={id:s.fxSerial++,sourceId:a.id,zone:s.zone,type,color:r.color,accent:r.accent,beam:r.beam,tear:r.tear,
    cx:CL(NUM(s.x,16),13.3,18.7),cy:CL(NUM(s.y,16),13.3,18.7),angle:0,radius:6.4,width:.32,born:t,fireAt:t+1.85,endAt:t+3.17,activeSeconds:1.1,damage:15,sourcePhase:p,contacts:[],lastTick:t,laserV31330:true,dreamCosmicTrialV31349:!!(s.zone==='cult04'&&a?.dreamCosmicTrialV31346)};
   configure(c,a,null,s);existing.push(c);a.patternIndex=NUM(a.patternIndex)+1;stats.casts++;
@@ -124677,10 +124677,10 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
   const nativeTick=L.tick;L.tick=function(s,dt){const before=s?.bossLaserCastsV31330?.length??0,result=nativeTick(s,dt);if(before>(s?.bossLaserCastsV31330?.length??0))stats.completed++;
    if(!s||!(dt>0)||s.hp<=0||MONGSE_isEncounterLocked31226(s)||s.practicePatternV31365||s.bossLaserCastsV31330?.some(c=>c.endAt>s.time)||window.__HAPIL_BOSSES_V31334__?.busy(s))return result;
    let mem=cycles.get(s);if(!mem||mem.zone!==s.zone||s.time<mem.time){mem={zone:s.zone,time:s.time,next:s.time+3};cycles.set(s,mem);}mem.time=s.time;if(s.time<mem.next)return result;mem.next=s.time+.45;
-   for(const a of [...(s.enemies??[])].sort((a,b)=>Number(!!b.boss)-Number(!!a.boss))){const owner=owners.get(a.id);if(!owner||a.hp<=0||a.visualOnly||n(a.recoverUntil)>s.time||n(a.atomicCastUntil31210)>s.time||n(a.activePatternUntil)>s.time||n(a.bloodReadyRC16)>s.time||!canStart(s,a))continue;const seq=n(a.bloodCycleRC16),pool=profiles.get(a.id),p=pool[seq%pool.length];const cast=Ei(s,a,descriptor(owner,p),MONGSE_enemyPhase(a));if(cast?.bloodV31516){a.bloodCycleRC16=seq+1;a.bloodReadyRC16=cast.endAt+p.cooldown;mem.next=cast.endAt+1;stats.scheduled++;break;}}
+   for(const a of [...(s.enemies??[])].sort((a,b)=>Number(!!b.boss)-Number(!!a.boss))){const owner=owners.get(a.id);if(!owner||a.hp<=0||a.visualOnly||n(a.recoverUntil)>s.time||n(a.atomicCastUntil31210)>s.time||n(a.activePatternUntil)>s.time||n(a.bloodReadyRC16)>s.time||!canStart(s,a))continue;const seq=n(a.bloodCycleRC16),pool=profiles.get(a.id),p=pool[seq%pool.length];const cast=Ei(s,a,descriptor(owner,p),MONGSE_enemyPhase(a));if(cast?.bloodV31516){a.bloodCycleRC16=seq+1;a.bloodReadyRC16=a.laserReadyAtRC94;mem.next=cast.endAt+1;stats.scheduled++;break;}}
    return result;
   };
-  const originalConfigure=L.configure;L.configure=function(c,a,p,s){const r=originalConfigure(c,a,p,s);if(c.bloodV31516)a.bloodReadyRC16=c.endAt+n(p?.cooldown,2.6);return r;};
+  const originalConfigure=L.configure;L.configure=function(c,a,p,s){const r=originalConfigure(c,a,p,s);if(c.bloodV31516)a.bloodReadyRC16=a.laserReadyAtRC94;return r;};
   const critical=MONGSE_liveCriticalAssets31220;MONGSE_liveCriticalAssets31220=function(s){return new Set([...critical(s),ASSET]);};
   installed=true;window.__HAPIL_BLOOD_RC16__.owners=[...owners.keys()];
  }
@@ -126260,4 +126260,32 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   MONGSE_zoneAssetManifest=function(id,...args){const result=new Set(manifest(id,...args));if(id==='cult03')for(const p of paths)result.add(p);return result;};
   const plan=MONGSE_zoneAssetPlan31220;
   MONGSE_zoneAssetPlan31220=function(id,...args){const result=plan(id,...args);if(id==='cult03')for(const key of ['all','A','pins']){result[key]=new Set(result[key]??[]);for(const p of paths)result[key].add(p);}return result;};
+})();
+
+
+/* RC94: a laser cooldown belongs to that skill, not the actor's ordinary pattern slot. */
+(()=>{
+ 'use strict';
+ const stats={choices:0,laserCardsDeferred:0};
+ const number=v=>Number.isFinite(Number(v))?Number(v):0;
+ const laser=p=>p?.laserV31330||p?.laserV31331||p?.bloodV31516;
+ function available(s,a){
+  return !!s&&!!a&&number(s.time)>=Math.max(number(a.laserReadyAtRC94),number(a.bloodReadyRC16))&&
+   !(s.bossLaserCastsV31330??[]).some(c=>c.endAt>s.time)&&
+   !window.__HAPIL_BOSSES_V31334__?.busy(s)&&window.__HAPIL_BLOOD_RC16__?.canStart(s,a)===true;
+ }
+ function install(attempt=0){
+  if(!window.__HAPIL_BLOOD_RC16__?.installed||!window.__HAPIL_BOSSES_V31334__?.installed){if(attempt<1200)setTimeout(()=>install(attempt+1),10);return;}
+  const choose=MONGSE_chooseBossPatternIndexSmartR1;
+  MONGSE_chooseBossPatternIndexSmartR1=function(s,a,list,...args){
+   if(!Array.isArray(list)||!list.length)return -1;
+   const allowed=available(s,a),indices=[];
+   const eligible=list.filter((p,i)=>{if(laser(p)&&!allowed){stats.laserCardsDeferred++;return false;}indices.push(i);return true;});
+   if(!eligible.length)return -1;
+   const picked=choose(s,a,eligible,...args);stats.choices++;
+   return Number.isInteger(picked)&&picked>=0&&picked<indices.length?indices[picked]:-1;
+  };
+  window.__HAPIL_BOSS_CADENCE_RC94__=Object.freeze({installed:true,available,metrics:()=>({...stats})});
+ }
+ install();
 })();
