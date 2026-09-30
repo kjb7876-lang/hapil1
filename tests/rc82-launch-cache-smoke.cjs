@@ -5,12 +5,15 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const expected = new Map([
-  ['./assets/rc79/combat-policy.js', '38002'],
+  ['./assets/rc79/combat-policy.js', '39001'],
   ['./assets/rc15/hero-controls.js', '34602'],
-  ['./assets/rc51/story.js', '38002'],
+  ['./assets/rc51/story.js', '39001'],
   ['./assets/rc77/connected-laser.js', '38501'],
   ['./assets/rc83/startup-diagnostics.js', '38305'],
-  ['./assets/index-v31526.js', '38501'],
+  ['./assets/index-v31526.js', '39001'],
+  ['./assets/rc86/samong-cosmic.js', '39001'],
+  ['./assets/rc87/episode-cosmic.js', '38703'],
+  ['./assets/rc88/danmaku-rpg.js', '39001'],
 ]);
 
 for (const [asset, version] of expected) {
@@ -20,7 +23,7 @@ for (const [asset, version] of expected) {
 assert(html.indexOf('./assets/rc77/connected-laser.js?v=38501') <
   html.indexOf('./assets/rc83/startup-diagnostics.js?v=38305'), 'laser helper must load before startup diagnostics');
 assert(html.indexOf('./assets/rc83/startup-diagnostics.js?v=38305') <
-  html.indexOf('./assets/index-v31526.js?v=38501'), 'startup diagnostics must observe game initialization');
+  html.indexOf('./assets/index-v31526.js?v=39001'), 'startup diagnostics must observe game initialization');
 
 const diagnostic = fs.readFileSync(path.join(root, 'assets/rc83/startup-diagnostics.js'), 'utf8');
 for (const field of ['releases:', 'v31303CombatFlow:', 'evidence: window.__HAPIL_COMBAT_FLOW_V31303__.evidence', 'v31316Dependencies:', 'v31317:', 'v31318:', 'v31322:', 'v31322Dependencies:', 'controls:', 'theme:', 'laser:', 'laserRelease:', 'personalizedLasers:', 'combat:', 'storyNative:', 'storyRoute:', 'heroImages:'])

@@ -24,11 +24,13 @@
  }
  function balancedDamage(state,enemy,damage){
    if(!Number.isFinite(damage)||damage<=0)return 0;
+   if(window.__HAPIL_DANMAKU_RPG_RC88__?.simpleTarget(enemy))return damage;
    if(!enemy||(!enemy.boss&&!enemy.midboss))return damage;
    if(!Number.isFinite(enemy.maxHp)||enemy.maxHp<=0)return 0;
    const now=Number(state?.time)||0,final=state?.zone==='cult04'&&enemy.id==='c104-boss'&&enemy.hapilSecondPhaseV31300;
    const clock=final ? Number(state.hapilFinalBattleV31300?.combatElapsedRC79)||0 : now;
-   const rate=final ? .014 : enemy.boss ? .08 : .14;
+   const rate=(final ? .014 : enemy.boss ? .08 : .14) *
+     (window.__HAPIL_DANMAKU_RPG_RC88__?.budgetFactor(state,enemy) ?? 1);
    let b=budgets.get(enemy);
    if(!b||b.final!==final||clock<b.at||b.max!==enemy.maxHp)b={at:clock,credit:enemy.maxHp*rate,final,max:enemy.maxHp};
    b.credit=Math.min(enemy.maxHp*rate,b.credit+Math.max(0,clock-b.at)*enemy.maxHp*rate);b.at=clock;

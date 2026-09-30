@@ -31,10 +31,15 @@ const assert=require('node:assert/strict');
  assert.equal(result.live,0);console.log('FIRST_BATTLE',JSON.stringify(result));
  await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
  await page.waitForFunction(t=>window.__MONGSE_QA_STATE__.time>t+.3,result.time);
- await page.evaluate(()=>{window.__MONGSE_QA_API__.stageV3128BossShowcase('ep1a11');});
+ await page.evaluate(()=>{window.__HAPIL_CONTROLS_V31329__.setMode('manual');window.__MONGSE_QA_API__.stageV3128BossShowcase('ep1a11');});
  await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
  const beforeLaser=await page.evaluate(()=>window.__HAPIL_CONNECTED_LASER_V31377__.stats().textured);
- console.log('LASER_STAGE',await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,a=s.enemies.find(a=>a.boss);window.__HAPIL_LASERS_V31332__.dispatch(s,a,0);return {id:a.id,casts:s.bossLaserCastsV31330?.map(c=>({beam:c.beam,fireAt:c.fireAt,endAt:c.endAt}))}}));
+ // The mask's phase 0 has no laser card. Exercise a real authored combat phase
+ // for this separate renderer check; the first encounter above stays natural.
+ console.log('LASER_STAGE',await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,a=s.enemies.find(a=>a.boss),b=window.__HAPIL_RC86_BRIDGE__;
+ const phase=[1,2,3].find(ph=>b.patterns(a,ph).some(p=>p.laserV31331));if(!phase)throw Error('showcase has no native laser card');
+ a.humanPhase0=false;a.fixedPhase=phase;a.currentPhase=phase;
+ window.__HAPIL_LASERS_V31332__.dispatch(s,a,0);return {id:a.id,phase,casts:s.bossLaserCastsV31330?.map(c=>({beam:c.beam,fireAt:c.fireAt,endAt:c.endAt}))}}));
  await page.waitForFunction(n=>window.__HAPIL_CONNECTED_LASER_V31377__.stats().textured>n,beforeLaser,{timeout:20000});
  const sprites=await page.evaluate(()=>{const api=window.__HAPIL_HERO_CONSISTENCY_RC5__,t=window.__RC85_TEST__,hero=t.F.find(h=>h.id==='slayer');
  const rows=[];for(const dir of ['front','back','left','right'])for(const kind of ['idle','move','attack','skill','guard','dash','hurt']){

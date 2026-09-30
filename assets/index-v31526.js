@@ -36961,6 +36961,7 @@ function $n(e, t, n, r, i) {
     [t,...(window.__HAPIL_PARTY_V31322__?.actors??[])].forEach(a=>window.__HAPIL_THEME_V31323__?.chains(c,n,t,a,i)),
     window.__HAPIL_ENEMY_FEEL_V31361__?.draw(c,t,i,'front'),
     window.__HAPIL_HERO_STYLE_V31364__?.drawExtras(c,n,t,i,'front'),window.__HAPIL_LOOP_V31365__?.render(c,t,i,'front'),window.__HAPIL_GRAMMAR_V31365__?.draw(c,t,i),
+    window.__HAPIL_DANMAKU_RPG_RC88__?.draw?.(c,t),
     i.showHeartV31336 !== false && window.__HAPIL_COMBAT_V31333__?.drawCores(c,t,i),
     i.heartDebugV31336 === true && window.__HAPIL_CONTACT_V31336__?.drawDebug(c,t),
     MONGSE_floatTexts.forEach((e) => {
@@ -51925,11 +51926,13 @@ function Ri() {
     Ke = (0, l.useCallback)(
       (e) => {
         let t = P.current;
+        if (window.__HAPIL_DANMAKU_RPG_RC88__?.beforeDeath(t,e)) return;
         if (window.__HAPIL_ECHOES_V31368__?.onDeath(t,e)) return;
         if (window.__HAPIL_RECORDS_V31365__?.onDeath(t,e)) return;
         if (window.__HAPIL_CONTROLS_V31329__?.beforeDeath(t,e)) return;
         if (window.__HAPIL_MODES_V31346__?.beforeDeath(t,e)) return;
         if (window.__HAPIL_LUCIFER_V31318__?.beforeDeath(t, e)) return;
+        if (window.__HAPIL_EPISODE_COSMIC_V387__?.beforeDeath(t, e)) return;
         const reward338=window.__HAPIL_PROGRESSION_V31338__?.reward(t,e,R.current)??0;
         if(reward338){Be.current=Math.min(MONGSE_INFINITE_STAT_MAX,Be.current+reward338);_(Be.current);B(`스킬 마스터 공명 조각 +${reward338} · 반복 전투 성장`);}
         let MONGSE_awardClearedEgoV31217 = () => {
@@ -54150,7 +54153,7 @@ function Ri() {
         HAPIL_setLaunchRC52(value=>({...value,busy:false}));
       }
     }, [i, V, B, MONGSE_unlockAudio, MONGSE_modeChoiceV31353]);
-  window.__HAPIL_CONTROLS_V31329__?.bind({phase:e,state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,cache:Pe,modal:Ve,blocked:()=>!!O,unlockAudio:MONGSE_unlockAudio,setSettings:MONGSE_updateSettings31229,notify:B,actions:{attack:()=>Ye(),dash:Xe,guard:Ze,resonance:Qe,skill:et,damage:qe,interact:tt,target:$e,map:()=>M(v=>!v),settings:()=>{I.current.clear();u(`settings`);},escape:()=>{if(MONGSE_interludeRef.current)return;I.current.clear();O?ue(null):u(v=>v?null:e===`game`?`menu`:null);},collab:()=>{const id=Le.current.find(id=>id!==L.current);if(id)Je(id);},dismiss:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}}});
+  window.__HAPIL_CONTROLS_V31329__?.bind({phase:e,state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,cache:Pe,modal:Ve,blocked:()=>!!O,unlockAudio:MONGSE_unlockAudio,setSettings:MONGSE_updateSettings31229,notify:B,actions:{death:Ke,attack:()=>Ye(),dash:Xe,guard:Ze,resonance:Qe,skill:et,damage:qe,interact:tt,target:$e,map:()=>M(v=>!v),settings:()=>{I.current.clear();u(`settings`);},escape:()=>{if(MONGSE_interludeRef.current)return;I.current.clear();O?ue(null):u(v=>v?null:e===`game`?`menu`:null);},collab:()=>{const id=Le.current.find(id=>id!==L.current);if(id)Je(id);},dismiss:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}}});
   window.__HAPIL_PARTY_LAUNCH_V31322__ = {phase:e, start:()=>e===`game`?Promise.resolve():at(), getSupport:()=>window.__HAPIL_POLICY_V31400__.partner(L.current), setSupport:(id,leader=L.current)=>{const next=MONGSE_coreApplySupportChoiceV31235(leader,Le.current,id);Le.current=next;s(next);}, setLeader:(id)=>{if(F.some(h=>h.id===id)){L.current=id;a(id);}}, setGameMode:(value)=>{const next=['STORY','HELL','DREAM'].includes(String(value).toUpperCase())?String(value).toUpperCase():'STORY';MONGSE_modeChoiceRefV31353.current=next;MONGSE_setModeChoiceV31353(next);window.__HAPIL_MODES_V31346__?.set?.(next);return next;}, getGameMode:()=>MONGSE_modeChoiceRefV31353.current, dismissGuestUI:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}};
   ((0, l.useEffect)(() => {
     let t =
@@ -82014,7 +82017,7 @@ var MONGSE_APOSTATE_BOSS_VERSION_V31233 = `3.12.33`,
       actorId: `c103-mid`,
       sourceHeroId: `rian`,
       name: `이단의목사 한리안`,
-      spriteArt: `./assets/vfx/rc55/cult03-heretic-han.png`,
+      spriteArt: `./assets/vfx/rc86/cult03-heretic-han-idle-v2.png`,
       rank: `midboss`,
       patternSet: `rc55-c103-han`,
       allyOf: `c104-boss`,
@@ -82025,7 +82028,7 @@ var MONGSE_APOSTATE_BOSS_VERSION_V31233 = `3.12.33`,
       actorId: `c103-boss`,
       sourceHeroId: `ion`,
       name: `이단의목사 백이온`,
-      spriteArt: `./assets/vfx/rc55/cult03-heretic-baek.png`,
+      spriteArt: `./assets/vfx/rc86/cult03-heretic-baek-idle-v2.png`,
       rank: `boss`,
       patternSet: `rc55-c103-baek`,
       allyOf: `c104-boss`,
@@ -101645,7 +101648,9 @@ function HAPIL_applyCounterDamageV31303(state, enemy, rawDamage, reward) {
       staggerBonus: 0,
     });
   const hpBefore = Math.max(0, HAPIL_finiteV31303(enemy.hp)),
-    rawAccepted = Math.max(0, HAPIL_finiteV31303(rawDamage)) * HAPIL_bossCastDamageFactorV31342(state, enemy),
+    rawAccepted = Math.max(0, HAPIL_finiteV31303(rawDamage)) *
+      (window.__HAPIL_DANMAKU_RPG_RC88__?.castDamageFactor(state, enemy, HAPIL_bossCastDamageFactorV31342(state, enemy)) ?? HAPIL_bossCastDamageFactorV31342(state, enemy)) *
+      (window.__HAPIL_DANMAKU_RPG_RC88__?.damageFactor(state, enemy) ?? 1),
     damage = window.__HAPIL_RC79__?.balancedDamage(state,enemy,rawAccepted) ?? rawAccepted,
     hpAfter = Math.max(
       0,
@@ -122228,7 +122233,7 @@ function install(){
   MONGSE_prepareCombatEncounter31226=function HAPIL_modeCombatDialogueV31346(s,z,show=true){const m=mode(s);const d=combatBase.call(this,s,z,false);if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return clearDialogue(s,'combat');return m==='STORY'&&!s?.practiceV31329?shortStoryDialogue(s,d):clearDialogue(s,'combat');};
   MONGSE_prepareRestEncounter31226=function HAPIL_archiveRestV31346(s,z){restBase.call(this,s,z,false);return clearDialogue(s,'rest');};
   // v31403: mode-specific bitmap selection lives in the final projectile pipeline.
-  installed=true;window.__HAPIL_MODES_V31346__=Object.freeze({version:VERSION,installed:true,modes:MODES,mode,set,tick,reflect,suppressFullNarrative,beforeDeath,archive,MemoryMapProfile,memoryProfile,dreamFinal:Object.freeze({zones:TRIAL_ZONES,spawn:spawnTrial,tick:finalTick,beforeDeath,cleanup:cleanupTrial}),audit:()=>({mode:mode(),mirrorProjectile:true,mirrorLaser:!!window.__HAPIL_MIRROR_V31347__?.installed,cosmicTrials:6,archiveEntries:archive.entries(lastState).length})});return true;
+  installed=true;window.__HAPIL_MODES_V31346__=Object.freeze({version:VERSION,installed:true,modes:MODES,mode,set,tick,reflect,suppressFullNarrative,beforeDeath,archive,MemoryMapProfile,memoryProfile,dreamFinal:Object.freeze({zones:TRIAL_ZONES,spawn:spawnTrial,tick:finalTick,beforeDeath,cleanup:cleanupTrial}),audit:()=>({mode:mode(),mirrorProjectile:true,mirrorLaser:!!window.__HAPIL_MIRROR_V31347__?.installed,dreamRegionalTrials:6,archiveEntries:archive.entries(lastState).length})});return true;
  }
  function schedule(){if(install()||++attempts>800)return;setTimeout(schedule,0);}schedule();
 })();
@@ -122297,7 +122302,7 @@ function install(){
 
 ;(()=>{let n=0;function r(){if(!window.__HAPIL_V31346_RELEASE__?.installed||!window.__HAPIL_MIRROR_V31347__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION="31347";window.MONGSE_ASSET_VERSION="31347";window.__HAPIL_V31347_RELEASE__=Object.freeze({installed:true,version:"3.13.47-RC1",cacheKey:31347,saveRevision:14,baseVersion:"3.13.46-RC1",activeBundle:"index-v31347.js",build:"DREAM MIRROR COMPLETE — RC1"});}r();})();
 
-/* HAPIL v3.13.48 — compact Cosmic Six trials, complete owner cleanup, and data-driven trial identity. */
+/* HAPIL v3.13.48 — sequential Dream regional trials and data-driven trial identity. */
 (()=>{'use strict';
  const VERSION='3.13.48',ZONES=Object.freeze(['u203','last303','kair03','hando03','ep1a11','cult04']);
  const PROFILES=Object.freeze([
@@ -122325,7 +122330,7 @@ function install(){
  function decorate(s){
   if(!s||window.__HAPIL_MODES_V31346__?.mode?.(s)!=='DREAM')return;
   for(const a of s.enemies??[]){const p=profile(a);if(!p)continue;a.dreamCosmicProfileV31348=p.index;a.cosmicRoleV31348=p.role;
-   if(!a.cosmicAnnouncedV31348){a.cosmicAnnouncedV31348=true;(s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y-2.2,born:num(s.time),duration:1.35,text:`COSMIC ${p.index} · ${p.role}`,color:p.color,critical:true});}
+   if(!a.cosmicAnnouncedV31348){a.cosmicAnnouncedV31348=true;(s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y-2.2,born:num(s.time),duration:1.35,text:`사몽 시련 ${p.index} · ${p.role}`,color:p.color,critical:true});}
   }
  }
  function drawAura(ctx,a,time){const p=profile(a);if(!p||a.hp<=0||typeof G!=='function')return;const q=G(a.x,a.y),t=num(time),r=31+p.index*1.4;ctx.save();try{ctx.globalCompositeOperation='screen';ctx.globalAlpha=.55;ctx.strokeStyle=p.color;ctx.lineWidth=2;ctx.shadowColor=p.accent;ctx.shadowBlur=8;ctx.setLineDash([Math.max(5,11-p.index),6]);ctx.lineDashOffset=-t*24;ctx.beginPath();ctx.arc(q.x,q.y,r,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=.75;ctx.fillStyle=p.accent;for(let i=0;i<3;i++){const w=t*.75+i*Math.PI*2/3;ctx.beginPath();ctx.arc(q.x+Math.cos(w)*r,q.y+Math.sin(w)*r,2.2,0,Math.PI*2);ctx.fill();}}finally{ctx.restore();}}
@@ -122338,7 +122343,7 @@ function install(){
   const ASSETS=actorAssets(),oldManifest=MONGSE_zoneAssetManifest,oldPlan=MONGSE_zoneAssetPlan31220;
   MONGSE_zoneAssetManifest=function HAPIL_cosmicTrialManifestV31348(z,...args){const out=new Set(oldManifest(z,...args));if(z==='cult04')for(const x of ASSETS)out.add(x);return out;};
   MONGSE_zoneAssetPlan31220=function HAPIL_cosmicTrialPlanV31348(z,...args){const base=oldPlan(z,...args),out={...base};for(const k of['all','A','B','C','deferred','pins'])out[k]=new Set(base?.[k]??[]);if(z==='cult04')for(const x of ASSETS){for(const k of['all','A','pins'])out[k].add(x);for(const k of['B','C','deferred'])out[k].delete(x);}return out;};
-  installed=true;window.__HAPIL_COSMIC_V31348__=Object.freeze({version:VERSION,installed:true,profiles:PROFILES,choose,decorate,assets:ASSETS,policy:Object.freeze({patterns:'three representative native patterns per sequential trial',art:'data-driven aura plus existing verified boss assets; no claim of six new boss artworks'})});return true;
+  installed=true;window.__HAPIL_COSMIC_V31348__=Object.freeze({version:VERSION,installed:true,profiles:PROFILES,choose,decorate,assets:ASSETS,policy:Object.freeze({patterns:'three representative native patterns for the separate regional Dream trials; the Samong story skill summons the six Kair Great bosses',art:'existing verified three-phase Kair Great boss atlases'})});return true;
  }
  function schedule(){if(install()||++attempts>800)return;setTimeout(schedule,0);}schedule();
 })();
@@ -123305,7 +123310,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function queueEcho(s,target,origin,power,source,delay=.20,homing=true,key='A'){
   const m=mem(s);if(m.echoFrame!==s.time){m.echoFrame=s.time;m.echoCount=0;}
   if(!valid(s,target)||!(power>0)||(s.pendingStrikes?.length??0)>=cfg.maxPending||m.echoCount>=cfg.maxEchoPerFrame){metrics.echoRejected++;return false;}
-  const h=s.activeHeroId,at=s.time+Math.max(.08,delay),e=vn(s.fxSerial++,h,color(h),origin.x,origin.y,target.x,target.y,s.time);
+  const h=source?.rc89SupportHeroId==='lauren'?'lauren':s.activeHeroId,at=s.time+Math.max(.08,delay),e=vn(s.fxSerial++,h,color(h),origin.x,origin.y,target.x,target.y,s.time);
   Object.assign(e,{heroSkillVfx:true,heroId31213:h,heroIdV31313:h,heroActionKey31213:key,homing,imageOnly:true,shmupEchoV31365:true});MONGSE_attachEffectTarget(e,target);HAPIL_setHeroContactV31312(e,at);
   (s.effects??=[]).push(e);(s.pendingStrikes??=[]).push({id:s.fxSerial++,at,targetId:target.id,power,color:color(h),critical:false,ranged:true,leechRate:0,heroId:h,actionKey:key,homing,shmupEchoV31365:true,shmupOriginV31365:{x:origin.x,y:origin.y}});
   fx(s,'link',origin,target,Math.max(.25,delay+.12));m.echoCount++;metrics.echoes++;return true;
@@ -123376,7 +123381,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   }finally{ctx.restore();ctx.beginPath();}
  }
  function background(ctx,s,rect){if(!s||(s.enemies??[]).every(a=>a.hp<=0||a.visualOnly))return;ctx.save();ctx.globalAlpha*=.13;ctx.fillStyle='#07101d';ctx.fillRect(rect.x,rect.y,rect.width,rect.height);ctx.restore();}
- const api=Object.freeze({version:VERSION,installed:true,roles,cfg,role,color,awake,isHero,blocked,gain,graze,perfect,onDamage,blockReward,pressA,releaseA,cancelCharge,isCharging,chargeToken:s=>charge.get(s)?.token,decorateAttack,afterHit,beforeIncoming,imminent,safePoint,evasive,beforeFrame,tick,render,background,heal,
+ const api=Object.freeze({version:VERSION,installed:true,roles,cfg,role,color,awake,isHero,blocked,gain,graze,perfect,onDamage,blockReward,pressA,releaseA,cancelCharge,isCharging,chargeToken:s=>charge.get(s)?.token,decorateAttack,afterHit,beforeIncoming,imminent,safePoint,evasive,beforeFrame,tick,render,background,heal,queueEcho,
   metrics:()=>({...metrics}),snapshot:s=>{const m=mem(s);return {totalGraze:m.totalGraze,totalParry:m.totalParry,hitsTaken:m.hitsTaken,streak:m.streak,shield:m.shield,charging:isCharging(s),memoryShotCount:s.activeHeroId==='gunner'?Math.max(0,n(m.gunnerHits)):null};}});
  window.__HAPIL_LOOP_V31365__=api;
 })();
@@ -123741,6 +123746,71 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   window.MONGSE_ASSET_VERSION=MONGSE_ASSET_VERSION='31369';document.title='合一 · 합일 RC22';
   window.__HAPIL_V31369_RELEASE__=Object.freeze({installed:true,version:'3.13.69-RC1',cacheKey:31369,saveRevision:14,baseVersion:'3.13.68-RC1',activeBundle:'index-v31369.js'});
  })();
+
+/* RC86 bridge: accessors expose final ESM bindings to the companion module. */
+window.__HAPIL_RC86_BRIDGE__ = Object.freeze({
+  get templates() {
+    const locations = [
+      ['kair05', 'kair-great-01'], ['kair06', 'kair-great-02'],
+      ['kair02', 'kair-great-03'], ['kair07', 'kair-great-04'],
+      ['kair08', 'kair-great-05'], ['kair10', 'kair-great-06'],
+    ];
+    return Object.fromEntries(locations.map(([zone, id]) => [
+      id, N[zone]?.enemies?.find(actor => actor.id === id) ?? null,
+    ]));
+  },
+  get apostates() { return N.cult03?.enemies ?? []; },
+  actor(zone, id) { return N[zone]?.enemies?.find(actor => actor.id === id) ?? null; },
+  project(x,y) { return G(x,y); },
+  zoneActors(zone) { return N[zone]?.enemies ?? []; },
+  cloneEnemy(row, zone) { return Jr(row, zone); },
+  point(zone, x, y, radius = .48) { return dt(zone, {x,y}, radius); },
+  phase(actor) { return MONGSE_enemyActivePhase(actor); },
+  projectileSprite(actor, zone) { return MONGSE_themeProjectileSprite3128(actor, zone); },
+  projectileCap() { return MONGSE_runtimeProjectileCapRC47(); },
+  get phaseGateHealth() { return MONGSE_phaseGateHealth; },
+  set phaseGateHealth(value) { MONGSE_phaseGateHealth = value; },
+  get movement() { return ft; },
+  set movement(value) { ft = value; },
+  counterDamage(state, actor, damage) { return HAPIL_applyCounterDamageV31303(state, actor, damage); },
+  zoneBoss(zone) { return N[zone]?.enemies?.find(actor => actor.boss === true) ?? null; },
+  get modeApi() { return window.__HAPIL_MODES_V31346__; },
+  get patterns() { return MONGSE_patternsForEnemy; },
+  set patterns(value) { MONGSE_patternsForEnemy = value; },
+  signatureProfile(actor) { return MONGSE_signatureProfile31212(actor); },
+  signatureAttack(state, actor) {
+    const profile = MONGSE_signatureProfile31212(actor);
+    if (!profile || !state || !actor) return null;
+    const phase = MONGSE_enemyActivePhase(actor);
+    const cycle = Math.max(0, Math.floor(Number(actor.signatureFollowupCycle31212 ?? 0)));
+    const deck = MONGSE_phaseSignatureDeck31213(actor, profile, phase);
+    if (!deck.length) return null;
+    const name = deck[cycle % deck.length];
+    const count = MONGSE_spawnBossPatternFollowup31212(state, actor);
+    return {name, phase, cycle, count};
+  },
+  runtimeSprite(cache, pose, fallback) { return MONGSE_runtimeSprite(cache, pose, fallback); },
+  get phaseSprite() { return MONGSE_phaseSpriteForRender; },
+  set phaseSprite(value) { MONGSE_phaseSpriteForRender = value; },
+  get persistentTick() { return MONGSE_tickPersistentBossCastProtection; },
+  set persistentTick(value) { MONGSE_tickPersistentBossCastProtection = value; },
+  get zoneAssetManifest() { return MONGSE_zoneAssetManifest; },
+  set zoneAssetManifest(value) { MONGSE_zoneAssetManifest = value; },
+  get zoneAssetPlan() { return MONGSE_zoneAssetPlan31220; },
+  set zoneAssetPlan(value) { MONGSE_zoneAssetPlan31220 = value; },
+  get zoneCombatCleared() { return MONGSE_zoneCombatCleared; },
+  set zoneCombatCleared(value) { MONGSE_zoneCombatCleared = value; },
+  setSpriteMetadata(path, metadata) { MONGSE_SPRITE_META[path] = [...metadata]; },
+  get spriteMetadata() { return path => MONGSE_SPRITE_META[path] ?? null; },
+  get serializeSave() { return Fi; },
+  set serializeSave(value) { Fi = value; },
+  get normalizeSave() { return ji; },
+  set normalizeSave(value) { ji = value; },
+  get restoreEnemies() { return Ii; },
+  set restoreEnemies(value) { Ii = value; },
+  get restoreEntry() { return HAPIL_restoreEntryFlowV31301; },
+  set restoreEntry(value) { HAPIL_restoreEntryFlowV31301 = value; },
+});
 })();
 
 function HAPIL_effectiveGrowthV31400(raw,state){return window.__HAPIL_RUN_V31400__.growth(raw,state);}
@@ -124966,8 +125036,8 @@ function HAPIL_installCanonicalStoryRC51(){
     throw new Error('RC55 cult03 story actors are incomplete');
 
   const assets = Object.freeze({
-    han: './assets/vfx/rc55/cult03-heretic-han.png',
-    baek: './assets/vfx/rc55/cult03-heretic-baek.png',
+    han: './assets/vfx/rc86/cult03-heretic-han-idle-v2.png',
+    baek: './assets/vfx/rc86/cult03-heretic-baek-idle-v2.png',
   });
   Object.assign(han, {
     name: '이단의목사 한리안', sprite: assets.han,

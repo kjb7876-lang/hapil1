@@ -35,10 +35,10 @@ assert(Number(html.match(/assets\/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36301);
 assert.match(bundle, /MONGSE_ZONE_DISPLAY_NAMES31222/);
 assert.match(bundle, /black_rose_ego_core_prison\.jpg/);
 assert.match(bundle, /"c103-boss": \{ deck: \[`id-chase`, `superego-judgment`, `ego-triad`, `harvest-composite`\]/);
-assert.match(bundle, /actorId: `c103-mid`,[\s\S]{0,180}spriteArt: `\.\/assets\/vfx\/rc55\/cult03-heretic-han\.png`/,
-  'Han must use the actual apostate midboss actor and generated art');
-assert.match(bundle, /actorId: `c103-boss`,[\s\S]{0,180}spriteArt: `\.\/assets\/vfx\/rc55\/cult03-heretic-baek\.png`/,
-  'Baek must use the actual apostate boss actor and generated art');
+assert.match(bundle, /actorId: `c103-mid`,[\s\S]{0,180}spriteArt: `\.\/assets\/vfx\/rc86\/cult03-heretic-han-idle-v2\.png`/,
+  'Han must use the actual apostate midboss actor and identity-correct RC86 art');
+assert.match(bundle, /actorId: `c103-boss`,[\s\S]{0,180}spriteArt: `\.\/assets\/vfx\/rc86\/cult03-heretic-baek-idle-v2\.png`/,
+  'Baek must use the actual apostate boss actor and identity-correct RC86 art');
 assert.match(bundle, /actorId: `c103-mid`,[\s\S]{0,260}patternSet: `rc55-c103-han`/);
 assert.match(bundle, /actorId: `c103-boss`,[\s\S]{0,260}patternSet: `rc55-c103-baek`/);
 
@@ -110,4 +110,4 @@ for (const file of [api.assets.han, api.assets.baek]) {
   assert.equal(png[25], 6, `${file} must preserve alpha for sprite compositing`);
 }
 
-console.log('RC55/60 PASS: story entries retained; cult03 apostates bind to their real boss slots.');
+console.log('RC55/60 PASS: story entries retained; cult03 apostates bind to real boss slots and square RGBA art.');
