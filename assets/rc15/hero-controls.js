@@ -113,8 +113,8 @@ if(logical==='KeyA'&&!Array.from(held.values()).includes(logical)&&!(binding.sta
    previousMode=mode;previousLocal=local;s.combatModeV31329=mode;if(binding?.auto)binding.auto.current=mode==='full';window.__HAPIL_MOVEMENT_V31336__?.host(s,binding?.input?.current);
  }
  function tickBasic(s,dt,env){const b=env??binding;if(!s||!b||dt<=0||b.paused||P()?.blocksNativeInput?.()||s.hp<=0||(0,native.MONGSE_isEncounterLocked31226)(s)||window.__HAPIL_CHANNEL_V31364__?.active?.(s))return false;
-   if(window.__HAPIL_LOOP_V31365__?.isCharging(s)||s.practicePatternV31365?.finished)return false;
-   const m=effective(b.settings?.current),manual=b.input?.current?.has('KeyA');if(m==='manual'&&!manual)return false;
+   if(s.practicePatternV31365?.finished)return false;
+   const m=effective(b.settings?.current),manual=b.input?.current?.has('KeyA')||window.__HAPIL_LOOP_V31365__?.pendingChargeTier?.(s)>0;if(m==='manual'&&!manual)return false;
    if(binding&&isBlocked())return false;
    if(s.bufferedAction||n(s.manualControlUntilV31329)>s.time)return false;
    const motion=s.heroMotion;if(window.__HAPIL_MOVING_V31335__?.hardLocked(s,s)||motion?.until>s.time&&['hurt','dash'].includes(motion.kind))return false;

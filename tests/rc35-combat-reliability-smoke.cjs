@@ -14,9 +14,9 @@ const outgoingSource = read('assets/combat-v31412/outgoing-native.js');
 const mainBundle = html.match(/\.\/assets\/index-v31526\.js\?v=(\d+)/);
 assert(mainBundle && Number(mainBundle[1]) >= 33701,
   'main bundle cache key was not advanced for RC37');
-assert(html.indexOf('./assets/combat-v31402/combat-core.js?v=33501') <
-  html.indexOf('./assets/combat-v31412/outgoing-native.js?v=35101'));
-assert(html.indexOf('./assets/combat-v31412/outgoing-native.js?v=35101') <
+assert(html.indexOf('./assets/combat-v31402/combat-core.js?v=39301') <
+  html.indexOf('./assets/combat-v31412/outgoing-native.js?v=39501'));
+assert(html.indexOf('./assets/combat-v31412/outgoing-native.js?v=39501') <
   html.indexOf('./assets/combat-v31402/contact-geometry.js?v=33501'));
 assert(html.indexOf('./assets/combat-v31402/contact-geometry.js?v=33501') <
   html.indexOf(mainBundle[0]));

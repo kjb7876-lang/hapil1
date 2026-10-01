@@ -154,7 +154,7 @@
 
   function scaleBasicDamage(power, source, record = true) {
     const key = source?.actionKey ?? source?.heroActionKey31213 ?? source?.heroActionKeyV31313 ?? source?.key;
-    if (String(key ?? '').toUpperCase() !== 'A') return power;
+    if (String(key ?? '').toUpperCase() !== 'A' && source?.basicChainRC95 !== true) return power;
     const n = Number(power);
     if (!Number.isFinite(n)) return power;
     if (record) metrics.basicHitsScaled++;

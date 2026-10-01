@@ -1,7 +1,23 @@
-/* RC94: preserve the authored beam texture; bend one continuous strip along contact geometry. */
+/* RC95: preserve the authored beam texture; bend one continuous strip along contact geometry. */
 (() => {
  'use strict';let draws=0,textured=0,continuous=0,triangles=0,cached=0,gpuDraws=0;
- const buffers=new WeakMap(),frames=new WeakMap();
+ const buffers=new WeakMap(),frames=new WeakMap(),tips=new WeakMap();
+ // Mask the owner artwork, rather than drawing a new generic beam. Both caps
+ // stay inside the original segment: a softened tip must not close a safe gap.
+ function softStrip(image,iw,ih,len,half){
+  if(typeof document==='undefined')return null;
+  const ratio=Math.max(.1,len/(half*2)),key=Math.round(ratio*32)/32;
+  let rows=tips.get(image);if(!rows){rows=new Map();tips.set(image,rows);}if(rows.has(key))return rows.get(key);
+  const canvas=document.createElement('canvas');canvas.width=Math.min(2048,Math.max(256,Math.round(256*key)));canvas.height=256;
+  const paint=canvas.getContext('2d');if(!paint)return null;
+  const w=canvas.width,h=canvas.height,r=Math.min(h*.5,w*.5),fade=Math.min(w*.24,h*.65);
+  paint.drawImage(image,iw*.25,ih*.25,iw*.5,ih*.5,0,0,w,h);
+  paint.globalCompositeOperation='destination-in';paint.beginPath();
+  paint.moveTo(r,0);paint.lineTo(w-r,0);paint.quadraticCurveTo(w,0,w,r);paint.lineTo(w,h-r);paint.quadraticCurveTo(w,h,w-r,h);paint.lineTo(r,h);paint.quadraticCurveTo(0,h,0,h-r);paint.lineTo(0,r);paint.quadraticCurveTo(0,0,r,0);paint.fill();
+  const end=paint.createLinearGradient(0,0,w,0);end.addColorStop(0,'rgba(0,0,0,0)');end.addColorStop(fade/w,'#000');end.addColorStop(1-fade/w,'#000');end.addColorStop(1,'rgba(0,0,0,0)');paint.fillStyle=end;paint.fillRect(0,0,w,h);
+  const edge=paint.createLinearGradient(0,0,0,h);edge.addColorStop(0,'rgba(0,0,0,0)');edge.addColorStop(.16,'#000');edge.addColorStop(.84,'#000');edge.addColorStop(1,'rgba(0,0,0,0)');paint.fillStyle=edge;paint.fillRect(0,0,w,h);
+  rows.set(key,canvas);if(rows.size>16)rows.delete(rows.keys().next().value);return canvas;
+ }
  const finite=(v,f)=>Number.isFinite(Number(v))?Number(v):f;
  const near=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)<.75;
  const complexType=type=>!!type&&!['one','sweep'].includes(type);
@@ -73,7 +89,7 @@
       const al={x:a.center.x+nx*a.half,y:a.center.y+ny*a.half},ar={x:a.center.x-nx*a.half,y:a.center.y-ny*a.half},bl={x:b.center.x+nx*b.half,y:b.center.y+ny*b.half},br={x:b.center.x-nx*b.half,y:b.center.y-ny*b.half};
       add(al,a.u,.25);add(bl,b.u,.25);add(ar,a.u,.75);add(bl,b.u,.25);add(br,b.u,.75);add(ar,a.u,.75);triangles+=2;
      }
-     if(chain.length<=5)continue;
+     if(chain.length<3)continue;
      // Round textured joins avoid folded strip triangles when beam width exceeds curve radius.
      for(let i=0;i<chain.length;i++){
       const a=chain[i],before=chain[Math.max(0,i-1)].center,after=chain[Math.min(chain.length-1,i+1)].center,dx=after.x-before.x,dy=after.y-before.y,len=Math.hypot(dx,dy)||1,tx=dx/len,ty=dy/len;
@@ -110,7 +126,7 @@
   const alpha=Math.max(0,Math.min(1,finite(options.alpha,1))),half=Math.max(1,finite(options.width,7));
   const image=options.image,iw=image?.naturalWidth||image?.width||0,ih=image?.naturalHeight||image?.height||0;
   const hasArt=!!image&&image.complete!==false&&iw>0&&ih>0;
-  const joined=paths(lines),compound=options.complex===true||lines.length>1,curved=joined.some(chain=>chain.length>5);
+  const joined=paths(lines),compound=options.complex===true||lines.length>1,curved=joined.some(chain=>chain.length>2);
   ctx.save();try{
    ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.setLineDash([]);
    ctx.lineCap='round';ctx.lineJoin='round';ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
@@ -123,10 +139,25 @@
      const accelerated=!reuse&&target?.gpu?.paint(image,meshes,target,iw,ih);
      if(reuse)cached++;if(accelerated)gpuDraws++;
      const paint=target?.ctx??ctx;if(!target)paint.globalAlpha=alpha;
-     if(!reuse&&!accelerated)for(const v of meshes)for(let i=1;i<v.length;i++){
-      const p=v[i-1],q=v[i],u0=sx+p.u*sw,u1=sx+q.u*sw;
-      triangle(paint,image,[{x:u0,y:sy},{x:u1,y:sy},{x:u0,y:sy+sh}],[p.left,q.left,p.right]);
-      triangle(paint,image,[{x:u1,y:sy},{x:u1,y:sy+sh},{x:u0,y:sy+sh}],[q.left,q.right,p.right]);
+     if(!reuse&&!accelerated)for(const v of meshes){
+      // The software renderer uses the same segment rectangles and round joins as WebGL.
+      // No folded miter strip or hard seam is left at a tight turn.
+      for(let i=1;i<v.length;i++){
+       const p=v[i-1],q=v[i],dx=q.center.x-p.center.x,dy=q.center.y-p.center.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
+       const al={x:p.center.x+nx*half,y:p.center.y+ny*half},ar={x:p.center.x-nx*half,y:p.center.y-ny*half},bl={x:q.center.x+nx*half,y:q.center.y+ny*half},br={x:q.center.x-nx*half,y:q.center.y-ny*half};
+       const u0=sx+p.u*sw,u1=sx+q.u*sw;
+       triangle(paint,image,[{x:u0,y:sy},{x:u1,y:sy},{x:u0,y:sy+sh}],[al,bl,ar]);
+       triangle(paint,image,[{x:u1,y:sy},{x:u1,y:sy+sh},{x:u0,y:sy+sh}],[bl,br,ar]);
+      }
+      if(v.length<3)continue;
+      for(let i=0;i<v.length;i++){
+       const p=v[i],before=v[Math.max(0,i-1)].center,after=v[Math.min(v.length-1,i+1)].center,dx=after.x-before.x,dy=after.y-before.y,len=Math.hypot(dx,dy)||1,tx=dx/len,ty=dy/len;
+       for(let j=0;j<16;j++){
+        const dst=[p.center],src=[{x:sx+p.u*sw,y:sy+sh*.5}];
+        for(const angle of [j*Math.PI/8,(j+1)*Math.PI/8]){const ox=Math.cos(angle)*half,oy=Math.sin(angle)*half;dst.push({x:p.center.x+ox,y:p.center.y+oy});src.push({x:sx+Math.max(0,Math.min(1,p.u+(ox*tx+oy*ty)/p.length))*sw,y:sy+sh*(.5-(-ox*ty+oy*tx)/half*.5)});}
+        triangle(paint,image,src,dst);
+       }
+      }
      }
      if(target){frames.set(owner,{key,image,target});ctx.globalAlpha=alpha;ctx.drawImage(target.canvas,0,0,target.w*target.scale,target.h*target.scale,target.x,target.y,target.w,target.h);}
      continuous++;
@@ -134,8 +165,9 @@
      // Straight branches keep the original owner bitmap and its luminous fringe.
      for(const l of lines){const dx=l.b.x-l.a.x,dy=l.b.y-l.a.y,len=Math.hypot(dx,dy);if(len<.5)continue;
       ctx.save();try{ctx.translate(l.a.x,l.a.y);ctx.rotate(Math.atan2(dy,dx));
-       if(compound&&!options.low){ctx.globalAlpha=alpha*.16;ctx.drawImage(image,sx,sy,sw,sh,0,-half*1.6,len,half*3.2);}
-       ctx.globalAlpha=alpha;ctx.drawImage(image,sx,sy,sw,sh,0,-half,len,half*2);
+       const strip=softStrip(image,iw,ih,len,half);
+       if(compound&&!options.low){ctx.globalAlpha=alpha*.16;if(strip)ctx.drawImage(strip,0,-half*1.6,len,half*3.2);else ctx.drawImage(image,sx,sy,sw,sh,0,-half*1.6,len,half*3.2);}
+       ctx.globalAlpha=alpha;if(strip)ctx.drawImage(strip,0,-half,len,half*2);else ctx.drawImage(image,sx,sy,sw,sh,0,-half,len,half*2);
       }finally{ctx.restore();}
      }
     }
@@ -150,5 +182,5 @@
    draws++;return true;
   }finally{ctx.restore();}
  }
- window.__HAPIL_CONNECTED_LASER_V31377__=Object.freeze({installed:true,version:'RC94',render,paths,mesh,complexType,stats:()=>({draws,textured,continuous,triangles,cached,gpuDraws})});
+ window.__HAPIL_CONNECTED_LASER_V31377__=Object.freeze({installed:true,version:'RC95',render,paths,mesh,complexType,stats:()=>({draws,textured,continuous,triangles,cached,gpuDraws})});
 })();

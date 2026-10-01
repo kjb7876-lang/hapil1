@@ -123,7 +123,7 @@
             y: o.y,
             born: a.time,
             duration: r ? 0.82 : 0.64,
-            text: r ? `CRIT ${g}` : `${g}`,
+            text: v>0 ? (r ? `CRIT ${Math.round(v)}` : `${Math.round(v)}`) : `보호`,
             color: r ? `#fff1a8` : n,
             critical: r,
           }),

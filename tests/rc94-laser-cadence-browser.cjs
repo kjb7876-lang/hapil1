@@ -16,14 +16,14 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+new URL
    const results=[],problems=[],templates=[],cache={};
    for(const owner of L.owners.filter(o=>!o.native))for(const mode of ['STORY','DREAM']){
     const raw=B.actor(owner.zone,owner.id);if(!raw){results.push({id:owner.id,zone:owner.zone,inactive:true});continue;}
-    const s=T.initial();Object.assign(s,{time:100,zone:owner.zone,x:18,y:16,hp:240,maxHp:240,gameModeV31346:mode,samongUnlockedRC91:true});
+    const s=T.initial();Object.assign(s,{practiceV31329:true,time:100,zone:owner.zone,x:18,y:16,hp:240,maxHp:240,gameModeV31346:mode,samongUnlockedRC91:true});
     const a=B.cloneEnemy(raw,owner.zone);Object.assign(a,{humanPhase0:false,fixedPhase:1,currentPhase:1,x:16,y:16,attackAt:0,readyAt:0,patternReadyAt:0,invulnerableUntil:0,combatEntryGraceUntilV31239:0,phaseTransitionUntil:0,recoverUntil:0});s.enemies=[a];
     const patterns=B.patterns(a,1),laser=patterns.find(p=>p.bloodV31516&&p.laserTypeV31331==='spiral')??patterns.find(p=>p.bloodV31516);
     if(!laser){problems.push({kind:'missing-laser',id:a.id});continue;}
     const cast=T.cast(s,a,laser,1);
     if(!cast?.laserV31330){problems.push({kind:'admission',id:a.id,canStart:blood.canStart(s,a)});continue;}
     const row={id:a.id,zone:s.zone,mode,end:cast.endAt,ordinaryReady:a.patternReadyAt,laserReady:a.laserReadyAtRC94,hp:a.hp,maxHp:a.maxHp};
-    if(a.patternReadyAt>=cast.endAt+2||Math.abs(a.laserReadyAtRC94-cast.endAt-laser.cooldown*(mode==='DREAM'?.5:1))>1e-8)problems.push({kind:'shared-cooldown',...row});
+    if(a.patternReadyAt>=cast.endAt+2||Math.abs(a.laserReadyAtRC94-cast.endAt-laser.cooldown*(window.__HAPIL_SAMONG_RC91__.enabled(s)?.5:1))>1e-8)problems.push({kind:'shared-cooldown',...row});
     s.time=cast.endAt+1.5;L.tick(s,.05);
     const retry=T.cast(s,a,laser,1);if(retry)problems.push({kind:'laser-cooldown-bypass',id:a.id});
     const cards=patterns.filter(p=>!p.bossFinaleV31334),picked=T.choose(s,a,cards,1,8,{ranged:true,desiredMin:2,desiredMax:15});

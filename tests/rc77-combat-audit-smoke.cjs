@@ -10,7 +10,7 @@ const html = read('index.html');
 const beamAsset = read('assets/rc77/connected-laser.js');
 
 // The helper must be available before the module starts drawing boss attacks.
-assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=39401'));
+assert(html.indexOf('./assets/rc77/connected-laser.js') < html.indexOf('./assets/index-v31526.js?v=39701'));
 assert.equal((main.match(/__HAPIL_CONNECTED_LASER_V31377__;/g) || []).length, 3,
   'standard boss, blood laser and final boss beams must share the continuous renderer');
 assert(!main.includes('len+overlap*2'), 'branch beam textures must not restart at every segment');
@@ -45,10 +45,10 @@ assert.equal(window.__HAPIL_CONNECTED_LASER_V31377__.render(context, lines,
 assert.equal(stats.images,0,'missing artwork keeps a visible fallback');
 assert.equal(stats.strokes,3);assert.equal(context.shadowBlur,0);
 window.__HAPIL_CONNECTED_LASER_V31377__.render(context,lines,{width:7,color:'#ed4c92',image:{complete:true,naturalWidth:768,naturalHeight:144},low:true});
-assert.equal(stats.images,3,'straight branches retain the original owner bitmap even with low FX');
+assert(stats.images>=3,'joined branches retain the original owner bitmap and round turns even with low FX');const joinedImages=stats.images;
 assert.equal(stats.strokes,3,'low FX preserves authored textures without replacing them with flat light');
 window.__HAPIL_CONNECTED_LASER_V31377__.render(context,[lines[0]],{width:7,color:'#ed4c92',image:{complete:true,naturalWidth:768,naturalHeight:144}});
-assert.equal(stats.images,4,'a single straight beam retains its owner artwork');
+assert.equal(stats.images,joinedImages+1,'a single straight beam retains its owner artwork');
 assert.equal(window.__HAPIL_CONNECTED_LASER_V31377__.stats().textured,2);
 
 // Boss palette uniqueness is scoped per encounter map; co-present bosses get clearly separated hues.

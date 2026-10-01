@@ -108,6 +108,8 @@
     text(s,a,p.kind==='commands'?'명령 장치 격파 → 방벽 해제':p.kind==='swords'?'모조체 격파 → 두 주인의 반격':'발사원 격파 → 다음 탄막 중단');
   }
   function fire(s,actor,target,count,speed,spread,delay=.55,extra={}) {
+    const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow&&!flow.allowed(s,'bullet'))return 0;
+    delay=0; // Visible projectiles launch immediately; no ground forecast.
     const mobile=window.__HAPIL_MOBILE_V31366__?.active===true || window.innerWidth<800;
     const cap=Math.min(n(bridge.projectileCap(),192),mobile?112:192);
     const room=Math.max(0,cap-rows(s.hostileProjectiles).length);

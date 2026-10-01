@@ -1,0 +1,14 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const window={},context={window,Object,Number,Math,setInterval:()=>0};
+vm.runInNewContext(fs.readFileSync('assets/controller-v31406/action-contract.js','utf8'),context);
+const A=window.__HAPIL_ACTION_CONTRACT_V31406__;
+assert(A.decide('AUTO_SKILL',{charging:true}).allowed,'charging must not silence automatic skills');
+for(const fact of ['blocked','defending','timeStopped','statusLocked'])assert(!A.decide('AUTO_SKILL',{charging:true,[fact]:true}).allowed,'real action locks stay authoritative');
+window.__HAPIL_LOOP_V31365__={isCharging:s=>s.charging,pendingChargeTier:s=>s.queued};
+vm.runInNewContext(fs.readFileSync('assets/rc96/resonance-hud.js','utf8'),context);
+const H=window.__HAPIL_RESONANCE_HUD_RC96__,s={time:10,resonance:42.8,awakeningUntil:0};
+assert.equal(H.status(s).label,'공명 42 / 100');s.resonance=100;assert.equal(H.status(s).mode,'ready');
+s.awakeningUntil=17;assert.equal(H.status(s).remaining,7);s.time=13;assert(Math.abs(H.status(s).fill-4/7)<1e-8);
+s.charging=true;s.chargeStartV31365=12;assert.equal(H.status(s).chargeFill,1/1.2);s.queued=2;assert.equal(H.status(s).chargeLabel,'강화 사격 대기');
+const before=JSON.stringify(s);for(let i=0;i<20;i++)H.status(s);assert.equal(JSON.stringify(s),before,'the HUD never changes combat resources');
+console.log('RC96 PASS: clear resonance/EGO/charge presentation, read-only HUD, charging-compatible auto skills and preserved guard/status locks.');

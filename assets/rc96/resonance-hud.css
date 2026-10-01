@@ -1,0 +1,11 @@
+.hapil-resonance-rc96{position:fixed;z-index:35;right:16px;top:80px;width:230px;padding:7px 10px;background:rgba(4,12,23,.92);border:1px solid #648b99;border-radius:8px;color:#eaffff;pointer-events:none;font:700 14px/1.3 system-ui,'Noto Serif KR',sans-serif;font-variant-numeric:tabular-nums;box-sizing:border-box}
+.hapil-resonance-rc96[hidden],.hapil-resonance-rc96 [hidden]{display:none!important}
+.rc96-resource-bar,.rc96-charge>div{height:7px;margin-top:4px;overflow:hidden;background:#152f42;border-radius:3px}
+.rc96-resource-bar i,.rc96-charge i{display:block;width:100%;height:100%;background:#65ebdb;transform-origin:left center}
+.hapil-resonance-rc96[data-mode="ego"]{border-color:#efd485;color:#ffedb3}
+.hapil-resonance-rc96[data-mode="ego"] .rc96-resource-bar i,.hapil-resonance-rc96[data-mode="ready"] .rc96-resource-bar i{background:#efd485}
+.rc96-charge{margin-top:4px;font-size:11px;color:#d5d8ff}.rc96-charge>div{height:3px;margin-top:2px}.rc96-charge i{background:#b5b1ff}
+.hero-hud .hud-meter:has(.resonance){display:none}
+html.hapil-touch-v31366 .hapil-resonance-rc96{top:calc(env(safe-area-inset-top,0px) + 6px);left:68px;right:auto;width:calc(100vw - 136px);max-width:300px;padding:3px 7px;font-size:12px;border-radius:5px}
+html.hapil-touch-v31366 .rc96-resource-bar{height:5px;margin-top:2px}
+html.hapil-touch-v31366 .rc96-charge{font-size:10px;margin-top:2px}

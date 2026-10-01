@@ -22,7 +22,7 @@
   const finite = value => typeof value === 'number' && Number.isFinite(value);
   const hostile = source => source && typeof source === 'object' &&
     !source.friendly && !source.reflected && !source.visualOnly;
-  const heavyBossSource = source => hostile(source) &&
+  const heavyBossSource = source => hostile(source) && !source.rc95Bullet &&
     (!!source.boss || !!source.midboss) &&
     (!!source.heavyBossSkill || !!source.themedLaser || !!source.returnAt ||
      !!source.telekineticRain || !!source.spatialRift || !!source.narrativeAttack ||

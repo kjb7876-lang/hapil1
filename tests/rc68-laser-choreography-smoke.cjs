@@ -100,7 +100,7 @@ const canvas = {globalAlpha: 1, strokes: 0, images: 0, save() {}, restore() {}, 
   translate() {}, rotate() {}, strokeText() {}, fillText() {}};
 const warned = cast('sweep');
 assert.equal(draw(canvas, {}, {time: 1}, warned, {showCombatInfo:false,showAttackTelegraphs:false}), true);
-assert.equal(canvas.strokes,0,'disabled forecasts never paint the future sweep');
+assert(canvas.strokes>=3,'laser warnings remain visible when optional forecasts are disabled');
 assert.equal(draw(canvas, {}, {time: 1}, warned, {showCombatInfo:false,showAttackTelegraphs:true}), true);
 assert(canvas.strokes >= 6, 'the warning visibly marks the start and future sweep route');
 canvas.strokes = 0;

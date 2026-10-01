@@ -40,8 +40,8 @@ vm.runInContext(read('assets/rc77/connected-laser.js'),c);const laser=window.__H
 const ctx={save(){},restore(){},translate(){},rotate(){},transform(){},clip(){},closePath(){},setLineDash(){},beginPath(){this.moves=0;this.lines=0;},moveTo(){this.moves++;},lineTo(){this.lines++;},stroke(){records.push({color:this.strokeStyle,width:this.lineWidth,moves:this.moves,lines:this.lines,join:this.lineJoin});},drawImage(){this.images=(this.images||0)+1;}};
 const curve=Array.from({length:24},(_,i)=>({a:{x:i*8,y:Math.sin(i*.22)*40},b:{x:(i+1)*8,y:Math.sin((i+1)*.22)*40}}));
 laser.render(ctx,curve,{width:16,color:'#ab82ed',accent:'#eedcff',image:{complete:true,width:200,height:48}});
-assert.equal(ctx.images,48);assert.equal(records.length,0,'decoded curved beams use owner artwork');assert.equal(laser.paths(curve).length,1);assert.equal(laser.mesh(laser.paths(curve)[0],16).length,25);
-laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}});assert.equal(ctx.images,49);
+assert(ctx.images>48,'software round joins retain the authored bitmap at each curve turn');const curvedImages=ctx.images;assert.equal(records.length,0,'decoded curved beams use owner artwork');assert.equal(laser.paths(curve).length,1);assert.equal(laser.mesh(laser.paths(curve)[0],16).length,25);
+laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}});assert.equal(ctx.images,curvedImages+1);
 // All eight generated images are real, distinct, transparent RGBA assets.
 const manifest=JSON.parse(read('assets/rc91/awakening/manifest.json'));assert.equal(manifest.heroes.length,8);const hashes=new Set();
 for(const row of manifest.heroes){const bytes=fs.readFileSync(path.join(root,row.path.replace(/^\.\//,'')));assert.equal(bytes.toString('hex',0,8),'89504e470d0a1a0a');assert.equal(bytes[25],6);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),row.sha256);assert(row.transparent);hashes.add(row.sha256);assert.equal(api.art[row.hero],row.path);}

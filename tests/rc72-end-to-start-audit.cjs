@@ -283,7 +283,8 @@ for(let x=1.65;x<30.6;x+=.65)for(let y=1.65;y<30.6;y+=.65){const p=screenPoint({
 const fullFieldCoverage=coverageSamples.filter(distance=>distance<=fieldSize.width*27+4.5+1e-7).length/coverageSamples.length;
 assert(fullFieldCoverage>=.99,`the labeled 99% laser curtain covers ${(fullFieldCoverage*100).toFixed(1)}% of the arena`);
 
-const baseGeometryStart = bundle.indexOf(' function geometry(c,time){if(c.bloodV31516)', 0);
+const baseGeometryStart = bundle.indexOf(' function geometry(c,time){', bundle.indexOf("const labels={two:"));
+assert(baseGeometryStart>=0,'native laser geometry was located');
 const baseGeometryEnd = bundle.indexOf(' function dist(p,a,b){', baseGeometryStart);
 const baseGeometry = new Function('window','tier','CL','local','clip',bundle.slice(baseGeometryStart,baseGeometryEnd)+'\nreturn geometry;')(
   fakeWindow,()=> 'boss',(x,a,b)=>Math.max(a,Math.min(b,x)),(p,c)=>({x:c.cx+p[0]/2+p[1],y:c.cy-p[0]/2+p[1]}),clip);

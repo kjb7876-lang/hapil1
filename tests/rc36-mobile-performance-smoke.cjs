@@ -9,7 +9,7 @@ const source = read('assets/hapil-mobile-v31406.js');
 const css = read('assets/rc28/mobile-layout.css');
 const html = read('index.html');
 
-assert(html.includes('hapil-mobile-v31406.js?v=33602'), 'mobile controller cache key was not advanced');
+assert(Number(html.match(/hapil-mobile-v31406\.js\?v=(\d+)/)?.[1]) >= 33602, 'mobile controller cache key was not advanced');
 assert(html.includes('mobile-layout.css?v=33602'), 'mobile layout cache key was not advanced');
 assert(css.includes('translate3d(var(--stick-x,0px),var(--stick-y,0px),0)'),
   'joystick knob does not render its current input position');

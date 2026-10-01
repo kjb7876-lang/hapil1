@@ -68,7 +68,7 @@ const html = read('index.html');
 const controls = read('assets/rc15/hero-controls.js');
 const main = read('assets/index-v31526.js');
 assert(html.indexOf('incoming-hit-art.js?v=34601') < html.search(/index-v31526\.js\?v=\d+/));
-assert(html.includes('hero-controls.js?v=34602'));
+assert(html.includes('hero-controls.js?v=39601'));
 assert(controls.includes('window.__HAPIL_INCOMING_HIT_ART_RC46__?.onPlayerDamage(s,a,source,loss)'));
 assert(main.includes('HAPIL_bindSwordProjectileRC46'));
 assert(main.includes('n.hitArtRC46 && Number.isFinite(n.hitArtSizeRC46)'));

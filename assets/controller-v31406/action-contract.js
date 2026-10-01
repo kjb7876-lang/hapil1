@@ -19,7 +19,7 @@
   else if(kind==='CHARGE_START')reason=!facts.awake?'not-awake':facts.defending?'guard':null;
   else if(kind==='GUARD_START')reason=facts.awake?'awake':facts.latched?'latched':facts.active?'active':facts.statusLocked?'status':facts.cooldownReady===false?'cooldown':null;
   else if(kind==='MANUAL_BLINK')reason=facts.defending?'guard':facts.statusLocked?'status':facts.cooldownReady===false?'cooldown':null;
-  else if(kind==='AUTO_SKILL')reason=facts.defending?'guard':facts.charging?'charge':facts.timeStopped?'time-stop':facts.statusLocked?'status':null;
+  else if(kind==='AUTO_SKILL')reason=facts.defending?'guard':facts.timeStopped?'time-stop':facts.statusLocked?'status':null;
   else if(kind!=='GUARD_KEEP'&&kind!=='CHARGE_RELEASE')reason='unknown-action';
   const allowed=reason===null;allowed?counters.acceptedGates++:counters.rejectedGates++;
   return {allowed,reason,cancelCharge:allowed&&kind==='MANUAL_BLINK'&&!!facts.charging};

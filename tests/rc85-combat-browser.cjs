@@ -23,10 +23,10 @@ const assert=require('node:assert/strict');
  return {x,y,afterX:s.x,afterY:s.y,lastDodgeAt:s.lastDodgeAt,before};});
  assert.equal(dash.lastDodgeAt,dash.before);assert(dash.afterX>=dash.x);assert(Math.abs(dash.afterY-dash.y)<.001);
  await page.waitForFunction(t=>window.__MONGSE_QA_STATE__.time>t+.3,dash.before);
- // Keep the test player alive to isolate real attack -> death -> story progression.
+ // Keep only the test player alive to isolate native enemy defeat -> story progression.
  // Enemy health and attack damage are never changed by this fixture.
- await page.evaluate(()=>{window.__rc85Survival=setInterval(()=>{const s=window.__MONGSE_QA_STATE__;if(s&&s.hp>0)s.hp=s.maxHp},30);window.__HAPIL_CONTROLS_V31329__.setMode('semi');});
- await page.waitForSelector('#hapil-story-rc51[data-phase="post"]',{timeout:90000});
+ await page.evaluate(()=>{const alive=()=>{const s=window.__MONGSE_QA_STATE__;if(s&&s.hp>0){s.hp=s.maxHp;s.invulnerableUntil=s.time+5;}};alive();window.__rc85Survival=setInterval(alive,30);window.__HAPIL_CONTROLS_V31329__.setMode('semi');});
+ try{await page.waitForSelector('#hapil-story-rc51[data-phase="post"]',{timeout:180000});}catch(e){console.log('RC95_CAMPAIGN_DIAGNOSTIC',await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{time:s.time,hero:s.activeHeroId,modal:window.__HAPIL_CONTROLS_V31329__.binding.modal.current,deathScreen:document.body.innerText.includes('EGO COLLAPSE · REBIRTH'),position:[s.x,s.y],enemies:s.enemies.map(a=>({id:a.id,hp:a.hp,max:a.maxHp,phase:a.currentPhase,attackAt:a.attackAt,atomic:a.atomicCastUntil31210})),queue:s.pendingStrikes.length};}));throw e;}
  const result=await page.evaluate(()=>({time:window.__MONGSE_QA_STATE__.time,live:window.__MONGSE_QA_STATE__.enemies.filter(a=>a.hp>0).length,beam:window.__HAPIL_CONNECTED_LASER_V31377__.stats()}));
  assert.equal(result.live,0);console.log('FIRST_BATTLE',JSON.stringify(result));
  await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();

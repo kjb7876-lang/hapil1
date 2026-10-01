@@ -28,6 +28,7 @@
    if(!enemy||(!enemy.boss&&!enemy.midboss))return damage;
    if(!Number.isFinite(enemy.maxHp)||enemy.maxHp<=0)return 0;
    const now=Number(state?.time)||0,awakened=window.__HAPIL_SAMONG_RC91__?.active(state)===true,final=(window.__HAPIL_MODES_V31346__?.mode(state)??state?.gameModeV31346??'STORY')==='STORY'&&state?.zone==='cult04'&&enemy.id==='c104-boss'&&enemy.hapilSecondPhaseV31300;
+   if(!final&&window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(state))return damage;
    const clock=final ? Number(state.hapilFinalBattleV31300?.combatElapsedRC79)||0 : awakened?window.__HAPIL_SAMONG_RC91__.clock(state):now;
    const rate=(final ? .014 : enemy.boss ? .08 : .14) *
      (window.__HAPIL_DANMAKU_RPG_RC88__?.budgetFactor(state,enemy) ?? 1)*(awakened?5:1);

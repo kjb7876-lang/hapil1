@@ -123,13 +123,14 @@
   const movement=document.createElement('div');movement.className='hm-movement';movement.innerHTML='<div class="hm-stick" data-mobile-stick role="group" aria-label="8방향 터치 이동 휠"><span></span></div>';
   const actions=document.createElement('div');actions.className='hm-actions';actions.setAttribute('role','group');actions.setAttribute('aria-label','전투 터치 버튼');
   for(const row of [['S','블링크'],['D','공명']])actions.append(button(...row));
-  root.append(toolbar,movement,actions);game.append(root);
+  const vitals=document.createElement('div');vitals.className='hm-vitals';vitals.setAttribute('aria-label','영웅 체력');vitals.innerHTML='<span></span><i aria-hidden="true"></i><span class="hm-resource"></span>';root.append(toolbar,vitals,movement,actions);game.append(root);
  }
  function dimensions(){const v=window.visualViewport,height=(v?.height??innerHeight).toFixed(2)+'px';if(height!==lastViewportHeight){lastViewportHeight=height;document.documentElement.style.setProperty('--hapil-vh66',height);}}
  function update(){if(document.hidden)return;lastTick=performance.now();const b=C()?.binding,next=document.querySelector('.game'),active=enabled()&&!!next&&b?.phase==='game'&&!C()?.localTwo?.();applyMobileDefaults(b);
   if(uiActive!==active){clear('ui-mode');uiActive=active;}document.documentElement.classList.toggle('hapil-touch-v31366',active);dimensions();mount(active?next:null);
   if(enabled()&&b?.modal?.current)ensureSettingsControl();
   if(!root||!b||document.hidden)return;const s=b.state.current;
+  const vitals=root.querySelector('.hm-vitals');if(vitals){setText(vitals.firstElementChild,'HP '+Math.max(0,Math.ceil(finite(s.hp)))+' / '+Math.max(1,Math.ceil(finite(s.maxHp,1))));const resource=vitals.querySelector('.hm-resource'),v=window.__HAPIL_RESONANCE_HUD_RC96__?.status?.(s);if(resource)setText(resource,v?.remaining>0?'EGO '+v.remaining.toFixed(1)+'초':'공명 '+Math.floor(finite(s.resonance))+' / 100');vitals.style.setProperty('--hero-hp',Math.max(0,Math.min(100,100*finite(s.hp)/Math.max(1,finite(s.maxHp,1))))+'%');}
   const blocked=!canInput('A');root.classList.toggle('hm-blocked',blocked);
   for(const el of root.querySelectorAll('.hm-actions [data-mobile-action]')){const k=el.dataset.mobileAction;
    const native=document.querySelector('.combat-hud [data-control-key="'+k+'"]'),remain=Math.max(0,finite(s.cooldowns?.[k])-s.time),owned=[...pointers.values()].some(p=>p.target===el),locked=blocked||(!owned&&(remain>.001||native?.disabled||k!=='D'&&D()?.active(s)));

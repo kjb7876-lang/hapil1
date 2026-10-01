@@ -1,0 +1,131 @@
+/* Combat and information own separate tracks. Loaded last to retire the floating RC23 HUD. */
+html:not(.hapil-touch-v31366) body.rc15-playing {
+  --combat-header: 42px;
+  --combat-footer: 116px;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .game {
+  display:grid!important;position:relative!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,8fr) minmax(0,1fr)!important;
+  grid-template-rows:var(--combat-header) minmax(0,1fr) var(--combat-footer)!important;
+  width:100%!important;max-width:none!important;height:100dvh!important;min-height:0!important;
+  margin:0!important;padding:0!important;gap:0!important;overflow:hidden!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .game>.topbar {
+  position:relative!important;inset:auto!important;grid-column:1/-1!important;grid-row:1!important;
+  width:100%!important;height:auto!important;max-height:none!important;min-height:0!important;padding:4px 10px!important;
+  grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .topbar .brand,
+html:not(.hapil-touch-v31366) body.rc15-playing .topbar>.mobile-system-menu {display:none!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .topbar .objective {grid-column:1!important;min-width:0!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .topbar nav {grid-column:2!important;display:flex!important;flex-wrap:wrap!important;min-width:0!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .game>.game-stage {
+  position:relative!important;inset:auto!important;grid-column:2!important;grid-row:2!important;
+  width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+  padding:0!important;margin:0!important;overflow:hidden!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .game-stage>canvas {
+  width:var(--hapil-canvas-width-v31314,100%)!important;height:var(--hapil-canvas-height-v31314,auto)!important;
+  max-width:100%!important;max-height:100%!important;aspect-ratio:16/9!important;object-fit:contain!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .game>.combat-hud {
+  position:relative!important;inset:auto!important;grid-column:1/-1!important;grid-row:3!important;
+  width:100%!important;height:auto!important;max-height:none!important;min-height:0!important;
+  grid-template-columns:minmax(140px,20%) minmax(140px,22%) minmax(0,1fr)!important;
+  padding:6px 10px 28px!important;gap:10px!important;overflow:auto!important;align-items:center!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .hero-hud {min-width:0!important;padding:0 8px 0 0!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-stack {min-width:0!important;gap:5px!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto!important;overflow:visible!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .skills {display:flex!important;flex-wrap:wrap!important;gap:5px!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .skills button {flex:1 1 96px!important;width:auto!important;min-width:0!important;height:48px!important;min-height:0!important;padding:5px 7px 5px 34px!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-utilities {display:flex!important;flex-wrap:wrap!important;gap:4px!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-utilities button {min-width:0!important;padding:4px 7px!important;font-size:10px!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-utilities>span {display:none!important}
+/* Automatic skills need no key prompts; manual mode retains usable skill buttons. */
+body.rc15-playing .game .skills :is([data-control-key="Q"],[data-control-key="W"],[data-control-key="E"],[data-control-key="R"],[data-control-key="G"]) kbd {display:none!important}
+body.rc15-playing .game .skills :is([data-control-key="Q"],[data-control-key="W"],[data-control-key="E"],[data-control-key="R"],[data-control-key="G"]) {padding-left:8px!important}
+body .game[data-combat-input="auto"] .skills :is([data-control-key="Q"],[data-control-key="W"],[data-control-key="E"],[data-control-key="R"],[data-control-key="G"]) {display:none!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels {
+  position:fixed!important;inset:var(--combat-header) 0 var(--combat-footer)!important;
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,8fr) minmax(0,1fr)!important;
+  align-items:stretch!important;gap:0!important;padding:0!important;margin:0!important;pointer-events:none!important;
+}
+html:not(.hapil-touch-v31366) #rc15-sidepanels[hidden] {display:none!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc15-panel {
+  position:relative!important;inset:auto!important;width:100%!important;max-width:100%!important;height:100%!important;
+  min-width:0!important;min-height:0!important;max-height:100%!important;overflow:auto!important;overscroll-behavior:contain;
+  padding:8px 6px!important;border-radius:0!important;pointer-events:auto!important;scrollbar-width:thin;
+  overflow-wrap:anywhere;word-break:normal;contain:paint;
+}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc15-enemies {grid-column:1}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc15-allies {grid-column:3}
+html:not(.hapil-touch-v31366) #rc15-sidepanels :is(h2,.rc21-party-title,.rc21-recent,.rc21-calm) {display:block!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels h2 {font-size:13px;margin-bottom:8px}
+html:not(.hapil-touch-v31366) #rc15-sidepanels h2 span {display:none}
+html:not(.hapil-touch-v31366) #rc15-sidepanels :is(.rc21-focus,.rc21-line,.rc21-alert,.rc21-party,.rc21-member) {display:grid!important;grid-template-columns:minmax(0,1fr)!important;min-width:0!important;gap:4px!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc21-focus>strong {max-width:100%!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc21-vitals {min-width:0!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc21-vitals>b {font-size:12px!important;overflow-wrap:anywhere}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc21-member {min-width:0!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc21-member span {white-space:normal!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc21-alert {padding:6px!important}
+html:not(.hapil-touch-v31366) #rc15-sidepanels .rc22-fullscreen {display:none!important}
+/* The side panel already contains the boss HP and telegraphs. No duplicate floating panels. */
+html:not(.hapil-touch-v31366) #rc24-bossbar,
+html:not(.hapil-touch-v31366) .game>.hapil-combat-rail-v31339,
+html:not(.hapil-touch-v31366) .game-stage>:not(canvas):not(.minimap.expanded) {display:none!important}
+/* A deliberately opened map is a dialog-sized view, never a permanently expanded HUD. */
+html:not(.hapil-touch-v31366) .game-stage>.minimap.expanded {inset:8% 8%!important;width:84%!important;height:84%!important;max-width:none!important}
+.combat-info-details {border:1px solid #7891a655;border-radius:8px;padding:12px;min-width:0}
+.combat-info-details summary {cursor:pointer;color:#d9f5ff;font-weight:700}
+.combat-info-details .combat-info-columns {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:12px}
+.combat-info-details .rc21-vitals i {display:block;height:4px;background:linear-gradient(90deg,#78d9cc var(--fill),#ffffff24 var(--fill))}
+.combat-info-details :is(strong,b,span,em) {overflow-wrap:anywhere}
+.combat-info-details .rc21-member,.combat-info-details .rc21-line {display:grid;margin:7px 0}
+.combat-info-details .rc21-alert {display:grid;gap:5px;margin-top:10px}
+/* Phone/tablet: full battlefield, one menu, compact vitals, joystick and two buttons. */
+.hm-vitals {display:none}
+html.hapil-touch-v31366 .hm-vitals {
+  display:block;position:absolute;z-index:55;top:calc(env(safe-area-inset-top,0px) + 10px);right:calc(env(safe-area-inset-right,0px) + 10px);
+  width:116px;pointer-events:none;padding:4px 6px;border-radius:5px;background:#07101ed9;color:#f5f8ff;font:600 10px/1.2 system-ui,sans-serif;
+}
+.hm-vitals>i {display:block;height:4px;margin-top:4px;background:linear-gradient(90deg,#76dbb2 var(--hero-hp,100%),#ffffff30 var(--hero-hp,100%));border-radius:2px}
+html.hapil-touch-v31366 #rc24-bossbar:not([hidden]) {
+  display:block!important;top:calc(env(safe-area-inset-top,0px) + 56px)!important;left:50%!important;
+  width:min(64vw,320px)!important;max-width:calc(100vw - 24px)!important;padding:3px 7px!important;
+}
+html.hapil-touch-v31366 #rc24-bossbar :is(small,.rc24-bossbar-title b) {display:none!important}
+html.hapil-touch-v31366 #rc24-bossbar .rc24-bossbar-title {display:block;font-size:9px!important;text-align:center}
+html.hapil-touch-v31366 body.rc15-playing .game>.hapil-combat-rail-v31339 {display:none!important}
+@media (max-width:359px) {
+ html.hapil-touch-v31366 .hm-movement {width:90px!important;height:90px!important}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button {width:64px!important;height:64px!important}
+ html.hapil-touch-v31366 .hm-actions {gap:6px!important}
+}
+@media (orientation:landscape) {
+ html.hapil-touch-v31366 #rc24-bossbar:not([hidden]) {top:calc(env(safe-area-inset-top,0px) + 8px)!important;width:min(36vw,300px)!important}
+}
+@media (max-width:600px) {
+ .combat-info-details .combat-info-columns {grid-template-columns:1fr}
+ html:not(.hapil-touch-v31366) body.rc15-playing {--combat-footer:160px}
+ html:not(.hapil-touch-v31366) body.rc15-playing .game>.combat-hud {grid-template-columns:1fr!important;overflow:auto!important}
+}
+
+/* Retain every manual action when the player explicitly selects manual mode. */
+body.rc15-playing .game[data-combat-input="manual"] .action-stack .skills [data-control-key] {display:flex!important}
+
+/* Reserve the last 22px of the desktop footer for essential action/error feedback. */
+.combat-footer-feedback {position:fixed;inset:auto 0 0;z-index:25;height:22px;padding:3px 10px;background:#07101f;color:#d6eaf4;font:11px/16px system-ui,sans-serif;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;pointer-events:none}
+.combat-footer-feedback[hidden],html.hapil-touch-v31366 .combat-footer-feedback {display:none!important}
+
+/* Preserve RC96 resonance/EGO/charge readouts inside a dedicated footer track. */
+html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>.hero-hud {grid-column:1!important;grid-row:1!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>.action-stack {grid-column:3!important;grid-row:1!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>#hapil-resonance-rc96 {position:relative!important;inset:auto!important;grid-column:2!important;grid-row:1!important;width:100%!important;max-width:none!important;margin:0!important;padding:6px!important;font-size:12px!important;overflow:hidden!important}
+html.hapil-touch-v31366 #hapil-resonance-rc96 {display:none!important}
+.hm-vitals>.hm-resource {display:block;margin-top:3px;color:#9ae3d0;font-size:9px}
+@media(max-width:600px){
+ html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>.hero-hud {grid-column:1!important;grid-row:1!important}
+ html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>#hapil-resonance-rc96 {grid-column:1!important;grid-row:2!important}
+ html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>.action-stack {grid-column:1!important;grid-row:3!important}
+}

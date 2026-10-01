@@ -29,7 +29,7 @@ assert.equal(p.balancedDamage({}, {boss:true,maxHp:100},Infinity),0);
 // Run final native hooks with a real pending-hit queue; no non-laser floor warnings survive.
 const q={window:{__HAPIL_RC79__:p},Math,Number,String,Set,qn:()=> 'warning',MONGSE_drawTelegraphSafetyOverlay:()=> 'safety',Ei(state){state.pendingHits.push({at:4,shape:'circle'},{at:4,shape:'line'});},MONGSE_phaseGateHealth:(s,e,d)=>e.hp-d,Ln(){},MONGSE_phaseSpriteForRender:()=>null,MONGSE_runtimeSprite:(cache,pose)=>pose,MONGSE_zoneAssetManifest:()=>new Set(),MONGSE_zoneAssetPlan31220:()=>({}),N:{cult03:{enemies:[{id:'c103-mid'},{id:'c103-boss'}]}}};
 vm.runInNewContext(main.slice(main.indexOf('/* RC79: final authoritative'),main.indexOf('/* RC94: a laser cooldown')),q);
-const state={time:1,pendingHits:[]};q.Ei(state,{});assert.equal(state.pendingHits[0].at,1.35);assert.equal(state.pendingHits[1].at,4);assert.equal(q.qn({},state.pendingHits[0]),false);assert.equal(q.qn({},state.pendingHits[1]),'warning');
+const state={time:1,pendingHits:[]};q.Ei(state,{});assert.equal(state.pendingHits[0].at,4);assert.equal(state.pendingHits[1].at,4);assert.equal(q.qn({},state.pendingHits[0]),false);assert.equal(q.qn({},state.pendingHits[1]),'warning');
 for(const actor of q.N.cult03.enemies)for(const direction of ['front','back','left','right'])for(const mode of ['idle','attack','skill','guard','dash']){
  const a={...actor,direction,dashingUntil:mode==='dash'?2:0,attackAt:mode==='attack'?2:0,castVisualUntil31210:mode==='skill'?2:0,staggerUntil:mode==='guard'?2:0};
  const file=q.MONGSE_phaseSpriteForRender({},a,1);assert(fs.existsSync(file),file);assert(file.includes('/normalized/'));

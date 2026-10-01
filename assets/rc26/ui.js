@@ -9,6 +9,7 @@
  left.className='rc15-panel rc15-enemies';right.className='rc15-panel rc15-allies';
  panel.append(left,right);document.body.append(panel);
  const bossbar=document.createElement('section');bossbar.id='rc24-bossbar';bossbar.hidden=true;bossbar.setAttribute('aria-label','보스 체력');document.body.append(bossbar);
+ const feedback=document.createElement('div');feedback.className='combat-footer-feedback';feedback.hidden=true;feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');document.body.append(feedback);
  const screen=document.createElement('button');screen.className='rc22-fullscreen';screen.textContent='전체화면';screen.type='button';screen.setAttribute('aria-label','전체화면 전환');panel.append(screen);
  screen.addEventListener('click',async()=>{try{if(document.fullscreenElement){await document.exitFullscreen();screen.textContent='전체화면';}else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen();screen.textContent='전체화면 해제';}else{screen.textContent='가로모드로 회전';}}catch{screen.textContent='브라우저 전체화면 사용';}});
 
@@ -23,6 +24,7 @@
   if(live&&binding.settings?.current?.showCombatInfo!==false){const next={...binding.settings.current,showCombatInfo:false};binding.settings.current=next;binding.setSettings?.(old=>old?.showCombatInfo===false?old:{...old,showCombatInfo:false});}
   const mobile=document.documentElement.classList.contains('hapil-touch-v31366');
   panel.hidden=!live||mobile;document.body.classList.toggle('rc15-playing',live);
+  const toast=document.querySelector('.game-stage>.toast'),message=toast?.textContent?.trim()??'';feedback.hidden=!live||mobile||!message;if(feedback.textContent!==message){feedback.textContent=message;feedback.title=message;}
   if(!live){if(!bossbar.hidden){bossbar.hidden=true;bossbar.innerHTML='';}return;}
   if(!api)return;
   const t=Number(s.time)||0,enemies=(s.enemies??[]).filter(e=>e.hp>0&&!e.visualOnly);
@@ -30,7 +32,7 @@
   const target=enemies.find(e=>e.id===s.targetEnemyId)||bosses[0]||enemies[0];
   const majorBoss=bosses.find(e=>e.boss)||bosses[0];
   if(majorBoss){const pct=Math.min(100,Math.max(0,100*(Number(majorBoss.hp)||0)/Math.max(1,Number(majorBoss.maxHp)||1)));bossbar.hidden=false;const fill=`${pct}%`;if(bossbar.style.getPropertyValue('--boss-hp')!==fill)bossbar.style.setProperty('--boss-hp',fill);const html=`<div class="rc24-bossbar-title"><span>${esc(majorBoss.name??majorBoss.id)}</span><b>${Math.ceil(majorBoss.hp)} / ${Math.ceil(majorBoss.maxHp??majorBoss.hp)}</b></div><i aria-hidden="true"></i><small>${esc(majorBoss.activePattern??(majorBoss.boss?'보스 전투':'정예 전투'))}${majorBoss.activePatternUntil>t?` · ${(majorBoss.activePatternUntil-t).toFixed(1)}초`:''}</small>`;if(bossbar.innerHTML!==html)bossbar.innerHTML=html;}else if(!bossbar.hidden){bossbar.hidden=true;bossbar.innerHTML='';}
-  if(mobile)return;
+  const game=document.querySelector('.game');if(game)game.dataset.combatInput=window.__HAPIL_CONTROLS_V31329__?.effective(binding.settings?.current)==='manual'?'manual':'auto';
   let enemy=`<h2>적 <span>THREAT</span></h2><div class="rc21-kicker">${esc(api.zone(s.zone)?.name??s.zone)} · 생존 ${enemies.length}</div>`;
   if(target){enemy+=`<section class="rc21-focus"><strong>${esc(target.name??target.id)}</strong>${hp(target.hp,target.maxHp??target.hp)}</section>`;
    const active=status(target,t);if(active)enemy+=line('적 상태',active);
@@ -61,8 +63,16 @@
    ally+=`<div class="rc21-recent">최근 발동 <strong>${esc(name)}</strong></div>`;}
   if(left.innerHTML!==enemy)left.innerHTML=enemy;
   if(right.innerHTML!==ally)right.innerHTML=ally;
+  // Details are available on demand without occupying the mobile battlefield.
+  const settings=document.querySelector('.settings-layout');
+  if(settings){
+   let details=settings.querySelector('.combat-info-details');
+   if(!details){details=document.createElement('details');details.className='combat-info-details';details.innerHTML='<summary>전투 상세 정보 · 적 / 아군</summary><div class="combat-info-columns"></div>';settings.prepend(details);}
+   const content=details.querySelector('.combat-info-columns'),html=`<section>${enemy}</section><section>${ally}</section>`;
+   if(content.innerHTML!==html)content.innerHTML=html;
+  }
  }
  document.title='合一 · 합일 RC29 모바일';
  window.__HAPIL_FINAL_RELEASE__={version:'3.26-STORY-RC29-MOBILE',activeBundle:'index-v31526.js',cacheKey:32901};
- setInterval(update,300);update();
+ window.__HAPIL_STATUS_UI_RC99__=Object.freeze({update});setInterval(update,300);update();
 })();
