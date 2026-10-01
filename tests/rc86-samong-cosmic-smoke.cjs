@@ -16,7 +16,7 @@ const art = {
   baekAction: './assets/vfx/rc86/cult03-heretic-baek-attack-v2.png',
 };
 
-assert.match(html, /assets\/index-v31526\.js\?v=40401/);
+assert.match(html, /assets\/index-v31526\.js\?v=40501/);
 assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=39301/);
 assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39301/);
 assert.match(bundle, /__HAPIL_RC86_BRIDGE__/);

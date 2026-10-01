@@ -36442,8 +36442,8 @@ function $n(e, t, n, r, i) {
   if (!c) return;
   (c.setTransform(a, 0, 0, a, 0, 0),
     c.clearRect(0, 0, d, 720),
-    (c.imageSmoothingEnabled = !i.lowFx),
-    (c.imageSmoothingQuality = i.lowFx ? `low` : `medium`));
+    (c.imageSmoothingEnabled = !i.lowFx || window.__HAPIL_MOBILE_V31366__?.enabled() === true),
+    (c.imageSmoothingQuality = `medium`));
   // RC91: monochrome is composited once after the frame, not per sprite.
   c.filter = 'none';
   let MONGSE_rareShake31211 = MONGSE_rareScreenShakeOffset31211(t, i),

@@ -11,7 +11,7 @@
  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
  function camera(s,fallback,project,zone,exit){
   if(!s||!zone)return fallback;
-  const previous=cache.get(s);if(previous?.time===s.time&&previous.revision===revision)return previous.camera;
+  const previous=cache.get(s);if(previous?.time===s.time&&previous.x===s.x&&previous.y===s.y&&previous.zone===s.zone&&previous.revision===revision)return previous.camera;
   const map=maps.get(key(zone.map)),mobile=touch();let result=fallback;
   if(!mobile){if(map){const scale=Math.min(1256/map.width,680/map.height);result={x:640-(map.x+map.width/2)*scale,y:360-(map.y+map.height/2)*scale,scale,wholeMapV31345:true};}}
   else {
@@ -21,12 +21,14 @@
    include(s,36,90);const enemies=(s.enemies||[]).filter(a=>a.hp>0);for(const a of enemies)include(a,a.boss?130:40,a.boss?260:95);
    for(const field of ['hostileProjectiles','pendingHits','telekineticCasts','spatialRiftCasts','narrativeCasts'])for(const a of s[field]||[])if(Math.hypot(a.x-s.x,a.y-s.y)<12)include(a,42,42);
    if(!enemies.length)include(exit,35,65);
-   const scale=Math.min(1.05,(safe.right-safe.left)/Math.max(1,right-left),(safe.bottom-safe.top)/Math.max(1,bottom-top));
-   function offset(min,max,lo,hi,mapMin,mapMax,viewMin,viewMax){const a=lo-min*scale,b=hi-max*scale;let x=(a+b)/2;if(map){const ma=viewMax-mapMax*scale,mb=viewMin-mapMin*scale;x=clamp((ma+mb)/2,a,b);if(Math.max(a,ma)<=Math.min(b,mb))x=clamp(x,Math.max(a,ma),Math.min(b,mb));}return x;}
+   const hero=project(s.x,s.y),portrait=size.height>size.width,center={x:v.x+v.width/2,y:v.y+v.height/2};
+   const centeredLimit=portrait?Math.min((center.x-safe.left)/Math.max(1,hero.x-left),(safe.right-center.x)/Math.max(1,right-hero.x),(center.y-safe.top)/Math.max(1,hero.y-top),(safe.bottom-center.y)/Math.max(1,bottom-hero.y)):Infinity;
+   const scale=Math.min(1.05,centeredLimit,(safe.right-safe.left)/Math.max(1,right-left),(safe.bottom-safe.top)/Math.max(1,bottom-top));
+   function offset(min,max,lo,hi,mapMin,mapMax,viewMin,viewMax){const a=lo-min*scale,b=hi-max*scale;let x=portrait?clamp((viewMin+viewMax)/2-(lo===safe.left?hero.x:hero.y)*scale,a,b):(a+b)/2;if(map&&!portrait){const ma=viewMax-mapMax*scale,mb=viewMin-mapMin*scale;x=clamp((ma+mb)/2,a,b);if(Math.max(a,ma)<=Math.min(b,mb))x=clamp(x,Math.max(a,ma),Math.min(b,mb));}return x;}
    result={x:offset(left,right,safe.left,safe.right,map?.x,map?.x+map?.width,v.x,v.x+v.width),y:offset(top,bottom,safe.top,safe.bottom,map?.y,map?.y+map?.height,v.y,v.y+v.height),scale,combatViewportRC104:true};
    api.last={view:v,safe,protected:{left,right,top,bottom},map,camera:result,enemyCount:enemies.length};
   }
-  cache.set(s,{time:s.time,revision,camera:result});return result;
+  cache.set(s,{time:s.time,x:s.x,y:s.y,zone:s.zone,revision,camera:result});return result;
  }
  const api={camera,pointer,recordMapRect,view,last:null};window.__HAPIL_VIEWPORT_RC104__=api;
 })();

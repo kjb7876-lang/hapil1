@@ -116,7 +116,7 @@
   // Keep explicit battery mode and low-effect settings; never multiply by full device DPR.
   const coverScale=viewportBudget.coverScale;
   const adaptive=Math.max(.75,Math.min(1,base/.6));
-  const result=options.quality==='battery'?Math.min(base,.32):Math.min(options.quality==='full'?1.25:.8,Math.max(.4,coverScale*(options.quality==='full'?1:.65)*adaptive));
+  const result=options.quality==='battery'?Math.min(base,.32):Math.min(options.quality==='full'?1.25:1,Math.max(.4,coverScale*(options.quality==='full'?1.2:.95)*adaptive));
   if(result<base)metrics.renderCaps++;return result;
  }
  const setText=(el,t)=>{if(!el||el.textContent===t)return;if(el.firstChild?.nodeType===3&&el.childNodes.length===1)el.firstChild.nodeValue=t;else el.textContent=t;};

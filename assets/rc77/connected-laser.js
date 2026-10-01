@@ -152,11 +152,14 @@
       if(v.length<3)continue;
       for(let i=0;i<v.length;i++){
        const p=v[i],before=v[Math.max(0,i-1)].center,after=v[Math.min(v.length-1,i+1)].center,dx=after.x-before.x,dy=after.y-before.y,len=Math.hypot(dx,dy)||1,tx=dx/len,ty=dy/len;
-       for(let j=0;j<16;j++){
-        const dst=[p.center],src=[{x:sx+p.u*sw,y:sy+sh*.5}];
-        for(const angle of [j*Math.PI/8,(j+1)*Math.PI/8]){const ox=Math.cos(angle)*half,oy=Math.sin(angle)*half;dst.push({x:p.center.x+ox,y:p.center.y+oy});src.push({x:sx+Math.max(0,Math.min(1,p.u+(ox*tx+oy*ty)/p.length))*sw,y:sy+sh*(.5-(-ox*ty+oy*tx)/half*.5)});}
-        triangle(paint,image,src,dst);
-       }
+       // One textured disk replaces 16 separately clipped triangles at a join.
+       // It uses the same half-width disk and tangent/source span as the GPU fan.
+       const span=half/Math.max(1,p.length)*sw,center=sx+p.u*sw;
+       const left=Math.max(0,center-span),right=Math.min(iw,center+span);
+       paint.save();try{paint.translate(p.center.x,p.center.y);paint.rotate(Math.atan2(dy,dx));
+        paint.beginPath();paint.arc(0,0,half,0,Math.PI*2);paint.clip();
+        paint.drawImage(image,left,sy,right-left,sh,-half,-half,half*2,half*2);
+       }finally{paint.restore();}
       }
      }
      if(target){frames.set(owner,{key,image,target});ctx.globalAlpha=alpha;ctx.drawImage(target.canvas,0,0,target.w*target.scale,target.h*target.scale,target.x,target.y,target.w,target.h);}

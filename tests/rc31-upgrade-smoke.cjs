@@ -14,7 +14,7 @@ assert(Number(html.match(/hapil-mobile-v31406\.js\?v=(\d+)/)?.[1]) >= 33602, 'mo
 assert(css.includes('object-fit:cover!important'), 'mobile canvas does not cover the full screen');
 assert(/#rc24-bossbar[\s\S]*?display:none!important/.test(css), 'mobile DOM boss bar is still shown');
 assert(css.includes('.game>.hapil-combat-rail-v31339'), 'mobile boss and combat UI are not hidden');
-assert(mobile.includes("Math.min(options.quality==='full'?1.25:.8") && mobile.includes('coverScale'), 'mobile resolution must fit portrait cover with a bounded pixel budget');
+assert(mobile.includes("Math.min(options.quality==='full'?1.25:1") && mobile.includes('coverScale'), 'mobile resolution must fit portrait cover with a bounded pixel budget');
 assert(mobile.includes('setInterval(update,450)'), 'mobile DOM polling has not been reduced');
 assert(mobile.includes("toolbar.append(button('Menu','설정'))"), 'extra mobile status HUD is still mounted');
 assert(mobile.includes('saved.showCombatInfo!==false'), 'mobile pattern labels are not disabled by default');

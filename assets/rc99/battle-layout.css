@@ -185,3 +185,16 @@ html.hapil-touch-v31366 .hm-vitals>i {height:3px;margin-top:3px}
  html.hapil-touch-v31366 #rc24-bossbar:not([hidden]) {left:112px!important;top:calc(env(safe-area-inset-top,0px) + 10px)!important;width:calc(100vw - 224px)!important;transform:none!important;padding:3px!important}
  html.hapil-touch-v31366 #rc24-bossbar .rc24-bossbar-title {white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* RC105 portrait: center movement, small visible skills at opposite corners. */
+@media (orientation:portrait) {
+ html.hapil-touch-v31366 .hm-movement {left:50%!important;transform:translateX(-50%);width:clamp(160px,52vw,220px)!important;height:clamp(140px,44vw,190px)!important;bottom:calc(env(safe-area-inset-bottom,0px) + 6px)!important}
+ html.hapil-touch-v31366 .hm-stick {border-color:#81a2bc66!important;background:#101d3055!important;border-radius:45%!important}
+ html.hapil-touch-v31366 .hm-actions {inset:0!important;pointer-events:none!important;display:block!important}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button {position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);width:64px!important;height:64px!important;padding:11px!important;border:0!important;background:none!important;pointer-events:auto!important;isolation:isolate}
+ html.hapil-touch-v31366 .hm-actions button::before {content:'';position:absolute;inset:10px;border:1px solid currentColor;border-radius:50%;background:#152c40bf;z-index:-1}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions [data-mobile-action="D"] {left:calc(env(safe-area-inset-left,0px) + 8px);background:none!important}
+ html.hapil-touch-v31366 .hm-actions [data-mobile-action="S"] {right:calc(env(safe-area-inset-right,0px) + 8px)}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button b {font-size:18px!important}
+ html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-actions button small {font-size:8px!important}
+}

@@ -25,35 +25,24 @@
   const finite = (v) => Number.isFinite(Number(v)) ? Number(v) : 0;
   const idOf = (v) => String(v?.id ?? v?.sourceId ?? '');
 
+  const castFieldMatch = new Map();
   function castUntil(state, actor) {
-    const t = finite(state?.time ?? now);
-    const times = [
-      actor?.skillCastLockUntilV31412,
-      actor?.attackAt,
-      actor?.attackImpactAt,
-      actor?.activePatternUntil,
-      actor?.atomicCastUntil31210,
-      actor?.castVisualUntil31210,
-      actor?.telekineticUntil,
-      actor?.cosmicPoseUntilV31318,
-      actor?.laserCastUntilV31332,
-      actor?.finaleCastUntilV31334,
-      actor?.skillCastEndAt,
-    ].map(finite);
-    for (const [key, value] of Object.entries(actor ?? {})) {
-      if (/(?:cast|beam|pose|telekinetic|rift).*(?:until|endat)$/i.test(key)) {
-        const n = finite(value);
-        if (n > t && n < t + 30) times.push(n);
-      }
+    const t = finite(state?.time ?? now);let until=0;
+    const accept=value=>{const n=finite(value);if(n>t&&n<t+30&&n>until)until=n;};
+    for(const key of ['skillCastLockUntilV31412','attackAt','attackImpactAt','activePatternUntil','atomicCastUntil31210','castVisualUntil31210','telekineticUntil','cosmicPoseUntilV31318','laserCastUntilV31332','finaleCastUntilV31334','skillCastEndAt'])accept(actor?.[key]);
+    // Read live values: cast admission/phase locks may change within a tick.
+    // Memoize only key classification, avoiding entries/map/filter allocation.
+    for(const key in actor??{}) {
+      let matches=castFieldMatch.get(key);
+      if(matches===undefined){matches=/(?:cast|beam|pose|telekinetic|rift).*(?:until|endat)$/i.test(key);castFieldMatch.set(key,matches);}
+      if(matches&&Object.hasOwn(actor,key))accept(actor[key]);
     }
-    for (const key of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318']) {
-      for (const cast of state?.[key] ?? []) {
-        if (idOf(cast) !== idOf(actor)) continue;
-        const end = Math.max(finite(cast.endAt), finite(cast.end), finite(cast.fireAt) + finite(cast.activeSeconds));
-        if (end > t) times.push(end);
-      }
+    const actorId=idOf(actor);
+    for(const key of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318'])for(const cast of state?.[key]??[]) {
+      if(idOf(cast)!==actorId)continue;
+      accept(Math.max(finite(cast.endAt),finite(cast.end),finite(cast.fireAt)+finite(cast.activeSeconds)));
     }
-    return Math.max(0, ...times.filter((v) => v > t && v < t + 30));
+    return until;
   }
 
   function enemyCastActive(state, actor) {

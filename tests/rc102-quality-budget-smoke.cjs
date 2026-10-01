@@ -9,7 +9,7 @@ assert(scale('balanced',375,812)>.7,'portrait gets enough pixels for cover');
 assert(scale('balanced',375,812,.42)<scale('balanced',375,812,.6),'native load reduction preserved');
 assert(scale('full',375,812)>scale('balanced',375,812),'high quality has a real improvement');
 assert(scale('balanced',375,812)>scale('balanced',812,375),'portrait height drives cover budget');
-assert(scale('balanced',3000,3000)<=.8,'balanced pixel ceiling');
+assert(scale('balanced',3000,3000)<=1,'balanced pixel ceiling');
 assert(scale('full',3000,3000)<=1.25,'high quality pixel ceiling');
 assert(source.includes("quality:'balanced'"),'new devices default to balanced');
 assert(source.includes("if(['balanced','battery','full'].includes(p.quality))options.quality=p.quality"),'saved preference preserved');
