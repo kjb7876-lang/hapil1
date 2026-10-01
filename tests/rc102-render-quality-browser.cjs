@@ -1,0 +1,25 @@
+// Real Chromium responsive QA. Synthetic dense state is used only to stress HUD layout.
+// Run: HAPIL_CHROMIUM=/usr/bin/chromium node tests/rc99-battle-layout-browser.cjs
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),os=require('node:os');
+const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||path.join(os.tmpdir(),'hapil-contained-layout');fs.mkdirSync(out,{recursive:true});
+const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(f)]||'application/octet-stream');res.end(fs.readFileSync(process.env.HAPIL_BASELINE_ASSET&&f.endsWith('/hapil-mobile-v31406.js')?process.env.HAPIL_BASELINE_ASSET:f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
+const overlap=(a,b)=>a&&b&&Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>1&&Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>1;
+(async()=>{let browser;try{
+ browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ const results=[];
+ for(const [name,width,height,mobile,dpr] of [['pc',1180,757,false,1],['pc-retina',1180,757,false,2],['phone',390,844,true,3],['landscape',844,390,true,3],['mini',375,812,true,3]].filter(([name])=>!process.env.HAPIL_QA_CASE||name===process.env.HAPIL_QA_CASE)){
+  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:dpr}),page=await context.newPage(),failed=[];
+  page.on('response',r=>{if(r.status()>=400)failed.push({url:r.url(),status:r.status()})});
+  await page.addInitScript(()=>{window.__images={};const old=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(img,...args){if(img?.src&&!window.__images[img.src])window.__images[img.src]={src:img.src,width:img.naturalWidth,height:img.naturalHeight,smoothing:this.imageSmoothingEnabled,quality:this.imageSmoothingQuality};return old.call(this,img,...args)};});
+  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));
+  await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
+  await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.invulnerableUntil=s.time+99999;});
+  for(const quality of (mobile?['battery','balanced','full']:['desktop']).filter(q=>!process.env.HAPIL_QA_QUALITY||q===process.env.HAPIL_QA_QUALITY)){
+   if(mobile)await page.evaluate(q=>window.__HAPIL_MOBILE_V31366__.setQuality(q),quality);await page.waitForTimeout(1500);
+   const data=await page.evaluate(async()=>{const c=document.querySelector('.game-stage canvas'),r=c.getBoundingClientRect(),ctx=c.getContext('2d'),times=[];let last=performance.now();await new Promise(resolve=>{function frame(t){times.push(t-last);last=t;if(times.length<120)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});return {dpr:devicePixelRatio,backing:[c.width,c.height],display:[r.width,r.height],objectFit:getComputedStyle(c).objectFit,imageRendering:getComputedStyle(c).imageRendering,smoothing:ctx.imageSmoothingEnabled,smoothingQuality:ctx.imageSmoothingQuality,settings:window.__HAPIL_CONTROLS_V31329__.binding.settings.current,mobile:window.__HAPIL_MOBILE_V31366__.snapshot(),viewport:window.__HAPIL_VIEWPORT_V31314__.snapshot(),frameMs:{median:times.sort((a,b)=>a-b)[60],p95:times[114]},images:Object.values(window.__images)};});
+   await page.screenshot({path:path.join(out,name+'-'+quality+'.png')});results.push({name,quality,...data,failed});console.log(name,quality,JSON.stringify({backing:data.backing,display:data.display,dpr:data.dpr,smoothing:data.smoothing,frameMs:data.frameMs,failed:failed.length,images:data.images.length}));
+  }
+  await context.close();fs.writeFileSync(path.join(out,'measurements.json'),JSON.stringify(results,null,2));
+ }
+}finally{await browser?.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});
