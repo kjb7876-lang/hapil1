@@ -1,11 +1,12 @@
 /* Presentation only: preserve native actions and keep secondary controls on demand. */
 (()=>{'use strict';
  let owner,launcher,dialog,links=[];
+ const label=source=>{const title=source.querySelector("strong");return title?[source.dataset.controlKey,title.textContent.trim()].filter(Boolean).join(" · "):source.textContent.trim();};
  addEventListener('keydown',e=>{if(!dialog?.open)return;e.stopImmediatePropagation();if(e.key==='Escape'){e.preventDefault();dialog.close();}},true);
  function mount(game){
   if(owner===game&&launcher?.isConnected)return;
   launcher?.remove();dialog?.remove();owner=game;if(!game)return;
-  launcher=document.createElement('button');launcher.className='combat-controls-more';launcher.type='button';launcher.textContent='조작 더보기';launcher.setAttribute('aria-haspopup','dialog');
+  launcher=document.createElement('button');launcher.className='combat-controls-more';launcher.type='button';launcher.textContent='조작 더보기';launcher.setAttribute('aria-label','조작 더보기');launcher.setAttribute('aria-haspopup','dialog');
   dialog=document.createElement('dialog');dialog.className='combat-controls-dialog';dialog.setAttribute('aria-label','추가 전투 조작');
   dialog.innerHTML='<header><strong>추가 전투 조작</strong><button type="button" aria-label="추가 전투 조작 닫기">닫기</button></header><p>수동 스킬과 보조 조작입니다. 단축키는 그대로 사용할 수 있습니다.</p><div class="combat-controls-list"></div>';
   dialog.querySelector('header button').onclick=()=>dialog.close();
@@ -20,10 +21,10 @@
   for(const source of owner.querySelectorAll('.skills button,.action-utilities button')){
    const key=source.dataset.controlKey;
    if(['S','D'].includes(key)||(!manual&&['A','Q','W','E','R','G'].includes(key)))continue;
-   const button=document.createElement('button');button.type='button';button.textContent=source.textContent.trim();button.disabled=source.disabled;
+   const button=document.createElement('button');button.type='button';button.textContent=label(source);button.disabled=source.disabled;
    button.onclick=()=>{dialog.close();source.click();};list.append(button);links.push({button,source});
   }
  }
- function update(){const b=window.__HAPIL_CONTROLS_V31329__?.binding,game=document.querySelector('.game');document.body.classList.toggle('rc99-layout',!!game&&b?.phase==='game');mount(game);if(dialog?.open)for(const {button,source} of links){if(button.disabled!==source.disabled)button.disabled=source.disabled;const text=source.textContent.trim();if(button.textContent!==text)button.textContent=text;}}
+ function update(){const b=window.__HAPIL_CONTROLS_V31329__?.binding,game=document.querySelector('.game');document.body.classList.toggle('rc99-layout',!!game&&b?.phase==='game');mount(game);if(dialog?.open)for(const {button,source} of links){if(button.disabled!==source.disabled)button.disabled=source.disabled;const text=label(source);if(button.textContent!==text)button.textContent=text;}}
  window.__HAPIL_BATTLE_LAYOUT_RC99__=Object.freeze({update});addEventListener('resize',update);window.visualViewport?.addEventListener('resize',update);setInterval(update,250);update();
 })();

@@ -4660,7 +4660,7 @@ function MONGSE_updateTemporalHudDom31215(e, t = {}) {
   if (r && i && (e.enemies?.length || e.hostileProjectiles?.length)) {
     let t = i.getBoundingClientRect(),
       r = C(Number(e.x ?? 0), Number(e.y ?? 0)),
-      a = w(Number(e.x ?? 0), Number(e.y ?? 0), e),
+      a = HAPIL_viewCameraRC104(Number(e.x ?? 0), Number(e.y ?? 0), e),
       o = t.left + (r.x * (a.scale ?? 1) + a.x) * (t.width / 1280),
       s = t.top + ((r.y - 24) * (a.scale ?? 1) + a.y) * (t.height / 720),
       c = o >= t.left - 18 && o <= t.right + 18 && s >= t.top && s <= t.bottom;
@@ -36466,7 +36466,7 @@ function $n(e, t, n, r, i) {
     ),
     MONGSE_activeMap = window.__HAPIL_LUCIFER_V31318__?.mapFor(t, MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map) ?? MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map,
     v = MONGSE_queueImage(n, MONGSE_activeMap),
-    y = w(t.x, t.y, t);
+    y = HAPIL_viewCameraRC104(t.x, t.y, t);
   if ((c.translate(y.x, y.y), c.scale(y.scale ?? 1, y.scale ?? 1), v?.complete && v.naturalWidth))
     c.drawImage(v, h, -60, g, 990);
   else {
@@ -63600,10 +63600,11 @@ function Ri() {
                     e.preventDefault();
                     let t = e.currentTarget.getBoundingClientRect(),
                       n = P.current,
+                      logical = window.__HAPIL_VIEWPORT_RC104__?.pointer(e, t),
                       r = ee(
-                        ((e.clientX - t.left) * d) / t.width,
-                        ((e.clientY - t.top) * 720) / t.height,
-                        w(n.x, n.y, n),
+                        logical?.x ?? ((e.clientX - t.left) * d) / t.width,
+                        logical?.y ?? ((e.clientY - t.top) * 720) / t.height,
+                        HAPIL_viewCameraRC104(n.x, n.y, n),
                       ),
                       i =
                         he.includes(n.zone) &&
@@ -100893,7 +100894,7 @@ function HAPIL_drawPriorityCombatReadabilityV31302(
   }
   const backingScale = canvas.width / 1280,
     shake = HAPIL_currentShakeOffsetV31302(state, settings),
-    camera = w(state.x, state.y, state);
+    camera = HAPIL_viewCameraRC104(state.x, state.y, state);
   context.save();
   context.setTransform(backingScale, 0, 0, backingScale, 0, 0);
   context.translate(shake.x, shake.y);
@@ -104574,6 +104575,7 @@ if (typeof window !== "undefined") {
           const sourceHeight = finite(image.naturalHeight, 1);
           const measured = window.__HAPIL_GEOMETRY_V31345__?.mapRect(frame.selectedPath);
           if (measured) {
+            window.__HAPIL_VIEWPORT_RC104__?.recordMapRect(frame.selectedPath, measured);
             mapCoverCrops += 1;
             return original.call(context, image, 0, 0, sourceWidth, sourceHeight,
               measured.x, measured.y, measured.width, measured.height);
@@ -104587,6 +104589,7 @@ if (typeof window !== "undefined") {
           // v345: preserve every authored pixel and aspect; never crop the map.
           const fit = Math.min(dw / sourceWidth, dh / sourceHeight);
           const width = sourceWidth * fit, height = sourceHeight * fit;
+          window.__HAPIL_VIEWPORT_RC104__?.recordMapRect(frame.selectedPath, {x:dx+(dw-width)/2,y:dy+(dh-height)/2,width,height});
           return original.call(context, image, 0, 0, sourceWidth, sourceHeight,
             dx + (dw - width) / 2, dy + (dh - height) / 2, width, height);
         }
@@ -117677,7 +117680,7 @@ function HAPIL_drawCollabPartnerV31317(ctx, images, state, settings, leaderPose)
     return clamp(MONGSE_skillFxOpacity(settings), 0, 1);
   }
   function placement(state, row) {
-    const origin = G(finite(state.x), finite(state.y)), camera = w(finite(state.x), finite(state.y), state), viewScale = camera.scale ?? 1;
+    const origin = G(finite(state.x), finite(state.y)), camera = HAPIL_viewCameraRC104(finite(state.x), finite(state.y), state), viewScale = camera.scale ?? 1;
     const screenX = origin.x * viewScale + camera.x, screenY = origin.y * viewScale + camera.y;
     // Appear on the side with room; no world-position or collision mutation.
     const side = screenX > 640 ? -1 : 1;
@@ -121783,6 +121786,9 @@ window.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V3
 ;(()=>{let n=0;function ready(){if(!window.__HAPIL_V31342_RELEASE__?.installed){if(++n<800)setTimeout(ready,0);return;}MONGSE_ASSET_VERSION='31343';window.MONGSE_ASSET_VERSION='31343';window.__HAPIL_V31343_RELEASE__=Object.freeze({installed:true,version:'3.13.43-RC1',cacheKey:31343,saveRevision:14,baseVersion:'3.13.42',activeBundle:'index-v31343.js',build:'DIRECTIONAL FLOW + AUTO SKILL — RC1'});}ready();})();
 
 ;(()=>{let n=0;function ready(){if(!window.__HAPIL_V31343_RELEASE__?.installed){if(++n<800)setTimeout(ready,0);return;}MONGSE_ASSET_VERSION='31344';window.MONGSE_ASSET_VERSION='31344';window.__HAPIL_V31344_RELEASE__=Object.freeze({installed:true,version:'3.13.44-RC1',cacheKey:31344,saveRevision:14,baseVersion:'3.13.43-RC1',activeBundle:'index-v31344.js',build:'DIRECTIONAL FLOW CONTINUATION — RC1'});}ready();})();
+
+/* RC104: rendering/input only; native w remains unchanged for combat planning. */
+function HAPIL_viewCameraRC104(x,y,s){const full=w(x,y,s);return window.__HAPIL_VIEWPORT_RC104__?.camera(s,full,G,N[s?.zone],(s?.enemies?.some(a=>a.hp>0)?null:window.__HAPIL_FLOW_V31343__?.profile(s?.zone)?.exitAnchorWorld??(s?.zone?MONGSE_zonePortalAnchors(s.zone)?.exit:null)))??full;}
 
 /* HAPIL v345: the complete arena, authored state poses, visible hostile cores.
  * Rendering only. No hitbox, target, movement, damage, timer or save changes.

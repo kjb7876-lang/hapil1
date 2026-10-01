@@ -171,3 +171,17 @@ html.hapil-touch-v31366 .combat-controls-more {top:calc(env(safe-area-inset-top,
 html.hapil-touch-v31366 .combat-controls-dialog {font-size:13px}
 /* Keep the larger touch target's focus ring inside its reserved top-row space. */
 .combat-controls-more:focus-visible {outline-offset:-3px}
+
+/* RC104: compact, on-demand controls; transparent thumb areas retain hit targets. */
+.combat-controls-dialog {width:min(360px,calc(100vw - 24px));padding:10px}
+.combat-controls-dialog p {display:none}
+.combat-controls-list {gap:5px;margin-top:8px}
+.combat-controls-list button {padding:5px;font-size:11px}
+html.hapil-touch-v31366 .combat-controls-more {left:calc(env(safe-area-inset-left,0px) + 60px);width:44px;max-width:44px;padding:0;font-size:0}
+html.hapil-touch-v31366 .combat-controls-more::after {content:'⋯';font-size:24px}
+html.hapil-touch-v31366 .hm-vitals {right:calc(env(safe-area-inset-right,0px) + 8px);width:96px;padding:3px 4px;font-size:9px;background:#07101e99}
+html.hapil-touch-v31366 .hm-vitals>i {height:3px;margin-top:3px}
+@media (orientation:portrait) {
+ html.hapil-touch-v31366 #rc24-bossbar:not([hidden]) {left:112px!important;top:calc(env(safe-area-inset-top,0px) + 10px)!important;width:calc(100vw - 224px)!important;transform:none!important;padding:3px!important}
+ html.hapil-touch-v31366 #rc24-bossbar .rc24-bossbar-title {white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
