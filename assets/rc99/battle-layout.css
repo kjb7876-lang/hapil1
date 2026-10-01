@@ -134,7 +134,7 @@ html.hapil-touch-v31366 #hapil-resonance-rc96 {display:none!important}
 body.rc15-playing #hapil-party-hud {display:none!important}
 /* Size the reserved footer for its contents before centering any children. */
 html:not(.hapil-touch-v31366) body.rc15-playing {--combat-footer:126px}
-html:not(.hapil-touch-v31366) body.rc15-playing:has(.game[data-combat-input="manual"]) {--combat-footer:180px}
+html:not(.hapil-touch-v31366) body.rc15-playing:has(.game[data-combat-input="manual"]) {--combat-footer:116px}
 html:not(.hapil-touch-v31366) body.rc15-playing .game>.combat-hud {
   align-items:start!important;grid-template-rows:minmax(0,1fr)!important;
   padding:8px 10px 28px!important;overflow:auto!important;
@@ -154,3 +154,18 @@ html:not(.hapil-touch-v31366) body.rc15-playing .action-stack .skills button {
 html:not(.hapil-touch-v31366) body.rc15-playing .skills button :is(strong,b,span) {min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 body.rc15-playing .game[data-combat-input="manual"] .skills [data-control-key] kbd {display:inline-flex!important}
 body.rc15-playing .game[data-combat-input="manual"] .skills [data-control-key] {padding-left:34px!important}
+
+/* RC101: resonance and blink stay visible; all secondary controls are on demand. */
+html:not(.hapil-touch-v31366) body.rc15-playing:has(.game) {--combat-footer:116px}
+html:not(.hapil-touch-v31366) body.rc15-playing .game[data-combat-input] .action-stack .skills {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html body.rc15-playing .game .combat-hud .action-stack .skills button:not([data-control-key="S"]):not([data-control-key="D"]),
+html body.rc15-playing .game .combat-hud .action-utilities {display:none!important}
+.combat-controls-more {position:fixed;right:12px;bottom:25px;z-index:40;padding:3px 9px;font-size:11px;min-height:24px}
+.combat-controls-dialog {width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;padding:16px;border:1px solid #648b99;border-radius:10px;background:#081422;color:#eaffff}
+.combat-controls-dialog::backdrop {background:#020814bb}
+.combat-controls-dialog header {display:flex;align-items:center;justify-content:space-between;gap:12px}
+.combat-controls-dialog p {font-size:12px;line-height:1.5;color:#b5c7d2}
+.combat-controls-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.combat-controls-list button {min-height:44px;padding:8px;font-size:12px;overflow-wrap:anywhere}
+html.hapil-touch-v31366 .combat-controls-more {top:10px;left:64px;right:auto;bottom:auto;max-width:120px;height:36px;font-size:10px}
+html.hapil-touch-v31366 .combat-controls-dialog {font-size:13px}

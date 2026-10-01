@@ -8,13 +8,13 @@ const overlap=(a,b)=>a&&b&&Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>1&&Math.m
 (async()=>{let browser;try{
  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM,args:['--no-sandbox','--disable-dev-shm-usage']});
  for(const [name,width,height,mobile] of [['desktop',1180,757,false],['wide',1920,1080,false],['short',1280,600,false],['phone',390,844,true],['landscape',844,390,true],['small-phone',320,568,true]]){
-  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.stack));
+  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.stack));page.setDefaultTimeout(10000);
   await page.goto((process.env.HAPIL_QA_URL||'http://127.0.0.1:'+server.address().port+'/')+'?qa=1');await page.waitForFunction(()=>window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');
   await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));
   await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();
   await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
   await page.waitForTimeout(700);await page.screenshot({path:path.join(out,name+'-natural.png')});
-  await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__;C.setMode('semi');const s=C.binding.state.current;s.hp=s.maxHp=1000000;const enemy=s.enemies.find(a=>a.hp>0);if(enemy){enemy.boss=true;enemy.name='긴 이름의 보스 · 겹침 회귀 검사';enemy.activePattern='긴 공격 예고와 상태 정보가 전투 영역 안으로 넘치지 않아야 합니다';enemy.hp=enemy.maxHp=9999999;}s.stunUntil=s.time+999;s.heroHealingReducedUntilRC24=s.time+999;});
+  await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__;C.setMode('semi');const s=C.binding.state.current;s.hp=s.maxHp=1000000;s.invulnerableUntil=s.time+99999;const enemy=s.enemies.find(a=>a.hp>0);if(enemy){enemy.boss=true;enemy.name='긴 이름의 보스 · 겹침 회귀 검사';enemy.activePattern='긴 공격 예고와 상태 정보가 전투 영역 안으로 넘치지 않아야 합니다';enemy.hp=enemy.maxHp=9999999;}s.stunUntil=s.time+999;s.heroHealingReducedUntilRC24=s.time+999;});
   await page.waitForTimeout(1000);
   const bounds=await page.evaluate(()=>{const result={};for(const sel of ['.game','.game-stage','.game-stage canvas','.topbar','.combat-hud','.rc15-enemies','.rc15-allies','.hm-vitals','.hm-movement','.hm-actions','[data-mobile-action="Menu"]','#rc24-bossbar','.hapil-combat-rail-v31339','#hapil-resonance-rc96','.hero-hud','.action-stack']){const e=document.querySelector(sel),r=e?.getBoundingClientRect();result[sel]=e&&getComputedStyle(e).display!=='none'&&r.width&&r.height?{x:r.x,y:r.y,w:r.width,h:r.height}:null;}return result;});
   if(mobile){
@@ -49,6 +49,21 @@ const overlap=(a,b)=>a&&b&&Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>1&&Math.m
     return bad;
    },mobile);assert.deepEqual(issues,[],name+' '+mode);
    await page.screenshot({path:path.join(out,name+'-'+mode+'.png')});
+   assert.deepEqual(await page.locator('.combat-hud .skills button:visible').evaluateAll(es=>es.map(e=>e.dataset.controlKey).sort()),mobile?[]:['D','S'],name+' compact skills');
+   await page.getByRole('button',{name:'조작 더보기',exact:true}).click();
+   const extra=page.getByRole('dialog',{name:'추가 전투 조작',exact:true});await extra.waitFor({state:'visible'});
+   if(mode==='manual')assert(await extra.locator('.combat-controls-list button').count()>=7,name+' manual controls available');
+   const box=await extra.boundingBox();assert(box.x>=0&&box.y>=0&&box.x+box.width<=width+1&&box.y+box.height<=height+1,name+' details in viewport');
+   await page.screenshot({path:path.join(out,name+'-details-'+mode+'.png')});
+   await page.keyboard.press('Escape');await extra.waitFor({state:'hidden'});
+   await page.getByRole('button',{name:'조작 더보기',exact:true}).click();
+   await extra.getByRole('button',{name:'추가 전투 조작 닫기',exact:true}).click();await extra.waitFor({state:'hidden'});
+   if(mode==='manual'){
+    await page.evaluate(()=>{window.__extraClick=0;const C=window.__HAPIL_CONTROLS_V31329__;window.__originalDispatch=C.dispatch;C.dispatch=(key,...args)=>{if(key==='KeyA')window.__extraClick++;return window.__originalDispatch(key,...args);};});
+    await page.getByRole('button',{name:'조작 더보기',exact:true}).click();await extra.locator('.combat-controls-list button').first().click();
+    await extra.waitFor({state:'hidden'});assert.equal(await page.evaluate(()=>{window.__HAPIL_CONTROLS_V31329__.dispatch=window.__originalDispatch;return window.__extraClick;}),1,name+' native manual attack callback');
+   }
+
   }
   for(const label of ['수동','반자동','완전자동','반자동']){
    await page.getByRole('button',{name:mobile?'설정 메뉴 열기':'설정 · 메뉴',exact:true}).click();
