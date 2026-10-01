@@ -11,6 +11,8 @@ const second=api.reflected(shot,.1,square,[enemy]);assert.equal(second.hits.leng
 
 const corner={x:9.5,y:9.5,vx:38,vy:38,wallHits:0,inside:new Set(),removed:false};
 api.reflected(corner,.1,square,[]);assert.equal(corner.wallHits,1,'simultaneous corner impact is one wall contact');
+const fastPierce={x:5,y:5,vx:38,vy:0,wallHits:0,inside:new Set(),removed:false},fastTargets=[{id:'fast-a',x:5.8,y:5,hp:100,hitRadius:.3},{id:'fast-b',x:7.3,y:5,hp:100,hitRadius:.3},{id:'fast-c',x:9.3,y:5,hp:100,hitRadius:.3}];
+const fastResult=api.reflected(fastPierce,.12,square,fastTargets);assert.deepEqual([...new Set(fastResult.hits.map(a=>a.id))],['fast-a','fast-b','fast-c'],'the maximum-speed sweep pierces every narrow enemy without tunneling');
 
 const seven={x:5,y:5,vx:38,vy:0,wallHits:0,inside:new Set(),removed:false};
 for(let i=0;i<500&&!seven.removed;i++)api.reflected(seven,.1,square,[]);
@@ -27,4 +29,8 @@ assert.equal(api.prepare(melee),0,'melee blade attacks stay on the original cont
 const skill={...state,time:.1,pendingStrikes:[{id:9,at:.34,targetId:'enemy',power:20,heroId:'gunner',actionKey:'Q',ranged:true}],effects:[{kind:'projectile',shape:'bullet',heroId31213:'gunner',deliveryHeroV31322:'gunner',deliveryRoutesV31322:[{strikeId:9,targetId:'enemy',born:0,at:.34,x:1,y:5,tx:5,ty:5}]}]};
 assert.equal(api.prepare(skill),0,'skill and instant-hit types are not converted');
 assert.equal(api.metrics(state).live,1);
+const retiredOnDeath=visual;state.hp=0;api.prepare(state);assert.equal(api.metrics(state).live,0,'death clears live ricochets');assert.equal(retiredOnDeath.samongRicochetExpiredRC108,true,'death retires the attached projectile image');assert.equal(retiredOnDeath.duration,0,'death removes the retired image from the next effect trim');
+const makeRouteState=(time,zone='test')=>({zone,time,hp:100,x:1,y:5,activeHeroId:'gunner',fxSerial:1,enemies:[{id:'enemy',x:5,y:5,hp:100}],pendingStrikes:[{id:30,at:time+.5,targetId:'enemy',power:22,heroId:'gunner',actionKey:'A',ranged:true}],effects:[{id:31,kind:'projectile',shape:'bullet',imageOnly:true,heroId31213:'gunner',deliveryHeroV31322:'gunner',born:time-.1,duration:.5,deliveryRoutesV31322:[{strikeId:30,targetId:'enemy',born:time-.1,at:time+.5,x:1,y:5,tx:5,ty:5}]}]});
+const restarted=makeRouteState(5);assert.equal(api.prepare(restarted),1);const restartedVisual=restarted.effects[0];restarted.time=0;api.prepare(restarted);assert.equal(restartedVisual.samongRicochetExpiredRC108,true,'a world-clock reset retires abandoned shots');assert.equal(restartedVisual.duration,0);
+const departed=makeRouteState(5);assert.equal(api.prepare(departed),1);const departedVisual=departed.effects[0];departed.zone='next-zone';departed.time=5.1;api.prepare(departed);assert.equal(departedVisual.samongRicochetExpiredRC108,true,'a zone transition retires old-zone shots');assert.equal(departedVisual.duration,0);
 console.log('PASS RC108 sampled swept collision, world-edge reflection, corner accounting, seven-wall expiry, native route binding, x7 hits, and melee/skill exclusions.');

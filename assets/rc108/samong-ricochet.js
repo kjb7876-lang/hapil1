@@ -39,7 +39,8 @@
   // Other authored arenas use the native 1.4–30.6 world collision square.
   return x-r>=1.4&&x+r<=30.6&&y-r>=1.4&&y+r<=30.6;
  }
- function setup(s){let m=worlds.get(s);if(!m||m.zone!==s.zone||s.time<m.time){m={zone:s.zone,time:s.time,projectiles:new Map()};worlds.set(s,m);}return m;}
+ function retire(m,s){if(!m)return false;for(const p of m.projectiles.values()){p.removed=true;if(p.visual){p.visual.samongRicochetExpiredRC108=true;p.visual.born=s?.time??p.visual.born;p.visual.duration=0;}}m.projectiles.clear();return true;}
+ function setup(s){let m=worlds.get(s);if(!m||m.zone!==s.zone||s.time<m.time){retire(m,s);m={zone:s.zone,time:s.time,projectiles:new Map()};worlds.set(s,m);}return m;}
  function visualFor(s,h,target){
   for(const effect of s.effects??[]){
    if(effect?.kind!=='projectile'||effect.imageOnly===false||effect.partySlotV31322)continue;
@@ -53,7 +54,7 @@
  function prepare(s){
   if(!s||!Array.isArray(s.pendingStrikes))return 0;
   const m=setup(s);m.time=s.time;
-  if(s.hp<=0||!s.zone){m.projectiles.clear();return 0;}
+  if(s.hp<=0||!s.zone){retire(m,s);return 0;}
   let launched=0;
   for(const h of s.pendingStrikes){
    if(!h||h.samongRicochetHitRC108||h.samongRicochetActiveRC108||!(h.at>s.time)||h.heroId!==s.activeHeroId||!(Number(h.power)>0))continue;
@@ -67,10 +68,10 @@
    h.samongRicochetActiveRC108=true;h.samongPowerMultiplierRC108=7;m.projectiles.set(key,shot);launched++;
   }
   for(const [key,p]of [...m.projectiles]){
-   if(p.zone!==s.zone||s.time-p.born>MAX_AGE||p.removed){p.removed=true;if(p.visual)p.visual.samongRicochetExpiredRC108=true;m.projectiles.delete(key);continue;}
+   if(p.zone!==s.zone||s.time-p.born>MAX_AGE||p.removed){p.removed=true;if(p.visual){p.visual.samongRicochetExpiredRC108=true;p.visual.born=s.time;p.visual.duration=0;}m.projectiles.delete(key);continue;}
    const dt=clamp(s.time-p.lastTime,0,.12);p.lastTime=s.time;if(!(dt>0))continue;
    const moved=reflected(p,dt,(x,y,r)=>contains(s,x,y,r),(s.enemies??[]).map(a=>({...a,hitRadius:window.__HAPIL_COMBAT_V31333__?.enemyRadius?.(a)??a.hitRadius})));
-   if(p.visual){p.visual.x=p.x;p.visual.y=p.y;p.visual.tx=p.x;p.visual.ty=p.y;p.visual.angle=Math.atan2(p.vy,p.vx);p.visual.samongRicochetExpiredRC108=!moved.alive;}
+   if(p.visual){p.visual.x=p.x;p.visual.y=p.y;p.visual.tx=p.x;p.visual.ty=p.y;p.visual.angle=Math.atan2(p.vy,p.vx);if(!moved.alive){p.visual.samongRicochetExpiredRC108=true;p.visual.born=s.time;p.visual.duration=0;}}
    for(const target of moved.hits){const hit={...p.strike,id:s.fxSerial++,targetId:String(target.id),at:s.time,zone:s.zone};s.pendingStrikes.push(hit);}
    if(!moved.alive)m.projectiles.delete(key);
   }
@@ -81,6 +82,6 @@
   const p=window.__HAPIL_COMBAT_V31333__?.core?.({x:e.x,y:e.y})??{x:640+(e.x-e.y)*27,y:(e.x+e.y)*13.5-42};
   const image=e.sprite?MONGSE_queueImage(cache,e.sprite,'eager'):null,size=mobile()?17:22,angle=Number(e.angle)||0;ctx.save();try{ctx.globalAlpha*=settings.reducedFlash?.82:.96;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.translate(p.x,p.y);ctx.rotate(angle);if(image?.complete&&(image.naturalWidth||image.width)){ctx.drawImage(image,-size/2,-size/2,size,size);}else{ctx.fillStyle=e.color??'#eafaff';ctx.beginPath();ctx.arc(0,0,size*.32,0,Math.PI*2);ctx.fill();}}finally{ctx.restore();}return true;
  }
- function reset(s){const m=s&&worlds.get(s);if(!m)return false;for(const p of m.projectiles.values())if(p.visual)p.visual.samongRicochetExpiredRC108=true;worlds.delete(s);return true;}
+ function reset(s){const m=s&&worlds.get(s);if(!m)return false;retire(m,s);worlds.delete(s);return true;}
  window.__HAPIL_SAMONG_RICOCHET_RC108__=Object.freeze({version:'RC108',installed:true,prepare,reflected,contains,draw,reset,metrics:s=>({live:worlds.get(s)?.projectiles.size??0}),policy:Object.freeze({onlyNewRangedStrikes:true,worldWallContacts:7,damageOnEntry:true,reentryAfterExit:true,simulationPasses:1,addedTrails:0})});
 })();
