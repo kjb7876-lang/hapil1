@@ -11,7 +11,7 @@
   const settings=document.createElement('button');settings.type='button';settings.className='rc108-settings-trigger';settings.setAttribute('aria-label','설정 · 메뉴');settings.title='설정 · 메뉴';settings.textContent='⚙';settings.addEventListener('click',()=>document.querySelector('.topbar nav button,.topbar .mobile-system-menu')?.click());
   overlay.append(keys,more,settings);document.body.append(overlay);return overlay;
  }
- function update(){const show=eligible();root.classList.toggle('rc108-wide-layout',show);const sides=document.querySelector('#rc15-sidepanels');if(show&&sides)sides.hidden=false;else if(root.classList.contains('hapil-touch-v31366')&&innerHeight>innerWidth&&sides)sides.hidden=true;if(show)mount();}
+ function update(){const show=eligible(),touch=root.classList.contains('hapil-touch-v31366'),mobileLandscape=show&&touch&&innerWidth>innerHeight;root.classList.toggle('rc108-wide-layout',mobileLandscape);const sides=document.querySelector('#rc15-sidepanels');if(show&&sides)sides.hidden=false;else if(touch&&innerHeight>innerWidth&&sides)sides.hidden=true;if(mobileLandscape)mount();}
  new MutationObserver(update).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','data-combat-input']});addEventListener('resize',update);setInterval(update,200);update();
  window.__HAPIL_COMBAT_INFO_RC108__=Object.freeze({version:'RC108',update,eligible});
 })();

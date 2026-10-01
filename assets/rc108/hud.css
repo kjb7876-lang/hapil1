@@ -6,7 +6,7 @@ html.hapil-touch-v31366 #hapil-resonance-rc96 .rc96-resource-bar {height:4px!imp
 html.hapil-touch-v31366 #hapil-resonance-rc96 .rc108-samong-cooldown {margin-top:2px!important;font-size:8px!important;line-height:1.05!important}
 html.hapil-touch-v31366 #hapil-resonance-rc96 .rc96-charge {display:none!important}
 
-/* RC108: PC and landscape use one 10% information strip above a 90% arena. */
+/* RC108: landscape touch uses one 10% information strip above a full-width arena. */
 html.rc108-wide-layout body.rc15-playing .game{display:grid!important;position:relative!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:10dvh 90dvh!important;width:100vw!important;max-width:none!important;height:100dvh!important;min-height:0!important;margin:0!important;padding:0!important;gap:0!important;overflow:hidden!important}
 html.rc108-wide-layout body.rc15-playing .game>.topbar{display:none!important}
 html.rc108-wide-layout body.rc15-playing .game>.game-stage{position:relative!important;inset:auto!important;grid-column:1!important;grid-row:2!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important}
