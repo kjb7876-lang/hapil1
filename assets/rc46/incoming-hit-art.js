@@ -20,6 +20,8 @@
   const ASSETS = Object.freeze([...SWORDS, ...Object.values(IMPACTS)]);
   const SWORD_SOURCES = new Set(['l301-boss', 'mb-hando03', 'mb-ep1b07']);
   const finite = (value, fallback = 0) => Number.isFinite(value) ? value : fallback;
+  const recentMobileHitArt = new WeakMap();
+  const metrics = { mobileCoalesced: 0, mobileRepresentatives: 0 };
 
   function swordIndex(projectile, sourceId) {
     const identity = `${sourceId}:${projectile.id ?? ''}:${projectile.born ?? ''}:${projectile.patternId ?? ''}`;
@@ -82,8 +84,26 @@
   function onPlayerDamage(state, target, source, loss) {
     if (!state || !(loss > 0) || !target) return false;
     const sourceId = String(source?.sourceId ?? source?.ownerId ?? source?.id ?? '');
+    // Hit images are cosmetic. On phones, keep one representative image per
+    // attacker/target in a short burst window; damage and attack scheduling
+    // have already been committed by combat-core and are never changed here.
+    const mobile = typeof window !== 'undefined' && window.__HAPIL_MOBILE_V31366__?.enabled?.() === true;
+    let mobileRows = null, mobileKey = '', mobileNow = 0;
+    if (mobile) {
+      let rows = recentMobileHitArt.get(state);
+      if (!rows) { rows = new Map(); recentMobileHitArt.set(state, rows); }
+      mobileRows = rows; mobileKey = `${sourceId}\u0000${String(target.id ?? 'hero')}`; mobileNow = finite(state.time);
+      const previous = rows.get(mobileKey);
+      if (previous && mobileNow - previous.at < 0.2) { previous.effect.born = mobileNow; metrics.mobileCoalesced++; return true; }
+      if (rows.size > 128) for (const [id, row] of rows) if (mobileNow - row.at > 2) rows.delete(id);
+    }
     const actor = (state.enemies ?? []).find(enemy => String(enemy.id) === sourceId || String(enemy.id) === String(source?.sourceId ?? source?.ownerId ?? ''));
     addHitEffect(state, target, IMPACTS.blood, 'blood', 43, 0.58, sourceId);
+    if (mobile) {
+      mobileRows.set(mobileKey, { at: mobileNow, effect: state.effects?.at(-1) });
+      metrics.mobileRepresentatives++;
+      return true;
+    }
     const melee = meleeImpactKind(source, actor);
     if (melee) addHitEffect(state, target, IMPACTS[melee], melee, 56, 0.68, sourceId);
     return true;
@@ -91,6 +111,6 @@
 
   return Object.freeze({
     version: 'RC46', assets: ASSETS, swords: SWORDS, impacts: IMPACTS,
-    bindProjectile, meleeImpactKind, onPlayerDamage,
+    bindProjectile, meleeImpactKind, onPlayerDamage, metrics: () => ({ ...metrics }),
   });
 });

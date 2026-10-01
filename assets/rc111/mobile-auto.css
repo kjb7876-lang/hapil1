@@ -1,0 +1,6 @@
+/* Full-auto phones give the arena the joystick area; S/D remain available as
+   defensive actions, while held attack and attack-skill buttons are hidden. */
+html.hapil-mobile-auto-v31311 #hapil-mobile-controls-v31366 .hm-movement {display:none!important}
+html.hapil-mobile-auto-v31311 #hapil-mobile-controls-v31366 .hm-actions [data-mobile-action]:not([data-mobile-action="S"]):not([data-mobile-action="D"]) {display:none!important}
+html.hapil-mobile-auto-touch-v31311 .game-stage,
+html.hapil-mobile-auto-touch-v31311 .game-stage canvas {touch-action:none!important}

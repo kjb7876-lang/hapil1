@@ -1,0 +1,18 @@
+const assert = require('node:assert/strict');
+global.window = { __HAPIL_MOBILE_V31366__: { enabled: () => true } };
+const api = require('../assets/rc46/incoming-hit-art.js');
+const state = { time: 1, fxSerial: 1, effects: [], enemies: [{ id: 'boss', name: 'Boss' }] };
+const target = { id: 'hero', x: 4, y: 5 };
+assert(api.onPlayerDamage(state, target, { sourceId: 'boss', id: 'melee:claw' }, 10));
+const representative = state.effects[0];
+assert.equal(state.effects.length, 1, 'mobile receives one representative visual instead of blood plus melee art');
+state.time = 1.1;
+assert(api.onPlayerDamage(state, target, { sourceId: 'boss', id: 'melee:claw' }, 20));
+assert.equal(state.effects.length, 1, 'same source/target burst is coalesced');
+assert.equal(representative.born, 1.1, 'representative remains fresh while burst continues');
+assert.equal(api.metrics().mobileCoalesced, 1);
+state.time = 1.31;
+api.onPlayerDamage(state, target, { sourceId: 'boss', id: 'melee:claw' }, 20);
+assert.equal(state.effects.length, 2, 'a later hit receives a fresh representative');
+delete global.window;
+console.log('RC111 PASS: mobile hit art coalesces only cosmetic images; damage calls and attack state remain external and untouched.');
