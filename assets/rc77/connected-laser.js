@@ -4,22 +4,41 @@
  const buffers=new WeakMap(),frames=new WeakMap(),tips=new WeakMap();
  // Mask the owner artwork, rather than drawing a new generic beam. Both caps
  // stay inside the original segment: a softened tip must not close a safe gap.
- function softStrip(image,iw,ih,len,half){
+ function softStrip(image,iw,ih,len,half,softStart=true,softEnd=true){
   if(typeof document==='undefined')return null;
-  const ratio=Math.max(.1,len/(half*2)),key=Math.round(ratio*32)/32;
+  const ratio=Math.max(.1,len/(half*2)),bucket=Math.round(ratio*32)/32,key=(softStart?'s':'b')+(softEnd?'s':'b')+'|'+bucket;
   let rows=tips.get(image);if(!rows){rows=new Map();tips.set(image,rows);}if(rows.has(key))return rows.get(key);
-  const canvas=document.createElement('canvas');canvas.width=Math.min(2048,Math.max(256,Math.round(256*key)));canvas.height=256;
+  const canvas=document.createElement('canvas');canvas.width=Math.min(2048,Math.max(256,Math.round(256*bucket)));canvas.height=256;
   const paint=canvas.getContext('2d');if(!paint)return null;
   const w=canvas.width,h=canvas.height,r=Math.min(h*.5,w*.5),fade=Math.min(w*.24,h*.65);
   paint.drawImage(image,iw*.25,ih*.25,iw*.5,ih*.5,0,0,w,h);
   paint.globalCompositeOperation='destination-in';paint.beginPath();
-  paint.moveTo(r,0);paint.lineTo(w-r,0);paint.quadraticCurveTo(w,0,w,r);paint.lineTo(w,h-r);paint.quadraticCurveTo(w,h,w-r,h);paint.lineTo(r,h);paint.quadraticCurveTo(0,h,0,h-r);paint.lineTo(0,r);paint.quadraticCurveTo(0,0,r,0);paint.fill();
-  const end=paint.createLinearGradient(0,0,w,0);end.addColorStop(0,'rgba(0,0,0,0)');end.addColorStop(fade/w,'#000');end.addColorStop(1-fade/w,'#000');end.addColorStop(1,'rgba(0,0,0,0)');paint.fillStyle=end;paint.fillRect(0,0,w,h);
+  paint.moveTo(softStart?r:0,0);paint.lineTo(softEnd?w-r:w,0);if(softEnd){paint.quadraticCurveTo(w,0,w,r);paint.lineTo(w,h-r);paint.quadraticCurveTo(w,h,w-r,h);}else paint.lineTo(w,h);
+  paint.lineTo(softStart?r:0,h);if(softStart){paint.quadraticCurveTo(0,h,0,h-r);paint.lineTo(0,r);paint.quadraticCurveTo(0,0,r,0);}else paint.lineTo(0,0);paint.fill();
+  const end=paint.createLinearGradient(0,0,w,0);end.addColorStop(0,softStart?'rgba(0,0,0,0)':'#000');if(softStart)end.addColorStop(fade/w,'#000');if(softEnd)end.addColorStop(1-fade/w,'#000');end.addColorStop(1,softEnd?'rgba(0,0,0,0)':'#000');paint.fillStyle=end;paint.fillRect(0,0,w,h);
   const edge=paint.createLinearGradient(0,0,0,h);edge.addColorStop(0,'rgba(0,0,0,0)');edge.addColorStop(.16,'#000');edge.addColorStop(.84,'#000');edge.addColorStop(1,'rgba(0,0,0,0)');paint.fillStyle=edge;paint.fillRect(0,0,w,h);
   rows.set(key,canvas);if(rows.size>16)rows.delete(rows.keys().next().value);return canvas;
  }
  const finite=(v,f)=>Number.isFinite(Number(v))?Number(v):f;
  const near=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)<.75;
+ function sharedEnds(lines){
+  const ends=lines.map(()=>[false,false]),buckets=new Map(),junctions=[];
+  const cell=(x,y)=>x+','+y;
+  for(let i=0;i<lines.length;i++)for(let side=0;side<2;side++){
+   const p=side?lines[i].b:lines[i].a,gx=Math.floor(p.x),gy=Math.floor(p.y),key=cell(gx,gy),row=buckets.get(key)??[];
+   for(let x=gx-1;x<=gx+1;x++)for(let y=gy-1;y<=gy+1;y++)for(const other of buckets.get(cell(x,y))??[]){
+    if(other.line===i||!near(p,other.point))continue;
+    ends[i][side]=true;ends[other.line][other.side]=true;
+    let joint=junctions.find(v=>near(v,p));if(!joint)junctions.push(joint={x:(p.x+other.point.x)/2,y:(p.y+other.point.y)/2,angle:other.angle});
+   }
+   row.push({line:i,side,point:p,angle:Math.atan2(lines[i].b.y-lines[i].a.y,lines[i].b.x-lines[i].a.x)});buckets.set(key,row);
+  }
+  return{ends,junctions};
+ }
+ function junctionDisk(ctx,image,iw,ih,joint,half,alpha){
+  const span=Math.max(1,Math.min(iw*.12,half/Math.max(1,half*2)*iw*.5)),center=iw*.5;
+  ctx.save();try{ctx.globalAlpha*=alpha;ctx.translate(joint.x,joint.y);ctx.rotate(joint.angle);ctx.beginPath();ctx.arc(0,0,half,0,Math.PI*2);ctx.clip();ctx.drawImage(image,Math.max(0,center-span),ih*.25,Math.min(iw,center+span)-Math.max(0,center-span),ih*.5,-half,-half,half*2,half*2);}finally{ctx.restore();}
+ }
  const complexType=type=>!!type&&!['one','sweep'].includes(type);
  function paths(lines){
   const result=[];let current=null;
@@ -126,7 +145,7 @@
   const alpha=Math.max(0,Math.min(1,finite(options.alpha,1))),half=Math.max(1,finite(options.width,7));
   const image=options.image,iw=image?.naturalWidth||image?.width||0,ih=image?.naturalHeight||image?.height||0;
   const hasArt=!!image&&image.complete!==false&&iw>0&&ih>0;
-  const joined=paths(lines),compound=options.complex===true||lines.length>1,curved=joined.some(chain=>chain.length>2);
+  const joined=paths(lines),connection=sharedEnds(lines),compound=options.complex===true||lines.length>1,curved=joined.some(chain=>chain.length>2);
   ctx.save();try{
    ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.setLineDash([]);
    ctx.lineCap='round';ctx.lineJoin='round';ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
@@ -166,13 +185,14 @@
      continuous++;
     }else{
      // Straight branches keep the original owner bitmap and its luminous fringe.
-     for(const l of lines){const dx=l.b.x-l.a.x,dy=l.b.y-l.a.y,len=Math.hypot(dx,dy);if(len<.5)continue;
+     for(let lineIndex=0;lineIndex<lines.length;lineIndex++){const l=lines[lineIndex],dx=l.b.x-l.a.x,dy=l.b.y-l.a.y,len=Math.hypot(dx,dy);if(len<.5)continue;
       ctx.save();try{ctx.translate(l.a.x,l.a.y);ctx.rotate(Math.atan2(dy,dx));
-       const strip=softStrip(image,iw,ih,len,half);
+      const strip=softStrip(image,iw,ih,len,half,!connection.ends[lineIndex][0],!connection.ends[lineIndex][1]);
        if(compound&&!options.low){ctx.globalAlpha=alpha*.16;if(strip)ctx.drawImage(strip,0,-half*1.6,len,half*3.2);else ctx.drawImage(image,sx,sy,sw,sh,0,-half*1.6,len,half*3.2);}
        ctx.globalAlpha=alpha;if(strip)ctx.drawImage(strip,0,-half,len,half*2);else ctx.drawImage(image,sx,sy,sw,sh,0,-half,len,half*2);
       }finally{ctx.restore();}
      }
+     for(const joint of connection.junctions){junctionDisk(ctx,image,iw,ih,joint,half,alpha);triangles++;}
     }
     textured++;
    }else{
@@ -185,5 +205,5 @@
    draws++;return true;
   }finally{ctx.restore();}
  }
- window.__HAPIL_CONNECTED_LASER_V31377__=Object.freeze({installed:true,version:'RC95',render,paths,mesh,complexType,stats:()=>({draws,textured,continuous,triangles,cached,gpuDraws})});
+ window.__HAPIL_CONNECTED_LASER_V31377__=Object.freeze({installed:true,version:'RC107',render,paths,mesh,complexType,stats:()=>({draws,textured,continuous,triangles,cached,gpuDraws})});
 })();

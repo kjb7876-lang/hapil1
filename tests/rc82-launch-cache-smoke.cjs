@@ -8,7 +8,7 @@ const expected = new Map([
   ['./assets/rc79/combat-policy.js', '39501'],
   ['./assets/rc15/hero-controls.js', '39601'],
   ['./assets/rc51/story.js', '39301'],
-  ['./assets/rc77/connected-laser.js', '40501'],
+  ['./assets/rc77/connected-laser.js', '40701'],
   ['./assets/rc26/ui.js', '39902'],
   ['./assets/rc99/battle-layout.js', '40401'],
   ['./assets/rc99/battle-layout.css', '40501'],
@@ -23,7 +23,7 @@ for (const [asset, version] of expected) {
   assert(html.includes(`${asset}?v=${version}`), `${asset} must use its refreshed cache key`);
   assert(fs.existsSync(path.join(root, asset.replace(/^\.\//, ''))), `${asset} must exist`);
 }
-assert(html.indexOf('./assets/rc77/connected-laser.js?v=40501') <
+assert(html.indexOf('./assets/rc77/connected-laser.js?v=40701') <
   html.indexOf('./assets/rc83/startup-diagnostics.js?v=38305'), 'laser helper must load before startup diagnostics');
 assert(html.indexOf('./assets/rc83/startup-diagnostics.js?v=38305') <
   html.indexOf('./assets/index-v31526.js?v=40501'), 'startup diagnostics must observe game initialization');

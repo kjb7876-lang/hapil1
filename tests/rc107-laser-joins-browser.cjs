@@ -1,0 +1,15 @@
+// Real Chromium pixel QA for connected beam branch caps and curved joins.
+// Run: HAPIL_CHROMIUM=/usr/bin/chromium HAPIL_QA_OUTPUT=/workspace/qa-rc107/laser node tests/rc107-laser-joins-browser.cjs
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),os=require('node:os');
+const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||path.join(os.tmpdir(),'hapil-rc107-laser');fs.mkdirSync(out,{recursive:true});
+(async()=>{let browser;try{
+ browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});const page=await browser.newPage({viewport:{width:260,height:220}});await page.goto('about:blank');await page.addScriptTag({path:path.join(root,'assets/rc77/connected-laser.js')});
+ const result=await page.evaluate(()=>{document.body.style.cssText='margin:0;background:#080d16';const canvas=document.createElement('canvas');canvas.width=260;canvas.height=220;document.body.append(canvas);const ctx=canvas.getContext('2d'),art=document.createElement('canvas');art.width=256;art.height=128;const a=art.getContext('2d');a.fillStyle='#ff35a6';a.fillRect(0,0,256,128);const R=window.__HAPIL_CONNECTED_LASER_V31377__;
+ const branches=[{a:{x:80,y:80},b:{x:145,y:80}},{a:{x:80,y:80},b:{x:112,y:132}},{a:{x:80,y:80},b:{x:48,y:132}}];R.render(ctx,branches,{width:10,complex:true,image:art,alpha:.85});
+ const curve=[{a:{x:36,y:178},b:{x:56,y:158}},{a:{x:56,y:158},b:{x:76,y:178}}];R.render(ctx,curve,{width:8,complex:true,image:art,alpha:.85});
+ const isolated=[{a:{x:164,y:174},b:{x:224,y:174}}];R.render(ctx,isolated,{width:10,image:art,alpha:.85});
+ const alpha=(x,y)=>ctx.getImageData(x,y,1,1).data[3],sample=(x,y)=>Array.from(ctx.getImageData(x,y,1,1).data);
+ return{version:R.version,branchCenter:sample(80,80),branchNearStart:sample(85,80),curveJoin:sample(56,158),isolatedTipStart:sample(164,174),isolatedInterior:sample(180,174),stats:R.stats(),pixels:{branchCenterAlpha:alpha(80,80),branchNearStartAlpha:alpha(85,80),curveJoinAlpha:alpha(56,158),isolatedTipAlpha:alpha(164,174),isolatedInteriorAlpha:alpha(180,174)}};});
+ await page.screenshot({path:path.join(out,'laser-joins.png')});assert.equal(result.version,'RC107');assert(result.pixels.branchCenterAlpha>100,'connected fan origin has no transparent seam: '+JSON.stringify(result));assert(result.pixels.branchNearStartAlpha>100,'joined ray starts remain fully visible: '+JSON.stringify(result));assert(result.pixels.curveJoinAlpha>40,'continuous curve join remains textured: '+JSON.stringify(result));assert(result.pixels.isolatedTipAlpha<15,'isolated terminal tip keeps its safe-gap fade: '+JSON.stringify(result));assert(result.pixels.isolatedInteriorAlpha>100,'owner texture remains visible along the beam: '+JSON.stringify(result));console.log('PASS RC107 laser joins '+JSON.stringify(result));
+}finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
