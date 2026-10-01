@@ -1,0 +1,29 @@
+// Real Chromium checks for the existing RC59 death scripture/continue flow
+// and the separate RC91 Samong lethal-hit revival branch.
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
+const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/workspace/hapil-deliverables/RC110-death';fs.mkdirSync(out,{recursive:true});
+const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(f)]||'application/octet-stream');res.end(fs.readFileSync(f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
+
+(async()=>{let browser;try{
+ browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ const page=await browser.newPage({viewport:{width:1180,height:757}}),errors=[];page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.stack||e.message));
+ await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_STORY_NATIVE_RC51__?.installed);await page.keyboard.press('Escape');
+ await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');
+ const storyPhase=await page.locator('#hapil-story-rc51').getAttribute('data-phase');assert.equal(storyPhase,'pre','death scenario begins during the actual opening story card');await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;s.gameModeV31346='STORY';s.hp=0;s.invulnerableUntil=0;});
+ await page.waitForSelector('#hapil-death-verse-rc59');const first=await page.locator('#hapil-death-verse-rc59').innerText();
+ for(const text of ['죽음은 끝이 아니라 다시 걷는 문턱','“나는 부활이요 생명이니”','요한복음 11:25','“하나님의 은사는 그리스도 예수 안에 있는 영생이니라”','로마서 6:23','에피소드 1의 첫 전장으로 되돌아갑니다.'])assert(first.includes(text),'original death content is present: '+text);
+ await page.screenshot({path:path.join(out,'death-during-story.png')});
+ await page.getByRole('button',{name:'처음부터 다시',exact:true}).click();await page.waitForSelector('#hapil-death-verse-rc59',{state:'detached'});await page.waitForFunction(()=>window.__MONGSE_QA_STATE__.zone==='dist00'&&window.__MONGSE_QA_STATE__.hp>0);
+ await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;s.hp=0;s.invulnerableUntil=0;});await page.waitForSelector('#hapil-death-verse-rc59');
+ const repeated=await page.locator('#hapil-death-verse-rc59').innerText();assert(repeated.includes('처음부터 다시'),'a repeat lethal hit reopens the restart content');await page.getByRole('button',{name:'처음부터 다시',exact:true}).click();await page.waitForSelector('#hapil-death-verse-rc59',{state:'detached'});
+ await page.evaluate(()=>{window.__MONGSE_QA_API__.stageV3128BossShowcase('ep1b01');const s=window.__MONGSE_QA_STATE__;s.completedZones.add('ep1a11');s.lastShelterZoneRC59='dreamRest';s.gameModeV31346='STORY';});await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');
+ await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;s.hp=0;s.invulnerableUntil=0;});await page.waitForSelector('#hapil-death-verse-rc59');
+ const checkpoint=await page.locator('#hapil-death-verse-rc59').innerText();assert(checkpoint.includes('가장 최근에 방문한 쉼터에서 다시 일어납니다.'),'checkpoint death uses the existing shelter route copy');assert.equal(await page.locator('#hapil-death-verse-rc59 button').innerText(),'쉼터에서 일어나기');
+ await page.getByRole('button',{name:'쉼터에서 일어나기',exact:true}).click();await page.waitForSelector('#hapil-death-verse-rc59',{state:'detached'});assert.equal(await page.evaluate(()=>window.__MONGSE_QA_STATE__.zone),'dreamRest','continue returns to the saved shelter');
+ const priorScripture=await page.evaluate(()=>window.__MONGSE_QA_STATE__.lastDeathScriptureRC59??null);await page.evaluate(()=>{window.__HAPIL_SAMONG_RC91__.unlock(window.__MONGSE_QA_STATE__,'777');const s=window.__MONGSE_QA_STATE__;s.gameModeV31346='DREAM';s.hp=0;s.invulnerableUntil=0;});
+ await page.waitForFunction(()=>window.__MONGSE_QA_STATE__.hp>0&&window.__HAPIL_SAMONG_RC91__.active(window.__MONGSE_QA_STATE__),{timeout:5000});
+ const revival=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{hp:s.hp,maxHp:s.maxHp,passive:{...s.samongPassiveRC91},lastScripture:s.lastDeathScriptureRC59??null,deathCard:!!document.getElementById('hapil-death-verse-rc59')}});
+ assert.equal(revival.hp,Math.ceil(revival.maxHp*.5),'Samong revival restores half HP');assert(revival.passive.active>0&&revival.passive.cooldown>0,'Samong revival starts the awakening and cooldown');assert.equal(revival.lastScripture,priorScripture,'Samong revival leaves the ordinary-death scripture marker unchanged');assert.equal(revival.deathCard,false,'Samong revival does not show the ordinary death card');
+ assert.deepEqual(errors,[],'no runtime errors');fs.writeFileSync(path.join(out,'death-flow-results.json'),JSON.stringify({storyPhase,first,repeated,checkpoint,priorScripture,revival,errors},null,2));console.log('RC110_DEATH_FLOW_PASS',JSON.stringify({deathStartedDuringStory:storyPhase,firstCard:!!first,repeatedCard:!!repeated,checkpointZone:'dreamRest',priorScripture,revival,errors}));
+}finally{await browser?.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});
