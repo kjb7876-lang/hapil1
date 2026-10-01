@@ -131,7 +131,7 @@
   const toolbar=document.createElement('div');toolbar.className='hm-toolbar';toolbar.append(button('Menu','설정'));
   const movement=document.createElement('div');movement.className='hm-movement';movement.innerHTML='<div class="hm-stick" data-mobile-stick role="group" aria-label="8방향 터치 이동 휠"><span></span></div>';
   const actions=document.createElement('div');actions.className='hm-actions';actions.setAttribute('role','group');actions.setAttribute('aria-label','전투 터치 버튼');
-  for(const row of [['S','블링크'],['D','공명']])actions.append(button(...row));
+  for(const row of [['S','블링크'],['D','공명'],['A','사격/차지']])actions.append(button(...row));
   const vitals=document.createElement('div');vitals.className='hm-vitals';vitals.setAttribute('aria-label','영웅 체력');vitals.innerHTML='<span></span><i aria-hidden="true"></i><span class="hm-resource"></span>';root.append(toolbar,vitals,movement,actions);game.append(root);
  }
  function dimensions(){const v=window.visualViewport,height=(v?.height??innerHeight).toFixed(2)+'px';if(height!==lastViewportHeight){lastViewportHeight=height;document.documentElement.style.setProperty('--hapil-vh66',height);}}
@@ -143,7 +143,7 @@
   const blocked=!canInput('A');root.classList.toggle('hm-blocked',blocked);
   for(const el of root.querySelectorAll('.hm-actions [data-mobile-action]')){const k=el.dataset.mobileAction;
    const native=document.querySelector('.combat-hud [data-control-key="'+k+'"]'),remain=Math.max(0,finite(s.cooldowns?.[k])-s.time),owned=[...pointers.values()].some(p=>p.target===el),locked=blocked||(!owned&&(remain>.001||native?.disabled||k!=='D'&&D()?.active(s)));
-   el.disabled=!!locked;if(remain>.001&&!owned)setText(el.lastChild,remain.toFixed(1)+'s');else{const label=({S:'블링크',D:D()?.active(s)?'공명 중':'공명'})[k];setText(el.lastChild,label);}
+   el.disabled=!!locked;if(remain>.001&&!owned)setText(el.lastChild,remain.toFixed(1)+'s');else{const label=({A:'사격/차지',S:'블링크',D:D()?.active(s)?'공명 중':'공명'})[k];setText(el.lastChild,label);}
   }
  }
  function startPolling(){if(timer||document.hidden)return;update();timer=setInterval(update,450);}

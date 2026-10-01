@@ -1,0 +1,17 @@
+/* RC108: desktop and landscape combat information band; portrait is untouched. */
+(()=>{'use strict';
+ const root=document.documentElement;
+ const eligible=()=>document.body.classList.contains('rc15-playing')&&(!root.classList.contains('hapil-touch-v31366')||innerWidth>innerHeight);
+ function mount(){
+  let overlay=document.querySelector('#rc108-control-overlay');if(overlay)return overlay;
+  overlay=document.createElement('div');overlay.id='rc108-control-overlay';overlay.setAttribute('aria-label','전투 조작');
+  const keys=document.createElement('div');keys.className='rc108-skill-keys';keys.setAttribute('aria-label','전투 조작');
+  for(const key of ['A','Q','W','E','R','G','S','D']){const b=document.createElement('button');b.type='button';b.dataset.key=key;b.textContent=key;b.setAttribute('aria-label',key+' 조작');b.addEventListener('click',()=>document.querySelector('.combat-hud .skills [data-control-key="'+key+'"]')?.click());keys.append(b);}
+  const more=document.createElement('button');more.type='button';more.className='rc108-more-trigger';more.setAttribute('aria-label','조작 더보기');more.setAttribute('aria-haspopup','dialog');more.title='조작 더보기';more.textContent='⋯';more.addEventListener('click',()=>document.querySelector('.combat-controls-more')?.click());
+  const settings=document.createElement('button');settings.type='button';settings.className='rc108-settings-trigger';settings.setAttribute('aria-label','설정 · 메뉴');settings.title='설정 · 메뉴';settings.textContent='⚙';settings.addEventListener('click',()=>document.querySelector('.topbar nav button,.topbar .mobile-system-menu')?.click());
+  overlay.append(keys,more,settings);document.body.append(overlay);return overlay;
+ }
+ function update(){const show=eligible();root.classList.toggle('rc108-wide-layout',show);const sides=document.querySelector('#rc15-sidepanels');if(show&&sides)sides.hidden=false;else if(root.classList.contains('hapil-touch-v31366')&&innerHeight>innerWidth&&sides)sides.hidden=true;if(show)mount();}
+ new MutationObserver(update).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','data-combat-input']});addEventListener('resize',update);setInterval(update,200);update();
+ window.__HAPIL_COMBAT_INFO_RC108__=Object.freeze({version:'RC108',update,eligible});
+})();

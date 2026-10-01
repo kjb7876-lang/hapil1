@@ -65,8 +65,8 @@
   if(!m.pre){m.pre=true;return show(s,r,'pre',r.pre,()=>{},ctx);}
   const battle=s.hapilFinalBattleV31300;
   if(s.zone==='cult04'&&battle&&!battle.completed){
-   if(!m.firstPost){m.firstPost=true;return show(s,r,'firstPost',r.firstPost,()=>{},ctx);}
-   if(battle.stage>=5&&!m.awakenPre){m.awakenPre=true;ctx.selectPhysician?.();return show(s,r,'awakenPre',r.awakenPre,()=>{},ctx);}
+   if(battle.stage>=5&&!m.firstPost){m.firstPost=true;return show(s,r,'firstPost',r.firstPost,()=>{},ctx);}
+   if(battle.stage>=5&&!m.awakenPre){m.awakenPre=true;ctx.selectPhysician?.();return show(s,r,'awakenPre',r.awakenPre,()=>window.__HAPIL_FINAL_AWAKENING_RC108__?.complete?.(s),ctx);}
   }
   if(!m.post&&ctx.clear&&(s.zone!=='cult04'||(battle?.completed===true&&battle.finalHitCommittedV31377===true&&Number(battle.combatElapsedRC79)>=60))){m.post=true;return show(s,r,'post',r.post,()=>{if(s.zone==='cult04')ctx.finish?.();},ctx);}
   return false;

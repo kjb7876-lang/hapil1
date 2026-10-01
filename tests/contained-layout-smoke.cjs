@@ -1,16 +1,14 @@
 // Source contracts and actual HUD updater behavior; no render/geometry claims.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
-const css=read('assets/rc99/battle-layout.css'),html=read('index.html');
-assert(html.lastIndexOf('battle-layout.css')>html.lastIndexOf('settings-rc61.css'),'layout overrides load last');
-assert(css.includes('grid-template-columns:minmax(0,1fr) minmax(0,8fr) minmax(0,1fr)!important'),'reserved 10:80:10 tracks');
-assert(css.includes('html.hapil-touch-v31366 body.rc15-playing .game>.hapil-combat-rail-v31339 {display:none!important}'),'mobile rail override must match RC28 specificity');
-assert(css.includes('.topbar nav {grid-column:2!important;display:flex!important;'),'windowed desktop settings must override the <=1080px nav hide');
-assert(!read('assets/rc99/battle-layout.js').includes('rc99-auto-skills'),'no redundant skill-key HUD');
-assert(read('assets/rc96/resonance-hud.js').includes("document.querySelector('.combat-hud')"),'RC96 resource readout docks in footer');
-assert(css.includes('overflow:auto!important;overscroll-behavior:contain'),'dense side panels scroll inside their own area');
-assert(css.includes('object-fit:contain!important'),'desktop canvas retains 16:9 fitting');
-assert(css.includes('[data-combat-input="manual"]'),'manual controls remain available');
+const css=read('assets/rc108/hud.css'),html=read('index.html');
+assert(html.lastIndexOf('rc108/hud.css')>html.lastIndexOf('battle-layout.css'),'current layout overrides load after cumulative layout');
+assert(css.includes('grid-template-rows:10dvh 90dvh!important'),'requested 10% information and 90% arena tracks');
+assert(css.includes('.game>.hapil-combat-rail-v31339'),'legacy rail is suppressed in the current layout');
+assert(read('assets/rc108/combat-information.js').includes('rc108-settings-trigger'),'settings are preserved through the independent control overlay');
+assert(read('assets/rc96/resonance-hud.js').includes("document.querySelector('#rc108-control-overlay')"),'resource HUD lives outside the repeatedly rewritten ally panel');
+assert(css.includes('.combat-controls-more{display:none!important}'),'duplicate native manual control is hidden');
+assert(read('assets/rc108/combat-information.js').includes("document.querySelector('.combat-controls-more')?.click()"),'compact manual control still dispatches the native dialog');
 class Element {
  constructor(){this.children=[];this.dataset={};this.hidden=false;this.innerHTML='';this.style={setProperty(){},getPropertyValue(){return ''}};this.classList={toggle(){}};}
  append(...children){this.children.push(...children)} prepend(e){this.children.unshift(e)} setAttribute(){} addEventListener(){}

@@ -37,8 +37,13 @@ const assert=require('node:assert/strict');
  await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
  // Start the real final transition using a protected first-defeat state.
  await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,b=s.enemies.find(e=>e.id==='c104-boss');b.hapilFirstDefeatV31300=true;b.hp=1;b.invulnerableUntil=s.time+7;b.phaseTransitionUntil=s.time+7;s.hapilFinalBattleV31300={bossId:b.id,startedAt:s.time,stage:0,secondPhaseActive:false,completed:false};});
+ await page.waitForFunction(()=>window.__MONGSE_QA_STATE__.hapilFinalBattleV31300.stage>=5,{timeout:15000});
  await page.waitForSelector('#hapil-story-rc51[data-phase="firstPost"]');await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
- await page.waitForSelector('#hapil-story-rc51[data-phase="awakenPre"]',{timeout:20000});await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
+ await page.waitForSelector('#hapil-story-rc51[data-phase="awakenPre"]',{timeout:20000});
+ const waiting=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{pending:window.__HAPIL_FINAL_AWAKENING_RC108__?.pending(s),hp:s.hp,maxHp:s.maxHp,awakeningUntil:s.awakeningUntil,time:s.time,stage:s.hapilFinalBattleV31300.stage};});
+ assert.equal(waiting.pending,true);assert.equal(waiting.hp,1);assert(waiting.awakeningUntil<=waiting.time,'hero awakening waits for the existing story card');
+ await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();
+ await page.waitForFunction(()=>window.__MONGSE_QA_STATE__.hapilFinalBattleV31300.awakeningCommittedRC108===true);
  await page.waitForFunction(()=>window.__HAPIL_STORY_RC51__.active(window.__MONGSE_QA_STATE__),{timeout:15000});
  await page.waitForFunction(()=>getComputedStyle(document.documentElement).filter==='grayscale(1)');
  const snapshot=()=>page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return {time:s.time,x:s.x,y:s.y,lastAttack:s.lastAttack,hero:s.activeHeroId,hp:s.hp,boss:s.enemies.find(e=>e.id==='c104-boss')?.hp,stop:document.documentElement.classList.contains('rc51-time-stop'),strikes:s.pendingStrikes.length,events:window.__HAPIL_SKILL_COMPLETION_V31412__.metrics().basicAttacksStarted};});

@@ -66,6 +66,7 @@
             o,
             g,
             MONGSE_counterRewardV31303,
+            HAPIL_hitSourceV31315,
           ),
           MONGSE_gatedHp = MONGSE_counterDamageV31303.hpAfter,
           v = MONGSE_counterDamageV31303.appliedDamage;

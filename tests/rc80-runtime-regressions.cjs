@@ -26,7 +26,7 @@ r.HAPIL_drawSkillRC13({}, {}, {telegraphImpact:true,rootAttack:true},0,{});asser
 const d={window,HAPIL_finiteV31303:(n,f=0)=>Number.isFinite(n)?n:f,HAPIL_bossCastDamageFactorV31342:()=>1,MONGSE_phaseGateHealth:(s,e,d)=>Math.max(0,e.hp-d)};
 vm.runInNewContext(extract('function HAPIL_applyCounterDamageV31303(', '\nfunction HAPIL_probeCombatFlowV31303'),d);
 const enemy={boss:true,hp:1000,maxHp:1000},state={time:0};
-assert.equal(d.HAPIL_applyCounterDamageV31303(state,enemy,99999).appliedDamage,80);
+assert.equal(d.HAPIL_applyCounterDamageV31303(state,enemy,99999).appliedDamage,40);
 assert.equal(d.HAPIL_applyCounterDamageV31303(state,enemy,99999).appliedDamage,0);
-state.time=1;assert.equal(d.HAPIL_applyCounterDamageV31303(state,enemy,99999).appliedDamage,80);
+state.time=1;assert.equal(d.HAPIL_applyCounterDamageV31303(state,enemy,99999).appliedDamage,40);
 console.log('RC80 PASS: active clock, old/new save restore, native skill renderer priority, canonical boss damage budget.');

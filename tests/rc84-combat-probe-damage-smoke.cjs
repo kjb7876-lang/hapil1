@@ -46,14 +46,14 @@ for (const { label, boss, stagger } of [
   const reward = { claimed: true, damageMultiplier: 1.18, stagger, cycle: 1 };
   const result = sandbox.HAPIL_applyCounterDamageV31303(state, enemy, 100 * reward.damageMultiplier, reward);
   assert.equal(result.hpBefore, 2000, `${label}: test fixture starts above damage-budget cap`);
-  assert.equal(result.hpAfter, 1882, `${label}: counter hit applies its full 1.18× damage`);
-  assert.equal(result.appliedDamage, 118, `${label}: actual counter damage is 118`);
+  assert.equal(result.hpAfter, 1941, `${label}: counter hit applies 1.18× then the shared 0.5× enemy-damage factor`);
+  assert.equal(result.appliedDamage, 59, `${label}: actual counter damage is 59 after the shared half factor`);
   assert.equal(result.staggerBonus, stagger, `${label}: counter stagger is preserved`);
 }
 
 const probe = game.slice(game.indexOf('function HAPIL_probeCombatFlowV31303()'), game.indexOf('if (typeof window !== "undefined")', game.indexOf('function HAPIL_probeCombatFlowV31303()')));
 assert(probe.includes('hp: 2000'), 'boss and midboss smoke fixtures must clear the production damage budget');
-assert(probe.includes('damage.hpAfter === 1882'), 'boss gate must expect the full counter hit');
-assert(probe.includes('midDamage.hpAfter === 1882'), 'midboss gate must expect the full counter hit');
+assert(probe.includes('damage.hpAfter === 1941'), 'boss gate must expect the shared half-damage factor');
+assert(probe.includes('midDamage.hpAfter === 1941'), 'midboss gate must expect the shared half-damage factor');
 
 console.log('RC84 PASS: boss and midboss startup probes validate full counter hits above production damage caps.');
