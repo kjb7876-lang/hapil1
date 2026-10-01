@@ -167,5 +167,7 @@ html body.rc15-playing .game .combat-hud .action-utilities {display:none!importa
 .combat-controls-dialog p {font-size:12px;line-height:1.5;color:#b5c7d2}
 .combat-controls-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .combat-controls-list button {min-height:44px;padding:8px;font-size:12px;overflow-wrap:anywhere}
-html.hapil-touch-v31366 .combat-controls-more {top:10px;left:64px;right:auto;bottom:auto;max-width:120px;height:36px;font-size:10px}
+html.hapil-touch-v31366 .combat-controls-more {top:calc(env(safe-area-inset-top,0px) + 10px);left:calc(env(safe-area-inset-left,0px) + 64px);right:auto;bottom:auto;max-width:120px;height:44px;font-size:10px}
 html.hapil-touch-v31366 .combat-controls-dialog {font-size:13px}
+/* Keep the larger touch target's focus ring inside its reserved top-row space. */
+.combat-controls-more:focus-visible {outline-offset:-3px}

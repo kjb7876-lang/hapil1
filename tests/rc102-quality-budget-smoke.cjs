@@ -1,7 +1,8 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('assets/hapil-mobile-v31406.js','utf8');
 const fn=source.match(/ function backingScale\(base\)\{[\s\S]*?\n \}/)[0];
-function scale(quality,width,height,base=.6,mobile=true){const ctx={window:{visualViewport:{width,height}},innerWidth:width,innerHeight:height,options:{quality},enabled:()=>mobile,metrics:{renderCaps:0},base};vm.runInNewContext(fn+';result=backingScale(base)',ctx);return ctx.result;}
+function scale(quality,width,height,base=.6,mobile=true){const ctx={viewportBudget:{coverScale:Math.max(width/1280,height/720)},window:{visualViewport:{width,height}},innerWidth:width,innerHeight:height,options:{quality},enabled:()=>mobile,metrics:{renderCaps:0},base};vm.runInNewContext(fn+';result=backingScale(base)',ctx);return ctx.result;}
+assert(!fn.includes('visualViewport'),'render frames must use cached viewport dimensions');
 assert.equal(scale('balanced',375,812,.92,false),.92,'desktop unchanged');
 assert.equal(scale('battery',375,812),.32,'explicit battery preserved');
 assert(scale('balanced',375,812)>.7,'portrait gets enough pixels for cover');

@@ -12,6 +12,7 @@
   Object.freeze(['ArrowLeft']),Object.freeze(['ArrowLeft','ArrowUp']),
   Object.freeze(['ArrowUp']),Object.freeze(['ArrowUp','ArrowRight'])
  ]);
+ const viewportBudget={coverScale:1};
  const metrics={downs:0,ups:0,cancels:0,clears:0,duplicatePresses:0,unrelatedCancels:0,renderCaps:0};
  const touchQuery=matchMedia('(pointer:coarse)');
  let touch=touchQuery.matches,options={mode:'auto',quality:'balanced'},root=null,game=null,world=null,contextKey='',clearing=false,timer=0,lastTick=0,mobileDefaultsApplied=false,uiActive=false,lastViewportHeight='';
@@ -44,6 +45,7 @@
  function release(id,cancel=false){const r=pointers.get(id);if(!r)return false;
   pointers.delete(id);if(r.target)downClicks.set(r.target,performance.now());for(const k of r.keys)refresh(r.input,k);
   if(r.keys.has('KeyD')){D()?.pointerIds?.delete(id);if(!D()?.pointerIds?.size&&!keyboard('KeyD')&&!owns(r.input,'KeyD'))D()?.end(r.s,r.s,cancel?'pointer-cancel':'release',r.guardToken);}
+  if(r.keys.has('KeyD')&&!owns(r.input,'KeyD')&&!keyboard('KeyD'))for(const held of pointers.values())if(held.stick&&sameContext(held))for(const key of held.keys)refresh(held.input,key);
   if(r.keys.has('KeyA')){pointerArray(r.s);if(!(r.s.chargePointersV31365?.length)&&!keyboard('KeyA')){if(cancel||!sameContext(r))L()?.cancelCharge(r.s,'pointer-cancel',r.chargeToken);else L()?.releaseA(r.s,r.chargeToken);}}
   try{if(r.target?.hasPointerCapture?.(id))r.target.releasePointerCapture(id);}catch{}
   if(r.stick){if(r.stickFrame!==null)window.cancelAnimationFrame(r.stickFrame);r.stickFrame=null;r.target?.style.removeProperty('--stick-x');r.target?.style.removeProperty('--stick-y');}
@@ -112,7 +114,7 @@
   if(!enabled())return base;
   // Cover crops a 16:9 scene in portrait: budget for displayed height as well as width.
   // Keep explicit battery mode and low-effect settings; never multiply by full device DPR.
-  const view=window.visualViewport,coverScale=Math.max((view?.width??innerWidth)/1280,(view?.height??innerHeight)/720);
+  const coverScale=viewportBudget.coverScale;
   const adaptive=Math.max(.75,Math.min(1,base/.6));
   const result=options.quality==='battery'?Math.min(base,.32):Math.min(options.quality==='full'?1.25:.8,Math.max(.4,coverScale*(options.quality==='full'?1:.65)*adaptive));
   if(result<base)metrics.renderCaps++;return result;
@@ -133,7 +135,7 @@
   for(const row of [['S','블링크'],['D','공명']])actions.append(button(...row));
   const vitals=document.createElement('div');vitals.className='hm-vitals';vitals.setAttribute('aria-label','영웅 체력');vitals.innerHTML='<span></span><i aria-hidden="true"></i><span class="hm-resource"></span>';root.append(toolbar,vitals,movement,actions);game.append(root);
  }
- function dimensions(){const v=window.visualViewport,height=(v?.height??innerHeight).toFixed(2)+'px';if(height!==lastViewportHeight){lastViewportHeight=height;document.documentElement.style.setProperty('--hapil-vh66',height);}}
+ function dimensions(){const v=window.visualViewport;viewportBudget.coverScale=Math.max((v?.width??innerWidth)/1280,(v?.height??innerHeight)/720);const height=(v?.height??innerHeight).toFixed(2)+'px';if(height!==lastViewportHeight){lastViewportHeight=height;document.documentElement.style.setProperty('--hapil-vh66',height);}}
  function update(){if(document.hidden)return;lastTick=performance.now();const b=C()?.binding,next=document.querySelector('.game'),active=enabled()&&!!next&&b?.phase==='game'&&!C()?.localTwo?.();applyMobileDefaults(b);
   if(uiActive!==active){clear('ui-mode');uiActive=active;}document.documentElement.classList.toggle('hapil-touch-v31366',active);dimensions();mount(active?next:null);
   if(enabled()&&b?.modal?.current)ensureSettingsControl();
