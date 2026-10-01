@@ -11,7 +11,7 @@ const expected = new Map([
   ['./assets/rc77/connected-laser.js', '39801'],
   ['./assets/rc26/ui.js', '39902'],
   ['./assets/rc99/battle-layout.js', '39902'],
-  ['./assets/rc99/battle-layout.css', '39902'],
+  ['./assets/rc99/battle-layout.css', '40001'],
   ['./assets/rc83/startup-diagnostics.js', '38305'],
   ['./assets/index-v31526.js', '39701'],
   ['./assets/rc86/samong-cosmic.js', '39301'],

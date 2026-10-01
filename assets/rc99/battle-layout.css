@@ -129,3 +129,28 @@ html.hapil-touch-v31366 #hapil-resonance-rc96 {display:none!important}
  html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>#hapil-resonance-rc96 {grid-column:1!important;grid-row:2!important}
  html:not(.hapil-touch-v31366) body.rc15-playing .combat-hud>.action-stack {grid-column:1!important;grid-row:3!important}
 }
+
+/* RC100: retire the second, fixed party HUD; the right information rail owns allies. */
+body.rc15-playing #hapil-party-hud {display:none!important}
+/* Size the reserved footer for its contents before centering any children. */
+html:not(.hapil-touch-v31366) body.rc15-playing {--combat-footer:126px}
+html:not(.hapil-touch-v31366) body.rc15-playing:has(.game[data-combat-input="manual"]) {--combat-footer:180px}
+html:not(.hapil-touch-v31366) body.rc15-playing .game>.combat-hud {
+  align-items:start!important;grid-template-rows:minmax(0,1fr)!important;
+  padding:8px 10px 28px!important;overflow:auto!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .hero-hud>div {
+  height:auto!important;grid-template-rows:none!important;grid-auto-rows:auto!important;gap:4px!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .hero-hud .hapil-hero-status-v31315 {max-height:30px!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-stack {height:auto!important;align-self:start!important;align-content:start!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-stack .skills {
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .game[data-combat-input="manual"] .action-stack .skills {grid-template-columns:repeat(5,minmax(0,1fr))!important}
+html:not(.hapil-touch-v31366) body.rc15-playing .action-stack .skills button {
+  height:48px!important;min-height:48px!important;max-height:48px!important;overflow:hidden!important;
+}
+html:not(.hapil-touch-v31366) body.rc15-playing .skills button :is(strong,b,span) {min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.rc15-playing .game[data-combat-input="manual"] .skills [data-control-key] kbd {display:inline-flex!important}
+body.rc15-playing .game[data-combat-input="manual"] .skills [data-control-key] {padding-left:34px!important}
