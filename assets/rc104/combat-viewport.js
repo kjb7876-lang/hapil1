@@ -1,9 +1,18 @@
 /* Camera presentation only: fit live threats, preserve native world coordinates. */
 (()=>{'use strict';
- const maps=new Map(),cache=new WeakMap();let revision=0,size={width:innerWidth,height:innerHeight};
+ const maps=new Map(),cache=new WeakMap(),initialSize={width:window.visualViewport?.width||innerWidth,height:window.visualViewport?.height||innerHeight};let revision=0,size=initialSize,backingSize={...initialSize},backingTimer=0;
  const key=p=>String(p||'').replace(/^\.\//,'').split('?')[0];
- function resize(){size={width:visualViewport?.width||innerWidth,height:visualViewport?.height||innerHeight};revision++;}
- addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
+ function currentSize(){return{width:window.visualViewport?.width||innerWidth,height:window.visualViewport?.height||innerHeight};}
+ function commitBackingSize(){backingTimer=0;backingSize={...size};}
+ // Keep camera and CSS on the live viewport; settle only the render-resolution budget.
+ function resize(){const next=currentSize();if(next.width===size.width&&next.height===size.height)return;size=next;revision++;
+  const orientationChanged=(next.width>next.height)!==(backingSize.width>backingSize.height),widthChanged=Math.abs(next.width-backingSize.width)>96;
+  if(orientationChanged||widthChanged){clearTimeout(backingTimer);commitBackingSize();return;}
+  clearTimeout(backingTimer);backingTimer=0;
+  if(next.width===backingSize.width&&next.height===backingSize.height)return;
+  backingTimer=setTimeout(commitBackingSize,180);
+ }
+ addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);window.addEventListener('orientationchange',resize);
  const touch=()=>document.documentElement.classList.contains('hapil-touch-v31366');
  function view(width=size.width,height=size.height){const k=Math.max(width/1280,height/720);return{x:(1280-width/k)/2,y:(720-height/k)/2,width:width/k,height:height/k,k};}
  function pointer(e,r){if(!touch())return{x:(e.clientX-r.left)*1280/r.width,y:(e.clientY-r.top)*720/r.height};const v=view(r.width,r.height);return{x:v.x+(e.clientX-r.left)/v.k,y:v.y+(e.clientY-r.top)/v.k};}
@@ -30,5 +39,5 @@
   }
   cache.set(s,{time:s.time,x:s.x,y:s.y,zone:s.zone,revision,camera:result});return result;
  }
- const api={camera,pointer,recordMapRect,view,last:null};window.__HAPIL_VIEWPORT_RC104__=api;
+ const api={camera,pointer,recordMapRect,view,backingViewport:()=>({...backingSize}),last:null};window.__HAPIL_VIEWPORT_RC104__=api;
 })();
