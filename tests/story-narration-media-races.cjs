@@ -36,7 +36,7 @@ async function until(predicate, description) {
   assert.fail('Did not observe ' + description);
 }
 
-function fixture() {
+function fixture(options = {}) {
   const clips = [], playRequests = [], fetches = [], timers = new Set(), players = [];
   const root = new Element(), footer = new Element('footer');
   const window = new EventTarget(), document = new EventTarget();
@@ -87,11 +87,11 @@ function fixture() {
     MutationObserver: class { observe() {} disconnect() {} },
     fetch: async url => { fetches.push(String(url)); return {ok: true, json: async () => data}; }
   });
-  const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test'});
+  const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test', ...options});
   players.push(player);
   function createPlayer() {
     const root = new Element(), footer = new Element('footer');
-    const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test'});
+    const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test', ...options});
     players.push(player);
     return {player, root, footer};
   }
@@ -106,7 +106,7 @@ function fixture() {
     for (const timer of timers) clearTimeout(timer);
     timers.clear();
   }
-  return {player, root, footer, clips, playRequests, fetches, timers, requestPlay, createPlayer, clean};
+  return {player, root, footer, clips, playRequests, fetches, timers, requestPlay, createPlayer, clean, window, document};
 }
 
 test('queued ended event after pause cannot start the next clip', async t => {
@@ -239,4 +239,62 @@ test('explicit replay on a retained reader preempts the current reader', async t
   assert.equal(front.attempt.clip.paused, true);
   assert.equal(f.player.status, 'playing');
   assert.equal(f.clips.filter(clip => !clip.paused).length, 1, 'at most one reader may play');
+});
+
+
+test('pagehide cancels playback but preserves usable controls for a history-cache restore', async t => {
+  const f = fixture(); t.after(f.clean);
+  const first = await f.requestPlay(); first.attempt.resolve(); assert.equal(await first.result, true);
+  first.attempt.clip.currentTime = 2;
+  f.window.dispatchEvent(new Event('pagehide'));
+  assert.equal(f.player.status, 'paused'); assert.equal(first.attempt.clip.paused, true);
+  assert.equal(f.footer.children[0].isConnected, true);
+  first.attempt.clip.emit('ended'); first.attempt.clip.emit('playing'); await settle();
+  assert.equal(f.playRequests.length, 1, 'history suspension must not auto-resume or advance');
+  const next = await f.requestPlay(); assert.equal(next.attempt.clip.currentTime, 2);
+  next.attempt.resolve(); assert.equal(await next.result, true);
+});
+
+
+test('only the final playlist ended event releases auto-advance after a 750 ms tail', async t => {
+  let ended = 0, clock = 0;
+  const f = fixture({onEnded: () => ended++}); t.after(f.clean);
+  f.window.performance = {now: () => clock};
+  const first = await f.requestPlay(); assert.equal(f.player.blocksAdvance, true);
+  first.attempt.resolve(); await first.result; first.attempt.clip.emit('ended');
+  await until(() => f.playRequests.length === 2, 'the final playlist request');
+  assert.equal(ended, 0); assert.equal(f.player.blocksAdvance, true);
+  const second = f.playRequests[1]; second.resolve(); await settle();
+  assert.equal(f.player.ended, false); assert.equal(f.player.blocksAdvance, true);
+  second.clip.emit('ended'); assert.equal(ended, 1); assert.equal(f.player.ended, true);
+  clock = 749; assert.equal(f.player.blocksAdvance, true);
+  clock = 750; assert.equal(f.player.blocksAdvance, false);
+  second.clip.emit('ended'); assert.equal(ended, 1);
+});
+
+test('stalled playback has bounded recovery even when media emits no waiting or ended event', async t => {
+  let clock = 0, progress;
+  const f = fixture(); t.after(f.clean); f.window.performance = {now: () => clock};
+  const schedule = f.window.setTimeout;
+  f.window.setTimeout = (fn, ms) => { const timer = schedule(fn, ms); if (ms === 1000) progress = {fn, timer}; return timer; };
+  const first = await f.requestPlay(); first.attempt.resolve(); await first.result;
+  clock = 15000; f.window.clearTimeout(progress.timer); progress.fn();
+  assert.equal(f.player.status, 'blocked'); assert.equal(f.player.blocksAdvance, false);
+  assert.equal(first.attempt.clip.paused, true);
+});
+
+test('background suspension resumes the same offset without reviving obsolete media events', async t => {
+  const f = fixture(); t.after(f.clean);
+  const first = await f.requestPlay(); first.attempt.resolve(); await first.result;
+  first.attempt.clip.currentTime = 3;
+  f.document.hidden = true; f.document.dispatchEvent(new Event('visibilitychange'));
+  assert.equal(f.player.status, 'paused'); assert.equal(first.attempt.clip.paused, true);
+  f.document.hidden = false; f.document.dispatchEvent(new Event('visibilitychange'));
+  await until(() => f.playRequests.length === 2, 'foreground resume');
+  const second = f.playRequests[1]; assert.equal(second.clip.currentTime, 3);
+  first.attempt.clip.emit('playing'); first.attempt.clip.emit('ended'); second.resolve(); await settle();
+  assert.equal(f.player.playing, true); assert.equal(f.playRequests.length, 2);
+  f.player.pause(true); f.document.hidden = true; f.document.dispatchEvent(new Event('visibilitychange'));
+  f.document.hidden = false; f.document.dispatchEvent(new Event('visibilitychange')); await settle();
+  assert.equal(f.player.status, 'paused'); assert.equal(f.playRequests.length, 2, 'manual pause remains manual');
 });

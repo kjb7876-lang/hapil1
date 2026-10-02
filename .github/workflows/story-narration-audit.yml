@@ -10,6 +10,8 @@ on:
       - 'data/story-rc51.js'
       - 'data/rc57/voice-monologue-*.txt'
       - 'tools/replace-narrative-ellipsis.cjs'
+      - 'tools/narrative-proofreads.cjs'
+      - 'data/rc57/narrative-proofreads-20261002.json'
       - 'tests/story-narration*'
       - 'index.html'
   workflow_dispatch:
@@ -41,6 +43,7 @@ jobs:
           node tests/rc75-ending-and-awakening.cjs
           node tests/rc89-narrative-smoke.cjs
           node tests/story-narration-text.cjs
+          node tests/story-narration-proofreads.cjs
           node --test tests/story-narration-media-races.cjs tests/story-narration-overlap.cjs
       - name: Install isolated browser runtime
         run: |

@@ -5,7 +5,7 @@
   const base = new URL('./', script?.src || document.baseURI);
   const manifestURL = new URL('manifest.json', base);
   if (script?.src) manifestURL.search = new URL(script.src).search;
-  const LOAD_TIMEOUT_MS = 15000;
+  const LOAD_TIMEOUT_MS = 15000, END_TAIL_MS = 750;
   let audioContext = null, interacted = false, primed = false, manifestRequest = null, active = null;
 
   function unlock() {
@@ -60,7 +60,7 @@
   }
   const volumeValue = value => Number.isFinite(Number(value)) ? Math.max(0, Math.min(1, Number(value))) : .8;
 
-  function attach({root, text, zone, phase, key, footer: targetFooter, ctx = {}, onPlaying, onUserPause, onLoading, onBlocked} = {}) {
+  function attach({root, text, zone, phase, key, footer: targetFooter, ctx = {}, onPlaying, onUserPause, onLoading, onBlocked, onEnded} = {}) {
     // These two recorded performances and their existing controls are immutable.
     if (!root || !text || (zone === 'dist00' && (phase === 'pre' || phase === 'post'))) return null;
     const footer = targetFooter || root.querySelector('.rc51-footer') || root.querySelector('[data-narration-footer]');
@@ -80,6 +80,8 @@
     const sceneKey = key || `${zone}:${phase}`;
     root.dataset.narration = sceneKey;
     let state = 'idle', disposed = false, generation = 0, buffer = null, entry = null;
+    let progressWatch = null, endedAt = 0, resumeWhenVisible = false;
+    const now = () => window.performance?.now?.() ?? Date.now();
     let source = null, gain = null, media = null, startedAt = 0, offset = 0, clipIndex = 0, controller = null, timeout = null;
     let volume = volumeValue(ctx.voiceVolume), muted = ctx.sound === false, lastSound = ctx.sound, lastVolume = ctx.voiceVolume;
     const listeners = [], mediaListeners = [];
@@ -102,7 +104,9 @@
     }
     function clearTimeoutAndRequest() {
       if (timeout != null) window.clearTimeout(timeout);
-      timeout = null; controller?.abort(); controller = null;
+      timeout = null;
+      if (progressWatch != null) window.clearTimeout(progressWatch); progressWatch = null;
+      controller?.abort(); controller = null;
     }
     function stopSource() {
       if (source) { source.onended = null; try { source.stop(); } catch {} source.disconnect(); source = null; }
@@ -111,11 +115,13 @@
     }
     function position() {
       if (media && state === 'playing') return Number(media.currentTime) || offset;
-      return offset + (source && state === 'playing' ? Math.max(0, audioContext.currentTime - startedAt) : 0);
+      const value = offset + (source && state === 'playing' ? Math.max(0, audioContext.currentTime - startedAt) : 0);
+      const duration = buffer?.duration ?? entry?.clips[clipIndex]?.duration;
+      return Number.isFinite(duration) ? Math.min(value, duration) : value;
     }
     function pause(user = false, releaseBuffer = false) {
       if (disposed) return;
-      offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); if (releaseBuffer) buffer = null; display('paused');
+      resumeWhenVisible = false; offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); if (releaseBuffer) buffer = null; display('paused');
       if (user) onUserPause?.();
     }
     function failed(request) {
@@ -128,11 +134,11 @@
       if (media) { media.pause(); media.removeAttribute('src'); media.load(); media = null; }
     }
     function finished(request) {
-      if (disposed || request !== generation) return;
+      if (disposed || request !== generation || state === 'ended') return;
       clearTimeoutAndRequest(); stopSource(); releaseMedia(); offset = 0; buffer = null;
       if (entry && clipIndex + 1 < entry.clips.length) {
         clipIndex++; display('paused'); void play();
-      } else { clipIndex = 0; display('ended'); }
+      } else { clipIndex = 0; endedAt = now(); display('ended'); onEnded?.(); }
     }
     async function metadata(signal) {
       if (entry) return entry;
@@ -150,10 +156,23 @@
       entry = {...candidate, clips};
       return entry;
     }
+    function watchProgress(request) {
+      if (progressWatch != null) return;
+      let lastPosition = position(), lastProgress = now();
+      const check = () => {
+        progressWatch = null;
+        if (disposed || request !== generation || state !== 'playing') return;
+        const current = position();
+        if (current > lastPosition + .005) { lastPosition = current; lastProgress = now(); }
+        if (now() - lastProgress >= LOAD_TIMEOUT_MS) { failed(request); return; }
+        progressWatch = window.setTimeout(check, 1000);
+      };
+      progressWatch = window.setTimeout(check, 1000);
+    }
     function started(request, duration) {
       if (disposed || request !== generation) return false;
       if (timeout != null) window.clearTimeout(timeout); timeout = null;
-      display('playing'); updateVolume();
+      display('playing'); updateVolume(); watchProgress(request);
       onPlaying?.(Math.max(0, Number(duration) - offset) + entry.clips.slice(clipIndex + 1).reduce((sum, clip) => sum + Number(clip.duration), 0));
       return true;
     }
@@ -242,13 +261,22 @@
       },
       get playing() { return state === 'playing'; },
       get status() { return state; },
+      get ended() { return state === 'ended'; },
+      get blocksAdvance() { return !disposed && (state === 'loading' || state === 'playing' || (state === 'ended' && now() - endedAt < END_TAIL_MS)); },
       get position() { return position(); }
     });
     listen(playButton, 'click', () => { if (state === 'playing' || state === 'loading') pause(true); else void play(); });
     listen(muteButton, 'click', () => { muted = !muted; updateVolume(); });
     listen(range, 'input', () => { volume = volumeValue(Number(range.value) / 100); updateVolume(); });
-    listen(document, 'visibilitychange', () => { if (document.hidden && (state === 'playing' || state === 'loading')) pause(false); });
-    listen(window, 'pagehide', () => api.stop());
+    listen(document, 'visibilitychange', () => {
+      if (document.hidden && (state === 'playing' || state === 'loading')) {
+        pause(false, true); resumeWhenVisible = true;
+      } else if (!document.hidden && resumeWhenVisible && state === 'paused') {
+        resumeWhenVisible = false; void play();
+      }
+    });
+    // A history-cache restore may keep this DOM alive; cancel sound without destroying resume controls.
+    listen(window, 'pagehide', () => pause(false, true));
     // Cancel stale work even when another UI removes the card without calling close().
     const removed = new MutationObserver(() => { if (!root.isConnected) api.stop(); });
     removed.observe(document.body, {childList: true, subtree: true});

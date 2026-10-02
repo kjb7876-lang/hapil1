@@ -56,7 +56,7 @@
  }
  function beforeFrame(s,ctx={}){
   if(root&&document.getElementById('hapil-death-verse-rc59')){lastUi=performance.now();return true;}
-  if(root){if(owner!==s||!enabled(s)||s.hp<=0||(root.dataset.narration&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0)close();}return true;}}
+  if(root){if(owner!==s||!enabled(s)||s.hp<=0||(root.dataset.narration&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0){if(narration?.blocksAdvance===true)autoLeft=.05;else close();}}return true;}}
   document.documentElement.classList.toggle('rc51-samong',storyActive(s));
   document.documentElement.classList.toggle('rc91-samong',window.__HAPIL_SAMONG_RC91__?.active(s)===true);
   if(!enabled(s)||ctx.blocked||s.hp<=0)return false;

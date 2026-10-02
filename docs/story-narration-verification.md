@@ -4,7 +4,7 @@
 
 - Both original uploaded recordings keep their existing file paths and bytes.
 - The legacy RC49 player and original opening transcript remain unchanged.
-- Canonical story data, game bundle, combat progression and save format remain unchanged.
+- The game bundle, combat progression and save format are unchanged by narration integration. Canonical text changes are limited to the requested ellipsis replacements and conservative proofreading.
 - Narration never owns death auto-restart. Full-auto rebirth still closes after the existing three seconds; narration is canceled with it.
 - Audio errors leave the original text and Continue action usable. A download/playback attempt has a bounded timeout.
 - Audio is fetched for the current card/paragraph only. Decoded PCM is released on scene close or change.
@@ -30,3 +30,7 @@ These runs use controlled waveform fixtures to exercise playback mechanics, rath
 Independent review added15deterministic regressions for stale media events/promises, retained-player preemption, and overlapping/replaced/externally removed death dialogs. All15passed locally. The expanded fixture suite passed [Actions36983574813](https://github.com/kjb7876-lang/hapil1/actions/runs/36983574813) on e555adb6b7286ea19114b59788f3827ac767ea53. Mobile/desktop story and prologue screenshots were also inspected. Final audio encoding is128kbps MP3; the requested spoken/displayed phrase“그러하였다.” and1–2second preceding pauses remain subject to final corpus generation/QA.
 
 Latest user change(2026-10-02): canceled nonverbal sighs; every remaining canonical ellipsis is to be replaced by the exact spoken/displayed phrase“그러하였다.”, preserving existingvoice1/2. Canonical source/export/audio hash migration is pending on fresh main.
+
+The canonical phrase migration and all fixture/source checks passed on26f7af8ee1d8978757994426d99143f232318495 in[Actions36987944648](https://github.com/kjb7876-lang/hapil1/actions/runs/36987944648):14 live replacements,10 affected cards,12 paragraphs; immutable upload and original voice transcripts preserved. This staging revision incorporates current RC123main17b8ab8 without changing its gameplay/laser files.
+
+Current release candidate also holds new narration until the real final audio-ended event plus a750ms tail, with bounded loading/stall recovery. Explicit Skip and three-second rebirth auto-close retain priority. Conservative proofreading includes25 corrections across22 cards; only8 cards alter spoken spelling/grammar.

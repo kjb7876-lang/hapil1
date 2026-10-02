@@ -108,9 +108,10 @@
   if (stanzas.every(Boolean)) narration = window.__HAPIL_STORY_NARRATION_V1__?.attach({
     root: overlay, key: 'prologue:quote', text: stanzas.map(stanzaText).join('\n\n'), footer: narrationFooter,
     ctx: {sound: voiceSettings.sound !== false, voiceVolume: voiceSettings.sfxVolume},
-    onLoading: () => { if (!finished && phase === 'quote') { clearTimers(); later(showMark, 16500); } },
+    onLoading: () => { if (!finished && phase === 'quote') clearTimers(); },
     onBlocked: () => { if (!finished && phase === 'quote') { clearTimers(); later(showMark, quoteDuration); } },
-    onPlaying: seconds => { if (!finished && phase === 'quote') { clearTimers(); later(showMark, Math.max(1500, seconds * 1000 + 1500)); } },
+    onPlaying: () => { if (!finished && phase === 'quote') clearTimers(); },
+    onEnded: () => { if (!finished && phase === 'quote') { clearTimers(); later(showMark, 750); } },
     onUserPause: () => { if (!finished && phase === 'quote') clearTimers(); }
   }) || null;
 
