@@ -1,0 +1,6969 @@
+{
+  "testedCommit": "2b1b48dbda698bedecd6ff4ee10cea0fb4e62a6a",
+  "fixtures": [
+    {
+      "name": "ranged-strike-without-delivery-visual",
+      "passed": true,
+      "value": {
+        "launched": 0,
+        "originalStrikePreserved": true
+      }
+    },
+    {
+      "name": "ricochet-draw-with-real-sprite",
+      "passed": true,
+      "value": {
+        "handled": true,
+        "globalLoader": "undefined"
+      }
+    }
+  ],
+  "natural": [
+    {
+      "mobile": false,
+      "usedProgressCheats": false,
+      "errors": [],
+      "failedResponses": [],
+      "samples": [
+        {
+          "zone": "dist00",
+          "time": 1.9068999999999998,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22258.448355819943
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 2.8664999999999963,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.06660000000000037
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 53,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 2022
+        },
+        {
+          "zone": "dist00",
+          "time": 3.8470999999999944,
+          "hp": 215,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22174.673695639878
+            }
+          ],
+          "casts": 0,
+          "shots": 12,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 4.8664999999999985,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000109
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 128,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 4030
+        },
+        {
+          "zone": "dist00",
+          "time": 5.677000000000001,
+          "hp": 127,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22003.034902859818
+            }
+          ],
+          "casts": 0,
+          "shots": 27,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 6.899700000000003,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.033299999999999275
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 190,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 6064
+        },
+        {
+          "zone": "dist00",
+          "time": 7.546800000000008,
+          "hp": 220,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20642.241955299756
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 8.949600000000006,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000109
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 244,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 8093
+        },
+        {
+          "zone": "dist00",
+          "time": 9.496900000000004,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19747.586957819687
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-1",
+              "hp": 221
+            }
+          ],
+          "casts": 0,
+          "shots": 3,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 10.949500000000002,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.04989999999999964
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 302,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 10125
+        },
+        {
+          "zone": "dist00",
+          "time": 11.150099999999977,
+          "hp": 131,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19632.641564779635
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-1",
+              "hp": 14
+            }
+          ],
+          "casts": 1,
+          "shots": 2,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 12.999500000000001,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.0666999999999971
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 358,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 12193
+        },
+        {
+          "zone": "dist00",
+          "time": 12.226799999999962,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 17045.870897039596
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 15.032700000000009,
+            "active": 6.250000000000001,
+            "cooldown": 76.25000000000003,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 403,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 14209
+        },
+        {
+          "zone": "dist00",
+          "time": 12.482799999999953,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 14538.9205114396
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 17.04930000000002,
+            "active": 4.2334,
+            "cooldown": 74.23340000000003,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 438,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 16220
+        },
+        {
+          "zone": "dist00",
+          "time": 12.613471999999945,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 12030.9531502012
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 19.082600000000014,
+            "active": 2.200100000000003,
+            "cooldown": 72.20010000000003,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 478,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 18260
+        },
+        {
+          "zone": "dist00",
+          "time": 12.749455999999936,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 12032.131832316398
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 21.099200000000007,
+            "active": 0.18350000000000505,
+            "cooldown": 70.18350000000007,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 513,
+            "maxGap": 116.59999999999945
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 20274
+        },
+        {
+          "zone": "dist00",
+          "time": 12.816111999999935,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 21.31580000000001,
+            "active": 0,
+            "cooldown": 69.96690000000007,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 617,
+            "maxGap": 166.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 22289
+        },
+        {
+          "zone": "dist00",
+          "time": 13.54601199999993,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22786.51366199999
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 22.049200000000006,
+            "active": 0,
+            "cooldown": 69.2335000000001,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.033299999999999275
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 720,
+            "maxGap": 166.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 24301
+        },
+        {
+          "zone": "dist00",
+          "time": 14.026011999999927,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 22.549200000000013,
+            "active": 0,
+            "cooldown": 68.73350000000013,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03339999999999782
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 825,
+            "maxGap": 166.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 26305
+        },
+        {
+          "zone": "dist00",
+          "time": 14.449511999999931,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22545.491464259998
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 22.9658,
+            "active": 0,
+            "cooldown": 68.31690000000016,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.033400000000001456
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 938,
+            "maxGap": 166.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 28327
+        },
+        {
+          "zone": "dist00",
+          "time": 16.312711999999916,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22248.786928259935
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 24.999000000000027,
+            "active": 0,
+            "cooldown": 66.28370000000022,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.016600000000005822
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 997,
+            "maxGap": 166.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 30330
+        },
+        {
+          "zone": "dist00",
+          "time": 17.769311999999886,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21989.8346192199
+            }
+          ],
+          "casts": 1,
+          "shots": 14,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 26.84900000000003,
+            "active": 0,
+            "cooldown": 64.43370000000024,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.06670000000000437
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1040,
+            "maxGap": 166.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 32377
+        },
+        {
+          "zone": "dist00",
+          "time": 19.202611999999853,
+          "hp": 168,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21448.033176959856
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 29.048900000000025,
+            "active": 0,
+            "cooldown": 62.233800000000265,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1076,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 34410
+        },
+        {
+          "zone": "dist00",
+          "time": 20.955611999999842,
+          "hp": 222,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20938.735904619803
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 31.08210000000005,
+            "active": 0,
+            "cooldown": 55.87106500000028,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1123,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 36448
+        },
+        {
+          "zone": "dist00",
+          "time": 22.789211999999832,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20402.504182699733
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 33.132000000000055,
+            "active": 0,
+            "cooldown": 53.821165000000285,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1174,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 38480
+        },
+        {
+          "zone": "dist00",
+          "time": 24.802511999999812,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19835.098949919666
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 35.165300000000066,
+            "active": 0,
+            "cooldown": 51.787865000000274,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1246,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 40483
+        },
+        {
+          "zone": "dist00",
+          "time": 26.415711999999793,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19290.529885139607
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 37.16520000000003,
+            "active": 0,
+            "cooldown": 49.78796500000031,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1289,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 42526
+        },
+        {
+          "zone": "dist00",
+          "time": 26.942211999999788,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 37.79850000000002,
+            "active": 0,
+            "cooldown": 49.15466500000032,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 1384,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 44538
+        },
+        {
+          "zone": "dist00",
+          "time": 27.258811999999782,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22810
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 38.09850000000004,
+            "active": 0,
+            "cooldown": 48.8546650000003,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.016700000000004364
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1501,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 46549
+        },
+        {
+          "zone": "dist00",
+          "time": 29.138711999999767,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22641.849674959944
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 40.09840000000005,
+            "active": 0,
+            "cooldown": 46.85476500000029,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.033400000000001456
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1568,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 48579
+        },
+        {
+          "zone": "dist00",
+          "time": 31.04881199999975,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22443.551658779877
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 1,
+          "passive": {
+            "version": 1,
+            "clock": 42.14830000000004,
+            "active": 0,
+            "cooldown": 44.8048650000003,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.016599999999998546
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1630,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 50603
+        },
+        {
+          "zone": "dist00",
+          "time": 32.69221199999972,
+          "hp": 195,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22084.36849477982
+            }
+          ],
+          "casts": 1,
+          "shots": 15,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 44.13160000000006,
+            "active": 0,
+            "cooldown": 42.82156500000028,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05009999999999854
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1688,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 52632
+        },
+        {
+          "zone": "dist00",
+          "time": 34.09221199999969,
+          "hp": 46,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21666.85341477976
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 46.16480000000005,
+            "active": 0,
+            "cooldown": 37.90284845000027,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.06659999999999855
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1723,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 54643
+        },
+        {
+          "zone": "dist00",
+          "time": 34.372211999999685,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 46.564700000000045,
+            "active": 0,
+            "cooldown": 37.502948450000275,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.06659999999999855
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 1792,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 56667
+        },
+        {
+          "zone": "dist00",
+          "time": 34.97211199999971,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22801.5
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 47.148000000000074,
+            "active": 0,
+            "cooldown": 36.919648450000246,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1876,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 58684
+        },
+        {
+          "zone": "dist00",
+          "time": 36.63211199999969,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22247.388547999944
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 49.16460000000006,
+            "active": 0,
+            "cooldown": 34.90304845000026,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1921,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 60723
+        },
+        {
+          "zone": "dist00",
+          "time": 38.36231199999966,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21723.327501299886
+            }
+          ],
+          "casts": 0,
+          "shots": 19,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 51.197900000000004,
+            "active": 0,
+            "cooldown": 32.869748450000316,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1968,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 62734
+        },
+        {
+          "zone": "dist00",
+          "time": 40.20221199999966,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21265.833460779824
+            }
+          ],
+          "casts": 0,
+          "shots": 16,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 53.1978,
+            "active": 0,
+            "cooldown": 30.869848450000298,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2020,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 64743
+        },
+        {
+          "zone": "dist00",
+          "time": 42.105511999999685,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20817.27281025976
+            }
+          ],
+          "casts": 0,
+          "shots": 12,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 55.231,
+            "active": 0,
+            "cooldown": 28.83664845000029,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.04989999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2086,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 66767
+        },
+        {
+          "zone": "dist00",
+          "time": 43.86241199999965,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20560.503227819707
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-1",
+              "hp": 221
+            }
+          ],
+          "casts": 0,
+          "shots": 11,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 57.26429999999999,
+            "active": 0,
+            "cooldown": 24.826783058500265,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2145,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 68773
+        },
+        {
+          "zone": "dist00",
+          "time": 45.64911199999966,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19964.838026339647
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 59.264199999999995,
+            "active": 0,
+            "cooldown": 22.82688305850026,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2207,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 70810
+        },
+        {
+          "zone": "dist00",
+          "time": 47.29591199999965,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19539.712159379586
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 61.29749999999994,
+            "active": 0,
+            "cooldown": 20.79358305850024,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05010000000000582
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2250,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 72857
+        },
+        {
+          "zone": "dist00",
+          "time": 47.37591199999965,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 61.41419999999994,
+            "active": 0,
+            "cooldown": 20.67688305850024,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.06680000000000291
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 2364,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 74869
+        },
+        {
+          "zone": "dist00",
+          "time": 48.22591199999971,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22810
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 62.247499999999995,
+            "active": 0,
+            "cooldown": 19.843583058500233,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.016600000000005822
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2480,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 76873
+        },
+        {
+          "zone": "dist00",
+          "time": 50.01571199999971,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22431.422690959953
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 64.2307,
+            "active": 0,
+            "cooldown": 17.86038305850021,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.06659999999999126
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2541,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 78885
+        },
+        {
+          "zone": "dist00",
+          "time": 51.805611999999705,
+          "hp": 82,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22011.545260439892
+            }
+          ],
+          "casts": 0,
+          "shots": 15,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 66.24729999999994,
+            "active": 0,
+            "cooldown": 15.84378305850019,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2595,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 80914
+        },
+        {
+          "zone": "dist00",
+          "time": 53.292111999999676,
+          "hp": 126,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21132.396870879842
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 68.28059999999988,
+            "active": 0,
+            "cooldown": 12.806418244405169,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.06670000000001164
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2633,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 82965
+        },
+        {
+          "zone": "dist00",
+          "time": 54.485511999999645,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 69.91389999999983,
+            "active": 0,
+            "cooldown": 11.173118244405174,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05009999999999127
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 2683,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 84969
+        },
+        {
+          "zone": "dist00",
+          "time": 54.485511999999645,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 69.91389999999983,
+            "active": 0,
+            "cooldown": 11.173118244405174,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05009999999999127
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 2798,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 86986
+        },
+        {
+          "zone": "dist00",
+          "time": 55.88541199999973,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22739.732693219994
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 71.29710000000009,
+            "active": 0,
+            "cooldown": 9.789918244405182,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2909,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 89010
+        },
+        {
+          "zone": "dist00",
+          "time": 57.885411999999775,
+          "hp": 117,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22485.818293219927
+            }
+          ],
+          "casts": 0,
+          "shots": 12,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 73.29709999999999,
+            "active": 0,
+            "cooldown": 7.789918244405193,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2973,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 91016
+        },
+        {
+          "zone": "dist00",
+          "time": 58.25871199999978,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 73.68039999999998,
+            "active": 0,
+            "cooldown": 7.406618244405204,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03329999999998836
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 3087,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 93018
+        },
+        {
+          "zone": "dist00",
+          "time": 58.88211199999982,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22481.736556519987
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 74.29699999999997,
+            "active": 0,
+            "cooldown": 6.790018244405211,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3194,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 95044
+        },
+        {
+          "zone": "dist00",
+          "time": 60.77531199999981,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22043.538361219922
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 76.33029999999991,
+            "active": 0,
+            "cooldown": 4.756718244405211,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3250,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 97092
+        },
+        {
+          "zone": "dist00",
+          "time": 62.20861199999978,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 78.11359999999982,
+            "active": 0,
+            "cooldown": 2.973418244405211,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05010000000000582
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 3300,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 99101
+        },
+        {
+          "zone": "dist00",
+          "time": 62.20861199999978,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 78.11359999999982,
+            "active": 0,
+            "cooldown": 2.973418244405211,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05010000000000582
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 3420,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 101103
+        },
+        {
+          "zone": "dist00",
+          "time": 63.37191199999987,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22745.616131739975
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 79.28019999999995,
+            "active": 0,
+            "cooldown": 1.8068182444052074,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3526,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 103117
+        },
+        {
+          "zone": "dist00",
+          "time": 63.44531199999986,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 79.36349999999995,
+            "active": 0,
+            "cooldown": 1.723518244405219,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.04989999999999418
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 3643,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 105118
+        },
+        {
+          "zone": "dist00",
+          "time": 64.3286119999999,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22781.467986779986
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 80.23010000000005,
+            "active": 0,
+            "cooldown": 0.856918244405214,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3751,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 107141
+        },
+        {
+          "zone": "dist00",
+          "time": 66.22521199999997,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22388.906469479924
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 82.24670000000003,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.03339999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3818,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 109162
+        },
+        {
+          "zone": "dist00",
+          "time": 68.09841200000004,
+          "hp": 145,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21585.260784959868
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 84.27989999999994,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 1,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3872,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 111211
+        },
+        {
+          "zone": "dist00",
+          "time": 69.50511200000022,
+          "hp": 188,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19466.675491219812
+            }
+          ],
+          "casts": 1,
+          "shots": 11,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 86.29649999999985,
+            "active": 6.783400000000009,
+            "cooldown": 76.78340000000001,
+            "grace": 0.3834000000000088,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3912,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 113234
+        },
+        {
+          "zone": "dist00",
+          "time": 69.67576800000019,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 16175.3103608966
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 88.34639999999976,
+            "active": 4.7335,
+            "cooldown": 74.7335000000001,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3954,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 115281
+        },
+        {
+          "zone": "dist00",
+          "time": 69.80911200000013,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 16176.466160019803
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 90.39629999999967,
+            "active": 2.6836000000000095,
+            "cooldown": 72.6836000000002,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4000,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 117321
+        },
+        {
+          "zone": "dist00",
+          "time": 70.00911200000007,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 13669.169062419805
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 92.41289999999958,
+            "active": 0.6670000000000047,
+            "cooldown": 70.66700000000029,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4044,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 119344
+        },
+        {
+          "zone": "dist00",
+          "time": 71.24206800000015,
+          "hp": 150,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 12662.159366436608
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 94.4627999999994,
+            "active": 0,
+            "cooldown": 68.61710000000046,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4091,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 121391
+        },
+        {
+          "zone": "dist00",
+          "time": 72.3288680000002,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 95.67939999999936,
+            "active": 0,
+            "cooldown": 67.4005000000005,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 4170,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 123397
+        },
+        {
+          "zone": "dist00",
+          "time": 72.3288680000002,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 95.67939999999936,
+            "active": 0,
+            "cooldown": 67.4005000000005,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 4290,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 125398
+        },
+        {
+          "zone": "dist00",
+          "time": 74.12876800000046,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22752.845415479955
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 97.46269999999961,
+            "active": 0,
+            "cooldown": 65.61720000000025,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000001746
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4390,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 127402
+        },
+        {
+          "zone": "dist00",
+          "time": 76.10516800000049,
+          "hp": 143,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22505.82034087989
+            }
+          ],
+          "casts": 0,
+          "shots": 16,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 99.47929999999958,
+            "active": 0,
+            "cooldown": 63.60060000000028,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.016700000000011643
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4456,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 129423
+        },
+        {
+          "zone": "dist00",
+          "time": 78.09176800000043,
+          "hp": 181,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21969.395906879825
+            }
+          ],
+          "casts": 0,
+          "shots": 8,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 101.4958999999995,
+            "active": 0,
+            "cooldown": 61.58400000000028,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.03329999999998836
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4518,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 131441
+        },
+        {
+          "zone": "dist00",
+          "time": 79.69516800000068,
+          "hp": 91,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21305.860783139775
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 103.47909999999942,
+            "active": 0,
+            "cooldown": 55.42058200000031,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.04989999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4560,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 133445
+        },
+        {
+          "zone": "dist00",
+          "time": 81.37516800000078,
+          "hp": 116,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20896.62268713972
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 105.51239999999932,
+            "active": 0,
+            "cooldown": 53.38728200000035,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4605,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 135469
+        },
+        {
+          "zone": "dist00",
+          "time": 82.54836800000086,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 106.86229999999927,
+            "active": 0,
+            "cooldown": 52.03738200000034,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000001746
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 4677,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 137478
+        },
+        {
+          "zone": "dist00",
+          "time": 82.54836800000086,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 106.86229999999927,
+            "active": 0,
+            "cooldown": 52.03738200000034,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.03330000000001746
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 4797,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 139479
+        },
+        {
+          "zone": "dist00",
+          "time": 84.1982680000011,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22587.268139999956
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 108.49549999999948,
+            "active": 0,
+            "cooldown": 50.40418200000031,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.03329999999998836
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4898,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 141485
+        },
+        {
+          "zone": "dist00",
+          "time": 85.78506800000133,
+          "hp": 164,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22383.589130779903
+            }
+          ],
+          "casts": 1,
+          "shots": 12,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 110.46209999999942,
+            "active": 0,
+            "cooldown": 48.437582000000354,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4940,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 143494
+        },
+        {
+          "zone": "dist00",
+          "time": 87.25176800000156,
+          "hp": 45,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22028.27719303985
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 112.51199999999938,
+            "active": 0,
+            "cooldown": 46.38768200000039,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.06660000000000582
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4977,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 145517
+        },
+        {
+          "zone": "dist00",
+          "time": 88.95206800000172,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 114.41189999999933,
+            "active": 0,
+            "cooldown": 44.487782000000436,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 5032,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 147519
+        },
+        {
+          "zone": "dist00",
+          "time": 88.95206800000172,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 114.41189999999933,
+            "active": 0,
+            "cooldown": 44.487782000000436,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": true,
+          "readingBlocked": true,
+          "story": false,
+          "frames": {
+            "n": 5153,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 149527
+        },
+        {
+          "zone": "dist00",
+          "time": 90.08536800000198,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22810
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 115.52849999999958,
+            "active": 0,
+            "cooldown": 43.37118200000037,
+            "grace": 0,
+            "activations": 2,
+            "heroId": "hwando",
+            "lastDelta": 0.016700000000011643
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 5273,
+            "maxGap": 216.59999999999854
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 151528
+        }
+      ],
+      "frames": {
+        "n": 5273,
+        "maxGap": 216.59999999999854,
+        "last": 156575.2,
+        "longTasks": [
+          {
+            "start": 5071.700000000012,
+            "duration": 57
+          },
+          {
+            "start": 5523.700000000012,
+            "duration": 113
+          },
+          {
+            "start": 5672.100000000006,
+            "duration": 93
+          },
+          {
+            "start": 6054.200000000012,
+            "duration": 57
+          },
+          {
+            "start": 6241.600000000006,
+            "duration": 52
+          },
+          {
+            "start": 6970.600000000006,
+            "duration": 62
+          },
+          {
+            "start": 7821.200000000012,
+            "duration": 55
+          },
+          {
+            "start": 9677.600000000006,
+            "duration": 52
+          },
+          {
+            "start": 9851.400000000009,
+            "duration": 91
+          },
+          {
+            "start": 10176.600000000006,
+            "duration": 50
+          },
+          {
+            "start": 11328.300000000003,
+            "duration": 87
+          },
+          {
+            "start": 15074.900000000009,
+            "duration": 52
+          },
+          {
+            "start": 15127.700000000012,
+            "duration": 51
+          },
+          {
+            "start": 15180.900000000009,
+            "duration": 53
+          },
+          {
+            "start": 15234.700000000012,
+            "duration": 51
+          },
+          {
+            "start": 15286.700000000012,
+            "duration": 51
+          },
+          {
+            "start": 15339.800000000003,
+            "duration": 56
+          },
+          {
+            "start": 15398.600000000006,
+            "duration": 52
+          },
+          {
+            "start": 16006.5,
+            "duration": 54
+          },
+          {
+            "start": 16541.800000000003,
+            "duration": 70
+          },
+          {
+            "start": 16658,
+            "duration": 79
+          },
+          {
+            "start": 16737.800000000003,
+            "duration": 61
+          },
+          {
+            "start": 16800.20000000001,
+            "duration": 71
+          },
+          {
+            "start": 16872.90000000001,
+            "duration": 66
+          },
+          {
+            "start": 16939.800000000003,
+            "duration": 51
+          },
+          {
+            "start": 16994.600000000006,
+            "duration": 57
+          },
+          {
+            "start": 17053.600000000006,
+            "duration": 51
+          },
+          {
+            "start": 17105.20000000001,
+            "duration": 69
+          },
+          {
+            "start": 17177.20000000001,
+            "duration": 69
+          },
+          {
+            "start": 17248.600000000006,
+            "duration": 55
+          },
+          {
+            "start": 17304.800000000003,
+            "duration": 50
+          },
+          {
+            "start": 17357.20000000001,
+            "duration": 53
+          },
+          {
+            "start": 17510.40000000001,
+            "duration": 54
+          },
+          {
+            "start": 17952.20000000001,
+            "duration": 51
+          },
+          {
+            "start": 18344,
+            "duration": 55
+          },
+          {
+            "start": 18450.100000000006,
+            "duration": 55
+          },
+          {
+            "start": 18506.300000000003,
+            "duration": 57
+          },
+          {
+            "start": 18564.90000000001,
+            "duration": 53
+          },
+          {
+            "start": 18618.70000000001,
+            "duration": 51
+          },
+          {
+            "start": 18672,
+            "duration": 54
+          },
+          {
+            "start": 18727.300000000003,
+            "duration": 53
+          },
+          {
+            "start": 18782.40000000001,
+            "duration": 51
+          },
+          {
+            "start": 18834.300000000003,
+            "duration": 52
+          },
+          {
+            "start": 18887.100000000006,
+            "duration": 52
+          },
+          {
+            "start": 18941.20000000001,
+            "duration": 54
+          },
+          {
+            "start": 18996.70000000001,
+            "duration": 53
+          },
+          {
+            "start": 19051,
+            "duration": 53
+          },
+          {
+            "start": 19105,
+            "duration": 52
+          },
+          {
+            "start": 19159.20000000001,
+            "duration": 52
+          },
+          {
+            "start": 19211.90000000001,
+            "duration": 50
+          },
+          {
+            "start": 19265.100000000006,
+            "duration": 63
+          },
+          {
+            "start": 19329.90000000001,
+            "duration": 63
+          },
+          {
+            "start": 19393.600000000006,
+            "duration": 62
+          },
+          {
+            "start": 19457,
+            "duration": 63
+          },
+          {
+            "start": 19521.20000000001,
+            "duration": 57
+          },
+          {
+            "start": 19678.600000000006,
+            "duration": 59
+          },
+          {
+            "start": 19738.70000000001,
+            "duration": 53
+          },
+          {
+            "start": 19792.40000000001,
+            "duration": 52
+          },
+          {
+            "start": 19846.100000000006,
+            "duration": 61
+          },
+          {
+            "start": 19908.100000000006,
+            "duration": 60
+          },
+          {
+            "start": 19970,
+            "duration": 53
+          },
+          {
+            "start": 20024,
+            "duration": 56
+          },
+          {
+            "start": 20087.5,
+            "duration": 60
+          },
+          {
+            "start": 20148.70000000001,
+            "duration": 67
+          },
+          {
+            "start": 20219.40000000001,
+            "duration": 63
+          },
+          {
+            "start": 20283.20000000001,
+            "duration": 65
+          },
+          {
+            "start": 20349.800000000003,
+            "duration": 59
+          },
+          {
+            "start": 20409.90000000001,
+            "duration": 53
+          },
+          {
+            "start": 20464.90000000001,
+            "duration": 55
+          },
+          {
+            "start": 20520.800000000003,
+            "duration": 52
+          },
+          {
+            "start": 20574.70000000001,
+            "duration": 53
+          },
+          {
+            "start": 20628.800000000017,
+            "duration": 54
+          },
+          {
+            "start": 20683.5,
+            "duration": 50
+          },
+          {
+            "start": 20736.20000000001,
+            "duration": 51
+          },
+          {
+            "start": 20788,
+            "duration": 52
+          },
+          {
+            "start": 20842,
+            "duration": 51
+          },
+          {
+            "start": 20894.5,
+            "duration": 51
+          },
+          {
+            "start": 20947.399999999994,
+            "duration": 59
+          },
+          {
+            "start": 21007.20000000001,
+            "duration": 53
+          },
+          {
+            "start": 21062.100000000006,
+            "duration": 53
+          },
+          {
+            "start": 21115.800000000017,
+            "duration": 51
+          },
+          {
+            "start": 21167.600000000006,
+            "duration": 53
+          },
+          {
+            "start": 21221.600000000006,
+            "duration": 53
+          },
+          {
+            "start": 21276.100000000006,
+            "duration": 51
+          },
+          {
+            "start": 21329,
+            "duration": 52
+          },
+          {
+            "start": 21381.899999999994,
+            "duration": 50
+          },
+          {
+            "start": 21433.399999999994,
+            "duration": 51
+          },
+          {
+            "start": 21485.5,
+            "duration": 51
+          },
+          {
+            "start": 21639.800000000017,
+            "duration": 50
+          },
+          {
+            "start": 21690.600000000006,
+            "duration": 50
+          },
+          {
+            "start": 22632.600000000006,
+            "duration": 50
+          },
+          {
+            "start": 22684.20000000001,
+            "duration": 52
+          },
+          {
+            "start": 22738.20000000001,
+            "duration": 53
+          },
+          {
+            "start": 22792.100000000006,
+            "duration": 50
+          },
+          {
+            "start": 22843.899999999994,
+            "duration": 51
+          },
+          {
+            "start": 22946.399999999994,
+            "duration": 51
+          },
+          {
+            "start": 22998.20000000001,
+            "duration": 51
+          },
+          {
+            "start": 23050.20000000001,
+            "duration": 51
+          },
+          {
+            "start": 23203.600000000006,
+            "duration": 55
+          },
+          {
+            "start": 23260.100000000006,
+            "duration": 54
+          }
+        ]
+      },
+      "final": {
+        "zone": "dist00",
+        "time": 90.08536800000198,
+        "hp": 240,
+        "hero": "hwando",
+        "mode": "DREAM",
+        "enemies": [
+          {
+            "id": "dist00-boss",
+            "hp": 22810
+          }
+        ],
+        "casts": 0,
+        "shots": 0,
+        "pending": 3,
+        "passive": {
+          "version": 1,
+          "clock": 115.52849999999958,
+          "active": 0,
+          "cooldown": 43.37118200000037,
+          "grace": 0,
+          "activations": 2,
+          "heroId": "hwando",
+          "lastDelta": 0.016700000000011643
+        },
+        "paused": null,
+        "deathDialog": false,
+        "readingBlocked": false,
+        "story": false,
+        "frames": {
+          "n": 5273,
+          "maxGap": 216.59999999999854
+        },
+        "ricochet": {
+          "live": 0
+        },
+        "elapsedMs": 151528
+      },
+      "passed": true
+    },
+    {
+      "mobile": true,
+      "usedProgressCheats": false,
+      "errors": [],
+      "failedResponses": [],
+      "samples": [
+        {
+          "zone": "dist00",
+          "time": 1.943499999999998,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22228.034167039943
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 2.6999999999999993,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05009999999999946
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 52,
+            "maxGap": 116.69999999999982
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 2039
+        },
+        {
+          "zone": "dist00",
+          "time": 3.7564999999999986,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 21552.392829479886
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 4.733099999999999,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03319999999999982
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 103,
+            "maxGap": 116.69999999999982
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 4053
+        },
+        {
+          "zone": "dist00",
+          "time": 5.693400000000003,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20915.372550259824
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 6.749800000000006,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 161,
+            "maxGap": 116.69999999999982
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 6072
+        },
+        {
+          "zone": "dist00",
+          "time": 7.279900000000006,
+          "hp": 236,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20515.724014959767
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 8.78310000000001,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05009999999999854
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 202,
+            "maxGap": 116.69999999999982
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 8128
+        },
+        {
+          "zone": "dist00",
+          "time": 8.746599999999992,
+          "hp": 196,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 20261.83707721972
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 10.816300000000021,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.050100000000000366
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 239,
+            "maxGap": 133.39999999999964
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 10156
+        },
+        {
+          "zone": "dist00",
+          "time": 10.31329999999996,
+          "hp": 220,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19888.341919479666
+            }
+          ],
+          "casts": 1,
+          "shots": 10,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 12.83290000000003,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 279,
+            "maxGap": 133.39999999999964
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 12168
+        },
+        {
+          "zone": "dist00",
+          "time": 11.986599999999932,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 19461.777956699607
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 14.882800000000042,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.033400000000001456
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 323,
+            "maxGap": 133.39999999999964
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 14203
+        },
+        {
+          "zone": "dist00",
+          "time": 13.71329999999991,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 18442.895513739553
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-1",
+              "hp": 351
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 16.899300000000054,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.033299999999999275
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 372,
+            "maxGap": 133.39999999999964
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 16225
+        },
+        {
+          "zone": "dist00",
+          "time": 15.026699999999888,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 18344.746727999514
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-1",
+              "hp": 236.5
+            }
+          ],
+          "casts": 1,
+          "shots": 14,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 18.915900000000043,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.06659999999999855
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 406,
+            "maxGap": 133.39999999999964
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 18337
+        },
+        {
+          "zone": "dist00",
+          "time": 16.186699999999863,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 18282.326375999477
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-1",
+              "hp": 111
+            }
+          ],
+          "casts": 1,
+          "shots": 21,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 20.96590000000004,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.08339999999999782
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 435,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 20346
+        },
+        {
+          "zone": "dist00",
+          "time": 17.34009999999984,
+          "hp": 200.8,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 18093.353816519437
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 23.015700000000045,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.06660000000000219
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 464,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 22375
+        },
+        {
+          "zone": "dist00",
+          "time": 18.540099999999814,
+          "hp": 198.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 17856.410176519395
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 25.032400000000038,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.0666999999999971
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 494,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 24383
+        },
+        {
+          "zone": "dist00",
+          "time": 19.77339999999979,
+          "hp": 217.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 17421.125174259352
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 27.09900000000004,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.10010000000000219
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 525,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 26454
+        },
+        {
+          "zone": "dist00",
+          "time": 21.516499999999787,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 16674.461842959296
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 29.148800000000044,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016599999999998546
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 576,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 28478
+        },
+        {
+          "zone": "dist00",
+          "time": 23.463499999999776,
+          "hp": 213.39999999999995,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 16241.752182779263
+            },
+            {
+              "id": "echo68-1642-4",
+              "hp": 8
+            }
+          ],
+          "casts": 0,
+          "shots": 5,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 31.182100000000048,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016700000000004364
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 645,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 30492
+        },
+        {
+          "zone": "dist00",
+          "time": 25.34349999999977,
+          "hp": 234.79999999999995,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 15574.89376129926
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 33.19870000000003,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 710,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 32526
+        },
+        {
+          "zone": "dist00",
+          "time": 27.076999999999742,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 14986.994392599274
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 35.23189999999998,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03329999999999563
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 756,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 34568
+        },
+        {
+          "zone": "dist00",
+          "time": 28.85069999999972,
+          "hp": 220,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 14563.13539519929
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 37.26529999999995,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05009999999999854
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 804,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 36591
+        },
+        {
+          "zone": "dist00",
+          "time": 30.683899999999703,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 14263.1824136393
+            }
+          ],
+          "casts": 1,
+          "shots": 6,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 39.29849999999992,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03339999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 855,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 38634
+        },
+        {
+          "zone": "dist00",
+          "time": 32.59039999999971,
+          "hp": 213,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 13791.750366859313
+            }
+          ],
+          "casts": 0,
+          "shots": 8,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 41.31509999999993,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 913,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 40639
+        },
+        {
+          "zone": "dist00",
+          "time": 34.37699999999969,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 12162.411258339322
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 43.34829999999989,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 964,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 42682
+        },
+        {
+          "zone": "dist00",
+          "time": 36.096899999999685,
+          "hp": 234.4,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 11410.853101220006
+            },
+            {
+              "id": "dist00-boss-theme-summon-p1-2",
+              "hp": 912
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 45.34819999999989,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.04990000000000146
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1011,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 44697
+        },
+        {
+          "zone": "dist00",
+          "time": 38.046799999999735,
+          "hp": 190.20000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 11413.377428699978
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 47.39809999999994,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016700000000004364
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1097,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 46701
+        },
+        {
+          "zone": "dist00",
+          "time": 39.93009999999975,
+          "hp": 183.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 11127.247610959987
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 1,
+          "passive": {
+            "version": 1,
+            "clock": 49.38139999999994,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03329999999999563
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1162,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 48718
+        },
+        {
+          "zone": "dist00",
+          "time": 41.89349999999979,
+          "hp": 172.20000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 10957.842895219976
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 51.41459999999998,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.04990000000000146
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1238,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 50738
+        },
+        {
+          "zone": "dist00",
+          "time": 43.50709999999977,
+          "hp": 177.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 10551.269257299995
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 53.431199999999954,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1280,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 52762
+        },
+        {
+          "zone": "dist00",
+          "time": 45.180799999999735,
+          "hp": 144.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 10458.159628420013
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 55.4477999999999,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1324,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 54784
+        },
+        {
+          "zone": "dist00",
+          "time": 46.917199999999724,
+          "hp": 177.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 9938.910396340032
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 57.46439999999987,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03329999999999563
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1371,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 56801
+        },
+        {
+          "zone": "dist00",
+          "time": 48.730899999999714,
+          "hp": 212.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 9250.380318420044
+            },
+            {
+              "id": "echo68-3735-9",
+              "hp": 72
+            },
+            {
+              "id": "echo68-3736-10",
+              "hp": 72
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 59.49769999999984,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.033400000000001456
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1421,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 58825
+        },
+        {
+          "zone": "dist00",
+          "time": 50.70429999999976,
+          "hp": 117.20000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 9175.11510720003
+            },
+            {
+              "id": "echo68-3736-10",
+              "hp": 72
+            }
+          ],
+          "casts": 0,
+          "shots": 5,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 61.53089999999988,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1512,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 60828
+        },
+        {
+          "zone": "dist00",
+          "time": 52.487699999999755,
+          "hp": 115.20000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 8478.528509460028
+            }
+          ],
+          "casts": 1,
+          "shots": 6,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 63.49749999999987,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03339999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1573,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 62848
+        },
+        {
+          "zone": "dist00",
+          "time": 54.02119999999974,
+          "hp": 62.000000000000014,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 8415.050580760046
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 65.54739999999984,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03340000000000873
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1612,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 64885
+        },
+        {
+          "zone": "dist00",
+          "time": 55.85759999999974,
+          "hp": 27.000000000000014,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 8250.94399546006
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 67.56399999999975,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1667,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 66900
+        },
+        {
+          "zone": "dist00",
+          "time": 57.704399999999715,
+          "hp": 64.00000000000001,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 7804.418614240065
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 69.58059999999968,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1719,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 68905
+        },
+        {
+          "zone": "dist00",
+          "time": 59.69769999999975,
+          "hp": 115.00000000000001,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 7077.978347460066
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 71.61389999999959,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03340000000000873
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1781,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 70930
+        },
+        {
+          "zone": "dist00",
+          "time": 61.577599999999734,
+          "hp": 189,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 6394.415737200066
+            }
+          ],
+          "casts": 1,
+          "shots": 3,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 73.61379999999956,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1838,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 72959
+        },
+        {
+          "zone": "dist00",
+          "time": 63.18419999999969,
+          "hp": 178.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 6159.251424680054
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 75.63029999999947,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.04989999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1879,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 74970
+        },
+        {
+          "zone": "dist00",
+          "time": 64.86429999999977,
+          "hp": 189.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 5643.039195460055
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 77.63029999999938,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05010000000000582
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1924,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 76981
+        },
+        {
+          "zone": "dist00",
+          "time": 66.47759999999995,
+          "hp": 226.60000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 5025.280164680074
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 79.6801999999993,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03339999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 1966,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 79017
+        },
+        {
+          "zone": "dist00",
+          "time": 68.34400000000011,
+          "hp": 211.40000000000003,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4834.937746600083
+            }
+          ],
+          "casts": 0,
+          "shots": 6,
+          "pending": 1,
+          "passive": {
+            "version": 1,
+            "clock": 81.7134999999993,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03339999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2030,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 81041
+        },
+        {
+          "zone": "dist00",
+          "time": 70.11390000000019,
+          "hp": 139.00000000000003,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4600.613885820091
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 1,
+          "passive": {
+            "version": 1,
+            "clock": 83.73009999999924,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03340000000000873
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2080,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 83045
+        },
+        {
+          "zone": "dist00",
+          "time": 72.09730000000036,
+          "hp": 107.40000000000003,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4604.765352600098
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-4",
+              "hp": 342.5
+            }
+          ],
+          "casts": 0,
+          "shots": 8,
+          "pending": 1,
+          "passive": {
+            "version": 1,
+            "clock": 85.76329999999938,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2164,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 85073
+        },
+        {
+          "zone": "dist00",
+          "time": 74.04720000000064,
+          "hp": 93.40000000000003,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4621.791695820105
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-4",
+              "hp": 325.5
+            }
+          ],
+          "casts": 0,
+          "shots": 15,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 87.76319999999961,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2254,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 87083
+        },
+        {
+          "zone": "dist00",
+          "time": 75.77030000000077,
+          "hp": 113.40000000000003,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4530.650222260117
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-4",
+              "hp": 39.5
+            },
+            {
+              "id": "echo68-5382-14",
+              "hp": 72
+            },
+            {
+              "id": "echo68-5383-15",
+              "hp": 72
+            }
+          ],
+          "casts": 0,
+          "shots": 15,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 89.77969999999955,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.04989999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2306,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 89112
+        },
+        {
+          "zone": "dist00",
+          "time": 77.75350000000091,
+          "hp": 127.40000000000003,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4453.148277480124
+            },
+            {
+              "id": "echo68-5382-14",
+              "hp": 72
+            }
+          ],
+          "casts": 0,
+          "shots": 7,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 91.81299999999965,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2389,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 91135
+        },
+        {
+          "zone": "dist00",
+          "time": 79.55680000000109,
+          "hp": 126.00000000000004,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4406.980846960134
+            }
+          ],
+          "casts": 1,
+          "shots": 5,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 93.81289999999973,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.06660000000000582
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2458,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 93161
+        },
+        {
+          "zone": "dist00",
+          "time": 81.17710000000132,
+          "hp": 145.00000000000006,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4031.0074907801477
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 95.86289999999967,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03340000000000873
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2500,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 95198
+        },
+        {
+          "zone": "dist00",
+          "time": 82.98400000000139,
+          "hp": 175.00000000000006,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 3501.9702053801484
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 97.89609999999959,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2550,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 97241
+        },
+        {
+          "zone": "dist00",
+          "time": 84.81050000000148,
+          "hp": 196.60000000000005,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 2943.6619420801508
+            }
+          ],
+          "casts": 0,
+          "shots": 5,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 99.9293999999995,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2601,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 99262
+        },
+        {
+          "zone": "dist00",
+          "time": 86.73700000000159,
+          "hp": 195.20000000000005,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 2239.4873845201514
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 101.94589999999954,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2674,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 101298
+        },
+        {
+          "zone": "dist00",
+          "time": 88.1704000000018,
+          "hp": 226.00000000000006,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 1750.7918090401529
+            }
+          ],
+          "casts": 1,
+          "shots": 10,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 103.9625999999995,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05010000000000582
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2710,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 103309
+        },
+        {
+          "zone": "dist00",
+          "time": 89.88370000000191,
+          "hp": 146.40000000000006,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 1699.207350780154
+            }
+          ],
+          "casts": 1,
+          "shots": 7,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 105.97909999999942,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2757,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 105331
+        },
+        {
+          "zone": "dist00",
+          "time": 91.39700000000214,
+          "hp": 149.40000000000006,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 1473.5743325201552
+            }
+          ],
+          "casts": 1,
+          "shots": 3,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 108.02909999999935,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2795,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 107382
+        },
+        {
+          "zone": "dist00",
+          "time": 93.09050000000228,
+          "hp": 200.40000000000006,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 761.4104593001566
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 110.06229999999931,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03339999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2842,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 109389
+        },
+        {
+          "zone": "dist00",
+          "time": 94.9704000000023,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 108.7050565201571
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-5",
+              "hp": 687
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 112.07889999999922,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03340000000000873
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2898,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 111413
+        },
+        {
+          "zone": "dist00",
+          "time": 96.72370000000237,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 3.9451027801577263
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-5",
+              "hp": 430
+            }
+          ],
+          "casts": 1,
+          "shots": 1,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 114.09549999999915,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.0666999999999971
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2948,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 113436
+        },
+        {
+          "zone": "dist00",
+          "time": 98.11030000000257,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 1.3467120000000543
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-5",
+              "hp": 206.5
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 116.14539999999913,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.08330000000000291
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 2983,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 115479
+        },
+        {
+          "zone": "dist00",
+          "time": 99.57020000000277,
+          "hp": 200,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 1.6362165200001804
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-5",
+              "hp": 122.5
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 118.17859999999908,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.03319999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3020,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 117517
+        },
+        {
+          "zone": "dist00",
+          "time": 101.3238000000029,
+          "hp": 220,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 4.468853560000476
+            },
+            {
+              "id": "dist00-boss-theme-summon-p2-5",
+              "hp": 0.5
+            },
+            {
+              "id": "echo68-7307-19",
+              "hp": 72
+            },
+            {
+              "id": "echo68-7308-20",
+              "hp": 72
+            }
+          ],
+          "casts": 1,
+          "shots": 0,
+          "pending": 10,
+          "passive": {
+            "version": 1,
+            "clock": 120.21189999999902,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3068,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 119535
+        },
+        {
+          "zone": "dist00",
+          "time": 103.08380000000311,
+          "hp": 238,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 122.24519999999907,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3134,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 121537
+        },
+        {
+          "zone": "dist00",
+          "time": 105.08360000000357,
+          "hp": 238,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 124.24499999999954,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016599999999991268
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3254,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 123539
+        },
+        {
+          "zone": "dist01",
+          "time": 107.08360000000403,
+          "hp": 238,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 1136
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 355
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 126.24499999999999,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.01669999999999709
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3373,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 125541
+        },
+        {
+          "zone": "dist01",
+          "time": 108.99330000000431,
+          "hp": 236,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1",
+              "hp": 80
+            },
+            {
+              "id": "dist01-sp2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 1136
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 355
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 128.24490000000014,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3459,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 127549
+        },
+        {
+          "zone": "dist01",
+          "time": 110.97990000000462,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1",
+              "hp": 80
+            },
+            {
+              "id": "dist01-sp2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 1049.5
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 355
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 130.2614000000006,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.0165
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3562,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 129558
+        },
+        {
+          "zone": "dist01",
+          "time": 112.70990000000499,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1",
+              "hp": 60
+            },
+            {
+              "id": "dist01-sp2",
+              "hp": 335
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 1014
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 355
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 2,
+          "passive": {
+            "version": 1,
+            "clock": 132.2614000000009,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016600000000005822
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3656,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 131582
+        },
+        {
+          "zone": "dist01",
+          "time": 114.67650000000529,
+          "hp": 212.20000000000002,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1",
+              "hp": 60
+            },
+            {
+              "id": "dist01-sp2",
+              "hp": 335
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 986
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 355
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 0,
+          "passive": {
+            "version": 1,
+            "clock": 134.27800000000136,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016700000000011643
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3752,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 133589
+        },
+        {
+          "zone": "dist01",
+          "time": 116.60950000000541,
+          "hp": 239,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp2",
+              "hp": 335
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 626
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 86.5
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 301
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 100
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 136.2945000000018,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.08330000000001746
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3831,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 135674
+        },
+        {
+          "zone": "dist01",
+          "time": 118.23940000000553,
+          "hp": 225.99999999999997,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp2",
+              "hp": 335
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 608
+            },
+            {
+              "id": "dist01-sp1-w1-r1",
+              "hp": 86.5
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 336.5
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 287
+            },
+            {
+              "id": "dist01-sp2-reinforce320-w1-2",
+              "hp": 6
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 138.377900000002,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016700000000011643
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3885,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 137677
+        },
+        {
+          "zone": "dist01",
+          "time": 120.09590000000566,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp2",
+              "hp": 327
+            },
+            {
+              "id": "dist01-s1",
+              "hp": 155
+            },
+            {
+              "id": "dist01-sp2-w1-r2",
+              "hp": 277
+            },
+            {
+              "id": "dist01-sp1-reinforce320-w1-1",
+              "hp": 278.5
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 5,
+          "passive": {
+            "version": 1,
+            "clock": 140.3111000000024,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.06669999999998254
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 3955,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 139691
+        },
+        {
+          "zone": "dist01",
+          "time": 121.63250000000585,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1-w2-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w2-2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-s1-w2-3",
+              "hp": 1136
+            },
+            {
+              "id": "dist01-sp1-w2-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w2-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-w2-1-reinforce320-w2-1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+              "hp": 355
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 1,
+          "passive": {
+            "version": 1,
+            "clock": 142.41100000000262,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016600000000005822
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4005,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 141707
+        },
+        {
+          "zone": "dist01",
+          "time": 123.11250000000612,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-sp1-w2-1",
+              "hp": 194
+            },
+            {
+              "id": "dist01-sp2-w2-2",
+              "hp": 277.5
+            },
+            {
+              "id": "dist01-s1-w2-3",
+              "hp": 1069
+            },
+            {
+              "id": "dist01-sp1-w2-r1",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp2-w2-r2",
+              "hp": 355
+            },
+            {
+              "id": "dist01-sp1-w2-1-reinforce320-w2-1",
+              "hp": 267.5
+            },
+            {
+              "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+              "hp": 283.5
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 14,
+          "passive": {
+            "version": 1,
+            "clock": 144.32760000000278,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.06669999999998254
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4074,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 143712
+        },
+        {
+          "zone": "dist01",
+          "time": 124.58250000000629,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-s1-w2-3",
+              "hp": 1048.5
+            },
+            {
+              "id": "dist01-sp1-w2-r1",
+              "hp": 273.5
+            },
+            {
+              "id": "dist01-sp2-w2-r2",
+              "hp": 81.5
+            },
+            {
+              "id": "dist01-sp1-w2-1-reinforce320-w2-1",
+              "hp": 114.5
+            },
+            {
+              "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+              "hp": 283.5
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 146.3942000000029,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.05
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4113,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 145760
+        },
+        {
+          "zone": "dist01",
+          "time": 126.20260000000641,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-s1-w2-3",
+              "hp": 472
+            },
+            {
+              "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+              "hp": 267
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 6,
+          "passive": {
+            "version": 1,
+            "clock": 148.46070000000321,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.04989999999999418
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4162,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 147811
+        },
+        {
+          "zone": "dist01",
+          "time": 128.17240000000675,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-s1-w2-3",
+              "hp": 330
+            },
+            {
+              "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+              "hp": 188
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 3,
+          "passive": {
+            "version": 1,
+            "clock": 150.5273000000037,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016600000000005822
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4262,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 149819
+        },
+        {
+          "zone": "dist01",
+          "time": 130.1724000000072,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "DREAM",
+          "enemies": [
+            {
+              "id": "dist01-s1-w2-3",
+              "hp": 223.5
+            },
+            {
+              "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+              "hp": 119.5
+            }
+          ],
+          "casts": 0,
+          "shots": 0,
+          "pending": 4,
+          "passive": {
+            "version": 1,
+            "clock": 152.52730000000415,
+            "active": 0,
+            "cooldown": 0,
+            "grace": 0,
+            "activations": 0,
+            "heroId": null,
+            "lastDelta": 0.016700000000011643
+          },
+          "paused": null,
+          "deathDialog": false,
+          "readingBlocked": false,
+          "story": false,
+          "frames": {
+            "n": 4361,
+            "maxGap": 133.40000000000146
+          },
+          "ricochet": {
+            "live": 0
+          },
+          "elapsedMs": 151821
+        }
+      ],
+      "frames": {
+        "n": 4361,
+        "maxGap": 133.40000000000146,
+        "last": 155431,
+        "longTasks": [
+          {
+            "start": 3679.5,
+            "duration": 52
+          },
+          {
+            "start": 4105.299999999988,
+            "duration": 98
+          },
+          {
+            "start": 4234.900000000023,
+            "duration": 58
+          },
+          {
+            "start": 4475.400000000023,
+            "duration": 51
+          },
+          {
+            "start": 4560.100000000035,
+            "duration": 55
+          },
+          {
+            "start": 5386.900000000023,
+            "duration": 107
+          },
+          {
+            "start": 5498.700000000012,
+            "duration": 69
+          },
+          {
+            "start": 6285.700000000012,
+            "duration": 56
+          },
+          {
+            "start": 6722.400000000023,
+            "duration": 66
+          },
+          {
+            "start": 9992,
+            "duration": 53
+          },
+          {
+            "start": 10051.600000000035,
+            "duration": 101
+          },
+          {
+            "start": 10153.700000000012,
+            "duration": 58
+          },
+          {
+            "start": 10214.799999999988,
+            "duration": 50
+          },
+          {
+            "start": 10364.100000000035,
+            "duration": 59
+          },
+          {
+            "start": 10443.200000000012,
+            "duration": 50
+          },
+          {
+            "start": 10596.600000000035,
+            "duration": 54
+          },
+          {
+            "start": 10797.5,
+            "duration": 53
+          },
+          {
+            "start": 10993.400000000023,
+            "duration": 52
+          },
+          {
+            "start": 11189,
+            "duration": 52
+          },
+          {
+            "start": 11388.299999999988,
+            "duration": 57
+          },
+          {
+            "start": 11589.299999999988,
+            "duration": 52
+          },
+          {
+            "start": 11743.600000000035,
+            "duration": 53
+          },
+          {
+            "start": 11797.600000000035,
+            "duration": 53
+          },
+          {
+            "start": 11997,
+            "duration": 55
+          },
+          {
+            "start": 12198.900000000023,
+            "duration": 57
+          },
+          {
+            "start": 12354.799999999988,
+            "duration": 50
+          },
+          {
+            "start": 12405.400000000023,
+            "duration": 55
+          },
+          {
+            "start": 12510.5,
+            "duration": 55
+          },
+          {
+            "start": 12566.799999999988,
+            "duration": 54
+          },
+          {
+            "start": 12621.900000000023,
+            "duration": 63
+          },
+          {
+            "start": 12687.100000000035,
+            "duration": 53
+          },
+          {
+            "start": 12742.900000000023,
+            "duration": 54
+          },
+          {
+            "start": 12797.400000000023,
+            "duration": 134
+          },
+          {
+            "start": 12936.5,
+            "duration": 63
+          },
+          {
+            "start": 13003.100000000035,
+            "duration": 51
+          },
+          {
+            "start": 13056.900000000023,
+            "duration": 55
+          },
+          {
+            "start": 13113.799999999988,
+            "duration": 51
+          },
+          {
+            "start": 13260.900000000023,
+            "duration": 54
+          },
+          {
+            "start": 13414.600000000035,
+            "duration": 50
+          },
+          {
+            "start": 13466.299999999988,
+            "duration": 55
+          },
+          {
+            "start": 13571.100000000035,
+            "duration": 51
+          },
+          {
+            "start": 13724.200000000012,
+            "duration": 51
+          },
+          {
+            "start": 13778.100000000035,
+            "duration": 53
+          },
+          {
+            "start": 13831.700000000012,
+            "duration": 73
+          },
+          {
+            "start": 13907.600000000035,
+            "duration": 80
+          },
+          {
+            "start": 13990.100000000035,
+            "duration": 51
+          },
+          {
+            "start": 14136.700000000012,
+            "duration": 52
+          },
+          {
+            "start": 14333.299999999988,
+            "duration": 51
+          },
+          {
+            "start": 14522.600000000035,
+            "duration": 51
+          },
+          {
+            "start": 14715.600000000035,
+            "duration": 55
+          },
+          {
+            "start": 14913.799999999988,
+            "duration": 52
+          },
+          {
+            "start": 15110.799999999988,
+            "duration": 50
+          },
+          {
+            "start": 15301.299999999988,
+            "duration": 51
+          },
+          {
+            "start": 15447.100000000035,
+            "duration": 54
+          },
+          {
+            "start": 15690.400000000023,
+            "duration": 50
+          },
+          {
+            "start": 15879,
+            "duration": 52
+          },
+          {
+            "start": 16068.900000000023,
+            "duration": 70
+          },
+          {
+            "start": 16478.900000000023,
+            "duration": 50
+          },
+          {
+            "start": 16670.29999999999,
+            "duration": 50
+          },
+          {
+            "start": 17600.5,
+            "duration": 51
+          },
+          {
+            "start": 17895.79999999999,
+            "duration": 59
+          },
+          {
+            "start": 18331,
+            "duration": 50
+          },
+          {
+            "start": 18966.20000000001,
+            "duration": 54
+          },
+          {
+            "start": 19020.600000000035,
+            "duration": 54
+          },
+          {
+            "start": 19081.400000000023,
+            "duration": 82
+          },
+          {
+            "start": 19168.900000000023,
+            "duration": 61
+          },
+          {
+            "start": 20138,
+            "duration": 52
+          },
+          {
+            "start": 20190.79999999999,
+            "duration": 51
+          },
+          {
+            "start": 20244.400000000023,
+            "duration": 51
+          },
+          {
+            "start": 20296.20000000001,
+            "duration": 50
+          },
+          {
+            "start": 20348,
+            "duration": 74
+          },
+          {
+            "start": 20422.600000000035,
+            "duration": 69
+          },
+          {
+            "start": 20493.900000000023,
+            "duration": 66
+          },
+          {
+            "start": 20562.400000000023,
+            "duration": 101
+          },
+          {
+            "start": 20664.100000000035,
+            "duration": 70
+          },
+          {
+            "start": 20736,
+            "duration": 73
+          },
+          {
+            "start": 20811.20000000001,
+            "duration": 69
+          },
+          {
+            "start": 20883.100000000035,
+            "duration": 72
+          },
+          {
+            "start": 20956.100000000035,
+            "duration": 53
+          },
+          {
+            "start": 21010.20000000001,
+            "duration": 70
+          },
+          {
+            "start": 21082.29999999999,
+            "duration": 52
+          },
+          {
+            "start": 21135.900000000023,
+            "duration": 71
+          },
+          {
+            "start": 21209.29999999999,
+            "duration": 87
+          },
+          {
+            "start": 21297.600000000035,
+            "duration": 71
+          },
+          {
+            "start": 21370.400000000023,
+            "duration": 70
+          },
+          {
+            "start": 21441.400000000023,
+            "duration": 68
+          },
+          {
+            "start": 21512.29999999999,
+            "duration": 70
+          },
+          {
+            "start": 21584.29999999999,
+            "duration": 52
+          },
+          {
+            "start": 21639.5,
+            "duration": 69
+          },
+          {
+            "start": 21709.70000000001,
+            "duration": 53
+          },
+          {
+            "start": 21765.5,
+            "duration": 68
+          },
+          {
+            "start": 21834.100000000035,
+            "duration": 121
+          },
+          {
+            "start": 21957.70000000001,
+            "duration": 54
+          },
+          {
+            "start": 22013.70000000001,
+            "duration": 70
+          },
+          {
+            "start": 22085.79999999999,
+            "duration": 68
+          },
+          {
+            "start": 22155.5,
+            "duration": 67
+          },
+          {
+            "start": 22223.20000000001,
+            "duration": 52
+          },
+          {
+            "start": 22277.900000000023,
+            "duration": 66
+          },
+          {
+            "start": 22397.5,
+            "duration": 69
+          },
+          {
+            "start": 22467.79999999999,
+            "duration": 83
+          }
+        ]
+      },
+      "final": {
+        "zone": "dist01",
+        "time": 130.1724000000072,
+        "hp": 240,
+        "hero": "hwando",
+        "mode": "DREAM",
+        "enemies": [
+          {
+            "id": "dist01-s1-w2-3",
+            "hp": 223.5
+          },
+          {
+            "id": "dist01-sp2-w2-2-reinforce320-w2-2",
+            "hp": 119.5
+          }
+        ],
+        "casts": 0,
+        "shots": 0,
+        "pending": 4,
+        "passive": {
+          "version": 1,
+          "clock": 152.52730000000415,
+          "active": 0,
+          "cooldown": 0,
+          "grace": 0,
+          "activations": 0,
+          "heroId": null,
+          "lastDelta": 0.016700000000011643
+        },
+        "paused": null,
+        "deathDialog": false,
+        "readingBlocked": false,
+        "story": false,
+        "frames": {
+          "n": 4361,
+          "maxGap": 133.40000000000146
+        },
+        "ricochet": {
+          "live": 0
+        },
+        "elapsedMs": 151821
+      },
+      "passed": true
+    }
+  ]
+}

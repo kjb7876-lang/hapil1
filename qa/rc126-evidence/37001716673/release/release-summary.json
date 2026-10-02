@@ -1,0 +1,103 @@
+{
+  "startedAt": "2026-10-02T11:37:10.434Z",
+  "testedCommit": "2b1b48dbda698bedecd6ff4ee10cea0fb4e62a6a",
+  "worktreeCleanAtStart": true,
+  "approvedVisualCommit": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "restoredGameplayCommit": "f159c8f8e5f53c8f570baf97d9491a60f8507745",
+  "node": "v22.23.3",
+  "status": "passed",
+  "suites": [
+    {
+      "name": "renderer-syntax",
+      "command": "node --check assets/rc77/connected-laser.js",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 34,
+      "error": null
+    },
+    {
+      "name": "bundle-syntax",
+      "command": "node --check assets/index-v31526.js",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 151,
+      "error": null
+    },
+    {
+      "name": "approved-art",
+      "command": "node tests/rc119-laser-body-browser.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 1365,
+      "error": null
+    },
+    {
+      "name": "laser-phases",
+      "command": "node tests/rc118-laser-phase-browser.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 4875,
+      "error": null
+    },
+    {
+      "name": "laser-continuity",
+      "command": "node tests/rc116-laser-continuity-browser.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 32285,
+      "error": null
+    },
+    {
+      "name": "laser-telegraph",
+      "command": "node tests/rc116-laser-telegraph-browser.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 10026,
+      "error": null
+    },
+    {
+      "name": "combat",
+      "command": "node tests/rc108-combat-browser.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 9457,
+      "error": null
+    },
+    {
+      "name": "map-advance",
+      "command": "node tests/rc115-map-advance-smoke.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 33,
+      "error": null
+    },
+    {
+      "name": "natural-story",
+      "command": "node tests/rc115-natural-story-portal-browser.cjs",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 121148,
+      "error": null,
+      "progression": {
+        "usedProgressCheats": false,
+        "changedZone": true,
+        "firstZone": "dist00",
+        "finalZone": "dist01",
+        "finalHp": 120,
+        "elapsedMs": 115333
+      }
+    }
+  ],
+  "finishedAt": "2026-10-02T11:40:09.837Z",
+  "passed": 9,
+  "failed": 0
+}
