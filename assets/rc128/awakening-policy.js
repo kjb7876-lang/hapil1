@@ -39,7 +39,8 @@
    m.active=0;m.grace=0;m.heroId=null;
    // Deliberately retain cooldown: portals cannot be used to refill this passive.
   }
-  if(!enabled){m.active=0;m.grace=0;releaseOwnedEgo(s,p);}
+  const changedHero=finite(m.active)>0&&m.heroId&&s.activeHeroId&&m.heroId!==s.activeHeroId;
+  if(!enabled||changedHero){m.active=0;m.grace=0;releaseOwnedEgo(s,p);}
   else if(!(finite(m.active)>0))releaseOwnedEgo(s,p);
   return p;
  }
