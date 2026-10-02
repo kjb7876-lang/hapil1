@@ -36,7 +36,7 @@
     if(ctx.sound!==false&&volume>0){voiceButton.textContent='음성 불러오는 중…';narration.play().then(ok=>{if(token===narrationToken&&voiceButton.isConnected&&!ok)voiceButton.textContent='음성 재생 · 눌러서 다시 시도';});}
    }else voiceButton.textContent='음성 파일을 불러올 수 없음';
   }
-  if(!audioPath){narration=window.__HAPIL_STORY_NARRATION_V1__?.attach?.({root,text,zone:r.zone,phase:kind,ctx,onPlaying:seconds=>{if(autoLeft>0)autoLeft=Math.max(autoLeft,seconds+1.5);},onUserPause:()=>{autoPaused=true;pause.textContent='자동 넘김 계속';}})??null;}
+  if(!audioPath){let narrationPausedAuto=false;const manualPause=pause.onclick;pause.onclick=()=>{narrationPausedAuto=false;manualPause();};const resumeAdvance=()=>{if(narrationPausedAuto){narrationPausedAuto=false;autoPaused=false;pause.textContent='자동 넘김 멈춤';}};narration=window.__HAPIL_STORY_NARRATION_V1__?.attach?.({root,text,zone:r.zone,phase:kind,ctx,onPlaying:seconds=>{resumeAdvance();if(autoLeft>0)autoLeft=Math.max(autoLeft,seconds+1.5);},onBlocked:resumeAdvance,onUserPause:()=>{if(!autoPaused&&autoLeft>0){narrationPausedAuto=true;autoPaused=true;pause.textContent='자동 넘김 계속';}}})??null;}
   fit();document.fonts?.ready.then(()=>{if(root)fit();});next.focus();return true;
  }
  function suppressEntry(s){
