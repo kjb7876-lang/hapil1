@@ -120290,7 +120290,7 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
       stats.draws++;
      }}
     // Keep existing owner-coloured tears, scale the charging source by enemy rank.
-    if(s.time<c.fireAt+.25){const tear=MONGSE_queueImage(cc,c.tear,'eager');if(tear?.complete&&(tear.naturalWidth||tear.width)>0){const pos=G(a.x,a.y),torso=NUM(MONGSE_enemyTorsoOffset(a)?.y,-58),width=boss?12:9,height=(boss?30:22)+(boss?65:42)*charge;ctx.globalAlpha=opacity*(.48+.52*charge);for(const side of[-1,1])ctx.drawImage(tear,pos.x+side*(boss?14:11)-width/2,pos.y+torso-18,width,height);}}
+    if(warning){const tear=MONGSE_queueImage(cc,c.tear,'eager');if(tear?.complete&&(tear.naturalWidth||tear.width)>0){const pos=G(a.x,a.y),torso=NUM(MONGSE_enemyTorsoOffset(a)?.y,-58),width=boss?12:9,height=(boss?30:22)+(boss?65:42)*charge;ctx.globalAlpha=opacity*(.48+.52*charge);for(const side of[-1,1])ctx.drawImage(tear,pos.x+side*(boss?14:11)-width/2,pos.y+torso-18,width,height);}}
     if(warning&&settings.showCombatInfo!==false){const p=G(c.cx,c.cy),name=String(c.patternNameV31331??labels[c.type]).slice(0,70);ctx.globalAlpha=opacity;ctx.font=(boss?'bold 16px':'bold 13px')+' sans-serif';ctx.textAlign='center';ctx.lineWidth=4;ctx.strokeStyle='rgba(0,0,0,.88)';ctx.fillStyle=c.accent;const text=warning?name+' · '+Math.max(0,c.fireAt-s.time).toFixed(1)+'초':age<.8?(boss?'강공 · ':'')+name:'';if(text){ctx.strokeText(text,p.x,p.y+hw+33);ctx.fillText(text,p.x,p.y+hw+33);}}
    }finally{ctx.restore();}
   }}
