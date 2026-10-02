@@ -1,0 +1,34 @@
+name: RC126 save integration audit
+on:
+  push:
+    branches: [qa/rc126-integrity]
+    paths: ['.github/workflows/rc126-integrity.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          show-progress: false
+      - name: Read native save entry points and collect exact WebKit artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs=require('fs');const s=fs.readFileSync('assets/index-v31526.js','utf8').split('\n'),out='qa/rc126-integrity';fs.mkdirSync(out,{recursive:true});
+          const wanted=[/^function Fi\(/,/^function ji\(/,/^function HAPIL_restoreEntryFlowV31301\(/];
+          fs.writeFileSync(out+'/native-save-source.txt',wanted.map(r=>{const i=s.findIndex(x=>r.test(x));if(i<0)throw Error('missing '+r);return '\n### '+r+' at '+(i+1)+'\n'+s.slice(i,i+180).map((x,k)=>(i+k+1)+': '+x).join('\n');}).join('\n'));
+          NODE
+          gh run download 37001488037 --repo "$GITHUB_REPOSITORY" --name rc126-webkit-bc40b8c21ed50967ecd77524b9e0d7e50aa47194 --dir qa/rc126-integrity/webkit
+          git config user.name 'HAPIL evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc126-integrity
+          git commit -m 'RC126 native save source and actual WebKit evidence; no runtime edits'
+          git push origin HEAD:refs/heads/qa/rc126-integrity
