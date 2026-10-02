@@ -1,0 +1,659 @@
+{
+  "rows": [
+    {
+      "id": "dist00-boss",
+      "zone": "dist00",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.334216550054883
+    },
+    {
+      "id": "mb-dist01",
+      "zone": "dist01",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.971583689182843
+    },
+    {
+      "id": "mb-dist02",
+      "zone": "dist02",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.828891795038217
+    },
+    {
+      "id": "mb-dist03",
+      "zone": "dist03",
+      "grammar": "rage",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.8335999999999375
+    },
+    {
+      "id": "mb-dist04",
+      "zone": "dist04",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.829745765105031
+    },
+    {
+      "id": "mb-dist05",
+      "zone": "dist05",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.828891795038223
+    },
+    {
+      "id": "dist06-boss",
+      "zone": "dist06",
+      "grammar": "rage",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.267207437520538
+    },
+    {
+      "id": "mb-dist06",
+      "zone": "dist06",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.972036270492804
+    },
+    {
+      "id": "mb-ep1a07",
+      "zone": "ep1a07",
+      "grammar": "greed",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.144080000000035
+    },
+    {
+      "id": "mb-ep1a08",
+      "zone": "ep1a08",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.404800000000014
+    },
+    {
+      "id": "mb-ep1a09",
+      "zone": "ep1a09",
+      "grammar": "obsession",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.970919590671594
+    },
+    {
+      "id": "mb-ep1a10",
+      "zone": "ep1a10",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.686562389158958
+    },
+    {
+      "id": "a11-boss",
+      "zone": "ep1a11",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.333912809668939
+    },
+    {
+      "id": "mb-ep1a11",
+      "zone": "ep1a11",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.400664727143939
+    },
+    {
+      "id": "mb-ep1b01",
+      "zone": "ep1b01",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.971106658843334
+    },
+    {
+      "id": "b02-boss",
+      "zone": "ep1b02",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.381243724441744
+    },
+    {
+      "id": "mb-ep1b02",
+      "zone": "ep1b02",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.8308666856104585
+    },
+    {
+      "id": "b03-boss",
+      "zone": "ep1b03",
+      "grammar": "envy",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.919418461810292
+    },
+    {
+      "id": "mb-ep1b03",
+      "zone": "ep1b03",
+      "grammar": "envy",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.685913206090591
+    },
+    {
+      "id": "b04-boss",
+      "zone": "ep1b04",
+      "grammar": "greed",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.005531199999936
+    },
+    {
+      "id": "mb-ep1b04",
+      "zone": "ep1b04",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.69039999999994
+    },
+    {
+      "id": "b05-boss",
+      "zone": "ep1b05",
+      "grammar": "obsession",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.260447033890859
+    },
+    {
+      "id": "mb-ep1b05",
+      "zone": "ep1b05",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.119200000000058
+    },
+    {
+      "id": "b06-boss",
+      "zone": "ep1b06",
+      "grammar": "greed",
+      "shots": 7,
+      "special": 2,
+      "jelly": 5,
+      "minTravel": 8.568734400000036
+    },
+    {
+      "id": "mb-ep1b06",
+      "zone": "ep1b06",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.833599999999889
+    },
+    {
+      "id": "b06b-boss",
+      "zone": "ep1b06b",
+      "grammar": "greed",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.850336000000018
+    },
+    {
+      "id": "mb-ep1b06b",
+      "zone": "ep1b06b",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.686976896898766
+    },
+    {
+      "id": "b07-boss",
+      "zone": "ep1b07",
+      "grammar": "rage",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.267207437520538
+    },
+    {
+      "id": "mb-ep1b07",
+      "zone": "ep1b07",
+      "grammar": "rage",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.690400000000057
+    },
+    {
+      "id": "b08-boss",
+      "zone": "ep1b08",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.262799738103784
+    },
+    {
+      "id": "mb-ep1b08",
+      "zone": "ep1b08",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.115205246124486
+    },
+    {
+      "id": "b09-boss",
+      "zone": "ep1b09",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.262799738103784
+    },
+    {
+      "id": "mb-ep1b09",
+      "zone": "ep1b09",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.833599999999889
+    },
+    {
+      "id": "u201-mid",
+      "zone": "u201",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.68517683512055
+    },
+    {
+      "id": "u202-mid",
+      "zone": "u202",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.833599999999889
+    },
+    {
+      "id": "u203-mid",
+      "zone": "u203",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.116367033523355
+    },
+    {
+      "id": "u203-boss",
+      "zone": "u203",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.262799738103784
+    },
+    {
+      "id": "l301-boss",
+      "zone": "last301",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.343660159022445
+    },
+    {
+      "id": "mb-last302-v31231",
+      "zone": "last302",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.6873677293491
+    },
+    {
+      "id": "l303-boss",
+      "zone": "last303",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.76068068199891
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "zone": "kair01",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.69039999999994
+    },
+    {
+      "id": "kair-great-03",
+      "zone": "kair02",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.446837533748134
+    },
+    {
+      "id": "k103-boss",
+      "zone": "kair03",
+      "grammar": "obsession",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 6.260447033890859
+    },
+    {
+      "id": "mb-hando01",
+      "zone": "hando01",
+      "grammar": "greed",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.144080000000035
+    },
+    {
+      "id": "mb-hando02",
+      "zone": "hando02",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.830140745157361
+    },
+    {
+      "id": "h103-boss",
+      "zone": "hando03",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.7603653655720155
+    },
+    {
+      "id": "mb-hando03",
+      "zone": "hando03",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.69039999999994
+    },
+    {
+      "id": "mb-murder01",
+      "zone": "murder01",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.115205246124479
+    },
+    {
+      "id": "mb-murder02",
+      "zone": "murder02",
+      "grammar": "order",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.833599999999889
+    },
+    {
+      "id": "mb-murder03",
+      "zone": "murder03",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.401867381436231
+    },
+    {
+      "id": "c101-mid",
+      "zone": "cult01",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.829329447717821
+    },
+    {
+      "id": "c102-boss",
+      "zone": "cult02",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.760978963823583
+    },
+    {
+      "id": "c103-mid",
+      "zone": "cult03",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.358543097683416
+    },
+    {
+      "id": "c103-boss",
+      "zone": "cult03",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.333590672112186
+    },
+    {
+      "id": "c104-mid",
+      "zone": "cult04",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.114320141732327
+    },
+    {
+      "id": "c104-boss",
+      "zone": "cult04",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.410384556393162
+    },
+    {
+      "id": "u204-mid",
+      "zone": "u204",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.830866685610465
+    },
+    {
+      "id": "u205-mid",
+      "zone": "u205",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.685662356061947
+    },
+    {
+      "id": "u206-mid",
+      "zone": "u206",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.972036270492808
+    },
+    {
+      "id": "l305-boss",
+      "zone": "last305",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.409675026968552
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "zone": "kair04",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.115614626491213
+    },
+    {
+      "id": "kair-great-01",
+      "zone": "kair05",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.5394900323326155
+    },
+    {
+      "id": "kair-great-02",
+      "zone": "kair06",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.489902227714558
+    },
+    {
+      "id": "kair-great-04",
+      "zone": "kair07",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.409292277694261
+    },
+    {
+      "id": "kair-great-05",
+      "zone": "kair08",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 7.830514385936888
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "zone": "kair09",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.663854683915168
+    },
+    {
+      "id": "kair-great-06",
+      "zone": "kair10",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.359625128785132
+    },
+    {
+      "id": "murder04-mid",
+      "zone": "murder04",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.401088507825092
+    },
+    {
+      "id": "c105-mid",
+      "zone": "cult05",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.970605181814646
+    },
+    {
+      "id": "c106-mid",
+      "zone": "cult06",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 8.116367033523357
+    },
+    {
+      "id": "blue-executor",
+      "zone": "murder03",
+      "grammar": "petal",
+      "shots": 7,
+      "special": 1,
+      "jelly": 6,
+      "minTravel": 5.338644596355286
+    }
+  ],
+  "heldChecks": 5964,
+  "steps": 53676,
+  "problems": [],
+  "metrics": {
+    "allocated": 72,
+    "reusedAsJelly": 425,
+    "volleys": 71,
+    "staggered": 426,
+    "finiteRepairs": 0,
+    "cosmeticMerged": 0,
+    "summonsSeparated": 0
+  },
+  "scope": "Native projectile/painter fixtures; not full natural completion or real phone testing.",
+  "name": "pc",
+  "errors": [],
+  "failedResponses": []
+}
