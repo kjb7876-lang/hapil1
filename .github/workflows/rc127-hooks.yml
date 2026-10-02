@@ -1,0 +1,28 @@
+name: RC127 final hook contexts
+on:
+  push:
+    branches: [fix/rc127-dark-combat]
+    paths: ['.github/workflows/rc127-hooks.yml']
+permissions:
+  contents: write
+jobs:
+  hooks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with: {show-progress: false}
+      - name: Extract anchored function contexts
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),ls=fs.readFileSync('assets/index-v31526.js','utf8').split('\n'),root='qa/rc127-hooks';fs.mkdirSync(root,{recursive:true});
+          const terms=[['progression','__HAPIL_PROGRESSION_V31338__',45],['master-function','function master',30],['base-cast','function Ei(',175],['native-cast','function MONGSE_lockAtomicBossCast31210',65],['native-cancel','function MONGSE_cancel',40],['phase-cleanup','danmakuPhaseV31316',3],['cosmic-cleanup','cosmicPhaseV31318',3],['cooldowns','patternReadyAt =',7],['blood-clock','laserReadyAt(',4],['player-growth','activeHeroMastery =',4],['defense-profile','heroDamageTakenMultiplier',4]];
+          for(const [file,term,span]of terms){let blocks=[],count=0;for(let i=0;i<ls.length;i++)if(ls[i].includes(term)){blocks.push(ls.slice(Math.max(0,i-3),i+span).map((s,k)=>(Math.max(0,i-3)+k+1)+': '+s).join('\n'));if(++count>=12)break;}fs.writeFileSync(root+'/'+file+'.txt',blocks.join('\n\n'));}
+          for(const [key,start,end]of [['frame-head',54355,54410],['movement-pre',61095,61135],['growth-titles',39965,40035],['danmaku-gate',116875,116930],['cosmic-actor',118410,118510],['cast-core',49620,49760]])fs.writeFileSync(root+'/'+key+'.txt',ls.slice(start-1,end).map((s,i)=>(start+i)+': '+s).join('\n'));
+          console.log(fs.readdirSync(root));
+          NODE
+          git config user.name 'HAPIL source inspection'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc127-hooks
+          git commit -m "RC127 hooks $GITHUB_RUN_ID; no runtime edits"
+          git push origin HEAD:refs/heads/qa/rc127-hooks-$GITHUB_RUN_ID
