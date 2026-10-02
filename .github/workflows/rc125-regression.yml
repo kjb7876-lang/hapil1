@@ -1,0 +1,119 @@
+name: RC125 adaptive battlefield regression
+on:
+  push:
+    branches: [fix/rc125-adaptive-battlefield]
+    paths:
+      - 'assets/**'
+      - 'index.html'
+      - 'tests/**'
+      - 'tools/apply-rc125.cjs'
+      - '.github/workflows/rc125-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc125-regression-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  integrate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    permissions:
+      contents: write
+    outputs:
+      tested_sha: ${{ steps.integrate.outputs.tested_sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: true
+          show-progress: false
+      - name: Apply only to the inspected unmodified RC124 bundle
+        id: integrate
+        env:
+          BRANCH: fix/rc125-adaptive-battlefield
+        run: |
+          set -euo pipefail
+          node --check tools/apply-rc125.cjs
+          node --check tests/rc125-adaptive-battlefield-browser.cjs
+          node --check assets/rc125/adaptive-battlefield.js
+          if test "$(git hash-object assets/index-v31526.js)" = 788b554fb7d4df5f346436ed6710c7705acf0fc8; then
+            node tools/apply-rc125.cjs
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- assets/index-v31526.js index.html
+            git commit -m 'RC125: wire aspect-correct world presentation and adaptive battlefield loading'
+            git push origin "HEAD:refs/heads/$BRANCH"
+          else
+            node -e 'const fs=require("fs"),assert=require("assert/strict");const s=fs.readFileSync("assets/index-v31526.js","utf8"),h=fs.readFileSync("index.html","utf8");assert.equal(s.split("window.__HAPIL_ADAPTIVE_RC125__?.applyWorld(c, e, t)").length-1,1);assert.ok(s.includes("window.__HAPIL_ADAPTIVE_RC125__?.install();"));assert.ok(h.includes("adaptive-battlefield.js?v=42501"));assert.ok(h.includes("adaptive-battlefield.css?v=42501"));'
+          fi
+          test -z "$(git status --porcelain)"
+          echo "tested_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git show --stat --oneline HEAD
+  regression:
+    needs: integrate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [layout, overscan-hp, topology, release, safeguards]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.integrate.outputs.tested_sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Fetch exact comparison references
+        run: |
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          git fetch --no-tags --depth=1 origin 257b920a470e0ee6a04e5a52d71157f66232682c
+      - name: Prepare isolated Chromium
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc125-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc125-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc125-evidence/release" >> "$GITHUB_ENV"
+      - name: Run exact committed candidate
+        env:
+          SUITE: ${{ matrix.suite }}
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          node --check assets/index-v31526.js
+          node --check assets/rc125/adaptive-battlefield.js
+          case "$SUITE" in
+            layout) node tests/rc125-adaptive-battlefield-browser.cjs ;;
+            overscan-hp) node tests/rc123-boundary-smoke.cjs && node tests/rc124-overrun-health-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs && node tests/rc115-portrait-camera-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+            safeguards) node tests/rc122-autoplay-policy-smoke.cjs && node tests/rc115-map-advance-smoke.cjs && node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs && node tests/rc111-mobile-auto-smoke.cjs ;;
+          esac
+      - name: Print compact verification results
+        if: always()
+        run: |
+          for f in "$HAPIL_RELEASE_OUTPUT/release-summary.json" "$HAPIL_QA_OUTPUT/rc125/comparison.json"; do
+            if [ -f "$f" ]; then cat "$f"; fi
+          done
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc125-${{ matrix.suite }}-${{ needs.integrate.outputs.tested_sha }}
+          path: ${{ runner.temp }}/rc125-evidence/
+          retention-days: 14
