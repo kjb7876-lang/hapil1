@@ -69,22 +69,8 @@
   const phase=z.elapsed*z.omega,triangle=2/Math.PI*Math.asin(Math.sin(phase)),angle=z.angle+z.side*z.amplitude*triangle;
   q.vx=Math.cos(angle)*speed;q.vy=Math.sin(angle)*speed;
  }
- function prepareNative(s,h,project=deps?.project){
-  if(!h?.spectacleV31317||h.spectacleModeV31317!=='beam'||h.shape!=='line'||h.rc126NativePrepared||typeof project!=='function')return false;
-  if(![h.originX,h.originY,h.x,h.y,h.radius,h.width].every(Number.isFinite)||h.radius<=0||h.width<=0)return false;
-  const dx=h.x-h.originX,dy=h.y-h.originY,len=Math.hypot(dx,dy);if(len<1e-8)return false;
-  const unit={x:dx/len,y:dy/len},start={x:h.originX,y:h.originY},end={x:start.x+unit.x*h.radius,y:start.y+unit.y*h.radius};
-  const rect=root.__HAPIL_LASER_OVERRUN_RC124__?.mapRect({sourceId:h.sourceId,zone:s.zone});if(!rect)return false;
-  const bounds={minX:rect.x-32,maxX:rect.x+rect.width+32,minY:rect.y-32,maxY:rect.y+rect.height+32};
-  function extend(p,other){const a=project(p.x,p.y),b=project(other.x,other.y),vx=a.x-b.x,vy=a.y-b.y;let t=Infinity;
-   if(vx>1e-8)t=Math.min(t,(bounds.maxX-a.x)/vx);else if(vx<-1e-8)t=Math.min(t,(bounds.minX-a.x)/vx);
-   if(vy>1e-8)t=Math.min(t,(bounds.maxY-a.y)/vy);else if(vy<-1e-8)t=Math.min(t,(bounds.minY-a.y)/vy);
-   return Number.isFinite(t)&&t>0?{x:p.x+(p.x-other.x)*t,y:p.y+(p.y-other.y)*t}:p;
-  }
-  const a=extend(start,end),b=extend(end,start),length=Math.hypot(b.x-a.x,b.y-a.y);if(![a.x,a.y,b.x,b.y,length].every(Number.isFinite)||length<len*.1)return false;
-  h.rc126NativeOriginal={originX:h.originX,originY:h.originY,x:h.x,y:h.y,radius:h.radius};
-  h.originX=a.x;h.originY=a.y;h.x=b.x;h.y=b.y;h.radius=length;h.rc126NativePrepared=true;stats.nativeBeams++;return true;
- }
+ // RC126 finite-2 delegation: never turn a finite native hazard into an arena beam.
+ function prepareNative(s,h){const ok=root.__HAPIL_FINITE_NATIVE_RC126__?.prepare(s,h)??false;if(ok)stats.nativeBeams++;return ok;}
  const protectedActor=a=>!a||a.hp<=0||a.boss||a.friendly||a.neutral||a.visualOnly||a.canonAlly||a.canonAllyV31217||a.canonicalAllyV31217||a.protectedObjective||a.objectiveStructureV31238||a.narrativeStructureV31238||a.protectedNarrativeTargetV31307||a.rc88Part||a.rc89CommandBody||a.echoChildV31368||a.cosmicLuciferV31318;
  const footprint=a=>a.boss?1.6:a.midboss?1.15:clamp(finite(a.scale,1)*.6,.45,1.1);
  function spaceFreshEnemies(s){

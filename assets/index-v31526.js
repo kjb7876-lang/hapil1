@@ -49840,6 +49840,7 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
   window.__HAPIL_ENEMY_FEEL_V31361__?.strike(e,t);
 }
 function Di(e, t) {
+  if(window.__HAPIL_FINITE_NATIVE_RC126__?.handles(t))return window.__HAPIL_FINITE_NATIVE_RC126__.contains(e,t);
   if (!e || !t || ![e.x,e.y,t.x,t.y,t.radius].every(Number.isFinite) || t.radius < 0) return !1;
   if ([`line`,`cone`,`fan`,`sector`].includes(t.shape) && (![t.originX,t.originY,t.width].every(Number.isFinite) || t.width < 0 || Math.hypot(t.x-t.originX,t.y-t.originY)<1e-8)) return !1;
   if(window.__HAPIL_CONTACT_V31336__?.hero(e))return window.__HAPIL_CONTACT_V31336__.area(null,e,t).hit;

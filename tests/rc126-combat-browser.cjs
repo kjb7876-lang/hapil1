@@ -20,9 +20,9 @@ for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844
   for(const [id,profile]of Object.entries(P.profiles).filter(([,p])=>p.mode==='beam')){
    const {s,a}=make(profile.zone,id),scheduled=P.trySchedule(s,a,'rolling-ordnance',1),h=s.pendingHits.find(h=>h.spectacleModeV31317==='beam');assert(!!scheduled&&!!h,'native-schedule',{id});if(!h)continue;
    assert(h.rc126NativePrepared===true,'native-integration',{id});assert(Math.abs(h.radius-Math.hypot(h.x-h.originX,h.y-h.originY))<1e-8,'native-radius-equals-render-length',{id});
-   const rect=window.__HAPIL_LASER_OVERRUN_RC124__.mapRect({zone:s.zone,sourceId:id});let contacts=0;
+   assert(h.radius===h.rc126NativeOriginal.radius&&h.originX===h.rc126NativeOriginal.originX&&h.originY===h.rc126NativeOriginal.originY,'native-authored-origin-and-reach-preserved',{id});let contacts=0;
    for(const t of [.05,.25,.5,.75,.95]){const target={x:h.originX+(h.x-h.originX)*t,y:h.originY+(h.y-h.originY)*t};assert(T.hit(target,h),'native-midline-contact',{id,t});contacts++;}
-   for(const p of [{x:h.originX,y:h.originY},{x:h.x,y:h.y}]){const q=T.project(p.x,p.y),outside=Math.max(rect.x-q.x,q.x-rect.x-rect.width,rect.y-q.y,q.y-rect.y-rect.height);assert(outside>=31.999,'native-ends-past-map',{id,outside});}
+   const finite=window.__HAPIL_FINITE_NATIVE_RC126__,g=finite.geometry(h);for(const u of [-.1,g.length+.1]){const target={x:g.a.x+g.ux*u,y:g.a.y+g.uy*u};assert(!T.hit(target,h),'native-beyond-authored-end-is-safe',{id,u});}const corner={x:g.a.x+g.ux*g.round*.05-g.uy*(g.width-g.round*.05),y:g.a.y+g.uy*g.round*.05+g.ux*(g.width-g.round*.05)};assert(!T.hit(corner,h),'native-rounded-corner-is-safe',{id});
    const dx=(h.x-h.originX)/h.radius,dy=(h.y-h.originY)/h.radius,center={x:(h.x+h.originX)/2,y:(h.y+h.originY)/2};assert(!T.hit({x:center.x-dy*(h.width+.1),y:center.y+dx*(h.width+.1)},h),'native-outside-side-is-safe',{id});
    const image=T.queue(cache,profile.sprite,'eager');await image.decode();const before=JSON.stringify(h);window.__HAPIL_LASER_TOPOLOGY_RC108__.renderNative(ctx,h,T.project,image,{},1);assert(JSON.stringify(h)===before,'native-paint-is-read-only',{id});
    s.time=h.at;T.impact(s,h);beams.push({id,zone:s.zone,contacts,start:{x:h.originX,y:h.originY},end:{x:h.x,y:h.y},radius:h.radius,width:h.width,effects:s.effects.length});window.__RC126_BEAM_FIXTURE__=s;
