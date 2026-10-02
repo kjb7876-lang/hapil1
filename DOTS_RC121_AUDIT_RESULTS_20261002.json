@@ -1,0 +1,135 @@
+{
+  "recordType": "Observed GitHub Actions results, not an assertion of complete game correctness",
+  "repository": "kjb7876-lang/hapil1",
+  "date": "2026-10-02",
+  "baseMain": "2212b747994a5fabccfbcc287e5fb0637d4687ad",
+  "workingBranch": "fix/rc121-connected-dream",
+  "testedRuntimeCommit": "dff2960eab8e0bbddcfb611e167c6f7ad4ffa395",
+  "approvedArtCommit": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "unchangedConnectedArtBlob": "6bb4a891eb541734ef4c86f4d46dfb6ea94a44df",
+  "policyChange": "The latest user request explicitly removes laser escape bands, superseding earlier handoff instructions to preserve those bands. Original boss art and shared render/contact geometry remain required.",
+  "runtimeFilesChanged": [
+    "assets/index-v31526.js",
+    "assets/rc108/laser-topology.js",
+    "assets/rc108/samong-ricochet.js",
+    "assets/rc97/choice-patterns.js",
+    "index.html"
+  ],
+  "fixes": [
+    "Remove choice-band clipping and region-based bridge restrictions; connect each laser pattern into one graph.",
+    "Share cross-intersection vertices; split a solitary straight beam at its midpoint without adding artificial forks.",
+    "Remove finale central escape strip and obsolete safe-border markers; safety follows actual beam/drop contact.",
+    "Preserve native strikes when no ricochet delivery visual exists instead of dereferencing null.route.",
+    "Inject the module-local image loader into the external ricochet renderer instead of accessing an undefined global.",
+    "Full-auto native death/respawn dialog resumes after three visible seconds; manual mode, user hold, other menus, and pre-existing reading pause are respected.",
+    "Clean up replaced death-dialog timers/listeners and release only the reading lock owned by that dialog."
+  ],
+  "regressionRun": {
+    "id": 36974216123,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/36974216123",
+    "testedCommit": "dff2960eab8e0bbddcfb611e167c6f7ad4ffa395",
+    "worktreeCleanAtTestStart": true,
+    "allFourTestJobsPassed": true,
+    "environment": {"os": "Ubuntu 24.04", "node": "22.23.3", "playwright": "1.55.1", "chromium": "140.0.7339.186"},
+    "jobs": {
+      "dream": {"id": 110734531804, "status": "success", "artifactId": 11212404966},
+      "death-dialog": {"id": 110734531772, "status": "success", "artifactId": 11213051026},
+      "topology": {"id": 110734531867, "status": "success", "artifactId": 11212542835},
+      "release": {"id": 110734531836, "status": "success", "artifactId": 11212727591}
+    },
+    "releaseGate": {
+      "passed": 9,
+      "failed": 0,
+      "suites": ["renderer-syntax", "bundle-syntax", "approved-art", "laser-phases", "laser-continuity", "laser-telegraph", "combat", "map-advance", "natural-story"],
+      "startedAt": "2026-10-02T06:36:01.936Z",
+      "finishedAt": "2026-10-02T06:39:30.051Z",
+      "nativeWarningModes": ["desktop", "reduced-flash", "mobile-lowFx"],
+      "nativeWarningPixelExact": [true, true, true],
+      "nativeWarningChangedPixels": [0, 0, 0],
+      "acceptanceThresholdsChanged": false
+    },
+    "topology": {
+      "viewports": ["pc", "portrait", "landscape"],
+      "bloodTypesPerViewport": 80,
+      "problemCounts": [0, 0, 0],
+      "pageErrorCounts": [0, 0, 0],
+      "checks": ["one connected component", "no orphan beams", "shared X intersection", "single-ray midpoint", "choice connectors damage", "finale center damages and is not reserved safe", "warning/fire/expiry/cancel", "portrait dual-view rendering"],
+      "registryOwners": 71,
+      "registryProfiles": 5680,
+      "registryCountsAreNotEveryArtAssetVisuallyReviewed": true
+    },
+    "ricochetFixtures": {
+      "passed": 2,
+      "controlledStateFixtures": true,
+      "cases": ["ranged-strike-without-delivery-visual", "ricochet-draw-with-real-sprite"]
+    },
+    "deathDialogFixtures": {
+      "passed": 7,
+      "controlledStateFixtures": true,
+      "cases": ["full-auto", "semi-manual", "auto-hold", "replacement", "prior-reading-lock", "native-respawn", "portrait-full-auto"],
+      "assertedSimulationTimeResumesAfterUnpausedClose": true,
+      "priorReadingPausePreserved": true,
+      "rc91AwakeningSmoke": "passed; seven-second buff and 77-combat-second revival cooldown retained"
+    },
+    "naturalDream": [
+      {
+        "viewport": "desktop",
+        "elapsedMs": 100525,
+        "usedProgressCheats": false,
+        "menuUnlockUsed": "777 only",
+        "pageErrors": 0,
+        "failedHttpResponses": 0,
+        "freezeCheck": "passed",
+        "finalZone": "dist00",
+        "firstBossClearVerified": false,
+        "observation": "Repeated natural deaths returned to the first battle; automatic dialogs closed and simulation resumed without a 12-second deadlock. This is not a desktop Dream clear.",
+        "frameCount": 4853,
+        "maxObservedRafGapMs": 116.6,
+        "recordedLongTasks": 13
+      },
+      {
+        "viewport": "mobile portrait emulation",
+        "elapsedMs": 101017,
+        "usedProgressCheats": false,
+        "menuUnlockUsed": "777 only",
+        "pageErrors": 0,
+        "failedHttpResponses": 0,
+        "freezeCheck": "passed",
+        "firstZone": "dist00",
+        "finalZone": "dist01",
+        "firstBossClearVerified": true,
+        "firstObservedNextZoneAtMs": 90859,
+        "frameCount": 3388,
+        "maxObservedRafGapMs": 133.3,
+        "recordedLongTasks": 100,
+        "longTaskRecordingCappedAt": 100
+      }
+    ],
+    "naturalStory": {
+      "usedProgressCheats": false,
+      "firstZone": "dist00",
+      "finalZone": "dist01",
+      "elapsedMs": 145218,
+      "finalHp": 120,
+      "pageErrors": 0,
+      "failedHttpResponses": 0
+    },
+    "artifactRetentionDays": 14
+  },
+  "priorFailures": [
+    {"runId": 36972428058, "finding": "Original code reproduced null.route and undefined image-loader exceptions, plus a natural desktop first-battle stall."},
+    {"runId": 36973349977, "testedRuntimeCommit": "aaaa1c8384531a4f1128ec95bfd9bae8cf08b792", "finding": "Initial geometry/exception fixes passed topology but full-auto death dialog still stalled desktop and portrait. Release gate was 7/9: unrelated image decode in warning fixture and no Story first-map transition."}
+  ],
+  "testFixtureRepair": "Warning comparison now waits for assigned image sources and tracks assets during isolated warning draws rather than all concurrent combat preloads. The approved baseline and pixel thresholds were not relaxed.",
+  "handoff": "DOTS_HANDOFF_LASER_20261002.md",
+  "limits": [
+    "Chromium automated rendering and saved screenshots are verified; manual visual inspection of those PNGs was not performed in this session.",
+    "Mobile results are emulation, not physical iPhone thermal, memory or performance measurements.",
+    "No full Story/Hell/Dream campaign or ending validation was completed.",
+    "Desktop Dream repeated deaths remain a balance/auto-combat follow-up; the freeze fix is not a guarantee of automatic victory.",
+    "Recorded RAF gaps are observations, not a before/after performance improvement claim; portrait long-task data is capped.",
+    "Independent attack casts retain separate timing/lifecycles; connectivity is enforced within each laser pattern, not by joining unrelated attacks across owners.",
+    "Doors/stairs instead of portals, broad image-loading optimization, full animation pass and mobile performance optimization remain pending.",
+    "The final merge and Pages deployment SHA must be read from live GitHub records; this result file records the tested runtime SHA, not an invented future merge."
+  ]
+}
