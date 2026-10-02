@@ -1,0 +1,123 @@
+{
+  "recordType": "Observed GitHub Actions result summary; original JSON, logs and PNGs are in the linked artifact",
+  "repository": "kjb7876-lang/hapil1",
+  "branch": "main",
+  "approvedVisualCommit": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "preexistingRestorationCommit": "f159c8f8e5f53c8f570baf97d9491a60f8507745",
+  "runtimeFilesChangedByThisSession": false,
+  "sessionChanges": [
+    "tests/laser-release-gate.cjs",
+    "tests/rc116-laser-continuity-browser.cjs",
+    "tests/rc116-laser-telegraph-browser.cjs",
+    ".github/workflows/laser-release-audit.yml",
+    "DOTS_HANDOFF_LASER_20261002.md",
+    "DOTS_LASER_AUDIT_RESULTS_20261002.json"
+  ],
+  "finalRun": {
+    "runId": 36968383652,
+    "jobId": 110716988028,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/36968383652",
+    "testedCommit": "795799931d8c2e7812597dd07eae316806e41e53",
+    "startedAt": "2026-10-02T05:19:41.920Z",
+    "finishedAt": "2026-10-02T05:22:54.358Z",
+    "worktreeCleanAtStart": true,
+    "environment": {
+      "os": "Ubuntu 24.04",
+      "node": "v22.23.3",
+      "playwright": "1.55.1",
+      "chromium": "140.0.7339.186"
+    },
+    "status": "passed",
+    "passed": 9,
+    "failed": 0,
+    "suites": [
+      { "name": "renderer-syntax", "status": "passed", "durationMs": 24 },
+      { "name": "bundle-syntax", "status": "passed", "durationMs": 145 },
+      { "name": "approved-art", "status": "passed", "durationMs": 2496 },
+      { "name": "laser-phases", "status": "passed", "durationMs": 4134 },
+      { "name": "laser-continuity", "status": "passed", "durationMs": 30494 },
+      { "name": "laser-telegraph", "status": "passed", "durationMs": 10409 },
+      { "name": "combat", "status": "passed", "durationMs": 8758 },
+      { "name": "map-advance", "status": "passed", "durationMs": 30 },
+      { "name": "natural-story", "status": "passed", "durationMs": 135822 }
+    ],
+    "laserContinuity": {
+      "actualImageOwner": "dist00-boss",
+      "topologyTypes": 80,
+      "modes": ["full", "lowFx"],
+      "renderedCases": 160,
+      "channelDifferenceThreshold": 3,
+      "maxChangedPixelRatio": 0,
+      "negativeControlAddedPixels": 0,
+      "minSectionCoverage": 1,
+      "minReferenceSectionCoverage": 1,
+      "pageErrors": []
+    },
+    "approvedArtSyntheticControl": {
+      "modes": ["gpu", "canvas", "mobile-lowFx"],
+      "allBaselinePixelMatch": true,
+      "addedPixelsPerMode": [0, 0, 0]
+    },
+    "nativeWarnings": {
+      "modes": ["desktop", "reduced-flash", "mobile-lowFx"],
+      "allPixelExact": true,
+      "changedPixelsPerMode": [0, 0, 0],
+      "baselineDrawImageCallsPerMode": [1, 1, 1],
+      "currentDrawImageCallsPerMode": [1, 1, 1],
+      "resolvedAsset": "assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+      "baselineWarmupPasses": 5,
+      "currentWarmupPasses": 4,
+      "baselineSectionCoveragePerMode": [1, 1, 1],
+      "currentSectionCoveragePerMode": [1, 1, 1],
+      "legacyOpaqueBodyCriterionPassed": false,
+      "note": "Indirectly resolved images were decoded before comparison. The native resolver selected the recorded Balrog asset, not the explicit pride-cross fixture image. The old 98-percent opaque-body requirement is not used to force solid paint over authored transparent art."
+    },
+    "naturalStory": {
+      "standardStory": true,
+      "autoMode": "full",
+      "usedProgressCheats": false,
+      "changedZone": true,
+      "firstZone": "dist00",
+      "finalZone": "dist01",
+      "finalHp": 186,
+      "elapsedMs": 130349,
+      "pageErrors": 0,
+      "failedHttpResponses": 0
+    },
+    "artifact": {
+      "id": 11210474492,
+      "name": "laser-release-795799931d8c2e7812597dd07eae316806e41e53",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/36968383652/artifacts/11210474492",
+      "files": 50,
+      "sizeBytes": 16658179,
+      "sha256": "08bb9ec1c413826df763d6d33dab29c148416fcba1b7396f8f4d1ae4bc2b4732",
+      "retentionDays": 14
+    }
+  },
+  "priorRuns": [
+    {
+      "runId": 36966963378,
+      "testedCommit": "24d1c7613cc2abf655b9026a76796c773843b8d8",
+      "passed": 8,
+      "failed": 1,
+      "note": "Legacy warning density assertion failed. The old continuity pass was invalid evidence because it sampled an opaque background; that test was subsequently repaired. Natural first-map progression passed."
+    },
+    {
+      "runId": 36967919214,
+      "testedCommit": "2130de0f647e2cc05a44cb3e94468332597dfbc9",
+      "passed": 8,
+      "failed": 1,
+      "note": "Corrected continuity passed 160 real-image cases. Warning comparison differed before indirect asset warmup: baseline used a fallback with zero image draws while current used one. After both resolved images were decoded in the final run, all three warning PNGs matched exactly. Natural first-map progression passed."
+    }
+  ],
+  "scopeLimits": [
+    "Actual Chromium rendering and automated pixel comparison were executed; manual PNG visual signoff was not performed in this session.",
+    "Continuity covers 80 topologies in two modes with the dist00-boss image, not every boss-specific image or device.",
+    "Natural Story proves the first map transition only, not a full campaign completion.",
+    "GitHub Pages deployment is independent of the read-only audit; deployment success is not itself a test pass.",
+    "The live Pages screen was not manually inspected in this session; deployment confirmation uses GitHub Actions records.",
+    "The passing SHA is followed by documentation/result commits. Fetch current main and preserve other changes before continuing."
+  ],
+  "handoff": "DOTS_HANDOFF_LASER_20261002.md",
+  "directDotsSessionTransferPerformed": false
+}
