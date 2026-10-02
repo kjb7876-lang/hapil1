@@ -1,0 +1,90 @@
+{
+  "recordType": "Observed GitHub Actions results; passing regression checks do not establish automatic victory or complete game correctness",
+  "repository": "kjb7876-lang/hapil1",
+  "date": "2026-10-02",
+  "baseMain": "12312df6acc6f39be03214a4852dc6851a783518",
+  "workingBranch": "fix/rc122-autoplay-transitions",
+  "testedRuntimeCommit": "39df6b11aac7107cd6a18b69522aecf89f34645b",
+  "cleanupCommit": "2d8fed9817936fc096c7bc8f4a0d0986b74e9ad3",
+  "approvedLaserArtCommit": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "unchangedConnectedArtBlob": "6bb4a891eb541734ef4c86f4d46dfb6ea94a44df",
+  "runtimeFilesChanged": ["assets/index-v31526.js", "assets/rc115/map-advance.js", "assets/rc122/autoplay-policy.js", "index.html"],
+  "cacheKeys": {"main": 42201, "autoplayPolicy": 42201, "mapAdvance": 42201, "connectedLaserArtUnchanged": 41605},
+  "implemented": [
+    "Separate automatic skill/ultimate presentation from manual movement ownership in the native frame predicate. Preserve real input, manual grace, buffered actions, hurt, guard, dash and native movement locks.",
+    "Do not classify an autoAwakeningV31336 navigation target as a user pointer target.",
+    "Replace the seven-second off-portal interaction bypass with proximity-checked native interaction.",
+    "When an eligible automatic exit path is stalled, release only auto-owned target/path for ordinary replanning; do not move the actor, mark objectives complete, or bypass the native transition/save gates.",
+    "Retain RC121 laser connectivity, removed escape bands, owner-specific artwork, ricochet fixes, and death-dialog behavior. No damage, HP, attack cooldown, or difficulty tuning was applied."
+  ],
+  "baseline": {
+    "runId": 36976864330,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/36976864330",
+    "summaryPath": "qa-results/rc122-baseline-summary.json",
+    "observation": "In the original desktop first battle, full-auto was enabled but early samples remained at x=16,y=16 with manual-commit/disabled role state while automatic skill presentation was active.",
+    "comparisonLimit": "The baseline observed about 45 seconds per viewport and the extended candidate desktop case observed 180 seconds. Damage totals, death-dialog sample counts and runtime are not matched statistical before/after measurements. No percentage reduction in deaths or damage is claimed."
+  },
+  "regression": {
+    "runId": 36978178836,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/36978178836",
+    "testedCommit": "39df6b11aac7107cd6a18b69522aecf89f34645b",
+    "worktreeCleanAtTestStart": true,
+    "allFiveTestJobsPassed": true,
+    "jobs": {
+      "autoplay": {"id": 110746671213, "conclusion": "success", "artifactId": 11214597342},
+      "dream": {"id": 110746671302, "conclusion": "success", "artifactId": 11213869982},
+      "death-dialog": {"id": 110746671325, "conclusion": "success", "artifactId": 11214311478},
+      "topology": {"id": 110746671293, "conclusion": "success", "artifactId": 11214366276},
+      "release": {"id": 110746671828, "conclusion": "success", "artifactId": 11214296738}
+    },
+    "policy": {"assertionsPassed": 29, "stateMutation": false, "nativeHardLocksPreserved": true, "manualDirectionsPreserved": true, "bufferedActionsPreserved": true},
+    "mapRecovery": {"blockedCasesPassed": 18, "proximityRequired": true, "noTeleport": true, "nativeRepath": true, "gapAndRollbackReset": true, "controlledFixtureRepaths": 1, "controlledFixtureNearInteractions": 2},
+    "nativeInputFixtures": {"passed": 8, "controlledStateFixtures": true, "cases": ["automatic cast ownership", "native cast locomotion", "actual direction ownership", "manual grace expiry", "native hurt lock", "manual skill grace", "automatic target ownership", "manual pointer ownership"]},
+    "extendedNaturalDesktopDream": {
+      "elapsedMs": 180453,
+      "usedProgressCheats": false,
+      "menuUnlockUsed": "777",
+      "observationOnlyRoleWrapper": true,
+      "firstZone": "dist00",
+      "finalZone": "dist00",
+      "firstBossClearVerified": false,
+      "repeatedDeathsResolved": false,
+      "finalHp": 240,
+      "automaticCastMovementSamples": 141,
+      "roleCalls": 4383,
+      "automaticCastRoleCalls": 3460,
+      "deathDialogSamples": 101,
+      "deathDialogSamplesAreNotDeathCount": true,
+      "pageErrors": 0,
+      "failedHttpResponses": 0,
+      "freezeThresholdSeconds": 12,
+      "freezeCheckPassed": true,
+      "interpretation": "Automatic locomotion and steering during casts were observed. Repeated deaths and first-boss failure remained. This passing test validates locomotion and absence of runtime deadlock, not PC Dream victory."
+    },
+    "existingNaturalDreamCases": [
+      {"viewport": "desktop", "elapsedMs": 100955, "finalZone": "dist00", "finalHp": 240, "remainingFirstBossHp": 17235.73290179187, "nextZoneVerified": false, "pageErrors": 0, "failedHttpResponses": 0, "freezeCheckPassed": true},
+      {"viewport": "mobile portrait emulation", "elapsedMs": 101123, "finalZone": "dist00", "finalHp": 209.8, "finalLiveEnemies": 0, "nextZoneVerified": false, "pageErrors": 0, "failedHttpResponses": 0, "freezeCheckPassed": true, "interpretation": "The first boss was no longer present and no live enemies remained in the final sample; the observation ended before next-map entry was demonstrated. Do not reuse RC121 next-map success as an RC122 observation."}
+    ],
+    "ricochetFixturesPassed": 2,
+    "deathDialogFixtures": {"passed": 7, "controlledStateFixtures": true, "priorPausePreserved": true, "nativeResumeVerified": true, "rc91AwakeningSmoke": "passed"},
+    "topology": {"viewports": ["pc", "portrait", "landscape"], "bloodTypesPerViewport": 80, "problemCounts": [0,0,0], "pageErrorCounts": [0,0,0], "registryOwners": 71, "registryProfiles": 5680, "registryCountsAreNotManualArtReviewCounts": true},
+    "releaseGate": {
+      "passed": 9, "failed": 0,
+      "suites": ["renderer-syntax", "bundle-syntax", "approved-art", "laser-phases", "laser-continuity", "laser-telegraph", "combat", "map-advance", "natural-story"],
+      "startedAt": "2026-10-02T07:23:49.591Z", "finishedAt": "2026-10-02T07:26:41.685Z",
+      "naturalStory": {"usedProgressCheats": false, "firstZone": "dist00", "finalZone": "dist01", "elapsedMs": 110173, "finalHp": 156, "changedZone": true}
+    },
+    "artifactRetentionDays": 14
+  },
+  "testContractChange": "RC115's old far-exit bypass expectation was deliberately replaced with proximity and no-teleport assertions. Combat/objective/pause/ownership guards remain tested. The change is not a claim that all maps have now been traversed.",
+  "cleanup": "One-off source inspection writers and bulky source copies were removed from the final tree. RC122 regression is workflow_dispatch-only with contents:read and no automatic gameplay patch/commit. Historical data remain in the baseline run and branch history.",
+  "remaining": [
+    "PC Dream repeated deaths and reliable full-auto first-boss clear remain unresolved despite repaired locomotion ownership.",
+    "RC122 mobile Dream next-map progression was not demonstrated within the 101-second observation window.",
+    "No new time-dependent laser escape trajectory planner was implemented; existing native hazard evaluation remains.",
+    "Portal artwork has not been replaced with authored doors/stairs. Exit approach/repath is a prerequisite, not the visual replacement itself.",
+    "Full campaign/endings, every map transition, all heroes/directions, image loading/memory, attack phase animation and physical-device mobile performance remain unverified or pending.",
+    "Screenshots were generated by real remote Chromium and existing automated visual comparisons passed; PNGs were not manually opened in this session.",
+    "Final merge and Pages status must be checked from live GitHub records. This file records the tested runtime, not an assumed future merge SHA."
+  ]
+}
