@@ -1,0 +1,109 @@
+name: RC126 combat regression
+on:
+  push:
+    branches: [fix/rc126-combat-safety]
+    paths: ['assets/**', 'index.html', 'tests/**', '.github/workflows/rc126-regression.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc126-regression-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [combat, layout, overscan-hp, topology, release, safeguards, hero-actions, dream-natural]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare exact-commit isolated browser runtime
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          git fetch --no-tags --depth=1 origin dd56fb42aeb8faa45f66a391ea657daf772c410b
+          R="$RUNNER_TEMP/rc126-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc126-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc126-evidence/release" >> "$GITHUB_ENV"
+      - name: Test committed runtime without changing gameplay files
+        env:
+          SUITE: ${{ matrix.suite }}
+          HAPIL_DREAM_LIMIT_MS: '150000'
+        run: |
+          set -euo pipefail
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          test -z "$(git status --porcelain)"
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          node --check assets/index-v31526.js
+          node --check assets/rc126/combat-safety.js
+          case "$SUITE" in
+            combat) node tests/rc126-combat-safety-smoke.cjs && node tests/rc43-bloodied-projectile-flight.cjs && node tests/rc126-combat-browser.cjs ;;
+            layout) node tests/rc125-adaptive-battlefield-browser.cjs && node tests/rc125-first-frame-browser.cjs ;;
+            overscan-hp) node tests/rc123-boundary-smoke.cjs && node tests/rc124-overrun-health-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+            safeguards) node tests/rc122-autoplay-policy-smoke.cjs && node tests/rc115-map-advance-smoke.cjs && node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
+            hero-actions) node tests/rc93-hero-actions-browser.cjs ;;
+            dream-natural) node tests/rc121-dream-regression-browser.cjs ;;
+          esac
+      - name: Report explicit scope
+        if: always()
+        run: |
+          test ! -f "$HAPIL_RELEASE_OUTPUT/release-summary.json" || cat "$HAPIL_RELEASE_OUTPUT/release-summary.json"
+          echo 'Staged native fixtures, first-battle natural observations and full-campaign completions are different evidence. Physical iPhone/Safari is not tested here.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc126-${{ matrix.suite }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc126-evidence/
+          retention-days: 14
+  visual-evidence:
+    needs: regression
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          show-progress: false
+      - name: Preserve actual generated PNGs on a separate evidence branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ROOT="qa/rc126-evidence/$GITHUB_RUN_ID"
+          mkdir -p "$ROOT"
+          for SUITE in combat layout overscan-hp dream-natural; do
+            gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "rc126-$SUITE-$GITHUB_SHA" --dir "$RUNNER_TEMP/evidence-$SUITE"
+            mkdir -p "$ROOT/$SUITE"
+            find "$RUNNER_TEMP/evidence-$SUITE" -type f \( -name '*.png' -o -name '*results.json' -o -name 'summary.json' \) -exec cp '{}' "$ROOT/$SUITE/" \;
+          done
+          git config user.name 'HAPIL visual evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m "RC126 actual browser evidence $GITHUB_RUN_ID; no gameplay edits"
+          git push origin HEAD:refs/heads/qa/rc126-evidence-$GITHUB_RUN_ID
