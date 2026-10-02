@@ -1,0 +1,24 @@
+name: RC125 native actor transform inspection
+on:
+  push:
+    branches: [qa/rc125-published-verification]
+    paths: ['.github/workflows/rc125-actor-transform.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - name: Read native actor transforms without modifying game files
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),s=fs.readFileSync('assets/index-v31526.js','utf8'),p=s.indexOf('function Yn('),q=s.indexOf('\nfunction ',p+12),r=s.slice(p,q),lines=r.split('\n');
+          console.log('ACTOR_LINES',lines.length,'START',r.slice(0,6000));
+          for(let i=0;i<lines.length;i++)if(/\.scale\(|\.transform\(|\.setTransform\(|\.restore\(|\.save\(|RC124|ff3b66/.test(lines[i]))console.log('ACTOR_TRANSFORM_CONTEXT',i,lines.slice(Math.max(0,i-8),i+15).join('\n'));
+          NODE
