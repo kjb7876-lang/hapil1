@@ -15,11 +15,10 @@ jobs:
         with:
           fetch-depth: 1
           persist-credentials: false
-      - name: Inspect respawn and episode lifecycle
+          show-progress: false
+      - name: Read the exact death-dialog implementation
         run: |
           node <<'NODE'
-          const fs=require('fs'),path=require('path'),main='assets/index-v31526.js',text=fs.readFileSync(main,'utf8'),lines=text.split('\n');
-          for(const [a,b]of [[62985,63125]])console.log('SOURCE '+main+'\n'+lines.slice(a-1,b).map((x,i)=>(a+i)+': '+x).join('\n'));
-          function walk(dir){for(const ent of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,ent.name);if(ent.isDirectory()){if(!/font|node_modules/.test(f))walk(f);}else if(ent.name.endsWith('.js')){const s=f===main?text:fs.readFileSync(f,'utf8');if(s.includes('__HAPIL_EPISODE1_RC59__=')||s.includes('__HAPIL_EPISODE1_RC59__ =')){const l=s.split('\n');for(let i=0;i<l.length;i++)if(/beforeRespawn|__HAPIL_EPISODE1_RC59__\s*=/.test(l[i]))console.log('EPISODE '+f+':'+(i+1)+'\n'+l.slice(Math.max(0,i-28),i+35).join('\n').slice(0,22000));}}}}
-          walk('assets');
+          const fs=require('fs'),p='assets/index-v31526.js',l=fs.readFileSync(p,'utf8').split('\n');
+          for(let i=0;i<l.length;i++)if(/function HAPIL_showDeathVerseRC59|function HAPIL_episode1DeathDestinationRC59/.test(l[i]))console.log('SOURCE '+p+'\n'+l.slice(Math.max(0,i-15),i+150).map((x,k)=>(Math.max(0,i-15)+k+1)+': '+x).join('\n'));
           NODE
