@@ -1,0 +1,106 @@
+{
+  "name": "portrait",
+  "phase": "before",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "canvas": {
+    "x": 0,
+    "y": 0,
+    "width": 390,
+    "height": 844
+  },
+  "stage": {
+    "x": 0,
+    "y": 0,
+    "width": 390,
+    "height": 844
+  },
+  "canvasArea": 329160,
+  "viewportFraction": 1,
+  "backing": {
+    "width": 1247,
+    "height": 702
+  },
+  "camera": {
+    "x": 275.65,
+    "y": 119.02499999999998,
+    "scale": 0.525,
+    "portraitSplitRC108": "hero"
+  },
+  "adaptive": null,
+  "portrait": {
+    "frames": 83,
+    "drawPasses": 83,
+    "bossPasses": 42,
+    "heroPasses": 41,
+    "composites": 83,
+    "pointerBlocked": 0,
+    "cameras": {
+      "hero": {
+        "x": 275.65,
+        "y": 119.02499999999998,
+        "scale": 0.525,
+        "focusId": "hero"
+      },
+      "boss": {
+        "x": 304,
+        "y": 154.2,
+        "scale": 0.525,
+        "focusId": "dist06-boss"
+      }
+    },
+    "rendering": false,
+    "target": "boss",
+    "frame": 83
+  },
+  "barSamples": 57,
+  "visibleBars": 57,
+  "maxIsotropyError": 0.7398685755766446,
+  "pointerError": 0,
+  "pointerSamples": 0,
+  "hud": {
+    "enemy": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "ally": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "controls": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "settings": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    }
+  },
+  "problems": [],
+  "fixture": {
+    "zone": "dist06",
+    "hero": {
+      "x": 18,
+      "y": 16
+    },
+    "boss": {
+      "id": "dist06-boss",
+      "hp": 9085,
+      "maxHp": 18170
+    },
+    "laser": "branch-y"
+  },
+  "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+  "errors": [],
+  "failedResponses": []
+}
