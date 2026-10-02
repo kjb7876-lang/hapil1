@@ -1,6 +1,7 @@
 'use strict';
 // Used by the existing read-only audit. The public checkout and its game files are
 // never edited. This suite creates a disposable local worktree, not a remote branch.
+// Preserve exact hashes, including final newlines; never normalize away a mismatch.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=require('node:child_process'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..'),out=path.resolve(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results','rc128-candidate'));
 const {build,manifest}=require('../tools/rc128-candidate.cjs');fs.mkdirSync(out,{recursive:true});
