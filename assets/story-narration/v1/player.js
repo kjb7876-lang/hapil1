@@ -4,8 +4,9 @@
   const script = document.currentScript;
   const base = new URL('./', script?.src || document.baseURI);
   const manifestURL = new URL('manifest.json', base);
+  if (script?.src) manifestURL.search = new URL(script.src).search;
   const LOAD_TIMEOUT_MS = 15000;
-  let audioContext = null, interacted = false, manifestRequest = null, active = null;
+  let audioContext = null, interacted = false, primed = false, manifestRequest = null, active = null;
 
   function unlock() {
     const Constructor = window.AudioContext || window.webkitAudioContext;
@@ -13,6 +14,13 @@
     try {
       if (!audioContext) audioContext = new Constructor();
       Promise.resolve(audioContext.resume()).catch(() => {});
+      // Match the existing mobile unlock contract: prime one silent frame during a gesture.
+      if (!primed) {
+        const source = audioContext.createBufferSource();
+        source.buffer = audioContext.createBuffer(1, 1, audioContext.sampleRate);
+        source.connect(audioContext.destination); source.onended = () => source.disconnect();
+        source.start(0); primed = true;
+      }
       return true;
     } catch { return false; }
   }
