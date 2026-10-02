@@ -83,8 +83,9 @@
       if (gain) gain.gain.value = effectiveVolume();
       if (media) media.volume = effectiveVolume();
       range.value = String(Math.round(volume * 100));
-      muteButton.textContent = muted ? '음소거 해제' : '음소거';
-      muteButton.setAttribute('aria-pressed', String(muted));
+      const muteLabel = muted ? '음소거 해제' : '음소거';
+      if (muteButton.textContent !== muteLabel) muteButton.textContent = muteLabel;
+      if (muteButton.getAttribute('aria-pressed') !== String(muted)) muteButton.setAttribute('aria-pressed', String(muted));
     }
     function display(nextState) {
       state = nextState; root.dataset.narrationState = nextState;

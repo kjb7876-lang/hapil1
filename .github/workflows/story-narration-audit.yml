@@ -32,6 +32,8 @@ jobs:
         run: |
           node --check assets/story-narration/v1/player.js
           node --check assets/rc51/story.js
+          node --check assets/story-narration/v1/surfaces.js
+          node --check assets/title/v31236/christian-opening-v31236.js
           node tests/rc51-story-and-samong-smoke.cjs
           node tests/rc74-flight-voice-lifecycle.cjs
           node tests/rc75-ending-and-awakening.cjs
@@ -44,4 +46,6 @@ jobs:
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")" >> "$GITHUB_ENV"
       - name: Exercise playback and interrupted flows
-        run: node tests/story-narration-browser.cjs
+        run: |
+          node tests/story-narration-browser.cjs
+          node tests/story-narration-surfaces-browser.cjs
