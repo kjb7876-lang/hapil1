@@ -1,0 +1,1134 @@
+{
+  "scope": "Unmodified Linux WebKit, synthetic touch input; not a physical phone, not all campaigns",
+  "sha": "bc40b8c21ed50967ecd77524b9e0d7e50aa47194",
+  "rows": [
+    {
+      "name": "pc-webkit",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "zone": "dist00",
+          "time": 0.2,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 5,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 0,
+            "staggered": 0,
+            "zigzags": 0,
+            "originalAssets": 0,
+            "substitutedAssets": 0,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 1.0800000000000003,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 27,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 0,
+            "staggered": 0,
+            "zigzags": 0,
+            "originalAssets": 0,
+            "substitutedAssets": 0,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 2.160000000000001,
+          "hp": 222,
+          "mode": "STORY",
+          "shots": 16,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 54,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 4,
+            "staggered": 6,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 6,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 3.320000000000002,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 83,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 4,
+            "staggered": 6,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 6,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 4.953000000000003,
+          "hp": 209,
+          "mode": "STORY",
+          "shots": 14,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 124,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 6.273000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 20,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 157,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 7,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 7.353000000000005,
+          "hp": 171,
+          "mode": "STORY",
+          "shots": 19,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 184,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 7,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 8.432999999999996,
+          "hp": 78,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 211,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 7,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 9.472999999999974,
+          "hp": 4,
+          "mode": "STORY",
+          "shots": 3,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 237,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 7,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 11.03299999999994,
+          "hp": 4,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 276,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 7,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 12.541999999999916,
+          "hp": 4,
+          "mode": "STORY",
+          "shots": 7,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 315,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 8,
+            "staggered": 30,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 34,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 14.360999999999901,
+          "hp": 4,
+          "mode": "STORY",
+          "shots": 11,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 363,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 9,
+            "staggered": 36,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 41,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 15.32099999999988,
+          "hp": 4,
+          "mode": "STORY",
+          "shots": 15,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 387,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 10,
+            "staggered": 42,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 48,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 16.24099999999986,
+          "hp": 4,
+          "mode": "STORY",
+          "shots": 22,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 410,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 11,
+            "staggered": 48,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 55,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 17.320999999999838,
+          "hp": 120,
+          "mode": "STORY",
+          "shots": 26,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 437,
+            "touch": 0,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 12,
+            "staggered": 54,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 62,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        }
+      ],
+      "final": {
+        "zone": "dist00",
+        "time": 17.320999999999838,
+        "hp": 120,
+        "mode": "STORY",
+        "shots": 26,
+        "deadDialog": false,
+        "metrics": {
+          "frames": 437,
+          "touch": 0,
+          "pointer": 0
+        },
+        "rc126": {
+          "volleys": 12,
+          "staggered": 54,
+          "zigzags": 0,
+          "originalAssets": 2,
+          "substitutedAssets": 62,
+          "nativeBeams": 0,
+          "spawnMoves": 0,
+          "duplicateCosmetics": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "portrait-webkit",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "zone": "dist00",
+          "time": 1.2370000000000005,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 29,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 0,
+            "staggered": 0,
+            "zigzags": 0,
+            "originalAssets": 0,
+            "substitutedAssets": 0,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 2.2370000000000014,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 16,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 54,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 4,
+            "staggered": 6,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 6,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 3.2370000000000023,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 23,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 79,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 5,
+            "staggered": 12,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 13,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 4.477000000000003,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 110,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 5,
+            "staggered": 12,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 13,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 5.837000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 7,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 144,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 6.877000000000005,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 7,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 170,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 7.957000000000006,
+          "hp": 238,
+          "mode": "STORY",
+          "shots": 6,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 197,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 8.876999999999988,
+          "hp": 231,
+          "mode": "STORY",
+          "shots": 5,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 220,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 9.796999999999969,
+          "hp": 229,
+          "mode": "STORY",
+          "shots": 7,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 243,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 10.756999999999948,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 1,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 267,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 11.756999999999927,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 292,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 12.876999999999903,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 7,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 320,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 7,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 14.196999999999875,
+          "hp": 238.5,
+          "mode": "STORY",
+          "shots": 14,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 353,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 8,
+            "staggered": 30,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 34,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 14.956999999999859,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 18,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 372,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 9,
+            "staggered": 36,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 41,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 15.756999999999842,
+          "hp": 239.4,
+          "mode": "STORY",
+          "shots": 15,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 392,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 9,
+            "staggered": 36,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 41,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        }
+      ],
+      "final": {
+        "zone": "dist00",
+        "time": 15.756999999999842,
+        "hp": 239.4,
+        "mode": "STORY",
+        "shots": 15,
+        "deadDialog": false,
+        "metrics": {
+          "frames": 392,
+          "touch": 1,
+          "pointer": 0
+        },
+        "rc126": {
+          "volleys": 9,
+          "staggered": 36,
+          "zigzags": 0,
+          "originalAssets": 2,
+          "substitutedAssets": 41,
+          "nativeBeams": 0,
+          "spawnMoves": 0,
+          "duplicateCosmetics": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "landscape-webkit",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "zone": "dist00",
+          "time": 1.5460000000000007,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 37,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 0,
+            "staggered": 0,
+            "zigzags": 0,
+            "originalAssets": 0,
+            "substitutedAssets": 0,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 2.786000000000002,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 20,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 68,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 4,
+            "staggered": 12,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 10,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 4.357000000000002,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 7,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 108,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 5,
+            "staggered": 18,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 17,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 6.023000000000002,
+          "hp": 236.7,
+          "mode": "STORY",
+          "shots": 13,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 150,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 7.423000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 12,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 185,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 8.542999999999992,
+          "hp": 230,
+          "mode": "STORY",
+          "shots": 11,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 213,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 9.62299999999997,
+          "hp": 230,
+          "mode": "STORY",
+          "shots": 9,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 240,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 10.822999999999944,
+          "hp": 234.70000000000002,
+          "mode": "STORY",
+          "shots": 3,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 270,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 11.90299999999992,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 0,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 297,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 6,
+            "staggered": 24,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 13.48999999999989,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 14,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 337,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 8,
+            "staggered": 36,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 38,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 14.764999999999864,
+          "hp": 237.6,
+          "mode": "STORY",
+          "shots": 17,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 369,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 9,
+            "staggered": 42,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 45,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 15.364999999999851,
+          "hp": 240,
+          "mode": "STORY",
+          "shots": 15,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 384,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 9,
+            "staggered": 42,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 45,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 16.244999999999834,
+          "hp": 215.9,
+          "mode": "STORY",
+          "shots": 19,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 406,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 10,
+            "staggered": 48,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 52,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 17.084999999999816,
+          "hp": 190.00000000000003,
+          "mode": "STORY",
+          "shots": 14,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 427,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 10,
+            "staggered": 48,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 52,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        },
+        {
+          "zone": "dist00",
+          "time": 17.964999999999797,
+          "hp": 176.50000000000003,
+          "mode": "STORY",
+          "shots": 18,
+          "deadDialog": false,
+          "metrics": {
+            "frames": 449,
+            "touch": 1,
+            "pointer": 0
+          },
+          "rc126": {
+            "volleys": 11,
+            "staggered": 54,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 59,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          }
+        }
+      ],
+      "final": {
+        "zone": "dist00",
+        "time": 17.964999999999797,
+        "hp": 176.50000000000003,
+        "mode": "STORY",
+        "shots": 18,
+        "deadDialog": false,
+        "metrics": {
+          "frames": 449,
+          "touch": 1,
+          "pointer": 0
+        },
+        "rc126": {
+          "volleys": 11,
+          "staggered": 54,
+          "zigzags": 0,
+          "originalAssets": 2,
+          "substitutedAssets": 59,
+          "nativeBeams": 0,
+          "spawnMoves": 0,
+          "duplicateCosmetics": 0
+        }
+      },
+      "passed": true
+    }
+  ]
+}

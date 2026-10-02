@@ -1,0 +1,546 @@
+
+### /^function Fi\(/ at 51071
+51071: function Fi(e, t, n, r, i) {
+51072:   return {
+51073:     runPolicyV31400: window.__HAPIL_RUN_V31400__.serialize(e),
+51074:     legacyRosterV31400: e.legacyRosterV31400??null,
+51075:     version: 13,
+51076:     balanceRevision: Or,
+51077:     savedAt: new Date().toISOString(),
+51078:     heroId: t,
+51079:     partyIds: n,
+51080:     zone: e.zone,
+51081:     frontierZone: e.frontierZone,
+51082:     x: e.x,
+51083:     y: e.y,
+51084:     hp: e.hp,
+51085:     clues: [...e.clues],
+51086:     bossDefeated: e.bossDefeated,
+51087:     villageTalk: e.villageTalk,
+51088:     passives: r,
+51089:     enemies: e.enemies
+51090:       .filter((e) => e.ghostUntil <= 0 && !e.episodeBossSummon)
+51091:       .map((e) => ({
+51092:         id: e.id,
+51093:         x: e.x,
+51094:         y: e.y,
+51095:         hp: e.hp,
+51096:         phaseIndex: MONGSE_enemyActivePhase(e),
+51097:         currentPhase: MONGSE_enemyActivePhase(e),
+51098:         summonOwnerId: e.summonOwnerId ?? null,
+51099:         summonPhase: e.summonPhase ?? 0,
+51100:       })),
+51101:     activeGhosts: xe(e.zone)
+51102:       ? e.enemies
+51103:           .filter((t) => t.hp > 0 && t.ghostUntil > e.time)
+51104:           .flatMap((t) => {
+51105:             let n = Se(e.zone).find(
+51106:               (e) => t.id === e.id || t.id.startsWith(`${e.id}-cycle-`),
+51107:             );
+51108:             return n
+51109:               ? [
+51110:                   {
+51111:                     templateId: n.id,
+51112:                     x: t.x,
+51113:                     y: t.y,
+51114:                     hp: t.hp,
+51115:                     remaining: Math.max(
+51116:                       0.65,
+51117:                       Math.min(20, t.ghostUntil - e.time),
+51118:                     ),
+51119:                     cycle: Math.max(
+51120:                       1,
+51121:                       Math.min(3, Math.round(e.loopCycles[e.zone] ?? 1)),
+51122:                     ),
+51123:                   },
+51124:                 ]
+51125:               : [];
+51126:           })
+51127:           .slice(0, 8)
+51128:       : [],
+51129:     egoDrops: e.egoDrops.map((e) => ({ ...e })),
+51130:     shards: i,
+51131:     resonance: e.resonance,
+51132:     spawnedWaves: [...e.spawnedWaves],
+51133:     completedZones: [...e.completedZones],
+51134:     loopCycles: { ...e.loopCycles },
+51135:   };
+51136: }
+51137: function MONGSE_savedEnemyHpScale(e, t) {
+51138:   let n =
+51139:       e.balanceRevision < kr
+51140:         ? qr(t)
+51141:         : (e.balanceRevision < Ar && (t.boss || t.midboss) ? Pr : 1) *
+51142:           (e.balanceRevision < jr && t.boss ? Fr : 1),
+51143:     r = MONGSE_episodeBossPacing(t);
+51144:   return (
+51145:     e.balanceRevision < 316 &&
+51146:       r &&
+51147:       (n *= r.baseHp / Math.max(1, r.previousBaseHp)),
+51148:     n
+51149:   );
+51150: }
+51151: function MONGSE_restoreSavedMurderGhosts(e) {
+51152:   if (!xe(e.zone) || !Array.isArray(e.activeGhosts)) return [];
+51153:   return e.activeGhosts.flatMap((t, n) => {
+51154:     let r = Se(e.zone).find((e) => e.id === t.templateId);
+51155:     if (!r) return [];
+51156:     let i = Jr(r, e.zone),
+51157:       a = Math.max(1, Math.min(3, Math.round(t.cycle ?? 1))),
+51158:       o = dt(e.zone, t, 0.44),
+51159:       s = 1 + Math.min(0.34, Math.max(0, a - 1) * 0.035);
+51160:     return (
+51161:       (i.id = `${r.id}-cycle-${a}-resume-${n}`),
+51162:       (i.x = o.x),
+51163:       (i.y = o.y),
+51164:       (i.maxHp = Math.round(i.maxHp * s)),
+51165:       (i.hp = Math.min(i.maxHp, Math.max(0.1, t.hp))),
+51166:       (i.ghostBorn = 0),
+51167:       (i.ghostUntil = Math.max(0.65, Math.min(20, t.remaining ?? 0.65))),
+51168:       (i.readyAt = 0.35),
+51169:       (i.patternReadyAt = 0.55),
+51170:       i
+51171:     );
+51172:   });
+51173: }
+51174: function Ii(e) {
+51175:   if (!he.includes(e.zone) || e.completedZones.includes(e.zone)) return [];
+51176:   let t = [...he.flatMap((e) => ri(e)), Jr(ye, `murder03`)],
+51177:     MONGSE_savedGhosts = MONGSE_restoreSavedMurderGhosts(e);
+51178:   if (e.enemies) {
+51179:     let n = e.enemies.flatMap((n) => {
+51180:       let r = t.find((e) => e.id === n.id);
+51181:       if (!r) return [];
+51182:       let i = dt(e.zone, n, r.boss ? 0.82 : r.midboss ? 0.68 : 0.44),
+51183:         a = MONGSE_savedEnemyHpScale(e, r),
+51184:         o = n.hp * a;
+51185:       return [
+51186:         {
+51187:           ...r,
+51188:           x: i.x,
+51189:           y: i.y,
+51190:           hp: Math.min(r.maxHp, o),
+51191:           phaseIndex: Math.max(0, Number(n.phaseIndex ?? 0)),
+51192:           currentPhase: Math.max(0, Number(n.currentPhase ?? n.phaseIndex ?? 0)),
+51193:           summonOwnerId: n.summonOwnerId ?? null,
+51194:           summonPhase: Math.max(0, Number(n.summonPhase ?? 0)),
+51195:         },
+51196:       ];
+51197:     });
+51198:     if (Number(e.sourceVersion ?? e.version) < 13) {
+51199:       const MONGSE_fullRoster31226 = Yr(e.zone, !0),
+51200:         MONGSE_byId31226 = new Map(n.map((e) => [e.id, e]));
+51201:       if (
+51202:         e.zone === `murder03` &&
+51203:         Te(`murder03`, new Set(e.clues)) &&
+51204:         (e.loopCycles.murder03 ?? 0) >= 3 &&
+51205:         !MONGSE_fullRoster31226.some((e) => e.id === ye.id)
+51206:       )
+51207:         MONGSE_fullRoster31226.push(Jr(ye, `murder03`));
+51208:       n = MONGSE_fullRoster31226.map(
+51209:         (e) => MONGSE_byId31226.get(e.id) ?? e,
+51210:       );
+51211:     }
+51212:     return [...n, ...MONGSE_savedGhosts];
+51213:   }
+51214:   if (MONGSE_savedGhosts.length) return MONGSE_savedGhosts;
+51215:   return e.zone === `murder03` &&
+51216:     Te(`murder03`, new Set(e.clues)) &&
+51217:     (e.loopCycles.murder03 ?? 0) >= 3 &&
+51218:     !e.bossDefeated
+51219:     ? [Jr(ye, `murder03`)]
+51220:     : Yr(e.zone, !0);
+51221: }
+51222: function Li(e, t, n) {
+51223:   let r = new Set(t);
+51224:   return (
+51225:     r.has(2) && r.add(1),
+51226:     r.has(3) && (r.add(1), r.add(2)),
+51227:     r.has(4) && (r.add(1), r.add(2), r.add(3)),
+51228:     n.some((e) => e.boss)
+51229:       ? [1, 2, 3, 4].forEach((e) => r.add(e))
+51230:       : n.some((e) => e.midboss)
+51231:         ? [1, 2, 3].forEach((e) => r.add(e))
+51232:         : n.some((e) => e.id.includes(`-w2-`))
+51233:           ? (r.add(1), r.add(2))
+51234:           : n.length && he.includes(e) && r.add(1),
+51235:     r
+51236:   );
+51237: }
+51238: function MONGSE_emptyTransitionV31217() {
+51239:   return { speaker: ``, text: `` };
+51240: }
+51241: var MONGSE_REST_INTERLUDES = Object.freeze({});
+51242: function MONGSE_mergeExactInterludes31222(e, t, n, r = {}) {
+51243:   let i = e
+51244:     .map((e) => MONGSE_NARRATIVE_V395.interludes?.[e])
+51245:     .filter(Boolean);
+51246:   if (!i.length) return null;
+51247:   let a = i[0],
+51248:     o = i.flatMap((e) => e.slides ?? []);
+51249:   return {
+51250:     ...a,
+
+### /^function ji\(/ at 50777
+50777: function ji(e) {
+50778:   if (!e || typeof e != `object`) return null;
+50779:   e=window.__HAPIL_POLICY_V31400__.migrate(e);
+50780:   let t = e,
+50781:     n =
+50782:       typeof t.heroId == `string` && F.some((e) => e.id === t.heroId)
+50783:         ? t.heroId
+50784:         : `hwando`,
+50785:     r = Array.isArray(t.partyIds)
+50786:       ? [
+50787:           ...new Set(
+50788:             t.partyIds.filter(
+50789:               (e) =>
+50790:                 typeof e == `string` && e !== n && F.some((t) => t.id === e),
+50791:             ),
+50792:           ),
+50793:         ].slice(0, 2)
+50794:       : [`seoha`, `gunner`].filter((e) => e !== n),
+50795:     i = Math.round(_i(t.version, 1, 1, 13)),
+50796:     a = (e, t = 10) => {
+50797:       let n = _i(e, t, i < 9 ? 1.1 : f, i < 9 ? 18.9 : p);
+50798:       return i < 9 ? x(n) : n;
+50799:     },
+50800:     o = typeof t.zone == `string` ? t.zone : `hub`,
+50801:     s =
+50802:       {
+50803:         loop: `dist01`,
+50804:         dist: `dist01`,
+50805:         u2: `u201`,
+50806:         last3: `last301`,
+50807:         vibe: `kair01`,
+50808:         murder: `murder01`,
+50809:       }[o] ?? (Object.prototype.hasOwnProperty.call(N, o) ? o : `hub`),
+50810:     c = {
+50811:       haram: `murder-haram`,
+50812:       minjae: `murder-minjae`,
+50813:       seojin: `murder-seojin`,
+50814:       ikyung: `murder-ikyung`,
+50815:       woosol: `murder-woosol`,
+50816:     },
+50817:     l = Array.isArray(t.clues)
+50818:       ? [
+50819:           ...new Set(
+50820:             t.clues.flatMap((e) => {
+50821:               if (typeof e != `string`) return [];
+50822:               let t = c[e] ?? e;
+50823:               return _e.some((e) => e.id === t) ? [t] : [];
+50824:             }),
+50825:           ),
+50826:         ]
+50827:       : [],
+50828:     u = i < 5 && s !== `village` ? [] : l,
+50829:     d = t.passives && typeof t.passives == `object` ? t.passives : {},
+50830:     m = {
+50831:       damage: 3,
+50832:       speed: 3,
+50833:       cooldown: 3,
+50834:       evolution: 3,
+50835:       ...nr,
+50836:       ...Object.fromEntries(F.map((e) => [fr(e.id), 7])),
+50837:       ...Object.fromEntries(F.map((e) => [mr(e.id), 6])),
+50838:       ...Object.fromEntries(lr.map((e) => [pr(e), 8])),
+50839:       ...Object.fromEntries(
+50840:         MONGSE_INFINITE_STAT_KEYS.map((e) => [e, MONGSE_INFINITE_STAT_MAX]),
+50841:       ),
+50842:     },
+50843:     h = Object.fromEntries(
+50844:       Object.entries(m).map(([e, t]) => [e, Math.round(_i(d[e], 0, 0, t))]),
+50845:     ),
+50846:     g = Array.isArray(t.enemies)
+50847:       ? t.enemies.flatMap((e) => {
+50848:           if (!e || typeof e != `object`) return [];
+50849:           let t = e;
+50850:           return typeof t.id == `string`
+50851:             ? [
+50852:                 {
+50853:                   id: t.id,
+50854:                   x: a(t.x),
+50855:                   y: a(t.y),
+50856:                   hp: _i(t.hp, 1, 0.1, Ir),
+50857:                   phaseIndex: Math.round(_i(t.phaseIndex, 0, 0, 12)),
+50858:                   currentPhase: Math.round(_i(t.currentPhase, 0, 0, 12)),
+50859:                   summonOwnerId:
+50860:                     typeof t.summonOwnerId == `string`
+50861:                       ? t.summonOwnerId.slice(0, 96)
+50862:                       : null,
+50863:                   summonPhase: Math.round(_i(t.summonPhase, 0, 0, 12)),
+50864:                 },
+50865:               ]
+50866:             : [];
+50867:         })
+50868:       : void 0,
+50869:     _ =
+50870:       typeof t.savedAt == `string` && Number.isFinite(Date.parse(t.savedAt))
+50871:         ? t.savedAt
+50872:         : new Date().toISOString(),
+50873:     v = he.filter((e) => N[e].order < N[s].order),
+50874:     y =
+50875:       i < 6
+50876:         ? v
+50877:         : Array.isArray(t.completedZones)
+50878:           ? [
+50879:               ...new Set(
+50880:                 t.completedZones.filter(
+50881:                   (e) =>
+50882:                     typeof e == `string` &&
+50883:                     Object.prototype.hasOwnProperty.call(N, e) &&
+50884:                     e !== `hub` &&
+50885:                     e !== `village`,
+50886:                 ),
+50887:               ),
+50888:             ]
+50889:           : [],
+50890:     MONGSE_kairMigration31222 = MONGSE_migrateKairSave31221(i, s, y),
+50891:     b = ((y = MONGSE_kairMigration31222.completedZones),
+50892:     (s = MONGSE_kairMigration31222.zone),
+50893:     typeof t.frontierZone == `string` ? t.frontierZone : s),
+50894:     S =
+50895:       [
+50896:         s,
+50897:         Object.prototype.hasOwnProperty.call(N, b) ? b : s,
+50898:         y.map((e) => N[e].next ?? e).sort((e, t) => N[t].order - N[e].order)[0],
+50899:       ]
+50900:         .filter((e) => !!e)
+50901:         .sort((e, t) => N[t].order - N[e].order)[0] ?? s,
+50902:     C = t.loopCycles && typeof t.loopCycles == `object` ? t.loopCycles : {},
+50903:     w = Object.fromEntries(
+50904:       Object.entries(C).flatMap(([e, t]) =>
+50905:         Object.prototype.hasOwnProperty.call(N, e)
+50906:           ? [[e, Math.round(_i(t, 0, 0, 99))]]
+50907:           : [],
+50908:       ),
+50909:     ),
+50910:     MONGSE_pendingEgoSalvageV31303 = Array.isArray(t.egoDrops)
+50911:       ? Math.round(
+50912:           _i(
+50913:             t.egoDrops.reduce(
+50914:               (sum, drop) =>
+50915:                 sum +
+50916:                 (drop && typeof drop === `object`
+50917:                   ? _i(drop.amount, 0, 0, MONGSE_INFINITE_STAT_MAX)
+50918:                   : 0),
+50919:               0,
+50920:             ),
+50921:             0,
+50922:             0,
+50923:             MONGSE_INFINITE_STAT_MAX,
+50924:           ),
+50925:         )
+50926:       : 0,
+50927:     ee = [],
+50928:     MONGSE_activeGhosts =
+50929:       xe(s) && Array.isArray(t.activeGhosts)
+50930:         ? t.activeGhosts
+50931:             .flatMap((e) => {
+50932:               if (!e || typeof e != `object`) return [];
+50933:               let t = e,
+50934:                 n =
+50935:                   typeof t.templateId == `string`
+50936:                     ? Se(s).find((e) => e.id === t.templateId)
+50937:                     : null;
+50938:               return n
+50939:                 ? [
+50940:                     {
+50941:                       templateId: n.id,
+50942:                       x: a(t.x),
+50943:                       y: a(t.y),
+50944:                       hp: _i(t.hp, n.hp, 0.1, Ir),
+50945:                       remaining: _i(t.remaining, 0.65, 0.65, 20),
+50946:                       cycle: Math.round(_i(t.cycle, w[s] ?? 1, 1, 3)),
+50947:                     },
+50948:                   ]
+50949:                 : [];
+50950:             })
+50951:             .slice(0, 8)
+50952:         : [];
+50953:   return {
+50954:     version: 13,
+50955:     sourceVersion: i,
+50956:     balanceRevision: Math.round(_i(t.balanceRevision, 0, 0, Or)),
+
+### /^function HAPIL_restoreEntryFlowV31301\(/ at 99990
+99990: function HAPIL_restoreEntryFlowV31301(state, save) {
+99991:   window.__HAPIL_RUN_V31400__.restore(state,save);
+99992:   if (
+99993:     !state ||
+99994:     save?.entryFlowCompletedV31301 !== true ||
+99995:     save.zone !== state.zone
+99996:   ) return false;
+99997:   state.zoneEntryFlowZone31226 = state.zone;
+99998:   state.encounterDialogue31226 = null;
+99999:   state.encounterLockUntil31226 = 0;
+100000:   state.encounterWallUnlockAtV31227 = 0;
+100001:   if (MONGSE_isRestZone(state.zone)) {
+100002:     state.restPortalUnlockAt31226 = Number(state.time ?? 0);
+100003:     state.restPortalWallUnlockAtV31227 = 0;
+100004:     state.restDialogueComplete31226 = true;
+100005:   }
+100006:   return true;
+100007: }
+100008: 
+100009: function HAPIL_commitFinalEndingV31301(
+100010:   state,
+100011:   heroId,
+100012:   partyIds,
+100013:   passives,
+100014:   shards,
+100015: ) {
+100016:   if (!state) return Object.freeze({ ok: false, reason: "state-missing" });
+100017:   if((window.__HAPIL_MODES_V31346__?.mode(state)??state.gameModeV31346??'STORY')!=='STORY')return Object.freeze({ok:false,reason:'story-ending-only'});
+100018:   const finalBattle = state.hapilFinalBattleV31300;
+100019:   const finalBossStillPresent = state.enemies?.some((entry) => entry.id === "c104-boss");
+100020:   if (
+100021:     state.zone === "cult04" &&
+100022:     !(
+100023:       finalBattle?.completed === true &&
+100024:       finalBattle?.secondPhaseActive === true &&
+100025:       finalBattle?.monochromeActiveV31377 === true &&
+100026:       finalBattle?.finalHitCommittedV31377 === true &&
+100027:       Number(finalBattle?.stage ?? 0) >= 7 &&
+100028:       state.bossDefeated === true &&
+100029:       !finalBossStillPresent
+100030:     )
+100031:   )
+100032:     return Object.freeze({ ok: false, reason: "final-monochrome-battle-incomplete" });
+100033:   state.completedZones?.add?.("cult04");
+100034:   state.zone = "village";
+100035:   state.frontierZone = "village";
+100036:   state.x = ie.x;
+100037:   state.y = ie.y;
+100038:   hi(state);
+100039:   state.moveVx = 0;
+100040:   state.moveVy = 0;
+100041:   state.enemies = [];
+100042:   state.egoDrops = [];
+100043:   state.spawnedWaves = new Set();
+100044:   // RC75: the village must not inherit live combat bodies or laser contacts.
+100045:   state.hostileProjectiles = [];
+100046:   state.effects = [];
+100047:   state.bossLaserCastsV31330 = [];
+100048:   state.bossUltimateCastsV31334 = [];
+100049:   state.enemyExitFxV31327 = [];
+100050:   state.timeStopUntil = 0;
+100051:   state.pendingHits = [];
+100052:   state.impactQueue = [];
+100053:   state.pendingStrikes = [];
+100054:   state.narrativeCasts = [];
+100055:   state.telekineticCasts = [];
+100056:   state.spatialRiftCasts = [];
+100057:   state.supportCall = null;
+100058:   state.targetEnemyId = null;
+100059:   state.bossDefeated = true;
+100060:   state.villageTalk = true;
+100061:   state.hapilSamongActiveV31300 = false;
+100062:   state.hapilFinalCombatClearedV31301 = true;
+100063:   state.hapilTerminalCompleteV31301 = true;
+100064:   state.hapilEndingCleared = true;window.__HAPIL_SAMONG_RC91__?.unlock(state,'story-ending');
+100065:   if (state.hapilFinalBattleV31300) {
+100066:     state.hapilFinalBattleV31300.completed = true;
+100067:     state.hapilFinalBattleV31300.completedAt = Number(state.time ?? 0);
+100068:   }
+100069:   MONGSE_storageSet("hapilEndingCleared", "true");
+100070:   MONGSE_storageSet("hapilCampaignCompleteV31301", "true");
+100071:   window.__HAPIL_ENDING_CLEARED_V31300__ = true;
+100072:   window.__HAPIL_CAMPAIGN_COMPLETE_V31301__ = true;
+100073:   const payload = Fi(state, heroId, partyIds, passives, shards);
+100074:   const saved = MONGSE_writeSave("auto", payload);
+100075:   return Object.freeze({
+100076:     ok: saved?.ok === true,
+100077:     zone: state.zone,
+100078:     frontierZone: state.frontierZone,
+100079:     villageTalk: state.villageTalk,
+100080:     payload,
+100081:   });
+100082: }
+100083: 
+100084: (() => {
+100085:   "use strict";
+100086:   const freeze = Object.freeze;
+100087:   const VERSION = "3.13.01";
+100088:   const installV31301AutoProgress = (attempt = 0) => {
+100089:     if (window.__HAPIL_V31300_PATCH__?.allPass !== true) {
+100090:       if (attempt < 760)
+100091:         setTimeout(() => installV31301AutoProgress(attempt + 1), 0);
+100092:       return;
+100093:     }
+100094: 
+100095:   const baseReadSave = ji;
+100096:   ji = function HAPIL_readSaveV31301(rawSave) {
+100097:     const normalized = baseReadSave(rawSave);
+100098:     if (!normalized) return normalized;
+100099:     const withEntryFlow = {
+100100:       ...normalized,
+100101:       entryFlowCompletedV31301:
+100102:         rawSave?.entryFlowCompletedV31301 === true &&
+100103:         rawSave?.zone === normalized.zone,
+100104:     };
+100105:     const raw = rawSave?.hapilFinalBattleV31301;
+100106:     if (!raw || typeof raw !== "object" || raw.boss?.id !== "c104-boss")
+100107:       return withEntryFlow;
+100108:     const number = (value, fallback, min, max) => {
+100109:       const parsed = Number(value);
+100110:       return Number.isFinite(parsed) ? Math.max(min, Math.min(max, parsed)) : fallback;
+100111:     };
+100112:     return {
+100113:       ...withEntryFlow,
+100114:       hapilFinalBattleV31301: {
+100115:         stage: Math.round(number(raw.stage, 0, 0, 7)),
+100116:         elapsed: number(raw.elapsed, 0, 0, 3600),
+100117:         combatElapsedRC79: raw.combatElapsedRC79 == null ? null : number(raw.combatElapsedRC79, 0, 0, 3600),
+100118:         secondPhaseActive: raw.secondPhaseActive === true,
+100119:         completed: raw.completed === true,
+100120:         samongActive: raw.samongActive === true,
+100121:         monochromeActiveV31377: raw.monochromeActiveV31377 === true || raw.samongActive === true || Number(raw.stage ?? 0) >= 5,
+100122:         finalHitCommittedV31377: raw.finalHitCommittedV31377 === true,
+100123:         awakeningPendingRC108: raw.awakeningPendingRC108 === true,
+100124:         awakeningCommittedRC108: raw.awakeningCommittedRC108 === true || (Number(raw.stage??0)>=5&&raw.awakeningPendingRC108!==true),
+100125:         boss: {
+100126:           id: "c104-boss",
+100127:           hp: number(raw.boss.hp, 1, 0.1, 250000),
+100128:           maxHp: number(raw.boss.maxHp, 1, 1, 250000),
+100129:           originalMaxHp: number(raw.boss.originalMaxHp, 1, 1, 250000),
+100130:           fixedPhase: Math.round(number(raw.boss.fixedPhase, 0, 0, 12)),
+100131:           currentPhase: Math.round(number(raw.boss.currentPhase, 1, 0, 12)),
+100132:           firstDefeat: raw.boss.firstDefeat === true,
+100133:           secondPhase: raw.boss.secondPhase === true,
+100134:         },
+100135:       },
+100136:     };
+100137:   };
+100138: 
+100139:   const baseSerializeSave = Fi;
+100140:   Fi = function HAPIL_serializeSaveV31301(...args) {
+100141:     const serialized = baseSerializeSave(...args);
+100142:     const state = args[0];
+100143:     serialized.entryFlowCompletedV31301 =
+100144:       !!state &&
+100145:       (MONGSE_isRestZone(state.zone)
+100146:         ? !MONGSE_isRestPortalLocked31226(state)
+100147:         : !MONGSE_isEncounterLocked31226(state));
+100148:     const battle = state?.hapilFinalBattleV31300;
+100149:     const boss = state?.enemies?.find((entry) => entry.id === "c104-boss");
+100150:     if (state?.zone !== "cult04" || !battle || !boss) return serialized;
+100151:     return {
+100152:       ...serialized,
+100153:       hapilFinalBattleV31301: {
+100154:         stage: Math.max(0, Math.min(7, Math.round(Number(battle.stage ?? 0)))),
+100155:         elapsed: Math.max(0, Math.min(3600, Number(state.time ?? 0) - Number(battle.startedAt ?? state.time ?? 0))),
+100156:         secondPhaseActive: battle.secondPhaseActive === true,
+100157:         completed: battle.completed === true,
+100158:         samongActive: state.hapilSamongActiveV31300 === true,
+100159:         combatElapsedRC79: Math.max(0, Number(battle.combatElapsedRC79)||0),
+100160:         monochromeActiveV31377: battle.monochromeActiveV31377 === true,
+100161:         finalHitCommittedV31377: battle.finalHitCommittedV31377 === true,
+100162:         awakeningPendingRC108: battle.awakeningPendingRC108 === true,
+100163:         awakeningCommittedRC108: battle.awakeningCommittedRC108 === true,
+100164:         boss: {
+100165:           id: boss.id,
+100166:           hp: Number(boss.hp ?? 1),
+100167:           maxHp: Number(boss.maxHp ?? 1),
+100168:           originalMaxHp: Number(boss.hapilOriginalMaxHpV31300 ?? boss.maxHp ?? 1),
+100169:           fixedPhase: Number(boss.fixedPhase ?? 0),
