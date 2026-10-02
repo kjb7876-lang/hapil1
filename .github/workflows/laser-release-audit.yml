@@ -1,0 +1,80 @@
+name: Laser release audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/laser-release-audit.yml'
+      - 'tests/laser-release-gate.cjs'
+      - 'tests/rc119-laser-body-browser.cjs'
+      - 'assets/rc77/connected-laser.js'
+      - 'assets/rc108/laser-topology.js'
+      - 'assets/index-v31526.js'
+      - 'index.html'
+
+# This audit never deploys, rewrites main or alters the existing Pages workflow.
+# A green Pages deployment is not a substitute for a green audit.
+permissions:
+  contents: read
+
+concurrency:
+  group: laser-release-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Fetch the approved visual reference without full asset history
+        run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated browser test runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          QA_RUNTIME="$RUNNER_TEMP/hapil-qa-runtime"
+          mkdir -p "$QA_RUNTIME"
+          npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1
+          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/laser-release" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          /usr/bin/chromium --version
+      - name: Execute render and strict natural progression checks
+        run: node tests/laser-release-gate.cjs
+      - name: Publish exact results in the job log and summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/laser-release/release-summary.json" ]; then
+            cat "$RUNNER_TEMP/laser-release/release-summary.json"
+            echo '## Laser release audit' >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat "$RUNNER_TEMP/laser-release/release-summary.json" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Audit did not produce results. Setup failure or cancellation is NOT a pass.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Preserve screenshots, per-suite logs and machine-readable evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: laser-release-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/laser-release/
+            /workspace/hapil-deliverables/RC119-body/
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 1
