@@ -8,7 +8,7 @@ permissions:
   contents: read
 concurrency:
   group: rc126-regression-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   regression:
     runs-on: ubuntu-24.04
@@ -32,6 +32,7 @@ jobs:
           set -euo pipefail
           git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
           git fetch --no-tags --depth=1 origin dd56fb42aeb8faa45f66a391ea657daf772c410b
+          git fetch --no-tags --depth=1 origin 257b920a470e0ee6a04e5a52d71157f66232682c
           R="$RUNNER_TEMP/rc126-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
           node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
@@ -97,10 +98,10 @@ jobs:
           set -euo pipefail
           ROOT="qa/rc126-evidence/$GITHUB_RUN_ID"
           mkdir -p "$ROOT"
-          for SUITE in combat layout overscan-hp dream-natural; do
+          for SUITE in combat layout overscan-hp dream-natural release hero-actions; do
             gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "rc126-$SUITE-$GITHUB_SHA" --dir "$RUNNER_TEMP/evidence-$SUITE"
             mkdir -p "$ROOT/$SUITE"
-            find "$RUNNER_TEMP/evidence-$SUITE" -type f \( -name '*.png' -o -name '*results.json' -o -name 'summary.json' \) -exec cp '{}' "$ROOT/$SUITE/" \;
+            find "$RUNNER_TEMP/evidence-$SUITE" -type f \( -name '*.png' -o -name '*results.json' -o -name '*summary.json' -o -name 'actions-*.json' \) -exec cp '{}' "$ROOT/$SUITE/" \;
           done
           git config user.name 'HAPIL visual evidence'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
