@@ -1,0 +1,112 @@
+name: RC122 autoplay and exit regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/rc122-autoplay-transitions]
+    paths: ['.github/workflows/rc122-regression.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc122-regression-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/fix/rc122-autoplay-transitions'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      commit: ${{ steps.candidate.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Apply exact candidate and run guarded policy tests
+        id: candidate
+        run: |
+          set -euo pipefail
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          node tools/rc122-apply-candidate.cjs
+          node tests/rc122-autoplay-policy-smoke.cjs
+          node tests/rc115-map-advance-smoke.cjs
+          node --check tests/rc122-autoplay-browser.cjs
+          git diff --check
+          test "$(git ls-remote origin refs/heads/fix/rc122-autoplay-transitions | cut -f1)" = "$GITHUB_SHA"
+          git add assets/index-v31526.js index.html
+          if ! git diff --cached --quiet; then
+            git config user.name 'HAPIL QA'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix: restore automatic locomotion during passive casts and require exit approach'
+            git push origin HEAD:refs/heads/fix/rc122-autoplay-transitions
+          fi
+          test -z "$(git status --porcelain)"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  regression:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [autoplay, dream, death-dialog, topology, release]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare.outputs.commit }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Preserve approved-art reference
+        run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Isolated Chromium runtime
+        run: |
+          R="$RUNNER_TEMP/rc122-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc122-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc122-evidence/release" >> "$GITHUB_ENV"
+      - name: Execute unchanged candidate
+        env:
+          SUITE: ${{ matrix.suite }}
+          TESTED_COMMIT: ${{ needs.prepare.outputs.commit }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$TESTED_COMMIT"
+          test -z "$(git status --porcelain)"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          printf '%s\n' "$TESTED_COMMIT" > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          echo "RC122_TESTED_COMMIT=$TESTED_COMMIT suite=$SUITE"
+          case "$SUITE" in
+            autoplay) node tests/rc122-autoplay-policy-smoke.cjs && node tests/rc115-map-advance-smoke.cjs && node tests/rc122-autoplay-browser.cjs ;;
+            dream) node tests/rc121-dream-regression-browser.cjs ;;
+            death-dialog) node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+          esac
+      - name: Print observed summaries
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),root=process.env.HAPIL_QA_OUTPUT;
+          for(const f of ['rc122-autoplay-results.json','dream-results.json','death-dialog-results.json','summary.json','release/release-summary.json']){const p=path.join(root,f);if(!fs.existsSync(p))continue;const x=JSON.parse(fs.readFileSync(p));delete x.samples;if(x.natural)for(const r of x.natural){delete r.samples;if(r.frames)r.frames={n:r.frames.n,maxGap:r.frames.maxGap};}if(Array.isArray(x))for(const r of x){r.checks=r.rows?.length;delete r.rows;delete r.renderRows;}console.log('RC122_EVIDENCE '+f+' '+JSON.stringify(x).slice(0,24000));}
+          NODE
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc122-${{ matrix.suite }}-${{ needs.prepare.outputs.commit }}
+          path: ${{ runner.temp }}/rc122-evidence/
+          retention-days: 14
