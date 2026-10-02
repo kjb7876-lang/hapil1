@@ -1,0 +1,198 @@
+{
+  "usedProgressCheats": false,
+  "cases": [
+    {
+      "mobile": false,
+      "summary": {
+        "damageByFamily": {
+          "area": 212,
+          "exit-body": 262,
+          "projectile": 982,
+          "laser": 480
+        },
+        "dialogSamples": 34,
+        "final": {
+          "time": 21.370095999999833,
+          "zone": "dist00",
+          "hp": 240,
+          "x": 6.485393258426967,
+          "y": 25.51460674157304,
+          "role": "disabled",
+          "status": "死夢覺醒 · 위기 부활 · 7초",
+          "target": null,
+          "nav": [],
+          "auto": true,
+          "lastDodge": -99,
+          "evade": 0,
+          "cooldown": {
+            "Q": 18.906895999999858,
+            "W": 21.086795999999826,
+            "R": 17.220195999999845,
+            "G": 8.663695999999987,
+            "E": 21.336695999999833,
+            "Collab": 6.323799999999999
+          },
+          "decision": "",
+          "fields": {
+            "autoDecisionV31302": "",
+            "autoDecisionUntilV31302": 0,
+            "autoDecisionAtV31302": 19.770095999999853,
+            "autoDecisionClearReasonV31302": "manual-commit",
+            "autoEvadeUntil31223": 0,
+            "autoEvadeStartedAt31223": 0,
+            "autoEvadeThreatKey31223": "",
+            "autoEvadeCancelReason31223": "respawn",
+            "autoEvadeScanAt31223": 21.410095999999832,
+            "autoEvadeMode31224": "",
+            "autoEvadeUsesSharedDash31224": false,
+            "autoDecisionSerialV31302": 8,
+            "autoEvadeDecisions31223": [],
+            "autoEvadeReadyAt31223": 21.920095999999834
+          },
+          "lasers": [],
+          "counts": {
+            "shots": 0,
+            "effects": 27,
+            "pending": 0
+          },
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 22809.600000000002,
+              "x": 16.8,
+              "y": 4.2
+            }
+          ],
+          "dialog": true
+        }
+      },
+      "errors": []
+    },
+    {
+      "mobile": true,
+      "summary": {
+        "damageByFamily": {
+          "projectile": 320.2,
+          "exit-body": 65,
+          "area": 41.80000000000001,
+          "laser": 192,
+          "boss-echo": 18
+        },
+        "dialogSamples": 0,
+        "final": {
+          "time": 42.67529999999979,
+          "zone": "dist00",
+          "hp": 104.20000000000002,
+          "x": 26.887199111127426,
+          "y": 29.872882639049692,
+          "role": "disabled",
+          "status": "EGO · 백은 검흔각성",
+          "target": null,
+          "nav": [],
+          "auto": true,
+          "lastDodge": -99,
+          "evade": 0,
+          "cooldown": {
+            "Q": 42.40869999999978,
+            "W": 41.565399999999784,
+            "G": 30.60899999999975,
+            "R": 31.702299999999738,
+            "E": 41.89199999999978,
+            "S": 30.60899999999975,
+            "Collab": 0
+          },
+          "decision": "",
+          "fields": {
+            "autoDecisionV31302": "",
+            "autoDecisionUntilV31302": 0,
+            "autoDecisionAtV31302": 20.27239999999988,
+            "autoDecisionClearReasonV31302": "manual-commit",
+            "autoEvadeUntil31223": 0,
+            "autoEvadeStartedAt31223": 0,
+            "autoEvadeThreatKey31223": "",
+            "autoEvadeCancelReason31223": "complete",
+            "autoEvadeScanAt31223": 41.43379999999979,
+            "autoEvadeMode31224": "",
+            "autoEvadeUsesSharedDash31224": false,
+            "autoEvadeDecisions31223": [
+              {
+                "key": "dist00-boss:rc95-volley:40",
+                "at": 34.01539999999976,
+                "roll": 0.048364284448325634,
+                "success": true,
+                "reactionAt": 34.227276913552856,
+                "resolved": false
+              },
+              {
+                "key": "dist00-boss:42",
+                "at": 34.082099999999755,
+                "roll": 0.6946425286587328,
+                "success": false,
+                "reactionAt": 34.320546403398865,
+                "resolved": false
+              },
+              {
+                "key": "dist00-boss:뿌리의 문지기 · 대형 탄환 궤도:42",
+                "at": 34.14879999999976,
+                "roll": 0.42537020170129836,
+                "success": false,
+                "reactionAt": 34.33028650917387,
+                "resolved": false
+              },
+              {
+                "key": "dist00-boss:139",
+                "at": 35.02889999999982,
+                "roll": 0.4798332308419049,
+                "success": false,
+                "reactionAt": 35.22148037658577,
+                "resolved": true,
+                "result": "roll-failed"
+              },
+              {
+                "key": "dist00-boss:44",
+                "at": 35.34549999999983,
+                "roll": 0.4616885578725487,
+                "success": false,
+                "reactionAt": 35.61690276217071,
+                "resolved": false
+              },
+              {
+                "key": "dist00-boss:뿌리의 문지기 · 대형 탄환 궤도:44",
+                "at": 35.74219999999985,
+                "roll": 0.48835555254481733,
+                "success": false,
+                "reactionAt": 36.019134481870225,
+                "resolved": false
+              }
+            ],
+            "autoEvadeFromX31223": 26.067014494249694,
+            "autoEvadeFromY31223": 28.30921949779232,
+            "autoEvadeToX31223": 27.99161768569204,
+            "autoEvadeToY31223": 28.509538132696637,
+            "autoEvadeReadyAt31223": 16.417699999999936,
+            "autoEvadeCount31223": 1,
+            "autoEvadeDashConsumedAt31224": 15.122699999999936,
+            "autoEvadeDashConsumeCount31224": 1,
+            "autoDecisionSerialV31302": 2
+          },
+          "lasers": [],
+          "counts": {
+            "shots": 0,
+            "effects": 14,
+            "pending": 0
+          },
+          "enemies": [
+            {
+              "id": "dist00-boss",
+              "hp": 14191.47876759901,
+              "x": 27.692252853630038,
+              "y": 26.949347926799234
+            }
+          ],
+          "dialog": false
+        }
+      },
+      "errors": []
+    }
+  ]
+}

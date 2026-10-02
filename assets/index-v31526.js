@@ -61158,15 +61158,11 @@ function Ri() {
                 I.current.has(`ArrowLeft`) ||
                 I.current.has(`ArrowRight`),
               MONGSE_manualMotion31223 =
-                o.heroMotion?.until > o.time &&
-                !o.heroMotion?.autoEvade31223 &&
-                [`skill`, `ultimate`, `hurt`, `dash`, `guard`].includes(
-                  o.heroMotion?.kind,
-                ),
+                window.__HAPIL_AUTOPLAY_POLICY_RC122__.manualMotion(o, !!Re.current) /* RC122_AUTO_CAST_OWNERSHIP */,
               MONGSE_manualCommit31223 =
                 (window.__HAPIL_MOVEMENT_V31336__?.active(o,o) ?? false) ||
                 MONGSE_manualDirection31222 ||
-                !!(o.target && o.target.autoProgressV31301 !== !0) ||
+                window.__HAPIL_AUTOPLAY_POLICY_RC122__.manualTarget(o) ||
                 !!o.bufferedAction ||
                 MONGSE_manualMotion31223,
               MONGSE_autoDodgeStep31223;
