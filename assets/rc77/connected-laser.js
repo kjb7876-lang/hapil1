@@ -139,25 +139,11 @@
   paint.setTransform(scale,0,0,scale,-x*scale,-y*scale);paint.globalAlpha=1;paint.globalCompositeOperation='source-over';paint.imageSmoothingEnabled=true;paint.imageSmoothingQuality='high';
   return target;
  }
- // RC119: one feathered full-width beam body, without decorative bitmap boxes.
- const beamPalettes=new Map();
- function beamArt(options){
-  if(typeof document==='undefined')return null;
-  const color=options.color||'#ab82ed',accent=options.accent||color,key=color+'|'+accent;
-  if(beamPalettes.has(key))return beamPalettes.get(key);
-  const canvas=document.createElement('canvas');canvas.width=256;canvas.height=128;
-  const paint=canvas.getContext('2d');if(!paint)return null;
-  const gradient=paint.createLinearGradient(0,0,0,128);
-  for(const [at,tint]of[[0,'transparent'],[.25,'transparent'],[.36,color],[.46,accent],[.54,accent],[.64,color],[.75,'transparent'],[1,'transparent']])gradient.addColorStop(at,tint);
-  paint.fillStyle=gradient;paint.fillRect(0,0,256,128);
-  beamPalettes.set(key,canvas);if(beamPalettes.size>64)beamPalettes.delete(beamPalettes.keys().next().value);
-  return canvas;
- }
  function render(ctx,source,options={}){
   const lines=(source??[]).filter(l=>l?.a&&l?.b&&[l.a.x,l.a.y,l.b.x,l.b.y].every(Number.isFinite));
   if(!ctx||!lines.length)return false;
   const alpha=Math.max(0,Math.min(1,finite(options.alpha,1))),half=Math.max(1,finite(options.width,7));
-  const image=beamArt(options)||options.image,iw=image?.naturalWidth||image?.width||0,ih=image?.naturalHeight||image?.height||0;
+  const image=options.image,iw=image?.naturalWidth||image?.width||0,ih=image?.naturalHeight||image?.height||0;
   const hasArt=!!image&&image.complete!==false&&iw>0&&ih>0;
   const joined=paths(lines),connection=sharedEnds(lines),compound=options.complex===true||lines.length>1,curved=joined.some(chain=>chain.length>2);
   ctx.save();try{
