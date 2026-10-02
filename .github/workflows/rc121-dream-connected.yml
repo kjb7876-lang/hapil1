@@ -1,72 +1,16 @@
 name: RC121 Dream and connected lasers
 on:
   workflow_dispatch:
-  push:
-    branches: [fix/rc121-connected-dream]
-    paths:
-      - '.github/workflows/rc121-dream-connected.yml'
-      - 'tests/rc121-*.cjs'
-      - 'tests/dream-death-dialog-browser.cjs'
-      - 'tests/rc116-laser-telegraph-browser.cjs'
-      - 'tools/patch-dream-death-dialog.cjs'
-      - 'tools/repair-warning-fixture-loading.cjs'
-      - 'assets/rc108/samong-ricochet.js'
-      - 'assets/rc108/laser-topology.js'
-      - 'assets/rc97/choice-patterns.js'
-      - 'assets/index-v31526.js'
-      - 'index.html'
+# Release candidates are now patched explicitly, never rewritten by this job.
+# Use Run workflow on the intended ref; the existing laser-release-audit.yml
+# remains the automatic main-branch laser audit.
 permissions:
   contents: read
 concurrency:
   group: rc121-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  prepare:
-    if: github.ref == 'refs/heads/fix/rc121-connected-dream'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    permissions:
-      contents: write
-    outputs:
-      commit: ${{ steps.candidate.outputs.commit }}
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 1
-          show-progress: false
-      - uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-      - name: Apply bounded death-dialog candidate on work branch only
-        id: candidate
-        shell: bash
-        run: |
-          set -euo pipefail
-          test "$GITHUB_REF" = refs/heads/fix/rc121-connected-dream
-          test -z "$(git status --porcelain)"
-          ART=$(git hash-object assets/rc77/connected-laser.js)
-          node tools/patch-dream-death-dialog.cjs
-          node tools/repair-warning-fixture-loading.cjs
-          test "$(git hash-object assets/rc77/connected-laser.js)" = "$ART"
-          for f in assets/index-v31526.js assets/rc108/samong-ricochet.js assets/rc108/laser-topology.js assets/rc97/choice-patterns.js tests/rc121-connected-topology-browser.cjs tests/rc121-dream-regression-browser.cjs tests/dream-death-dialog-browser.cjs tests/rc116-laser-telegraph-browser.cjs; do node --check "$f"; done
-          git diff --check
-          REMOTE=$(git ls-remote origin refs/heads/fix/rc121-connected-dream | cut -f1)
-          test "$REMOTE" = "$GITHUB_SHA"
-          git add assets/index-v31526.js index.html tests/rc121-dream-regression-browser.cjs tests/rc116-laser-telegraph-browser.cjs
-          if ! git diff --cached --quiet; then
-            git config user.name 'HAPIL regression workflow'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m 'fix: resume full-auto combat after native death dialog without stealing manual pauses'
-            git push origin HEAD:refs/heads/fix/rc121-connected-dream
-          fi
-          test -z "$(git status --porcelain)"
-          COMMIT=$(git rev-parse HEAD)
-          echo "commit=$COMMIT" >> "$GITHUB_OUTPUT"
-          echo "RC121_CANDIDATE_COMMIT=$COMMIT"
-          git show --stat --oneline HEAD
   regression:
-    needs: prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
@@ -76,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ needs.prepare.outputs.commit }}
+          ref: ${{ github.sha }}
           fetch-depth: 1
           persist-credentials: false
           show-progress: false
@@ -99,10 +43,10 @@ jobs:
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc121-evidence" >> "$GITHUB_ENV"
           echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc121-evidence/release" >> "$GITHUB_ENV"
           /usr/bin/chromium --version
-      - name: Test exact clean candidate
+      - name: Test exact clean revision
         env:
           SUITE: ${{ matrix.suite }}
-          TESTED_COMMIT: ${{ needs.prepare.outputs.commit }}
+          TESTED_COMMIT: ${{ github.sha }}
         shell: bash
         run: |
           set -euo pipefail
@@ -130,6 +74,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: rc121-${{ matrix.suite }}-${{ needs.prepare.outputs.commit }}
+          name: rc121-${{ matrix.suite }}-${{ github.sha }}
           path: ${{ runner.temp }}/rc121-evidence/
           retention-days: 14
