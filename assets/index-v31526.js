@@ -125493,7 +125493,8 @@ function HAPIL_restoreMidbossDuoRC59(save, restored) {
 }
 function HAPIL_showDeathVerseRC59(state, pending) {
   if (typeof document === 'undefined' || !document.body) return false;
-  document.getElementById('hapil-death-verse-rc59')?.remove();
+  const previous=document.getElementById('hapil-death-verse-rc59');
+  if(previous?.finishRC121)previous.finishRC121();else previous?.remove();
   const root = document.createElement('div');
   root.id = 'hapil-death-verse-rc59';
   root.tabIndex = -1;
@@ -125540,25 +125541,58 @@ function HAPIL_showDeathVerseRC59(state, pending) {
     borderRadius:'999px',background:'#d9b65e',color:'#11131a',fontSize:'16px',fontWeight:'800',cursor:'pointer'});
   card.append(eyebrow,title,verse1,ref1,verse2,ref2,route,button);
   root.append(card);
-  let closed=false;
+  // RC121_DEATH_DIALOG: a stopped simulation cannot advance its own dialog.
+  // Use visible wall time and release only the reading lock this dialog owns.
+  const reading=window.__HAPIL_READING_V31342__;
+  const wasReadingBlocked=reading?.blocked===true;
+  const controls=()=>window.__HAPIL_CONTROLS_V31329__?.binding;
+  const automatic=()=>HAPIL_isFullAutoV31329(controls()?.settings?.current??{})&&controls()?.settings?.current?.autoStoryAdvance!==false;
+  const label=button.textContent,autoDelay=3;
+  const autoStatus=document.createElement('p'),hold=document.createElement('button');
+  autoStatus.setAttribute('aria-live','polite');
+  Object.assign(autoStatus.style,{fontSize:'13px',minHeight:'20px',margin:'16px 0 8px',color:'#c9cddd'});
+  hold.type='button';hold.textContent='자동 재시작 일시정지';hold.dataset.deathAutoPauseRc121='true';
+  Object.assign(hold.style,{padding:'8px 16px',border:'1px solid #798194',borderRadius:'12px',background:'#171827',color:'#e8edf5',cursor:'pointer'});
+  card.append(autoStatus,hold);
+  let closed=false,timer=null,elapsed=0,last=performance.now(),held=false;
   const finish=event=>{
     if(closed)return;
     if(event){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();}
     closed=true;
+    if(timer!==null)clearTimeout(timer);
     document.removeEventListener('keydown',onKey,true);
     root.remove();
-    if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=false;
+    if(reading?.deathVerseOwnerRC121===root){
+      delete reading.deathVerseOwnerRC121;
+      reading.blocked=wasReadingBlocked||window.__HAPIL_STORY_RC51__?.isOpen?.()===true;
+    }
+    if(controls()?.state?.current===state)controls()?.input?.current?.clear?.();
   };
+  root.finishRC121=finish;
   const onKey=event=>{
     if(event.key==='Enter'||event.key==='Escape'||event.key===' '||event.key==='Spacebar')finish(event);
     else {event.stopPropagation();event.stopImmediatePropagation?.();}
   };
+  hold.addEventListener('click',()=>{held=!held;last=performance.now();hold.textContent=held?'자동 재시작 계속':'자동 재시작 일시정지';});
+  const tick=()=>{
+    if(closed)return;
+    const binding=controls();
+    if(!root.isConnected||binding?.state?.current!==state){finish();return;}
+    const now=performance.now(),dt=Math.max(0,Math.min(.25,(now-last)/1000));last=now;
+    const full=automatic(),otherModal=!!binding?.modal?.current;
+    hold.hidden=!full;
+    if(full&&!held&&!document.hidden&&!otherModal){elapsed+=dt;}
+    else if(!full)elapsed=0;
+    autoStatus.textContent=!full?'버튼 또는 Enter로 다시 시작합니다.':held?'자동 재시작을 일시정지했습니다.':otherModal?'열린 메뉴를 닫으면 자동 재시작합니다.':'완전자동 · '+Math.max(1,Math.ceil(autoDelay-elapsed))+'초 후 '+label;
+    root.dataset.autoRemainingRc121=String(Math.max(0,autoDelay-elapsed));
+    if(full&&!held&&!document.hidden&&!otherModal&&elapsed>=autoDelay){finish();return;}
+    timer=setTimeout(tick,100);
+  };
   button.addEventListener('click',finish);
   document.addEventListener('keydown',onKey,true);
   document.body.append(root);
-  if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;
-  root.focus();
-  button.focus();
+  if(reading){reading.deathVerseOwnerRC121=root;reading.blocked=true;}
+  root.focus();button.focus();tick();
   return true;
 }
 (function HAPIL_installEpisode1DeathAndMidbossDuoRC59(attempt) {
