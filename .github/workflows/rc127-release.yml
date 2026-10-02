@@ -24,6 +24,7 @@ jobs:
           const fs=require('fs'),p='tools/apply-rc127.cjs';let s=fs.readFileSync(p,'utf8');
           s=s.replaceAll('root.__HAPIL_POLICY_RC127__?.interval','window.__HAPIL_POLICY_RC127__?.interval').replaceAll('root.__HAPIL_POLICY_RC127__?.deadline','window.__HAPIL_POLICY_RC127__?.deadline').replaceAll('mixed?1.25:.72','p.index===2?1.25:.72').replaceAll('paced?.lastRelease','rc126Volley?.lastRelease');fs.writeFileSync(p,s);
           NODE
+          node tools/refine-rc127-tests.cjs
           node tools/apply-rc127.cjs
           node --check assets/index-v31526.js
           node --check assets/rc127/combat-policy.js
@@ -37,7 +38,7 @@ jobs:
         run: |
           git config user.name 'HAPIL RC127 validation'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add tools/apply-rc127.cjs index.html assets/index-v31526.js assets/rc126/combat-safety.js assets/combat-v31402/projectile-pipeline.js assets/combat-v31412/skill-completion.js assets/rc95/combat-flow.js
+          git add tools/apply-rc127.cjs index.html assets/index-v31526.js assets/rc126/combat-safety.js assets/combat-v31402/projectile-pipeline.js assets/combat-v31412/skill-completion.js assets/rc95/combat-flow.js assets/rc127 tests/rc127-policy.cjs tests/rc127-browser.cjs
           if ! git diff --cached --quiet; then git commit -m 'RC127 integrate dark jelly, fixed 777 movement, story cooldown and committed skill protections'; git push origin HEAD:fix/rc127-dark-combat; fi
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   tests:
