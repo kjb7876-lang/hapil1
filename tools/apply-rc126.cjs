@@ -12,7 +12,16 @@ const hashes={
 const hash=f=>cp.execFileSync('git',['hash-object',f],{encoding:'utf8'}).trim();
 for(const [f,h]of Object.entries(hashes))assert.equal(hash(f),h,'Changed input: '+f);
 const source=Object.fromEntries(Object.keys(hashes).map(f=>[f,fs.readFileSync(f,'utf8')]));
-function once(f,from,to){assert.equal(source[f].split(from).length-1,1,'Non-unique patch: '+f+' '+from.slice(0,100));source[f]=source[f].replace(from,to);}
+function once(f,from,to){
+ let match=from;
+ if(!source[f].includes(from)){
+  const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const pattern=from.split('\n').map(s=>escape(s.replace(/^[ \t]+/,''))).join('\\n[ \\t]*');
+  const matches=[...source[f].matchAll(new RegExp(pattern,'g'))];
+  assert.equal(matches.length,1,'Non-unique semantic patch: '+f+' '+from.slice(0,100));match=matches[0][0];
+ }
+ assert.equal(source[f].split(match).length-1,1,'Non-unique patch: '+f+' '+from.slice(0,100));source[f]=source[f].replace(match,to);
+}
 const bundle='assets/index-v31526.js',flow='assets/rc95/combat-flow.js',pipeline='assets/combat-v31402/projectile-pipeline.js',geo='assets/combat-v31402/contact-geometry.js',blood='assets/rc43/bloodied-flight.js';
 once(bundle,'    for(const h of hits)Object.assign(h,{bossCastId31210:cast,','    for(const h of hits)window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareNative(s,h,G);\n    for(const h of hits)Object.assign(h,{bossCastId31210:cast,');
 once(bundle,'               let s = new Set();\n               for (let e of o.hostileProjectiles) {','               window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareFrame(o);\n               window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);\n               window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);\n               let s = new Set();\n               for (let e of o.hostileProjectiles) {');
