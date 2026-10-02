@@ -8,6 +8,7 @@ if(!external)server=http.createServer((req,res)=>{try{const relative=decodeURICo
 const result={public:!!external,scope:'Unmodified committed game, ordinary STORY startup. No HP edits, progress cheats, route interception, fixture state or appended game code. Native fillRect tracing only.',files:[],screens:[],startedAt:new Date().toISOString()};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 (async()=>{let browser;try{
+ if(server&&!server.listening)await new Promise((resolve,reject)=>{server.once('listening',resolve);server.once('error',reject);});
  const base=external||`http://127.0.0.1:${server.address().port}/`;
  if(external)for(const file of['index.html','assets/index-v31526.js','assets/rc125/adaptive-battlefield.js','assets/rc125/adaptive-battlefield.css','assets/rc124/laser-overrun.js','assets/rc77/connected-laser.js']){const response=await fetch(base+file+'?v=42502&verify='+Date.now(),{signal:AbortSignal.timeout(30000)}),body=Buffer.from(await response.arrayBuffer()),expected=fs.readFileSync(path.join(root,file));const row={file,status:response.status,bytes:body.length,sha256:hash(body),matchesCommittedFile:hash(body)===hash(expected)};result.files.push(row);assert.equal(response.status,200);assert.ok(row.matchesCommittedFile,'public bytes differ: '+file);}
  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
