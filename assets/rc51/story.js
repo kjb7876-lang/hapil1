@@ -55,7 +55,8 @@
   s.restPortalUnlockAt31226=now;s.restPortalWallUnlockAtV31227=0;s.restDialogueComplete31226=true;s.zoneEntryFlowZone31226=s.zone;
  }
  function beforeFrame(s,ctx={}){
-  if(root){if(owner!==s||!enabled(s)||s.hp<=0||root.dataset.zone!==s.zone){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0)close();}return true;}}
+  if(root&&document.getElementById('hapil-death-verse-rc59')){lastUi=performance.now();return true;}
+  if(root){if(owner!==s||!enabled(s)||s.hp<=0||(root.dataset.narration&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0)close();}return true;}}
   document.documentElement.classList.toggle('rc51-samong',storyActive(s));
   document.documentElement.classList.toggle('rc91-samong',window.__HAPIL_SAMONG_RC91__?.active(s)===true);
   if(!enabled(s)||ctx.blocked||s.hp<=0)return false;
@@ -95,8 +96,8 @@
   return dt;
  }
  window.addEventListener('resize',fit);window.visualViewport?.addEventListener('resize',fit);
- for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(!root)return;e.stopImmediatePropagation();if(e.code==='Tab'){if(type==='keyup'&&root.dataset.narration){e.preventDefault();return;}const nodes=[...root.querySelectorAll(root.dataset.narration?'button:not([hidden]),input:not([hidden])':'button:not([hidden])')],at=nodes.indexOf(document.activeElement);e.preventDefault();nodes[(at+(e.shiftKey?-1:1)+nodes.length)%nodes.length]?.focus();return;}if(root.dataset.narration&&e.target?.closest?.('[data-narration-controls]')&&e.code!=='Escape')return;e.preventDefault();if(type==='keydown'&&!e.repeat&&(['Enter','Space'].includes(e.code)||(root.dataset.narration&&e.code==='Escape')))close();},true);
- window.__HAPIL_STORY_RC51__=Object.freeze({enabled,active,beforeFrame,clock,show,close,fit,records,isOpen:()=>!!root,replacesLegacy:true,suppressEntry,
+ for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(!root||document.getElementById('hapil-death-verse-rc59'))return;e.stopImmediatePropagation();if(e.code==='Tab'){if(type==='keyup'&&root.dataset.narration){e.preventDefault();return;}const nodes=[...root.querySelectorAll(root.dataset.narration?'button:not([hidden]),input:not([hidden])':'button:not([hidden])')],at=nodes.indexOf(document.activeElement);e.preventDefault();nodes[(at+(e.shiftKey?-1:1)+nodes.length)%nodes.length]?.focus();return;}if(root.dataset.narration&&e.target?.closest?.('[data-narration-controls]')&&e.code!=='Escape')return;e.preventDefault();if(type==='keydown'&&!e.repeat&&(['Enter','Space'].includes(e.code)||(root.dataset.narration&&e.code==='Escape')))close();},true);
+ window.__HAPIL_STORY_RC51__=Object.freeze({enabled,active,beforeFrame,clock,show,close,pauseNarration:()=>narration?.pause?.(),fit,records,isOpen:()=>!!root,replacesLegacy:true,suppressEntry,
   heroNow:s=>active(s)?(memory(s).startTime??s.time)+memory(s).elapsed*2.2:s.time,heroSpeed:s=>active(s)?1.7:1,heroSize:s=>active(s)?1.3:1,power:s=>active(s)?5:1,incoming:s=>active(s)?.12:1,trails:s=>active(s)?memory(s).trails:[]});
  // The opening voice monologue and map cards share the same uploaded source.
  window.__HAPIL_PATIENT_DATA_RC51__={...data,records:[{zone:'hub',index:0,title:'남아 있는 기억',entry:'',body:rawPrologue()},...data.records.map(r=>({...r,entry:r.paragraphs[0]??'',body:r.paragraphs.slice(1).join('\n\n')}))]};

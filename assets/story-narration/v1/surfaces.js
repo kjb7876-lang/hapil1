@@ -8,7 +8,7 @@
     return {sound: settings.sound !== false, voiceVolume: settings.sfxVolume};
   }
   function journal(root) {
-    const zone = root.querySelector('.patient-index button[aria-current="true"]')?.dataset.zone;
+    const zone = root.querySelector('.patient-index button[aria-current="true"]')?.dataset.zone || root.querySelector('.patient-zone')?.textContent.match(/^원문 구역 ([^\s·]+) ·/)?.[1];
     const tab = root.querySelector('[data-tab][aria-pressed="true"]')?.dataset.tab || 'all';
     const text = [...root.querySelectorAll('.patient-body .patient-text')].map(element => element.textContent).join('\n\n');
     return zone && text ? {key: `journal:${zone}:${tab}`, text, footer: root.querySelector('.patient-footer')} : null;
@@ -35,17 +35,26 @@
     const endingRoot = document.getElementById('hapil-final-overlay-v31300');
     const candidate = deathRoot || (primary ? null : journalRoot || endingRoot);
     for (const [element, record] of readers) {
-      if (!element.isConnected) { record.player?.stop(); record.observer.disconnect(); readers.delete(element); }
+      if (!element.isConnected) {
+        // Complete the existing death cleanup before releasing the lower card's lock.
+        if (element.id === 'hapil-death-verse-rc59') element.finishRC121?.();
+        record.player?.stop(); record.observer.disconnect(); readers.delete(element);
+        if (!deathRoot && record.preemptedPrimary?.isConnected && document.getElementById('hapil-story-rc51') === record.preemptedPrimary) window.__HAPIL_STORY_RC51__?.close?.(false);
+      }
       else if (element !== candidate) { record.player?.stop(); record.player = null; record.signature = null; }
     }
     if (!candidate) return;
-    if (deathRoot && primary) window.__HAPIL_STORY_RC51__?.close?.(false);
     const details = candidate === deathRoot ? death(candidate) : candidate === journalRoot ? journal(candidate) : ending(candidate);
     let record = readers.get(candidate);
     if (!record) {
       const observer = new MutationObserver(schedule);
       observer.observe(candidate, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['class', 'data-phase', 'aria-current', 'aria-pressed']});
       record = {observer, signature: null, player: null}; readers.set(candidate, record);
+    }
+    if (deathRoot && primary && record.preemptedPrimary !== primary) {
+      record.preemptedPrimary = primary;
+      deathRoot.style.zIndex = '2147483001';
+      window.__HAPIL_STORY_RC51__?.pauseNarration?.();
     }
     if (!details) { record.player?.stop(); record.player = null; record.signature = null; return; }
     const signature = details.key + '\n' + details.text;

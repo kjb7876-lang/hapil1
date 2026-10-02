@@ -38,6 +38,7 @@ jobs:
           node tests/rc74-flight-voice-lifecycle.cjs
           node tests/rc75-ending-and-awakening.cjs
           node tests/rc89-narrative-smoke.cjs
+          node --test tests/story-narration-media-races.cjs tests/story-narration-overlap.cjs
       - name: Install isolated browser runtime
         run: |
           QA_RUNTIME="$RUNNER_TEMP/story-narration-runtime"

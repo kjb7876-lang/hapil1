@@ -65,7 +65,7 @@
     if (!root || !text || (zone === 'dist00' && (phase === 'pre' || phase === 'post'))) return null;
     const footer = targetFooter || root.querySelector('.rc51-footer') || root.querySelector('[data-narration-footer]');
     if (!footer) return null;
-    active?.stop();
+    active?.pause(false, true);
     const controls = node('span'), playButton = node('button', '음성 재생'), muteButton = node('button', '음소거'), label = node('label'), range = node('input');
     controls.className = 'hapil-story-narration';
     controls.dataset.narrationControls = 'true';
@@ -113,14 +113,14 @@
       if (media && state === 'playing') return Number(media.currentTime) || offset;
       return offset + (source && state === 'playing' ? Math.max(0, audioContext.currentTime - startedAt) : 0);
     }
-    function pause(user = false) {
+    function pause(user = false, releaseBuffer = false) {
       if (disposed) return;
-      offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); display('paused');
+      offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); if (releaseBuffer) buffer = null; display('paused');
       if (user) onUserPause?.();
     }
     function failed(request) {
       if (disposed || request !== generation) return false;
-      ++generation; clearTimeoutAndRequest(); stopSource(); display('blocked'); onBlocked?.();
+      ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); display('blocked'); onBlocked?.();
       return false;
     }
     function releaseMedia() {
@@ -158,31 +158,39 @@
       return true;
     }
     async function playMedia(request, details) {
-      if (!media) {
-        media = new Audio(details.url); media.preload = 'none'; media.setAttribute('playsinline', '');
-        const listenMedia = (event, callback) => { const clip = media; clip.addEventListener(event, callback); mediaListeners.push(() => clip.removeEventListener(event, callback)); };
-        listenMedia('error', () => { if (state === 'loading' || state === 'playing') failed(generation); });
-        listenMedia('ended', () => finished(generation));
-        listenMedia('waiting', () => {
-          if (disposed || state !== 'playing') return;
-          // A broken/stalled media request must not retain the story forever.
-          if (timeout != null) window.clearTimeout(timeout);
-          const expected = generation;
-          timeout = window.setTimeout(() => failed(expected), LOAD_TIMEOUT_MS);
-        });
-        listenMedia('playing', () => {
-          if (disposed || state === 'paused') return;
-          started(generation, Number.isFinite(media.duration) ? media.duration : details.duration);
-        });
-      }
-      updateVolume(); if (offset > 0) media.currentTime = offset;
-      await media.play();
-      if (disposed || request !== generation) { media?.pause(); return false; }
-      if (state !== 'playing') started(request, Number.isFinite(media.duration) ? media.duration : details.duration);
+      // Never reuse an element across attempts: queued events/promises belong to that attempt.
+      releaseMedia();
+      const clip = new Audio(details.url); media = clip;
+      clip.preload = 'none'; clip.setAttribute('playsinline', '');
+      const current = () => !disposed && request === generation && media === clip;
+      const listenMedia = (event, callback) => {
+        clip.addEventListener(event, callback);
+        mediaListeners.push(() => clip.removeEventListener(event, callback));
+      };
+      listenMedia('error', () => {
+        if (current() && (state === 'loading' || state === 'playing')) failed(request);
+      });
+      listenMedia('ended', () => {
+        if (current() && (state === 'loading' || state === 'playing')) finished(request);
+      });
+      listenMedia('waiting', () => {
+        if (!current() || state !== 'playing') return;
+        if (timeout != null) window.clearTimeout(timeout);
+        timeout = window.setTimeout(() => failed(request), LOAD_TIMEOUT_MS);
+      });
+      listenMedia('playing', () => {
+        if (!current() || state === 'paused' || state === 'ended' || state === 'blocked') return;
+        started(request, Number.isFinite(clip.duration) ? clip.duration : details.duration);
+      });
+      updateVolume(); if (offset > 0) clip.currentTime = offset;
+      await clip.play();
+      if (!current()) { clip.pause(); return false; }
+      if (state !== 'playing') started(request, Number.isFinite(clip.duration) ? clip.duration : details.duration);
       return true;
     }
     async function play() {
       if (disposed || state === 'playing' || state === 'loading') return false;
+      if (active !== api) { active?.pause(false, true); active = api; }
       if (state === 'ended') { offset = 0; clipIndex = 0; }
       unlock();
       const request = ++generation; display('loading'); onLoading?.();
