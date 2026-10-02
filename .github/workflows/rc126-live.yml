@@ -1,0 +1,38 @@
+name: RC126 live simulation verification
+on:
+  push:
+    branches: [qa/rc126-render-evidence]
+    paths: ['.github/workflows/rc126-live.yml','tests/rc126-live-contract-browser.cjs']
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated Chromium
+        run: |
+          R="$RUNNER_TEMP/rc126-live-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc126-live-evidence" >> "$GITHUB_ENV"
+      - name: Verify live native simulation and first-frame camera
+        run: |
+          node tests/rc126-live-contract-browser.cjs
+          node tests/rc125-first-frame-browser.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc126-live-${{ github.sha }}
+          path: ${{ runner.temp }}/rc126-live-evidence
+          retention-days: 14
