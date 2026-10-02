@@ -1,0 +1,1680 @@
+{
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "testedCommit": "53e30a7f93cfe026dc0405f9d87bc79f4c727020",
+  "files": [
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "expected": "30dc17f3953319bb719fb834b62d1f4254eae29f2b71e60595b81c7bc17a2aa4",
+      "actual": "30dc17f3953319bb719fb834b62d1f4254eae29f2b71e60595b81c7bc17a2aa4"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "status": 200,
+      "expected": "d6aab3f6e5ef1430e0cdc830b50d5b4648d66f8e456d99c76fc6d9ca74d38c03",
+      "actual": "d6aab3f6e5ef1430e0cdc830b50d5b4648d66f8e456d99c76fc6d9ca74d38c03"
+    },
+    {
+      "file": "assets/rc126/finite-native.js",
+      "status": 200,
+      "expected": "03175e9eafea7ca2308181a440d6442408b8accc21d423b652e56f3b514ac6f2",
+      "actual": "03175e9eafea7ca2308181a440d6442408b8accc21d423b652e56f3b514ac6f2"
+    },
+    {
+      "file": "assets/rc126/combat-safety.js",
+      "status": 200,
+      "expected": "240873e01b5a0c992e4d2a033700692e1e88b3eb0d4fd1a046eb43fd15094214",
+      "actual": "240873e01b5a0c992e4d2a033700692e1e88b3eb0d4fd1a046eb43fd15094214"
+    },
+    {
+      "file": "assets/rc108/laser-topology.js",
+      "status": 200,
+      "expected": "847cd751098f99afce6624211bd09e03b96beda1205456877338f650104d3c56",
+      "actual": "847cd751098f99afce6624211bd09e03b96beda1205456877338f650104d3c56"
+    },
+    {
+      "file": "assets/rc95/combat-flow.js",
+      "status": 200,
+      "expected": "64e006238344ebdf4dc60184c19b366c6e4f4bcf88060f1e32c0dbf9d8af2ba2",
+      "actual": "64e006238344ebdf4dc60184c19b366c6e4f4bcf88060f1e32c0dbf9d8af2ba2"
+    },
+    {
+      "file": "assets/combat-v31402/projectile-pipeline.js",
+      "status": 200,
+      "expected": "9dc44d6e0b5d39bd66f2fec7ebc7cc715b9d33e2932cfa3a921730714b5d74e0",
+      "actual": "9dc44d6e0b5d39bd66f2fec7ebc7cc715b9d33e2932cfa3a921730714b5d74e0"
+    },
+    {
+      "file": "assets/combat-v31402/contact-geometry.js",
+      "status": 200,
+      "expected": "bace4f1063affa273c82e137326bf0932e2162e979015427f2d19674db34cb7c",
+      "actual": "bace4f1063affa273c82e137326bf0932e2162e979015427f2d19674db34cb7c"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc124/laser-overrun.js",
+      "status": 200,
+      "expected": "82145eeadee46f3b476781b246ca0174892784f740127921733bc9a36dad4eaf",
+      "actual": "82145eeadee46f3b476781b246ca0174892784f740127921733bc9a36dad4eaf"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.js",
+      "status": 200,
+      "expected": "c20b3a90b70805dd20871ec32969004d4105a0925cdb9f7bd41c6c7ffbbd2e5e",
+      "actual": "c20b3a90b70805dd20871ec32969004d4105a0925cdb9f7bd41c6c7ffbbd2e5e"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.css",
+      "status": 200,
+      "expected": "d5238143850c23e7d7e229cb305d730534a3600758dde967e338108562db31d3",
+      "actual": "d5238143850c23e7d7e229cb305d730534a3600758dde967e338108562db31d3"
+    }
+  ],
+  "screens": [
+    {
+      "name": "pc",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 1.1067000000000002,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 0,
+              "staggered": 0,
+              "zigzags": 0,
+              "originalAssets": 0,
+              "substitutedAssets": 0,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 0,
+              "zones": {}
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 2.606500000000002,
+          "hp": 215,
+          "hero": "hwando",
+          "shots": 13,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 6,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 3,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 3.8332000000000024,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 4,
+              "staggered": 12,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 10,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 4,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 5.676400000000007,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 7.276600000000012,
+          "hp": 218.026,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 8.55,
+          "hp": 90.76600000000005,
+          "hero": "hwando",
+          "shots": 5,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 10.393399999999993,
+          "hp": 6,
+          "hero": "hwando",
+          "shots": 1,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 12.35659999999999,
+          "hp": 6,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 24,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 24,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 14.356499999999983,
+          "hp": 6,
+          "hero": "hwando",
+          "shots": 5,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 24,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 24,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 16.353099999999987,
+          "hp": 6,
+          "hero": "hwando",
+          "shots": 11,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 30,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 31,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 18.30299999999997,
+          "hp": 153,
+          "hero": "hwando",
+          "shots": 8,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 8,
+              "staggered": 36,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 38,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 8,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 20.316299999999995,
+          "hp": 29,
+          "hero": "hwando",
+          "shots": 3,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 8,
+              "staggered": 36,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 38,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 8,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        }
+      ],
+      "final": {
+        "rc127": {
+          "installed": true,
+          "fixed": 6.471684999999999,
+          "actual": 6.471684999999999,
+          "incoming": 1
+        },
+        "zone": "dist00",
+        "time": 20.316299999999995,
+        "hp": 29,
+        "hero": "hwando",
+        "shots": 3,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 8,
+            "staggered": 36,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 38,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 8,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "passed": true
+    },
+    {
+      "name": "portrait",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 1.4329999999999996,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 0,
+              "staggered": 0,
+              "zigzags": 0,
+              "originalAssets": 0,
+              "substitutedAssets": 0,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 0,
+              "zones": {}
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 2.7662999999999998,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 13,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 6,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 3,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 4.283200000000002,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 19,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 4,
+              "staggered": 12,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 10,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 4,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 5.69,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 18,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 4,
+              "staggered": 12,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 10,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 4,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 7.203500000000002,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 22,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 8.643499999999989,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 11,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 10.076799999999961,
+          "hp": 234.928,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 11.72349999999993,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 1,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 17,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 13.490199999999913,
+          "hp": 235.29999999999998,
+          "hero": "hwando",
+          "shots": 5,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 24,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 24,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 15.436999999999902,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 10,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 30,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 31,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 17.383399999999913,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 30,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 31,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 19.223999999999904,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 5,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 8,
+              "staggered": 36,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 38,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 8,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        }
+      ],
+      "final": {
+        "rc127": {
+          "installed": true,
+          "fixed": 6.471684999999999,
+          "actual": 6.471684999999999,
+          "incoming": 0.8779999999999999
+        },
+        "zone": "dist00",
+        "time": 19.223999999999904,
+        "hp": 240,
+        "hero": "hwando",
+        "shots": 5,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 8,
+            "staggered": 36,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 38,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 8,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:3"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "passed": true
+    },
+    {
+      "name": "landscape",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 1.8703000000000007,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 10,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 2,
+              "staggered": 6,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 0,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 2,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 3.756699999999998,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 23,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 12,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 13,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 5.629900000000013,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 7.589700000000023,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 9.406400000000016,
+          "hp": 237.464,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 11.392900000000003,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 18,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 13.392699999999977,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 24,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 27,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 15.382699999999952,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 14,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 8,
+              "staggered": 30,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 34,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 8,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 17.399299999999958,
+          "hp": 238.5,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 8,
+              "staggered": 30,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 34,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 8,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 19.41579999999994,
+          "hp": 239.2098,
+          "hero": "hwando",
+          "shots": 5,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 9,
+              "staggered": 36,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 41,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 9,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 21.432399999999955,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 8,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 10,
+              "staggered": 42,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 48,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 10,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 23.432299999999916,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 11,
+              "staggered": 48,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 55,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 11,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        }
+      ],
+      "final": {
+        "rc127": {
+          "installed": true,
+          "fixed": 6.471684999999999,
+          "actual": 6.471684999999999,
+          "incoming": 0.8779999999999999
+        },
+        "zone": "dist00",
+        "time": 23.432299999999916,
+        "hp": 240,
+        "hero": "hwando",
+        "shots": 0,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 11,
+            "staggered": 48,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 55,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 11,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "passed": true
+    }
+  ],
+  "scope": "Read-only published startup, not full campaigns or physical phones",
+  "passed": true
+}
