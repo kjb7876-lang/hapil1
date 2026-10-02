@@ -16,9 +16,10 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
           show-progress: false
-      - name: Read the exact death-dialog implementation
+      - name: Inspect retained choice metadata consumers
         run: |
           node <<'NODE'
-          const fs=require('fs'),p='assets/index-v31526.js',l=fs.readFileSync(p,'utf8').split('\n');
-          for(let i=0;i<l.length;i++)if(/function HAPIL_showDeathVerseRC59|function HAPIL_episode1DeathDestinationRC59/.test(l[i]))console.log('SOURCE '+p+'\n'+l.slice(Math.max(0,i-15),i+150).map((x,k)=>(Math.max(0,i-15)+k+1)+': '+x).join('\n'));
+          const fs=require('fs'),path=require('path');let chars=0;
+          function inspect(f){const s=fs.readFileSync(f,'utf8');if(!/rc97Choice|\.broad\b|\.narrow\b/.test(s))return;const l=s.split('\n');for(let i=0;i<l.length;i++)if(/rc97Choice|\.broad\b|\.narrow\b/.test(l[i])){const part=l.slice(Math.max(0,i-6),i+12).map((x,k)=>(Math.max(0,i-6)+k+1)+': '+x.slice(0,2400)).join('\n');if(chars+part.length>65000)return;chars+=part.length;console.log('SOURCE '+f+'\n'+part);}}
+          function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const f=path.join(d,e.name);if(e.isDirectory())walk(f);else if(e.name.endsWith('.js'))inspect(f);}}walk('assets');
           NODE
