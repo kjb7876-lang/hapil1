@@ -13,20 +13,21 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - name: Inspect final route and asset hooks
+      - name: Inspect exact final hooks and map assets
         shell: bash
         run: |
           python3 - <<'PY'
           import pathlib,re,subprocess
-          s=pathlib.Path('assets/index-v31526.js').read_text(); a=s.splitlines()
-          print('HEAD',subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
-          for lo,hi in [(121000,121085),(121360,121690),(123790,123855),(32335,32415),(33475,33570)]:
+          a=pathlib.Path('assets/index-v31526.js').read_text().splitlines()
+          def show(lo,hi):
             print('\nRANGE',lo,hi)
-            for i in range(lo-1,min(hi,len(a))):print(f'{i+1}: '+(a[i] if len(a[i])<1400 else a[i][:1000]+' ... [long metadata omitted]'))
-          for term in ['prepareMap','heroAssets','allHeroes','preload','warmHero','warmup','function Sn','HAPIL_actorChoreography']:
-            hits=[i for i,l in enumerate(a) if term in l and len(l)<1800]
-            print('\nMATCH',term,'LINES',[i+1 for i in hits][-35:])
-            if term in ['prepareMap','heroAssets','allHeroes','warmHero']:
-              for i in hits[-5:]:
-                for j in range(max(0,i-2),min(len(a),i+4)): print(f'{j+1}: '+a[j][:1200])
+            for i in range(lo-1,min(hi,len(a))):print(f'{i+1}: '+(a[i] if len(a[i])<1800 else a[i][:250]+' [long metadata omitted]'))
+          for lo,hi in [(118930,119050),(119200,119260),(122380,122465),(124950,125040),(125255,125355),(99705,99808)]:show(lo,hi)
+          for term in ['MONGSE_zonePortalAnchors =','MONGSE_zonePortalAnchors=function','MONGSE_zoneAssetManifest=function','MONGSE_zoneAssetPlan31220=function','__HAPIL_MODES_V31346__=','__HAPIL_MODES_V31346__ =','HAPIL_STORY_ROUTE_RC60','attackStartedAt','castMotion','bossChoreography']:
+            hits=[i for i,l in enumerate(a) if term in l and len(l)<2000]
+            print('\nMATCH',term,'LINES',[i+1 for i in hits])
+            for i in hits[-4:]:show(max(1,i-2),i+6)
+          for f in ['tests/rc63-mode-archive-browser.cjs','tests/rc90-native-save-order-smoke.cjs','tests/rc108-laser-topology-browser.cjs','tests/rc115-map-advance-smoke.cjs']:
+            print('\nTEST',f)
+            for l in pathlib.Path(f).read_text().splitlines():print(l[:1800])
           PY
