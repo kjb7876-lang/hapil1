@@ -1,3 +1,4 @@
+/* RC128_INTEGRATED */
 /* RC91: two modes; lethal-hit revival on an unscaled combat clock. */
 (() => {
  'use strict';
@@ -36,6 +37,7 @@
   const P=window.__HAPIL_PARTY_V31322__;
   if(P?.state===s&&P?.status?.role==='guest')return false;
   const m=memory(s);if(m.cooldown>1e-8||m.active>1e-8)return false;
+  if(window.__HAPIL_AWAKENING_POLICY_RC128__&&!window.__HAPIL_AWAKENING_POLICY_RC128__.claim(s,m))return false;
   m.active=DURATION;m.cooldown=COOLDOWN;m.grace=.6;m.activations=Math.max(0,n(m.activations))+1;
   m.heroId=HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando';
   s.hp=Math.max(1,Math.ceil(s.maxHp*.5));
@@ -43,6 +45,7 @@
   // policy resumes as soon as the seven-second Samong window expires.
   const beforeUntil=n(s.awakeningUntil);s.awakeningUntil=Math.max(beforeUntil,s.time+DURATION);
   window.__HAPIL_DAMAGE_RC108__?.egoEntered(s,beforeUntil>s.time,beforeUntil,s.awakeningUntil);
+  window.__HAPIL_AWAKENING_POLICY_RC128__?.ownEgo(s,m,beforeUntil,s.awakeningUntil);
   // Revival is not ordinary healing: keep the debuff, but move its lethal
   // pre-revival ceiling to the restored HP so the next status tick cannot
   // undo the revival (including lethal glutton-absorb contacts).
@@ -50,14 +53,17 @@
   s.heroStatus='死夢覺醒 · 위기 부활 · 7초';
   s.heroSleepUntil=s.time;s.heroCharmUntil=s.time;s.staggerUntil=s.time;
   picture(m.heroId);
+  window.__HAPIL_FEEDBACK_RC128__?.awakening(s,m);
   window.__HAPIL_COMBAT_CORE_V31401__?.step?.(s,s,'samong-lethal-revival-rc91');return true;
  }
  function advance(s,dt,blocked){
+  if(s?.samongPassiveRC91)window.__HAPIL_AWAKENING_POLICY_RC128__?.sync(s,s.samongPassiveRC91,enabled(s));
   if(!s||blocked||!enabled(s)||!Number.isFinite(dt)||dt<=0)return;
   const m=memory(s),step=dt;
   tryRevive(s);if(s.hp<=0)return;
   m.lastDelta=step;m.clock+=step;m.active=Math.max(0,m.active-step);m.cooldown=Math.max(0,m.cooldown-step);m.grace=Math.max(0,m.grace-step);
   if(m.active<1e-8){m.active=0;m.grace=0;}
+  window.__HAPIL_AWAKENING_POLICY_RC128__?.sync(s,m,true);
   picture(HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando');
  }
  function hostile(a){return !!a&&n(a.maxHp)>0&&!a.visualOnly&&!a.friendly&&!a.neutral&&!a.canonAlly&&!a.canonAllyV31217&&!a.canonicalAllyV31217&&!a.objectiveStructureV31238&&!a.narrativeStructureV31238&&!a.protectedObjective;}
@@ -93,15 +99,15 @@
  // once, after native damage caps/mitigation/floors, without mutating the attack.
  const incomingFactor=s=>enabled(s)?2:1;
  const incomingBuff=s=>active(s)?.12:1;
- function status(s){const m=s?.samongPassiveRC91;return{enabled:enabled(s),active:active(s),remaining:Math.max(0,Math.min(DURATION,n(m?.active))),cooldown:Math.max(0,Math.min(COOLDOWN,n(m?.cooldown))),ready:enabled(s)&&n(m?.cooldown)<=1e-8};}
+ function status(s){const m=s?.samongPassiveRC91;return{enabled:enabled(s),active:active(s),remaining:Math.max(0,Math.min(DURATION,n(m?.active))),cooldown:Math.max(0,Math.min(COOLDOWN,n(m?.cooldown))),ready:enabled(s)&&n(m?.cooldown)<=1e-8&&!m?.encounterRC128?.used,reviveUsed:m?.encounterRC128?.used===true};}
  function snapshot(s){
-  const m=memory(s);return {version:1,unlocked:unlocked(s),clock:n(m.clock),active:clamp(m.active,0,DURATION),cooldown:clamp(m.cooldown,0,COOLDOWN),grace:clamp(m.grace,0,.6),activations:Math.max(0,Math.floor(n(m.activations))),heroId:HEROES.includes(m.heroId)?m.heroId:null,
+  const m=memory(s);return {version:1,unlocked:unlocked(s),clock:n(m.clock),active:clamp(m.active,0,DURATION),cooldown:clamp(m.cooldown,0,COOLDOWN),grace:clamp(m.grace,0,.6),activations:Math.max(0,Math.floor(n(m.activations))),heroId:HEROES.includes(m.heroId)?m.heroId:null,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.snapshot(s,m)??null,
    enemies:(s.enemies??[]).filter(a=>hostile(a)&&a.samongStatsRC91).slice(0,384).map(a=>({id:String(a.id),hp:Math.max(0,n(a.hp)),maxHp:Math.max(1,n(a.maxHp)),stats:JSON.parse(JSON.stringify(a.samongStatsRC91))}))};
  }
  function sanitize(raw){
   if(!raw||raw.version!==1)return null;
   const activeLeft=clamp(raw.active,0,DURATION),cooldown=clamp(raw.cooldown,0,COOLDOWN);
-  return {version:1,unlocked:raw.unlocked===true,clock:Math.max(0,n(raw.clock)),active:activeLeft,cooldown:Math.max(activeLeft,cooldown),grace:Math.min(activeLeft,clamp(raw.grace,0,.6)),activations:Math.max(0,Math.floor(n(raw.activations))),heroId:HEROES.includes(raw.heroId)?raw.heroId:null,
+  return {version:1,unlocked:raw.unlocked===true,clock:Math.max(0,n(raw.clock)),active:activeLeft,cooldown:Math.max(activeLeft,cooldown),grace:Math.min(activeLeft,clamp(raw.grace,0,.6)),activations:Math.max(0,Math.floor(n(raw.activations))),heroId:HEROES.includes(raw.heroId)?raw.heroId:null,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.sanitize(raw.encounterRC128)??null,
    enemies:(Array.isArray(raw.enemies)?raw.enemies:[]).slice(0,384).filter(a=>typeof a?.id==='string'&&a.id.length<180&&Number.isFinite(a.hp)&&Number.isFinite(a.maxHp)&&a.maxHp>0&&a.hp>=0&&a.hp<=a.maxHp&&a.stats?.version===1&&[1,2].includes(a.stats.factor)&&Number.isFinite(a.stats.baseMaxHp)&&a.stats.baseMaxHp>0).map(a=>({...a,stats:{version:1,factor:a.stats.factor,baseMaxHp:a.stats.baseMaxHp,observedMaxHp:a.maxHp,fields:Object.fromEntries(FIELDS.filter(k=>Number.isFinite(a.stats.fields?.[k])).map(k=>[k,a.stats.fields[k]]))}}))};
  }
  function restoreVitals(s,raw){
@@ -113,6 +119,7 @@
   const data=sanitize(raw);if(!s||!data)return;if(data.unlocked)unlock(s,'validated-save');
   s.samongPassiveRC91={...data};delete s.samongPassiveRC91.enemies;delete s.samongPassiveRC91.unlocked;
   if(!enabled(s)){s.samongPassiveRC91.active=0;s.samongPassiveRC91.grace=0;}
+  window.__HAPIL_AWAKENING_POLICY_RC128__?.restore(s,s.samongPassiveRC91,data.encounterRC128);
   restoreVitals(s,data);picture(s.samongPassiveRC91.heroId||s.activeHeroId);
  }
  function drawMobile(s,canvas){
@@ -130,7 +137,7 @@
     if(im){const ratio=im.naturalHeight/im.naturalWidth,w=box,h=Math.min(small?230:300,w*ratio);ctx.globalAlpha=.9;ctx.drawImage(im,edge-w,46,w,h);ctx.globalAlpha=1;}
     ctx.font=`bold ${small?21:27}px "Noto Serif KR",serif`;ctx.lineWidth=4;ctx.strokeStyle='#08090e';ctx.fillStyle='#f4f1ff';ctx.strokeText('死夢覺醒',edge,24);ctx.fillText('死夢覺醒',edge,24);
     ctx.font='bold 12px "Noto Serif KR",sans-serif';ctx.fillStyle='#ffffff';ctx.fillText('각성 '+m.active.toFixed(1)+'초 · 위력 ×7',edge,small?252:334);
-   }else{ctx.font='bold 12px "Noto Serif KR",sans-serif';ctx.fillStyle='#d1d5e6';ctx.fillText(m.cooldown>0?'死夢覺醒 · '+Math.ceil(m.cooldown)+'초':'死夢覺醒 · 위기 부활 준비',edge,height-26);}
+   }else{ctx.font='bold 12px "Noto Serif KR",sans-serif';ctx.fillStyle='#d1d5e6';ctx.fillText(m.encounterRC128?.used?'死夢覺醒 · 이 전투의 부활 사용 완료':m.cooldown>0?'死夢覺醒 · '+Math.ceil(m.cooldown)+'초':'死夢覺醒 · 위기 부활 준비',edge,height-26);}
   }finally{ctx.restore();}return true;
  }
  function install(){
@@ -141,9 +148,13 @@
   B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result)result.samongRC91=sanitize(raw?.samongRC91);return result;};
   B.restoreEntry=function(s,raw,...args){if(sanitize(raw?.samongRC91)?.unlocked===true)unlock(s,'validated-save');const result=entry.call(this,s,raw,...args);restore(s,raw?.samongRC91);return result;};
   if(typeof final==='function')B.restoreFinalBattle=function(s,raw,...args){const result=final.call(this,s,raw,...args);if(enabled(s)){s.hapilFinalBattleV31300=null;s.hapilSamongActiveV31300=false;}restoreVitals(s,raw?.samongRC91);return result;};
-  B.renderFrame=function(canvas,s,cache,hero,settings={}){const result=frame.call(this,canvas,s,cache,hero,settings);const ctx=canvas?.getContext?.('2d');if(ctx){const k=ctx.getTransform?.().a||1;if(!drawMobile(s,canvas)&&window.__HAPIL_COMBAT_INFO_RC108__?.eligible?.()!==true)draw(ctx,s,canvas.width/k,canvas.height/k);
+  B.renderFrame=function(canvas,s,cache,hero,settings={}){const result=frame.call(this,canvas,s,cache,hero,settings);const ctx=canvas?.getContext?.('2d');if(ctx){const k=ctx.getTransform?.().a||1;
    const plot=(B.modeApi.mode(s)==='STORY'&&s.zone==='cult04'&&s.hapilFinalBattleV31300?.monochromeActiveV31377===true&&!s.hapilFinalBattleV31300.completed);
-   if(active(s)||plot){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='copy';ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);}finally{ctx.restore();}}}return result;};
+   if(active(s)){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='copy';ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);}finally{ctx.restore();}}
+   if(window.__HAPIL_FEEDBACK_RC128__)window.__HAPIL_FEEDBACK_RC128__.draw(ctx,s,canvas,settings);
+   else if(!drawMobile(s,canvas)&&window.__HAPIL_COMBAT_INFO_RC108__?.eligible?.()!==true)draw(ctx,s,canvas.width/k,canvas.height/k);
+   if(plot){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='copy';ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);}finally{ctx.restore();}}
+  }return result;};
   installed=true;return true;
  }
  window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,tryRevive,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
