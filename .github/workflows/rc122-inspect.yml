@@ -1,0 +1,36 @@
+name: RC122 inspect autoplay and exits
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/rc122-autoplay-transitions]
+    paths: ['.github/workflows/rc122-inspect.yml']
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: Inspect only; do not change gameplay
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),f='assets/index-v31526.js',s=fs.readFileSync(f,'utf8'),l=s.split('\n'),out=[];
+          const add=(a,b,label)=>out.push('\n### '+label+' ['+(a+1)+'-'+b+']\n'+l.slice(a,b).map((v,i)=>(a+i+1)+': '+v).join('\n'));
+          add(62560,62920,'native-frame-auto');
+          const patterns=[/function HAPIL_isFullAutoV31329/,/function MONGSE_zonePortalAnchors/,/function .*draw.*Portal/i,/function .*auto.*(dodge|evade)/i,/function .*auto.*(move|target)/i,/__HAPIL_AUTOPROGRESS_V31301__\s*=/,/__HAPIL_CONTROLS_V31329__\s*=/,/__HAPIL_FLOW_V31343__\s*=/];
+          let sections=0;for(let i=0;i<l.length;i++)if(patterns.some(r=>r.test(l[i]))&&sections++<24)add(Math.max(0,i-5),Math.min(l.length,i+95),'match');
+          out.push('\n### NATIVE FUNCTION INDEX\n'+l.map((v,i)=>({v,i})).filter(o=>/^(async )?function .*([Pp]ortal|[Ee]xit|[Dd]odge|[Aa]uto|[Ee]vade)|__HAPIL_.*(AUTO|MOBILE)/.test(o.v)).map(o=>(o.i+1)+': '+o.v.slice(0,1000)).join('\n'));
+          const paths=[];function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory())walk(p);else paths.push(p);}}walk('assets');
+          out.push('\n### ASSET AND MODULE PATHS\n'+paths.filter(p=>/door|stair|portal|gate|warp|mobile|auto|navigation|flow|map/i.test(p)).join('\n'));
+          fs.mkdirSync('qa-results/rc122',{recursive:true});fs.writeFileSync('qa-results/rc122/source-inspection.txt',out.join('\n'));
+          console.log('INSPECTION',l.length,'lines',out.join('\n').length,'chars');
+          NODE
+          test "$(git ls-remote origin refs/heads/fix/rc122-autoplay-transitions | cut -f1)" = "$GITHUB_SHA"
+          git add qa-results/rc122/source-inspection.txt
+          git config user.name 'HAPIL QA'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --quiet || git commit -m 'test: capture RC122 source inspection without gameplay changes'
+          git push origin HEAD:refs/heads/fix/rc122-autoplay-transitions
