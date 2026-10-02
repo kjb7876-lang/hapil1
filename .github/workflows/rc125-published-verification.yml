@@ -1,0 +1,49 @@
+name: RC125 published Pages verification
+on:
+  push:
+    branches: [qa/rc125-published-verification]
+    paths: ['.github/workflows/rc125-published-verification.yml','tests/rc125-published-browser.cjs']
+permissions:
+  contents: read
+jobs:
+  published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Wait for the exact candidate index at the existing public URL
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),crypto=require('crypto'),assert=require('assert/strict');
+          const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),wanted=hash(fs.readFileSync('index.html'));
+          (async()=>{let matched=false;for(let n=0;n<24;n++){const r=await fetch('https://kjb7876-lang.github.io/hapil1/index.html?v=42501&publishCheck='+Date.now(),{signal:AbortSignal.timeout(15000)}),bytes=Buffer.from(await r.arrayBuffer());matched=r.ok&&hash(bytes)===wanted;console.log('PAGES_PROPAGATION',JSON.stringify({attempt:n+1,status:r.status,exact:matched}));if(matched)break;await new Promise(r=>setTimeout(r,5000));}assert.ok(matched,'Pages did not publish the exact candidate index within the bounded check');})().catch(e=>{console.error(e);process.exitCode=1;});
+          NODE
+      - name: Prepare isolated Chromium
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc125-public-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc125-public-evidence" >> "$GITHUB_ENV"
+      - name: Check published bytes and actual native rendering without fixtures
+        run: node tests/rc125-published-browser.cjs
+      - name: Report actual result
+        if: always()
+        run: |
+          if [ -f "$HAPIL_QA_OUTPUT/result.json" ]; then cat "$HAPIL_QA_OUTPUT/result.json"; fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc125-published-${{ github.sha }}
+          path: ${{ runner.temp }}/rc125-public-evidence/
+          retention-days: 14
