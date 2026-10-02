@@ -1,0 +1,36 @@
+name: RC126 original render evidence
+on:
+  push:
+    branches: [qa/rc126-render-evidence]
+    paths: ['.github/workflows/rc126-evidence.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          show-progress: false
+      - name: Preserve original successful render artifacts on the QA branch only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/kjb7876-lang/hapil1/actions/artifacts/11225388557/zip > "$RUNNER_TEMP/combat.zip"
+          echo 'a1b29ca3b15a6b2b348a2ff839fa758a29bfe169e23ee741f39604c22363a5d9  '"$RUNNER_TEMP/combat.zip" | sha256sum -c -
+          mkdir -p qa-evidence/rc126
+          unzip -q "$RUNNER_TEMP/combat.zip" -d qa-evidence/rc126
+          find qa-evidence/rc126 -type f -printf '%p %s bytes\n'
+          node <<'NODE'
+          const fs=require('fs'),s=fs.readFileSync('assets/index-v31526.js','utf8').split('\n');
+          for(const n of ['function Jn(','function MONGSE_drawHostileProjectile','danmaku-jellybean.webp']){const idx=[];for(let i=0;i<s.length;i++)if(s[i].includes(n))idx.push(i);console.log('MATCHES',n,idx.map(i=>i+1));for(const i of idx.slice(0,3))console.log(s.slice(Math.max(0,i-5),i+150).map((l,j)=>(Math.max(0,i-5)+j+1)+': '+l).join('\n'));}
+          NODE
+          git config user.name 'hapil-evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa-evidence/rc126
+          git commit -m 'RC126 QA: preserve unchanged Chromium combat captures and JSON evidence'
+          git push origin HEAD:refs/heads/qa/rc126-render-evidence
