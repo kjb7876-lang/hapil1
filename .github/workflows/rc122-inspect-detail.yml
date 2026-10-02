@@ -1,0 +1,31 @@
+name: RC122 exact movement and exit inspection
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/rc122-autoplay-transitions]
+    paths: ['.github/workflows/rc122-inspect-detail.yml']
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: Capture source only
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),l=fs.readFileSync('assets/index-v31526.js','utf8').split('\n'),d='qa-results/rc122';
+          const blocks={movement:[61000,61430],steering:[120460,120665],tactics:[120860,121015],exitdraw:[36665,36800],layout:[30990,31095]};
+          for(const [k,[a,b]]of Object.entries(blocks))fs.writeFileSync(`${d}/source-${k}.txt`,l.slice(a-1,b).map((x,i)=>(a+i)+': '+x).join('\n'));
+          const terms=['broken_gate','collapsed_stairs','props/v290','heroRoleNavMode31222 = `disabled`','heroRoleNavMode31222=\'disabled\''];const rows=[];
+          for(let i=0;i<l.length;i++)if(terms.some(t=>l[i].includes(t)))rows.push(l.slice(Math.max(0,i-10),i+15).map((x,k)=>(Math.max(0,i-10)+k+1)+': '+x).join('\n'));
+          fs.writeFileSync(`${d}/source-props.txt`,rows.join('\n\n'));
+          NODE
+          git config user.name 'HAPIL QA'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa-results/rc122/source-*.txt
+          git diff --cached --quiet || git commit -m 'test: capture movement ownership and native exit render paths'
+          git push origin HEAD:refs/heads/fix/rc122-autoplay-transitions
