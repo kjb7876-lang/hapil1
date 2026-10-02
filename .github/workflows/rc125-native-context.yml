@@ -22,7 +22,10 @@ jobs:
           console.log('RENDER_START',ls.slice(36433,36575).join('\n'));
           let p=s.indexOf('function $n('),q=s.indexOf('\nfunction ',p+12),r=s.slice(p,q);
           console.log('RENDER_LINES',r.split('\n').length);
-          const rl=r.split('\n');for(let i=0;i<rl.length;i++)if(/setTransform|HAPIL_viewCamera|\.scale\(|\.translate\(|\.clip\(|getBounding|720|\bd\b|\.restore\(/.test(rl[i]))){console.log('RENDER_AT '+(36434+i),rl.slice(Math.max(0,i-2),i+4).join('\n'));}
-          for(const term of ['function MONGSE_canvasBackingScale31220','const HAPIL','rc112','RC112']){let p=s.indexOf(term);if(p>=0)console.log('CONTEXT '+term,s.slice(p,p+4200));}
+          const rl=r.split('\n');
+          for(let i=0;i<rl.length;i++) {
+            if(/setTransform|HAPIL_viewCamera|\.scale\(|\.translate\(|\.clip\(|getBounding|720|\bd\b|\.restore\(/.test(rl[i])) console.log('RENDER_AT '+(36434+i),rl.slice(Math.max(0,i-2),i+4).join('\n'));
+          }
+          for(const term of ['function MONGSE_canvasBackingScale31220']){let p=s.indexOf(term);if(p>=0)console.log('CONTEXT '+term,s.slice(p,p+4200));}
           console.log('LAYOUT',ls.slice(115315,115460).join('\n'));
           NODE
