@@ -18,29 +18,74 @@ concurrency:
   group: rc121-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  regression:
+  prepare:
+    if: github.ref == 'refs/heads/fix/rc121-connected-dream'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      commit: ${{ steps.candidate.outputs.commit }}
     steps:
       - uses: actions/checkout@v6
         with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Apply exact candidate changes without touching main
+        id: candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/fix/rc121-connected-dream
+          test -z "$(git status --porcelain)"
+          ART=$(git hash-object assets/rc77/connected-laser.js)
+          node tools/rc121-apply.cjs
+          node tools/rc121-finalize-geometry.cjs
+          node tools/rc121-build-connectivity-test.cjs
+          test "$(git hash-object assets/rc77/connected-laser.js)" = "$ART"
+          for f in assets/index-v31526.js assets/rc108/samong-ricochet.js assets/rc108/laser-topology.js assets/rc97/choice-patterns.js tests/rc121-connected-topology-browser.cjs tests/rc121-dream-regression-browser.cjs; do node --check "$f"; done
+          git diff --check
+          REMOTE=$(git ls-remote origin refs/heads/fix/rc121-connected-dream | cut -f1)
+          test "$REMOTE" = "$GITHUB_SHA"
+          git add assets/index-v31526.js assets/rc108/samong-ricochet.js assets/rc108/laser-topology.js assets/rc97/choice-patterns.js index.html tests/rc121-connected-topology-browser.cjs tests/rc121-dream-regression-browser.cjs
+          if ! git diff --cached --quiet; then
+            git config user.name 'HAPIL regression workflow'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix: connect all laser branches and prevent Dream ricochet exceptions'
+            git push origin HEAD:refs/heads/fix/rc121-connected-dream
+          fi
+          test -z "$(git status --porcelain)"
+          COMMIT=$(git rev-parse HEAD)
+          echo "commit=$COMMIT" >> "$GITHUB_OUTPUT"
+          echo "RC121_CANDIDATE_COMMIT=$COMMIT"
+          git show --stat --oneline HEAD
+  regression:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [dream, topology, release]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare.outputs.commit }}
           fetch-depth: 1
           persist-credentials: false
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Source locations for the reported regressions
-        run: |
-          node <<'NODE'
-          const fs=require('fs'),f='assets/index-v31526.js',lines=fs.readFileSync(f,'utf8').split('\n');
-          console.log('RELATED_TESTS',fs.readdirSync('tests').filter(x=>/dream|samong|topology|laser|mode/i.test(x)).join(' '));
-          let count=0;for(let i=0;i<lines.length;i++)if(/__HAPIL_CHOICE_RC97__|__HAPIL_LASER_TOPOLOGY_RC108__|__HAPIL_SAMONG_RICOCHET_RC108__|bossFinaleV31334/.test(lines[i])&&count++<70)console.log('SOURCE '+f+':'+(i+1)+' '+lines.slice(Math.max(0,i-2),i+3).join('\n').slice(0,2200));
-          NODE
+      - name: Fetch approved art reference
+        run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
       - name: Install isolated Chromium runtime
         run: |
           QA_RUNTIME="$RUNNER_TEMP/rc121-runtime"
-          npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1
-          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium
+          npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/chromium-install.log" 2>&1
           CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")
           sudo ln -sf "$CHROMIUM" /usr/bin/chromium
           sudo mkdir -p /workspace/hapil-deliverables/RC119-body
@@ -48,12 +93,37 @@ jobs:
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc121-evidence" >> "$GITHUB_ENV"
-      - name: Reproduce Dream exceptions and first battle
-        run: node tests/rc121-dream-regression-browser.cjs
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc121-evidence/release" >> "$GITHUB_ENV"
+          /usr/bin/chromium --version
+      - name: Test exact clean candidate
+        env:
+          SUITE: ${{ matrix.suite }}
+          TESTED_COMMIT: ${{ needs.prepare.outputs.commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$TESTED_COMMIT"
+          test -z "$(git status --porcelain)"
+          echo "RC121_TESTED_COMMIT=$TESTED_COMMIT suite=$SUITE"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          printf '%s\n' "$TESTED_COMMIT" > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          case "$SUITE" in
+            dream) node tests/rc121-dream-regression-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+          esac
+      - name: Print concise evidence and preserve synthetic-art PNGs
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),root=process.env.HAPIL_QA_OUTPUT||'';
+          for(const f of ['dream-results.json','summary.json','release/release-summary.json']){const p=path.join(root,f);if(!fs.existsSync(p))continue;const x=JSON.parse(fs.readFileSync(p));if(x.natural)for(const r of x.natural){delete r.samples;if(r.frames)r.frames={n:r.frames.n,maxGap:r.frames.maxGap,longTasks:r.frames.longTasks?.length};}if(Array.isArray(x))for(const r of x){r.checks=r.rows?.length;delete r.rows;delete r.renderRows;}console.log('RC121_EVIDENCE '+f+' '+JSON.stringify(x).slice(0,35000));}
+          NODE
+          if [ -d /workspace/hapil-deliverables/RC119-body ]; then mkdir -p "$RUNNER_TEMP/rc121-evidence/approved-art"; cp -n /workspace/hapil-deliverables/RC119-body/*.png "$RUNNER_TEMP/rc121-evidence/approved-art/" 2>/dev/null || true; fi
       - name: Preserve exact evidence
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: rc121-${{ github.sha }}
+          name: rc121-${{ matrix.suite }}-${{ needs.prepare.outputs.commit }}
           path: ${{ runner.temp }}/rc121-evidence/
           retention-days: 14
