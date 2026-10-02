@@ -15,11 +15,10 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
           show-progress: false
-      - name: Read exact native render and health code without patching
+      - name: Resolve projection and map bounds
         run: |
           node <<'NODE'
-          const fs=require('node:fs'),s=fs.readFileSync('assets/index-v31526.js','utf8');
-          console.log('COMMIT',process.env.GITHUB_SHA,'BYTES',Buffer.byteLength(s));
-          for(const [a,b]of[[1116900,1124700],[1163100,1166400]])console.log('\nRANGE',a,b,'\n'+s.slice(a,b));
-          for(const needle of ['function G(','function MONGSE_enemyUiOffset(','__HAPIL_GEOMETRY_V31345__=','__HAPIL_GEOMETRY_V31345__ =','function Di(']){let at=-1,count=0;while((at=s.indexOf(needle,at+1))>=0&&count++<3)console.log('\nSOURCE',needle,at,'\n'+s.slice(Math.max(0,at-500),at+5000));}
+          const s=require('node:fs').readFileSync('assets/index-v31526.js','utf8');
+          for(const [a,b] of [[5619000,5627800],[1114200,1117000]])console.log('RANGE',a,b,'\n'+s.slice(a,b));
+          const re=/\bG\s*=\s*(?:\([^;]{0,80}=>|function)/g;let m;while((m=re.exec(s)))console.log('PROJECTION',m.index,s.slice(Math.max(0,m.index-300),m.index+900));
           NODE
