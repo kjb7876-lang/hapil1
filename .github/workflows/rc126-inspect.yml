@@ -1,0 +1,32 @@
+name: RC126 combat path inspection
+on:
+  push:
+    branches: [fix/rc126-combat-readability]
+    paths: ['.github/workflows/rc126-inspect.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Read exact native combat anchors and existing test inventory
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),cp=require('child_process');
+          const p='assets/index-v31526.js',src=fs.readFileSync(p,'utf8'),lines=src.split('\n');
+          console.log('BUNDLE',JSON.stringify({lines:lines.length,blob:cp.execFileSync('git',['hash-object',p],{encoding:'utf8'}).trim()}));
+          console.log('TESTS',fs.readdirSync('tests').filter(x=>/contact|projectile|combat|natural|death|advance|blood|126/.test(x)).join('\n'));
+          console.log('EXPORTED_TAIL',lines.slice(-180).join('\n'));
+          const needles=['function h(','hostileProjectiles.push','previousX =','previousX:','blue-executor','prepareTransit','bodySpawned31219','__HAPIL_GEOMETRY_V31402__','__HAPIL_BLOODIED_FLIGHT_RC43__'];
+          for(const needle of needles){const found=[];for(let i=0;i<lines.length;i++)if(lines[i].includes(needle))found.push(i);console.log('\nMATCHES',needle,found.map(x=>x+1));for(const i of found.slice(0,6))console.log(lines.slice(Math.max(0,i-8),i+22).map((l,j)=>(Math.max(0,i-8)+j+1)+': '+l).join('\n'));}
+          NODE
