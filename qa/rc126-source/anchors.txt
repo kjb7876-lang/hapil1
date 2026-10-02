@@ -1,0 +1,86 @@
+/__HAPIL_RC86_BRIDGE__/
+123844: window.__HAPIL_RC86_BRIDGE__ = Object.freeze({
+
+/__HAPIL_COMBAT_FLOW_RC95__/
+46752:   return ruleCast || atomicCast ? (window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(state) ? .65 : .01) : 1;
+47934:   const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow?.enabled(e)&&!flow.executing(e)&&!flow.allowed(e,'bullet')&&!(Number(t.atomicCastUntil31210)>e.time))return null;
+54383:           if(!s)window.__HAPIL_COMBAT_FLOW_RC95__?.balance(o,R.current,window.__HAPIL_RC95_NATIVE__);
+62214:                   (!window.__HAPIL_COMBAT_FLOW_RC95__?.managed(o,e)||window.__HAPIL_COMBAT_FLOW_RC95__.allowed(o,'mixed')&&MONGSE_showcaseDispatch.required) &&
+116988:     if(!window.__HAPIL_COMBAT_FLOW_RC95__?.admit(s,a,'bullet')&&window.__HAPIL_COMBAT_FLOW_RC95__)return null;
+117957:     if(!window.__HAPIL_COMBAT_FLOW_RC95__?.admit(s,a,'mixed')&&window.__HAPIL_COMBAT_FLOW_RC95__)return null;
+118634:     const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow?.enabled(s)){forcedMode=flow.phase(s).index===1?'blood-beam':flow.phase(s).index===0?'abyss-fan':forcedMode;}
+120225:  function configure(c,a,profile,s){c.rhythmTimingRC95=window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(s)===true;c.bloodV31516=profile?.bloodV31516===true;const v=sizing(c,profile);c.giantLaserV31332=true;c.profileKeyV31332=profile?.key??'';c.rankV31332=tier(c);
+120231:   a.activePattern=c.patternNameV31331??('광맥 · '+labels[c.type]);a.activePatternUntil=c.endAt;a.recoverUntil=c.endAt+(a.boss?1.05:.9);a.readyAt=a.recoverUntil+.1;a.laserReadyAtRC94=c.endAt+NUM(profile?.cooldown,4.2)*(window.__HAPIL_SAMONG_RC91__?.enabled(s)? .5:1);if(c.rhythmTimingRC95)a.laserReadyAtRC94=window.__HAPIL_COMBAT_FLOW_RC95__.laserReadyAt(s,c.endAt);a.patternReadyAt=a.readyAt+.18;a.atomicCastUntil31210=c.endAt;a.laserLockV31332=c.id;
+120234:  function start(s,a,type){const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow&&!flow.admit(s,a,'laser'))return null;if(window.__HAPIL_ENEMY_V31338__&&!window.__HAPIL_ENEMY_V31338__.actors(s).length)return null;const r=row(a);if(!authority(s)||locked(s)||protectedActor(a)||!r||r.native||(r.zone!==s.zone&&!(s.zone==='cult04'&&a?.dreamCosmicTrialV31346))||!types.includes(type)||phase(a)<0)return null;
+120781:  function start(s,a,kind='ultimate'){const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow&&!flow.admit(s,a,kind==='rain'?'mixed':'laser'))return null;if(window.__HAPIL_ENEMY_V31338__&&!window.__HAPIL_ENEMY_V31338__.actors(s).length)return null;
+123513:  function draw(ctx,s,settings){const a=(s.enemies??[]).find(a=>a.hp>0&&(a.boss||a.midboss)&&a.shmupPatternPlanV31365);if(!a)return;const plan=a.shmupPatternPlanV31365;if(s.time-plan.announcedAt>2.2&&!window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(s))return;
+123514:   ctx.save();try{const p=G(a.x,a.y),o=MONGSE_enemyTorsoOffset(a);if(settings.showCombatInfo!==false){ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillStyle='rgba(5,10,18,.88)';ctx.fillRect(p.x-129,p.y+o.y-39,258,25);ctx.fillStyle='#ebf0f5';const rhythm=window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(s)?window.__HAPIL_COMBAT_FLOW_RC95__.phase(s):null;ctx.fillText(rhythm?rhythm.name+' · '+rhythm.remaining.toFixed(1)+'초':'규칙 '+plan.phase+' / '+plan.label,p.x,p.y+o.y-20);}
+126415:  const flow=window.__HAPIL_COMBAT_FLOW_RC95__;
+
+/__HAPIL_DANMAKU_V31316__\s*=/
+117164:     window.__HAPIL_DANMAKU_V31316__=Object.freeze({installed:true,version:VERSION,commonAsset:COMMON_BULLET,names:Object.freeze({...names}),deck,catalog:spellCatalog,modeFor,artFor,plan,trySchedule,scheduleMapSignature,tick,drawShot,drawCue,zoneAssets,audit,barrageCap,rankedRows:()=>[...owners.values()],mapSignature:signatureFor,mapSignatures:()=>signatures.map(row=>({...row})),mapCoverage,needsMapSignature,active:s=>live.has(s),lockedAsset:(s,a,family)=>mapArtLocks.get(s)?.assets.get(String(a?.id??"boss")+":"+String(family??"danmaku"))?.sprite??null,clearMap:s=>{if(s){mapArtLocks.delete(s);mapPatternLocks.delete(s);}},counters:()=>({...stats})});
+
+/function (MONGSE_.*(Projectile|Hostile|Spawn)|oi|mo|Ii|ti)\(/
+9605:     function ti(e, t) {
+9749:     function oi(e) {
+10916:     function mo(e, t) {
+29793: function MONGSE_steerReturningProjectile(e, t, n) {
+51172: function Ii(e) {
+
+/\bhostileProjectiles\.push\(/
+5330:     (e.hostileProjectiles.push(t), MONGSE_markBossProjectile31213(e, t));
+44449:     e.hostileProjectiles.push(u),
+45438:       (e.hostileProjectiles.push({
+45560:       e.hostileProjectiles.push({
+45689:     e.hostileProjectiles.push(u),
+47445:     e.hostileProjectiles.push({
+55451:                 MONGSE_deflectState31211.hostileProjectiles.push(
+59228:                           r.hostileProjectiles.push(
+59260:                     n.hostileProjectiles.push(
+69178:     MONGSE_state31220.hostileProjectiles.push(MONGSE_projectile31220);
+119090:       s.hostileProjectiles.push(copy);mirrored.add(copy);added++;
+123731:   for(let i=0;i<count;i++){const t=angle+(i-1)*.12,q={id:s.fxSerial++,sourceId:a.id,sourceBossId:a.id,originX:c.x,originY:c.y,x:c.x,y:c.y,previousX:c.x,previousY:c.y,vx:Math.cos(t)*cfg.boltSpeed,vy:Math.sin(t)*cfg.boltSpeed,radius:.38,damage:cfg.damage,born:s.time,expiresAt:s.time+cfg.boltLife,frozenUntil:0,visualYV31333:-18,sourceOffsetY:-18,sprite:c.path,echoSourceSpriteV31368:c.path,echoBoltV31368:true,hellMirrorCheckedV31322:true,echoZoneV31368:s.zone,echoSerialV31368:++m.serial,color:c.color,accent:c.accent,label:'잔영 돌진탄',status:'none',statusValue:0,boss:false,midboss:false,screenAligned31222:true,bitmapBoundV31225:true,projectileScaleV31226:{speed:1,radius:1},persistenceSpeedPrepared31214:true,persistenceMinimumSpeedPrepared31214:true,hostileReachContract31214:true};s.hostileProjectiles.push(q);stats.bolts++;}
+
+/\benemies\.push\(/
+6332:       e.state.enemies.push({
+24701:   n >= 0 ? (t.enemies[n] = i) : t.enemies.push(i);
+42765:         e.enemies.push(Jr(ye, t)),
+46329:         e.enemies.push(n),
+47332:       e.enemies.push(m),
+49217:         e.enemies.push(s),
+58440:                     e.enemies.push(Jr(ye, `murder03`));
+61448:                       o.enemies.push(...n),
+61454:                     o.enemies.push(...ti(o.zone, 1)),
+61463:                     o.enemies.push(...e),
+61489:                       o.enemies.push(e, ...(MONGSE_midbossDuoRC59 ? [MONGSE_midbossDuoRC59] : [])),
+61536:                       o.enemies.push(t),
+61659:                       o.enemies.push(r));
+61692:                   (o.enemies.push(e),
+80115:         zoneRecord.enemies.push(template);
+110770:       enemies.push(row);
+118459:     s.enemies.push(next);
+118514:     n.enemies.push({id:ID,x:ANCHOR.x,y:ANCHOR.y,hp:n.cosmicLuciferV31318.hp,currentPhase:1,phaseIndex:1});
+118523:     if(!a){a=makeActor(finite(s.time),r);s.enemies=(s.enemies??[]).filter(e=>e.id!==MASK&&e.id!==ID);s.enemies.push(a);}
+122265:   s.enemies=(s.enemies??[]).filter(x=>!x.boss);s.enemies.push(b);s.bossDefeated=false;s.dreamFinalV31346={version:1,index,phase:'fight',activeId:b.id,safeUntil:0,deathToken:0,complete:false};return b;
+122311:       if(!b){b={...template};s.enemies=(s.enemies??[]).filter(x=>!x.boss);s.enemies.push(b);}
+123738:    const e={id:'echo68-'+s.fxSerial+++'-'+(++m.serial),name:(i===1&&mob?.name?mob.name:a.name)+' · 자폭 잔영',kind:'demon',sprite:art,echoBossImageCloneV31368:art===c.path,echoBossImageHeightV31368:art===c.path?bossDrawHeightV31368(a):0,x:p.x,y:p.y,hp:cfg.childHP,maxHp:cfg.childHP,stagger:0,maxStagger:20,facing:1,direction:'front',scale:.85,damage:0,boss:false,midboss:false,elite:false,speed:0,readyAt:s.time+100000,patternReadyAt:s.time+100000,invulnerableUntil:s.time+.45,hitUntil:0,attackAt:0,attackImpactAt:0,recoverUntil:0,movingUntil:0,moveDx:0,moveDy:0,echoChildV31368:true,echoOwnerV31368:a.id,sourceBossId:a.id,summonOwnerId:a.id,echoZoneV31368:s.zone,echoBornV31368:s.time,echoExpiresV31368:s.time+cfg.childLife,echoFuseV31368:0,echoColorV31368:c.color,echoAccentV31368:c.accent,temporarySummonV31368:true};s.enemies.push(e);fx(s,'spawn',e,{sprite:art,color:c.color,duration:.45});stats.summons++;}
+126049:     enemies.push(leader);
+126231:    if(!leader&&template){leader=clone(template,zone);if(leader){tagOwner(leader,'mb-dist04');Object.assign(leader,{midboss:true,boss:false,compressedWaveV31228:3,initialEncounterLeaderV31228:true,allyEchoMidbossRC69:true});addRoom(enemies);enemies.push(leader);}}
+126238:    const duplicate=enemies.some(a=>a?.id===actor.id);if(duplicate)break;placeMember(zone,first,actor,enemies,leaders.length+1);enemies.push(actor);leaders.push(actor);stats.midbossTriads++;
+
+/function .*cloneEnemy/
+82852:   Jr = function MONGSE_cloneEnemyApostateV31233(
+
+/MONGSE_push.*Projectile.*=/
+71167:     typeof MONGSE_pushThemeProjectile3129 !== `function` ||
+71182:   const MONGSE_pushThemeProjectileBaseV31224 = MONGSE_pushThemeProjectile3129;
+71183:   MONGSE_pushThemeProjectile3129 = function (
+72828:   const MONGSE_pushThemeProjectileBaseV31225 = MONGSE_pushThemeProjectile3129;
+72829:   MONGSE_pushThemeProjectile3129 = function (
+77807:     typeof MONGSE_pushThemeProjectile3129 !== `function` ||
+105712:       typeof MONGSE_pushThemeProjectile3129 !== "function" ||
+105727:   MONGSE_pushThemeProjectile3129 = function HAPIL_pushDist01ProjectileV31306(
+116310:     MONGSE_pushThemeProjectile3129=wrapShot(MONGSE_pushThemeProjectile3129);
+117006:       MONGSE_pushThemeProjectile3129(s,a,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,x:p.originX,y:p.originY,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28/Math.max(.1,num(director.sizeScale,1)),damage:a.boss?13:10,sprite:art.sprite,color:p.color,accent:p.accent,curve:0,frozenUntil:at,homingMode31212:"none",status:"none",statusValue:0,label:p.name,patternKind:"danmaku-v31316",life:speed<=1.35?22:speed>=6?7.5:12});
+
+/function G\(/

@@ -1,0 +1,341 @@
+
+### assets/index-v31526.js:2000-2150
+2000:           damage: 18,
+2001:         });
+2002:       }
+2003:     }
+2004: 
+2005:     MONGSE_boss31220.bossRuleCycle31220 = MONGSE_cycle31220 + 1;
+2006:     MONGSE_boss31220.lastBossRuleArchetype31220 = MONGSE_profile31220.archetype;
+2007:     MONGSE_boss31220.lastBossRuleFingerprint31220 =
+2008:       MONGSE_profile31220.deterministicFingerprint;
+2009:     return MONGSE_spawned31220;
+2010:   }
+2011: 
+2012:   function MONGSE_stepBossRuleProjectile31220(
+2013:     MONGSE_state31220,
+2014:     MONGSE_projectile31220,
+2015:   ) {
+2016:     if (!MONGSE_projectile31220?.codeNativeBossRule31220) return !1;
+2017:     const MONGSE_now31220 = Number(MONGSE_state31220?.time ?? 0),
+2018:       MONGSE_releaseAt31220 = Number(
+2019:         MONGSE_projectile31220.motionReleaseAt31219 ?? MONGSE_now31220,
+2020:       );
+2021:     if (MONGSE_now31220 + 1e-9 < MONGSE_releaseAt31220) return !0;
+2022:     if (MONGSE_projectile31220.bossRuleRole31220 === `squeeze-wall`) {
+2023:       const MONGSE_stopAt31220 = Number(MONGSE_projectile31220.ruleStopAt31220 ?? 0),
+2024:         MONGSE_resumeAt31220 = Number(MONGSE_projectile31220.ruleResumeAt31220 ?? 0);
+2025:       if (MONGSE_now31220 >= MONGSE_stopAt31220 && MONGSE_now31220 < MONGSE_resumeAt31220) {
+2026:         MONGSE_projectile31220.vx = 0;
+2027:         MONGSE_projectile31220.vy = 0;
+2028:         MONGSE_projectile31220.squeezeHolding31220 = !0;
+2029:       } else if (MONGSE_now31220 >= MONGSE_resumeAt31220) {
+2030:         MONGSE_projectile31220.vx = -Number(MONGSE_projectile31220.ruleBaseVx31220 ?? 0);
+2031:         MONGSE_projectile31220.vy = -Number(MONGSE_projectile31220.ruleBaseVy31220 ?? 0);
+2032:         MONGSE_projectile31220.squeezeHolding31220 = !1;
+2033:         MONGSE_projectile31220.squeezeExpanded31220 = !0;
+2034:       }
+2035:     } else if (MONGSE_projectile31220.bossRuleRole31220 === `rhythm-gated-wall`) {
+2036:       const MONGSE_period31220 = Math.max(
+2037:           0.3,
+2038:           Number(MONGSE_projectile31220.rhythmPeriod31220 ?? 0.58),
+2039:         ),
+2040:         MONGSE_active31220 = Math.max(
+2041:           0.12,
+2042:           Math.min(
+2043:             MONGSE_period31220 - 0.08,
+2044:             Number(MONGSE_projectile31220.rhythmActiveSeconds31220 ?? 0.23),
+2045:           ),
+2046:         ),
+2047:         MONGSE_phase31220 =
+2048:           ((MONGSE_now31220 - MONGSE_releaseAt31220) % MONGSE_period31220 +
+2049:             MONGSE_period31220) %
+2050:           MONGSE_period31220;
+2051:       if (MONGSE_phase31220 >= MONGSE_active31220) {
+2052:         MONGSE_projectile31220.vx = 0;
+2053:         MONGSE_projectile31220.vy = 0;
+2054:         MONGSE_projectile31220.rhythmSafeWindow31220 = !0;
+2055:         MONGSE_projectile31220.collisionDisabledUntil31219 = Math.max(
+2056:           Number(MONGSE_projectile31220.collisionDisabledUntil31219 ?? 0),
+2057:           MONGSE_now31220 + (MONGSE_period31220 - MONGSE_phase31220),
+2058:         );
+2059:       } else {
+2060:         MONGSE_projectile31220.vx = Number(
+2061:           MONGSE_projectile31220.ruleBaseVx31220 ?? 0,
+2062:         );
+2063:         MONGSE_projectile31220.vy = Number(
+2064:           MONGSE_projectile31220.ruleBaseVy31220 ?? 0,
+2065:         );
+2066:         MONGSE_projectile31220.rhythmSafeWindow31220 = !1;
+2067:       }
+2068:     }
+2069:     return !0;
+2070:   }
+2071: 
+2072:   function MONGSE_spawnBossPatternVariant31219(
+2073:     MONGSE_state31219,
+2074:     MONGSE_boss31219,
+2075:     MONGSE_variant31219,
+2076:   ) {
+2077:     if (!MONGSE_state31219 || !MONGSE_boss31219 || !MONGSE_variant31219) return 0;
+2078:     if (MONGSE_variant31219.grammarId === `vertical-tombstone-rain`)
+2079:       return MONGSE_spawnVerticalTombstones31219(
+2080:         MONGSE_state31219,
+2081:         MONGSE_boss31219,
+2082:         MONGSE_variant31219,
+2083:       );
+2084:     if (MONGSE_variant31219.grammarId === `horizontal-tombstone-sweep`)
+2085:       return MONGSE_spawnHorizontalTombstones31219(
+2086:         MONGSE_state31219,
+2087:         MONGSE_boss31219,
+2088:         MONGSE_variant31219,
+2089:       );
+2090:     if (MONGSE_variant31219.grammarId === `diagonal-grave-cross`)
+2091:       return MONGSE_spawnDiagonalGraveCross31219(
+2092:         MONGSE_state31219,
+2093:         MONGSE_boss31219,
+2094:         MONGSE_variant31219,
+2095:       );
+2096:     if (MONGSE_variant31219.grammarId === `giant-projectile-ambush`)
+2097:       return MONGSE_spawnGiantAmbush31219(
+2098:         MONGSE_state31219,
+2099:         MONGSE_boss31219,
+2100:         MONGSE_variant31219,
+2101:       );
+2102:     if (MONGSE_variant31219.grammarId === `delayed-monolith-burst`)
+2103:       return MONGSE_spawnDelayedMonolithBurst31219(
+2104:         MONGSE_state31219,
+2105:         MONGSE_boss31219,
+2106:         MONGSE_variant31219,
+2107:       );
+2108:     if (MONGSE_variant31219.grammarId === `boss-specific-mixed-barrage`)
+2109:       return MONGSE_spawnBossSpecificMixed31219(
+2110:         MONGSE_state31219,
+2111:         MONGSE_boss31219,
+2112:         MONGSE_variant31219,
+2113:       );
+2114:     return 0;
+2115:   }
+2116: 
+2117:   const MONGSE_spawnBossSignatureBase31219 =
+2118:     MONGSE_originalSpawnBossSignatureKind31215;
+2119:   MONGSE_originalSpawnBossSignatureKind31215 = function (
+2120:     MONGSE_state31219,
+2121:     MONGSE_boss31219,
+2122:     MONGSE_kind31219,
+2123:   ) {
+2124:     const MONGSE_result31219 = MONGSE_spawnBossSignatureBase31219(
+2125:         MONGSE_state31219,
+2126:         MONGSE_boss31219,
+2127:         MONGSE_kind31219,
+2128:       ),
+2129:       MONGSE_legacyEmitted31219 =
+2130:         Number(MONGSE_result31219?.projectiles ?? 0) +
+2131:         Number(MONGSE_result31219?.lasers ?? 0),
+2132:       MONGSE_profile31219 =
+2133:         MONGSE_BOSS_PATTERN_PROFILES_V31219[MONGSE_boss31219?.id],
+2134:       MONGSE_ruleProfile31220 =
+2135:         MONGSE_BOSS_RULE_PROFILES_V31220[MONGSE_boss31219?.id];
+2136:     if (
+2137:       !MONGSE_profile31219 ||
+2138:       !MONGSE_boss31219?.boss ||
+2139:       MONGSE_legacyEmitted31219 <= 0 ||
+2140:       MONGSE_state31219.legacyBossContractProbe31219 === !0 ||
+2141:       Number(MONGSE_state31219.time ?? 0) <
+2142:         Number(MONGSE_boss31219.barrageRestUntil31219 ?? 0)
+2143:     )
+2144:       return {
+2145:         ...MONGSE_result31219,
+2146:         v31219Projectiles: 0,
+2147:         v31220RuleProjectiles: 0,
+2148:       };
+2149:     const MONGSE_cycle31219 = Number(MONGSE_boss31219.barrageCycle31219 ?? 0),
+2150:       MONGSE_variant31219 =
+
+### assets/index-v31526.js:116880-117065
+116880:     const row=ownerFor(a),mapCarrier=!!row?.mapCarrierV31371&&!(a?.boss||a?.midboss);
+116881:     return !!(s&&a&&row&&row.zone===s.zone&&(a.boss||a.midboss||mapCarrier)&&a.hp>0&&s.hp>0&&s.enemies?.includes(a)&&!a.objectiveStructureV31238&&!a.narrativeStructureV31238);
+116882:   }
+116883:   function modeFor(a,family,cycle=0) {
+116884:     const p=window.__HAPIL_BOSS_V31315__?.profile(a,ownerFor(a)?.zone),theme=p?.theme??MONGSE_bossBarragePalette(a)?.theme;
+116885:     const rotation=theme==="spirit"||theme==="inferno"?1:["control","chrono","thread"].includes(theme)?3:0;
+116886:     const familyOffset=family==="rotating-laser"?1:family==="rolling-ordnance"?2:0;
+116887:     return deck[(Math.max(0,Math.floor(num(cycle)/4))+familyOffset+rotation)%deck.length];
+116888:   }
+116889:   function artFor(a,zone,family) {
+116890:     return {sprite:COMMON_BULLET,heading:0,radial:true,sourceZone:zone,sourceActor:String(a?.id??""),patternFamily:family};
+116891:   }
+116892:   function mapLockedArt(s,a,family,candidate) {
+116893:     let record=mapArtLocks.get(s);
+116894:     if(!record||record.zone!==s.zone){if(record)stats.lockResets++;record={zone:s.zone,assets:new Map()};mapArtLocks.set(s,record);}
+116895:     const key=String(a?.id??"boss")+":"+String(family??"danmaku");
+116896:     if(!record.assets.has(key))record.assets.set(key,Object.freeze({...candidate}));
+116897:     return record.assets.get(key);
+116898:   }
+116899:   function plan(s,a,family,cycle=0,forcedMode=null) {
+116900:     if(!eligible(s,a))return null;
+116901:     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.hypot(dx,dy);
+116902:     if(distance<MIN_DISTANCE)return null;
+116903:     const signature=signatureFor(s.zone),aim=Math.atan2(dy,dx),patternId=forcedMode??modeFor(a,family,cycle),spell=spellById.get(patternId)??spellById.get("fan"),mode=spell.family,variant=spell.variant,art=mapLockedArt(s,a,family,artFor(a,s.zone,family));
+116904:     if(!art)return null;
+116905:     // Fixed centre lane: radius .28 + hero .46 + .45 margin, even at entry distance.
+116906:     const gap=Math.max(.32,Math.asin(Math.min(.98,1.22/distance))+.08+signature.gapBonus),beats=[],span=Math.PI*2-gap*2;
+116907:     const mobile=window.__HAPIL_COMBAT_RC47__?.mobile?.()===true,density=mobile?0:signature.density,speeds=[1.15,3.65,6.8];
+116908:     const safeAngle=angle=>{const offset=deltaAngle(angle,aim);return Math.abs(offset)>=gap+.025?angle:aim+(offset<0?-1:1)*(gap+.025);};
+116909:     const arc=(count,shift=0)=>Array.from({length:count},(_,i)=>aim+gap+span*(i+.5)/count+shift);
+116910:     for(let beat=0;beat<(mode==="ring"?2:3);beat++) {
+116911:       const angles=[];
+116912:       if(mode==="scatter") {
+116913:           const count=mobile?12:48+density*8;
+116914:         for(let i=0;i<count;i++){
+116915:           const base=aim+gap+span*(i+.5)/count;
+116916:           const seed=(Math.imul((i+1)*(beat+3),2654435761)^(num(cycle)*2246822519))>>>0;
+116917:           angles.push(base+((seed%1001)/1000-.5)*.17);
+116918:         }
+116919:       } else if(mode==="ring") {
+116920:         const step=(Math.PI*2-gap*2)/10;
+116921:         for(let i=0;i<10;i++)angles.push(aim+gap+step*(i+.5)+(beat?step*.12:0));
+116922:       } else if(mode==="rotating") {
+116923:         const count=mobile?12:16+density*4,step=(Math.PI*2-gap*2)/count,rotation=beat*.19;
+116924:         for(let i=0;i<count;i++)angles.push(aim+gap+step*(i+.5)+rotation);
+116925:       } else if(mode==="spiral") {
+116926:         const count=9;
+116927:         for(let i=0;i<count;i++)angles.push(aim+gap+span*(i+.5)/count+beat*.24+((i%3)-1)*.025);
+116928:       } else if(mode==="petals") {
+116929:         const count=mobile?12:24+density*6;
+116930:         for(let i=0;i<count;i++)angles.push(aim+gap+span*(i+.5)/count+Math.sin(i*Math.PI/6+beat*.4)*.16);
+116931:       } else if(mode==="helix") {
+116932:         for(let i=0;i<6;i++)for(const arm of [-1,1])angles.push(aim+gap+span*(i+.5)/6+arm*(beat*.12+i*.035));
+116933:       } else if(mode==="curtain") {
+116934:         angles.push(...arc(mobile?12:42+density*6,(beat-1)*.075));
+116935:       } else if(mode==="cross") {
+116936:         for(let i=0;i<12;i++)angles.push(aim+i*Math.PI/6+beat*.045);
+116937:       } else if(mode==="wave") {
+116938:         const count=mobile?14:24+density*3;
+116939:         for(let i=0;i<count;i++)angles.push(aim+gap+span*(i+.5)/count+Math.sin(i*Math.PI/3+beat*.9)*.19);
+116940:       } else if(mode==="orbit") {
+116941:         const count=mobile?8:10+density*2;for(let i=0;i<count;i++)for(const ring of [0,1])angles.push(aim+gap+span*(i+.5)/count+ring*Math.PI/count+beat*(ring?.11:-.07));
+116942:       } else if(mode==="gate") {
+116943:         const count=mobile?6:14+density*2,shift=beat%2?.16:-.16;
+116944:         angles.push(...arc(count,shift),...arc(count,-shift));
+116945:       } else if(mode==="echo") {
+116946:         const side=beat%2?-1:1;
+116947:         const lanes=mobile?6:10+density*2;
+116948:         for(let lane=0;lane<lanes;lane++)angles.push(aim+side*(gap+.10+lane*.18),aim-side*(gap+.10+lane*.18)+beat*.025);
+116949:       } else if(mode==="hexagram") {
+116950:         for(let i=0;i<6;i++)for(const arm of [-1,1])angles.push(aim+i*Math.PI/3+arm*.035+beat*.055);
+116951:       } else if(mode==="sixfold") {
+116952:         for(let i=0;i<6;i++)for(const arm of [-1,1])angles.push(aim+i*Math.PI/3+arm*(gap*.18+.025)+beat*.11);
+116953:       } else for(const side of [-1,1])for(let lane=0;lane<3;lane++) {
+116954:         const stagger=mode==="lanes"?(beat%2?(side<0?.18:0):(side>0?.18:0)):beat*.065;
+116955:         angles.push(aim+side*(gap+.12+lane*.20+stagger));
+116956:       }
+116957:       beats.push({beat,delay:1.12+beat*(mode==="ring"?.55:.42)*signature.tempo,
+116958:         speed:speeds[(signature.speedPhase+beat*2)%speeds.length],
+116959:         angles:angles.map(angle=>safeAngle(angle+signature.turn))});
+116960:     }
+116961:     if(variant>0){
+116962:       const baseline=beats.reduce((sum,beat)=>sum+beat.angles.length,0),room=mobile?Math.max(0,MOBILE_CAP-baseline):Infinity;
+116963:       for(const beat of beats){
+116964:         const phaseShift=variant*.027+beat.beat*(variant%3+1)*.013;
+116965:         beat.angles=beat.angles.map((angle,index)=>safeAngle(angle+Math.sin((index+1)*(variant+.5)+beat.beat*.71)*(.018*variant)+phaseShift));
+116966:         const extra=mobile?Math.min(variant,Math.floor(room/beats.length)):variant+2;
+116967:         for(let i=0;i<extra;i++){
+116968:           const fraction=((i+.5)/Math.max(1,extra)+variant*.137+beat.beat*.071)%1;
+116969:           beat.angles.push(safeAngle(aim+gap+span*fraction+signature.turn));
+116970:         }
+116971:       }
+116972:     }
+116973:     const palette=MONGSE_bossBarragePalette(a),owner=ownerFor(a),theme=window.__HAPIL_BOSS_V31315__?.profile(a,s.zone)?.theme??palette.theme;
+116974:     const variants=[art];
+116975:     const mapName=names[patternId]+" · "+signature.label;
+116976:     return {mode,patternId,patternLabel:names[patternId],category:spell.category,variant,name:mapName,mapSignatureV31371:signature.id,signature,aim,gap,art,variants,originX:a.x,originY:a.y,targetX:s.x,targetY:s.y,beats,count:beats.reduce((n,b)=>n+b.angles.length,0),color:owner?.danmakuColorV31316??palette.color??"#ddbdff",accent:owner?.danmakuAccentV31316??palette.accent??"#ffffff",vfxStyle:owner?.danmakuVfxStyleV31316??"sigil"};
+116977:   }
+116978:   function aimForBeat(s,a) {
+116979:     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.max(1.22,Math.hypot(dx,dy));
+116980:     return {aim:Math.atan2(dy,dx),gap:Math.max(.32,Math.asin(Math.min(.98,1.22/distance))+.08)};
+116981:   }
+116982:   function releaseShot(s,a,q,run,now) {
+116983:     const {aim,gap}=aimForBeat(s,a),offset=num(q.danmakuOffsetV31316),safeOffset=Math.abs(offset)>=gap+.025?offset:(offset<0?-1:1)*(gap+.025),angle=aim+safeOffset,speed=Math.max(.1,num(q.danmakuSpeedV31316,3.6));
+116984:     q.danmakuAimV31316=aim;q.danmakuGapV31316=gap;q.danmakuAngleV31316=angle;q.vx=Math.cos(angle)*speed;q.vy=Math.sin(angle)*speed;
+116985:     q.x=q.originX=q.previousX=a.x;q.y=q.originY=q.previousY=a.y;run.cue.aim=aim;run.cue.gap=gap;q.bodySpawned31219=true;q.danmakuLaunchedAtV31316=now;
+116986:   }
+116987:   function trySchedule(s,a,family,cycle) {
+116988:     if(!window.__HAPIL_COMBAT_FLOW_RC95__?.admit(s,a,'bullet')&&window.__HAPIL_COMBAT_FLOW_RC95__)return null;
+116989:     if(num(cycle)%4!==0||(a?.id==="mb-dist01"&&num(cycle)===0))return null;
+116990:     const owner=ownerFor(a),mapCarrier=!!owner?.mapCarrierV31371&&!(a?.boss||a?.midboss);
+116991:     if(!eligible(s,a)||suppress(s)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||(!mapCarrier&&MONGSE_bossPatternBusyV31230(s,a)))return null;
+116992:     const signature=signatureFor(s.zone),firstForMap=needsMapSignature(s),p=plan(s,a,family,cycle,firstForMap?signature.patternId:null),now=num(s.time);
+116993:     if(!p)return null;
+116994:     const shots=s.hostileProjectiles??=[],active=live.get(s);
+116995:     const liveLaser=(s.bossLaserCastsV31330??[]).some(c=>num(c.endAt)>now);
+116996:     const liveHeavy=[...(s.pendingHits??[]),...(s.impactQueue??[])].some(h=>h.heavyBossSkill&&!h.damageSuppressedV31226&&num(h.impactAt,h.at)>=now);
+116997:     if(active||liveLaser||liveHeavy||shots.length+p.count>barrageCap()||(s.pendingHits?.length??0)>=18||shots.some(q=>q.danmakuV31316&&num(q.motionReleaseAt31219)>now)) {stats.rejected++;return null;}
+116998:     const last=now+p.beats[p.beats.length-1].delay,added=[];
+116999:     const beforeFx=new Set(s.effects??[]),castId=MONGSE_lockAtomicBossCast31210(s,a,"danmaku-v31316-"+p.patternId,last+.22,"rain");
+117000:     // Remove only this synchronous call's four old cosmetic stamps.
+117001:     s.effects=(s.effects??[]).filter(e=>beforeFx.has(e)||!(e.sourceId===a.id&&(e.bossCastAura31212||e.bossCastDirectionCue31213||e.bossCastBloom31212||e.bossArenaPulse31214)));
+117002:     const director=MONGSE_bossDirectorProfile31210(a),speedScale=Math.max(.1,num(director.speedScale,1));
+117003:     for(const beat of p.beats)for(const [index,angle] of beat.angles.entries()) {
+117004:       const before=s.hostileProjectiles.length,at=now+beat.delay,speed=beat.speed/speedScale;
+117005:       const art=p.mode==="scatter"?p.variants[(index+beat.beat*7)%p.variants.length]:p.art;
+117006:       MONGSE_pushThemeProjectile3129(s,a,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,x:p.originX,y:p.originY,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28/Math.max(.1,num(director.sizeScale,1)),damage:a.boss?13:10,sprite:art.sprite,color:p.color,accent:p.accent,curve:0,frozenUntil:at,homingMode31212:"none",status:"none",statusValue:0,label:p.name,patternKind:"danmaku-v31316",life:speed<=1.35?22:speed>=6?7.5:12});
+117007:       const q=s.hostileProjectiles[before];if(!q)continue;
+117008:       Object.assign(q,{danmakuV31316:true,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,danmakuPatternIdV31372:p.patternId,danmakuPatternCategoryV31372:p.category,danmakuZoneV31316:s.zone,danmakuPhaseV31316:phase(a),danmakuArtV31316:art.sprite,danmakuHeadingV31316:art.heading,danmakuRadialV31316:art.radial,danmakuModeV31316:p.mode,danmakuColorV31316:p.color,danmakuAccentV31316:p.accent,danmakuVfxStyleV31316:p.vfxStyle,danmakuBeatV31316:beat.beat,danmakuAimV31316:p.aim,danmakuBaseAimV31316:p.aim,danmakuOffsetV31316:deltaAngle(angle,p.aim),danmakuGapV31316:p.gap,danmakuSpeedV31316:Math.hypot(q.vx,q.vy),danmakuAngleV31316:angle,danmakuReleaseV31316:at,hideUntilRelease31219:true,codeNativeBarrage31219:true,bodySpawned31219:false,motionReleaseAt31219:at,collisionDisabledUntil31219:at,collisionDisabledUntilV31226:at,telegraphUntil31210:at,frozenUntil:Math.max(num(q.frozenUntil),at),sprite:art.sprite,fallbackSprite:art.sprite,spriteHeading:art.heading,imageOnly:true,bitmapRequired:true,curve:0,homingMode31212:"none",scatterHomingPrepared31211:true,bossCastId31210:castId,bossCastResolveAt31210:last+.22,interruptProtectedUntil31210:last+.22,retirePolicy31222:"hero-or-world-boundary"});
+117009:       for(const key of ["homeAt31211","homeUntil31211","returnAt","returnUntil","retargetAt31212"])delete q[key];
+117010:       added.push(q);
+117011:     }
+117012:     const cue={id:s.fxSerial++,sourceId:a.id,danmakuOwnerIdV31316:ownerFor(a)?.actor?.id??a.id,danmakuMapSignatureV31371:p.mapSignatureV31371,danmakuPatternIdV31372:p.patternId,kind:"danmakuCueV31316",danmakuCueV31316:true,danmakuPhaseV31316:phase(a),danmakuZoneV31316:s.zone,x:p.originX,y:p.originY,sourceOffsetY:num(added[0]?.sourceOffsetY,-18),born:now,duration:last-now+.14,sprite:p.art.sprite,color:p.color,accent:p.accent,vfxStyle:p.vfxStyle,aim:p.aim,gap:p.gap,beatTimes:p.beats.map(b=>now+b.delay),movementTrailV31316:[],label:p.name,imageOnly:true,boss:!!a.boss};
+117013:     s.effects.push(cue);
+117014:     s.floatTexts.push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:1.2,text:p.name+" · 열린 통로 유지",color:p.color,critical:!!a.boss});
+117015:     a.lastBossCombatPatternV31230="danmaku-"+p.patternId;a.lastBossCombatPatternAtV31230=now;
+117016:     a.danmakuChoreoModeV31316=p.mode;a.danmakuPatternIdV31372=p.patternId;a.danmakuChoreoStartedV31316=now+.30;a.danmakuChoreoUntilV31316=last+.12;a.danmakuChoreoSideV31316=num(cycle)%2;
+117017:     // Recovery begins after the final volley reaches the aimed lane, leaving
+117018:     // a deliberate counterattack window before another boss action starts.
+117019:     const slowest=Math.min(...p.beats.map(beat=>beat.speed)),arrival=clamp(Math.hypot(p.targetX-p.originX,p.targetY-p.originY)/Math.max(.1,slowest),.5,5.6);
+117020:     a.recoverUntil=Math.max(num(a.recoverUntil),last+arrival+.85);a.readyAt=Math.max(num(a.readyAt),last+arrival+.85);a.themedOrdnanceAt=Math.max(num(a.themedOrdnanceAt),last+1.5);
+117021:     if(added.length&&firstForMap){mapPatternLocks.set(s,{zone:s.zone,used:true,signature:p.mapSignatureV31371});stats.mapSignatureCasts++;}
+117022:     live.set(s,{actor:a,zone:s.zone,phase:phase(a),shots:added,cue,lastTime:now,paused:false,castId,last,soundedBeats:new Set()});
+117023:     stats.casts++;stats.shots+=added.length;
+117024:     return {family:"danmaku-"+p.mode,patternId:p.patternId,name:p.name,projectiles:added.length,lasers:0,warningAt:now+p.beats[0].delay,danmakuV31316:true};
+117025:   }
+117026:   function tick(s) {
+117027:     const run=s&&live.get(s);if(!run)return;
+117028:     const now=num(s.time),dt=Math.max(0,now-run.lastTime),a=run.actor;
+117029:     const cancelled=!eligible(s,a)||phase(a)!==run.phase||run.zone!==s.zone||suppress(s);
+117030:     if(cancelled) {
+117031:       a.danmakuChoreoUntilV31316=now;
+117032:       const owned=new Set(run.shots.filter(q=>!q.bodySpawned31219||suppress(s)));
+117033:       s.hostileProjectiles=(s.hostileProjectiles??[]).filter(q=>!owned.has(q));
+117034:       s.effects=(s.effects??[]).filter(e=>e!==run.cue);
+117035:       stats.cancelled+=owned.size;live.delete(s);return;
+117036:     }
+117037:     const dialogue=MONGSE_isEncounterLocked31226(s),stopped=num(s.timeStopUntil)>now,paused=dialogue||stopped;
+117038:     let shifted=0;
+117039:     for(const q of run.shots)if(!q.bodySpawned31219) {
+117040:       // The production time-stop helper compensates the entire remaining stop
+117041:       // once. Calling it here is idempotent when the physics loop calls it again.
+117042:       if(stopped)MONGSE_compensateGlobalTimeStop31216(s,q);
+117043:       if(dialogue&&dt>0&&!stopped) {
+117044:         MONGSE_extendProjectileTimeline31214(q,dt);
+117045:         q.frozenUntil=Math.max(num(q.frozenUntil),q.danmakuReleaseV31316+dt);
+117046:       }
+117047:       const release=Math.max(num(q.motionReleaseAt31219),num(q.frozenUntil),num(q.collisionDisabledUntilV31226));
+117048:       shifted=Math.max(shifted,release-q.danmakuReleaseV31316);
+117049:       q.danmakuReleaseV31316=release;
+117050:       for(const key of ["motionReleaseAt31219","collisionDisabledUntil31219","collisionDisabledUntilV31226","telegraphUntil31210","frozenUntil"])q[key]=Math.max(num(q[key]),release);
+117051:     }
+117052:     if(shifted>0) {
+117053:       run.last=Math.max(...run.shots.map(q=>q.danmakuReleaseV31316));
+117054:       run.cue.beatTimes=run.cue.beatTimes.map((t,beat)=>Math.max(t,...run.shots.filter(q=>q.danmakuBeatV31316===beat).map(q=>q.danmakuReleaseV31316)));
+117055:       run.cue.duration=run.last-run.cue.born+.14;
+117056:       for(const point of run.cue.movementTrailV31316??[])point.at+=shifted;
+117057:       for(const key of ["atomicCastUntil31210","castVisualUntil31210","recoverUntil","readyAt","patternReadyAt","themedOrdnanceAt","bossCombatPatternReadyAtV31230","danmakuChoreoStartedV31316","danmakuChoreoUntilV31316"])if(Number.isFinite(a[key]))a[key]+=shifted;
+117058:     }
+117059:     run.cue.danmakuPausedV31316=paused;
+117060:     if(!paused){run.cue.x=a.x;run.cue.y=a.y;const liveAim=aimForBeat(s,a);run.cue.aim=liveAim.aim;run.cue.gap=liveAim.gap;if(now>=num(a.danmakuChoreoStartedV31316)){const trail=run.cue.movementTrailV31316,last=trail[trail.length-1];if(!last||J(a,last)>=.22)trail.push({x:a.x,y:a.y,at:now});while(trail.length>8||trail.length&&now-trail[0].at>.36)trail.shift();}for(const q of run.shots)if(!q.bodySpawned31219){q.x=q.originX=q.previousX=a.x;q.y=q.originY=q.previousY=a.y;}}
+117061:     run.lastTime=now;run.paused=paused;
+117062:     if(!paused)for(let beat=0;beat<run.cue.beatTimes.length;beat++)if(now>=run.cue.beatTimes[beat]&&!run.soundedBeats.has(beat)){
+117063:       run.soundedBeats.add(beat);
+117064:       if(typeof We==="function"&&typeof MONGSE_enemyAttackSfx==="function")We(MONGSE_enemyAttackSfx(a,s.zone),.22);
+117065:     }

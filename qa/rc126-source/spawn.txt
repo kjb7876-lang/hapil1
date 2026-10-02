@@ -1,0 +1,296 @@
+
+### assets/index-v31526.js:410-555
+410:       );
+411:     const MONGSE_paletteRC24={
+412:       color: MONGSE_base31219?.color ??
+413:         [`#8b5cf6`, `#ff5d7d`, `#55d8ff`, `#ffc857`][MONGSE_hash31219 % 4],
+414:       accent: MONGSE_base31219?.accent ?? `#fff4d6`,
+415:       status: MONGSE_base31219?.status ?? `none`,
+416:       statusValue: MONGSE_base31219?.statusValue ?? 0,
+417:     };
+418:     return window.__HAPIL_RAID_RC24__?.damagePalette?.(MONGSE_boss31219,MONGSE_paletteRC24)??MONGSE_paletteRC24;
+419:   }
+420: 
+421:   function MONGSE_pushCodeNativeProjectile31219(
+422:     MONGSE_state31219,
+423:     MONGSE_boss31219,
+424:     MONGSE_variant31219,
+425:     MONGSE_spec31219,
+426:   ) {
+427:     const MONGSE_now31219 = Number(MONGSE_state31219.time ?? 0),
+428:       MONGSE_palette31219 = MONGSE_barragePalette31219(MONGSE_boss31219),
+429:       MONGSE_x31219 = Number(MONGSE_spec31219.x ?? MONGSE_boss31219.x ?? 16),
+430:       MONGSE_y31219 = Number(MONGSE_spec31219.y ?? MONGSE_boss31219.y ?? 16),
+431:       MONGSE_releaseAt31219 = Number(
+432:         MONGSE_spec31219.motionReleaseAt31219 ?? MONGSE_now31219,
+433:       ),
+434:       MONGSE_hiddenUntilRelease31219 =
+435:         !!MONGSE_spec31219.hideUntilRelease31219,
+436:       MONGSE_motionRadius31219 = Number(MONGSE_spec31219.radius ?? 0.52) * 1.22,
+437:       MONGSE_projectile31219 = {
+438:         id: MONGSE_state31219.fxSerial++,
+439:         sourceId: MONGSE_boss31219.id,
+440:         x: MONGSE_x31219,
+441:         y: MONGSE_y31219,
+442:         originX: MONGSE_x31219,
+443:         originY: MONGSE_y31219,
+444:         previousX: MONGSE_x31219,
+445:         previousY: MONGSE_y31219,
+446:         vx: Number(MONGSE_spec31219.vx ?? 0),
+447:         vy: Number(MONGSE_spec31219.vy ?? 0),
+448:         curve: Number(MONGSE_spec31219.curve ?? 0),
+449:         radius: MONGSE_motionRadius31219,
+450:         visualScaleV31224: Math.min(1.5, Math.max(1, Number(MONGSE_spec31219.visualScaleV31224 ?? 1) || 1) * 1.22),
+451:         damage: Number(MONGSE_spec31219.damage ?? 14),
+452:         born: MONGSE_now31219,
+453:         sourceBorn: MONGSE_now31219,
+454:         sourceOffsetY: Number(MONGSE_spec31219.sourceOffsetY ?? -18),
+455:         expiresAt: MONGSE_now31219 + 6.4,
+456:         frozenUntil: Math.max(
+457:           MONGSE_releaseAt31219,
+458:           Number(MONGSE_spec31219.frozenUntil ?? MONGSE_now31219),
+459:         ),
+460:         telegraphUntil31210: Math.max(
+461:           MONGSE_releaseAt31219,
+462:           Number(MONGSE_spec31219.telegraphUntil31210 ?? MONGSE_now31219),
+463:         ),
+464:         reflected: !1,
+465:         grazed: !1,
+466:         boss: !0,
+467:         midboss: !1,
+468:         color: MONGSE_spec31219.color ?? MONGSE_palette31219.color,
+469:         accent: MONGSE_spec31219.accent ?? MONGSE_palette31219.accent,
+470:         label: MONGSE_spec31219.label ??
+471:           `${MONGSE_boss31219.name ?? MONGSE_boss31219.id} · ${MONGSE_variant31219.grammarId}`,
+472:         visualShape: MONGSE_spec31219.visualShape ?? `orb`,
+473:         sprite:
+474:           MONGSE_spec31219.sprite ??
+475:           MONGSE_themeProjectileSprite3128(
+476:             MONGSE_boss31219,
+477:             MONGSE_state31219.zone,
+478:           ),
+479:         bitmapBound31221: !0,
+480:         status: MONGSE_spec31219.status ?? MONGSE_palette31219.status,
+481:         statusValue:
+482:           MONGSE_spec31219.statusValue ?? MONGSE_palette31219.statusValue,
+483:         heavyBossSkill:
+484:           !!MONGSE_spec31219.giantProjectile31219 ||
+485:           MONGSE_spec31219.heavyHitClass31220 === `telegraphed-major`,
+486:         themeProjectile: !0,
+487:         atomicBossCast31210: !0,
+488:         bossNonReflectable31213: !0,
+489:         reflectPolicy31213: `deny-major-boss`,
+490:         bossSkillIdentity31213: `${MONGSE_boss31219.id}:${MONGSE_variant31219.id}`,
+491:         signatureKind31212: MONGSE_variant31219.id,
+492:         signatureFamily31212: `v31219-code-native`,
+493:         signatureGrammar31212: MONGSE_variant31219.grammarId,
+494:         homingMode31212: `none`,
+495:         offscreenReturnAllowance31212: 0,
+496:         bounceRemaining31212: 0,
+497:         codeNativeBarrage31219: !0,
+498:         codeNativeShape31219: MONGSE_spec31219.codeNativeShape31219 ?? `tombstone`,
+499:         barrageGrammar31219:
+500:           MONGSE_spec31219.barrageGrammar31219 ?? MONGSE_variant31219.grammarId,
+501:         barrageVariantId31219: MONGSE_variant31219.id,
+502:         barrageFamilyVariant31219: MONGSE_variant31219.familyVariant,
+503:         barrageTopologyFingerprint31219:
+504:           MONGSE_variant31219.topologyFingerprint,
+505:         connectedSafeCorridor31219: !0,
+506:         safeCorridorAnchorX31219: Number(
+507:           MONGSE_spec31219.safeCorridorAnchorX31219 ?? MONGSE_state31219.x ?? 16,
+508:         ),
+509:         safeCorridorAnchorY31219: Number(
+510:           MONGSE_spec31219.safeCorridorAnchorY31219 ?? MONGSE_state31219.y ?? 16,
+511:         ),
+512:         terrainPiercing31214: !0,
+513:         obstaclePiercing31214: !0,
+514:         losRequired31214: !1,
+515:         nonReflectable31219: !0,
+516:         nonDeletableUntilReach31219: !0,
+517:         retirePolicy31219: `hero-or-world-boundary-only`,
+518:         nominalTtlIgnored31219: !0,
+519:         motionReleaseAt31219: MONGSE_releaseAt31219,
+520:         motionVx31219: Number(
+521:           MONGSE_spec31219.motionVx31219 ?? MONGSE_spec31219.vx ?? 0,
+522:         ),
+523:         motionVy31219: Number(
+524:           MONGSE_spec31219.motionVy31219 ?? MONGSE_spec31219.vy ?? 0,
+525:         ),
+526:         hideUntilRelease31219: MONGSE_hiddenUntilRelease31219,
+527:         motionRadius31219: MONGSE_motionRadius31219,
+528:         bodySpawned31219: !MONGSE_hiddenUntilRelease31219,
+529:         collisionDisabledUntil31219: MONGSE_hiddenUntilRelease31219
+530:           ? MONGSE_releaseAt31219
+531:           : MONGSE_now31219,
+532:         telegraphPrimary31219: !!MONGSE_spec31219.telegraphPrimary31219,
+533:         telegraphStyle31219:
+534:           MONGSE_spec31219.telegraphStyle31219 ?? `lane-runes`,
+535:         telegraphSeconds31219: Number(
+536:           MONGSE_spec31219.telegraphSeconds31219 ??
+537:             Math.max(0, MONGSE_releaseAt31219 - MONGSE_now31219),
+538:         ),
+539:         ambushOrigin31219: MONGSE_spec31219.ambushOrigin31219 ?? null,
+540:         delayedBurst31219: !!MONGSE_spec31219.delayedBurst31219,
+541:         giantProjectile31219: !!MONGSE_spec31219.giantProjectile31219,
+542:         ambushEscort31219: !!MONGSE_spec31219.ambushEscort31219,
+543:         codeNativeBossRule31220: !!MONGSE_spec31219.codeNativeBossRule31220,
+544:         bossRuleArchetype31220:
+545:           MONGSE_spec31219.bossRuleArchetype31220 ?? null,
+546:         bossRuleRole31220: MONGSE_spec31219.bossRuleRole31220 ?? null,
+547:         bossRuleCycle31220: Number(MONGSE_spec31219.bossRuleCycle31220 ?? 0),
+548:         bossRuleFingerprint31220:
+549:           MONGSE_spec31219.bossRuleFingerprint31220 ?? null,
+550:         ruleBaseVx31220: Number(
+551:           MONGSE_spec31219.ruleBaseVx31220 ??
+552:             MONGSE_spec31219.motionVx31219 ??
+553:             MONGSE_spec31219.vx ??
+554:             0,
+555:         ),
+
+### assets/index-v31526.js:1215-1360
+1215:     MONGSE_boss31220,
+1216:     MONGSE_profile31220,
+1217:     MONGSE_x31220,
+1218:     MONGSE_y31220,
+1219:     MONGSE_duration31220,
+1220:     MONGSE_size31220 = 4.8,
+1221:   ) {
+1222:     const MONGSE_effects31220 = (MONGSE_state31220.effects ??= []);
+1223:     if (MONGSE_effects31220.length >= MONGSE_CAPS_V31219.effects) return !1;
+1224:     const MONGSE_palette31220 = MONGSE_barragePalette31219(MONGSE_boss31220);
+1225:     MONGSE_state31220.fxSerial ??= 1;
+1226:     MONGSE_effects31220.push({
+1227:       id: MONGSE_state31220.fxSerial++,
+1228:       sourceId: MONGSE_boss31220.id,
+1229:       kind:
+1230:         MONGSE_profile31220.archetype === `recorded-position-replay` ||
+1231:         MONGSE_profile31220.archetype === `rhythm-gate`
+1232:           ? `time`
+1233:           : `glitch`,
+1234:       x: MONGSE_x31220,
+1235:       y: MONGSE_y31220,
+1236:       tx: MONGSE_x31220,
+1237:       ty: MONGSE_y31220,
+1238:       born: Number(MONGSE_state31220.time ?? 0),
+1239:       duration: Math.max(0.45, Number(MONGSE_duration31220 ?? 0.7)),
+1240:       color: MONGSE_palette31220.color,
+1241:       accent: MONGSE_palette31220.accent,
+1242:       size: MONGSE_size31220,
+1243:       angle: 0,
+1244:       forceFront: !0,
+1245:       ultimate: !0,
+1246:       bossRuleTelegraph31220: !0,
+1247:       bossRuleArchetype31220: MONGSE_profile31220.archetype,
+1248:     });
+1249:     return !0;
+1250:   }
+1251: 
+1252:   function MONGSE_pushBossRuleProjectile31220(
+1253:     MONGSE_state31220,
+1254:     MONGSE_boss31220,
+1255:     MONGSE_profile31220,
+1256:     MONGSE_cycle31220,
+1257:     MONGSE_spec31220,
+1258:   ) {
+1259:     const MONGSE_safeSpec31220 = { ...MONGSE_spec31220 },
+1260:       MONGSE_heroX31220 = Number(MONGSE_state31220.x ?? 16),
+1261:       MONGSE_heroY31220 = Number(MONGSE_state31220.y ?? 16),
+1262:       MONGSE_originX31220 = Number(
+1263:         MONGSE_safeSpec31220.x ?? MONGSE_boss31220.x ?? 16,
+1264:       ),
+1265:       MONGSE_originY31220 = Number(
+1266:         MONGSE_safeSpec31220.y ?? MONGSE_boss31220.y ?? 16,
+1267:       ),
+1268:       MONGSE_requiredRevealDistance31220 =
+1269:         MONGSE_safeSpec31220.heavyHitClass31220 === `telegraphed-major`
+1270:           ? 3.8
+1271:           : 2.25;
+1272:     if (
+1273:       MONGSE_safeSpec31220.hideUntilRelease31219 &&
+1274:       Math.hypot(
+1275:         MONGSE_originX31220 - MONGSE_heroX31220,
+1276:         MONGSE_originY31220 - MONGSE_heroY31220,
+1277:       ) < MONGSE_requiredRevealDistance31220
+1278:     ) {
+1279:       const MONGSE_motionAngle31220 = Math.atan2(
+1280:         Number(MONGSE_safeSpec31220.motionVy31219 ?? MONGSE_safeSpec31220.vy ?? 0),
+1281:         Number(MONGSE_safeSpec31220.motionVx31219 ?? MONGSE_safeSpec31220.vx ?? 1),
+1282:       ),
+1283:         MONGSE_revealClearance31220 =
+1284:           MONGSE_safeSpec31220.heavyHitClass31220 === `telegraphed-major`
+1285:             ? 4.8
+1286:             : 2.75,
+1287:         MONGSE_candidates31220 = [0, Math.PI / 2, -Math.PI / 2, Math.PI].map(
+1288:           (MONGSE_angleOffset31220) => {
+1289:             const MONGSE_angle31220 =
+1290:                 MONGSE_motionAngle31220 + MONGSE_angleOffset31220,
+1291:               MONGSE_x31220 = MONGSE_clampWorld31220(
+1292:                 MONGSE_heroX31220 -
+1293:                   Math.cos(MONGSE_angle31220) * MONGSE_revealClearance31220,
+1294:                 0.3,
+1295:               ),
+1296:               MONGSE_y31220 = MONGSE_clampWorld31220(
+1297:                 MONGSE_heroY31220 -
+1298:                   Math.sin(MONGSE_angle31220) * MONGSE_revealClearance31220,
+1299:                 0.3,
+1300:               );
+1301:             return {
+1302:               x: MONGSE_x31220,
+1303:               y: MONGSE_y31220,
+1304:               distance: Math.hypot(
+1305:                 MONGSE_x31220 - MONGSE_heroX31220,
+1306:                 MONGSE_y31220 - MONGSE_heroY31220,
+1307:               ),
+1308:             };
+1309:           },
+1310:         ),
+1311:         MONGSE_bestCandidate31220 = MONGSE_candidates31220.reduce(
+1312:           (MONGSE_best31220, MONGSE_candidate31220) =>
+1313:             MONGSE_candidate31220.distance > MONGSE_best31220.distance
+1314:               ? MONGSE_candidate31220
+1315:               : MONGSE_best31220,
+1316:         );
+1317:       MONGSE_safeSpec31220.x = MONGSE_bestCandidate31220.x;
+1318:       MONGSE_safeSpec31220.y = MONGSE_bestCandidate31220.y;
+1319:       MONGSE_safeSpec31220.revealOriginAdjustedForFairness31220 = !0;
+1320:     }
+1321:     return MONGSE_pushCodeNativeProjectile31219(
+1322:       MONGSE_state31220,
+1323:       MONGSE_boss31220,
+1324:       MONGSE_profile31220.variant,
+1325:       {
+1326:         ...MONGSE_safeSpec31220,
+1327:         label: MONGSE_profile31220.label,
+1328:         barrageGrammar31219: `v31220-${MONGSE_profile31220.archetype}`,
+1329:         codeNativeBossRule31220: !0,
+1330:         bossRuleArchetype31220: MONGSE_profile31220.archetype,
+1331:         bossRuleRole31220: MONGSE_safeSpec31220.bossRuleRole31220 ?? `hazard`,
+1332:         bossRuleCycle31220: MONGSE_cycle31220,
+1333:         bossRuleFingerprint31220: MONGSE_profile31220.deterministicFingerprint,
+1334:         connectedRuleSafeRoute31220: !0,
+1335:       },
+1336:     );
+1337:   }
+1338: 
+1339:   function MONGSE_spawnBossRule31220(
+1340:     MONGSE_state31220,
+1341:     MONGSE_boss31220,
+1342:     MONGSE_profile31220,
+1343:   ) {
+1344:     if (!MONGSE_state31220 || !MONGSE_boss31220 || !MONGSE_profile31220) return 0;
+1345:     const MONGSE_now31220 = Number(MONGSE_state31220.time ?? 0),
+1346:       MONGSE_cycle31220 = Number(MONGSE_boss31220.bossRuleCycle31220 ?? 0),
+1347:       MONGSE_phase31220 = Math.max(
+1348:         1,
+1349:         Number(MONGSE_enemyActivePhase(MONGSE_boss31220) ?? 1),
+1350:       ),
+1351:       MONGSE_desiredByRule31220 = Object.freeze({
+1352:         "moving-safe-lane": 18,
+1353:         "arena-squeeze": 16,
+1354:         "recorded-position-replay": 14,
+1355:         "emitter-triad": 15,
+1356:         "rhythm-gate": 18,
+1357:         "rotating-gap-wall": 22,
+1358:         "pulse-rings": 18,
+1359:         "echo-chase": 14,
+1360:         "chase-corridor": 13,

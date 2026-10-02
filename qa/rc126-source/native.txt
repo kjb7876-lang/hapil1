@@ -1,0 +1,439 @@
+
+### assets/index-v31526.js:49490-49690
+49490:         forceFront: !0,
+49491:         ultimate: !0,
+49492:         wrathDashImpact: !0,
+49493:       }),
+49494:       (t += 1));
+49495:   }
+49496:   return { wrathDashes: t, cancelled: n };
+49497: }
+49498: function Ei(e, t, n, r) {
+49499:   let i = +(r >= 3 && n.shape === `circle`),
+49500:     MONGSE_isTelekineticRain = !!(
+49501:       n.telekineticRain &&
+49502:       n.telekinetic &&
+49503:       (t.boss || t.midboss)
+49504:     ),
+49505:     MONGSE_rainWaves = MONGSE_isTelekineticRain
+49506:       ? Math.max(1, Math.floor(n.rainWaves ?? 3))
+49507:       : 1,
+49508:     MONGSE_rainPerWave = MONGSE_isTelekineticRain
+49509:       ? Math.max(1, Math.floor(n.rainPerWave ?? 4))
+49510:       : 1,
+49511:     MONGSE_castCount = MONGSE_isTelekineticRain
+49512:       ? MONGSE_rainWaves * MONGSE_rainPerWave
+49513:       : Math.min(5, n.repeats + i),
+49514:     o = MONGSE_isTelekineticRain
+49515:       ? Math.max(1.65, n.windup * (1 - (r - 1) * 0.08))
+49516:       : Math.max(0.72, n.windup * (1 - (r - 1) * 0.08)),
+49517:     s = e.time,
+49518:     c = e.fxSerial + t.id.length + r * 7,
+49519:     l = b((e.x + t.x) / 2 + Math.sin(c * 1.73) * 3.55),
+49520:     u = b((e.y + t.y) / 2 + Math.cos(c * 1.31) * 3.15),
+49521:     MONGSE_rainTargets = MONGSE_isTelekineticRain
+49522:       ? MONGSE_buildTelekineticRainTargets(e, MONGSE_castCount)
+49523:       : null,
+49524:     MONGSE_telekineticSources =
+49525:       n.telekinetic && (t.boss || t.midboss)
+49526:         ? MONGSE_buildTelekineticRainSources(
+49527:             e,
+49528:             MONGSE_castCount,
+49529:             n.telekineticPropPool,
+49530:           )
+49531:         : null,
+49532:     MONGSE_rainGroupId = MONGSE_isTelekineticRain
+49533:       ? `${t.id}:${Math.round(s * 1000)}`
+49534:       : null;
+49535:   for (let i = 0; i < MONGSE_castCount; i++) {
+49536:     let MONGSE_rainWave = MONGSE_isTelekineticRain
+49537:         ? Math.floor(i / MONGSE_rainPerWave)
+49538:         : 0,
+49539:       MONGSE_rainSlot = MONGSE_isTelekineticRain ? i % MONGSE_rainPerWave : 0,
+49540:       MONGSE_hitAt = MONGSE_isTelekineticRain
+49541:         ? s +
+49542:           o +
+49543:           MONGSE_rainWave * (n.rainWaveGap ?? 0.78) +
+49544:           MONGSE_rainSlot * (n.rainSlotGap ?? 0.04)
+49545:         : s + o + i * n.gap,
+49546:       MONGSE_predictionSeconds = Math.min(0.8, MONGSE_hitAt - s) * 0.42,
+49547:       d = n.telekinetic ? 2.25 : n.shape === `circle` ? 0.62 : 0,
+49548:       f = n.telekinetic ? 1.85 : n.shape === `circle` ? 0.52 : 0,
+49549:       p = b(
+49550:         e.x + e.moveVx * MONGSE_predictionSeconds + Math.sin(c + i * 2.1) * d,
+49551:       ),
+49552:       m = b(
+49553:         e.y + e.moveVy * MONGSE_predictionSeconds + Math.cos(c + i * 1.7) * f,
+49554:       ),
+49555:       h = n.anchor === `boss`,
+49556:       g = n.anchor === `arena`,
+49557:       _ = n.shape === `cone` || n.shape === `line`,
+49558:       v = MONGSE_isTelekineticRain
+49559:         ? MONGSE_rainTargets[i].x
+49560:         : _
+49561:           ? p
+49562:           : h
+49563:             ? t.x
+49564:             : g
+49565:               ? l
+49566:               : p,
+49567:       y = MONGSE_isTelekineticRain
+49568:         ? MONGSE_rainTargets[i].y
+49569:         : _
+49570:           ? m
+49571:           : h
+49572:             ? t.y
+49573:             : g
+49574:               ? u
+49575:               : m,
+49576:       MONGSE_pendingHitId = e.fxSerial++,
+49577:       MONGSE_castId =
+49578:         n.telekinetic && (t.boss || t.midboss) ? e.fxSerial++ : null,
+49579:       MONGSE_source = MONGSE_telekineticSources?.[i] ?? null;
+49580:     if (n.telekinetic && (t.boss || t.midboss)) {
+49581:       MONGSE_source?.sprite &&
+49582:         e.telekineticCasts.push({
+49583:           id: MONGSE_castId,
+49584:           pendingHitId: MONGSE_pendingHitId,
+49585:           sourceId: t.id,
+49586:           featureId: MONGSE_source.featureId,
+49587:           born: s,
+49588:           at: MONGSE_hitAt,
+49589:           originX: MONGSE_source.originX,
+49590:           originY: MONGSE_source.originY,
+49591:           targetX: v,
+49592:           targetY: y,
+49593:           sprite: MONGSE_source.sprite,
+49594:           fallbackSprite: MONGSE_source.fallbackSprite,
+49595:           propId: MONGSE_source.propId,
+49596:           size: MONGSE_source.size,
+49597:           color: n.color,
+49598:           accent: n.accent,
+49599:           telekineticRain: MONGSE_isTelekineticRain,
+49600:           rainGroupId: MONGSE_rainGroupId,
+49601:           rainWave: MONGSE_rainWave + 1,
+49602:           rainIndex: i,
+49603:           rainCount: MONGSE_castCount,
+49604:           detachedFromMap: MONGSE_source.detachedFromMap,
+49605:           collidableHidden: !1,
+49606:           airborneCenterPivot: !!MONGSE_source.airborneCenterPivot,
+49607:           dedicatedSinProp: !!MONGSE_source.dedicatedSinProp,
+49608:           sevenSinMechanic: n.sevenSinMechanic,
+49609:         });
+49610:     }
+49611:     e.pendingHits.push({
+49612:       id: MONGSE_pendingHitId,
+49613:       sourceId: t.id,
+49614:       born: s,
+49615:       at: MONGSE_hitAt,
+49616:       x: v,
+49617:       y,
+49618:       originX: n.shape === `cone` || n.shape === `line` ? t.x : v,
+49619:       originY: n.shape === `cone` || n.shape === `line` ? t.y : y,
+49620:       damage: MONGSE_isTelekineticRain
+49621:         ? Math.max(1, Math.round(n.damage * (n.rainDamageScale ?? 0.74))) +
+49622:           (r - 1) * 2 +
+49623:           2
+49624:         : n.damage + (r - 1) * 2 + (t.boss ? 2 : 0),
+49625:       boss: !!t.boss,
+49626:       midboss: !!t.midboss,
+49627:       heavyBossSkill: !!(t.boss || t.midboss),
+49628:       heavyBossPatternV31302: !!(t.boss || t.midboss),
+49629:       patternSet: t.patternSet,
+49630:       radius: n.radius,
+49631:       innerRadius: n.innerRadius,
+49632:       width: n.width,
+49633:       shape: n.shape,
+49634:       color: n.color,
+49635:       accent: n.accent,
+49636:       status: n.status,
+49637:       statusValue: n.statusValue,
+49638:       label:
+49639:         MONGSE_isTelekineticRain && i === 0 ? `맵 전역 · ${n.name}` : n.name,
+49640:       perfectWindow: t.boss ? 0.34 : t.midboss ? 0.3 : 0,
+49641:       telekinetic: n.telekinetic,
+49642:       telekineticCastId: MONGSE_castId,
+49643:       telekineticSprite: MONGSE_source?.sprite,
+49644:       telekineticFallbackSprite: MONGSE_source?.fallbackSprite,
+49645:       telekineticPropId: MONGSE_source?.propId,
+49646:       airborneCenterPivot: !!MONGSE_source?.airborneCenterPivot,
+49647:       dedicatedSinProp: !!MONGSE_source?.dedicatedSinProp,
+49648:       sevenSinMechanic: n.sevenSinMechanic,
+49649:       gluttonTonguePull: !!n.gluttonTonguePull,
+49650:       sevenSinImpactSprite: n.impactSprite,
+49651:       impactFallbackSprite: n.impactFallbackSprite,
+49652:       telekineticRain: MONGSE_isTelekineticRain,
+49653:       rainGroupId: MONGSE_rainGroupId,
+49654:       rainWave: MONGSE_rainWave + 1,
+49655:       rainIndex: i,
+49656:       rainCount: MONGSE_castCount,
+49657:       suppressTelegraphLabel: MONGSE_isTelekineticRain && i !== 0,
+49658:     });
+49659:   }
+49660:   let MONGSE_phase0Asset =
+49661:       t.humanPhase0 && r === 0 ? MONGSE_EP1B_CANON_PHASE0_ASSETS[e.zone] : null,
+49662:     MONGSE_castThemeSprite = MONGSE_phase0Asset?.vfx ?? Jt(t.patternSet),
+49663:     MONGSE_castThemeFallback = MONGSE_phase0Asset ? Jt(t.patternSet) : null,
+49664:     MONGSE_castTorso = MONGSE_enemyTorsoOffset(t).y;
+49665:   MONGSE_castThemeSprite &&
+49666:     e.effects.push({
+49667:       id: e.fxSerial++,
+49668:       kind: `mark`,
+49669:       x: t.x,
+49670:       y: t.y,
+49671:       tx: t.x,
+49672:       ty: t.y,
+49673:       born: s,
+49674:       duration: Math.max(0.52, Math.min(1.28, o)),
+49675:       color: n.color,
+49676:       accent: n.accent,
+49677:       size: t.boss ? 6.2 : t.midboss ? 4.8 : 3.7,
+49678:       angle: 0,
+49679:       sprite: MONGSE_castThemeSprite,
+49680:       fallbackSprite: MONGSE_castThemeFallback,
+49681:       spriteHeading: null,
+49682:       imageOnly: !0,
+49683:       forceFront: !0,
+49684:       startOffsetY: MONGSE_castTorso,
+49685:       endOffsetY: MONGSE_castTorso,
+49686:       bossCastVfx: !0,
+49687:       patternSet: t.patternSet,
+49688:     });
+49689:   let d = s + o,
+49690:     f = MONGSE_isTelekineticRain
+
+### assets/index-v31526.js:49825-49920
+49825:       t.gapChargeV31226 === !0,
+49826:     ultimate: !!t.boss,
+49827:     forceFront: !0,
+49828:     telegraphImpact: !0,
+49829:     impactShape: t.shape,
+49830:     impactX: t.x,
+49831:     impactY: t.y,
+49832:     impactOriginX: t.originX,
+49833:     impactOriginY: t.originY,
+49834:     impactRadius: t.radius,
+49835:     impactInnerRadius: t.innerRadius,
+49836:     impactWidth: t.width,
+49837:     impactClearGap: MONGSE_impactClearGap(t),
+49838:     telegraphEndedAt: t.telegraphEndedAt,
+49839:   });
+49840:   window.__HAPIL_ENEMY_FEEL_V31361__?.strike(e,t);
+49841: }
+49842: function Di(e, t) {
+49843:   if(window.__HAPIL_CONTACT_V31336__?.hero(e))return window.__HAPIL_CONTACT_V31336__.area(null,e,t).hit;
+49844:   let n = e.x - t.x,
+49845:     r = e.y - t.y,
+49846:     i = Math.hypot(n, r);
+49847:   if (t.shape === `circle`) return i <= t.radius;
+49848:   if (t.shape === `donut`) return i >= t.innerRadius && i <= t.radius;
+49849:   if (t.shape === `safe`) return i > t.radius;
+49850:   if (t.shape === `cross`)
+49851:     return (
+49852:       (Math.abs(n) <= t.width && Math.abs(r) <= t.radius) ||
+49853:       (Math.abs(r) <= t.width && Math.abs(n) <= t.radius)
+49854:     );
+49855:   let a = t.x - t.originX,
+49856:     o = t.y - t.originY,
+49857:     s = Math.max(0.001, Math.hypot(a, o)),
+49858:     c = a / s,
+49859:     l = o / s,
+49860:     u = e.x - t.originX,
+49861:     d = e.y - t.originY,
+49862:     f = u * c + d * l;
+49863:   if (f < 0 || f > t.radius) return !1;
+49864:   if (t.shape === `line`) return Math.abs(u * -l + d * c) <= t.width;
+49865:   let p = Math.atan2(d, u),
+49866:     m = Math.atan2(l, c),
+49867:     h = Math.atan2(Math.sin(p - m), Math.cos(p - m));
+49868:   return Math.abs(h) <= t.width;
+49869: }
+49870: function MONGSE_telegraphDamageMultiplier31226(e, t) {
+49871:   if (!Di(e, t)) return 0;
+49872:   let n = Number(e.x ?? 0) - Number(t.x ?? 0),
+49873:     r = Number(e.y ?? 0) - Number(t.y ?? 0),
+49874:     i = Math.hypot(n, r),
+49875:     a = Math.max(0.001, Number(t.radius ?? 1)),
+49876:     o = 0.5;
+49877:   if (t.shape === `circle`) o = 1 - Math.min(1, i / a);
+49878:   else if (t.shape === `donut`) {
+49879:     let e = Math.max(0, Number(t.innerRadius ?? 0)),
+49880:       n = Math.max(0.001, a - e),
+49881:       r = e + n * 0.5;
+49882:     o = 1 - Math.min(1, Math.abs(i - r) / Math.max(0.001, n * 0.5));
+49883:   } else if (t.shape === `safe`)
+49884:     o = Math.min(1, Math.max(0, (i - a) / Math.max(2.2, a * 0.8)));
+49885:   else if (t.shape === `cross`) {
+49886:     let e = Math.max(0.001, Number(t.width ?? 0.5)),
+49887:       i = Math.max(
+49888:         Math.abs(n) <= e && Math.abs(r) <= a
+49889:           ? (1 - Math.abs(n) / e) * (0.72 + 0.28 * (1 - Math.abs(r) / a))
+49890:           : 0,
+49891:         Math.abs(r) <= e && Math.abs(n) <= a
+49892:           ? (1 - Math.abs(r) / e) * (0.72 + 0.28 * (1 - Math.abs(n) / a))
+49893:           : 0,
+49894:       );
+49895:     o = i;
+49896:   } else {
+49897:     let i = Number(t.x ?? 0) - Number(t.originX ?? 0),
+49898:       s = Number(t.y ?? 0) - Number(t.originY ?? 0),
+49899:       c = Math.max(0.001, Math.hypot(i, s)),
+49900:       l = i / c,
+49901:       u = s / c,
+49902:       d = Number(e.x ?? 0) - Number(t.originX ?? 0),
+49903:       f = Number(e.y ?? 0) - Number(t.originY ?? 0),
+49904:       p = Math.abs(d * -u + f * l);
+49905:     if (t.shape === `line`)
+49906:       o = 1 - Math.min(1, p / Math.max(0.001, Number(t.width ?? 0.5)));
+49907:     else {
+49908:       let e = Math.atan2(f, d),
+49909:         n = Math.atan2(u, l),
+49910:         r = Math.abs(Math.atan2(Math.sin(e - n), Math.cos(e - n)));
+49911:       o = 1 - Math.min(1, r / Math.max(0.001, Number(t.width ?? 0.45)));
+49912:     }
+49913:   }
+49914:   return Math.max(0.52, Math.min(1.2, 0.52 + Math.max(0, o) * 0.68));
+49915: }
+49916: function HAPIL_blinkVectorV31345(input, facing, automaticVector = null, lastManualVector = null) {
+49917:   const pressed=key=>input?.has?.(key)===true;
+49918:   let x=(pressed(`ArrowRight`)?1:0)-(pressed(`ArrowLeft`)?1:0);
+49919:   let y=(pressed(`ArrowDown`)?1:0)-(pressed(`ArrowUp`)?1:0);
+49920:   if (!x && !y && automaticVector && Number.isFinite(automaticVector.x) && Number.isFinite(automaticVector.y)) {
+
+### assets/index-v31526.js:117955-118090
+117955:   function baseHit(s,a,p,at){return {id:s.fxSerial++,sourceId:a.id,born:s.time,at,originX:a.x,originY:a.y,damage:a.boss?32:19,boss:!!a.boss,midboss:!!a.midboss,patternSet:a.patternSet,color:p.color,accent:"#ecfbff",status:"none",statusValue:0,perfectWindow:.32,heavyBossSkill:true,atomicBossCast31210:true,terrainPiercing31214:true,obstaclePiercing31214:true,losRequired31214:false,label:p.name,sprite:p.sprite,fallbackSprite:p.sprite,telegraphSpriteV31224:p.sprite,impactSpriteV31224:p.sprite,sevenSinImpactSprite:p.sprite,impactFallbackSprite:p.sprite,imageOnly:true,imageOnlyV31226:true,bitmapRequired:true,suppressPrimitiveBodyV31309:true,spectacleV31317:true,spectacleModeV31317:p.mode,spectaclePhaseV31317:phase(a),spectacleZoneV31317:s.zone,spectacleAssetV31317:p.sprite,spectacleSizeV31317:p.size};}
+117956:   function trySchedule(s,a,family,cycle){
+117957:     if(!window.__HAPIL_COMBAT_FLOW_RC95__?.admit(s,a,'mixed')&&window.__HAPIL_COMBAT_FLOW_RC95__)return null;
+117958:     if(num(cycle)%4!==1||!valid(s,a)||live.has(s)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||MONGSE_bossPatternBusyV31230(s,a)||num(a.spectacleReadyAtV31317)>num(s.time))return null;
+117959:     if((Number.isFinite(MONGSE_runtimeProjectileCapRC47())&&(s.hostileProjectiles?.length??0)>28)||allHits(s).length>12||allHits(s).some(h=>h.dynamicBossAttackV31315||h.spectacleV31317)||window.__HAPIL_DANMAKU_V31316__?.active?.(s)||(s.bossLaserCastsV31330??[]).some(c=>num(c.endAt)>num(s.time)))return null;
+117960:     const p=plan(s,a),now=num(s.time),before=new Set(s.effects??[]),last=now+p.last;
+117961:     const cast=MONGSE_lockAtomicBossCast31210(s,a,"spectacle-v31317-"+p.mode,last+1.0,"rain");
+117962:     s.effects=(s.effects??[]).filter(e=>before.has(e)||!(e.sourceId===a.id&&(e.bossCastAura31212||e.bossCastDirectionCue31213||e.bossCastBloom31212||e.bossArenaPulse31214)));
+117963:     const hits=p.mode==="monolith"?p.points.map(([x,y],i)=>({...baseHit(s,a,p,now+p.windup+i*p.spacing),x,y,shape:"circle",radius:2.2,width:0,innerRadius:0,spectacleIndexV31317:i})):[{...baseHit(s,a,p,last),x:p.end.x,y:p.end.y,originX:p.origin.x,originY:p.origin.y,shape:"line",radius:29.2,width:p.width,innerRadius:0,spectacleAxisV31317:p.axis,spectacleCenterV31317:p.center}];
+117964:     for(const h of hits)Object.assign(h,{bossCastId31210:cast,bossCastResolveAt31210:last+1,interruptProtectedUntil31210:last+1});
+117965:     (s.pendingHits??=[]).push(...hits);
+117966:     const cue={id:s.fxSerial++,kind:"spectacleCueV31317",spectacleCueV31317:true,sourceId:a.id,x:a.x,y:a.y,born:now,duration:p.last+.12,sprite:p.sprite,spectacleModeV31317:p.mode,spectacleAssetV31317:p.sprite,spectacleSizeV31317:p.size,color:p.color,boss:!!a.boss,imageOnly:true,spectacleHitsV31317:hits};
+117967:     s.effects.push(cue);
+117968:     const run={actor:a,zone:s.zone,phase:phase(a),hits,cue,born:now,last,clock:now,mode:p.mode,cast};live.set(s,run);actorRuns.set(a,run);
+117969:     a.recoverUntil=Math.max(num(a.recoverUntil),last+1);a.readyAt=Math.max(num(a.readyAt),last+1.15);a.themedOrdnanceAt=Math.max(num(a.themedOrdnanceAt),last+1.5);a.spectacleReadyAtV31317=now+23;
+117970:     a.lastBossCombatPatternV31230="spectacle-"+p.mode;a.lastBossCombatPatternAtV31230=now;
+117971:     metrics.casts++;metrics[p.mode==="beam"?"beams":"monoliths"]+=hits.length;
+117972:     return {family:"spectacle-"+p.mode,name:p.name,projectiles:0,lasers:hits.length,warningAt:hits[0].at,spectacleV31317:true};
+117973:   }
+117974:   function owned(s,run){return allHits(s).filter(h=>h.spectacleV31317&&h.bossCastId31210===run.cast&&h.sourceId===run.actor.id);}
+117975:   function sync(s){
+117976:     const run=live.get(s);if(!run)return;
+117977:     const current=owned(s,run);for(const h of run.hits){const q=current.find(v=>v.id===h.id);if(q&&q!==h)Object.assign(h,{at:q.at,impactAt:q.impactAt});}
+117978:     const latest=Math.max(...run.hits.map(h=>num(h.impactAt,h.at))),shift=Math.max(0,latest-run.last);
+117979:     run.last=latest;run.cue.duration=Math.max(.1,latest-run.cue.born+.12);
+117980:     if(shift>0)for(const key of ["recoverUntil","readyAt","themedOrdnanceAt","spectacleReadyAtV31317"])run.actor[key]=Math.max(num(run.actor[key]),latest+1);
+117981:   }
+117982:   function tick(s){
+117983:     const run=s&&live.get(s);if(!run)return;
+117984:     const now=num(s.time),dt=Math.max(0,now-run.clock);run.clock=now;
+117985:     if(!valid(s,run.actor)||phase(run.actor)!==run.phase||s.zone!==run.zone){
+117986:       for(const key of ["pendingHits","impactQueue"])s[key]=(s[key]??[]).filter(h=>!(h.spectacleV31317&&h.bossCastId31210===run.cast&&h.sourceId===run.actor.id));
+117987:       s.effects=(s.effects??[]).filter(e=>e!==run.cue&&!(e.spectacleImpactV31317&&e.bossCastId31210===run.cast));live.delete(s);actorRuns.delete(run.actor);metrics.cancelled++;return;
+117988:     }
+117989:     // Native global stop compensates pending hits in the actual combat update.
+117990:     // Dialogue suspends that loop: advance only these unlaunched owned deadlines.
+117991:     if(MONGSE_isEncounterLocked31226(s)&&num(s.timeStopUntil)<=now&&dt>0)for(const h of owned(s,run)){h.at+=dt;if(Number.isFinite(h.impactAt))h.impactAt+=dt;}
+117992:     sync(s);run.cue.spectaclePausedV31317=MONGSE_isEncounterLocked31226(s)||num(s.timeStopUntil)>now;
+117993:     if(now>run.last+1.12&&!owned(s,run).length){live.delete(s);actorRuns.delete(run.actor);}
+117994:   }
+117995:   function impact(s,h,base,args){
+117996:     if(!h?.spectacleV31317)return base(s,h,...args);
+117997:     const a=s.enemies?.find(a=>a.id===h.sourceId),p=profiles[h.sourceId];
+117998:     if(!valid(s,a,p)||phase(a)!==h.spectaclePhaseV31317){h.damageSuppressedV31226=true;return;}
+117999:     // Keep the one native impact creation call for its shared bookkeeping;
+118000:     // replace only its newly made cosmetic stamps with the authored bitmap.
+118001:     const before=new Set(s.effects??[]),result=base(s,h,...args);
+118002:     s.effects=(s.effects??[]).filter(e=>before.has(e));
+118003:     s.effects.push({id:s.fxSerial++,kind:"spectacleImpactV31317",spectacleImpactV31317:true,spectacleModeV31317:h.spectacleModeV31317,spectacleAssetV31317:h.spectacleAssetV31317,spectacleSizeV31317:h.spectacleSizeV31317,sourceId:h.sourceId,bossCastId31210:h.bossCastId31210,x:h.x,y:h.y,originX:h.originX,originY:h.originY,shape:h.shape,radius:h.radius,width:h.width,born:s.time,duration:h.spectacleModeV31317==="beam"?.94:.72,sprite:h.spectacleAssetV31317,color:h.color,imageOnly:true,forceFront:true,spectacleHitV31317:{...h}});
+118004:     return result;
+118005:   }
+118006:   function image(cache,path){const im=MONGSE_queueImage(cache,path,"eager");return im?.complete&&num(im.naturalWidth,im.width)>0?im:null;}
+118007:   function stamp(ctx,im,x,y,width,angle=0,alpha=1){const iw=num(im.naturalWidth,im.width),ih=num(im.naturalHeight,im.height),height=width*ih/iw;ctx.save();try{ctx.translate(x,y);ctx.rotate(angle);if(typeof HAPIL_drawBitmapLayerV31317==="function"&&window.__HAPIL_VISUAL_V31317__?.installed)HAPIL_drawBitmapLayerV31317(ctx,alpha,im,-width/2,-height/2,width,height);else{ctx.globalAlpha*=alpha;ctx.drawImage(im,-width/2,-height/2,width,height);}}finally{ctx.restore();}}
+118008:   function render(ctx,settings,fn){const shared=window.__HAPIL_VISUAL_V31317__?.withBitmaps;if(shared)return shared(ctx,settings,fn);ctx.save();try{ctx.globalCompositeOperation="source-over";ctx.globalAlpha=MONGSE_skillFxOpacity(settings);ctx.shadowBlur=0;ctx.filter="none";return fn();}finally{ctx.restore();}}
+118009:   function draw(ctx,cache,e,time,settings={}){
+118010:     if(!e?.spectacleCueV31317&&!e?.spectacleImpactV31317)return false;
+118011:     const age=num(time)-num(e.born);if(age<0||age>=num(e.duration))return true;
+118012:     const im=image(cache,e.spectacleAssetV31317);if(!im)return true;
+118013:     render(ctx,settings,()=>{
+118014:       if(e.spectacleCueV31317){
+118015:         if(e.spectacleModeV31317==="monolith")for(const hit of e.spectacleHitsV31317){const until=num(hit.impactAt,hit.at+.12)-time;if(until<0||until>1.25)continue;const p=G(hit.x,hit.y),progress=clamp(1-until/1.25,0,1),height=(1-progress*progress)*250;stamp(ctx,im,p.x,p.y-height-72,e.spectacleSizeV31317*.8,0,1);}
+118016:         else {const point=G(e.x,e.y),progress=clamp(age/Math.max(.1,e.duration-.12),0,1),size=86+progress*140;const core=image(cache,"./assets/vfx/v31317/controller-charge-core.webp");if(core)stamp(ctx,core,point.x,point.y-65,size,0,1);}
+118017:       }else if(e.spectacleModeV31317==="monolith"){
+118018:         const p=G(e.x,e.y),settle=clamp(age/.14,0,1),fade=age>e.duration-.14?(e.duration-age)/.14:1;stamp(ctx,im,p.x,p.y-70+(1-settle)*10,e.spectacleSizeV31317,0,fade);
+118019:       }else{
+118020:         const nativeHit=e.spectacleHitV31317??{...e,color:"#ff2d4d",accent:"#ffe9e9"};const nativeAlpha=age>e.duration-.14?(e.duration-age)/.14:1;
+118021:         if(window.__HAPIL_LASER_TOPOLOGY_RC108__?.renderNative(ctx,nativeHit,G,im,settings,nativeAlpha))return;
+118022:         const a=G(e.originX,e.originY),b=G(e.x,e.y),length=Math.hypot(b.x-a.x,b.y-a.y),angle=Math.atan2(b.y-a.y,b.x-a.x),normal={x:-Math.sin(angle),y:Math.cos(angle)},h=e.spectacleHitV31317;
+118023:         const ux=(h.x-h.originX)/h.radius,uy=(h.y-h.originY)/h.radius,center={x:(h.x+h.originX)/2,y:(h.y+h.originY)/2},edgeA=G(center.x-uy*h.width,center.y+ux*h.width),edgeB=G(center.x+uy*h.width,center.y-ux*h.width),band=Math.abs((edgeA.x-edgeB.x)*normal.x+(edgeA.y-edgeB.y)*normal.y),fade=age>e.duration-.14?(e.duration-age)/.14:1;
+118024:         // Three complete, aspect-preserving source bitmaps overlap softly. No
+118025:         // image crop or collision-path clip: electrical fringes spill naturally.
+118026:         const count=settings.lowFx?2:3,full=length*1.18;
+118027:         for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*band/Math.max(2,count);stamp(ctx,im,(a.x+b.x)/2+normal.x*offset,(a.y+b.y)/2+normal.y*offset-30,full,angle,fade);}
+118028:       }
+118029:     });metrics.draws++;e.spectacleBitmapRenderedV31317=true;return true;
+118030:   }
+118031:   function activeBeam(s){return allHits(s).find(h=>h.spectacleV31317&&h.spectacleModeV31317==="beam"&&!h.damageSuppressedV31226&&num(h.impactAt,h.at)>=num(s.time)&&s.enemies?.some(a=>a.id===h.sourceId&&a.hp>0))??null;}
+118032:   function refugeGoal(s,h){
+118033:     const axis=h.spectacleAxisV31317,center=h.spectacleCenterV31317,edges=[center-h.width-.85,center+h.width+.85],candidates=[];
+118034:     for(const edge of edges)if(edge>=1.9&&edge<=30.1){const desired=axis==="y"?{x:edge,y:clamp(s.y,2,30)}:{x:clamp(s.x,2,30),y:edge},goal=dt(s.zone,desired,.48);if(!Di(goal,h))candidates.push(goal);}
+118035:     return candidates.sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]??null;
+118036:   }
+118037:   function autoMovement(s,heroId,base){
+118038:     if(!s||s.autoCombatEnabled31222!==true||s.target||s.bufferedAction||num(s.manualMovementUntil31222)>num(s.time)||num(s.autoEvadeUntil31223)>num(s.time)||MONGSE_isEncounterLocked31226(s)||suppressed(s))return base;
+118039:     const h=activeBeam(s);if(!h)return base;
+118040:     const goal=refugeGoal(s,h);if(!goal)return base;
+118041:     const hit=Di(s,h),distance=Math.hypot(goal.x-s.x,goal.y-s.y);let dx=0,dy=0;
+118042:     if(hit||distance>.55){const key=String(h.id),now=num(s.time);if(s.spectacleNavIdV31317!==key||now>=num(s.spectacleNavAtV31317)||!s.spectacleNavPathV31317?.length){s.spectacleNavPathV31317=yt(s.zone,s,goal,.48);s.spectacleNavIdV31317=key;s.spectacleNavAtV31317=now+.25;}const path=s.spectacleNavPathV31317??[];while(path.length&&Math.hypot(path[0].x-s.x,path[0].y-s.y)<.3)path.shift();const next=path[0]??goal,len=Math.max(.001,Math.hypot(next.x-s.x,next.y-s.y));dx=(next.x-s.x)/len;dy=(next.y-s.y)/len;metrics.aiReturns++;}
+118043:     s.heroRoleSteeringActive31222=true;s.heroRoleSteeringAt31222=s.time;HAPIL_setAutoDecisionV31302(s,hit?"소거포 · 외곽으로":"소거포 · 안전 띠 유지",.3);
+118044:     return {...base,active:true,dx,dy,mode:hit?"siege-beam-refuge":"siege-beam-hold",spectacleRefugeV31317:true};
+118045:   }
+118046:   function resolveAsset(path){const clean=String(path??"").split(/[?#]/)[0].replace(/\\/g,"/"),marker=clean.lastIndexOf("/assets/"),canonical=marker>=0?"."+clean.slice(marker):clean.startsWith("assets/")?"./"+clean:clean;return canonical===OLD_CORE?CORE:path;}
+118047:   function zoneAssets(zone){return [...new Set([...Object.values(profiles).filter(p=>p.zone===zone).flatMap(p=>[p.sprite,...(p.mode==="beam"?[CORE]:[])]),...(CORE_ZONES.has(zone)?[CORE]:[])])];}
+118048:   function audit(){const checks={inherited:window.__HAPIL_V31316_RELEASE__?.allPass===true,ownedBosses:Object.keys(profiles).length===4,exactMechanicalOwners:profiles["u203-boss"].mode==="beam"&&profiles["b09-boss"].mode==="beam",noBalrogVioletMonolith:!profiles["dist06-boss"],oneNativeQueue:true,saveSchema:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return {version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118049:   function install(){
+118050:     if(window.__HAPIL_PATTERNS_V31317__?.installed)return true;if(!window.__HAPIL_V31316_RELEASE__?.allPass)return false;
+118051:     const queue=MONGSE_queueImage;MONGSE_queueImage=function HAPIL_controllerCoreAliasV31317(cache,path,...args){const resolved=resolveAsset(path),im=queue(cache,resolved,...args);if(resolved!==path&&im){cache[path]=im;cache[OLD_CORE]=im;}return im;};
+118052:     const baseTransit=MONGSE_spawnImpactTransitV31232,baseImpact=MONGSE_spawnTelegraphedImpact,baseDraw=Gn,baseTick=MONGSE_tickBossThemeOrdnance,baseDelay=MONGSE_delayPendingBossHits31210,baseRole=MONGSE_autoRoleMovementIntent31222,baseActor=Yn;
+118053:     MONGSE_spawnImpactTransitV31232=function HAPIL_spectacleTransitV31317(s,h,...args){if(h?.spectacleV31317)return null;return baseTransit(s,h,...args);};
+118054:     MONGSE_spawnTelegraphedImpact=function HAPIL_spectacleImpactV31317(s,h,...args){return impact(s,h,baseImpact,args);};
+118055:     Gn=function HAPIL_spectacleDrawV31317(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return baseDraw(ctx,cache,e,time,settings);};
+118056:     MONGSE_tickBossThemeOrdnance=function HAPIL_spectacleTickV31317(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118057:     MONGSE_delayPendingBossHits31210=function HAPIL_spectacleDelayV31317(s,...args){const result=baseDelay(s,...args);sync(s);return result;};
+118058:     MONGSE_autoRoleMovementIntent31222=function HAPIL_spectacleRefugeV31317(s,id,...args){return autoMovement(s,id,baseRole(s,id,...args));};
+118059:     Yn=function HAPIL_spectacleRiseV31317(ctx,cache,a,time,settings,...rest){const r=actorRuns.get(a);if(!r||r.mode!=="beam")return baseActor(ctx,cache,a,time,settings,...rest);const t=clamp((time-r.born)/Math.max(.1,r.last-r.born),0,1),lift=24*Math.sin(Math.PI*Math.min(1,t));ctx.save();try{ctx.translate(0,-lift);return baseActor(ctx,cache,a,time,settings,...rest);}finally{ctx.restore();}};
+118060:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_spectacleManifestV31317(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118061:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_spectacleAssetPlanV31317(zone,...args){const p={...assetPlan(zone,...args)},paths=zoneAssets(zone);for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of paths){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}p.spectacleAssetsV31317=paths;return p;};
+118062:     window.__HAPIL_PATTERNS_V31317__=Object.freeze({version:VERSION,installed:true,profiles,resolveAsset,assetAliases:Object.freeze({[OLD_CORE]:CORE}),plan,trySchedule,tick,sync,draw,activeBeam,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118063:   }
+118064:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118065: })();
+118066: 
+118067: /* HAPIL_V31317_RELEASE_FINALIZER */
+118068: (() => {
+118069:   "use strict";
+118070:   const VERSION = "3.13.17", CACHE_KEY = 31317;
+118071:   let attempts = 0;
+118072:   function install() {
+118073:     const inherited = window.__HAPIL_V31316_RELEASE__;
+118074:     const gameplay = window.__HAPIL_GAMEPLAY_V31316__;
+118075:     const modules = {
+118076:       settings: window.__HAPIL_SETTINGS_V31317__,
+118077:       assets: window.__HAPIL_ASSETS_V31317__,
+118078:       visual: window.__HAPIL_VISUAL_V31317__,
+118079:       collab: window.__HAPIL_COLLAB_V31317__,
+118080:       time: window.__HAPIL_TIME_V31317__,
+118081:       patterns: window.__HAPIL_PATTERNS_V31317__,
+118082:     };
+118083:     if (!inherited?.allPass || !gameplay || Object.values(modules).some(api => !api?.installed || typeof api.audit !== "function")) return false;
+118084:     const audits = Object.fromEntries(Object.entries(modules).map(([name, api]) => [name, api.audit()]));
+118085:     const gates = Object.freeze({
+118086:       inheritedRelease: inherited.allPass === true,
+118087:       saveRevisionPreserved: gameplay.saveRevision === 14,
+118088:       ...Object.fromEntries(Object.entries(audits).map(([name, result]) => [name, result?.allPass === true])),
+118089:       objectiveRuntime: window.__HAPIL_OBJECTIVE_FLOW_V31309__?.audit?.().allPass === true,
+118090:       stabilityRuntime: window.__HAPIL_STABILITY_V31310__?.probe?.().allPass === true,
