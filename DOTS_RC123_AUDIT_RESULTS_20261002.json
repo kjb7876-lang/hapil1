@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-02",
+  "repository": "kjb7876-lang/hapil1",
+  "baseMain": "7ff0ed4bf5dc3b7eb9c95ae1308e1ca94caf2736",
+  "branch": "fix/rc123-combat-readability",
+  "testedRuntimeCommit": "d68e8e8bb900bcd6978f52be25c861679d4028ed",
+  "runtimeChangesAfterTest": false,
+  "ci": {
+    "runId": 36984416936,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/36984416936",
+    "status": "completed",
+    "conclusion": "success",
+    "completedAt": "2026-10-02T08:35:48Z",
+    "matrixJobsPassed": 6,
+    "matrixJobsFailed": 0,
+    "jobs": [
+      {"name": "boundary", "id": 110766261279, "conclusion": "success"},
+      {"name": "topology", "id": 110766261329, "conclusion": "success"},
+      {"name": "death-dialog", "id": 110766261341, "conclusion": "success"},
+      {"name": "autoplay", "id": 110766261401, "conclusion": "success"},
+      {"name": "dream", "id": 110766261448, "conclusion": "success"},
+      {"name": "release", "id": 110766261055, "conclusion": "success"}
+    ],
+    "supersededRunExcluded": {"id": 36984321006, "reason": "cancelled after topology cache-key update"},
+    "permissions": "contents:read; persist-credentials:false; no game patching or deployment in regression workflow"
+  },
+  "productionFilesChanged": [
+    {"path": "assets/rc108/laser-topology.js", "blob": "7cec454124941531cadb11042492a8018d0e7a9d", "change": "Clip shared world geometry; extend free laser tails to 1.1..30.9 arena boundary; split new crossings; preserve emitter, closed loops, attributes and inputs."},
+    {"path": "index.html", "blob": "40f241a8b9bef8754939286257c2793d3863eb5e", "change": "Only topology query version 42101 to 42301, plus final-newline normalization."}
+  ],
+  "preservation": {
+    "approvedVisualCommit": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+    "approvedRenderer": "assets/rc77/connected-laser.js",
+    "approvedRendererBlob": "6bb4a891eb541734ef4c86f4d46dfb6ea94a44df",
+    "rendererModified": false,
+    "mainBundleModified": false,
+    "opaqueRectanglePaintAdded": false,
+    "commonSolidBeamBodyAdded": false,
+    "damageNumbersHpCooldownsNarrativeOtherAssetsModified": false,
+    "caveat": "Extended laser geometry changes attack coverage. Do not interpret unchanged damage numbers as unchanged difficulty."
+  },
+  "boundarySmoke": {"cases": 23, "passed": 23, "failed": 0, "scope": "deterministic pure geometry, input preservation and cache/approved-renderer checks"},
+  "boundaryBrowser": {
+    "scope": "Native runtime initialized via actual game UI; staged boss casts and high-HP render fixtures, not natural gameplay.",
+    "laserTypesPerViewport": 80,
+    "progressSamplesPerType": [0, 0.2, 0.6, 1],
+    "sampledTypeTimeViewportCombinations": 960,
+    "viewports": [
+      {"name": "pc", "width": 1180, "height": 757, "terminalChecks": 2673, "contactChecks": 30793, "problems": 0, "pageErrors": 0, "missingAssets": 0},
+      {"name": "portrait", "width": 390, "height": 844, "terminalChecks": 2673, "contactChecks": 30793, "problems": 0, "pageErrors": 0, "missingAssets": 0},
+      {"name": "landscape", "width": 844, "height": 390, "terminalChecks": 2673, "contactChecks": 30793, "problems": 0, "pageErrors": 0, "missingAssets": 0}
+    ],
+    "totalTerminalChecks": 8019,
+    "totalContactChecks": 92379,
+    "screenshotsGenerated": 6,
+    "screenshotPatterns": ["branch-y", "fork-link"],
+    "directVisualInspectionInChat": false,
+    "artifactId": 11216748454,
+    "artifactSha256": "f9e940bcb9eb8d147a49a3f7f5145296b054ca6d58903c3c7f94f7515b8ab7bf",
+    "artifactUrl": "https://github.com/kjb7876-lang/hapil1/actions/runs/36984416936/artifacts/11216748454"
+  },
+  "existingReleaseGate": {
+    "passed": 9,
+    "failed": 0,
+    "suites": ["renderer-syntax", "bundle-syntax", "approved-art", "laser-phases", "laser-continuity", "laser-telegraph", "combat", "map-advance", "natural-story"],
+    "naturalStory": {"usedProgressCheats": false, "changedZone": true, "firstZone": "dist00", "finalZone": "dist01", "finalHp": 176, "elapsedMs": 120911},
+    "artifactId": 11217405378,
+    "artifactUrl": "https://github.com/kjb7876-lang/hapil1/actions/runs/36984416936/artifacts/11217405378"
+  },
+  "autoplay": {
+    "policyChecksPassed": 29,
+    "mapRecoveryBlockedCases": 18,
+    "browserFixturesPassed": 8,
+    "naturalObservation": {"elapsedMs": 180038, "firstZone": "dist00", "finalZone": "dist00", "firstBossClearVerified": false, "finalHp": 240, "automaticCastMovementSamples": 122, "deathDialogSamples": 111, "errors": 0, "failedResponses": 0},
+    "artifactId": 11217410028,
+    "limitation": "The autoplay suite passes movement-ownership safeguards, NOT first-boss completion. Repeated deaths and lack of next-map progress remain unresolved."
+  },
+  "dream": {
+    "safeguardFixturesPassed": 2,
+    "pc": {"elapsedMs": 100753, "usedProgressCheats": false, "finalZone": "dist00", "firstBossStillPresent": true, "firstBossHp": 22570.681874959977, "finalHp": 240, "pageErrors": 0, "failedResponses": 0, "nextMapVerified": false},
+    "mobile": {"elapsedMs": 101220, "usedProgressCheats": false, "finalZone": "dist00", "finalEnemies": 0, "finalHp": 240, "pageErrors": 0, "failedResponses": 0, "nextMapVerified": false},
+    "artifactId": 11217116335,
+    "limitation": "PC repeated deaths were observed. Mobile had no enemies by the final sample but next-map transition was not observed. No full DREAM clear or performance guarantee is claimed."
+  },
+  "remainingScope": [
+    "Native h endpoint extension: unchanged until its actual damage path is verified; no paint-only extension.",
+    "Closed laser loops preserve original shape; no newly invented outward spokes.",
+    "Direct visual inspection of exported PNGs: not performed in this chat because local execution returned ClientError; automated render and approved-art tests did run.",
+    "Full STORY/HELL/DREAM clear and all heroes/boss combinations: not tested.",
+    "Bullet scatter/zigzag redesign and non-jellybean per-map asset usage ledger: not implemented.",
+    "In-world mob and boss mini health bars: not implemented.",
+    "Large-object spacing, narrative spelling correction, and complete non-laser hitbox review: not implemented."
+  ],
+  "handoff": "DOTS_RC123_HANDOFF_20261002.md",
+  "deploymentRecord": {
+    "kind": "separate post-integration verification",
+    "source": "https://github.com/kjb7876-lang/hapil1/issues/3",
+    "note": "This immutable test record does not itself assert main/Pages deployment. Verify the actual published SHA and Pages run in issue #3 and GitHub Actions. Documentation-only commits after the tested runtime do not change tested production code."
+  }
+}
