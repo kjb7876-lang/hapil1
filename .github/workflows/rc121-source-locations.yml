@@ -15,11 +15,11 @@ jobs:
         with:
           fetch-depth: 1
           persist-credentials: false
-      - name: Print Dream revival and terminal-state context
+      - name: Inspect respawn and episode lifecycle
         run: |
           node <<'NODE'
-          const fs=require('fs'),f='assets/index-v31526.js',lines=fs.readFileSync(f,'utf8').split('\n');
-          const ranges=[];for(let i=0;i<lines.length;i++)if(/__HAPIL_SAMONG_RC91__|samongPassiveRC91|tryRevive|o\.hp\s*<=\s*0/.test(lines[i]))ranges.push([Math.max(0,i-18),Math.min(lines.length,i+28)]);
-          ranges.sort((a,b)=>a[0]-b[0]);const merged=[];for(const r of ranges){if(merged.length&&r[0]<=merged.at(-1)[1])merged.at(-1)[1]=Math.max(merged.at(-1)[1],r[1]);else merged.push(r);}
-          let chars=0;for(const [a,b]of merged){const s=lines.slice(a,b).map((x,k)=>`${a+k+1}: ${x.slice(0,2800)}`).join('\n');if(chars+s.length>180000)break;chars+=s.length;console.log('\nSOURCE '+f+'\n'+s);}
+          const fs=require('fs'),path=require('path'),main='assets/index-v31526.js',text=fs.readFileSync(main,'utf8'),lines=text.split('\n');
+          for(const [a,b]of [[62985,63125]])console.log('SOURCE '+main+'\n'+lines.slice(a-1,b).map((x,i)=>(a+i)+': '+x).join('\n'));
+          function walk(dir){for(const ent of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,ent.name);if(ent.isDirectory()){if(!/font|node_modules/.test(f))walk(f);}else if(ent.name.endsWith('.js')){const s=f===main?text:fs.readFileSync(f,'utf8');if(s.includes('__HAPIL_EPISODE1_RC59__=')||s.includes('__HAPIL_EPISODE1_RC59__ =')){const l=s.split('\n');for(let i=0;i<l.length;i++)if(/beforeRespawn|__HAPIL_EPISODE1_RC59__\s*=/.test(l[i]))console.log('EPISODE '+f+':'+(i+1)+'\n'+l.slice(Math.max(0,i-28),i+35).join('\n').slice(0,22000));}}}}
+          walk('assets');
           NODE
