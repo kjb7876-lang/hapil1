@@ -11,6 +11,9 @@ html.rc108-wide-layout body.rc15-playing .game{display:grid!important;position:r
 html.rc108-wide-layout body.rc15-playing .game>.topbar{display:none!important}
 html.rc108-wide-layout body.rc15-playing .game>.game-stage{position:relative!important;inset:auto!important;grid-column:1!important;grid-row:2!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important}
 html.rc108-wide-layout body.rc15-playing .game-stage>canvas{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;object-fit:fill!important}
+/* PC keeps the authored 16:9 battlefield; touch viewports keep their natural screen ratio. */
+html:not(.hapil-touch-v31366).rc108-wide-layout body.rc15-playing .game>.game-stage{display:flex!important;align-items:center!important;justify-content:center!important}
+html:not(.hapil-touch-v31366).rc108-wide-layout body.rc15-playing .game-stage>canvas{flex:0 0 auto!important;width:min(100%,160dvh)!important;height:auto!important;max-height:100%!important;aspect-ratio:16/9!important;object-fit:contain!important}
 html.rc108-wide-layout body.rc15-playing .game>.combat-hud,html.rc108-wide-layout body.rc15-playing .game>.hapil-combat-rail-v31339,html.rc108-wide-layout body.rc15-playing #hapil-party-hud,html.rc108-wide-layout body.rc15-playing #rc24-bossbar{display:none!important}
 html.rc108-wide-layout #rc15-sidepanels{position:fixed!important;inset:0 0 auto!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:1fr!important;align-items:stretch!important;width:100vw!important;height:10dvh!important;max-width:none!important;gap:0!important;padding:0!important;margin:0!important;pointer-events:none!important;z-index:38!important}
 html.rc108-wide-layout #rc15-sidepanels[hidden]{display:grid!important}
