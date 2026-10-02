@@ -4,7 +4,7 @@ const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f
 const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v))};
 const window={dispatchEvent(){}};
 const c={window,localStorage,setTimeout(){},Event:class{},Number,Math,Object,Array,Map,Set,JSON};
-vm.createContext(c);vm.runInContext(read('assets/rc91/samong-awakening.js'),c);const api=window.__HAPIL_SAMONG_RC91__;
+vm.createContext(c);vm.runInContext(read('assets/rc128/awakening-policy.js'),c);vm.runInContext(read('assets/rc91/samong-awakening.js'),c);const api=window.__HAPIL_SAMONG_RC91__;
 const fresh=mode=>({gameModeV31346:mode,activeHeroId:'slayer',hp:240,maxHp:240,time:10,enemies:[]});
 assert(!api.unlocked());assert.equal(api.select('DREAM'),'STORY');assert.equal(api.select('HELL'),'STORY');
 assert(!api.unlock(null,'old-dream-preference'));assert.equal(api.select('DREAM'),'STORY');
@@ -19,7 +19,7 @@ assert(Math.abs(api.snapshot(loaded).active-3.5)<1e-7);assert(Math.abs(api.snaps
 for(let i=0;i<35;i++)api.advance(loaded,.1,false);assert(!api.active(loaded));assert(Math.abs(api.snapshot(loaded).cooldown-70)<1e-7);
 loaded.hp=0;assert(!api.tryRevive(loaded),'a second lethal hit during cooldown is not another revival');loaded.hp=240;
 const delayed=fresh('DREAM');delayed.hp=0;api.tryRevive(delayed);api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,3.5,'slow frames consume real combat time');api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,0);assert.equal(api.snapshot(delayed).cooldown,70);
-for(let i=0;i<700;i++)api.advance(loaded,.1,false);loaded.hp=0;assert(api.tryRevive(loaded));assert.equal(api.snapshot(loaded).activations,2);
+for(let i=0;i<700;i++)api.advance(loaded,.1,false);loaded.hp=0;assert(!api.tryRevive(loaded),'RC128: cooldown expiry alone does not refill the encounter revival');loaded.hp=240;loaded.zone='rc128-next-encounter';api.advance(loaded,.01,false);loaded.hp=0;assert(api.tryRevive(loaded));assert.equal(api.snapshot(loaded).activations,2);
 // Exactly 2x the same Story baseline; repeated ticks/load/mode selection never stack.
 const mob={id:'mob',hp:70,maxHp:100,damage:10,speed:2,attackSpeed:1,defense:3};
 const boss={id:'boss',boss:true,hp:700,maxHp:1000,damage:20,speed:3,attackSpeed:1};
@@ -47,4 +47,4 @@ laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}})
 const manifest=JSON.parse(read('assets/rc91/awakening/manifest.json'));assert.equal(manifest.heroes.length,8);const hashes=new Set();
 for(const row of manifest.heroes){const bytes=fs.readFileSync(path.join(root,row.path.replace(/^\.\//,'')));assert.equal(bytes.toString('hex',0,8),'89504e470d0a1a0a');assert.equal(bytes[25],6);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),row.sha256);assert(row.transparent);hashes.add(row.sha256);assert.equal(api.art[row.hero],row.path);}
 assert.equal(hashes.size,8);const html=read('index.html');assert(html.indexOf('rc91/samong-awakening.js')<html.indexOf('index-v31526.js'));assert(Number(html.match(/samong-awakening\.js\?v=(\d+)/)?.[1])>=39301);
-console.log('RC91 PASS: gated two modes, one lethal revival per 77 combat seconds, seven-second buff, pause/load preservation, exact 2x stats, cooperative ordering, continuous curves, eight distinct RGBA assets.');
+console.log('RC91 PASS: gated two modes, one lethal revival per encounter plus 77 combat-second cooldown, seven-second buff, pause/load preservation, exact 2x stats, cooperative ordering, continuous curves, eight distinct RGBA assets.');
