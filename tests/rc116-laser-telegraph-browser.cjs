@@ -1,198 +1,87 @@
-// Capture the live line-telegraph renderer. RC116_BASELINE=1 serves the
-// pre-RC116 main bundle for an apples-to-apples comparison.
-const fs = require('node:fs');
-const path = require('node:path');
-const http = require('node:http');
-const { execFileSync } = require('node:child_process');
-const assert = require('node:assert/strict');
-const { chromium } = require(
-  process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES
-    ? path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES, 'playwright')
-    : 'playwright'
-);
-
-const root = path.resolve(__dirname, '..');
-const out = process.env.HAPIL_QA_OUTPUT || '/workspace/hapil-deliverables/RC116-laser';
-const before = !!process.env.RC116_BASELINE;
-const suffix = before ? 'before' : 'after';
-const baseline = 'ae6ce7c7fc3a1bbe641384f73e6928ca7ea0c786';
-const sprite = './assets/vfx/bosses/v3102/ep1b08_pride_cross_undead_cluster.webp';
-fs.mkdirSync(out, { recursive: true });
-
-const harness = `
-window.__RC116_TELEGRAPH__={
-  draw:(...args)=>qn(...args),
-  queue:(...args)=>MONGSE_queueImage(...args),
-  queueCurrent:MONGSE_queueImage,
-  replaceQueue:fn=>{MONGSE_queueImage=fn;},
-  point:(...args)=>G(...args)
-};`;
-
-const server = http.createServer((req, res) => {
-  const url = new URL(req.url, 'http://localhost');
-  const pathname = url.pathname === '/' ? '/index.html' : url.pathname;
-  const file = path.resolve(root, `.${pathname}`);
-  if (!file.startsWith(root + path.sep)) {
-    res.writeHead(403).end();
-    return;
-  }
-  try {
-    const extension = path.extname(file);
-    res.setHeader('Content-Type', ({
-      '.js': 'text/javascript', '.html': 'text/html', '.css': 'text/css',
-      '.webp': 'image/webp', '.png': 'image/png', '.wav': 'audio/wav',
-      '.woff2': 'font/woff2'
-    })[extension] || 'application/octet-stream');
-    if (file.endsWith('/assets/index-v31526.js') && before) {
-      const source = execFileSync('git', ['show', `${baseline}:assets/index-v31526.js`], {
-        cwd: root, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024
-      });
-      res.end(source + harness);
-    } else if (file.endsWith('/assets/index-v31526.js')) {
-      res.end(fs.readFileSync(file, 'utf8') + harness);
-    } else {
-      res.end(fs.readFileSync(file));
+'use strict';
+// Run the actual warning renderer from both the approved main bundle and HEAD.
+// The old 98%-opaque-body criterion rewarded rectangular fills over artwork.
+// Preserve its measurements as diagnostics, but require evidence of regression
+// against the user's chosen visual reference instead of painting over gaps.
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
+const {execFileSync}=require('node:child_process');
+const assert=require('node:assert/strict');
+const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results','laser-telegraph');
+const baseline=process.env.HAPIL_VISUAL_BASELINE||'19a4c1f92df16559e43ba822ae0f7b8e74a5c47a';
+const sprite='./assets/vfx/bosses/v3102/ep1b08_pride_cross_undead_cluster.webp';
+fs.mkdirSync(out,{recursive:true});
+const harness='\nwindow.__RC116_TELEGRAPH__={draw:(...a)=>qn(...a),queue:(...a)=>MONGSE_queueImage(...a),queueCurrent:MONGSE_queueImage,replaceQueue:fn=>{MONGSE_queueImage=fn;},point:(...a)=>G(...a)};';
+const server=http.createServer((req,res)=>{
+ const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
+ if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}
+ try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(file)]||'application/octet-stream');res.end(file.endsWith('/assets/index-v31526.js')?fs.readFileSync(file,'utf8')+harness:fs.readFileSync(file));}catch{res.writeHead(404).end();}
+}).listen(0,'127.0.0.1');
+async function capture(browser,source){
+ const context=await browser.newContext({viewport:{width:1180,height:757}}),page=await context.newPage(),errors=[],failedResponses=[];
+ try{
+  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)failedResponses.push({status:r.status(),url:r.url()});});
+  if(source)await page.route('**/assets/index-v31526.js*',route=>route.fulfill({status:200,contentType:'text/javascript',body:source+harness}));
+  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
+  await page.waitForFunction(()=>window.__RC116_TELEGRAPH__,null,{timeout:15000});
+  await page.keyboard.press('Escape');
+  await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();
+  await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();
+  await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
+  const rows=await page.evaluate(async spritePath=>{
+   const api=window.__RC116_TELEGRAPH__,cache={},image=api.queue(cache,spritePath,'eager');await image.decode();
+   const originalQueue=api.queueCurrent;api.replaceQueue((c,p,...a)=>p===spritePath?image:originalQueue(c,p,...a));
+   const canvas=document.createElement('canvas');canvas.width=1180;canvas.height=757;
+   const ctx=canvas.getContext('2d',{willReadFrequently:true}),world={a:{x:8,y:8},b:{x:24,y:24}},p0=api.point(8,8),p1=api.point(24,24);
+   const hazard={id:901,born:0,at:2.1,originX:8,originY:8,x:24,y:24,radius:Math.hypot(16,16),width:.42,shape:'line',color:'#f12655',accent:'#ffe8ef',boss:true,themedLaser:true,sevenSinImpactSprite:spritePath,suppressTelegraphLabel:true,perfectWindow:0,telegraphImageRenderedV31224:false};
+   const result=[];
+   for(const options of [{name:'desktop',lowFx:false,reducedFlash:false},{name:'reduced-flash',lowFx:false,reducedFlash:true},{name:'mobile-lowFx',lowFx:true,reducedFlash:true}]){
+    ctx.clearRect(0,0,canvas.width,canvas.height);let spriteDraws=0,drawImageCalls=0;const sources=[],native=ctx.drawImage.bind(ctx);
+    ctx.drawImage=(im,...args)=>{drawImageCalls++;sources.push({same:im===image,width:im.naturalWidth||im.width||0,height:im.naturalHeight||im.height||0});if(im===image)spriteDraws++;return native(im,...args);};
+    api.draw(ctx,{...hazard},.8,options,cache);ctx.drawImage=native;
+    const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+    const alpha=(x,y)=>{x=Math.floor(x);y=Math.floor(y);return x<0||y<0||x>=canvas.width||y>=canvas.height?0:pixels[(y*canvas.width+x)*4+3];};
+    let drawnPixels=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i]>8)drawnPixels++;
+    const dx=p1.x-p0.x,dy=p1.y-p0.y,len=Math.hypot(dx,dy),nx=-dy/len,ny=dx/len;
+    let samples=0,center=0,body=0,sections=0;
+    for(let t=.04;t<=.96;t+=.04){const x=p0.x+dx*t,y=p0.y+dy*t;samples++;if(alpha(x,y)>20)center++;
+     for(const sign of [-1,1])if(alpha(x+nx*5*sign,y+ny*5*sign)>20)body++;
+     let visible=false;for(let offset=-10;offset<=10;offset++)if(alpha(x+nx*offset,y+ny*offset)>20){visible=true;break;}if(visible)sections++;
     }
-  } catch (error) {
-    console.error('RC116 test server failed', file, error.message);
-    res.writeHead(404).end();
-  }
-}).listen(0, '127.0.0.1');
-
-async function main() {
-  let browser;
-  try {
-    browser = await chromium.launch({
-      executablePath: process.env.HAPIL_CHROMIUM || '/usr/bin/chromium',
-      args: ['--no-sandbox', '--disable-dev-shm-usage']
-    });
-    const page = await browser.newPage({ viewport: { width: 1180, height: 757 } });
-    const errors = [];
-    page.on('pageerror', error => errors.push(error.message));
-    page.on('console', message => { if (message.type() === 'error') console.error('RC116 browser console', message.text()); });
-    page.on('response', response => { if (response.status() >= 400) console.error('RC116 HTTP', response.status(), response.url()); });
-    await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
-    await page.waitForFunction(() => window.__RC116_TELEGRAPH__, { timeout: 12000 });
-    await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: '새 게임 시작', exact: true }).click();
-    await page.getByRole('button', { name: '이 편성으로 접속', exact: true }).click();
-    await page.waitForFunction(() => window.__MONGSE_QA_STATE__?.zone === 'dist00');
-
-    const rows = await page.evaluate(async spritePath => {
-      const api = window.__RC116_TELEGRAPH__;
-      const imageCache = {};
-      const image = api.queue(imageCache, spritePath, 'eager');
-      await image.decode();
-      const baseQueue = api.queueCurrent;
-      api.replaceQueue((cache, path, ...args) => path === spritePath ? image : baseQueue(cache, path, ...args));
-      const canvas = document.createElement('canvas');
-      canvas.width = 1180;
-      canvas.height = 757;
-      const ctx = canvas.getContext('2d', { willReadFrequently: true });
-      const world = { a: { x: 8, y: 8 }, b: { x: 24, y: 24 } };
-      const p0 = api.point(world.a.x, world.a.y);
-      const p1 = api.point(world.b.x, world.b.y);
-      const hazard = {
-        id: 901, born: 0, at: 2.1, originX: world.a.x, originY: world.a.y,
-        x: world.b.x, y: world.b.y, radius: Math.hypot(world.b.x - world.a.x, world.b.y - world.a.y),
-        width: 0.42, shape: 'line', color: '#f12655', accent: '#ffe8ef',
-        boss: true, themedLaser: true, sevenSinImpactSprite: spritePath,
-        suppressTelegraphLabel: true, perfectWindow: 0, telegraphImageRenderedV31224: false
-      };
-      const output = [];
-      for (const options of [
-        { name: 'desktop', lowFx: false, reducedFlash: false },
-        { name: 'reduced-flash', lowFx: false, reducedFlash: true },
-        { name: 'mobile-lowFx', lowFx: true, reducedFlash: true }
-      ]) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let spriteDraws = 0;
-        let drawImageCalls = 0;
-        const drawImageSources = [];
-        const nativeDrawImage = ctx.drawImage.bind(ctx);
-        ctx.drawImage = (source, ...args) => {
-          drawImageCalls++;
-          drawImageSources.push({ same: source === image, width: source.naturalWidth || source.width || 0, height: source.naturalHeight || source.height || 0 });
-          if (source === image) spriteDraws++;
-          return nativeDrawImage(source, ...args);
-        };
-        api.draw(ctx, hazard, 0.8, options, imageCache);
-        const png = canvas.toDataURL('image/png');
-        const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-        let drawn = 0;
-        let minX = canvas.width;
-        let minY = canvas.height;
-        let maxX = 0;
-        let maxY = 0;
-        for (let y = 0; y < canvas.height; y += 2) {
-          for (let x = 0; x < canvas.width; x += 2) {
-            if (pixels[(y * canvas.width + x) * 4 + 3] <= 8) continue;
-            drawn++;
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x);
-            maxY = Math.max(maxY, y);
-          }
-        }
-        const dx = p1.x - p0.x;
-        const dy = p1.y - p0.y;
-        const length = Math.hypot(dx, dy);
-        const nx = -dy / length;
-        const ny = dx / length;
-        let centerVisible = 0;
-        let centerSamples = 0;
-        let bodyVisible = 0;
-        let bodySamples = 0;
-        for (let t = 0.04; t <= 0.96; t += 0.04) {
-          const x = p0.x + dx * t;
-          const y = p0.y + dy * t;
-          centerSamples++;
-          if (pixels[(Math.floor(y) * canvas.width + Math.floor(x)) * 4 + 3] > 20) centerVisible++;
-          for (const sign of [-1, 1]) {
-            const sx = Math.floor(x + nx * 5 * sign);
-            const sy = Math.floor(y + ny * 5 * sign);
-            bodySamples++;
-            if (pixels[(sy * canvas.width + sx) * 4 + 3] > 20) bodyVisible++;
-          }
-        }
-        output.push({
-          ...options, spriteDraws, drawImageCalls, drawImageSources, drawnPixels: drawn,
-          bounds: drawn ? [minX, minY, maxX, maxY] : null,
-          centerCoverage: centerVisible / centerSamples,
-          bodyCoverage: bodyVisible / bodySamples,
-          expectedPath: { start: p0, end: p1 }, png
-        });
-        ctx.drawImage = nativeDrawImage;
-      }
-      return output;
-    }, sprite);
-
-    for (const row of rows) {
-      const file = path.join(out, `laser-warning-${row.name}-${suffix}.png`);
-      fs.writeFileSync(file, Buffer.from(row.png.split(',')[1], 'base64'));
-      delete row.png;
-    }
-    fs.writeFileSync(path.join(out, `laser-warning-${suffix}.json`), JSON.stringify({ rows, errors }, null, 2));
-    console.log(`RC116_TELEGRAPH_${suffix.toUpperCase()} ${JSON.stringify({ rows, errors })}`);
-    assert.deepEqual(errors, []);
-    assert(rows.every(row => row.drawnPixels > 1000), 'the actual line warning remains visible');
-    if (before) {
-      assert(rows.some(row => row.centerCoverage < 0.95 || row.bodyCoverage < 0.95),
-        'baseline clipped art has translucent gaps in its beam body');
-    } else {
-      assert(rows.every(row => row.centerCoverage >= 0.98 && row.bodyCoverage >= 0.98),
-        'desktop, reduced-flash and low-FX warnings remain a continuous band');
-    }
-    assert(rows.every(row => row.drawImageCalls === 1),
-      'the live warning draws one clipped texture over its connected line, with no repeated oval stamps');
-  } finally {
-    await browser?.close();
-    server.close();
-  }
+    result.push({...options,drawnPixels,spriteDraws,drawImageCalls,drawImageSources:sources,centerCoverage:center/samples,bodyCoverage:body/(2*samples),sectionCoverage:sections/samples,expectedPath:{start:p0,end:p1},png:canvas.toDataURL()});
+   }
+   api.replaceQueue(originalQueue);return result;
+  },sprite);
+  return{rows,errors,failedResponses};
+ }finally{await context.close();}
 }
-
-main().catch(error => {
-  console.error(error);
-  server.close();
-  process.exitCode = 1;
-});
+async function main(){let browser;
+ try{
+  const approvedSource=execFileSync('git',['show',`${baseline}:assets/index-v31526.js`],{cwd:root,encoding:'utf8',maxBuffer:16*1024*1024});
+  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+  const approved=await capture(browser,approvedSource),current=await capture(browser,null);
+  const comparisonPage=await browser.newPage();
+  const comparisons=await comparisonPage.evaluate(async pairs=>{
+   const results=[];
+   for(const [before,after]of pairs){
+    const load=async src=>{const im=new Image();im.src=src;await im.decode();const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(im,0,0);return x.getImageData(0,0,c.width,c.height).data;};
+    const a=await load(before.png),b=await load(after.png);let changedPixels=0,foregroundUnion=0;
+    for(let i=0;i<a.length;i+=4){if(a[i+3]>8||b[i+3]>8)foregroundUnion++;if(Math.max(...[0,1,2,3].map(k=>Math.abs(a[i+k]-b[i+k])))>3)changedPixels++;}
+    results.push({name:after.name,pixelExact:before.png===after.png,changedPixels,foregroundUnion,changedForegroundRatio:changedPixels/Math.max(1,foregroundUnion),baselineCenterCoverage:before.centerCoverage,currentCenterCoverage:after.centerCoverage,baselineBodyCoverage:before.bodyCoverage,currentBodyCoverage:after.bodyCoverage,baselineSectionCoverage:before.sectionCoverage,currentSectionCoverage:after.sectionCoverage,baselineDrawImageCalls:before.drawImageCalls,currentDrawImageCalls:after.drawImageCalls});
+   }return results;
+  },approved.rows.map((before,i)=>[before,current.rows[i]]));
+  await comparisonPage.close();
+  for(const [label,result]of [['approved',approved],['after',current]])for(const row of result.rows){fs.writeFileSync(path.join(out,`laser-warning-${row.name}-${label}.png`),Buffer.from(row.png.split(',')[1],'base64'));delete row.png;}
+  const report={baseline,criterion:'native warning foreground compared with user-approved bundle; 3/255 channel rounding tolerance',legacyOpaqueBodyCriterionPassed:current.rows.every(r=>r.centerCoverage>=.98&&r.bodyCoverage>=.98),comparisons,approved,current};
+  fs.writeFileSync(path.join(out,'laser-warning-after.json'),JSON.stringify(report,null,2));
+  console.log('LASER_WARNING_REFERENCE '+JSON.stringify(report));
+  assert.deepEqual(approved.errors,[],'approved reference failed to execute');assert.deepEqual(current.errors,[],'current warning runtime errors');
+  assert.deepEqual(approved.failedResponses,[]);assert.deepEqual(current.failedResponses,[]);
+  assert.equal(comparisons.length,3);
+  assert(approved.rows.every(r=>r.drawnPixels>0)&&current.rows.every(r=>r.drawnPixels>0),'a warning was not rendered');
+  assert(comparisons.every(r=>r.changedForegroundRatio<=.005),'native warning differs from approved reference; inspect PNGs before changing art');
+  assert(comparisons.every(r=>r.currentSectionCoverage+.01>=r.baselineSectionCoverage),'new full-width warning gaps compared with approved reference');
+  assert(comparisons.every(r=>r.currentDrawImageCalls===r.baselineDrawImageCalls),'extra image stamps appeared over the approved warning');
+ }finally{await browser?.close();server.close();}
+}
+main().catch(e=>{console.error(e);server.close();process.exitCode=1;});
