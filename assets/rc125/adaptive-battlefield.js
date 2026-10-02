@@ -9,11 +9,13 @@
  const touch=()=>root.classList.contains('hapil-touch-v31366');
  const wide=()=>installed&&!!canvas&&canvas.isConnected&&(!touch()||box.width>=box.height);
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
- function measure(){if(!stage)return;const r=stage.getBoundingClientRect();if(r.width>0&&r.height>0&&(r.width!==box.width||r.height!==box.height)){box={width:r.width,height:r.height};revision++;}}
+ // During entry/rotation the canvas can still have its old aspect while its stage
+ // has already resized. The actual painted element, not its parent, owns the view.
+ function measure(){if(!canvas?.isConnected)return;const r=canvas.getBoundingClientRect();if(r.width>0&&r.height>0&&(r.width!==box.width||r.height!==box.height)){box={width:r.width,height:r.height};revision++;}}
  function bind(){
   const next=document.querySelector('.game-stage > canvas'),nextScreen=document.getElementById('root')?.firstElementChild;
   if(nextScreen!==screen&&domObserver){domObserver.disconnect();const host=document.getElementById('root');if(host)domObserver.observe(host,{childList:true});if(nextScreen)domObserver.observe(nextScreen,{childList:true,attributes:true,attributeFilter:['class']});screen=nextScreen;}
-  if(next!==canvas){observer?.disconnect();canvas=next;stage=canvas?.parentElement??null;revision++;if(stage&&typeof ResizeObserver==='function'){observer=new ResizeObserver(measure);observer.observe(stage);}}
+  if(next!==canvas){observer?.disconnect();canvas=next;stage=canvas?.parentElement??null;revision++;if(stage&&typeof ResizeObserver==='function'){observer=new ResizeObserver(measure);observer.observe(stage);observer.observe(canvas);}}
   const active=!!canvas&&installed;if(root.classList.contains('rc125-adaptive')!==active)root.classList.toggle('rc125-adaptive',active);
   if(canvas&&canvas.getAttribute('aria-label')!=='반응형 2.5D 아이소메트릭 전장')canvas.setAttribute('aria-label','반응형 2.5D 아이소메트릭 전장');
   measure();
@@ -25,6 +27,7 @@
  }
  function mapRect(s,zone){const geo=window.__HAPIL_GEOMETRY_V31345__,profile=geo?.profile?.(s?.zone)?.rect,r=maps.get(clean(zone?.map))??profile??geo?.bounds;return finiteRect(r)?r:{x:-152,y:-60,width:1584,height:990};}
  function camera(s,fallback,project,zone,exit){
+  if(!canvas?.isConnected)bind();measure();
   if(!wide()||!s||!zone)return base.camera(s,fallback,project,zone,exit);
   const v=view(),rect=mapRect(s,zone),mobile=touch(),pad=12/v.k;
   let result,safe={left:v.x+pad,right:v.x+v.width-pad,top:v.y+pad,bottom:v.y+v.height-pad};
@@ -43,9 +46,9 @@
   lastCamera={view:v,safe,map:rect,camera:result,revision,zoomPolicy:mobile?'fixed-mobile-1.05':'whole-map-adaptive'};
   window.__HAPIL_VIEWPORT_RC104__.last=lastCamera;return result;
  }
- function pointer(event,rect){if(!wide())return base.pointer(event,rect);if(!event||!rect||rect.width<=0||rect.height<=0)return null;const v=view(rect.width,rect.height);return{x:v.x+(event.clientX-rect.left)/v.k,y:v.y+(event.clientY-rect.top)/v.k};}
+ function pointer(event,rect){measure();if(!wide())return base.pointer(event,rect);if(!event||!rect||rect.width<=0||rect.height<=0)return null;const v=view(rect.width,rect.height);return{x:v.x+(event.clientX-rect.left)/v.k,y:v.y+(event.clientY-rect.top)/v.k};}
  function applyWorld(ctx,target,state){
-  if(target!==canvas)bind();if(!wide()||target!==canvas)return false;
+  if(target!==canvas)bind();measure();if(!wide()||target!==canvas)return false;
   const v=view(),rx=1280/v.width,ry=720/v.height;
   // Fixed backing dimensions stay within the existing performance budget. The
   // inverse CSS aspect transform makes the FINAL displayed world isotropic.
