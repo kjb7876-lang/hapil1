@@ -1,5 +1,6 @@
 'use strict';
 // Read-only release audit. Does not change game state, gameplay files or saves.
+// RC128 candidate integration is tested only in a disposable local worktree.
 // Linux + Chromium at /usr/bin/chromium are required by the existing suites.
 const fs = require('node:fs');
 const path = require('node:path');
@@ -8,6 +9,7 @@ const root = path.resolve(__dirname, '..');
 const output = path.resolve(process.env.HAPIL_RELEASE_OUTPUT || path.join(root, 'qa-results', 'laser-release'));
 fs.mkdirSync(output, { recursive: true });
 const suites = [
+  ['rc128-candidate', ['tests/rc128-candidate.cjs']],
   ['renderer-syntax', ['--check', 'assets/rc77/connected-laser.js']],
   ['bundle-syntax', ['--check', 'assets/index-v31526.js']],
   ['approved-art', ['tests/rc119-laser-body-browser.cjs']],
@@ -44,12 +46,13 @@ for (const [name, args] of suites) {
   const result = spawnSync(process.execPath, args, {
     cwd: root,
     encoding: 'utf8',
-    timeout: name === 'natural-story' ? 210000 : 180000,
+    timeout: name === 'rc128-candidate' ? 900000 : name === 'natural-story' ? 210000 : 180000,
     maxBuffer: 32 * 1024 * 1024,
     env: { ...process.env, HAPIL_QA_OUTPUT: directory, HAPIL_NATURAL_LIMIT_MS: '150000' }
   });
   fs.writeFileSync(path.join(directory, 'stdout.log'), result.stdout || '');
   fs.writeFileSync(path.join(directory, 'stderr.log'), result.stderr || '');
+  if (name === 'rc128-candidate') console.log(result.stdout || 'RC128 candidate produced no stdout.');
   const row = {
     name, command: ['node', ...args].join(' '),
     status: result.status === 0 && !result.error ? 'passed' : 'failed',
