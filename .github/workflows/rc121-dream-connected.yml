@@ -1,0 +1,59 @@
+name: RC121 Dream and connected lasers
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/rc121-connected-dream]
+    paths:
+      - '.github/workflows/rc121-dream-connected.yml'
+      - 'tests/rc121-*.cjs'
+      - 'tools/rc121-*.cjs'
+      - 'assets/rc108/samong-ricochet.js'
+      - 'assets/rc108/laser-topology.js'
+      - 'assets/rc97/choice-patterns.js'
+      - 'assets/index-v31526.js'
+      - 'index.html'
+permissions:
+  contents: read
+concurrency:
+  group: rc121-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Source locations for the reported regressions
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),f='assets/index-v31526.js',lines=fs.readFileSync(f,'utf8').split('\n');
+          console.log('RELATED_TESTS',fs.readdirSync('tests').filter(x=>/dream|samong|topology|laser|mode/i.test(x)).join(' '));
+          let count=0;for(let i=0;i<lines.length;i++)if(/__HAPIL_CHOICE_RC97__|__HAPIL_LASER_TOPOLOGY_RC108__|__HAPIL_SAMONG_RICOCHET_RC108__|bossFinaleV31334/.test(lines[i])&&count++<70)console.log('SOURCE '+f+':'+(i+1)+' '+lines.slice(Math.max(0,i-2),i+3).join('\n').slice(0,2200));
+          NODE
+      - name: Install isolated Chromium runtime
+        run: |
+          QA_RUNTIME="$RUNNER_TEMP/rc121-runtime"
+          npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1
+          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc121-evidence" >> "$GITHUB_ENV"
+      - name: Reproduce Dream exceptions and first battle
+        run: node tests/rc121-dream-regression-browser.cjs
+      - name: Preserve exact evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rc121-${{ github.sha }}
+          path: ${{ runner.temp }}/rc121-evidence/
+          retention-days: 14
