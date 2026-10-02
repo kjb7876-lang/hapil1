@@ -1,5 +1,6 @@
 'use strict';
 // Extend the existing read-only public smoke test; never intercept network or inject state.
+// Exact public-file hashes include the final newline; use the checked-out release bytes.
 const fs=require('node:fs'),path=require('node:path'),Module=require('node:module'),assert=require('node:assert/strict');
 let code=fs.readFileSync(path.join(__dirname,'../rc126/published-smoke.cjs'),'utf8');
 const rc128=fs.readFileSync(path.join(__dirname,'../../index.html'),'utf8').includes('assets/rc128/combat-feedback.js');
