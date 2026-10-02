@@ -1,0 +1,91 @@
+126020:     boss.bossSkillCalloutUntilV31219=Math.max(Number(boss.bossSkillCalloutUntilV31219??0),Number(now??0)+0.9);
+126021:     return label;
+126022:   },
+126023: });
+126024: 
+126025: /* RC64: stable danmaku, paired midbosses, and RC81 sprite-gen Slayer attack atlases. */
+126026: ;(()=>{'use strict';
+126027:  const VERSION='RC81';
+126028:  const COMMON='./assets/rc64/projectiles/danmaku-jellybean.webp';
+126029:  const SIDE=Object.freeze({
+126030:   left:'./assets/hero-authored-v314rc81/slayer-side-left/sprite-sheet-alpha.png',
+126031:   right:'./assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png',
+126032:  });
+126033:  const CELL=640,PAD=24,ART_HEIGHT=390,sideLocks=new WeakMap(),patternLocks=new WeakMap();
+126034:  const stats={installed:false,sideAttackDraws:0,sideAttackFrames:[0,0,0,0],patternRowsLocked:0,midbossPlans:0,midbossRestores:0,assetFallbacks:0};
+126035:  const number=(value,fallback=0)=>Number.isFinite(Number(value))?Number(value):fallback;
+126036:  function configureRevivedComrade(){
+126037:   const actor=N?.dist04?.enemies?.find(row=>row?.id==='mb-dist04');
+126038:   if(!actor)return false;
+126039:   Object.assign(actor,{kind:'corruptedGuardian',name:'되살아난 첫 수호자',
+126040:     sprite:'./assets/episode1a/corrupted_guardian.webp',eliteName:'동료의 마지막 맹세',
+126041:     patternSet:'dist04',allyEchoMidbossRC64:true,midboss:true,boss:false});
+126042:   return true;
+126043:  }
+126044:  function cloneMidboss(template,zone){
+126045:   if(!template?.midboss||!zone)return null;
+126046:   try{return Jr(template,zone);}catch{return {...template};}
+126047:  }
+126048:  function groupPlan(zone,plan){
+126049:   if(!plan||!Array.isArray(plan.enemies))return plan;
+126050:   let enemies=[...plan.enemies];
+126051:   if(zone==='dist04'&&!enemies.some(actor=>actor?.midboss)){
+126052:    const template=N?.dist04?.enemies?.find(actor=>actor?.id==='mb-dist04');
+126053:    const leader=cloneMidboss(template,zone);
+126054:    if(leader){
+126055:     Object.assign(leader,{midboss:true,boss:false,compressedWaveV31228:3,initialEncounterLeaderV31228:true,allyEchoMidbossRC64:true});
+126056:     while(enemies.length>=8){const remove=enemies.findIndex(actor=>!actor?.boss&&!actor?.midboss);if(remove<0)break;enemies.splice(remove,1);}
+126057:     enemies.push(leader);
+126058:    }
+126059:   }
+126060:   let leaders=enemies.filter(actor=>actor?.midboss);
+126061:   if(leaders.length===1){
+126062:    const first=leaders[0],twin=HAPIL_createMidbossDuoRC59(null,first,zone);
+126063:    if(twin){
+126064:     while(enemies.length>=8){let remove=-1;for(let i=enemies.length-1;i>=0;i--)if(!enemies[i]?.boss&&!enemies[i]?.midboss&&enemies[i].requiredForClear!==false){remove=i;break;}if(remove<0)break;enemies.splice(remove,1);}
+126065:     const index=enemies.indexOf(first);enemies.splice(index<0?enemies.length:index+1,0,twin);
+126066:    }
+126067:   }
+126068:   leaders=enemies.filter(actor=>actor?.midboss);
+126069:   if(leaders.length>3){const keep=new Set(leaders.slice(0,3));enemies=enemies.filter(actor=>!actor?.midboss||keep.has(actor));}
+126070:   if(enemies.length===plan.enemies.length&&enemies.every((actor,index)=>actor===plan.enemies[index]))return plan;
+126071:   stats.midbossPlans++;
+126072:   return {...plan,mode:String(plan.mode??'roster')+'+RC64-midboss-group',enemies};
+126073:  }
+126074:  const patternImageFields=['sprite','fallbackSprite','projectileSprite','projectileAsset',
+126075:   'telegraphSpriteV31224','impactSpriteV31224','sevenSinImpactSprite'];
+126076:  function lockPatternImages(actor,rows){
+126077:   if(!actor||!Array.isArray(rows)||!rows.length)return rows;
+126078:   const zone=String(actor.enemyCombatZoneV31237??actor.zone??actor.patternSet??'');
+126079:   let record=patternLocks.get(actor);
+126080:   if(!record||record.zone!==zone){record={zone,images:new Map()};patternLocks.set(actor,record);}
+126081:   return rows.map((raw,index)=>{
+126082:    if(!raw||typeof raw!=='object')return raw;
+126083:    const row={...raw};
+126084:    const id=String(raw.signatureKind31212??raw.laserProfileV31331??raw.patternKind??raw.name??raw.id??`pattern-${index}`);
+126085:    const key=`${id}|${raw.shape??''}|${raw.phaseMin??''}|${raw.phaseMax??''}`;
+126086:    let saved=record.images.get(key);
+126087:    if(!saved){saved={};for(const field of patternImageFields)if(typeof raw[field]==='string'&&raw[field].startsWith('./assets/'))saved[field]=raw[field];record.images.set(key,saved);}
+126088:    for(const field of patternImageFields)if(saved[field])row[field]=saved[field];
+126089:    if(Object.keys(saved).length)stats.patternRowsLocked++;
+126090:    return row;
+126091:   });
+126092:  }
+126093:  function sidePose(hero,motion,time){
+126094:   if(hero?.id!=='slayer'||motion?.kind!=='attack')return null;
+126095:   const selected=window.__HAPIL_HERO_CONSISTENCY_RC5__?.state?.('slayer',motion,time);
+126096:   if(!selected||!['left','right'].includes(selected.dir))return null;
+126097:   const now=number(time),hasStart=Number.isFinite(Number(motion.started));
+126098:   const started=hasStart?number(motion.started):now,declaredUntil=number(motion.until,started+.32);
+126099:   if(hasStart&&(now<started-.02||now>declaredUntil+.06))return null;
+126100:   const prior=sideLocks.get(hero),sameAttack=!!prior&&now<prior.until&&(!hasStart||Math.abs(prior.started-started)<.001);
+126101:   const dir=sameAttack?prior.dir:selected.dir;
+126102:   const duration=Math.max(.12,declaredUntil-started),progress=Math.max(0,Math.min(.999,(now-started)/duration));
+126103:   const frame=Math.min(3,Math.floor(progress*4)),until=Math.max(declaredUntil,started+.04);
+126104:   sideLocks.set(hero,{dir,started,until});
+126105:   return {dir,path:SIDE[dir],frame};
+126106:  }
+126107:  function drawSide(ctx,cache,x,y,size,options,selection){
+126108:   const image=MONGSE_queueImage(cache,selection.path,'eager');
+126109:   if(!image?.complete||!(image.naturalWidth||image.width)){stats.assetFallbacks++;return false;}
+126110:   const w=image.naturalWidth||image.width,h=image.naturalHeight||image.height;

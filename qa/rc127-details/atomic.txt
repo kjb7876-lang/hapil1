@@ -1,0 +1,111 @@
+49650:       sevenSinImpactSprite: n.impactSprite,
+49651:       impactFallbackSprite: n.impactFallbackSprite,
+49652:       telekineticRain: MONGSE_isTelekineticRain,
+49653:       rainGroupId: MONGSE_rainGroupId,
+49654:       rainWave: MONGSE_rainWave + 1,
+49655:       rainIndex: i,
+49656:       rainCount: MONGSE_castCount,
+49657:       suppressTelegraphLabel: MONGSE_isTelekineticRain && i !== 0,
+49658:     });
+49659:   }
+49660:   let MONGSE_phase0Asset =
+49661:       t.humanPhase0 && r === 0 ? MONGSE_EP1B_CANON_PHASE0_ASSETS[e.zone] : null,
+49662:     MONGSE_castThemeSprite = MONGSE_phase0Asset?.vfx ?? Jt(t.patternSet),
+49663:     MONGSE_castThemeFallback = MONGSE_phase0Asset ? Jt(t.patternSet) : null,
+49664:     MONGSE_castTorso = MONGSE_enemyTorsoOffset(t).y;
+49665:   MONGSE_castThemeSprite &&
+49666:     e.effects.push({
+49667:       id: e.fxSerial++,
+49668:       kind: `mark`,
+49669:       x: t.x,
+49670:       y: t.y,
+49671:       tx: t.x,
+49672:       ty: t.y,
+49673:       born: s,
+49674:       duration: Math.max(0.52, Math.min(1.28, o)),
+49675:       color: n.color,
+49676:       accent: n.accent,
+49677:       size: t.boss ? 6.2 : t.midboss ? 4.8 : 3.7,
+49678:       angle: 0,
+49679:       sprite: MONGSE_castThemeSprite,
+49680:       fallbackSprite: MONGSE_castThemeFallback,
+49681:       spriteHeading: null,
+49682:       imageOnly: !0,
+49683:       forceFront: !0,
+49684:       startOffsetY: MONGSE_castTorso,
+49685:       endOffsetY: MONGSE_castTorso,
+49686:       bossCastVfx: !0,
+49687:       patternSet: t.patternSet,
+49688:     });
+49689:   let d = s + o,
+49690:     f = MONGSE_isTelekineticRain
+49691:       ? s +
+49692:         o +
+49693:         (MONGSE_rainWaves - 1) * (n.rainWaveGap ?? 0.78) +
+49694:         (MONGSE_rainPerWave - 1) * (n.rainSlotGap ?? 0.04)
+49695:       : d + (MONGSE_castCount - 1) * n.gap,
+49696:     MONGSE_telekineticEndAt = f + 0.38,
+49697:     MONGSE_episodePatternBreath = MONGSE_isTelekineticRain
+49698:       ? (MONGSE_episodeBossPacing(t)?.patternBreath ?? 0)
+49699:       : 0,
+49700:     MONGSE_episodePatternResumeAt = MONGSE_episodePatternBreath
+49701:       ? MONGSE_telekineticEndAt + MONGSE_episodePatternBreath
+49702:       : 0;
+49703:   (MONGSE_isTelekineticRain &&
+49704:     ((t.telekineticRainUsed = !0), (t.telekineticRainPhase = r)),
+49705:     n.telekinetic && (t.telekineticUntil = MONGSE_telekineticEndAt),
+49706:     MONGSE_episodePatternResumeAt &&
+49707:       ((t.episodePatternEndAt = MONGSE_telekineticEndAt),
+49708:       (t.episodeNextPatternAt = MONGSE_episodePatternResumeAt),
+49709:       (t.episodePatternKind = `telekinetic-rain`)),
+49710:     (t.attackDx = (e.x - t.x) / Math.max(0.001, J(e, t))),
+49711:     (t.attackDy = (e.y - t.y) / Math.max(0.001, J(e, t))),
+49712:     pi(t, t.attackDx, t.attackDy),
+49713:     (t.attackStarted = s),
+49714:     (t.attackWindup = o),
+49715:     (t.attackAt = d),
+49716:     (t.attackImpactAt = d),
+49717:     (t.recoverUntil = MONGSE_episodePatternResumeAt || f + 0.42),
+49718:     (t.readyAt =
+49719:       MONGSE_episodePatternResumeAt ||
+49720:       (MONGSE_isTelekineticRain ? f + 0.85 : f + 0.65)),
+49721:     (t.patternReadyAt = MONGSE_episodePatternResumeAt
+49722:       ? MONGSE_episodePatternResumeAt
+49723:       : MONGSE_isTelekineticRain
+49724:         ? Math.max(f + 1.15, s + Math.max(2.4, n.cooldown - (r - 1) * 0.28))
+49725:         : s + Math.max(2.4, n.cooldown - (r - 1) * 0.28)),
+49726:     (t.activePattern = n.name),
+49727:     (t.patternIndex += 1),
+49728:     MONGSE_scheduleWrathBossSequence(e, t, r, f, n),
+49729:     window.__HAPIL_SKILL_COMPLETION_V31412__?.beginEnemyCast(e,t));
+49730: }
+49731: function MONGSE_impactClearGap(e) {
+49732:   return e?.boss ? 0.12 : e?.midboss ? 0.1 : 0.06;
+49733: }
+49734: function MONGSE_spawnTelegraphedImpact(e, t) {
+49735:   if (!e || !t) return;
+49736:   let n = t.shape === `line` || t.shape === `cone`,
+49737:     r = n ? t.originX : t.x,
+49738:     i = n ? t.originY : t.y,
+49739:     a = n ? t.x : r,
+49740:     o = n ? t.y : i,
+49741:     s =
+49742:       t.shape === `cross`
+49743:         ? `cross`
+49744:         : t.shape === `donut` || t.shape === `safe`
+49745:           ? `time`
+49746:           : t.shape === `circle`
+49747:             ? `burst`
+49748:             : `enemyAttack`;
+49749:   let MONGSE_impactSource = e.enemies.find((e) => e.id === t.sourceId),
+49750:     MONGSE_isBossLike = !!t.boss || !!t.midboss,
+49751:     MONGSE_impactPalette = MONGSE_bossBarragePalette(MONGSE_impactSource),
+49752:     MONGSE_episodeSkillSprite = MONGSE_isBossLike
+49753:       ? Jt(t.patternSet ?? MONGSE_impactSource?.patternSet)
+49754:       : void 0,
+49755:     MONGSE_bossSkillClass = t.midboss
+49756:       ? `episodeMidboss`
+49757:       : !t.boss
+49758:         ? `standard`
+49759:         : n
+49760:           ? `shockwave`

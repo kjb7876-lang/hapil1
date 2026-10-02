@@ -1,0 +1,116 @@
+48730:     }
+48731:     let s = (e.enemies ?? []).find((e) => e.id === o.sourceId && e.hp > 0);
+48732:     if (MONGSE_isSpiderCaveMidboss31220(s)) continue;
+48733:     if (
+48734:       !s ||
+48735:       MONGSE_enemyActivePhase(s) !== o.phase ||
+48736:       s.phaseTransitionUntil > e.time ||
+48737:       (e.narrativeCasts ?? []).some(
+48738:         (t) => t.sourceId === s.id && t.endAt > e.time,
+48739:       )
+48740:     )
+48741:       continue;
+48742:     if (MONGSE_updateBossDistanceMode31222(e, s, Math.hypot(e.x - s.x, e.y - s.y)) === `melee`) {
+48743:       a.push({ ...o, at: e.time + 0.32 });
+48744:       continue;
+48745:     }
+48746:     let c = MONGSE_spawnThemeOrdnanceKind3129(e, s, o.kind),
+48747:       l = c.projectiles + c.lasers;
+48748:     if (!l && o.retries < 2) {
+48749:       a.push({ ...o, at: e.time + 0.42, retries: o.retries + 1 });
+48750:       i += 1;
+48751:       continue;
+48752:     }
+48753:     l &&
+48754:       e.floatTexts.push({
+48755:         id: e.fxSerial++,
+48756:         x: s.x,
+48757:         y: s.y,
+48758:         born: e.time,
+48759:         duration: 0.9,
+48760:         text: `${o.signatureLabel} · 2박 변주`,
+48761:         color: `#fff0a1`,
+48762:         critical: !0,
+48763:       });
+48764:     ((t += c.projectiles), (n += c.lasers), (r += l ? 1 : 0));
+48765:   }
+48766:   return (
+48767:     (e.bossOrdnanceCues31210 = a),
+48768:     { projectiles: t, lasers: n, resolved: r, retried: i }
+48769:   );
+48770: }
+48771: function MONGSE_tickBossThemeOrdnance(e) {
+48772:   if (!e) return { volleys: 0, lasers: 0, patterns: {} };
+48773:   if (MONGSE_isEncounterLocked31226(e))
+48774:     return { volleys: 0, lasers: 0, patterns: {} };
+48775:   let t = 0,
+48776:     n = 0,
+48777:     r = {};
+48778:   for (let i of e.enemies ?? []) {
+48779:     if (!i || i.hp <= 0 || (!i.boss && !i.midboss)) continue;
+48780:     if (i.cosmicLuciferV31318 === true) continue;
+48781:     if (MONGSE_isSpiderCaveMidboss31220(i)) {
+48782:       i.themedOrdnanceAt = e.time + 8.5;
+48783:       e.bossOrdnanceCues31210 = (e.bossOrdnanceCues31210 ?? []).filter(
+48784:         (MONGSE_cue31220) => MONGSE_cue31220.sourceId !== i.id,
+48785:       );
+48786:       continue;
+48787:     }
+48788:     i.themedOrdnanceAt ??=
+48789:       e.time + (i.boss ? 3.7 : 4.8) + (i.id.length % 4) * 0.24;
+48790:     let a =
+48791:       i.phaseTransitionUntil > e.time ||
+48792:       i.staggerUntil > e.time ||
+48793:       i.attackAt > e.time ||
+48794:       i.recoverUntil > e.time ||
+48795:       (e.narrativeCasts ?? []).some(
+48796:         (t) => t.sourceId === i.id && t.endAt > e.time,
+48797:       ) ||
+48798:       MONGSE_isPersistentBossCastActive(e, i);
+48799:     if (a || e.time < i.themedOrdnanceAt) continue;
+48800:     if (MONGSE_updateBossDistanceMode31222(e, i, Math.hypot(e.x - i.x, e.y - i.y)) === `melee`) {
+48801:       i.themedOrdnanceAt = Math.max(i.themedOrdnanceAt, e.time + 0.32);
+48802:       continue;
+48803:     }
+48804:     let o = Number(i.themedOrdnanceCycle ?? 0),
+48805:       s = MONGSE_bossDirectorProfile31210(i),
+48806:       c = s.deck[o % s.deck.length];
+48807:     if (s.signatureProfile31212) {
+48808:       let MONGSE_signaturePhase31212 = MONGSE_enemyActivePhase(i);
+48809:       if (Number(i.themedOrdnancePhase31212 ?? -1) !== MONGSE_signaturePhase31212) {
+48810:         ((i.themedOrdnancePhase31212 = MONGSE_signaturePhase31212),
+48811:           (i.themedOrdnanceCycle = 0),
+48812:           (o = 0));
+48813:       }
+48814:       if (e.time < Number(i.signatureRestUntil31212 ?? 0)) continue;
+48815:       let MONGSE_phaseDeck31213 = MONGSE_phaseSignatureDeck31213(
+48816:           i,
+48817:           s.signatureProfile31212,
+48818:           MONGSE_signaturePhase31212,
+48819:         ),
+48820:         MONGSE_signatureUnlock31213 = Math.min(
+48821:           MONGSE_phaseDeck31213.length,
+48822:           Math.max(2, MONGSE_signaturePhase31212 + 2),
+48823:         );
+48824:       c = MONGSE_phaseDeck31213[o % MONGSE_signatureUnlock31213];
+48825:       i.signatureChoreography31213 = MONGSE_signatureChoreography31213(
+48826:         i,
+48827:         c,
+48828:         o,
+48829:       );
+48830:     }
+48831:     i.themedOrdnanceCycle = o + 1;
+48832:     let l = MONGSE_spawnThemeOrdnanceKind3129(e, i, c);
+48833:     i.signatureChoreography31213 = null;
+48834:     if (l.projectiles + l.lasers <= 0) {
+48835:       ((i.themedOrdnanceCycle = o),
+48836:         (i.themedOrdnanceAt = e.time + 0.55),
+48837:         (i.emptyCastRetries31210 = (i.emptyCastRetries31210 ?? 0) + 1));
+48838:       continue;
+48839:     }
+48840:     ((t += l.projectiles),
+48841:       (n += l.lasers),
+48842:       (r[c] = (r[c] ?? 0) + 1),
+48843:       (i.themedOrdnanceAt =
+48844:         e.time +
+48845:         (s.signatureProfile31212 ? (i.boss ? 4.65 : 6.2) : i.boss ? 5.8 : 7.4) * s.tempoScale +

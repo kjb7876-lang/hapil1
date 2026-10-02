@@ -1,0 +1,401 @@
+62200:                       born: o.time,
+62201:                       duration: 0.38,
+62202:                       color: r.color,
+62203:                       accent: r.accent,
+62204:                       size: e.boss ? 4.2 : 3.4,
+62205:                       angle: Math.atan2(e.y - o.y, e.x - o.x),
+62206:                       imageOnly: !1,
+62207:                     }),
+62208:                     o.floatTexts.push({
+62209:                       id: o.fxSerial++,
+62210:                       x: e.x,
+62211:                       y: e.y,
+62212:                       born: o.time,
+62213:                       duration: 0.72,
+62214:                       text: `간격 전환`,
+62215:                       color: r.accent,
+62216:                       critical: !!e.boss,
+62217:                     }));
+62218:                 }
+62219:                 if (
+62220:                   u.length &&
+62221:                   (!window.__HAPIL_COMBAT_FLOW_RC95__?.managed(o,e)||window.__HAPIL_COMBAT_FLOW_RC95__.allowed(o,'mixed')&&MONGSE_showcaseDispatch.required) &&
+62222:                   (t < 9.25 || MONGSE_showcaseIndex !== -1) &&
+62223:                   MONGSE_distanceMode31222 !== `melee` &&
+62224:                   (MONGSE_showcaseDispatch.required ||
+62225:                     !MONGSE_enemyCounterFollowupPending31229(e, o.time)) &&
+62226:                   (MONGSE_showcaseDispatch.required
+62227:                     ? MONGSE_showcaseDispatch.canStart &&
+62228:                       !MONGSE_persistentBossCast &&
+62229:                       e.attackAt === 0 &&
+62230:                       e.recoverUntil <= o.time
+62231:                     : o.time >= e.patternReadyAt &&
+62232:                       o.time >= e.readyAt &&
+62233:                       e.attackAt === 0 &&
+62234:                       e.recoverUntil <= o.time)
+62235:                 ) {
+62236:                   MONGSE_showcaseDispatch.required &&
+62237:                     ((e.queuedShowcase31210 = !1),
+62238:                     (e.showcaseDisengageAt31222 = void 0),
+62239:                     (e.episodeShowcaseAttemptCount =
+62240:                       (e.episodeShowcaseAttemptCount ?? 0) + 1),
+62241:                     (e.episodeShowcaseLastAttemptAt = o.time),
+62242:                     (e.episodeShowcaseAttemptPhase = c));
+62243:                   if (MONGSE_showcaseIndex === -2) {
+62244:                     let t = MONGSE_beginSpatialRiftBarrage(o, e, c);
+62245:                     !t &&
+62246:                       MONGSE_showcaseDispatch.required &&
+62247:                       ((e.episodeShowcaseAttemptFailures =
+62248:                         (e.episodeShowcaseAttemptFailures ?? 0) + 1),
+62249:                       (e.episodeShowcaseFailurePhase = c));
+62250:                     t &&
+62251:                       (We(Wr + `boss-heavy-warning.mp3`, 0.31),
+62252:                       We(MONGSE_enemyAttackSfx(e, o.zone), 1),
+62253:                       B(
+62254:                         `${t.name} · ${t.portals.length}개 균열이 공간을 접습니다. 표시된 안전 통로로 이동하십시오.`,
+62255:                       ));
+62256:                   } else {
+62257:                     MONGSE_showcaseIndex >= 0
+62258:                       ? (e.patternIndex = MONGSE_showcaseIndex)
+62259:                       : (e.boss || e.midboss) &&
+62260:                         (e.patternIndex = MONGSE_chooseBossPatternIndexSmartR1(
+62261:                           o,
+62262:                           e,
+62263:                           u,
+62264:                           c,
+62265:                           t,
+62266:                           MONGSE_smartBossProfileR1(e, c, r),
+62267:                         ));
+62268:                     let MONGSE_selectedPattern31220 =
+62269:                       u[e.patternIndex % u.length];
+62270:                     MONGSE_selectedPattern31220
+62271:                       ? (Ei(o, e, MONGSE_selectedPattern31220, c),
+62272:                         MONGSE_showcaseDispatch.required &&
+62273:                           e.telekineticRainPhase !== c &&
+62274:                           ((e.episodeShowcaseAttemptFailures =
+62275:                             (e.episodeShowcaseAttemptFailures ?? 0) + 1),
+62276:                           (e.episodeShowcaseFailurePhase = c)),
+62277:                         We(
+62278:                           e.boss
+62279:                             ? Wr + (e.id === `kair-great-03` && MONGSE_selectedPattern31220.bossIdentityV31409
+62280:                                 ? `time-acceleration-clock.mp3` : `boss-heavy-warning.mp3`)
+62281:                             : Ur + `LaserGun.wav`,
+62282:                           e.boss ? 0.3 : 0.18,
+62283:                         ),
+62284:                         We(MONGSE_enemyAttackSfx(e, o.zone), 1),
+62285:                         o.floatTexts.push({
+62286:                           id: o.fxSerial++,
+62287:                           x: e.x,
+62288:                           y: e.y,
+62289:                           born: o.time,
+62290:                           duration: Math.min(
+62291:                             1.2,
+62292:                             MONGSE_selectedPattern31220.windup,
+62293:                           ),
+62294:                           text: `준비 · ${MONGSE_selectedPattern31220.name}`,
+62295:                           color: MONGSE_selectedPattern31220.accent,
+62296:                           critical: !!e.boss,
+62297:                         }))
+62298:                       : MONGSE_showcaseDispatch.required &&
+62299:                         ((e.episodeShowcaseAttemptFailures =
+62300:                           (e.episodeShowcaseAttemptFailures ?? 0) + 1),
+62301:                         (e.episodeShowcaseFailurePhase = c));
+62302:                   }
+62303:                 }
+62304:                 let d = 0,
+62305:                   f = e.boss ? 0.82 : e.midboss ? 0.68 : 0.44,
+62306:                   p = pt(o.zone, e, o, f),
+62307:                   m = e.boss || e.midboss ? 16 : s ? 13.5 : 12.25,
+62308:                   MONGSE_smartBossCombatR1 =
+62309:                     (e.boss || e.midboss) &&
+62310:                     !MONGSE_showcaseDisengage31222 &&
+62311:                     !MONGSE_counterTactic31229?.active
+62312:                       ? MONGSE_tickBossCombatBrainSmartR1(
+62313:                           o,
+62314:                           e,
+62315:                           r,
+62316:                           c,
+62317:                           f,
+62318:                           p,
+62319:                           t,
+62320:                           a,
+62321:                         )
+62322:                       : null;
+62323:                 MONGSE_smartBossCombatR1?.dodgeTriggered &&
+62324:                   ((t = J(o, e)),
+62325:                   (n = Math.max(0.001, t)),
+62326:                   (p = pt(o.zone, e, o, f)));
+62327:                 if (MONGSE_counterTactic31229?.active) d = 0;
+62328:                 else if (MONGSE_showcaseDisengage31222) d = -1;
+62329:                 else if (MONGSE_smartBossCombatR1)
+62330:                   d = MONGSE_smartBossCombatR1.target ? 1 : 0;
+62331:                 else if (e.attackAt === 0 && e.recoverUntil <= o.time)
+62332:                   (p && t < m) || (s && t > r.preferredMax && t < m)
+62333:                     ? (d = 1)
+62334:                     : s && t < r.preferredMin
+62335:                       ? (d = -0.72)
+62336:                       : !s && t > r.preferredMax && t < m && (d = 1);
+62337:                 if (d) {
+62338:                   let MONGSE_moveTargetR1 = o;
+62339:                   if (MONGSE_smartBossCombatR1?.target)
+62340:                     ((MONGSE_moveTargetR1 = MONGSE_smartBossCombatR1.target),
+62341:                       (e.navX = MONGSE_moveTargetR1.x),
+62342:                       (e.navY = MONGSE_moveTargetR1.y));
+62343:                   else if (d > 0) {
+62344:                     let n = {
+62345:                         x: b(o.x + o.moveVx * 0.22),
+62346:                         y: b(o.y + o.moveVy * 0.22),
+62347:                       },
+62348:                       r = Math.hypot(n.x - e.navGoalX, n.y - e.navGoalY) > 1.05;
+62349:                     if (o.time >= e.navReadyAt || r || !e.navPath.length) {
+62350:                       for (
+62351:                         e.navPath = p ? yt(o.zone, e, n, f) : [n];
+62352:                         e.navPath.length && J(e, e.navPath[0]) < 0.38;
+62353: 
+62354:                       )
+62355:                         e.navPath.shift();
+62356:                       ((e.navGoalX = n.x),
+62357:                         (e.navGoalY = n.y),
+62358:                         (e.navReadyAt =
+62359:                           o.time + 0.28 + (e.id.length % 5) * 0.025));
+62360:                     }
+62361:                     for (; e.navPath.length && J(e, e.navPath[0]) < 0.4; )
+62362:                       e.navPath.shift();
+62363:                     ((MONGSE_moveTargetR1 = e.navPath[0] ?? n),
+62364:                       (e.navX = MONGSE_moveTargetR1.x),
+62365:                       (e.navY = MONGSE_moveTargetR1.y));
+62366:                   } else {
+62367:                     MONGSE_moveTargetR1 = MONGSE_bossRetreatTarget31222(
+62368:                       o,
+62369:                       e,
+62370:                       f,
+62371:                       2.4,
+62372:                     );
+62373:                   }
+62374:                   let MONGSE_moveDistanceR1 = Math.max(
+62375:                       0.001,
+62376:                       J(e, MONGSE_moveTargetR1),
+62377:                     ),
+62378:                     l = (MONGSE_moveTargetR1.x - e.x) / MONGSE_moveDistanceR1,
+62379:                     u = (MONGSE_moveTargetR1.y - e.y) / MONGSE_moveDistanceR1,
+62380:                     MONGSE_baseMoveSpeedR1 = e.boss
+62381:                       ? 0.78 + c * 0.13
+62382:                       : e.midboss
+62383:                         ? 0.9 + c * 0.12
+62384:                         : e.kind === `wolf`
+62385:                           ? 1.72
+62386:                           : e.kind === `tank`
+62387:                             ? 0.72
+62388:                             : e.kind === `slime`
+62389:                               ? 1.05
+62390:                               : [
+62391:                                     `drone`,
+62392:                                     `demon`,
+62393:                                     `void`,
+62394:                                     `collector`,
+62395:                                     `connector`,
+62396:                                     `tuner`,
+62397:                                     `timeless`,
+62398:                                     `rainWitness`,
+62399:                                     `hotelClerk`,
+62400:                                     `rooftopEcho`,
+62401:                                   ].includes(e.kind)
+62402:                                 ? 1.16
+62403:                                 : [
+62404:                                       `fallen`,
+62405:                                       `commandBoss`,
+62406:                                       `siren`,
+62407:                                       `silentAlarm`,
+62408:                                     ].includes(e.kind)
+62409:                                   ? 1.02
+62410:                                   : s
+62411:                                     ? 1.08
+62412:                                     : 1.38,
+62413:                     MONGSE_timeStopMoveScale31228 =
+62414:                       o.timeStopUntil > o.time
+62415:                         ? e.boss
+62416:                           ? i.bossResistance
+62417:                           : e.midboss
+62418:                             ? 0.28
+62419:                             : 0
+62420:                         : 1,
+62421:                     g =
+62422:                       MONGSE_baseMoveSpeedR1 *
+62423:                       (window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1) *
+62424:                       1.16 *
+62425:                       MONGSE_timeStopMoveScale31228 *
+62426:                       (MONGSE_showcaseDisengage31222 ? 5.8 : 1) *
+62427:                       (e.id === `b07-boss` && e.wrathRageUntil > o.time
+62428:                         ? 1.48
+62429:                         : 1) *
+62430:                       (MONGSE_smartBossCombatR1
+62431:                         ? MONGSE_smartBossCombatR1.moveScale *
+62432:                           MONGSE_smartBossCombatR1.speedScale
+62433:                         : 1);
+62434:                   if (g > 0.001) {
+62435:                     ((e.moveDx = l),
+62436:                       (e.moveDy = u),
+62437:                       (e.movePhase =
+62438:                         (e.movePhase +
+62439:                           a *
+62440:                             g *
+62441:                             (e.kind === `wolf`
+62442:                               ? 8.2
+62443:                               : e.kind === `slime`
+62444:                                 ? 4.7
+62445:                                 : s
+62446:                                   ? 3.6
+62447:                                   : e.boss || e.midboss
+62448:                                     ? 4.2
+62449:                                     : 6.4)) %
+62450:                         (Math.PI * 2)));
+62451:                     let MONGSE_beforeMoveXSmartR1 = e.x,
+62452:                       MONGSE_beforeMoveYSmartR1 = e.y,
+62453:                       MONGSE_nextMoveSmartR1 = ft(
+62454:                         o.zone,
+62455:                         e,
+62456:                         { x: e.moveDx * a * g, y: e.moveDy * a * g },
+62457:                         f,
+62458:                       );
+62459:                     ((e.x = MONGSE_nextMoveSmartR1.x),
+62460:                       (e.y = MONGSE_nextMoveSmartR1.y));
+62461:                     let MONGSE_actualDxSmartR1 = e.x - MONGSE_beforeMoveXSmartR1,
+62462:                       MONGSE_actualDySmartR1 = e.y - MONGSE_beforeMoveYSmartR1,
+62463:                       MONGSE_actualDistanceSmartR1 = Math.hypot(
+62464:                         MONGSE_actualDxSmartR1,
+62465:                         MONGSE_actualDySmartR1,
+62466:                       );
+62467:                     MONGSE_actualDistanceSmartR1 > 0.001
+62468:                       ? ((e.moveDx =
+62469:                           MONGSE_actualDxSmartR1 / MONGSE_actualDistanceSmartR1),
+62470:                         (e.moveDy =
+62471:                           MONGSE_actualDySmartR1 / MONGSE_actualDistanceSmartR1),
+62472:                         pi(e, MONGSE_actualDxSmartR1, MONGSE_actualDySmartR1),
+62473:                         (e.stuckFor = 0),
+62474:                         (e.movingUntil = o.time + 0.12))
+62475:                       : ((e.stuckFor += a),
+62476:                         e.stuckFor >= 0.1 &&
+62477:                           ((e.navReadyAt = 0),
+62478:                           (e.navPath = []),
+62479:                           (e.aiMovePlanAtSmartR1 = 0),
+62480:                           (e.stuckFor = 0)));
+62481:                   }
+62482:                 }
+62483:                 ((t = J(o, e)),
+62484:                   (n = Math.max(0.001, t)),
+62485:                   (p = pt(o.zone, e, o, f)));
+62486:                 if (
+62487:                   (MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 || !p) &&
+62488:                   !MONGSE_showcaseDisengage31222 &&
+62489:                   !MONGSE_counterTactic31229?.active &&
+62490:                   (!(e.boss || e.midboss) ||
+62491:                     MONGSE_shouldBossStartNormalAttackSmartR1(
+62492:                       o,
+62493:                       e,
+62494:                       MONGSE_smartBossCombatR1?.profile ??
+62495:                         MONGSE_smartBossProfileR1(e, c, r),
+62496:                       MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 ? null : p,
+62497:                     )) &&
+62498:                   t < l &&
+62499:                   o.time >= e.readyAt &&
+62500:                   e.attackAt === 0 &&
+62501:                   e.recoverUntil <= o.time &&
+62502:                   HAPIL_allowNormalRangedStartV31302(
+62503:                     o,
+62504:                     e,
+62505:                     r,
+62506:                     !!ze.current.lowFx,
+62507:                   )
+62508:                 ) {
+62509:                   let t = Math.max(
+62510:                       0.42,
+62511:                       r.windup - (e.boss || e.midboss ? (c - 1) * 0.06 : 0),
+62512:                     ),
+62513:                     n = Math.max(0.001, J(o, e));
+62514:                   ((e.boss || e.midboss)
+62515:                     ? MONGSE_beginBossAimLockSmartR1(
+62516:                         o,
+62517:                         e,
+62518:                         MONGSE_smartBossCombatR1?.profile ??
+62519:                           MONGSE_smartBossProfileR1(e, c, r),
+62520:                       )
+62521:                     : ((e.attackDx = (o.x - e.x) / n),
+62522:                       (e.attackDy = (o.y - e.y) / n),
+62523:                       pi(e, e.attackDx, e.attackDy)),
+62524:                     (e.attackStarted = o.time),
+62525:                     (e.attackWindup = t),
+62526:                     (e.attackAt = o.time + t),
+62527:                     (e.attackImpactAt = e.attackAt),
+62528:                     (e.recoverUntil = e.attackAt + r.recovery),
+62529:                     (e.readyAt =
+62530:                       o.time +
+62531:                       t +
+62532:                       Math.max(
+62533:                         0.72,
+62534:                         r.cooldown *
+62535:                           (e.id === `b07-boss` && e.wrathRageUntil > o.time
+62536:                             ? 0.78
+62537:                             : 1) -
+62538:                           (e.boss || e.midboss ? (c - 1) * 0.09 : 0),
+62539:                       )),
+62540:                     We(MONGSE_enemyAttackSfx(e, o.zone), 1));
+62541:                   MONGSE_markEnemyCounterAttackStarted31229(e, r, o.time);
+62542:                   window.__HAPIL_SKILL_COMPLETION_V31412__?.beginEnemyCast(o,e,c,e.attackAt);
+62543:                 }
+62544:                 if (e.attackAt > 0 && o.time >= e.attackAt) {
+62545:                   e.attackAt = 0;
+62546:                   let t = u.find((t) => t.name === e.activePattern);
+62547:                   if (t) {
+62548:                     ((e.activePattern = ``),
+62549:                       (t.telekinetic || t.laserV31330) ||
+62550:                         MONGSE_spawnBossPatternFollowup31212(o, e, c));
+62551:                   } else {
+62552:                     if (r.lunge > 0) {
+62553:                       let t = ft(
+62554:                         o.zone,
+62555:                         e,
+62556:                         { x: e.attackDx * r.lunge, y: e.attackDy * r.lunge },
+62557:                         f,
+62558:                       );
+62559:                       ((e.x = t.x), (e.y = t.y));
+62560:                     }
+62561:                     let t = J(o, e),
+62562:                       n = Jt(e.patternSet),
+62563:                       MONGSE_lockedTargetXSmartR1 =
+62564:                         e.boss || e.midboss
+62565:                           ? Number(e.castTargetXSmartR1 ?? o.x)
+62566:                           : o.x,
+62567:                       MONGSE_lockedTargetYSmartR1 =
+62568:                         e.boss || e.midboss
+62569:                           ? Number(e.castTargetYSmartR1 ?? o.y)
+62570:                           : o.y,
+62571:                       MONGSE_normalAttackConnectSmartR1 =
+62572:                         e.boss || e.midboss
+62573:                           ? s
+62574:                             ? !0
+62575:                             : MONGSE_bossMeleeAttackHitsHeroSmartR1(
+62576:                                 o,
+62577:                                 e,
+62578:                                 l + 0.45,
+62579:                               )
+62580:                           : t < (s ? l + 0.55 : l + 0.45),
+62581:                       MONGSE_basicAttackDamage31222 =
+62582:                         r.damage +
+62583:                         (e.elite ? 2 : 0) +
+62584:                         (e.boss || e.midboss ? c * 2 : 0),
+62585:                       MONGSE_persistentRanged31221 =
+62586:                         s && (e.boss || e.midboss)
+62587:                           ? MONGSE_spawnPersistentRangedAttack31221(
+62588:                               o,
+62589:                               e,
+62590:                               c,
+62591:                               r,
+62592:                               MONGSE_basicAttackDamage31222,
+62593:                             )
+62594:                           : s && r.counterTacticProjectile31229
+62595:                             ? MONGSE_spawnEnemyCounterProjectile31229(
+62596:                                 o,
+62597:                                 e,
+62598:                                 c,
+62599:                                 r,
+62600:                                 MONGSE_basicAttackDamage31222,

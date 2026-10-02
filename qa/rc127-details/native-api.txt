@@ -1,0 +1,53 @@
+126400:   return !!s&&!!a&&number(s.time)>=Math.max(number(a.laserReadyAtRC94),number(a.bloodReadyRC16))&&
+126401:    !(s.bossLaserCastsV31330??[]).some(c=>c.endAt>s.time)&&
+126402:    !window.__HAPIL_BOSSES_V31334__?.busy(s)&&window.__HAPIL_BLOOD_RC16__?.canStart(s,a)===true;
+126403:  }
+126404:  function install(attempt=0){
+126405:   if(!window.__HAPIL_BLOOD_RC16__?.installed||!window.__HAPIL_BOSSES_V31334__?.installed){if(attempt<1200)setTimeout(()=>install(attempt+1),10);return;}
+126406:   const choose=MONGSE_chooseBossPatternIndexSmartR1;
+126407:   MONGSE_chooseBossPatternIndexSmartR1=function(s,a,list,...args){
+126408:    if(!Array.isArray(list)||!list.length)return -1;
+126409:    const allowed=available(s,a),indices=[];
+126410:    const eligible=list.filter((p,i)=>{if(laser(p)&&!allowed){stats.laserCardsDeferred++;return false;}indices.push(i);return true;});
+126411:    if(!eligible.length)return -1;
+126412:    const picked=choose(s,a,eligible,...args);stats.choices++;
+126413:    return Number.isInteger(picked)&&picked>=0&&picked<indices.length?indices[picked]:-1;
+126414:   };
+126415:   window.__HAPIL_BOSS_CADENCE_RC94__=Object.freeze({installed:true,available,metrics:()=>({...stats})});
+126416:  }
+126417:  install();
+126418: })();
+126419: 
+126420: /* RC95: serialize one cadence, calibrate encounter health once, and retain committed deliveries. */
+126421: (()=>{'use strict';
+126422:  function install(attempt=0){if(!window.__HAPIL_BOSS_CADENCE_RC94__?.installed){if(attempt<1200)setTimeout(()=>install(attempt+1),10);return;}
+126423:  const flow=window.__HAPIL_COMBAT_FLOW_RC95__;
+126424:  const api={heroes:F,growth:HAPIL_effectiveGrowthV31400,mastery:gr,basic:ar,skill:or,infinite:MONGSE_infiniteStats,ultimate:MONGSE_ultimatePowerV31309,order:z=>N[z]?.order??0,locked:s=>MONGSE_isEncounterLocked31226(s),patterns:(...a)=>MONGSE_patternsForEnemy(...a),phase:a=>MONGSE_enemyPhase(a),cast:(...a)=>Ei(...a),bullet:(...a)=>MONGSE_pushThemeProjectile3129(...a)};
+126425:  window.__HAPIL_RC95_NATIVE__=Object.freeze(api);
+126426:  const cast=Ei;Ei=function(s,a,p,...args){if(flow.managed(s,a)&&p?.telekineticRain&&!flow.executing(s)){if(!flow.allowed(s,'mixed'))return null;return flow.run(s,()=>cast(s,a,p,...args));}if(!flow.admit(s,a,flow.laser(p)?'laser':'bullet'))return null;return cast(s,a,p,...args);};
+126427:  const rift=MONGSE_beginSpatialRiftBarrage;MONGSE_beginSpatialRiftBarrage=function(s,a,...args){if(flow.managed(s,a)&&!flow.executing(s)){if(!flow.allowed(s,'mixed'))return null;return flow.run(s,()=>rift(s,a,...args));}return rift(s,a,...args);};
+126428:  const expose=MONGSE_triggerEnemyBreak;MONGSE_triggerEnemyBreak=function(s,a,options={}){if(flow.enabled(s)&&(a?.boss||a?.midboss)&&!options.force&&Number(a.rc95ExposureReady)>s.time){a.stagger=0;return{triggered:false,deferred:false};}const result=expose(s,a,options);if(flow.enabled(s)&&result?.triggered&&(a?.boss||a?.midboss))a.rc95ExposureReady=s.time+(a.boss?6:4);return result;};
+126429:  const spawn=MONGSE_spawnBossCombatPatternV31230;MONGSE_spawnBossCombatPatternV31230=function(s,a,f,...args){if(!flow.admit(s,a,f==='rotating-laser'?'laser':'bullet'))return{projectiles:0,lasers:0,family:f,deferredRC95:true};return spawn(s,a,f,...args);};
+126430:  const theme=MONGSE_spawnThemeOrdnanceKind3129;MONGSE_spawnThemeOrdnanceKind3129=function(s,a,...args){if(flow.managed(s,a)&&!flow.executing(s))return{projectiles:0,lasers:0,deferredRC95:true};return theme(s,a,...args);};
+126431:  const laserTick=window.__HAPIL_LASERS_V31330__.tick;window.__HAPIL_LASERS_V31330__.tick=function(s,dt){const r=laserTick(s,dt);if(dt>0)flow.tick(s,api,dt);return r;};
+126432:  const choose=MONGSE_chooseBossPatternIndexSmartR1;MONGSE_chooseBossPatternIndexSmartR1=function(s,a,list,...args){if(!flow.enabled(s))return choose(s,a,list,...args);const indices=[];const cards=list.filter((p,i)=>{if(!flow.allowed(s,flow.laser(p)?'laser':'bullet'))return false;indices.push(i);return true;});if(!cards.length)return -1;const pick=choose(s,a,cards,...args);return Number.isInteger(pick)&&pick>=0?indices[pick]??-1:-1;};
+126433:  const validBalance=b=>b?.version===1&&['normal','elite','midboss','boss','episode'].includes(b.rank)&&['max','originalMax','playerDps','referenceDps','party','seconds'].every(k=>Number.isFinite(b[k])&&b[k]>0&&b[k]<=1e9);
+126434:  const save=Fi;Fi=function(state,...args){const result=save(state,...args);result.rc95CombatFlow=state.rc95CombatFlow?{version:1,zone:state.zone,elapsed:Math.max(0,state.time-state.rc95CombatFlow.startedAt)%18}:null;for(const row of result.enemies??[]){const a=(state.enemies??[]).find(e=>e.id===row.id);if(validBalance(a?.rc95Balance)){row.rc95Balance={...a.rc95Balance,max:a.maxHp};row.hp=a.hp;}}return result;};
+126435:  const normalize=ji;ji=function(raw,...args){const result=normalize(raw,...args);if(!result)return result;const clock=raw?.rc95CombatFlow;if(clock?.version===1&&clock.zone===result.zone&&Number.isFinite(clock.elapsed)&&clock.elapsed>=0&&clock.elapsed<18)result.rc95CombatFlow={...clock};for(const row of result.enemies??[]){const old=(raw?.enemies??[]).find(e=>e.id===row.id);if(validBalance(old?.rc95Balance)&&Number.isFinite(old.hp)&&old.hp>=0&&old.hp<=old.rc95Balance.max){row.rc95Balance={...old.rc95Balance};row.hp=old.hp;}}return result;};
+126436:  const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(state,saved,...args){const result=entry(state,saved,...args);if(saved?.rc95CombatFlow?.zone===state.zone&&Number.isFinite(saved.rc95CombatFlow.elapsed))state.rc95CombatFlow={version:1,zone:state.zone,startedAt:state.time-Math.max(0,Math.min(17.999,saved.rc95CombatFlow.elapsed))};return result;};
+126437:  const restore=Ii;Ii=function(saved,...args){const rows=restore(saved,...args);for(const a of rows??[]){const old=(saved?.enemies??[]).find(e=>e.id===a.id),b=old?.rc95Balance;if(validBalance(b)&&b.rank===flow.rank(a)){a.rc95Balance={...b};a.maxHp=b.max;a.hp=Math.max(0,Math.min(b.max,Number(old.hp)||0));a.bossHpScaledV31230=true;}}return rows;};
+126438:  }install();
+126439: })();
+126440: 
+126441: /* RC124 shared map-edge overscan; G is the native world projection. */
+126442: window.__HAPIL_LASER_OVERRUN_RC124__?.install(G);
+126443: 
+126444: /* RC125: rendering and inverse pointer projection only; native simulation is unchanged. */
+126445: window.__HAPIL_ADAPTIVE_RC125__?.install();
+126446: 
+126447: /* RC126: additive run ledger and simulation dependencies; no render-owned state updates. */
+126448: (()=>{const R=window.__HAPIL_COMBAT_SAFETY_RC126__;if(!R)return;R.install({project:G,common:()=>window.__HAPIL_DANMAKU_V31316__?.commonAsset,point:(s,p,r)=>dt(s.zone,p,r),clear:(s,a,b,r)=>!pt(s.zone,a,b,r)&&!ut(s.zone,b.x,b.y,r)});
+126449: const save=Fi;Fi=function(s,...args){const out=save(s,...args);if(out&&s?.rc126AssetLedger)out.rc126AssetLedger=R.cleanLedger(s.rc126AssetLedger);return out;};
+126450: const normalize=ji;ji=function(raw,...args){const out=normalize(raw,...args);if(out&&raw?.rc126AssetLedger)out.rc126AssetLedger=R.cleanLedger(raw.rc126AssetLedger);return out;};
+126451: const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s,saved,...args){const out=entry(s,saved,...args);if(saved?.rc126AssetLedger)s.rc126AssetLedger=R.cleanLedger(saved.rc126AssetLedger);return out;};})();
+126452: 

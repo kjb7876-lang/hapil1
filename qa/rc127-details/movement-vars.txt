@@ -1,0 +1,76 @@
+60940:                       y: 15,
+60941:                       originX: e.x,
+60942:                       originY: e.y,
+60943:                       radius: 12,
+60944:                       width: 0.72,
+60945:                     },
+60946:                   ];
+60947:                 r.forEach((e) => MONGSE_spawnTelegraphedImpact(t, e));
+60948:                 return t.effects.map((e, t) => ({
+60949:                   shape: e.impactShape,
+60950:                   bossSkillClass: e.bossSkillClass,
+60951:                   actual: e.actualBossSkillVfx,
+60952:                   clipped: e.impactVisualClipped,
+60953:                   sprite: e.castSprite ?? e.sprite,
+60954:                   target: [e.impactX, e.impactY],
+60955:                   origin: [e.impactOriginX, e.impactOriginY],
+60956:                   radius: e.impactRadius,
+60957:                   innerRadius: e.impactInnerRadius,
+60958:                   width: e.impactWidth,
+60959:                   exact:
+60960:                     e.impactShape === r[t].shape &&
+60961:                     e.impactX === r[t].x &&
+60962:                     e.impactY === r[t].y &&
+60963:                     e.impactOriginX === r[t].originX &&
+60964:                     e.impactOriginY === r[t].originY &&
+60965:                     e.impactRadius === r[t].radius &&
+60966:                     e.impactInnerRadius === r[t].innerRadius &&
+60967:                     e.impactWidth === r[t].width,
+60968:                 }));
+60969:               },
+60970:               probeMemoryClearReward: () => {
+60971:                 let e = he.find((e) => !!Zr(e, `boss`)) ?? he[0],
+60972:                   t = {
+60973:                     zone: e,
+60974:                     enemies: [{ id: `qa-enemy` }],
+60975:                     loopCycles: {},
+60976:                     bossDefeated: !1,
+60977:                     spawnedWaves: new Set([1, 2, 3, 4]),
+60978:                     clues: new Set(),
+60979:                     egoDrops: [{ id: 1, amount: 1 }],
+60980:                   },
+60981:                   n = MONGSE_zoneCombatCleared(t, e);
+60982:                 ((t.enemies = []), (t.bossDefeated = !0));
+60983:                 let r = MONGSE_zoneCombatCleared(t, e),
+60984:                   i = MONGSE_unlockZoneEgoRewardV31217(t, e);
+60985:                 return {
+60986:                   zone: e,
+60987:                   hiddenDuringCombat: !n,
+60988:                   cleared: r,
+60989:                   records: i.records.length,
+60990:                   shards: i.shards,
+60991:                   dropsRemoved: t.egoDrops.length === 0,
+60992:                   allUnlocked: Te(e, t.clues),
+60993:                 };
+60994:               },
+60995:               probeTransitionDialogue: () =>
+60996:                 MONGSE_emptyTransitionV31217(
+60997:                   { exit: { speaker: `이전 화자`, text: `이전 대사` } },
+60998:                   { entry: { speaker: `다음 화자`, text: `다음 대사` } },
+60999:                 ),
+61000:               setHeroPose: (e, t, n) => {
+61001:                 if (!F.some((t) => t.id === e)) return null;
+61002:                 let r = {
+61003:                   left: [-1, 1],
+61004:                   right: [1, -1],
+61005:                   back: [-1, -1],
+61006:                   front: [1, 1],
+61007:                 }[n] ?? [1, 1];
+61008:                 ((L.current = e),
+61009:                   (o.activeHeroId = e),
+61010:                   (o.direction = n),
+61011:                   n === `left`
+61012:                     ? (o.facing = -1)
+61013:                     : n === `right` && (o.facing = 1),
+61014:                   (o.heroMotion = window.__HAPIL_SKILL_COMPLETION_V31412__?.keepHeroPose(o, o, t) ? o.heroMotion : {
+61015:                     kind: t,

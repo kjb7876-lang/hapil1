@@ -1,0 +1,61 @@
+64535:         !MONGSE_growthIsMastered(MONGSE_selectedHeroId, t.passives)
+64536:       )
+64537:         return;
+64538:       let a = { ...t.passives, [e]: r + 1 },
+64539:         o = t.shards - 1;
+64540:       ((p.current = { passives: a, shards: o }), n(a), i(o));
+64541:     },
+64542:     MONGSE_resetGrowth = () => {
+64543:       let e = p.current,
+64544:         t = MONGSE_totalGrowthSpent(e.passives);
+64545:       if (t <= 0) return;
+64546:       if (
+64547:         typeof window !== `undefined` &&
+64548:         !window.confirm(
+64549:           `모든 영웅의 공명·스킬·무한 능력 강화를 초기화하고 EGO 파편 ${t}개를 전액 환급할까요?`,
+64550:         )
+64551:       )
+64552:         return;
+64553:       let r = {},
+64554:         a = Math.min(MONGSE_INFINITE_STAT_MAX, e.shards + t);
+64555:       ((p.current = { passives: r, shards: a }), n(r), i(a));
+64556:     },
+64557:     MONGSE_infiniteNodes = [
+64558:       {
+64559:         key: `infinitePower`,
+64560:         name: `무한 위력`,
+64561:         level: MONGSE_infiniteProfile.powerLevel,
+64562:         detail: `전체 피해 ×${MONGSE_infiniteProfile.powerMultiplier.toFixed(3)}`,
+64563:       },
+64564:       {
+64565:         key: `infiniteVitality`,
+64566:         name: `무한 생명`,
+64567:         level: MONGSE_infiniteProfile.vitalityLevel,
+64568:         detail: `최대 EGO +${MONGSE_infiniteProfile.maxHpBonus}`,
+64569:       },
+64570:       {
+64571:         key: `infiniteSpeed`,
+64572:         name: `무한 기동`,
+64573:         level: MONGSE_infiniteProfile.speedLevel,
+64574:         detail: `이동 속도 ×${MONGSE_infiniteProfile.speedMultiplier.toFixed(3)}`,
+64575:       },
+64576:       {
+64577:         key: `infiniteCooldown`,
+64578:         name: `무한 순환`,
+64579:         level: MONGSE_infiniteProfile.cooldownLevel,
+64580:         detail: `스킬 재사용 ×${MONGSE_infiniteProfile.cooldownMultiplier.toFixed(3)}`,
+64581:       },
+64582:     ];
+64583:   return (0, q.jsxs)(q.Fragment, {
+64584:     children: [
+64585:       (0, q.jsxs)(`div`, {
+64586:         className: `growth-wallet`,
+64587:         children: [
+64588:           (0, q.jsx)(`img`, { src: Ut.egoFragment, alt: `` }),
+64589:           (0, q.jsx)(`span`, { children: `사용 가능한 EGO 파편` }),
+64590:           (0, q.jsx)(`b`, { children: r }),
+64591:           (0, q.jsx)(`small`, {
+64592:             children: `지역 완전 클리어 시 일괄 지급 · 일반 지역 1~3개 · 전투 중 오브젝트 없음 · 노드 단계당 1개`,
+64593:           }),
+64594:           (0, q.jsxs)(`button`, {
+64595:             className: `growth-reset`,

@@ -1,0 +1,41 @@
+118775:   }
+118776:   const zoneAssets=zone=>zone===ZONE?Object.values(assets):[];
+118777:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,threeDistinctActions:modes.length===3,nativeDamageOnly:true,noDuplicateRegen:true,saveRevision:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118778:   function install(){
+118779:     if(window.__HAPIL_ARSENAL_V31318__?.installed)return true;if(!window.__HAPIL_V31317_RELEASE__?.allPass)return false;
+118780:     const transit=MONGSE_spawnImpactTransitV31232,spawnImpact=MONGSE_spawnTelegraphedImpact,gn=Gn,jn=Jn,qnBase=qn,baseTick=MONGSE_tickBossThemeOrdnance,delay=MONGSE_delayPendingBossHits31210,role=MONGSE_autoRoleMovementIntent31222;
+118781:     MONGSE_spawnImpactTransitV31232=function HAPIL_cosmicTransitV31318(s,h,...args){if(h?.cosmicAttackV31318)return null;return transit(s,h,...args);};
+118782:     MONGSE_spawnTelegraphedImpact=function HAPIL_cosmicImpactV31318(s,h,...args){return impact(s,h,spawnImpact,args);};
+118783:     Gn=function HAPIL_cosmicEffectV31318(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return gn(ctx,cache,e,time,settings);};
+118784:     Jn=function HAPIL_cosmicShotV31318(ctx,cache,q,time,settings){if(drawShot(ctx,cache,q,time,settings))return;return jn(ctx,cache,q,time,settings);};
+118785:     qn=function HAPIL_cosmicWarningV31318(ctx,h,time,settings={},cache){if(drawTelegraph(ctx,h,time,settings))return;return qnBase(ctx,h,time,settings,cache);};
+118786:     MONGSE_tickBossThemeOrdnance=function HAPIL_cosmicTickV31318(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118787:     MONGSE_delayPendingBossHits31210=function HAPIL_cosmicDelayV31318(s,...args){const result=delay(s,...args);sync(s);return result;};
+118788:     MONGSE_autoRoleMovementIntent31222=function HAPIL_cosmicRefugeV31318(s,id,...args){return autoMovement(s,id,role(s,id,...args));};
+118789:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_cosmicArsenalManifestV31318(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118790:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_cosmicArsenalPlanV31318(zone,...args){const p={...assetPlan(zone,...args)};for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of zoneAssets(zone)){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}return p;};
+118791:     window.__HAPIL_ARSENAL_V31318__=Object.freeze({version:VERSION,installed:true,assets,modes,owner,valid,plan,trySchedule,tick,sync,draw,drawShot,drawTelegraph,activeHits,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118792:   }
+118793:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118794: })();
+118795: 
+118796: /* HAPIL_V31318_ADAPTIVE_PATCH: choose an existing weapon action at a useful range.
+118797:  * Admission waits for committed arena attacks; it never edits their queues.
+118798:  */
+118799: (() => {
+118800:   "use strict";
+118801:   const VERSION="3.13.18",FAMILIES=Object.freeze(["rotating-laser","rolling-ordnance","snipe-sword-wave"]),owners=new Map();
+118802:   const stats={waits:0,nearChoices:0,farChoices:0},num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
+118803:   let attempts=0;
+118804:   function enrolled(s,a){const r=owners.get(String(a?.id));return !!(s&&a&&r&&r.zone===s.zone&&(a.boss||a.midboss)&&a.cosmicLuciferV31318!==true);}
+118805:   function broad(h){
+118806:     if(!h||h.damageSuppressedV31226||h.pureTelegraphV31230||num(h.damage)<=0)return false;
+118807:     return !!(h.spectacleV31317||h.dynamicBossAttackV31315||h.cosmicLuciferAttackV31318||h.shape==="safe"||(h.shape==="line"&&num(h.width)>=4)||(h.shape==="cross"&&num(h.radius)>=14)||(h.shape==="circle"&&num(h.radius)>=8));
+118808:   }
+118809:   function waitReason(s,a){
+118810:     if(!enrolled(s,a))return null;
+118811:     const now=num(s.time);
+118812:     if(num(s.hp)<=0||num(a.hp)<=0)return "defeated";
+118813:     if(num(s.timeStopUntil)>now)return "time-stop";
+118814:     if(num(s.enemySkillsSuppressedUntilV31309)>now)return "ultimate-suppression";
+118815:     if(MONGSE_isEncounterLocked31226(s))return "dialogue";

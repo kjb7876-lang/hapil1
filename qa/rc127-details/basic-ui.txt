@@ -1,0 +1,71 @@
+64775:                       ),
+64776:                     }),
+64777:                     (0, q.jsx)(`small`, { children: xr(f.level) }),
+64778:                     (0, q.jsxs)(`button`, {
+64779:                       disabled: f.level >= 8 || r <= 0,
+64780:                       onClick: () => m(d, 8),
+64781:                       children: [
+64782:                         `Lv.`,
+64783:                         f.level,
+64784:                         `/`,
+64785:                         8,
+64786:                         ` `,
+64787:                         f.level < 8 && (r > 0 ? `→ 파편 1` : `· 파편 필요`),
+64788:                       ],
+64789:                     }),
+64790:                   ],
+64791:                 }),
+64792:             ],
+64793:           }),
+64794:         ],
+64795:       }),
+64796:       (0, q.jsxs)(`section`, {
+64797:         className: `growth-section`,
+64798:         children: [
+64799:           (0, q.jsxs)(`header`, {
+64800:             children: [
+64801:               (0, q.jsx)(`span`, { children: `PASSIVE NODES` }),
+64802:               (0, q.jsxs)(`h3`, { children: [e.name, ` 공명 패시브`] }),
+64803:             ],
+64804:           }),
+64805:           (0, q.jsx)(`div`, {
+64806:             className: `growth-grid`,
+64807:             children: e.passives.map((e, n) => {
+64808:               let i = t[a[n]] ?? 0;
+64809:               return (0, q.jsxs)(
+64810:                 `article`,
+64811:                 {
+64812:                   children: [
+64813:                     (0, q.jsxs)(`span`, { children: [`NODE 0`, n + 1] }),
+64814:                     (0, q.jsx)(`h3`, { children: e }),
+64815:                     (0, q.jsx)(`p`, {
+64816:                       children:
+64817:                         n === 0
+64818:                           ? `모든 피해 +12%`
+64819:                           : n === 1
+64820:                             ? `이동 속도 +7%`
+64821:                             : n === 2
+64822:                               ? `스킬 재사용 -5%`
+64823:                               : `영웅 고유 효과 강화`,
+64824:                     }),
+64825:                     (0, q.jsxs)(`button`, {
+64826:                       disabled: i >= 3 || r <= 0,
+64827:                       onClick: () => m(a[n], 3),
+64828:                       children: [
+64829:                         `공명 Lv.`,
+64830:                         i,
+64831:                         ` `,
+64832:                         i < 3 && (r > 0 ? `→ 파편 1` : `· 파편 필요`),
+64833:                       ],
+64834:                     }),
+64835:                   ],
+64836:                 },
+64837:                 e,
+64838:               );
+64839:             }),
+64840:           }),
+64841:         ],
+64842:       }),
+64843:       (0, q.jsxs)(`section`, {
+64844:         className: `growth-section infinite-growth-section`,
+64845:         children: [

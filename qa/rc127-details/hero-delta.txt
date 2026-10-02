@@ -1,0 +1,126 @@
+61890:                     y: t[0].y,
+61891:                     born: o.time,
+61892:                     duration: 0.9,
+61893:                     text: `${e.name} · ${e.effectText ?? `동시적중`} ${t.length}${r ? ` · 시간지연 ${r}` : ``}`,
+61894:                     color: e.color,
+61895:                     critical: !0,
+61896:                   });
+61897:               }
+61898:               window.__HAPIL_THEME_V31323__?.prepareFacing(o);
+61899:               window.__HAPIL_CONTINUITY_V31322__?.prepareStrikes(o);
+61900:               window.__HAPIL_DAMAGE_RC108__?.observe(o);
+61901:               window.__HAPIL_SAMONG_RICOCHET_RC108__?.prepare(o);
+61902:               let r = o.pendingStrikes.filter((e) => e.at <= o.time && e.samongRicochetActiveRC108 !== true);
+61903:               o.pendingStrikes = o.pendingStrikes.filter((e) => e.at > o.time);
+61904:               for (let e of r) {
+61905:                 let t = o.enemies.find((t) => t.id === e.targetId);
+61906:                 t && (window.__HAPIL_COMBAT_V31333__?.strikeValid(o,e,t) !== false) &&
+61907:                   (We(
+61908:                     MONGSE_heroAttackSfx(e.heroId, e.actionKey),
+61909:                     e.heroId === `gunner`
+61910:                       ? 0.24
+61911:                       : e.heroId === `hwando`
+61912:                         ? e.actionKey === `R`
+61913:                           ? 0.76
+61914:                           : 0.62
+61915:                         : 1,
+61916:                   ),
+61917:                   qe(
+61918:                     t,
+61919:                     MONGSE_EP1B_adaptivePower(o, e, t),
+61920:                     e.color,
+61921:                     e.critical,
+61922:                     e.leechRate,
+61923:                     e,
+61924:                   ),
+61925:                   MONGSE_addHeroSkillImpact(
+61926:                     o,
+61927:                     t,
+61928:                     e.heroId,
+61929:                     e.color,
+61930:                     e.actionKey,
+61931:                     e,
+61932:                   ),
+61933:                   e.ultimateImpact &&
+61934:                     MONGSE_addUltimateImpact(o, t, e.heroId, e.color, e));
+61935:               }
+61936:               let MONGSE_narrativeLaunched = MONGSE_tickNarrativeAttacks(o);
+61937:               MONGSE_narrativeLaunched > 0 &&
+61938:                 (We(Ur + `LaserGun.wav`, 0.24),
+61939:                 B(
+61940:                   `세 갈래 추적탄이 전개됩니다. 회피하거나 시간권능으로 잠시 멈추십시오.`,
+61941:                 ));
+61942:               let MONGSE_spatialRiftLaunched =
+61943:                 MONGSE_tickSpatialRiftBarrages(o);
+61944:               MONGSE_spatialRiftLaunched > 0 &&
+61945:                 (We(MONGSE_impactSfx(o.zone, { boss: !0 }), 1),
+61946:                 B(
+61947:                   `공간균열이 완전히 사라진 자리에서 ${MONGSE_spatialRiftLaunched}발의 다방향 탄막이 출현했습니다. 안전 통로로 이탈하거나 시간권능으로 잠시 멈추십시오.`,
+61948:                 ));
+61949:               let MONGSE_prideSummons = MONGSE_tickThemedBossSummons(o);
+61950:               MONGSE_prideSummons.spawned > 0 &&
+61951:                 B(
+61952:                   `보스가 이 지역의 개체 ${MONGSE_prideSummons.spawned}체를 실체화했습니다. 페이즈가 바뀌거나 보스가 쓰러지면 소환체는 소거됩니다.`,
+61953:                 );
+61954:               window.__HAPIL_HELL_V31322__?.apply(o);
+61955:               window.__HAPIL_MODES_V31346__?.tick(o);
+61956:               window.__HAPIL_LUCIFER_V31318__?.tick(o);
+61957:                window.__HAPIL_COSMIC_V31345__?.tick(o);
+61958:               MONGSE_tickBossOrdnanceCues31210(o);
+61959:               if(o.practicePatternV31365)MONGSE_tickBossCombatPatternsV31230(o);else MONGSE_tickBossThemeOrdnance(o);
+61960:               MONGSE_enforceSpiderCaveCombatCaps31220(o);
+61961:               let MONGSE_sevenSinBossActions =
+61962:                 MONGSE_tickSevenSinBossMechanics(o);
+61963:               MONGSE_sevenSinBossActions.wrathDashes > 0 &&
+61964:                 B(
+61965:                   `분노가 점화선을 따라 돌진하고 광폭화했습니다. 화상 궤적을 이탈하십시오.`,
+61966:                 );
+61967:               window.__HAPIL_HELL_V31322__?.mirrorProjectiles(o);
+61968:               window.__HAPIL_DEFENSE_V31356__?.tick(o);window.__HAPIL_AWAKENING_V31357__?.tick(o,n);
+61969:                              window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareFrame(o);
+61970:                window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);
+61971:                window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);
+61972:                let s = new Set();
+61973:                for (let e of o.hostileProjectiles) {
+61974:                 if (MONGSE_isEncounterLocked31226(o)) continue;
+61975:                 if (e.projectileRemovalReason31215 || e.parriedV31356 || e.cancelled) { s.add(e); continue; }
+61976:                 if (MONGSE_removeMalformedHostileProjectile31216(o, e)) {
+61977:                   s.add(e);
+61978:                   continue;
+61979:                 }
+61980:                 if (HAPIL_retireEndedHeavyProjectileV31303(o, e)) {
+61981:                   s.add(e);
+61982:                   continue;
+61983:                 }
+61984:                 MONGSE_markAttackTerrainPiercing31214(e);
+61985:                 MONGSE_markBossProjectile31213(o, e);
+61986:                 if (MONGSE_shouldExpireBossProjectile31213(o, e)) {
+61987:                   s.add(e);
+61988:                   continue;
+61989:                 }
+61990:                 MONGSE_prepareBossScatterHoming31211(o, e);
+61991:                 window.__HAPIL_COMBAT_SAFETY_RC126__?.steer(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1));
+61992:                 if (
+61993:                   ((e.previousX = e.x),
+61994:                   (e.previousY = e.y),
+61995:                   e.frozenUntil <= o.time &&
+61996:                     o.timeStopUntil <= o.time &&
+61997:                     MONGSE_stepSignatureProjectile31212(o, e, a * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1)),
+61998:                   window.__HAPIL_MODES_V31346__?.reflect(o,e),
+61999:                   e.x < MONGSE_PROJECTILE_WORLD_MIN_V31214 ||
+62000:                     e.x > MONGSE_PROJECTILE_WORLD_MAX_V31214 ||
+62001:                     e.y < MONGSE_PROJECTILE_WORLD_MIN_V31214 ||
+62002:                     e.y > MONGSE_PROJECTILE_WORLD_MAX_V31214)
+62003:                 ) {
+62004:                   e.reachedMapBoundary31213 = !0;
+62005:                   if (MONGSE_bounceSignatureProjectile31212(o, e)) continue;
+62006:                   MONGSE_recordProjectileRemoval31215(
+62007:                     o,
+62008:                     e,
+62009:                     `map-boundary`,
+62010:                   );
+62011:                   s.add(e);
+62012:                   continue;
+62013:                 }
+62014:                 if(window.__HAPIL_COMBAT_V31333__?.retireDeadOwner(o,e)){s.add(e);continue;}
+62015:                 if(window.__HAPIL_COMBAT_V31333__?.frozen(o,e))continue;

@@ -1,0 +1,96 @@
+53990:           (n.moveVy = 0),
+53991:           (n.pendingHits = []),
+53992:           (n.impactQueue = []),
+53993:           (n.guardianGraceReadyAt = n.time + 5.2),
+53994:           (n.pendingStrikes = []),
+53995:           MONGSE_clearHostileProjectiles31215(n, `zone-transition`),
+53996:           (n.narrativeCasts = []),
+53997:           (n.narrativeCastHistory = {}),
+53998:           (n.resonanceThreads = []),
+53999:           (n.telekineticCasts = []),
+54000:           (n.spatialRiftCasts = []),
+54001:           (n.temporalHistory = []),
+54002:           (n.temporalRecordAt = n.time),
+54003:           (n.timeStopUntil = 0),
+54004:           (n.timeAccelerationUntil = 0),
+54005:           (n.graze = 0),
+54006:           (n.grazeChainUntil = 0),
+54007:           (n.effects = []),
+54008:           (n.floatTexts = []),
+54009:           (n.defeated = []),
+54010:           (n.egoDrops = []),
+54011:           (n.supportCall = null),
+54012:           (n.targetEnemyId = null),
+54013:           (n.heroMotion = ai(n.time, n.facing, n.direction)),
+54014:           (n.invulnerableUntil = n.time + 0.85),
+54015:           he.includes(t)
+54016:             ? (ii(n, t, ze.current.mapEntryDialogue !== !1),
+54017:               xe(t) && ((n.loopCycles[t] = 0), (n.loopNextAt = n.time + 1.2)))
+54018:             : ((n.enemies = []),
+54019:               (n.spawnedWaves = new Set()),
+54020:               (n.bossDefeated = n.completedZones.has(t))),
+54021:           u(null),
+54022:           (Re.current = ze.current.autoCombat === !0),
+54023:           p(Re.current),
+54024:           B(`${N[t].name} 재방문 · 본편 진행도는 유지됩니다.`),
+54025:           void 0);
+54026:       },
+54027:       [V, Ue, e, B],
+54028:     ),
+54029:     MONGSE_applyCheatCode = (0, l.useCallback)(
+54030:       (e) => {
+54031:         if (String(e ?? ``).trim() !== `777`)
+54032:           return { ok: !1, message: `코드를 확인해 주세요.` };
+54033:         let t = window.__HAPIL_PROGRESSION_V31338__.master(R.current),
+54034:           MONGSE_allMapsFrontier = Object.values(N).reduce(
+54035:             (e, t) => (t.order > N[e].order ? t.id : e),
+54036:             `hub`,
+54037:           ),
+54038:           MONGSE_completedBefore = P.current.completedZones.size,
+54039:           MONGSE_zoneBefore = P.current.zone,
+54040:           MONGSE_enemiesBefore = P.current.enemies.length;
+54041: 
+54042:         window.__HAPIL_SAMONG_RC91__?.unlock(P.current,'777');
+54043:         ((R.current = t),
+54044:           h(t),
+54045:           (P.current.activeHeroMastery = 7),
+54046:           (P.current.activeTimeMastery = 8),
+54047:           (P.current.frontierZone = MONGSE_allMapsFrontier),
+54048:           S((e) => ({ ...e, frontierZone: MONGSE_allMapsFrontier })),
+54049:           MONGSE_writeSave(
+54050:             `auto`,
+54051:             Fi(P.current, L.current, Le.current, R.current, Be.current),
+54052:           ),
+54053:           B(
+54054:             `코드 777 승인 · 사몽 모드 해금 · 모든 영웅 스킬·콜라보 강화 MAX · 보스 반복 격파 공명 조각 획득 · 전체 ${Object.keys(N).length}개 맵 이동 해금`,
+54055:           ));
+54056:         return {
+54057:           ok: !0,
+54058:           message: `승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 ${Object.keys(N).length}개 맵 이동 해금`,
+54059:           frontierZone: P.current.frontierZone,
+54060:           unlockedMapCount: Object.values(N).filter(
+54061:             (e) => e.order <= N[P.current.frontierZone].order,
+54062:           ).length,
+54063:           allMapsUnlocked: Object.values(N).every(
+54064:             (e) => e.order <= N[P.current.frontierZone].order,
+54065:           ),
+54066:           campaignProgressPreserved:
+54067:             P.current.completedZones.size === MONGSE_completedBefore &&
+54068:             P.current.zone === MONGSE_zoneBefore &&
+54069:             P.current.enemies.length === MONGSE_enemiesBefore,
+54070:         };
+54071:       },
+54072:       [B],
+54073:     ),
+54074:     MONGSE_returnToTitle = (0, l.useCallback)(() => {
+54075:       if (
+54076:         typeof window !== `undefined` &&
+54077:         !window.confirm(`현재 진행을 자동 저장하고 시작 화면으로 돌아갑니까?`)
+54078:       )
+54079:         return;
+54080:       (MONGSE_writeSave(
+54081:         `auto`,
+54082:         Fi(P.current, L.current, Le.current, R.current, Be.current),
+54083:       ),
+54084:         I.current.clear(),
+54085:         (Re.current = !1),

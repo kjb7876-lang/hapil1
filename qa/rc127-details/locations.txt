@@ -1,0 +1,50 @@
+
+SECTION MONGSE_infiniteBaseStats
+54388:           let MONGSE_infiniteBaseStats = MONGSE_infiniteStats(R.current);
+54389:           if (!window.__HAPIL_PARTY_V31322__?.blocksSave()) ((o.maxHp = 240 + MONGSE_infiniteBaseStats.maxHpBonus),
+61269:                 MONGSE_infiniteBaseStats.speedMultiplier *
+
+SECTION HAPIL_heroDeltaRC51
+54379:           const HAPIL_heroDeltaRC51=a;
+61278:               MONGSE_moveBlend31228 = 1 - Math.exp(-(e || t ? 18 : 28) * HAPIL_heroDeltaRC51);
+61294:                 n = ft(o.zone, o, { x: y * HAPIL_heroDeltaRC51, y: x * HAPIL_heroDeltaRC51 }, 0.48);
+62996:             window.__HAPIL_COMBAT_V31343__?.tick(o,HAPIL_heroDeltaRC51);
+62997:             window.__HAPIL_SIMPLE_V31368__?.tick(o,HAPIL_heroDeltaRC51);window.__HAPIL_CONTROLS_V31329__?.tickBasic(o,HAPIL_heroDeltaRC51,{settings:ze,input:I,hero:L,passives:R,paused:false,attack:()=>Ye()});
+
+SECTION MONGSE_attackCooldownScaleV31236
+90250: function MONGSE_attackCooldownScaleV31236(
+90424:     MONGSE_attackCooldownScaleV31236(
+90927:   cooldownScale: MONGSE_attackCooldownScaleV31236,
+
+SECTION MONGSE_resetEnemyAttack
+
+SECTION MONGSE_clearEnemyAttack
+
+SECTION MONGSE_phaseTransition
+
+SECTION MONGSE_damagePlayer
+
+SECTION HAPIL_effectiveGrowthV31400
+52094:           get HAPIL_effectiveGrowthV31400(){return HAPIL_effectiveGrowthV31400;},
+52245:           u = ar(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `attack`)),
+52246:           d = sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), a.id, P.current),
+52524:             let o = or(HAPIL_effectiveGrowthV31400(R.current,P.current), e);
+52566:           let e = or(HAPIL_effectiveGrowthV31400(R.current,P.current), 1);
+52640:               let l = or(HAPIL_effectiveGrowthV31400(R.current,P.current), e);
+52957:         r = vr(n.id, HAPIL_effectiveGrowthV31400(R.current,P.current)[mr(n.id)] ?? 0),
+53062:           s = or(HAPIL_effectiveGrowthV31400(R.current,P.current), t),
+53063:           c = sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), n.id, P.current),
+61118:             let s = sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), n.id, P.current),
+61200:                   MONGSE_planHeroAutoDodge31223(o, n.id, HAPIL_effectiveGrowthV31400(R.current,o));
+62973:                 let e = MONGSE_planAutoSkill(o, n, HAPIL_effectiveGrowthV31400(R.current,o));
+63149:               awakeningGuarantee: sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), n.id, P.current)
+63152:                 sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), n.id, P.current).triggerChance * 100,
+63257:     ut = vr(z.id, HAPIL_effectiveGrowthV31400(m,P.current)[mr(z.id)] ?? 0),
+64123:                               children: [`기본 공격 · Lv.`, ir(HAPIL_effectiveGrowthV31400(m,P.current), `attack`)],
+64126:                               children: cr(`attack`, ir(HAPIL_effectiveGrowthV31400(m,P.current), `attack`)),
+64155:                             i = or(HAPIL_effectiveGrowthV31400(m,P.current), t),
+120164:  get HAPIL_effectiveGrowthV31400(){return HAPIL_effectiveGrowthV31400;},
+121733:   const hero=F.find(h=>h.id===(b.hero?.current??s.activeHeroId)),pick=plan(s,hero,HAPIL_effectiveGrowthV31400(b.passives?.current??{},s));
+122525:  get HAPIL_effectiveGrowthV31400(){return HAPIL_effectiveGrowthV31400;},
+123921: function HAPIL_effectiveGrowthV31400(raw,state){return window.__HAPIL_RUN_V31400__.growth(raw,state);}
+126424:  const api={heroes:F,growth:HAPIL_effectiveGrowthV31400,mastery:gr,basic:ar,skill:or,infinite:MONGSE_infiniteStats,ultimate:MONGSE_ultimatePowerV31309,order:z=>N[z]?.order??0,locked:s=>MONGSE_isEncounterLocked31226(s),patterns:(...a)=>MONGSE_patternsForEnemy(...a),phase:a=>MONGSE_enemyPhase(a),cast:(...a)=>Ei(...a),bullet:(...a)=>MONGSE_pushThemeProjectile3129(...a)};
