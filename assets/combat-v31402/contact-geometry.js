@@ -29,11 +29,16 @@ function stamp(s,a,h,evidence){if(evidence?.kind==='projectile'&&evidence.hit&&!
 function first(s,q,actors,hostAlive=true){let best=null;for(const a of [...(hostAlive?[s]:[]),...actors]){const k=key(s,a);if(a.hp<=0||C().seen(q,k))continue;const evidence=projectile(s,a,q);if(evidence.hit&&(!best||evidence.t<best.t||evidence.t===best.t&&k<best.key))best={a,t:evidence.t,key:k,evidence};}return best;}
 function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}
 function prepareHost(s,q){const e=projectile(s,s,q);if(e.hit)stamp(s,s,q,e);return e.hit;}
-function areaDistance(a,h){const x=a.x-h.x,y=a.y-h.y,r=Math.hypot(x,y),radius=Math.max(0,N(h.radius)),width=Math.max(0,N(h.width));
+function areaDistance(a,h){if(!a||!h||![a.x,a.y,h.x,h.y,h.radius].every(Number.isFinite)||h.radius<0)return Infinity;
+ if(h.shape===`donut`&&(!Number.isFinite(h.innerRadius)||h.innerRadius<0||h.innerRadius>h.radius))return Infinity;
+ if([`cross`,`line`,`cone`,`fan`,`sector`].includes(h.shape)&&(!Number.isFinite(h.width)||h.width<0))return Infinity;
+ const x=a.x-h.x,y=a.y-h.y,r=Math.hypot(x,y),radius=Math.max(0,N(h.radius)),width=Math.max(0,N(h.width));
  if(h.shape==='circle')return r-radius;if(h.shape==='donut')return Math.max(N(h.innerRadius)-r,r-radius);if(h.shape==='safe')return radius-r;
  const box=(x,y,w,l)=>Math.hypot(Math.max(0,Math.abs(x)-w),Math.max(0,Math.abs(y)-l))+Math.min(Math.max(Math.abs(x)-w,Math.abs(y)-l),0);
  if(h.shape==='cross')return Math.min(box(x,y,width,radius),box(y,x,width,radius));
- const ox=N(h.originX,h.x),oy=N(h.originY,h.y),dx=h.x-ox,dy=h.y-oy,len=Math.max(.001,Math.hypot(dx,dy)),u=(a.x-ox)*dx/len+(a.y-oy)*dy/len,v=-(a.x-ox)*dy/len+(a.y-oy)*dx/len;
+ if(!Number.isFinite(h.originX)||!Number.isFinite(h.originY))return Infinity;
+ const ox=h.originX,oy=h.originY,dx=h.x-ox,dy=h.y-oy,len=Math.hypot(dx,dy);if(len<1e-8)return Infinity;
+ const u=(a.x-ox)*dx/len+(a.y-oy)*dy/len,v=-(a.x-ox)*dy/len+(a.y-oy)*dx/len;
  if(h.shape==='line')return box(v,u-radius/2,width,radius/2);
  if(['cone','fan','sector'].includes(h.shape)){const rr=Math.hypot(u,v),theta=Math.abs(Math.atan2(v,u));return Math.max(rr-radius,Math.sin(Math.min(Math.PI/2,theta-width))*rr,-u);}
  return Infinity;

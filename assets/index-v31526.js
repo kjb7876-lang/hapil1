@@ -49840,6 +49840,8 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
   window.__HAPIL_ENEMY_FEEL_V31361__?.strike(e,t);
 }
 function Di(e, t) {
+  if (!e || !t || ![e.x,e.y,t.x,t.y,t.radius].every(Number.isFinite) || t.radius < 0) return !1;
+  if ([`line`,`cone`,`fan`,`sector`].includes(t.shape) && (![t.originX,t.originY,t.width].every(Number.isFinite) || t.width < 0 || Math.hypot(t.x-t.originX,t.y-t.originY)<1e-8)) return !1;
   if(window.__HAPIL_CONTACT_V31336__?.hero(e))return window.__HAPIL_CONTACT_V31336__.area(null,e,t).hit;
   let n = e.x - t.x,
     r = e.y - t.y,
@@ -61963,8 +61965,11 @@ function Ri() {
                 );
               window.__HAPIL_HELL_V31322__?.mirrorProjectiles(o);
               window.__HAPIL_DEFENSE_V31356__?.tick(o);window.__HAPIL_AWAKENING_V31357__?.tick(o,n);
-              let s = new Set();
-              for (let e of o.hostileProjectiles) {
+                             window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareFrame(o);
+               window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);
+               window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);
+               let s = new Set();
+               for (let e of o.hostileProjectiles) {
                 if (MONGSE_isEncounterLocked31226(o)) continue;
                 if (e.projectileRemovalReason31215 || e.parriedV31356 || e.cancelled) { s.add(e); continue; }
                 if (MONGSE_removeMalformedHostileProjectile31216(o, e)) {
@@ -61982,6 +61987,7 @@ function Ri() {
                   continue;
                 }
                 MONGSE_prepareBossScatterHoming31211(o, e);
+                window.__HAPIL_COMBAT_SAFETY_RC126__?.steer(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1));
                 if (
                   ((e.previousX = e.x),
                   (e.previousY = e.y),
@@ -117961,6 +117967,7 @@ function HAPIL_drawTimeDefenseV31317(ctx,cache,state,settings={}){
     const cast=MONGSE_lockAtomicBossCast31210(s,a,"spectacle-v31317-"+p.mode,last+1.0,"rain");
     s.effects=(s.effects??[]).filter(e=>before.has(e)||!(e.sourceId===a.id&&(e.bossCastAura31212||e.bossCastDirectionCue31213||e.bossCastBloom31212||e.bossArenaPulse31214)));
     const hits=p.mode==="monolith"?p.points.map(([x,y],i)=>({...baseHit(s,a,p,now+p.windup+i*p.spacing),x,y,shape:"circle",radius:2.2,width:0,innerRadius:0,spectacleIndexV31317:i})):[{...baseHit(s,a,p,last),x:p.end.x,y:p.end.y,originX:p.origin.x,originY:p.origin.y,shape:"line",radius:29.2,width:p.width,innerRadius:0,spectacleAxisV31317:p.axis,spectacleCenterV31317:p.center}];
+    for(const h of hits)window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareNative(s,h,G);
     for(const h of hits)Object.assign(h,{bossCastId31210:cast,bossCastResolveAt31210:last+1,interruptProtectedUntil31210:last+1});
     (s.pendingHits??=[]).push(...hits);
     const cue={id:s.fxSerial++,kind:"spectacleCueV31317",spectacleCueV31317:true,sourceId:a.id,x:a.x,y:a.y,born:now,duration:p.last+.12,sprite:p.sprite,spectacleModeV31317:p.mode,spectacleAssetV31317:p.sprite,spectacleSizeV31317:p.size,color:p.color,boss:!!a.boss,imageOnly:true,spectacleHitsV31317:hits};
@@ -123853,7 +123860,7 @@ window.__HAPIL_RC86_BRIDGE__ = Object.freeze({
     ]));
   },
   get apostates() { return N.cult03?.enemies ?? []; },
-  actor(zone, id) { return N[zone]?.enemies?.find(actor => actor.id === id) ?? null; },
+  actor(zone, id) { return zone===`murder03` && id===`blue-executor` ? ye : N[zone]?.enemies?.find(actor => actor.id === id) ?? null; },
   project(x,y) { return G(x,y); },
   zoneActors(zone) { return N[zone]?.enemies ?? []; },
   cloneEnemy(row, zone) { return Jr(row, zone); },
@@ -126435,3 +126442,9 @@ window.__HAPIL_LASER_OVERRUN_RC124__?.install(G);
 
 /* RC125: rendering and inverse pointer projection only; native simulation is unchanged. */
 window.__HAPIL_ADAPTIVE_RC125__?.install();
+
+/* RC126: additive run ledger and simulation dependencies; no render-owned state updates. */
+(()=>{const R=window.__HAPIL_COMBAT_SAFETY_RC126__;if(!R)return;R.install({project:G,common:()=>window.__HAPIL_DANMAKU_V31316__?.commonAsset,point:(s,p,r)=>dt(s.zone,p,r),clear:(s,a,b,r)=>!pt(s.zone,a,b,r)&&!ut(s.zone,b.x,b.y,r)});
+const save=Fi;Fi=function(s,...args){const out=save(s,...args);if(out&&s?.rc126AssetLedger)out.rc126AssetLedger=R.cleanLedger(s.rc126AssetLedger);return out;};
+const normalize=ji;ji=function(raw,...args){const out=normalize(raw,...args);if(out&&raw?.rc126AssetLedger)out.rc126AssetLedger=R.cleanLedger(raw.rc126AssetLedger);return out;};
+const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s,saved,...args){const out=entry(s,saved,...args);if(saved?.rc126AssetLedger)s.rc126AssetLedger=R.cleanLedger(saved.rc126AssetLedger);return out;};})();
