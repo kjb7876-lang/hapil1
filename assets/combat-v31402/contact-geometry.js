@@ -24,10 +24,10 @@ function projectile(s,a,q){if(!hero(a)||C().frozen(s,q)||a.hp<=0)return{hit:fals
  const visual=q.sprite&&!q.narrativeGlyph?
    (String(q.sourceId)==='dist00-boss'?Math.hypot(70,35):extent*Math.SQRT2*.5)*scale-cfg.bodyRadius:0;
  const r=Math.max(physical,visual);
- return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile'};}
+ return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile',bodyRadius:cfg.bodyRadius+r};}
 function stamp(s,a,h,evidence){if(evidence?.kind==='projectile'&&evidence.hit&&!C().piercing(h)&&Number.isFinite(evidence.t)){h.x=N(h.previousX,h.x)+(h.x-N(h.previousX,h.x))*evidence.t;h.y=N(h.previousY,h.y)+(h.y-N(h.previousY,h.y))*evidence.t;}h.heartContactV31336={target:key(s,a),time:s.time,heart:!!evidence?.heart};combat?.captureEvidence(s,a,h,evidence);return h;}
 function first(s,q,actors,hostAlive=true){let best=null;for(const a of [...(hostAlive?[s]:[]),...actors]){const k=key(s,a);if(a.hp<=0||C().seen(q,k))continue;const evidence=projectile(s,a,q);if(evidence.hit&&(!best||evidence.t<best.t||evidence.t===best.t&&k<best.key))best={a,t:evidence.t,key:k,evidence};}return best;}
-function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}
+function graze(s,q){const e=projectile(s,s,q),r=e.bodyRadius;return !e.hit&&Number.isFinite(r)&&e.d>r&&e.d<=r+19.44;}
 function prepareHost(s,q){const e=projectile(s,s,q);if(e.hit)stamp(s,s,q,e);return e.hit;}
 function areaDistance(a,h){const x=a.x-h.x,y=a.y-h.y,r=Math.hypot(x,y),radius=Math.max(0,N(h.radius)),width=Math.max(0,N(h.width));
  if(h.shape==='circle')return r-radius;if(h.shape==='donut')return Math.max(N(h.innerRadius)-r,r-radius);if(h.shape==='safe')return radius-r;

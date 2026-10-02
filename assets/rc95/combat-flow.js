@@ -58,7 +58,9 @@
   const count=a.boss?7:5,cycle=n(a.rc95BulletCycle),aim=Math.atan2(s.y-a.y,s.x-a.x),spread=p.index===2?.95:1.4,speed=mode(s)==='HELL'?6.8:5.5;
   const shots=Math.min(count,cap-(s.hostileProjectiles??[]).length);
   const authored=choice?.volley(s,a,p,shots);
+  const rc126Before=(s.hostileProjectiles??[]).length;
   run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){const angle=cycle%3===2?aim+(i-(shots-1)/2)*.36:aim+(shots===1?0:i/(shots-1)-.5)*spread+(cycle%3===1?.22:0);const before=(s.hostileProjectiles??[]).length,spec=authored?.[i]??{vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28,damage:a.boss?(p.index===2?12:10):(p.index===2?10:8),curve:0,homingMode31212:'none',frozenUntil:s.time,life:6,patternKind:'rc95-volley',label:a.name+' · '+names[p.index],status:'none'};api.bullet(s,a,spec);for(const q of (s.hostileProjectiles??[]).slice(before)){for(const key of ['frozenUntil','telegraphUntil31210','motionReleaseAt31219','collisionDisabledUntil31219','collisionDisabledUntilV31226'])q[key]=s.time;q.hideUntilRelease31219=false;q.bodySpawned31219=true;q.rc95Bullet=true;q.heavyBossSkill=false;if(spec.rc97Grammar){q.rc97Grammar=spec.rc97Grammar;q.scatterHomingPrepared31211=true;}}}});
+  window.__HAPIL_COMBAT_READABILITY_RC126__?.volley(s,a,(s.hostileProjectiles??[]).slice(rc126Before));
   const planned=authored?.length??shots;if(planned){a.rc95BulletCycle=cycle+1;f.nextBullet=s.time+(p.index===2?1.25:.72);stats.bullets+=planned;}else f.nextBullet=s.time+.2;
  }
  function snapshot(s){return{...phase(s),admissionOnly:true,stats:{...stats}};}
