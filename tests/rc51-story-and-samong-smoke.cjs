@@ -6,7 +6,8 @@ vm.runInNewContext(read('data/story-rc51.js'),context);vm.runInNewContext(read('
 const data=window.__HAPIL_STORY_DATA_RC51__,api=window.__HAPIL_STORY_RC51__;
 const sourcePath=path.join(root,'data/rc57/voice-monologue.txt'),sourceBytes=fs.readFileSync(sourcePath),uploadedText=sourceBytes.toString('utf8').replace(/^\uFEFF/,'').replace(/\r\n/g,'\n');
 const fixes=[['보라검천사','보라검 천사'],['스쳐지나갔다','스쳐 지나갔다'],['악마였던건지','악마였던 건지'],['경고와함께','경고와 함께'],['머리속','머릿속'],['문을 잠군','문을 잠근'],['기리고','그리고'],['수호자로써','수호자로서'],['남겨져있었다','남겨져 있었다'],['남은채','남은 채'],['거였던거','거였던 것'],['대리고','데리고'],['되기위한','되기 위한'],['문들 부터','문들부터'],['정당화 해','정당화해'],['정렬되 있었다','정렬되어 있었다'],['어려워 졌','어려워졌다'],['누를 수 밖에','누를 수밖에'],['기억 조차','기억조차'],['존재 하고 있었다','존재하고 있었다'],['책망 하였고','책망하였고'],['밀어 벼렸다','밀어 버렸다'],['보내었다','보냈다'],['바랬기에','바랐기에'],['한이경 이였다','한이경이었다'],['둘이상','둘 이상'],['뿐이였','뿐이었다'],['소멸 되어 버렸다','소멸되어 버렸다'],['강제로 묶였던 자아들... 그들의 각자의 이름과 기억이 되찾아 갔다.','강제로 묶였던 자아들은 각자의 이름과 기억을 되찾아 갔다.']];
-const proofread=fixes.reduce((text,[from,to])=>text.replaceAll(from,to),uploadedText);
+const {replaceNarrativeEllipses}=require('../tools/replace-narrative-ellipsis.cjs');
+const proofread=replaceNarrativeEllipses(fixes.reduce((text,[from,to])=>text.replaceAll(from,to),uploadedText));
 let seq=0;
 const sourceText=proofread.replace(/^\[08-삭제된기록\]\s*\n/gm,'').replace(/^\[\d+(\s*·\s*[^\]]+)\]/gm,(_,tail)=>`[${String(++seq).padStart(2,'0')}${tail}]`);
 assert.equal(data.version,'RC89');assert.equal(data.sourceFile,'data/rc57/voice-monologue.txt');assert.equal(data.sourceBytes,sourceBytes.length);
@@ -63,7 +64,7 @@ const entryState=state();entryState.encounterDialogue31226={kind:'legacy',lines:
 let s=state();assert(api.active(s));assert.equal(api.clock(s,.04),0);assert(s.lastAttack<100);assert(s.cooldowns.Q<101);assert(s.pendingStrikes[0].at<100.2);assert.equal(s.effects[1].born,100);assert.equal(s.effects[1].size,50);assert.equal(s.effects[0].size,77.5);assert.equal(api.power(s),5);assert.equal(api.incoming(s),.12);
 let stopped=0,slow=0;for(let i=0;i<150;i++){const dt=api.clock(s,.04);assert(dt===0||Math.abs(dt-.0064)<1e-9);if(dt===0)stopped++;else slow++;s.time+=dt;}assert(stopped>50&&slow>50,'recurrent stops and slow motion both occur');
 for(const modify of [s=>s.gameModeV31346='HELL',s=>s.gameModeV31346='DREAM',s=>s.practiceV31329=true,s=>s.zone='cult03',s=>s.hapilFinalBattleV31300.stage=6,s=>s.hapilFinalBattleV31300.completed=true,s=>s.hp=0,s=>s.activeHeroId='slayer']){s=state();modify(s);assert(!api.active(s));assert.equal(api.clock(s,.04),.04);assert.equal(api.power(s),1);assert.equal(api.incoming(s),1);assert(!classes.has('rc51-samong'));assert(!classes.has('rc51-time-stop'));}
-const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=39301'));
+const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=202610021'));
 assert(main.includes('if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
 assert(main.includes('function HAPIL_installCanonicalStoryRC51(){'));
 assert(main.includes('prepareCombat(s,z,false);api.suppressEntry(s);'));

@@ -11,7 +11,7 @@ vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/rc26/story.js'), 'utf
 const story = storyContext.window.__HAPIL_STORY_RC26__;
 
 assert(!html.includes('./assets/rc26/story.js?v=35201'), 'the superseded opening/interlude module must not load in the game');
-assert(html.includes('./data/story-rc51.js?v=39301'), 'the uploaded monologue data must be the active story source');
+assert(html.includes('./data/story-rc51.js?v=202610021'), 'the uploaded monologue data must be the active story source');
 assert(bundle.includes('if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'), 'legacy interlude requests must be inert');
 assert(/\.\/assets\/index-v31526\.js\?v=\d+/.test(html));
 assert(bundle.includes('storySound: v.sound'));

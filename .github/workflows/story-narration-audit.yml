@@ -8,6 +8,8 @@ on:
       - 'assets/rc51/story.js'
       - 'assets/title/v31236/christian-opening-v31236.js'
       - 'data/story-rc51.js'
+      - 'data/rc57/voice-monologue-*.txt'
+      - 'tools/replace-narrative-ellipsis.cjs'
       - 'tests/story-narration*'
       - 'index.html'
   workflow_dispatch:
@@ -38,6 +40,7 @@ jobs:
           node tests/rc74-flight-voice-lifecycle.cjs
           node tests/rc75-ending-and-awakening.cjs
           node tests/rc89-narrative-smoke.cjs
+          node tests/story-narration-text.cjs
           node --test tests/story-narration-media-races.cjs tests/story-narration-overlap.cjs
       - name: Install isolated browser runtime
         run: |
