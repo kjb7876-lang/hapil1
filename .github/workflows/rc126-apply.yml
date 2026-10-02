@@ -2,7 +2,7 @@ name: RC126 guarded combat integration
 on:
   push:
     branches: [fix/rc126-combat-safety]
-    paths: ['.github/workflows/rc126-apply.yml']
+    paths: ['.github/workflows/rc126-apply.yml', 'tools/apply-rc126.cjs']
   workflow_dispatch:
 permissions:
   contents: write
