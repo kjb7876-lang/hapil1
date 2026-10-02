@@ -1,0 +1,175 @@
+43086:       }
+43087:     : null;
+43088: }
+43089: function MONGSE_cancelBossNormalAttackSmartR1(e, t) {
+43090:   if (!e || e.activePattern) return !1;
+43091:   let n = Number(e.recoverUntil ?? t),
+43092:     r = Math.max(t + 0.24, Math.min(n, t + 0.52));
+43093:   return (
+43094:     (e.attackAt = 0),
+43095:     (e.attackImpactAt = t),
+43096:     (e.attackWindup = 0),
+43097:     (e.recoverUntil = r),
+43098:     (e.readyAt = Math.max(Number(e.readyAt ?? 0), t + 0.34)),
+43099:     (e.attackAimLockedSmartR1 = !1),
+43100:     !0
+43101:   );
+43102: }
+43103: function MONGSE_stepBossDodgeSmartR1(state, boss) {
+43104:   if (!state || !boss) return !1;
+43105:   let now = Number(state.time ?? 0),
+43106:     started = Number(boss.aiDodgeStartedAtSmartR1 ?? 0),
+43107:     until = Number(boss.aiDodgingUntilSmartR1 ?? 0),
+43108:     fromX = Number(boss.aiDodgeFromXSmartR1 ?? boss.x),
+43109:     fromY = Number(boss.aiDodgeFromYSmartR1 ?? boss.y),
+43110:     toX = Number(boss.aiDodgeToXSmartR1 ?? boss.x),
+43111:     toY = Number(boss.aiDodgeToYSmartR1 ?? boss.y);
+43112:   if (!(until > started) || ![fromX, fromY, toX, toY].every(Number.isFinite))
+43113:     return !1;
+43114:   if (now >= until) {
+43115:     ((boss.x = toX), (boss.y = toY));
+43116:     return !1;
+43117:   }
+43118:   if (now < started) return !1;
+43119:   let progress = Math.max(0, Math.min(1, (now - started) / (until - started))),
+43120:     eased =
+43121:       progress < 0.5
+43122:         ? 2 * progress * progress
+43123:         : 1 - Math.pow(-2 * progress + 2, 2) / 2,
+43124:     dx = toX - fromX,
+43125:     dy = toY - fromY,
+43126:     length = Math.max(0.001, Math.hypot(dx, dy));
+43127:   return (
+43128:     (boss.x = b(fromX + dx * eased)),
+
+44127:     !0
+44128:   );
+44129: }
+44130: function MONGSE_cancelEnemyCounterTactic31229(e, t = `cancelled`) {
+44131:   if (
+44132:     !e ||
+44133:     (!e.counterTactic31229 &&
+44134:       !e.counterTacticAttackKind31229 &&
+44135:       Number(e.counterTacticRangedRemaining31229 ?? 0) <= 0 &&
+44136:       Number(e.counterTacticMeleeRemaining31229 ?? 0) <= 0)
+44137:   )
+44138:     return !1;
+44139:   return (
+44140:     (e.counterTactic31229 = null),
+44141:     (e.counterTacticAttackKind31229 = ``),
+44142:     (e.counterTacticRangedRemaining31229 = 0),
+44143:     (e.counterTacticRangedUntil31229 = 0),
+44144:     (e.counterTacticMeleeRemaining31229 = 0),
+44145:     (e.counterTacticMeleeUntil31229 = 0),
+44146:     (e.counterTacticState31229 = t),
+44147:     !0
+44148:   );
+44149: }
+44150: function MONGSE_tickEnemyCounterTactic31229(e, t, n = {}) {
+44151:   if (!e || !t) return null;
+44152:   let r = Number(e.time ?? 0),
+44153:     i = Math.max(0, Math.min(0.1, Number(n.dt ?? 0))),
+44154:     a = t.counterTactic31229;
+44155:   !a &&
+44156:     n.protectedSpecial &&
+44157:     MONGSE_cancelEnemyCounterTactic31229(t, `special-priority`);
+44158:   if (a) {
+44159:     if (
+44160:       Number(t.hp ?? 0) <= 0 ||
+44161:       Number(t.staggerUntil ?? 0) > r ||
+44162:       Number(t.phaseTransitionUntil ?? 0) > r ||
+44163:       n.protectedSpecial ||
+44164:       (t.activePattern && t.activePattern !== `counterTactic31229`)
+44165:     )
+44166:       return (
+44167:         MONGSE_cancelEnemyCounterTactic31229(t, `special-cancelled`),
+44168:         { active: !1, cancelled: !0, kind: a.kind }
+44169:       );
+
+77176:   return MONGSE_motionV31230;
+77177: }
+77178: 
+77179: function MONGSE_cancelBossEdgeRepulseV31230(
+77180:   MONGSE_actorV31230,
+77181:   MONGSE_reasonV31230 = `cancelled`,
+77182: ) {
+77183:   if (!MONGSE_actorV31230?.edgeRepulseV31230) return !1;
+77184:   MONGSE_actorV31230.edgeRepulseV31230 = null;
+77185:   MONGSE_actorV31230.activePattern === `bossEdgeRepulseV31230` &&
+77186:     (MONGSE_actorV31230.activePattern = ``);
+77187:   MONGSE_actorV31230.edgeRepulseStateV31230 = MONGSE_reasonV31230;
+77188:   return !0;
+77189: }
+77190: 
+77191: function MONGSE_tickBossEdgeRepulseV31230(
+77192:   MONGSE_stateV31230,
+77193:   MONGSE_actorV31230,
+77194:   MONGSE_optionsV31230 = {},
+77195: ) {
+77196:   if (!MONGSE_stateV31230 || !MONGSE_actorV31230) return null;
+77197:   const MONGSE_nowV31230 = Number(MONGSE_stateV31230.time ?? 0),
+77198:     MONGSE_dtV31230 = Math.max(0, Math.min(0.1, Number(MONGSE_optionsV31230.dt ?? 0))),
+77199:     MONGSE_motionV31230 = MONGSE_actorV31230.edgeRepulseV31230;
+77200:   if (!MONGSE_motionV31230) {
+77201:     const MONGSE_startedV31230 = MONGSE_startBossEdgeRepulseV31230(
+77202:       MONGSE_stateV31230,
+77203:       MONGSE_actorV31230,
+77204:       MONGSE_optionsV31230,
+77205:     );
+77206:     return MONGSE_startedV31230
+77207:       ? { active: !0, triggered: !0, winding: !0, kind: `edge-repulse` }
+77208:       : {
+77209:           active: !1,
+77210:           decision: MONGSE_bossEdgeRepulseDecisionV31230(
+77211:             MONGSE_stateV31230,
+77212:             MONGSE_actorV31230,
+77213:             MONGSE_optionsV31230,
+77214:           ),
+77215:         };
+77216:   }
+77217:   if (
+77218:     Number(MONGSE_actorV31230.hp ?? 0) <= 0 ||
+
+92827:       : MONGSE_enemyRoleV31237(MONGSE_enemyV31237);
+92828:   }
+92829: 
+92830:   function MONGSE_cancelWrongNormalCounterV31237(
+92831:     MONGSE_enemyV31237,
+92832:     MONGSE_declaredRoleV31237,
+92833:   ) {
+92834:     const MONGSE_expectedKindV31237 =
+92835:         MONGSE_declaredRoleV31237 === "ranged" ? "retreat" : "gapclose",
+92836:       MONGSE_wrongActiveV31237 =
+92837:         MONGSE_enemyV31237?.counterTactic31229 &&
+92838:         MONGSE_enemyV31237.counterTactic31229.kind !==
+92839:           MONGSE_expectedKindV31237,
+92840:       MONGSE_wrongFollowupV31237 =
+92841:         (MONGSE_declaredRoleV31237 === "ranged" &&
+92842:           Number(MONGSE_enemyV31237?.counterTacticMeleeRemaining31229 ?? 0) >
+92843:             0) ||
+92844:         (MONGSE_declaredRoleV31237 === "melee" &&
+92845:           Number(MONGSE_enemyV31237?.counterTacticRangedRemaining31229 ?? 0) >
+92846:             0);
+92847:     if (!MONGSE_wrongActiveV31237 && !MONGSE_wrongFollowupV31237) return !1;
+92848:     if (typeof MONGSE_cancelEnemyCounterTactic31229 === "function")
+92849:       return MONGSE_cancelEnemyCounterTactic31229(
+92850:         MONGSE_enemyV31237,
+92851:         "v31237-declared-role-correction",
+92852:       );
+92853:     MONGSE_enemyV31237.counterTactic31229 = null;
+92854:     MONGSE_enemyV31237.counterTacticAttackKind31229 = "";
+92855:     MONGSE_enemyV31237.counterTacticRangedRemaining31229 = 0;
+92856:     MONGSE_enemyV31237.counterTacticRangedUntil31229 = 0;
+92857:     MONGSE_enemyV31237.counterTacticMeleeRemaining31229 = 0;
+92858:     MONGSE_enemyV31237.counterTacticMeleeUntil31229 = 0;
+92859:     return !0;
+92860:   }
+92861: 
+92862:   function MONGSE_normalEnemyCounterDecisionV31237(
+92863:     MONGSE_stateV31237,
+92864:     MONGSE_enemyV31237,
+92865:     MONGSE_optionsV31237,
+92866:     MONGSE_baseDecisionV31237,
+92867:   ) {
+92868:     if (
+92869:       !MONGSE_enemyV31237 ||

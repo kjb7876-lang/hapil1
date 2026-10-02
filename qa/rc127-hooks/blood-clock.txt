@@ -1,0 +1,7 @@
+120236:   // local() uses SCREEN plane axes; capture the projected direction, not world atan2.
+120237:   const dx=NUM(s?.x,16)-a.x,dy=NUM(s?.y,16)-a.y;c.angle=Math.atan2((dx+dy)*.5,dx-dy);
+120238:   if(c.bloodV31516)c.angle=0;a.attackDx=dx;a.attackDy=dy;a.attackStarted=c.born;a.attackWindup=c.fireAt-c.born;a.attackAt=c.fireAt;a.attackImpactAt=c.fireAt;
+120239:   a.activePattern=c.patternNameV31331??('광맥 · '+labels[c.type]);a.activePatternUntil=c.endAt;a.recoverUntil=c.endAt+(a.boss?1.05:.9);a.readyAt=a.recoverUntil+.1;a.laserReadyAtRC94=c.endAt+NUM(profile?.cooldown,4.2)*(window.__HAPIL_SAMONG_RC91__?.enabled(s)? .5:1);if(c.rhythmTimingRC95)a.laserReadyAtRC94=window.__HAPIL_COMBAT_FLOW_RC95__.laserReadyAt(s,c.endAt);a.patternReadyAt=a.readyAt+.18;a.atomicCastUntil31210=c.endAt;a.laserLockV31332=c.id;
+120240:   window.__HAPIL_ENEMY_V31338__?.laser(s,a,c);pi(a,dx,dy);return c;
+120241:  }
+120242:  function start(s,a,type){const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow&&!flow.admit(s,a,'laser'))return null;if(window.__HAPIL_ENEMY_V31338__&&!window.__HAPIL_ENEMY_V31338__.actors(s).length)return null;const r=row(a);if(!authority(s)||locked(s)||protectedActor(a)||!r||r.native||(r.zone!==s.zone&&!(s.zone==='cult04'&&a?.dreamCosmicTrialV31346))||!types.includes(type)||phase(a)<0)return null;

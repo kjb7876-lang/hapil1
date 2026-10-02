@@ -1,0 +1,15 @@
+54042:         window.__HAPIL_SAMONG_RC91__?.unlock(P.current,'777');
+54043:         ((R.current = t),
+54044:           h(t),
+54045:           (P.current.activeHeroMastery = 7),
+54046:           (P.current.activeTimeMastery = 8),
+54047:           (P.current.frontierZone = MONGSE_allMapsFrontier),
+54048:           S((e) => ({ ...e, frontierZone: MONGSE_allMapsFrontier })),
+
+61044:               i = _r(hr(n.id) ? (R.current[pr(n.id)] ?? 0) : 0);
+61045:             if (
+61046:               ((o.activeHeroId = n.id),
+61047:               (o.activeHeroMastery = r.level),
+61048:               (o.activeTimeMastery = i.level),
+61049:               (o.heroDamageTakenMultiplier =
+61050:                 (n.id === `ion` ? r.guardMultiplier : 1) * (window.__HAPIL_SAMONG_RC91__?.enabled(o)?1:(window.__HAPIL_STORY_RC51__?.incoming(o) ?? 1)) *

@@ -1,0 +1,146 @@
+51965:         if (window.__HAPIL_MODES_V31346__?.beforeDeath(t,e)) return;
+51966:         if (window.__HAPIL_LUCIFER_V31318__?.beforeDeath(t, e)) return;
+51967:         if (window.__HAPIL_EPISODE_COSMIC_V387__?.beforeDeath(t, e)) return;
+51968:         const reward338=window.__HAPIL_PROGRESSION_V31338__?.reward(t,e,R.current)??0;
+51969:         if(reward338){Be.current=Math.min(MONGSE_INFINITE_STAT_MAX,Be.current+reward338);_(Be.current);B(`스킬 마스터 공명 조각 +${reward338} · 반복 전투 성장`);}
+51970:         let MONGSE_awardClearedEgoV31217 = () => {
+51971:             if (!MONGSE_zoneCombatCleared(t, t.zone))
+51972:               return { records: [], shards: 0 };
+51973:             let e = MONGSE_unlockZoneEgoRewardV31217(t, t.zone);
+51974:             if (!(e.shards > 0)) return e;
+51975:             return (
+51976:               (Be.current = Math.min(
+51977:                 MONGSE_INFINITE_STAT_MAX,
+51978:                 Be.current + e.shards,
+51979:               )),
+51980:               _(Be.current),
+51981:               B(`${N[t.zone].name} 완전 클리어 · EGO 파편 ${e.shards}개를 획득했습니다.`),
+51982:               e
+51983:             );
+51984:           };
+51985:         if (
+51986:           (t.defeated.push({
+51987:             ...HAPIL_narrativeDeathFieldsV31313(e),
+51988:             id: t.fxSerial++,
+51989:             x: e.x,
+51990:             y: e.y,
+51991:             born: t.time,
+51992:             duration: e.boss ? 1.25 : 0.72,
+51993:             sprite: e.actionSprites?.death ?? MONGSE_phaseSprite(e) ?? e.sprite,
+51994:             kind: e.kind,
+51995:             size:
+51996:               Ge(e.kind, !!e.boss, !!e.midboss, !!e.elite, e.scale) *
+51997:               MONGSE_phaseScale(e) *
+51998:               (e.boss ? 1.1 : 1),
+51999:             facing: e.facing,
+52000:             sourceFacing31223:
+52001:               e.sourceFacing31223 ??
+52002:               MONGSE_BOSS_SOURCE_FACING_BY_ENTITY_V31223[e.id] ??
+52003:               null,
+52004:             boss: !!e.boss,
+52005:             midboss: !!e.midboss,
+52006:           }),
+52007:           t.effects.push({
+52008:             id: t.fxSerial++,
+52009:             kind: `burst`,
+52010:             x: e.x,
+52011:             y: e.y,
+52012:             tx: e.x,
+
+54030:       (e) => {
+54031:         if (String(e ?? ``).trim() !== `777`)
+54032:           return { ok: !1, message: `코드를 확인해 주세요.` };
+54033:         let t = window.__HAPIL_PROGRESSION_V31338__.master(R.current),
+54034:           MONGSE_allMapsFrontier = Object.values(N).reduce(
+54035:             (e, t) => (t.order > N[e].order ? t.id : e),
+54036:             `hub`,
+54037:           ),
+54038:           MONGSE_completedBefore = P.current.completedZones.size,
+54039:           MONGSE_zoneBefore = P.current.zone,
+54040:           MONGSE_enemiesBefore = P.current.enemies.length;
+54041: 
+54042:         window.__HAPIL_SAMONG_RC91__?.unlock(P.current,'777');
+54043:         ((R.current = t),
+54044:           h(t),
+54045:           (P.current.activeHeroMastery = 7),
+54046:           (P.current.activeTimeMastery = 8),
+54047:           (P.current.frontierZone = MONGSE_allMapsFrontier),
+54048:           S((e) => ({ ...e, frontierZone: MONGSE_allMapsFrontier })),
+54049:           MONGSE_writeSave(
+54050:             `auto`,
+54051:             Fi(P.current, L.current, Le.current, R.current, Be.current),
+54052:           ),
+54053:           B(
+54054:             `코드 777 승인 · 사몽 모드 해금 · 모든 영웅 스킬·콜라보 강화 MAX · 보스 반복 격파 공명 조각 획득 · 전체 ${Object.keys(N).length}개 맵 이동 해금`,
+54055:           ));
+54056:         return {
+54057:           ok: !0,
+54058:           message: `승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 ${Object.keys(N).length}개 맵 이동 해금`,
+54059:           frontierZone: P.current.frontierZone,
+54060:           unlockedMapCount: Object.values(N).filter(
+54061:             (e) => e.order <= N[P.current.frontierZone].order,
+54062:           ).length,
+54063:           allMapsUnlocked: Object.values(N).every(
+54064:             (e) => e.order <= N[P.current.frontierZone].order,
+54065:           ),
+54066:           campaignProgressPreserved:
+54067:             P.current.completedZones.size === MONGSE_completedBefore &&
+54068:             P.current.zone === MONGSE_zoneBefore &&
+54069:             P.current.enemies.length === MONGSE_enemiesBefore,
+54070:         };
+54071:       },
+54072:       [B],
+54073:     ),
+54074:     MONGSE_returnToTitle = (0, l.useCallback)(() => {
+54075:       if (
+54076:         typeof window !== `undefined` &&
+54077:         !window.confirm(`현재 진행을 자동 저장하고 시작 화면으로 돌아갑니까?`)
+
+121433:   return next;
+121434:  }
+121435:  function reward(s,enemy,passives){if(!s||!enemy||enemy.hp>0||!(enemy.boss||enemy.midboss)||paid.has(enemy)||window.__HAPIL_PARTY_V31322__?.status.role==='guest'||!MONGSE_growthIsMastered(s.activeHeroId,passives??{}))return 0;paid.add(enemy);return 1;}
+121436:  window.__HAPIL_PROGRESSION_V31338__=Object.freeze({version:'3.13.38',installed:true,master,reward});
+121437: })();
+121438: 
+121439: /* v338: stable battle sectors, observed terrain and explicit manual ownership. */
+121440: (()=>{'use strict';
+121441:  const N=(x,d=0)=>Number.isFinite(Number(x))?Number(x):d,P=()=>window.__HAPIL_PARTY_V31322__,C=()=>window.__HAPIL_COMBAT_V31333__,M=()=>window.__HAPIL_MOVEMENT_V31336__,memory=new WeakMap();
+121442:  const config=Object.freeze({decisionSeconds:.14,holdMargin:.9,separation:5.2,meleePower:1.06});
+121443:  const id=(s,a)=>a===s?s.activeHeroId:a.heroId,range=(s,a)=>C()?.radius(id(s,a))??17,power=h=>['hwando','slayer'].includes(h)?config.meleePower:1;
+121444:  function roster(s){return [s,...(P()?.state===s?P().actors:[])];}
+121445:  function sector(s,a,target){const all=roster(s),seat=Math.max(0,all.indexOf(a)),count=Math.max(1,all.length),angle=(seat/count)*Math.PI*2+Math.PI/4,r=window.__HAPIL_LOOP_V31365__?.role(id(s,a)).hold??(range(s,a)-config.holdMargin);
+121446:   const x=Math.max(2,Math.min(30,target.x+Math.cos(angle)*r)),y=Math.max(2,Math.min(30,target.y+Math.sin(angle)*r));return{x,y,angle,seat,count,r:Math.min(r,Math.hypot(x-target.x,y-target.y)),requestedRange:r};}
+121447:  function danger(s,p,d){return C().dangerAt(s,p,d)+(window.__HAPIL_BOSSES_V31334__?.danger?.(s,p,.5)??0)+(window.__HAPIL_LASERS_V31330__?.danger?.(s,p,.5)??0);}
+121448:  function steer(s,a,target,input,index=0){
+121449:   if(!s||!a||a.hp<=0||!target||target.hp<=0||P()?.status.role==='guest'||M()?.movementLocked(s,a)||M()?.active(s,a))return input;
+121450:   const m=memory.get(a),hero=id(s,a);if(m&&m.zone===s.zone&&m.id===hero&&m.target===target.id&&s.time>=m.at&&s.time-m.at<config.decisionSeconds)return{...input,moveX:m.x,moveY:m.y,actions:{...input.actions,dash:m.dash}};
+121451:   const goal=sector(s,a,target),others=roster(s).filter(o=>o!==a&&o.hp>0),d=C().dangerContext(s,a),present=danger(s,a,d),distance=Math.hypot(a.x-target.x,a.y-target.y),vectors=[{x:0,y:0}];
+121452:   const dx=goal.x-a.x,dy=goal.y-a.y,len=Math.max(.001,Math.hypot(dx,dy));vectors.push({x:dx/len,y:dy/len});for(let j=0;j<16;j++){const angle=j*Math.PI/8;vectors.push({x:Math.cos(angle),y:Math.sin(angle)});}
+121453:   let best=null;for(const v of vectors){const raw={x:a.x+v.x*1.35,y:a.y+v.y*1.35};if(raw.x<1.8||raw.x>30.2||raw.y<1.8||raw.y>30.2)continue;
+121454:    const p=ft(s.zone,a,{x:v.x*1.35,y:v.y*1.35},.42);if(Math.hypot(p.x-raw.x,p.y-raw.y)>.3)continue;
+121455:    const radius=Math.hypot(p.x-target.x,p.y-target.y),risk=danger(s,p,d),mid={x:(a.x+p.x)/2,y:(a.y+p.y)/2};
+121456:    let cost=risk+danger(s,mid,d)*.6+Math.abs(radius-goal.r)*2.6+Math.hypot(p.x-goal.x,p.y-goal.y)*.9+C().uiPenalty(s,p)*.15;
+121457:    if(radius>range(s,a))cost+=(radius-range(s,a))*3;
+121458:    for(const o of others){const sep=Math.hypot(p.x-o.x,p.y-o.y);if(sep<config.separation)cost+=(config.separation-sep)*4.5;}
+121459:    if(m)cost+=(1-v.x*m.x-v.y*m.y)*.18;if(!v.x&&!v.y)cost-=.22;
+121460:    if(!best||cost<best.cost)best={...v,cost,risk};
+121461:   }
+121462:   if(!best)return input;const dash=present>20&&best.risk<present*.45;a.combatIntentV31333=present>12?'위험 회피':Math.hypot(best.x,best.y)<.1?'최대 사거리 유지':distance<goal.r-1?'후퇴 · 거리 확보':'담당 구역 산개';
+121463:   memory.set(a,{zone:s.zone,id:hero,target:target.id,at:s.time,x:best.x,y:best.y,dash});return{...input,moveX:best.x,moveY:best.y,actions:{...input.actions,dash}};
+121464:  }
+121465:  // Awakening attacks may sidestep/retreat but never pull a ranged hero into melee.
+121466:  function safeReposition(s,a,target){if(!M()?.canAutoMove(s,a)||!target||target.hp<=0)return null;const dx=a.x-target.x,dy=a.y-target.y,len=Math.hypot(dx,dy);if(len<.001)return null;
+121467:   const wanted=range(s,a)-config.holdMargin,d=C().dangerContext(s,a),vectors=len<wanted?[{x:dx/len,y:dy/len},{x:-dy/len,y:dx/len},{x:dy/len,y:-dx/len}]:[{x:-dy/len,y:dx/len},{x:dy/len,y:-dx/len}];
+121468:   for(const v of vectors){const p=ft(s.zone,a,{x:v.x*.72,y:v.y*.72},.42),mid={x:(a.x+p.x)/2,y:(a.y+p.y)/2};if(Math.hypot(p.x-a.x,p.y-a.y)<.6||Math.hypot(p.x-target.x,p.y-target.y)+.001<len||danger(s,p,d)>3||danger(s,mid,d)>3)continue;return p;}return null;}
+121469:  window.__HAPIL_AI_V31338__=Object.freeze({version:'3.13.38',installed:true,config,steer,sector,safeReposition,power});
+121470: })();
+121471: 
+121472: /* v338 measured opaque bounds. Drawing only: no actor, hitbox, heart or muzzle mutation. */
+121473: (()=>{'use strict';
+121474: const data=HAPIL_VISUAL_DATA_V31338;
+121475: function layout(path,size,actor){const v=data.assets[path];if(!v)return null;const m=v.oldMeta,[bx,by,br,bb]=v.bounds,sw=m[2]*v.w,sh=m[3]*v.h,base=data.actors[actor?.id];if(!v.hero&&(!(actor?.boss||actor?.midboss)||!base))return null;
+121476: // Keep native hero mapping exactly; extend the source and destination rect together.
+121477: const [fx,fy,fr,fb]=v.fullBounds??v.bounds;const norm=v.hero?1:base.baseline/v.ratio,H=size*norm,W=H*Math.min(sw/sh,/actors-normalized\//.test(path)?1.75:1.72),sx=Math.max(0,Math.min(Math.floor(m[0]*v.w),fx)-1),sy=Math.max(0,Math.min(Math.floor(m[1]*v.h),fy)-1),ex=Math.min(v.w,Math.max(Math.ceil((m[0]+m[2])*v.w),fr)+1),ey=Math.min(v.h,Math.max(Math.ceil((m[1]+m[3])*v.h),fb)+1),anchorX=(m[0]+m[2]*m[4])*v.w,anchorY=v.hero?(m[1]+m[3]*m[5])*v.h:bb;
+121478: return{sx,sy,sw:ex-sx,sh:ey-sy,dx:(sx-anchorX)*W/sw,dy:(sy-anchorY)*H/sh,dw:(ex-sx)*W/sw,dh:(ey-sy)*H/sh,opaqueHeight:(bb-by)*H/sh,hero:v.hero,norm};}
+121479: function draw(ctx,cache,path,x,y,size,o={}){if(o.centerPivot)return false;if(o.actorV31338&&Number.isFinite(o.visualSizeV31338))size=o.visualSizeV31338;const q=layout(path,size,o.actorV31338),im=cache[path];if(!q||!im?.complete||!im.naturalWidth)return false;const p=G(x,y);ctx.save();try{ctx.globalAlpha*=o.alpha??1;ctx.translate(p.x+(o.offsetX??0),p.y-size*.43+(o.offsetY??0));ctx.rotate(o.rotation??0);ctx.scale(o.scaleX??1,o.scaleY??1);ctx.translate(0,size*.43);if(o.glow){ctx.shadowColor=o.glow;ctx.shadowBlur=Math.min(o.glowBlur??13,5);}if(o.hit)ctx.filter='brightness(1.3) saturate(1.1)';ctx.drawImage(im,q.sx,q.sy,q.sw,q.sh,q.dx,q.dy,q.dw,q.dh);}finally{ctx.restore();}return true;}
+121480: window.__HAPIL_VISUAL_V31338__=Object.freeze({installed:true,version:'3.13.38',data,layout,draw});

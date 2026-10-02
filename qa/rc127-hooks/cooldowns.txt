@@ -1,0 +1,131 @@
+42553:       (e.initialBossVisible31226 = !!e.enemies.some((e) => e.boss)),
+42554:       e.enemies.forEach((e, t) => {
+42555:         ((e.readyAt = Math.min(Number(e.readyAt ?? i), i + 0.14 + t * 0.015)),
+42556:           (e.patternReadyAt = Math.min(
+42557:             Number(e.patternReadyAt ?? i),
+42558:             i + 0.28 + t * 0.015,
+42559:           )),
+42560:           (e.invulnerableUntil = Math.min(
+42561:             Number(e.invulnerableUntil ?? i),
+42562:             i + 0.12,
+
+42568:     (e.ep1bHazardAt = Math.max(Number(e.ep1bHazardAt ?? 0), a + 1.2)));
+42569:   e.enemies.forEach((e, t) => {
+42570:     ((e.readyAt = Math.max(Number(e.readyAt ?? 0), a + 0.2 + t * 0.025)),
+42571:       (e.patternReadyAt = Math.max(
+42572:         Number(e.patternReadyAt ?? 0),
+42573:         a + 0.42 + t * 0.025,
+42574:       )),
+42575:       (e.invulnerableUntil = Math.max(Number(e.invulnerableUntil ?? 0), a)));
+42576:   });
+42577:   return (
+
+42693:       e.invulnerableUntil = Math.min(Number(e.invulnerableUntil ?? t), t + 0.12);
+42694:       e.enemies?.forEach((e, n) => {
+42695:         ((e.readyAt = Math.min(Number(e.readyAt ?? t), t + 0.14 + n * 0.015)),
+42696:           (e.patternReadyAt = Math.min(
+42697:             Number(e.patternReadyAt ?? t),
+42698:             t + 0.28 + n * 0.015,
+42699:           )),
+42700:           (e.invulnerableUntil = Math.min(
+42701:             Number(e.invulnerableUntil ?? t),
+42702:             t + 0.12,
+
+43702:       t.activePattern === `gapChargeV31226` && (t.activePattern = ``),
+43703:       (t.recoverUntil = Math.max(Number(t.recoverUntil ?? 0), i + 0.48)),
+43704:       (t.readyAt = Math.max(Number(t.readyAt ?? 0), i + 0.72)),
+43705:       (t.patternReadyAt = Math.max(Number(t.patternReadyAt ?? 0), i + 1.1)));
+43706:     return null;
+43707:   }
+43708:   let o = Math.hypot(Number(e.x ?? 0) - Number(t.x ?? 0), Number(e.y ?? 0) - Number(t.y ?? 0));
+43709:   if (
+43710:     o < (t.boss ? 7.8 : 8.25) ||
+43711:     i < Number(t.gapChargeReadyAtV31226 ?? 0) ||
+
+43773:     (t.gapChargeReadyAtV31226 = i + (t.boss ? 7.2 : 8.4)),
+43774:     (t.activePattern = `gapChargeV31226`),
+43775:     (t.readyAt = i + d + f + 0.72),
+43776:     (t.patternReadyAt = i + d + f + 1.1),
+43777:     {
+43778:       active: !0,
+43779:       triggered: !0,
+43780:       target: null,
+43781:       moveScale: 0,
+43782:       speedScale: 1,
+
+45360:       t.readyAt ?? 0,
+45361:       MONGSE_episodePatternResumeAt || c + 1.15,
+45362:     )),
+45363:     (t.patternReadyAt = Math.max(
+45364:       t.patternReadyAt ?? 0,
+45365:       MONGSE_episodePatternResumeAt || c + 1.35,
+45366:     )),
+45367:     e.effects.push({
+45368:       id: e.fxSerial++,
+45369:       kind: `glitch`,
+
+46325:         (n.summonPhase = 0),
+46326:         (n.envyHallucination = !0),
+46327:         (n.readyAt = e.time + 0.52),
+46328:         (n.patternReadyAt = e.time + 0.8),
+46329:         e.enemies.push(n),
+46330:         (r.envyIllusionReadyAt = e.time + 4.2),
+46331:         (i.spawned += 1),
+46332:         (i.illusionSpawned = 1));
+46333:     }
+46334:     MONGSE_setSevenSinHeroStatus(
+
+46767:       a + MONGSE_COMBAT_DIRECTOR_V31210.atomicRecoveryPadding,
+46768:     )),
+46769:     (t.readyAt = Math.max(t.readyAt ?? 0, t.recoverUntil + 0.18)),
+46770:     (t.patternReadyAt = Math.max(t.patternReadyAt ?? 0, t.recoverUntil + 0.32)),
+46771:     t.boss &&
+46772:       ((t.castPresentationStarted31211 = Number(e.time ?? 0)),
+46773:       (t.castPresentationUntil31211 = Number(e.time ?? 0) + 0.82),
+46774:       MONGSE_addBossCastPresentation31212(e, t, n),
+46775:       (e.screenShakeCue31211 = {
+46776:         id: o,
+
+47328:       (m.cyberHoundSummon = MONGSE_machineHound),
+47329:       (m.falseCompanionSummon = MONGSE_falseCompanion),
+47330:       (m.readyAt = e.time + 0.62 + c * 0.08),
+47331:       (m.patternReadyAt = e.time + 1.1),
+47332:       e.enemies.push(m),
+47333:       s.push(m),
+47334:       e.effects.push({
+47335:         id: e.fxSerial++,
+47336:         sourceId: t.id,
+47337:         kind: `glitch`,
+
+49213:         (s.summonOwnerId = r.id),
+49214:         (s.summonPhase = i),
+49215:         (s.readyAt = e.time + 0.7 + n * 0.1),
+49216:         (s.patternReadyAt = e.time + 1.1),
+49217:         e.enemies.push(s),
+49218:         e.effects.push({
+49219:           id: e.fxSerial++,
+49220:           sourceId: r.id,
+49221:           kind: 'glitch',
+49222:           x: s.x,
+
+49718:     (t.readyAt =
+49719:       MONGSE_episodePatternResumeAt ||
+49720:       (MONGSE_isTelekineticRain ? f + 0.85 : f + 0.65)),
+49721:     (t.patternReadyAt = MONGSE_episodePatternResumeAt
+49722:       ? MONGSE_episodePatternResumeAt
+49723:       : MONGSE_isTelekineticRain
+49724:         ? Math.max(f + 1.15, s + Math.max(2.4, n.cooldown - (r - 1) * 0.28))
+49725:         : s + Math.max(2.4, n.cooldown - (r - 1) * 0.28)),
+49726:     (t.activePattern = n.name),
+49727:     (t.patternIndex += 1),
+
+50060:   let r = MONGSE_isPersistentBossCastActive(e, n);
+50061:   (r || vi(n),
+50062:     (n.readyAt = Math.max(n.readyAt, e.time + 1.15)),
+50063:     (n.patternReadyAt = Math.max(n.patternReadyAt, e.time + 1.35)),
+50064:     (n.stagger = Math.min(n.maxStagger, n.stagger + (n.boss ? 48 : 62))));
+50065:   let i =
+50066:     n.stagger >= n.maxStagger && n.staggerUntil <= e.time
+50067:       ? MONGSE_triggerEnemyBreak(e, n, {
+50068:           duration: n.boss ? 1.65 : 2.05,
+50069:           silent: !0,

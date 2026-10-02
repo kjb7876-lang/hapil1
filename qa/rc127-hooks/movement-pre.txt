@@ -1,0 +1,41 @@
+61095:                     y: o.y,
+61096:                     born: o.time,
+61097:                     duration: 1.05,
+61098:                     text: `회복 역행 · ${Math.round(o.hp)} EGO`,
+61099:                     color: `#a8f5ff`,
+61100:                     critical: !0,
+61101:                   }));
+61102:               }
+61103:             }
+61104:             let MONGSE_stasisHandled = Si(o);
+61105:             Ci(o, MONGSE_stasisHandled);
+61106:             MONGSE_tickTemporalLagPassive31214(o, {
+61107:               lowFx: !!ze.current.lowFx,
+61108:               reducedFlash: !!ze.current.reducedFlash,
+61109:             });
+61110:             MONGSE_tickTemporalHud31215(
+61111:               o,
+61112:               {
+61113:                 lowFx: !!ze.current.lowFx,
+61114:                 reducedFlash: !!ze.current.reducedFlash,
+61115:               },
+61116:               (path, gain, cooldown) => HAPIL_temporalHudSoundV31317(o, ze.current, We, !!MONGSE_audioUnlockedRef.current, path, gain, cooldown),
+61117:             );
+61118:             let s = sr(ir(HAPIL_effectiveGrowthV31400(R.current,P.current), `awakening`), n.id, P.current),
+61119:               c = o.awakeningUntil > o.time,
+61120:               l = MONGSE_pickNearestEnemy(o);
+61121:             if (c && l && Re.current) {
+61122:               (o.targetEnemyId = l.id);
+61123:               (o.time >= o.awakeningNextAttackAt &&
+61124:                 Number(o.autoEvadeUntil31223 ?? 0) <= o.time &&
+61125:                 o.time - o.lastAttack >= 0.28 / (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1) &&
+61126:                 ((o.awakeningNextAttackAt = o.time + 0.34 / (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)),
+61127:                 Ye(32, 4, n.color, !0)),
+61128:                 o.time >= o.awakeningNextAuraAt &&
+61129:                   ((o.awakeningNextAuraAt =
+61130:                     o.time + (ze.current.lowFx ? 1.2 : 0.78)),
+61131:                   (() => {
+61132:                     let e = MONGSE_awakeningProfile(n.id);
+61133:                     o.effects.push({
+61134:                       id: o.fxSerial++,
+61135:                       kind:

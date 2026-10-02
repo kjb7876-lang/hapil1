@@ -1,0 +1,71 @@
+39965: function MONGSE_buildTelekineticRainSources(e, t = 12, MONGSE_propPool = null) {
+39966:   let n = MONGSE_telekineticRainSeed(e.zone),
+39967:     MONGSE_hasDedicatedPool =
+39968:       Array.isArray(MONGSE_propPool) && MONGSE_propPool.length > 0,
+39969:     r = MONGSE_hasDedicatedPool
+39970:       ? MONGSE_propPool.map((e, t) =>
+39971:           typeof e == `string`
+39972:             ? e.includes(`/`)
+39973:               ? {
+39974:                   id: `seven-sins-prop-${t}`,
+39975:                   source: e,
+39976:                   baseSize: 120,
+39977:                   airborneCenterPivot: !0,
+39978:                   dedicatedSinProp: !0,
+39979:                 }
+39980:               : Ue(e)
+39981:             : e,
+39982:         )
+39983:       : (
+39984:           MONGSE_TELEKINETIC_RAIN_PROP_POOLS[et(e.zone)] ??
+39985:           MONGSE_TELEKINETIC_RAIN_PROP_POOLS.DIST
+39986:         ).map((e) => Ue(e)),
+39987:     i = MONGSE_hasDedicatedPool
+39988:       ? []
+39989:       : lt(e.zone).filter((e) => !!e.sprite && !e.collidable && !e.landmark),
+39990:     a = i.length ? n % i.length : 0;
+39991:   return Array.from({ length: t }, (_, o) => {
+39992:     let s = o < Math.min(4, i.length) ? i[(a + o) % i.length] : null,
+39993:       c = r[(n + o * 3) % r.length],
+39994:       l =
+39995:         MONGSE_TELEKINETIC_RAIN_ORIGIN_LAYOUT[
+39996:           (n + o * 5) % MONGSE_TELEKINETIC_RAIN_ORIGIN_LAYOUT.length
+39997:         ],
+39998:       u = S(l[0], l[1]),
+39999:       d = s?.size ?? c.baseSize,
+40000:       MONGSE_sourceSize = c.dedicatedSinProp
+40001:         ? Math.max(106, Math.min(124, d))
+40002:         : Math.max(68, Math.min(94, d * 0.72));
+40003:     return {
+40004:       featureId: s?.id ?? null,
+40005:       originX: s?.x ?? u.x,
+40006:       originY: s?.y ?? u.y,
+40007:       sprite: s?.sprite ?? c.source,
+40008:       fallbackSprite: c.fallbackSource ?? null,
+40009:       propId: s?.propId ?? c.id,
+40010:       size: MONGSE_sourceSize,
+40011:       detachedFromMap: !!s,
+40012:       collidableHidden: !!s?.collidable,
+40013:       airborneCenterPivot: !!c.airborneCenterPivot,
+40014:       dedicatedSinProp: !!c.dedicatedSinProp,
+40015:     };
+40016:   });
+40017: }
+40018: function MONGSE_isTelekineticRainSourceSafe(e, t) {
+40019:   if (!t || t.collidableHidden !== !1) return !1;
+40020:   let n = t.featureId ? lt(e).find((e) => e.id === t.featureId) : null;
+40021:   return !n || (!n.collidable && !n.landmark);
+40022: }
+40023: var nr = {
+40024:     attack: 12,
+40025:     skillQ: 8,
+40026:     skillW: 8,
+40027:     skillE: 8,
+40028:     skillR: 6,
+40029:     awakening: 8,
+40030:     autoEvade: 8,
+40031:   },
+40032:   rr = [
+40033:     {
+40034:       key: `attack`,
+40035:       input: `A`,

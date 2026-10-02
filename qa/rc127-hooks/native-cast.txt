@@ -1,0 +1,68 @@
+46752:   return ruleCast || atomicCast ? (window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(state) ? .65 : .01) : 1;
+46753: }
+46754: 
+46755: function MONGSE_lockAtomicBossCast31210(e, t, n, r, i = `rain`) {
+46756:   if (!e || !t || t.hp <= 0) return 0;
+46757:   let a = Math.max(Number(e.time ?? 0) + 0.05, Number(r) || 0),
+46758:     o = `${t.id}:${n}:${Math.round(Number(e.time ?? 0) * 1e3)}`;
+46759:   return (
+46760:     (t.atomicCastId31210 = o),
+46761:     (t.atomicCastKind31210 = n),
+46762:     (t.castAction31210 = i),
+46763:     (t.atomicCastUntil31210 = Math.max(t.atomicCastUntil31210 ?? 0, a)),
+46764:     (t.castVisualUntil31210 = Math.max(t.castVisualUntil31210 ?? 0, a)),
+46765:     (t.recoverUntil = Math.max(
+46766:       t.recoverUntil ?? 0,
+46767:       a + MONGSE_COMBAT_DIRECTOR_V31210.atomicRecoveryPadding,
+46768:     )),
+46769:     (t.readyAt = Math.max(t.readyAt ?? 0, t.recoverUntil + 0.18)),
+46770:     (t.patternReadyAt = Math.max(t.patternReadyAt ?? 0, t.recoverUntil + 0.32)),
+46771:     t.boss &&
+46772:       ((t.castPresentationStarted31211 = Number(e.time ?? 0)),
+46773:       (t.castPresentationUntil31211 = Number(e.time ?? 0) + 0.82),
+46774:       MONGSE_addBossCastPresentation31212(e, t, n),
+46775:       (e.screenShakeCue31211 = {
+46776:         id: o,
+46777:         bossId: t.id,
+46778:         born: Number(e.time ?? 0),
+46779:         expiresAt: Number(e.time ?? 0) + 0.26,
+46780:         rareShakeEligible31211: !0,
+46781:       })),
+46782:     o
+46783:   );
+46784: }
+46785: function MONGSE_addBossCastPresentation31212(e, t, n) {
+46786:   if (!e || !t?.boss) return 0;
+46787:   let r = MONGSE_bossBarragePalette(t),
+46788:     i = MONGSE_bossDirectorProfile31210(t),
+46789:     a = MONGSE_signatureFamily31212(n),
+46790:     o = a === `chrono` ? `time` : a === `mirror` ? `glitch` : a === `orbit` ? `cyclone` : `mark`,
+46791:     s = Number(e.time ?? 0),
+46792:     MONGSE_castAngle31213 = Math.atan2(e.y - t.y, e.x - t.x),
+46793:     MONGSE_choreography31213 =
+46794:       t.signatureChoreography31213 ??
+46795:       MONGSE_signatureChoreography31213(
+46796:         t,
+46797:         String(n).replace(/^signature-/, ``),
+46798:         Number(t.themedOrdnanceCycle ?? 0),
+46799:       ),
+46800:     MONGSE_rhythm31214 = MONGSE_choreography31213.rhythm31214,
+46801:     c = [
+46802:       {
+46803:         id: e.fxSerial++,
+46804:         sourceId: t.id,
+46805:         kind: o,
+46806:         x: t.x,
+46807:         y: t.y,
+46808:         tx: t.x,
+46809:         ty: t.y,
+46810:         born: s,
+46811:         duration: 0.9,
+46812:         color: r.color,
+46813:         accent: r.accent,
+46814:         size: 7.2,
+46815:         angle: MONGSE_castAngle31213,
+46816:         bossCastAura31212: !0,
+46817:         bossCastAura31213: !0,
+46818:         bossHoldRelease31214: !0,
+46819:         bossRhythmMotif31214: MONGSE_rhythm31214.motif,

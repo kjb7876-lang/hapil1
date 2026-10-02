@@ -1,0 +1,101 @@
+118410:  */
+118411: (() => {
+118412:   'use strict';
+118413:   const ID='a11-cosmic-v31318', MASK='a11-boss', ZONE='ep1a11';
+118414:   const ANCHOR=Object.freeze({x:8,y:8}), START='combat:cosmic-lucifer-v31318:started', DONE='combat:cosmic-lucifer-v31318:complete';
+118415:   const INTERVAL=6, FRACTION=.006, INTRO=2.2;
+118416:   let installed=false,attempts=0,baseMaxHp=36000;
+118417:   const lastTick=new WeakMap();
+118418:   const finite=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
+118419:   const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+118420:   const assets=()=>window.__HAPIL_ASSETS_V31318__;
+118421:   const posePaths=()=>assets()?.poses??{};
+118422:   const own=a=>a?.cosmicLuciferV31318===true&&a?.id===ID;
+118423:   const actorFor=s=>s?.zone===ZONE?(s.enemies??[]).find(own):null;
+118424:   const active=s=>s?.zone===ZONE&&s.cosmicEncounterV31318?.stage==='active'&&!!actorFor(s);
+118425:   function makeActor(now=0,snapshot=null) {
+118426:     // Clone only the core runtime fields; old Lucifer phase scripts are not inherited.
+118427:     const a=Kr(ID,'lucifer','루시퍼 · 깨진 가면의 심연',ANCHOR.x,ANCHOR.y,baseMaxHp,posePaths().idle??'',1,'가면 안의 초자아');
+118428:     Object.assign(a,{boss:true,midboss:false,elite:true,cosmicLuciferV31318:true,
+118429:       hp:clamp(finite(snapshot?.hp,baseMaxHp),.001,baseMaxHp),maxHp:baseMaxHp,
+118430:       fixedPhase:1,currentPhase:1,phaseCount:1,phaseMax:1,phaseThresholds:null,
+118431:       humanPhase0:false,narrativeMultiPhase:false,episodeFinalBoss:false,
+118432:       patternSet:'cosmic-lucifer-v31318',phaseSprites:null,actionSprites:null,
+118433:       scale:2,maxStagger:250,stagger:0,sourceFacing31223:'front',
+118434:       readyAt:now+INTRO,patternReadyAt:now+INTRO,invulnerableUntil:now+INTRO,
+118435:       phaseTransitionUntil:now+INTRO,phaseTransitionActive:false,
+118436:       cosmicPoseV31318:'idle',cosmicPoseUntilV31318:now+INTRO,
+118437:       cosmicArsenalReadyAtV31318:now+INTRO+.3,
+118438:       cosmicCycleV31318:Math.max(0,Math.floor(finite(snapshot?.cycle))),
+118439:       cosmicRegenElapsedV31318:clamp(finite(snapshot?.elapsed),0,INTERVAL-.000001),
+118440:       cosmicRegenCountV31318:Math.max(0,Math.floor(finite(snapshot?.regenCount))),
+118441:       attackTerrainPolicyV31217:'pierce',bossNonReflectable31213:true,
+118442:       ghostUntil:0,attackAt:0,attackImpactAt:0,moveDx:0,moveDy:0,
+118443:       narrativePhaseStarted:1,cosmicIntroUntilV31318:now+INTRO});
+118444:     return a;
+118445:   }
+118446:   function clearOwner(s,id) {
+118447:     // Phase conversion withdraws this defeated form's attacks, without touching other actors.
+118448:     for(const key of ['pendingHits','impactQueue','hostileProjectiles','narrativeCasts','telekineticCasts','spatialRiftCasts'])
+118449:       if(Array.isArray(s[key]))s[key]=s[key].filter(e=>e?.sourceId!==id&&e?.summonOwnerId!==id);
+118450:     if(Array.isArray(s.effects))s.effects=s.effects.filter(e=>e?.sourceId!==id);
+118451:     if(Array.isArray(s.pendingStrikes))s.pendingStrikes=s.pendingStrikes.filter(e=>e?.targetId!==id);
+118452:     if(typeof MONGSE_cleanupEpisodeBossSummons==='function')MONGSE_cleanupEpisodeBossSummons(s,id);
+118453:   }
+118454:   function beforeDeath(s,a) {
+118455:     if(!s||s.zone!==ZONE||!a||a.hp>0||!(s.enemies??[]).includes(a))return false;
+118456:     if(own(a)) {
+118457:       s.cosmicEncounterV31318={stage:'complete'};
+118458:       s.clues?.add?.(DONE);
+118459:       clearOwner(s,ID);
+118460:       lastTick.delete(s);
+118461:       return false; // Native death removes the actor, opens the original ending and awards once.
+118462:     }
+118463:     if(a.id!==MASK||active(s)||s.clues?.has?.(DONE)||s.completedZones?.has?.(ZONE))return false;
+118464:     const now=finite(s.time),next=makeActor(now);
+118465:     clearOwner(s,MASK);
+118466:     s.enemies=s.enemies.filter(e=>e.id!==MASK&&e.id!==ID);
+118467:     s.enemies.push(next);
+118468:     s.cosmicEncounterV31318={stage:'active'};
+118469:     s.clues?.add?.(START);
+118470:     s.bossDefeated=false;s.bossPhase=1;s.targetEnemyId=ID;
+118471:     s.target=null;s.path=[];
+118472:     for(const wave of [1,2,3,4])s.spawnedWaves?.add?.(wave);
+118473:     s.invulnerableUntil=Math.max(finite(s.invulnerableUntil),now+INTRO);
+118474:     s.heroStatus='가면 파괴 · 심연의 루시퍼가 드러납니다';s.heroStatusUntil=now+INTRO;
+118475:     s.floatTexts??=[];
+118476:     s.floatTexts.push({id:s.fxSerial++,x:ANCHOR.x,y:ANCHOR.y,born:now,duration:INTRO,
+118477:       text:'가면 붕괴 · EP1-A 최종 결전',color:'#f3e8dc',critical:true});
+118478:     lastTick.set(s,now);
+118479:     return true;
+118480:   }
+118481:   function tick(s) {
+118482:     const a=actorFor(s),now=finite(s?.time);
+118483:     if(!a||!active(s)){if(s){lastTick.delete(s);if(s.zone!==ZONE||(s.enemies??[]).some(e=>e.id===MASK))s.cosmicEncounterV31318=null;}return 0;}
+118484:     const previous=lastTick.get(s);lastTick.set(s,now);
+118485:     a.x=ANCHOR.x;a.y=ANCHOR.y;a.moveDx=0;a.moveDy=0;a.movingUntil=0;
+118486:     if(a.hp<=0||s.hp<=0||s.paused===true||s.pause===true||
+118487:        MONGSE_isEncounterLocked31226(s)||now<finite(s.timeStopUntil)||
+118488:        now<finite(a.cosmicIntroUntilV31318)||previous===undefined)return 0;
+118489:     const elapsed=Math.max(0,now-Math.max(previous,finite(a.cosmicIntroUntilV31318)));
+118490:     a.cosmicRegenElapsedV31318=finite(a.cosmicRegenElapsedV31318)+elapsed;
+118491:     const count=Math.floor((a.cosmicRegenElapsedV31318+1e-9)/INTERVAL);
+118492:     if(count<=0)return 0;
+118493:     a.cosmicRegenElapsedV31318=Math.max(0,a.cosmicRegenElapsedV31318-count*INTERVAL);
+118494:     a.cosmicRegenCountV31318=finite(a.cosmicRegenCountV31318)+count;
+118495:     const healed=Math.min(Math.max(0,a.maxHp-a.hp),a.maxHp*FRACTION*count);
+118496:     a.hp=Math.min(a.maxHp,a.hp+healed);
+118497:     if(healed>0){s.floatTexts??=[];s.floatTexts.push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:.75,text:`재생 +${Math.round(healed)}`,color:'#be5068',critical:false});}
+118498:     return healed;
+118499:   }
+118500:   function serialize(s) {
+118501:     if(s?.zone!==ZONE)return null;
+118502:     if(s.cosmicEncounterV31318?.stage==='complete'||s.clues?.has?.(DONE))return{stage:'complete'};
+118503:     const a=actorFor(s);
+118504:     if(!active(s)||!a||a.hp<=0)return null;
+118505:     return {stage:'active',hp:a.hp,elapsed:clamp(finite(a.cosmicRegenElapsedV31318),0,INTERVAL-.000001),
+118506:       cycle:Math.max(0,Math.floor(finite(a.cosmicCycleV31318))),regenCount:Math.max(0,Math.floor(finite(a.cosmicRegenCountV31318)))};
+118507:   }
+118508:   function sanitizeInto(raw,n) {
+118509:     const r=raw?.cosmicLuciferV31318;
+118510:     if(n?.zone!==ZONE||!r||typeof r!=='object')return;

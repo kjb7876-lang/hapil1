@@ -1,0 +1,178 @@
+49495:   }
+49496:   return { wrathDashes: t, cancelled: n };
+49497: }
+49498: function Ei(e, t, n, r) {
+49499:   let i = +(r >= 3 && n.shape === `circle`),
+49500:     MONGSE_isTelekineticRain = !!(
+49501:       n.telekineticRain &&
+49502:       n.telekinetic &&
+49503:       (t.boss || t.midboss)
+49504:     ),
+49505:     MONGSE_rainWaves = MONGSE_isTelekineticRain
+49506:       ? Math.max(1, Math.floor(n.rainWaves ?? 3))
+49507:       : 1,
+49508:     MONGSE_rainPerWave = MONGSE_isTelekineticRain
+49509:       ? Math.max(1, Math.floor(n.rainPerWave ?? 4))
+49510:       : 1,
+49511:     MONGSE_castCount = MONGSE_isTelekineticRain
+49512:       ? MONGSE_rainWaves * MONGSE_rainPerWave
+49513:       : Math.min(5, n.repeats + i),
+49514:     o = MONGSE_isTelekineticRain
+49515:       ? Math.max(1.65, n.windup * (1 - (r - 1) * 0.08))
+49516:       : Math.max(0.72, n.windup * (1 - (r - 1) * 0.08)),
+49517:     s = e.time,
+49518:     c = e.fxSerial + t.id.length + r * 7,
+49519:     l = b((e.x + t.x) / 2 + Math.sin(c * 1.73) * 3.55),
+49520:     u = b((e.y + t.y) / 2 + Math.cos(c * 1.31) * 3.15),
+49521:     MONGSE_rainTargets = MONGSE_isTelekineticRain
+49522:       ? MONGSE_buildTelekineticRainTargets(e, MONGSE_castCount)
+49523:       : null,
+49524:     MONGSE_telekineticSources =
+49525:       n.telekinetic && (t.boss || t.midboss)
+49526:         ? MONGSE_buildTelekineticRainSources(
+49527:             e,
+49528:             MONGSE_castCount,
+49529:             n.telekineticPropPool,
+49530:           )
+49531:         : null,
+49532:     MONGSE_rainGroupId = MONGSE_isTelekineticRain
+49533:       ? `${t.id}:${Math.round(s * 1000)}`
+49534:       : null;
+49535:   for (let i = 0; i < MONGSE_castCount; i++) {
+49536:     let MONGSE_rainWave = MONGSE_isTelekineticRain
+49537:         ? Math.floor(i / MONGSE_rainPerWave)
+49538:         : 0,
+49539:       MONGSE_rainSlot = MONGSE_isTelekineticRain ? i % MONGSE_rainPerWave : 0,
+49540:       MONGSE_hitAt = MONGSE_isTelekineticRain
+49541:         ? s +
+49542:           o +
+49543:           MONGSE_rainWave * (n.rainWaveGap ?? 0.78) +
+49544:           MONGSE_rainSlot * (n.rainSlotGap ?? 0.04)
+49545:         : s + o + i * n.gap,
+49546:       MONGSE_predictionSeconds = Math.min(0.8, MONGSE_hitAt - s) * 0.42,
+49547:       d = n.telekinetic ? 2.25 : n.shape === `circle` ? 0.62 : 0,
+49548:       f = n.telekinetic ? 1.85 : n.shape === `circle` ? 0.52 : 0,
+49549:       p = b(
+49550:         e.x + e.moveVx * MONGSE_predictionSeconds + Math.sin(c + i * 2.1) * d,
+49551:       ),
+49552:       m = b(
+49553:         e.y + e.moveVy * MONGSE_predictionSeconds + Math.cos(c + i * 1.7) * f,
+49554:       ),
+49555:       h = n.anchor === `boss`,
+49556:       g = n.anchor === `arena`,
+49557:       _ = n.shape === `cone` || n.shape === `line`,
+49558:       v = MONGSE_isTelekineticRain
+49559:         ? MONGSE_rainTargets[i].x
+49560:         : _
+49561:           ? p
+49562:           : h
+49563:             ? t.x
+49564:             : g
+49565:               ? l
+49566:               : p,
+49567:       y = MONGSE_isTelekineticRain
+49568:         ? MONGSE_rainTargets[i].y
+49569:         : _
+49570:           ? m
+49571:           : h
+49572:             ? t.y
+49573:             : g
+49574:               ? u
+49575:               : m,
+49576:       MONGSE_pendingHitId = e.fxSerial++,
+49577:       MONGSE_castId =
+49578:         n.telekinetic && (t.boss || t.midboss) ? e.fxSerial++ : null,
+49579:       MONGSE_source = MONGSE_telekineticSources?.[i] ?? null;
+49580:     if (n.telekinetic && (t.boss || t.midboss)) {
+49581:       MONGSE_source?.sprite &&
+49582:         e.telekineticCasts.push({
+49583:           id: MONGSE_castId,
+49584:           pendingHitId: MONGSE_pendingHitId,
+49585:           sourceId: t.id,
+49586:           featureId: MONGSE_source.featureId,
+49587:           born: s,
+49588:           at: MONGSE_hitAt,
+49589:           originX: MONGSE_source.originX,
+49590:           originY: MONGSE_source.originY,
+49591:           targetX: v,
+49592:           targetY: y,
+49593:           sprite: MONGSE_source.sprite,
+49594:           fallbackSprite: MONGSE_source.fallbackSprite,
+49595:           propId: MONGSE_source.propId,
+49596:           size: MONGSE_source.size,
+49597:           color: n.color,
+49598:           accent: n.accent,
+49599:           telekineticRain: MONGSE_isTelekineticRain,
+49600:           rainGroupId: MONGSE_rainGroupId,
+49601:           rainWave: MONGSE_rainWave + 1,
+49602:           rainIndex: i,
+49603:           rainCount: MONGSE_castCount,
+49604:           detachedFromMap: MONGSE_source.detachedFromMap,
+49605:           collidableHidden: !1,
+49606:           airborneCenterPivot: !!MONGSE_source.airborneCenterPivot,
+49607:           dedicatedSinProp: !!MONGSE_source.dedicatedSinProp,
+49608:           sevenSinMechanic: n.sevenSinMechanic,
+49609:         });
+49610:     }
+49611:     e.pendingHits.push({
+49612:       id: MONGSE_pendingHitId,
+49613:       sourceId: t.id,
+49614:       born: s,
+49615:       at: MONGSE_hitAt,
+49616:       x: v,
+49617:       y,
+49618:       originX: n.shape === `cone` || n.shape === `line` ? t.x : v,
+49619:       originY: n.shape === `cone` || n.shape === `line` ? t.y : y,
+49620:       damage: MONGSE_isTelekineticRain
+49621:         ? Math.max(1, Math.round(n.damage * (n.rainDamageScale ?? 0.74))) +
+49622:           (r - 1) * 2 +
+49623:           2
+49624:         : n.damage + (r - 1) * 2 + (t.boss ? 2 : 0),
+49625:       boss: !!t.boss,
+49626:       midboss: !!t.midboss,
+49627:       heavyBossSkill: !!(t.boss || t.midboss),
+49628:       heavyBossPatternV31302: !!(t.boss || t.midboss),
+49629:       patternSet: t.patternSet,
+49630:       radius: n.radius,
+49631:       innerRadius: n.innerRadius,
+49632:       width: n.width,
+49633:       shape: n.shape,
+49634:       color: n.color,
+49635:       accent: n.accent,
+49636:       status: n.status,
+49637:       statusValue: n.statusValue,
+49638:       label:
+49639:         MONGSE_isTelekineticRain && i === 0 ? `맵 전역 · ${n.name}` : n.name,
+49640:       perfectWindow: t.boss ? 0.34 : t.midboss ? 0.3 : 0,
+49641:       telekinetic: n.telekinetic,
+49642:       telekineticCastId: MONGSE_castId,
+49643:       telekineticSprite: MONGSE_source?.sprite,
+49644:       telekineticFallbackSprite: MONGSE_source?.fallbackSprite,
+49645:       telekineticPropId: MONGSE_source?.propId,
+49646:       airborneCenterPivot: !!MONGSE_source?.airborneCenterPivot,
+49647:       dedicatedSinProp: !!MONGSE_source?.dedicatedSinProp,
+49648:       sevenSinMechanic: n.sevenSinMechanic,
+49649:       gluttonTonguePull: !!n.gluttonTonguePull,
+49650:       sevenSinImpactSprite: n.impactSprite,
+49651:       impactFallbackSprite: n.impactFallbackSprite,
+49652:       telekineticRain: MONGSE_isTelekineticRain,
+49653:       rainGroupId: MONGSE_rainGroupId,
+49654:       rainWave: MONGSE_rainWave + 1,
+49655:       rainIndex: i,
+49656:       rainCount: MONGSE_castCount,
+49657:       suppressTelegraphLabel: MONGSE_isTelekineticRain && i !== 0,
+49658:     });
+49659:   }
+49660:   let MONGSE_phase0Asset =
+49661:       t.humanPhase0 && r === 0 ? MONGSE_EP1B_CANON_PHASE0_ASSETS[e.zone] : null,
+49662:     MONGSE_castThemeSprite = MONGSE_phase0Asset?.vfx ?? Jt(t.patternSet),
+49663:     MONGSE_castThemeFallback = MONGSE_phase0Asset ? Jt(t.patternSet) : null,
+49664:     MONGSE_castTorso = MONGSE_enemyTorsoOffset(t).y;
+49665:   MONGSE_castThemeSprite &&
+49666:     e.effects.push({
+49667:       id: e.fxSerial++,
+49668:       kind: `mark`,
+49669:       x: t.x,
+49670:       y: t.y,
+49671:       tx: t.x,
+49672:       ty: t.y,

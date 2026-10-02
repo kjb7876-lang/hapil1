@@ -1,0 +1,71 @@
+3992:         moveVy: 0,
+3993:         hp: 500,
+3994:         maxHp: 500,
+3995:         heroDamageTakenMultiplier: 1,
+3996:         invulnerableUntil: 0,
+3997:         lastDodgeAt: -99,
+3998:         counterUntil: 0,
+
+6257:           moveVy: -0.12,
+6258:           hp: 240,
+6259:           maxHp: 240,
+6260:           heroDamageTakenMultiplier: 1,
+6261:           invulnerableUntil: 0,
+6262:           lastDodgeAt: -99,
+6263:           counterUntil: 0,
+
+38978:       moveVy: -0.18,
+38979:       hp: 240,
+38980:       maxHp: 240,
+38981:       heroDamageTakenMultiplier: 1,
+38982:       facing: 1,
+38983:       fxSerial: 1,
+38984:       enemies: [t],
+
+42918:     activeHeroId: `hwando`,
+42919:     activeHeroMastery: 0,
+42920:     activeTimeMastery: 0,
+42921:     heroDamageTakenMultiplier: 1,
+42922:     temporalHistory: [],
+42923:     temporalRecordAt: 0,
+42924:     projectileStasisReadyAt: 0,
+
+46044:       Math.round(
+46045:         (t + MONGSE_percentHpDamage) *
+46046:           MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *
+46047:         (Number(e.heroDamageTakenMultiplier) || 1) *
+46048:             (window.__HAPIL_HELL_V31322__?.damageMultiplier(e) ?? 1) *
+46049:           (window.__HAPIL_RAID_RC24__?.damageScale?.(e,MONGSE_damageSource) ?? 1) *
+46050:           MONGSE_contactDamageScaleV31535,
+
+46453:         Math.round(
+46454:           t *
+46455:             MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *
+46456:             (Number(e.heroDamageTakenMultiplier) || 1) *
+46457:             (window.__HAPIL_HELL_V31322__?.damageMultiplier(e) ?? 1),
+46458:         ),
+46459:       ),
+
+54967:                     time: 100,
+54968:                     hp: 240,
+54969:                     maxHp: 240,
+54970:                     heroDamageTakenMultiplier: e,
+54971:                     invulnerableUntil: 0,
+54972:                     lastDodgeAt: -99,
+54973:                     counterUntil: 0,
+
+61046:               ((o.activeHeroId = n.id),
+61047:               (o.activeHeroMastery = r.level),
+61048:               (o.activeTimeMastery = i.level),
+61049:               (o.heroDamageTakenMultiplier =
+61050:                 (n.id === `ion` ? r.guardMultiplier : 1) * (window.__HAPIL_SAMONG_RC91__?.enabled(o)?1:(window.__HAPIL_STORY_RC51__?.incoming(o) ?? 1)) *
+61051:                 (Re.current
+61052:                   ? MONGSE_COMBAT_PHYSICS_V3128.autoIncomingMultiplier
+
+66571:         moveVy: 0,
+66572:         hp: 240,
+66573:         maxHp: 240,
+66574:         heroDamageTakenMultiplier: 1,
+66575:         invulnerableUntil: 0,
+66576:         lastDodgeAt: -99,
+66577:         counterUntil: 0,

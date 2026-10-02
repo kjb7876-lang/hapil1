@@ -1,0 +1,56 @@
+116875:     if(!needsMapSignature(s))return null;
+116876:     const signature=signatureFor(s?.zone),ids=new Set(signature.hostIds??[]);
+116877:     const actor=(s?.enemies??[]).find(candidate=>candidate&&num(candidate.hp)>0&&actorKeys(candidate).some(id=>ids.has(id))&&!candidate.visualOnly&&!candidate.objectiveStructureV31238&&!candidate.narrativeStructureV31238);
+116878:     if(!actor)return null;
+116879:     const row=ownerFor(actor);if(!row)return null;
+116880:     if(row.mapCarrierV31371)actor.danmakuOwnerIdV31316=row.actor.id;
+116881:     return trySchedule(s,actor,"map-signature",actor.id==="mb-dist01"?4:0);
+116882:   }
+116883:   const deltaAngle=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
+116884:   const hero=p=>!!(p?.heroSkillVfx||p?.heroId31213||p?.heroHitVfxV31315||p?.heroProjectileTransient);
+116885:   const suppress=s=>num(s?.enemySkillsSuppressedUntilV31309)>num(s?.time);
+116886:   function eligible(s,a) {
+116887:     const row=ownerFor(a),mapCarrier=!!row?.mapCarrierV31371&&!(a?.boss||a?.midboss);
+116888:     return !!(s&&a&&row&&row.zone===s.zone&&(a.boss||a.midboss||mapCarrier)&&a.hp>0&&s.hp>0&&s.enemies?.includes(a)&&!a.objectiveStructureV31238&&!a.narrativeStructureV31238);
+116889:   }
+116890:   function modeFor(a,family,cycle=0) {
+116891:     const p=window.__HAPIL_BOSS_V31315__?.profile(a,ownerFor(a)?.zone),theme=p?.theme??MONGSE_bossBarragePalette(a)?.theme;
+116892:     const rotation=theme==="spirit"||theme==="inferno"?1:["control","chrono","thread"].includes(theme)?3:0;
+116893:     const familyOffset=family==="rotating-laser"?1:family==="rolling-ordnance"?2:0;
+116894:     return deck[(Math.max(0,Math.floor(num(cycle)/4))+familyOffset+rotation)%deck.length];
+116895:   }
+116896:   function artFor(a,zone,family) {
+116897:     return {sprite:COMMON_BULLET,heading:0,radial:true,sourceZone:zone,sourceActor:String(a?.id??""),patternFamily:family};
+116898:   }
+116899:   function mapLockedArt(s,a,family,candidate) {
+116900:     let record=mapArtLocks.get(s);
+116901:     if(!record||record.zone!==s.zone){if(record)stats.lockResets++;record={zone:s.zone,assets:new Map()};mapArtLocks.set(s,record);}
+116902:     const key=String(a?.id??"boss")+":"+String(family??"danmaku");
+116903:     if(!record.assets.has(key))record.assets.set(key,Object.freeze({...candidate}));
+116904:     return record.assets.get(key);
+116905:   }
+116906:   function plan(s,a,family,cycle=0,forcedMode=null) {
+116907:     if(!eligible(s,a))return null;
+116908:     const dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),distance=Math.hypot(dx,dy);
+116909:     if(distance<MIN_DISTANCE)return null;
+116910:     const signature=signatureFor(s.zone),aim=Math.atan2(dy,dx),patternId=forcedMode??modeFor(a,family,cycle),spell=spellById.get(patternId)??spellById.get("fan"),mode=spell.family,variant=spell.variant,art=mapLockedArt(s,a,family,artFor(a,s.zone,family));
+116911:     if(!art)return null;
+116912:     // Fixed centre lane: radius .28 + hero .46 + .45 margin, even at entry distance.
+116913:     const gap=Math.max(.32,Math.asin(Math.min(.98,1.22/distance))+.08+signature.gapBonus),beats=[],span=Math.PI*2-gap*2;
+116914:     const mobile=window.__HAPIL_COMBAT_RC47__?.mobile?.()===true,density=mobile?0:signature.density,speeds=[1.15,3.65,6.8];
+116915:     const safeAngle=angle=>{const offset=deltaAngle(angle,aim);return Math.abs(offset)>=gap+.025?angle:aim+(offset<0?-1:1)*(gap+.025);};
+116916:     const arc=(count,shift=0)=>Array.from({length:count},(_,i)=>aim+gap+span*(i+.5)/count+shift);
+116917:     for(let beat=0;beat<(mode==="ring"?2:3);beat++) {
+116918:       const angles=[];
+116919:       if(mode==="scatter") {
+116920:           const count=mobile?12:48+density*8;
+116921:         for(let i=0;i<count;i++){
+116922:           const base=aim+gap+span*(i+.5)/count;
+116923:           const seed=(Math.imul((i+1)*(beat+3),2654435761)^(num(cycle)*2246822519))>>>0;
+116924:           angles.push(base+((seed%1001)/1000-.5)*.17);
+116925:         }
+116926:       } else if(mode==="ring") {
+116927:         const step=(Math.PI*2-gap*2)/10;
+116928:         for(let i=0;i<10;i++)angles.push(aim+gap+step*(i+.5)+(beat?step*.12:0));
+116929:       } else if(mode==="rotating") {
+116930:         const count=mobile?12:16+density*4,step=(Math.PI*2-gap*2)/count,rotation=beat*.19;
