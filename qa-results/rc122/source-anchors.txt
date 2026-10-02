@@ -1,0 +1,231 @@
+29480:       t <= 19 &&
+29481:       n >= 1 &&
+29482:       n <= 19 &&
+29483:       ((t >= 1.5 && t <= 6.1) ||
+29484:         (t >= 7.5 && t <= 12.1) ||
+29485:         (t >= 13.5 && t <= 18.5) ||
+29486:         (n >= 2.5 && n <= 6.1) ||
+29487:         (n >= 8.5 && n <= 12.1) ||
+29488:         (n >= 14.5 && n <= 18.5))
+29489:     );
+29490:   if (e === `gauntlet`)
+29491:     return (
+29492:       Math.abs(t + n - 19) <= 5 ||
+29493:       (t <= 6.8 && n >= 12.2) ||
+29494:       (t >= 12.2 && n <= 6.8)
+29495:     );
+29496:   if (e === `rings`) {
+29497:     let e = Math.hypot(r, i),
+29498:       a = Math.hypot(t - 3, n - 16.5) <= 3.6,
+29499:       o = Math.hypot(t - 16.5, n - 3) <= 3.6;
+29500:     return (
+29501:       a || o || (e <= 9 && (e <= 4.4 || e >= 4.8 || Math.abs(r - i) <= 2.3))
+29502:     );
+29503:   }
+29504:   let a = Math.hypot(t - 5, n - 13.5) <= 6.2,
+29505:     o = Math.hypot(t - 14, n - 5.5) <= 6.2,
+29506:     s = Math.abs(t + n - 19) <= 2.5;
+29507:   return a || o || s;
+29508: }
+29509: function MONGSE_openArenaContains(e, t) {
+29510:   return at(`open`, it(e), it(t));
+29511: }
+29512: function ot(e, t, n) {
+29513:   return !!Qe[e] && MONGSE_openArenaContains(t, n);
+29514: }
+29515: function st(e, t) {
+29516:   let n = { x: b(t.x), y: b(t.y) };
+29517:   if (ot(e, n.x, n.y)) return n;
+29518:   for (let t = 0.35; t <= 8; t += 0.35) {
+29519:     let r = Math.max(12, Math.ceil(t * 10));
+29520:     for (let i = 0; i < r; i++) {
+29521:       let a = (i / r) * Math.PI * 2,
+29522:         o = { x: b(n.x + Math.cos(a) * t), y: b(n.y + Math.sin(a) * t) };
+29523:       if (ot(e, o.x, o.y)) return o;
+29524:     }
+29525:   }
+29526:   return S(10, 10);
+29527: }
+29528: var ct = new Map();
+29529: function lt(e) {
+29530:   let t = ct.get(e);
+29531:   if (t) return t;
+29532:   if (MONGSE_isRestZone(e)) return (ct.set(e, []), []);
+29533:   let n = et(e),
+29534:     r = MONGSE_themePropCandidates(n),
+29535:     i = [...e].reduce((e, t) => e + t.charCodeAt(0), 0),
+29536:     a = $e[n]?.tint ?? `#54d9c1`,
+29537:     o = Math.min(MONGSE_MAX_AMBIENT_PROPS, r.length),
+29538:     s = Array.from({ length: o }, (t, n) => {
+29539:       let o = r[(i + n) % r.length],
+29540:         c =
+29541:           MONGSE_OPEN_ARENA_PROP_SLOTS[
+29542:             (i + n * 2) % MONGSE_OPEN_ARENA_PROP_SLOTS.length
+29543:           ],
+29544:         l = S(c[0], c[1]),
+29545:         u = [0.9, 0.96, 1.02][(i + n) % 3];
+29546:       return {
+29547:         id: `${e}-ambient-${n}`,
+29548:         kind: `ambientProp`,
+29549:         x: l.x,
+29550:         y: l.y,
+29551:         radius: Math.max(0.46, (o.collisionRadius ?? 0) * 0.38),
+29552:         collidable: !1,
+29553:         visualOnly: !0,
+29554:         ambientDecor: !0,
+29555:         approvedAsset: !0,
+29556:         telekineticSource: !1,
+29557:         size: o.baseSize * u,
+29558:         sprite: o.source,
+29559:         tint: a,
+29560:         propId: o.registryKey,
+29561:         flipX: (i + n) % 2 == 1,
+29562:         landmark: !0,
+29563:       };
+29564:     });
+29565:   return (ct.set(e, s), s);
+29566: }
+29567: function MONGSE_restTerrainIsEmpty(e) {
+29568:   return MONGSE_isRestZone(e) && lt(e).length === 0;
+29569: }
+29570: function ut(e, t, n, r = 0.45) {
+29571:   return t < 1.4 || t > 30.6 || n < 1.4 || n > 30.6 || !ot(e, t, n);
+29572: }
+29573: // Resolve the live terrain function outside the React component: its local ut is a stat object.
+29574: function HAPIL_blinkWalkableRC85(zone, point) {
+29575:   return !ut(zone, point.x, point.y, 0.46);
+29576: }
+29577: function dt(e, t, n = 0.45) {
+29578:   return st(e, t);
+29579: }
+29580: function ft(e, t, n, r = 0.45) {
+29581:   let i = Math.hypot(n.x, n.y);
+29582:   if (i < 1e-5) return { x: t.x, y: t.y };
+29583:   let a = { x: b(t.x + n.x), y: b(t.y + n.y) };
+29584:   if (!ut(e, a.x, a.y, r) && !pt(e, t, a, r)) return a;
+29585:   let o = [
+29586:     { x: a.x, y: t.y },
+29587:     { x: t.x, y: a.y },
+29588:     { x: b(t.x + n.x * 0.62), y: t.y },
+29589:     { x: t.x, y: b(t.y + n.y * 0.62) },
+29590:   ].filter((n) => !ut(e, n.x, n.y, r) && !pt(e, t, n, r));
+29591:   if (!o.length) return { x: t.x, y: t.y };
+29592:   let s = n.x / i,
+29593:     c = n.y / i;
+29594:   return o.sort((e, n) => {
+29595:     let r = (e.x - t.x) * s + (e.y - t.y) * c;
+29596:     return (n.x - t.x) * s + (n.y - t.y) * c - r;
+29597:   })[0];
+29598: }
+29599: function pt(e, t, n, r = 0.45) {
+29600:   let i = Math.hypot(n.x - t.x, n.y - t.y),
+29601:     a = Math.max(1, Math.ceil(i / 0.55));
+29602:   for (let i = 1; i < a; i++) {
+29603:     let o = i / a;
+29604:     if (ut(e, t.x + (n.x - t.x) * o, t.y + (n.y - t.y) * o, r)) return !0;
+29605:   }
+29606:   return !1;
+29607: }
+29608: function MONGSE_zonePortalAnchors(e) {
+29609:   let t = N?.[e],
+29610:     n = [t?.map, ...(t?.mapVariants ?? [])].filter(Boolean).join(` `),
+29611:     r,
+29612:     i,
+29613:     a = `diagonal`;
+29614:   if (
+29615:     /chapel|cathedral|throne|core|arena|court|palace|altar|gate|biovat|castle|kitchen/i.test(
+29616:       n,
+29617:     )
+29618:   )
+29619:     ((r = S(16.1, 16.1)), (i = S(4.1, 4.1)), (a = `south-north`));
+29620:   else if (
+29621:     /corridor|road|waterway|crosswalk|line|stair|harbor|port|village|hotel/i.test(
+29622:       n,
+29623:     )
+29624:   )
+29625:     ((r = S(3.2, 16.8)), (i = S(16.8, 3.2)), (a = `west-east`));
+29626:   else if (/forest|swamp|jungle|meadow|garden|ruin/i.test(n))
+29627:     ((r = S(4.2, 15.8)), (i = S(15.4, 5)), (a = `southwest-northeast`));
+29628:   else {
+29629:     let t = [...String(e)].reduce((e, t) => e + t.charCodeAt(0), 0) % 2;
+29630:     ((r = t ? S(15.8, 15.8) : S(4.2, 15.8)),
+29631:       (i = t ? S(4.2, 4.2) : S(15.8, 4.2)),
+29632:       (a = t ? `south-north` : `southwest-northeast`));
+29633:   }
+29634:   let o = dt(e, r, 0.48),
+29635:     s = dt(e, i, 0.82);
+29636:   return {
+29637:     zone: e,
+29638:     theme: a,
+29639:     entry: o,
+29640:     exit: s,
+29641:     interactionEntry: o,
+29642:     interactionExit: s,
+29643:   };
+29644: }
+29645: function MONGSE_portalAnchorValid(e, t, n = 0.48) {
+29646:   return !!t && !ut(e, t.x, t.y, n);
+29647: }
+29648: function MONGSE_bossLaneCandidates(e, t) {
+29649:   if (!e || !t) return [];
+29650:   let n = `${e.zone}:${t.id}:${Math.round(t.x * 2)}:${Math.round(t.y * 2)}`,
+29651:     r = e.bossLaneCandidateCache31210,
+29652:     i =
+29653:       r?.key === n && Number(r.until ?? 0) > Number(e.time ?? 0)
+29654:         ? r.points
+29655:         : [
+29656:             { lane: `left`, x: t.x - 3, y: t.y + 4.5 },
+29657:             { lane: `right`, x: t.x + 4.5, y: t.y - 3 },
+29658:             { lane: `bottom`, x: t.x + 3.4, y: t.y + 3.4 },
+29659:           ].map((a) => {
+29660:             let MONGSE_rawLane = { x: b(a.x), y: b(a.y) },
+29661:               n = !ut(e.zone, MONGSE_rawLane.x, MONGSE_rawLane.y, 0.48)
+29662:                 ? MONGSE_rawLane
+29663:                 : dt(e.zone, MONGSE_rawLane, 0.48),
+29664:               r = C(n.x, n.y),
+29665:               i = C(t.x, t.y);
+29666:             return {
+29667:               ...a,
+29668:               x: n.x,
+29669:               y: n.y,
+29670:               depthGap: n.x + n.y - (t.x + t.y),
+29671:               screenGap: Math.hypot(r.x - i.x, r.y - i.y),
+29672:             };
+29673:           });
+29674:   r?.key === n ||
+29675:     (e.bossLaneCandidateCache31210 = {
+29676:       key: n,
+29677:       until:
+29678:         Number(e.time ?? 0) +
+29679:         MONGSE_COMBAT_DIRECTOR_V31210.laneCandidateCacheSeconds,
+29680:       points: i,
+29681:     });
+29682:   return i
+29683:     .map((n) => {
+29684:       let r = { x: n.x, y: n.y },
+29685:         i = C(r.x, r.y),
+29686:         a = C(t.x, t.y);
+29687:       return {
+29688:         ...n,
+29689:         x: r.x,
+29690:         y: r.y,
+29691:         depthGap: r.x + r.y - (t.x + t.y),
+29692:         screenGap: Math.hypot(i.x - a.x, i.y - a.y),
+29693:         distance: Math.hypot(r.x - e.x, r.y - e.y),
+29694:       };
+29695:     })
+29696:     .filter(
+29697:       (n) =>
+29698:         !ut(e.zone, n.x, n.y, 0.48) &&
+29699:         n.depthGap >= MONGSE_COMBAT_PHYSICS_V3128.bossHeroDepthGap &&
+29700:         Math.hypot(n.x - t.x, n.y - t.y) >= 3,
+29701:     );
+29702: }
+29703: function MONGSE_forceHeroBossLane(e, t, n = !1) {
+29704:   if (MONGSE_isBossForcedRelocationExempt31213(e)) {
+29705:     ((e.bossLaneLastBossId31210 = t?.id ?? null),
+29706:       (e.rangedBossSafeRing31213 = !0));
+29707:     return null;
+29708:   }
+29709:   let MONGSE_hardReadyMap = (e.bossLaneHardReadyByBoss31210 ??= {}),
+29710:     MONGSE_bossReadyAt = Number(MONGSE_hardReadyMap[t?.id] ?? 0);

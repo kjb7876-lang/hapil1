@@ -1,0 +1,501 @@
+54310:           } catch { window.__HAPIL_READABILITY_V31336__?.saveResult({ok:false,persistent:false}); }
+54311:         },
+54312:         n = window.setTimeout(t, 180),
+54313:         r = window.setInterval(t, 15e3);
+54314:       return (
+54315:         window.addEventListener(`pagehide`, t),
+54316:         () => {
+54317:           (window.clearTimeout(n),
+54318:             window.clearInterval(r),
+54319:             window.removeEventListener(`pagehide`, t),
+54320:             t());
+54321:         }
+54322:       );
+54323:     }, [e, i, o, m, x.zone, x.clues, x.enemies, x.boss, x.villageTalk]),
+54324:     (0, l.useEffect)(() => {
+54325:       let t = ev => window.__HAPIL_CONTROLS_V31329__?.key(ev,true),
+54326:           n = ev => window.__HAPIL_CONTROLS_V31329__?.key(ev,false),
+54327:           r = () => { I.current.clear();window.__HAPIL_CONTROLS_V31329__?.clear(); };
+54328:       return (
+54329:         window.addEventListener(`keydown`, t, { passive: !1 }),
+54330:         window.addEventListener(`keyup`, n),
+54331:         window.addEventListener(`blur`, r),
+54332:         document.addEventListener(`visibilitychange`, r),
+54333:         () => {
+54334:           (window.removeEventListener(`keydown`, t),
+54335:             window.removeEventListener(`keyup`, n),
+54336:             window.removeEventListener(`blur`, r),
+54337:             document.removeEventListener(`visibilitychange`, r),
+54338:             r());
+54339:         }
+54340:       );
+54341:     }, [Ye, et, Qe, O, $e, tt, e, Xe, Ze]),
+54342:     (0, l.useEffect)(() => {
+54343:       if (e !== `game`) return;
+54344:       const HAPIL_selectPhysicianRC51=()=>{L.current='hwando';P.current.activeHeroId='hwando';a('hwando');};
+54345:       let t = 0,
+54346:         n = performance.now(),
+54347:         r = 0,
+54348:         i = (e) => {
+54349:           let MONGSE_frameDeltaMs31220 = Math.max(0, e - n),
+54350:             a = Math.min(0.04, MONGSE_frameDeltaMs31220 / 1e3);
+54351:           n = e;
+54352:           if(!window.__HAPIL_COMBAT_V31333__?.installed){t=requestAnimationFrame(i);return;}
+54353:           // Hidden tabs retain simulation state without rendering or polling combat DOM.
+54354:           if(document.hidden){t=requestAnimationFrame(i);return;}
+54355:           MONGSE_noteFrameTime31220(
+54356:             Me.current,
+54357:             MONGSE_frameDeltaMs31220,
+54358:             !!ze.current.lowFx,
+54359:           );
+54360:           let o = P.current,
+54361:             s = !!(Ve.current || O || window.__HAPIL_READING_V31342__?.blocked);
+54362:           window.__HAPIL_EPISODE1_RC59__?.visit(o);
+54363:           s = s || document.hidden===true || window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()===true || window.__HAPIL_RECORDS_V31365__?.isOpen()===true || o.practicePatternV31365?.finished===true;
+54364:           s = window.__HAPIL_STORY_RC51__?.beforeFrame(o, {
+54365:             blocked:s, clear:MONGSE_zoneCombatCleared(o,o.zone), sound:!!ze.current.sound, voiceVolume:ze.current.sfxVolume, selectPhysician:HAPIL_selectPhysicianRC51,
+54366:             finish:()=>{HAPIL_commitFinalEndingV31301(o,L.current,Le.current,R.current,Be.current);window.dispatchEvent(new CustomEvent('hapil:final-event',{detail:{phase:'ending-title'}}));}
+54367:           }) || s;
+54368:           const HAPIL_heroDeltaRC51=a;
+54369:           window.__HAPIL_SAMONG_RC91__?.advance(o,MONGSE_frameDeltaMs31220/1000,s||window.__HAPIL_PARTY_V31322__?.status?.paused===true||window.__HAPIL_PARTY_V31322__?.status?.disconnected===true);
+54370:           if(!s)a=window.__HAPIL_STORY_RC51__?.clock(o,a)??a;
+54371:           window.__HAPIL_CONTROLS_V31329__?.frameStart(o,a,{state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,cache:Pe});
+54372:           s = window.__HAPIL_PARTY_V31322__?.capture(o, {damage: qe, heroRef: L, cache: Pe.current}, s) || s;
+54373:           window.__HAPIL_RC79__?.advanceFinalClock(o,MONGSE_frameDeltaMs31220/1000,s);
+54374:           window.__HAPIL_CONTROLS_V31329__?.syncLifecycle?.(o,s);window.__HAPIL_MOBILE_V31366__?.beforeFrame(o,s);window.__HAPIL_CHANNEL_V31364__?.beforeFrame(o,s);window.__HAPIL_LOOP_V31365__?.beforeFrame(o,s);
+54375:           if(!s)window.__HAPIL_COMBAT_FLOW_RC95__?.balance(o,R.current,window.__HAPIL_RC95_NATIVE__);
+54376:           window.__HAPIL_CONTACT_V31336__?.capture(o);
+54377:           let MONGSE_infiniteBaseStats = MONGSE_infiniteStats(R.current);
+54378:           if (!window.__HAPIL_PARTY_V31322__?.blocksSave()) ((o.maxHp = 240 + MONGSE_infiniteBaseStats.maxHpBonus),
+54379:             (o.hp = Math.min(o.hp, o.maxHp)));
+54380:           if (
+54381:             typeof window !== `undefined` &&
+54382:             new URLSearchParams(window.location.search).has(`qa`)
+54383:           ) {
+54384:             window.__MONGSE_QA_STATE__ = o;
+54385:             window.__MONGSE_QA_API__ = {
+54386:               stageV3128BossShowcase: (e = 'dist06') => {
+54387:                 if (!N[e] || !he.includes(e))
+54388:                   return { pass: !1, reason: 'zone-missing', zone: e };
+54389:                 o.zone = e;
+54390:                 ii(o, e);
+54391:                 let t = ni(e, 'boss') ?? ni(e, 'midboss');
+54392:                 if (!t)
+54393:                   return { pass: !1, reason: 'boss-missing', zone: e };
+54394:                 ((o.enemies = [t]),
+54395:                   (o.spawnedWaves = new Set([1, 2, 3])),
+54396:                   (o.bossDefeated = !1),
+54397:                   (o.hp = o.maxHp),
+54398:                   (o.narrativeCasts = []),
+54399:                   (t.phaseTransitionUntil = 0),
+54400:                   (t.attackAt = 0),
+54401:                   (t.attackStarted = 0),
+54402:                   (t.attackImpactAt = 0),
+54403:                   (t.recoverUntil = 0),
+54404:                   (t.readyAt = o.time + 2),
+54405:                   (t.patternReadyAt = o.time + 2),
+54406:                   (t.themedOrdnanceCycle = 0),
+54407:                   (t.themedOrdnanceAt = o.time + 0.12),
+54408:                   (t.themedSummonAt = o.time + 0.12),
+54409:                   MONGSE_forceHeroBossLane(o, t, !0),
+54410:                   (o.invulnerableUntil = o.time + 14));
+54411:                 return {
+54412:                   pass: !0,
+54413:                   zone: e,
+54414:                   bossId: t.id,
+54415:                   hero: { x: o.x, y: o.y },
+54416:                   boss: { x: t.x, y: t.y },
+54417:                   lane: o.bossLane,
+54418:                 };
+54419:               },
+54420:               forceEnemyBreakR4: () => {
+54421:                 let e = (o.enemies ?? []).find(
+54422:                   (e) => e.hp > 0 && (e.boss || e.midboss),
+54423:                 );
+54424:                 if (!e) return { pass: !1, reason: `boss-missing` };
+54425:                 let t = (o.hostileProjectiles ?? []).filter(
+54426:                   (t) => t.sourceId === e.id,
+54427:                 ).length;
+54428:                 return (
+54429:                   MONGSE_triggerEnemyBreak(o, e),
+54430:                   {
+54431:                     pass: !0,
+54432:                     bossId: e.id,
+54433:                     beforeProjectiles: t,
+54434:                     afterProjectiles: (o.hostileProjectiles ?? []).filter(
+54435:                       (t) => t.sourceId === e.id,
+54436:                     ).length,
+54437:                   }
+54438:                 );
+54439:               },
+54440:               forceDefeatCurrentBossR4: () => {
+54441:                 let e = (o.enemies ?? []).find(
+54442:                   (e) => e.hp > 0 && (e.boss || e.midboss),
+54443:                 );
+54444:                 if (!e) return { pass: !1, reason: `boss-missing` };
+54445:                 let t = e.id,
+54446:                   n = !!e.boss,
+54447:                   r = !!e.midboss;
+54448:                 return (
+54449:                   (e.hp = 0),
+54450:                   Ke(e),
+54451:                   {
+54452:                     pass: !(o.enemies ?? []).some((e) => e.id === t),
+54453:                     bossId: t,
+54454:                     boss: n,
+54455:                     midboss: r,
+54456:                     remainingProjectiles: (o.hostileProjectiles ?? []).filter(
+54457:                       (e) => e.sourceId === t,
+54458:                     ).length,
+54459:                   }
+54460:                 );
+54461:               },
+54462:               forceV3128ThemeOrdnance: (e = 'laser') => {
+54463:                 let t = (o.enemies ?? []).find(
+54464:                   (e) => e.hp > 0 && (e.boss || e.midboss),
+54465:                 );
+54466:                 if (!t) return { pass: !1, reason: 'boss-missing' };
+54467:                 return (
+54468:                   (t.attackAt = 0),
+54469:                   (t.attackStarted = 0),
+54470:                   (t.attackImpactAt = 0),
+54471:                   (t.recoverUntil = 0),
+54472:                   (t.phaseTransitionUntil = 0),
+54473:                   (t.themedOrdnanceCycle = e === 'laser' ? 1 : 0),
+54474:                   (t.themedOrdnanceAt = o.time + 999),
+54475:                   {
+54476:                     pass: !0,
+54477:                     kind: e,
+54478:                     bossId: t.id,
+54479:                     spawned:
+54480:                       e === 'laser'
+54481:                         ? MONGSE_spawnBossLaserFan(o, t)
+54482:                         : MONGSE_spawnReturningBossVolley(o, t),
+54483:                   }
+54484:                 );
+54485:               },
+54486:               forceV3129ThemeOrdnance: (e = 'twin-spiral') => {
+54487:                 let t = (o.enemies ?? []).find(
+54488:                   (e) => e.hp > 0 && (e.boss || e.midboss),
+54489:                 );
+54490:                 if (!t) return { pass: !1, reason: 'boss-missing' };
+54491:                 ((t.attackAt = 0),
+54492:                   (t.attackStarted = 0),
+54493:                   (t.attackImpactAt = 0),
+54494:                   (t.recoverUntil = 0),
+54495:                   (t.phaseTransitionUntil = 0),
+54496:                   (o.hostileProjectiles = []),
+54497:                   (o.pendingHits = []));
+54498:                 let n = MONGSE_spawnThemeOrdnanceKind3129(o, t, e),
+54499:                   r = o.hostileProjectiles.filter(
+54500:                     (e) => e.densePattern3129 === n.kind || e.themeProjectile,
+54501:                   ).length,
+54502:                   i = o.pendingHits.filter(
+54503:                     (e) => e.laserPattern3129 === n.kind || e.themedLaser,
+54504:                   ).length;
+54505:                 return {
+54506:                   pass:
+54507:                     MONGSE_THEME_ORDNANCE_SEQUENCE_V3129.includes(e) &&
+54508:                     (r > 0 || i > 0) &&
+54509:                     o.hostileProjectiles.length <=
+54510:                       MONGSE_COMBAT_PHYSICS_V3128.projectileCap,
+54511:                   kind: e,
+54512:                   bossId: t.id,
+54513:                   projectiles: r,
+54514:                   lasers: i,
+54515:                   cap: o.hostileProjectiles.length,
+54516:                 };
+54517:               },
+54518:               probeV3129BulletHellCatalog: () => {
+54519:                 let e = Zr('dist06', 'boss') ?? Zr('ep1a11', 'boss'),
+54520:                   t = MONGSE_THEME_ORDNANCE_SEQUENCE_V3129.map((t, n) => {
+54521:                     let r = Jr(e, 'dist06');
+54522:                     ((r.boss = !0),
+54523:                       (r.midboss = !1),
+54524:                       (r.hp = Math.max(1, r.hp)),
+54525:                       (r.themedOrdnanceCycle = n + 1));
+54526:                     let i = {
+54527:                         zone: 'dist06',
+54528:                         x: r.x + 4.8,
+54529:                         y: r.y + 4.1,
+54530:                         moveVx: 0.31,
+54531:                         moveVy: -0.17,
+54532:                         time: 200 + n,
+54533:                         enemies: [r],
+54534:                         hostileProjectiles: [],
+54535:                         pendingHits: [],
+54536:                         floatTexts: [],
+54537:                         effects: [],
+54538:                         narrativeCasts: [],
+54539:                         fxSerial: 1000 + n * 100,
+54540:                       },
+54541:                       a = MONGSE_spawnThemeOrdnanceKind3129(i, r, t),
+54542:                       s = i.hostileProjectiles.length,
+54543:                       c = i.pendingHits.filter((e) => e.themedLaser).length,
+54544:                       l = i.hostileProjectiles.every(
+54545:                         (e) => !!e.sprite && e.themeProjectile === !0,
+54546:                       ),
+54547:                       u =
+54548:                         s <= MONGSE_COMBAT_PHYSICS_V3128.projectileCap &&
+54549:                         (s > 0 || c > 0) &&
+54550:                         (s === 0 || l);
+54551:                     return {
+54552:                       kind: t,
+54553:                       projectiles: s,
+54554:                       lasers: c,
+54555:                       thematicSprites: l,
+54556:                       result: a,
+54557:                       pass: u,
+54558:                     };
+54559:                   }),
+54560:                   n = t.reduce((e, t) => e + t.projectiles, 0),
+54561:                   r = t.reduce((e, t) => e + t.lasers, 0),
+54562:                   i =
+54563:                     t.length === 8 &&
+54564:                     t.every((e) => e.pass) &&
+54565:                     t.filter((e) => e.projectiles > 0).length === 5 &&
+54566:                     t.filter((e) => e.lasers > 0).length === 3 &&
+54567:                     n >= 124 &&
+54568:                     r >= 20;
+54569:                 return {
+54570:                   version: '3.12.9',
+54571:                   patternCount: t.length,
+54572:                   bulletPatternCount: t.filter((e) => e.projectiles > 0)
+54573:                     .length,
+54574:                   laserPatternCount: t.filter((e) => e.lasers > 0).length,
+54575:                   totalProjectilesAcrossCatalog: n,
+54576:                   totalLasersAcrossCatalog: r,
+54577:                   patterns: t,
+54578:                   allPass: i,
+54579:                   pass: i,
+54580:                 };
+54581:               },
+54582:               probeV31210BossDirectorContract: () => {
+54583:                 let e = [
+54584:                     `dist06`,
+54585:                     `ep1b05`,
+54586:                     `u203`,
+54587:                     `last303`,
+54588:                     `kair03`,
+54589:                     `hando03`,
+54590:                     `murder03`,
+54591:                     `cult02`,
+54592:                   ]
+54593:                     .map((e) => Zr(e, `boss`))
+54594:                     .filter(Boolean),
+54595:                   t = e.map((e) => {
+54596:                     let t = MONGSE_bossDirectorProfile31210(e);
+54597:                     return {
+54598:                       id: e.id,
+54599:                       archetype: t.archetype,
+54600:                       deck: t.deck,
+54601:                       modifier: t.phaseModifier,
+54602:                       signature: t.signatureLabel,
+54603:                     };
+54604:                   }),
+54605:                   n = new Set(t.map((e) => e.archetype)).size,
+54606:                   r = new Set(t.map((e) => e.deck.join(`|`))).size,
+54607:                   i = Jr(Zr(`dist06`, `boss`), `dist06`),
+54608:                   a = {
+54609:                     zone: `dist06`,
+54610:                     x: i.x + 4.8,
+54611:                     y: i.y + 4.2,
+54612:                     moveVx: 0.2,
+54613:                     moveVy: -0.1,
+54614:                     time: 310,
+54615:                     enemies: [i],
+54616:                     hostileProjectiles: [],
+54617:                     pendingHits: [],
+54618:                     impactQueue: [],
+54619:                     telekineticCasts: [],
+54620:                     spatialRiftCasts: [],
+54621:                     floatTexts: [],
+54622:                     effects: [],
+54623:                     narrativeCasts: [],
+54624:                     fxSerial: 1e4,
+54625:                   };
+54626:                 ((i.boss = !0),
+54627:                   (i.midboss = !1),
+54628:                   (i.hp = Math.max(1, i.hp)),
+54629:                   (i.attackAt = 0),
+54630:                   (i.recoverUntil = 0),
+54631:                   (i.phaseTransitionUntil = 0));
+54632:                 let s = MONGSE_spawnSweepingLaserFan3129(a, i),
+54633:                   c = Math.max(...a.pendingHits.map((e) => Number(e.at ?? 0))),
+54634:                   l =
+54635:                     s > 0 &&
+54636:                     Number(i.castVisualUntil31210 ?? 0) >= c + 0.25 &&
+54637:                     MONGSE_isPersistentBossCastActive(a, i),
+54638:                   MONGSE_delaySample = a.pendingHits[0],
+54639:                   MONGSE_delayBefore = MONGSE_delaySample
+54640:                     ? {
+54641:                         at: Number(MONGSE_delaySample.at ?? 0),
+54642:                         resolve: Number(
+54643:                           MONGSE_delaySample.bossCastResolveAt31210 ?? 0,
+54644:                         ),
+54645:                         protect: Number(
+54646:                           MONGSE_delaySample.interruptProtectedUntil31210 ?? 0,
+54647:                         ),
+54648:                         atomic: Number(i.atomicCastUntil31210 ?? 0),
+54649:                         visual: Number(i.castVisualUntil31210 ?? 0),
+54650:                       }
+54651:                     : null,
+54652:                   MONGSE_delayedHits = MONGSE_delayPendingBossHits31210(
+54653:                     a,
+54654:                     (e) => e.sourceId === i.id && e.at > a.time,
+54655:                     () => 0.45,
+54656:                   ),
+54657:                   MONGSE_delayedAtomicLifetime =
+54658:                     !!MONGSE_delayBefore &&
+54659:                     MONGSE_delayedHits === s &&
+54660:                     Math.abs(
+54661:                       Number(MONGSE_delaySample.at ?? 0) -
+54662:                         (MONGSE_delayBefore.at + 0.45),
+54663:                     ) < 1e-6 &&
+54664:                     Math.abs(
+54665:                       Number(
+54666:                         MONGSE_delaySample.bossCastResolveAt31210 ?? 0,
+54667:                       ) -
+54668:                         (MONGSE_delayBefore.resolve + 0.45),
+54669:                     ) < 1e-6 &&
+54670:                     Math.abs(
+54671:                       Number(
+54672:                         MONGSE_delaySample.interruptProtectedUntil31210 ?? 0,
+54673:                       ) -
+54674:                         (MONGSE_delayBefore.protect + 0.45),
+54675:                     ) < 1e-6 &&
+54676:                     Number(i.atomicCastUntil31210 ?? 0) >=
+54677:                       MONGSE_delayBefore.atomic + 0.45 - 1e-6 &&
+54678:                     Number(i.castVisualUntil31210 ?? 0) >=
+54679:                       MONGSE_delayBefore.visual + 0.45 - 1e-6 &&
+54680:                     Number(i.recoverUntil ?? 0) >=
+54681:                       Number(i.atomicCastUntil31210 ?? 0) +
+54682:                         MONGSE_COMBAT_DIRECTOR_V31210.atomicRecoveryPadding -
+54683:                         1e-6,
+54684:                   u = MONGSE_clearQueuedEnemyImpacts(a, i.id),
+54685:                   d =
+54686:                     u.remaining === s &&
+54687:                     a.pendingHits.filter((e) => e.sourceId === i.id).length ===
+54688:                       s,
+54689:                   f = Jr(Zr(`dist06`, `boss`), `dist06`),
+54690:                   p = {
+54691:                     ...a,
+54692:                     time: 330,
+54693:                     enemies: [f],
+54694:                     hostileProjectiles: Array.from({ length: 96 }, (_, e) => ({
+54695:                       id: 2e4 + e,
+54696:                       sourceId: `reserved-pattern`,
+54697:                       born: 329,
+54698:                       expiresAt: 340,
+54699:                       atomicBossCast31210: !0,
+54700:                       interruptProtectedUntil31210: 340,
+54701:                     })),
+54702:                     pendingHits: [],
+54703:                     impactQueue: [],
+54704:                     floatTexts: [],
+54705:                     effects: [],
+54706:                     narrativeCasts: [],
+54707:                     bossOrdnanceCues31210: [],
+54708:                     fxSerial: 3e4,
+54709:                   },
+54710:                   m = MONGSE_bossDirectorProfile31210(f),
+54711:                   h = new Set([`laser-fan`, `laser-sweep`, `laser-lattice`]),
+54712:                   g = Math.max(
+54713:                     0,
+54714:                     m.deck.findIndex(
+54715:                       (e, t) =>
+54716:                         !h.has(e) &&
+54717:                         !(
+54718:                           /laser|lattice|scan|sweep|shutter|seam|lane|row|grid|column|judgment/.test(
+54719:                             e,
+54720:                           ) &&
+54721:                           t % 2 === 0
+54722:                         ),
+54723:                     ),
+54724:                   );
+54725:                 ((f.boss = !0),
+54726:                   (f.midboss = !1),
+54727:                   (f.hp = Math.max(1, f.hp)),
+54728:                   (f.attackAt = 0),
+54729:                   (f.recoverUntil = 0),
+54730:                   (f.phaseTransitionUntil = 0),
+54731:                   (f.staggerUntil = 0),
+54732:                   (f.atomicCastUntil31210 = 0),
+54733:                   (f.themedOrdnanceCycle = g),
+54734:                   (f.themedOrdnanceAt = p.time));
+54735:                 let _ = MONGSE_tickBossThemeOrdnance(p),
+54736:                   v =
+54737:                     Number(f.themedOrdnanceCycle ?? -1) === g &&
+54738:                     Math.abs(Number(f.themedOrdnanceAt ?? 0) - (p.time + 0.55)) <
+54739:                       1e-6 &&
+54740:                     _.volleys === 0 &&
+54741:                     _.lasers === 0,
+54742:                   y = Jr(Zr(`dist06`, `boss`), `dist06`),
+54743:                   x = {
+54744:                     zone: `dist06`,
+54745:                     x: y.x - 1,
+54746:                     y: y.y - 1,
+54747:                     target: null,
+54748:                     path: [],
+54749:                     moveVx: 0,
+54750:                     moveVy: 0,
+54751:                     time: 10,
+54752:                     enemies: [y],
+54753:                     invulnerableUntil: 0,
+54754:                   };
+54755:                 ((y.boss = !0), (y.hp = Math.max(1, y.hp)));
+54756:                 let S = MONGSE_forceHeroBossLane(x, y, !0);
+54757:                 x.time = 12.999;
+54758:                 let C = MONGSE_forceHeroBossLane(x, y, !0);
+54759:                 x.time = 13;
+54760:                 let E = MONGSE_forceHeroBossLane(x, y, !0),
+54761:                   T =
+54762:                     !!S &&
+54763:                     C === null &&
+54764:                     !!E &&
+54765:                     Number(x.invulnerableUntil ?? 0) <= 13.421,
+54766:                   w = Jr(Zr(`last303`, `boss`), `last303`),
+54767:                   A = {
+54768:                     ...a,
+54769:                     zone: `last303`,
+54770:                     time: 350,
+54771:                     enemies: [w],
+54772:                     hostileProjectiles: [],
+54773:                     pendingHits: [],
+54774:                     impactQueue: [],
+54775:                     floatTexts: [],
+54776:                     effects: [],
+54777:                     narrativeCasts: [],
+54778:                     fxSerial: 4e4,
+54779:                   };
+54780:                 ((w.boss = !0),
+54781:                   (w.hp = Math.max(1, w.hp)),
+54782:                   (w.themedSummonAt = 0),
+54783:                   (w.phaseTransitionUntil = 0));
+54784:                 let R = MONGSE_tickThemedBossSummons(A),
+54785:                   O = R.spawned === 0 && !A.enemies.some((e) => e.themedMapSummon),
+54786:                   M = Jr(Zr(`dist06`, `boss`), `dist06`),
+54787:                   I = Jr(Zr(`ep1a11`, `boss`), `dist06`),
+54788:                   P = {
+54789:                     ...a,
+54790:                     time: 370,
+54791:                     enemies: [M, I],
+54792:                     hostileProjectiles: [],
+54793:                     pendingHits: [],
+54794:                     impactQueue: [],
+54795:                     narrativeCasts: [],
+54796:                     narrativeCastHistory: {},
+54797:                     floatTexts: [],
+54798:                     effects: [],
+54799:                     fxSerial: 5e4,
+54800:                   };
+54801:                 ((M.boss = !0),
+54802:                   (I.boss = !0),
+54803:                   (M.hp = Math.max(1, M.hp)),
+54804:                   (I.hp = Math.max(1, I.hp)),
+54805:                   MONGSE_beginNarrativeAttack(P, M, 1),
+54806:                   MONGSE_beginNarrativeAttack(P, I, 1));
+54807:                 let L = P.narrativeCasts.length === 2,
+54808:                   k = Object.values(N)
+54809:                     .flatMap((e) => e.enemies ?? [])
+54810:                     .filter((e) => e.actorIdentityLocked31210)

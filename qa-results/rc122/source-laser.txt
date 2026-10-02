@@ -1,0 +1,151 @@
+120260:     if(!touch)continue;
+120261:     const h={id:c.id,sourceId:c.sourceId,born:c.born,at:s.time,x:a.x,y:a.y,originX:c.cx,originY:c.cy,shape:'line',radius:16,width:c.width,damage:c.damage,boss:!!src.boss,midboss:!!src.midboss,status:'none',statusValue:0,laserV31330:true,label:c.patternNameV31331??('광맥 · '+labels[c.type]),color:c.color};
+120262:     h.contactVisualV31362=visualContactV31362;
+120263:      window.__HAPIL_CONTACT_V31336__?.stamp(s,a,h,{heart:heartTouch});
+120264:     const hit=a===s?Y(s,c.damage,a.x,a.y,h):P().debug.allyDamage(s,a,c.damage,h);
+120265:     if(hit){if(rec){rec.at=s.time;rec.count++;}else c.contacts.push({key:k,at:s.time,count:1});stats.hits++;}
+120266:    }c.lastTick=s.time;
+120267:   }s.bossLaserCastsV31330=list;
+120268:  }
+120269:  function draw(ctx,cc,s,settings={}){cacheByState.set(s,cc);for(const c of s.bossLaserCastsV31330??[]){if(!valid(c,s.zone)||s.time<c.born||s.time>=c.endAt)continue;const a=actor(s,c);if(protectedActor(a)||s.hp<=0)continue;
+120270:    const warning=s.time<c.fireAt,geo=geometry(c,s.time),opacity=Math.max(.72,NUM(MONGSE_skillFxOpacity(settings),1)),hw=halfWidth(c),boss=tier(c)==='boss',charge=CL((s.time-c.born)/(c.fireAt-c.born),0,1),age=s.time-c.fireAt,quiet=settings.reducedFlash===true,low=settings.lowFx===true;
+120271:    if(false&&c.bloodV31516&&window.__HAPIL_BLOOD_RC16__?.draw(ctx,cc,s,c,settings)){stats.draws++;continue;}
+120272:     // RC95: laser anticipation is mandatory even with optional telegraphs disabled.
+120273:     ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;
+120274:      if(warning){for(const l of geo){const point=a=>window.__HAPIL_COMBAT_V31333__?.core(a)??G(a.x,a.y),p=point(l.a),q=point(l.b),len=Math.hypot(q.x-p.x,q.y-p.y),nx=-(q.y-p.y)/Math.max(1,len),ny=(q.x-p.x)/Math.max(1,len);
+120275:       ctx.globalAlpha=opacity*(.09+.13*charge);ctx.strokeStyle=c.color;ctx.lineWidth=hw*2;ctx.lineCap='round';ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();
+120276:       ctx.globalAlpha=opacity*(.55+.40*charge);ctx.lineWidth=2;ctx.setLineDash(charge>.82?[]:[10,7]);ctx.lineCap='butt';
+120277:       for(const sign of[-1,1]){ctx.beginPath();ctx.moveTo(p.x+nx*hw*sign,p.y+ny*hw*sign);ctx.lineTo(q.x+nx*hw*sign,q.y+ny*hw*sign);ctx.stroke();}
+120278:      }ctx.setLineDash([]);
+120279:     }else{const im=MONGSE_queueImage(cc,c.beam,'eager');{const iw=im?.naturalWidth||im?.width||0,ih=im?.naturalHeight||im?.height||0,fade=s.time>c.fireAt+c.activeSeconds?CL((c.endAt-s.time)/.22,0,1):1,shock=quiet?0:Math.max(0,1-age/.20),point=a=>window.__HAPIL_COMBAT_V31333__?.core(a)??G(a.x,a.y),projected=geo.map(l=>({a:point(l.a),b:point(l.b)})).filter(l=>Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y)>=1),terminal=p=>projected.reduce((n,l)=>n+(Math.hypot(l.a.x-p.x,l.a.y-p.y)<2?1:0)+(Math.hypot(l.b.x-p.x,l.b.y-p.y)<2?1:0),0)===1;
+120280:       const joined=window.__HAPIL_CONNECTED_LASER_V31377__;
+120281:       if(joined?.render)joined.render(ctx,projected,{width:hw,complex:window.__HAPIL_CONNECTED_LASER_V31377__?.complexType(c.type),color:c.color,accent:c.accent,image:im,alpha:opacity*fade,quiet,low,shock});
+120282:       else{ctx.strokeStyle=c.color;ctx.lineWidth=hw*2;ctx.lineCap='round';ctx.lineJoin='round';ctx.globalAlpha=opacity*fade;for(const l of projected){ctx.beginPath();ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);ctx.stroke();}}
+120283:       stats.draws++;
+120284:      }}
+120285:     // Keep existing owner-coloured tears, scale the charging source by enemy rank.
+120286:     if(warning){const tear=MONGSE_queueImage(cc,c.tear,'eager');if(tear?.complete&&(tear.naturalWidth||tear.width)>0){const pos=G(a.x,a.y),torso=NUM(MONGSE_enemyTorsoOffset(a)?.y,-58),width=boss?12:9,height=(boss?30:22)+(boss?65:42)*charge;ctx.globalAlpha=opacity*(.48+.52*charge);for(const side of[-1,1])ctx.drawImage(tear,pos.x+side*(boss?14:11)-width/2,pos.y+torso-18,width,height);}}
+120287:     if(warning&&settings.showCombatInfo!==false){const p=G(c.cx,c.cy),name=String(c.patternNameV31331??labels[c.type]).slice(0,70);ctx.globalAlpha=opacity;ctx.font=(boss?'bold 16px':'bold 13px')+' sans-serif';ctx.textAlign='center';ctx.lineWidth=4;ctx.strokeStyle='rgba(0,0,0,.88)';ctx.fillStyle=c.accent;const text=warning?name+' · '+Math.max(0,c.fireAt-s.time).toFixed(1)+'초':age<.8?(boss?'강공 · ':'')+name:'';if(text){ctx.strokeText(text,p.x,p.y+hw+33);ctx.fillText(text,p.x,p.y+hw+33);}}
+120288:    }finally{ctx.restore();}
+120289:   }}
+120290:  function evade(s,a,input){const threats=(s.bossLaserCastsV31330??[]).filter(c=>valid(c,s.zone)&&s.time>=c.born+.25&&s.time<c.fireAt+c.activeSeconds);if(!threats.length)return input;
+120291:   const at=c=>Math.max(c.fireAt,Math.min(s.time+.25,c.fireAt+c.activeSeconds));if(!threats.some(c=>contact(c,a,at(c))))return input;
+120292:   let goal=null;outer:for(const r of[1.7,3.2,5.2,7.0])for(let i=0;i<16;i++){const angle=i*Math.PI/8,p=dt(s.zone,{x:CL(a.x+Math.cos(angle)*r,2,30),y:CL(a.y+Math.sin(angle)*r,2,30)},.42);if(!threats.some(c=>contact(c,p,at(c)))){goal=p;break outer;}}
+120293:   if(!goal)return input;const len=Math.max(.001,Math.hypot(goal.x-a.x,goal.y-a.y));return {...input,moveX:(goal.x-a.x)/len,moveY:(goal.y-a.y)/len,actions:{...input.actions,dash:threats.some(c=>c.fireAt-s.time<.25)}};
+120294:  }
+120295:  const oldRole=MONGSE_autoRoleMovementIntent31222;MONGSE_autoRoleMovementIntent31222=function(s,...args){const base=oldRole(s,...args);if(!s||s.autoCombatEnabled31222!==true||NUM(s.manualMovementUntil31222)>s.time||NUM(s.autoEvadeUntil31223)>s.time||locked(s))return base;const i={moveX:NUM(base?.dx),moveY:NUM(base?.dy),actions:{}},next=evade(s,s,i);return next===i?base:{...base,active:true,dx:next.moveX,dy:next.moveY,mode:'laser-refuge'};};
+120296:  const oldPatterns=MONGSE_patternsForEnemy;MONGSE_patternsForEnemy=function(a,p){const list=oldPatterns(a,p);const r=row(a);if(!r||r.native||protectedActor({...a,hp:NUM(a?.hp,1)})||NUM(p,phase(a))<1)return list;
+120297:   return list.concat(r.types.map(type=>({name:'광맥 · '+labels[type],shape:'line',windup:1.5,cooldown:7,radius:6.4,width:.32,damage:15,repeats:1,gap:.3,color:r.color,accent:r.accent,phaseMin:1,laserV31330:true,laserTypeV31330:type})));};
+120298:  const oldEi=Ei;Ei=function(s,a,n,p){if(n?.laserV31330){const cast=start(s,a,n.laserTypeV31330);if(!cast)a.patternReadyAt=Math.max(NUM(a.patternReadyAt),s.time+1);return cast;}return oldEi(s,a,n,p);};
+120299:  const oldChoose=MONGSE_chooseBossPatternIndexSmartR1;MONGSE_chooseBossPatternIndexSmartR1=function(s,a,list,...args){const inds=list.map((x,i)=>x.laserV31330?i:-1).filter(i=>i>=0);a.laserChoiceV31330=NUM(a.laserChoiceV31330)+1;if(inds.length&&a.laserChoiceV31330%3===0&&!(s.bossLaserCastsV31330??[]).some(c=>c.sourceId===a.id))return inds[Math.floor(a.laserChoiceV31330/3-1)%inds.length];return oldChoose(s,a,list,...args);};
+120300:  const oldManifest=MONGSE_zoneAssetManifest,oldPlan=MONGSE_zoneAssetPlan31220;
+120301:  MONGSE_zoneAssetManifest=function(z,...args){return new Set([...oldManifest(z,...args),...assets(z)]);};
+120302:  MONGSE_zoneAssetPlan31220=function(z,...args){const p=oldPlan(z,...args);for(const path of assets(z)){for(const k of['all','A','pins'])p[k]?.add(path);for(const k of['B','C','deferred'])p[k]?.delete(path);}return p;};
+120303:  const oldApply=P().applySnapshot;P().applySnapshot=function(snap){const fields=snap?.world?.fields??[];if(!Array.isArray(fields)){stats.rejectedSnapshots++;return false;}const entries=fields.filter(e=>e?.[0]==='bossLaserCastsV31330');if(entries.length>1){stats.rejectedSnapshots++;return false;}if(entries.length){const groups=entries[0][1];if(!Array.isArray(groups)||groups.length>2||!groups.every(c=>valid(c,snap.zone))||new Set(groups.map(c=>c.id)).size!==groups.length||new Set(groups.map(c=>c.sourceId)).size!==groups.length){stats.rejectedSnapshots++;return false;}}return oldApply(snap);};
+120304:  // Shared, read-only risk contract required by automatic S and EGO evasion.
+120305:  // It must evaluate the original geometry; optional-call suppression would make
+120306:  // a failed API look like a safe landing zone.
+120307:  function danger(s,a,lookSeconds=.36){
+120308:   if(!s||!a||![s.time,a.x,a.y].every(Number.isFinite))return 0;
+120309:   const now=s.time,until=now+CL(lookSeconds,0,1.5);let risk=0;
+120310:   for(const c of s.bossLaserCastsV31330??[]){
+120311:    if(!valid(c,s.zone)||!(c.damage>0)||c.damageSuppressedV31226||c.cancelled)continue;
+120312:    const src=actor(s,c);if(protectedActor(src))continue;
+120313:    const end=c.fireAt+c.activeSeconds;if(now>=end||until<c.fireAt)continue;
+120314:    const from=Math.max(now,c.fireAt),to=Math.min(until,end-1e-6);
+120315:    if(to<from)continue;
+120316:    // Rotating beams can cross a candidate between endpoints. Match the native
+120317:    // sweep density, bounded at 16 samples per candidate.
+120318:    const span=Math.max(0,to-from),travel=c.radius*27*angularRate(c)*span;
+120319:    const count=Math.max(1,Math.min(16,Math.ceil(travel/Math.max(3,halfWidth(c)*.4))));
+120320:    for(let j=0;j<=count;j++)if(contact(c,a,from+(to-from)*j/count)){risk+=44;break;}
+120321:   }
+120322:   const mirror=window.__HAPIL_MIRROR_V31347__;
+120323:   if(window.__HAPIL_MODES_V31346__?.mode(s)==='DREAM'&&mirror?.valid&&mirror?.contact){
+120324:    for(const c of s.dreamMirrorLasersV31347??[]){
+120325:     if(!mirror.valid(c,s)||!(c.damage>0)||c.damageSuppressedV31226||c.cancelled||now>=c.fireAt+c.activeSeconds||until<c.fireAt)continue;
+120326:     const src=(s.enemies??[]).find(e=>e.id===c.sourceId);if(!src||src.hp<=0)continue;
+120327:     if(mirror.contact(c,a))risk+=44;
+120328:    }
+120329:   }
+120330:   return risk;
+120331:  }
+120332: 
+120333:  window.__HAPIL_LASERS_V31330__={version:VERSION,installed:true,owners,types,labels,geometry,contact,start,tick,draw,valid,assets,evade,danger,configure,halfWidth,clip,ranks,setCache:(s,c)=>cacheByState.set(s,c),stats:()=>({...stats})};
+120334:  MONGSE_ASSET_VERSION='31330';window.MONGSE_ASSET_VERSION='31330';window.__HAPIL_V31330_RELEASE__=Object.freeze({version:VERSION,build:'R2',installed:true,activeBundle:'index-v31330.js',cacheKey:31330,baseVersion:'3.13.29',saveRevision:14});
+120335: })();
+120336: 
+120337: 
+120338: /* HAPIL 3.13.31 — boss-personalized blood-tear laser suites.
+120339:  * Uses the proven v3.13.30 R2 laser transport but replaces generic owner presets
+120340:  * with three owner-specific variants, including clearer pattern naming and per-owner timing.
+120341:  */
+120342: (function installPersonalizedBossLasers(attempt=0){
+120343:  if(!window.__HAPIL_LASERS_V31330__?.installed||!window.__HAPIL_V31330_RELEASE__?.installed){if(attempt<600)setTimeout(()=>installPersonalizedBossLasers(attempt+1),0);return;}
+120344:  const base=window.__HAPIL_LASERS_V31330__, VERSION='3.13.31';
+120345:  const NUM=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+120346:  const CL=(v,a,b)=>Math.max(a,Math.min(b,NUM(v,a)));
+120347:  const owners=[...(base.owners||[])], ownerById=new Map(owners.map(o=>[o.id,o]));
+120348:  const typeLabel=base.labels||{one:'일자',sun:'日 봉인',three:'三 삼연장',clock:'시계방향 회전',hash:'# 격자',plus:'+ 십자',slash:'/// 사선',star:'* 방사'};
+120349:  const stats={patternsBuilt:0,casts:0,blocked:0,ownersWithOverrides:0};
+120350:  const keywordExtraType=(owner)=>{
+120351:    const key=(owner.id+' '+owner.name+' '+owner.zone).toLowerCase();
+120352:    if(/lucifer|천사|angel|saint|cross/.test(key)) return 'star';
+120353:    if(/balrog|발록|화염|fire|satan|지옥|hell/.test(key)) return 'plus';
+120354:    if(/hotel|탐욕|gold|vault|회장|mammon|ledger|coin|manager/.test(key)) return 'hash';
+120355:    if(/machine|cyborg|controller|기계|부트|frame|command|문/.test(key)) return 'clock';
+120356:    if(/clock|kair|초침|모래|time|chrono/.test(key)) return 'clock';
+120357:    if(/ghost|불면|mist|안개|dream|nightmare/.test(key)) return 'slash';
+120358:    if(/greed|glutton|식|주방|chef|kitchen/.test(key)) return 'three';
+120359:    return 'star';
+120360:  };
+120361:  const familyWords=(owner)=>{
+120362:    const id=owner.id, zone=owner.zone||'', name=owner.name||'';
+120363:    if(id==='dist06-boss') return ['지옥문','용암 심핵','발록 절명'];
+120364:    if(id==='a11-boss') return ['가면혈루','초천 단죄','파면 계시'];
+120365:    if(id==='b02-boss') return ['나태 봉인','침잠 절개','권태 압류'];
+120366:    if(id==='b03-boss') return ['질투 해류','심연 비늘','레비아탄 잔향'];
+120367:    if(id==='b04-boss') return ['탐식 절단','포식 조리','기름 연화'];
+120368:    if(id==='b05-boss') return ['진홍 각인','하이힐 잔광','유혹 맥박'];
+120369:    if(id==='b06-boss') return ['금고 낙인','채권 절개','맘몬 장부'];
+120370:    if(id==='b06b-boss') return ['소년 맘몬','가시 봉쇄','겨울 욕망'];
+120371:    if(id==='b07-boss') return ['업화 격돌','홍련 참광','분노 소각'];
+120372:    if(id==='b08-boss') return ['백의 총회장','회장 심판','역십자 압박'];
+120373:    if(id==='b09-boss') return ['부트 시동','생체 연산','회로 집행'];
+120374:    if(id==='u203-boss') return ['기억문 각인','삭제 명령','제어 환류'];
+120375:    if(id==='l301-boss') return ['타락 성흔','기사 단죄','천창 회수'];
+120376:    if(id==='l303-boss') return ['불면 찢김','몽식 봉인','악몽 방사'];
+120377:    if(/^kair/.test(id)) return ['초침 명령','검은 모래','삭제 시계'];
+120378:    if(/^u20/.test(id)) return ['명령 프레임','교정 격자','기억 교차'];
+120379:    if(/^dist/.test(zone)||/^mb-dist/.test(id)) return ['심연 낙인','전령 절개','악마 광맥'];
+120380:    if(/^ep1a/.test(zone)||/^a11/.test(id)||/^mb-ep1a/.test(id)) return ['병동 성흔','환각 절개','초천 잔광'];
+120381:    if(/^ep1b/.test(zone)||/^b0/.test(id)||/^mb-ep1b/.test(id)) return ['호텔 각인','죄업 절개','집행 잔광'];
+120382:    if(/^last/.test(zone)||/^l30/.test(id)||/^mb-last/.test(id)) return ['안개 낙인','망령 절개','흑몽 잔광'];
+120383:    const stem=(name||owner.id).replace(/ · .*/,'').replace(/\s+/g,' ').trim();
+120384:    return [stem+' 광맥', stem+' 절개', stem+' 낙인'];
+120385:  };
+120386:  const profileKey=(owner,idx,type)=>owner.id+'::'+idx+'::'+type;
+120387:  const makeProfile=(owner, name, type, idx, extra={})=>({
+120388:    ownerId:owner.id,
+120389:    key:profileKey(owner,idx,type),
+120390:    name,
+120391:    type,
+120392:    windup:CL(extra.windup ?? (type==='clock'?1.55:1.45) + (idx===2?0.08:0),1.32,1.95),
+120393:    cooldown:CL(extra.cooldown ?? (owner.native?5.2:(type==='clock'?5.3:4.8)+(idx*0.2)),3.8,7.6),
+120394:    damage:CL(extra.damage ?? (15 + (idx===2?2:0)),10,24),
+120395:    radius:CL(extra.radius ?? ({sun:4.4,hash:5.6,plus:5.6,star:5.8,clock:6.3,three:6.5,slash:5.9,one:7.0}[type]||6.0),1.5,9),
+120396:    width:CL(extra.width ?? ({star:.26,hash:.28,slash:.28,three:.30,clock:.32,plus:.33,sun:.34,one:.34}[type]||.32),.18,.55),
+120397:    activeSeconds:CL(extra.activeSeconds ?? (type==='clock'?2.05:1.15),.55,2.9),
+120398:    interval:Math.max(2, Math.min(4, Math.round(extra.interval ?? (owner.id.includes('boss')||owner.id.includes('great')?3:4)))),
+120399:    phaseMin:Math.max(1, Math.min(4, Math.round(extra.phaseMin ?? 1))),
+120400:    priority:Math.max(0, Math.min(9, Math.round(extra.priority ?? idx))),
+120401:    accentText:extra.accentText || ''
+120402:  });
+120403:  const manual={
+120404:    'dist06-boss':[
+120405:      makeProfile(ownerById.get('dist06-boss'),'지옥문 심판 · + 십자','plus',0,{damage:18,width:.36,cooldown:5.2,interval:3}),
+120406:      makeProfile(ownerById.get('dist06-boss'),'용암 심핵 · 일자 절단','one',1,{damage:17,width:.35,radius:7.4}),
+120407:      makeProfile(ownerById.get('dist06-boss'),'발록 절명 · 三 삼연장','three',2,{damage:19,width:.32,cooldown:5.8,interval:2})
+120408:    ],
+120409:    'a11-boss':[
+120410:      makeProfile(ownerById.get('a11-boss'),'가면혈루 · 시계 성흔','clock',0,{damage:19,activeSeconds:2.25,cooldown:5.4,interval:3}),
