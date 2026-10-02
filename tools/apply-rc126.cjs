@@ -15,18 +15,9 @@ once('bundle','MONGSE_tickThemedBossSummons(o);','(()=>{const prior=[...(o.enemi
 src.bundle+='\n/* RC126: simulation-owned readability and matching finite damage/render endpoints. */\nwindow.__HAPIL_COMBAT_READABILITY_RC126__?.install({project:G,place:(s,p)=>dt(s.zone,p,.42)});\n';
 once('flow','  run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){','  const rc126Before=(s.hostileProjectiles??[]).length;\n  run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){');
 once('flow','  const planned=authored?.length??shots;','  window.__HAPIL_COMBAT_READABILITY_RC126__?.volley(s,a,(s.hostileProjectiles??[]).slice(rc126Before));\n  const planned=authored?.length??shots;');
-// Shared projectile contact and graze envelopes must agree. Keep the existing
-// hit envelope, reject graze whenever that very sweep already made contact.
-const grazeStart=src.geometry.indexOf('function graze(');assert(grazeStart>=0,'graze function');
-console.log('GRAZE_BEFORE',src.geometry.slice(grazeStart,grazeStart+900));
-// Add the definitive collision rejection without rewriting any attack radii.
-const graze=src.geometry.slice(grazeStart).match(/^function graze\([^)]*\)\s*\{[\s\S]*?\n\s*\}/);
-assert(graze,'graze block must be inspectable');
-const body=graze[0];const call=body.match(/(?:const|let)\s+(\w+)\s*=\s*projectile\(([^;]+?)\)[,;]/);
-assert(call,'native graze projectile classification anchor');
-const variable=call[1];const returnIndex=body.indexOf('return ');assert(returnIndex>=0,'graze return');
-const fixed=body.slice(0,returnIndex)+`if(${variable}.hit)return false;`+body.slice(returnIndex);
-once('geometry',body,fixed);
+// Keep existing attack radii, share the exact hit envelope with graze.
+once('geometry',"cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile'};}","cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile',bodyRadius:cfg.bodyRadius+r};}");
+once('geometry','function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}','function graze(s,q){const e=projectile(s,s,q),r=e.bodyRadius;return !e.hit&&Number.isFinite(r)&&e.d>r&&e.d<=r+19.44;}');
 once('html','    <script type="module" crossorigin src="./assets/index-v31526.js?v=42502"></script>','    <script src="./assets/rc126/combat-readability.js?v=42601"></script>\n    <script type="module" crossorigin src="./assets/index-v31526.js?v=42601"></script>');
 once('html','./assets/rc95/combat-flow.js?v=39701','./assets/rc95/combat-flow.js?v=42601');
 once('html','./assets/combat-v31402/contact-geometry.js?v=33501','./assets/combat-v31402/contact-geometry.js?v=42601');
