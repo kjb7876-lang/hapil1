@@ -1,0 +1,79 @@
+name: RC126 combat regression
+on:
+  push:
+    branches: [fix/rc126-combat-readability]
+    paths: ['assets/**','index.html','tests/**','.github/workflows/rc126-regression.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc126-regression-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [combat, layout, overscan-hp, topology, release, safeguards]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Fetch immutable comparison references
+        run: |
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          git fetch --no-tags --depth=1 origin 257b920a470e0ee6a04e5a52d71157f66232682c
+          git fetch --no-tags --depth=1 origin dd56fb42aeb8faa45f66a391ea657daf772c410b
+      - name: Prepare isolated browser runtime
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc126-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc126-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc126-evidence/release" >> "$GITHUB_ENV"
+      - name: Run exact committed game and tests
+        env:
+          SUITE: ${{ matrix.suite }}
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          node --check assets/index-v31526.js
+          node --check assets/rc126/combat-readability.js
+          grep -q 'combat-readability.js?v=42601' index.html
+          case "$SUITE" in
+            combat) node tests/rc126-combat-unit.cjs && node tests/rc126-combat-browser.cjs ;;
+            layout) node tests/rc125-adaptive-battlefield-browser.cjs && node tests/rc125-first-frame-browser.cjs ;;
+            overscan-hp) node tests/rc123-boundary-smoke.cjs && node tests/rc124-overrun-health-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs && node tests/rc115-portrait-camera-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+            safeguards) node tests/rc122-autoplay-policy-smoke.cjs && node tests/rc115-map-advance-smoke.cjs && node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs && node tests/rc111-mobile-auto-smoke.cjs ;;
+          esac
+      - name: Print compact release results
+        if: always()
+        run: |
+          if [ -f "$HAPIL_RELEASE_OUTPUT/release-summary.json" ]; then cat "$HAPIL_RELEASE_OUTPUT/release-summary.json"; fi
+          echo 'Staged fixtures, initial-map natural progression, public HTTP and full completion are separate evidence.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc126-${{ matrix.suite }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc126-evidence/
+          retention-days: 14
