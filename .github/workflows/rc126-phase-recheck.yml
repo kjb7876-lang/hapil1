@@ -1,0 +1,67 @@
+name: RC126 phase failure investigation
+on:
+  push:
+    branches: [qa/rc126-phase-recheck]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  investigate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 0aa5c8dffeb57714179076152196ad10a8ece93d
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Read original failing measurement without changing code
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/phase-evidence"
+          gh run download 37005003071 --repo "$GITHUB_REPOSITORY" --name laser-release-0aa5c8dffeb57714179076152196ad10a8ece93d --dir "$RUNNER_TEMP/phase-evidence/original"
+          node <<'NODE'
+          const fs=require('node:fs'),p=process.env.RUNNER_TEMP+'/phase-evidence/original/laser-phases/stdout.log';
+          const text=fs.readFileSync(p,'utf8');
+          for(const line of text.split('\n')){try{const rows=JSON.parse(line);if(Array.isArray(rows))console.log('ORIGINAL_PHASE_ROWS',JSON.stringify(rows.map(({lowFx,phase,tearDraws,beamDraws,pixels,sources})=>({lowFx,phase,tearDraws,beamDraws,pixels,sources}))));}catch{}}
+          const lines=fs.readFileSync('assets/index-v31526.js','utf8').split('\n');
+          for(let i=0;i<lines.length;i++)if(lines[i].includes('window.__HAPIL_LASERS_V31332__ ='))console.log('LASER_API_SOURCE',lines.slice(Math.max(0,i-10),i+90).map((s,j)=>`${Math.max(0,i-10)+j+1}: ${s}`).join('\n'));
+          NODE
+      - name: Prepare browser runtime
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+      - name: Repeat exact existing test five times; keep every result
+        run: |
+          node <<'NODE'
+          const fs=require('node:fs'),cp=require('node:child_process');
+          const out=process.env.RUNNER_TEMP+'/phase-evidence';let fail=0;const result=[];
+          for(let i=1;i<=5;i++){
+            const dir=out+'/repeat-'+i;fs.mkdirSync(dir,{recursive:true});
+            const r=cp.spawnSync(process.execPath,['tests/rc118-laser-phase-browser.cjs'],{encoding:'utf8',env:{...process.env,HAPIL_QA_OUTPUT:dir},timeout:45000,maxBuffer:20*1024*1024});
+            fs.writeFileSync(dir+'/stdout.log',r.stdout||'');fs.writeFileSync(dir+'/stderr.log',r.stderr||'');
+            const row={i,exit:r.status,error:r.error?.message,rows:[]};
+            for(const line of (r.stdout||'').split('\n')){try{const a=JSON.parse(line);if(Array.isArray(a))row.rows=a.map(({lowFx,phase,tearDraws,beamDraws,pixels})=>({lowFx,phase,tearDraws,beamDraws,pixels}));}catch{}}
+            if(r.status!==0)fail++;result.push(row);console.log('PHASE_REPEAT',JSON.stringify(row));
+          }
+          fs.writeFileSync(out+'/repeat-results.json',JSON.stringify({testedCommit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),originalFailureRetained:true,unchangedTest:true,result,fail},null,2));
+          if(cp.execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim())throw Error('Unexpected worktree changes');
+          process.exitCode=fail?1:0;
+          NODE
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc126-phase-investigation-${{ github.run_id }}
+          path: ${{ runner.temp }}/phase-evidence/
+          retention-days: 14
