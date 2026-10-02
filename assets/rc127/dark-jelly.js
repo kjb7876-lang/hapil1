@@ -10,7 +10,7 @@
  function palette(q={},color){
   const zone=String(q.danmakuZoneV31316??q.cosmicZoneV31318??q.rc127Zone??q.zone??'');
   const id=String(q.sourceId??q.danmakuOwnerIdV31316??q.ownerId??'');
-  const owner=(root.__HAPIL_LASERS_V31330__?.owners??[]).find(a=>String(a.id)===id);
+  const registry=root.__HAPIL_LASERS_V31330__?.owners;const owner=Array.isArray(registry)?registry.find(a=>String(a.id)===id):null;
   const map=maps[zone]??{},text=String(map.name??'')+' '+String(owner?.name??'')+' '+zone;
   let mood=hex(map.color)??hex(map.accent);
   if(!mood)mood=/늪|독|숲|나무|부패|탐식|ep1a08/.test(text)?'#52664b':/빙|서리|눈|겨울|질투|심해/.test(text)?'#455e79':/화염|용암|핏|분노|지옥|발록/.test(text)?'#793d31':/탐욕|황금|금고|장부|연산/.test(text)?'#857049':/가면|루시퍼|심연|성전|ep1a11/.test(text)?'#62384d':'#504660';

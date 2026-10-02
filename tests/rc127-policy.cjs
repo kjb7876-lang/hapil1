@@ -27,7 +27,7 @@ for(const mode of ['STORY','HELL','DREAM'])for(const boss of [false,true]){
  const s={time:20,fxSerial:1,gameModeV31346:'STORY'},a={id:'nested',boss:true,readyAt:0};
  P.schedule(s,a,()=>P.schedule(s,a,()=>{s.fxSerial++;a.readyAt=25;return true;}));check(a.readyAt===30,'nested dispatch cannot quadruple cooldown');
  const before=a.readyAt;P.schedule(s,a,()=>null);check(a.readyAt===before,'rejected scheduling does not extend deadline');
- assert.throws(()=>P.schedule(s,a,()=>{throw Error('fixture');}));checks++;P.schedule(s,a,()=>{s.fxSerial++;a.readyAt=27;return true;});check(a.readyAt===34,'thrown dispatch releases transaction lock');
+ assert.throws(()=>P.schedule(s,a,()=>{throw Error('fixture');}));checks++;s.time=31;P.schedule(s,a,()=>{s.fxSerial++;a.readyAt=38;return true;});check(a.readyAt===45,'thrown dispatch releases transaction lock after prior cooldown expires');
 }
 for(const kind of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318','bossLaserCastsV31330','pendingHits','impactQueue','hostileProjectiles']){
  const a={id:'cosmic',hp:100,currentPhase:1},s={time:10,enemies:[a]};s[kind]=[{id:991,sourceId:'cosmic',endAt:14,at:13,interruptProtectedUntil31210:14.5}];

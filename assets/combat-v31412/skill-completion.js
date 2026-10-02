@@ -38,9 +38,9 @@
       if(matches&&Object.hasOwn(actor,key))accept(actor[key]);
     }
     const actorId=idOf(actor);
-    for(const key of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318'])for(const cast of state?.[key]??[]) {
-      if(idOf(cast)!==actorId)continue;
-      accept(Math.max(finite(cast.endAt),finite(cast.end),finite(cast.fireAt)+finite(cast.activeSeconds)));
+    for(const key of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossUltimateCastsV31334','cosmicCastsV31318','bossLaserCastsV31330','pendingHits','impactQueue','hostileProjectiles'])for(const cast of state?.[key]??[]) {
+      if(String(cast?.sourceId??cast?.ownerId??cast?.ownerIdV31331??'')!==actorId||cast?.damageSuppressedV31226||cast?.projectileRemovalReason31215)continue;
+      accept(Math.max(finite(cast.endAt),finite(cast.end),finite(cast.at),finite(cast.impactAt),finite(cast.motionReleaseAt31219),finite(cast.interruptProtectedUntil31210),finite(cast.fireAt)+finite(cast.activeSeconds)));
     }
     return until;
   }

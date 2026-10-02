@@ -33,7 +33,7 @@ function visible(p,time) {
   const nativePath=p.danmakuV31316?p.danmakuArtV31316:null;
   const selected=ready(cache,p.rc126CommonSprite)||ready(cache,nativePath)||ready(cache,p.sprite)||ready(cache,p.fallbackSprite)||ready(cache,FALLBACK);
   if(!selected)return false;
-  const im=p.rc126CommonSprite&&selected.path===p.rc126CommonSprite?(root.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(selected.image,p.color)??selected.image):selected.image,at=deps.project(p.x,p.y),finite=(v,d)=>Number.isFinite(Number(v))?Number(v):d;
+  const im=selected.path.split('?')[0].endsWith('/danmaku-jellybean.webp')?(root.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(selected.image,p.danmakuColorV31316??p.color,p)??selected.image):selected.image,at=deps.project(p.x,p.y),finite=(v,d)=>Number.isFinite(Number(v))?Number(v):d;
   const scale=Math.max(.7,Math.min(1.6,finite(p.visualScaleV31224,1)));
   const lod=Math.max(0,Math.min(2,finite(settings.projectileLodSmartR1,settings.lowFx?1:2)));
   const extent=p.danmakuV31316?(p.danmakuRadialV31316?32:40):(lod===0?(p.boss?44:p.midboss?38:30):(p.boss?68:p.midboss?56:50))*scale;

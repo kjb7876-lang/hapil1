@@ -8,7 +8,7 @@
  const transactions=new WeakMap(),history=[];
  const READY_KEYS=Object.freeze(['readyAt','patternReadyAt','recoverUntil','themedOrdnanceAt','bossCombatPatternReadyAtV31230','bloodReadyRC16','laserReadyAtRC94','laserReadyAtV31332','episodeNextPatternAt','cosmicArsenalReadyAtV31318','finaleReadyAtV31334']);
  const metrics={speedSamples:0,cooldownCasts:0,cooldownFields:0,nestedCalls:0};
- function mode(s){return String(s?.gameModeV31346??(s?.hellModeV31322?'HELL':'STORY')).toUpperCase();}
+ function mode(s){return String(root.__HAPIL_MODES_V31346__?.mode(s)??s?.gameModeV31346??(s?.hellModeV31322?'HELL':'STORY')).toUpperCase();}
  function multiplier(s,a){return mode(s)==='STORY'&&a?.boss===true&&!a.friendly&&!a.neutral&&!a.visualOnly?2:1;}
  function interval(s,a,seconds){return Math.max(0,n(seconds))*multiplier(s,a);}
  function deadline(s,a,at,origin=n(s?.time)){return origin+interval(s,a,Math.max(0,n(at,origin)-origin));}

@@ -46,6 +46,8 @@ for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844
    if(mode==='STORY'&&action==='reliquary')window.__RC127_COSMIC_FIXTURE__=s;
    a.hp=0;A.tick(s);test(!A.active(s),'actual boss death still cancels/cleans committed cast');
   }
+  // The death-cleanup tests deliberately remove their actors. Keep a separate LIVE render fixture.
+  {const f=cosmic('STORY');A.trySchedule(f.s,f.a,'reliquary');const h=f.s.pendingHits[f.s.pendingHits.length-1];f.s.time=h.at+.01;f.s.pendingHits=[];T.impact(f.s,h);A.tick(f.s);window.__RC127_COSMIC_FIXTURE__=f.s;}
   const {s,a}=make('ep1b03','b03-boss');s.practiceV31329=false;F.tick(s,N,.016);const volley=s.hostileProjectiles.slice(),last=Math.max(...volley.map(q=>q.motionReleaseAt31219));test(volley.length>0,'native RC95 volley exists');test(close(F.frame(s).nextBullet-s.time,2*(Math.max(s.time+.72,last+.16)-s.time)),'story scheduler volley cooldown 2x, release times untouched');
   s.time=F.frame(s).nextBullet+.01;a.recoverUntil=0;F.tick(s,N,.016);const common=s.hostileProjectiles.find(q=>q.rc126CommonSprite);test(!!common,'native repeated special asset reaches common renderer');
   const cache={},im=T.queue(cache,'./assets/rc64/projectiles/danmaku-jellybean.webp','eager');await im.decode();

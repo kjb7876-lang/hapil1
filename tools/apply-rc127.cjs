@@ -53,8 +53,8 @@ edit('assets/combat-v31412/skill-completion.js',s=>{
  return s;
 });
 edit('assets/rc95/combat-flow.js',s=>{
- s=one(s,'f.nextLaser=c.endAt+.35;','f.nextLaser=c.endAt+(root.__HAPIL_POLICY_RC127__?.interval(s,a,.35)??.35);','story laser admission only');
- s=one(s,'f.nextBullet=Math.max(s.time+(mixed?1.25:.72),(paced?.lastRelease??s.time)+.16);','f.nextBullet=root.__HAPIL_POLICY_RC127__?.deadline(s,a,Math.max(s.time+(mixed?1.25:.72),(paced?.lastRelease??s.time)+.16))??Math.max(s.time+(mixed?1.25:.72),(paced?.lastRelease??s.time)+.16);','story bullet admission only');
+ s=one(s,'f.nextLaser=c.endAt+.35;','f.nextLaser=c.endAt+(window.__HAPIL_POLICY_RC127__?.interval(s,a,.35)??.35);','story laser admission only');
+ s=one(s,'f.nextBullet=Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);','f.nextBullet=window.__HAPIL_POLICY_RC127__?.deadline(s,a,Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16))??Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);','story bullet admission only');
  return s;
 });
 edit('index.html',s=>{

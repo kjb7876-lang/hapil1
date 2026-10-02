@@ -34,7 +34,7 @@
   if(!s||!Number.isFinite(s.time))return null;const m=memory(s),list=rows(shots).filter(q=>eligible(q)&&!m.seen.has(q));if(!list.length)return null;
   const group=nextGroup(s,'salvo'),family=options.family??list.find(q=>q.rc97Grammar)?.rc97Grammar??'native';
   let lastRelease=s.time,index=0;
-  for(const q of list){m.seen.add(q);q.rc126Salvo=group;
+  for(const q of list){m.seen.add(q);q.rc126Salvo=group;q.rc127Zone=s.zone;
    // Common danmaku and ownership-sensitive echo/telekinetic deliveries retain their native path.
    if(!q.danmakuV31316){const chosen=claimAsset(s,q,q.sprite,group);if(chosen&&chosen!==q.sprite){q.rc126OriginalSprite=q.sprite;q.rc126CommonSprite=chosen;}}
    const canPace=options.rhythm===true&&q.rc95Bullet===true&&!q.danmakuV31316;
@@ -98,7 +98,8 @@
    kept.push(e);if(cosmetic)seen.push(e);
   }if(kept.length!==s.effects.length)s.effects=kept;
  }
- function tintCommon(image,color){
+ function tintCommon(image,color,packet={}){
+  if(root.__HAPIL_DARK_JELLY_RC127__)return root.__HAPIL_DARK_JELLY_RC127__.tint(image,color,packet);
   if(typeof document==='undefined'||!image||!/^#[0-9a-f]{6}$/i.test(color??''))return image;
   let cache=tints.get(image);if(!cache){cache=new Map();tints.set(image,cache);}if(cache.has(color))return cache.get(color);
   const c=document.createElement('canvas');c.width=image.naturalWidth||image.width;c.height=image.naturalHeight||image.height;const ctx=c.getContext('2d');if(!ctx)return image;
