@@ -1,0 +1,53 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),crypto=require('node:crypto'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),fallback=process.env.HAPIL_SOURCE_ROOT||root;
+const read=name=>fs.readFileSync(fs.existsSync(path.join(root,name))?path.join(root,name):path.join(fallback,name));
+const context={window:{}};vm.runInNewContext(read('data/story-rc51.js').toString(),context);
+const data=context.window.__HAPIL_STORY_DATA_RC51__,scenes={};
+for(const r of data.records)for(const phase of ['pre','post','firstPost','awakenPre'])if(r[phase]&&r.zone!=='dist00')scenes[r.zone+':'+phase]={textSha256:crypto.createHash('sha256').update(r[phase]).digest('hex'),audio:'audio/fixture.wav',duration:2};
+const wav=Buffer.alloc(44+24000*2*2);wav.write('RIFF');wav.writeUInt32LE(wav.length-8,4);wav.write('WAVEfmt ',8);wav.writeUInt32LE(16,16);wav.writeUInt16LE(1,20);wav.writeUInt16LE(1,22);wav.writeUInt32LE(24000,24);wav.writeUInt32LE(48000,28);wav.writeUInt16LE(2,32);wav.writeUInt16LE(16,34);wav.write('data',36);wav.writeUInt32LE(wav.length-44,40);for(let i=0;i<48000;i++)wav.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*440/24000)*600),44+i*2);
+let mode='normal',requests=[];
+const fixture=`<!doctype html><meta charset="utf-8"><style>.rc51-copybox{height:55vh;width:85vw}.rc51-footer{display:flex;gap:8px}.rc51-story{position:fixed;inset:0;background:white;overflow:auto}button{min-height:36px}</style><script>window.__HAPIL_READING_V31342__={blocked:false};window.__full=false;window.__HAPIL_CONTROLS_V31329__={clear(){},effective:()=>window.__full?'full':'manual',binding:{settings:{current:{autoStoryAdvance:true}}}};window.__gains=[];window.__starts=0;window.__stops=0;const OriginalAudioContext=window.AudioContext;window.AudioContext=class extends OriginalAudioContext{createGain(){const x=super.createGain();window.__gains.push(x);return x}createBufferSource(){const x=super.createBufferSource(),start=x.start.bind(x),stop=x.stop.bind(x);x.start=(...a)=>{window.__starts++;return start(...a)};x.stop=(...a)=>{window.__stops++;return stop(...a)};return x}};const originalTimeout=window.setTimeout.bind(window);window.setTimeout=(fn,ms,...args)=>originalTimeout(fn,ms===15000?300:ms,...args);</script><script src="/data/story-rc51.js"></script><script src="/assets/story-narration/v1/player.js"></script><script src="/assets/rc49/story-voice.js"></script><script src="/assets/rc51/story.js"></script><button id="start">Start</button><script>window.s={zone:'dist01',hp:100,time:0,gameModeV31346:'STORY'};window.ctx={sound:true,voiceVolume:.8};window.openCard=(zone='dist01',phase='pre',sound=true)=>{window.__HAPIL_STORY_RC51__.close(false);s.zone=zone;s.hp=100;ctx={sound,voiceVolume:.8};const r=window.__HAPIL_STORY_DATA_RC51__.records.find(r=>r.zone===zone);return window.__HAPIL_STORY_RC51__.show(s,r,phase,r[phase],()=>window.__commits=(window.__commits||0)+1,ctx)};document.querySelector('#start').onclick=()=>openCard();</script>`;
+const server=http.createServer((req,res)=>{
+ const url=new URL(req.url,'http://localhost');requests.push(url.pathname);
+ if(url.pathname==='/'){res.setHeader('content-type','text/html; charset=utf-8');return res.end(fixture);}
+ if(url.pathname==='/assets/story-narration/v1/manifest.json'){res.setHeader('content-type','application/json');return res.end(JSON.stringify({version:1,scenes}));}
+ if(url.pathname.endsWith('/fixture.wav')){
+  if(mode==='hang')return;
+  if(mode==='missing'){res.statusCode=404;return res.end();}
+  res.setHeader('content-type','audio/wav');if(mode==='delay')return setTimeout(()=>res.end(wav),700);return res.end(wav);
+ }
+ try {res.setHeader('content-type',url.pathname.endsWith('.js')?'application/javascript':'audio/wav');res.end(read(decodeURIComponent(url.pathname.slice(1))));}catch{res.statusCode=404;res.end();}
+});
+(async()=>{
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const runtime=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,playwright=runtime?require(path.join(runtime,'playwright')):require('playwright');
+ const browser=await playwright.chromium.launch({headless:true,executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox']});
+ const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));
+ const url=`http://127.0.0.1:${server.address().port}`;
+ const waitState=state=>page.waitForFunction(expected=>document.querySelector('#hapil-story-rc51')?.dataset.narrationState===expected,state,{timeout:6000});
+ const start=async()=>{await page.goto(url);await page.click('#start');};
+ const audioCount=()=>requests.filter(x=>x.endsWith('/fixture.wav')).length;
+ try{
+  await page.goto(url);assert.equal(audioCount(),0,'no audio is requested during initial load');
+  const all=await page.evaluate(()=>{const checked=[];for(const r of __HAPIL_STORY_DATA_RC51__.records)for(const phase of ['pre','post','firstPost','awakenPre'])if(r[phase]){openCard(r.zone,phase,false);const root=document.querySelector('#hapil-story-rc51'),body=[...root.querySelectorAll('.rc51-copy p')].map(p=>p.textContent).join('\n\n');checked.push({key:r.zone+':'+phase,text:body===r[phase],controls:!!root.querySelector('[data-narration-controls]'),legacy:r.zone==='dist00'});__HAPIL_STORY_RC51__.close(false)}return checked});
+  assert.equal(all.length,112);assert(all.every(x=>x.text));assert(all.every(x=>x.controls===!x.legacy));assert.equal(audioCount(),0,'muted card enumeration must not preload all audio');
+  await start();await waitState('playing');assert.equal(audioCount(),1);assert.equal(await page.evaluate(()=>__gains.at(-1).gain.value),Math.fround(.8));
+  await page.click('[data-narration-mute]');assert.equal(await page.evaluate(()=>__gains.at(-1).gain.value),0);
+  await page.click('[data-narration-mute]');await page.locator('input[type=range]').fill('25');assert.equal(await page.evaluate(()=>__gains.at(-1).gain.value),.25);
+  await page.locator('input[type=range]').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('#hapil-story-rc51').count(),1,'volume keyboard does not skip');
+  await page.locator('[data-narration-play]').focus();await page.keyboard.press('Enter');await waitState('paused');assert.equal(await page.locator('#hapil-story-rc51').count(),1,'play button keyboard does not skip');
+  await page.keyboard.press('Enter');await waitState('playing');await page.keyboard.press('Escape');assert.equal(await page.locator('#hapil-story-rc51').count(),0);assert(await page.evaluate(()=>__stops>0));
+  await start();await waitState('playing');await page.evaluate(()=>{ctx.sound=false;__HAPIL_STORY_RC51__.beforeFrame(s,ctx)});assert.equal(await page.evaluate(()=>__gains.at(-1).gain.value),0,'global mute sync');
+  await page.evaluate(()=>{ctx.voiceVolume=.3;ctx.sound=true;__HAPIL_STORY_RC51__.beforeFrame(s,ctx)});assert(Math.abs(await page.evaluate(()=>__gains.at(-1).gain.value)-.3)<1e-6);
+  await page.evaluate(()=>{s.hp=0;__HAPIL_STORY_RC51__.beforeFrame(s,ctx)});assert.equal(await page.locator('#hapil-story-rc51').count(),0,'death cancels current card');
+  await start();await waitState('playing');await page.evaluate(()=>{s.zone='unlisted';__HAPIL_STORY_RC51__.beforeFrame(s,ctx)});assert.equal(await page.locator('#hapil-story-rc51').count(),0,'zone navigation cancels current card');
+  mode='delay';await start();await waitState('loading');await page.evaluate(()=>__HAPIL_STORY_RC51__.close(false));await page.waitForTimeout(850);assert.equal(await page.evaluate(()=>__starts),0,'stale download never starts audio');
+  mode='normal';await page.goto(url);await page.click('#start');await waitState('playing');const oldStarts=await page.evaluate(()=>__starts);await page.evaluate(()=>document.querySelector('#hapil-story-rc51').remove());await page.waitForTimeout(50);assert(await page.evaluate(()=>__stops)>0,'direct DOM removal stops audio');assert.equal(await page.evaluate(()=>__starts),oldStarts);
+  mode='missing';await start();await waitState('blocked');assert(await page.locator('.rc51-copy').innerText());await page.getByText('계속 · Enter',{exact:true}).click();assert.equal(await page.locator('#hapil-story-rc51').count(),0,'missing media never traps progress');
+  mode='hang';await start();await waitState('blocked');await page.getByText('계속 · Enter',{exact:true}).click();assert.equal(await page.locator('#hapil-story-rc51').count(),0,'hung media has bounded timeout and skip');
+  mode='normal';await page.goto(url);const before=audioCount();await page.click('#start');await waitState('playing');await page.evaluate(()=>{__HAPIL_STORY_RC51__.close(false);const r=__HAPIL_STORY_DATA_RC51__.records.find(r=>r.zone==='dist01');__HAPIL_STORY_RC51__.show(s,r,'post',r.post+' changed',()=>{},ctx)});await waitState('blocked');assert.equal(audioCount(),before+1,'mismatched text never downloads unrelated audio');
+  assert.deepEqual(errors,[]);
+  console.log(JSON.stringify({pass:true,cards:112,newCards:110,checks:['canonical text','lazy/muted enumeration','real WebAudio playback','mute and volume','keyboard play/range/skip','pause/resume','context changes','death/navigation cancellation','stale fetch cancellation','DOM removal','404 fallback','bounded network timeout','exact-text SHA gate']},null,2));
+ }finally{await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
+})().catch(error=>{console.error(error);server.closeAllConnections();server.close();process.exitCode=1});

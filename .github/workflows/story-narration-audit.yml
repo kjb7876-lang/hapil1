@@ -1,0 +1,47 @@
+name: Canonical story narration audit
+on:
+  push:
+    branches: [main, 'dot/story-narration-qa-*']
+    paths:
+      - '.github/workflows/story-narration-audit.yml'
+      - 'assets/story-narration/**'
+      - 'assets/rc51/story.js'
+      - 'assets/title/v31236/christian-opening-v31236.js'
+      - 'data/story-rc51.js'
+      - 'tests/story-narration*'
+      - 'index.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: story-narration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  narration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Validate canonical source and original voice contracts
+        run: |
+          node --check assets/story-narration/v1/player.js
+          node --check assets/rc51/story.js
+          node tests/rc51-story-and-samong-smoke.cjs
+          node tests/rc74-flight-voice-lifecycle.cjs
+          node tests/rc75-ending-and-awakening.cjs
+          node tests/rc89-narrative-smoke.cjs
+      - name: Install isolated browser runtime
+        run: |
+          QA_RUNTIME="$RUNNER_TEMP/story-narration-runtime"
+          npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1
+          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")" >> "$GITHUB_ENV"
+      - name: Exercise playback and interrupted flows
+        run: node tests/story-narration-browser.cjs
