@@ -1,0 +1,56 @@
+name: RC124 published Pages verification
+on:
+  push:
+    branches: [qa/rc124-published-verification]
+    paths:
+      - 'tests/rc124-published-smoke.cjs'
+      - '.github/workflows/rc124-published-verification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc124-published-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 4
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated Chromium
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc124-live-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc124-published-evidence" >> "$GITHUB_ENV"
+      - name: Check actual published bytes and native visible boss health
+        run: |
+          set -euo pipefail
+          node --check tests/rc124-published-smoke.cjs
+          test -z "$(git status --porcelain)"
+          node tests/rc124-published-smoke.cjs
+          test -z "$(git status --porcelain)"
+      - name: Report compact verified result
+        if: always()
+        run: |
+          if [ -f "$HAPIL_QA_OUTPUT/published-summary.json" ]; then
+            node -e 'const r=require(process.argv[1]);console.log(JSON.stringify({status:r.status,productionCommit:r.productionCommit,auditCommit:r.auditCommit,files:r.files,viewports:r.viewports.map(v=>({name:v.name,overscanPixels:v.overscanPixels,overrunInstalled:v.overrunInstalled,bossBarCalls:v.observedBars.count,visibleBars:v.observedBars.bars.filter(b=>b.visibleCoordinates&&b.alpha===1).length,errors:v.errors,failedResponses:v.failedResponses,screenshot:v.screenshot})),error:r.error,limitations:r.limitations},null,2))' "$HAPIL_QA_OUTPUT/published-summary.json"
+          fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc124-published-${{ github.sha }}
+          path: ${{ runner.temp }}/rc124-published-evidence/
+          retention-days: 14
