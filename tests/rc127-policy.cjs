@@ -38,5 +38,10 @@ for(const kind of ['narrativeCasts','telekineticCasts','spatialRiftCasts','bossU
  const a={id:'cosmic',hp:100},s={time:10,enemies:[a],cosmicCastsV31318:[{id:'cosmic',sourceId:'different-owner',endAt:14}]};check(C.castUntil(s,a)===0,'cast id cannot impersonate owner');
  s.pendingHits=[{id:88,sourceId:'cosmic',at:18,damageSuppressedV31226:true}];check(C.castUntil(s,a)===0,'removed damage cannot pin a boss');
 }
+// RC127_MODE_REGRESSION: distinguish modern and legacy non-story state.
+for(const [state,expected] of [[{gameModeV31346:'HELL'},'HELL'],[{hellModeV31322:true},'HELL'],[{gameModeV31346:'STORY',hellModeV31322:true},'HELL'],[{gameModeV31346:'DREAM',hellModeV31322:true},'DREAM'],[{gameModeV31346:'STORY'},'STORY']]){
+ check(P.mode(state)===expected,'correct explicit/legacy mode');check(P.multiplier(state,{boss:true})===(expected==='STORY'?2:1),'no accidental non-story cooldown');
+}
+window.__HAPIL_MODES_V31346__={mode:()=> 'STORY'};check(P.mode({gameModeV31346:'HELL'})==='HELL','legacy resolver cannot downgrade explicit HELL');delete window.__HAPIL_MODES_V31346__;
 const code=fs.readFileSync('assets/index-v31526.js','utf8');check(code.includes('/* RC127_RUNTIME_INSTALLED */'),'runtime integrated');check(code.includes('window.__HAPIL_POLICY_RC127__.speed(o,R.current'),'actual movement hook');check(code.includes('__HAPIL_POLICY_RC127__?.incoming(e,MONGSE_damageSource)'),'actual final damage hook');check(!code.includes('const cancelled=!eligible(s,a)||phase(a)!==run.phase||run.zone!==s.zone||suppress(s);'),'no phase-only committed volley deletion');check(code.includes('packet.interruptProtectedUntil31210=Math.max'),'delayed cosmic packets remain protected');
 console.log(JSON.stringify({version:'RC127',checks,passed:true,scope:'policy, source integration and committed ownership unit tests',policy:P.snapshot()},null,2));

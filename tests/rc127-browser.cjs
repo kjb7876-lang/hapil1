@@ -22,7 +22,7 @@ for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844
   for(const hero of N.heroes)for(const mode of ['STORY','HELL','DREAM'])for(const awake of [false,true]){const s={activeHeroId:hero.id,gameModeV31346:mode};test(close(P.speed(s,master,{mastery:7,awakened:awake,awakeningMultiplier:1.276}),reference),'all hero/mode ordinary speeds equal');}
   function make(zone,id,mode='STORY'){
    const template=B.actor(zone,id);if(!template)throw Error('missing real actor '+id);const s=T.initial(),a=B.cloneEnemy(template,zone);
-   Object.assign(s,{zone,time:100,hp:10000,maxHp:10000,x:24,y:23,activeHeroId:'hwando',gameModeV31346:mode,practiceV31329:true,enemySkillsSuppressedUntilV31309:0,timeStopUntil:0});
+   Object.assign(s,{zone,time:100,hp:10000,maxHp:10000,x:24,y:23,activeHeroId:'hwando',gameModeV31346:mode,hellModeV31322:mode==='HELL',practiceV31329:true,enemySkillsSuppressedUntilV31309:0,timeStopUntil:0});
    Object.assign(a,{x:8,y:8,hp:a.maxHp,humanPhase0:false,fixedPhase:1,currentPhase:1,attackAt:0,attackStarted:0,readyAt:0,patternReadyAt:0,recoverUntil:0,atomicCastUntil31210:0,staggerUntil:0,invulnerableUntil:0,phaseTransitionUntil:0,combatEntryGraceUntilV31239:0});s.enemies=[a];return{s,a};
   }
   function cosmic(mode='STORY'){const f=make('ep1a11','a11-boss',mode);f.a.hp=0;test(L.beforeDeath(f.s,f.a)===true,'native mask death creates cosmic form');const a=f.s.enemies.find(x=>x.cosmicLuciferV31318);if(!a)throw Error('native cosmic form absent');f.s.time=105;a.readyAt=a.patternReadyAt=a.recoverUntil=a.staggerUntil=0;a.cosmicArsenalReadyAtV31318=0;return{s:f.s,a};}
