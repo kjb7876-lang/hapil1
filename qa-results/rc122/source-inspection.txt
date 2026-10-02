@@ -1,0 +1,3061 @@
+
+### native-frame-auto [62561-62920]
+62561:                         e.boss || e.midboss
+62562:                           ? s
+62563:                             ? !0
+62564:                             : MONGSE_bossMeleeAttackHitsHeroSmartR1(
+62565:                                 o,
+62566:                                 e,
+62567:                                 l + 0.45,
+62568:                               )
+62569:                           : t < (s ? l + 0.55 : l + 0.45),
+62570:                       MONGSE_basicAttackDamage31222 =
+62571:                         r.damage +
+62572:                         (e.elite ? 2 : 0) +
+62573:                         (e.boss || e.midboss ? c * 2 : 0),
+62574:                       MONGSE_persistentRanged31221 =
+62575:                         s && (e.boss || e.midboss)
+62576:                           ? MONGSE_spawnPersistentRangedAttack31221(
+62577:                               o,
+62578:                               e,
+62579:                               c,
+62580:                               r,
+62581:                               MONGSE_basicAttackDamage31222,
+62582:                             )
+62583:                           : s && r.counterTacticProjectile31229
+62584:                             ? MONGSE_spawnEnemyCounterProjectile31229(
+62585:                                 o,
+62586:                                 e,
+62587:                                 c,
+62588:                                 r,
+62589:                                 MONGSE_basicAttackDamage31222,
+62590:                               )
+62591:                             : null,
+62592:                       MONGSE_persistentRangedSpawned31222 =
+62593:                         !!MONGSE_persistentRanged31221 &&
+62594:                         MONGSE_persistentRanged31221.capRejected31221 !== !0,
+62595:                       MONGSE_persistentRangedCapRejected31222 =
+62596:                         MONGSE_persistentRanged31221?.capRejected31221 === !0;
+62597:                     MONGSE_persistentRangedCapRejected31222 &&
+62598:                       ((e.readyAt = Math.min(
+62599:                         e.readyAt,
+62600:                         o.time + (e.boss ? 0.42 : 0.34),
+62601:                       )),
+62602:                       (e.recoverUntil = Math.min(
+62603:                         e.recoverUntil,
+62604:                         o.time + 0.2,
+62605:                       )));
+62606:                     if (
+62607:                       (o.effects.push({
+62608:                         id: o.fxSerial++,
+62609:                         ownershipSourceIdV31322: e.id,
+62610:                         kind: r.fxKind,
+62611:                         x: e.x,
+62612:                         y: e.y,
+62613:                         tx: MONGSE_lockedTargetXSmartR1,
+62614:                         ty: MONGSE_lockedTargetYSmartR1,
+62615:                         born: o.time,
+62616:                         duration: MONGSE_persistentRangedCapRejected31222
+62617:                           ? 0.16
+62618:                           : e.boss
+62619:                             ? 0.66
+62620:                             : e.midboss
+62621:                               ? 0.58
+62622:                               : s
+62623:                                 ? 0.52
+62624:                                 : 0.42,
+62625:                         color: r.color,
+62626:                         accent: r.accent,
+62627:                         size: MONGSE_persistentRangedCapRejected31222
+62628:                           ? Math.max(0.8, Number(r.size ?? 1) * 0.55)
+62629:                           : r.size,
+62630:                         angle: Math.atan2(
+62631:                           MONGSE_lockedTargetYSmartR1 - e.y,
+62632:                           MONGSE_lockedTargetXSmartR1 - e.x,
+62633:                         ),
+62634:                         shape: MONGSE_persistentRangedCapRejected31222
+62635:                           ? `ring`
+62636:                           : r.shape,
+62637:                         sprite:
+62638:                           MONGSE_persistentRangedCapRejected31222
+62639:                             ? null
+62640:                             : r.distanceMode31222 === `melee`
+62641:                               ? r.sprite
+62642:                               : n ?? r.sprite,
+62643:                         spriteHeading: n ? null : void 0,
+62644:                         ultimate: e.boss,
+62645:                         persistentProjectile31222:
+62646:                           MONGSE_persistentRangedSpawned31222,
+62647:                         projectileCapRetry31222:
+62648:                           MONGSE_persistentRangedCapRejected31222,
+62649:                         terrainPiercing31214: !0,
+62650:                         obstaclePiercing31214: !0,
+62651:                       }),
+62652:                       MONGSE_normalAttackConnectSmartR1 &&
+62653:                       !MONGSE_persistentRangedSpawned31222 &&
+62654:                       !MONGSE_persistentRangedCapRejected31222)
+62655:                     ) {
+62656:                       let t = MONGSE_basicAttackDamage31222;
+62657:                       s
+62658:                         ? o.pendingHits.push({
+62659:                             id: o.fxSerial++,
+62660:                             sourceId: e.id,
+62661:                             born: o.time,
+62662:                             at: o.time + r.hitDelay,
+62663:                             x: MONGSE_lockedTargetXSmartR1,
+62664:                             y: MONGSE_lockedTargetYSmartR1,
+62665:                             originX: e.x,
+62666:                             originY: e.y,
+62667:                             damage: t,
+62668:                             boss: !!e.boss,
+62669:                             midboss: !!e.midboss,
+62670:                             patternSet: e.patternSet,
+62671:                             radius: r.hitRadius,
+62672:                             innerRadius: 0,
+62673:                             width: 0.55,
+62674:                             shape: `circle`,
+62675:                             color: r.color,
+62676:                             accent: r.accent,
+62677:                             status: r.status,
+62678:                             statusValue: r.statusValue,
+62679:                             label: r.name,
+62680:                             perfectWindow: e.boss ? 0.3 : e.midboss ? 0.26 : 0,
+62681:                             terrainPiercing31214: !0,
+62682:                             obstaclePiercing31214: !0,
+62683:                             losRequired31214: !1,
+62684:                           })
+62685:                         : Y(o, t, e.x, e.y, {...e,id:'melee:'+e.id+':'+e.attackStarted,sourceId:e.id,born:e.attackStarted??o.time,shape:'circle',radius:r.hitRadius??2}) &&
+62686:                           Ti(o, r.status, r.statusValue, r.name);
+62687:                     }
+62688:                     MONGSE_finishEnemyCounterAttack31229(e, r, o.time);
+62689:                   }
+62690:                 }
+62691:                 MONGSE_faceEnemyTowardHero31229(o, e);
+62692:                 } finally { HAPIL_partyEnemyScopeV31322?.(); }
+62693:               }
+62694:               window.__HAPIL_THEME_V31323__?.prepareHits(o);
+62695:               HAPIL_preserveCommittedCombatQueuesV31303(o);
+62696:               let MONGSE_combatReleased31226 =
+62697:                   !MONGSE_isEncounterLocked31226(o),
+62698:                 u = MONGSE_combatReleased31226
+62699:                   ? o.pendingHits.filter((e) => e.at <= o.time)
+62700:                   : [];
+62701:               MONGSE_combatReleased31226 &&
+62702:                 (o.pendingHits = o.pendingHits.filter((e) => e.at > o.time));
+62703:               MONGSE_queueReadyTelegraphs(o, u);
+62704:               let MONGSE_readyImpacts = MONGSE_combatReleased31226
+62705:                 ? o.impactQueue.filter((e) => e.impactAt <= o.time)
+62706:                 : [];
+62707:               MONGSE_combatReleased31226 &&
+62708:                 (o.impactQueue = o.impactQueue.filter(
+62709:                   (e) => e.impactAt > o.time,
+62710:                 ));
+62711:               for (let e of MONGSE_readyImpacts) {
+62712:                 if(window.__HAPIL_THEME_V31323__?.validHit(o,e)===false)continue;
+62713:                 window.__HAPIL_PARTY_V31322__?.areaImpact(o, e);
+62714:                 MONGSE_spawnTelegraphedImpact(o, e);
+62715:                 let MONGSE_centerMultiplier31226 =
+62716:                   MONGSE_telegraphDamageMultiplier31226(o, e);
+62717:                 ((e.centerDamageMultiplierV31226 =
+62718:                   MONGSE_centerMultiplier31226),
+62719:                   (e.actualImageAttackReleasedV31226 = !0));
+62720:                 e.boss &&
+62721:                   o.time >= (o.bossImpactSoundReadyAt ?? 0) &&
+62722:                   ((o.bossImpactSoundReadyAt = o.time + 0.34),
+62723:                   We(
+62724:                     MONGSE_impactSfx(
+62725:                       o.zone,
+62726:                       o.enemies.find((t) => t.id === e.sourceId) ?? e,
+62727:                     ),
+62728:                     1,
+62729:                   ));
+62730:                 MONGSE_centerMultiplier31226 > 0 &&
+62731:                 !e.damageSuppressedV31226
+62732:                   ? Y(
+62733:                       o,
+62734:                       e.damage * MONGSE_centerMultiplier31226,
+62735:                       e.originX ?? e.x,
+62736:                       e.originY ?? e.y,
+62737:                       e,
+62738:                     ) &&
+62739:                     (Ti(o, e.status, e.statusValue, e.label),
+62740:                     MONGSE_applySevenSinHitMechanic(o, e))
+62741:                   : (o.time < o.invulnerableUntil ||
+62742:                         e.damageSuppressedV31226) &&
+62743:                     o.time - o.lastDodgeAt <= 0.62 &&
+62744:                     Y(
+62745:                       o,
+62746:                       0,
+62747:                       e.originX ?? e.x,
+62748:                       e.originY ?? e.y,
+62749:                       e,
+62750:                     );
+62751:               }
+62752:               for (let e = 0; e < o.enemies.length; e++)
+62753:                 for (let t = e + 1; t < o.enemies.length; t++) {
+62754:                   let n = o.enemies[e],
+62755:                     r = o.enemies[t];
+62756:                   if (n?.cosmicLuciferV31318 || r?.cosmicLuciferV31318) continue;
+62757:                   let MONGSE_nStructureV31308 =
+62758:                       n?.objectiveStructureV31238 === !0,
+62759:                     MONGSE_rStructureV31308 =
+62760:                       r?.objectiveStructureV31238 === !0;
+62761:                   if (MONGSE_nStructureV31308 || MONGSE_rStructureV31308) {
+62762:                     if (MONGSE_nStructureV31308 && MONGSE_rStructureV31308)
+62763:                       continue;
+62764:                     let MONGSE_fixedStructureV31308 = MONGSE_nStructureV31308
+62765:                         ? n
+62766:                         : r,
+62767:                       MONGSE_movingActorV31308 = MONGSE_nStructureV31308
+62768:                         ? r
+62769:                         : n,
+62770:                       MONGSE_structureDxV31308 =
+62771:                         MONGSE_movingActorV31308.x -
+62772:                         MONGSE_fixedStructureV31308.x,
+62773:                       MONGSE_structureDyV31308 =
+62774:                         MONGSE_movingActorV31308.y -
+62775:                         MONGSE_fixedStructureV31308.y,
+62776:                       MONGSE_structureDistanceV31308 = Math.hypot(
+62777:                         MONGSE_structureDxV31308,
+62778:                         MONGSE_structureDyV31308,
+62779:                       ),
+62780:                       MONGSE_structureSpaceV31308 = Math.max(
+62781:                         0.7,
+62782:                         (MONGSE_enemyPersonalSpace(MONGSE_fixedStructureV31308) +
+62783:                           MONGSE_enemyPersonalSpace(MONGSE_movingActorV31308)) *
+62784:                           0.5,
+62785:                       );
+62786:                     if (MONGSE_structureDistanceV31308 < MONGSE_structureSpaceV31308) {
+62787:                       if (MONGSE_structureDistanceV31308 <= 0.001) {
+62788:                         MONGSE_structureDxV31308 =
+62789:                           String(MONGSE_movingActorV31308.id ?? "").length % 2
+62790:                             ? 1
+62791:                             : -1;
+62792:                         MONGSE_structureDyV31308 = 0.35;
+62793:                         MONGSE_structureDistanceV31308 = Math.hypot(
+62794:                           MONGSE_structureDxV31308,
+62795:                           MONGSE_structureDyV31308,
+62796:                         );
+62797:                       }
+62798:                       let MONGSE_structurePushV31308 =
+62799:                           MONGSE_structureSpaceV31308 -
+62800:                           MONGSE_structureDistanceV31308,
+62801:                         MONGSE_structureMovedV31308 = ft(
+62802:                           o.zone,
+62803:                           MONGSE_movingActorV31308,
+62804:                           {
+62805:                             x:
+62806:                               (MONGSE_structureDxV31308 /
+62807:                                 MONGSE_structureDistanceV31308) *
+62808:                               MONGSE_structurePushV31308,
+62809:                             y:
+62810:                               (MONGSE_structureDyV31308 /
+62811:                                 MONGSE_structureDistanceV31308) *
+62812:                               MONGSE_structurePushV31308,
+62813:                           },
+62814:                           MONGSE_movingActorV31308.boss
+62815:                             ? 0.82
+62816:                             : MONGSE_movingActorV31308.midboss
+62817:                               ? 0.68
+62818:                               : 0.44,
+62819:                         );
+62820:                       MONGSE_movingActorV31308.x = MONGSE_structureMovedV31308.x;
+62821:                       MONGSE_movingActorV31308.y = MONGSE_structureMovedV31308.y;
+62822:                     }
+62823:                     continue;
+62824:                   }
+62825:                   let i = n.x - r.x,
+62826:                     a = n.y - r.y,
+62827:                     s = Math.hypot(i, a),
+62828:                     c = Math.max(
+62829:                       0.7,
+62830:                       (MONGSE_enemyPersonalSpace(n) +
+62831:                         MONGSE_enemyPersonalSpace(r)) *
+62832:                         0.5,
+62833:                     );
+62834:                   if (s <= 0.001 || s >= c) continue;
+62835:                   let l = (c - s) * 0.5,
+62836:                     u = i / s,
+62837:                     d = a / s,
+62838:                     f = ft(
+62839:                       o.zone,
+62840:                       n,
+62841:                       { x: u * l, y: d * l },
+62842:                       n.boss ? 0.82 : n.midboss ? 0.68 : 0.44,
+62843:                     ),
+62844:                     p = ft(
+62845:                       o.zone,
+62846:                       r,
+62847:                       { x: -u * l, y: -d * l },
+62848:                       r.boss ? 0.82 : r.midboss ? 0.68 : 0.44,
+62849:                     );
+62850:                   ((n.x = f.x), (n.y = f.y), (r.x = p.x), (r.y = p.y));
+62851:                 }
+62852:               window.__HAPIL_SKILL_COMPLETION_V31412__?.observe(o);
+62853:               for (let e of o.enemies) {
+62854:                 if (e.hp <= 0 || e?.cosmicLuciferV31318 || e?.echoChildV31368) continue;
+62855:                 if (e?.objectiveStructureV31238 === !0) continue;
+62856:                 let t = e.x - o.x,
+62857:                   n = e.y - o.y,
+62858:                   r = Math.hypot(t, n),
+62859:                   i = MONGSE_heroEnemySpace(o, e);
+62860:                 ((e.time = o.time), pi(e, o.x - e.x, o.y - e.y));
+62861:                 if (r <= 0.001) {
+62862:                   let t = e.id.length % 2 == 0 ? 0.5 : -0.5,
+62863:                     n = ft(
+62864:                       o.zone,
+62865:                       e,
+62866:                       { x: t * 0.22, y: 0.18 },
+62867:                       e.boss ? 0.82 : e.midboss ? 0.68 : 0.44,
+62868:                     ),
+62869:                     r = ft(o.zone, o, { x: -t * 0.18, y: -0.12 }, 0.48);
+62870:                   ((e.x = n.x), (e.y = n.y), (o.x = r.x), (o.y = r.y), hi(o));
+62871:                   continue;
+62872:                 }
+62873:                 if (r >= i) continue;
+62874:                 let a = (i - r) * 0.58,
+62875:                   s = t / r,
+62876:                   c = n / r,
+62877:                   l =
+62878:                     o.heroMotion?.until > o.time &&
+62879:                     [`dash`, `skill`].includes(o.heroMotion.kind)
+62880:                       ? 0.22
+62881:                       : e.boss
+62882:                         ? 0.34
+62883:                         : e.midboss
+62884:                           ? 0.3
+62885:                           : 0.26,
+62886:                   u = e.boss ? 0.82 : e.midboss ? 0.68 : 0.44,
+62887:                   d = ft(
+62888:                     o.zone,
+62889:                     e,
+62890:                     { x: s * a * (1 - l), y: c * a * (1 - l) },
+62891:                     u,
+62892:                   ),
+62893:                   f = ft(o.zone, o, { x: -s * a * l, y: -c * a * l }, 0.48);
+62894:                 ((e.x = d.x),
+62895:                   (e.y = d.y),
+62896:                   (o.x = f.x),
+62897:                   (o.y = f.y),
+62898:                   hi(o),
+62899:                   (e.moveDx = s),
+62900:                   (e.moveDy = c),
+62901:                   (e.movingUntil = Math.max(e.movingUntil, o.time + 0.06)));
+62902:               }
+62903:               MONGSE_enforceBossFocalPlane(o);
+62904:               if (
+62905:                 (o.supportCall &&
+62906:                   o.time >= o.supportCall.until &&
+62907:                   (o.supportCall = null),
+62908:                 Re.current && !o.supportCall && o.enemies.length && o.time >= o.supportRollAt)
+62909:               ) {
+62910:                 o.supportRollAt = o.time + 1;
+62911:                 let e = Le.current.filter(
+62912:                     (e) =>
+62913:                       e !== L.current &&
+62914:                       F.some((t) => t.id === e) &&
+62915:                       (o.supportReadyAt[e] ?? 0) <= o.time,
+62916:                   ),
+62917:                   t = e.length ? Math.floor(o.time) % e.length : 0;
+62918:                 for (let n = 0; n < e.length; n++) {
+62919:                   let r = e[(n + t) % e.length];
+62920:                   if (Math.random() < ki(r, o) && Je(r)) break;
+
+### match [19291-19390]
+19291:       return { target: t, score: o, distance: n };
+19292:     })
+19293:     .sort((e, t) => t.score - e.score || e.distance - t.distance)[0]?.target;
+19294:   return n ?? null;
+19295: }
+19296: function MONGSE_autoRoleMovementIntent31222(e, t) {
+19297:   let n = MONGSE_heroRoleProfile31222(t),
+19298:     r = MONGSE_pickRoleTarget31222(e);
+19299:   if (!e || !r || Number(r.hp ?? 0) <= 0) {
+19300:     e &&
+19301:       ((e.heroRoleNavPath31222 = []),
+19302:       (e.heroRoleNavTarget31222 = null),
+19303:       (e.heroRoleNavMode31222 = `idle`),
+19304:       (e.heroRoleNavReadyAt31222 = 0),
+19305:       (e.heroRoleSteeringActive31222 = !1));
+19306:     return { active: !1, dx: 0, dy: 0, mode: `idle`, target: null };
+19307:   }
+19308:   if (
+19309:     e.heroMotion?.until > e.time &&
+19310:     [`dash`, `skill`, `ultimate`, `hurt`].includes(e.heroMotion.kind)
+19311:   ) {
+19312:     ((e.heroRoleNavPath31222 = []),
+19313:       (e.heroRoleNavTarget31222 = r.id),
+19314:       (e.heroRoleNavMode31222 = `locked`),
+19315:       (e.heroRoleNavReadyAt31222 = 0));
+19316:     return { active: !0, dx: 0, dy: 0, mode: `locked`, target: r };
+19317:   }
+19318:   let i = Math.max(0.001, Math.hypot(r.x - e.x, r.y - e.y)),
+19319:     a = e.heroRoleSpacingTarget31222 === r.id
+19320:       ? e.heroRoleSpacingMode31222
+19321:       : `hold`;
+19322:   if (a === `approach`) {
+19323:     i <= n.preferredMax - n.releaseHysteresis && (a = `hold`);
+19324:   } else if (a === `retreat`) {
+19325:     i >= n.preferredMin + n.releaseHysteresis && (a = `hold`);
+19326:   } else
+19327:     i > n.preferredMax
+19328:       ? (a = `approach`)
+19329:       : i < n.preferredMin && (a = `retreat`);
+19330:   ((e.heroRoleSpacingTarget31222 = r.id),
+19331:     (e.heroRoleSpacingMode31222 = a),
+19332:     (e.heroRoleSteeringActive31222 = !0),
+19333:     (e.heroRoleSteeringAt31222 = Number(e.time ?? 0)));
+19334:   if (a === `hold`) {
+19335:     ((e.heroRoleNavPath31222 = []),
+19336:       (e.heroRoleNavTarget31222 = r.id),
+19337:       (e.heroRoleNavMode31222 = `hold`),
+19338:       (e.heroRoleNavReadyAt31222 = 0));
+19339:     return { active: !0, dx: 0, dy: 0, mode: a, target: r, distance: i };
+19340:   }
+19341:   let o = (r.x - e.x) / i,
+19342:     s = (r.y - e.y) / i,
+19343:     c = (n.preferredMin + n.preferredMax) * 0.5,
+19344:     l = a === `approach`
+19345:       ? { x: b(r.x - o * c), y: b(r.y - s * c) }
+19346:       : { x: b(e.x - o * 2.45), y: b(e.y - s * 2.45) },
+19347:     u = dt(e.zone, l, 0.48),
+19348:     d =
+19349:       e.heroRoleNavTarget31222 !== r.id ||
+19350:       e.heroRoleNavMode31222 !== a ||
+19351:       Number(e.time ?? 0) >= Number(e.heroRoleNavReadyAt31222 ?? 0) ||
+19352:       !Array.isArray(e.heroRoleNavPath31222) ||
+19353:       !e.heroRoleNavPath31222.length;
+19354:   if (d)
+19355:     ((e.heroRoleNavPath31222 = yt(e.zone, e, u, 0.48)),
+19356:       (e.heroRoleNavTarget31222 = r.id),
+19357:       (e.heroRoleNavMode31222 = a),
+19358:       (e.heroRoleNavReadyAt31222 = Number(e.time ?? 0) + n.navRefreshSeconds));
+19359:   let f = e.heroRoleNavPath31222 ?? [];
+19360:   for (; f.length && Math.hypot(f[0].x - e.x, f[0].y - e.y) < 0.34; ) f.shift();
+19361:   let p = f[0] ?? u,
+19362:     m = p.x - e.x,
+19363:     h = p.y - e.y,
+19364:     g = Math.max(0.001, Math.hypot(m, h));
+19365:   return { active: !0, dx: m / g, dy: h / g, mode: a, target: r, distance: i };
+19366: }
+19367: function MONGSE_autoEvadeHash31223(e) {
+19368:   let t = 2166136261 >>> 0;
+19369:   for (let n = 0; n < String(e ?? ``).length; n++)
+19370:     ((t ^= String(e).charCodeAt(n)), (t = Math.imul(t, 16777619) >>> 0));
+19371:   return t >>> 0;
+19372: }
+19373: function MONGSE_autoThreatGroupKey31223(e) {
+19374:   if (!e) return `unknown`;
+19375:   let t =
+19376:       e.bossSkillIdentity31213 ??
+19377:       e.bossCastId31210 ??
+19378:       e.atomicCastId31210 ??
+19379:       e.rainGroupId ??
+19380:       e.spatialRiftCastId ??
+19381:       e.signatureCastId31212,
+19382:     n = Number(e.sourceBorn ?? e.born ?? e.attackStarted ?? e.at ?? 0);
+19383:   return `${String(t ?? e.sourceId ?? `hazard`)}:${Math.floor(n * 1.25)}`;
+19384: }
+19385: function MONGSE_autoEvadeRoll31223(e, t, n) {
+19386:   return (
+19387:     MONGSE_autoEvadeHash31223(
+19388:       `${e?.zone ?? `zone`}|${t ?? e?.activeHeroId ?? `hero`}|${n}|auto-evade-v31223`,
+19389:     ) / 4294967296
+19390:   );
+
+### match [19362-19461]
+19362:     m = p.x - e.x,
+19363:     h = p.y - e.y,
+19364:     g = Math.max(0.001, Math.hypot(m, h));
+19365:   return { active: !0, dx: m / g, dy: h / g, mode: a, target: r, distance: i };
+19366: }
+19367: function MONGSE_autoEvadeHash31223(e) {
+19368:   let t = 2166136261 >>> 0;
+19369:   for (let n = 0; n < String(e ?? ``).length; n++)
+19370:     ((t ^= String(e).charCodeAt(n)), (t = Math.imul(t, 16777619) >>> 0));
+19371:   return t >>> 0;
+19372: }
+19373: function MONGSE_autoThreatGroupKey31223(e) {
+19374:   if (!e) return `unknown`;
+19375:   let t =
+19376:       e.bossSkillIdentity31213 ??
+19377:       e.bossCastId31210 ??
+19378:       e.atomicCastId31210 ??
+19379:       e.rainGroupId ??
+19380:       e.spatialRiftCastId ??
+19381:       e.signatureCastId31212,
+19382:     n = Number(e.sourceBorn ?? e.born ?? e.attackStarted ?? e.at ?? 0);
+19383:   return `${String(t ?? e.sourceId ?? `hazard`)}:${Math.floor(n * 1.25)}`;
+19384: }
+19385: function MONGSE_autoEvadeRoll31223(e, t, n) {
+19386:   return (
+19387:     MONGSE_autoEvadeHash31223(
+19388:       `${e?.zone ?? `zone`}|${t ?? e?.activeHeroId ?? `hero`}|${n}|auto-evade-v31223`,
+19389:     ) / 4294967296
+19390:   );
+19391: }
+19392: function MONGSE_predictProjectilePoint31223(e, t, n) {
+19393:   let r = Math.max(0, Number(n) || 0),
+19394:     i = Number(e?.time ?? 0),
+19395:     a = Number(t?.x ?? 0),
+19396:     o = Number(t?.y ?? 0),
+19397:     s = Math.max(
+19398:       i,
+19399:       Number(t?.frozenUntil ?? i),
+19400:       Number(t?.motionReleaseAt31219 ?? i),
+19401:       Number(e?.timeStopUntil ?? i),
+19402:     ),
+19403:     c = Math.max(0, s - i);
+19404:   if (r <= c) return { x: a, y: o, time: r };
+19405:   let l = r - c;
+19406:   if (
+19407:     Number(t?.orbitUntil31212 ?? -1) > i + r &&
+19408:     [
+19409:       t?.orbitCenterX31212,
+19410:       t?.orbitCenterY31212,
+19411:       t?.orbitRadius31212,
+19412:       t?.orbitAngle31212,
+19413:     ].every((e) => Number.isFinite(Number(e)))
+19414:   ) {
+19415:     let e =
+19416:       Number(t.orbitAngle31212) + Number(t.orbitSpeed31212 ?? 0) * l;
+19417:     return {
+19418:       x: Number(t.orbitCenterX31212) + Math.cos(e) * Number(t.orbitRadius31212),
+19419:       y: Number(t.orbitCenterY31212) + Math.sin(e) * Number(t.orbitRadius31212),
+19420:       time: r,
+19421:     };
+19422:   }
+19423:   let u = Number(
+19424:       t?.motionReleased31219
+19425:         ? t?.vx
+19426:         : t?.motionVx31219 ?? t?.vx ?? 0,
+19427:     ),
+19428:     d = Number(
+19429:       t?.motionReleased31219
+19430:         ? t?.vy
+19431:         : t?.motionVy31219 ?? t?.vy ?? 0,
+19432:     ),
+19433:     f = Number(t?.curve ?? 0),
+19434:     p = Math.max(1, Math.min(8, Math.ceil(l / 0.08))),
+19435:     m = l / p;
+19436:   for (let e = 0; e < p; e++) {
+19437:     if (Math.abs(f) > 1e-6) {
+19438:       let e = f * m,
+19439:         t = Math.cos(e),
+19440:         n = Math.sin(e),
+19441:         r = u;
+19442:       ((u = r * t - d * n), (d = r * n + d * t));
+19443:     }
+19444:     ((a += u * m), (o += d * m));
+19445:   }
+19446:   return { x: a, y: o, time: r };
+19447: }
+19448: function MONGSE_pointInExpandedHit31223(e, t, n = 0.62) {
+19449:   if (!e || !t) return !1;
+19450:   let r = Number(e.x) - Number(t.x ?? t.impactX ?? 0),
+19451:     i = Number(e.y) - Number(t.y ?? t.impactY ?? 0),
+19452:     a = Math.hypot(r, i),
+19453:     o = String(t.shape ?? t.impactShape ?? `circle`),
+19454:     s = Math.max(0, Number(t.radius ?? t.impactRadius ?? 0) + n),
+19455:     c = Math.max(0, Number(t.innerRadius ?? t.impactInnerRadius ?? 0) - n),
+19456:     l = Math.max(0.05, Number(t.width ?? t.impactWidth ?? 0.55) + n * 0.45);
+19457:   if (o === `circle`) return a <= s;
+19458:   if (o === `donut`) return a >= c && a <= s;
+19459:   if (o === `safe`)
+19460:     return a > Math.max(0, Number(t.radius ?? t.impactRadius ?? 0) - n);
+19461:   if (o === `cross`)
+
+### match [19380-19479]
+19380:       e.spatialRiftCastId ??
+19381:       e.signatureCastId31212,
+19382:     n = Number(e.sourceBorn ?? e.born ?? e.attackStarted ?? e.at ?? 0);
+19383:   return `${String(t ?? e.sourceId ?? `hazard`)}:${Math.floor(n * 1.25)}`;
+19384: }
+19385: function MONGSE_autoEvadeRoll31223(e, t, n) {
+19386:   return (
+19387:     MONGSE_autoEvadeHash31223(
+19388:       `${e?.zone ?? `zone`}|${t ?? e?.activeHeroId ?? `hero`}|${n}|auto-evade-v31223`,
+19389:     ) / 4294967296
+19390:   );
+19391: }
+19392: function MONGSE_predictProjectilePoint31223(e, t, n) {
+19393:   let r = Math.max(0, Number(n) || 0),
+19394:     i = Number(e?.time ?? 0),
+19395:     a = Number(t?.x ?? 0),
+19396:     o = Number(t?.y ?? 0),
+19397:     s = Math.max(
+19398:       i,
+19399:       Number(t?.frozenUntil ?? i),
+19400:       Number(t?.motionReleaseAt31219 ?? i),
+19401:       Number(e?.timeStopUntil ?? i),
+19402:     ),
+19403:     c = Math.max(0, s - i);
+19404:   if (r <= c) return { x: a, y: o, time: r };
+19405:   let l = r - c;
+19406:   if (
+19407:     Number(t?.orbitUntil31212 ?? -1) > i + r &&
+19408:     [
+19409:       t?.orbitCenterX31212,
+19410:       t?.orbitCenterY31212,
+19411:       t?.orbitRadius31212,
+19412:       t?.orbitAngle31212,
+19413:     ].every((e) => Number.isFinite(Number(e)))
+19414:   ) {
+19415:     let e =
+19416:       Number(t.orbitAngle31212) + Number(t.orbitSpeed31212 ?? 0) * l;
+19417:     return {
+19418:       x: Number(t.orbitCenterX31212) + Math.cos(e) * Number(t.orbitRadius31212),
+19419:       y: Number(t.orbitCenterY31212) + Math.sin(e) * Number(t.orbitRadius31212),
+19420:       time: r,
+19421:     };
+19422:   }
+19423:   let u = Number(
+19424:       t?.motionReleased31219
+19425:         ? t?.vx
+19426:         : t?.motionVx31219 ?? t?.vx ?? 0,
+19427:     ),
+19428:     d = Number(
+19429:       t?.motionReleased31219
+19430:         ? t?.vy
+19431:         : t?.motionVy31219 ?? t?.vy ?? 0,
+19432:     ),
+19433:     f = Number(t?.curve ?? 0),
+19434:     p = Math.max(1, Math.min(8, Math.ceil(l / 0.08))),
+19435:     m = l / p;
+19436:   for (let e = 0; e < p; e++) {
+19437:     if (Math.abs(f) > 1e-6) {
+19438:       let e = f * m,
+19439:         t = Math.cos(e),
+19440:         n = Math.sin(e),
+19441:         r = u;
+19442:       ((u = r * t - d * n), (d = r * n + d * t));
+19443:     }
+19444:     ((a += u * m), (o += d * m));
+19445:   }
+19446:   return { x: a, y: o, time: r };
+19447: }
+19448: function MONGSE_pointInExpandedHit31223(e, t, n = 0.62) {
+19449:   if (!e || !t) return !1;
+19450:   let r = Number(e.x) - Number(t.x ?? t.impactX ?? 0),
+19451:     i = Number(e.y) - Number(t.y ?? t.impactY ?? 0),
+19452:     a = Math.hypot(r, i),
+19453:     o = String(t.shape ?? t.impactShape ?? `circle`),
+19454:     s = Math.max(0, Number(t.radius ?? t.impactRadius ?? 0) + n),
+19455:     c = Math.max(0, Number(t.innerRadius ?? t.impactInnerRadius ?? 0) - n),
+19456:     l = Math.max(0.05, Number(t.width ?? t.impactWidth ?? 0.55) + n * 0.45);
+19457:   if (o === `circle`) return a <= s;
+19458:   if (o === `donut`) return a >= c && a <= s;
+19459:   if (o === `safe`)
+19460:     return a > Math.max(0, Number(t.radius ?? t.impactRadius ?? 0) - n);
+19461:   if (o === `cross`)
+19462:     return (
+19463:       (Math.abs(r) <= l && Math.abs(i) <= s) ||
+19464:       (Math.abs(i) <= l && Math.abs(r) <= s)
+19465:     );
+19466:   let u = Number(t.x ?? t.impactX ?? 0) - Number(t.originX ?? t.x ?? 0),
+19467:     d = Number(t.y ?? t.impactY ?? 0) - Number(t.originY ?? t.y ?? 0),
+19468:     f = Math.max(0.001, Math.hypot(u, d)),
+19469:     p = u / f,
+19470:     m = d / f,
+19471:     h = Number(e.x) - Number(t.originX ?? t.x ?? 0),
+19472:     g = Number(e.y) - Number(t.originY ?? t.y ?? 0),
+19473:     _ = h * p + g * m;
+19474:   if (_ < -n || _ > s) return !1;
+19475:   if (o === `line`) return Math.abs(h * -m + g * p) <= l;
+19476:   let v = Math.atan2(g, h),
+19477:     y = Math.atan2(m, p),
+19478:     x = Math.atan2(Math.sin(v - y), Math.cos(v - y));
+19479:   return Math.abs(x) <= Number(t.width ?? t.impactWidth ?? 0.55) + 0.1;
+
+### match [19565-19664]
+19565:         clearance: -0.5,
+19566:       });
+19567:   }
+19568:   return i.sort((e, t) => e.eta - t.eta || e.clearance - t.clearance);
+19569: }
+19570: function MONGSE_scoreAutoDodgeCandidate31223(e, t, MONGSE_profile31223) {
+19571:   let i = Number(e.time ?? 0),
+19572:     a = Math.max(0.001, Number(MONGSE_profile31223.duration ?? 0.28)),
+19573:     o = 0,
+19574:     s = 10;
+19575:   for (let r of (e.hostileProjectiles ?? []).slice(0, 96)) {
+19576:     if (!r || r.reachedHero31213 || r.reachedMapBoundary31213) continue;
+19577:     let c = Number.POSITIVE_INFINITY;
+19578:     for (let i = 0; i <= s; i++) {
+19579:       let s = Number(MONGSE_profile31223.horizon ?? 0.82) * (i / 10),
+19580:         l = Math.min(1, s / a),
+19581:         u = l < 0.5 ? 2 * l * l : 1 - Math.pow(-2 * l + 2, 2) / 2,
+19582:         d = Number(e.x) + (Number(t.x) - Number(e.x)) * u,
+19583:         f = Number(e.y) + (Number(t.y) - Number(e.y)) * u,
+19584:         p = MONGSE_predictProjectilePoint31223(e, r, s),
+19585:         m = Math.hypot(p.x - d, p.y - f) - Number(r.radius ?? 0.45);
+19586:       c = Math.min(c, m);
+19587:     }
+19588:     let l = r.returning31212 || r.homingMode31212 !== `none` ? 0.92 : 0.72;
+19589:     c < l && (o += (l - c) * 70 + (c < 0.18 ? 180 : 0));
+19590:   }
+19591:   for (let n of [
+19592:     ...(e.pendingHits ?? []).map((e) => ({ ...e, threatAt31223: e.at })),
+19593:     ...(e.impactQueue ?? []).map((e) => ({ ...e, threatAt31223: e.impactAt })),
+19594:   ]) {
+19595:     let r = Number(n.threatAt31223 ?? i) - i;
+19596:     if (r < -0.04 || r > Number(MONGSE_profile31223.horizon ?? 1.1)) continue;
+19597:     let s = Math.min(1, Math.max(0, r) / a),
+19598:       c = s < 0.5 ? 2 * s * s : 1 - Math.pow(-2 * s + 2, 2) / 2,
+19599:       l = {
+19600:         x: Number(e.x) + (Number(t.x) - Number(e.x)) * c,
+19601:         y: Number(e.y) + (Number(t.y) - Number(e.y)) * c,
+19602:       };
+19603:     MONGSE_pointInExpandedHit31223(l, n, 0.62) && (o += 260);
+19604:   }
+19605:   let c = Math.min(t.x - 1.1, 30.9 - t.x, t.y - 1.1, 30.9 - t.y);
+19606:   c < 1.25 && (o += (1.25 - c) * 34);
+19607:   for (let n of e.enemies ?? []) {
+19608:     if (Number(n?.hp ?? 0) <= 0) continue;
+19609:     let r = MONGSE_combatDistance(t, n);
+19610:     r < 0.72 && (o += (0.72 - r) * 80);
+19611:   }
+19612:   let l = MONGSE_pickRoleTarget31222(e);
+19613:   if (l) {
+19614:     let e = MONGSE_combatDistance(t, l),
+19615:       n = MONGSE_profile31223.ranged ? 26.1 : 24.1;
+19616:     o +=
+19617:       Math.abs(e - n) * (MONGSE_profile31223.ranged ? 0.72 : 0.36);
+19618:   }
+19619:   return Number.isFinite(o) ? o : Number.POSITIVE_INFINITY;
+19620: }
+19621: function MONGSE_pickAutoDodgeDestination31223(e, t, n, r) {
+19622:   let i = MONGSE_pickRoleTarget31222(e),
+19623:     a = i ? Math.max(0.001, Math.hypot(i.x - e.x, i.y - e.y)) : 1,
+19624:     o = i ? (i.x - e.x) / a : 1,
+19625:     s = i ? (i.y - e.y) / a : 0,
+19626:     c = -o,
+19627:     l = -s,
+19628:     u = n?.kind === `projectile` ? n.samples?.[1] ?? n.source : null,
+19629:     d = u ? Number(u.x ?? e.x) - Number(n.source?.x ?? e.x) : 0,
+19630:     f = u ? Number(u.y ?? e.y) - Number(n.source?.y ?? e.y) : 0,
+19631:     p = Math.max(0.001, Math.hypot(d, f)),
+19632:     m = [
+19633:       [-f / p, d / p],
+19634:       [f / p, -d / p],
+19635:       [c, l],
+19636:       [c * 0.72 - l * 0.69, l * 0.72 + c * 0.69],
+19637:       [c * 0.72 + l * 0.69, l * 0.72 - c * 0.69],
+19638:       [-s, o],
+19639:       [s, -o],
+19640:       [-c, -l],
+19641:       [0.707, 0.707],
+19642:       [-0.707, -0.707],
+19643:     ],
+19644:     h = null,
+19645:     g = Number(e.heroMetalBindUntil ?? 0) > Number(e.time ?? 0) ? 0.24 : 1;
+19646:   m.forEach(([i, a], o) => {
+19647:     let s = Math.max(0.001, Math.hypot(i, a)),
+19648:       c = ft(
+19649:         e.zone,
+19650:         e,
+19651:         { x: (i / s) * r.distance * g, y: (a / s) * r.distance * g },
+19652:         0.48,
+19653:       ),
+19654:       l = Math.hypot(c.x - e.x, c.y - e.y);
+19655:     if (l < Math.max(0.18, 0.62 * g) || pt(e.zone, e, c, 0.46)) return;
+19656:     let u = MONGSE_scoreAutoDodgeCandidate31223(e, c, r),
+19657:       d = MONGSE_autoEvadeHash31223(`${n?.groupKey}:${o}`) / 4294967296;
+19658:     u += d * 0.08;
+19659:     (!h || u < h.score) && (h = { x: c.x, y: c.y, score: u, distance: l });
+19660:   });
+19661:   return h;
+19662: }
+19663: function MONGSE_resetHeroAutoDodge31223(e, t = `reset`) {
+19664:   if (!e) return !1;
+
+### match [19616-19715]
+19616:     o +=
+19617:       Math.abs(e - n) * (MONGSE_profile31223.ranged ? 0.72 : 0.36);
+19618:   }
+19619:   return Number.isFinite(o) ? o : Number.POSITIVE_INFINITY;
+19620: }
+19621: function MONGSE_pickAutoDodgeDestination31223(e, t, n, r) {
+19622:   let i = MONGSE_pickRoleTarget31222(e),
+19623:     a = i ? Math.max(0.001, Math.hypot(i.x - e.x, i.y - e.y)) : 1,
+19624:     o = i ? (i.x - e.x) / a : 1,
+19625:     s = i ? (i.y - e.y) / a : 0,
+19626:     c = -o,
+19627:     l = -s,
+19628:     u = n?.kind === `projectile` ? n.samples?.[1] ?? n.source : null,
+19629:     d = u ? Number(u.x ?? e.x) - Number(n.source?.x ?? e.x) : 0,
+19630:     f = u ? Number(u.y ?? e.y) - Number(n.source?.y ?? e.y) : 0,
+19631:     p = Math.max(0.001, Math.hypot(d, f)),
+19632:     m = [
+19633:       [-f / p, d / p],
+19634:       [f / p, -d / p],
+19635:       [c, l],
+19636:       [c * 0.72 - l * 0.69, l * 0.72 + c * 0.69],
+19637:       [c * 0.72 + l * 0.69, l * 0.72 - c * 0.69],
+19638:       [-s, o],
+19639:       [s, -o],
+19640:       [-c, -l],
+19641:       [0.707, 0.707],
+19642:       [-0.707, -0.707],
+19643:     ],
+19644:     h = null,
+19645:     g = Number(e.heroMetalBindUntil ?? 0) > Number(e.time ?? 0) ? 0.24 : 1;
+19646:   m.forEach(([i, a], o) => {
+19647:     let s = Math.max(0.001, Math.hypot(i, a)),
+19648:       c = ft(
+19649:         e.zone,
+19650:         e,
+19651:         { x: (i / s) * r.distance * g, y: (a / s) * r.distance * g },
+19652:         0.48,
+19653:       ),
+19654:       l = Math.hypot(c.x - e.x, c.y - e.y);
+19655:     if (l < Math.max(0.18, 0.62 * g) || pt(e.zone, e, c, 0.46)) return;
+19656:     let u = MONGSE_scoreAutoDodgeCandidate31223(e, c, r),
+19657:       d = MONGSE_autoEvadeHash31223(`${n?.groupKey}:${o}`) / 4294967296;
+19658:     u += d * 0.08;
+19659:     (!h || u < h.score) && (h = { x: c.x, y: c.y, score: u, distance: l });
+19660:   });
+19661:   return h;
+19662: }
+19663: function MONGSE_resetHeroAutoDodge31223(e, t = `reset`) {
+19664:   if (!e) return !1;
+19665:   let n = Number(e.autoEvadeUntil31223 ?? 0) > Number(e.time ?? 0);
+19666:   ((e.autoEvadeUntil31223 = 0),
+19667:     (e.autoEvadeStartedAt31223 = 0),
+19668:     (e.autoEvadeThreatKey31223 = ``),
+19669:     (e.autoEvadeCancelReason31223 = t),
+19670:     (e.autoEvadeScanAt31223 = Number(e.time ?? 0) + 0.04));
+19671:   if (e.heroMotion?.autoEvade31223)
+19672:     e.heroMotion = ai(Number(e.time ?? 0), e.facing, e.direction);
+19673:   return n;
+19674: }
+19675: function MONGSE_stepHeroAutoDodge31223(e, t, n = !1) {
+19676:   if (!e) return { active: !1, moved: 0 };
+19677:   let r = Number(e.time ?? 0),
+19678:     i = Number(e.autoEvadeStartedAt31223 ?? 0),
+19679:     a = Number(e.autoEvadeUntil31223 ?? 0);
+19680:   if (!(a > i) || r < i) return { active: !1, moved: 0 };
+19681:   if (r >= a) {
+19682:     let t = ft(
+19683:       e.zone,
+19684:       e,
+19685:       {
+19686:         x: Number(e.autoEvadeToX31223 ?? e.x) - Number(e.x),
+19687:         y: Number(e.autoEvadeToY31223 ?? e.y) - Number(e.y),
+19688:       },
+19689:       0.48,
+19690:     );
+19691:     return (
+19692:       (e.x = t.x),
+19693:       (e.y = t.y),
+19694:       (e.moveVx = 0),
+19695:       (e.moveVy = 0),
+19696:       MONGSE_resetHeroAutoDodge31223(e, `complete`),
+19697:       { active: !1, moved: 0, completed: !0 }
+19698:     );
+19699:   }
+19700:   if (n || Number(e.heroSleepUntil ?? 0) > r || Number(e.heroCharmUntil ?? 0) > r)
+19701:     return (
+19702:       MONGSE_resetHeroAutoDodge31223(e, n ? `manual` : `status`),
+19703:       { active: !1, moved: 0, cancelled: !0 }
+19704:     );
+19705:   let o = Math.max(0, Math.min(1, (r - i) / Math.max(0.001, a - i))),
+19706:     s = o < 0.5 ? 2 * o * o : 1 - Math.pow(-2 * o + 2, 2) / 2,
+19707:     c = Number(e.autoEvadeFromX31223 ?? e.x),
+19708:     l = Number(e.autoEvadeFromY31223 ?? e.y),
+19709:     u = Number(e.autoEvadeToX31223 ?? e.x),
+19710:     d = Number(e.autoEvadeToY31223 ?? e.y),
+19711:     f = c + (u - c) * s,
+19712:     p = l + (d - l) * s,
+19713:     m = Number(e.x),
+19714:     h = Number(e.y),
+19715:     g = ft(e.zone, e, { x: f - m, y: p - h }, 0.48);
+
+### match [19658-19757]
+19658:     u += d * 0.08;
+19659:     (!h || u < h.score) && (h = { x: c.x, y: c.y, score: u, distance: l });
+19660:   });
+19661:   return h;
+19662: }
+19663: function MONGSE_resetHeroAutoDodge31223(e, t = `reset`) {
+19664:   if (!e) return !1;
+19665:   let n = Number(e.autoEvadeUntil31223 ?? 0) > Number(e.time ?? 0);
+19666:   ((e.autoEvadeUntil31223 = 0),
+19667:     (e.autoEvadeStartedAt31223 = 0),
+19668:     (e.autoEvadeThreatKey31223 = ``),
+19669:     (e.autoEvadeCancelReason31223 = t),
+19670:     (e.autoEvadeScanAt31223 = Number(e.time ?? 0) + 0.04));
+19671:   if (e.heroMotion?.autoEvade31223)
+19672:     e.heroMotion = ai(Number(e.time ?? 0), e.facing, e.direction);
+19673:   return n;
+19674: }
+19675: function MONGSE_stepHeroAutoDodge31223(e, t, n = !1) {
+19676:   if (!e) return { active: !1, moved: 0 };
+19677:   let r = Number(e.time ?? 0),
+19678:     i = Number(e.autoEvadeStartedAt31223 ?? 0),
+19679:     a = Number(e.autoEvadeUntil31223 ?? 0);
+19680:   if (!(a > i) || r < i) return { active: !1, moved: 0 };
+19681:   if (r >= a) {
+19682:     let t = ft(
+19683:       e.zone,
+19684:       e,
+19685:       {
+19686:         x: Number(e.autoEvadeToX31223 ?? e.x) - Number(e.x),
+19687:         y: Number(e.autoEvadeToY31223 ?? e.y) - Number(e.y),
+19688:       },
+19689:       0.48,
+19690:     );
+19691:     return (
+19692:       (e.x = t.x),
+19693:       (e.y = t.y),
+19694:       (e.moveVx = 0),
+19695:       (e.moveVy = 0),
+19696:       MONGSE_resetHeroAutoDodge31223(e, `complete`),
+19697:       { active: !1, moved: 0, completed: !0 }
+19698:     );
+19699:   }
+19700:   if (n || Number(e.heroSleepUntil ?? 0) > r || Number(e.heroCharmUntil ?? 0) > r)
+19701:     return (
+19702:       MONGSE_resetHeroAutoDodge31223(e, n ? `manual` : `status`),
+19703:       { active: !1, moved: 0, cancelled: !0 }
+19704:     );
+19705:   let o = Math.max(0, Math.min(1, (r - i) / Math.max(0.001, a - i))),
+19706:     s = o < 0.5 ? 2 * o * o : 1 - Math.pow(-2 * o + 2, 2) / 2,
+19707:     c = Number(e.autoEvadeFromX31223 ?? e.x),
+19708:     l = Number(e.autoEvadeFromY31223 ?? e.y),
+19709:     u = Number(e.autoEvadeToX31223 ?? e.x),
+19710:     d = Number(e.autoEvadeToY31223 ?? e.y),
+19711:     f = c + (u - c) * s,
+19712:     p = l + (d - l) * s,
+19713:     m = Number(e.x),
+19714:     h = Number(e.y),
+19715:     g = ft(e.zone, e, { x: f - m, y: p - h }, 0.48);
+19716:   ((e.x = g.x), (e.y = g.y));
+19717:   let _ = e.x - m,
+19718:     v = e.y - h,
+19719:     y = Math.hypot(_, v);
+19720:   return (
+19721:     y > 0.001 && fi(e, _, v),
+19722:     (e.moveVx = 0),
+19723:     (e.moveVy = 0),
+19724:     (e.heroMotion = window.__HAPIL_SKILL_COMPLETION_V31412__?.keepHeroPose(e, e, `dash`) ? e.heroMotion : {
+19725:       kind: `dash`,
+19726:       autoEvade31223: !0,
+19727:       started: i,
+19728:       until: a,
+19729:       facing: e.facing,
+19730:       dx: y > 0.001 ? _ / y : Number(e.heroMotion?.dx ?? e.facing),
+19731:       dy: y > 0.001 ? v / y : Number(e.heroMotion?.dy ?? 0),
+19732:       phase: o * Math.PI * 2,
+19733:       direction: e.direction,
+19734:     }),
+19735:     { active: !0, moved: y, progress: o }
+19736:   );
+19737: }
+19738: function MONGSE_planHeroAutoDodge31223(e, t, n) {
+19739:   if (!e || e.autoCombatEnabled31222 !== !0) return null;
+19740:   let r = Number(e.time ?? 0),
+19741:     i = MONGSE_autoEvadeProfile31223(n?.autoEvade ?? 0, t);
+19742:   if (
+19743:     Number(e.autoEvadeUntil31223 ?? 0) > r ||
+19744:     Number(e.autoEvadeScanAt31223 ?? 0) > r ||
+19745:     Number(e.heroSleepUntil ?? 0) > r ||
+19746:     Number(e.heroCharmUntil ?? 0) > r
+19747:   )
+19748:     return null;
+19749:   e.autoEvadeScanAt31223 = r + 0.055;
+19750:   let a = MONGSE_collectHeroThreats31223(e, i.horizon),
+19751:     o = a[0];
+19752:   if (!o) return null;
+19753:   let s = Array.isArray(e.autoEvadeDecisions31223)
+19754:     ? e.autoEvadeDecisions31223.filter(
+19755:         (e) => r - Number(e?.at ?? r) <= 5 && e?.key,
+19756:       )
+19757:     : [];
+
+### match [19670-19769]
+19670:     (e.autoEvadeScanAt31223 = Number(e.time ?? 0) + 0.04));
+19671:   if (e.heroMotion?.autoEvade31223)
+19672:     e.heroMotion = ai(Number(e.time ?? 0), e.facing, e.direction);
+19673:   return n;
+19674: }
+19675: function MONGSE_stepHeroAutoDodge31223(e, t, n = !1) {
+19676:   if (!e) return { active: !1, moved: 0 };
+19677:   let r = Number(e.time ?? 0),
+19678:     i = Number(e.autoEvadeStartedAt31223 ?? 0),
+19679:     a = Number(e.autoEvadeUntil31223 ?? 0);
+19680:   if (!(a > i) || r < i) return { active: !1, moved: 0 };
+19681:   if (r >= a) {
+19682:     let t = ft(
+19683:       e.zone,
+19684:       e,
+19685:       {
+19686:         x: Number(e.autoEvadeToX31223 ?? e.x) - Number(e.x),
+19687:         y: Number(e.autoEvadeToY31223 ?? e.y) - Number(e.y),
+19688:       },
+19689:       0.48,
+19690:     );
+19691:     return (
+19692:       (e.x = t.x),
+19693:       (e.y = t.y),
+19694:       (e.moveVx = 0),
+19695:       (e.moveVy = 0),
+19696:       MONGSE_resetHeroAutoDodge31223(e, `complete`),
+19697:       { active: !1, moved: 0, completed: !0 }
+19698:     );
+19699:   }
+19700:   if (n || Number(e.heroSleepUntil ?? 0) > r || Number(e.heroCharmUntil ?? 0) > r)
+19701:     return (
+19702:       MONGSE_resetHeroAutoDodge31223(e, n ? `manual` : `status`),
+19703:       { active: !1, moved: 0, cancelled: !0 }
+19704:     );
+19705:   let o = Math.max(0, Math.min(1, (r - i) / Math.max(0.001, a - i))),
+19706:     s = o < 0.5 ? 2 * o * o : 1 - Math.pow(-2 * o + 2, 2) / 2,
+19707:     c = Number(e.autoEvadeFromX31223 ?? e.x),
+19708:     l = Number(e.autoEvadeFromY31223 ?? e.y),
+19709:     u = Number(e.autoEvadeToX31223 ?? e.x),
+19710:     d = Number(e.autoEvadeToY31223 ?? e.y),
+19711:     f = c + (u - c) * s,
+19712:     p = l + (d - l) * s,
+19713:     m = Number(e.x),
+19714:     h = Number(e.y),
+19715:     g = ft(e.zone, e, { x: f - m, y: p - h }, 0.48);
+19716:   ((e.x = g.x), (e.y = g.y));
+19717:   let _ = e.x - m,
+19718:     v = e.y - h,
+19719:     y = Math.hypot(_, v);
+19720:   return (
+19721:     y > 0.001 && fi(e, _, v),
+19722:     (e.moveVx = 0),
+19723:     (e.moveVy = 0),
+19724:     (e.heroMotion = window.__HAPIL_SKILL_COMPLETION_V31412__?.keepHeroPose(e, e, `dash`) ? e.heroMotion : {
+19725:       kind: `dash`,
+19726:       autoEvade31223: !0,
+19727:       started: i,
+19728:       until: a,
+19729:       facing: e.facing,
+19730:       dx: y > 0.001 ? _ / y : Number(e.heroMotion?.dx ?? e.facing),
+19731:       dy: y > 0.001 ? v / y : Number(e.heroMotion?.dy ?? 0),
+19732:       phase: o * Math.PI * 2,
+19733:       direction: e.direction,
+19734:     }),
+19735:     { active: !0, moved: y, progress: o }
+19736:   );
+19737: }
+19738: function MONGSE_planHeroAutoDodge31223(e, t, n) {
+19739:   if (!e || e.autoCombatEnabled31222 !== !0) return null;
+19740:   let r = Number(e.time ?? 0),
+19741:     i = MONGSE_autoEvadeProfile31223(n?.autoEvade ?? 0, t);
+19742:   if (
+19743:     Number(e.autoEvadeUntil31223 ?? 0) > r ||
+19744:     Number(e.autoEvadeScanAt31223 ?? 0) > r ||
+19745:     Number(e.heroSleepUntil ?? 0) > r ||
+19746:     Number(e.heroCharmUntil ?? 0) > r
+19747:   )
+19748:     return null;
+19749:   e.autoEvadeScanAt31223 = r + 0.055;
+19750:   let a = MONGSE_collectHeroThreats31223(e, i.horizon),
+19751:     o = a[0];
+19752:   if (!o) return null;
+19753:   let s = Array.isArray(e.autoEvadeDecisions31223)
+19754:     ? e.autoEvadeDecisions31223.filter(
+19755:         (e) => r - Number(e?.at ?? r) <= 5 && e?.key,
+19756:       )
+19757:     : [];
+19758:   e.autoEvadeDecisions31223 = s.slice(-23);
+19759:   let c = s.find((e) => e.key === o.groupKey);
+19760:   if (!c) {
+19761:     let n = MONGSE_autoEvadeRoll31223(e, t, o.groupKey),
+19762:       a = MONGSE_autoEvadeHash31223(`${o.groupKey}:reaction`) / 4294967296;
+19763:     ((c = {
+19764:       key: o.groupKey,
+19765:       at: r,
+19766:       roll: n,
+19767:       success: n < i.chance,
+19768:       reactionAt: r + i.reactionMin + (i.reactionMax - i.reactionMin) * a,
+19769:       resolved: !1,
+
+### match [19733-19832]
+19733:       direction: e.direction,
+19734:     }),
+19735:     { active: !0, moved: y, progress: o }
+19736:   );
+19737: }
+19738: function MONGSE_planHeroAutoDodge31223(e, t, n) {
+19739:   if (!e || e.autoCombatEnabled31222 !== !0) return null;
+19740:   let r = Number(e.time ?? 0),
+19741:     i = MONGSE_autoEvadeProfile31223(n?.autoEvade ?? 0, t);
+19742:   if (
+19743:     Number(e.autoEvadeUntil31223 ?? 0) > r ||
+19744:     Number(e.autoEvadeScanAt31223 ?? 0) > r ||
+19745:     Number(e.heroSleepUntil ?? 0) > r ||
+19746:     Number(e.heroCharmUntil ?? 0) > r
+19747:   )
+19748:     return null;
+19749:   e.autoEvadeScanAt31223 = r + 0.055;
+19750:   let a = MONGSE_collectHeroThreats31223(e, i.horizon),
+19751:     o = a[0];
+19752:   if (!o) return null;
+19753:   let s = Array.isArray(e.autoEvadeDecisions31223)
+19754:     ? e.autoEvadeDecisions31223.filter(
+19755:         (e) => r - Number(e?.at ?? r) <= 5 && e?.key,
+19756:       )
+19757:     : [];
+19758:   e.autoEvadeDecisions31223 = s.slice(-23);
+19759:   let c = s.find((e) => e.key === o.groupKey);
+19760:   if (!c) {
+19761:     let n = MONGSE_autoEvadeRoll31223(e, t, o.groupKey),
+19762:       a = MONGSE_autoEvadeHash31223(`${o.groupKey}:reaction`) / 4294967296;
+19763:     ((c = {
+19764:       key: o.groupKey,
+19765:       at: r,
+19766:       roll: n,
+19767:       success: n < i.chance,
+19768:       reactionAt: r + i.reactionMin + (i.reactionMax - i.reactionMin) * a,
+19769:       resolved: !1,
+19770:     }),
+19771:       e.autoEvadeDecisions31223.push(c));
+19772:   }
+19773:   if (c.resolved || r < Number(c.reactionAt ?? r)) return null;
+19774:   if (!c.success)
+19775:     return ((c.resolved = !0), (c.result = `roll-failed`), null);
+19776:   if (r < Number(e.autoEvadeReadyAt31223 ?? 0)) return null;
+19777:   let l = MONGSE_pickAutoDodgeDestination31223(e, t, o, i);
+19778:   if (!l) return ((c.reactionAt = r + 0.08), null);
+19779:   let u = Math.max(0.001, Math.hypot(l.x - e.x, l.y - e.y));
+19780:   return (
+19781:     (c.resolved = !0),
+19782:     (c.result = `dodged`),
+19783:     (e.autoEvadeStartedAt31223 = r),
+19784:     (e.autoEvadeUntil31223 = r + i.duration),
+19785:     (e.autoEvadeFromX31223 = e.x),
+19786:     (e.autoEvadeFromY31223 = e.y),
+19787:     (e.autoEvadeToX31223 = l.x),
+19788:     (e.autoEvadeToY31223 = l.y),
+19789:     (e.autoEvadeThreatKey31223 = o.groupKey),
+19790:     (e.autoEvadeReadyAt31223 = r + i.cooldown),
+19791:     (e.autoEvadeCount31223 = Number(e.autoEvadeCount31223 ?? 0) + 1),
+19792:     (e.autoSkillNextAt = Math.max(Number(e.autoSkillNextAt ?? 0), r + i.duration + 0.12)),
+19793:     (e.invulnerableUntil = Math.max(Number(e.invulnerableUntil ?? 0), r + i.duration + 0.02)),
+19794:     fi(e, (l.x - e.x) / u, (l.y - e.y) / u),
+19795:     e.effects?.push({
+19796:       id: e.fxSerial++,
+19797:       kind: `time`,
+19798:       x: e.x,
+19799:       y: e.y,
+19800:       tx: l.x,
+19801:       ty: l.y,
+19802:       born: r,
+19803:       duration: i.duration + 0.12,
+19804:       color: `#9ff7ff`,
+19805:       accent: `#ffffff`,
+19806:       size: 2.4,
+19807:       angle: Math.atan2(l.y - e.y, l.x - e.x),
+19808:       autoEvade31223: !0,
+19809:     }),
+19810:     e.floatTexts?.push({
+19811:       id: e.fxSerial++,
+19812:       x: e.x,
+19813:       y: e.y,
+19814:       born: r,
+19815:       duration: 0.52,
+19816:       text: `자동회피`,
+19817:       color: `#b7fbff`,
+19818:       critical: !1,
+19819:     }),
+19820:     { threat: o, destination: l, profile: i }
+19821:   );
+19822: }
+19823: function MONGSE_updateBossDistanceMode31222(e, t, n) {
+19824:   if (!e || !t || (!t.boss && !t.midboss)) return t?.distanceCombatMode31222 ?? null;
+19825:   let r = t.boss
+19826:       ? MONGSE_BOSS_DISTANCE_COMBAT_V31222.boss
+19827:       : MONGSE_BOSS_DISTANCE_COMBAT_V31222.midboss,
+19828:     i = Number(e.time ?? 0),
+19829:     a = Number.isFinite(Number(n)) ? Number(n) : Math.hypot(e.x - t.x, e.y - t.y),
+19830:     o = t.distanceCombatMode31222;
+19831:   if (o !== `melee` && o !== `ranged`) {
+19832:     o = a <= (r.meleeEnter + r.meleeExit) * 0.5 ? `melee` : `ranged`;
+
+### match [29603-29702]
+29603:     let o = i / a;
+29604:     if (ut(e, t.x + (n.x - t.x) * o, t.y + (n.y - t.y) * o, r)) return !0;
+29605:   }
+29606:   return !1;
+29607: }
+29608: function MONGSE_zonePortalAnchors(e) {
+29609:   let t = N?.[e],
+29610:     n = [t?.map, ...(t?.mapVariants ?? [])].filter(Boolean).join(` `),
+29611:     r,
+29612:     i,
+29613:     a = `diagonal`;
+29614:   if (
+29615:     /chapel|cathedral|throne|core|arena|court|palace|altar|gate|biovat|castle|kitchen/i.test(
+29616:       n,
+29617:     )
+29618:   )
+29619:     ((r = S(16.1, 16.1)), (i = S(4.1, 4.1)), (a = `south-north`));
+29620:   else if (
+29621:     /corridor|road|waterway|crosswalk|line|stair|harbor|port|village|hotel/i.test(
+29622:       n,
+29623:     )
+29624:   )
+29625:     ((r = S(3.2, 16.8)), (i = S(16.8, 3.2)), (a = `west-east`));
+29626:   else if (/forest|swamp|jungle|meadow|garden|ruin/i.test(n))
+29627:     ((r = S(4.2, 15.8)), (i = S(15.4, 5)), (a = `southwest-northeast`));
+29628:   else {
+29629:     let t = [...String(e)].reduce((e, t) => e + t.charCodeAt(0), 0) % 2;
+29630:     ((r = t ? S(15.8, 15.8) : S(4.2, 15.8)),
+29631:       (i = t ? S(4.2, 4.2) : S(15.8, 4.2)),
+29632:       (a = t ? `south-north` : `southwest-northeast`));
+29633:   }
+29634:   let o = dt(e, r, 0.48),
+29635:     s = dt(e, i, 0.82);
+29636:   return {
+29637:     zone: e,
+29638:     theme: a,
+29639:     entry: o,
+29640:     exit: s,
+29641:     interactionEntry: o,
+29642:     interactionExit: s,
+29643:   };
+29644: }
+29645: function MONGSE_portalAnchorValid(e, t, n = 0.48) {
+29646:   return !!t && !ut(e, t.x, t.y, n);
+29647: }
+29648: function MONGSE_bossLaneCandidates(e, t) {
+29649:   if (!e || !t) return [];
+29650:   let n = `${e.zone}:${t.id}:${Math.round(t.x * 2)}:${Math.round(t.y * 2)}`,
+29651:     r = e.bossLaneCandidateCache31210,
+29652:     i =
+29653:       r?.key === n && Number(r.until ?? 0) > Number(e.time ?? 0)
+29654:         ? r.points
+29655:         : [
+29656:             { lane: `left`, x: t.x - 3, y: t.y + 4.5 },
+29657:             { lane: `right`, x: t.x + 4.5, y: t.y - 3 },
+29658:             { lane: `bottom`, x: t.x + 3.4, y: t.y + 3.4 },
+29659:           ].map((a) => {
+29660:             let MONGSE_rawLane = { x: b(a.x), y: b(a.y) },
+29661:               n = !ut(e.zone, MONGSE_rawLane.x, MONGSE_rawLane.y, 0.48)
+29662:                 ? MONGSE_rawLane
+29663:                 : dt(e.zone, MONGSE_rawLane, 0.48),
+29664:               r = C(n.x, n.y),
+29665:               i = C(t.x, t.y);
+29666:             return {
+29667:               ...a,
+29668:               x: n.x,
+29669:               y: n.y,
+29670:               depthGap: n.x + n.y - (t.x + t.y),
+29671:               screenGap: Math.hypot(r.x - i.x, r.y - i.y),
+29672:             };
+29673:           });
+29674:   r?.key === n ||
+29675:     (e.bossLaneCandidateCache31210 = {
+29676:       key: n,
+29677:       until:
+29678:         Number(e.time ?? 0) +
+29679:         MONGSE_COMBAT_DIRECTOR_V31210.laneCandidateCacheSeconds,
+29680:       points: i,
+29681:     });
+29682:   return i
+29683:     .map((n) => {
+29684:       let r = { x: n.x, y: n.y },
+29685:         i = C(r.x, r.y),
+29686:         a = C(t.x, t.y);
+29687:       return {
+29688:         ...n,
+29689:         x: r.x,
+29690:         y: r.y,
+29691:         depthGap: r.x + r.y - (t.x + t.y),
+29692:         screenGap: Math.hypot(i.x - a.x, i.y - a.y),
+29693:         distance: Math.hypot(r.x - e.x, r.y - e.y),
+29694:       };
+29695:     })
+29696:     .filter(
+29697:       (n) =>
+29698:         !ut(e.zone, n.x, n.y, 0.48) &&
+29699:         n.depthGap >= MONGSE_COMBAT_PHYSICS_V3128.bossHeroDepthGap &&
+29700:         Math.hypot(n.x - t.x, n.y - t.y) >= 3,
+29701:     );
+29702: }
+
+### match [40118-40217]
+40118: }
+40119: function ir(e, t) {
+40120:   let n = Number.isFinite(e[t]) ? Math.round(e[t]) : 0;
+40121:   return Math.max(0, Math.min(nr[t], n));
+40122: }
+40123: function MONGSE_autoEvadeProfile31223(e = 0, t = `hwando`) {
+40124:   let n = Math.max(0, Math.min(nr.autoEvade, Math.round(Number(e) || 0))),
+40125:     r = MONGSE_isRangedHeroId31213(t);
+40126:   return Object.freeze({
+40127:     level: n,
+40128:     chance: Math.min(0.61, 0.33 + n * 0.035),
+40129:     reactionMin: Math.max(0.075, 0.19 - n * 0.012),
+40130:     reactionMax: Math.max(0.16, 0.31 - n * 0.012),
+40131:     cooldown: Math.max(0.78, 1.36 - n * 0.065),
+40132:     horizon: 0.78 + n * 0.035,
+40133:     distance: r ? 1.9 + n * 0.035 : 1.55 + n * 0.03,
+40134:     duration: Math.max(0.22, 0.31 - n * 0.008),
+40135:     ranged: r,
+40136:   });
+40137: }
+40138: function ar(e) {
+40139:   let t = Math.max(0, Math.min(nr.attack, Math.round(e)));
+40140:   return {
+40141:     level: t,
+40142:     powerMultiplier: 1 + t * 0.065,
+40143:     reachMultiplier:
+40144:       1 + (t >= 2 ? 0.1 : 0) + (t >= 6 ? 0.12 : 0) + (t >= 10 ? 0.16 : 0),
+40145:     strikeCount: 1 + +(t >= 3) + +(t >= 9),
+40146:     targetCount: 1 + +(t >= 4) + +(t >= 8) + +(t >= 12),
+40147:     qEcho: t >= 5,
+40148:     wEcho: t >= 7,
+40149:     eEcho: t >= 9,
+40150:     rEcho: t >= 12,
+40151:   };
+40152: }
+40153: function or(e, t) {
+40154:   let n = [`skillQ`, `skillW`, `skillE`, `skillR`][t] ?? `skillQ`,
+40155:     r = ir(e, n);
+40156:   return {
+40157:     key: n,
+40158:     level: r,
+40159:     damageMultiplier: 1 + r * (t === 3 ? 0.11 : 0.085),
+40160:     rangeMultiplier: 1 + r * 0.035,
+40161:     cooldownMultiplier: Math.max(t === 3 ? 0.7 : 0.66, 1 - r * 0.045),
+40162:     extraTargets: Math.floor(r / (t === 3 ? 2 : 3)),
+40163:     sustainMultiplier: 1 + r * 0.09,
+40164:     durationBonus: r * 0.035,
+40165:     dashDistanceBonus: t === 2 ? r * 0.16 : 0,
+40166:   };
+40167: }
+40168: function sr(e, t = `hwando`, state = null) {
+40169:   e=window.__HAPIL_CHANNEL_V31364__?.effectiveLevel(state,e)??e;
+40170:   let n = Math.max(0, Math.min(nr.awakening, Math.round(e))),
+40171:     r = MONGSE_awakeningProfile(t);
+40172:   return {
+40173:     level: n,
+40174:     enabled: n > 0,
+40175:     heroId: t,
+40176:     profile: r,
+40177:     triggerChance: n > 0 ? Math.min(0.44, 0.15 + n * 0.025 + r.chanceBonus) : 0,
+40178:     guaranteeActions: n >= 7 ? 4 : n >= 4 ? 5 : n >= 2 ? 6 : 7,
+40179:     reserveDuration: 4,
+40180:     duration: n > 0 ? 4.9 + n * 0.625 : 0,
+40181:     cooldown: Math.max(10.5, 16.2 - n * 0.68),
+40182:     damageMultiplier: n > 0 ? 1.31 + n * 0.065 : 1,
+40183:     speedMultiplier: n > 0 ? 1.1 + n * 0.022 : 1,
+40184:     strikeBonus: n >= 3 ? 1 + +(n >= 7) : 0,
+40185:     targetBonus: n >= 2 ? 1 + +(n >= 5) + +(n >= 8) : 0,
+40186:     detectionRange: n > 0 ? 9.2 + n * 0.6 : 0,
+40187:   };
+40188: }
+40189: var MONGSE_REGULAR_SKILL_POWER = Object.freeze([1.14, 1.12, 1.12, 1.1]);
+40190: function MONGSE_regularSkillPower(e, t) {
+40191:   return t ? 1 : (MONGSE_REGULAR_SKILL_POWER[e] ?? 1);
+40192: }
+40193: function MONGSE_regularSkillUtility(e) {
+40194:   return e ? 1 : 1.08;
+40195: }
+40196: function MONGSE_awakenGate(e, t) {
+40197:   let n = Math.min(8, t + 1),
+40198:     r = {
+40199:       attack: ir(e, `attack`),
+40200:       q: ir(e, `skillQ`),
+40201:       w: ir(e, `skillW`),
+40202:       x: ir(e, `skillE`),
+40203:       u: ir(e, `skillR`),
+40204:     },
+40205:     i = [
+40206:       null,
+40207:       [0, 0, 0, 0, 0],
+40208:       [2, 1, 0, 0, 0],
+40209:       [3, 1, 1, 0, 0],
+40210:       [4, 2, 2, 1, 0],
+40211:       [5, 2, 2, 2, 1],
+40212:       [6, 3, 3, 2, 2],
+40213:       [8, 4, 4, 3, 3],
+40214:       [10, 5, 5, 4, 4],
+40215:     ][n],
+40216:     a =
+40217:       r.attack >= i[0] &&
+
+### match [40843-40942]
+40843: function HAPIL_resolveCombatModeV31329(settings = {}) {
+40844:   const mode = settings?.combatMode;
+40845:   if ([`manual`, `semi`, `full`].includes(mode)) return mode;
+40846:   return settings?.autoCombat === true ? `full` : Br.combatMode;
+40847: }
+40848: function HAPIL_isFullAutoV31329(settings = {}) {
+40849:   const mode = settings?.combatMode;
+40850:   return [`manual`, `semi`, `full`].includes(mode)
+40851:     ? mode === `full`
+40852:     : settings?.autoCombat === true;
+40853: }
+40854: var MONGSE_storageMemory = new Map();
+40855: function MONGSE_storageGet(e) {
+40856:   if (typeof window === `undefined`) return MONGSE_storageMemory.get(e) ?? null;
+40857:   try {
+40858:     let t = window.localStorage.getItem(e);
+40859:     if (t !== null) return (MONGSE_storageMemory.set(e, t), t);
+40860:   } catch {}
+40861:   try {
+40862:     let t = window.sessionStorage.getItem(e);
+40863:     if (t !== null) return (MONGSE_storageMemory.set(e, t), t);
+40864:   } catch {}
+40865:   return MONGSE_storageMemory.get(e) ?? null;
+40866: }
+40867: function MONGSE_storageSet(e, t) {
+40868:   let n = String(t),
+40869:     r = !1;
+40870:   if (typeof window !== `undefined`) {
+40871:     try {
+40872:       (window.localStorage.setItem(e, n),
+40873:         (r = window.localStorage.getItem(e) === n));
+40874:     } catch {}
+40875:     try {
+40876:       window.sessionStorage.setItem(e, n);
+40877:     } catch {}
+40878:   }
+40879:   return (MONGSE_storageMemory.set(e, n), r);
+40880: }
+40881: function MONGSE_saveStorageKey(e) {
+40882:   return e === `auto` ? Er : Tr + e;
+40883: }
+40884: function MONGSE_saveStorageKeys(e) {
+40885:   return e === `auto`
+40886:     ? [
+40887:         Er,
+40888:         `mongse_save_v9_auto`,
+40889:         `mongse_save_v8_auto`,
+40890:         `mongse_save_v7_auto`,
+40891:         `mongse_save_v6_auto`,
+40892:         `mongse_save_v5_auto`,
+40893:         `mongse_save_v4_auto`,
+40894:         `mongse_save_v3_auto`,
+40895:       ]
+40896:     : [
+40897:         Tr + e,
+40898:         `mongse_save_v9_slot_` + e,
+40899:         `mongse_save_v8_slot_` + e,
+40900:         `mongse_save_v7_slot_` + e,
+40901:         `mongse_save_v6_slot_` + e,
+40902:         `mongse_save_v5_slot_` + e,
+40903:         `mongse_save_v4_slot_` + e,
+40904:         `mongse_save_v3_slot_` + e,
+40905:         `mongse_save_v2_slot_` + e,
+40906:         `mongse_save_v1_slot_` + e,
+40907:       ];
+40908: }
+40909: function MONGSE_writeSave(e, t) {
+40910:   const notice = result => { window.__HAPIL_READABILITY_V31336__?.saveResult(result); return result; };
+40911:   try {
+40912:     let n = MONGSE_saveStorageKey(e),
+40913:       r = JSON.stringify(t),
+40914:       i = MONGSE_storageGet(n);
+40915:     i && MONGSE_storageSet(n + `_backup`, i);
+40916:     let a = MONGSE_storageSet(n, r);
+40917:     if (MONGSE_storageGet(n) !== r || !ji(JSON.parse(r)))
+40918:       return notice({ ok: !1, persistent: !1 });
+40919:     return (MONGSE_storageSet(n + `_mirror`, r), notice({ ok: !0, persistent: a }));
+40920:   } catch {
+40921:     return notice({ ok: !1, persistent: !1 });
+40922:   }
+40923: }
+40924: function MONGSE_exportSaveFile(e) {
+40925:   let t = Mi(e);
+40926:   if (!t || typeof document === `undefined`) return !1;
+40927:   try {
+40928:     let n = JSON.stringify(t, null, 2),
+40929:       r = new Blob([n], { type: `application/json;charset=utf-8` }),
+40930:       i = URL.createObjectURL(r),
+40931:       a = document.createElement(`a`),
+40932:       o = new Date(t.savedAt).toISOString().replace(/[:.]/g, `-`);
+40933:     return (
+40934:       (a.href = i),
+40935:       (a.download = `MONGSE_SLOT_${e}_${o}.json`),
+40936:       (a.style.display = `none`),
+40937:       document.body.appendChild(a),
+40938:       a.click(),
+40939:       a.remove(),
+40940:       window.setTimeout(() => URL.revokeObjectURL(i), 1200),
+40941:       !0
+40942:     );
+
+### match [71659-71758]
+71659:           : -1;
+71660:     }
+71661:     return MONGSE_state31224.heroRoleStrafeSide31224;
+71662:   }
+71663: 
+71664:   MONGSE_autoRoleMovementIntent31222 = function MONGSE_autoRoleMovementIntent31224(
+71665:     MONGSE_state31224,
+71666:     MONGSE_heroId31224,
+71667:   ) {
+71668:     if (!MONGSE_isRangedHeroId31213(MONGSE_heroId31224))
+71669:       return MONGSE_originalAutoRoleIntent31224(
+71670:         MONGSE_state31224,
+71671:         MONGSE_heroId31224,
+71672:       );
+71673:     const MONGSE_target31224 = MONGSE_pickRoleTarget31222(MONGSE_state31224);
+71674:     if (
+71675:       !MONGSE_state31224 ||
+71676:       !MONGSE_target31224 ||
+71677:       Number(MONGSE_target31224.hp ?? 0) <= 0
+71678:     ) {
+71679:       if (MONGSE_state31224) {
+71680:         MONGSE_state31224.heroRoleNavPath31222 = [];
+71681:         MONGSE_state31224.heroRoleNavTarget31222 = null;
+71682:         MONGSE_state31224.heroRoleNavMode31222 = `idle`;
+71683:         MONGSE_state31224.heroRoleNavReadyAt31222 = 0;
+71684:         MONGSE_state31224.heroRoleSteeringActive31222 = !1;
+71685:       }
+71686:       return { active: !1, dx: 0, dy: 0, mode: `idle`, target: null };
+71687:     }
+71688:     const MONGSE_now31224 = Number(MONGSE_state31224.time ?? 0);
+71689:     if (
+71690:       MONGSE_state31224.heroMotion?.until > MONGSE_now31224 &&
+71691:       [`dash`, `skill`, `ultimate`, `hurt`].includes(
+71692:         MONGSE_state31224.heroMotion.kind,
+71693:       )
+71694:     ) {
+71695:       MONGSE_state31224.heroRoleNavPath31222 = [];
+71696:       MONGSE_state31224.heroRoleNavTarget31222 = MONGSE_target31224.id;
+71697:       MONGSE_state31224.heroRoleNavMode31222 = `locked`;
+71698:       MONGSE_state31224.heroRoleNavReadyAt31222 = 0;
+71699:       MONGSE_state31224.heroRoleSteeringActive31222 = !1;
+71700:       return {
+71701:         active: !0,
+71702:         dx: 0,
+71703:         dy: 0,
+71704:         mode: `locked`,
+71705:         target: MONGSE_target31224,
+71706:       };
+71707:     }
+71708: 
+71709:     const MONGSE_deltaX31224 =
+71710:         Number(MONGSE_target31224.x) - Number(MONGSE_state31224.x),
+71711:       MONGSE_deltaY31224 =
+71712:         Number(MONGSE_target31224.y) - Number(MONGSE_state31224.y),
+71713:       MONGSE_distance31224 = Math.max(
+71714:         0.001,
+71715:         Math.hypot(MONGSE_deltaX31224, MONGSE_deltaY31224),
+71716:       ),
+71717:       MONGSE_toTargetX31224 = MONGSE_deltaX31224 / MONGSE_distance31224,
+71718:       MONGSE_toTargetY31224 = MONGSE_deltaY31224 / MONGSE_distance31224,
+71719:       MONGSE_side31224 = MONGSE_rangedStrafeSide31224(
+71720:         MONGSE_state31224,
+71721:         MONGSE_target31224,
+71722:       ),
+71723:       MONGSE_tangentX31224 = -MONGSE_toTargetY31224 * MONGSE_side31224,
+71724:       MONGSE_tangentY31224 = MONGSE_toTargetX31224 * MONGSE_side31224,
+71725:       MONGSE_ringMid31224 =
+71726:         (MONGSE_RANGED_RING_V31224.preferredMin +
+71727:           MONGSE_RANGED_RING_V31224.preferredMax) *
+71728:         0.5,
+71729:       MONGSE_ringHalf31224 =
+71730:         (MONGSE_RANGED_RING_V31224.preferredMax -
+71731:           MONGSE_RANGED_RING_V31224.preferredMin) *
+71732:         0.5,
+71733:       MONGSE_ringError31224 = Math.max(
+71734:         -1.4,
+71735:         Math.min(
+71736:           1.4,
+71737:           (MONGSE_distance31224 - MONGSE_ringMid31224) /
+71738:             Math.max(0.1, MONGSE_ringHalf31224),
+71739:         ),
+71740:       ),
+71741:       MONGSE_radialToward31224 = Math.max(
+71742:         -0.86,
+71743:         Math.min(0.72, MONGSE_ringError31224 * 0.62),
+71744:       ),
+71745:       MONGSE_rawX31224 =
+71746:         MONGSE_tangentX31224 * 0.92 +
+71747:         MONGSE_toTargetX31224 * MONGSE_radialToward31224,
+71748:       MONGSE_rawY31224 =
+71749:         MONGSE_tangentY31224 * 0.92 +
+71750:         MONGSE_toTargetY31224 * MONGSE_radialToward31224,
+71751:       MONGSE_rawLength31224 = Math.max(
+71752:         0.001,
+71753:         Math.hypot(MONGSE_rawX31224, MONGSE_rawY31224),
+71754:       );
+71755: 
+71756:     let MONGSE_directionX31224 = MONGSE_rawX31224 / MONGSE_rawLength31224,
+71757:       MONGSE_directionY31224 = MONGSE_rawY31224 / MONGSE_rawLength31224,
+71758:       MONGSE_probe31224 = ft(
+
+### match [71828-71927]
+71828:       Number(MONGSE_point31224.y) - Number(MONGSE_target31224.y),
+71829:     );
+71830:   }
+71831: 
+71832:   MONGSE_pickAutoDodgeDestination31223 =
+71833:     function MONGSE_pickAutoDodgeDestination31224(
+71834:       MONGSE_state31224,
+71835:       MONGSE_heroId31224,
+71836:       MONGSE_threat31224,
+71837:       MONGSE_profile31224,
+71838:     ) {
+71839:       const MONGSE_originalDestination31224 =
+71840:         MONGSE_originalPickAutoDodge31224(
+71841:           MONGSE_state31224,
+71842:           MONGSE_heroId31224,
+71843:           MONGSE_threat31224,
+71844:           MONGSE_profile31224,
+71845:         );
+71846:       if (!MONGSE_profile31224?.ranged) return MONGSE_originalDestination31224;
+71847:       const MONGSE_target31224 = MONGSE_pickRoleTarget31222(MONGSE_state31224);
+71848:       if (!MONGSE_target31224) return MONGSE_originalDestination31224;
+71849:       const MONGSE_currentDistance31224 = MONGSE_targetDistance31224(
+71850:         MONGSE_state31224,
+71851:         MONGSE_target31224,
+71852:       );
+71853:       if (
+71854:         MONGSE_originalDestination31224 &&
+71855:         MONGSE_targetDistance31224(
+71856:           MONGSE_originalDestination31224,
+71857:           MONGSE_target31224,
+71858:         ) >=
+71859:           MONGSE_currentDistance31224 - 0.015
+71860:       )
+71861:         return {
+71862:           ...MONGSE_originalDestination31224,
+71863:           noDistanceLoss31224: !0,
+71864:         };
+71865: 
+71866:       const MONGSE_toTargetX31224 =
+71867:           (Number(MONGSE_target31224.x) - Number(MONGSE_state31224.x)) /
+71868:           Math.max(0.001, MONGSE_currentDistance31224),
+71869:         MONGSE_toTargetY31224 =
+71870:           (Number(MONGSE_target31224.y) - Number(MONGSE_state31224.y)) /
+71871:           Math.max(0.001, MONGSE_currentDistance31224),
+71872:         MONGSE_side31224 = MONGSE_rangedStrafeSide31224(
+71873:           MONGSE_state31224,
+71874:           MONGSE_target31224,
+71875:         ),
+71876:         MONGSE_tangentX31224 = -MONGSE_toTargetY31224 * MONGSE_side31224,
+71877:         MONGSE_tangentY31224 = MONGSE_toTargetX31224 * MONGSE_side31224,
+71878:         MONGSE_awayX31224 = -MONGSE_toTargetX31224,
+71879:         MONGSE_awayY31224 = -MONGSE_toTargetY31224,
+71880:         MONGSE_candidateDirections31224 = [
+71881:           [
+71882:             MONGSE_tangentX31224 + MONGSE_awayX31224 * 0.24,
+71883:             MONGSE_tangentY31224 + MONGSE_awayY31224 * 0.24,
+71884:             0,
+71885:           ],
+71886:           [MONGSE_awayX31224, MONGSE_awayY31224, 1],
+71887:           [
+71888:             -MONGSE_tangentX31224 + MONGSE_awayX31224 * 0.24,
+71889:             -MONGSE_tangentY31224 + MONGSE_awayY31224 * 0.24,
+71890:             2,
+71891:           ],
+71892:         ];
+71893:       let MONGSE_best31224 = null;
+71894:       for (const [
+71895:         MONGSE_directionX31224,
+71896:         MONGSE_directionY31224,
+71897:         MONGSE_index31224,
+71898:       ] of MONGSE_candidateDirections31224) {
+71899:         const MONGSE_length31224 = Math.max(
+71900:             0.001,
+71901:             Math.hypot(MONGSE_directionX31224, MONGSE_directionY31224),
+71902:           ),
+71903:           MONGSE_destination31224 = ft(
+71904:             MONGSE_state31224.zone,
+71905:             MONGSE_state31224,
+71906:             {
+71907:               x:
+71908:                 (MONGSE_directionX31224 / MONGSE_length31224) *
+71909:                 Number(MONGSE_profile31224.distance ?? 1.9),
+71910:               y:
+71911:                 (MONGSE_directionY31224 / MONGSE_length31224) *
+71912:                 Number(MONGSE_profile31224.distance ?? 1.9),
+71913:             },
+71914:             0.48,
+71915:           ),
+71916:           MONGSE_travel31224 = Math.hypot(
+71917:             MONGSE_destination31224.x - MONGSE_state31224.x,
+71918:             MONGSE_destination31224.y - MONGSE_state31224.y,
+71919:           ),
+71920:           MONGSE_futureDistance31224 = MONGSE_targetDistance31224(
+71921:             MONGSE_destination31224,
+71922:             MONGSE_target31224,
+71923:           );
+71924:         if (
+71925:           MONGSE_travel31224 < 0.42 ||
+71926:           MONGSE_futureDistance31224 < MONGSE_currentDistance31224 - 0.015 ||
+71927:           pt(
+
+### match [71951-72050]
+71951:           };
+71952:       }
+71953:       return MONGSE_best31224;
+71954:     };
+71955: 
+71956:   MONGSE_planHeroAutoDodge31223 = function MONGSE_planHeroAutoDodge31224(
+71957:     MONGSE_state31224,
+71958:     MONGSE_heroId31224,
+71959:     MONGSE_growth31224,
+71960:   ) {
+71961:     const MONGSE_result31224 = MONGSE_originalPlanAutoDodge31224(
+71962:       MONGSE_state31224,
+71963:       MONGSE_heroId31224,
+71964:       MONGSE_growth31224,
+71965:     );
+71966:     if (!MONGSE_result31224) return null;
+71967:     const MONGSE_now31224 = Number(MONGSE_state31224.time ?? 0);
+71968:     MONGSE_state31224.cooldowns ??= {};
+71969:     const MONGSE_sharedDashReady31224 = true;
+71970:     MONGSE_state31224.autoEvadeMode31224 = MONGSE_sharedDashReady31224
+71971:       ? `blink-dash`
+71972:       : `step`;
+71973:     MONGSE_state31224.autoEvadeUsesSharedDash31224 =
+71974:       MONGSE_sharedDashReady31224;
+71975:     if (MONGSE_sharedDashReady31224) {
+71976:       MONGSE_state31224.cooldowns.S = MONGSE_now31224;
+71977:       MONGSE_state31224.blinkResonanceStartedAtV31518=MONGSE_now31224;
+71978:       MONGSE_state31224.blinkResonanceUntilV31518=MONGSE_now31224+0.7;
+71979:       MONGSE_state31224.blinkResonanceZoneV31518=MONGSE_state31224.zone;
+71980:       MONGSE_state31224.blinkResonanceHeroV31518=MONGSE_state31224.activeHeroId;
+71981:       MONGSE_state31224.autoEvadeDashConsumedAt31224 = MONGSE_now31224;
+71982:       MONGSE_state31224.autoEvadeDashConsumeCount31224 =
+71983:         Number(MONGSE_state31224.autoEvadeDashConsumeCount31224 ?? 0) + 1;
+71984:       const MONGSE_dashDuration31224 = Math.max(
+71985:         0.18,
+71986:         Math.min(
+71987:           0.24,
+71988:           (Number(MONGSE_state31224.autoEvadeUntil31223 ?? MONGSE_now31224) -
+71989:             MONGSE_now31224) *
+71990:             0.78,
+71991:         ),
+71992:       );
+71993:       MONGSE_state31224.autoEvadeUntil31223 =
+71994:         MONGSE_now31224 + MONGSE_dashDuration31224;
+71995:       MONGSE_state31224.invulnerableUntil = Math.max(
+71996:         Number(MONGSE_state31224.invulnerableUntil ?? 0),
+71997:         MONGSE_now31224 + MONGSE_dashDuration31224 + 0.02,
+71998:       );
+71999:     }
+72000:     return {
+72001:       ...MONGSE_result31224,
+72002:       mode31224: MONGSE_state31224.autoEvadeMode31224,
+72003:       sharedDashConsumed31224: MONGSE_sharedDashReady31224,
+72004:       worldInterpolated31224: !0,
+72005:     };
+72006:   };
+72007: 
+72008:   MONGSE_stepHeroAutoDodge31223 = function MONGSE_stepHeroAutoDodge31224(
+72009:     MONGSE_state31224,
+72010:     MONGSE_delta31224,
+72011:     MONGSE_manualCommit31224 = !1,
+72012:   ) {
+72013:     const MONGSE_mode31224 =
+72014:         MONGSE_state31224?.autoEvadeMode31224 ?? `step`,
+72015:       MONGSE_result31224 = MONGSE_originalStepAutoDodge31224(
+72016:         MONGSE_state31224,
+72017:         MONGSE_delta31224,
+72018:         MONGSE_manualCommit31224,
+72019:       );
+72020:     if (MONGSE_result31224?.active && MONGSE_state31224.heroMotion) {
+72021:       MONGSE_state31224.heroMotion = {
+72022:         ...MONGSE_state31224.heroMotion,
+72023:         kind: `dash`,
+72024:         travel: 0,
+72025:         autoEvade31223: !0,
+72026:         autoEvadeMode31224: MONGSE_mode31224,
+72027:         sharedDashConsumed31224: MONGSE_mode31224 === `blink-dash`,
+72028:         worldInterpolated31224: !0,
+72029:         smoothSubframes31224: 12,
+72030:       };
+72031:     }
+72032:     return MONGSE_result31224;
+72033:   };
+72034: 
+72035:   MONGSE_resetHeroAutoDodge31223 = function MONGSE_resetHeroAutoDodge31224(
+72036:     MONGSE_state31224,
+72037:     MONGSE_reason31224 = `reset`,
+72038:   ) {
+72039:     const MONGSE_wasActive31224 = MONGSE_originalResetAutoDodge31224(
+72040:       MONGSE_state31224,
+72041:       MONGSE_reason31224,
+72042:     );
+72043:     if (MONGSE_state31224) {
+72044:       MONGSE_state31224.autoEvadeMode31224 = ``;
+72045:       MONGSE_state31224.autoEvadeUsesSharedDash31224 = !1;
+72046:     }
+72047:     return MONGSE_wasActive31224;
+72048:   };
+72049: 
+72050:   Hn = function MONGSE_heroMotionTransform31224(
+
+### match [72003-72102]
+72003:       sharedDashConsumed31224: MONGSE_sharedDashReady31224,
+72004:       worldInterpolated31224: !0,
+72005:     };
+72006:   };
+72007: 
+72008:   MONGSE_stepHeroAutoDodge31223 = function MONGSE_stepHeroAutoDodge31224(
+72009:     MONGSE_state31224,
+72010:     MONGSE_delta31224,
+72011:     MONGSE_manualCommit31224 = !1,
+72012:   ) {
+72013:     const MONGSE_mode31224 =
+72014:         MONGSE_state31224?.autoEvadeMode31224 ?? `step`,
+72015:       MONGSE_result31224 = MONGSE_originalStepAutoDodge31224(
+72016:         MONGSE_state31224,
+72017:         MONGSE_delta31224,
+72018:         MONGSE_manualCommit31224,
+72019:       );
+72020:     if (MONGSE_result31224?.active && MONGSE_state31224.heroMotion) {
+72021:       MONGSE_state31224.heroMotion = {
+72022:         ...MONGSE_state31224.heroMotion,
+72023:         kind: `dash`,
+72024:         travel: 0,
+72025:         autoEvade31223: !0,
+72026:         autoEvadeMode31224: MONGSE_mode31224,
+72027:         sharedDashConsumed31224: MONGSE_mode31224 === `blink-dash`,
+72028:         worldInterpolated31224: !0,
+72029:         smoothSubframes31224: 12,
+72030:       };
+72031:     }
+72032:     return MONGSE_result31224;
+72033:   };
+72034: 
+72035:   MONGSE_resetHeroAutoDodge31223 = function MONGSE_resetHeroAutoDodge31224(
+72036:     MONGSE_state31224,
+72037:     MONGSE_reason31224 = `reset`,
+72038:   ) {
+72039:     const MONGSE_wasActive31224 = MONGSE_originalResetAutoDodge31224(
+72040:       MONGSE_state31224,
+72041:       MONGSE_reason31224,
+72042:     );
+72043:     if (MONGSE_state31224) {
+72044:       MONGSE_state31224.autoEvadeMode31224 = ``;
+72045:       MONGSE_state31224.autoEvadeUsesSharedDash31224 = !1;
+72046:     }
+72047:     return MONGSE_wasActive31224;
+72048:   };
+72049: 
+72050:   Hn = function MONGSE_heroMotionTransform31224(
+72051:     MONGSE_motion31224,
+72052:     MONGSE_time31224,
+72053:     MONGSE_support31224 = !1,
+72054:     MONGSE_enemy31224 = !1,
+72055:   ) {
+72056:     const MONGSE_worldInterpolatedDash31224 =
+72057:       MONGSE_motion31224?.kind === `dash` &&
+72058:       (MONGSE_motion31224.autoEvade31223 ||
+72059:         MONGSE_motion31224.worldInterpolated31224);
+72060:     return MONGSE_originalHeroMotion31224(
+72061:       MONGSE_worldInterpolatedDash31224
+72062:         ? { ...MONGSE_motion31224, travel: 0 }
+72063:         : MONGSE_motion31224,
+72064:       MONGSE_time31224,
+72065:       MONGSE_support31224,
+72066:       MONGSE_enemy31224,
+72067:     );
+72068:   };
+72069: 
+72070:   function MONGSE_planAutoSkillWithoutE31224(
+72071:     MONGSE_state31224,
+72072:     MONGSE_hero31224,
+72073:     MONGSE_growth31224,
+72074:   ) {
+72075:     const MONGSE_eSkillKey31224 = MONGSE_hero31224?.skills?.[2]?.key;
+72076:     if (!MONGSE_eSkillKey31224)
+72077:       return MONGSE_originalPlanAutoSkill31224(
+72078:         MONGSE_state31224,
+72079:         MONGSE_hero31224,
+72080:         MONGSE_growth31224,
+72081:       );
+72082:     MONGSE_state31224.cooldowns ??= {};
+72083:     const MONGSE_hadCooldown31224 = Object.prototype.hasOwnProperty.call(
+72084:         MONGSE_state31224.cooldowns,
+72085:         MONGSE_eSkillKey31224,
+72086:       ),
+72087:       MONGSE_previousCooldown31224 =
+72088:         MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224];
+72089:     MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224] =
+72090:       Number(MONGSE_state31224.time ?? 0) + 0.001;
+72091:     try {
+72092:       return MONGSE_originalPlanAutoSkill31224(
+72093:         MONGSE_state31224,
+72094:         MONGSE_hero31224,
+72095:         MONGSE_growth31224,
+72096:       );
+72097:     } finally {
+72098:       if (MONGSE_hadCooldown31224)
+72099:         MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224] =
+72100:           MONGSE_previousCooldown31224;
+72101:       else delete MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224];
+72102:     }
+
+### match [72030-72129]
+72030:       };
+72031:     }
+72032:     return MONGSE_result31224;
+72033:   };
+72034: 
+72035:   MONGSE_resetHeroAutoDodge31223 = function MONGSE_resetHeroAutoDodge31224(
+72036:     MONGSE_state31224,
+72037:     MONGSE_reason31224 = `reset`,
+72038:   ) {
+72039:     const MONGSE_wasActive31224 = MONGSE_originalResetAutoDodge31224(
+72040:       MONGSE_state31224,
+72041:       MONGSE_reason31224,
+72042:     );
+72043:     if (MONGSE_state31224) {
+72044:       MONGSE_state31224.autoEvadeMode31224 = ``;
+72045:       MONGSE_state31224.autoEvadeUsesSharedDash31224 = !1;
+72046:     }
+72047:     return MONGSE_wasActive31224;
+72048:   };
+72049: 
+72050:   Hn = function MONGSE_heroMotionTransform31224(
+72051:     MONGSE_motion31224,
+72052:     MONGSE_time31224,
+72053:     MONGSE_support31224 = !1,
+72054:     MONGSE_enemy31224 = !1,
+72055:   ) {
+72056:     const MONGSE_worldInterpolatedDash31224 =
+72057:       MONGSE_motion31224?.kind === `dash` &&
+72058:       (MONGSE_motion31224.autoEvade31223 ||
+72059:         MONGSE_motion31224.worldInterpolated31224);
+72060:     return MONGSE_originalHeroMotion31224(
+72061:       MONGSE_worldInterpolatedDash31224
+72062:         ? { ...MONGSE_motion31224, travel: 0 }
+72063:         : MONGSE_motion31224,
+72064:       MONGSE_time31224,
+72065:       MONGSE_support31224,
+72066:       MONGSE_enemy31224,
+72067:     );
+72068:   };
+72069: 
+72070:   function MONGSE_planAutoSkillWithoutE31224(
+72071:     MONGSE_state31224,
+72072:     MONGSE_hero31224,
+72073:     MONGSE_growth31224,
+72074:   ) {
+72075:     const MONGSE_eSkillKey31224 = MONGSE_hero31224?.skills?.[2]?.key;
+72076:     if (!MONGSE_eSkillKey31224)
+72077:       return MONGSE_originalPlanAutoSkill31224(
+72078:         MONGSE_state31224,
+72079:         MONGSE_hero31224,
+72080:         MONGSE_growth31224,
+72081:       );
+72082:     MONGSE_state31224.cooldowns ??= {};
+72083:     const MONGSE_hadCooldown31224 = Object.prototype.hasOwnProperty.call(
+72084:         MONGSE_state31224.cooldowns,
+72085:         MONGSE_eSkillKey31224,
+72086:       ),
+72087:       MONGSE_previousCooldown31224 =
+72088:         MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224];
+72089:     MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224] =
+72090:       Number(MONGSE_state31224.time ?? 0) + 0.001;
+72091:     try {
+72092:       return MONGSE_originalPlanAutoSkill31224(
+72093:         MONGSE_state31224,
+72094:         MONGSE_hero31224,
+72095:         MONGSE_growth31224,
+72096:       );
+72097:     } finally {
+72098:       if (MONGSE_hadCooldown31224)
+72099:         MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224] =
+72100:           MONGSE_previousCooldown31224;
+72101:       else delete MONGSE_state31224.cooldowns[MONGSE_eSkillKey31224];
+72102:     }
+72103:   }
+72104: 
+72105:   MONGSE_planAutoSkill = function MONGSE_planAutoSkill31224(
+72106:     MONGSE_state31224,
+72107:     MONGSE_hero31224,
+72108:     MONGSE_growth31224 = {},
+72109:   ) {
+72110:     const MONGSE_planned31224 = MONGSE_originalPlanAutoSkill31224(
+72111:       MONGSE_state31224,
+72112:       MONGSE_hero31224,
+72113:       MONGSE_growth31224,
+72114:     );
+72115:     if (MONGSE_planned31224?.index !== 2) return MONGSE_planned31224;
+72116:     const MONGSE_isRanged31224 = MONGSE_isRangedHeroId31213(
+72117:         MONGSE_hero31224?.id,
+72118:       ),
+72119:       MONGSE_target31224 = MONGSE_pickRoleTarget31222(MONGSE_state31224),
+72120:       MONGSE_distance31224 = MONGSE_target31224
+72121:         ? MONGSE_combatDistance(MONGSE_state31224, MONGSE_target31224)
+72122:         : Number.POSITIVE_INFINITY;
+72123:     if (MONGSE_isRanged31224 || MONGSE_distance31224 < 3.15)
+72124:       return MONGSE_planAutoSkillWithoutE31224(
+72125:         MONGSE_state31224,
+72126:         MONGSE_hero31224,
+72127:         MONGSE_growth31224,
+72128:       );
+72129:     return {
+
+### match [73600-73699]
+73600:       MONGSE_render31225,
+73601:     );
+73602:   };
+73603: 
+73604:   MONGSE_autoRoleMovementIntent31222 =
+73605:     function MONGSE_autoRoleMovementIntent31225(
+73606:       MONGSE_state31225,
+73607:       MONGSE_heroId31225,
+73608:     ) {
+73609:       const MONGSE_result31225 = MONGSE_originalAutoRoleIntent31225(
+73610:         MONGSE_state31225,
+73611:         MONGSE_heroId31225,
+73612:       );
+73613:       if (!MONGSE_isRangedHeroId31213(MONGSE_heroId31225))
+73614:         return MONGSE_result31225;
+73615:       const MONGSE_dx31225 = MONGSE_finiteNumber31225(
+73616:           MONGSE_result31225?.dx,
+73617:           0,
+73618:         ),
+73619:         MONGSE_dy31225 = MONGSE_finiteNumber31225(
+73620:           MONGSE_result31225?.dy,
+73621:           0,
+73622:         ),
+73623:         MONGSE_length31225 = Math.hypot(
+73624:           MONGSE_dx31225,
+73625:           MONGSE_dy31225,
+73626:         ),
+73627:         MONGSE_normalizer31225 = Math.max(1, MONGSE_length31225);
+73628:       return {
+73629:         ...(MONGSE_result31225 ?? {
+73630:           active: !1,
+73631:           mode: `idle`,
+73632:           target: null,
+73633:         }),
+73634:         dx: MONGSE_dx31225 / MONGSE_normalizer31225,
+73635:         dy: MONGSE_dy31225 / MONGSE_normalizer31225,
+73636:         ringMin31225: 5.7,
+73637:         ringMax31225: 6.65,
+73638:         approachMovement31225: `walk-only`,
+73639:         dashTowardEnemy31225: !1,
+73640:         finiteDirection31225: !0,
+73641:       };
+73642:     };
+73643: 
+73644:   function MONGSE_selectedSourceDirection31225(
+73645:     MONGSE_heroId31225,
+73646:     MONGSE_motion31225,
+73647:     MONGSE_sprite31225,
+73648:   ) {
+73649:     const MONGSE_direction31225 = MONGSE_logicalHeroDirection31225(
+73650:         MONGSE_motion31225,
+73651:       ),
+73652:       MONGSE_path31225 = String(MONGSE_sprite31225 ?? ``),
+73653:       MONGSE_sideMatch31225 = MONGSE_path31225.match(
+73654:         /(?:-|_|\/)(left|right)(?:[_\-.]|$)/,
+73655:       ),
+73656:       MONGSE_pathDirection31225 = MONGSE_sideMatch31225?.[1] ?? null;
+73657:     if (!MONGSE_SIDE_DIRECTIONS31225.has(MONGSE_direction31225))
+73658:       return MONGSE_direction31225;
+73659:     if (
+73660:       MONGSE_heroId31225 === `hwando` &&
+73661:       MONGSE_path31225.includes(`/normalized/hwando/`)
+73662:     )
+73663:       return `left`;
+73664:     if (
+73665:       MONGSE_heroId31225 === `gunner` &&
+73666:       MONGSE_path31225.includes(MONGSE_GUNNER_CLEAN_ROOT31225)
+73667:     )
+73668:       if (MONGSE_path31225 === ln.attack) return `right`;
+73669:       else
+73670:       return pathDirectionOrLogical31225(
+73671:         MONGSE_pathDirection31225,
+73672:         MONGSE_direction31225,
+73673:       );
+73674:     if (MONGSE_path31225.includes(`/actions-v3126/`)) {
+73675:       const MONGSE_action31225 = MONGSE_hero3126ActionKind(
+73676:           MONGSE_motion31225,
+73677:         ),
+73678:         MONGSE_rule31225 = MONGSE_action31225
+73679:           ? MONGSE_HERO_ACTION3126_PIXEL_RULES[
+73680:               `${MONGSE_heroId31225}:${MONGSE_action31225}:${MONGSE_direction31225}`
+73681:             ]
+73682:           : null;
+73683:       if (MONGSE_rule31225?.flipX === -1)
+73684:         return MONGSE_oppositeSide31225(MONGSE_direction31225);
+73685:       if (
+73686:         MONGSE_rule31225 &&
+73687:         MONGSE_rule31225.assetDirection !== MONGSE_direction31225
+73688:       )
+73689:         return MONGSE_direction31225;
+73690:       return pathDirectionOrLogical31225(
+73691:         MONGSE_pathDirection31225,
+73692:         MONGSE_direction31225,
+73693:       );
+73694:     }
+73695:     if (
+73696:       MONGSE_path31225.includes(`/actions-consistent/`) ||
+73697:       MONGSE_path31225.includes(`/actions-directional/`) ||
+73698:       MONGSE_path31225.includes(`/normalized/directions/`)
+73699:     ) {
+
+### match [93036-93135]
+93036:       MONGSE_ENEMY_COMBAT_LIMITS_V31237.normalTargetRadiusMaximum,
+93037:       MONGSE_ENEMY_COMBAT_LIMITS_V31237.normalTargetRadiusMinimum,
+93038:     );
+93039:   }
+93040: 
+93041:   function MONGSE_selectHeroAutoTargetV31237(
+93042:     MONGSE_stateV31237,
+93043:     MONGSE_optionsV31237 = {},
+93044:   ) {
+93045:     if (!MONGSE_stateV31237) return null;
+93046:     const MONGSE_timeV31237 = MONGSE_finiteV31237(
+93047:         MONGSE_stateV31237.time,
+93048:         0,
+93049:       ),
+93050:       MONGSE_aliveV31237 = (MONGSE_stateV31237.enemies ?? []).filter(
+93051:         (MONGSE_enemyV31237) =>
+93052:           MONGSE_finiteV31237(MONGSE_enemyV31237?.hp, 0) > 0 &&
+93053:           [MONGSE_enemyV31237?.x, MONGSE_enemyV31237?.y].every(
+93054:             (MONGSE_valueV31237) =>
+93055:               Number.isFinite(Number(MONGSE_valueV31237)),
+93056:           ) &&
+93057:           MONGSE_finiteV31237(
+93058:             MONGSE_enemyV31237?.invulnerableUntil,
+93059:             0,
+93060:           ) <=
+93061:             MONGSE_timeV31237 + 0.08,
+93062:       );
+93063:     if (!MONGSE_aliveV31237.length) return null;
+93064:     const MONGSE_allNormalsV31237 = MONGSE_aliveV31237.filter(
+93065:         (MONGSE_enemyV31237) =>
+93066:           !MONGSE_enemyV31237.boss && !MONGSE_enemyV31237.midboss,
+93067:       ),
+93068:       MONGSE_rankedV31237 = MONGSE_aliveV31237.filter(
+93069:         (MONGSE_enemyV31237) =>
+93070:           MONGSE_enemyV31237.boss || MONGSE_enemyV31237.midboss,
+93071:       ),
+93072:       MONGSE_normalRadiusV31237 =
+93073:         MONGSE_normalTargetRadiusV31237(MONGSE_stateV31237),
+93074:       MONGSE_nearbyNormalsV31237 = MONGSE_allNormalsV31237.filter(
+93075:         (MONGSE_enemyV31237) =>
+93076:           MONGSE_distanceV31237(
+93077:             MONGSE_stateV31237,
+93078:             MONGSE_enemyV31237,
+93079:           ) <= MONGSE_normalRadiusV31237,
+93080:       ),
+93081:       MONGSE_normalsV31237 = MONGSE_nearbyNormalsV31237,
+93082:       MONGSE_attackIndexV31237 = Math.max(
+93083:         0,
+93084:         Math.floor(MONGSE_finiteV31237(MONGSE_stateV31237.basicAttackCount, 0)),
+93085:       ),
+93086:       MONGSE_cycleLengthV31237 =
+93087:         MONGSE_normalsV31237.length >= 4
+93088:           ? 4
+93089:           : MONGSE_normalsV31237.length
+93090:             ? 3
+93091:             : 1,
+93092:       MONGSE_focusV31237 =
+93093:         MONGSE_normalsV31237.length && MONGSE_rankedV31237.length
+93094:           ? MONGSE_attackIndexV31237 % MONGSE_cycleLengthV31237 ===
+93095:             MONGSE_cycleLengthV31237 - 1
+93096:             ? "ranked"
+93097:             : "normal"
+93098:           : MONGSE_normalsV31237.length
+93099:             ? "normal"
+93100:             : "ranked",
+93101:       MONGSE_candidatePoolV31237 =
+93102:         MONGSE_focusV31237 === "normal"
+93103:           ? MONGSE_normalsV31237
+93104:           : MONGSE_rankedV31237,
+93105:       MONGSE_currentV31237 = MONGSE_aliveV31237.find(
+93106:         (MONGSE_enemyV31237) =>
+93107:           MONGSE_enemyV31237.id === MONGSE_stateV31237.targetEnemyId,
+93108:       ),
+93109:       MONGSE_currentRoleV31237 = MONGSE_currentV31237
+93110:         ? MONGSE_currentV31237.boss || MONGSE_currentV31237.midboss
+93111:           ? "ranked"
+93112:           : "normal"
+93113:         : null,
+93114:       MONGSE_lockActiveV31237 =
+93115:         MONGSE_timeV31237 <
+93116:         MONGSE_finiteV31237(
+93117:           MONGSE_stateV31237.heroAutoTargetLockUntilV31237,
+93118:           0,
+93119:         );
+93120:     if (
+93121:       MONGSE_currentV31237 &&
+93122:       MONGSE_candidatePoolV31237.includes(MONGSE_currentV31237) &&
+93123:       MONGSE_lockActiveV31237 &&
+93124:       MONGSE_currentRoleV31237 === MONGSE_focusV31237 &&
+93125:       !MONGSE_optionsV31237.force
+93126:     )
+93127:       return MONGSE_currentV31237;
+93128:     const MONGSE_contextV31237 = {
+93129:         focus: MONGSE_focusV31237,
+93130:         normalCount: MONGSE_normalsV31237.length,
+93131:         totalNormalCount: MONGSE_allNormalsV31237.length,
+93132:         nearbyNormalCount: MONGSE_nearbyNormalsV31237.length,
+93133:         normalTargetRadius: MONGSE_normalRadiusV31237,
+93134:         rankedCount: MONGSE_rankedV31237.length,
+93135:       },
+
+### match [93646-93745]
+93646:         ? null
+93647:         : MONGSE_pickRoleTargetBaseV31237(MONGSE_stateV31237);
+93648:     };
+93649: 
+93650:     MONGSE_autoRoleMovementIntent31222 =
+93651:       function MONGSE_autoRoleMovementIntentV31237(
+93652:         MONGSE_stateV31237,
+93653:         MONGSE_heroIdV31237,
+93654:       ) {
+93655:         const MONGSE_targetV31237 =
+93656:           MONGSE_selectHeroAutoTargetV31237(MONGSE_stateV31237);
+93657:         if (MONGSE_targetV31237)
+93658:           MONGSE_stateV31237.targetEnemyId = MONGSE_targetV31237.id;
+93659:         else MONGSE_stateV31237.targetEnemyId = null;
+93660:         const MONGSE_resultV31237 = MONGSE_autoRoleMovementBaseV31237(
+93661:           MONGSE_stateV31237,
+93662:           MONGSE_heroIdV31237,
+93663:         );
+93664:         return MONGSE_resultV31237 && typeof MONGSE_resultV31237 === "object"
+93665:           ? {
+93666:               ...MONGSE_resultV31237,
+93667:               target: MONGSE_targetV31237 ?? MONGSE_resultV31237.target,
+93668:               targetPolicyV31237: "nearby-mob-danger-distance-alternation",
+93669:             }
+93670:           : MONGSE_resultV31237;
+93671:       };
+93672: 
+93673:     MONGSE_enemyCounterDecision31229 =
+93674:       function MONGSE_enemyCounterDecisionRuntimeV31237(
+93675:         MONGSE_stateV31237,
+93676:         MONGSE_enemyV31237,
+93677:         MONGSE_optionsV31237 = {},
+93678:       ) {
+93679:         return MONGSE_normalEnemyCounterDecisionV31237(
+93680:           MONGSE_stateV31237,
+93681:           MONGSE_enemyV31237,
+93682:           MONGSE_optionsV31237,
+93683:           MONGSE_counterDecisionBaseV31237,
+93684:         );
+93685:       };
+93686: 
+93687:     MONGSE_enemyCounterAttackProfile31229 =
+93688:       function MONGSE_enemyCounterAttackProfileRuntimeV31237(
+93689:         MONGSE_stateV31237,
+93690:         MONGSE_enemyV31237,
+93691:         MONGSE_profileV31237,
+93692:       ) {
+93693:         const MONGSE_resultV31237 = MONGSE_counterProfileBaseV31237(
+93694:           MONGSE_stateV31237,
+93695:           MONGSE_enemyV31237,
+93696:           MONGSE_profileV31237,
+93697:         );
+93698:         return MONGSE_lockNormalCounterProfileV31237(
+93699:           MONGSE_stateV31237,
+93700:           MONGSE_enemyV31237,
+93701:           MONGSE_profileV31237,
+93702:           MONGSE_resultV31237,
+93703:         );
+93704:       };
+93705: 
+93706:     MONGSE_spawnEnemyCounterProjectile31229 =
+93707:       function MONGSE_spawnNormalEnemyProjectileV31237(
+93708:         MONGSE_stateV31237,
+93709:         MONGSE_enemyV31237,
+93710:         MONGSE_phaseV31237,
+93711:         MONGSE_profileV31237,
+93712:         MONGSE_damageV31237,
+93713:       ) {
+93714:         if (
+93715:           MONGSE_enemyV31237 &&
+93716:           !MONGSE_enemyV31237.boss &&
+93717:           !MONGSE_enemyV31237.midboss &&
+93718:           MONGSE_profileV31237?.counterTacticProjectile31229
+93719:         ) {
+93720:           const MONGSE_normalCountV31237 = (
+93721:             MONGSE_stateV31237?.hostileProjectiles ?? []
+93722:           ).filter(
+93723:             (MONGSE_projectileV31237) =>
+93724:               MONGSE_projectileV31237?.normalEnemyProjectileV31237 ||
+93725:               (MONGSE_projectileV31237?.counterTacticProjectile31229 &&
+93726:                 !MONGSE_projectileV31237?.boss &&
+93727:                 !MONGSE_projectileV31237?.midboss),
+93728:           ).length;
+93729:           if (
+93730:             MONGSE_normalCountV31237 >=
+93731:             MONGSE_ENEMY_COMBAT_LIMITS_V31237.normalProjectileMaximum
+93732:           ) {
+93733:             MONGSE_stateV31237.normalEnemyProjectileRejectedV31237 =
+93734:               Math.max(
+93735:                 0,
+93736:                 Math.floor(
+93737:                   MONGSE_finiteV31237(
+93738:                     MONGSE_stateV31237.normalEnemyProjectileRejectedV31237,
+93739:                     0,
+93740:                   ),
+93741:                 ),
+93742:               ) + 1;
+93743:             return {
+93744:               capRejected31221: !0,
+93745:               capRejectedV31237: !0,
+
+### match [100275-100374]
+100275:     finalEndingCommit:
+100276:       HAPIL_commitFinalEndingV31301.name === "HAPIL_commitFinalEndingV31301",
+100277:     clueOverlayRenderer:
+100278:       HAPIL_ClueOverlayV31301.name === "HAPIL_ClueOverlayV31301",
+100279:   });
+100280:   window.__HAPIL_AUTOPROGRESS_V31301__ = freeze({
+100281:     installed: true,
+100282:     version: VERSION,
+100283:     route: freeze([...route]),
+100284:     plan: HAPIL_autoProgressPlanV31301,
+100285:     drive: HAPIL_driveAutoProgressV31301,
+100286:     storyDelay: HAPIL_autoStoryDelayV31301,
+100287:     restoreFinalBattle: HAPIL_restoreFinalBattleV31301,
+100288:     restoreEntryFlow: HAPIL_restoreEntryFlowV31301,
+100289:     commitFinalEnding: HAPIL_commitFinalEndingV31301,
+100290:     settingsKeys: freeze(["autoCombat", "autoPortal", "autoStoryAdvance", "autoSkillTree"]),
+100291:     policies: freeze({
+100292:       manualWhenOff: true,
+100293:       noEarlyPortal: true,
+100294:       oneInteractionCooldownSeconds: 0.62,
+100295:       finalHit: "manual input or explicit auto-battle after the resume stage",
+100296:       finalCompletion: "committed only after the final interlude reaches village",
+100297:       clueOverlay: "visible for manual play and timed only during explicit auto progression",
+100298:     }),
+100299:     gates,
+100300:     allPass: Object.values(gates).every(Boolean),
+100301:   });
+100302:   MONGSE_ASSET_VERSION = "31301";
+100303:   };
+100304:   installV31301AutoProgress();
+100305: })();
+100306: 
+100307: /* HAPIL_V31301_RELEASE_FINALIZER */
+100308: (() => {
+100309:   "use strict";
+100310:   const installV31301Release = (attempt = 0) => {
+100311:     const auto = window.__HAPIL_AUTOPROGRESS_V31301__;
+100312:     const inherited = window.__HAPIL_V31300_RELEASE__;
+100313:     if (auto?.allPass !== true || inherited?.allPass !== true) {
+100314:       if (attempt < 760) setTimeout(() => installV31301Release(attempt + 1), 0);
+100315:       return;
+100316:     }
+100317:     const gates = Object.freeze({
+100318:       inheritedV31300: inherited.allPass === true,
+100319:       autoProgress: auto.allPass === true,
+100320:       activeCacheIdentity:
+100321:         typeof MONGSE_ACTIVE_ASSET_CACHE_V31301 !== "undefined" &&
+100322:         String(MONGSE_ACTIVE_ASSET_CACHE_V31301) === "31301",
+100323:       activeAssetVersion: String(MONGSE_ASSET_VERSION) === "31301",
+100324:       routeContract:
+100325:         auto.route.length === 64 &&
+100326:         auto.route[0] === "hub" &&
+100327:         auto.route.at(-1) === "village",
+100328:       breakStillNonInterrupting:
+100329:         window.__HAPIL_V31300_PATCH__?.breakPolicy?.policy ===
+100330:         "committed-enemy-attacks-always-complete",
+100331:       exactStoryPreserved:
+100332:         window.__HAPIL_V31300_PATCH__?.dialogue?.lineCount === 298 &&
+100333:         window.__HAPIL_V31300_PATCH__?.narrative?.sceneCount === 59,
+100334:     });
+100335:     const release = Object.freeze({
+100336:       ...inherited,
+100337:       installed: true,
+100338:       version: "3.13.01",
+100339:       cacheKey: 31301,
+100340:       dynamicAssetCacheKey: 31301,
+100341:       activeBundle: "dist/assets/index-v31301.js",
+100342:       baseVersion: "3.13.00",
+100343:       patchRevision: "3.13.01-AUTOPROGRESS-R1",
+100344:       releaseTheme:
+100345:         "persistent-auto-battle-full-route-and-final-battle-save-stability",
+100346:       autoProgress: auto,
+100347:       physicalBrowserRegressionVerified: false,
+100348:       physicalMobileLongSessionVerified: false,
+100349:       gates,
+100350:       allPass: Object.values(gates).every(Boolean),
+100351:     });
+100352:     MONGSE_ASSET_VERSION = "31301";
+100353:     window.__HAPIL_GAMEPLAY_V31301__ = Object.freeze({
+100354:       ...(window.__HAPIL_GAMEPLAY_V31300__ ?? {}),
+100355:       version: "3.13.01",
+100356:       cacheKey: 31301,
+100357:       makeState: oi,
+100358:       makeSave: Fi,
+100359:       normalizeSave: ji,
+100360:       restoreEnemies: Ii,
+100361:       prepareCombatEncounter: MONGSE_prepareCombatEncounter31226,
+100362:       prepareRestEncounter: MONGSE_prepareRestEncounter31226,
+100363:       currentEncounterDialogue: MONGSE_currentEncounterDialogue31226,
+100364:       resolveInterlude: MONGSE_resolveInterlude,
+100365:       autoProgress: auto,
+100366:       policies: Object.freeze({
+100367:         ...(window.__HAPIL_GAMEPLAY_V31300__?.policies ?? {}),
+100368:         automaticCampaign:
+100369:           "auto-battle may traverse only after dialogue, combat, loot, clue, loop, and boss gates are complete",
+100370:         finalHit:
+100371:           "manual input or explicitly enabled auto-battle may finish cult04 after the resume stage",
+100372:       }),
+100373:     });
+100374:     window.__HAPIL_V31301_RELEASE__ = release;
+
+### match [118028-118127]
+118028:   function refugeGoal(s,h){
+118029:     const axis=h.spectacleAxisV31317,center=h.spectacleCenterV31317,edges=[center-h.width-.85,center+h.width+.85],candidates=[];
+118030:     for(const edge of edges)if(edge>=1.9&&edge<=30.1){const desired=axis==="y"?{x:edge,y:clamp(s.y,2,30)}:{x:clamp(s.x,2,30),y:edge},goal=dt(s.zone,desired,.48);if(!Di(goal,h))candidates.push(goal);}
+118031:     return candidates.sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]??null;
+118032:   }
+118033:   function autoMovement(s,heroId,base){
+118034:     if(!s||s.autoCombatEnabled31222!==true||s.target||s.bufferedAction||num(s.manualMovementUntil31222)>num(s.time)||num(s.autoEvadeUntil31223)>num(s.time)||MONGSE_isEncounterLocked31226(s)||suppressed(s))return base;
+118035:     const h=activeBeam(s);if(!h)return base;
+118036:     const goal=refugeGoal(s,h);if(!goal)return base;
+118037:     const hit=Di(s,h),distance=Math.hypot(goal.x-s.x,goal.y-s.y);let dx=0,dy=0;
+118038:     if(hit||distance>.55){const key=String(h.id),now=num(s.time);if(s.spectacleNavIdV31317!==key||now>=num(s.spectacleNavAtV31317)||!s.spectacleNavPathV31317?.length){s.spectacleNavPathV31317=yt(s.zone,s,goal,.48);s.spectacleNavIdV31317=key;s.spectacleNavAtV31317=now+.25;}const path=s.spectacleNavPathV31317??[];while(path.length&&Math.hypot(path[0].x-s.x,path[0].y-s.y)<.3)path.shift();const next=path[0]??goal,len=Math.max(.001,Math.hypot(next.x-s.x,next.y-s.y));dx=(next.x-s.x)/len;dy=(next.y-s.y)/len;metrics.aiReturns++;}
+118039:     s.heroRoleSteeringActive31222=true;s.heroRoleSteeringAt31222=s.time;HAPIL_setAutoDecisionV31302(s,hit?"소거포 · 외곽으로":"소거포 · 안전 띠 유지",.3);
+118040:     return {...base,active:true,dx,dy,mode:hit?"siege-beam-refuge":"siege-beam-hold",spectacleRefugeV31317:true};
+118041:   }
+118042:   function resolveAsset(path){const clean=String(path??"").split(/[?#]/)[0].replace(/\\/g,"/"),marker=clean.lastIndexOf("/assets/"),canonical=marker>=0?"."+clean.slice(marker):clean.startsWith("assets/")?"./"+clean:clean;return canonical===OLD_CORE?CORE:path;}
+118043:   function zoneAssets(zone){return [...new Set([...Object.values(profiles).filter(p=>p.zone===zone).flatMap(p=>[p.sprite,...(p.mode==="beam"?[CORE]:[])]),...(CORE_ZONES.has(zone)?[CORE]:[])])];}
+118044:   function audit(){const checks={inherited:window.__HAPIL_V31316_RELEASE__?.allPass===true,ownedBosses:Object.keys(profiles).length===4,exactMechanicalOwners:profiles["u203-boss"].mode==="beam"&&profiles["b09-boss"].mode==="beam",noBalrogVioletMonolith:!profiles["dist06-boss"],oneNativeQueue:true,saveSchema:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return {version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118045:   function install(){
+118046:     if(window.__HAPIL_PATTERNS_V31317__?.installed)return true;if(!window.__HAPIL_V31316_RELEASE__?.allPass)return false;
+118047:     const queue=MONGSE_queueImage;MONGSE_queueImage=function HAPIL_controllerCoreAliasV31317(cache,path,...args){const resolved=resolveAsset(path),im=queue(cache,resolved,...args);if(resolved!==path&&im){cache[path]=im;cache[OLD_CORE]=im;}return im;};
+118048:     const baseTransit=MONGSE_spawnImpactTransitV31232,baseImpact=MONGSE_spawnTelegraphedImpact,baseDraw=Gn,baseTick=MONGSE_tickBossThemeOrdnance,baseDelay=MONGSE_delayPendingBossHits31210,baseRole=MONGSE_autoRoleMovementIntent31222,baseActor=Yn;
+118049:     MONGSE_spawnImpactTransitV31232=function HAPIL_spectacleTransitV31317(s,h,...args){if(h?.spectacleV31317)return null;return baseTransit(s,h,...args);};
+118050:     MONGSE_spawnTelegraphedImpact=function HAPIL_spectacleImpactV31317(s,h,...args){return impact(s,h,baseImpact,args);};
+118051:     Gn=function HAPIL_spectacleDrawV31317(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return baseDraw(ctx,cache,e,time,settings);};
+118052:     MONGSE_tickBossThemeOrdnance=function HAPIL_spectacleTickV31317(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118053:     MONGSE_delayPendingBossHits31210=function HAPIL_spectacleDelayV31317(s,...args){const result=baseDelay(s,...args);sync(s);return result;};
+118054:     MONGSE_autoRoleMovementIntent31222=function HAPIL_spectacleRefugeV31317(s,id,...args){return autoMovement(s,id,baseRole(s,id,...args));};
+118055:     Yn=function HAPIL_spectacleRiseV31317(ctx,cache,a,time,settings,...rest){const r=actorRuns.get(a);if(!r||r.mode!=="beam")return baseActor(ctx,cache,a,time,settings,...rest);const t=clamp((time-r.born)/Math.max(.1,r.last-r.born),0,1),lift=24*Math.sin(Math.PI*Math.min(1,t));ctx.save();try{ctx.translate(0,-lift);return baseActor(ctx,cache,a,time,settings,...rest);}finally{ctx.restore();}};
+118056:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_spectacleManifestV31317(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118057:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_spectacleAssetPlanV31317(zone,...args){const p={...assetPlan(zone,...args)},paths=zoneAssets(zone);for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of paths){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}p.spectacleAssetsV31317=paths;return p;};
+118058:     window.__HAPIL_PATTERNS_V31317__=Object.freeze({version:VERSION,installed:true,profiles,resolveAsset,assetAliases:Object.freeze({[OLD_CORE]:CORE}),plan,trySchedule,tick,sync,draw,activeBeam,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118059:   }
+118060:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118061: })();
+118062: 
+118063: /* HAPIL_V31317_RELEASE_FINALIZER */
+118064: (() => {
+118065:   "use strict";
+118066:   const VERSION = "3.13.17", CACHE_KEY = 31317;
+118067:   let attempts = 0;
+118068:   function install() {
+118069:     const inherited = window.__HAPIL_V31316_RELEASE__;
+118070:     const gameplay = window.__HAPIL_GAMEPLAY_V31316__;
+118071:     const modules = {
+118072:       settings: window.__HAPIL_SETTINGS_V31317__,
+118073:       assets: window.__HAPIL_ASSETS_V31317__,
+118074:       visual: window.__HAPIL_VISUAL_V31317__,
+118075:       collab: window.__HAPIL_COLLAB_V31317__,
+118076:       time: window.__HAPIL_TIME_V31317__,
+118077:       patterns: window.__HAPIL_PATTERNS_V31317__,
+118078:     };
+118079:     if (!inherited?.allPass || !gameplay || Object.values(modules).some(api => !api?.installed || typeof api.audit !== "function")) return false;
+118080:     const audits = Object.fromEntries(Object.entries(modules).map(([name, api]) => [name, api.audit()]));
+118081:     const gates = Object.freeze({
+118082:       inheritedRelease: inherited.allPass === true,
+118083:       saveRevisionPreserved: gameplay.saveRevision === 14,
+118084:       ...Object.fromEntries(Object.entries(audits).map(([name, result]) => [name, result?.allPass === true])),
+118085:       objectiveRuntime: window.__HAPIL_OBJECTIVE_FLOW_V31309__?.audit?.().allPass === true,
+118086:       stabilityRuntime: window.__HAPIL_STABILITY_V31310__?.probe?.().allPass === true,
+118087:       ultimateRuntime: window.__HAPIL_ULTIMATE_ARSENAL_V31309__?.installed === true,
+118088:     });
+118089:     const allPass = Object.values(gates).every(Boolean);
+118090:     window.__HAPIL_V31317_RELEASE__ = Object.freeze({
+118091:       version: VERSION, cacheKey: CACHE_KEY, activeBundle: "index-v31317.js",
+118092:       installed: allPass, allPass, gates, inherited, audits,
+118093:       marker: "HAPIL_V31317_RELEASE_FINALIZER",
+118094:     });
+118095:     window.__HAPIL_GAMEPLAY_V31317__ = Object.freeze({
+118096:       ...gameplay, version: VERSION, cacheKey: CACHE_KEY, saveRevision: 14,
+118097:       combatSpectacle: Object.freeze(modules),
+118098:     });
+118099:     window.__MONGSE_ACTIVE_ASSET_CACHE_V31317__ = String(CACHE_KEY);
+118100:     MONGSE_ASSET_VERSION = "31317";
+118101:     window.MONGSE_ASSET_VERSION = MONGSE_ASSET_VERSION;
+118102:     return allPass;
+118103:   }
+118104:   function schedule() {
+118105:     if (install()) return;
+118106:     if (++attempts >= 640) return;
+118107:     if (attempts <= 8 && typeof queueMicrotask === "function") queueMicrotask(schedule);
+118108:     else setTimeout(schedule, 0);
+118109:   }
+118110:   schedule();
+118111: })();
+118112: 
+118113: /* HAPIL_V31318_ASSETS_PATCH
+118114:  * Original false-heaven monument identity, imagegen RGBA poses and weapon art.
+118115:  * Asset metadata only: lifecycle, boss placement and physical collision stay with
+118116:  * the encounter module. Generated alpha is preserved, never keyed or scanned at runtime.
+118117:  */
+118118: (()=>{
+118119:  "use strict";
+118120:  const rows=Object.freeze([{"kind":"idle","path":"./assets/actors/v31318/cosmic-lucifer-idle.webp","width":1536,"height":1024,"mode":"RGBA","alphaBounds":[60,66,1477,904],"coreBounds":[63,81,1472,901],"alphaZero":0.5205052693684896,"alphaMax":254,"sha256":"3d220487a9aee96df2b6ef64ca9dad0e5eaf9046d1434fe2fd75eed90280a0b7"},{"kind":"raise","path":"./assets/actors/v31318/cosmic-lucifer-raise.webp","width":1536,"height":1024,"mode":"RGBA","alphaBounds":[211,7,1326,1010],"coreBounds":[213,9,1325,1008],"alphaZero":0.5179564158121744,"alphaMax":254,"sha256":"08bf720ddf33fe0fe9907aa32997045c7ccf54eee1fd512a107122d4fbf200d9"},{"kind":"fire","path":"./assets/actors/v31318/cosmic-lucifer-fire.webp","width":1536,"height":1024,"mode":"RGBA","alphaBounds":[13,8,1524,966],"coreBounds":[15,15,1522,963],"alphaZero":0.3778985341389974,"alphaMax":254,"sha256":"63112cf946cdbe8d92b6e97ab6b45c80fa8166ecafb8df9b4b1402d0b0bb4e9b"},{"kind":"arena","path":"./assets/maps/v31318/false-heaven-cosmic-arena.webp","width":1586,"height":992,"mode":"RGB","alphaBounds":[0,0,1586,992],"coreBounds":[0,0,1586,992],"alphaZero":0.0,"alphaMax":255,"sha256":"c0df6687d51cab575527a076b56ace12e41661f84af3900dbf4c54a149de1567"},{"kind":"beam","path":"./assets/vfx/v31318/cosmic-lucifer-blood-beam.webp","width":2172,"height":724,"mode":"RGBA","alphaBounds":[11,73,2171,647],"coreBounds":[17,77,2126,642],"alphaZero":0.5190196931310603,"alphaMax":254,"sha256":"a078c465fdf07781a8284fa0f547f94848d63963ca415be80e2684c7264a2706"},{"kind":"reliquary","path":"./assets/vfx/v31318/cosmic-lucifer-reliquary.webp","width":1024,"height":1536,"mode":"RGBA","alphaBounds":[134,8,896,1507],"coreBounds":[137,14,894,1504],"alphaZero":0.6588834126790365,"alphaMax":254,"sha256":"14b56a9a413594366ed4ae2e8adb0400576062452e35e2f57302367d0ddc551d"}].map(row=>Object.freeze({...row,alphaBounds:Object.freeze(row.alphaBounds),coreBounds:Object.freeze(row.coreBounds)})));
+118121:  const byKind=Object.freeze(Object.fromEntries(rows.map(row=>[row.kind,row])));
+118122:  const poses=Object.freeze({idle:byKind.idle.path,raise:byKind.raise.path,charge:byKind.fire.path,fire:byKind.fire.path});
+118123:  const pair=a=>Object.freeze(a);
+118124:  const poseMeta=Object.freeze({
+118125:   idle:Object.freeze({path:poses.idle,width:1536,height:1024,anchorRatio:pair([.5,.881]),mouthRatio:pair([.5,.770])}),
+118126:   raise:Object.freeze({path:poses.raise,width:1536,height:1024,anchorRatio:pair([.5,.940]),mouthRatio:pair([.5,.812])}),
+118127:   charge:Object.freeze({path:poses.charge,width:1536,height:1024,anchorRatio:pair([.5,.943]),mouthRatio:pair([.5,.791])}),
+
+### match [118049-118148]
+118049:     MONGSE_spawnImpactTransitV31232=function HAPIL_spectacleTransitV31317(s,h,...args){if(h?.spectacleV31317)return null;return baseTransit(s,h,...args);};
+118050:     MONGSE_spawnTelegraphedImpact=function HAPIL_spectacleImpactV31317(s,h,...args){return impact(s,h,baseImpact,args);};
+118051:     Gn=function HAPIL_spectacleDrawV31317(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return baseDraw(ctx,cache,e,time,settings);};
+118052:     MONGSE_tickBossThemeOrdnance=function HAPIL_spectacleTickV31317(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118053:     MONGSE_delayPendingBossHits31210=function HAPIL_spectacleDelayV31317(s,...args){const result=baseDelay(s,...args);sync(s);return result;};
+118054:     MONGSE_autoRoleMovementIntent31222=function HAPIL_spectacleRefugeV31317(s,id,...args){return autoMovement(s,id,baseRole(s,id,...args));};
+118055:     Yn=function HAPIL_spectacleRiseV31317(ctx,cache,a,time,settings,...rest){const r=actorRuns.get(a);if(!r||r.mode!=="beam")return baseActor(ctx,cache,a,time,settings,...rest);const t=clamp((time-r.born)/Math.max(.1,r.last-r.born),0,1),lift=24*Math.sin(Math.PI*Math.min(1,t));ctx.save();try{ctx.translate(0,-lift);return baseActor(ctx,cache,a,time,settings,...rest);}finally{ctx.restore();}};
+118056:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_spectacleManifestV31317(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118057:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_spectacleAssetPlanV31317(zone,...args){const p={...assetPlan(zone,...args)},paths=zoneAssets(zone);for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of paths){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}p.spectacleAssetsV31317=paths;return p;};
+118058:     window.__HAPIL_PATTERNS_V31317__=Object.freeze({version:VERSION,installed:true,profiles,resolveAsset,assetAliases:Object.freeze({[OLD_CORE]:CORE}),plan,trySchedule,tick,sync,draw,activeBeam,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118059:   }
+118060:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118061: })();
+118062: 
+118063: /* HAPIL_V31317_RELEASE_FINALIZER */
+118064: (() => {
+118065:   "use strict";
+118066:   const VERSION = "3.13.17", CACHE_KEY = 31317;
+118067:   let attempts = 0;
+118068:   function install() {
+118069:     const inherited = window.__HAPIL_V31316_RELEASE__;
+118070:     const gameplay = window.__HAPIL_GAMEPLAY_V31316__;
+118071:     const modules = {
+118072:       settings: window.__HAPIL_SETTINGS_V31317__,
+118073:       assets: window.__HAPIL_ASSETS_V31317__,
+118074:       visual: window.__HAPIL_VISUAL_V31317__,
+118075:       collab: window.__HAPIL_COLLAB_V31317__,
+118076:       time: window.__HAPIL_TIME_V31317__,
+118077:       patterns: window.__HAPIL_PATTERNS_V31317__,
+118078:     };
+118079:     if (!inherited?.allPass || !gameplay || Object.values(modules).some(api => !api?.installed || typeof api.audit !== "function")) return false;
+118080:     const audits = Object.fromEntries(Object.entries(modules).map(([name, api]) => [name, api.audit()]));
+118081:     const gates = Object.freeze({
+118082:       inheritedRelease: inherited.allPass === true,
+118083:       saveRevisionPreserved: gameplay.saveRevision === 14,
+118084:       ...Object.fromEntries(Object.entries(audits).map(([name, result]) => [name, result?.allPass === true])),
+118085:       objectiveRuntime: window.__HAPIL_OBJECTIVE_FLOW_V31309__?.audit?.().allPass === true,
+118086:       stabilityRuntime: window.__HAPIL_STABILITY_V31310__?.probe?.().allPass === true,
+118087:       ultimateRuntime: window.__HAPIL_ULTIMATE_ARSENAL_V31309__?.installed === true,
+118088:     });
+118089:     const allPass = Object.values(gates).every(Boolean);
+118090:     window.__HAPIL_V31317_RELEASE__ = Object.freeze({
+118091:       version: VERSION, cacheKey: CACHE_KEY, activeBundle: "index-v31317.js",
+118092:       installed: allPass, allPass, gates, inherited, audits,
+118093:       marker: "HAPIL_V31317_RELEASE_FINALIZER",
+118094:     });
+118095:     window.__HAPIL_GAMEPLAY_V31317__ = Object.freeze({
+118096:       ...gameplay, version: VERSION, cacheKey: CACHE_KEY, saveRevision: 14,
+118097:       combatSpectacle: Object.freeze(modules),
+118098:     });
+118099:     window.__MONGSE_ACTIVE_ASSET_CACHE_V31317__ = String(CACHE_KEY);
+118100:     MONGSE_ASSET_VERSION = "31317";
+118101:     window.MONGSE_ASSET_VERSION = MONGSE_ASSET_VERSION;
+118102:     return allPass;
+118103:   }
+118104:   function schedule() {
+118105:     if (install()) return;
+118106:     if (++attempts >= 640) return;
+118107:     if (attempts <= 8 && typeof queueMicrotask === "function") queueMicrotask(schedule);
+118108:     else setTimeout(schedule, 0);
+118109:   }
+118110:   schedule();
+118111: })();
+118112: 
+118113: /* HAPIL_V31318_ASSETS_PATCH
+118114:  * Original false-heaven monument identity, imagegen RGBA poses and weapon art.
+118115:  * Asset metadata only: lifecycle, boss placement and physical collision stay with
+118116:  * the encounter module. Generated alpha is preserved, never keyed or scanned at runtime.
+118117:  */
+118118: (()=>{
+118119:  "use strict";
+118120:  const rows=Object.freeze([{"kind":"idle","path":"./assets/actors/v31318/cosmic-lucifer-idle.webp","width":1536,"height":1024,"mode":"RGBA","alphaBounds":[60,66,1477,904],"coreBounds":[63,81,1472,901],"alphaZero":0.5205052693684896,"alphaMax":254,"sha256":"3d220487a9aee96df2b6ef64ca9dad0e5eaf9046d1434fe2fd75eed90280a0b7"},{"kind":"raise","path":"./assets/actors/v31318/cosmic-lucifer-raise.webp","width":1536,"height":1024,"mode":"RGBA","alphaBounds":[211,7,1326,1010],"coreBounds":[213,9,1325,1008],"alphaZero":0.5179564158121744,"alphaMax":254,"sha256":"08bf720ddf33fe0fe9907aa32997045c7ccf54eee1fd512a107122d4fbf200d9"},{"kind":"fire","path":"./assets/actors/v31318/cosmic-lucifer-fire.webp","width":1536,"height":1024,"mode":"RGBA","alphaBounds":[13,8,1524,966],"coreBounds":[15,15,1522,963],"alphaZero":0.3778985341389974,"alphaMax":254,"sha256":"63112cf946cdbe8d92b6e97ab6b45c80fa8166ecafb8df9b4b1402d0b0bb4e9b"},{"kind":"arena","path":"./assets/maps/v31318/false-heaven-cosmic-arena.webp","width":1586,"height":992,"mode":"RGB","alphaBounds":[0,0,1586,992],"coreBounds":[0,0,1586,992],"alphaZero":0.0,"alphaMax":255,"sha256":"c0df6687d51cab575527a076b56ace12e41661f84af3900dbf4c54a149de1567"},{"kind":"beam","path":"./assets/vfx/v31318/cosmic-lucifer-blood-beam.webp","width":2172,"height":724,"mode":"RGBA","alphaBounds":[11,73,2171,647],"coreBounds":[17,77,2126,642],"alphaZero":0.5190196931310603,"alphaMax":254,"sha256":"a078c465fdf07781a8284fa0f547f94848d63963ca415be80e2684c7264a2706"},{"kind":"reliquary","path":"./assets/vfx/v31318/cosmic-lucifer-reliquary.webp","width":1024,"height":1536,"mode":"RGBA","alphaBounds":[134,8,896,1507],"coreBounds":[137,14,894,1504],"alphaZero":0.6588834126790365,"alphaMax":254,"sha256":"14b56a9a413594366ed4ae2e8adb0400576062452e35e2f57302367d0ddc551d"}].map(row=>Object.freeze({...row,alphaBounds:Object.freeze(row.alphaBounds),coreBounds:Object.freeze(row.coreBounds)})));
+118121:  const byKind=Object.freeze(Object.fromEntries(rows.map(row=>[row.kind,row])));
+118122:  const poses=Object.freeze({idle:byKind.idle.path,raise:byKind.raise.path,charge:byKind.fire.path,fire:byKind.fire.path});
+118123:  const pair=a=>Object.freeze(a);
+118124:  const poseMeta=Object.freeze({
+118125:   idle:Object.freeze({path:poses.idle,width:1536,height:1024,anchorRatio:pair([.5,.881]),mouthRatio:pair([.5,.770])}),
+118126:   raise:Object.freeze({path:poses.raise,width:1536,height:1024,anchorRatio:pair([.5,.940]),mouthRatio:pair([.5,.812])}),
+118127:   charge:Object.freeze({path:poses.charge,width:1536,height:1024,anchorRatio:pair([.5,.943]),mouthRatio:pair([.5,.791])}),
+118128:   fire:Object.freeze({path:poses.fire,width:1536,height:1024,anchorRatio:pair([.5,.943]),mouthRatio:pair([.5,.791])})
+118129:  });
+118130:  const paths=Object.freeze(rows.map(row=>row.path));
+118131:  const arenaMap=byKind.arena.path,actorWidth=460,anchorRatio=pair([.5,.881]),mouthRatio=pair([.5,.770]);
+118132:  function addToPlan(plan,zone){
+118133:   if(zone!=="ep1a11")return plan;
+118134:   const next={...plan};for(const key of["all","A","B","C","deferred","pins"])next[key]=new Set(plan?.[key]??[]);
+118135:   for(const path of paths){next.all.add(path);next.A.add(path);next.pins.add(path);next.B.delete(path);next.C.delete(path);next.deferred.delete(path);}
+118136:   next.cosmicAssetsV31318=paths;return next;
+118137:  }
+118138:  function audit(){const checks={priorRelease:window.__HAPIL_V31317_RELEASE__?.allPass===true,sixUniqueAssets:paths.length===6&&new Set(paths).size===6,threeDistinctPoses:new Set(Object.values(poses)).size===3,actualAlpha:rows.filter(r=>r.kind!=="arena").every(r=>r.mode==="RGBA"&&r.alphaZero>.35&&r.alphaMax>240),matchingPoseCanvases:["idle","raise","fire"].every(k=>byKind[k].width===1536&&byKind[k].height===1024),allAnchorsFinite:Object.values(poseMeta).every(m=>[...m.anchorRatio,...m.mouthRatio].every(n=>Number.isFinite(n)&&n>0&&n<1))};return{version:"3.13.18",checks,allPass:Object.values(checks).every(Boolean)};}
+118139:  let attempts=0;function install(){if(!window.__HAPIL_V31317_RELEASE__?.allPass){if(++attempts<128)setTimeout(install,0);return false;}window.__HAPIL_ASSETS_V31318__=Object.freeze({version:"3.13.18",installed:true,allPass:true,rows,byKind,paths,poses,poseMeta,arenaMap,actorWidth,anchorRatio,mouthRatio,sourceMap:"./assets/maps/ep1a_11_false_heaven.jpg",sourceMapSha256:"2532994802c51422825d1b4634ef1a5b8ef2320adf80500526fc68f37ff6c12f",weapons:Object.freeze({beam:byKind.beam.path,reliquary:byKind.reliquary.path}),addToPlan,audit});return true;}install();
+118140: })();
+118141: 
+118142: /* HAPIL_V31318_EMISSION_PATCH
+118143:  * An attack pose is the actor body. A flying weapon belongs to its projectile.
+118144:  * The old generic, stationary cast decal and the separate midpoint torso
+118145:  * overlay are neither; suppress only those two decorative emission sites.
+118146:  * Gameplay queues, FX serials, animation timing and native charge cores stay.
+118147:  */
+118148: function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
+
+### match [118750-118849]
+118750:       candidates.push({x:2.1,y:29.9},{x:29.9,y:2.1});
+118751:     }else for(const radius of [3.4,5.2,7.2])for(let i=0;i<16;i++){const a=i*Math.PI/8;candidates.push({x:clamp(s.x+Math.cos(a)*radius,2,30),y:clamp(s.y+Math.sin(a)*radius,2,30)});}
+118752:     if(safe(s))candidates.unshift({x:s.x,y:s.y});
+118753:     return candidates.map(p=>dt(s.zone,p,.48)).filter(safe).sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]??null;
+118754:   }
+118755:   function autoMovement(s,heroId,base){
+118756:     if(!s||s.autoCombatEnabled31222!==true||s.target||s.bufferedAction||num(s.manualMovementUntil31222)>num(s.time)||num(s.autoEvadeUntil31223)>num(s.time)||MONGSE_isEncounterLocked31226(s)||suppressed(s))return base;
+118757:     const all=activeHits(s),h=all.find(h=>h.cosmicModeV31318==="blood-beam")??all[0];if(!h)return base;
+118758:     const goal=refugeGoal(s,h);if(!goal)return base;
+118759:     const threatened=all.some(h=>Di(s,h)),distance=Math.hypot(goal.x-s.x,goal.y-s.y);let dx=0,dy=0;
+118760:     if(threatened||distance>.38){const key=String(h.bossCastId31210),now=num(s.time);if(s.cosmicNavIdV31318!==key||now>=num(s.cosmicNavAtV31318)||!s.cosmicNavPathV31318?.length){s.cosmicNavPathV31318=yt(s.zone,s,goal,.48);s.cosmicNavIdV31318=key;s.cosmicNavAtV31318=now+.22;}const path=s.cosmicNavPathV31318??[];while(path.length&&Math.hypot(path[0].x-s.x,path[0].y-s.y)<.27)path.shift();const next=path[0]??goal,len=Math.max(.001,Math.hypot(next.x-s.x,next.y-s.y));dx=(next.x-s.x)/len;dy=(next.y-s.y)/len;metrics.aiReturns++;}
+118761:     s.heroRoleSteeringActive31222=true;s.heroRoleSteeringAt31222=s.time;HAPIL_setAutoDecisionV31302(s,threatened?"혈광 · 대피 통로로":"혈광 · 안전 지대 유지",.3);
+118762:     return {...base,active:true,dx,dy,mode:threatened?"cosmic-refuge":"cosmic-hold",cosmicRefugeV31318:true};
+118763:   }
+118764:   const zoneAssets=zone=>zone===ZONE?Object.values(assets):[];
+118765:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,threeDistinctActions:modes.length===3,nativeDamageOnly:true,noDuplicateRegen:true,saveRevision:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118766:   function install(){
+118767:     if(window.__HAPIL_ARSENAL_V31318__?.installed)return true;if(!window.__HAPIL_V31317_RELEASE__?.allPass)return false;
+118768:     const transit=MONGSE_spawnImpactTransitV31232,spawnImpact=MONGSE_spawnTelegraphedImpact,gn=Gn,jn=Jn,qnBase=qn,baseTick=MONGSE_tickBossThemeOrdnance,delay=MONGSE_delayPendingBossHits31210,role=MONGSE_autoRoleMovementIntent31222;
+118769:     MONGSE_spawnImpactTransitV31232=function HAPIL_cosmicTransitV31318(s,h,...args){if(h?.cosmicAttackV31318)return null;return transit(s,h,...args);};
+118770:     MONGSE_spawnTelegraphedImpact=function HAPIL_cosmicImpactV31318(s,h,...args){return impact(s,h,spawnImpact,args);};
+118771:     Gn=function HAPIL_cosmicEffectV31318(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return gn(ctx,cache,e,time,settings);};
+118772:     Jn=function HAPIL_cosmicShotV31318(ctx,cache,q,time,settings){if(drawShot(ctx,cache,q,time,settings))return;return jn(ctx,cache,q,time,settings);};
+118773:     qn=function HAPIL_cosmicWarningV31318(ctx,h,time,settings={},cache){if(drawTelegraph(ctx,h,time,settings))return;return qnBase(ctx,h,time,settings,cache);};
+118774:     MONGSE_tickBossThemeOrdnance=function HAPIL_cosmicTickV31318(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118775:     MONGSE_delayPendingBossHits31210=function HAPIL_cosmicDelayV31318(s,...args){const result=delay(s,...args);sync(s);return result;};
+118776:     MONGSE_autoRoleMovementIntent31222=function HAPIL_cosmicRefugeV31318(s,id,...args){return autoMovement(s,id,role(s,id,...args));};
+118777:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_cosmicArsenalManifestV31318(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118778:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_cosmicArsenalPlanV31318(zone,...args){const p={...assetPlan(zone,...args)};for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of zoneAssets(zone)){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}return p;};
+118779:     window.__HAPIL_ARSENAL_V31318__=Object.freeze({version:VERSION,installed:true,assets,modes,owner,valid,plan,trySchedule,tick,sync,draw,drawShot,drawTelegraph,activeHits,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118780:   }
+118781:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118782: })();
+118783: 
+118784: /* HAPIL_V31318_ADAPTIVE_PATCH: choose an existing weapon action at a useful range.
+118785:  * Admission waits for committed arena attacks; it never edits their queues.
+118786:  */
+118787: (() => {
+118788:   "use strict";
+118789:   const VERSION="3.13.18",FAMILIES=Object.freeze(["rotating-laser","rolling-ordnance","snipe-sword-wave"]),owners=new Map();
+118790:   const stats={waits:0,nearChoices:0,farChoices:0},num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
+118791:   let attempts=0;
+118792:   function enrolled(s,a){const r=owners.get(String(a?.id));return !!(s&&a&&r&&r.zone===s.zone&&(a.boss||a.midboss)&&a.cosmicLuciferV31318!==true);}
+118793:   function broad(h){
+118794:     if(!h||h.damageSuppressedV31226||h.pureTelegraphV31230||num(h.damage)<=0)return false;
+118795:     return !!(h.spectacleV31317||h.dynamicBossAttackV31315||h.cosmicLuciferAttackV31318||h.shape==="safe"||(h.shape==="line"&&num(h.width)>=4)||(h.shape==="cross"&&num(h.radius)>=14)||(h.shape==="circle"&&num(h.radius)>=8));
+118796:   }
+118797:   function waitReason(s,a){
+118798:     if(!enrolled(s,a))return null;
+118799:     const now=num(s.time);
+118800:     if(num(s.hp)<=0||num(a.hp)<=0)return "defeated";
+118801:     if(num(s.timeStopUntil)>now)return "time-stop";
+118802:     if(num(s.enemySkillsSuppressedUntilV31309)>now)return "ultimate-suppression";
+118803:     if(MONGSE_isEncounterLocked31226(s))return "dialogue";
+118804:     // Only living, actual encounter owners can reserve the arena. Stale or
+118805:     // cancelled entries cannot permanently hold another boss's director slot.
+118806:     const living=new Set((s.enemies??[]).filter(e=>num(e?.hp)>0).map(e=>String(e.id)));
+118807:     for(const h of [...(s.pendingHits??[]),...(s.impactQueue??[])]){
+118808:       if(!broad(h)||!living.has(String(h.sourceId)))continue;
+118809:       const deadline=Number.isFinite(Number(h.impactAt))?Number(h.impactAt):Number(h.at);
+118810:       if(Number.isFinite(deadline)&&deadline+.32>=now)return "committed-arena-attack";
+118811:     }
+118812:     // This is a short release sequence, not the lifetime of every flying
+118813:     // bullet. It preserves the authored two/three-beat gap before a new volley.
+118814:     if(window.__HAPIL_DANMAKU_V31316__?.active?.(s))return "committed-danmaku-beats";
+118815:     return null;
+118816:   }
+118817:   function allow(s,a){const reason=waitReason(s,a);if(reason)stats.waits++;return !reason;}
+118818:   function decision(s,a,family){
+118819:     if(!enrolled(s,a)||!FAMILIES.includes(family))return {family,reason:"inherited"};
+118820:     const distance=Math.hypot(num(s.x)-num(a.x),num(s.y)-num(a.y)),last=String(a.lastBossCombatPatternV31230??"");
+118821:     if(distance<=3.4&&family==="snipe-sword-wave")return {family:last==="rolling-ordnance"?"rotating-laser":"rolling-ordnance",reason:"near-readable-weapon",distance};
+118822:     // The original sweep reaches 12.2 (boss) / 10.2 (midboss) world units.
+118823:     // At 20+, use one existing travelling weapon action instead of an empty sweep.
+118824:     if(distance>=20&&family==="rotating-laser")return {family:last==="snipe-sword-wave"?"rolling-ordnance":"snipe-sword-wave",reason:"far-travelling-weapon",distance};
+118825:     return {family,reason:"inherited",distance};
+118826:   }
+118827:   function select(s,a,family){const d=decision(s,a,family);if(d.reason==="near-readable-weapon")stats.nearChoices++;if(d.reason==="far-travelling-weapon")stats.farChoices++;return d.family;}
+118828:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,rankedOwners:owners.size===71,threeExistingWeaponFamilies:FAMILIES.length===3,existingDirectorIdentity:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",saveSchema14:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return {version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118829:   function install(){
+118830:     if(window.__HAPIL_ADAPTIVE_V31318__?.installed)return true;
+118831:     if(!window.__HAPIL_V31317_RELEASE__?.allPass)return false;
+118832:     for(const row of window.__HAPIL_SKILL_VISUAL_V31311__.rankedRows())if(!row.actor.cosmicLuciferV31318&&row.actor.id!=="a11-cosmic-v31318")owners.set(String(row.actor.id),row);
+118833:     window.__HAPIL_ADAPTIVE_V31318__=Object.freeze({installed:true,version:VERSION,families:FAMILIES,allow,waitReason,decision,select,broad,rankedRows:()=>[...owners.values()],metrics:()=>({...stats}),audit});return audit().allPass;
+118834:   }
+118835:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118836: })();
+118837: 
+118838: /* HAPIL_V31318_RELEASE_FINALIZER */
+118839: (() => {
+118840:   "use strict";
+118841:   const VERSION = "3.13.18", CACHE_KEY = 31318;
+118842:   let attempts = 0;
+118843:   function install() {
+118844:     const inherited = window.__HAPIL_V31317_RELEASE__;
+118845:     const gameplay = window.__HAPIL_GAMEPLAY_V31317__;
+118846:     const modules = {
+118847:       assets: window.__HAPIL_ASSETS_V31318__,
+118848:       emission: window.__HAPIL_EMISSION_V31318__,
+118849:       coverage: window.__HAPIL_COVERAGE_V31318__,
+
+### match [118771-118870]
+118771:     Gn=function HAPIL_cosmicEffectV31318(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return gn(ctx,cache,e,time,settings);};
+118772:     Jn=function HAPIL_cosmicShotV31318(ctx,cache,q,time,settings){if(drawShot(ctx,cache,q,time,settings))return;return jn(ctx,cache,q,time,settings);};
+118773:     qn=function HAPIL_cosmicWarningV31318(ctx,h,time,settings={},cache){if(drawTelegraph(ctx,h,time,settings))return;return qnBase(ctx,h,time,settings,cache);};
+118774:     MONGSE_tickBossThemeOrdnance=function HAPIL_cosmicTickV31318(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118775:     MONGSE_delayPendingBossHits31210=function HAPIL_cosmicDelayV31318(s,...args){const result=delay(s,...args);sync(s);return result;};
+118776:     MONGSE_autoRoleMovementIntent31222=function HAPIL_cosmicRefugeV31318(s,id,...args){return autoMovement(s,id,role(s,id,...args));};
+118777:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_cosmicArsenalManifestV31318(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118778:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_cosmicArsenalPlanV31318(zone,...args){const p={...assetPlan(zone,...args)};for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of zoneAssets(zone)){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}return p;};
+118779:     window.__HAPIL_ARSENAL_V31318__=Object.freeze({version:VERSION,installed:true,assets,modes,owner,valid,plan,trySchedule,tick,sync,draw,drawShot,drawTelegraph,activeHits,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118780:   }
+118781:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118782: })();
+118783: 
+118784: /* HAPIL_V31318_ADAPTIVE_PATCH: choose an existing weapon action at a useful range.
+118785:  * Admission waits for committed arena attacks; it never edits their queues.
+118786:  */
+118787: (() => {
+118788:   "use strict";
+118789:   const VERSION="3.13.18",FAMILIES=Object.freeze(["rotating-laser","rolling-ordnance","snipe-sword-wave"]),owners=new Map();
+118790:   const stats={waits:0,nearChoices:0,farChoices:0},num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
+118791:   let attempts=0;
+118792:   function enrolled(s,a){const r=owners.get(String(a?.id));return !!(s&&a&&r&&r.zone===s.zone&&(a.boss||a.midboss)&&a.cosmicLuciferV31318!==true);}
+118793:   function broad(h){
+118794:     if(!h||h.damageSuppressedV31226||h.pureTelegraphV31230||num(h.damage)<=0)return false;
+118795:     return !!(h.spectacleV31317||h.dynamicBossAttackV31315||h.cosmicLuciferAttackV31318||h.shape==="safe"||(h.shape==="line"&&num(h.width)>=4)||(h.shape==="cross"&&num(h.radius)>=14)||(h.shape==="circle"&&num(h.radius)>=8));
+118796:   }
+118797:   function waitReason(s,a){
+118798:     if(!enrolled(s,a))return null;
+118799:     const now=num(s.time);
+118800:     if(num(s.hp)<=0||num(a.hp)<=0)return "defeated";
+118801:     if(num(s.timeStopUntil)>now)return "time-stop";
+118802:     if(num(s.enemySkillsSuppressedUntilV31309)>now)return "ultimate-suppression";
+118803:     if(MONGSE_isEncounterLocked31226(s))return "dialogue";
+118804:     // Only living, actual encounter owners can reserve the arena. Stale or
+118805:     // cancelled entries cannot permanently hold another boss's director slot.
+118806:     const living=new Set((s.enemies??[]).filter(e=>num(e?.hp)>0).map(e=>String(e.id)));
+118807:     for(const h of [...(s.pendingHits??[]),...(s.impactQueue??[])]){
+118808:       if(!broad(h)||!living.has(String(h.sourceId)))continue;
+118809:       const deadline=Number.isFinite(Number(h.impactAt))?Number(h.impactAt):Number(h.at);
+118810:       if(Number.isFinite(deadline)&&deadline+.32>=now)return "committed-arena-attack";
+118811:     }
+118812:     // This is a short release sequence, not the lifetime of every flying
+118813:     // bullet. It preserves the authored two/three-beat gap before a new volley.
+118814:     if(window.__HAPIL_DANMAKU_V31316__?.active?.(s))return "committed-danmaku-beats";
+118815:     return null;
+118816:   }
+118817:   function allow(s,a){const reason=waitReason(s,a);if(reason)stats.waits++;return !reason;}
+118818:   function decision(s,a,family){
+118819:     if(!enrolled(s,a)||!FAMILIES.includes(family))return {family,reason:"inherited"};
+118820:     const distance=Math.hypot(num(s.x)-num(a.x),num(s.y)-num(a.y)),last=String(a.lastBossCombatPatternV31230??"");
+118821:     if(distance<=3.4&&family==="snipe-sword-wave")return {family:last==="rolling-ordnance"?"rotating-laser":"rolling-ordnance",reason:"near-readable-weapon",distance};
+118822:     // The original sweep reaches 12.2 (boss) / 10.2 (midboss) world units.
+118823:     // At 20+, use one existing travelling weapon action instead of an empty sweep.
+118824:     if(distance>=20&&family==="rotating-laser")return {family:last==="snipe-sword-wave"?"rolling-ordnance":"snipe-sword-wave",reason:"far-travelling-weapon",distance};
+118825:     return {family,reason:"inherited",distance};
+118826:   }
+118827:   function select(s,a,family){const d=decision(s,a,family);if(d.reason==="near-readable-weapon")stats.nearChoices++;if(d.reason==="far-travelling-weapon")stats.farChoices++;return d.family;}
+118828:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,rankedOwners:owners.size===71,threeExistingWeaponFamilies:FAMILIES.length===3,existingDirectorIdentity:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",saveSchema14:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return {version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118829:   function install(){
+118830:     if(window.__HAPIL_ADAPTIVE_V31318__?.installed)return true;
+118831:     if(!window.__HAPIL_V31317_RELEASE__?.allPass)return false;
+118832:     for(const row of window.__HAPIL_SKILL_VISUAL_V31311__.rankedRows())if(!row.actor.cosmicLuciferV31318&&row.actor.id!=="a11-cosmic-v31318")owners.set(String(row.actor.id),row);
+118833:     window.__HAPIL_ADAPTIVE_V31318__=Object.freeze({installed:true,version:VERSION,families:FAMILIES,allow,waitReason,decision,select,broad,rankedRows:()=>[...owners.values()],metrics:()=>({...stats}),audit});return audit().allPass;
+118834:   }
+118835:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118836: })();
+118837: 
+118838: /* HAPIL_V31318_RELEASE_FINALIZER */
+118839: (() => {
+118840:   "use strict";
+118841:   const VERSION = "3.13.18", CACHE_KEY = 31318;
+118842:   let attempts = 0;
+118843:   function install() {
+118844:     const inherited = window.__HAPIL_V31317_RELEASE__;
+118845:     const gameplay = window.__HAPIL_GAMEPLAY_V31317__;
+118846:     const modules = {
+118847:       assets: window.__HAPIL_ASSETS_V31318__,
+118848:       emission: window.__HAPIL_EMISSION_V31318__,
+118849:       coverage: window.__HAPIL_COVERAGE_V31318__,
+118850:       lucifer: window.__HAPIL_LUCIFER_V31318__,
+118851:       arsenal: window.__HAPIL_ARSENAL_V31318__,
+118852:       adaptive: window.__HAPIL_ADAPTIVE_V31318__,
+118853:     };
+118854:     if (!inherited?.allPass || !gameplay || Object.values(modules).some(api => !api?.installed || typeof api.audit !== "function")) return false;
+118855:     const audits = Object.fromEntries(Object.entries(modules).map(([name, api]) => [name, api.audit()]));
+118856:     const gates = Object.freeze({
+118857:       inheritedRelease: inherited.allPass === true,
+118858:       saveRevisionPreserved: gameplay.saveRevision === 14,
+118859:       ...Object.fromEntries(Object.entries(audits).map(([name, result]) => [name, result?.allPass === true])),
+118860:       objectiveRuntime: window.__HAPIL_OBJECTIVE_FLOW_V31309__?.audit?.().allPass === true,
+118861:       stabilityRuntime: window.__HAPIL_STABILITY_V31310__?.probe?.().allPass === true,
+118862:       ultimateRuntime: window.__HAPIL_ULTIMATE_ARSENAL_V31309__?.installed === true,
+118863:     });
+118864:     const allPass = Object.values(gates).every(Boolean);
+118865:     window.__HAPIL_V31318_RELEASE__ = Object.freeze({version: VERSION, cacheKey: CACHE_KEY, activeBundle: "index-v31318.js", installed: allPass, allPass, gates, inherited, audits, marker: "HAPIL_V31318_RELEASE_FINALIZER"});
+118866:     window.__HAPIL_GAMEPLAY_V31318__ = Object.freeze({...gameplay, version: VERSION, cacheKey: CACHE_KEY, saveRevision: 14, makeSave: Fi, normalizeSave: ji, restoreEnemies: Ii, cosmicLucifer: Object.freeze(modules)});
+118867:     window.__MONGSE_ACTIVE_ASSET_CACHE_V31318__ = String(CACHE_KEY);
+118868:     MONGSE_ASSET_VERSION = "31318";
+118869:     window.MONGSE_ASSET_VERSION = MONGSE_ASSET_VERSION;
+118870:     return allPass;
+
+### NATIVE FUNCTION INDEX
+19296: function MONGSE_autoRoleMovementIntent31222(e, t) {
+19367: function MONGSE_autoEvadeHash31223(e) {
+19373: function MONGSE_autoThreatGroupKey31223(e) {
+19385: function MONGSE_autoEvadeRoll31223(e, t, n) {
+19570: function MONGSE_scoreAutoDodgeCandidate31223(e, t, MONGSE_profile31223) {
+19621: function MONGSE_pickAutoDodgeDestination31223(e, t, n, r) {
+19663: function MONGSE_resetHeroAutoDodge31223(e, t = `reset`) {
+19675: function MONGSE_stepHeroAutoDodge31223(e, t, n = !1) {
+19738: function MONGSE_planHeroAutoDodge31223(e, t, n) {
+29608: function MONGSE_zonePortalAnchors(e) {
+29645: function MONGSE_portalAnchorValid(e, t, n = 0.48) {
+33460: function MONGSE_queueImage(e, t, n = `auto`) {
+33476: function MONGSE_decodeImage(e, t, n = `auto`) {
+33649:   c=window.__HAPIL_MOBILE_V31366__?.backingScale(c)??c;
+36451:     (c.imageSmoothingEnabled = !i.lowFx || window.__HAPIL_MOBILE_V31366__?.enabled() === true),
+37002:   const touchBattle=(window.__HAPIL_MOBILE_V31366__?.enabled?.()===true||document.documentElement.classList.contains('hapil-touch-v31366'))&&(state?.enemies??[]).some(actor=>actor?.hp>0);
+40123: function MONGSE_autoEvadeProfile31223(e = 0, t = `hwando`) {
+40292: function MONGSE_planAutoGrowth31226(e, t = {}, n = 0, r = null) {
+40374: function MONGSE_applyAutoGrowthTransaction31228(
+40848: function HAPIL_isFullAutoV31329(settings = {}) {
+42421: function MONGSE_isRestPortalLocked31226(e) {
+43095: function MONGSE_stepBossDodgeSmartR1(state, boss) {
+43129: function MONGSE_tryBossDodgeSmartR1(state, boss, profile, radius, threat) {
+45157: function MONGSE_buildSpatialRiftPortals(e, t, n, r) {
+49908: function HAPIL_blinkVectorV31345(input, facing, automaticVector = null, lastManualVector = null) {
+49923: function MONGSE_planAutoSkill(e, t, n = {}) {
+51575:     window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = next;
+51598:       window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = active;
+53764:         window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = !1;
+53768:         if (window.__HAPIL_PARTY_V31322__?.blocksNativeInput() || window.__HAPIL_CHANNEL_V31364__?.active(P.current)) { window.__HAPIL_AUTO_MAP_ADVANCE_RC115__?.reset(P.current); return; }
+53771:         window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = active;
+53780:         if (window.__HAPIL_AUTO_MAP_ADVANCE_RC115__?.step(P.current, mapSettings, mapBlocked, tt)) return;
+54374:           window.__HAPIL_CONTROLS_V31329__?.syncLifecycle?.(o,s);window.__HAPIL_MOBILE_V31366__?.beforeFrame(o,s);window.__HAPIL_CHANNEL_V31364__?.beforeFrame(o,s);window.__HAPIL_LOOP_V31365__?.beforeFrame(o,s);
+63092:             (window.__HAPIL_MOBILE_V31366__?.enabled() ? e - r > 250 : (window.__HAPIL_ENEMY_FEEL_V31361__?.consumeHud(o) || e - r > (ze.current.lowFx ? 180 : 140))))
+63846:                         onPointerDown: (t) => window.__HAPIL_MOBILE_V31343__?.down(I.current,e,t),
+63847:                         onPointerUp: (t) => window.__HAPIL_MOBILE_V31343__?.up(I.current,t),
+63848:                         onPointerCancel: (t) => window.__HAPIL_MOBILE_V31343__?.up(I.current,t),
+63849:                         onPointerLeave: (t) => window.__HAPIL_MOBILE_V31343__?.leave(I.current,t),
+63850:                         onLostPointerCapture: (t) => window.__HAPIL_MOBILE_V31343__?.up(I.current,t),
+64166:                                   children: [e.name, window.__HAPIL_CONTROLS_V31329__?.effective(v)===`semi`&&window.__HAPIL_COMBAT_V31343__?.repeatSkill(e)?` · AUTO`: ``, ` · Lv.`, i.level],
+65144: function MONGSE_InterludeScene({ scene: e, continueStory: t, skip: n, autoAdvance: MONGSE_autoAdvanceV31301 = !1, storySound, storyVolume, duckStoryBgm }) {
+65463:     toggle('showAttackTelegraphs','공격 예고 범위','적 공격의 위험 범위를 표시합니다.'),toggle('largeText','큰 글자','전투 정보의 글자를 키웁니다.'),(0,q.jsxs)('label',{children:[(0,q.jsx)('b',{children:'터치 조작'}),(0,q.jsx)('select',{'aria-label':'터치 조작',value:window.__HAPIL_MOBILE_V31366__?.snapshot?.().options.mode??'auto',onChange:event=>{const mode=event.target.value;window.__HAPIL_MOBILE_V31366__?.setMode(mode);t(v=>({...v,mobileUi:mode==='on'}));},children:[['auto','기기에 맞게'],['on','항상 표시'],['off','숨김']].map(([value,label])=>(0,q.jsx)('option',{value,children:label},value))})]})
+68229:     if(window.__HAPIL_MOBILE_V31366__?.enabled()){
+99751: function HAPIL_autoProgressPlanV31301(state, settings, blocked = false) {
+99807: function HAPIL_driveAutoProgressV31301(state, settings, blocked, interact) {
+99848: function HAPIL_autoStoryDelayV31301(scene, slideIndex) {
+99854: function HAPIL_ClueOverlayV31301({ clue, close, autoAdvance = false }) {
+99894: function HAPIL_AutoBattleSettingsV31301({ settings, set }) {
+100187:       window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ === true &&
+100245:       state.heroStatus = window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ === true
+100280:   window.__HAPIL_AUTOPROGRESS_V31301__ = freeze({
+100311:     const auto = window.__HAPIL_AUTOPROGRESS_V31301__;
+100413: function HAPIL_setAutoDecisionV31302(state, label, duration = 0.92) {
+100442: function HAPIL_clearAutoDecisionV31302(state, reason = "manual-or-off") {
+100451: function HAPIL_autoRoleDecisionV31302(state, intent) {
+101220:         window.__HAPIL_AUTOPROGRESS_V31301__?.route?.length === 64 &&
+101221:         window.__HAPIL_AUTOPROGRESS_V31301__?.route?.at(-1) === "village",
+102138:         window.__HAPIL_AUTOPROGRESS_V31301__?.route?.length === 64 &&
+102139:         window.__HAPIL_AUTOPROGRESS_V31301__?.route?.at(-1) === "village",
+115407:       const value = window.__HAPIL_MOBILE_V31366__?.backingScale(backing(result.backingScale, displaySize.width, lowFx, state.adaptiveSlow))??backing(result.backingScale, displaySize.width, lowFx, state.adaptiveSlow);
+116821:   function barrageCap(){return window.__HAPIL_COMBAT_RC47__?.mobile?.()===true?MOBILE_CAP:Infinity;}
+117113:   function audit() {const coverage=mapCoverage(),paletteColors=new Set([...owners.values()].map(row=>row.danmakuColorV31316)),checks={inherited:window.__HAPIL_V31315_RELEASE__?.allPass===true,uniqueBossBulletPalette:paletteColors.size===owners.size,rankedOwners:owners.size>=71,sourceSchedulerHook:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",patternDeck:deck.length>=64&&spellById.size===deck.length&&new Set(deck).size===deck.length,mobileAdmissionCap:MOBILE_CAP===48,desktopAdmissionUnlimited:window.__HAPIL_COMBAT_RC47__?.mobile?.()===true||barrageCap()===Infinity,minimumDodgeDistance:MIN_DISTANCE>=4.5,combatMapOwnerCoverage:coverage.combatMaps>0&&coverage.missingOwner.length===0,mapSignatureCoverage:coverage.signatureCount===coverage.combatMaps&&coverage.missingHost.length===0&&coverage.uniqueSignatures,mapPatternDiversity:coverage.uniquePatternPrefix&&coverage.uniquePatternCount>=Math.min(coverage.combatMaps,deck.length),saveSchemaPreserved:window.__HAPIL_G
+117296: function HAPIL_precisionScaleV31316(state,keys,auto,manualDirection,charmed) {
+121619: function clearHazards(s){if(!gate(s).clear)return false;MONGSE_clearHostileProjectiles31215(s,'clear');for(const key of['pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','pendingStrikes','enemyExitFxV31327','bossUltimateCastsV31334'])if(Array.isArray(s[key]))s[key]=[];s.effects=(s.effects??[]).filter(e=>!e.sourceId&&!e.hostile&&!e.enemyAttackV31323);s.zoneCombatQueueClearedAt=s.time;return true;}
+121636: function ready(s,ui=false){const r=record(s),p=profile(s.zone),g=gate(s);if(!p)return{ready:false,reason:'legacy-map'};admit(s);if(blocked(s,ui)||!g.clear){r.readyAt=null;s.flowStateV31343=blocked(s,ui)?'ENTRY':'COMBAT';return{ready:false,reason:blocked(s,ui)?'선택 또는 장면 진행 중':g.reason};}if((s.egoDrops??[]).length)return{ready:false,reason:'성장 보상 흡수 중'};if(!Te(s.zone,s.clues))return{ready:false,reason:'필수 기록 확인'};if(r.readyAt===null){r.readyAt=num(s.time);clearHazards(s);s.flowStateV31343='CLEAR_PENDING';}if(num(s.time)-r.readyAt<.85||num(s.time)-r.enteredAt<1.2)return{ready:false,reason:'출구 준비 중'};s.flowStateV31343='EXIT_READY';return{ready:true,reason:'다가가면 다음 구역',near:Math.hypot(s.x-p.exitAnchorWorld.x,s.y-p.exitAnchorWorld.y)<2.45};}
+121640: function transition(s,interact,ui=false,allowOffPortal=false){
+121671: function drawEntry(ctx,p){const entry=C(p.entryAnchorWorld.x,p.entryAnchorWorld.y),exit=C(p.exitAnchorWorld.x,p.exitAnchorWorld.y);ctx.save();ctx.translate(entry.x,entry.y);ctx.rotate(Math.atan2(exit.y-entry.y,exit.x-entry.x));ctx.strokeStyle='rgba(156,190,202,.65)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-18,-36);ctx.lineTo(16,-36);ctx.moveTo(-18,36);ctx.lineTo(16,36);ctx.moveTo(-8,0);ctx.lineTo(22,0);ctx.moveTo(9,-12);ctx.lineTo(22,0);ctx.lineTo(9,12);ctx.stroke();ctx.restore();}
+121673: function drawExit(ctx,s){const p=profile(s.zone);if(!p)return false;const g=gate(s),active=g.clear&&Te(s.zone,s.clues)&&!(s.egoDrops??[]).length&&!blocked(s);
+121739:   if(window.__HAPIL_MOBILE_V31343__)return;
+121768:   window.__HAPIL_MOBILE_V31343__=Object.freeze({version:'3.13.43',down,up,leave,owns,clear,clearAll,
+121847: ;(()=>{let n=0;function ready(){if(!window.__HAPIL_V31342_RELEASE__?.installed){if(++n<800)setTimeout(ready,0);return;}MONGSE_ASSET_VERSION='31343';window.MONGSE_ASSET_VERSION='31343';window.__HAPIL_V31343_RELEASE__=Object.freeze({installed:true,version:'3.13.43-RC1',cacheKey:31343,saveRevision:14,baseVersion:'3.13.42',activeBundle:'index-v31343.js',build:'DIRECTIONAL FLOW + AUTO SKILL — RC1'});}ready();})();
+121852: function HAPIL_viewCameraRC104(x,y,s){const full=w(x,y,s),viewport=window.__HAPIL_VIEWPORT_RC104__?.camera(s,full,G,N[s?.zone],(s?.enemies?.some(a=>a.hp>0)?null:window.__HAPIL_FLOW_V31343__?.profile(s?.zone)?.exitAnchorWorld??(s?.zone?MONGSE_zonePortalAnchors(s.zone)?.exit:null)));return window.__HAPIL_PORTRAIT_SPLIT_RC108__?.camera(s,viewport??full,G,N[s?.zone],null)??viewport??full;}
+123377:  function cancelCharge(s,reason='clear',expectedToken){const old=s&&charge.get(s);if(!window.__HAPIL_ACTION_CONTRACT_V31406__.matchesToken(old?.token,expectedToken))return false;if(s&&charge.delete(s))metrics.chargeCanceled++;if(s){pendingCharge.delete(s);delete s.chargeStartV31365;delete s.chargeLevelV31365;s.chargePointersV31365=[];window.__HAPIL_MOBILE_V31366__?.chargeCancelled(s,reason,old?.token);}}
+123592:  function blocked(s){const b=C()?.binding,common=!b||b.state?.current!==s||b.phase!=='game'||s.hp<=0||b.modal?.current||b.blocked?.()||document.hidden||window.__HAPIL_READING_V31342__?.blocked||P()?.blocksNativeInput?.()||P()?.status?.paused||L()?.blocked(s);return !window.__HAPIL_ACTION_CONTRACT_V31406__.decide('AUTO_SKILL',{blocked:common,defending:!!D()?.active(s),charging:!!L()?.isCharging(s),timeStopped:n(s.timeStopUntil)>s.time,statusLocked:!!window.__HAPIL_MOVEMENT_V31336__?.statusLocked(s,s)}).allowed;}
+123615:    window.__HAPIL_RUN_V31400__.record(s,'AUTO_SKILL',{heroId:s.activeHeroId,key,reason:'attack-proc'});
+123980: (()=>{'use strict';function ready(n=0){if(!window.__HAPIL_V31405_RELEASE__?.installed||!window.__HAPIL_CHANNEL_FACTORY_V31406__?.started||!window.__HAPIL_HERO_CONTROL_FACTORY_V31406__?.started||!window.__HAPIL_MOBILE_V31366__?.installed){if(n<1600)setTimeout(()=>ready(n+1),10);return;}
+
+### ASSET AND MODULE PATHS
+assets/episode1a/balrog_gatekeeper.webp
+assets/episode1b/generated-v393/gate72_pride_echo.webp
+assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp
+assets/generated-v31224/actors-normalized/bbebbf19f4e6_balrog_gatekeeper.webp
+assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp
+assets/generated-v3125/maps/fusion_goblin_forest.jpg
+assets/generated-v3125/maps/fusion_neutral_meadow.jpg
+assets/generated-v3125/maps/kair_black_workshop.jpg
+assets/generated-v3125/maps/kair_collapsed_ritual.jpg
+assets/generated-v3125/maps/kair_neuron_gate.jpg
+assets/generated-v3125/maps/kair_oblivion_cemetery.jpg
+assets/generated-v3125/maps/kair_polluted_waterway.jpg
+assets/generated-v3125/maps/kair_sealed_corridor.jpg
+assets/generated-v3125/maps/kair_time_forest.jpg
+assets/generated-v3125/maps/murder_teal_villa.jpg
+assets/generated-v3125/maps/u2_memory_migration.jpg
+assets/generated-v3125/maps/u2_war_loop.jpg
+assets/generated-v3128/maps/cult_03_id_biovats_v3128.jpg
+assets/generated-v3128/maps/hando_02_collapsing_castle_v3128.jpg
+assets/generated-v3128/maps/last3_02_sleepless_gate_v3128.jpg
+assets/generated-v3128/maps/u2_memory_gate_v3128.jpg
+assets/hapil-mobile-v31366.css
+assets/hapil-mobile-v31366.js
+assets/hapil-mobile-v31368.js
+assets/hapil-mobile-v31369.js
+assets/hapil-mobile-v31406.js
+assets/maps/dist_04_surgery_theatre.jpg
+assets/maps/dist_isometric.jpg
+assets/maps/dream_rest_room.jpg
+assets/maps/ep1a_00_demon_tree_garden.png
+assets/maps/ep1a_01_spider_cave.jpg
+assets/maps/ep1a_02_horn_swamp.jpg
+assets/maps/ep1a_03_blood_guardian_road.jpg
+assets/maps/ep1a_04_fallen_comrade_crypt.jpg
+assets/maps/ep1a_05_first_circle_road.jpg
+assets/maps/ep1a_06_balrog_circle.jpg
+assets/maps/ep1a_07_void_descent.jpg
+assets/maps/ep1a_08_blood_hospital.jpg
+assets/maps/ep1a_08_blood_hospital_rc24.png
+assets/maps/ep1a_09_injection_ward.jpg
+assets/maps/ep1a_10_addiction_city.jpg
+assets/maps/ep1a_11_false_heaven.jpg
+assets/maps/ep1b_01_solomon_chapel.jpg
+assets/maps/ep1b_02_sloth_house.jpg
+assets/maps/ep1b_03_cracked_glasses.jpg
+assets/maps/ep1b_04_glutton_kitchen.jpg
+assets/maps/ep1b_05_asmodai_stage.jpg
+assets/maps/ep1b_05_asmodai_stage_rc24.png
+assets/maps/ep1b_06_mammon_vault.jpg
+assets/maps/ep1b_06b_mammon_core.jpg
+assets/maps/ep1b_06b_mammon_winter_forest_v3110.jpg
+assets/maps/ep1b_07_hotel_fire.jpg
+assets/maps/ep1b_08_polar_black_sun.jpg
+assets/maps/ep1b_08_pride_cathedral.jpg
+assets/maps/ep1b_09_black_sun_ascension.jpg
+assets/maps/ep1b_09_black_sun_core.jpg
+assets/maps/generated-v31212/cult06_mechanical_judgment_arena.jpg
+assets/maps/generated-v31213/cult02_neural_choir_arena.jpg
+assets/maps/generated-v31213/cult03_triune_ego_extraction_arena.jpg
+assets/maps/generated-v31213/cult04_antichrist_final_throne.jpg
+assets/maps/generated-v31213/hando03_ego_mirror_throne.jpg
+assets/maps/generated-v31213/murder03_executor_signal_rooftop.jpg
+assets/maps/generated-v31213/u203_controller_memory_nexus.jpg
+assets/maps/generated-v31215/cult02_antiphonal_choir_overlay.webp
+assets/maps/generated-v31215/cult04_command_throne_overlay.webp
+assets/maps/generated-v31215/kair03_siren_chorus_overlay.webp
+assets/maps/generated-v31215/kairo_chronometric_seal_overlay.webp
+assets/maps/generated-v31215/last303_black_fog_duel_overlay.webp
+assets/maps/generated-v31215/u203_memory_replay_overlay.webp
+assets/maps/generated-v31217/ep1a_demon_tree_palace_ruin.webp
+assets/maps/generated-v31217/fused_nightmare_core.webp
+assets/maps/hando_01_false_signal.jpg
+assets/maps/hando_02_seal_line.jpg
+assets/maps/hando_03_ego_return.jpg
+assets/maps/hub_isometric.jpg
+assets/maps/kair_01_academy.jpg
+assets/maps/kair_02_gatefront.jpg
+assets/maps/kair_03_collapsed_timeway.jpg
+assets/maps/last3_01_village.jpg
+assets/maps/last3_03_fallen_court.jpg
+assets/maps/last3_isometric.jpg
+assets/maps/latest-v3122/black_rose_circuit_cathedral.jpg
+assets/maps/latest-v3122/black_rose_crystal_vault.jpg
+assets/maps/latest-v3122/black_rose_diamond_arena.jpg
+assets/maps/latest-v3122/black_rose_ego_core_prison.jpg
+assets/maps/latest-v3122/six_legged_cyborg_lord_throne.jpg
+assets/maps/latest-v3123/black_rose_chip_injection_altar.jpg
+assets/maps/latest-v3123/black_rose_circuit_cathedral.jpg
+assets/maps/latest-v3123/black_rose_crystal_vault.jpg
+assets/maps/latest-v3123/black_rose_diamond_arena.jpg
+assets/maps/latest-v3123/black_rose_ego_core_prison.jpg
+assets/maps/latest-v3123/silver_dream_castle_collapsing.jpg
+assets/maps/latest-v3123/silver_dream_castle_restored.jpg
+assets/maps/latest-v3123/silver_dream_castle_siege_front.jpg
+assets/maps/latest-v3123/silver_ego_core_chamber.jpg
+assets/maps/latest-v3123/silver_seal_line_observatory.jpg
+assets/maps/latest-v3123/six_legged_cyborg_lord_throne.jpg
+assets/maps/loop_isometric.jpg
+assets/maps/murder_01_crosswalk.jpg
+assets/maps/murder_02_hotel_stair.jpg
+assets/maps/murder_03_rooftop_loop.jpg
+assets/maps/murder_isometric.jpg
+assets/maps/rc53/cult04-final-judgment.jpg
+assets/maps/rc53/dist00-demon-tree.webp
+assets/maps/rc53/dist01-spider-cave.webp
+assets/maps/rc53/kair03-siren-timeway.webp
+assets/maps/rc54/ep1a07-darkfall.webp
+assets/maps/rc54/murder03-loop-crosswalk.webp
+assets/maps/rc56/murder03-rooftop-loop.webp
+assets/maps/rest-v399/rest_ep1b_seal_refuge.jpg
+assets/maps/rest-v399/rest_hando_silver_clinic.jpg
+assets/maps/rest-v399/rest_kairo_time_garden.jpg
+assets/maps/rest-v399/rest_last3_dawn_camp.jpg
+assets/maps/rest-v399/rest_u2_memory_station.jpg
+assets/maps/source/dist_base.jpg
+assets/maps/source/last3_base.jpg
+assets/maps/source/loop_base.jpg
+assets/maps/source/murder_base.jpg
+assets/maps/source/u2_base.jpg
+assets/maps/source/vibe_base.jpg
+assets/maps/u2_01_observation.jpg
+assets/maps/u2_02_suppression.jpg
+assets/maps/u2_03_void_core.jpg
+assets/maps/u2_isometric.jpg
+assets/maps/v3121/cult_01_black_rose_infiltration.jpg
+assets/maps/v3121/cult_01_sermon_depth.jpg
+assets/maps/v3121/cult_02_chip_choir.jpg
+assets/maps/v3121/cult_02_neural_cathedral.jpg
+assets/maps/v3121/cult_03_ego_harvest.jpg
+assets/maps/v3121/cult_03_unity_vat.jpg
+assets/maps/v3121/cult_04_antichrist_throne.jpg
+assets/maps/v3121/cult_04_white_shepherd_core.jpg
+assets/maps/v3121/cult_archive_refuge.jpg
+assets/maps/v3121/cult_final_transition.jpg
+assets/maps/v31318/false-heaven-cosmic-arena.webp
+assets/maps/vibe_isometric.jpg
+assets/maps/village_isometric.jpg
+assets/props/v290/broken_gate.webp
+assets/props/v290/collapsed_stairs.webp
+assets/props/v290/ruined_portal.webp
+assets/props/v31307/infernal-gate-lock.webp
+assets/rc111/mobile-auto.css
+assets/rc111/mobile-auto.js
+assets/rc115/map-advance.js
+assets/rc27/mobile-layout.css
+assets/rc28/mobile-layout.css
+assets/rc31/boss-and-mobile.js
+assets/rc32/boss-and-mobile.js
+assets/rc95/combat-flow.js
+assets/u2/door.png
+assets/u2/memory_portal.png
+assets/u2/warptime.png
+assets/ui-v31402/mobile.css
+assets/v31345/maps/dist01.png
+assets/v31345/maps/dist01.webp
+assets/v31345/maps/dist02.png
+assets/v31345/maps/dist02.webp
+assets/v31345/maps/dist03.png
+assets/v31345/maps/dist03.webp
+assets/v31345/maps/dist04.png
+assets/v31345/maps/dist04.webp
+assets/v31345/maps/dist05.png
+assets/v31345/maps/dist05.webp
+assets/v31345/maps/dist06.png
+assets/v31345/maps/dist06.webp
+assets/v31345/maps/ep1a07.webp
+assets/v31345/maps/ep1a08.webp
+assets/v31345/maps/ep1a09.webp
+assets/v31345/maps/ep1a10.webp
+assets/v31345/maps/ep1a11.webp
+assets/vfx/v31323/boss/dist06-boss/balrog_gate_meteor.webp
