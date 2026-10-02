@@ -1,9 +1,9 @@
 /* RC108: connect every beam endpoint in the shared render/contact geometry.
-   Bridges stay inside one hazardous region; announced RC97 escape bands remain open. */
+   RC121: all branches connect; former RC97/finale escape bands are removed. */
 (()=>{'use strict';
  const memo=new WeakMap(),EPS=1e-5,pointKey=p=>Math.round(p.x/EPS)+','+Math.round(p.y/EPS),distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
  const stats={normalizations:0,bridges:0,forks:0,splits:0,cacheHits:0};
- function bands(c){if(c?.bossFinaleV31334)return[[0,2+(c.beamWidth+16)/27,c.angle,c.cx,c.cy]];const p=c?.rc97Choice;if(!p)return[];const complex=window.__HAPIL_CONNECTED_LASER_V31377__?.complexType(c.type),half=c.width*1.25*(complex?1.18:1);return[[p.broad,half+1.55],[p.narrow,half+.60]];}
+ function bands(){return[];} // RC121: user explicitly removed all laser escape bands.
  function region(p,rows){return rows.map(([center,r,angle,cx,cy])=>{const v=angle===undefined?(p.x+p.y)*.5:-(p.x-p.y-cx+cy)*Math.sin(angle)+((p.x+p.y-cx-cy)*.5)*Math.cos(angle);return v<center-r+EPS?-1:v>center+r-EPS?1:0;}).join(',');}
  function safeBridge(a,b,rows){return region(a,rows)===region(b,rows)&&!region(a,rows).split(',').includes('0');}
  function intersection(a,b){const u={x:a.b.x-a.a.x,y:a.b.y-a.a.y},v={x:b.b.x-b.a.x,y:b.b.y-b.a.y},cross=u.x*v.y-u.y*v.x;if(Math.abs(cross)<EPS)return null;const w={x:b.a.x-a.a.x,y:b.a.y-a.a.y},t=(w.x*v.y-w.y*v.x)/cross,k=(w.x*u.y-w.y*u.x)/cross;return t>=-EPS&&t<=1+EPS&&k>=-EPS&&k<=1+EPS?{x:a.a.x+u.x*t,y:a.a.y+u.y*t}:null;}
@@ -47,6 +47,8 @@
   const rows=preChoice?[]:bands(c),key=JSON.stringify([rows,source.map(l=>[l.a.x,l.a.y,l.b.x,l.b.y,l.width])]);
   let cache=memo.get(c);if(cache?.has(key)){stats.cacheHits++;return cache.get(key);}
   let lines=splitCrossings(source.filter(l=>distance(l.a,l.b)>EPS).map(l=>({...l,a:{...l.a},b:{...l.b}})));
+  // A solitary straight ray needs no artificial fork: share its existing midpoint.
+  if(lines.length===1){const l=lines[0],m={x:(l.a.x+l.b.x)/2,y:(l.a.y+l.b.y)/2};lines=[{...l,b:m},{...l,a:m}];}
   // A degree-two closed ring has no isolated endpoint. Join graph components,
   // including loops, by the shortest bridge that stays on one safe side.
   for(let guard=0;guard<source.length*4+8;guard++){
@@ -78,5 +80,5 @@
  function renderNative(ctx,h,project,image,settings={},alpha=1){const renderer=window.__HAPIL_CONNECTED_LASER_V31377__;if(!renderer?.render||!h||!Number.isFinite(h.width))return false;const lines=native(h),a=project(h.originX,h.originY),b=project(h.x,h.y),len=Math.hypot(h.x-h.originX,h.y-h.originY)||1,ux=(h.x-h.originX)/len,uy=(h.y-h.originY)/len,screenLen=Math.hypot(b.x-a.x,b.y-a.y)||1,normal={x:-(b.y-a.y)/screenLen,y:(b.x-a.x)/screenLen},edge=project(h.originX-uy*h.width,h.originY+ux*h.width),half=Math.abs((edge.x-a.x)*normal.x+(edge.y-a.y)*normal.y),corners=[[h.originX-uy*h.width,h.originY+ux*h.width],[h.x-uy*h.width,h.y+ux*h.width],[h.x+uy*h.width,h.y-ux*h.width],[h.originX+uy*h.width,h.originY-ux*h.width]].map(p=>project(...p));
   ctx.save();try{ctx.beginPath();corners.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.clip();renderer.render(ctx,lines.map(l=>({a:project(l.a.x,l.a.y),b:project(l.b.x,l.b.y)})),{width:half,image,color:h.color,accent:h.accent,alpha,quiet:settings.reducedFlash===true,low:settings.lowFx===true});}finally{ctx.restore();}return true;
  }
- window.__HAPIL_LASER_TOPOLOGY_RC108__=Object.freeze({version:'RC115',normalize,isolated,components,bands,region,native,renderNative,metrics:()=>({...stats})});
+ window.__HAPIL_LASER_TOPOLOGY_RC108__=Object.freeze({version:'RC121',normalize,isolated,components,bands,region,native,renderNative,metrics:()=>({...stats})});
 })();

@@ -49,19 +49,13 @@
  function validPlan(c){const p=c.rc97Choice;if(!p)return true;return p.version===1&&Object.hasOwn(titles,p.family)&&Number.isInteger(p.cycle)&&p.cycle>=0&&p.cycle<1e7&&Number.isInteger(p.blocked)&&p.blocked>=0&&p.blocked<=2&&[10,16,22].includes(p.broad)&&[10,16,22].includes(p.narrow)&&p.broad!==p.narrow&&p.broad!==10+6*p.blocked&&p.narrow!==10+6*p.blocked;}
  const plane=p=>({u:p.x-p.y,v:(p.x+p.y)*.5}),world=(u,v)=>({x:v+u*.5,y:v-u*.5});
  function clip(a,b){let lo=0,hi=1;for(const key of ['x','y']){const d=b[key]-a[key];if(Math.abs(d)<1e-9){if(a[key]<1.1||a[key]>30.9)return null;continue;}const t=[(1.1-a[key])/d,(30.9-a[key])/d].sort((a,b)=>a-b);lo=Math.max(lo,t[0]);hi=Math.min(hi,t[1]);}if(lo>=hi)return null;const at=t=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});return{a:at(lo),b:at(hi)};}
- function geometry(c,original,shifted=false){if(!c.rc97Choice||!validPlan(c))return original;const p=c.rc97Choice;let lines=original;
+ function geometry(c,original){ // RC121 continuous grammar; retain authored grid, never cut safe bands.
+  if(!c.rc97Choice||!validPlan(c))return original;const p=c.rc97Choice;let lines=original;
   if(p.family==='order'){lines=[];const spacing=Math.max(4,6.4-Math.min(p.cycle,6)*.4),v=10+6*p.blocked;
-   for(const u of [-spacing,0,spacing]){const l=clip(world(u,1.1),world(u,30.9));if(l)lines.push(l);}for(const y of [v-spacing,v,v+spacing]){const l=clip(world(-31,y),world(31,y));if(l)lines.push(l);}
+   for(const u of [-spacing,0,spacing]){const l=clip(world(u,1.1),world(u,30.9));if(l)lines.push({...l,width:c.width});}
+   for(const y of [v-spacing,v,v+spacing]){const l=clip(world(-31,y),world(31,y));if(l)lines.push({...l,width:c.width});}
   }
-  const complex=window.__HAPIL_CONNECTED_LASER_V31377__?.complexType(c.type),half=c.width*1.25*(complex?1.18:1),bands=[[p.broad,half+1.55],[p.narrow,half+.60]],out=[];
-  for(const l of lines){const a=plane(l.a),b=plane(l.b),dv=b.v-a.v;let ranges=[[0,1]];
-   for(const [center,r]of bands){if(Math.abs(dv)<1e-9){if(Math.abs(a.v-center)<r)ranges=[];continue;}const ts=[(center-r-a.v)/dv,(center+r-a.v)/dv].sort((a,b)=>a-b),lo=clamp(ts[0],0,1),hi=clamp(ts[1],0,1);if(lo>=hi)continue;ranges=ranges.flatMap(([x,y])=>hi<=x||lo>=y?[[x,y]]:[...(lo>x?[[x,lo]]:[]),...(hi<y?[[hi,y]]:[])]);}
-   for(const [x,y]of ranges){if(y-x<1e-5)continue;const at=t=>({x:l.a.x+(l.b.x-l.a.x)*t,y:l.a.y+(l.b.y-l.a.y)*t});out.push({a:at(x),b:at(y),width:c.width});}
-  }
-  // A narrow form can fit entirely inside an announced escape band. Relocate
-  // that committed form to the blocked lane, then apply the same safe cuts.
-  if(!out.length&&!shifted&&original.length){const delta=10+6*p.blocked-(c.cx+c.cy)*.5,moved=original.map(l=>clip({x:l.a.x+delta,y:l.a.y+delta},{x:l.b.x+delta,y:l.b.y+delta})).filter(Boolean);return geometry(c,moved,true);}
-  return out;
+  return lines;
  }
- window.__HAPIL_CHOICE_RC97__=Object.freeze({installed:true,version:'RC97',profile,beforeTick,lead,volley,selectCard,prepareLaser,validPlan,geometry});
+ window.__HAPIL_CHOICE_RC97__=Object.freeze({installed:true,version:'RC121',profile,beforeTick,lead,volley,selectCard,prepareLaser,validPlan,geometry});
 })();
