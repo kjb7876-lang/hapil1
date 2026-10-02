@@ -60,7 +60,7 @@
   }
   const volumeValue = value => Number.isFinite(Number(value)) ? Math.max(0, Math.min(1, Number(value))) : .8;
 
-  function attach({root, text, zone, phase, key, footer: targetFooter, ctx = {}, onPlaying, onUserPause} = {}) {
+  function attach({root, text, zone, phase, key, footer: targetFooter, ctx = {}, onPlaying, onUserPause, onLoading, onBlocked} = {}) {
     // These two recorded performances and their existing controls are immutable.
     if (!root || !text || (zone === 'dist00' && (phase === 'pre' || phase === 'post'))) return null;
     const footer = targetFooter || root.querySelector('.rc51-footer') || root.querySelector('[data-narration-footer]');
@@ -120,7 +120,7 @@
     }
     function failed(request) {
       if (disposed || request !== generation) return false;
-      ++generation; clearTimeoutAndRequest(); stopSource(); display('blocked');
+      ++generation; clearTimeoutAndRequest(); stopSource(); display('blocked'); onBlocked?.();
       return false;
     }
     function releaseMedia() {
@@ -185,7 +185,7 @@
       if (disposed || state === 'playing' || state === 'loading') return false;
       if (state === 'ended') { offset = 0; clipIndex = 0; }
       unlock();
-      const request = ++generation; display('loading');
+      const request = ++generation; display('loading'); onLoading?.();
       controller = new AbortController(); const signal = controller.signal;
       timeout = window.setTimeout(() => failed(request), LOAD_TIMEOUT_MS);
       try {
