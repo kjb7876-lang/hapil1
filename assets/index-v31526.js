@@ -35722,14 +35722,22 @@ function Yn(e, t, n, r, i, a = !1) {
     e.restore();
     return;
   }
-  if (i.showCombatInfo !== !1) {
+  // RC124: health is mandatory; optional combat labels remain hidden.
   let C = Math.min(142, d * (n.boss ? 0.72 : n.midboss ? 0.7 : 0.66)),
     w = o.x - C / 2,
     ee = Math.min(664, o.y + MONGSE_enemyUiOffset(n));
-  ((e.fillStyle = `rgba(4,8,14,.94)`),
-    e.fillRect(w - 1, ee - 1, C + 2, n.boss ? 9 : 8),
-    (e.fillStyle = n.boss ? `#ff3b66` : n.midboss ? `#ff9d3d` : `#ff795e`),
-    e.fillRect(w, ee, C * Math.max(0, n.hp / n.maxHp), n.boss ? 7 : 6));
+  if (Number.isFinite(n.hp) && n.hp > 0 && Number.isFinite(n.maxHp) && n.maxHp > 0 && !n.visualOnly && !n.friendly) {
+    e.save();
+    e.globalAlpha = 1; e.filter = `none`; e.shadowBlur = 0;
+    e.fillStyle = `rgba(230,235,245,.9)`;
+    e.fillRect(w - 2, ee - 2, C + 4, n.boss ? 11 : 10);
+    e.fillStyle = `rgba(4,8,14,.98)`;
+    e.fillRect(w - 1, ee - 1, C + 2, n.boss ? 9 : 8);
+    e.fillStyle = n.boss ? `#ff3b66` : n.midboss ? `#ff9d3d` : `#ff795e`;
+    e.fillRect(w, ee, C * Math.max(0, Math.min(1, n.hp / n.maxHp)), n.boss ? 7 : 6);
+    e.restore();
+  }
+  if (i.showCombatInfo !== !1) {
   let te = Math.max(0, Math.min(1, n.stagger / Math.max(1, n.maxStagger)));
   ((e.fillStyle = `rgba(2,12,18,.96)`),
     e.fillRect(w, ee + (n.boss ? 9 : 8), C, 3),
@@ -126421,3 +126429,6 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
  const restore=Ii;Ii=function(saved,...args){const rows=restore(saved,...args);for(const a of rows??[]){const old=(saved?.enemies??[]).find(e=>e.id===a.id),b=old?.rc95Balance;if(validBalance(b)&&b.rank===flow.rank(a)){a.rc95Balance={...b};a.maxHp=b.max;a.hp=Math.max(0,Math.min(b.max,Number(old.hp)||0));a.bossHpScaledV31230=true;}}return rows;};
  }install();
 })();
+
+/* RC124 shared map-edge overscan; G is the native world projection. */
+window.__HAPIL_LASER_OVERRUN_RC124__?.install(G);
