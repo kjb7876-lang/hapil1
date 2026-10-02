@@ -1,0 +1,35 @@
+name: RC126 guarded integration
+on:
+  push:
+    branches: [fix/rc126-combat-readability]
+    paths: ['.github/workflows/rc126-apply.yml', 'tools/apply-rc126.cjs']
+permissions:
+  contents: write
+concurrency:
+  group: rc126-apply
+  cancel-in-progress: false
+jobs:
+  apply:
+    if: github.ref == 'refs/heads/fix/rc126-combat-readability'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Integrate exact anchors and commit candidate only
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          node tools/apply-rc126.cjs
+          git diff --stat
+          git config user.name 'hapil-combat-verification'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/index-v31526.js index.html assets/rc95/combat-flow.js assets/combat-v31402/contact-geometry.js
+          git commit -m 'RC126: integrate ledger, finite endpoint agreement, spread cadence and graze exclusion'
+          git push origin HEAD:refs/heads/fix/rc126-combat-readability
+          git rev-parse HEAD
