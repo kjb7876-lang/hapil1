@@ -36463,7 +36463,7 @@ function $n(e, t, n, r, i) {
   let MONGSE_rareShake31211 = MONGSE_rareScreenShakeOffset31211(t, i),
     p = MONGSE_rareShake31211.x,
     m = MONGSE_rareShake31211.y;
-  (c.save(), c.translate(p, m));
+  (c.save(), window.__HAPIL_ADAPTIVE_RC125__?.applyWorld(c, e, t), c.translate(p, m));
   let _ = N[t.zone],
     MONGSE_mapVariants =
       Array.isArray(_.mapVariants) && _.mapVariants.length
@@ -126432,3 +126432,6 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
 
 /* RC124 shared map-edge overscan; G is the native world projection. */
 window.__HAPIL_LASER_OVERRUN_RC124__?.install(G);
+
+/* RC125: rendering and inverse pointer projection only; native simulation is unchanged. */
+window.__HAPIL_ADAPTIVE_RC125__?.install();
