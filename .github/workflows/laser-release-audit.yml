@@ -6,15 +6,13 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/laser-release-audit.yml'
-      - 'tests/laser-release-gate.cjs'
-      - 'tests/rc119-laser-body-browser.cjs'
+      - 'tests/**'
       - 'assets/rc77/connected-laser.js'
       - 'assets/rc108/laser-topology.js'
       - 'assets/index-v31526.js'
       - 'index.html'
 
-# This audit never deploys, rewrites main or alters the existing Pages workflow.
-# A green Pages deployment is not a substitute for a green audit.
+# Read-only evidence audit; existing Pages deployment remains independent.
 permissions:
   contents: read
 
@@ -58,23 +56,34 @@ jobs:
         if: always()
         shell: bash
         run: |
-          if [ -f "$RUNNER_TEMP/laser-release/release-summary.json" ]; then
-            cat "$RUNNER_TEMP/laser-release/release-summary.json"
+          RESULT="$RUNNER_TEMP/laser-release"
+          if [ -f "$RESULT/release-summary.json" ]; then
+            cat "$RESULT/release-summary.json"
             echo '## Laser release audit' >> "$GITHUB_STEP_SUMMARY"
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
-            cat "$RUNNER_TEMP/laser-release/release-summary.json" >> "$GITHUB_STEP_SUMMARY"
+            cat "$RESULT/release-summary.json" >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           else
             echo 'Audit did not produce results. Setup failure or cancellation is NOT a pass.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          for suite in approved-art laser-continuity laser-telegraph natural-story; do
+            if [ -f "$RESULT/$suite/stdout.log" ]; then
+              echo "::group::$suite diagnostics"
+              head -c 50000 "$RESULT/$suite/stdout.log"
+              echo
+              echo '::endgroup::'
+            fi
+          done
+          if [ -d /workspace/hapil-deliverables/RC119-body ]; then
+            mkdir -p "$RESULT/approved-art"
+            find /workspace/hapil-deliverables/RC119-body -maxdepth 1 -name '*.png' -exec cp '{}' "$RESULT/approved-art/" \;
           fi
       - name: Preserve screenshots, per-suite logs and machine-readable evidence
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: laser-release-${{ github.sha }}
-          path: |
-            ${{ runner.temp }}/laser-release/
-            /workspace/hapil-deliverables/RC119-body/
+          path: ${{ runner.temp }}/laser-release/
           if-no-files-found: warn
           retention-days: 14
           compression-level: 1
