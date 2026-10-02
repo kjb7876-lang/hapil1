@@ -27,20 +27,32 @@ async function capture(browser,source){
   await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();
   await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();
   await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
+  // This is an isolated renderer fixture, not the natural-play test. Stop the
+  // unrelated combat producer while keeping RAF/image-loading work available.
+  await page.evaluate(()=>{if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;});
   const captured=await page.evaluate(async spritePath=>{
-   const api=window.__RC116_TELEGRAPH__,cache={},image=api.queue(cache,spritePath,'eager');await image.decode();
-   const originalQueue=api.queueCurrent,queued=new Map();
-   api.replaceQueue((c,p,...a)=>{const im=p===spritePath?image:originalQueue(c,p,...a);if(im&&typeof im.decode==='function')queued.set(String(p),im);return im;});
+   const decode=async(im,p)=>{
+    if(!im)throw Error('Missing warning image: '+p);
+    const deadline=performance.now()+12000;
+    while(!(im.currentSrc||im.src)&&performance.now()<deadline)await new Promise(r=>setTimeout(r,20));
+    if(!(im.currentSrc||im.src))throw Error('Warning image never received a source: '+p);
+    try{await im.decode();}catch(e){throw Error('Warning decode failed for '+p+' resolved='+String(im.currentSrc||im.src)+' complete='+im.complete+' size='+im.naturalWidth+': '+e.message);}
+    if(!im.naturalWidth)throw Error('Warning decoded with no pixels: '+p);
+   };
+   const api=window.__RC116_TELEGRAPH__,cache={},image=api.queue(cache,spritePath,'eager');await decode(image,spritePath);
+   const originalQueue=api.queueCurrent,queued=new Map();let collecting=false;
+   api.replaceQueue((c,p,...a)=>{const im=p===spritePath?image:originalQueue(c,p,...a);if(collecting&&im&&typeof im.decode==='function')queued.set(String(p),im);return im;});
    const canvas=document.createElement('canvas');canvas.width=1180;canvas.height=757;
    const ctx=canvas.getContext('2d',{willReadFrequently:true}),p0=api.point(8,8),p1=api.point(24,24);
    const hazard={id:901,born:0,at:2.1,originX:8,originY:8,x:24,y:24,radius:Math.hypot(16,16),width:.42,shape:'line',color:'#f12655',accent:'#ffe8ef',boss:true,themedLaser:true,sevenSinImpactSprite:spritePath,suppressTelegraphLabel:true,perfectWindow:0,telegraphImageRenderedV31224:false};
    const modes=[{name:'desktop',lowFx:false,reducedFlash:false},{name:'reduced-flash',lowFx:false,reducedFlash:true},{name:'mobile-lowFx',lowFx:true,reducedFlash:true}];
    // Resolve and decode images chosen indirectly by the live renderer, not
    // merely the explicit sevenSinImpactSprite supplied by this fixture.
+   const drawWarning=options=>{collecting=true;try{api.draw(ctx,{...hazard},.8,options,cache);}finally{collecting=false;}};
    let warmupPasses=0,lastCount=-1;
    for(let pass=0;pass<6;pass++){
-    for(const options of modes){ctx.clearRect(0,0,canvas.width,canvas.height);api.draw(ctx,{...hazard},.8,options,cache);}
-    await Promise.all([...queued.entries()].map(async([p,im])=>{await im.decode();if(!im.naturalWidth)throw Error('Warning image did not decode: '+p);}));
+    for(const options of modes){ctx.clearRect(0,0,canvas.width,canvas.height);drawWarning(options);}
+    await Promise.all([...queued.entries()].map(([p,im])=>decode(im,p)));
     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
     warmupPasses++;
     if(pass>0&&queued.size===lastCount&&[...queued.values()].every(im=>im.complete&&im.naturalWidth>0))break;
@@ -50,7 +62,7 @@ async function capture(browser,source){
    for(const options of modes){
     ctx.clearRect(0,0,canvas.width,canvas.height);let spriteDraws=0,drawImageCalls=0;const sources=[],native=ctx.drawImage.bind(ctx);
     ctx.drawImage=(im,...args)=>{drawImageCalls++;sources.push({same:im===image,src:im.currentSrc||im.src||null,width:im.naturalWidth||im.width||0,height:im.naturalHeight||im.height||0});if(im===image)spriteDraws++;return native(im,...args);};
-    api.draw(ctx,{...hazard},.8,options,cache);ctx.drawImage=native;
+    drawWarning(options);ctx.drawImage=native;
     const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
     const alpha=(x,y)=>{x=Math.floor(x);y=Math.floor(y);return x<0||y<0||x>=canvas.width||y>=canvas.height?0:pixels[(y*canvas.width+x)*4+3];};
     let drawnPixels=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i]>8)drawnPixels++;

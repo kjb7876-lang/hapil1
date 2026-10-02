@@ -60,7 +60,7 @@
    if(!h||h.samongRicochetHitRC108||h.samongRicochetActiveRC108||!(h.at>s.time)||h.heroId!==s.activeHeroId||!(Number(h.power)>0))continue;
    const A=window.__HAPIL_SAMONG_RC91__;if(A?.active(s)!==true)continue;
    const target=(s.enemies??[]).find(a=>String(a.id)===String(h.targetId)&&a.hp>0);if(!target)continue;
-   const v=visualFor(s,h,target);if(!rangedStrike(h,v))continue;
+   const v=visualFor(s,h,target);if(!v||!rangedStrike(h,v))continue; // RC121: leave unpaired strikes on the native delivery path.
    const route=v.route,span=Math.max(.02,Number(route.at)-Number(route.born)),progress=clamp((s.time-Number(route.born))/span,0,.96),start={x:Number(route.x)+(Number(route.tx)-Number(route.x))*progress,y:Number(route.y)+(Number(route.ty)-Number(route.y))*progress},dx=target.x-start.x,dy=target.y-start.y,distance=Math.hypot(dx,dy);if(distance<.35)continue;
    const delay=Math.max(.04,h.at-s.time),speed=clamp(distance/delay,8,38),key=String(h.id),effect=v.effect;
    const shot={id:key,heroId:h.heroId,actionKey:h.actionKey,targetId:String(h.targetId),zone:s.zone,x:start.x,y:start.y,vx:dx/distance*speed,vy:dy/distance*speed,born:s.time,lastTime:s.time,wallHits:0,inside:new Set(),removed:false,visual:effect,strike:{...h,at:0,samongPowerMultiplierRC108:7,samongRicochetActiveRC108:false,samongRicochetHitRC108:true}};
@@ -77,11 +77,11 @@
   }
   return launched;
  }
- function draw(ctx,cache,e,time,settings={}){
+ function draw(ctx,cache,e,time,settings={},queueImage){
   if(!e?.samongRicochetVFXRC108)return false;if(e.samongRicochetExpiredRC108||time-e.born>MAX_AGE)return true;
   const p=window.__HAPIL_COMBAT_V31333__?.core?.({x:e.x,y:e.y})??{x:640+(e.x-e.y)*27,y:(e.x+e.y)*13.5-42};
-  const image=e.sprite?MONGSE_queueImage(cache,e.sprite,'eager'):null,size=mobile()?17:22,angle=Number(e.angle)||0;ctx.save();try{ctx.globalAlpha*=settings.reducedFlash?.82:.96;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.translate(p.x,p.y);ctx.rotate(angle);if(image?.complete&&(image.naturalWidth||image.width)){ctx.drawImage(image,-size/2,-size/2,size,size);}else{ctx.fillStyle=e.color??'#eafaff';ctx.beginPath();ctx.arc(0,0,size*.32,0,Math.PI*2);ctx.fill();}}finally{ctx.restore();}return true;
+  const image=e.sprite&&typeof queueImage==='function'?queueImage(cache,e.sprite,'eager'):null,size=mobile()?17:22,angle=Number(e.angle)||0;ctx.save();try{ctx.globalAlpha*=settings.reducedFlash?.82:.96;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.translate(p.x,p.y);ctx.rotate(angle);if(image?.complete&&(image.naturalWidth||image.width)){ctx.drawImage(image,-size/2,-size/2,size,size);}else{ctx.fillStyle=e.color??'#eafaff';ctx.beginPath();ctx.arc(0,0,size*.32,0,Math.PI*2);ctx.fill();}}finally{ctx.restore();}return true;
  }
  function reset(s){const m=s&&worlds.get(s);if(!m)return false;retire(m,s);worlds.delete(s);return true;}
- window.__HAPIL_SAMONG_RICOCHET_RC108__=Object.freeze({version:'RC108',installed:true,prepare,reflected,contains,draw,reset,metrics:s=>({live:worlds.get(s)?.projectiles.size??0}),policy:Object.freeze({onlyNewRangedStrikes:true,worldWallContacts:7,damageOnEntry:true,reentryAfterExit:true,simulationPasses:1,addedTrails:0})});
+ window.__HAPIL_SAMONG_RICOCHET_RC108__=Object.freeze({version:'RC121',installed:true,prepare,reflected,contains,draw,reset,metrics:s=>({live:worlds.get(s)?.projectiles.size??0}),policy:Object.freeze({onlyNewRangedStrikes:true,worldWallContacts:7,damageOnEntry:true,reentryAfterExit:true,simulationPasses:1,addedTrails:0})});
 })();

@@ -120754,11 +120754,12 @@ var HAPIL_DIRECTION_ART_V31334 = {"hwando":{"heroId":"hwando","generatedBy":"ima
  const core=a=>window.__HAPIL_COMBAT_V31333__.core(a);
  const local=(u,v,c)=>{const co=Math.cos(c.angle),si=Math.sin(c.angle),x=u*co-v*si,y=u*si+v*co;return{x:c.cx+x/2+y,y:c.cy-x/2+y};};
  const perpendicular=(a,c)=>{const p=G(a.x,a.y),o=G(c.cx,c.cy);return (-(p.x-o.x)*Math.sin(c.angle)+(p.y-o.y)*Math.cos(c.angle))/27;};
- function geometry(c){const signature=profiles.get(c.sourceId)?.signature,lanes={root:[-13,-6,6,13],inferno:[-11,-5.5,5.5,11],lust:[-12,-7,7,12],tide:[-9,-4.4,4.4,9],maw:[-12,-5,5,12],gold:[-10,-4,4,10],crown:[-13,-6.5,6.5,13],stasis:[-8,-3.2,3.2,8],judgment:[-11,-4.6,4.6,11],stellar:[-12,-5.8,5.8,12],machine:[-9,-3.9,3.9,9],chain:[-10,-4.2,4.2,10],blight:[-12,-5.2,5.2,12],detonation:[-7,-3.6,3.6,7]},offsets=c.kind==='ultimate'?(lanes[signature]||lanes.detonation):[-4.5,4.5];const raw=offsets.map(v=>Math.abs(v)<3.6?Math.sign(v)*3.6:v).map(v=>L.clip(local(-52,v,c),local(52,v,c))).filter(Boolean);return window.__HAPIL_LASER_TOPOLOGY_RC108__?.normalize(c,raw)??raw;}
+ function geometry(c){const signature=profiles.get(c.sourceId)?.signature,lanes={root:[-13,-6,6,13],inferno:[-11,-5.5,5.5,11],lust:[-12,-7,7,12],tide:[-9,-4.4,4.4,9],maw:[-12,-5,5,12],gold:[-10,-4,4,10],crown:[-13,-6.5,6.5,13],stasis:[-8,-3.2,3.2,8],judgment:[-11,-4.6,4.6,11],stellar:[-12,-5.8,5.8,12],machine:[-9,-3.9,3.9,9],chain:[-10,-4.2,4.2,10],blight:[-12,-5.2,5.2,12],detonation:[-7,-3.6,3.6,7]},offsets=c.kind==='ultimate'?(lanes[signature]||lanes.detonation):[-4.5,4.5];const raw=[...offsets,0].map(v=>L.clip(local(-52,v,c),local(52,v,c))).filter(Boolean); // RC121: no reserved central laser corridor.
+return window.__HAPIL_LASER_TOPOLOGY_RC108__?.normalize(c,raw)??raw;}
  function distance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,ll=dx*dx+dy*dy,u=ll?clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/ll,0,1):0;return Math.hypot(p.x-a.x-u*dx,p.y-a.y-u*dy);}
  function beamContact(c,a){return geometry(c).some(g=>distance(core(a),core(g.a),core(g.b))<=c.beamWidth+(window.__HAPIL_CONTACT_V31336__?.cfg.bodyRadius??4.5));}
  function fallContact(c,a,i){const d=c.drops[i];return !!d&&Math.hypot(a.x-d.x,a.y-d.y)<=c.fallRadius+(window.__HAPIL_CONTACT_V31336__?.cfg.groundBodyRadius??.12);}
- function safe(c,a){return Math.abs(perpendicular(a,c))<=2;}
+ function safe(c,a){return (c.kind==='rain'||!beamContact(c,a))&&!(c.drops??[]).some((_,i)=>fallContact(c,a,i));} // RC121: safety comes from actual geometry, never a reserved strip.
  function dropPlan(s,c,p){const cells=[];for(let y=4;y<=28;y+=4)for(let x=4;x<=28;x+=4){const q={x,y};if(Math.abs(perpendicular(q,c))<3.5||ut(s.zone,x,y,.45))continue;cells.push(q);}
   // Stratified deterministic coverage: committed locations cannot track a dodging hero.
   const count=Math.min(p.rank==='boss'?12:8,cells.length),out=[];for(let i=0;i<count;i++){const at=Math.min(cells.length-1,Math.floor((i+.5)*cells.length/count)),q=cells[at];out.push({x:q.x,y:q.y,delay:i*.6,rotation:((hash(p.id)+i*67)%360)*Math.PI/180});}return window.__HAPIL_ENEMY_V31338__?.drops(s,c,out)??out;
@@ -120803,8 +120804,7 @@ var HAPIL_DIRECTION_ART_V31334 = {"hwando":{"heroId":"hwando","generatedBy":"ima
  function stamp(ctx,im,x,y,size,rotation,alpha){if(!im?.complete||!(im.naturalWidth||im.width))return;const w=im.naturalWidth||im.width,h=im.naturalHeight||im.height,k=size/Math.max(w,h);ctx.save();ctx.translate(x,y);ctx.rotate(rotation);ctx.globalAlpha=alpha;ctx.drawImage(im,-w*k/2,-h*k/2,w*k,h*k);ctx.restore();}
  function draw(ctx,cc,s,settings={}){cacheByState.set(s,cc);for(const c of s.bossUltimateCastsV31334||[]){const a=source(s,c);if(!valid(c,s.zone)||protectedActor(a)||phase(a)!==c.sourcePhase||s.time<c.born||s.time>=c.endAt)continue;const now=s.time,opacity=clamp(num(MONGSE_skillFxOpacity(settings),1),.55,1),low=settings.lowFx===true,quiet=settings.reducedFlash===true,geo=geometry(c);ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';
    const center=G(c.cx,c.cy),charge=clamp((now-c.born)/cfg.warning,0,1),chargeImage=MONGSE_queueImage(cc,c.charge,'eager'),sourcePoint=G(a.x,a.y);if(c.kind!=='rain'&&now<c.beamAt)stamp(ctx,chargeImage,sourcePoint.x,sourcePoint.y-100,(c.rank==='boss'?136:98)+charge*(c.rank==='boss'?74:56),charge*Math.PI*.25,opacity*(.22+.48*charge));
-   // A fixed open corridor is preserved by both stages. It is never painted as damaging.
-   if(settings.showAttackTelegraphs===true&&c.kind!=='rain'&&now<phaseEnd(c)){const l=L.clip(local(-52,-2,c),local(52,-2,c)),r=L.clip(local(-52,2,c),local(52,2,c));for(const g of[l,r].filter(Boolean))line(ctx,core(g.a),core(g.b),1.5,c.accent,opacity*.42,[5,9]);}
+   // RC121: removed the obsolete safe-strip borders; actual beam warnings follow geo below.
    if(c.kind!=='rain'&&now<c.beamAt+cfg.beamActive+cfg.fade){const warn=now<c.beamAt,fade=warn?1:clamp((c.beamAt+cfg.beamActive+cfg.fade-now)/cfg.fade,0,1),projected=geo.map(g=>({a:core(g.a),b:core(g.b)})).filter(l=>Math.hypot(l.b.x-l.a.x,l.b.y-l.a.y)>=.75);
     if(warn){for(const l of projected){line(ctx,l.a,l.b,c.beamWidth*2,c.color,opacity*(.07+.13*charge));line(ctx,l.a,l.b,2,c.color,opacity*(.45+.45*charge),[12,8]);}}
     else{const joined=window.__HAPIL_CONNECTED_LASER_V31377__;if(joined?.render)joined.render(ctx,projected,{width:c.beamWidth,complex:true,color:c.color,accent:c.accent,image:MONGSE_queueImage(cc,c.beam,'eager'),alpha:opacity*fade,quiet,low,shock:Math.max(0,1-(now-c.beamAt)/.2)});}
@@ -124629,7 +124629,7 @@ function HAPIL_drawProjectileRC13(ctx,cache,p,time,settings={}){
  return HAPIL_RC13_RENDER.scope(ctx,p,'projectile',view=>{if(window.__HAPIL_RC15__?.drawRootProjectile(view,cache,p,time,settings))return true;return Jn(view,cache,p,time,settings);});
 }
 function HAPIL_drawSkillRC13(ctx,cache,e,time,settings={}){
- return HAPIL_RC13_RENDER.scope(ctx,e,'skill',view=>{if(e?.telegraphImpact)return Gn(view,cache,e,time,settings);if(e?.samongRicochetVFXRC108)return window.__HAPIL_SAMONG_RICOCHET_RC108__?.draw(view,cache,e,time,settings)??true;if(window.__HAPIL_ARSENAL_V31318__?.draw(view,cache,e,time,settings))return true;if(window.__HAPIL_RC15__?.drawRootEffect(view,cache,e,time,settings))return true;return Gn(view,cache,e,time,settings);});
+ return HAPIL_RC13_RENDER.scope(ctx,e,'skill',view=>{if(e?.telegraphImpact)return Gn(view,cache,e,time,settings);if(e?.samongRicochetVFXRC108)return window.__HAPIL_SAMONG_RICOCHET_RC108__?.draw(view,cache,e,time,settings,MONGSE_queueImage)??true;if(window.__HAPIL_ARSENAL_V31318__?.draw(view,cache,e,time,settings))return true;if(window.__HAPIL_RC15__?.drawRootEffect(view,cache,e,time,settings))return true;return Gn(view,cache,e,time,settings);});
 }
 window.__HAPIL_RENDER_RC13__=HAPIL_RC13_RENDER;
 
@@ -125493,7 +125493,8 @@ function HAPIL_restoreMidbossDuoRC59(save, restored) {
 }
 function HAPIL_showDeathVerseRC59(state, pending) {
   if (typeof document === 'undefined' || !document.body) return false;
-  document.getElementById('hapil-death-verse-rc59')?.remove();
+  const previous=document.getElementById('hapil-death-verse-rc59');
+  if(previous?.finishRC121)previous.finishRC121();else previous?.remove();
   const root = document.createElement('div');
   root.id = 'hapil-death-verse-rc59';
   root.tabIndex = -1;
@@ -125540,25 +125541,58 @@ function HAPIL_showDeathVerseRC59(state, pending) {
     borderRadius:'999px',background:'#d9b65e',color:'#11131a',fontSize:'16px',fontWeight:'800',cursor:'pointer'});
   card.append(eyebrow,title,verse1,ref1,verse2,ref2,route,button);
   root.append(card);
-  let closed=false;
+  // RC121_DEATH_DIALOG: a stopped simulation cannot advance its own dialog.
+  // Use visible wall time and release only the reading lock this dialog owns.
+  const reading=window.__HAPIL_READING_V31342__;
+  const wasReadingBlocked=reading?.blocked===true;
+  const controls=()=>window.__HAPIL_CONTROLS_V31329__?.binding;
+  const automatic=()=>HAPIL_isFullAutoV31329(controls()?.settings?.current??{})&&controls()?.settings?.current?.autoStoryAdvance!==false;
+  const label=button.textContent,autoDelay=3;
+  const autoStatus=document.createElement('p'),hold=document.createElement('button');
+  autoStatus.setAttribute('aria-live','polite');
+  Object.assign(autoStatus.style,{fontSize:'13px',minHeight:'20px',margin:'16px 0 8px',color:'#c9cddd'});
+  hold.type='button';hold.textContent='자동 재시작 일시정지';hold.dataset.deathAutoPauseRc121='true';
+  Object.assign(hold.style,{padding:'8px 16px',border:'1px solid #798194',borderRadius:'12px',background:'#171827',color:'#e8edf5',cursor:'pointer'});
+  card.append(autoStatus,hold);
+  let closed=false,timer=null,elapsed=0,last=performance.now(),held=false;
   const finish=event=>{
     if(closed)return;
     if(event){event.preventDefault();event.stopPropagation();event.stopImmediatePropagation?.();}
     closed=true;
+    if(timer!==null)clearTimeout(timer);
     document.removeEventListener('keydown',onKey,true);
     root.remove();
-    if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=false;
+    if(reading?.deathVerseOwnerRC121===root){
+      delete reading.deathVerseOwnerRC121;
+      reading.blocked=wasReadingBlocked||window.__HAPIL_STORY_RC51__?.isOpen?.()===true;
+    }
+    if(controls()?.state?.current===state)controls()?.input?.current?.clear?.();
   };
+  root.finishRC121=finish;
   const onKey=event=>{
     if(event.key==='Enter'||event.key==='Escape'||event.key===' '||event.key==='Spacebar')finish(event);
     else {event.stopPropagation();event.stopImmediatePropagation?.();}
   };
+  hold.addEventListener('click',()=>{held=!held;last=performance.now();hold.textContent=held?'자동 재시작 계속':'자동 재시작 일시정지';});
+  const tick=()=>{
+    if(closed)return;
+    const binding=controls();
+    if(!root.isConnected||binding?.state?.current!==state){finish();return;}
+    const now=performance.now(),dt=Math.max(0,Math.min(.25,(now-last)/1000));last=now;
+    const full=automatic(),otherModal=!!binding?.modal?.current;
+    hold.hidden=!full;
+    if(full&&!held&&!document.hidden&&!otherModal){elapsed+=dt;}
+    else if(!full)elapsed=0;
+    autoStatus.textContent=!full?'버튼 또는 Enter로 다시 시작합니다.':held?'자동 재시작을 일시정지했습니다.':otherModal?'열린 메뉴를 닫으면 자동 재시작합니다.':'완전자동 · '+Math.max(1,Math.ceil(autoDelay-elapsed))+'초 후 '+label;
+    root.dataset.autoRemainingRc121=String(Math.max(0,autoDelay-elapsed));
+    if(full&&!held&&!document.hidden&&!otherModal&&elapsed>=autoDelay){finish();return;}
+    timer=setTimeout(tick,100);
+  };
   button.addEventListener('click',finish);
   document.addEventListener('keydown',onKey,true);
   document.body.append(root);
-  if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;
-  root.focus();
-  button.focus();
+  if(reading){reading.deathVerseOwnerRC121=root;reading.blocked=true;}
+  root.focus();button.focus();tick();
   return true;
 }
 (function HAPIL_installEpisode1DeathAndMidbossDuoRC59(attempt) {

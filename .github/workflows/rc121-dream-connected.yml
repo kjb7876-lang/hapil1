@@ -1,0 +1,79 @@
+name: RC121 Dream and connected lasers
+on:
+  workflow_dispatch:
+# Release candidates are now patched explicitly, never rewritten by this job.
+# Use Run workflow on the intended ref; the existing laser-release-audit.yml
+# remains the automatic main-branch laser audit.
+permissions:
+  contents: read
+concurrency:
+  group: rc121-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [dream, death-dialog, topology, release]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Fetch approved art reference
+        run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Install isolated Chromium runtime
+        run: |
+          QA_RUNTIME="$RUNNER_TEMP/rc121-runtime"
+          npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/chromium-install.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc121-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc121-evidence/release" >> "$GITHUB_ENV"
+          /usr/bin/chromium --version
+      - name: Test exact clean revision
+        env:
+          SUITE: ${{ matrix.suite }}
+          TESTED_COMMIT: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$TESTED_COMMIT"
+          test -z "$(git status --porcelain)"
+          echo "RC121_TESTED_COMMIT=$TESTED_COMMIT suite=$SUITE"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          printf '%s\n' "$TESTED_COMMIT" > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          case "$SUITE" in
+            dream) node tests/rc121-dream-regression-browser.cjs ;;
+            death-dialog) node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+          esac
+      - name: Print concise evidence
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),root=process.env.HAPIL_QA_OUTPUT||'';
+          for(const f of ['dream-results.json','death-dialog-results.json','summary.json','release/release-summary.json']){const p=path.join(root,f);if(!fs.existsSync(p))continue;const x=JSON.parse(fs.readFileSync(p));if(x.natural)for(const r of x.natural){delete r.samples;if(r.frames)r.frames={n:r.frames.n,maxGap:r.frames.maxGap,longTasks:r.frames.longTasks?.length};}if(Array.isArray(x))for(const r of x){r.checks=r.rows?.length;delete r.rows;delete r.renderRows;}console.log('RC121_EVIDENCE '+f+' '+JSON.stringify(x).slice(0,35000));}
+          for(const sub of ['natural-story','laser-telegraph']){for(const file of ['stdout.log','stderr.log']){const p=path.join(root,'release',sub,file);if(fs.existsSync(p))console.log('RC121_DETAILS '+sub+'/'+file+'\n'+fs.readFileSync(p,'utf8').slice(0,18000));}}
+          NODE
+          if [ -d /workspace/hapil-deliverables/RC119-body ]; then mkdir -p "$RUNNER_TEMP/rc121-evidence/approved-art"; cp -n /workspace/hapil-deliverables/RC119-body/*.png "$RUNNER_TEMP/rc121-evidence/approved-art/" 2>/dev/null || true; fi
+      - name: Preserve exact evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rc121-${{ matrix.suite }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc121-evidence/
+          retention-days: 14
