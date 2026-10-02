@@ -1,0 +1,106 @@
+30990:         let r = Number(e.x ?? 0) - Number(t.x ?? 0),
+30991:           i = Number(e.y ?? 0) - Number(t.y ?? 0),
+30992:           a = Number(t.vx ?? 0),
+30993:           o = Number(t.vy ?? 0),
+30994:           s = a * a + o * o,
+30995:           c = r * a + i * o,
+30996:           l = s > 0.002 ? c / s : 1 / 0;
+30997:         return c > 0.04 && l >= 0 && l <= 2.15;
+30998:       },
+30999:     },
+31000:   );
+31001: }
+31002: function MONGSE_deflectHostileProjectile31211(e, t, n = {}) {
+31003:   return MONGSE_delayHostileProjectile31214(e, t, {
+31004:     duration: Number(n.duration ?? MONGSE_TEMPORAL_LAG_V31214.fieldDuration),
+31005:     source: n.source ?? `legacy-hero-delay`,
+31006:   });
+31007: }
+31008: function MONGSE_shouldSkillDelayProjectile31214(e) {
+31009:   if (!e || Number(e.invulnerableUntil ?? 0) <= Number(e.time ?? 0)) return !1;
+31010:   let t = e.heroMotion;
+31011:   return !!(
+31012:     t &&
+31013:     Number(t.until ?? 0) > Number(e.time ?? 0) &&
+31014:     (t.kind === `guard` || t.kind === `skill`)
+31015:   );
+31016: }
+31017: function MONGSE_shouldSkillDeflectProjectile31211(e) {
+31018:   return MONGSE_shouldSkillDelayProjectile31214(e);
+31019: }
+31020: var MONGSE_OPEN_ARENA_REACHABILITY_LAYOUT = Object.freeze([
+31021:   Object.freeze([10, 10]),
+31022:   Object.freeze([10, 2.4]),
+31023:   Object.freeze([17.6, 10]),
+31024:   Object.freeze([10, 17.6]),
+31025:   Object.freeze([2.4, 10]),
+31026:   Object.freeze([4.2, 4.2]),
+31027:   Object.freeze([15.8, 4.2]),
+31028:   Object.freeze([15.8, 15.8]),
+31029:   Object.freeze([4.2, 15.8]),
+31030: ]);
+31031: function MONGSE_openArenaReachability(e) {
+31032:   let t = S(10, 10),
+31033:     n = MONGSE_OPEN_ARENA_REACHABILITY_LAYOUT.map(([e, t]) => S(e, t)),
+31034:     r = lt(e),
+31035:     i = (r) => n.every((n) => !ut(e, n.x, n.y, r) && !pt(e, t, n, r)),
+31036:     a = r
+31037:       .map(
+31038:         (e) =>
+31039:           `${e.id}:${e.propId}:${e.x.toFixed(3)}:${e.y.toFixed(3)}:${e.sprite}`,
+31040:       )
+31041:       .join(`|`),
+31042:     o = [...a].reduce(
+31043:       (e, t) => Math.imul(e ^ t.charCodeAt(0), 16777619) >>> 0,
+31044:       2166136261,
+31045:     );
+31046:   let MONGSE_portalAnchors = MONGSE_zonePortalAnchors(e),
+31047:     MONGSE_entry =
+31048:       e === `hub`
+31049:         ? te
+31050:         : e === `village`
+31051:           ? ie
+31052:           : MONGSE_isRestZone(e)
+31053:             ? oe
+31054:             : MONGSE_portalAnchors.entry,
+31055:     MONGSE_exit =
+31056:       e === `hub`
+31057:         ? ne
+31058:         : e === `village`
+31059:           ? ae
+31060:           : MONGSE_isRestZone(e)
+31061:             ? ce
+31062:             : MONGSE_portalAnchors.exit;
+31063:   return {
+31064:     zone: e,
+31065:     theme: et(e),
+31066:     authoredLayout: Qe[e] ?? null,
+31067:     navigationLayout: `open`,
+31068:     sampleCount: n.length,
+31069:     heroReachable: i(0.48),
+31070:     bossReachable: i(1.08),
+31071:     entryPortalReachable:
+31072:       !ut(e, MONGSE_entry.x, MONGSE_entry.y, 0.48) &&
+31073:       !ut(e, MONGSE_exit.x, MONGSE_exit.y, 1.08) &&
+31074:       !pt(e, MONGSE_entry, MONGSE_exit, 1.08),
+31075:     featureCount: r.length,
+31076:     collidableFeatureCount: r.filter((e) => e.collidable).length,
+31077:     allVisualOnly: r.every(
+31078:       (e) =>
+31079:         !e.collidable &&
+31080:         e.visualOnly &&
+31081:         e.ambientDecor &&
+31082:         e.landmark &&
+31083:         e.telekineticSource === !1,
+31084:     ),
+31085:     allAssetsApproved: r.every(
+31086:       (e) => !!e.sprite && MONGSE_APPROVED_PROP_SOURCES.has(e.sprite),
+31087:     ),
+31088:     allAssetsUsePropAnchor: r.every(
+31089:       (e) => Je(e.sprite) === `prop` && Ye(e.sprite)[1] === 0.96,
+31090:     ),
+31091:     allPropsInEdgePockets: r.every(
+31092:       (e) => Math.abs(it(e.x) - 9.5) + Math.abs(it(e.y) - 9.5) >= 6.5,
+31093:     ),
+31094:     unsupportedThemeEmpty:
+31095:       MONGSE_themePropCandidates(et(e)).length > 0 || r.length === 0,
