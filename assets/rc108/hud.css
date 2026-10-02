@@ -6,7 +6,7 @@ html.hapil-touch-v31366 #hapil-resonance-rc96 .rc96-resource-bar {height:4px!imp
 html.hapil-touch-v31366 #hapil-resonance-rc96 .rc108-samong-cooldown {margin-top:2px!important;font-size:8px!important;line-height:1.05!important}
 html.hapil-touch-v31366 #hapil-resonance-rc96 .rc96-charge {display:none!important}
 
-/* RC108: landscape touch uses one 10% information strip above a full-width arena. */
+/* RC108: desktop and landscape touch use one 10% information strip above a full-width arena. */
 html.rc108-wide-layout body.rc15-playing .game{display:grid!important;position:relative!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:10dvh 90dvh!important;width:100vw!important;max-width:none!important;height:100dvh!important;min-height:0!important;margin:0!important;padding:0!important;gap:0!important;overflow:hidden!important}
 html.rc108-wide-layout body.rc15-playing .game>.topbar{display:none!important}
 html.rc108-wide-layout body.rc15-playing .game>.game-stage{position:relative!important;inset:auto!important;grid-column:1!important;grid-row:2!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important}
@@ -44,7 +44,6 @@ html.rc108-wide-layout #rc108-control-overlay .rc108-skill-keys button{flex:0 0 
 html.rc108-wide-layout #rc108-control-overlay .rc108-skill-keys button:focus-visible{outline:2px solid #79ffec!important;outline-offset:1px!important}
 html.rc108-wide-layout #rc108-control-overlay .rc108-skill-separator{color:#93aaa9!important;pointer-events:none!important}
 html.rc108-wide-layout #rc108-control-overlay .rc108-skill-keys button:disabled{opacity:.45}
-html.rc108-wide-layout body.rc15-playing:not(:has(.game[data-combat-input="manual"])) #rc108-control-overlay .rc108-skill-keys{display:none!important}
 html.rc108-wide-layout #rc108-control-overlay .rc108-more-trigger{left:calc(50% - 32px)!important;top:6px!important;width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;padding:0!important;border:1px solid #ffffff40!important;border-radius:4px!important;background:#152334e8!important;color:#fff!important;font-size:18px!important;line-height:1!important}
 html.rc108-wide-layout #rc108-control-overlay .rc108-settings-trigger{right:4px!important;top:4px!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;padding:0!important;border:1px solid #ffffff40!important;border-radius:5px!important;background:#152334e8!important;color:#fff!important;z-index:2!important}
 #rc108-control-overlay{display:none}
