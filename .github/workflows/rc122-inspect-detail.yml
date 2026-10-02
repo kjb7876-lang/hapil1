@@ -14,18 +14,16 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 1
-      - name: Capture source only
+      - name: Capture input ownership and settled AI implementations
         run: |
           node <<'NODE'
           const fs=require('fs'),l=fs.readFileSync('assets/index-v31526.js','utf8').split('\n'),d='qa-results/rc122';
-          const blocks={movement:[61000,61430],steering:[120460,120665],tactics:[120860,121015],exitdraw:[36665,36800],layout:[30990,31095]};
-          for(const [k,[a,b]]of Object.entries(blocks))fs.writeFileSync(`${d}/source-${k}.txt`,l.slice(a-1,b).map((x,i)=>(a+i)+': '+x).join('\n'));
-          const terms=['broken_gate','collapsed_stairs','props/v290','heroRoleNavMode31222 = `disabled`','heroRoleNavMode31222=\'disabled\''];const rows=[];
-          for(let i=0;i<l.length;i++)if(terms.some(t=>l[i].includes(t)))rows.push(l.slice(Math.max(0,i-10),i+15).map((x,k)=>(Math.max(0,i-10)+k+1)+': '+x).join('\n'));
-          fs.writeFileSync(`${d}/source-props.txt`,rows.join('\n\n'));
+          const markers=['window.__HAPIL_MOVEMENT_V31336__=','window.__HAPIL_AI_V31338__=','window.__HAPIL_MOVEMENT_V31336__ =','window.__HAPIL_AI_V31338__ ='];
+          let n=0;for(let i=0;i<l.length;i++)if(markers.some(x=>l[i].includes(x))){const a=Math.max(0,i-190),b=Math.min(l.length,i+20);fs.writeFileSync(`${d}/source-owner-${++n}.txt`,l.slice(a,b).map((x,k)=>(a+k+1)+': '+x).join('\n'));console.log('OWNER',n,i+1);}
+          for(const name of ['desktop','portrait']){const p=`${d}/diagnostic-${name}.json`;if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p));fs.writeFileSync(`${d}/initial-${name}.json`,JSON.stringify(r.initial,null,2));}}
           NODE
           git config user.name 'HAPIL QA'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add qa-results/rc122/source-*.txt
-          git diff --cached --quiet || git commit -m 'test: capture movement ownership and native exit render paths'
+          git add qa-results/rc122/source-owner-*.txt qa-results/rc122/initial-*.json
+          git diff --cached --quiet || git commit -m 'test: capture settled movement ownership and actual startup settings'
           git push origin HEAD:refs/heads/fix/rc122-autoplay-transitions
