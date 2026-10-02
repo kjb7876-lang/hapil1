@@ -30,11 +30,13 @@
  }
  function camera(s,fallback,project,zone,exit){
   if(!active(s))return null;
-  const slot=rendering?target:'hero',boss=slot==='boss'?major(s):null,scale=Number(fallback?.scale)||1.05;
-  // Keep the lower view on RC104's clamped player camera. With no live boss,
-  // the upper pane follows that same camera instead of a fixed exit overview.
-  let next={x:Number(fallback?.x)||0,y:Number(fallback?.y)||0,scale},focusId='hero';
-  if(boss){const p=point(project,boss.x,boss.y),lift=boss.boss?42:30;next={x:640-p.x*scale,y:360+lift-p.y*scale,scale};focusId=String(boss.id);}
+  const slot=rendering?target:'hero',boss=slot==='boss'?major(s):null,baseScale=Number(fallback?.scale)||1.05,scale=baseScale*.5;
+  // Portrait keeps the two independent tracked views, but shows twice the
+  // world width and height in each. Center each tracked actor at this fixed
+  // zoom; the 180..540 crop still maps to the matching lower-half pointer ray.
+  const heroPoint=point(project,s.x,s.y);
+  let next={x:640-heroPoint.x*scale,y:360-heroPoint.y*scale,scale},focusId='hero';
+  if(boss){const p=point(project,boss.x,boss.y),lift=boss.boss?21:15;next={x:640-p.x*scale,y:360+lift-p.y*scale,scale};focusId=String(boss.id);}
   const logical=window.__HAPIL_VIEWPORT_RC104__?.view?.()??{x:473,y:0,width:334,height:720};
   next=clampCamera(next,scale,{x:logical.x,y:180,width:logical.width,height:360});
   const resolved=smooth(s,slot,next,focusId);stats.cameras[slot]={x:resolved.x,y:resolved.y,scale:resolved.scale,focusId};return resolved;
@@ -60,5 +62,5 @@
  function pointerBlocked(event,rect){if(!active(lastState)||!event||!rect)return false;const blocked=event.clientY<rect.top+rect.height/2;if(blocked)stats.pointerBlocked++;return blocked;}
  function pointer(event,rect,base){if(!active(lastState)||typeof base!=='function'||event.clientY<rect.top+rect.height/2)return null;const point=base(event,rect),half=rect.height/2,v=Math.max(0,Math.min(1,(event.clientY-rect.top-half)/half));return point?{x:point.x,y:180+v*360}:null;}
  function shouldRender(canvas,s){return active(s)&&!rendering;}
- window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({version:'RC108',active,shouldRender,render,camera,pointer,pointerBlocked,metrics:()=>({...stats,cameras:{...stats.cameras},rendering,target,frame})});
+ window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({version:'RC115',active,shouldRender,render,camera,pointer,pointerBlocked,metrics:()=>({...stats,cameras:{...stats.cameras},rendering,target,frame}),policy:{portraitWorldRangeMultiplier:2,desktopAndLandscapeUnchanged:true}});
 })();

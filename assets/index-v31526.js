@@ -53551,7 +53551,7 @@ function Ri() {
         I.current.clear());
       return !0;
     }, []),
-    tt = (0, l.useCallback)(() => {
+    tt = (0, l.useCallback)((automaticClear = false) => {
       if(window.__HAPIL_STORY_RC51__?.isOpen())return;
       if (P.current?.practiceV31329) { B(`패턴 연습은 진행도에 반영되지 않습니다. 캠페인 복귀 버튼을 사용하세요.`); return; }
       if (window.__HAPIL_PATIENT_V31368__?.interact(P.current)) return;
@@ -53631,7 +53631,7 @@ function Ri() {
           t.egoDrops.length === 0 &&
           (!xe(t.zone) || (t.loopCycles[t.zone] ?? 0) >= 3) &&
           (t.zone !== `murder03` || t.bossDefeated) &&
-          J(t, MONGSE_zonePortalAnchors(t.zone).interactionExit) < 2.6 &&
+          (automaticClear === true || J(t, MONGSE_zonePortalAnchors(t.zone).interactionExit) < 2.6) &&
           i.next
         ) {
           let e = t.zone,
@@ -53765,7 +53765,7 @@ function Ri() {
         return;
       }
       const step = () => {
-        if (window.__HAPIL_PARTY_V31322__?.blocksNativeInput() || window.__HAPIL_CHANNEL_V31364__?.active(P.current)) return;
+        if (window.__HAPIL_PARTY_V31322__?.blocksNativeInput() || window.__HAPIL_CHANNEL_V31364__?.active(P.current)) { window.__HAPIL_AUTO_MAP_ADVANCE_RC115__?.reset(P.current); return; }
         const active = HAPIL_isFullAutoV31329(ze.current);
         Re.current = active;
         window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ = active;
@@ -53775,12 +53775,10 @@ function Ri() {
           clearInput:()=>I.current.clear(),
           prepare:(next)=>window.__HAPIL_RECOVERY_V31369__.prepareMap(Pe.current,next)
         });
-        HAPIL_driveAutoProgressV31301(
-          P.current,
-          { ...ze.current, autoCombat: active },
-          !!(Ve.current || O),
-          tt,
-        );
+        const mapSettings = { ...ze.current, autoCombat: active };
+        const mapBlocked = !!(Ve.current || O);
+        if (window.__HAPIL_AUTO_MAP_ADVANCE_RC115__?.step(P.current, mapSettings, mapBlocked, tt)) return;
+        HAPIL_driveAutoProgressV31301(P.current, mapSettings, mapBlocked, tt);
       };
       step();
       const timer = window.setInterval(step, 220);
@@ -120840,7 +120838,10 @@ var HAPIL_DIRECTION_ART_V31334 = {"hwando":{"heroId":"hwando","generatedBy":"ima
   const SECTORS=Object.freeze({e:0,se:Math.PI/4,ne:-Math.PI/4,w:Math.PI,sw:Math.PI*3/4,nw:-Math.PI*3/4,n:-Math.PI/2,s:Math.PI/2});
   const catalog=typeof HAPIL_DIRECTION_ART_V31334==='object'?HAPIL_DIRECTION_ART_V31334:{};
   const paths=new Map(),metrics={selected:0,blocked:0,muzzles:0,manifests:0};
-  for(const [id,row] of Object.entries(catalog))for(const [sector,pose] of Object.entries(row.poses??{}))paths.set(pose.path??ROOT+id+'/'+pose.file,{...pose,heroId:id,sector});
+  const weaponBaseByPose=window.__HAPIL_WEAPON_BASE_V31338__??{};
+  for(const [id,row] of Object.entries(catalog))for(const [sector,pose] of Object.entries(row.poses??{}))paths.set(pose.path??ROOT+id+'/'+pose.file,{...pose,weaponBase:pose.weaponBase??weaponBaseByPose[id]?.[sector],heroId:id,sector});
+  const vertical=window.__HAPIL_DIRECTION_VERTICAL_V31337__??{};
+  for(const id of HEROES)for(const sector of ['n','s']){const pose=vertical[id]?.[sector];if(pose?.path)paths.set(pose.path,{...pose,heroId:id,sector});}
   const finite=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
   const angleDelta=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
   const idOf=a=>String(a?.heroId??a?.activeHeroId??a?.id??'');
@@ -120910,22 +120911,21 @@ var HAPIL_DIRECTION_ART_V31334 = {"hwando":{"heroId":"hwando","generatedBy":"ima
     const d=m?.direction;return d==='back'||d==='up'?heading(-1,-1,m?.facing):d==='front'||d==='down'?heading(1,1,m?.facing):d==='left'?heading(-1,1,-1):d==='right'?heading(1,-1,1):heading(m?.facing<0?-1:1,m?.facing<0?1:-1,m?.facing);
   }
   function posePath(hero,motion){
-    if(!catalog[hero?.id]||!['attack','skill','ultimate'].includes(motion?.kind))return null;
+    if(!catalog[hero?.id]||!['idle','move','attack','skill','ultimate'].includes(motion?.kind))return null;
     if(motion.kind==='skill'&&hero.skills?.[motion.skillIndex]?.kind==='dash')return null; // Moving E keeps its genuine dash pose.
     const sector=motion.characterSectorV31342??pointForMotion(motion).sector,pose=catalog[hero.id].poses?.[sector];
-    return pose?(pose.path??ROOT+hero.id+'/'+pose.file):null;
+    return vertical[hero.id]?.[sector]?.path??(pose?(pose.path??ROOT+hero.id+'/'+pose.file):null);
   }
   function projectedMuzzle(cache,path,size,transform={},x,y){
     const meta=paths.get(String(path??'').split(/[?#]/)[0]);if(!meta)return null;
     const image=MONGSE_queueImage(cache,path,'eager');if(!image?.complete||!(image.naturalWidth||image.width))return null;
-    const crop=In(image,path),anchor=Ye(path),height=finite(size,90),width=height*Math.min(crop.width/Math.max(1,crop.height),1.72);
-    const pixel=meta.muzzle??[.5,.5],px=pixel[0]*(image.naturalWidth||image.width),py=pixel[1]*(image.naturalHeight||image.height);
-    const lx=((px-crop.x)/crop.width-anchor[0])*width,ly=((py-crop.y)/crop.height-anchor[1])*height+height*.43;
-    const sx=lx*finite(transform.scaleX,1),sy=ly*finite(transform.scaleY,1),a=finite(transform.rotation),p=G(finite(x),finite(y));metrics.muzzles++;
-    return {x:p.x+finite(transform.offsetX)+sx*Math.cos(a)-sy*Math.sin(a),y:p.y-height*.43+finite(transform.offsetY)+sx*Math.sin(a)+sy*Math.cos(a),path,sourcePixel:[px,py],frameHeight:height,directionV31334:meta.sector};
+    const iw=image.naturalWidth||image.width,ih=image.naturalHeight||image.height,crop=In(image,path),anchor=Ye(path),height=finite(size,90),width=height*Math.min(crop.width/Math.max(1,crop.height),1.72),a=finite(transform.rotation),origin=G(finite(x),finite(y));
+    const socket=pixel=>{if(!Array.isArray(pixel)||pixel.length<2)return null;const px=pixel[0]*iw,py=pixel[1]*ih,lx=((px-crop.x)/crop.width-anchor[0])*width,ly=((py-crop.y)/crop.height-anchor[1])*height+height*.43,sx=lx*finite(transform.scaleX,1),sy=ly*finite(transform.scaleY,1);return{x:origin.x+finite(transform.offsetX)+sx*Math.cos(a)-sy*Math.sin(a),y:origin.y-height*.43+finite(transform.offsetY)+sx*Math.sin(a)+sy*Math.cos(a),sourcePixel:[px,py]};};
+    const muzzle=socket(meta.muzzle??[.5,.5]);metrics.muzzles++;
+    return {...muzzle,path,sourcePixel:muzzle?.sourcePixel,weaponBase:socket(meta.weaponBase),chestSocket:socket(meta.chest),frameHeight:height,directionV31334:meta.sector,aimAngleDegrees:meta.aimAngleDegrees??meta.measuredWeaponAngle};
   }
-  function assetsFor(heroId){return Object.values(catalog[heroId]?.poses??{}).map(p=>p.path??ROOT+heroId+'/'+p.file);}
-  function weaponAngle(heroId,sector){const p=catalog[heroId]?.poses?.[sector],degrees=p?.aimAngleDegrees??p?.measuredWeaponAngle;return Number.isFinite(degrees)?degrees*Math.PI/180:SECTORS[sector]??0;}
+  function assetsFor(heroId){return [...new Set([...Object.entries(catalog[heroId]?.poses??{}).filter(([sector])=>!vertical[heroId]?.[sector]?.path).map(([,p])=>p.path??ROOT+heroId+'/'+p.file),...['n','s'].map(sector=>vertical[heroId]?.[sector]?.path).filter(Boolean)])];}
+  function weaponAngle(heroId,sector){const p=catalog[heroId]?.poses?.[sector]??vertical[heroId]?.[sector],degrees=p?.aimAngleDegrees??p?.measuredWeaponAngle;return Number.isFinite(degrees)?degrees*Math.PI/180:SECTORS[sector]??0;}
   let installed=false,attempts=0;
   function install(){
     if(installed)return true;if(!window.__HAPIL_V31333_RELEASE__?.installed||typeof Tn!=='function'||typeof An!=='function')return false;
@@ -120942,7 +120942,7 @@ var HAPIL_DIRECTION_ART_V31334 = {"hwando":{"heroId":"hwando","generatedBy":"ima
       return {...out,scaleX:scale,scaleY:scale,rotation:0,offsetX:-width*(cx-anchor[0])*scale,offsetY:-height*.43*(scale-1),directionalAttackV31334:true};
     };
     const oldManifest=MONGSE_zoneAssetManifest;
-    MONGSE_zoneAssetManifest=function HAPIL_sixDirectionManifestV31334(...args){const list=new Set(oldManifest(...args));for(const path of HEROES.flatMap(assetsFor))list.add(path);metrics.manifests++;return list;};
+    MONGSE_zoneAssetManifest=function HAPIL_sixDirectionManifestV31334(...args){const list=new Set(oldManifest(...args));for(const id of new Set([args[1],...(Array.isArray(args[2])?args[2]:[])]))for(const path of assetsFor(id))list.add(path);metrics.manifests++;return list;};
     const oldCritical=MONGSE_liveCriticalAssets31220;
     MONGSE_liveCriticalAssets31220=function HAPIL_sixDirectionLiveAssetsV31334(s){const list=new Set(oldCritical(s));for(const id of new Set([s?.activeHeroId,...(window.__HAPIL_PARTY_V31322__?.actors??[]).map(a=>a.heroId)]))for(const path of assetsFor(id))list.add(path);return list;};
     const oldAdd=MONGSE_addHeroAssets31220;MONGSE_addHeroAssets31220=function HAPIL_sixDirectionCriticalV31334(set,id,...args){oldAdd(set,id,...args);for(const path of assetsFor(id))set.add(path);};
@@ -121503,7 +121503,7 @@ window.__HAPIL_READING_V31342__={installed:true,delay:HAPIL_readingDelayV31342,s
 
 /* HAPIL Character R2: simulation-owned pose commitment; render reads only. */
 (()=>{'use strict';let attempts=0;function install(){if(!window.__HAPIL_DIRECTION_V31334__?.installed||!window.__HAPIL_VISUAL_V31335__?.installed){if(++attempts<800)setTimeout(install,0);return;}
- const ids=['hwando','gunner'],states=new WeakMap(),profiles={},D=window.__HAPIL_DIRECTION_V31334__,V=window.__HAPIL_VISUAL_V31335__;
+ const ids=['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner'],states=new WeakMap(),profiles={},D=window.__HAPIL_DIRECTION_V31334__,V=window.__HAPIL_VISUAL_V31335__;
  const worldKeys=['E','SE','S','SW','W','NW','N','NE'],worldToPose={N:'ne',NE:'e',E:'se',SE:'s',S:'sw',SW:'w',W:'nw',NW:'n'};
  const supported=id=>ids.includes(id),delta=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
  // Pose names are authored screen headings (nominalAngle[Degrees] in the catalog).
@@ -121523,7 +121523,7 @@ window.__HAPIL_READING_V31342__={installed:true,delay:HAPIL_readingDelayV31342,s
 
  function commit(actor,time){const id=actor?.activeHeroId??actor?.heroId,m=actor?.heroMotion;if(!supported(id)||!m||m.kind!=='attack')return null;const sector=stable(actor,m.dx,m.dy);m.characterSectorV31342=sector;m.characterCommitV31342=Object.freeze({at:time,dx:m.dx,dy:m.dy,sector});return m.characterCommitV31342;}
  function phase(hero,m,time){if(hero?.id!=='hwando'||m?.kind!=='attack')return 'original';const t=time-m.started,d=m.until-m.started;if(!(d>0)||t<0||t>=d)return 'original';return t<Math.min(.07,d*.2)?'PREPARE':t<d*.62?'STRIKE':'RECOVER';}
- for(const id of ids){const directionProfile={};for(const [sector,p]of Object.entries(D.catalog[id].poses)){const path=p.path??'./assets/hero_direction334/'+id+'/'+p.file,g=V.geometry[path]??p,c=g.crop,a=g.anchor,H=90,W=H*Math.min(g.width*c[2]/(g.height*c[3]),1.72),scale=66/(H*g.bodySpan/c[3]),ch=g.chest;
+ for(const id of ids){const directionProfile={};for(const [sector,p0]of Object.entries({...D.catalog[id].poses,...(window.__HAPIL_DIRECTION_VERTICAL_V31337__?.[id]??{})})){const p={...p0,weaponBase:p0.weaponBase??window.__HAPIL_WEAPON_BASE_V31338__?.[id]?.[sector]},path=p.path??'./assets/hero_direction334/'+id+'/'+p.file,g=V.geometry[path]??p,c=g.crop,a=g.anchor,H=90,W=H*Math.min(g.width*c[2]/(g.height*c[3]),1.72),scale=66/(H*g.bodySpan/c[3]),ch=g.chest;
  const project=q=>({x:W*(q[0]-ch[0])/c[2]*scale,y:H*((q[1]-c[1])/c[3]-a[1])*scale});
  const foot=project([c[0]+c[2]*a[0],c[1]+c[3]*a[1]]),chest=project(ch),muzzle=project(p.muzzle??ch),weapon=project(p.weaponBase??ch);
  directionProfile[Object.keys(worldToPose).find(k=>worldToPose[k]===sector)]=Object.freeze({path,foot,body:{x:0,y:-33},chest,heart:V.offset(path),weapon,muzzle,visualOffset:{x:0,y:0},flip:1,aimOffset:D.weaponAngle(id,sector)-D.sectors[sector],bodyScale:scale});}
@@ -121637,9 +121637,9 @@ function ready(s,ui=false){const r=record(s),p=profile(s.zone),g=gate(s);if(!p)r
 function restore(s,snapshot){for(const key of Object.keys(s))if(!(key in snapshot))delete s[key];Object.assign(s,snapshot);}
 function copy(v,seen=new Map()){if(v===null||typeof v!=='object')return v;if(seen.has(v))return seen.get(v);if(v instanceof Set)return new Set([...v].map(x=>copy(x,seen)));if(v instanceof Map)return new Map([...v].map(([k,x])=>[k,copy(x,seen)]));const o=Array.isArray(v)?[]:{};seen.set(v,o);for(const [k,x]of Object.entries(v))o[k]=copy(x,seen);return o;}
 function commit(s,tx,interact){const r=record(s),b=inputBindings(s);if(r.transition!==tx||s.zone!==tx.from||blocked(s,b.blocked?.())||!gate(s).clear){if(r.transition===tx)r.transition=null;return false;}if(!N[tx.next]?.map){r.transition=null;log(s,'transition-failed',{reason:'invalid-next-map'});return false;}const snapshot=copy(s);try{tx.stage='committing';interact();if(s.zone===tx.next){tx.stage='committed';if(typeof b.clearInput==='function')b.clearInput();s.moveVx=0;s.moveVy=0;hi(s);const nr=record(s);nr.enteredAt=num(s.time);nr.readyAt=null;s.flowStateV31343='ENTRY';log(s,'transition-complete',{id:tx.id,from:tx.from});return true;}tx.stage='interlude';r.pendingNative=tx;r.transition=null;r.readyAt=num(s.time);return false;}catch(e){restore(s,snapshot);r.transition=null;r.readyAt=num(s.time);s.flowTransitionErrorV31343=String(e.message??e);log(s,'transition-rollback',{id:tx.id,error:s.flowTransitionErrorV31343});return false;}}
-function transition(s,interact,ui=false){
+function transition(s,interact,ui=false,allowOffPortal=false){
  const r=record(s),p=profile(s.zone),a=ready(s,ui),now=performance.now();
- if(!a.ready||!a.near||r.transition||now<num(r.retryAtV31369))return false;
+ if(!a.ready||(!a.near&&!allowOffPortal)||r.transition||now<num(r.retryAtV31369))return false;
  if(!p.nextMapId){s.flowStateV31343='COMPLETE';return true;}
  if(!N[p.nextMapId]?.map){s.flowTransitionErrorV31343='다음 맵을 찾을 수 없습니다';log(s,'transition-failed',{reason:'invalid-next-map'});return false;}
  const tx={id:s.zone+':'+(++r.serial)+':'+num(s.time),from:s.zone,next:p.nextMapId,stage:'checkpoint',wallStartedV31369:now};
@@ -124267,7 +124267,7 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   };
   const all=Object.values(sheets).flatMap(s=>Object.values(s));
   const oldManifest=MONGSE_zoneAssetManifest;
-  MONGSE_zoneAssetManifest=function HAPIL_consistentHeroManifestRC5(...args){return new Set([...oldManifest(...args),...all]);};
+  MONGSE_zoneAssetManifest=function HAPIL_consistentHeroManifestRC5(...args){return new Set(oldManifest(...args));};
   const oldCritical=MONGSE_liveCriticalAssets31220;
   MONGSE_liveCriticalAssets31220=function HAPIL_consistentHeroCriticalRC5(s){
    const set=new Set(oldCritical(s));
@@ -124440,7 +124440,7 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   });
 })();
 
-var HAPIL_RC13_POSE_PATHS={"nw": "./assets/hero_direction334/lauren/nw.webp", "n": "./assets/hero_direction338/lauren/n.webp", "ne": "./assets/hero_direction334/lauren/ne.webp", "w": "./assets/hero_direction334/lauren/w.webp", "e": "./assets/hero_direction334/lauren/e.webp", "sw": "./assets/hero_direction334/lauren/sw.webp", "s": "./assets/hero_direction338/lauren/s.webp", "se": "./assets/hero_direction334/lauren/se.webp"};
+var HAPIL_RC13_POSE_PATHS={"nw": "./assets/hero_direction334/lauren/nw.webp", "n": "./assets/hero_direction337/lauren/n.webp", "ne": "./assets/hero_direction334/lauren/ne.webp", "w": "./assets/hero_direction334/lauren/w.webp", "e": "./assets/hero_direction334/lauren/e.webp", "sw": "./assets/hero_direction334/lauren/sw.webp", "s": "./assets/hero_direction337/lauren/s.webp", "se": "./assets/hero_direction334/lauren/se.webp"};
 /* HAPIL RC12 visual rules: Lauren spear lock, Slayer down-strike fix, and minimum boss ordnance. */
 /* HAPIL RC12 visual rules: Lauren spear lock, Slayer down-strike fix, and minimum boss ordnance. */
 function MONGSE_bossTelegraphArtworkScaleV31510(hit) {
@@ -124487,12 +124487,13 @@ function MONGSE_bossTelegraphArtworkScaleV31510(hit) {
     "./assets/heroes/normalized/actions-consistent/slayer-attack-front.webp",
   ]);
   const originalManifest = MONGSE_zoneAssetManifest;
+  const pathsForHeroes = ids => { const set=new Set(ids??[]),out=[]; if(set.has('lauren'))out.push(...Object.values(laurenFx),...Object.values(HAPIL_RC13_POSE_PATHS)); if(set.has('slayer'))out.push('./assets/hero_direction337/slayer/s.webp','./assets/heroes/normalized/actions-consistent/slayer-attack-front.webp'); return out; };
   MONGSE_zoneAssetManifest = function HAPIL_rc12VisualManifest(...args) {
-    return new Set([...originalManifest.apply(this, args), ...imagePaths]);
+    return new Set([...originalManifest.apply(this, args), ...pathsForHeroes([args[1],...(Array.isArray(args[2])?args[2]:[])])]);
   };
   const originalCriticalAssets = MONGSE_liveCriticalAssets31220;
   MONGSE_liveCriticalAssets31220 = function HAPIL_rc12CriticalAssets(state) {
-    return new Set([...originalCriticalAssets.call(this, state), ...imagePaths]);
+    return new Set([...originalCriticalAssets.call(this, state), ...pathsForHeroes([state?.activeHeroId,...(window.__HAPIL_PARTY_V31322__?.actors??[]).map(a=>a.heroId)])]);
   };
   const getLaurenPose = sector =>
     window.__HAPIL_DIRECTION_V31334__?.posePath(
@@ -124536,7 +124537,7 @@ var HAPIL_RC13_BOSS_IDS=["dist00-boss", "a11-cosmic-v31318", "mb-dist01", "mb-di
 var HAPIL_RC13_RENDER = (()=>{
  'use strict';
  const sectors=['nw','n','ne','w','e','sw','s','se'];
- const poses=Object.fromEntries(sectors.map(s=>[s,'./assets/hero_direction'+(['n','s'].includes(s)?'338':'334')+'/lauren/'+s+'.webp']));
+ const poses=Object.fromEntries(sectors.map(s=>[s,'./assets/hero_direction'+(['n','s'].includes(s)?'337':'334')+'/lauren/'+s+'.webp']));
  const slayer='./assets/hero_direction337/slayer/s.webp';
  const liveBossIds=new Set(),bounds=new WeakMap(),stats={lauren:0,slayer:0,projectiles:0,skills:0,pending:0};
  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
@@ -124569,7 +124570,7 @@ var HAPIL_RC13_RENDER = (()=>{
   if(!selected)return false;
   const chosen=poses[selected.sector]??poses.s,im=MONGSE_queueImage(cache,chosen,'eager');
   if(!im?.complete||!(im.naturalWidth||im.width)){stats.pending++;return true;}
-  const meta=HAPIL_RC13_POSE_META.lauren[selected.sector]??HAPIL_RC13_POSE_META.lauren.s;
+  const meta=window.__HAPIL_DIRECTION_VERTICAL_V31337__?.lauren?.[selected.sector]??HAPIL_RC13_POSE_META.lauren[selected.sector]??HAPIL_RC13_POSE_META.lauren.s;
   const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height;
   // Same anatomical body height, measured feet and no inherited atlas crop.
   const scale=66/(ih*meta.bodySpan),at=G(x,y);
