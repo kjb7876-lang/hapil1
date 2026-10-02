@@ -1,0 +1,120 @@
+name: RC127 dark combat release gate
+on:
+  push:
+    branches: [fix/rc127-dark-combat]
+    paths: ['.github/workflows/rc127-release.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integrate:
+    runs-on: ubuntu-24.04
+    permissions: {contents: write}
+    timeout-minutes: 8
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with: {show-progress: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Bind exact RC126 scheduler variable names then integrate
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),p='tools/apply-rc127.cjs';let s=fs.readFileSync(p,'utf8');
+          s=s.replaceAll('root.__HAPIL_POLICY_RC127__?.interval','window.__HAPIL_POLICY_RC127__?.interval').replaceAll('root.__HAPIL_POLICY_RC127__?.deadline','window.__HAPIL_POLICY_RC127__?.deadline').replaceAll('mixed?1.25:.72','p.index===2?1.25:.72').replaceAll('paced?.lastRelease','rc126Volley?.lastRelease');fs.writeFileSync(p,s);
+          NODE
+          node tools/apply-rc127.cjs
+          node --check assets/index-v31526.js
+          node --check assets/rc127/combat-policy.js
+          node --check assets/rc127/dark-jelly.js
+          node --check assets/rc95/combat-flow.js
+          node tests/rc127-policy.cjs
+          git diff --check
+          test "$(git hash-object assets/rc77/connected-laser.js)" = '6bb4a891eb541734ef4c86f4d46dfb6ea94a44df'
+      - name: Commit integrated runtime to feature only
+        id: commit
+        run: |
+          git config user.name 'HAPIL RC127 validation'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/apply-rc127.cjs index.html assets/index-v31526.js assets/rc126/combat-safety.js assets/combat-v31402/projectile-pipeline.js assets/combat-v31412/skill-completion.js assets/rc95/combat-flow.js
+          if ! git diff --cached --quiet; then git commit -m 'RC127 integrate dark jelly, fixed 777 movement, story cooldown and committed skill protections'; git push origin HEAD:fix/rc127-dark-combat; fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  tests:
+    needs: integrate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    strategy:
+      fail-fast: false
+      matrix: {suite: [rc127, regression]}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.integrate.outputs.sha }}
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Install isolated Playwright Chromium
+        run: |
+          R="$RUNNER_TEMP/rc127-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          "$R/node_modules/.bin/playwright" install --with-deps chromium
+          CHROMIUM=$(NODE_PATH="$R/node_modules" node -e "console.log(require('playwright').chromium.executablePath())")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chmod -R a+rwx /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc127-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc127-evidence/release" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/rc127-evidence"
+          git fetch --no-tags origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a dd56fb42aeb8faa45f66a391ea657daf772c410b 257b920a470e0ee6a04e5a52d71157f66232682c
+      - name: Run version-specific native acceptance tests
+        if: matrix.suite == 'rc127'
+        run: |
+          set -o pipefail
+          node tests/rc127-policy.cjs | tee "$HAPIL_QA_OUTPUT/policy.log"
+          node tests/rc127-browser.cjs | tee "$HAPIL_QA_OUTPUT/browser.log"
+      - name: Run protected runtime regressions
+        if: matrix.suite == 'regression'
+        run: |
+          set -o pipefail
+          for test in tests/rc126-finite-native.cjs tests/rc126-combat-safety-smoke.cjs tests/rc43-bloodied-projectile-flight.cjs tests/rc126-combat-browser.cjs tests/rc125-adaptive-battlefield-browser.cjs tests/rc125-first-frame-browser.cjs tests/rc123-boundary-smoke.cjs tests/rc122-autoplay-policy-smoke.cjs tests/rc115-map-advance-smoke.cjs tests/rc91-samong-and-laser-smoke.cjs; do
+            node "$test" 2>&1 | tee "$HAPIL_QA_OUTPUT/$(basename "$test").log"
+          done
+      - name: Save failures and successes without rewriting evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rc127-${{ matrix.suite }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/rc127-evidence
+            /workspace/hapil-deliverables/RC119-body
+          if-no-files-found: warn
+          retention-days: 14
+  evidence:
+    needs: [integrate, tests]
+    if: always() && needs.integrate.result == 'success'
+    runs-on: ubuntu-24.04
+    permissions: {contents: write}
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.integrate.outputs.sha }}
+          show-progress: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: rc127-*-${{ github.run_id }}
+          path: qa/rc127-evidence
+      - name: Record immutable evidence branch
+        env:
+          TEST_RESULT: ${{ needs.tests.result }}
+        run: |
+          printf '{"run":%s,"testedCommit":"%s","tests":"%s","scope":"staged native browser and regression tests, not all-campaign natural play"}\n' "$GITHUB_RUN_ID" "$(git rev-parse HEAD)" "$TEST_RESULT" > qa/rc127-evidence/summary.json
+          git config user.name 'HAPIL RC127 evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc127-evidence
+          git commit -m "RC127 evidence $GITHUB_RUN_ID ($TEST_RESULT)"
+          git push origin HEAD:refs/heads/qa/rc127-evidence-$GITHUB_RUN_ID
