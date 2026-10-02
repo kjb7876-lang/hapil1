@@ -19,14 +19,14 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Read exact native combat anchors and existing test inventory
+      - name: Read finite contact and final projectile contracts
         run: |
           node <<'NODE'
-          const fs=require('fs'),cp=require('child_process');
-          const p='assets/index-v31526.js',src=fs.readFileSync(p,'utf8'),lines=src.split('\n');
-          console.log('BUNDLE',JSON.stringify({lines:lines.length,blob:cp.execFileSync('git',['hash-object',p],{encoding:'utf8'}).trim()}));
-          console.log('TESTS',fs.readdirSync('tests').filter(x=>/contact|projectile|combat|natural|death|advance|blood|126/.test(x)).join('\n'));
-          console.log('EXPORTED_TAIL',lines.slice(-180).join('\n'));
-          const needles=['function h(','hostileProjectiles.push','previousX =','previousX:','blue-executor','prepareTransit','bodySpawned31219','__HAPIL_GEOMETRY_V31402__','__HAPIL_BLOODIED_FLIGHT_RC43__'];
-          for(const needle of needles){const found=[];for(let i=0;i<lines.length;i++)if(lines[i].includes(needle))found.push(i);console.log('\nMATCHES',needle,found.map(x=>x+1));for(const i of found.slice(0,6))console.log(lines.slice(Math.max(0,i-8),i+22).map((l,j)=>(Math.max(0,i-8)+j+1)+': '+l).join('\n'));}
+          const fs=require('fs'),lines=fs.readFileSync('assets/index-v31526.js','utf8').split('\n');
+          function show(a,b){console.log('\nRANGE '+a+'-'+b+'\n'+lines.slice(a-1,b).map((s,i)=>(a+i)+': '+s).join('\n'));}
+          for(const needle of ['function Di(','function MONGSE_pushThemeProjectile3129','function MONGSE_stepSignatureProjectile31212','renderNative(','function bind(e,s=state)','function prepareHits(','function begin(s','function finish(s']){
+            const ix=[];for(let i=0;i<lines.length;i++)if(lines[i].includes(needle))ix.push(i);console.log('MATCHES',needle,ix.map(i=>i+1));for(const i of ix.slice(-2))show(Math.max(1,i-2),Math.min(lines.length,i+(needle.startsWith('function MONGSE_')?160:25)));
+          }
+          show(61935,62035);show(116495,116585);
+          console.log('JELLY_PATHS',[...new Set(fs.readFileSync('assets/index-v31526.js','utf8').match(/\.\/assets\/[^\s'"`<>]*?(?:jelly|bean)[^\s'"`<>]*?\.(?:webp|png)/g)||[])]);
           NODE
