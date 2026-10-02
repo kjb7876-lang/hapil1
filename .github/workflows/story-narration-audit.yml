@@ -46,6 +46,16 @@ jobs:
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")" >> "$GITHUB_ENV"
       - name: Exercise playback and interrupted flows
+        env:
+          HAPIL_NARRATION_OUTPUT: ${{ runner.temp }}/story-narration-evidence
         run: |
           node tests/story-narration-browser.cjs
           node tests/story-narration-surfaces-browser.cjs
+      - name: Preserve narration layout evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: narration-layout-${{ github.sha }}
+          path: ${{ runner.temp }}/story-narration-evidence/
+          if-no-files-found: warn
+          retention-days: 14
