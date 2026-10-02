@@ -1,0 +1,32 @@
+{
+  "version": "RC128",
+  "kind": "expected_release_file_manifest",
+  "startingMain": "c18518b7fe13d1b631963cbc1583e54cea75eacf",
+  "runtimeCommit": "101be5e1307413f1d4ed22850ced8be0a2f1d27a",
+  "provenance": "Candidate files generated in Actions run 37047820118; exact-byte acceptance is enforced by tests/rc128-candidate.cjs. Verification status is recorded separately in summary.json.",
+  "algorithm": "SHA-256",
+  "acceptedFiles": {
+    "assets/rc91/samong-awakening.js": "e10f8ca145914fe517cbf88012b73a74a5db6c57e8bab5334993c12bb97e9f79",
+    "assets/combat-v31402/combat-core.js": "c718770947023a573a9b57cbefcb319940cd434029592fda51bf8d94f7822ece",
+    "assets/rc23/feedback.js": "ee519dc6db0990c043c0615914dda6253760644f1dddb2a54724019905aa61b0",
+    "index.html": "c26193527a73f0b952f10296d8333f565188f3db048954736cbfbb25eae53a42",
+    "tests/rc91-samong-and-laser-smoke.cjs": "ad819358cc886f273abc508d41b4ea8fd17eae14a0364716e77e10c9322e3ddd",
+    "assets/rc128/awakening-policy.js": "00c65c9b0d3e60cb1c481f95c60fdca48f0690eb8788d37273b2d28c2eb99c7e",
+    "assets/rc128/combat-feedback.js": "64277031f08373305f9a4a0e168ad4032024174857085524b4866d194d1dfbd3"
+  },
+  "protectedRC127Files": {
+    "assets/index-v31526.js": "d6aab3f6e5ef1430e0cdc830b50d5b4648d66f8e456d99c76fc6d9ca74d38c03",
+    "assets/rc77/connected-laser.js": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+    "assets/rc127/combat-policy.js": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+    "assets/rc127/dark-jelly.js": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+    "assets/combat-v31412/skill-completion.js": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+    "assets/rc95/combat-flow.js": "64e006238344ebdf4dc60184c19b366c6e4f4bcf88060f1e32c0dbf9d8af2ba2"
+  },
+  "approvedLaserGitBlob": "6bb4a891eb541734ef4c86f4d46dfb6ea94a44df",
+  "approvedVisualCommit": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "notes": [
+    "Hashes are byte-exact, including final newlines.",
+    "Do not remove validation or update expected hashes merely to hide a mismatch.",
+    "Changing runtime files in a future release requires new render and progression evidence."
+  ]
+}
