@@ -1,0 +1,83 @@
+name: RC123 laser boundary candidate regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/rc123-combat-readability]
+    paths:
+      - 'assets/**'
+      - 'tests/**'
+      - 'index.html'
+      - '.github/workflows/rc123-boundary-regression.yml'
+permissions:
+  contents: read
+concurrency:
+  group: rc123-boundary-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [boundary, autoplay, dream, death-dialog, topology, release]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Preserve approved-art reference
+        run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Isolated Chromium runtime
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc123-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc123-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc123-evidence/release" >> "$GITHUB_ENV"
+      - name: Execute exact candidate without patching gameplay
+        env:
+          SUITE: ${{ matrix.suite }}
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          case "$SUITE" in
+            boundary) node tests/rc123-boundary-smoke.cjs && node tests/rc123-boundary-browser.cjs ;;
+            autoplay) node tests/rc122-autoplay-policy-smoke.cjs && node tests/rc115-map-advance-smoke.cjs && node tests/rc122-autoplay-browser.cjs ;;
+            dream) node tests/rc121-dream-regression-browser.cjs ;;
+            death-dialog) node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+          esac
+      - name: Preserve evidence in logs and job summary
+        if: always()
+        run: |
+          if [ -d "$RUNNER_TEMP/rc123-evidence" ]; then
+            find "$RUNNER_TEMP/rc123-evidence" -name '*summary.json' -o -name '*boundary.json' -o -name 'rc123-boundary-smoke.json' | while read -r FILE; do
+              echo "::group::$FILE"
+              head -c 60000 "$FILE"
+              echo
+              echo '::endgroup::'
+            done
+          fi
+          echo 'Fixture render/contact tests and natural progression are separate evidence. Missing results are not passes.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc123-${{ matrix.suite }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc123-evidence/
+          retention-days: 14
