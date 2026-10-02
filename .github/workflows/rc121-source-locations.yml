@@ -15,10 +15,11 @@ jobs:
         with:
           fetch-depth: 1
           persist-credentials: false
-      - name: Print exact call-site context
+      - name: Print Dream revival and terminal-state context
         run: |
           node <<'NODE'
           const fs=require('fs'),f='assets/index-v31526.js',lines=fs.readFileSync(f,'utf8').split('\n');
-          console.log('RELATED_TESTS',fs.readdirSync('tests').filter(x=>/dream|samong|topology|laser|mode/i.test(x)).join(' '));
-          let count=0,chars=0;for(let i=0;i<lines.length;i++)if(/__HAPIL_CHOICE_RC97__|__HAPIL_LASER_TOPOLOGY_RC108__|__HAPIL_SAMONG_RICOCHET_RC108__|dreamMirrorLasersV31347|bossFinaleV31334/.test(lines[i])&&count++<90){const section=lines.slice(Math.max(0,i-6),i+12).map((x,k)=>`${Math.max(0,i-6)+k+1}: ${x.slice(0,1400)}`).join('\n');if(chars+section.length>100000)break;chars+=section.length;console.log('\nSOURCE '+f+'\n'+section);}
+          const ranges=[];for(let i=0;i<lines.length;i++)if(/__HAPIL_SAMONG_RC91__|samongPassiveRC91|tryRevive|o\.hp\s*<=\s*0/.test(lines[i]))ranges.push([Math.max(0,i-18),Math.min(lines.length,i+28)]);
+          ranges.sort((a,b)=>a[0]-b[0]);const merged=[];for(const r of ranges){if(merged.length&&r[0]<=merged.at(-1)[1])merged.at(-1)[1]=Math.max(merged.at(-1)[1],r[1]);else merged.push(r);}
+          let chars=0;for(const [a,b]of merged){const s=lines.slice(a,b).map((x,k)=>`${a+k+1}: ${x.slice(0,2800)}`).join('\n');if(chars+s.length>180000)break;chars+=s.length;console.log('\nSOURCE '+f+'\n'+s);}
           NODE
