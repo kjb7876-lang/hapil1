@@ -1,0 +1,81 @@
+40630:     },
+40631:     slayer: {
+40632:       name: `혈월 난도각성`,
+40633:       trigger: `낮은 EGO·흡혈 공격이 준비치를 2배 축적`,
+40634:       signature: `혈맥 난도`,
+40635:       defense: `흡혈 갑주`,
+40636:       burst: `혈월 회전절단`,
+40637:       capstone: `혈월 만개 난도`,
+40638:       color: `#ff4a37`,
+40639:       accent: `#ffd09d`,
+40640:       aura: `bloodMoon`,
+40641:       cadence: 2,
+40642:       chanceBonus: 0.015,
+40643:       threadEffect: `bloodlink`,
+40644:       threadText: `출혈 공유·고율 흡혈`,
+40645:     },
+40646:     gunner: {
+40647:       name: `기억 탄도각성`,
+40648:       trigger: `적 투척 예고·6연격이 준비치를 2배 축적`,
+40649:       signature: `기억복제 레이저`,
+40650:       defense: `투척기억 시차`,
+40651:       burst: `스캔 탄도망`,
+40652:       capstone: `진명 기억정지포`,
+40653:       color: `#5beaff`,
+40654:       accent: `#e3ffff`,
+40655:       aura: `reticle`,
+40656:       cadence: 3,
+40657:       chanceBonus: 0.02,
+40658:       threadEffect: `copy`,
+40659:       threadText: `투척 시간지연·재사용 환급`,
+40660:     },
+40661:   },
+40662:   dr = (e, t) =>
+40663:     Math.max(0, Math.min(t, Math.round(Number.isFinite(e) ? e : 0))),
+40664:   fr = (e) => `heroMastery_${e}`,
+40665:   pr = (e) => `timeMastery_${e}`,
+40666:   mr = (e) => `resonanceThread_${e}`,
+40667:   hr = (e) => lr.includes(e);
+40668: function MONGSE_awakeningProfile(e) {
+40669:   return MONGSE_AWAKENING_PROFILES[e] ?? MONGSE_AWAKENING_PROFILES.hwando;
+40670: }
+40671: function gr(e, t) {
+40672:   let n = dr(t, 7);
+40673:   return {
+40674:     level: n,
+40675:     definition: ur[e] ?? ur.hwando,
+40676:     powerMultiplier: 1 + n * 0.045,
+40677:     speedMultiplier: 1 + n * 0.018,
+40678:     cooldownMultiplier: Math.max(0.79, 1 - n * 0.03),
+40679:     sustainMultiplier: 1 + n * 0.065,
+40680:     guardMultiplier: Math.max(0.76, 1 - n * 0.032),
+40681:     dashBonus: n * 0.11,
+40682:     extraTarget: +(n >= 4),
+40683:     signatureUnlocked: n >= 7,
+40684:   };
+40685: }
+40686: function _r(e) {
+40687:   let t = dr(e, 8);
+40688:   return {
+40689:     level: t,
+40690:     enabled: t > 0,
+40691:     stasisUnlocked: t >= 1,
+40692:     accelerationUnlocked: t >= 2,
+40693:     laybackUnlocked: t >= 3,
+40694:     timeStopUnlocked: t >= 4,
+40695:     rewindUnlocked: t >= 5,
+40696:     stasisRadius: 2.4 + t * 0.28,
+40697:     stasisDuration: 0.36 + t * 0.065,
+40698:     stasisCooldown: Math.max(3.4, 6.8 - t * 0.4),
+40699:     accelerationDuration: 2.2 + t * 0.28,
+40700:     accelerationMultiplier: 1.12 + t * 0.025,
+40701:     accelerationCooldown: Math.max(5.8, 10.2 - t * 0.5),
+40702:     laybackRadius: 3.6 + t * 0.42,
+40703:     laybackCooldown: Math.max(5.5, 11.5 - t * 0.65),
+40704:     timeStopDuration: 0.36 + t * 0.075,
+40705:     timeStopCooldown: Math.max(10.5, 18.5 - t * 0.8),
+40706:     rewindSeconds: 1.35 + t * 0.12,
+40707:     rewindHealthRatio: 0.22 + t * 0.0275,
+40708:     rewindCooldown: Math.max(22, 38 - t * 1.75),
+40709:     bossResistance: 0.52,
+40710:   };

@@ -1,0 +1,68 @@
+
+SECTION DEV
+54031:         if (String(e ?? ``).trim() !== `777`)
+54042:         window.__HAPIL_SAMONG_RC91__?.unlock(P.current,'777');
+65465:  const [developerCode,setDeveloperCode]=(0,l.useState)(""),[developerCodeMessage,setDeveloperCodeMessage]=(0,l.useState)("");
+65466:  const submitDeveloperCode=event=>{event?.preventDefault?.();const result=typeof apply==="function"?apply(developerCode):{ok:false,message:"관리 코드 기능을 사용할 수 없습니다."};setDeveloperCodeMessage(result?.message??(result?.ok?"코드가 적용되었습니다.":"코드를 확인해 주세요."));if(result?.ok)setDeveloperCode("");};
+65479:   (0,q.jsxs)('section',{className:'developer-code-settings-v31576',children:[(0,q.jsx)('h3',{children:'개발자 코드'}),(0,q.jsxs)('form',{className:'developer-code-form-v31576',onSubmit:submitDeveloperCode,children:[
+65480:     (0,q.jsxs)('label',{children:[(0,q.jsx)('b',{children:'관리 코드'}),(0,q.jsx)('input',{type:'text',inputMode:'numeric',autoComplete:'off',maxLength:3,pattern:'[0-9]*',value:developerCode,'aria-label':'개발자 코드',onChange:event=>setDeveloperCode(event.target.value.slice(0,3))})]}),
+65481:     (0,q.jsx)('button',{type:'submit',disabled:!developerCode.trim(),children:'코드 적용'}),
+65482:     (0,q.jsx)('p',{role:'status','aria-live':'polite',children:developerCodeMessage||'777: 사몽 모드·모든 영웅 스킬·콜라보 강화·전체 맵 이동을 해금합니다.'})
+
+SECTION PLAYER_SPEED
+40106:     speedMultiplier: 1 + Math.log2(1 + r) * 0.025,
+40191:     speedMultiplier: n > 0 ? 1.1 + n * 0.022 : 1,
+40677:     speedMultiplier: 1 + n * 0.018,
+55492:                         speedMultiplier: 1.6,
+61267:                 (1 + (R.current.speed ?? 0) * 0.07) *
+61268:                 r.speedMultiplier *
+61269:                 MONGSE_infiniteBaseStats.speedMultiplier *
+61271:                 (c ? s.speedMultiplier : 1) *
+64574:         detail: `이동 속도 ×${MONGSE_infiniteProfile.speedMultiplier.toFixed(3)}`,
+64820:                             ? `이동 속도 +7%`
+119729:     maxActive:48,speedMultiplier:2,defaultNormalSpeed:4,minNormalSpeed:.25,maxNormalSpeed:120,
+119963:     const model=spriteModel(visual,sprite,a),r=ray(p.x,p.y,dir.dx,dir.dy,model.size),speed=dir.normalSpeed*CFG.speedMultiplier;
+
+SECTION BULLET_ART
+61969:                              window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareFrame(o);
+61970:                window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);
+61971:                window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);
+61991:                 window.__HAPIL_COMBAT_SAFETY_RC126__?.steer(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1));
+116799:   const VERSION="3.13.72", MOBILE_CAP=48, MIN_DISTANCE=4.5, COMMON_BULLET="./assets/rc64/projectiles/danmaku-jellybean.webp", owners=new Map(), live=new WeakMap(), mapArtLocks=new WeakMap(), mapPatternLocks=new WeakMap();
+117171:     window.__HAPIL_DANMAKU_V31316__=Object.freeze({installed:true,version:VERSION,commonAsset:COMMON_BULLET,names:Object.freeze({...names}),deck,catalog:spellCatalog,modeFor,artFor,plan,trySchedule,scheduleMapSignature,tick,drawShot,drawCue,zoneAssets,audit,barrageCap,rankedRows:()=>[...owners.values()],mapSignature:signatureFor,mapSignatures:()=>signatures.map(row=>({...row})),mapCoverage,needsMapSignature,active:s=>live.has(s),lockedAsset:(s,a,family)=>mapArtLocks.get(s)?.assets.get(String(a?.id??"boss")+":"+String(family??"danmaku"))?.sprite??null,clearMap:s=>{if(s){mapArtLocks.delete(s);mapPatternLocks.delete(s);}},counters:()=>({...stats})});
+117971:     for(const h of hits)window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareNative(s,h,G);
+122938:      // Dark tapered underlay local to contact; no screen tint, no extra bullet art.
+126028:  const COMMON='./assets/rc64/projectiles/danmaku-jellybean.webp';
+126448: (()=>{const R=window.__HAPIL_COMBAT_SAFETY_RC126__;if(!R)return;R.install({project:G,common:()=>window.__HAPIL_DANMAKU_V31316__?.commonAsset,point:(s,p,r)=>dt(s.zone,p,r),clear:(s,a,b,r)=>!pt(s.zone,a,b,r)&&!ut(s.zone,b.x,b.y,r)});
+
+SECTION COOLDOWN
+90250: function MONGSE_attackCooldownScaleV31236(
+90423:   MONGSE_actorV31236.attackCooldownScaleV31236 =
+90424:     MONGSE_attackCooldownScaleV31236(
+90510:                 MONGSE_cloneV31236.attackCooldownScaleV31236,
+90723:         MONGSE_actorV31236.attackCooldownScaleV31236;
+90750:       attackCooldownScaleV31236: MONGSE_cooldownScaleV31236,
+90927:   cooldownScale: MONGSE_attackCooldownScaleV31236,
+118437:       cosmicArsenalReadyAtV31318:now+INTRO+.3,
+118640:   function busy(s,a){return !valid(s,a)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||num(a.staggerUntil)>num(s.time)||live.has(s)||num(a.cosmicArsenalReadyAtV31318)>num(s.time)||(s.hostileProjectiles?.length??0)>24||hits(s).length>12||hits(s).some(h=>h.sourceId===a.id)||(s.hostileProjectiles??[]).some(q=>q.sourceId===a.id);}
+118665:     a.cosmicPoseV31318=p.mode==="blood-beam"?"charge":"raise";a.cosmicPoseUntilV31318=last+.3;a.cosmicArsenalReadyAtV31318=last+p.recovery;
+118678:     if(delta>0){r.actor.cosmicPoseUntilV31318=latest+.3;for(const key of ["cosmicArsenalReadyAtV31318","recoverUntil","readyAt","themedOrdnanceAt","bossCombatPatternReadyAtV31230","atomicCastUntil31210","castVisualUntil31210"])r.actor[key]=Math.max(num(r.actor[key]),latest+r.recovery);}
+118684:     r.actor.cosmicPoseV31318="recovery";r.actor.cosmicPoseUntilV31318=num(s.time)+.5;r.actor.cosmicArsenalReadyAtV31318=Math.max(num(r.actor.cosmicArsenalReadyAtV31318),num(s.time)+1.6);live.delete(s);metrics.cancelled++;
+118700:     if(!r){const a=s.enemies?.find(a=>owner(a)&&a.hp>0);if(!a)return;if(!Number.isFinite(a.cosmicArsenalReadyAtV31318))a.cosmicArsenalReadyAtV31318=now+2.1;trySchedule(s,a);}
+121983:   Object.freeze({name:'연산 관문 · 기록 차선',cosmicPatternV31345:'observed-columns',shape:'line',anchor:'hero',radius:21,width:.62,damage:19,repeats:2,gap:.58,windup:CFG.warning,cooldown:7.4,color:'#ffc262',accent:'#fff6df',status:'none',statusValue:0,phaseMin:1,impactSprite:'./assets/vfx/v31323/boss/b09-boss/ep1b09_pride_machine_electric_arc.webp'}),
+121984:   Object.freeze({name:'흑태양 · 기억 좌표 재연',cosmicPatternV31345:'memory-replay',shape:'circle',anchor:'hero',radius:1.45,width:.62,damage:18,repeats:2,gap:.7,windup:CFG.replayWarning,cooldown:7.8,color:'#f0b95e',accent:'#fff6df',status:'none',statusValue:0,phaseMin:1,impactSprite:'./assets/vfx/v31323/boss/b09-boss/ep1b09_pride_machine_polarity_field.webp'}),
+
+SECTION COSMIC_UPDATE
+36481:     MONGSE_activeMap = window.__HAPIL_LUCIFER_V31318__?.mapFor(t, MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map) ?? MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map,
+36830:           draw: () => window.__HAPIL_ECHOES_V31368__?.drawChild(c,n,e,t.time,i,t)?undefined:window.__HAPIL_LUCIFER_V31318__?.shouldDrawFront(t, e) ? undefined : Yn(c, n, e, t.time, i, e.id === t.targetEnemyId),
+36967:     window.__HAPIL_LUCIFER_V31318__?.drawFront(c,n,t,i),
+51966:         if (window.__HAPIL_LUCIFER_V31318__?.beforeDeath(t, e)) return;
+54386:           if(!s)window.__HAPIL_COMBAT_FLOW_RC95__?.balance(o,R.current,window.__HAPIL_RC95_NATIVE__);
+61956:               window.__HAPIL_LUCIFER_V31318__?.tick(o);
+111434:       if (window.__HAPIL_LUCIFER_V31318__?.installed) serialized.cosmicLuciferV31318 = window.__HAPIL_LUCIFER_V31318__.serialize(state);
+111444:       window.__HAPIL_LUCIFER_V31318__?.sanitizeInto(rawSave, normalized);
+111467:         window.__HAPIL_LUCIFER_V31318__?.restore(state, save);
+118594:     window.__HAPIL_LUCIFER_V31318__=Object.freeze({version:'3.13.18',installed,ID,zone:ZONE,anchor:ANCHOR,
+118862:       lucifer: window.__HAPIL_LUCIFER_V31318__,
+121792:   if(z==='ep1a11'&&a?.cosmicLuciferV31318)return {mapId:z,actorId:a.id,mode:'STAGE',home:window.__HAPIL_LUCIFER_V31318__.anchor,moveRadius:0,source:'native cosmic actor / renderer / mouth / save continuation'};
+126425:  window.__HAPIL_RC95_NATIVE__=Object.freeze(api);

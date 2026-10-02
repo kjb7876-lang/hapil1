@@ -1,0 +1,131 @@
+47910:     );
+47911:   let s = Math.min(o, i);
+47912:   n &&
+47913:     s < a &&
+47914:     ((e.projectileSpawnRejectedAt31214 = Number(e.time ?? 0)),
+47915:     (e.projectileSpawnRejectedCount31214 =
+47916:       Number(e.projectileSpawnRejectedCount31214 ?? 0) + 1));
+47917:   return s < a ? 0 : s;
+47918: }
+47919: function MONGSE_laserBudget31210(e, t, n, r = 1) {
+47920:   let i = [...(e.pendingHits ?? []), ...(e.impactQueue ?? [])].filter(
+47921:       (t) =>
+47922:         t.themedLaser &&
+47923:         Number(t.at ?? t.impactAt ?? e.time + 1) >= Number(e.time ?? 0),
+47924:     ),
+47925:     a = i.filter((e) => e.sourceId === t.id).length,
+47926:     o = Math.min(
+47927:       Math.max(0, MONGSE_COMBAT_DIRECTOR_V31210.globalPendingLaserCap - i.length),
+47928:       Math.max(0, MONGSE_COMBAT_DIRECTOR_V31210.ownerPendingLaserCap - a),
+47929:       Math.max(0, Math.floor(n)),
+47930:     );
+47931:   return o < Math.max(0, Math.floor(r)) ? 0 : o;
+47932: }
+47933: function MONGSE_pushThemeProjectile3129(e, t, n) {
+47934:   const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow?.enabled(e)&&!flow.executing(e)&&!flow.allowed(e,'bullet')&&!(Number(t.atomicCastUntil31210)>e.time))return null;
+47935:   let r = MONGSE_themeProjectileSprite3128(t, e.zone),
+47936:     i = MONGSE_enemyTorsoOffset(t).y,
+47937:     a = MONGSE_bossDirectorProfile31210(t),
+47938:     o = n.patternKind==='rc95-volley' ? 0 : t.boss ? .44 : .32,
+47939:     s = MONGSE_bossBarragePalette(t),
+47940:     MONGSE_projectile31213 = {
+47941:     id: e.fxSerial++,
+47942:     sourceId: t.id,
+47943:     x: n.x ?? t.x,
+47944:     y: n.y ?? t.y,
+47945:     originX: n.x ?? t.x,
+47946:     originY: n.y ?? t.y,
+47947:     previousX: n.x ?? t.x,
+47948:     previousY: n.y ?? t.y,
+47949:     vx: n.vx * a.speedScale,
+47950:     vy: n.vy * a.speedScale,
+47951:     curve: (n.curve ?? 0) * a.curveScale,
+47952:     radius: (n.radius ?? (t.boss ? 0.5 : 0.42)) * a.sizeScale,
+47953:     damage: n.damage ?? (t.boss ? 14 : 10),
+47954:     born: e.time,
+47955:     sourceBorn: e.time,
+47956:     sourceOffsetY: i,
+47957:     expiresAt: e.time + (n.life ?? a.projectileLife31212 ?? 5.4),
+47958:     frozenUntil: Math.max(n.frozenUntil ?? 0, e.time + o),
+47959:     telegraphUntil31210: Math.max(n.frozenUntil ?? 0, e.time + o),
+47960:     reflected: !1,
+47961:     grazed: !1,
+47962:     boss: !!t.boss,
+47963:     midboss: !!t.midboss,
+47964:     color: n.color ?? s.color,
+47965:     accent: n.accent ?? s.accent,
+47966:     label: n.label,
+47967:     visualShape: n.visualShape ?? 'orb',
+47968:     sprite: n.sprite ?? r,
+47969:     spriteHeading: Number.isFinite(Number(n.spriteHeading))
+47970:       ? Number(n.spriteHeading)
+47971:       : void 0,
+47972:     screenAligned31222: !!n.screenAligned31222,
+47973:     status: n.status ?? s.status,
+47974:     statusValue: n.statusValue ?? s.statusValue,
+47975:     heavyBossSkill: !0,
+47976:     themeProjectile: !0,
+47977:     projectileScaleV31226: n.danmakuV31316 ? { speed: 1, radius: 1 } : undefined,
+47978:     atomicBossCast31210: !0,
+47979:     bossNonReflectable31213: !!t.boss,
+47980:     reflectPolicy31213: t.boss ? `deny-major-boss` : `allow` ,
+47981:     bossSkillIdentity31213: t.boss
+47982:       ? `${t.id}:${n.signatureKind31212 ?? n.patternKind ?? `ordnance`}`
+47983:       : null,
+47984:     densePattern3129: n.patternKind,
+47985:     rc95Bullet: n.patternKind==='rc95-volley',
+47986:     signatureKind31212: n.signatureKind31212,
+47987:     signatureFamily31212: n.signatureFamily31212,
+47988:     signatureGrammar31212: n.signatureGrammar31212,
+47989:     signaturePrimaryGrammar31213: n.signaturePrimaryGrammar31213,
+47990:     homingMode31212: n.homingMode31212 ?? `delayed`,
+47991:     pauseUntil31212: n.pauseUntil31212,
+47992:     orbitUntil31212: n.orbitUntil31212,
+47993:     orbitCenterX31212: n.orbitCenterX31212,
+47994:     orbitCenterY31212: n.orbitCenterY31212,
+47995:     orbitRadius31212: n.orbitRadius31212,
+47996:     orbitAngle31212: n.orbitAngle31212,
+47997:     orbitSpeed31212: n.orbitSpeed31212,
+47998:     bounceRemaining31212: n.bounceRemaining31212 ?? 0,
+47999:     offscreenReturnAllowance31212:
+48000:       n.offscreenReturnAllowance31212 ??
+48001:       (Number(n.bounceRemaining31212 ?? 0) > 0 ||
+48002:       Number.isFinite(Number(n.returnAt)) ||
+48003:       Number.isFinite(Number(n.retargetAt31212))
+48004:         ? 1
+48005:         : 0),
+48006:     sineAmplitude31212: n.sineAmplitude31212 ?? 0,
+48007:     sineFrequency31212: n.sineFrequency31212 ?? 0,
+48008:     retargetAt31212: n.retargetAt31212,
+48009:     retargetX31212: n.retargetX31212,
+48010:     retargetY31212: n.retargetY31212,
+48011:     returnAt: n.returnAt,
+48012:     returnUntil: n.returnUntil,
+48013:     turnRate: n.turnRate,
+48014:     telegraphBeat31213: n.telegraphBeat31213 ?? 0,
+48015:     choreographySuite31213: n.choreographySuite31213,
+48016:     bossRhythmMotif31214: n.bossRhythmMotif31214,
+48017:     bossRhythmWave31214: n.bossRhythmWave31214,
+48018:     bossRhythmHoldUntil31214: n.bossRhythmHoldUntil31214,
+48019:     bossRhythmReleaseAt31214: n.bossRhythmReleaseAt31214,
+48020:     bossRhythmCrescendoScale31214: n.bossRhythmCrescendoScale31214,
+48021:     bossRhythmDirectionOffset31214: n.bossRhythmDirectionOffset31214,
+48022:     bossSafeCorridorRadians31214: n.bossSafeCorridorRadians31214,
+48023:     bossArenaPulseAt31214: n.bossArenaPulseAt31214,
+48024:     bossRecoveryWindowSeconds31214: n.bossRecoveryWindowSeconds31214,
+48025:   };
+48026:   ((e.hostileProjectiles ??= []).push(MONGSE_projectile31213),
+48027:     MONGSE_markBossProjectile31213(e, MONGSE_projectile31213));
+48028: }
+48029: function MONGSE_finishThemeBulletPattern3129(e, t, n, r, i) {
+48030:   if (!n) return 0;
+48031:   let a = i.includes(`return`) ? e.time + 3.05 : e.time + 1.62,
+48032:     o = MONGSE_lockAtomicBossCast31210(e, t, i, a, `rain`);
+48033:   (e.hostileProjectiles ?? []).forEach((n) => {
+48034:     n.sourceId === t.id &&
+48035:       n.atomicBossCast31210 &&
+48036:       Number(n.born ?? -1) === Number(e.time ?? 0) &&
+48037:       (MONGSE_markBossProjectile31213(e, n),
+48038:       (n.bossCastId31210 = o),
+48039:       (n.bossCastResolveAt31210 = a),
+48040:       (n.interruptProtectedUntil31210 = Math.max(

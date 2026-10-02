@@ -1,0 +1,106 @@
+40270:     `skillQ`,
+40271:     `attack`,
+40272:     `signature`,
+40273:     `autoEvade`,
+40274:     `skillR`,
+40275:     `awakening`,
+40276:     `thread`,
+40277:     `skillW`,
+40278:     `skillE`,
+40279:     `damage`,
+40280:     `cooldown`,
+40281:     `evolution`,
+40282:     `speed`,
+40283:   ]),
+40284:   melee: Object.freeze([
+40285:     `attack`,
+40286:     `skillE`,
+40287:     `signature`,
+40288:     `autoEvade`,
+40289:     `skillQ`,
+40290:     `awakening`,
+40291:     `skillR`,
+40292:     `skillW`,
+40293:     `thread`,
+40294:     `damage`,
+40295:     `evolution`,
+40296:     `speed`,
+40297:     `cooldown`,
+40298:   ]),
+40299: });
+40300: function MONGSE_planAutoGrowth31226(e, t = {}, n = 0, r = null) {
+40301:   if (!(Number(n) > 0) || !F.some((t) => t.id === e)) return null;
+40302:   let MONGSE_signatureKey31226 = fr(e),
+40303:     MONGSE_threadKey31226 = mr(e),
+40304:     MONGSE_timeKey31226 = pr(e),
+40305:     s = MONGSE_AUTO_GROWTH_ORDER_V31226[e] ??
+40306:       MONGSE_AUTO_GROWTH_ORDER_V31226[
+40307:         MONGSE_isRangedHeroId31213(e) ? `ranged` : `melee`
+40308:       ],
+40309:     c = {
+40310:       signature: MONGSE_signatureKey31226,
+40311:       thread: MONGSE_threadKey31226,
+40312:     },
+40313:     l = {
+40314:       damage: 3,
+40315:       speed: 3,
+40316:       cooldown: 3,
+40317:       evolution: 3,
+40318:       ...nr,
+40319:       [MONGSE_signatureKey31226]: 7,
+40320:       [MONGSE_threadKey31226]: 6,
+40321:       ...(hr(e) ? { [MONGSE_timeKey31226]: 8 } : {}),
+40322:     },
+40323:     u = [],
+40324:     d = r?.hp / Math.max(1, r?.maxHp ?? 1),
+40325:     f = !!(r?.enemies ?? []).some((e) => e?.boss || e?.midboss);
+40326:   Object.entries(l).forEach(([n, r]) => {
+40327:     let i = Math.max(0, Math.floor(Number(t[n]) || 0));
+40328:     if (i >= r || (n === `awakening` && !MONGSE_awakenGate(t, i).ok)) return;
+40329:     let a = Object.entries(c).find(([, e]) => e === n)?.[0] ?? n,
+40330:       o = s.indexOf(a),
+40331:       l = 120 - (o < 0 ? s.length : o) * 4 - (i / Math.max(1, r)) * 2;
+40332:     n === `awakening` && (l += 12 + (f ? 8 : 0));
+40333:     n === `autoEvade` && i < 3 && (l += 11);
+40334:     d < 0.58 && [`skillW`, `autoEvade`, `speed`].includes(n) && (l += 9);
+40335:     f &&
+40336:       [`skillR`, `awakening`, MONGSE_signatureKey31226].includes(n) &&
+40337:       (l += 7);
+40338:     u.push({
+40339:       key: n,
+40340:       from: i,
+40341:       to: i + 1,
+40342:       max: r,
+40343:       score: l,
+40344:       reason:
+40345:         n === `awakening`
+40346:           ? `보스 대응 각성`
+40347:           : n === `autoEvade`
+40348:             ? `생존 회피`
+40349:             : n === MONGSE_signatureKey31226
+40350:               ? `영웅 고유 전투`
+40351:               : n === a
+40352:                 ? `공명실 연계`
+40353:                 : `역할 우선 강화`,
+40354:     });
+40355:   });
+40356:   if (u.length)
+40357:     return u.sort((e, t) => t.score - e.score || e.key.localeCompare(t.key))[0];
+40358:   if (!MONGSE_growthIsMastered(e, t)) return null;
+40359:   let p = [
+40360:       `infinitePower`,
+40361:       `infiniteVitality`,
+40362:       `infiniteCooldown`,
+40363:       `infiniteSpeed`,
+40364:     ],
+40365:     m = p
+40366:       .map((e, n) => ({
+40367:         key: e,
+40368:         from: Math.max(0, Math.floor(Number(t[e]) || 0)),
+40369:         order: n,
+40370:       }))
+40371:       .sort((e, t) => e.from - t.from || e.order - t.order)[0];
+40372:   return m && m.from < MONGSE_INFINITE_STAT_MAX
+40373:     ? {
+40374:         ...m,
+40375:         to: m.from + 1,

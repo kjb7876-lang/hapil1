@@ -1,0 +1,201 @@
+46020:       ),
+46021:     MONGSE_percentHpDamage = MONGSE_heavyBossSkill
+46022:       ? Math.max(
+46023:           1,
+46024:           Math.round(
+46025:             e.maxHp * (MONGSE_damageSource.boss ? 0.025 : 0.015),
+46026:           ),
+46027:         )
+46028:       : 0,
+46029:     MONGSE_criticalHit = MONGSE_damageSource
+46030:       ? MONGSE_bossLikeSource
+46031:       : !!i,
+46032:     MONGSE_recentContactHitsV31535 =
+46033:       e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) >= 0 &&
+46034:       e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) <= 1.25 &&
+46035:       Number.isFinite(Number(e.consecutiveContactHitsV31535))
+46036:         ? Math.max(0, Number(e.consecutiveContactHitsV31535))
+46037:         : 0,
+46038:     MONGSE_contactDamageScaleV31535 = Math.max(
+46039:       0.5,
+46040:       1 - Math.min(5, MONGSE_recentContactHitsV31535) * 0.1,
+46041:     ),
+46042:     MONGSE_rawDamage31213 = Math.max(
+46043:       t + MONGSE_percentHpDamage > 0 ? 1 : 0,
+46044:       Math.round(
+46045:         (t + MONGSE_percentHpDamage) *
+46046:           MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *
+46047:         (Number(e.heroDamageTakenMultiplier) || 1) *
+46048:             (window.__HAPIL_HELL_V31322__?.damageMultiplier(e) ?? 1) *
+46049:           (window.__HAPIL_RAID_RC24__?.damageScale?.(e,MONGSE_damageSource) ?? 1) *
+46050:           MONGSE_contactDamageScaleV31535,
+46051:       ),
+46052:     ),
+46053:     MONGSE_damageBudget31213 = MONGSE_limitHeroDamage31213(
+46054:       e,
+46055:       MONGSE_rawDamage31213,
+46056:       MONGSE_damageSource,
+46057:     ),
+46058:     MONGSE_armoredBaseV31337 = window.__HAPIL_RANGES_V31337__?.defend(e.activeHeroId,MONGSE_damageBudget31213.applied) ?? MONGSE_damageBudget31213.applied,
+46059:     a = Math.max(window.__HAPIL_RAID_RC24__?.floorDamage?.(e,MONGSE_damageSource,0) ?? 0, window.__HAPIL_HEART_V31336__?.packet(e,e,MONGSE_damageSource,MONGSE_armoredBaseV31337,MONGSE_rawDamage31213) ?? MONGSE_armoredBaseV31337) * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e)??1) * (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e)??1) * (window.__HAPIL_DAMAGE_RC108__?.incoming(e,MONGSE_damageSource)??1),
+46060:     MONGSE_preserveHeroUltimatePose =
+46061:       e.heroMotion?.kind === `skill` &&
+46062:       e.heroMotion?.skillIndex === 3 &&
+46063:       Number(e.heroMotion?.until ?? 0) > e.time;
+46064:   if (!(a > 0)){window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'REJECTED','native-damage-budget');window.__HAPIL_COMBAT_RC47__?.absorbed(e,e,i,n,r);return !1;}
+46065:   e.consecutiveContactHitsV31535 = Math.min(5, MONGSE_recentContactHitsV31535 + 1);
+46066:   e.lastAcceptedContactAtV31535 = e.time;
+46067:   e.contactDamageScaleV31535 = MONGSE_contactDamageScaleV31535;
+46068:   window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'HIT','native-player-damage',{appliedDamage:a,contactDamageScale:MONGSE_contactDamageScaleV31535});
+46069:   window.__HAPIL_ENEMY_FEEL_V31361__?.hit(e,e,MONGSE_damageSource,a,{originX:n,originY:r});
+46070:   return (
+46071:     (e.hp -= a),window.__HAPIL_RAID_RC24__?.afterHit?.(e,MONGSE_damageSource,a),window.__HAPIL_LOOP_V31365__?.onDamage(e,e,a),
+46072:     (e.combo = 0),
+46073:     (e.comboUntil = 0),
+46074:     (e.invulnerableUntil = e.time),
+46075:     MONGSE_bossLikeSource &&
+46076:       ((e.lifestealSuppressedUntil = Math.max(
+46077:         Number(e.lifestealSuppressedUntil ?? 0),
+46078:         e.time + (MONGSE_damageSource.boss ? 4.8 : 3.6),
+46079:       )),
+46080:       (e.lifestealMultiplier = Math.min(
+46081:         Number(e.lifestealMultiplier ?? 1),
+46082:         MONGSE_damageSource.boss ? 0.55 : 0.72,
+46083:       )),
+46084:       e.time - Number(e.lastLifestealSuppressionTextAt ?? -99) >= 1.4 &&
+46085:         ((e.lastLifestealSuppressionTextAt = e.time),
+46086:         e.floatTexts.push({
+46087:           id: e.fxSerial++,
+46088:           x: e.x,
+46089:           y: e.y,
+46090:           born: e.time,
+46091:           duration: 0.9,
+46092:           text: MONGSE_damageSource.boss
+46093:             ? `흡혈 효율 -45%`
+46094:             : `흡혈 효율 -28%`,
+46095:           color: `#d6a4ff`,
+46096:           critical: !0,
+46097:         }))),
+46098:     MONGSE_heavyBossSkill &&
+46099:       (() => {
+46100:         let t = e.x - n,
+46101:           i = e.y - r,
+46102:           a = Math.max(
+46103:             MONGSE_COMBAT_PHYSICS_V3128.collisionEpsilon,
+46104:             Math.hypot(t, i),
+46105:           ),
+46106:           o = MONGSE_damageSource.boss
+46107:             ? MONGSE_COMBAT_PHYSICS_V3128.knockbackBoss
+46108:             : MONGSE_COMBAT_PHYSICS_V3128.knockbackMidboss,
+46109:           s = ft(
+46110:             e.zone,
+46111:             e,
+46112:             {
+46113:               x: (t / a) * o * MONGSE_COMBAT_PHYSICS_V3128.knockbackFriction,
+46114:               y: (i / a) * o * MONGSE_COMBAT_PHYSICS_V3128.knockbackFriction,
+46115:             },
+46116:             0.48,
+46117:           );
+46118:         ((e.x = s.x), (e.y = s.y), hi(e));
+46119:       })(),
+46120:     MONGSE_preserveHeroUltimatePose ||
+46121:       window.__HAPIL_SKILL_COMPLETION_V31412__?.keepHeroPose(e, e, `hurt`) ||
+46122:       (e.heroMotion = {
+46123:         kind: `hurt`,
+46124:         started: e.time,
+46125:         until: e.time + 0.24,
+46126:         facing: e.facing,
+46127:         dx: n - e.x,
+46128:         dy: r - e.y,
+46129:         direction: wn(n - e.x, r - e.y, e.facing),
+46130:       }),
+46131:     e.floatTexts.push({
+46132:       id: e.fxSerial++,
+46133:       x: e.x,
+46134:       y: e.y,
+46135:       born: e.time,
+46136:       duration: 0.68,
+46137:       text: `-${a} EGO`,
+46138:       color: `#ff496d`,
+46139:       critical: MONGSE_criticalHit,
+46140:     }),
+46141:     e.hp > 0 &&
+46142:       e.hp / Math.max(1, e.maxHp) <= 0.36 &&
+46143:       e.time >= (e.guardianGraceReadyAt ?? 0) &&
+46144:       MONGSE_grantSurvivalGrace(e, 1.45, `위기 공명`),
+46145:     !0
+46146:   );
+46147: }
+46148: function Ti(e, t, n, r) {
+46149:   if (!(t === `none` || n <= 0)) {
+46150:     if (t === `slow`)
+46151:       ((e.heroSlowUntil = Math.max(e.heroSlowUntil, e.time + n)),
+46152:         (e.heroStatus = `${r} · 이동 둔화`),
+46153:         (e.heroStatusUntil = e.heroSlowUntil));
+46154:     else if (t === `drain`) {
+46155:       let t = Math.min(e.resonance, n);
+46156:       ((e.resonance = Math.max(0, e.resonance - n)),
+46157:         (e.heroStatus = `${r} · 공명 -${Math.round(t)}`),
+46158:         (e.heroStatusUntil = e.time + 1.1));
+46159:     } else
+46160:       t === `delay`
+46161:         ? (Object.keys(e.cooldowns).forEach((t) => {
+46162:             e.cooldowns[t] > e.time && (e.cooldowns[t] += n);
+46163:           }),
+46164:           (e.heroStatus = `${r} · 재사용 지연`),
+46165:           (e.heroStatusUntil = e.time + 1.15))
+46166:         : t === `echo` &&
+46167:           ((e.heroStatus = `${r} · 잔향 재타격`),
+46168:           (e.heroStatusUntil = e.time + 1.15),
+46169:           e.pendingHits.push({
+46170:             id: e.fxSerial++,
+46171:             sourceId: ``,
+46172:             born: e.time,
+46173:             at: e.time + Math.max(0.28, n),
+46174:             x: e.x,
+46175:             y: e.y,
+46176:             originX: e.x,
+46177:             originY: e.y,
+46178:             damage: 4,
+46179:             boss: !1,
+46180:             radius: 1.35,
+46181:             innerRadius: 0,
+46182:             width: 0.6,
+46183:             shape: `circle`,
+46184:             color: `#3aaad9`,
+46185:             accent: `#e9fbff`,
+46186:             status: `none`,
+46187:             statusValue: 0,
+46188:             label: `되돌아온 잔향`,
+46189:             perfectWindow: 0,
+46190:           }));
+46191:     e.floatTexts.push({
+46192:       id: e.fxSerial++,
+46193:       x: e.x,
+46194:       y: e.y,
+46195:       born: e.time,
+46196:       duration: 0.9,
+46197:       text: e.heroStatus,
+46198:       color: t === `drain` ? `#bca2ff` : t === `slow` ? `#b6f58d` : `#8ee7ff`,
+46199:     });
+46200:   }
+46201: }
+46202: function MONGSE_setSevenSinHeroStatus(e, t, n, r = 1.1) {
+46203:   if (!e) return;
+46204:   ((e.heroStatus = t),
+46205:     (e.heroStatusUntil = Math.max(e.heroStatusUntil ?? 0, e.time + r)),
+46206:     e.floatTexts.push({
+46207:       id: e.fxSerial++,
+46208:       x: e.x,
+46209:       y: e.y,
+46210:       born: e.time,
+46211:       duration: Math.min(1.05, r),
+46212:       text: t,
+46213:       color: n,
+46214:       critical: !0,
+46215:     }));
+46216: }
+46217: var MONGSE_ENVY_ILLUSION_CAP = 2;
+46218: function MONGSE_applySevenSinHitMechanic(e, t) {
+46219:   let n = t?.sevenSinMechanic;
+46220:   if (!e || !n) return { applied: !1, mechanic: n ?? `` };

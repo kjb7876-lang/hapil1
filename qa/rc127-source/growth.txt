@@ -1,0 +1,171 @@
+40040:       key: `skillQ`,
+40041:       input: `Q`,
+40042:       name: `Q · 초식 증폭`,
+40043:       detail: `피해·사거리·관통 대상 수를 단계적으로 강화`,
+40044:     },
+40045:     {
+40046:       key: `skillW`,
+40047:       input: `W`,
+40048:       name: `W · 전술 순환`,
+40049:       detail: `피해·회복·방어 지속시간과 영향 대상을 강화`,
+40050:     },
+40051:     {
+40052:       key: `skillE`,
+40053:       input: `E`,
+40054:       name: `E · 추격 위상`,
+40055:       detail: `돌진 거리·무적시간·경로상 피해를 강화`,
+40056:     },
+40057:     {
+40058:       key: `skillR`,
+40059:       input: `R`,
+40060:       name: `R · 궁극 공명`,
+40061:       detail: `궁극기 피해·범위·대상 수와 과충전 효율을 강화`,
+40062:     },
+40063:     {
+40064:       key: `awakening`,
+40065:       input: `Ω`,
+40066:       name: `공명 각성 · EGO 초월`,
+40067:       detail: `A 적중 시 각성 확률·지속시간 상승, 오라·자동추적·다중 스킬 연계 개방`,
+40068:     },
+40069:     {
+40070:       key: `autoEvade`,
+40071:       input: `AUTO`,
+40072:       name: `반응 공명 · 자동회피`,
+40073:       detail: `자동전투에서 탄환·레이저·장판 궤도를 예측하고 실제 회피기동을 수행`,
+40074:     },
+40075:   ];
+40076: var MONGSE_INFINITE_STAT_MAX = 999999999,
+40077:   MONGSE_INFINITE_STAT_KEYS = [
+40078:     `infinitePower`,
+40079:     `infiniteVitality`,
+40080:     `infiniteSpeed`,
+40081:     `infiniteCooldown`,
+40082:   ];
+40083: function MONGSE_growthIsMastered(e, t) {
+40084:   return (
+40085:     [`damage`, `speed`, `cooldown`, `evolution`].every(
+40086:       (e) => Math.round(t[e] ?? 0) >= 3,
+40087:     ) &&
+40088:     Object.entries(nr).every(([e, n]) => Math.round(t[e] ?? 0) >= n) &&
+40089:     Math.round(t[fr(e)] ?? 0) >= 7 &&
+40090:     Math.round(t[mr(e)] ?? 0) >= 6 &&
+40091:     (!hr(e) || Math.round(t[pr(e)] ?? 0) >= 8)
+40092:   );
+40093: }
+40094: function MONGSE_infiniteStats(e) {
+40095:   let t = Math.max(0, Math.floor(Number(e?.infinitePower) || 0)),
+40096:     n = Math.max(0, Math.floor(Number(e?.infiniteVitality) || 0)),
+40097:     r = Math.max(0, Math.floor(Number(e?.infiniteSpeed) || 0)),
+40098:     i = Math.max(0, Math.floor(Number(e?.infiniteCooldown) || 0));
+40099:   return {
+40100:     powerLevel: t,
+40101:     vitalityLevel: n,
+40102:     speedLevel: r,
+40103:     cooldownLevel: i,
+40104:     powerMultiplier: 1 + Math.log2(1 + t) * 0.06,
+40105:     maxHpBonus: n * 5,
+40106:     speedMultiplier: 1 + Math.log2(1 + r) * 0.025,
+40107:     cooldownMultiplier: 1 / (1 + Math.log2(1 + i) * 0.04),
+40108:   };
+40109: }
+40110: function MONGSE_totalGrowthSpent(e) {
+40111:   let t = new Set([
+40112:     `damage`,
+40113:     `speed`,
+40114:     `cooldown`,
+40115:     `evolution`,
+40116:     ...Object.keys(nr),
+40117:     ...MONGSE_INFINITE_STAT_KEYS,
+40118:     ...F.map((e) => fr(e.id)),
+40119:     ...F.map((e) => mr(e.id)),
+40120:     ...lr.map((e) => pr(e)),
+40121:   ]);
+40122:   return [...t].reduce(
+40123:     (t, n) => t + Math.max(0, Math.floor(Number(e?.[n]) || 0)),
+40124:     0,
+40125:   );
+40126: }
+40127: function ir(e, t) {
+40128:   let n = Number.isFinite(e[t]) ? Math.round(e[t]) : 0;
+40129:   return Math.max(0, Math.min(nr[t], n));
+40130: }
+40131: function MONGSE_autoEvadeProfile31223(e = 0, t = `hwando`) {
+40132:   let n = Math.max(0, Math.min(nr.autoEvade, Math.round(Number(e) || 0))),
+40133:     r = MONGSE_isRangedHeroId31213(t);
+40134:   return Object.freeze({
+40135:     level: n,
+40136:     chance: Math.min(0.61, 0.33 + n * 0.035),
+40137:     reactionMin: Math.max(0.075, 0.19 - n * 0.012),
+40138:     reactionMax: Math.max(0.16, 0.31 - n * 0.012),
+40139:     cooldown: Math.max(0.78, 1.36 - n * 0.065),
+40140:     horizon: 0.78 + n * 0.035,
+40141:     distance: r ? 1.9 + n * 0.035 : 1.55 + n * 0.03,
+40142:     duration: Math.max(0.22, 0.31 - n * 0.008),
+40143:     ranged: r,
+40144:   });
+40145: }
+40146: function ar(e) {
+40147:   let t = Math.max(0, Math.min(nr.attack, Math.round(e)));
+40148:   return {
+40149:     level: t,
+40150:     powerMultiplier: 1 + t * 0.065,
+40151:     reachMultiplier:
+40152:       1 + (t >= 2 ? 0.1 : 0) + (t >= 6 ? 0.12 : 0) + (t >= 10 ? 0.16 : 0),
+40153:     strikeCount: 1 + +(t >= 3) + +(t >= 9),
+40154:     targetCount: 1 + +(t >= 4) + +(t >= 8) + +(t >= 12),
+40155:     qEcho: t >= 5,
+40156:     wEcho: t >= 7,
+40157:     eEcho: t >= 9,
+40158:     rEcho: t >= 12,
+40159:   };
+40160: }
+40161: function or(e, t) {
+40162:   let n = [`skillQ`, `skillW`, `skillE`, `skillR`][t] ?? `skillQ`,
+40163:     r = ir(e, n);
+40164:   return {
+40165:     key: n,
+40166:     level: r,
+40167:     damageMultiplier: 1 + r * (t === 3 ? 0.11 : 0.085),
+40168:     rangeMultiplier: 1 + r * 0.035,
+40169:     cooldownMultiplier: Math.max(t === 3 ? 0.7 : 0.66, 1 - r * 0.045),
+40170:     extraTargets: Math.floor(r / (t === 3 ? 2 : 3)),
+40171:     sustainMultiplier: 1 + r * 0.09,
+40172:     durationBonus: r * 0.035,
+40173:     dashDistanceBonus: t === 2 ? r * 0.16 : 0,
+40174:   };
+40175: }
+40176: function sr(e, t = `hwando`, state = null) {
+40177:   e=window.__HAPIL_CHANNEL_V31364__?.effectiveLevel(state,e)??e;
+40178:   let n = Math.max(0, Math.min(nr.awakening, Math.round(e))),
+40179:     r = MONGSE_awakeningProfile(t);
+40180:   return {
+40181:     level: n,
+40182:     enabled: n > 0,
+40183:     heroId: t,
+40184:     profile: r,
+40185:     triggerChance: n > 0 ? Math.min(0.44, 0.15 + n * 0.025 + r.chanceBonus) : 0,
+40186:     guaranteeActions: n >= 7 ? 4 : n >= 4 ? 5 : n >= 2 ? 6 : 7,
+40187:     reserveDuration: 4,
+40188:     duration: n > 0 ? 4.9 + n * 0.625 : 0,
+40189:     cooldown: Math.max(10.5, 16.2 - n * 0.68),
+40190:     damageMultiplier: n > 0 ? 1.31 + n * 0.065 : 1,
+40191:     speedMultiplier: n > 0 ? 1.1 + n * 0.022 : 1,
+40192:     strikeBonus: n >= 3 ? 1 + +(n >= 7) : 0,
+40193:     targetBonus: n >= 2 ? 1 + +(n >= 5) + +(n >= 8) : 0,
+40194:     detectionRange: n > 0 ? 9.2 + n * 0.6 : 0,
+40195:   };
+40196: }
+40197: var MONGSE_REGULAR_SKILL_POWER = Object.freeze([1.14, 1.12, 1.12, 1.1]);
+40198: function MONGSE_regularSkillPower(e, t) {
+40199:   return t ? 1 : (MONGSE_REGULAR_SKILL_POWER[e] ?? 1);
+40200: }
+40201: function MONGSE_regularSkillUtility(e) {
+40202:   return e ? 1 : 1.08;
+40203: }
+40204: function MONGSE_awakenGate(e, t) {
+40205:   let n = Math.min(8, t + 1),
+40206:     r = {
+40207:       attack: ir(e, `attack`),
+40208:       q: ir(e, `skillQ`),
+40209:       w: ir(e, `skillW`),
+40210:       x: ir(e, `skillE`),

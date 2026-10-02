@@ -1,0 +1,436 @@
+118410:  */
+118411: (() => {
+118412:   'use strict';
+118413:   const ID='a11-cosmic-v31318', MASK='a11-boss', ZONE='ep1a11';
+118414:   const ANCHOR=Object.freeze({x:8,y:8}), START='combat:cosmic-lucifer-v31318:started', DONE='combat:cosmic-lucifer-v31318:complete';
+118415:   const INTERVAL=6, FRACTION=.006, INTRO=2.2;
+118416:   let installed=false,attempts=0,baseMaxHp=36000;
+118417:   const lastTick=new WeakMap();
+118418:   const finite=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
+118419:   const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+118420:   const assets=()=>window.__HAPIL_ASSETS_V31318__;
+118421:   const posePaths=()=>assets()?.poses??{};
+118422:   const own=a=>a?.cosmicLuciferV31318===true&&a?.id===ID;
+118423:   const actorFor=s=>s?.zone===ZONE?(s.enemies??[]).find(own):null;
+118424:   const active=s=>s?.zone===ZONE&&s.cosmicEncounterV31318?.stage==='active'&&!!actorFor(s);
+118425:   function makeActor(now=0,snapshot=null) {
+118426:     // Clone only the core runtime fields; old Lucifer phase scripts are not inherited.
+118427:     const a=Kr(ID,'lucifer','루시퍼 · 깨진 가면의 심연',ANCHOR.x,ANCHOR.y,baseMaxHp,posePaths().idle??'',1,'가면 안의 초자아');
+118428:     Object.assign(a,{boss:true,midboss:false,elite:true,cosmicLuciferV31318:true,
+118429:       hp:clamp(finite(snapshot?.hp,baseMaxHp),.001,baseMaxHp),maxHp:baseMaxHp,
+118430:       fixedPhase:1,currentPhase:1,phaseCount:1,phaseMax:1,phaseThresholds:null,
+118431:       humanPhase0:false,narrativeMultiPhase:false,episodeFinalBoss:false,
+118432:       patternSet:'cosmic-lucifer-v31318',phaseSprites:null,actionSprites:null,
+118433:       scale:2,maxStagger:250,stagger:0,sourceFacing31223:'front',
+118434:       readyAt:now+INTRO,patternReadyAt:now+INTRO,invulnerableUntil:now+INTRO,
+118435:       phaseTransitionUntil:now+INTRO,phaseTransitionActive:false,
+118436:       cosmicPoseV31318:'idle',cosmicPoseUntilV31318:now+INTRO,
+118437:       cosmicArsenalReadyAtV31318:now+INTRO+.3,
+118438:       cosmicCycleV31318:Math.max(0,Math.floor(finite(snapshot?.cycle))),
+118439:       cosmicRegenElapsedV31318:clamp(finite(snapshot?.elapsed),0,INTERVAL-.000001),
+118440:       cosmicRegenCountV31318:Math.max(0,Math.floor(finite(snapshot?.regenCount))),
+118441:       attackTerrainPolicyV31217:'pierce',bossNonReflectable31213:true,
+118442:       ghostUntil:0,attackAt:0,attackImpactAt:0,moveDx:0,moveDy:0,
+118443:       narrativePhaseStarted:1,cosmicIntroUntilV31318:now+INTRO});
+118444:     return a;
+118445:   }
+118446:   function clearOwner(s,id) {
+118447:     // Phase conversion withdraws this defeated form's attacks, without touching other actors.
+118448:     for(const key of ['pendingHits','impactQueue','hostileProjectiles','narrativeCasts','telekineticCasts','spatialRiftCasts'])
+118449:       if(Array.isArray(s[key]))s[key]=s[key].filter(e=>e?.sourceId!==id&&e?.summonOwnerId!==id);
+118450:     if(Array.isArray(s.effects))s.effects=s.effects.filter(e=>e?.sourceId!==id);
+118451:     if(Array.isArray(s.pendingStrikes))s.pendingStrikes=s.pendingStrikes.filter(e=>e?.targetId!==id);
+118452:     if(typeof MONGSE_cleanupEpisodeBossSummons==='function')MONGSE_cleanupEpisodeBossSummons(s,id);
+118453:   }
+118454:   function beforeDeath(s,a) {
+118455:     if(!s||s.zone!==ZONE||!a||a.hp>0||!(s.enemies??[]).includes(a))return false;
+118456:     if(own(a)) {
+118457:       s.cosmicEncounterV31318={stage:'complete'};
+118458:       s.clues?.add?.(DONE);
+118459:       clearOwner(s,ID);
+118460:       lastTick.delete(s);
+118461:       return false; // Native death removes the actor, opens the original ending and awards once.
+118462:     }
+118463:     if(a.id!==MASK||active(s)||s.clues?.has?.(DONE)||s.completedZones?.has?.(ZONE))return false;
+118464:     const now=finite(s.time),next=makeActor(now);
+118465:     clearOwner(s,MASK);
+118466:     s.enemies=s.enemies.filter(e=>e.id!==MASK&&e.id!==ID);
+118467:     s.enemies.push(next);
+118468:     s.cosmicEncounterV31318={stage:'active'};
+118469:     s.clues?.add?.(START);
+118470:     s.bossDefeated=false;s.bossPhase=1;s.targetEnemyId=ID;
+118471:     s.target=null;s.path=[];
+118472:     for(const wave of [1,2,3,4])s.spawnedWaves?.add?.(wave);
+118473:     s.invulnerableUntil=Math.max(finite(s.invulnerableUntil),now+INTRO);
+118474:     s.heroStatus='가면 파괴 · 심연의 루시퍼가 드러납니다';s.heroStatusUntil=now+INTRO;
+118475:     s.floatTexts??=[];
+118476:     s.floatTexts.push({id:s.fxSerial++,x:ANCHOR.x,y:ANCHOR.y,born:now,duration:INTRO,
+118477:       text:'가면 붕괴 · EP1-A 최종 결전',color:'#f3e8dc',critical:true});
+118478:     lastTick.set(s,now);
+118479:     return true;
+118480:   }
+118481:   function tick(s) {
+118482:     const a=actorFor(s),now=finite(s?.time);
+118483:     if(!a||!active(s)){if(s){lastTick.delete(s);if(s.zone!==ZONE||(s.enemies??[]).some(e=>e.id===MASK))s.cosmicEncounterV31318=null;}return 0;}
+118484:     const previous=lastTick.get(s);lastTick.set(s,now);
+118485:     a.x=ANCHOR.x;a.y=ANCHOR.y;a.moveDx=0;a.moveDy=0;a.movingUntil=0;
+118486:     if(a.hp<=0||s.hp<=0||s.paused===true||s.pause===true||
+118487:        MONGSE_isEncounterLocked31226(s)||now<finite(s.timeStopUntil)||
+118488:        now<finite(a.cosmicIntroUntilV31318)||previous===undefined)return 0;
+118489:     const elapsed=Math.max(0,now-Math.max(previous,finite(a.cosmicIntroUntilV31318)));
+118490:     a.cosmicRegenElapsedV31318=finite(a.cosmicRegenElapsedV31318)+elapsed;
+118491:     const count=Math.floor((a.cosmicRegenElapsedV31318+1e-9)/INTERVAL);
+118492:     if(count<=0)return 0;
+118493:     a.cosmicRegenElapsedV31318=Math.max(0,a.cosmicRegenElapsedV31318-count*INTERVAL);
+118494:     a.cosmicRegenCountV31318=finite(a.cosmicRegenCountV31318)+count;
+118495:     const healed=Math.min(Math.max(0,a.maxHp-a.hp),a.maxHp*FRACTION*count);
+118496:     a.hp=Math.min(a.maxHp,a.hp+healed);
+118497:     if(healed>0){s.floatTexts??=[];s.floatTexts.push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:.75,text:`재생 +${Math.round(healed)}`,color:'#be5068',critical:false});}
+118498:     return healed;
+118499:   }
+118500:   function serialize(s) {
+118501:     if(s?.zone!==ZONE)return null;
+118502:     if(s.cosmicEncounterV31318?.stage==='complete'||s.clues?.has?.(DONE))return{stage:'complete'};
+118503:     const a=actorFor(s);
+118504:     if(!active(s)||!a||a.hp<=0)return null;
+118505:     return {stage:'active',hp:a.hp,elapsed:clamp(finite(a.cosmicRegenElapsedV31318),0,INTERVAL-.000001),
+118506:       cycle:Math.max(0,Math.floor(finite(a.cosmicCycleV31318))),regenCount:Math.max(0,Math.floor(finite(a.cosmicRegenCountV31318)))};
+118507:   }
+118508:   function sanitizeInto(raw,n) {
+118509:     const r=raw?.cosmicLuciferV31318;
+118510:     if(n?.zone!==ZONE||!r||typeof r!=='object')return;
+118511:     if(r.stage==='complete'&&Array.isArray(raw?.clues)&&raw.clues.includes(DONE)) {
+118512:       n.cosmicLuciferV31318={stage:'complete'};return;
+118513:     }
+118514:     if(r.stage!=='active'||!Number.isFinite(Number(r.hp))||Number(r.hp)<=0)return;
+118515:     // Legitimate active saves cannot complete the zone while this boss is alive.
+118516:     n.cosmicLuciferV31318={stage:'active',hp:clamp(Number(r.hp),.001,baseMaxHp),
+118517:       elapsed:clamp(finite(r.elapsed),0,INTERVAL-.000001),cycle:clamp(Math.floor(finite(r.cycle)),0,1000000),
+118518:       regenCount:clamp(Math.floor(finite(r.regenCount)),0,10000000)};
+118519:     n.bossDefeated=false;
+118520:     n.completedZones=(n.completedZones??[]).filter(z=>z!==ZONE);
+118521:     n.enemies=(n.enemies??[]).filter(a=>a.id!==MASK&&a.id!==ID);
+118522:     n.enemies.push({id:ID,x:ANCHOR.x,y:ANCHOR.y,hp:n.cosmicLuciferV31318.hp,currentPhase:1,phaseIndex:1});
+118523:     n.spawnedWaves=[1,2,3,4];
+118524:   }
+118525:   function restore(s,save) {
+118526:     if(s?.zone!==ZONE||save?.zone!==ZONE)return false;
+118527:     const r=save.cosmicLuciferV31318;
+118528:     if(r?.stage==='complete'){s.cosmicEncounterV31318={stage:'complete'};return true;}
+118529:     if(r?.stage!=='active')return false;
+118530:     let a=actorFor(s);
+118531:     if(!a){a=makeActor(finite(s.time),r);s.enemies=(s.enemies??[]).filter(e=>e.id!==MASK&&e.id!==ID);s.enemies.push(a);}
+118532:     s.cosmicEncounterV31318={stage:'active'};s.bossDefeated=false;s.bossPhase=1;
+118533:     s.targetEnemyId=ID;s.clues?.add?.(START);s.completedZones?.delete?.(ZONE);
+118534:     for(const w of [1,2,3,4])s.spawnedWaves?.add?.(w);
+118535:     lastTick.set(s,finite(s.time));
+118536:     return true;
+118537:   }
+118538:   function poseFor(a,now) {
+118539:     const p=a?.cosmicPoseV31318;
+118540:     return finite(a?.cosmicPoseUntilV31318)>now&&['raise','charge','fire','recovery'].includes(p)?(p==='recovery'?'idle':p):'idle';
+118541:   }
+118542:   function geometry(a,now=0) {
+118543:     const p=G(ANCHOR.x,ANCHOR.y),pose=poseFor(a,now),width=finite(assets()?.actorWidth,450);
+118544:     const height=width*2/3,bob=Math.sin(now*1.7)*3,anchor=assets()?.poseMeta?.[pose]?.anchorRatio??[.5,.881];
+118545:     return {pose,width,height,x:p.x-width*finite(anchor[0],.5),y:p.y+70-height*finite(anchor[1],.881)+bob,
+118546:       tilt:pose==='raise'?Math.sin(now*2.4)*.014:Math.sin(now*1.05)*.005};
+118547:   }
+118548:   function mouthPoint(a,now=0) {
+118549:     const g=geometry(a,now),meta=assets()?.poseMeta?.[g.pose],ratio=meta?.mouthRatio??assets()?.mouthRatio??[.5,.770];
+118550:     return{x:g.x+g.width*finite(ratio[0],.5),y:g.y+g.height*finite(ratio[1],.770)};
+118551:   }
+118552:   function draw(ctx,cache,a,now,settings={}) {
+118553:     const g=geometry(a,now),paths=posePaths(),path=paths[g.pose]??paths.idle;
+118554:     if(!path)return false;
+118555:     let im=MONGSE_queueImage(cache,path,'eager');
+118556:     if(!im?.complete||!(im.naturalWidth||im.width))im=MONGSE_queueImage(cache,paths.idle,'eager');
+118557:     if(!im?.complete||!(im.naturalWidth||im.width))return false;
+118558:     ctx.save();try {
+118559:       ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;
+118560:       ctx.translate(g.x+g.width/2,g.y+g.height/2);ctx.rotate(g.tilt);
+118561:       ctx.drawImage(im,-g.width/2,-g.height/2,g.width,g.height);
+118562:     }finally{ctx.restore();}
+118563:     return true;
+118564:   }
+118565:   function mapFor(s,fallback) {if(s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete'))return assets()?.arenaMap??fallback;const art=window.__HAPIL_MAP_ART_RC56__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_RC54__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_V31345__?.path(s?.zone);return art??fallback;}
+118566:   function cameraFor(s,fallback) {return s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?{x:140.8,y:30,scale:.78}:fallback;}
+118567:   function shouldDrawFront(s,a) {return own(a)&&a.hp>0&&(s?.effects??[]).some(e=>e.cosmicImpactV31318&&e.cosmicModeV31318==='blood-beam'&&e.sourceId===a.id&&s.time>=e.born&&s.time<e.born+e.duration);}
+118568:   function drawFront(ctx,cache,s,settings) {const a=actorFor(s);return shouldDrawFront(s,a)?draw(ctx,cache,a,s.time,settings):false;}
+118569:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,installed,exactOwner:ID==='a11-cosmic-v31318',fixedUpperAnchor:ANCHOR.x===8&&ANCHOR.y===8,regen:INTERVAL===6&&FRACTION===.006,save14:window.__HAPIL_GAMEPLAY_V31317__?.saveRevision===14,sourceBoss:!!N?.ep1a11?.enemies?.find(a=>a.id===MASK),maxHp:baseMaxHp>0};return{version:'3.13.18',checks,allPass:Object.values(checks).every(Boolean)};}
+118570:   function install(){
+118571:     if(installed)return true;if(window.__HAPIL_V31317_RELEASE__?.allPass!==true)return false;
+118572:     baseMaxHp=Math.round(Jr(N[ZONE].enemies.find(a=>a.id===MASK),ZONE).maxHp*1.35);
+118573:     const baseRestore=Ii;
+118574:     Ii=function HAPIL_restoreEnemiesV31310(save){const rows=baseRestore(save);if(save?.zone!==ZONE||save?.cosmicLuciferV31318?.stage!=='active')return rows;return [...rows.filter(a=>a.id!==MASK&&a.id!==ID),makeActor(0,save.cosmicLuciferV31318)];};
+118575:     const baseClear=MONGSE_zoneCombatCleared;
+118576:     MONGSE_zoneCombatCleared=function(s,z=s?.zone){if(z===ZONE&&active(s))return false;return baseClear(s,z);};
+118577:     const baseNarrative=MONGSE_beginNarrativeAttack;
+118578:     MONGSE_beginNarrativeAttack=function(s,a,...args){return own(a)?null:baseNarrative(s,a,...args);};
+118579:     const baseDamage=MONGSE_phaseGateHealth;
+118580:     MONGSE_phaseGateHealth=function(s,a,damage){return own(a)?Math.max(0,a.hp-Math.max(0,finite(damage))):baseDamage(s,a,damage);};
+118581:     const baseTorso=MONGSE_enemyTorsoOffset;
+118582:     MONGSE_enemyTorsoOffset=function(a){return own(a)?{x:0,y:-5}:baseTorso(a);};
+118583:     const baseMove=ft;
+118584:     ft=function(z,a,...args){return own(a)?{...ANCHOR}:baseMove(z,a,...args);};
+118585:     const baseDraw=Yn;
+118586:     Yn=function HAPIL_drawCosmicLuciferV31318(ctx,cache,a,now,settings,...args){return own(a)?draw(ctx,cache,a,now,settings):baseDraw(ctx,cache,a,now,settings,...args);};
+118587:     const baseCamera=w;
+118588:     w=function HAPIL_cosmicCameraV31318(x,y,state){return cameraFor(state,baseCamera(x,y));};
+118589:     const basePlan=MONGSE_zoneAssetPlan31220;
+118590:     MONGSE_zoneAssetPlan31220=function(z,...args){const p=basePlan(z,...args);return assets()?.addToPlan?.(p,z)??p;};
+118591:     const baseManifest=MONGSE_zoneAssetManifest;
+118592:     MONGSE_zoneAssetManifest=function(z,...args){return new Set([...baseManifest(z,...args),...(z===ZONE?assets()?.paths??[]:[])]);};
+118593:     installed=true;
+118594:     window.__HAPIL_LUCIFER_V31318__=Object.freeze({version:'3.13.18',installed,ID,zone:ZONE,anchor:ANCHOR,
+118595:       regenInterval:INTERVAL,regenFraction:FRACTION,maxHp:baseMaxHp,makeActor,actorFor,active,own,beforeDeath,tick,
+118596:       serialize,sanitizeInto,restore,poseFor,geometry,mouthPoint,draw,mapFor,cameraFor,shouldDrawFront,drawFront,audit});
+118597:     return true;
+118598:   }
+118599:   function schedule(){if(install())return;if(++attempts<640)setTimeout(schedule,0);}schedule();
+118600: })();
+118601: 
+118602: /* HAPIL_V31318_ARSENAL_PATCH: the unmasked relic commands one committed action
+118603:  * at a time. All health damage uses the native impact/projectile pipelines.
+118604:  */
+118605: (() => {
+118606:   "use strict";
+118607:   const VERSION="3.13.18",ZONE="ep1a11",BASE="./assets/vfx/v31318/";
+118608:   const assets=Object.freeze({beam:BASE+"cosmic-lucifer-blood-beam.webp",reliquary:BASE+"cosmic-lucifer-reliquary.webp",feather:"./assets/generated-v31224/boss-vfx/lucifer_feather_lance.webp"});
+118609:   const modes=Object.freeze(["reliquary","blood-beam","abyss-fan"]), live=new WeakMap();
+118610:   const metrics={casts:0,hits:0,shots:0,cancelled:0,draws:0,aiReturns:0};
+118611:   let attempts=0;
+118612:   const num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f,clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),phase=a=>MONGSE_enemyActivePhase(a),suppressed=s=>num(s?.enemySkillsSuppressedUntilV31309)>num(s?.time);
+118613:   const owner=a=>a?.cosmicLuciferV31318===true;
+118614:   const valid=(s,a)=>!!(s&&a&&owner(a)&&s.zone===ZONE&&s.enemies?.includes(a)&&num(a.hp)>0&&num(s.hp)>0&&!suppressed(s)&&!a.phaseTransitionActive&&num(a.phaseTransitionUntil)<=num(s.time));
+118615:   const hits=s=>[...(s?.pendingHits??[]),...(s?.impactQueue??[])];
+118616:   const owned=(s,r)=>hits(s).filter(h=>h.cosmicAttackV31318&&h.bossCastId31210===r.cast&&h.sourceId===r.actor.id);
+118617:   function damage(s,mode){const base=mode==="blood-beam"?38:mode==="reliquary"?24:12;return Math.min(mode==="blood-beam"?72:mode==="reliquary"?42:20,Math.max(base,num(s.maxHp,100)*(mode==="blood-beam"?.22:mode==="reliquary"?.13:.07)));}
+118618:   function plan(s,a,mode=modes[Math.max(0,Math.floor(num(a?.cosmicCycleV31318)))%modes.length]){
+118619:     if(!owner(a)||s?.zone!==ZONE)return null;
+118620:     if(mode==="reliquary"){
+118621:       const x=clamp(num(s.x),5,27),y=clamp(num(s.y),5,27),raw=[[x,y],[x+5,y-3.8],[x-5,y+3.8],[x+4,y+6],[x-4,y-6]],points=raw.map(([x,y])=>({x:clamp(x,2.5,29.5),y:clamp(y,2.5,29.5)}));
+118622:       return {mode,name:"가면의 성유물 · 낙하하는 다섯 비석",points,windup:2.3,spacing:.6,last:4.7,recovery:1.55,sprite:assets.reliquary,color:"#e53b54"};
+118623:     }
+118624:     if(mode==="blood-beam"){
+118625:       // In the 29.2-square walkable arena, a diagonal band with this half-width
+118626:       // covers 80% exactly; two corner triangles remain safe throughout release.
+118627:       const span=29.2,width=span*(1-Math.sqrt(.2))/Math.SQRT2;
+118628:       return {mode,name:"피의 천문 · 혈광 소멸포",origin:{x:1.4,y:1.4},end:{x:30.6,y:30.6},width,radius:span*Math.SQRT2,windup:3.8,last:3.8,recovery:1.85,sprite:assets.beam,color:"#ff2d4d"};
+118629:     }
+118630:     if(mode!=="abyss-fan")return null;
+118631:     const ports=[{x:clamp(a.x-2.3,1.8,30.2),y:clamp(a.y+2.3,1.8,30.2)},{x:clamp(a.x+2.3,1.8,30.2),y:clamp(a.y-2.3,1.8,30.2)}],volleys=[];
+118632:     for(let beat=0;beat<2;beat++)for(let port=0;port<ports.length;port++){
+118633:       const origin=ports[port],distance=Math.max(.01,Math.hypot(s.x-origin.x,s.y-origin.y)),aim=Math.atan2(s.y-origin.y,s.x-origin.x),gap=Math.max(.26,Math.asin(Math.min(.92,1.5/distance))+.1),angles=[];
+118634:       for(const side of [-1,1])for(let lane=0;lane<3;lane++)angles.push(aim+side*(gap+.08+lane*.21+beat*.035));
+118635:       volleys.push({beat,port,origin,aim,gap,angles,delay:1.55+beat*.58});
+118636:     }
+118637:     return {mode,name:"심연의 날개 · 갈라지는 성창",volleys,windup:1.55,last:2.13,recovery:1.65,sprite:assets.feather,color:"#f5cdbd",count:24};
+118638:   }
+118639:   function baseHit(s,a,p,at){return {id:s.fxSerial++,sourceId:a.id,born:s.time,at,x:0,y:0,originX:a.x,originY:a.y,damage:damage(s,p.mode),boss:true,midboss:false,patternSet:a.patternSet,color:p.color,accent:"#ffe9e9",status:"none",statusValue:0,perfectWindow:.34,heavyBossSkill:true,atomicBossCast31210:true,terrainPiercing31214:true,obstaclePiercing31214:true,losRequired31214:false,label:p.name,sprite:p.sprite,fallbackSprite:p.sprite,telegraphSpriteV31224:p.sprite,impactSpriteV31224:p.sprite,sevenSinImpactSprite:p.sprite,impactFallbackSprite:p.sprite,imageOnly:true,imageOnlyV31226:true,bitmapRequired:true,suppressPrimitiveBodyV31309:true,cosmicAttackV31318:true,cosmicModeV31318:p.mode,cosmicPhaseV31318:phase(a),cosmicZoneV31318:s.zone,cosmicAssetV31318:p.sprite};}
+118640:   function busy(s,a){return !valid(s,a)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||num(a.staggerUntil)>num(s.time)||live.has(s)||num(a.cosmicArsenalReadyAtV31318)>num(s.time)||(s.hostileProjectiles?.length??0)>24||hits(s).length>12||hits(s).some(h=>h.sourceId===a.id)||(s.hostileProjectiles??[]).some(q=>q.sourceId===a.id);}
+118641:   function trySchedule(s,a,forcedMode){
+118642:     const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow?.enabled(s)){forcedMode=flow.phase(s).index===1?'blood-beam':flow.phase(s).index===0?'abyss-fan':forcedMode;}
+118643:     if(busy(s,a))return null;
+118644:     const p=plan(s,a,forcedMode);if(!p)return null;
+118645:     const now=num(s.time),last=now+p.last,before=new Set(s.effects??[]),cast=MONGSE_lockAtomicBossCast31210(s,a,"cosmic-v31318-"+p.mode,last+p.recovery,"rain");
+118646:     s.effects=(s.effects??[]).filter(e=>before.has(e));
+118647:     const attacks=p.mode==="reliquary"?p.points.map((point,i)=>({...baseHit(s,a,p,now+p.windup+i*p.spacing),...point,shape:"circle",radius:2.3,width:0,innerRadius:0,cosmicIndexV31318:i})):p.mode==="blood-beam"?[{...baseHit(s,a,p,last),x:p.end.x,y:p.end.y,originX:p.origin.x,originY:p.origin.y,shape:"line",radius:p.radius,width:p.width,innerRadius:0}]:[];
+118648:     for(const hit of attacks)Object.assign(hit,{bossCastId31210:cast,bossCastResolveAt31210:last+p.recovery,interruptProtectedUntil31210:last+p.recovery,raidUltimateRC25:p.mode==='reliquary',raidUltimateCastIdRC25:cast});
+118649:     (s.pendingHits??=[]).push(...attacks);
+118650:     const shots=[];
+118651:     if(p.mode==="abyss-fan"){
+118652:       const director=MONGSE_bossDirectorProfile31210(a),speed=4.5;
+118653:       for(const volley of p.volleys)for(const angle of volley.angles){
+118654:         const at=now+volley.delay,prior=s.hostileProjectiles.length;
+118655:         MONGSE_pushThemeProjectile3129(s,a,{danmakuV31316:true,x:volley.origin.x,y:volley.origin.y,vx:Math.cos(angle)*speed/Math.max(.1,num(director.speedScale,1)),vy:Math.sin(angle)*speed/Math.max(.1,num(director.speedScale,1)),radius:.27/Math.max(.1,num(director.sizeScale,1)),damage:damage(s,p.mode),sprite:p.sprite,curve:0,frozenUntil:at,homingMode31212:"none",status:"none",statusValue:0,label:p.name,patternKind:"cosmic-abyss-fan",life:14});
+118656:         const q=s.hostileProjectiles[prior];if(!q)continue;
+118657:         Object.assign(q,{cosmicShotV31318:true,cosmicZoneV31318:s.zone,cosmicPhaseV31318:phase(a),cosmicAssetV31318:p.sprite,cosmicReleaseV31318:at,cosmicAngleV31318:angle,cosmicAimV31318:volley.aim,cosmicGapV31318:volley.gap,cosmicBeatV31318:volley.beat,cosmicPortV31318:volley.port,sourceOffsetY:-18,sprite:p.sprite,fallbackSprite:p.sprite,spriteHeading:0,screenAligned31222:false,hideUntilRelease31219:true,codeNativeBarrage31219:true,bodySpawned31219:false,motionReleaseAt31219:at,collisionDisabledUntil31219:at,collisionDisabledUntilV31226:at,telegraphUntil31210:at,frozenUntil:at,imageOnly:true,bitmapRequired:true,curve:0,homingMode31212:"none",scatterHomingPrepared31211:true,bossCastId31210:cast,bossCastResolveAt31210:last+p.recovery,interruptProtectedUntil31210:last+p.recovery,retirePolicy31222:"hero-or-world-boundary"});
+118658:         for(const key of ["homeAt31211","homeUntil31211","returnAt","returnUntil","retargetAt31212"])delete q[key];
+118659:         shots.push(q);
+118660:       }
+118661:     }
+118662:     const cue={id:s.fxSerial++,kind:"cosmicCueV31318",cosmicCueV31318:true,cosmicModeV31318:p.mode,sourceId:a.id,x:a.x,y:a.y,born:now,duration:p.last+.13,cosmicHitsV31318:attacks,cosmicVolleysV31318:p.volleys??[],cosmicAssetV31318:p.sprite,sprite:p.sprite,boss:true,imageOnly:true,forceFront:true,color:p.color};
+118663:     (s.effects??=[]).push(cue);(s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:1.65,text:p.name,color:p.color,critical:true});
+118664:     const run={actor:a,zone:s.zone,phase:phase(a),mode:p.mode,hits:attacks,shots,cue,cast,born:now,last,clock:now,recovery:p.recovery};live.set(s,run);
+118665:     a.cosmicPoseV31318=p.mode==="blood-beam"?"charge":"raise";a.cosmicPoseUntilV31318=last+.3;a.cosmicArsenalReadyAtV31318=last+p.recovery;
+118666:     for(const key of ["recoverUntil","readyAt","themedOrdnanceAt","bossCombatPatternReadyAtV31230"])a[key]=Math.max(num(a[key]),last+p.recovery);
+118667:     a.cosmicCycleV31318=Math.max(0,Math.floor(num(a.cosmicCycleV31318)))+1;metrics.casts++;metrics.hits+=attacks.length;metrics.shots+=shots.length;
+118668:     return {family:"cosmic-"+p.mode,projectiles:shots.length,lasers:attacks.length,warningAt:now+p.windup,cosmicV31318:true};
+118669:   }
+118670:   function sync(s){
+118671:     const r=live.get(s);if(!r)return;
+118672:     const current=owned(s,r);
+118673:     for(const h of r.hits){const actual=current.find(v=>v.id===h.id);if(actual&&actual!==h)Object.assign(h,{at:actual.at,impactAt:actual.impactAt});}
+118674:     let latest=r.last;
+118675:     for(const h of r.hits)latest=Math.max(latest,num(h.impactAt,h.at));
+118676:     for(const q of r.shots)if(q.bodySpawned31219!==true){const at=Math.max(num(q.motionReleaseAt31219),num(q.frozenUntil),num(q.collisionDisabledUntilV31226));q.cosmicReleaseV31318=at;for(const key of ["motionReleaseAt31219","collisionDisabledUntil31219","collisionDisabledUntilV31226","telegraphUntil31210","frozenUntil"])q[key]=Math.max(num(q[key]),at);latest=Math.max(latest,at);}
+118677:     const delta=Math.max(0,latest-r.last);r.last=latest;r.cue.duration=Math.max(.1,latest-r.cue.born+.13);
+118678:     if(delta>0){r.actor.cosmicPoseUntilV31318=latest+.3;for(const key of ["cosmicArsenalReadyAtV31318","recoverUntil","readyAt","themedOrdnanceAt","bossCombatPatternReadyAtV31230","atomicCastUntil31210","castVisualUntil31210"])r.actor[key]=Math.max(num(r.actor[key]),latest+r.recovery);}
+118679:   }
+118680:   function cancel(s,r){
+118681:     for(const key of ["pendingHits","impactQueue"])s[key]=(s[key]??[]).filter(h=>!(h.cosmicAttackV31318&&h.sourceId===r.actor.id&&h.bossCastId31210===r.cast));
+118682:     s.hostileProjectiles=(s.hostileProjectiles??[]).filter(q=>!(q.cosmicShotV31318&&q.sourceId===r.actor.id&&q.bossCastId31210===r.cast));
+118683:     s.effects=(s.effects??[]).filter(e=>e!==r.cue&&!(e.cosmicImpactV31318&&e.bossCastId31210===r.cast));
+118684:     r.actor.cosmicPoseV31318="recovery";r.actor.cosmicPoseUntilV31318=num(s.time)+.5;r.actor.cosmicArsenalReadyAtV31318=Math.max(num(r.actor.cosmicArsenalReadyAtV31318),num(s.time)+1.6);live.delete(s);metrics.cancelled++;
+118685:   }
+118686:   function tick(s){
+118687:     if(!s)return;
+118688:     let r=live.get(s);const now=num(s.time);
+118689:     if(r){
+118690:       if(!s.enemies?.includes(r.actor)||num(r.actor.hp)<=0||num(s.hp)<=0||s.zone!==r.zone){cancel(s,r);return;}
+118691:       const delta=Math.max(0,now-r.clock),dialogue=MONGSE_isEncounterLocked31226(s),stopped=num(s.timeStopUntil)>now;r.clock=now;
+118692:       if(dialogue&&!stopped&&delta>0){for(const h of owned(s,r)){h.at+=delta;if(Number.isFinite(h.impactAt))h.impactAt+=delta;}for(const q of r.shots)if(q.bodySpawned31219!==true){MONGSE_extendProjectileTimeline31214(q,delta);q.frozenUntil=Math.max(num(q.frozenUntil),num(q.cosmicReleaseV31318)+delta);}}
+118693:       if(stopped)for(const q of r.shots)if(q.bodySpawned31219!==true)MONGSE_compensateGlobalTimeStop31216(s,q);
+118694:       sync(s);
+118695:       if(!dialogue&&!stopped)for(const q of r.shots)if(q.bodySpawned31219!==true&&now>=Math.max(num(q.motionReleaseAt31219),num(q.frozenUntil))){q.bodySpawned31219=true;q.cosmicLaunchedAtV31318=now;}
+118696:       if(now>=r.last-.05&&!dialogue&&!stopped){r.actor.cosmicPoseV31318=r.mode==="blood-beam"&&now<r.last+.8?"fire":"recovery";r.actor.cosmicPoseUntilV31318=r.last+r.recovery;}
+118697:       r.cue.cosmicPausedV31318=dialogue||stopped;
+118698:       if(now>r.last+r.recovery&&!owned(s,r).length&&!r.shots.some(q=>s.hostileProjectiles?.includes(q))){live.delete(s);r=null;}
+118699:     }
+118700:     if(!r){const a=s.enemies?.find(a=>owner(a)&&a.hp>0);if(!a)return;if(!Number.isFinite(a.cosmicArsenalReadyAtV31318))a.cosmicArsenalReadyAtV31318=now+2.1;trySchedule(s,a);}
+118701:   }
+118702:   function impact(s,h,base,args){
+118703:     if(!h?.cosmicAttackV31318)return base(s,h,...args);
+118704:     const a=s.enemies?.find(a=>a.id===h.sourceId);
+118705:     if(!a||num(a.hp)<=0||num(s.hp)<=0||s.zone!==ZONE){h.damageSuppressedV31226=true;return;}
+118706:     const before=new Set(s.effects??[]),result=base(s,h,...args);s.effects=(s.effects??[]).filter(e=>before.has(e));
+118707:     s.effects.push({id:s.fxSerial++,kind:"cosmicImpactV31318",cosmicImpactV31318:true,cosmicModeV31318:h.cosmicModeV31318,cosmicAssetV31318:h.cosmicAssetV31318,sourceId:h.sourceId,bossCastId31210:h.bossCastId31210,x:h.x,y:h.y,originX:h.originX,originY:h.originY,radius:h.radius,width:h.width,born:s.time,duration:h.cosmicModeV31318==="blood-beam"?1.05:.8,sprite:h.cosmicAssetV31318,imageOnly:true,forceFront:true});
+118708:     a.cosmicPoseV31318=h.cosmicModeV31318==="blood-beam"?"fire":"raise";a.cosmicPoseUntilV31318=s.time+.85;return result;
+118709:   }
+118710:   const raster=(cache,path)=>{const im=MONGSE_queueImage(cache,path,"eager");return im?.complete&&num(im.naturalWidth,im.width)>0?im:null;};
+118711:   function scope(ctx,settings,fn){const shared=window.__HAPIL_VISUAL_V31317__?.withBitmaps;if(shared)return shared(ctx,settings,fn);ctx.save();try{ctx.globalAlpha=MONGSE_skillFxOpacity(settings);ctx.globalCompositeOperation="source-over";ctx.shadowBlur=0;return fn();}finally{ctx.restore();}}
+118712:   function stamp(ctx,im,x,y,width,angle=0,alpha=1){const iw=num(im.naturalWidth,im.width),ih=num(im.naturalHeight,im.height),height=width*ih/iw;ctx.save();try{ctx.translate(x,y);ctx.rotate(angle);if(typeof HAPIL_drawBitmapLayerV31317==="function")HAPIL_drawBitmapLayerV31317(ctx,alpha,im,-width/2,-height/2,width,height);else{ctx.globalAlpha*=alpha;ctx.drawImage(im,-width/2,-height/2,width,height);}}finally{ctx.restore();}}
+118713:   function draw(ctx,cache,e,time,settings={}){
+118714:     if(!e?.cosmicCueV31318&&!e?.cosmicImpactV31318)return false;
+118715:     const age=num(time)-num(e.born);if(age<0||age>=num(e.duration))return true;
+118716:     const im=raster(cache,e.cosmicAssetV31318);if(!im)return true;
+118717:     scope(ctx,settings,()=>{
+118718:       if(e.cosmicCueV31318){
+118719:         // Charge and wing anticipation are the actual boss's authored poses.
+118720:         // There is deliberately no attack bitmap stamped at the torso.
+118721:         if(e.cosmicModeV31318==="reliquary")for(const h of e.cosmicHitsV31318){const until=num(h.impactAt,h.at+.12)-time;if(until<0||until>.92)continue;const p=G(h.x,h.y),t=clamp(1-until/.92,0,1);stamp(ctx,im,p.x,p.y-92-(1-t*t)*380,156);}
+118722: 
+118723:       }else if(e.cosmicModeV31318==="reliquary"){
+118724:         const p=G(e.x,e.y),tail=age>e.duration-.16?(e.duration-age)/.16:1;stamp(ctx,im,p.x,p.y-95,190,0,tail);
+118725:         const beam=raster(cache,assets.beam);if(beam)for(let i=0;i<(settings.lowFx?2:4);i++)stamp(ctx,beam,p.x,p.y-5,210,(i*Math.PI)/(settings.lowFx?2:4),tail);
+118726:       }else{
+118727:         const nativeHit=e.spectacleHitV31317??{...e,color:"#ff2d4d",accent:"#ffe9e9"};const nativeAlpha=age>e.duration-.14?(e.duration-age)/.14:1;
+118728:         if(window.__HAPIL_LASER_TOPOLOGY_RC108__?.renderNative(ctx,nativeHit,G,im,settings,nativeAlpha))return;
+118729:         const a=G(e.originX,e.originY),b=G(e.x,e.y),length=Math.hypot(b.x-a.x,b.y-a.y),angle=Math.atan2(b.y-a.y,b.x-a.x),normal={x:-Math.sin(angle),y:Math.cos(angle)},center={x:(e.originX+e.x)/2,y:(e.originY+e.y)/2},edgeA=G(center.x-e.width/Math.SQRT2,center.y+e.width/Math.SQRT2),edgeB=G(center.x+e.width/Math.SQRT2,center.y-e.width/Math.SQRT2),band=Math.abs((edgeA.x-edgeB.x)*normal.x+(edgeA.y-edgeB.y)*normal.y),tail=age>e.duration-.16?(e.duration-age)/.16:1,count=settings.lowFx?4:5,full=Math.max(length*1.22,band*(settings.lowFx?2.4:1.95));
+118730:         // Complete aspect-preserving images overlap across the entire lane;
+118731:         // source fringes extend past the geometric warning without a hard clip.
+118732:         for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*band/count;stamp(ctx,im,(a.x+b.x)/2+normal.x*offset,(a.y+b.y)/2+normal.y*offset-30,full,angle,tail);}
+118733:       }
+118734:     });metrics.draws++;e.cosmicBitmapRenderedV31318=true;return true;
+118735:   }
+118736:   function drawTelegraph(ctx,h,time,settings={}){
+118737:     if(!h?.cosmicAttackV31318)return false;
+118738:     if(h.shape!=='line'||num(h.at)<=num(time))return true;
+118739:     // The old binder identifies unregistered owners as a generic infernal boss.
+118740:     // This authored boss owns its warning geometry and bypasses that binder.
+118741:     ctx.save();try{
+118742:       const shape=MONGSE_traceTelegraphClipPathV31224(ctx,h);
+118743:       ctx.globalCompositeOperation="source-over";ctx.shadowBlur=0;
+118744:       ctx.globalAlpha=settings.reducedFlash?.09:.14;ctx.fillStyle=h.color??"#e63a55";ctx.fill(shape.fillRule);
+118745:       ctx.globalAlpha=1;ctx.lineWidth=2;ctx.strokeStyle="#f597a6";ctx.setLineDash([9,7]);ctx.stroke();ctx.setLineDash([]);
+118746:       if(settings.showCombatInfo!==false){const p=h.shape==="line"?G((h.x+h.originX)/2,(h.y+h.originY)/2):G(h.x,h.y);ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.fillStyle="#ffe7ec";ctx.strokeStyle="#18080d";ctx.lineWidth=3;const label=h.cosmicModeV31318==="blood-beam"?"혈광포 · 양쪽 바깥으로":"비석 낙하 · 원 밖으로";ctx.strokeText(label,p.x,p.y-18);ctx.fillText(label,p.x,p.y-18);}
+118747:     }finally{ctx.restore();ctx.beginPath();}
+118748:     h.cosmicTelegraphGeometryV31318=true;return true;
+118749:   }
+118750:   function drawShot(ctx,cache,q,time,settings={}){
+118751:     if(!q?.cosmicShotV31318)return false;if(q.bodySpawned31219!==true)return true;
+118752:     const im=raster(cache,q.cosmicAssetV31318);if(!im)return true;
+118753:     const p=G(q.x,q.y),next=G(q.x+q.vx,q.y+q.vy),angle=Math.atan2(next.y-p.y,next.x-p.x),size=settings.lowFx?64:72;scope(ctx,settings,()=>stamp(ctx,im,p.x,p.y-18,size,angle,1));q.cosmicBitmapSizeV31510=size;q.cosmicBitmapRenderedV31318=true;metrics.draws++;return true;
+118754:   }
+118755:   function activeHits(s){return hits(s).filter(h=>h.cosmicAttackV31318&&!h.damageSuppressedV31226&&num(h.impactAt,h.at)>=num(s.time)&&s.enemies?.some(a=>a.id===h.sourceId&&a.hp>0));}
+118756:   function refugeGoal(s,h=activeHits(s).find(h=>h.cosmicModeV31318==="blood-beam")){
+118757:     if(!h)return null;
+118758:     const now=num(s.time),threats=activeHits(s).filter(q=>num(q.impactAt,q.at)-now<4.1),safe=p=>!threats.some(q=>Di(p,q)),candidates=[];
+118759:     if(h.cosmicModeV31318==="blood-beam"){
+118760:       const signed=(s.y-s.x)/Math.SQRT2;
+118761:       for(const side of [-1,1]){const d=side*(h.width+1.1)-signed;candidates.push({x:clamp(s.x-d/Math.SQRT2,2,30),y:clamp(s.y+d/Math.SQRT2,2,30)});}
+118762:       candidates.push({x:2.1,y:29.9},{x:29.9,y:2.1});
+118763:     }else for(const radius of [3.4,5.2,7.2])for(let i=0;i<16;i++){const a=i*Math.PI/8;candidates.push({x:clamp(s.x+Math.cos(a)*radius,2,30),y:clamp(s.y+Math.sin(a)*radius,2,30)});}
+118764:     if(safe(s))candidates.unshift({x:s.x,y:s.y});
+118765:     return candidates.map(p=>dt(s.zone,p,.48)).filter(safe).sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]??null;
+118766:   }
+118767:   function autoMovement(s,heroId,base){
+118768:     if(!s||s.autoCombatEnabled31222!==true||s.target||s.bufferedAction||num(s.manualMovementUntil31222)>num(s.time)||num(s.autoEvadeUntil31223)>num(s.time)||MONGSE_isEncounterLocked31226(s)||suppressed(s))return base;
+118769:     const all=activeHits(s),h=all.find(h=>h.cosmicModeV31318==="blood-beam")??all[0];if(!h)return base;
+118770:     const goal=refugeGoal(s,h);if(!goal)return base;
+118771:     const threatened=all.some(h=>Di(s,h)),distance=Math.hypot(goal.x-s.x,goal.y-s.y);let dx=0,dy=0;
+118772:     if(threatened||distance>.38){const key=String(h.bossCastId31210),now=num(s.time);if(s.cosmicNavIdV31318!==key||now>=num(s.cosmicNavAtV31318)||!s.cosmicNavPathV31318?.length){s.cosmicNavPathV31318=yt(s.zone,s,goal,.48);s.cosmicNavIdV31318=key;s.cosmicNavAtV31318=now+.22;}const path=s.cosmicNavPathV31318??[];while(path.length&&Math.hypot(path[0].x-s.x,path[0].y-s.y)<.27)path.shift();const next=path[0]??goal,len=Math.max(.001,Math.hypot(next.x-s.x,next.y-s.y));dx=(next.x-s.x)/len;dy=(next.y-s.y)/len;metrics.aiReturns++;}
+118773:     s.heroRoleSteeringActive31222=true;s.heroRoleSteeringAt31222=s.time;HAPIL_setAutoDecisionV31302(s,threatened?"혈광 · 대피 통로로":"혈광 · 안전 지대 유지",.3);
+118774:     return {...base,active:true,dx,dy,mode:threatened?"cosmic-refuge":"cosmic-hold",cosmicRefugeV31318:true};
+118775:   }
+118776:   const zoneAssets=zone=>zone===ZONE?Object.values(assets):[];
+118777:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,threeDistinctActions:modes.length===3,nativeDamageOnly:true,noDuplicateRegen:true,saveRevision:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return{version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118778:   function install(){
+118779:     if(window.__HAPIL_ARSENAL_V31318__?.installed)return true;if(!window.__HAPIL_V31317_RELEASE__?.allPass)return false;
+118780:     const transit=MONGSE_spawnImpactTransitV31232,spawnImpact=MONGSE_spawnTelegraphedImpact,gn=Gn,jn=Jn,qnBase=qn,baseTick=MONGSE_tickBossThemeOrdnance,delay=MONGSE_delayPendingBossHits31210,role=MONGSE_autoRoleMovementIntent31222;
+118781:     MONGSE_spawnImpactTransitV31232=function HAPIL_cosmicTransitV31318(s,h,...args){if(h?.cosmicAttackV31318)return null;return transit(s,h,...args);};
+118782:     MONGSE_spawnTelegraphedImpact=function HAPIL_cosmicImpactV31318(s,h,...args){return impact(s,h,spawnImpact,args);};
+118783:     Gn=function HAPIL_cosmicEffectV31318(ctx,cache,e,time,settings){if(draw(ctx,cache,e,time,settings))return;return gn(ctx,cache,e,time,settings);};
+118784:     Jn=function HAPIL_cosmicShotV31318(ctx,cache,q,time,settings){if(drawShot(ctx,cache,q,time,settings))return;return jn(ctx,cache,q,time,settings);};
+118785:     qn=function HAPIL_cosmicWarningV31318(ctx,h,time,settings={},cache){if(drawTelegraph(ctx,h,time,settings))return;return qnBase(ctx,h,time,settings,cache);};
+118786:     MONGSE_tickBossThemeOrdnance=function HAPIL_cosmicTickV31318(s,...args){tick(s);const result=baseTick(s,...args);tick(s);return result;};
+118787:     MONGSE_delayPendingBossHits31210=function HAPIL_cosmicDelayV31318(s,...args){const result=delay(s,...args);sync(s);return result;};
+118788:     MONGSE_autoRoleMovementIntent31222=function HAPIL_cosmicRefugeV31318(s,id,...args){return autoMovement(s,id,role(s,id,...args));};
+118789:     const manifest=MONGSE_zoneAssetManifest;MONGSE_zoneAssetManifest=function HAPIL_cosmicArsenalManifestV31318(zone,...args){return new Set([...manifest(zone,...args),...zoneAssets(zone)]);};
+118790:     const assetPlan=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_cosmicArsenalPlanV31318(zone,...args){const p={...assetPlan(zone,...args)};for(const key of ["all","A","B","C","pins","deferred"])p[key]=new Set(p[key]??[]);for(const path of zoneAssets(zone)){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred.delete(path);}return p;};
+118791:     window.__HAPIL_ARSENAL_V31318__=Object.freeze({version:VERSION,installed:true,assets,modes,owner,valid,plan,trySchedule,tick,sync,draw,drawShot,drawTelegraph,activeHits,refugeGoal,autoMovement,zoneAssets,audit,active:s=>live.has(s),metrics:()=>({...metrics})});return audit().allPass;
+118792:   }
+118793:   function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
+118794: })();
+118795: 
+118796: /* HAPIL_V31318_ADAPTIVE_PATCH: choose an existing weapon action at a useful range.
+118797:  * Admission waits for committed arena attacks; it never edits their queues.
+118798:  */
+118799: (() => {
+118800:   "use strict";
+118801:   const VERSION="3.13.18",FAMILIES=Object.freeze(["rotating-laser","rolling-ordnance","snipe-sword-wave"]),owners=new Map();
+118802:   const stats={waits:0,nearChoices:0,farChoices:0},num=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;
+118803:   let attempts=0;
+118804:   function enrolled(s,a){const r=owners.get(String(a?.id));return !!(s&&a&&r&&r.zone===s.zone&&(a.boss||a.midboss)&&a.cosmicLuciferV31318!==true);}
+118805:   function broad(h){
+118806:     if(!h||h.damageSuppressedV31226||h.pureTelegraphV31230||num(h.damage)<=0)return false;
+118807:     return !!(h.spectacleV31317||h.dynamicBossAttackV31315||h.cosmicLuciferAttackV31318||h.shape==="safe"||(h.shape==="line"&&num(h.width)>=4)||(h.shape==="cross"&&num(h.radius)>=14)||(h.shape==="circle"&&num(h.radius)>=8));
+118808:   }
+118809:   function waitReason(s,a){
+118810:     if(!enrolled(s,a))return null;
+118811:     const now=num(s.time);
+118812:     if(num(s.hp)<=0||num(a.hp)<=0)return "defeated";
+118813:     if(num(s.timeStopUntil)>now)return "time-stop";
+118814:     if(num(s.enemySkillsSuppressedUntilV31309)>now)return "ultimate-suppression";
+118815:     if(MONGSE_isEncounterLocked31226(s))return "dialogue";
+118816:     // Only living, actual encounter owners can reserve the arena. Stale or
+118817:     // cancelled entries cannot permanently hold another boss's director slot.
+118818:     const living=new Set((s.enemies??[]).filter(e=>num(e?.hp)>0).map(e=>String(e.id)));
+118819:     for(const h of [...(s.pendingHits??[]),...(s.impactQueue??[])]){
+118820:       if(!broad(h)||!living.has(String(h.sourceId)))continue;
+118821:       const deadline=Number.isFinite(Number(h.impactAt))?Number(h.impactAt):Number(h.at);
+118822:       if(Number.isFinite(deadline)&&deadline+.32>=now)return "committed-arena-attack";
+118823:     }
+118824:     // This is a short release sequence, not the lifetime of every flying
+118825:     // bullet. It preserves the authored two/three-beat gap before a new volley.
+118826:     if(window.__HAPIL_DANMAKU_V31316__?.active?.(s))return "committed-danmaku-beats";
+118827:     return null;
+118828:   }
+118829:   function allow(s,a){const reason=waitReason(s,a);if(reason)stats.waits++;return !reason;}
+118830:   function decision(s,a,family){
+118831:     if(!enrolled(s,a)||!FAMILIES.includes(family))return {family,reason:"inherited"};
+118832:     const distance=Math.hypot(num(s.x)-num(a.x),num(s.y)-num(a.y)),last=String(a.lastBossCombatPatternV31230??"");
+118833:     if(distance<=3.4&&family==="snipe-sword-wave")return {family:last==="rolling-ordnance"?"rotating-laser":"rolling-ordnance",reason:"near-readable-weapon",distance};
+118834:     // The original sweep reaches 12.2 (boss) / 10.2 (midboss) world units.
+118835:     // At 20+, use one existing travelling weapon action instead of an empty sweep.
+118836:     if(distance>=20&&family==="rotating-laser")return {family:last==="snipe-sword-wave"?"rolling-ordnance":"snipe-sword-wave",reason:"far-travelling-weapon",distance};
+118837:     return {family,reason:"inherited",distance};
+118838:   }
+118839:   function select(s,a,family){const d=decision(s,a,family);if(d.reason==="near-readable-weapon")stats.nearChoices++;if(d.reason==="far-travelling-weapon")stats.farChoices++;return d.family;}
+118840:   function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,rankedOwners:owners.size===71,threeExistingWeaponFamilies:FAMILIES.length===3,existingDirectorIdentity:MONGSE_tickBossCombatPatternsV31230.name==="HAPIL_tickBossPatternsV31310",saveSchema14:window.__HAPIL_GAMEPLAY_V31309__?.saveRevision===14};return {version:VERSION,checks,allPass:Object.values(checks).every(Boolean)};}
+118841:   function install(){
+118842:     if(window.__HAPIL_ADAPTIVE_V31318__?.installed)return true;
+118843:     if(!window.__HAPIL_V31317_RELEASE__?.allPass)return false;
+118844:     for(const row of window.__HAPIL_SKILL_VISUAL_V31311__.rankedRows())if(!row.actor.cosmicLuciferV31318&&row.actor.id!=="a11-cosmic-v31318")owners.set(String(row.actor.id),row);
+118845:     window.__HAPIL_ADAPTIVE_V31318__=Object.freeze({installed:true,version:VERSION,families:FAMILIES,allow,waitReason,decision,select,broad,rankedRows:()=>[...owners.values()],metrics:()=>({...stats}),audit});return audit().allPass;

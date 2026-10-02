@@ -1,0 +1,121 @@
+62470:                         (e.moveDy =
+62471:                           MONGSE_actualDySmartR1 / MONGSE_actualDistanceSmartR1),
+62472:                         pi(e, MONGSE_actualDxSmartR1, MONGSE_actualDySmartR1),
+62473:                         (e.stuckFor = 0),
+62474:                         (e.movingUntil = o.time + 0.12))
+62475:                       : ((e.stuckFor += a),
+62476:                         e.stuckFor >= 0.1 &&
+62477:                           ((e.navReadyAt = 0),
+62478:                           (e.navPath = []),
+62479:                           (e.aiMovePlanAtSmartR1 = 0),
+62480:                           (e.stuckFor = 0)));
+62481:                   }
+62482:                 }
+62483:                 ((t = J(o, e)),
+62484:                   (n = Math.max(0.001, t)),
+62485:                   (p = pt(o.zone, e, o, f)));
+62486:                 if (
+62487:                   (MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 || !p) &&
+62488:                   !MONGSE_showcaseDisengage31222 &&
+62489:                   !MONGSE_counterTactic31229?.active &&
+62490:                   (!(e.boss || e.midboss) ||
+62491:                     MONGSE_shouldBossStartNormalAttackSmartR1(
+62492:                       o,
+62493:                       e,
+62494:                       MONGSE_smartBossCombatR1?.profile ??
+62495:                         MONGSE_smartBossProfileR1(e, c, r),
+62496:                       MONGSE_ATTACKS_IGNORE_TERRAIN_V31214 ? null : p,
+62497:                     )) &&
+62498:                   t < l &&
+62499:                   o.time >= e.readyAt &&
+62500:                   e.attackAt === 0 &&
+62501:                   e.recoverUntil <= o.time &&
+62502:                   HAPIL_allowNormalRangedStartV31302(
+62503:                     o,
+62504:                     e,
+62505:                     r,
+62506:                     !!ze.current.lowFx,
+62507:                   )
+62508:                 ) {
+62509:                   let t = Math.max(
+62510:                       0.42,
+62511:                       r.windup - (e.boss || e.midboss ? (c - 1) * 0.06 : 0),
+62512:                     ),
+62513:                     n = Math.max(0.001, J(o, e));
+62514:                   ((e.boss || e.midboss)
+62515:                     ? MONGSE_beginBossAimLockSmartR1(
+62516:                         o,
+62517:                         e,
+62518:                         MONGSE_smartBossCombatR1?.profile ??
+62519:                           MONGSE_smartBossProfileR1(e, c, r),
+62520:                       )
+62521:                     : ((e.attackDx = (o.x - e.x) / n),
+62522:                       (e.attackDy = (o.y - e.y) / n),
+62523:                       pi(e, e.attackDx, e.attackDy)),
+62524:                     (e.attackStarted = o.time),
+62525:                     (e.attackWindup = t),
+62526:                     (e.attackAt = o.time + t),
+62527:                     (e.attackImpactAt = e.attackAt),
+62528:                     (e.recoverUntil = e.attackAt + r.recovery),
+62529:                     (e.readyAt =
+62530:                       o.time +
+62531:                       t +
+62532:                       Math.max(
+62533:                         0.72,
+62534:                         r.cooldown *
+62535:                           (e.id === `b07-boss` && e.wrathRageUntil > o.time
+62536:                             ? 0.78
+62537:                             : 1) -
+62538:                           (e.boss || e.midboss ? (c - 1) * 0.09 : 0),
+62539:                       )),
+62540:                     We(MONGSE_enemyAttackSfx(e, o.zone), 1));
+62541:                   MONGSE_markEnemyCounterAttackStarted31229(e, r, o.time);
+62542:                   window.__HAPIL_SKILL_COMPLETION_V31412__?.beginEnemyCast(o,e,c,e.attackAt);
+62543:                 }
+62544:                 if (e.attackAt > 0 && o.time >= e.attackAt) {
+62545:                   e.attackAt = 0;
+62546:                   let t = u.find((t) => t.name === e.activePattern);
+62547:                   if (t) {
+62548:                     ((e.activePattern = ``),
+62549:                       (t.telekinetic || t.laserV31330) ||
+62550:                         MONGSE_spawnBossPatternFollowup31212(o, e, c));
+62551:                   } else {
+62552:                     if (r.lunge > 0) {
+62553:                       let t = ft(
+62554:                         o.zone,
+62555:                         e,
+62556:                         { x: e.attackDx * r.lunge, y: e.attackDy * r.lunge },
+62557:                         f,
+62558:                       );
+62559:                       ((e.x = t.x), (e.y = t.y));
+62560:                     }
+62561:                     let t = J(o, e),
+62562:                       n = Jt(e.patternSet),
+62563:                       MONGSE_lockedTargetXSmartR1 =
+62564:                         e.boss || e.midboss
+62565:                           ? Number(e.castTargetXSmartR1 ?? o.x)
+62566:                           : o.x,
+62567:                       MONGSE_lockedTargetYSmartR1 =
+62568:                         e.boss || e.midboss
+62569:                           ? Number(e.castTargetYSmartR1 ?? o.y)
+62570:                           : o.y,
+62571:                       MONGSE_normalAttackConnectSmartR1 =
+62572:                         e.boss || e.midboss
+62573:                           ? s
+62574:                             ? !0
+62575:                             : MONGSE_bossMeleeAttackHitsHeroSmartR1(
+62576:                                 o,
+62577:                                 e,
+62578:                                 l + 0.45,
+62579:                               )
+62580:                           : t < (s ? l + 0.55 : l + 0.45),
+62581:                       MONGSE_basicAttackDamage31222 =
+62582:                         r.damage +
+62583:                         (e.elite ? 2 : 0) +
+62584:                         (e.boss || e.midboss ? c * 2 : 0),
+62585:                       MONGSE_persistentRanged31221 =
+62586:                         s && (e.boss || e.midboss)
+62587:                           ? MONGSE_spawnPersistentRangedAttack31221(
+62588:                               o,
+62589:                               e,
+62590:                               c,

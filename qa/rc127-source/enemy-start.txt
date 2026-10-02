@@ -1,0 +1,106 @@
+62170:                   l = r.range + (e.boss || e.midboss ? (c - 1) * 0.12 : 0);
+62171:                 if (
+62172:                   MONGSE_showcaseDispatch.required &&
+62173:                   MONGSE_distanceMode31222 === `melee`
+62174:                 ) {
+62175:                   ((e.queuedShowcase31210 = !0),
+62176:                     Number.isFinite(Number(e.showcaseDisengageAt31222)) ||
+62177:                       (e.showcaseDisengageAt31222 =
+62178:                         o.time + (e.boss ? 1.35 : 1.05)));
+62179:                 }
+62180:                 let MONGSE_showcaseDisengage31222 =
+62181:                   MONGSE_showcaseDispatch.required &&
+62182:                   MONGSE_distanceMode31222 === `melee` &&
+62183:                   o.time >= Number(e.showcaseDisengageAt31222 ?? 1 / 0) &&
+62184:                   e.attackAt === 0 &&
+62185:                   e.recoverUntil <= o.time;
+62186:                 if (
+62187:                   MONGSE_showcaseDisengage31222 &&
+62188:                   e.showcaseDisengagePhase31222 !== c
+62189:                 ) {
+62190:                   ((e.showcaseDisengagePhase31222 = c),
+62191:                     (e.showcaseDisengageCount31222 =
+62192:                       Number(e.showcaseDisengageCount31222 ?? 0) + 1),
+62193:                     o.effects.push({
+62194:                       id: o.fxSerial++,
+62195:                       kind: `glitch`,
+62196:                       x: e.x,
+62197:                       y: e.y,
+62198:                       tx: e.x,
+62199:                       ty: e.y,
+62200:                       born: o.time,
+62201:                       duration: 0.38,
+62202:                       color: r.color,
+62203:                       accent: r.accent,
+62204:                       size: e.boss ? 4.2 : 3.4,
+62205:                       angle: Math.atan2(e.y - o.y, e.x - o.x),
+62206:                       imageOnly: !1,
+62207:                     }),
+62208:                     o.floatTexts.push({
+62209:                       id: o.fxSerial++,
+62210:                       x: e.x,
+62211:                       y: e.y,
+62212:                       born: o.time,
+62213:                       duration: 0.72,
+62214:                       text: `간격 전환`,
+62215:                       color: r.accent,
+62216:                       critical: !!e.boss,
+62217:                     }));
+62218:                 }
+62219:                 if (
+62220:                   u.length &&
+62221:                   (!window.__HAPIL_COMBAT_FLOW_RC95__?.managed(o,e)||window.__HAPIL_COMBAT_FLOW_RC95__.allowed(o,'mixed')&&MONGSE_showcaseDispatch.required) &&
+62222:                   (t < 9.25 || MONGSE_showcaseIndex !== -1) &&
+62223:                   MONGSE_distanceMode31222 !== `melee` &&
+62224:                   (MONGSE_showcaseDispatch.required ||
+62225:                     !MONGSE_enemyCounterFollowupPending31229(e, o.time)) &&
+62226:                   (MONGSE_showcaseDispatch.required
+62227:                     ? MONGSE_showcaseDispatch.canStart &&
+62228:                       !MONGSE_persistentBossCast &&
+62229:                       e.attackAt === 0 &&
+62230:                       e.recoverUntil <= o.time
+62231:                     : o.time >= e.patternReadyAt &&
+62232:                       o.time >= e.readyAt &&
+62233:                       e.attackAt === 0 &&
+62234:                       e.recoverUntil <= o.time)
+62235:                 ) {
+62236:                   MONGSE_showcaseDispatch.required &&
+62237:                     ((e.queuedShowcase31210 = !1),
+62238:                     (e.showcaseDisengageAt31222 = void 0),
+62239:                     (e.episodeShowcaseAttemptCount =
+62240:                       (e.episodeShowcaseAttemptCount ?? 0) + 1),
+62241:                     (e.episodeShowcaseLastAttemptAt = o.time),
+62242:                     (e.episodeShowcaseAttemptPhase = c));
+62243:                   if (MONGSE_showcaseIndex === -2) {
+62244:                     let t = MONGSE_beginSpatialRiftBarrage(o, e, c);
+62245:                     !t &&
+62246:                       MONGSE_showcaseDispatch.required &&
+62247:                       ((e.episodeShowcaseAttemptFailures =
+62248:                         (e.episodeShowcaseAttemptFailures ?? 0) + 1),
+62249:                       (e.episodeShowcaseFailurePhase = c));
+62250:                     t &&
+62251:                       (We(Wr + `boss-heavy-warning.mp3`, 0.31),
+62252:                       We(MONGSE_enemyAttackSfx(e, o.zone), 1),
+62253:                       B(
+62254:                         `${t.name} · ${t.portals.length}개 균열이 공간을 접습니다. 표시된 안전 통로로 이동하십시오.`,
+62255:                       ));
+62256:                   } else {
+62257:                     MONGSE_showcaseIndex >= 0
+62258:                       ? (e.patternIndex = MONGSE_showcaseIndex)
+62259:                       : (e.boss || e.midboss) &&
+62260:                         (e.patternIndex = MONGSE_chooseBossPatternIndexSmartR1(
+62261:                           o,
+62262:                           e,
+62263:                           u,
+62264:                           c,
+62265:                           t,
+62266:                           MONGSE_smartBossProfileR1(e, c, r),
+62267:                         ));
+62268:                     let MONGSE_selectedPattern31220 =
+62269:                       u[e.patternIndex % u.length];
+62270:                     MONGSE_selectedPattern31220
+62271:                       ? (Ei(o, e, MONGSE_selectedPattern31220, c),
+62272:                         MONGSE_showcaseDispatch.required &&
+62273:                           e.telekineticRainPhase !== c &&
+62274:                           ((e.episodeShowcaseAttemptFailures =
+62275:                             (e.episodeShowcaseAttemptFailures ?? 0) + 1),

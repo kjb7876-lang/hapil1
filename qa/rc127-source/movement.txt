@@ -1,0 +1,161 @@
+61180:             o.autoCombatEnabled31222 = !!Re.current;
+61181:             (!Re.current || MONGSE_manualCommit31223) &&
+61182:               HAPIL_clearAutoDecisionV31302(
+61183:                 o,
+61184:                 !Re.current ? `auto-off` : `manual-commit`,
+61185:               );
+61186:             if (!Re.current)
+61187:               (MONGSE_resetHeroAutoDodge31223(o, `auto-off`),
+61188:                 (MONGSE_autoDodgeStep31223 = { active: !1 }));
+61189:             else {
+61190:               MONGSE_autoDodgeStep31223 = MONGSE_stepHeroAutoDodge31223(
+61191:                 o,
+61192:                 a,
+61193:                 MONGSE_manualCommit31223,
+61194:               );
+61195:               if (
+61196:                 !MONGSE_manualCommit31223 &&
+61197:                 !MONGSE_autoDodgeStep31223.active
+61198:               ) {
+61199:                 let MONGSE_autoDodgeStarted31223 =
+61200:                   MONGSE_planHeroAutoDodge31223(o, n.id, HAPIL_effectiveGrowthV31400(R.current,o));
+61201:                 MONGSE_autoDodgeStarted31223 &&
+61202:                   (HAPIL_setAutoDecisionV31302(o, `위험 회피`, 1.02),
+61203:                   (MONGSE_autoDodgeStep31223 =
+61204:                     MONGSE_stepHeroAutoDodge31223(o, a, !1)));
+61205:               }
+61206:             }
+61207:             let
+61208:               MONGSE_roleIntent31222 =
+61209:                 Re.current &&
+61210:                 !MONGSE_manualCommit31223 &&
+61211:                 !MONGSE_autoDodgeStep31223.active
+61212:                   ? MONGSE_autoRoleMovementIntent31222(o, n.id)
+61213:                   : null;
+61214:             HAPIL_autoRoleDecisionV31302(o, MONGSE_roleIntent31222);
+61215:             (MONGSE_manualDirection31222 &&
+61216:                 (o.manualMovementUntil31222 = o.time + (window.__HAPIL_MOVEMENT_V31336__?.config.manualPrioritySeconds ?? .2)));
+61217:             if (
+61218:               !Re.current ||
+61219:               MONGSE_manualCommit31223 ||
+61220:               MONGSE_autoDodgeStep31223.active
+61221:             )
+61222:               ((o.heroRoleNavPath31222 = []),
+61223:                 (o.heroRoleNavMode31222 = MONGSE_autoDodgeStep31223.active
+61224:                   ? `evade`
+61225:                   : MONGSE_manualDirection31222
+61226:                     ? `manual`
+61227:                     : o.target
+61228:                       ? `pointer`
+61229:                       : `disabled`),
+61230:                 (o.heroRoleNavReadyAt31222 = 0),
+61231:                 (o.heroRoleSteeringActive31222 = !1));
+61232:             if (
+61233:               (MONGSE_autoDodgeStep31223.active
+61234:                 ? ((e = 0), (t = 0))
+61235:                 : (I.current.has(`ArrowUp`) && --t,
+61236:               I.current.has(`ArrowDown`) && (t += 1),
+61237:               I.current.has(`ArrowLeft`) && --e,
+61238:                   I.current.has(`ArrowRight`) && (e += 1)),
+61239:               e || t)
+61240:             )
+61241:               hi(o);
+61242:             else if (o.target) {
+61243:               let n = o.path[0] ?? o.target;
+61244:               for (; o.path.length && J(o, n) < 0.34; )
+61245:                 (o.path.shift(), (n = o.path[0] ?? o.target));
+61246:               ((e = n.x - o.x), (t = n.y - o.y));
+61247:               let r = Math.hypot(e, t);
+61248:               !o.path.length && J(o, o.target) < 0.28
+61249:                 ? (hi(o), (e = 0), (t = 0))
+61250:                 : ((e /= r), (t /= r));
+61251:             } else if (MONGSE_roleIntent31222?.active)
+61252:               ((e = MONGSE_roleIntent31222.dx),
+61253:                 (t = MONGSE_roleIntent31222.dy),
+61254:                 (o.targetEnemyId = MONGSE_roleIntent31222.target?.id ?? o.targetEnemyId));
+61255:             MONGSE_isEncounterLocked31226(o) &&
+61256:               ((e = 0), (t = 0), (o.target = null), (o.path = []), hi(o));
+61257:             if (window.__HAPIL_THEME_V31323__?.rootActive(o,o)) { e=0; t=0; o.target=null; o.path=[]; o.moveVx=0; o.moveVy=0; }
+61258:             let MONGSE_sevenSinIntent = MONGSE_sevenSinMovementIntent(o, e, t);
+61259:             ((e = MONGSE_sevenSinIntent.dx),
+61260:               (t = MONGSE_sevenSinIntent.dy),
+61261:               MONGSE_sevenSinIntent.charmed && hi(o));
+61262:             let u =
+61263:                 (o.heroSlowUntil > o.time ? 0.62 : 1) *
+61264:                 MONGSE_sevenSinIntent.speedScale * HAPIL_precisionScaleV31316(o, I.current, !!Re.current, !!MONGSE_manualDirection31222, !!MONGSE_sevenSinIntent.charmed),
+61265:               d =
+61266:                 4.75 * (window.__HAPIL_STORY_RC51__?.heroSpeed(o) ?? 1) *
+61267:                 (1 + (R.current.speed ?? 0) * 0.07) *
+61268:                 r.speedMultiplier *
+61269:                 MONGSE_infiniteBaseStats.speedMultiplier *
+61270:                 u *
+61271:                 (c ? s.speedMultiplier : 1) *
+61272:                 (o.timeAccelerationUntil > o.time
+61273:                   ? i.accelerationMultiplier
+61274:                   : 1),
+61275:               f = Math.max(1, Math.hypot(e, t)),
+61276:               p = (e / f) * d,
+61277:               m = (t / f) * d,
+61278:               MONGSE_moveBlend31228 = 1 - Math.exp(-(e || t ? 18 : 28) * HAPIL_heroDeltaRC51);
+61279:             ((o.moveVx += (p - o.moveVx) * MONGSE_moveBlend31228),
+61280:               (o.moveVy += (m - o.moveVy) * MONGSE_moveBlend31228),
+61281:               !(e || t) &&
+61282:                 Math.hypot(o.moveVx, o.moveVy) < 0.025 &&
+61283:                 ((o.moveVx = 0), (o.moveVy = 0)));
+61284:             let g =
+61285:                 o.heroMotion.until > o.time &&
+61286:                 ![`idle`, `move`].includes(o.heroMotion.kind),
+61287:               v = window.__HAPIL_MOVEMENT_V31336__?.movementLocked(o,o) ? 0 : 1,
+61288:               y = o.moveVx * v,
+61289:               x = o.moveVy * v,
+61290:               S = Math.hypot(y, x);
+61291:             if (S > 0.015) {
+61292:               let e = o.x,
+61293:                 t = o.y,
+61294:                 n = ft(o.zone, o, { x: y * HAPIL_heroDeltaRC51, y: x * HAPIL_heroDeltaRC51 }, 0.48);
+61295:               ((o.x = n.x), (o.y = n.y));
+61296:               let r = o.x - e,
+61297:                 i = o.y - t,
+61298:                 s = Math.hypot(r, i);
+61299:               if (s < S * a * 0.18) {
+61300:                 if (
+61301:                   ((o.stuckFor += a),
+61302:                   (o.moveVx *= 0.45),
+61303:                   (o.moveVy *= 0.45),
+61304:                   o.target && o.stuckFor >= 0.1)
+61305:                 ) {
+61306:                   for (
+61307:                     o.path = yt(o.zone, o, o.target, 0.48);
+61308:                     o.path.length && J(o, o.path[0]) < 0.38;
+61309: 
+61310:                   )
+61311:                     o.path.shift();
+61312:                   o.stuckFor = 0;
+61313:                 }
+61314:               } else o.stuckFor = 0;
+61315:               if (s > 0.001) {
+61316:                 let e =
+61317:                   Re.current &&
+61318:                   MONGSE_isRangedHeroId31213(o.activeHeroId) &&
+61319:                   MONGSE_roleIntent31222?.target
+61320:                     ? fi(
+61321:                         o,
+61322:                         MONGSE_roleIntent31222.target.x - o.x,
+61323:                         MONGSE_roleIntent31222.target.y - o.y,
+61324:                       )
+61325:                     : fi(o, r, i);
+61326:                 ((o.heroStride =
+61327:                   (o.heroStride +
+61328:                     s *
+61329:                       (c
+61330:                         ? 5.2
+61331:                         : o.activeHeroId === `gunner` &&
+61332:                             (e === `left` || e === `right`)
+61333:                           ? 4.9
+61334:                           : 4.15)) %
+61335:                   (Math.PI * 2)),
+61336:                   (g || window.__HAPIL_CONTACT_RC23__?.hold(o,o,`move`)) ||
+61337:                     (o.heroMotion = {
+61338:                       kind: `move`,
+61339:                       started:
+61340:                         o.heroMotion.kind === `move` &&
