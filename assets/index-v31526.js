@@ -75986,6 +75986,13 @@ function MONGSE_resolveScreenRenderAngleV31229(
     );
     MONGSE_contextV31229.clip(MONGSE_geometryV31229.fillRule);
     MONGSE_contextV31229.globalCompositeOperation = `source-over`;
+    if (MONGSE_geometryV31229.shape === `line`) {
+      MONGSE_contextV31229.globalAlpha = MONGSE_settingsV31229.reducedFlash
+        ? 0.3
+        : 0.38;
+      MONGSE_contextV31229.fillStyle = MONGSE_hitV31229.color ?? `#ab82ed`;
+      MONGSE_contextV31229.fill(MONGSE_geometryV31229.fillRule);
+    }
     MONGSE_contextV31229.globalAlpha = MONGSE_settingsV31229.reducedFlash
       ? 0.34
       : 0.58;

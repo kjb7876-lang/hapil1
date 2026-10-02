@@ -202,6 +202,26 @@
     ctx.globalAlpha=alpha*.55;ctx.lineWidth=half*1.1;ctx.stroke();
     ctx.globalAlpha=alpha*.85;ctx.strokeStyle=options.accent||options.color||'#e6ded0';ctx.lineWidth=half*.38;ctx.stroke();
    }
+   // Keep the owner's texture as a fringe, but give every rendered laser one
+   // steady-width body. Shared ends stay joined; isolated ends fade inside the
+   // same contact envelope so the visual beam does not close a safe gap.
+   const bodyColor=options.color||'#ab82ed',bodyWidth=Math.max(1,half*1.38);
+   const rgba=(opacity)=>{
+    ctx.save();ctx.fillStyle=bodyColor;const normalized=ctx.fillStyle;ctx.restore();
+    const hex=normalized.match(/^#([\da-f]{3}|[\da-f]{6}|[\da-f]{8})$/i);
+    if(hex){let value=hex[1];if(value.length===3)value=value.split('').map(c=>c+c).join('');return`rgba(${parseInt(value.slice(0,2),16)},${parseInt(value.slice(2,4),16)},${parseInt(value.slice(4,6),16)},${opacity})`;}
+    const components=normalized.match(/^rgba?\(([^)]+)\)$/i)?.[1].match(/[\d.]+/g);
+    return components?.length>=3?`rgba(${components[0]},${components[1]},${components[2]},${opacity})`:`rgba(171,130,237,${opacity})`;
+   };
+   const bodySolid=rgba(.72),bodyClear=rgba(0);
+   ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.lineCap='butt';ctx.lineJoin='round';ctx.lineWidth=bodyWidth;ctx.globalAlpha=alpha;
+   ctx.beginPath();for(let i=0;i<lines.length;i++)if(connection.ends[i][0]&&connection.ends[i][1]){ctx.moveTo(lines[i].a.x,lines[i].a.y);ctx.lineTo(lines[i].b.x,lines[i].b.y);}ctx.strokeStyle=bodySolid;ctx.stroke();
+   for(let i=0;i<lines.length;i++){
+    const l=lines[i],dx=l.b.x-l.a.x,dy=l.b.y-l.a.y,len=Math.hypot(dx,dy);if(len<.5||connection.ends[i][0]&&connection.ends[i][1])continue;
+    const fade=Math.min(len*.24,half*1.3)/len,start=connection.ends[i][0],end=connection.ends[i][1],gradient=ctx.createLinearGradient(l.a.x,l.a.y,l.b.x,l.b.y);
+    gradient.addColorStop(0,start?bodySolid:bodyClear);if(!start)gradient.addColorStop(fade,bodySolid);if(!end)gradient.addColorStop(1-fade,bodySolid);gradient.addColorStop(1,end?bodySolid:bodyClear);
+    ctx.beginPath();ctx.moveTo(l.a.x,l.a.y);ctx.lineTo(l.b.x,l.b.y);ctx.strokeStyle=gradient;ctx.stroke();
+   }
    draws++;return true;
   }finally{ctx.restore();}
  }
