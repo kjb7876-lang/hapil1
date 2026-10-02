@@ -1,0 +1,210 @@
+121044: /* HAPIL_V31335_STAND: native source actor owns both silhouettes; no summoned combat entity. */
+121045: (() => {
+121046:  'use strict';
+121047:  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,stats={drawn:0,moved:0,blocked:0};
+121048:  const alive=a=>!!a&&a.hp>0&&!a.visualOnly&&!a.protectedNarrativeTargetV31307&&!a.objectiveStructureV31238;
+121049:  function profile(a){
+121050:   if(!alive(a)||!(a.boss||a.midboss)||a.cosmicLuciferV31318)return null;
+121051:   const sprites=a.phaseSprites;if(!Array.isArray(sprites)||sprites.length<2)return null;
+121052:   const base=sprites[0]??a.sprite;if(!base||!sprites.some(p=>p&&p!==base))return null;
+121053:   const phase=MONGSE_enemyPhase(a),index=Math.max(0,Math.min(sprites.length-1,a.humanPhase0?phase:phase-1));
+121054:   return {sourceId:a.id,visualOnly:true,human:base,humanFallback:a.phaseSpriteFallbacks?.[0]??a.sprite,demon:sprites[index],index,active:index>0&&sprites[index]!==base};
+121055:  }
+121056:  function active(a){return profile(a)?.active===true;}
+121057:  function drawBody(ctx,cache,a,time,settings,sprite,size,transform){
+121058:   const p=profile(a);if(!p?.active){Ln(ctx,cache,sprite,a.x,a.y,size,transform);return true;}
+121059:   const human=MONGSE_runtimeSprite(cache,p.human,p.humanFallback),origin=G(a.x,a.y),breath=0,frontSize=Math.min(122,size*.68),rearSize=size*.94;
+121060:   const facing=num(transform.scaleX,1)<0?-1:1,rearX=-facing*size*.20,rearY=-frontSize*.39-8+breath*2.3;
+121061:   ctx.save();try{
+121062:    // Transparent vector shadow and black puppet threads have no world geometry or damage fields.
+121063:    ctx.globalAlpha*=.20+breath*.025;ctx.fillStyle='#05030b';ctx.beginPath();ctx.ellipse(origin.x+rearX,origin.y+rearY-14,rearSize*.34,rearSize*.13,0,0,Math.PI*2);ctx.fill();
+121064:   }finally{ctx.restore();}
+121065:   Ln(ctx,cache,sprite,a.x,a.y,rearSize,{...transform,visualSizeV31338:rearSize,offsetX:num(transform.offsetX)+rearX,offsetY:num(transform.offsetY)+rearY,alpha:.64+breath*.045,glowBlur:settings?.lowFx?0:3});
+121066:   ctx.save();try{
+121067:    ctx.strokeStyle='#08050e';ctx.lineWidth=settings?.lowFx?1.4:1.8;ctx.globalAlpha*=.86;
+121068:    const charge=num(a.attackAt)>time||num(a.atomicCastUntil31210)>time;
+121069:    for(const side of [-1,1])for(let i=0;i<2;i++){
+121070:     const x1=origin.x+side*frontSize*(.14+i*.06),y1=origin.y-frontSize*(.58+i*.12),x2=origin.x+rearX+side*rearSize*(.18+i*.07),y2=origin.y+rearY-rearSize*(.56+i*.13);
+121071:     ctx.beginPath();ctx.moveTo(x1,y1);ctx.bezierCurveTo(x1+side*9,y1-28-breath*3,x2-side*8,y2+20,x2,y2);ctx.stroke();
+121072:     if(charge){ctx.save();ctx.strokeStyle=transform.glow??'#b3a3d8';ctx.lineWidth=.6;ctx.globalAlpha*=.55;ctx.stroke();ctx.restore();}
+121073:    }
+121074:   }finally{ctx.restore();}
+121075:   Ln(ctx,cache,human,a.x,a.y,frontSize,{...transform,visualSizeV31338:frontSize,alpha:1,glowBlur:Math.min(3,num(transform.glowBlur)),offsetY:num(transform.offsetY)*.45});stats.drawn++;return true;
+121076:  }
+121077:  function suspended(s,a){
+121078:   return num(s.timeStopUntil)>s.time||MONGSE_isEncounterLocked31226(s)||MONGSE_isRestZone(s.zone)||['hub','village','last304'].includes(s.zone)||a.cosmicLuciferV31318||['attackAt','recoverUntil','atomicCastUntil31210','phaseTransitionUntil','staggerUntil','invulnerableUntil'].some(k=>num(a[k])>s.time)||window.__HAPIL_BOSSES_V31334__?.busy(s)||
+121079:    (s.pendingHits??[]).some(h=>h.sourceId===a.id&&num(h.at)>s.time)||(s.impactQueue??[]).some(h=>h.sourceId===a.id&&num(h.impactAt)>s.time);
+121080:  }
+121081:  function routeSafe(s,a,x,y){
+121082:   const radius=Math.min(1.2,MONGSE_enemyHitRadius(a)),steps=Math.max(1,Math.ceil(Math.hypot(x-a.x,y-a.y)/.18));
+121083:   const allies=[s,...(window.__HAPIL_PARTY_V31322__?.state===s?window.__HAPIL_PARTY_V31322__.actors??[]:[])].filter(p=>p&&num(p.hp,1)>0);
+121084:   for(let i=1;i<=steps;i++){const u=i/steps,px=a.x+(x-a.x)*u,py=a.y+(y-a.y)*u;if(ut(s.zone,px,py,radius)||pt(s.zone,a,{x:px,y:py},radius)||allies.some(p=>Math.hypot(px-p.x,py-p.y)<radius+1.1))return false;}
+121085:   return true;
+121086:  }
+121087:  function tick(s,dt){
+121088:   const party=window.__HAPIL_PARTY_V31322__,status=party?.status;if(!s||!Number.isFinite(s.time)||party?.state===s&&(status?.role==='guest'||status?.paused||status?.disconnected))return;
+121089:   const step=Math.min(.05,Math.max(0,num(dt)))*1.5;if(!step)return;
+121090:   // The shared arena spans 0..32. Stay in its broad centre; never teleport or chase through allies.
+121091:   for(const a of s.enemies??[]){if(a.fixedCombatPositionRC69||!alive(a)||!a.boss||suspended(s,a)||window.__HAPIL_BOSS_HOME_V31343__?.owns(s.zone,a))continue;const dx=16-a.x,dy=16-a.y,d=Math.hypot(dx,dy);if(d<=4.7)continue;
+121092:    let moved=false;for(const angle of [0,.35,-.35,.7,-.7]){const co=Math.cos(angle),si=Math.sin(angle),x=a.x+(dx*co-dy*si)/d*step,y=a.y+(dx*si+dy*co)/d*step;if(!routeSafe(s,a,x,y))continue;a.moveDx=x-a.x;a.moveDy=y-a.y;a.x=x;a.y=y;a.movingUntil=s.time+.1;a.movePhase=num(a.movePhase)+step*8;stats.moved++;moved=true;break;}if(!moved)stats.blocked++;
+121093:   }
+121094:  }
+121095:  // Feed the native navigation brain a local centreward waypoint so ordinary pursuit cannot overpower the gentle return.
+121096:  const nativeBrain=MONGSE_tickBossCombatBrainSmartR1;
+121097:  MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){
+121098:   const decision=nativeBrain(s,a,...args);
+121099:   if(!alive(a)||!a.boss||suspended(s,a)||window.__HAPIL_BOSS_HOME_V31343__?.owns(s.zone,a))return decision;
+121100:   const dx=16-a.x,dy=16-a.y,d=Math.hypot(dx,dy);
+121101:   if(d>4.7){for(const angle of [0,.35,-.35,.7,-.7]){const co=Math.cos(angle),si=Math.sin(angle),p={x:a.x+(dx*co-dy*si)/d*.85,y:a.y+(dx*si+dy*co)/d*.85};if(routeSafe(s,a,p.x,p.y))return {...decision,target:p,centralReturnV31335:true};}return {...decision,target:null};}
+121102:   if(decision?.target&&Math.hypot(decision.target.x-16,decision.target.y-16)>5.5)return {...decision,target:null};
+121103:   return decision;
+121104:  };
+121105:  const api={version:'3.13.35',installed:true,profile,active,drawBody,tick,routeSafe,suspended,metrics:()=>({...stats}),exceptions:{cosmicLuciferV31318:'Existing giant background actor has a separate mouth/emitter and multilayer renderer; native composition preserved.'}};
+121106:  window.__HAPIL_STAND_V31335__=api;
+121107: })();
+121108: 
+121109: /* v3.13.35: basic fire and locomotion have independent gates. */
+121110: (()=>{'use strict';
+121111:  const n=v=>Number(v)||0,P=()=>window.__HAPIL_PARTY_V31322__;
+121112:  function statusLocked(s,a){return !s||!a||a.hp<=0||MONGSE_isEncounterLocked31226(s)||P()?.status.role==='guest'||P()?.status.disconnected||window.__HAPIL_THEME_V31323__?.rootActive(s,a)||n(a.heroSleepUntil)>s.time||n(a.heroCharmUntil)>s.time||n(a.recoveryUntilV31322)>s.time;}
+121113:  function movementLocked(s,a){if(window.__HAPIL_CHANNEL_V31364__?.active(arguments[0],arguments[1]))return true;return window.__HAPIL_MOVEMENT_V31336__?.movementLocked(s,a)??(statusLocked(s,a)||n(a.heroMotion?.until)>s.time&&a.heroMotion?.kind==='hurt');}
+121114:  function hardLocked(s,a){return window.__HAPIL_MOVEMENT_V31336__?.attackLocked(s,a)??(statusLocked(s,a)||n(a.autoEvadeUntil31223)>s.time||n(a.dashingUntil)>s.time||n(a.heroMotion?.until)>s.time&&['skill','ultimate','guard','hurt','dash'].includes(a.heroMotion?.kind));}
+121115:  window.__HAPIL_MOVING_V31335__=Object.freeze({version:'3.13.35',installed:true,hardLocked,movementLocked,statusLocked});
+121116: })();
+121117: 
+121118: /* HAPIL v3.13.35: measured body, heart and launch axis. Existing artwork is reused. */
+121119: (()=>{'use strict';
+121120:  const geometry=HAPIL_VISUAL_GEOMETRY_V31335,bodyHeight=66,metrics={routes:0,gunnerDraws:0},num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+121121:  function options(out,path){const p=geometry[path];if(!p)return out;const c=p.crop,a=p.anchor,H=num(On,90),W=H*Math.min(p.width*c[2]/(p.height*c[3]),1.72),scale=bodyHeight/(H*p.bodySpan/c[3]),cx=(p.chest[0]-c[0])/c[2];return {...out,scaleX:Math.sign(out.scaleX||1)*scale,scaleY:scale,rotation:0,offsetX:-W*(cx-a[0])*Math.sign(out.scaleX||1)*scale,offsetY:-H*.43*(scale-1),bodyNormalizedV31335:true};}
+121122:  function offset(path){const p=geometry[path];if(!p)return{x:0,y:-42};return{x:0,y:-bodyHeight*((p.crop[1]+p.crop[3]*p.anchor[1])-p.chest[1])/p.bodySpan};}
+121123:  function coreOffset(a){const id=a.activeHeroId??a.heroId,h=F.find(x=>x.id===id);if(!h)return null;const time=num(a.time,num(window.__HAPIL_PARTY_V31322__?.state?.time)),raw=a.heroMotion??{kind:'idle',facing:a.facing??1,direction:a.facing<0?'left':'right'},motion=num(raw.until)>time?raw:{...raw,kind:a.hp<=0?'hurt':'idle',...(a.activeHeroId?{dx:0,dy:0}:{})};return offset(Tn(h,motion,time));}
+121124:  function routeGeometry(p){const a=p.start,b=p.end,dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),direct=Math.atan2(dy,dx),axis=num(a.weaponAngle,direct),delta=Math.atan2(Math.sin(axis-direct),Math.cos(axis-direct));const len=Math.min(28,d*.16);const j=Math.abs(delta)<Math.PI*.48?{x:a.x+Math.cos(axis)*len,y:a.y+Math.sin(axis)*len}:{x:a.x,y:a.y};return{a,j,b,l1:Math.hypot(j.x-a.x,j.y-a.y),l2:Math.hypot(b.x-j.x,b.y-j.y),axis};}
+121125:  function pointAt(g,u){const t=Math.max(0,Math.min(1,u))*(g.l1+g.l2);if(t<g.l1&&g.l1>.001)return{x:g.a.x+(g.j.x-g.a.x)*t/g.l1,y:g.a.y+(g.j.y-g.a.y)*t/g.l1,angle:g.axis};const v=g.l2?Math.max(0,(t-g.l1)/g.l2):1;return{x:g.j.x+(g.b.x-g.j.x)*v,y:g.j.y+(g.b.y-g.j.y)*v,angle:Math.atan2(g.b.y-g.j.y,g.b.x-g.j.x)};}
+121126:  function routePose(p){const g=routeGeometry(p),v=pointAt(g,p.u);Object.assign(p,v);p.visualGeometryV31335=g;metrics.routes++;return p;}
+121127:  function drawGunner(ctx,im,e,p,key){const g=p.visualGeometryV31335??routeGeometry(p),alpha=ctx.globalAlpha,fade=p.arrived?1-p.tail:1,total=g.l1+g.l2,thick=key==='R'?7:4.5;ctx.save();try{ctx.globalAlpha=alpha*fade;ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.lineCap='round';
+121128:  // Three compact readable current packets; no particle cloud or additional damage callbacks.
+121129:  for(let i=0;i<3;i++){const tip=p.u-i*16/Math.max(1,total);if(tip<=0)continue;const head=pointAt(g,tip),tail=pointAt(g,Math.max(0,tip-12/Math.max(1,total))),dx=head.x-tail.x,dy=head.y-tail.y,len=Math.hypot(dx,dy);ctx.save();ctx.translate(tail.x,tail.y);ctx.rotate(Math.atan2(dy,dx));ctx.globalAlpha=alpha*fade*(1-i*.12);ctx.drawImage(im,0,-thick,len,thick*2);ctx.strokeStyle='#6ff1cf';ctx.lineWidth=thick;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(len*.42,-1.8);ctx.lineTo(len*.67,1.4);ctx.lineTo(len,0);ctx.stroke();ctx.strokeStyle=i===1?'#f3d590':'#e7fbf6';ctx.lineWidth=1.35;ctx.stroke();ctx.restore();}
+121130:  }finally{ctx.restore();}metrics.gunnerDraws++;}
+121131:  let installed=false,tries=0;function install(){if(installed)return true;if(!window.__HAPIL_DIRECTION_V31334__?.installed)return false;const old=An;An=function HAPIL_bodyOptionsV31335(o,h,m,p){return options(old(o,h,m,p),p);};installed=true;window.__HAPIL_VISUAL_V31335__=Object.freeze({version:'3.13.35',installed:true,geometry,bodyHeight,options,offset,coreOffset,routeGeometry,pointAt,routePose,drawGunner,metrics:()=>({...metrics})});return true;}function run(){if(install()||++tries>640)return;setTimeout(run,0);}run();
+121132: })();
+121133: 
+121134: /* HAPIL_V31335_STAND: native source actor owns both silhouettes; no summoned combat entity. */
+121135: (() => {
+121136:  'use strict';
+121137:  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,stats={drawn:0,moved:0,blocked:0};
+121138:  const alive=a=>!!a&&a.hp>0&&!a.visualOnly&&!a.protectedNarrativeTargetV31307&&!a.objectiveStructureV31238;
+121139:  function profile(a){
+121140:   if(!alive(a)||!(a.boss||a.midboss)||a.cosmicLuciferV31318)return null;
+121141:   const sprites=a.phaseSprites;if(!Array.isArray(sprites)||sprites.length<2)return null;
+121142:   const base=sprites[0]??a.sprite;if(!base||!sprites.some(p=>p&&p!==base))return null;
+121143:   const phase=MONGSE_enemyPhase(a),index=Math.max(0,Math.min(sprites.length-1,a.humanPhase0?phase:phase-1));
+121144:   return {sourceId:a.id,visualOnly:true,human:base,humanFallback:a.phaseSpriteFallbacks?.[0]??a.sprite,demon:sprites[index],index,active:index>0&&sprites[index]!==base};
+121145:  }
+121146:  function active(a){return profile(a)?.active===true;}
+121147:  function drawBody(ctx,cache,a,time,settings,sprite,size,transform){
+121148:   const p=profile(a);if(!p?.active){Ln(ctx,cache,sprite,a.x,a.y,size,transform);return true;}
+121149:   const human=MONGSE_runtimeSprite(cache,p.human,p.humanFallback),origin=G(a.x,a.y),breath=0,frontSize=Math.min(122,size*.68),rearSize=size*.94;
+121150:   const facing=num(transform.scaleX,1)<0?-1:1,rearX=-facing*size*.20,rearY=-frontSize*.39-8+breath*2.3;
+121151:   ctx.save();try{
+121152:    // Transparent vector shadow and black puppet threads have no world geometry or damage fields.
+121153:    ctx.globalAlpha*=.20+breath*.025;ctx.fillStyle='#05030b';ctx.beginPath();ctx.ellipse(origin.x+rearX,origin.y+rearY-14,rearSize*.34,rearSize*.13,0,0,Math.PI*2);ctx.fill();
+121154:   }finally{ctx.restore();}
+121155:   Ln(ctx,cache,sprite,a.x,a.y,rearSize,{...transform,visualSizeV31338:rearSize,offsetX:num(transform.offsetX)+rearX,offsetY:num(transform.offsetY)+rearY,alpha:.64+breath*.045,glowBlur:settings?.lowFx?0:3});
+121156:   ctx.save();try{
+121157:    ctx.strokeStyle='#08050e';ctx.lineWidth=settings?.lowFx?1.4:1.8;ctx.globalAlpha*=.86;
+121158:    const charge=num(a.attackAt)>time||num(a.atomicCastUntil31210)>time;
+121159:    for(const side of [-1,1])for(let i=0;i<2;i++){
+121160:     const x1=origin.x+side*frontSize*(.14+i*.06),y1=origin.y-frontSize*(.58+i*.12),x2=origin.x+rearX+side*rearSize*(.18+i*.07),y2=origin.y+rearY-rearSize*(.56+i*.13);
+121161:     ctx.beginPath();ctx.moveTo(x1,y1);ctx.bezierCurveTo(x1+side*9,y1-28-breath*3,x2-side*8,y2+20,x2,y2);ctx.stroke();
+121162:     if(charge){ctx.save();ctx.strokeStyle=transform.glow??'#b3a3d8';ctx.lineWidth=.6;ctx.globalAlpha*=.55;ctx.stroke();ctx.restore();}
+121163:    }
+121164:   }finally{ctx.restore();}
+121165:   Ln(ctx,cache,human,a.x,a.y,frontSize,{...transform,visualSizeV31338:frontSize,alpha:1,glowBlur:Math.min(3,num(transform.glowBlur)),offsetY:num(transform.offsetY)*.45});stats.drawn++;return true;
+121166:  }
+121167:  function suspended(s,a){
+121168:   return num(s.timeStopUntil)>s.time||MONGSE_isEncounterLocked31226(s)||MONGSE_isRestZone(s.zone)||['hub','village','last304'].includes(s.zone)||a.cosmicLuciferV31318||['attackAt','recoverUntil','atomicCastUntil31210','phaseTransitionUntil','staggerUntil','invulnerableUntil'].some(k=>num(a[k])>s.time)||window.__HAPIL_BOSSES_V31334__?.busy(s)||
+121169:    (s.pendingHits??[]).some(h=>h.sourceId===a.id&&num(h.at)>s.time)||(s.impactQueue??[]).some(h=>h.sourceId===a.id&&num(h.impactAt)>s.time);
+121170:  }
+121171:  function routeSafe(s,a,x,y){
+121172:   const radius=Math.min(1.2,MONGSE_enemyHitRadius(a)),steps=Math.max(1,Math.ceil(Math.hypot(x-a.x,y-a.y)/.18));
+121173:   const allies=[s,...(window.__HAPIL_PARTY_V31322__?.state===s?window.__HAPIL_PARTY_V31322__.actors??[]:[])].filter(p=>p&&num(p.hp,1)>0);
+121174:   for(let i=1;i<=steps;i++){const u=i/steps,px=a.x+(x-a.x)*u,py=a.y+(y-a.y)*u;if(ut(s.zone,px,py,radius)||pt(s.zone,a,{x:px,y:py},radius)||allies.some(p=>Math.hypot(px-p.x,py-p.y)<radius+1.1))return false;}
+121175:   return true;
+121176:  }
+121177:  function tick(s,dt){
+121178:   const party=window.__HAPIL_PARTY_V31322__,status=party?.status;if(!s||!Number.isFinite(s.time)||party?.state===s&&(status?.role==='guest'||status?.paused||status?.disconnected))return;
+121179:   const step=Math.min(.05,Math.max(0,num(dt)))*1.5;if(!step)return;
+121180:   // The shared arena spans 0..32. Stay in its broad centre; never teleport or chase through allies.
+121181:   for(const a of s.enemies??[]){if(a.fixedCombatPositionRC69||!alive(a)||!a.boss||suspended(s,a)||window.__HAPIL_BOSS_HOME_V31343__?.owns(s.zone,a))continue;const dx=16-a.x,dy=16-a.y,d=Math.hypot(dx,dy);if(d<=4.7)continue;
+121182:    let moved=false;for(const angle of [0,.35,-.35,.7,-.7]){const co=Math.cos(angle),si=Math.sin(angle),x=a.x+(dx*co-dy*si)/d*step,y=a.y+(dx*si+dy*co)/d*step;if(!routeSafe(s,a,x,y))continue;a.moveDx=x-a.x;a.moveDy=y-a.y;a.x=x;a.y=y;a.movingUntil=s.time+.1;a.movePhase=num(a.movePhase)+step*8;stats.moved++;moved=true;break;}if(!moved)stats.blocked++;
+121183:   }
+121184:  }
+121185:  // Feed the native navigation brain a local centreward waypoint so ordinary pursuit cannot overpower the gentle return.
+121186:  const nativeBrain=MONGSE_tickBossCombatBrainSmartR1;
+121187:  MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){
+121188:   const decision=nativeBrain(s,a,...args);
+121189:   if(!alive(a)||!a.boss||suspended(s,a)||window.__HAPIL_BOSS_HOME_V31343__?.owns(s.zone,a))return decision;
+121190:   const dx=16-a.x,dy=16-a.y,d=Math.hypot(dx,dy);
+121191:   if(d>4.7){for(const angle of [0,.35,-.35,.7,-.7]){const co=Math.cos(angle),si=Math.sin(angle),p={x:a.x+(dx*co-dy*si)/d*.85,y:a.y+(dx*si+dy*co)/d*.85};if(routeSafe(s,a,p.x,p.y))return {...decision,target:p,centralReturnV31335:true};}return {...decision,target:null};}
+121192:   if(decision?.target&&Math.hypot(decision.target.x-16,decision.target.y-16)>5.5)return {...decision,target:null};
+121193:   return decision;
+121194:  };
+121195:  const api={version:'3.13.35',installed:true,profile,active,drawBody,tick,routeSafe,suspended,metrics:()=>({...stats}),exceptions:{cosmicLuciferV31318:'Existing giant background actor has a separate mouth/emitter and multilayer renderer; native composition preserved.'}};
+121196:  window.__HAPIL_STAND_V31335__=api;
+121197: })();
+121198: 
+121199: (()=>{let n=0;function ready(){if(['__HAPIL_MOVING_V31335__','__HAPIL_VISUAL_V31335__','__HAPIL_STAND_V31335__'].some(k=>!window[k]?.installed)){if(++n<800)setTimeout(ready,0);return;}MONGSE_ASSET_VERSION='31335';window.MONGSE_ASSET_VERSION='31335';window.__HAPIL_V31335_RELEASE__=Object.freeze({version:'3.13.35',installed:true,cacheKey:31335,saveRevision:14,baseVersion:'3.13.34',activeBundle:'index-v31335.js'});}ready();})();
+121200: 
+121201: /* v3.13.36: actor-owned manual priority and locomotion independent of cast presentation.
+121202:  * WeakMap state is transient: never serialized, no timers, no cooldown or HP mutation.
+121203:  */
+121204: (()=>{'use strict';
+121205:  const N=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,P=()=>window.__HAPIL_PARTY_V31322__;
+121206:  const CFG=Object.freeze({manualPrioritySeconds:.2,approachMaximum:6.8,approachStop:24.1,approachSample:.32,hazardThreshold:3});
+121207:  const memories=new WeakMap();
+121208:  function memory(s,a){let m=memories.get(a);if(!m||m.zone!==s.zone||s.time<m.at){m={zone:s.zone,at:s.time,until:0};memories.set(a,m);}m.at=s.time;return m;}
+121209:  function active(s,a=s){return !!s&&!!a&&memory(s,a).until>s.time;}
+121210:  function note(s,a=s,dx=0,dy=0){if(!s||!a||P()?.status.role==='guest')return false;const m=memory(s,a);m.until=s.time+CFG.manualPrioritySeconds;
+121211:   // An opposite held direction must move the requested way in the very next simulation step.
+121212:   if(N(a.moveVx)*dx+N(a.moveVy)*dy<0)a.moveVx=a.moveVy=0;
+121213:   if(a===s){s.manualMovementUntil31222=Math.max(N(s.manualMovementUntil31222),m.until);if(s.target?.autoAwakeningV31336)hi(s);if(N(s.autoEvadeUntil31223)>s.time)MONGSE_resetHeroAutoDodge31223(s,'manual-priority-v336');}
+121214:   return true;
+121215:  }
+121216:  function observe(s,a,input){if(!s||!a)return false;const dx=N(input?.moveX),dy=N(input?.moveY);if(Math.hypot(dx,dy)>.01||input?.actions?.dash)note(s,a,dx,dy);return active(s,a);}
+121217:  function host(s,keys){if(!s)return;const dx=Number(keys?.has('ArrowRight'))-Number(keys?.has('ArrowLeft')),dy=Number(keys?.has('ArrowDown'))-Number(keys?.has('ArrowUp'));
+121218:   if(dx||dy){s.lastManualBlinkVectorRC79={x:dx,y:dy,zone:s.zone,hero:s.activeHeroId};note(s,s,dx,dy);}else if(s.target&&!s.target.autoProgressV31301&&!s.target.autoAwakeningV31336)note(s,s);
+121219:  }
+121220:  function statusLocked(s,a){return !s||!a||a.hp<=0||MONGSE_isEncounterLocked31226(s)||P()?.status.role==='guest'||P()?.status.disconnected||window.__HAPIL_THEME_V31323__?.rootActive(s,a)||N(a.heroSleepUntil)>s.time||N(a.heroCharmUntil)>s.time||N(a.recoveryUntilV31322)>s.time;}
+121221:  function movementLocked(s,a){return window.__HAPIL_CHANNEL_V31364__?.active(s,a)||statusLocked(s,a)||N(a.heroMotion?.until)>s.time&&a.heroMotion?.kind==='hurt';}
+121222:  function attackLocked(s,a){return window.__HAPIL_CHANNEL_V31364__?.active(s,a)||statusLocked(s,a)||N(a.autoEvadeUntil31223)>s.time||N(a.dashingUntil)>s.time||N(a.heroMotion?.until)>s.time&&['hurt','dash'].includes(a.heroMotion?.kind);}
+121223:  function dashLocked(s,a){return window.__HAPIL_CHANNEL_V31364__?.active(s,a)||statusLocked(s,a)||N(a.heroMotion?.until)>s.time&&a.heroMotion?.kind==='hurt';}
+121224:  function canAutoMove(s,a=s){return (a!==s||window.__HAPIL_CONTROLS_V31329__?.effective()==='full')&&!active(s,a)&&!movementLocked(s,a)&&!attackLocked(s,a);}
+121225:  function markAutoTarget(s){if(s?.target)s.target.autoAwakeningV31336=true;}
+121226:  function danger(s,a,p){const C=window.__HAPIL_COMBAT_V31333__,d=C?.dangerContext?.(s,a);return (d?C.dangerAt(s,p,d):0)+(window.__HAPIL_BOSSES_V31334__?.danger(s,p,.5)??0)+(window.__HAPIL_LASERS_V31330__?.danger?.(s,p,.5)??0);}
+121227:  function safeStep(s,a,target,ranged){if(window.__HAPIL_AI_V31338__)return window.__HAPIL_AI_V31338__.safeReposition(s,a,target);if(!canAutoMove(s,a)||!target||target.hp<=0)return null;let dx=target.x-a.x,dy=target.y-a.y,dist=Math.hypot(dx,dy);if(dist<.001)return null;
+121228:   if(ranged){const x=-dy/dist*.72;dy=dx/dist*.72;dx=x;}else{const reach=Math.min(CFG.approachMaximum,Math.max(0,dist-CFG.approachStop));dx=dx/dist*reach;dy=dy/dist*reach;}
+121229:   const len=Math.hypot(dx,dy),steps=Math.max(1,Math.ceil(len/CFG.approachSample));let previous={x:a.x,y:a.y};
+121230:   for(let i=1;i<=steps;i++){const desired={x:a.x+dx*i/steps,y:a.y+dy*i/steps},point=ft(s.zone,previous,{x:desired.x-previous.x,y:desired.y-previous.y},.42);if(Math.hypot(point.x-desired.x,point.y-desired.y)>.08||danger(s,a,point)>CFG.hazardThreshold)return null;previous=point;}
+121231:   return Math.hypot(previous.x-a.x,previous.y-a.y)>.02?previous:null;
+121232:  }
+121233:  function clear(s){if(!s)return;memories.delete(s);for(const a of P()?.actors??[])if(a.control==='local')memories.delete(a);}
+121234:  window.__HAPIL_MOVEMENT_V31336__=Object.freeze({version:'3.13.36',installed:true,config:CFG,active,note,observe,host,statusLocked,movementLocked,attackLocked,dashLocked,canAutoMove,markAutoTarget,safeStep,clear,debug:{danger}});
+121235: })();
+121236: 
+121237: /* v31402: one geometric implementation; legacy alias is retained for callers. */
+121238: window.__HAPIL_CONTACT_V31336__=window.__HAPIL_GEOMETRY_V31402__.create({project:(...args)=>G(...args),heroes:()=>F,combat:window.__HAPIL_COMBAT_CORE_V31401__});
+121239: 
+121240: /* HAPIL v3.13.36: one damage packet, one heart bonus per attack instance/slot.
+121241:  * This module never subtracts HP or emits another attack; native callbacks do so once.
+121242:  * No new shield pool: v335 has invulnerability + damage mitigation, no shield HP. */
+121243: (()=>{
+121244: 'use strict';
+121245: const config=Object.freeze({ratio:.10,retireGrace:2.4,feedbackSeconds:.22,logLimit:32});
+121246: const lists=['hostileProjectiles','pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts','bossLaserCastsV31330','bossUltimateCastsV31334','enemyExitFxV31327'];
+121247: const states=new WeakMap();let serial=0;
+121248: const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+121249: const party=()=>window.__HAPIL_PARTY_V31322__;
+121250: const targetId=(s,a)=>a===s?'__host':String(a?.slotId??'');
+121251: function permit(s,a,h){
+121252:  if(!s||!a||!(num(a.hp)>0))return false;
+121253:  const p=party(),status=p?.status;
