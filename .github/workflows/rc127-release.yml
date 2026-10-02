@@ -4,8 +4,7 @@ on:
     branches: [fix/rc127-dark-combat]
     paths: ['.github/workflows/rc127-release.yml']
   workflow_dispatch:
-permissions:
-  contents: read
+permissions: {contents: read}
 jobs:
   integrate:
     runs-on: ubuntu-24.04
@@ -16,20 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with: {show-progress: false}
-      - uses: actions/setup-node@v4
-        with: {node-version: 22}
-      - name: Bind exact RC126 scheduler variable names then integrate
+      - uses: actions/setup-node@v6
+        with: {node-version: '22'}
+      - name: Apply guarded integration and mode refinements
         run: |
-          node <<'NODE'
-          const fs=require('fs'),p='tools/apply-rc127.cjs';let s=fs.readFileSync(p,'utf8');
-          s=s.replaceAll('root.__HAPIL_POLICY_RC127__?.interval','window.__HAPIL_POLICY_RC127__?.interval').replaceAll('root.__HAPIL_POLICY_RC127__?.deadline','window.__HAPIL_POLICY_RC127__?.deadline').replaceAll('mixed?1.25:.72','p.index===2?1.25:.72').replaceAll('paced?.lastRelease','rc126Volley?.lastRelease');fs.writeFileSync(p,s);
-          NODE
           node tools/refine-rc127-tests.cjs
           node tools/apply-rc127.cjs
-          node --check assets/index-v31526.js
-          node --check assets/rc127/combat-policy.js
-          node --check assets/rc127/dark-jelly.js
-          node --check assets/rc95/combat-flow.js
+          for file in assets/index-v31526.js assets/rc127/combat-policy.js assets/rc127/dark-jelly.js assets/rc95/combat-flow.js tests/rc127-browser.cjs; do node --check "$file"; done
           node tests/rc127-policy.cjs
           git diff --check
           test "$(git hash-object assets/rc77/connected-laser.js)" = '6bb4a891eb541734ef4c86f4d46dfb6ea94a44df'
@@ -39,7 +31,7 @@ jobs:
           git config user.name 'HAPIL RC127 validation'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add tools/apply-rc127.cjs index.html assets/index-v31526.js assets/rc126/combat-safety.js assets/combat-v31402/projectile-pipeline.js assets/combat-v31412/skill-completion.js assets/rc95/combat-flow.js assets/rc127 tests/rc127-policy.cjs tests/rc127-browser.cjs
-          if ! git diff --cached --quiet; then git commit -m 'RC127 integrate dark jelly, fixed 777 movement, story cooldown and committed skill protections'; git push origin HEAD:fix/rc127-dark-combat; fi
+          if ! git diff --cached --quiet; then git commit -m 'RC127 preserve explicit and legacy HELL exclusion from STORY cooldown'; git push origin HEAD:fix/rc127-dark-combat; fi
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   tests:
     needs: integrate
@@ -50,17 +42,14 @@ jobs:
       matrix: {suite: [rc127, regression]}
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.integrate.outputs.sha }}
-          persist-credentials: false
-          show-progress: false
-      - uses: actions/setup-node@v4
-        with: {node-version: 22}
+        with: {ref: '${{ needs.integrate.outputs.sha }}', persist-credentials: false, show-progress: false}
+      - uses: actions/setup-node@v6
+        with: {node-version: '22'}
       - name: Install isolated Playwright Chromium
         run: |
           R="$RUNNER_TEMP/rc127-runtime"
-          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
-          "$R/node_modules/.bin/playwright" install --with-deps chromium
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          "$R/node_modules/.bin/playwright" install --with-deps chromium > "$RUNNER_TEMP/browser-install.log" 2>&1
           CHROMIUM=$(NODE_PATH="$R/node_modules" node -e "console.log(require('playwright').chromium.executablePath())")
           sudo ln -sf "$CHROMIUM" /usr/bin/chromium
           sudo mkdir -p /workspace/hapil-deliverables/RC119-body
@@ -76,7 +65,7 @@ jobs:
         run: |
           set -o pipefail
           node tests/rc127-policy.cjs | tee "$HAPIL_QA_OUTPUT/policy.log"
-          node tests/rc127-browser.cjs | tee "$HAPIL_QA_OUTPUT/browser.log"
+          node tests/rc127-browser.cjs 2>&1 | tee "$HAPIL_QA_OUTPUT/browser.log"
       - name: Run protected runtime regressions
         if: matrix.suite == 'regression'
         run: |
@@ -84,7 +73,7 @@ jobs:
           for test in tests/rc126-finite-native.cjs tests/rc126-combat-safety-smoke.cjs tests/rc43-bloodied-projectile-flight.cjs tests/rc126-combat-browser.cjs tests/rc125-adaptive-battlefield-browser.cjs tests/rc125-first-frame-browser.cjs tests/rc123-boundary-smoke.cjs tests/rc122-autoplay-policy-smoke.cjs tests/rc115-map-advance-smoke.cjs tests/rc91-samong-and-laser-smoke.cjs; do
             node "$test" 2>&1 | tee "$HAPIL_QA_OUTPUT/$(basename "$test").log"
           done
-      - name: Save failures and successes without rewriting evidence
+      - name: Save original failures and successes
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -102,13 +91,9 @@ jobs:
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.integrate.outputs.sha }}
-          show-progress: false
+        with: {ref: '${{ needs.integrate.outputs.sha }}', show-progress: false}
       - uses: actions/download-artifact@v4
-        with:
-          pattern: rc127-*-${{ github.run_id }}
-          path: qa/rc127-evidence
+        with: {pattern: 'rc127-*-${{ github.run_id }}', path: qa/rc127-evidence}
       - name: Record immutable evidence branch
         env:
           TEST_RESULT: ${{ needs.tests.result }}
