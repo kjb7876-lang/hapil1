@@ -1,0 +1,64 @@
+name: RC130 legacy preservation verification
+on:
+  push:
+    branches: ['fix/rc130-projectile-cap-melee-audio']
+    paths:
+      - '.github/workflows/rc130-preservation.yml'
+      - 'tools/rc130_qa_apply.cjs'
+      - 'tools/rc130-preservation.cjs'
+permissions:
+  contents: write
+jobs:
+  preservation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Extend legacy preservation audit without changing the runtime
+        run: |
+          node tools/rc130_qa_apply.cjs
+          node --check tests/rc128-candidate.cjs
+          git config user.name 'HAPIL RC130 regression integration'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tests/rc128-candidate.cjs
+          if ! git diff --cached --quiet; then
+            git commit -m 'RC130 validate authorized source migration while preserving actual legacy runtime tests'
+            git push origin HEAD:refs/heads/fix/rc130-projectile-cap-melee-audio
+          fi
+          node tools/rc130-preservation.cjs
+      - name: Prepare isolated browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc130-legacy-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc130-legacy-results" >> "$GITHUB_ENV"
+      - name: Run actual legacy and awakening browser suites
+        run: node tests/rc128-candidate.cjs
+      - name: Preserve machine-readable legacy regression results
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/rc130-legacy-results/results.json" ]; then
+            mkdir -p qa/rc130/legacy-evidence
+            cp "$RUNNER_TEMP/rc130-legacy-results/results.json" qa/rc130/legacy-evidence/results.json
+            git add qa/rc130/legacy-evidence
+            git commit -m "RC130 legacy evidence $GITHUB_RUN_ID" || true
+            git push origin HEAD:refs/heads/qa/rc130-legacy-$GITHUB_RUN_ID
+            cat "$RUNNER_TEMP/rc130-legacy-results/results.json"
+          fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc130-legacy-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc130-legacy-results/
+          retention-days: 14
+          if-no-files-found: warn
