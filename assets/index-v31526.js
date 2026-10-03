@@ -41732,6 +41732,12 @@ var Hr = `${Vr}audio/last3/`,
   Xr = (e) => N[e].enemies.filter((e) => !e.boss && !e.midboss),
   Zr = (e, t) => N[e].enemies.find((e) => (t === `boss` ? e.boss : e.midboss)),
   MONGSE_zoneCombatCleared = (e, t = e.zone) => {
+    /* RC132_WRATH_CLEAR: use the same required-actor gate as the exit. */
+    if(e && t===e.zone && t==='ep1b07' && window.__HAPIL_DREAM_BALANCE_RC132__?.enabled(e)){
+      const ready=window.__HAPIL_DREAM_BALANCE_RC132__.exitActorsClear(e,null);
+      if(typeof ready==='boolean')return ready;
+    }
+
     if (!e || !he.includes(t) || e.enemies.length > 0) return !1;
     if (xe(t))
       return (

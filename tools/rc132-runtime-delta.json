@@ -5,7 +5,7 @@
     {
       "file": "assets/index-v31526.js",
       "beforeSha256": "7d059d9ef963c905e3bf64b77f3268616953f02f66e16ec8878640750e9e96b1",
-      "afterSha256": "39fbb7beb527024fbb8ae660d3727a9ef9ec48e4db976e9294981579b761c1f1",
+      "afterSha256": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e",
       "operations": [
         {
           "name": "remove only DREAM mirror attack closure; preserve original memory artwork functions",
@@ -26,6 +26,11 @@
           "name": "wrath native interaction uses same authoritative gate",
           "from": "(window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)",
           "to": "/* RC132_WRATH_EXIT */ (window.__HAPIL_DREAM_BALANCE_RC132__?.exitActorsClear(t,(window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)) ?? (window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0))"
+        },
+        {
+          "name": "wrath shared combat-clear and auto progression use same authoritative required-actor gate",
+          "from": "(e, t = e.zone) => {\n    if (!e || !he.includes(t) || e.enemies.length > 0) return !1;\n    if (xe(t))\n      return (\n        (e.loopCycles[t] ?? 0) >= 3 && (t !== `murder03` || !!e.bossDefeated)\n      );\n    if (t === `kair01`) return !!e.spawnedWaves?.has(6);\n    return Zr(t, `boss`) ? !!e.bossDefeated : !!e.spawnedWaves?.has(3);\n  }",
+          "to": "(e, t = e.zone) => {\n    /* RC132_WRATH_CLEAR: use the same required-actor gate as the exit. */\n    if(e && t===e.zone && t==='ep1b07' && window.__HAPIL_DREAM_BALANCE_RC132__?.enabled(e)){\n      const ready=window.__HAPIL_DREAM_BALANCE_RC132__.exitActorsClear(e,null);\n      if(typeof ready==='boolean')return ready;\n    }\n\n    if (!e || !he.includes(t) || e.enemies.length > 0) return !1;\n    if (xe(t))\n      return (\n        (e.loopCycles[t] ?? 0) >= 3 && (t !== `murder03` || !!e.bossDefeated)\n      );\n    if (t === `kair01`) return !!e.spawnedWaves?.has(6);\n    return Zr(t, `boss`) ? !!e.bossDefeated : !!e.spawnedWaves?.has(3);\n  }"
         }
       ]
     },
