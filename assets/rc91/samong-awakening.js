@@ -156,7 +156,7 @@
   if(typeof final==='function')B.restoreFinalBattle=function(s,raw,...args){const result=final.call(this,s,raw,...args);if(enabled(s)){s.hapilFinalBattleV31300=null;s.hapilSamongActiveV31300=false;}restoreVitals(s,raw?.samongRC91);return result;};
   B.renderFrame=function(canvas,s,cache,hero,settings={}){const result=frame.call(this,canvas,s,cache,hero,settings);const ctx=canvas?.getContext?.('2d');if(ctx){const k=ctx.getTransform?.().a||1;
    const plot=(B.modeApi.mode(s)==='STORY'&&s.zone==='cult04'&&s.hapilFinalBattleV31300?.monochromeActiveV31377===true&&!s.hapilFinalBattleV31300.completed);
-   if(active(s)&&!window.__HAPIL_INNER_FINAL_RC133__?.active(s)){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='copy';ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);}finally{ctx.restore();}}
+   if(active(s)&&!window.__HAPIL_INNER_FINAL_RC133__?.active(s)&&!(s.zone==='cult04'&&s.innerFinalRC133?.phase==='complete')){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='copy';ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);}finally{ctx.restore();}}
    window.__HAPIL_INNER_FINAL_RC133__?.compose(ctx,s,canvas);
    if(window.__HAPIL_FEEDBACK_RC128__)window.__HAPIL_FEEDBACK_RC128__.draw(ctx,s,canvas,settings);
    else if(!drawMobile(s,canvas)&&window.__HAPIL_COMBAT_INFO_RC108__?.eligible?.()!==true)draw(ctx,s,canvas.width/k,canvas.height/k);
