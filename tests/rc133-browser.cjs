@@ -66,6 +66,17 @@ for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,
  h.hp=0;test(H.mood(h)==='normal','death clears composition eligibility');h.hp=240;h.innerFinalRC133.phase='complete';test(H.mood(h)==='normal','completion clears composition eligibility');h.zone='ep1b03';test(H.mood(h)==='normal','other zone composition normal');
  // Deterministic draw surfaces isolate the compositor and prove context restoration.
  const pixel=[];for(const [p,b,expected]of[[false,false,'normal'],[true,false,'player'],[false,true,'boss'],[true,true,'opposition']]){h.zone='cult04';h.innerFinalRC133.phase='fight';h.innerFinalRC133.awake=b?7:0;h.samongPassiveRC91.active=p?7:0;const c=document.createElement('canvas');c.width=200;c.height=100;const ctx=c.getContext('2d');ctx.fillStyle='#5299cc';ctx.fillRect(0,0,200,100);ctx.filter='none';H.compose(ctx,h,c);const left=Array.from(ctx.getImageData(40,50,1,1).data),right=Array.from(ctx.getImageData(160,50,1,1).data);test(ctx.filter==='none'&&ctx.globalCompositeOperation==='source-over','compositor no filter leak '+expected);if(expected==='player')test(left[0]===left[1]&&left[1]===left[2],'whole player grayscale');if(expected==='boss')test(left[0]>left[1]&&left[0]>left[2],'whole boss red');if(expected==='opposition')test(left[0]===left[1]&&right[0]>right[1],'opposed halves');pixel.push({expected,left,right});}details.pixel=pixel;
+ // Staged art registry uses already shipped hero sprites, never uploaded source art.
+ // Exercise the actual awakening transition and save reconstruction without
+ // changing health, collision or the fallback used before source registration.
+ const shipped=window.__HAPIL_RC95_NATIVE__.heroes,bodyArt=shipped[0].sprite,awakeArt=shipped[1].sprite;
+ test(H.configure({ready:true,map:bodyArt,body:bodyArt,awakening:awakeArt,skills:[bodyArt]}),'staged existing art registry admitted');
+ const artState=make('cult04'),artLeader=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');artLeader.hp=0;artState.enemies=[artLeader];H.start(artState,artLeader);artState.innerFinalRC133.intro=0;artState.innerFinalRC133.awakeningCooldown=0;H.tick(artState,.016);
+ test(H.boss(artState).sprite===awakeArt&&artState.innerFinalRC133.awake>0,'registered boss awakening art selected on actual timer transition');
+ const artSave=N.normalize(N.save(artState,'gunner',[],{},0)),artRestore=make('cult04');artRestore.enemies=Q.restoreEnemies(artSave);B.restoreEntry(artRestore,artSave);
+ test(H.boss(artRestore).sprite===awakeArt,'active boss awakening art restored with native save');
+ artState.innerFinalRC133.awake=.01;H.tick(artState,.016);test(H.boss(artState).sprite===bodyArt&&artState.innerFinalRC133.awake===0,'registered body art returns when boss awakening expires');
+ details.registeredArt={stagedShippedSprites:true,uploadedSourceArt:false,awakeningTransition:true,nativeSaveRestore:true,expiry:true};
  window.__RC133_FIXTURES__={hidden:h,ego:s};return {checks,problems,details};
  });assert.deepEqual(row.native.problems,[]);
  // Staged resource pickup, then the ordinary React settings/growth UI.
