@@ -1,0 +1,1163 @@
+{
+  "status": "passed",
+  "sourceCommit": "2fc4aa01ffdce4a2638250e9d4d3f0e0083a5c9b",
+  "profiles": [
+    {
+      "name": "pc",
+      "startup": {
+        "first": {
+          "zone": "dist00",
+          "time": 0.12,
+          "hp": 240,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 1.2666000000000008,
+          "hp": 240,
+          "x": 17.851236967681658,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999
+        },
+        "usedProgressCheats": false
+      },
+      "decoded": [
+        {
+          "file": "attack-wood",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.8127519488334656
+        },
+        {
+          "file": "attack-melee",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.7806875705718994
+        },
+        {
+          "file": "parry",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.276485413312912
+        },
+        {
+          "file": "hurt-neutral",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.7806875705718994
+        }
+      ],
+      "priority": {
+        "wood": "./audio/rc131/attack-wood.ogg",
+        "melee": "./audio/rc131/attack-melee.ogg",
+        "hurt": "./audio/rc131/hurt-neutral.ogg",
+        "media": {
+          "max": 2,
+          "active": 2,
+          "events": [
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.017747999999999996
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+              "accepted": true,
+              "volume": 0.068
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.21120000000000003
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.038874
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            }
+          ],
+          "clips": [
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 1,
+              "volume": 0.2046,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "paused": false,
+              "ended": false,
+              "pending": true,
+              "ready": 0,
+              "volume": 0.11220000000000001,
+              "duration": null
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "paused": false,
+              "ended": false,
+              "pending": true,
+              "ready": 0,
+              "volume": 0.16698000000000002,
+              "duration": null
+            }
+          ]
+        }
+      },
+      "before": {
+        "max": 1,
+        "active": 1,
+        "events": [
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+            "accepted": true,
+            "volume": 0.017747999999999996
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+            "accepted": true,
+            "volume": 0.068
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.21120000000000003
+          },
+          {
+            "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+            "accepted": true,
+            "volume": 0.108
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+            "accepted": true,
+            "volume": 0.038874
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.2046
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+            "accepted": true,
+            "volume": 0.0714
+          }
+        ],
+        "clips": [
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "paused": false,
+            "ended": false,
+            "pending": false,
+            "ready": 4,
+            "volume": 0.2046,
+            "duration": 2.2335
+          }
+        ]
+      },
+      "final": {
+        "audio": {
+          "max": 2,
+          "active": 0,
+          "events": [
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.017747999999999996
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+              "accepted": true,
+              "volume": 0.068
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.21120000000000003
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.038874
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.11220000000000001
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.16698000000000002
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-08.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-14.wav?v=31332",
+              "accepted": true,
+              "volume": 0.1275
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/sfx-man-attack-1.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.0495
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/parry.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.132
+            }
+          ],
+          "clips": [
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.2046,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.11220000000000001,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.16698000000000002,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/parry.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.132,
+              "duration": 2.2335
+            }
+          ]
+        },
+        "routing": {
+          "version": "RC131",
+          "hurtRequests": 3,
+          "parryRequests": 1,
+          "attackRequests": 86,
+          "fallbacks": 0,
+          "codecSupported": true,
+          "failedPaths": [],
+          "newUniqueRecordings": 3,
+          "newRuntimePaths": 4,
+          "existingUploadedRecordingsPreserved": 8,
+          "genderPolicy": "author-reviewed assignments only; otherwise nonvocal",
+          "enemyHitEvery": 6,
+          "enemyHitMinimumInterval": 1.1
+        }
+      },
+      "errors": [],
+      "failed": [],
+      "status": "passed"
+    },
+    {
+      "name": "portrait",
+      "startup": {
+        "first": {
+          "zone": "dist00",
+          "time": 0.12,
+          "hp": 240,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 1.2400000000000004,
+          "hp": 240,
+          "x": 17.433264762760796,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999
+        },
+        "usedProgressCheats": false
+      },
+      "decoded": [
+        {
+          "file": "attack-wood",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.8127519488334656
+        },
+        {
+          "file": "attack-melee",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.7806875705718994
+        },
+        {
+          "file": "parry",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.276485413312912
+        },
+        {
+          "file": "hurt-neutral",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.7806875705718994
+        }
+      ],
+      "priority": {
+        "wood": "./audio/rc131/attack-wood.ogg",
+        "melee": "./audio/rc131/attack-melee.ogg",
+        "hurt": "./audio/rc131/hurt-neutral.ogg",
+        "media": {
+          "max": 2,
+          "active": 2,
+          "events": [
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.017747999999999996
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+              "accepted": true,
+              "volume": 0.068
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.21120000000000003
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.038874
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            }
+          ],
+          "clips": [
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 1,
+              "volume": 0.2046,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "paused": false,
+              "ended": false,
+              "pending": true,
+              "ready": 0,
+              "volume": 0.11220000000000001,
+              "duration": null
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "paused": false,
+              "ended": false,
+              "pending": true,
+              "ready": 0,
+              "volume": 0.16698000000000002,
+              "duration": null
+            }
+          ]
+        }
+      },
+      "before": {
+        "max": 1,
+        "active": 1,
+        "events": [
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+            "accepted": true,
+            "volume": 0.017747999999999996
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+            "accepted": true,
+            "volume": 0.068
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.21120000000000003
+          },
+          {
+            "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+            "accepted": true,
+            "volume": 0.108
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+            "accepted": true,
+            "volume": 0.038874
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+            "accepted": true,
+            "volume": 0.0714
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.2046
+          }
+        ],
+        "clips": [
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "paused": false,
+            "ended": false,
+            "pending": false,
+            "ready": 4,
+            "volume": 0.2046,
+            "duration": 2.2335
+          }
+        ]
+      },
+      "final": {
+        "audio": {
+          "max": 2,
+          "active": 0,
+          "events": [
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.017747999999999996
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+              "accepted": true,
+              "volume": 0.068
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.21120000000000003
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.038874
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.051414
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.11220000000000001
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.16698000000000002
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-02.wav?v=31332",
+              "accepted": true,
+              "volume": 0.09179999999999999
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31233/hero-pulse-soft-low.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.01287
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-07.wav?v=31332",
+              "accepted": true,
+              "volume": 0.09179999999999999
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/parry.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.132
+            }
+          ],
+          "clips": [
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.2046,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.11220000000000001,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.16698000000000002,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/parry.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.132,
+              "duration": 2.2335
+            }
+          ]
+        },
+        "routing": {
+          "version": "RC131",
+          "hurtRequests": 1,
+          "parryRequests": 1,
+          "attackRequests": 73,
+          "fallbacks": 0,
+          "codecSupported": true,
+          "failedPaths": [],
+          "newUniqueRecordings": 3,
+          "newRuntimePaths": 4,
+          "existingUploadedRecordingsPreserved": 8,
+          "genderPolicy": "author-reviewed assignments only; otherwise nonvocal",
+          "enemyHitEvery": 6,
+          "enemyHitMinimumInterval": 1.1
+        }
+      },
+      "errors": [],
+      "failed": [],
+      "status": "passed"
+    },
+    {
+      "name": "landscape",
+      "startup": {
+        "first": {
+          "zone": "dist00",
+          "time": 0.12,
+          "hp": 240,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 2.03,
+          "hp": 240,
+          "x": 18.43495614345902,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999
+        },
+        "usedProgressCheats": false
+      },
+      "decoded": [
+        {
+          "file": "attack-wood",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.8127519488334656
+        },
+        {
+          "file": "attack-melee",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.7806875705718994
+        },
+        {
+          "file": "parry",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.276485413312912
+        },
+        {
+          "file": "hurt-neutral",
+          "duration": 2.2499773242630385,
+          "channels": 1,
+          "peak": 0.7806875705718994
+        }
+      ],
+      "priority": {
+        "wood": "./audio/rc131/attack-wood.ogg",
+        "melee": "./audio/rc131/attack-melee.ogg",
+        "hurt": "./audio/rc131/hurt-neutral.ogg",
+        "media": {
+          "max": 2,
+          "active": 2,
+          "events": [
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.017747999999999996
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+              "accepted": true,
+              "volume": 0.068
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.21120000000000003
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.038874
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31317/time-defense-tick.wav?v=31332",
+              "accepted": true,
+              "volume": 0.05280000000000001
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.09108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/sfx-bomb-boom-1.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.0396
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.051414
+            }
+          ],
+          "clips": [
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 1,
+              "volume": 0.2046,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "paused": false,
+              "ended": false,
+              "pending": true,
+              "ready": 1,
+              "volume": 0.16698000000000002,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "paused": false,
+              "ended": false,
+              "pending": true,
+              "ready": 0,
+              "volume": 0.11220000000000001,
+              "duration": null
+            }
+          ]
+        }
+      },
+      "before": {
+        "max": 2,
+        "active": 2,
+        "events": [
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+            "accepted": true,
+            "volume": 0.017747999999999996
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+            "accepted": true,
+            "volume": 0.068
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.21120000000000003
+          },
+          {
+            "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+            "accepted": true,
+            "volume": 0
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+            "accepted": true,
+            "volume": 0.108
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+            "accepted": true,
+            "volume": 0.038874
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+            "accepted": true,
+            "volume": 0.0714
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v31317/time-defense-tick.wav?v=31332",
+            "accepted": true,
+            "volume": 0.05280000000000001
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.2046
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+            "accepted": true,
+            "volume": 0.09108
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v3127/sfx-bomb-boom-1.mp3?v=31332",
+            "accepted": true,
+            "volume": 0.0396
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+            "accepted": true,
+            "volume": 0.051414
+          }
+        ],
+        "clips": [
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+            "paused": false,
+            "ended": false,
+            "pending": false,
+            "ready": 4,
+            "volume": 0.2046,
+            "duration": 2.2335
+          },
+          {
+            "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+            "paused": false,
+            "ended": false,
+            "pending": false,
+            "ready": 4,
+            "volume": 0.09108,
+            "duration": 2.2335
+          }
+        ]
+      },
+      "final": {
+        "audio": {
+          "max": 2,
+          "active": 0,
+          "events": [
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.017747999999999996
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-09.wav?v=31332",
+              "accepted": true,
+              "volume": 0.068
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.21120000000000003
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-16.wav?v=31332",
+              "accepted": true,
+              "volume": 0.108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.038874
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-01.wav?v=31332",
+              "accepted": true,
+              "volume": 0.0714
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31317/time-defense-tick.wav?v=31332",
+              "accepted": true,
+              "volume": 0.05280000000000001
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.09108
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v3127/sfx-bomb-boom-1.mp3?v=31332",
+              "accepted": true,
+              "volume": 0.0396
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.051414
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.16698000000000002
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.11220000000000001
+            },
+            {
+              "src": "http://127.0.0.1:36121/assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3?v=31332",
+              "accepted": true,
+              "volume": 0
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-02.wav?v=31332",
+              "accepted": true,
+              "volume": 0.09179999999999999
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/last3/PlayerMeleeHit_Part0.wav?v=31332",
+              "accepted": true,
+              "volume": 0.066
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/v31227/hwando-wooden-sword-heavy.wav?v=31332",
+              "accepted": true,
+              "volume": 0.051414
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc23/upload-14.wav?v=31332",
+              "accepted": true,
+              "volume": 0.1275
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.2046
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/parry.ogg?v=31332",
+              "accepted": true,
+              "volume": 0.132
+            }
+          ],
+          "clips": [
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-wood.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.2046,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/hurt-neutral.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.16698000000000002,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/attack-melee.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.11220000000000001,
+              "duration": 2.2335
+            },
+            {
+              "src": "http://127.0.0.1:36121/audio/rc131/parry.ogg?v=31332",
+              "paused": true,
+              "ended": false,
+              "pending": false,
+              "ready": 4,
+              "volume": 0.132,
+              "duration": 2.2335
+            }
+          ]
+        },
+        "routing": {
+          "version": "RC131",
+          "hurtRequests": 6,
+          "parryRequests": 1,
+          "attackRequests": 121,
+          "fallbacks": 0,
+          "codecSupported": true,
+          "failedPaths": [],
+          "newUniqueRecordings": 3,
+          "newRuntimePaths": 4,
+          "existingUploadedRecordingsPreserved": 8,
+          "genderPolicy": "author-reviewed assignments only; otherwise nonvocal",
+          "enemyHitEvery": 6,
+          "enemyHitMinimumInterval": 1.1
+        }
+      },
+      "errors": [],
+      "failed": [],
+      "status": "passed"
+    }
+  ],
+  "scope": "3 unchanged startup observations plus staged native-audio cue admission/decoding/mute tests; not human listening or a complete campaign"
+}

@@ -1,0 +1,170 @@
+{
+  "version": "RC131",
+  "startingMain": "a4d4a73e5b551dd7bae2ec896294cd93cdef8402",
+  "testedCommit": "2fc4aa01ffdce4a2638250e9d4d3f0e0083a5c9b",
+  "status": "passed",
+  "suites": [
+    {
+      "name": "rc131-preservation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 534,
+      "error": null
+    },
+    {
+      "name": "rc131-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36,
+      "error": null
+    },
+    {
+      "name": "rc131-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36362,
+      "error": null
+    },
+    {
+      "name": "rc130-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 57,
+      "error": null
+    },
+    {
+      "name": "rc130-isolation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30,
+      "error": null
+    },
+    {
+      "name": "rc130-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 21371,
+      "error": null
+    },
+    {
+      "name": "rc129-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 78,
+      "error": null
+    },
+    {
+      "name": "rc129-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 38795,
+      "error": null
+    },
+    {
+      "name": "rc127-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 55,
+      "error": null
+    },
+    {
+      "name": "rc127-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 22774,
+      "error": null
+    },
+    {
+      "name": "combat-audio-assets",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3544,
+      "error": null
+    },
+    {
+      "name": "combat-audio-controller",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 139,
+      "error": null
+    },
+    {
+      "name": "combat-audio-bridge",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 99,
+      "error": null
+    },
+    {
+      "name": "combat-audio-native-sfx",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 80,
+      "error": null
+    },
+    {
+      "name": "combat-audio-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 61317,
+      "error": null
+    },
+    {
+      "name": "rc116-laser-continuity-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 29384,
+      "error": null
+    },
+    {
+      "name": "rc115-natural-story-portal-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 105758,
+      "error": null,
+      "progress": {
+        "first": "dist00",
+        "last": "dist01",
+        "hp": 152,
+        "usedProgressCheats": false
+      }
+    },
+    {
+      "name": "story-narration-mixing",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 81,
+      "error": null
+    },
+    {
+      "name": "story-narration-media-races",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 123,
+      "error": null
+    },
+    {
+      "name": "story-narration-webaudio-races",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 114,
+      "error": null
+    }
+  ],
+  "files": {
+    "index.html": "bdc71d420db087c269e917d5103d69a525e8de858cca144c32ea1626583c0016",
+    "assets/index-v31526.js": "561e8b59dba7519ea1dc7ba5b0620382826f57295a00131aaff0dab9bbf461c2",
+    "assets/rc23/feedback.js": "14f9dea2cecf26f520bdca7ffd33c07118a065a66c6217afffbbaa8048a9e5d4",
+    "assets/rc128/combat-feedback.js": "ad31af5a5a0e933b901f5061d24dbd86c98409740e766ab6881cab2eca69b109",
+    "assets/combat-audio/v1/native-bridge.js": "d338f9f5a30f1a7e61620a97e8e6aa975c87f69961eca3e7d1fa89e1468bdbad",
+    "assets/rc131/audio-cues.js": "154abc47507054d16c5d214d24ba0877cb1be700188fc15f55973d4e2e21fd90",
+    "assets/rc131/manifest.json": "0c5c90500eccb7bca8384af5ec42bb4f59961606befa8756ff567a1050b23d32",
+    "audio/rc131/attack-wood.ogg": "da6dccbac8aa25feff0c962d31c19d29a485d355122b18babc336020e639ba21",
+    "audio/rc131/attack-melee.ogg": "805f8bbdb0d62c18b7b809d419a112daf121be1aaa1ef89a595b988973e0259d",
+    "audio/rc131/hurt-neutral.ogg": "805f8bbdb0d62c18b7b809d419a112daf121be1aaa1ef89a595b988973e0259d",
+    "audio/rc131/parry.ogg": "b9b62396e0468842fc1180501590e244cb81daf62eb14040fedaaf1680c3dbdd"
+  },
+  "scope": "Unit/geometry/byte checks, staged native render/audio checks, and one natural STORY first-boss/portal progression are distinct. Not all-hero full campaigns or physical phone/speaker validation.",
+  "passed": 20,
+  "failed": 0
+}
