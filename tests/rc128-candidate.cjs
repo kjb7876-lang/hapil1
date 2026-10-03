@@ -9,13 +9,14 @@ const run=(command,args,options={})=>cp.spawnSync(command,args,{cwd:root,encodin
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex'),hash=file=>digest(fs.readFileSync(file));
 function narrationIndexBase(text){
  const tags=[
+  /    <script src="\.\/assets\/story-narration\/v1\/mixer\.js\?v=\d+"><\/script>\n/g,
   /    <script src="\.\/assets\/story-narration\/v1\/player\.js\?v=\d+"><\/script>\n/g,
   /    <link rel="stylesheet" href="\.\/assets\/story-narration\/v1\/player\.css\?v=\d+">\n/g,
   /    <script defer src="\.\/assets\/story-narration\/v1\/surfaces\.js\?v=\d+"><\/script>\n/g
  ];
  if(!text.includes('./assets/story-narration/v1/player.js'))return text;
  for(const expression of tags){if([...text.matchAll(expression)].length!==1)throw Error('Unexpected narration index tag');text=text.replace(expression,'');}
- for(const [asset,version] of [['assets/hapil-title-v31342.js','35101'],['data/story-rc51.js','39301'],['assets/rc51/story.js','40801'],['assets/title/v31236/christian-opening-v31236.js','36101']]){
+ for(const [asset,version] of [['assets/rc49/story-voice.js','34901'],['assets/index-v31526.js','42701'],['assets/hapil-title-v31342.js','35101'],['data/story-rc51.js','39301'],['assets/rc51/story.js','40801'],['assets/title/v31236/christian-opening-v31236.js','36101']]){
   const escaped=asset.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),expression=new RegExp('(src="\\./'+escaped+'\\?v=)\\d+','g');
   if([...text.matchAll(expression)].length!==1)throw Error('Unexpected narration cache key');text=text.replace(expression,(_,prefix)=>prefix+version);
  }

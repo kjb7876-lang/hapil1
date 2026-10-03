@@ -60,6 +60,8 @@
     let startedAt = 0;
     let source = null;
     let media = null;
+    let duration = 0;
+    let backend = null;
     const gainValue = Math.max(0, Math.min(1, Number(volume) || 0));
 
     function blocked() {
@@ -69,6 +71,7 @@
       return false;
     }
     function prepareMedia() {
+      backend = 'media';
       if (media) return media;
       media = new Audio(path);
       media.preload = 'auto';
@@ -97,11 +100,13 @@
       status = 'loading';
       unlock();
       if (context) {
+        backend = 'webaudio';
         try {
           const [audio, running] = await Promise.all([decoded(path), resumeResult]);
           if (disposed || request !== generation) return false;
           if (!running || context.state !== 'running') throw new Error('AudioContext suspended');
           const node = context.createBufferSource();
+          duration = audio.duration;
           const gain = context.createGain();
           node.buffer = audio;
           gain.gain.value = gainValue;
@@ -177,6 +182,17 @@
       get playing() { return status === 'playing'; },
       get ended() { return status === 'ended'; },
       get status() { return status; },
+      // Read-only transport observations let the host hold text until actual
+      // completion and distinguish an OS interruption from failed loading.
+      get position() {
+        if (source && context) return Math.min(duration || Infinity, position + Math.max(0, context.currentTime - startedAt));
+        if (backend === 'media' && media && Number.isFinite(media.currentTime)) return media.currentTime;
+        return position;
+      },
+      get duration() { return duration || (Number.isFinite(media?.duration) ? media.duration : 0); },
+      get backend() { return backend; },
+      get contextState() { return context?.state ?? null; },
+      get audioContext() { return context; },
     });
   }
 

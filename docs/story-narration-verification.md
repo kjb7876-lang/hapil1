@@ -2,8 +2,8 @@
 
 ## Preserved contracts
 
-- Original voice 1 and voice 2 retain their existing audio paths, bytes, transcripts and RC49 playback route.
-- Narration does not modify the game bundle, save format or combat progression. Canonical text edits are limited to the requested ellipsis replacements and conservative proofreading.
+- Original voice 1 and voice 2 retain their existing audio paths, bytes, transcripts and RC49 playback route. Read-only transport observations let their host honor actual completion, pause and OS interruption.
+- The game bundle adds only a transient narration/BGM bridge; save format and combat progression remain unchanged. Canonical text edits are limited to the requested ellipsis replacements and conservative proofreading.
 - Death narration never delays full-auto rebirth. The existing three-second timer retains priority and cancels narration when it closes.
 - Manual Skip remains immediate. Audio failures leave the text and Continue action usable.
 - New narration waits for the actual final audio-ended event, followed by a 750 ms tail, before normal automatic continuation. Loading and stalled transport have bounded recovery.
@@ -52,3 +52,11 @@ Automated ASR and waveform evidence are verification aids, not a claim of perfec
 ## Publication gate
 
 Reconcile the narration-only changes with the latest main branch, preserving concurrent viewport, HUD, pointer, laser and other gameplay changes. Run the full release and Dream/death regressions, narration tests and actual-audio checks on the exact integrated commit. Publish without a force push, then verify the remote main commit and successful GitHub Pages deployment for that same SHA. A staging pass alone is not a production-completion claim.
+
+## Playback edge protection
+
+Visible AudioContext interruption is a resumable hold, not a completed sentence or expired download. New and original recordings preserve position, block automatic continuation through interruption, and retain immediate manual Skip and bounded genuine-failure fallback. Resume-button intent is captured before global audio unlock so the same gesture cannot immediately pause recovered speech.
+
+Audible narration transiently reduces background music to 20% of its current target. This leaves voice gain and saved settings unchanged, preserves other stronger ducking, and restores the latest music setting after narration stops. Original WAV and all currently published MP3 bytes remain unchanged by these runtime changes.
+
+Decoder diagnostics compare independent FFmpeg and Chromium edge signals for all 130 published MP3s at 24 kHz and native sample rates. These checks establish signal preservation, not subjective phoneme completeness or physical-device playback. Source articulation and encoding gain reviews remain separate.

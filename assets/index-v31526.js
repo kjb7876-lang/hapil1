@@ -41491,6 +41491,7 @@ var Hr = `${Vr}audio/last3/`,
   MONGSE_monitorBgm = (e) => {
     if (!e || e.destroyed) return;
     if (typeof document !== `undefined` && document.hidden) return;
+    if (window.__HAPIL_NARRATION_MIX_V1__?.audible) MONGSE_duckBgm(e, 0.2, 650);
     let t = Date.now(),
       n = e.current,
       r = e.desiredProfile;
@@ -54215,6 +54216,9 @@ function Ri() {
         a = () => {
           document.hidden || MONGSE_resumeBgm(e);
         };
+      const releaseNarrationMix = window.__HAPIL_NARRATION_MIX_V1__?.subscribe(audible => {
+        if (audible) MONGSE_duckBgm(e, 0.2, 650);
+      });
       (e.monitorTimer === null &&
         (e.monitorTimer = window.setInterval(() => MONGSE_monitorBgm(e), 180)),
         window.addEventListener(`pointerdown`, t, { passive: !0 }),
@@ -54224,6 +54228,7 @@ function Ri() {
         window.addEventListener(`pagehide`, r),
         window.addEventListener(`pageshow`, a));
       return () => {
+        releaseNarrationMix?.();
         (window.removeEventListener(`pointerdown`, t),
           window.removeEventListener(`touchstart`, t),
           window.removeEventListener(`keydown`, t),

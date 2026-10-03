@@ -55,9 +55,12 @@ jobs:
       - name: Validate canonical source and original voice contracts
         run: |
           node --check assets/story-narration/v1/player.js
+          node --check assets/story-narration/v1/mixer.js
+          node --check assets/rc49/story-voice.js
           node --check assets/rc51/story.js
           node --check assets/story-narration/v1/surfaces.js
           node --check assets/title/v31236/christian-opening-v31236.js
+          node tests/rc48-story-voice-smoke.cjs
           node tests/rc51-story-and-samong-smoke.cjs
           node tests/rc74-flight-voice-lifecycle.cjs
           node tests/rc75-ending-and-awakening.cjs
@@ -65,7 +68,7 @@ jobs:
           node tests/story-narration-text.cjs
           node tests/story-narration-proofreads.cjs
           node tests/story-narration-manifest.cjs
-          node --test tests/story-narration-media-races.cjs tests/story-narration-overlap.cjs
+          node --test tests/story-narration-media-races.cjs tests/story-narration-overlap.cjs tests/story-narration-webaudio-races.cjs tests/story-narration-original-timing.cjs tests/story-narration-mixing.cjs
       - name: Install isolated browser runtime
         run: |
           QA_RUNTIME="$RUNNER_TEMP/story-narration-runtime"
@@ -80,6 +83,8 @@ jobs:
           node tests/story-narration-browser.cjs
           node tests/story-narration-surfaces-browser.cjs
           node tests/story-narration-audio-browser.cjs
+          node tests/story-narration-webaudio-browser.cjs
+          HAPIL_DECODER_EDGE_REPORT="$HAPIL_NARRATION_OUTPUT/decoder-edges.json" node tests/story-narration-decoder-edges.cjs
       - name: Preserve narration layout evidence
         if: always()
         uses: actions/upload-artifact@v7

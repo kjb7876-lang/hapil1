@@ -17,6 +17,96 @@
  }
  function stopNarration(){narrationToken++;narration?.stop?.();narration=null;}
  function voicePath(r,kind){return r?.zone==='dist00'&&kind==='pre'?openingVoice:r?.zone==='dist00'&&kind==='post'?rootVoice:null;}
+ // Keep the original recordings and transport. The host owns the reader's
+ // lifetime, so neither a slow download nor an intentional pause can skip speech.
+ function originalNarration(s,card,path,button,manager,ctx){
+  const token=++narrationToken,volume=Number.isFinite(Number(ctx.voiceVolume))?Math.max(0,Math.min(1,Number(ctx.voiceVolume))):.8;
+  let state='idle',disposed=false,generation=0,endedAt=0,lastProgress=0,progressAt=0,resumeVisible=false,resumeContext=false,observedContext=null,pendingPlay=null,gesturePause=null;
+  const listeners=[],mixOwner={},now=()=>performance.now();
+  const valid=()=>!disposed&&token===narrationToken&&root===card&&owner===s&&card.isConnected&&enabled(s)&&s.hp>0&&card.dataset.zone===s.zone&&!document.getElementById('hapil-death-verse-rc59');
+  function listen(target,event,callback){target.addEventListener(event,callback);listeners.push(()=>target.removeEventListener(event,callback));}
+  function display(next){state=next;card.dataset.originalVoiceState=next;button.textContent=({idle:'음성 재생',loading:'음성 불러오는 중…',playing:'음성 일시정지',paused:'음성 이어 듣기',interrupted:'음성 이어 듣기',ended:'다시 듣기',blocked:'음성 재생 · 눌러서 다시 시도'})[next]||'음성 재생';window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner,next==='playing'&&volume>0);}
+  const clip=manager.create(path,{volume,
+   onPlaying(){
+    if(!valid()){stop();return;}
+    if(state!=='loading'&&state!=='playing'){clip.pause();return;}
+    if(interrupted()){holdContext();return;}
+    lastProgress=clip.position;progressAt=now();display('playing');
+   },
+   onEnded(){if(!valid()){stop();return;}if(state!=='playing')return;resumeVisible=resumeContext=false;endedAt=now();display('ended');},
+   onBlocked(){if(!disposed&&(state==='loading'||state==='playing'))failed();}
+  });
+  function interrupted(){return clip.backend==='webaudio'&&(clip.contextState==='interrupted'||clip.contextState==='suspended');}
+  function pause(){
+   if(disposed)return;resumeVisible=resumeContext=false;
+   if(state==='idle'||state==='ended'||state==='blocked')return;
+   ++generation;clip.pause();display('paused');
+  }
+  function holdContext(){pause();resumeContext=true;display('interrupted');}
+  function failed(){if(disposed)return;++generation;resumeVisible=resumeContext=false;clip.pause();display('blocked');}
+  function contextChanged(){
+   if(!valid()){stop();return;}
+   // A media fallback has its own clock and is unaffected by this context.
+   if(interrupted()&&(state==='playing'||state==='loading'))holdContext();
+   else if(resumeContext&&clip.contextState==='running'&&!document.hidden)void play();
+   else if(clip.backend==='webaudio'&&clip.contextState==='closed'&&(resumeContext||state==='playing'||state==='loading'))failed();
+  }
+  function observeContext(){
+   const context=clip.audioContext;
+   if(context&&context!==observedContext){observedContext=context;listen(context,'statechange',contextChanged);}
+  }
+  async function play(){
+   if(!valid()){stop();return false;}
+   if(state==='playing'||state==='loading')return false;
+   resumeVisible=resumeContext=false;endedAt=0;
+   if(document.hidden){display('paused');resumeVisible=true;return false;}
+   const request=++generation;lastProgress=clip.position;progressAt=now();display('loading');
+   // The legacy media transport reuses one element. Retire its prior promise
+   // first so a stale completion cannot pause the newly resumed playback.
+   if(pendingPlay&&clip.backend==='media'){await pendingPlay;if(disposed||request!==generation)return false;if(!valid()){stop();return false;}}
+   const pending=clip.play();pendingPlay=pending;observeContext();contextChanged();
+   const ok=await pending;
+   if(pendingPlay===pending)pendingPlay=null;
+   if(disposed||request!==generation)return false;
+   if(!valid()){stop();return false;}
+   if(!ok&&state==='loading')failed();
+   return ok;
+  }
+  function check(){
+   if(!valid()){stop();return;}
+   observeContext();contextChanged();
+   if(state!=='playing'&&state!=='loading')return;
+   const position=Number(clip.position)||0,time=now();
+   if(state==='playing'&&position>lastProgress+.001){lastProgress=position;progressAt=time;}
+   // A suspended context is a resumable hold; an otherwise running transport
+   // which never progresses is a bounded failure and retains a Retry button.
+   if(time-progressAt>=15000)failed();
+  }
+  function stop(){
+   if(disposed)return;disposed=true;++generation;resumeVisible=resumeContext=false;clip.stop();window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner,false);
+   window.clearInterval(watch);for(const remove of listeners)remove();
+  }
+  const watch=window.setInterval(check,250);
+  listen(document,'visibilitychange',()=>{
+   if(!valid()){stop();return;}
+   if(document.hidden&&(state==='playing'||state==='loading'||resumeContext)){pause();resumeVisible=true;}
+   else if(!document.hidden&&(resumeVisible||resumeContext))void play();
+  });
+  listen(window,'pagehide',pause);
+  if(typeof MutationObserver==='function'){
+   const removed=new MutationObserver(()=>{if(!valid())stop();});removed.observe(document.body,{childList:true,subtree:true});listeners.push(()=>removed.disconnect());
+  }
+  button.dataset.originalVoiceControl='true';card.dataset.originalVoice='true';
+  // Global audio unlock runs between pointerdown and click. Preserve the intent
+  // before it can recover an interrupted voice and turn Resume into Pause.
+  const captureGesture=()=>{gesturePause=state==='playing'||state==='loading';};
+  listen(button,'pointerdown',event=>{if(event.button==null||event.button===0)captureGesture();});
+  listen(button,'pointercancel',()=>{gesturePause=null;});listen(button,'blur',()=>{gesturePause=null;});
+  button.onclick=()=>{const shouldPause=gesturePause??(state==='playing'||state==='loading');gesturePause=null;if(shouldPause)pause();else void play();};
+  const api={play,pause,stop,captureGesture,setContext:check,get playing(){return state==='playing';},get status(){return state;},get blocksAdvance(){return !disposed&&(state==='loading'||state==='playing'||state==='paused'||state==='interrupted'||(state==='ended'&&now()-endedAt<750));}};
+  if(ctx.sound!==false&&volume>0)void play();
+  return api;
+ }
  function close(commit=true){if(!root)return;const callback=done;stopNarration();if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=previousBlocked;root.remove();root=null;owner=null;done=null;clearInput();previousFocus?.isConnected&&previousFocus.focus?.();if(commit)callback?.();}
  function show(s,r,kind,text,callback,ctx={}){if(root||!text)return false;owner=s;done=callback;previousFocus=document.activeElement;previousBlocked=!!window.__HAPIL_READING_V31342__?.blocked;if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;clearInput();stopNarration();
   root=el('div','rc51-story');root.id='hapil-story-rc51';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-labelledby','rc51-title');
@@ -30,11 +120,9 @@
   const full=window.__HAPIL_CONTROLS_V31329__?.effective?.()==='full';autoLeft=full&&window.__HAPIL_CONTROLS_V31329__?.binding?.settings?.current?.autoStoryAdvance!==false?Math.max(12,text.length/9):0;autoPaused=false;lastUi=performance.now();pause.hidden=!full;
   pause.onclick=()=>{autoPaused=!autoPaused;pause.textContent=autoPaused?'자동 넘김 계속':'자동 넘김 멈춤';};next.onclick=()=>close();if(voiceButton)footer.append(voiceButton);footer.append(pause,next);panel.append(footer);root.append(panel);document.body.append(root);
   if(audioPath&&autoLeft>0)autoLeft=Math.max(autoLeft,audioPath===openingVoice?55.5:14);
-  if(audioPath&&voiceButton){const manager=window.__HAPIL_STORY_VOICE_RC49__,token=++narrationToken,volume=Number.isFinite(Number(ctx.voiceVolume))?Math.max(0,Math.min(1,Number(ctx.voiceVolume))):.8;
-   if(manager?.create){narration=manager.create(audioPath,{volume,onPlaying:()=>{if(token===narrationToken&&voiceButton.isConnected)voiceButton.textContent='음성 일시정지';},onEnded:()=>{if(token===narrationToken&&voiceButton.isConnected)voiceButton.textContent='다시 듣기';},onBlocked:()=>{if(token===narrationToken&&voiceButton.isConnected)voiceButton.textContent='음성 재생 · 눌러서 다시 시도';}});
-    voiceButton.onclick=()=>{if(narration?.playing){narration.pause();voiceButton.textContent='음성 이어 듣기';return;}manager.unlock?.(audioPath);voiceButton.textContent='음성 불러오는 중…';narration?.play?.().then(ok=>{if(token===narrationToken&&voiceButton.isConnected&&!ok)voiceButton.textContent='음성 재생 · 눌러서 다시 시도';});};
-    if(ctx.sound!==false&&volume>0){voiceButton.textContent='음성 불러오는 중…';narration.play().then(ok=>{if(token===narrationToken&&voiceButton.isConnected&&!ok)voiceButton.textContent='음성 재생 · 눌러서 다시 시도';});}
-   }else voiceButton.textContent='음성 파일을 불러올 수 없음';
+  if(audioPath&&voiceButton){const manager=window.__HAPIL_STORY_VOICE_RC49__;
+   if(manager?.create)narration=originalNarration(s,root,audioPath,voiceButton,manager,ctx);
+   else voiceButton.textContent='음성 파일을 불러올 수 없음';
   }
   if(!audioPath){let narrationPausedAuto=false;const manualPause=pause.onclick;pause.onclick=()=>{narrationPausedAuto=false;manualPause();};const resumeAdvance=()=>{if(narrationPausedAuto){narrationPausedAuto=false;autoPaused=false;pause.textContent='자동 넘김 멈춤';}};narration=window.__HAPIL_STORY_NARRATION_V1__?.attach?.({root,text,zone:r.zone,phase:kind,ctx,onPlaying:seconds=>{resumeAdvance();if(autoLeft>0)autoLeft=Math.max(autoLeft,seconds+1.5);},onBlocked:resumeAdvance,onUserPause:()=>{if(!autoPaused&&autoLeft>0){narrationPausedAuto=true;autoPaused=true;pause.textContent='자동 넘김 계속';}}})??null;}
   fit();document.fonts?.ready.then(()=>{if(root)fit();});next.focus();return true;
@@ -56,7 +144,7 @@
  }
  function beforeFrame(s,ctx={}){
   if(root&&document.getElementById('hapil-death-verse-rc59')){lastUi=performance.now();return true;}
-  if(root){if(owner!==s||!enabled(s)||s.hp<=0||(root.dataset.narration&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0){if(narration?.blocksAdvance===true)autoLeft=.05;else close();}}return true;}}
+  if(root){if(owner!==s||!enabled(s)||s.hp<=0||((root.dataset.narration||root.dataset.originalVoice)&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0){if(narration?.blocksAdvance===true)autoLeft=.05;else close();}}return true;}}
   document.documentElement.classList.toggle('rc51-samong',storyActive(s));
   document.documentElement.classList.toggle('rc91-samong',window.__HAPIL_SAMONG_RC91__?.active(s)===true);
   if(!enabled(s)||ctx.blocked||s.hp<=0)return false;
@@ -96,7 +184,7 @@
   return dt;
  }
  window.addEventListener('resize',fit);window.visualViewport?.addEventListener('resize',fit);
- for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(!root||document.getElementById('hapil-death-verse-rc59'))return;e.stopImmediatePropagation();if(e.code==='Tab'){if(type==='keyup'&&root.dataset.narration){e.preventDefault();return;}const nodes=[...root.querySelectorAll(root.dataset.narration?'button:not([hidden]),input:not([hidden])':'button:not([hidden])')],at=nodes.indexOf(document.activeElement);e.preventDefault();nodes[(at+(e.shiftKey?-1:1)+nodes.length)%nodes.length]?.focus();return;}if(root.dataset.narration&&e.target?.closest?.('[data-narration-controls]')&&e.code!=='Escape')return;e.preventDefault();if(type==='keydown'&&!e.repeat&&(['Enter','Space'].includes(e.code)||(root.dataset.narration&&e.code==='Escape')))close();},true);
+ for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(!root||document.getElementById('hapil-death-verse-rc59'))return;e.stopImmediatePropagation();const voiced=root.dataset.narration||root.dataset.originalVoice;if(e.code==='Tab'){if(type==='keyup'&&voiced){e.preventDefault();return;}const nodes=[...root.querySelectorAll(root.dataset.narration?'button:not([hidden]),input:not([hidden])':'button:not([hidden])')],at=nodes.indexOf(document.activeElement);e.preventDefault();nodes[(at+(e.shiftKey?-1:1)+nodes.length)%nodes.length]?.focus();return;}const originalControl=root.dataset.originalVoice&&e.target?.closest?.('[data-original-voice-control]');if((root.dataset.narration&&e.target?.closest?.('[data-narration-controls]')||originalControl)&&e.code!=='Escape'){if(originalControl&&type==='keydown'&&!e.repeat&&['Enter','Space'].includes(e.code))narration?.captureGesture?.();return;}e.preventDefault();if(type==='keydown'&&!e.repeat&&(['Enter','Space'].includes(e.code)||(voiced&&e.code==='Escape')))close();},true);
  window.__HAPIL_STORY_RC51__=Object.freeze({enabled,active,beforeFrame,clock,show,close,pauseNarration:()=>narration?.pause?.(),fit,records,isOpen:()=>!!root,replacesLegacy:true,suppressEntry,
   heroNow:s=>active(s)?(memory(s).startTime??s.time)+memory(s).elapsed*2.2:s.time,heroSpeed:s=>active(s)?1.7:1,heroSize:s=>active(s)?1.3:1,power:s=>active(s)?5:1,incoming:s=>active(s)?.12:1,trails:s=>active(s)?memory(s).trails:[]});
  // The opening voice monologue and map cards share the same uploaded source.

@@ -27,6 +27,9 @@
   function interaction(event) {
     if (event.isTrusted === false) return;
     interacted = true;
+    // The play button unlocks in its click handler. Resuming earlier in the same
+    // gesture could otherwise make that handler pause the newly resumed voice.
+    if (event.target?.closest?.('[data-narration-play]')) return;
     unlock();
   }
   window.addEventListener('pointerdown', interaction, {capture: true, passive: true});
@@ -81,16 +84,21 @@
     root.dataset.narration = sceneKey;
     let state = 'idle', disposed = false, generation = 0, buffer = null, entry = null;
     const availabilityController = new AbortController();
-    let progressWatch = null, endedAt = 0, resumeWhenVisible = false;
+    let progressWatch = null, endedAt = 0, resumeWhenVisible = false, resumeWhenContextRunning = false, observedContext = null;
     const now = () => window.performance?.now?.() ?? Date.now();
     let source = null, gain = null, media = null, startedAt = 0, offset = 0, clipIndex = 0, controller = null, timeout = null;
     let volume = volumeValue(ctx.voiceVolume), muted = ctx.sound === false, lastSound = ctx.sound, lastVolume = ctx.voiceVolume;
     const listeners = [], mediaListeners = [];
+    const mixOwner = {};
     function listen(target, event, callback) {
       target.addEventListener(event, callback); listeners.push(() => target.removeEventListener(event, callback));
     }
     function effectiveVolume() { return muted ? 0 : volume; }
+    function updateDucking(starting = false) {
+      window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner, !disposed && (starting || state === 'playing') && effectiveVolume() > 0);
+    }
     function updateVolume() {
+      updateDucking();
       if (gain) gain.gain.value = effectiveVolume();
       if (media) media.volume = effectiveVolume();
       range.value = String(Math.round(volume * 100));
@@ -100,7 +108,8 @@
     }
     function display(nextState) {
       state = nextState; root.dataset.narrationState = nextState;
-      playButton.textContent = ({idle: '음성 재생', loading: '음성 불러오는 중…', playing: '음성 일시정지', paused: '음성 이어 듣기', ended: '다시 듣기', blocked: '음성 재생 · 다시 시도'})[nextState] || '음성 재생';
+      updateDucking();
+      playButton.textContent = ({idle: '음성 재생', loading: '음성 불러오는 중…', playing: '음성 일시정지', paused: '음성 이어 듣기', interrupted: '음성 이어 듣기', ended: '다시 듣기', blocked: '음성 재생 · 다시 시도'})[nextState] || '음성 재생';
       playButton.setAttribute('aria-busy', String(nextState === 'loading'));
     }
     function clearTimeoutAndRequest() {
@@ -110,6 +119,7 @@
       controller?.abort(); controller = null;
     }
     function stopSource() {
+      window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner, false);
       if (source) { source.onended = null; try { source.stop(); } catch {} source.disconnect(); source = null; }
       if (gain) { gain.disconnect(); gain = null; }
       if (media) media.pause();
@@ -122,17 +132,37 @@
     }
     function pause(user = false, releaseBuffer = false) {
       if (disposed || state === 'unavailable') return;
-      resumeWhenVisible = false; offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); if (releaseBuffer) buffer = null; display('paused');
+      resumeWhenVisible = resumeWhenContextRunning = false; offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); if (releaseBuffer) buffer = null; display('paused');
       if (user) onUserPause?.();
+    }
+    function contextInterrupted() {
+      return audioContext?.state === 'suspended' || audioContext?.state === 'interrupted';
+    }
+    function contextChanged() {
+      if (disposed || active !== api || media) return;
+      if (contextInterrupted() && (state === 'playing' || state === 'loading')) {
+        // Device interruptions are resumable pauses, not failed downloads or ended speech.
+        pause(); resumeWhenContextRunning = true; display('interrupted');
+      } else if (audioContext?.state === 'running' && resumeWhenContextRunning && !document.hidden && state === 'interrupted') {
+        void play();
+      } else if (audioContext?.state === 'closed' && resumeWhenContextRunning) {
+        failed(generation);
+      }
+    }
+    function observeContext() {
+      if (!audioContext || observedContext === audioContext) return;
+      observedContext = audioContext;
+      listen(audioContext, 'statechange', contextChanged);
     }
     function failed(request) {
       if (disposed || request !== generation) return false;
+      resumeWhenVisible = resumeWhenContextRunning = false; offset = position();
       ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); display('blocked'); onBlocked?.();
       return false;
     }
     function unavailable() {
       if (disposed || state === 'unavailable') return false;
-      resumeWhenVisible = false; ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia();
+      resumeWhenVisible = resumeWhenContextRunning = false; ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia();
       buffer = null; entry = null; offset = 0; display('unavailable'); controls.remove();
       // Reuse the host's failure recovery to release only a narration-owned auto pause.
       onBlocked?.();
@@ -172,6 +202,7 @@
       const check = () => {
         progressWatch = null;
         if (disposed || request !== generation || state !== 'playing') return;
+        if (!media && contextInterrupted()) { contextChanged(); return; }
         const current = position();
         if (current > lastPosition + .005) { lastPosition = current; lastProgress = now(); }
         if (now() - lastProgress >= LOAD_TIMEOUT_MS) { failed(request); return; }
@@ -212,6 +243,7 @@
         started(request, Number.isFinite(clip.duration) ? clip.duration : details.duration);
       });
       updateVolume(); if (offset > 0) clip.currentTime = offset;
+      updateDucking(true);
       await clip.play();
       if (!current()) { clip.pause(); return false; }
       if (state !== 'playing') started(request, Number.isFinite(clip.duration) ? clip.duration : details.duration);
@@ -221,10 +253,17 @@
       if (disposed || state === 'unavailable' || state === 'playing' || state === 'loading') return false;
       if (active !== api) { active?.pause(false, true); active = api; }
       if (state === 'ended') { offset = 0; clipIndex = 0; }
+      resumeWhenVisible = resumeWhenContextRunning = false;
       unlock();
       const request = ++generation; display('loading'); onLoading?.();
       controller = new AbortController(); const signal = controller.signal;
-      timeout = window.setTimeout(() => failed(request), LOAD_TIMEOUT_MS);
+      timeout = window.setTimeout(() => {
+        if (disposed || request !== generation) return;
+        if (!media && contextInterrupted()) contextChanged();
+        else failed(request);
+      }, LOAD_TIMEOUT_MS);
+      observeContext();
+      if (contextInterrupted()) { contextChanged(); return false; }
       try {
         const candidate = await metadata(signal);
         if (disposed || request !== generation) return false;
@@ -242,14 +281,17 @@
             if (disposed || request !== generation) return false;
             await audioContext.resume();
             if (disposed || request !== generation) return false;
+            if (contextInterrupted()) { contextChanged(); return false; }
             if (audioContext.state !== 'running') throw new Error('Narration audio suspended');
             source = audioContext.createBufferSource(); gain = audioContext.createGain();
             source.buffer = buffer; gain.gain.value = effectiveVolume(); source.connect(gain); gain.connect(audioContext.destination);
             source.onended = () => finished(request); startedAt = audioContext.currentTime;
+            updateDucking(true);
             source.start(0, Math.min(offset, Math.max(0, buffer.duration - .001)));
             return started(request, buffer.duration);
           } catch (error) {
             if (disposed || request !== generation || signal.aborted) return false;
+            if (contextInterrupted()) { contextChanged(); return false; }
             stopSource();
           }
         }
@@ -275,7 +317,7 @@
       get playing() { return state === 'playing'; },
       get status() { return state; },
       get ended() { return state === 'ended'; },
-      get blocksAdvance() { return !disposed && (state === 'loading' || state === 'playing' || (state === 'ended' && now() - endedAt < END_TAIL_MS)); },
+      get blocksAdvance() { return !disposed && (resumeWhenContextRunning || state === 'loading' || state === 'playing' || (state === 'ended' && now() - endedAt < END_TAIL_MS)); },
       get position() { return position(); }
     });
     listen(playButton, 'click', () => { if (state === 'playing' || state === 'loading') pause(true); else void play(); });
@@ -284,7 +326,7 @@
     listen(document, 'visibilitychange', () => {
       if (document.hidden && (state === 'playing' || state === 'loading')) {
         pause(false, true); resumeWhenVisible = true;
-      } else if (!document.hidden && resumeWhenVisible && state === 'paused') {
+      } else if (!document.hidden && (resumeWhenVisible || resumeWhenContextRunning) && (state === 'paused' || state === 'interrupted') && active === api) {
         resumeWhenVisible = false; void play();
       }
     });
@@ -299,7 +341,7 @@
     // without requesting audio, so unavailable controls cannot strand a paused reader.
     void manifest(availabilityController.signal).then(data => {
       if (!disposed && !Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) unavailable();
-    }).catch(() => { if (!disposed && state === 'idle') failed(generation); });
+    }).catch(() => { if (!disposed && (state === 'idle' || resumeWhenContextRunning)) failed(generation); });
     if (interacted && ctx.sound !== false && volume > 0) void play();
     return api;
   }
