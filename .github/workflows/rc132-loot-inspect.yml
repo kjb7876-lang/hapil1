@@ -1,0 +1,29 @@
+name: RC132 loot and clear source
+on:
+  push:
+    branches: ['qa/rc132-loot-source']
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/parser" --no-save --package-lock=false acorn@8.15.0 prettier@3.6.2 >/dev/null 2>&1
+          MODULES="$RUNNER_TEMP/parser/node_modules" node <<'NODE'
+          const fs=require('fs'),acorn=require(process.env.MODULES+'/acorn'),prettier=require(process.env.MODULES+'/prettier');
+          (async()=>{const s=fs.readFileSync('assets/index-v31526.js','utf8'),nodes=[],ast=acorn.parse(s,{ecmaVersion:'latest',sourceType:'module'});function walk(n,p){if(!n||typeof n!=='object')return;if(/Function/.test(n.type)&&n.body)nodes.push({start:n.start,end:n.end,name:n.id?.name||p?.id?.name||p?.key?.name||'anonymous'});for(const[k,v]of Object.entries(n)){if(k==='start'||k==='end')continue;if(Array.isArray(v))for(const x of v)walk(x,n);else if(v&&typeof v.type==='string')walk(v,n);}}walk(ast);const out='qa/rc132-loot';fs.mkdirSync(out,{recursive:true});const records=[],saved=new Set();for(const m of s.matchAll(/egoDrops/g)){const f=nodes.filter(f=>f.start<=m.index&&f.end>m.index).sort((a,b)=>(a.end-a.start)-(b.end-b.start))[0];let key=null;if(f&&f.end-f.start<75000){key=f.name+'-'+f.start+'.txt';if(!saved.has(key)){let t=s.slice(f.start,f.end);try{t=await prettier.format(t,{parser:'babel'});}catch{}fs.writeFileSync(out+'/'+key,t);saved.add(key);}}records.push({offset:m.index,function:f?.name,path:key,context:s.slice(Math.max(0,m.index-320),m.index+800)});}fs.writeFileSync(out+'/index.json',JSON.stringify(records,null,2));for(const name of ['Ke','MONGSE_zoneCombatCleared','ci','Te']){for(const f of nodes.filter(f=>f.name===name&&f.end-f.start<75000)){let t=s.slice(f.start,f.end);try{t=await prettier.format(t,{parser:'babel'});}catch{}fs.writeFileSync(out+'/'+name+'-'+f.start+'.txt',t);console.log(name,f.start);}}})();
+          NODE
+          git config user.name 'HAPIL RC132 source evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc132-loot
+          git commit -m 'RC132 authoritative loot and clear source'
+          git push origin HEAD:refs/heads/qa/rc132-loot-$GITHUB_RUN_ID
