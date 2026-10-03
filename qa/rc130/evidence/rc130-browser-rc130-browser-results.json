@@ -1,0 +1,433 @@
+{
+  "commit": "c950e468319b5f98ece29bb06393ca5f1c4dfd6b",
+  "status": "passed",
+  "profiles": [
+    {
+      "name": "pc",
+      "startup": {
+        "first": {
+          "time": 0.1534000000000001,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          }
+        },
+        "last": {
+          "time": 1.0467000000000006,
+          "x": 18.669494369353902,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 19,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "rows": [
+        {
+          "kind": "native-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.08915656953704496,
+          "painted": 750
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3152
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3152
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.15076404092362988,
+          "painted": 1961
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3435
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3435
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.08644067796610169,
+          "painted": 860
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 4307
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 4308
+        }
+      ],
+      "positions": [
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 0.17857142857142508
+        }
+      ],
+      "problems": [],
+      "policy": {
+        "projectileCalls": 12,
+        "bitmapDraws": 10,
+        "cappedDraws": 7,
+        "maxRatio": 0.20000000000000004,
+        "meleeDraws": 22,
+        "meleeMissing": 0,
+        "retiredMelee": 2,
+        "ratio": 0.2
+      },
+      "nativeShots": 6,
+      "meleeExpired": true,
+      "hpPreserved": true,
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "name": "portrait",
+      "startup": {
+        "first": {
+          "time": 0.11329999999999996,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          }
+        },
+        "last": {
+          "time": 1.0066000000000002,
+          "x": 18.284989134922306,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "rows": [
+        {
+          "kind": "native-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.16216087868605047,
+          "painted": 739
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.2,
+          "painted": 1130
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.2,
+          "painted": 1130
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.2,
+          "painted": 1241
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.19999999999999996,
+          "painted": 1241
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.2,
+          "painted": 1241
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.15722112645189568,
+          "painted": 852
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.19999999999999996,
+          "painted": 1380
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.2,
+          "painted": 1378
+        }
+      ],
+      "positions": [
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 0.17857142857142508
+        }
+      ],
+      "problems": [],
+      "policy": {
+        "projectileCalls": 25,
+        "bitmapDraws": 20,
+        "cappedDraws": 8,
+        "maxRatio": 0.2,
+        "meleeDraws": 12,
+        "meleeMissing": 0,
+        "retiredMelee": 1,
+        "ratio": 0.2
+      },
+      "nativeShots": 6,
+      "meleeExpired": true,
+      "hpPreserved": true,
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "name": "landscape",
+      "startup": {
+        "first": {
+          "time": 0.11339999999999964,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          }
+        },
+        "last": {
+          "time": 1.2533999999999996,
+          "x": 19.413164095302886,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 8,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "rows": [
+        {
+          "kind": "native-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.17865181550158102,
+          "painted": 747
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 934
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 934
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 1027
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 1025
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 1025
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.1291139240506329,
+          "painted": 860
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 2057
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.19999999999999998,
+          "painted": 2051
+        }
+      ],
+      "positions": [
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 0.17857142857142508
+        }
+      ],
+      "problems": [],
+      "policy": {
+        "projectileCalls": 12,
+        "bitmapDraws": 10,
+        "cappedDraws": 8,
+        "maxRatio": 0.19999999999999998,
+        "meleeDraws": 11,
+        "meleeMissing": 0,
+        "retiredMelee": 1,
+        "ratio": 0.2
+      },
+      "nativeShots": 6,
+      "meleeExpired": true,
+      "hpPreserved": true,
+      "errors": [],
+      "httpErrors": []
+    }
+  ],
+  "scope": "Three real startup observations; separately staged native bitmap/melee tests, not natural full campaigns"
+}

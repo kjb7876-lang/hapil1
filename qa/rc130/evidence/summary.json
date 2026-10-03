@@ -1,0 +1,187 @@
+{
+  "version": "RC130",
+  "startingMain": "41d9d75ffffd9b4a2d8f51c90a8a08946f021864",
+  "testedCommit": "c950e468319b5f98ece29bb06393ca5f1c4dfd6b",
+  "startedAt": "2026-10-03T05:32:47.608Z",
+  "status": "passed",
+  "suites": [
+    {
+      "name": "rc130-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 37,
+      "error": null
+    },
+    {
+      "name": "rc130-isolation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 20,
+      "error": null
+    },
+    {
+      "name": "rc130-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16295,
+      "error": null
+    },
+    {
+      "name": "rc129-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 49,
+      "error": null
+    },
+    {
+      "name": "rc129-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 31579,
+      "error": null
+    },
+    {
+      "name": "rc129-startup",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6999,
+      "error": null
+    },
+    {
+      "name": "rc127-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 35,
+      "error": null
+    },
+    {
+      "name": "rc127-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16222,
+      "error": null
+    },
+    {
+      "name": "rc43-bloodied-projectile-flight",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 38,
+      "error": null
+    },
+    {
+      "name": "rc126-finite-native",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23,
+      "error": null
+    },
+    {
+      "name": "rc126-combat-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 18109,
+      "error": null
+    },
+    {
+      "name": "rc115-map-advance-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 21,
+      "error": null
+    },
+    {
+      "name": "rc115-natural-story-portal-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 79403,
+      "error": null
+    },
+    {
+      "name": "rc116-laser-continuity-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19311,
+      "error": null
+    },
+    {
+      "name": "rc116-laser-telegraph-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6117,
+      "error": null
+    },
+    {
+      "name": "rc119-laser-body-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 711,
+      "error": null
+    },
+    {
+      "name": "story-narration-mixing",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 51,
+      "error": null
+    },
+    {
+      "name": "story-narration-media-races",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 83,
+      "error": null
+    },
+    {
+      "name": "story-narration-webaudio-races",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 68,
+      "error": null
+    },
+    {
+      "name": "story-narration-original-timing",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 240,
+      "error": null
+    },
+    {
+      "name": "story-narration-manifest",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4468,
+      "error": null
+    },
+    {
+      "name": "story-narration-audio-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4588,
+      "error": null
+    }
+  ],
+  "runtimeHashes": {
+    "index.html": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4",
+    "assets/index-v31526.js": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537",
+    "assets/rc130/projectile-policy.js": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+    "assets/rc130/audio-policy.js": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+    "assets/rc23/feedback.js": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+    "assets/rc128/combat-feedback.js": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+    "assets/rc77/connected-laser.js": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+    "assets/rc127/combat-policy.js": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+    "assets/rc127/dark-jelly.js": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+    "assets/rc129/danmaku-director.js": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+    "assets/rc129/danmaku-hud.js": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+    "assets/story-narration/v1/mixer.js": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+    "assets/story-narration/v1/player.js": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+  },
+  "attachment": {
+    "name": "오디오2.zip",
+    "imported": false,
+    "reason": "local execution service unavailable; uploaded archive not read or modified"
+  },
+  "scope": "Unit/staged renderer coverage is separate from natural startup and one native Story first-boss/portal run.",
+  "finishedAt": "2026-10-03T05:36:12.106Z",
+  "passed": 22,
+  "failed": 0
+}
