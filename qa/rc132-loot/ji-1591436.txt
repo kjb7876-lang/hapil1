@@ -1,0 +1,224 @@
+function ji(e) {
+  if (!e || typeof e != `object`) return null;
+  e = window.__HAPIL_POLICY_V31400__.migrate(e);
+  let t = e,
+    n =
+      typeof t.heroId == `string` && F.some((e) => e.id === t.heroId)
+        ? t.heroId
+        : `hwando`,
+    r = Array.isArray(t.partyIds)
+      ? [
+          ...new Set(
+            t.partyIds.filter(
+              (e) =>
+                typeof e == `string` && e !== n && F.some((t) => t.id === e),
+            ),
+          ),
+        ].slice(0, 2)
+      : [`seoha`, `gunner`].filter((e) => e !== n),
+    i = Math.round(_i(t.version, 1, 1, 13)),
+    a = (e, t = 10) => {
+      let n = _i(e, t, i < 9 ? 1.1 : f, i < 9 ? 18.9 : p);
+      return i < 9 ? x(n) : n;
+    },
+    o = typeof t.zone == `string` ? t.zone : `hub`,
+    s =
+      {
+        loop: `dist01`,
+        dist: `dist01`,
+        u2: `u201`,
+        last3: `last301`,
+        vibe: `kair01`,
+        murder: `murder01`,
+      }[o] ?? (Object.prototype.hasOwnProperty.call(N, o) ? o : `hub`),
+    c = {
+      haram: `murder-haram`,
+      minjae: `murder-minjae`,
+      seojin: `murder-seojin`,
+      ikyung: `murder-ikyung`,
+      woosol: `murder-woosol`,
+    },
+    l = Array.isArray(t.clues)
+      ? [
+          ...new Set(
+            t.clues.flatMap((e) => {
+              if (typeof e != `string`) return [];
+              let t = c[e] ?? e;
+              return _e.some((e) => e.id === t) ? [t] : [];
+            }),
+          ),
+        ]
+      : [],
+    u = i < 5 && s !== `village` ? [] : l,
+    d = t.passives && typeof t.passives == `object` ? t.passives : {},
+    m = {
+      damage: 3,
+      speed: 3,
+      cooldown: 3,
+      evolution: 3,
+      ...nr,
+      ...Object.fromEntries(F.map((e) => [fr(e.id), 7])),
+      ...Object.fromEntries(F.map((e) => [mr(e.id), 6])),
+      ...Object.fromEntries(lr.map((e) => [pr(e), 8])),
+      ...Object.fromEntries(
+        MONGSE_INFINITE_STAT_KEYS.map((e) => [e, MONGSE_INFINITE_STAT_MAX]),
+      ),
+    },
+    h = Object.fromEntries(
+      Object.entries(m).map(([e, t]) => [e, Math.round(_i(d[e], 0, 0, t))]),
+    ),
+    g = Array.isArray(t.enemies)
+      ? t.enemies.flatMap((e) => {
+          if (!e || typeof e != `object`) return [];
+          let t = e;
+          return typeof t.id == `string`
+            ? [
+                {
+                  id: t.id,
+                  x: a(t.x),
+                  y: a(t.y),
+                  hp: _i(t.hp, 1, 0.1, Ir),
+                  phaseIndex: Math.round(_i(t.phaseIndex, 0, 0, 12)),
+                  currentPhase: Math.round(_i(t.currentPhase, 0, 0, 12)),
+                  summonOwnerId:
+                    typeof t.summonOwnerId == `string`
+                      ? t.summonOwnerId.slice(0, 96)
+                      : null,
+                  summonPhase: Math.round(_i(t.summonPhase, 0, 0, 12)),
+                },
+              ]
+            : [];
+        })
+      : void 0,
+    _ =
+      typeof t.savedAt == `string` && Number.isFinite(Date.parse(t.savedAt))
+        ? t.savedAt
+        : new Date().toISOString(),
+    v = he.filter((e) => N[e].order < N[s].order),
+    y =
+      i < 6
+        ? v
+        : Array.isArray(t.completedZones)
+          ? [
+              ...new Set(
+                t.completedZones.filter(
+                  (e) =>
+                    typeof e == `string` &&
+                    Object.prototype.hasOwnProperty.call(N, e) &&
+                    e !== `hub` &&
+                    e !== `village`,
+                ),
+              ),
+            ]
+          : [],
+    MONGSE_kairMigration31222 = MONGSE_migrateKairSave31221(i, s, y),
+    b =
+      ((y = MONGSE_kairMigration31222.completedZones),
+      (s = MONGSE_kairMigration31222.zone),
+      typeof t.frontierZone == `string` ? t.frontierZone : s),
+    S =
+      [
+        s,
+        Object.prototype.hasOwnProperty.call(N, b) ? b : s,
+        y.map((e) => N[e].next ?? e).sort((e, t) => N[t].order - N[e].order)[0],
+      ]
+        .filter((e) => !!e)
+        .sort((e, t) => N[t].order - N[e].order)[0] ?? s,
+    C = t.loopCycles && typeof t.loopCycles == `object` ? t.loopCycles : {},
+    w = Object.fromEntries(
+      Object.entries(C).flatMap(([e, t]) =>
+        Object.prototype.hasOwnProperty.call(N, e)
+          ? [[e, Math.round(_i(t, 0, 0, 99))]]
+          : [],
+      ),
+    ),
+    MONGSE_pendingEgoSalvageV31303 = Array.isArray(t.egoDrops)
+      ? Math.round(
+          _i(
+            t.egoDrops.reduce(
+              (sum, drop) =>
+                sum +
+                (drop && typeof drop === `object`
+                  ? _i(drop.amount, 0, 0, MONGSE_INFINITE_STAT_MAX)
+                  : 0),
+              0,
+            ),
+            0,
+            0,
+            MONGSE_INFINITE_STAT_MAX,
+          ),
+        )
+      : 0,
+    ee = [],
+    MONGSE_activeGhosts =
+      xe(s) && Array.isArray(t.activeGhosts)
+        ? t.activeGhosts
+            .flatMap((e) => {
+              if (!e || typeof e != `object`) return [];
+              let t = e,
+                n =
+                  typeof t.templateId == `string`
+                    ? Se(s).find((e) => e.id === t.templateId)
+                    : null;
+              return n
+                ? [
+                    {
+                      templateId: n.id,
+                      x: a(t.x),
+                      y: a(t.y),
+                      hp: _i(t.hp, n.hp, 0.1, Ir),
+                      remaining: _i(t.remaining, 0.65, 0.65, 20),
+                      cycle: Math.round(_i(t.cycle, w[s] ?? 1, 1, 3)),
+                    },
+                  ]
+                : [];
+            })
+            .slice(0, 8)
+        : [];
+  return {
+    version: 13,
+    sourceVersion: i,
+    balanceRevision: Math.round(_i(t.balanceRevision, 0, 0, Or)),
+    savedAt: _,
+    heroId: n,
+    runPolicyV31400: window.__HAPIL_POLICY_V31400__.normalizePolicy(
+      t.runPolicyV31400,
+      { aiEnabled: true, origin: "legacy" },
+    ),
+    legacyRosterV31400: window.__HAPIL_POLICY_V31400__.legacy(t),
+    partyIds: r,
+    zone: s,
+    frontierZone: S,
+    x: a(t.x),
+    y: a(t.y),
+    hp: _i(t.hp, 240, 1, 240 + MONGSE_infiniteStats(h).maxHpBonus),
+    clues: u,
+    bossDefeated: i < 5 ? s === `village` : !!t.bossDefeated,
+    villageTalk: !!t.villageTalk,
+    passives: h,
+    enemies: g,
+    shards: Math.round(
+      _i(
+        _i(t.shards, u.length, 0, MONGSE_INFINITE_STAT_MAX) +
+          MONGSE_pendingEgoSalvageV31303,
+        u.length,
+        0,
+        MONGSE_INFINITE_STAT_MAX,
+      ),
+    ),
+    resonance: _i(t.resonance, 0, 0, 100),
+    spawnedWaves: Array.isArray(t.spawnedWaves)
+      ? [
+          ...new Set(
+            t.spawnedWaves
+              .map((e) => Math.round(_i(e, 0, 0, 9)))
+              .filter((e) => e >= 1 && e <= 6),
+          ),
+        ]
+      : [],
+    completedZones: y,
+    egoDrops: ee,
+    loopCycles: w,
+    activeGhosts: MONGSE_activeGhosts,
+  };
+}

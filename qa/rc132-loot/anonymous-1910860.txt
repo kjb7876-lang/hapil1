@@ -1,0 +1,39 @@
+(e) => {
+  let n = t(e),
+    r = n.enemies[0].id,
+    i = n.hp,
+    a = n.heroStatus,
+    o = MONGSE_clearExpiredEnemyCombatSources(n, [r]);
+  ((n.enemies = n.enemies.filter((e) => e.id !== r)), (n.targetEnemyId = null));
+  let s = MONGSE_clearZoneCombatQueuesAfterClear(n);
+  n.time += 2;
+  let c =
+      n.pendingHits.filter((e) => e.at <= n.time).length +
+      n.impactQueue.filter((e) => e.impactAt <= n.time).length +
+      n.hostileProjectiles.filter((e) => (e.hitAt ?? 1 / 0) <= n.time).length,
+    l =
+      MONGSE_zoneCombatCleared(n, e) &&
+      Te(e, n.clues) &&
+      n.enemies.length === 0 &&
+      n.egoDrops.length === 0 &&
+      (n.loopCycles[e] ?? 0) >= 3,
+    u =
+      Object.values(o.remaining).every((e) => e === 0) &&
+      s.zoneCleared &&
+      c === 0 &&
+      n.hp === i &&
+      n.heroStatus === a &&
+      l;
+  return {
+    zone: e,
+    sourceCleanup: o,
+    zoneCleanup: s,
+    dueEventsAfterTwoSeconds: c,
+    hpBefore: i,
+    hpAfter: n.hp,
+    statusBefore: a,
+    statusAfter: n.heroStatus,
+    portalReady: l,
+    pass: u,
+  };
+};

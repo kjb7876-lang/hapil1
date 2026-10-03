@@ -1,0 +1,85 @@
+function HAPIL_commitFinalEndingV31301(
+  state,
+  heroId,
+  partyIds,
+  passives,
+  shards,
+) {
+  if (!state) return Object.freeze({ ok: false, reason: "state-missing" });
+  if (
+    (window.__HAPIL_MODES_V31346__?.mode(state) ??
+      state.gameModeV31346 ??
+      "STORY") !== "STORY"
+  )
+    return Object.freeze({ ok: false, reason: "story-ending-only" });
+  const finalBattle = state.hapilFinalBattleV31300;
+  const finalBossStillPresent = state.enemies?.some(
+    (entry) => entry.id === "c104-boss",
+  );
+  if (
+    state.zone === "cult04" &&
+    !(
+      finalBattle?.completed === true &&
+      finalBattle?.secondPhaseActive === true &&
+      finalBattle?.monochromeActiveV31377 === true &&
+      finalBattle?.finalHitCommittedV31377 === true &&
+      Number(finalBattle?.stage ?? 0) >= 7 &&
+      state.bossDefeated === true &&
+      !finalBossStillPresent
+    )
+  )
+    return Object.freeze({
+      ok: false,
+      reason: "final-monochrome-battle-incomplete",
+    });
+  state.completedZones?.add?.("cult04");
+  state.zone = "village";
+  state.frontierZone = "village";
+  state.x = ie.x;
+  state.y = ie.y;
+  hi(state);
+  state.moveVx = 0;
+  state.moveVy = 0;
+  state.enemies = [];
+  state.egoDrops = [];
+  state.spawnedWaves = new Set();
+  // RC75: the village must not inherit live combat bodies or laser contacts.
+  state.hostileProjectiles = [];
+  state.effects = [];
+  state.bossLaserCastsV31330 = [];
+  state.bossUltimateCastsV31334 = [];
+  state.enemyExitFxV31327 = [];
+  state.timeStopUntil = 0;
+  state.pendingHits = [];
+  state.impactQueue = [];
+  state.pendingStrikes = [];
+  state.narrativeCasts = [];
+  state.telekineticCasts = [];
+  state.spatialRiftCasts = [];
+  state.supportCall = null;
+  state.targetEnemyId = null;
+  state.bossDefeated = true;
+  state.villageTalk = true;
+  state.hapilSamongActiveV31300 = false;
+  state.hapilFinalCombatClearedV31301 = true;
+  state.hapilTerminalCompleteV31301 = true;
+  state.hapilEndingCleared = true;
+  window.__HAPIL_SAMONG_RC91__?.unlock(state, "story-ending");
+  if (state.hapilFinalBattleV31300) {
+    state.hapilFinalBattleV31300.completed = true;
+    state.hapilFinalBattleV31300.completedAt = Number(state.time ?? 0);
+  }
+  MONGSE_storageSet("hapilEndingCleared", "true");
+  MONGSE_storageSet("hapilCampaignCompleteV31301", "true");
+  window.__HAPIL_ENDING_CLEARED_V31300__ = true;
+  window.__HAPIL_CAMPAIGN_COMPLETE_V31301__ = true;
+  const payload = Fi(state, heroId, partyIds, passives, shards);
+  const saved = MONGSE_writeSave("auto", payload);
+  return Object.freeze({
+    ok: saved?.ok === true,
+    zone: state.zone,
+    frontierZone: state.frontierZone,
+    villageTalk: state.villageTalk,
+    payload,
+  });
+}

@@ -1,0 +1,66 @@
+(e) => {
+  let n = MONGSE_coreSanitizeLoadedSaveV31235(Mi(e));
+  if (!n) {
+    B(`이 슬롯은 비어 있습니다.`);
+    return;
+  }
+  ((L.current = n.heroId),
+    (Le.current = MONGSE_coreNormalizeSupportIdsV31235(n.partyIds, n.heroId)),
+    (R.current = n.passives),
+    (Be.current = n.shards),
+    a(n.heroId),
+    s(MONGSE_coreNormalizeSupportIdsV31235(n.partyIds, n.heroId)),
+    h(n.passives),
+    _(n.shards));
+  let r = oi(),
+    i = Ii(n),
+    MONGSE_loadedBoss;
+  (Object.assign(r, {
+    zone: n.zone,
+    x: n.x,
+    y: n.y,
+    hp: n.hp,
+    clues: new Set(n.clues),
+    bossDefeated: n.bossDefeated,
+    villageTalk: n.villageTalk,
+    enemies: i,
+    resonance: n.resonance,
+    egoDrops: [],
+    spawnedWaves: Li(n.zone, n.spawnedWaves, i),
+    completedZones: new Set(n.completedZones),
+    loopCycles: { ...n.loopCycles },
+    loopNextAt: 0.8,
+    frontierZone: n.frontierZone,
+  }),
+    (r.fxSerial = Math.max(r.fxSerial, ...r.egoDrops.map((e) => e.id + 1))),
+    HAPIL_restoreEntryFlowV31301(r, n),
+    HAPIL_restoreFinalBattleV31301(r, n),
+    (MONGSE_loadedBoss = r.enemies.find(
+      (e) => e.hp > 0 && (e.boss || e.midboss),
+    )),
+    MONGSE_loadedBoss &&
+      !(
+        r.zone === `cult04` &&
+        r.hapilFinalBattleV31300 &&
+        Number(r.hapilFinalBattleV31300.stage ?? 0) < 7
+      ) &&
+      ((MONGSE_loadedBoss.currentPhase =
+        MONGSE_loadedBoss.boss || MONGSE_loadedBoss.narrativeMultiPhase
+          ? MONGSE_enemyPhase(MONGSE_loadedBoss)
+          : 1),
+      (r.bossPhase = MONGSE_loadedBoss.currentPhase),
+      MONGSE_beginNarrativeAttack(
+        r,
+        MONGSE_loadedBoss,
+        MONGSE_loadedBoss.currentPhase,
+        0.65,
+      )),
+    (P.current = r),
+    t(`game`),
+    u(null),
+    (Re.current = ze.current.autoCombat === !0),
+    p(Re.current),
+    Ue(n.zone, r.enemies),
+    B(`저장된 진행을 불러왔습니다.`),
+    void 0);
+};

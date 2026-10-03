@@ -1,0 +1,4 @@
+function Te(e, t) {
+  let n = Ce(e);
+  return n.length === 0 || n.every((e) => t.has(e.id));
+}

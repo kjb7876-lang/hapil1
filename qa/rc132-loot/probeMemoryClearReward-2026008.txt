@@ -1,0 +1,25 @@
+() => {
+  let e = he.find((e) => !!Zr(e, `boss`)) ?? he[0],
+    t = {
+      zone: e,
+      enemies: [{ id: `qa-enemy` }],
+      loopCycles: {},
+      bossDefeated: !1,
+      spawnedWaves: new Set([1, 2, 3, 4]),
+      clues: new Set(),
+      egoDrops: [{ id: 1, amount: 1 }],
+    },
+    n = MONGSE_zoneCombatCleared(t, e);
+  ((t.enemies = []), (t.bossDefeated = !0));
+  let r = MONGSE_zoneCombatCleared(t, e),
+    i = MONGSE_unlockZoneEgoRewardV31217(t, e);
+  return {
+    zone: e,
+    hiddenDuringCombat: !n,
+    cleared: r,
+    records: i.records.length,
+    shards: i.shards,
+    dropsRemoved: t.egoDrops.length === 0,
+    allUnlocked: Te(e, t.clues),
+  };
+};

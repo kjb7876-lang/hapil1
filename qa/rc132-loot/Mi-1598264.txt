@@ -1,0 +1,26 @@
+function Mi(e) {
+  if (typeof window === `undefined`) return null;
+  let t = MONGSE_saveStorageKeys(e),
+    n = MONGSE_saveStorageKey(e);
+  for (let i of t)
+    for (let t of [``, `_mirror`, `_backup`]) {
+      let r = MONGSE_storageGet(i + t);
+      if (!r) continue;
+      try {
+        let MONGSE_rawSaveV31303 = JSON.parse(r),
+          MONGSE_hadPendingEgoV31303 =
+            Array.isArray(MONGSE_rawSaveV31303?.egoDrops) &&
+            MONGSE_rawSaveV31303.egoDrops.length > 0,
+          a = ji(MONGSE_rawSaveV31303);
+        if (a) {
+          let r = JSON.stringify(a);
+          return (
+            (i !== n || t !== `` || MONGSE_hadPendingEgoV31303) &&
+              (MONGSE_storageSet(n, r), MONGSE_storageSet(n + `_mirror`, r)),
+            a
+          );
+        }
+      } catch {}
+    }
+  return null;
+}

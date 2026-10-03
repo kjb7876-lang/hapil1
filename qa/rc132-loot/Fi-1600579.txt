@@ -1,0 +1,66 @@
+function Fi(e, t, n, r, i) {
+  return {
+    runPolicyV31400: window.__HAPIL_RUN_V31400__.serialize(e),
+    legacyRosterV31400: e.legacyRosterV31400 ?? null,
+    version: 13,
+    balanceRevision: Or,
+    savedAt: new Date().toISOString(),
+    heroId: t,
+    partyIds: n,
+    zone: e.zone,
+    frontierZone: e.frontierZone,
+    x: e.x,
+    y: e.y,
+    hp: e.hp,
+    clues: [...e.clues],
+    bossDefeated: e.bossDefeated,
+    villageTalk: e.villageTalk,
+    passives: r,
+    enemies: e.enemies
+      .filter((e) => e.ghostUntil <= 0 && !e.episodeBossSummon)
+      .map((e) => ({
+        id: e.id,
+        x: e.x,
+        y: e.y,
+        hp: e.hp,
+        phaseIndex: MONGSE_enemyActivePhase(e),
+        currentPhase: MONGSE_enemyActivePhase(e),
+        summonOwnerId: e.summonOwnerId ?? null,
+        summonPhase: e.summonPhase ?? 0,
+      })),
+    activeGhosts: xe(e.zone)
+      ? e.enemies
+          .filter((t) => t.hp > 0 && t.ghostUntil > e.time)
+          .flatMap((t) => {
+            let n = Se(e.zone).find(
+              (e) => t.id === e.id || t.id.startsWith(`${e.id}-cycle-`),
+            );
+            return n
+              ? [
+                  {
+                    templateId: n.id,
+                    x: t.x,
+                    y: t.y,
+                    hp: t.hp,
+                    remaining: Math.max(
+                      0.65,
+                      Math.min(20, t.ghostUntil - e.time),
+                    ),
+                    cycle: Math.max(
+                      1,
+                      Math.min(3, Math.round(e.loopCycles[e.zone] ?? 1)),
+                    ),
+                  },
+                ]
+              : [];
+          })
+          .slice(0, 8)
+      : [],
+    egoDrops: e.egoDrops.map((e) => ({ ...e })),
+    shards: i,
+    resonance: e.resonance,
+    spawnedWaves: [...e.spawnedWaves],
+    completedZones: [...e.completedZones],
+    loopCycles: { ...e.loopCycles },
+  };
+}

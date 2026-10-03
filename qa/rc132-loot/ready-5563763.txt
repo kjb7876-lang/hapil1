@@ -1,0 +1,32 @@
+function ready(s, ui = false) {
+  const r = record(s),
+    p = profile(s.zone),
+    g = gate(s);
+  if (!p) return { ready: false, reason: "legacy-map" };
+  admit(s);
+  if (blocked(s, ui) || !g.clear) {
+    r.readyAt = null;
+    s.flowStateV31343 = blocked(s, ui) ? "ENTRY" : "COMBAT";
+    return {
+      ready: false,
+      reason: blocked(s, ui) ? "선택 또는 장면 진행 중" : g.reason,
+    };
+  }
+  if ((s.egoDrops ?? []).length)
+    return { ready: false, reason: "성장 보상 흡수 중" };
+  if (!Te(s.zone, s.clues)) return { ready: false, reason: "필수 기록 확인" };
+  if (r.readyAt === null) {
+    r.readyAt = num(s.time);
+    clearHazards(s);
+    s.flowStateV31343 = "CLEAR_PENDING";
+  }
+  if (num(s.time) - r.readyAt < 0.85 || num(s.time) - r.enteredAt < 1.2)
+    return { ready: false, reason: "출구 준비 중" };
+  s.flowStateV31343 = "EXIT_READY";
+  return {
+    ready: true,
+    reason: "다가가면 다음 구역",
+    near:
+      Math.hypot(s.x - p.exitAnchorWorld.x, s.y - p.exitAnchorWorld.y) < 2.45,
+  };
+}

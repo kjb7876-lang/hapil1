@@ -1,0 +1,5 @@
+function Ke(e) {
+  return /\/assets\/(?:heroes\/|mdf3\/|bosses\/|episode1a\/|episode1b\/|cult-v3123\/|generated-v3125\/(?:boss-actions|kair-guardians)\/|kair\/(?:heroes|enemies|bosses)\/|murder\/|dist\/(?:skeleton|ghoul|cult_mage)\.|last3\/(?:Monster_|Bulmyeongwi_)|u2\/(?:mdrone_|demon_drone_|enemy_tank|enemy_void_core|boss1|controller_guardian))/i.test(
+    e,
+  );
+}

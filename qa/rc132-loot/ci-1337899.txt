@@ -1,0 +1,6 @@
+(e) => {
+  let t = si.get(e);
+  if (t) return t;
+  let n = Ce(e).map((t) => ({ ...t, ...dt(e, t, 0.58) }));
+  return (si.set(e, n), n);
+};

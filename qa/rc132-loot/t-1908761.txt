@@ -1,0 +1,42 @@
+(e, t = 3, n = !1) => {
+  let r = Jr(Se(e)[0], e);
+  ((r.id = `${r.id}-cycle-${t}-qa`),
+    (r.ghostBorn = 90),
+    (r.ghostUntil = n ? 106 : 99));
+  return {
+    zone: e,
+    frontierZone: e,
+    time: 100,
+    x: 10,
+    y: 10,
+    hp: 91,
+    heroStatus: `GHOST_SAFE`,
+    heroStatusUntil: 999,
+    fxSerial: 900,
+    enemies: [r],
+    bossDefeated: !1,
+    villageTalk: !1,
+    resonance: 0,
+    spawnedWaves: new Set([1, 2, 3]),
+    completedZones: new Set(),
+    loopCycles: { [e]: t },
+    clues: new Set(Ce(e).map((e) => e.id)),
+    egoDrops: [],
+    pendingHits: [{ id: 1, sourceId: r.id, at: 100.4, damage: 30 }],
+    impactQueue: [
+      {
+        id: 2,
+        sourceId: r.id,
+        impactAt: 100.7,
+        damage: 35,
+      },
+    ],
+    hostileProjectiles: [{ id: 3, sourceId: r.id, hitAt: 101 }],
+    telekineticCasts: [{ id: 4, sourceId: r.id, at: 101 }],
+    spatialRiftCasts: [{ id: 5, sourceId: r.id, endAt: 102 }],
+    narrativeCasts: [{ id: 6, sourceId: r.id, endAt: 103 }],
+    pendingStrikes: [{ id: 7, sourceId: r.id, targetId: r.id, at: 101 }],
+    resonanceThreads: [{ targetIds: [r.id], at: 102 }],
+    targetEnemyId: r.id,
+  };
+};

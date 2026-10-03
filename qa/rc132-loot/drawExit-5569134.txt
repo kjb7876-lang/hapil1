@@ -1,0 +1,25 @@
+function drawExit(ctx, s) {
+  const p = profile(s.zone);
+  if (!p) return false;
+  const g = gate(s),
+    active =
+      g.clear &&
+      Te(s.zone, s.clues) &&
+      !(s.egoDrops ?? []).length &&
+      !blocked(s);
+  // Reveal the exit after all mandatory combat and growth conditions resolve.
+  if (!active) return true;
+  const e = C(p.exitAnchorWorld.x, p.exitAnchorWorld.y);
+  window.__HAPIL_CONTACT_RC23__.portal(ctx, e, s.time);
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.font = "700 13px sans-serif";
+  ctx.fillStyle = "#c4fff2";
+  ctx.fillText(
+    s.flowTransitionErrorV31343 ?? "WARP · 가까이 가면 자동 이동",
+    e.x,
+    e.y + 62,
+  );
+  ctx.restore();
+  return true;
+}

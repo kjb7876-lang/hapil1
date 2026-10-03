@@ -1,0 +1,62 @@
+() => {
+  const MONGSE_exactV31217 = window.__MONGSE_NARRATIVE_V395__ ?? {},
+    MONGSE_segmentsV31217 = MONGSE_exactV31217.segments ?? [],
+    MONGSE_segmentByZoneV31217 = new Map(
+      MONGSE_segmentsV31217.map((e) => [e.zone, e]),
+    ),
+    MONGSE_rewardProbeV31217 = MONGSE_unlockZoneEgoRewardV31217(
+      { zone: `hub`, clues: new Set(), egoDrops: [] },
+      `hub`,
+    ),
+    MONGSE_snapshotV31217 = {
+      zoneMemoryRecordCount: Object.values(N).reduce(
+        (sum, zone) => sum + (zone.memories?.length ?? 0),
+        0,
+      ),
+      legacyRewardRecordCount: MONGSE_rewardProbeV31217.records.length,
+      legacySyntheticRestInterludes: Object.keys(MONGSE_REST_INTERLUDES ?? {})
+        .length,
+      heroLoreNonEmpty: F.filter((hero) => String(hero.lore ?? ``).length > 0)
+        .length,
+      regionDialogueCount: Object.keys(MONGSE_exactV31217.regionDialogue ?? {})
+        .length,
+      bossNarrativeAttackCount: Object.values(
+        MONGSE_exactV31217.bossNarrativeAttacks ?? {},
+      ).reduce((sum, entries) => sum + (entries?.length ?? 0), 0),
+      legacyRadioDialogueDisplayCount: Number(
+        window.__MONGSE_LEGACY_RADIO_DIALOGUE_DISPLAY_COUNT_V31217__ ?? 0,
+      ),
+      canonicalArchiveCount: MONGSE_exactV31217.archiveChapters?.length ?? 0,
+      canonicalInterludeCount: Object.keys(MONGSE_exactV31217.interludes ?? {})
+        .length,
+      canonicalSegmentCount: MONGSE_segmentsV31217.length,
+      exactZoneNameCount: Object.values(N).filter((zone) => {
+        const segment = MONGSE_segmentByZoneV31217.get(zone.id);
+        return segment ? zone.name === segment.title : !1;
+      }).length,
+      sourceAlignedDisplayNameCount: Object.values(N).filter(
+        (zone) => zone.name === MONGSE_ZONE_DISPLAY_NAMES31222[zone.id],
+      ).length,
+      dialogueMapNameLeakCount: Object.values(N).filter((zone) => {
+        const segment = MONGSE_segmentByZoneV31217.get(zone.id);
+        return segment ? zone.name === segment.title : !1;
+      }).length,
+    };
+  return Object.freeze({
+    ...MONGSE_snapshotV31217,
+    allPass:
+      MONGSE_snapshotV31217.zoneMemoryRecordCount === 0 &&
+      MONGSE_snapshotV31217.legacyRewardRecordCount === 0 &&
+      MONGSE_snapshotV31217.legacySyntheticRestInterludes === 0 &&
+      MONGSE_snapshotV31217.heroLoreNonEmpty === 0 &&
+      MONGSE_snapshotV31217.regionDialogueCount === 0 &&
+      MONGSE_snapshotV31217.bossNarrativeAttackCount === 0 &&
+      MONGSE_snapshotV31217.legacyRadioDialogueDisplayCount === 0 &&
+      MONGSE_snapshotV31217.canonicalArchiveCount === 58 &&
+      MONGSE_snapshotV31217.canonicalInterludeCount === 58 &&
+      MONGSE_snapshotV31217.canonicalSegmentCount === 58 &&
+      MONGSE_snapshotV31217.exactZoneNameCount === 0 &&
+      MONGSE_snapshotV31217.sourceAlignedDisplayNameCount === 63 &&
+      MONGSE_snapshotV31217.dialogueMapNameLeakCount === 0,
+  });
+};

@@ -1,0 +1,9 @@
+(e, t = e.zone) => {
+  if (!e || !he.includes(t) || e.enemies.length > 0) return !1;
+  if (xe(t))
+    return (
+      (e.loopCycles[t] ?? 0) >= 3 && (t !== `murder03` || !!e.bossDefeated)
+    );
+  if (t === `kair01`) return !!e.spawnedWaves?.has(6);
+  return Zr(t, `boss`) ? !!e.bossDefeated : !!e.spawnedWaves?.has(3);
+};

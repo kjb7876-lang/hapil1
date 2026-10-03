@@ -1,0 +1,28 @@
+function resetAtShelter(state, zone) {
+  state.zone = zone;
+  state.enemies = [];
+  state.egoDrops = [];
+  state.effects = [];
+  state.floatTexts = [];
+  state.defeated = [];
+  state.spawnedWaves = new Set();
+  state.completedWaves31228 = new Set();
+  state.bossDefeated = HAPIL_completedZonesRC59(state).has(zone);
+  state.targetEnemyId = null;
+  state.supportCall = null;
+  state.midbossDuoSpawnedRC59 = false;
+  state.zoneEntryFlowZone31226 = zone;
+  state.encounterDialogue31226 = null;
+  state.encounterLockUntil31226 = 0;
+  state.encounterWallUnlockAtV31227 = 0;
+  state.restDialogueComplete31226 = true;
+  state.restPortalUnlockAt31226 = Number(state.time ?? 0);
+  state.restPortalWallUnlockAtV31227 = 0;
+  state.x = Number(oe?.x ?? state.x ?? 16);
+  state.y = Number(oe?.y ?? state.y ?? 16);
+  MONGSE_prepareRestEncounter31226?.(state, zone, false);
+  state.restDialogueComplete31226 = true;
+  state.restPortalUnlockAt31226 = Number(state.time ?? 0);
+  state.restPortalWallUnlockAtV31227 = 0;
+  return true;
+}

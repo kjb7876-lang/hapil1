@@ -1,0 +1,71 @@
+(t) => {
+  if (e !== `game`) return;
+  let n = P.current;
+  if (!(t === `hub` || N[t].order <= N[n.frontierZone].order)) {
+    B(`아직 도달하지 않은 지역입니다.`);
+    return;
+  }
+  if (t === n.zone) {
+    u(null);
+    return;
+  }
+  if (MONGSE_shouldBlockZoneTransitionV31310(n)) {
+    B(`궁극기 적중 처리 중입니다. 잠시 전투 화면에서 기다려 주세요.`);
+    return;
+  }
+  ((n.zone = t),
+    (n.x =
+      t === `hub`
+        ? te.x
+        : t === `village`
+          ? ie.x
+          : MONGSE_isRestZone(t)
+            ? oe.x
+            : MONGSE_zonePortalAnchors(t).interactionEntry.x),
+    (n.y =
+      t === `hub`
+        ? te.y
+        : t === `village`
+          ? ie.y
+          : MONGSE_isRestZone(t)
+            ? oe.y
+            : MONGSE_zonePortalAnchors(t).interactionEntry.y),
+    hi(n),
+    (n.moveVx = 0),
+    (n.moveVy = 0),
+    (n.pendingHits = []),
+    (n.impactQueue = []),
+    (n.guardianGraceReadyAt = n.time + 5.2),
+    (n.pendingStrikes = []),
+    MONGSE_clearHostileProjectiles31215(n, `zone-transition`),
+    (n.narrativeCasts = []),
+    (n.narrativeCastHistory = {}),
+    (n.resonanceThreads = []),
+    (n.telekineticCasts = []),
+    (n.spatialRiftCasts = []),
+    (n.temporalHistory = []),
+    (n.temporalRecordAt = n.time),
+    (n.timeStopUntil = 0),
+    (n.timeAccelerationUntil = 0),
+    (n.graze = 0),
+    (n.grazeChainUntil = 0),
+    (n.effects = []),
+    (n.floatTexts = []),
+    (n.defeated = []),
+    (n.egoDrops = []),
+    (n.supportCall = null),
+    (n.targetEnemyId = null),
+    (n.heroMotion = ai(n.time, n.facing, n.direction)),
+    (n.invulnerableUntil = n.time + 0.85),
+    he.includes(t)
+      ? (ii(n, t, ze.current.mapEntryDialogue !== !1),
+        xe(t) && ((n.loopCycles[t] = 0), (n.loopNextAt = n.time + 1.2)))
+      : ((n.enemies = []),
+        (n.spawnedWaves = new Set()),
+        (n.bossDefeated = n.completedZones.has(t))),
+    u(null),
+    (Re.current = ze.current.autoCombat === !0),
+    p(Re.current),
+    B(`${N[t].name} 재방문 · 본편 진행도는 유지됩니다.`),
+    void 0);
+};

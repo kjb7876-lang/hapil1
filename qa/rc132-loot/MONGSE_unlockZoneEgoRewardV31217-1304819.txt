@@ -1,0 +1,7 @@
+(e, t = e.zone) => {
+  let n = `ego-reward-v31217:${t}`;
+  if (!e?.clues || e.clues.has(n)) return { records: [], shards: 0 };
+  e.clues.add(n);
+  e.egoDrops = [];
+  return { records: [], shards: MONGSE_zoneClearShardReward(t) };
+};

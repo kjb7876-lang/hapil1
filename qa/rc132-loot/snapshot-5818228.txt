@@ -1,0 +1,70 @@
+function snapshot(
+  s = window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current,
+) {
+  if (!s) return { version: "3.14.01-RC1", state: "not-in-game" };
+  const F = window.__HAPIL_FLOW_V31343__,
+    r = F?.record(s),
+    L = window.__HAPIL_LOOP_V31365__,
+    C = window.__HAPIL_CONTROLS_V31329__;
+  return {
+    version: "3.14.07-RC1",
+    tactics: window.__HAPIL_TACTICS_V31407__?.snapshot(s),
+    heroController: window.__HAPIL_CONTROLS_V31329__?.inputSnapshot?.(),
+    actionController: {
+      version: "3.14.06-RC1",
+      channel: window.__HAPIL_CHANNEL_V31364__?.controllerVersion,
+      metrics: window.__HAPIL_ACTION_CONTRACT_V31406__?.metrics?.() ?? null,
+    },
+    ownerPresentation: window.__HAPIL_OWNER_PIPELINE_V31404__?.snapshot(),
+    presentation: window.__HAPIL_RENDER_ROUTER_V31403__?.snapshot(),
+    combat: window.__HAPIL_COMBAT_CORE_V31401__.snapshot(s),
+    zone: s.zone,
+    hero: s.activeHeroId,
+    time: s.time,
+    hp: s.hp,
+    position: { x: s.x, y: s.y },
+    flow: s.flowStateV31343,
+    gate: F?.gate(s),
+    waves: [...(s.spawnedWaves ?? [])],
+    completed: [...(s.completedZones ?? [])],
+    transition: r?.transition
+      ? {
+          id: r.transition.id,
+          stage: r.transition.stage,
+          next: r.transition.next,
+          waitMs:
+            performance.now() -
+            num(r.transition.wallStartedV31369, performance.now()),
+        }
+      : null,
+    error: s.flowTransitionErrorV31343 ?? null,
+    flowLog: (r?.log ?? []).slice(-12),
+    paused: !!(
+      s.paused ||
+      C?.binding?.modal?.current ||
+      C?.binding?.blocked?.() ||
+      document.hidden
+    ),
+    charge: L?.isCharging(s) ?? false,
+    channel: window.__HAPIL_CHANNEL_V31364__?.active(s) ?? false,
+    enemies: (s.enemies ?? []).map((e) => ({
+      id: e.id,
+      hp: e.hp,
+      maxHp: e.maxHp,
+      x: e.x,
+      y: e.y,
+      targetable: e.targetable,
+      phase: e.currentPhase,
+      phaseUntil: e.phaseTransitionUntil,
+      revival: e.revivalPending,
+      required: e.requiredForClear,
+    })),
+    queues: {
+      bullets: s.hostileProjectiles?.length ?? 0,
+      strikes: s.pendingStrikes?.length ?? 0,
+      spawns: s.pendingSpawns?.length ?? 0,
+      drops: s.egoDrops?.length ?? 0,
+    },
+    assets: { ...stats },
+  };
+}

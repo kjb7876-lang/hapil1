@@ -1,0 +1,121 @@
+function applySnapshot(snap) {
+  if (
+    (role !== "guest" && !disconnected) ||
+    !snap ||
+    snap.protocol !== 1 ||
+    snap.version !== VERSION ||
+    !Number.isSafeInteger(snap.seq) ||
+    snap.seq <= lastSnapshotSeq ||
+    !N[snap.zone] ||
+    !snap.world ||
+    !snap.party
+  ) {
+    stats.rejected++;
+    return false;
+  }
+  if (!world) {
+    pendingSnapshot = snap;
+    return true;
+  }
+  try {
+    if (!Array.isArray(snap.world.fields) || snap.world.fields.length > 2048)
+      throw new Error("invalid-world");
+    const fieldObject = {};
+    for (const entry of snap.world.fields) {
+      if (
+        !Array.isArray(entry) ||
+        entry.length !== 2 ||
+        typeof entry[0] !== "string" ||
+        ["__proto__", "constructor", "prototype"].includes(entry[0])
+      )
+        throw new Error("invalid-field");
+      fieldObject[entry[0]] = entry[1];
+    }
+    const rows = cleanRoster(snap.party.roster),
+      s = restore(fieldObject),
+      as = restore(snap.party.actors);
+    if (
+      s.zone !== snap.zone ||
+      !Number.isFinite(s.time) ||
+      !Number.isFinite(s.x) ||
+      !Number.isFinite(s.y) ||
+      !Array.isArray(s.enemies) ||
+      s.enemies.length > 512 ||
+      !Array.isArray(as) ||
+      !Array.isArray(snap.party.strikes ?? []) ||
+      (snap.party.strikes ?? []).length > 256 ||
+      ![
+        "effects",
+        "hostileProjectiles",
+        "pendingHits",
+        "impactQueue",
+        "floatTexts",
+        "egoDrops",
+        "defeated",
+        "pendingStrikes",
+        "resonanceThreads",
+        "telekineticCasts",
+      ].every((k) => Array.isArray(s[k])) ||
+      as.length !== rows.length - 1 ||
+      as.some(
+        (a, i) =>
+          a.slotId !== rows[i + 1].slotId ||
+          a.heroId !== rows[i + 1].heroId ||
+          !IDS.includes(a.heroId) ||
+          ![a.x, a.y, a.hp, a.maxHp].every(Number.isFinite),
+      ) ||
+      !(s.clues instanceof Set) ||
+      !(s.spawnedWaves instanceof Set)
+    )
+      throw new Error("invalid-snapshot");
+    for (const k of Object.keys(world)) if (!(k in s)) delete world[k];
+    Object.assign(world, s);
+    window.__HAPIL_RUN_V31400__.receive(world, s.runPolicyV31400);
+    roster = rows;
+    actors = as;
+    strikes.length = 0;
+    for (const h of restore(snap.party.strikes ?? [])) {
+      if (
+        h &&
+        rows.some((r) => r.slotId === h.slotId && r.heroId === h.heroId) &&
+        h.zone === s.zone &&
+        s.enemies.some((e) => e.id === h.targetId) &&
+        Number.isFinite(h.at) &&
+        h.at >= s.time - 0.05 &&
+        h.at <= s.time + 5 &&
+        num(h.power) > 0 &&
+        num(h.power) <= 1000 &&
+        ["A", "Q", "W", "E", "R"].includes(h.key) &&
+        !strikes.some((v) => v.id === h.id)
+      )
+        strikes.push(h);
+    }
+    serial = Math.max(
+      num(snap.party.serial),
+      ...strikes.map((h) => num(h.id)),
+      0,
+    );
+    hostDownUntil = num(snap.party.hostDownUntil);
+    hostDownPosition =
+      snap.party.hostDownPosition &&
+      Number.isFinite(snap.party.hostDownPosition.x) &&
+      Number.isFinite(snap.party.hostDownPosition.y)
+        ? { ...snap.party.hostDownPosition }
+        : null;
+    lastZone = s.zone;
+    lastTime = s.time;
+    hostPaused = snap.party.paused === true;
+    wipeCount = num(snap.party.wipeCount);
+    enabled = snap.party.enabled === true;
+    mode = String(snap.party.mode);
+    bridge.heroRef.current = world.activeHeroId;
+    lastSnapshotSeq = snap.seq;
+    snapshotSeq = Math.max(snapshotSeq, snap.seq);
+    preload();
+    stats.snapshots++;
+    return true;
+  } catch {
+    stats.rejected++;
+    return false;
+  }
+}

@@ -1,0 +1,214 @@
+(automaticClear = false) => {
+  if (window.__HAPIL_STORY_RC51__?.isOpen()) return;
+  if (P.current?.practiceV31329) {
+    B(`패턴 연습은 진행도에 반영되지 않습니다. 캠페인 복귀 버튼을 사용하세요.`);
+    return;
+  }
+  if (window.__HAPIL_PATIENT_V31368__?.interact(P.current)) return;
+  if (
+    window.__HAPIL_PARTY_V31322__?.blocksNativeInput() ||
+    window.__HAPIL_CHANNEL_V31364__?.active(P.current)
+  )
+    return;
+  if (e !== `game` || Ve.current) return;
+  let t = P.current;
+  if (MONGSE_isEncounterLocked31226(t) || MONGSE_isRestPortalLocked31226(t)) {
+    (MONGSE_skipEncounterV31227(t),
+      B(
+        t.encounterDialogue31226?.kind === `rest`
+          ? `쉼터 대화를 건너뛰고 포탈을 개방했습니다.`
+          : `조우 대화를 건너뛰고 전투를 시작했습니다.`,
+      ));
+    return;
+  }
+  if (t.zone === `hub` && J(t, ne) < 3.6) {
+    let e = N.hub.next;
+    if (!e) return;
+    if (MONGSE_requestInterlude(`hub`, e)) return;
+    ((t.zone = e),
+      (t.x = MONGSE_zonePortalAnchors(e).interactionEntry.x),
+      (t.y = MONGSE_zonePortalAnchors(e).interactionEntry.y),
+      hi(t),
+      N[e].order > N[t.frontierZone].order && (t.frontierZone = e),
+      (t.moveVx = 0),
+      (t.moveVy = 0),
+      (t.pendingHits = []),
+      (t.impactQueue = []),
+      (t.guardianGraceReadyAt = t.time + 5.2),
+      (t.pendingStrikes = []),
+      MONGSE_clearHostileProjectiles31215(t, `zone-transition`),
+      (t.narrativeCasts = []),
+      (t.narrativeCastHistory = {}),
+      (t.resonanceThreads = []),
+      (t.telekineticCasts = []),
+      (t.spatialRiftCasts = []),
+      (t.supportCall = null),
+      ii(t, e, ze.current.mapEntryDialogue !== !1),
+      (t.targetEnemyId = null),
+      We(Hr + `Castle_ThunderRain_A.wav`, 0.22),
+      B(`${N[e].name} 진입. 주요 적과 선발 개체가 이미 전장에 있습니다.`),
+      void 0);
+    return;
+  }
+  if (he.includes(t.zone)) {
+    let e = ci(t.zone),
+      n = e.find((e) => !t.clues.has(e.id)),
+      r = !MONGSE_zoneCombatCleared(t, t.zone)
+        ? void 0
+        : xe(t.zone)
+          ? n && J(t, n) < Lr
+            ? n
+            : void 0
+          : e.find((e) => !t.clues.has(e.id) && J(t, e) < Lr);
+    if (r) {
+      (t.clues.add(r.id),
+        window.__HAPIL_STORY_RC51__?.replacesLegacy ? void 0 : ue(r),
+        (t.resonance = Math.min(100, t.resonance + 18)),
+        void 0);
+      let n = we(t.zone, t.clues);
+      (B(`${N[t.zone].origin} 진행 ${n}/${e.length}.`),
+        xe(t.zone) &&
+          Te(t.zone, t.clues) &&
+          B(
+            `순환 전투 ${t.loopCycles[t.zone] ?? 0}/3을 완료하면 다음 구간이 열립니다.`,
+          ));
+      return;
+    }
+    let i = N[t.zone];
+    if (
+      MONGSE_zoneCombatCleared(t, t.zone) &&
+      Te(t.zone, t.clues) &&
+      (window.__HAPIL_FLOW_V31343__?.profile(t.zone)
+        ? window.__HAPIL_FLOW_V31343__.gate(t).clear
+        : t.enemies.length === 0) &&
+      t.egoDrops.length === 0 &&
+      (!xe(t.zone) || (t.loopCycles[t.zone] ?? 0) >= 3) &&
+      (t.zone !== `murder03` || t.bossDefeated) &&
+      (automaticClear === true ||
+        J(t, MONGSE_zonePortalAnchors(t.zone).interactionExit) < 2.6) &&
+      i.next
+    ) {
+      let e = t.zone,
+        n = i.next;
+      if (window.__HAPIL_FLOW_V31343__?.beforeNative(t, n, tt) === false)
+        return;
+      if (MONGSE_requestInterlude(e, n)) return;
+      if (window.__HAPIL_FLOW_V31343__?.profile(e)) I.current.clear();
+      (t.completedZones.add(e),
+        (t.zone = n),
+        N[n].order > N[t.frontierZone].order && (t.frontierZone = n),
+        (t.x =
+          n === `village`
+            ? ie.x
+            : MONGSE_isRestZone(n)
+              ? oe.x
+              : MONGSE_zonePortalAnchors(n).interactionEntry.x),
+        (t.y =
+          n === `village`
+            ? ie.y
+            : MONGSE_isRestZone(n)
+              ? oe.y
+              : MONGSE_zonePortalAnchors(n).interactionEntry.y),
+        hi(t),
+        (t.moveVx = 0),
+        (t.moveVy = 0),
+        (t.pendingHits = []),
+        (t.impactQueue = []),
+        (t.guardianGraceReadyAt = t.time + 5.2),
+        (t.pendingStrikes = []),
+        MONGSE_clearHostileProjectiles31215(t, `zone-transition`),
+        (t.narrativeCasts = []),
+        (t.narrativeCastHistory = {}),
+        (t.resonanceThreads = []),
+        (t.telekineticCasts = []),
+        (t.spatialRiftCasts = []),
+        (t.supportCall = null),
+        (t.targetEnemyId = null),
+        he.includes(n)
+          ? ii(t, n, ze.current.mapEntryDialogue !== !1)
+          : ((t.enemies = []),
+            (t.spawnedWaves = new Set()),
+            (t.bossDefeated = t.completedZones.has(n))),
+        (t.loopNextAt = t.time + 1.1));
+      let r = N[n].arc,
+        MONGSE_transition = MONGSE_emptyTransitionV31217(i, N[n]);
+      (We(
+        r === `U2` || r === `KAIRO` || r === `MURDER`
+          ? Ur + `LaserGun.wav`
+          : Hr + `Castle_ThunderRain_A.wav`,
+        0.2,
+      ),
+        B(`${N[n].name}. ${N[n].subtitle}`),
+        void 0);
+      return;
+    }
+  }
+  if (MONGSE_isRestZone(t.zone)) {
+    let n = N[t.zone];
+    if (J(t, se) < 3.2) {
+      ((t.hp = t.maxHp),
+        (t.heroSlowUntil = 0),
+        (t.heroStatus = ``),
+        (t.heroStatusUntil = 0),
+        B(`침대에서 호흡을 고르고 EGO를 완전히 회복했습니다.`),
+        void 0);
+      return;
+    }
+    if (J(t, ae) < 2.8) {
+      if (window.__HAPIL_RECORDS_V31365__?.open(t))
+        B(`미카엘라의 보스 패턴·이야기 기록실을 열었습니다.`);
+      else B(`미카엘라의 기록을 지금은 열 수 없습니다.`);
+      return;
+    }
+    if (J(t, ce) < 3.2) {
+      if (MONGSE_isRestPortalLocked31226(t)) {
+        B(`쉼터 안내인의 기록 동조가 끝난 뒤 다음 페이지문이 열립니다.`);
+        return;
+      }
+      let r = t.zone,
+        e = n.next;
+      if (!e) return;
+      if (MONGSE_requestInterlude(r, e)) return;
+      (t.completedZones.add(r),
+        (t.zone = e),
+        N[e].order > N[t.frontierZone].order && (t.frontierZone = e),
+        (t.x = MONGSE_zonePortalAnchors(e).interactionEntry.x),
+        (t.y = MONGSE_zonePortalAnchors(e).interactionEntry.y),
+        hi(t),
+        (t.moveVx = 0),
+        (t.moveVy = 0),
+        (t.pendingHits = []),
+        (t.impactQueue = []),
+        (t.guardianGraceReadyAt = t.time + 5.2),
+        (t.pendingStrikes = []),
+        MONGSE_clearHostileProjectiles31215(t, `zone-transition`),
+        (t.narrativeCasts = []),
+        (t.narrativeCastHistory = {}),
+        (t.resonanceThreads = []),
+        (t.telekineticCasts = []),
+        (t.spatialRiftCasts = []),
+        (t.supportCall = null),
+        (t.targetEnemyId = null),
+        he.includes(e)
+          ? ii(t, e, ze.current.mapEntryDialogue !== !1)
+          : ((t.enemies = []),
+            (t.spawnedWaves = new Set()),
+            (t.bossDefeated = t.completedZones.has(e))),
+        We(Wr + `boss-heavy-warning.mp3`, 0.22),
+        B(`${N[e].name} 진입. 정비를 마치고 다음 페이지 동조를 시작합니다.`),
+        void 0);
+      return;
+    }
+  }
+  t.zone === `village` &&
+    J(t, ae) < 2.4 &&
+    (HAPIL_commitFinalEndingV31301(
+      t,
+      L.current,
+      Le.current,
+      R.current,
+      Be.current,
+    ),
+    B(`캠페인 완료.`),
+    void 0);
+};

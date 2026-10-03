@@ -1,0 +1,9 @@
+function ci(e, t) {
+  if (typeof e == `object` && e) {
+    var n = si.get(e);
+    return n === void 0
+      ? ((t = { value: e, source: t, stack: we(t) }), si.set(e, t), t)
+      : n;
+  }
+  return { value: e, source: t, stack: we(t) };
+}

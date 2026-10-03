@@ -1,0 +1,148 @@
+() => {
+  let e = `ep1b09`,
+    t = Jr(Zr(e, `boss`), e),
+    n = {
+      zone: e,
+      time: 500,
+      hp: 77,
+      heroStatus: `CLEAR_SAFE`,
+      heroStatusUntil: 999,
+      fxSerial: 100,
+      enemies: [t],
+      bossDefeated: !1,
+      spawnedWaves: new Set([1, 2, 3, 4]),
+      loopCycles: {},
+      clues: new Set(Ce(e).map((e) => e.id)),
+      egoDrops: [],
+      pendingHits: [
+        {
+          id: 1,
+          sourceId: `ep1b-environment`,
+          at: 500.5,
+          damage: 35,
+          status: `slow`,
+          statusValue: 1.4,
+        },
+        {
+          id: 2,
+          sourceId: t.id,
+          at: 500.4,
+          damage: 40,
+          status: `echo`,
+          statusValue: 0.5,
+        },
+      ],
+      impactQueue: [
+        {
+          id: 3,
+          sourceId: `ep1b-environment`,
+          impactAt: 500.8,
+          damage: 38,
+          status: `drain`,
+          statusValue: 8,
+        },
+      ],
+      hostileProjectiles: [
+        { id: 4, sourceId: t.id },
+        { id: 5, sourceId: `qa-remaining-enemy` },
+      ],
+      telekineticCasts: [
+        { id: 6, sourceId: t.id },
+        { id: 7, sourceId: `qa-remaining-enemy` },
+      ],
+      spatialRiftCasts: [
+        { id: 8, sourceId: t.id },
+        { id: 9, sourceId: `qa-remaining-enemy` },
+      ],
+      pendingStrikes: [{ id: 10, targetId: t.id, at: 500.7 }],
+      narrativeCasts: [
+        {
+          id: 11,
+          sourceId: `qa-preserved-narrative`,
+          endAt: 510,
+        },
+      ],
+    },
+    r = {
+      zone: e,
+      time: 500,
+      enemies: [Jr(Zr(e, `boss`), e)],
+      bossDefeated: !1,
+      spawnedWaves: new Set([1, 2, 3, 4]),
+      loopCycles: {},
+      pendingHits: [
+        {
+          id: 20,
+          sourceId: `ep1b-environment`,
+          at: 501,
+        },
+      ],
+      impactQueue: [],
+      hostileProjectiles: [],
+      telekineticCasts: [],
+      spatialRiftCasts: [],
+      pendingStrikes: [],
+      narrativeCasts: [],
+    },
+    i = MONGSE_clearZoneCombatQueuesAfterClear(r);
+  ((n.enemies = n.enemies.filter((e) => e.id !== t.id)),
+    (n.bossDefeated = !0),
+    MONGSE_clearQueuedEnemyImpacts(n, t.id),
+    (n.hostileProjectiles = n.hostileProjectiles.filter(
+      (e) => e.sourceId !== t.id,
+    )),
+    (n.narrativeCasts = n.narrativeCasts.filter((e) => e.sourceId !== t.id)));
+  let a = n.hp,
+    o = n.heroStatus,
+    s = MONGSE_clearZoneCombatQueuesAfterClear(n),
+    c = n.narrativeCasts.length;
+  n.time += 2;
+  let l =
+      n.pendingHits.filter((e) => e.at <= n.time).length +
+      n.impactQueue.filter((e) => e.impactAt <= n.time).length,
+    u =
+      he.includes(n.zone) &&
+      MONGSE_zoneCombatCleared(n, n.zone) &&
+      Te(n.zone, n.clues) &&
+      n.enemies.length === 0 &&
+      n.egoDrops.length === 0,
+    d =
+      i.zoneCleared === !1 &&
+      r.pendingHits.length === 1 &&
+      s.zoneCleared &&
+      s.removed.pendingHits === 1 &&
+      s.removed.impactQueue === 1 &&
+      s.remaining.pendingHits === 0 &&
+      s.remaining.impactQueue === 0 &&
+      n.pendingHits.length === 0 &&
+      n.impactQueue.length === 0 &&
+      n.hostileProjectiles.length === 0 &&
+      n.telekineticCasts.length === 0 &&
+      n.spatialRiftCasts.length === 0 &&
+      n.pendingStrikes.length === 0 &&
+      l === 0 &&
+      n.hp === a &&
+      n.heroStatus === o &&
+      c === 1 &&
+      s.narrativeCastsPreserved &&
+      u;
+  return {
+    zone: e,
+    blockedBeforeClear: i.zoneCleared === !1,
+    cleanup: s,
+    environmentPendingAfter: n.pendingHits.filter(
+      (e) => e.sourceId === `ep1b-environment`,
+    ).length,
+    environmentImpactsAfter: n.impactQueue.filter(
+      (e) => e.sourceId === `ep1b-environment`,
+    ).length,
+    dueCombatEventsAfterTwoSeconds: l,
+    hpBefore: a,
+    hpAfter: n.hp,
+    statusBefore: o,
+    statusAfter: n.heroStatus,
+    narrativeCastsPreserved: c,
+    portalReady: u,
+    pass: d,
+  };
+};
