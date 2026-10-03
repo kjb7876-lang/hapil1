@@ -1,0 +1,763 @@
+{
+  "status": "diagnostic_only",
+  "commit": "a717aec2f2fbde265107120de012a5afdef5daf7",
+  "scope": "explicit boss-checkpoint fixture, not natural campaign clear",
+  "errors": [],
+  "httpErrors": [],
+  "samples": [
+    {
+      "zone": "ep1b07",
+      "time": 1.7796000000000012,
+      "hp": 240,
+      "x": 13.67189248109855,
+      "y": 22.614956645626624,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 1.2163000000000015,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "auto-off",
+        "heroAutoTargetLockUntilV31237": 2.046300000000002
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 44997.11650630407,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 0,
+        "limited": 0,
+        "blocked": 0,
+        "requested": 0,
+        "approved": 0,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n45006\n아군\n환도\n240\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 28 / 100\n사몽각성 준비"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 3.2829,
+      "hp": 86.25,
+      "x": 15.499323748792374,
+      "y": 29.928929225016894,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 1.2163000000000015,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 3.3495000000000004
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 44821.94972414214,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 5,
+        "limited": 5,
+        "blocked": 0,
+        "requested": 9,
+        "approved": 2.25,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n44822\n아군\n환도\n87\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 37 / 100\n사몽각성 준비"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 3.717588,
+      "hp": 121.3,
+      "x": 22.882811088979235,
+      "y": 30.00781398178098,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 3.5929,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 3.7829
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 40282.07511748008,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 16,
+        "limited": 16,
+        "blocked": 0,
+        "requested": 218,
+        "approved": 5.3,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n40282\n아군\n환도\n122\nS 블링크\n·\nD 공명\n⋯\n⚙\nEGO 각성 · 7.0초\n사몽각성 5.7초 · 위력 ×7"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 3.9415720000000007,
+      "hp": 121.3,
+      "x": 16.798413289274233,
+      "y": 30.007923852107517,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 3.5929,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 4.212244
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 35823.552217000055,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 21,
+        "limited": 21,
+        "blocked": 0,
+        "requested": 426,
+        "approved": 5.3,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n35824\n아군\n환도\n122\nS 블링크\n·\nD 공명\n⋯\n⚙\nEGO 각성 · 6.7초\n사몽각성 3.7초 · 위력 ×7"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 4.170916000000001,
+      "hp": 122.55,
+      "x": 6.832018394638057,
+      "y": 30.007923852107517,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 4.051572000000001,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 4.212244
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 31364.845215342113,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 25,
+        "limited": 25,
+        "blocked": 0,
+        "requested": 651,
+        "approved": 6.55,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n31365\n아군\n환도\n123\nS 블링크\n·\nD 공명\n⋯\n⚙\nEGO 각성 · 6.5초\n사몽각성 1.6초 · 위력 ×7"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 4.653616000000002,
+      "hp": 123.8,
+      "x": 5.039223785689045,
+      "y": 29.256272980511664,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 4.051572000000001,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 5.073616000000002
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 31252.234309633863,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 29,
+        "limited": 29,
+        "blocked": 0,
+        "requested": 658,
+        "approved": 7.8,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n31252\n아군\n환도\n124\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 4 / 100\n사몽각성 재사용 65초"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 6.507116000000009,
+      "hp": 129.8,
+      "x": 3.698967872515355,
+      "y": 27.721082429760568,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 4.051572000000001,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 6.853916000000008
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 30919.594922967844,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 47,
+        "limited": 47,
+        "blocked": 0,
+        "requested": 682,
+        "approved": 13.8,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n30920\n아군\n환도\n130\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 22 / 100\n사몽각성 재사용 63초"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 8.290516000000009,
+      "hp": 13.050000000000011,
+      "x": 2.7689159738518465,
+      "y": 28.105283473570086,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.2333000000000002,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 7.783816000000011,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 8.207216000000013
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": 0,
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 30631.525687453806,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 61,
+        "limited": 61,
+        "blocked": 0,
+        "requested": 703,
+        "approved": 19.05,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n30632\n아군\n환도\n14\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 36 / 100\n사몽각성 재사용 60초"
+    },
+    {
+      "zone": "dreamRest",
+      "time": 8.673816000000004,
+      "hp": 240,
+      "x": 16.000000000000004,
+      "y": 24.202247191011242,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9533000000000001,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 8.673816000000004,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 7.783816000000011,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.2333000000000002,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "move",
+        "autoProgressReasonV31301": "rest-portal",
+        "autoDecisionClearReasonV31302": "manual-commit",
+        "heroAutoTargetLockUntilV31237": 8.207216000000013,
+        "episode1ACompleteRC59": true
+      },
+      "bossDefeated": false,
+      "waves": [],
+      "clues": [],
+      "drops": 0,
+      "enemies": [],
+      "flow": {
+        "clear": false,
+        "reason": "전투 구역 아님"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "budget": {
+        "version": "RC132",
+        "requests": 61,
+        "limited": 61,
+        "blocked": 0,
+        "requested": 703,
+        "approved": 19.05,
+        "dreamOnly": true,
+        "rateMultiplier": 0.25,
+        "maxHpPerHit": 0.01,
+        "maxHpPerRollingSecond": 0.02,
+        "windowSeconds": 1
+      },
+      "story": false,
+      "ui": "적\n아군\n환도\n240\nS 블링크\n·\nD 공명\n⋯\n⚙\n\nEGO COLLAPSE · REBIRTH\n\n죽음은 끝이 아니라 다시 걷는 문턱\n“나는 부활이요 생명이니”\n\n요한복음 11:25\n\n“하나님의 은사는 그리스도 예수 안에 있는 영생이니라”\n\n로마서 6:23\n\n가장 최근에 방문한 쉼터에서 다시 일어납니다.\n\n쉼터에서 일어나기\n\n완전자동 · 2초 후 쉼터에서 일어나기\n\n자동 재시작 일시정지"
+    }
+  ],
+  "apis": {
+    "qa": [
+      "stageV3128BossShowcase",
+      "forceEnemyBreakR4",
+      "forceDefeatCurrentBossR4",
+      "forceV3128ThemeOrdnance",
+      "forceV3129ThemeOrdnance",
+      "probeV3129BulletHellCatalog",
+      "probeV31210BossDirectorContract",
+      "probeV3128RuntimeMechanics",
+      "probeV31211CombatPresentationContract",
+      "probeV3128CombatContract",
+      "probeV3123CanonCombatContract",
+      "probeCanonicalEp1bHumanPhase0Contract",
+      "probeCanonicalEp1bDirectAttackReachability",
+      "probeCanonicalEp1bNarrativeReplacementContract",
+      "snapshot",
+      "interact",
+      "probeOpenArenaReachability",
+      "probeRestVillageContract",
+      "probeTelekineticRainContract",
+      "probeSpatialRiftBarrageContract",
+      "probeEpisodeBossPacingContract",
+      "probeZoneClearCombatQueueCleanup",
+      "probeBossHpMigration315Contract",
+      "probeMurderGhostLifecycleContract",
+      "probeRespawnShowcaseRecoveryContract",
+      "probeSevenSinsEpisodeBossContract",
+      "setBossRatio",
+      "completeCurrentZone",
+      "setPosition",
+      "previewNarrativeAttack",
+      "setHero",
+      "probeAwakeningProfiles",
+      "probeResonanceProfiles",
+      "probeAutoSkillPlanner",
+      "probeHeroVisualMatrix",
+      "probeV3126HeroActionMatrix",
+      "probeV3126SpriteCropMeta",
+      "probeV3126BossPhaseActionMatrix",
+      "probeHeroDirectionContract",
+      "probeIonDirectionMapping",
+      "probeEpisodeMidbossAssets",
+      "probeEpisodeMidbossCastVfx",
+      "probeBossThemeCombatVfx",
+      "probeHeroImpactContract",
+      "probeTelegraphImpactContract",
+      "probeVisual394Assets",
+      "probeActorScaleContract",
+      "probeCampaignScaleAudit",
+      "probeImpactClearGap",
+      "probeSurvivalGrace",
+      "applyCheatCode",
+      "forceAwakening",
+      "primeAwakening",
+      "probeTimeRelay",
+      "probeNarrativeAttackCoverage",
+      "probeNarrativeAttackLifecycle",
+      "probeNarrativePhaseGate",
+      "probeNarrativePhaseTransitionIntegration",
+      "probeBossBarrage",
+      "probeBossSkillVfx",
+      "probeMemoryClearReward",
+      "probeTransitionDialogue",
+      "setHeroPose"
+    ],
+    "native": [
+      "heroes",
+      "growth",
+      "mastery",
+      "basic",
+      "skill",
+      "infinite",
+      "ultimate",
+      "order",
+      "locked",
+      "patterns",
+      "phase",
+      "cast",
+      "bullet"
+    ],
+    "controls": [
+      "phase",
+      "state",
+      "settings",
+      "auto",
+      "input",
+      "hero",
+      "passives",
+      "shards",
+      "cache",
+      "modal",
+      "blocked",
+      "unlockAudio",
+      "setSettings",
+      "notify",
+      "actions"
+    ],
+    "core": [
+      "graze"
+    ],
+    "rpg": [
+      "installed",
+      "version",
+      "profiles",
+      "draw",
+      "tick",
+      "beforeDeath",
+      "simpleTarget",
+      "damageFactor",
+      "budgetFactor",
+      "castDamageFactor",
+      "afterHit",
+      "grantShot",
+      "summonClock",
+      "prepareSummon",
+      "preserveSummonAttacks",
+      "snapshot",
+      "sanitize",
+      "restore",
+      "stats"
+    ],
+    "modes": [
+      "version",
+      "installed",
+      "modes",
+      "mode",
+      "set",
+      "tick",
+      "reflect",
+      "suppressFullNarrative",
+      "beforeDeath",
+      "archive",
+      "MemoryMapProfile",
+      "memoryProfile",
+      "dreamFinal",
+      "audit"
+    ]
+  },
+  "stage": {
+    "pass": true,
+    "zone": "ep1b07",
+    "bossId": "b07-boss",
+    "hero": {
+      "x": 16.000000000000004,
+      "y": 16.000000000000004
+    },
+    "boss": {
+      "x": 24.202247191011242,
+      "y": 22.561797752808992
+    },
+    "lane": "bottom"
+  }
+}
