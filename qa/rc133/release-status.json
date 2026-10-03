@@ -1,8 +1,8 @@
 {
-  "status": "checkpoint-draft-pending-approved-source-branch-and-gameplay-follow-up",
+  "status": "checkpoint-draft-tested-clean-pending-parent-coordination-and-gameplay-follow-up",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-samong-inner-self",
-  "testedSha": "992e4eeb3c4a13428554114a825b1ba0acb3f77b",
+  "testedSha": "6e9bb3344c617045e5caa55441ba0dc3ce5407b9",
   "testedWorkingTree": false,
   "mainSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "pagesSha": null,
@@ -12,11 +12,12 @@
   "blockers": [
     "Six authorized image source files and recovered audio ZIP/manifest are not present in this checkout.",
     "Parent asset-only staging was paused after MCP user-cancelled result; await parent coordination and do not retry upload.",
-    "Gameplay draft is a checkpoint; original-source cosmic identities, audio integration, and remaining scoped implementation/audits are unfinished."
+    "Gameplay draft is a checkpoint; original-source cosmic identities, audio integration, and remaining scoped implementation are unfinished.",
+    "RC133 disables the legacy gapChargeV31226 route, but the separately queued V31315 dynamic boss charge and authored boss attack decks remain active; see qa/rc133/gameplay-inventory.md."
   ],
   "passed": {
     "rc133Policy": 127,
-    "rc133Feedback": 42,
+    "rc133Feedback": 68,
     "rc132Unit": 32,
     "rc127Policy": 174,
     "rc131HeroUnit": 344,
@@ -31,6 +32,14 @@
       "checksPerProfile": 60,
       "scope": "native EGO channel/save/cult-death, staged story/dream pair counts, warp and four-state compositor"
     },
+    "rc59MidbossSmoke": {
+      "status": "passed",
+      "scope": "paired midboss policy, save/restore, death/checkpoint smoke"
+    },
+    "rc87CosmicSmoke": {
+      "status": "passed",
+      "scope": "native cosmic finale gates, save/resume and asset isolation"
+    },
     "preservationBaseline": {
       "sha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
       "status": "passed",
@@ -44,9 +53,9 @@
     "uploaded persona art and awakening image integration",
     "audio39 runtime placement and derivatives",
     "cosmic original identity conversion and stationary distinct art",
-    "exhaustive boss-charge and authored midboss count audit",
+    "suppress V31315 dynamic boss charge and audit remaining authored boss attack patterns",
     "all-eight persona traits and native UI growth panel review",
     "complete preservation and exact-SHA release tests"
   ],
-  "testEvidenceCommit": "992e4eeb3c4a13428554114a825b1ba0acb3f77b"
+  "testEvidenceCommit": "6e9bb3344c617045e5caa55441ba0dc3ce5407b9"
 }
