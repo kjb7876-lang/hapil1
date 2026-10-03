@@ -150,12 +150,24 @@ for (const [name, row] of Object.entries(manifest.assets)) {
   }
   if (row.deliverySelection) {
     assert.deepEqual(sorted(Object.keys(row.deliverySelection)), ['schema', 'sha256'], `private delivery metadata exposed: ${name}`);
-    assert.equal(row.deliverySelection.schema, 'hapil-positive-delivery-v1');
     assert(digestPattern.test(row.deliverySelection.sha256) && digestPattern.test(row.rawSourceWavSha256));
     assert.equal(row.rawExtractionProfile, row.endingProfile);
-    assert.equal(row.deliveryProcessingProfile, 'hapil-positive-delivery-v1');
+    if (row.deliverySelection.schema === 'hapil-positive-delivery-v1') {
+      assert.equal(row.deliveryProcessingProfile, 'hapil-positive-delivery-v1');
+      assert.equal(row.deliveryProvenance, undefined, `unexpected staged provenance on legacy delivery: ${name}`);
+    } else {
+      assert.equal(row.deliverySelection.schema, 'hapil-staged-local-gain-delivery-v1', `unknown delivery selection: ${name}`);
+      assert.equal(row.deliveryProcessingProfile, 'hapil-normalize-before-local-gain-v1');
+      const proof = row.deliveryProvenance;
+      assert(proof && typeof proof === 'object', `staged delivery provenance missing: ${name}`);
+      assert.deepEqual(sorted(Object.keys(proof)), ['encodedMp3Sha256', 'gainCurveSha256', 'independentSceneParagraphNormalization', 'masterEncoding', 'normalizedBaselineWavSha256', 'processedMasterWavSha256'], `private or incomplete staged provenance: ${name}`);
+      for (const key of ['encodedMp3Sha256', 'gainCurveSha256', 'normalizedBaselineWavSha256', 'processedMasterWavSha256']) assert(digestPattern.test(proof[key]), `invalid stage hash: ${name}/${key}`);
+      assert.equal(proof.encodedMp3Sha256, row.sha256, `staged encoded selection differs: ${name}`);
+      assert.equal(proof.masterEncoding, 'float32-values-in-float64-wav');
+      assert.equal(proof.independentSceneParagraphNormalization, true);
+    }
   } else {
-    assert(!row.rawSourceWavSha256 && !row.rawExtractionProfile && !row.deliveryProcessingProfile, `incomplete delivery provenance: ${name}`);
+    assert(!row.rawSourceWavSha256 && !row.rawExtractionProfile && !row.deliveryProcessingProfile && !row.deliveryProvenance, `incomplete delivery provenance: ${name}`);
   }
   assert(includedTexts.has(row.textSha256), `asset outside included canonical units: ${name}`);
   if (!probes.has(row.sha256)) {
