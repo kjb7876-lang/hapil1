@@ -1,0 +1,19 @@
+name: RC130 inspect native projectile and audio integration
+on:
+  push:
+    branches: [fix/rc130-combat-polish]
+    paths: [tools/rc130-inspect.cjs, .github/workflows/rc130-inspect.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - run: node tools/rc130-inspect.cjs
