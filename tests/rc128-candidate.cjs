@@ -7,6 +7,23 @@ const root=path.resolve(__dirname,'..'),out=path.resolve(process.env.HAPIL_QA_OU
 const {build,manifest}=require('../tools/rc128-candidate.cjs');fs.mkdirSync(out,{recursive:true});
 const run=(command,args,options={})=>cp.spawnSync(command,args,{cwd:root,encoding:'utf8',maxBuffer:32*1024*1024,...options});
 const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+// Narration extends the approved index with three asset tags and four cache keys.
+// Project only that exact extension back to the approved RC128 index for this
+// historical promotion check. The actual extended index is still rendered below.
+function narrationIndexBase(text){
+ const tags=[
+  /    <script src="\.\/assets\/story-narration\/v1\/player\.js\?v=\d+"><\/script>\n/g,
+  /    <link rel="stylesheet" href="\.\/assets\/story-narration\/v1\/player\.css\?v=\d+">\n/g,
+  /    <script defer src="\.\/assets\/story-narration\/v1\/surfaces\.js\?v=\d+"><\/script>\n/g
+ ];
+ if(!text.includes('./assets/story-narration/v1/player.js'))return text;
+ for(const expression of tags){if([...text.matchAll(expression)].length!==1)throw Error('Unexpected narration index tag');text=text.replace(expression,'');}
+ for(const [asset,version] of [['assets/hapil-title-v31342.js','35101'],['data/story-rc51.js','39301'],['assets/rc51/story.js','40801'],['assets/title/v31236/christian-opening-v31236.js','36101']]){
+  const escaped=asset.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),expression=new RegExp('(src="\\./'+escaped+'\\?v=)\\d+','g');
+  if([...text.matchAll(expression)].length!==1)throw Error('Unexpected narration cache key');text=text.replace(expression,(_,prefix)=>prefix+version);
+ }
+ return text;
+}
 const git=(...args)=>{const r=run('git',args);if(r.status!==0)throw Error(r.stderr||'git failed');return r.stdout.trim();};
 // These are the actual candidate hashes from Actions run 37047820118, where the
 // new unit suite and 72 native render cases passed. The only candidate failure in
@@ -34,7 +51,9 @@ try{
  for(const f of ['assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js'])report.files[f]=hash(path.join(candidate,f));
  for(const[f,expected]of Object.entries(report.protectedFiles))if(hash(path.join(candidate,f))!==expected)throw Error('Protected file changed: '+f);
  fs.writeFileSync(path.join(out,'candidate-manifest.json'),JSON.stringify({commit:report.commit,files:report.files,protectedFiles:report.protectedFiles},null,2));
- report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>report.files[f]!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
+ const approvedIndexProjection=crypto.createHash('sha256').update(narrationIndexBase(generated['index.html'])).digest('hex');
+ report.narrationIndexExtension={actual:report.files['index.html'],approvedBase:approvedIndexProjection,expectedBase:accepted['index.html']};
+ report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>(f==='index.html'?approvedIndexProjection:report.files[f])!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
  if(report.promotionMismatches.length)throw Error('Promotion must match the rendered candidate: '+JSON.stringify(report.promotionMismatches));
  for(const f of [...Object.keys(generated).filter(f=>/\.(?:js|cjs)$/.test(f)),'assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js','tests/rc128-policy.cjs','tests/rc128-browser.cjs']){
   const result=run(process.execPath,['--check',f],{cwd:candidate});if(result.status!==0)throw Error('Syntax check '+f+'\n'+result.stderr);

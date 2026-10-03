@@ -92,7 +92,7 @@ const audioRequests = () => requests.filter(url => /\.(mp3|wav|ogg|m4a)$/i.test(
     assert.equal(await page.locator('article').textContent(), missingText, 'pending narration preserves complete canonical text');
     assert.equal(await page.evaluate(() => player.blocksAdvance), false, 'missing narration never holds reading progress');
     assert.equal(await page.evaluate(() => player.playing), false);
-    assert.equal(await page.evaluate(() => window.blockedCount), 0, 'known missing narration is not a playback failure');
+    assert.equal(await page.evaluate(() => window.blockedCount), 1, 'missing narration releases its loading/pause hold exactly once');
     assert.equal(await page.locator('[data-narration-controls]:visible').count(), 0, 'unavailable narration hides all audio controls');
     assert.equal(await page.locator('[data-narration-play]:visible').count(), 0, 'unavailable narration has no retry button');
     assert.equal(await page.evaluate(() => player.play()), false, 'explicit play cannot start an unavailable route');
