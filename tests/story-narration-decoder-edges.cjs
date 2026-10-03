@@ -1,8 +1,12 @@
 'use strict';
 
 // Read-only codec diagnostic. Run with node; --validate-fixture needs no browser.
-// The fixture is independent FFmpeg mp3float output from the EXACT published MP3
-// bytes, including their gapless metadata. It is not a WAV-master comparison.
+// The fixture uses independent FFmpeg fixed-point mp3 decoding of the EXACT
+// published MP3 bytes, including gapless metadata, then Chromium AudioBus's
+// signed PCM16-to-float convention. Chromium's decoder is PCM16; mp3float is a
+// different representation and is not an appropriate sub-LSB sample oracle.
+// No browser PCM is converted, rounded, aligned, or normalized to fit the oracle.
+// This is not a WAV-master comparison.
 // A pass establishes decoded edge-signal preservation, not phoneme completeness,
 // audible output, device behavior, HTMLMediaElement playback, or listening QA.
 const fs = require('node:fs');
@@ -13,6 +17,7 @@ const root = path.resolve(__dirname, '..');
 const assetRoot = path.join(root, 'assets/story-narration/v1');
 const fixturePath = path.join(__dirname, 'fixtures/story-narration-decoder-edges.json');
 const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+const REFERENCE_PCM = 'ffmpeg-mp3-fixed-s16-audiobus-f32-v1';
 const CONFIG = Object.freeze({
   sampleRate: 24000, channels: 1, bitRate: 128000,
   edgeSeconds: 1, frameSeconds: .01,
@@ -173,6 +178,7 @@ function validateFixture() {
   const manifest = JSON.parse(fs.readFileSync(path.join(assetRoot, 'manifest.json'), 'utf8'));
   const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
   assert.equal(fixture.schema, 'hapil-decoder-edges-v1');
+  assert.equal(fixture.provenance.referencePcm, REFERENCE_PCM, 'fixture must use the independently decoded PCM16 representation');
   assert.deepEqual(fixture.config, CONFIG, 'fixture measurement algorithm configuration');
   assert.deepEqual(fixture.tolerances, TOLERANCES, 'fixture comparison tolerances');
   assert.deepEqual(Object.keys(fixture.assets).sort(), Object.keys(manifest.assets).sort(), 'all deployed MP3s must be represented');
@@ -284,6 +290,8 @@ async function run() {
           if (previous[result.mode] && previous[result.mode] !== result.pcmSha256) comparison.failures.push('repeat decode PCM differs');
           previous[result.mode] = result.pcmSha256;
           report.rows.push({audio, mode: result.mode, attempt: result.attempt, sha256: result.fetchedSha256, pcmSha256: result.pcmSha256,
+            referencePcmSha256: result.mode === 'fixed' ? expected.ffmpegPcmSha256 : null,
+            entirePcmMatchesReference: result.mode === 'fixed' ? result.pcmSha256 === expected.ffmpegPcmSha256 : null,
             sampleRate: result.signature.sampleRate, sampleCount: result.signature.sampleCount,
             firstAboveThreshold: result.signature.firstAboveThreshold, lastAboveThreshold: result.signature.lastAboveThreshold,
             activity: result.signature.activity[1], ...comparison, pass: comparison.failures.length === 0});
@@ -294,6 +302,7 @@ async function run() {
     report.pageErrors = errors;
     report.failedRows = report.rows.filter(row => !row.pass);
     report.decodedRows = report.rows.filter(row => row.pcmSha256).length;
+    report.exactReferencePcmMatches = report.rows.filter(row => row.mode === 'fixed' && row.entirePcmMatchesReference).length;
     report.pass = report.failedRows.length === 0 && errors.length === 0 && report.decodedRows === (scenes + paragraphs) * 4;
     const maxima = {};
     for (const mode of ['fixed', 'native']) {
@@ -302,11 +311,11 @@ async function run() {
     }
     if (process.env.HAPIL_DECODER_EDGE_REPORT) fs.writeFileSync(process.env.HAPIL_DECODER_EDGE_REPORT, JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify({pass: report.pass, browserVersion: report.browserVersion, files: report.files, scenes, paragraphs,
-      decodedRows: report.decodedRows, contexts: report.contexts, maxima, failedRows: report.failedRows, pageErrors: errors,
+      decodedRows: report.decodedRows, exactReferencePcmMatches: report.exactReferencePcmMatches, contexts: report.contexts, maxima, failedRows: report.failedRows, pageErrors: errors,
       reportPath: process.env.HAPIL_DECODER_EDGE_REPORT || null, limitation: report.limitation}, null, 2));
     assert.equal(report.pass, true, 'Browser decoder edge comparison failed; inspect zero-alignment fingerprints, sample counts, and lag diagnostics above. Do not infer missing phonemes from numerical differences alone.');
   } finally { await browser.close(); }
 }
 
-module.exports = {CONFIG, TOLERANCES, signature, compare, detectorControls, validateFixture};
+module.exports = {CONFIG, TOLERANCES, REFERENCE_PCM, signature, compare, detectorControls, validateFixture};
 if (require.main === module) run().catch(error => { console.error(error); process.exitCode = 1; });
