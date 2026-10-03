@@ -2,32 +2,152 @@
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const BASE='41d9d75ffffd9b4a2d8f51c90a8a08946f021864';
 const NARRATION='2ed3c206c9a0b52f6ee1547727442ce5069d2044';
+const BATCH_BASE='5cdfadd62c7139a7f10e8e7f70bc2a1dd4b8b924';
+const AUDIO_REVISION='af51c0b7fe342bf7198905fe64093d4ed973a10b';
+const BATCH_NEW_UNITS=["ep1a10.post", "ep1a11.pre", "ep1b09.pre", "kair04.post", "kair04.pre", "last304.post", "u201.pre", "u202.post", "u202.pre", "u204.post"];
+const BATCH_NEW_AUDIO=[
+  "assets/story-narration/v1/audio/ep1a10-post-a4450b5233f8c265349d1788.mp3",
+  "assets/story-narration/v1/audio/ep1a11-pre-450aa4fdec51316e7ab85bcd.mp3",
+  "assets/story-narration/v1/audio/ep1b09-pre-055dc1e0f726f5b9a8daa72a.mp3",
+  "assets/story-narration/v1/audio/kair04-post-dcefd1bbf8b9127c54a5cbf2.mp3",
+  "assets/story-narration/v1/audio/kair04-pre-7379c565d9307b815567f558.mp3",
+  "assets/story-narration/v1/audio/last304-post-c81462d0d931c4a4239fa08e.mp3",
+  "assets/story-narration/v1/audio/p-01b89f151860556709f44842.mp3",
+  "assets/story-narration/v1/audio/p-1ceb8d5f2b0d85b3a9c1fbed.mp3",
+  "assets/story-narration/v1/audio/p-20711e4044afdba6a3e2a849.mp3",
+  "assets/story-narration/v1/audio/p-33916682537992da9a070f72.mp3",
+  "assets/story-narration/v1/audio/p-347b8f57d1f242a5169f0203.mp3",
+  "assets/story-narration/v1/audio/p-3c1838baca38d06c128c2ce5.mp3",
+  "assets/story-narration/v1/audio/p-3d68be4aad61109a28f0ba6e.mp3",
+  "assets/story-narration/v1/audio/p-4573dd5cc1a3921526e53109.mp3",
+  "assets/story-narration/v1/audio/p-68db281020cc8e1625e0acd4.mp3",
+  "assets/story-narration/v1/audio/p-6a5d43bc56fa9014309b48b4.mp3",
+  "assets/story-narration/v1/audio/p-6fc07a66ae87454e06418c89.mp3",
+  "assets/story-narration/v1/audio/p-7a45e36b1222a228b8294f24.mp3",
+  "assets/story-narration/v1/audio/p-805e623467e4ca3c35da9694.mp3",
+  "assets/story-narration/v1/audio/p-80cb8a8cbb3d6461a0f32606.mp3",
+  "assets/story-narration/v1/audio/p-81222cf922f6c56dc53657ad.mp3",
+  "assets/story-narration/v1/audio/p-839b2637a9df1713ac1d186c.mp3",
+  "assets/story-narration/v1/audio/p-8d4fb757cf9c37cacff78a23.mp3",
+  "assets/story-narration/v1/audio/p-92f32840ee1006e3f2c3fe18.mp3",
+  "assets/story-narration/v1/audio/p-98921001feb23379f7073527.mp3",
+  "assets/story-narration/v1/audio/p-9b1bdd2d64ecfef4e2dbd7af.mp3",
+  "assets/story-narration/v1/audio/p-a2134fbfd484dadcc946d87d.mp3",
+  "assets/story-narration/v1/audio/p-a764bd652b88435ed04e1e1d.mp3",
+  "assets/story-narration/v1/audio/p-ac38bf7dfea51564d49536da.mp3",
+  "assets/story-narration/v1/audio/p-b5f68d892b502d5fd8009d1b.mp3",
+  "assets/story-narration/v1/audio/p-c3dd49bc05ecd55187fb7d36.mp3",
+  "assets/story-narration/v1/audio/p-d2c2ac28805efb9613eda88c.mp3",
+  "assets/story-narration/v1/audio/p-d54fa93b87b334627bc19526.mp3",
+  "assets/story-narration/v1/audio/p-d8016ed09670b106c992517a.mp3",
+  "assets/story-narration/v1/audio/p-dc33e37f373c35fddc085948.mp3",
+  "assets/story-narration/v1/audio/p-dd05cdc3527d78bacddc6201.mp3",
+  "assets/story-narration/v1/audio/p-e31e04ed03c5caa69c440e23.mp3",
+  "assets/story-narration/v1/audio/p-e82f8894d074b9e159841b5b.mp3",
+  "assets/story-narration/v1/audio/p-f08e3da9eca905302931bc5d.mp3",
+  "assets/story-narration/v1/audio/p-f659c312b57b36863175c8ee.mp3",
+  "assets/story-narration/v1/audio/u201-pre-c2ebf253f455b2ac465ae945.mp3",
+  "assets/story-narration/v1/audio/u202-post-cbe0673d735b53f31f256653.mp3",
+  "assets/story-narration/v1/audio/u202-pre-fcbc77a97dfc6017ee46e974.mp3",
+  "assets/story-narration/v1/audio/u204-post-080c5a986a14c21c75862dcc.mp3"
+];
 const digest=x=>crypto.createHash('sha256').update(x).digest('hex');
+function validateBatchRevision(root, exec, ensure) {
+  assert.equal(BATCH_NEW_AUDIO.length,44); assert.equal(new Set(BATCH_NEW_AUDIO).size,44);
+  assert.equal(BATCH_NEW_UNITS.length,10); assert.equal(new Set(BATCH_NEW_UNITS).size,10);
+  ensure(BATCH_BASE); ensure(AUDIO_REVISION);
+  const headers=exec('git',['cat-file','-p',AUDIO_REVISION]).split('\n\n')[0];
+  const parents=headers.split('\n').filter(line=>line.startsWith('parent ')).map(line=>line.slice(7));
+  assert.deepEqual(parents,[BATCH_BASE],'Narration seed must descend directly from its verified main');
+  const manifestPath='assets/story-narration/v1/manifest.json';
+  const prefix='assets/story-narration/v1/';
+  const before=JSON.parse(exec('git',['show',BATCH_BASE+':'+manifestPath]));
+  const after=JSON.parse(exec('git',['show',AUDIO_REVISION+':'+manifestPath]));
+  const parts=exec('git',['diff','--no-renames','--name-status','-z',BATCH_BASE,AUDIO_REVISION,'--']).split('\0');
+  assert.equal(parts.pop(),''); assert.equal(parts.length%2,0);
+  const changes=[];
+  for(let i=0;i<parts.length;i+=2)changes.push({status:parts[i],file:parts[i+1]});
+  const sort=rows=>rows.sort((a,b)=>a.file<b.file?-1:a.file>b.file?1:0);
+  const expected=sort([{status:'M',file:manifestPath},{status:'M',file:'index.html'},...BATCH_NEW_AUDIO.map(file=>({status:'A',file}))]);
+  assert.deepEqual(sort(changes),expected,'Narration seed changed an unapproved path or existing asset');
+  function entries(ref) {
+    const output=exec('git',['ls-tree','-z',ref,'--',...expected.map(row=>row.file)]);
+    return new Map(output.split('\0').filter(Boolean).map(line=>{
+      const match=/^(\d+) (\w+) ([a-f0-9]{40})\t(.+)$/.exec(line);
+      assert(match,'Malformed Git tree entry');
+      return[match[4],{mode:match[1],type:match[2],sha:match[3]}];
+    }));
+  }
+  const oldTree=entries(BATCH_BASE),newTree=entries(AUDIO_REVISION);
+  for(const change of expected) {
+    const entry=newTree.get(change.file);
+    assert(entry&&entry.mode==='100644'&&entry.type==='blob','Seed path is not an ordinary file: '+change.file);
+    if(change.status==='A')assert(!oldTree.has(change.file),'New audio overwrote an existing path');
+    else assert(oldTree.get(change.file)?.mode==='100644'&&oldTree.get(change.file)?.type==='blob','Seed changed a file mode/type');
+  }
+  assert.equal(before.coverage.includedUnits.length,41);
+  assert(BATCH_NEW_UNITS.every(id=>!before.coverage.includedUnits.includes(id)),'Added unit already existed');
+  assert.equal(Object.keys(before.assets).length,130);
+  assert.equal(Object.keys(before.retiredAssets).length,8);
+  assert.deepEqual(after.coverage.includedUnits.slice().sort(),[...before.coverage.includedUnits,...BATCH_NEW_UNITS].sort());
+  assert.equal(after.coverage.includedUnits.length,51);
+  assert.equal(new Set(after.coverage.includedUnits).size,51);
+  assert.equal(after.coverage.includedRoutes,124); assert.equal(Object.keys(after.scenes).length,124);
+  assert.equal(Object.keys(after.assets).length,174);
+  for(const key of ['version','sourceCommit','sourceSha256','model','modelRevision','originals','immutable','retiredAssets','runtimeRevision'])
+    assert.deepEqual(after[key],before[key],'Existing narration contract changed: '+key);
+  for(const [file,metadata] of Object.entries(before.assets))assert.deepEqual(after.assets[file],metadata,'Existing audio metadata changed: '+file);
+  for(const [key,route] of Object.entries(before.scenes))assert.deepEqual(after.scenes[key],route,'Existing narration route changed: '+key);
+  const added=Object.keys(after.assets).filter(file=>!Object.hasOwn(before.assets,file)).map(file=>prefix+file).sort();
+  assert.deepEqual(added,BATCH_NEW_AUDIO.slice().sort(),'Seed does not contain the frozen audio set');
+  for(const file of BATCH_NEW_AUDIO) {
+    const metadata=after.assets[file.slice(prefix.length)];
+    assert(/^[a-f0-9]{64}$/.test(metadata.sha256)&&file.endsWith('-'+metadata.sha256.slice(0,24)+'.mp3'),'Audio address does not match content');
+    const bytes=cp.execFileSync('git',['show',AUDIO_REVISION+':'+file],{cwd:root,maxBuffer:32*1024*1024});
+    assert.equal(digest(bytes),metadata.sha256,'Seed audio hash differs: '+file);
+    assert.equal(bytes.length,metadata.bytes,'Seed audio byte count differs: '+file);
+  }
+  const from='    <script src="./assets/story-narration/v1/player.js?v=2026100303"></script>';
+  const to='    <script src="./assets/story-narration/v1/player.js?v=2026100305"></script>';
+  const oldHtml=exec('git',['show',BATCH_BASE+':index.html']);
+  const newHtml=exec('git',['show',AUDIO_REVISION+':index.html']);
+  assert.equal(oldHtml.split(from).length,2,'Expected one old narration loader');
+  assert.equal(newHtml.split(to).length,2,'Expected one new narration loader');
+  assert.equal(newHtml,oldHtml.replace(from,to),'Narration seed changed more than the cache query');
+  return{base:BATCH_BASE,reference:AUDIO_REVISION,files:BATCH_NEW_AUDIO,from,to,addedUnits:BATCH_NEW_UNITS,
+    report:{base:BATCH_BASE,reference:AUDIO_REVISION,additionalUnits:10,additionalAudioFiles:44,includedUnits:51,includedRoutes:124,currentAudioFiles:174,retiredAudioFiles:8,oldAudioAndRoutesPreserved:true}};
+}
+
 function verify(root){
  const exec=(cmd,args,cwd=root)=>cp.execFileSync(cmd,args,{cwd,encoding:'utf8',maxBuffer:32*1024*1024});
  const ensure=ref=>{if(cp.spawnSync('git',['cat-file','-e',ref+':index.html'],{cwd:root,stdio:'ignore'}).status!==0)exec('git',['fetch','--no-tags','--depth=1','origin',ref]);};
  ensure(BASE);
+ const batch=validateBatchRevision(root,exec,ensure);
  const files=['index.html','assets/index-v31526.js','assets/rc23/feedback.js','assets/rc128/combat-feedback.js'];
  const unchanged=['assets/rc77','assets/rc127','assets/rc129','assets/rc43/bloodied-flight.js','assets/combat-v31412/skill-completion.js','assets/story-narration','assets/rc49/story-voice.js','assets/rc51/story.js','data/story-rc51.js','data/opening-voice-rc74.json'];
  const changedProtected=exec('git',['diff','--name-only',BASE,'--',...unchanged]).trim().split('\n').filter(Boolean).sort();
  let narration=null;
  if(changedProtected.length){
-  // The independent four-scene correction passed its complete exact-commit
-  // gate. Permit those immutable bytes only; all runtime/source protection stays.
+  // Keep the historical four-scene correction and the separately validated
+  // audio-only batch pinned; all runtime/source protection stays.
   ensure(NARRATION);
-  const approved=exec('git',['diff','--name-only',BASE,NARRATION,'--','assets/story-narration']).trim().split('\n').filter(Boolean).sort();
-  assert.equal(approved.length,9,'Expected one correction manifest and eight immutable audio assets');
+  const historicalApproved=exec('git',['diff','--name-only',BASE,NARRATION,'--','assets/story-narration']).trim().split('\n').filter(Boolean).sort();
+  assert.equal(historicalApproved.length,9,'Expected one correction manifest and eight immutable audio assets');
+  const approved=[...historicalApproved,...batch.files].sort();
+  assert.equal(approved.length,53); assert.equal(new Set(approved).size,53);
+  const seedApproved=exec('git',['diff','--name-only',BASE,AUDIO_REVISION,'--','assets/story-narration']).trim().split('\n').filter(Boolean).sort();
+  assert.deepEqual(seedApproved,approved,'Seed changed narration outside the two exact accepted revisions');
   assert(approved.every(file=>file==='assets/story-narration/v1/manifest.json'||/^assets\/story-narration\/v1\/audio\/[a-z0-9-]+\.mp3$/.test(file)),'Narration reference includes unexpected runtime changes');
   assert.deepEqual(changedProtected,approved,'Protected gameplay/narration source differs outside exact accepted correction');
   const rows=approved.map(file=>{
-   const expected=crypto.createHash('sha256').update(cp.execFileSync('git',['show',NARRATION+':'+file],{cwd:root,maxBuffer:32*1024*1024})).digest('hex');
+   const expected=crypto.createHash('sha256').update(cp.execFileSync('git',['show',AUDIO_REVISION+':'+file],{cwd:root,maxBuffer:32*1024*1024})).digest('hex');
    const actual=digest(fs.readFileSync(path.join(root,file)));assert.equal(actual,expected,'Narration correction differs: '+file);return{file,expected,actual};
   });
   const before=exec('git',['show',BASE+':index.html']),after=exec('git',['show',NARRATION+':index.html']);
   const tag=/    <script src="\.\/assets\/story-narration\/v1\/player\.js\?v=\d+"><\/script>/g;
   const from=[...before.matchAll(tag)],to=[...after.matchAll(tag)];assert.equal(from.length,1);assert.equal(to.length,1);
   assert.equal(after,before.replace(from[0][0],to[0][0]),'Independent narration HTML edit must be its cache key only');
-  narration={reference:NARRATION,from:from[0][0],to:to[0][0],files:rows};
+  narration={reference:AUDIO_REVISION,historicalReference:NARRATION,from:from[0][0],to:to[0][0],files:rows};
  }
  const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'hapil-rc130-preservation-')),historical={},rows=[];
  const put=(file,text)=>{const p=path.join(scratch,file);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,text);};
@@ -38,8 +158,9 @@ function verify(root){
   if(narration){const file='index.html',text=fs.readFileSync(path.join(scratch,file),'utf8');assert.equal(text.split(narration.from).length,2);put(file,text.replace(narration.from,narration.to));}
   const combat=fs.readFileSync(path.join(root,'index.html'),'utf8').includes('./assets/combat-audio/v1/catalog.js');
   if(combat){put('tools/combat-audio-apply.cjs',fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs')));exec(process.execPath,['tools/combat-audio-apply.cjs'],scratch);}
+  {const file='index.html',text=fs.readFileSync(path.join(scratch,file),'utf8');assert.equal(text.split(batch.from).length,2);put(file,text.replace(batch.from,batch.to));}
   for(const file of [...files,'assets/rc130/audio-policy.js']){const expected=digest(fs.readFileSync(path.join(scratch,file))),actual=digest(fs.readFileSync(path.join(root,file)));rows.push({file,expected,actual});assert.equal(actual,expected,'Unexpected change outside exact RC130 integration: '+file);}
-  return{historical,report:{status:'passed',base:BASE,method:'Reapply exact anchored RC130 integration and independently hash-verified narration correction in a disposable directory; compare full bytes. Runtime under test is never substituted.',files:rows,protectedPaths:unchanged,independentNarrationMigration:narration,independentCombatAudioMigration:combat?{helperSha256:digest(fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs'))),scope:'19 exact audio hooks and three loaders; full runtime bytes reproduced'}:null}};
+  return{historical,report:{status:'passed',base:BASE,method:'Reapply exact anchored RC130 integration and independently hash-verified narration revisions in a disposable directory; compare full bytes. Runtime under test is never substituted.',files:rows,protectedPaths:unchanged,independentNarrationMigration:narration,independentNarrationBatch:batch.report,independentCombatAudioMigration:combat?{helperSha256:digest(fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs'))),scope:'19 exact audio hooks and three loaders; full runtime bytes reproduced'}:null}};
  }finally{fs.rmSync(scratch,{recursive:true,force:true});}
 }
 module.exports={verify,BASE};

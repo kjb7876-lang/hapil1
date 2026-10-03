@@ -182,7 +182,7 @@ function validateFixture() {
   assert.deepEqual(fixture.config, CONFIG, 'fixture measurement algorithm configuration');
   assert.deepEqual(fixture.tolerances, TOLERANCES, 'fixture comparison tolerances');
   assert.deepEqual(Object.keys(fixture.assets).sort(), Object.keys(manifest.assets).sort(), 'all deployed MP3s must be represented');
-  assert.equal(Object.keys(fixture.assets).length, 130, 'frozen release contains 41 scene + 89 paragraph MP3s');
+  assert.equal(Object.keys(fixture.assets).length, 174, 'frozen release contains 51 scene + 123 paragraph MP3s');
   let scenes = 0, paragraphs = 0;
   for (const [audio, expected] of Object.entries(fixture.assets)) {
     assert.match(audio, /^audio\/[a-z0-9-]+\.mp3$/);
@@ -199,7 +199,7 @@ function validateFixture() {
     assert.deepEqual(compare(expected.reference, expected.reference, 'fixed').failures, [], `${audio}: fixture self consistency`);
     if (audio.startsWith('audio/p-')) paragraphs++; else scenes++;
   }
-  assert.equal(scenes, 41); assert.equal(paragraphs, 89);
+  assert.equal(scenes, 51); assert.equal(paragraphs, 123);
   return {fixture, scenes, paragraphs};
 }
 
