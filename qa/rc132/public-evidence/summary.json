@@ -1,0 +1,2622 @@
+{
+  "version": "RC132",
+  "testedCommit": "019a5618cfd9d007513fc921b3f6426ea02dc430",
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "files": [
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 7,
+      "status": 200,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e"
+    },
+    {
+      "file": "assets/combat-v31412/outgoing-native.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "8c626e661bb458fbbfa5978cb6b852dd7d06a80fbace40b540538ba253465de0",
+      "actual": "8c626e661bb458fbbfa5978cb6b852dd7d06a80fbace40b540538ba253465de0"
+    },
+    {
+      "file": "assets/rc131/hero-images.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "c7d8f359592f37661d69c62b4e5315d3f4983d2bba6a4ffc5d54c61832c4428d",
+      "actual": "c7d8f359592f37661d69c62b4e5315d3f4983d2bba6a4ffc5d54c61832c4428d"
+    },
+    {
+      "file": "index.html",
+      "attempt": 0,
+      "status": 200,
+      "expected": "16ff019e47321e1253fc7202a6df19d38e5b428c0ea5705a42ca0a85fb9baf1a",
+      "actual": "16ff019e47321e1253fc7202a6df19d38e5b428c0ea5705a42ca0a85fb9baf1a"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e",
+      "actual": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e"
+    },
+    {
+      "file": "assets/rc130/projectile-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+      "actual": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
+    },
+    {
+      "file": "assets/rc130/audio-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+      "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+      "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+    },
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/rc129/danmaku-director.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+      "actual": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3"
+    },
+    {
+      "file": "assets/rc129/danmaku-hud.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+      "actual": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/story-narration/v1/mixer.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+      "actual": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197"
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+      "actual": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+    },
+    {
+      "file": "audio/v31361/contact-kinetic.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913",
+      "actual": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913"
+    },
+    {
+      "file": "audio/v31361/contact-heavy.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8",
+      "actual": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8"
+    },
+    {
+      "file": "assets/combat-audio/v1/catalog.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc",
+      "actual": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc"
+    },
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e",
+      "actual": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e"
+    },
+    {
+      "file": "assets/combat-audio/v1/native-bridge.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58",
+      "actual": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58"
+    },
+    {
+      "file": "assets/combat-audio/v1/manifest.json",
+      "attempt": 0,
+      "status": 200,
+      "expected": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e",
+      "actual": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+      "actual": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+      "actual": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+      "actual": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+      "actual": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+      "actual": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+      "actual": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+      "actual": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+      "actual": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872"
+    }
+  ],
+  "readiness": [
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 0,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 1,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 2,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 3,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 4,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 5,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 6,
+      "status": 404,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368"
+    },
+    {
+      "file": "assets/rc132/dream-balance.js",
+      "attempt": 7,
+      "status": 200,
+      "expected": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+      "actual": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e"
+    },
+    {
+      "file": "assets/combat-v31412/outgoing-native.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "8c626e661bb458fbbfa5978cb6b852dd7d06a80fbace40b540538ba253465de0",
+      "actual": "8c626e661bb458fbbfa5978cb6b852dd7d06a80fbace40b540538ba253465de0"
+    },
+    {
+      "file": "assets/rc131/hero-images.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "c7d8f359592f37661d69c62b4e5315d3f4983d2bba6a4ffc5d54c61832c4428d",
+      "actual": "c7d8f359592f37661d69c62b4e5315d3f4983d2bba6a4ffc5d54c61832c4428d"
+    },
+    {
+      "file": "index.html",
+      "attempt": 0,
+      "status": 200,
+      "expected": "16ff019e47321e1253fc7202a6df19d38e5b428c0ea5705a42ca0a85fb9baf1a",
+      "actual": "16ff019e47321e1253fc7202a6df19d38e5b428c0ea5705a42ca0a85fb9baf1a"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e",
+      "actual": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e"
+    },
+    {
+      "file": "assets/rc130/projectile-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+      "actual": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
+    },
+    {
+      "file": "assets/rc130/audio-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+      "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+      "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+    },
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/rc129/danmaku-director.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+      "actual": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3"
+    },
+    {
+      "file": "assets/rc129/danmaku-hud.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+      "actual": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/story-narration/v1/mixer.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+      "actual": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197"
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+      "actual": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+    },
+    {
+      "file": "audio/v31361/contact-kinetic.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913",
+      "actual": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913"
+    },
+    {
+      "file": "audio/v31361/contact-heavy.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8",
+      "actual": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8"
+    },
+    {
+      "file": "assets/combat-audio/v1/catalog.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc",
+      "actual": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc"
+    },
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e",
+      "actual": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e"
+    },
+    {
+      "file": "assets/combat-audio/v1/native-bridge.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58",
+      "actual": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58"
+    },
+    {
+      "file": "assets/combat-audio/v1/manifest.json",
+      "attempt": 0,
+      "status": 200,
+      "expected": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e",
+      "actual": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+      "actual": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+      "actual": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+      "actual": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+      "actual": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+      "actual": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+      "actual": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+      "actual": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+      "actual": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872"
+    }
+  ],
+  "profiles": [
+    {
+      "name": "pc",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 0.13659999999999992,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 1.566500000000001,
+          "x": 17.810297303950733,
+          "y": 16.067833333333336,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 19,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 45,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 2.9063999999999988,
+          "x": 17.00261211876555,
+          "y": 16.87551851851852,
+          "hp": 206,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 6,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 264,
+            "bitmapDraws": 217,
+            "cappedDraws": 0,
+            "maxRatio": 0.09526302523351138,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 70,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 2,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 4.126499999999999,
+          "x": 16.80189475537401,
+          "y": 17.128348312926356,
+          "hp": 232,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 6,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 525,
+            "bitmapDraws": 440,
+            "cappedDraws": 0,
+            "maxRatio": 0.126725892956855,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 111,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 5.516700000000004,
+          "x": 16.80363254879532,
+          "y": 17.1639106285982,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 6,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 775,
+            "bitmapDraws": 690,
+            "cappedDraws": 0,
+            "maxRatio": 0.12672589295685532,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 162,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 6.819900000000006,
+          "x": 16.474439652828313,
+          "y": 17.860539160330905,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 5,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1002,
+            "bitmapDraws": 899,
+            "cappedDraws": 0,
+            "maxRatio": 0.12672589295685532,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 205,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 4,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 8.233100000000007,
+          "x": 16.397249997655898,
+          "y": 17.93772881550332,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 5,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1202,
+            "bitmapDraws": 1099,
+            "cappedDraws": 0,
+            "maxRatio": 0.12672589295685532,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 257,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 4,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 9.63629999999999,
+          "x": 16.397249997655898,
+          "y": 17.93772881550332,
+          "hp": 181.02800000000002,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 8,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1543,
+            "bitmapDraws": 1400,
+            "cappedDraws": 0,
+            "maxRatio": 0.12672589295685574,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 278,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 6,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 11.106299999999981,
+          "x": 16.397249997655898,
+          "y": 17.93772881550332,
+          "hp": 138.59400000000002,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1769,
+            "bitmapDraws": 1542,
+            "cappedDraws": 0,
+            "maxRatio": 0.12672589295685574,
+            "meleeDraws": 44,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 329,
+            "enemyHitAccepted": 10,
+            "neutralHurt": 7,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "portrait",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 0.13659999999999992,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 1.3664999999999996,
+          "x": 17.81029148360663,
+          "y": 15.837037037037039,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 37,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 2.4128999999999996,
+          "x": 17.81029148360663,
+          "y": 15.837037037037039,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 3,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 99,
+            "bitmapDraws": 87,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 78,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 3.7494999999999994,
+          "x": 17.81029148360663,
+          "y": 15.837037037037039,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 183,
+            "bitmapDraws": 171,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 116,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 5.0827000000000035,
+          "x": 17.81029148360663,
+          "y": 15.837037037037039,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 183,
+            "bitmapDraws": 171,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 157,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 6.4996000000000045,
+          "x": 17.9459581502733,
+          "y": 15.70137037037037,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 183,
+            "bitmapDraws": 171,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 195,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 7.906500000000007,
+          "x": 17.9459581502733,
+          "y": 15.70137037037037,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 183,
+            "bitmapDraws": 171,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 7,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 234,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 9.24289999999999,
+          "x": 18.010159068133763,
+          "y": 15.637169452509903,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 183,
+            "bitmapDraws": 171,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 14,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 266,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 10.51959999999997,
+          "x": 18.268027257110816,
+          "y": 15.597006427436586,
+          "hp": 226.2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 237,
+            "bitmapDraws": 192,
+            "cappedDraws": 0,
+            "maxRatio": 0.18628311822716656,
+            "meleeDraws": 14,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 296,
+            "enemyHitAccepted": 9,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "landscape",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 0.1300999999999999,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 1.9267999999999996,
+          "x": 18.690901091176077,
+          "y": 16.19128148148149,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 12,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 70,
+            "bitmapDraws": 43,
+            "cappedDraws": 0,
+            "maxRatio": 0.16918792741828245,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 40,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 3.293399999999996,
+          "x": 20.084293683768674,
+          "y": 17.584674074074087,
+          "hp": 225.99999999999997,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 673,
+            "bitmapDraws": 620,
+            "cappedDraws": 0,
+            "maxRatio": 0.17311131216953574,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 77,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 4,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 4.806700000000004,
+          "x": 20.878163619032577,
+          "y": 18.616840832386895,
+          "hp": 237.7514,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 14,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1375,
+            "bitmapDraws": 1284,
+            "cappedDraws": 0,
+            "maxRatio": 0.17311131216953585,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 118,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 6,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 6.32330000000002,
+          "x": 21.379555147721646,
+          "y": 19.5827388062116,
+          "hp": 237.805,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 8,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2183,
+            "bitmapDraws": 1980,
+            "cappedDraws": 33,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 137,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 10,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 7.829900000000038,
+          "x": 21.379555147721646,
+          "y": 19.5827388062116,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2295,
+            "bitmapDraws": 2092,
+            "cappedDraws": 33,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 189,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 11,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 9.336400000000019,
+          "x": 21.44059243795799,
+          "y": 19.739168041498147,
+          "hp": 237.7514,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2310,
+            "bitmapDraws": 2097,
+            "cappedDraws": 33,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 225,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 12,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 10.852999999999996,
+          "x": 21.406777623143178,
+          "y": 19.772982856312957,
+          "hp": 233.55180000000001,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2310,
+            "bitmapDraws": 2097,
+            "cappedDraws": 33,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 254,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 13,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "rc132": {
+            "balance": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 0,
+              "consistentExits": 0,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            },
+            "enabled": false,
+            "mirrorRemoved": true,
+            "mirror": {
+              "created": 0,
+              "hits": 0,
+              "draws": 0,
+              "images": 0,
+              "cleaned": 0
+            }
+          },
+          "time": 12.359699999999973,
+          "x": 20.514292682641326,
+          "y": 20.945861714133716,
+          "hp": 235.1,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 6,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2367,
+            "bitmapDraws": 2116,
+            "cappedDraws": 33,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 282,
+            "enemyHitAccepted": 10,
+            "neutralHurt": 14,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "attachmentImported": false,
+  "scope": "Read-only deployed bytes and natural startup, not full campaigns or physical-phone performance",
+  "combatAudio": {
+    "registeredAssets": [
+      {
+        "role": "clockworkIntense",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+        "sha256": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+        "bytes": 4905154
+      },
+      {
+        "role": "clockwork",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+        "sha256": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+        "bytes": 5198727
+      },
+      {
+        "role": "timeControl",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+        "sha256": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+        "bytes": 1743095
+      },
+      {
+        "role": "dark",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+        "sha256": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+        "bytes": 648044
+      },
+      {
+        "role": "roar",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+        "sha256": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+        "bytes": 648044
+      },
+      {
+        "role": "blackHole",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+        "sha256": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+        "bytes": 648044
+      },
+      {
+        "role": "illusion",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+        "sha256": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+        "bytes": 648044
+      },
+      {
+        "role": "foldingSpace",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+        "sha256": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+        "bytes": 4814147
+      }
+    ],
+    "archiveBytesVerified": false,
+    "provenance": "Verified against the repository manifest; no claim that the unreadable conversation ZIP is this same set."
+  }
+}
