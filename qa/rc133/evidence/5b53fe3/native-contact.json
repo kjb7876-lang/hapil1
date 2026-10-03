@@ -1,0 +1,872 @@
+{
+  "commit": "5b53fe38489c01d746bf7fb84f61659795276e3e",
+  "scope": "Staged native incoming reducers, not natural collision campaign",
+  "rows": [
+    {
+      "kind": "invulnerability",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "CONTACT",
+        "result": "INVULNERABLE",
+        "reason": "native-invulnerability",
+        "targetId": "__host",
+        "heroId": "gunner",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 0,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 1,
+          "accepted": 1,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 0,
+          "frames": 10,
+          "drawErrors": 0,
+          "missingArt": 0
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "guard",
+            "label": "무적",
+            "color": "#b5d8ee",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "blink",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "CONTACT",
+        "result": "INVULNERABLE",
+        "reason": "native-invulnerability",
+        "targetId": "__host",
+        "heroId": "gunner",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 0,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 2,
+          "accepted": 2,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 0,
+          "frames": 11,
+          "drawErrors": 0,
+          "missingArt": 0
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "dodge",
+            "label": "회피",
+            "color": "#b5d8ee",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "automatic-dodge",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "CONTACT",
+        "result": "INVULNERABLE",
+        "reason": "native-invulnerability",
+        "targetId": "__host",
+        "heroId": "gunner",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 0,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 3,
+          "accepted": 3,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 0,
+          "frames": 12,
+          "drawErrors": 0,
+          "missingArt": 0
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "dodge",
+            "label": "회피",
+            "color": "#b5d8ee",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "samong-grace",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "DREAM",
+        "kind": "CONTACT",
+        "result": "INVULNERABLE",
+        "reason": "samong-revival-grace-rc91",
+        "targetId": "__host",
+        "heroId": "gunner",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 0,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 0,
+          "awakeningUntil": 107,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 0,
+          "awakeningUntil": 107,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 4,
+          "accepted": 4,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 1,
+          "frames": 13,
+          "drawErrors": 0,
+          "missingArt": 1
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "dream-guard",
+            "label": "사몽 보호",
+            "color": "#c4b6ee",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0.06,
+        "missingHeroes": [
+          "gunner"
+        ],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "parry",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "CONTACT",
+        "result": "PARRY",
+        "reason": "native-credited-contact",
+        "targetId": "__host",
+        "heroId": "gunner",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 12,
+        "resonanceAwarded": 12,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 0,
+          "awakeningUntil": 100,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": true
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 12,
+          "invulnerableUntil": 0,
+          "awakeningUntil": 100,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": true
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer",
+          "parry-credit"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 5,
+          "accepted": 5,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 1,
+          "frames": 14,
+          "drawErrors": 0,
+          "missingArt": 1
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "parry",
+            "label": "PARRY",
+            "color": "#c3fff2",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "shield",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "CONTACT",
+        "result": "SHIELD",
+        "reason": "ego-protection",
+        "targetId": "__host",
+        "heroId": "michaela",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 0,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 0,
+          "awakeningUntil": 107,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 100.18,
+          "awakeningUntil": 107,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 6,
+          "accepted": 6,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 1,
+          "frames": 15,
+          "drawErrors": 0,
+          "missingArt": 1
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "guard",
+            "label": "방어",
+            "color": "#b5d8ee",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "skill-removal",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": true,
+      "event": {
+        "schema": 2,
+        "sequence": 1,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "REMOVAL",
+        "result": "CANCELLED",
+        "reason": "skill",
+        "targetId": "123",
+        "heroId": null,
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "area",
+          "geometry": null,
+          "shape": "circle",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": null,
+        "appliedDamage": 0,
+        "hpBefore": null,
+        "hpAfter": null,
+        "hpLoss": null,
+        "resonanceBefore": null,
+        "resonanceAfter": null,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": null,
+          "resonance": null,
+          "invulnerableUntil": null,
+          "awakeningUntil": null,
+          "awakeningReadyAt": null,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": null,
+          "resonance": null,
+          "invulnerableUntil": null,
+          "awakeningUntil": null,
+          "awakeningReadyAt": null,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": null,
+        "path": [
+          "native-projectile-removal-rc133"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 7,
+          "accepted": 7,
+          "discarded": 0,
+          "throttled": 0,
+          "pauses": 1,
+          "frames": 16,
+          "drawErrors": 0,
+          "missingArt": 1
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "cancel",
+            "label": "소거",
+            "color": "#a3eee3",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "kind": "laser-stream",
+      "hpBefore": 240,
+      "hpAfter": 240,
+      "result": false,
+      "event": {
+        "schema": 2,
+        "sequence": 80,
+        "epoch": 1,
+        "time": 100,
+        "zone": "ep1b03",
+        "mode": "STORY",
+        "kind": "CONTACT",
+        "result": "INVULNERABLE",
+        "reason": "native-invulnerability",
+        "targetId": "__host",
+        "heroId": "gunner",
+        "source": {
+          "id": "123",
+          "ownerId": "b03-boss",
+          "born": 99,
+          "family": "laser",
+          "geometry": null,
+          "shape": "line",
+          "boss": false,
+          "midboss": false,
+          "x": 16,
+          "y": 24,
+          "originX": null,
+          "originY": null,
+          "vx": null,
+          "vy": null,
+          "heart": false
+        },
+        "requestedDamage": 20,
+        "appliedDamage": 0,
+        "hpBefore": 240,
+        "hpAfter": 240,
+        "hpLoss": 0,
+        "resonanceBefore": 0,
+        "resonanceAfter": 0,
+        "resonanceAwarded": 0,
+        "resonanceSpent": 0,
+        "healed": 0,
+        "egoStarted": false,
+        "downed": false,
+        "before": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "after": {
+          "hp": 240,
+          "resonance": 0,
+          "invulnerableUntil": 101,
+          "awakeningUntil": 0,
+          "awakeningReadyAt": 0,
+          "downUntil": null,
+          "guardActive": false
+        },
+        "returned": false,
+        "path": [
+          "player-entry",
+          "party-authority-route",
+          "player-reducer"
+        ],
+        "fault": null
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 87,
+          "accepted": 87,
+          "discarded": 0,
+          "throttled": 79,
+          "pauses": 1,
+          "frames": 17,
+          "drawErrors": 0,
+          "missingArt": 1
+        },
+        "effects": 1,
+        "recent": [
+          {
+            "kind": "guard",
+            "label": "무적",
+            "color": "#b5d8ee",
+            "sequence": 1
+          }
+        ],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    }
+  ],
+  "errors": []
+}

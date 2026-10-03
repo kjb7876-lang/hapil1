@@ -1,0 +1,73 @@
+name: RC133 exact gameplay audit
+on:
+  push:
+    branches: [codex/rc133-samong-inner-self]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc133-gameplay-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [native-gameplay, preservation]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated validation runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc133-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-evidence" >> "$GITHUB_ENV"
+      - name: Verify exact checkout and run regressions
+        env:
+          SUITE: ${{ matrix.suite }}
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node --input-type=module --check < assets/index-v31526.js
+          node <<'JS'
+          const fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('assert/strict');
+          const out=process.env.HAPIL_QA_OUTPUT;fs.mkdirSync(out,{recursive:true});
+          const tests=process.env.SUITE==='native-gameplay'
+            ? ['rc133-policy','rc133-feedback-unit','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc133-browser','rc133-contact-browser','rc128-browser','rc132-browser']
+            : ['rc127-policy','rc131-hero-unit','rc130-unit','rc130-isolation','story-narration-manifest','rc130-browser','rc119-laser-body-browser','rc115-natural-story-portal-browser'];
+          const report={commit:process.env.EXPECTED_SHA,suite:process.env.SUITE,tests:[],status:'running'};
+          for(const name of tests){const dest=path.join(out,name);fs.mkdirSync(dest,{recursive:true});const started=Date.now(),r=cp.spawnSync(process.execPath,['tests/'+name+'.cjs'],{encoding:'utf8',maxBuffer:32e6,timeout:240000,env:{...process.env,HAPIL_QA_OUTPUT:dest,HAPIL_RELEASE_OUTPUT:dest}});fs.writeFileSync(path.join(dest,'stdout.log'),r.stdout||'');fs.writeFileSync(path.join(dest,'stderr.log'),r.stderr||'');let passed=r.status===0&&!r.error;
+            if(name==='rc115-natural-story-portal-browser'&&passed){const natural=JSON.parse(fs.readFileSync(path.join(dest,'natural-story-results.json')));passed=natural.changedZone&&natural.final.zone==='dist01'&&natural.final.hp>0&&!natural.usedProgressCheats;}
+            const row={name,status:passed?'passed':'failed',exitCode:r.status,durationMs:Date.now()-started,error:r.error?String(r.error):null};report.tests.push(row);fs.writeFileSync(path.join(out,'suite-result.json'),JSON.stringify(report,null,2));console.log('RC133_CI',JSON.stringify(row));}
+          report.status=report.tests.every(t=>t.status==='passed')?'passed':'failed';fs.writeFileSync(path.join(out,'suite-result.json'),JSON.stringify(report,null,2));assert.equal(report.status,'passed');
+          JS
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc133-${{ github.sha }}-${{ matrix.suite }}
+          path: ${{ runner.temp }}/rc133-evidence/
+          retention-days: 14

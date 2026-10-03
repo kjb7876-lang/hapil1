@@ -1,8 +1,8 @@
 {
-  "status": "checkpoint-draft-tested-clean-pending-parent-coordination-and-gameplay-follow-up",
+  "status": "gameplay-tested-awaiting-parent-assets-ci-and-publication",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-samong-inner-self",
-  "testedSha": "6e9bb3344c617045e5caa55441ba0dc3ce5407b9",
+  "testedSha": "5b53fe38489c01d746bf7fb84f61659795276e3e",
   "testedWorkingTree": false,
   "mainSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "pagesSha": null,
@@ -10,52 +10,106 @@
   "sourceImagesInspected": false,
   "audio39MeasuredLocally": false,
   "blockers": [
-    "Six authorized image source files and recovered audio ZIP/manifest are not present in this checkout.",
-    "Parent asset-only staging was paused after MCP user-cancelled result; await parent coordination and do not retry upload.",
-    "Gameplay draft is a checkpoint; original-source cosmic identities, audio integration, and remaining scoped implementation are unfinished.",
-    "RC133 disables the legacy gapChargeV31226 route, but the separately queued V31315 dynamic boss charge and authored boss attack decks remain active; see qa/rc133/gameplay-inventory.md."
+    "Parent paused asset transfer after user-cancelled staging; no alternative upload attempted. Six source images and recovered audio ZIP/manifest are absent here.",
+    "Uploaded persona art, audio39 integration and original cosmic identity art remain pending parent asset coordination. Existing hero/zone assets are temporary fallbacks.",
+    "GitHub CLI GH_TOKEN is invalid. Read-only branch-push CI is prepared; await its exact-SHA result and parent combined narration82 validation.",
+    "Parent is preparing narration82 (73 unchanged +9). No main/Pages writes; integrate with fresh main and run combined exact-SHA CI/public smoke after parent coordination."
   ],
   "passed": {
-    "rc133Policy": 127,
+    "rc133Policy": 131,
     "rc133Feedback": 68,
     "rc132Unit": 32,
     "rc127Policy": 174,
     "rc131HeroUnit": 344,
+    "rc130Unit": 799,
+    "rc130Isolation": 28,
+    "rc59MidbossSmoke": {
+      "status": "passed"
+    },
+    "rc87CosmicSmoke": {
+      "status": "passed"
+    },
+    "rc133NativeBrowser": {
+      "profiles": 3,
+      "checksPerProfile": 642,
+      "scope": "Staged native EGO/save, 41 current midboss routes x STORY/DREAM with initial/delayed entry and surviving save/restore, 29 dynamic boss profiles, wrath, warp reservation, eight persona traits and four compositions; normal React upgrade purchase; actual cult and persona death closure; full-frame ending filter 0"
+    },
     "rc128NativeBrowser": {
       "profiles": 3,
       "stagedCases": 72,
       "heroes": 8,
-      "scope": "staged native renderer, three emulated desktop/mobile viewport profiles"
+      "scope": "All eight existing awakening images decoded; staged native renderer, plus unmodified startup observations"
     },
-    "rc133NativeBrowser": {
+    "rc132NativeBrowser": {
       "profiles": 3,
-      "checksPerProfile": 60,
-      "scope": "native EGO channel/save/cult-death, staged story/dream pair counts, warp and four-state compositor"
+      "wrathConsistency": "passed",
+      "scope": "Staged native post-defeat progression, no mirror generation/hit/draw, 777 movement, controlled visual-actor exit consistency"
     },
-    "rc59MidbossSmoke": {
-      "status": "passed",
-      "scope": "paired midboss policy, save/restore, death/checkpoint smoke"
+    "rc130NativeBrowser": {
+      "profiles": 3,
+      "bitmapCasesPerProfile": 9,
+      "scope": "Displayed projectile image <=20% short side at .75/2/6 zoom, reflected and bloodied transit, anchored melee effects, unmodified startup"
     },
-    "rc87CosmicSmoke": {
-      "status": "passed",
-      "scope": "native cosmic finale gates, save/resume and asset isolation"
+    "nativeContacts": {
+      "cases": 8,
+      "scope": "Staged actual native incoming reducers and committed journal; six defensive outcomes, skill removal with duplicate suppression, 80 laser contacts coalesced to one output effect; isolated overlay draw"
     },
-    "preservationBaseline": {
-      "sha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
+    "approvedLaserPixels": {
+      "profiles": [
+        "gpu",
+        "canvas",
+        "mobile-lowFx"
+      ],
+      "reference": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+      "pixelMatch": true,
+      "extraPixels": 0
+    },
+    "naturalStory": {
       "status": "passed",
-      "runtimeFiles": 3041,
-      "scope": "detached unchanged frozen 73-voice baseline; does not certify this RC133 delta"
+      "usedProgressCheats": false,
+      "from": "dist00",
+      "to": "dist01",
+      "elapsedMs": 80871,
+      "finalHP": 230.05,
+      "jsErrors": 0,
+      "httpErrors": 0,
+      "scope": "One desktop natural first-boss/portal auto session; not full campaigns"
+    },
+    "narrationManifest": {
+      "includedUnits": 73,
+      "pendingUnits": 46,
+      "unchangedFromStartingMain": true
     }
   },
   "physicalMobileTested": false,
   "fullNaturalCampaignTested": false,
+  "zeroBugGuarantee": false,
+  "ci": {
+    "status": "pending-feature-push",
+    "workflow": ".github/workflows/rc133-gameplay.yml",
+    "dispatched": false,
+    "reason": "Read-only branch-push CI; CLI GH_TOKEN invalid, so automatic push trigger will be used."
+  },
   "remainingRequestItems": [
-    "uploaded persona art and awakening image integration",
-    "audio39 runtime placement and derivatives",
-    "cosmic original identity conversion and stationary distinct art",
-    "suppress V31315 dynamic boss charge and audit remaining authored boss attack patterns",
-    "all-eight persona traits and native UI growth panel review",
-    "complete preservation and exact-SHA release tests"
+    "Uploaded source persona map/body/skills/awakening art pixel inspection and integration",
+    "Original cosmic identity visuals after asset approval; stationary mechanics are implemented",
+    "Audio39 measured derivatives/placement manifest/runtime decode-playback and gender review in this checkout",
+    "Parent narration82 combined integration, exact-SHA remote CI, main/Pages publication, public hash and 3-viewport smoke",
+    "Full natural Dream/Story hidden-final campaigns and physical phone QA"
   ],
-  "testEvidenceCommit": "6e9bb3344c617045e5caa55441ba0dc3ce5407b9"
+  "fixedFailures": [
+    "RC69 injected three midbosses into Story; native admission now enforces 2/3.",
+    "Later Dream midboss HP exceeded old 100000 save cap; validated encounter rows accept bounded native HP up to 1e9 and persist living IDs.",
+    "Single-midboss arc repeated sprites; at most two nearest authored alternatives are pinned with same-arc preference.",
+    "Deferred boss casts could outlive shared warp timer; one reservation stays owned until commit/cancel/death.",
+    "After inner completion the ordinary Dream awakening compositor re-applied grayscale; completed cult04 suppresses that pass."
+  ],
+  "harnessCorrections": [
+    "Deprecated ep1a07 is outside current route and migrates to ep1a08; tested separately.",
+    "Wrath staged fixture now passes actual native phase instead of assuming phase1.",
+    "Growth UI selector changed to its current label; Story dialogue is advanced before interacting.",
+    "An initial rc127-policy-unit.cjs invocation failed because the actual script is rc127-policy.cjs; corrected test passed."
+  ],
+  "evidenceDirectory": "qa/rc133/evidence/5b53fe3",
+  "testEvidenceCommit": "5b53fe38489c01d746bf7fb84f61659795276e3e"
 }

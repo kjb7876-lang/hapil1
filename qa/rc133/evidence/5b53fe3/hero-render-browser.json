@@ -1,0 +1,5133 @@
+{
+  "commit": "5b53fe38489c01d746bf7fb84f61659795276e3e",
+  "scope": "72 native staged render cases; 3 unmodified startup observations; no full-campaign or all-hero natural boss-clear claim",
+  "profiles": [
+    {
+      "name": "pc",
+      "naturalStartup": {
+        "usedProgressCheats": false,
+        "scope": "startup and first combat only; not a boss-clear assertion",
+        "first": {
+          "zone": "dist00",
+          "time": 0.13,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "STORY",
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "enemies": 4,
+          "speed": 6.471684999999999,
+          "feedback": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 0,
+              "accepted": 0,
+              "discarded": 0,
+              "throttled": 0,
+              "pauses": 0,
+              "frames": 9,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 0,
+            "recent": [],
+            "stopBudget": 0,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          }
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 1.189900000000001,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "STORY",
+          "x": 17.443802360442657,
+          "y": 16.000000000000004,
+          "enemies": 3,
+          "speed": 6.471684999999999,
+          "feedback": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 21,
+              "accepted": 21,
+              "discarded": 0,
+              "throttled": 3,
+              "pauses": 7,
+              "frames": 37,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 18
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 19
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 20
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 21
+              }
+            ],
+            "stopBudget": 0.052,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          }
+        }
+      },
+      "errors": [],
+      "missing": [],
+      "art": [
+        {
+          "hero": "hwando",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "seoha",
+          "width": 1179,
+          "height": 1334
+        },
+        {
+          "hero": "neon",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "michaela",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "lauren",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "hunter",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "slayer",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "gunner",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
+      "resumed": {
+        "zone": "dist00",
+        "time": 17.99219999999995,
+        "hp": 240,
+        "hero": "hwando",
+        "mode": "STORY",
+        "x": 19.606722206528488,
+        "y": 18.007906372201653,
+        "enemies": 1,
+        "speed": 6.471684999999999,
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 403,
+            "accepted": 379,
+            "discarded": 24,
+            "throttled": 86,
+            "pauses": 118,
+            "frames": 792,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 2,
+          "recent": [
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#ec5267",
+              "sequence": 376
+            },
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#e74750",
+              "sequence": 378
+            }
+          ],
+          "stopBudget": 0.054,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        }
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 403,
+          "accepted": 379,
+          "discarded": 24,
+          "throttled": 86,
+          "pauses": 118,
+          "frames": 793,
+          "drawErrors": 0,
+          "missingArt": 0
+        },
+        "effects": 0,
+        "recent": [],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "name": "portrait",
+      "naturalStartup": {
+        "usedProgressCheats": false,
+        "scope": "startup and first combat only; not a boss-clear assertion",
+        "first": {
+          "zone": "dist00",
+          "time": 0.1299000000000001,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "STORY",
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "enemies": 4,
+          "speed": 6.471684999999999,
+          "feedback": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 0,
+              "accepted": 0,
+              "discarded": 0,
+              "throttled": 0,
+              "pauses": 0,
+              "frames": 22,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 0,
+            "recent": [],
+            "stopBudget": 0,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          }
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 1.1032000000000006,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "STORY",
+          "x": 17.176102049040743,
+          "y": 16.000000000000004,
+          "enemies": 3,
+          "speed": 6.471684999999999,
+          "feedback": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 24,
+              "accepted": 24,
+              "discarded": 0,
+              "throttled": 4,
+              "pauses": 9,
+              "frames": 74,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 7,
+            "recent": [
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 17
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 18
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 19
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 20
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 21
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 23
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 24
+              }
+            ],
+            "stopBudget": 0.049999999999999996,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          }
+        }
+      },
+      "errors": [],
+      "missing": [],
+      "art": [
+        {
+          "hero": "hwando",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "seoha",
+          "width": 1179,
+          "height": 1334
+        },
+        {
+          "hero": "neon",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "michaela",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "lauren",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "hunter",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "slayer",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "gunner",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
+      "resumed": {
+        "zone": "dist00",
+        "time": 14.789599999999968,
+        "hp": 240,
+        "hero": "hwando",
+        "mode": "STORY",
+        "x": 18.948710457469414,
+        "y": 14.416432755644134,
+        "enemies": 1,
+        "speed": 6.471684999999999,
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 334,
+            "accepted": 328,
+            "discarded": 6,
+            "throttled": 58,
+            "pauses": 123,
+            "frames": 1108,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 2,
+          "recent": [
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#ec5267",
+              "sequence": 308
+            },
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#e74750",
+              "sequence": 309
+            }
+          ],
+          "stopBudget": 0.084,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        }
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 334,
+          "accepted": 328,
+          "discarded": 6,
+          "throttled": 58,
+          "pauses": 123,
+          "frames": 1110,
+          "drawErrors": 0,
+          "missingArt": 0
+        },
+        "effects": 0,
+        "recent": [],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    },
+    {
+      "name": "landscape",
+      "naturalStartup": {
+        "usedProgressCheats": false,
+        "scope": "startup and first combat only; not a boss-clear assertion",
+        "first": {
+          "zone": "dist00",
+          "time": 0.11329999999999973,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "STORY",
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "enemies": 4,
+          "speed": 6.471684999999999,
+          "feedback": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 0,
+              "accepted": 0,
+              "discarded": 0,
+              "throttled": 0,
+              "pauses": 0,
+              "frames": 10,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 0,
+            "recent": [],
+            "stopBudget": 0,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          }
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 1.5266000000000002,
+          "hp": 240,
+          "hero": "hwando",
+          "mode": "STORY",
+          "x": 17.972702949707614,
+          "y": 16.13566666666667,
+          "enemies": 1,
+          "speed": 6.471684999999999,
+          "feedback": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 35,
+              "accepted": 35,
+              "discarded": 0,
+              "throttled": 9,
+              "pauses": 8,
+              "frames": 60,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#e74750",
+                "sequence": 28
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#e74750",
+                "sequence": 29
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 32
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 33
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 35
+              }
+            ],
+            "stopBudget": 0.08,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          }
+        }
+      },
+      "errors": [],
+      "missing": [],
+      "art": [
+        {
+          "hero": "hwando",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "seoha",
+          "width": 1179,
+          "height": 1334
+        },
+        {
+          "hero": "neon",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "michaela",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "lauren",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "hunter",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "slayer",
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "hero": "gunner",
+          "width": 1254,
+          "height": 1254
+        }
+      ],
+      "resumed": {
+        "zone": "dist00",
+        "time": 11.532899999999978,
+        "hp": 240,
+        "hero": "hwando",
+        "mode": "STORY",
+        "x": 16.420530655052872,
+        "y": 20.605473589312602,
+        "enemies": 1,
+        "speed": 6.471684999999999,
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 273,
+            "accepted": 271,
+            "discarded": 2,
+            "throttled": 71,
+            "pauses": 101,
+            "frames": 605,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 3,
+          "recent": [
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#e74750",
+              "sequence": 246
+            },
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 247
+            },
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#e74750",
+              "sequence": 249
+            }
+          ],
+          "stopBudget": 0.056,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        }
+      },
+      "feedback": {
+        "version": "RC128",
+        "installed": true,
+        "totals": {
+          "events": 273,
+          "accepted": 271,
+          "discarded": 2,
+          "throttled": 71,
+          "pauses": 101,
+          "frames": 606,
+          "drawErrors": 0,
+          "missingArt": 0
+        },
+        "effects": 0,
+        "recent": [],
+        "stopBudget": 0,
+        "missingHeroes": [],
+        "heroes": [
+          "hwando",
+          "seoha",
+          "neon",
+          "michaela",
+          "lauren",
+          "hunter",
+          "slayer",
+          "gunner"
+        ]
+      }
+    }
+  ],
+  "cases": [
+    {
+      "hero": "hwando",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38403,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 48,
+            "accepted": 45,
+            "discarded": 3,
+            "throttled": 11,
+            "pauses": 15,
+            "frames": 78,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38320,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 60,
+            "accepted": 57,
+            "discarded": 3,
+            "throttled": 15,
+            "pauses": 20,
+            "frames": 108,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38037,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 76,
+            "accepted": 69,
+            "discarded": 7,
+            "throttled": 17,
+            "pauses": 25,
+            "frames": 138,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38317,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 91,
+            "accepted": 84,
+            "discarded": 7,
+            "throttled": 21,
+            "pauses": 29,
+            "frames": 171,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38388,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 103,
+            "accepted": 96,
+            "discarded": 7,
+            "throttled": 24,
+            "pauses": 34,
+            "frames": 206,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38251,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 122,
+            "accepted": 115,
+            "discarded": 7,
+            "throttled": 29,
+            "pauses": 38,
+            "frames": 237,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38393,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 133,
+            "accepted": 126,
+            "discarded": 7,
+            "throttled": 30,
+            "pauses": 42,
+            "frames": 268,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38409,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 144,
+            "accepted": 137,
+            "discarded": 7,
+            "throttled": 31,
+            "pauses": 47,
+            "frames": 297,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38352,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 165,
+            "accepted": 157,
+            "discarded": 8,
+            "throttled": 37,
+            "pauses": 52,
+            "frames": 324,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38280,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 186,
+            "accepted": 178,
+            "discarded": 8,
+            "throttled": 41,
+            "pauses": 56,
+            "frames": 354,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38273,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 199,
+            "accepted": 191,
+            "discarded": 8,
+            "throttled": 43,
+            "pauses": 59,
+            "frames": 387,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 37995,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 213,
+            "accepted": 205,
+            "discarded": 8,
+            "throttled": 46,
+            "pauses": 62,
+            "frames": 420,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38287,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 225,
+            "accepted": 211,
+            "discarded": 14,
+            "throttled": 47,
+            "pauses": 65,
+            "frames": 452,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38277,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 251,
+            "accepted": 233,
+            "discarded": 18,
+            "throttled": 51,
+            "pauses": 72,
+            "frames": 479,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38369,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 272,
+            "accepted": 248,
+            "discarded": 24,
+            "throttled": 53,
+            "pauses": 76,
+            "frames": 507,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38414,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 284,
+            "accepted": 260,
+            "discarded": 24,
+            "throttled": 57,
+            "pauses": 80,
+            "frames": 535,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38344,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 288,
+            "accepted": 264,
+            "discarded": 24,
+            "throttled": 57,
+            "pauses": 83,
+            "frames": 564,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38050,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 302,
+            "accepted": 278,
+            "discarded": 24,
+            "throttled": 62,
+            "pauses": 86,
+            "frames": 591,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38214,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 318,
+            "accepted": 294,
+            "discarded": 24,
+            "throttled": 64,
+            "pauses": 91,
+            "frames": 615,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38384,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 331,
+            "accepted": 307,
+            "discarded": 24,
+            "throttled": 65,
+            "pauses": 94,
+            "frames": 644,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38099,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 346,
+            "accepted": 322,
+            "discarded": 24,
+            "throttled": 70,
+            "pauses": 100,
+            "frames": 668,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38383,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 362,
+            "accepted": 338,
+            "discarded": 24,
+            "throttled": 73,
+            "pauses": 105,
+            "frames": 700,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38292,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 376,
+            "accepted": 352,
+            "discarded": 24,
+            "throttled": 77,
+            "pauses": 111,
+            "frames": 736,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "pc",
+      "view": {
+        "coloredSamples": 38259,
+        "paintedSamples": 154875,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 391,
+            "accepted": 367,
+            "discarded": 24,
+            "throttled": 82,
+            "pauses": 115,
+            "frames": 766,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 37999,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 56,
+            "accepted": 56,
+            "discarded": 0,
+            "throttled": 14,
+            "pauses": 19,
+            "frames": 152,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 37964,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 65,
+            "accepted": 65,
+            "discarded": 0,
+            "throttled": 15,
+            "pauses": 23,
+            "frames": 194,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 958,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 70,
+            "accepted": 70,
+            "discarded": 0,
+            "throttled": 15,
+            "pauses": 27,
+            "frames": 230,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38304,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 81,
+            "accepted": 81,
+            "discarded": 0,
+            "throttled": 17,
+            "pauses": 32,
+            "frames": 272,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38287,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 94,
+            "accepted": 94,
+            "discarded": 0,
+            "throttled": 19,
+            "pauses": 37,
+            "frames": 316,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 768,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 108,
+            "accepted": 107,
+            "discarded": 1,
+            "throttled": 21,
+            "pauses": 43,
+            "frames": 354,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38263,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 119,
+            "accepted": 118,
+            "discarded": 1,
+            "throttled": 23,
+            "pauses": 47,
+            "frames": 396,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38233,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 132,
+            "accepted": 127,
+            "discarded": 5,
+            "throttled": 24,
+            "pauses": 52,
+            "frames": 442,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 516,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 135,
+            "accepted": 130,
+            "discarded": 5,
+            "throttled": 24,
+            "pauses": 54,
+            "frames": 476,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38269,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 146,
+            "accepted": 141,
+            "discarded": 5,
+            "throttled": 24,
+            "pauses": 59,
+            "frames": 516,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38262,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 157,
+            "accepted": 152,
+            "discarded": 5,
+            "throttled": 25,
+            "pauses": 64,
+            "frames": 558,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 662,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 173,
+            "accepted": 168,
+            "discarded": 5,
+            "throttled": 28,
+            "pauses": 68,
+            "frames": 594,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38213,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 187,
+            "accepted": 181,
+            "discarded": 6,
+            "throttled": 31,
+            "pauses": 72,
+            "frames": 634,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38203,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 197,
+            "accepted": 191,
+            "discarded": 6,
+            "throttled": 33,
+            "pauses": 76,
+            "frames": 676,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 1714,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 210,
+            "accepted": 204,
+            "discarded": 6,
+            "throttled": 38,
+            "pauses": 80,
+            "frames": 716,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38147,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 226,
+            "accepted": 220,
+            "discarded": 6,
+            "throttled": 40,
+            "pauses": 84,
+            "frames": 760,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38167,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 236,
+            "accepted": 230,
+            "discarded": 6,
+            "throttled": 41,
+            "pauses": 89,
+            "frames": 804,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 1349,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 252,
+            "accepted": 246,
+            "discarded": 6,
+            "throttled": 45,
+            "pauses": 92,
+            "frames": 842,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38245,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 266,
+            "accepted": 260,
+            "discarded": 6,
+            "throttled": 47,
+            "pauses": 96,
+            "frames": 878,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38242,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 277,
+            "accepted": 271,
+            "discarded": 6,
+            "throttled": 47,
+            "pauses": 100,
+            "frames": 920,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 915,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 288,
+            "accepted": 282,
+            "discarded": 6,
+            "throttled": 49,
+            "pauses": 105,
+            "frames": 954,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38193,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 303,
+            "accepted": 297,
+            "discarded": 6,
+            "throttled": 51,
+            "pauses": 110,
+            "frames": 998,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 38230,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 315,
+            "accepted": 309,
+            "discarded": 6,
+            "throttled": 55,
+            "pauses": 115,
+            "frames": 1038,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "portrait",
+      "view": {
+        "coloredSamples": 721,
+        "paintedSamples": 218849,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 324,
+            "accepted": 318,
+            "discarded": 6,
+            "throttled": 56,
+            "pauses": 118,
+            "frames": 1074,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21850,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 62,
+            "accepted": 62,
+            "discarded": 0,
+            "throttled": 19,
+            "pauses": 18,
+            "frames": 103,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21817,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 73,
+            "accepted": 73,
+            "discarded": 0,
+            "throttled": 22,
+            "pauses": 21,
+            "frames": 126,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hwando",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "blade",
+      "color": "#ec5267",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21793,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 88,
+            "accepted": 88,
+            "discarded": 0,
+            "throttled": 30,
+            "pauses": 25,
+            "frames": 148,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21762,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 98,
+            "accepted": 98,
+            "discarded": 0,
+            "throttled": 31,
+            "pauses": 30,
+            "frames": 168,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21863,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 106,
+            "accepted": 106,
+            "discarded": 0,
+            "throttled": 33,
+            "pauses": 33,
+            "frames": 187,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "seoha",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "needle",
+      "color": "#8bd9f4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21857,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 116,
+            "accepted": 116,
+            "discarded": 0,
+            "throttled": 34,
+            "pauses": 38,
+            "frames": 208,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#8bd9f4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21816,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 123,
+            "accepted": 123,
+            "discarded": 0,
+            "throttled": 35,
+            "pauses": 42,
+            "frames": 228,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21804,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 133,
+            "accepted": 133,
+            "discarded": 0,
+            "throttled": 38,
+            "pauses": 46,
+            "frames": 248,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "neon",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "glitch",
+      "color": "#ec65d4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21714,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 140,
+            "accepted": 140,
+            "discarded": 0,
+            "throttled": 40,
+            "pauses": 49,
+            "frames": 267,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec65d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21776,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 145,
+            "accepted": 145,
+            "discarded": 0,
+            "throttled": 41,
+            "pauses": 52,
+            "frames": 288,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21863,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 148,
+            "accepted": 147,
+            "discarded": 1,
+            "throttled": 41,
+            "pauses": 54,
+            "frames": 307,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "michaela",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "wings",
+      "color": "#ecd994",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21616,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 155,
+            "accepted": 154,
+            "discarded": 1,
+            "throttled": 44,
+            "pauses": 57,
+            "frames": 327,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ecd994",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 21788,
+        "paintedSamples": 69323,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 165,
+            "accepted": 164,
+            "discarded": 1,
+            "throttled": 48,
+            "pauses": 61,
+            "frames": 347,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28443,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 175,
+            "accepted": 174,
+            "discarded": 1,
+            "throttled": 51,
+            "pauses": 64,
+            "frames": 370,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "lauren",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "sigil",
+      "color": "#b996e9",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28516,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 183,
+            "accepted": 182,
+            "discarded": 1,
+            "throttled": 53,
+            "pauses": 68,
+            "frames": 392,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#b996e9",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28504,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 193,
+            "accepted": 191,
+            "discarded": 2,
+            "throttled": 55,
+            "pauses": 73,
+            "frames": 416,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28287,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 208,
+            "accepted": 206,
+            "discarded": 2,
+            "throttled": 58,
+            "pauses": 77,
+            "frames": 439,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "hunter",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "reticle",
+      "color": "#d5aa68",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28197,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 218,
+            "accepted": 216,
+            "discarded": 2,
+            "throttled": 61,
+            "pauses": 80,
+            "frames": 461,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#d5aa68",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28296,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 232,
+            "accepted": 230,
+            "discarded": 2,
+            "throttled": 63,
+            "pauses": 83,
+            "frames": 481,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28286,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 238,
+            "accepted": 236,
+            "discarded": 2,
+            "throttled": 63,
+            "pauses": 86,
+            "frames": 502,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "slayer",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "execution",
+      "color": "#e74750",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28072,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 249,
+            "accepted": 247,
+            "discarded": 2,
+            "throttled": 65,
+            "pauses": 90,
+            "frames": 523,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#e74750",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "STORY",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28359,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 257,
+            "accepted": 255,
+            "discarded": 2,
+            "throttled": 66,
+            "pauses": 93,
+            "frames": 542,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "HELL",
+      "revived": false,
+      "status": {
+        "enabled": false,
+        "active": false,
+        "remaining": 0,
+        "cooldown": 0,
+        "ready": false,
+        "reviveUsed": false
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28493,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 264,
+            "accepted": 262,
+            "discarded": 2,
+            "throttled": 69,
+            "pauses": 96,
+            "frames": 564,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": false
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    },
+    {
+      "hero": "gunner",
+      "mode": "DREAM",
+      "revived": true,
+      "status": {
+        "enabled": true,
+        "active": true,
+        "remaining": 7,
+        "cooldown": 77,
+        "ready": false,
+        "reviveUsed": true
+      },
+      "motif": "memory",
+      "color": "#9cd8d4",
+      "profile": "landscape",
+      "view": {
+        "coloredSamples": 28528,
+        "paintedSamples": 90426,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        },
+        "feedback": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 268,
+            "accepted": 266,
+            "discarded": 2,
+            "throttled": 70,
+            "pauses": 98,
+            "frames": 582,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 1,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#9cd8d4",
+              "sequence": 1
+            }
+          ],
+          "stopBudget": 0.06,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "active": true
+      },
+      "scope": "staged native renderer, not natural gameplay"
+    }
+  ],
+  "status": "passed"
+}

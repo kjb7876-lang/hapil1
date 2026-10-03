@@ -1,0 +1,546 @@
+{
+  "standardStory": true,
+  "usedProgressCheats": false,
+  "storyContinues": 1,
+  "autoMode": "full",
+  "first": {
+    "zone": "dist00",
+    "zoneTime": 0.21319999999999936,
+    "zoneRealSeconds": 0.21,
+    "hp": 240,
+    "alive": 4,
+    "boss": {
+      "id": "dist00-boss",
+      "hp": 19390.123074324,
+      "maxHp": 19394
+    },
+    "waves": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "clues": 0,
+    "complete": 0,
+    "auto": {
+      "enabled": true,
+      "action": "combat",
+      "reason": "hostiles-or-waves"
+    },
+    "flow": null,
+    "story": false,
+    "interlude": false
+  },
+  "changedZone": true,
+  "final": {
+    "zone": "dist01",
+    "zoneTime": 53.56219999999992,
+    "zoneRealSeconds": 53.56,
+    "hp": 230.05,
+    "alive": 7,
+    "boss": null,
+    "waves": [
+      1
+    ],
+    "clues": 1,
+    "complete": 1,
+    "auto": {
+      "enabled": true,
+      "action": "wait",
+      "reason": "transition-cooldown"
+    },
+    "flow": {
+      "gate": {
+        "clear": false,
+        "reason": "적 진입 예고"
+      },
+      "ready": {
+        "ready": false,
+        "reason": "적 진입 예고"
+      },
+      "record": {
+        "zone": "dist01",
+        "last": 53.56219999999992,
+        "readyAt": null,
+        "enteredAt": 53.56219999999992,
+        "transition": null,
+        "serial": 0,
+        "seen": {},
+        "log": [],
+        "reservations": {}
+      }
+    },
+    "story": true,
+    "interlude": false,
+    "elapsedMs": 80871
+  },
+  "samples": [
+    {
+      "zone": "dist00",
+      "zoneTime": 4.503400000000002,
+      "zoneRealSeconds": 4.5,
+      "hp": 240,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 16560.34064706801,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 5514
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 8.9162,
+      "zoneRealSeconds": 8.92,
+      "hp": 160.00600000000003,
+      "alive": 2,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 14854.660970360019,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 10555
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 13.246199999999947,
+      "zoneRealSeconds": 13.25,
+      "hp": 140.86600000000004,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 13260.97473508402,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 15579
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 17.19929999999988,
+      "zoneRealSeconds": 17.2,
+      "hp": 188.86600000000004,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 11831.057975216017,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 20613
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 20.726299999999807,
+      "zoneRealSeconds": 20.73,
+      "hp": 44.14600000000007,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 10086.144600532012,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 25627
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 24.199399999999745,
+      "zoneRealSeconds": 24.2,
+      "hp": 79.14600000000007,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 9700.733500152002,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 30645
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 28.412699999999713,
+      "zoneRealSeconds": 28.41,
+      "hp": 240,
+      "alive": 2,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 7292.609341427997,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 35664
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 33.15629999999973,
+      "zoneRealSeconds": 33.16,
+      "hp": 240,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 5195.067608247982,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 40686
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 37.18939999999969,
+      "zoneRealSeconds": 37.19,
+      "hp": 228.05,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 2775.8630358279715,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 45739
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 41.30239999999966,
+      "zoneRealSeconds": 41.3,
+      "hp": 6,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 2140.424071311963,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 50776
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 46.089199999999686,
+      "zoneRealSeconds": 46.09,
+      "hp": 6,
+      "alive": 1,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 1574.4514470079628,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 55785
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 50.94879999999975,
+      "zoneRealSeconds": 50.95,
+      "hp": 240,
+      "alive": 2,
+      "boss": {
+        "id": "dist00-boss",
+        "hp": 5.3945872960000045,
+        "maxHp": 19394
+      },
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 0,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 60804
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 51.19559999999975,
+      "zoneRealSeconds": 51.2,
+      "hp": 230.05,
+      "alive": 0,
+      "boss": null,
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 1,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "move",
+        "reason": "combat-exit-portal"
+      },
+      "flow": null,
+      "story": true,
+      "interlude": false,
+      "elapsedMs": 65825
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 51.19559999999975,
+      "zoneRealSeconds": 51.2,
+      "hp": 230.05,
+      "alive": 0,
+      "boss": null,
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 1,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "move",
+        "reason": "combat-exit-portal"
+      },
+      "flow": null,
+      "story": true,
+      "interlude": false,
+      "elapsedMs": 70841
+    },
+    {
+      "zone": "dist00",
+      "zoneTime": 51.81229999999979,
+      "zoneRealSeconds": 51.81,
+      "hp": 230.05,
+      "alive": 0,
+      "boss": null,
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": 1,
+      "complete": 0,
+      "auto": {
+        "enabled": true,
+        "action": "move",
+        "reason": "combat-exit-portal"
+      },
+      "flow": null,
+      "story": false,
+      "interlude": false,
+      "elapsedMs": 75855
+    },
+    {
+      "zone": "dist01",
+      "zoneTime": 53.56219999999992,
+      "zoneRealSeconds": 53.56,
+      "hp": 230.05,
+      "alive": 7,
+      "boss": null,
+      "waves": [
+        1
+      ],
+      "clues": 1,
+      "complete": 1,
+      "auto": {
+        "enabled": true,
+        "action": "wait",
+        "reason": "transition-cooldown"
+      },
+      "flow": {
+        "gate": {
+          "clear": false,
+          "reason": "적 진입 예고"
+        },
+        "ready": {
+          "ready": false,
+          "reason": "적 진입 예고"
+        },
+        "record": {
+          "zone": "dist01",
+          "last": 53.56219999999992,
+          "readyAt": null,
+          "enteredAt": 53.56219999999992,
+          "transition": null,
+          "serial": 0,
+          "seen": {},
+          "log": [],
+          "reservations": {}
+        }
+      },
+      "story": true,
+      "interlude": false,
+      "elapsedMs": 80869
+    }
+  ],
+  "errors": [],
+  "failedResponses": []
+}

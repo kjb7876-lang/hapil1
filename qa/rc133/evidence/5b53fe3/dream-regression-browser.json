@@ -1,0 +1,2483 @@
+{
+  "status": "passed",
+  "commit": "5b53fe38489c01d746bf7fb84f61659795276e3e",
+  "scope": "Native UI startup and staged post-defeat transitions. QA stages the checkpoint and invokes the native death handler; not natural boss kills or full campaigns.",
+  "profiles": [
+    {
+      "name": "pc",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "zone": "ep1b07",
+          "time": 1.819799999999999,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 15.513395075989727,
+          "y": 16.908671554898504,
+          "bossDefeated": false,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [],
+          "drops": 0,
+          "enemies": [
+            {
+              "id": "b07-boss",
+              "hp": 45397,
+              "phase": 0
+            },
+            {
+              "id": "b07-boss-theme-summon-p0-1",
+              "hp": 444,
+              "phase": 1
+            }
+          ],
+          "gate": {
+            "clear": false,
+            "reason": "전투 중"
+          },
+          "plan": {
+            "action": "combat",
+            "reason": "hostiles-or-waves"
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 0
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 35,
+            "consistentExits": 0,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 2.403099999999999,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 15.085589482010798,
+          "y": 15.016629656920875,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 158,
+            "consistentExits": 93,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 2.919699999999998,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 17.641004112998285,
+          "y": 12.863023747082623,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 320,
+            "consistentExits": 224,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 3.436399999999997,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 20.197978237309414,
+          "y": 10.708103555797667,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 485,
+            "consistentExits": 358,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 3.936399999999996,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 22.67230978534776,
+          "y": 8.622831373296536,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 642,
+            "consistentExits": 485,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 4.436300000000002,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 25.146146467085394,
+          "y": 6.537976245224403,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 794,
+            "consistentExits": 608,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b08",
+          "time": 4.789700000000005,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 26.006741573033718,
+          "y": 24.31318293488026,
+          "bossDefeated": false,
+          "waves": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [
+            {
+              "id": "b08-c1",
+              "hp": 452,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w2-1",
+              "hp": 506,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-v1",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w1-r1",
+              "hp": 447,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1-w1-r2",
+              "hp": 447,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1-w2-2",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-boss",
+              "hp": 45792,
+              "phase": 0
+            },
+            {
+              "id": "b08-c1-reinforce320-initial-1",
+              "hp": 452,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w2-1-reinforce320-initial-2",
+              "hp": 506,
+              "phase": 1
+            }
+          ],
+          "gate": {
+            "clear": false,
+            "reason": "전투 중"
+          },
+          "plan": {
+            "action": "wait",
+            "reason": "transition-cooldown"
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 814,
+            "consistentExits": 624,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        }
+      ],
+      "stage": {
+        "pass": true,
+        "zone": "ep1b07",
+        "bossId": "b07-boss",
+        "hero": {
+          "x": 16.08144910923198,
+          "y": 15.919670137580868
+        },
+        "boss": {
+          "x": 24.202247191011242,
+          "y": 22.561797752808992
+        },
+        "lane": "bottom"
+      },
+      "legacyMirror": {
+        "remaining": 0,
+        "hpUnchanged": true,
+        "newCast": null,
+        "removed": true
+      },
+      "defeat": {
+        "pass": true,
+        "bossId": "b07-boss",
+        "boss": true,
+        "midboss": false,
+        "remainingProjectiles": 7
+      }
+    },
+    {
+      "name": "portrait",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "zone": "ep1b07",
+          "time": 1.6097,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 16.11841599595072,
+          "y": 17.358224241799295,
+          "bossDefeated": false,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [],
+          "drops": 0,
+          "enemies": [
+            {
+              "id": "b07-boss",
+              "hp": 45365.15,
+              "phase": 1
+            }
+          ],
+          "gate": {
+            "clear": false,
+            "reason": "전투 중"
+          },
+          "plan": {
+            "action": "combat",
+            "reason": "hostiles-or-waves"
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 0
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 32,
+            "consistentExits": 0,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 2.1330999999999993,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 17.07366574213315,
+          "y": 16.2517825718409,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 124,
+            "consistentExits": 68,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 2.6496999999999984,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 19.28739007144613,
+          "y": 13.74700717014529,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 259,
+            "consistentExits": 178,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 3.182999999999998,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 21.57298463610094,
+          "y": 11.160915268353177,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 411,
+            "consistentExits": 301,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 3.682999999999997,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 23.71586349712444,
+          "y": 8.736302542212133,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 568,
+            "consistentExits": 428,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b08",
+          "time": 4.1663,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 25.99600360977701,
+          "y": 25.980817836507107,
+          "bossDefeated": false,
+          "waves": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [
+            {
+              "id": "b08-c1",
+              "hp": 452,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w2-1",
+              "hp": 506,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-v1",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w1-r1",
+              "hp": 447,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1-w1-r2",
+              "hp": 447,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1-w2-2",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-boss",
+              "hp": 45792,
+              "phase": 0
+            },
+            {
+              "id": "b08-c1-reinforce320-initial-1",
+              "hp": 452,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w2-1-reinforce320-initial-2",
+              "hp": 506,
+              "phase": 1
+            }
+          ],
+          "gate": {
+            "clear": false,
+            "reason": "전투 중"
+          },
+          "plan": {
+            "action": "wait",
+            "reason": "transition-cooldown"
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 719,
+            "consistentExits": 550,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        }
+      ],
+      "stage": {
+        "pass": true,
+        "zone": "ep1b07",
+        "bossId": "b07-boss",
+        "hero": {
+          "x": 16.081481481481486,
+          "y": 15.918518518518521
+        },
+        "boss": {
+          "x": 24.202247191011242,
+          "y": 22.561797752808992
+        },
+        "lane": "bottom"
+      },
+      "legacyMirror": {
+        "remaining": 0,
+        "hpUnchanged": true,
+        "newCast": null,
+        "removed": true
+      },
+      "defeat": {
+        "pass": true,
+        "bossId": "b07-boss",
+        "boss": true,
+        "midboss": false,
+        "remainingProjectiles": 7
+      }
+    },
+    {
+      "name": "landscape",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "zone": "ep1b07",
+          "time": 2.086599999999999,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 15.414512963306358,
+          "y": 18.249510463729095,
+          "bossDefeated": false,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [],
+          "drops": 0,
+          "enemies": [
+            {
+              "id": "b07-boss",
+              "hp": 45389.087543,
+              "phase": 1
+            }
+          ],
+          "gate": {
+            "clear": false,
+            "reason": "전투 중"
+          },
+          "plan": {
+            "action": "combat",
+            "reason": "hostiles-or-waves"
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 0
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 64,
+            "consistentExits": 0,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 2.7065999999999986,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 16.791126583824816,
+          "y": 16.946094287504714,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 228,
+            "consistentExits": 126,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 3.2065999999999977,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 18.895906807282994,
+          "y": 14.488509819020539,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 383,
+            "consistentExits": 252,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 3.723199999999997,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 21.07065272581013,
+          "y": 11.949228248168321,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 545,
+            "consistentExits": 383,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 4.223199999999999,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 23.17551715560366,
+          "y": 9.491541853001817,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 702,
+            "consistentExits": 510,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b07",
+          "time": 4.723100000000006,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 25.27996061251216,
+          "y": 7.034346995113177,
+          "bossDefeated": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [],
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "plan": {
+            "action": "move",
+            "reason": "combat-exit-portal",
+            "radius": 2.48,
+            "target": {
+              "x": 27.155056179775286,
+              "y": 4.84494382022472
+            }
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 862,
+            "consistentExits": 640,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        },
+        {
+          "zone": "ep1b08",
+          "time": 5.186500000000009,
+          "hp": 240,
+          "hero": "hunter",
+          "x": 26.006741573033718,
+          "y": 24.5708195147501,
+          "bossDefeated": false,
+          "waves": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ],
+          "drops": 0,
+          "enemies": [
+            {
+              "id": "b08-c1",
+              "hp": 452,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w2-1",
+              "hp": 506,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-v1",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w1-r1",
+              "hp": 447,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1-w1-r2",
+              "hp": 447,
+              "phase": 1
+            },
+            {
+              "id": "b08-h1-w2-2",
+              "hp": 1432,
+              "phase": 1
+            },
+            {
+              "id": "b08-boss",
+              "hp": 45792,
+              "phase": 0
+            },
+            {
+              "id": "b08-c1-reinforce320-initial-1",
+              "hp": 452,
+              "phase": 1
+            },
+            {
+              "id": "b08-c1-w2-1-reinforce320-initial-2",
+              "hp": 506,
+              "phase": 1
+            }
+          ],
+          "gate": {
+            "clear": false,
+            "reason": "전투 중"
+          },
+          "plan": {
+            "action": "wait",
+            "reason": "transition-cooldown"
+          },
+          "speed": 6.471684999999999,
+          "mirror": {
+            "created": 0,
+            "hits": 0,
+            "draws": 0,
+            "images": 0,
+            "cleaned": 1
+          },
+          "budget": {
+            "version": "RC132",
+            "requests": 0,
+            "limited": 0,
+            "blocked": 0,
+            "requested": 0,
+            "approved": 0,
+            "exitChecks": 927,
+            "consistentExits": 692,
+            "dreamOnly": true,
+            "rateMultiplier": 0.25,
+            "maxHpPerHit": 0.01,
+            "maxHpPerRollingSecond": 0.02,
+            "windowSeconds": 1
+          }
+        }
+      ],
+      "stage": {
+        "pass": true,
+        "zone": "ep1b07",
+        "bossId": "b07-boss",
+        "hero": {
+          "x": 16.000000000000004,
+          "y": 16.000000000000004
+        },
+        "boss": {
+          "x": 24.202247191011242,
+          "y": 22.561797752808992
+        },
+        "lane": "bottom"
+      },
+      "legacyMirror": {
+        "remaining": 0,
+        "hpUnchanged": true,
+        "newCast": null,
+        "removed": true
+      },
+      "defeat": {
+        "pass": true,
+        "bossId": "b07-boss",
+        "boss": true,
+        "midboss": false,
+        "remainingProjectiles": 7
+      }
+    }
+  ],
+  "userSaveReproduced": false,
+  "wrathConsistency": {
+    "status": "passed",
+    "baseline": "a624e894788a8a1c21d6ca611299985d62eaf97e",
+    "scope": "Controlled native post-defeat regression. A noncombat visual actor is deliberately retained; no claim that this is the exact user save or a natural boss kill.",
+    "cases": [
+      {
+        "revision": "baseline",
+        "name": "pc",
+        "status": "passed",
+        "errors": [],
+        "httpErrors": [],
+        "samples": [
+          {
+            "zone": "ep1b07",
+            "time": 0.6464999999999995,
+            "hp": 240,
+            "x": 15.054644850403255,
+            "y": 17.747935303006717,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.1631000000000005,
+            "hp": 240,
+            "x": 11.870002743963248,
+            "y": 18.51674409189609,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.6630999999999991,
+            "hp": 240,
+            "x": 9.16507254889589,
+            "y": 20.18082722651802,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 2.1630999999999987,
+            "hp": 240,
+            "x": 8.234988469358326,
+            "y": 23.030612794882334,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 2.663099999999997,
+            "hp": 240,
+            "x": 6.911285067742478,
+            "y": 25.95936852862476,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 3.179699999999996,
+            "hp": 240,
+            "x": 5.817361153500287,
+            "y": 29.085040600482714,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 3.6796999999999946,
+            "hp": 240,
+            "x": 4.063457788647924,
+            "y": 29.97420350640878,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 4.179699999999996,
+            "hp": 240,
+            "x": 4.062827499763361,
+            "y": 29.97422162876311,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 4.679700000000002,
+            "hp": 240,
+            "x": 4.062827499763361,
+            "y": 29.97422162876311,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 5.196300000000009,
+            "hp": 240,
+            "x": 4.062827499763361,
+            "y": 29.97422162876311,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 5.696300000000015,
+            "hp": 240,
+            "x": 3.5352542456220473,
+            "y": 30.07242674585868,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 6.19630000000002,
+            "hp": 240,
+            "x": 3.4608004530974585,
+            "y": 29.99797295333409,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 6.712900000000028,
+            "hp": 240,
+            "x": 3.4608004530974585,
+            "y": 29.99797295333409,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 7.246200000000035,
+            "hp": 240,
+            "x": 3.4608004530974585,
+            "y": 29.99797295333409,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 7.74620000000004,
+            "hp": 240,
+            "x": 3.4608004530974585,
+            "y": 29.99797295333409,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 8.246200000000039,
+            "hp": 240,
+            "x": 3.440959284149998,
+            "y": 29.97813178438663,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 8.76280000000003,
+            "hp": 240,
+            "x": 2.8588022321107562,
+            "y": 29.395974732347394,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 9.262900000000021,
+            "hp": 240,
+            "x": 2.8588022321107562,
+            "y": 29.395974732347394,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 9.779500000000011,
+            "hp": 240,
+            "x": 1.533398227377616,
+            "y": 27.846941929777064,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          },
+          {
+            "zone": "ep1b07",
+            "time": 10.279500000000002,
+            "hp": 240,
+            "x": 2.245188766816572,
+            "y": 24.921679075197936,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "combat",
+              "reason": "hostiles-or-waves"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ]
+          }
+        ],
+        "fixture": {
+          "nativeDefeat": {
+            "pass": true,
+            "bossId": "b07-boss",
+            "boss": true,
+            "midboss": false,
+            "remainingProjectiles": 0
+          },
+          "rawCount": 1,
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ]
+        },
+        "observed": "wrong combat loop despite canonical clear"
+      },
+      {
+        "revision": "current",
+        "name": "pc",
+        "status": "passed",
+        "errors": [],
+        "httpErrors": [],
+        "samples": [
+          {
+            "zone": "ep1b07",
+            "time": 0.7466999999999996,
+            "hp": 240,
+            "x": 17.917311592426138,
+            "y": 15.151573650510265,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 135,
+              "consistentExits": 130,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.2631999999999997,
+            "hp": 240,
+            "x": 20.148224308471196,
+            "y": 12.66279581104224,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 300,
+              "consistentExits": 295,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.7631999999999997,
+            "hp": 240,
+            "x": 22.307905758464145,
+            "y": 10.25313763446142,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 452,
+              "consistentExits": 447,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 2.263199999999999,
+            "hp": 240,
+            "x": 24.467587206381648,
+            "y": 7.843479416310234,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 609,
+              "consistentExits": 604,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b08",
+            "time": 2.643199999999998,
+            "hp": 240,
+            "x": 26.006741573033718,
+            "y": 25.599646662490606,
+            "bossDefeated": false,
+            "rawActors": 10,
+            "gate": {
+              "clear": false,
+              "reason": "전투 중"
+            },
+            "plan": {
+              "action": "wait",
+              "reason": "transition-cooldown"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 702,
+              "consistentExits": 697,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          }
+        ],
+        "fixture": {
+          "nativeDefeat": {
+            "pass": true,
+            "bossId": "b07-boss",
+            "boss": true,
+            "midboss": false,
+            "remainingProjectiles": 0
+          },
+          "rawCount": 1,
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ]
+        },
+        "safety": {
+          "clear": true,
+          "pendingRejected": true,
+          "wavesRejected": true,
+          "bossRejected": true,
+          "objectiveRejected": true,
+          "enemyRejected": true,
+          "finalGate": true
+        },
+        "observed": "native transition reached successor without removing the helper or injecting progress"
+      },
+      {
+        "revision": "current",
+        "name": "portrait",
+        "status": "passed",
+        "errors": [],
+        "httpErrors": [],
+        "samples": [
+          {
+            "zone": "ep1b07",
+            "time": 0.6631999999999999,
+            "hp": 240,
+            "x": 18.0053257368132,
+            "y": 14.291877509662905,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 134,
+              "consistentExits": 129,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.1798999999999997,
+            "hp": 240,
+            "x": 20.33171046862441,
+            "y": 11.889974403558215,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 296,
+              "consistentExits": 291,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.6798999999999988,
+            "hp": 240,
+            "x": 22.582934172708544,
+            "y": 9.565610304187992,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 451,
+              "consistentExits": 446,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 2.196499999999998,
+            "hp": 240,
+            "x": 24.90889850546891,
+            "y": 7.164077306691115,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 613,
+              "consistentExits": 608,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b08",
+            "time": 2.5697999999999976,
+            "hp": 240,
+            "x": 26.006741573033718,
+            "y": 25.81310480646484,
+            "bossDefeated": false,
+            "rawActors": 10,
+            "gate": {
+              "clear": false,
+              "reason": "전투 중"
+            },
+            "plan": {
+              "action": "wait",
+              "reason": "transition-cooldown"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 716,
+              "consistentExits": 711,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          }
+        ],
+        "fixture": {
+          "nativeDefeat": {
+            "pass": true,
+            "bossId": "b07-boss",
+            "boss": true,
+            "midboss": false,
+            "remainingProjectiles": 0
+          },
+          "rawCount": 1,
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ]
+        },
+        "safety": {
+          "clear": true,
+          "pendingRejected": true,
+          "wavesRejected": true,
+          "bossRejected": true,
+          "objectiveRejected": true,
+          "enemyRejected": true,
+          "finalGate": true
+        },
+        "observed": "native transition reached successor without removing the helper or injecting progress"
+      },
+      {
+        "revision": "current",
+        "name": "landscape",
+        "status": "passed",
+        "errors": [],
+        "httpErrors": [],
+        "samples": [
+          {
+            "zone": "ep1b07",
+            "time": 0.6833000000000004,
+            "hp": 240,
+            "x": 18.007891458221113,
+            "y": 14.387789672026734,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 144,
+              "consistentExits": 139,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.1833000000000007,
+            "hp": 240,
+            "x": 20.246997035667995,
+            "y": 12.051894391968265,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 301,
+              "consistentExits": 296,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 1.7000000000000002,
+            "hp": 240,
+            "x": 22.5609170794844,
+            "y": 9.637857834660432,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 466,
+              "consistentExits": 461,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b07",
+            "time": 2.199999999999999,
+            "hp": 240,
+            "x": 24.80005008244034,
+            "y": 7.301844118974632,
+            "bossDefeated": true,
+            "rawActors": 1,
+            "gate": {
+              "clear": true,
+              "reason": "출구 개방"
+            },
+            "plan": {
+              "action": "move",
+              "reason": "combat-exit-portal",
+              "radius": 2.48,
+              "target": {
+                "x": 27.155056179775286,
+                "y": 4.84494382022472
+              }
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 623,
+              "consistentExits": 618,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          },
+          {
+            "zone": "ep1b08",
+            "time": 2.613199999999998,
+            "hp": 240,
+            "x": 26.006741573033718,
+            "y": 24.56782933552908,
+            "bossDefeated": false,
+            "rawActors": 10,
+            "gate": {
+              "clear": false,
+              "reason": "전투 중"
+            },
+            "plan": {
+              "action": "wait",
+              "reason": "transition-cooldown"
+            },
+            "clues": [
+              "ego-reward-v31217:ep1b07"
+            ],
+            "checks": {
+              "version": "RC132",
+              "requests": 0,
+              "limited": 0,
+              "blocked": 0,
+              "requested": 0,
+              "approved": 0,
+              "exitChecks": 673,
+              "consistentExits": 668,
+              "dreamOnly": true,
+              "rateMultiplier": 0.25,
+              "maxHpPerHit": 0.01,
+              "maxHpPerRollingSecond": 0.02,
+              "windowSeconds": 1
+            }
+          }
+        ],
+        "fixture": {
+          "nativeDefeat": {
+            "pass": true,
+            "bossId": "b07-boss",
+            "boss": true,
+            "midboss": false,
+            "remainingProjectiles": 0
+          },
+          "rawCount": 1,
+          "gate": {
+            "clear": true,
+            "reason": "출구 개방"
+          },
+          "clues": [
+            "ego-reward-v31217:ep1b07"
+          ]
+        },
+        "safety": {
+          "clear": true,
+          "pendingRejected": true,
+          "wavesRejected": true,
+          "bossRejected": true,
+          "objectiveRejected": true,
+          "enemyRejected": true,
+          "finalGate": true
+        },
+        "observed": "native transition reached successor without removing the helper or injecting progress"
+      }
+    ]
+  }
+}
