@@ -99,7 +99,7 @@
   m.contacts++;stats.contacts++;
   const heavy=h?.blockHeavyV31365??(h?.heavyBossSkill===true||h?.heavyHitClass31220==='telegraphed-major'||num(h?.damage)>=35);
   const resonanceBeforeV31401=Math.max(0,num(a.resonance));
-  a.resonance=Math.min(100,resonanceBeforeV31401+(heavy?config.heavyResonancePerContact:config.resonancePerContact));
+  a.resonance=Math.min(100,resonanceBeforeV31401+(window.__HAPIL_SAMONG_POLICY_RC133__?.gain(s,heavy?config.heavyResonancePerContact:config.resonancePerContact,'parry')??(heavy?config.heavyResonancePerContact:config.resonancePerContact)));
   window.__HAPIL_COMBAT_CORE_V31401__.resource(s,a,'resonanceAwarded',Math.max(0,a.resonance-resonanceBeforeV31401));
   window.__HAPIL_LOOP_V31365__?.heal(s,a,heavy?config.heavyHealPerContact:config.healPerContact);
   window.__HAPIL_LOOP_V31365__?.blockReward(s,a,h,heavy);

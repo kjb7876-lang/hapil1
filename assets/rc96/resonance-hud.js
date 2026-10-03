@@ -17,7 +17,7 @@
   if(!s||b.phase!=='game'||s.hp<=0||['hub','village'].includes(s.zone)||b.modal?.current||window.__HAPIL_READING_V31342__?.blocked||document.hidden){if(panel)panel.hidden=true;return;}
   const p=mount(),v=status(s);p.hidden=false;p.dataset.mode=v.mode;p.querySelector('.rc96-resource-text').textContent=v.label;
   const bar=p.querySelector('.rc96-resource-bar');bar.setAttribute('aria-valuenow',String(v.remaining>0?Math.round(v.fill*100):v.value));bar.setAttribute('aria-valuetext',v.label);bar.querySelector('i').style.transform='scaleX('+v.fill+')';
-  const cooldown=p.querySelector('.rc108-samong-cooldown'),sm=v.samong;cooldown.hidden=!sm?.enabled;cooldown.textContent=!sm?.enabled?'':sm.active?'사몽각성 '+sm.remaining.toFixed(1)+'초 · 위력 ×7':sm.ready?'사몽각성 준비':`사몽각성 재사용 ${Math.ceil(sm.cooldown)}초`;
+  const cooldown=p.querySelector('.rc108-samong-cooldown'),sm=v.samong;cooldown.hidden=!sm?.enabled;const ego=window.__HAPIL_SAMONG_POLICY_RC133__?.status(s);cooldown.textContent=!sm?.enabled?'':('EGO '+(ego?.count??0)+' / 7'+(ego?.pending?' · 발동 예약':'')+' · ')+(sm.active?'사몽각성 '+sm.remaining.toFixed(1)+'초 · 위력 ×7':sm.ready?'사몽각성 준비':`사몽각성 재사용 ${Math.ceil(sm.cooldown)}초`);
   const row=p.querySelector('.rc96-charge');row.hidden=!v.chargeLabel;row.querySelector('span').textContent=v.chargeLabel;row.querySelector('i').style.transform='scaleX('+v.chargeFill+')';
  }
  window.__HAPIL_RESONANCE_HUD_RC96__=Object.freeze({version:'RC96',status,update});setInterval(update,100);

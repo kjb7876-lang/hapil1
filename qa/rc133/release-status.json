@@ -1,0 +1,49 @@
+{
+  "status": "implementation-in-progress-source-delivery-blocked",
+  "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
+  "branch": "codex/rc133-samong-inner-self",
+  "testedSha": null,
+  "testedWorkingTree": true,
+  "mainSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
+  "pagesSha": null,
+  "published": false,
+  "sourceImagesInspected": false,
+  "audio39MeasuredLocally": false,
+  "blockers": [
+    "Official Library transfer helper fails download for six images and recovered audio ZIP/manifest",
+    "Implementation and native browser coverage still in progress"
+  ],
+  "passed": {
+    "rc133Policy": 127,
+    "rc132Unit": 32,
+    "rc127Policy": 174,
+    "rc131HeroUnit": 344,
+    "rc127Browser": {
+      "profiles": 3,
+      "checksPerProfile": 160,
+      "scope": "staged native casts"
+    },
+    "naturalStory": {
+      "from": "dist00",
+      "to": "dist01",
+      "progressCheats": false,
+      "scope": "first boss and portal only"
+    },
+    "rc133Feedback": 42,
+    "rc133NativeBrowser": {
+      "profiles": 3,
+      "checksPerProfile": 60,
+      "scope": "staged native channel, save, cult death and four-state compositor"
+    }
+  },
+  "physicalMobileTested": false,
+  "fullNaturalCampaignTested": false,
+  "remainingRequestItems": [
+    "uploaded persona art and awakening image integration",
+    "audio39 runtime placement and derivatives",
+    "cosmic original identity conversion and stationary distinct art",
+    "exhaustive boss-charge and authored midboss count audit",
+    "all-eight persona traits and native UI growth panel review",
+    "complete preservation and exact-SHA release tests"
+  ]
+}

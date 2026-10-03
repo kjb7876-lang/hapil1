@@ -20,14 +20,15 @@
  const incoming=(s,h)=>(mobile()&&hostile(s,h))?0.1:1;
  const outgoing=amount=>Number.isFinite(amount)&&amount>0?amount*.5:amount;
  function power(s,source){
-  if(Number(source?.samongPowerMultiplierRC108)>1)return source.samongPowerMultiplierRC108;
+  if(Number(source?.samongPowerMultiplierRC108)>1)return Math.min(8.05,source.samongPowerMultiplierRC108);
   const hero=source?.heroId??source?.heroId31213??source?.impactHeroIdV31315;
   if(!hero||hero!==s?.activeHeroId)return 1;
-  return window.__HAPIL_SAMONG_RC91__?.active(s)===true?7:1;
+  return window.__HAPIL_SAMONG_RC91__?.active(s)===true?(window.__HAPIL_SAMONG_POLICY_RC133__?.profile(s)?.power??7):1;
  }
  function egoEntered(s,wasAwake,untilBefore,untilAfter){
   if(!s||!window.__HAPIL_SAMONG_RC91__?.enabled(s)||wasAwake||!(untilAfter>s.time)||untilAfter<=untilBefore)return false;
   const key=String(s.time)+':'+String(untilAfter);if(egoEvents.get(s)===key)return false;egoEvents.set(s,key);
+  if(window.__HAPIL_SAMONG_POLICY_RC133__)return window.__HAPIL_SAMONG_POLICY_RC133__.enter(s,wasAwake,untilBefore,untilAfter);
   const m=s.samongPassiveRC91;if(m&&m.cooldown>0)m.cooldown*=.93;return true;
  }
  window.__HAPIL_DAMAGE_RC108__=Object.freeze({incoming,outgoing,power,egoEntered,hostile,observe,mobile,version:'RC108'});

@@ -17,7 +17,7 @@
   slayer:Object.freeze({name:'슬레이어',color:'#e74750',accent:'#fac7b3',dark:'#250b10',motif:'execution',sound:'heavy'}),
   gunner:Object.freeze({name:'기억사수',color:'#9cd8d4',accent:'#d9c7ed',dark:'#182332',motif:'memory',sound:'shot'})
  });
- const states=new WeakMap(),cameras=new WeakMap();
+ const states=new WeakMap(),cameras=new WeakMap(),fallbackPictures=new Map();
  const totals={events:0,accepted:0,discarded:0,throttled:0,pauses:0,frames:0,drawErrors:0,missingArt:0};
  let installed=false,attempts=0;
  function reduced(){return root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches===true;}
@@ -27,7 +27,7 @@
    if(m)releasePause(s,m,true);
    m={zone:s.zone,worldTime:n(s.time),effects:[],lastEpoch:-1,lastSequence:-1,
     windowAt:now(),budget:0,nextPause:0,pauseDeadline:0,ownedUntil:0,
-    nextEffect:0,shakeUntil:0,shake:0,settings:{},artMissing:new Set(),lastDraw:0};
+    nextEffect:0,defensive:new Map(),shakeUntil:0,shake:0,settings:{},artMissing:new Set(),lastDraw:0};
    states.set(s,m);
   }
   m.worldTime=n(s.time);return m;
@@ -53,6 +53,7 @@
  function sound(s,key,priority,gain,meta={}){root.__HAPIL_FEEDBACK_RC22__?.impact?.(s,{key,priority,gain,...meta});}
  function classify(s,target,row,source){
   if(!row||row.result==='ERROR'||row.result==='REJECTED'||row.result==='MISS')return null;
+  if(row.kind==='REMOVAL'&&row.result==='CANCELLED')return {kind:'cancel',color:'#a3eee3',accent:'#eefaf8',label:'소거',power:.35,duration:.18,pause:0,sound:'guard',priority:1,outgoing:true};
   const outgoing=row.kind==='OUTGOING',incoming=row.kind==='CONTACT'&&row.targetId==='__host';
   if(!outgoing&&!incoming)return null;
   if(outgoing&&row.attackerHeroId!==s.activeHeroId)return null;
@@ -71,9 +72,10 @@
     sound:incoming?(danger?'heavy':'hurt'):strong?'heavy':profile.sound,priority:incoming?6:strong?4:2,
     boss:target?.boss===true,outgoing,hero:profile};
   }
-  if(incoming&&['PARRY','SHIELD','INVULNERABLE','EVADE'].includes(row.result))return{
-   kind:'guard',color:'#87ddd6',accent:'#eafffc',label:row.result==='PARRY'?'패링':row.result==='SHIELD'?'방어':row.result==='EVADE'?'회피':'무적',
-   power:.5,duration:.2,pause:0,sound:'guard',priority:3,outgoing:false,hero:profile};
+  if(incoming&&['PARRY','SHIELD','INVULNERABLE','EVADE'].includes(row.result)){
+   const samong=/samong/.test(row.reason??''),blink=row.before?.invulnerableUntil>row.time&&row.reason==='native-invulnerability'&&n(s.dashingUntil)>row.time,automatic=n(s.autoEvadeUntil31223)>row.time,parry=row.result==='PARRY';
+   return {kind:parry?'parry':blink||automatic||row.result==='EVADE'?'dodge':samong?'dream-guard':'guard',color:samong?'#c4b6ee':parry?'#c3fff2':'#b5d8ee',accent:'#eafffc',label:parry?'PARRY':blink||automatic||row.result==='EVADE'?'회피':samong?'사몽 보호':row.result==='SHIELD'?'방어':'무적',power:.5,duration:.22,pause:0,sound:'guard',priority:3,outgoing:false,hero:profile};
+  }
   return null;
  }
  function record(s,target,row,source){
@@ -84,6 +86,7 @@
   const f=classify(s,target,row,source);if(!f){totals.discarded++;return false;}
   totals.accepted++;
   const t=now();
+  if(!f.outgoing&&row.result!=='HIT'){const key=String(row.result)+'|'+String(row.reason)+'|'+String(row.source?.ownerId??row.source?.id??'contact'),last=m.defensive.get(key)??-1e9;if(t-last<(continuous(row,source)?.45:.18)){totals.throttled++;return false;}m.defensive.set(key,t);while(m.defensive.size>128)m.defensive.delete(m.defensive.keys().next().value);}
   if(t<m.nextEffect&&f.power<1){totals.throttled++;return false;}
   m.nextEffect=t+.025;
   m.effects.push({...f,x:n(target.x,n(s.x)),y:n(target.y,n(s.y)),born:t,sequence:row.sequence});
@@ -134,7 +137,7 @@
  }
  function drawAwakening(ctx,s,width,height,compact){
   const A=root.__HAPIL_SAMONG_RC91__;if(!A?.active?.(s))return;
-  const m=s.samongPassiveRC91,profile=HEROES[m.heroId]||HEROES.hwando,t=clamp(7-n(m.active),0,7);
+  const m=s.samongPassiveRC91,profile=HEROES[m.heroId]||HEROES.hwando,t=clamp(n(m.duration,7)-n(m.active),0,9);
   const head=point(s,n(s.x),n(s.y),width,height),entry=Math.max(0,1-t/1.1),fade=Math.min(1,n(m.active)/.4);
   // A bounded edge tint leaves the middle of the battlefield unobscured.
   const vignette=ctx.createRadialGradient(width/2,height/2,Math.min(width,height)*.22,width/2,height/2,Math.max(width,height)*.65);
@@ -153,7 +156,7 @@
    const image=A.picture(m.heroId),w=compact?62:94,h=compact?94:142,x=width-w-12,y=compact?height*.61:64;
    ctx.save();ctx.globalAlpha=entry*.88;
    if(image){const fit=Math.min(w/image.naturalWidth,h/image.naturalHeight),iw=image.naturalWidth*fit,ih=image.naturalHeight*fit;ctx.drawImage(image,x+(w-iw)/2,y,iw,ih);}
-   else{const f=state(s);if(!f.artMissing.has(m.heroId)){f.artMissing.add(m.heroId);totals.missingArt++;}ctx.translate(x+w/2,y+h/2);motif(ctx,profile,w*.35,t,true);}
+   else{const hero=root.__HAPIL_RC95_NATIVE__?.heroes?.find(h=>h.id===m.heroId),own=hero?.sprite;if(own&&typeof Image!=='undefined'){if(!fallbackPictures.has(own)){const im=new Image();im.decoding='async';im.src=own;fallbackPictures.set(own,im);}const fallback=fallbackPictures.get(own);if(fallback.complete&&fallback.naturalWidth){const fit=Math.min(w/fallback.naturalWidth,h/fallback.naturalHeight);ctx.drawImage(fallback,x,y,fallback.naturalWidth*fit,fallback.naturalHeight*fit);}}const f=state(s);if(!f.artMissing.has(m.heroId)){f.artMissing.add(m.heroId);totals.missingArt++;}ctx.translate(x+w/2,y+h/2);motif(ctx,profile,w*.35,t,true);}
    ctx.restore();
   }
  }
@@ -179,8 +182,8 @@
     const age=(t-e.born)/e.duration,alpha=1-clamp(age,0,1),p=point(s,e.x,e.y,width,height);
     ctx.save();ctx.globalAlpha=alpha*.85;ctx.strokeStyle=e.color;ctx.fillStyle=e.color;
     if(p){ctx.translate(p.x,p.y-22*p.scale);const r=(e.kind==='guard'?15:10+age*12)*clamp(p.scale,.7,1.5);ctx.lineWidth=e.power>=1?2:1.3;
-     if(e.kind==='guard')ring(ctx,r);else{for(let i=0;i<(compact?4:6);i++){const a=i*Math.PI*2/(compact?4:6)+(e.sequence%7)*.2;segment(ctx,Math.cos(a)*r*.4,Math.sin(a)*r*.4,Math.cos(a)*r,Math.sin(a)*r);}}
-     if(e.label&&e.power>=1){ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(e.label,0,-r-6);}
+     if(['guard','parry','dream-guard'].includes(e.kind)){ring(ctx,r);if(e.kind==='parry'){segment(ctx,-r,0,r,0);segment(ctx,0,-r,0,r);}if(e.kind==='dream-guard')ring(ctx,r*.7,.2,5.8);}else if(e.kind==='dodge'){for(let i=0;i<3;i++){ctx.globalAlpha=alpha*(.6-i*.15);ctx.strokeRect(-r*.3-i*6,-r*.8,r*.6,r*1.6);}}else if(e.kind==='cancel'){segment(ctx,-r,-r,r,r);segment(ctx,-r,r,r,-r);}else{for(let i=0;i<(compact?4:6);i++){const a=i*Math.PI*2/(compact?4:6)+(e.sequence%7)*.2;segment(ctx,Math.cos(a)*r*.4,Math.sin(a)*r*.4,Math.cos(a)*r,Math.sin(a)*r);}}
+     if(e.label&&(e.power>=1||!e.outgoing)){ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(e.label,0,-r-6);}
     }else if(!e.outgoing){ctx.lineWidth=e.kind==='danger'?3:1.5;ctx.strokeRect(4,4,width-8,height-8);ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(e.label,width*.5,height*.76);}
     ctx.restore();
    }
@@ -189,7 +192,7 @@
   finally{ctx.restore();}
   return true;
  }
- function snapshot(s){const m=s&&states.get(s);return{version:'RC128',installed,totals:{...totals},effects:m?.effects.length||0,stopBudget:m?.budget||0,missingHeroes:m?Array.from(m.artMissing):[],heroes:Object.keys(HEROES)};}
+ function snapshot(s){const m=s&&states.get(s);return{version:'RC128',installed,totals:{...totals},effects:m?.effects.length||0,recent:m?.effects.map(e=>({kind:e.kind,label:e.label,color:e.color,sequence:e.sequence}))||[],stopBudget:m?.budget||0,missingHeroes:m?Array.from(m.artMissing):[],heroes:Object.keys(HEROES)};}
  function install(){
   if(installed)return true;
   const v=root.__HAPIL_VIEWPORT_RC104__;

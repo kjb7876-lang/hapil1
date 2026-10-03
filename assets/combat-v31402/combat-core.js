@@ -8,7 +8,7 @@
   const VERSION = '3.14.03-RC1';
   const LIMIT = 256;
   const CONTACT_RESULTS = Object.freeze(['HIT', 'PARRY', 'GRAZE', 'EVADE', 'INVULNERABLE', 'SHIELD', 'MISS', 'REJECTED']);
-  const validResults = new Set([...CONTACT_RESULTS, 'HEAL', 'EGO_STARTED', 'ERROR']);
+  const validResults = new Set([...CONTACT_RESULTS, 'HEAL', 'EGO_STARTED', 'CANCELLED', 'ERROR']);
   const worlds = new WeakMap();
   const evidenceByWorld = new WeakMap();
   let adapters = null;

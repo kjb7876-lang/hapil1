@@ -36479,7 +36479,7 @@ function $n(e, t, n, r, i) {
       ),
     ),
     MONGSE_activeMap = window.__HAPIL_LUCIFER_V31318__?.mapFor(t, MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map) ?? MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map,
-    v = MONGSE_queueImage(n, MONGSE_activeMap),
+    v = MONGSE_queueImage(n,window.__HAPIL_INNER_FINAL_RC133__?.map(t,MONGSE_activeMap)??MONGSE_activeMap),
     y = HAPIL_viewCameraRC104(t.x, t.y, t);
   if ((c.translate(y.x, y.y), c.scale(y.scale ?? 1, y.scale ?? 1), v?.complete && v.naturalWidth))
     c.drawImage(v, h, -60, g, 990);
@@ -51995,6 +51995,7 @@ function Ri() {
         if (window.__HAPIL_ECHOES_V31368__?.onDeath(t,e)) return;
         if (window.__HAPIL_RECORDS_V31365__?.onDeath(t,e)) return;
         if (window.__HAPIL_CONTROLS_V31329__?.beforeDeath(t,e)) return;
+        if(window.__HAPIL_INNER_FINAL_RC133__?.beforeDeath(t,e))return;
         if (window.__HAPIL_MODES_V31346__?.beforeDeath(t,e)) return;
         if (window.__HAPIL_LUCIFER_V31318__?.beforeDeath(t, e)) return;
         if (window.__HAPIL_EPISODE_COSMIC_V387__?.beforeDeath(t, e)) return;
@@ -61991,7 +61992,7 @@ function Ri() {
                   `보스가 이 지역의 개체 ${MONGSE_prideSummons.spawned}체를 실체화했습니다. 페이즈가 바뀌거나 보스가 쓰러지면 소환체는 소거됩니다.`,
                 );
               window.__HAPIL_HELL_V31322__?.apply(o);
-              window.__HAPIL_MODES_V31346__?.tick(o);
+              window.__HAPIL_MODES_V31346__?.tick(o);window.__HAPIL_INNER_FINAL_RC133__?.tick(o,a);
               window.__HAPIL_LUCIFER_V31318__?.tick(o);
                window.__HAPIL_COSMIC_V31345__?.tick(o);
               MONGSE_tickBossOrdnanceCues31210(o);
@@ -116251,7 +116252,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     if(!p||locked(state,actor)||num(actor.dynamicBossReadyAtV31315)>now)return null;
     if((state.pendingHits?.length??0)>=28||(Number.isFinite(MONGSE_runtimeProjectileCapRC47())&&(state.hostileProjectiles?.length??0)>=48))return null;
     if((state.pendingHits??[]).some(h=>h.dynamicBossAttackV31315)||[...(dashes.get(state)?.values()??[])].length)return null;
-    const mode=forcedMode??p.mode,at=now+p.windup;
+    const requested=forcedMode??p.mode,mode=requested==='dash'?'cross':requested,at=now+p.windup;
     const dx=num(state.x)-num(actor.x),dy=num(state.y)-num(actor.y),length=Math.max(.001,Math.hypot(dx,dy));
     const ux=dx/length,uy=dy/length;
     // Safe centre follows the already occupied player location at commit time.
@@ -121117,8 +121118,8 @@ var HAPIL_VISUAL_GEOMETRY_V31335={"./assets/heroes/normalized/hwando/sprite_3280
  }
  function active(a){return profile(a)?.active===true;}
  function drawBody(ctx,cache,a,time,settings,sprite,size,transform){
-  const p=profile(a);if(!p?.active){Ln(ctx,cache,sprite,a.x,a.y,size,transform);return true;}
-  const human=MONGSE_runtimeSprite(cache,p.human,p.humanFallback),origin=G(a.x,a.y),breath=0,frontSize=Math.min(122,size*.68),rearSize=size*.94;
+  const p=profile(a);if(!p?.active){const bodySize=p?122:size;Ln(ctx,cache,sprite,a.x,a.y,bodySize,{...transform,visualSizeV31338:bodySize});return true;}
+  const human=MONGSE_runtimeSprite(cache,p.human,p.humanFallback),origin=G(a.x,a.y),breath=0,frontSize=122,rearSize=size*.94;
   const facing=num(transform.scaleX,1)<0?-1:1,rearX=-facing*size*.20,rearY=-frontSize*.39-8+breath*2.3;
   ctx.save();try{
    // Transparent vector shadow and black puppet threads have no world geometry or damage fields.
@@ -121207,8 +121208,8 @@ var HAPIL_VISUAL_GEOMETRY_V31335={"./assets/heroes/normalized/hwando/sprite_3280
  }
  function active(a){return profile(a)?.active===true;}
  function drawBody(ctx,cache,a,time,settings,sprite,size,transform){
-  const p=profile(a);if(!p?.active){Ln(ctx,cache,sprite,a.x,a.y,size,transform);return true;}
-  const human=MONGSE_runtimeSprite(cache,p.human,p.humanFallback),origin=G(a.x,a.y),breath=0,frontSize=Math.min(122,size*.68),rearSize=size*.94;
+  const p=profile(a);if(!p?.active){const bodySize=p?122:size;Ln(ctx,cache,sprite,a.x,a.y,bodySize,{...transform,visualSizeV31338:bodySize});return true;}
+  const human=MONGSE_runtimeSprite(cache,p.human,p.humanFallback),origin=G(a.x,a.y),breath=0,frontSize=122,rearSize=size*.94;
   const facing=num(transform.scaleX,1)<0?-1:1,rearX=-facing*size*.20,rearY=-frontSize*.39-8+breath*2.3;
   ctx.save();try{
    // Transparent vector shadow and black puppet threads have no world geometry or damage fields.
@@ -123383,7 +123384,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function mem(s){let m=memory.get(s);if(!m||m.zone!==s.zone||m.hero!==s.activeHeroId||s.time<m.at){m={zone:s.zone,hero:s.activeHeroId,at:s.time,streak:0,totalGraze:0,totalParry:0,hitsTaken:0,gainWindow:s.time,gainCount:0,awakenUntil:0,shield:0,echoReady:0,fieldReady:0,blinkAt:-99,seen:new WeakMap(),seenKeys:new Map(),echoCount:0,echoFrame:-1};memory.set(s,m);}m.at=s.time;return m;}
  function float(s,text,critical=false){(s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration:.65,text,color:color(s.activeHeroId),critical});}
  function fx(s,kind,from,to,life=.32,extra={}){const q=s.shmupFxV31365??=[];q.push({kind,heroId:s.activeHeroId,zone:s.zone,born:s.time,duration:life,x:from.x,y:from.y,tx:to.x,ty:to.y,...extra});while(q.length>cfg.maxFx)q.shift();}
- function gain(s,amount,why='attack'){
+ function gain(s,amount,why='attack'){amount=window.__HAPIL_SAMONG_POLICY_RC133__?.gain(s,amount,why)??amount;
   if(blocked(s)||awake(s)||!(amount>0))return 0;const m=mem(s);
   if(why==='graze'){if(s.time-m.gainWindow>=1){m.gainWindow=s.time;m.gainCount=0;}amount=Math.min(amount,Math.max(0,cfg.grazePerSecond-m.gainCount));m.gainCount+=amount;}
   const old=cl(n(s.resonance),0,100);s.resonance=cl(old+amount,0,100);metrics.gain+=s.resonance-old;window.__HAPIL_COMBAT_CORE_V31401__.resource(s,s,'resonanceAwarded',Math.max(0,s.resonance-old));
@@ -126504,3 +126505,100 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  install();
 })();
 /* RC131_HERO_IMAGE_RECOVERY_END */
+
+/* RC133_NATIVE_INTEGRATION: final lexical bindings, not copied legacy APIs. */
+(() => {
+ 'use strict';
+ let attempts=0,installed=false;
+ const n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d;
+ const S=()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
+ const U=()=>window.__HAPIL_SAMONG_POLICY_RC133__;
+ const H=()=>window.__HAPIL_INNER_FINAL_RC133__;
+ const metrics={warps:0,warpCancelled:0,midbossAdded:0,removals:0};
+ const sets=new WeakMap();
+ function authority(s){const p=window.__HAPIL_PARTY_V31322__;return !(p?.state===s&&(p.status?.role==='guest'||p.status?.paused||p.status?.disconnected));}
+ function safeDestination(s,a,p){
+  if(!p||![p.x,p.y].every(Number.isFinite)||ut(s.zone,p.x,p.y,.72))return false;
+  const allies=[s,...(window.__HAPIL_PARTY_V31322__?.state===s?window.__HAPIL_PARTY_V31322__.actors:[])];
+  if(allies.some(b=>b.hp>0&&Math.hypot(p.x-b.x,p.y-b.y)<8))return false;
+  if(s.enemies.some(b=>b!==a&&b.hp>0&&!b.visualOnly&&Math.hypot(p.x-b.x,p.y-b.y)<2))return false;
+  if((s.hostileProjectiles??[]).some(q=>!q.friendly&&!q.reflected&&q.damage>0&&Math.hypot(p.x-q.x,p.y-q.y)<1.4))return false;
+  if([...(s.pendingHits??[]),...(s.impactQueue??[])].some(q=>!q.damageSuppressedV31226&&q.damage>0&&(q.at??q.impactAt??0)>s.time&&Di(p,q)))return false;
+  return true;
+ }
+ function destination(s,a){
+  let best=null;for(let x=4;x<=28;x+=4)for(let y=4;y<=28;y+=4){const p=dt(s.zone,{x,y},.72);if(!safeDestination(s,a,p))continue;const score=Math.hypot(p.x-s.x,p.y-s.y)-Math.hypot(p.x-a.x,p.y-a.y)*.15;if(!best||score>best.score)best={...p,score};}return best;
+ }
+ function warp(s,a){
+  if(!s||s.hp<=0||!a||a.hp<=0||!(a.boss||a.midboss)||a.visualOnly||a.objectiveStructureV31238||a.cosmicLuciferV31318||a.rc133InnerBoss||a.fixedCombatPositionRC69||!authority(s)||MONGSE_isEncounterLocked31226(s)||n(s.timeStopUntil)>s.time)return;
+  const until=window.__HAPIL_SKILL_COMPLETION_V31412__?.castUntil(s,a)??0;
+  const busy=Math.max(until,n(a.attackAt),n(a.recoverUntil),n(a.phaseTransitionUntil))>s.time;
+  const old=a.rc133Warp;
+  if(old){
+   if(!safeDestination(s,a,old)){delete a.rc133Warp;metrics.warpCancelled++;return;}
+   if(busy||s.time<old.at)return;
+   if(Math.hypot(s.x-a.x,s.y-a.y)>3.4){delete a.rc133Warp;metrics.warpCancelled++;return;}
+   a.x=old.x;a.y=old.y;a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.navPath=[];a.gapChargeV31226=null;delete a.rc133Warp;
+   s.rc133WarpReadyAt=s.time+3;metrics.warps++;
+   (s.effects??=[]).push({id:s.fxSerial++,kind:'burst',x:a.x,y:a.y,tx:a.x,ty:a.y,born:s.time,duration:.28,size:1.3,color:'#b8add6',accent:'#e8e6f4'});return;
+  }
+  if(busy||n(s.rc133WarpReadyAt)>s.time||Math.hypot(s.x-a.x,s.y-a.y)>2.5)return;
+  const p=destination(s,a);if(!p)return;
+  a.rc133Warp={x:p.x,y:p.y,at:s.time+.55};s.rc133WarpReadyAt=s.time+1.1;
+  (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y,born:s.time,duration:.5,text:'공간 이탈',color:'#d2c8e9',critical:false});
+ }
+ function midpoint(s){
+  const first=s.enemies.find(a=>a.midboss&&!String(a.id).endsWith('-duo-rc59')&&!a.rc133Midboss&&!a.visualOnly&&!a.friendly&&a.hp>0);
+  if(!first||s.practiceV31329)return;
+  let seen=sets.get(s);if(!seen||seen.zone!==s.zone){seen={zone:s.zone,owners:new Set()};sets.set(s,seen);}
+  const owner=String(first.id);if(seen.owners.has(owner))return;seen.owners.add(owner);
+  const count=U().enabled(s)?3:2,group=s.enemies.filter(a=>a.midboss&&(a===first||a.duoMateOfRC59===first.id||first.duoMateOfRC59===a.id));
+  const arc=N[s.zone]?.arc,alternatives=Object.values(N).filter(z=>z.arc===arc).flatMap(z=>z.enemies??[]).filter(a=>a.midboss&&a.sprite&&a.sprite!==first.sprite);
+  const twin=group.find(a=>String(a.id).endsWith('-duo-rc59'));
+  if(twin&&alternatives.length){const source=alternatives[0];for(const key of ['sprite','phaseSprites','actionSprites','actionSpritesByPhase','phaseScales'])twin[key]=source[key]??null;twin.name=(source.name??twin.name)+' · 협공';}
+  if(group.length>=count)return;
+  for(let i=group.length;i<count;i++){
+   const source=alternatives[i%Math.max(1,alternatives.length)]??first,a=Jr(source,s.zone),id=owner+'-partner-'+i+'-rc133';
+   Object.assign(a,{id,name:(source.name??first.name)+' · 잔영 '+(i+1),boss:false,midboss:true,rc133Midboss:true,rc133Owner:owner,rc133TemplateId:source.id,
+    requiredForClear:first.requiredForClear!==false,hp:Math.max(1,Math.round(n(first.maxHp,first.hp)*.7)),maxHp:Math.max(1,Math.round(n(first.maxHp,first.hp)*.7)),
+    readyAt:s.time+1.5,patternReadyAt:s.time+1.7,invulnerableUntil:s.time+.7});
+   delete a.samongStatsRC91;HAPIL_positionMidbossDuoRC59(s,s.zone,first,a);s.enemies.push(a);metrics.midbossAdded++;
+  }
+ }
+ function upgradeSection(props){
+  const s=S();if(!U()?.enabled(s))return null;
+  const u=U().upgrades(props.passives);s.samongUpgradesRC133=u;if(s.rc133UpgradeProps!==props.passives){s.rc133UpgradeBusy=false;s.rc133UpgradeProps=props.passives;}
+  return (0,q.jsxs)('section',{className:'growth-section', 'data-upgrade-category':'samongUpgrade',children:[
+   (0,q.jsx)('h3',{children:'死夢 · 사몽 전용 강화'}),
+   (0,q.jsx)('p',{children:'EGO 파편 1개 · 같은 run의 포탈과 저장에서 유지 · 새 run에서는 초기화'}),
+   (0,q.jsx)('div',{className:'growth-grid',children:U().tracks.map(t=>(0,q.jsxs)('article',{className:'growth-node',children:[
+    (0,q.jsx)('b',{children:t.name}),(0,q.jsx)('p',{children:t.description}),
+    (0,q.jsx)('button',{type:'button','data-samong-upgrade':t.key,disabled:u[t.key]>=t.max||props.shards<1,onClick:()=>{
+     if(s.rc133UpgradeBusy)return;const value=U().purchase(s,props.passives,props.shards,t.key);if(!value)return;s.rc133UpgradeBusy=true;s.samongUpgradesRC133=value.upgrades;props.setPassives(value.passives);props.setShards(value.shards);s.rc133UpgradeProps=props.passives;
+    },children:'Lv.'+u[t.key]+'/'+t.max+' · EGO 파편 1개'})]},t.key))})]});
+ }
+ function install(){
+  if(installed)return true;
+  if(!window.__HAPIL_RC131_NATIVE_INSTALLED__||!window.__HAPIL_DANMAKU_HUD_RC129__?.installed||!window.__HAPIL_SAMONG_RC91__?.installed||!window.__HAPIL_RC95_NATIVE__)return false;
+  H().bind(window.__HAPIL_RC95_NATIVE__);
+  const B=window.__HAPIL_RC86_BRIDGE__,save=B.serializeSave,norm=B.normalizeSave,restore=B.restoreEntry;
+  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.innerFinalRC133=H().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
+  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.innerFinalRC133=H().clean(raw?.innerFinalRC133);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=100000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
+  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
+  const enemies=B.restoreEnemies;B.restoreEnemies=function(raw,...args){const result=enemies.call(this,raw,...args);for(const row of raw?.midbossRC133??[]){if(result.some(a=>a.id===row.id))continue;const source=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.id===row.template&&a.midboss);if(!source)continue;const a=Jr(source,raw.zone);Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133TemplateId:row.template,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});result.push(a);}return result;};
+  const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);sets.delete(s);if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;midpoint(s);foundation(s);return result;};
+  const gap=MONGSE_tickBossGapCharge31226;MONGSE_tickBossGapCharge31226=function(s,a,...args){if(a&&(a.boss||a.midboss)){a.gapChargeV31226=null;if(a.activePattern==='gapChargeV31226')a.activePattern='';warp(s,a);return null;}return gap.call(this,s,a,...args);};
+  const brain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(a?.rc133InnerBoss)return {target:null,moveScale:0,speedScale:0};return brain.call(this,s,a,...args);};
+  const radius=MONGSE_enemyHitRadius;MONGSE_enemyHitRadius=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||a?.rc133InnerBoss)? .72:radius.call(this,a);};
+  const oldPanel=Vi;Vi=function(props){return (0,q.jsxs)(q.Fragment,{children:[(0,q.jsx)(oldPanel,props),upgradeSection(props)]});};
+  const spent=MONGSE_totalGrowthSpent;MONGSE_totalGrowthSpent=function(raw){return spent.call(this,raw)+Object.values(U().upgrades(raw)).reduce((a,b)=>a+b,0);};
+  const tick=window.__HAPIL_LASERS_V31330__.tick;window.__HAPIL_LASERS_V31330__.tick=function(s,dt){if(s&&dt>0&&!MONGSE_isEncounterLocked31226(s)&&authority(s)){s.samongUpgradesRC133=U().upgrades(window.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??s.samongUpgradesRC133);foundation(s);midpoint(s);for(const a of s.enemies)warp(s,a);}return tick.apply(this,arguments);};
+  const removal=MONGSE_recordProjectileRemoval31215;MONGSE_recordProjectileRemoval31215=function(s,q,reason,...args){const duplicate=q?.rc133RemovalPublished===true,result=removal.call(this,s,q,reason,...args);if(q&&!duplicate&&result&&['parry','skill','absorbed','hero-skill','cancelled','hero-nullify'].includes(reason)){q.rc133RemovalPublished=true;const C=window.__HAPIL_COMBAT_CORE_V31401__;C.transaction(s,q,q,'native-projectile-removal-rc133',()=>{C.mark(s,q,'CANCELLED',reason);},{kind:'REMOVAL'});metrics.removals++;}return result;};
+  const P=window.__HAPIL_POLICY_RC127__,bridge=Object.create(P);Object.defineProperty(bridge,'incoming',{value:function(s,h){const v=P.incoming(s,h);return U().enabled(s)&&n(s.resonance)>0?Math.max(.25,v*U().profile(s).defense):v;}});window.__HAPIL_POLICY_RC127__=Object.freeze(bridge);
+  installed=true;window.__HAPIL_RC133_NATIVE__=Object.freeze({installed:true,version:'RC133',warp,destination,safeDestination,midpoint,upgradeSection,makeState:oi,enter:(s,z)=>ii(s,z),normalize:(raw)=>ji(raw),save:(s,...args)=>Fi(s,...args),metrics:()=>({...metrics}),foundation,cleanFoundation});
+  return true;
+ }
+ function cleanFoundation(raw){return {version:1,regions:Array.isArray(raw?.regions)?raw.regions.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],waypoints:Array.isArray(raw?.waypoints)?raw.waypoints.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],resources:{memory:Math.max(0,Math.min(9999,Math.floor(n(raw?.resources?.memory))))}};}
+ function foundation(s){if(!s)return null;const m=s.mongseFoundationRC133=cleanFoundation(s.mongseFoundationRC133);if(!m.regions.includes(s.zone)&&N[s.zone])m.regions.push(s.zone);if(N[s.zone]?.rest&&!m.waypoints.includes(s.zone))m.waypoints.push(s.zone);return m;}
+ function ready(){if(install()||++attempts>=1200)return;setTimeout(ready,20);}ready();
+})();
