@@ -1,0 +1,78 @@
+name: RC129 danmaku release verification
+on:
+  push:
+    branches: [fix/rc129-danmaku-phases, main]
+    paths:
+      - assets/rc129/**
+      - assets/rc95/combat-flow.js
+      - index.html
+      - tests/rc129-*.cjs
+      - tests/rc128-candidate.cjs
+      - qa/rc129/published.cjs
+      - .github/workflows/rc129-danmaku.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc129-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Syntax and deterministic policy checks
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rc129-results"
+          node --check assets/rc129/danmaku-director.js
+          node --check assets/rc129/danmaku-hud.js
+          node --check assets/rc95/combat-flow.js
+          node tests/rc129-unit.cjs | tee "$RUNNER_TEMP/rc129-results/unit.log"
+      - name: Prepare isolated native browser and exact references
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          git fetch --no-tags --depth=1 origin 257b920a470e0ee6a04e5a52d71157f66232682c
+          R="$RUNNER_TEMP/rc129-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/rc129-results/browser-install.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc129-results/release" >> "$GITHUB_ENV"
+      - name: Actual renders, regressions and strict natural first boss progression
+        run: |
+          set -euo pipefail
+          node tests/laser-release-gate.cjs 2>&1 | tee "$RUNNER_TEMP/rc129-results/release.log"
+      - name: Verify current public deployment without state injection
+        if: github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          node qa/rc129/published.cjs 2>&1 | tee "$RUNNER_TEMP/rc129-results/published.log"
+      - name: Record exact result
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          node -e 'const fs=require("node:fs"),path=require("node:path");const p=path.join(process.env.RUNNER_TEMP,"rc129-results");fs.mkdirSync(p,{recursive:true});fs.writeFileSync(path.join(p,"job-summary.json"),JSON.stringify({commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,status:process.env.JOB_STATUS,scope:"See per-suite logs; staged rendering is not natural play"},null,2));'
+          if [ -f "$RUNNER_TEMP/rc129-results/release/release-summary.json" ]; then
+            cat "$RUNNER_TEMP/rc129-results/release/release-summary.json" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc129-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc129-results/
+          retention-days: 14
+          compression-level: 1
