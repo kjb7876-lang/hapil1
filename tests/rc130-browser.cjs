@@ -1,0 +1,47 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
+const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
+const root=path.resolve(__dirname,'..'),out=path.join(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results'),'rc130-browser');fs.mkdirSync(out,{recursive:true});
+const bridge='\nwindow.__RC130_NATIVE__={initial:oi,project:G,queue:MONGSE_queueImage,bullet:(...args)=>Jn(...args),effect:(...args)=>Gn(...args)};';
+const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.wav':'audio/wav','.mp3':'audio/mpeg','.woff2':'font/woff2'};
+const server=http.createServer((req,res)=>{try{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');const bytes=fs.readFileSync(file);res.end(file.endsWith('/assets/index-v31526.js')?bytes.toString()+bridge:bytes);}catch{res.writeHead(404).end();}});
+const report={commit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),status:'running',profiles:[],scope:'Three real startup observations; separately staged native bitmap/melee tests, not natural full campaigns'};
+const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
+async function main(){await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;try{
+ browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
+  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],httpErrors=[];page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)httpErrors.push({url:r.url(),status:r.status()});});
+  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC130_NATIVE_INSTALLED__&&window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&window.__HAPIL_RC127_INSTALLED__);await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();assert.equal(await page.locator('[data-game-mode-v31354="HELL"]:visible').count(),0);await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__);
+  for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
+  const sample=()=>page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{time:s.time,x:s.x,y:s.y,hp:s.hp,zone:s.zone,speed:s.rc127MovementSpeed,mode:s.gameModeV31346,policy:window.__HAPIL_PRESENTATION_RC130__.snapshot()};});const first=await sample();await page.keyboard.down('ArrowRight');await page.waitForTimeout(550);await page.keyboard.up('ArrowRight');await page.waitForTimeout(600);const last=await sample();assert(last.time>first.time);assert(Math.abs(last.speed-6.471685)<1e-8);assert(Math.hypot(last.x-first.x,last.y-first.y)>.2);await page.screenshot({path:path.join(out,name+'-natural-start.png')});
+  const result=await page.evaluate(async()=>{
+   const T=window.__RC130_NATIVE__,B=window.__HAPIL_RC86_BRIDGE__,F=window.__HAPIL_COMBAT_FLOW_RC95__,N=window.__HAPIL_RC95_NATIVE__,P=window.__HAPIL_PRESENTATION_RC130__,V=window.__HAPIL_BLOODIED_FLIGHT_RC43__,s=T.initial(),a=B.cloneEnemy(B.actor('ep1b03','b03-boss'),'ep1b03');
+   Object.assign(s,{zone:'ep1b03',time:100,x:24,y:23,hp:240,maxHp:240,activeHeroId:'hwando',gameModeV31346:'STORY',practiceV31329:false,enemySkillsSuppressedUntilV31309:0,timeStopUntil:0});Object.assign(a,{x:8,y:8,hp:a.maxHp,humanPhase0:false,fixedPhase:1,currentPhase:1,attackAt:0,attackStarted:0,readyAt:0,patternReadyAt:0,recoverUntil:0,atomicCastUntil31210:0,staggerUntil:0,invulnerableUntil:0,phaseTransitionUntil:0,combatEntryGraceUntilV31239:0});s.enemies=[a];F.tick(s,N,.016);const shots=s.hostileProjectiles.filter(p=>p.rc129Plan);if(!shots.length)throw Error('Native director did not produce any projectiles');
+   const base=shots[0],shot={...base,x:16,y:16,previousX:15.99,previousY:16,born:99,sourceBorn:99,motionReleaseAt31219:99,collisionDisabledUntil31219:0,collisionDisabledUntilV31226:0,bodySpawned31219:true,hideUntilRelease31219:false,danmakuLaunchedAtV31316:99};
+   const flight={sourceId:'b06-boss',kind:'projectile',bossImpactTransitV31232:true,x:15,y:15,tx:17,ty:17,born:100,duration:.4,spriteHeading:0};V.prepareTransit({zone:'ep1b06',time:100},{sourceId:'b06-boss',id:3,impactAt:100.4,damage:27},flight);
+   const variants=[{name:'native-barrage',e:shot,paint:T.bullet,time:100},{name:'reflected-barrage',e:{...shot,dreamReflectedV31346:true},paint:T.bullet,time:100},{name:'bloodied-transit',e:flight,paint:T.effect,time:100.5}];
+   const canvas=document.querySelector('.game-stage>canvas'),ctx=canvas.getContext('2d'),cache={},rows=[],problems=[],nativeDraw=ctx.drawImage,rect=canvas.getBoundingClientRect();let observed=[];
+   ctx.drawImage=function(...args){const i=args.length===9?5:1,w=args[i+2],h=args[i+3],m=this.getTransform();if(Number.isFinite(w)&&Number.isFinite(h)){const dx=(Math.abs(m.a*w)+Math.abs(m.c*h))*rect.width/canvas.width,dy=(Math.abs(m.b*w)+Math.abs(m.d*h))*rect.height/canvas.height;observed.push(Math.max(dx,dy)/Math.min(rect.width,rect.height));}return nativeDraw.apply(this,args);};
+   try{
+    for(const v of variants){
+     v.paint(ctx,cache,v.e,v.time,{lowFx:false,reducedFlash:true});await Promise.all(Object.values(cache).filter(i=>typeof i?.decode==='function').map(i=>i.decode().catch(()=>{})));
+     for(const zoom of [.75,2,6]){
+      ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);const point=T.project(16,16);ctx.setTransform(zoom,0,0,zoom,canvas.width/2-point.x*zoom,canvas.height/2-point.y*zoom);observed=[];
+      v.paint(ctx,cache,v.e,v.time,{lowFx:false,reducedFlash:true});
+      const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;let painted=0;for(let k=3;k<pixels.length;k+=4)if(pixels[k])painted++;
+      const ratio=Math.max(0,...observed);if(!observed.length)problems.push(v.name+' has no native bitmap at zoom '+zoom);if(ratio>.200001)problems.push(v.name+' exceeds displayed limit: '+ratio);if(!painted)problems.push(v.name+' did not paint pixels');rows.push({kind:v.name,zoom,draws:observed.length,maxRatio:ratio,painted});
+     }
+    }
+   }finally{ctx.drawImage=nativeDraw;ctx.setTransform(1,0,0,1,0,0);}
+   const melee={id:989123,ownershipSourceIdV31322:a.id,rc130StationaryMelee:true,kind:'enemyAttack',x:15,y:16,tx:16,ty:16,born:100,duration:.42,size:2.2,sprite:'./assets/vfx/generated/v300/slash-impact.webp',spriteHeading:null};const im=T.queue(cache,melee.sprite,'eager');await im.decode();const positions=[];
+   for(const age of [.02,.2,.39]){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);T.effect(ctx,cache,melee,100+age,{lowFx:false,reducedFlash:true});positions.push({...melee.rc130MeleeLastPose});}
+   if(!positions.every(p=>p.x===positions[0].x&&p.y===positions[0].y))problems.push('melee drift');if(!(positions[2].alpha<positions[0].alpha))problems.push('melee fade');
+   const canTransfer=window.__HAPIL_EXIT_V31327__?.debug?.canTransfer;if(typeof canTransfer!=='function')problems.push('native exit probe missing');else if(canTransfer(s,melee))problems.push('melee still converts to exit flight');
+   const hp=s.hp;s.effects=[melee];s.time=100.5;P.prepare(s);if(s.effects.length||s.hp!==hp)problems.push('melee retirement changed damage or failed');
+   return{rows,positions,problems,policy:P.snapshot(),nativeShots:shots.length,meleeExpired:s.effects.length===0,hpPreserved:s.hp===hp};
+  });
+  report.profiles.push({name,startup:{first,last,usedProgressCheats:false},...result,errors,httpErrors});save();console.log('RC130_BROWSER_PROFILE',JSON.stringify({name,...result,errors,httpErrors}));assert.deepEqual(result.problems,[]);assert.deepEqual(errors,[]);assert.deepEqual(httpErrors,[]);await context.close();
+ }
+ report.status='passed';console.log('RC130_BROWSER_RESULT',JSON.stringify({status:report.status,profiles:report.profiles.length,nativeBitmapCases:report.profiles.reduce((n,p)=>n+p.rows.length,0),scope:report.scope}));
+ }catch(e){report.status='failed';report.error=String(e.stack||e);throw e;}finally{save();await browser?.close();server.close();}}
+main().catch(e=>{console.error(e);server.close();process.exitCode=1;});
