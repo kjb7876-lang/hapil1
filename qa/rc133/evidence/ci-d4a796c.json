@@ -1,0 +1,159 @@
+{
+  "commit": "d4a796c01cc0789c064e33d9a7dc2046a5f4e094",
+  "runId": 37142621371,
+  "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37142621371",
+  "status": "completed",
+  "conclusion": "success",
+  "suites": [
+    {
+      "name": "native-gameplay",
+      "tests": [
+        {
+          "name": "rc133-policy",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 38,
+          "error": null
+        },
+        {
+          "name": "rc133-feedback-unit",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 37,
+          "error": null
+        },
+        {
+          "name": "rc132-unit",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 1223,
+          "error": null
+        },
+        {
+          "name": "rc59-death-checkpoint-midboss-duo-smoke",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 73,
+          "error": null
+        },
+        {
+          "name": "rc87-episode-cosmic-smoke",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 58,
+          "error": null
+        },
+        {
+          "name": "rc133-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 43564,
+          "error": null
+        },
+        {
+          "name": "rc133-contact-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 5360,
+          "error": null
+        },
+        {
+          "name": "rc128-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 78372,
+          "error": null
+        },
+        {
+          "name": "rc132-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 72437,
+          "error": null
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "preservation",
+      "tests": [
+        {
+          "name": "rc127-policy",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 52,
+          "error": null
+        },
+        {
+          "name": "rc131-hero-unit",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 36,
+          "error": null
+        },
+        {
+          "name": "rc130-unit",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 59,
+          "error": null
+        },
+        {
+          "name": "rc130-isolation",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 29,
+          "error": null
+        },
+        {
+          "name": "story-narration-manifest",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 13122,
+          "error": null
+        },
+        {
+          "name": "rc130-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 24057,
+          "error": null
+        },
+        {
+          "name": "rc119-laser-body-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 1103,
+          "error": null
+        },
+        {
+          "name": "rc115-natural-story-portal-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 101071,
+          "error": null
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11281490185,
+      "name": "rc133-d4a796c01cc0789c064e33d9a7dc2046a5f4e094-native-gameplay",
+      "size": 114057208,
+      "digest": "sha256:8a70f6be5bad7ed5f9074dd7246c0cbdd58aa29b1ed72853bfe91c761bb1eb74",
+      "expires": "2026-10-17T18:05:32Z"
+    },
+    {
+      "id": 11281265819,
+      "name": "rc133-d4a796c01cc0789c064e33d9a7dc2046a5f4e094-preservation",
+      "size": 6159382,
+      "digest": "sha256:8ca7ff49638161105438921e6b29c11beffe2a315210da97683d59a8c2329a6e",
+      "expires": "2026-10-17T18:04:27Z"
+    }
+  ],
+  "runtimeUnchangedSince": "5b53fe38489c01d746bf7fb84f61659795276e3e",
+  "mainPublished": false,
+  "pagesPublished": false
+}

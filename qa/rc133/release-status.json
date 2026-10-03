@@ -1,5 +1,5 @@
 {
-  "status": "gameplay-tested-awaiting-parent-assets-ci-and-publication",
+  "status": "gameplay-local-and-ci-passed-awaiting-parent-assets-and-publication",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-samong-inner-self",
   "testedSha": "5b53fe38489c01d746bf7fb84f61659795276e3e",
@@ -12,7 +12,6 @@
   "blockers": [
     "Parent paused asset transfer after user-cancelled staging; no alternative upload attempted. Six source images and recovered audio ZIP/manifest are absent here.",
     "Uploaded persona art, audio39 integration and original cosmic identity art remain pending parent asset coordination. Existing hero/zone assets are temporary fallbacks.",
-    "GitHub CLI GH_TOKEN is invalid. Read-only branch-push CI is prepared; await its exact-SHA result and parent combined narration82 validation.",
     "Parent is preparing narration82 (73 unchanged +9). No main/Pages writes; integrate with fresh main and run combined exact-SHA CI/public smoke after parent coordination."
   ],
   "passed": {
@@ -79,16 +78,31 @@
       "includedUnits": 73,
       "pendingUnits": 46,
       "unchangedFromStartingMain": true
+    },
+    "naturalStoryCI": {
+      "usedProgressCheats": false,
+      "to": "dist01",
+      "elapsedMs": 95312,
+      "finalHP": 210.856,
+      "jsErrors": 0,
+      "httpErrors": 0
     }
   },
   "physicalMobileTested": false,
   "fullNaturalCampaignTested": false,
   "zeroBugGuarantee": false,
   "ci": {
-    "status": "pending-feature-push",
+    "status": "passed",
+    "commit": "d4a796c01cc0789c064e33d9a7dc2046a5f4e094",
     "workflow": ".github/workflows/rc133-gameplay.yml",
-    "dispatched": false,
-    "reason": "Read-only branch-push CI; CLI GH_TOKEN invalid, so automatic push trigger will be used."
+    "runId": 37142621371,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37142621371",
+    "suites": {
+      "native-gameplay": 9,
+      "preservation": 8
+    },
+    "evidence": "qa/rc133/evidence/ci-d4a796c.json",
+    "reason": "Read-only branch-push workflow; both jobs successful. Runtime hashes match local 5b53fe3."
   },
   "remainingRequestItems": [
     "Uploaded source persona map/body/skills/awakening art pixel inspection and integration",
