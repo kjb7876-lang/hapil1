@@ -5,29 +5,70 @@ on:
     paths: ['.github/workflows/rc132-dream.yml', 'tools/rc132-*.cjs', 'tests/rc132-*.cjs', 'assets/rc132/**']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: rc132-candidate
+  cancel-in-progress: false
 jobs:
-  inspect:
+  candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v6
         with:
-          persist-credentials: false
           fetch-depth: 1
+          show-progress: false
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Inspect authoritative source and available audio manifests
+      - name: Prepare exact source runtime
         run: |
-          node <<'NODE'
-          const fs=require('node:fs'),path=require('node:path');
-          const source=fs.readFileSync('assets/index-v31526.js','utf8');
-          const terms=['악몽궁수','분노의 귀','분노의귀','거울','mirror','lifesteal','lifeSteal','vampir','drain','dreamStage','samong','heroHealingCeiling'];
-          for(const term of terms){console.log('\n=== TERM '+term+' ===');let n=0;for(const m of source.matchAll(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'))){if(++n>12)break;console.log('OFFSET '+m.index+' '+source.slice(Math.max(0,m.index-650),m.index+1100));}console.log('TOTAL',source.toLowerCase().split(term.toLowerCase()).length-1);}
-          console.log('\n=== HP RECOVERY ASSIGNMENTS ===');let n=0;for(const m of source.matchAll(/\.hp\s*(?:=\s*Math\.min|\+=)/g)){if(++n>100)break;console.log('OFFSET '+m.index+' '+source.slice(Math.max(0,m.index-300),m.index+750));}
-          function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
-          for(const f of walk('assets').concat(walk('tests'),walk('data'),walk('tools'))){if(!/\.(?:c?js|json|md)$/.test(f)||f==='assets/index-v31526.js')continue;const s=fs.readFileSync(f,'utf8');if(/악몽궁수|분노의\s?귀|Short_male_combat|Short_female_combat|Temporal Stutter|歪時計/.test(s))console.log('RELATED',f,s.length);}
-          console.log('TESTS',fs.readdirSync('tests').filter(f=>/dream|samong|131|130|audio|damage|lifesteal/.test(f)));
-          console.log('ASSETS',fs.readdirSync('assets').filter(f=>/dream|88|131|audio/.test(f)));
-          NODE
+          npm install --prefix "$RUNNER_TEMP/rc132-runtime" --no-save --package-lock=false acorn@8.15.0 prettier@3.6.2 playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          echo "RC132_MODULES=$RUNNER_TEMP/rc132-runtime/node_modules" >> "$GITHUB_ENV"
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc132-runtime/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$GITHUB_WORKSPACE/qa/rc132/evidence" >> "$GITHUB_ENV"
+      - name: Apply scoped changes and validate unit contracts
+        run: |
+          set -euo pipefail
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          node tools/rc132-apply.cjs > "$HAPIL_QA_OUTPUT/apply.log" 2>&1
+          node --check assets/index-v31526.js
+          node --check assets/combat-v31412/outgoing-native.js
+          node --check assets/rc132/dream-balance.js
+          node tests/rc132-unit.cjs > "$HAPIL_QA_OUTPUT/unit.log" 2>&1
+          cat "$HAPIL_QA_OUTPUT/unit.log"
+      - name: Commit candidate runtime without touching main
+        run: |
+          git config user.name 'HAPIL RC132 candidate'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/index-v31526.js assets/combat-v31412/outgoing-native.js index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'RC132 apply scoped DREAM sustain and remove mirror laser'
+            git push origin HEAD:refs/heads/fix/rc132-dream-combat-audio
+          fi
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-runtime-commit.txt"
+      - name: Run native browser checks when available
+        run: |
+          if [ -f tests/rc132-browser.cjs ]; then
+            node "$RUNNER_TEMP/rc132-runtime/node_modules/playwright/cli.js" install --with-deps chromium > "$HAPIL_QA_OUTPUT/browser-install.log" 2>&1
+            export HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/rc132-runtime/node_modules/playwright")
+            node tests/rc132-browser.cjs > "$HAPIL_QA_OUTPUT/browser.log" 2>&1
+          fi
+      - name: Preserve exact result and source evidence
+        if: always()
+        env:
+          RESULT: ${{ job.status }}
+        run: |
+          mkdir -p qa/rc132/evidence
+          node -e "require('fs').writeFileSync('qa/rc132/evidence/workflow.json',JSON.stringify({run:process.env.GITHUB_RUN_ID,startingCommit:process.env.GITHUB_SHA,status:process.env.RESULT},null,2))"
+          git config user.name 'HAPIL RC132 evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc132/evidence
+          git commit -m "RC132 evidence $GITHUB_RUN_ID ($RESULT)"
+          git push origin HEAD:refs/heads/qa/rc132-$GITHUB_RUN_ID
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc132-${{ github.run_id }}
+          path: qa/rc132/evidence/
+          retention-days: 14
