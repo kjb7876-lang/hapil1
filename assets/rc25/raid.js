@@ -6,7 +6,9 @@
  const metrics={bodyChecks:0,bodyHits:0,damageFloors:0,suppressed:0,statUpdates:0,ultimateDebuffs:0};
  const baseStats=new WeakMap(),tickStates=new WeakMap();
  const flags=(s,h)=>{
-  if(!s||!h||h.friendly||h.reflected||h.visualOnly||h.cancelled||h.damageSuppressedV31226||h.heroSkillVfx||h.heroId31213||h.partySlotV31322)return null;
+  // Weak exiting bodies retain their bounded tail damage, not the live
+  // owner's major-attack floor, cap bypass, damage scale or lifesteal.
+  if(!s||!h||h.exitDamageV31327||h.friendly||h.reflected||h.visualOnly||h.cancelled||h.damageSuppressedV31226||h.heroSkillVfx||h.heroId31213||h.partySlotV31322)return null;
   const sourceId=String(h.sourceId??h.ownerId??h.actorId??'');
   const actor=(s.enemies??[]).find(a=>String(a.id)===sourceId);
   const explicit=h.raidBodyContactRC24===true||h.raidMinimumRatioRC24>0;

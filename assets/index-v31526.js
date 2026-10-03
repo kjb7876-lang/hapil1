@@ -42760,6 +42760,14 @@ function MONGSE_initialRosterPlanV31228(e) {
     enemies: s,
   };
 }
+function HAPIL_resetEncounterOnEntryRC133(s) {
+  // A fresh roster owns fresh casts and admission clocks, including same-zone
+  // death restarts whose actor IDs intentionally match the previous roster.
+  s.bossLaserCastsV31330 = [];
+  s.bossUltimateCastsV31334 = [];
+  window.__HAPIL_COMBAT_FLOW_RC95__?.reset?.(s);
+  window.__HAPIL_DANMAKU_RC129__?.restore?.(s, null);
+}
 var ii = (e, t, MONGSE_showDialogue31228 = !0) => {
   let n = MONGSE_initialRosterPlanV31228(t);
     ((e.spawnedWaves = n.waves),
@@ -42774,6 +42782,7 @@ var ii = (e, t, MONGSE_showDialogue31228 = !0) => {
       t === `murder03` && (e.loopCycles[t] = Math.max(3, e.loopCycles[t] ?? 0)),
       (e.egoDrops = []),
       MONGSE_clearHostileProjectiles31215(e, `zone-transition`),
+      HAPIL_resetEncounterOnEntryRC133(e),
       (e.narrativeCasts = []),
       (e.narrativeCastHistory = {}),
       (e.resonanceThreads = []),
@@ -63054,6 +63063,7 @@ function Ri() {
               (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) &&
                 ((window.__HAPIL_EPISODE1_RC59__?.beforeRespawn(o)),
                 (window.__HAPIL_EXIT_V31327__?.reset(o)),
+                HAPIL_resetEncounterOnEntryRC133(o),
                 (o.hp = o.maxHp),
                 (o.x = he.includes(o.zone)
                   ? MONGSE_zonePortalAnchors(o.zone).interactionEntry.x
@@ -121361,7 +121371,9 @@ function packet(s,a,h,base,raw=base){
  if(!permit(s,a,h)||!Number.isFinite(Number(base))||!Number.isFinite(Number(raw))||num(raw)<=0||num(base)<=0)return 0;
  state(s);const baseDamage=Math.max(0,num(base)),isHeart=classified(s,a,h),key=isHeart?instance(s,h,true):null,target=targetId(s,a);
  let bonus=0;
- if(isHeart&&key&&!s.heartDamageLedgerV31336.some(r=>r.key===key&&r.target===target)){
+ // A derived weak exit has already been reduced to 8% (1–12 base damage).
+ // It must not gain a fresh max-HP heart bonus when its parent attack expires.
+ if(isHeart&&!h?.exitDamageV31327&&key&&!s.heartDamageLedgerV31336.some(r=>r.key===key&&r.target===target)){
    bonus=Math.max(0,num(a.maxHp))*config.ratio;
    if(bonus>0){s.heartDamageLedgerV31336.push({key,target,at:num(s.time)});a.heartHitUntilV31336=num(s.time)+config.feedbackSeconds;
      (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y-.2,born:s.time,duration:.65,text:'심장 피격 +'+Number(bonus.toFixed(2)),color:'#ffe49a',critical:true,heartDamageV31336:true});}

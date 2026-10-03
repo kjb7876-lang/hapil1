@@ -15,6 +15,7 @@
  const laser=p=>!!(p?.laserV31330||p?.laserV31331||p?.bloodV31516||p?.shape==='line'||p?.bossFinaleV31334&&p?.finaleKindV31334!=='rain');
  function allowed(s,kind){if(!enabled(s)||!(s.enemies??[]).some(a=>a.hp>0&&!protectedActor(a)&&window.__HAPIL_LASERS_V31330__?.ranks?.has(a.id)))return true;const state=phase(s);if(state.draining)return false;const p=state.index;return kind==='laser'?p!==0:kind==='bullet'?p!==1:p===2;}
  function executing(s){return dispatch.has(s);}
+ function reset(s){if(!s)return;frames.delete(s);delete s.rc95CombatFlow;}
  function run(s,fn){dispatch.add(s);try{return fn();}finally{dispatch.delete(s);}}
  function admit(s,a,kind){if(!enabled(s))return true;if(window.__HAPIL_DANMAKU_RC129__?.admission(s,a)===false||!allowed(s,kind)||managed(s,a)&&!executing(s)){stats.deferred++;return false;}return true;}
  function laserReadyAt(s,end){if(!enabled(s)||window.__HAPIL_DANMAKU_RC129__?.phase(s))return end+4.2;const f=frame(s),start=f.startedAt,block=Math.floor((end-start)/6),index=block%3;return Math.max(end,index===0?start+(block+1)*6:end);}
@@ -66,5 +67,5 @@
   const planned=authored?.length??shots;if(planned){a.rc95BulletCycle=cycle+1;f.nextBullet=window.__HAPIL_POLICY_RC127__?.deadline(s,a,Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16))??Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);stats.bullets+=planned;}else f.nextBullet=s.time+.2;
  }
  function snapshot(s){return{...phase(s),admissionOnly:true,stats:{...stats}};}
- window.__HAPIL_COMBAT_FLOW_RC95__=Object.freeze({installed:true,version:'RC95',enabled,frame,phase,managed,allowed,admit,laser,executing,run,laserReadyAt,rank,targets,estimate,balance,tick,snapshot});
+ window.__HAPIL_COMBAT_FLOW_RC95__=Object.freeze({installed:true,version:'RC95',enabled,frame,phase,managed,allowed,admit,laser,executing,run,reset,laserReadyAt,rank,targets,estimate,balance,tick,snapshot});
 })();
