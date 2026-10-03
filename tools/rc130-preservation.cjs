@@ -36,8 +36,10 @@ function verify(root){
   for(const file of ['tools/rc130-apply.cjs','tools/rc130-ordnance.cjs','assets/rc130/audio-policy.js'])put(file,fs.readFileSync(path.join(root,file)));
   exec(process.execPath,['tools/rc130-apply.cjs'],scratch);exec(process.execPath,['tools/rc130-ordnance.cjs'],scratch);
   if(narration){const file='index.html',text=fs.readFileSync(path.join(scratch,file),'utf8');assert.equal(text.split(narration.from).length,2);put(file,text.replace(narration.from,narration.to));}
+  const combat=fs.readFileSync(path.join(root,'index.html'),'utf8').includes('./assets/combat-audio/v1/catalog.js');
+  if(combat){put('tools/combat-audio-apply.cjs',fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs')));exec(process.execPath,['tools/combat-audio-apply.cjs'],scratch);}
   for(const file of [...files,'assets/rc130/audio-policy.js']){const expected=digest(fs.readFileSync(path.join(scratch,file))),actual=digest(fs.readFileSync(path.join(root,file)));rows.push({file,expected,actual});assert.equal(actual,expected,'Unexpected change outside exact RC130 integration: '+file);}
-  return{historical,report:{status:'passed',base:BASE,method:'Reapply exact anchored RC130 integration and independently hash-verified narration correction in a disposable directory; compare full bytes. Runtime under test is never substituted.',files:rows,protectedPaths:unchanged,independentNarrationMigration:narration}};
+  return{historical,report:{status:'passed',base:BASE,method:'Reapply exact anchored RC130 integration and independently hash-verified narration correction in a disposable directory; compare full bytes. Runtime under test is never substituted.',files:rows,protectedPaths:unchanged,independentNarrationMigration:narration,independentCombatAudioMigration:combat?{helperSha256:digest(fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs'))),scope:'19 exact audio hooks and three loaders; full runtime bytes reproduced'}:null}};
  }finally{fs.rmSync(scratch,{recursive:true,force:true});}
 }
 module.exports={verify,BASE};

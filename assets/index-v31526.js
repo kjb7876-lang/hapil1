@@ -41284,6 +41284,7 @@ var Hr = `${Vr}audio/last3/`,
       n.setAttribute?.(`playsinline`, ``),
       n.addEventListener?.(`error`, () => {
         n.__mongseFailed = !0;
+        const audio=window.__HAPIL_COMBAT_AUDIO_V1__;if(audio?.owns(n.src))audio.failed(e);
       }),
       n.addEventListener?.(`playing`, () => {
         ((n.__mongseFailed = !1), (n.__mongsePlayBlocked = !1));
@@ -46331,6 +46332,7 @@ function MONGSE_applySevenSinHitMechanic(e, t) {
         (r.envyIllusionReadyAt = e.time + 4.2),
         (i.spawned += 1),
         (i.illusionSpawned = 1));
+      window.__HAPIL_COMBAT_AUDIO_V1__?.emit('illusion',e,r,n.id);
     }
     MONGSE_setSevenSinHeroStatus(
       e,
@@ -49838,6 +49840,13 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
     impactClearGap: MONGSE_impactClearGap(t),
     telegraphEndedAt: t.telegraphEndedAt,
   });
+  if(!t.cancelled&&!t.damageSuppressed&&!t.damageSuppressedV31226&&MONGSE_impactSource?.hp>0){
+    const key=t.rainGroupId??t.spatialRiftCastId??t.telekineticCastId??t.id;
+    if(key!=null){
+      if(/공허 기억흡입|공허 기억흡수|기억핵 과부하/.test(String(t.label??'')))window.__HAPIL_COMBAT_AUDIO_V1__?.emit('blackHole',e,MONGSE_impactSource,key);
+      else if(t.boss&&!n&&t.shape!=='safe'&&MONGSE_bossBarrageTheme(MONGSE_impactSource)==='infernal')window.__HAPIL_COMBAT_AUDIO_V1__?.emit('dark',e,MONGSE_impactSource,key);
+    }
+  }
   window.__HAPIL_ENEMY_FEEL_V31361__?.strike(e,t);
 }
 function Di(e, t) {
@@ -51460,6 +51469,13 @@ window.__MONGSE_CORE_ROSTER_V31235__ = Object.freeze({
     });
   },
 });
+function HAPIL_combatAudioContextV1(state, phase, settings, blocked) {
+  const zone=state?.zone??'hub',boss=(state?.enemies??[]).some(actor=>actor.hp>0&&actor.boss);
+  const fallbackProfile=phase==='game'&&settings.music?MONGSE_bgmProfileForState(zone,boss):null;
+  return {phase,blocked:!!blocked,settings,rest:zone==='hub'||zone==='village'||MONGSE_isRestZone(zone),
+    clear:!!state&&MONGSE_zoneCombatCleared(state,zone),fallbackProfile,
+    fallbackGain:fallbackProfile?MONGSE_bgmStateGain(zone,boss,!!blocked,settings.bgmVolume):0};
+}
 function Ri() {
   let [e, t] = (0, l.useState)(`title`),
     [n, r] = (0, l.useState)(0),
@@ -51536,6 +51552,7 @@ function Ri() {
     Pe = (0, l.useRef)({}),
     Fe = (0, l.useRef)(new Map()),
     MONGSE_bgmRef = (0, l.useRef)(MONGSE_makeBgmManager()),
+    HAPIL_combatAudioBridgeRef = (0, l.useRef)(null),
     MONGSE_audioUnlockedRef = (0, l.useRef)(!1),
     Ie = (0, l.useRef)(null),
     L = (0, l.useRef)(i),
@@ -51735,7 +51752,9 @@ function Ri() {
     We = (0, l.useCallback)((e, t = 0.28, n = null) => {
       if (!ze.current.sound) return;
       if (typeof document !== `undefined` && document.hidden) return;
-      let r = MONGSE_SFX_PROFILE[e] ?? { gain: 1, cooldown: 0.035, voices: 3 },
+      const HAPIL_combatAudio=window.__HAPIL_COMBAT_AUDIO_V1__,HAPIL_uploadedSfx=HAPIL_combatAudio?.owns(e)===true;
+      if(HAPIL_uploadedSfx&&(!HAPIL_combatAudio.allowsEffects()||!HAPIL_combatAudioBridgeRef.current?.canStartEffect()))return;
+      let r = HAPIL_combatAudio?.profile(e) ?? MONGSE_SFX_PROFILE[e] ?? { gain: 1, cooldown: 0.035, voices: 3 },
         s = Math.max(0, Math.min(1, Number(ze.current.sfxVolume) || 0)),
         MONGSE_baseSfxVolume = Math.max(
           0,
@@ -51774,6 +51793,7 @@ function Ri() {
         ((i = {
           clips: Array.from({ length: r.voices ?? 3 }, () => {
             let t = new Audio(MONGSE_assetUrl(e));
+            if(HAPIL_uploadedSfx)t.addEventListener('error',()=>{t.__hapilCombatPending=false;t.__mongseSfxRequest=(t.__mongseSfxRequest??0)+1;t.pause();HAPIL_combatAudio.failed(e)});
             return (
               (t.preload = `auto`),
               t.setAttribute?.(`playsinline`, ``),
@@ -51790,7 +51810,7 @@ function Ri() {
       for (let e = 0; e < i.clips.length; e++) {
         let t = (i.cursor + e) % i.clips.length,
           n = i.clips[t];
-        if (n.paused !== !1 || n.ended) {
+        if ((n.paused !== !1 || n.ended) && (!HAPIL_uploadedSfx || !n.__hapilCombatPending)) {
           ((o = n), (MONGSE_voiceIndex = t));
           break;
         }
@@ -51804,7 +51824,8 @@ function Ri() {
             o.__mongseSfxRequest === MONGSE_sfxRequestId &&
             ze.current.sound &&
             (Number(ze.current.sfxVolume) || 0) > 0 &&
-            (typeof document === `undefined` || !document.hidden),
+            (typeof document === `undefined` || !document.hidden) &&
+            (!HAPIL_uploadedSfx || HAPIL_combatAudio.allowsEffects()),
           MONGSE_duckAfterSfx = () =>
             MONGSE_sfxRequestValid() &&
             r.duck &&
@@ -51812,17 +51833,21 @@ function Ri() {
         ((o.__mongseSfxRequest = MONGSE_sfxRequestId),
           (o.volume = c),
           (o.currentTime = 0));
+        if(HAPIL_uploadedSfx)o.__hapilCombatPending=true;
         let t = o.play();
         t?.then
           ? t
               .then(() => {
-                if (!MONGSE_sfxRequestValid()) return;
+                if(HAPIL_uploadedSfx&&o.__mongseSfxRequest===MONGSE_sfxRequestId)o.__hapilCombatPending=false;
+                if (!MONGSE_sfxRequestValid()) {if(HAPIL_uploadedSfx&&o.__mongseSfxRequest===MONGSE_sfxRequestId)o.pause();return;}
                 (i.pending?.clip === o &&
                   i.pending?.requestId === MONGSE_sfxRequestId &&
                   (i.pending = null),
                   MONGSE_duckAfterSfx());
               })
               .catch(() => {
+                // A missed uploaded combat event is never replayed on a later gesture.
+                if(HAPIL_uploadedSfx){if(o.__mongseSfxRequest===MONGSE_sfxRequestId){o.__hapilCombatPending=false;o.pause()}return;}
                 if (!MONGSE_sfxRequestValid()) return;
                 i.pending = {
                   clip: o,
@@ -51833,8 +51858,9 @@ function Ri() {
                   requestId: MONGSE_sfxRequestId,
                 };
               })
-          : MONGSE_duckAfterSfx();
+          : (HAPIL_uploadedSfx&&(o.__hapilCombatPending=false),MONGSE_duckAfterSfx());
       } catch {
+        if(HAPIL_uploadedSfx){o.__hapilCombatPending=false;o.pause();return;}
         let MONGSE_sfxRequestId = o.__mongseSfxRequest ?? 0;
         i.pending = {
           clip: o,
@@ -54192,8 +54218,10 @@ function Ri() {
           ? MONGSE_bgmProfileForState(x.zone, x.boss)
           : null,
       n = t ? MONGSE_bgmStateGain(x.zone, x.boss, !!c, v.bgmVolume) : 0;
-    MONGSE_applyBgm(MONGSE_bgmRef.current, t, n);
-  }, [e, x.zone, x.boss, c, v.music, v.bgmVolume]),
+    const audio=window.__HAPIL_COMBAT_AUDIO_V1__,manager=MONGSE_bgmRef.current;
+    const handled=audio?.sync(P.current,HAPIL_combatAudioContextV1(P.current,e,v,!!c||!!O||window.__HAPIL_READING_V31342__?.blocked));
+    if(!handled||e!=='game'||!v.music||Number(v.bgmVolume)<=0||(c&&!audio?.owns(manager.currentPath)))MONGSE_applyBgm(manager,t,n);
+  }, [e, x.zone, x.boss, c, O, v.music, v.bgmVolume, v.sound, v.sfxVolume]),
     (0, l.useEffect)(() => {
       let e = MONGSE_bgmRef.current,
         t = () => MONGSE_unlockAudio(),
@@ -54216,6 +54244,12 @@ function Ri() {
         a = () => {
           document.hidden || MONGSE_resumeBgm(e);
         };
+      const combatAudio=window.__HAPIL_COMBAT_AUDIO_V1__;
+      const combatBridge=combatAudio&&window.__HAPIL_COMBAT_AUDIO_BRIDGE_V1__?.create({manager:e,pools:Fe.current,controller:combatAudio,
+        applyMusic:MONGSE_applyBgm,clearTransition:MONGSE_clearBgmTransition,
+        stopElement:MONGSE_stopAudioElement,selectAudible:MONGSE_selectAudibleDeck,playEffect:We,legacyProfiles:MONGSE_BGM_TRACKS});
+      HAPIL_combatAudioBridgeRef.current=combatBridge??null;
+      if(combatBridge)combatAudio?.bind(combatBridge);
       const releaseNarrationMix = window.__HAPIL_NARRATION_MIX_V1__?.subscribe(audible => {
         if (audible) MONGSE_duckBgm(e, 0.2, 650);
       });
@@ -54228,6 +54262,7 @@ function Ri() {
         window.addEventListener(`pagehide`, r),
         window.addEventListener(`pageshow`, a));
       return () => {
+        combatAudio?.deactivate();combatAudio?.bind(null);combatBridge?.stop();HAPIL_combatAudioBridgeRef.current=null;
         releaseNarrationMix?.();
         (window.removeEventListener(`pointerdown`, t),
           window.removeEventListener(`touchstart`, t),
@@ -54386,6 +54421,7 @@ function Ri() {
           if(!s)a=window.__HAPIL_STORY_RC51__?.clock(o,a)??a;
           window.__HAPIL_CONTROLS_V31329__?.frameStart(o,a,{state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,cache:Pe});
           s = window.__HAPIL_PARTY_V31322__?.capture(o, {damage: qe, heroRef: L, cache: Pe.current}, s) || s;
+          window.__HAPIL_COMBAT_AUDIO_V1__?.sync(o,HAPIL_combatAudioContextV1(o,'game',ze.current,s||window.__HAPIL_PARTY_V31322__?.status?.paused===true||window.__HAPIL_PARTY_V31322__?.status?.disconnected===true));
           window.__HAPIL_RC79__?.advanceFinalClock(o,MONGSE_frameDeltaMs31220/1000,s);
           window.__HAPIL_CONTROLS_V31329__?.syncLifecycle?.(o,s);window.__HAPIL_MOBILE_V31366__?.beforeFrame(o,s);window.__HAPIL_CHANNEL_V31364__?.beforeFrame(o,s);window.__HAPIL_LOOP_V31365__?.beforeFrame(o,s);
           if(!s)window.__HAPIL_COMBAT_FLOW_RC95__?.balance(o,R.current,window.__HAPIL_RC95_NATIVE__);
@@ -61509,7 +61545,7 @@ function Ri() {
                       }),
                       Ue(o.zone, o.enemies),
                       We(Wr + `boss-heavy-warning.mp3`, 0.28),
-                      We(MONGSE_bossVoiceSfx(e), 1),
+                      (window.__HAPIL_COMBAT_AUDIO_V1__?.emit('roar',o,e,'entry:'+e.id+':'+o.time)||We(MONGSE_bossVoiceSfx(e),1)),
                       B(
                         `${e.name}${MONGSE_midbossDuoRC59 ? ` · ${MONGSE_midbossDuoRC59.name}` : ``} 출현. 일반 개체를 모두 정리해 봉인을 해제했습니다.`,
                       ));
@@ -61554,7 +61590,7 @@ function Ri() {
                       }),
                       Ue(o.zone, o.enemies),
                       We(Wr + `boss-heavy-warning.mp3`, 0.36),
-                      We(MONGSE_bossVoiceSfx(t), 1),
+                      (window.__HAPIL_COMBAT_AUDIO_V1__?.emit('roar',o,t,'entry:'+t.id+':'+o.time)||We(MONGSE_bossVoiceSfx(t),1)),
                       B(
                         `${t.name} 출현. 일반 개체와 중간보스 격파로 보스 전투 조건이 충족되었습니다.`,
                       ));

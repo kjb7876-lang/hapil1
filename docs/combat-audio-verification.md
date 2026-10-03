@@ -1,0 +1,11 @@
+# Uploaded combat audio
+
+All eight uploaded recordings are used only during combat. Ordinary encounters use Clockwork Ticks, midboss fights use its alternate version, boss fights use Folding Space, and time-themed or active awakening combat uses Control of Time. One musical bed crossfades between states and repeats through bounded overlap; these are not claimed to be beat-perfect edited loops.
+
+The roar follows an actual demonic boss admission, the bright illusion effect follows creation of an actual envy clone, the low absorption effect follows admitted attacks named 공허 기억흡입, 공허 기억흡수 or 기억핵 과부하, and the heavy dark effect follows an admitted infernal boss radial impact. These are confirmed event hooks, not sounds emitted every frame. The game does not gain an invented black-hole mechanic from a file name.
+
+The four music files retain their uploaded bytes. Their measured static gains target approximately −24 LUFS before the user's music setting. The four short effects retain their complete 2.25-second time grid and use fixed attenuation with a 20 ms attack and 200 ms release; their effective level after the native multiplier is approximately −21 LUFS before the user's effect setting. Some source effects contain baked-in saturation. Attenuation and fades do not repair that original waveform.
+
+Effect playback has one voice per effect, at least 2.5 seconds between repeats (six seconds for the heavy dark accent), and a native cap of two actual or pending uploaded effects. A rejected uploaded effect never replays later from a stale gesture queue. Pause, hidden pages, death, scene changes and combat completion cancel scheduling. Music resumes a retained offset only for valid current combat. Failed new tracks fall back to an original game bed. Original narration files and saved user volume settings remain unchanged; the narration mixer retains its transient music ducking.
+
+Validation covers file hashes and real decode formats, precise level/envelope preparation, deterministic controller and actual native-manager races, and Chromium playback through real game-frame event admission. Browser observations are not a claim of physical-device listening or complete natural campaign coverage. RC130 projectile/melee and audio-priority changes remain preserved by a reproducible exact-source migration and the original regression gates.

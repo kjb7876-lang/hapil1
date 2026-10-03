@@ -5,6 +5,11 @@ on:
     paths:
       - '.github/workflows/story-narration-audit.yml'
       - 'assets/story-narration/**'
+      - 'assets/combat-audio/**'
+      - 'assets/index-v31526.js'
+      - 'tests/combat-audio*'
+      - 'tools/combat-audio-apply.cjs'
+      - 'tools/rc130-preservation.cjs'
       - 'assets/rc51/story.js'
       - 'assets/title/v31236/christian-opening-v31236.js'
       - 'data/story-rc51.js'
@@ -38,7 +43,9 @@ jobs:
         env:
           HAPIL_PUBLIC_URL: https://kjb7876-lang.github.io/hapil1/
           TESTED_COMMIT: ${{ github.sha }}
-        run: node tests/story-narration-published.cjs
+        run: |
+          node tests/story-narration-published.cjs
+          node tests/combat-audio-published.cjs
   narration:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -54,6 +61,11 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - name: Validate canonical source and original voice contracts
         run: |
+          node --check assets/combat-audio/v1/catalog.js
+          node --check assets/combat-audio/v1/controller.js
+          node --check assets/combat-audio/v1/native-bridge.js
+          node tests/combat-audio-assets.cjs
+          node --test tests/combat-audio-controller.cjs tests/combat-audio-bridge.cjs tests/combat-audio-native-sfx.cjs tests/combat-audio-impact.cjs
           node --check assets/story-narration/v1/player.js
           node --check assets/story-narration/v1/mixer.js
           node --check assets/rc49/story-voice.js
@@ -79,11 +91,13 @@ jobs:
       - name: Exercise playback and interrupted flows
         env:
           HAPIL_NARRATION_OUTPUT: ${{ runner.temp }}/story-narration-evidence
+          HAPIL_COMBAT_AUDIO_OUTPUT: ${{ runner.temp }}/story-narration-evidence/combat-audio
         run: |
           node tests/story-narration-browser.cjs
           node tests/story-narration-surfaces-browser.cjs
           node tests/story-narration-audio-browser.cjs
           node tests/story-narration-webaudio-browser.cjs
+          node tests/combat-audio-browser.cjs
           HAPIL_DECODER_EDGE_REPORT="$HAPIL_NARRATION_OUTPUT/decoder-edges.json" node tests/story-narration-decoder-edges.cjs
       - name: Preserve narration layout evidence
         if: always()
