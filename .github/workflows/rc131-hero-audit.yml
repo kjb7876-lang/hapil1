@@ -1,0 +1,30 @@
+name: RC131 hero image investigation
+on:
+  push:
+    branches: ['fix/rc131-hero-image-recovery']
+    paths: ['.github/workflows/rc131-hero-audit.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          show-progress: false
+      - name: Inspect actual loader, poses, and relevant tests
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path');
+          console.log('TEST_FILES',fs.readdirSync('tests').filter(x=>/hero|pose|sprite|image|asset|direction/i.test(x)));
+          console.log('ASSET_DIRS',fs.readdirSync('assets').filter(x=>/hero|sprite|pose|image/i.test(x)));
+          const code=fs.readFileSync('assets/index-v31526.js','utf8');
+          for(const term of ['new Image(', '__HAPIL_DIRECTION_VERTICAL', '__HAPIL_RC130_NATIVE_INSTALLED__','actions-consistent','naturalWidth','image.onerror']){
+            let pos=0,n=0;while(n<6&&(pos=code.indexOf(term,pos))>=0){console.log('\nTERM '+term+' OCCURRENCE '+n+' OFFSET '+pos+'\n'+code.slice(Math.max(0,pos-750),pos+1900));pos+=term.length;n++;}
+          }
+          for(const f of ['tests/rc115-vertical-poses.cjs','tests/rc115-weapon-sockets.cjs','tests/rc115-vertical-poses-browser.cjs','tests/rc115-weapon-sockets-browser.cjs'])if(fs.existsSync(f))console.log('\nFILE '+f+'\n'+fs.readFileSync(f,'utf8').slice(0,18000));
+          NODE
