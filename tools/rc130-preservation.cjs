@@ -159,6 +159,8 @@ function verify(root){
   const combat=fs.readFileSync(path.join(root,'index.html'),'utf8').includes('./assets/combat-audio/v1/catalog.js');
   if(combat){put('tools/combat-audio-apply.cjs',fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs')));exec(process.execPath,['tools/combat-audio-apply.cjs'],scratch);}
   {const file='index.html',text=fs.readFileSync(path.join(scratch,file),'utf8');assert.equal(text.split(batch.from).length,2);put(file,text.replace(batch.from,batch.to));}
+  // RC131 exact authorized image fallback reconstruction.
+  if(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('./assets/rc131/hero-images.js?v=43101')){put('tools/rc131-apply.cjs',fs.readFileSync(path.join(root,'tools/rc131-apply.cjs')));exec(process.execPath,['tools/rc131-apply.cjs','--runtime-only'],scratch);}
   for(const file of [...files,'assets/rc130/audio-policy.js']){const expected=digest(fs.readFileSync(path.join(scratch,file))),actual=digest(fs.readFileSync(path.join(root,file)));rows.push({file,expected,actual});assert.equal(actual,expected,'Unexpected change outside exact RC130 integration: '+file);}
   return{historical,report:{status:'passed',base:BASE,method:'Reapply exact anchored RC130 integration and independently hash-verified narration revisions in a disposable directory; compare full bytes. Runtime under test is never substituted.',files:rows,protectedPaths:unchanged,independentNarrationMigration:narration,independentNarrationBatch:batch.report,independentCombatAudioMigration:combat?{helperSha256:digest(fs.readFileSync(path.join(root,'tools/combat-audio-apply.cjs'))),scope:'19 exact audio hooks and three loaders; full runtime bytes reproduced'}:null}};
  }finally{fs.rmSync(scratch,{recursive:true,force:true});}

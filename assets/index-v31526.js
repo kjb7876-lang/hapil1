@@ -124625,9 +124625,13 @@ var HAPIL_RC13_RENDER = (()=>{
    selected={hero:'lauren',sector:s??({front:'s',back:'n',left:'w',right:'e'}[p.match(/-(front|back|left|right)\./)?.[1]]??'s')};
   }
   if(!selected)return false;
-  const chosen=poses[selected.sector]??poses.s,im=MONGSE_queueImage(cache,chosen,'eager');
-  if(!im?.complete||!(im.naturalWidth||im.width)){stats.pending++;return true;}
-  const meta=window.__HAPIL_DIRECTION_VERTICAL_V31337__?.lauren?.[selected.sector]??HAPIL_RC13_POSE_META.lauren[selected.sector]??HAPIL_RC13_POSE_META.lauren.s;
+  const chosen=poses[selected.sector]??poses.s;let im=MONGSE_queueImage(cache,chosen,'eager'),renderSector=selected.sector;
+  if(!im?.complete||!im.naturalWidth||!im.naturalHeight){
+   const fallback=window.__HAPIL_HERO_RECOVERY_RC131__?.lauren(cache,selected.sector,poses);
+   if(fallback){im=fallback.image;renderSector=fallback.sector;}
+  }
+  if(!im?.complete||!im.naturalWidth||!im.naturalHeight){stats.pending++;return true;}
+  const meta=window.__HAPIL_DIRECTION_VERTICAL_V31337__?.lauren?.[renderSector]??HAPIL_RC13_POSE_META.lauren[renderSector]??HAPIL_RC13_POSE_META.lauren.s;
   const iw=im.naturalWidth||im.width,ih=im.naturalHeight||im.height;
   // Same anatomical body height, measured feet and no inherited atlas crop.
   const scale=66/(ih*meta.bodySpan),at=G(x,y);
@@ -126510,3 +126514,17 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
 
 /* RC130_FINAL_PRESENTATION_HOOK */
 (()=>{const previous=Gn;Gn=function HAPIL_meleeAndProjectileRC130(ctx,cache,e,time,settings={}){const p=window.__HAPIL_PRESENTATION_RC130__;if(!p)return previous.call(this,ctx,cache,e,time,settings);if(p.drawMelee(ctx,cache,e,time,settings,{project:G,queue:MONGSE_queueImage,opacity:MONGSE_skillFxOpacity}))return true;return p.projectile(ctx,e,()=>previous.call(this,ctx,cache,e,time,settings));};const audio=MONGSE_resolveHeroSfxV31233;MONGSE_resolveHeroSfxV31233=function(hero,action,...rest){const original=audio.call(this,hero,action,...rest);return window.__HAPIL_AUDIO_RC130__?.attack(hero,action,original)??original;};window.__HAPIL_RC130_NATIVE_INSTALLED__=true;})();
+
+/* RC131_HERO_IMAGE_RECOVERY_BEGIN */
+(()=>{
+ let tries=0;
+ function install(){
+  if(window.__HAPIL_RC131_NATIVE_INSTALLED__)return;
+  const recovery=window.__HAPIL_HERO_RECOVERY_RC131__;
+  if(!recovery||!window.__HAPIL_RC130_NATIVE_INSTALLED__||!window.__HAPIL_HERO_CONSISTENCY_RC5__?.installed){if(++tries<600)setTimeout(install,20);return;}
+  Ln=recovery.wrap({draw:Ln,queue:(...args)=>MONGSE_queueImage(...args),options:(...args)=>An(...args),hero:id=>F.find(h=>h.id===id)});
+  window.__HAPIL_RC131_NATIVE_INSTALLED__=true;
+ }
+ install();
+})();
+/* RC131_HERO_IMAGE_RECOVERY_END */
