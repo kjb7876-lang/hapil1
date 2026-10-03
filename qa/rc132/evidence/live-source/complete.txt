@@ -1,0 +1,28 @@
+() => {
+                let e = o.zone;
+                if (he.includes(e)) {
+                  (Ce(e).forEach((e) => o.clues.add(e.id)),
+                    (o.enemies = []),
+                    (o.pendingHits = []),
+                    (o.impactQueue = []),
+                    (o.hostileProjectiles = []),
+                    (o.telekineticCasts = []),
+                    (o.spatialRiftCasts = []),
+                    (o.narrativeCasts = []),
+                    (o.narrativeCastHistory = {}),
+                    (o.egoDrops = []),
+                    (o.bossDefeated = !0),
+                    (o.loopCycles[e] = 3),
+                    (o.spawnedWaves = new Set(
+                      Array.from(
+                        { length: e === `kair01` ? 6 : 4 },
+                        (e, t) => t + 1,
+                      ),
+                    )),
+                    (o.x = MONGSE_zonePortalAnchors(e).interactionExit.x),
+                    (o.y = MONGSE_zonePortalAnchors(e).interactionExit.y));
+                } else if (MONGSE_isRestZone(e)) {
+                  ((o.x = ce.x), (o.y = ce.y));
+                }
+                return { zone: o.zone, x: o.x, y: o.y };
+              }

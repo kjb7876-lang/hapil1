@@ -1,0 +1,19 @@
+[
+  {
+    "at": 3710674,
+    "line": 100328,
+    "nodes": [
+      {
+        "start": 3701167,
+        "end": 3711665,
+        "length": 10498
+      },
+      {
+        "start": 3701046,
+        "end": 3711699,
+        "length": 10653
+      }
+    ],
+    "context": "autoPortal === true && Br.autoStoryAdvance === true,\n    fullRouteGraph: routeComplete,\n    finalStageRepair: MONGSE_tickPersistentBossCastProtection.name === \"HAPIL_tickFinalBattleV31301\",\n    automaticFinalPolicy: MONGSE_phaseGateHealth.name === \"HAPIL_phaseGateHealthV31301\",\n    additiveFinalSave:\n      ji.name === \"HAPIL_readSaveV31301\" && Fi.name === \"HAPIL_serializeSaveV31301\",\n    transitionRestoreProtection:\n      HAPIL_restoreFinalBattleV31301.name === \"HAPIL_restoreFinalBattleV31301\",\n    finalEndingCommit:\n      HAPIL_commitFinalEndingV31301.name === \"HAPIL_commitFinalEndingV31301\",\n    clueOverlayRenderer:\n      HAPIL_ClueOverlayV31301.name === \"HAPIL_ClueOverlayV31301\",\n  });\n  window.__HAPIL_AUTOPROGRESS_V31301__ = freeze({\n    installed: true,\n    version: VERSION,\n    route: freeze([...route]),\n    plan: HAPIL_autoProgressPlanV31301,\n    drive: HAPIL_driveAutoProgressV31301,\n    storyDelay: HAPIL_autoStoryDelayV31301,\n    restoreFinalBattle: HAPIL_restoreFinalBattleV31301,\n    restoreEntryFlow: HAPIL_restoreEntryFlowV31301,\n    commitFinalEnding: HAPIL_commitFinalEndingV31301,\n    settingsKeys: freeze([\"autoCombat\", \"autoPortal\", \"autoStoryAdvance\", \"autoSkillTree\"]),\n    policies: freeze({\n      manualWhenOff: true,\n      noEarlyPortal: true,\n      oneInteractionCooldownSeconds: 0.62,\n      finalHit: \"manual input or explicit auto-battle after the resume stage\",\n      finalCompletion: \"committed only after the final interlude reaches village\",\n      clueOverlay: \"visible for manual play and timed only during explicit auto progression\",\n    }),\n    gates,\n    allPass: Object.values(gates).every(Boolean),\n  });\n  MONGSE_ASSET_VERSION = \"31301\";\n  };\n  installV31301AutoProgress();\n})();\n\n/* HAPIL_V31301_RELEASE_FINALIZER */\n(() => {\n  \"use strict\";\n  const installV31301Release = (attempt = 0) => {\n    const auto = window.__HAPIL_AUTOPROGRESS_V31301__;\n    const inherited = window.__HAPIL_V31300_RELEASE__;\n    if (auto?.allPass !== true || inherited?.allPass !== true) {\n      if (attempt < 760) setTimeout(() => installV31301Release(attempt + 1), 0);\n      return;\n    }\n    const gates = Object.freeze({\n      inheritedV31300: inherited.allPass === true,\n      autoProgress: auto.allPass === true,\n      activeCacheIdentity:\n        typeof MONGSE_ACTIVE_ASSET_CACHE_V31301 !== \"undefined\" &&\n        String(MONGSE_ACTIVE_ASSET_CACHE_V31301) === \"31301\",\n      activeAssetVersion: String(MONGSE_ASSET_VERSION) === \"31301\",\n      routeContract:\n        auto.route.length === 64 &&\n        auto.route[0] === \"hub\" &&\n        auto.route.at(-1) === \"village\",\n      breakStillNonInterrupting:\n        window.__HAPIL_V31300_PATCH__?.breakPolicy?.policy ===\n"
+  }
+]

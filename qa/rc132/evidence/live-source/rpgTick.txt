@@ -1,0 +1,51 @@
+function tick(s) {
+    if(!enabled(s))return;
+    const m=memory(s);tempo(s);
+    if(m.connection&&n(s.time)>=m.connection.until){
+      const a=rows(s.enemies).find(a=>a.id===m.connection.id);delete m.connection;
+      if(a){a.rc89ConnectionDone=true;a.protectedNarrativeTargetV31307=false;a.hp=0;
+        const binding=window.__HAPIL_CONTROLS_V31329__?.binding;
+        if(binding?.state?.current===s&&binding.actions?.death)binding.actions.death(a);}
+    }
+    for(const a of [...rows(s.enemies)]) {
+      if(!live(a))continue;
+      if(a.rc88Part) {
+        const owner=rows(s.enemies).find(t=>t.id===a.rc88OwnerId&&live(t));
+        if(!owner){s.enemies=s.enemies.filter(t=>t!==a);continue;}
+        Object.assign(a,a.rc88Home,{readyAt:Infinity,patternReadyAt:Infinity,movingUntil:0,moveDx:0,moveDy:0,navPath:[]});
+        if(n(s.time)>=a.rc88NextAt) {
+          const target=a.rc88Kind==='copies'?(ownerMemory(s,owner).previous??s):s;
+          fire(s,a,target,a.rc88Kind==='swords'?5:3,a.rc88Kind==='swords'?7.2:4.1,.85,.65);
+          a.rc88NextAt=n(s.time)+2.9;
+        }
+        continue;
+      }
+      const p=ownerSpec(s,a);if(!p)continue;
+      const o=ownerMemory(s,a);spawnParts(s,a,p);
+      if(n(s.time)<o.nextAt)continue;
+      const target=o.previous??{x:s.x,y:s.y};o.previous={x:s.x,y:s.y};
+      const aim={x:s.x,y:s.y};
+      if(p.kind==='copies'){fire(s,a,target,5,5.2,1.1,.9);text(s,a,'기억한 위치를 복제한다');}
+      else if(p.kind==='breathing'){
+        fire(s,a,aim,5,2.8,1.5,.6);fire(s,a,aim,4,7.5,1.22,1.55);
+      }else if(p.kind==='tempo'||p.kind==='liberation'){fire(s,a,aim,7,5.5,1.7,.7,{rc88Tempo:true});}
+      else if(p.kind==='replay') {
+        // All three releases are committed now; destroying the emitter preserves them.
+        for(let wave=0;wave<3;wave++){
+          fire(s,a,aim,5,4.5,1.2,.6+wave*.85);
+          for(let side=0;side<wave;side++){
+            const angle=(side?-.85:.85)+Math.atan2(aim.y-a.y,aim.x-a.x);
+            fire(s,a,{x:a.x+Math.cos(angle)*8,y:a.y+Math.sin(angle)*8},2,4.5,.18,.6+wave*.85);
+          }
+        }
+      }else if(p.kind==='wall'){fire(s,a,aim,9,o.enraged?4:2.6,1.7,.8);}
+      else if(p.kind==='sword-fan'){fire(s,a,aim,o.enraged?9:5,o.enraged?8.5:7,1.2,.65);}
+      else if(p.kind==='sin'){
+        // Native owner sprite remains in use (heel/food/coin/etc.). Distinct pulse lengths.
+        fire(s,a,aim,4+p.rhythm%3,3.4+p.rhythm*.42,1+p.rhythm%2*.4,.65);
+        if(p.rhythm%2)fire(s,a,aim,3,5.5,.5,1.05);
+      }
+      o.cycle++;o.nextAt=n(s.time)+(o.enraged?2.4:p.kind==='replay'?5.8:p.kind==='sin'?2.8+p.rhythm%3*.55:4.4);
+    }
+    if(n(s.time)>m.shotUntil)m.shotCharges=0;
+  }
