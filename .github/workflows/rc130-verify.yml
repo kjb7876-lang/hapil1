@@ -4,7 +4,7 @@ on:
     branches: ['fix/rc130-projectile-cap-melee-audio']
     paths:
       - '.github/workflows/rc130-verify.yml'
-      - 'tools/rc130-apply.cjs'
+      - 'tools/rc130-*.cjs'
       - 'assets/rc130/**'
       - 'tests/rc130*.cjs'
 permissions:
@@ -26,27 +26,32 @@ jobs:
       - name: Apply targeted patch and pin tested code
         run: |
           node --check tools/rc130-apply.cjs
+          node --check tools/rc130-ordnance.cjs
           node tools/rc130-apply.cjs
+          node tools/rc130-ordnance.cjs
           node --check assets/index-v31526.js
           node --check assets/rc130/projectile-policy.js
           node --check assets/rc130/audio-policy.js
           node --check assets/rc23/feedback.js
           node --check assets/rc128/combat-feedback.js
+          node --check qa/rc130/public-smoke.cjs
           git config user.name 'HAPIL RC130 integration'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/index-v31526.js assets/rc130/audio-policy.js assets/rc23/feedback.js assets/rc128/combat-feedback.js index.html
           git rm -r --ignore-unmatch qa/rc130/inspection .github/workflows/rc130-source-inspect.yml
           if ! git diff --cached --quiet; then
-            git commit -m 'RC130 apply anchored melee, bounded projectile and prioritized audio integration'
+            git commit -m 'RC130 apply bounded native ordnance renderer and verified presentation integration'
             git push origin HEAD:refs/heads/fix/rc130-projectile-cap-melee-audio
           fi
           git rev-parse HEAD
-      - name: Prepare isolated browser and historical laser reference
+      - name: Prepare isolated browser and media validators
         run: |
           set -euo pipefail
           R="$RUNNER_TEMP/rc130-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
           node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          if ! command -v ffprobe >/dev/null; then sudo apt-get update -qq && sudo apt-get install -y ffmpeg > "$RUNNER_TEMP/ffmpeg-install.log" 2>&1; fi
+          ffprobe -version | head -n 1
           CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
           sudo ln -sf "$CHROMIUM" /usr/bin/chromium
           sudo mkdir -p /workspace/hapil-deliverables/RC119-body
