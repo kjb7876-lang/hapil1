@@ -1,0 +1,69 @@
+name: RC130 published Pages verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/index-v31526.js'
+      - 'assets/rc130/**'
+      - 'assets/rc23/feedback.js'
+      - 'assets/rc128/combat-feedback.js'
+      - 'qa/rc130/public-smoke.cjs'
+      - '.github/workflows/rc130-published.yml'
+permissions:
+  contents: read
+jobs:
+  published:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Prepare isolated read-only browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc130-public-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc130-public" >> "$GITHUB_ENV"
+      - name: Verify exact published files and all three browser profiles
+        run: node qa/rc130/public-smoke.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc130-public-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc130-public/
+          retention-days: 14
+          if-no-files-found: warn
+  evidence:
+    if: always()
+    needs: published
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
+      - uses: actions/download-artifact@v7
+        with:
+          name: rc130-public-${{ github.run_id }}
+          path: qa/rc130/public-evidence
+      - name: Preserve observations without mutating the game branch
+        env:
+          PUBLIC_RESULT: ${{ needs.published.result }}
+        run: |
+          printf '{"run":%s,"commit":"%s","result":"%s"}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" "$PUBLIC_RESULT" > qa/rc130/public-evidence/workflow-result.json
+          git config user.name 'HAPIL RC130 public evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc130/public-evidence
+          git commit -m "RC130 public evidence $GITHUB_RUN_ID ($PUBLIC_RESULT)"
+          git push origin HEAD:refs/heads/qa/rc130-public-$GITHUB_RUN_ID

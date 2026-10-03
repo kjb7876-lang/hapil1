@@ -12,6 +12,9 @@
  function hazard(e){return !!(e?.bossLaserCastV31330||e?.laserCastIdV31330||e?.laserTypeV31331||e?.spectacleModeV31317==='beam'||e?.spectacleModeV31317==='blackhole'||e?.blackHole||e?.blackhole||e?.blackHoleV31317||e?.persistentHazard||e?.telegraphImpact&&e?.impactShape==='line');}
  function melee(e){
   if(!e||allied(e)||hazard(e)||e.friendly||e.reflected)return false;
+  // A boss area/cone impact can share the legacy enemyAttack kind. It is not a
+  // basic melee decal: preserve its complete coverage and authored lifecycle.
+  if(e.telegraphImpact||e.bossImpactTransitV31232||e.postTelegraphCoverageImageV31233||e.actualBossSkillVfx||e.cosmicChargeV31318||e.spectacleChargeV31317)return false;
   return e.rc130StationaryMelee===true||e.kind==='enemyAttack'&&e.ranged!==true&&e.distanceMode31222!=='ranged';
  }
  function barrage(e){
