@@ -1,0 +1,46 @@
+(e, t = "") => {
+  let r = String(t),
+    n =
+      String(t) +
+      " " +
+      String(e?.patternSet ?? "") +
+      " " +
+      String(e?.id ?? "") +
+      " " +
+      String(e?.name ?? "");
+  if (/^u20|^u2/i.test(r))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.hospitalSyringe;
+  if (/^last30|^last3/i.test(r))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.sleeplessSoul;
+  if (/^kair/i.test(r)) return MONGSE_BOSS_PROJECTILE_SPRITES3128.chronoOrb;
+  if (/^hando/i.test(r))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.telekineticDebris;
+  if (/^murder/i.test(r))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.causalityPrism;
+  if (/^cult/i.test(r)) return MONGSE_BOSS_PROJECTILE_SPRITES3128.prideCross;
+  if (/ep1b02|sloth|나태/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.telekineticDebris;
+  if (/ep1b03|envy|질투/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.envyMirror;
+  if (/ep1b04|glutton|폭식/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.poisonCauldron;
+  if (/ep1b05|lust|색욕/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.controlBlades;
+  if (/ep1b06|greed|탐욕|mammon/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.greedCoin;
+  if (/ep1b07|wrath|분노/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.wrathBeast;
+  if (/ep1b08|ep1b09|pride|교만|cult/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.prideCross;
+  if (/kair|chrono|time|시간/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.chronoOrb;
+  if (/last3|불면|안개|영혼/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.sleeplessSoul;
+  if (/murder|인과|파란불|rain/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.causalityPrism;
+  if (/u2|hospital|memory|기억|관측/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.hospitalSyringe;
+  if (/hando|은빛|환수|ego/i.test(n))
+    return MONGSE_BOSS_PROJECTILE_SPRITES3128.telekineticDebris;
+  return MONGSE_BOSS_PROJECTILE_SPRITES3128.infernalSkull;
+};

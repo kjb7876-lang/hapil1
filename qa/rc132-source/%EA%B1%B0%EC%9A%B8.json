@@ -1,0 +1,87 @@
+[
+  {
+    "offset": 214628,
+    "context": ": `slow-clutter`,\n    variation: `stop-go-orbit`,\n    synthesis: `delayed-drowsy-collapse`,\n  },\n  \"b03-boss\": {\n    zone: `ep1b03`,\n    rule: `mirror-false-original`,\n    label: `거울 가짜 원본`,\n    learn: `single-mirror`,\n    variation: `delayed-double`,\n    synthesis: `clone-cross-original-test`,\n  },\n  \"b04-boss\": {\n    zone: `ep1b04`,\n    rule: `inhale-devour-exhale`,\n    label: `흡입·포식·토출`,\n    learn: `maw-inhale`,\n    variati"
+  },
+  {
+    "offset": 686417,
+    "context": "    entry: { speaker: ``, text: `` },\n      exit: { speaker: ``, text: `` },\n      memories: [],\n      enemies: [\n        M(\n          `u201-p1`,\n          `collector`,\n          `거울 제사장`,\n          5,\n          7,\n          154,\n          O + `generated-v350/u2_mirror_priest.webp`,\n          1,\n        ),\n        M(\n          `u201-o1`,\n          `void`,\n          `기억반응 구체`,\n          14,\n          6,\n          142,\n         "
+  },
+  {
+    "offset": 746747,
+    "context": "eName: `666의 균열`,\n      midboss: !0,\n      patternSet: `ep1a11`,\n      scale: 1.22,\n    },\n    {\n      zone: `u201`,\n      id: `mb-u201`,\n      kind: `collector`,\n      name: `관측망 거울제사장`,\n      x: 11,\n      y: 10,\n      hp: 430,\n      sprite: O + `generated-v350/u2_mirror_priest.webp`,\n      facing: -1,\n      eliteName: `호출부호 검열`,\n      midboss: !0,\n      patternSet: `u201`,\n      scale: 1.14,\n    },\n    {\n      zone: `u202`,\n"
+  },
+  {
+    "offset": 1178711,
+    "context": "    radius: 8,\n        width: 0.76,\n        damage: 23,\n        color: `#2ebf9a`,\n        accent: `#e8ffff`,\n        status: `drain`,\n        statusValue: 14,\n      }),\n      K(`비교거울 파편폭우`, `circle`, {\n        windup: 1.44,\n        radius: 1.95,\n        damage: 24,\n        cooldown: 5.1,\n        color: `#38bfc3`,\n        accent: `#e8ffff`,\n        status: `echo`,\n        statusValue: 0.42,\n        sevenSinMechanic: `envy-mirro"
+  },
+  {
+    "offset": 1404838,
+    "context": "eed: 2.9,\n    curve: 0.08,\n    warningDuration: 1.05,\n    projectileSprite: MONGSE_SEVEN_SINS_THROWABLES.sloth,\n    sevenSinMechanic: `sloth-drowsy`,\n  },\n  ep1b03: {\n    name: `비교거울 육방균열`,\n    color: `#38bfc3`,\n    accent: `#e8ffff`,\n    status: `echo`,\n    statusValue: 0.32,\n    visualShape: `spear`,\n    speed: 3.16,\n    curve: 0.045,\n    warningDuration: 0.9,\n    projectileSprite: MONGSE_SEVEN_SINS_THROWABLES.envy,\n    seve"
+  },
+  {
+    "offset": 1444099,
+    "function": "MONGSE_applySevenSinHitMechanic",
+    "path": "functions/MONGSE_applySevenSinHitMechanic-1441750.txt",
+    "length": 7075,
+    "context": ",\n        accent: `#e8ffff`,\n        status: `none`,\n        statusValue: 0,\n        label: `질투 · 비교거울 반사`,\n        perfectWindow: 0.24,\n        sevenSinMirrorReflection: !0,\n        sevenSinImpactSprite: MONGSE_SEVEN_SINS_THROWABLES.envy,\n      });\n      i.spawned = 1;\n    }\n   "
+  },
+  {
+    "offset": 1497453,
+    "function": "MONGSE_bossDirectorProfile31210",
+    "path": "functions/MONGSE_bossDirectorProfile31210-1496853.txt",
+    "length": 1991,
+    "context": " o = MONGSE_signature ? [...i] : [...i.slice(a), ...i.slice(0, a)],\n    s = [\n      `가속 박자`,\n      `거울 궤도`,\n      `교대 안전로`,\n      `지연 반향`,\n      `협폭 압박`,\n      `역회전`,\n    ][(n + r) % 6],\n    c =\n      t === `infernal`\n        ? `지옥 맥동`\n        : t === `chrono`\n          ? `시간 역박`"
+  },
+  {
+    "offset": 4764177,
+    "context": "l\":\"잔해 투척\",\"sprite\":\"./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp\"},\"./assets/episode1b/envy_glass_shard.webp\":{\"family\":\"frost\",\"zones\":[\"ep1b01\",\"ep1b03\"],\"label\":\"거울·유리 파편\",\"sprite\":\"./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp\"},\"./assets/episode1b/generated-v394/sloth_moldling.webp\":{\"family\":\"web\",\"zones\":[\"ep1b02\"],\"label\":\"거미·슬라임의 점액낭\",\"sprite\":\"./assets/vfx/v31323/salvage/web/slime-sleep-glob"
+  },
+  {
+    "offset": 4764719,
+    "context": "잔해 투척\",\"sprite\":\"./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp\"},\"./assets/episode1b/generated-v394/envy_leviathan.webp\":{\"family\":\"frost\",\"zones\":[\"ep1b03\"],\"label\":\"거울·유리 파편\",\"sprite\":\"./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp\"},\"./assets/episode1b/generated-v394/glutton_kitchen_scrap.webp\":{\"family\":\"debris\",\"zones\":[\"ep1b04\"],\"label\":\"잔해 투척\",\"sprite\":\"./assets/vfx/v31323/salvage/debris/telekinet"
+  },
+  {
+    "offset": 4856750,
+    "context": "vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp\"},\"frost\":{\"source\":\"./assets/generated-v31224/boss-vfx/envy_mirror_shard.webp\",\"color\":\"#98d7da\",\"crop\":null,\"reason\":\"거울·유리 파편\",\"sprite\":\"./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp\"},\"spectral\":{\"source\":\"./assets/props/v3100/memory_archivist_statue.webp\",\"color\":\"#97b5ca\",\"crop\":[0.18,0.1,0.82,0.7],\"reason\":\"기록자 조형물의 유령 잔상\",\"sprite\":\"./assets/vfx/v313"
+  },
+  {
+    "offset": 5644762,
+    "function": "anonymous",
+    "path": "functions/anonymous-5640343.txt",
+    "length": 17204,
+    "context": ":'#80e9ff',symbol:'기억 파편'},last3:{color:'#b88cff',symbol:'검은 실'},kairo:{color:'#ff87db',symbol:'세이렌 거울'},hando:{color:'#ffc36d',symbol:'균열'},murder:{color:'#ff526f',symbol:'핏빛 기억'},cult:{color:'#d9e7ff',symbol:'왕좌 거울'},default:{color:'#a68cff',symbol:'사몽'}\n });\n function memoryPr"
+  },
+  {
+    "offset": 5644876,
+    "function": "anonymous",
+    "path": "functions/anonymous-5640343.txt",
+    "length": 17204,
+    "context": "lor:'#ffc36d',symbol:'균열'},murder:{color:'#ff526f',symbol:'핏빛 기억'},cult:{color:'#d9e7ff',symbol:'왕좌 거울'},default:{color:'#a68cff',symbol:'사몽'}\n });\n function memoryProfile(s){const a=String(N?.[s?.zone]?.arc??s?.zone??'').toLowerCase();return MemoryMapProfile[a]??Object.entries(M"
+  },
+  {
+    "offset": 5663128,
+    "function": "tick",
+    "path": "functions/tick-5661229.txt",
+    "length": 2168,
+    "context": "c.mirror.y,shape:'line',width:c.width,boss:true,laserV31330:true,dreamMirrorLaserV31347:true,label:'거울 반사 레이저',color:c.color};hit.contactVisualV31362=window.__HAPIL_MATERIAL_V31362__?.beamContact(s,t,c.segments,s.time,true);const ok=t===s?Y(s,c.damage,t.x,t.y,hit):party()?.debug?"
+  },
+  {
+    "offset": 5664662,
+    "function": "draw",
+    "path": "functions/draw-5663399.txt",
+    "length": 1370,
+    "context": "false){ctx.fillStyle='#eaffff';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(`거울 반사 · ${Math.max(0,c.fireAt-s.time).toFixed(1)}초`,m.x,m.y-28);}stats.draws++;}finally{ctx.restore();}}\n }\n function memoryArt(s){const layer=document.getElementById('hapil-dream-"
+  },
+  {
+    "offset": 5669551,
+    "function": "anonymous",
+    "path": "functions/anonymous-5669064.txt",
+    "length": 5098,
+    "context": "ct.freeze({index:4,role:'레이저 시험',color:'#ffd56b',accent:'#fff3bd'}),\n  Object.freeze({index:5,role:'거울 반사',color:'#ff86ea',accent:'#8ef8ff'}),\n  Object.freeze({index:6,role:'최종 복합 시험',color:'#f4f7ff',accent:'#ff687f'})\n ]);\n const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v)"
+  },
+  {
+    "offset": 5949090,
+    "context": "o-safe-seam':'거짓 천국의 광륜',\n  'six-wing-cross':'여섯 날개 심판',\n  'falling-clutter':'무너지는 침실',\n  'stop-go-orbit':'멈춤과 회전의 졸음',\n  'delayed-drowsy-ring':'늦게 닫히는 나태의 고리',\n  'mirror-fan':'깨진 거울 부채',\n  'delayed-reflection':'늦게 비치는 허상',\n  'clone-cross':'원본을 가르는 쌍상',\n  'maw-inhale':'탐식의 들숨',\n  'safe-ring-devour':'안전한 접시의 포식',\n  'spit-fan':'검은 소화액 토출',\n  'puppet-thread-pairs':'인형사의 실쌍',\n  'heart-track':'심장을 쫓는 실',\n  'thread-snap-cross':'끊어지는"
+  }
+]

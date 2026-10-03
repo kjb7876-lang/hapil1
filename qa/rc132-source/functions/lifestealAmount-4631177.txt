@@ -1,0 +1,11 @@
+function lifestealAmount(s, damage, rate, suppression = 1) {
+  const raw = Math.max(
+    0,
+    finite(damage) *
+      Math.max(0, finite(rate)) *
+      Math.max(0, finite(suppression)),
+  );
+  // Scale the actual earned healing, including the old minimum, by exactly .30.
+  // Fractional EGO is already supported by native damage/heal and save paths.
+  return Math.max(1, Math.round(raw)) * lifestealMultiplier(s);
+}

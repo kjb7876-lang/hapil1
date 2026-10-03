@@ -1,0 +1,186 @@
+[
+  {
+    "offset": 1446036,
+    "function": "MONGSE_applySevenSinHitMechanic",
+    "path": "functions/MONGSE_applySevenSinHitMechanic-1441750.txt",
+    "length": 7075,
+    "context": ", e.hp)\n        : e.hp));\n    if (r?.hp > 0) {\n      let e = Math.min(r.maxHp - r.hp, 14);\n      ((r.hp += e),\n        (r.gluttonAbsorbed = (r.gluttonAbsorbed ?? 0) + e),\n        (i.healed = e));\n    }\n    if (t.gluttonTonguePull && r?.hp > 0) {\n      let t = r.x - e.x,\n        n"
+  },
+  {
+    "offset": 1449137,
+    "function": "MONGSE_tickSevenSinHeroEffects",
+    "path": "functions/MONGSE_tickSevenSinHeroEffects-1448826.txt",
+    "length": 2573,
+    "context": "ime,\n    a = 0;\n  if (r) {\n    let t = Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp);\n    ((e.hp = Math.min(e.hp, t)), (e.heroHealingCeiling = e.hp));\n  } else e.heroHealingCeiling = e.hp;\n  let i = (t, n) => {\n    if (e.time < Number(e.invulnerableUntil ?? 0) || e.hp <= 0"
+  },
+  {
+    "offset": 1584639,
+    "function": "anonymous",
+    "path": "functions/anonymous-1584495.txt",
+    "length": 173,
+    "context": " e.maxHp - e.hp,\n          Math.max(2, Math.round(e.maxHp * 0.035)),\n        );\n        n > 0 && ((e.hp += n), (t += n));\n      }),\n        t > 0 &&\n          (MONGSE_EP1B_float(e, `살아 있는 위장 · 적 EGO +${t}`, `#ff9b6b`, !0),\n          e.effects.push({\n            id: e.fxSerial++,\n"
+  },
+  {
+    "offset": 1603443,
+    "function": "anonymous",
+    "path": "functions/anonymous-1603020.txt",
+    "length": 646,
+    "context": "me-${n}`),\n      (i.x = o.x),\n      (i.y = o.y),\n      (i.maxHp = Math.round(i.maxHp * s)),\n      (i.hp = Math.min(i.maxHp, Math.max(0.1, t.hp))),\n      (i.ghostBorn = 0),\n      (i.ghostUntil = Math.max(0.65, Math.min(20, t.remaining ?? 0.65))),\n      (i.readyAt = 0.35),\n      (i"
+  },
+  {
+    "offset": 1641040,
+    "function": "anonymous",
+    "path": "functions/anonymous-1638713.txt",
+    "length": 4282,
+    "context": ";\n          });\n        else if (n.id === `ion`)\n          (u(1, t.x, t.y, t.x, t.y),\n            (t.hp = Math.min(t.maxHp, t.hp + 20)),\n            (t.invulnerableUntil = Math.max(t.invulnerableUntil, t.time + 1.8)),\n            d(`+20 EGO · 질서 방벽`));\n        else if (n.id === `"
+  },
+  {
+    "offset": 1641278,
+    "function": "anonymous",
+    "path": "functions/anonymous-1638713.txt",
+    "length": 4282,
+    "context": "GO · 질서 방벽`));\n        else if (n.id === `neon`)\n          (u(1, t.x, t.y, t.x, t.y),\n            (t.hp = Math.min(t.maxHp, t.hp + 42)),\n            r\n              .filter((e) => J(t, e) <= 4.5)\n              .slice(0, 4)\n              .forEach((e) => qe(e, 21, n.color, !1, 0, n"
+  },
+  {
+    "offset": 1641586,
+    "function": "anonymous",
+    "path": "functions/anonymous-1638713.txt",
+    "length": 4282,
+    "context": " 성역 수복`));\n        else if (n.id === `michaela`)\n          (u(0, t.x, t.y, t.x, t.y),\n            (t.hp = Math.min(t.maxHp, t.hp + 68)),\n            (t.invulnerableUntil = Math.max(\n              t.invulnerableUntil,\n              t.time + 1.35,\n            )),\n            d(`+68"
+  },
+  {
+    "offset": 1656687,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": "         _n(i.fxSerial++, a.id, 1, y, i.x, i.y, i.x, i.y, i.time + 0.1),\n          ),\n            (i.hp = Math.min(i.maxHp, i.hp + 9 * e.sustainMultiplier)),\n            (i.invulnerableUntil = Math.max(\n              i.invulnerableUntil,\n              i.time + 0.16 + e.durationBo"
+  },
+  {
+    "offset": 1661932,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": "1, 32, 4, 0.28, !0));\n            else if (a.id === `neon`)\n              (r0(0),\n                (i.hp = Math.min(i.maxHp, i.hp + 10 + d.level * 1.5)),\n                n0(0, 31, 5, 0.26, !0, 0.1));\n            else if (a.id === `michaela`)\n              (r0(1),\n                ("
+  },
+  {
+    "offset": 1662113,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": " 0.26, !0, 0.1));\n            else if (a.id === `michaela`)\n              (r0(1),\n                (i.hp = Math.min(i.maxHp, i.hp + 13 + d.level * 1.5)),\n                (i.invulnerableUntil = Math.max(\n                  i.invulnerableUntil,\n                  i.time + 0.32,\n      "
+  },
+  {
+    "offset": 1664254,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": " 0.42,\n              );\n            else if (a.id === `neon` || a.id === `michaela`)\n              i.hp = Math.min(i.maxHp, i.hp + 12 + d.level * 2);\n            else if (a.id === `slayer`)\n              i.hp = Math.min(\n                i.maxHp,\n                i.hp + 9 + i.awake"
+  },
+  {
+    "offset": 1664359,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": " Math.min(i.maxHp, i.hp + 12 + d.level * 2);\n            else if (a.id === `slayer`)\n              i.hp = Math.min(\n                i.maxHp,\n                i.hp + 9 + i.awakeningStoredPower * 0.35,\n              );\n            else if (a.id === `gunner`)\n              e = MONGSE"
+  },
+  {
+    "offset": 1665314,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": "     MONGSE_temporalDelayNearby(8.2, 12, 0.86, `ion-burst`);\n            else if (a.id === `neon`) i.hp = Math.min(i.maxHp, i.hp + 24);\n            else if (a.id === `michaela`)\n              ((i.hp = Math.min(i.maxHp, i.hp + 28)),\n                (i.heroSlowUntil = 0),\n         "
+  },
+  {
+    "offset": 1665409,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": "n`) i.hp = Math.min(i.maxHp, i.hp + 24);\n            else if (a.id === `michaela`)\n              ((i.hp = Math.min(i.maxHp, i.hp + 28)),\n                (i.heroSlowUntil = 0),\n                (i.heroStatus = v0.name));\n            else if (a.id === `lauren`)\n              re.forE"
+  },
+  {
+    "offset": 1667193,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": "ralDelayNearby(10, 96, 1.05, `ion-capstone`));\n            else if (a.id === `neon`)\n              i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.24));\n            else if (a.id === `michaela`)\n              ((i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.32))),\n"
+  },
+  {
+    "offset": 1667312,
+    "function": "anonymous",
+    "path": "functions/anonymous-1643058.txt",
+    "length": 25686,
+    "context": "xHp, i.hp + Math.round(i.maxHp * 0.24));\n            else if (a.id === `michaela`)\n              ((i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.32))),\n                (i.invulnerableUntil = Math.max(\n                  i.invulnerableUntil,\n                  i.time + 1.05"
+  },
+  {
+    "offset": 1667860,
+    "function": "anonymous",
+    "path": "functions/anonymous-1667675.txt",
+    "length": 226,
+    "context": "r, e.stagger + 72))\n                  : e.hp / Math.max(1, e.maxHp) <= 0.3 &&\n                    (e.hp = Math.min(e.hp, 1));\n              });\n            else if (a.id === `hunter` || a.id === `rian`)\n              n0(3, 46, 12, 0.68, !0);\n            else if (a.id === `gunner`"
+  },
+  {
+    "offset": 1688830,
+    "function": "anonymous",
+    "path": "functions/anonymous-1688771.txt",
+    "length": 98,
+    "context": "+ a.level * 0.012;\n            v.forEach((t) => {\n              t.hp / t.maxHp <= e && !t.boss && (t.hp = Math.min(t.hp, 1));\n            });\n          }\n          let b = Ai(\n              n.id,\n              r.kind === `ultimate` ? `ultimate` : `skill`,\n              R.current."
+  },
+  {
+    "offset": 1728793,
+    "context": "initeBaseStats = MONGSE_infiniteStats(R.current);\n          if (!window.__HAPIL_PARTY_V31322__?.blocksSave()) ((o.maxHp = 240 + MONGSE_infiniteBaseStats.maxHpBonus),\n            (o.hp = Math.min(o.hp, o.maxHp)));\n          if (\n            typeof window !== `undefined` &&\n            new URLSearchParams(window.location.search).has(`qa`)\n          ) {\n            window.__MONGSE_QA_STATE__ = o;\n            window.__MONGSE_QA_AP"
+  },
+  {
+    "offset": 2030738,
+    "context": " let e = Math.max(t.hp, o.maxHp * i.rewindHealthRatio),\n                  n = dt(o.zone, t, 0.48);\n                ((o.x = n.x),\n                  (o.y = n.y),\n                  (o.hp = Math.min(o.maxHp, e)),\n                  (o.timeRewindReadyAt = o.time + i.rewindCooldown),\n                  (o.invulnerableUntil = Math.max(\n                    o.invulnerableUntil,\n                    o.time + 0.72,\n                  )),\n   "
+  },
+  {
+    "offset": 2061162,
+    "context": "                    o.cooldowns[t] - 0.7 - e.level * 0.12,\n                      );\n                    });\n                } else if (e.effect === `sanctuary`)\n                  o.hp = Math.min(o.maxHp, o.hp + 12 + e.level * 5);\n                else if (e.effect === `rescue`)\n                  ((o.hp = Math.min(o.maxHp, o.hp + 18 + e.level * 6)),\n                    (o.invulnerableUntil = Math.max(\n                      o.inv"
+  },
+  {
+    "offset": 2061281,
+    "context": "     } else if (e.effect === `sanctuary`)\n                  o.hp = Math.min(o.maxHp, o.hp + 12 + e.level * 5);\n                else if (e.effect === `rescue`)\n                  ((o.hp = Math.min(o.maxHp, o.hp + 18 + e.level * 6)),\n                    (o.invulnerableUntil = Math.max(\n                      o.invulnerableUntil,\n                      o.time + 0.55 + e.level * 0.07,\n                    )),\n                    (o.he"
+  },
+  {
+    "offset": 3380432,
+    "function": "MONGSE_triggerV31237",
+    "path": "functions/MONGSE_triggerV31237-3375483.txt",
+    "length": 6937,
+    "context": "        MONGSE_graceHealV31237 = 18 + MONGSE_profileResultV31237.scale * 2;\n      MONGSE_stateV31237.hp = Math.min(\n        MONGSE_maxHpV31237,\n        MONGSE_hpV31237 + MONGSE_graceHealV31237,\n      );\n      MONGSE_stateV31237.invulnerableUntil = Math.max(\n        MONGSE_finiteV"
+  },
+  {
+    "offset": 4330326,
+    "function": "trigger",
+    "path": "functions/trigger-4327103.txt",
+    "length": 4217,
+    "context": "\") {\n      const maxHp = Math.max(1, finite(state.maxHp, 240)), heal = 18 + p.scale * 2;\n      state.hp = Math.min(maxHp, finite(state.hp) + heal);\n      state.invulnerableUntil = Math.max(finite(state.invulnerableUntil), now + .72);\n      state.lastMichaelaSeohaGraceV31237 = {pa"
+  },
+  {
+    "offset": 4505783,
+    "function": "tick",
+    "path": "functions/tick-4504748.txt",
+    "length": 1264,
+    "context": "ountV31318)+count;\n    const healed=Math.min(Math.max(0,a.maxHp-a.hp),a.maxHp*FRACTION*count);\n    a.hp=Math.min(a.maxHp,a.hp+healed);\n    if(healed>0){s.floatTexts??=[];s.floatTexts.push({id:s.fxSerial++,x:a.x,y:a.y,born:now,duration:.75,text:`재생 +${Math.round(healed)}`,color:'#"
+  },
+  {
+    "offset": 4661120,
+    "function": "applyStrike",
+    "path": "functions/applyStrike-4660372.txt",
+    "length": 797,
+    "context": "hunter'].includes(a.heroId)){const scale=window.__HAPIL_HELL_V31322__?.lifestealMultiplier?.(s)??1;a.hp=Math.min(a.maxHp,a.hp+dealt*.08*scale);}}\n  }\n  function danger(s,a){const hs=[...(s.pendingHits??[]),...(s.impactQueue??[])].filter(h=>num(h.impactAt,h.at)>s.time&&num(h.impac"
+  },
+  {
+    "offset": 4695440,
+    "function": "tickBuffs",
+    "path": "functions/tickBuffs-4694737.txt",
+    "length": 748,
+    "context": "06);}if(ids.includes('michaela'))for(const a of actors){if(a===s&&p.status.slots[0]?.down)continue;a.hp=Math.min(a.maxHp,a.hp+a.maxHp*.003*dt);}}\n let installed=false,tries=0;\n function install(){if(installed)return;if(!window.__HAPIL_V31322_RELEASE__?.allPass){if(++tries<256)set"
+  },
+  {
+    "offset": 5758945,
+    "function": "reduceHealV31401",
+    "path": "functions/reduceHealV31401-5758766.txt",
+    "length": 262,
+    "context": "f(n(s.heroHealingBlockedUntil)>s.time||n(a.heroHealingBlockedUntil)>s.time)return 0;const old=a.hp;a.hp=Math.min(n(a.maxHp,240),a.hp+amount);metrics.healed+=a.hp-old;return a.hp-old;}\n function queueEcho(s,target,origin,power,source,delay=.20,homing=true,key='A'){\n  const m=mem(s"
+  }
+]

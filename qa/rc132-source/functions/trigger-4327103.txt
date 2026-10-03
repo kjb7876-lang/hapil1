@@ -1,0 +1,161 @@
+function trigger(state, leader, support, growth = {}, options = {}) {
+  if (!window.__HAPIL_POLICY_V31400__.has(leader)) return null;
+  support = window.__HAPIL_POLICY_V31400__.partner(leader);
+  const pair = pairFor(leader, support);
+  if (
+    !pair ||
+    !state ||
+    !Array.isArray(state.enemies) ||
+    !(finite(state.hp) > 0) ||
+    (typeof MONGSE_isEncounterLocked31226 === "function" &&
+      MONGSE_isEncounterLocked31226(state))
+  )
+    return null;
+  const now = finite(state.time),
+    p = profile(pair, growth);
+  state.collabReadyAtV31237 ??= {};
+  if (now < finite(state.collabReadyAtV31237[pair.key])) return null;
+  const plan = planTargets(state, p);
+  if (!plan?.targets.length) return null;
+  state.effects ??= [];
+  state.pendingStrikes ??= [];
+  state.floatTexts ??= [];
+  state.fxSerial = Math.max(1, Math.floor(finite(state.fxSerial, 1)));
+  const palette = window.__HAPIL_HERO_COLOR_V31313__.palette,
+    primary = palette[pair.ids[0]].primary,
+    accent = palette[pair.ids[1]].primary;
+  const castId = `collab315:${String(state.zone)}:${now}:${state.fxSerial++}`;
+  state.effects.push({
+    id: state.fxSerial++,
+    kind: "burst",
+    ...plan.world,
+    tx: plan.world.x,
+    ty: plan.world.y,
+    born: now,
+    duration: DURATION,
+    color: primary,
+    accent,
+    size: p.visualPixels / 27,
+    angle: 0,
+    sprite: pair.image,
+    imageOnly: true,
+    ultimate: true,
+    forceFront: true,
+    skillFxAdjustable: true,
+    collabV31233: true,
+    collabV31234: true,
+    collabV31237: true,
+    collabV31315: true,
+    collabPairV31234: pair.key,
+    collabPairV31237: pair.key,
+    collabCastIdV31315: castId,
+    collabDiameterV31315: p.visualPixels,
+    collabPointV31315: plan.point,
+    collabHeroIdsV31315: [...pair.ids],
+    collabHeroId: support,
+    collabSkillId: pair.key,
+    heroId: leader,
+    sourceHeroId: leader,
+    supportHeroId: support,
+    objectiveStageV31309: plan.stage,
+  });
+  for (const target of plan.targets) {
+    const pos = projected(target),
+      delay =
+        0.32 +
+        (0.16 * Math.hypot(pos.x - plan.point.x, pos.y - plan.point.y)) /
+          p.radiusPixels;
+    state.pendingStrikes.push({
+      id: state.fxSerial++,
+      at: now + delay,
+      targetId: String(target.id),
+      power: p.perTargetDamage,
+      color: palette[leader].primary,
+      critical: true,
+      ranged: true,
+      leechRate: 0,
+      heroId: leader,
+      sourceHeroId: leader,
+      impactHeroIdV31315: leader,
+      supportHeroIdV31237: support,
+      collabHeroIdsV31315: [...pair.ids],
+      ultimateImpact: true,
+      actionKey: "COLLAB_V31315",
+      collabV31233: true,
+      collabV31234: true,
+      collabV31237: true,
+      collabV31315: true,
+      collabPairV31237: pair.key,
+      collabCastIdV31315: castId,
+      objectiveStageV31309: plan.stage,
+      singleSnapshotV31309: true,
+    });
+  }
+  // Existing committed attacks are never truncated by a collaboration cast.
+  const readyAt = now + p.cooldown;
+  for (const key of [
+    "collabReadyAtV31233",
+    "collabReadyAtV31234",
+    "collabReadyAtV31237",
+  ]) {
+    state[key] ??= {};
+    state[key][pair.key] = readyAt;
+  }
+  if (
+    state.supportCall &&
+    pairFor(leader, state.supportCall.heroId)?.key === pair.key
+  ) {
+    Object.assign(state.supportCall, {
+      collabCheckedV31233: true,
+      collabCheckedV31234: true,
+      collabCheckedV31237: true,
+    });
+  }
+  if (pair.key === "michaela+seoha") {
+    const maxHp = Math.max(1, finite(state.maxHp, 240)),
+      heal = 18 + p.scale * 2;
+    state.hp = Math.min(maxHp, finite(state.hp) + heal);
+    state.invulnerableUntil = Math.max(
+      finite(state.invulnerableUntil),
+      now + 0.72,
+    );
+    state.lastMichaelaSeohaGraceV31237 = {
+      pair: pair.key,
+      leaderId: leader,
+      supportId: support,
+      heal,
+      guardUntil: state.invulnerableUntil,
+    };
+  }
+  state.floatTexts.push({
+    id: state.fxSerial++,
+    x: state.x,
+    y: state.y,
+    born: now,
+    duration: 1.3,
+    text: `COLLAB · ${pair.name}`,
+    color: primary,
+    critical: true,
+  });
+  state.floatTexts = state.floatTexts.slice(-48);
+  casts += 1;
+  return (state.lastCollabV31237 = {
+    pair: pair.key,
+    name: pair.name,
+    leaderId: leader,
+    supportId: support,
+    automatic: options.automatic === true,
+    born: now,
+    until: now + DURATION,
+    targetCount: plan.targets.length,
+    perTargetDamage: p.perTargetDamage,
+    totalQueuedDamage: p.perTargetDamage * plan.targets.length,
+    cooldown: p.cooldown,
+    readyAt,
+    image: pair.image,
+    profile: p,
+    castId,
+    collabV31315: true,
+    michaelaSeohaGrace: pair.key === "michaela+seoha",
+  });
+}

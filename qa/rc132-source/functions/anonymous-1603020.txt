@@ -1,0 +1,20 @@
+(t, n) => {
+  let r = Se(e.zone).find((e) => e.id === t.templateId);
+  if (!r) return [];
+  let i = Jr(r, e.zone),
+    a = Math.max(1, Math.min(3, Math.round(t.cycle ?? 1))),
+    o = dt(e.zone, t, 0.44),
+    s = 1 + Math.min(0.34, Math.max(0, a - 1) * 0.035);
+  return (
+    (i.id = `${r.id}-cycle-${a}-resume-${n}`),
+    (i.x = o.x),
+    (i.y = o.y),
+    (i.maxHp = Math.round(i.maxHp * s)),
+    (i.hp = Math.min(i.maxHp, Math.max(0.1, t.hp))),
+    (i.ghostBorn = 0),
+    (i.ghostUntil = Math.max(0.65, Math.min(20, t.remaining ?? 0.65))),
+    (i.readyAt = 0.35),
+    (i.patternReadyAt = 0.55),
+    i
+  );
+};

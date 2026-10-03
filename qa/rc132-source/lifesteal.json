@@ -1,0 +1,143 @@
+[
+  {
+    "offset": 250668,
+    "function": "damageIntegration",
+    "path": "functions/damageIntegration-250138.txt",
+    "length": 1294,
+    "context": "       (e.state.zone = `dist06`),\n        (e.state.guardianGraceReadyAt = 99),\n        (e.state.lastLifestealSuppressionTextAt = -99));\n      for (let i = 0; i < 10; i++) {\n        ((e.state.time = i * 0.09), (e.state.invulnerableUntil = 0));\n        Y(e.state, 20, e.boss.x, e.bo"
+  },
+  {
+    "offset": 1336823,
+    "function": "oi",
+    "path": "functions/oi-1334851.txt",
+    "length": 2971,
+    "context": "  comboRewardMaskV31302: 0,\n    grazeRewardMaskV31302: 0,\n    chainRewardZoneV31302: `hub`,\n    lastLifestealTextAt: -99,\n    lifestealSuppressedUntil: 0,\n    lifestealMultiplier: 1,\n    lastLifestealSuppressionTextAt: -99,\n    bossLane: `bottom`,\n    bossLaneCorrectionAt: 0,\n   "
+  },
+  {
+    "offset": 1336849,
+    "function": "oi",
+    "path": "functions/oi-1334851.txt",
+    "length": 2971,
+    "context": ",\n    grazeRewardMaskV31302: 0,\n    chainRewardZoneV31302: `hub`,\n    lastLifestealTextAt: -99,\n    lifestealSuppressedUntil: 0,\n    lifestealMultiplier: 1,\n    lastLifestealSuppressionTextAt: -99,\n    bossLane: `bottom`,\n    bossLaneCorrectionAt: 0,\n    awakeningUntil: 0,\n    aw"
+  },
+  {
+    "offset": 1336882,
+    "function": "oi",
+    "path": "functions/oi-1334851.txt",
+    "length": 2971,
+    "context": "   chainRewardZoneV31302: `hub`,\n    lastLifestealTextAt: -99,\n    lifestealSuppressedUntil: 0,\n    lifestealMultiplier: 1,\n    lastLifestealSuppressionTextAt: -99,\n    bossLane: `bottom`,\n    bossLaneCorrectionAt: 0,\n    awakeningUntil: 0,\n    awakeningReadyAt: 0,\n    awakeningN"
+  },
+  {
+    "offset": 1336914,
+    "function": "oi",
+    "path": "functions/oi-1334851.txt",
+    "length": 2971,
+    "context": "\n    lastLifestealTextAt: -99,\n    lifestealSuppressedUntil: 0,\n    lifestealMultiplier: 1,\n    lastLifestealSuppressionTextAt: -99,\n    bossLane: `bottom`,\n    bossLaneCorrectionAt: 0,\n    awakeningUntil: 0,\n    awakeningReadyAt: 0,\n    awakeningNextAttackAt: 0,\n    awakeningNex"
+  },
+  {
+    "offset": 1437537,
+    "function": "HAPIL_reducePlayerContactV31401",
+    "path": "functions/HAPIL_reducePlayerContactV31401-1431244.txt",
+    "length": 8447,
+    "context": "\n    (e.comboUntil = 0),\n    (e.invulnerableUntil = e.time),\n    MONGSE_bossLikeSource &&\n      ((e.lifestealSuppressedUntil = Math.max(\n        Number(e.lifestealSuppressedUntil ?? 0),\n        e.time + (MONGSE_damageSource.boss ? 4.8 : 3.6),\n      )),\n      (e.lifestealMultiplie"
+  },
+  {
+    "offset": 1437591,
+    "function": "HAPIL_reducePlayerContactV31401",
+    "path": "functions/HAPIL_reducePlayerContactV31401-1431244.txt",
+    "length": 8447,
+    "context": "time),\n    MONGSE_bossLikeSource &&\n      ((e.lifestealSuppressedUntil = Math.max(\n        Number(e.lifestealSuppressedUntil ?? 0),\n        e.time + (MONGSE_damageSource.boss ? 4.8 : 3.6),\n      )),\n      (e.lifestealMultiplier = Math.min(\n        Number(e.lifestealMultiplier ?? "
+  },
+  {
+    "offset": 1437699,
+    "function": "HAPIL_reducePlayerContactV31401",
+    "path": "functions/HAPIL_reducePlayerContactV31401-1431244.txt",
+    "length": 8447,
+    "context": "lSuppressedUntil ?? 0),\n        e.time + (MONGSE_damageSource.boss ? 4.8 : 3.6),\n      )),\n      (e.lifestealMultiplier = Math.min(\n        Number(e.lifestealMultiplier ?? 1),\n        MONGSE_damageSource.boss ? 0.55 : 0.72,\n      )),\n      e.time - Number(e.lastLifestealSuppressi"
+  },
+  {
+    "offset": 1437748,
+    "function": "HAPIL_reducePlayerContactV31401",
+    "path": "functions/HAPIL_reducePlayerContactV31401-1431244.txt",
+    "length": 8447,
+    "context": "damageSource.boss ? 4.8 : 3.6),\n      )),\n      (e.lifestealMultiplier = Math.min(\n        Number(e.lifestealMultiplier ?? 1),\n        MONGSE_damageSource.boss ? 0.55 : 0.72,\n      )),\n      e.time - Number(e.lastLifestealSuppressionTextAt ?? -99) >= 1.4 &&\n        ((e.lastLifest"
+  },
+  {
+    "offset": 1437861,
+    "function": "HAPIL_reducePlayerContactV31401",
+    "path": "functions/HAPIL_reducePlayerContactV31401-1431244.txt",
+    "length": 8447,
+    "context": "iplier ?? 1),\n        MONGSE_damageSource.boss ? 0.55 : 0.72,\n      )),\n      e.time - Number(e.lastLifestealSuppressionTextAt ?? -99) >= 1.4 &&\n        ((e.lastLifestealSuppressionTextAt = e.time),\n        e.floatTexts.push({\n          id: e.fxSerial++,\n          x: e.x,\n       "
+  },
+  {
+    "offset": 1437922,
+    "function": "HAPIL_reducePlayerContactV31401",
+    "path": "functions/HAPIL_reducePlayerContactV31401-1431244.txt",
+    "length": 8447,
+    "context": "\n      )),\n      e.time - Number(e.lastLifestealSuppressionTextAt ?? -99) >= 1.4 &&\n        ((e.lastLifestealSuppressionTextAt = e.time),\n        e.floatTexts.push({\n          id: e.fxSerial++,\n          x: e.x,\n          y: e.y,\n          born: e.time,\n          duration: 0.9,\n "
+  },
+  {
+    "offset": 2118199,
+    "context": "pendingStrikes = []),\n                (o.autoSkillNextAt = o.time + 0.65),\n                (o.autoSkillHistory = []),\n                (o.lastAutoSkillKey = ``),\n                (o.lifestealSuppressedUntil = 0),\n                (o.lifestealMultiplier = 1),\n                (o.bossLaneCorrectionAt = o.time + 0.4),\n                MONGSE_clearHostileProjectiles31215(o, `hero-respawn`),\n                (o.narrativeCasts = []),\n    "
+  },
+  {
+    "offset": 2118249,
+    "context": "NextAt = o.time + 0.65),\n                (o.autoSkillHistory = []),\n                (o.lastAutoSkillKey = ``),\n                (o.lifestealSuppressedUntil = 0),\n                (o.lifestealMultiplier = 1),\n                (o.bossLaneCorrectionAt = o.time + 0.4),\n                MONGSE_clearHostileProjectiles31215(o, `hero-respawn`),\n                (o.narrativeCasts = []),\n                (o.narrativeCastHistory = {}),\n       "
+  },
+  {
+    "offset": 2235532,
+    "function": "anonymous",
+    "path": "functions/anonymous-2234445.txt",
+    "length": 1524,
+    "context": ",\n    thematicBossSummons: true,\n    summonLifecycleCleanup: true,\n    maxHpBossPressure: true,\n    lifestealSuppression: true,\n    bossKnockback: true,\n    portalAnchorAccessor: true,\n    portalInteractionSharedCoordinates: true,\n    centralPhysicsContract: true,\n    narrativeMa"
+  },
+  {
+    "offset": 4631134,
+    "function": "anonymous",
+    "path": "functions/anonymous-4630586.txt",
+    "length": 12851,
+    "context": "le this engine.\n  function enabled(s=null) { return false; }\n  const damageMultiplier=s=>1;\n  const lifestealMultiplier=s=>enabled(s)?.30:1;\n  function lifestealAmount(s,damage,rate,suppression=1) {\n    const raw=Math.max(0,finite(damage)*Math.max(0,finite(rate))*Math.max(0,finit"
+  },
+  {
+    "offset": 4631186,
+    "function": "lifestealAmount",
+    "path": "functions/lifestealAmount-4631177.txt",
+    "length": 385,
+    "context": "false; }\n  const damageMultiplier=s=>1;\n  const lifestealMultiplier=s=>enabled(s)?.30:1;\n  function lifestealAmount(s,damage,rate,suppression=1) {\n    const raw=Math.max(0,finite(damage)*Math.max(0,finite(rate))*Math.max(0,finite(suppression)));\n    // Scale the actual earned hea"
+  },
+  {
+    "offset": 4631535,
+    "function": "lifestealAmount",
+    "path": "functions/lifestealAmount-4631177.txt",
+    "length": 385,
+    "context": "O is already supported by native damage/heal and save paths.\n    return Math.max(1,Math.round(raw))*lifestealMultiplier(s);\n  }\n  function excluded(a) {\n    return !a||a.objectiveStructureV31238===true||a.narrativeStructureV31238===true||a.protectedObjective===true||a.friendly==="
+  },
+  {
+    "offset": 4642640,
+    "function": "config",
+    "path": "functions/config-4642559.txt",
+    "length": 211,
+    "context": "ce}),\n      config:()=>Object.freeze({baseNormalCount:1.25,hellEnemyCount:2,enemyHp:1,enemyDamage:1,lifesteal:.30,projectileCount:2,maxEnemies:MAX_ENEMIES,maxProjectiles:MAX_SHOTS,countChangesAt:'next-map-or-wave',saveVersion:14}),\n      apply,scaleActor,expandRoster,mirrorProjec"
+  },
+  {
+    "offset": 4642843,
+    "function": "install",
+    "path": "functions/install-4640510.txt",
+    "length": 2830,
+    "context": "p-or-wave',saveVersion:14}),\n      apply,scaleActor,expandRoster,mirrorProjectiles,damageMultiplier,lifestealMultiplier,lifestealAmount,serialize,sanitize,restore,restoreActors,\n      audit:()=>({installed,version:VERSION,saveVersion:14,projectileLimit:MAX_SHOTS,enemyLimit:MAX_EN"
+  },
+  {
+    "offset": 4642863,
+    "function": "install",
+    "path": "functions/install-4640510.txt",
+    "length": 2830,
+    "context": "on:14}),\n      apply,scaleActor,expandRoster,mirrorProjectiles,damageMultiplier,lifestealMultiplier,lifestealAmount,serialize,sanitize,restore,restoreActors,\n      audit:()=>({installed,version:VERSION,saveVersion:14,projectileLimit:MAX_SHOTS,enemyLimit:MAX_ENEMIES,inheritedSaveC"
+  },
+  {
+    "offset": 4661091,
+    "function": "applyStrike",
+    "path": "functions/applyStrike-4660372.txt",
+    "length": 797,
+    "context": "){stats.hits++;if(['slayer','hunter'].includes(a.heroId)){const scale=window.__HAPIL_HELL_V31322__?.lifestealMultiplier?.(s)??1;a.hp=Math.min(a.maxHp,a.hp+dealt*.08*scale);}}\n  }\n  function danger(s,a){const hs=[...(s.pendingHits??[]),...(s.impactQueue??[])].filter(h=>num(h.impac"
+  }
+]

@@ -1,0 +1,724 @@
+() => {
+  "use strict";
+  const VERSION = "3.13.46",
+    KEY = "hapil.gameMode.v31346",
+    MODES = Object.freeze(["STORY", "DREAM"]);
+  const valid = (v, s) => window.__HAPIL_SAMONG_RC91__?.select(v, s) ?? "STORY";
+  const num = (v, d = 0) => (Number.isFinite(Number(v)) ? Number(v) : d);
+  let preference = "STORY",
+    lastState = null,
+    attempts = 0,
+    installed = false;
+  try {
+    preference = valid(localStorage.getItem(KEY) || "STORY");
+  } catch (_) {}
+  function mode(s = lastState) {
+    return valid(s?.gameModeV31346 ?? preference, s);
+  }
+  function set(
+    value,
+    s = window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current,
+  ) {
+    const next = valid(value, s);
+    preference = next;
+    if (s) {
+      lastState = s;
+      s.gameModeV31346 = next;
+      s.hellModeV31322 = false;
+    }
+    try {
+      localStorage.setItem(KEY, next);
+    } catch (_) {}
+    window.__HAPIL_HELL_V31322__?.setEnabled?.(false, s);
+    return next;
+  }
+  function suppressFullNarrative() {
+    return true;
+  }
+  function clearDialogue(s, kind) {
+    if (!s) return null;
+    const t = num(s.time);
+    s.encounterDialogue31226 = null;
+    s.encounterLockUntil31226 = 0;
+    s.encounterWallUnlockAtV31227 = 0;
+    if (kind === "rest") {
+      s.restPortalUnlockAt31226 = t;
+      s.restPortalWallUnlockAtV31227 = 0;
+      s.restDialogueComplete31226 = true;
+    } else
+      for (const [i, a] of (s.enemies ?? []).entries()) {
+        a.readyAt = Math.min(num(a.readyAt, t), t + 0.14 + i * 0.015);
+        a.patternReadyAt = Math.min(
+          num(a.patternReadyAt, t),
+          t + 0.28 + i * 0.015,
+        );
+        a.invulnerableUntil = Math.min(num(a.invulnerableUntil, t), t + 0.12);
+      }
+    return null;
+  }
+  function dialoguePairFor(s) {
+    const zone = s?.zone,
+      story = window.__HAPIL_STORY_DATA_V31300__?.dialogue,
+      source = story?.records?.find((r) => r.zone === zone),
+      lines = source?.lines ?? [];
+    const pairFrom = (rows) => {
+      const enemy = rows.find((l) => l.side === "enemy"),
+        hero = rows.find(
+          (l) =>
+            l.side === "hero" &&
+            (!Number.isFinite(enemy?.number) ||
+              !Number.isFinite(l.number) ||
+              Number(l.number) > Number(enemy.number)),
+        );
+      return enemy && hero ? [enemy, hero] : null;
+    };
+    let pair = pairFrom(lines),
+      file = story?.sourceFile ?? null,
+      hash = story?.sourceSha256 ?? null,
+      kind = "uploaded-story-pair";
+    if (!pair) {
+      const api =
+          window.__MONGSE_ENCOUNTER_DIALOGUE_V31229__ ??
+          window.__MONGSE_ENCOUNTER_DIALOGUE_V31230__,
+        record = api?.resolve?.(zone, "combat") ?? api?.combat?.[zone];
+      if (record?.enemy?.text && record?.hero?.text)
+        pair = [
+          { ...record.enemy, side: "enemy" },
+          { ...record.hero, side: "hero" },
+        ];
+      else pair = pairFrom(record?.lines ?? []);
+      file = record?.sourceFile ?? api?.sourceFile ?? file;
+      hash = record?.sourceSha256 ?? api?.sourceSha256 ?? hash;
+      kind = "existing-map-pair";
+    }
+    if (!pair) return null;
+    const hero = F.find((h) => h.id === s?.activeHeroId) ?? F[0],
+      leader =
+        s?.enemies?.find((e) => e.boss) ??
+        s?.enemies?.find((e) => e.midboss) ??
+        s?.enemies?.[0];
+    return {
+      lines: pair.map((line, index) => {
+        const side = index === 0 ? "enemy" : "hero",
+          sourceSpeaker = line.sourceSpeaker ?? line.speaker;
+        const speaker =
+          sourceSpeaker === "활성 영웅"
+            ? (hero?.name ?? "의목사")
+            : sourceSpeaker === "적측"
+              ? (leader?.name ?? "악몽 개체")
+              : (line.speaker ??
+                (side === "enemy"
+                  ? (leader?.name ?? "악몽 개체")
+                  : (hero?.name ?? "의목사")));
+        return {
+          ...line,
+          side,
+          speaker,
+          exact: line.exact !== false,
+          sourceSpeaker:
+            sourceSpeaker ?? (side === "enemy" ? "적측" : "활성 영웅"),
+        };
+      }),
+      file,
+      hash,
+      kind,
+      sourceZone: source?.zone ?? zone,
+    };
+  }
+  function shortStoryDialogue(s, d) {
+    const selected = dialoguePairFor(s);
+    if (!s || !selected) return clearDialogue(s, "combat");
+    d = d && typeof d === "object" ? d : { kind: "combat", completed: false };
+    const startedAt = num(s.time),
+      durations = [1.65, 1.65],
+      unlockAt = startedAt + 3.3;
+    Object.assign(d, {
+      kind: "combat",
+      zone: s.zone,
+      lines: selected.lines,
+      enemy: selected.lines[0],
+      hero: selected.lines[1],
+      lineDurationsV31231: durations,
+      lineDurationsV31232: durations,
+      lineDurationsV31238: durations,
+      lineDurationsV31300: durations,
+      startedAt,
+      unlockAt,
+      completed: false,
+      sourceRef: `${selected.file ?? "HAPIL_STORY_DATA"}#${selected.sourceZone}`,
+      sourceFileV31300: selected.file,
+      sourceSha256V31300: selected.hash,
+      exactReplacementV31300: true,
+      objectiveNarrationV31300: false,
+      storyExchangeV314RC3: selected.kind,
+    });
+    s.encounterDialogue31226 = d;
+    s.encounterLockUntil31226 = unlockAt;
+    s.encounterWallUnlockAtV31227 = Date.now() + 3300;
+    s.invulnerableUntil = Math.max(num(s.invulnerableUntil), unlockAt);
+    for (const [i, a] of (s.enemies ?? []).entries()) {
+      a.readyAt = Math.max(
+        num(a.readyAt, startedAt),
+        unlockAt + 0.14 + i * 0.015,
+      );
+      a.patternReadyAt = Math.max(
+        num(a.patternReadyAt, startedAt),
+        unlockAt + 0.28 + i * 0.015,
+      );
+      a.invulnerableUntil = Math.max(num(a.invulnerableUntil), unlockAt);
+    }
+    return d;
+  }
+  const MemoryMapProfile = Object.freeze({
+    u2: { color: "#80e9ff", symbol: "기억 파편" },
+    last3: { color: "#b88cff", symbol: "검은 실" },
+    kairo: { color: "#ff87db", symbol: "세이렌 거울" },
+    hando: { color: "#ffc36d", symbol: "균열" },
+    murder: { color: "#ff526f", symbol: "핏빛 기억" },
+    cult: { color: "#d9e7ff", symbol: "왕좌 거울" },
+    default: { color: "#a68cff", symbol: "사몽" },
+  });
+  function memoryProfile(s) {
+    const a = String(N?.[s?.zone]?.arc ?? s?.zone ?? "").toLowerCase();
+    return (
+      MemoryMapProfile[a] ??
+      Object.entries(MemoryMapProfile).find(([k]) => a.includes(k))?.[1] ??
+      MemoryMapProfile.default
+    );
+  }
+  function ensureMemoryLayer() {
+    if (!document?.body) return null;
+    let n = document.getElementById("hapil-dream-memory-v31346");
+    if (n) return n;
+    n = document.createElement("div");
+    n.id = "hapil-dream-memory-v31346";
+    n.setAttribute("aria-hidden", "true");
+    Object.assign(n.style, {
+      position: "fixed",
+      inset: "0",
+      pointerEvents: "none",
+      zIndex: "3",
+      display: "none",
+      opacity: ".18",
+      boxSizing: "border-box",
+      border: "3px solid transparent",
+      background:
+        "linear-gradient(118deg,transparent 0 42%,currentColor 42.2% 42.45%,transparent 42.7% 100%),radial-gradient(circle at 82% 22%,transparent 0 8%,currentColor 8.2% 8.55%,transparent 8.8%)",
+      mixBlendMode: "screen",
+    });
+    document.body.append(n);
+    return n;
+  }
+  function polygon(s) {
+    const p = window.__HAPIL_TERRAIN_V31345__?.profile?.(s?.zone)?.world;
+    return Array.isArray(p) && p.length >= 3
+      ? p.map((q) => ({ x: num(q.x ?? q[0]), y: num(q.y ?? q[1]) }))
+      : [
+          { x: 1.4, y: 1.4 },
+          { x: 30.6, y: 1.4 },
+          { x: 30.6, y: 18.6 },
+          { x: 1.4, y: 18.6 },
+        ];
+  }
+  function segmentHit(a, b, c, d) {
+    const rx = b.x - a.x,
+      ry = b.y - a.y,
+      sx = d.x - c.x,
+      sy = d.y - c.y,
+      den = rx * sy - ry * sx;
+    if (Math.abs(den) < 1e-8) return null;
+    const qx = c.x - a.x,
+      qy = c.y - a.y,
+      t = (qx * sy - qy * sx) / den,
+      u = (qx * ry - qy * rx) / den;
+    return t >= 0 && t <= 1 && u >= 0 && u <= 1
+      ? { t, x: a.x + t * rx, y: a.y + t * ry }
+      : null;
+  }
+  function reflect(s, p) {
+    if (
+      mode(s) !== "DREAM" ||
+      !p ||
+      num(p.dreamReflectionCountV31346) >= 4 ||
+      !Number.isFinite(p.vx) ||
+      !Number.isFinite(p.vy)
+    )
+      return false;
+    const a = { x: num(p.previousX, p.x), y: num(p.previousY, p.y) },
+      b = { x: num(p.x), y: num(p.y) },
+      poly = polygon(s);
+    let best = null;
+    for (let i = 0; i < poly.length; i++) {
+      const c = poly[i],
+        d = poly[(i + 1) % poly.length],
+        h = segmentHit(a, b, c, d);
+      if (h && (!best || h.t < best.t)) best = { ...h, c, d };
+    }
+    if (!best) return false;
+    let nx = -(best.d.y - best.c.y),
+      ny = best.d.x - best.c.x,
+      L = Math.hypot(nx, ny) || 1;
+    nx /= L;
+    ny /= L;
+    const dot = p.vx * nx + p.vy * ny;
+    const boost = num(p.dreamReflectionCountV31346) === 0 ? 1.12 : 1;
+    p.vx = (p.vx - 2 * dot * nx) * boost;
+    p.vy = (p.vy - 2 * dot * ny) * boost;
+    p.x = best.x + (a.x - best.x) * 0.015;
+    p.y = best.y + (a.y - best.y) * 0.015;
+    p.previousX = p.x;
+    p.previousY = p.y;
+    p.dreamReflectionCountV31346 = num(p.dreamReflectionCountV31346) + 1;
+    p.dreamReflectedV31346 = true;
+    p.dreamReflectionFlashUntilV31346 = num(s.time) + 0.16;
+    p.reachedMapBoundary31213 = false;
+    return true;
+  }
+  const TRIAL_ZONES = Object.freeze([
+      "u203",
+      "last303",
+      "kair03",
+      "hando03",
+      "ep1a11",
+      "cult04",
+    ]),
+    HOME = Object.freeze({ x: 23.2, y: 10 });
+  function cleanupTrial(s, bossId) {
+    const owned = (x) =>
+      x &&
+      (x.sourceId === bossId ||
+        x.ownerId === bossId ||
+        x.summonOwnerId === bossId ||
+        x.sourceBossId === bossId ||
+        x.episodeBossSummon === true);
+    s.hostileProjectiles = (s.hostileProjectiles ?? []).filter(
+      (x) => !owned(x),
+    );
+    s.enemies = (s.enemies ?? []).filter((x) => x.id === bossId || !owned(x));
+    for (const k of [
+      "pendingHits",
+      "impactQueue",
+      "pendingStrikes",
+      "narrativeCasts",
+      "telekineticCasts",
+      "spatialRiftBarrages",
+      "bossOrdnanceCues",
+      "spatialRiftCasts",
+      "bossLaserCastsV31330",
+      "bossUltimateCastsV31334",
+      "dreamMirrorLasersV31347",
+    ])
+      if (Array.isArray(s[k])) s[k] = s[k].filter((x) => !owned(x));
+  }
+  function spawnTrial(s, index) {
+    if (index < 0 || index >= TRIAL_ZONES.length) return null;
+    const base = ni(TRIAL_ZONES[index], `boss`);
+    if (!base) return null;
+    const b = {
+      ...base,
+      x: HOME.x,
+      y: HOME.y,
+      hp: Math.max(1, Math.round(num(base.maxHp, base.hp) * 0.38)),
+      maxHp: Math.max(1, Math.round(num(base.maxHp, base.hp) * 0.38)),
+      readyAt: num(s.time) + 1.15,
+      patternReadyAt: num(s.time) + 1.4,
+      invulnerableUntil: num(s.time) + 1.05,
+      navPath: [],
+      moveVx: 0,
+      moveVy: 0,
+      dreamCosmicTrialV31346: index + 1,
+      dreamAwakenedV31346: true,
+    };
+    s.enemies = (s.enemies ?? []).filter((x) => !x.boss);
+    s.enemies.push(b);
+    s.bossDefeated = false;
+    s.dreamFinalV31346 = {
+      version: 1,
+      index,
+      phase: "fight",
+      activeId: b.id,
+      safeUntil: 0,
+      deathToken: 0,
+      complete: false,
+    };
+    return b;
+  }
+  function finalTick(s) {
+    if (mode(s) !== "DREAM" || s?.zone !== "cult04") return;
+    let c = s.dreamFinalV31346;
+    if (!c) {
+      if ((s.enemies ?? []).some((x) => x.boss)) spawnTrial(s, 0);
+      return;
+    }
+    if (c.complete || c.index >= 6) return;
+    if (c.phase === "transition" && num(s.time) >= num(c.safeUntil)) {
+      spawnTrial(s, c.index);
+      c = s.dreamFinalV31346;
+    }
+    if (c.phase === "fight") {
+      const b = (s.enemies ?? []).find(
+        (x) => x.id === c.activeId && x.dreamCosmicTrialV31346,
+      );
+      if (b) {
+        b.x = HOME.x;
+        b.y = HOME.y;
+        b.moveVx = 0;
+        b.moveVy = 0;
+        b.navPath = [];
+      }
+    }
+  }
+  function beforeDeath(s, e) {
+    const c = s?.dreamFinalV31346;
+    if (c?.deathToken === e) return true;
+    if (
+      mode(s) !== "DREAM" ||
+      s?.zone !== "cult04" ||
+      !c ||
+      c.complete ||
+      c.phase !== "fight" ||
+      e?.id !== c.activeId ||
+      !e.dreamCosmicTrialV31346
+    )
+      return false;
+    c.deathToken = e;
+    cleanupTrial(s, e.id);
+    if (c.index < 5) {
+      s.enemies = (s.enemies ?? []).filter((x) => x !== e);
+      c.index += 1;
+      c.phase = "transition";
+      c.activeId = null;
+      c.safeUntil = num(s.time) + 1.15;
+      s.invulnerableUntil = Math.max(num(s.invulnerableUntil), c.safeUntil);
+      return true;
+    }
+    c.index = 6;
+    c.complete = true;
+    c.phase = "complete";
+    cleanupTrial(s, e.id);
+    return false;
+  }
+  function tick(s) {
+    if (!s) return;
+    lastState = s;
+    const m = mode(s);
+    if (s.gameModeV31346 !== m) s.gameModeV31346 = m;
+    window.__HAPIL_HELL_V31322__?.setEnabled?.(false, s);
+    if (m === "DREAM") {
+      for (const a of s.enemies ?? []) a.dreamAwakenedV31346 = true;
+      finalTick(s);
+    }
+    window.__HAPIL_SAMONG_RC91__?.scaleEnemies(s);
+    const layer = ensureMemoryLayer();
+    if (layer) {
+      layer.style.display = "none";
+      if (m === "DREAM") layer.style.color = memoryProfile(s).color;
+    }
+  }
+  const archive = {
+    entries(s = window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current) {
+      const frontier = num(N?.[s?.frontierZone]?.order, 1e9),
+        done =
+          s?.completedZones instanceof Set
+            ? s.completedZones
+            : new Set(s?.completedZones ?? []);
+      return Object.values(N ?? {})
+        .filter(
+          (z) => z && z.id && (done.has(z.id) || num(z.order) <= frontier),
+        )
+        .sort((a, b) => num(a.order) - num(b.order))
+        .map((z) => {
+          const scene = MONGSE_NARRATIVE_V395?.interludes?.[z.id],
+            slides = scene?.slides ?? [];
+          const text = slides
+            .map((x) =>
+              [x.title, x.speaker, x.text, x.body].filter(Boolean).join("\n"),
+            )
+            .filter(Boolean)
+            .join("\n\n");
+          const fallback =
+            window.__MONGSE_ENCOUNTER_DIALOGUE_V31231__?.resolve?.(z.id);
+          return {
+            id: z.id,
+            name: z.name ?? z.id,
+            arc: z.arc ?? "",
+            text:
+              text ||
+              (fallback?.lines ?? [])
+                .map((x) => `${x.speaker ?? ""}\n${x.text ?? ""}`)
+                .join("\n\n") ||
+              "기록이 아직 복원되지 않았습니다.",
+          };
+        });
+    },
+    open() {
+      const s = window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
+      if (!s || (!N?.[s.zone]?.rest && s.zone !== "hub")) {
+        window.__HAPIL_CONTROLS_V31329__?.binding?.notify?.(
+          "에피소드 기록은 쉼터에서 열람할 수 있습니다.",
+        );
+        return false;
+      }
+      showArchive(s);
+      return true;
+    },
+  };
+  function showArchive(s) {
+    let root = document.getElementById("hapil-archive-v31346");
+    if (root) root.remove();
+    const entries = archive.entries(s);
+    let ei = 0,
+      pi = 0,
+      pages = [];
+    root = document.createElement("div");
+    root.id = "hapil-archive-v31346";
+    root.setAttribute("role", "dialog");
+    root.setAttribute("aria-modal", "true");
+    Object.assign(root.style, {
+      position: "fixed",
+      inset: "0",
+      zIndex: "99999",
+      background: "rgba(3,5,12,.94)",
+      color: "#eef4ff",
+      padding: "min(5vw,48px)",
+      overflow: "auto",
+      fontFamily: "sans-serif",
+    });
+    root.innerHTML =
+      '<div style="max-width:920px;margin:auto"><h2>EPISODE ARCHIVE · 기억 기록</h2><select aria-label="에피소드"></select><article style="white-space:pre-wrap;line-height:1.75;min-height:45vh;margin:20px 0;padding:22px;border:1px solid #596582;background:#0b1022"></article><div><button data-prev>이전</button> <button data-next>다음</button> <button data-close>닫기</button> <span data-page></span></div></div>';
+    const sel = root.querySelector("select"),
+      body = root.querySelector("article"),
+      page = root.querySelector("[data-page]");
+    for (const [i, e] of entries.entries()) {
+      const o = document.createElement("option");
+      o.value = String(i);
+      o.textContent = `${e.arc ? e.arc + " · " : ""}${e.name}`;
+      sel.append(o);
+    }
+    function render() {
+      const e = entries[ei] ?? {
+        name: "기록 없음",
+        text: "해금된 에피소드 기록이 없습니다.",
+      };
+      const chunks = e.text.match(/[\s\S]{1,1200}(?:\n\n|$)/g) ?? [e.text];
+      pages = chunks;
+      pi = Math.max(0, Math.min(pi, pages.length - 1));
+      body.textContent = `${e.name}\n\n${pages[pi] ?? ""}`;
+      page.textContent = ` ${pi + 1} / ${pages.length}`;
+    }
+    const close = () => {
+      root.remove();
+      if (window.__HAPIL_READING_V31342__)
+        window.__HAPIL_READING_V31342__.blocked = false;
+    };
+    sel.onchange = () => {
+      ei = num(sel.value);
+      pi = 0;
+      render();
+    };
+    root.querySelector("[data-prev]").onclick = () => {
+      if (pi > 0) pi--;
+      else if (ei > 0) {
+        ei--;
+        sel.value = String(ei);
+        pi = 999;
+      }
+      render();
+    };
+    root.querySelector("[data-next]").onclick = () => {
+      if (pi + 1 < pages.length) pi++;
+      else if (ei + 1 < entries.length) {
+        ei++;
+        sel.value = String(ei);
+        pi = 0;
+      }
+      render();
+    };
+    root.querySelector("[data-close]").onclick = close;
+    root.onkeydown = (e) => {
+      if (e.key === "Escape") close();
+    };
+    document.body.append(root);
+    if (window.__HAPIL_READING_V31342__)
+      window.__HAPIL_READING_V31342__.blocked = true;
+    render();
+    root.querySelector("select").focus();
+  }
+  function install() {
+    if (installed) return true;
+    if (
+      !window.__HAPIL_V31345_RELEASE__?.installed ||
+      !window.__HAPIL_HELL_V31322__?.installed ||
+      typeof Fi !== "function" ||
+      typeof ni !== "function"
+    )
+      return false;
+    const saveBase = Fi,
+      normBase = ji,
+      entryBase = HAPIL_restoreEntryFlowV31301,
+      combatBase = MONGSE_prepareCombatEncounter31226,
+      restBase = MONGSE_prepareRestEncounter31226;
+    Fi = function HAPIL_modeSaveV31346(s) {
+      const save = saveBase.apply(this, arguments);
+      save.gameModeV31346 = mode(s);
+      if (s?.dreamFinalV31346) {
+        const c = s.dreamFinalV31346,
+          b = (s.enemies ?? []).find(
+            (a) => a.id === c.activeId && a.dreamCosmicTrialV31346,
+          );
+        save.dreamFinalV31346 = {
+          ...c,
+          deathToken: 0,
+          remainingTransitionV314RC10:
+            c.phase === "transition"
+              ? Math.max(0, Math.min(1.15, num(c.safeUntil) - num(s.time)))
+              : 0,
+          trialVitalsV314RC10: b
+            ? { id: b.id, hp: b.hp, maxHp: b.maxHp }
+            : null,
+        };
+      }
+      return save;
+    };
+    ji = function HAPIL_modeNormalizeV31346(raw) {
+      const save = normBase.apply(this, arguments);
+      if (!save) return save;
+      const legacy = raw?.hellModeV31322?.enabled === true ? "HELL" : "STORY";
+      if (
+        window.__HAPIL_SAMONG_RC91__?.sanitize(raw?.samongRC91)?.unlocked ===
+        true
+      )
+        window.__HAPIL_SAMONG_RC91__?.unlock(null, "validated-save");
+      save.gameModeV31346 = valid(raw?.gameModeV31346 ?? legacy, raw);
+      if (raw?.dreamFinalV31346 && save.gameModeV31346 === "DREAM")
+        save.dreamFinalV31346 = { ...raw.dreamFinalV31346, deathToken: 0 };
+      return save;
+    };
+    HAPIL_restoreEntryFlowV31301 = function HAPIL_modeRestoreV31346(s, save) {
+      const r = entryBase.apply(this, arguments);
+      set(
+        save?.gameModeV31346 ??
+          (save?.hellModeV31322?.enabled ? "HELL" : "STORY"),
+        s,
+      );
+      if (
+        save?.dreamFinalV31346 &&
+        mode(s) === "DREAM" &&
+        s.zone === "cult04"
+      ) {
+        s.dreamFinalV31346 = { ...save.dreamFinalV31346, deathToken: 0 };
+        const c = s.dreamFinalV31346;
+        if (
+          c.phase === "transition" &&
+          Number.isInteger(c.index) &&
+          c.index >= 1 &&
+          c.index < TRIAL_ZONES.length
+        ) {
+          // Save time is not the new world's clock. Legacy saves resume with one safe transition.
+          const remaining = Math.max(
+            0,
+            Math.min(1.15, num(c.remainingTransitionV314RC10, 1.15)),
+          );
+          c.safeUntil = num(s.time) + remaining;
+          s.invulnerableUntil = Math.max(num(s.invulnerableUntil), c.safeUntil);
+        }
+        if (
+          c.phase === "fight" &&
+          Number.isInteger(c.index) &&
+          c.index >= 0 &&
+          c.index < TRIAL_ZONES.length
+        ) {
+          const template = ni(TRIAL_ZONES[c.index], `boss`);
+          if (template && template.id === c.activeId) {
+            let b = (s.enemies ?? []).find((x) => x.id === c.activeId);
+            if (!b) {
+              b = { ...template };
+              s.enemies = (s.enemies ?? []).filter((x) => !x.boss);
+              s.enemies.push(b);
+            }
+            const v = c.trialVitalsV314RC10,
+              saved = (save.enemies ?? []).find((x) => x.id === c.activeId);
+            const validVitals =
+              v?.id === b.id &&
+              Number.isFinite(v.maxHp) &&
+              v.maxHp > 0 &&
+              Number.isFinite(v.hp) &&
+              v.hp >= 0 &&
+              v.hp <= v.maxHp;
+            // Native actor restoration reconstructs template maxHp; old Hell multipliers do not own trial HP.
+            const target = validVitals
+              ? v.maxHp
+              : Math.max(
+                  1,
+                  Math.round(num(template.maxHp, template.hp) * 0.38),
+                );
+            b.maxHp = target;
+            b.hp = Math.max(
+              0,
+              Math.min(validVitals ? v.hp : num(saved?.hp, b.hp), target),
+            );
+            b.dreamCosmicTrialV31346 = c.index + 1;
+            b.dreamAwakenedV31346 = true;
+            b.x = HOME.x;
+            b.y = HOME.y;
+            b.navPath = [];
+            b.moveVx = 0;
+            b.moveVy = 0;
+            delete b.hellStatsV31322;
+          }
+        }
+      }
+      return r;
+    };
+    MONGSE_prepareCombatEncounter31226 =
+      function HAPIL_modeCombatDialogueV31346(s, z, show = true) {
+        const m = mode(s);
+        const d = combatBase.call(this, s, z, false);
+        if (window.__HAPIL_STORY_RC51__?.replacesLegacy)
+          return clearDialogue(s, "combat");
+        return m === "STORY" && !s?.practiceV31329
+          ? shortStoryDialogue(s, d)
+          : clearDialogue(s, "combat");
+      };
+    MONGSE_prepareRestEncounter31226 = function HAPIL_archiveRestV31346(s, z) {
+      restBase.call(this, s, z, false);
+      return clearDialogue(s, "rest");
+    };
+    // v31403: mode-specific bitmap selection lives in the final projectile pipeline.
+    installed = true;
+    window.__HAPIL_MODES_V31346__ = Object.freeze({
+      version: VERSION,
+      installed: true,
+      modes: MODES,
+      mode,
+      set,
+      tick,
+      reflect,
+      suppressFullNarrative,
+      beforeDeath,
+      archive,
+      MemoryMapProfile,
+      memoryProfile,
+      dreamFinal: Object.freeze({
+        zones: TRIAL_ZONES,
+        spawn: spawnTrial,
+        tick: finalTick,
+        beforeDeath,
+        cleanup: cleanupTrial,
+      }),
+      audit: () => ({
+        mode: mode(),
+        mirrorProjectile: true,
+        mirrorLaser: !!window.__HAPIL_MIRROR_V31347__?.installed,
+        dreamRegionalTrials: 6,
+        archiveEntries: archive.entries(lastState).length,
+      }),
+    });
+    return true;
+  }
+  function schedule() {
+    if (install() || ++attempts > 800) return;
+    setTimeout(schedule, 0);
+  }
+  schedule();
+};

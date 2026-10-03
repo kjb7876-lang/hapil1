@@ -1,0 +1,250 @@
+() => {
+  "use strict";
+  const VERSION = "3.13.48",
+    ZONES = Object.freeze([
+      "u203",
+      "last303",
+      "kair03",
+      "hando03",
+      "ep1a11",
+      "cult04",
+    ]);
+  const PROFILES = Object.freeze([
+    Object.freeze({
+      index: 1,
+      role: "방사·꽃 탄막",
+      color: "#75edff",
+      accent: "#d8fbff",
+    }),
+    Object.freeze({
+      index: 2,
+      role: "추적·분기",
+      color: "#b88cff",
+      accent: "#f0dcff",
+    }),
+    Object.freeze({
+      index: 3,
+      role: "폭발·공간 압박",
+      color: "#ff986b",
+      accent: "#ffe0b8",
+    }),
+    Object.freeze({
+      index: 4,
+      role: "레이저 시험",
+      color: "#ffd56b",
+      accent: "#fff3bd",
+    }),
+    Object.freeze({
+      index: 5,
+      role: "거울 반사",
+      color: "#ff86ea",
+      accent: "#8ef8ff",
+    }),
+    Object.freeze({
+      index: 6,
+      role: "최종 복합 시험",
+      color: "#f4f7ff",
+      accent: "#ff687f",
+    }),
+  ]);
+  const num = (v, d = 0) => (Number.isFinite(Number(v)) ? Number(v) : d),
+    unique = (rows) => [...new Set(rows.filter(Boolean))];
+  let installed = false,
+    attempts = 0;
+  function profile(a) {
+    return PROFILES[num(a?.dreamCosmicTrialV31346) - 1] ?? null;
+  }
+  function choose(rows, a) {
+    const p = profile(a);
+    if (!p || !Array.isArray(rows) || rows.length <= 3) return rows;
+    const ordinary = rows.filter(
+        (x) => !x?.laserV31331 && !x?.bossFinaleV31334,
+      ),
+      lasers = rows.filter((x) => x?.laserV31331),
+      finales = rows.filter((x) => x?.bossFinaleV31334);
+    const shape = (...names) => ordinary.find((x) => names.includes(x?.shape));
+    let picked = [];
+    if (p.index === 1)
+      picked = [
+        shape("circle", "donut"),
+        shape("donut", "safe", "line"),
+        lasers[0],
+      ];
+    else if (p.index === 2)
+      picked = [
+        shape("cone", "line", "cross"),
+        shape("circle", "safe"),
+        lasers[1] ?? lasers[0],
+      ];
+    else if (p.index === 3)
+      picked = [
+        shape("circle", "cross"),
+        shape("donut", "safe"),
+        lasers[2] ?? lasers[0],
+      ];
+    else if (p.index === 4) picked = [lasers[0], lasers[1], ordinary[0]];
+    else if (p.index === 5)
+      picked = [
+        lasers[0],
+        lasers[2] ?? lasers[1],
+        shape("circle", "donut", "safe"),
+      ];
+    else picked = [ordinary[0], lasers[0], finales[0]];
+    picked = unique(picked);
+    for (const row of rows)
+      if (picked.length < 3 && !picked.includes(row)) picked.push(row);
+    return picked.slice(0, 3);
+  }
+  function decorate(s) {
+    if (!s || window.__HAPIL_MODES_V31346__?.mode?.(s) !== "DREAM") return;
+    for (const a of s.enemies ?? []) {
+      const p = profile(a);
+      if (!p) continue;
+      a.dreamCosmicProfileV31348 = p.index;
+      a.cosmicRoleV31348 = p.role;
+      if (!a.cosmicAnnouncedV31348) {
+        a.cosmicAnnouncedV31348 = true;
+        (s.floatTexts ??= []).push({
+          id: s.fxSerial++,
+          x: a.x,
+          y: a.y - 2.2,
+          born: num(s.time),
+          duration: 1.35,
+          text: `사몽 시련 ${p.index} · ${p.role}`,
+          color: p.color,
+          critical: true,
+        });
+      }
+    }
+  }
+  function drawAura(ctx, a, time) {
+    const p = profile(a);
+    if (!p || a.hp <= 0 || typeof G !== "function") return;
+    const q = G(a.x, a.y),
+      t = num(time),
+      r = 31 + p.index * 1.4;
+    ctx.save();
+    try {
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = 0.55;
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 2;
+      ctx.shadowColor = p.accent;
+      ctx.shadowBlur = 8;
+      ctx.setLineDash([Math.max(5, 11 - p.index), 6]);
+      ctx.lineDashOffset = -t * 24;
+      ctx.beginPath();
+      ctx.arc(q.x, q.y, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 0.75;
+      ctx.fillStyle = p.accent;
+      for (let i = 0; i < 3; i++) {
+        const w = t * 0.75 + (i * Math.PI * 2) / 3;
+        ctx.beginPath();
+        ctx.arc(
+          q.x + Math.cos(w) * r,
+          q.y + Math.sin(w) * r,
+          2.2,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fill();
+      }
+    } finally {
+      ctx.restore();
+    }
+  }
+  function actorAssets() {
+    const out = [];
+    for (const z of ZONES) {
+      const a = ni(z, "boss");
+      const walk = (v, d = 0) => {
+        if (d > 5 || v == null) return;
+        if (typeof v === "string" && v.startsWith("./assets/")) out.push(v);
+        else if (Array.isArray(v)) for (const x of v) walk(x, d + 1);
+        else if (typeof v === "object")
+          for (const x of Object.values(v)) walk(x, d + 1);
+      };
+      walk(a);
+    }
+    return unique(out);
+  }
+  function install() {
+    if (installed) return true;
+    const S = window.__HAPIL_STAND_V31335__,
+      L = window.__HAPIL_LASERS_V31330__;
+    if (
+      !window.__HAPIL_V31347_RELEASE__?.installed ||
+      !S?.installed ||
+      !L?.installed ||
+      typeof MONGSE_patternsForEnemy !== "function"
+    )
+      return false;
+    const oldPatterns = MONGSE_patternsForEnemy;
+    MONGSE_patternsForEnemy = function HAPIL_cosmicTrialPatternsV31348(
+      a,
+      phase,
+    ) {
+      return choose(oldPatterns.apply(this, arguments), a);
+    };
+    const oldTick = L.tick;
+    L.tick = function HAPIL_cosmicTrialTickV31348(s, dt) {
+      const r = oldTick.apply(this, arguments);
+      decorate(s);
+      return r;
+    };
+    const oldBody = S.drawBody;
+    S.drawBody = function HAPIL_cosmicTrialBodyV31348(ctx, cache, a, time) {
+      const r = oldBody.apply(this, arguments);
+      drawAura(ctx, a, time);
+      return r;
+    };
+    const ASSETS = actorAssets(),
+      oldManifest = MONGSE_zoneAssetManifest,
+      oldPlan = MONGSE_zoneAssetPlan31220;
+    MONGSE_zoneAssetManifest = function HAPIL_cosmicTrialManifestV31348(
+      z,
+      ...args
+    ) {
+      const out = new Set(oldManifest(z, ...args));
+      if (z === "cult04") for (const x of ASSETS) out.add(x);
+      return out;
+    };
+    MONGSE_zoneAssetPlan31220 = function HAPIL_cosmicTrialPlanV31348(
+      z,
+      ...args
+    ) {
+      const base = oldPlan(z, ...args),
+        out = { ...base };
+      for (const k of ["all", "A", "B", "C", "deferred", "pins"])
+        out[k] = new Set(base?.[k] ?? []);
+      if (z === "cult04")
+        for (const x of ASSETS) {
+          for (const k of ["all", "A", "pins"]) out[k].add(x);
+          for (const k of ["B", "C", "deferred"]) out[k].delete(x);
+        }
+      return out;
+    };
+    installed = true;
+    window.__HAPIL_COSMIC_V31348__ = Object.freeze({
+      version: VERSION,
+      installed: true,
+      profiles: PROFILES,
+      choose,
+      decorate,
+      assets: ASSETS,
+      policy: Object.freeze({
+        patterns:
+          "three representative native patterns for the separate regional Dream trials; the Samong story skill summons the six Kair Great bosses",
+        art: "existing verified three-phase Kair Great boss atlases",
+      }),
+    });
+    return true;
+  }
+  function schedule() {
+    if (install() || ++attempts > 800) return;
+    setTimeout(schedule, 0);
+  }
+  schedule();
+};

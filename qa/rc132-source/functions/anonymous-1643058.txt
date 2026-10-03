@@ -1,0 +1,665 @@
+(e = 30, t = 2.7, n, r = !1) => {
+  if (
+    window.__HAPIL_PARTY_V31322__?.blocksNativeInput() ||
+    window.__HAPIL_CHANNEL_V31364__?.active(P.current)
+  )
+    return;
+  let i = P.current,
+    a = F.find((e) => e.id === L.current) ?? F[0],
+    o = gr(a.id, R.current[fr(a.id)] ?? 0),
+    s = i.timeAccelerationUntil > i.time,
+    c =
+      (0.36 * o.cooldownMultiplier * (s ? 0.78 : 1)) /
+      (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ??
+        1);
+  window.__HAPIL_MOVEMENT_V31336__?.host(i, I.current);
+  if (
+    MONGSE_isEncounterLocked31226(i) ||
+    window.__HAPIL_MOVING_V31335__?.hardLocked(i, i)
+  )
+    return;
+  if (!r && i.time - i.lastAttack < c) return;
+  const HAPIL_beforeBasicV31365 = new Set(i.pendingStrikes ?? []);
+  let l = true,
+    u = ar(ir(HAPIL_effectiveGrowthV31400(R.current, P.current), `attack`)),
+    d = sr(
+      ir(HAPIL_effectiveGrowthV31400(R.current, P.current), `awakening`),
+      a.id,
+      P.current,
+    ),
+    f = i.awakeningUntil > i.time,
+    p =
+      Math.max(
+        t,
+        window.__HAPIL_COMBAT_V31333__?.radius(a.id) ?? (l ? 7.35 : 2.7),
+      ) *
+        u.reachMultiplier *
+        (window.__HAPIL_STORY_RC51__?.active(i) ? 1.4 : 1) -
+      10 * (u.reachMultiplier - 1),
+    m = i.enemies.find((e) => e.id === i.targetEnemyId),
+    h = i.enemies
+      .filter(
+        (e) =>
+          e.hp > 0 &&
+          MONGSE_combatDistance(i, e) < p &&
+          (window.__HAPIL_DIRECTION_V31334__?.ready(i, e) ?? true),
+      )
+      .sort(
+        (e, t) =>
+          Number(t.id === i.targetEnemyId) - Number(e.id === i.targetEnemyId) ||
+          J(i, e) - J(i, t),
+      ),
+    g =
+      a.id === `rian`
+        ? Math.floor(o.level / 3)
+        : a.id === `hunter`
+          ? o.extraTarget
+          : 0,
+    _ = h.slice(0, u.targetCount),
+    v0 = d.profile;
+  if (window.__HAPIL_DIRECTION_V31334__?.basicBlocked(i, a, p, h)) return;
+  h = window.__HAPIL_DIRECTION_V31334__?.candidates(i, i, h, `A`, a.id) ?? h;
+  _ = h.slice(0, u.targetCount);
+  g > 0 && (_ = h.slice(0, u.targetCount + g));
+  if (i.awakeningPrimedUntil > 0 && i.time > i.awakeningPrimedUntil) {
+    ((i.awakeningPrimedUntil = 0),
+      (i.awakeningPity = Math.max(0, d.guaranteeActions - 1)));
+  }
+  let MONGSE_awakenWasPrimed = i.awakeningPrimedUntil > i.time;
+  if (
+    _.length &&
+    !window.__HAPIL_LOOP_V31365__ &&
+    d.enabled &&
+    !f &&
+    i.time >= i.awakeningReadyAt &&
+    i.awakeningPrimedUntil <= i.time
+  ) {
+    let e = _[0],
+      t =
+        a.id === `hwando`
+          ? (i.basicAttackCount + 1) % 4 == 0
+          : a.id === `seoha`
+            ? i.timeStopUntil > i.time || i.timeAccelerationUntil > i.time
+            : a.id === `rian`
+              ? i.grazeChainUntil > i.time || _.length >= 3
+              : a.id === `ion`
+                ? i.hostileProjectiles.some((e) => J(i, e) <= 4.8)
+                : a.id === `neon`
+                  ? i.hp / Math.max(1, i.maxHp) <= 0.72
+                  : a.id === `michaela`
+                    ? i.hp / Math.max(1, i.maxHp) <= 0.58 ||
+                      i.heroStatusUntil > i.time
+                    : a.id === `lauren`
+                      ? e.stagger / Math.max(1, e.maxStagger) >= 0.55 ||
+                        e.hp / Math.max(1, e.maxHp) <= 0.45
+                      : a.id === `hunter`
+                        ? Math.hypot(i.moveVx, i.moveVy) >= 0.35
+                        : a.id === `slayer`
+                          ? i.hp / Math.max(1, i.maxHp) <= 0.66
+                          : (i.basicAttackCount + 1) % 6 == 0 ||
+                            i.pendingHits.length > 0 ||
+                            i.hostileProjectiles.length > 0,
+      n = t ? 2 : 1;
+    ((i.awakeningPity = Math.min(d.guaranteeActions, i.awakeningPity + n)),
+      (Math.random() < d.triggerChance ||
+        i.awakeningPity >= d.guaranteeActions) &&
+        ((i.awakeningPrimedUntil = i.time + d.reserveDuration),
+        (i.awakeningPity = 0),
+        i.floatTexts.push({
+          id: i.fxSerial++,
+          x: i.x,
+          y: i.y,
+          born: i.time,
+          duration: 0.92,
+          text: `Ω ${v0.name} 준비 · 다음 A`,
+          color: v0.color,
+          critical: !0,
+        }),
+        B(
+          `${a.name} ${v0.name} 준비. 4초 안에 다음 공격으로 확정 발동합니다.`,
+        )));
+  }
+  if (
+    _.length &&
+    !window.__HAPIL_LOOP_V31365__ &&
+    d.enabled &&
+    !f &&
+    i.time >= i.awakeningReadyAt &&
+    MONGSE_awakenWasPrimed &&
+    (window.__HAPIL_COMBAT_V31343__?.manualAwakeningAllowed(i) ?? true)
+  ) {
+    ((f = !0),
+      (i.awakeningPrimedUntil = 0),
+      (i.awakeningUntil = i.time + d.duration),
+      (i.awakeningReadyAt = i.awakeningUntil + d.cooldown),
+      (i.awakeningNextAttackAt = i.time),
+      (i.awakeningNextAuraAt = i.time),
+      (i.awakeningComboCount = 0),
+      (i.awakeningCapstoneUsed = !1),
+      (i.awakeningStoredPower = 0),
+      (i.heroStatus = v0.name),
+      (i.heroStatusUntil = i.awakeningUntil),
+      (i.resonance = Math.min(100, i.resonance + 25)),
+      i.effects.push({
+        id: i.fxSerial++,
+        kind:
+          {
+            blades: `slash`,
+            clock: `time`,
+            cross: `cross`,
+            hex: `barrier`,
+            lances: `mark`,
+            wings: `heal`,
+            sigil: `mark`,
+            petals: `petals`,
+            bloodMoon: `cyclone`,
+            reticle: `glitch`,
+          }[v0.aura] ?? `time`,
+        x: i.x,
+        y: i.y,
+        tx: i.x,
+        ty: i.y,
+        born: i.time,
+        duration: 1.35,
+        color: v0.color,
+        accent: v0.accent,
+        size: 6.6,
+        angle: 0,
+        sprite: Gt[a.id],
+        imageOnly: !0,
+        ultimate: !0,
+        skillFxAdjustable: !0,
+      }));
+    let e = _[0] ?? { x: i.x, y: i.y };
+    (i.effects.push($t(i.fxSerial++, a.id, i.x, i.y, e.x, e.y, i.time + 0.08)),
+      i.floatTexts.push({
+        id: i.fxSerial++,
+        x: i.x,
+        y: i.y,
+        born: i.time,
+        duration: 1.35,
+        text: `${v0.name} · ${d.duration.toFixed(1)}초`,
+        color: v0.accent,
+        critical: !0,
+      }),
+      B(`${a.name} ${v0.name}. ${v0.signature} 연계가 시작됩니다.`));
+  }
+  f &&
+    ((p = Math.min(
+      p * 1.08,
+      window.__HAPIL_LOOP_V31365__?.role(a.id).range * 1.25 ?? p,
+    )),
+    (h = i.enemies
+      .filter(
+        (e) =>
+          e.hp > 0 &&
+          MONGSE_combatDistance(i, e) <= p &&
+          (window.__HAPIL_DIRECTION_V31334__?.ready(i, e) ?? true),
+      )
+      .sort(
+        (e, t) =>
+          Number(t.id === i.targetEnemyId) - Number(e.id === i.targetEnemyId) ||
+          J(i, e) - J(i, t),
+      )),
+    (_ = h.slice(0, u.targetCount + d.targetBonus)),
+    g > 0 && (_ = h.slice(0, u.targetCount + d.targetBonus + g)));
+  h = window.__HAPIL_DIRECTION_V31334__?.candidates(i, i, h, `A`, a.id) ?? h;
+  _ = window.__HAPIL_DIRECTION_V31334__?.candidates(i, i, _, `A`, a.id) ?? _;
+  if (a.id === `gunner`)
+    _ = window.__HAPIL_COMBAT_V31333__?.branchTargets(i, h) ?? _;
+  let v = _[0];
+  if (!v && r) return;
+  i.lastAttack = i.time;
+  window.__HAPIL_SKILL_COMPLETION_V31412__?.recordBasicAttack(i); // All heroes fire from their committed position.
+  let y = n ?? a.color,
+    x =
+      v ??
+      ((window.__HAPIL_DIRECTION_V31334__?.ready(i, m) ?? true) ? m : null),
+    S =
+      window.__HAPIL_DIRECTION_V31334__?.safeAim(i, mi(i, l ? 4 : 2)) ??
+      mi(i, l ? 4 : 2),
+    C = x?.x ?? S.x,
+    w = x?.y ?? S.y,
+    ee = fi(i, C - i.x, w - i.y);
+  i.heroMotion = window.__HAPIL_SKILL_COMPLETION_V31412__?.keepHeroPose(
+    i,
+    i,
+    `attack`,
+  )
+    ? i.heroMotion
+    : {
+        kind: `attack`,
+        started: i.time,
+        until:
+          i.time +
+          (l ? 0.42 : 0.38) +
+          (u.strikeCount + (f ? d.strikeBonus : 0) - 1) * 0.065,
+        facing: i.facing,
+        dx: C - i.x,
+        dy: w - i.y,
+        direction: ee,
+      };
+  window.__HAPIL_CHARACTER_V31342__?.commit(i, i.time);
+  let te = a.id === `slayer` ? 0.11 : l ? 0.055 : 0,
+    ne =
+      u.strikeCount +
+      (f ? d.strikeBonus : 0) +
+      (a.id === `hwando` &&
+      o.signatureUnlocked &&
+      (i.basicAttackCount + 1) % 4 == 0
+        ? 1
+        : 0);
+  for (let t = 0; t < ne; t++) {
+    let n = t * (f ? 0.065 : 0.085);
+    ((_.length ? _ : [{ x: C, y: w, id: `` }]).forEach((e, r) => {
+      let o = vn(
+        i.fxSerial++,
+        a.id,
+        y,
+        i.x,
+        i.y,
+        e.x,
+        e.y,
+        i.time + te + n + r * 0.018,
+      );
+      (e.id && MONGSE_attachEffectTarget(o, e),
+        f &&
+          ((o.sprite = W(a.id, `a`)),
+          (o.spriteHeading = sn(a.id, `a`)),
+          (o.imageOnly = !0),
+          (o.ultimate = t === 0)),
+        HAPIL_setHeroContactV31312(
+          o,
+          i.time + (l ? 0.34 : 0.17) + n + r * 0.025,
+        ),
+        i.effects.push(o));
+    }),
+      _.forEach((r, s) => {
+        let c =
+            f ||
+            i.counterUntil > i.time ||
+            Math.sin(i.time * 19 + r.id.length + t * 2.7) > 0.82,
+          d = t === 0 ? 1 : t === 1 ? 0.68 : 0.5,
+          p = Math.max(0.58, 1 - s * 0.13);
+        i.pendingStrikes.push({
+          id: i.fxSerial++,
+          at: i.time + (l ? 0.34 : 0.17) + n + s * 0.025,
+          targetId: r.id,
+          power:
+            e *
+            2 *
+            u.powerMultiplier *
+            d *
+            p *
+            (c ? 1.65 : 1) *
+            (a.id === `gunner` ? (s === 0 ? 0.72 : 0.42) : 1),
+          color: y,
+          critical: c,
+          ranged: l,
+          leechRate:
+            Ai(a.id, `basic`, R.current.evolution ?? 0) * o.sustainMultiplier,
+          heroId: a.id,
+          actionKey: `A`,
+        });
+      }));
+  }
+  if (
+    ((i.basicAttackCount += 1),
+    hr(a.id) &&
+      i.basicAttackCount %
+        Math.max(4, 7 - Math.floor(i.activeTimeMastery / 2)) ===
+        0 &&
+      xi(i),
+    a.id === `gunner` && o.level >= 3 && i.basicAttackCount % 6 == 0)
+  ) {
+    let e = 0.45 + o.level * 0.09;
+    (Object.keys(i.cooldowns).forEach((t) => {
+      i.cooldowns[t] > i.time &&
+        (i.cooldowns[t] = Math.max(i.time, i.cooldowns[t] - e));
+    }),
+      i.floatTexts.push({
+        id: i.fxSerial++,
+        x: i.x,
+        y: i.y,
+        born: i.time,
+        duration: 0.72,
+        text: `기억 탄도 · 재사용 -${e.toFixed(1)}초`,
+        color: a.color,
+      }));
+  }
+  let T = v ?? h[0],
+    re = i.enemies
+      .filter(
+        (e) =>
+          (window.__HAPIL_COMBAT_V31343__?.validTarget(i, e) ?? true) &&
+          MONGSE_combatDistance(i, e) <= p,
+      )
+      .sort(
+        (e, t) =>
+          Number(t.id === T?.id) - Number(e.id === T?.id) || J(i, e) - J(i, t),
+      ),
+    ie = (e, t, n, r) => {
+      let o = or(HAPIL_effectiveGrowthV31400(R.current, P.current), e);
+      re.slice(0, n + o.extraTargets).forEach((n, s) => {
+        i.pendingStrikes.push({
+          id: i.fxSerial++,
+          at: i.time + r + s * 0.035,
+          targetId: n.id,
+          power: t * o.damageMultiplier * Math.max(0.65, 1 - s * 0.1),
+          color: a.color,
+          critical: e === 3,
+          ranged: e === 0,
+          leechRate: Ai(
+            a.id,
+            e === 3 ? `ultimate` : `skill`,
+            R.current.evolution ?? 0,
+          ),
+          heroId: a.id,
+          ultimateImpact: e === 3,
+          actionKey: [`Q`, `W`, `E`, `R`][e],
+        });
+      });
+    };
+  if (u.qEcho && i.basicAttackCount % 4 == 0) {
+    let e = T ?? { x: C, y: w };
+    (i.effects.push(
+      HAPIL_setHeroContactV31312(
+        _n(i.fxSerial++, a.id, 0, y, i.x, i.y, e.x, e.y, i.time + 0.08),
+        i.time + 0.35,
+        e,
+      ),
+    ),
+      ie(0, 24, 1, 0.35),
+      i.floatTexts.push({
+        id: i.fxSerial++,
+        x: i.x,
+        y: i.y,
+        born: i.time,
+        duration: 0.72,
+        text: `A 연계 · Q 잔향`,
+        color: y,
+      }));
+  }
+  if (u.wEcho && i.basicAttackCount % 7 == 0) {
+    let e = or(HAPIL_effectiveGrowthV31400(R.current, P.current), 1);
+    (i.effects.push(
+      _n(i.fxSerial++, a.id, 1, y, i.x, i.y, i.x, i.y, i.time + 0.1),
+    ),
+      (i.hp = Math.min(i.maxHp, i.hp + 9 * e.sustainMultiplier)),
+      (i.invulnerableUntil = Math.max(
+        i.invulnerableUntil,
+        i.time + 0.16 + e.durationBonus,
+      )),
+      ie(1, 16, 2, 0.28),
+      i.floatTexts.push({
+        id: i.fxSerial++,
+        x: i.x,
+        y: i.y,
+        born: i.time,
+        duration: 0.72,
+        text: `A 연계 · W 잔향`,
+        color: `#a8ffe4`,
+      }));
+  }
+  if (u.eEcho && i.basicAttackCount % 10 == 0) {
+    let e = T ?? { x: C, y: w };
+    (i.effects.push(
+      _n(i.fxSerial++, a.id, 2, y, i.x, i.y, e.x, e.y, i.time + 0.1),
+    ),
+      ie(2, 28, 2, 0.32),
+      i.floatTexts.push({
+        id: i.fxSerial++,
+        x: i.x,
+        y: i.y,
+        born: i.time,
+        duration: 0.72,
+        text: `A 연계 · E 추격잔향`,
+        color: y,
+      }));
+  }
+  if (u.rEcho && i.resonance >= 100) {
+    let e = T ?? { x: C, y: w };
+    (i.effects.push(
+      _n(i.fxSerial++, a.id, 3, y, i.x, i.y, e.x, e.y, i.time + 0.12),
+    ),
+      f &&
+        i.effects.push(
+          $t(i.fxSerial++, a.id, i.x, i.y, e.x, e.y, i.time + 0.16),
+        ),
+      ie(3, 62, 5, 0.48),
+      (i.resonance = 0),
+      i.floatTexts.push({
+        id: i.fxSerial++,
+        x: i.x,
+        y: i.y,
+        born: i.time,
+        duration: 1.05,
+        text: `A 연계 · R 공명해방`,
+        color: `#fff2a1`,
+        critical: !0,
+      }));
+  }
+  if (f && T) {
+    ((i.awakeningComboCount += 1),
+      (i.awakeningStoredPower += Math.max(1, _.length)));
+    let e0 = i.awakeningComboCount,
+      t0 = (e, t = v0.color, n = !1) =>
+        i.floatTexts.push({
+          id: i.fxSerial++,
+          x: i.x,
+          y: i.y,
+          born: i.time,
+          duration: n ? 1.05 : 0.76,
+          text: e,
+          color: t,
+          critical: n,
+        }),
+      n0 = (e, t, n, r, s = !1, c = 0) => {
+        let l = or(HAPIL_effectiveGrowthV31400(R.current, P.current), e);
+        re.slice(0, n + l.extraTargets).forEach((n, u) => {
+          i.pendingStrikes.push({
+            id: i.fxSerial++,
+            at: i.time + r + u * 0.04,
+            targetId: n.id,
+            power: t * l.damageMultiplier * Math.max(0.62, 1 - u * 0.08),
+            color: v0.color,
+            critical: s,
+            ranged: ui(a.id) || e === 0,
+            leechRate: Math.max(
+              c,
+              Ai(
+                a.id,
+                e === 3 ? `ultimate` : `skill`,
+                R.current.evolution ?? 0,
+              ),
+            ),
+            heroId: a.id,
+            ultimateImpact: e === 3,
+            actionKey: [`Q`, `W`, `E`, `R`][e],
+          });
+        });
+      },
+      r0 = (e, t = T, n = !1) => {
+        (i.effects.push(
+          HAPIL_setHeroContactV31312(
+            _n(
+              i.fxSerial++,
+              a.id,
+              e,
+              v0.color,
+              i.x,
+              i.y,
+              t.x,
+              t.y,
+              i.time + 0.05,
+            ),
+            i.time + (a.id === `gunner` && e === 0 ? 0.22 : 0),
+            t,
+          ),
+        ),
+          n &&
+            i.effects.push(
+              $t(i.fxSerial++, a.id, i.x, i.y, t.x, t.y, i.time + 0.09),
+            ));
+      },
+      MONGSE_temporalDelayNearby = (
+        e = 5.8,
+        t = 3,
+        n = 0.72,
+        r = `awakening-temporal-delay`,
+      ) => {
+        return MONGSE_applyTemporalLagField31214(i, e, t, n, r, {
+          cooldownKey: `awakeningTemporalLagReadyAt31214`,
+          fieldCooldown: 1.15,
+          lowFx: !!ze.current.lowFx,
+          reducedFlash: !!ze.current.reducedFlash,
+          label: `각성 시차`,
+        });
+      };
+    if (d.level >= 2 && e0 % v0.cadence == 0) {
+      if (a.id === `hwando`) (r0(0), n0(0, 42, 4, 0.24, !0));
+      else if (a.id === `seoha`)
+        (r0(0),
+          re.slice(0, 4).forEach((e) => {
+            e.readyAt = Math.max(e.readyAt, i.time + 0.72);
+          }),
+          n0(0, 34, 4, 0.3, !0));
+      else if (a.id === `rian`)
+        (r0(0), n0(0, 30, 7, 0.22, !0), n0(0, 22, 7, 0.43));
+      else if (a.id === `ion`)
+        (r0(1),
+          (i.invulnerableUntil = Math.max(i.invulnerableUntil, i.time + 0.38)),
+          MONGSE_temporalDelayNearby(5.2, 3, 0.58, `ion-signature`),
+          n0(1, 32, 4, 0.28, !0));
+      else if (a.id === `neon`)
+        (r0(0),
+          (i.hp = Math.min(i.maxHp, i.hp + 10 + d.level * 1.5)),
+          n0(0, 31, 5, 0.26, !0, 0.1));
+      else if (a.id === `michaela`)
+        (r0(1),
+          (i.hp = Math.min(i.maxHp, i.hp + 13 + d.level * 1.5)),
+          (i.invulnerableUntil = Math.max(i.invulnerableUntil, i.time + 0.32)),
+          n0(1, 27, 4, 0.28, !0));
+      else if (a.id === `lauren`)
+        (r0(0),
+          re.slice(0, 4).forEach((e) => {
+            e.stagger = Math.min(e.maxStagger, e.stagger + 16 + d.level * 2);
+          }),
+          n0(0, 39, 4, 0.25, !0));
+      else if (a.id === `hunter`)
+        (r0(0), n0(0, 29, 7, 0.2, !0), n0(0, 20, 7, 0.38));
+      else if (a.id === `slayer`) (r0(0), n0(0, 37, 6, 0.24, !0, 0.22));
+      else if (a.id === `gunner`)
+        (r0(0),
+          MONGSE_temporalDelayNearby(6.2, 1, 0.62, `gunner-signature`),
+          Object.keys(i.cooldowns).forEach((e) => {
+            i.cooldowns[e] = Math.max(i.time, i.cooldowns[e] - 0.55);
+          }),
+          n0(0, 41, 5, 0.22, !0));
+      t0(`Ω ${v0.signature}`);
+    }
+    if (d.level >= 4 && e0 % 4 == 0) {
+      let e = 0;
+      if (a.id === `seoha`)
+        (MONGSE_applyTemporalLagField31214(i, 6.2, 12, 0.85, `seoha-defense`, {
+          cooldownKey: `awakeningTemporalLagReadyAt31214`,
+          fieldCooldown: 1.15,
+          lowFx: !!ze.current.lowFx,
+          reducedFlash: !!ze.current.reducedFlash,
+          label: `시간술식`,
+        }),
+          (i.timeStopUntil = Math.max(i.timeStopUntil, i.time + 0.32)));
+      else if (a.id === `ion`)
+        e = MONGSE_temporalDelayNearby(6.8, 8, 0.78, `ion-defense`);
+      else if (a.id === `rian` || a.id === `hunter`)
+        i.invulnerableUntil = Math.max(i.invulnerableUntil, i.time + 0.42);
+      else if (a.id === `neon` || a.id === `michaela`)
+        i.hp = Math.min(i.maxHp, i.hp + 12 + d.level * 2);
+      else if (a.id === `slayer`)
+        i.hp = Math.min(i.maxHp, i.hp + 9 + i.awakeningStoredPower * 0.35);
+      else if (a.id === `gunner`)
+        e = MONGSE_temporalDelayNearby(7.2, 4, 0.72, `gunner-defense`);
+      (r0(1, { x: i.x, y: i.y }),
+        (i.invulnerableUntil = Math.max(
+          i.invulnerableUntil,
+          i.time + (a.id === `ion` ? 0.72 : 0.3),
+        )),
+        t0(`Ω ${v0.defense}${e ? ` · 시간지연 ${e}` : ``}`, v0.accent));
+    }
+    if (d.level >= 6 && e0 % 5 == 0) {
+      (r0(2, T, !0), n0(2, 56, 7, 0.34, !0, a.id === `slayer` ? 0.25 : 0));
+      if (a.id === `seoha`)
+        re.forEach((e) => {
+          e.readyAt = Math.max(e.readyAt, i.time + 0.9);
+        });
+      else if (a.id === `ion`)
+        MONGSE_temporalDelayNearby(8.2, 12, 0.86, `ion-burst`);
+      else if (a.id === `neon`) i.hp = Math.min(i.maxHp, i.hp + 24);
+      else if (a.id === `michaela`)
+        ((i.hp = Math.min(i.maxHp, i.hp + 28)),
+          (i.heroSlowUntil = 0),
+          (i.heroStatus = v0.name));
+      else if (a.id === `lauren`)
+        re.forEach((e) => {
+          e.stagger = Math.min(e.maxStagger, e.stagger + 34);
+        });
+      else if (a.id === `hunter` || a.id === `rian`) n0(2, 34, 9, 0.55, !0);
+      else if (a.id === `gunner`)
+        Object.keys(i.cooldowns).forEach((e) => {
+          i.cooldowns[e] = Math.max(i.time, i.cooldowns[e] - 1.15);
+        });
+      t0(`Ω ${v0.burst}`, v0.accent, !0);
+    }
+    if (d.level >= 8 && !i.awakeningCapstoneUsed && e0 >= 6) {
+      ((i.awakeningCapstoneUsed = !0), r0(3, T, !0));
+      let e =
+        a.id === `hwando`
+          ? 118
+          : a.id === `lauren`
+            ? 112
+            : a.id === `slayer`
+              ? 108
+              : a.id === `gunner`
+                ? 104
+                : a.id === `rian`
+                  ? 98
+                  : 88;
+      (n0(3, e, 12, 0.44, !0, a.id === `slayer` ? 0.3 : 0.08),
+        (i.resonance = Math.min(100, i.resonance + 35)));
+      if (a.id === `seoha`)
+        ((i.timeStopUntil = Math.max(i.timeStopUntil, i.time + 1.05)),
+          re.forEach((e) => {
+            e.readyAt = Math.max(e.readyAt, i.time + 1.25);
+          }));
+      else if (a.id === `ion`)
+        ((i.invulnerableUntil = Math.max(i.invulnerableUntil, i.time + 1.45)),
+          MONGSE_temporalDelayNearby(10, 96, 1.05, `ion-capstone`));
+      else if (a.id === `neon`)
+        i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.24));
+      else if (a.id === `michaela`)
+        ((i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.32))),
+          (i.invulnerableUntil = Math.max(i.invulnerableUntil, i.time + 1.05)),
+          (i.heroSlowUntil = 0),
+          (i.heroStatusUntil = i.awakeningUntil));
+      else if (a.id === `lauren`)
+        re.forEach((e) => {
+          e.boss
+            ? (e.stagger = Math.min(e.maxStagger, e.stagger + 72))
+            : e.hp / Math.max(1, e.maxHp) <= 0.3 && (e.hp = Math.min(e.hp, 1));
+        });
+      else if (a.id === `hunter` || a.id === `rian`) n0(3, 46, 12, 0.68, !0);
+      else if (a.id === `gunner`)
+        (MONGSE_temporalDelayNearby(11, 96, 1.05, `gunner-capstone`),
+          Object.keys(i.cooldowns).forEach((e) => {
+            i.cooldowns[e] = Math.max(i.time, i.cooldowns[e] - 2.4);
+          }));
+      (t0(`Ω 최종형 · ${v0.capstone}`, v0.accent, !0),
+        B(`${a.name} 공명각성 최종형 · ${v0.capstone}`));
+    }
+  }
+  (window.__HAPIL_LOOP_V31365__?.decorateAttack(i, HAPIL_beforeBasicV31365),
+    (i.pendingStrikes = i.pendingStrikes.filter(
+      (hit) => hit && Number.isFinite(hit.at) && Number.isFinite(hit.power),
+    )),
+    (i.effects = MONGSE_trimEffects(i.effects, ze.current.lowFx ? 24 : 64)));
+};

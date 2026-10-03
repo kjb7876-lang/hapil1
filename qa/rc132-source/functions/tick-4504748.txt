@@ -1,0 +1,61 @@
+function tick(s) {
+  const a = actorFor(s),
+    now = finite(s?.time);
+  if (!a || !active(s)) {
+    if (s) {
+      lastTick.delete(s);
+      if (s.zone !== ZONE || (s.enemies ?? []).some((e) => e.id === MASK))
+        s.cosmicEncounterV31318 = null;
+    }
+    return 0;
+  }
+  const previous = lastTick.get(s);
+  lastTick.set(s, now);
+  a.x = ANCHOR.x;
+  a.y = ANCHOR.y;
+  a.moveDx = 0;
+  a.moveDy = 0;
+  a.movingUntil = 0;
+  if (
+    a.hp <= 0 ||
+    s.hp <= 0 ||
+    s.paused === true ||
+    s.pause === true ||
+    MONGSE_isEncounterLocked31226(s) ||
+    now < finite(s.timeStopUntil) ||
+    now < finite(a.cosmicIntroUntilV31318) ||
+    previous === undefined
+  )
+    return 0;
+  const elapsed = Math.max(
+    0,
+    now - Math.max(previous, finite(a.cosmicIntroUntilV31318)),
+  );
+  a.cosmicRegenElapsedV31318 = finite(a.cosmicRegenElapsedV31318) + elapsed;
+  const count = Math.floor((a.cosmicRegenElapsedV31318 + 1e-9) / INTERVAL);
+  if (count <= 0) return 0;
+  a.cosmicRegenElapsedV31318 = Math.max(
+    0,
+    a.cosmicRegenElapsedV31318 - count * INTERVAL,
+  );
+  a.cosmicRegenCountV31318 = finite(a.cosmicRegenCountV31318) + count;
+  const healed = Math.min(
+    Math.max(0, a.maxHp - a.hp),
+    a.maxHp * FRACTION * count,
+  );
+  a.hp = Math.min(a.maxHp, a.hp + healed);
+  if (healed > 0) {
+    s.floatTexts ??= [];
+    s.floatTexts.push({
+      id: s.fxSerial++,
+      x: a.x,
+      y: a.y,
+      born: now,
+      duration: 0.75,
+      text: `재생 +${Math.round(healed)}`,
+      color: "#be5068",
+      critical: false,
+    });
+  }
+  return healed;
+}

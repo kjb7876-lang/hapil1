@@ -1,0 +1,123 @@
+[
+  {
+    "offset": 214592,
+    "context": "\n    label: `졸음 정지·진행 궤도`,\n    learn: `slow-clutter`,\n    variation: `stop-go-orbit`,\n    synthesis: `delayed-drowsy-collapse`,\n  },\n  \"b03-boss\": {\n    zone: `ep1b03`,\n    rule: `mirror-false-original`,\n    label: `거울 가짜 원본`,\n    learn: `single-mirror`,\n    variation: `delayed-double`,\n    synthesis: `clone-cross-original-test`,\n  },\n  \"b04-boss\": {\n    zone: `ep1b04`,\n    rule: `inhale-devour-exhale`,\n    label: `흡입·포식·토출`,\n"
+  },
+  {
+    "offset": 214658,
+    "context": "n: `stop-go-orbit`,\n    synthesis: `delayed-drowsy-collapse`,\n  },\n  \"b03-boss\": {\n    zone: `ep1b03`,\n    rule: `mirror-false-original`,\n    label: `거울 가짜 원본`,\n    learn: `single-mirror`,\n    variation: `delayed-double`,\n    synthesis: `clone-cross-original-test`,\n  },\n  \"b04-boss\": {\n    zone: `ep1b04`,\n    rule: `inhale-devour-exhale`,\n    label: `흡입·포식·토출`,\n    learn: `maw-inhale`,\n    variation: `safe-ring-devour`,\n    sy"
+  },
+  {
+    "offset": 686500,
+    "context": "memories: [],\n      enemies: [\n        M(\n          `u201-p1`,\n          `collector`,\n          `거울 제사장`,\n          5,\n          7,\n          154,\n          O + `generated-v350/u2_mirror_priest.webp`,\n          1,\n        ),\n        M(\n          `u201-o1`,\n          `void`,\n          `기억반응 구체`,\n          14,\n          6,\n          142,\n          O + `generated-v350/u2_memory_orb.webp`,\n          -1,\n        ),\n        M(\n     "
+  },
+  {
+    "offset": 689470,
+    "context": "   id: `u203-boss`,\n          kind: `commandBoss`,\n          name: `컨트롤러 · 단일호명 프레임`,\n          x: 15,\n          y: 14,\n          hp: 900,\n          sprite: O + `generated-v350/u2_mirror_priest.webp`,\n          facing: -1,\n          eliteName: `도시 단일호명`,\n          boss: !0,\n          patternSet: `final-u2`,\n          scale: 1.36,\n          phaseCount: 2,\n          phaseSprites: [\n            O + `generated-v350/u2_mirror_pries"
+  },
+  {
+    "offset": 689708,
+    "context": "Name: `도시 단일호명`,\n          boss: !0,\n          patternSet: `final-u2`,\n          scale: 1.36,\n          phaseCount: 2,\n          phaseSprites: [\n            O + `generated-v350/u2_mirror_priest.webp`,\n            O + `generated-v350/u2_suppression_knight.webp`,\n          ],\n          phaseNames: [`컨트롤러의 인간형 제사장`, `단일호명 최종프레임`],\n          phaseTexts: [],\n          phaseScales: [0.98, 1.12],\n        },\n      ],\n      next: `rest"
+  },
+  {
+    "offset": 718235,
+    "context": "ion_knight.webp`,\n      facing: 1,\n    }),\n    MONGSE_u2Mob(\n      `u202-mid`,\n      `commandBoss`,\n      `제8단계 자비 교정관`,\n      15,\n      14,\n      610,\n      {\n        sprite: `u2_mirror_priest.webp`,\n        midboss: !0,\n        patternSet: `ep1b05`,\n        scale: 1.2,\n        eliteName: `선택지 봉쇄`,\n      },\n    ),\n  ],\n  next: `u204`,\n});\nN.u204 = MONGSE_zone3125({\n  id: `u204`,\n  order: 25,\n  arc: `U2`,\n  stage: 3,\n  stageCo"
+  },
+  {
+    "offset": 719070,
+    "context": "er_spider.webp`,\n      facing: 1,\n    }),\n    MONGSE_u2Mob(\n      `u204-mid`,\n      `commandBoss`,\n      `제12단계 기억 검열기`,\n      15,\n      14,\n      650,\n      {\n        sprite: `u2_mirror_priest.webp`,\n        midboss: !0,\n        patternSet: `ep1b08`,\n        scale: 1.2,\n        eliteName: `가족기억 삭제`,\n      },\n    ),\n  ],\n  next: `u205`,\n});\nN.u205 = MONGSE_zone3125({\n  id: `u205`,\n  order: 26,\n  arc: `U2`,\n  stage: 4,\n  stageC"
+  },
+  {
+    "offset": 721895,
+    "context": "   eliteName: `이동문 잠금`,\n      },\n    ),\n    MONGSE_u2Mob(\n      `u203-boss`,\n      `commandBoss`,\n      `컨트롤러 · 기억의 문`,\n      15,\n      14,\n      1180,\n      {\n        sprite: `u2_mirror_priest.webp`,\n        boss: !0,\n        patternSet: `final-u2`,\n        scale: 1.42,\n        eliteName: `17단계 완결`,\n        phaseCount: 3,\n        phaseSprites: [\n          MONGSE_V3125_ACTIONS + `controller_idle.webp`,\n          MONGSE_V3125_A"
+  },
+  {
+    "offset": 746833,
+    "context": "  },\n    {\n      zone: `u201`,\n      id: `mb-u201`,\n      kind: `collector`,\n      name: `관측망 거울제사장`,\n      x: 11,\n      y: 10,\n      hp: 430,\n      sprite: O + `generated-v350/u2_mirror_priest.webp`,\n      facing: -1,\n      eliteName: `호출부호 검열`,\n      midboss: !0,\n      patternSet: `u201`,\n      scale: 1.14,\n    },\n    {\n      zone: `u202`,\n      id: `mb-u202`,\n      kind: `tank`,\n      name: `0번선 공명폭주기사`,\n      x: 11,\n      "
+  },
+  {
+    "offset": 763034,
+    "context": "alSyringe:\n      './assets/generated-v3128/projectiles/hospital_syringe.webp',\n    telekineticDebris:\n      './assets/generated-v3128/projectiles/telekinetic_debris.webp',\n    envyMirror: './assets/generated-v3128/projectiles/envy_mirror.webp',\n    poisonCauldron:\n      './assets/generated-v3128/projectiles/poison_cauldron.webp',\n    controlBlades:\n      './assets/generated-v3128/projectiles/control_blades.webp',\n    greedCoin"
+  },
+  {
+    "offset": 763085,
+    "context": "les/hospital_syringe.webp',\n    telekineticDebris:\n      './assets/generated-v3128/projectiles/telekinetic_debris.webp',\n    envyMirror: './assets/generated-v3128/projectiles/envy_mirror.webp',\n    poisonCauldron:\n      './assets/generated-v3128/projectiles/poison_cauldron.webp',\n    controlBlades:\n      './assets/generated-v3128/projectiles/control_blades.webp',\n    greedCoin: './assets/generated-v3128/projectiles/greed_coin."
+  },
+  {
+    "offset": 765687,
+    "function": "MONGSE_themeProjectileSprite3128",
+    "path": "functions/MONGSE_themeProjectileSprite3128-764751.txt",
+    "length": 2027,
+    "context": "neticDebris;\n    if (/ep1b03|envy|질투/i.test(n))\n      return MONGSE_BOSS_PROJECTILE_SPRITES3128.envyMirror;\n    if (/ep1b04|glutton|폭식/i.test(n))\n      return MONGSE_BOSS_PROJECTILE_SPRITES3128.poisonCauldron;\n    if (/ep1b05|lust|색욕/i.test(n))\n      return MONGSE_BOSS_PROJECTILE"
+  },
+  {
+    "offset": 773542,
+    "context": "r03.map];\n}\nif (N.hando03) {\n  N.hando03.mapVariants = [\n    N.hando03.map,\n    './assets/maps/latest-v3123/silver_ego_core_chamber.jpg',\n    MONGSE_V31213_MAP_ROOT + 'hando03_ego_mirror_throne.jpg',\n  ];\n}\nif (N.cult02) {\n  N.cult02.map = MONGSE_V31213_MAP_ROOT + 'cult02_neural_choir_arena.jpg';\n  N.cult02.mapVariants = [\n    N.cult02.map,\n    './assets/maps/v3121/cult_02_chip_choir.jpg',\n  ];\n}\nif (N.cult03) {\n  N.cult03.map"
+  },
+  {
+    "offset": 903448,
+    "context": "0, 0.880383, 0.964115, 0.5, 0.96],\n  \"./assets/u2/generated-v350/u2_suppression_knight.webp\": [0.162109, 0.076172, 0.673828, 0.816406, 0.5, 0.96],\n  \"./assets/u2/generated-v350/u2_mirror_priest.webp\": [0.222656, 0.076172, 0.552734, 0.816406, 0.5, 0.96],\n  \"./assets/generated-v3125/boss-actions/controller_idle.webp\": [0.08125, 0.03125, 0.8375, 0.9375, 0.5, 0.96],\n  \"./assets/generated-v3125/boss-actions/controller_attack.webp\":"
+  },
+  {
+    "offset": 995366,
+    "context": "n`,\n    `michaela`,\n    `lauren`,\n    `hunter`,\n    `slayer`,\n  ],\n  MONGSE_HERO_DIRECTION_META = Object.freeze({\n    hwando: Object.freeze({ baseFacing: `left`, sideMode: `shared-mirror` }),\n    seoha: Object.freeze({ baseFacing: `left`, sideMode: `directional` }),\n    rian: Object.freeze({ baseFacing: `left`, sideMode: `directional` }),\n    ion: Object.freeze({ baseFacing: `right`, sideMode: `directional` }),\n    neon: Objec"
+  },
+  {
+    "offset": 1021903,
+    "function": "Dn",
+    "path": "functions/Dn-1021331.txt",
+    "length": 667,
+    "context": "if (e.id === `gunner` && n.includes(`/normalized/gunner/`)) return 1;\n  if (i?.sideMode === `shared-mirror`)\n    return r === (i.baseFacing ?? `left`) ? 1 : -1;\n  return r === `right` ? 1 : -1;\n}\nvar On = 90,\n  kn = 76,\n  MONGSE_HERO_MUZZLE_PROFILES31213 = Object.freeze({\n    hwa"
+  },
+  {
+    "offset": 1098255,
+    "function": "Jn",
+    "path": "functions/Jn-1097386.txt",
+    "length": 5809,
+    "context": "isFinite(Number(n.spriteHeading))\n      ? Number(n.spriteHeading)\n      : /\\/(?:sleepless_soul|envy_mirror|control_blades)\\.webp(?:\\?|$)/.test(\n            String(n.sprite ?? ``),\n          )\n        ? Math.PI\n        : 0,\n    MONGSE_projectileRotation31222 = n.screenAligned31222"
+  },
+  {
+    "offset": 1178956,
+    "context": "\n        damage: 24,\n        cooldown: 5.1,\n        color: `#38bfc3`,\n        accent: `#e8ffff`,\n        status: `echo`,\n        statusValue: 0.42,\n        sevenSinMechanic: `envy-mirror-bleed`,\n        telekinetic: !0,\n        telekineticRain: !0,\n        telekineticPropPool: [MONGSE_SEVEN_SINS_THROWABLES.envy],\n      }),\n    ],\n    ep1b04: [\n      K(`베엘제붑 식도환`, `donut`, {\n        anchor: `boss`,\n        radius: 5.8,\n        "
+  },
+  {
+    "offset": 1199901,
+    "context": "     radius: 8.1,\n      width: 0.74,\n      damage: 21,\n      color: `#37c3bd`,\n      accent: `#e8ffff`,\n      status: `drain`,\n      statusValue: 12,\n      sevenSinMechanic: `envy-mirror-bleed`,\n      impactSprite: MONGSE_EP1B_CANON_PHASE0_ASSETS.ep1b03.vfx,\n      impactFallbackSprite: MONGSE_SEVEN_SINS_THROWABLES.envy,\n    }),\n    K(`식칼과 유리조각 · 찢긴 사진`, `cone`, {\n      phaseOnly: [0],\n      radius: 6.6,\n      width: 0.94,\n    "
+  },
+  {
+    "offset": 1200324,
+    "context": "4,\n      repeats: 2,\n      gap: 0.4,\n      damage: 20,\n      color: `#63d3d6`,\n      accent: `#efffff`,\n      status: `echo`,\n      statusValue: 0.4,\n      sevenSinMechanic: `envy-mirror-bleed`,\n      impactSprite: MONGSE_EP1B_CANON_PHASE0_ASSETS.ep1b03.vfx,\n      impactFallbackSprite: MONGSE_SEVEN_SINS_THROWABLES.envy,\n    }),\n    K(`인간형 질투 · 식칼 유리 사진폭우`, `circle`, {\n      phaseOnly: [0],\n      windup: 1.46,\n      radius: 1.9"
+  },
+  {
+    "offset": 1200743,
+    "context": "radius: 1.98,\n      damage: 24,\n      cooldown: 5.15,\n      color: `#38bfc3`,\n      accent: `#e8ffff`,\n      status: `echo`,\n      statusValue: 0.42,\n      sevenSinMechanic: `envy-mirror-bleed`,\n      telekinetic: !0,\n      telekineticRain: !0,\n      telekineticPropPool: [\n        {\n          id: `canon-envy-knife-glass-photo`,\n          source: MONGSE_EP1B_CANON_PHASE0_ASSETS.ep1b03.vfx,\n          fallbackSource: MONGSE_SEVEN"
+  },
+  {
+    "offset": 1212966,
+    "function": "MONGSE_probeCanonicalEp1bHumanPhase0Contract",
+    "path": "functions/MONGSE_probeCanonicalEp1bHumanPhase0Contract-1212545.txt",
+    "length": 18117,
+    "context": "\n        zone: `ep1b03`,\n        id: `b03-boss`,\n        phases: [0, 1, 2],\n        mechanic: `envy-mirror-bleed`,\n        legacy: [epB + `boss_envy_human.webp`, epB + `boss_envy_demon.webp`],\n      },\n      {\n        zone: `ep1b04`,\n        id: `b04-boss`,\n        phases: [0, 1,"
+  },
+  {
+    "offset": 1275437,
+    "function": "MONGSE_writeSave",
+    "path": "functions/MONGSE_writeSave-1274966.txt",
+    "length": 584,
+    "context": "SON.parse(r)))\n      return notice({ ok: !1, persistent: !1 });\n    return (MONGSE_storageSet(n + `_mirror`, r), notice({ ok: !0, persistent: a }));\n  } catch {\n    return notice({ ok: !1, persistent: !1 });\n  }\n}\nfunction MONGSE_exportSaveFile(e) {\n  let t = Mi(e);\n  if (!t || t"
+  },
+  {
+    "offset": 1399698,
+    "function": "MONGSE_bossBarragePalette",
+    "path": "functions/MONGSE_bossBarragePalette-1398166.txt",
+    "length": 4168,
+    "context": "us:\n        MONGSE_family31212 === `chrono`\n          ? `delay`\n          : MONGSE_family31212 === `mirror`\n            ? `echo`\n            : MONGSE_family31212 === `mine`\n              ? `slow`\n              : `drain`,\n      statusValue:\n        MONGSE_family31212 === `chrono`\n"
+  },
+  {
+    "offset": 1399930,
+    "function": "MONGSE_bossBarragePalette",
+    "path": "functions/MONGSE_bossBarragePalette-1398166.txt",
+    "length": 4168,
+    "context": "sValue:\n        MONGSE_family31212 === `chrono`\n          ? 0.2\n          : MONGSE_family31212 === `mirror`\n            ? 0.25\n            : MONGSE_family31212 === `mine`\n              ? 0.32\n              : 2,\n      impactSprite:\n        t === `chrono` || t === `controller`\n    "
+  }
+]

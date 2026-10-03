@@ -1,0 +1,102 @@
+[
+  {
+    "offset": 795716,
+    "context": "  fxKind: `enemyProjectile`,\n      shape: `orb`,\n      color: `#aa55ff`,\n      accent: `#f0c8ff`,\n      size: 1.55,\n      sprite: Pe + `shadow_bolt_projectile.svg`,\n      status: `drain`,\n      statusValue: 9,\n    }),\n    spider: R(`망각 거미도약`, {\n      range: 2.35,\n      preferredMax: 1.95,\n      windup: 0.38,\n      cooldown: 1.18,\n      damage: 10,\n      hitRadius: 1.25,\n      lunge: 1.18,\n      color: `#8b55d9`,\n      accent: "
+  },
+  {
+    "offset": 797697,
+    "context": ": 0,\n      fxKind: `enemyProjectile`,\n      shape: `orb`,\n      color: `#ff4d20`,\n      accent: `#ffd16f`,\n      size: 5.5,\n      sprite: Fe + `mushroom_cloud.png`,\n      status: `drain`,\n      statusValue: 15,\n    }),\n    lucifer: R(`거짓성광 심판`, {\n      ranged: !0,\n      range: 7.45,\n      preferredMin: 4,\n      preferredMax: 6.2,\n      windup: 0.76,\n      recovery: 0.42,\n      cooldown: 1.02,\n      damage: 19,\n      hitDelay: "
+  },
+  {
+    "offset": 799000,
+    "context": " 0,\n      fxKind: `enemyProjectile`,\n      shape: `orb`,\n      color: `#ef325f`,\n      accent: `#ff9ab0`,\n      size: 1.55,\n      sprite: Fe + `player_bullet2.png`,\n      status: `drain`,\n      statusValue: 7,\n    }),\n    tank: R(`기억진압 포격`, {\n      ranged: !0,\n      range: 7,\n      preferredMin: 4.25,\n      preferredMax: 6.1,\n      windup: 0.86,\n      recovery: 0.4,\n      cooldown: 1.7,\n      damage: 14,\n      hitDelay: 0.48,\n"
+  },
+  {
+    "offset": 799894,
+    "context": ": 1.48,\n      lunge: 0,\n      fxKind: `time`,\n      shape: `orb`,\n      color: `#8a54ff`,\n      accent: `#d8ccff`,\n      size: 4,\n      sprite: Fe + `warptime.png`,\n      status: `drain`,\n      statusValue: 14,\n    }),\n    goblin: R(`불면의 피리파`, {\n      ranged: !0,\n      range: 5.8,\n      preferredMin: 2.9,\n      preferredMax: 4.9,\n      windup: 0.58,\n      cooldown: 1.3,\n      damage: 9,\n      hitDelay: 0.32,\n      hitRadius: 1"
+  },
+  {
+    "offset": 802758,
+    "context": "dius: 1.5,\n      lunge: 0,\n      fxKind: `mark`,\n      color: `#ff6bcb`,\n      accent: `#ffd7f2`,\n      size: 4.1,\n      sprite: L + `skills/dead-time-opening.png`,\n      status: `drain`,\n      statusValue: 11,\n    }),\n    slave: R(`공명 파쇄`, {\n      range: 2.15,\n      preferredMax: 1.8,\n      windup: 0.5,\n      cooldown: 1.34,\n      damage: 12,\n      hitRadius: 1.25,\n      lunge: 0.72,\n      fxKind: `burst`,\n      color: `#ff98"
+  },
+  {
+    "offset": 803577,
+    "context": " 1.75,\n      lunge: 0,\n      fxKind: `time`,\n      color: `#ffb52d`,\n      accent: `#fff2bd`,\n      size: 5.2,\n      sprite: L + `skills/first-command-release.png`,\n      status: `drain`,\n      statusValue: 16,\n    }),\n    siren: R(`특이점 자비`, {\n      ranged: !0,\n      range: 7.25,\n      preferredMin: 3.9,\n      preferredMax: 6.1,\n      windup: 0.78,\n      recovery: 0.4,\n      cooldown: 1.08,\n      damage: 17,\n      hitDelay: 0."
+  },
+  {
+    "offset": 806079,
+    "context": "4,\n      hitRadius: 1.5,\n      lunge: 0,\n      fxKind: `mark`,\n      color: `#7bb9cf`,\n      accent: `#e9fbff`,\n      size: 4,\n      sprite: Le + `hotel_clerk.png`,\n      status: `drain`,\n      statusValue: 10,\n    }),\n    silentAlarm: R(`무음 경보`, {\n      ranged: !0,\n      range: 6.7,\n      preferredMin: 3.6,\n      preferredMax: 5.75,\n      windup: 0.86,\n      cooldown: 1.58,\n      damage: 13,\n      hitDelay: 0.46,\n      hitRad"
+  },
+  {
+    "offset": 1169066,
+    "context": "t: `#e5eeae`,\n      }),\n    ],\n    dist03: [\n      K(`동료 호명 검로`, `line`, {\n        radius: 7.3,\n        width: 0.72,\n        damage: 19,\n        color: `#c82b50`,\n        status: `drain`,\n        statusValue: 12,\n      }),\n      K(`피 묻은 발자국`, `circle`, {\n        windup: 0.88,\n        repeats: 3,\n        gap: 0.42,\n        radius: 1.8,\n        damage: 16,\n        color: `#ff3157`,\n      }),\n    ],\n    dist04: [\n      K(`두 번째 죽음"
+  },
+  {
+    "offset": 1170316,
+    "context": "\n    dist06: [\n      K(`검은기둥 봉쇄`, `donut`, {\n        anchor: `boss`,\n        radius: 5.6,\n        innerRadius: 2.25,\n        damage: 22,\n        color: `#ff5434`,\n        status: `drain`,\n        statusValue: 14,\n      }),\n      K(`지옥문 불꽃낙인`, `circle`, {\n        repeats: 3,\n        gap: 0.34,\n        radius: 1.85,\n        damage: 16,\n        color: `#b72843`,\n        accent: `#ffd188`,\n      }),\n    ],\n    balrog: [\n      K(`포"
+  },
+  {
+    "offset": 1171211,
+    "context": " K(`소환진 붕괴`, `donut`, {\n        anchor: `boss`,\n        radius: 6,\n        innerRadius: 2.35,\n        damage: 27,\n        cooldown: 4.6,\n        color: `#9f1b22`,\n        status: `drain`,\n        statusValue: 19,\n      }),\n      K(`검은기둥 염동낙하`, `circle`, {\n        windup: 1.38,\n        repeats: 4,\n        gap: 0.3,\n        radius: 2.05,\n        damage: 27,\n        cooldown: 5.1,\n        color: `#c42c25`,\n        accent: `#ffc56"
+  },
+  {
+    "offset": 1172608,
+    "context": "    ep1a09: [\n      K(`갈망 재구성환`, `donut`, {\n        anchor: `boss`,\n        radius: 5.65,\n        innerRadius: 2.15,\n        damage: 24,\n        color: `#a65b85`,\n        status: `drain`,\n        statusValue: 16,\n      }),\n      K(`주사실 기억역류`, `circle`, {\n        repeats: 4,\n        gap: 0.32,\n        radius: 1.7,\n        damage: 17,\n        color: `#df547a`,\n        accent: `#f2e8ff`,\n        status: `echo`,\n        statusValu"
+  },
+  {
+    "offset": 1173285,
+    "context": "     K(`자기파괴 낙하`, `circle`, {\n        repeats: 3,\n        gap: 0.38,\n        radius: 1.9,\n        damage: 19,\n        color: `#b64a53`,\n        accent: `#ffd8b2`,\n        status: `drain`,\n        statusValue: 13,\n      }),\n    ],\n    ep1a11: [\n      K(`666 균열`, `cross`, {\n        anchor: `arena`,\n        radius: 6.6,\n        width: 0.82,\n        damage: 25,\n        color: `#d13b55`,\n        status: `delay`,\n        statusValue"
+  },
+  {
+    "offset": 1174459,
+    "context": "      anchor: `target`,\n        radius: 7.2,\n        width: 0.92,\n        damage: 30,\n        cooldown: 4.45,\n        color: `#f0d897`,\n        accent: `#ffffff`,\n        status: `drain`,\n        statusValue: 20,\n      }),\n      K(`거짓천국 조형추락`, `circle`, {\n        windup: 1.42,\n        repeats: 4,\n        gap: 0.29,\n        radius: 2.1,\n        damage: 29,\n        cooldown: 5.15,\n        color: `#c83e55`,\n        accent: `#ffe8"
+  },
+  {
+    "offset": 1175062,
+    "context": "s`, {\n        anchor: `arena`,\n        windup: 1.28,\n        radius: 7.1,\n        width: 0.9,\n        damage: 27,\n        cooldown: 4.6,\n        color: `#ff263f`,\n        status: `drain`,\n        statusValue: 18,\n      }),\n      K(`피와 뼈의 대행진`, `cone`, {\n        windup: 1.05,\n        radius: 7.2,\n        width: 0.92,\n        repeats: 2,\n        gap: 0.52,\n        damage: 22,\n        cooldown: 4.2,\n        color: `#f36a35`,\n    "
+  },
+  {
+    "offset": 1176353,
+    "context": "쇄선 · 십자 봉인`, `cross`, {\n        anchor: `arena`,\n        radius: 7.4,\n        width: 0.9,\n        damage: 24,\n        color: `#c4a0ff`,\n        accent: `#f2f7ff`,\n        status: `drain`,\n        statusValue: 16,\n      }),\n      K(`칠십이 추적 낙인`, `circle`, {\n        anchor: `target`,\n        windup: 1.32,\n        repeats: 5,\n        gap: 0.24,\n        radius: 1.52,\n        damage: 24,\n        cooldown: 4.8,\n        color: `#52ccf"
+  },
+  {
+    "offset": 1177001,
+    "context": "s: 2,\n        gap: 0.48,\n        radius: 9.2,\n        width: 0.82,\n        damage: 27,\n        cooldown: 5.2,\n        color: `#b49bff`,\n        accent: `#f4fbff`,\n        status: `drain`,\n        statusValue: 20,\n        telekinetic: !0,\n      }),\n      K(`72인장 붕괴 · 봉문 낙하`, `circle`, {\n        windup: 1.62,\n        repeats: 6,\n        gap: 0.22,\n        radius: 1.72,\n        damage: 26,\n        cooldown: 5.6,\n        color: `#"
+  },
+  {
+    "offset": 1178657,
+    "context": "ue: 0.44,\n      }),\n      K(`레비아탄 비교선`, `line`, {\n        radius: 8,\n        width: 0.76,\n        damage: 23,\n        color: `#2ebf9a`,\n        accent: `#e8ffff`,\n        status: `drain`,\n        statusValue: 14,\n      }),\n      K(`비교거울 파편폭우`, `circle`, {\n        windup: 1.44,\n        radius: 1.95,\n        damage: 24,\n        cooldown: 5.1,\n        color: `#38bfc3`,\n        accent: `#e8ffff`,\n        status: `echo`,\n        st"
+  },
+  {
+    "offset": 1179518,
+    "context": "(`폐기주방 포식`, `safe`, {\n        anchor: `arena`,\n        windup: 1.4,\n        radius: 2.15,\n        damage: 27,\n        color: `#7e3028`,\n        accent: `#ffd49d`,\n        status: `drain`,\n        statusValue: 16,\n      }),\n      K(`폐기만찬 염동포식`, `circle`, {\n        windup: 1.46,\n        radius: 2.1,\n        damage: 26,\n        cooldown: 5.2,\n        color: `#bd4f32`,\n        accent: `#ffd49d`,\n        status: `drain`,\n        st"
+  },
+  {
+    "offset": 1179750,
+    "context": "폐기만찬 염동포식`, `circle`, {\n        windup: 1.46,\n        radius: 2.1,\n        damage: 26,\n        cooldown: 5.2,\n        color: `#bd4f32`,\n        accent: `#ffd49d`,\n        status: `drain`,\n        statusValue: 10,\n        sevenSinMechanic: `glutton-absorb`,\n        telekinetic: !0,\n        telekineticRain: !0,\n        telekineticPropPool: [MONGSE_SEVEN_SINS_THROWABLES.gluttony],\n      }),\n    ],\n    ep1b05: [\n      K(`아스모데우스 하트"
+  },
+  {
+    "offset": 1181313,
+    "context": "b06: [\n      K(`맘몬 금화칼날`, `cone`, {\n        radius: 6.8,\n        width: 1.02,\n        repeats: 2,\n        gap: 0.38,\n        damage: 21,\n        color: `#e1aa32`,\n        status: `drain`,\n        statusValue: 15,\n      }),\n      K(`조작된 동전`, `safe`, {\n        anchor: `arena`,\n        windup: 1.36,\n        radius: 2.1,\n        damage: 28,\n        color: `#8b681e`,\n        accent: `#fff0a4`,\n        status: `delay`,\n        statu"
+  },
+  {
+    "offset": 1181775,
+    "context": "`계약장부 금화폭우`, `circle`, {\n        windup: 1.46,\n        radius: 2,\n        damage: 25,\n        cooldown: 5.15,\n        color: `#c99625`,\n        accent: `#fff0a4`,\n        status: `drain`,\n        statusValue: 9,\n        sevenSinMechanic: `greed-metal-bind`,\n        telekinetic: !0,\n        telekineticRain: !0,\n        telekineticPropPool: [MONGSE_SEVEN_SINS_THROWABLES.greed],\n      }),\n    ],\n    ep1b06b: [\n      K(`눈보라 요요 가시환"
+  },
+  {
+    "offset": 1183310,
+    "context": "     K(`곰·늑대·용의 불길`, `circle`, {\n        repeats: 4,\n        gap: 0.3,\n        radius: 2,\n        damage: 20,\n        color: `#b92920`,\n        accent: `#ffd166`,\n        status: `drain`,\n        statusValue: 16,\n      }),\n      K(`불타는 호텔잔해 폭우`, `circle`, {\n        windup: 1.4,\n        radius: 2.1,\n        damage: 27,\n        cooldown: 5.1,\n        color: `#e13a1f`,\n        accent: `#ffd166`,\n        status: `echo`,\n        st"
+  },
+  {
+    "offset": 1184163,
+    "context": "꾸로 된 십자가 창`, `cross`, {\n        anchor: `arena`,\n        radius: 6.7,\n        width: 0.8,\n        damage: 25,\n        color: `#3e67af`,\n        accent: `#d8f5ff`,\n        status: `drain`,\n        statusValue: 17,\n      }),\n      K(`성당 집기·시체 염동폭우`, `circle`, {\n        windup: 1.5,\n        radius: 2.05,\n        damage: 27,\n        cooldown: 5.2,\n        color: `#465d9e`,\n        accent: `#d8f5ff`,\n        status: `delay`,\n      "
+  },
+  {
+    "offset": 1185045,
+    "context": "흑태양환`, `donut`, {\n        anchor: `boss`,\n        radius: 6.2,\n        innerRadius: 2.35,\n        damage: 27,\n        color: `#262b66`,\n        accent: `#b4edff`,\n        status: `drain`,\n        statusValue: 20,\n      }),\n    ],\n    \"final-ep1b\": [\n      K(`패턴학습 재현`, `cone`, {\n        radius: 7.4,\n        width: 1.02,\n        repeats: 3,\n        gap: 0.38,\n        damage: 23,\n        cooldown: 4.2,\n        color: `#3ca8d0`,\n "
+  },
+  {
+    "offset": 1185610,
+    "context": ",\n        innerRadius: 2.4,\n        repeats: 2,\n        gap: 0.55,\n        damage: 26,\n        cooldown: 4.7,\n        color: `#24295c`,\n        accent: `#9deaff`,\n        status: `drain`,\n        statusValue: 21,\n      }),\n      K(`대가 없는 선택 불가`, `safe`, {\n        anchor: `arena`,\n        windup: 1.58,\n        radius: 2.05,\n        damage: 35,\n        cooldown: 5.6,\n        color: `#121528`,\n        accent: `#ffffff`,\n        s"
+  }
+]

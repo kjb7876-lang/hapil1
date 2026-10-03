@@ -1,0 +1,190 @@
+function MONGSE_triggerV31237(
+  MONGSE_stateV31237,
+  MONGSE_leaderIdV31237,
+  MONGSE_supportIdV31237,
+  MONGSE_passivesV31237 = MONGSE_growthV31237,
+  MONGSE_optionsV31237 = {},
+) {
+  if (!MONGSE_stateV31237 || !MONGSE_leaderIdV31237) return null;
+  // HAPIL_V31315_COLLAB_REAL_TRIGGER: automatic render and explicit triggers share one transaction.
+  if (window.__HAPIL_COLLAB_V31315__?.installed === true)
+    return window.__HAPIL_COLLAB_V31315__.trigger(
+      MONGSE_stateV31237,
+      MONGSE_leaderIdV31237,
+      MONGSE_supportIdV31237,
+      MONGSE_passivesV31237,
+      MONGSE_optionsV31237,
+    );
+  const MONGSE_pairV31237 =
+    MONGSE_optionsV31237.pair ??
+    MONGSE_resolvePairV31237(MONGSE_leaderIdV31237, MONGSE_supportIdV31237);
+  if (!MONGSE_pairV31237) return null;
+
+  const MONGSE_nowV31237 = MONGSE_finiteV31237(MONGSE_stateV31237.time, 0),
+    MONGSE_profileResultV31237 = MONGSE_profileV31237(
+      MONGSE_pairV31237,
+      MONGSE_passivesV31237,
+    );
+  MONGSE_stateV31237.collabReadyAtV31237 ??= {};
+  const MONGSE_readyAtV31237 = Math.max(
+    0,
+    MONGSE_finiteV31237(
+      MONGSE_stateV31237.collabReadyAtV31237[MONGSE_pairV31237.key],
+      0,
+    ),
+  );
+  if (MONGSE_nowV31237 < MONGSE_readyAtV31237) return null;
+
+  MONGSE_stateV31237.effects ??= [];
+  MONGSE_stateV31237.pendingStrikes ??= [];
+  MONGSE_stateV31237.floatTexts ??= [];
+  MONGSE_stateV31237.enemies ??= [];
+  MONGSE_stateV31237.supportReadyAt ??= {};
+  MONGSE_stateV31237.fxSerial = Math.max(
+    1,
+    Math.floor(MONGSE_finiteV31237(MONGSE_stateV31237.fxSerial, 1)),
+  );
+  MONGSE_trimEffectsV31237(MONGSE_stateV31237, MONGSE_nowV31237);
+
+  const MONGSE_targetsV31237 = MONGSE_stateV31237.enemies
+    .filter(
+      (MONGSE_enemyV31237) =>
+        MONGSE_enemyV31237 &&
+        Number.isFinite(Number(MONGSE_enemyV31237.hp)) &&
+        Number(MONGSE_enemyV31237.hp) > 0,
+    )
+    .sort(
+      (MONGSE_leftV31237, MONGSE_rightV31237) =>
+        Number(!!MONGSE_rightV31237.boss) - Number(!!MONGSE_leftV31237.boss) ||
+        Number(!!MONGSE_rightV31237.midboss) -
+          Number(!!MONGSE_leftV31237.midboss) ||
+        MONGSE_finiteV31237(
+          MONGSE_rightV31237.maxHp ?? MONGSE_rightV31237.hp,
+          0,
+        ) -
+          MONGSE_finiteV31237(
+            MONGSE_leftV31237.maxHp ?? MONGSE_leftV31237.hp,
+            0,
+          ),
+    )
+    .slice(0, MONGSE_MAX_TARGETS_V31237);
+  if (!MONGSE_targetsV31237.length) return null;
+
+  const MONGSE_perTargetDamageV31237 = Math.max(
+      1,
+      Math.min(
+        MONGSE_profileResultV31237.perTargetCap,
+        Math.floor(
+          MONGSE_profileResultV31237.damageBudget / MONGSE_targetsV31237.length,
+        ),
+      ),
+    ),
+    MONGSE_effectV31237 = MONGSE_makeEffectV31237(
+      MONGSE_stateV31237,
+      MONGSE_pairV31237,
+      MONGSE_profileResultV31237,
+      MONGSE_leaderIdV31237,
+      MONGSE_targetsV31237[0],
+    );
+  MONGSE_stateV31237.effects.push(MONGSE_effectV31237);
+  for (const [
+    MONGSE_indexV31237,
+    MONGSE_enemyV31237,
+  ] of MONGSE_targetsV31237.entries()) {
+    MONGSE_stateV31237.pendingStrikes.push({
+      id: MONGSE_stateV31237.fxSerial++,
+      at: MONGSE_nowV31237 + 0.32 + MONGSE_indexV31237 * 0.045,
+      targetId: MONGSE_enemyV31237.id,
+      power: MONGSE_perTargetDamageV31237,
+      color: MONGSE_pairV31237.color,
+      critical: !0,
+      ranged: !0,
+      leechRate: 0,
+      heroId: MONGSE_leaderIdV31237,
+      supportHeroIdV31237: MONGSE_supportIdV31237,
+      ultimateImpact: !0,
+      actionKey: `COLLAB_V31237`,
+      collabV31233: !0,
+      collabV31234: !0,
+      collabV31237: !0,
+      collabPairV31237: MONGSE_pairV31237.key,
+    });
+  }
+  MONGSE_stateV31237.pendingStrikes = MONGSE_stateV31237.pendingStrikes.slice(
+    -MONGSE_MAX_PENDING_STRIKES_V31237,
+  );
+  MONGSE_stateV31237.floatTexts.push({
+    id: MONGSE_stateV31237.fxSerial++,
+    x: MONGSE_finiteV31237(MONGSE_stateV31237.x, 10),
+    y: MONGSE_finiteV31237(MONGSE_stateV31237.y, 10),
+    born: MONGSE_nowV31237,
+    duration: 1.45,
+    text: `COLLAB · ${MONGSE_pairV31237.name}`,
+    color: MONGSE_pairV31237.accent,
+    critical: !0,
+  });
+  MONGSE_stateV31237.floatTexts = MONGSE_stateV31237.floatTexts.slice(-48);
+
+  if (MONGSE_pairV31237.key === MONGSE_MICHAELA_SEOHA_KEY_V31237) {
+    const MONGSE_maxHpV31237 = Math.max(
+        1,
+        MONGSE_finiteV31237(MONGSE_stateV31237.maxHp, 240),
+      ),
+      MONGSE_hpV31237 = MONGSE_clampV31237(
+        MONGSE_stateV31237.hp,
+        0,
+        MONGSE_maxHpV31237,
+      ),
+      MONGSE_graceHealV31237 = 18 + MONGSE_profileResultV31237.scale * 2;
+    MONGSE_stateV31237.hp = Math.min(
+      MONGSE_maxHpV31237,
+      MONGSE_hpV31237 + MONGSE_graceHealV31237,
+    );
+    MONGSE_stateV31237.invulnerableUntil = Math.max(
+      MONGSE_finiteV31237(MONGSE_stateV31237.invulnerableUntil, 0),
+      MONGSE_nowV31237 + 0.72,
+    );
+    MONGSE_stateV31237.lastMichaelaSeohaGraceV31237 = {
+      pair: MONGSE_MICHAELA_SEOHA_KEY_V31237,
+      leaderId: MONGSE_leaderIdV31237,
+      supportId: MONGSE_supportIdV31237,
+      heal: MONGSE_graceHealV31237,
+      guardUntil: MONGSE_stateV31237.invulnerableUntil,
+    };
+  }
+
+  const MONGSE_nextReadyAtV31237 =
+    MONGSE_nowV31237 + MONGSE_profileResultV31237.cooldown;
+  MONGSE_stateV31237.collabReadyAtV31237[MONGSE_pairV31237.key] =
+    MONGSE_nextReadyAtV31237;
+  /* Keep the inherited engine's separate cooldown namespace coherent. */
+  MONGSE_stateV31237.collabReadyAtV31234 ??= {};
+  MONGSE_stateV31237.collabReadyAtV31234[MONGSE_pairV31237.key] =
+    MONGSE_nextReadyAtV31237;
+  MONGSE_suppressLegacyCallV31237(
+    MONGSE_stateV31237,
+    MONGSE_leaderIdV31237,
+    MONGSE_pairV31237,
+  );
+
+  MONGSE_stateV31237.lastCollabV31237 = {
+    pair: MONGSE_pairV31237.key,
+    name: MONGSE_pairV31237.name,
+    leaderId: MONGSE_leaderIdV31237,
+    supportId: MONGSE_supportIdV31237,
+    michaelaSeohaGrace:
+      MONGSE_pairV31237.key === MONGSE_MICHAELA_SEOHA_KEY_V31237,
+    automatic: MONGSE_optionsV31237.automatic === !0,
+    born: MONGSE_nowV31237,
+    until: MONGSE_nowV31237 + MONGSE_EFFECT_LIFETIME_V31237,
+    targetCount: MONGSE_targetsV31237.length,
+    perTargetDamage: MONGSE_perTargetDamageV31237,
+    totalQueuedDamage:
+      MONGSE_perTargetDamageV31237 * MONGSE_targetsV31237.length,
+    cooldown: MONGSE_profileResultV31237.cooldown,
+    readyAt: MONGSE_nextReadyAtV31237,
+    image: MONGSE_pairV31237.image,
+    profile: MONGSE_profileResultV31237,
+  };
+  return MONGSE_stateV31237.lastCollabV31237;
+}

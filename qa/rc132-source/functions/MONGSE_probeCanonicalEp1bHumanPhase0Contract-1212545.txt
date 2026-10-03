@@ -1,0 +1,511 @@
+async function MONGSE_probeCanonicalEp1bHumanPhase0Contract(
+  MONGSE_probeImageCache = {},
+) {
+  let t = [
+      {
+        zone: `ep1b02`,
+        id: `b02-boss`,
+        phases: [0, 1, 2],
+        mechanic: `sloth-drowsy`,
+        legacy: [epB + `boss_sloth_human.webp`, epB + `boss_sloth_demon.webp`],
+      },
+      {
+        zone: `ep1b03`,
+        id: `b03-boss`,
+        phases: [0, 1, 2],
+        mechanic: `envy-mirror-bleed`,
+        legacy: [epB + `boss_envy_human.webp`, epB + `boss_envy_demon.webp`],
+      },
+      {
+        zone: `ep1b04`,
+        id: `b04-boss`,
+        phases: [0, 1, 2],
+        mechanic: `glutton-absorb`,
+        legacy: [
+          epB + `boss_gluttony_human.webp`,
+          epB + `boss_gluttony_demon.webp`,
+        ],
+      },
+      {
+        zone: `ep1b05`,
+        id: `b05-boss`,
+        phases: [0, 1, 2],
+        mechanic: `lust-charm`,
+        legacy: [epB + `boss_lust_human.webp`, epB + `boss_lust_demon.webp`],
+      },
+      {
+        zone: `ep1b06`,
+        id: `b06-boss`,
+        phases: [0, 1, 2],
+        mechanic: `greed-metal-bind`,
+        legacy: [epB + `boss_greed_human.webp`, epB + `boss_greed_demon.webp`],
+      },
+      {
+        zone: `ep1b06b`,
+        id: `b06b-boss`,
+        phases: [0, 1, 2],
+        mechanic: `greed-metal-bind`,
+        legacy: [epB + `boss_greed_human.webp`, epB + `boss_greed_demon.webp`],
+      },
+      {
+        zone: `ep1b07`,
+        id: `b07-boss`,
+        phases: [0, 1, 2],
+        mechanic: `wrath-ignite`,
+        legacy: [epB + `boss_wrath_human.webp`, epB + `boss_wrath_demon.webp`],
+      },
+      {
+        zone: `ep1b08`,
+        id: `b08-boss`,
+        phases: [0, 1, 2, 3],
+        mechanic: `pride-command`,
+        legacy: [epB + `boss_pride_human.webp`, epB + `boss_pride_demon.webp`],
+      },
+      {
+        zone: `ep1b09`,
+        id: `b09-boss`,
+        phases: [0, 1, 2, 3],
+        mechanic: `pride-machine-polarity`,
+        legacy: [
+          epB + `boss_pride_human.webp`,
+          epB + `boss_pride_demon.webp`,
+          epB + `boss_pride_cyborg.webp`,
+        ],
+      },
+    ].map((e) => ({ ...e, ...MONGSE_EP1B_CANON_PHASE0_ASSETS[e.zone] })),
+    MONGSE_expectedVfxByZone = {
+      ep1b02: `ep1b02_deferred_life_debris.webp`,
+      ep1b03: `ep1b03_knife_glass_photo_rain.webp`,
+      ep1b04: `ep1b04_poison_pot_tongue_vortex.webp`,
+      ep1b05: `ep1b05_lipstick_heel_control_strings.webp`,
+      ep1b06: `ep1b06_money_blades_rigged_coin.webp`,
+      ep1b06b: `ep1b06b_candy_yoyo_spike_burst.webp`,
+      ep1b07: `ep1b07_mop_lighter_fire_beasts.webp`,
+      ep1b08: `ep1b08_inverted_cross_telekinesis.webp`,
+      ep1b09: `ep1b09_cyber_hounds_learning_limbs.webp`,
+    },
+    n = (e, t, n = 100) => ({
+      zone: e,
+      frontierZone: e,
+      time: n,
+      x: 10,
+      y: 10,
+      moveVx: 0.24,
+      moveVy: -0.18,
+      hp: 240,
+      maxHp: 240,
+      heroDamageTakenMultiplier: 1,
+      facing: 1,
+      fxSerial: 1,
+      enemies: [t],
+      effects: [],
+      floatTexts: [],
+      defeated: [],
+      pendingHits: [],
+      impactQueue: [],
+      pendingStrikes: [],
+      hostileProjectiles: [],
+      telekineticCasts: [],
+      spatialRiftCasts: [],
+      narrativeCasts: [],
+      narrativeCastHistory: {},
+      resonanceThreads: [],
+      egoDrops: [],
+      completedZones: new Set(),
+      clues: new Set(),
+      spawnedWaves: new Set([1, 2, 3, 4]),
+      loopCycles: {},
+      bossDefeated: !1,
+      villageTalk: !1,
+      targetEnemyId: t.id,
+      resonance: 50,
+      cooldowns: { skillQ: n + 8 },
+      invulnerableUntil: 0,
+      lastDodgeAt: -99,
+      guardianGraceReadyAt: n + 99,
+      guardianGraceCount: 0,
+      combo: 0,
+      comboUntil: 0,
+      counterUntil: 0,
+      heroSlowUntil: 0,
+      heroStatus: ``,
+      heroStatusUntil: 0,
+      bossImpactSoundReadyAt: 0,
+    }),
+    r = [...new Set(t.flatMap((e) => [e.actor, e.vfx]))];
+  await Promise.allSettled(
+    r.map((t) => MONGSE_decodeImage(MONGSE_probeImageCache, t, `eager`)),
+  );
+  let i = r.map((t) => {
+      let n = MONGSE_probeImageCache[t],
+        r = t.includes(`/episode1b/generated-v3110/`)
+          ? `human-phase0`
+          : `boss-vfx`,
+        i = r === `human-phase0` ? 418 : 512;
+      return {
+        asset: t,
+        role: r,
+        width: n?.naturalWidth ?? 0,
+        height: n?.naturalHeight ?? 0,
+        decoded: !!(n?.complete && n.naturalWidth > 0),
+        pass:
+          !!(n?.complete && n.naturalWidth > 0) &&
+          n.naturalWidth === i &&
+          n.naturalHeight === i,
+      };
+    }),
+    a = t.map((e) => {
+      let t = N[e.zone]?.enemies.find((t) => t.id === e.id);
+      if (!t)
+        return {
+          zone: e.zone,
+          bossId: e.id,
+          pass: !1,
+          reason: `canonical-human-phase0-boss-missing`,
+        };
+      let r = Jr(t, e.zone),
+        i = MONGSE_patternsForEnemy(r, 0),
+        a = MONGSE_patternsForEnemy(r, 1),
+        o = i.find((e) => e.telekineticRain),
+        s = MONGSE_narrativeAttackProfile(e.zone, 0, r),
+        c = n(e.zone, r, 100),
+        l = MONGSE_beginNarrativeAttack(c, r, 0),
+        u = l?.combatResumeAt ?? c.time;
+      c.time = u + 0.17;
+      let MONGSE_phase0SummonTick = MONGSE_tickPrideEpisodeSummons(c),
+        MONGSE_phase0Summons = c.enemies.filter(
+          (e) => e.episodeBossSummon && e.summonOwnerId === r.id,
+        );
+      o && Ei(c, r, o, 0);
+      let d = c.pendingHits.filter(
+          (e) => e.sourceId === r.id && e.telekineticRain,
+        ),
+        f = c.telekineticCasts.filter(
+          (e) => e.sourceId === r.id && e.telekineticRain,
+        ),
+        p = d[0],
+        m = null,
+        h = null,
+        g = !1,
+        _ = !1,
+        v = null,
+        MONGSE_poisonTick = { bleedTicks: 0, burnTicks: 0, poisonTicks: 0 };
+      if (p) {
+        c.time = p.at;
+        let e = c.pendingHits.filter((e) => e.at <= c.time);
+        c.pendingHits = c.pendingHits.filter((e) => e.at > c.time);
+        MONGSE_queueReadyTelegraphs(c, e);
+        m = c.impactQueue.find((e) => e.id === p.id) ?? null;
+        if (m) {
+          c.time = m.impactAt;
+          MONGSE_spawnTelegraphedImpact(c, m);
+          h = c.effects.find((e) => e.telegraphId === m.id) ?? null;
+          ((c.x = m.x), (c.y = m.y), (c.invulnerableUntil = 0));
+          let e = c.hp;
+          ((g = Di(c, m)),
+            g && Y(c, m.damage, m.x, m.y, !0),
+            g && Ti(c, m.status, m.statusValue, m.label),
+            (v = g ? MONGSE_applySevenSinHitMechanic(c, m) : null),
+            (_ = c.hp < e));
+          if (c.zone === `ep1b03` && v?.applied) {
+            ((c.time = Math.max(
+              c.time + 0.7,
+              Number(c.heroEnvyPoisonNextAt ?? c.time) + 0.001,
+            )),
+              (c.invulnerableUntil = 0),
+              (MONGSE_poisonTick = MONGSE_tickSevenSinHeroEffects(c)));
+          }
+        }
+      }
+      c.time = Math.max(c.time, Number(r.telekineticUntil ?? c.time) + 0.01);
+      let y = MONGSE_beginSpatialRiftBarrage(c, r, 0);
+      y && (c.time = y.releaseAt + 0.001);
+      let b = y ? MONGSE_tickSpatialRiftBarrages(c) : 0,
+        x = c.hostileProjectiles.filter(
+          (e) => e.sourceId === r.id && e.spatialRiftBarrage,
+        ),
+        MONGSE_tongueProbe = (() => {
+          if (e.zone !== `ep1b04`) return null;
+          let i = Jr(t, e.zone),
+            a = n(e.zone, i, 210),
+            o = MONGSE_patternsForEnemy(i, 0).find((e) => e.gluttonTonguePull);
+          if (!o) return { pass: !1, reason: `tongue-pattern-missing` };
+          Ei(a, i, o, 0);
+          let s = a.pendingHits.find((e) => e.gluttonTonguePull);
+          if (!s) return { pass: !1, reason: `tongue-hit-missing` };
+          let c = s.x - s.originX,
+            l = s.y - s.originY,
+            u = Math.max(0.001, Math.hypot(c, l));
+          ((a.x = s.originX + (c / u) * Math.min(s.radius * 0.72, u)),
+            (a.y = s.originY + (l / u) * Math.min(s.radius * 0.72, u)),
+            (a.time = s.at),
+            (a.invulnerableUntil = 0));
+          let d = a.hp,
+            f = { x: a.x, y: a.y },
+            p = Di(a, s);
+          (p && Y(a, s.damage, s.x, s.y, !0),
+            p && Ti(a, s.status, s.statusValue, s.label));
+          let m = p ? MONGSE_applySevenSinHitMechanic(a, s) : null;
+          return {
+            telegraphed: s.born < s.at,
+            shape: s.shape,
+            damage: d - a.hp,
+            displacement: Math.hypot(a.x - f.x, a.y - f.y),
+            mechanic: m,
+            pass:
+              p &&
+              s.shape === `line` &&
+              s.born < s.at &&
+              d > a.hp &&
+              (m?.displacement ?? 0) > 0.5,
+          };
+        })(),
+        S = Jr(t, e.zone),
+        C = n(e.zone, S, 300),
+        w = MONGSE_beginNarrativeAttack(C, S, 0);
+      C.time = (w?.combatResumeAt ?? C.time) + 0.17;
+      let ee = MONGSE_patternsForEnemy(S, 0).find((e) => e.telekineticRain),
+        te = Math.max(1, Math.floor(S.maxHp * S.phaseThresholds[0])),
+        ne = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);
+      ee && Ei(C, S, ee, 0);
+      C.time = Number(S.telekineticUntil ?? C.time) + 0.01;
+      let re = MONGSE_beginSpatialRiftBarrage(C, S, 0);
+      re && (C.time = re.endAt + 0.01);
+      re && MONGSE_tickSpatialRiftBarrages(C);
+      let ie = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);
+      ((S.hp = ie), (S.currentPhase = MONGSE_enemyPhase(S)));
+      let ae = S.currentPhase,
+        oe = Jr(t, e.zone),
+        se = n(e.zone, oe, 500);
+      ((oe.hp = Math.max(1, Math.floor(oe.maxHp * oe.phaseThresholds[0]))),
+        (oe.currentPhase = 1));
+      let ce = Fi(se, `hwando`, [], {}, 0);
+      ce.enemies = [{ id: oe.id, x: oe.x, y: oe.y, hp: oe.hp }];
+      let le = Ii(ce).find((e) => e.id === oe.id);
+      le && (le.currentPhase = MONGSE_enemyPhase(le));
+      let MONGSE_summonSnapshot = c.enemies.filter(
+          (e) => e.episodeBossSummon && e.summonOwnerId === r.id,
+        ),
+        MONGSE_savedWithSummons = Fi(c, `hwando`, [], {}, 0),
+        MONGSE_savedSummonCount = MONGSE_savedWithSummons.enemies.filter((e) =>
+          MONGSE_summonSnapshot.some((t) => t.id === e.id),
+        ).length,
+        MONGSE_summonContract =
+          e.zone === `ep1b08`
+            ? MONGSE_phase0SummonTick.spawned === 2 &&
+              MONGSE_summonSnapshot.length === 2 &&
+              MONGSE_summonSnapshot.every((e) => e.prideCorpseSummon)
+            : e.zone === `ep1b09`
+              ? MONGSE_phase0SummonTick.spawned === 4 &&
+                MONGSE_summonSnapshot.filter((e) => e.cyberHoundSummon)
+                  .length === 2 &&
+                MONGSE_summonSnapshot.filter((e) => e.falseCompanionSummon)
+                  .length === 2
+              : e.zone === `ep1b03`
+                ? MONGSE_summonSnapshot.some((e) => e.envyHallucination) &&
+                  MONGSE_poisonTick.poisonTicks === 1
+                : !MONGSE_summonSnapshot.length,
+        MONGSE_specialMechanicPass =
+          e.zone === `ep1b04`
+            ? MONGSE_tongueProbe?.pass === !0
+            : e.zone === `ep1b06`
+              ? i.every((e) => !/\uc0ac\ud0d5|\uc694\uc694/.test(e.name))
+              : e.zone === `ep1b06b`
+                ? i.some((e) => /\uc0ac\ud0d5|\uc694\uc694/.test(e.name))
+                : e.zone === `ep1b03`
+                  ? v?.illusionSpawned === 1 &&
+                    MONGSE_poisonTick.poisonTicks === 1
+                  : !0,
+        MONGSE_summonCleanup = MONGSE_cleanupEpisodeBossSummons(c, r.id),
+        MONGSE_summonLifecyclePass =
+          MONGSE_savedSummonCount === 0 &&
+          MONGSE_summonCleanup.removed === MONGSE_summonSnapshot.length &&
+          MONGSE_summonCleanup.remaining === 0,
+        Ee = MONGSE_clearQueuedEnemyImpacts(c, r.id),
+        De =
+          !c.pendingHits.some((e) => e.sourceId === r.id) &&
+          !c.impactQueue.some((e) => e.sourceId === r.id) &&
+          !c.telekineticCasts.some((e) => e.sourceId === r.id) &&
+          !c.spatialRiftCasts.some((e) => e.sourceId === r.id) &&
+          !c.hostileProjectiles.some((e) => e.sourceId === r.id),
+        Oe = e.phases.map((e, n) => {
+          let i = { ...r };
+          return (
+            (i.hp =
+              n === 0
+                ? i.maxHp
+                : Math.max(
+                    1,
+                    Math.floor(i.maxHp * (i.phaseThresholds[n - 1] - 0.01)),
+                  )),
+            MONGSE_enemyPhase(i)
+          );
+        }),
+        ue =
+          r.phaseSprites?.[0] === e.actor &&
+          MONGSE_phaseSpriteForRender(MONGSE_probeImageCache, r) === e.actor,
+        ke =
+          i.length === 3 &&
+          i.every((e) => e.phaseOnly?.includes(0)) &&
+          a.length > 0 &&
+          a.every((e) => !e.phaseOnly?.includes(0)) &&
+          !!o &&
+          e.vfx ===
+            MONGSE_EP1B_CANON_PHASE0_VFX_DIR +
+              MONGSE_expectedVfxByZone[e.zone] &&
+          o.sevenSinMechanic === e.mechanic &&
+          i.every(
+            (t) =>
+              t.impactSprite === e.vfx ||
+              t.telekineticPropPool?.some((t) => t.source === e.vfx),
+          ),
+        de =
+          !!s.sourceValid &&
+          s.speaker === MONGSE_NARRATIVE_BOSS_REFS[e.zone]?.[0]?.speaker &&
+          s.text === MONGSE_NARRATIVE_BOSS_REFS[e.zone]?.[0]?.text,
+        fe =
+          d.length === 12 &&
+          f.length === 12 &&
+          d.every(
+            (t) =>
+              t.damage > 0 &&
+              t.telekineticSprite === e.vfx &&
+              typeof t.telekineticFallbackSprite === `string` &&
+              t.sevenSinMechanic === e.mechanic,
+          ),
+        Ae =
+          !!m &&
+          !!h &&
+          m.impactAt > m.telegraphEndedAt &&
+          Math.abs(m.impactAt - m.telegraphEndedAt - MONGSE_impactClearGap(m)) <
+            1e-9 &&
+          h.born >= m.impactAt &&
+          h.sprite === e.vfx &&
+          h.actualBossSkillVfx === !0 &&
+          g &&
+          _ &&
+          c.heroStatusUntil > 0 &&
+          v?.applied === !0,
+        je =
+          !!y &&
+          y.portals.length === 6 &&
+          b === 18 &&
+          x.length === 18 &&
+          x.every(
+            (t) =>
+              t.damage > 0 &&
+              t.status === y.status &&
+              t.sevenSinMechanic === e.mechanic,
+          ),
+        Me =
+          ne === te + 1 &&
+          ie === te &&
+          ae === 1 &&
+          S.telekineticRainPhase === 0 &&
+          S.spatialRiftBarragePhase === 0,
+        Ne =
+          !!le &&
+          le.currentPhase === 1 &&
+          le.humanPhase0 === !0 &&
+          le.phaseSprites?.[0] === e.actor,
+        pe =
+          e.legacy
+            .map(MONGSE_visual394Sprite)
+            .every((e) => r.phaseSprites.includes(e)) &&
+          r.phaseSpriteFallbacks?.length === r.phaseSprites?.length &&
+          r.phaseSpriteFallbacks.every((e) => typeof e === `string`),
+        me =
+          t.humanPhase0 === !0 &&
+          r.currentPhase === 0 &&
+          r.phaseMax === e.phases[e.phases.length - 1] &&
+          Oe.join(`,`) === e.phases.join(`,`) &&
+          ue &&
+          ke &&
+          de &&
+          fe &&
+          Ae &&
+          je &&
+          Me &&
+          Ne &&
+          pe &&
+          MONGSE_summonContract &&
+          MONGSE_specialMechanicPass &&
+          MONGSE_summonLifecyclePass &&
+          Ee.remaining === 0 &&
+          De;
+      return {
+        zone: e.zone,
+        bossId: e.id,
+        humanTarget: r.canonHumanTarget,
+        phaseSequence: Oe,
+        phase0Actor: e.actor,
+        phase0Vfx: e.vfx,
+        expectedVfx:
+          MONGSE_EP1B_CANON_PHASE0_VFX_DIR + MONGSE_expectedVfxByZone[e.zone],
+        semanticVfxExact:
+          e.vfx ===
+          MONGSE_EP1B_CANON_PHASE0_VFX_DIR + MONGSE_expectedVfxByZone[e.zone],
+        phase0Patterns: i.map((e) => e.name),
+        phase1PatternCount: a.length,
+        canonicalDialogue: de,
+        legacyAssetsPreserved: pe,
+        primaryAssetSelected: ue,
+        rain: {
+          pending: d.length,
+          casts: f.length,
+          damage: d.reduce((e, t) => e + t.damage, 0),
+          primaryVfx: d[0]?.telekineticSprite,
+          fallbackVfx: d[0]?.telekineticFallbackSprite,
+        },
+        telegraphImpact: {
+          clearGap: m ? m.impactAt - m.telegraphEndedAt : 0,
+          effectSprite: h?.sprite,
+          hit: g,
+          damaged: _,
+          status: c.heroStatus,
+          mechanicApplied: v?.applied === !0,
+        },
+        rift: { portals: y?.portals.length ?? 0, projectiles: x.length },
+        summons: {
+          tick: MONGSE_phase0SummonTick,
+          total: MONGSE_summonSnapshot.length,
+          corpses: MONGSE_summonSnapshot.filter((e) => e.prideCorpseSummon)
+            .length,
+          cyberHounds: MONGSE_summonSnapshot.filter((e) => e.cyberHoundSummon)
+            .length,
+          falseCompanions: MONGSE_summonSnapshot.filter(
+            (e) => e.falseCompanionSummon,
+          ).length,
+          hallucinations: MONGSE_summonSnapshot.filter(
+            (e) => e.envyHallucination,
+          ).length,
+          saved: MONGSE_savedSummonCount,
+          cleanup: MONGSE_summonCleanup,
+          pass: MONGSE_summonContract && MONGSE_summonLifecyclePass,
+        },
+        poison: MONGSE_poisonTick,
+        tongue: MONGSE_tongueProbe,
+        phaseGate: { before: ne, after: ie, threshold: te, nextPhase: ae },
+        saveLoad: { loaded: !!le, phase: le?.currentPhase ?? -1 },
+        cleanup: Ee,
+        pass: me,
+      };
+    }),
+    o = i.filter((e) => e.pass).length,
+    s = a.filter((e) => e.pass).length;
+  return {
+    contractVersion: `3.11.0-human-phase0`,
+    expectedTargets: 9,
+    targetCount: a.length,
+    expectedAssets: 18,
+    assetCount: i.length,
+    decodedRoleCount: o,
+    phaseCases: a.reduce((e, t) => e + (t.phaseSequence?.length ?? 0), 0),
+    rainPending: a.reduce((e, t) => e + (t.rain?.pending ?? 0), 0),
+    riftProjectiles: a.reduce((e, t) => e + (t.rift?.projectiles ?? 0), 0),
+    passedTargets: s,
+    assets: i,
+    cases: a,
+    allPass: i.length === 18 && o === 18 && a.length === 9 && s === 9,
+  };
+}

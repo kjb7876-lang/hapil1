@@ -1,0 +1,5 @@
+(e) => {
+  e.boss
+    ? (e.stagger = Math.min(e.maxStagger, e.stagger + 72))
+    : e.hp / Math.max(1, e.maxHp) <= 0.3 && (e.hp = Math.min(e.hp, 1));
+};

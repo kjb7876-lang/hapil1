@@ -1,0 +1,104 @@
+function tick(s, dt) {
+  if (!s) return;
+  lastState = s;
+  let record = seenByState.get(s);
+  if (!record || record.zone !== s.zone || s.time < record.time) {
+    record = { zone: s.zone, time: s.time, seen: new Set() };
+    seenByState.set(s, record);
+  }
+  record.time = s.time;
+  const seen = record.seen;
+  const liveKeys = new Set((s.bossLaserCastsV31330 ?? []).map(key));
+  for (const k of seen) if (!liveKeys.has(k)) seen.delete(k);
+  if (mode(s) !== "DREAM") {
+    if (s.dreamMirrorLasersV31347?.length)
+      stats.cleaned += s.dreamMirrorLasersV31347.length;
+    s.dreamMirrorLasersV31347 = [];
+    return;
+  }
+  for (const base of s.bossLaserCastsV31330 ?? []) {
+    const a = (s.enemies ?? []).find((x) => x.id === base.sourceId);
+    if (!a?.boss || !a.dreamAwakenedV31346) continue;
+    const k = key(base);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    if (
+      !(s.dreamMirrorLasersV31347 ?? []).some(
+        (x) => x.sourceId === a.id && x.endAt > s.time,
+      )
+    )
+      spawn(s, base, a);
+  }
+  const out = [];
+  for (const c of s.dreamMirrorLasersV31347 ?? []) {
+    const base = (s.bossLaserCastsV31330 ?? []).find(
+        (x) => x.id === c.sourceLaserId && x.sourceId === c.sourceId,
+      ),
+      a = (s.enemies ?? []).find((x) => x.id === c.sourceId);
+    if (!valid(c, s) || !base || !a || a.hp <= 0 || s.hp <= 0) {
+      stats.cleaned++;
+      continue;
+    }
+    if (base) {
+      c.fireAt = base.fireAt;
+      c.endAt = base.endAt;
+      c.activeSeconds = base.activeSeconds;
+    }
+    if (s.time >= c.endAt) {
+      stats.cleaned++;
+      continue;
+    }
+    out.push(c);
+    if (
+      !authoritative(s) ||
+      !(dt > 0) ||
+      s.time < c.fireAt ||
+      s.time >= c.fireAt + c.activeSeconds ||
+      num(s.timeStopUntil) > s.time ||
+      MONGSE_isEncounterLocked31226(s)
+    )
+      continue;
+    const targets = [
+      s,
+      ...(party()?.state === s ? (party().actors ?? []) : []),
+    ].filter((x) => x && x.hp > 0 && !x.visualOnly);
+    for (const t of targets) {
+      const id = t === s ? "host" : String(t.slotId),
+        rec = c.contacts.find((x) => x.id === id);
+      if (rec && s.time - rec.at < 0.72) continue;
+      if (!contact(c, t)) continue;
+      if (rec) rec.at = s.time;
+      else c.contacts.push({ id, at: s.time });
+      const hit = {
+        id: c.id,
+        sourceId: c.sourceId,
+        born: c.born,
+        at: s.time,
+        x: t.x,
+        y: t.y,
+        originX: c.mirror.x,
+        originY: c.mirror.y,
+        shape: "line",
+        width: c.width,
+        boss: true,
+        laserV31330: true,
+        dreamMirrorLaserV31347: true,
+        label: "거울 반사 레이저",
+        color: c.color,
+      };
+      hit.contactVisualV31362 = window.__HAPIL_MATERIAL_V31362__?.beamContact(
+        s,
+        t,
+        c.segments,
+        s.time,
+        true,
+      );
+      const ok =
+        t === s
+          ? Y(s, c.damage, t.x, t.y, hit)
+          : party()?.debug?.allyDamage?.(s, t, c.damage, hit);
+      if (ok) stats.hits++;
+    }
+  }
+  s.dreamMirrorLasersV31347 = out;
+}

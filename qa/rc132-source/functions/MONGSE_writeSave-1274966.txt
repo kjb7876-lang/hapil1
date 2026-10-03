@@ -1,0 +1,21 @@
+function MONGSE_writeSave(e, t) {
+  const notice = (result) => {
+    window.__HAPIL_READABILITY_V31336__?.saveResult(result);
+    return result;
+  };
+  try {
+    let n = MONGSE_saveStorageKey(e),
+      r = JSON.stringify(t),
+      i = MONGSE_storageGet(n);
+    i && MONGSE_storageSet(n + `_backup`, i);
+    let a = MONGSE_storageSet(n, r);
+    if (MONGSE_storageGet(n) !== r || !ji(JSON.parse(r)))
+      return notice({ ok: !1, persistent: !1 });
+    return (
+      MONGSE_storageSet(n + `_mirror`, r),
+      notice({ ok: !0, persistent: a })
+    );
+  } catch {
+    return notice({ ok: !1, persistent: !1 });
+  }
+}

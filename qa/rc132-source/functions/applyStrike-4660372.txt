@@ -1,0 +1,36 @@
+function applyStrike(s, h) {
+  const a = actors.find((a) => a.slotId === h.slotId),
+    target = s.enemies.find((e) => e.id === h.targetId);
+  if (
+    !a ||
+    !alive(a) ||
+    h.zone !== s.zone ||
+    !target ||
+    !canTarget(s, a, target, 50) ||
+    !bridge?.damage ||
+    window.__HAPIL_COMBAT_V31333__?.strikeValid(s, h, target) === false
+  )
+    return;
+  const oldHero = s.activeHeroId,
+    oldHp = target.hp;
+  try {
+    s.activeHeroId = a.heroId;
+    bridge.damage(target, h.power, h.color, h.key === "R", 0, {
+      heroId: a.heroId,
+      heroId31213: a.heroId,
+      impactHeroIdV31315: a.heroId,
+      actionKey: h.key,
+      partySlotV31322: a.slotId,
+    });
+  } finally {
+    s.activeHeroId = oldHero;
+  }
+  const dealt = Math.max(0, oldHp - target.hp);
+  if (dealt > 0) {
+    stats.hits++;
+    if (["slayer", "hunter"].includes(a.heroId)) {
+      const scale = window.__HAPIL_HELL_V31322__?.lifestealMultiplier?.(s) ?? 1;
+      a.hp = Math.min(a.maxHp, a.hp + dealt * 0.08 * scale);
+    }
+  }
+}

@@ -1,0 +1,3 @@
+(t) => {
+  t.hp / t.maxHp <= e && !t.boss && (t.hp = Math.min(t.hp, 1));
+};

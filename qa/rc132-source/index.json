@@ -1,0 +1,380 @@
+{
+  "commit": "eb043339325a044d8b70a258b58fb3e0a070b1b3",
+  "terms": {
+    "악몽궁수": {
+      "count": 0,
+      "functions": []
+    },
+    "분노의 귀": {
+      "count": 4,
+      "functions": [
+        "top-level"
+      ]
+    },
+    "분노의귀": {
+      "count": 0,
+      "functions": []
+    },
+    "거울": {
+      "count": 16,
+      "functions": [
+        "top-level",
+        "MONGSE_applySevenSinHitMechanic",
+        "MONGSE_bossDirectorProfile31210",
+        "anonymous",
+        "tick",
+        "draw"
+      ]
+    },
+    "mirror": {
+      "count": 25,
+      "functions": [
+        "top-level",
+        "MONGSE_themeProjectileSprite3128",
+        "Dn",
+        "Jn",
+        "MONGSE_probeCanonicalEp1bHumanPhase0Contract",
+        "MONGSE_writeSave",
+        "MONGSE_bossBarragePalette"
+      ]
+    },
+    "lifesteal": {
+      "count": 21,
+      "functions": [
+        "damageIntegration",
+        "oi",
+        "HAPIL_reducePlayerContactV31401",
+        "top-level",
+        "anonymous",
+        "lifestealAmount",
+        "config",
+        "install",
+        "applyStrike"
+      ]
+    },
+    "lifeSteal": {
+      "count": 21,
+      "functions": [
+        "damageIntegration",
+        "oi",
+        "HAPIL_reducePlayerContactV31401",
+        "top-level",
+        "anonymous",
+        "lifestealAmount",
+        "config",
+        "install",
+        "applyStrike"
+      ]
+    },
+    "vampir": {
+      "count": 0,
+      "functions": []
+    },
+    "drain": {
+      "count": 25,
+      "functions": [
+        "top-level"
+      ]
+    },
+    "dreamStage": {
+      "count": 0,
+      "functions": []
+    },
+    "heroHealingCeiling": {
+      "count": 6,
+      "functions": [
+        "MONGSE_applySevenSinHitMechanic",
+        "MONGSE_tickSevenSinHeroEffects",
+        "MONGSE_clearSevenSinTransientState"
+      ]
+    }
+  },
+  "hpAssignments": 28,
+  "related": [
+    {
+      "path": "assets/boss-identity-v31409.js",
+      "length": 3465,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "assets/combat-v31402/combat-core.js",
+      "length": 15980,
+      "terms": [
+        "lifesteal",
+        "lifeSteal"
+      ]
+    },
+    {
+      "path": "assets/combat-v31402/outgoing-native.js",
+      "length": 9834,
+      "terms": [
+        "lifesteal",
+        "lifeSteal"
+      ]
+    },
+    {
+      "path": "assets/combat-v31402/projectile-pipeline.js",
+      "length": 5109,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "assets/combat-v31412/outgoing-native.js",
+      "length": 10571,
+      "terms": [
+        "lifesteal",
+        "lifeSteal"
+      ]
+    },
+    {
+      "path": "assets/generated-v31224/boss-vfx/manifest-v31224.json",
+      "length": 5020,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "assets/rc129/danmaku-director.js",
+      "length": 15313,
+      "terms": [
+        "거울",
+        "drain"
+      ]
+    },
+    {
+      "path": "assets/rc129/danmaku-hud.js",
+      "length": 7216,
+      "terms": [
+        "drain"
+      ]
+    },
+    {
+      "path": "assets/rc24/raid.js",
+      "length": 8289,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "assets/rc25/raid.js",
+      "length": 7476,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "assets/rc34/balance-and-resonance.js",
+      "length": 8458,
+      "terms": [
+        "lifesteal",
+        "lifeSteal",
+        "drain"
+      ]
+    },
+    {
+      "path": "assets/rc86/samong-cosmic.js",
+      "length": 24340,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "assets/rc91/samong-awakening.js",
+      "length": 13488,
+      "terms": [
+        "heroHealingCeiling"
+      ]
+    },
+    {
+      "path": "assets/rc95/combat-flow.js",
+      "length": 9381,
+      "terms": [
+        "drain"
+      ]
+    },
+    {
+      "path": "assets/rc97/choice-patterns.js",
+      "length": 6426,
+      "terms": [
+        "거울"
+      ]
+    },
+    {
+      "path": "tests/combat-audio-browser.cjs",
+      "length": 41467,
+      "terms": [
+        "거울",
+        "mirror"
+      ]
+    },
+    {
+      "path": "tests/combat-audio-impact.cjs",
+      "length": 3131,
+      "terms": [
+        "drain"
+      ]
+    },
+    {
+      "path": "tests/rc108-laser-topology-browser.cjs",
+      "length": 11986,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "tests/rc121-connected-topology-browser.cjs",
+      "length": 12534,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "tests/rc129-browser.cjs",
+      "length": 9550,
+      "terms": [
+        "drain"
+      ]
+    },
+    {
+      "path": "tests/rc129-unit.cjs",
+      "length": 7760,
+      "terms": [
+        "거울",
+        "drain"
+      ]
+    },
+    {
+      "path": "tests/rc34-balance-and-resonance-smoke.cjs",
+      "length": 8054,
+      "terms": [
+        "lifesteal",
+        "lifeSteal"
+      ]
+    },
+    {
+      "path": "tests/rc35-combat-reliability-smoke.cjs",
+      "length": 9962,
+      "terms": [
+        "lifesteal",
+        "lifeSteal"
+      ]
+    },
+    {
+      "path": "tests/rc86-samong-cosmic-browser.cjs",
+      "length": 10680,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "tests/rc86-samong-cosmic-smoke.cjs",
+      "length": 11559,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "tests/rc87-episode-cosmic-browser.cjs",
+      "length": 9752,
+      "terms": [
+        "mirror",
+        "dreamStage"
+      ]
+    },
+    {
+      "path": "tests/rc92-reverse-native-browser.cjs",
+      "length": 8184,
+      "terms": [
+        "heroHealingCeiling"
+      ]
+    },
+    {
+      "path": "tests/rc92-revival-and-save-smoke.cjs",
+      "length": 2984,
+      "terms": [
+        "heroHealingCeiling"
+      ]
+    },
+    {
+      "path": "tests/rc93-runtime-visual-browser.cjs",
+      "length": 13554,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "data/actor-canvas-map-v31224.js",
+      "length": 251700,
+      "terms": [
+        "mirror"
+      ]
+    },
+    {
+      "path": "data/narrative-v31217-exact.js",
+      "length": 40101,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/patient-delta-v314rc2.js",
+      "length": 103440,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/patient-delta-v314rc3.js",
+      "length": 54951,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/patient-journal-v31368.js",
+      "length": 96898,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/story-delta-v314rc2.js",
+      "length": 124053,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/story-delta-v314rc3.js",
+      "length": 56703,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/story-rc51.js",
+      "length": 127822,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/story-v31300.js",
+      "length": 530869,
+      "terms": [
+        "분노의 귀"
+      ]
+    },
+    {
+      "path": "data/world-v31217.js",
+      "length": 24870,
+      "terms": [
+        "mirror",
+        "drain"
+      ]
+    }
+  ]
+}

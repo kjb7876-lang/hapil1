@@ -1,0 +1,45 @@
+() => {
+  let e = MONGSE_makeBossState31213(`dist06-boss`, 0),
+    t = {
+      sourceId: e.boss.id,
+      boss: !0,
+      heavyBossSkill: !0,
+      themedLaser: !0,
+    },
+    n = e.state.hp,
+    r = 0;
+  ((e.state.combo = 0),
+    (e.state.comboUntil = 0),
+    (e.state.heroMotion = { kind: `idle`, until: 0 }),
+    (e.state.facing = 1),
+    (e.state.direction = `front`),
+    (e.state.zone = `dist06`),
+    (e.state.guardianGraceReadyAt = 99),
+    (e.state.lastLifestealSuppressionTextAt = -99));
+  for (let i = 0; i < 10; i++) {
+    ((e.state.time = i * 0.09), (e.state.invulnerableUntil = 0));
+    Y(e.state, 20, e.boss.x, e.boss.y, t) && (r += 1);
+  }
+  let i = n - e.state.hp,
+    a = {
+      ...e.state,
+      hp: 240,
+      time: 2,
+      invulnerableUntil: 2.4,
+      lastDodgeAt: 1.8,
+    };
+  a.heroDamageLedger31213 = [];
+  let o = Y(a, 30, e.boss.x, e.boss.y, t);
+  return {
+    appliedDamage: i,
+    damagingHits: r,
+    perfectDodgeReturnedHit: o,
+    perfectDodgeHp: a.hp,
+    perfectDodgeCounterUntil: a.counterUntil,
+    pass:
+      i === Math.max(24, Math.round(e.state.maxHp * 0.24)) &&
+      !o &&
+      a.hp === 240 &&
+      a.counterUntil > a.time,
+  };
+};

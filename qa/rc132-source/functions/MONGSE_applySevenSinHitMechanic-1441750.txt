@@ -1,0 +1,222 @@
+function MONGSE_applySevenSinHitMechanic(e, t) {
+  let n = t?.sevenSinMechanic;
+  if (!e || !n) return { applied: !1, mechanic: n ?? `` };
+  let r = (e.enemies ?? []).find((e) => e.id === t.sourceId),
+    i = { applied: !0, mechanic: n, displacement: 0, spawned: 0, healed: 0 };
+  ((e.sevenSinMechanicHits ??= {}),
+    (e.sevenSinMechanicHits[n] = (e.sevenSinMechanicHits[n] ?? 0) + 1));
+  if (n === `sloth-drowsy`) {
+    e.heroDrowsyStacks =
+      e.time <= Number(e.heroDrowsyUntil ?? 0)
+        ? Math.min(3, Number(e.heroDrowsyStacks ?? 0) + 1)
+        : 1;
+    ((e.heroDrowsyUntil = e.time + 4),
+      (e.heroSlowUntil = Math.max(e.heroSlowUntil ?? 0, e.time + 1.55)));
+    let t = e.heroDrowsyStacks >= 3;
+    (t &&
+      ((e.heroSleepUntil = Math.max(e.heroSleepUntil ?? 0, e.time + 0.42)),
+      (e.heroDrowsyStacks = 0)),
+      MONGSE_setSevenSinHeroStatus(
+        e,
+        t
+          ? `나태 · 졸음 누적, 0.42초 수면`
+          : `나태 · 졸음 ${e.heroDrowsyStacks}/3`,
+        `#dceaa1`,
+        t ? 1.25 : 1.05,
+      ));
+    i.sleepTriggered = t;
+  } else if (n === `envy-mirror-bleed`) {
+    e.heroBleedSourceIdRC108 = t.sourceId ?? null;
+    e.heroEnvyPoisonSourceIdRC108 = t.sourceId ?? null;
+    ((e.heroBleedUntil = Math.max(e.heroBleedUntil ?? 0, e.time + 3.2)),
+      (e.heroBleedNextAt = Math.min(
+        Number(e.heroBleedNextAt ?? e.time + 0.72),
+        e.time + 0.72,
+      )),
+      (e.heroEnvyPoisonUntil = Math.max(
+        e.heroEnvyPoisonUntil ?? 0,
+        e.time + 4.1,
+      )),
+      (e.heroEnvyPoisonNextAt = Math.min(
+        Number(e.heroEnvyPoisonNextAt ?? e.time + 0.64),
+        e.time + 0.64,
+      )));
+    if (!t.sevenSinMirrorReflection) {
+      let n = dt(
+        e.zone,
+        {
+          x: e.x + (e.moveVx ?? 0) * 0.32,
+          y: e.y + (e.moveVy ?? 0) * 0.32,
+        },
+        0.48,
+      );
+      (e.pendingHits ??= []).push({
+        id: e.fxSerial++,
+        sourceId: t.sourceId,
+        born: e.time + 0.06,
+        at: e.time + 0.58,
+        x: n.x,
+        y: n.y,
+        originX: r?.x ?? n.x,
+        originY: r?.y ?? n.y,
+        damage: 5,
+        boss: !0,
+        patternSet: `ep1b03`,
+        radius: 1.15,
+        innerRadius: 0,
+        width: 0.55,
+        shape: `circle`,
+        color: `#38bfc3`,
+        accent: `#e8ffff`,
+        status: `none`,
+        statusValue: 0,
+        label: `질투 · 비교거울 반사`,
+        perfectWindow: 0.24,
+        sevenSinMirrorReflection: !0,
+        sevenSinImpactSprite: MONGSE_SEVEN_SINS_THROWABLES.envy,
+      });
+      i.spawned = 1;
+    }
+    if (
+      r?.humanPhase0 &&
+      MONGSE_enemyActivePhase(r) === 0 &&
+      e.time >= Number(r.envyIllusionReadyAt ?? 0) &&
+      (e.enemies ?? []).filter(
+        (e) => e.hp > 0 && e.envyHallucination && e.summonOwnerId === r.id,
+      ).length < MONGSE_ENVY_ILLUSION_CAP
+    ) {
+      let t = dt(
+          e.zone,
+          { x: e.x + (r.x < e.x ? 2.4 : -2.4), y: e.y - 1.25 },
+          0.48,
+        ),
+        n = Jr(
+          {
+            id: `${r.id}-envy-illusion-${e.fxSerial++}`,
+            kind: `specter`,
+            name: `질투의 가짜 누나`,
+            x: t.x,
+            y: t.y,
+            hp: 72,
+            sprite: epB394 + `boss_envy_human.webp`,
+            facing: t.x < e.x ? 1 : -1,
+            scale: 0.88,
+          },
+          e.zone,
+        );
+      ((n.episodeBossSummon = !0),
+        (n.summonOwnerId = r.id),
+        (n.summonPhase = 0),
+        (n.envyHallucination = !0),
+        (n.readyAt = e.time + 0.52),
+        (n.patternReadyAt = e.time + 0.8),
+        e.enemies.push(n),
+        (r.envyIllusionReadyAt = e.time + 4.2),
+        (i.spawned += 1),
+        (i.illusionSpawned = 1));
+      window.__HAPIL_COMBAT_AUDIO_V1__?.emit("illusion", e, r, n.id);
+    }
+    MONGSE_setSevenSinHeroStatus(
+      e,
+      `질투 · 유리독 + 출혈 + 비교 환영`,
+      `#92ffff`,
+      1.35,
+    );
+  } else if (n === `glutton-absorb`) {
+    let MONGSE_healingWasBlocked =
+      Number(e.heroHealingBlockedUntil ?? 0) > e.time;
+    ((e.heroHealingBlockedUntil = Math.max(
+      e.heroHealingBlockedUntil ?? 0,
+      e.time + 3.1,
+    )),
+      (e.heroHealingCeiling = MONGSE_healingWasBlocked
+        ? Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp)
+        : e.hp));
+    if (r?.hp > 0) {
+      let e = Math.min(r.maxHp - r.hp, 14);
+      ((r.hp += e),
+        (r.gluttonAbsorbed = (r.gluttonAbsorbed ?? 0) + e),
+        (i.healed = e));
+    }
+    if (t.gluttonTonguePull && r?.hp > 0) {
+      let t = r.x - e.x,
+        n = r.y - e.y,
+        a = Math.max(0.001, Math.hypot(t, n)),
+        o = dt(
+          e.zone,
+          { x: e.x + (t / a) * 1.55, y: e.y + (n / a) * 1.55 },
+          0.48,
+        );
+      ((i.displacement = Math.hypot(o.x - e.x, o.y - e.y)),
+        (e.x = o.x),
+        (e.y = o.y),
+        hi(e),
+        (i.tonguePull = i.displacement > 0));
+    }
+    MONGSE_setSevenSinHeroStatus(
+      e,
+      t.gluttonTonguePull
+        ? `탐식 · 포식 혀 끌어당김 + 회복 봉쇄`
+        : `탐식 · 흡수, 회복 봉쇄 3.1초`,
+      `#ffd49d`,
+      1.3,
+    );
+  } else if (n === `lust-charm`) {
+    ((e.heroCharmUntil = Math.max(e.heroCharmUntil ?? 0, e.time + 0.42)),
+      (e.heroCharmTargetX = r?.x ?? t.originX ?? e.x),
+      (e.heroCharmTargetY = r?.y ?? t.originY ?? e.y));
+    MONGSE_setSevenSinHeroStatus(e, `색욕 · 매혹 유도 0.42초`, `#ffd9e8`, 1.05);
+  } else if (n === `greed-metal-bind`) {
+    ((e.heroMetalBindUntil = Math.max(
+      e.heroMetalBindUntil ?? 0,
+      e.time + 0.58,
+    )),
+      MONGSE_setSevenSinHeroStatus(
+        e,
+        `탐욕 · 금속 구속 0.58초`,
+        `#fff0a4`,
+        1.1,
+      ));
+  } else if (n === `wrath-ignite`) {
+    e.heroBurnSourceIdRC108 = t.sourceId ?? null;
+    ((e.heroBurnUntil = Math.max(e.heroBurnUntil ?? 0, e.time + 3.2)),
+      (e.heroBurnNextAt = Math.min(
+        Number(e.heroBurnNextAt ?? e.time + 0.76),
+        e.time + 0.76,
+      )));
+    r &&
+      ((r.wrathRageUntil = Math.max(r.wrathRageUntil ?? 0, e.time + 4.2)),
+      (r.wrathRageStacks = Math.min(3, (r.wrathRageStacks ?? 0) + 1)));
+    MONGSE_setSevenSinHeroStatus(e, `분노 · 점화, 화상 지속`, `#ffd166`, 1.15);
+  } else if (n === `pride-machine-polarity` && !t.pridePolarity) {
+    let n = Number(t.polarityX ?? t.x),
+      r = Number(t.polarityY ?? t.y),
+      a = Number.isFinite(n) ? n - e.x : 0,
+      o = Number.isFinite(r) ? r - e.y : 0,
+      s = Math.max(0.001, Math.hypot(a, o)),
+      c = t.polarityMode === `repel` ? -1 : 1,
+      l = dt(
+        e.zone,
+        { x: e.x + (a / s) * 0.92 * c, y: e.y + (o / s) * 0.92 * c },
+        0.48,
+      );
+    ((i.displacement = Math.hypot(l.x - e.x, l.y - e.y)),
+      (e.x = l.x),
+      (e.y = l.y),
+      hi(e),
+      (e.heroSlowUntil = Math.max(e.heroSlowUntil ?? 0, e.time + 0.38)),
+      MONGSE_setSevenSinHeroStatus(
+        e,
+        `교만기계 · ${c > 0 ? `인력` : `척력`} 극성장`,
+        c > 0 ? `#73e8ff` : `#ff6c86`,
+        1.1,
+      ));
+  } else if (n === `pride-command`) {
+    ((e.prideCommandPressureUntil = Math.max(
+      e.prideCommandPressureUntil ?? 0,
+      e.time + 1.2,
+    )),
+      MONGSE_setSevenSinHeroStatus(e, `교만 · 역십자가 명령`, `#d8f5ff`, 1.05));
+  }
+  return i;
+}

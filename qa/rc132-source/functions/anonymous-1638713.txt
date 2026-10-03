@@ -1,0 +1,118 @@
+(e) => {
+  let t = P.current;
+  if (
+    MONGSE_isEncounterLocked31226(t) ||
+    t.supportCall ||
+    !he.includes(t.zone) ||
+    !t.enemies.length
+  )
+    return !1;
+  let n = F.find((t) => t.id === e);
+  if (
+    !n ||
+    n.id === L.current ||
+    !Le.current.includes(n.id) ||
+    (t.supportReadyAt[n.id] ?? 0) > t.time
+  )
+    return !1;
+  let r = [...t.enemies].sort((e, n) => J(t, e) - J(t, n)),
+    i = r[0],
+    a = b(t.x + (i && i.x < t.x ? 0.95 : -0.95)),
+    o = b(t.y + (i && i.y < t.y ? 0.7 : -0.7)),
+    s = i ? i.x - a : 1,
+    c = i ? i.y - o : 0,
+    l = s - c < 0 ? -1 : 1;
+  ((t.supportCall = {
+    heroId: n.id,
+    passiveName: n.support.name,
+    x: a,
+    y: o,
+    born: t.time,
+    until: t.time + 1.65,
+    facing: l,
+    dx: s,
+    dy: c,
+  }),
+    (t.supportReadyAt[n.id] = t.time + n.support.cooldown));
+  let u = (e, r, i, s = a, c = o) => {
+      let l = _n(t.fxSerial++, n.id, e, n.color, s, c, r, i, t.time);
+      ((l.ultimate = !1), t.effects.push(l));
+    },
+    d = (e, n = `#9dffe3`) => {
+      t.floatTexts.push({
+        id: t.fxSerial++,
+        x: t.x,
+        y: t.y,
+        born: t.time,
+        duration: 0.9,
+        text: e,
+        color: n,
+        critical: !0,
+      });
+    };
+  if (n.id === `hwando`)
+    (u(1, t.x, t.y),
+      r
+        .filter((e) => J(t, e) <= 5.8)
+        .slice(0, 3)
+        .forEach((e, t) => qe(e, 42 * (1 - t * 0.14), n.color, !1, 0, n)));
+  else if (n.id === `seoha`)
+    (u(1, t.x, t.y),
+      t.enemies.forEach((e) => {
+        ((e.readyAt = Math.max(e.readyAt, t.time + 1.8)), yi(e, 1.35));
+      }),
+      r.slice(0, 5).forEach((e) => qe(e, 18, n.color, !1, 0, n)),
+      d(`죽은 시간 · 적 행동 지연`, n.color));
+  else if (n.id === `rian`)
+    r.slice(0, 3).forEach((e, t) => {
+      (u(0, e.x, e.y), qe(e, 35 * (1 - t * 0.16), n.color, !1, 0, n));
+    });
+  else if (n.id === `ion`)
+    (u(1, t.x, t.y, t.x, t.y),
+      (t.hp = Math.min(t.maxHp, t.hp + 20)),
+      (t.invulnerableUntil = Math.max(t.invulnerableUntil, t.time + 1.8)),
+      d(`+20 EGO · 질서 방벽`));
+  else if (n.id === `neon`)
+    (u(1, t.x, t.y, t.x, t.y),
+      (t.hp = Math.min(t.maxHp, t.hp + 42)),
+      r
+        .filter((e) => J(t, e) <= 4.5)
+        .slice(0, 4)
+        .forEach((e) => qe(e, 21, n.color, !1, 0, n)),
+      d(`+42 EGO · 성역 수복`));
+  else if (n.id === `michaela`)
+    (u(0, t.x, t.y, t.x, t.y),
+      (t.hp = Math.min(t.maxHp, t.hp + 68)),
+      (t.invulnerableUntil = Math.max(t.invulnerableUntil, t.time + 1.35)),
+      d(`+68 EGO · 긴급구조`));
+  else if (n.id === `lauren`) {
+    let e = [...t.enemies].sort(
+      (e, t) => Number(!!t.boss) - Number(!!e.boss) || t.maxHp - e.maxHp,
+    )[0];
+    e && (u(3, e.x, e.y), qe(e, e.boss ? 88 : 62, n.color, !0, 0, n));
+  } else
+    n.id === `hunter`
+      ? r.slice(0, 3).forEach((e, t) => {
+          (u(1, e.x, e.y), qe(e, 34 * (1 - t * 0.18), n.color, !1, 0, n));
+        })
+      : n.id === `slayer`
+        ? (u(3, t.x, t.y),
+          r
+            .filter((e) => J(t, e) <= 5)
+            .slice(0, 5)
+            .forEach((e) => qe(e, 46, n.color, !1, 0, n)))
+        : n.id === `gunner` &&
+          (i && (u(0, i.x, i.y), qe(i, 34, n.color, !1, 0, n)),
+          Object.keys(t.cooldowns).forEach((e) => {
+            t.cooldowns[e] = Math.max(t.time, t.cooldowns[e] - 2.2);
+          }),
+          d(`스킬 대기시간 -2.2초`, n.color));
+  return (
+    We(
+      MONGSE_heroAttackSfx(n.id, `Q`),
+      n.id === `gunner` ? 0.26 : n.id === `hwando` ? 0.58 : 1,
+    ),
+    B(`${n.name} 지원 패시브 · ${n.support.name}`),
+    !0
+  );
+};

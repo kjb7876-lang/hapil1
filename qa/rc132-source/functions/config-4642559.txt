@@ -1,0 +1,13 @@
+() =>
+  Object.freeze({
+    baseNormalCount: 1.25,
+    hellEnemyCount: 2,
+    enemyHp: 1,
+    enemyDamage: 1,
+    lifesteal: 0.3,
+    projectileCount: 2,
+    maxEnemies: MAX_ENEMIES,
+    maxProjectiles: MAX_SHOTS,
+    countChangesAt: "next-map-or-wave",
+    saveVersion: 14,
+  });

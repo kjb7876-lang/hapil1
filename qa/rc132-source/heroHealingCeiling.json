@@ -1,0 +1,44 @@
+[
+  {
+    "offset": 1445835,
+    "function": "MONGSE_applySevenSinHitMechanic",
+    "path": "functions/MONGSE_applySevenSinHitMechanic-1441750.txt",
+    "length": 7075,
+    "context": "BlockedUntil = Math.max(\n      e.heroHealingBlockedUntil ?? 0,\n      e.time + 3.1,\n    )),\n      (e.heroHealingCeiling = MONGSE_healingWasBlocked\n        ? Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp)\n        : e.hp));\n    if (r?.hp > 0) {\n      let e = Math.min(r.maxHp -"
+  },
+  {
+    "offset": 1445909,
+    "function": "MONGSE_applySevenSinHitMechanic",
+    "path": "functions/MONGSE_applySevenSinHitMechanic-1441750.txt",
+    "length": 7075,
+    "context": "e + 3.1,\n    )),\n      (e.heroHealingCeiling = MONGSE_healingWasBlocked\n        ? Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp)\n        : e.hp));\n    if (r?.hp > 0) {\n      let e = Math.min(r.maxHp - r.hp, 14);\n      ((r.hp += e),\n        (r.gluttonAbsorbed = (r.gluttonAbs"
+  },
+  {
+    "offset": 1449094,
+    "function": "MONGSE_tickSevenSinHeroEffects",
+    "path": "functions/MONGSE_tickSevenSinHeroEffects-1448826.txt",
+    "length": 2573,
+    "context": "umber(e.heroHealingBlockedUntil ?? 0) > e.time,\n    a = 0;\n  if (r) {\n    let t = Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp);\n    ((e.hp = Math.min(e.hp, t)), (e.heroHealingCeiling = e.hp));\n  } else e.heroHealingCeiling = e.hp;\n  let i = (t, n) => {\n    if (e.time < Nu"
+  },
+  {
+    "offset": 1449166,
+    "function": "MONGSE_tickSevenSinHeroEffects",
+    "path": "functions/MONGSE_tickSevenSinHeroEffects-1448826.txt",
+    "length": 2573,
+    "context": "  let t = Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp);\n    ((e.hp = Math.min(e.hp, t)), (e.heroHealingCeiling = e.hp));\n  } else e.heroHealingCeiling = e.hp;\n  let i = (t, n) => {\n    if (e.time < Number(e.invulnerableUntil ?? 0) || e.hp <= 0 || window.__HAPIL_SAMONG_RC9"
+  },
+  {
+    "offset": 1449206,
+    "function": "MONGSE_tickSevenSinHeroEffects",
+    "path": "functions/MONGSE_tickSevenSinHeroEffects-1448826.txt",
+    "length": 2573,
+    "context": "eiling ?? e.hp), e.hp);\n    ((e.hp = Math.min(e.hp, t)), (e.heroHealingCeiling = e.hp));\n  } else e.heroHealingCeiling = e.hp;\n  let i = (t, n) => {\n    if (e.time < Number(e.invulnerableUntil ?? 0) || e.hp <= 0 || window.__HAPIL_SAMONG_RC91__?.protected(e)) return !1;\n    let MO"
+  },
+  {
+    "offset": 1451912,
+    "function": "MONGSE_clearSevenSinTransientState",
+    "path": "functions/MONGSE_clearSevenSinTransientState-1451400.txt",
+    "length": 712,
+    "context": "\n    (e.heroBurnUntil = 0),\n    (e.heroBurnNextAt = 0),\n    (e.heroHealingBlockedUntil = 0),\n    (e.heroHealingCeiling = e.hp),\n    (e.heroCharmUntil = 0),\n    (e.heroCharmTargetX = 0),\n    (e.heroCharmTargetY = 0),\n    (e.heroMetalBindUntil = 0),\n    (e.prideCommandPressureUntil"
+  }
+]

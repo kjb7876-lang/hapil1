@@ -1,0 +1,12 @@
+function reduceHealV31401(s, a, amount) {
+  if (!a || n(a.hp) <= 0 || !(amount > 0)) return 0;
+  if (
+    n(s.heroHealingBlockedUntil) > s.time ||
+    n(a.heroHealingBlockedUntil) > s.time
+  )
+    return 0;
+  const old = a.hp;
+  a.hp = Math.min(n(a.maxHp, 240), a.hp + amount);
+  metrics.healed += a.hp - old;
+  return a.hp - old;
+}

@@ -1,0 +1,63 @@
+function MONGSE_bossDirectorProfile31210(e) {
+  let t = MONGSE_bossBarrageTheme(e),
+    n = [...`${e?.id ?? ``}:${e?.patternSet ?? ``}`].reduce(
+      (e, t) => Math.imul(e ^ t.charCodeAt(0), 16777619) >>> 0,
+      2166136261,
+    ),
+    r = Math.max(0, MONGSE_enemyActivePhase(e)),
+    MONGSE_signature = MONGSE_signatureProfile31212(e),
+    i = [
+      ...(MONGSE_signature?.deck ??
+        MONGSE_BOSS_ARCHETYPE_DECKS_V31210[t] ??
+        MONGSE_THEME_ORDNANCE_SEQUENCE_V3129),
+    ],
+    a = (n + r * 2) % i.length,
+    o = MONGSE_signature ? [...i] : [...i.slice(a), ...i.slice(0, a)],
+    s = [
+      `가속 박자`,
+      `거울 궤도`,
+      `교대 안전로`,
+      `지연 반향`,
+      `협폭 압박`,
+      `역회전`,
+    ][(n + r) % 6],
+    c =
+      t === `infernal`
+        ? `지옥 맥동`
+        : t === `chrono`
+          ? `시간 역박`
+          : t === `blackSun`
+            ? `흑태양 명령`
+            : t === `sevenSins`
+              ? `죄악 변주`
+              : t === `controller`
+                ? `좌표 스캔`
+                : t === `last3`
+                  ? `귀환 괴담`
+                  : t === `hando`
+                    ? `납도 절선`
+                    : t === `murder`
+                      ? `인과 신호`
+                      : t === `cult`
+                        ? `신경 성가`
+                        : `인과 반향`;
+  !MONGSE_signature && (n + r) % 2 && (o = [o[0], ...o.slice(1).reverse()]);
+  return {
+    archetype: t,
+    seed: n,
+    phase: r,
+    deck: o,
+    signatureProfile31212: MONGSE_signature,
+    projectileLife31212: MONGSE_signature?.life ?? 5.4,
+    restEvery31212: MONGSE_signature?.restEvery ?? 0,
+    restSeconds31212: MONGSE_signature?.rest ?? 0,
+    angleBias: ((n % 9) - 4) * 0.045 + r * 0.035,
+    speedScale: 0.94 + (n % 5) * 0.035 + Math.min(0.08, r * 0.02),
+    curveScale: 0.88 + ((n >>> 3) % 6) * 0.055,
+    sizeScale: 0.94 + ((n >>> 5) % 4) * 0.03,
+    tempoScale: 0.93 + ((n >>> 7) % 5) * 0.045,
+    comboEvery: 3 + ((n >>> 10) % 3),
+    phaseModifier: s,
+    signatureLabel: `${e?.name ?? e?.id ?? `보스`} · ${c} · ${s}`,
+  };
+}

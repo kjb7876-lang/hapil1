@@ -1,0 +1,26 @@
+function tickBuffs(s, delta) {
+  const p = party();
+  if (!p || p.status.role === "guest" || p.status.disconnected) return;
+  const dt = clamp(delta, 0, 0.04),
+    ids = providers(s);
+  s.partyBuffIdsV31322 = ids;
+  if (!ids.length || p.status.paused || MONGSE_isEncounterLocked31226(s))
+    return;
+  const actors = [s, ...p.actors].filter(
+    (a) => a.hp > 0 && (!a.slotId || !a.downUntil || a.downUntil <= s.time),
+  );
+  if (ids.includes("seoha")) {
+    for (const key of ["Q", "W", "E"])
+      if (num(s.cooldowns?.[key]) > s.time)
+        s.cooldowns[key] = Math.max(s.time, s.cooldowns[key] - dt * 0.06);
+    for (const a of p.actors)
+      if (a.hp > 0)
+        for (let i = 0; i < 3; i++)
+          a.skillReady[i] = Math.max(s.time, num(a.skillReady[i]) - dt * 0.06);
+  }
+  if (ids.includes("michaela"))
+    for (const a of actors) {
+      if (a === s && p.status.slots[0]?.down) continue;
+      a.hp = Math.min(a.maxHp, a.hp + a.maxHp * 0.003 * dt);
+    }
+}

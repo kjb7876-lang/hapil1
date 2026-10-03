@@ -1,0 +1,298 @@
+function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
+  if (window.__HAPIL_SAMONG_RC91__?.protected(e)) {
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(
+      e,
+      e,
+      "INVULNERABLE",
+      "samong-revival-grace-rc91",
+    );
+    return !1;
+  }
+  if (window.__HAPIL_DEFENSE_V31356__?.blockDamage(e, e, i, t)) {
+    window.__HAPIL_COMBAT_CORE_V31401__.markIfUnset(
+      e,
+      e,
+      "INVULNERABLE",
+      "D-held-no-credit",
+    );
+    window.__HAPIL_COMBAT_RC47__?.absorbed(e, e, i, n, r);
+    return !1;
+  }
+  if (window.__HAPIL_LOOP_V31365__?.beforeIncoming(e, e, i, t)) {
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(e, e, "SHIELD", "ego-protection");
+    window.__HAPIL_COMBAT_RC47__?.absorbed(e, e, i, n, r);
+    return !1;
+  }
+  if (
+    window.__HAPIL_HEART_V31336__ &&
+    !window.__HAPIL_HEART_V31336__.permit(e, e, i)
+  ) {
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(
+      e,
+      e,
+      "REJECTED",
+      "authority-or-contact-ineligible",
+    );
+    return !1;
+  }
+  if (e.time < e.invulnerableUntil)
+    return (
+      window.__HAPIL_COMBAT_CORE_V31401__.mark(
+        e,
+        e,
+        "INVULNERABLE",
+        "native-invulnerability",
+      ),
+      window.__HAPIL_ENEMY_FEEL_V31361__?.protect(e, e, i, t, {
+        originX: n,
+        originY: r,
+      }),
+      window.__HAPIL_COMBAT_RC47__?.absorbed(e, e, i, n, r),
+      e.time - e.lastDodgeAt <= 0.52 &&
+        (window.__HAPIL_LOOP_V31365__?.perfect(e, i),
+        (e.lastDodgeAt = -99),
+        (e.counterUntil = e.time + 1.7),
+        window.__HAPIL_LOOP_V31365__
+          ? void 0
+          : (e.resonance = Math.min(100, e.resonance + 28)),
+        MONGSE_recordTemporalResonance31215(e, `perfect-dodge`, i),
+        e.enemies.forEach((t) => {
+          ((t.readyAt = Math.max(t.readyAt, e.time + 0.65)), yi(t, 0.45));
+        }),
+        MONGSE_delayPendingBossHits31210(
+          e,
+          (t) => !!t.sourceId && t.at > e.time,
+          () => 0.45,
+        ),
+        e.telekineticCasts.forEach((t) => {
+          t.sourceId && t.at > e.time && (t.at += 0.45);
+        }),
+        e.floatTexts.push({
+          id: e.fxSerial++,
+          x: e.x,
+          y: e.y,
+          born: e.time,
+          duration: 0.95,
+          text: `PERFECT DODGE · 반격`,
+          color: `#fff2a8`,
+          critical: !0,
+        }),
+        e.effects.push(
+          _n(
+            e.fxSerial++,
+            e.activeHeroId,
+            1,
+            window.__HAPIL_HERO_STYLE_V31364__?.color(e.activeHeroId) ??
+              `#edf7ff`,
+            e.x,
+            e.y,
+            e.x,
+            e.y,
+            e.time,
+          ),
+        )),
+      !1
+    );
+  let MONGSE_damageSource = i && typeof i == `object` ? i : null;
+  if (window.__HAPIL_RAID_RC24__?.suppress?.(e, MONGSE_damageSource)) {
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(
+      e,
+      e,
+      "REJECTED",
+      "rc24-image-contact-cooldown",
+    );
+    window.__HAPIL_COMBAT_RC47__?.absorbed(e, e, i, n, r);
+    return !1;
+  }
+  if (
+    MONGSE_damageSource &&
+    !MONGSE_reserveHostileHit31215(e, MONGSE_damageSource)
+  ) {
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(
+      e,
+      e,
+      "REJECTED",
+      "native-rehit-ledger",
+    );
+    window.__HAPIL_COMBAT_RC47__?.absorbed(e, e, i, n, r);
+    return !1;
+  }
+  let MONGSE_bossLikeSource =
+      !!MONGSE_damageSource &&
+      (!!MONGSE_damageSource.boss || !!MONGSE_damageSource.midboss),
+    MONGSE_heavyBossSkill =
+      MONGSE_bossLikeSource &&
+      !!(
+        MONGSE_damageSource.heavyBossSkill ||
+        MONGSE_damageSource.themedLaser ||
+        MONGSE_damageSource.returnAt ||
+        MONGSE_damageSource.telekineticRain ||
+        MONGSE_damageSource.spatialRift ||
+        MONGSE_damageSource.narrativeAttack ||
+        MONGSE_damageSource.shape === `line` ||
+        MONGSE_damageSource.status === `drain`
+      ),
+    MONGSE_percentHpDamage = MONGSE_heavyBossSkill
+      ? Math.max(
+          1,
+          Math.round(e.maxHp * (MONGSE_damageSource.boss ? 0.025 : 0.015)),
+        )
+      : 0,
+    MONGSE_criticalHit = MONGSE_damageSource ? MONGSE_bossLikeSource : !!i,
+    MONGSE_recentContactHitsV31535 =
+      e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) >= 0 &&
+      e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) <= 1.25 &&
+      Number.isFinite(Number(e.consecutiveContactHitsV31535))
+        ? Math.max(0, Number(e.consecutiveContactHitsV31535))
+        : 0,
+    MONGSE_contactDamageScaleV31535 = Math.max(
+      0.5,
+      1 - Math.min(5, MONGSE_recentContactHitsV31535) * 0.1,
+    ),
+    MONGSE_rawDamage31213 = Math.max(
+      t + MONGSE_percentHpDamage > 0 ? 1 : 0,
+      Math.round(
+        (t + MONGSE_percentHpDamage) *
+          MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *
+          (Number(e.heroDamageTakenMultiplier) || 1) *
+          (window.__HAPIL_HELL_V31322__?.damageMultiplier(e) ?? 1) *
+          (window.__HAPIL_RAID_RC24__?.damageScale?.(e, MONGSE_damageSource) ??
+            1) *
+          MONGSE_contactDamageScaleV31535,
+      ),
+    ),
+    MONGSE_damageBudget31213 = MONGSE_limitHeroDamage31213(
+      e,
+      MONGSE_rawDamage31213,
+      MONGSE_damageSource,
+    ),
+    MONGSE_armoredBaseV31337 =
+      window.__HAPIL_RANGES_V31337__?.defend(
+        e.activeHeroId,
+        MONGSE_damageBudget31213.applied,
+      ) ?? MONGSE_damageBudget31213.applied,
+    a =
+      Math.max(
+        window.__HAPIL_RAID_RC24__?.floorDamage?.(e, MONGSE_damageSource, 0) ??
+          0,
+        window.__HAPIL_HEART_V31336__?.packet(
+          e,
+          e,
+          MONGSE_damageSource,
+          MONGSE_armoredBaseV31337,
+          MONGSE_rawDamage31213,
+        ) ?? MONGSE_armoredBaseV31337,
+      ) *
+      (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e) ?? 1) *
+      (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e) ?? 1) *
+      (window.__HAPIL_DAMAGE_RC108__?.incoming(e, MONGSE_damageSource) ?? 1) *
+      (window.__HAPIL_POLICY_RC127__?.incoming(e, MONGSE_damageSource) ?? 1),
+    MONGSE_preserveHeroUltimatePose =
+      e.heroMotion?.kind === `skill` &&
+      e.heroMotion?.skillIndex === 3 &&
+      Number(e.heroMotion?.until ?? 0) > e.time;
+  if (!(a > 0)) {
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(
+      e,
+      e,
+      "REJECTED",
+      "native-damage-budget",
+    );
+    window.__HAPIL_COMBAT_RC47__?.absorbed(e, e, i, n, r);
+    return !1;
+  }
+  e.consecutiveContactHitsV31535 = Math.min(
+    5,
+    MONGSE_recentContactHitsV31535 + 1,
+  );
+  e.lastAcceptedContactAtV31535 = e.time;
+  e.contactDamageScaleV31535 = MONGSE_contactDamageScaleV31535;
+  window.__HAPIL_COMBAT_CORE_V31401__.mark(
+    e,
+    e,
+    "HIT",
+    "native-player-damage",
+    { appliedDamage: a, contactDamageScale: MONGSE_contactDamageScaleV31535 },
+  );
+  window.__HAPIL_ENEMY_FEEL_V31361__?.hit(e, e, MONGSE_damageSource, a, {
+    originX: n,
+    originY: r,
+  });
+  return (
+    (e.hp -= a),
+    window.__HAPIL_RAID_RC24__?.afterHit?.(e, MONGSE_damageSource, a),
+    window.__HAPIL_LOOP_V31365__?.onDamage(e, e, a),
+    (e.combo = 0),
+    (e.comboUntil = 0),
+    (e.invulnerableUntil = e.time),
+    MONGSE_bossLikeSource &&
+      ((e.lifestealSuppressedUntil = Math.max(
+        Number(e.lifestealSuppressedUntil ?? 0),
+        e.time + (MONGSE_damageSource.boss ? 4.8 : 3.6),
+      )),
+      (e.lifestealMultiplier = Math.min(
+        Number(e.lifestealMultiplier ?? 1),
+        MONGSE_damageSource.boss ? 0.55 : 0.72,
+      )),
+      e.time - Number(e.lastLifestealSuppressionTextAt ?? -99) >= 1.4 &&
+        ((e.lastLifestealSuppressionTextAt = e.time),
+        e.floatTexts.push({
+          id: e.fxSerial++,
+          x: e.x,
+          y: e.y,
+          born: e.time,
+          duration: 0.9,
+          text: MONGSE_damageSource.boss ? `흡혈 효율 -45%` : `흡혈 효율 -28%`,
+          color: `#d6a4ff`,
+          critical: !0,
+        }))),
+    MONGSE_heavyBossSkill &&
+      (() => {
+        let t = e.x - n,
+          i = e.y - r,
+          a = Math.max(
+            MONGSE_COMBAT_PHYSICS_V3128.collisionEpsilon,
+            Math.hypot(t, i),
+          ),
+          o = MONGSE_damageSource.boss
+            ? MONGSE_COMBAT_PHYSICS_V3128.knockbackBoss
+            : MONGSE_COMBAT_PHYSICS_V3128.knockbackMidboss,
+          s = ft(
+            e.zone,
+            e,
+            {
+              x: (t / a) * o * MONGSE_COMBAT_PHYSICS_V3128.knockbackFriction,
+              y: (i / a) * o * MONGSE_COMBAT_PHYSICS_V3128.knockbackFriction,
+            },
+            0.48,
+          );
+        ((e.x = s.x), (e.y = s.y), hi(e));
+      })(),
+    MONGSE_preserveHeroUltimatePose ||
+      window.__HAPIL_SKILL_COMPLETION_V31412__?.keepHeroPose(e, e, `hurt`) ||
+      (e.heroMotion = {
+        kind: `hurt`,
+        started: e.time,
+        until: e.time + 0.24,
+        facing: e.facing,
+        dx: n - e.x,
+        dy: r - e.y,
+        direction: wn(n - e.x, r - e.y, e.facing),
+      }),
+    e.floatTexts.push({
+      id: e.fxSerial++,
+      x: e.x,
+      y: e.y,
+      born: e.time,
+      duration: 0.68,
+      text: `-${a} EGO`,
+      color: `#ff496d`,
+      critical: MONGSE_criticalHit,
+    }),
+    e.hp > 0 &&
+      e.hp / Math.max(1, e.maxHp) <= 0.36 &&
+      e.time >= (e.guardianGraceReadyAt ?? 0) &&
+      MONGSE_grantSurvivalGrace(e, 1.45, `위기 공명`),
+    !0
+  );
+}

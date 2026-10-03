@@ -1,0 +1,63 @@
+function draw(ctx, cache, s, settings = {}) {
+  for (const c of s.dreamMirrorLasersV31347 ?? []) {
+    if (!valid(c, s) || s.time < c.born || s.time >= c.endAt) continue;
+    const warning = s.time < c.fireAt,
+      opacity = Math.max(0.55, num(MONGSE_skillFxOpacity(settings), 1));
+    ctx.save();
+    try {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = opacity;
+      ctx.lineCap = "round";
+      if (warning) {
+        ctx.strokeStyle = c.color;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 6]);
+      } else {
+        ctx.strokeStyle = c.color;
+        ctx.lineWidth = c.width * 54 + 5;
+        ctx.shadowColor = c.accent;
+        ctx.shadowBlur = settings.lowFx ? 3 : 12;
+      }
+      for (const l of c.segments) {
+        const a = G(l.a.x, l.a.y),
+          b = G(l.b.x, l.b.y);
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+        if (!warning) {
+          ctx.strokeStyle = "rgba(255,255,255,.84)";
+          ctx.lineWidth = Math.max(2, c.width * 16);
+          ctx.stroke();
+          ctx.strokeStyle = c.color;
+          ctx.lineWidth = c.width * 54 + 5;
+        }
+      }
+      ctx.setLineDash([]);
+      const m = G(c.mirror.x, c.mirror.y),
+        im = MONGSE_queueImage(cache, SHARD, "eager");
+      if (im?.complete && (im.naturalWidth || im.width) > 0) {
+        ctx.globalAlpha = warning ? 0.7 : 1;
+        ctx.drawImage(im, m.x - 22, m.y - 22, 44, 44);
+      } else {
+        ctx.fillStyle = c.accent;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (warning && settings.showCombatInfo !== false) {
+        ctx.fillStyle = "#eaffff";
+        ctx.font = "bold 12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(
+          `거울 반사 · ${Math.max(0, c.fireAt - s.time).toFixed(1)}초`,
+          m.x,
+          m.y - 28,
+        );
+      }
+      stats.draws++;
+    } finally {
+      ctx.restore();
+    }
+  }
+}

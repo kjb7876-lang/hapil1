@@ -1,0 +1,84 @@
+function MONGSE_tickSevenSinHeroEffects(e) {
+  if (!e)
+    return { bleedTicks: 0, burnTicks: 0, poisonTicks: 0, healingBlocked: !1 };
+  let t = 0,
+    n = 0,
+    r = Number(e.heroHealingBlockedUntil ?? 0) > e.time,
+    a = 0;
+  if (r) {
+    let t = Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp);
+    ((e.hp = Math.min(e.hp, t)), (e.heroHealingCeiling = e.hp));
+  } else e.heroHealingCeiling = e.hp;
+  let i = (t, n) => {
+    if (
+      e.time < Number(e.invulnerableUntil ?? 0) ||
+      e.hp <= 0 ||
+      window.__HAPIL_SAMONG_RC91__?.protected(e)
+    )
+      return !1;
+    let MONGSE_rawDotDamage31213 = Math.max(
+        1,
+        Math.round(
+          t *
+            MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *
+            (Number(e.heroDamageTakenMultiplier) || 1) *
+            (window.__HAPIL_HELL_V31322__?.damageMultiplier(e) ?? 1),
+        ),
+      ),
+      MONGSE_dotDamage =
+        MONGSE_limitHeroDamage31213(e, MONGSE_rawDotDamage31213, {
+          dot31213: n,
+        }).applied *
+        (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e) ?? 1) *
+        (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e) ?? 1) *
+        (window.__HAPIL_DAMAGE_RC108__?.incoming(e, {
+          sourceId:
+            n === `출혈`
+              ? e.heroBleedSourceIdRC108
+              : n === `화상`
+                ? e.heroBurnSourceIdRC108
+                : e.heroEnvyPoisonSourceIdRC108,
+        }) ?? 1);
+    if (!(MONGSE_dotDamage > 0)) return !1;
+    return (
+      (e.hp = Math.max(0, e.hp - MONGSE_dotDamage)),
+      (!(e.heroMotion?.until > e.time) ||
+        ![`attack`, `skill`, `dash`, `ultimate`].includes(e.heroMotion.kind)) &&
+        (e.heroMotion = {
+          kind: `hurt`,
+          started: e.time,
+          until: e.time + 0.14,
+          facing: e.facing,
+          dx: 0,
+          dy: 0,
+          direction: e.direction,
+        }),
+      e.floatTexts.push({
+        id: e.fxSerial++,
+        x: e.x,
+        y: e.y,
+        born: e.time,
+        duration: 0.62,
+        text: `-${MONGSE_dotDamage} ${n}`,
+        color: n === `출혈` ? `#7ff5f2` : `#ff795e`,
+      }),
+      !0
+    );
+  };
+  if (
+    Number(e.heroBleedUntil ?? 0) > e.time &&
+    e.time >= Number(e.heroBleedNextAt ?? 1 / 0)
+  )
+    ((e.heroBleedNextAt = e.time + 0.82), i(2, `출혈`) && (t += 1));
+  if (
+    Number(e.heroBurnUntil ?? 0) > e.time &&
+    e.time >= Number(e.heroBurnNextAt ?? 1 / 0)
+  )
+    ((e.heroBurnNextAt = e.time + 0.76), i(3, `화상`) && (n += 1));
+  if (
+    Number(e.heroEnvyPoisonUntil ?? 0) > e.time &&
+    e.time >= Number(e.heroEnvyPoisonNextAt ?? 1 / 0)
+  )
+    ((e.heroEnvyPoisonNextAt = e.time + 0.68), i(3, `유리독`) && (a += 1));
+  return { bleedTicks: t, burnTicks: n, poisonTicks: a, healingBlocked: r };
+}

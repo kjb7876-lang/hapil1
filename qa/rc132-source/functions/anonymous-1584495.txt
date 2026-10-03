@@ -1,0 +1,4 @@
+(e) => {
+  let n = Math.min(e.maxHp - e.hp, Math.max(2, Math.round(e.maxHp * 0.035)));
+  n > 0 && ((e.hp += n), (t += n));
+};

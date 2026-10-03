@@ -1,0 +1,19 @@
+function Dn(e, t, n) {
+  let r = t.direction ?? wn(t.dx, t.dy, t.facing),
+    i = MONGSE_HERO_DIRECTION_META[e.id];
+  if (r !== `left` && r !== `right`) return 1;
+  if (n.includes(`/actions-v3126/`)) {
+    let n = MONGSE_hero3126ActionKind(t);
+    return n ? MONGSE_resolveHero3126PixelRule(e.id, n, r).flipX : 1;
+  }
+  if (
+    n.includes(`/actions-consistent/`) ||
+    n.includes(`/actions-directional/`) ||
+    n.includes(`/normalized/directions/`)
+  )
+    return 1;
+  if (e.id === `gunner` && n.includes(`/normalized/gunner/`)) return 1;
+  if (i?.sideMode === `shared-mirror`)
+    return r === (i.baseFacing ?? `left`) ? 1 : -1;
+  return r === `right` ? 1 : -1;
+}

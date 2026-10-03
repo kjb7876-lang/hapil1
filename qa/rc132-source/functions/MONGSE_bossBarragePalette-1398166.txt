@@ -1,0 +1,149 @@
+function MONGSE_bossBarragePalette(e) {
+  let t = MONGSE_bossBarrageTheme(e),
+    MONGSE_signaturePaletteProfile31212 =
+      typeof MONGSE_BOSS_SIGNATURE_PROFILES_V31212 === `object`
+        ? MONGSE_BOSS_SIGNATURE_PROFILES_V31212[e?.id]
+        : null;
+  if (MONGSE_signaturePaletteProfile31212) {
+    let MONGSE_signatureHash31212 = [...String(e?.id ?? ``)].reduce(
+        (e, t) => Math.imul(e ^ t.charCodeAt(0), 16777619) >>> 0,
+        2166136261,
+      ),
+      MONGSE_themeHue31212 =
+        t === `infernal`
+          ? 12
+          : t === `chrono`
+            ? 190
+            : t === `blackSun`
+              ? 288
+              : t === `sevenSins`
+                ? 326
+                : t === `controller`
+                  ? 202
+                  : t === `last3`
+                    ? 258
+                    : t === `hando`
+                      ? 214
+                      : t === `murder`
+                        ? 4
+                        : t === `cult`
+                          ? 274
+                          : 266,
+      MONGSE_hue31212 =
+        (MONGSE_themeHue31212 + (MONGSE_signatureHash31212 % 51) - 25 + 360) %
+        360,
+      MONGSE_family31212 = MONGSE_signatureFamily31212(
+        MONGSE_signaturePaletteProfile31212.deck[0],
+      );
+    return {
+      theme: `${t}-signature`,
+      color: `hsl(${MONGSE_hue31212} 88% 62%)`,
+      accent: `hsl(${(MONGSE_hue31212 + 112) % 360} 94% 78%)`,
+      status:
+        MONGSE_family31212 === `chrono`
+          ? `delay`
+          : MONGSE_family31212 === `mirror`
+            ? `echo`
+            : MONGSE_family31212 === `mine`
+              ? `slow`
+              : `drain`,
+      statusValue:
+        MONGSE_family31212 === `chrono`
+          ? 0.2
+          : MONGSE_family31212 === `mirror`
+            ? 0.25
+            : MONGSE_family31212 === `mine`
+              ? 0.32
+              : 2,
+      impactSprite:
+        t === `chrono` || t === `controller`
+          ? MONGSE_BOSS_IMPACT_VFX.chrono
+          : t === `infernal`
+            ? MONGSE_BOSS_IMPACT_VFX.infernal
+            : t === `blackSun` || t === `cult` || t === `last3`
+              ? MONGSE_BOSS_IMPACT_VFX.blackSun
+              : MONGSE_BOSS_IMPACT_VFX.causality,
+      signaturePalette31212: !0,
+    };
+  }
+  if (t === `chrono`)
+    return {
+      theme: t,
+      color: `#61e5ff`,
+      accent: `#fff0a1`,
+      status: `delay`,
+      statusValue: 0.16,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.chrono,
+    };
+  if (t === `infernal`)
+    return {
+      theme: t,
+      color: `#ff4b2e`,
+      accent: `#ffd06a`,
+      status: `slow`,
+      statusValue: 0.45,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.infernal,
+    };
+  if (t === `blackSun` || t === `cult`)
+    return {
+      theme: t,
+      color: t === `cult` ? `#7569ff` : `#a65cff`,
+      accent: t === `cult` ? `#f3f0ff` : `#ff8fe6`,
+      status: `drain`,
+      statusValue: 3,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.blackSun,
+    };
+  if (t === `sevenSins`)
+    return {
+      theme: t,
+      color: `#ff5aa9`,
+      accent: `#ffd36b`,
+      status: `slow`,
+      statusValue: 0.32,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.causality,
+    };
+  if (t === `controller`)
+    return {
+      theme: t,
+      color: `#45eaff`,
+      accent: `#7aa4ff`,
+      status: `delay`,
+      statusValue: 0.18,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.chrono,
+    };
+  if (t === `last3`)
+    return {
+      theme: t,
+      color: `#7657ff`,
+      accent: `#c7f4ff`,
+      status: `drain`,
+      statusValue: 2,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.blackSun,
+    };
+  if (t === `hando`)
+    return {
+      theme: t,
+      color: `#d8efff`,
+      accent: `#ffdd82`,
+      status: `echo`,
+      statusValue: 0.25,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.causality,
+    };
+  if (t === `murder`)
+    return {
+      theme: t,
+      color: `#ff544d`,
+      accent: `#67e8ff`,
+      status: `delay`,
+      statusValue: 0.14,
+      impactSprite: MONGSE_BOSS_IMPACT_VFX.causality,
+    };
+  return {
+    theme: t,
+    color: `#ba8bff`,
+    accent: `#e9f6ff`,
+    status: `delay`,
+    statusValue: 0.12,
+    impactSprite: MONGSE_BOSS_IMPACT_VFX.causality,
+  };
+}

@@ -1,0 +1,150 @@
+function Jn(e, t, n, r, i) {
+  ((n.color =
+    typeof n.color == `string` && n.color.trim() ? n.color : `#ff6688`),
+    (n.accent =
+      typeof n.accent == `string` && n.accent.trim() ? n.accent : `#ffffff`));
+  let MONGSE_projectileLodSmartR1 = Math.max(
+      0,
+      Math.min(2, Number(i?.projectileLodSmartR1 ?? (i?.lowFx ? 1 : 2))),
+    ),
+    a = G(n.x, n.y),
+    o = G(n.previousX, n.previousY),
+    s = Math.hypot(n.vx, n.vy),
+    c = Math.atan2(a.y - o.y, a.x - o.x),
+    l = n.frozenUntil > r,
+    u = 1 + Math.sin(r * 12 + n.id) * 0.08,
+    MONGSE_projectileBitmapScale31224 = Math.max(
+      1,
+      Math.min(1.5, Number(n.visualScaleV31224 ?? 1)),
+    ),
+    d = MONGSE_queueImage(t, n.sprite),
+    MONGSE_intrinsicHeading31222 = Number.isFinite(Number(n.spriteHeading))
+      ? Number(n.spriteHeading)
+      : /\/(?:sleepless_soul|envy_mirror|control_blades)\.webp(?:\?|$)/.test(
+            String(n.sprite ?? ``),
+          )
+        ? Math.PI
+        : 0,
+    MONGSE_projectileRotation31222 = n.screenAligned31222
+      ? 0
+      : MONGSE_resolveScreenRenderAngleV31229(n);
+  let MONGSE_launchAge = r - (n.sourceBorn ?? n.born),
+    MONGSE_launchBlend = Math.max(0, 1 - MONGSE_launchAge / 0.28),
+    MONGSE_previousLaunchBlend = Math.max(
+      0,
+      1 - (MONGSE_launchAge - 0.016) / 0.28,
+    ),
+    MONGSE_sourceOffsetY = n.sourceOffsetY ?? -18,
+    MONGSE_projectileY = -18 + (MONGSE_sourceOffsetY + 18) * MONGSE_launchBlend,
+    MONGSE_previousProjectileY =
+      -18 + (MONGSE_sourceOffsetY + 18) * MONGSE_previousLaunchBlend;
+  if (MONGSE_projectileLodSmartR1 === 0 && !n.narrativeAttack) {
+    (e.save(),
+      (e.globalCompositeOperation = `source-over`),
+      (e.globalAlpha = n.frozenUntil > r ? 0.72 : 0.84),
+      (e.strokeStyle = n.reflected ? `#fff2a1` : n.color),
+      (e.fillStyle = n.reflected ? `#fff2a1` : (n.accent ?? n.color)),
+      (e.lineWidth = n.boss ? 2.2 : 1.5),
+      e.beginPath(),
+      e.moveTo(o.x, o.y + MONGSE_previousProjectileY),
+      e.lineTo(a.x, a.y + MONGSE_projectileY),
+      e.stroke(),
+      e.translate(a.x, a.y + MONGSE_projectileY),
+      e.rotate(MONGSE_projectileRotation31222));
+    if (d?.complete && d.naturalWidth) {
+      let MONGSE_lowLodBitmapSize31223 =
+        (n.boss ? 44 : n.midboss ? 38 : 30) *
+        u *
+        MONGSE_projectileBitmapScale31224;
+      (e.drawImage(
+        d,
+        -MONGSE_lowLodBitmapSize31223 / 2,
+        -MONGSE_lowLodBitmapSize31223 / 2,
+        MONGSE_lowLodBitmapSize31223,
+        MONGSE_lowLodBitmapSize31223,
+      ),
+        (n.bitmapRenderedLowLod31223 = !0));
+    } else {
+      e.beginPath();
+      if ((n.visualShape ?? n.shape) === `arrow`) {
+        (e.moveTo(n.boss ? 10 : 7, 0),
+          e.lineTo(n.boss ? -7 : -5, n.boss ? 5 : 3.5),
+          e.lineTo(n.boss ? -4 : -3, 0),
+          e.lineTo(n.boss ? -7 : -5, n.boss ? -5 : -3.5),
+          e.closePath());
+      } else e.arc(0, 0, n.boss ? 7.5 : n.midboss ? 6.2 : 4.8, 0, Math.PI * 2);
+      (e.fill(), (n.bitmapFallbackRenderedLowLod31223 = !0));
+    }
+    e.restore();
+    return;
+  }
+  if (
+    (e.save(),
+    (e.globalCompositeOperation =
+      MONGSE_projectileLodSmartR1 >= 2 ? `screen` : `source-over`),
+    (e.strokeStyle = n.reflected ? `#fff2a1` : n.color),
+    (e.lineWidth = n.boss ? 4 : 2.5),
+    (e.globalAlpha = i.reducedFlash ? 0.32 : 0.56),
+    (e.shadowColor = n.reflected ? `#fff0a1` : n.color),
+    (e.shadowBlur =
+      MONGSE_projectileLodSmartR1 < 2 ? 2 : i.lowFx ? 4 : l ? 18 : 10),
+    e.beginPath(),
+    e.moveTo(o.x, o.y + MONGSE_previousProjectileY),
+    e.lineTo(a.x, a.y + MONGSE_projectileY),
+    e.stroke(),
+    n.heavyBossSkill &&
+      !i.lowFx &&
+      MONGSE_projectileLodSmartR1 >= 2 &&
+      (() => {
+        let t = Math.max(0.001, Math.hypot(a.x - o.x, a.y - o.y)),
+          r = (-(a.y - o.y) / t) * 3.2,
+          s = ((a.x - o.x) / t) * 3.2;
+        ((e.globalAlpha = i.reducedFlash ? 0.12 : 0.24),
+          (e.lineWidth = n.boss ? 2.4 : 1.6),
+          e.beginPath(),
+          e.moveTo(o.x + r, o.y + s + MONGSE_previousProjectileY),
+          e.lineTo(a.x + r, a.y + s + MONGSE_projectileY),
+          e.moveTo(o.x - r, o.y - s + MONGSE_previousProjectileY),
+          e.lineTo(a.x - r, a.y - s + MONGSE_projectileY),
+          e.stroke());
+      })(),
+    e.translate(a.x, a.y + MONGSE_projectileY),
+    e.rotate(MONGSE_projectileRotation31222),
+    (e.globalAlpha = l ? 0.78 : 0.92),
+    n.narrativeAttack && n.narrativeGlyph)
+  ) {
+    let t = String(n.narrativeGlyph),
+      r = Math.min(158, Math.max(58, e.measureText(t).width + 26));
+    ((e.globalCompositeOperation = `source-over`),
+      (e.fillStyle = n.reflected ? `#463c13e8` : `#050813e8`),
+      (e.strokeStyle = n.reflected ? `#fff0a1` : n.color),
+      (e.lineWidth = n.boss ? 2.4 : 1.7),
+      e.fillRect(-r / 2, -17, r, 34),
+      e.strokeRect(-r / 2, -17, r, 34),
+      (e.fillStyle = n.reflected ? `#fff6c9` : n.accent),
+      (e.shadowColor = n.reflected ? `#fff0a1` : n.color),
+      (e.shadowBlur = i.lowFx ? 3 : 10),
+      (e.textAlign = `center`),
+      (e.textBaseline = `middle`),
+      (e.font = n.boss
+        ? `900 13px "Noto Sans KR", sans-serif`
+        : `800 11px "Noto Sans KR", sans-serif`),
+      e.fillText(t, 0, 0, r - 12));
+  } else if (d?.complete && d.naturalWidth) {
+    let t =
+      (n.boss ? 68 : n.midboss ? 56 : 50) *
+      u *
+      MONGSE_projectileBitmapScale31224;
+    e.drawImage(d, -t / 2, -t / 2, t, t);
+  } else if (!n.bitmapDecodedV31229)
+    Wn(
+      e,
+      n.visualShape ?? `orb`,
+      (n.boss ? 1.62 : n.midboss ? 1.38 : 1.12) *
+        MONGSE_projectileBitmapScale31224,
+      n.reflected ? `#fff0a1` : n.color,
+      n.accent,
+    );
+  // V31355: time-stop/frozen shots retain their bitmap; no target ring or crosshair.
+  e.restore();
+}
