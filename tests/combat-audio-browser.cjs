@@ -328,8 +328,55 @@ async function assertNativeImpact(evidence) {
     await settings({sfxVolume:.5});
     check('sound/zero-volume gates consume events without delayed replay');
 
-    await page.evaluate(()=>{const s=__MONGSE_QA_STATE__;s.hp=0;}); await waitSilent();
-    check('death ends uploaded music/effects');
+    // Use an Episode1 encounter with an authored death destination. A bare HP
+    // write in a later QA-jumped map can revive/respawn without a death card.
+    // The actual queued damage below downs every live party member and reaches
+    // the normal shouldRespawn -> beforeRespawn -> death-scripture path.
+    await stage('dist06','boss'); await waitMusic('foldingSpace');
+    await settings({autoCombat:true,combatMode:'full',autoStoryAdvance:true});
+    const death=await page.evaluate(()=>{
+      const s=__MONGSE_QA_STATE__,a=s.enemies.find(x=>x.id==='dist06-boss');
+      if(!a)throw Error('Missing native death-test boss');
+      if(__HAPIL_SAMONG_RC91__?.enabled(s))throw Error('Death fixture must use ordinary STORY mode');
+      // Observe the native modal lifetime, avoiding Node/browser scheduling
+      // delays in the three-second timer measurement.
+      window.__combatDeathTiming={shown:0,closed:0};
+      const watch=new MutationObserver(()=>{
+        const visible=!!document.getElementById('hapil-death-verse-rc59');
+        if(visible&&!__combatDeathTiming.shown)__combatDeathTiming.shown=performance.now();
+        if(!visible&&__combatDeathTiming.shown){__combatDeathTiming.closed=performance.now();watch.disconnect();}
+      });
+      watch.observe(document.body,{childList:true,subtree:true});
+      const allies=__HAPIL_PARTY_V31322__?.actors??[];
+      for(const target of [s,...allies]){
+        target.hp=1;target.invulnerableUntil=0;target.lastDodgeAt=-100;
+        target.x=s.x;target.y=s.y;target.dashingUntil=0;
+      }
+      // The fixture represents a lethal hit after defensive cooldowns have
+      // been spent, not a low-HP frame that can grant fresh survival grace.
+      s.guardianGraceReadyAt=s.time+10.5;s.autoEvadeReadyAt31223=s.time+10.5;
+      s.episode1ACompleteRC59=false;s.completedZones?.delete?.('ep1a11');s.lastShelterZoneRC59=null;
+      const id=s.fxSerial++;
+      s.impactQueue.push({id,sourceId:a.id,born:s.time-.5,at:s.time-.01,impactAt:s.time-.001,
+        x:s.x,y:s.y,originX:a.x,originY:a.y,shape:'circle',radius:4,innerRadius:0,width:1,
+        damage:1000,boss:true,midboss:false,patternSet:a.patternSet,label:'발록 지옥 충격',
+        color:'#7733ff',accent:'#ffffff',status:'none',statusValue:0,telegraphEndedAt:s.time-.01,
+        terrainPiercing31214:true,obstaclePiercing31214:true,losRequired31214:false});
+      return{id,owner:a.id,partyTargets:allies.length+1};
+    });
+    await page.waitForSelector('#hapil-death-verse-rc59',{timeout:8000});
+    await waitSilent();
+    assert.equal(await page.locator('#hapil-death-verse-title-rc59').textContent(),'죽음은 끝이 아니라 다시 걷는 문턱');
+    assert.equal(await page.evaluate(()=>__MONGSE_QA_STATE__.deathRespawnZoneRC59),'dist00','native Episode1 death chose its authored restart');
+    assert.equal(await page.evaluate(()=>__MONGSE_QA_STATE__.lastDeathScriptureRC59),'John 11:25; Romans 6:23');
+    assert(await page.locator('#hapil-death-verse-rc59').isVisible(),'combat uploads are silent while the real death modal is open');
+    await page.waitForSelector('#hapil-death-verse-rc59',{state:'detached',timeout:4500});
+    const timing=await page.evaluate(()=>__combatDeathTiming);
+    const deathModalMs=timing.closed-timing.shown;
+    assert(deathModalMs>=2800&&deathModalMs<4300,`native full-auto death modal keeps its3second restart (${deathModalMs}ms)`);
+    report.eventEvidence.push({...death,deathModalMs});
+    await settings({autoCombat:false,combatMode:'manual',autoStoryAdvance:false});
+    check('native lethal party hit cancels uploads during death modal and preserves3second auto-restart');
     await stage('dist01','ordinary'); await waitMusic('clockwork');
     await page.evaluate(()=>{const s=__MONGSE_QA_STATE__;s.zone='hub';s.enemies=[];}); await waitSilent();
     check('scene change to hub ends uploaded music/effects');
