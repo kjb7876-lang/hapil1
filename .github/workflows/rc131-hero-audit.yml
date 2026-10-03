@@ -8,23 +8,38 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
           fetch-depth: 1
           show-progress: false
-      - name: Inspect actual loader, poses, and relevant tests
-        shell: bash
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Inspect final hero selection and existing retry ownership
         run: |
           node <<'NODE'
-          const fs=require('fs'),path=require('path');
-          console.log('TEST_FILES',fs.readdirSync('tests').filter(x=>/hero|pose|sprite|image|asset|direction/i.test(x)));
-          console.log('ASSET_DIRS',fs.readdirSync('assets').filter(x=>/hero|sprite|pose|image/i.test(x)));
-          const code=fs.readFileSync('assets/index-v31526.js','utf8');
-          for(const term of ['new Image(', '__HAPIL_DIRECTION_VERTICAL', '__HAPIL_RC130_NATIVE_INSTALLED__','actions-consistent','naturalWidth','image.onerror']){
-            let pos=0,n=0;while(n<6&&(pos=code.indexOf(term,pos))>=0){console.log('\nTERM '+term+' OCCURRENCE '+n+' OFFSET '+pos+'\n'+code.slice(Math.max(0,pos-750),pos+1900));pos+=term.length;n++;}
-          }
-          for(const f of ['tests/rc115-vertical-poses.cjs','tests/rc115-weapon-sockets.cjs','tests/rc115-vertical-poses-browser.cjs','tests/rc115-weapon-sockets-browser.cjs'])if(fs.existsSync(f))console.log('\nFILE '+f+'\n'+fs.readFileSync(f,'utf8').slice(0,18000));
+          const fs=require('fs'),s=fs.readFileSync('assets/index-v31526.js','utf8');
+          for(const [term,count] of [['function queueImageIntegrity',10500],["const ROOT='./assets/hero_direction334/';",15500],['function MONGSE_pruneImageCache(',4500]]){const at=s.indexOf(term);console.log('\nSOURCE '+term+' LINE '+s.slice(0,at).split('\n').length+'\n'+s.slice(at,at+count));}
+          console.log('FINAL LN HOOKS');let pos=0,rows=[];for(const term of ['Ln = function','Ln=function','Tn = function','Tn=function']){pos=0;while((pos=s.indexOf(term,pos))>=0){rows.push([pos,s.slice(Math.max(0,pos-160),pos+1150)]);pos+=term.length;}}for(const row of rows.sort((a,b)=>a[0]-b[0]).slice(-12))console.log(row[0],row[1]);
           NODE
+      - name: Install browser runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc131-runtime" --no-save --package-lock=false playwright@1.55.1 > /tmp/rc131-npm.log 2>&1
+          node "$RUNNER_TEMP/rc131-runtime/node_modules/playwright/cli.js" install --with-deps chromium > /tmp/rc131-browser.log 2>&1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc131-runtime/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/rc131-runtime/node_modules/playwright")" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc131-baseline" >> "$GITHUB_ENV"
+      - name: Native direction regression
+        run: node tests/rc115-hero-directions-browser.cjs
+      - name: Native hero action regression
+        if: always()
+        run: node tests/rc93-hero-actions-browser.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc131-baseline-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc131-baseline/
+          retention-days: 14
