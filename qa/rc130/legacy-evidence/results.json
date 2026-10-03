@@ -1,0 +1,220 @@
+{
+  "commit": "654a111ca29717c9066b36d2161c8216b712413b",
+  "scope": "isolated candidate; staged browser fixtures and regressions are not full-campaign natural play",
+  "startedAt": "2026-10-03T05:37:58.068Z",
+  "status": "passed",
+  "suites": [
+    {
+      "name": "rc129-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 76,
+      "error": null
+    },
+    {
+      "name": "rc129-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 39586,
+      "error": null
+    },
+    {
+      "name": "rc128-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 53,
+      "error": null
+    },
+    {
+      "name": "rc128-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 75055,
+      "error": null
+    },
+    {
+      "name": "rc127-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 54,
+      "error": null
+    },
+    {
+      "name": "rc127-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 22585,
+      "error": null
+    },
+    {
+      "name": "rc126-finite-native",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 35,
+      "error": null
+    },
+    {
+      "name": "rc126-combat-safety-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 37,
+      "error": null
+    },
+    {
+      "name": "rc43-bloodied-projectile-flight",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 54,
+      "error": null
+    },
+    {
+      "name": "rc126-combat-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 24364,
+      "error": null
+    },
+    {
+      "name": "rc125-adaptive-battlefield-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 53029,
+      "error": null
+    },
+    {
+      "name": "rc125-first-frame-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 18171,
+      "error": null
+    },
+    {
+      "name": "rc123-boundary-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 40,
+      "error": null
+    },
+    {
+      "name": "rc122-autoplay-policy-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 50,
+      "error": null
+    },
+    {
+      "name": "rc115-map-advance-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 30,
+      "error": null
+    },
+    {
+      "name": "rc91-samong-and-laser-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 73,
+      "error": null
+    }
+  ],
+  "files": {
+    "index.html": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4",
+    "assets/rc91/samong-awakening.js": "e10f8ca145914fe517cbf88012b73a74a5db6c57e8bab5334993c12bb97e9f79",
+    "assets/combat-v31402/combat-core.js": "c718770947023a573a9b57cbefcb319940cd434029592fda51bf8d94f7822ece",
+    "assets/rc23/feedback.js": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+    "tests/rc91-samong-and-laser-smoke.cjs": "ad819358cc886f273abc508d41b4ea8fd17eae14a0364716e77e10c9322e3ddd",
+    "assets/rc128/awakening-policy.js": "00c65c9b0d3e60cb1c481f95c60fdca48f0690eb8788d37273b2d28c2eb99c7e",
+    "assets/rc128/combat-feedback.js": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+    "assets/rc129/danmaku-director.js": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+    "assets/rc129/danmaku-hud.js": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+  },
+  "protectedFiles": {
+    "assets/index-v31526.js": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537",
+    "assets/rc77/connected-laser.js": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+    "assets/rc127/combat-policy.js": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+    "assets/rc127/dark-jelly.js": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+    "assets/combat-v31412/skill-completion.js": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+    "assets/rc95/combat-flow.js": "3162818e9fe9882437591f1531daba39e2cbfefb469b28d136fd15da8fa22d3e",
+    "assets/story-narration/v1/player.js": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+    "assets/story-narration/v1/surfaces.js": "1ae8911e3a613de99386c0e53903d5bace96c39912e6fa54735f5f713172a7dd",
+    "assets/story-narration/v1/manifest.json": "83bbfe642b49432cb1dfe662c077f8938cd17ec6dd0b0e4776e6b4ca84ab860e",
+    "assets/rc51/story.js": "5d5b5c4bcd28fc6c50da6a164e312986ac46d010ed5e6ac39982339e4a06c5c1",
+    "data/story-rc51.js": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+  },
+  "viewportReference": "257b920a470e0ee6a04e5a52d71157f66232682c",
+  "explicitRC130Migration": {
+    "status": "passed",
+    "base": "41d9d75ffffd9b4a2d8f51c90a8a08946f021864",
+    "method": "Reapply exact anchored RC130 integration to the pinned original in a disposable directory; compare full bytes. Runtime under test is never substituted.",
+    "files": [
+      {
+        "file": "index.html",
+        "expected": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4",
+        "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+      },
+      {
+        "file": "assets/index-v31526.js",
+        "expected": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537",
+        "actual": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537"
+      },
+      {
+        "file": "assets/rc23/feedback.js",
+        "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+        "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+      },
+      {
+        "file": "assets/rc128/combat-feedback.js",
+        "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+        "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+      },
+      {
+        "file": "assets/rc130/audio-policy.js",
+        "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+        "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+      }
+    ],
+    "protectedPaths": [
+      "assets/rc77",
+      "assets/rc127",
+      "assets/rc129",
+      "assets/rc43/bloodied-flight.js",
+      "assets/combat-v31412/skill-completion.js",
+      "assets/story-narration",
+      "assets/rc49/story-voice.js",
+      "assets/rc51/story.js",
+      "data/story-rc51.js",
+      "data/opening-voice-rc74.json"
+    ]
+  },
+  "explicitRC129LoaderMigration": {
+    "priorIndexHash": "9a5e7c79b30c21c12ad49a71ec9f7691cabfa84fc9dab3b9b6087c8b7e04e81d",
+    "currentIndexHash": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4",
+    "newModules": [
+      "assets/rc129/danmaku-director.js",
+      "assets/rc129/danmaku-hud.js"
+    ]
+  },
+  "narrationIndexExtension": {
+    "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4",
+    "approvedBase": "c26193527a73f0b952f10296d8333f565188f3db048954736cbfbb25eae53a42",
+    "expectedBase": "c26193527a73f0b952f10296d8333f565188f3db048954736cbfbb25eae53a42"
+  },
+  "promotionMismatches": [],
+  "finishedAt": "2026-10-03T05:41:53.653Z"
+}
