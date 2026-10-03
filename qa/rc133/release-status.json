@@ -1,39 +1,41 @@
 {
-  "status": "implementation-in-progress-source-delivery-blocked",
+  "status": "checkpoint-draft-pending-approved-source-branch-and-gameplay-follow-up",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-samong-inner-self",
-  "testedSha": null,
-  "testedWorkingTree": true,
+  "testedSha": "992e4eeb3c4a13428554114a825b1ba0acb3f77b",
+  "testedWorkingTree": false,
   "mainSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "pagesSha": null,
   "published": false,
   "sourceImagesInspected": false,
   "audio39MeasuredLocally": false,
   "blockers": [
-    "Official Library transfer helper fails download for six images and recovered audio ZIP/manifest",
-    "Implementation and native browser coverage still in progress"
+    "Six authorized image source files and recovered audio ZIP/manifest are not present in this checkout.",
+    "Parent asset-only staging was paused after MCP user-cancelled result; await parent coordination and do not retry upload.",
+    "Gameplay draft is a checkpoint; original-source cosmic identities, audio integration, and remaining scoped implementation/audits are unfinished."
   ],
   "passed": {
     "rc133Policy": 127,
+    "rc133Feedback": 42,
     "rc132Unit": 32,
     "rc127Policy": 174,
     "rc131HeroUnit": 344,
-    "rc127Browser": {
+    "rc128NativeBrowser": {
       "profiles": 3,
-      "checksPerProfile": 160,
-      "scope": "staged native casts"
+      "stagedCases": 72,
+      "heroes": 8,
+      "scope": "staged native renderer, three emulated desktop/mobile viewport profiles"
     },
-    "naturalStory": {
-      "from": "dist00",
-      "to": "dist01",
-      "progressCheats": false,
-      "scope": "first boss and portal only"
-    },
-    "rc133Feedback": 42,
     "rc133NativeBrowser": {
       "profiles": 3,
       "checksPerProfile": 60,
-      "scope": "staged native channel, save, cult death and four-state compositor"
+      "scope": "native EGO channel/save/cult-death, staged story/dream pair counts, warp and four-state compositor"
+    },
+    "preservationBaseline": {
+      "sha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
+      "status": "passed",
+      "runtimeFiles": 3041,
+      "scope": "detached unchanged frozen 73-voice baseline; does not certify this RC133 delta"
     }
   },
   "physicalMobileTested": false,
@@ -45,5 +47,6 @@
     "exhaustive boss-charge and authored midboss count audit",
     "all-eight persona traits and native UI growth panel review",
     "complete preservation and exact-SHA release tests"
-  ]
+  ],
+  "testEvidenceCommit": "992e4eeb3c4a13428554114a825b1ba0acb3f77b"
 }
