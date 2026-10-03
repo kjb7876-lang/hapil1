@@ -32,6 +32,7 @@ jobs:
           set -euo pipefail
           mkdir -p "$HAPIL_QA_OUTPUT"
           node tools/rc132-apply.cjs > "$HAPIL_QA_OUTPUT/apply.log" 2>&1
+          node tools/rc132-extra-source.cjs > "$HAPIL_QA_OUTPUT/source-extra.log" 2>&1
           node --check assets/index-v31526.js
           node --check assets/combat-v31412/outgoing-native.js
           node --check assets/rc132/dream-balance.js
