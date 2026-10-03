@@ -36743,7 +36743,7 @@ function $n(e, t, n, r, i) {
       !window.__HAPIL_FLOW_V31343__?.profile(t.zone) &&
       MONGSE_zoneCombatCleared(t,t.zone) &&
       Te(t.zone, t.clues) &&
-      t.enemies.length === 0 &&
+      /* RC132_WRATH_PORTAL */ (window.__HAPIL_DREAM_BALANCE_RC132__?.exitActorsClear(t,t.enemies.length === 0) ?? (t.enemies.length === 0)) &&
       t.egoDrops.length === 0 &&
       a
     ) {
@@ -53665,7 +53665,7 @@ function Ri() {
         if (
           MONGSE_zoneCombatCleared(t, t.zone) &&
           Te(t.zone, t.clues) &&
-          (window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0) &&
+          /* RC132_WRATH_EXIT */ (window.__HAPIL_DREAM_BALANCE_RC132__?.exitActorsClear(t,(window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)) ?? (window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)) &&
           t.egoDrops.length === 0 &&
           (!xe(t.zone) || (t.loopCycles[t.zone] ?? 0) >= 3) &&
           (t.zone !== `murder03` || t.bossDefeated) &&

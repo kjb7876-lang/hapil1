@@ -5,7 +5,7 @@
     {
       "file": "assets/index-v31526.js",
       "beforeSha256": "7d059d9ef963c905e3bf64b77f3268616953f02f66e16ec8878640750e9e96b1",
-      "afterSha256": "c055227e5ca04709a1f1a6ec68237fcd0433906c486ceb373a956d9c02d22dc1",
+      "afterSha256": "39fbb7beb527024fbb8ae660d3727a9ef9ec48e4db976e9294981579b761c1f1",
       "operations": [
         {
           "name": "remove only DREAM mirror attack closure; preserve original memory artwork functions",
@@ -16,6 +16,16 @@
           "name": "bound actual party lifesteal",
           "from": "a.hp=Math.min(a.maxHp,a.hp+dealt*.08*scale);",
           "to": "/* RC132_PARTY_SUSTAIN */const healing=window.__HAPIL_DREAM_BALANCE_RC132__?.lifesteal(s,a,dealt*.08*scale)??dealt*.08*scale;a.hp=Math.min(a.maxHp,a.hp+healing);"
+        },
+        {
+          "name": "wrath portal rendering uses canonical cleared-actor identity",
+          "from": "      t.enemies.length === 0 &&\n      t.egoDrops.length === 0 &&",
+          "to": "      /* RC132_WRATH_PORTAL */ (window.__HAPIL_DREAM_BALANCE_RC132__?.exitActorsClear(t,t.enemies.length === 0) ?? (t.enemies.length === 0)) &&\n      t.egoDrops.length === 0 &&"
+        },
+        {
+          "name": "wrath native interaction uses same authoritative gate",
+          "from": "(window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)",
+          "to": "/* RC132_WRATH_EXIT */ (window.__HAPIL_DREAM_BALANCE_RC132__?.exitActorsClear(t,(window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)) ?? (window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0))"
         }
       ]
     },
