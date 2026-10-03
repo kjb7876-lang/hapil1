@@ -1,0 +1,93 @@
+name: RC130 combat polish validation
+on:
+  push:
+    branches: [fix/rc130-combat-polish]
+    paths:
+      - 'assets/rc130/**'
+      - 'tools/rc130-apply.cjs'
+      - 'tools/rc130-native-hook.js'
+      - 'tests/rc130-*.cjs'
+      - '.github/workflows/rc130-combat-polish.yml'
+permissions:
+  contents: read
+concurrency:
+  group: rc130-candidate
+  cancel-in-progress: true
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      commit: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Apply exact native anchors without modifying protected gameplay
+        run: node tools/rc130-apply.cjs
+      - name: Commit generated runtime to the isolated branch only
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin fix/rc130-combat-polish
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git add assets/index-v31526.js assets/combat-v31402/contact-geometry.js assets/rc130/visual-policy.js index.html
+          if ! git diff --cached --quiet; then
+            git config user.name 'HAPIL RC130 integration'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'RC130 integrate bounded barrage, stationary melee and focused combat audio'
+            git push origin HEAD:refs/heads/fix/rc130-combat-polish
+          fi
+          node tools/rc130-apply.cjs --check
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  verify:
+    needs: integrate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.integrate.outputs.commit }}
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Prepare isolated Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc130-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/chromium.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc130-results" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc130-results/legacy-release" >> "$GITHUB_ENV"
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Unit and scoped Canvas policy
+        run: node tests/rc130-policy.cjs
+      - name: Actual native barrage, melee, movement and audio event verification
+        run: node tests/rc130-browser.cjs
+      - name: Existing RC129, RC128, RC127, laser and natural progression regressions
+        run: node tests/laser-release-gate.cjs
+      - name: Preserve all results including failure evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rc130-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc130-results/
+          retention-days: 14
+          if-no-files-found: warn
+          compression-level: 1
