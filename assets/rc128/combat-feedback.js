@@ -86,8 +86,10 @@
   const f=classify(s,target,row,source);if(!f){totals.discarded++;return false;}
   totals.accepted++;
   const t=now();
-  if(!f.outgoing&&row.result!=='HIT'){const key=String(row.result)+'|'+String(row.reason)+'|'+String(row.source?.ownerId??row.source?.id??'contact'),last=m.defensive.get(key)??-1e9;if(t-last<(continuous(row,source)?.45:.18)){totals.throttled++;return false;}m.defensive.set(key,t);while(m.defensive.size>128)m.defensive.delete(m.defensive.keys().next().value);}
+  let defensiveKey=null;
+  if(!f.outgoing&&row.result!=='HIT'){defensiveKey=String(row.result)+'|'+String(row.reason)+'|'+String(row.source?.ownerId??row.source?.id??'contact');const last=m.defensive.get(defensiveKey)??-1e9;if(t-last<(continuous(row,source)?.45:.18)){totals.throttled++;return false;}}
   if(t<m.nextEffect&&f.power<1){totals.throttled++;return false;}
+  if(defensiveKey!==null){m.defensive.set(defensiveKey,t);while(m.defensive.size>128)m.defensive.delete(m.defensive.keys().next().value);}
   m.nextEffect=t+.025;
   m.effects.push({...f,x:n(target.x,n(s.x)),y:n(target.y,n(s.y)),born:t,sequence:row.sequence});
   if(m.effects.length>32)m.effects.splice(0,m.effects.length-32);

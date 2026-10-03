@@ -69,22 +69,71 @@ for (const fixture of [
   eq(snapshot(s).recent[0].kind, 'cancel', 'record snapshot exposes the cancel effect');
 }
 
+// A positive outgoing HIT is distinct from the parry/dodge cancellation paths.
+for (const fixture of [
+  { result: 'HIT', kind: 'heavy', targetId: 'victim', hpBefore: 100, hpAfter: 65,
+    appliedDamage: 35, source: { family: 'actor' } },
+  { result: 'PARRY', kind: 'parry', targetId: '__host', appliedDamage: 0,
+    reason: 'native-credited-contact', source: { family: 'contact', ownerId: 'parry-source' } },
+  { result: 'EVADE', kind: 'dodge', targetId: '__host', appliedDamage: 0,
+    reason: 'native-perfect-evade', source: { family: 'contact', ownerId: 'dodge-source' } },
+  { result: 'CANCELLED', kind: 'cancel', targetId: 'cancelled-shot', appliedDamage: 0,
+    eventKind: 'REMOVAL', reason: 'parry', source: { family: 'projectile', ownerId: 'cancelled-shot' } }
+]) {
+  const s = fresh();
+  const row = {
+    epoch: 1, sequence: 1, kind: fixture.eventKind || (fixture.targetId === '__host' ? 'CONTACT' : 'OUTGOING'),
+    result: fixture.result, targetId: fixture.targetId, attackerHeroId: 'hwando',
+    hpBefore: fixture.hpBefore ?? 100, hpAfter: fixture.hpAfter ?? 100,
+    appliedDamage: fixture.appliedDamage, reason: fixture.reason,
+    source: fixture.source
+  };
+  const target = fixture.targetId === '__host' ? s : { id: fixture.targetId, x: 8, y: 8 };
+  ok(Feedback.record(s, target, row, {}), `${fixture.result} combat event is admitted`);
+  eq(snapshot(s).recent[0].kind, fixture.kind, `${fixture.result} maps to ${fixture.kind}`);
+}
+
 // Failed and zero-damage outcomes do not create effects.
 for (const fixture of [
   { kind: 'OUTGOING', result: 'ERROR', appliedDamage: 12 },
   { kind: 'OUTGOING', result: 'REJECTED', appliedDamage: 0 },
   { kind: 'OUTGOING', result: 'MISS', appliedDamage: 0 },
-  { kind: 'OUTGOING', result: 'HIT', appliedDamage: 0 }
+  { kind: 'OUTGOING', result: 'HIT', appliedDamage: 0 },
+  { kind: 'CONTACT', result: 'MISS', appliedDamage: 0 },
+  { kind: 'CONTACT', result: 'HIT', appliedDamage: 0 }
 ]) {
   const s = fresh();
   const row = {
     epoch: 1, sequence: 1, kind: fixture.kind, result: fixture.result,
-    targetId: 'enemy', attackerHeroId: 'hwando', appliedDamage: fixture.appliedDamage,
+    targetId: fixture.kind === 'CONTACT' ? '__host' : 'enemy', attackerHeroId: 'hwando', appliedDamage: fixture.appliedDamage,
     hpBefore: 100, hpAfter: 100, source: { family: 'actor' }
   };
-  ok(!Feedback.record(s, { id: 'enemy', x: 8, y: 8 }, row, {}), `${fixture.result} does not produce feedback`);
+  ok(!Feedback.record(s, fixture.kind === 'CONTACT' ? s : { id: 'enemy', x: 8, y: 8 }, row, {}), `${fixture.kind}/${fixture.result} does not produce feedback`);
   eq(snapshot(s).effects, 0, `${fixture.result} leaves the effect list empty`);
   wall += .25;
+}
+
+// Distinct contact owners retain their own throttle entries. The 25 ms output
+// gate bounds one render burst even when different sources arrive together.
+{
+  const s = fresh();
+  const owners = ['first-attacker', 'second-attacker', 'third-attacker'];
+  const rows = owners.map((ownerId, index) => contact(index + 1, 'INVULNERABLE', {
+    reason: 'native-invulnerability', source: { family: 'contact', ownerId }
+  }));
+  ok(Feedback.record(s, s, rows[0], {}), 'first distinct source produces feedback');
+  ok(!Feedback.record(s, s, rows[1], {}), 'same-frame second source is stopped by the output cap');
+  ok(!Feedback.record(s, s, rows[2], {}), 'same-frame third source is stopped by the output cap');
+  eq(snapshot(s).effects, 1, 'one render burst contains at most one low-power defensive effect');
+  wall += .03;
+  ok(Feedback.record(s, s, contact(4, 'INVULNERABLE', {
+    reason: 'native-invulnerability', source: { family: 'contact', ownerId: owners[1] }
+  }), {}), 'second source is admitted after the output interval');
+  wall += .03;
+  ok(Feedback.record(s, s, contact(5, 'INVULNERABLE', {
+    reason: 'native-invulnerability', source: { family: 'contact', ownerId: owners[2] }
+  }), {}), 'third source has an independent throttle entry');
+  eq(snapshot(s).effects, 3, 'three separated source events remain visible');
 }
 
 // The combat journal sequence prevents replaying a defensive result even when
@@ -96,6 +145,22 @@ for (const fixture of [
   wall += .5;
   ok(!Feedback.record(s, s, row, {}), 'duplicate epoch/sequence is rejected');
   eq(snapshot(s).effects, 1, 'duplicate journal row does not add another effect');
+}
+
+// Continuous contact (laser or periodic damage) has the longer 450 ms source
+// interval, while unique journal sequences still prevent replay.
+{
+  const s = fresh();
+  const row = (sequence) => contact(sequence, 'INVULNERABLE', {
+    reason: 'native-invulnerability',
+    source: { family: 'laser', ownerId: 'continuous-laser' }
+  });
+  ok(Feedback.record(s, s, row(1), {}), 'first continuous-contact row is admitted');
+  wall += .2;
+  ok(!Feedback.record(s, s, row(2), {}), 'same continuous source is throttled before 450 ms');
+  wall += .26;
+  ok(Feedback.record(s, s, row(3), {}), 'continuous source is admitted after 450 ms');
+  eq(snapshot(s).effects, 2, 'continuous-contact coalescing bounds the visuals');
 }
 
 // Repeated defensive contacts from one source are coalesced even with distinct
@@ -119,6 +184,24 @@ for (const fixture of [
   eq(snapshot(s).effects, 2, 'post-throttle feedback adds one later effect');
 }
 
+// Strong accepted hits can bypass the low-power output interval, so the
+// retained visual queue also needs its independent 32-effect bound.
+{
+  const s = fresh();
+  for (let sequence = 1; sequence <= 64; sequence++) {
+    const row = {
+      epoch: 1, sequence, kind: 'OUTGOING', result: 'HIT', targetId: 'enemy-' + sequence,
+      attackerHeroId: 'hwando', hpBefore: 100, hpAfter: 65, appliedDamage: 35,
+      source: { family: 'actor' }
+    };
+    Feedback.record(s, { id: row.targetId, x: 8, y: 8 }, row, {});
+  }
+  const view = snapshot(s);
+  eq(view.effects, 32, 'strong-hit burst retains no more than 32 effects');
+  eq(view.recent[0].sequence, 33, 'bounded queue discards the oldest effects');
+  eq(view.recent.at(-1).sequence, 64, 'bounded queue keeps the newest effect');
+}
+
 console.log('RC133_FEEDBACK_UNIT_RESULT', JSON.stringify({
-  checks, status: 'passed', scope: 'RC128 defensive feedback record/classification and source throttling'
+  checks, status: 'passed', scope: 'RC128 hit/parry/dodge/removal classification, collision-miss suppression, source throttles and bounded effect burst'
 }));
