@@ -10,6 +10,8 @@ on:
       - 'tests/combat-audio*'
       - 'tools/combat-audio-apply.cjs'
       - 'tools/rc130-preservation.cjs'
+      - 'tools/story-narration-release73-preservation.cjs'
+      - 'tests/rc121-connected-topology-browser.cjs'
       - 'assets/rc51/story.js'
       - 'assets/title/v31236/christian-opening-v31236.js'
       - 'data/story-rc51.js'
