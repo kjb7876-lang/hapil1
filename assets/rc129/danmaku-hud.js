@@ -6,7 +6,14 @@
  const n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  const cameras=new WeakMap(),draws=new WeakMap();
  const metrics={draws:0,markers:0,errors:0,saves:0,restores:0,grazeHooks:0};let installed=false,tries=0;
- function overlay(base,methods){const desc=Object.getOwnPropertyDescriptors(base);for(const[k,v]of Object.entries(methods))desc[k]={value:v,enumerable:true,writable:false,configurable:false};return Object.freeze(Object.defineProperties({},desc));}
+ function overlay(base,methods){
+  // RC34 exposes combat methods through Object.create(core). Copying only own
+  // properties drops bind/transaction and prevents native startup. Inherit the
+  // complete chain, including live installed/bound getters, and override only ours.
+  const bridge=Object.create(base);
+  for(const[k,v]of Object.entries(methods))Object.defineProperty(bridge,k,{value:v,enumerable:true,writable:false,configurable:false});
+  return Object.freeze(bridge);
+ }
  function fail(error){metrics.errors++;if(metrics.errors===1)root.console?.warn?.('RC129 optional presentation hook',error);}
  const core=root.__HAPIL_COMBAT_CORE_V31401__;
  if(core){const wrapped=overlay(core,{graze(s,q,reduce){return core.graze(s,q,()=>{const ok=reduce();if(ok){try{D.graze(s,q);metrics.grazeHooks++;}catch(e){fail(e);}}return ok;});}});root.__HAPIL_COMBAT_CORE_V31401__=wrapped;root.__HAPIL_COMBAT_CORE_V31402__=wrapped;}
