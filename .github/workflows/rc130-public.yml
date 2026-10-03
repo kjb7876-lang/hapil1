@@ -1,0 +1,74 @@
+name: RC130 public deployment verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - assets/rc130/**
+      - assets/index-v31526.js
+      - assets/combat-v31402/contact-geometry.js
+      - index.html
+      - qa/rc130/published.cjs
+      - .github/workflows/rc130-public.yml
+permissions:
+  contents: read
+jobs:
+  public:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Prepare isolated read-only browser
+        shell: bash
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc130-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/chromium.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc130-public" >> "$GITHUB_ENV"
+      - name: Exact bytes and actual public gameplay observations
+        run: node qa/rc130/published.cjs
+      - if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rc130-public-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc130-public/
+          if-no-files-found: warn
+          retention-days: 14
+  evidence:
+    needs: public
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          show-progress: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: rc130-public-${{ github.run_id }}
+          path: qa/rc130-public
+      - name: Preserve public results without touching main or deployment
+        env:
+          PUBLIC_STATUS: ${{ needs.public.result }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e 'const fs=require("node:fs");fs.writeFileSync("qa/rc130-public/summary.json",JSON.stringify({testedCommit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,status:process.env.PUBLIC_STATUS,scope:"Read-only public browser observations; no fixture or HP injection"},null,2));'
+          git config user.name 'HAPIL RC130 evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc130-public
+          git commit -m "RC130 public evidence $GITHUB_RUN_ID ($PUBLIC_STATUS)"
+          git push origin HEAD:refs/heads/qa/rc130-public-$GITHUB_RUN_ID
