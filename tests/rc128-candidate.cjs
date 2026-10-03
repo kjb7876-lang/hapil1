@@ -40,12 +40,14 @@ try{
  if(run('git',['cat-file','-e',historical+':index.html']).status!==0)git('fetch','--no-tags','--depth=1','origin',historical);
  report.viewportReference=historical;
  const generated=build(root);report.files=manifest(generated);
+ const rc130Migration=generated['index.html'].includes('./assets/rc130/projectile-policy.js')?require('../tools/rc130-preservation.cjs').verify(root):null;
+ if(rc130Migration)report.explicitRC130Migration=rc130Migration.report;
  for(const f of ['assets/index-v31526.js','assets/rc77/connected-laser.js','assets/rc127/combat-policy.js','assets/rc127/dark-jelly.js','assets/combat-v31412/skill-completion.js','assets/rc95/combat-flow.js','assets/story-narration/v1/player.js','assets/story-narration/v1/surfaces.js','assets/story-narration/v1/manifest.json','assets/rc51/story.js','data/story-rc51.js'])if(fs.existsSync(path.join(root,f)))report.protectedFiles[f]=hash(path.join(root,f));
  git('worktree','add','--detach',candidate,'HEAD');
  for(const[f,text]of Object.entries(generated))fs.writeFileSync(path.join(candidate,f),text);
  for(const f of ['assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js'])report.files[f]=hash(path.join(candidate,f));
  for(const[f,expected]of Object.entries(report.protectedFiles))if(hash(path.join(candidate,f))!==expected)throw Error('Protected file changed: '+f);
- const rc129=generated['index.html'].includes('./assets/rc129/danmaku-director.js?v=42901');let prior=generated['index.html'];
+ const rc129=generated['index.html'].includes('./assets/rc129/danmaku-director.js?v=42901');let prior=rc130Migration?rc130Migration.historical['index.html']:generated['index.html'];
  if(rc129){
   for(const f of ['danmaku-director','danmaku-hud']){
    const line='    <script src="./assets/rc129/'+f+'.js?v=42901"></script>\n';
@@ -56,7 +58,7 @@ try{
   report.explicitRC129LoaderMigration={priorIndexHash:digest(prior),currentIndexHash:report.files['index.html'],newModules:['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js']};
  }
  const indexHash=digest(narrationIndexBase(prior));report.narrationIndexExtension={actual:report.files['index.html'],approvedBase:indexHash,expectedBase:accepted['index.html']};
- report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>(f==='index.html'?indexHash:report.files[f])!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
+ report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>(f==='index.html'?indexHash:rc130Migration?.historical[f]?digest(rc130Migration.historical[f]):report.files[f])!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
  if(report.promotionMismatches.length)throw Error('RC128 preservation mismatch: '+JSON.stringify(report.promotionMismatches));
  fs.writeFileSync(path.join(out,'candidate-manifest.json'),JSON.stringify({commit:report.commit,files:report.files,protectedFiles:report.protectedFiles},null,2));
  for(const f of [...Object.keys(generated).filter(f=>/\.(?:js|cjs)$/.test(f)),'assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js','tests/rc128-policy.cjs','tests/rc128-browser.cjs',...(rc129?['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js','tests/rc129-unit.cjs','tests/rc129-browser.cjs']:[])]){
