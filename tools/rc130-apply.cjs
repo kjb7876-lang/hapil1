@@ -7,10 +7,10 @@ const original=Object.fromEntries([bundle,geometry,html,visual].map(f=>[f,fs.rea
 function replace(file,from,to){assert.equal(next[file].split(from).length-1,1,'Exact RC130 integration anchor: '+file+' '+from.slice(0,90));next[file]=next[file].replace(from,to);}
 if(!next[bundle].includes('/* RC130_NATIVE_PRESENTATION:')){
  assert(next[bundle].includes('__HAPIL_POLICY_RC127__.speed'),'Native fixed-speed policy must exist before integration');
- const audio=/\bWe\s*=\s*\(e,\s*t,\s*n\s*=\s*(?:0?\.1)\)\s*=>\s*\{/g,matches=[...next[bundle].matchAll(audio)];
- if(matches.length!==1){for(const m of next[bundle].matchAll(/\bWe\s*=/g))console.log('AUDIO_ANCHOR_DIAGNOSTIC',next[bundle].slice(m.index,m.index+900));}
- assert.equal(matches.length,1,'Exactly one three-argument native sound playback function');
- next[bundle]=next[bundle].replace(audio,m=>m+'\n      if(window.__HAPIL_AUDIO_RC130__?.permitNative(e)===false)return;\n      t = (t??1)*(window.__HAPIL_AUDIO_RC130__?.nativeGain(e)??1);');
+ const audio='We = (0, l.useCallback)((e, t = 0.28, n = null) => {';
+ replace(bundle,audio,audio+'\n      if(window.__HAPIL_AUDIO_RC130__?.permitNative(e)===false)return;\n      t = (t??1)*(window.__HAPIL_AUDIO_RC130__?.nativeGain(e)??1);');
+ for(const term of ['captureRenderedEffect','function MONGSE_beginProjectileEgress31215','function MONGSE_prepareEnemyRenderEffectV31237','function MONGSE_normalEnemyAttackProfileV31237','function MONGSE_spawnNormalEnemyProjectileV31237']){const i=next[bundle].indexOf(term);console.log('RC130_NATIVE_CONTRACT',term,i,i>=0?next[bundle].slice(Math.max(0,i-80),i+3800):'absent');}
+ console.log('RC130_EXIT_GLOBALS',[...new Set([...next[bundle].matchAll(/__[A-Z_0-9]*(?:EXIT|EGRESS)[A-Z_0-9]*__/g)].map(m=>m[0]))]);
  next[bundle]+='\n'+fs.readFileSync('tools/rc130-native-hook.js','utf8');
  replace(geometry,'const r=Math.max(physical,visual);',"const policy=root.__HAPIL_VISUAL_RC130__,raw=Math.max(physical,visual);\n if(policy?.contactReady(s,q,raw)===false)return{hit:false,heart:false,t:Infinity,d:Infinity,kind:'awaiting-visible-barrage'};\n const r=policy?.contactRadius(s,q,raw)??raw;");
  replace(geometry,'r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));','r=cfg.bodyRadius+(root.__HAPIL_VISUAL_RC130__?.contactRadius(s,q,Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1)))??Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1)));');

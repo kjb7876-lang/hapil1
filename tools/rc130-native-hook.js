@@ -2,7 +2,7 @@
 /* RC130_NATIVE_PRESENTATION: keep the approved laser renderer and combat admission intact. */
 ;(()=>{'use strict';let attempts=0;
  function install(){
-  const V=window.__HAPIL_VISUAL_RC130__,B=window.__HAPIL_RC91_NATIVE__;
+  const V=window.__HAPIL_VISUAL_RC130__,B=window.__HAPIL_RC86_BRIDGE__;
   if(!V||!B||!window.__HAPIL_SAMONG_RC91__?.installed||typeof Jn!=='function'||typeof Gn!=='function')return false;
   if(!Jn.rc130Cap){const previous=Jn;const wrapped=function(ctx,cache,p,time,settings,...args){return V.drawProjectile(previous,ctx,cache,p,time,settings,...args);};wrapped.rc130Cap=true;Jn=wrapped;}
   if(!Gn.rc130Stationary){const previous=Gn;const wrapped=function(ctx,cache,e,time,settings,...args){const prepared=typeof MONGSE_prepareEnemyRenderEffectV31237==='function'?MONGSE_prepareEnemyRenderEffectV31237(e):e;return V.drawMelee(previous,ctx,cache,prepared,time,settings,...args);};wrapped.rc130Stationary=true;Gn=wrapped;}
