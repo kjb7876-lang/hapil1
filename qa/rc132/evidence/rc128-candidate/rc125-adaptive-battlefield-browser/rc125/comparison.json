@@ -1,0 +1,74 @@
+[
+  {
+    "name": "pc",
+    "beforeCanvas": {
+      "x": 0,
+      "y": 84.453125,
+      "width": 1180,
+      "height": 663.75
+    },
+    "afterCanvas": {
+      "x": 0,
+      "y": 32,
+      "width": 1180,
+      "height": 681
+    },
+    "canvasAreaGainPercent": 2.598870056497171,
+    "beforeViewportFraction": 0.8768163804491413,
+    "afterViewportFraction": 0.8996036988110965
+  },
+  {
+    "name": "desktop",
+    "beforeCanvas": {
+      "x": 96,
+      "y": 108,
+      "width": 1728,
+      "height": 972
+    },
+    "afterCanvas": {
+      "x": 0,
+      "y": 32,
+      "width": 1920,
+      "height": 1004
+    },
+    "canvasAreaGainPercent": 14.769090077732061,
+    "beforeViewportFraction": 0.81,
+    "afterViewportFraction": 0.9296296296296296
+  },
+  {
+    "name": "portrait",
+    "beforeCanvas": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    "afterCanvas": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    "canvasAreaGainPercent": 0,
+    "beforeViewportFraction": 1,
+    "afterViewportFraction": 1
+  },
+  {
+    "name": "landscape",
+    "beforeCanvas": {
+      "x": 0,
+      "y": 39,
+      "width": 844,
+      "height": 351
+    },
+    "afterCanvas": {
+      "x": 0,
+      "y": 36,
+      "width": 844,
+      "height": 354
+    },
+    "canvasAreaGainPercent": 0.8547008547008517,
+    "beforeViewportFraction": 0.9,
+    "afterViewportFraction": 0.9076923076923077
+  }
+]

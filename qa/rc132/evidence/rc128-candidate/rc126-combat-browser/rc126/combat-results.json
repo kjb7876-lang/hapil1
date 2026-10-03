@@ -1,0 +1,240 @@
+{
+  "testedCommit": "ec03aa2fd7dd95c7273fff48942470b59424c21f",
+  "scope": "Staged native fixtures, not a natural campaign",
+  "screens": [
+    {
+      "beams": [
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "contacts": 5,
+          "start": {
+            "x": 1.4,
+            "y": 16
+          },
+          "end": {
+            "x": 30.599999999999998,
+            "y": 16
+          },
+          "radius": 29.2,
+          "width": 11.680000000002648,
+          "effects": 2
+        },
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "contacts": 5,
+          "start": {
+            "x": 1.4,
+            "y": 16
+          },
+          "end": {
+            "x": 30.599999999999998,
+            "y": 16
+          },
+          "radius": 29.2,
+          "width": 11.680000000002648,
+          "effects": 2
+        }
+      ],
+      "volley": {
+        "first": 6,
+        "later": 6,
+        "releaseSpan": 0.8499999999999943,
+        "commonCount": 6,
+        "zigzags": 6
+      },
+      "commonPixel": {
+        "differences": 0,
+        "transparent": 212879
+      },
+      "blue": {
+        "id": "blue-executor",
+        "boss": true,
+        "patterns": 87
+      },
+      "metrics": {
+        "installed": true,
+        "stats": {
+          "volleys": 2,
+          "staggered": 10,
+          "zigzags": 12,
+          "originalAssets": 1,
+          "substitutedAssets": 6,
+          "nativeBeams": 2,
+          "spawnMoves": 0,
+          "duplicateCosmetics": 0
+        },
+        "ledger": {
+          "version": 1,
+          "sequence": 2,
+          "zones": {
+            "ep1b03": {
+              "./assets/vfx/bosses/v3102/ep1b03_envy_cleaver_glass_cluster.webp": "salvo:1"
+            }
+          }
+        }
+      },
+      "problems": [],
+      "name": "pc",
+      "errors": [],
+      "failedResponses": []
+    },
+    {
+      "beams": [
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "contacts": 5,
+          "start": {
+            "x": 1.4,
+            "y": 16
+          },
+          "end": {
+            "x": 30.599999999999998,
+            "y": 16
+          },
+          "radius": 29.2,
+          "width": 11.680000000002648,
+          "effects": 2
+        },
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "contacts": 5,
+          "start": {
+            "x": 1.4,
+            "y": 16
+          },
+          "end": {
+            "x": 30.599999999999998,
+            "y": 16
+          },
+          "radius": 29.2,
+          "width": 11.680000000002648,
+          "effects": 2
+        }
+      ],
+      "volley": {
+        "first": 6,
+        "later": 6,
+        "releaseSpan": 0.8499999999999943,
+        "commonCount": 6,
+        "zigzags": 6
+      },
+      "commonPixel": {
+        "differences": 0,
+        "transparent": 212879
+      },
+      "blue": {
+        "id": "blue-executor",
+        "boss": true,
+        "patterns": 87
+      },
+      "metrics": {
+        "installed": true,
+        "stats": {
+          "volleys": 2,
+          "staggered": 10,
+          "zigzags": 12,
+          "originalAssets": 1,
+          "substitutedAssets": 6,
+          "nativeBeams": 2,
+          "spawnMoves": 0,
+          "duplicateCosmetics": 0
+        },
+        "ledger": {
+          "version": 1,
+          "sequence": 2,
+          "zones": {
+            "ep1b03": {
+              "./assets/vfx/bosses/v3102/ep1b03_envy_cleaver_glass_cluster.webp": "salvo:1"
+            }
+          }
+        }
+      },
+      "problems": [],
+      "name": "portrait",
+      "errors": [],
+      "failedResponses": []
+    },
+    {
+      "beams": [
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "contacts": 5,
+          "start": {
+            "x": 1.4,
+            "y": 16
+          },
+          "end": {
+            "x": 30.599999999999998,
+            "y": 16
+          },
+          "radius": 29.2,
+          "width": 11.680000000002648,
+          "effects": 2
+        },
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "contacts": 5,
+          "start": {
+            "x": 1.4,
+            "y": 16
+          },
+          "end": {
+            "x": 30.599999999999998,
+            "y": 16
+          },
+          "radius": 29.2,
+          "width": 11.680000000002648,
+          "effects": 2
+        }
+      ],
+      "volley": {
+        "first": 6,
+        "later": 6,
+        "releaseSpan": 0.8499999999999943,
+        "commonCount": 6,
+        "zigzags": 6
+      },
+      "commonPixel": {
+        "differences": 0,
+        "transparent": 212879
+      },
+      "blue": {
+        "id": "blue-executor",
+        "boss": true,
+        "patterns": 87
+      },
+      "metrics": {
+        "installed": true,
+        "stats": {
+          "volleys": 2,
+          "staggered": 10,
+          "zigzags": 12,
+          "originalAssets": 1,
+          "substitutedAssets": 6,
+          "nativeBeams": 2,
+          "spawnMoves": 0,
+          "duplicateCosmetics": 0
+        },
+        "ledger": {
+          "version": 1,
+          "sequence": 2,
+          "zones": {
+            "ep1b03": {
+              "./assets/vfx/bosses/v3102/ep1b03_envy_cleaver_glass_cluster.webp": "salvo:1"
+            }
+          }
+        }
+      },
+      "problems": [],
+      "name": "landscape",
+      "errors": [],
+      "failedResponses": []
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+[
+  {
+    "lowFx": false,
+    "phase": "warning",
+    "tearDraws": 2,
+    "beamDraws": 0,
+    "sources": [
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          620,
+          283.0064,
+          12,
+          91.48648648648668
+        ]
+      },
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          648,
+          283.0064,
+          12,
+          91.48648648648668
+        ]
+      }
+    ],
+    "pixels": 82691
+  },
+  {
+    "lowFx": false,
+    "phase": "boundary",
+    "tearDraws": 0,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      }
+    ],
+    "pixels": 61101
+  },
+  {
+    "lowFx": false,
+    "phase": "active",
+    "tearDraws": 0,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      }
+    ],
+    "pixels": 61101
+  },
+  {
+    "lowFx": false,
+    "phase": "concurrent",
+    "tearDraws": 2,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      },
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          620,
+          283.0064,
+          12,
+          61.621621621621415
+        ]
+      },
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          648,
+          283.0064,
+          12,
+          61.621621621621415
+        ]
+      }
+    ],
+    "pixels": 81573
+  },
+  {
+    "lowFx": false,
+    "phase": "late",
+    "tearDraws": 0,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      }
+    ],
+    "pixels": 61101
+  },
+  {
+    "lowFx": false,
+    "phase": "expired",
+    "tearDraws": 0,
+    "beamDraws": 0,
+    "sources": [],
+    "pixels": 0
+  },
+  {
+    "lowFx": true,
+    "phase": "warning",
+    "tearDraws": 2,
+    "beamDraws": 0,
+    "sources": [
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          620,
+          283.0064,
+          12,
+          91.48648648648668
+        ]
+      },
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          648,
+          283.0064,
+          12,
+          91.48648648648668
+        ]
+      }
+    ],
+    "pixels": 82691
+  },
+  {
+    "lowFx": true,
+    "phase": "boundary",
+    "tearDraws": 0,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      }
+    ],
+    "pixels": 61101
+  },
+  {
+    "lowFx": true,
+    "phase": "active",
+    "tearDraws": 0,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      }
+    ],
+    "pixels": 61101
+  },
+  {
+    "lowFx": true,
+    "phase": "concurrent",
+    "tearDraws": 2,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      },
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          620,
+          283.0064,
+          12,
+          61.621621621621415
+        ]
+      },
+      {
+        "src": "http://127.0.0.1:44023/assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402",
+        "w": 2172,
+        "h": 724,
+        "args": [
+          648,
+          283.0064,
+          12,
+          61.621621621621415
+        ]
+      }
+    ],
+    "pixels": 81573
+  },
+  {
+    "lowFx": true,
+    "phase": "late",
+    "tearDraws": 0,
+    "beamDraws": 1,
+    "sources": [
+      {
+        "src": null,
+        "w": 896,
+        "h": 1152,
+        "args": [
+          0,
+          0,
+          784,
+          1042,
+          334,
+          -135,
+          784,
+          1042
+        ]
+      }
+    ],
+    "pixels": 61101
+  },
+  {
+    "lowFx": true,
+    "phase": "expired",
+    "tearDraws": 0,
+    "beamDraws": 0,
+    "sources": [],
+    "pixels": 0
+  }
+]

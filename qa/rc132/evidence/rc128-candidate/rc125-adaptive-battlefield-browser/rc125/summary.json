@@ -1,0 +1,988 @@
+[
+  {
+    "name": "pc",
+    "phase": "before",
+    "viewport": {
+      "width": 1180,
+      "height": 757
+    },
+    "canvas": {
+      "x": 0,
+      "y": 84.453125,
+      "width": 1180,
+      "height": 663.75
+    },
+    "stage": {
+      "x": 0,
+      "y": 75.6875,
+      "width": 1180,
+      "height": 681.296875
+    },
+    "canvasArea": 783225,
+    "viewportFraction": 0.8768163804491413,
+    "backing": {
+      "width": 1050,
+      "height": 590
+    },
+    "camera": {
+      "x": 213.87452229117534,
+      "y": 68.17952642859557,
+      "scale": 0.6668617163904461,
+      "wholeMapV31345": true
+    },
+    "adaptive": null,
+    "portrait": {
+      "frames": 0,
+      "drawPasses": 0,
+      "bossPasses": 0,
+      "heroPasses": 0,
+      "composites": 0,
+      "pointerBlocked": 0,
+      "cameras": {},
+      "rendering": false,
+      "target": "hero",
+      "frame": 0
+    },
+    "barSamples": 60,
+    "visibleBars": 60,
+    "maxIsotropyError": 0.0010582010582010914,
+    "pointerError": 0,
+    "pointerSamples": 0,
+    "hud": {
+      "enemy": {
+        "x": 590,
+        "y": 0,
+        "width": 590,
+        "height": 75.6875
+      },
+      "ally": {
+        "x": 0,
+        "y": 0,
+        "width": 590,
+        "height": 75.6875
+      },
+      "controls": {
+        "x": 0,
+        "y": 0,
+        "width": 1180,
+        "height": 75.6875
+      },
+      "settings": {
+        "x": 1144,
+        "y": 4,
+        "width": 32,
+        "height": 32
+      }
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "pc",
+    "phase": "after",
+    "viewport": {
+      "width": 1180,
+      "height": 757
+    },
+    "canvas": {
+      "x": 0,
+      "y": 32,
+      "width": 1180,
+      "height": 681
+    },
+    "stage": {
+      "x": 0,
+      "y": 32,
+      "width": 1180,
+      "height": 681
+    },
+    "canvasArea": 803580,
+    "viewportFraction": 0.8996036988110965,
+    "backing": {
+      "width": 1050,
+      "height": 590
+    },
+    "camera": {
+      "x": 158.2595872209199,
+      "y": 35.93435055737211,
+      "scale": 0.7532810894550978,
+      "wholeMapV31345": true,
+      "adaptiveRC125": true
+    },
+    "adaptive": {
+      "installed": true,
+      "wide": true,
+      "box": {
+        "width": 1180,
+        "height": 681
+      },
+      "revision": 3,
+      "frames": 75,
+      "lastWorld": {
+        "view": {
+          "x": 0,
+          "y": -9.355932203389841,
+          "width": 1280,
+          "height": 738.7118644067797,
+          "k": 0.921875
+        },
+        "rx": 1,
+        "ry": 0.974669603524229,
+        "cssWidth": 1180,
+        "cssHeight": 681,
+        "backingWidth": 1050,
+        "backingHeight": 590,
+        "zone": "dist06",
+        "revision": 3
+      },
+      "lastCamera": {
+        "view": {
+          "x": 0,
+          "y": -9.355932203389841,
+          "width": 1280,
+          "height": 738.7118644067797,
+          "k": 0.921875
+        },
+        "safe": {
+          "left": 13.016949152542374,
+          "right": 1266.9830508474577,
+          "top": 3.6610169491525326,
+          "bottom": 716.3389830508474
+        },
+        "map": {
+          "x": -117.35587331181154,
+          "y": -42.8436795507042,
+          "width": 1513.7572968777984,
+          "height": 946.098310548624
+        },
+        "camera": {
+          "x": 158.2595872209199,
+          "y": 35.93435055737211,
+          "scale": 0.7532810894550978,
+          "wholeMapV31345": true,
+          "adaptiveRC125": true
+        },
+        "revision": 3,
+        "zoomPolicy": "whole-map-adaptive"
+      }
+    },
+    "portrait": {
+      "frames": 0,
+      "drawPasses": 0,
+      "bossPasses": 0,
+      "heroPasses": 0,
+      "composites": 0,
+      "pointerBlocked": 0,
+      "cameras": {},
+      "rendering": false,
+      "target": "hero",
+      "frame": 0
+    },
+    "barSamples": 56,
+    "visibleBars": 56,
+    "maxIsotropyError": 0.0010581725320689683,
+    "pointerError": 5.0242958677880805e-15,
+    "pointerSamples": 16,
+    "hud": {
+      "enemy": {
+        "x": 0,
+        "y": 0,
+        "width": 590,
+        "height": 32
+      },
+      "ally": {
+        "x": 590,
+        "y": 0,
+        "width": 590,
+        "height": 32
+      },
+      "controls": {
+        "x": 0,
+        "y": 713,
+        "width": 1180,
+        "height": 44
+      },
+      "settings": {
+        "x": 1136,
+        "y": 717,
+        "width": 36,
+        "height": 36
+      }
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "secondaryControls": 6,
+    "settingsOpened": true,
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "desktop",
+    "phase": "before",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "canvas": {
+      "x": 96,
+      "y": 108,
+      "width": 1728,
+      "height": 972
+    },
+    "stage": {
+      "x": 0,
+      "y": 108,
+      "width": 1920,
+      "height": 972
+    },
+    "canvasArea": 1679616,
+    "viewportFraction": 0.81,
+    "backing": {
+      "width": 1417,
+      "height": 797
+    },
+    "camera": {
+      "x": 213.87452229117534,
+      "y": 68.17952642859557,
+      "scale": 0.6668617163904461,
+      "wholeMapV31345": true
+    },
+    "adaptive": null,
+    "portrait": {
+      "frames": 0,
+      "drawPasses": 0,
+      "bossPasses": 0,
+      "heroPasses": 0,
+      "composites": 0,
+      "pointerBlocked": 0,
+      "cameras": {},
+      "rendering": false,
+      "target": "hero",
+      "frame": 0
+    },
+    "barSamples": 60,
+    "visibleBars": 60,
+    "maxIsotropyError": 0.00007841292244958886,
+    "pointerError": 0,
+    "pointerSamples": 0,
+    "hud": {
+      "enemy": {
+        "x": 960,
+        "y": 0,
+        "width": 960,
+        "height": 108
+      },
+      "ally": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 108
+      },
+      "controls": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 108
+      },
+      "settings": {
+        "x": 1884,
+        "y": 4,
+        "width": 32,
+        "height": 32
+      }
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "desktop",
+    "phase": "after",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "canvas": {
+      "x": 0,
+      "y": 32,
+      "width": 1920,
+      "height": 1004
+    },
+    "stage": {
+      "x": 0,
+      "y": 32,
+      "width": 1920,
+      "height": 1004
+    },
+    "canvasArea": 1927680,
+    "viewportFraction": 0.9296296296296296,
+    "backing": {
+      "width": 1464,
+      "height": 823
+    },
+    "camera": {
+      "x": 164.94421855580396,
+      "y": 40.43108642872437,
+      "scale": 0.7428285589200349,
+      "wholeMapV31345": true,
+      "adaptiveRC125": true
+    },
+    "adaptive": {
+      "installed": true,
+      "wide": true,
+      "box": {
+        "width": 1920,
+        "height": 1004
+      },
+      "revision": 3,
+      "frames": 67,
+      "lastWorld": {
+        "view": {
+          "x": -48.4462151394423,
+          "y": 0,
+          "width": 1376.8924302788846,
+          "height": 720,
+          "k": 1.3944444444444444
+        },
+        "rx": 0.9296296296296296,
+        "ry": 1,
+        "cssWidth": 1920,
+        "cssHeight": 1004,
+        "backingWidth": 1464,
+        "backingHeight": 823,
+        "zone": "dist06",
+        "revision": 3
+      },
+      "lastCamera": {
+        "view": {
+          "x": -48.4462151394423,
+          "y": 0,
+          "width": 1376.8924302788846,
+          "height": 720,
+          "k": 1.3944444444444444
+        },
+        "safe": {
+          "left": -39.840637450199274,
+          "right": 1319.8406374501992,
+          "top": 8.60557768924303,
+          "bottom": 711.394422310757
+        },
+        "map": {
+          "x": -117.35587331181154,
+          "y": -42.8436795507042,
+          "width": 1513.7572968777984,
+          "height": 946.098310548624
+        },
+        "camera": {
+          "x": 164.94421855580396,
+          "y": 40.43108642872437,
+          "scale": 0.7428285589200349,
+          "wholeMapV31345": true,
+          "adaptiveRC125": true
+        },
+        "revision": 3,
+        "zoomPolicy": "whole-map-adaptive"
+      }
+    },
+    "portrait": {
+      "frames": 0,
+      "drawPasses": 0,
+      "bossPasses": 0,
+      "heroPasses": 0,
+      "composites": 0,
+      "pointerBlocked": 0,
+      "cameras": {},
+      "rendering": false,
+      "target": "hero",
+      "frame": 0
+    },
+    "barSamples": 52,
+    "visibleBars": 52,
+    "maxIsotropyError": 0.0006071707120283154,
+    "pointerError": 7.105427357601002e-15,
+    "pointerSamples": 16,
+    "hud": {
+      "enemy": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 32
+      },
+      "ally": {
+        "x": 960,
+        "y": 0,
+        "width": 960,
+        "height": 32
+      },
+      "controls": {
+        "x": 0,
+        "y": 1036,
+        "width": 1920,
+        "height": 44
+      },
+      "settings": {
+        "x": 1876,
+        "y": 1040,
+        "width": 36,
+        "height": 36
+      }
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "secondaryControls": 6,
+    "settingsOpened": true,
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "portrait",
+    "phase": "before",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    "canvasArea": 329160,
+    "viewportFraction": 1,
+    "backing": {
+      "width": 1247,
+      "height": 702
+    },
+    "camera": {
+      "x": 275.65,
+      "y": 119.02499999999998,
+      "scale": 0.525,
+      "portraitSplitRC108": "hero"
+    },
+    "adaptive": null,
+    "portrait": {
+      "frames": 73,
+      "drawPasses": 73,
+      "bossPasses": 37,
+      "heroPasses": 36,
+      "composites": 73,
+      "pointerBlocked": 0,
+      "cameras": {
+        "hero": {
+          "x": 275.65,
+          "y": 119.02499999999998,
+          "scale": 0.525,
+          "focusId": "hero"
+        },
+        "boss": {
+          "x": 304,
+          "y": 154.2,
+          "scale": 0.525,
+          "focusId": "dist06-boss"
+        }
+      },
+      "rendering": false,
+      "target": "boss",
+      "frame": 73
+    },
+    "barSamples": 47,
+    "visibleBars": 47,
+    "maxIsotropyError": 0.7398685755766446,
+    "pointerError": 0,
+    "pointerSamples": 0,
+    "hud": {
+      "enemy": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "ally": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "controls": null,
+      "settings": null
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "portrait",
+    "phase": "after",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    "stage": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844
+    },
+    "canvasArea": 329160,
+    "viewportFraction": 1,
+    "backing": {
+      "width": 1247,
+      "height": 702
+    },
+    "camera": {
+      "x": 275.65,
+      "y": 119.02499999999998,
+      "scale": 0.525,
+      "portraitSplitRC108": "hero"
+    },
+    "adaptive": {
+      "installed": true,
+      "wide": false,
+      "box": {
+        "width": 390,
+        "height": 844
+      },
+      "revision": 4,
+      "frames": 4,
+      "lastWorld": {
+        "view": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720,
+          "k": 0.3046875
+        },
+        "rx": 1,
+        "ry": 1,
+        "cssWidth": 390,
+        "cssHeight": 219.375,
+        "backingWidth": 1280,
+        "backingHeight": 720,
+        "zone": "dist00",
+        "revision": 3
+      },
+      "lastCamera": {
+        "view": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720,
+          "k": 0.3046875
+        },
+        "safe": {
+          "left": 39.38461538461539,
+          "right": 1240.6153846153845,
+          "top": 52.51282051282051,
+          "bottom": 437.7435897435897
+        },
+        "map": {
+          "x": -152,
+          "y": -10.736842105263122,
+          "width": 1584,
+          "height": 891.4736842105262
+        },
+        "camera": {
+          "x": -32,
+          "y": -204.7736842105263,
+          "scale": 1.05,
+          "combatViewportRC104": true,
+          "adaptiveRC125": true
+        },
+        "revision": 3,
+        "zoomPolicy": "fixed-mobile-1.05"
+      }
+    },
+    "portrait": {
+      "frames": 63,
+      "drawPasses": 63,
+      "bossPasses": 32,
+      "heroPasses": 31,
+      "composites": 63,
+      "pointerBlocked": 0,
+      "cameras": {
+        "hero": {
+          "x": 275.65,
+          "y": 119.02499999999998,
+          "scale": 0.525,
+          "focusId": "hero"
+        },
+        "boss": {
+          "x": 304,
+          "y": 154.2,
+          "scale": 0.525,
+          "focusId": "dist06-boss"
+        }
+      },
+      "rendering": false,
+      "target": "boss",
+      "frame": 63
+    },
+    "barSamples": 46,
+    "visibleBars": 46,
+    "maxIsotropyError": 0.7398685755766446,
+    "pointerError": 0,
+    "pointerSamples": 0,
+    "hud": {
+      "enemy": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "ally": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "controls": null,
+      "settings": null
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "landscape",
+    "phase": "before",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "canvas": {
+      "x": 0,
+      "y": 39,
+      "width": 844,
+      "height": 351
+    },
+    "stage": {
+      "x": 0,
+      "y": 39,
+      "width": 844,
+      "height": 351
+    },
+    "canvasArea": 296244,
+    "viewportFraction": 0.9,
+    "backing": {
+      "width": 702,
+      "height": 395
+    },
+    "camera": {
+      "x": -31.999999999999943,
+      "y": -9.546327014218022,
+      "scale": 1.05,
+      "combatViewportRC104": true
+    },
+    "adaptive": null,
+    "portrait": {
+      "frames": 0,
+      "drawPasses": 0,
+      "bossPasses": 0,
+      "heroPasses": 0,
+      "composites": 0,
+      "pointerBlocked": 0,
+      "cameras": {},
+      "rendering": false,
+      "target": "hero",
+      "frame": 0
+    },
+    "barSamples": 54,
+    "visibleBars": 54,
+    "maxIsotropyError": 0.35299226467317624,
+    "pointerError": 0,
+    "pointerSamples": 0,
+    "hud": {
+      "enemy": {
+        "x": 422,
+        "y": 0,
+        "width": 422,
+        "height": 39
+      },
+      "ally": {
+        "x": 0,
+        "y": 0,
+        "width": 422,
+        "height": 39
+      },
+      "controls": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 39
+      },
+      "settings": {
+        "x": 805,
+        "y": 0,
+        "width": 38,
+        "height": 38
+      }
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "errors": [],
+    "failedResponses": []
+  },
+  {
+    "name": "landscape",
+    "phase": "after",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "canvas": {
+      "x": 0,
+      "y": 36,
+      "width": 844,
+      "height": 354
+    },
+    "stage": {
+      "x": 0,
+      "y": 36,
+      "width": 844,
+      "height": 354
+    },
+    "canvasArea": 298776,
+    "viewportFraction": 0.9076923076923077,
+    "backing": {
+      "width": 702,
+      "height": 395
+    },
+    "camera": {
+      "x": -31.498913883442015,
+      "y": -148.05762711864406,
+      "scale": 1.05,
+      "combatViewportRC104": true,
+      "adaptiveRC125": true
+    },
+    "adaptive": {
+      "installed": true,
+      "wide": true,
+      "box": {
+        "width": 844,
+        "height": 354
+      },
+      "revision": 3,
+      "frames": 82,
+      "lastWorld": {
+        "view": {
+          "x": -218.30508474576277,
+          "y": 0,
+          "width": 1716.6101694915255,
+          "height": 720,
+          "k": 0.49166666666666664
+        },
+        "rx": 0.7456556082148499,
+        "ry": 1,
+        "cssWidth": 844,
+        "cssHeight": 354,
+        "backingWidth": 702,
+        "backingHeight": 395,
+        "zone": "dist06",
+        "revision": 3
+      },
+      "lastCamera": {
+        "view": {
+          "x": -218.30508474576277,
+          "y": 0,
+          "width": 1716.6101694915255,
+          "height": 720,
+          "k": 0.49166666666666664
+        },
+        "safe": {
+          "left": -193.89830508474583,
+          "right": 1473.8983050847457,
+          "top": 32.54237288135593,
+          "bottom": 545.0847457627119
+        },
+        "map": {
+          "x": -117.35587331181154,
+          "y": -42.8436795507042,
+          "width": 1513.7572968777984,
+          "height": 946.098310548624
+        },
+        "camera": {
+          "x": -31.498913883442015,
+          "y": -148.05762711864406,
+          "scale": 1.05,
+          "combatViewportRC104": true,
+          "adaptiveRC125": true
+        },
+        "revision": 3,
+        "zoomPolicy": "fixed-mobile-1.05"
+      }
+    },
+    "portrait": {
+      "frames": 0,
+      "drawPasses": 0,
+      "bossPasses": 0,
+      "heroPasses": 0,
+      "composites": 0,
+      "pointerBlocked": 0,
+      "cameras": {},
+      "rendering": false,
+      "target": "hero",
+      "frame": 0
+    },
+    "barSamples": 54,
+    "visibleBars": 54,
+    "maxIsotropyError": 0.00031653982934409797,
+    "pointerError": 5.329070518200751e-15,
+    "pointerSamples": 16,
+    "hud": {
+      "enemy": {
+        "x": 0,
+        "y": 0,
+        "width": 422,
+        "height": 36
+      },
+      "ally": {
+        "x": 422,
+        "y": 0,
+        "width": 422,
+        "height": 36
+      },
+      "controls": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 36
+      },
+      "settings": {
+        "x": 808,
+        "y": 0,
+        "width": 36,
+        "height": 36
+      }
+    },
+    "problems": [],
+    "fixture": {
+      "zone": "dist06",
+      "hero": {
+        "x": 18,
+        "y": 16
+      },
+      "boss": {
+        "id": "dist06-boss",
+        "hp": 9085,
+        "maxHp": 18170
+      },
+      "laser": "branch-y"
+    },
+    "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+    "rotatedToPortrait": {
+      "wide": false,
+      "split": true
+    },
+    "rotatedBack": true,
+    "errors": [],
+    "failedResponses": []
+  }
+]
