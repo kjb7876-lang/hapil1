@@ -344,6 +344,8 @@ function validateReviewedRevision(root, exec, ensure) {
 }
 
 function verify(root){
+ // NARRATION82_PRESERVATION_DELEGATE: exact current bytes, then unchanged prior proof.
+ if(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('    <script src="./assets/story-narration/v1/player.js?v=2026100308"></script>'))return require('./story-narration-release82-preservation.cjs').verify(root);
  // NARRATION73_PRESERVATION_DELEGATE: exact current bytes, then unchanged prior proof.
  if(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('    <script src="./assets/story-narration/v1/player.js?v=2026100307"></script>'))return require('./story-narration-release73-preservation.cjs').verify(root);
  // RC132_PRESERVATION_DELEGATE: exact new delta plus unchanged prior proof.
