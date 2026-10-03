@@ -4,7 +4,7 @@ on:
     branches: ['fix/rc130-projectile-cap-melee-audio']
     paths: ['.github/workflows/rc130-source-inspect.yml']
 permissions:
-  contents: read
+  contents: write
 jobs:
   inspect:
     runs-on: ubuntu-latest
@@ -12,20 +12,28 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          persist-credentials: false
           show-progress: false
-      - name: Read exact native integration points
+      - name: Preserve targeted source excerpts
         run: |
           python3 - <<'PY'
-          import pathlib,re
-          text=pathlib.Path('assets/index-v31526.js').read_text();lines=text.splitlines()
-          for name in ['Jn','MONGSE_spawnTelegraphedImpact','MONGSE_spawnBossImpactTransitV31232']:
-            matches=list(re.finditer(r'^function '+re.escape(name)+r'\(',text,re.M))
-            for m in matches:
-              end=re.search(r'^function ',text[m.end():],re.M)
-              chunk=text[m.start():m.end()+end.start() if end else m.start()+18000]
-              print('\nFUNCTION',name,'LINE',text.count('\n',0,m.start())+1,'\n'+chunk[:20000])
-          for token,limit,before,after in [('function poses(',1,1300,5800),('function bind(e,s=state)',1,500,3600),('projectileRenderer.dispatch',2,500,1000),('__HAPIL_PROJECTILE_RENDER_V31402__',3,500,900),('attackType === `melee`',6,500,1700),('attackType===\'melee\'',6,500,1700),('hero-blade-soft-low',3,800,1800),('__HAPIL_FEEDBACK_RC22__',4,350,950),('enemyAttack',4,500,1700)]:
-            found=list(re.finditer(re.escape(token),text));print('\nTOKEN',token,'COUNT',len(found))
-            for m in found[:limit]: print('LINE',text.count('\n',0,m.start())+1,'\n'+text[max(0,m.start()-before):m.end()+after])
+          import pathlib,re,json
+          text=pathlib.Path('assets/index-v31526.js').read_text();starts=list(re.finditer(r'^function\s+([\w$]+)\s*\(',text,re.M));out=pathlib.Path('qa/rc130/inspection');out.mkdir(parents=True,exist_ok=True)
+          needles=['MONGSE_runtimeSprite(t, n.sprite, n.fallbackSprite)', 'n.kind === `enemyAttack`', '.fxKind', 'distanceMode31222:', 'MONGSE_resolveHeroSfxV31233(', 'MONGSE_spawnEnemyTransientV31232', 'MONGSE_spawnBossImpactTransit', 'function poses(', 'function bullet(', 'HAPIL_bloodiedFlightTransitRC43']
+          chosen=set();index=[]
+          for needle in needles:
+            for hit in list(re.finditer(re.escape(needle),text))[:12]:
+              prior=[(i,m) for i,m in enumerate(starts) if m.start()<=hit.start()];i,m=prior[-1] if prior else (0,starts[0]);end=starts[i+1].start() if i+1<len(starts) else len(text)
+              if end-m.start()>42000:
+                lo=max(0,hit.start()-2300);hi=min(len(text),hit.end()+4700);name='snippet-'+str(text.count('\n',0,hit.start())+1)
+              else:lo=m.start();hi=end;name=m.group(1)
+              if name in chosen:continue
+              chosen.add(name);p=out/(name+'.txt');p.write_text(text[lo:hi]);index.append({'name':name,'line':text.count('\n',0,lo)+1,'chars':hi-lo,'needle':needle})
+          (out/'index.json').write_text(json.dumps(index,indent=2));print(json.dumps(index,indent=2))
           PY
+          git config user.name 'HAPIL RC130 source inspection'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc130/inspection
+          if ! git diff --cached --quiet; then
+            git commit -m 'RC130 record exact native source excerpts for patch review'
+            git push origin HEAD:refs/heads/fix/rc130-projectile-cap-melee-audio
+          fi
