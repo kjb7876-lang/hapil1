@@ -48,7 +48,14 @@
  function family(a){return root.__HAPIL_CHOICE_RC97__?.profile?.(a)?.family??'petal';}
  function bands(actors){const a=actors[0];return a?clamp(1+Math.floor((1-clamp(num(a.hp)/Math.max(1,num(a.maxHp,1)),0,1))*3),1,3):1;}
  function note(m,event,detail={}){m.log.push({at:m.clock,event,...detail});if(m.log.length>24)m.log.shift();}
- function persist(s,m){s.rc129Danmaku={version:1,zone:m.zone,mode:m.mode,phase:m.phase?{...m.phase}:null,graze:{...m.graze,seen:Array.from(m.seen)}};}
+ function persist(s,m){
+  // The native state already owns mutable simulation records. Export performs
+  // validation/copying; do not allocate up to 1024 saved IDs on every frame.
+  if(m.graze.seen.length!==m.seen.size)m.graze.seen=Array.from(m.seen);
+  let saved=s.rc129Danmaku;
+  if(!saved||saved.zone!==m.zone||saved.mode!==m.mode)saved=s.rc129Danmaku={version:1,zone:m.zone,mode:m.mode};
+  saved.phase=m.phase;saved.graze=m.graze;
+ }
  function clearOwned(s,ids,reason){
   let removed=0;const owns=q=>ids.includes(owner(q))&&!friendly(q)&&!persistent(q);
   // Finish all casts before this is called on a live phase boundary. Persistent
@@ -74,7 +81,7 @@
     // not-yet-released deliveries do; cancelling those would truncate the cast.
     const t=key==='hostileProjectiles'?Math.max(num(q.motionReleaseAt31219),num(q.frozenUntil),num(q.interruptProtectedUntil31210)):
      Math.max(num(q.endAt),num(q.end),num(q.at),num(q.impactAt),num(q.interruptProtectedUntil31210),num(q.fireAt)+num(q.activeSeconds));
-    if(t>s.time&&t<s.time+120)until=Math.max(until,t);
+    if(t>s.time)until=Math.max(until,t);
    }
   }return until;
  }
@@ -170,9 +177,12 @@
  }
  function graze(s,q){
   if(!eligible(s)||!q||friendly(q)||q.damageSuppressedV31226||q.visualOnly||s.channelDActiveV31364||num(s.invulnerableUntil)>s.time)return false;
-  const id=q.laserCastId??q.castId??q.bossCastId31210??q.attackInstanceIdV31336??q.id;
+  const laser=!!(q.laserV31330||q.themedLaser||q.laser||q.shape==='line');
+  // Segments/repeated contacts of one laser share one cast ID irrespective of
+  // per-segment born/id fields. A laser without stable ownership is not bonus-eligible.
+  const id=laser?(q.laserCastId??q.castId??q.bossCastId31210??q.attackInstanceIdV31336):(q.id??q.attackInstanceIdV31336);
   if(id==null)return false;
-  const m=memory(s),key=(owner(q)+'|'+String(id)+'|'+String(num(q.born,-1))).slice(0,239);
+  const m=memory(s),key=(owner(q)+'|'+(laser?'laser|':'bullet|')+String(id)+(laser?'':'|'+String(num(q.born,-1)))).slice(0,239);
   if(m.seen.has(key)){stats.duplicateGrazes++;return false;}
   if(m.seen.size>=CONFIG.maxGrazeSources)return false;
   m.seen.add(key);
