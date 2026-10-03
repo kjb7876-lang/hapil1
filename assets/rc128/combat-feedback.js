@@ -50,7 +50,7 @@
   m.ownedUntil=n(s.time)+seconds;m.pauseDeadline=t+seconds;
   s.timeStopUntil=m.ownedUntil;totals.pauses++;return true;
  }
- function sound(s,key,priority,gain){root.__HAPIL_FEEDBACK_RC22__?.impact?.(s,{key,priority,gain});}
+ function sound(s,key,priority,gain,meta={}){root.__HAPIL_FEEDBACK_RC22__?.impact?.(s,{key,priority,gain,...meta});}
  function classify(s,target,row,source){
   if(!row||row.result==='ERROR'||row.result==='REJECTED'||row.result==='MISS')return null;
   const outgoing=row.kind==='OUTGOING',incoming=row.kind==='CONTACT'&&row.targetId==='__host';
@@ -92,7 +92,7 @@
   if(!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'){
    m.shake=Math.max(m.shake,f.boss&&!f.outgoing?1.3:f.power>=1?1:.35);m.shakeUntil=t+.085;
   }
-  sound(s,f.sound,f.priority,f.power>=1?.35:.24);
+  sound(s,f.sound,f.priority,f.power>=1?.35:.24,{channel:f.outgoing?'enemy-hit':f.kind==='guard'?'guard':'ally-hurt',heroId:s.activeHeroId});
   return true;
  }
  function awakening(s,m){

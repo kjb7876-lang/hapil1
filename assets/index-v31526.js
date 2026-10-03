@@ -61964,6 +61964,7 @@ function Ri() {
               window.__HAPIL_HELL_V31322__?.mirrorProjectiles(o);
               window.__HAPIL_DEFENSE_V31356__?.tick(o);window.__HAPIL_AWAKENING_V31357__?.tick(o,n);
                              window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareFrame(o);
+              window.__HAPIL_PRESENTATION_RC130__?.prepare(o);
                window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);
                window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);
                let s = new Set();
@@ -62615,6 +62616,9 @@ function Ri() {
                       (o.effects.push({
                         id: o.fxSerial++,
                         ownershipSourceIdV31322: e.id,
+                        rc130StationaryMelee: !s,
+                        rc130MeleeX: MONGSE_lockedTargetXSmartR1,
+                        rc130MeleeY: MONGSE_lockedTargetYSmartR1,
                         kind: r.fxKind,
                         x: e.x,
                         y: e.y,
@@ -119936,6 +119940,7 @@ install();
     return{edge,travel,lineX:x+dx*edge,lineY:y+dy*edge,endX:x+dx*travel,endY:y+dy*travel};
   }
   function eligible(s,e,reason){
+    if(window.__HAPIL_PRESENTATION_RC130__?.melee(e))return false;
     if(!authority(s)||paused(s)||locked(s)||!e||own(e)||e.themeTerminalV31323||e.exitHandledV31327||e.damageSuppressedV31226||e.coreContactsV31333?.length||['contact','hero-hit','ally-hit','owner-death'].includes(reason))return false;
     const a=sourceActor(s,e);if(!a||finite(a.hp)<=0||a.visualOnly||a.protectedNarrativeTargetV31307)return false;
     if(e.themeReplacedBomb323||e.persistentProjectile31222||e.bossImpactTransitV31232||e.kind==='telegraph'||e.cosmicChargeV31318||e.spectacleChargeV31317||e.giantProjectileTelegraphV31226)return false;
@@ -119945,7 +119950,7 @@ install();
     if(['end','dissolve'].includes(reason)&&!Number.isFinite(e.vx)&&!e.normalBombV31323&&s.time<finite(e.born)+finite(e.duration,0))return false;
     return true;
   }
-  function canTransfer(s,e){return !!(s&&e&&!own(e)&&!e.themeTerminalV31323&&!e.bossImpactTransitV31232&&!String(e.kind??'').includes('telegraph')&&!e.themeReplacedBomb323&&!e.cosmicChargeV31318&&!e.spectacleChargeV31317&&sourceActor(s,e)?.hp>0);}
+  function canTransfer(s,e){return !!(s&&e&&!window.__HAPIL_PRESENTATION_RC130__?.melee(e)&&!own(e)&&!e.themeTerminalV31323&&!e.bossImpactTransitV31232&&!String(e.kind??'').includes('telegraph')&&!e.themeReplacedBomb323&&!e.cosmicChargeV31318&&!e.spectacleChargeV31317&&sourceActor(s,e)?.hp>0);}
   function bitmapReady(s,e){const cache=caches.get(s);if(!cache)return true;const im=MONGSE_queueImage(cache,e.sprite,'eager');return !!(im?.complete&&(im.naturalWidth||im.width)>0);}
   function emit(s,e,reason='end'){
     if(e?.exitHandledV31327){stats.duplicate++;return null;}if(!eligible(s,e,reason)){stats.rejected++;return null;}
@@ -122511,7 +122516,8 @@ function HAPIL_projectileVisibleV31355(p,time){return window.__HAPIL_PROJECTILE_
   if(!window.__HAPIL_V31354_RELEASE__?.installed){if(++attempts<800)setTimeout(install,0);return;}
   const base=Jn;
   Jn=function HAPIL_projectileDispatchV31402(ctx,cache,p,time,settings={}){
-   return window.__HAPIL_PROJECTILE_RENDER_V31402__.dispatch(base,this,[ctx,cache,p,time,settings]);
+   const paint=()=>window.__HAPIL_PROJECTILE_RENDER_V31402__.dispatch(base,this,[ctx,cache,p,time,settings]);
+   return window.__HAPIL_PRESENTATION_RC130__?window.__HAPIL_PRESENTATION_RC130__.projectile(ctx,p,paint):paint();
   };
   MONGSE_ASSET_VERSION='31355';window.MONGSE_ASSET_VERSION='31355';
   window.__HAPIL_PROJECTILES_V31355__=Object.freeze({version:'3.13.55',installed:true,visible:HAPIL_projectileVisibleV31355,
@@ -126464,3 +126470,6 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  window.__HAPIL_RC127_INSTALLED__=true;
  }install();
 })();
+
+/* RC130_FINAL_PRESENTATION_HOOK */
+(()=>{const previous=Gn;Gn=function HAPIL_meleeAndProjectileRC130(ctx,cache,e,time,settings={}){const p=window.__HAPIL_PRESENTATION_RC130__;if(!p)return previous.call(this,ctx,cache,e,time,settings);if(p.drawMelee(ctx,cache,e,time,settings,{project:G,queue:MONGSE_queueImage,opacity:MONGSE_skillFxOpacity}))return true;return p.projectile(ctx,e,()=>previous.call(this,ctx,cache,e,time,settings));};const audio=MONGSE_resolveHeroSfxV31233;MONGSE_resolveHeroSfxV31233=function(hero,action,...rest){const original=audio.call(this,hero,action,...rest);return window.__HAPIL_AUDIO_RC130__?.attack(hero,action,original)??original;};window.__HAPIL_RC130_NATIVE_INSTALLED__=true;})();

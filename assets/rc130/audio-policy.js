@@ -16,7 +16,7 @@
  }
  function route(s,event,fallback){
   if(event?.channel!=='ally-hurt')return fallback;
-  const hero=event.heroId??s?.activeHeroId,pack=root.__HAPIL_AUDIO_RC130_MANIFEST__,identity=pack?.heroIdentity?.[hero],voice=pack?.hurtByHero?.[hero];
+  const hero=Object.prototype.hasOwnProperty.call(event,'heroId')?event.heroId:s?.activeHeroId,pack=root.__HAPIL_AUDIO_RC130_MANIFEST__,identity=pack?.heroIdentity?.[hero],voice=pack?.hurtByHero?.[hero];
   // Both the character identity AND the exact voice assignment need review.
   // Unknown characters never borrow a male/female voice from the active hero.
   if(hero&&identity?.reviewed===true&&voice?.reviewed===true&&voice.heroId===hero&&voice.gender===identity.gender&&['male','female','nonvocal'].includes(voice.gender)&&local(voice.path)){
