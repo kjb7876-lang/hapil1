@@ -1,0 +1,45 @@
+name: RC130 preserve exact public retry evidence
+on:
+  push:
+    branches: ['fix/rc130-projectile-cap-melee-audio']
+    paths: ['.github/workflows/rc130-evidence-recovery.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 654a111ca29717c9066b36d2161c8216b712413b
+          show-progress: false
+      - name: Download only the successful second-attempt artifact
+        uses: actions/download-artifact@v7
+        with:
+          artifact-ids: '11266575601'
+          run-id: 37100706532
+          repository: kjb7876-lang/hapil1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: qa/rc130/public-retry-evidence
+          merge-multiple: true
+      - name: Validate immutable source identity and preserve separately
+        run: |
+          python3 - <<'PY'
+          import pathlib,json
+          p=pathlib.Path('qa/rc130/public-retry-evidence/summary.json')
+          r=json.loads(p.read_text())
+          assert r['testedCommit']=='654a111ca29717c9066b36d2161c8216b712413b'
+          assert r['status']=='passed'
+          assert len(r['files'])==17
+          assert len(r['profiles'])==3 and all(x['status']=='passed' and not x['errors'] and not x['httpErrors'] for x in r['profiles'])
+          assert r['attachmentImported'] is False
+          p.with_name('provenance.json').write_text(json.dumps({'sourceRun':37100706532,'sourceAttempt':2,'sourceJob':111140016444,'sourceArtifact':11266575601,'archiveDigest':'9091ba34e67408f686101e898e9b2d95f62dad9c86a92c20b4a15ba6eaf3240e','initialFailedAttemptPreservedAt':'qa/rc130-public-37100706532','note':'This archive copies existing successful test evidence; it does not perform new tests or change the initial failure.'},indent=2)+'\n')
+          print('RC130_PUBLIC_RETRY_ARCHIVE_VERIFIED',r['testedCommit'],len(r['files']),len(r['profiles']))
+          PY
+          git config user.name 'HAPIL RC130 immutable evidence archive'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc130/public-retry-evidence
+          git commit -m 'RC130 preserve exact public attempt 2 success independently of attempt 1 failure'
+          git push origin HEAD:refs/heads/qa/rc130-public-37100706532-attempt-2
