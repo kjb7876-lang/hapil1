@@ -1,12 +1,26 @@
 'use strict';
-// The public checkout is not edited. Test a disposable local worktree.
-// RC129 permits exactly two new script tags and the RC95 cache revision in HTML;
-// every other RC128 byte, including final newlines, retains its accepted hash.
+// Test the exact extended checkout in a disposable worktree. Explicitly project
+// only the RC129 loader and the independently merged narration loader back to
+// the accepted historical RC128 HTML. Never normalize away final-byte changes.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=require('node:child_process'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..'),out=path.resolve(process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results','rc128-candidate'));
 const {build,manifest}=require('../tools/rc128-candidate.cjs');fs.mkdirSync(out,{recursive:true});
 const run=(command,args,options={})=>cp.spawnSync(command,args,{cwd:root,encoding:'utf8',maxBuffer:32*1024*1024,...options});
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex'),hash=file=>digest(fs.readFileSync(file));
+function narrationIndexBase(text){
+ const tags=[
+  /    <script src="\.\/assets\/story-narration\/v1\/player\.js\?v=\d+"><\/script>\n/g,
+  /    <link rel="stylesheet" href="\.\/assets\/story-narration\/v1\/player\.css\?v=\d+">\n/g,
+  /    <script defer src="\.\/assets\/story-narration\/v1\/surfaces\.js\?v=\d+"><\/script>\n/g
+ ];
+ if(!text.includes('./assets/story-narration/v1/player.js'))return text;
+ for(const expression of tags){if([...text.matchAll(expression)].length!==1)throw Error('Unexpected narration index tag');text=text.replace(expression,'');}
+ for(const [asset,version] of [['assets/hapil-title-v31342.js','35101'],['data/story-rc51.js','39301'],['assets/rc51/story.js','40801'],['assets/title/v31236/christian-opening-v31236.js','36101']]){
+  const escaped=asset.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),expression=new RegExp('(src="\\./'+escaped+'\\?v=)\\d+','g');
+  if([...text.matchAll(expression)].length!==1)throw Error('Unexpected narration cache key');text=text.replace(expression,(_,prefix)=>prefix+version);
+ }
+ return text;
+}
 const git=(...args)=>{const r=run('git',args);if(r.status!==0)throw Error(r.stderr||'git failed');return r.stdout.trim();};
 const accepted={
  'assets/rc91/samong-awakening.js':'e10f8ca145914fe517cbf88012b73a74a5db6c57e8bab5334993c12bb97e9f79',
@@ -25,22 +39,22 @@ try{
  if(run('git',['cat-file','-e',historical+':index.html']).status!==0)git('fetch','--no-tags','--depth=1','origin',historical);
  report.viewportReference=historical;
  const generated=build(root);report.files=manifest(generated);
- for(const f of ['assets/index-v31526.js','assets/rc77/connected-laser.js','assets/rc127/combat-policy.js','assets/rc127/dark-jelly.js','assets/combat-v31412/skill-completion.js','assets/rc95/combat-flow.js'])report.protectedFiles[f]=hash(path.join(root,f));
+ for(const f of ['assets/index-v31526.js','assets/rc77/connected-laser.js','assets/rc127/combat-policy.js','assets/rc127/dark-jelly.js','assets/combat-v31412/skill-completion.js','assets/rc95/combat-flow.js','assets/story-narration/v1/player.js','assets/story-narration/v1/surfaces.js','assets/story-narration/v1/manifest.json','assets/rc51/story.js','data/story-rc51.js'])if(fs.existsSync(path.join(root,f)))report.protectedFiles[f]=hash(path.join(root,f));
  git('worktree','add','--detach',candidate,'HEAD');
  for(const[f,text]of Object.entries(generated))fs.writeFileSync(path.join(candidate,f),text);
  for(const f of ['assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js'])report.files[f]=hash(path.join(candidate,f));
  for(const[f,expected]of Object.entries(report.protectedFiles))if(hash(path.join(candidate,f))!==expected)throw Error('Protected file changed: '+f);
- const rc129=generated['index.html'].includes('./assets/rc129/danmaku-director.js?v=42901');let indexHash=report.files['index.html'];
+ const rc129=generated['index.html'].includes('./assets/rc129/danmaku-director.js?v=42901');let prior=generated['index.html'];
  if(rc129){
-  let prior=generated['index.html'];
   for(const f of ['danmaku-director','danmaku-hud']){
    const line='    <script src="./assets/rc129/'+f+'.js?v=42901"></script>\n';
    if(prior.split(line).length!==2)throw Error('RC129 loader must appear once: '+f);
    prior=prior.replace(line,'');report.files['assets/rc129/'+f+'.js']=hash(path.join(candidate,'assets/rc129/'+f+'.js'));
   }
   const old='./assets/rc95/combat-flow.js?v=42901';if(prior.split(old).length!==2)throw Error('RC95 cache revision missing');prior=prior.replace(old,'./assets/rc95/combat-flow.js?v=42701');
-  indexHash=digest(prior);report.explicitRC129LoaderMigration={priorIndexHash:indexHash,currentIndexHash:report.files['index.html'],newModules:['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js']};
+  report.explicitRC129LoaderMigration={priorIndexHash:digest(prior),currentIndexHash:report.files['index.html'],newModules:['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js']};
  }
+ const indexHash=digest(narrationIndexBase(prior));report.narrationIndexExtension={actual:report.files['index.html'],approvedBase:indexHash,expectedBase:accepted['index.html']};
  report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>(f==='index.html'?indexHash:report.files[f])!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
  if(report.promotionMismatches.length)throw Error('RC128 preservation mismatch: '+JSON.stringify(report.promotionMismatches));
  fs.writeFileSync(path.join(out,'candidate-manifest.json'),JSON.stringify({commit:report.commit,files:report.files,protectedFiles:report.protectedFiles},null,2));

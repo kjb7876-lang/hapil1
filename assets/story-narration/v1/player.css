@@ -1,0 +1,12 @@
+/* Compact inline controls; keep the canonical story copy untouched. */
+.hapil-story-narration{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.4rem;max-width:100%;}
+.hapil-story-narration label{display:flex;align-items:center;gap:.35rem;font-size:.75rem;white-space:nowrap;}
+.hapil-story-narration input[type=range]{width:5rem;max-width:18vw;accent-color:#dbc27f;}
+.hapil-story-narration button{white-space:normal;}
+#hapil-story-rc51[data-narration] .rc51-footer{flex-wrap:wrap;}
+@media(max-height:620px){.hapil-story-narration{gap:.25rem}.hapil-story-narration label span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}}
+.hapil-story-narration-slot{margin-top:1rem;display:flex;justify-content:center;}
+.hapil-prologue-narration{position:absolute;bottom:max(70px,calc(env(safe-area-inset-bottom) + 70px));left:12px;right:12px;display:flex;justify-content:center;z-index:2;}
+.hapil-prologue-narration button,.hapil-story-narration-slot button{min-height:36px;padding:6px 12px;border:1px solid #a89667;border-radius:12px;background:#171827;color:#f4f0e5;cursor:pointer;}
+.hapil-prologue-narration label{color:#f4f0e5;}
+@media(max-height:620px){.hapil-prologue-narration{top:max(10px,env(safe-area-inset-top));bottom:auto;}}

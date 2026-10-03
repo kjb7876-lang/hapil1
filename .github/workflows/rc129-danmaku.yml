@@ -55,6 +55,10 @@ jobs:
         run: |
           set -euo pipefail
           node tests/rc129-startup.cjs 2>&1 | tee "$RUNNER_TEMP/rc129-results/startup.log"
+      - name: Fail-fast new complete render-chain scenarios
+        run: |
+          set -euo pipefail
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc129-results/preflight" node tests/rc129-browser.cjs 2>&1 | tee "$RUNNER_TEMP/rc129-results/preflight.log"
       - name: Actual renders, regressions and strict natural first boss progression
         run: |
           set -euo pipefail
