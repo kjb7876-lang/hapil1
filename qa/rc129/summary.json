@@ -1,0 +1,151 @@
+{
+  "version": "RC129",
+  "reportDateKST": "2026-10-03",
+  "reportKind": "handoff_summary_from_actual_completed_Actions_logs",
+  "overallStatus": "implemented_deployed_and_public_verified",
+  "repository": "kjb7876-lang/hapil1",
+  "requestedItems": [1, 3, 4, 5, 6, 7],
+  "authoredModes": ["STORY", "DREAM"],
+  "hellRestored": false,
+  "startingMain": "57c21a250fd386f9d9b6bb73bda95d8e24abf10a",
+  "preservedConcurrentMain": "abda841205b1413cea906f253715dedf643a61a7",
+  "runtimeCommit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+  "strictAuditedCommit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+  "publicVerifiedCommit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+  "mainAtReport": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+  "commitScopeNote": "This summary and manifest are data-only additions. Their containing commit can be newer than runtimeCommit; no runtime changes were made after the tested and publicly verified revision.",
+  "deployment": {
+    "url": "https://kjb7876-lang.github.io/hapil1/?v=42901",
+    "runtimeStatus": "deployed_and_public_verified",
+    "pagesRunId": 37092111754,
+    "pagesCommit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+    "buildJobId": 111114450376,
+    "deployJobId": 111114548428,
+    "buildConclusion": "success",
+    "deployConclusion": "success",
+    "allPublicProfilesPassed": true
+  },
+  "implementation": {
+    "namedPhases": {
+      "states": ["active", "draining", "rest"],
+      "sequence": ["bullet", "laser", "mixed"],
+      "storyAdmissionSeconds": 12,
+      "dreamAdmissionSeconds": 10,
+      "observedHPBands": 3,
+      "transitionRestSeconds": 0.65,
+      "completionPolicy": "At a timer/HP-band boundary stop new admission, retain committed native casts and future deliveries, then clear eligible old bullets after completion. The timer is not a hard cut of an existing skill.",
+      "nativeBossHPAndTransformationRulesChanged": false
+    },
+    "ordinaryVolleys": {
+      "scope": "RC95 managed-boss ordinary salvos; original special attacks and approved laser geometry are retained",
+      "aim": "sampled prior player position, not continuously retargeted homing",
+      "story": {"maxSpokes": 6, "baseWarningSeconds": 0.45, "baseSpeed": 3.6, "geometry": "wider central opening"},
+      "dream": {"maxSpokes": 7, "baseWarningSeconds": 0.3, "baseSpeed": 4.6, "geometry": "alternating near/far spoke ordering and some staggered approach speeds"},
+      "existingStaggerAndOwnerArtPreserved": true,
+      "fixed777PlayerSpeedPreserved": true,
+      "universalNoBlinkSafePathClaim": false
+    },
+    "graze": {
+      "rewardSource": "only an accepted native combat-core graze transaction",
+      "streakWindowSeconds": 2,
+      "streakStep": 5,
+      "extraResonance": 2,
+      "extraResonanceLimitPerTenCombatSeconds": 10,
+      "resonanceTotalLimit": 100,
+      "guardSeconds": 4,
+      "guardIncomingFactor": 0.95,
+      "rc127DefenseComponentMaxReduction": 0.75,
+      "dedup": "one extra credit per ordinary projectile, one per identified laser cast across its segments",
+      "maxSavedSourceIds": 1024,
+      "overflowPolicy": "stop extra credits; do not evict live source IDs to allow farming",
+      "saveLoadRetainsUsedIdsAndBudget": true,
+      "actualDamageBreaksStreak": true,
+      "guardAndInvulnerableContactsExcludedFromExtraRewards": true
+    },
+    "hud": {
+      "left": "boss name, observed HP band, spell title and timer/completion state",
+      "right": "graze streak and temporary guard remaining time",
+      "maxBossMarkers": 3,
+      "desktopAndLandscape": "existing native camera projection",
+      "portrait": "bearing marker at the split-camera boundary, not an exact fabricated screen hit coordinate"
+    },
+    "phaseCleanup": "Only owned ordinary hostile bullets and spent owned queues are cleared. Ally/reflected/other-owner bullets, future committed impacts and explicit persistent/blackhole hazards are retained.",
+    "preserved": ["RC127 dark jelly", "777-reference fixed movement", "movement growth converted to defense", "STORY boss cooldown x2", "cosmic masked Lucifer and other committed cast completion", "RC128 awakening and bounded hit feedback", "approved connected laser renderer and artwork", "concurrent narration audio/player/text changes"]
+  },
+  "verification": {
+    "prePromotionBranchRun": {"runId": 37091633730, "jobId": 111113029537, "commit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea", "status": "passed"},
+    "finalMainRun": {
+      "runId": 37092112429,
+      "jobId": 111114449636,
+      "commit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+      "status": "passed",
+      "nativeStartup": "passed; inherited combat API bind/transaction methods and live getters retained",
+      "nativeStartupJavaScriptErrors": 0,
+      "newUnitAssertionsPassed": 19341,
+      "unitScope": "VM policies and parameterized geometric fixtures, not 19341 gameplay scenarios",
+      "parameterizedVolleys": 576,
+      "geometricCorridorSamples": 11232,
+      "minimumModelClearance": 1.4190225206606804,
+      "newNativeRenderCases": 48,
+      "newNativeRenderScope": "8 heroes x 2 authored mode states x 3 viewport profiles, with explicitly staged native scenes and the complete outer render chain; not 48 natural boss clears",
+      "unmodifiedStartupProfiles": 3,
+      "nativeRenderJavaScriptErrors": 0,
+      "nativeRenderHTTPFailures": 0,
+      "phaseTransitionSaveNormalizeChecks": "passed on all three viewport profiles; pending committed delivery preserved until deadline, old ordinary bullets cleared afterwards, HP unchanged",
+      "candidateSuitesPassed": 16,
+      "candidateSuitesFailed": 0,
+      "candidateSuites": ["rc129-unit", "rc129-browser", "rc128-policy", "rc128-browser", "rc127-policy", "rc127-browser", "rc126-finite-native", "rc126-combat-safety-smoke", "rc43-bloodied-projectile-flight", "rc126-combat-browser", "rc125-adaptive-battlefield-browser", "rc125-first-frame-browser", "rc123-boundary-smoke", "rc122-autoplay-policy-smoke", "rc115-map-advance-smoke", "rc91-samong-and-laser-smoke"],
+      "releaseGatePassed": 10,
+      "releaseGateFailed": 0,
+      "releaseGateSuites": ["rc128-candidate", "renderer-syntax", "bundle-syntax", "approved-art", "laser-phases", "laser-continuity", "laser-telegraph", "combat", "map-advance", "natural-story"],
+      "countingNote": "The 16 candidate suites are nested within one release-gate entry. Do not sum them as 26 independent suites. Preflight repeats the same 48 new staged cases rather than adding 48 distinct cases.",
+      "existingRC128NativeCases": 72,
+      "existingRC128UnitAssertions": 178,
+      "legacyHELLScope": "Inactive/compatibility state coverage in old tests is not a restored HELL mode selector",
+      "naturalStory": {"status": "passed", "usedProgressCheats": false, "firstBossAndPortal": "dist00 to dist01", "suiteDurationMs": 95781, "scope": "one strict native first-region wave/boss/portal progression, not every hero/mode or a full campaign"},
+      "releaseGateCompletedAtUTC": "2026-10-03T03:14:46.563Z",
+      "publicVerificationCompletedAtUTC": "2026-10-03T03:16:35.655Z"
+    },
+    "publicService": {
+      "status": "passed",
+      "exactFilesMatched": 23,
+      "exactFilesMismatched": 0,
+      "networkInterception": false,
+      "progressOrHPInjection": false,
+      "profiles": [
+        {"name": "pc", "passed": true, "sawBoss": true, "sawNamedPhase": true, "sawMarker": true, "JavaScriptErrors": 0, "HTTPFailures": 0, "hudDrawErrors": 0, "fixedMovementPreserved": true, "observedPhaseTransitions": 1, "observedOldBulletsCleared": 16},
+        {"name": "portrait", "passed": true, "sawBoss": true, "sawNamedPhase": true, "sawMarker": true, "JavaScriptErrors": 0, "HTTPFailures": 0, "hudDrawErrors": 0, "fixedMovementPreserved": true, "observedPhaseTransitions": 1, "observedOldBulletsCleared": 0},
+        {"name": "landscape", "passed": true, "sawBoss": true, "sawNamedPhase": true, "sawMarker": true, "JavaScriptErrors": 0, "HTTPFailures": 0, "hudDrawErrors": 0, "fixedMovementPreserved": true, "observedPhaseTransitions": 2, "observedOldBulletsCleared": 9}
+      ],
+      "naturalObservedHero": "hwando",
+      "naturalObservedMode": "STORY",
+      "naturalGrazeBonusObserved": false,
+      "grazeCoverageNote": "These short public full-auto observations did not produce a credited graze. Extra graze reward/accounting and duplicate prevention passed VM/native-core-transaction tests; do not claim a naturally observed public graze streak reward.",
+      "deviceScope": "Chromium desktop and mobile viewport emulation; not physical phones or Safari"
+    }
+  },
+  "evidence": {
+    "runURL": "https://github.com/kjb7876-lang/hapil1/actions/runs/37092112429",
+    "artifactId": 11263506403,
+    "artifactName": "rc129-evidence-37092112429",
+    "artifactURL": "https://github.com/kjb7876-lang/hapil1/actions/runs/37092112429/artifacts/11263506403",
+    "artifactBytes": 183115563,
+    "artifactFileCount": 239,
+    "artifactSHA256": "44c8ccb06443c4a3f0e4c4f30a28873ab82434ccfed93de1e2eb2208e8134b28",
+    "retentionDays": 14,
+    "contents": "Per-suite logs, machine-readable results, staged native render evidence and three public-service screenshots",
+    "handoff": "DOTS_RC129_DANMAKU_HANDOFF_20261003.md",
+    "manifest": "qa/rc129/manifest.json"
+  },
+  "resolvedPreReleaseFailures": [
+    {"runId": 37090512306, "issue": "Own-property API copying lost RC34 inherited combat-core methods and prevented native initialization", "resolution": "Inherit the original complete prototype chain and override only the required methods; final native startup passed"},
+    {"runId": 37090776511, "issue": "Staged test replaced only inner renderer state while the outer HUD received a different live state", "resolution": "Inject the staged state at the outer real renderFrame call so the whole native render chain sees the same scene; final 48 cases passed"}
+  ],
+  "limitations": [
+    "No exhaustive all-boss/all-map/all-hero natural full-campaign completion claim.",
+    "Ordinary salvo corridor calculations use a world-coordinate radius model, not every bitmap-based projected contact footprint; walls and simultaneous special attacks are not a universal no-blink safety guarantee.",
+    "Physical iPhone/Safari and low-end Android frame-time testing, long-duration save/load and multiplayer stress are not complete.",
+    "Original boss special attacks and approved complex lasers were retained, not all redesigned as new Touhou patterns.",
+    "Zero HTTP failures refers to this completed public verification, not a promise that GitHub Pages/CDN can never return a transient error."
+  ]
+}
