@@ -75,6 +75,15 @@ function installMediaProbe() {
 const report = {scope:'actual Chromium media decoding and native game-frame hooks; QA-staged encounters, not a natural full campaign or physical speaker test', checks:[], decoded:[], eventEvidence:[]};
 let browser, page;
 const errors = [];
+const unexpectedDialogs = [];
+let expectedTitleDialog = false;
+function observeDialogs(target) {
+  target.on('dialog', dialog => {
+    if(expectedTitleDialog&&dialog.type()==='confirm'&&dialog.message()==='현재 진행을 자동 저장하고 시작 화면으로 돌아갑니까?')return;
+    unexpectedDialogs.push({type:dialog.type(),message:dialog.message()});
+    void dialog.dismiss().catch(error=>errors.push('Unexpected-dialog cleanup: '+String(error)));
+  });
+}
 const check = name => { report.checks.push(name); console.log('COMBAT_AUDIO_CHECK', name); };
 const snapshot = () => page.evaluate(() => ({audio:__combatMediaProbe.snapshot(), routing:__HAPIL_COMBAT_AUDIO_V1__.diagnostics, state:{zone:__MONGSE_QA_STATE__?.zone, time:__MONGSE_QA_STATE__?.time, hp:__MONGSE_QA_STATE__?.hp}}));
 const played = role => page.evaluate(role => {
@@ -189,6 +198,7 @@ async function assertNativeImpact(evidence) {
     page.setDefaultTimeout(20000);
     await page.addInitScript(installMediaProbe);
     page.on('pageerror', error=>errors.push(String(error)));
+    observeDialogs(page);
 
     await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`, {waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>window.__HAPIL_COMBAT_AUDIO_V1__&&window.__HAPIL_PARTY_LAUNCH_V31322__, null, {timeout:60000});
@@ -386,8 +396,18 @@ async function assertNativeImpact(evidence) {
     check('encounter completion ends uploaded music/effects');
 
     await page.evaluate(()=>{__HAPIL_STORY_RC51__.close(false);__HAPIL_CONTROLS_V31329__.binding.actions.settings();});
-    await page.getByRole('button',{name:'자동 저장 후 시작 화면으로',exact:true}).click();
-    await page.waitForFunction(()=>__HAPIL_CONTROLS_V31329__.binding.phase==='title'); await waitSilent();
+    // The native action asks before navigating. Playwright otherwise dismisses
+    // confirm dialogs automatically and correctly leaves the Settings open.
+    expectedTitleDialog=true;
+    const titleDialog=page.waitForEvent('dialog');
+    const titleClick=page.getByRole('button',{name:'자동 저장 후 시작 화면으로',exact:true}).click();
+    const confirmation=await titleDialog;
+    assert.equal(confirmation.type(),'confirm');
+    assert.equal(confirmation.message(),'현재 진행을 자동 저장하고 시작 화면으로 돌아갑니까?');
+    await confirmation.accept();expectedTitleDialog=false;await titleClick;
+    await page.locator('.title-screen').getByRole('button',{name:'새 게임 시작',exact:true}).waitFor();
+    await page.locator('.game').waitFor({state:'detached'});
+    await page.waitForFunction(()=>__HAPIL_COMBAT_AUDIO_V1__.diagnostics.mode==='inactive');await waitSilent();
     const terminal=await snapshot(); assert(terminal.audio.maxMusic<=2, 'at most two uploaded music decks during crossfades'); assert(terminal.audio.maxEffects<=2, 'at most two actual/pending uploaded effects');
     report.maximumUploadedMusic=terminal.audio.maxMusic; report.maximumUploadedEffects=terminal.audio.maxEffects;
     check('return-to-title lifecycle and whole-session real/pending voice bounds');
@@ -418,6 +438,96 @@ async function assertNativeImpact(evidence) {
     await page.keyboard.press('Shift'); await page.waitForTimeout(1000);
     assert.equal(await page.evaluate(()=>__combatMediaProbe.events.filter(x=>x.kind==='effect'&&x.type==='play').length),failedAttempts,'failed new effect never enters delayed gesture replay');
     check('404 effect releases pending voice and never replays on a later gesture');
+
+    // Fresh storage, media elements and user-activation state. This is Chromium
+    // touch emulation, not a physical Android/iOS device or speaker test.
+    failurePaths.clear();
+    await page.close();
+    const mobileContext=await browser.newContext({viewport:{width:390,height:844},screen:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:2});
+    page=await mobileContext.newPage();
+    page.setDefaultTimeout(20000);
+    observeDialogs(page);
+    await page.addInitScript(installMediaProbe);
+    await page.addInitScript(()=>{
+      window.__trustedCombatTouches=0;
+      document.addEventListener('pointerdown',event=>{if(event.isTrusted&&event.pointerType==='touch')window.__trustedCombatTouches++;},true);
+    });
+    page.on('pageerror',error=>errors.push('mobile: '+String(error)));
+    const mobileRequests=[];
+    page.on('request',request=>{if(uploaded(new URL(request.url()).pathname))mobileRequests.push(request.url());});
+    await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`,{waitUntil:'domcontentloaded'});
+    await page.waitForFunction(()=>window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&window.__HAPIL_RC127_INSTALLED__,null,{timeout:60000});
+    assert.equal(mobileRequests.length,0,'mobile title/prologue never preloads combat uploads');
+    const mobileInput=await page.evaluate(()=>({touchPoints:navigator.maxTouchPoints,coarse:matchMedia('(pointer: coarse)').matches,viewport:{width:innerWidth,height:innerHeight}}));
+    assert(mobileInput.touchPoints>0&&mobileInput.coarse,'fresh context exposes a real Chromium touch input surface');
+    for(let i=0;i<2&&await page.locator('#mongse-christian-opening-v31236').isVisible();i++)await page.locator('.mongse-christian-opening__advance').tap();
+    await page.getByRole('button',{name:'새 게임 시작',exact:true}).tap();
+    await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).tap();
+    await page.waitForFunction(()=>window.__MONGSE_QA_STATE__&&window.__MONGSE_QA_API__,null,{timeout:60000});
+    await settings({music:true,sound:true,bgmVolume:.4,sfxVolume:.5,autoCombat:false,combatMode:'manual',autoStoryAdvance:false});
+    await page.waitForSelector('#hapil-story-rc51');
+    assert.equal(mobileRequests.length,0,'mobile initial narration never requests combat uploads');
+    await waitSilent();
+    await page.getByRole('button',{name:'계속 · Enter',exact:true}).tap();
+    await stage('dist01','ordinary');await waitPlayed('clockwork');await waitMusic('clockwork');
+    assert(await page.evaluate(()=>navigator.userActivation.hasBeenActive),'touch start provides actual browser user activation');
+    check('mobile touch start keeps title/story upload-free and starts native combat music');
+
+    const openMobileSettings=async()=>{
+      const direct=page.getByRole('button',{name:'설정 · 메뉴',exact:true});
+      if(await direct.isVisible())await direct.tap();
+      else{
+        await page.getByRole('button',{name:'시스템 메뉴 열기',exact:true}).tap();
+        await page.getByRole('dialog',{name:'시스템 메뉴',exact:true}).getByRole('button',{name:/설정·진행 지도/}).tap();
+      }
+      await page.getByRole('dialog',{name:'설정',exact:true}).waitFor();
+    };
+    const closeMobileSettings=()=>page.getByRole('dialog',{name:'설정',exact:true}).getByRole('button',{name:'닫기 ×',exact:true}).tap();
+    await openMobileSettings();await waitSilent();
+    check('mobile touch settings pauses uploaded combat audio');
+    const musicToggle=page.getByRole('checkbox',{name:'배경음악',exact:true});
+    assert(await musicToggle.isChecked());await musicToggle.tap();assert.equal(await musicToggle.isChecked(),false);
+    await closeMobileSettings();await waitSilent();
+    assert.equal(await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.settings.current.music),false);
+    await openMobileSettings();await musicToggle.tap();assert(await musicToggle.isChecked());
+    const mobileVolume=page.getByRole('slider',{name:'배경음악 음량',exact:true});
+    await mobileVolume.scrollIntoViewIfNeeded();
+    const sliderBox=await mobileVolume.boundingBox();assert(sliderBox&&sliderBox.width>30,'mobile music slider has a touchable track');
+    const oldMobileVolume=Number(await mobileVolume.inputValue());
+    await mobileVolume.tap({position:{x:sliderBox.width*.25,y:sliderBox.height/2}});
+    const selectedMobileVolume=Number(await mobileVolume.inputValue());
+    assert(selectedMobileVolume>0&&selectedMobileVolume<oldMobileVolume,'actual touch on slider lowers the stored music volume');
+    assert.equal(await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.settings.current.bgmVolume),selectedMobileVolume/100);
+    await closeMobileSettings();await waitMusic('clockwork');
+    await page.waitForFunction(value=>{
+      const p=__HAPIL_COMBAT_AUDIO_CATALOG_V1__.music.clockwork;
+      const a=__combatMediaProbe.snapshot().decks.find(x=>x.kind==='music'&&!x.paused&&!x.ended);
+      return a&&Math.abs(a.volume-p.gain*value/100)<.001;
+    },selectedMobileVolume,{timeout:8000});
+    check('mobile touch mute/unmute and range control set actual media volume');
+    await openMobileSettings();await waitSilent();await closeMobileSettings();await waitMusic('clockwork');
+    check('mobile touch pause/resume restores native combat playback');
+
+    const mobileStory=await page.evaluate(()=>{
+      const s=__MONGSE_QA_STATE__,r=__HAPIL_STORY_DATA_RC51__.records.find(x=>x.zone===s.zone);
+      __HAPIL_STORY_RC51__.show(s,r,'pre',r.pre,()=>{},{sound:false});return r.pre;
+    });
+    await waitSilent();
+    assert.equal(await page.locator('#hapil-story-rc51 .rc51-copy').evaluate(el=>[...el.querySelectorAll('p')].map(p=>p.textContent).join('\n\n')),mobileStory);
+    await page.getByRole('button',{name:'계속 · Enter',exact:true}).tap();await waitMusic('clockwork');
+    check('mobile canonical story cancels uploads and touch Continue restores combat');
+    await page.evaluate(()=>{window.__mobileCombatHidden=true;Object.defineProperty(document,'hidden',{configurable:true,get:()=>window.__mobileCombatHidden});document.dispatchEvent(new Event('visibilitychange'));});
+    await waitSilent();
+    await page.evaluate(()=>{window.__mobileCombatHidden=false;document.dispatchEvent(new Event('visibilitychange'));});await waitMusic('clockwork');
+    check('mobile visibility lifecycle cancels and resumes uploaded combat audio');
+    const mobileAudio=(await snapshot()).audio;
+    assert(mobileAudio.maxMusic<=2,'mobile upload music overlap is bounded by native crossfades');
+    assert(mobileAudio.maxEffects<=2,'mobile actual/pending uploaded effect cap remains bounded');
+    const trustedTouches=await page.evaluate(()=>__trustedCombatTouches);
+    assert(trustedTouches>=10,'mobile flow used trusted touchscreen events for startup and controls');
+    await page.screenshot({path:path.join(output,'mobile-touch-combat.png')});
+    report.mobile={...mobileInput,trustedTouches,selectedMusicVolume:selectedMobileVolume/100,uploadedRequests:mobileRequests.length,maximumUploadedMusic:mobileAudio.maxMusic,maximumUploadedEffects:mobileAudio.maxEffects,scope:'390x844 Chromium mobile/touch emulation; native media playback, not physical-device or iOS/Safari validation'};
+    assert.deepEqual(unexpectedDialogs,[],'no unexpected native browser dialogs');
     assert.deepEqual(errors,[], 'no uncaught errors in full game browser');
     report.pass=true;
   } catch(error) {
@@ -425,7 +535,7 @@ async function assertNativeImpact(evidence) {
     if(page){try{report.failureSnapshot=await snapshot();await page.screenshot({path:path.join(output,'failure.png')});}catch{}}
     throw error;
   } finally {
-    report.errors=errors; report.uploadedRequests=requests.filter(row=>uploaded(row.path));
+    report.errors=errors;report.unexpectedDialogs=unexpectedDialogs; report.uploadedRequests=requests.filter(row=>uploaded(row.path));
     fs.writeFileSync(path.join(output,'results.json'),JSON.stringify(report,null,2));
     console.log(JSON.stringify(report,null,2));
     if(browser)await browser.close();
