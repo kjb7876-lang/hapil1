@@ -15,7 +15,7 @@
   if(!s||!event||!Object.prototype.hasOwnProperty.call(pools,event.key))return false;
   if(event.channel==='enemy-hit'&&window.__HAPIL_AUDIO_RC130__&&!window.__HAPIL_AUDIO_RC130__.enemyHit(s))return false;
   const m=state(s);if(m.queue.length>=16)return false;
-  m.queue.push({key:event.key,channel:event.channel,heroId:event.heroId,at:s.time,priority:event.channel==='ally-hurt'?9:event.channel==='enemy-hit'?2:Math.max(0,Math.min(7,Number(event.priority)||0)),gain:event.channel==='enemy-hit'?Math.min(.18,Number(event.gain)||.14):Math.max(0,Math.min(.5,Number(event.gain)||0))});return true;
+  m.queue.push({key:event.key,channel:event.channel,heroId:event.heroId,contactResult:event.contactResult,at:s.time,priority:event.channel==='ally-hurt'?9:event.channel==='enemy-hit'?2:Math.max(0,Math.min(7,Number(event.priority)||0)),gain:event.channel==='enemy-hit'?Math.min(.18,Number(event.gain)||.14):Math.max(0,Math.min(.5,Number(event.gain)||0))});return true;
  }
  function tick(s,settings,play,unlocked){
   if(!s)return;const m=state(s),key=window.__HAPIL_ENEMY_FEEL_V31361__?.key;
@@ -31,7 +31,8 @@
   const fresh=m.queue.filter(e=>s.time-e.at<.14);m.queue=[];
   if(!unlocked||settings?.sound===false||!(Number(settings?.sfxVolume)>0)||document.hidden||s.paused||s.pause){stats.discarded+=fresh.length;return;}
   const now=performance.now()/1000;m.voices=m.voices.filter(t=>t>now);
-  if(!fresh.length||now-m.last<.12||m.voices.length>=2)return;
+  if(!fresh.length||now-m.last<.12)return;
+  const urgent=fresh.some(e=>e.channel==='ally-hurt');if(m.voices.length>=2&&!urgent)return;
   fresh.sort((a,b)=>b.priority-a.priority);const e=fresh[0],pool=pools[e.key],index=pool[m.sequence++%pool.length];
   m.last=now;m.voices.push(now+(e.key==='roar'?1:e.key==='laser'?.8:e.key==='wood'||e.key==='guard'?.28:.42));
   const original='./audio/rc23/upload-'+String(index).padStart(2,'0')+'.wav';

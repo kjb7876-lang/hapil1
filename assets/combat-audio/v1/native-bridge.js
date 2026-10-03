@@ -154,7 +154,30 @@
     }
 
     function canStartEffect(path) {
-      return !stopped && (!path || owns(path)) && !!controller.allowsEffects() && activeUploadedVoices() < 2;
+      if(stopped || (path && !owns(path)) || !controller.allowsEffects())return false;
+      const active=[];
+      pools?.forEach((pool,source)=>{
+        if(!owns(source))return;
+        const pending=pendingClip(pool);
+        for(const clip of new Set([...(pool.clips||[]),pending].filter(Boolean))){
+          if(clip.__hapilCombatPending||clip===pending||(clip.paused===false&&!clip.ended))active.push({clip,pool,source,priority:Number(controller.profile(source)?.priority)||0});
+        }
+      });
+      // Do not cut another sound for a cue whose own voice is still occupied.
+      if(path && active.some(v=>canonical(v.source)===canonical(path)))return false;
+      if(active.length<2)return true;
+      const priority=Number(controller.profile(path)?.priority)||0;
+      // Only clear feedback (hurt/parry) preempts; ordinary attacks never churn.
+      if(priority<8)return false;
+      const victim=active.filter(v=>v.priority<priority).sort((a,b)=>a.priority-b.priority)[0];
+      if(!victim)return false;
+      const {clip,pool}=victim;
+      clip.__mongseSfxRequest=(clip.__mongseSfxRequest??0)+1;
+      clip.__hapilCombatPending=false;
+      if((pool.pending?.clip||pool.pending)===clip)pool.pending=null;
+      try{clip.pause();}catch{}
+      try{clip.currentTime=0;}catch{}
+      return activeUploadedVoices()<2;
     }
 
     function stopEffects() {

@@ -51753,7 +51753,7 @@ function Ri() {
       if (!ze.current.sound) return;
       if (typeof document !== `undefined` && document.hidden) return;
       const HAPIL_combatAudio=window.__HAPIL_COMBAT_AUDIO_V1__,HAPIL_uploadedSfx=HAPIL_combatAudio?.owns(e)===true;
-      if(HAPIL_uploadedSfx&&(!HAPIL_combatAudio.allowsEffects()||!HAPIL_combatAudioBridgeRef.current?.canStartEffect()))return;
+      if(HAPIL_uploadedSfx&&!HAPIL_combatAudio.allowsEffects())return;
       let r = HAPIL_combatAudio?.profile(e) ?? MONGSE_SFX_PROFILE[e] ?? { gain: 1, cooldown: 0.035, voices: 3 },
         s = Math.max(0, Math.min(1, Number(ze.current.sfxVolume) || 0)),
         MONGSE_baseSfxVolume = Math.max(
@@ -51768,6 +51768,7 @@ function Ri() {
             ? performance.now()
             : Date.now()) / 1e3;
       if (i && a < i.readyAt) return;
+      if(HAPIL_uploadedSfx&&!HAPIL_combatAudioBridgeRef.current?.canStartEffect(e))return;
       if (
         [
           MONGSE_SFX.ticking1,
@@ -51793,7 +51794,7 @@ function Ri() {
         ((i = {
           clips: Array.from({ length: r.voices ?? 3 }, () => {
             let t = new Audio(MONGSE_assetUrl(e));
-            if(HAPIL_uploadedSfx)t.addEventListener('error',()=>{t.__hapilCombatPending=false;t.__mongseSfxRequest=(t.__mongseSfxRequest??0)+1;t.pause();HAPIL_combatAudio.failed(e)});
+            if(HAPIL_uploadedSfx)t.addEventListener('error',()=>{t.__hapilCombatPending=false;t.__mongseSfxRequest=(t.__mongseSfxRequest??0)+1;t.pause();HAPIL_combatAudio.failed(e);window.__HAPIL_AUDIO_CUES_RC131__?.failed(e)});
             return (
               (t.preload = `auto`),
               t.setAttribute?.(`playsinline`, ``),

@@ -92,7 +92,7 @@
   if(!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'){
    m.shake=Math.max(m.shake,f.boss&&!f.outgoing?1.3:f.power>=1?1:.35);m.shakeUntil=t+.085;
   }
-  sound(s,f.sound,f.priority,f.power>=1?.35:.24,{channel:f.outgoing?'enemy-hit':f.kind==='guard'?'guard':'ally-hurt',heroId:s.activeHeroId});
+  sound(s,f.sound,f.priority,f.power>=1?.35:.24,{channel:f.outgoing?'enemy-hit':f.kind==='guard'?'guard':'ally-hurt',heroId:s.activeHeroId,contactResult:row.result});
   return true;
  }
  function awakening(s,m){
