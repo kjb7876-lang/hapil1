@@ -118,7 +118,14 @@ for (const id of coverage.includedUnits) {
 const audioDirectory = path.join(base, 'audio');
 const packagedAudio = fs.existsSync(audioDirectory) ? fs.readdirSync(audioDirectory, {withFileTypes: true}) : [];
 assert(packagedAudio.every(entry => entry.isFile() && entry.name.endsWith('.mp3')), 'audio directory must contain only final MP3 files');
-assert.deepEqual(sorted(packagedAudio.map(entry => `audio/${entry.name}`)), sorted(Object.keys(manifest.assets)), 'every packaged audio file must be tracked by the accepted manifest');
+const retiredAssets = manifest.retiredAssets || {};
+assert.deepEqual(sorted(packagedAudio.map(entry => `audio/${entry.name}`)), sorted([...Object.keys(manifest.assets), ...Object.keys(retiredAssets)]), 'every immutable audio file must be tracked as current or retired');
+for (const [name, row] of Object.entries(retiredAssets)) {
+  assert(/^audio\/[A-Za-z0-9._-]+\.mp3$/.test(name) && !manifest.assets[name], `invalid retired asset: ${name}`);
+  const bytes = fs.readFileSync(path.join(base, name));
+  assert.equal(bytes.length, row.bytes, `retired byte count differs: ${name}`);
+  assert.equal(hash(bytes), row.sha256, `previously published immutable audio changed: ${name}`);
+}
 const assetTextHashes = new Set(), probes = new Map();
 for (const [name, row] of Object.entries(manifest.assets)) {
   assert(/^audio\/[A-Za-z0-9._-]+\.mp3$/.test(name), `unsafe audio path: ${name}`);
@@ -129,7 +136,27 @@ for (const [name, row] of Object.entries(manifest.assets)) {
   assert.equal(hash(bytes), row.sha256, `audio bytes changed: ${name}`);
   assert(positive(row.duration), `invalid duration: ${name}`);
   assert.equal(row.codec, 'mp3'); assert.equal(row.bitRate, 128000); assert.equal(row.sampleRate, 24000); assert.equal(row.channels, 1);
-  assert.equal(row.endingProfile, 'ending-context-v1', `final articulation checks missing: ${name}`);
+  const profiles = ['ending-context-v1', 'direct-utterance-fulltext-v1', 'mixed-boundaries-v1'];
+  assert(profiles.includes(row.endingProfile), `unknown raw articulation profile: ${name}`);
+  if (row.endingProfile !== 'ending-context-v1') {
+    assert(Array.isArray(row.boundaryProvenance) && row.boundaryProvenance.length > 0, `boundary provenance missing: ${name}`);
+    for (const chunk of row.boundaryProvenance) {
+      assert(profiles.slice(0, 2).includes(chunk.endingProfile), `invalid chunk profile: ${name}`);
+      assert(digestPattern.test(chunk.textSha256) && digestPattern.test(chunk.audioSha256), `invalid boundary evidence hash: ${name}`);
+      assert.deepEqual(sorted(Object.keys(chunk)), ['audioSha256', 'endingProfile', 'textSha256'], `private boundary metadata exposed: ${name}`);
+    }
+    const values = new Set(row.boundaryProvenance.map(chunk => chunk.endingProfile));
+    assert.equal(row.endingProfile, values.size === 1 ? [...values][0] : 'mixed-boundaries-v1', `container profile differs: ${name}`);
+  }
+  if (row.deliverySelection) {
+    assert.deepEqual(sorted(Object.keys(row.deliverySelection)), ['schema', 'sha256'], `private delivery metadata exposed: ${name}`);
+    assert.equal(row.deliverySelection.schema, 'hapil-positive-delivery-v1');
+    assert(digestPattern.test(row.deliverySelection.sha256) && digestPattern.test(row.rawSourceWavSha256));
+    assert.equal(row.rawExtractionProfile, row.endingProfile);
+    assert.equal(row.deliveryProcessingProfile, 'hapil-positive-delivery-v1');
+  } else {
+    assert(!row.rawSourceWavSha256 && !row.rawExtractionProfile && !row.deliveryProcessingProfile, `incomplete delivery provenance: ${name}`);
+  }
   assert(includedTexts.has(row.textSha256), `asset outside included canonical units: ${name}`);
   if (!probes.has(row.sha256)) {
     const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'stream=codec_name,sample_rate,channels,bit_rate:format=duration', '-of', 'json', audioFile], {encoding: 'utf8'}));

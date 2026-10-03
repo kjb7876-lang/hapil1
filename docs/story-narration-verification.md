@@ -43,11 +43,13 @@ Each incremental release enforces the following checks for its included audio; f
 - 119 new spoken units: 110 cards, eight unique supplemental units and one exact ending excerpt.
 - Complete source-matched mapping for 297 runtime routes. Journal playlists reuse exact paragraph audio and original recordings where applicable.
 - Final MP3 encoding: 128 kbps, 24 kHz, mono. Every published asset is content-addressed and hash-verified.
-- Every generated scene and reused journal paragraph must pass the `ending-context-v1` profile. Non-literal chunks require an independently confirmed final word, unchanged canonical speech, excluded disposable trailing context, no fades or rewritten speech, and at least 350 ms of final quiet. Natural articulation uses tempo 1.0.
+- Every scene and reused journal paragraph records its actual validated raw boundary profile. Guarded `ending-context-v1` chunks require an independently confirmed final word, unchanged canonical speech, excluded disposable trailing context, no fades or rewritten speech, and at least 350 ms of final quiet. Direct `direct-utterance-fulltext-v1` chunks retain the entire generated waveform, allow only the minimal trailing zero padding, and require independently bound full/first/last ASR evidence. Mixed containers identify each chunk's actual profile. Natural articulation uses tempo 1.0.
 - All fourteen `그러하였다.` replacements retain the approved reference-conditioned phrase and 1–2 seconds of preceding quiet. No sighs or canonical speech removal are allowed.
 - Exact manifest/source equality, playlist content/order, file presence, byte counts, durations, original-recording immutability and actual browser MP3 decode/playback.
 
 Automated ASR and waveform evidence are verification aids, not a claim of perfect pronunciation. Flagged or uncertain outputs require review or regeneration before publication.
+
+The bounded delivery correction for `dist01.pre` and `ep1a08.post` is a separate processing layer after validated raw extraction. Its positive gain curve is limited to +6 dB and two seconds, recomputed against the unchanged raw WAV, and checked again after PCM24/MP3 export with independent boundary ASR. Public metadata keeps only evidence hashes and profile identities; private evidence paths are never published. Original raw-extraction claims are not copied onto processed audio. Previously published content-addressed files remain tracked as retired assets for cached clients while current routes select the corrected files atomically.
 
 ## Publication gate
 
