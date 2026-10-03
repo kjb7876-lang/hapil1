@@ -1,0 +1,36 @@
+name: RC132 targeted DREAM details
+on:
+  push:
+    branches: ['fix/rc132-dream-combat-audio']
+    paths: ['.github/workflows/rc132-detail.yml']
+permissions:
+  contents: write
+jobs:
+  details:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Extract focused contexts
+        run: |
+          npm install --prefix "$RUNNER_TEMP/inspect" --no-save --package-lock=false acorn@8.15.0 prettier@3.6.2 >/dev/null 2>&1
+          INSPECT_MODULES="$RUNNER_TEMP/inspect/node_modules" node <<'NODE'
+          const fs=require('fs'),path=require('path'),acorn=require(process.env.INSPECT_MODULES+'/acorn'),prettier=require(process.env.INSPECT_MODULES+'/prettier');
+          (async()=>{const s=fs.readFileSync('assets/index-v31526.js','utf8'),ast=acorn.parse(s,{ecmaVersion:'latest',sourceType:'module'}),funcs=[];function visit(n,p){if(!n||typeof n!=='object')return;if(/Function/.test(n.type)&&n.body)funcs.push({start:n.start,end:n.end,name:n.id?.name||p?.key?.name||p?.id?.name||'anonymous'});for(const[k,v]of Object.entries(n)){if(k==='start'||k==='end')continue;if(Array.isArray(v))for(const a of v)visit(a,n);else if(v&&typeof v.type==='string')visit(v,n);}}visit(ast,null);const out='qa/rc132-detail';fs.mkdirSync(out,{recursive:true});
+          for(const term of ['궁수','분노의 귀','dreamMirrorLaserV31347','maxHp *','lifestealAmount','DREAM']){let at=-1,rows=[];while((at=s.indexOf(term,at+1))>=0){if(term==='DREAM'&&rows.length>=70)continue;const enclosing=funcs.filter(f=>f.start<=at&&f.end>at).sort((a,b)=>(a.end-a.start)-(b.end-b.start));rows.push({offset:at,line:s.slice(0,at).split('\n').length,functions:enclosing.slice(0,3),context:s.slice(Math.max(0,at-450),at+900)});}fs.writeFileSync(out+'/'+encodeURIComponent(term)+'.json',JSON.stringify(rows,null,2));}
+          const pos=s.indexOf('dreamMirrorLaserV31347'),outer=funcs.filter(f=>f.start<=pos&&f.end>pos&&f.end-f.start>3000&&f.end-f.start<100000).sort((a,b)=>(a.end-a.start)-(b.end-b.start))[0];if(outer){fs.writeFileSync(out+'/mirror-module.txt',await prettier.format(s.slice(outer.start,outer.end),{parser:'babel'}));fs.writeFileSync(out+'/mirror-location.json',JSON.stringify(outer));}
+          const matches=funcs.filter(f=>/dream|samong|clear|advance|portal|heal|damage|enemy/i.test(f.name)).map(f=>({...f,line:s.slice(0,f.start).split('\n').length}));fs.writeFileSync(out+'/functions.json',JSON.stringify(matches,null,2));console.log('Focused source extracted',matches.length);})();
+          NODE
+      - name: Preserve details
+        run: |
+          git config user.name 'HAPIL RC132 source evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc132-detail
+          git commit -m 'RC132 DREAM source details'
+          git push origin HEAD:refs/heads/qa/rc132-detail-$GITHUB_RUN_ID
