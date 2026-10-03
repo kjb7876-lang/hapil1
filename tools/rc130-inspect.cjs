@@ -1,4 +1,3 @@
-'use strict';const fs=require('node:fs'),code=fs.readFileSync('assets/index-v31526.js','utf8'),lines=code.split('\n');
-for(const [a,b]of [[119920,120025],[122875,123000],[123875,123925],[61260,61310]])console.log('\nLINES '+a+'-'+b+'\n'+lines.slice(a-1,b).join('\n'));
-for(const term of ['function MONGSE_prepareEnemyRenderEffectV31237','function MONGSE_normalEnemyAttackProfileV31237','function MONGSE_finishEnemyCounterAttack31229','function MONGSE_markEnemyCounterAttackStarted31229','drawShot(','function drawShot','const MONGSE_playSfx','We =']){let i=code.indexOf(term);console.log('\nTERM '+term+' '+i+'\n'+(i>=0?code.slice(i,i+6000):''));}
-console.log('\nVOICE_CONFIG\n'+lines.filter(l=>/(?:hurt|pain|gender|sex|남성|여성|남자|여자)/i.test(l)&&/hero|환도|윤서하|네온|미카엘라|라우렌|헌터|슬레이어|기억사수|sfx|voice/i.test(l)).slice(-35).join('\n'));
+'use strict';const fs=require('node:fs'),code=fs.readFileSync('assets/index-v31526.js','utf8');
+for(const expression of [/__HAPIL_RC71__\s*=/g,/__HAPIL_EXIT_V31334__\s*=/g]){for(const m of code.matchAll(expression)){console.log('\nIMPLEMENTATION '+m[0]+' at '+m.index+'\n'+code.slice(Math.max(0,m.index-18500),m.index+800));}}
+console.log('\nHIT_SOUND_CALLS\n'+code.split('\n').filter(l=>/We\(|heroAttackSfx|\.hurt|hurt:/.test(l)&&/MONGSE|We\(/.test(l)).slice(-65).join('\n'));
