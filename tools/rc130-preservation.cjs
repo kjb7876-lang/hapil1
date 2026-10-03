@@ -344,6 +344,8 @@ function validateReviewedRevision(root, exec, ensure) {
 }
 
 function verify(root){
+ // RC132_PRESERVATION_DELEGATE: exact new delta plus unchanged prior proof.
+ if(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('./assets/rc132/dream-balance.js'))return require('./rc132-preservation.cjs').verify(root);
  const exec=(cmd,args,cwd=root)=>cp.execFileSync(cmd,args,{cwd,encoding:'utf8',maxBuffer:32*1024*1024});
  const ensure=ref=>{if(cp.spawnSync('git',['cat-file','-e',ref+':index.html'],{cwd:root,stdio:'ignore'}).status!==0)exec('git',['fetch','--no-tags','--depth=1','origin',ref]);};
  ensure(BASE);
