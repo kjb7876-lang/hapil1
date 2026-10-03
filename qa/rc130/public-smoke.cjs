@@ -8,6 +8,24 @@ const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),sleep=ms=>new 
 const report={version:'RC130',testedCommit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),base,files:[],readiness:[],profiles:[],status:'running',attachmentImported:false,scope:'Read-only deployed bytes and natural startup, not full campaigns or physical-phone performance'};
 const save=()=>fs.writeFileSync(path.join(out,'summary.json'),JSON.stringify(report,null,2));
 async function main(){let browser;try{
+ // Check the real registered media, not merely a script tag or a claimed ZIP import.
+ // The eight repository assets must not be equated with an unreadable attachment.
+ const manifestPath='assets/combat-audio/v1/manifest.json';
+ const manifest=JSON.parse(fs.readFileSync(path.join(root,manifestPath),'utf8'));
+ assert.equal(manifest.scope,'combat-only');assert.equal(manifest.originalsPreserved,true);
+ assert.equal(manifest.assets.length,8,'expected registered combat music/effect set');
+ files.push('assets/combat-audio/v1/catalog.js','assets/combat-audio/v1/controller.js','assets/combat-audio/v1/native-bridge.js',manifestPath);
+ const media=[];
+ for(const row of manifest.assets){
+  assert(/^\.\/assets\/combat-audio\/v1\/audio\/[a-z0-9-]+\.(mp3|wav)$/.test(row.path),'safe media path');
+  assert(/^[a-f0-9]{64}$/.test(row.sha256),'media digest');
+  const file=row.path.slice(2),bytes=fs.readFileSync(path.join(root,file));
+  assert.equal(hash(bytes),row.sha256,'registered media content: '+file);assert.equal(bytes.length,row.bytes);
+  assert(Number.isFinite(row.duration)&&row.duration>0,'positive registered duration');
+  files.push(file);media.push({role:row.role,kind:row.kind,file,sha256:row.sha256,bytes:bytes.length});
+ }
+ assert.equal(new Set(files).size,files.length,'no duplicate public-file assertions');
+ report.combatAudio={registeredAssets:media,archiveBytesVerified:false,provenance:'Verified against the repository manifest; no claim that the unreadable conversation ZIP is this same set.'};save();
  for(const file of files){const expected=hash(fs.readFileSync(path.join(root,file)));let match=null;
   for(let attempt=0;attempt<30;attempt++){let row;try{const url=new URL(file,base);url.searchParams.set('rc130-verify',report.testedCommit+'-'+Date.now());const r=await fetch(url,{signal:AbortSignal.timeout(20000)}),actual=hash(Buffer.from(await r.arrayBuffer()));row={file,attempt,status:r.status,expected,actual};}catch(e){row={file,attempt,error:String(e.message)};}report.readiness.push(row);save();if(row.status===200&&row.actual===expected){match=row;break;}await sleep(4000);}
   assert(match,'Exact committed public bytes unavailable: '+file);report.files.push(match);save();
@@ -16,14 +34,14 @@ async function main(){let browser;try{
  for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),row={name,errors:[],httpErrors:[],samples:[],status:'running'};report.profiles.push(row);page.setDefaultTimeout(30000);page.on('pageerror',e=>row.errors.push(String(e.stack||e)));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({url:r.url(),status:r.status()});});
   try{
-   await page.goto(base+'?v=43001&qa=1');await page.waitForFunction(()=>window.__HAPIL_RC130_NATIVE_INSTALLED__&&window.__HAPIL_RC127_INSTALLED__&&window.__HAPIL_DANMAKU_HUD_RC129__?.installed);await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();assert.equal(await page.locator('[data-game-mode-v31354="HELL"]:visible').count(),0,'HELL stays removed');await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
+   await page.goto(base+'?v=43001&qa=1');await page.waitForFunction(()=>window.__HAPIL_RC130_NATIVE_INSTALLED__&&window.__HAPIL_RC127_INSTALLED__&&window.__HAPIL_DANMAKU_HUD_RC129__?.installed&&typeof window.__HAPIL_COMBAT_AUDIO_V1__?.sync==='function'&&typeof window.__HAPIL_COMBAT_AUDIO_BRIDGE_V1__?.create==='function');await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();assert.equal(await page.locator('[data-game-mode-v31354="HELL"]:visible').count(),0,'HELL stays removed');await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist00');
    for(let i=0;i<12&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(100);}
-   const sample=()=>page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{time:s.time,x:s.x,y:s.y,hp:s.hp,mode:s.gameModeV31346,speed:s.rc127MovementSpeed,shots:s.hostileProjectiles.length,finite:s.hostileProjectiles.every(p=>[p.x,p.y,p.vx,p.vy].every(Number.isFinite)),policy:window.__HAPIL_PRESENTATION_RC130__.snapshot(),audio:window.__HAPIL_AUDIO_RC130__.snapshot(),danmaku:window.__HAPIL_DANMAKU_HUD_RC129__.snapshot(s).installed};});
+   const sample=()=>page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,C=window.__HAPIL_COMBAT_AUDIO_CATALOG_V1__,A=window.__HAPIL_COMBAT_AUDIO_V1__;return{time:s.time,x:s.x,y:s.y,hp:s.hp,mode:s.gameModeV31346,speed:s.rc127MovementSpeed,shots:s.hostileProjectiles.length,finite:s.hostileProjectiles.every(p=>[p.x,p.y,p.vx,p.vy].every(Number.isFinite)),policy:window.__HAPIL_PRESENTATION_RC130__.snapshot(),audio:window.__HAPIL_AUDIO_RC130__.snapshot(),danmaku:window.__HAPIL_DANMAKU_HUD_RC129__.snapshot(s).installed,combatAudio:{loaded:typeof A?.sync==='function',music:Object.keys(C?.music||{}).length,effects:Object.keys(C?.effects||{}).length,diagnostics:A?.diagnostics}};});
    row.samples.push(await sample());await page.keyboard.down('ArrowRight');await page.waitForTimeout(400);await page.keyboard.up('ArrowRight');
    for(let i=0;i<8;i++){await page.waitForTimeout(1500);row.samples.push(await sample());}
-   const first=row.samples[0],last=row.samples.at(-1);assert(last.time>first.time+2,'natural combat advances');assert(row.samples.every(v=>Number.isFinite(v.hp)&&v.finite&&Math.abs(v.speed-6.471685)<1e-8),'fixed movement and finite simulation');assert(row.samples.every(v=>v.policy.maxRatio<=.200001),'observed live bitmap size cap');assert(last.policy.projectileCalls>0,'real game used size guard');assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);row.status='passed';
+   const first=row.samples[0],last=row.samples.at(-1);assert(last.time>first.time+2,'natural combat advances');assert(row.samples.every(v=>Number.isFinite(v.hp)&&v.finite&&Math.abs(v.speed-6.471685)<1e-8),'fixed movement and finite simulation');assert(row.samples.every(v=>v.policy.maxRatio<=.200001),'observed live bitmap size cap');assert(last.policy.projectileCalls>0,'real game used size guard');assert(row.samples.every(v=>v.combatAudio.loaded&&v.combatAudio.music===4&&v.combatAudio.effects===4&&v.combatAudio.diagnostics.failedPaths===0),'registered combat audio remains available with no recorded playback failures');assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);row.status='passed';
   }catch(e){row.status='failed';row.error=String(e.stack||e);}finally{await page.screenshot({path:path.join(out,'published-'+name+'.png')}).catch(e=>{row.screenshotError=String(e);});save();console.log('RC130_PUBLIC_PROFILE',JSON.stringify(row));await context.close();}
  }
  report.status=report.profiles.length===3&&report.profiles.every(p=>p.status==='passed')?'passed':'failed';
- }catch(e){report.status='failed';report.error=String(e.stack||e);console.error(e);}finally{save();await browser?.close();console.log('RC130_PUBLIC_RESULT',JSON.stringify({status:report.status,testedCommit:report.testedCommit,files:report.files.length,profiles:report.profiles.map(p=>({name:p.name,status:p.status,errors:p.errors,httpErrors:p.httpErrors})),attachmentImported:false}));process.exitCode=report.status==='passed'?0:1;}}
+ }catch(e){report.status='failed';report.error=String(e.stack||e);console.error(e);}finally{save();await browser?.close();console.log('RC130_PUBLIC_RESULT',JSON.stringify({status:report.status,testedCommit:report.testedCommit,files:report.files.length,registeredCombatAudio:report.combatAudio?.registeredAssets?.length||0,profiles:report.profiles.map(p=>({name:p.name,status:p.status,errors:p.errors,httpErrors:p.httpErrors})),attachmentImported:false}));process.exitCode=report.status==='passed'?0:1;}}
 main();
