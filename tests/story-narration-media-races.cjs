@@ -37,6 +37,7 @@ async function until(predicate, description) {
 }
 
 function fixture(options = {}) {
+  const {manifestData, fetchManifest, ...attachOptions} = options;
   const clips = [], playRequests = [], fetches = [], timers = new Set(), players = [];
   const root = new Element(), footer = new Element('footer');
   const window = new EventTarget(), document = new EventTarget();
@@ -72,7 +73,7 @@ function fixture(options = {}) {
     }
     emit(type) { this.dispatchEvent(new Event(type)); }
   }
-  const data = {
+  const data = manifestData || {
     version: 1,
     scenes: {test: {
       textSha256: crypto.createHash('sha256').update('fixture text').digest('hex'),
@@ -85,13 +86,13 @@ function fixture(options = {}) {
   vm.runInNewContext(playerSource, {
     window, document, URL, AbortController, TextEncoder, Audio,
     MutationObserver: class { observe() {} disconnect() {} },
-    fetch: async url => { fetches.push(String(url)); return {ok: true, json: async () => data}; }
+    fetch: async url => { fetches.push(String(url)); return fetchManifest ? fetchManifest(url, data) : {ok: true, json: async () => data}; }
   });
-  const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test', ...options});
+  const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test', ...attachOptions});
   players.push(player);
   function createPlayer() {
     const root = new Element(), footer = new Element('footer');
-    const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test', ...options});
+    const player = window.__HAPIL_STORY_NARRATION_V1__.attach({root, footer, text: 'fixture text', key: 'test', ...attachOptions});
     players.push(player);
     return {player, root, footer};
   }
@@ -108,6 +109,69 @@ function fixture(options = {}) {
   }
   return {player, root, footer, clips, playRequests, fetches, timers, requestPlay, createPlayer, clean, window, document};
 }
+
+test('a missing route removes muted controls without requesting audio or blocking progress', async t => {
+  const f = fixture({manifestData: {version: 1, scenes: {}}, ctx: {sound: false}}); t.after(f.clean);
+  await until(() => f.player.status === 'unavailable', 'missing route discovery');
+  assert.equal(f.footer.children[0].isConnected, false);
+  assert.equal(f.player.blocksAdvance, false);
+  assert.equal(await f.player.play(), false, 'an omitted route cannot be retried as audio');
+  f.player.pause(true); f.window.dispatchEvent(new Event('pagehide'));
+  f.document.hidden = false; f.document.dispatchEvent(new Event('visibilitychange'));
+  assert.equal(f.player.status, 'unavailable');
+  assert.equal(f.fetches.length, 1, 'only shared metadata is requested');
+  assert.equal(f.clips.length, 0); assert.equal(f.playRequests.length, 0);
+  assert.equal(f.timers.size, 0);
+});
+
+test('missing route discovery releases a voice-owned pause after loading was cancelled', async t => {
+  let resolveManifest, paused = false, recovered = 0;
+  const f = fixture({
+    fetchManifest: () => new Promise(resolve => { resolveManifest = resolve; }),
+    onUserPause: () => { paused = true; },
+    onBlocked: () => { paused = false; recovered++; }
+  }); t.after(f.clean);
+  const result = f.player.play();
+  assert.equal(f.player.blocksAdvance, true);
+  f.player.pause(true); assert.equal(paused, true);
+  resolveManifest({ok: true, json: async () => ({version: 1, scenes: {}})});
+  assert.equal(await result, false);
+  await until(() => f.player.status === 'unavailable', 'cancelled missing route discovery');
+  assert.equal(paused, false); assert.equal(recovered, 1);
+  assert.equal(f.player.blocksAdvance, false); assert.equal(f.clips.length, 0);
+  assert.equal(f.footer.children[0].isConnected, false);
+  assert.equal(f.timers.size, 0);
+});
+
+test('late missing route discovery cannot change a disposed reader or its callbacks', async t => {
+  let resolveManifest, recovered = 0;
+  const f = fixture({fetchManifest: () => new Promise(resolve => { resolveManifest = resolve; }), onBlocked: () => recovered++}); t.after(f.clean);
+  f.player.stop(); const stoppedState = f.player.status;
+  resolveManifest({ok: true, json: async () => ({version: 1, scenes: {}})});
+  await settle();
+  assert.equal(f.player.status, stoppedState); assert.equal(recovered, 0);
+  assert.equal(f.clips.length, 0); assert.equal(f.timers.size, 0);
+});
+
+test('an existing route with mismatched text stays visibly retryable and never requests audio', async t => {
+  const f = fixture({text: 'changed fixture text'}); t.after(f.clean);
+  assert.equal(await f.player.play(), false);
+  assert.equal(f.player.status, 'blocked'); assert.equal(f.player.blocksAdvance, false);
+  assert.equal(f.footer.children[0].isConnected, true);
+  assert.match(f.footer.children[0].children[0].textContent, /다시 시도/);
+  assert.equal(await f.player.play(), false); assert.equal(f.player.status, 'blocked');
+  assert.equal(f.fetches.length, 1); assert.equal(f.clips.length, 0);
+});
+
+test('a manifest network failure stays retryable and can recover on the same card', async t => {
+  let requests = 0;
+  const f = fixture({fetchManifest: (url, data) => ++requests === 1 ? Promise.reject(new Error('offline')) : {ok: true, json: async () => data}}); t.after(f.clean);
+  await until(() => f.player.status === 'blocked', 'metadata failure');
+  assert.equal(f.footer.children[0].isConnected, true); assert.equal(f.player.blocksAdvance, false);
+  const retry = await f.requestPlay(); retry.attempt.resolve();
+  assert.equal(await retry.result, true); assert.equal(f.player.status, 'playing');
+  assert.equal(requests, 2);
+});
 
 test('queued ended event after pause cannot start the next clip', async t => {
   const f = fixture(); t.after(f.clean);

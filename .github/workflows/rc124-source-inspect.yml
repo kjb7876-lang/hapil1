@@ -1,0 +1,24 @@
+name: RC124 native source inspection
+on:
+  push:
+    branches: [fix/rc124-laser-overrun-boss-hp]
+    paths: ['.github/workflows/rc124-source-inspect.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - name: Resolve projection and map bounds
+        run: |
+          node <<'NODE'
+          const s=require('node:fs').readFileSync('assets/index-v31526.js','utf8');
+          for(const [a,b] of [[5619000,5627800],[1114200,1117000]])console.log('RANGE',a,b,'\n'+s.slice(a,b));
+          const re=/\bG\s*=\s*(?:\([^;]{0,80}=>|function)/g;let m;while((m=re.exec(s)))console.log('PROJECTION',m.index,s.slice(Math.max(0,m.index-300),m.index+900));
+          NODE

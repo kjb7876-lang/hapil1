@@ -114,6 +114,8 @@
       path: Object.freeze(tx.steps.slice()), fault: tx.fault ?? null });
     m.events.push(row); if (m.events.length > LIMIT) m.events.shift();
     m.counts[result] = (m.counts[result] ?? 0) + 1; stats.published++;
+    // Presentation failures cannot interrupt a committed damage transaction.
+    try{root.__HAPIL_FEEDBACK_RC128__?.record(s,a,row,tx.source);}catch(error){stats.feedbackFaults=(stats.feedbackFaults||0)+1;if(stats.feedbackFaults===1)root.console?.warn?.("RC128 feedback hook",error);}
   }
   function transaction(s, a, source, origin, fn, options = {}) {
     if (!object(s) || !object(a)) { stats.invalidInputs++; return options.numeric ? 0 : false; }

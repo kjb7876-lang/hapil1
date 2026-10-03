@@ -31,9 +31,9 @@ function visible(p,time) {
   p.bitmapRenderedDreamV31353=false;
   deps.bindBitmap(p);
   const nativePath=p.danmakuV31316?p.danmakuArtV31316:null;
-  const selected=ready(cache,nativePath)||ready(cache,p.sprite)||ready(cache,p.fallbackSprite)||ready(cache,FALLBACK);
+  const selected=ready(cache,p.rc126CommonSprite)||ready(cache,nativePath)||ready(cache,p.sprite)||ready(cache,p.fallbackSprite)||ready(cache,FALLBACK);
   if(!selected)return false;
-  const im=selected.image,at=deps.project(p.x,p.y),finite=(v,d)=>Number.isFinite(Number(v))?Number(v):d;
+  const im=selected.path.split('?')[0].endsWith('/danmaku-jellybean.webp')?(root.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(selected.image,p.danmakuColorV31316??p.color,p)??selected.image):selected.image,at=deps.project(p.x,p.y),finite=(v,d)=>Number.isFinite(Number(v))?Number(v):d;
   const scale=Math.max(.7,Math.min(1.6,finite(p.visualScaleV31224,1)));
   const lod=Math.max(0,Math.min(2,finite(settings.projectileLodSmartR1,settings.lowFx?1:2)));
   const extent=p.danmakuV31316?(p.danmakuRadialV31316?32:40):(lod===0?(p.boss?44:p.midboss?38:30):(p.boss?68:p.midboss?56:50))*scale;
@@ -42,7 +42,7 @@ function visible(p,time) {
   const blend=Math.max(0,Math.min(1,1-(time-born)/(p.danmakuV31316 ? .3 : .28)));
   const baseY=finite(p.visualYV31333,-18),lift=baseY+(finite(p.sourceOffsetY,baseY)-baseY)*blend;
   const renderObject=nativePath&&selected.path===nativePath?{...p,sprite:selected.path,spriteHeading:finite(p.danmakuHeadingV31316,finite(p.spriteHeading,0))}:p;
-  const angle=p.screenAligned31222||p.danmakuRadialV31316?0:deps.angle(renderObject);
+  const angle=p.rc126CommonSprite||p.screenAligned31222||p.danmakuRadialV31316?0:deps.angle(renderObject);
   if(!Number.isFinite(angle))return false;
   ctx.save();try{
    ctx.globalCompositeOperation='source-over';ctx.globalAlpha*=.98;ctx.shadowBlur=0;ctx.filter='none';
@@ -59,6 +59,7 @@ function visible(p,time) {
    if(!visible(p,time)){counts.suppressedHidden++;return false;}
    if(p.echoBoltV31368){counts.echo++;return root.__HAPIL_ECHOES_V31368__?.drawBolt(ctx,cache,p,time,settings);}
    counts.drawCalls++;
+   if(p.rc126CommonSprite){counts.native++;return drawDecoded(ctx,cache,p,time,settings);}
    const options=root.__HAPIL_MATERIAL_V31362__?.projectileSettings(p,settings)??settings;
    if(p.dreamReflectedV31346||p.hellMirrorV31322||p.dreamMirrorProjectileV31347){counts.reflected++;return drawDecoded(ctx,cache,p,time,options);}
    counts.native++;return base.call(receiver,ctx,cache,p,time,options);

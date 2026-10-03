@@ -1,0 +1,146 @@
+name: RC126 finite native release gate
+on:
+  push:
+    branches: [fix/rc126-finite-native-release]
+    paths: ['assets/**', 'index.html', 'tests/**', 'tools/apply-rc126-finite.cjs', '.github/workflows/rc126-finite-release.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc126-finite-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  integrate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      sha: ${{ steps.apply.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - id: apply
+        name: Apply exact anchored finite-end correction only on isolated branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = fix/rc126-finite-native-release
+          git fetch --no-tags --depth=1 origin 2b1b48dbda698bedecd6ff4ee10cea0fb4e62a6a
+          node tools/apply-rc126-finite.cjs
+          if ! git diff --quiet; then
+            git config user.name 'HAPIL finite-end fix'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add assets/rc126/combat-safety.js assets/rc108/laser-topology.js assets/index-v31526.js assets/combat-v31402/contact-geometry.js index.html tests/rc126-combat-safety-smoke.cjs tests/rc126-combat-browser.cjs
+            git commit -m 'RC126: preserve finite beam reach and share rounded render/contact geometry'
+            git push origin HEAD:refs/heads/fix/rc126-finite-native-release
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  regression:
+    needs: integrate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [combat, layout, overscan-hp, topology, release, safeguards, hero-actions, dream-natural, webkit]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.integrate.outputs.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare immutable browser runtime
+        env:
+          SUITE: ${{ matrix.suite }}
+        run: |
+          set -euo pipefail
+          for SHA in 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a dd56fb42aeb8faa45f66a391ea657daf772c410b 257b920a470e0ee6a04e5a52d71157f66232682c; do git fetch --no-tags --depth=1 origin "$SHA"; done
+          R="$RUNNER_TEMP/rc126-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          if [ "$SUITE" = webkit ]; then node "$R/node_modules/playwright/cli.js" install --with-deps webkit >> "$RUNNER_TEMP/browser.log" 2>&1; fi
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc126-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc126-evidence/release" >> "$GITHUB_ENV"
+      - name: Execute committed-code regression
+        env:
+          SUITE: ${{ matrix.suite }}
+          HAPIL_DREAM_LIMIT_MS: '150000'
+        run: |
+          set -euo pipefail
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          test -z "$(git status --porcelain)"
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-commit.txt"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          node --check assets/index-v31526.js
+          node --check assets/rc126/finite-native.js
+          case "$SUITE" in
+            combat) node tests/rc126-finite-native.cjs && node tests/rc126-combat-safety-smoke.cjs && node tests/rc43-bloodied-projectile-flight.cjs && node tests/rc126-combat-browser.cjs ;;
+            layout) node tests/rc125-adaptive-battlefield-browser.cjs && node tests/rc125-first-frame-browser.cjs ;;
+            overscan-hp) node tests/rc123-boundary-smoke.cjs && node tests/rc124-overrun-health-browser.cjs ;;
+            topology) node tests/rc121-connected-topology-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs ;;
+            safeguards) node tests/rc122-autoplay-policy-smoke.cjs && node tests/rc115-map-advance-smoke.cjs && node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
+            hero-actions) node tests/rc93-hero-actions-browser.cjs ;;
+            dream-natural) node tests/rc121-dream-regression-browser.cjs ;;
+            webkit) node qa/rc126/webkit-smoke.cjs ;;
+          esac
+      - name: Scope and release results
+        if: always()
+        run: |
+          test ! -f "$HAPIL_RELEASE_OUTPUT/release-summary.json" || cat "$HAPIL_RELEASE_OUTPUT/release-summary.json"
+          echo 'Fixtures, first-battle observations, full campaigns and physical iPhone/Safari are distinct. No full campaign or physical-device pass is claimed.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc126-finite-${{ matrix.suite }}-${{ needs.integrate.outputs.sha }}
+          path: ${{ runner.temp }}/rc126-evidence/
+          retention-days: 14
+  evidence:
+    needs: [integrate, regression]
+    if: always() && needs.integrate.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.integrate.outputs.sha }}
+          fetch-depth: 1
+          show-progress: false
+      - name: Preserve actual screenshots and measurements without gameplay edits
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TESTED: ${{ needs.integrate.outputs.sha }}
+        run: |
+          set -euo pipefail
+          ROOT="qa/rc126-finite-evidence/$GITHUB_RUN_ID"
+          mkdir -p "$ROOT"
+          printf '%s\n' "$TESTED" > "$ROOT/tested-commit.txt"
+          for SUITE in combat layout overscan-hp dream-natural release hero-actions webkit; do
+            DEST="$RUNNER_TEMP/evidence-$SUITE"
+            if gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "rc126-finite-$SUITE-$TESTED" --dir "$DEST"; then
+              mkdir -p "$ROOT/$SUITE"
+              find "$DEST" -type f \( -name '*.png' -o -name '*results.json' -o -name '*summary.json' -o -name 'actions-*.json' \) -exec cp '{}' "$ROOT/$SUITE/" \;
+            fi
+          done
+          git config user.name 'HAPIL visual evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m "RC126 finite actual browser evidence $GITHUB_RUN_ID; no gameplay edits"
+          git push origin HEAD:refs/heads/qa/rc126-finite-evidence-$GITHUB_RUN_ID

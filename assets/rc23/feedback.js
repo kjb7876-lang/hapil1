@@ -10,6 +10,11 @@
   const id=source.heroId,key=id==='hwando'?'wood':id==='slayer'?'slash':id==='hunter'||id==='gunner'?'shot':'arcane';
   m.queue.push({key,at:s.time,priority:source.critical?3:2,gain:source.critical?.46:.33});stats.hits++;
  }
+ function impact(s,event){
+  if(!s||!event||!Object.prototype.hasOwnProperty.call(pools,event.key))return false;
+  const m=state(s);if(m.queue.length>=8)return false;
+  m.queue.push({key:event.key,at:s.time,priority:Math.max(0,Math.min(7,Number(event.priority)||0)),gain:Math.max(0,Math.min(.5,Number(event.gain)||0))});return true;
+ }
  function tick(s,settings,play,unlocked){
   if(!s)return;const m=state(s),key=window.__HAPIL_ENEMY_FEEL_V31361__?.key;
   for(const e of (key?s[key]:[])??[]){if(m.seen.has(e.id))continue;m.seen.add(e.id);if(s.time-e.born>.16)continue;
@@ -29,5 +34,5 @@
   m.last=now;m.voices.push(now+(e.key==='roar'?1:e.key==='laser'?.8:e.key==='wood'||e.key==='guard'?.28:.42));
   play('./audio/rc23/upload-'+String(index).padStart(2,'0')+'.wav',e.gain,.12);stats.played++;
  }
- window.__HAPIL_FEEDBACK_RC22__=Object.freeze({sounds,hit,tick,metrics:()=>({...stats})});
+ window.__HAPIL_FEEDBACK_RC22__=Object.freeze({sounds,hit,impact,tick,metrics:()=>({...stats})});
 })();

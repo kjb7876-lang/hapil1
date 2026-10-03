@@ -1,0 +1,73 @@
+/* RC125: full available battlefield; world projection compensates the CSS aspect.
+   The portrait split and its touch controls retain their existing layout. */
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing {--rc125-top:32px;--rc125-bottom:44px}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing .game {
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:var(--rc125-top) minmax(0,1fr) var(--rc125-bottom)!important;
+  height:var(--hapil-vh66,100dvh)!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing .game>.game-stage {
+  grid-column:1!important;grid-row:2!important;display:block!important;
+  width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+  margin:0!important;padding:0!important;overflow:hidden!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing .game>.game-stage>canvas {
+  display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+  min-width:0!important;min-height:0!important;aspect-ratio:auto!important;object-fit:fill!important;margin:0!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels {
+  inset:0 0 auto!important;height:var(--rc125-top)!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  background:#06101bf0!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc15-enemies {grid-column:1!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc15-allies {grid-column:2!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc15-panel {
+  grid-template-columns:36px minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;
+  padding:3px 8px!important;gap:5px!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels h2 {font-size:10px!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc21-focus {
+  grid-row:1!important;grid-template-columns:minmax(0,1fr) minmax(64px,1fr)!important;padding:0!important;gap:6px!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc21-focus>strong {font-size:11px!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc21-vitals>b {font-size:10px!important;margin:0 0 2px!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc15-sidepanels :is(.rc21-alert,.rc21-calm,.rc21-vitals small) {display:none!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay {
+  inset:auto 0 0!important;height:var(--rc125-bottom)!important;background:#06101bf0!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96 {
+  left:10px!important;bottom:4px!important;top:auto!important;width:min(260px,38vw)!important;max-width:260px!important;
+  padding:2px 6px!important;background:transparent!important;border:0!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96 .rc96-resource-text {font-size:11px!important;line-height:1.15!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96 .rc108-samong-cooldown {font-size:10px!important;line-height:1.1!important}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys {
+  left:44%!important;top:4px!important;bottom:auto!important;gap:8px!important;max-width:40%!important;height:36px!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys button {
+  height:34px!important;min-height:34px!important;padding:0 10px!important;font-size:12px!important;background:#17293b!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-more-trigger {
+  left:auto!important;right:50px!important;top:4px!important;width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;
+}
+html.rc125-adaptive.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-settings-trigger {
+  right:8px!important;top:4px!important;width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;
+}
+/* Phones in landscape retain the native large held-action targets at the bottom.
+   No duplicate tiny action buttons; all settings remain reachable. */
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing {--rc125-top:36px;--rc125-bottom:0px}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay {inset:0 0 auto!important;height:36px!important;background:transparent!important}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay :is(.rc108-skill-keys,.rc108-more-trigger) {display:none!important}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-settings-trigger {top:0!important;right:0!important}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc15-sidepanels .rc15-allies {padding-right:40px!important}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96 {
+  position:fixed!important;left:auto!important;right:6px!important;top:40px!important;bottom:auto!important;width:118px!important;max-width:118px!important;
+  padding:3px 5px!important;background:#06101bbf!important;
+}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96 .rc96-resource-text {font-size:9px!important}
+html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96 .rc108-samong-cooldown {font-size:8px!important}
+@media(max-width:700px){
+ html.rc125-adaptive:not(.hapil-touch-v31366).rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys {left:40%!important;gap:3px!important}
+ html.rc125-adaptive:not(.hapil-touch-v31366).rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys button {font-size:10px!important;padding:0 5px!important}
+}

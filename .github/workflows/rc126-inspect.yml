@@ -1,0 +1,32 @@
+name: RC126 combat source inspection
+on:
+  push:
+    branches: [fix/rc126-combat-safety]
+    paths: ['.github/workflows/rc126-inspect.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - name: Inventory exact native combat hooks and test coverage
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),cp=require('child_process');
+          console.log('HEAD',cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}));
+          const files=cp.execFileSync('git',['ls-files'],{encoding:'utf8'}).trim().split('\n');
+          console.log('TESTS',files.filter(f=>/^tests\//.test(f)).join('\n'));
+          console.log('HELPERS',files.filter(f=>/^(assets|data)\//.test(f)&&/\.(js|json)$/.test(f)&&/(contact|combat|damage|projectile|barrage|danmaku|death|story|laser|spawn|geometry)/i.test(f)&&!f.includes('generated')).join('\n'));
+          const src=fs.readFileSync('assets/index-v31526.js','utf8').split('\n');
+          const patterns=[/function (oi|Ei|Yn)\(/,/native\(h\)/,/native\s*[:=].*=>/,/__HAPIL.*(CONTACT|PROJECTILE|DAMAGE|LASER|RC86_BRIDGE)/,/function .*projectile/i,/reachedHero31213/,/projectileRemovalReason31215/,/nativeHazard/,/blue-executor/,/\bsourceId\b.*:/,/danmakuLaunchedAtV31316/];
+          for(const re of patterns){console.log('\nMATCH',String(re));let found=0;for(let i=0;i<src.length;i++)if(re.test(src[i])){console.log((i+1)+': '+src[i].slice(0,600));if(++found>=25)break;}}
+          console.log('BUNDLE_LINES',src.length,'BLOB',cp.execFileSync('git',['hash-object','assets/index-v31526.js'],{encoding:'utf8'}).trim());
+          for(const f of files.filter(f=>/^assets\//.test(f)&&f.endsWith('.js')&&!f.includes('index-'))){const s=fs.readFileSync(f,'utf8');if(/native\(h\)|function native\b|native:\s*(function|\(?h)|blue-executor/.test(s)){console.log('NATIVE_HELPER',f);let a=s.split('\n');for(let i=0;i<a.length;i++)if(/native\(h\)|function native\b|native:\s*(function|\(?h)|blue-executor/.test(a[i]))console.log(a.slice(Math.max(0,i-4),i+16).map((x,k)=>(Math.max(0,i-4)+k+1)+': '+x.slice(0,1000)).join('\n'));}}
+          NODE

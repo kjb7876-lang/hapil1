@@ -80,6 +80,7 @@
     const sceneKey = key || `${zone}:${phase}`;
     root.dataset.narration = sceneKey;
     let state = 'idle', disposed = false, generation = 0, buffer = null, entry = null;
+    const availabilityController = new AbortController();
     let progressWatch = null, endedAt = 0, resumeWhenVisible = false;
     const now = () => window.performance?.now?.() ?? Date.now();
     let source = null, gain = null, media = null, startedAt = 0, offset = 0, clipIndex = 0, controller = null, timeout = null;
@@ -120,13 +121,21 @@
       return Number.isFinite(duration) ? Math.min(value, duration) : value;
     }
     function pause(user = false, releaseBuffer = false) {
-      if (disposed) return;
+      if (disposed || state === 'unavailable') return;
       resumeWhenVisible = false; offset = position(); ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); if (releaseBuffer) buffer = null; display('paused');
       if (user) onUserPause?.();
     }
     function failed(request) {
       if (disposed || request !== generation) return false;
       ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia(); display('blocked'); onBlocked?.();
+      return false;
+    }
+    function unavailable() {
+      if (disposed || state === 'unavailable') return false;
+      resumeWhenVisible = false; ++generation; clearTimeoutAndRequest(); stopSource(); releaseMedia();
+      buffer = null; entry = null; offset = 0; display('unavailable'); controls.remove();
+      // Reuse the host's failure recovery to release only a narration-owned auto pause.
+      onBlocked?.();
       return false;
     }
     function releaseMedia() {
@@ -143,6 +152,7 @@
     async function metadata(signal) {
       if (entry) return entry;
       const data = await manifest(signal), candidate = data.scenes[sceneKey];
+      if (!Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) return null;
       if (!candidate || candidate.textSha256 !== await sha256(text)) throw new Error('Narration does not match this text');
       if (signal.aborted) throw new Error('Narration cancelled');
       const clips = (candidate.clips || [candidate]).map(clip => {
@@ -208,7 +218,7 @@
       return true;
     }
     async function play() {
-      if (disposed || state === 'playing' || state === 'loading') return false;
+      if (disposed || state === 'unavailable' || state === 'playing' || state === 'loading') return false;
       if (active !== api) { active?.pause(false, true); active = api; }
       if (state === 'ended') { offset = 0; clipIndex = 0; }
       unlock();
@@ -216,8 +226,10 @@
       controller = new AbortController(); const signal = controller.signal;
       timeout = window.setTimeout(() => failed(request), LOAD_TIMEOUT_MS);
       try {
-        const details = (await metadata(signal)).clips[clipIndex];
+        const candidate = await metadata(signal);
         if (disposed || request !== generation) return false;
+        if (!candidate) return unavailable();
+        const details = candidate.clips[clipIndex];
         if (audioContext) {
           try {
             if (!buffer) {
@@ -249,6 +261,7 @@
       stop() {
         if (disposed) return;
         pause(); disposed = true; buffer = null; entry = null;
+        availabilityController.abort();
         releaseMedia();
         for (const remove of listeners) remove();
         controls.remove(); if (active === api) active = null;
@@ -282,6 +295,11 @@
     removed.observe(document.body, {childList: true, subtree: true});
     listeners.push(() => removed.disconnect());
     active = api; updateVolume();
+    // A partial release omits unfinished routes. Check metadata even for muted cards,
+    // without requesting audio, so unavailable controls cannot strand a paused reader.
+    void manifest(availabilityController.signal).then(data => {
+      if (!disposed && !Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) unavailable();
+    }).catch(() => { if (!disposed && state === 'idle') failed(generation); });
     if (interacted && ctx.sound !== false && volume > 0) void play();
     return api;
   }

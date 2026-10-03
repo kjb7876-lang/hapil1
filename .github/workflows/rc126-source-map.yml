@@ -1,0 +1,35 @@
+name: RC126 bounded native source map
+on:
+  push:
+    branches: [fix/rc126-combat-safety]
+    paths: ['.github/workflows/rc126-source-map.yml']
+permissions:
+  contents: write
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          show-progress: false
+      - name: Extract reviewed source ranges without editing runtime
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),cp=require('child_process');
+          const f='assets/index-v31526.js',s=fs.readFileSync(f,'utf8').split('\n'),out='qa/rc126-source';fs.mkdirSync(out,{recursive:true});
+          if(cp.execFileSync('git',['hash-object',f],{encoding:'utf8'}).trim()!=='1ec55166ecd43bcdc510f0b6d3ec1cca131ff098')throw Error('Baseline changed');
+          const groups={spawn:[[410,555],[1215,1360]],motion:[[2000,2150],[116880,117065]],native:[[49490,49690],[49825,49920],[117955,118090]],tick:[[61865,62080],[62955,63050]],bridge:[[125000,125100],[126000,126438]]};
+          for(const [name,ranges]of Object.entries(groups))fs.writeFileSync(`${out}/${name}.txt`,ranges.map(([a,b])=>`\n### ${f}:${a}-${b}\n`+s.slice(a-1,b).map((l,i)=>(a+i)+': '+l).join('\n')).join('\n'));
+          const queries=[/__HAPIL_RC86_BRIDGE__/,/__HAPIL_COMBAT_FLOW_RC95__/,/__HAPIL_DANMAKU_V31316__\s*=/,/function (MONGSE_.*(Projectile|Hostile|Spawn)|oi|mo|Ii|ti)\(/,/\bhostileProjectiles\.push\(/,/\benemies\.push\(/,/function .*cloneEnemy/,/MONGSE_push.*Projectile.*=/,/function G\(/];
+          fs.writeFileSync(out+'/anchors.txt',queries.map(re=>String(re)+'\n'+s.map((l,i)=>re.test(l)?(i+1)+': '+l.slice(0,2000):null).filter(Boolean).join('\n')).join('\n\n'));
+          const names=['__HAPIL_RC86_BRIDGE__','__HAPIL_COMBAT_FLOW_RC95__'];
+          fs.writeFileSync(out+'/hooks.txt',names.map(n=>s.flatMap((l,i)=>l.includes(n)?['\n### '+n+' line '+(i+1),...s.slice(Math.max(0,i-12),i+75).map((v,k)=>(Math.max(0,i-12)+k+1)+': '+v)]:[]).join('\n')).join('\n'));
+          console.log('Extracted source from',cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim());
+          NODE
+          git config user.name 'HAPIL verification'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc126-source
+          git commit -m 'RC126 diagnostic source slices; no gameplay changes'
+          git push origin HEAD:refs/heads/qa/rc126-source-map

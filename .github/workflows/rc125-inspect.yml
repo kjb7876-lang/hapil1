@@ -1,0 +1,30 @@
+name: RC125 native integration inspection
+on:
+  push:
+    branches: [fix/rc125-adaptive-battlefield]
+    paths: ['.github/workflows/rc125-inspect.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - name: Read native callsites and regression entrypoints
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const s=fs.readFileSync('assets/index-v31526.js','utf8'),lines=s.split('\n');
+          for(const term of ['__HAPIL_VIEWPORT_RC104__','__HAPIL_PORTRAIT','function $n(','function G(','hapil-canvas-width-v31314','RC112','rc112']){
+            console.log('\n=== '+term+' ===');let count=0;
+            for(let i=0;i<lines.length;i++)if(lines[i].includes(term)&&count++<12){console.log('LINE '+(i+1));console.log(lines.slice(Math.max(0,i-9),i+22).join('\n'));}
+          }
+          console.log('TESTS',fs.readdirSync('tests').filter(x=>/viewport|portrait|layout|hud|rc11[012]|resolution/.test(x)));
+          console.log('OTHER_RELEVANT_FILES');for(const dir of ['assets/rc108','assets/rc111','assets/rc112'])if(fs.existsSync(dir))console.log(dir,fs.readdirSync(dir));
+          console.log('BUNDLE_BYTES',Buffer.byteLength(s));
+          NODE

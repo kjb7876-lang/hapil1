@@ -49,7 +49,7 @@
   if(p.index!==0&&s.time>=f.nextLaser&&!(s.bossLaserCastsV31330??[]).some(c=>c.endAt>s.time)&&!window.__HAPIL_BOSSES_V31334__?.busy(s)){
    for(let i=0;i<owners.length;i++){const a=owners[(f.cursor+i)%owners.length];if(n(a.atomicCastUntil31210)>s.time||n(a.recoverUntil)>s.time||!window.__HAPIL_BLOOD_RC16__?.canStart(s,a))continue;
     const cards=api.patterns(a,api.phase(a)).filter(p=>p.bloodV31516),card=choice?.selectCard(s,a,cards,p)??cards[n(a.rc95LaserCycle)%Math.max(1,cards.length)];if(!card)continue;
-    const c=run(s,()=>api.cast(s,a,card,api.phase(a)));if(c?.laserV31330){choice?.prepareLaser(s,a,c,p);a.rc95LaserCycle=n(a.rc95LaserCycle)+1;f.nextLaser=c.endAt+.35;f.cursor=(f.cursor+i+1)%owners.length;stats.lasers++;break;}
+    const c=run(s,()=>api.cast(s,a,card,api.phase(a)));if(c?.laserV31330){choice?.prepareLaser(s,a,c,p);a.rc95LaserCycle=n(a.rc95LaserCycle)+1;f.nextLaser=c.endAt+(window.__HAPIL_POLICY_RC127__?.interval(s,a,.35)??.35);f.cursor=(f.cursor+i+1)%owners.length;stats.lasers++;break;}
    }
   }
   if(p.index===1||s.time<f.nextBullet)return;
@@ -58,8 +58,10 @@
   const count=a.boss?7:5,cycle=n(a.rc95BulletCycle),aim=Math.atan2(s.y-a.y,s.x-a.x),spread=p.index===2?.95:1.4,speed=mode(s)==='HELL'?6.8:5.5;
   const shots=Math.min(count,cap-(s.hostileProjectiles??[]).length);
   const authored=choice?.volley(s,a,p,shots);
+  const rc126Before=(s.hostileProjectiles??[]).length;
   run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){const angle=cycle%3===2?aim+(i-(shots-1)/2)*.36:aim+(shots===1?0:i/(shots-1)-.5)*spread+(cycle%3===1?.22:0);const before=(s.hostileProjectiles??[]).length,spec=authored?.[i]??{vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:.28,damage:a.boss?(p.index===2?12:10):(p.index===2?10:8),curve:0,homingMode31212:'none',frozenUntil:s.time,life:6,patternKind:'rc95-volley',label:a.name+' · '+names[p.index],status:'none'};api.bullet(s,a,spec);for(const q of (s.hostileProjectiles??[]).slice(before)){for(const key of ['frozenUntil','telegraphUntil31210','motionReleaseAt31219','collisionDisabledUntil31219','collisionDisabledUntilV31226'])q[key]=s.time;q.hideUntilRelease31219=false;q.bodySpawned31219=true;q.rc95Bullet=true;q.heavyBossSkill=false;if(spec.rc97Grammar){q.rc97Grammar=spec.rc97Grammar;q.scatterHomingPrepared31211=true;}}}});
-  const planned=authored?.length??shots;if(planned){a.rc95BulletCycle=cycle+1;f.nextBullet=s.time+(p.index===2?1.25:.72);stats.bullets+=planned;}else f.nextBullet=s.time+.2;
+  const rc126Volley=window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareVolley(s,a,(s.hostileProjectiles??[]).slice(rc126Before),{rhythm:true});
+  const planned=authored?.length??shots;if(planned){a.rc95BulletCycle=cycle+1;f.nextBullet=window.__HAPIL_POLICY_RC127__?.deadline(s,a,Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16))??Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);stats.bullets+=planned;}else f.nextBullet=s.time+.2;
  }
  function snapshot(s){return{...phase(s),admissionOnly:true,stats:{...stats}};}
  window.__HAPIL_COMBAT_FLOW_RC95__=Object.freeze({installed:true,version:'RC95',enabled,frame,phase,managed,allowed,admit,laser,executing,run,laserReadyAt,rank,targets,estimate,balance,tick,snapshot});

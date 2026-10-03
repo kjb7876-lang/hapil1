@@ -1,0 +1,36 @@
+name: RC127 combat source inspection
+on:
+  push:
+    branches: [fix/rc127-dark-combat]
+    paths: ['.github/workflows/rc127-inspect.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - name: Locate actual runtime and regression entry points
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),cp=require('child_process');
+          const files=cp.execFileSync('git',['ls-files'],{encoding:'utf8'}).trim().split('\n');
+          console.log('HEAD',cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim());
+          console.log('TESTS\n'+files.filter(f=>/^tests\//.test(f)).join('\n'));
+          console.log('HELPERS\n'+files.filter(f=>/^(assets|data)\//.test(f)&&f.endsWith('.js')&&!f.includes('index-')&&/cosmic|lucifer|bullet|danmaku|resonance|combat|growth|projectile|damage/i.test(f)).join('\n'));
+          const file='assets/index-v31526.js',lines=fs.readFileSync(file,'utf8').split('\n');
+          for(const [name,re,max] of [
+            ['777',/777|devCode|developerCode/,22],
+            ['SPEED',/moveSpeed|movementSpeed|speedMultiplier|\.speed\b|speed:/,36],
+            ['RESONANCE',/이동속도|이동 속도|피해 감소|damageReduction|resonance.*speed|speed.*resonance/i,24],
+            ['MASK',/코스믹.*루시퍼|가면.*루시퍼|cosmic.*lucifer|lucifer.*cosmic|mask.*lucifer|lucifer.*mask/i,22],
+            ['CAST',/__HAPIL_SKILL_COMPLETION|__HAPIL_COMBAT_FLOW_RC95__|cosmicCastsV31318|function .*Cosmic|nextCosmic/i,38]
+          ]){console.log('\nSECTION '+name);let count=0;for(let i=0;i<lines.length;i++)if(re.test(lines[i])){console.log((i+1)+': '+lines[i].slice(0,1600));if(++count>=max)break;}}
+          for(const file of files.filter(f=>/^assets\//.test(f)&&f.endsWith('.js')&&!f.includes('index-'))){const s=fs.readFileSync(file,'utf8');if(!/jelly|젤리빈|cosmicCastsV31318|cosmic-lucifer|cosmicLucifer|masquerade|moveSpeed|movementSpeed/.test(s))continue;console.log('\nHELPER_MATCH '+file);const ls=s.split('\n');let n=0;for(let i=0;i<ls.length;i++)if(/jelly|젤리빈|cosmicCastsV31318|cosmic-lucifer|cosmicLucifer|masquerade|moveSpeed|movementSpeed/.test(ls[i])){console.log((i+1)+': '+ls[i].slice(0,1800));if(++n>=10)break;}}
+          NODE

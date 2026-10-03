@@ -1,0 +1,34 @@
+name: RC127 exact source contexts
+on:
+  push:
+    branches: [fix/rc127-dark-combat]
+    paths: ['.github/workflows/rc127-context.yml']
+permissions:
+  contents: write
+jobs:
+  context:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
+      - name: Extract source-only contexts
+        run: |
+          node <<'NODE'
+          const fs=require('fs');const cp=require('child_process');const src=fs.readFileSync('assets/index-v31526.js','utf8'),ls=src.split('\n'),root='qa/rc127-source';fs.mkdirSync(root,{recursive:true});
+          for(const [key,start,end] of [['movement',61180,61340],['growth',40040,40210],['upgrades',40270,40375],['mastery',40630,40710],['damage',46020,46220],['enemy-start',62170,62275],['enemy-impact',62470,62590],['cosmic',118410,118845],['bullet-spawn',47910,48040]])fs.writeFileSync(root+'/'+key+'.txt',ls.slice(start-1,end).map((l,i)=>(start+i)+': '+l).join('\n'));
+          let out=[];for(const [name,re] of [
+            ['DEV',/[`"']777[`"']|devMax|devCode|developer|개발자/],
+            ['PLAYER_SPEED',/speedMultiplier|current\.speed|이동 속도|이동속도|speedBuffUntil|speedBoost/],
+            ['BULLET_ART',/jelly|젤리빈|commonProjectile|commonAsset|__HAPIL_COMBAT_SAFETY_RC126__|bullet.*[Tt]int|[Tt]int.*bullet/],
+            ['COOLDOWN',/nextSkillAt|skillCooldown|attackCooldown|attackInterval|attackDelay|cosmicArsenalReadyAt|cosmic.*[Cc]ooldown/],
+            ['COSMIC_UPDATE',/__HAPIL_COSMIC_ARSENAL|__HAPIL_LUCIFER|__HAPIL_RC95_NATIVE__/]
+          ]){out.push('\nSECTION '+name);let hits=0;for(let i=0;i<ls.length;i++)if(re.test(ls[i])){out.push((i+1)+': '+ls[i].slice(0,1800));if(++hits>=90)break;}}
+          fs.writeFileSync(root+'/locations.txt',out.join('\n'));console.log(out.join('\n'));console.log('SOURCE_FILES',fs.readdirSync(root));
+          NODE
+          git config user.name 'HAPIL source inspection'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc127-source
+          git commit -m "RC127 source evidence $GITHUB_RUN_ID; runtime unchanged"
+          git push origin HEAD:refs/heads/qa/rc127-source-$GITHUB_RUN_ID

@@ -1,0 +1,38 @@
+name: RC126 WebKit compatibility
+on:
+  push:
+    branches: [fix/rc126-combat-safety]
+    paths: ['.github/workflows/rc126-webkit.yml', 'qa/rc126/webkit-smoke.cjs', 'assets/rc126/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  webkit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare WebKit engine
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc126-webkit-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps webkit > "$RUNNER_TEMP/browser.log" 2>&1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc126-webkit" >> "$GITHUB_ENV"
+      - name: Observe unmodified game and synthetic touch events
+        run: node qa/rc126/webkit-smoke.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc126-webkit-${{ github.sha }}
+          path: ${{ runner.temp }}/rc126-webkit/
+          retention-days: 14

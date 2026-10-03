@@ -1,0 +1,49 @@
+'use strict';
+// One-time integration. Refuse changed inputs; never reset or overwrite unrelated work.
+const fs=require('node:fs'),assert=require('node:assert/strict'),cp=require('node:child_process');
+const hashes={
+ 'assets/index-v31526.js':'1ec55166ecd43bcdc510f0b6d3ec1cca131ff098',
+ 'index.html':'7a28159ad9575f9d90731021f7ec91994cee9f0c',
+ 'assets/rc95/combat-flow.js':'880cbd927acfb16070e67c7c1ed43feae326cc8c',
+ 'assets/combat-v31402/projectile-pipeline.js':'5bcc639fb4e4049954bcaae754fd22de54f0ea8e',
+ 'assets/combat-v31402/contact-geometry.js':'6c1c3866695816d9a6828c1f44d8d562be5ae95f',
+ 'assets/rc43/bloodied-flight.js':'62d62153d2f50acbb78849ace34ddb0313039723'
+};
+const hash=f=>cp.execFileSync('git',['hash-object',f],{encoding:'utf8'}).trim();
+for(const [f,h]of Object.entries(hashes))assert.equal(hash(f),h,'Changed input: '+f);
+const source=Object.fromEntries(Object.keys(hashes).map(f=>[f,fs.readFileSync(f,'utf8')]));
+function once(f,from,to){
+ let match=from;
+ if(!source[f].includes(from)){
+  const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const pattern=from.split('\n').map(s=>escape(s.replace(/^[ \t]+/,''))).join('\\n[ \\t]*');
+  const matches=[...source[f].matchAll(new RegExp(pattern,'g'))];
+  assert.equal(matches.length,1,'Non-unique semantic patch: '+f+' '+from.slice(0,100));match=matches[0][0];
+ }
+ assert.equal(source[f].split(match).length-1,1,'Non-unique patch: '+f+' '+from.slice(0,100));source[f]=source[f].replace(match,to);
+}
+const bundle='assets/index-v31526.js',flow='assets/rc95/combat-flow.js',pipeline='assets/combat-v31402/projectile-pipeline.js',geo='assets/combat-v31402/contact-geometry.js',blood='assets/rc43/bloodied-flight.js';
+once(bundle,'    for(const h of hits)Object.assign(h,{bossCastId31210:cast,','    for(const h of hits)window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareNative(s,h,G);\n    for(const h of hits)Object.assign(h,{bossCastId31210:cast,');
+once(bundle,'               let s = new Set();\n               for (let e of o.hostileProjectiles) {','               window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareFrame(o);\n               window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);\n               window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);\n               let s = new Set();\n               for (let e of o.hostileProjectiles) {');
+once(bundle,'                MONGSE_prepareBossScatterHoming31211(o, e);','                MONGSE_prepareBossScatterHoming31211(o, e);\n                window.__HAPIL_COMBAT_SAFETY_RC126__?.steer(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1));');
+once(bundle,'function Di(e, t) {\n','function Di(e, t) {\n  if (!e || !t || ![e.x,e.y,t.x,t.y,t.radius].every(Number.isFinite) || t.radius < 0) return !1;\n  if ([`line`,`cone`,`fan`,`sector`].includes(t.shape) && (![t.originX,t.originY,t.width].every(Number.isFinite) || t.width < 0 || Math.hypot(t.x-t.originX,t.y-t.originY)<1e-8)) return !1;\n');
+once(bundle,'  actor(zone, id) { return N[zone]?.enemies?.find(actor => actor.id === id) ?? null; },','  actor(zone, id) { return zone===`murder03` && id===`blue-executor` ? ye : N[zone]?.enemies?.find(actor => actor.id === id) ?? null; },');
+source[bundle]+=`\n/* RC126: additive run ledger and simulation dependencies; no render-owned state updates. */\n(()=>{const R=window.__HAPIL_COMBAT_SAFETY_RC126__;if(!R)return;R.install({project:G,common:()=>window.__HAPIL_DANMAKU_V31316__?.commonAsset,point:(s,p,r)=>dt(s.zone,p,r),clear:(s,a,b,r)=>!pt(s.zone,a,b,r)&&!ut(s.zone,b.x,b.y,r)});\nconst save=Fi;Fi=function(s,...args){const out=save(s,...args);if(out&&s?.rc126AssetLedger)out.rc126AssetLedger=R.cleanLedger(s.rc126AssetLedger);return out;};\nconst normalize=ji;ji=function(raw,...args){const out=normalize(raw,...args);if(out&&raw?.rc126AssetLedger)out.rc126AssetLedger=R.cleanLedger(raw.rc126AssetLedger);return out;};\nconst entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s,saved,...args){const out=entry(s,saved,...args);if(saved?.rc126AssetLedger)s.rc126AssetLedger=R.cleanLedger(saved.rc126AssetLedger);return out;};})();\n`;
+once(flow,'  run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){','  const rc126Before=(s.hostileProjectiles??[]).length;\n  run(s,()=>{for(let i=0;i<(authored?.length??shots);i++){');
+once(flow,'  const planned=authored?.length??shots;','  const rc126Volley=window.__HAPIL_COMBAT_SAFETY_RC126__?.prepareVolley(s,a,(s.hostileProjectiles??[]).slice(rc126Before),{rhythm:true});\n  const planned=authored?.length??shots;');
+once(flow,'f.nextBullet=s.time+(p.index===2?1.25:.72);','f.nextBullet=Math.max(s.time+(p.index===2?1.25:.72),(rc126Volley?.lastRelease??s.time)+.16);');
+once(pipeline,'  const selected=ready(cache,nativePath)||','  const selected=ready(cache,p.rc126CommonSprite)||ready(cache,nativePath)||');
+once(pipeline,'  const im=selected.image,at=deps.project(p.x,p.y),','  const im=p.rc126CommonSprite&&selected.path===p.rc126CommonSprite?(root.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(selected.image,p.color)??selected.image):selected.image,at=deps.project(p.x,p.y),');
+once(pipeline,'  const angle=p.screenAligned31222||p.danmakuRadialV31316?0:deps.angle(renderObject);','  const angle=p.rc126CommonSprite||p.screenAligned31222||p.danmakuRadialV31316?0:deps.angle(renderObject);');
+once(pipeline,'   counts.drawCalls++;\n','   counts.drawCalls++;\n   if(p.rc126CommonSprite){counts.native++;return drawDecoded(ctx,cache,p,time,settings);}\n');
+once(geo,'function areaDistance(a,h){const x=a.x-h.x,','function areaDistance(a,h){if(!a||!h||![a.x,a.y,h.x,h.y,h.radius].every(Number.isFinite)||h.radius<0)return Infinity;\n if(h.shape===`donut`&&(!Number.isFinite(h.innerRadius)||h.innerRadius<0||h.innerRadius>h.radius))return Infinity;\n if([`cross`,`line`,`cone`,`fan`,`sector`].includes(h.shape)&&(!Number.isFinite(h.width)||h.width<0))return Infinity;\n const x=a.x-h.x,');
+once(geo,' const ox=N(h.originX,h.x),oy=N(h.originY,h.y),dx=h.x-ox,dy=h.y-oy,len=Math.max(.001,Math.hypot(dx,dy)),u=(a.x-ox)*dx/len+(a.y-oy)*dy/len,v=-(a.x-ox)*dy/len+(a.y-oy)*dx/len;',' if(!Number.isFinite(h.originX)||!Number.isFinite(h.originY))return Infinity;\n const ox=h.originX,oy=h.originY,dx=h.x-ox,dy=h.y-oy,len=Math.hypot(dx,dy);if(len<1e-8)return Infinity;\n const u=(a.x-ox)*dx/len+(a.y-oy)*dy/len,v=-(a.x-ox)*dy/len+(a.y-oy)*dx/len;');
+once(blood,'    const asset = assetFor(state, hit);\n    if (!asset) return false;','    const authoredAsset = assetFor(state, hit);\n    if (!authoredAsset) return false;\n    const ledger=globalThis.__HAPIL_COMBAT_SAFETY_RC126__;\n    const group=String(hit.bossCastId31210??(String(hit.sourceId)+`:`+Math.round(finite(hit.born,state.time)*1000)));\n    const asset=hit.rc126BloodiedAsset??(hit.rc126BloodiedAsset=ledger?.claimAsset(state,hit,authoredAsset,group)??authoredAsset);\n    effect.rc126CommonFlight=asset!==authoredAsset;');
+once(blood,'    const image = deps.queue(cache, effect.bloodiedFlightRC43, \'eager\');\n    if (!image?.complete || !(image.naturalWidth || image.width)) return true;','    const originalImage = deps.queue(cache, effect.bloodiedFlightRC43, \'eager\');\n    if (!originalImage?.complete || !(originalImage.naturalWidth || originalImage.width)) return true;\n    const image=effect.rc126CommonFlight?(globalThis.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(originalImage,effect.color)??originalImage):originalImage;');
+once('index.html','    <script src="./assets/rc91/samong-awakening.js?v=40801"></script>','    <script src="./assets/rc126/combat-safety.js?v=42601"></script>\n    <script src="./assets/rc91/samong-awakening.js?v=40801"></script>');
+for(const [path,old]of [['combat-v31402/projectile-pipeline.js','31402'],['combat-v31402/contact-geometry.js','33501'],['rc43/bloodied-flight.js','34301'],['rc95/combat-flow.js','39701'],['index-v31526.js','42502']])once('index.html','./assets/'+path+'?v='+old,'./assets/'+path+'?v=42601');
+for(const [f,s]of Object.entries(source)){fs.writeFileSync(f,s);if(f.endsWith('.js'))cp.execFileSync(process.execPath,['--check',f],{stdio:'inherit'});}
+cp.execFileSync(process.execPath,['--check','assets/rc126/combat-safety.js'],{stdio:'inherit'});
+assert.equal(hash('assets/rc77/connected-laser.js'),'6bb4a891eb541734ef4c86f4d46dfb6ea94a44df');
+const changed=cp.execFileSync('git',['diff','--name-only'],{encoding:'utf8'}).trim().split('\n').sort();assert.deepEqual(changed,Object.keys(hashes).sort());
+console.log('RC126_INTEGRATION',JSON.stringify({changed,blobs:Object.fromEntries(changed.map(f=>[f,hash(f)]))}));

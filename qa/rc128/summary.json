@@ -1,0 +1,158 @@
+{
+  "version": "RC128",
+  "reportKind": "handoff_summary_recorded_from_actual_Actions_logs_and_public_evidence_JSON",
+  "reportDateKST": "2026-10-03",
+  "overallStatus": "implemented_and_deployed_strict_code_audit_passed_latest_public_smoke_failed_on_HTTP_503",
+  "repository": "kjb7876-lang/hapil1",
+  "startingMain": "c18518b7fe13d1b631963cbc1583e54cea75eacf",
+  "runtimeCommit": "101be5e1307413f1d4ed22850ced8be0a2f1d27a",
+  "strictAuditedCommit": "101be5e1307413f1d4ed22850ced8be0a2f1d27a",
+  "mainAtReport": "fb8206bae0c0d6504c386a5087de63b056708115",
+  "latestPublicCheckedCommit": "fb8206bae0c0d6504c386a5087de63b056708115",
+  "commitScopeNote": "This summary and manifest are documentation/data only. The containing commit may be newer than runtimeCommit; runtime files have not changed since that exact tested revision.",
+  "deployment": {
+    "url": "https://kjb7876-lang.github.io/hapil1/?v=42801",
+    "runtimeStatus": "deployed",
+    "confirmedRuntimePagesRun": 37050652986,
+    "confirmedRuntimePagesCommit": "101be5e1307413f1d4ed22850ced8be0a2f1d27a",
+    "confirmedRuntimePagesConclusion": "success",
+    "publicRuntimeByteVerification": "All 21 checked public files matched fb8206bae0c0d6504c386a5087de63b056708115, whose runtime files are identical to the strictly audited runtimeCommit.",
+    "allPublicBrowserProfilesGreenAtLatestRevision": false
+  },
+  "implementation": {
+    "awakeningHeroes": ["hwando", "seoha", "neon", "michaela", "lauren", "hunter", "slayer", "gunner"],
+    "distinctOwnerMotifs": 8,
+    "awakeningSeconds": 7,
+    "baseCooldownSeconds": 77,
+    "existingCooldownModificationPreserved": "The existing RC108 EGO/resonance entry policy can reduce the remaining cooldown by 7%; 77 is the base, not an invariant displayed value.",
+    "revivalLimit": "One lethal revival per zone encounter. Changing zones resets the charge but does not clear remaining cooldown. A new wave in the same zone does not refill it.",
+    "stateFixes": ["atomic revival claim", "save/load retains consumed charge", "conservative legacy-save migration", "hero change cannot transfer active awakening", "map/mode changes clear owned active state", "independently extended EGO is preserved", "guest authority restriction retained"],
+    "art": "Reuses the existing eight distinct transparent awakening PNGs. New owner-specific motifs, color overlays, short portrait cut-ins, timer labels, shockwaves and restrained vignette were implemented; no claim of eight newly generated illustrations.",
+    "monochrome": "DREAM grayscale precedes the colored owner overlay; the STORY final encounter remains fully monochrome after overlays.",
+    "hitPause": "Bounded enemy-side pauses through the existing timeStopUntil mechanism, not global player freezes. Repeated laser and identified damage-over-time pauses are excluded.",
+    "presentationBounds": {"storedEffectsMax": 32, "desktopDrawEffectsMax": 24, "compactDrawEffectsMax": 8, "enemyPauseBudgetSecondsPerWallSecond": 0.09, "shakeMaxCSSPixels": 1.3},
+    "preserved": ["RC127 dark jelly", "777-reference fixed player speed", "movement growth converted to defense", "STORY boss cooldown x2", "committed boss cast completion including cosmic masked Lucifer", "approved connected-laser renderer and artwork"],
+    "manifest": "qa/rc128/manifest.json"
+  },
+  "verification": {
+    "strictReleaseAudit": {
+      "runId": 37050654916,
+      "jobId": 110982932175,
+      "commit": "101be5e1307413f1d4ed22850ced8be0a2f1d27a",
+      "status": "passed",
+      "startedAtUTC": "2026-10-02T18:56:01.015Z",
+      "finishedAtUTC": "2026-10-02T19:01:09.545Z",
+      "gatePassed": 10,
+      "gateFailed": 0,
+      "gateSuites": ["rc128-candidate", "renderer-syntax", "bundle-syntax", "approved-art", "laser-phases", "laser-continuity", "laser-telegraph", "combat", "map-advance", "natural-story"],
+      "candidatePassed": 14,
+      "candidateFailed": 0,
+      "candidateSuites": ["rc128-policy", "rc128-browser", "rc127-policy", "rc127-browser", "rc126-finite-native", "rc126-combat-safety-smoke", "rc43-bloodied-projectile-flight", "rc126-combat-browser", "rc125-adaptive-battlefield-browser", "rc125-first-frame-browser", "rc123-boundary-smoke", "rc122-autoplay-policy-smoke", "rc115-map-advance-smoke", "rc91-samong-and-laser-smoke"],
+      "countingNote": "The 14 candidate suites are nested inside one of the 10 release-gate entries; these counts must not be summed as independent tests.",
+      "newUnitAssertionsPassed": 178,
+      "unitScope": "VM/unit/stub tests. The stub has no DOM or Image implementation; its missingArt counters are not native asset failures.",
+      "nativeRenderCasesPassed": 72,
+      "nativeRenderScope": "Eight heroes x STORY/HELL/DREAM states x PC/mobile portrait/mobile landscape, using explicitly staged scenes with the actual native renderer. Not 72 natural-play boss clears.",
+      "naturalStartupProfilesPassed": 3,
+      "nativeRenderJSErrors": 0,
+      "nativeRenderHTTPFailures": 0,
+      "nativePresentationDrawErrors": 0,
+      "nativeMissingAwakeningArt": 0,
+      "decodedAwakeningImages": 8,
+      "promotionHashMismatches": [],
+      "protectedRC127FilesUnchanged": 6,
+      "naturalStory": {
+        "status": "passed",
+        "standardStory": true,
+        "usedProgressCheats": false,
+        "autoMode": "native full auto selected through normal UI",
+        "firstZone": "dist00",
+        "finalZone": "dist01",
+        "changedZone": true,
+        "finalHP": 120,
+        "elapsedMs": 95724,
+        "JSErrors": 0,
+        "HTTPFailures": 0,
+        "scope": "One real first-region wave/boss/portal progression, not every hero and mode or the entire campaign."
+      },
+      "laserReference": {
+        "baseline": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+        "types": 80,
+        "renderedRows": 160,
+        "negativePixels": 0,
+        "maxChangedPixelRatio": 0,
+        "minimumSectionCoverage": 1,
+        "warningComparisonProfiles": ["desktop", "reduced-flash", "mobile-lowFx"],
+        "warningChangedPixels": 0
+      }
+    },
+    "latestPublicSmoke": {
+      "runId": 37050975547,
+      "jobId": 110983999874,
+      "commit": "fb8206bae0c0d6504c386a5087de63b056708115",
+      "status": "failed",
+      "exactFilesMatched": 21,
+      "exactFilesMismatched": 0,
+      "PCJavaScriptErrors": 0,
+      "failure": {
+        "type": "HTTP_response",
+        "status": 503,
+        "url": "https://kjb7876-lang.github.io/hapil1/assets/heroes/normalized/actions-consistent/hwando-dash-right.webp?v=31332",
+        "scope": "One request for an existing hero dash asset during the PC observation. The strict no-HTTP-errors assertion failed."
+      },
+      "mobileProfilesCompletedInThisRun": false,
+      "retryStatus": "not_executed_tool_request_blocked",
+      "interpretation": "The runtime deployment and exact public bytes are confirmed, but the latest complete public browser verification is not green. The observed 503 is not proven persistent or resolved. Do not suppress it or relabel this run as passed."
+    },
+    "priorCompletePublicSmoke": {
+      "runId": 37049567206,
+      "jobId": 110979260419,
+      "commit": "5707affb26384a9b1e8eff7519e1ae4acf4a0c23",
+      "status": "passed",
+      "exactFilesMatched": 21,
+      "profilesPassed": ["pc", "portrait", "landscape"],
+      "JSErrors": 0,
+      "HTTPFailures": 0,
+      "presentationDrawErrors": 0,
+      "scope": "Actual public Pages startup and combat feedback without state injection. Later runtime changes only restored final LF bytes in two files, but this earlier result must not be presented as a successful rerun of the latest public smoke."
+    }
+  },
+  "evidence": {
+    "strictAuditRun": "https://github.com/kjb7876-lang/hapil1/actions/runs/37050654916",
+    "strictAuditArtifact": {
+      "id": 11246477059,
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37050654916/artifacts/11246477059",
+      "fileCount": 195,
+      "bytes": 138045486,
+      "sha256": "d9a7e83c1e435d623d1bb949589a20a5b421414e7d18398b2d193a5c8222b30d",
+      "retentionDays": 14,
+      "contents": "Native screenshots, natural progression evidence, per-suite stdout/stderr, JSON results and candidate manifest."
+    },
+    "latestPublicRun": "https://github.com/kjb7876-lang/hapil1/actions/runs/37050975547",
+    "latestPublicEvidenceBranch": "qa/rc127-public-37050975547",
+    "latestPublicResults": "https://github.com/kjb7876-lang/hapil1/blob/qa/rc127-public-37050975547/qa/rc127-public/published-results.json",
+    "latestPublicArtifact": "https://github.com/kjb7876-lang/hapil1/actions/runs/37050975547/artifacts/11245714517",
+    "priorPassingPublicRun": "https://github.com/kjb7876-lang/hapil1/actions/runs/37049567206",
+    "priorPassingPublicEvidence": "https://github.com/kjb7876-lang/hapil1/tree/qa/rc127-public-37049567206/qa/rc127-public",
+    "priorPassingPublicArtifact": "https://github.com/kjb7876-lang/hapil1/actions/runs/37049567206/artifacts/11245677552",
+    "manualScreenshotVisualReviewPerformed": false
+  },
+  "failureHistory": [
+    {"runId": 37047820118, "result": "Candidate 13/14; RC125 historical comparison commit absent in shallow clone. Fixed by fetching the exact reference, not by disabling assertions."},
+    {"runId": 37049567006, "result": "Release 9/10; two manually integrated runtime files lacked the final LF and did not match the tested hashes. Restored exact original candidate bytes without changing expected hashes or logic."},
+    {"runId": 37050654981, "result": "Public smoke began before the new non-HTML assets finished deploying. Added exact changed-asset readiness checks."},
+    {"runId": 37050975547, "result": "All 21 public file hashes matched, but an existing dash-image request returned 503. The latest public smoke remains failed and is retained as such."}
+  ],
+  "remainingWork": [
+    {"priority": "A", "item": "Complete 8-hero x 3-mode x 3-screen natural startup/first boss/portal progression matrix, separately from the completed staged-render matrix."},
+    {"priority": "A", "item": "Full-campaign repeated save/load, death/revival and map-transition stress coverage; do not claim all critical bugs have been exhaustively eliminated."},
+    {"priority": "A_verification", "item": "Resolve or verify recovery of the public dash-image 503 and rerun the complete strict public-site smoke through an authorized execution path."},
+    {"priority": "B", "item": "Physical iPhone/Safari and low-end Android frame-time, long-session effect accumulation and summon lifecycle checks; current mobile tests are Chromium emulation."},
+    {"priority": "C", "item": "Manual screenshot and play-feel review of cut-in placement, per-hero motif readability, impact sounds and screen shake. Automated canvas/pixel tests do not establish subjective visual quality."}
+  ],
+  "dotsHandoff": {
+    "agent": "잡있으(Dots)",
+    "document": "DOTS_RC128_AWAKENING_FEEDBACK_HANDOFF_20261003.md",
+    "instruction": "Read current main, the handoff document, this summary and manifest first. RC128 is already implemented; do not overwrite it with the old ZIP or repeat the integration. Preserve the approved laser renderer and RC127 policies. Prioritize remaining verification rather than reporting staged-render tests as natural-play completion."
+  }
+}

@@ -2,35 +2,53 @@
 
 ## Preserved contracts
 
-- Both original uploaded recordings keep their existing file paths and bytes.
-- The legacy RC49 player and original opening transcript remain unchanged.
-- The game bundle, combat progression and save format are unchanged by narration integration. Canonical text changes are limited to the requested ellipsis replacements and conservative proofreading.
-- Narration never owns death auto-restart. Full-auto rebirth still closes after the existing three seconds; narration is canceled with it.
-- Audio errors leave the original text and Continue action usable. A download/playback attempt has a bounded timeout.
-- Audio is fetched for the current card/paragraph only. Decoded PCM is released on scene close or change.
-- Scene text must match its manifest SHA-256 before any narration asset is requested.
+- Original voice 1 and voice 2 retain their existing audio paths, bytes, transcripts and RC49 playback route.
+- Narration does not modify the game bundle, save format or combat progression. Canonical text edits are limited to the requested ellipsis replacements and conservative proofreading.
+- Death narration never delays full-auto rebirth. The existing three-second timer retains priority and cancels narration when it closes.
+- Manual Skip remains immediate. Audio failures leave the text and Continue action usable.
+- New narration waits for the actual final audio-ended event, followed by a 750 ms tail, before normal automatic continuation. Loading and stalled transport have bounded recovery.
+- Audio is fetched for the current card or journal paragraph only. Decoded PCM is released on close, navigation or preemption. Paused and backgrounded playback keeps an accurate resume offset.
+- Exact displayed-text SHA-256 must match the manifest before any narration asset is requested.
 
-## Staging evidence
+## Verified staging revision
 
-Commit `6dcbdf867d7b2407198a607c82aeb840b0181e07` passed source and original voice regression gates plus 112-card synthetic audio lifecycle checks in [Actions 36978801909](https://github.com/kjb7876-lang/hapil1/actions/runs/36978801909).
+Commit `6b418aeaac143803a1844f5ed0b447aeeb719e9b` passed [Actions 36994878495](https://github.com/kjb7876-lang/hapil1/actions/runs/36994878495).
 
-Commit `667fb6d5a5c57eadf9bdcd00d8c958efac7a06b8` passed the same primary checks plus all 184 nonempty tabs across 62 journal records, explicit prologue playback/skip, journal redraw/selection/close, unchanged three-second death auto-restart, death failure fallback, and ending keyboard/close behavior in [Actions 36980041745](https://github.com/kjb7876-lang/hapil1/actions/runs/36980041745).
+The audit covered:
 
-These runs use controlled waveform fixtures to exercise playback mechanics, rather than claiming every generated spoken recording is finished or reviewed.
+- Existing canonical source and original voice contracts.
+- All 112 active cards, including 110 new narration routes.
+- All 184 nonempty journal tabs across 62 records.
+- Explicit prologue playback, skip, hidden slow loading and real final-ended timing.
+- Journal selection, unchanged redraw, search and close behavior.
+- Death overlap, replacement, external removal, keyboard handling and unchanged three-second auto-restart.
+- Ending-overlay lifecycle and keyboard controls.
+- Nineteen deterministic media/lifecycle regressions, including stale events, delayed promises, pause/resume, preemption, history-cache return and stalled playback.
+- Desktop, portrait-mobile and landscape-mobile layouts.
+- Fourteen approved ellipsis replacements across ten cards, with original uploaded source and voice transcripts preserved.
+- Twenty-five conservative text corrections across twenty-two cards; eight cards change spoken spelling or grammar.
 
-## Final release checks (pending corpus completion)
+These playback checks use controlled waveform fixtures. They do not certify that the complete generated spoken corpus is finished or reviewed.
 
-- Complete source-to-audio mapping: 110 new combat cards, 8 supplemental unique narratives, 1 exact ending excerpt, plus existing recordings reused in the journal.
-- Every generated scene passes synthesis QA and pronunciation review; flagged output is regenerated before publication.
-- Manifest/source equality, paragraph playlist order, SHA-256, byte count, file presence and original recording immutability.
-- Actual MP3 decode/playback and mobile/desktop layout checks.
-- Existing full release and Dream/death regressions on the final integrated revision.
-- Fresh main-branch reconciliation, non-force publication and successful Pages deployment for the exact tested commit.
+## Incremental publication
 
-Independent review added15deterministic regressions for stale media events/promises, retained-player preemption, and overlapping/replaced/externally removed death dialogs. All15passed locally. The expanded fixture suite passed [Actions36983574813](https://github.com/kjb7876-lang/hapil1/actions/runs/36983574813) on e555adb6b7286ea19114b59788f3827ac767ea53. Mobile/desktop story and prologue screenshots were also inspected. Final audio encoding is128kbps MP3; the requested spoken/displayed phrase“그러하였다.” and1–2second preceding pauses remain subject to final corpus generation/QA.
+The user requested publication of the quality-passed subset first on 2026-10-03. The runtime manifest declares included and pending canonical units and routes. Every included asset must pass the same quality and integrity requirements below. A journal or supplemental playlist is published only when all its clips are available.
 
-Latest user change(2026-10-02): canceled nonverbal sighs; every remaining canonical ellipsis is to be replaced by the exact spoken/displayed phrase“그러하였다.”, preserving existingvoice1/2. Canonical source/export/audio hash migration is pending on fresh main.
+Pending routes display the complete canonical text and keep normal continuation. They do not request missing audio or show unusable narration controls. Explicit missing-route tests cover muted readers, canceled loading, independent manual pauses and full-auto continuation.
 
-The canonical phrase migration and all fixture/source checks passed on26f7af8ee1d8978757994426d99143f232318495 in[Actions36987944648](https://github.com/kjb7876-lang/hapil1/actions/runs/36987944648):14 live replacements,10 affected cards,12 paragraphs; immutable upload and original voice transcripts preserved. This staging revision incorporates current RC123main17b8ab8 without changing its gameplay/laser files.
+## Required final audio checks
 
-Current release candidate also holds new narration until the real final audio-ended event plus a750ms tail, with bounded loading/stall recovery. Explicit Skip and three-second rebirth auto-close retain priority. Conservative proofreading includes25 corrections across22 cards; only8 cards alter spoken spelling/grammar.
+Each incremental release enforces the following checks for its included audio; full coverage remains required for final project completion:
+
+- 119 new spoken units: 110 cards, eight unique supplemental units and one exact ending excerpt.
+- Complete source-matched mapping for 297 runtime routes. Journal playlists reuse exact paragraph audio and original recordings where applicable.
+- Final MP3 encoding: 128 kbps, 24 kHz, mono. Every published asset is content-addressed and hash-verified.
+- Every generated scene and reused journal paragraph must pass the `ending-context-v1` profile. Non-literal chunks require an independently confirmed final word, unchanged canonical speech, excluded disposable trailing context, no fades or rewritten speech, and at least 350 ms of final quiet. Natural articulation uses tempo 1.0.
+- All fourteen `그러하였다.` replacements retain the approved reference-conditioned phrase and 1–2 seconds of preceding quiet. No sighs or canonical speech removal are allowed.
+- Exact manifest/source equality, playlist content/order, file presence, byte counts, durations, original-recording immutability and actual browser MP3 decode/playback.
+
+Automated ASR and waveform evidence are verification aids, not a claim of perfect pronunciation. Flagged or uncertain outputs require review or regeneration before publication.
+
+## Publication gate
+
+Reconcile the narration-only changes with the latest main branch, preserving concurrent viewport, HUD, pointer, laser and other gameplay changes. Run the full release and Dream/death regressions, narration tests and actual-audio checks on the exact integrated commit. Publish without a force push, then verify the remote main commit and successful GitHub Pages deployment for that same SHA. A staging pass alone is not a production-completion claim.

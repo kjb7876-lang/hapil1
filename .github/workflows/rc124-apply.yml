@@ -1,0 +1,40 @@
+name: RC124 exact native integration
+on:
+  push:
+    branches: [fix/rc124-laser-overrun-boss-hp]
+    paths: ['.github/workflows/rc124-apply.yml']
+permissions:
+  contents: write
+concurrency:
+  group: rc124-exact-native-integration
+  cancel-in-progress: false
+jobs:
+  integrate:
+    if: github.ref == 'refs/heads/fix/rc124-laser-overrun-boss-hp'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: true
+          show-progress: false
+      - name: Apply only the reviewed native HP and entrypoint edits
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          test "$(git hash-object assets/rc77/connected-laser.js)" = 6bb4a891eb541734ef4c86f4d46dfb6ea94a44df
+          node tools/apply-rc124.cjs
+          git diff --stat
+          git diff --unified=3 -- assets/index-v31526.js index.html
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- assets/index-v31526.js index.html
+          git commit -m 'RC124: always render live enemy HP bars and install map-edge overscan'
+          BRANCH='fix/rc124-laser-overrun-boss-hp'
+          REMOTE=$(git ls-remote origin "refs/heads/$BRANCH" | cut -f1)
+          test "$REMOTE" = "$GITHUB_SHA"
+          git push origin "HEAD:refs/heads/$BRANCH"
+          echo "CANDIDATE_COMMIT=$(git rev-parse HEAD)"
+          echo 'Candidate only. Main is unchanged. Separate exact-commit regression is required.' >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,64 @@
+name: RC127 published Pages verification
+on:
+  push:
+    branches: [main]
+    paths: ['assets/**', 'index.html', 'qa/rc127/published-smoke.cjs', '.github/workflows/rc127-published.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc127-published-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 13
+    steps:
+      - uses: actions/checkout@v6
+        with: {ref: '${{ github.sha }}', persist-credentials: false, show-progress: false}
+      - uses: actions/setup-node@v6
+        with: {node-version: '22'}
+      - name: Prepare isolated read-only browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc127-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc127-public" >> "$GITHUB_ENV"
+      - name: Wait for exact committed HTML on Pages
+        run: |
+          node <<'NODE'
+          const fs=require('node:fs'),crypto=require('node:crypto'),hash=b=>crypto.createHash('sha256').update(b).digest('hex'),expected=hash(fs.readFileSync('index.html'));
+          (async()=>{for(let n=0;n<30;n++){try{const r=await fetch('https://kjb7876-lang.github.io/hapil1/?rc127-ready='+Date.now(),{signal:AbortSignal.timeout(15000)});if(r.ok&&hash(Buffer.from(await r.arrayBuffer()))===expected){console.log('RC127 exact HTML deployment ready',expected);return;}}catch(e){console.log('Readiness retry',n,e.message);}await new Promise(r=>setTimeout(r,10000));}throw Error('Expected RC127 HTML not yet deployed');})().catch(e=>{console.error(e);process.exitCode=1;});
+          NODE
+      - name: Verify sixteen public files and observe fixed movement in actual game state
+        run: node qa/rc127/published-smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc127-public-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc127-public/
+          retention-days: 14
+  evidence:
+    needs: published
+    if: always()
+    permissions: {contents: write}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with: {ref: '${{ github.sha }}', show-progress: false}
+      - uses: actions/download-artifact@v4
+        with: {name: 'rc127-public-${{ github.run_id }}', path: 'qa/rc127-public'}
+      - name: Keep read-only service observations in evidence branch
+        env:
+          PUBLIC_RESULT: ${{ needs.published.result }}
+        run: |
+          printf '{"run":%s,"commit":"%s","result":"%s"}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" "$PUBLIC_RESULT" > qa/rc127-public/summary.json
+          git config user.name 'HAPIL RC127 public evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc127-public
+          git commit -m "RC127 public evidence $GITHUB_RUN_ID ($PUBLIC_RESULT)"
+          git push origin HEAD:refs/heads/qa/rc127-public-$GITHUB_RUN_ID

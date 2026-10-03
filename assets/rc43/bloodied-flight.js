@@ -31,8 +31,12 @@
   function prepareTransit(state, hit, effect) {
     if (!effect?.bossImpactTransitV31232 || !Number.isFinite(effect.x) ||
         !Number.isFinite(effect.y) || !Number.isFinite(effect.tx) || !Number.isFinite(effect.ty)) return false;
-    const asset = assetFor(state, hit);
-    if (!asset) return false;
+    const authoredAsset = assetFor(state, hit);
+    if (!authoredAsset) return false;
+    const ledger=globalThis.__HAPIL_COMBAT_SAFETY_RC126__;
+    const group=String(hit.bossCastId31210??(String(hit.sourceId)+`:`+Math.round(finite(hit.born,state.time)*1000)));
+    const asset=hit.rc126BloodiedAsset??(hit.rc126BloodiedAsset=ledger?.claimAsset(state,hit,authoredAsset,group)??authoredAsset);
+    effect.rc126CommonFlight=asset!==authoredAsset;
     const distance = Math.hypot(effect.tx - effect.x, effect.ty - effect.y);
     // A committed hit stays in the native impact queue until the pictured shot arrives.
     const duration = Math.max(clamp(distance / 8, 1.1, 2.3), finite(hit.impactAt) - state.time);
@@ -62,8 +66,9 @@
     if (!effect?.bloodiedFlightRC43 || !effect.bossImpactTransitV31232) return false;
     const age = time - finite(effect.born), duration = finite(effect.duration);
     if (age < 0 || age >= duration || duration <= 0) return true;
-    const image = deps.queue(cache, effect.bloodiedFlightRC43, 'eager');
-    if (!image?.complete || !(image.naturalWidth || image.width)) return true;
+    const originalImage = deps.queue(cache, effect.bloodiedFlightRC43, 'eager');
+    if (!originalImage?.complete || !(originalImage.naturalWidth || originalImage.width)) return true;
+    const image=effect.rc126CommonFlight?(globalThis.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(originalImage,effect.color)??originalImage):originalImage;
     const point = pose(effect, time, deps.project);
     const width = image.naturalWidth || image.width, height = image.naturalHeight || image.height;
     const vehicle = /(?:truck|car)_projectile/.test(effect.bloodiedFlightRC43);

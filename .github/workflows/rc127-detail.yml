@@ -1,0 +1,27 @@
+name: RC127 exact combat details
+on:
+  push:
+    branches: [fix/rc127-dark-combat]
+    paths: ['.github/workflows/rc127-detail.yml']
+permissions:
+  contents: write
+jobs:
+  details:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
+      - name: Record source-only targeted ranges and definitions
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),root='qa/rc127-details',ls=fs.readFileSync('assets/index-v31526.js','utf8').split('\n');fs.mkdirSync(root,{recursive:true});
+          for(const [key,start,end] of [['dev777',53990,54085],['movement-vars',60940,61015],['danmaku',116790,117180],['cosmic-tail',118775,118815],['native-api',126400,126475],['bullet-theme',126020,126110],['native-cooldowns',62200,62600],['enemy-phase',48730,48845],['hero-delta',61890,62015],['growth-ui',64535,64595],['basic-ui',64775,64845],['atomic',49650,49760]])fs.writeFileSync(root+'/'+key+'.txt',ls.slice(start-1,end).map((l,i)=>(start+i)+': '+l).join('\n'));
+          const names=['MONGSE_infiniteBaseStats','HAPIL_heroDeltaRC51','MONGSE_attackCooldownScaleV31236','MONGSE_resetEnemyAttack','MONGSE_clearEnemyAttack','MONGSE_phaseTransition','MONGSE_damagePlayer','HAPIL_effectiveGrowthV31400'];let out=[];for(const name of names){out.push('\nSECTION '+name);let count=0;for(let i=0;i<ls.length;i++)if(ls[i].includes(name)){out.push((i+1)+': '+ls[i].slice(0,1600));if(++count>40)break;}}fs.writeFileSync(root+'/locations.txt',out.join('\n'));console.log(out.join('\n'));
+          NODE
+          git config user.name 'HAPIL source inspection'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc127-details
+          git commit -m "RC127 combat source details $GITHUB_RUN_ID; runtime unchanged"
+          git push origin HEAD:refs/heads/qa/rc127-details-$GITHUB_RUN_ID
