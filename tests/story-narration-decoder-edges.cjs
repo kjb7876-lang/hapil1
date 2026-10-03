@@ -18,6 +18,8 @@ const assetRoot = path.join(root, 'assets/story-narration/v1');
 const fixturePath = path.join(__dirname, 'fixtures/story-narration-decoder-edges.json');
 const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const REFERENCE_PCM = 'ffmpeg-mp3-fixed-s16-audiobus-f32-v1';
+const NATIVE_REFERENCE_PCM = 'ffmpeg-swr-source-audiobus-f32-native-v1';
+const NATIVE_SAMPLE_RATES = Object.freeze([44100, 48000]);
 const CONFIG = Object.freeze({
   sampleRate: 24000, channels: 1, bitRate: 128000,
   edgeSeconds: 1, frameSeconds: .01,
@@ -26,8 +28,10 @@ const CONFIG = Object.freeze({
   probeSeconds: .001, probeCount: 256, probeSearchBins: 64
 });
 // Fixed numerical tolerances, shared by every asset. No file-specific exceptions.
-// 24 kHz permits small floating-point MP3-decoder differences. Native-rate checks
-// permit resampling-filter differences after 1 ms box averaging, while retaining
+// Fixed mode retains its numerical diagnostics and additionally requires complete
+// PCM hash equality. Native-rate checks
+// compare independently predicted PCM at the actual native rate, permitting
+// resampling-filter differences after 1 ms box averaging, while retaining
 // strict length/timing and 10 ms energy checks. A +/-64 ms lag search is diagnostic
 // only: it NEVER realigns samples to turn a failure into a pass.
 const TOLERANCES = Object.freeze({
@@ -174,10 +178,54 @@ function compare(reference, actual, mode) {
   return {pass: failures.length === 0, failures, metrics, hints};
 }
 
+// Reference selection changes neither observations nor source-derived probe times.
+// A native reference predicts this FFmpeg resampler's output; it is not browser PCM.
+function referenceFor(expected, mode, sampleRate) {
+  if (mode === 'fixed') {
+    assert.equal(sampleRate, CONFIG.sampleRate, 'fixed-rate observation must be 24 kHz');
+    return expected.reference;
+  }
+  assert.equal(mode, 'native', 'unknown comparison mode');
+  assert(NATIVE_SAMPLE_RATES.includes(sampleRate), `Unsupported native sample rate: ${sampleRate}`);
+  const native = expected.nativeReferences && expected.nativeReferences[String(sampleRate)];
+  assert(native && native.reference, `Missing native reference at ${sampleRate} Hz`);
+  assert.equal(native.referencePcm, NATIVE_REFERENCE_PCM, 'native reference representation');
+  assert.equal(native.sourcePcmSha256, expected.ffmpegPcmSha256, 'native reference source PCM identity');
+  assert.equal(native.reference.sampleRate, sampleRate, 'native reference sample rate');
+  assert.deepEqual(native.reference.anchorStarts, expected.reference.anchorStarts, 'native probes must retain fixed source anchors');
+  return native.reference;
+}
+
+function compareDecoded(expected, result) {
+  const reference = referenceFor(expected, result.mode, result.signature.sampleRate);
+  const comparison = compare(reference, result.signature, result.mode);
+  if (result.mode === 'native') {
+    // Keep the original physical-duration rule. A rounded native reference must
+    // not make an extra destination sample eligible at fractional source lengths.
+    const originalLength = expected.reference.sampleCount * result.signature.sampleRate / expected.reference.sampleRate;
+    const sourceDelta = result.signature.sampleCount - originalLength;
+    comparison.metrics.nativeReferenceLengthDeltaSamples = comparison.metrics.lengthDeltaSamples;
+    comparison.metrics.lengthDeltaSamples = sourceDelta;
+    comparison.metrics.lengthDeltaAt24k = sourceDelta * CONFIG.sampleRate / result.signature.sampleRate;
+    if (Math.abs(sourceDelta) > TOLERANCES.native.lengthSamples + 1e-7 && !comparison.failures.includes('decoded sample count')) {
+      comparison.failures.push('decoded sample count');
+    }
+  }
+  if (result.mode === 'fixed' && result.pcmSha256 !== expected.ffmpegPcmSha256) {
+    comparison.failures.push('complete fixed-rate PCM fingerprint');
+  }
+  comparison.pass = comparison.failures.length === 0;
+  return comparison;
+}
+
 function validateFixture() {
-  const manifest = JSON.parse(fs.readFileSync(path.join(assetRoot, 'manifest.json'), 'utf8'));
+  const manifestBytes = fs.readFileSync(path.join(assetRoot, 'manifest.json'));
+  const manifest = JSON.parse(manifestBytes);
   const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf8'));
-  assert.equal(fixture.schema, 'hapil-decoder-edges-v1');
+  assert.equal(fixture.provenance.manifestSha256, sha256(manifestBytes), 'fixture manifest identity');
+  assert.equal(fixture.schema, 'hapil-decoder-edges-v2');
+  assert.equal(fixture.provenance.nativeReferencePcm, NATIVE_REFERENCE_PCM);
+  assert.deepEqual(fixture.provenance.nativeSampleRates, NATIVE_SAMPLE_RATES);
   assert.equal(fixture.provenance.referencePcm, REFERENCE_PCM, 'fixture must use the independently decoded PCM16 representation');
   assert.deepEqual(fixture.config, CONFIG, 'fixture measurement algorithm configuration');
   assert.deepEqual(fixture.tolerances, TOLERANCES, 'fixture comparison tolerances');
@@ -197,6 +245,17 @@ function validateFixture() {
     assert.equal(expected.reference.finite, true);
     assert(expected.reference.sampleCount > CONFIG.sampleRate);
     assert.deepEqual(compare(expected.reference, expected.reference, 'fixed').failures, [], `${audio}: fixture self consistency`);
+    assert.deepEqual(Object.keys(expected.nativeReferences).sort(), NATIVE_SAMPLE_RATES.map(String).sort(), `${audio}: complete native reference rates`);
+    for (const rate of NATIVE_SAMPLE_RATES) {
+      const native = expected.nativeReferences[String(rate)], reference = referenceFor(expected, 'native', rate);
+      assert.match(native.ffmpegNativePcmSha256, /^[0-9a-f]{64}$/);
+      assert.equal(reference.searchBins, 0);
+      assert.equal(reference.finite, true);
+      assert.equal(native.sampleCount, reference.sampleCount);
+      assert(Number.isInteger(native.sampleCount) && native.sampleCount > rate);
+      assert(Math.abs(native.sampleCount - expected.reference.sampleCount * rate / CONFIG.sampleRate) <= 1, `${audio}: native reference duration`);
+      assert.deepEqual(compare(reference, reference, 'native').failures, [], `${audio}: native reference self consistency`);
+    }
     if (audio.startsWith('audio/p-')) paragraphs++; else scenes++;
   }
   assert.equal(scenes, 54); assert.equal(paragraphs, 131);
@@ -219,7 +278,27 @@ function detectorControls() {
   const maskedTail = samples.slice(); maskedTail.fill(0, samples.length - 6480, samples.length - 6000);
   const delayed = new Float32Array(samples.length); delayed.set(samples.subarray(0, samples.length - 1105), 1105);
   const truncated = samples.subarray(0, samples.length - 480);
-  const controls = {maskedHead: assess(maskedHead), maskedTail: assess(maskedTail), primingDelay: assess(delayed), truncatedSilence: assess(truncated),
+  const interior = samples.slice(); interior[CONFIG.sampleRate * 1.5] += .03125;
+  assert.equal(assess(interior).pass, true, 'interior mutation is outside the old edge-only signature');
+  const pcmHash = values => sha256(Buffer.from(values.buffer, values.byteOffset, values.byteLength));
+  const interiorFullPcmMutation = compareDecoded({reference, ffmpegPcmSha256: pcmHash(samples)}, {
+    mode: 'fixed', pcmSha256: pcmHash(interior),
+    signature: signature(interior, CONFIG.sampleRate, CONFIG, reference.anchorStarts, CONFIG.probeSearchBins)
+  });
+  const fractionalSource = {...reference, sampleCount: 837000};
+  const fractionalNative = {...reference, sampleRate: 44100, sampleCount: 1537988};
+  const fractionalEntry = {reference: fractionalSource, ffmpegPcmSha256: pcmHash(samples), nativeReferences: {
+    '44100': {referencePcm: NATIVE_REFERENCE_PCM, sourcePcmSha256: pcmHash(samples), reference: fractionalNative}
+  }};
+  const assessFractionalLength = sampleCount => compareDecoded(fractionalEntry, {mode: 'native', signature: {...fractionalNative, sampleCount}});
+  assert.equal(837000 * 44100 / 24000, 1537987.5);
+  assert.equal(assessFractionalLength(1537987).pass, true, 'source duration permits the lower neighboring integer');
+  assert.equal(assessFractionalLength(1537988).pass, true, 'source duration permits the upper neighboring integer');
+  const nativeFractionalLengthBelow = assessFractionalLength(1537986);
+  const nativeFractionalLengthAbove = assessFractionalLength(1537989);
+  assert.equal(nativeFractionalLengthBelow.metrics.lengthDeltaSamples, -1.5);
+  assert.equal(nativeFractionalLengthAbove.metrics.lengthDeltaSamples, 1.5);
+  const controls = {interiorFullPcmMutation, nativeFractionalLengthBelow, nativeFractionalLengthAbove, maskedHead: assess(maskedHead), maskedTail: assess(maskedTail), primingDelay: assess(delayed), truncatedSilence: assess(truncated),
     nativeMaskedHead: assess(maskedHead, 'native'), nativeMaskedTail: assess(maskedTail, 'native'), nativePrimingDelay: assess(delayed, 'native')};
   for (const [name, result] of Object.entries(controls)) assert.equal(result.pass, false, `${name} must be detected`);
   return Object.fromEntries(Object.entries(controls).map(([name, result]) => [name, result.failures]));
@@ -237,7 +316,7 @@ async function run() {
   const playwright = runtime ? require(path.join(runtime, 'playwright')) : require('playwright');
   const browser = await playwright.chromium.launch({headless: true, executablePath: process.env.HAPIL_CHROMIUM || undefined, args: ['--no-sandbox']});
   const report = {schema: fixture.schema, pass: false, browserVersion: browser.version(), files: scenes + paragraphs, scenes, paragraphs,
-    referenceDecoder: fixture.provenance.decoder, controls, contexts: [], rows: [],
+    referenceDecoder: fixture.provenance.decoder, nativeReferencePcm: fixture.provenance.nativeReferencePcm, nativeSampleRates: fixture.provenance.nativeSampleRates, controls, contexts: [], rows: [],
     limitation: 'Edge-signal decode equivalence only. Does not establish phoneme completeness, listening quality, runtime scheduling, HTMLMediaElement fallback, or device output.'};
   try {
     const page = await browser.newPage(), errors = [];
@@ -259,6 +338,7 @@ async function run() {
       return window.edgeContexts.map((context, i) => ({mode: i ? 'native' : 'fixed', sampleRate: context.sampleRate, state: context.state}));
     });
     assert.equal(report.contexts[0].sampleRate, CONFIG.sampleRate, 'Chromium must honor explicit 24 kHz AudioContext');
+    assert(NATIVE_SAMPLE_RATES.includes(report.contexts[1].sampleRate), `Unsupported native sample rate: ${report.contexts[1].sampleRate}`);
     for (const [audio, expected] of Object.entries(fixture.assets)) {
       try {
         const results = await page.evaluate(async ({audio, expected, config}) => {
@@ -284,13 +364,14 @@ async function run() {
         }, {audio, expected, config: CONFIG});
         const previous = {};
         for (const result of results) {
-          const comparison = compare(expected.reference, result.signature, result.mode);
+          const comparison = compareDecoded(expected, result);
           if (result.channels !== CONFIG.channels) comparison.failures.push('decoded channel count');
           if (result.signature.sampleRate !== report.contexts.find(context => context.mode === result.mode).sampleRate) comparison.failures.push('decoded rate differs from AudioContext');
           if (previous[result.mode] && previous[result.mode] !== result.pcmSha256) comparison.failures.push('repeat decode PCM differs');
           previous[result.mode] = result.pcmSha256;
           report.rows.push({audio, mode: result.mode, attempt: result.attempt, sha256: result.fetchedSha256, pcmSha256: result.pcmSha256,
-            referencePcmSha256: result.mode === 'fixed' ? expected.ffmpegPcmSha256 : null,
+            referencePcmSha256: result.mode === 'fixed' ? expected.ffmpegPcmSha256 : expected.nativeReferences[String(result.signature.sampleRate)].ffmpegNativePcmSha256,
+            referencePcmKind: result.mode === 'fixed' ? REFERENCE_PCM : NATIVE_REFERENCE_PCM,
             entirePcmMatchesReference: result.mode === 'fixed' ? result.pcmSha256 === expected.ffmpegPcmSha256 : null,
             sampleRate: result.signature.sampleRate, sampleCount: result.signature.sampleCount,
             firstAboveThreshold: result.signature.firstAboveThreshold, lastAboveThreshold: result.signature.lastAboveThreshold,
@@ -317,5 +398,5 @@ async function run() {
   } finally { await browser.close(); }
 }
 
-module.exports = {CONFIG, TOLERANCES, REFERENCE_PCM, signature, compare, detectorControls, validateFixture};
+module.exports = {CONFIG, TOLERANCES, REFERENCE_PCM, NATIVE_REFERENCE_PCM, NATIVE_SAMPLE_RATES, signature, compare, referenceFor, compareDecoded, detectorControls, validateFixture};
 if (require.main === module) run().catch(error => { console.error(error); process.exitCode = 1; });
