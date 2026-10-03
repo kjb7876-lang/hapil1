@@ -1,0 +1,34 @@
+function MONGSE_resolveHeroSfxV31233(
+  MONGSE_heroIdV31233,
+  MONGSE_actionKeyV31233 = `A`,
+  MONGSE_ultimateOrdinalV31233 = 0,
+) {
+  const MONGSE_idV31233 = String(MONGSE_heroIdV31233 ?? ``),
+    MONGSE_actionV31233 = String(MONGSE_actionKeyV31233 ?? `A`).toUpperCase(),
+    MONGSE_ultimateV31233 = MONGSE_actionV31233 === `R`,
+    MONGSE_rareHighV31233 = !!(
+      MONGSE_ultimateV31233 &&
+      MONGSE_COMFORT_AUDIO_CONFIG_V31233.rareHighHeroes.includes(
+        MONGSE_idV31233,
+      ) &&
+      Number(MONGSE_ultimateOrdinalV31233) > 0 &&
+      Number(MONGSE_ultimateOrdinalV31233) %
+        MONGSE_COMFORT_AUDIO_CONFIG_V31233.rareHighUltimateModulo ===
+        0
+    );
+  if (MONGSE_idV31233 === `hwando`)
+    return MONGSE_ultimateV31233
+      ? MONGSE_SFX.hwandoWoodHeavy
+      : MONGSE_SFX.hwandoWood;
+  if (MONGSE_idV31233 === `gunner`)
+    return MONGSE_ultimateV31233
+      ? MONGSE_LOW_HERO_SFX_V31233.pulseHeavy
+      : MONGSE_LOW_HERO_SFX_V31233.pulse;
+  if (MONGSE_idV31233 === `hunter` || MONGSE_idV31233 === `rian`)
+    return MONGSE_LOW_HERO_SFX_V31233.bow;
+  if (MONGSE_rareHighV31233) return MONGSE_SFX.sword4;
+  return MONGSE_ultimateV31233
+    ? MONGSE_LOW_HERO_SFX_V31233.bladeHeavy
+    : MONGSE_LOW_HERO_SFX_V31233.blade;
+}
+

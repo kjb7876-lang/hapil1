@@ -1,0 +1,219 @@
+ONGSE_ENEMY_COMBAT_LIMITS_V31237.rangedCooldownMinimum,
+          2.1,
+          1.4,
+        ),
+        damage: MONGSE_damageV31237,
+        hitDelay: 0,
+        hitRadius: MONGSE_clampV31237(
+          MONGSE_baseProfileV31237.hitRadius,
+          0.32,
+          0.52,
+          0.38,
+        ),
+        lunge: 0,
+        fxKind: "enemyProjectile",
+        shape: MONGSE_baseProfileV31237.shape ?? "orb",
+        sprite: MONGSE_visualV31237.asset,
+        spriteHeading: 0,
+        distanceMode31222: "ranged",
+        counterTacticProjectile31229: !0,
+        normalEnemyProjectileV31237: !0,
+        enemyCombatThemeV31237: MONGSE_visualV31237.theme,
+        enemyCombatSpriteV31237: MONGSE_visualV31237.asset,
+        enemyCombatRoleV31237: "ranged",
+      };
+    return {
+      ...MONGSE_baseProfileV31237,
+      ranged: !1,
+      range: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.range,
+        1.95,
+        2.72,
+        2.25,
+      ),
+      preferredMin: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.preferredMin,
+        1.08,
+        1.62,
+        1.2,
+      ),
+      preferredMax: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.preferredMax,
+        1.65,
+        2.25,
+        1.9,
+      ),
+      windup: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.windup,
+        0.38,
+        0.72,
+        0.5,
+      ),
+      recovery: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.recovery,
+        0.24,
+        0.48,
+        0.3,
+      ),
+      cooldown: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.cooldown,
+        MONGSE_ENEMY_COMBAT_LIMITS_V31237.meleeCooldownMinimum,
+        1.92,
+        1.36,
+      ),
+      damage: MONGSE_damageV31237,
+      hitDelay: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.hitDelay,
+        0.08,
+        0.24,
+        0.16,
+      ),
+      hitRadius: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.hitRadius,
+        1.02,
+        1.56,
+        1.2,
+      ),
+      lunge: MONGSE_clampV31237(
+        MONGSE_baseProfileV31237.lunge,
+        MONGSE_ENEMY_COMBAT_LIMITS_V31237.meleeLungeMinimum,
+        MONGSE_ENEMY_COMBAT_LIMITS_V31237.meleeLungeMaximum,
+        0.72,
+      ),
+      fxKind: "enemyAttack",
+      shape: "slash",
+      sprite: MONGSE_visualV31237.asset,
+      spriteHeading: 0,
+      distanceMode31222: "melee",
+      normalEnemyMeleeV31237: !0,
+      enemyCombatThemeV31237: MONGSE_visualV31237.theme,
+      enemyCombatSpriteV31237: MONGSE_visualV31237.asset,
+      enemyCombatRoleV31237: "melee",
+    };
+  }
+
+  function MONGSE_declaredNormalRoleV31237(MONGSE_enemyV31237 = {}) {
+    const MONGSE_storedRoleV31237 =
+      MONGSE_enemyV31237.enemyCombatRoleV31237;
+    return MONGSE_storedRoleV31237 === "ranged" ||
+      MONGSE_storedRoleV31237 === "melee"
+      ? MONGSE_storedRoleV31237
+      : MONGSE_enemyRoleV31237(MONGSE_enemyV31237);
+  }
+
+  function MONGSE_cancelWrongNormalCounterV31237(
+    MONGSE_enemyV31237,
+    MONGSE_declaredRoleV31237,
+  ) {
+    const MONGSE_expectedKindV31237 =
+        MONGSE_declaredRoleV31237 === "ranged" ? "retreat" : "gapclose",
+      MONGSE_wrongActiveV31237 =
+        MONGSE_enemyV31237?.counterTactic31229 &&
+        MONGSE_enemyV31237.counterTactic31229.kind !==
+          MONGSE_expectedKindV31237,
+      MONGSE_wrongFollowupV31237 =
+        (MONGSE_declaredRoleV31237 === "ranged" &&
+          Number(MONGSE_enemyV31237?.counterTacticMeleeRemaining31229 ?? 0) >
+            0) ||
+        (MONGSE_declaredRoleV31237 === "melee" &&
+          Number(MONGSE_enemyV31237?.counterTacticRangedRemaining31229 ?? 0) >
+            0);
+    if (!MONGSE_wrongActiveV31237 && !MONGSE_wrongFollowupV31237) return !1;
+    if (typeof MONGSE_cancelEnemyCounterTactic31229 === "function")
+      return MONGSE_cancelEnemyCounterTactic31229(
+        MONGSE_enemyV31237,
+        "v31237-declared-role-correction",
+      );
+    MONGSE_enemyV31237.counterTactic31229 = null;
+    MONGSE_enemyV31237.counterTacticAttackKind31229 = "";
+    MONGSE_enemyV31237.counterTacticRangedRemaining31229 = 0;
+    MONGSE_enemyV31237.counterTacticRangedUntil31229 = 0;
+    MONGSE_enemyV31237.counterTacticMeleeRemaining31229 = 0;
+    MONGSE_enemyV31237.counterTacticMeleeUntil31229 = 0;
+    return !0;
+  }
+
+  function MONGSE_normalEnemyCounterDecisionV31237(
+    MONGSE_stateV31237,
+    MONGSE_enemyV31237,
+    MONGSE_optionsV31237,
+    MONGSE_baseDecisionV31237,
+  ) {
+    if (
+      !MONGSE_enemyV31237 ||
+      MONGSE_enemyV31237.boss ||
+      MONGSE_enemyV31237.midboss
+    )
+      return MONGSE_baseDecisionV31237(
+        MONGSE_stateV31237,
+        MONGSE_enemyV31237,
+        MONGSE_optionsV31237,
+      );
+    const MONGSE_roleV31237 =
+        MONGSE_declaredNormalRoleV31237(MONGSE_enemyV31237),
+      MONGSE_expectedKindV31237 =
+        MONGSE_roleV31237 === "ranged" ? "retreat" : "gapclose";
+    MONGSE_cancelWrongNormalCounterV31237(
+      MONGSE_enemyV31237,
+      MONGSE_roleV31237,
+    );
+    const MONGSE_roleProxyStateV31237 = {
+        ...MONGSE_stateV31237,
+        activeHeroId:
+          MONGSE_expectedKindV31237 === "gapclose" ? "gunner" : "hwando",
+      },
+      MONGSE_resultV31237 = MONGSE_baseDecisionV31237(
+        MONGSE_roleProxyStateV31237,
+        MONGSE_enemyV31237,
+        MONGSE_optionsV31237,
+      );
+    return MONGSE_resultV31237 && typeof MONGSE_resultV31237 === "object"
+      ? {
+          ...MONGSE_resultV31237,
+          declaredEnemyRoleV31237: MONGSE_roleV31237,
+          declaredCounterKindV31237: MONGSE_expectedKindV31237,
+          roleLockedV31237:
+            !["retreat", "gapclose"].includes(MONGSE_resultV31237.action) ||
+            MONGSE_resultV31237.action === MONGSE_expectedKindV31237,
+        }
+      : MONGSE_resultV31237;
+  }
+
+  function MONGSE_lockNormalCounterProfileV31237(
+    MONGSE_stateV31237,
+    MONGSE_enemyV31237,
+    MONGSE_inputProfileV31237,
+    MONGSE_resultProfileV31237,
+  ) {
+    if (
+      !MONGSE_enemyV31237 ||
+      MONGSE_enemyV31237.boss ||
+      MONGSE_enemyV31237.midboss ||
+      !MONGSE_inputProfileV31237
+    )
+      return MONGSE_resultProfileV31237;
+    const MONGSE_roleV31237 =
+        MONGSE_declaredNormalRoleV31237(MONGSE_enemyV31237),
+      MONGSE_visualV31237 = MONGSE_enemyAttackVisualV31237(
+        MONGSE_enemyV31237,
+        MONGSE_stateV31237?.zone ??
+          MONGSE_enemyV31237.enemyCombatZoneV31237 ??
+          "",
+        MONGSE_roleV31237,
+      ),
+      MONGSE_resultMatchesRoleV31237 =
+        !!MONGSE_resultProfileV31237 &&
+        (MONGSE_roleV31237 === "ranged"
+          ? MONGSE_resultProfileV31237.ranged === !0
+          : MONGSE_resultProfileV31237.ranged !== !0),
+      MONGSE_declaredProfileV31237 =
+        MONGSE_normalEnemyAttackProfileV31237(
+          MONGSE_enemyV31237,
+          MONGSE_stateV31237?.zone ??
+            MONGSE_enemyV31237.enemyCombatZoneV31237 ??
+            "",
+          MONGSE_inputProfileV31237,
+        ),
+      MONGSE_sourceProfileV31237 = MONGSE_resultMatchesRoleV31237
+        ? MONGSE_resultProfileV31237
+        : MONGSE_declar

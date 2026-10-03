@@ -1,0 +1,169 @@
+function MONGSE_installCombatAudioTelegraphV31233() {
+  if (MONGSE_COMBAT_AUDIO_TELEGRAPH_INSTALLED_V31233) return !0;
+  if (
+    typeof Gn !== `function` ||
+    typeof MONGSE_spawnTelegraphedImpact !== `function` ||
+    typeof MONGSE_enemyCounterDecision31229 !== `function` ||
+    typeof MONGSE_enemyCounterCooldownReady31229 !== `function` ||
+    typeof MONGSE_resolveBossProjectileThemeV31232 !== `function` ||
+    typeof MONGSE_bindEffectBitmapV31225 !== `function` ||
+    !window.__MONGSE_BOSS_PROJECTILE_ROTOR_V31232__?.installed ||
+    !window.__MONGSE_BOSS_COMBAT_V31230__?.installed
+  )
+    return !1;
+
+  MONGSE_SFX_PROFILE = MONGSE_comfortSfxProfilesV31233();
+  const MONGSE_heroAttackSfxBaseV31233 = MONGSE_heroAttackSfx;
+  MONGSE_heroAttackSfx = function (
+    MONGSE_heroIdV31233,
+    MONGSE_actionKeyV31233 = `A`,
+  ) {
+    if (String(MONGSE_actionKeyV31233).toUpperCase() === `R`)
+      MONGSE_HERO_ULTIMATE_ROUTE_COUNT_V31233 += 1;
+    return (
+      MONGSE_resolveHeroSfxV31233(
+        MONGSE_heroIdV31233,
+        MONGSE_actionKeyV31233,
+        MONGSE_HERO_ULTIMATE_ROUTE_COUNT_V31233,
+      ) ?? MONGSE_heroAttackSfxBaseV31233(MONGSE_heroIdV31233, MONGSE_actionKeyV31233)
+    );
+  };
+  MONGSE_COMBAT_AUDIO_TELEGRAPH_HOOKS_V31233.push(
+    `MONGSE_heroAttackSfx`,
+    `MONGSE_SFX_PROFILE`,
+  );
+
+  const MONGSE_enemyDecisionBaseV31233 = MONGSE_enemyCounterDecision31229;
+  MONGSE_enemyCounterDecision31229 = function (
+    MONGSE_stateV31233,
+    MONGSE_actorV31233,
+    MONGSE_optionsV31233 = {},
+  ) {
+    const MONGSE_baseDecisionV31233 = MONGSE_enemyDecisionBaseV31233(
+      MONGSE_stateV31233,
+      MONGSE_actorV31233,
+      MONGSE_optionsV31233,
+    );
+    return MONGSE_smartGapcloseDecisionV31233(
+      MONGSE_stateV31233,
+      MONGSE_actorV31233,
+      MONGSE_optionsV31233,
+      MONGSE_baseDecisionV31233,
+    );
+  };
+  MONGSE_COMBAT_AUDIO_TELEGRAPH_HOOKS_V31233.push(
+    `MONGSE_enemyCounterDecision31229`,
+  );
+
+  const MONGSE_spawnImpactBaseV31233 = MONGSE_spawnTelegraphedImpact;
+  MONGSE_spawnTelegraphedImpact = function (
+    MONGSE_stateV31233,
+    MONGSE_hitV31233,
+  ) {
+    if (!MONGSE_isBossOrMidbossV31233(MONGSE_hitV31233))
+      return MONGSE_spawnImpactBaseV31233(
+        MONGSE_stateV31233,
+        MONGSE_hitV31233,
+      );
+    (MONGSE_stateV31233.effects ??= []);
+    const MONGSE_beforeV31233 = new Set(MONGSE_stateV31233.effects),
+      MONGSE_oldSuppressV31233 =
+        MONGSE_hitV31233.suppressFloorImpactV31232,
+      MONGSE_hasBudgetV31233 = MONGSE_coverageVisualBudgetV31233(
+        MONGSE_stateV31233,
+        MONGSE_hitV31233,
+      );
+    /* v3.12.32 intentionally suppressed the arrival stamp.  The new contract
+     * keeps the moving body and restores a finite, same-coverage bitmap. */
+    if (MONGSE_hasBudgetV31233)
+      MONGSE_hitV31233.suppressFloorImpactV31232 = !1;
+    let MONGSE_resultV31233;
+    try {
+      MONGSE_resultV31233 = MONGSE_spawnImpactBaseV31233(
+        MONGSE_stateV31233,
+        MONGSE_hitV31233,
+      );
+    } finally {
+      MONGSE_hitV31233.suppressFloorImpactV31232 =
+        MONGSE_oldSuppressV31233;
+    }
+    if (MONGSE_hasBudgetV31233)
+      for (const MONGSE_effectV31233 of MONGSE_stateV31233.effects)
+        if (
+          !MONGSE_beforeV31233.has(MONGSE_effectV31233) &&
+          MONGSE_effectV31233.telegraphId === MONGSE_hitV31233.id
+        )
+          MONGSE_markResolvedCoverageEffectV31233(
+            MONGSE_stateV31233,
+            MONGSE_hitV31233,
+            MONGSE_effectV31233,
+          );
+    MONGSE_hitV31233.postTelegraphCoverageSpawnedV31233 =
+      MONGSE_stateV31233.effects.some(
+        (MONGSE_effectV31233) =>
+          MONGSE_effectV31233.telegraphId === MONGSE_hitV31233.id &&
+          MONGSE_effectV31233.postTelegraphCoverageImageV31233,
+      );
+    MONGSE_hitV31233.hitOrMissIndependentVisualV31233 = !0;
+    return MONGSE_resultV31233;
+  };
+  MONGSE_COMBAT_AUDIO_TELEGRAPH_HOOKS_V31233.push(
+    `MONGSE_spawnTelegraphedImpact`,
+  );
+
+  const MONGSE_renderEffectBaseV31233 = Gn;
+  Gn = function (
+    MONGSE_contextV31233,
+    MONGSE_imagesV31233,
+    MONGSE_effectV31233,
+    MONGSE_timeV31233,
+    MONGSE_settingsV31233,
+  ) {
+    if (
+      MONGSE_drawResolvedCoverageImageV31233(
+        MONGSE_contextV31233,
+        MONGSE_imagesV31233,
+        MONGSE_effectV31233,
+        MONGSE_timeV31233,
+        MONGSE_settingsV31233,
+      )
+    )
+      return;
+    return MONGSE_renderEffectBaseV31233(
+      MONGSE_contextV31233,
+      MONGSE_imagesV31233,
+      MONGSE_effectV31233,
+      MONGSE_timeV31233,
+      MONGSE_settingsV31233,
+    );
+  };
+  MONGSE_COMBAT_AUDIO_TELEGRAPH_HOOKS_V31233.push(`Gn`);
+
+  MONGSE_COMBAT_AUDIO_TELEGRAPH_INSTALLED_V31233 = !0;
+  return !0;
+}
+
+var MONGSE_COMBAT_AUDIO_TELEGRAPH_API_V31233 = Object.freeze({
+  version: MONGSE_COMBAT_AUDIO_TELEGRAPH_VERSION_V31233,
+  marker: MONGSE_COMBAT_AUDIO_TELEGRAPH_MARKER_V31233,
+  get installed() {
+    return MONGSE_COMBAT_AUDIO_TELEGRAPH_INSTALLED_V31233;
+  },
+  get hooks() {
+    return Object.freeze([...MONGSE_COMBAT_AUDIO_TELEGRAPH_HOOKS_V31233]);
+  },
+  lowHeroSfx: MONGSE_LOW_HERO_SFX_V31233,
+  audioConfig: MONGSE_COMFORT_AUDIO_CONFIG_V31233,
+  telegraphConfig: MONGSE_TELEGRAPH_IMAGE_CONFIG_V31233,
+  gapcloseConfig: MONGSE_SMART_GAPCLOSE_CONFIG_V31233,
+  resolveHeroSfx: MONGSE_resolveHeroSfxV31233,
+  isRangedAttackActive: MONGSE_isHeroRangedAttackActiveV31233,
+  smartGapcloseDecision: MONGSE_smartGapcloseDecisionV31233,
+  traceCoveragePath: MONGSE_traceCoveragePathV31233,
+  drawCoverageImage: MONGSE_drawResolvedCoverageImageV31233,
+  markCoverageEffect: MONGSE_markResolvedCoverageEffectV31233,
+  probeContract: MONGSE_probeCombatAudioTelegraphV31233,
+});
+window.__MONGSE_COMBAT_AUDIO_TELEGRAPH_V31233__ =
+  MONGSE_COMBAT_AUDIO_TELEGRAPH_API_V31233;
+

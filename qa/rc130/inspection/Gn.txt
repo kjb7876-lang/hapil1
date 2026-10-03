@@ -1,0 +1,640 @@
+function Gn(e, t, n, r, i) {
+  let a = Math.max(0, Math.min(1, (r - n.born) / n.duration)),
+    o =
+      Math.sin(a * Math.PI) *
+      (i.reducedFlash ? 0.62 : 1) *
+      (n.skillFxAdjustable ? MONGSE_skillFxOpacity(i) : 1),
+    s = G(n.x, n.y),
+    c = G(n.tx, n.ty),
+    l = G(n.aimX ?? n.tx, n.aimY ?? n.ty);
+  ((s.x += Number.isFinite(n.startOffsetX) ? n.startOffsetX : 0),
+    (s.y += Number.isFinite(n.startOffsetY) ? n.startOffsetY : 0),
+    (c.x += Number.isFinite(n.endOffsetX) ? n.endOffsetX : 0),
+    (c.y += Number.isFinite(n.endOffsetY) ? n.endOffsetY : 0),
+    (l.x += Number.isFinite(n.aimOffsetX)
+      ? n.aimOffsetX
+      : Number.isFinite(n.endOffsetX)
+        ? n.endOffsetX
+        : 0),
+    (l.y += Number.isFinite(n.aimOffsetY)
+      ? n.aimOffsetY
+      : Number.isFinite(n.endOffsetY)
+        ? n.endOffsetY
+        : 0));
+  if(n.telegraphImpact && n.impactShape==='line' && window.__HAPIL_CONNECTED_LASER_V31377__?.render){
+    const ox=Number(n.impactOriginX??n.x),oy=Number(n.impactOriginY??n.y),dx=Number(n.impactX)-ox,dy=Number(n.impactY)-oy;
+    const length=Math.max(.001,Math.hypot(dx,dy)),ux=dx/length,uy=dy/length;
+    const start=G(ox,oy),end=G(ox+ux*n.impactRadius,oy+uy*n.impactRadius),edge=G(ox-uy*n.impactWidth,oy+ux*n.impactWidth);
+    window.__HAPIL_CONNECTED_LASER_V31377__.render(e,[{a:start,b:end}],{width:Math.hypot(edge.x-start.x,edge.y-start.y),color:n.color,alpha:Math.min(1,Math.max(0,(1-a)*4))});return;
+  }
+  if (n.telegraphImpact && !window.__HAPIL_RC79__?.isLaser({shape:n.impactShape})) {
+    const path = MONGSE_runtimeSprite(t,n.sprite,n.fallbackSprite);
+    const im = path ? MONGSE_queueImage(t,path,'eager') : null;
+    if (im?.complete && im.naturalWidth) {
+      const at=G(n.impactX ?? n.x,n.impactY ?? n.y), size=n.impactVisualSize ?? 240;
+      const scale=size/Math.max(im.naturalWidth,im.naturalHeight), age=Math.max(0,(r-n.born)/Math.max(.1,n.duration));
+      e.save();try{e.globalCompositeOperation='source-over';e.globalAlpha=(i.reducedFlash ? .72 : .95)*Math.min(1,(1-age)*4);
+        e.drawImage(im,at.x-im.naturalWidth*scale/2,at.y-im.naturalHeight*scale*.65,im.naturalWidth*scale,im.naturalHeight*scale);
+      }finally{e.restore();}return;
+    }
+  }
+  if (n.telegraphImpact) {
+    let MONGSE_imageCache = t,
+      MONGSE_impactShape = n.impactShape,
+      d = n.impactX,
+      f = n.impactY,
+      p = n.impactOriginX,
+      m = n.impactOriginY,
+      h = d - p,
+      g = f - m,
+      _ = Math.max(0.001, Math.hypot(h, g)),
+      v = h / _,
+      y = g / _,
+      x = -y * n.impactWidth,
+      S = v * n.impactWidth,
+      MONGSE_impactCenter = G(d, f),
+      MONGSE_impactUnitX = G(d + 1, f),
+      MONGSE_impactUnitY = G(d, f + 1),
+      MONGSE_impactWorldScale =
+        (Math.hypot(
+          MONGSE_impactUnitX.x - MONGSE_impactCenter.x,
+          MONGSE_impactUnitX.y - MONGSE_impactCenter.y,
+        ) +
+          Math.hypot(
+            MONGSE_impactUnitY.x - MONGSE_impactCenter.x,
+            MONGSE_impactUnitY.y - MONGSE_impactCenter.y,
+          )) /
+        2,
+      MONGSE_impactRadiusPx = n.impactRadius * MONGSE_impactWorldScale,
+      MONGSE_impactInnerPx = n.impactInnerRadius * MONGSE_impactWorldScale;
+    (e.save(),
+      (e.globalCompositeOperation = `screen`),
+      (e.globalAlpha = (i.reducedFlash ? 0.42 : 0.72) * (1 - a * 0.55)),
+      (e.fillStyle = n.color),
+      (e.strokeStyle = n.accent),
+      (e.lineWidth = n.ultimate ? 9 : 5),
+      (e.shadowColor = n.color),
+      (e.shadowBlur = i.lowFx ? 0 : n.ultimate ? 18 : 11),
+      e.beginPath());
+    if (MONGSE_impactShape === `circle`)
+      Kn(
+        e,
+        MONGSE_impactCenter.x,
+        MONGSE_impactCenter.y,
+        MONGSE_impactRadiusPx,
+      );
+    else if (MONGSE_impactShape === `donut`) {
+      (Kn(
+        e,
+        MONGSE_impactCenter.x,
+        MONGSE_impactCenter.y,
+        MONGSE_impactRadiusPx,
+      ),
+        Kn(
+          e,
+          MONGSE_impactCenter.x,
+          MONGSE_impactCenter.y,
+          MONGSE_impactInnerPx,
+          !0,
+        ));
+    } else if (MONGSE_impactShape === `safe`) {
+      let t = [G(1.4, 1.4), G(30.6, 1.4), G(30.6, 30.6), G(1.4, 30.6)];
+      (e.moveTo(t[0].x, t[0].y),
+        t.slice(1).forEach((t) => e.lineTo(t.x, t.y)),
+        e.closePath(),
+        Kn(
+          e,
+          MONGSE_impactCenter.x,
+          MONGSE_impactCenter.y,
+          MONGSE_impactRadiusPx,
+          !0,
+        ));
+    } else if (MONGSE_impactShape === `cross`) {
+      let t = n.impactRadius;
+      [
+        [
+          G(d - t, f - n.impactWidth),
+          G(d + t, f - n.impactWidth),
+          G(d + t, f + n.impactWidth),
+          G(d - t, f + n.impactWidth),
+        ],
+        [
+          G(d - n.impactWidth, f - t),
+          G(d + n.impactWidth, f - t),
+          G(d + n.impactWidth, f + t),
+          G(d - n.impactWidth, f + t),
+        ],
+      ].forEach((t) => {
+        (e.moveTo(t[0].x, t[0].y),
+          t.slice(1).forEach((t) => e.lineTo(t.x, t.y)),
+          e.closePath());
+      });
+    } else if (MONGSE_impactShape === `line`) {
+      let t = p + v * n.impactRadius,
+        r = m + y * n.impactRadius,
+        i = [
+          G(p + x, m + S),
+          G(t + x, r + S),
+          G(t - x, r - S),
+          G(p - x, m - S),
+        ];
+      (e.moveTo(i[0].x, i[0].y),
+        i.slice(1).forEach((t) => e.lineTo(t.x, t.y)),
+        e.closePath());
+    } else {
+      let t = Math.atan2(g, h),
+        r = G(p, m);
+      e.moveTo(r.x, r.y);
+      for (let r = 0; r <= 24; r++) {
+        let i = t - n.impactWidth + (n.impactWidth * 2 * r) / 24,
+          a = G(
+            p + Math.cos(i) * n.impactRadius,
+            m + Math.sin(i) * n.impactRadius,
+          );
+        e.lineTo(a.x, a.y);
+      }
+      e.closePath();
+    }
+    (n.bitmapImpactDecodedV31229
+      ? void 0
+      : MONGSE_impactShape === `donut` || MONGSE_impactShape === `safe`
+        ? e.fill(`evenodd`)
+        : e.fill(),
+      e.stroke());
+    let MONGSE_effectSprite = MONGSE_runtimeSprite(
+        MONGSE_imageCache,
+        n.sprite,
+        n.fallbackSprite,
+      ),
+      MONGSE_impactImage = MONGSE_effectSprite
+        ? MONGSE_queueImage(MONGSE_imageCache, MONGSE_effectSprite)
+        : void 0;
+    if (MONGSE_impactImage?.complete && MONGSE_impactImage.naturalWidth) {
+      let MONGSE_linearImpact =
+          MONGSE_impactShape === `line` || MONGSE_impactShape === `cone`,
+        MONGSE_impactPoint = G(
+          MONGSE_linearImpact ? p + v * n.impactRadius * 0.52 : d,
+          MONGSE_linearImpact ? m + y * n.impactRadius * 0.52 : f,
+        ),
+        MONGSE_impactSize =
+          n.impactVisualSize ??
+          Math.max(
+            148,
+            Math.min(
+              420,
+              n.impactRadius * (MONGSE_impactShape === `line` ? 34 : 48),
+            ),
+          ),
+        MONGSE_impactFade = 1 - a * 0.50,
+        MONGSE_impactRotation =
+          MONGSE_impactShape === `line` || MONGSE_impactShape === `cone`
+            ? Math.atan2(g, h) -
+              (Number.isFinite(Number(n.spriteHeading))
+                ? Number(n.spriteHeading)
+                : 0)
+            : a * 0.18;
+      (e.save(),
+        MONGSE_impactShape === `donut` || MONGSE_impactShape === `safe`
+          ? HAPIL_cosmeticClipV31317(e,`evenodd`)
+          : HAPIL_cosmeticClipV31317(e),
+        e.translate(MONGSE_impactPoint.x, MONGSE_impactPoint.y - 8),
+        e.rotate(MONGSE_impactRotation),
+        (e.globalCompositeOperation = `source-over`),
+        (e.globalAlpha = (i.reducedFlash ? 0.4 : 0.74) * MONGSE_impactFade),
+        e.drawImage(
+          MONGSE_impactImage,
+          -MONGSE_impactSize / 2,
+          -MONGSE_impactSize / 2,
+          MONGSE_impactSize,
+          MONGSE_impactSize,
+        ));
+      i.lowFx ||
+        ((e.globalCompositeOperation = `screen`),
+        (e.globalAlpha = (i.reducedFlash ? 0.12 : 0.28) * MONGSE_impactFade),
+        e.drawImage(
+          MONGSE_impactImage,
+          (-MONGSE_impactSize * 1.04) / 2,
+          (-MONGSE_impactSize * 1.04) / 2,
+          MONGSE_impactSize * 1.04,
+          MONGSE_impactSize * 1.04,
+        ));
+      e.restore();
+    }
+    e.restore();
+    if (n.bossSkillClass === `shockwave`) {
+      let MONGSE_waveStart = G(p, m),
+        MONGSE_waveEnd = G(p + v * n.impactRadius, m + y * n.impactRadius),
+        MONGSE_waveDx = MONGSE_waveEnd.x - MONGSE_waveStart.x,
+        MONGSE_waveDy = MONGSE_waveEnd.y - MONGSE_waveStart.y,
+        MONGSE_waveAngle = Math.atan2(MONGSE_waveDy, MONGSE_waveDx),
+        MONGSE_waveTravel = Math.min(1, a * 1.45);
+      (e.save(),
+        (e.globalCompositeOperation = `screen`),
+        (e.strokeStyle = n.accent),
+        (e.shadowColor = n.color),
+        (e.shadowBlur = i.lowFx ? 0 : 14));
+      for (let t = 0; t < (i.lowFx ? 3 : 6); t++) {
+        let r = Math.max(0, MONGSE_waveTravel - t * 0.13),
+          o = MONGSE_waveStart.x + MONGSE_waveDx * r,
+          s = MONGSE_waveStart.y + MONGSE_waveDy * r;
+        (e.save(),
+          e.translate(o, s),
+          e.rotate(MONGSE_waveAngle),
+          e.scale(0.42, 1),
+          (e.globalAlpha = (0.82 - t * 0.1) * (1 - a * 0.5)),
+          (e.lineWidth = Math.max(2, 6 - t)),
+          e.beginPath(),
+          e.arc(0, 0, 34 + t * 17, -Math.PI * 0.64, Math.PI * 0.64),
+          e.stroke(),
+          e.restore());
+      }
+      e.restore();
+    } else if (n.bossSkillClass === `demonSkull` && n.castSprite) {
+      let MONGSE_castImage = MONGSE_queueImage(MONGSE_imageCache, n.castSprite),
+        MONGSE_castStart = G(n.castOriginX ?? d, n.castOriginY ?? f),
+        MONGSE_castEnd = G(d, f),
+        MONGSE_castTravel = Math.min(1, a * 2.15),
+        MONGSE_castX =
+          MONGSE_castStart.x +
+          (MONGSE_castEnd.x - MONGSE_castStart.x) * MONGSE_castTravel,
+        MONGSE_castY =
+          MONGSE_castStart.y +
+          (MONGSE_castEnd.y - MONGSE_castStart.y) * MONGSE_castTravel -
+          Math.sin(MONGSE_castTravel * Math.PI) * 72,
+        MONGSE_castAngle = Math.atan2(
+          MONGSE_castEnd.y - MONGSE_castStart.y,
+          MONGSE_castEnd.x - MONGSE_castStart.x,
+        );
+      if (MONGSE_castImage?.complete && MONGSE_castImage.naturalWidth)
+        (e.save(),
+          e.translate(MONGSE_castX, MONGSE_castY - 34),
+          e.rotate(MONGSE_castAngle * 0.18),
+          (e.globalCompositeOperation = `source-over`),
+          (e.globalAlpha = (i.reducedFlash ? 0.58 : 0.88) * (1 - a * 0.42)),
+          (e.shadowColor = `#ff4b24`),
+          (e.shadowBlur = i.lowFx ? 0 : 18),
+          e.drawImage(MONGSE_castImage, -95, -70, 190, 140),
+          e.restore());
+    }
+    return;
+  }
+  let u = Math.atan2(l.y - s.y, l.x - s.x),
+    d = n.laserShot
+      ? void 0
+      : (MONGSE_runtimeSprite(t, n.sprite, n.fallbackSprite) ?? zt[n.kind]),
+    f = n.sprite ? n.spriteHeading : Bt.has(n.kind) ? 0 : null,
+    p = f === null ? 0 : u - (f ?? 0),
+    m = i.lowFx ? 5 : 11,
+    h = n.heroSkillVfx
+      ? i.reducedFlash
+        ? 0.88
+        : 1
+      : i.lowFx
+        ? 0.6
+        : i.reducedFlash
+          ? 0.68
+          : 0.78;
+  (e.save(),
+    (e.globalAlpha = Math.max(0, o) * (n.ultimate ? 0.82 : 0.9)),
+    (e.lineCap = `round`),
+    (e.lineJoin = `round`),
+    (e.shadowColor = n.color),
+    (e.shadowBlur = i.reducedFlash ? 3 : n.ultimate ? 13 : 8));
+  let g = d ? MONGSE_queueImage(t, d) : void 0,
+    _ = !!(g?.complete && g.naturalWidth);
+  if (n.kind === `projectile` || n.kind === `enemyProjectile`) {
+    let t = Math.min(1, a * 1.35),
+      r = s.x + (c.x - s.x) * t,
+      l =
+        s.y +
+        (c.y - s.y) * t -
+        Math.sin(t * Math.PI) * (n.shape === `arrow` ? 10 : 4),
+      MONGSE_projectileLift = n.originAdjusted ? 0 : 18;
+    if (n.laserShot) {
+      let a = r,
+        c = l - MONGSE_projectileLift,
+        d = a - s.x,
+        f = c - s.y,
+        p = Math.max(0.001, Math.hypot(d, f)),
+        v = Math.min(
+          i.lowFx
+            ? MONGSE_HERO_TRACER_TUNING31213.lowFxMaximumTrailPixels
+            : MONGSE_HERO_TRACER_TUNING31213.maximumTrailPixels,
+          p * 0.5,
+        ),
+        bolt = MONGSE_queueImage(t, n.sprite ?? MONGSE_GUNNER_LASER, `eager`);
+      if (bolt?.complete && bolt.naturalWidth) {
+        e.globalCompositeOperation = `source-over`;
+        e.globalAlpha = Math.max(0, o) * (i.reducedFlash ? 0.7 : 0.92);
+        e.shadowBlur = 0;
+        e.translate(a, c);
+        e.rotate(Math.atan2(f, d));
+        e.drawImage(bolt, -v, -8, v + 18, 16);
+      }
+      e.restore();
+      return;
+    }
+    if (!n.imageOnly)
+      ((e.strokeStyle = n.color),
+        (e.lineWidth = n.shape === `bullet` ? 2 : 4),
+        (e.globalAlpha *= n.kind === `enemyProjectile` ? 0.55 : 0.32),
+        e.beginPath(),
+        e.moveTo(s.x, s.y - (n.originAdjusted ? 0 : 22)),
+        e.lineTo(r, l - MONGSE_projectileLift),
+        e.stroke());
+    else if (_ && g && !n.hitArtRC46) {
+      let n = i.lowFx ? 1 : 2;
+      for (let r = n; r >= 1; r--) {
+        let n = Math.max(0, t - r * 0.11),
+          a = s.x + (c.x - s.x) * n,
+          o = s.y + (c.y - s.y) * n - MONGSE_projectileLift,
+          l = i.lowFx ? 48 : 64;
+        (e.save(),
+          e.translate(a, o),
+          e.rotate(p),
+          (e.globalAlpha *= 0.16 / r),
+          HAPIL_drawBitmapLayerV31317(e,0.16 / r,g, -l / 2, -l / 2, l, l),
+          e.restore());
+      }
+    }
+    if (
+      ((e.globalAlpha = Math.max(0, o)),
+      e.translate(r, l - MONGSE_projectileLift),
+      e.rotate(f === null ? 0 : p),
+      _ && g)
+    ) {
+      let t = n.hitArtRC46 && Number.isFinite(n.hitArtSizeRC46)
+        ? Math.max(20, Math.min(128, n.hitArtSizeRC46))
+        : n.ultimate ? 84 : i.lowFx ? 54 : 74;
+      if (
+        (e.save(),
+        (e.globalAlpha *= h * (n.hitArtRC46 ? Math.max(0, Math.min(1, n.hitArtOpacityRC46 ?? 1)) : 1)),
+        e.drawImage(g, -t / 2, -t / 2, t, t),
+        e.restore(),
+        n.imageOnly)
+      ) {
+        e.restore();
+        return;
+      }
+      e.globalAlpha *= 0.28;
+    }
+    (n.kind === `enemyProjectile`
+      ? ((e.fillStyle = n.color),
+        (e.shadowColor = n.color),
+        (e.shadowBlur = i.reducedFlash ? 4 : 12),
+        e.beginPath(),
+        e.moveTo(12 * n.size, 0),
+        e.lineTo(-7 * n.size, -4 * n.size),
+        e.lineTo(-4 * n.size, 0),
+        e.lineTo(-7 * n.size, 4 * n.size),
+        e.closePath(),
+        e.fill(),
+        (e.fillStyle = n.accent),
+        e.fillRect(2 * n.size, -1 * n.size, 8 * n.size, 2 * n.size))
+      : Wn(e, n.shape ?? `bullet`, n.size, n.color, n.accent),
+      e.restore());
+    return;
+  }
+  if (n.kind === `dash`) {
+    if (n.imageOnly && _ && g) {
+      let t = i.lowFx ? 2 : 4;
+      for (let n = 0; n < t; n++) {
+        let t = bn(a - n * 0.075),
+          r = s.x + (c.x - s.x) * t,
+          o = s.y + (c.y - s.y) * t - 19,
+          l = i.lowFx ? 76 : 104;
+        (e.save(),
+          e.translate(r, o),
+          e.rotate(p),
+          (e.globalAlpha *= n === 0 ? h : 0.16 / Math.max(1, n)),
+          HAPIL_drawBitmapLayerV31317(e,n===0?1:0.16 / Math.max(1,n),g, -l / 2, -l / 2, l, l),
+          e.restore());
+      }
+      e.restore();
+      return;
+    }
+    ((e.strokeStyle = n.color),
+      (e.lineWidth = n.ultimate ? 18 : 10),
+      (e.globalAlpha *= 0.22),
+      e.beginPath(),
+      e.moveTo(s.x, s.y - 22),
+      e.lineTo(c.x, c.y - 22),
+      e.stroke(),
+      (e.globalAlpha = Math.max(0, o)));
+    for (let t = 0; t < (i.lowFx ? 2 : 4); t++) {
+      let r = Math.max(0, a - t * 0.08),
+        i = s.x + (c.x - s.x) * r,
+        o = s.y + (c.y - s.y) * r;
+      ((e.strokeStyle = t % 2 ? n.accent : n.color),
+        (e.lineWidth = 4 - t * 0.6),
+        e.beginPath(),
+        e.moveTo(i - 18, o - 31 - t * 3),
+        e.lineTo(i + 16, o - 17 + t * 2),
+        e.stroke());
+    }
+    if (_ && g) {
+      (e.save(),
+        e.translate(c.x, c.y - 18),
+        (e.globalCompositeOperation = `screen`),
+        (e.globalAlpha *= i.reducedFlash ? 0.32 : 0.58));
+      let t = (i.lowFx ? 92 : 122) * (n.ultimate ? 0.82 : 1);
+      (e.drawImage(g, -t / 2, -t / 2, t, t), e.restore());
+    }
+    e.restore();
+    return;
+  }
+  if ((e.translate(c.x, c.y - 5), _ && g)) {
+    let t = n.ultimate ? (i.lowFx ? 121 : 156) : i.lowFx ? 104 : 140,
+      r =
+        n.kind === `cyclone` ||
+        n.kind === `time` ||
+        n.kind === `mark` ||
+        n.kind === `glitch`,
+      o = f !== null;
+    if (o) {
+      let t =
+        n.kind === `slash` || n.kind === `cross` ? Math.min(32, n.size * 7) : 0;
+      e.translate(Math.cos(u) * t, Math.sin(u) * t);
+    }
+    if (
+      (e.save(),
+      e.rotate(o ? p : r ? a * Math.PI * (n.ultimate ? 0.28 : 0.12) : 0),
+      (e.globalAlpha *= h),
+      e.drawImage(g, -t / 2, -t / 2, t, t),
+      e.restore(),
+      n.imageOnly)
+    ) {
+      e.restore();
+      return;
+    }
+    e.globalAlpha *= 0.28;
+  }
+  if (n.kind === `slash` || n.kind === `enemyAttack`) {
+    let t = a * 1.5,
+      r = n.kind === `enemyAttack` ? 3 : n.ultimate ? 5 : 2;
+    e.rotate(n.angle);
+    for (let i = 0; i < r; i++)
+      ((e.strokeStyle = i % 2 ? n.accent : n.color),
+        (e.lineWidth = n.ultimate ? 6 - i * 0.6 : 4 - i * 0.7),
+        e.beginPath(),
+        e.arc(
+          0,
+          0,
+          n.size * (16 + i * 5),
+          -1.25 + t + i * 0.12,
+          0.45 + t + i * 0.12,
+        ),
+        e.stroke());
+  } else if (n.kind === `cyclone`) {
+    let t = n.ultimate ? 6 : 3;
+    for (let r = 0; r < t; r++)
+      (e.save(),
+        e.rotate(a * Math.PI * 3 * (r % 2 ? -1 : 1) + r),
+        (e.strokeStyle = r % 2 ? n.accent : n.color),
+        (e.lineWidth = Math.max(1.5, 5 - r * 0.55)),
+        e.beginPath(),
+        e.ellipse(
+          0,
+          -r * 4,
+          n.size * (8 + a * 10),
+          n.size * (3 + a * 4),
+          0,
+          0.1,
+          Math.PI * 1.55,
+        ),
+        e.stroke(),
+        e.restore());
+  } else if (n.kind === `barrier`) {
+    let t = n.size * (10 + a * 3);
+    ((e.strokeStyle = n.accent),
+      (e.fillStyle = n.color + `22`),
+      (e.lineWidth = n.ultimate ? 5 : 3),
+      e.beginPath());
+    for (let n = 0; n < 6; n++) {
+      let r = (Math.PI / 3) * n - Math.PI / 2,
+        i = Math.cos(r) * t,
+        a = Math.sin(r) * t * 0.55 - t * 0.55;
+      n === 0 ? e.moveTo(i, a) : e.lineTo(i, a);
+    }
+    (e.closePath(), e.fill(), e.stroke());
+    for (let n = 0; n < 3; n++)
+      ((e.globalAlpha *= 0.7),
+        e.beginPath(),
+        e.arc(0, -t * 0.45, t * (0.32 + n * 0.18), Math.PI, Math.PI * 2),
+        e.stroke());
+  } else if (n.kind === `heal`) {
+    ((e.strokeStyle = n.color), (e.lineWidth = 3));
+    let t = n.size * (8 + a * 7);
+    (e.beginPath(),
+      e.ellipse(0, 0, t, t * 0.42, 0, 0, Math.PI * 2),
+      e.stroke());
+    for (let r = 0; r < m; r++) {
+      let i = (r / m) * Math.PI * 2 + n.id,
+        o = t * (0.2 + (r % 3) * 0.28),
+        s = (a * 35 + r * 9) % 38;
+      ((e.fillStyle = r % 2 ? n.accent : n.color),
+        e.fillRect(Math.cos(i) * o - 1.5, Math.sin(i) * o * 0.38 - s, 3, 9));
+    }
+    ((e.fillStyle = n.accent),
+      e.fillRect(-3, -33, 6, 28),
+      e.fillRect(-13, -23, 26, 7));
+  } else if (n.kind === `time`) {
+    let t = n.size * (8 + a * 8);
+    (e.rotate(-a * Math.PI * 1.5),
+      (e.strokeStyle = n.color),
+      (e.lineWidth = n.ultimate ? 5 : 3),
+      e.beginPath(),
+      e.ellipse(0, 0, t, t * 0.48, 0, 0, Math.PI * 2),
+      e.stroke());
+    let r = i.lowFx ? 8 : 16;
+    for (let n = 0; n < r; n++) {
+      let i = (n / r) * Math.PI * 2;
+      (e.beginPath(),
+        e.moveTo(Math.cos(i) * t * 0.8, Math.sin(i) * t * 0.38),
+        e.lineTo(Math.cos(i) * t, Math.sin(i) * t * 0.48),
+        e.stroke());
+    }
+    (e.beginPath(),
+      e.moveTo(0, 0),
+      e.lineTo(Math.cos(a * 5) * t * 0.55, Math.sin(a * 5) * t * 0.27),
+      e.moveTo(0, 0),
+      e.lineTo(Math.cos(-a * 2.1) * t * 0.35, Math.sin(-a * 2.1) * t * 0.17),
+      e.stroke());
+  } else if (n.kind === `cross`) {
+    let t = n.size * (8 + a * 7);
+    ((e.strokeStyle = n.color),
+      (e.lineWidth = n.ultimate ? 7 : 4),
+      e.rotate(a * Math.PI * 0.65),
+      e.beginPath(),
+      e.moveTo(-t, 0),
+      e.lineTo(t, 0),
+      e.moveTo(0, -t * 0.7),
+      e.lineTo(0, t * 0.7),
+      e.stroke(),
+      (e.strokeStyle = n.accent),
+      (e.lineWidth *= 0.35),
+      e.strokeRect(-t * 0.44, -t * 0.24, t * 0.88, t * 0.48));
+  } else if (n.kind === `petals`)
+    for (let t = 0; t < m + 5; t++) {
+      let r = (t / (m + 5)) * Math.PI * 2 + a * (t % 2 ? 4 : -4),
+        i = a * n.size * (10 + (t % 4) * 3);
+      (e.save(),
+        e.translate(Math.cos(r) * i, Math.sin(r) * i * 0.5 - a * 12),
+        e.rotate(r + a * 4),
+        (e.fillStyle = t % 3 ? n.color : n.accent),
+        e.beginPath(),
+        e.ellipse(0, 0, 8, 2.5, 0, 0, Math.PI * 2),
+        e.fill(),
+        e.restore());
+    }
+  else if (n.kind === `glitch`) {
+    let t = i.lowFx ? 7 : 16;
+    for (let r = 0; r < t; r++) {
+      let t = Math.sin((n.id + r * 17) * 91.13) * Math.PI * 2 + a * 3,
+        i = n.size * (5 + (r % 5) * 4) * a,
+        o = 5 + (r % 4) * 5;
+      ((e.fillStyle = r % 3 ? n.color : n.accent),
+        e.fillRect(
+          Math.cos(t) * i - o / 2,
+          Math.sin(t) * i * 0.48 - 2,
+          o,
+          4 + (r % 3),
+        ));
+    }
+    ((e.strokeStyle = n.accent),
+      (e.lineWidth = 2),
+      e.strokeRect(-n.size * 8, -n.size * 7, n.size * 16, n.size * 11));
+  } else if (n.kind === `mark`) {
+    let t = n.size * (7 + a * 6);
+    (e.rotate(a * Math.PI),
+      (e.strokeStyle = n.color),
+      (e.lineWidth = n.ultimate ? 5 : 3),
+      e.beginPath());
+    for (let n = 0; n < 3; n++) {
+      let r = -Math.PI / 2 + (n * Math.PI * 2) / 3,
+        i = Math.cos(r) * t,
+        a = Math.sin(r) * t * 0.55;
+      n ? e.lineTo(i, a) : e.moveTo(i, a);
+    }
+    (e.closePath(),
+      e.stroke(),
+      e.rotate(-a * Math.PI * 2),
+      e.strokeRect(-t * 0.45, -t * 0.25, t * 0.9, t * 0.5));
+  } else {
+    let t = n.size * (7 + a * 12);
+    ((e.strokeStyle = n.color),
+      (e.lineWidth = n.ultimate ? 6 : 3),
+      e.beginPath(),
+      e.ellipse(0, 0, t, t * 0.46, 0, 0, Math.PI * 2),
+      e.stroke());
+    for (let r = 0; r < m; r++) {
+      let i = (r / m) * Math.PI * 2 + n.id;
+      ((e.strokeStyle = r % 2 ? n.color : n.accent),
+        e.beginPath(),
+        e.moveTo(Math.cos(i) * t * 0.35, Math.sin(i) * t * 0.16),
+        e.lineTo(Math.cos(i) * t, Math.sin(i) * t * 0.46),
+        e.stroke());
+    }
+  }
+  e.restore();
+}

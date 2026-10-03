@@ -1,0 +1,60 @@
+function Qn(e, t, n, r, i) {
+  let a = n.telekineticRain ? 0.14 : 0.18;
+  if (r < n.born || r > n.at + a) return;
+  let o = bn((r - n.born) / Math.max(0.001, n.at - n.born));
+  if (n.telekineticRain) {
+    let a = 0.34,
+      s = bn((o - a) / (1 - a)),
+      c = o < a ? Sn(o / a) * 0.015 : Sn(s),
+      l = n.originX + (n.targetX - n.originX) * c,
+      u = n.originY + (n.targetY - n.originY) * c,
+      d = i.lowFx ? 86 : 128,
+      f =
+        o < a
+          ? Sn(o / a) * d
+          : (1 - Math.pow(s, 1.72)) * d +
+            Math.sin(s * Math.PI) * (i.lowFx ? 14 : 28),
+      p = Math.max(17, n.size * (0.16 + s * 0.1));
+    (Rn(e, n.targetX, n.targetY, p, 0.1 + s * 0.28),
+      Ln(
+        e,
+        t,
+        MONGSE_runtimeSprite(t, n.sprite, n.fallbackSprite),
+        l,
+        u,
+        n.size * (0.78 + s * 0.22),
+        {
+          offsetY: -f,
+          rotation:
+            o * Math.PI * (i.lowFx ? 2.8 : 5.4) +
+            n.id * 0.17 +
+            (n.rainIndex ?? 0) * 0.31,
+          glow: n.color,
+          glowBlur: i.lowFx ? 4 : 16,
+          alpha: i.reducedFlash ? 0.74 : 0.9,
+          centerPivot: !!n.airborneCenterPivot,
+        },
+      ));
+    return;
+  }
+  let s = o < 0.22 ? o * 0.36 : 0.08 + Sn((o - 0.22) / 0.78) * 0.92,
+    c = n.originX + (n.targetX - n.originX) * s,
+    l = n.originY + (n.targetY - n.originY) * s,
+    u = Math.sin(o * Math.PI) * (i.lowFx ? 52 : 82);
+  (Rn(e, c, l, Math.max(18, n.size * 0.2), 0.18 + o * 0.2),
+    Ln(
+      e,
+      t,
+      MONGSE_runtimeSprite(t, n.sprite, n.fallbackSprite),
+      c,
+      l,
+      n.size * (0.82 + o * 0.16),
+      {
+        offsetY: -u,
+        rotation: o * Math.PI * (i.lowFx ? 2.2 : 4.2) + n.id * 0.17,
+        glow: n.color,
+        glowBlur: i.lowFx ? 4 : 14,
+        alpha: i.reducedFlash ? 0.72 : 0.86,
+      },
+    ));
+}
