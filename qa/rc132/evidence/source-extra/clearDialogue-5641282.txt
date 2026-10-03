@@ -1,0 +1,21 @@
+function clearDialogue(s, kind) {
+  if (!s) return null;
+  const t = num(s.time);
+  s.encounterDialogue31226 = null;
+  s.encounterLockUntil31226 = 0;
+  s.encounterWallUnlockAtV31227 = 0;
+  if (kind === "rest") {
+    s.restPortalUnlockAt31226 = t;
+    s.restPortalWallUnlockAtV31227 = 0;
+    s.restDialogueComplete31226 = true;
+  } else
+    for (const [i, a] of (s.enemies ?? []).entries()) {
+      a.readyAt = Math.min(num(a.readyAt, t), t + 0.14 + i * 0.015);
+      a.patternReadyAt = Math.min(
+        num(a.patternReadyAt, t),
+        t + 0.28 + i * 0.015,
+      );
+      a.invulnerableUntil = Math.min(num(a.invulnerableUntil, t), t + 0.12);
+    }
+  return null;
+}

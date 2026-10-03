@@ -1,0 +1,120 @@
+function MONGSE_applyBossProgressionV31236(
+  MONGSE_actorV31236,
+  MONGSE_zoneIdV31236 = ``,
+) {
+  if (
+    !MONGSE_actorV31236 ||
+    (!MONGSE_actorV31236.boss && !MONGSE_actorV31236.midboss)
+  )
+    return { applied: !1, reason: `not-ranked` };
+  const MONGSE_zoneV31236 = N?.[MONGSE_zoneIdV31236]
+    ? MONGSE_zoneIdV31236
+    : MONGSE_zoneForActorV31236(MONGSE_actorV31236);
+  if (
+    MONGSE_actorV31236.combatProgressionV31236 &&
+    MONGSE_actorV31236.combatProgressionZoneV31236 === MONGSE_zoneV31236
+  )
+    return {
+      applied: !1,
+      reason: `already-balanced`,
+      zone: MONGSE_zoneV31236,
+      maxHp: MONGSE_actorV31236.maxHp,
+      hp: MONGSE_actorV31236.hp,
+    };
+  const MONGSE_oldMaximumV31236 = MONGSE_clampBossProgressionV31236(
+      MONGSE_actorV31236.maxHp ?? MONGSE_actorV31236.hp ?? 1,
+      1,
+      MONGSE_BOSS_PROGRESSION_LIMITS_V31236.hpMaximum,
+    ),
+    MONGSE_oldHealthV31236 = MONGSE_clampBossProgressionV31236(
+      MONGSE_finiteBossProgressionV31236(
+        MONGSE_actorV31236.hp,
+        MONGSE_oldMaximumV31236,
+      ),
+      0,
+      MONGSE_oldMaximumV31236,
+    ),
+    MONGSE_healthRatioV31236 = MONGSE_oldHealthV31236 / MONGSE_oldMaximumV31236,
+    MONGSE_targetMaximumV31236 = Math.max(
+      Math.round(MONGSE_oldMaximumV31236),
+      MONGSE_targetActorMaxHpV31236(MONGSE_actorV31236, MONGSE_zoneV31236),
+    ),
+    MONGSE_oldMaxStaggerV31236 = MONGSE_clampBossProgressionV31236(
+      MONGSE_actorV31236.maxStagger ?? (MONGSE_actorV31236.boss ? 150 : 110),
+      1,
+      MONGSE_BOSS_PROGRESSION_LIMITS_V31236.staggerMaximum,
+    ),
+    MONGSE_staggerRatioV31236 =
+      MONGSE_clampBossProgressionV31236(
+        MONGSE_actorV31236.stagger ?? 0,
+        0,
+        MONGSE_oldMaxStaggerV31236,
+      ) / MONGSE_oldMaxStaggerV31236,
+    MONGSE_progressV31236 = MONGSE_zoneProgressV31236(MONGSE_zoneV31236),
+    MONGSE_staggerScaleV31236 =
+      1 + MONGSE_progressV31236 * (MONGSE_actorV31236.boss ? 0.3 : 0.22),
+    MONGSE_newMaxStaggerV31236 = Math.round(
+      MONGSE_clampBossProgressionV31236(
+        MONGSE_oldMaxStaggerV31236 * MONGSE_staggerScaleV31236,
+        1,
+        MONGSE_BOSS_PROGRESSION_LIMITS_V31236.staggerMaximum,
+      ),
+    );
+  MONGSE_actorV31236.maxHp = MONGSE_targetMaximumV31236;
+  MONGSE_actorV31236.hp =
+    MONGSE_oldHealthV31236 <= 0
+      ? 0
+      : Math.max(
+          1,
+          Math.min(
+            MONGSE_targetMaximumV31236,
+            Math.round(MONGSE_targetMaximumV31236 * MONGSE_healthRatioV31236),
+          ),
+        );
+  MONGSE_actorV31236.maxStagger = MONGSE_newMaxStaggerV31236;
+  MONGSE_actorV31236.stagger = Math.round(
+    MONGSE_newMaxStaggerV31236 * MONGSE_staggerRatioV31236,
+  );
+  MONGSE_actorV31236.combatProgressionV31236 = !0;
+  MONGSE_actorV31236.combatProgressionZoneV31236 = MONGSE_zoneV31236;
+  MONGSE_actorV31236.combatProgressionBaseMaxHpV31236 = MONGSE_oldMaximumV31236;
+  MONGSE_actorV31236.combatProgressionBaseMaxStaggerV31236 =
+    MONGSE_oldMaxStaggerV31236;
+  MONGSE_actorV31236.targetCombatSecondsV31236 =
+    MONGSE_targetCombatSecondsV31236(MONGSE_actorV31236, MONGSE_zoneV31236);
+  MONGSE_actorV31236.expectedHeroDpsV31236 =
+    MONGSE_expectedHeroDpsV31236(MONGSE_zoneV31236);
+  MONGSE_actorV31236.outgoingAttackScaleV31236 =
+    MONGSE_outgoingAttackScaleV31236(MONGSE_actorV31236, MONGSE_zoneV31236);
+  MONGSE_actorV31236.attackCooldownScaleV31236 =
+    MONGSE_attackCooldownScaleV31236(MONGSE_actorV31236, MONGSE_zoneV31236);
+  MONGSE_actorV31236.profileDamageFloorV31236 = MONGSE_profileDamageFloorV31236(
+    MONGSE_actorV31236,
+    MONGSE_zoneV31236,
+  );
+  MONGSE_actorV31236.patternCadenceSecondsV31236 =
+    MONGSE_patternCadenceSecondsV31236(MONGSE_actorV31236, MONGSE_zoneV31236);
+  MONGSE_actorV31236.expectedPatternCyclesV31236 = Number(
+    (
+      MONGSE_actorV31236.targetCombatSecondsV31236 /
+      MONGSE_actorV31236.patternCadenceSecondsV31236
+    ).toFixed(3),
+  );
+  MONGSE_actorV31236.burstDamageRatioV31236 = MONGSE_burstDamageRatioV31236(
+    MONGSE_actorV31236,
+    MONGSE_zoneV31236,
+  );
+  return {
+    applied: !0,
+    zone: MONGSE_zoneV31236,
+    oldMaxHp: MONGSE_oldMaximumV31236,
+    maxHp: MONGSE_actorV31236.maxHp,
+    hp: MONGSE_actorV31236.hp,
+    healthRatioBefore: MONGSE_healthRatioV31236,
+    healthRatioAfter:
+      MONGSE_actorV31236.hp / Math.max(1, MONGSE_actorV31236.maxHp),
+    targetSeconds: MONGSE_actorV31236.targetCombatSecondsV31236,
+    expectedDps: MONGSE_actorV31236.expectedHeroDpsV31236,
+    expectedPatternCycles: MONGSE_actorV31236.expectedPatternCyclesV31236,
+  };
+}

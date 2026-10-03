@@ -1,0 +1,29 @@
+function HAPIL_clearSkillBitmapV31317(...args) {
+  const image = args[0];
+  // Explicit actor cut-ins supplied by collaboration use their independent
+  // entry/exit choreography. They are never combat-bitmaps by accident.
+  const alpha = policy.opacity * clamp(policy.layer);
+  if (!(alpha > 0)) {
+    counts.muted++;
+    return;
+  }
+  const oldAlpha = this.globalAlpha,
+    blend = this.globalCompositeOperation,
+    filter = this.filter,
+    shadow = this.shadowBlur;
+  this.globalAlpha = alpha;
+  this.globalCompositeOperation = "source-over";
+  this.filter = "none";
+  this.shadowBlur = 0;
+  try {
+    counts.bitmapDraws++;
+    if (policy.layer < 1) counts.ghosts++;
+    else counts.primary++;
+    return original.apply(this, padded(args, policy.padding));
+  } finally {
+    this.globalAlpha = oldAlpha;
+    this.globalCompositeOperation = blend;
+    this.filter = filter;
+    this.shadowBlur = shadow;
+  }
+}

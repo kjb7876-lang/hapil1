@@ -1,0 +1,6 @@
+function MONGSE_progressionActorKeyV31236(
+  MONGSE_actorV31236,
+  MONGSE_zoneIdV31236,
+) {
+  return `${MONGSE_zoneIdV31236}|${MONGSE_actorV31236?.boss ? `boss` : `midboss`}|${MONGSE_actorV31236?.id ?? ``}`;
+}

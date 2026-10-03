@@ -1,0 +1,235 @@
+function HAPIL_showDeathVerseRC59(state, pending) {
+  if (typeof document === "undefined" || !document.body) return false;
+  const previous = document.getElementById("hapil-death-verse-rc59");
+  if (previous?.finishRC121) previous.finishRC121();
+  else previous?.remove();
+  const root = document.createElement("div");
+  root.id = "hapil-death-verse-rc59";
+  root.tabIndex = -1;
+  root.setAttribute("role", "dialog");
+  root.setAttribute("aria-modal", "true");
+  root.setAttribute("aria-labelledby", "hapil-death-verse-title-rc59");
+  Object.assign(root.style, {
+    position: "fixed",
+    inset: "0",
+    zIndex: "100000",
+    display: "grid",
+    placeItems: "center",
+    boxSizing: "border-box",
+    padding: "max(16px, 4vw)",
+    background: "rgba(3,5,12,.92)",
+    color: "#f4f0e5",
+    fontFamily: "system-ui,sans-serif",
+  });
+  const card = document.createElement("section");
+  Object.assign(card.style, {
+    width: "min(620px,100%)",
+    maxHeight: "calc(100svh - 32px)",
+    overflowY: "auto",
+    boxSizing: "border-box",
+    padding: "clamp(22px,5vw,42px)",
+    border: "1px solid rgba(232,202,125,.75)",
+    borderRadius: "18px",
+    background: "linear-gradient(145deg,#171827,#090c15)",
+    boxShadow: "0 24px 100px rgba(0,0,0,.7)",
+    textAlign: "center",
+  });
+  const eyebrow = document.createElement("p");
+  eyebrow.textContent = "EGO COLLAPSE · REBIRTH";
+  Object.assign(eyebrow.style, {
+    letterSpacing: ".16em",
+    fontSize: "12px",
+    color: "#e8ca7d",
+    margin: "0 0 12px",
+  });
+  const title = document.createElement("h2");
+  title.id = "hapil-death-verse-title-rc59";
+  title.textContent = "죽음은 끝이 아니라 다시 걷는 문턱";
+  Object.assign(title.style, {
+    fontSize: "clamp(24px,5vw,36px)",
+    lineHeight: "1.2",
+    margin: "0 0 20px",
+  });
+  const verse1 = document.createElement("blockquote");
+  verse1.textContent = "“나는 부활이요 생명이니”";
+  Object.assign(verse1.style, {
+    fontSize: "clamp(21px,4vw,29px)",
+    lineHeight: "1.5",
+    margin: "12px 0 4px",
+    color: "#fff4d1",
+  });
+  const ref1 = document.createElement("p");
+  ref1.textContent = "요한복음 11:25";
+  Object.assign(ref1.style, {
+    margin: "0 0 20px",
+    fontSize: "14px",
+    color: "#d2c8ab",
+  });
+  const verse2 = document.createElement("p");
+  verse2.textContent = "“하나님의 은사는 그리스도 예수 안에 있는 영생이니라”";
+  Object.assign(verse2.style, {
+    fontSize: "16px",
+    lineHeight: "1.6",
+    margin: "14px 0 4px",
+    color: "#d9e5ff",
+  });
+  const ref2 = document.createElement("p");
+  ref2.textContent = "로마서 6:23";
+  Object.assign(ref2.style, {
+    margin: "0 0 18px",
+    fontSize: "13px",
+    color: "#aebbd5",
+  });
+  const route = document.createElement("p");
+  route.textContent = pending?.firstEpisodeRestart
+    ? "에피소드 1의 첫 전장으로 되돌아갑니다."
+    : "가장 최근에 방문한 쉼터에서 다시 일어납니다.";
+  Object.assign(route.style, {
+    fontSize: "14px",
+    lineHeight: "1.55",
+    margin: "10px 0 22px",
+    color: "#c9cddd",
+  });
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = pending?.firstEpisodeRestart
+    ? "처음부터 다시"
+    : "쉼터에서 일어나기";
+  Object.assign(button.style, {
+    minHeight: "48px",
+    padding: "10px 24px",
+    border: "1px solid #f3d88e",
+    borderRadius: "999px",
+    background: "#d9b65e",
+    color: "#11131a",
+    fontSize: "16px",
+    fontWeight: "800",
+    cursor: "pointer",
+  });
+  card.append(eyebrow, title, verse1, ref1, verse2, ref2, route, button);
+  root.append(card);
+  // RC121_DEATH_DIALOG: a stopped simulation cannot advance its own dialog.
+  // Use visible wall time and release only the reading lock this dialog owns.
+  const reading = window.__HAPIL_READING_V31342__;
+  const wasReadingBlocked = reading?.blocked === true;
+  const controls = () => window.__HAPIL_CONTROLS_V31329__?.binding;
+  const automatic = () =>
+    HAPIL_isFullAutoV31329(controls()?.settings?.current ?? {}) &&
+    controls()?.settings?.current?.autoStoryAdvance !== false;
+  const label = button.textContent,
+    autoDelay = 3;
+  const autoStatus = document.createElement("p"),
+    hold = document.createElement("button");
+  autoStatus.setAttribute("aria-live", "polite");
+  Object.assign(autoStatus.style, {
+    fontSize: "13px",
+    minHeight: "20px",
+    margin: "16px 0 8px",
+    color: "#c9cddd",
+  });
+  hold.type = "button";
+  hold.textContent = "자동 재시작 일시정지";
+  hold.dataset.deathAutoPauseRc121 = "true";
+  Object.assign(hold.style, {
+    padding: "8px 16px",
+    border: "1px solid #798194",
+    borderRadius: "12px",
+    background: "#171827",
+    color: "#e8edf5",
+    cursor: "pointer",
+  });
+  card.append(autoStatus, hold);
+  let closed = false,
+    timer = null,
+    elapsed = 0,
+    last = performance.now(),
+    held = false;
+  const finish = (event) => {
+    if (closed) return;
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation?.();
+    }
+    closed = true;
+    if (timer !== null) clearTimeout(timer);
+    document.removeEventListener("keydown", onKey, true);
+    root.remove();
+    if (reading?.deathVerseOwnerRC121 === root) {
+      delete reading.deathVerseOwnerRC121;
+      reading.blocked =
+        wasReadingBlocked || window.__HAPIL_STORY_RC51__?.isOpen?.() === true;
+    }
+    if (controls()?.state?.current === state)
+      controls()?.input?.current?.clear?.();
+  };
+  root.finishRC121 = finish;
+  const onKey = (event) => {
+    if (
+      event.key === "Enter" ||
+      event.key === "Escape" ||
+      event.key === " " ||
+      event.key === "Spacebar"
+    )
+      finish(event);
+    else {
+      event.stopPropagation();
+      event.stopImmediatePropagation?.();
+    }
+  };
+  hold.addEventListener("click", () => {
+    held = !held;
+    last = performance.now();
+    hold.textContent = held ? "자동 재시작 계속" : "자동 재시작 일시정지";
+  });
+  const tick = () => {
+    if (closed) return;
+    const binding = controls();
+    if (!root.isConnected || binding?.state?.current !== state) {
+      finish();
+      return;
+    }
+    const now = performance.now(),
+      dt = Math.max(0, Math.min(0.25, (now - last) / 1000));
+    last = now;
+    const full = automatic(),
+      otherModal = !!binding?.modal?.current;
+    hold.hidden = !full;
+    if (full && !held && !document.hidden && !otherModal) {
+      elapsed += dt;
+    } else if (!full) elapsed = 0;
+    autoStatus.textContent = !full
+      ? "버튼 또는 Enter로 다시 시작합니다."
+      : held
+        ? "자동 재시작을 일시정지했습니다."
+        : otherModal
+          ? "열린 메뉴를 닫으면 자동 재시작합니다."
+          : "완전자동 · " +
+            Math.max(1, Math.ceil(autoDelay - elapsed)) +
+            "초 후 " +
+            label;
+    root.dataset.autoRemainingRc121 = String(Math.max(0, autoDelay - elapsed));
+    if (
+      full &&
+      !held &&
+      !document.hidden &&
+      !otherModal &&
+      elapsed >= autoDelay
+    ) {
+      finish();
+      return;
+    }
+    timer = setTimeout(tick, 100);
+  };
+  button.addEventListener("click", finish);
+  document.addEventListener("keydown", onKey, true);
+  document.body.append(root);
+  if (reading) {
+    reading.deathVerseOwnerRC121 = root;
+    reading.blocked = true;
+  }
+  root.focus();
+  button.focus();
+  tick();
+  return true;
+}

@@ -1,0 +1,4 @@
+function HAPIL_clearPatternLocksOnMapExitRC64(state, zone, ...args) {
+  window.__HAPIL_DANMAKU_V31316__?.clearMap?.(state);
+  return enterBase.call(this, state, zone, ...args);
+}

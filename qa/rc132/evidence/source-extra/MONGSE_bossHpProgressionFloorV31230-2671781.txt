@@ -1,0 +1,51 @@
+function MONGSE_bossHpProgressionFloorV31230(
+  MONGSE_actorV31230,
+  MONGSE_zoneV31230 = ``,
+) {
+  if (!MONGSE_actorV31230?.boss && !MONGSE_actorV31230?.midboss) return 0;
+  const MONGSE_resolvedZoneV31230 = MONGSE_bossCombatZoneV31230(
+      MONGSE_actorV31230,
+      MONGSE_zoneV31230,
+    ),
+    MONGSE_orderV31230 = Number(N?.[MONGSE_resolvedZoneV31230]?.order ?? -1),
+    MONGSE_tierV31230 = MONGSE_actorV31230.boss ? `boss` : `midboss`,
+    MONGSE_factoryMultiplierV31230 = MONGSE_actorV31230.boss
+      ? Number(Nr ?? 1)
+      : Number(Mr ?? 1);
+  if (!Number.isFinite(MONGSE_orderV31230) || MONGSE_orderV31230 < 0) return 0;
+  let MONGSE_floorV31230 = 0;
+  for (const MONGSE_entryV31230 of MONGSE_activeBossActorsV31224?.() ?? []) {
+    if (
+      (MONGSE_tierV31230 === `boss` && !MONGSE_entryV31230.boss) ||
+      (MONGSE_tierV31230 === `midboss` && !MONGSE_entryV31230.midboss)
+    )
+      continue;
+    const MONGSE_entryOrderV31230 = Number(
+      N?.[MONGSE_entryV31230.zone]?.order ?? -1,
+    );
+    if (
+      !Number.isFinite(MONGSE_entryOrderV31230) ||
+      MONGSE_entryOrderV31230 > MONGSE_orderV31230
+    )
+      continue;
+    const MONGSE_factoryMaxV31230 = Math.max(
+        1,
+        Math.round(
+          Number(MONGSE_entryV31230.actor?.hp ?? 1) *
+            MONGSE_factoryMultiplierV31230,
+        ),
+      ),
+      MONGSE_scaledFactoryMaxV31230 = Math.round(
+        MONGSE_factoryMaxV31230 *
+          MONGSE_bossHpScaleV31230(
+            MONGSE_entryV31230.actor,
+            MONGSE_entryV31230.zone,
+          ),
+      );
+    MONGSE_floorV31230 = Math.max(
+      MONGSE_floorV31230,
+      MONGSE_scaledFactoryMaxV31230,
+    );
+  }
+  return MONGSE_floorV31230;
+}

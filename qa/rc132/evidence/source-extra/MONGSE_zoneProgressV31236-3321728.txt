@@ -1,0 +1,7 @@
+function MONGSE_zoneProgressV31236(MONGSE_zoneIdV31236 = ``) {
+  return MONGSE_clampBossProgressionV31236(
+    MONGSE_zoneRowV31236(MONGSE_zoneIdV31236)?.progress ?? 0,
+    0,
+    1,
+  );
+}

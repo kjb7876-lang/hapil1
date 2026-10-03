@@ -1,0 +1,317 @@
+(attempt = 0) => {
+  if (window.__HAPIL_V31300_PATCH__?.allPass !== true) {
+    if (attempt < 760)
+      setTimeout(() => installV31301AutoProgress(attempt + 1), 0);
+    return;
+  }
+
+  const baseReadSave = ji;
+  ji = function HAPIL_readSaveV31301(rawSave) {
+    const normalized = baseReadSave(rawSave);
+    if (!normalized) return normalized;
+    const withEntryFlow = {
+      ...normalized,
+      entryFlowCompletedV31301:
+        rawSave?.entryFlowCompletedV31301 === true &&
+        rawSave?.zone === normalized.zone,
+    };
+    const raw = rawSave?.hapilFinalBattleV31301;
+    if (!raw || typeof raw !== "object" || raw.boss?.id !== "c104-boss")
+      return withEntryFlow;
+    const number = (value, fallback, min, max) => {
+      const parsed = Number(value);
+      return Number.isFinite(parsed)
+        ? Math.max(min, Math.min(max, parsed))
+        : fallback;
+    };
+    return {
+      ...withEntryFlow,
+      hapilFinalBattleV31301: {
+        stage: Math.round(number(raw.stage, 0, 0, 7)),
+        elapsed: number(raw.elapsed, 0, 0, 3600),
+        combatElapsedRC79:
+          raw.combatElapsedRC79 == null
+            ? null
+            : number(raw.combatElapsedRC79, 0, 0, 3600),
+        secondPhaseActive: raw.secondPhaseActive === true,
+        completed: raw.completed === true,
+        samongActive: raw.samongActive === true,
+        monochromeActiveV31377:
+          raw.monochromeActiveV31377 === true ||
+          raw.samongActive === true ||
+          Number(raw.stage ?? 0) >= 5,
+        finalHitCommittedV31377: raw.finalHitCommittedV31377 === true,
+        awakeningPendingRC108: raw.awakeningPendingRC108 === true,
+        awakeningCommittedRC108:
+          raw.awakeningCommittedRC108 === true ||
+          (Number(raw.stage ?? 0) >= 5 && raw.awakeningPendingRC108 !== true),
+        boss: {
+          id: "c104-boss",
+          hp: number(raw.boss.hp, 1, 0.1, 250000),
+          maxHp: number(raw.boss.maxHp, 1, 1, 250000),
+          originalMaxHp: number(raw.boss.originalMaxHp, 1, 1, 250000),
+          fixedPhase: Math.round(number(raw.boss.fixedPhase, 0, 0, 12)),
+          currentPhase: Math.round(number(raw.boss.currentPhase, 1, 0, 12)),
+          firstDefeat: raw.boss.firstDefeat === true,
+          secondPhase: raw.boss.secondPhase === true,
+        },
+      },
+    };
+  };
+
+  const baseSerializeSave = Fi;
+  Fi = function HAPIL_serializeSaveV31301(...args) {
+    const serialized = baseSerializeSave(...args);
+    const state = args[0];
+    serialized.entryFlowCompletedV31301 =
+      !!state &&
+      (MONGSE_isRestZone(state.zone)
+        ? !MONGSE_isRestPortalLocked31226(state)
+        : !MONGSE_isEncounterLocked31226(state));
+    const battle = state?.hapilFinalBattleV31300;
+    const boss = state?.enemies?.find((entry) => entry.id === "c104-boss");
+    if (state?.zone !== "cult04" || !battle || !boss) return serialized;
+    return {
+      ...serialized,
+      hapilFinalBattleV31301: {
+        stage: Math.max(0, Math.min(7, Math.round(Number(battle.stage ?? 0)))),
+        elapsed: Math.max(
+          0,
+          Math.min(
+            3600,
+            Number(state.time ?? 0) -
+              Number(battle.startedAt ?? state.time ?? 0),
+          ),
+        ),
+        secondPhaseActive: battle.secondPhaseActive === true,
+        completed: battle.completed === true,
+        samongActive: state.hapilSamongActiveV31300 === true,
+        combatElapsedRC79: Math.max(0, Number(battle.combatElapsedRC79) || 0),
+        monochromeActiveV31377: battle.monochromeActiveV31377 === true,
+        finalHitCommittedV31377: battle.finalHitCommittedV31377 === true,
+        awakeningPendingRC108: battle.awakeningPendingRC108 === true,
+        awakeningCommittedRC108: battle.awakeningCommittedRC108 === true,
+        boss: {
+          id: boss.id,
+          hp: Number(boss.hp ?? 1),
+          maxHp: Number(boss.maxHp ?? 1),
+          originalMaxHp: Number(
+            boss.hapilOriginalMaxHpV31300 ?? boss.maxHp ?? 1,
+          ),
+          fixedPhase: Number(boss.fixedPhase ?? 0),
+          currentPhase: Number(boss.currentPhase ?? 1),
+          firstDefeat: boss.hapilFirstDefeatV31300 === true,
+          secondPhase: boss.hapilSecondPhaseV31300 === true,
+        },
+      },
+    };
+  };
+
+  const basePhaseGateHealth = MONGSE_phaseGateHealth;
+  MONGSE_phaseGateHealth = function HAPIL_phaseGateHealthV31301(
+    state,
+    enemy,
+    damage,
+  ) {
+    const transition = state?.hapilFinalBattleV31300;
+    if (
+      state?.zone === "cult04" &&
+      enemy?.id === "c104-boss" &&
+      enemy.hapilSecondPhaseV31300 &&
+      transition?.stage >= 7
+    ) {
+      const floor = window.__HAPIL_RC79__?.finalFloor(state, enemy) ?? 0;
+      if (floor > 0 && Number(enemy.hp) - Number(damage) < floor)
+        return Math.min(Number(enemy.hp), floor);
+    }
+    const protectedTransition =
+      (window.__HAPIL_MODES_V31346__?.mode(state) ??
+        state?.gameModeV31346 ??
+        "STORY") === "STORY" &&
+      state?.zone === "cult04" &&
+      enemy?.id === "c104-boss" &&
+      enemy.hapilFirstDefeatV31300 === true &&
+      transition &&
+      transition.completed !== true &&
+      Number(transition.stage ?? 0) < 7;
+    if (protectedTransition) {
+      enemy.hapilTransitionProtectedV31301 = true;
+      return Math.max(1, Number(enemy.hp ?? 1));
+    }
+    const automaticFinal =
+      window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ === true &&
+      (window.__HAPIL_MODES_V31346__?.mode(state) ??
+        state?.gameModeV31346 ??
+        "STORY") === "STORY" &&
+      state?.zone === "cult04" &&
+      enemy?.id === "c104-boss" &&
+      enemy.hapilSecondPhaseV31300 === true &&
+      state.hapilFinalBattleV31300?.monochromeActiveV31377 === true &&
+      Number(state.hapilFinalBattleV31300?.stage ?? 0) >= 7 &&
+      Math.max(0, Number(enemy.hp ?? 0) - Number(damage ?? 0)) <= 0;
+    if (automaticFinal) {
+      enemy.hapilAutoFinalHitV31301 = true;
+      enemy.hapilMonochromeFinalHitV31377 = true;
+      transition.finalHitCommittedV31377 = true;
+      transition.finalHitModeV31377 = "full-auto";
+      return 0;
+    }
+    return basePhaseGateHealth(state, enemy, damage);
+  };
+
+  const basePersistentTick = MONGSE_tickPersistentBossCastProtection;
+  MONGSE_tickPersistentBossCastProtection =
+    function HAPIL_tickFinalBattleV31301(state) {
+      const endingWasCommitted =
+        state?.hapilEndingCleared === true ||
+        MONGSE_storageGet("hapilCampaignCompleteV31301") === "true";
+      const result = basePersistentTick(state);
+      if (
+        (window.__HAPIL_MODES_V31346__?.mode(state) ??
+          state?.gameModeV31346 ??
+          "STORY") !== "STORY"
+      )
+        return result;
+      const battle = state?.hapilFinalBattleV31300;
+      const enemy =
+        battle && state.enemies?.find((entry) => entry.id === battle.bossId);
+      if (battle?.completed && state?.zone === "cult04") {
+        state.hapilFinalCombatClearedV31301 = true;
+        if (!endingWasCommitted) {
+          state.hapilEndingCleared = false;
+          MONGSE_storageSet("hapilEndingCleared", "false");
+          window.__HAPIL_ENDING_CLEARED_V31300__ = false;
+        }
+        return result;
+      }
+      if (!battle || !enemy || !battle.secondPhaseActive) return result;
+      const elapsed = Number(state.time ?? 0) - Number(battle.startedAt ?? 0);
+      if (battle.stage < 6 && elapsed >= 5.7) {
+        battle.stage = 6;
+        state.floatTexts?.push({
+          id: state.fxSerial++,
+          x: enemy.x,
+          y: enemy.y,
+          born: state.time,
+          duration: 1.75,
+          text: "그는 자신의 자아 하나로 수많은 사람을 통제하고 있었다.",
+          color: "#ff76a8",
+          critical: true,
+        });
+        state.floatTexts?.push({
+          id: state.fxSerial++,
+          x: state.x,
+          y: state.y,
+          born: state.time + 0.08,
+          duration: 1.75,
+          text: "내 안에는 서로를 지우지 않은 두 의지가 있었다.",
+          color: "#d9fbff",
+          critical: true,
+        });
+        window.dispatchEvent?.(
+          new CustomEvent("hapil:final-event", {
+            detail: {
+              phase: "duel",
+              zone: state.zone,
+              bossId: enemy.id,
+              stage: 6,
+            },
+          }),
+        );
+      }
+      if (battle.stage < 7 && elapsed >= 6.75) {
+        battle.stage = 7;
+        enemy.invulnerableUntil = state.time;
+        enemy.phaseTransitionUntil = state.time;
+        enemy.readyAt = Math.max(Number(enemy.readyAt ?? 0), state.time + 0.28);
+        enemy.patternReadyAt = Math.max(
+          Number(enemy.patternReadyAt ?? 0),
+          state.time + 0.62,
+        );
+        state.invulnerableUntil = Math.max(
+          Number(state.invulnerableUntil ?? 0),
+          state.time + 0.4,
+        );
+        state.heroStatus =
+          window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__ === true
+            ? "사몽 결전 · 자동전투가 마지막 의지를 잇는다"
+            : "사몽 결전 · 마지막 타격은 직접 수행";
+        window.dispatchEvent?.(
+          new CustomEvent("hapil:final-event", {
+            detail: {
+              phase: "resume",
+              zone: state.zone,
+              bossId: enemy.id,
+              stage: 7,
+            },
+          }),
+        );
+      }
+      return result;
+    };
+
+  const route = [];
+  const seen = new Set();
+  let cursor = "hub";
+  while (cursor && N[cursor] && !seen.has(cursor)) {
+    route.push(cursor);
+    seen.add(cursor);
+    cursor = N[cursor].next ?? null;
+  }
+  const routeComplete =
+    route[0] === "hub" &&
+    route.at(-1) === "village" &&
+    route.length === Object.keys(N).length;
+  const gates = freeze({
+    inheritedStory: window.__HAPIL_V31300_PATCH__?.allPass === true,
+    settingsDefaults:
+      Br.autoCombat === false &&
+      Br.autoPortal === true &&
+      Br.autoStoryAdvance === true,
+    fullRouteGraph: routeComplete,
+    finalStageRepair:
+      MONGSE_tickPersistentBossCastProtection.name ===
+      "HAPIL_tickFinalBattleV31301",
+    automaticFinalPolicy:
+      MONGSE_phaseGateHealth.name === "HAPIL_phaseGateHealthV31301",
+    additiveFinalSave:
+      ji.name === "HAPIL_readSaveV31301" &&
+      Fi.name === "HAPIL_serializeSaveV31301",
+    transitionRestoreProtection:
+      HAPIL_restoreFinalBattleV31301.name === "HAPIL_restoreFinalBattleV31301",
+    finalEndingCommit:
+      HAPIL_commitFinalEndingV31301.name === "HAPIL_commitFinalEndingV31301",
+    clueOverlayRenderer:
+      HAPIL_ClueOverlayV31301.name === "HAPIL_ClueOverlayV31301",
+  });
+  window.__HAPIL_AUTOPROGRESS_V31301__ = freeze({
+    installed: true,
+    version: VERSION,
+    route: freeze([...route]),
+    plan: HAPIL_autoProgressPlanV31301,
+    drive: HAPIL_driveAutoProgressV31301,
+    storyDelay: HAPIL_autoStoryDelayV31301,
+    restoreFinalBattle: HAPIL_restoreFinalBattleV31301,
+    restoreEntryFlow: HAPIL_restoreEntryFlowV31301,
+    commitFinalEnding: HAPIL_commitFinalEndingV31301,
+    settingsKeys: freeze([
+      "autoCombat",
+      "autoPortal",
+      "autoStoryAdvance",
+      "autoSkillTree",
+    ]),
+    policies: freeze({
+      manualWhenOff: true,
+      noEarlyPortal: true,
+      oneInteractionCooldownSeconds: 0.62,
+      finalHit: "manual input or explicit auto-battle after the resume stage",
+      finalCompletion:
+        "committed only after the final interlude reaches village",
+      clueOverlay:
+        "visible for manual play and timed only during explicit auto progression",
+    }),
+    gates,
+    allPass: Object.values(gates).every(Boolean),
+  });
+  MONGSE_ASSET_VERSION = "31301";
+};

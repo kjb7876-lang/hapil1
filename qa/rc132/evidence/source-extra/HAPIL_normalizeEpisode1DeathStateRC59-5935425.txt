@@ -1,0 +1,16 @@
+function HAPIL_normalizeEpisode1DeathStateRC59(raw, ...args) {
+  const save = normalizeBase.call(this, raw, ...args);
+  if (!save) return save;
+  const completed = HAPIL_completedZonesRC59(save);
+  save.episode1ACompleteRC59 =
+    raw?.episode1ACompleteRC59 === true ||
+    completed.has("ep1a11") ||
+    ["dreamRest", "restEp1b"].includes(save.zone) ||
+    String(save.zone ?? "").startsWith("ep1b");
+  save.lastShelterZoneRC59 = HAPIL_isShelterRC59(raw?.lastShelterZoneRC59)
+    ? raw.lastShelterZoneRC59
+    : null;
+  save.midbossDuoSpawnedRC59 =
+    raw?.zone !== "ep1a07" && raw?.midbossDuoSpawnedRC59 === true;
+  return save;
+}

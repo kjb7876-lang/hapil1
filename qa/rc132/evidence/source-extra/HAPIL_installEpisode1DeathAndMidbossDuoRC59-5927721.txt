@@ -1,0 +1,335 @@
+function HAPIL_installEpisode1DeathAndMidbossDuoRC59(attempt) {
+  "use strict";
+  const maxAttempts = 900;
+  let installed = false;
+  const pendingDeaths = new WeakMap();
+  function complete(state) {
+    return HAPIL_isEpisode1ACompleteRC59(state);
+  }
+  function destination(state) {
+    return HAPIL_episode1DeathDestinationRC59(state);
+  }
+  function saveCurrent(state) {
+    const control = window.__HAPIL_CONTROLS_V31329__;
+    const binding = control?.binding;
+    if (
+      !state ||
+      binding?.state?.current !== state ||
+      window.__HAPIL_PARTY_V31322__?.status?.role === "guest" ||
+      window.__HAPIL_PARTY_V31322__?.blocksSave?.()
+    )
+      return false;
+    try {
+      const hero = binding.hero?.current ?? state.activeHeroId ?? "hwando";
+      const passives = binding.passives?.current ?? {};
+      const shards = binding.shards?.current ?? 0;
+      const payload = Fi(state, hero, [], passives, shards);
+      return MONGSE_writeSave("auto", payload)?.ok === true;
+    } catch {
+      return false;
+    }
+  }
+  function resetAtShelter(state, zone) {
+    state.zone = zone;
+    state.enemies = [];
+    state.egoDrops = [];
+    state.effects = [];
+    state.floatTexts = [];
+    state.defeated = [];
+    state.spawnedWaves = new Set();
+    state.completedWaves31228 = new Set();
+    state.bossDefeated = HAPIL_completedZonesRC59(state).has(zone);
+    state.targetEnemyId = null;
+    state.supportCall = null;
+    state.midbossDuoSpawnedRC59 = false;
+    state.zoneEntryFlowZone31226 = zone;
+    state.encounterDialogue31226 = null;
+    state.encounterLockUntil31226 = 0;
+    state.encounterWallUnlockAtV31227 = 0;
+    state.restDialogueComplete31226 = true;
+    state.restPortalUnlockAt31226 = Number(state.time ?? 0);
+    state.restPortalWallUnlockAtV31227 = 0;
+    state.x = Number(oe?.x ?? state.x ?? 16);
+    state.y = Number(oe?.y ?? state.y ?? 16);
+    MONGSE_prepareRestEncounter31226?.(state, zone, false);
+    state.restDialogueComplete31226 = true;
+    state.restPortalUnlockAt31226 = Number(state.time ?? 0);
+    state.restPortalWallUnlockAtV31227 = 0;
+    return true;
+  }
+  function beforeRespawn(state) {
+    const zone = destination(state);
+    if (!zone) return false;
+    const firstEpisodeRestart = zone === "dist00";
+    if (firstEpisodeRestart) {
+      for (const completed of HAPIL_EPISODE1A_RESET_ZONES_RC59)
+        state.completedZones?.delete?.(completed);
+      state.frontierZone = "dist00";
+      state.episode1ACompleteRC59 = false;
+      state.lastShelterZoneRC59 = null;
+      state.midbossDuoSpawnedRC59 = false;
+      state.zone = "dist00";
+      ii(state, "dist00", false);
+    } else {
+      state.episode1ACompleteRC59 = true;
+      state.lastShelterZoneRC59 = zone;
+      resetAtShelter(state, zone);
+    }
+    pendingDeaths.set(state, { zone, firstEpisodeRestart });
+    state.deathRespawnZoneRC59 = zone;
+    return true;
+  }
+  function afterRespawn(state) {
+    const pending = pendingDeaths.get(state);
+    if (!pending) return false;
+    pendingDeaths.delete(state);
+    state.lastDeathScriptureRC59 = "John 11:25; Romans 6:23";
+    state.deathRespawnZoneRC59 = pending.zone;
+    saveCurrent(state);
+    HAPIL_showDeathVerseRC59(state, pending);
+    return true;
+  }
+  function visit(state) {
+    if (
+      !state ||
+      state.practiceV31329 ||
+      state.practicePatternV31365 ||
+      !HAPIL_isShelterRC59(state.zone) ||
+      !complete(state)
+    )
+      return false;
+    state.episode1ACompleteRC59 = true;
+    if (state.lastShelterZoneRC59 === state.zone) return false;
+    state.lastShelterZoneRC59 = state.zone;
+    saveCurrent(state);
+    return true;
+  }
+  function pairPlan(zone, plan) {
+    if (!plan || !Array.isArray(plan.enemies)) return plan;
+    const leaders = plan.enemies.filter((actor) => actor?.midboss);
+    if (!leaders.length) return plan;
+    if (leaders.length >= 2) {
+      if (leaders.length <= 3) return plan;
+      const keep = new Set(leaders.slice(0, 3));
+      return {
+        ...plan,
+        mode: String(plan.mode ?? "roster") + "+midboss-trio-rc59",
+        enemies: plan.enemies.filter(
+          (actor) => !actor?.midboss || keep.has(actor),
+        ),
+      };
+    }
+    const leaderIds = new Set(leaders.map((actor) => String(actor.id)));
+    const unpaired = leaders.filter(
+      (actor) =>
+        !String(actor.id ?? "").endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59) &&
+        !leaderIds.has(String(actor.id) + HAPIL_MIDBOSS_DUO_SUFFIX_RC59),
+    );
+    if (!unpaired.length) return plan;
+    const enemies = [...plan.enemies],
+      twins = [];
+    for (const first of unpaired) {
+      const twin = HAPIL_createMidbossDuoRC59(null, first, zone);
+      if (!twin) continue;
+      while (enemies.length + twins.length >= 8) {
+        let remove = -1;
+        for (let i = enemies.length - 1; i >= 0; i--)
+          if (
+            enemies[i] !== first &&
+            !enemies[i].boss &&
+            !enemies[i].midboss &&
+            enemies[i].requiredForClear !== false
+          ) {
+            remove = i;
+            break;
+          }
+        if (remove < 0) break;
+        enemies.splice(remove, 1);
+      }
+      twins.push(twin);
+    }
+    for (const first of unpaired) {
+      const twin = twins.find((actor) => actor.duoMateOfRC59 === first.id);
+      if (!twin) continue;
+      const index = enemies.indexOf(first);
+      enemies.splice(index < 0 ? enemies.length : index + 1, 0, twin);
+    }
+    if (!twins.length) return plan;
+    return {
+      ...plan,
+      mode: String(plan.mode ?? "roster") + "+midboss-duo-rc59",
+      enemies,
+    };
+  }
+  function restoreProgress(state, save) {
+    if (!state) return false;
+    state.episode1ACompleteRC59 =
+      save?.episode1ACompleteRC59 === true ||
+      HAPIL_isEpisode1ACompleteRC59(state);
+    const savedShelter = save?.lastShelterZoneRC59;
+    state.lastShelterZoneRC59 = HAPIL_isShelterRC59(savedShelter)
+      ? savedShelter
+      : HAPIL_isShelterRC59(state.zone) && state.episode1ACompleteRC59
+        ? state.zone
+        : HAPIL_latestShelterRC59(state);
+    state.midbossDuoSpawnedRC59 =
+      save?.midbossDuoSpawnedRC59 === true ||
+      (state.enemies ?? []).some(
+        (actor) =>
+          actor?.midboss &&
+          String(actor.id ?? "").endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59),
+      );
+    return true;
+  }
+  function audit() {
+    const companionRows = (N?.dist04?.enemies ?? []).filter((actor) =>
+      /되살아난|부활자/.test(String(actor?.name ?? "")),
+    );
+    const firstWave = typeof ti === "function" ? ti("dist04", 1) : [];
+    const present = companionRows.filter((row) =>
+      firstWave.some((actor) => actor.id === row.id),
+    );
+    const zones = Object.keys(N ?? {}).filter((zone) =>
+      (N[zone]?.enemies ?? []).some((actor) => actor?.midboss),
+    );
+    return {
+      version: "RC59",
+      deathStartZone: "dist00",
+      episode1AClearMarker: "ep1a11",
+      shelterZones: Object.keys(N ?? {}).filter(HAPIL_isShelterRC59),
+      companionFight: {
+        zone: "dist04",
+        actors: companionRows.map((actor) => actor.id),
+        firstWaveActors: present.map((actor) => actor.id),
+        assets: companionRows.map((actor) => actor.sprite),
+        allPresent:
+          companionRows.length >= 2 && present.length === companionRows.length,
+      },
+      midbossZones: zones,
+      cult03PreservedApostateDuo: true,
+    };
+  }
+  function install() {
+    if (installed) return true;
+    if (
+      !window.__HAPIL_V31346_RELEASE__?.installed ||
+      !window.__HAPIL_FLOW_V31345__?.installed ||
+      !window.__HAPIL_MODES_V31346__?.installed ||
+      typeof MONGSE_initialRosterPlanV31228 !== "function" ||
+      typeof MONGSE_writeSave !== "function" ||
+      typeof Fi !== "function" ||
+      typeof ji !== "function" ||
+      typeof ii !== "function" ||
+      typeof Ii !== "function"
+    )
+      return false;
+    const serializeBase = Fi,
+      normalizeBase = ji,
+      restoreEntryBase = HAPIL_restoreEntryFlowV31301;
+    const restoreEnemiesBase = Ii,
+      enterBase = ii,
+      rosterBase = MONGSE_initialRosterPlanV31228;
+    Fi = function HAPIL_saveEpisode1DeathStateRC59(state, ...args) {
+      const payload = serializeBase.call(this, state, ...args);
+      if (payload && state) {
+        payload.episode1ACompleteRC59 = HAPIL_isEpisode1ACompleteRC59(state);
+        payload.lastShelterZoneRC59 = HAPIL_isShelterRC59(
+          state.lastShelterZoneRC59,
+        )
+          ? state.lastShelterZoneRC59
+          : null;
+        payload.midbossDuoSpawnedRC59 = state.midbossDuoSpawnedRC59 === true;
+      }
+      return payload;
+    };
+    ji = function HAPIL_normalizeEpisode1DeathStateRC59(raw, ...args) {
+      const save = normalizeBase.call(this, raw, ...args);
+      if (!save) return save;
+      const completed = HAPIL_completedZonesRC59(save);
+      save.episode1ACompleteRC59 =
+        raw?.episode1ACompleteRC59 === true ||
+        completed.has("ep1a11") ||
+        ["dreamRest", "restEp1b"].includes(save.zone) ||
+        String(save.zone ?? "").startsWith("ep1b");
+      save.lastShelterZoneRC59 = HAPIL_isShelterRC59(raw?.lastShelterZoneRC59)
+        ? raw.lastShelterZoneRC59
+        : null;
+      save.midbossDuoSpawnedRC59 =
+        raw?.zone !== "ep1a07" && raw?.midbossDuoSpawnedRC59 === true;
+      return save;
+    };
+    HAPIL_restoreEntryFlowV31301 = function HAPIL_restoreEpisode1DeathStateRC59(
+      state,
+      save,
+      ...args
+    ) {
+      const result = restoreEntryBase.call(this, state, save, ...args);
+      restoreProgress(state, save);
+      return result;
+    };
+    Ii = function HAPIL_restoreMidbossPairRC59(save, ...args) {
+      const rows = restoreEnemiesBase.call(this, save, ...args);
+      return HAPIL_restoreMidbossDuoRC59(save, rows);
+    };
+    ii = function HAPIL_enterMidbossPairRC59(state, zone, ...args) {
+      const result = enterBase.call(this, state, zone, ...args);
+      if (state) {
+        const enemies = state.enemies ?? [];
+        state.midbossDuoSpawnedRC59 = enemies.some(
+          (actor) =>
+            actor?.midboss &&
+            String(actor.id ?? "").endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59),
+        );
+        for (const first of enemies) {
+          if (
+            !first?.midboss ||
+            String(first.id ?? "").endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59)
+          )
+            continue;
+          const twin = enemies.find(
+            (actor) => actor?.duoMateOfRC59 === first.id,
+          );
+          if (twin) HAPIL_positionMidbossDuoRC59(state, zone, first, twin);
+        }
+      }
+      return result;
+    };
+    MONGSE_initialRosterPlanV31228 = function HAPIL_pairEveryInitialMidbossRC59(
+      zone,
+    ) {
+      return pairPlan(zone, rosterBase.call(this, zone));
+    };
+    installed = true;
+    MONGSE_ASSET_VERSION = "31599";
+    window.MONGSE_ASSET_VERSION = "31599";
+    window.__HAPIL_RC59_RELEASE__ = Object.freeze({
+      installed: true,
+      version: "RC59",
+      cacheKey: 35901,
+      baseVersion: "RC58",
+      deathPolicy:
+        "Episode 1-A restarts at dist00 until ep1a11 is cleared; subsequent deaths return to the latest shelter.",
+      midbossPolicy:
+        "Two or three midboss actors per encounter; cult03 keeps its authored apostate boss and gains a midboss partner.",
+    });
+    window.__HAPIL_EPISODE1_RC59__ = Object.freeze({
+      installed: true,
+      version: "RC59",
+      isEpisode1AComplete: HAPIL_isEpisode1ACompleteRC59,
+      respawnDestination: HAPIL_episode1DeathDestinationRC59,
+      beforeRespawn,
+      afterRespawn,
+      visit,
+      saveCurrent,
+      makeMidbossDuo: HAPIL_createMidbossDuoRC59,
+      positionMidbossDuo: HAPIL_positionMidbossDuoRC59,
+      audit,
+    });
+    return true;
+  }
+  function schedule() {
+    if (install() || ++attempt >= maxAttempts) return;
+    if (typeof setTimeout === "function") setTimeout(schedule, 0);
+  }
+  schedule();
+}

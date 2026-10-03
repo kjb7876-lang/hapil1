@@ -1,0 +1,3 @@
+function clearAll() {
+  for (const s of Array.from(active)) clear(s.input);
+}

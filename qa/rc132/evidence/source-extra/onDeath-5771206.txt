@@ -1,0 +1,12 @@
+function onDeath(s, a) {
+  if (
+    !s?.practicePatternV31365 ||
+    a.id !== s.practicePatternV31365.bossId ||
+    a.hp > 0
+  )
+    return false;
+  complete(s, true, "defeated");
+  s.enemies = s.enemies.filter((e) => e !== a);
+  s.bossDefeated = true;
+  return true;
+}

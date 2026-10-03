@@ -1,0 +1,20 @@
+function restoreProgress(state, save) {
+  if (!state) return false;
+  state.episode1ACompleteRC59 =
+    save?.episode1ACompleteRC59 === true ||
+    HAPIL_isEpisode1ACompleteRC59(state);
+  const savedShelter = save?.lastShelterZoneRC59;
+  state.lastShelterZoneRC59 = HAPIL_isShelterRC59(savedShelter)
+    ? savedShelter
+    : HAPIL_isShelterRC59(state.zone) && state.episode1ACompleteRC59
+      ? state.zone
+      : HAPIL_latestShelterRC59(state);
+  state.midbossDuoSpawnedRC59 =
+    save?.midbossDuoSpawnedRC59 === true ||
+    (state.enemies ?? []).some(
+      (actor) =>
+        actor?.midboss &&
+        String(actor.id ?? "").endsWith(HAPIL_MIDBOSS_DUO_SUFFIX_RC59),
+    );
+  return true;
+}

@@ -1,0 +1,63 @@
+function MONGSE_scheduleWrathBossSequence(e, t, n, r, i) {
+  if (
+    !e ||
+    t?.id !== `b07-boss` ||
+    i?.sevenSinMechanic !== `wrath-ignite` ||
+    !i.telekineticRain
+  )
+    return null;
+  let a = dt(
+      e.zone,
+      {
+        x: e.x + (e.moveVx ?? 0) * 0.42,
+        y: e.y + (e.moveVy ?? 0) * 0.42,
+      },
+      0.48,
+    ),
+    o = Math.max(0.001, Math.hypot(a.x - t.x, a.y - t.y)),
+    s = Math.min(6.4, o + 1.25),
+    c = dt(
+      e.zone,
+      { x: t.x + ((a.x - t.x) / o) * s, y: t.y + ((a.y - t.y) / o) * s },
+      0.82,
+    ),
+    l = Math.max(0.001, Math.hypot(c.x - t.x, c.y - t.y)),
+    u = r + 0.26,
+    d = e.fxSerial++,
+    f = {
+      id: d,
+      sourceId: t.id,
+      born: Math.max(e.time, u - 0.78),
+      at: u,
+      x: c.x,
+      y: c.y,
+      originX: t.x,
+      originY: t.y,
+      damage: 18 + Math.min(4, n * 2),
+      boss: !0,
+      patternSet: t.patternSet,
+      radius: l,
+      innerRadius: 0,
+      width: 0.82,
+      shape: `line`,
+      color: `#ff421f`,
+      accent: `#ffd166`,
+      status: `echo`,
+      statusValue: 0.34,
+      label: `분노 · 점화돌진`,
+      perfectWindow: 0.32,
+      sevenSinMechanic: `wrath-ignite`,
+      sevenSinImpactSprite: MONGSE_SEVEN_SINS_THROWABLES.wrath,
+      wrathDashSequence: !0,
+    };
+  return (
+    (e.pendingHits ??= []).push(f),
+    (t.wrathDashSequenceId = d),
+    (t.wrathDashAt = u + MONGSE_impactClearGap(f)),
+    (t.wrathDashPhase = n),
+    (t.wrathDashTargetX = c.x),
+    (t.wrathDashTargetY = c.y),
+    (t.wrathIgniteUntil = u),
+    f
+  );
+}

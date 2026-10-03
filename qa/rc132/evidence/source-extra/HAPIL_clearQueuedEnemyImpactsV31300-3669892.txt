@@ -1,0 +1,14 @@
+function HAPIL_clearQueuedEnemyImpactsV31300(state, sourceId, reason = false) {
+  if (reason === "BREAK") {
+    return {
+      pendingHits: 0,
+      impactQueue: 0,
+      telekineticCasts: 0,
+      spatialRiftCasts: 0,
+      hostileProjectiles: 0,
+      remaining: countSourceCombat(state, sourceId),
+      preservedByNonInterruptPolicyV31300: true,
+    };
+  }
+  return baseClearQueuedEnemyImpactsV31300(state, sourceId, reason);
+}
