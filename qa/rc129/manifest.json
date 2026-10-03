@@ -1,0 +1,40 @@
+{
+  "version": "RC129",
+  "runtimeCommit": "44ac87ad3ce1d1e2005a61e86cc45cfce6dbb2ea",
+  "startingMain": "57c21a250fd386f9d9b6bb73bda95d8e24abf10a",
+  "preservedConcurrentMain": "abda841205b1413cea906f253715dedf643a61a7",
+  "hashAlgorithm": "SHA-256",
+  "hashSource": "Actual passing Actions run 37091633730, job 111113029537, candidate-manifest and log; not inferred from filenames.",
+  "changedRuntime": {
+    "index.html": "a3bc03a402b3070edee1aaaf76c1835820c9d0aebde74ccfa6a451f341949050",
+    "assets/rc95/combat-flow.js": "3162818e9fe9882437591f1531daba39e2cbfefb469b28d136fd15da8fa22d3e",
+    "assets/rc129/danmaku-director.js": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+    "assets/rc129/danmaku-hud.js": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+  },
+  "unchangedLegacyRuntime": {
+    "assets/index-v31526.js": "d6aab3f6e5ef1430e0cdc830b50d5b4648d66f8e456d99c76fc6d9ca74d38c03",
+    "assets/rc77/connected-laser.js": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+    "assets/rc127/combat-policy.js": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+    "assets/rc127/dark-jelly.js": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+    "assets/combat-v31412/skill-completion.js": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+    "assets/rc91/samong-awakening.js": "e10f8ca145914fe517cbf88012b73a74a5db6c57e8bab5334993c12bb97e9f79",
+    "assets/combat-v31402/combat-core.js": "c718770947023a573a9b57cbefcb319940cd434029592fda51bf8d94f7822ece",
+    "assets/rc23/feedback.js": "ee519dc6db0990c043c0615914dda6253760644f1dddb2a54724019905aa61b0",
+    "assets/rc128/awakening-policy.js": "00c65c9b0d3e60cb1c481f95c60fdca48f0690eb8788d37273b2d28c2eb99c7e",
+    "assets/rc128/combat-feedback.js": "64277031f08373305f9a4a0e168ad4032024174857085524b4866d194d1dfbd3"
+  },
+  "preservedNarrationRuntime": {
+    "assets/story-narration/v1/player.js": "fff475985015c6ac772cb50f47301eaded0022d4ae418b91bd208cc2712798fb",
+    "assets/story-narration/v1/surfaces.js": "1ae8911e3a613de99386c0e53903d5bace96c39912e6fa54735f5f713172a7dd",
+    "assets/story-narration/v1/manifest.json": "b95530b0e452538b6dad0c4026ac89045c91024bea3cc2135bb49352c2fcc651",
+    "assets/rc51/story.js": "b5b6b89901029373a116f753faae87a27bbf185b7a8479a7ca38569b81ded384",
+    "data/story-rc51.js": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+  },
+  "mergeVerification": {
+    "method": "Tree overlay on concurrent main af7209607614dfe20e265a3de9f470817c457314, with both parent histories retained.",
+    "diffAgainstConcurrentMain": "11 files only: two new runtime modules, two small runtime integrations, test/workflow files and handoff. No narration/audio/proofreading files removed or edited.",
+    "approvedRC128IndexProjection": "c26193527a73f0b952f10296d8333f565188f3db048954736cbfbb25eae53a42",
+    "allowedIndexDeltas": "RC129 module tags and RC95 cache key, plus the independently merged narration module tags/cache keys. Actual extended HTML was used for native rendering."
+  },
+  "coverageLimit": "Geometric corridor samples use a world-coordinate radius model. They do not prove safety for every bitmap-based projected hit footprint, wall, simultaneous boss attack or full natural route. No claim of a universal no-blink safe corridor."
+}
