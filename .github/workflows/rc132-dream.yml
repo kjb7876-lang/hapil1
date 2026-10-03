@@ -7,12 +7,14 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: rc132-candidate
-  cancel-in-progress: false
+  group: rc132-parallel-validation
+  cancel-in-progress: true
 jobs:
-  candidate:
+  prepare:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 10
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -21,13 +23,12 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Prepare isolated source and browser tools
+      - name: Prepare precise source transformer
         run: |
-          npm install --prefix "$RUNNER_TEMP/rc132-runtime" --no-save --package-lock=false acorn@8.15.0 prettier@3.6.2 playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
-          echo "RC132_MODULES=$RUNNER_TEMP/rc132-runtime/node_modules" >> "$GITHUB_ENV"
-          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc132-runtime/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_QA_OUTPUT=$GITHUB_WORKSPACE/qa/rc132/evidence" >> "$GITHUB_ENV"
-      - name: Apply exact candidate edits and bind preservation proof
+          npm install --prefix "$RUNNER_TEMP/rc132" --no-save --package-lock=false acorn@8.15.0 prettier@3.6.2 > "$RUNNER_TEMP/npm.log" 2>&1
+          echo "RC132_MODULES=$RUNNER_TEMP/rc132/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc132-prepare" >> "$GITHUB_ENV"
+      - name: Apply and record exactly authorized runtime changes
         run: |
           set -euo pipefail
           mkdir -p "$HAPIL_QA_OUTPUT"
@@ -39,49 +40,98 @@ jobs:
           node --check assets/index-v31526.js
           node --check assets/combat-v31412/outgoing-native.js
           node tests/rc132-unit.cjs > "$HAPIL_QA_OUTPUT/unit.log" 2>&1
-      - name: Commit candidate without publishing main
+      - name: Commit candidate without touching main
+        id: commit
         run: |
           git config user.name 'HAPIL RC132 candidate'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/index-v31526.js assets/combat-v31412/outgoing-native.js index.html tools/rc132-runtime-delta.json tools/rc130-preservation.cjs
           if ! git diff --cached --quiet; then
-            git commit -m 'RC132 record exact DREAM changes and historical preservation chain'
+            git commit -m 'RC132 finalize DREAM sustain, mirror removal and wrath exit consistency'
             git push origin HEAD:refs/heads/fix/rc132-dream-combat-audio
           fi
-          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-runtime-commit.txt"
-      - name: Install browser and media verifier
-        run: |
-          node "$RUNNER_TEMP/rc132-runtime/node_modules/playwright/cli.js" install --with-deps chromium > "$HAPIL_QA_OUTPUT/browser-install.log" 2>&1
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/rc132-runtime/node_modules/playwright")
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
-          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
-          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
-          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
-          sudo apt-get update -qq && sudo apt-get install -y ffmpeg > "$HAPIL_QA_OUTPUT/media-install.log" 2>&1
-          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
-      - name: Test exact current runtime, never a baseline substitution
-        run: |
-          node <<'NODE'
-          const fs=require('fs'),path=require('path'),cp=require('child_process'),base=process.env.HAPIL_QA_OUTPUT,report={testedCommit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),status:'running',suites:[]};
-          const suites=[['preservation','tools/rc132-preservation.cjs'],['rc132-browser','tests/rc132-browser.cjs'],['rc130-regression','tests/rc130-suite.cjs'],['release','tests/laser-release-gate.cjs']];
-          for(const[name,file]of suites){const out=path.join(base,name);fs.mkdirSync(out,{recursive:true});const start=Date.now(),r=cp.spawnSync(process.execPath,[file],{encoding:'utf8',maxBuffer:48*1024*1024,timeout:900000,env:{...process.env,HAPIL_QA_OUTPUT:out,HAPIL_RELEASE_OUTPUT:out}});fs.writeFileSync(path.join(out,'stdout.log'),r.stdout||'');fs.writeFileSync(path.join(out,'stderr.log'),r.stderr||'');const row={name,status:r.status===0&&!r.error?'passed':'failed',exitCode:r.status,durationMs:Date.now()-start,error:r.error?String(r.error):null};report.suites.push(row);fs.writeFileSync(path.join(base,'regression.json'),JSON.stringify(report,null,2));console.log('RC132_REGRESSION',JSON.stringify(row));}
-          report.status=report.suites.every(r=>r.status==='passed')?'passed':'failed';fs.writeFileSync(path.join(base,'regression.json'),JSON.stringify(report,null,2));process.exitCode=report.status==='passed'?0:1;
-          NODE
-      - name: Preserve exact evidence outside game branch
-        if: always()
-        env:
-          RESULT: ${{ job.status }}
-        run: |
-          mkdir -p qa/rc132/evidence
-          node -e "require('fs').writeFileSync('qa/rc132/evidence/workflow.json',JSON.stringify({run:process.env.GITHUB_RUN_ID,startingCommit:process.env.GITHUB_SHA,status:process.env.RESULT},null,2))"
-          git config user.name 'HAPIL RC132 evidence'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add qa/rc132/evidence
-          git commit -m "RC132 evidence $GITHUB_RUN_ID ($RESULT)"
-          git push origin HEAD:refs/heads/qa/rc132-$GITHUB_RUN_ID
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-commit.txt"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: rc132-${{ github.run_id }}
-          path: qa/rc132/evidence/
+          name: rc132-${{ github.run_id }}-prepare
+          path: ${{ runner.temp }}/rc132-prepare/
+          retention-days: 14
+  check:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: preservation
+            file: tools/rc132-preservation.cjs
+          - name: dream-browser
+            file: tests/rc132-browser.cjs
+          - name: core
+            file: tests/rc130-suite.cjs
+          - name: release
+            file: tests/laser-release-gate.cjs
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
+          fetch-depth: 1
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated testing tools
+        env:
+          SUITE: ${{ matrix.name }}
+        run: |
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc132-evidence" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc132-evidence" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/rc132-evidence"
+          if [ "$SUITE" != preservation ]; then
+            R="$RUNNER_TEMP/rc132-runtime"
+            npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0 > "$RUNNER_TEMP/npm.log" 2>&1
+            node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser-install.log" 2>&1
+            CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+            echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+            echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+            echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+            sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+            sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+            sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+            sudo apt-get update -qq && sudo apt-get install -y ffmpeg > "$RUNNER_TEMP/media-install.log" 2>&1
+            git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          fi
+      - name: Verify exact clean revision
+        env:
+          SUITE: ${{ matrix.name }}
+          SCRIPT: ${{ matrix.file }}
+          TESTED_COMMIT: ${{ needs.prepare.outputs.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$TESTED_COMMIT"
+          test -z "$(git status --porcelain)"
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),cp=require('child_process'),out=process.env.HAPIL_QA_OUTPUT,start=Date.now();const r=cp.spawnSync(process.execPath,[process.env.SCRIPT],{encoding:'utf8',maxBuffer:64*1024*1024,timeout:1200000});fs.writeFileSync(path.join(out,'suite-stdout.log'),r.stdout||'');fs.writeFileSync(path.join(out,'suite-stderr.log'),r.stderr||'');const result={name:process.env.SUITE,script:process.env.SCRIPT,testedCommit:process.env.TESTED_COMMIT,status:r.status===0&&!r.error?'passed':'failed',exitCode:r.status,durationMs:Date.now()-start,error:r.error?String(r.error):null};fs.writeFileSync(path.join(out,'suite-result.json'),JSON.stringify(result,null,2));console.log('RC132_SUITE_RESULT',JSON.stringify(result));process.exitCode=result.status==='passed'?0:1;
+          NODE
+      - name: Keep bounded source evidence on a separate branch
+        if: always()
+        env:
+          SUITE: ${{ matrix.name }}
+          RESULT: ${{ job.status }}
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),source=process.env.HAPIL_QA_OUTPUT,dest='qa/rc132/evidence';fs.mkdirSync(dest,{recursive:true});function walk(dir){if(!dir||!fs.existsSync(dir))return;for(const e of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,e.name);if(e.isDirectory())walk(f);else if(/\.(json|log|txt)$/.test(f)||/^wrath.*\.png$/.test(e.name)){const to=path.join(dest,path.relative(source,f));fs.mkdirSync(path.dirname(to),{recursive:true});fs.copyFileSync(f,to);}}}walk(source);fs.writeFileSync(dest+'/workflow.json',JSON.stringify({run:process.env.GITHUB_RUN_ID,name:process.env.SUITE,status:process.env.RESULT},null,2));
+          NODE
+          git config user.name 'HAPIL RC132 evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc132/evidence
+          git commit -m "RC132 $SUITE evidence $GITHUB_RUN_ID ($RESULT)"
+          git push origin HEAD:refs/heads/qa/rc132-$GITHUB_RUN_ID-$SUITE
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc132-${{ github.run_id }}-${{ matrix.name }}
+          path: ${{ runner.temp }}/rc132-evidence/
           retention-days: 14
