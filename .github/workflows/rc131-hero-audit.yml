@@ -2,7 +2,7 @@ name: RC131 hero image investigation
 on:
   push:
     branches: ['fix/rc131-hero-image-recovery']
-    paths: ['.github/workflows/rc131-hero-audit.yml']
+    paths: ['.github/workflows/rc131-hero-audit.yml','tests/rc131-hero-images.cjs']
 permissions:
   contents: read
 jobs:
@@ -18,13 +18,6 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
-      - name: Inspect final hero selection and existing retry ownership
-        run: |
-          node <<'NODE'
-          const fs=require('fs'),s=fs.readFileSync('assets/index-v31526.js','utf8');
-          for(const [term,count] of [['function queueImageIntegrity',10500],["const ROOT='./assets/hero_direction334/';",15500],['function MONGSE_pruneImageCache(',4500]]){const at=s.indexOf(term);console.log('\nSOURCE '+term+' LINE '+s.slice(0,at).split('\n').length+'\n'+s.slice(at,at+count));}
-          console.log('FINAL LN HOOKS');let pos=0,rows=[];for(const term of ['Ln = function','Ln=function','Tn = function','Tn=function']){pos=0;while((pos=s.indexOf(term,pos))>=0){rows.push([pos,s.slice(Math.max(0,pos-160),pos+1150)]);pos+=term.length;}}for(const row of rows.sort((a,b)=>a[0]-b[0]).slice(-12))console.log(row[0],row[1]);
-          NODE
       - name: Install browser runtime
         run: |
           npm install --prefix "$RUNNER_TEMP/rc131-runtime" --no-save --package-lock=false playwright@1.55.1 > /tmp/rc131-npm.log 2>&1
@@ -32,11 +25,15 @@ jobs:
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc131-runtime/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/rc131-runtime/node_modules/playwright")" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc131-baseline" >> "$GITHUB_ENV"
-      - name: Native direction regression
-        run: node tests/rc115-hero-directions-browser.cjs
-      - name: Native hero action regression
+      - name: Observe per-hero pixel and pending-image failures without hiding baseline results
+        run: node tests/rc131-hero-images.cjs --observe
+      - name: Print relevant native implementation
         if: always()
-        run: node tests/rc93-hero-actions-browser.cjs
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),s=fs.readFileSync('assets/index-v31526.js','utf8');
+          for(const term of ['function HAPIL_consistentHeroDrawRC5','const selected=options?.canonicalHeroRC5','function hero(ctx,cache,path,x,y,size,opts={})']){const at=s.indexOf(term);console.log('NATIVE_SOURCE_LINE',term,s.slice(0,Math.max(0,at)).split('\n').length);if(at>=0)console.log(s.slice(Math.max(0,at-5000),at+1800));}
+          NODE
       - uses: actions/upload-artifact@v7
         if: always()
         with:
