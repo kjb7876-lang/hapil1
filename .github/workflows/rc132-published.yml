@@ -1,0 +1,56 @@
+name: RC132 published Pages verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/index-v31526.js'
+      - 'assets/rc132/**'
+      - 'assets/combat-v31412/outgoing-native.js'
+      - 'qa/rc132/published.cjs'
+      - '.github/workflows/rc132-published.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare read-only browser
+        run: |
+          R="$RUNNER_TEMP/rc132-public-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc132-public" >> "$GITHUB_ENV"
+      - name: Verify exact public bytes and three real startup profiles
+        run: node qa/rc132/published.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc132-public-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc132-public/
+          retention-days: 14
+      - name: Preserve public results separately from main
+        if: always()
+        env:
+          RESULT: ${{ job.status }}
+        run: |
+          mkdir -p qa/rc132/public-evidence
+          if [ -d "$RUNNER_TEMP/rc132-public" ]; then cp -R "$RUNNER_TEMP/rc132-public/." qa/rc132/public-evidence/; fi
+          printf '{"run":%s,"attempt":%s,"testedCommit":"%s","status":"%s"}\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" "$GITHUB_SHA" "$RESULT" > qa/rc132/public-evidence/workflow.json
+          git config user.name 'HAPIL RC132 public evidence'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add qa/rc132/public-evidence
+          git commit -m "RC132 public evidence $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT ($RESULT)"
+          git push origin HEAD:refs/heads/qa/rc132-public-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT
