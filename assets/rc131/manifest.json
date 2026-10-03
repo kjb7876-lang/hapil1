@@ -1,0 +1,52 @@
+{
+  "version": "RC131",
+  "sourceArchive": "오디오2.zip",
+  "sourceAudioFiles": 47,
+  "selectionBasis": "supplied filename labels plus full-length decoder checks; subjective listening not performed",
+  "newUniqueRecordings": 3,
+  "priorUploadedRecordings": 8,
+  "newAudio": [
+    {
+      "role": "attack-wood",
+      "sourceFilename": "tree_weapon_attack_s_#2-1790999357019.mp3",
+      "sourceSha256": "d187038ced36e325e9470681c5e52b48b9b94635695f2eb7150dedf6e4de1715",
+      "sha256": "da6dccbac8aa25feff0c962d31c19d29a485d355122b18babc336020e639ba21",
+      "path": "./audio/rc131/attack-wood.ogg",
+      "duration": 2.28,
+      "bytes": 7110,
+      "classification": "supplied-filename labels; subjective listening not performed",
+      "processing": "Ogg Opus mono 24kbps/24kHz input; full-length; gain 0.45; 8ms onset and 45ms tail fades; no pitch change; native legacy fallback on unsupported codec",
+      "gitBlob": "57e38cafe6f9cd41a6f7bdb5bbabf761db33cb49"
+    },
+    {
+      "role": "attack-melee",
+      "sourceFilename": "Short_melee_hit_impa_#1-1791000243196.wav",
+      "sourceSha256": "0988d8f3fdee77dcfb84584429ab445c69082c217d44b5c083247dc4ff57d910",
+      "sha256": "805f8bbdb0d62c18b7b809d419a112daf121be1aaa1ef89a595b988973e0259d",
+      "path": "./audio/rc131/attack-melee.ogg",
+      "duration": 2.25,
+      "bytes": 7110,
+      "classification": "supplied-filename labels; subjective listening not performed",
+      "processing": "Ogg Opus mono 24kbps/24kHz input; full-length; gain 0.45; 8ms onset and 45ms tail fades; no pitch change; native legacy fallback on unsupported codec",
+      "gitBlob": "f91ab3b6f06b5c777ad9e1c7f49a8f030d00ba66"
+    },
+    {
+      "role": "parry",
+      "sourceFilename": "Perfect_parry_sound,_#2-1791000286664.wav",
+      "sourceSha256": "2defdc93671b6105c0f8efaa281597522cd6e8777898c8a92480a9a3e2956a2c",
+      "sha256": "b9b62396e0468842fc1180501590e244cb81daf62eb14040fedaaf1680c3dbdd",
+      "path": "./audio/rc131/parry.ogg",
+      "duration": 2.25,
+      "bytes": 7110,
+      "classification": "supplied-filename labels; subjective listening not performed",
+      "processing": "Ogg Opus mono 24kbps/24kHz input; full-length; gain 0.45; 8ms onset and 45ms tail fades; no pitch change; native legacy fallback on unsupported codec",
+      "gitBlob": "544d77c592d7d56e1044c60f8892f65e4fdaa1fa"
+    }
+  ],
+  "alias": {
+    "path": "./audio/rc131/hurt-neutral.ogg",
+    "sameBytesAs": "./audio/rc131/attack-melee.ogg",
+    "purpose": "nonvocal hurt fallback when character gender is unconfirmed"
+  },
+  "unassignedVoiceVariants": "Male/female variants not assigned without author-confirmed hero identity. Existing reviewed per-hero assignments remain authoritative."
+}
