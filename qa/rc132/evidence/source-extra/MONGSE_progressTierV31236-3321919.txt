@@ -1,0 +1,9 @@
+function MONGSE_progressTierV31236(MONGSE_zoneIdV31236 = ``) {
+  const MONGSE_displayIndexV31236 =
+    MONGSE_zoneRowV31236(MONGSE_zoneIdV31236)?.displayIndex ?? 1;
+  return MONGSE_displayIndexV31236 <= 18
+    ? `early`
+    : MONGSE_displayIndexV31236 <= 36
+      ? `middle`
+      : `late`;
+}

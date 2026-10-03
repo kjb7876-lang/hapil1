@@ -1,0 +1,332 @@
+[
+  {
+    "name": "MONGSE_zonePortalAnchors",
+    "path": "MONGSE_zonePortalAnchors-927785.txt",
+    "start": 927785,
+    "length": 1064
+  },
+  {
+    "name": "MONGSE_portalAnchorValid",
+    "path": "MONGSE_portalAnchorValid-928850.txt",
+    "start": 928850,
+    "length": 90
+  },
+  {
+    "name": "MONGSE_clearHostileProjectiles31215",
+    "path": "MONGSE_clearHostileProjectiles31215-945900.txt",
+    "start": 945900,
+    "length": 297
+  },
+  {
+    "name": "MONGSE_isRestPortalLocked31226",
+    "path": "MONGSE_isRestPortalLocked31226-1322650.txt",
+    "start": 1322650,
+    "length": 634
+  },
+  {
+    "name": "MONGSE_buildSpatialRiftPortals",
+    "path": "MONGSE_buildSpatialRiftPortals-1408262.txt",
+    "start": 1408262,
+    "length": 3001
+  },
+  {
+    "name": "MONGSE_clearSevenSinTransientState",
+    "path": "MONGSE_clearSevenSinTransientState-1451400.txt",
+    "start": 1451400,
+    "length": 712
+  },
+  {
+    "name": "MONGSE_clearQueuedEnemyImpacts",
+    "path": "MONGSE_clearQueuedEnemyImpacts-1468720.txt",
+    "start": 1468720,
+    "length": 3588
+  },
+  {
+    "name": "MONGSE_scheduleWrathBossSequence",
+    "path": "MONGSE_scheduleWrathBossSequence-1549415.txt",
+    "start": 1549415,
+    "length": 1537
+  },
+  {
+    "name": "MONGSE_impactClearGap",
+    "path": "MONGSE_impactClearGap-1561462.txt",
+    "start": 1561462,
+    "length": 88
+  },
+  {
+    "name": "MONGSE_bossHpProgressionFloorV31230",
+    "path": "MONGSE_bossHpProgressionFloorV31230-2671781.txt",
+    "start": 2671781,
+    "length": 1683
+  },
+  {
+    "name": "MONGSE_zoneProgressV31234",
+    "path": "MONGSE_zoneProgressV31234-3238614.txt",
+    "start": 3238614,
+    "length": 836
+  },
+  {
+    "name": "MONGSE_finiteBossProgressionV31236",
+    "path": "MONGSE_finiteBossProgressionV31236-3317621.txt",
+    "start": 3317621,
+    "length": 260
+  },
+  {
+    "name": "MONGSE_clampBossProgressionV31236",
+    "path": "MONGSE_clampBossProgressionV31236-3317883.txt",
+    "start": 3317883,
+    "length": 327
+  },
+  {
+    "name": "MONGSE_refreshBossProgressionZonesV31236",
+    "path": "MONGSE_refreshBossProgressionZonesV31236-3318762.txt",
+    "start": 3318762,
+    "length": 1288
+  },
+  {
+    "name": "MONGSE_zoneProgressV31236",
+    "path": "MONGSE_zoneProgressV31236-3321728.txt",
+    "start": 3321728,
+    "length": 189
+  },
+  {
+    "name": "MONGSE_progressTierV31236",
+    "path": "MONGSE_progressTierV31236-3321919.txt",
+    "start": 3321919,
+    "length": 292
+  },
+  {
+    "name": "MONGSE_progressionActorKeyV31236",
+    "path": "MONGSE_progressionActorKeyV31236-3327125.txt",
+    "start": 3327125,
+    "length": 209
+  },
+  {
+    "name": "MONGSE_applyBossProgressionV31236",
+    "path": "MONGSE_applyBossProgressionV31236-3332269.txt",
+    "start": 3332269,
+    "length": 4688
+  },
+  {
+    "name": "MONGSE_auditAllBossProgressionMapsV31236",
+    "path": "MONGSE_auditAllBossProgressionMapsV31236-3336959.txt",
+    "start": 3336959,
+    "length": 3546
+  },
+  {
+    "name": "MONGSE_probeBossProgressionV31236",
+    "path": "MONGSE_probeBossProgressionV31236-3340507.txt",
+    "start": 3340507,
+    "length": 2446
+  },
+  {
+    "name": "MONGSE_installBossProgressionV31236",
+    "path": "MONGSE_installBossProgressionV31236-3342955.txt",
+    "start": 3342955,
+    "length": 9662
+  },
+  {
+    "name": "MONGSE_cloneProgressiveEnemyV31236",
+    "path": "MONGSE_cloneProgressiveEnemyV31236-3344179.txt",
+    "start": 3344179,
+    "length": 359
+  },
+  {
+    "name": "MONGSE_scheduleBossProgressionInstallV31236",
+    "path": "MONGSE_scheduleBossProgressionInstallV31236-3353854.txt",
+    "start": 3353854,
+    "length": 332
+  },
+  {
+    "name": "HAPIL_clearQueuedEnemyImpactsV31300",
+    "path": "HAPIL_clearQueuedEnemyImpactsV31300-3669892.txt",
+    "start": 3669892,
+    "length": 474
+  },
+  {
+    "name": "HAPIL_autoProgressPlanV31301",
+    "path": "HAPIL_autoProgressPlanV31301-3686941.txt",
+    "start": 3686941,
+    "length": 2489
+  },
+  {
+    "name": "HAPIL_driveAutoProgressV31301",
+    "path": "HAPIL_driveAutoProgressV31301-3689432.txt",
+    "start": 3689432,
+    "length": 1917
+  },
+  {
+    "name": "HAPIL_clearAutoDecisionV31302",
+    "path": "HAPIL_clearAutoDecisionV31302-3717006.txt",
+    "start": 3717006,
+    "length": 285
+  },
+  {
+    "name": "syncPhaseDeathSprite",
+    "path": "syncPhaseDeathSprite-4158968.txt",
+    "start": 4158968,
+    "length": 748
+  },
+  {
+    "name": "HAPIL_syncRankedDeathPhaseV31311",
+    "path": "HAPIL_syncRankedDeathPhaseV31311-4191460.txt",
+    "start": 4191460,
+    "length": 232
+  },
+  {
+    "name": "HAPIL_narrativeDeathFieldsV31313",
+    "path": "HAPIL_narrativeDeathFieldsV31313-4246316.txt",
+    "start": 4246316,
+    "length": 132
+  },
+  {
+    "name": "deathFields",
+    "path": "deathFields-4252319.txt",
+    "start": 4252319,
+    "length": 376
+  },
+  {
+    "name": "HAPIL_clearSkillBitmapV31317",
+    "path": "HAPIL_clearSkillBitmapV31317-4434896.txt",
+    "start": 4434896,
+    "length": 841
+  },
+  {
+    "name": "clearOwner",
+    "path": "clearOwner-4502908.txt",
+    "start": 4502908,
+    "length": 634
+  },
+  {
+    "name": "beforeDeath",
+    "path": "beforeDeath-4503545.txt",
+    "start": 4503545,
+    "length": 1200
+  },
+  {
+    "name": "HAPIL_partyAutoProgressV31322",
+    "path": "HAPIL_partyAutoProgressV31322-4683194.txt",
+    "start": 4683194,
+    "length": 190
+  },
+  {
+    "name": "dashClear",
+    "path": "dashClear-5288253.txt",
+    "start": 5288253,
+    "length": 294
+  },
+  {
+    "name": "clear",
+    "path": "clear-5411685.txt",
+    "start": 5411685,
+    "length": 124
+  },
+  {
+    "name": "clearHazards",
+    "path": "clearHazards-5561124.txt",
+    "start": 5561124,
+    "length": 415
+  },
+  {
+    "name": "HAPIL_clearGateV31343",
+    "path": "HAPIL_clearGateV31343-5561609.txt",
+    "start": 5561609,
+    "length": 96
+  },
+  {
+    "name": "clear",
+    "path": "clear-5576901.txt",
+    "start": 5576901,
+    "length": 129
+  },
+  {
+    "name": "clearAll",
+    "path": "clearAll-5577033.txt",
+    "start": 5577033,
+    "length": 70
+  },
+  {
+    "name": "clearDialogue",
+    "path": "clearDialogue-5641282.txt",
+    "start": 5641282,
+    "length": 538
+  },
+  {
+    "name": "beforeDeath",
+    "path": "beforeDeath-5649233.txt",
+    "start": 5649233,
+    "length": 564
+  },
+  {
+    "name": "onDeath",
+    "path": "onDeath-5771206.txt",
+    "start": 5771206,
+    "length": 209
+  },
+  {
+    "name": "clear",
+    "path": "clear-5795088.txt",
+    "start": 5795088,
+    "length": 290
+  },
+  {
+    "name": "onDeath",
+    "path": "onDeath-5796682.txt",
+    "start": 5796682,
+    "length": 115
+  },
+  {
+    "name": "HAPIL_episode1DeathDestinationRC59",
+    "path": "HAPIL_episode1DeathDestinationRC59-5916277.txt",
+    "start": 5916277,
+    "length": 337
+  },
+  {
+    "name": "HAPIL_showDeathVerseRC59",
+    "path": "HAPIL_showDeathVerseRC59-5921645.txt",
+    "start": 5921645,
+    "length": 6074
+  },
+  {
+    "name": "HAPIL_installEpisode1DeathAndMidbossDuoRC59",
+    "path": "HAPIL_installEpisode1DeathAndMidbossDuoRC59-5927721.txt",
+    "start": 5927721,
+    "length": 10584
+  },
+  {
+    "name": "restoreProgress",
+    "path": "restoreProgress-5932764.txt",
+    "start": 5932764,
+    "length": 661
+  },
+  {
+    "name": "HAPIL_saveEpisode1DeathStateRC59",
+    "path": "HAPIL_saveEpisode1DeathStateRC59-5934958.txt",
+    "start": 5934958,
+    "length": 458
+  },
+  {
+    "name": "HAPIL_normalizeEpisode1DeathStateRC59",
+    "path": "HAPIL_normalizeEpisode1DeathStateRC59-5935425.txt",
+    "start": 5935425,
+    "length": 642
+  },
+  {
+    "name": "HAPIL_restoreEpisode1DeathStateRC59",
+    "path": "HAPIL_restoreEpisode1DeathStateRC59-5936102.txt",
+    "start": 5936102,
+    "length": 194
+  },
+  {
+    "name": "HAPIL_clearPatternLocksOnMapExitRC64",
+    "path": "HAPIL_clearPatternLocksOnMapExitRC64-5954256.txt",
+    "start": 5954256,
+    "length": 165
+  },
+  {
+    "name": "__HAPIL_RC95_NATIVE__",
+    "path": "__HAPIL_RC95_NATIVE__-5978774.txt",
+    "start": 5978774,
+    "length": 4519
+  }
+]

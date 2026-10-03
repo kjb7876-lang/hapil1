@@ -1,0 +1,28 @@
+function syncPhaseDeathSprite(actor, phase) {
+  const current = phaseSpriteAt(actor, phase);
+  if (
+    !current ||
+    !actor?.actionSprites ||
+    typeof actor.actionSprites !== "object"
+  )
+    return;
+  try {
+    actor.actionSprites.death = current;
+    actor.currentPhaseDeathSpriteV31311 = current;
+  } catch {}
+  if (Array.isArray(actor.actionSpritesByPhase)) {
+    const index = Math.max(
+      0,
+      Math.min(
+        actor.actionSpritesByPhase.length - 1,
+        actor.humanPhase0 ? Number(phase) : Number(phase) - 1,
+      ),
+    );
+    const sheet = actor.actionSpritesByPhase[index];
+    if (sheet && typeof sheet === "object") {
+      try {
+        sheet.death = current;
+      } catch {}
+    }
+  }
+}

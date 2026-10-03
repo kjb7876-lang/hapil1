@@ -1,0 +1,37 @@
+function MONGSE_zonePortalAnchors(e) {
+  let t = N?.[e],
+    n = [t?.map, ...(t?.mapVariants ?? [])].filter(Boolean).join(` `),
+    r,
+    i,
+    a = `diagonal`;
+  if (
+    /chapel|cathedral|throne|core|arena|court|palace|altar|gate|biovat|castle|kitchen/i.test(
+      n,
+    )
+  )
+    ((r = S(16.1, 16.1)), (i = S(4.1, 4.1)), (a = `south-north`));
+  else if (
+    /corridor|road|waterway|crosswalk|line|stair|harbor|port|village|hotel/i.test(
+      n,
+    )
+  )
+    ((r = S(3.2, 16.8)), (i = S(16.8, 3.2)), (a = `west-east`));
+  else if (/forest|swamp|jungle|meadow|garden|ruin/i.test(n))
+    ((r = S(4.2, 15.8)), (i = S(15.4, 5)), (a = `southwest-northeast`));
+  else {
+    let t = [...String(e)].reduce((e, t) => e + t.charCodeAt(0), 0) % 2;
+    ((r = t ? S(15.8, 15.8) : S(4.2, 15.8)),
+      (i = t ? S(4.2, 4.2) : S(15.8, 4.2)),
+      (a = t ? `south-north` : `southwest-northeast`));
+  }
+  let o = dt(e, r, 0.48),
+    s = dt(e, i, 0.82);
+  return {
+    zone: e,
+    theme: a,
+    entry: o,
+    exit: s,
+    interactionEntry: o,
+    interactionExit: s,
+  };
+}

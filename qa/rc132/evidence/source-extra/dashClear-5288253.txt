@@ -1,0 +1,13 @@
+function dashClear(s, a, dx, dy) {
+  const d = C().dangerContext(s, a),
+    length = Math.max(0.001, Math.hypot(dx, dy));
+  dx /= length;
+  dy /= length;
+  for (let i = 1; i <= 5; i++) {
+    const u = i / 5,
+      point = { x: a.x + dx * 2.5 * u, y: a.y + dy * 2.5 * u };
+    if (ut(s.zone, point.x, point.y, 0.48) || hazard(s, point, d, 0.24 * u) > 3)
+      return false;
+  }
+  return true;
+}

@@ -1,0 +1,9 @@
+function MONGSE_finiteBossProgressionV31236(
+  MONGSE_valueV31236,
+  MONGSE_fallbackV31236 = 0,
+) {
+  const MONGSE_numberV31236 = Number(MONGSE_valueV31236);
+  return Number.isFinite(MONGSE_numberV31236)
+    ? MONGSE_numberV31236
+    : MONGSE_fallbackV31236;
+}

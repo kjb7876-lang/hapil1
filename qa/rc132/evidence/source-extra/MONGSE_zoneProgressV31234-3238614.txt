@@ -1,0 +1,23 @@
+function MONGSE_zoneProgressV31234(MONGSE_zoneIdV31234) {
+  const MONGSE_zonesV31234 = MONGSE_combatZonesV31234(),
+    MONGSE_legacyProgressionZonesV31234 = MONGSE_zonesV31234.filter(
+      (MONGSE_zoneV31234) => MONGSE_zoneV31234.id !== `dist00`,
+    );
+  if (MONGSE_zoneIdV31234 === `dist00`) return 0;
+  const MONGSE_firstOrderV31234 = Number(
+      MONGSE_legacyProgressionZonesV31234[0]?.order ?? 1,
+    ),
+    MONGSE_lastOrderV31234 = Number(
+      MONGSE_legacyProgressionZonesV31234.at(-1)?.order ??
+        MONGSE_firstOrderV31234,
+    ),
+    MONGSE_orderV31234 = Number(
+      N?.[MONGSE_zoneIdV31234]?.order ?? MONGSE_firstOrderV31234,
+    );
+  return MONGSE_clampBossBalanceV31234(
+    (MONGSE_orderV31234 - MONGSE_firstOrderV31234) /
+      Math.max(1, MONGSE_lastOrderV31234 - MONGSE_firstOrderV31234),
+    0,
+    1,
+  );
+}

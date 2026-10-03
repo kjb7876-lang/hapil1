@@ -1,0 +1,47 @@
+function beforeDeath(s, a) {
+  if (!s || s.zone !== ZONE || !a || a.hp > 0 || !(s.enemies ?? []).includes(a))
+    return false;
+  if (own(a)) {
+    s.cosmicEncounterV31318 = { stage: "complete" };
+    s.clues?.add?.(DONE);
+    clearOwner(s, ID);
+    lastTick.delete(s);
+    return false; // Native death removes the actor, opens the original ending and awards once.
+  }
+  if (
+    a.id !== MASK ||
+    active(s) ||
+    s.clues?.has?.(DONE) ||
+    s.completedZones?.has?.(ZONE)
+  )
+    return false;
+  const now = finite(s.time),
+    next = makeActor(now);
+  clearOwner(s, MASK);
+  s.enemies = s.enemies.filter((e) => e.id !== MASK && e.id !== ID);
+  s.enemies.push(next);
+  s.cosmicEncounterV31318 = { stage: "active" };
+  s.clues?.add?.(START);
+  s.bossDefeated = false;
+  s.bossPhase = 1;
+  s.targetEnemyId = ID;
+  s.target = null;
+  s.path = [];
+  for (const wave of [1, 2, 3, 4]) s.spawnedWaves?.add?.(wave);
+  s.invulnerableUntil = Math.max(finite(s.invulnerableUntil), now + INTRO);
+  s.heroStatus = "가면 파괴 · 심연의 루시퍼가 드러납니다";
+  s.heroStatusUntil = now + INTRO;
+  s.floatTexts ??= [];
+  s.floatTexts.push({
+    id: s.fxSerial++,
+    x: ANCHOR.x,
+    y: ANCHOR.y,
+    born: now,
+    duration: INTRO,
+    text: "가면 붕괴 · EP1-A 최종 결전",
+    color: "#f3e8dc",
+    critical: true,
+  });
+  lastTick.set(s, now);
+  return true;
+}

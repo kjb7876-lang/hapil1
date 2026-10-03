@@ -1,0 +1,98 @@
+function MONGSE_clearQueuedEnemyImpacts(e, t, n = !1) {
+  if (!e || !t)
+    return {
+      pendingHits: 0,
+      impactQueue: 0,
+      telekineticCasts: 0,
+      spatialRiftCasts: 0,
+      hostileProjectiles: 0,
+      remaining: 0,
+    };
+  let MONGSE_forceCleanup31215 = n === !0 || typeof n == `string`,
+    MONGSE_cleanupReason31215 =
+      typeof n == `string` ? n : n === !0 ? `zone-transition` : `owner-cleanup`,
+    MONGSE_sourceEnemy = (e.enemies ?? []).find((e) => e.id === t),
+    MONGSE_preserveLaunchedReason31221 = [
+      `BREAK`,
+      `boss-death`,
+      `owner-cleanup`,
+    ].includes(MONGSE_cleanupReason31215),
+    MONGSE_keepActiveBossProjectile31221 = (r) => {
+      if (r?.sourceId !== t) return !1;
+      if (!MONGSE_isLaunchedBossOrMidbossProjectile31221(r, e)) return !1;
+      if (MONGSE_forceCleanup31215 && !MONGSE_preserveLaunchedReason31221)
+        return !1;
+      if (
+        !MONGSE_forceCleanup31215 &&
+        MONGSE_sourceEnemy &&
+        MONGSE_sourceEnemy.hp <= 0
+      )
+        return !1;
+      return MONGSE_preserveDetachedBossProjectile31221(
+        e,
+        r,
+        MONGSE_cleanupReason31215,
+      );
+    },
+    MONGSE_keepProtectedAtomic = (r) =>
+      !MONGSE_forceCleanup31215 &&
+      !!MONGSE_sourceEnemy &&
+      MONGSE_sourceEnemy.hp > 0 &&
+      r?.sourceId === t &&
+      r?.atomicBossCast31210 &&
+      Number(r?.interruptProtectedUntil31210 ?? 0) > Number(e.time ?? 0),
+    r = (e.pendingHits ?? []).length,
+    i = (e.impactQueue ?? []).length,
+    a = (e.telekineticCasts ?? []).length,
+    o = (e.spatialRiftCasts ?? []).length,
+    s = (e.hostileProjectiles ?? []).length;
+  MONGSE_forceCleanup31215 &&
+    !MONGSE_preserveLaunchedReason31221 &&
+    MONGSE_recordTrackedProjectilesBySource31215(
+      e,
+      t,
+      MONGSE_cleanupReason31215,
+    );
+  (e.hostileProjectiles ?? []).forEach((n) => {
+    n.sourceId === t &&
+      !MONGSE_keepProtectedAtomic(n) &&
+      !MONGSE_keepActiveBossProjectile31221(n) &&
+      MONGSE_recordProjectileRemoval31215(e, n, MONGSE_cleanupReason31215);
+  });
+  ((e.pendingHits = (e.pendingHits ?? []).filter(
+    (e) => e.sourceId !== t || MONGSE_keepProtectedAtomic(e),
+  )),
+    (e.impactQueue = (e.impactQueue ?? []).filter(
+      (e) => e.sourceId !== t || MONGSE_keepProtectedAtomic(e),
+    )),
+    (e.telekineticCasts = (e.telekineticCasts ?? []).filter(
+      (e) => e.sourceId !== t,
+    )),
+    (e.spatialRiftCasts = (e.spatialRiftCasts ?? []).filter(
+      (e) => e.sourceId !== t,
+    )),
+    (e.hostileProjectiles = (e.hostileProjectiles ?? []).filter(
+      (e) =>
+        e.sourceId !== t ||
+        MONGSE_keepProtectedAtomic(e) ||
+        MONGSE_keepActiveBossProjectile31221(e),
+    )),
+    MONGSE_sourceEnemy &&
+      ((MONGSE_sourceEnemy.wrathDashAt = 0),
+      (MONGSE_sourceEnemy.wrathDashSequenceId = 0),
+      (MONGSE_sourceEnemy.wrathIgniteUntil = 0)));
+  let c =
+    e.pendingHits.filter((e) => e.sourceId === t).length +
+    e.impactQueue.filter((e) => e.sourceId === t).length +
+    e.telekineticCasts.filter((e) => e.sourceId === t).length +
+    e.spatialRiftCasts.filter((e) => e.sourceId === t).length +
+    e.hostileProjectiles.filter((e) => e.sourceId === t).length;
+  return {
+    pendingHits: r - e.pendingHits.length,
+    impactQueue: i - e.impactQueue.length,
+    telekineticCasts: a - e.telekineticCasts.length,
+    spatialRiftCasts: o - e.spatialRiftCasts.length,
+    hostileProjectiles: s - e.hostileProjectiles.length,
+    remaining: c,
+  };
+}

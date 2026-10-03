@@ -1,0 +1,99 @@
+function MONGSE_buildSpatialRiftPortals(e, t, n, r) {
+  let MONGSE_projectedTarget = dt(
+      e.zone,
+      {
+        x: e.x + (e.moveVx ?? 0) * 0.38,
+        y: e.y + (e.moveVy ?? 0) * 0.38,
+      },
+      0.48,
+    ),
+    i = MONGSE_projectedTarget.x,
+    a = MONGSE_projectedTarget.y,
+    o = [...`${e.zone}:${t.id}:${r}`].reduce((e, t) => e + t.charCodeAt(0), 0),
+    s = Math.atan2(16 - a, 16 - i) + ((o % 7) - 3) * 0.055,
+    c = 0.94,
+    l = 2 * Math.PI - c,
+    u = 6,
+    d = [];
+  for (
+    let MONGSE_portalIndex = 0;
+    MONGSE_portalIndex < u;
+    MONGSE_portalIndex++
+  ) {
+    let t = s + c / 2 + ((MONGSE_portalIndex + 0.5) / u) * l,
+      n = null,
+      MONGSE_portalRadii = [8.7, 7.6, 6.5, 5.4, 4.4, 3.5];
+    for (let r = 0; r < 72 && !n; r++) {
+      let f = MONGSE_portalRadii[r % MONGSE_portalRadii.length],
+        p = Math.floor(r / MONGSE_portalRadii.length),
+        m = p === 0 ? 0 : Math.ceil(p / 2) * (p % 2 === 1 ? 0.075 : -0.075),
+        h = t + m,
+        g = dt(
+          e.zone,
+          { x: i + Math.cos(h) * f, y: a + Math.sin(h) * f },
+          0.48,
+        ),
+        _ = Math.atan2(g.y - a, g.x - i),
+        v = Math.hypot(g.x - i, g.y - a),
+        y = d.reduce(
+          (e, t) => Math.min(e, Math.hypot(g.x - t.x, g.y - t.y)),
+          1 / 0,
+        );
+      MONGSE_openArenaContains(g.x, g.y) &&
+        v >= 3.15 &&
+        y >= 1.15 &&
+        MONGSE_spatialAngleDelta(_, s) >= c / 2 + 0.035 &&
+        (n = { x: g.x, y: g.y, angle: _ });
+    }
+    if (!n) {
+      let r = [];
+      for (let MONGSE_gridX = 2.2; MONGSE_gridX <= 29.8; MONGSE_gridX += 1.38)
+        for (
+          let MONGSE_gridY = 2.2;
+          MONGSE_gridY <= 29.8;
+          MONGSE_gridY += 1.38
+        ) {
+          if (!MONGSE_openArenaContains(MONGSE_gridX, MONGSE_gridY)) continue;
+          let o = Math.atan2(MONGSE_gridY - a, MONGSE_gridX - i),
+            l = Math.hypot(MONGSE_gridX - i, MONGSE_gridY - a),
+            u = d.reduce(
+              (e, n) =>
+                Math.min(e, Math.hypot(MONGSE_gridX - n.x, MONGSE_gridY - n.y)),
+              1 / 0,
+            );
+          l >= 3.15 &&
+            u >= 1.15 &&
+            MONGSE_spatialAngleDelta(o, s) >= c / 2 + 0.035 &&
+            r.push({
+              x: MONGSE_gridX,
+              y: MONGSE_gridY,
+              angle: o,
+              score:
+                MONGSE_spatialAngleDelta(o, t) * 8 +
+                Math.abs(l - 7.4) +
+                ((o + MONGSE_gridX * 7 + MONGSE_gridY * 11) % 0.013),
+            });
+        }
+      n = r.sort((e, n) => e.score - n.score)[0];
+    }
+    let r = n?.x ?? i,
+      f = n?.y ?? a,
+      p = n?.angle ?? t;
+    d.push({
+      id: `${t.toFixed(4)}:${MONGSE_portalIndex}`,
+      x: r,
+      y: f,
+      angle: p,
+      aimAngle: Math.atan2(a - f, i - r),
+      rotation: ((o + MONGSE_portalIndex * 11) % 17) * 0.19,
+    });
+  }
+  return {
+    targetX: i,
+    targetY: a,
+    safeAngle: s,
+    safeArc: c,
+    safeLength: 7.4,
+    portals: d,
+  };
+}

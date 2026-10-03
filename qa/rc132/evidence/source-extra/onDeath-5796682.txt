@@ -1,0 +1,6 @@
+function onDeath(s, a) {
+  if (!a?.echoChildV31368) return false;
+  cancelChild(s, a, "destroyed");
+  stats.killed++;
+  return true;
+}

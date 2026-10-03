@@ -1,0 +1,19 @@
+function clearHazards(s) {
+  if (!gate(s).clear) return false;
+  MONGSE_clearHostileProjectiles31215(s, "clear");
+  for (const key of [
+    "pendingHits",
+    "impactQueue",
+    "telekineticCasts",
+    "spatialRiftCasts",
+    "pendingStrikes",
+    "enemyExitFxV31327",
+    "bossUltimateCastsV31334",
+  ])
+    if (Array.isArray(s[key])) s[key] = [];
+  s.effects = (s.effects ?? []).filter(
+    (e) => !e.sourceId && !e.hostile && !e.enemyAttackV31323,
+  );
+  s.zoneCombatQueueClearedAt = s.time;
+  return true;
+}

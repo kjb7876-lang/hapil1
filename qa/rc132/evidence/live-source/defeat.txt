@@ -1,0 +1,22 @@
+() => {
+                let e = (o.enemies ?? []).find(
+                  (e) => e.hp > 0 && (e.boss || e.midboss),
+                );
+                if (!e) return { pass: !1, reason: `boss-missing` };
+                let t = e.id,
+                  n = !!e.boss,
+                  r = !!e.midboss;
+                return (
+                  (e.hp = 0),
+                  Ke(e),
+                  {
+                    pass: !(o.enemies ?? []).some((e) => e.id === t),
+                    bossId: t,
+                    boss: n,
+                    midboss: r,
+                    remainingProjectiles: (o.hostileProjectiles ?? []).filter(
+                      (e) => e.sourceId === t,
+                    ).length,
+                  }
+                );
+              }

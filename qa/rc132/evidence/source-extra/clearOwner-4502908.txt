@@ -1,0 +1,21 @@
+function clearOwner(s, id) {
+  // Phase conversion withdraws this defeated form's attacks, without touching other actors.
+  for (const key of [
+    "pendingHits",
+    "impactQueue",
+    "hostileProjectiles",
+    "narrativeCasts",
+    "telekineticCasts",
+    "spatialRiftCasts",
+  ])
+    if (Array.isArray(s[key]))
+      s[key] = s[key].filter(
+        (e) => e?.sourceId !== id && e?.summonOwnerId !== id,
+      );
+  if (Array.isArray(s.effects))
+    s.effects = s.effects.filter((e) => e?.sourceId !== id);
+  if (Array.isArray(s.pendingStrikes))
+    s.pendingStrikes = s.pendingStrikes.filter((e) => e?.targetId !== id);
+  if (typeof MONGSE_cleanupEpisodeBossSummons === "function")
+    MONGSE_cleanupEpisodeBossSummons(s, id);
+}

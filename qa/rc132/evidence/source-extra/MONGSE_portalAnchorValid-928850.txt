@@ -1,0 +1,3 @@
+function MONGSE_portalAnchorValid(e, t, n = 0.48) {
+  return !!t && !ut(e, t.x, t.y, n);
+}

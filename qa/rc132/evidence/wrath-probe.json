@@ -1,0 +1,340 @@
+{
+  "status": "diagnostic_only",
+  "commit": "360d9c0dd5f657cbbda7c48d7126ec34a609e3c9",
+  "scope": "explicit post-defeat fixture; native QA defeat invoked, not natural campaign clear",
+  "errors": [],
+  "httpErrors": [],
+  "samples": [
+    {
+      "label": "before-defeat",
+      "zone": "ep1b07",
+      "time": 0.8233000000000004,
+      "hp": 240,
+      "hero": "hunter",
+      "x": 15.960084448358884,
+      "y": 15.90363533387842,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 0.9133999999999995,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.19339999999999963,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 0.33669999999999983,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.19339999999999963,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "combat",
+        "autoProgressReasonV31301": "hostiles-or-waves",
+        "autoDecisionClearReasonV31302": "auto-off",
+        "heroAutoTargetLockUntilV31237": 1.0833000000000002
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [],
+      "drops": [],
+      "enemies": [
+        {
+          "id": "b07-boss",
+          "hp": 45381.52462563801,
+          "maxHp": 45397,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "plan": {
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "story": false,
+      "ui": "적\n불을 지른 청소부 · 사탄\n45385\n아군\n악몽 사냥꾼 · 궁수\n240\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 2 / 100\n사몽각성 준비"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 1.893199999999999,
+      "hp": 240,
+      "hero": "hunter",
+      "x": 20.062342912054405,
+      "y": 11.851315064772754,
+      "flags": {
+        "bossDefeated": true,
+        "autoGrowthNextAt31226": 2.5064999999999995,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.19339999999999963,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 1.3365,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.19339999999999963,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "move",
+        "autoProgressReasonV31301": "combat-exit-portal",
+        "autoDecisionClearReasonV31302": "auto-off",
+        "heroAutoTargetLockUntilV31237": 1.0833000000000002,
+        "zoneCombatQueueClearedAt": 0.8633000000000004
+      },
+      "bossDefeated": true,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [
+        "ego-reward-v31217:ep1b07"
+      ],
+      "drops": [],
+      "enemies": [],
+      "flow": {
+        "clear": true,
+        "reason": "출구 개방"
+      },
+      "plan": {
+        "action": "move",
+        "reason": "combat-exit-portal",
+        "radius": 2.48,
+        "target": {
+          "x": 27.155056179775286,
+          "y": 4.84494382022472
+        }
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "story": false,
+      "ui": "적\n아군\n악몽 사냥꾼 · 궁수\n240\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 33 / 100\n사몽각성 준비"
+    },
+    {
+      "zone": "ep1b07",
+      "time": 2.926499999999998,
+      "hp": 240,
+      "hero": "hunter",
+      "x": 24.81977001829046,
+      "y": 7.151801744974284,
+      "flags": {
+        "bossDefeated": true,
+        "autoGrowthNextAt31226": 3.2898999999999994,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 0.19339999999999963,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 1.3365,
+        "frontierZone": "dist00",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 0.19339999999999963,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "move",
+        "autoProgressReasonV31301": "combat-exit-portal",
+        "autoDecisionClearReasonV31302": "auto-off",
+        "heroAutoTargetLockUntilV31237": 1.0833000000000002,
+        "zoneCombatQueueClearedAt": 0.8633000000000004
+      },
+      "bossDefeated": true,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "clues": [
+        "ego-reward-v31217:ep1b07"
+      ],
+      "drops": [],
+      "enemies": [],
+      "flow": {
+        "clear": true,
+        "reason": "출구 개방"
+      },
+      "plan": {
+        "action": "move",
+        "reason": "combat-exit-portal",
+        "radius": 2.48,
+        "target": {
+          "x": 27.155056179775286,
+          "y": 4.84494382022472
+        }
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "story": false,
+      "ui": "적\n아군\n악몽 사냥꾼 · 궁수\n240\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 33 / 100\n사몽각성 준비"
+    },
+    {
+      "zone": "ep1b08",
+      "time": 3.829799999999996,
+      "hp": 240,
+      "hero": "hunter",
+      "x": 27.50908161959355,
+      "y": 25.4008765005513,
+      "flags": {
+        "bossDefeated": false,
+        "autoGrowthNextAt31226": 3.8631999999999973,
+        "encounterLockUntil31226": 0,
+        "encounterWallUnlockAtV31227": 0,
+        "restPortalUnlockAt31226": 3.143199999999997,
+        "restPortalWallUnlockAtV31227": 0,
+        "directionLockUntil": 3.899799999999996,
+        "frontierZone": "ep1b08",
+        "heroHealingBlockedUntil": 0,
+        "combatEntryUnlockAtV31239": 3.143199999999997,
+        "restDialogueComplete31226": true,
+        "autoProgressEnabledV31301": true,
+        "autoProgressActionV31301": "wait",
+        "autoProgressReasonV31301": "transition-cooldown",
+        "autoDecisionClearReasonV31302": "auto-off",
+        "heroAutoTargetLockUntilV31237": 4.209799999999996,
+        "zoneCombatQueueClearedAt": 0.8633000000000004,
+        "autoProgressBusyUntilV31301": 3.763199999999997,
+        "autoProgressInteractionCountV31301": 1,
+        "autoProgressLastZoneV31301": "ep1b07"
+      },
+      "bossDefeated": false,
+      "waves": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "clues": [
+        "ego-reward-v31217:ep1b07"
+      ],
+      "drops": [],
+      "enemies": [
+        {
+          "id": "b08-c1",
+          "hp": 452,
+          "maxHp": 452,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-c1-w2-1",
+          "hp": 506,
+          "maxHp": 506,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-h1",
+          "hp": 1432,
+          "maxHp": 1432,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-v1",
+          "hp": 1418.5,
+          "maxHp": 1432,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-c1-w1-r1",
+          "hp": 447,
+          "maxHp": 447,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-h1-w1-r2",
+          "hp": 447,
+          "maxHp": 447,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-h1-w2-2",
+          "hp": 1432,
+          "maxHp": 1432,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-boss",
+          "hp": 45792,
+          "maxHp": 45792,
+          "phase": 0
+        },
+        {
+          "id": "b08-c1-reinforce320-initial-1",
+          "hp": 452,
+          "maxHp": 452,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        },
+        {
+          "id": "b08-c1-w2-1-reinforce320-initial-2",
+          "hp": 506,
+          "maxHp": 506,
+          "phase": 1,
+          "phaseTransitionUntil": 0
+        }
+      ],
+      "flow": {
+        "clear": false,
+        "reason": "전투 중"
+      },
+      "plan": {
+        "action": "combat",
+        "reason": "hostiles-or-waves"
+      },
+      "mirror": {
+        "created": 0,
+        "hits": 0,
+        "draws": 0,
+        "images": 0,
+        "cleaned": 0
+      },
+      "story": false,
+      "ui": "적\n전극을 두른 좀비 수호기사\n452\n아군\n악몽 사냥꾼 · 궁수\n240\nS 블링크\n·\nD 공명\n⋯\n⚙\n공명 34 / 100\n사몽각성 준비"
+    }
+  ],
+  "stage": {
+    "pass": true,
+    "zone": "ep1b07",
+    "bossId": "b07-boss",
+    "hero": {
+      "x": 16.000000000000004,
+      "y": 16.000000000000004
+    },
+    "boss": {
+      "x": 24.202247191011242,
+      "y": 22.561797752808992
+    },
+    "lane": "bottom"
+  },
+  "defeat": {
+    "pass": true,
+    "bossId": "b07-boss",
+    "boss": true,
+    "midboss": false,
+    "remainingProjectiles": 7
+  }
+}

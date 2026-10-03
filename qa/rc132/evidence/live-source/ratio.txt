@@ -1,0 +1,13 @@
+(r) => {
+                let e = o.enemies.find((e) => e.boss);
+                if (!e) return null;
+                e.hp = Math.max(1, e.maxHp * Math.max(0.01, Math.min(0.99, r)));
+                return {
+                  id: e.id,
+                  phase: MONGSE_enemyPhase(e),
+                  name: MONGSE_phaseName(e),
+                  sprite: MONGSE_phaseSprite(e) ?? e.sprite,
+                  hitRadius: MONGSE_enemyHitRadius(e),
+                  personalSpace: MONGSE_enemyPersonalSpace(e),
+                };
+              }

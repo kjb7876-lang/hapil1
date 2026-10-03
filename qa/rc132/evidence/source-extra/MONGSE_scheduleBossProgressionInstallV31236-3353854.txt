@@ -1,0 +1,9 @@
+function MONGSE_scheduleBossProgressionInstallV31236(MONGSE_attemptV31236 = 0) {
+  if (MONGSE_installBossProgressionV31236()) return !0;
+  if (MONGSE_attemptV31236 >= 420) return !1;
+  setTimeout(
+    () => MONGSE_scheduleBossProgressionInstallV31236(MONGSE_attemptV31236 + 1),
+    0,
+  );
+  return !1;
+}

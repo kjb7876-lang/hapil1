@@ -1,0 +1,12 @@
+function HAPIL_episode1DeathDestinationRC59(state) {
+  if (!state || state.practiceV31329 || state.practicePatternV31365)
+    return null;
+  if (
+    HAPIL_EPISODE1A_ZONES_RC59.has(state.zone) &&
+    !HAPIL_isEpisode1ACompleteRC59(state)
+  )
+    return "dist00";
+  return HAPIL_isEpisode1ACompleteRC59(state)
+    ? HAPIL_latestShelterRC59(state)
+    : null;
+}

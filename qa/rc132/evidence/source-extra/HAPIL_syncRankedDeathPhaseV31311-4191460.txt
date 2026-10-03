@@ -1,0 +1,6 @@
+function HAPIL_syncRankedDeathPhaseV31311(actor) {
+  const phase = enemyPhaseBase(actor);
+  if (actor?.boss === true || actor?.midboss === true)
+    syncPhaseDeathSprite(actor, phase);
+  return phase;
+}
