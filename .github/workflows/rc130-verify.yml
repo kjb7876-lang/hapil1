@@ -1,0 +1,80 @@
+name: RC130 projectile and melee verification
+on:
+  push:
+    branches: ['fix/rc130-projectile-cap-melee-audio']
+    paths:
+      - '.github/workflows/rc130-verify.yml'
+      - 'tools/rc130-apply.cjs'
+      - 'assets/rc130/**'
+      - 'tests/rc130*.cjs'
+permissions:
+  contents: write
+concurrency:
+  group: rc130-candidate
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Apply targeted patch and pin tested code
+        run: |
+          node --check tools/rc130-apply.cjs
+          node tools/rc130-apply.cjs
+          node --check assets/index-v31526.js
+          node --check assets/rc130/projectile-policy.js
+          node --check assets/rc130/audio-policy.js
+          node --check assets/rc23/feedback.js
+          node --check assets/rc128/combat-feedback.js
+          git config user.name 'HAPIL RC130 integration'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/index-v31526.js assets/rc130/audio-policy.js assets/rc23/feedback.js assets/rc128/combat-feedback.js index.html
+          git rm -r --ignore-unmatch qa/rc130/inspection .github/workflows/rc130-source-inspect.yml
+          if ! git diff --cached --quiet; then
+            git commit -m 'RC130 apply anchored melee, bounded projectile and prioritized audio integration'
+            git push origin HEAD:refs/heads/fix/rc130-projectile-cap-melee-audio
+          fi
+          git rev-parse HEAD
+      - name: Prepare isolated browser and historical laser reference
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc130-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc130-results" >> "$GITHUB_ENV"
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Run native and regression suites
+        run: node tests/rc130-suite.cjs
+      - name: Retain exact summary in isolated evidence branch
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/rc130-results/summary.json" ]; then
+            mkdir -p qa/rc130/evidence
+            cp "$RUNNER_TEMP/rc130-results/summary.json" qa/rc130/evidence/summary.json
+            for p in rc130-unit/rc130-unit.json rc130-browser/rc130-browser/results.json; do
+              if [ -f "$RUNNER_TEMP/rc130-results/$p" ]; then cp "$RUNNER_TEMP/rc130-results/$p" "qa/rc130/evidence/$(echo "$p" | tr / -)"; fi
+            done
+            git add qa/rc130/evidence
+            git commit -m "RC130 exact test evidence $GITHUB_RUN_ID" || true
+            git push origin HEAD:refs/heads/qa/rc130-$GITHUB_RUN_ID
+            cat "$RUNNER_TEMP/rc130-results/summary.json"
+          fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc130-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc130-results/
+          retention-days: 14
+          if-no-files-found: warn
