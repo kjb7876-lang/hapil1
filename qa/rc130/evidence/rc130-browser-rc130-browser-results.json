@@ -1,0 +1,153 @@
+{
+  "commit": "49be0a99ef62af8e8572af6fb06d7e8334dbe8a2",
+  "status": "failed",
+  "profiles": [
+    {
+      "name": "pc",
+      "startup": {
+        "first": {
+          "time": 0.13659999999999992,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          }
+        },
+        "last": {
+          "time": 1.0200000000000007,
+          "x": 18.489227788454865,
+          "y": 16.1152962962963,
+          "hp": 240,
+          "zone": "dist00",
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 19,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "rows": [
+        {
+          "kind": "native-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.08915656953704496,
+          "painted": 750
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3152
+        },
+        {
+          "kind": "native-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3152
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.15076404092362988,
+          "painted": 1961
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3435
+        },
+        {
+          "kind": "reflected-barrage",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.20000000000000004,
+          "painted": 3435
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 0.75,
+          "draws": 1,
+          "maxRatio": 0.08644067796610169,
+          "painted": 860
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 2,
+          "draws": 1,
+          "maxRatio": 0.23050847457627116,
+          "painted": 5716
+        },
+        {
+          "kind": "bloodied-transit",
+          "zoom": 6,
+          "draws": 1,
+          "maxRatio": 0.6915254237288135,
+          "painted": 50587
+        }
+      ],
+      "positions": [
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 1
+        },
+        {
+          "x": 640,
+          "y": 420,
+          "alpha": 0.17857142857142508
+        }
+      ],
+      "problems": [
+        "bloodied-transit exceeds displayed limit: 0.23050847457627116",
+        "bloodied-transit exceeds displayed limit: 0.6915254237288135"
+      ],
+      "policy": {
+        "projectileCalls": 8,
+        "bitmapDraws": 7,
+        "cappedDraws": 5,
+        "maxRatio": 0.20000000000000004,
+        "meleeDraws": 22,
+        "meleeMissing": 0,
+        "retiredMelee": 2,
+        "ratio": 0.2
+      },
+      "nativeShots": 6,
+      "meleeExpired": true,
+      "hpPreserved": true,
+      "errors": [],
+      "httpErrors": []
+    }
+  ],
+  "scope": "Three real startup observations; separately staged native bitmap/melee tests, not natural full campaigns",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'bloodied-transit exceeds displayed limit: 0.23050847457627116',\n+   'bloodied-transit exceeds displayed limit: 0.6915254237288135'\n+ ]\n- []\n\n    at main (/home/runner/work/hapil1/hapil1/tests/rc130-browser.cjs:43:208)"
+}
