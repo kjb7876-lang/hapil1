@@ -1,0 +1,55 @@
+function beforeDeath(s,a) {
+    if(!enabled(s)||!a||n(a.hp)>0)return false;
+    if(s.zone==='ep1b09'&&a.id==='b09-boss'&&!a.rc89ConnectionDone){
+      a.hp=1;a.protectedNarrativeTargetV31307=true;a.readyAt=Infinity;a.patternReadyAt=Infinity;
+      memory(s).connection={id:a.id,until:n(s.time)+1.2};return true;
+    }
+    if(simpleTarget(a)) {
+      const m=memory(s),owner=rows(s.enemies).find(t=>t.id===(a.rc88OwnerId??'c104-boss')&&live(t));
+      s.enemies=rows(s.enemies).filter(t=>t!==a);
+      if(a.rc88Part){const o=m.owners[a.rc88OwnerId];if(!o||o.dead.includes(a.id))return true;o.dead.push(a.id);o.weakUntil=n(s.time)+3.2;}
+      else {
+        if(m.cosmicKills.includes(a.samongCosmicIndexV386))return true;
+        m.cosmicKills.push(a.samongCosmicIndexV386);
+        m.samongWeakUntil=summonClock(s)+3.2;
+        const wave=s.hapilSamongCosmicWaveV386;
+        if(wave?.activeId===a.id){wave.activeId=null;wave.activeUntil=0;wave.nextAt=Math.min(n(wave.nextAt),summonClock(s)+.85);}
+      }
+      if(s.targetEnemyId===a.id)s.targetEnemyId=null;
+      (s.defeated??=[]).push({...a,id:s.fxSerial++,born:n(s.time),duration:.72});
+      s.resonance=Math.min(100,n(s.resonance)+6);grantShot(s);
+      text(s,a,a.rc88InteractiveCosmic?'사몽 격파 · 교주의 방벽 붕괴':'발사원 격파 · 약점 노출','#ffe099');
+      if(owner&&a.rc88Kind==='swords') {
+        for(const side of [-1,1])window.__HAPIL_LOOP_V31365__.queueEcho(s,owner,
+          {x:owner.x+side*4,y:owner.y+2},Math.max(1,owner.maxHp*.012),{heroId:s.activeHeroId,rc89SupportHeroId:'lauren'},.55,true,'Q');
+        text(s,owner,'두 주인의 지원 창격','#aaffdf');
+      }
+      if(owner&&a.rc88Kind==='liberation'&&!s.enemies.some(t=>live(t)&&t.rc88Part&&t.rc88OwnerId===owner.id)) {
+        m.freedArvelia={id:owner.id,x:owner.x,y:owner.y,sprite:owner.sprite,until:n(s.time)+3};
+        owner.rc89CommandResolved=true;owner.protectedNarrativeTargetV31307=false;owner.hp=0;
+        const binding=window.__HAPIL_CONTROLS_V31329__?.binding,oldDefeated=new Set(rows(s.defeated));
+        if(binding?.state?.current===s&&binding.actions?.death)binding.actions.death(owner);
+        s.defeated=rows(s.defeated).filter(t=>oldDefeated.has(t));
+        s.enemies=s.enemies.filter(t=>t!==owner);s.bossDefeated=true;
+        s.clues?.add?.('rc89:arvelia-command-freed');
+        s.clues?.add?.('rc88:arvelia-command-armor-released');
+        m.arveliaFreed=true;
+      }
+      // Native death cleanup must not erase already committed missiles/laser paths.
+      return true;
+    }
+    const p=ownerSpec(s,a);
+    if(p) {
+      s.enemies=rows(s.enemies).filter(t=>!t.rc88Part||t.rc88OwnerId!==a.id);
+      if(p.kind==='wall'||p.kind==='sword-fan') {
+        const survivor=rows(s.enemies).find(t=>live(t)&&t.id!==a.id&&['c103-mid','c103-boss'].includes(t.id));
+        if(survivor){ownerMemory(s,survivor).enraged=true;text(s,survivor,'공조 붕괴 · 남은 목사의 탄막 강화','#ff9b9b');}
+      }
+      if(s.zone==='kair02'&&a.id==='kair-great-03') {
+        s.clues?.add?.('rc88:arvelia-command-armor-released');
+        text(s,a,'명령 장갑 해제 · 시간의 속박에서 해방','#d7ffed');
+        (s.effects??=[]).push({id:s.fxSerial++,kind:'glitch',x:a.x,y:a.y,tx:a.x,ty:a.y,born:n(s.time),duration:.65,color:'#d7ffed',size:3});
+      }
+    }
+    return false;
+  }

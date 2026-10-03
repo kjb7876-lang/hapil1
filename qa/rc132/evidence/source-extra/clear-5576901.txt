@@ -1,0 +1,5 @@
+function clear(input) {
+  const s = input && states.get(input);
+  if (!s) return;
+  for (const id of Array.from(s.pointers.keys())) release(s, id);
+}

@@ -1,0 +1,30 @@
+function beforeDeath(s, e) {
+  const c = s?.dreamFinalV31346;
+  if (c?.deathToken === e) return true;
+  if (
+    mode(s) !== "DREAM" ||
+    s?.zone !== "cult04" ||
+    !c ||
+    c.complete ||
+    c.phase !== "fight" ||
+    e?.id !== c.activeId ||
+    !e.dreamCosmicTrialV31346
+  )
+    return false;
+  c.deathToken = e;
+  cleanupTrial(s, e.id);
+  if (c.index < 5) {
+    s.enemies = (s.enemies ?? []).filter((x) => x !== e);
+    c.index += 1;
+    c.phase = "transition";
+    c.activeId = null;
+    c.safeUntil = num(s.time) + 1.15;
+    s.invulnerableUntil = Math.max(num(s.invulnerableUntil), c.safeUntil);
+    return true;
+  }
+  c.index = 6;
+  c.complete = true;
+  c.phase = "complete";
+  cleanupTrial(s, e.id);
+  return false;
+}

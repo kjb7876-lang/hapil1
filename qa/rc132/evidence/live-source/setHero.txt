@@ -1,0 +1,18 @@
+(e) => {
+                if (!F.some((t) => t.id === e)) return null;
+                ((L.current = e),
+                  (o.activeHeroId = e),
+                  (o.heroMotion = ai(o.time, o.facing, o.direction)),
+                  (o.cooldowns = {}),
+                  (o.lastAttack = -99),
+                  (o.autoSkillNextAt = o.time),
+                  (o.autoSkillCycle = 0),
+                  (o.autoSkillHistory = []),
+                  (o.lastAutoSkillKey = ``),
+                  (o.awakeningUntil = 0),
+                  (o.awakeningPrimedUntil = 0),
+                  (o.awakeningPity = 0),
+                  (o.awakeningComboCount = 0),
+                  (o.awakeningCapstoneUsed = !1));
+                return e;
+              }

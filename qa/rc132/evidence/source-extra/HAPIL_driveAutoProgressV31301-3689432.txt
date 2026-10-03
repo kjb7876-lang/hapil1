@@ -1,0 +1,60 @@
+function HAPIL_driveAutoProgressV31301(state, settings, blocked, interact) {
+  if (state)
+    state.autoProgressEnabledV31301 =
+      HAPIL_isFullAutoV31329(settings) && settings?.autoPortal !== false;
+  const canProgress =
+    HAPIL_isFullAutoV31329(settings) && settings?.autoPortal !== false;
+  const proximityPlan = canProgress
+    ? HAPIL_autoProgressPlanV31301(
+        state,
+        { ...settings, combatMode: `full`, autoCombat: true, autoPortal: true },
+        blocked || !(state?.hp > 0),
+      )
+    : null;
+  const plan =
+    canProgress &&
+    proximityPlan?.action === "interact" &&
+    /portal$/.test(proximityPlan.reason)
+      ? proximityPlan
+      : HAPIL_autoProgressPlanV31301(state, settings, blocked);
+  if (!state) return plan;
+  state.autoProgressActionV31301 = plan.action;
+  state.autoProgressReasonV31301 = plan.reason;
+  if (["idle", "combat", "wait", "complete"].includes(plan.action)) {
+    if (state.target?.autoProgressV31301 === true && plan.action !== "wait")
+      hi(state);
+    return plan;
+  }
+  if (
+    state.target &&
+    state.target.autoProgressV31301 !== true &&
+    !(plan.action === "interact" && /portal$/.test(plan.reason))
+  )
+    return Object.freeze({
+      action: "wait",
+      reason: "manual-navigation-override",
+    });
+  if (plan.action === "move") {
+    const targetChanged =
+      state.target?.autoProgressV31301 !== true ||
+      Math.hypot(
+        state.target.x - plan.target.x,
+        state.target.y - plan.target.y,
+      ) > 0.18;
+    if (targetChanged) {
+      gi(state, plan.target.x, plan.target.y);
+      if (state.target) {
+        state.target.autoProgressV31301 = true;
+        state.target.autoProgressReasonV31301 = plan.reason;
+      }
+    }
+    return plan;
+  }
+  hi(state);
+  state.autoProgressBusyUntilV31301 = Number(state.time ?? 0) + 0.62;
+  state.autoProgressInteractionCountV31301 =
+    Number(state.autoProgressInteractionCountV31301 ?? 0) + 1;
+  state.autoProgressLastZoneV31301 = state.zone;
+  if (typeof interact === "function") interact();
+  return plan;
+}

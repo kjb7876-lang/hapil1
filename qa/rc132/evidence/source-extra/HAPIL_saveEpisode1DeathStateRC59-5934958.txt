@@ -1,0 +1,11 @@
+function HAPIL_saveEpisode1DeathStateRC59(state, ...args) {
+  const payload = serializeBase.call(this, state, ...args);
+  if (payload && state) {
+    payload.episode1ACompleteRC59 = HAPIL_isEpisode1ACompleteRC59(state);
+    payload.lastShelterZoneRC59 = HAPIL_isShelterRC59(state.lastShelterZoneRC59)
+      ? state.lastShelterZoneRC59
+      : null;
+    payload.midbossDuoSpawnedRC59 = state.midbossDuoSpawnedRC59 === true;
+  }
+  return payload;
+}

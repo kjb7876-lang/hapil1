@@ -1,0 +1,12 @@
+function deathFields(actor) {
+  return isObjective(actor)
+    ? {
+        narrativeObjectiveDeathV31313: true,
+        narrativeObjectiveSourceIdV31313: String(actor.id),
+        narrativeObjectiveSpriteV31313: assetFor(actor),
+        narrativeObjectiveFallbackV31313:
+          reviewed.get(String(actor.id))?.sprite ?? actor.sprite,
+        narrativeObjectiveExtentV31313: extentFor(actor),
+      }
+    : {};
+}

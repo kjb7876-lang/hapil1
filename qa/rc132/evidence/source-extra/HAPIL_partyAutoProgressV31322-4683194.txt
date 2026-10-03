@@ -1,0 +1,5 @@
+function HAPIL_partyAutoProgressV31322(s, settings, blocked, interact) {
+  if (api.blocksNativeInput())
+    return { action: "wait", reason: "party-authority" };
+  return driveBase(s, settings, blocked, interact);
+}

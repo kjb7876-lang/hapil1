@@ -1,0 +1,55 @@
+function HAPIL_autoProgressPlanV31301(state, settings, blocked = false) {
+  const disabled = !state || !HAPIL_isFullAutoV31329(settings) || settings?.autoPortal === false;
+  if (disabled) return Object.freeze({ action: "idle", reason: "auto-disabled" });
+  if (blocked) return Object.freeze({ action: "wait", reason: "overlay-active" });
+  if (Number(state.autoProgressBusyUntilV31301 ?? 0) > Number(state.time ?? 0))
+    return Object.freeze({ action: "wait", reason: "transition-cooldown" });
+
+  const target = (point, reason, radius) => Object.freeze({
+    action: J(state, point) <= radius ? "interact" : "move",
+    reason,
+    radius,
+    target: Object.freeze({ x: point.x, y: point.y }),
+  });
+
+  if (state.zone === "hub") return target(ne, "hub-portal", 3.45);
+
+  if (MONGSE_isRestZone(state.zone)) {
+    if (MONGSE_isRestPortalLocked31226(state))
+      return Object.freeze({ action: "wait", reason: "rest-dialogue" });
+    if (J(state, ce) > 3.05 && Number(state.hp ?? 0) < Number(state.maxHp ?? 1) * 0.92)
+      return target(se, "rest-heal", 3.05);
+    return target(ce, "rest-portal", 3.05);
+  }
+
+  if (MONGSE_isEncounterLocked31226(state))
+    return Object.freeze({ action: "wait", reason: "entry-dialogue" });
+
+  if (he.includes(state.zone)) {
+    if (!MONGSE_zoneCombatCleared(state, state.zone))
+      return Object.freeze({ action: "combat", reason: "hostiles-or-waves" });
+    if ((state.egoDrops ?? []).length > 0)
+      return Object.freeze({ action: "wait", reason: "ego-absorption" });
+
+    const missingClue = ci(state.zone).find((entry) => !state.clues.has(entry.id));
+    if (missingClue) return target(missingClue, `clue:${missingClue.id}`, Lr - 0.12);
+
+    const loopsReady = !xe(state.zone) || (state.loopCycles?.[state.zone] ?? 0) >= 3;
+    const bossReady = state.zone !== "murder03" || state.bossDefeated === true;
+    if (!Te(state.zone, state.clues) || !loopsReady || !bossReady)
+      return Object.freeze({ action: "wait", reason: "progress-gate" });
+    if (!N[state.zone]?.next)
+      return Object.freeze({ action: "complete", reason: "campaign-end" });
+    return target(
+      MONGSE_zonePortalAnchors(state.zone).interactionExit,
+      "combat-exit-portal",
+      2.48,
+    );
+  }
+
+  if (state.zone === "village")
+    return state.villageTalk === true
+      ? Object.freeze({ action: "complete", reason: "campaign-recorded" })
+      : target(ae, "campaign-record", 2.28);
+  return Object.freeze({ action: "wait", reason: "unsupported-zone" });
+}

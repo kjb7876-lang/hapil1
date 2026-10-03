@@ -1,0 +1,3 @@
+function HAPIL_clearGateV31343(s, z = s?.zone) {
+  return profile(z) ? gate(s, z).clear : nativeClear(s, z);
+}

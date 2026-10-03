@@ -1,0 +1,8 @@
+function HAPIL_clearAutoDecisionV31302(state, reason = "manual-or-off") {
+  if (!state) return false;
+  const changed = !!state.autoDecisionV31302;
+  state.autoDecisionV31302 = "";
+  state.autoDecisionUntilV31302 = 0;
+  state.autoDecisionClearReasonV31302 = reason;
+  return changed;
+}

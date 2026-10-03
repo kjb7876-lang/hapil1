@@ -1,0 +1,16 @@
+function MONGSE_clampBossProgressionV31236(
+  MONGSE_valueV31236,
+  MONGSE_minimumV31236,
+  MONGSE_maximumV31236,
+) {
+  return Math.max(
+    MONGSE_minimumV31236,
+    Math.min(
+      MONGSE_maximumV31236,
+      MONGSE_finiteBossProgressionV31236(
+        MONGSE_valueV31236,
+        MONGSE_minimumV31236,
+      ),
+    ),
+  );
+}
