@@ -1,0 +1,20 @@
+[
+  {
+    "at": 5569755,
+    "line": 121736,
+    "nodes": [
+      {
+        "name": "install",
+        "start": 5552001,
+        "end": 5570074,
+        "length": 18073
+      },
+      {
+        "start": 5551789,
+        "end": 5570086,
+        "length": 18297
+      }
+    ],
+    "context": "();}\nfunction drawFloor(ctx,s){const p=profile(s.zone);if(p)drawEntry(ctx,p);}\nfunction drawExit(ctx,s){const p=profile(s.zone);if(!p)return false;const g=gate(s),active=g.clear&&Te(s.zone,s.clues)&&!(s.egoDrops??[]).length&&!blocked(s);\n // Reveal the exit after all mandatory combat and growth conditions resolve.\n if(!active)return true;\n const e=C(p.exitAnchorWorld.x,p.exitAnchorWorld.y);\n window.__HAPIL_CONTACT_RC23__.portal(ctx,e,s.time);\n ctx.save();ctx.textAlign='center';ctx.font='700 13px sans-serif';ctx.fillStyle='#c4fff2';ctx.fillText(s.flowTransitionErrorV31343??'WARP · 가까이 가면 자동 이동',e.x,e.y+62);ctx.restore();return true;\n}\nwindow.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V31343__={version:VERSION,installed:true,profiles,profile,contains,legal,project,point,required,gate,ready,blocked,reserve,settle,place,admit,bind,transition,beforeNative,clearHazards,drawFloor,drawExit,record,scope:Object.keys(profiles),nativeClear,nativeGeometry,waveAdvanceReady,bindObjective};\n}install();\n})();\n\n/* HAPIL 3.13.43: repeat offensive skills use the native executor and its cooldown commit. */\n(()=>{'use strict';\n const VERSION='3.13.43',num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;\n const controls=()=>window.__HAPIL_CONTROLS_V31329__,party=()=>window.__HAPIL_PARTY_V31322__;\n const stats={commits:0,blocked:0,attempts:0},stateMemory=new WeakMap(),automaticBasics=new WeakSet();\n function basic(s,automatic,execute){if(!automatic)return execute?.();automaticBasics.add(s);try{return execute?.();}finally{automaticBasics.delete(s);}}\n function manualAwakeningAllowed(s){return !automaticBasics.has(s)||controls()?.effective()==='full';}\n // Repeat offensive attacks and charged ultimates; movement and guard skills remain decisions.\n function repeatSkill(skill){return !!skill&&['damage','ultimate'].includes(skill.kind);}\n function validTarget(s,t){return !!s&&!!t&&num(t.hp)>0&&Number.isFinite(Number(t.x))&&Number.isFinite(Number(t.y))\n  &&!t.visualOnly&&!t.protectedNarrativeTargetV31307&&!t.protectedNarrativeTargetV31238\n  &&t.targetable!==false&&t.destructible!==false&&t.autoTarget!==false\n  &&t.autoTargetEligibleV31238!==false&&t.autoTargetEligibleV31307!==false\n  &&t.hostileDestructibleV31238!==false&&t.hostileDestructibleV31307!==false\n  &&!t.phaseTransitionActive&&!t.phaseTransitionV31215\n  &&num(t.invulnerableUntil)<=s.time&&num(t.flowEnteringUntilV31343)<=s.time\n  &&MONGSE_objectiveDamageAllowedV31309(s,t);}\n function memory(s){let m=stateMemory.get(s);if(!m||m.zone!==s.zone||s.time<m.at){m={zone:s.zone,at:s.time,nextAt:0,cursor:0,busy:false,lastCommitAt:-Infinity};stateMemory.set(s,m);}m.at=s.time;return m;}\n function range(s,he"
+  }
+]

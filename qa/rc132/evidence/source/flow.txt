@@ -1,0 +1,810 @@
+function install() {
+  if (!window.__HAPIL_V31342_RELEASE__?.installed) {
+    if (++attempts < 800) setTimeout(install, 0);
+    return;
+  }
+  if (window.__HAPIL_FLOW_V31345__?.installed) return;
+  const VERSION = "3.13.45",
+    runtime = new WeakMap(),
+    num = (n, d = 0) => (Number.isFinite(Number(n)) ? Number(n) : d),
+    clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  const profiles = {},
+    nativeGeometry = { contains: ot, legal: dt, blocked: ut };
+  // Direction controls entrances and staging, never an invisible corridor.
+  for (const [mapId, flowMode, entry, exit] of [
+    ["dist01", "HORIZONTAL", [7, 25], [25, 7]],
+    ["dist02", "DIAGONAL", [8, 26], [18, 5]],
+    ["dist03", "HORIZONTAL", [7, 25], [25, 7]],
+    ["dist04", "DIAGONAL", [8, 26], [18, 5]],
+    ["dist05", "HORIZONTAL", [7, 25], [25, 7]],
+    ["dist06", "HORIZONTAL", [7, 25], [25, 7]],
+    ["ep1a07", "DIAGONAL", [8, 26], [18, 5]],
+    ["ep1a08", "HORIZONTAL", [7, 25], [25, 7]],
+    ["ep1a09", "HORIZONTAL", [7, 25], [25, 7]],
+    ["ep1a10", "DIAGONAL", [8, 26], [18, 5]],
+    ["ep1a11", "DIAGONAL", [8, 26], [18, 5]],
+  ]) {
+    const a = { x: entry[0], y: entry[1] },
+      z = { x: exit[0], y: exit[1] },
+      length = Math.hypot(z.x - a.x, z.y - a.y),
+      u = { x: (z.x - a.x) / length, y: (z.y - a.y) / length },
+      v = { x: -u.y, y: u.x };
+    profiles[mapId] = {
+      mapId,
+      episodeId: "DIST_EP1A",
+      flowMode,
+      entryAnchorWorld: a,
+      exitAnchorWorld: z,
+      routePolyline: [a, z],
+      walkableRegion: {
+        kind: "native-wide-floor",
+        geometrySource: "reviewed-map-surface-or-native-floor",
+      },
+      encounterZoneRefs: [
+        mapId + ":wave1",
+        mapId + ":wave2",
+        mapId + ":midboss",
+      ],
+      enemyEntranceRefs: [
+        mapId + ":enemy-front-left",
+        mapId + ":enemy-front-right",
+        mapId + ":enemy-front-center",
+      ],
+      bossArenaRef:
+        mapId === "dist06"
+          ? "dist06:balrog-authored-home"
+          : mapId === "ep1a11"
+            ? "ep1a11:lucifer-authored-home"
+            : mapId + ":midboss-front",
+      nextMapId: N[mapId].next,
+      clearRule: "required-waves-and-live-hostiles-and-objectives",
+      transitionRule: "approach-after-ready-0.85s",
+      u,
+      v,
+      length,
+    };
+  }
+  profiles.dist06.encounterZoneRefs.push("dist06:balrog");
+  profiles.dist04.objectiveAnchors = {
+    "dist04-gate-lock-west": [0.67, -7],
+    "dist04-gate-lock-east": [0.76, 7],
+  };
+  profiles.dist05.objectiveAnchors = {
+    "dist05-seal-west": [0.58, -8],
+    "dist05-seal-east": [0.76, 8],
+    "dist05-seal-north": [0.9, 0],
+  };
+  const profile = (z) => profiles[z] ?? null,
+    project = (p, x, y) => ({
+      along:
+        (x - p.entryAnchorWorld.x) * p.u.x + (y - p.entryAnchorWorld.y) * p.u.y,
+      across:
+        (x - p.entryAnchorWorld.x) * p.v.x + (y - p.entryAnchorWorld.y) * p.v.y,
+    });
+  function point(p, along, across = 0) {
+    return {
+      x: p.entryAnchorWorld.x + p.u.x * along + p.v.x * across,
+      y: p.entryAnchorWorld.y + p.u.y * along + p.v.y * across,
+    };
+  }
+  function terrain(z) {
+    const t = window.__HAPIL_TERRAIN_V31345__;
+    return t?.profile?.(z) ? t : null;
+  }
+  function contains(z, x, y, r = 0) {
+    if (!profile(z)) return false;
+    const t = terrain(z);
+    return t
+      ? t.contains(z, x, y, r)
+      : x >= 1.4 &&
+          x <= 30.6 &&
+          y >= 1.4 &&
+          y <= 30.6 &&
+          nativeGeometry.contains(z, x, y);
+  }
+  function legal(z, q, r = 0.45) {
+    if (!profile(z)) return q;
+    const t = terrain(z);
+    return t ? t.legal(z, q, r) : nativeGeometry.legal(z, q, r);
+  }
+  function record(s) {
+    let r = runtime.get(s);
+    if (!r || r.zone !== s.zone || num(s.time) < r.last) {
+      r = {
+        zone: s.zone,
+        last: num(s.time),
+        readyAt: null,
+        enteredAt: num(s.time),
+        transition: null,
+        serial: 0,
+        seen: new Set(),
+        log: [],
+        reservations: new Map(),
+      };
+      runtime.set(s, r);
+    }
+    r.last = num(s.time);
+    return r;
+  }
+  function log(s, kind, extra = {}) {
+    const r = record(s);
+    r.log.push({ at: num(s.time), kind, ...extra });
+    if (r.log.length > 48) r.log.shift();
+  }
+  function required(a) {
+    return (
+      !!a &&
+      !a.visualOnly &&
+      !a.friendly &&
+      !a.ally &&
+      !a.protectedNarrativeTargetV31307 &&
+      !a.protectedNarrativeTargetV31238 &&
+      a.requiredForClear !== false
+    );
+  }
+  function gate(s, z = s?.zone) {
+    if (!s || !he.includes(z))
+      return { clear: false, reason: "전투 구역 아님" };
+    const actors = (s.enemies ?? []).filter(required),
+      now = num(s.time),
+      r = record(s);
+    if (
+      actors.some(
+        (a) =>
+          a.phaseTransitionActive ||
+          (num(a.phaseTransitionUntil) > now && num(a.hp) <= 0) ||
+          a.revivalPending === true,
+      )
+    )
+      return { clear: false, reason: "후속 페이즈 준비" };
+    if (
+      z === "cult04" &&
+      s.hapilFinalBattleV31300 &&
+      !s.hapilFinalBattleV31300.completed
+    )
+      return { clear: false, reason: "최종 결전 진행 중" };
+    if (
+      z === "ep1a11" &&
+      s.cosmicEncounterV31318?.stage &&
+      s.cosmicEncounterV31318.stage !== "complete"
+    )
+      return { clear: false, reason: "코스믹 결전 진행 중" };
+    if (
+      [...r.reservations.values()].some(
+        (a) => a.required !== false && a.zone === z,
+      )
+    )
+      return { clear: false, reason: "예약 증원 대기" };
+    if (actors.some((a) => num(a.hp) > 0))
+      return {
+        clear: false,
+        reason: actors.some((a) => num(a.flowEnteringUntilV31343) > now)
+          ? "적 진입 예고"
+          : "전투 중",
+      };
+    // Optional adapters are explicit required spawn records, never visual or damage queues.
+    if (
+      (s.pendingSpawns ?? []).some(
+        (a) =>
+          a?.required !== false && !a.canceled && (!a.zone || a.zone === z),
+      )
+    )
+      return { clear: false, reason: "예약 증원 대기" };
+    const waves = s.spawnedWaves,
+      needed = z === "kair01" ? 6 : 3;
+    if (xe(z)) {
+      if (num(s.loopCycles?.[z]) < 3 || (z === "murder03" && !s.bossDefeated))
+        return { clear: false, reason: "남은 순환 전투" };
+    } else if (!waves?.has?.(needed))
+      return { clear: false, reason: "남은 웨이브" };
+    if (Zr(z, "boss") && !s.bossDefeated)
+      return { clear: false, reason: "보스 격파 필요" };
+    const markers = [
+      s.objectiveStateV31308,
+      s.objectiveFlowV31308,
+      s.objectiveFlowV31309,
+    ];
+    if (
+      markers.some(
+        (marker) =>
+          marker?.zone === z &&
+          ((Array.isArray(marker.aliveIds) && marker.aliveIds.length) ||
+            num(marker.alive) > 0),
+      )
+    )
+      return { clear: false, reason: "필수 전투 목표" };
+    return { clear: true, reason: "출구 개방" };
+  }
+  // The native spawn scheduler must use the same actor identity rules as the clear gate.
+  // Optional scene objects may remain in enemies; future mandatory phases/reservations may not advance.
+  function waveAdvanceReady(s) {
+    if (!profile(s?.zone)) return (s?.enemies ?? []).length === 0;
+    const now = num(s.time),
+      r = record(s);
+    if (
+      (s.enemies ?? []).some(
+        (a) =>
+          required(a) &&
+          (num(a.hp) > 0 ||
+            a.phaseTransitionActive ||
+            num(a.phaseTransitionUntil) > now ||
+            a.revivalPending === true),
+      )
+    )
+      return false;
+    if (
+      [...r.reservations.values()].some(
+        (a) => a.required !== false && a.zone === s.zone,
+      )
+    )
+      return false;
+    return !(s.pendingSpawns ?? []).some(
+      (a) =>
+        a?.required !== false && !a.canceled && (!a.zone || a.zone === s.zone),
+    );
+  }
+  function blocked(s, ui = false) {
+    return !!(
+      ui ||
+      !s ||
+      num(s.hp) <= 0 ||
+      s.paused ||
+      s.pause ||
+      s.dead ||
+      s.dying ||
+      s.practiceV31329 ||
+      s.growthChoice ||
+      s.pendingGrowthChoice ||
+      s.requiredScene ||
+      window.__HAPIL_PARTY_V31322__?.blocksNativeInput?.() ||
+      MONGSE_isEncounterLocked31226(s)
+    );
+  }
+  function reserve(s, id, data = {}) {
+    const r = record(s);
+    r.reservations.set(String(id), {
+      ...data,
+      zone: s.zone,
+      required: data.required !== false,
+    });
+    r.readyAt = null;
+    return id;
+  }
+  function settle(s, id) {
+    return record(s).reservations.delete(String(id));
+  }
+  function place(s, a, index = 0) {
+    const p = profile(s.zone);
+    if (!p || !required(a)) return a;
+    let q;
+    if (
+      (s.zone === "dist06" && a.id === "dist06-boss") ||
+      (s.zone === "ep1a11" && a.id === "a11-boss")
+    ) {
+      // Preserve authored boss Home and special continuation; staging cannot relocate the boss.
+      const authored = N[s.zone].enemies.find((e) => e.id === a.id),
+        home = S(authored.x, authored.y),
+        boss = window.__HAPIL_BOSS_HOME_V31343__?.profile(s.zone, a);
+      q = { ...home };
+      if (Math.hypot(q.x - s.x, q.y - s.y) < 3.2) {
+        const radius = Math.min(4, boss?.moveRadius ?? 4),
+          rows = [];
+        for (let i = 0; i < 16; i++) {
+          const angle = (i * Math.PI) / 8,
+            candidate = {
+              x: home.x + Math.cos(angle) * radius,
+              y: home.y + Math.sin(angle) * radius,
+            };
+          if (
+            contains(s.zone, candidate.x, candidate.y, 1.3) &&
+            Math.hypot(candidate.x - s.x, candidate.y - s.y) >= 3.2
+          )
+            rows.push(candidate);
+        }
+        rows.sort(
+          (a, b) => project(p, b.x, b.y).along - project(p, a.x, a.y).along,
+        );
+        q = rows[0] ?? q;
+      }
+    } else {
+      // Distribute across broad forward floor, with explicit safe-distance admission.
+      const rows = [];
+      for (const along of [p.length * 0.78, p.length * 0.94, p.length * 0.64])
+        for (const lane of [-8, 0, 8, -4, 4]) {
+          const raw = point(p, along, lane);
+          if (!contains(s.zone, raw.x, raw.y, 0.6)) continue;
+          const candidate = legal(s.zone, raw, 0.6);
+          if (
+            project(p, candidate.x, candidate.y).along >= p.length * 0.6 &&
+            Math.hypot(candidate.x - s.x, candidate.y - s.y) >= 3.2 &&
+            !rows.some(
+              (q) => Math.hypot(q.x - candidate.x, q.y - candidate.y) < 0.1,
+            )
+          )
+            rows.push(candidate);
+        }
+      q = rows[index % Math.max(1, rows.length)];
+      if (!q) {
+        for (let x = 3; x <= 29 && !q; x += 2)
+          for (let y = 3; y <= 29 && !q; y += 2)
+            if (
+              contains(s.zone, x, y, 0.6) &&
+              project(p, x, y).along >= p.length * 0.55 &&
+              Math.hypot(x - s.x, y - s.y) >= 3.2
+            )
+              q = { x, y };
+      }
+      q ??= legal(s.zone, p.exitAnchorWorld, 0.6);
+    }
+    a.x = q.x;
+    a.y = q.y;
+    a.flowEntranceIdV31343 =
+      p.enemyEntranceRefs[index % p.enemyEntranceRefs.length];
+    a.flowEnteringUntilV31343 = num(s.time) + 0.85 + (index % 5) * 0.08;
+    a.readyAt = Math.max(num(a.readyAt), a.flowEnteringUntilV31343);
+    a.patternReadyAt = Math.max(
+      num(a.patternReadyAt),
+      a.flowEnteringUntilV31343 + 0.1,
+    );
+    if (a.structureAnchorXV31238 !== undefined) {
+      a.structureAnchorXV31238 = a.x;
+      a.structureAnchorYV31238 = a.y;
+    }
+    return a;
+  }
+  function bindObjective(s, a) {
+    const p = profile(s.zone),
+      anchor = p?.objectiveAnchors?.[a.id];
+    if (!anchor || !a.objectiveStructureV31238) return false;
+    const q = legal(s.zone, point(p, p.length * anchor[0], anchor[1]), 0.6);
+    a.x = q.x;
+    a.y = q.y;
+    a.structureAnchorXV31238 = q.x;
+    a.structureAnchorYV31238 = q.y;
+    a.flowObjectiveAnchorV31344 = true;
+    return true;
+  }
+  function admit(s) {
+    const p = profile(s.zone);
+    if (!p) return;
+    const r = record(s);
+    for (const [i, a] of (s.enemies ?? []).entries()) {
+      if (r.seen.has(a)) continue;
+      r.seen.add(a);
+      if (a.cosmicLuciferV31318) continue;
+      if (bindObjective(s, a)) continue;
+      if (a.flowFactoryV31343) place(s, a, i);
+      else if (!contains(s.zone, a.x, a.y, 0.4)) {
+        const q = legal(s.zone, a, 0.6);
+        a.x = q.x;
+        a.y = q.y;
+        if (a.structureAnchorXV31238 !== undefined) {
+          a.structureAnchorXV31238 = a.x;
+          a.structureAnchorYV31238 = a.y;
+        }
+        log(s, "recover-outside-walkable", { id: a.id });
+      }
+    }
+    if (!contains(s.zone, s.x, s.y, 0.4)) {
+      const q = legal(s.zone, s, 0.5);
+      s.x = q.x;
+      s.y = q.y;
+      log(s, "recover-player-position");
+    }
+  }
+  function clearHazards(s) {
+    if (!gate(s).clear) return false;
+    MONGSE_clearHostileProjectiles31215(s, "clear");
+    for (const key of [
+      "pendingHits",
+      "impactQueue",
+      "telekineticCasts",
+      "spatialRiftCasts",
+      "pendingStrikes",
+      "enemyExitFxV31327",
+      "bossUltimateCastsV31334",
+    ])
+      if (Array.isArray(s[key])) s[key] = [];
+    s.effects = (s.effects ?? []).filter(
+      (e) => !e.sourceId && !e.hostile && !e.enemyAttackV31323,
+    );
+    s.zoneCombatQueueClearedAt = s.time;
+    return true;
+  }
+  const nativeClear = MONGSE_zoneCombatCleared;
+  MONGSE_zoneCombatCleared = function HAPIL_clearGateV31343(s, z = s?.zone) {
+    return profile(z) ? gate(s, z).clear : nativeClear(s, z);
+  };
+  const oldContains = ot;
+  ot = function HAPIL_routeContainsV31343(z, x, y) {
+    return profile(z) ? contains(z, x, y) : oldContains(z, x, y);
+  };
+  const oldDt = dt;
+  dt = function HAPIL_routeLegalV31343(z, q, r = 0.45) {
+    return profile(z) ? legal(z, q, r) : oldDt(z, q, r);
+  };
+  const oldUt = ut;
+  ut = function HAPIL_routeBlockedV31343(z, x, y, r = 0.45) {
+    return profile(z) ? !contains(z, x, y, r) : oldUt(z, x, y, r);
+  };
+  const oldAnchors = MONGSE_zonePortalAnchors;
+  MONGSE_zonePortalAnchors = function HAPIL_routeAnchorsV31343(z) {
+    const p = profile(z);
+    return p
+      ? {
+          zone: z,
+          theme: p.flowMode,
+          entry: { ...p.entryAnchorWorld },
+          exit: { ...p.exitAnchorWorld },
+          interactionEntry: { ...p.entryAnchorWorld },
+          interactionExit: { ...p.exitAnchorWorld },
+        }
+      : oldAnchors(z);
+  };
+  for (const z of Object.keys(profiles)) si.delete(z);
+  const oldWave = ti;
+  ti = function HAPIL_frontWaveV31343(z, w) {
+    return oldWave(z, w).map((a) => {
+      if (profile(z)) a.flowFactoryV31343 = true;
+      return a;
+    });
+  };
+  const oldLeader = ni;
+  ni = function HAPIL_frontLeaderV31343(z, ...args) {
+    const a = oldLeader(z, ...args);
+    if (a && profile(z)) a.flowFactoryV31343 = true;
+    return a;
+  };
+  const oldRoster = MONGSE_initialRosterPlanV31228;
+  MONGSE_initialRosterPlanV31228 = function HAPIL_sequentialRouteV31343(z) {
+    return profile(z)
+      ? {
+          mode: "directional-native-sequential-waves",
+          waves: new Set([1]),
+          compressedEncounterWaves: new Set(),
+          enemies: ti(z, 1),
+        }
+      : oldRoster(z);
+  };
+  const oldEntry = ii;
+  ii = function HAPIL_routeEntryV31343(s, z, ...args) {
+    const result = oldEntry(s, z, ...args);
+    if (profile(z)) {
+      runtime.delete(s);
+      const p = profile(z);
+      s.x = p.entryAnchorWorld.x;
+      s.y = p.entryAnchorWorld.y;
+      admit(s);
+      s.flowStateV31343 = "ENTRY";
+    }
+    return result;
+  };
+  const oldRestore = Ii;
+  Ii = function HAPIL_restoreAdmittedV31343(saved, ...args) {
+    const rows = oldRestore(saved, ...args);
+    if (profile(saved?.zone))
+      for (const a of rows ?? []) {
+        delete a.flowFactoryV31343;
+        delete a.flowEnteringUntilV31343;
+      }
+    return rows;
+  };
+  function inputBindings(s) {
+    return bindings.get(s) ?? {};
+  }
+  const bindings = new WeakMap();
+  function bind(s, b) {
+    if (s) bindings.set(s, b);
+  }
+  function save(s) {
+    const b = inputBindings(s);
+    if (typeof b.save === "function") return b.save();
+    throw Error("체크포인트 준비 중");
+  }
+  function prepare(s, next) {
+    const b = inputBindings(s);
+    if (typeof b.prepare === "function") return b.prepare(next);
+    if (!N[next]?.map) throw Error("다음 맵을 찾을 수 없습니다");
+    return true;
+  }
+  function ready(s, ui = false) {
+    const r = record(s),
+      p = profile(s.zone),
+      g = gate(s);
+    if (!p) return { ready: false, reason: "legacy-map" };
+    admit(s);
+    if (blocked(s, ui) || !g.clear) {
+      r.readyAt = null;
+      s.flowStateV31343 = blocked(s, ui) ? "ENTRY" : "COMBAT";
+      return {
+        ready: false,
+        reason: blocked(s, ui) ? "선택 또는 장면 진행 중" : g.reason,
+      };
+    }
+    if ((s.egoDrops ?? []).length)
+      return { ready: false, reason: "성장 보상 흡수 중" };
+    if (!Te(s.zone, s.clues)) return { ready: false, reason: "필수 기록 확인" };
+    if (r.readyAt === null) {
+      r.readyAt = num(s.time);
+      clearHazards(s);
+      s.flowStateV31343 = "CLEAR_PENDING";
+    }
+    if (num(s.time) - r.readyAt < 0.85 || num(s.time) - r.enteredAt < 1.2)
+      return { ready: false, reason: "출구 준비 중" };
+    s.flowStateV31343 = "EXIT_READY";
+    return {
+      ready: true,
+      reason: "다가가면 다음 구역",
+      near:
+        Math.hypot(s.x - p.exitAnchorWorld.x, s.y - p.exitAnchorWorld.y) < 2.45,
+    };
+  }
+  function restore(s, snapshot) {
+    for (const key of Object.keys(s)) if (!(key in snapshot)) delete s[key];
+    Object.assign(s, snapshot);
+  }
+  function copy(v, seen = new Map()) {
+    if (v === null || typeof v !== "object") return v;
+    if (seen.has(v)) return seen.get(v);
+    if (v instanceof Set) return new Set([...v].map((x) => copy(x, seen)));
+    if (v instanceof Map)
+      return new Map([...v].map(([k, x]) => [k, copy(x, seen)]));
+    const o = Array.isArray(v) ? [] : {};
+    seen.set(v, o);
+    for (const [k, x] of Object.entries(v)) o[k] = copy(x, seen);
+    return o;
+  }
+  function commit(s, tx, interact) {
+    const r = record(s),
+      b = inputBindings(s);
+    if (
+      r.transition !== tx ||
+      s.zone !== tx.from ||
+      blocked(s, b.blocked?.()) ||
+      !gate(s).clear
+    ) {
+      if (r.transition === tx) r.transition = null;
+      return false;
+    }
+    if (!N[tx.next]?.map) {
+      r.transition = null;
+      log(s, "transition-failed", { reason: "invalid-next-map" });
+      return false;
+    }
+    const snapshot = copy(s);
+    try {
+      tx.stage = "committing";
+      interact();
+      if (s.zone === tx.next) {
+        tx.stage = "committed";
+        if (typeof b.clearInput === "function") b.clearInput();
+        s.moveVx = 0;
+        s.moveVy = 0;
+        hi(s);
+        const nr = record(s);
+        nr.enteredAt = num(s.time);
+        nr.readyAt = null;
+        s.flowStateV31343 = "ENTRY";
+        log(s, "transition-complete", { id: tx.id, from: tx.from });
+        return true;
+      }
+      tx.stage = "interlude";
+      r.pendingNative = tx;
+      r.transition = null;
+      r.readyAt = num(s.time);
+      return false;
+    } catch (e) {
+      restore(s, snapshot);
+      r.transition = null;
+      r.readyAt = num(s.time);
+      s.flowTransitionErrorV31343 = String(e.message ?? e);
+      log(s, "transition-rollback", {
+        id: tx.id,
+        error: s.flowTransitionErrorV31343,
+      });
+      return false;
+    }
+  }
+  function transition(s, interact, ui = false, allowOffPortal = false) {
+    const r = record(s),
+      p = profile(s.zone),
+      a = ready(s, ui),
+      now = performance.now();
+    if (
+      !a.ready ||
+      (!a.near && !allowOffPortal) ||
+      r.transition ||
+      now < num(r.retryAtV31369)
+    )
+      return false;
+    if (!p.nextMapId) {
+      s.flowStateV31343 = "COMPLETE";
+      return true;
+    }
+    if (!N[p.nextMapId]?.map) {
+      s.flowTransitionErrorV31343 = "다음 맵을 찾을 수 없습니다";
+      log(s, "transition-failed", { reason: "invalid-next-map" });
+      return false;
+    }
+    const tx = {
+      id: s.zone + ":" + ++r.serial + ":" + num(s.time),
+      from: s.zone,
+      next: p.nextMapId,
+      stage: "checkpoint",
+      wallStartedV31369: now,
+    };
+    r.transition = tx;
+    s.flowStateV31343 = "TRANSITIONING";
+    delete s.flowTransitionErrorV31343;
+    let timer = 0;
+    const stop = () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = 0;
+      }
+    };
+    const fail = (e) => {
+      stop();
+      if (r.transition !== tx || s.zone !== tx.from) return;
+      r.transition = null;
+      r.readyAt = num(s.time);
+      r.retryAtV31369 = performance.now() + 2500;
+      s.flowStateV31343 = "EXIT_READY";
+      s.flowTransitionErrorV31343 =
+        String(e?.message ?? e) + " · 잠시 후 출구/F 재시도";
+      log(s, "transition-failed", {
+        id: tx.id,
+        error: s.flowTransitionErrorV31343,
+      });
+    };
+    const done = (ok) => {
+      stop();
+      if (r.transition !== tx || s.zone !== tx.from) return;
+      if (ok === false) {
+        fail(Error("다음 맵 준비 실패"));
+        return;
+      }
+      // commit rechecks pause, HP, required objectives and original encounter state.
+      commit(s, tx, interact);
+    };
+    try {
+      const saved = save(s);
+      if (!saved || saved.ok === false) throw Error("체크포인트 저장 실패");
+      tx.stage = "preparing";
+      const prepared = prepare(s, tx.next);
+      if (prepared && typeof prepared.then === "function") {
+        timer = setTimeout(
+          () => fail(Error("다음 구역 준비 시간 초과")),
+          20000,
+        );
+        Promise.resolve(prepared).then(done, fail).catch(fail);
+      } else done(prepared);
+      return true;
+    } catch (e) {
+      fail(e);
+      return false;
+    }
+  }
+  const oldDrive = HAPIL_driveAutoProgressV31301;
+  HAPIL_driveAutoProgressV31301 = function HAPIL_approachExitV31343(
+    s,
+    settings,
+    ui,
+    interact,
+  ) {
+    if (!profile(s?.zone)) return oldDrive(s, settings, ui, interact);
+    if (record(s).transition)
+      return { action: "wait", reason: "transition-in-progress" };
+    const a = ready(s, ui);
+    if (a.ready && a.near) {
+      transition(s, interact, ui);
+      return { action: "interact", reason: "directional-exit" };
+    }
+    if (blocked(s, ui)) return { action: "wait", reason: "overlay-or-death" };
+    const safeInteract = () => {
+      const target = MONGSE_zonePortalAnchors(s.zone).exit;
+      if (Math.hypot(s.x - target.x, s.y - target.y) < 2.6 && gate(s).clear)
+        transition(s, interact, ui);
+      else interact();
+    };
+    return oldDrive(s, settings, ui, safeInteract);
+  };
+  function beforeNative(s, next, interact) {
+    if (!profile(s.zone)) return true;
+    const r = record(s),
+      tx = r.transition ?? r.pendingNative;
+    if (
+      tx &&
+      tx.next === next &&
+      ["committing", "interlude"].includes(tx.stage) &&
+      !blocked(s) &&
+      gate(s).clear
+    )
+      return true;
+    transition(s, interact);
+    return false;
+  }
+  function drawEntry(ctx, p) {
+    const entry = C(p.entryAnchorWorld.x, p.entryAnchorWorld.y),
+      exit = C(p.exitAnchorWorld.x, p.exitAnchorWorld.y);
+    ctx.save();
+    ctx.translate(entry.x, entry.y);
+    ctx.rotate(Math.atan2(exit.y - entry.y, exit.x - entry.x));
+    ctx.strokeStyle = "rgba(156,190,202,.65)";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-18, -36);
+    ctx.lineTo(16, -36);
+    ctx.moveTo(-18, 36);
+    ctx.lineTo(16, 36);
+    ctx.moveTo(-8, 0);
+    ctx.lineTo(22, 0);
+    ctx.moveTo(9, -12);
+    ctx.lineTo(22, 0);
+    ctx.lineTo(9, 12);
+    ctx.stroke();
+    ctx.restore();
+  }
+  function drawFloor(ctx, s) {
+    const p = profile(s.zone);
+    if (p) drawEntry(ctx, p);
+  }
+  function drawExit(ctx, s) {
+    const p = profile(s.zone);
+    if (!p) return false;
+    const g = gate(s),
+      active =
+        g.clear &&
+        Te(s.zone, s.clues) &&
+        !(s.egoDrops ?? []).length &&
+        !blocked(s);
+    // Reveal the exit after all mandatory combat and growth conditions resolve.
+    if (!active) return true;
+    const e = C(p.exitAnchorWorld.x, p.exitAnchorWorld.y);
+    window.__HAPIL_CONTACT_RC23__.portal(ctx, e, s.time);
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.font = "700 13px sans-serif";
+    ctx.fillStyle = "#c4fff2";
+    ctx.fillText(
+      s.flowTransitionErrorV31343 ?? "WARP · 가까이 가면 자동 이동",
+      e.x,
+      e.y + 62,
+    );
+    ctx.restore();
+    return true;
+  }
+  window.__HAPIL_FLOW_V31345__ =
+    window.__HAPIL_FLOW_V31344__ =
+    window.__HAPIL_FLOW_V31343__ =
+      {
+        version: VERSION,
+        installed: true,
+        profiles,
+        profile,
+        contains,
+        legal,
+        project,
+        point,
+        required,
+        gate,
+        ready,
+        blocked,
+        reserve,
+        settle,
+        place,
+        admit,
+        bind,
+        transition,
+        beforeNative,
+        clearHazards,
+        drawFloor,
+        drawExit,
+        record,
+        scope: Object.keys(profiles),
+        nativeClear,
+        nativeGeometry,
+        waveAdvanceReady,
+        bindObjective,
+      };
+}
