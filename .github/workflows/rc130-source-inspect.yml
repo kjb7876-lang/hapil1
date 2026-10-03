@@ -1,0 +1,28 @@
+name: RC130 native source inspection
+on:
+  push:
+    branches: ['fix/rc130-projectile-cap-melee-audio']
+    paths: ['.github/workflows/rc130-source-inspect.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          show-progress: false
+      - name: Read exact native integration points
+        run: |
+          python3 - <<'PY'
+          import pathlib,re,json
+          p=pathlib.Path('assets/index-v31526.js');text=p.read_text()
+          print('SOURCE_SIZE',len(text),'LINES',len(text.splitlines()))
+          for token,limit,before,after in [('__HAPIL_RC86_BRIDGE__',2,200,7500),('__HAPIL_PROJECTILE_PIPELINE_V31402__',3,400,2200),('melee',10,400,1300),('prepareFrame(',3,400,700),('attackSprite',6,400,1100),('MONGSE_spawnEnemyProjectile',3,300,2000),('rc127MovementSpeed',2,500,700),('__HAPIL_POLICY_RC127__.speed',2,500,900),('bossImpactTransitV31232',4,500,1300)]:
+            found=list(re.finditer(re.escape(token),text));print('\nTOKEN',token,'COUNT',len(found))
+            for m in found[:limit]:print('AT',m.start(),'LINE',text.count('\n',0,m.start())+1,'\n'+text[max(0,m.start()-before):m.end()+after])
+          print('TEST_FILES',json.dumps([str(p) for p in pathlib.Path('tests').glob('*') if any(s in p.name for s in ('rc129','rc127','projectile','melee','audio','narration'))]))
+          print('AUDIO_FILES',json.dumps([str(p) for p in pathlib.Path('audio').rglob('*') if p.is_file()][:180],ensure_ascii=False))
+          PY
