@@ -1,0 +1,9 @@
+{
+  "name": "release",
+  "script": "tests/laser-release-gate.cjs",
+  "testedCommit": "b69cfdfb82316efd392fcac636a16536a927e3ac",
+  "status": "passed",
+  "exitCode": 0,
+  "durationMs": 453170,
+  "error": null
+}

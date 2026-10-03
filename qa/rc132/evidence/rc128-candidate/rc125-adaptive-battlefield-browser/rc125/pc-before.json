@@ -1,0 +1,93 @@
+{
+  "name": "pc",
+  "phase": "before",
+  "viewport": {
+    "width": 1180,
+    "height": 757
+  },
+  "canvas": {
+    "x": 0,
+    "y": 84.453125,
+    "width": 1180,
+    "height": 663.75
+  },
+  "stage": {
+    "x": 0,
+    "y": 75.6875,
+    "width": 1180,
+    "height": 681.296875
+  },
+  "canvasArea": 783225,
+  "viewportFraction": 0.8768163804491413,
+  "backing": {
+    "width": 1050,
+    "height": 590
+  },
+  "camera": {
+    "x": 213.87452229117534,
+    "y": 68.17952642859557,
+    "scale": 0.6668617163904461,
+    "wholeMapV31345": true
+  },
+  "adaptive": null,
+  "portrait": {
+    "frames": 0,
+    "drawPasses": 0,
+    "bossPasses": 0,
+    "heroPasses": 0,
+    "composites": 0,
+    "pointerBlocked": 0,
+    "cameras": {},
+    "rendering": false,
+    "target": "hero",
+    "frame": 0
+  },
+  "barSamples": 60,
+  "visibleBars": 60,
+  "maxIsotropyError": 0.0010582010582010914,
+  "pointerError": 0,
+  "pointerSamples": 0,
+  "hud": {
+    "enemy": {
+      "x": 590,
+      "y": 0,
+      "width": 590,
+      "height": 75.6875
+    },
+    "ally": {
+      "x": 0,
+      "y": 0,
+      "width": 590,
+      "height": 75.6875
+    },
+    "controls": {
+      "x": 0,
+      "y": 0,
+      "width": 1180,
+      "height": 75.6875
+    },
+    "settings": {
+      "x": 1144,
+      "y": 4,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "problems": [],
+  "fixture": {
+    "zone": "dist06",
+    "hero": {
+      "x": 18,
+      "y": 16
+    },
+    "boss": {
+      "id": "dist06-boss",
+      "hp": 9085,
+      "maxHp": 18170
+    },
+    "laser": "branch-y"
+  },
+  "scope": "Same staged native render state in before/after; not natural gameplay completion.",
+  "errors": [],
+  "failedResponses": []
+}

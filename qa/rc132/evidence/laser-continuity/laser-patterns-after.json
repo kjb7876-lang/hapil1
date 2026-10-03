@@ -1,0 +1,3221 @@
+{
+  "rows": [
+    {
+      "type": "hash",
+      "mode": "full",
+      "segments": 12,
+      "foregroundPixels": 7278,
+      "referenceForegroundPixels": 7278,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 234,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7542735042735043,
+      "reference": {
+        "samples": 234,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7542735042735043
+      }
+    },
+    {
+      "type": "three",
+      "mode": "full",
+      "segments": 5,
+      "foregroundPixels": 5958,
+      "referenceForegroundPixels": 5958,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 203,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6231527093596059,
+      "reference": {
+        "samples": 203,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6231527093596059
+      }
+    },
+    {
+      "type": "two",
+      "mode": "full",
+      "segments": 3,
+      "foregroundPixels": 5314,
+      "referenceForegroundPixels": 5314,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 131,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9770992366412213,
+      "reference": {
+        "samples": 131,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9770992366412213
+      }
+    },
+    {
+      "type": "claw",
+      "mode": "full",
+      "segments": 38,
+      "foregroundPixels": 4864,
+      "referenceForegroundPixels": 4864,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 183,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8907103825136612,
+      "reference": {
+        "samples": 183,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8907103825136612
+      }
+    },
+    {
+      "type": "star",
+      "mode": "full",
+      "segments": 8,
+      "foregroundPixels": 5613,
+      "referenceForegroundPixels": 5613,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 198,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7348484848484849,
+      "reference": {
+        "samples": 198,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7348484848484849
+      }
+    },
+    {
+      "type": "spiral",
+      "mode": "full",
+      "segments": 57,
+      "foregroundPixels": 5552,
+      "referenceForegroundPixels": 5552,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 196,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8392857142857143,
+      "reference": {
+        "samples": 196,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8392857142857143
+      }
+    },
+    {
+      "type": "slash",
+      "mode": "full",
+      "segments": 5,
+      "foregroundPixels": 3184,
+      "referenceForegroundPixels": 3184,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 164,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8536585365853658,
+      "reference": {
+        "samples": 164,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8536585365853658
+      }
+    },
+    {
+      "type": "hexagram",
+      "mode": "full",
+      "segments": 30,
+      "foregroundPixels": 5578,
+      "referenceForegroundPixels": 5578,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 282,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8882978723404256,
+      "reference": {
+        "samples": 282,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8882978723404256
+      }
+    },
+    {
+      "type": "death",
+      "mode": "full",
+      "segments": 46,
+      "foregroundPixels": 6150,
+      "referenceForegroundPixels": 6150,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 267,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8314606741573034,
+      "reference": {
+        "samples": 267,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8314606741573034
+      }
+    },
+    {
+      "type": "sixsixsix",
+      "mode": "full",
+      "segments": 97,
+      "foregroundPixels": 5176,
+      "referenceForegroundPixels": 5176,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 292,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9657534246575342,
+      "reference": {
+        "samples": 292,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9657534246575342
+      }
+    },
+    {
+      "type": "cataclysm",
+      "mode": "full",
+      "segments": 37,
+      "foregroundPixels": 15267,
+      "referenceForegroundPixels": 15267,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1253,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9736632083000798,
+      "reference": {
+        "samples": 1253,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9736632083000798
+      }
+    },
+    {
+      "type": "sweep",
+      "mode": "full",
+      "segments": 2,
+      "foregroundPixels": 2170,
+      "referenceForegroundPixels": 2170,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 64,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6171875,
+      "reference": {
+        "samples": 64,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6171875
+      }
+    },
+    {
+      "type": "fan-sweep",
+      "mode": "full",
+      "segments": 5,
+      "foregroundPixels": 9262,
+      "referenceForegroundPixels": 9262,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 226,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.995575221238938,
+      "reference": {
+        "samples": 226,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.995575221238938
+      }
+    },
+    {
+      "type": "orbit-cross",
+      "mode": "full",
+      "segments": 4,
+      "foregroundPixels": 4334,
+      "referenceForegroundPixels": 4334,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 134,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6194029850746269,
+      "reference": {
+        "samples": 134,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6194029850746269
+      }
+    },
+    {
+      "type": "branch-y",
+      "mode": "full",
+      "segments": 3,
+      "foregroundPixels": 3031,
+      "referenceForegroundPixels": 3031,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 99,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6212121212121212,
+      "reference": {
+        "samples": 99,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6212121212121212
+      }
+    },
+    {
+      "type": "fork-link",
+      "mode": "full",
+      "segments": 4,
+      "foregroundPixels": 3001,
+      "referenceForegroundPixels": 3001,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 91,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6923076923076923,
+      "reference": {
+        "samples": 91,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6923076923076923
+      }
+    },
+    {
+      "type": "rc72-glyph-01",
+      "mode": "full",
+      "segments": 7,
+      "foregroundPixels": 4774,
+      "referenceForegroundPixels": 4774,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 159,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7075471698113207,
+      "reference": {
+        "samples": 159,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7075471698113207
+      }
+    },
+    {
+      "type": "rc72-glyph-02",
+      "mode": "full",
+      "segments": 12,
+      "foregroundPixels": 5408,
+      "referenceForegroundPixels": 5408,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 178,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7668539325842697,
+      "reference": {
+        "samples": 178,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7668539325842697
+      }
+    },
+    {
+      "type": "rc72-glyph-03",
+      "mode": "full",
+      "segments": 5,
+      "foregroundPixels": 3975,
+      "referenceForegroundPixels": 3975,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 118,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6567796610169492,
+      "reference": {
+        "samples": 118,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6567796610169492
+      }
+    },
+    {
+      "type": "rc72-glyph-04",
+      "mode": "full",
+      "segments": 4,
+      "foregroundPixels": 5000,
+      "referenceForegroundPixels": 5000,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 160,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.65,
+      "reference": {
+        "samples": 160,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.65
+      }
+    },
+    {
+      "type": "rc72-glyph-05",
+      "mode": "full",
+      "segments": 5,
+      "foregroundPixels": 5059,
+      "referenceForegroundPixels": 5059,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 179,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.723463687150838,
+      "reference": {
+        "samples": 179,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.723463687150838
+      }
+    },
+    {
+      "type": "rc72-glyph-06",
+      "mode": "full",
+      "segments": 11,
+      "foregroundPixels": 4264,
+      "referenceForegroundPixels": 4264,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 137,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7372262773722628,
+      "reference": {
+        "samples": 137,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7372262773722628
+      }
+    },
+    {
+      "type": "rc72-glyph-07",
+      "mode": "full",
+      "segments": 16,
+      "foregroundPixels": 7143,
+      "referenceForegroundPixels": 7143,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 242,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7747933884297521,
+      "reference": {
+        "samples": 242,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7747933884297521
+      }
+    },
+    {
+      "type": "rc72-glyph-08",
+      "mode": "full",
+      "segments": 18,
+      "foregroundPixels": 7872,
+      "referenceForegroundPixels": 7872,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 282,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7836879432624113,
+      "reference": {
+        "samples": 282,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7836879432624113
+      }
+    },
+    {
+      "type": "rc72-nature-01",
+      "mode": "full",
+      "segments": 66,
+      "foregroundPixels": 4343,
+      "referenceForegroundPixels": 4343,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 164,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7621951219512195,
+      "reference": {
+        "samples": 164,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7621951219512195
+      }
+    },
+    {
+      "type": "rc72-nature-02",
+      "mode": "full",
+      "segments": 68,
+      "foregroundPixels": 5837,
+      "referenceForegroundPixels": 5837,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 351,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9430199430199431,
+      "reference": {
+        "samples": 351,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9430199430199431
+      }
+    },
+    {
+      "type": "rc72-nature-03",
+      "mode": "full",
+      "segments": 78,
+      "foregroundPixels": 7134,
+      "referenceForegroundPixels": 7134,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 306,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8251633986928104,
+      "reference": {
+        "samples": 306,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8251633986928104
+      }
+    },
+    {
+      "type": "rc72-nature-04",
+      "mode": "full",
+      "segments": 78,
+      "foregroundPixels": 6794,
+      "referenceForegroundPixels": 6794,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 483,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9554865424430642,
+      "reference": {
+        "samples": 483,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9554865424430642
+      }
+    },
+    {
+      "type": "rc72-nature-05",
+      "mode": "full",
+      "segments": 90,
+      "foregroundPixels": 6944,
+      "referenceForegroundPixels": 6944,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 343,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9125364431486881,
+      "reference": {
+        "samples": 343,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9125364431486881
+      }
+    },
+    {
+      "type": "rc72-nature-06",
+      "mode": "full",
+      "segments": 66,
+      "foregroundPixels": 5634,
+      "referenceForegroundPixels": 5634,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 265,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8320754716981132,
+      "reference": {
+        "samples": 265,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8320754716981132
+      }
+    },
+    {
+      "type": "rc72-nature-07",
+      "mode": "full",
+      "segments": 68,
+      "foregroundPixels": 5436,
+      "referenceForegroundPixels": 5436,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 400,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9675,
+      "reference": {
+        "samples": 400,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9675
+      }
+    },
+    {
+      "type": "rc72-nature-08",
+      "mode": "full",
+      "segments": 78,
+      "foregroundPixels": 6453,
+      "referenceForegroundPixels": 6453,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 317,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8596214511041009,
+      "reference": {
+        "samples": 317,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8596214511041009
+      }
+    },
+    {
+      "type": "rc72-math-01",
+      "mode": "full",
+      "segments": 62,
+      "foregroundPixels": 7499,
+      "referenceForegroundPixels": 7499,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 318,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8757861635220126,
+      "reference": {
+        "samples": 318,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8757861635220126
+      }
+    },
+    {
+      "type": "rc72-math-02",
+      "mode": "full",
+      "segments": 86,
+      "foregroundPixels": 5198,
+      "referenceForegroundPixels": 5198,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 386,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9676165803108808,
+      "reference": {
+        "samples": 386,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9676165803108808
+      }
+    },
+    {
+      "type": "rc72-math-03",
+      "mode": "full",
+      "segments": 122,
+      "foregroundPixels": 6839,
+      "referenceForegroundPixels": 6839,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 574,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9573170731707317,
+      "reference": {
+        "samples": 574,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9573170731707317
+      }
+    },
+    {
+      "type": "rc72-math-04",
+      "mode": "full",
+      "segments": 169,
+      "foregroundPixels": 8536,
+      "referenceForegroundPixels": 8536,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 552,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9710144927536232,
+      "reference": {
+        "samples": 552,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9710144927536232
+      }
+    },
+    {
+      "type": "rc72-math-05",
+      "mode": "full",
+      "segments": 84,
+      "foregroundPixels": 8999,
+      "referenceForegroundPixels": 8999,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 532,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9304511278195489,
+      "reference": {
+        "samples": 532,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9304511278195489
+      }
+    },
+    {
+      "type": "rc72-math-06",
+      "mode": "full",
+      "segments": 94,
+      "foregroundPixels": 7793,
+      "referenceForegroundPixels": 7793,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 458,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9421397379912664,
+      "reference": {
+        "samples": 458,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9421397379912664
+      }
+    },
+    {
+      "type": "rc72-math-07",
+      "mode": "full",
+      "segments": 209,
+      "foregroundPixels": 8019,
+      "referenceForegroundPixels": 8019,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 713,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9740532959326789,
+      "reference": {
+        "samples": 713,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9740532959326789
+      }
+    },
+    {
+      "type": "rc72-math-08",
+      "mode": "full",
+      "segments": 152,
+      "foregroundPixels": 8156,
+      "referenceForegroundPixels": 8156,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 576,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9800347222222222,
+      "reference": {
+        "samples": 576,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9800347222222222
+      }
+    },
+    {
+      "type": "rc72-radial-01",
+      "mode": "full",
+      "segments": 12,
+      "foregroundPixels": 6640,
+      "referenceForegroundPixels": 6640,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 388,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8582474226804123,
+      "reference": {
+        "samples": 388,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8582474226804123
+      }
+    },
+    {
+      "type": "rc72-radial-02",
+      "mode": "full",
+      "segments": 16,
+      "foregroundPixels": 7932,
+      "referenceForegroundPixels": 7932,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 492,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8983739837398373,
+      "reference": {
+        "samples": 492,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8983739837398373
+      }
+    },
+    {
+      "type": "rc72-radial-03",
+      "mode": "full",
+      "segments": 20,
+      "foregroundPixels": 8964,
+      "referenceForegroundPixels": 8964,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 596,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9379194630872483,
+      "reference": {
+        "samples": 596,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9379194630872483
+      }
+    },
+    {
+      "type": "rc72-radial-04",
+      "mode": "full",
+      "segments": 24,
+      "foregroundPixels": 9981,
+      "referenceForegroundPixels": 9981,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 708,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9491525423728814,
+      "reference": {
+        "samples": 708,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9491525423728814
+      }
+    },
+    {
+      "type": "rc72-radial-05",
+      "mode": "full",
+      "segments": 224,
+      "foregroundPixels": 8922,
+      "referenceForegroundPixels": 8922,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 706,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9674220963172805,
+      "reference": {
+        "samples": 706,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9674220963172805
+      }
+    },
+    {
+      "type": "rc72-radial-06",
+      "mode": "full",
+      "segments": 280,
+      "foregroundPixels": 9135,
+      "referenceForegroundPixels": 9135,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 864,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9890046296296297,
+      "reference": {
+        "samples": 864,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9890046296296297
+      }
+    },
+    {
+      "type": "rc72-radial-07",
+      "mode": "full",
+      "segments": 360,
+      "foregroundPixels": 8563,
+      "referenceForegroundPixels": 8563,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 825,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9775757575757575,
+      "reference": {
+        "samples": 825,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9775757575757575
+      }
+    },
+    {
+      "type": "rc72-radial-08",
+      "mode": "full",
+      "segments": 430,
+      "foregroundPixels": 7908,
+      "referenceForegroundPixels": 7908,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 870,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9913793103448276,
+      "reference": {
+        "samples": 870,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9913793103448276
+      }
+    },
+    {
+      "type": "rc72-lattice-01",
+      "mode": "full",
+      "segments": 24,
+      "foregroundPixels": 8688,
+      "referenceForegroundPixels": 8688,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 351,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8490028490028491,
+      "reference": {
+        "samples": 351,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8490028490028491
+      }
+    },
+    {
+      "type": "rc72-lattice-02",
+      "mode": "full",
+      "segments": 83,
+      "foregroundPixels": 9522,
+      "referenceForegroundPixels": 9522,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 591,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9467005076142132,
+      "reference": {
+        "samples": 591,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9467005076142132
+      }
+    },
+    {
+      "type": "rc72-lattice-03",
+      "mode": "full",
+      "segments": 60,
+      "foregroundPixels": 8985,
+      "referenceForegroundPixels": 8985,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 561,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.948306595365419,
+      "reference": {
+        "samples": 561,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.948306595365419
+      }
+    },
+    {
+      "type": "rc72-lattice-04",
+      "mode": "full",
+      "segments": 244,
+      "foregroundPixels": 9387,
+      "referenceForegroundPixels": 9387,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 773,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.96248382923674,
+      "reference": {
+        "samples": 773,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.96248382923674
+      }
+    },
+    {
+      "type": "rc72-lattice-05",
+      "mode": "full",
+      "segments": 184,
+      "foregroundPixels": 7857,
+      "referenceForegroundPixels": 7857,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 602,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9559800664451827,
+      "reference": {
+        "samples": 602,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9559800664451827
+      }
+    },
+    {
+      "type": "rc72-lattice-06",
+      "mode": "full",
+      "segments": 428,
+      "foregroundPixels": 9270,
+      "referenceForegroundPixels": 9270,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1043,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9717162032598274,
+      "reference": {
+        "samples": 1043,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9717162032598274
+      }
+    },
+    {
+      "type": "rc72-lattice-07",
+      "mode": "full",
+      "segments": 294,
+      "foregroundPixels": 7866,
+      "referenceForegroundPixels": 7866,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 785,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9713375796178344,
+      "reference": {
+        "samples": 785,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9713375796178344
+      }
+    },
+    {
+      "type": "rc72-lattice-08",
+      "mode": "full",
+      "segments": 668,
+      "foregroundPixels": 9093,
+      "referenceForegroundPixels": 9093,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1317,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9810174639331815,
+      "reference": {
+        "samples": 1317,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9810174639331815
+      }
+    },
+    {
+      "type": "rc72-sweep-01",
+      "mode": "full",
+      "segments": 2,
+      "foregroundPixels": 2494,
+      "referenceForegroundPixels": 2494,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 77,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6298701298701299,
+      "reference": {
+        "samples": 77,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6298701298701299
+      }
+    },
+    {
+      "type": "rc72-sweep-02",
+      "mode": "full",
+      "segments": 3,
+      "foregroundPixels": 2717,
+      "referenceForegroundPixels": 2717,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 106,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 1,
+      "reference": {
+        "samples": 106,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 1
+      }
+    },
+    {
+      "type": "rc72-sweep-03",
+      "mode": "full",
+      "segments": 5,
+      "foregroundPixels": 2924,
+      "referenceForegroundPixels": 2924,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 146,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7705479452054794,
+      "reference": {
+        "samples": 146,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7705479452054794
+      }
+    },
+    {
+      "type": "rc72-sweep-04",
+      "mode": "full",
+      "segments": 7,
+      "foregroundPixels": 2602,
+      "referenceForegroundPixels": 2602,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 140,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9964285714285714,
+      "reference": {
+        "samples": 140,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9964285714285714
+      }
+    },
+    {
+      "type": "rc72-sweep-05",
+      "mode": "full",
+      "segments": 9,
+      "foregroundPixels": 4744,
+      "referenceForegroundPixels": 4744,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 235,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.997872340425532,
+      "reference": {
+        "samples": 235,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.997872340425532
+      }
+    },
+    {
+      "type": "rc72-sweep-06",
+      "mode": "full",
+      "segments": 11,
+      "foregroundPixels": 2999,
+      "referenceForegroundPixels": 2999,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 189,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9973544973544973,
+      "reference": {
+        "samples": 189,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9973544973544973
+      }
+    },
+    {
+      "type": "rc72-sweep-07",
+      "mode": "full",
+      "segments": 13,
+      "foregroundPixels": 5542,
+      "referenceForegroundPixels": 5542,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 347,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8832853025936599,
+      "reference": {
+        "samples": 347,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8832853025936599
+      }
+    },
+    {
+      "type": "rc72-sweep-08",
+      "mode": "full",
+      "segments": 37,
+      "foregroundPixels": 15270,
+      "referenceForegroundPixels": 15270,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1251,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9764188649080735,
+      "reference": {
+        "samples": 1251,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9764188649080735
+      }
+    },
+    {
+      "type": "rc72-spiral-01",
+      "mode": "full",
+      "segments": 34,
+      "foregroundPixels": 2621,
+      "referenceForegroundPixels": 2621,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 71,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7112676056338029,
+      "reference": {
+        "samples": 71,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7112676056338029
+      }
+    },
+    {
+      "type": "rc72-spiral-02",
+      "mode": "full",
+      "segments": 76,
+      "foregroundPixels": 5061,
+      "referenceForegroundPixels": 5061,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 169,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7928994082840237,
+      "reference": {
+        "samples": 169,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7928994082840237
+      }
+    },
+    {
+      "type": "rc72-spiral-03",
+      "mode": "full",
+      "segments": 126,
+      "foregroundPixels": 5334,
+      "referenceForegroundPixels": 5334,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 211,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7890995260663507,
+      "reference": {
+        "samples": 211,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7890995260663507
+      }
+    },
+    {
+      "type": "rc72-spiral-04",
+      "mode": "full",
+      "segments": 192,
+      "foregroundPixels": 5371,
+      "referenceForegroundPixels": 5371,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 255,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8549019607843137,
+      "reference": {
+        "samples": 255,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8549019607843137
+      }
+    },
+    {
+      "type": "rc72-spiral-05",
+      "mode": "full",
+      "segments": 36,
+      "foregroundPixels": 4691,
+      "referenceForegroundPixels": 4691,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 152,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8322368421052632,
+      "reference": {
+        "samples": 152,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8322368421052632
+      }
+    },
+    {
+      "type": "rc72-spiral-06",
+      "mode": "full",
+      "segments": 80,
+      "foregroundPixels": 5862,
+      "referenceForegroundPixels": 5862,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 244,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8176229508196722,
+      "reference": {
+        "samples": 244,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8176229508196722
+      }
+    },
+    {
+      "type": "rc72-spiral-07",
+      "mode": "full",
+      "segments": 138,
+      "foregroundPixels": 5518,
+      "referenceForegroundPixels": 5518,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 260,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8596153846153847,
+      "reference": {
+        "samples": 260,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8596153846153847
+      }
+    },
+    {
+      "type": "rc72-spiral-08",
+      "mode": "full",
+      "segments": 208,
+      "foregroundPixels": 5719,
+      "referenceForegroundPixels": 5719,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 385,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.912987012987013,
+      "reference": {
+        "samples": 385,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.912987012987013
+      }
+    },
+    {
+      "type": "rc72-orbit-01",
+      "mode": "full",
+      "segments": 48,
+      "foregroundPixels": 3970,
+      "referenceForegroundPixels": 3970,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 216,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8564814814814815,
+      "reference": {
+        "samples": 216,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8564814814814815
+      }
+    },
+    {
+      "type": "rc72-orbit-02",
+      "mode": "full",
+      "segments": 106,
+      "foregroundPixels": 6297,
+      "referenceForegroundPixels": 6297,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 229,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8165938864628821,
+      "reference": {
+        "samples": 229,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8165938864628821
+      }
+    },
+    {
+      "type": "rc72-orbit-03",
+      "mode": "full",
+      "segments": 150,
+      "foregroundPixels": 6598,
+      "referenceForegroundPixels": 6598,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 404,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9282178217821783,
+      "reference": {
+        "samples": 404,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9282178217821783
+      }
+    },
+    {
+      "type": "rc72-orbit-04",
+      "mode": "full",
+      "segments": 70,
+      "foregroundPixels": 7417,
+      "referenceForegroundPixels": 7417,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 322,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8959627329192547,
+      "reference": {
+        "samples": 322,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8959627329192547
+      }
+    },
+    {
+      "type": "rc72-orbit-05",
+      "mode": "full",
+      "segments": 120,
+      "foregroundPixels": 7505,
+      "referenceForegroundPixels": 7505,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 478,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9205020920502092,
+      "reference": {
+        "samples": 478,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9205020920502092
+      }
+    },
+    {
+      "type": "rc72-orbit-06",
+      "mode": "full",
+      "segments": 210,
+      "foregroundPixels": 8165,
+      "referenceForegroundPixels": 8165,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 386,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9365284974093264,
+      "reference": {
+        "samples": 386,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9365284974093264
+      }
+    },
+    {
+      "type": "rc72-orbit-07",
+      "mode": "full",
+      "segments": 78,
+      "foregroundPixels": 9271,
+      "referenceForegroundPixels": 9271,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 600,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9266666666666666,
+      "reference": {
+        "samples": 600,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9266666666666666
+      }
+    },
+    {
+      "type": "rc72-orbit-08",
+      "mode": "full",
+      "segments": 166,
+      "foregroundPixels": 9166,
+      "referenceForegroundPixels": 9166,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 499,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9579158316633266,
+      "reference": {
+        "samples": 499,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9579158316633266
+      }
+    },
+    {
+      "type": "hash",
+      "mode": "lowFx",
+      "segments": 12,
+      "foregroundPixels": 7278,
+      "referenceForegroundPixels": 7278,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 234,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7542735042735043,
+      "reference": {
+        "samples": 234,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7542735042735043
+      }
+    },
+    {
+      "type": "three",
+      "mode": "lowFx",
+      "segments": 5,
+      "foregroundPixels": 5958,
+      "referenceForegroundPixels": 5958,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 203,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6231527093596059,
+      "reference": {
+        "samples": 203,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6231527093596059
+      }
+    },
+    {
+      "type": "two",
+      "mode": "lowFx",
+      "segments": 3,
+      "foregroundPixels": 4204,
+      "referenceForegroundPixels": 4204,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 131,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7595419847328244,
+      "reference": {
+        "samples": 131,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7595419847328244
+      }
+    },
+    {
+      "type": "claw",
+      "mode": "lowFx",
+      "segments": 38,
+      "foregroundPixels": 4864,
+      "referenceForegroundPixels": 4864,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 183,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8907103825136612,
+      "reference": {
+        "samples": 183,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8907103825136612
+      }
+    },
+    {
+      "type": "star",
+      "mode": "lowFx",
+      "segments": 8,
+      "foregroundPixels": 5613,
+      "referenceForegroundPixels": 5613,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 198,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7348484848484849,
+      "reference": {
+        "samples": 198,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7348484848484849
+      }
+    },
+    {
+      "type": "spiral",
+      "mode": "lowFx",
+      "segments": 57,
+      "foregroundPixels": 5552,
+      "referenceForegroundPixels": 5552,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 196,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8392857142857143,
+      "reference": {
+        "samples": 196,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8392857142857143
+      }
+    },
+    {
+      "type": "slash",
+      "mode": "lowFx",
+      "segments": 5,
+      "foregroundPixels": 3184,
+      "referenceForegroundPixels": 3184,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 164,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8536585365853658,
+      "reference": {
+        "samples": 164,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8536585365853658
+      }
+    },
+    {
+      "type": "hexagram",
+      "mode": "lowFx",
+      "segments": 30,
+      "foregroundPixels": 5578,
+      "referenceForegroundPixels": 5578,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 282,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8882978723404256,
+      "reference": {
+        "samples": 282,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8882978723404256
+      }
+    },
+    {
+      "type": "death",
+      "mode": "lowFx",
+      "segments": 46,
+      "foregroundPixels": 6150,
+      "referenceForegroundPixels": 6150,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 267,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8314606741573034,
+      "reference": {
+        "samples": 267,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8314606741573034
+      }
+    },
+    {
+      "type": "sixsixsix",
+      "mode": "lowFx",
+      "segments": 97,
+      "foregroundPixels": 5176,
+      "referenceForegroundPixels": 5176,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 292,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9657534246575342,
+      "reference": {
+        "samples": 292,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9657534246575342
+      }
+    },
+    {
+      "type": "cataclysm",
+      "mode": "lowFx",
+      "segments": 37,
+      "foregroundPixels": 15267,
+      "referenceForegroundPixels": 15267,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1253,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9736632083000798,
+      "reference": {
+        "samples": 1253,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9736632083000798
+      }
+    },
+    {
+      "type": "sweep",
+      "mode": "lowFx",
+      "segments": 2,
+      "foregroundPixels": 2170,
+      "referenceForegroundPixels": 2170,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 64,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6171875,
+      "reference": {
+        "samples": 64,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6171875
+      }
+    },
+    {
+      "type": "fan-sweep",
+      "mode": "lowFx",
+      "segments": 5,
+      "foregroundPixels": 7291,
+      "referenceForegroundPixels": 7291,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 226,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7831858407079646,
+      "reference": {
+        "samples": 226,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7831858407079646
+      }
+    },
+    {
+      "type": "orbit-cross",
+      "mode": "lowFx",
+      "segments": 4,
+      "foregroundPixels": 4334,
+      "referenceForegroundPixels": 4334,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 134,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6194029850746269,
+      "reference": {
+        "samples": 134,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6194029850746269
+      }
+    },
+    {
+      "type": "branch-y",
+      "mode": "lowFx",
+      "segments": 3,
+      "foregroundPixels": 3031,
+      "referenceForegroundPixels": 3031,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 99,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6212121212121212,
+      "reference": {
+        "samples": 99,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6212121212121212
+      }
+    },
+    {
+      "type": "fork-link",
+      "mode": "lowFx",
+      "segments": 4,
+      "foregroundPixels": 3001,
+      "referenceForegroundPixels": 3001,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 91,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6923076923076923,
+      "reference": {
+        "samples": 91,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6923076923076923
+      }
+    },
+    {
+      "type": "rc72-glyph-01",
+      "mode": "lowFx",
+      "segments": 7,
+      "foregroundPixels": 4774,
+      "referenceForegroundPixels": 4774,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 159,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7075471698113207,
+      "reference": {
+        "samples": 159,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7075471698113207
+      }
+    },
+    {
+      "type": "rc72-glyph-02",
+      "mode": "lowFx",
+      "segments": 12,
+      "foregroundPixels": 5408,
+      "referenceForegroundPixels": 5408,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 178,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7668539325842697,
+      "reference": {
+        "samples": 178,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7668539325842697
+      }
+    },
+    {
+      "type": "rc72-glyph-03",
+      "mode": "lowFx",
+      "segments": 5,
+      "foregroundPixels": 3975,
+      "referenceForegroundPixels": 3975,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 118,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6567796610169492,
+      "reference": {
+        "samples": 118,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6567796610169492
+      }
+    },
+    {
+      "type": "rc72-glyph-04",
+      "mode": "lowFx",
+      "segments": 4,
+      "foregroundPixels": 5000,
+      "referenceForegroundPixels": 5000,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 160,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.65,
+      "reference": {
+        "samples": 160,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.65
+      }
+    },
+    {
+      "type": "rc72-glyph-05",
+      "mode": "lowFx",
+      "segments": 5,
+      "foregroundPixels": 5059,
+      "referenceForegroundPixels": 5059,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 179,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.723463687150838,
+      "reference": {
+        "samples": 179,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.723463687150838
+      }
+    },
+    {
+      "type": "rc72-glyph-06",
+      "mode": "lowFx",
+      "segments": 11,
+      "foregroundPixels": 4264,
+      "referenceForegroundPixels": 4264,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 137,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7372262773722628,
+      "reference": {
+        "samples": 137,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7372262773722628
+      }
+    },
+    {
+      "type": "rc72-glyph-07",
+      "mode": "lowFx",
+      "segments": 16,
+      "foregroundPixels": 7143,
+      "referenceForegroundPixels": 7143,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 242,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7747933884297521,
+      "reference": {
+        "samples": 242,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7747933884297521
+      }
+    },
+    {
+      "type": "rc72-glyph-08",
+      "mode": "lowFx",
+      "segments": 18,
+      "foregroundPixels": 7872,
+      "referenceForegroundPixels": 7872,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 282,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7836879432624113,
+      "reference": {
+        "samples": 282,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7836879432624113
+      }
+    },
+    {
+      "type": "rc72-nature-01",
+      "mode": "lowFx",
+      "segments": 66,
+      "foregroundPixels": 4343,
+      "referenceForegroundPixels": 4343,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 164,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7621951219512195,
+      "reference": {
+        "samples": 164,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7621951219512195
+      }
+    },
+    {
+      "type": "rc72-nature-02",
+      "mode": "lowFx",
+      "segments": 68,
+      "foregroundPixels": 5837,
+      "referenceForegroundPixels": 5837,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 351,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9430199430199431,
+      "reference": {
+        "samples": 351,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9430199430199431
+      }
+    },
+    {
+      "type": "rc72-nature-03",
+      "mode": "lowFx",
+      "segments": 78,
+      "foregroundPixels": 7134,
+      "referenceForegroundPixels": 7134,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 306,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8251633986928104,
+      "reference": {
+        "samples": 306,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8251633986928104
+      }
+    },
+    {
+      "type": "rc72-nature-04",
+      "mode": "lowFx",
+      "segments": 78,
+      "foregroundPixels": 6794,
+      "referenceForegroundPixels": 6794,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 483,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9554865424430642,
+      "reference": {
+        "samples": 483,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9554865424430642
+      }
+    },
+    {
+      "type": "rc72-nature-05",
+      "mode": "lowFx",
+      "segments": 90,
+      "foregroundPixels": 6944,
+      "referenceForegroundPixels": 6944,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 343,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9125364431486881,
+      "reference": {
+        "samples": 343,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9125364431486881
+      }
+    },
+    {
+      "type": "rc72-nature-06",
+      "mode": "lowFx",
+      "segments": 66,
+      "foregroundPixels": 5634,
+      "referenceForegroundPixels": 5634,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 265,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8320754716981132,
+      "reference": {
+        "samples": 265,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8320754716981132
+      }
+    },
+    {
+      "type": "rc72-nature-07",
+      "mode": "lowFx",
+      "segments": 68,
+      "foregroundPixels": 5436,
+      "referenceForegroundPixels": 5436,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 400,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9675,
+      "reference": {
+        "samples": 400,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9675
+      }
+    },
+    {
+      "type": "rc72-nature-08",
+      "mode": "lowFx",
+      "segments": 78,
+      "foregroundPixels": 6453,
+      "referenceForegroundPixels": 6453,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 317,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8596214511041009,
+      "reference": {
+        "samples": 317,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8596214511041009
+      }
+    },
+    {
+      "type": "rc72-math-01",
+      "mode": "lowFx",
+      "segments": 62,
+      "foregroundPixels": 7499,
+      "referenceForegroundPixels": 7499,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 318,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8757861635220126,
+      "reference": {
+        "samples": 318,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8757861635220126
+      }
+    },
+    {
+      "type": "rc72-math-02",
+      "mode": "lowFx",
+      "segments": 86,
+      "foregroundPixels": 5198,
+      "referenceForegroundPixels": 5198,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 386,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9676165803108808,
+      "reference": {
+        "samples": 386,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9676165803108808
+      }
+    },
+    {
+      "type": "rc72-math-03",
+      "mode": "lowFx",
+      "segments": 122,
+      "foregroundPixels": 6839,
+      "referenceForegroundPixels": 6839,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 574,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9573170731707317,
+      "reference": {
+        "samples": 574,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9573170731707317
+      }
+    },
+    {
+      "type": "rc72-math-04",
+      "mode": "lowFx",
+      "segments": 169,
+      "foregroundPixels": 8536,
+      "referenceForegroundPixels": 8536,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 552,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9710144927536232,
+      "reference": {
+        "samples": 552,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9710144927536232
+      }
+    },
+    {
+      "type": "rc72-math-05",
+      "mode": "lowFx",
+      "segments": 84,
+      "foregroundPixels": 8999,
+      "referenceForegroundPixels": 8999,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 532,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9304511278195489,
+      "reference": {
+        "samples": 532,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9304511278195489
+      }
+    },
+    {
+      "type": "rc72-math-06",
+      "mode": "lowFx",
+      "segments": 94,
+      "foregroundPixels": 7793,
+      "referenceForegroundPixels": 7793,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 458,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9421397379912664,
+      "reference": {
+        "samples": 458,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9421397379912664
+      }
+    },
+    {
+      "type": "rc72-math-07",
+      "mode": "lowFx",
+      "segments": 209,
+      "foregroundPixels": 8019,
+      "referenceForegroundPixels": 8019,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 713,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9740532959326789,
+      "reference": {
+        "samples": 713,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9740532959326789
+      }
+    },
+    {
+      "type": "rc72-math-08",
+      "mode": "lowFx",
+      "segments": 152,
+      "foregroundPixels": 8156,
+      "referenceForegroundPixels": 8156,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 576,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9800347222222222,
+      "reference": {
+        "samples": 576,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9800347222222222
+      }
+    },
+    {
+      "type": "rc72-radial-01",
+      "mode": "lowFx",
+      "segments": 12,
+      "foregroundPixels": 6640,
+      "referenceForegroundPixels": 6640,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 388,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8582474226804123,
+      "reference": {
+        "samples": 388,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8582474226804123
+      }
+    },
+    {
+      "type": "rc72-radial-02",
+      "mode": "lowFx",
+      "segments": 16,
+      "foregroundPixels": 7932,
+      "referenceForegroundPixels": 7932,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 492,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8983739837398373,
+      "reference": {
+        "samples": 492,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8983739837398373
+      }
+    },
+    {
+      "type": "rc72-radial-03",
+      "mode": "lowFx",
+      "segments": 20,
+      "foregroundPixels": 8964,
+      "referenceForegroundPixels": 8964,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 596,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9379194630872483,
+      "reference": {
+        "samples": 596,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9379194630872483
+      }
+    },
+    {
+      "type": "rc72-radial-04",
+      "mode": "lowFx",
+      "segments": 24,
+      "foregroundPixels": 9981,
+      "referenceForegroundPixels": 9981,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 708,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9491525423728814,
+      "reference": {
+        "samples": 708,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9491525423728814
+      }
+    },
+    {
+      "type": "rc72-radial-05",
+      "mode": "lowFx",
+      "segments": 224,
+      "foregroundPixels": 8922,
+      "referenceForegroundPixels": 8922,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 706,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9674220963172805,
+      "reference": {
+        "samples": 706,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9674220963172805
+      }
+    },
+    {
+      "type": "rc72-radial-06",
+      "mode": "lowFx",
+      "segments": 280,
+      "foregroundPixels": 9135,
+      "referenceForegroundPixels": 9135,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 864,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9890046296296297,
+      "reference": {
+        "samples": 864,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9890046296296297
+      }
+    },
+    {
+      "type": "rc72-radial-07",
+      "mode": "lowFx",
+      "segments": 360,
+      "foregroundPixels": 8563,
+      "referenceForegroundPixels": 8563,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 825,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9775757575757575,
+      "reference": {
+        "samples": 825,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9775757575757575
+      }
+    },
+    {
+      "type": "rc72-radial-08",
+      "mode": "lowFx",
+      "segments": 430,
+      "foregroundPixels": 7908,
+      "referenceForegroundPixels": 7908,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 870,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9913793103448276,
+      "reference": {
+        "samples": 870,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9913793103448276
+      }
+    },
+    {
+      "type": "rc72-lattice-01",
+      "mode": "lowFx",
+      "segments": 24,
+      "foregroundPixels": 8688,
+      "referenceForegroundPixels": 8688,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 351,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8490028490028491,
+      "reference": {
+        "samples": 351,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8490028490028491
+      }
+    },
+    {
+      "type": "rc72-lattice-02",
+      "mode": "lowFx",
+      "segments": 83,
+      "foregroundPixels": 9522,
+      "referenceForegroundPixels": 9522,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 591,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9467005076142132,
+      "reference": {
+        "samples": 591,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9467005076142132
+      }
+    },
+    {
+      "type": "rc72-lattice-03",
+      "mode": "lowFx",
+      "segments": 60,
+      "foregroundPixels": 8985,
+      "referenceForegroundPixels": 8985,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 561,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.948306595365419,
+      "reference": {
+        "samples": 561,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.948306595365419
+      }
+    },
+    {
+      "type": "rc72-lattice-04",
+      "mode": "lowFx",
+      "segments": 244,
+      "foregroundPixels": 9387,
+      "referenceForegroundPixels": 9387,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 773,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.96248382923674,
+      "reference": {
+        "samples": 773,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.96248382923674
+      }
+    },
+    {
+      "type": "rc72-lattice-05",
+      "mode": "lowFx",
+      "segments": 184,
+      "foregroundPixels": 7857,
+      "referenceForegroundPixels": 7857,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 602,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9559800664451827,
+      "reference": {
+        "samples": 602,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9559800664451827
+      }
+    },
+    {
+      "type": "rc72-lattice-06",
+      "mode": "lowFx",
+      "segments": 428,
+      "foregroundPixels": 9270,
+      "referenceForegroundPixels": 9270,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1043,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9717162032598274,
+      "reference": {
+        "samples": 1043,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9717162032598274
+      }
+    },
+    {
+      "type": "rc72-lattice-07",
+      "mode": "lowFx",
+      "segments": 294,
+      "foregroundPixels": 7866,
+      "referenceForegroundPixels": 7866,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 785,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9713375796178344,
+      "reference": {
+        "samples": 785,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9713375796178344
+      }
+    },
+    {
+      "type": "rc72-lattice-08",
+      "mode": "lowFx",
+      "segments": 668,
+      "foregroundPixels": 9093,
+      "referenceForegroundPixels": 9093,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1317,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9810174639331815,
+      "reference": {
+        "samples": 1317,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9810174639331815
+      }
+    },
+    {
+      "type": "rc72-sweep-01",
+      "mode": "lowFx",
+      "segments": 2,
+      "foregroundPixels": 2494,
+      "referenceForegroundPixels": 2494,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 77,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.6298701298701299,
+      "reference": {
+        "samples": 77,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6298701298701299
+      }
+    },
+    {
+      "type": "rc72-sweep-02",
+      "mode": "lowFx",
+      "segments": 3,
+      "foregroundPixels": 2165,
+      "referenceForegroundPixels": 2165,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 106,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8915094339622641,
+      "reference": {
+        "samples": 106,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8915094339622641
+      }
+    },
+    {
+      "type": "rc72-sweep-03",
+      "mode": "lowFx",
+      "segments": 5,
+      "foregroundPixels": 2924,
+      "referenceForegroundPixels": 2924,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 146,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7705479452054794,
+      "reference": {
+        "samples": 146,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7705479452054794
+      }
+    },
+    {
+      "type": "rc72-sweep-04",
+      "mode": "lowFx",
+      "segments": 7,
+      "foregroundPixels": 2155,
+      "referenceForegroundPixels": 2155,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 140,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9321428571428572,
+      "reference": {
+        "samples": 140,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9321428571428572
+      }
+    },
+    {
+      "type": "rc72-sweep-05",
+      "mode": "lowFx",
+      "segments": 9,
+      "foregroundPixels": 4095,
+      "referenceForegroundPixels": 4095,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 235,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9361702127659575,
+      "reference": {
+        "samples": 235,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9361702127659575
+      }
+    },
+    {
+      "type": "rc72-sweep-06",
+      "mode": "lowFx",
+      "segments": 11,
+      "foregroundPixels": 2573,
+      "referenceForegroundPixels": 2573,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 189,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9444444444444444,
+      "reference": {
+        "samples": 189,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9444444444444444
+      }
+    },
+    {
+      "type": "rc72-sweep-07",
+      "mode": "lowFx",
+      "segments": 13,
+      "foregroundPixels": 5542,
+      "referenceForegroundPixels": 5542,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 347,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8832853025936599,
+      "reference": {
+        "samples": 347,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8832853025936599
+      }
+    },
+    {
+      "type": "rc72-sweep-08",
+      "mode": "lowFx",
+      "segments": 37,
+      "foregroundPixels": 15270,
+      "referenceForegroundPixels": 15270,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 1251,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9764188649080735,
+      "reference": {
+        "samples": 1251,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9764188649080735
+      }
+    },
+    {
+      "type": "rc72-spiral-01",
+      "mode": "lowFx",
+      "segments": 34,
+      "foregroundPixels": 2621,
+      "referenceForegroundPixels": 2621,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 71,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7112676056338029,
+      "reference": {
+        "samples": 71,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7112676056338029
+      }
+    },
+    {
+      "type": "rc72-spiral-02",
+      "mode": "lowFx",
+      "segments": 76,
+      "foregroundPixels": 5061,
+      "referenceForegroundPixels": 5061,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 169,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7928994082840237,
+      "reference": {
+        "samples": 169,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7928994082840237
+      }
+    },
+    {
+      "type": "rc72-spiral-03",
+      "mode": "lowFx",
+      "segments": 126,
+      "foregroundPixels": 5334,
+      "referenceForegroundPixels": 5334,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 211,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.7890995260663507,
+      "reference": {
+        "samples": 211,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7890995260663507
+      }
+    },
+    {
+      "type": "rc72-spiral-04",
+      "mode": "lowFx",
+      "segments": 192,
+      "foregroundPixels": 5371,
+      "referenceForegroundPixels": 5371,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 255,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8549019607843137,
+      "reference": {
+        "samples": 255,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8549019607843137
+      }
+    },
+    {
+      "type": "rc72-spiral-05",
+      "mode": "lowFx",
+      "segments": 36,
+      "foregroundPixels": 4691,
+      "referenceForegroundPixels": 4691,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 152,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8322368421052632,
+      "reference": {
+        "samples": 152,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8322368421052632
+      }
+    },
+    {
+      "type": "rc72-spiral-06",
+      "mode": "lowFx",
+      "segments": 80,
+      "foregroundPixels": 5862,
+      "referenceForegroundPixels": 5862,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 244,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8176229508196722,
+      "reference": {
+        "samples": 244,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8176229508196722
+      }
+    },
+    {
+      "type": "rc72-spiral-07",
+      "mode": "lowFx",
+      "segments": 138,
+      "foregroundPixels": 5518,
+      "referenceForegroundPixels": 5518,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 260,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8596153846153847,
+      "reference": {
+        "samples": 260,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8596153846153847
+      }
+    },
+    {
+      "type": "rc72-spiral-08",
+      "mode": "lowFx",
+      "segments": 208,
+      "foregroundPixels": 5719,
+      "referenceForegroundPixels": 5719,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 385,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.912987012987013,
+      "reference": {
+        "samples": 385,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.912987012987013
+      }
+    },
+    {
+      "type": "rc72-orbit-01",
+      "mode": "lowFx",
+      "segments": 48,
+      "foregroundPixels": 3970,
+      "referenceForegroundPixels": 3970,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 216,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8564814814814815,
+      "reference": {
+        "samples": 216,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8564814814814815
+      }
+    },
+    {
+      "type": "rc72-orbit-02",
+      "mode": "lowFx",
+      "segments": 106,
+      "foregroundPixels": 6297,
+      "referenceForegroundPixels": 6297,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 229,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8165938864628821,
+      "reference": {
+        "samples": 229,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8165938864628821
+      }
+    },
+    {
+      "type": "rc72-orbit-03",
+      "mode": "lowFx",
+      "segments": 150,
+      "foregroundPixels": 6598,
+      "referenceForegroundPixels": 6598,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 404,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9282178217821783,
+      "reference": {
+        "samples": 404,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9282178217821783
+      }
+    },
+    {
+      "type": "rc72-orbit-04",
+      "mode": "lowFx",
+      "segments": 70,
+      "foregroundPixels": 7417,
+      "referenceForegroundPixels": 7417,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 322,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.8959627329192547,
+      "reference": {
+        "samples": 322,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8959627329192547
+      }
+    },
+    {
+      "type": "rc72-orbit-05",
+      "mode": "lowFx",
+      "segments": 120,
+      "foregroundPixels": 7505,
+      "referenceForegroundPixels": 7505,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 478,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9205020920502092,
+      "reference": {
+        "samples": 478,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9205020920502092
+      }
+    },
+    {
+      "type": "rc72-orbit-06",
+      "mode": "lowFx",
+      "segments": 210,
+      "foregroundPixels": 8165,
+      "referenceForegroundPixels": 8165,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 386,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9365284974093264,
+      "reference": {
+        "samples": 386,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9365284974093264
+      }
+    },
+    {
+      "type": "rc72-orbit-07",
+      "mode": "lowFx",
+      "segments": 78,
+      "foregroundPixels": 9271,
+      "referenceForegroundPixels": 9271,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 600,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9266666666666666,
+      "reference": {
+        "samples": 600,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9266666666666666
+      }
+    },
+    {
+      "type": "rc72-orbit-08",
+      "mode": "lowFx",
+      "segments": 166,
+      "foregroundPixels": 9166,
+      "referenceForegroundPixels": 9166,
+      "changedPixels": 0,
+      "changedPixelRatio": 0,
+      "samples": 499,
+      "centerCoverage": 1,
+      "sectionCoverage": 1,
+      "bodyCoverage": 0.9579158316633266,
+      "reference": {
+        "samples": 499,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9579158316633266
+      }
+    }
+  ],
+  "negativePixels": 0,
+  "types": [
+    "hash",
+    "three",
+    "two",
+    "claw",
+    "star",
+    "spiral",
+    "slash",
+    "hexagram",
+    "death",
+    "sixsixsix",
+    "cataclysm",
+    "sweep",
+    "fan-sweep",
+    "orbit-cross",
+    "branch-y",
+    "fork-link",
+    "rc72-glyph-01",
+    "rc72-glyph-02",
+    "rc72-glyph-03",
+    "rc72-glyph-04",
+    "rc72-glyph-05",
+    "rc72-glyph-06",
+    "rc72-glyph-07",
+    "rc72-glyph-08",
+    "rc72-nature-01",
+    "rc72-nature-02",
+    "rc72-nature-03",
+    "rc72-nature-04",
+    "rc72-nature-05",
+    "rc72-nature-06",
+    "rc72-nature-07",
+    "rc72-nature-08",
+    "rc72-math-01",
+    "rc72-math-02",
+    "rc72-math-03",
+    "rc72-math-04",
+    "rc72-math-05",
+    "rc72-math-06",
+    "rc72-math-07",
+    "rc72-math-08",
+    "rc72-radial-01",
+    "rc72-radial-02",
+    "rc72-radial-03",
+    "rc72-radial-04",
+    "rc72-radial-05",
+    "rc72-radial-06",
+    "rc72-radial-07",
+    "rc72-radial-08",
+    "rc72-lattice-01",
+    "rc72-lattice-02",
+    "rc72-lattice-03",
+    "rc72-lattice-04",
+    "rc72-lattice-05",
+    "rc72-lattice-06",
+    "rc72-lattice-07",
+    "rc72-lattice-08",
+    "rc72-sweep-01",
+    "rc72-sweep-02",
+    "rc72-sweep-03",
+    "rc72-sweep-04",
+    "rc72-sweep-05",
+    "rc72-sweep-06",
+    "rc72-sweep-07",
+    "rc72-sweep-08",
+    "rc72-spiral-01",
+    "rc72-spiral-02",
+    "rc72-spiral-03",
+    "rc72-spiral-04",
+    "rc72-spiral-05",
+    "rc72-spiral-06",
+    "rc72-spiral-07",
+    "rc72-spiral-08",
+    "rc72-orbit-01",
+    "rc72-orbit-02",
+    "rc72-orbit-03",
+    "rc72-orbit-04",
+    "rc72-orbit-05",
+    "rc72-orbit-06",
+    "rc72-orbit-07",
+    "rc72-orbit-08"
+  ],
+  "ownerId": "dist00-boss",
+  "ownerImage": "./assets/vfx/rc33/boss-laser-families/sinful.webp?v=33402#owner=dist00-boss",
+  "renderer": "RC107",
+  "measurement": "transparent foreground; approved-reference regression comparison",
+  "baseline": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "summary": {
+    "baseline": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+    "types": 80,
+    "renderedRows": 160,
+    "negativePixels": 0,
+    "maxChangedPixelRatio": 0,
+    "minSectionCoverage": 1,
+    "minReferenceSectionCoverage": 1,
+    "worst": [
+      {
+        "type": "hash",
+        "mode": "full",
+        "segments": 12,
+        "foregroundPixels": 7278,
+        "referenceForegroundPixels": 7278,
+        "changedPixels": 0,
+        "changedPixelRatio": 0,
+        "samples": 234,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.7542735042735043,
+        "reference": {
+          "samples": 234,
+          "centerCoverage": 1,
+          "sectionCoverage": 1,
+          "bodyCoverage": 0.7542735042735043
+        }
+      },
+      {
+        "type": "three",
+        "mode": "full",
+        "segments": 5,
+        "foregroundPixels": 5958,
+        "referenceForegroundPixels": 5958,
+        "changedPixels": 0,
+        "changedPixelRatio": 0,
+        "samples": 203,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.6231527093596059,
+        "reference": {
+          "samples": 203,
+          "centerCoverage": 1,
+          "sectionCoverage": 1,
+          "bodyCoverage": 0.6231527093596059
+        }
+      },
+      {
+        "type": "two",
+        "mode": "full",
+        "segments": 3,
+        "foregroundPixels": 5314,
+        "referenceForegroundPixels": 5314,
+        "changedPixels": 0,
+        "changedPixelRatio": 0,
+        "samples": 131,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.9770992366412213,
+        "reference": {
+          "samples": 131,
+          "centerCoverage": 1,
+          "sectionCoverage": 1,
+          "bodyCoverage": 0.9770992366412213
+        }
+      },
+      {
+        "type": "claw",
+        "mode": "full",
+        "segments": 38,
+        "foregroundPixels": 4864,
+        "referenceForegroundPixels": 4864,
+        "changedPixels": 0,
+        "changedPixelRatio": 0,
+        "samples": 183,
+        "centerCoverage": 1,
+        "sectionCoverage": 1,
+        "bodyCoverage": 0.8907103825136612,
+        "reference": {
+          "samples": 183,
+          "centerCoverage": 1,
+          "sectionCoverage": 1,
+          "bodyCoverage": 0.8907103825136612
+        }
+      }
+    ],
+    "errors": []
+  },
+  "errors": []
+}
