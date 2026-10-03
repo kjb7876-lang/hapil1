@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: a missing route removes muted controls without requesting audio or blocking progress
+ok 1 - a missing route removes muted controls without requesting audio or blocking progress
+  ---
+  duration_ms: 7.939863
+  type: 'test'
+  ...
+# Subtest: missing route discovery releases a voice-owned pause after loading was cancelled
+ok 2 - missing route discovery releases a voice-owned pause after loading was cancelled
+  ---
+  duration_ms: 3.039793
+  type: 'test'
+  ...
+# Subtest: late missing route discovery cannot change a disposed reader or its callbacks
+ok 3 - late missing route discovery cannot change a disposed reader or its callbacks
+  ---
+  duration_ms: 2.783073
+  type: 'test'
+  ...
+# Subtest: an existing route with mismatched text stays visibly retryable and never requests audio
+ok 4 - an existing route with mismatched text stays visibly retryable and never requests audio
+  ---
+  duration_ms: 3.616271
+  type: 'test'
+  ...
+# Subtest: a manifest network failure stays retryable and can recover on the same card
+ok 5 - a manifest network failure stays retryable and can recover on the same card
+  ---
+  duration_ms: 5.051623
+  type: 'test'
+  ...
+# Subtest: queued ended event after pause cannot start the next clip
+ok 6 - queued ended event after pause cannot start the next clip
+  ---
+  duration_ms: 2.128408
+  type: 'test'
+  ...
+# Subtest: queued playing/error/ended events after failure cannot revive playback
+ok 7 - queued playing/error/ended events after failure cannot revive playback
+  ---
+  duration_ms: 3.24175
+  type: 'test'
+  ...
+# Subtest: old fulfilled play promise cannot pause a newer resumed attempt
+ok 8 - old fulfilled play promise cannot pause a newer resumed attempt
+  ---
+  duration_ms: 4.031597
+  type: 'test'
+  ...
+# Subtest: old rejected play promise and events cannot fail a newer attempt
+ok 9 - old rejected play promise and events cannot fail a newer attempt
+  ---
+  duration_ms: 3.363838
+  type: 'test'
+  ...
+# Subtest: pause/resume preserves media offset and releases the previous source
+ok 10 - pause/resume preserves media offset and releases the previous source
+  ---
+  duration_ms: 4.645755
+  type: 'test'
+  ...
+# Subtest: playlist advances exactly once, cleans completed media, and replays from first clip
+ok 11 - playlist advances exactly once, cleans completed media, and replays from first clip
+  ---
+  duration_ms: 6.153824
+  type: 'test'
+  ...
+# Subtest: stop during pending playback retires source, events, and late promise
+ok 12 - stop during pending playback retires source, events, and late promise
+  ---
+  duration_ms: 3.104674
+  type: 'test'
+  ...
+# Subtest: a foreground reader preempts audio without destroying underlying controls
+ok 13 - a foreground reader preempts audio without destroying underlying controls
+  ---
+  duration_ms: 4.649251
+  type: 'test'
+  ...
+# Subtest: explicit replay on a retained reader preempts the current reader
+ok 14 - explicit replay on a retained reader preempts the current reader
+  ---
+  duration_ms: 4.440341
+  type: 'test'
+  ...
+# Subtest: pagehide cancels playback but preserves usable controls for a history-cache restore
+ok 15 - pagehide cancels playback but preserves usable controls for a history-cache restore
+  ---
+  duration_ms: 3.590753
+  type: 'test'
+  ...
+# Subtest: only the final playlist ended event releases auto-advance after a 750 ms tail
+ok 16 - only the final playlist ended event releases auto-advance after a 750 ms tail
+  ---
+  duration_ms: 3.254734
+  type: 'test'
+  ...
+# Subtest: stalled playback has bounded recovery even when media emits no waiting or ended event
+ok 17 - stalled playback has bounded recovery even when media emits no waiting or ended event
+  ---
+  duration_ms: 2.955184
+  type: 'test'
+  ...
+# Subtest: background suspension resumes the same offset without reviving obsolete media events
+ok 18 - background suspension resumes the same offset without reviving obsolete media events
+  ---
+  duration_ms: 4.234295
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 79.261672

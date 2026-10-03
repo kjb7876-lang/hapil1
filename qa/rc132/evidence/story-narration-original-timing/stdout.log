@@ -1,0 +1,202 @@
+TAP version 13
+# Subtest: original pre: slow fetch holds until actual ending plus 750 ms
+ok 1 - original pre: slow fetch holds until actual ending plus 750 ms
+  ---
+  duration_ms: 39.293275
+  type: 'test'
+  ...
+# Subtest: original post: slow fetch holds until actual ending plus 750 ms
+ok 2 - original post: slow fetch holds until actual ending plus 750 ms
+  ---
+  duration_ms: 12.821168
+  type: 'test'
+  ...
+# Subtest: slow context resume starts the complete original after recovery
+ok 3 - slow context resume starts the complete original after recovery
+  ---
+  duration_ms: 10.128875
+  type: 'test'
+  ...
+# Subtest: a long user voice pause preserves offset and waits for all remaining speech
+ok 4 - a long user voice pause preserves offset and waits for all remaining speech
+  ---
+  duration_ms: 38.349731
+  type: 'test'
+  ...
+# Subtest: manual auto-advance pause survives voice pause, resume, and completion
+ok 5 - manual auto-advance pause survives voice pause, resume, and completion
+  ---
+  duration_ms: 34.82391
+  type: 'test'
+  ...
+# Subtest: hung loading fails in 15 seconds and its late response cannot play
+ok 6 - hung loading fails in 15 seconds and its late response cannot play
+  ---
+  duration_ms: 21.164404
+  type: 'test'
+  ...
+# Subtest: a running transport with no clock progress fails within 15 seconds
+ok 7 - a running transport with no clock progress fails within 15 seconds
+  ---
+  duration_ms: 23.390446
+  type: 'test'
+  ...
+# Subtest: Retry after a running stall preserves the last spoken offset
+ok 8 - Retry after a running stall preserves the last spoken offset
+  ---
+  duration_ms: 9.568878
+  type: 'test'
+  ...
+# Subtest: visible interrupted context holds beyond timeout and resumes the saved offset
+ok 9 - visible interrupted context holds beyond timeout and resumes the saved offset
+  ---
+  duration_ms: 35.77024
+  type: 'test'
+  ...
+# Subtest: visible suspended context holds beyond timeout and resumes the saved offset
+ok 10 - visible suspended context holds beyond timeout and resumes the saved offset
+  ---
+  duration_ms: 32.522357
+  type: 'test'
+  ...
+# Subtest: interruption during decode cancels fallback and pending playback
+ok 11 - interruption during decode cancels fallback and pending playback
+  ---
+  duration_ms: 12.197031
+  type: 'test'
+  ...
+# Subtest: a delayed statechange still becomes a resumable hold before stall failure
+ok 12 - a delayed statechange still becomes a resumable hold before stall failure
+  ---
+  duration_ms: 12.923059
+  type: 'test'
+  ...
+# Subtest: explicit pause cancels interruption recovery while a closed context releases its hold
+ok 13 - explicit pause cancels interruption recovery while a closed context releases its hold
+  ---
+  duration_ms: 30.77249
+  type: 'test'
+  ...
+# Subtest: a playing HTML fallback ignores unrelated context suspension
+ok 14 - a playing HTML fallback ignores unrelated context suspension
+  ---
+  duration_ms: 9.685456
+  type: 'test'
+  ...
+# Subtest: a stalled HTML fallback has the same bounded failure
+ok 15 - a stalled HTML fallback has the same bounded failure
+  ---
+  duration_ms: 7.265793
+  type: 'test'
+  ...
+# Subtest: resuming an HTML fallback retires its old play promise before starting again
+ok 16 - resuming an HTML fallback retires its old play promise before starting again
+  ---
+  duration_ms: 4.30085
+  type: 'test'
+  ...
+# Subtest: manual skip immediately stops playing and releases all watchers
+ok 17 - manual skip immediately stops playing and releases all watchers
+  ---
+  duration_ms: 1.799724
+  type: 'test'
+  ...
+# Subtest: manual skip during loading commits immediately and cancels the late original
+ok 18 - manual skip during loading commits immediately and cancels the late original
+  ---
+  duration_ms: 1.804614
+  type: 'test'
+  ...
+# Subtest: close cancels a pending original without late playback
+ok 19 - close cancels a pending original without late playback
+  ---
+  duration_ms: 2.587497
+  type: 'test'
+  ...
+# Subtest: death cancels a pending original without late playback
+ok 20 - death cancels a pending original without late playback
+  ---
+  duration_ms: 1.694939
+  type: 'test'
+  ...
+# Subtest: navigation cancels a pending original without late playback
+ok 21 - navigation cancels a pending original without late playback
+  ---
+  duration_ms: 1.671344
+  type: 'test'
+  ...
+# Subtest: removal cancels a pending original without late playback
+ok 22 - removal cancels a pending original without late playback
+  ---
+  duration_ms: 1.498502
+  type: 'test'
+  ...
+# Subtest: context recovery after death never restarts the old original
+ok 23 - context recovery after death never restarts the old original
+  ---
+  duration_ms: 1.726397
+  type: 'test'
+  ...
+# Subtest: context recovery after navigation never restarts the old original
+ok 24 - context recovery after navigation never restarts the old original
+  ---
+  duration_ms: 2.4926
+  type: 'test'
+  ...
+# Subtest: context recovery after replacement never restarts the old original
+ok 25 - context recovery after replacement never restarts the old original
+  ---
+  duration_ms: 1.97931
+  type: 'test'
+  ...
+# Subtest: context recovery after death-overlay never restarts the old original
+ok 26 - context recovery after death-overlay never restarts the old original
+  ---
+  duration_ms: 2.514782
+  type: 'test'
+  ...
+# Subtest: hidden playback resumes at its offset, but manual pause and pagehide do not auto-resume
+ok 27 - hidden playback resumes at its offset, but manual pause and pagehide do not auto-resume
+  ---
+  duration_ms: 17.076392
+  type: 'test'
+  ...
+# Subtest: original voice Enter and Space retain native activation without closing the card
+ok 28 - original voice Enter and Space retain native activation without closing the card
+  ---
+  duration_ms: 2.466961
+  type: 'test'
+  ...
+# Subtest: pointerdown resume intent survives global unlock before the native click
+ok 29 - pointerdown resume intent survives global unlock before the native click
+  ---
+  duration_ms: 3.385349
+  type: 'test'
+  ...
+# Subtest: Enter resume intent survives global unlock before the native click
+ok 30 - Enter resume intent survives global unlock before the native click
+  ---
+  duration_ms: 4.789023
+  type: 'test'
+  ...
+# Subtest: Space resume intent survives global unlock before the native click
+ok 31 - Space resume intent survives global unlock before the native click
+  ---
+  duration_ms: 4.813077
+  type: 'test'
+  ...
+# Subtest: a muted untouched original keeps its text timer and never starts audio
+ok 32 - a muted untouched original keeps its text timer and never starts audio
+  ---
+  duration_ms: 5.447474
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 400.954148

@@ -1,0 +1,166 @@
+TAP version 13
+# Subtest: full-buffer onset and exact resume keep constant gain and actual final-ended plus 750 ms
+ok 1 - full-buffer onset and exact resume keep constant gain and actual final-ended plus 750 ms
+  ---
+  duration_ms: 12.579376
+  type: 'test'
+  ...
+# Subtest: suspended during visible playback holds beyond 15 seconds and resumes the exact offset
+ok 2 - suspended during visible playback holds beyond 15 seconds and resumes the exact offset
+  ---
+  duration_ms: 3.176749
+  type: 'test'
+  ...
+# Subtest: interrupted during visible playback holds beyond 15 seconds and resumes the exact offset
+ok 3 - interrupted during visible playback holds beyond 15 seconds and resumes the exact offset
+  ---
+  duration_ms: 2.147004
+  type: 'test'
+  ...
+# Subtest: play requested while already interrupted waits without downloading audio or timing out
+ok 4 - play requested while already interrupted waits without downloading audio or timing out
+  ---
+  duration_ms: 3.60017
+  type: 'test'
+  ...
+# Subtest: pointerdown on the resume button cannot turn its own recovery into an immediate pause
+ok 5 - pointerdown on the resume button cannot turn its own recovery into an immediate pause
+  ---
+  duration_ms: 2.427468
+  type: 'test'
+  ...
+# Subtest: keydown on the resume button cannot turn its own recovery into an immediate pause
+ok 6 - keydown on the resume button cannot turn its own recovery into an immediate pause
+  ---
+  duration_ms: 1.876568
+  type: 'test'
+  ...
+# Subtest: interruption during audio fetch aborts it and retires a late result
+ok 7 - interruption during audio fetch aborts it and retires a late result
+  ---
+  duration_ms: 2.058468
+  type: 'test'
+  ...
+# Subtest: interruption during decode retires old PCM without replacing the recovered source
+ok 8 - interruption during decode retires old PCM without replacing the recovered source
+  ---
+  duration_ms: 1.987395
+  type: 'test'
+  ...
+# Subtest: resume rejection observes interruption before a delayed statechange instead of switching to media
+ok 9 - resume rejection observes interruption before a delayed statechange instead of switching to media
+  ---
+  duration_ms: 2.398694
+  type: 'test'
+  ...
+# Subtest: loading timeout observes interruption even if statechange has not arrived
+ok 10 - loading timeout observes interruption even if statechange has not arrived
+  ---
+  duration_ms: 2.587286
+  type: 'test'
+  ...
+# Subtest: manual pause cancels pending interruption recovery and ignores late ended/statechange events
+ok 11 - manual pause cancels pending interruption recovery and ignores late ended/statechange events
+  ---
+  duration_ms: 3.558102
+  type: 'test'
+  ...
+# Subtest: stop cancels pending interruption recovery and ignores late ended/statechange events
+ok 12 - stop cancels pending interruption recovery and ignores late ended/statechange events
+  ---
+  duration_ms: 1.564234
+  type: 'test'
+  ...
+# Subtest: preempt cancels pending interruption recovery and ignores late ended/statechange events
+ok 13 - preempt cancels pending interruption recovery and ignores late ended/statechange events
+  ---
+  duration_ms: 1.567831
+  type: 'test'
+  ...
+# Subtest: pagehide cancels pending interruption recovery and ignores late ended/statechange events
+ok 14 - pagehide cancels pending interruption recovery and ignores late ended/statechange events
+  ---
+  duration_ms: 1.432909
+  type: 'test'
+  ...
+# Subtest: DOM removal cancels pending interruption recovery and ignores late ended/statechange events
+ok 15 - DOM removal cancels pending interruption recovery and ignores late ended/statechange events
+  ---
+  duration_ms: 1.585734
+  type: 'test'
+  ...
+# Subtest: interruption then backgrounding waits for both running context and visible document
+ok 16 - interruption then backgrounding waits for both running context and visible document
+  ---
+  duration_ms: 1.923055
+  type: 'test'
+  ...
+# Subtest: backgrounding before interruption keeps the visibility resume intent and exact offset
+ok 17 - backgrounding before interruption keeps the visibility resume intent and exact offset
+  ---
+  duration_ms: 1.77058
+  type: 'test'
+  ...
+# Subtest: manual pause while hidden cancels both visibility and context resume intents
+ok 18 - manual pause while hidden cancels both visibility and context resume intents
+  ---
+  duration_ms: 2.470568
+  type: 'test'
+  ...
+# Subtest: watchdog detects a suspended context even before its statechange event arrives
+ok 19 - watchdog detects a suspended context even before its statechange event arrives
+  ---
+  duration_ms: 2.032609
+  type: 'test'
+  ...
+# Subtest: real running-context stall preserves retry offset and retains bounded failure recovery
+ok 20 - real running-context stall preserves retry offset and retains bounded failure recovery
+  ---
+  duration_ms: 2.173463
+  type: 'test'
+  ...
+# Subtest: a genuine hung audio request still fails after 15 seconds with a running context
+ok 21 - a genuine hung audio request still fails after 15 seconds with a running context
+  ---
+  duration_ms: 1.940407
+  type: 'test'
+  ...
+# Subtest: a hung manifest retains its own bounded timeout while the context is interrupted
+ok 22 - a hung manifest retains its own bounded timeout while the context is interrupted
+  ---
+  duration_ms: 1.769367
+  type: 'test'
+  ...
+# Subtest: interruption does not revive a missing route or replace a manifest network failure with an endless hold
+ok 23 - interruption does not revive a missing route or replace a manifest network failure with an endless hold
+  ---
+  duration_ms: 2.379278
+  type: 'test'
+  ...
+# Subtest: context interruption leaves an active HTMLMediaElement fallback alone and preserves its failure offset
+ok 24 - context interruption leaves an active HTMLMediaElement fallback alone and preserves its failure offset
+  ---
+  duration_ms: 1.964182
+  type: 'test'
+  ...
+# Subtest: closing an interrupted context releases an unrecoverable hold
+ok 25 - closing an interrupted context releases an unrecoverable hold
+  ---
+  duration_ms: 2.510513
+  type: 'test'
+  ...
+# Subtest: playlist transition interrupted during next load retains the next clip and final-ended gate
+ok 26 - playlist transition interrupted during next load retains the next clip and final-ended gate
+  ---
+  duration_ms: 2.436695
+  type: 'test'
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 75.967565

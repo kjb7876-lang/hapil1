@@ -1,0 +1,4197 @@
+{
+  "commit": "b69cfdfb82316efd392fcac636a16536a927e3ac",
+  "status": "passed",
+  "profiles": [
+    {
+      "name": "pc",
+      "errors": [],
+      "httpErrors": [],
+      "startup": {
+        "first": {
+          "zone": "dist00",
+          "time": 0.1299999999999991,
+          "hp": 240,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "hud": {
+            "installed": true,
+            "metrics": {
+              "draws": 9,
+              "markers": 9,
+              "errors": 0,
+              "saves": 3,
+              "restores": 0,
+              "grazeHooks": 0
+            },
+            "last": {
+              "phase": {
+                "index": 0,
+                "name": "탄환",
+                "title": "몽화 · 비어 있는 꽃잎",
+                "bossName": "뿌리의 문지기",
+                "ownerId": "dist00-boss",
+                "elapsed": 0.11329999999999928,
+                "remaining": 11.886700000000001,
+                "duration": 12,
+                "cycle": 0,
+                "serial": 0,
+                "band": 1,
+                "bands": 3,
+                "stage": "active",
+                "draining": false,
+                "rest": 0,
+                "castRemaining": 0
+              },
+              "markers": [
+                {
+                  "owner": "dist00-boss",
+                  "x": 838.2772727272728,
+                  "y": 653,
+                  "angle": -0.41896046554964533,
+                  "outside": false
+                }
+              ],
+              "width": 1180,
+              "height": 681
+            }
+          }
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 0.9699999999999994,
+          "hp": 240,
+          "x": 17.691302402868327,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "hud": {
+            "installed": true,
+            "metrics": {
+              "draws": 31,
+              "markers": 31,
+              "errors": 0,
+              "saves": 4,
+              "restores": 0,
+              "grazeHooks": 0
+            },
+            "last": {
+              "phase": {
+                "index": 0,
+                "name": "탄환",
+                "title": "몽화 · 비어 있는 꽃잎",
+                "bossName": "뿌리의 문지기",
+                "ownerId": "dist00-boss",
+                "elapsed": 0.5932999999999992,
+                "remaining": 11.4067,
+                "duration": 12,
+                "cycle": 0,
+                "serial": 0,
+                "band": 1,
+                "bands": 3,
+                "stage": "active",
+                "draining": false,
+                "rest": 0,
+                "castRemaining": 0
+              },
+              "markers": [
+                {
+                  "owner": "dist00-boss",
+                  "x": 670.8762265069454,
+                  "y": 653,
+                  "angle": -0.43408855166269233,
+                  "outside": false
+                }
+              ],
+              "width": 1180,
+              "height": 681
+            }
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "boundary": {
+        "draining": {
+          "index": 0,
+          "name": "탄환",
+          "title": "질투 · 어긋난 반영",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 10.015999999999432,
+          "remaining": 0,
+          "duration": 10,
+          "cycle": 0,
+          "serial": 0,
+          "band": 1,
+          "bands": 3,
+          "stage": "draining",
+          "draining": true,
+          "rest": 0,
+          "castRemaining": 2.000000000000739
+        },
+        "kept": true,
+        "old": 7,
+        "remaining": 0,
+        "after": {
+          "index": 0,
+          "name": "탄환",
+          "title": "질투 · 어긋난 반영",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 10.015999999999432,
+          "remaining": 0,
+          "duration": 10,
+          "cycle": 0,
+          "serial": 0,
+          "band": 1,
+          "bands": 3,
+          "stage": "rest",
+          "draining": true,
+          "rest": 0.65,
+          "castRemaining": 0
+        },
+        "hpUnchanged": true,
+        "savePresent": true,
+        "normalizePresent": true,
+        "saved": {
+          "bossKey": "b03-boss",
+          "serial": 0,
+          "index": 0,
+          "elapsed": 10.015999999999432,
+          "band": 1,
+          "stage": "draining",
+          "rest": 0,
+          "lastCard": ""
+        }
+      }
+    },
+    {
+      "name": "portrait",
+      "errors": [],
+      "httpErrors": [],
+      "startup": {
+        "first": {
+          "zone": "dist00",
+          "time": 0.09669999999999981,
+          "hp": 240,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "hud": {
+            "installed": true,
+            "metrics": {
+              "draws": 18,
+              "markers": 18,
+              "errors": 0,
+              "saves": 2,
+              "restores": 0,
+              "grazeHooks": 0
+            },
+            "last": {
+              "phase": {
+                "index": 0,
+                "name": "탄환",
+                "title": "몽화 · 비어 있는 꽃잎",
+                "bossName": "뿌리의 문지기",
+                "ownerId": "dist00-boss",
+                "elapsed": 0.07999999999999999,
+                "remaining": 11.92,
+                "duration": 12,
+                "cycle": 0,
+                "serial": 0,
+                "band": 1,
+                "bands": 3,
+                "stage": "active",
+                "draining": false,
+                "rest": 0,
+                "castRemaining": 0
+              },
+              "markers": [
+                {
+                  "owner": "dist00-boss",
+                  "x": 256.425,
+                  "y": 396.67999999999995,
+                  "angle": -0.41157745553432096,
+                  "outside": true
+                }
+              ],
+              "width": 390,
+              "height": 844
+            }
+          }
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 0.8900999999999997,
+          "hp": 240,
+          "x": 17.387077845877368,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "hud": {
+            "installed": true,
+            "metrics": {
+              "draws": 60,
+              "markers": 60,
+              "errors": 0,
+              "saves": 4,
+              "restores": 0,
+              "grazeHooks": 0
+            },
+            "last": {
+              "phase": {
+                "index": 0,
+                "name": "탄환",
+                "title": "몽화 · 비어 있는 꽃잎",
+                "bossName": "뿌리의 문지기",
+                "ownerId": "dist00-boss",
+                "elapsed": 0.6333999999999996,
+                "remaining": 11.3666,
+                "duration": 12,
+                "cycle": 0,
+                "serial": 0,
+                "band": 1,
+                "bands": 3,
+                "stage": "active",
+                "draining": false,
+                "rest": 0,
+                "castRemaining": 0
+              },
+              "markers": [
+                {
+                  "owner": "dist00-boss",
+                  "x": 208.23710087687775,
+                  "y": 396.67999999999995,
+                  "angle": -0.7409924627735477,
+                  "outside": true
+                }
+              ],
+              "width": 390,
+              "height": 844
+            }
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "boundary": {
+        "draining": {
+          "index": 0,
+          "name": "탄환",
+          "title": "질투 · 어긋난 반영",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 10.015999999999432,
+          "remaining": 0,
+          "duration": 10,
+          "cycle": 0,
+          "serial": 0,
+          "band": 1,
+          "bands": 3,
+          "stage": "draining",
+          "draining": true,
+          "rest": 0,
+          "castRemaining": 2.000000000000739
+        },
+        "kept": true,
+        "old": 7,
+        "remaining": 0,
+        "after": {
+          "index": 0,
+          "name": "탄환",
+          "title": "질투 · 어긋난 반영",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 10.015999999999432,
+          "remaining": 0,
+          "duration": 10,
+          "cycle": 0,
+          "serial": 0,
+          "band": 1,
+          "bands": 3,
+          "stage": "rest",
+          "draining": true,
+          "rest": 0.65,
+          "castRemaining": 0
+        },
+        "hpUnchanged": true,
+        "savePresent": true,
+        "normalizePresent": true,
+        "saved": {
+          "bossKey": "b03-boss",
+          "serial": 0,
+          "index": 0,
+          "elapsed": 10.015999999999432,
+          "band": 1,
+          "stage": "draining",
+          "rest": 0,
+          "lastCard": ""
+        }
+      }
+    },
+    {
+      "name": "landscape",
+      "errors": [],
+      "httpErrors": [],
+      "startup": {
+        "first": {
+          "zone": "dist00",
+          "time": 0.07330000000000018,
+          "hp": 240,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "hud": {
+            "installed": true,
+            "metrics": {
+              "draws": 8,
+              "markers": 8,
+              "errors": 0,
+              "saves": 2,
+              "restores": 0,
+              "grazeHooks": 0
+            },
+            "last": {
+              "phase": {
+                "index": 0,
+                "name": "탄환",
+                "title": "몽화 · 비어 있는 꽃잎",
+                "bossName": "뿌리의 문지기",
+                "ownerId": "dist00-boss",
+                "elapsed": 0.04,
+                "remaining": 11.96,
+                "duration": 12,
+                "cycle": 0,
+                "serial": 0,
+                "band": 1,
+                "bands": 3,
+                "stage": "active",
+                "draining": false,
+                "rest": 0,
+                "castRemaining": 0
+              },
+              "markers": [
+                {
+                  "owner": "dist00-boss",
+                  "x": 597.62825,
+                  "y": 326,
+                  "angle": -0.15128780378885479,
+                  "outside": false
+                }
+              ],
+              "width": 844,
+              "height": 354
+            }
+          }
+        },
+        "last": {
+          "zone": "dist00",
+          "time": 1.4199999999999997,
+          "hp": 240,
+          "x": 17.70694875998062,
+          "y": 16.000000000000004,
+          "speed": 6.471684999999999,
+          "mode": "STORY",
+          "hud": {
+            "installed": true,
+            "metrics": {
+              "draws": 49,
+              "markers": 49,
+              "errors": 0,
+              "saves": 5,
+              "restores": 0,
+              "grazeHooks": 0
+            },
+            "last": {
+              "phase": {
+                "index": 0,
+                "name": "탄환",
+                "title": "몽화 · 비어 있는 꽃잎",
+                "bossName": "뿌리의 문지기",
+                "ownerId": "dist00-boss",
+                "elapsed": 1.0668,
+                "remaining": 10.9332,
+                "duration": 12,
+                "cycle": 0,
+                "serial": 0,
+                "band": 1,
+                "bands": 3,
+                "stage": "active",
+                "draining": false,
+                "rest": 0,
+                "castRemaining": 0
+              },
+              "markers": [
+                {
+                  "owner": "dist00-boss",
+                  "x": 453.4064691388805,
+                  "y": 326,
+                  "angle": -0.475206762416112,
+                  "outside": false
+                }
+              ],
+              "width": 844,
+              "height": 354
+            }
+          }
+        },
+        "usedProgressCheats": false
+      },
+      "boundary": {
+        "draining": {
+          "index": 0,
+          "name": "탄환",
+          "title": "질투 · 어긋난 반영",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 10.015999999999432,
+          "remaining": 0,
+          "duration": 10,
+          "cycle": 0,
+          "serial": 0,
+          "band": 1,
+          "bands": 3,
+          "stage": "draining",
+          "draining": true,
+          "rest": 0,
+          "castRemaining": 2.000000000000739
+        },
+        "kept": true,
+        "old": 7,
+        "remaining": 0,
+        "after": {
+          "index": 0,
+          "name": "탄환",
+          "title": "질투 · 어긋난 반영",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 10.015999999999432,
+          "remaining": 0,
+          "duration": 10,
+          "cycle": 0,
+          "serial": 0,
+          "band": 1,
+          "bands": 3,
+          "stage": "rest",
+          "draining": true,
+          "rest": 0.65,
+          "castRemaining": 0
+        },
+        "hpUnchanged": true,
+        "savePresent": true,
+        "normalizePresent": true,
+        "saved": {
+          "bossKey": "b03-boss",
+          "serial": 0,
+          "index": 0,
+          "elapsed": 10.015999999999432,
+          "band": 1,
+          "stage": "draining",
+          "rest": 0,
+          "lastCard": ""
+        }
+      }
+    }
+  ],
+  "cases": [
+    {
+      "hero": "hwando",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 55,
+            "markers": 55,
+            "errors": 0,
+            "saves": 7,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "seoha",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 96,
+            "markers": 96,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "neon",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 112,
+            "markers": 112,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "michaela",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 125,
+            "markers": 125,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "lauren",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 141,
+            "markers": 141,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hunter",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 155,
+            "markers": 155,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "slayer",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 168,
+            "markers": 168,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "gunner",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 206,
+            "markers": 206,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hwando",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 220,
+            "markers": 220,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "seoha",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 255,
+            "markers": 255,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "neon",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 269,
+            "markers": 269,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "michaela",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 283,
+            "markers": 283,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "lauren",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 296,
+            "markers": 296,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hunter",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 310,
+            "markers": 310,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "slayer",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 323,
+            "markers": 323,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 38719,
+        "canvas": {
+          "width": 1050,
+          "height": 590
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "gunner",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "pc",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 360,
+            "markers": 360,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 590,
+                "y": 653,
+                "angle": -1.5707963267948966,
+                "outside": false
+              }
+            ],
+            "width": 1180,
+            "height": 681
+          }
+        },
+        "painted": 48740,
+        "canvas": {
+          "width": 1178,
+          "height": 662
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hwando",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 104,
+            "markers": 104,
+            "errors": 0,
+            "saves": 4,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "seoha",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 162,
+            "markers": 162,
+            "errors": 0,
+            "saves": 6,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "neon",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 194,
+            "markers": 194,
+            "errors": 0,
+            "saves": 6,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "michaela",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 222,
+            "markers": 222,
+            "errors": 0,
+            "saves": 6,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "lauren",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 254,
+            "markers": 254,
+            "errors": 0,
+            "saves": 6,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hunter",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 284,
+            "markers": 284,
+            "errors": 0,
+            "saves": 6,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "slayer",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 316,
+            "markers": 316,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "gunner",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 366,
+            "markers": 366,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hwando",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 396,
+            "markers": 396,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "seoha",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 448,
+            "markers": 448,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "neon",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 478,
+            "markers": 478,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "michaela",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 510,
+            "markers": 510,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 1
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "lauren",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 540,
+            "markers": 540,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 1
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hunter",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 570,
+            "markers": 570,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 1
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "slayer",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 602,
+            "markers": 602,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 1
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 54713,
+        "canvas": {
+          "width": 1247,
+          "height": 702
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "gunner",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "portrait",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 650,
+            "markers": 650,
+            "errors": 0,
+            "saves": 8,
+            "restores": 0,
+            "grazeHooks": 1
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 190.125,
+                "y": 396.67999999999995,
+                "angle": -1.6352231662204502,
+                "outside": true
+              }
+            ],
+            "width": 390,
+            "height": 844
+          }
+        },
+        "painted": 57600,
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hwando",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 77,
+            "markers": 77,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "seoha",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 102,
+            "markers": 102,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "neon",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 116,
+            "markers": 116,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "michaela",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 129,
+            "markers": 129,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "lauren",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 142,
+            "markers": 142,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hunter",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 155,
+            "markers": 155,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "slayer",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 169,
+            "markers": 169,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "gunner",
+      "mode": "STORY",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 12,
+        "duration": 12,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 6,
+      "firstRelease": 100.45,
+      "lastRelease": 101.3,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 194,
+            "markers": 194,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 11.984,
+              "duration": 12,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hwando",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 207,
+            "markers": 207,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "seoha",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 231,
+            "markers": 231,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "neon",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 244,
+            "markers": 244,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "michaela",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 257,
+            "markers": 257,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "lauren",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 271,
+            "markers": 271,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "hunter",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 284,
+            "markers": 284,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "slayer",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 297,
+            "markers": 297,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 17331,
+        "canvas": {
+          "width": 702,
+          "height": 395
+        }
+      },
+      "scope": "staged native scene"
+    },
+    {
+      "hero": "gunner",
+      "mode": "DREAM",
+      "phase": {
+        "index": 0,
+        "name": "탄환",
+        "title": "질투 · 어긋난 반영",
+        "bossName": "호텔 부매니저 · 레비아탄",
+        "ownerId": "b03-boss",
+        "elapsed": 0,
+        "remaining": 10,
+        "duration": 10,
+        "cycle": 0,
+        "serial": 0,
+        "band": 1,
+        "bands": 3,
+        "stage": "active",
+        "draining": false,
+        "rest": 0,
+        "castRemaining": 0
+      },
+      "shots": 7,
+      "firstRelease": 100.3,
+      "lastRelease": 101.32,
+      "problems": [],
+      "profile": "landscape",
+      "view": {
+        "hud": {
+          "installed": true,
+          "metrics": {
+            "draws": 321,
+            "markers": 321,
+            "errors": 0,
+            "saves": 10,
+            "restores": 0,
+            "grazeHooks": 0
+          },
+          "last": {
+            "phase": {
+              "index": 0,
+              "name": "탄환",
+              "title": "질투 · 어긋난 반영",
+              "bossName": "호텔 부매니저 · 레비아탄",
+              "ownerId": "b03-boss",
+              "elapsed": 0.016,
+              "remaining": 9.984,
+              "duration": 10,
+              "cycle": 0,
+              "serial": 0,
+              "band": 1,
+              "bands": 3,
+              "stage": "active",
+              "draining": false,
+              "rest": 0,
+              "castRemaining": 0
+            },
+            "markers": [
+              {
+                "owner": "b03-boss",
+                "x": 422,
+                "y": 64,
+                "angle": -1.5707963267948966,
+                "outside": true
+              }
+            ],
+            "width": 844,
+            "height": 354
+          }
+        },
+        "painted": 22607,
+        "canvas": {
+          "width": 802,
+          "height": 451
+        }
+      },
+      "scope": "staged native scene"
+    }
+  ],
+  "scope": "48 staged native renders and 3 unmodified startup observations; not 48 natural boss clears"
+}

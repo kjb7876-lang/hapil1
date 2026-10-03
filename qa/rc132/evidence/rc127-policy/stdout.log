@@ -1,0 +1,60 @@
+{
+  "version": "RC127",
+  "checks": 174,
+  "passed": true,
+  "scope": "policy, source integration and committed ownership unit tests",
+  "policy": {
+    "version": "RC127",
+    "fixedSpeed": 6.471684999999999,
+    "maxReduction": 0.75,
+    "metrics": {
+      "speedSamples": 48,
+      "cooldownCasts": 3,
+      "cooldownFields": 5,
+      "nestedCalls": 1
+    },
+    "recent": [
+      {
+        "owner": "boss",
+        "at": 10,
+        "label": "skill",
+        "fields": {
+          "readyAt": {
+            "base": 16,
+            "next": 22
+          },
+          "patternReadyAt": {
+            "base": 18,
+            "next": 26
+          },
+          "recoverUntil": {
+            "base": 15,
+            "next": 20
+          }
+        }
+      },
+      {
+        "owner": "nested",
+        "at": 20,
+        "label": "skill",
+        "fields": {
+          "readyAt": {
+            "base": 25,
+            "next": 30
+          }
+        }
+      },
+      {
+        "owner": "nested",
+        "at": 31,
+        "label": "skill",
+        "fields": {
+          "readyAt": {
+            "base": 38,
+            "next": 45
+          }
+        }
+      }
+    ]
+  }
+}

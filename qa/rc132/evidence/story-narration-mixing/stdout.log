@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: music is ducked before narration starts without changing saved target volume
+ok 1 - music is ducked before narration starts without changing saved target volume
+  ---
+  duration_ms: 3.556689
+  type: 'test'
+  ...
+# Subtest: pause, mute or completion releases only narration ownership and restores current user volume
+ok 2 - pause, mute or completion releases only narration ownership and restores current user volume
+  ---
+  duration_ms: 1.820533
+  type: 'test'
+  ...
+# Subtest: preempted reader cannot release another reader and a mute setting remains zero
+ok 3 - preempted reader cannot release another reader and a mute setting remains zero
+  ---
+  duration_ms: 1.919639
+  type: 'test'
+  ...
+# Subtest: existing stronger effect duck and its expiry are preserved
+ok 4 - existing stronger effect duck and its expiry are preserved
+  ---
+  duration_ms: 2.619507
+  type: 'test'
+  ...
+# Subtest: hidden or destroyed BGM is not touched and subscriptions clean up
+ok 5 - hidden or destroyed BGM is not touched and subscriptions clean up
+  ---
+  duration_ms: 1.967669
+  type: 'test'
+  ...
+# Subtest: reactive BGM remount immediately observes an already playing narration
+ok 6 - reactive BGM remount immediately observes an already playing narration
+  ---
+  duration_ms: 1.851801
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 25.453273
