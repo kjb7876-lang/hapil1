@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-10-03T20:35:41.779Z",
+  "endedAt": "2026-10-03T20:40:43.488Z",
+  "stopReason": "full-auto-combat-death-loop-after-fix",
+  "elapsedMs": 301709,
+  "exactCodeSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+  "actualNativeDeaths": 14,
+  "errors": [],
+  "httpErrors": [],
+  "noCheats": true,
+  "storyEndingPreservedInNativeSlot1": true,
+  "final": {
+    "zone": "dist00",
+    "hp": 90.69199999999998,
+    "boss": {
+      "id": "dist00-boss",
+      "hp": 10280.17314295996,
+      "maxHp": 22810,
+      "phase": 2
+    },
+    "completed": 0,
+    "nativeDeaths": 14,
+    "inner": null
+  }
+}

@@ -1,37 +1,52 @@
-# RC133 gameplay handoff — parent coordination required
+# RC133 gameplay handoff — publication paused by parent
 
-The complex gameplay changes are implemented on `codex/rc133-samong-inner-self`. Exact clean runtime SHA: **5b53fe38489c01d746bf7fb84f61659795276e3e**. Starting and freshly fetched main: **473f5fe6ab717bb975c35f198938f43dd55f9358**. Main and Pages were not changed. Parent is preparing narration82 (73 unchanged +9); combine that work with fresh main before publication. There is no zero-bug guarantee.
+Gameplay is implemented on `codex/rc133-samong-inner-self`. Latest runtime SHA: **6778046f7d889b09962357e9f282a265d2b235ec**. Main **0d0017b379ab584e7e791c5bcaea4c54e7fc2b36** is merged, including narration82. Main/Pages were not changed; parent explicitly paused publication and source-asset transfer. Uploaded source artwork/audio remain incomplete. No zero-bug guarantee.
 
-## Implemented behavior
+## Behavior delivered
 
-- Boss self-charge movement: legacy gap charge bypass and owned pending-charge withdrawal; V31315 dash profiles explicitly use stationary cross coverage and its old impact/tick movement is removed. Wrath keeps its committed ignition line/rage sequence while its body stays still. Named signature decks (`dash-trail-converge`, `six-image-charge`) generate projectile grammar, not actor coordinate movement; their nonmoving attacks remain.
-- Nearby-player escape: terrain/hazard/player/ally-safe endpoint, 0.55s warning, >=8 world units from living players, cast/phase/stagger/time-stop/authority gates and 3s shared cooldown. One reservation remains owned while a committed cast defers it. Invalid endpoint, distance, zone or dead owner cancels/releases it. Existing fixed towers and cosmic/persona bodies stay stationary.
-- All 41 current native midboss zones: Story2 / Dream3 at real initial or delayed admission. Persist the admitted IDs and living members; restore does not resurrect defeated companions or apply Dream HP twice. Existing distinct art uses same-arc preference with nearest authored fallback. Removed `ep1a07` migrates to `ep1a08` and is tested separately. Cult03's special boss pair remains outside the ordinary midboss roster.
-- Humanoid Stand core retains the same body anchor and 122 render size; auxiliary Stand remains visual-only. Native target and hit radius use the human core (.72), independent of Stand phase. Representative c104 phases0–3 checked; this is not an all-art pixel dimension audit.
-- Dream persona: native c104 cult death opens the player's evil unconscious afterlife persona; native persona death permits the ordinary clear route. Health <=12600, growth scale1–2.1, eight bounded hero projectile profiles, <=72 total hostile projectiles, <=20 packet damage, <=4.8 speed, warning/collision delay, pause/time-stop/guest gates, no ordinary self movement. Difficulty/defense reducers still own applied damage.
-- Four screen compositions: normal, full black/white player awakening, full black/red boss awakening, or opposed left/right halves. HUD feedback draws afterward; canvas context is restored. End/death/reload eligibility is cleared, including the ordinary awakening grayscale fallback after persona completion while its buff timer remains active.
-- EGO seven-entry counter: normal transition only, persistent in the same run/portal/save, pending while cooldown/awakening is occupied, shared synchronous admission with encounter-limited revival. Default7s/77s; successful admission consumes the seven count. Unknown origins/nonfinite entry timestamps rejected.
-- Normal React growth UI offers five `samongUpgrade` tracks only in Dream. One shard/rank; caps: resonance3 (+30% gain and parry/graze bonus, +6% defense efficiency), cooldown3 (>=65.45s), duration2 (<=9s), power3 (<=8.05 total multiplier), protection2 (<=1s grace), no extra unlimited revivals.
-- Feedback uses committed native transactions. Defensive source throttle commits only after output admission; removal publishes once. Existing HELL deletion/save mapping, RC127 movement/cast policy, RC130 cap, RC131 fallback, RC132 healing/portal/mirror policy, laser art and narration files preserved.
-- HapilMongse foundation only: visited regions, rest waypoints and bounded memory resource save container. No complete open-world quests/maps/story claimed.
+- EGO7 atomic admission, 7-second/77-second defaults, pending count while occupied, same-run portal/save persistence, encounter-limited crisis revival. Five ordinary Dream-only bounded upgrade tracks preserve Story isolation.
+- Eight existing hero awakening images/roles including gunner; actual native defensive/removal transaction feedback, source throttling only after output admission, duplicate suppression and output coalescing.
+- Legacy and V31315 boss self-charge movement removed. Wrath keeps ignition/rage without its body charge; named signature decks retain their nonmoving projectile grammar. Nearby eligible bosses reserve terrain/hazard/player/ally-safe warp destinations with warning, cast deferral, cancellation and shared cooldown. Fixed cosmic/persona bodies stay stationary.
+- All 41 current native midboss routes admit Story2/Dream3 at initial or delayed spawn. Living IDs and HP persist; defeated members do not respawn or double-scale on load. Authored alternative sprites prefer the same arc. Humanoid core size/target stays consistent through Stand phases; Stand remains auxiliary.
+- Actual Dream cult-leader death admits the unconscious afterlife persona; native persona death closes through the ordinary route. Eight bounded borrowed hero traits, HP<=12600, growth1–2.1, <=72 hostile projectiles, <=20 packet damage, <=4.8 speed and visible collision delay. Native difficulty/defense reducers remain authoritative.
+- Normal/player black-white/boss black-red/opposed half-screen compositions preserve HUD order and restore the canvas context. End/death/reload/mode checks stop filter leakage. Registered source art now selects the boss awakening image on its timer, returns to its body image at expiry, and restores the active image on load. Source images are still absent; tests use explicitly staged shipped sprites.
+- HELL deletion/save compatibility, RC127 movement/cast policy, RC130 cap, RC131 fallback, RC132 healing/mirror-removal/portal behavior, approved laser pixels and current narration preserved. HapilMongse adds only a bounded save foundation for visited regions/rest waypoints/memory; no full open-world quests/maps/story.
 
-## Exact runtime validation
+## Natural Dream reset diagnosis and fixes
 
-[Machine status](qa/rc133/release-status.json) and [committed evidence](qa/rc133/evidence/5b53fe3/) distinguish staged fixtures, unit tests and natural play. Local full screenshots/logs: `/workspace/rc133-tools/exact-5b53fe3`.
+The original 29.47-minute attempt's five-second sampling missed real player deaths. Forwarding-only hooks on the preserved natural save captured three native deaths in 39.4s: RC59 resets Episode1-A to dist00 and creates a new boss. These were not spontaneous boss HP restoration.
 
-- RC133 staged native browser: 642 checks per PC/portrait/landscape, plus actual React purchase/Story isolation and native cult/persona death-to-clear closures. Ending grayscale self-composition0 in actual frames.
-- Native incoming reducer probe:8 cases (ordinary invulnerability, blink, automatic dodge, Samong grace, D parry, shield, skill removal, repeated laser). HP/outcome/label agreement; duplicate removal suppressed; 80 laser contacts produce one output effect. See `tests/rc133-contact-browser.cjs`.
-- Existing eight hero awakening images decode and native render:72 staged cases across3 emulated viewports. No physical-phone claim.
-- RC132 native post-defeat progression and visual-actor consistency pass; removed mirror create/hit/draw0 and 777 speed retained. RC130 native bitmap ratios <=20% at .75/2/6 zoom pass.
-- Units: RC133 policy131, feedback68, RC13232, RC127174, RC131344, RC130799, isolation28; RC59 and RC87 smoke pass.
-- Approved laser pixels match `19a4c1f92df16559e43ba822ae0f7b8e74a5c47a` on GPU/Canvas/mobile-lowFx; extra pixels0.
-- Natural desktop Story `dist00` first boss to `dist01`:80871ms, finalHP230.05, JS/HTTP errors0. Script never edits HP/enemies/clues/waves/progress. Full Story/Dream campaigns and natural hidden-final battle remain untested.
-- Current narration manifest:73 included /46 pending canonical units; source narration/audio files unchanged from starting main.
+Two verified defects were fixed in `20ce104`:
 
-Initial expanded staged tests exposed Story trio admission, excessive save rejection, and repeated art; these were fixed. Retired-zone migration and assumed wrath phase required fixture corrections. UI harness selectors/dialogue handling were corrected. The final clean-SHA runs pass; preliminary failing evidence is retained under `/workspace/rc133-tools/hardening*`.
+1. Weak exiting projectile bodies (8% base damage bounded 1–12) acquired a fresh 10%-max-HP heart bonus and major-owner raid modifiers/leech. Two distinct weak packets each requested 1 and applied 50. The active `assets/rc25/raid.js` now excludes only these weak derived packets from major modifiers, and the native heart packet does not award a new full bonus. Normal boss body/laser/ultimate damage policy is preserved.
+2. Same-zone death restarts retained old boss laser/ultimate casts and RC95/RC129 clocks. Old laser ID56 damaged both the old encounter and the new same-ID boss attempt. Native zone entry/respawn now clears old casts/admission clocks while preserving EGO progress and native death/healing policy.
 
-## Remaining conditions
+The twelve-case native restart/weak-contact suite is explicitly staged. It checks bounded weak contacts, same-group duplicates, independent groups, unchanged major attack floors/leech, new rosters, discarded casts/clocks and retained EGO count. See [diagnosis](qa/rc133/dream-reset-diagnosis.md).
 
-Asset staging remains user-cancelled and parent-paused. No alternate upload/materialization was attempted. The six uploaded persona image sources and recovered audio39 ZIP/manifest are absent here. Uploaded map/body/skills/awakening art, original cosmic identity art conversion and new audio placement/decode/playback/gender manifest are **not complete**. Existing verified hero/zone sprites are temporary fallbacks; stationary cosmic mechanics are complete, original-source art is not.
+## Validation
 
-Remote read-only CI **passed** at exact feature SHA `d4a796c01cc0789c064e33d9a7dc2046a5f4e094`: [run37142621371](https://github.com/kjb7876-lang/hapil1/actions/runs/37142621371), native-gameplay9 / preservation8 suites. Runtime hashes match local5b53fe3. Remote natural first-boss/portal reached dist01 in95312ms with HP210.856 and JS/HTTP errors0. See `qa/rc133/evidence/ci-d4a796c.json`; artifacts retain screenshots/logs for14days. The workflow performs no repository mutations/main/Pages writes. CLI authentication remains invalid; GitHub connector read access succeeded. Parent must still run combined exact-SHA CI after narration82 integration, then coordinate main/Pages publication, deployment SHA/public hashes and desktop/portrait/landscape public smoke. No main or Pages publication happened in this task.
+Exact 6007eea CI: 18/18 suites passed, [run37151933176](https://github.com/kjb7876-lang/hapil1/actions/runs/37151933176). This includes 642 native checks per PC/portrait/landscape, native contacts 8, restart/weak contacts 12, hero render 72 per viewport, RC132 browser/wrath, RC130 bitmap/pixel limits, approved laser pixels, narration82 manifest and natural Story first-boss→dist01. Units: policy 131, feedback 68, RC132 32, RC127 174, hero 344, RC130 799, isolation 28. Local initial Acorn/Chromium path failures were corrected; original failed logs remain retained.
+
+At 6778046 the extended native suite has 646 checks per viewport, adding registered awakening entry/expiry/save reconstruction. Local three-viewport run passed with 0 JS/HTTP errors. Exact remote CI passed 18/18: [run37154208939](https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939), see [CI evidence](qa/rc133/evidence/ci-6778046.json).
+
+Earlier full-auto natural Story at 1d17a7b completed 61 zones, actual cult04 ending and normal title Dream unlock. Ending save is protected in native slot1. This is distinct from the latest code-SHA first-boss regression.
+
+After the reset fixes, a separate unassisted full-auto Dream trial at 6007eea still had 14 actual deaths in 5 minutes, 0 completed zones and 0 JS/HTTP errors. These are legitimate combat deaths; no difficulty nerf was made. Normal D-key assistance then reached dist04 before one death. Further native-input continuation is bounded and its exact result will be recorded. No HP/enemy/unlock/route edits are used. The full natural Dream hidden-final victory is not established.
+
+Additional check **failed**: `story-narration-decoder-edges.cjs` on Chromium 151.0.7922.173 decoded all 1020 rows / 255 files; native-rate 510 rows passed, fixed-rate 510 rows failed strict PCM/fingerprint checks (sample-count delta 0). Narration files, fixtures and test bytes match main 0d0017b. Reference/tolerances/audio were not changed. This does not establish missing phonemes or device output. See the committed compact failure summary and the retained full log outside the repo.
+
+## New narrative text / TTS handoff
+
+[Text surfaces](qa/rc133/new-text-surfaces.json) contains exact strings, logical surface IDs, source functions, trigger and position. Three new narrative strings:
+
+- `rc133.inner-final.reveal.floatText`: 교주의 죽음 뒤, 사후에 숨겨 둔 나의 악이 깨어난다 — native Dream cult04 leader death; player position, 1.8s.
+- `rc133.inner-final.boss.name`: 사후의 나 · 악한 무의식 — persona actor/target/boss name, including native restore.
+- `rc133.inner-final.awakening.floatText`: 惡夢覺醒 · 나의 힘을 기억한다 — boss awakening countdown; boss position, 0.9s.
+
+These are **not voiced**. Existing 119 canonical TTS units / 82 published units exclude them. Trait telegraphs and other new UI text are listed separately; no new ending dialogue was added.
+
+## Remaining blockers
+
+Parent-paused source transfer means the six persona concept map/body/skill/awakening images, original cosmic identity artwork and recovered audio39 ZIP/manifest are absent here. No alternate upload was attempted. Pixel inspection, source art integration, audio measurement/processed copies/placement/playback/gender review remain incomplete; existing assets are temporary fallbacks. The additional strict fixed-PCM decoder failure remains unresolved. Physical phones and a completed natural Dream hidden-final campaign are unverified.
+
+Before publication, parent must coordinate source assets, resolve/report remaining acceptance failures, confirm fresh main, run combined exact-SHA CI, then verify Pages/deployed SHA/public runtime hashes and PC/portrait/landscape public smoke. Do not publish this branch while that pause remains in force.

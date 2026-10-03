@@ -1,10 +1,10 @@
 {
-  "status": "gameplay-local-and-ci-passed-awaiting-parent-assets-and-publication",
+  "status": "exact-gameplay-ci-passed-natural-dream-running-assets-and-publication-paused",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-samong-inner-self",
-  "testedSha": "5b53fe38489c01d746bf7fb84f61659795276e3e",
+  "testedSha": "6778046f7d889b09962357e9f282a265d2b235ec",
   "testedWorkingTree": false,
-  "mainSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
+  "mainSha": "0d0017b379ab584e7e791c5bcaea4c54e7fc2b36",
   "pagesSha": null,
   "published": false,
   "sourceImagesInspected": false,
@@ -12,7 +12,8 @@
   "blockers": [
     "Parent paused asset transfer after user-cancelled staging; no alternative upload attempted. Six source images and recovered audio ZIP/manifest are absent here.",
     "Uploaded persona art, audio39 integration and original cosmic identity art remain pending parent asset coordination. Existing hero/zone assets are temporary fallbacks.",
-    "Parent is preparing narration82 (73 unchanged +9). No main/Pages writes; integrate with fresh main and run combined exact-SHA CI/public smoke after parent coordination."
+    "Latest narration82 main is merged by normal history-preserving merge; main/Pages publication remains parent-paused pending source assets and final coordination.",
+    "Additional fixed-PCM decoder edge test fails on local Chromium151: 510 fixed rows fail, 510 native-rate rows pass, all 1020 decoded; do not claim its acceptance. Narration bytes match main0d0017b."
   ],
   "passed": {
     "rc133Policy": 131,
@@ -30,7 +31,7 @@
     },
     "rc133NativeBrowser": {
       "profiles": 3,
-      "checksPerProfile": 642,
+      "checksPerProfile": 646,
       "scope": "Staged native EGO/save, 41 current midboss routes x STORY/DREAM with initial/delayed entry and surviving save/restore, 29 dynamic boss profiles, wrath, warp reservation, eight persona traits and four compositions; normal React upgrade purchase; actual cult and persona death closure; full-frame ending filter 0"
     },
     "rc128NativeBrowser": {
@@ -64,20 +65,23 @@
       "extraPixels": 0
     },
     "naturalStory": {
-      "status": "passed",
+      "testSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+      "standardStory": true,
       "usedProgressCheats": false,
+      "changedZone": true,
       "from": "dist00",
       "to": "dist01",
-      "elapsedMs": 80871,
-      "finalHP": 230.05,
+      "finalHP": 185.08000000000004,
+      "samples": 18,
       "jsErrors": 0,
       "httpErrors": 0,
-      "scope": "One desktop natural first-boss/portal auto session; not full campaigns"
+      "evidence": "qa/rc133/evidence/6778046/natural-story-first-portal-6007eea.json"
     },
     "narrationManifest": {
-      "includedUnits": 73,
-      "pendingUnits": 46,
-      "unchangedFromStartingMain": true
+      "includedUnits": 82,
+      "pendingUnits": 37,
+      "unchangedFromIntegratedMain": true,
+      "sha256": "6ddb1b8765e653fdc1fea807ff7855d004a56be0215417f1d10fad3fb10c867f"
     },
     "naturalStoryCI": {
       "usedProgressCheats": false,
@@ -86,6 +90,10 @@
       "finalHP": 210.856,
       "jsErrors": 0,
       "httpErrors": 0
+    },
+    "nativeWeakExitAndRestart": {
+      "cases": 12,
+      "scope": "Staged actual native weak exit/player reducers and RC59 restart path in STORY/DREAM. Weak damage and duplicate ledger, normal major floors/leech, discarded stale casts/clocks, preserved EGO count."
     }
   },
   "physicalMobileTested": false,
@@ -93,37 +101,198 @@
   "zeroBugGuarantee": false,
   "ci": {
     "status": "passed",
-    "commit": "d4a796c01cc0789c064e33d9a7dc2046a5f4e094",
-    "workflow": ".github/workflows/rc133-gameplay.yml",
-    "runId": 37142621371,
-    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37142621371",
+    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
+    "runId": 37154208939,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939",
     "suites": {
-      "native-gameplay": 9,
+      "native-gameplay": 10,
       "preservation": 8
     },
-    "evidence": "qa/rc133/evidence/ci-d4a796c.json",
-    "reason": "Read-only branch-push workflow; both jobs successful. Runtime hashes match local 5b53fe3."
+    "evidence": "qa/rc133/evidence/ci-6778046.json"
   },
   "remainingRequestItems": [
     "Uploaded source persona map/body/skills/awakening art pixel inspection and integration",
-    "Original cosmic identity visuals after asset approval; stationary mechanics are implemented",
-    "Audio39 measured derivatives/placement manifest/runtime decode-playback and gender review in this checkout",
-    "Parent narration82 combined integration, exact-SHA remote CI, main/Pages publication, public hash and 3-viewport smoke",
-    "Full natural Dream/Story hidden-final campaigns and physical phone QA"
+    "Original cosmic identity source art after parent asset coordination",
+    "Audio39 measurement, processed copies, placement, runtime playback and gender review",
+    "Resolve additional strict fixed-PCM decoder failure on Chromium151 without weakening the comparison contract",
+    "Natural Dream hidden-final completion; physical phone QA",
+    "Parent-coordinated main/Pages publication, deployed SHA and public runtime hash/desktop/portrait/landscape checks"
   ],
   "fixedFailures": [
     "RC69 injected three midbosses into Story; native admission now enforces 2/3.",
     "Later Dream midboss HP exceeded old 100000 save cap; validated encounter rows accept bounded native HP up to 1e9 and persist living IDs.",
     "Single-midboss arc repeated sprites; at most two nearest authored alternatives are pinned with same-arc preference.",
     "Deferred boss casts could outlive shared warp timer; one reservation stays owned until commit/cancel/death.",
-    "After inner completion the ordinary Dream awakening compositor re-applied grayscale; completed cult04 suppresses that pass."
+    "After inner completion the ordinary Dream awakening compositor re-applied grayscale; completed cult04 suppresses that pass.",
+    "Weak derived exiting bodies acquired a fresh 10%-max-HP heart bonus and major-owner raid modifiers; bounded weak damage is now preserved.",
+    "Old boss casts and RC95/RC129 clocks survived same-zone death restarts and resolved new actors by matching ID; new roster admission now clears them.",
+    "Registered persona awakening art was accepted but never selected; native timer transition/expiry and save reconstruction now select it, with four staged existing-art checks per viewport."
   ],
   "harnessCorrections": [
     "Deprecated ep1a07 is outside current route and migrates to ep1a08; tested separately.",
     "Wrath staged fixture now passes actual native phase instead of assuming phase1.",
     "Growth UI selector changed to its current label; Story dialogue is advanced before interacting.",
-    "An initial rc127-policy-unit.cjs invocation failed because the actual script is rc127-policy.cjs; corrected test passed."
+    "An initial rc127-policy-unit.cjs invocation failed because the actual script is rc127-policy.cjs; corrected test passed.",
+    "Five-second HP sampling missed lethal frames; forwarding native death hooks now count actual respawns.",
+    "Persistent global Story completion was mistaken for Dream completion; Dream terminal detection now requires innerFinalRC133.phase=complete.",
+    "Local Acorn/Chromium path mistakes were corrected for RC132 tests; original failed logs remain retained."
   ],
-  "evidenceDirectory": "qa/rc133/evidence/5b53fe3",
-  "testEvidenceCommit": "5b53fe38489c01d746bf7fb84f61659795276e3e"
+  "evidenceDirectory": "qa/rc133/evidence/6778046",
+  "testEvidenceCommit": "6778046f7d889b09962357e9f282a265d2b235ec",
+  "integratedMainSha": "0d0017b379ab584e7e791c5bcaea4c54e7fc2b36",
+  "naturalStoryFullCampaign": {
+    "status": "passed",
+    "testSha": "1d17a7bba5594c84c5d88360d9132c105254df0b",
+    "completedZones": 61,
+    "ending": true,
+    "dreamUnlockedThroughNativeTitleUI": true,
+    "usedProgressCheats": false,
+    "slot1Protected": true,
+    "scope": "Earlier full-auto natural Story continuation, distinct from current code-SHA first-boss regression"
+  },
+  "naturalDreamFullAuto": {
+    "status": "blocked-by-real-combat-deaths",
+    "testSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+    "elapsedMs": 301709,
+    "nativeDeaths": 14,
+    "completedZones": 0,
+    "jsErrors": 0,
+    "httpErrors": 0,
+    "usedProgressCheats": false,
+    "evidence": "dream-after-fix-fullauto/dream-run-summary.json"
+  },
+  "naturalDreamGuardAssist": {
+    "status": "running",
+    "runtimeSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+    "previousAttempts": [
+      {
+        "folder": "dream-native-guard-assist",
+        "maxCompletedZones": 4,
+        "nativeDeaths": 1,
+        "stopReason": "operator-interruption-to-improve-input-harness"
+      },
+      {
+        "folder": "dream-native-guard-assist-v2",
+        "nativeDeaths": 1,
+        "stopReason": "operator-interruption-to-include-native-area-geometry"
+      }
+    ],
+    "currentFolder": "dream-native-guard-assist-v3",
+    "scope": "Normal keyboard D inputs, read-only native threat geometry, unchanged full-auto setting. No HP/enemy/unlock/route edits. Distinct from unassisted full-auto trial.",
+    "timeBudgetMs": 3600000,
+    "checkpoint": {
+      "zone": "dist04",
+      "hp": 240,
+      "boss": {
+        "id": "mb-dist04",
+        "hp": 17110.743518301922,
+        "maxHp": 17457,
+        "phase": 1
+      },
+      "completed": 4,
+      "nativeDeaths": 0
+    },
+    "checkpointAt": "2026-10-03T21:20:17.205Z",
+    "hiddenFinalReached": false
+  },
+  "additionalFailedChecks": [
+    {
+      "pass": false,
+      "browserVersion": "151.0.7922.173",
+      "files": 255,
+      "decodedRows": 1020,
+      "exactReferencePcmMatches": 0,
+      "pageErrors": [],
+      "maxima": {
+        "fixed": {
+          "lengthDeltaSamples": 0,
+          "headRmsError": 0.006217642999999997,
+          "tailRmsError": 0.00810285066,
+          "headEnergyEnvelopeNrmse": 0.001840558786823863,
+          "tailEnergyEnvelopeNrmse": 0.0019080852924427923,
+          "headProbeNrmse": 0.011055258365054919,
+          "tailProbeNrmse": 0.020989494831314598
+        },
+        "native": {
+          "lengthDeltaSamples": 1,
+          "headRmsError": 0.1186895249479708,
+          "tailRmsError": 0.43153052017146687,
+          "headEnergyEnvelopeNrmse": 0.02259514554938521,
+          "tailEnergyEnvelopeNrmse": 0.03808445720866403,
+          "headProbeNrmse": 0.02754898045485246,
+          "tailProbeNrmse": 0.02024291991449637
+        }
+      },
+      "limitation": "Edge-signal decode equivalence only. Does not establish phoneme completeness, listening quality, runtime scheduling, HTMLMediaElement fallback, or device output.",
+      "failedRows": 510,
+      "example": {
+        "audio": "audio/dist01-pre-b728e54b731563159aae4902.mp3",
+        "mode": "fixed",
+        "attempt": 1,
+        "sha256": "b728e54b731563159aae49027237049feb2065b5bf63cb9938e9278dc79bd6ee",
+        "pcmSha256": "f7f56170a742d7c52c03c1ee0f81ad3750065aff71e4bb9b6dc3d9c20ee8050b",
+        "referencePcmSha256": "708b6e60d6eaf59f37bbcaf175b9a91d6b3c9636ca0683933be5e44ad7a2a96a",
+        "referencePcmKind": "ffmpeg-mp3-fixed-s16-audiobus-f32-v1",
+        "entirePcmMatchesReference": false,
+        "sampleRate": 24000,
+        "sampleCount": 837000,
+        "firstAboveThreshold": 5962,
+        "lastAboveThreshold": 818453,
+        "activity": {
+          "firstFrame": 49,
+          "lastFrame": 6820
+        },
+        "pass": false,
+        "failures": [
+          "head 10 ms peak fingerprint",
+          "tail 10 ms rms fingerprint",
+          "tail 10 ms peak fingerprint",
+          "firstSamples boundary PCM",
+          "complete fixed-rate PCM fingerprint"
+        ],
+        "metrics": {
+          "lengthDeltaSamples": 0,
+          "lengthDeltaAt24k": 0,
+          "firstThresholdDeltaSeconds": 0,
+          "lastThresholdDeltaSeconds": 0,
+          "headRmsError": 0.002221404000000003,
+          "headEnergyEnvelopeNrmse": 1.73473395127543e-05,
+          "headPeakError": 0.024830530000000014,
+          "headProbeNrmse": 0.0017678092965029634,
+          "headProbeCorrelation": 0.9999984374686385,
+          "tailRmsError": 0.0063315759,
+          "tailEnergyEnvelopeNrmse": 0.00017876420326777784,
+          "tailPeakError": 0.030167903200000002,
+          "tailProbeNrmse": 0.0005157339174636939,
+          "tailProbeCorrelation": 0.9999998670961872
+        },
+        "hints": []
+      },
+      "testSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+      "unchangedFromIntegratedMain": true
+    }
+  ],
+  "runtimeHashes": {
+    "assets/index-v31526.js": "2206d554e03b135a053f551e37946c5e0899b3671498206288f2cc83b9b968bd",
+    "assets/rc25/raid.js": "eb57b745abeda0a7571951105f2323fd2b7b71ab5d1e7894f5acb5901ca7d7fd",
+    "assets/rc95/combat-flow.js": "e301657c8ff39c3441138527390fee0862355630f1df26dbe4ecb6d7d4e0407d",
+    "assets/rc133/samong-policy.js": "b44e64d00c066c53c89c63a81a6cae8bbc8743ea66136938f2b22e76ab91d688",
+    "assets/rc133/inner-final.js": "afb7ac3068d75aa7471e1b6d9a692dc158f5a73008cb954455ad9933fe0bb1c6",
+    "assets/story-narration/v1/manifest.json": "6ddb1b8765e653fdc1fea807ff7855d004a56be0215417f1d10fad3fb10c867f"
+  },
+  "latestRuntimeSha": "6778046f7d889b09962357e9f282a265d2b235ec",
+  "latestRuntimeCI": {
+    "status": "passed",
+    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
+    "runId": 37154208939,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939"
+  },
+  "newNarrativeText": {
+    "source": "qa/rc133/new-text-surfaces.json",
+    "narrativeStrings": 3,
+    "voiced": false,
+    "canonicalTtsUnits": 119,
+    "existingPublishedUnits": 82
+  },
+  "updatedAt": "2026-10-03T21:20:18.063355+00:00"
 }

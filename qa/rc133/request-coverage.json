@@ -1,5 +1,5 @@
 {
-  "runtimeSha": "5b53fe38489c01d746bf7fb84f61659795276e3e",
+  "runtimeSha": "6778046f7d889b09962357e9f282a265d2b235ec",
   "originalPromptLibraryId": "libfile_f8ed0bc5ce048191b24f014735ab3dbb",
   "originalPromptLines": 292,
   "implemented": [
@@ -17,7 +17,10 @@
     "Four composition states with end/death/reload guards",
     "HELL removal preserved",
     "HapilMongse foundation save only",
-    "RC127/130/131/132 and existing narration preservation"
+    "RC127/130/131/132 and existing narration preservation",
+    "Weak derived exit damage retains bounded base policy",
+    "Native zone/respawn discards previous casts and phase clocks",
+    "Registered persona awakening/body art transition and save restore"
   ],
   "assetBlocked": [
     "All original new audio measurement/processed-copy/runtime placement",
@@ -26,14 +29,27 @@
   ],
   "validationLimits": [
     "Browser viewport emulation only; no physical phone",
-    "Natural desktop Story first-boss/portal only",
-    "No full natural hidden-final campaign",
-    "Native incoming probe calls authentic reducers with staged state, not natural collision movement",
-    "Main/Pages/public SHA checks pending parent narration82 and publication coordination"
+    "Current-code natural desktop Story first-boss/portal only; earlier full natural Story at1d17a7b",
+    "Natural Dream D-key-assisted continuation running; hidden-final victory unverified",
+    "Staged native fixtures are distinct from natural combat",
+    "Additional strict fixed-PCM codec comparison failed locally on Chromium151",
+    "Main/Pages/deployed public SHA and public smoke pending parent coordination"
   ],
   "remoteCI": {
-    "commit": "d4a796c01cc0789c064e33d9a7dc2046a5f4e094",
-    "runId": 37142621371,
-    "status": "passed"
+    "status": "passed",
+    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
+    "runId": 37154208939,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939",
+    "suites": {
+      "native-gameplay": 10,
+      "preservation": 8
+    },
+    "evidence": "qa/rc133/evidence/ci-6778046.json"
+  },
+  "narration": {
+    "canonical": 119,
+    "included": 82,
+    "pending": 37,
+    "newPersonaStringsVoiced": false
   }
 }

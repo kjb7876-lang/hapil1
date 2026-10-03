@@ -1,0 +1,73 @@
+{
+  "pass": false,
+  "browserVersion": "151.0.7922.173",
+  "files": 255,
+  "decodedRows": 1020,
+  "exactReferencePcmMatches": 0,
+  "pageErrors": [],
+  "maxima": {
+    "fixed": {
+      "lengthDeltaSamples": 0,
+      "headRmsError": 0.006217642999999997,
+      "tailRmsError": 0.00810285066,
+      "headEnergyEnvelopeNrmse": 0.001840558786823863,
+      "tailEnergyEnvelopeNrmse": 0.0019080852924427923,
+      "headProbeNrmse": 0.011055258365054919,
+      "tailProbeNrmse": 0.020989494831314598
+    },
+    "native": {
+      "lengthDeltaSamples": 1,
+      "headRmsError": 0.1186895249479708,
+      "tailRmsError": 0.43153052017146687,
+      "headEnergyEnvelopeNrmse": 0.02259514554938521,
+      "tailEnergyEnvelopeNrmse": 0.03808445720866403,
+      "headProbeNrmse": 0.02754898045485246,
+      "tailProbeNrmse": 0.02024291991449637
+    }
+  },
+  "limitation": "Edge-signal decode equivalence only. Does not establish phoneme completeness, listening quality, runtime scheduling, HTMLMediaElement fallback, or device output.",
+  "failedRows": 510,
+  "example": {
+    "audio": "audio/dist01-pre-b728e54b731563159aae4902.mp3",
+    "mode": "fixed",
+    "attempt": 1,
+    "sha256": "b728e54b731563159aae49027237049feb2065b5bf63cb9938e9278dc79bd6ee",
+    "pcmSha256": "f7f56170a742d7c52c03c1ee0f81ad3750065aff71e4bb9b6dc3d9c20ee8050b",
+    "referencePcmSha256": "708b6e60d6eaf59f37bbcaf175b9a91d6b3c9636ca0683933be5e44ad7a2a96a",
+    "referencePcmKind": "ffmpeg-mp3-fixed-s16-audiobus-f32-v1",
+    "entirePcmMatchesReference": false,
+    "sampleRate": 24000,
+    "sampleCount": 837000,
+    "firstAboveThreshold": 5962,
+    "lastAboveThreshold": 818453,
+    "activity": {
+      "firstFrame": 49,
+      "lastFrame": 6820
+    },
+    "pass": false,
+    "failures": [
+      "head 10 ms peak fingerprint",
+      "tail 10 ms rms fingerprint",
+      "tail 10 ms peak fingerprint",
+      "firstSamples boundary PCM",
+      "complete fixed-rate PCM fingerprint"
+    ],
+    "metrics": {
+      "lengthDeltaSamples": 0,
+      "lengthDeltaAt24k": 0,
+      "firstThresholdDeltaSeconds": 0,
+      "lastThresholdDeltaSeconds": 0,
+      "headRmsError": 0.002221404000000003,
+      "headEnergyEnvelopeNrmse": 1.73473395127543e-05,
+      "headPeakError": 0.024830530000000014,
+      "headProbeNrmse": 0.0017678092965029634,
+      "headProbeCorrelation": 0.9999984374686385,
+      "tailRmsError": 0.0063315759,
+      "tailEnergyEnvelopeNrmse": 0.00017876420326777784,
+      "tailPeakError": 0.030167903200000002,
+      "tailProbeNrmse": 0.0005157339174636939,
+      "tailProbeCorrelation": 0.9999998670961872
+    },
+    "hints": []
+  }
+}
