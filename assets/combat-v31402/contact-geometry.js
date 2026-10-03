@@ -23,11 +23,13 @@ function projectile(s,a,q){if(!hero(a)||C().frozen(s,q)||a.hp<=0)return{hit:fals
  const extent=q.danmakuV31316?(q.danmakuRadialV31316?32:40):q.boss?68:q.midboss?56:50;
  const visual=q.sprite&&!q.narrativeGlyph?
    (String(q.sourceId)==='dist00-boss'?Math.hypot(70,35):extent*Math.SQRT2*.5)*scale-cfg.bodyRadius:0;
- const r=Math.max(physical,visual);
+ const policy=root.__HAPIL_VISUAL_RC130__,raw=Math.max(physical,visual);
+ if(policy?.contactReady(s,q,raw)===false)return{hit:false,heart:false,t:Infinity,d:Infinity,kind:'awaiting-visible-barrage'};
+ const r=policy?.contactRadius(s,q,raw)??raw;
  return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile'};}
 function stamp(s,a,h,evidence){if(evidence?.kind==='projectile'&&evidence.hit&&!C().piercing(h)&&Number.isFinite(evidence.t)){h.x=N(h.previousX,h.x)+(h.x-N(h.previousX,h.x))*evidence.t;h.y=N(h.previousY,h.y)+(h.y-N(h.previousY,h.y))*evidence.t;}h.heartContactV31336={target:key(s,a),time:s.time,heart:!!evidence?.heart};combat?.captureEvidence(s,a,h,evidence);return h;}
 function first(s,q,actors,hostAlive=true){let best=null;for(const a of [...(hostAlive?[s]:[]),...actors]){const k=key(s,a);if(a.hp<=0||C().seen(q,k))continue;const evidence=projectile(s,a,q);if(evidence.hit&&(!best||evidence.t<best.t||evidence.t===best.t&&k<best.key))best={a,t:evidence.t,key:k,evidence};}return best;}
-function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}
+function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+(root.__HAPIL_VISUAL_RC130__?.contactRadius(s,q,Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1)))??Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1)));return e.d>r&&e.d<=r+19.44;}
 function prepareHost(s,q){const e=projectile(s,s,q);if(e.hit)stamp(s,s,q,e);return e.hit;}
 function areaDistance(a,h){if(root.__HAPIL_FINITE_NATIVE_RC126__?.handles(h))return root.__HAPIL_FINITE_NATIVE_RC126__.distance(a,h);if(!a||!h||![a.x,a.y,h.x,h.y,h.radius].every(Number.isFinite)||h.radius<0)return Infinity;
  if(h.shape===`donut`&&(!Number.isFinite(h.innerRadius)||h.innerRadius<0||h.innerRadius>h.radius))return Infinity;

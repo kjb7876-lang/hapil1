@@ -33,6 +33,7 @@
   };
   try{return original(ctx,cache,p,time,settings,...rest);}finally{if(own)Object.defineProperty(ctx,'drawImage',own);else delete ctx.drawImage;}
  }
+ function contactReady(s,p,r){return!barrage(p)||layouts.has(p)||r<=48;}
  function contactRadius(s,p,r){
   if(!barrage(p))return r;const l=layouts.get(p);
   if(l&&l.scale<1){stats.geometryCaps++;return Math.max(0,Math.min(r*l.scale,l.halfMinor));}
@@ -54,6 +55,6 @@
  }
  function capture(original,e,...args){if(melee(e)||e?.stationaryMeleeRC130){stats.meleeExitRejected++;return false;}return original(e,...args);}
  function snapshot(p){return{version:'RC130',stats:{...stats},layout:p?layouts.get(p)||null:null};}
- const api=Object.freeze({version:'RC130',barrage,melee,fit,bounds,drawProjectile,contactRadius,stationary,drawMelee,capture,snapshot});root.__HAPIL_VISUAL_RC130__=api;
+ const api=Object.freeze({version:'RC130',barrage,melee,fit,bounds,drawProjectile,contactReady,contactRadius,stationary,drawMelee,capture,snapshot});root.__HAPIL_VISUAL_RC130__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
