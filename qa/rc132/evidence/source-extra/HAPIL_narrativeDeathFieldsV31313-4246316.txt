@@ -1,0 +1,3 @@
+function HAPIL_narrativeDeathFieldsV31313(actor) {
+  return window.__HAPIL_NARRATIVE_SCENERY_V31313__?.deathFields?.(actor) ?? {};
+}

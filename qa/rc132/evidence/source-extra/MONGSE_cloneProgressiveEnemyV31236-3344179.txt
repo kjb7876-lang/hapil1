@@ -1,0 +1,11 @@
+function MONGSE_cloneProgressiveEnemyV31236(
+  MONGSE_templateV31236,
+  MONGSE_zoneIdV31236,
+) {
+  const MONGSE_actorV31236 = MONGSE_cloneEnemyBaseV31236(
+    MONGSE_templateV31236,
+    MONGSE_zoneIdV31236,
+  );
+  MONGSE_applyBossProgressionV31236(MONGSE_actorV31236, MONGSE_zoneIdV31236);
+  return MONGSE_actorV31236;
+}

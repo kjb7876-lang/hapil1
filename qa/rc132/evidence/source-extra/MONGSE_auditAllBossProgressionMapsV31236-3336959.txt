@@ -1,0 +1,91 @@
+function MONGSE_auditAllBossProgressionMapsV31236() {
+  const MONGSE_rowsV31236 = MONGSE_BOSS_PROGRESSION_ZONE_ROWS_V31236.map(
+    (MONGSE_zoneRowV31236) => {
+      const MONGSE_zoneV31236 = N[MONGSE_zoneRowV31236.id],
+        MONGSE_rankedV31236 = MONGSE_rankedTemplatesForZoneV31236(
+          MONGSE_zoneRowV31236.id,
+        ),
+        MONGSE_rankRowsV31236 = MONGSE_rankedV31236.map(
+          (MONGSE_templateV31236) => {
+            const MONGSE_cloneV31236 = Jr(
+              MONGSE_templateV31236,
+              MONGSE_zoneRowV31236.id,
+            );
+            return {
+              id: MONGSE_cloneV31236.id,
+              name: MONGSE_cloneV31236.name,
+              rank: MONGSE_cloneV31236.boss ? `boss` : `midboss`,
+              category: MONGSE_isApostateDuoBossV31236(
+                MONGSE_cloneV31236,
+                MONGSE_zoneRowV31236.id,
+              )
+                ? `apostate-duo`
+                : MONGSE_isSevenSinsHumanV31236(
+                      MONGSE_cloneV31236,
+                      MONGSE_zoneRowV31236.id,
+                    )
+                  ? `seven-sins-human`
+                  : MONGSE_cloneV31236.episodeFinalBoss
+                    ? `final`
+                    : MONGSE_cloneV31236.boss
+                      ? `boss`
+                      : `midboss`,
+              maxHp: Number(MONGSE_cloneV31236.maxHp),
+              targetSeconds: Number(
+                MONGSE_cloneV31236.targetCombatSecondsV31236,
+              ),
+              simulatedTtk: Number(
+                (
+                  Number(MONGSE_cloneV31236.maxHp) /
+                  Math.max(
+                    1,
+                    MONGSE_expectedHeroDpsV31236(MONGSE_zoneRowV31236.id),
+                  )
+                ).toFixed(3),
+              ),
+              attackScale: Number(MONGSE_cloneV31236.outgoingAttackScaleV31236),
+              cooldownScale: Number(
+                MONGSE_cloneV31236.attackCooldownScaleV31236,
+              ),
+              patternCadence: Number(
+                MONGSE_cloneV31236.patternCadenceSecondsV31236,
+              ),
+              expectedPatternCycles: Number(
+                MONGSE_cloneV31236.expectedPatternCyclesV31236,
+              ),
+              burstCapRatio: Number(MONGSE_cloneV31236.burstDamageRatioV31236),
+            };
+          },
+        );
+      return {
+        zone: MONGSE_zoneRowV31236.id,
+        name: MONGSE_zoneV31236.name,
+        order: MONGSE_zoneRowV31236.order,
+        combatIndex: MONGSE_zoneRowV31236.displayIndex,
+        progress: Number(MONGSE_zoneRowV31236.progress.toFixed(4)),
+        tier: MONGSE_progressTierV31236(MONGSE_zoneRowV31236.id),
+        expectedHeroDps: MONGSE_expectedHeroDpsV31236(MONGSE_zoneRowV31236.id),
+        normal: (MONGSE_zoneV31236.enemies ?? []).filter(
+          (MONGSE_actorV31236) =>
+            !MONGSE_actorV31236.boss && !MONGSE_actorV31236.midboss,
+        ).length,
+        midbosses: MONGSE_rankRowsV31236.filter(
+          (MONGSE_actorV31236) => MONGSE_actorV31236.rank === `midboss`,
+        ).length,
+        bosses: MONGSE_rankRowsV31236.filter(
+          (MONGSE_actorV31236) => MONGSE_actorV31236.rank === `boss`,
+        ).length,
+        ranked: MONGSE_rankRowsV31236,
+      };
+    },
+  );
+  return {
+    mapCount: MONGSE_rowsV31236.length,
+    rankedActors: MONGSE_rowsV31236.reduce(
+      (MONGSE_totalV31236, MONGSE_rowV31236) =>
+        MONGSE_totalV31236 + MONGSE_rowV31236.ranked.length,
+      0,
+    ),
+    rows: MONGSE_rowsV31236,
+  };
+}

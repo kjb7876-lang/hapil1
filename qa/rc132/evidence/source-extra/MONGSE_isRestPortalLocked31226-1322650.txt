@@ -1,0 +1,17 @@
+function MONGSE_isRestPortalLocked31226(e) {
+  if (!e || !MONGSE_isRestZone(e.zone ?? ``)) return !1;
+  let t = Number(e.restPortalUnlockAt31226 ?? 0) > Number(e.time ?? 0);
+  if (!t) return !1;
+  let n = Number(e.restPortalWallUnlockAtV31227 ?? 0),
+    r = n <= 0 || MONGSE_nowMsV31227() < n;
+  if (r) return !0;
+  return (
+    (e.restPortalUnlockAt31226 = Number(e.time ?? 0)),
+    (e.restPortalWallUnlockAtV31227 = 0),
+    (e.restDialogueComplete31226 = !0),
+    e.encounterDialogue31226 &&
+      ((e.encounterDialogue31226.completed = !0),
+      (e.encounterDialogue31226.completedByV31227 = `wall-clock-watchdog`)),
+    !1
+  );
+}

@@ -1,0 +1,35 @@
+function MONGSE_refreshBossProgressionZonesV31236() {
+  const MONGSE_allZonesV31236 = MONGSE_combatZonesV31236(),
+    MONGSE_legacyZonesV31236 = MONGSE_allZonesV31236.filter(
+      (MONGSE_zoneV31236) => MONGSE_zoneV31236.id !== `dist00`,
+    ),
+    MONGSE_legacyIndexV31236 = new Map(
+      MONGSE_legacyZonesV31236.map((MONGSE_zoneV31236, MONGSE_indexV31236) => [
+        MONGSE_zoneV31236.id,
+        MONGSE_indexV31236,
+      ]),
+    );
+  MONGSE_BOSS_PROGRESSION_ZONE_ROWS_V31236 = MONGSE_allZonesV31236.map(
+    (MONGSE_zoneV31236, MONGSE_indexV31236) => {
+      const MONGSE_isPrologueV31236 = MONGSE_zoneV31236.id === `dist00`,
+        MONGSE_progressionIndexV31236 = MONGSE_legacyIndexV31236.get(
+          MONGSE_zoneV31236.id,
+        );
+      return Object.freeze({
+        id: MONGSE_zoneV31236.id,
+        order: Number(MONGSE_zoneV31236.order),
+        index: MONGSE_indexV31236,
+        displayIndex: MONGSE_indexV31236 + 1,
+        progress:
+          MONGSE_isPrologueV31236 ||
+          !Number.isFinite(MONGSE_progressionIndexV31236)
+            ? 0
+            : MONGSE_legacyZonesV31236.length > 1
+              ? MONGSE_progressionIndexV31236 /
+                (MONGSE_legacyZonesV31236.length - 1)
+              : 0,
+      });
+    },
+  );
+  return MONGSE_BOSS_PROGRESSION_ZONE_ROWS_V31236;
+}

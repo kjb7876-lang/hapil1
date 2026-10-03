@@ -1,0 +1,52 @@
+function MONGSE_probeBossProgressionV31236() {
+  const MONGSE_auditV31236 = MONGSE_auditAllBossProgressionMapsV31236(),
+    MONGSE_rankedV31236 = MONGSE_auditV31236.rows.flatMap((MONGSE_rowV31236) =>
+      MONGSE_rowV31236.ranked.map((MONGSE_actorV31236) => ({
+        ...MONGSE_actorV31236,
+        zone: MONGSE_rowV31236.zone,
+        combatIndex: MONGSE_rowV31236.combatIndex,
+      })),
+    ),
+    MONGSE_finiteV31236 = MONGSE_rankedV31236.every(
+      (MONGSE_actorV31236) =>
+        Number.isFinite(MONGSE_actorV31236.maxHp) &&
+        MONGSE_actorV31236.maxHp > 0 &&
+        MONGSE_actorV31236.maxHp <=
+          MONGSE_BOSS_PROGRESSION_LIMITS_V31236.hpMaximum &&
+        Number.isFinite(MONGSE_actorV31236.targetSeconds) &&
+        Number.isFinite(MONGSE_actorV31236.attackScale) &&
+        Number.isFinite(MONGSE_actorV31236.cooldownScale) &&
+        Number.isFinite(MONGSE_actorV31236.patternCadence) &&
+        Number.isFinite(MONGSE_actorV31236.expectedPatternCycles),
+    ),
+    MONGSE_apostatesV31236 = MONGSE_rankedV31236.filter(
+      (MONGSE_actorV31236) => MONGSE_actorV31236.category === `apostate-duo`,
+    ),
+    MONGSE_humanSinsV31236 = MONGSE_rankedV31236.filter(
+      (MONGSE_actorV31236) =>
+        MONGSE_actorV31236.category === `seven-sins-human`,
+    );
+  return {
+    version: MONGSE_BOSS_PROGRESSION_VERSION_V31236,
+    marker: MONGSE_BOSS_PROGRESSION_MARKER_V31236,
+    installed: MONGSE_BOSS_PROGRESSION_INSTALLED_V31236,
+    hooks: [...MONGSE_BOSS_PROGRESSION_HOOKS_V31236],
+    maps: MONGSE_auditV31236.mapCount,
+    rankedActors: MONGSE_auditV31236.rankedActors,
+    earlyDps: MONGSE_expectedHeroDpsV31236(MONGSE_auditV31236.rows[0]?.zone),
+    lateDps: MONGSE_expectedHeroDpsV31236(MONGSE_auditV31236.rows.at(-1)?.zone),
+    apostates: MONGSE_apostatesV31236.length,
+    sevenSinsHumans: MONGSE_humanSinsV31236.length,
+    finite: MONGSE_finiteV31236,
+    allPass:
+      MONGSE_BOSS_PROGRESSION_INSTALLED_V31236 &&
+      MONGSE_auditV31236.mapCount ===
+        MONGSE_BOSS_PROGRESSION_EXPECTED_MAPS_V31236 &&
+      MONGSE_auditV31236.rankedActors >= 70 &&
+      MONGSE_finiteV31236 &&
+      MONGSE_apostatesV31236.length === 2 &&
+      MONGSE_humanSinsV31236.length >= 7 &&
+      MONGSE_expectedHeroDpsV31236(MONGSE_auditV31236.rows.at(-1)?.zone) >
+        MONGSE_expectedHeroDpsV31236(MONGSE_auditV31236.rows[0]?.zone),
+  };
+}

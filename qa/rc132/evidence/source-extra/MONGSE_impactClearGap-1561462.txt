@@ -1,0 +1,3 @@
+function MONGSE_impactClearGap(e) {
+  return e?.boss ? 0.12 : e?.midboss ? 0.1 : 0.06;
+}

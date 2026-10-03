@@ -1,0 +1,9 @@
+function MONGSE_clearHostileProjectiles31215(e, t = `owner-cleanup`) {
+  if (!e) return 0;
+  let n = Array.isArray(e.hostileProjectiles) ? e.hostileProjectiles : [];
+  return (
+    n.forEach((n) => MONGSE_recordProjectileRemoval31215(e, n, t)),
+    (e.hostileProjectiles = []),
+    n.length
+  );
+}

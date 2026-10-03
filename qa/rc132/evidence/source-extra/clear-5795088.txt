@@ -1,0 +1,15 @@
+function clear(s) {
+  if (!s) return;
+  const own = (q) =>
+    q?.echoBoltV31368 || q?.echoChildV31368 || q?.echoExplosionV31368;
+  for (const k of [
+    "enemies",
+    "hostileProjectiles",
+    "pendingHits",
+    "impactQueue",
+  ])
+    if (Array.isArray(s[k])) s[k] = s[k].filter((q) => !own(q));
+  s.echoFxV31368 = [];
+  s.echoCuesV31368 = [];
+  memory.delete(s);
+}

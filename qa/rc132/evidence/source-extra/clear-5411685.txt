@@ -1,0 +1,6 @@
+function clear(s) {
+  if (!s) return;
+  memories.delete(s);
+  for (const a of P()?.actors ?? [])
+    if (a.control === "local") memories.delete(a);
+}

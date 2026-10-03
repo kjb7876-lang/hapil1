@@ -1,0 +1,25 @@
+function MONGSE_clearSevenSinTransientState(e) {
+  if (!e) return !1;
+  return (
+    (e.heroDrowsyStacks = 0),
+    (e.heroDrowsyUntil = 0),
+    (e.heroSleepUntil = 0),
+    (e.heroBleedUntil = 0),
+    (e.heroBleedNextAt = 0),
+    (e.heroEnvyPoisonUntil = 0),
+    (e.heroBleedSourceIdRC108 = null),
+    (e.heroEnvyPoisonSourceIdRC108 = null),
+    (e.heroBurnSourceIdRC108 = null),
+    (e.heroEnvyPoisonNextAt = 0),
+    (e.heroBurnUntil = 0),
+    (e.heroBurnNextAt = 0),
+    (e.heroHealingBlockedUntil = 0),
+    (e.heroHealingCeiling = e.hp),
+    (e.heroCharmUntil = 0),
+    (e.heroCharmTargetX = 0),
+    (e.heroCharmTargetY = 0),
+    (e.heroMetalBindUntil = 0),
+    (e.prideCommandPressureUntil = 0),
+    !0
+  );
+}

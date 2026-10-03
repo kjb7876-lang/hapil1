@@ -1,0 +1,5 @@
+function HAPIL_restoreEpisode1DeathStateRC59(state, save, ...args) {
+  const result = restoreEntryBase.call(this, state, save, ...args);
+  restoreProgress(state, save);
+  return result;
+}
