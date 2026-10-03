@@ -6,6 +6,7 @@
  'use strict';
  if(root.__HAPIL_HERO_RECOVERY_RC131__)return;
  const ids=Object.freeze(['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner']);
+ const owners=ids.map(id=>[id,new RegExp('(?:/|^)'+id+'(?:/|[-_.])')]);
  const ring=['e','se','s','sw','w','nw','n','ne'];
  const vectors={nw:[-1,0],n:[-1,-1],ne:[0,-1],w:[-1,1],e:[1,-1],sw:[0,1],s:[1,1],se:[1,0]};
  const stats={calls:0,unchanged:0,fallbacks:0,unavailable:0,laurenFallbacks:0,optionErrors:0};
@@ -15,7 +16,7 @@
  function owner(path){
   const p=clean(path);
   if(!/^\.\/assets\/(?:hero_direction\d+\/|heroes\/|hero-authored[^/]*\/)/.test(p))return null;
-  return ids.find(id=>new RegExp('(?:/|^)'+id+'(?:/|[-_.])').test(p))||null;
+  return owners.find(([,pattern])=>pattern.test(p))?.[0]||null;
  }
  function ordered(sector){const index=ring.indexOf(sector),center=index<0?2:index;return ring.map((s,i)=>({s,d:Math.min((i-center+8)%8,(center-i+8)%8),i})).sort((a,b)=>a.d-b.d||a.i-b.i).map(r=>r.s);}
  function sectorOf(path,options={}){
@@ -48,7 +49,9 @@
    const D=root.__HAPIL_DIRECTION_V31334__,paths={};
    for(const p of D?.assetsFor?.(id)||[]){const s=clean(p).match(/\/([nsew]{1,2})\.webp$/)?.[1];if(ring.includes(s)&&owner(p)===id)paths[s]=p;}
    const requestedSector=sectorOf(path,options),pick=direction(cache,id,requestedSector,paths);
-   if(!pick){stats.unavailable++;return base.call(this,ctx,cache,path,x,y,size,options);}
+   // Never borrow another character or an arbitrary effect when all own art is
+   // unavailable. Existing collision/health indicators and loader remain native.
+   if(!pick){stats.unavailable++;return;}
    const [dx,dy]=vectors[pick.sector];let replacement;
    try{
     replacement=deps.options({},deps.hero(id),{kind:'move',started:0,until:0,dx,dy,facing:dx<0?-1:1,characterSectorV31342:pick.sector},pick.path);
@@ -57,7 +60,7 @@
     delete replacement.canonicalHeroRC5;delete replacement.uploadedHeroMotionRC4;delete replacement.authoredWalkV31345;
     if(id==='lauren')replacement.heroSpearRC13={hero:id,sector:pick.sector,kind:'idle'};
     for(const key of ['alpha','hit'])if(Object.prototype.hasOwnProperty.call(options,key))replacement[key]=options[key];
-   }catch(error){stats.optionErrors++;return base.call(this,ctx,cache,path,x,y,size,options);}
+   }catch(error){stats.optionErrors++;return;}
    stats.fallbacks++;
    return base.call(this,ctx,cache,pick.path,x,y,size,replacement);
   }
