@@ -1,0 +1,164 @@
+name: RC131 hero image release verification
+on:
+  push:
+    branches: [main, 'fix/rc131-hero-image-recovery']
+    paths:
+      - '.github/workflows/rc131-hero-release.yml'
+      - 'assets/rc131/**'
+      - 'tests/rc131-*'
+      - 'tools/rc131-apply.cjs'
+      - 'qa/rc131/public-smoke.cjs'
+permissions:
+  contents: read
+concurrency:
+  group: rc131-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: github.ref == 'refs/heads/fix/rc131-hero-image-recovery'
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Apply exact image-only integration on candidate branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/rc131/hero-images.js
+          node tools/rc131-apply.cjs
+          node --check assets/index-v31526.js
+          node --check tools/rc130-preservation.cjs
+          node <<'NODE'
+          const cp=require('node:child_process'),assert=require('node:assert/strict');
+          const names=cp.execFileSync('git',['diff','--name-only'],{encoding:'utf8'}).trim().split('\n').filter(Boolean).sort();
+          if(names.length)assert.deepEqual(names,['assets/index-v31526.js','index.html','tools/rc130-preservation.cjs']);
+          NODE
+          if ! git diff --quiet; then
+            git config user.name 'HAPIL RC131 image repair'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add assets/index-v31526.js index.html tools/rc130-preservation.cjs
+            git commit -m 'RC131 integrate same-hero loading fallback without changing decoded artwork or gameplay'
+            git push origin HEAD:refs/heads/fix/rc131-hero-image-recovery
+          fi
+          test -z "$(git status --porcelain)"
+          echo "RC131_TESTED_COMMIT=$(git rev-parse HEAD)" | tee -a "$GITHUB_ENV"
+      - name: Prepare isolated browser and media runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg > /tmp/rc131-media-install.log 2>&1
+          R="$RUNNER_TEMP/rc131-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > /tmp/rc131-npm.log 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > /tmp/rc131-browser.log 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc131-evidence/candidate" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc131-evidence/release" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/rc131-evidence"
+          git fetch --no-tags --depth=1 origin 22c12fcb8a2c1eda4d527e737199718778fa13d8
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Record unmodified runtime baseline with the same image fault fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          B="$RUNNER_TEMP/rc131-unmodified"
+          git worktree add --detach "$B" 22c12fcb8a2c1eda4d527e737199718778fa13d8
+          cp tests/rc131-hero-images.cjs "$B/tests/rc131-hero-images.cjs"
+          (cd "$B" && HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc131-evidence/baseline" node tests/rc131-hero-images.cjs --observe)
+          git worktree remove --force "$B"
+      - name: Test unit contracts and repaired native visibility
+        run: |
+          node tests/rc131-hero-unit.cjs
+          node tests/rc131-hero-images.cjs
+      - name: Require unchanged normal pixels for every tested hero pose
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+          const root=path.join(process.env.RUNNER_TEMP,'rc131-evidence');
+          const before=JSON.parse(fs.readFileSync(path.join(root,'baseline/rc131-images/results.json')));
+          const after=JSON.parse(fs.readFileSync(path.join(root,'candidate/rc131-images/results.json')));
+          assert.equal(after.commit,process.env.RC131_TESTED_COMMIT);assert.equal(after.worktree,'');assert.equal(after.status,'passed');
+          assert.equal(before.profiles.length,3);assert.equal(after.profiles.length,3);
+          let cases=0,oldEmpty=0,newEmpty=0;
+          for(let n=0;n<3;n++){
+            const a=before.profiles[n],b=after.profiles[n];assert.equal(a.name,b.name);assert.equal(a.rows.length,384);assert.equal(b.rows.length,384);
+            for(let i=0;i<384;i++){const x=a.rows[i],y=b.rows[i];assert.deepEqual([x.id,x.sector,x.kind],[y.id,y.sector,y.kind]);assert.equal(x.normal.hash,y.normal.hash,'normal pixels changed: '+a.name+'/'+x.id+'/'+x.sector+'/'+x.kind);cases++;if(x.fault.pixels<80)oldEmpty++;if(y.fault.pixels<80)newEmpty++;}
+          }
+          assert(oldEmpty>0,'baseline must reproduce the image bug');assert.equal(newEmpty,0);
+          const summary={status:'passed',testedCommit:after.commit,normalCasesUnchanged:cases,pendingImageEmptyBefore:oldEmpty,pendingImageEmptyAfter:newEmpty,scope:'same native staged fixture before/after; intentionally blocked images, not public network observations'};
+          fs.writeFileSync(path.join(root,'image-comparison.json'),JSON.stringify(summary,null,2));console.log('RC131_IMAGE_COMPARISON',JSON.stringify(summary));
+          NODE
+      - name: Existing hero direction and action regressions
+        if: success()
+        run: |
+          node tests/rc115-hero-directions-browser.cjs
+          node tests/rc93-hero-actions-browser.cjs
+      - name: Existing RC130 and protected gameplay regression
+        if: success()
+        run: node tests/rc130-suite.cjs
+      - name: Exact release gate including approved lasers and natural first boss progression
+        if: success()
+        run: node tests/laser-release-gate.cjs
+      - name: Record verification scope and immutable runtime hashes
+        if: always()
+        env:
+          TEST_STATUS: ${{ job.status }}
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process');
+          const out=path.join(process.env.RUNNER_TEMP,'rc131-evidence');fs.mkdirSync(out,{recursive:true});
+          const files=['index.html','assets/index-v31526.js','assets/rc131/hero-images.js','assets/rc77/connected-laser.js','assets/rc127/combat-policy.js','assets/rc130/projectile-policy.js'];
+          const sha256=Object.fromEntries(files.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')]));
+          const report={startingMain:'22c12fcb8a2c1eda4d527e737199718778fa13d8',testedCommit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),workflowHead:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,status:process.env.TEST_STATUS,sha256,audioAttachmentImported:false,note:'Audio ZIP not readable in the conversation runtime; no new audio provenance claimed.'};
+          fs.writeFileSync(path.join(out,'workflow-result.json'),JSON.stringify(report,null,2));console.log('RC131_CANDIDATE_REPORT',JSON.stringify(report));
+          NODE
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc131-verified-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc131-evidence/
+          retention-days: 14
+          if-no-files-found: warn
+  published:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Prepare read-only public browser
+        run: |
+          R="$RUNNER_TEMP/rc131-public-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > /tmp/rc131-public-npm.log 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > /tmp/rc131-public-browser.log 2>&1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc131-public" >> "$GITHUB_ENV"
+      - name: Verify exact public bytes, natural startup, and active hero image integration
+        run: node qa/rc131/public-smoke.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc131-public-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc131-public/
+          retention-days: 14
+          if-no-files-found: warn
