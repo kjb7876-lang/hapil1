@@ -1,0 +1,33 @@
+name: RC132 DREAM combat audit
+on:
+  push:
+    branches: ['fix/rc132-dream-combat-audio']
+    paths: ['.github/workflows/rc132-dream.yml', 'tools/rc132-*.cjs', 'tests/rc132-*.cjs', 'assets/rc132/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Inspect authoritative source and available audio manifests
+        run: |
+          node <<'NODE'
+          const fs=require('node:fs'),path=require('node:path');
+          const source=fs.readFileSync('assets/index-v31526.js','utf8');
+          const terms=['악몽궁수','분노의 귀','분노의귀','거울','mirror','lifesteal','lifeSteal','vampir','drain','dreamStage','samong','heroHealingCeiling'];
+          for(const term of terms){console.log('\n=== TERM '+term+' ===');let n=0;for(const m of source.matchAll(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'))){if(++n>12)break;console.log('OFFSET '+m.index+' '+source.slice(Math.max(0,m.index-650),m.index+1100));}console.log('TOTAL',source.toLowerCase().split(term.toLowerCase()).length-1);}
+          console.log('\n=== HP RECOVERY ASSIGNMENTS ===');let n=0;for(const m of source.matchAll(/\.hp\s*(?:=\s*Math\.min|\+=)/g)){if(++n>100)break;console.log('OFFSET '+m.index+' '+source.slice(Math.max(0,m.index-300),m.index+750));}
+          function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
+          for(const f of walk('assets').concat(walk('tests'),walk('data'),walk('tools'))){if(!/\.(?:c?js|json|md)$/.test(f)||f==='assets/index-v31526.js')continue;const s=fs.readFileSync(f,'utf8');if(/악몽궁수|분노의\s?귀|Short_male_combat|Short_female_combat|Temporal Stutter|歪時計/.test(s))console.log('RELATED',f,s.length);}
+          console.log('TESTS',fs.readdirSync('tests').filter(f=>/dream|samong|131|130|audio|damage|lifesteal/.test(f)));
+          console.log('ASSETS',fs.readdirSync('assets').filter(f=>/dream|88|131|audio/.test(f)));
+          NODE
