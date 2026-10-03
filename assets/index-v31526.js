@@ -119374,7 +119374,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
     const oldHero=s.activeHeroId,oldHp=target.hp;
     try{s.activeHeroId=a.heroId;bridge.damage(target,h.power,h.color,h.key==='R',0,{heroId:a.heroId,heroId31213:a.heroId,impactHeroIdV31315:a.heroId,actionKey:h.key,partySlotV31322:a.slotId});}
     finally{s.activeHeroId=oldHero;}
-    const dealt=Math.max(0,oldHp-target.hp);if(dealt>0){stats.hits++;if(['slayer','hunter'].includes(a.heroId)){const scale=window.__HAPIL_HELL_V31322__?.lifestealMultiplier?.(s)??1;a.hp=Math.min(a.maxHp,a.hp+dealt*.08*scale);}}
+    const dealt=Math.max(0,oldHp-target.hp);if(dealt>0){stats.hits++;if(['slayer','hunter'].includes(a.heroId)){const scale=window.__HAPIL_HELL_V31322__?.lifestealMultiplier?.(s)??1;/* RC132_PARTY_SUSTAIN */const healing=window.__HAPIL_DREAM_BALANCE_RC132__?.lifesteal(s,a,dealt*.08*scale)??dealt*.08*scale;a.hp=Math.min(a.maxHp,a.hp+healing);}}
   }
   function danger(s,a){const hs=[...(s.pendingHits??[]),...(s.impactQueue??[])].filter(h=>num(h.impactAt,h.at)>s.time&&num(h.impactAt,h.at)<s.time+1.2&&!h.damageSuppressedV31226);return hs.find(h=>Di(a,h));}
   function aiInput(s,a,index){
@@ -122384,36 +122384,14 @@ function install(){
 ;(()=>{let n=0;function r(){if(!window.__HAPIL_V31345_RELEASE__?.installed||!window.__HAPIL_MODES_V31346__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION="31346";window.MONGSE_ASSET_VERSION="31346";window.__HAPIL_V31346_RELEASE__=Object.freeze({installed:true,version:"3.13.46-RC1",cacheKey:31346,saveRevision:14,baseVersion:"3.13.45-RC1",activeBundle:"index-v31346.js",build:"THREE MODES AND DREAM FINAL — RC1"});}r();})();
 
 /* HAPIL v3.13.47 — Dream mirror image and reflected laser, visual clone has no combat state. */
-(()=>{'use strict';
- const VERSION='3.13.47',SHARD='./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp',num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,clamp=(v,a,b)=>Math.max(a,Math.min(b,num(v,a)));
- const stats={created:0,hits:0,draws:0,images:0,cleaned:0},seenByState=new WeakMap();let installed=false,attempts=0,lastState=null;
- const mode=s=>window.__HAPIL_MODES_V31346__?.mode?.(s),party=()=>window.__HAPIL_PARTY_V31322__;
+(()=>{
+ 'use strict';
+ /* RC132_MIRROR_REMOVED: retain only memory artwork and a save-compatible inert API. */
+ const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+ const mode=s=>window.__HAPIL_MODES_V31346__?.mode?.(s);
+ const stats={created:0,hits:0,draws:0,images:0,cleaned:0};
+ let installed=false,attempts=0;
  function poly(s){const p=window.__HAPIL_TERRAIN_V31345__?.profile?.(s?.zone)?.world;return Array.isArray(p)&&p.length>2?p.map(q=>({x:num(q.x??q[0]),y:num(q.y??q[1])})):[{x:1.4,y:1.4},{x:30.6,y:1.4},{x:30.6,y:18.6},{x:1.4,y:18.6}];}
- function cross(a,b){return a.x*b.y-a.y*b.x;}
- function rayEdge(o,d,a,b){const e={x:b.x-a.x,y:b.y-a.y},q={x:a.x-o.x,y:a.y-o.y},den=cross(d,e);if(Math.abs(den)<1e-8)return null;const t=cross(q,e)/den,u=cross(q,d)/den;return t>.05&&u>=0&&u<=1?{t,x:o.x+d.x*t,y:o.y+d.y*t,a,b}:null;}
- function rayHit(o,d,p){let hit=null;for(let i=0;i<p.length;i++){const h=rayEdge(o,d,p[i],p[(i+1)%p.length]);if(h&&(!hit||h.t<hit.t))hit=h;}return hit;}
- function plan(s,a){
-  const p=poly(s),away={x:num(a.x)-num(s.x),y:num(a.y)-num(s.y)},L=Math.hypot(away.x,away.y)||1,d={x:away.x/L,y:away.y/L},h=rayHit({x:a.x,y:a.y},d,p);if(!h)return null;
-  let nx=-(h.b.y-h.a.y),ny=h.b.x-h.a.x,nL=Math.hypot(nx,ny)||1;nx/=nL;ny/=nL;const dot=d.x*nx+d.y*ny,r={x:d.x-2*dot*nx,y:d.y-2*dot*ny};let end=rayHit({x:h.x-r.x*.02,y:h.y-r.y*.02},r,p);if(!end)end={x:clamp(h.x+r.x*13,1.4,30.6),y:clamp(h.y+r.y*13,1.4,30.6)};
-  return{segments:[{a:{x:a.x,y:a.y},b:{x:h.x,y:h.y}},{a:{x:h.x,y:h.y},b:{x:end.x,y:end.y}}],mirror:{x:h.x,y:h.y},normal:{x:nx,y:ny}};
- }
- function key(c){return `${c.zone}:${c.sourceId}:${c.id}:${num(c.born)}`;}
- function spawn(s,base,a){const g=plan(s,a);if(!g)return null;const c={id:s.fxSerial++,sourceId:a.id,sourceLaserId:base.id,zone:s.zone,born:num(base.born,s.time),fireAt:num(base.fireAt,s.time+1.4),endAt:num(base.endAt,s.time+2.5),activeSeconds:num(base.activeSeconds,1.1),damage:clamp(num(base.damage,16)*.84,10,22),width:clamp(num(base.width,.32)*.9,.2,.48),color:'#73f7ff',accent:'#ff83f4',beam:base.beam,segments:g.segments,mirror:g.mirror,normal:g.normal,contacts:[],dreamMirrorLaserV31347:true};s.dreamMirrorLasersV31347=(s.dreamMirrorLasersV31347??[]).filter(x=>x.endAt>s.time);s.dreamMirrorLasersV31347.push(c);stats.created++;return c;}
- function distScreen(p,a,b){const q=G(p.x,p.y),u=G(a.x,a.y),v=G(b.x,b.y),dx=v.x-u.x,dy=v.y-u.y,ll=dx*dx+dy*dy,t=ll?clamp(((q.x-u.x)*dx+(q.y-u.y)*dy)/ll,0,1):0;return Math.hypot(q.x-u.x-t*dx,q.y-u.y-t*dy);}
- function contact(c,a){return c.segments.some(l=>distScreen(a,l.a,l.b)<=c.width*27+4);}
- function valid(c,s){return !!(c?.dreamMirrorLaserV31347&&c.zone===s.zone&&Array.isArray(c.segments)&&c.segments.length===2&&c.segments.every(l=>[l.a.x,l.a.y,l.b.x,l.b.y].every(Number.isFinite))&&Number.isFinite(c.fireAt)&&Number.isFinite(c.endAt)&&c.fireAt>=c.born&&c.endAt>c.fireAt);}
- function authoritative(s){const p=party();return !(p?.state===s&&(p.status?.role==='guest'||p.status?.paused||p.status?.disconnected));}
- function tick(s,dt){
-  if(!s)return;lastState=s;let record=seenByState.get(s);if(!record||record.zone!==s.zone||s.time<record.time){record={zone:s.zone,time:s.time,seen:new Set()};seenByState.set(s,record);}record.time=s.time;const seen=record.seen;const liveKeys=new Set((s.bossLaserCastsV31330??[]).map(key));for(const k of seen)if(!liveKeys.has(k))seen.delete(k);if(mode(s)!=='DREAM'){if(s.dreamMirrorLasersV31347?.length)stats.cleaned+=s.dreamMirrorLasersV31347.length;s.dreamMirrorLasersV31347=[];return;}
-  for(const base of s.bossLaserCastsV31330??[]){const a=(s.enemies??[]).find(x=>x.id===base.sourceId);if(!a?.boss||!a.dreamAwakenedV31346)continue;const k=key(base);if(seen.has(k))continue;seen.add(k);if(!(s.dreamMirrorLasersV31347??[]).some(x=>x.sourceId===a.id&&x.endAt>s.time))spawn(s,base,a);}
-  const out=[];for(const c of s.dreamMirrorLasersV31347??[]){const base=(s.bossLaserCastsV31330??[]).find(x=>x.id===c.sourceLaserId&&x.sourceId===c.sourceId),a=(s.enemies??[]).find(x=>x.id===c.sourceId);if(!valid(c,s)||!base||!a||a.hp<=0||s.hp<=0){stats.cleaned++;continue;}if(base){c.fireAt=base.fireAt;c.endAt=base.endAt;c.activeSeconds=base.activeSeconds;}if(s.time>=c.endAt){stats.cleaned++;continue;}out.push(c);if(!authoritative(s)||!(dt>0)||s.time<c.fireAt||s.time>=c.fireAt+c.activeSeconds||num(s.timeStopUntil)>s.time||MONGSE_isEncounterLocked31226(s))continue;
-   const targets=[s,...(party()?.state===s?party().actors??[]:[])].filter(x=>x&&x.hp>0&&!x.visualOnly);for(const t of targets){const id=t===s?'host':String(t.slotId),rec=c.contacts.find(x=>x.id===id);if(rec&&s.time-rec.at<.72)continue;if(!contact(c,t))continue;if(rec)rec.at=s.time;else c.contacts.push({id,at:s.time});const hit={id:c.id,sourceId:c.sourceId,born:c.born,at:s.time,x:t.x,y:t.y,originX:c.mirror.x,originY:c.mirror.y,shape:'line',width:c.width,boss:true,laserV31330:true,dreamMirrorLaserV31347:true,label:'거울 반사 레이저',color:c.color};hit.contactVisualV31362=window.__HAPIL_MATERIAL_V31362__?.beamContact(s,t,c.segments,s.time,true);const ok=t===s?Y(s,c.damage,t.x,t.y,hit):party()?.debug?.allyDamage?.(s,t,c.damage,hit);if(ok)stats.hits++;}
-  }s.dreamMirrorLasersV31347=out;
- }
- function draw(ctx,cache,s,settings={}){for(const c of s.dreamMirrorLasersV31347??[]){if(!valid(c,s)||s.time<c.born||s.time>=c.endAt)continue;const warning=s.time<c.fireAt,opacity=Math.max(.55,num(MONGSE_skillFxOpacity(settings),1));ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.globalAlpha=opacity;ctx.lineCap='round';if(warning){ctx.strokeStyle=c.color;ctx.lineWidth=2;ctx.setLineDash([8,6]);}else{ctx.strokeStyle=c.color;ctx.lineWidth=c.width*54+5;ctx.shadowColor=c.accent;ctx.shadowBlur=settings.lowFx?3:12;}
-   for(const l of c.segments){const a=G(l.a.x,l.a.y),b=G(l.b.x,l.b.y);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();if(!warning){ctx.strokeStyle='rgba(255,255,255,.84)';ctx.lineWidth=Math.max(2,c.width*16);ctx.stroke();ctx.strokeStyle=c.color;ctx.lineWidth=c.width*54+5;}}
-   ctx.setLineDash([]);const m=G(c.mirror.x,c.mirror.y),im=MONGSE_queueImage(cache,SHARD,'eager');if(im?.complete&&(im.naturalWidth||im.width)>0){ctx.globalAlpha=warning?.7:1;ctx.drawImage(im,m.x-22,m.y-22,44,44);}else{ctx.fillStyle=c.accent;ctx.beginPath();ctx.arc(m.x,m.y,8,0,Math.PI*2);ctx.fill();}if(warning&&settings.showCombatInfo!==false){ctx.fillStyle='#eaffff';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(`거울 반사 · ${Math.max(0,c.fireAt-s.time).toFixed(1)}초`,m.x,m.y-28);}stats.draws++;}finally{ctx.restore();}}
- }
  function memoryArt(s){const layer=document.getElementById('hapil-dream-memory-v31346');if(layer)layer.style.display='none';}
  function drawMemory(ctx,cache,s){
   if(mode(s)!=='DREAM')return;const boss=(s.enemies??[]).find(a=>a.boss&&a.hp>0&&a.dreamAwakenedV31346),path=boss&&MONGSE_BOSS_RULE_OVERLAY_PATHS_V31215?.[boss.id];if(!path)return;
@@ -122421,22 +122399,14 @@ function install(){
   const points=poly(s).map(p=>G(p.x,p.y)),xs=points.map(p=>p.x),ys=points.map(p=>p.y),left=Math.min(...xs),top=Math.min(...ys),width=Math.max(...xs)-left,height=Math.max(...ys)-top,k=Math.min(width/(im.naturalWidth||im.width),height/(im.naturalHeight||im.height)),w=(im.naturalWidth||im.width)*k,h=(im.naturalHeight||im.height)*k;
   ctx.save();try{ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.clip();ctx.globalAlpha=.075;ctx.globalCompositeOperation='screen';ctx.drawImage(im,left+(width-w)/2,top+(height-h)/2,w,h);}finally{ctx.restore();}
  }
- let mirrorCanvas=null;
- function drawMirror(ctx,cache,a,time,settings,sprite,size,transform,nativeBody){
-  return; // RC24: remove the faint reflected boss afterimage.
-  const s=lastState;if(mode(s)!=='DREAM'||!s.enemies?.some(x=>x.id===a?.id)||!a?.boss||!a.dreamAwakenedV31346||a.hp<=0)return;
-  mirrorCanvas??=document.createElement('canvas');if(mirrorCanvas.width!==768){mirrorCanvas.width=768;mirrorCanvas.height=768;}const buffer=mirrorCanvas.getContext('2d');if(!buffer)return;
-  const p=G(a.x,a.y),points=poly(s).map(q=>G(q.x,q.y)),left=Math.min(...points.map(q=>q.x)),right=Math.max(...points.map(q=>q.x));let x=clamp(left+right-p.x,left+100,right-100);if(Math.abs(x-p.x)<100)x=clamp(p.x+(p.x<(left+right)/2?150:-150),left+100,right-100);
-  buffer.clearRect(0,0,768,768);buffer.save();try{buffer.translate(384-p.x,640-p.y);nativeBody(buffer,cache,a,time,settings,sprite,size,transform);}finally{buffer.restore();}
-  ctx.save();try{ctx.globalAlpha=.22;ctx.globalCompositeOperation='screen';ctx.translate(x,p.y);ctx.scale(-.68,.68);ctx.drawImage(mirrorCanvas,-384,-640);}finally{ctx.restore();}stats.images++;
- }
-
+ function cleanup(s){if(!s)return;stats.cleaned+=(s.dreamMirrorLasersV31347?.length||0);s.dreamMirrorLasersV31347=[];for(const key of ['pendingHits','impactQueue','effects','hostileProjectiles'])if(Array.isArray(s[key]))s[key]=s[key].filter(x=>!x?.dreamMirrorLaserV31347);}
  function install(){
-  if(installed)return true;const L=window.__HAPIL_LASERS_V31330__,S=window.__HAPIL_STAND_V31335__;if(!window.__HAPIL_V31346_RELEASE__?.installed||!L?.installed||!S?.installed)return false;
-  const oldTick=L.tick,oldDraw=L.draw;L.tick=function HAPIL_dreamMirrorLaserTickV31347(s,dt){const r=oldTick.apply(this,arguments);tick(s,dt);memoryArt(s);return r;};L.draw=function HAPIL_dreamMirrorLaserDrawV31347(ctx,cache,s,settings){memoryArt(s);drawMemory(ctx,cache,s);const r=oldDraw.apply(this,arguments);draw(ctx,cache,s,settings);return r;};
-  const nativeBody=S.drawBody;S.drawBody=function HAPIL_dreamMirrorImageV31347(ctx,cache,a,time,settings,sprite,size,transform={}){drawMirror(ctx,cache,a,time,settings,sprite,size,transform,nativeBody);return nativeBody.apply(this,arguments);};
-  const man=MONGSE_zoneAssetManifest,planBase=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetManifest=function(z,...args){return new Set([...man(z,...args),SHARD]);};MONGSE_zoneAssetPlan31220=function(z,...args){const p=planBase(z,...args);for(const k of['all','A','pins'])p[k]?.add(SHARD);for(const k of['B','C','deferred'])p[k]?.delete(SHARD);return p;};
-  installed=true;window.__HAPIL_MIRROR_V31347__=Object.freeze({version:VERSION,installed:true,plan,spawn,tick,draw,contact,valid,memoryArt,drawMemory,drawMirror,metrics:()=>({...stats}),policy:{image:'render-only; no HP, reward, AI or state owner',laser:'two warned segments; one reflected path per active owner laser'}});return true;
+  if(installed)return true;const L=window.__HAPIL_LASERS_V31330__;if(!window.__HAPIL_V31346_RELEASE__?.installed||!L?.installed)return false;
+  const oldTick=L.tick,oldDraw=L.draw;
+  L.tick=function HAPIL_removedMirrorCleanupRC132(s,dt){cleanup(s);const result=oldTick.apply(this,arguments);memoryArt(s);return result;};
+  L.draw=function HAPIL_preservedDreamMemoryRC132(ctx,cache,s,settings){cleanup(s);memoryArt(s);drawMemory(ctx,cache,s);return oldDraw.apply(this,arguments);};
+  window.__HAPIL_MIRROR_V31347__=Object.freeze({version:'RC132-removed',installed:true,removed:true,plan:()=>null,spawn:()=>null,tick:cleanup,draw:()=>false,contact:()=>false,valid:()=>false,memoryArt,drawMemory,drawMirror:()=>false,metrics:()=>({...stats}),policy:Object.freeze({image:'render-only; no HP, reward, AI or state owner',laser:'removed by user request; no generation, hit test, drawing or replay'})});
+  installed=true;return true;
  }
  function schedule(){if(install()||++attempts>800)return;setTimeout(schedule,0);}schedule();
 })();

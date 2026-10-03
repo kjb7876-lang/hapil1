@@ -102,6 +102,8 @@
             );
           a.time >= Number(a.lifestealSuppressedUntil ?? 0) &&
             (a.lifestealMultiplier = 1);
+          // RC132_NATIVE_SUSTAIN: bound earned lifesteal before committing the HP change.
+          e = window.__HAPIL_DREAM_BALANCE_RC132__?.lifesteal(a,a,e) ?? e;
           ((a.hp += e),core.outgoingHeal(a,o,e),
             e >= 2 &&
               a.time - a.lastLifestealTextAt >= 0.16 &&
