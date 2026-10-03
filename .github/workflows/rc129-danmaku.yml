@@ -15,7 +15,7 @@ permissions:
   contents: read
 concurrency:
   group: rc129-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -51,6 +51,10 @@ jobs:
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc129-results/release" >> "$GITHUB_ENV"
+      - name: Fail-fast actual native startup
+        run: |
+          set -euo pipefail
+          node tests/rc129-startup.cjs 2>&1 | tee "$RUNNER_TEMP/rc129-results/startup.log"
       - name: Actual renders, regressions and strict natural first boss progression
         run: |
           set -euo pipefail
