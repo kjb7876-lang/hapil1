@@ -1,0 +1,53 @@
+[
+  {
+    "offset": 5660335,
+    "line": 122401,
+    "functions": [
+      {
+        "start": 5659865,
+        "end": 5660508,
+        "name": "spawn"
+      },
+      {
+        "start": 5658099,
+        "end": 5668526,
+        "name": "anonymous"
+      }
+    ],
+    "context": "e,a){const g=plan(s,a);if(!g)return null;const c={id:s.fxSerial++,sourceId:a.id,sourceLaserId:base.id,zone:s.zone,born:num(base.born,s.time),fireAt:num(base.fireAt,s.time+1.4),endAt:num(base.endAt,s.time+2.5),activeSeconds:num(base.activeSeconds,1.1),damage:clamp(num(base.damage,16)*.84,10,22),width:clamp(num(base.width,.32)*.9,.2,.48),color:'#73f7ff',accent:'#ff83f4',beam:base.beam,segments:g.segments,mirror:g.mirror,normal:g.normal,contacts:[],dreamMirrorLaserV31347:true};s.dreamMirrorLasersV31347=(s.dreamMirrorLasersV31347??[]).filter(x=>x.endAt>s.time);s.dreamMirrorLasersV31347.push(c);stats.created++;return c;}\n function distScreen(p,a,b){const q=G(p.x,p.y),u=G(a.x,a.y),v=G(b.x,b.y),dx=v.x-u.x,dy=v.y-u.y,ll=dx*dx+dy*dy,t=ll?clamp(((q.x-u.x)*dx+(q.y-u.y)*dy)/ll,0,1):0;return Math.hypot(q.x-u.x-t*dx,q.y-u.y-t*dy);}\n function contact(c,a){return c.segments.some(l=>distScreen(a,l.a,l.b)<=c.width*27+4);}\n function valid(c,s){return !!(c?.dreamMirrorLaserV31347&&c.zone===s.zone&&Array.isArray(c.segments)&&c.segments.length===2&&c.segments.every(l=>[l.a.x,l.a.y,l.b.x,l.b.y].every(Number.isFinite))&&Number.isFinite(c.fireAt)&&Number.isFinite(c.endAt)&&c.fireAt>=c.born&&c.endAt>c.fireAt);}\n function authoritative(s){const p=party();return !(p?.state===s&&(p.status?.role==='guest'||p.status?.paused||p.status?.disconnected));}\n functi"
+  },
+  {
+    "offset": 5660837,
+    "line": 122404,
+    "functions": [
+      {
+        "start": 5660804,
+        "end": 5661089,
+        "name": "valid"
+      },
+      {
+        "start": 5658099,
+        "end": 5668526,
+        "name": "anonymous"
+      }
+    ],
+    "context": "47=(s.dreamMirrorLasersV31347??[]).filter(x=>x.endAt>s.time);s.dreamMirrorLasersV31347.push(c);stats.created++;return c;}\n function distScreen(p,a,b){const q=G(p.x,p.y),u=G(a.x,a.y),v=G(b.x,b.y),dx=v.x-u.x,dy=v.y-u.y,ll=dx*dx+dy*dy,t=ll?clamp(((q.x-u.x)*dx+(q.y-u.y)*dy)/ll,0,1):0;return Math.hypot(q.x-u.x-t*dx,q.y-u.y-t*dy);}\n function contact(c,a){return c.segments.some(l=>distScreen(a,l.a,l.b)<=c.width*27+4);}\n function valid(c,s){return !!(c?.dreamMirrorLaserV31347&&c.zone===s.zone&&Array.isArray(c.segments)&&c.segments.length===2&&c.segments.every(l=>[l.a.x,l.a.y,l.b.x,l.b.y].every(Number.isFinite))&&Number.isFinite(c.fireAt)&&Number.isFinite(c.endAt)&&c.fireAt>=c.born&&c.endAt>c.fireAt);}\n function authoritative(s){const p=party();return !(p?.state===s&&(p.status?.role==='guest'||p.status?.paused||p.status?.disconnected));}\n function tick(s,dt){\n  if(!s)return;lastState=s;let record=seenByState.get(s);if(!record||record.zone!==s.zone||s.time<record.time){record={zone:s.zone,time:s.time,seen:new Set()};seenByState.set(s,record);}record.time=s.time;const seen=record.seen;const liveKeys=new Set((s.bossLaserCastsV31330??[]).map(key));for(const k of seen)if(!liveKeys.has(k))seen.delete(k);if(mode(s)!=='DREAM'){if(s.dreamMirrorLasersV31347?.length)stats.cleaned+=s.dreamMirrorLasersV31347.length;s.dreamMirrorLasersV31347=[];return"
+  },
+  {
+    "offset": 5663093,
+    "line": 122410,
+    "functions": [
+      {
+        "start": 5661229,
+        "end": 5663397,
+        "name": "tick"
+      },
+      {
+        "start": 5658099,
+        "end": 5668526,
+        "name": "anonymous"
+      }
+    ],
+    "context": "tate===s?party().actors??[]:[])].filter(x=>x&&x.hp>0&&!x.visualOnly);for(const t of targets){const id=t===s?'host':String(t.slotId),rec=c.contacts.find(x=>x.id===id);if(rec&&s.time-rec.at<.72)continue;if(!contact(c,t))continue;if(rec)rec.at=s.time;else c.contacts.push({id,at:s.time});const hit={id:c.id,sourceId:c.sourceId,born:c.born,at:s.time,x:t.x,y:t.y,originX:c.mirror.x,originY:c.mirror.y,shape:'line',width:c.width,boss:true,laserV31330:true,dreamMirrorLaserV31347:true,label:'거울 반사 레이저',color:c.color};hit.contactVisualV31362=window.__HAPIL_MATERIAL_V31362__?.beamContact(s,t,c.segments,s.time,true);const ok=t===s?Y(s,c.damage,t.x,t.y,hit):party()?.debug?.allyDamage?.(s,t,c.damage,hit);if(ok)stats.hits++;}\n  }s.dreamMirrorLasersV31347=out;\n }\n function draw(ctx,cache,s,settings={}){for(const c of s.dreamMirrorLasersV31347??[]){if(!valid(c,s)||s.time<c.born||s.time>=c.endAt)continue;const warning=s.time<c.fireAt,opacity=Math.max(.55,num(MONGSE_skillFxOpacity(settings),1));ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.globalAlpha=opacity;ctx.lineCap='round';if(warning){ctx.strokeStyle=c.color;ctx.lineWidth=2;ctx.setLineDash([8,6]);}else{ctx.strokeStyle=c.color;ctx.lineWidth=c.width*54+5;ctx.shadowColor=c.accent;ctx.shadowBlur=settings.lowFx?3:12;}\n   for(const l of c.segments){const a=G(l.a.x,l.a.y),b=G(l.b.x,l.b"
+  }
+]

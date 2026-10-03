@@ -1,0 +1,998 @@
+[
+  {
+    "start": 249483,
+    "end": 250113,
+    "name": "damageWindow",
+    "line": 6407
+  },
+  {
+    "start": 250138,
+    "end": 251432,
+    "name": "damageIntegration",
+    "line": 6433
+  },
+  {
+    "start": 715841,
+    "end": 715951,
+    "name": "MONGSE_enemy3125",
+    "line": 22815
+  },
+  {
+    "start": 770592,
+    "end": 770896,
+    "name": "MONGSE_remapLateEnemyAsset31212",
+    "line": 25089
+  },
+  {
+    "start": 927785,
+    "end": 928849,
+    "name": "MONGSE_zonePortalAnchors",
+    "line": 29608
+  },
+  {
+    "start": 928850,
+    "end": 928940,
+    "name": "MONGSE_portalAnchorValid",
+    "line": 29645
+  },
+  {
+    "start": 945900,
+    "end": 946197,
+    "name": "MONGSE_clearHostileProjectiles31215",
+    "line": 30151
+  },
+  {
+    "start": 963859,
+    "end": 967030,
+    "name": "MONGSE_limitHeroDamage31213",
+    "line": 30649
+  },
+  {
+    "start": 1025435,
+    "end": 1025814,
+    "name": "MONGSE_enemyTorsoOffset",
+    "line": 32726
+  },
+  {
+    "start": 1040869,
+    "end": 1042970,
+    "name": "MONGSE_enemyActionSprite",
+    "line": 33245
+  },
+  {
+    "start": 1054922,
+    "end": 1055115,
+    "name": "MONGSE_pickNearestEnemy",
+    "line": 33656
+  },
+  {
+    "start": 1103196,
+    "end": 1103843,
+    "name": "MONGSE_enemyPhase",
+    "line": 35108
+  },
+  {
+    "start": 1103844,
+    "end": 1104034,
+    "name": "MONGSE_enemyActivePhase",
+    "line": 35135
+  },
+  {
+    "start": 1106028,
+    "end": 1106512,
+    "name": "MONGSE_enemyHitRadius",
+    "line": 35221
+  },
+  {
+    "start": 1106612,
+    "end": 1106816,
+    "name": "MONGSE_enemyUiOffset",
+    "line": 35239
+  },
+  {
+    "start": 1106817,
+    "end": 1107939,
+    "name": "MONGSE_enemyPersonalSpace",
+    "line": 35245
+  },
+  {
+    "start": 1107940,
+    "end": 1108525,
+    "name": "MONGSE_heroEnemySpace",
+    "line": 35279
+  },
+  {
+    "start": 1212246,
+    "end": 1212544,
+    "name": "MONGSE_patternsForEnemy",
+    "line": 38877
+  },
+  {
+    "start": 1282399,
+    "end": 1282543,
+    "name": "MONGSE_isBeastEnemy",
+    "line": 41167
+  },
+  {
+    "start": 1282934,
+    "end": 1283599,
+    "name": "MONGSE_enemyAttackSfx",
+    "line": 41183
+  },
+  {
+    "start": 1284700,
+    "end": 1285121,
+    "name": "MONGSE_clearBgmTransition",
+    "line": 41241
+  },
+  {
+    "start": 1300255,
+    "end": 1300591,
+    "name": "MONGSE_zoneCombatCleared",
+    "line": 41734
+  },
+  {
+    "start": 1300636,
+    "end": 1302549,
+    "name": "MONGSE_clearZoneCombatQueuesAfterClear",
+    "line": 41743
+  },
+  {
+    "start": 1302593,
+    "end": 1304694,
+    "name": "MONGSE_clearExpiredEnemyCombatSources",
+    "line": 41801
+  },
+  {
+    "start": 1304728,
+    "end": 1304780,
+    "name": "MONGSE_zoneClearShardReward",
+    "line": 41855
+  },
+  {
+    "start": 1310913,
+    "end": 1311287,
+    "name": "MONGSE_addEnemyAssets31220",
+    "line": 42050
+  },
+  {
+    "start": 1322650,
+    "end": 1323284,
+    "name": "MONGSE_isRestPortalLocked31226",
+    "line": 42431
+  },
+  {
+    "start": 1339692,
+    "end": 1339898,
+    "name": "MONGSE_clampEnemyStaggerSmartR1",
+    "line": 43001
+  },
+  {
+    "start": 1368716,
+    "end": 1368861,
+    "name": "MONGSE_enemyCounterHeroRole31229",
+    "line": 43864
+  },
+  {
+    "start": 1368862,
+    "end": 1368969,
+    "name": "MONGSE_enemyCounterTier31229",
+    "line": 43869
+  },
+  {
+    "start": 1368970,
+    "end": 1369162,
+    "name": "MONGSE_enemyCounterConfig31229",
+    "line": 43872
+  },
+  {
+    "start": 1369163,
+    "end": 1369314,
+    "name": "MONGSE_enemyCounterCooldownField31229",
+    "line": 43878
+  },
+  {
+    "start": 1369315,
+    "end": 1369484,
+    "name": "MONGSE_enemyCounterGlobalCooldownField31229",
+    "line": 43883
+  },
+  {
+    "start": 1369485,
+    "end": 1369651,
+    "name": "MONGSE_enemyCounterCooldownReady31229",
+    "line": 43888
+  },
+  {
+    "start": 1369652,
+    "end": 1369970,
+    "name": "MONGSE_enemyFacingSignTowardHero31229",
+    "line": 43894
+  },
+  {
+    "start": 1369971,
+    "end": 1370226,
+    "name": "MONGSE_faceEnemyTowardHero31229",
+    "line": 43907
+  },
+  {
+    "start": 1370227,
+    "end": 1372296,
+    "name": "MONGSE_enemyCounterDecision31229",
+    "line": 43916
+  },
+  {
+    "start": 1372297,
+    "end": 1373638,
+    "name": "MONGSE_enemyCounterMovementTarget31229",
+    "line": 43987
+  },
+  {
+    "start": 1373639,
+    "end": 1374407,
+    "name": "MONGSE_emitEnemyCounterCue31229",
+    "line": 44026
+  },
+  {
+    "start": 1374408,
+    "end": 1375567,
+    "name": "MONGSE_startEnemyCounterTactic31229",
+    "line": 44053
+  },
+  {
+    "start": 1375568,
+    "end": 1376585,
+    "name": "MONGSE_applyEnemyCounterRepulse31229",
+    "line": 44090
+  },
+  {
+    "start": 1376586,
+    "end": 1377201,
+    "name": "MONGSE_cancelEnemyCounterTactic31229",
+    "line": 44132
+  },
+  {
+    "start": 1377202,
+    "end": 1381582,
+    "name": "MONGSE_tickEnemyCounterTactic31229",
+    "line": 44152
+  },
+  {
+    "start": 1381583,
+    "end": 1381924,
+    "name": "MONGSE_enemyCounterFollowupPending31229",
+    "line": 44278
+  },
+  {
+    "start": 1381925,
+    "end": 1384603,
+    "name": "MONGSE_enemyCounterAttackProfile31229",
+    "line": 44287
+  },
+  {
+    "start": 1384604,
+    "end": 1384911,
+    "name": "MONGSE_markEnemyCounterAttackStarted31229",
+    "line": 44364
+  },
+  {
+    "start": 1384912,
+    "end": 1385760,
+    "name": "MONGSE_finishEnemyCounterAttack31229",
+    "line": 44374
+  },
+  {
+    "start": 1385761,
+    "end": 1387734,
+    "name": "MONGSE_spawnEnemyCounterProjectile31229",
+    "line": 44397
+  },
+  {
+    "start": 1408262,
+    "end": 1411263,
+    "name": "MONGSE_buildSpatialRiftPortals",
+    "line": 45167
+  },
+  {
+    "start": 1451400,
+    "end": 1452112,
+    "name": "MONGSE_clearSevenSinTransientState",
+    "line": 46511
+  },
+  {
+    "start": 1459081,
+    "end": 1459846,
+    "name": "HAPIL_bossCastDamageFactorV31342",
+    "line": 46746
+  },
+  {
+    "start": 1466022,
+    "end": 1467515,
+    "name": "MONGSE_phaseGateHealth",
+    "line": 46942
+  },
+  {
+    "start": 1468720,
+    "end": 1472308,
+    "name": "MONGSE_clearQueuedEnemyImpacts",
+    "line": 47022
+  },
+  {
+    "start": 1561462,
+    "end": 1561550,
+    "name": "MONGSE_impactClearGap",
+    "line": 49734
+  },
+  {
+    "start": 1566951,
+    "end": 1568712,
+    "name": "MONGSE_telegraphDamageMultiplier31226",
+    "line": 49883
+  },
+  {
+    "start": 1577078,
+    "end": 1578906,
+    "name": "MONGSE_triggerEnemyBreak",
+    "line": 50185
+  },
+  {
+    "start": 1602497,
+    "end": 1602877,
+    "name": "MONGSE_savedEnemyHpScale",
+    "line": 51148
+  },
+  {
+    "start": 1633427,
+    "end": 1633951,
+    "name": "MONGSE_awardClearedEgoV31217",
+    "line": 51997
+  },
+  {
+    "start": 1637540,
+    "end": 1637587,
+    "name": "MONGSE_objectiveDamageAllowedV31309",
+    "line": 52117
+  },
+  {
+    "start": 1638071,
+    "end": 1638113,
+    "name": "HAPIL_applyCounterDamageV31303",
+    "line": 52125
+  },
+  {
+    "start": 1638153,
+    "end": 1638189,
+    "name": "MONGSE_triggerEnemyBreak",
+    "line": 52126
+  },
+  {
+    "start": 1638320,
+    "end": 1638357,
+    "name": "HAPIL_bindDamageHitV31315",
+    "line": 52128
+  },
+  {
+    "start": 1638550,
+    "end": 1638579,
+    "name": "MONGSE_enemyPhase",
+    "line": 52131
+  },
+  {
+    "start": 1638618,
+    "end": 1638653,
+    "name": "MONGSE_enemyActivePhase",
+    "line": 52132
+  },
+  {
+    "start": 1702929,
+    "end": 1702950,
+    "name": "clearInput",
+    "line": 53813
+  },
+  {
+    "start": 1730523,
+    "end": 1731270,
+    "name": "forceEnemyBreakR4",
+    "line": 54472
+  },
+  {
+    "start": 1752483,
+    "end": 1753421,
+    "name": "MONGSE_makeDamageState",
+    "line": 55000
+  },
+  {
+    "start": 1897710,
+    "end": 1903719,
+    "name": "probeZoneClearCombatQueueCleanup",
+    "line": 58112
+  },
+  {
+    "start": 2003394,
+    "end": 2003926,
+    "name": "probeImpactClearGap",
+    "line": 60452
+  },
+  {
+    "start": 2026008,
+    "end": 2027004,
+    "name": "probeMemoryClearReward",
+    "line": 61011
+  },
+  {
+    "start": 2233125,
+    "end": 2233162,
+    "name": "routeEnemySfx",
+    "line": 65854
+  },
+  {
+    "start": 2722092,
+    "end": 2722895,
+    "name": "MONGSE_isEnemyBasicEffect31230",
+    "line": 78150
+  },
+  {
+    "start": 2722899,
+    "end": 2725886,
+    "name": "MONGSE_prepareEnemyBasicEffect31230",
+    "line": 78172
+  },
+  {
+    "start": 2725890,
+    "end": 2727689,
+    "name": "MONGSE_prepareEnemyBasicProjectile31230",
+    "line": 78242
+  },
+  {
+    "start": 3060607,
+    "end": 3061582,
+    "name": "MONGSE_cloneEnemyApostateV31233",
+    "line": 82896
+  },
+  {
+    "start": 3076527,
+    "end": 3076654,
+    "name": "enemy",
+    "line": 83311
+  },
+  {
+    "start": 3241306,
+    "end": 3241657,
+    "name": "MONGSE_outgoingDamageScaleV31234",
+    "line": 87783
+  },
+  {
+    "start": 3247900,
+    "end": 3249506,
+    "name": "MONGSE_balancedEnemyHeightV31234",
+    "line": 87990
+  },
+  {
+    "start": 3265823,
+    "end": 3266407,
+    "name": "MONGSE_enemyHeightV31234",
+    "line": 88452
+  },
+  {
+    "start": 3266506,
+    "end": 3266859,
+    "name": "MONGSE_cloneBalancedEnemyV31234",
+    "line": 88478
+  },
+  {
+    "start": 3330866,
+    "end": 3331213,
+    "name": "MONGSE_profileDamageFloorV31236",
+    "line": 90303
+  },
+  {
+    "start": 3331790,
+    "end": 3332267,
+    "name": "MONGSE_burstDamageRatioV31236",
+    "line": 90338
+  },
+  {
+    "start": 3344179,
+    "end": 3344538,
+    "name": "MONGSE_cloneProgressiveEnemyV31236",
+    "line": 90690
+  },
+  {
+    "start": 3407451,
+    "end": 3409032,
+    "name": "MONGSE_enemyThemeV31237",
+    "line": 92486
+  },
+  {
+    "start": 3409036,
+    "end": 3409458,
+    "name": "MONGSE_enemyRoleV31237",
+    "line": 92540
+  },
+  {
+    "start": 3409462,
+    "end": 3411516,
+    "name": "MONGSE_enemyAttackVisualV31237",
+    "line": 92554
+  },
+  {
+    "start": 3411520,
+    "end": 3414648,
+    "name": "MONGSE_prepareNormalEnemyV31237",
+    "line": 92602
+  },
+  {
+    "start": 3414652,
+    "end": 3418820,
+    "name": "MONGSE_normalEnemyAttackProfileV31237",
+    "line": 92703
+  },
+  {
+    "start": 3420526,
+    "end": 3422013,
+    "name": "MONGSE_normalEnemyCounterDecisionV31237",
+    "line": 92899
+  },
+  {
+    "start": 3438562,
+    "end": 3439591,
+    "name": "MONGSE_prepareEnemyRenderEffectV31237",
+    "line": 93387
+  },
+  {
+    "start": 3439595,
+    "end": 3441695,
+    "name": "MONGSE_auditNormalEnemyCombatV31237",
+    "line": 93412
+  },
+  {
+    "start": 3441699,
+    "end": 3446586,
+    "name": "MONGSE_probeEnemyCombatV31237",
+    "line": 93465
+  },
+  {
+    "start": 3446590,
+    "end": 3458716,
+    "name": "MONGSE_installEnemyCombatV31237",
+    "line": 93605
+  },
+  {
+    "start": 3448422,
+    "end": 3448742,
+    "name": "MONGSE_enemyProfileRuntimeV31237",
+    "line": 93653
+  },
+  {
+    "start": 3448754,
+    "end": 3449331,
+    "name": "MONGSE_enemyCloneRuntimeV31237",
+    "line": 93662
+  },
+  {
+    "start": 3450886,
+    "end": 3451248,
+    "name": "MONGSE_enemyCounterDecisionRuntimeV31237",
+    "line": 93722
+  },
+  {
+    "start": 3451301,
+    "end": 3451820,
+    "name": "MONGSE_enemyCounterAttackProfileRuntimeV31237",
+    "line": 93736
+  },
+  {
+    "start": 3451875,
+    "end": 3454047,
+    "name": "MONGSE_spawnNormalEnemyProjectileV31237",
+    "line": 93755
+  },
+  {
+    "start": 3454154,
+    "end": 3455254,
+    "name": "MONGSE_shouldExpireNormalEnemyProjectileV31237",
+    "line": 93821
+  },
+  {
+    "start": 3455307,
+    "end": 3455792,
+    "name": "MONGSE_renderEnemyEffectV31237",
+    "line": 93852
+  },
+  {
+    "start": 3455886,
+    "end": 3456708,
+    "name": "MONGSE_bindEnemyProjectileBitmapV31237",
+    "line": 93871
+  },
+  {
+    "start": 3490685,
+    "end": 3491052,
+    "name": "MONGSE_cloneMidbossSpriteEnemyV31237",
+    "line": 94844
+  },
+  {
+    "start": 3491154,
+    "end": 3491835,
+    "name": "MONGSE_enemyHeightMidbossSpriteV31237",
+    "line": 94861
+  },
+  {
+    "start": 3491987,
+    "end": 3492920,
+    "name": "MONGSE_enemyActionSpriteV31237",
+    "line": 94886
+  },
+  {
+    "start": 3533529,
+    "end": 3536433,
+    "name": "MONGSE_routeNormalEnemyV31238",
+    "line": 95963
+  },
+  {
+    "start": 3545601,
+    "end": 3546180,
+    "name": "MONGSE_enemyProfileNarrativeV31238",
+    "line": 96229
+  },
+  {
+    "start": 3546192,
+    "end": 3548113,
+    "name": "MONGSE_cloneNarrativeEnemyV31238",
+    "line": 96243
+  },
+  {
+    "start": 3669892,
+    "end": 3670366,
+    "name": "HAPIL_clearQueuedEnemyImpactsV31300",
+    "line": 99401
+  },
+  {
+    "start": 3674274,
+    "end": 3675709,
+    "name": "HAPIL_phaseGateHealthV31300",
+    "line": 99509
+  },
+  {
+    "start": 3705286,
+    "end": 3706983,
+    "name": "HAPIL_phaseGateHealthV31301",
+    "line": 100217
+  },
+  {
+    "start": 3717006,
+    "end": 3717291,
+    "name": "HAPIL_clearAutoDecisionV31302",
+    "line": 100490
+  },
+  {
+    "start": 3760951,
+    "end": 3762870,
+    "name": "HAPIL_applyCounterDamageV31303",
+    "line": 101755
+  },
+  {
+    "start": 3843428,
+    "end": 3844144,
+    "name": "enemyPaths",
+    "line": 104126
+  },
+  {
+    "start": 3952439,
+    "end": 3952721,
+    "name": "withEnemyView",
+    "line": 107282
+  },
+  {
+    "start": 3982170,
+    "end": 3982386,
+    "name": "MONGSE_objectiveDamageAllowedV31309",
+    "line": 108086
+  },
+  {
+    "start": 3985844,
+    "end": 3986258,
+    "name": "isTemporarilyDamageable",
+    "line": 108206
+  },
+  {
+    "start": 3986672,
+    "end": 3986954,
+    "name": "withEnemyView",
+    "line": 108235
+  },
+  {
+    "start": 3994337,
+    "end": 3994932,
+    "name": "objectiveDamageAllowed",
+    "line": 108478
+  },
+  {
+    "start": 4006801,
+    "end": 4006891,
+    "name": "enemySkillsSuppressed",
+    "line": 108836
+  },
+  {
+    "start": 4009516,
+    "end": 4014093,
+    "name": "nullifyEnemySkills",
+    "line": 108909
+  },
+  {
+    "start": 4014097,
+    "end": 4018767,
+    "name": "installEnemySkillSuppressionGuards",
+    "line": 109028
+  },
+  {
+    "start": 4288047,
+    "end": 4288213,
+    "name": "HAPIL_bindDamageHitV31315",
+    "line": 115878
+  },
+  {
+    "start": 4298940,
+    "end": 4300016,
+    "name": "bindDamageHit",
+    "line": 116044
+  },
+  {
+    "start": 4300391,
+    "end": 4301372,
+    "name": "drawDamageHit",
+    "line": 116068
+  },
+  {
+    "start": 4397717,
+    "end": 4397777,
+    "name": "clearMap",
+    "line": 117210
+  },
+  {
+    "start": 4434896,
+    "end": 4435737,
+    "name": "HAPIL_clearSkillBitmapV31317",
+    "line": 117651
+  },
+  {
+    "start": 4502908,
+    "end": 4503542,
+    "name": "clearOwner",
+    "line": 118485
+  },
+  {
+    "start": 4514511,
+    "end": 4514745,
+    "name": "damage",
+    "line": 118656
+  },
+  {
+    "start": 4631120,
+    "end": 4631124,
+    "name": "damageMultiplier",
+    "line": 119044
+  },
+  {
+    "start": 4665196,
+    "end": 4665326,
+    "name": "allyDamage",
+    "line": 119416
+  },
+  {
+    "start": 4665329,
+    "end": 4667919,
+    "name": "reduceAllyDamageV31401",
+    "line": 119417
+  },
+  {
+    "start": 4669737,
+    "end": 4670701,
+    "name": "nearbyEnemyAttacks",
+    "line": 119448
+  },
+  {
+    "start": 4673548,
+    "end": 4674251,
+    "name": "primaryDamage",
+    "line": 119480
+  },
+  {
+    "start": 4674881,
+    "end": 4675842,
+    "name": "enemyTargetScope",
+    "line": 119496
+  },
+  {
+    "start": 4927143,
+    "end": 4927682,
+    "name": "afterDamage",
+    "line": 119687
+  },
+  {
+    "start": 4949593,
+    "end": 4949614,
+    "name": "damage",
+    "line": 119755
+  },
+  {
+    "start": 5145307,
+    "end": 5145354,
+    "name": "MONGSE_clearHostileProjectiles31215",
+    "line": 120211
+  },
+  {
+    "start": 5145607,
+    "end": 5145654,
+    "name": "MONGSE_objectiveDamageAllowedV31309",
+    "line": 120215
+  },
+  {
+    "start": 5249859,
+    "end": 5249893,
+    "name": "clearCache",
+    "line": 120781
+  },
+  {
+    "start": 5277848,
+    "end": 5278251,
+    "name": "damageCandidate",
+    "line": 120954
+  },
+  {
+    "start": 5288136,
+    "end": 5288430,
+    "name": "dashClear",
+    "line": 121055
+  },
+  {
+    "start": 5411568,
+    "end": 5411692,
+    "name": "clear",
+    "line": 121289
+  },
+  {
+    "start": 5557099,
+    "end": 5557571,
+    "name": "waveAdvanceReady",
+    "line": 121642
+  },
+  {
+    "start": 5561007,
+    "end": 5561422,
+    "name": "clearHazards",
+    "line": 121675
+  },
+  {
+    "start": 5561492,
+    "end": 5561588,
+    "name": "HAPIL_clearGateV31343",
+    "line": 121677
+  },
+  {
+    "start": 5576784,
+    "end": 5576913,
+    "name": "clear",
+    "line": 121813
+  },
+  {
+    "start": 5576916,
+    "end": 5576986,
+    "name": "clearAll",
+    "line": 121814
+  },
+  {
+    "start": 5641165,
+    "end": 5641703,
+    "name": "clearDialogue",
+    "line": 122248
+  },
+  {
+    "start": 5667191,
+    "end": 5667311,
+    "name": "HAPIL_dreamMirrorLaserTickV31347",
+    "line": 122436
+  },
+  {
+    "start": 5667319,
+    "end": 5667495,
+    "name": "HAPIL_dreamMirrorLaserDrawV31347",
+    "line": 122436
+  },
+  {
+    "start": 5667538,
+    "end": 5667740,
+    "name": "HAPIL_dreamMirrorImageV31347",
+    "line": 122437
+  },
+  {
+    "start": 5754364,
+    "end": 5754602,
+    "name": "onDamage",
+    "line": 123429
+  },
+  {
+    "start": 5758570,
+    "end": 5758764,
+    "name": "heal",
+    "line": 123453
+  },
+  {
+    "start": 5758766,
+    "end": 5759028,
+    "name": "reduceHealV31401",
+    "line": 123454
+  },
+  {
+    "start": 5802482,
+    "end": 5802772,
+    "name": "clear",
+    "line": 123762
+  },
+  {
+    "start": 5822550,
+    "end": 5822587,
+    "name": "cloneEnemy",
+    "line": 123912
+  },
+  {
+    "start": 5822896,
+    "end": 5822933,
+    "name": "phaseGateHealth",
+    "line": 123917
+  },
+  {
+    "start": 5822956,
+    "end": 5822999,
+    "name": "phaseGateHealth",
+    "line": 123918
+  },
+  {
+    "start": 5823088,
+    "end": 5823175,
+    "name": "counterDamage",
+    "line": 123921
+  },
+  {
+    "start": 5824732,
+    "end": 5824771,
+    "name": "zoneCombatCleared",
+    "line": 123947
+  },
+  {
+    "start": 5824796,
+    "end": 5824841,
+    "name": "zoneCombatCleared",
+    "line": 123948
+  },
+  {
+    "start": 5829981,
+    "end": 5830039,
+    "name": "afterDamage",
+    "line": 124004
+  },
+  {
+    "start": 5830055,
+    "end": 5830127,
+    "name": "recordDamage",
+    "line": 124005
+  },
+  {
+    "start": 5836411,
+    "end": 5836476,
+    "name": "clearHostile",
+    "line": 124073
+  },
+  {
+    "start": 5961650,
+    "end": 5961815,
+    "name": "HAPIL_clearPatternLocksOnMapExitRC64",
+    "line": 126214
+  },
+  {
+    "start": 5991235,
+    "end": 5991286,
+    "name": "clear",
+    "line": 126497
+  }
+]

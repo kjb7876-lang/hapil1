@@ -1,0 +1,839 @@
+[
+  {
+    "offset": 250083,
+    "line": 6430,
+    "functions": [
+      {
+        "start": 249483,
+        "end": 250113,
+        "name": "damageWindow"
+      },
+      {
+        "start": 242560,
+        "end": 255739,
+        "name": "anonymous"
+      },
+      {
+        "start": 242535,
+        "end": 255743,
+        "name": "anonymous"
+      }
+    ],
+    "context": "    fxSerial: 1,\n        },\n        t = [],\n        n = 0;\n      for (let r = 0; r < 10; r++) {\n        e.time = r * 0.09;\n        let i = MONGSE_limitHeroDamage31213(e, 20, { boss: !0 });\n        (t.push(i), (n += i.applied));\n      }\n      return {\n        cap: t[0].cap,\n        totalRequested: 200,\n        totalApplied: n,\n        absorbed: 200 - n,\n        entries: e.heroDamageLedger31213.length,\n        pass: n === Math.max(24, Math.round(e.maxHp * 0.24)),\n      };\n    },\n    damageIntegration: () => {\n      let e = MONGSE_makeBossState31213(`dist06-boss`, 0),\n        t = {\n          sourceId: e.boss.id,\n          boss: !0,\n          heavyBossSkill: !0,\n          themedLaser: !0,\n        },\n        n = e.state.hp,\n        r = 0;\n      ((e.state.combo = 0),\n        (e.state.comboUntil = 0),\n        (e.state.heroMotion = { kind: `idle`, until: 0 }),\n        (e.state.facing = 1),\n        (e.state.direction = `front`),\n        (e.state.zone = `dist06`),\n        (e.state.guardianGraceReadyAt = 99),\n        (e.state.lastLifestealSuppressionTextAt = -99));\n      for (let i = 0; i < 10; i++) {\n        ((e.state.time = i * 0.09), (e.state.invulnerableUntil = 0));\n        Y(e.state, 20, e.boss.x, e.boss.y, t) && (r += 1);\n      }\n      let i = n - e.state.hp,\n        a = { ...e.state, hp: 240, time: 2, invulnerableUntil: 2.4, lastDod"
+  },
+  {
+    "offset": 251323,
+    "line": 6466,
+    "functions": [
+      {
+        "start": 250138,
+        "end": 251432,
+        "name": "damageIntegration"
+      },
+      {
+        "start": 242560,
+        "end": 255739,
+        "name": "anonymous"
+      },
+      {
+        "start": 242535,
+        "end": 255743,
+        "name": "anonymous"
+      }
+    ],
+    "context": "   }\n      let i = n - e.state.hp,\n        a = { ...e.state, hp: 240, time: 2, invulnerableUntil: 2.4, lastDodgeAt: 1.8 };\n      a.heroDamageLedger31213 = [];\n      let o = Y(a, 30, e.boss.x, e.boss.y, t);\n      return {\n        appliedDamage: i,\n        damagingHits: r,\n        perfectDodgeReturnedHit: o,\n        perfectDodgeHp: a.hp,\n        perfectDodgeCounterUntil: a.counterUntil,\n        pass:\n          i === Math.max(24, Math.round(e.state.maxHp * 0.24)) &&\n          !o &&\n          a.hp === 240 &&\n          a.counterUntil > a.time,\n      };\n    },\n    presentation: () => {\n      let e = MONGSE_makeBossState31213(`dist06-boss`, 80),\n        t = MONGSE_addBossCastPresentation31212(\n          e.state,\n          e.boss,\n          `hell-gate-columns`,\n        );\n      return {\n        layers: t,\n        effectCount: e.state.effects.length,\n        kinds: e.state.effects.map((e) => e.kind),\n        pass:\n          t === 4 &&\n          e.state.effects.some((e) => e.bossCastDirectionCue31213) &&\n          e.state.effects.some((e) => e.bossCastAftershock31213),\n      };\n    },\n  });\n  window.__MONGSE_BOSS_DYNAMICS_QA_V31214__ = Object.freeze({\n    probe: () => ({\n      version: `3.12.14`,\n      bossCount: MONGSE_profiles31213.length,\n      signatureKindCount: new Set(\n        MONGSE_profiles31213.flatMap((e) => e.skills),\n      )."
+  },
+  {
+    "offset": 1221513,
+    "line": 39152,
+    "functions": [
+      {
+        "start": 1217118,
+        "end": 1230051,
+        "name": "anonymous"
+      },
+      {
+        "start": 1212545,
+        "end": 1230662,
+        "name": "MONGSE_probeCanonicalEp1bHumanPhase0Contract"
+      }
+    ],
+    "context": "     p &&\n              s.shape === `line` &&\n              s.born < s.at &&\n              d > a.hp &&\n              (m?.displacement ?? 0) > 0.5,\n          };\n        })(),\n        S = Jr(t, e.zone),\n        C = n(e.zone, S, 300),\n        w = MONGSE_beginNarrativeAttack(C, S, 0);\n      C.time = (w?.combatResumeAt ?? C.time) + 0.17;\n      let ee = MONGSE_patternsForEnemy(S, 0).find((e) => e.telekineticRain),\n        te = Math.max(1, Math.floor(S.maxHp * S.phaseThresholds[0])),\n        ne = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ee && Ei(C, S, ee, 0);\n      C.time = Number(S.telekineticUntil ?? C.time) + 0.01;\n      let re = MONGSE_beginSpatialRiftBarrage(C, S, 0);\n      re && (C.time = re.endAt + 0.01);\n      re && MONGSE_tickSpatialRiftBarrages(C);\n      let ie = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ((S.hp = ie), (S.currentPhase = MONGSE_enemyPhase(S)));\n      let ae = S.currentPhase,\n        oe = Jr(t, e.zone),\n        se = n(e.zone, oe, 500);\n      ((oe.hp = Math.max(1, Math.floor(oe.maxHp * oe.phaseThresholds[0]))),\n        (oe.currentPhase = 1));\n      let ce = Fi(se, `hwando`, [], {}, 0);\n      ce.enemies = [{ id: oe.id, x: oe.x, y: oe.y, hp: oe.hp }];\n      let le = Ii(ce).find((e) => e.id === oe.id);\n      le && (le.currentPhase = MONGSE_enemyPhase(le));\n      let MONGSE_summonSnapshot = c.e"
+  },
+  {
+    "offset": 1221589,
+    "line": 39153,
+    "functions": [
+      {
+        "start": 1217118,
+        "end": 1230051,
+        "name": "anonymous"
+      },
+      {
+        "start": 1212545,
+        "end": 1230662,
+        "name": "MONGSE_probeCanonicalEp1bHumanPhase0Contract"
+      }
+    ],
+    "context": "\n              d > a.hp &&\n              (m?.displacement ?? 0) > 0.5,\n          };\n        })(),\n        S = Jr(t, e.zone),\n        C = n(e.zone, S, 300),\n        w = MONGSE_beginNarrativeAttack(C, S, 0);\n      C.time = (w?.combatResumeAt ?? C.time) + 0.17;\n      let ee = MONGSE_patternsForEnemy(S, 0).find((e) => e.telekineticRain),\n        te = Math.max(1, Math.floor(S.maxHp * S.phaseThresholds[0])),\n        ne = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ee && Ei(C, S, ee, 0);\n      C.time = Number(S.telekineticUntil ?? C.time) + 0.01;\n      let re = MONGSE_beginSpatialRiftBarrage(C, S, 0);\n      re && (C.time = re.endAt + 0.01);\n      re && MONGSE_tickSpatialRiftBarrages(C);\n      let ie = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ((S.hp = ie), (S.currentPhase = MONGSE_enemyPhase(S)));\n      let ae = S.currentPhase,\n        oe = Jr(t, e.zone),\n        se = n(e.zone, oe, 500);\n      ((oe.hp = Math.max(1, Math.floor(oe.maxHp * oe.phaseThresholds[0]))),\n        (oe.currentPhase = 1));\n      let ce = Fi(se, `hwando`, [], {}, 0);\n      ce.enemies = [{ id: oe.id, x: oe.x, y: oe.y, hp: oe.hp }];\n      let le = Ii(ce).find((e) => e.id === oe.id);\n      le && (le.currentPhase = MONGSE_enemyPhase(le));\n      let MONGSE_summonSnapshot = c.enemies.filter(\n          (e) => e.episodeBossSummon && e.summonOwnerId === r"
+  },
+  {
+    "offset": 1221883,
+    "line": 39159,
+    "functions": [
+      {
+        "start": 1217118,
+        "end": 1230051,
+        "name": "anonymous"
+      },
+      {
+        "start": 1212545,
+        "end": 1230662,
+        "name": "MONGSE_probeCanonicalEp1bHumanPhase0Contract"
+      }
+    ],
+    "context": "emy(S, 0).find((e) => e.telekineticRain),\n        te = Math.max(1, Math.floor(S.maxHp * S.phaseThresholds[0])),\n        ne = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ee && Ei(C, S, ee, 0);\n      C.time = Number(S.telekineticUntil ?? C.time) + 0.01;\n      let re = MONGSE_beginSpatialRiftBarrage(C, S, 0);\n      re && (C.time = re.endAt + 0.01);\n      re && MONGSE_tickSpatialRiftBarrages(C);\n      let ie = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ((S.hp = ie), (S.currentPhase = MONGSE_enemyPhase(S)));\n      let ae = S.currentPhase,\n        oe = Jr(t, e.zone),\n        se = n(e.zone, oe, 500);\n      ((oe.hp = Math.max(1, Math.floor(oe.maxHp * oe.phaseThresholds[0]))),\n        (oe.currentPhase = 1));\n      let ce = Fi(se, `hwando`, [], {}, 0);\n      ce.enemies = [{ id: oe.id, x: oe.x, y: oe.y, hp: oe.hp }];\n      let le = Ii(ce).find((e) => e.id === oe.id);\n      le && (le.currentPhase = MONGSE_enemyPhase(le));\n      let MONGSE_summonSnapshot = c.enemies.filter(\n          (e) => e.episodeBossSummon && e.summonOwnerId === r.id,\n        ),\n        MONGSE_savedWithSummons = Fi(c, `hwando`, [], {}, 0),\n        MONGSE_savedSummonCount = MONGSE_savedWithSummons.enemies.filter((e) =>\n          MONGSE_summonSnapshot.some((t) => t.id === e.id),\n        ).length,\n        MONGSE_summonContract =\n          e.zone === `ep1b"
+  },
+  {
+    "offset": 1222095,
+    "line": 39164,
+    "functions": [
+      {
+        "start": 1217118,
+        "end": 1230051,
+        "name": "anonymous"
+      },
+      {
+        "start": 1212545,
+        "end": 1230662,
+        "name": "MONGSE_probeCanonicalEp1bHumanPhase0Contract"
+      }
+    ],
+    "context": "e = Number(S.telekineticUntil ?? C.time) + 0.01;\n      let re = MONGSE_beginSpatialRiftBarrage(C, S, 0);\n      re && (C.time = re.endAt + 0.01);\n      re && MONGSE_tickSpatialRiftBarrages(C);\n      let ie = MONGSE_phaseGateHealth(C, S, S.maxHp * 2 + 1);\n      ((S.hp = ie), (S.currentPhase = MONGSE_enemyPhase(S)));\n      let ae = S.currentPhase,\n        oe = Jr(t, e.zone),\n        se = n(e.zone, oe, 500);\n      ((oe.hp = Math.max(1, Math.floor(oe.maxHp * oe.phaseThresholds[0]))),\n        (oe.currentPhase = 1));\n      let ce = Fi(se, `hwando`, [], {}, 0);\n      ce.enemies = [{ id: oe.id, x: oe.x, y: oe.y, hp: oe.hp }];\n      let le = Ii(ce).find((e) => e.id === oe.id);\n      le && (le.currentPhase = MONGSE_enemyPhase(le));\n      let MONGSE_summonSnapshot = c.enemies.filter(\n          (e) => e.episodeBossSummon && e.summonOwnerId === r.id,\n        ),\n        MONGSE_savedWithSummons = Fi(c, `hwando`, [], {}, 0),\n        MONGSE_savedSummonCount = MONGSE_savedWithSummons.enemies.filter((e) =>\n          MONGSE_summonSnapshot.some((t) => t.id === e.id),\n        ).length,\n        MONGSE_summonContract =\n          e.zone === `ep1b08`\n            ? MONGSE_phase0SummonTick.spawned === 2 &&\n              MONGSE_summonSnapshot.length === 2 &&\n              MONGSE_summonSnapshot.every((e) => e.prideCorpseSummon)\n            : e.zone === `ep1b0"
+  },
+  {
+    "offset": 1224884,
+    "line": 39223,
+    "functions": [
+      {
+        "start": 1224673,
+        "end": 1225005,
+        "name": "anonymous"
+      },
+      {
+        "start": 1217118,
+        "end": 1230051,
+        "name": "anonymous"
+      },
+      {
+        "start": 1212545,
+        "end": 1230662,
+        "name": "MONGSE_probeCanonicalEp1bHumanPhase0Contract"
+      }
+    ],
+    "context": "d === r.id) &&\n          !c.telekineticCasts.some((e) => e.sourceId === r.id) &&\n          !c.spatialRiftCasts.some((e) => e.sourceId === r.id) &&\n          !c.hostileProjectiles.some((e) => e.sourceId === r.id),\n        Oe = e.phases.map((e, n) => {\n          let i = { ...r };\n          return (\n            (i.hp =\n              n === 0\n                ? i.maxHp\n                : Math.max(\n                    1,\n                    Math.floor(i.maxHp * (i.phaseThresholds[n - 1] - 0.01)),\n                  )),\n            MONGSE_enemyPhase(i)\n          );\n        }),\n        ue =\n          r.phaseSprites?.[0] === e.actor &&\n          MONGSE_phaseSpriteForRender(MONGSE_probeImageCache, r) === e.actor,\n        ke =\n          i.length === 3 &&\n          i.every((e) => e.phaseOnly?.includes(0)) &&\n          a.length > 0 &&\n          a.every((e) => !e.phaseOnly?.includes(0)) &&\n          !!o &&\n          e.vfx ===\n            MONGSE_EP1B_CANON_PHASE0_VFX_DIR +\n              MONGSE_expectedVfxByZone[e.zone] &&\n          o.sevenSinMechanic === e.mechanic &&\n          i.every(\n            (t) =>\n              t.impactSprite === e.vfx ||\n              t.telekineticPropPool?.some((t) => t.source === e.vfx),\n          ),\n        de =\n          !!s.sourceValid &&\n          s.speaker === MONGSE_NARRATIVE_BOSS_REFS[e.zone]?.[0]?.speaker &&\n  "
+  },
+  {
+    "offset": 1233027,
+    "line": 39473,
+    "functions": [
+      {
+        "start": 1232433,
+        "end": 1234756,
+        "name": "anonymous"
+      },
+      {
+        "start": 1232407,
+        "end": 1234757,
+        "name": "anonymous"
+      },
+      {
+        "start": 1230663,
+        "end": 1239446,
+        "name": "MONGSE_probeCanonicalEp1bDirectAttackReachability"
+      }
+    ],
+    "context": "= t[e.zone]?.find((e) => Number(e.phase) === r) ?? null;\n        if (!i || !a)\n          return {\n            zone: e.zone,\n            bossId: e.id,\n            phase: r,\n            pass: !1,\n            reason: !i ? `combatant-missing` : `canonical-payload-missing`,\n          };\n        let o = Jr(i, e.zone),\n          s =\n            r === 0\n              ? o.maxHp\n              : Math.max(\n                  1,\n                  Math.floor(o.maxHp * (o.phaseThresholds[r - 1] - 0.01)),\n                );\n        ((o.hp = s), (o.currentPhase = r));\n        let c = MONGSE_enemyPhase(o),\n          l = n(e.zone, o, r),\n          u = MONGSE_beginNarrativeAttack(l, o, r);\n        u && (l.time = u.releaseAt + 0.001);\n        let d = u ? MONGSE_tickNarrativeAttacks(l) : 0,\n          f = l.hostileProjectiles.filter(\n            (e) => e.narrativeAttack && e.sourceId === o.id,\n          ),\n          p = MONGSE_NARRATIVE_BOSS_REFS[e.zone]?.[r],\n          m =\n            !!u &&\n            c === r &&\n            u.sourceValid === !0 &&\n            u.sourceKind === `boss-dialogue` &&\n            u.directSpeech === !0 &&\n            u.sourceRef === `BOSS:DIALOGUE:P${r}` &&\n            u.speaker === a.speaker &&\n            u.text === a.text &&\n            p?.speaker === a.speaker &&\n            p?.text === a.text &&\n            d === 3 &&\n"
+  },
+  {
+    "offset": 1236392,
+    "line": 39581,
+    "functions": [
+      {
+        "start": 1236206,
+        "end": 1238105,
+        "name": "anonymous"
+      },
+      {
+        "start": 1230663,
+        "end": 1239446,
+        "name": "MONGSE_probeCanonicalEp1bDirectAttackReachability"
+      }
+    ],
+    "context": "et([1, 2, 3, 4]),\n      loopCycles: {},\n      bossDefeated: !1,\n      villageTalk: !1,\n      targetEnemyId: e.id,\n      resonance: 50,\n      cooldowns: {},\n      invulnerableUntil: 0,\n      lastDodgeAt: -99,\n    }),\n    MONGSE_ep1b01LifecycleCases = [0, 1, 2].map((e) => {\n      let n = Jr(Zr(`ep1b01`, `midboss`), `ep1b01`),\n        r =\n          e === 0\n            ? n.maxHp\n            : Math.max(\n                1,\n                Math.floor(n.maxHp * (n.phaseThresholds[e - 1] - 0.01)),\n              );\n      ((n.hp = r), (n.currentPhase = e));\n      let i = MONGSE_makeEp1b01LifecycleState(n, 1200 + e * 20),\n        a = Fi(i, `hwando`, [], {}, 0),\n        o = Ii(a).find((e) => e.id === n.id);\n      o &&\n        (o.currentPhase =\n          o.boss || o.narrativeMultiPhase ? MONGSE_enemyPhase(o) : 1);\n      let s = o ? MONGSE_makeEp1b01LifecycleState(o, 1210 + e * 20) : null,\n        c = s ? MONGSE_beginNarrativeAttack(s, o, o.currentPhase) : null,\n        l = Jr(Zr(`ep1b01`, `midboss`), `ep1b01`);\n      ((l.hp = r), (l.currentPhase = e));\n      let u = MONGSE_makeEp1b01LifecycleState(l, 1220 + e * 20),\n        d = MONGSE_replayNarrativeAfterRespawn(u),\n        f = t.ep1b01?.find((t) => Number(t.phase) === e) ?? null,\n        p =\n          !!o &&\n          o.currentPhase === e &&\n          MONGSE_enemyPhase(o) === e &&\n          "
+  },
+  {
+    "offset": 1434675,
+    "line": 46027,
+    "functions": [
+      {
+        "start": 1431244,
+        "end": 1439691,
+        "name": "HAPIL_reducePlayerContactV31401"
+      }
+    ],
+    "context": "kill ||\n        MONGSE_damageSource.themedLaser ||\n        MONGSE_damageSource.returnAt ||\n        MONGSE_damageSource.telekineticRain ||\n        MONGSE_damageSource.spatialRift ||\n        MONGSE_damageSource.narrativeAttack ||\n        MONGSE_damageSource.shape === `line` ||\n        MONGSE_damageSource.status === `drain`\n      ),\n    MONGSE_percentHpDamage = MONGSE_heavyBossSkill\n      ? Math.max(\n          1,\n          Math.round(\n            e.maxHp * (MONGSE_damageSource.boss ? 0.025 : 0.015),\n          ),\n        )\n      : 0,\n    MONGSE_criticalHit = MONGSE_damageSource\n      ? MONGSE_bossLikeSource\n      : !!i,\n    MONGSE_recentContactHitsV31535 =\n      e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) >= 0 &&\n      e.time - Number(e.lastAcceptedContactAtV31535 ?? -1e9) <= 1.25 &&\n      Number.isFinite(Number(e.consecutiveContactHitsV31535))\n        ? Math.max(0, Number(e.consecutiveContactHitsV31535))\n        : 0,\n    MONGSE_contactDamageScaleV31535 = Math.max(\n      0.5,\n      1 - Math.min(5, MONGSE_recentContactHitsV31535) * 0.1,\n    ),\n    MONGSE_rawDamage31213 = Math.max(\n      t + MONGSE_percentHpDamage > 0 ? 1 : 0,\n      Math.round(\n        (t + MONGSE_percentHpDamage) *\n          MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier *\n        (Number(e.heroDamageTakenMultiplier) || 1) *\n            (window.__HAPIL_"
+  },
+  {
+    "offset": 1467121,
+    "line": 46973,
+    "functions": [
+      {
+        "start": 1466022,
+        "end": 1467515,
+        "name": "MONGSE_phaseGateHealth"
+      }
+    ],
+    "context": " 2\n          ? 0.66\n          : a < 3\n            ? 0.33\n            : 0\n        : i === 2 && a < 2\n          ? 0.5\n          : 0,\n    MONGSE_showcase = MONGSE_episodeBossShowcaseState(e, t, a);\n  if (!o)\n    return (MONGSE_persistentCast ||\n      (MONGSE_episodePacing && !MONGSE_showcase.ready)) &&\n      r <= 0\n      ? ((t.episodeShowcaseGateStops = (t.episodeShowcaseGateStops ?? 0) + 1),\n        1)\n      : r;\n  let s = Math.max(1, Math.floor(t.maxHp * o));\n  return t.hp > s && r <= s\n    ? MONGSE_persistentCast || (MONGSE_episodePacing && !MONGSE_showcase.ready)\n      ? ((t.episodeShowcaseGateStops = (t.episodeShowcaseGateStops ?? 0) + 1),\n        s + 1)\n      : (MONGSE_episodePacing &&\n          ((t.episodePhaseGateStops = (t.episodePhaseGateStops ?? 0) + 1),\n          (t.episodePhaseGateAt = e?.time ?? 0)),\n        s)\n    : r;\n}\nfunction MONGSE_isLaunchedBossOrMidbossProjectile31221(e, t = null) {\n  if (!e || typeof e != `object`) return !1;\n  if (\n    [`x`, `y`, `vx`, `vy`, `radius`, `damage`].some(\n      (t) => !Number.isFinite(Number(e[t])),\n    ) ||\n    e.reachedHero31213 ||\n    e.reachedMapBoundary31213\n  )\n    return !1;\n  const n = (t?.enemies ?? []).find((t) => t?.id === e.sourceId);\n  return !!(\n    e.boss ||\n    e.midboss ||\n    n?.boss ||\n    n?.midboss ||\n    e.bossSkillIdentity31213 ||\n    e.bossReachContract312"
+  },
+  {
+    "offset": 1584591,
+    "line": 50484,
+    "functions": [
+      {
+        "start": 1584495,
+        "end": 1584668,
+        "name": "anonymous"
+      },
+      {
+        "start": 1581393,
+        "end": 1588614,
+        "name": "MONGSE_EP1B_tick"
+      }
+    ],
+    "context": "바꾼다`, `#9efff3`),\n      (e.ep1bHazardAt = e.time + 4.7));\n    return;\n  }\n  if (t === `ep1b04`) {\n    if (e.combo >= 8)\n      ((e.resonance = Math.min(100, e.resonance + 7)),\n        MONGSE_EP1B_float(\n          e,\n          `연속 처치로 채워지지 않는 구멍 차단 · +7`,\n          `#ffd2a8`,\n          !0,\n        ));\n    else {\n      let t = 0;\n      (e.enemies.forEach((e) => {\n        let n = Math.min(\n          e.maxHp - e.hp,\n          Math.max(2, Math.round(e.maxHp * 0.035)),\n        );\n        n > 0 && ((e.hp += n), (t += n));\n      }),\n        t > 0 &&\n          (MONGSE_EP1B_float(e, `살아 있는 위장 · 적 EGO +${t}`, `#ff9b6b`, !0),\n          e.effects.push({\n            id: e.fxSerial++,\n            kind: `heal`,\n            x: 10,\n            y: 10,\n            tx: 10,\n            ty: 10,\n            born: e.time,\n            duration: 0.9,\n            color: `#c56b3f`,\n            accent: `#ffe1bf`,\n            size: 6.2,\n            angle: 0,\n          })));\n    }\n    e.ep1bHazardAt = e.time + 5.8;\n    return;\n  }\n  if (t === `ep1b05`) {\n    if (e.time < e.invulnerableUntil)\n      ((e.resonance = Math.min(100, e.resonance + 5)),\n        MONGSE_EP1B_float(e, `조련의 실 절단 · 공명 +5`, `#ffb8dc`, !0));\n    else {\n      let t = Math.min(8, e.resonance);\n      ((e.resonance -= t),\n        e.enemies.length &&\n          (e.targetEnemyId =\n            e.enem"
+  },
+  {
+    "offset": 1603422,
+    "line": 51175,
+    "functions": [
+      {
+        "start": 1603020,
+        "end": 1603666,
+        "name": "anonymous"
+      },
+      {
+        "start": 1602878,
+        "end": 1603670,
+        "name": "MONGSE_restoreSavedMurderGhosts"
+      }
+    ],
+    "context": "ts)) return [];\n  return e.activeGhosts.flatMap((t, n) => {\n    let r = Se(e.zone).find((e) => e.id === t.templateId);\n    if (!r) return [];\n    let i = Jr(r, e.zone),\n      a = Math.max(1, Math.min(3, Math.round(t.cycle ?? 1))),\n      o = dt(e.zone, t, 0.44),\n      s = 1 + Math.min(0.34, Math.max(0, a - 1) * 0.035);\n    return (\n      (i.id = `${r.id}-cycle-${a}-resume-${n}`),\n      (i.x = o.x),\n      (i.y = o.y),\n      (i.maxHp = Math.round(i.maxHp * s)),\n      (i.hp = Math.min(i.maxHp, Math.max(0.1, t.hp))),\n      (i.ghostBorn = 0),\n      (i.ghostUntil = Math.max(0.65, Math.min(20, t.remaining ?? 0.65))),\n      (i.readyAt = 0.35),\n      (i.patternReadyAt = 0.55),\n      i\n    );\n  });\n}\nfunction Ii(e) {\n  if (!he.includes(e.zone) || e.completedZones.includes(e.zone)) return [];\n  let t = [...he.flatMap((e) => ri(e)), Jr(ye, `murder03`)],\n    MONGSE_savedGhosts = MONGSE_restoreSavedMurderGhosts(e);\n  if (e.enemies) {\n    let n = e.enemies.flatMap((n) => {\n      let r = t.find((e) => e.id === n.id);\n      if (!r) return [];\n      let i = dt(e.zone, n, r.boss ? 0.82 : r.midboss ? 0.68 : 0.44),\n        a = MONGSE_savedEnemyHpScale(e, r),\n        o = n.hp * a;\n      return [\n        {\n          ...r,\n          x: i.x,\n          y: i.y,\n          hp: Math.min(r.maxHp, o),\n          phaseIndex: Math.max(0, Number(n.phaseIndex ?? 0))"
+  },
+  {
+    "offset": 1667237,
+    "line": 52874,
+    "functions": [
+      {
+        "start": 1643058,
+        "end": 1668744,
+        "name": "anonymous"
+      },
+      {
+        "start": 1614374,
+        "end": 2177440,
+        "name": "Ri"
+      }
+    ],
+    "context": "re.forEach((e) => {\n                  e.readyAt = Math.max(e.readyAt, i.time + 1.25);\n                }));\n            else if (a.id === `ion`)\n              ((i.invulnerableUntil = Math.max(\n                i.invulnerableUntil,\n                i.time + 1.45,\n              )),\n                MONGSE_temporalDelayNearby(10, 96, 1.05, `ion-capstone`));\n            else if (a.id === `neon`)\n              i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.24));\n            else if (a.id === `michaela`)\n              ((i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.32))),\n                (i.invulnerableUntil = Math.max(\n                  i.invulnerableUntil,\n                  i.time + 1.05,\n                )),\n                (i.heroSlowUntil = 0),\n                (i.heroStatusUntil = i.awakeningUntil));\n            else if (a.id === `lauren`)\n              re.forEach((e) => {\n                e.boss\n                  ? (e.stagger = Math.min(e.maxStagger, e.stagger + 72))\n                  : e.hp / Math.max(1, e.maxHp) <= 0.3 &&\n                    (e.hp = Math.min(e.hp, 1));\n              });\n            else if (a.id === `hunter` || a.id === `rian`)\n              n0(3, 46, 12, 0.68, !0);\n            else if (a.id === `gunner`)\n              (MONGSE_temporalDelayNearby(11, 96, 1.05, `gunner-capstone`),\n                Obj"
+  },
+  {
+    "offset": 1667356,
+    "line": 52876,
+    "functions": [
+      {
+        "start": 1643058,
+        "end": 1668744,
+        "name": "anonymous"
+      },
+      {
+        "start": 1614374,
+        "end": 2177440,
+        "name": "Ri"
+      }
+    ],
+    "context": "else if (a.id === `ion`)\n              ((i.invulnerableUntil = Math.max(\n                i.invulnerableUntil,\n                i.time + 1.45,\n              )),\n                MONGSE_temporalDelayNearby(10, 96, 1.05, `ion-capstone`));\n            else if (a.id === `neon`)\n              i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.24));\n            else if (a.id === `michaela`)\n              ((i.hp = Math.min(i.maxHp, i.hp + Math.round(i.maxHp * 0.32))),\n                (i.invulnerableUntil = Math.max(\n                  i.invulnerableUntil,\n                  i.time + 1.05,\n                )),\n                (i.heroSlowUntil = 0),\n                (i.heroStatusUntil = i.awakeningUntil));\n            else if (a.id === `lauren`)\n              re.forEach((e) => {\n                e.boss\n                  ? (e.stagger = Math.min(e.maxStagger, e.stagger + 72))\n                  : e.hp / Math.max(1, e.maxHp) <= 0.3 &&\n                    (e.hp = Math.min(e.hp, 1));\n              });\n            else if (a.id === `hunter` || a.id === `rian`)\n              n0(3, 46, 12, 0.68, !0);\n            else if (a.id === `gunner`)\n              (MONGSE_temporalDelayNearby(11, 96, 1.05, `gunner-capstone`),\n                Object.keys(i.cooldowns).forEach((e) => {\n                  i.cooldowns[e] = Math.max(i.time, i.cooldowns[e] - 2.4);\n     "
+  },
+  {
+    "offset": 1861364,
+    "line": 57361,
+    "functions": [
+      {
+        "start": 1861140,
+        "end": 1864342,
+        "name": "anonymous"
+      },
+      {
+        "start": 1860258,
+        "end": 1877288,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      }
+    ],
+    "context": "      i.humanPhase0 ? e : e + 1,\n                          ),\n                      o = MONGSE_episodeBossExpectedSeconds(i),\n                      s = n.baseHp / Math.max(1, n.previousBaseHp),\n                      c = a.map((e) => {\n                        let r = i.humanPhase0\n                            ? (i.phaseThresholds?.[e] ?? 0)\n                            : t(n.phaseCount, e),\n                          a = r ? Math.max(1, Math.floor(i.maxHp * r)) : 0,\n                          o = () => ({\n                            ...i,\n                            hp: i.maxHp,\n                            currentPhase: e,\n                            episodeShowcaseDeadlineAt: 66,\n                            telekineticRainPhase: MONGSE_unsetPhaseMarker(i),\n                            spatialRiftBarragePhase: MONGSE_unsetPhaseMarker(i),\n                            telekineticUntil: 0,\n                            spatialRiftUntil: 0,\n                            episodeShowcaseGateStops: 0,\n                            episodePhaseGateStops: 0,\n                          }),\n                          s = o(),\n                          c = MONGSE_phaseGateHealth(\n                            { time: 50 },\n                            s,\n                            i.maxHp * 2 + 1,\n                          ),\n                          l = o"
+  },
+  {
+    "offset": 1862189,
+    "line": 57378,
+    "functions": [
+      {
+        "start": 1861140,
+        "end": 1864342,
+        "name": "anonymous"
+      },
+      {
+        "start": 1860258,
+        "end": 1877288,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      }
+    ],
+    "context": "setPhaseMarker(i),\n                            telekineticUntil: 0,\n                            spatialRiftUntil: 0,\n                            episodeShowcaseGateStops: 0,\n                            episodePhaseGateStops: 0,\n                          }),\n                          s = o(),\n                          c = MONGSE_phaseGateHealth(\n                            { time: 50 },\n                            s,\n                            i.maxHp * 2 + 1,\n                          ),\n                          l = o();\n                        ((l.telekineticRainPhase = e),\n                          (l.spatialRiftBarragePhase = e));\n                        let u = MONGSE_phaseGateHealth(\n                            { time: 50 },\n                            l,\n                            i.maxHp * 2 + 1,\n                          ),\n                          d = o(),\n                          f = MONGSE_phaseGateHealth(\n                            { time: 66.01 },\n                            d,\n                            i.maxHp * 2 + 1,\n                          ),\n                          MONGSE_errorFallbackBoss = o();\n                        MONGSE_errorFallbackBoss.episodeShowcaseAttemptFailures = 1;\n                        MONGSE_errorFallbackBoss.episodeShowcaseFailurePhase =\n                          e;\n             "
+  },
+  {
+    "offset": 1862542,
+    "line": 57386,
+    "functions": [
+      {
+        "start": 1861140,
+        "end": 1864342,
+        "name": "anonymous"
+      },
+      {
+        "start": 1860258,
+        "end": 1877288,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      }
+    ],
+    "context": "                      { time: 50 },\n                            s,\n                            i.maxHp * 2 + 1,\n                          ),\n                          l = o();\n                        ((l.telekineticRainPhase = e),\n                          (l.spatialRiftBarragePhase = e));\n                        let u = MONGSE_phaseGateHealth(\n                            { time: 50 },\n                            l,\n                            i.maxHp * 2 + 1,\n                          ),\n                          d = o(),\n                          f = MONGSE_phaseGateHealth(\n                            { time: 66.01 },\n                            d,\n                            i.maxHp * 2 + 1,\n                          ),\n                          MONGSE_errorFallbackBoss = o();\n                        MONGSE_errorFallbackBoss.episodeShowcaseAttemptFailures = 1;\n                        MONGSE_errorFallbackBoss.episodeShowcaseFailurePhase =\n                          e;\n                        let MONGSE_errorFallbackHp = MONGSE_phaseGateHealth(\n                            { time: 66.01 },\n                            MONGSE_errorFallbackBoss,\n                            i.maxHp * 2 + 1,\n                          ),\n                          p = a ? a + 1 : 1,\n                          m = a;\n                        return {\n     "
+  },
+  {
+    "offset": 1862781,
+    "line": 57392,
+    "functions": [
+      {
+        "start": 1861140,
+        "end": 1864342,
+        "name": "anonymous"
+      },
+      {
+        "start": 1860258,
+        "end": 1877288,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      }
+    ],
+    "context": "                  (l.spatialRiftBarragePhase = e));\n                        let u = MONGSE_phaseGateHealth(\n                            { time: 50 },\n                            l,\n                            i.maxHp * 2 + 1,\n                          ),\n                          d = o(),\n                          f = MONGSE_phaseGateHealth(\n                            { time: 66.01 },\n                            d,\n                            i.maxHp * 2 + 1,\n                          ),\n                          MONGSE_errorFallbackBoss = o();\n                        MONGSE_errorFallbackBoss.episodeShowcaseAttemptFailures = 1;\n                        MONGSE_errorFallbackBoss.episodeShowcaseFailurePhase =\n                          e;\n                        let MONGSE_errorFallbackHp = MONGSE_phaseGateHealth(\n                            { time: 66.01 },\n                            MONGSE_errorFallbackBoss,\n                            i.maxHp * 2 + 1,\n                          ),\n                          p = a ? a + 1 : 1,\n                          m = a;\n                        return {\n                          phase: e,\n                          thresholdRatio: r,\n                          lockedHp: c,\n                          expectedLockedHp: p,\n                          releasedHp: u,\n                          timeoutWit"
+  },
+  {
+    "offset": 1863282,
+    "line": 57401,
+    "functions": [
+      {
+        "start": 1861140,
+        "end": 1864342,
+        "name": "anonymous"
+      },
+      {
+        "start": 1860258,
+        "end": 1877288,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      }
+    ],
+    "context": "                   MONGSE_errorFallbackBoss = o();\n                        MONGSE_errorFallbackBoss.episodeShowcaseAttemptFailures = 1;\n                        MONGSE_errorFallbackBoss.episodeShowcaseFailurePhase =\n                          e;\n                        let MONGSE_errorFallbackHp = MONGSE_phaseGateHealth(\n                            { time: 66.01 },\n                            MONGSE_errorFallbackBoss,\n                            i.maxHp * 2 + 1,\n                          ),\n                          p = a ? a + 1 : 1,\n                          m = a;\n                        return {\n                          phase: e,\n                          thresholdRatio: r,\n                          lockedHp: c,\n                          expectedLockedHp: p,\n                          releasedHp: u,\n                          timeoutWithoutAttemptHp: f,\n                          errorFallbackHp: MONGSE_errorFallbackHp,\n                          expectedReleasedHp: m,\n                          lockStops: s.episodeShowcaseGateStops,\n                          phaseGateStops: l.episodePhaseGateStops,\n                          pass:\n                            c === p &&\n                            u === m &&\n                            f === p &&\n                            MONGSE_errorFallbackHp === m &&\n                          "
+  },
+  {
+    "offset": 1878052,
+    "line": 57706,
+    "functions": [
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      },
+      {
+        "start": 1725808,
+        "end": 2127217,
+        "name": "anonymous"
+      }
+    ],
+    "context": "                episodeFinalBoss: !1,\n                    sevenSinsEpisodeBoss: !1,\n                  },\n                  i = r ? Jr(r, `ep1b02`) : null,\n                  a = i\n                    ? {\n                        ...i,\n                        hp: i.maxHp,\n                        currentPhase: 1,\n                      }\n                    : null,\n                  o = a\n                    ? MONGSE_phaseGateHealth({ time: 1 }, a, a.maxHp * 2 + 1)\n                    : null,\n                  s = Zr(`dist01`, `midboss`),\n                  c = s ? Jr(s, `dist01`) : null,\n                  l = c\n                    ? MONGSE_phaseGateHealth(\n                        { time: 1 },\n                        { ...c, hp: c.maxHp },\n                        c.maxHp * 2 + 1,\n                      )\n                    : null,\n                  u =\n                    !!r &&\n                    !!i &&\n                    r.hp === 900 &&\n                    i.maxHp === Math.round(900 * Nr) &&\n                    i.phaseCount === 2 &&\n                    MONGSE_episodeBossPacing(i) === null &&\n                    o === Math.max(1, Math.floor(i.maxHp * t(i.phaseCount, 1))),\n                  d =\n                    !!s &&\n                    !!c &&\n                    s.hp === 360 &&\n                    c.maxHp === Math.round(360 * M"
+  },
+  {
+    "offset": 1878372,
+    "line": 57714,
+    "functions": [
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      },
+      {
+        "start": 1725808,
+        "end": 2127217,
+        "name": "anonymous"
+      }
+    ],
+    "context": "             }\n                    : null,\n                  o = a\n                    ? MONGSE_phaseGateHealth({ time: 1 }, a, a.maxHp * 2 + 1)\n                    : null,\n                  s = Zr(`dist01`, `midboss`),\n                  c = s ? Jr(s, `dist01`) : null,\n                  l = c\n                    ? MONGSE_phaseGateHealth(\n                        { time: 1 },\n                        { ...c, hp: c.maxHp },\n                        c.maxHp * 2 + 1,\n                      )\n                    : null,\n                  u =\n                    !!r &&\n                    !!i &&\n                    r.hp === 900 &&\n                    i.maxHp === Math.round(900 * Nr) &&\n                    i.phaseCount === 2 &&\n                    MONGSE_episodeBossPacing(i) === null &&\n                    o === Math.max(1, Math.floor(i.maxHp * t(i.phaseCount, 1))),\n                  d =\n                    !!s &&\n                    !!c &&\n                    s.hp === 360 &&\n                    c.maxHp === Math.round(360 * Mr) &&\n                    MONGSE_episodeBossPacing(c) === null &&\n                    l === 0,\n                  MONGSE_stunlockShowcase = (() => {\n                    let MONGSE_template = N.dist06.enemies.find(\n                        (e) => e.id === `dist06-boss`,\n                      ),\n                      MONGS"
+  },
+  {
+    "offset": 1878760,
+    "line": 57724,
+    "functions": [
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      },
+      {
+        "start": 1725808,
+        "end": 2127217,
+        "name": "anonymous"
+      }
+    ],
+    "context": "             { ...c, hp: c.maxHp },\n                        c.maxHp * 2 + 1,\n                      )\n                    : null,\n                  u =\n                    !!r &&\n                    !!i &&\n                    r.hp === 900 &&\n                    i.maxHp === Math.round(900 * Nr) &&\n                    i.phaseCount === 2 &&\n                    MONGSE_episodeBossPacing(i) === null &&\n                    o === Math.max(1, Math.floor(i.maxHp * t(i.phaseCount, 1))),\n                  d =\n                    !!s &&\n                    !!c &&\n                    s.hp === 360 &&\n                    c.maxHp === Math.round(360 * Mr) &&\n                    MONGSE_episodeBossPacing(c) === null &&\n                    l === 0,\n                  MONGSE_stunlockShowcase = (() => {\n                    let MONGSE_template = N.dist06.enemies.find(\n                        (e) => e.id === `dist06-boss`,\n                      ),\n                      MONGSE_boss = Jr(MONGSE_template, `dist06`),\n                      MONGSE_phase = 1,\n                      MONGSE_patterns = tr(MONGSE_boss.patternSet),\n                      MONGSE_state = {\n                        zone: `dist06`,\n                        x: 10,\n                        y: 10,\n                        moveVx: 0.35,\n                        moveVy: -0.2,\n                       "
+  },
+  {
+    "offset": 1885014,
+    "line": 57854,
+    "functions": [
+      {
+        "start": 1879092,
+        "end": 1890329,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "completedAt = MONGSE_state.time);\n                    }\n                    MONGSE_state.time = 320.01;\n                    let MONGSE_finalShowcase = MONGSE_episodeBossShowcaseState(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_phase,\n                      ),\n                      MONGSE_expectedGate = Math.max(\n                        1,\n                        Math.floor(MONGSE_boss.maxHp * 0.66),\n                      );\n                    MONGSE_boss.hp = MONGSE_boss.maxHp;\n                    let MONGSE_releasedGate = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      ),\n                      MONGSE_normalBoss = Jr(\n                        {\n                          ...Zr(`ep1b02`, `boss`),\n                          id: `qa-stagger-normal-boss`,\n                          episodeFinalBoss: !1,\n                          sevenSinsEpisodeBoss: !1,\n                        },\n                        `ep1b02`,\n                      ),\n                      MONGSE_midboss = Jr(Zr(`dist01`, `midboss`), `dist01`);\n                    Object.assign(MONGSE_normalBoss, {\n                      staggerUntil: 30,\n                      attackAt: 12,\n         "
+  },
+  {
+    "offset": 1885291,
+    "line": 57860,
+    "functions": [
+      {
+        "start": 1879092,
+        "end": 1890329,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "      MONGSE_phase,\n                      ),\n                      MONGSE_expectedGate = Math.max(\n                        1,\n                        Math.floor(MONGSE_boss.maxHp * 0.66),\n                      );\n                    MONGSE_boss.hp = MONGSE_boss.maxHp;\n                    let MONGSE_releasedGate = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      ),\n                      MONGSE_normalBoss = Jr(\n                        {\n                          ...Zr(`ep1b02`, `boss`),\n                          id: `qa-stagger-normal-boss`,\n                          episodeFinalBoss: !1,\n                          sevenSinsEpisodeBoss: !1,\n                        },\n                        `ep1b02`,\n                      ),\n                      MONGSE_midboss = Jr(Zr(`dist01`, `midboss`), `dist01`);\n                    Object.assign(MONGSE_normalBoss, {\n                      staggerUntil: 30,\n                      attackAt: 12,\n                      recoverUntil: 18,\n                      telekineticUntil: 16,\n                    });\n                    Object.assign(MONGSE_midboss, {\n                      staggerUntil: 30,\n                      attackAt: 12,\n                      recoverUntil: 18,\n          "
+  },
+  {
+    "offset": 1892009,
+    "line": 57994,
+    "functions": [
+      {
+        "start": 1890380,
+        "end": 1896639,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "            (MONGSE_boss.episodeShowcaseDeadlineAt = 320),\n                      (MONGSE_state.time = 321));\n                    let MONGSE_phaseTwoLeaked = MONGSE_episodeBossShowcaseState(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        2,\n                      ),\n                      MONGSE_phaseTwoThreshold = Math.max(\n                        1,\n                        Math.floor(MONGSE_boss.maxHp * 0.33),\n                      ),\n                      MONGSE_phaseTwoLockedHp = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      );\n                    MONGSE_boss.episodeShowcaseFailurePhase = 2;\n                    MONGSE_boss.episodeShowcaseAttemptPhase = 2;\n                    let MONGSE_phaseTwoOwnFailure =\n                        MONGSE_episodeBossShowcaseState(\n                          MONGSE_state,\n                          MONGSE_boss,\n                          2,\n                        ),\n                      MONGSE_phaseTwoReleasedHp = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      ),\n                      MONGSE_resetBoss"
+  },
+  {
+    "offset": 1892232,
+    "line": 57999,
+    "functions": [
+      {
+        "start": 1890380,
+        "end": 1896639,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "ate,\n                        MONGSE_boss,\n                        2,\n                      ),\n                      MONGSE_phaseTwoThreshold = Math.max(\n                        1,\n                        Math.floor(MONGSE_boss.maxHp * 0.33),\n                      ),\n                      MONGSE_phaseTwoLockedHp = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      );\n                    MONGSE_boss.episodeShowcaseFailurePhase = 2;\n                    MONGSE_boss.episodeShowcaseAttemptPhase = 2;\n                    let MONGSE_phaseTwoOwnFailure =\n                        MONGSE_episodeBossShowcaseState(\n                          MONGSE_state,\n                          MONGSE_boss,\n                          2,\n                        ),\n                      MONGSE_phaseTwoReleasedHp = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      ),\n                      MONGSE_resetBoss = Jr(MONGSE_template, `dist06`),\n                      MONGSE_resetState = {\n                        zone: `dist06`,\n                        time: 400,\n                        x: 10,\n                        y: 10,\n        "
+  },
+  {
+    "offset": 1892831,
+    "line": 58012,
+    "functions": [
+      {
+        "start": 1890380,
+        "end": 1896639,
+        "name": "anonymous"
+      },
+      {
+        "start": 1859833,
+        "end": 1897660,
+        "name": "probeEpisodeBossPacingContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "aseAttemptPhase = 2;\n                    let MONGSE_phaseTwoOwnFailure =\n                        MONGSE_episodeBossShowcaseState(\n                          MONGSE_state,\n                          MONGSE_boss,\n                          2,\n                        ),\n                      MONGSE_phaseTwoReleasedHp = MONGSE_phaseGateHealth(\n                        MONGSE_state,\n                        MONGSE_boss,\n                        MONGSE_boss.maxHp * 2 + 1,\n                      ),\n                      MONGSE_resetBoss = Jr(MONGSE_template, `dist06`),\n                      MONGSE_resetState = {\n                        zone: `dist06`,\n                        time: 400,\n                        x: 10,\n                        y: 10,\n                        fxSerial: 1,\n                        enemies: [MONGSE_resetBoss],\n                        effects: [],\n                        floatTexts: [],\n                        pendingHits: [],\n                        impactQueue: [],\n                        hostileProjectiles: [],\n                        telekineticCasts: [],\n                        spatialRiftCasts: [],\n                        narrativeCasts: [],\n                        narrativeCastHistory: {},\n                      };\n                    Object.assign(MONGSE_resetBoss, {\n                      currentPhase: 2,\n      "
+  },
+  {
+    "offset": 1915165,
+    "line": 58520,
+    "functions": [
+      {
+        "start": 1914833,
+        "end": 1915471,
+        "name": "anonymous"
+      },
+      {
+        "start": 1914739,
+        "end": 1917833,
+        "name": "anonymous"
+      },
+      {
+        "start": 1914687,
+        "end": 1917834,
+        "name": "anonymous"
+      }
+    ],
+    "context": " [`manual`, `auto`].map((r) => {\n                        let i = t(e, n, !0),\n                          a = Se(e).map((t, r) => {\n                            let a = Jr(t, e),\n                              o =\n                                1 + Math.min(0.34, Math.max(0, n - 1) * 0.035);\n                            return (\n                              (a.id = `${t.id}-cycle-${n}-qa-${r}`),\n                              (a.maxHp = Math.round(a.maxHp * o)),\n                              (a.hp = Math.round(a.maxHp * (0.64 + r * 0.08))),\n                              (a.ghostBorn = i.time - 2),\n                              (a.ghostUntil = i.time + 3.2 + r),\n                              a\n                            );\n                          });\n                        ((i.enemies = a),\n                          (i.pendingHits = []),\n                          (i.impactQueue = []),\n                          (i.hostileProjectiles = []),\n                          (i.telekineticCasts = []),\n                          (i.spatialRiftCasts = []),\n                          (i.narrativeCasts = []),\n                          (i.pendingStrikes = []));\n                        let o = Fi(i, `hwando`, [`seoha`, `gunner`], {}, 0),\n                          s = ji(JSON.parse(JSON.stringify(o))),\n                          c = s ? Ii(s) : [],\n "
+  },
+  {
+    "offset": 1915229,
+    "line": 58521,
+    "functions": [
+      {
+        "start": 1914833,
+        "end": 1915471,
+        "name": "anonymous"
+      },
+      {
+        "start": 1914739,
+        "end": 1917833,
+        "name": "anonymous"
+      },
+      {
+        "start": 1914687,
+        "end": 1917834,
+        "name": "anonymous"
+      }
+    ],
+    "context": " t(e, n, !0),\n                          a = Se(e).map((t, r) => {\n                            let a = Jr(t, e),\n                              o =\n                                1 + Math.min(0.34, Math.max(0, n - 1) * 0.035);\n                            return (\n                              (a.id = `${t.id}-cycle-${n}-qa-${r}`),\n                              (a.maxHp = Math.round(a.maxHp * o)),\n                              (a.hp = Math.round(a.maxHp * (0.64 + r * 0.08))),\n                              (a.ghostBorn = i.time - 2),\n                              (a.ghostUntil = i.time + 3.2 + r),\n                              a\n                            );\n                          });\n                        ((i.enemies = a),\n                          (i.pendingHits = []),\n                          (i.impactQueue = []),\n                          (i.hostileProjectiles = []),\n                          (i.telekineticCasts = []),\n                          (i.spatialRiftCasts = []),\n                          (i.narrativeCasts = []),\n                          (i.pendingStrikes = []));\n                        let o = Fi(i, `hwando`, [`seoha`, `gunner`], {}, 0),\n                          s = ji(JSON.parse(JSON.stringify(o))),\n                          c = s ? Ii(s) : [],\n                          l =\n                            !!s &&\n"
+  },
+  {
+    "offset": 1920681,
+    "line": 58649,
+    "functions": [
+      {
+        "start": 1919970,
+        "end": 1920721,
+        "name": "s"
+      },
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      }
+    ],
+    "context": " ? (e.phaseThresholds?.[n] ?? 0)\n                            : t >= 3\n                              ? n < 2\n                                ? 0.66\n                                : n < 3\n                                  ? 0.33\n                                  : 0\n                              : t === 2 && n < 2\n                                ? 0.5\n                                : 0;\n                        return r ? Math.max(1, Math.floor(e.maxHp * r)) : 0;\n                      },\n                      c = Jr(r, n.zone);\n                    c.currentPhase = i;\n                    let l = t(n.zone, c, 100);\n                    c.episodeShowcaseDeadlineAt = 116;\n                    o && Ei(l, c, o, i);\n                    let u =\n                        !!o &&\n                        c.telekineticRainPhase === i &&\n                        c.telekineticUntil > l.time,\n                      d = MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(l)[0];\n                    ((l.pendingHits = []),\n                      (l.impactQueue = []),\n                      (l.hostileProjectiles = []),\n                      (l.telekineticCasts = []),\n                      (l.spatialRiftCasts = []),\n                      (l.narrativeCasts = []),\n                      (l.narrativeCastHistory = {}));\n                    let f = MONGSE_replayNarrati"
+  },
+  {
+    "offset": 1921689,
+    "line": 58670,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "                      (l.impactQueue = []),\n                      (l.hostileProjectiles = []),\n                      (l.telekineticCasts = []),\n                      (l.spatialRiftCasts = []),\n                      (l.narrativeCasts = []),\n                      (l.narrativeCastHistory = {}));\n                    let f = MONGSE_replayNarrativeAfterRespawn(l),\n                      p = s(c),\n                      m = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1),\n                      h = MONGSE_episodeBossShowcaseIndex(c, a, i);\n                    f && (l.time = f.combatResumeAt + 0.01);\n                    o && Ei(l, c, o, i);\n                    let g = MONGSE_episodeBossShowcaseIndex(c, a, i),\n                      _ = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    l.time = c.telekineticUntil + 0.01;\n                    let v = MONGSE_beginSpatialRiftBarrage(l, c, i),\n                      y = MONGSE_episodeBossShowcaseIndex(c, a, i);\n                    v && (l.time = v.endAt - 0.01);\n                    let x = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    v && (l.time = v.endAt + 0.01);\n                    let S = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    function MONGSE_makeRiftResetCase(e) {\n                      let o = Jr(r, n.zone);\n                    "
+  },
+  {
+    "offset": 1922002,
+    "line": 58675,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": " let f = MONGSE_replayNarrativeAfterRespawn(l),\n                      p = s(c),\n                      m = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1),\n                      h = MONGSE_episodeBossShowcaseIndex(c, a, i);\n                    f && (l.time = f.combatResumeAt + 0.01);\n                    o && Ei(l, c, o, i);\n                    let g = MONGSE_episodeBossShowcaseIndex(c, a, i),\n                      _ = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    l.time = c.telekineticUntil + 0.01;\n                    let v = MONGSE_beginSpatialRiftBarrage(l, c, i),\n                      y = MONGSE_episodeBossShowcaseIndex(c, a, i);\n                    v && (l.time = v.endAt - 0.01);\n                    let x = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    v && (l.time = v.endAt + 0.01);\n                    let S = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    function MONGSE_makeRiftResetCase(e) {\n                      let o = Jr(r, n.zone);\n                      ((o.currentPhase = i),\n                        (o.telekineticRainPhase = i),\n                        (o.telekineticUntil = 199));\n                      let s = t(n.zone, o, 200);\n                      o.episodeShowcaseDeadlineAt = 216;\n                      let c = MONGSE_beginSpatialRiftBarrage(s, o, i);\n    "
+  },
+  {
+    "offset": 1922322,
+    "line": 58680,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": ");\n                    let g = MONGSE_episodeBossShowcaseIndex(c, a, i),\n                      _ = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    l.time = c.telekineticUntil + 0.01;\n                    let v = MONGSE_beginSpatialRiftBarrage(l, c, i),\n                      y = MONGSE_episodeBossShowcaseIndex(c, a, i);\n                    v && (l.time = v.endAt - 0.01);\n                    let x = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    v && (l.time = v.endAt + 0.01);\n                    let S = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    function MONGSE_makeRiftResetCase(e) {\n                      let o = Jr(r, n.zone);\n                      ((o.currentPhase = i),\n                        (o.telekineticRainPhase = i),\n                        (o.telekineticUntil = 199));\n                      let s = t(n.zone, o, 200);\n                      o.episodeShowcaseDeadlineAt = 216;\n                      let c = MONGSE_beginSpatialRiftBarrage(s, o, i);\n                      if (c)\n                        s.time =\n                          e === `warning`\n                            ? c.born + 0.1\n                            : c.telegraphEnd + c.clearGap * 0.5;\n                      let l =\n                        MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(s)[0];\n   "
+  },
+  {
+    "offset": 1922449,
+    "line": 58682,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": " c.maxHp * 2 + 1);\n                    l.time = c.telekineticUntil + 0.01;\n                    let v = MONGSE_beginSpatialRiftBarrage(l, c, i),\n                      y = MONGSE_episodeBossShowcaseIndex(c, a, i);\n                    v && (l.time = v.endAt - 0.01);\n                    let x = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    v && (l.time = v.endAt + 0.01);\n                    let S = MONGSE_phaseGateHealth(l, c, c.maxHp * 2 + 1);\n                    function MONGSE_makeRiftResetCase(e) {\n                      let o = Jr(r, n.zone);\n                      ((o.currentPhase = i),\n                        (o.telekineticRainPhase = i),\n                        (o.telekineticUntil = 199));\n                      let s = t(n.zone, o, 200);\n                      o.episodeShowcaseDeadlineAt = 216;\n                      let c = MONGSE_beginSpatialRiftBarrage(s, o, i);\n                      if (c)\n                        s.time =\n                          e === `warning`\n                            ? c.born + 0.1\n                            : c.telegraphEnd + c.clearGap * 0.5;\n                      let l =\n                        MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(s)[0];\n                      return { state: s, boss: o, cast: c, reset: l };\n                    }\n                    let w = MONGSE_ma"
+  },
+  {
+    "offset": 1924788,
+    "line": 58726,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "ry = {}));\n                    let k = MONGSE_replayNarrativeAfterRespawn(T.state),\n                      A = MONGSE_episodeBossShowcaseIndex(T.boss, a, i);\n                    k && (T.state.time = k.combatResumeAt + 0.01);\n                    let M = MONGSE_beginSpatialRiftBarrage(T.state, T.boss, i),\n                      P = MONGSE_phaseGateHealth(\n                        T.state,\n                        T.boss,\n                        T.boss.maxHp * 2 + 1,\n                      );\n                    M && (T.state.time = M.endAt + 0.01);\n                    let L = MONGSE_phaseGateHealth(\n                        T.state,\n                        T.boss,\n                        T.boss.maxHp * 2 + 1,\n                      ),\n                      I = Jr(r, n.zone);\n                    ((I.currentPhase = i),\n                      (I.telekineticRainPhase = i),\n                      (I.spatialRiftBarragePhase = i),\n                      (I.telekineticUntil = 299),\n                      (I.spatialRiftUntil = 299),\n                      (I.episodeShowcaseDeadlineAt = 316));\n                    let R = t(n.zone, I, 300),\n                      z = MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(R)[0],\n                      B = MONGSE_episodeBossShowcaseIndex(I, a, i),\n                      O = MONGSE_phaseGateHealth(R, I, I.maxHp * 2 "
+  },
+  {
+    "offset": 1925034,
+    "line": 58732,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "t M = MONGSE_beginSpatialRiftBarrage(T.state, T.boss, i),\n                      P = MONGSE_phaseGateHealth(\n                        T.state,\n                        T.boss,\n                        T.boss.maxHp * 2 + 1,\n                      );\n                    M && (T.state.time = M.endAt + 0.01);\n                    let L = MONGSE_phaseGateHealth(\n                        T.state,\n                        T.boss,\n                        T.boss.maxHp * 2 + 1,\n                      ),\n                      I = Jr(r, n.zone);\n                    ((I.currentPhase = i),\n                      (I.telekineticRainPhase = i),\n                      (I.spatialRiftBarragePhase = i),\n                      (I.telekineticUntil = 299),\n                      (I.spatialRiftUntil = 299),\n                      (I.episodeShowcaseDeadlineAt = 316));\n                    let R = t(n.zone, I, 300),\n                      z = MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(R)[0],\n                      B = MONGSE_episodeBossShowcaseIndex(I, a, i),\n                      O = MONGSE_phaseGateHealth(R, I, I.maxHp * 2 + 1),\n                      F =\n                        u &&\n                        d?.rainInterrupted === !0 &&\n                        d.rainMarker === MONGSE_unsetPhaseMarker(c) &&\n                        d.riftMarker === MONGSE_unsetPhaseMar"
+  },
+  {
+    "offset": 1925678,
+    "line": 58744,
+    "functions": [
+      {
+        "start": 1919333,
+        "end": 1927994,
+        "name": "anonymous"
+      },
+      {
+        "start": 1918379,
+        "end": 1928380,
+        "name": "probeRespawnShowcaseRecoveryContract"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      }
+    ],
+    "context": "    (I.spatialRiftBarragePhase = i),\n                      (I.telekineticUntil = 299),\n                      (I.spatialRiftUntil = 299),\n                      (I.episodeShowcaseDeadlineAt = 316));\n                    let R = t(n.zone, I, 300),\n                      z = MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(R)[0],\n                      B = MONGSE_episodeBossShowcaseIndex(I, a, i),\n                      O = MONGSE_phaseGateHealth(R, I, I.maxHp * 2 + 1),\n                      F =\n                        u &&\n                        d?.rainInterrupted === !0 &&\n                        d.rainMarker === MONGSE_unsetPhaseMarker(c) &&\n                        d.riftMarker === MONGSE_unsetPhaseMarker(c) &&\n                        !!f &&\n                        h >= 0 &&\n                        m === p + 1 &&\n                        g === -2 &&\n                        _ === p + 1 &&\n                        !!v &&\n                        y === -1 &&\n                        x === p + 1 &&\n                        S === p &&\n                        E &&\n                        D &&\n                        !!k &&\n                        A === -2 &&\n                        !!M &&\n                        P === s(T.boss) + 1 &&\n                        L === s(T.boss) &&\n                        z?.rainInterrupted === !1 &&\n               "
+  },
+  {
+    "offset": 1966074,
+    "line": 59565,
+    "functions": [
+      {
+        "start": 1965936,
+        "end": 1966476,
+        "name": "setBossRatio"
+      },
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      },
+      {
+        "start": 1725808,
+        "end": 2127217,
+        "name": "anonymous"
+      }
+    ],
+    "context": "repelMovedAway: MONGSE_afterRepel < MONGSE_beforePolarity,\n                    pass: MONGSE_machinePass,\n                  },\n                  allPass: MONGSE_allPass,\n                  pass: MONGSE_allPass,\n                  cases: MONGSE_cases,\n                };\n              },\n              setBossRatio: (r) => {\n                let e = o.enemies.find((e) => e.boss);\n                if (!e) return null;\n                e.hp = Math.max(1, e.maxHp * Math.max(0.01, Math.min(0.99, r)));\n                return {\n                  id: e.id,\n                  phase: MONGSE_enemyPhase(e),\n                  name: MONGSE_phaseName(e),\n                  sprite: MONGSE_phaseSprite(e) ?? e.sprite,\n                  hitRadius: MONGSE_enemyHitRadius(e),\n                  personalSpace: MONGSE_enemyPersonalSpace(e),\n                };\n              },\n              completeCurrentZone: () => {\n                let e = o.zone;\n                if (he.includes(e)) {\n                  (Ce(e).forEach((e) => o.clues.add(e.id)),\n                    (o.enemies = []),\n                    (o.pendingHits = []),\n                    (o.impactQueue = []),\n                    (o.hostileProjectiles = []),\n                    (o.telekineticCasts = []),\n                    (o.spatialRiftCasts = []),\n                    (o.narrativeCasts = []),\n             "
+  },
+  {
+    "offset": 2030584,
+    "line": 61117,
+    "functions": [
+      {
+        "start": 1726032,
+        "end": 2126927,
+        "name": "i"
+      },
+      {
+        "start": 1725808,
+        "end": 2127217,
+        "name": "anonymous"
+      },
+      {
+        "start": 1614374,
+        "end": 2177440,
+        "name": "Ri"
+      }
+    ],
+    "context": " -56))),\n              hr(n.id) &&\n                i.rewindUnlocked &&\n                o.time >= o.timeRewindReadyAt &&\n                o.hp / Math.max(1, o.maxHp) <= i.rewindHealthRatio)\n            ) {\n              let e = o.time - i.rewindSeconds,\n                t = [...o.temporalHistory]\n                  .reverse()\n                  .find((t) => t.at <= e && t.hp > o.hp + 4);\n              if (t) {\n                let e = Math.max(t.hp, o.maxHp * i.rewindHealthRatio),\n                  n = dt(o.zone, t, 0.48);\n                ((o.x = n.x),\n                  (o.y = n.y),\n                  (o.hp = Math.min(o.maxHp, e)),\n                  (o.timeRewindReadyAt = o.time + i.rewindCooldown),\n                  (o.invulnerableUntil = Math.max(\n                    o.invulnerableUntil,\n                    o.time + 0.72,\n                  )),\n                  hi(o),\n                  (o.moveVx = 0),\n                  (o.moveVy = 0),\n                  o.effects.push(\n                    en(o.fxSerial++, `rewind`, t.x, t.y, o.x, o.y, o.time),\n                  ),\n                  o.floatTexts.push({\n                    id: o.fxSerial++,\n                    x: o.x,\n                    y: o.y,\n                    born: o.time,\n                    duration: 1.05,\n                    text: `회복 역행 · ${Math.round(o.hp)} EGO`,\n            "
+  },
+  {
+    "offset": 3676267,
+    "line": 99554,
+    "functions": [
+      {
+        "start": 3675935,
+        "end": 3678704,
+        "name": "applyFinalStage"
+      },
+      {
+        "start": 3658116,
+        "end": 3683923,
+        "name": "installV31300"
+      },
+      {
+        "start": 3658067,
+        "end": 3683945,
+        "name": "anonymous"
+      }
+    ],
+    "context": "t-defeat\", \"hero-down\", \"core-revival\", \"memory\", \"death\", \"samong\", \"duel\", \"resume\",\n  ];\n  const applyFinalStage = (state, battle, enemy, stage) => {\n    battle.stage = stage;\n    const phase = finalStageName[stage];\n    if (phase === \"hero-down\") {\n      state.hp = Math.max(1, Math.min(Number(state.hp ?? 1), 1));\n      state.heroStatus = \"행동 불능 · 코어 압박\";\n    } else if (phase === \"core-revival\") {\n      enemy.hp = Math.max(1, Math.round(enemy.maxHp * 0.18));\n      state.heroStatus = \"합일 코어가 교주를 되살린다\";\n    } else if (phase === \"memory\") {\n      state.heroStatus = \"현실의 기억이 역류한다\";\n    } else if (phase === \"death\") {\n      state.heroStatus = \"사망\";\n    } else if (phase === \"samong\") {\n      enemy.hapilOriginalMaxHpV31300 = Number(enemy.maxHp ?? 1);\n      enemy.maxHp = Math.max(1, Math.round(enemy.hapilOriginalMaxHpV31300 * 0.95));\n      enemy.hp = enemy.maxHp;\n      enemy.fixedPhase = Math.max(4, Number(enemy.phaseMax ?? 3) + 1);\n      enemy.currentPhase = enemy.fixedPhase;\n      enemy.hapilSecondPhaseV31300 = true;\n      battle.secondPhaseActive = true;\n      state.activeHeroId='hwando';\n      if(window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current===state)window.__HAPIL_PARTY_LAUNCH_V31322__?.setLeader?.('hwando');\n      state.hapilSamongActiveV31300 = true;\n      battle.monochromeActiveV31377 = true;\n      battle.monochrom"
+  }
+]

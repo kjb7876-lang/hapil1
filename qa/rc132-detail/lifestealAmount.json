@@ -1,0 +1,36 @@
+[
+  {
+    "offset": 4631186,
+    "line": 119046,
+    "functions": [
+      {
+        "start": 4631177,
+        "end": 4631562,
+        "name": "lifestealAmount"
+      },
+      {
+        "start": 4630586,
+        "end": 4643437,
+        "name": "anonymous"
+      }
+    ],
+    "context": "ce=false, lastState=null, buildingInitial=0, saveChain=null, saveBindings=null;\n  const mirrored=new WeakSet();\n  const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));\n  const finite=(v,f=0)=>Number.isFinite(Number(v))?Number(v):f;\n  preference=false; // RC91: removed Hell preferences cannot re-enable this engine.\n  function enabled(s=null) { return false; }\n  const damageMultiplier=s=>1;\n  const lifestealMultiplier=s=>enabled(s)?.30:1;\n  function lifestealAmount(s,damage,rate,suppression=1) {\n    const raw=Math.max(0,finite(damage)*Math.max(0,finite(rate))*Math.max(0,finite(suppression)));\n    // Scale the actual earned healing, including the old minimum, by exactly .30.\n    // Fractional EGO is already supported by native damage/heal and save paths.\n    return Math.max(1,Math.round(raw))*lifestealMultiplier(s);\n  }\n  function excluded(a) {\n    return !a||a.objectiveStructureV31238===true||a.narrativeStructureV31238===true||a.protectedObjective===true||a.friendly===true||a.neutral===true;\n  }\n  function normal(a) {\n    return !excluded(a)&&!a.boss&&!a.midboss&&!a.hellReinforcementV31322&&!a.episodeBossSummon&&!a.summonOwnerId&&!(finite(a.ghostUntil)>0)&&finite(a.hp)>0;\n  }\n  function scaleActor(a,on) {\n    if(excluded(a)||!(finite(a.maxHp)>0))return a;\n    if(a.dreamAwakenedV31346||a.cosmicLuciferV31318)return a; // bespoke final"
+  },
+  {
+    "offset": 4642863,
+    "line": 119225,
+    "functions": [
+      {
+        "start": 4640510,
+        "end": 4643340,
+        "name": "install"
+      },
+      {
+        "start": 4630586,
+        "end": 4643437,
+        "name": "anonymous"
+      }
+    ],
+    "context": "2__=Object.freeze({version:VERSION,installed:true,setEnabled,enabled,state:()=>({enabled:enabled(lastState),configured:preference}),\n      config:()=>Object.freeze({baseNormalCount:1.25,hellEnemyCount:2,enemyHp:1,enemyDamage:1,lifesteal:.30,projectileCount:2,maxEnemies:MAX_ENEMIES,maxProjectiles:MAX_SHOTS,countChangesAt:'next-map-or-wave',saveVersion:14}),\n      apply,scaleActor,expandRoster,mirrorProjectiles,damageMultiplier,lifestealMultiplier,lifestealAmount,serialize,sanitize,restore,restoreActors,\n      audit:()=>({installed,version:VERSION,saveVersion:14,projectileLimit:MAX_SHOTS,enemyLimit:MAX_ENEMIES,inheritedSaveChain:saveChain,\n        installedSaveChain:{serialize:Fi===saveBindings.serialize,normalize:ji===saveBindings.normalize,restore:Ii===saveBindings.restore,entry:HAPIL_restoreEntryFlowV31301===saveBindings.entry,core:MONGSE_coreSanitizeLoadedSaveV31235===saveBindings.core}})});\n    return true;\n  }\n  function schedule(){if(install()||++attempts>=640)return;setTimeout(schedule,0);}schedule();\n})();\n\n\n\n/* HAPIL 3.13.22: one authoritative native campaign, eight independent party actors. */\n(() => {\n  'use strict';\n  const VERSION='3.14.05',IDS=[...window.__HAPIL_POLICY_V31400__.ids];\n  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,clamp=(v,a,b)=>Math.max(a,Math.min(b,num(v)));\n  const now=()=>typeof perf"
+  }
+]

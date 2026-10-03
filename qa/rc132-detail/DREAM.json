@@ -1,0 +1,415 @@
+[
+  {
+    "offset": 2139009,
+    "line": 63583,
+    "functions": [
+      {
+        "start": 1614374,
+        "end": 2177440,
+        "name": "Ri"
+      }
+    ],
+    "context": "                  ],\n                            }),\n                          ],\n                        }),\n                      ],\n                    }),\n                    (0, q.jsx)(`h4`, { children: `게임 모드 · 저장 후에도 유지` }),\n                    (0, q.jsx)(`div`, {\n                      className: `hapil-mode-picks-v31354`,\n                      children: [\n                        [`STORY`, `스토리`, `서사와 기본 탄막 패턴`],\n                        [`DREAM`, `사몽`, window.__HAPIL_SAMONG_RC91__?.unlocked(P.current)?`적 능력치 2배 · 위기 부활·사몽 각성`:`스토리 완료 또는 777 코드로 해금`],\n                      ].map(([MONGSE_modeV31353, MONGSE_labelV31353, MONGSE_descV31353]) =>\n                        (0, q.jsxs)(\n                          `button`,\n                          {\n                            type: `button`,\n                            \"data-game-mode-v31354\": MONGSE_modeV31353,\n                            disabled: MONGSE_modeV31353===`DREAM`&&!window.__HAPIL_SAMONG_RC91__?.unlocked(P.current),\n                            \"aria-pressed\": MONGSE_modeChoiceV31353 === MONGSE_modeV31353,\n                            className: MONGSE_modeChoiceV31353 === MONGSE_modeV31353 ? `on` : ``,\n                            onClick: () => {\n                              MONGSE_setModeChoiceV31353(window.__HAPIL_SAMONG_RC91__?.select(MONGSE_modeV31353,P.current)??"
+  },
+  {
+    "offset": 2139491,
+    "line": 63590,
+    "functions": [
+      {
+        "start": 2139151,
+        "end": 2140250,
+        "name": "anonymous"
+      },
+      {
+        "start": 1614374,
+        "end": 2177440,
+        "name": "Ri"
+      }
+    ],
+    "context": "ONG_RC91__?.unlocked(P.current)?`적 능력치 2배 · 위기 부활·사몽 각성`:`스토리 완료 또는 777 코드로 해금`],\n                      ].map(([MONGSE_modeV31353, MONGSE_labelV31353, MONGSE_descV31353]) =>\n                        (0, q.jsxs)(\n                          `button`,\n                          {\n                            type: `button`,\n                            \"data-game-mode-v31354\": MONGSE_modeV31353,\n                            disabled: MONGSE_modeV31353===`DREAM`&&!window.__HAPIL_SAMONG_RC91__?.unlocked(P.current),\n                            \"aria-pressed\": MONGSE_modeChoiceV31353 === MONGSE_modeV31353,\n                            className: MONGSE_modeChoiceV31353 === MONGSE_modeV31353 ? `on` : ``,\n                            onClick: () => {\n                              MONGSE_setModeChoiceV31353(window.__HAPIL_SAMONG_RC91__?.select(MONGSE_modeV31353,P.current)??'STORY');\n                              window.__HAPIL_MODES_V31346__?.set?.(MONGSE_modeV31353);\n                            },\n                            children: [MONGSE_labelV31353, (0, q.jsx)(`small`, { children: MONGSE_descV31353 })],\n                          },\n                          MONGSE_modeV31353,\n                        ),\n                      ),\n                    }),\n                    (0, q.jsx)(HAPIL_RunOptionsV31400,{heroId:z.id}),\n                    "
+  },
+  {
+    "offset": 3287234,
+    "line": 89007,
+    "functions": [
+      {
+        "start": 3283656,
+        "end": 3288588,
+        "name": "MONGSE_installReleaseV31235"
+      },
+      {
+        "start": 3282736,
+        "end": 3289144,
+        "name": "anonymous"
+      }
+    ],
+    "context": "irstEntry: `guunmong-butterfly-dream-quote-then-hapil-title`,\n        }),\n      }),\n      MONGSE_releaseV31235 = Object.freeze({\n        ...MONGSE_previousReleaseV31235,\n        installed: !0,\n        version: MONGSE_VERSION_V31235,\n        cacheKey: MONGSE_CACHE_V31235,\n        dynamicAssetCacheKey: MONGSE_CACHE_V31235,\n        activeBundle: MONGSE_ACTIVE_BUNDLE_V31235,\n        baseVersion: `3.12.34`,\n        patchRevision: `3.12.35-CORE-ROSTER-DREAM-INTRO-R1`,\n        releaseTheme: `pre-render-eight-hero-roster-and-dream-opening-cover`,\n        playableHeroIds: MONGSE_liveHeroIdsV31235,\n        removedPlayableHeroIds: Object.freeze([`rian`, `ion`]),\n        supportMaximum: 1,\n        coreRosterProbe: MONGSE_coreProbeV31235,\n        dreamOpening: MONGSE_introV31235,\n        physicalBrowserRegressionVerified: !1,\n        physicalMobileLongSessionVerified: !1,\n        fixes: Object.freeze([\n          ...(MONGSE_previousReleaseV31235.fixes ?? []),\n          `rian-ion-removed-from-first-react-render-and-all-player-pickers`,\n          `rian-ion-legacy-save-input-migrated-before-state-commit`,\n          `apostate-original-five-skill-boss-blueprints-preserved`,\n          `guunmong-and-butterfly-dream-opening-before-mongse-title`,\n          `future-story-summary-removed-from-first-entry-and-title`,\n          `generated-1920x1080-dream-"
+  },
+  {
+    "offset": 3288308,
+    "line": 89030,
+    "functions": [
+      {
+        "start": 3283656,
+        "end": 3288588,
+        "name": "MONGSE_installReleaseV31235"
+      },
+      {
+        "start": 3282736,
+        "end": 3289144,
+        "name": "anonymous"
+      }
+    ],
+    "context": "-migrated-before-state-commit`,\n          `apostate-original-five-skill-boss-blueprints-preserved`,\n          `guunmong-and-butterfly-dream-opening-before-mongse-title`,\n          `future-story-summary-removed-from-first-entry-and-title`,\n          `generated-1920x1080-dream-city-cover-applied`,\n        ]),\n        gates: MONGSE_gatesV31235,\n        allPass: MONGSE_allPassV31235,\n      });\n\n    MONGSE_ASSET_VERSION = `31235`;\n    window.__MONGSE_DREAM_INTRO_CORE_V31235__ = MONGSE_introV31235;\n    window.__MONGSE_GAMEPLAY_V31235__ = MONGSE_gameplayV31235;\n    window.__MONGSE_V31235_PATCH__ = MONGSE_releaseV31235;\n    window.__MONGSE_V31219_PATCH__ = MONGSE_releaseV31235;\n    MONGSE_installedV31235 = !0;\n    return !0;\n  };\n\n  const MONGSE_scheduleReleaseV31235 = () => {\n    if (MONGSE_installReleaseV31235()) return;\n    MONGSE_attemptsV31235 += 1;\n    if (MONGSE_attemptsV31235 >= 256 || MONGSE_scheduledV31235) return;\n    MONGSE_scheduledV31235 = !0;\n    const MONGSE_retryV31235 = () => {\n      MONGSE_scheduledV31235 = !1;\n      MONGSE_scheduleReleaseV31235();\n    };\n    if (MONGSE_attemptsV31235 <= 4 && typeof queueMicrotask === `function`)\n      queueMicrotask(MONGSE_retryV31235);\n    else setTimeout(MONGSE_retryV31235, 0);\n  };\n\n  MONGSE_scheduleReleaseV31235();\n})();\n\n/* MONGSE_V31236_APOSTATE_SPAWN_PATCH\n *\n * cult03 real-st"
+  },
+  {
+    "offset": 5186346,
+    "line": 120379,
+    "functions": [
+      {
+        "start": 5185344,
+        "end": 5186723,
+        "name": "danger"
+      },
+      {
+        "start": 5146194,
+        "end": 5187205,
+        "name": "install"
+      }
+    ],
+    "context": "a candidate between endpoints. Match the native\n   // sweep density, bounded at 16 samples per candidate.\n   const span=Math.max(0,to-from),travel=c.radius*27*angularRate(c)*span;\n   const count=Math.max(1,Math.min(16,Math.ceil(travel/Math.max(3,halfWidth(c)*.4))));\n   for(let j=0;j<=count;j++)if(contact(c,a,from+(to-from)*j/count)){risk+=44;break;}\n  }\n  const mirror=window.__HAPIL_MIRROR_V31347__;\n  if(window.__HAPIL_MODES_V31346__?.mode(s)==='DREAM'&&mirror?.valid&&mirror?.contact){\n   for(const c of s.dreamMirrorLasersV31347??[]){\n    if(!mirror.valid(c,s)||!(c.damage>0)||c.damageSuppressedV31226||c.cancelled||now>=c.fireAt+c.activeSeconds||until<c.fireAt)continue;\n    const src=(s.enemies??[]).find(e=>e.id===c.sourceId);if(!src||src.hp<=0)continue;\n    if(mirror.contact(c,a))risk+=44;\n   }\n  }\n  return risk;\n }\n\n window.__HAPIL_LASERS_V31330__={version:VERSION,installed:true,owners,types,labels,geometry,contact,start,tick,draw,valid,assets,evade,danger,configure,halfWidth,clip,ranks,setCache:(s,c)=>cacheByState.set(s,c),stats:()=>({...stats})};\n MONGSE_ASSET_VERSION='31330';window.MONGSE_ASSET_VERSION='31330';window.__HAPIL_V31330_RELEASE__=Object.freeze({version:VERSION,build:'R2',installed:true,activeBundle:'index-v31330.js',cacheKey:31330,baseVersion:'3.13.29',saveRevision:14});\n})();\n\n\n/* HAPIL 3.13.31 — boss-personaliz"
+  },
+  {
+    "offset": 5215575,
+    "line": 120708,
+    "functions": [
+      {
+        "start": 5215489,
+        "end": 5215687,
+        "name": "anonymous"
+      },
+      {
+        "start": 5214561,
+        "end": 5216628,
+        "name": "install"
+      },
+      {
+        "start": 5201806,
+        "end": 5216642,
+        "name": "anonymous"
+      }
+    ],
+    "context": "s.time||Nn(s.autoEvadeUntil31223)>s.time||MONGSE_isEncounterLocked31226(s))return old;\n    const input=steer(s,s,old?.target,{moveX:Nn(old?.dx),moveY:Nn(old?.dy),actions:{}},0);return {...old,active:!!old?.target,dx:input.moveX,dy:input.moveY,mode:s.combatIntentV31333??old.mode};};\n   const overlay=MONGSE_drawBossRuleOverlay31215;MONGSE_drawBossRuleOverlay31215=function(ctx,s,cache,settings,...rest){if(window.__HAPIL_MODES_V31346__?.mode?.(s)==='DREAM')return 0;return s?.zone==='last303'?drawFog(ctx,s,cache,settings):overlay(ctx,s,cache,settings,...rest);};\n   window.__MONGSE_DRAW_BOSS_RULE_OVERLAY_V31215__=MONGSE_drawBossRuleOverlay31215;\n   HAPIL_drawFocusV31316=function() {return false;}; // Always-on shared core replaces the old larger optional ellipse.\n   MONGSE_projectileSweptDistance31222=swept;\n   MONGSE_ASSET_VERSION='31333';window.MONGSE_ASSET_VERSION='31333';installed=true;\n  window.__HAPIL_COMBAT_V31333__=Object.freeze({version:VERSION,installed:true,config:CFG,core,swept,segmentDistance,contactRadius,contactTime,canContact,markContact,firstContact,piercing,frozen,seen,branchTargets,bindRoute,strikeValid,branchGeometry,drawBranch,drawCores,drawFog,fogMask,steer,dangerAt,dangerContext,uiPenalty,radius,enemyRadius:MONGSE_enemyHitRadius,retireDeadOwner,metrics:()=>({...stats,fogCache:fogCache.size})});\n   window.__HAPIL"
+  },
+  {
+    "offset": 5640449,
+    "line": 122236,
+    "functions": [
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": "E_ASSET_VERSION='31345';window.__HAPIL_V31345_RELEASE__=Object.freeze({installed:true,version:'3.13.45-RC1',cacheKey:31345,saveRevision:14,baseVersion:'3.13.44-RC1',activeBundle:'index-v31345.js',build:'WIDE MAPS AND AUTHORED ANIMATION — RC1'});}ready();})();\n\n/* HAPIL v3.13.46 — three modes, shelter archive, Dream mirror and Cosmic Six. */\n(() => {\n 'use strict';\n const VERSION='3.13.46',KEY='hapil.gameMode.v31346',MODES=Object.freeze(['STORY','DREAM']);\n const valid=(v,s)=>window.__HAPIL_SAMONG_RC91__?.select(v,s)??'STORY';\n const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;\n let preference='STORY',lastState=null,attempts=0,installed=false;\n try{preference=valid(localStorage.getItem(KEY)||'STORY');}catch(_){ }\n function mode(s=lastState){return valid(s?.gameModeV31346??preference,s);}\n function set(value,s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current){\n  const next=valid(value,s);preference=next;if(s){lastState=s;s.gameModeV31346=next;s.hellModeV31322=false;}\n  try{localStorage.setItem(KEY,next);}catch(_){ }\n  window.__HAPIL_HELL_V31322__?.setEnabled?.(false,s);return next;\n }\n function suppressFullNarrative(){return true;}\n function clearDialogue(s,kind){\n  if(!s)return null;const t=num(s.time);\n  s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.encounterWallUnlockAtV31227=0;\n  if(kind==='rest'"
+  },
+  {
+    "offset": 5646336,
+    "line": 122303,
+    "functions": [
+      {
+        "start": 5646297,
+        "end": 5647231,
+        "name": "reflect"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": "return Array.isArray(p)&&p.length>=3?p.map(q=>({x:num(q.x??q[0]),y:num(q.y??q[1])})):[{x:1.4,y:1.4},{x:30.6,y:1.4},{x:30.6,y:18.6},{x:1.4,y:18.6}];}\n function segmentHit(a,b,c,d){const rx=b.x-a.x,ry=b.y-a.y,sx=d.x-c.x,sy=d.y-c.y,den=rx*sy-ry*sx;if(Math.abs(den)<1e-8)return null;const qx=c.x-a.x,qy=c.y-a.y,t=(qx*sy-qy*sx)/den,u=(qx*ry-qy*rx)/den;return t>=0&&t<=1&&u>=0&&u<=1?{t,x:a.x+t*rx,y:a.y+t*ry}:null;}\n function reflect(s,p){\n  if(mode(s)!=='DREAM'||!p||num(p.dreamReflectionCountV31346)>=4||!Number.isFinite(p.vx)||!Number.isFinite(p.vy))return false;\n  const a={x:num(p.previousX,p.x),y:num(p.previousY,p.y)},b={x:num(p.x),y:num(p.y)},poly=polygon(s);let best=null;\n  for(let i=0;i<poly.length;i++){const c=poly[i],d=poly[(i+1)%poly.length],h=segmentHit(a,b,c,d);if(h&&(!best||h.t<best.t))best={...h,c,d};}\n  if(!best)return false;let nx=-(best.d.y-best.c.y),ny=best.d.x-best.c.x,L=Math.hypot(nx,ny)||1;nx/=L;ny/=L;const dot=p.vx*nx+p.vy*ny;\n  const boost=num(p.dreamReflectionCountV31346)===0?1.12:1;p.vx=(p.vx-2*dot*nx)*boost;p.vy=(p.vy-2*dot*ny)*boost;p.x=best.x+(a.x-best.x)*.015;p.y=best.y+(a.y-best.y)*.015;p.previousX=p.x;p.previousY=p.y;p.dreamReflectionCountV31346=num(p.dreamReflectionCountV31346)+1;p.dreamReflectedV31346=true;p.dreamReflectionFlashUntilV31346=num(s.time)+.16;p.reachedMapBoundary31213=false;return true;\n }\n con"
+  },
+  {
+    "offset": 5648675,
+    "line": 122320,
+    "functions": [
+      {
+        "start": 5648636,
+        "end": 5649114,
+        "name": "finalTick"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": "m(base.maxHp,base.hp)*.38)),readyAt:num(s.time)+1.15,patternReadyAt:num(s.time)+1.4,invulnerableUntil:num(s.time)+1.05,navPath:[],moveVx:0,moveVy:0,dreamCosmicTrialV31346:index+1,dreamAwakenedV31346:true};\n  s.enemies=(s.enemies??[]).filter(x=>!x.boss);s.enemies.push(b);s.bossDefeated=false;s.dreamFinalV31346={version:1,index,phase:'fight',activeId:b.id,safeUntil:0,deathToken:0,complete:false};return b;\n }\n function finalTick(s){\n  if(mode(s)!=='DREAM'||s?.zone!=='cult04')return;let c=s.dreamFinalV31346;\n  if(!c){if((s.enemies??[]).some(x=>x.boss))spawnTrial(s,0);return;}\n  if(c.complete||c.index>=6)return;\n  if(c.phase==='transition'&&num(s.time)>=num(c.safeUntil)){spawnTrial(s,c.index);c=s.dreamFinalV31346;}\n  if(c.phase==='fight'){const b=(s.enemies??[]).find(x=>x.id===c.activeId&&x.dreamCosmicTrialV31346);if(b){b.x=HOME.x;b.y=HOME.y;b.moveVx=0;b.moveVy=0;b.navPath=[];}}\n }\n function beforeDeath(s,e){\n  const c=s?.dreamFinalV31346;if(c?.deathToken===e)return true;if(mode(s)!=='DREAM'||s?.zone!=='cult04'||!c||c.complete||c.phase!=='fight'||e?.id!==c.activeId||!e.dreamCosmicTrialV31346)return false;c.deathToken=e;cleanupTrial(s,e.id);\n  if(c.index<5){s.enemies=(s.enemies??[]).filter(x=>x!==e);c.index+=1;c.phase='transition';c.activeId=null;c.safeUntil=num(s.time)+1.15;s.invulnerableUntil=Math.max(num(s.invulnerableUntil),c.safe"
+  },
+  {
+    "offset": 5649220,
+    "line": 122327,
+    "functions": [
+      {
+        "start": 5649116,
+        "end": 5649680,
+        "name": "beforeDeath"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": ">x.boss))spawnTrial(s,0);return;}\n  if(c.complete||c.index>=6)return;\n  if(c.phase==='transition'&&num(s.time)>=num(c.safeUntil)){spawnTrial(s,c.index);c=s.dreamFinalV31346;}\n  if(c.phase==='fight'){const b=(s.enemies??[]).find(x=>x.id===c.activeId&&x.dreamCosmicTrialV31346);if(b){b.x=HOME.x;b.y=HOME.y;b.moveVx=0;b.moveVy=0;b.navPath=[];}}\n }\n function beforeDeath(s,e){\n  const c=s?.dreamFinalV31346;if(c?.deathToken===e)return true;if(mode(s)!=='DREAM'||s?.zone!=='cult04'||!c||c.complete||c.phase!=='fight'||e?.id!==c.activeId||!e.dreamCosmicTrialV31346)return false;c.deathToken=e;cleanupTrial(s,e.id);\n  if(c.index<5){s.enemies=(s.enemies??[]).filter(x=>x!==e);c.index+=1;c.phase='transition';c.activeId=null;c.safeUntil=num(s.time)+1.15;s.invulnerableUntil=Math.max(num(s.invulnerableUntil),c.safeUntil);return true;}\n  c.index=6;c.complete=true;c.phase='complete';cleanupTrial(s,e.id);return false;\n }\n function tick(s){\n  if(!s)return;lastState=s;const m=mode(s);if(s.gameModeV31346!==m)s.gameModeV31346=m;window.__HAPIL_HELL_V31322__?.setEnabled?.(false,s);if(m==='DREAM'){for(const a of s.enemies??[])a.dreamAwakenedV31346=true;finalTick(s);}window.__HAPIL_SAMONG_RC91__?.scaleEnemies(s);\n  const layer=ensureMemoryLayer();if(layer){layer.style.display='none';if(m==='DREAM')layer.style.color=memoryProfile(s).color;}\n }\n const archive={\n"
+  },
+  {
+    "offset": 5649846,
+    "line": 122332,
+    "functions": [
+      {
+        "start": 5649682,
+        "end": 5650102,
+        "name": "tick"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": ".enemies=(s.enemies??[]).filter(x=>x!==e);c.index+=1;c.phase='transition';c.activeId=null;c.safeUntil=num(s.time)+1.15;s.invulnerableUntil=Math.max(num(s.invulnerableUntil),c.safeUntil);return true;}\n  c.index=6;c.complete=true;c.phase='complete';cleanupTrial(s,e.id);return false;\n }\n function tick(s){\n  if(!s)return;lastState=s;const m=mode(s);if(s.gameModeV31346!==m)s.gameModeV31346=m;window.__HAPIL_HELL_V31322__?.setEnabled?.(false,s);if(m==='DREAM'){for(const a of s.enemies??[])a.dreamAwakenedV31346=true;finalTick(s);}window.__HAPIL_SAMONG_RC91__?.scaleEnemies(s);\n  const layer=ensureMemoryLayer();if(layer){layer.style.display='none';if(m==='DREAM')layer.style.color=memoryProfile(s).color;}\n }\n const archive={\n  entries(s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current){const frontier=num(N?.[s?.frontierZone]?.order,1e9),done=s?.completedZones instanceof Set?s.completedZones:new Set(s?.completedZones??[]);return Object.values(N??{}).filter(z=>z&&z.id&&(done.has(z.id)||num(z.order)<=frontier)).sort((a,b)=>num(a.order)-num(b.order)).map(z=>{const scene=MONGSE_NARRATIVE_V395?.interludes?.[z.id],slides=scene?.slides??[];const text=slides.map(x=>[x.title,x.speaker,x.text,x.body].filter(Boolean).join('\\n')).filter(Boolean).join('\\n\\n');const fallback=window.__MONGSE_ENCOUNTER_DIALOGUE_V31231__?.resolve?.(z.id);return{id:"
+  },
+  {
+    "offset": 5650050,
+    "line": 122333,
+    "functions": [
+      {
+        "start": 5649682,
+        "end": 5650102,
+        "name": "tick"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": "index=6;c.complete=true;c.phase='complete';cleanupTrial(s,e.id);return false;\n }\n function tick(s){\n  if(!s)return;lastState=s;const m=mode(s);if(s.gameModeV31346!==m)s.gameModeV31346=m;window.__HAPIL_HELL_V31322__?.setEnabled?.(false,s);if(m==='DREAM'){for(const a of s.enemies??[])a.dreamAwakenedV31346=true;finalTick(s);}window.__HAPIL_SAMONG_RC91__?.scaleEnemies(s);\n  const layer=ensureMemoryLayer();if(layer){layer.style.display='none';if(m==='DREAM')layer.style.color=memoryProfile(s).color;}\n }\n const archive={\n  entries(s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current){const frontier=num(N?.[s?.frontierZone]?.order,1e9),done=s?.completedZones instanceof Set?s.completedZones:new Set(s?.completedZones??[]);return Object.values(N??{}).filter(z=>z&&z.id&&(done.has(z.id)||num(z.order)<=frontier)).sort((a,b)=>num(a.order)-num(b.order)).map(z=>{const scene=MONGSE_NARRATIVE_V395?.interludes?.[z.id],slides=scene?.slides??[];const text=slides.map(x=>[x.title,x.speaker,x.text,x.body].filter(Boolean).join('\\n')).filter(Boolean).join('\\n\\n');const fallback=window.__MONGSE_ENCOUNTER_DIALOGUE_V31231__?.resolve?.(z.id);return{id:z.id,name:z.name??z.id,arc:z.arc??'',text:text||(fallback?.lines??[]).map(x=>`${x.speaker??''}\\n${x.text??''}`).join('\\n\\n')||'기록이 아직 복원되지 않았습니다.'};});},\n  open(){const s=window.__HAPIL_CONTROLS_V31329__?"
+  },
+  {
+    "offset": 5654536,
+    "line": 122349,
+    "functions": [
+      {
+        "start": 5654125,
+        "end": 5654617,
+        "name": "HAPIL_modeNormalizeV31346"
+      },
+      {
+        "start": 5653306,
+        "end": 5657452,
+        "name": "install"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": "Hp:b.maxHp}:null};}return save;};\n  ji=function HAPIL_modeNormalizeV31346(raw){const save=normBase.apply(this,arguments);if(!save)return save;const legacy=raw?.hellModeV31322?.enabled===true?'HELL':'STORY';if(window.__HAPIL_SAMONG_RC91__?.sanitize(raw?.samongRC91)?.unlocked===true)window.__HAPIL_SAMONG_RC91__?.unlock(null,'validated-save');save.gameModeV31346=valid(raw?.gameModeV31346??legacy,raw);if(raw?.dreamFinalV31346&&save.gameModeV31346==='DREAM')save.dreamFinalV31346={...raw.dreamFinalV31346,deathToken:0};return save;};\n  HAPIL_restoreEntryFlowV31301=function HAPIL_modeRestoreV31346(s,save){\n   const r=entryBase.apply(this,arguments);set(save?.gameModeV31346??(save?.hellModeV31322?.enabled?'HELL':'STORY'),s);\n   if(save?.dreamFinalV31346&&mode(s)==='DREAM'&&s.zone==='cult04'){\n    s.dreamFinalV31346={...save.dreamFinalV31346,deathToken:0};const c=s.dreamFinalV31346;\n    if(c.phase==='transition'&&Number.isInteger(c.index)&&c.index>=1&&c.index<TRIAL_ZONES.length){\n     // Save time is not the new world's clock. Legacy saves resume with one safe transition.\n     const remaining=Math.max(0,Math.min(1.15,num(c.remainingTransitionV314RC10,1.15)));\n     c.safeUntil=num(s.time)+remaining;s.invulnerableUntil=Math.max(num(s.invulnerableUntil),c.safeUntil);\n    }\n    if(c.phase==='fight'&&Number.isInteger(c.index)&&c.index>=0&&c.in"
+  },
+  {
+    "offset": 5654853,
+    "line": 122352,
+    "functions": [
+      {
+        "start": 5654650,
+        "end": 5656406,
+        "name": "HAPIL_modeRestoreV31346"
+      },
+      {
+        "start": 5653306,
+        "end": 5657452,
+        "name": "install"
+      },
+      {
+        "start": 5640343,
+        "end": 5657547,
+        "name": "anonymous"
+      }
+    ],
+    "context": "k(null,'validated-save');save.gameModeV31346=valid(raw?.gameModeV31346??legacy,raw);if(raw?.dreamFinalV31346&&save.gameModeV31346==='DREAM')save.dreamFinalV31346={...raw.dreamFinalV31346,deathToken:0};return save;};\n  HAPIL_restoreEntryFlowV31301=function HAPIL_modeRestoreV31346(s,save){\n   const r=entryBase.apply(this,arguments);set(save?.gameModeV31346??(save?.hellModeV31322?.enabled?'HELL':'STORY'),s);\n   if(save?.dreamFinalV31346&&mode(s)==='DREAM'&&s.zone==='cult04'){\n    s.dreamFinalV31346={...save.dreamFinalV31346,deathToken:0};const c=s.dreamFinalV31346;\n    if(c.phase==='transition'&&Number.isInteger(c.index)&&c.index>=1&&c.index<TRIAL_ZONES.length){\n     // Save time is not the new world's clock. Legacy saves resume with one safe transition.\n     const remaining=Math.max(0,Math.min(1.15,num(c.remainingTransitionV314RC10,1.15)));\n     c.safeUntil=num(s.time)+remaining;s.invulnerableUntil=Math.max(num(s.invulnerableUntil),c.safeUntil);\n    }\n    if(c.phase==='fight'&&Number.isInteger(c.index)&&c.index>=0&&c.index<TRIAL_ZONES.length){\n     const template=ni(TRIAL_ZONES[c.index],`boss`);\n     if(template&&template.id===c.activeId){\n      let b=(s.enemies??[]).find(x=>x.id===c.activeId);\n      if(!b){b={...template};s.enemies=(s.enemies??[]).filter(x=>!x.boss);s.enemies.push(b);}\n      const v=c.trialVitalsV314RC10,saved=(s"
+  },
+  {
+    "offset": 5657968,
+    "line": 122384,
+    "functions": [
+      {
+        "start": 5657569,
+        "end": 5657990,
+        "name": "r"
+      },
+      {
+        "start": 5657556,
+        "end": 5657995,
+        "name": "anonymous"
+      }
+    ],
+    "context": "ut(schedule,0);}schedule();\n})();\n\n\n;(()=>{let n=0;function r(){if(!window.__HAPIL_V31345_RELEASE__?.installed||!window.__HAPIL_MODES_V31346__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION=\"31346\";window.MONGSE_ASSET_VERSION=\"31346\";window.__HAPIL_V31346_RELEASE__=Object.freeze({installed:true,version:\"3.13.46-RC1\",cacheKey:31346,saveRevision:14,baseVersion:\"3.13.45-RC1\",activeBundle:\"index-v31346.js\",build:\"THREE MODES AND DREAM FINAL — RC1\"});}r();})();\n\n/* HAPIL v3.13.47 — Dream mirror image and reflected laser, visual clone has no combat state. */\n(()=>{'use strict';\n const VERSION='3.13.47',SHARD='./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp',num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,clamp=(v,a,b)=>Math.max(a,Math.min(b,num(v,a)));\n const stats={created:0,hits:0,draws:0,images:0,cleaned:0},seenByState=new WeakMap();let installed=false,attempts=0,lastState=null;\n const mode=s=>window.__HAPIL_MODES_V31346__?.mode?.(s),party=()=>window.__HAPIL_PARTY_V31322__;\n function poly(s){const p=window.__HAPIL_TERRAIN_V31345__?.profile?.(s?.zone)?.world;return Array.isArray(p)&&p.length>2?p.map(q=>({x:num(q.x??q[0]),y:num(q.y??q[1])})):[{x:1.4,y:1.4},{x:30.6,y:1.4},{x:30.6,y:18.6},{x:1.4,y:18.6}];}\n function cross(a,b){return a.x*b.y-a.y*b.x;}\n function rayEdge(o,d,a,b){const e={x:b.x-a.x,y:b.y"
+  },
+  {
+    "offset": 5661609,
+    "line": 122407,
+    "functions": [
+      {
+        "start": 5661229,
+        "end": 5663397,
+        "name": "tick"
+      },
+      {
+        "start": 5658099,
+        "end": 5668526,
+        "name": "anonymous"
+      }
+    ],
+    "context": "status?.role==='guest'||p.status?.paused||p.status?.disconnected));}\n function tick(s,dt){\n  if(!s)return;lastState=s;let record=seenByState.get(s);if(!record||record.zone!==s.zone||s.time<record.time){record={zone:s.zone,time:s.time,seen:new Set()};seenByState.set(s,record);}record.time=s.time;const seen=record.seen;const liveKeys=new Set((s.bossLaserCastsV31330??[]).map(key));for(const k of seen)if(!liveKeys.has(k))seen.delete(k);if(mode(s)!=='DREAM'){if(s.dreamMirrorLasersV31347?.length)stats.cleaned+=s.dreamMirrorLasersV31347.length;s.dreamMirrorLasersV31347=[];return;}\n  for(const base of s.bossLaserCastsV31330??[]){const a=(s.enemies??[]).find(x=>x.id===base.sourceId);if(!a?.boss||!a.dreamAwakenedV31346)continue;const k=key(base);if(seen.has(k))continue;seen.add(k);if(!(s.dreamMirrorLasersV31347??[]).some(x=>x.sourceId===a.id&&x.endAt>s.time))spawn(s,base,a);}\n  const out=[];for(const c of s.dreamMirrorLasersV31347??[]){const base=(s.bossLaserCastsV31330??[]).find(x=>x.id===c.sourceLaserId&&x.sourceId===c.sourceId),a=(s.enemies??[]).find(x=>x.id===c.sourceId);if(!valid(c,s)||!base||!a||a.hp<=0||s.hp<=0){stats.cleaned++;continue;}if(base){c.fireAt=base.fireAt;c.endAt=base.endAt;c.activeSeconds=base.activeSeconds;}if(s.time>=c.endAt){stats.cleaned++;continue;}out.push(c);if(!authoritative(s)||!(dt>0)||s.time<c.fireAt||s.time"
+  },
+  {
+    "offset": 5664947,
+    "line": 122419,
+    "functions": [
+      {
+        "start": 5664897,
+        "end": 5665814,
+        "name": "drawMemory"
+      },
+      {
+        "start": 5658099,
+        "end": 5668526,
+        "name": "anonymous"
+      }
+    ],
+    "context": "8,0,Math.PI*2);ctx.fill();}if(warning&&settings.showCombatInfo!==false){ctx.fillStyle='#eaffff';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(`거울 반사 · ${Math.max(0,c.fireAt-s.time).toFixed(1)}초`,m.x,m.y-28);}stats.draws++;}finally{ctx.restore();}}\n }\n function memoryArt(s){const layer=document.getElementById('hapil-dream-memory-v31346');if(layer)layer.style.display='none';}\n function drawMemory(ctx,cache,s){\n  if(mode(s)!=='DREAM')return;const boss=(s.enemies??[]).find(a=>a.boss&&a.hp>0&&a.dreamAwakenedV31346),path=boss&&MONGSE_BOSS_RULE_OVERLAY_PATHS_V31215?.[boss.id];if(!path)return;\n  const im=MONGSE_queueImage(cache,path,'eager');if(!im?.complete||!(im.naturalWidth||im.width))return;\n  const points=poly(s).map(p=>G(p.x,p.y)),xs=points.map(p=>p.x),ys=points.map(p=>p.y),left=Math.min(...xs),top=Math.min(...ys),width=Math.max(...xs)-left,height=Math.max(...ys)-top,k=Math.min(width/(im.naturalWidth||im.width),height/(im.naturalHeight||im.height)),w=(im.naturalWidth||im.width)*k,h=(im.naturalHeight||im.height)*k;\n  ctx.save();try{ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.clip();ctx.globalAlpha=.075;ctx.globalCompositeOperation='screen';ctx.drawImage(im,left+(width-w)/2,top+(height-h)/2,w,h);}finally{ctx.restore();}\n }\n let mirrorCanvas=null;\n functio"
+  },
+  {
+    "offset": 5666018,
+    "line": 122427,
+    "functions": [
+      {
+        "start": 5665840,
+        "end": 5666934,
+        "name": "drawMirror"
+      },
+      {
+        "start": 5658099,
+        "end": 5668526,
+        "name": "anonymous"
+      }
+    ],
+    "context": "beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.clip();ctx.globalAlpha=.075;ctx.globalCompositeOperation='screen';ctx.drawImage(im,left+(width-w)/2,top+(height-h)/2,w,h);}finally{ctx.restore();}\n }\n let mirrorCanvas=null;\n function drawMirror(ctx,cache,a,time,settings,sprite,size,transform,nativeBody){\n  return; // RC24: remove the faint reflected boss afterimage.\n  const s=lastState;if(mode(s)!=='DREAM'||!s.enemies?.some(x=>x.id===a?.id)||!a?.boss||!a.dreamAwakenedV31346||a.hp<=0)return;\n  mirrorCanvas??=document.createElement('canvas');if(mirrorCanvas.width!==768){mirrorCanvas.width=768;mirrorCanvas.height=768;}const buffer=mirrorCanvas.getContext('2d');if(!buffer)return;\n  const p=G(a.x,a.y),points=poly(s).map(q=>G(q.x,q.y)),left=Math.min(...points.map(q=>q.x)),right=Math.max(...points.map(q=>q.x));let x=clamp(left+right-p.x,left+100,right-100);if(Math.abs(x-p.x)<100)x=clamp(p.x+(p.x<(left+right)/2?150:-150),left+100,right-100);\n  buffer.clearRect(0,0,768,768);buffer.save();try{buffer.translate(384-p.x,640-p.y);nativeBody(buffer,cache,a,time,settings,sprite,size,transform);}finally{buffer.restore();}\n  ctx.save();try{ctx.globalAlpha=.22;ctx.globalCompositeOperation='screen';ctx.translate(x,p.y);ctx.scale(-.68,.68);ctx.drawImage(mirrorCanvas,-384,-640);}finally{ctx.restore();}st"
+  },
+  {
+    "offset": 5668932,
+    "line": 122445,
+    "functions": [
+      {
+        "start": 5668548,
+        "end": 5668964,
+        "name": "r"
+      },
+      {
+        "start": 5668535,
+        "end": 5668969,
+        "name": "anonymous"
+      }
+    ],
+    "context": "return;setTimeout(schedule,0);}schedule();\n})();\n\n\n;(()=>{let n=0;function r(){if(!window.__HAPIL_V31346_RELEASE__?.installed||!window.__HAPIL_MIRROR_V31347__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION=\"31347\";window.MONGSE_ASSET_VERSION=\"31347\";window.__HAPIL_V31347_RELEASE__=Object.freeze({installed:true,version:\"3.13.47-RC1\",cacheKey:31347,saveRevision:14,baseVersion:\"3.13.46-RC1\",activeBundle:\"index-v31347.js\",build:\"DREAM MIRROR COMPLETE — RC1\"});}r();})();\n\n/* HAPIL v3.13.48 — sequential Dream regional trials and data-driven trial identity. */\n(()=>{'use strict';\n const VERSION='3.13.48',ZONES=Object.freeze(['u203','last303','kair03','hando03','ep1a11','cult04']);\n const PROFILES=Object.freeze([\n  Object.freeze({index:1,role:'방사·꽃 탄막',color:'#75edff',accent:'#d8fbff'}),\n  Object.freeze({index:2,role:'추적·분기',color:'#b88cff',accent:'#f0dcff'}),\n  Object.freeze({index:3,role:'폭발·공간 압박',color:'#ff986b',accent:'#ffe0b8'}),\n  Object.freeze({index:4,role:'레이저 시험',color:'#ffd56b',accent:'#fff3bd'}),\n  Object.freeze({index:5,role:'거울 반사',color:'#ff86ea',accent:'#8ef8ff'}),\n  Object.freeze({index:6,role:'최종 복합 시험',color:'#f4f7ff',accent:'#ff687f'})\n ]);\n const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,unique=rows=>[...new Set(rows.filter(Boolean))];let installed=false,attempts=0;\n function profile("
+  },
+  {
+    "offset": 5670947,
+    "line": 122473,
+    "functions": [
+      {
+        "start": 5670872,
+        "end": 5671314,
+        "name": "decorate"
+      },
+      {
+        "start": 5669064,
+        "end": 5674162,
+        "name": "anonymous"
+      }
+    ],
+    "context": ",'safe'),lasers[2]??lasers[0]];\n  else if(p.index===4)picked=[lasers[0],lasers[1],ordinary[0]];\n  else if(p.index===5)picked=[lasers[0],lasers[2]??lasers[1],shape('circle','donut','safe')];\n  else picked=[ordinary[0],lasers[0],finales[0]];\n  picked=unique(picked);for(const row of rows)if(picked.length<3&&!picked.includes(row))picked.push(row);return picked.slice(0,3);\n }\n function decorate(s){\n  if(!s||window.__HAPIL_MODES_V31346__?.mode?.(s)!=='DREAM')return;\n  for(const a of s.enemies??[]){const p=profile(a);if(!p)continue;a.dreamCosmicProfileV31348=p.index;a.cosmicRoleV31348=p.role;\n   if(!a.cosmicAnnouncedV31348){a.cosmicAnnouncedV31348=true;(s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y-2.2,born:num(s.time),duration:1.35,text:`사몽 시련 ${p.index} · ${p.role}`,color:p.color,critical:true});}\n  }\n }\n function drawAura(ctx,a,time){const p=profile(a);if(!p||a.hp<=0||typeof G!=='function')return;const q=G(a.x,a.y),t=num(time),r=31+p.index*1.4;ctx.save();try{ctx.globalCompositeOperation='screen';ctx.globalAlpha=.55;ctx.strokeStyle=p.color;ctx.lineWidth=2;ctx.shadowColor=p.accent;ctx.shadowBlur=8;ctx.setLineDash([Math.max(5,11-p.index),6]);ctx.lineDashOffset=-t*24;ctx.beginPath();ctx.arc(q.x,q.y,r,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=.75;ctx.fillStyle=p.accent;for(let i=0;i<3;i++){const w=t*.75+i*Math."
+  },
+  {
+    "offset": 5677864,
+    "line": 122520,
+    "functions": [
+      {
+        "start": 5677477,
+        "end": 5677907,
+        "name": "r"
+      },
+      {
+        "start": 5677464,
+        "end": 5677912,
+        "name": "anonymous"
+      }
+    ],
+    "context": "\"PHYSICAL ATTACK DIRECTION — RC1\"});}r();})();\n\n;(()=>{let n=0;function r(){if(!window.__HAPIL_V31350_RELEASE__?.installed||!window.__HAPIL_DIRECTION_V31334__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION=\"31351\";window.MONGSE_ASSET_VERSION=\"31351\";window.__HAPIL_V31351_RELEASE__=Object.freeze({installed:true,version:\"3.13.51-RC1\",cacheKey:31351,saveRevision:14,baseVersion:\"3.13.50-RC1\",activeBundle:\"index-v31351.js\",build:\"DREAM IMAGE AND BLADE CORRECTION — RC1\"});}r();})();\n\n;(()=>{let n=0;function r(){if(!window.__HAPIL_V31351_RELEASE__?.installed||!window.__HAPIL_MODES_V31346__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION=\"31352\";window.MONGSE_ASSET_VERSION=\"31352\";window.__HAPIL_V31352_RELEASE__=Object.freeze({installed:true,version:\"3.13.52-RC1\",cacheKey:31352,saveRevision:14,baseVersion:\"3.13.51-RC1\",activeBundle:\"index-v31352.js\",build:\"DREAM PROJECTILE CLEAN IMAGE — RC1\"});}r();})();\n\n\n/* V31355: draw eligibility only; never alters damage, reflection, hitboxes, or clocks. */\nfunction HAPIL_projectileVisibleV31355(p,time){return window.__HAPIL_PROJECTILE_PIPELINE_V31402__.visible(p,time);}\n\n/* v31402 keeps old release/asset aliases, without another Jn wrapper. */\n(()=>{'use strict';\n const VERSION='3.14.02',FALLBACK='./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp';le"
+  },
+  {
+    "offset": 5678316,
+    "line": 122522,
+    "functions": [
+      {
+        "start": 5677933,
+        "end": 5678355,
+        "name": "r"
+      },
+      {
+        "start": 5677920,
+        "end": 5678360,
+        "name": "anonymous"
+      }
+    ],
+    "context": "EAM IMAGE AND BLADE CORRECTION — RC1\"});}r();})();\n\n;(()=>{let n=0;function r(){if(!window.__HAPIL_V31351_RELEASE__?.installed||!window.__HAPIL_MODES_V31346__?.installed){if(++n<800)setTimeout(r,0);return;}MONGSE_ASSET_VERSION=\"31352\";window.MONGSE_ASSET_VERSION=\"31352\";window.__HAPIL_V31352_RELEASE__=Object.freeze({installed:true,version:\"3.13.52-RC1\",cacheKey:31352,saveRevision:14,baseVersion:\"3.13.51-RC1\",activeBundle:\"index-v31352.js\",build:\"DREAM PROJECTILE CLEAN IMAGE — RC1\"});}r();})();\n\n\n/* V31355: draw eligibility only; never alters damage, reflection, hitboxes, or clocks. */\nfunction HAPIL_projectileVisibleV31355(p,time){return window.__HAPIL_PROJECTILE_PIPELINE_V31402__.visible(p,time);}\n\n/* v31402 keeps old release/asset aliases, without another Jn wrapper. */\n(()=>{'use strict';\n const VERSION='3.14.02',FALLBACK='./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp';let installed=false,attempts=0;\n function install(){\n  if(installed)return true;if(!window.__HAPIL_V31352_RELEASE__?.installed||typeof Jn!=='function'||typeof MONGSE_queueImage!=='function')return false;\n  const pipe=window.__HAPIL_PROJECTILE_PIPELINE_V31402__.create({queue:(...a)=>MONGSE_queueImage(...a),bindBitmap:(...a)=>MONGSE_bindProjectileBitmapV31225(...a),angle:(...a)=>MONGSE_resolveScreenRenderAngleV31229(...a),project:(...a)=>G(...a)});\n  w"
+  },
+  {
+    "offset": 5782032,
+    "line": 123620,
+    "functions": [
+      {
+        "start": 5780487,
+        "end": 5783332,
+        "name": "open"
+      },
+      {
+        "start": 5773836,
+        "end": 5784124,
+        "name": "anonymous"
+      }
+    ],
+    "context": "p=document.createElement('option');op.value=v;op.textContent=t;family.append(op);}family.setAttribute('aria-label','패턴 선택');box.append(family);\n  const phase=document.createElement('select');for(let i=1;i<=4;i++){const op=document.createElement('option');op.value=i;op.textContent='규칙 '+i;phase.append(op);}phase.setAttribute('aria-label','규칙 단계');box.append(phase);\n  const mode=document.createElement('select');for(const [v,t]of [['STORY','스토리'],['DREAM','사몽']]){const op=document.createElement('option');op.value=v;op.textContent=t;if(v==='DREAM')op.disabled=!window.__HAPIL_SAMONG_RC91__?.unlocked();mode.append(op);}mode.setAttribute('aria-label','연습 모드');box.append(mode);\n  const record=document.createElement('p');box.append(record);const options=()=>({bossId:boss.value,family:family.value,phase:Number(phase.value),mode:mode.value});\n  const show=()=>{const r=cleanRecord(getKey(options()));record.textContent=`도전 ${r.attempts} / 성공 ${r.wins} / 최고 GRAZE ${r.maxGraze} / 차단 ${r.maxParry} / NO HIT ${r.noHit?'✓':'—'}`;};for(const e of [boss,family,phase,mode])e.addEventListener('change',show);show();\n  const row=document.createElement('div');box.append(row);function button(text,fn,disabled=false){const b=document.createElement('button');b.type='button';b.textContent=text;b.disabled=disabled;b.addEventListener('click',fn);row.append(b);r"
+  },
+  {
+    "offset": 5782125,
+    "line": 123620,
+    "functions": [
+      {
+        "start": 5780487,
+        "end": 5783332,
+        "name": "open"
+      },
+      {
+        "start": 5773836,
+        "end": 5784124,
+        "name": "anonymous"
+      }
+    ],
+    "context": "ttribute('aria-label','패턴 선택');box.append(family);\n  const phase=document.createElement('select');for(let i=1;i<=4;i++){const op=document.createElement('option');op.value=i;op.textContent='규칙 '+i;phase.append(op);}phase.setAttribute('aria-label','규칙 단계');box.append(phase);\n  const mode=document.createElement('select');for(const [v,t]of [['STORY','스토리'],['DREAM','사몽']]){const op=document.createElement('option');op.value=v;op.textContent=t;if(v==='DREAM')op.disabled=!window.__HAPIL_SAMONG_RC91__?.unlocked();mode.append(op);}mode.setAttribute('aria-label','연습 모드');box.append(mode);\n  const record=document.createElement('p');box.append(record);const options=()=>({bossId:boss.value,family:family.value,phase:Number(phase.value),mode:mode.value});\n  const show=()=>{const r=cleanRecord(getKey(options()));record.textContent=`도전 ${r.attempts} / 성공 ${r.wins} / 최고 GRAZE ${r.maxGraze} / 차단 ${r.maxParry} / NO HIT ${r.noHit?'✓':'—'}`;};for(const e of [boss,family,phase,mode])e.addEventListener('change',show);show();\n  const row=document.createElement('div');box.append(row);function button(text,fn,disabled=false){const b=document.createElement('button');b.type='button';b.textContent=text;b.disabled=disabled;b.addEventListener('click',fn);row.append(b);return b;}\n  button('패턴 연습 시작',()=>{try{if(C()?.hasPractice())C().practiceEnd();start(options("
+  }
+]
