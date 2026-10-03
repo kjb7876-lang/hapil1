@@ -1,0 +1,67 @@
+{
+  "runtimeSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+  "locale": "ko-KR",
+  "scope": "New RC133 text only; logical surface IDs identify source fields, not new DOM IDs.",
+  "narrationStatus": "No new RC133 text is voiced. The existing 119 canonical narration units / 82 published units do not include these additions.",
+  "narrative": [
+    {
+      "surfaceId": "rc133.inner-final.reveal.floatText",
+      "text": "교주의 죽음 뒤, 사후에 숨겨 둔 나의 악이 깨어난다",
+      "source": "assets/rc133/inner-final.js:start",
+      "trigger": "DREAM cult04: actual native c104-boss death admits the hidden persona once.",
+      "position": "Player world position s.x/s.y, ordinary floatTexts renderer; 1.8 seconds.",
+      "voiceIncluded": false
+    },
+    {
+      "surfaceId": "rc133.inner-final.boss.name",
+      "text": "사후의 나 · 악한 무의식",
+      "source": "assets/rc133/inner-final.js:build",
+      "trigger": "Hidden persona actor creation or native save restore during reveal/fight.",
+      "position": "Actor name for inner-evil-rc133; existing target/boss UI uses the native name field.",
+      "voiceIncluded": false
+    },
+    {
+      "surfaceId": "rc133.inner-final.awakening.floatText",
+      "text": "惡夢覺醒 · 나의 힘을 기억한다",
+      "source": "assets/rc133/inner-final.js:tick",
+      "trigger": "Boss awakening after its initial 14-second fight countdown, then every 28 seconds of eligible gameplay time; pauses/time-stop do not advance it.",
+      "position": "Boss world position a.x/a.y, ordinary floatTexts renderer; 0.9 seconds.",
+      "voiceIncluded": false
+    }
+  ],
+  "combatTelegraphs": {
+    "surfaceId": "rc133.inner-final.trait.floatText",
+    "source": "assets/rc133/inner-final.js:traits/tick",
+    "trigger": "Each bounded borrowed-hero projectile volley after reveal: 2.8-second base spacing or 2.1 seconds during boss awakening.",
+    "position": "Boss world position a.x/a.y; warning lasts 0.65 seconds, or 0.9 seconds for seoha. Projectile label appends ' · 무의식의 반향'.",
+    "textsByHero": {
+      "hwando": "검의 쌍호",
+      "seoha": "시간의 계단",
+      "neon": "전류의 분기",
+      "michaela": "기억의 봉인",
+      "lauren": "조수의 이중결",
+      "hunter": "추적 화살",
+      "slayer": "칼날의 부채",
+      "gunner": "시간 파편의 궤적"
+    },
+    "voiceIncluded": false
+  },
+  "otherUi": [
+    {
+      "surfaceId": "rc133.boss-warp.floatText",
+      "text": "공간 이탈",
+      "source": "assets/rc133/native-install.js.txt:warp",
+      "trigger": "A nearby eligible boss/midboss reserves a safe destination before its 0.55-second warp warning.",
+      "position": "Actor world position; ordinary floatTexts renderer for 0.5 seconds."
+    },
+    {
+      "surfaceId": "rc133.growth.category",
+      "selector": "[data-upgrade-category=\"samongUpgrade\"]",
+      "title": "死夢 · 사몽 전용 강화",
+      "description": "EGO 파편 1개 · 같은 run의 포탈과 저장에서 유지 · 새 run에서는 초기화",
+      "source": "assets/rc133/native-install.js.txt:upgradeSection",
+      "trigger": "Existing growth panel opened during DREAM."
+    }
+  ],
+  "ending": "No new ending dialogue or quest text was added; hidden persona defeat closes through the existing native clear route."
+}
