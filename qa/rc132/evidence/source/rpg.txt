@@ -1,0 +1,683 @@
+function $n(e, t, n, r, i) {
+  if (!e) return;
+  const portraitSplitRC108 = window.__HAPIL_PORTRAIT_SPLIT_RC108__;
+  if (portraitSplitRC108?.shouldRender(e, t)) {
+    portraitSplitRC108.render(e, t, n, r, i, $n);
+    return;
+  }
+  HAPIL_RC13_RENDER.observe(t);
+  let MONGSE_sceneLoad =
+      t.enemies.length +
+      t.hostileProjectiles.length +
+      t.pendingHits.length * 0.45 +
+      t.telekineticCasts.length * 0.35 +
+      (t.spatialRiftCasts?.length ?? 0) * 0.8 +
+      t.effects.length * 0.3,
+    MONGSE_canvasScale31220 = MONGSE_canvasBackingScale31220(
+      e,
+      !!i.lowFx,
+      MONGSE_sceneLoad,
+    ),
+    a = MONGSE_canvasScale31220.backingScale,
+    o = Math.round(d * a),
+    s = Math.round(720 * a);
+  (e.width !== o || e.height !== s) && ((e.width = o), (e.height = s));
+  let c = e.getContext(`2d`);
+  if (!c) return;
+  (c.setTransform(a, 0, 0, a, 0, 0),
+    c.clearRect(0, 0, d, 720),
+    (c.imageSmoothingEnabled =
+      !i.lowFx || window.__HAPIL_MOBILE_V31366__?.enabled() === true),
+    (c.imageSmoothingQuality = `medium`));
+  // RC91: monochrome is composited once after the frame, not per sprite.
+  c.filter = "none";
+  let MONGSE_rareShake31211 = MONGSE_rareScreenShakeOffset31211(t, i),
+    p = MONGSE_rareShake31211.x,
+    m = MONGSE_rareShake31211.y;
+  (c.save(),
+    window.__HAPIL_ADAPTIVE_RC125__?.applyWorld(c, e, t),
+    c.translate(p, m));
+  let _ = N[t.zone],
+    MONGSE_mapVariants =
+      Array.isArray(_.mapVariants) && _.mapVariants.length
+        ? [_.map, ..._.mapVariants].filter((e, t, n) => e && n.indexOf(e) === t)
+        : [_.map],
+    MONGSE_mapVariantIndex = Math.min(
+      MONGSE_mapVariants.length - 1,
+      Math.max(
+        0,
+        (t.spawnedWaves?.size ?? 1) - 1 + Math.max(0, (t.bossPhase ?? 1) - 1),
+      ),
+    ),
+    MONGSE_activeMap =
+      window.__HAPIL_LUCIFER_V31318__?.mapFor(
+        t,
+        MONGSE_mapVariants[MONGSE_mapVariantIndex] ?? _.map,
+      ) ??
+      MONGSE_mapVariants[MONGSE_mapVariantIndex] ??
+      _.map,
+    v = MONGSE_queueImage(n, MONGSE_activeMap),
+    y = HAPIL_viewCameraRC104(t.x, t.y, t);
+  if (
+    (c.translate(y.x, y.y),
+    c.scale(y.scale ?? 1, y.scale ?? 1),
+    v?.complete && v.naturalWidth)
+  )
+    c.drawImage(v, h, -60, g, 990);
+  else {
+    let e = c.createLinearGradient(h, -60, h + g, 930);
+    (e.addColorStop(0, `#050815`),
+      e.addColorStop(1, t.zone === `village` ? `#09251d` : `#14081f`),
+      c.save(),
+      (c.globalAlpha = 0.28),
+      (c.fillStyle = e),
+      c.fillRect(h, -60, g, 990),
+      c.restore());
+  }
+  window.__HAPIL_FLOW_V31343__?.drawFloor(c, t);
+  window.__HAPIL_LOOP_V31365__?.background(c, t, {
+    x: -1200,
+    y: -1200,
+    width: 4200,
+    height: 3400,
+  });
+  MONGSE_drawBossRuleOverlay31215(c, t, n, i, y);
+  MONGSE_drawBossArenaAtmosphere31213(c, t, i);
+  (!i.lowFx || MONGSE_sceneLoad < 24) && zn(c, t.zone, t.time, i);
+  let b = lt(t.zone),
+    MONGSE_pendingHits = t.pendingHits
+      .filter((e) => e.at > t.time)
+      .sort((e, t) => e.at - t.at),
+    MONGSE_allHostileProjectiles31228 = t.hostileProjectiles,
+    MONGSE_hostileProjectileRenderBudget31228 =
+      MONGSE_allHostileProjectiles31228.length,
+    MONGSE_hostileProjectiles = MONGSE_allHostileProjectiles31228,
+    MONGSE_projectileLodSmartR1 =
+      MONGSE_allHostileProjectiles31228.length >= 24
+        ? 0
+        : MONGSE_allHostileProjectiles31228.length >= 12
+          ? 1
+          : 2,
+    MONGSE_projectileRenderOptionsSmartR1 = {
+      ...i,
+      projectileLodSmartR1: MONGSE_projectileLodSmartR1,
+      lowFx: i.lowFx || MONGSE_projectileLodSmartR1 === 0,
+    },
+    MONGSE_egoDrops = t.egoDrops,
+    MONGSE_effectsBehind = t.effects.filter(
+      (e) =>
+        !e?.resonanceVfxV31356 &&
+        !e?.awakeningOriginV31357 &&
+        !e?.terminalContactV31362 &&
+        MONGSE_effectBehind(e),
+    ),
+    MONGSE_effectsFront = t.effects.filter(
+      (e) =>
+        !e?.resonanceVfxV31356 &&
+        !e?.awakeningOriginV31357 &&
+        !e?.terminalContactV31362 &&
+        !MONGSE_effectBehind(e),
+    ),
+    MONGSE_narrativeCasts = t.narrativeCasts ?? [],
+    MONGSE_spatialRiftCasts = t.spatialRiftCasts ?? [],
+    MONGSE_resonanceThreads = t.resonanceThreads,
+    MONGSE_telekineticCasts = t.telekineticCasts,
+    MONGSE_floatTexts = t.floatTexts.filter((fx) =>
+      HAPIL_showFloatTextV31317(fx, i),
+    ),
+    MONGSE_defeated = t.defeated;
+  i.lowFx &&
+    ((MONGSE_egoDrops = MONGSE_egoDrops.slice(-6)),
+    (MONGSE_effectsBehind = MONGSE_trimEffects(MONGSE_effectsBehind, 18)),
+    (MONGSE_effectsFront = MONGSE_trimEffects(MONGSE_effectsFront, 22)),
+    (MONGSE_resonanceThreads = MONGSE_resonanceThreads.slice(-8)),
+    (MONGSE_floatTexts = MONGSE_floatTexts.slice(-10)),
+    (MONGSE_defeated = MONGSE_defeated.slice(-12)));
+  ((t.projectileRenderLodSmartR1 = MONGSE_projectileLodSmartR1),
+    (t.projectilePopulationSmartR1 = MONGSE_allHostileProjectiles31228.length),
+    (t.projectileRenderedPopulationV31228 = MONGSE_hostileProjectiles.length),
+    (t.projectileRenderBudgetV31228 =
+      MONGSE_hostileProjectileRenderBudget31228));
+  let x = new Set(
+    MONGSE_telekineticCasts.filter(
+      (e) =>
+        !!e.featureId &&
+        e.born <= t.time &&
+        e.at + (e.telekineticRain ? 0.14 : 0.18) > t.time,
+    ).map((e) => e.featureId),
+  );
+  if (
+    (b.filter((e) => !x.has(e.id)).forEach((e) => Bn(c, n, e, t.time, i)),
+    MONGSE_pendingHits.forEach((e) => qn(c, e, t.time, i, n)),
+    MONGSE_hostileProjectiles.filter(
+      (e) => !e.narrativeAttack && !e.cosmicShotV31318,
+    ).forEach((e) =>
+      HAPIL_drawProjectileRC13(
+        c,
+        n,
+        e,
+        t.time,
+        MONGSE_projectileRenderOptionsSmartR1,
+      ),
+    ),
+    t.target &&
+      Ln(c, n, Rt.blink, t.target.x, t.target.y, 34, {
+        alpha: 0.44 + Math.sin(t.time * 7) * 0.1,
+        rotation: t.time * 0.45,
+        scaleY: 0.46,
+        glow: `#6effe4`,
+      }),
+    MONGSE_egoDrops.forEach((e) => {
+      let r = Math.max(0, t.time - e.born),
+        a = 1 + Math.sin(r * 5.6 + e.id) * 0.08;
+      if (
+        (Rn(c, e.x, e.y, 18, 0.3),
+        Ln(c, n, Ut.egoFragment, e.x, e.y, 58, {
+          offsetY: -12 - Math.sin(r * 4.4 + e.id) * 5,
+          rotation: r * 0.42,
+          scaleX: a,
+          scaleY: a,
+          glow: `#79fff2`,
+          glowBlur: i.lowFx ? 7 : 18,
+        }),
+        Math.hypot(t.x - e.x, t.y - e.y) < 5.8)
+      ) {
+        let t = G(e.x, e.y);
+        (c.save(),
+          (c.fillStyle = `#dffff9`),
+          (c.textAlign = `center`),
+          (c.font = `900 11px sans-serif`),
+          (c.shadowColor = `#66ffe8`),
+          (c.shadowBlur = i.reducedFlash ? 2 : 8),
+          c.fillText(`EGO 파편 ×${e.amount} · 자동흡수`, t.x, t.y - 58),
+          c.restore());
+      }
+    }),
+    !i.lowFx)
+  ) {
+    let e = _.arc;
+    ((c.globalAlpha = 0.16),
+      (c.fillStyle =
+        e === `DIST`
+          ? `#ff364f`
+          : e === `LAST3`
+            ? `#ff9b55`
+            : e === `MURDER`
+              ? `#758ba7`
+              : e === `EP1B`
+                ? `#ffb56b`
+                : e === `HANDO`
+                  ? `#d6f4ff`
+                  : `#39ffc7`));
+    for (let e = 0; e < 12; e++) {
+      let n = G(((e * 11) % 29) + 1.5, ((e * 17) % 29) + 1.5),
+        r = 0.55 + Math.sin(t.time * 2.4 + e) * 0.45;
+      ((c.globalAlpha = 0.07 + r * 0.12),
+        c.fillRect(n.x - 2, n.y - 25 - r * 8, 4, 36 + r * 8));
+    }
+    c.globalAlpha = 1;
+  }
+  if (t.zone === `hub`) {
+    let e = 1 + Math.sin(t.time * 2.8) * 0.035;
+    (Ln(c, n, H + `memory_portal.png`, ne.x, ne.y, 92, {
+      scaleX: e,
+      scaleY: e,
+      glow: `#59ffe8`,
+    }),
+      [`공명 거점`, `F · 이동문`].forEach((e, t) => {
+        let n = G(ne.x, ne.y);
+        ((c.fillStyle = t ? `#7ffff1` : `#fff`),
+          (c.font = t ? `700 12px sans-serif` : `700 15px sans-serif`),
+          (c.textAlign = `center`),
+          c.fillText(e, n.x, n.y + 18 + t * 16));
+      }));
+  }
+  if (MONGSE_isRestZone(t.zone)) {
+    let e = G(se.x, se.y),
+      MONGSE_restPortalLocked31226 = MONGSE_isRestPortalLocked31226(t),
+      MONGSE_restRecord31226 = MONGSE_encounterData31226()?.rest?.[t.zone];
+    Math.hypot(t.x - se.x, t.y - se.y) < 3.2 &&
+      (c.save(),
+      (c.fillStyle = `#e8f7ff`),
+      (c.textAlign = `center`),
+      (c.font = `800 12px sans-serif`),
+      (c.shadowColor = `#9acfff`),
+      (c.shadowBlur = i.reducedFlash ? 2 : 7),
+      c.fillText(`F · 침대에서 회복`, e.x, e.y - 55),
+      c.restore());
+    let r = 1 + Math.sin(t.time * 2.4) * 0.035;
+    Ln(c, n, H + `memory_portal.png`, ce.x, ce.y, 82, {
+      alpha: MONGSE_restPortalLocked31226 ? 0.34 : 0.92,
+      scaleX: r,
+      scaleY: r,
+      glow: MONGSE_restPortalLocked31226 ? `#647085` : `#ffbf78`,
+    });
+    let a = G(ce.x, ce.y);
+    (c.save(),
+      (c.textAlign = `center`),
+      (c.fillStyle = `#c9d8ff`),
+      (c.font = `800 12px sans-serif`),
+      c.fillText(
+        MONGSE_restPortalLocked31226
+          ? `NPC 기록 동조 중 · 잠김`
+          : (_.portalLabel ?? `${N[_.next]?.name ?? `다음 페이지`} · 개방`),
+        a.x,
+        a.y + 18,
+      ),
+      Math.hypot(t.x - ce.x, t.y - ce.y) < 3.2 &&
+        ((c.fillStyle = `#fff4e6`),
+        (c.font = `700 11px sans-serif`),
+        c.fillText(
+          MONGSE_restPortalLocked31226
+            ? `${Math.max(0, t.restPortalUnlockAt31226 - t.time).toFixed(1)}초 후 개방`
+            : (_.portalPrompt ?? `F · 다음 페이지문 접속`),
+          a.x,
+          a.y + 34,
+        )),
+      c.restore());
+    if (MONGSE_restRecord31226 || window.__HAPIL_MODES_V31346__?.installed) {
+      let e = G(ae.x, ae.y);
+      (Ln(
+        c,
+        n,
+        F.find((MONGSE_heroV31353) => MONGSE_heroV31353.id === `michaela`)
+          ?.sprite ?? Ut.sourceRecord,
+        ae.x,
+        ae.y,
+        66,
+        {
+          alpha: 0.98,
+          offsetY: -12,
+          glow: `#d9f7ff`,
+          glowBlur: i.lowFx ? 2 : 6,
+        },
+      ),
+        Math.hypot(t.x - ae.x, t.y - ae.y) < 2.8 &&
+          (c.save(),
+          (c.fillStyle = `#e7fbff`),
+          (c.textAlign = `center`),
+          (c.font = `800 11px sans-serif`),
+          (c.shadowColor = `#65dfff`),
+          (c.shadowBlur = i.reducedFlash ? 2 : 7),
+          c.fillText(`F · 미카엘라와 대화 · 에피소드 기록`, e.x, e.y - 64),
+          c.restore()));
+    }
+  }
+  if (he.includes(t.zone)) {
+    let e = MONGSE_zonePortalAnchors(t.zone).entry,
+      r =
+        _.arc === `U2` || _.arc === `KAIRO`
+          ? `#63eaff`
+          : _.arc === `CULT` || _.arc === `EP1B`
+            ? `#ff5c91`
+            : _.arc === `LAST3`
+              ? `#ffc27b`
+              : `#8fffe1`;
+    Ln(c, n, H + `memory_portal.png`, e.x, e.y, 68, {
+      alpha: 0.5,
+      scaleX: 0.78,
+      scaleY: 0.78,
+      glow: r,
+      glowBlur: i.lowFx ? 3 : 8,
+    });
+  }
+  if (he.includes(t.zone) && MONGSE_zoneCombatCleared(t, t.zone)) {
+    let e = Xt(t.zone),
+      r = e.find((e) => !t.clues.has(e.id));
+    e.forEach((e) => {
+      if (t.clues.has(e.id) || (xe(t.zone) && e.id !== r?.id)) return;
+      let a = G(e.x, e.y);
+      (Rn(c, e.x, e.y, 15, 0.24),
+        Ln(c, n, Ut.sourceRecord, e.x, e.y, 52, {
+          offsetY: -8 - Math.sin(t.time * 3 + e.x) * 4,
+          rotation: Math.sin(t.time * 1.4 + e.y) * 0.035,
+          glow:
+            _.arc === `DIST`
+              ? `#ff6274`
+              : _.arc === `LAST3`
+                ? `#ffc07c`
+                : _.arc === `MURDER`
+                  ? `#b7d0eb`
+                  : _.arc === `EP1B`
+                    ? `#ffd39b`
+                    : _.arc === `HANDO`
+                      ? `#e5f7ff`
+                      : `#69ecff`,
+        }),
+        Math.hypot(t.x - e.x, t.y - e.y) < 2.8 &&
+          (c.save(),
+          (c.fillStyle = `#e7fffa`),
+          (c.textAlign = `center`),
+          (c.font = `800 11px sans-serif`),
+          (c.shadowColor = `#54e8d1`),
+          (c.shadowBlur = i.reducedFlash ? 2 : 7),
+          c.fillText(`F · ${e.name}`, a.x, a.y - 44),
+          c.restore()));
+    });
+    let a =
+      !xe(t.zone) ||
+      ((t.loopCycles[t.zone] ?? 0) >= 3 &&
+        (t.zone !== `murder03` || t.bossDefeated));
+    window.__HAPIL_FLOW_V31343__?.drawExit(c, t);
+    if (
+      !window.__HAPIL_FLOW_V31343__?.profile(t.zone) &&
+      MONGSE_zoneCombatCleared(t, t.zone) &&
+      Te(t.zone, t.clues) &&
+      t.enemies.length === 0 &&
+      t.egoDrops.length === 0 &&
+      a
+    ) {
+      let MONGSE_exitPortal = MONGSE_zonePortalAnchors(t.zone).exit,
+        e = 1 + Math.sin(t.time * 3.5) * 0.05;
+      Ln(
+        c,
+        n,
+        H + `memory_portal.png`,
+        MONGSE_exitPortal.x,
+        MONGSE_exitPortal.y,
+        88,
+        {
+          scaleX: e,
+          scaleY: e,
+          glow: `#6fffe5`,
+        },
+      );
+      let r = G(MONGSE_exitPortal.x, MONGSE_exitPortal.y);
+      ((c.fillStyle = `#b9fff1`),
+        (c.textAlign = `center`),
+        (c.font = `800 11px sans-serif`),
+        c.fillText(
+          `F · ${N[t.zone].next ? `다음 페이지` : `귀환`}`,
+          r.x,
+          r.y + 17,
+        ));
+    }
+  }
+  if (_.arc === `U2`) {
+    let e = S(17.7, 2.3);
+    Ln(c, n, H + `door.png`, e.x, e.y, 86, { glow: `#59e9ff` });
+  }
+  if (_.arc === `LAST3`) {
+    let e = S(2.3, 3.1),
+      t = S(17.1, 16.8);
+    (Ln(c, n, xt + `Tree_Deciduous.png`, e.x, e.y, 116, {
+      scaleX: 0.9,
+      alpha: 0.88,
+    }),
+      Ln(c, n, xt + `Rock_Cluster.png`, t.x, t.y, 70, {
+        scaleX: 0.85,
+        alpha: 0.9,
+      }));
+  }
+  if (_.arc === `KAIRO`) {
+    let e = S(10, 10);
+    Ln(c, n, H + `warptime.png`, e.x, e.y, 76, {
+      rotation: t.time * 0.08,
+      glow: `#6effe4`,
+      alpha: 0.72,
+    });
+  }
+  if (t.zone === `village`) {
+    Ln(c, n, H + `controller_frameA.png`, ae.x, ae.y, 60, {
+      offsetY: -Math.sin(t.time * 2) * 1.3,
+      scaleX: 1,
+      glow: `#87ffe4`,
+    });
+    let e = G(ae.x, ae.y);
+    ((c.fillStyle = `#b9ffe4`),
+      (c.textAlign = `center`),
+      (c.font = `700 12px sans-serif`),
+      c.fillText(`공명 주민 · R`, e.x, e.y + 15));
+  }
+  MONGSE_defeated.forEach((e) => Xn(c, n, e, t.time, i));
+  MONGSE_effectsBehind.forEach((e) => {
+    (c.save(),
+      (c.globalAlpha *= e.ultimate ? 0.46 : 0.58),
+      HAPIL_drawSkillRC13(c, n, e, t.time, i),
+      c.restore());
+  });
+  let C = [];
+  if (
+    (b
+      .filter((e) => e.collidable && e.sprite && !x.has(e.id))
+      .forEach((e) =>
+        C.push({ depth: e.x + e.y, draw: () => Vn(c, n, e, t.time) }),
+      ),
+    he.includes(t.zone) &&
+      t.enemies.forEach((e) =>
+        C.push({
+          depth: e.x + e.y,
+          draw: () =>
+            window.__HAPIL_ECHOES_V31368__?.drawChild(c, n, e, t.time, i, t)
+              ? undefined
+              : window.__HAPIL_LUCIFER_V31318__?.shouldDrawFront(t, e)
+                ? undefined
+                : Yn(c, n, e, t.time, i, e.id === t.targetEnemyId),
+        }),
+      ),
+    t.supportCall &&
+      t.supportCall.until > t.time &&
+      !HAPIL_replaceSupportPortraitV31317(t, n, i))
+  ) {
+    let e = t.supportCall,
+      r = F.find((t) => t.id === e.heroId);
+    if (r) {
+      let i = Math.max(0.01, e.until - e.born),
+        a = Math.max(0, Math.min(1, (t.time - e.born) / i)),
+        o = Math.min(1, a / 0.12, (1 - a) / 0.2),
+        s = {
+          kind: a < 0.68 ? `skill` : `idle`,
+          started: e.born,
+          until: e.until,
+          facing: e.facing,
+          dx: e.dx,
+          dy: e.dy,
+          skillIndex: 0,
+        },
+        l = En(r, s);
+      C.push({
+        depth: e.x + e.y + 0.01,
+        draw: () => {
+          (c.save(), (c.globalAlpha = o), Rn(c, e.x, e.y, 21, 0.32 * o));
+          let i = Tn(r, s, t.time),
+            u = MONGSE_readyHeroSprite(
+              n,
+              i,
+              MONGSE_heroFallbackSprite(r, s),
+              r.sprite,
+            ),
+            a = An(
+              Hn(s, t.time, r.id !== `hwando` && r.id !== `gunner`, l),
+              r,
+              s,
+              u,
+            );
+          (HAPIL_captureHeroPoseV31315(t, n, r, s, u, On, a, e.x, e.y),
+            Ln(c, n, u, e.x, e.y, On, {
+              ...a,
+              alpha: o * (a.alpha ?? 1),
+              glow: r.color,
+            }),
+            Un(
+              c,
+              r.name,
+              r.color,
+              e.x,
+              e.y,
+              !1,
+              e.passiveName,
+              1,
+              i.showCombatInfo !== !1,
+            ),
+            c.restore());
+        },
+      });
+    }
+  }
+  let ee = F.find((e) => e.id === r) ?? F[0],
+    te =
+      t.heroMotion.until > t.time
+        ? t.heroMotion
+        : { ...t.heroMotion, kind: `idle`, dx: 0, dy: 0 },
+    T0 = Tn(ee, te, t.time),
+    T = MONGSE_readyHeroSprite(
+      n,
+      T0,
+      MONGSE_heroFallbackSprite(ee, te, t.direction ?? `front`),
+      ee.sprite,
+    ),
+    ie = An(
+      Hn(te, t.time, ee.id !== `hwando` && ee.id !== `gunner`, En(ee, te)),
+      ee,
+      te,
+      T,
+    ),
+    oe = Cn(te.dx || te.facing, te.dy);
+  (C.push({
+    depth: t.x + t.y + 0.02,
+    draw: () => {
+      Rn(c, t.x, t.y, 27, 0.5);
+      let e = t.awakeningUntil > t.time;
+      MONGSE_BUFF_FOOT_RENDERER_V31229 &&
+        MONGSE_drawPlayerBuffRings31220(c, t, ee, t.time, i);
+      for (const trail of window.__HAPIL_STORY_RC51__?.trails(t) ?? [])
+        Ln(c, n, T, trail.x, trail.y, On * 1.3, {
+          ...ie,
+          alpha: 0.09,
+          glow: "#fff",
+          glowBlur: 0,
+        });
+      if (te.kind === `dash`) {
+        let r = e && !i.lowFx ? 3 : 1;
+        for (let a = r; a >= 1; a--)
+          Ln(c, n, T, t.x, t.y, On, {
+            ...ie,
+            alpha: e ? 0.08 + a * 0.035 : i.lowFx ? 0.1 : 0.18,
+            offsetX: (ie.offsetX ?? 0) - oe.x * (8 + a * 7),
+            offsetY: (ie.offsetY ?? 0) - oe.y * (5 + a * 4),
+            glow: e ? MONGSE_awakeningProfile(ee.id).color : ee.color,
+            glowBlur: e ? 14 : 9,
+          });
+      }
+      (HAPIL_captureHeroPoseV31315(t, n, ee, te, T, On, ie, t.x, t.y),
+        Ln(
+          c,
+          n,
+          T,
+          t.x,
+          t.y,
+          On * (window.__HAPIL_STORY_RC51__?.heroSize(t) ?? 1),
+          {
+            ...ie,
+            glow: e ? MONGSE_awakeningProfile(ee.id).accent : ee.color,
+            glowBlur: e ? 22 : void 0,
+          },
+        ),
+        Un(
+          c,
+          ee.name,
+          ee.color,
+          t.x,
+          t.y,
+          !0,
+          void 0,
+          t.hp / Math.max(1, t.maxHp),
+          i.showCombatInfo !== !1,
+        ));
+    },
+  }),
+    window.__HAPIL_PARTY_V31322__?.queueDraw(C, c, n, t, i),
+    window.__HAPIL_TACTICS_V31334__?.queueNpc(C, c, n, t, i),
+    MONGSE_spatialRiftCasts.forEach((e) => HAPIL_drawRiftRC13(c, t.time, e, i)),
+    MONGSE_telekineticCasts.forEach((e) =>
+      HAPIL_drawTelekineticRC13(c, n, e, t.time, i),
+    ),
+    MONGSE_resonanceThreads.forEach((e) => Zn(c, t, e, t.time, i)),
+    MONGSE_effectsFront.forEach((e) => {
+      (c.save(),
+        (c.globalAlpha *= e.ultimate ? 0.68 : 0.82),
+        HAPIL_drawSkillRC13(c, n, e, t.time, i),
+        c.restore());
+    }),
+    window.__HAPIL_LASERS_V31330__?.draw(c, n, t, i),
+    HAPIL_RC13_RENDER.scope(c, { boss: true }, "bossScene", (view) =>
+      window.__HAPIL_BOSSES_V31334__?.draw(view, n, t, i),
+    ),
+    window.__HAPIL_EXIT_V31327__?.draw(c, n, t, i),
+    MONGSE_drawHeroVisibilityOverlaySmartR1(c, n, t, T, On, ie, i),
+    HAPIL_drawCollabPartnerV31317(c, n, t, i, { path: T, size: On, pose: ie }),
+    MONGSE_hostileProjectiles.filter(
+      (e) => e.narrativeAttack || e.cosmicShotV31318,
+    ).forEach((e) =>
+      HAPIL_drawProjectileRC13(
+        c,
+        n,
+        e,
+        t.time,
+        MONGSE_projectileRenderOptionsSmartR1,
+      ),
+    ),
+    window.__HAPIL_HERO_STYLE_V31364__?.drawExtras(c, n, t, i, "under"),
+    HAPIL_RC13_RENDER.scope(c, { boss: true }, "bossScene", (view) =>
+      window.__HAPIL_ECHOES_V31368__?.draw(view, n, t, i),
+    ),
+    window.__HAPIL_ENEMY_FEEL_V31361__?.draw(c, t, i, "under"),
+    C.sort((e, t) => e.depth - t.depth).forEach((e) => e.draw()),
+    (t.effects ?? [])
+      .filter((e) => e?.terminalContactV31362)
+      .forEach((e) => HAPIL_drawSkillRC13(c, n, e, t.time, i)),
+    (t.effects ?? [])
+      .filter((e) => e?.awakeningOriginV31357)
+      .forEach((e) => HAPIL_drawSkillRC13(c, n, e, t.time, i)),
+    (t.effects ?? [])
+      .filter((e) => e?.resonanceVfxV31356)
+      .forEach((e) => HAPIL_drawSkillRC13(c, n, e, t.time, i)),
+    window.__HAPIL_LUCIFER_V31318__?.drawFront(c, n, t, i),
+    MONGSE_pendingHits.forEach((e) =>
+      MONGSE_drawTelegraphSafetyOverlay(c, e, t.time, i),
+    ),
+    HAPIL_drawFocusV31316(c, t, i),
+    HAPIL_drawTimeDefenseV31317(c, n, t, i),
+    [t, ...(window.__HAPIL_PARTY_V31322__?.actors ?? [])].forEach((a) =>
+      window.__HAPIL_THEME_V31323__?.chains(c, n, t, a, i),
+    ),
+    window.__HAPIL_ENEMY_FEEL_V31361__?.draw(c, t, i, "front"),
+    window.__HAPIL_HERO_STYLE_V31364__?.drawExtras(c, n, t, i, "front"),
+    window.__HAPIL_LOOP_V31365__?.render(c, t, i, "front"),
+    window.__HAPIL_GRAMMAR_V31365__?.draw(c, t, i),
+    window.__HAPIL_DANMAKU_RPG_RC88__?.draw?.(c, t),
+    i.showHeartV31336 !== false &&
+      window.__HAPIL_COMBAT_V31333__?.drawCores(c, t, i),
+    i.heartDebugV31336 === true &&
+      window.__HAPIL_CONTACT_V31336__?.drawDebug(c, t),
+    MONGSE_floatTexts.forEach((e) => {
+      let n = Math.max(0, Math.min(1, (t.time - e.born) / e.duration)),
+        r = G(e.x, e.y),
+        a = t.enemies.find(
+          (t) =>
+            (t.boss || t.midboss) && Math.hypot(t.x - e.x, t.y - e.y) < 0.42,
+        ),
+        o = a?.cosmicLuciferV31318
+          ? 28
+          : a
+            ? Math.max(
+                a.boss ? 156 : 86,
+                Ge(a.kind, !!a.boss, !!a.midboss, !!a.elite, a.scale) *
+                  MONGSE_phaseScale(a) *
+                  (a.boss ? 0.9 : 0.76),
+              )
+            : 64;
+      (c.save(),
+        (c.globalAlpha = 1 - n),
+        (c.fillStyle = e.color),
+        (c.shadowColor = e.color),
+        (c.shadowBlur = i.reducedFlash ? 2 : 7),
+        (c.textAlign = `center`),
+        (c.font = e.critical
+          ? `900 18px ui-monospace, monospace`
+          : `800 13px ui-monospace, monospace`),
+        c.fillText(e.text, r.x, r.y - o - n * 28),
+        c.restore());
+    }),
+    c.restore());
+}
