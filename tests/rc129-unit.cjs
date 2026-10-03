@@ -40,6 +40,12 @@ const copy=fresh();D.restore(copy,D.exportSave(s));D.beforeTick(copy,locked,.1);
 for(let i=5;i<80;i++){tick(s,.11);C.graze(s,{id:'graze-'+i,sourceId:'b03-boss',born:0,damage:10,vx:1,vy:0},()=>true);}check(D.snapshot(s).graze.budget<=10&&s.resonance<=10,'bounded bonus per ten-second window');
 D.contact(s,s,{result:'HIT',hpLoss:1});check(D.snapshot(s).graze.combo===0,'actual damage breaks streak');
 s.rc127Defense={incoming:.25};check(P.incoming(s,{sourceId:'b03-boss'})===.25,'existing max damage-reduction cap preserved');check(P.incoming(s,{selfDamage:true})===1,'self damage is not reduced by graze');
-const factor=P.incoming(s,{sourceId:'b03-boss'});tick(s,5);check(D.snapshot(s).graze.guard===0,'graze guard expires');
+tick(s,5);check(D.snapshot(s).graze.guard===0,'graze guard expires');
+const beam=fresh();D.beforeTick(beam,locked,.1);tick(beam,.15);
+check(D.graze(beam,{laser:true,castId:'one-cast',id:'segment-a',sourceId:'b03-boss',born:1,damage:10}),'first laser cast graze');tick(beam,.15);
+check(!D.graze(beam,{laser:true,castId:'one-cast',id:'segment-b',sourceId:'b03-boss',born:2,damage:10}),'segments of one laser cannot award separate bonuses');
+check(!D.graze(beam,{laser:true,id:'unstable-segment',sourceId:'b03-boss',born:3,damage:10}),'unidentified laser cast gets no speculative bonus');
+for(const id of ['bullet-a','bullet-b']){tick(beam,.15);check(D.graze(beam,{id,bossCastId31210:'shared-salvo',sourceId:'b03-boss',born:4,damage:10,vx:1,vy:0}),'different bullets of one salvo stay independently grazeable');}
+const ids=beam.rc129Danmaku.graze.seen;tick(beam,.5);check(beam.rc129Danmaku.graze.seen===ids,'steady frames do not clone source ledger');
 check(window.__HAPIL_DANMAKU_HUD_RC129__.snapshot().metrics.errors===0,'no optional hook errors');
 console.log('RC129_UNIT_RESULT',JSON.stringify({status:'passed',checks,corridorSamples:corridors,minClearance,scope:'VM policies and geometric fixtures; not native campaign traversal',stats:D.snapshot(s).stats}));
