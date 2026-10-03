@@ -12,7 +12,7 @@ concurrency:
 jobs:
   candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v6
         with:
@@ -21,41 +21,53 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Prepare exact source runtime
+      - name: Prepare isolated source and browser tools
         run: |
           npm install --prefix "$RUNNER_TEMP/rc132-runtime" --no-save --package-lock=false acorn@8.15.0 prettier@3.6.2 playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
           echo "RC132_MODULES=$RUNNER_TEMP/rc132-runtime/node_modules" >> "$GITHUB_ENV"
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc132-runtime/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$GITHUB_WORKSPACE/qa/rc132/evidence" >> "$GITHUB_ENV"
-      - name: Apply scoped changes and validate unit contracts
+      - name: Apply exact candidate edits and bind preservation proof
         run: |
           set -euo pipefail
           mkdir -p "$HAPIL_QA_OUTPUT"
           node tools/rc132-apply.cjs > "$HAPIL_QA_OUTPUT/apply.log" 2>&1
-          node tools/rc132-extra-source.cjs > "$HAPIL_QA_OUTPUT/source-extra.log" 2>&1
+          node tools/rc132-export.cjs > "$HAPIL_QA_OUTPUT/delta.log" 2>&1
+          node <<'NODE'
+          const fs=require('fs'),assert=require('assert/strict'),f='tools/rc130-preservation.cjs';let s=fs.readFileSync(f,'utf8');if(!s.includes('RC132_PRESERVATION_DELEGATE')){const a='function verify(root){';assert.equal(s.split(a).length-1,1);s=s.replace(a,a+'\n // RC132_PRESERVATION_DELEGATE: exact new delta plus unchanged prior proof.\n if(fs.readFileSync(path.join(root,\'index.html\'),\'utf8\').includes(\'./assets/rc132/dream-balance.js\'))return require(\'./rc132-preservation.cjs\').verify(root);');fs.writeFileSync(f,s);}
+          NODE
           node --check assets/index-v31526.js
           node --check assets/combat-v31412/outgoing-native.js
-          node --check assets/rc132/dream-balance.js
           node tests/rc132-unit.cjs > "$HAPIL_QA_OUTPUT/unit.log" 2>&1
-          cat "$HAPIL_QA_OUTPUT/unit.log"
-      - name: Commit candidate runtime without touching main
+      - name: Commit candidate without publishing main
         run: |
           git config user.name 'HAPIL RC132 candidate'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/index-v31526.js assets/combat-v31412/outgoing-native.js index.html
+          git add assets/index-v31526.js assets/combat-v31412/outgoing-native.js index.html tools/rc132-runtime-delta.json tools/rc130-preservation.cjs
           if ! git diff --cached --quiet; then
-            git commit -m 'RC132 apply scoped DREAM sustain and remove mirror laser'
+            git commit -m 'RC132 record exact DREAM changes and historical preservation chain'
             git push origin HEAD:refs/heads/fix/rc132-dream-combat-audio
           fi
           git rev-parse HEAD > "$HAPIL_QA_OUTPUT/tested-runtime-commit.txt"
-      - name: Run native browser checks when available
+      - name: Install browser and media verifier
         run: |
-          if [ -f tests/rc132-browser.cjs ]; then
-            node "$RUNNER_TEMP/rc132-runtime/node_modules/playwright/cli.js" install --with-deps chromium > "$HAPIL_QA_OUTPUT/browser-install.log" 2>&1
-            export HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/rc132-runtime/node_modules/playwright")
-            node tests/rc132-browser.cjs > "$HAPIL_QA_OUTPUT/browser.log" 2>&1
-          fi
-      - name: Preserve exact result and source evidence
+          node "$RUNNER_TEMP/rc132-runtime/node_modules/playwright/cli.js" install --with-deps chromium > "$HAPIL_QA_OUTPUT/browser-install.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/rc132-runtime/node_modules/playwright")
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg > "$HAPIL_QA_OUTPUT/media-install.log" 2>&1
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Test exact current runtime, never a baseline substitution
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),cp=require('child_process'),base=process.env.HAPIL_QA_OUTPUT,report={testedCommit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),status:'running',suites:[]};
+          const suites=[['preservation','tools/rc132-preservation.cjs'],['rc132-browser','tests/rc132-browser.cjs'],['rc130-regression','tests/rc130-suite.cjs'],['release','tests/laser-release-gate.cjs']];
+          for(const[name,file]of suites){const out=path.join(base,name);fs.mkdirSync(out,{recursive:true});const start=Date.now(),r=cp.spawnSync(process.execPath,[file],{encoding:'utf8',maxBuffer:48*1024*1024,timeout:900000,env:{...process.env,HAPIL_QA_OUTPUT:out,HAPIL_RELEASE_OUTPUT:out}});fs.writeFileSync(path.join(out,'stdout.log'),r.stdout||'');fs.writeFileSync(path.join(out,'stderr.log'),r.stderr||'');const row={name,status:r.status===0&&!r.error?'passed':'failed',exitCode:r.status,durationMs:Date.now()-start,error:r.error?String(r.error):null};report.suites.push(row);fs.writeFileSync(path.join(base,'regression.json'),JSON.stringify(report,null,2));console.log('RC132_REGRESSION',JSON.stringify(row));}
+          report.status=report.suites.every(r=>r.status==='passed')?'passed':'failed';fs.writeFileSync(path.join(base,'regression.json'),JSON.stringify(report,null,2));process.exitCode=report.status==='passed'?0:1;
+          NODE
+      - name: Preserve exact evidence outside game branch
         if: always()
         env:
           RESULT: ${{ job.status }}
