@@ -1,0 +1,286 @@
+{
+  "baseline": "19a4c1f92df16559e43ba822ae0f7b8e74a5c47a",
+  "criterion": "decoded native warning foreground vs user-approved bundle; 3/255 channel rounding tolerance",
+  "legacyOpaqueBodyCriterionPassed": false,
+  "comparisons": [
+    {
+      "name": "desktop",
+      "pixelExact": true,
+      "changedPixels": 0,
+      "foregroundUnion": 19743,
+      "changedForegroundRatio": 0,
+      "baselineCenterCoverage": 0.9130434782608695,
+      "currentCenterCoverage": 0.9130434782608695,
+      "baselineBodyCoverage": 0.8913043478260869,
+      "currentBodyCoverage": 0.8913043478260869,
+      "baselineSectionCoverage": 1,
+      "currentSectionCoverage": 1,
+      "baselineDrawImageCalls": 1,
+      "currentDrawImageCalls": 1
+    },
+    {
+      "name": "reduced-flash",
+      "pixelExact": true,
+      "changedPixels": 0,
+      "foregroundUnion": 18622,
+      "changedForegroundRatio": 0,
+      "baselineCenterCoverage": 0.9130434782608695,
+      "currentCenterCoverage": 0.9130434782608695,
+      "baselineBodyCoverage": 0.8913043478260869,
+      "currentBodyCoverage": 0.8913043478260869,
+      "baselineSectionCoverage": 1,
+      "currentSectionCoverage": 1,
+      "baselineDrawImageCalls": 1,
+      "currentDrawImageCalls": 1
+    },
+    {
+      "name": "mobile-lowFx",
+      "pixelExact": true,
+      "changedPixels": 0,
+      "foregroundUnion": 13603,
+      "changedForegroundRatio": 0,
+      "baselineCenterCoverage": 0.9130434782608695,
+      "currentCenterCoverage": 0.9130434782608695,
+      "baselineBodyCoverage": 0.8913043478260869,
+      "currentBodyCoverage": 0.8913043478260869,
+      "baselineSectionCoverage": 1,
+      "currentSectionCoverage": 1,
+      "baselineDrawImageCalls": 1,
+      "currentDrawImageCalls": 1
+    }
+  ],
+  "approved": {
+    "rows": [
+      {
+        "name": "desktop",
+        "lowFx": false,
+        "reducedFlash": false,
+        "drawnPixels": 19743,
+        "spriteDraws": 0,
+        "drawImageCalls": 1,
+        "drawImageSources": [
+          {
+            "same": false,
+            "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "centerCoverage": 0.9130434782608695,
+        "bodyCoverage": 0.8913043478260869,
+        "sectionCoverage": 1,
+        "expectedPath": {
+          "start": {
+            "x": 640,
+            "y": 216
+          },
+          "end": {
+            "x": 640,
+            "y": 648
+          }
+        }
+      },
+      {
+        "name": "reduced-flash",
+        "lowFx": false,
+        "reducedFlash": true,
+        "drawnPixels": 18622,
+        "spriteDraws": 0,
+        "drawImageCalls": 1,
+        "drawImageSources": [
+          {
+            "same": false,
+            "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "centerCoverage": 0.9130434782608695,
+        "bodyCoverage": 0.8913043478260869,
+        "sectionCoverage": 1,
+        "expectedPath": {
+          "start": {
+            "x": 640,
+            "y": 216
+          },
+          "end": {
+            "x": 640,
+            "y": 648
+          }
+        }
+      },
+      {
+        "name": "mobile-lowFx",
+        "lowFx": true,
+        "reducedFlash": true,
+        "drawnPixels": 13603,
+        "spriteDraws": 0,
+        "drawImageCalls": 1,
+        "drawImageSources": [
+          {
+            "same": false,
+            "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "centerCoverage": 0.9130434782608695,
+        "bodyCoverage": 0.8913043478260869,
+        "sectionCoverage": 1,
+        "expectedPath": {
+          "start": {
+            "x": 640,
+            "y": 216
+          },
+          "end": {
+            "x": 640,
+            "y": 648
+          }
+        }
+      }
+    ],
+    "warmupPasses": 2,
+    "queuedAssets": [
+      {
+        "requestedPath": "./assets/vfx/rc50/infernal-skull-clean.png",
+        "src": "http://127.0.0.1:44627/assets/vfx/rc50/infernal-skull-clean.png?v=31332",
+        "width": 1254,
+        "height": 1254,
+        "complete": true
+      },
+      {
+        "requestedPath": "./assets/heroes/normalized/hwando/sprite_dc5cd368e747.webp",
+        "src": "http://127.0.0.1:44627/assets/heroes/normalized/hwando/sprite_dc5cd368e747.webp?v=31332",
+        "width": 512,
+        "height": 512,
+        "complete": true
+      },
+      {
+        "requestedPath": "./assets/vfx/generated/v300/burst-impact.webp",
+        "src": "http://127.0.0.1:44627/assets/vfx/generated/v300/burst-impact.webp?v=31332",
+        "width": 512,
+        "height": 512,
+        "complete": true
+      },
+      {
+        "requestedPath": "./assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp",
+        "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+        "width": 512,
+        "height": 512,
+        "complete": true
+      }
+    ],
+    "errors": [],
+    "failedResponses": []
+  },
+  "current": {
+    "rows": [
+      {
+        "name": "desktop",
+        "lowFx": false,
+        "reducedFlash": false,
+        "drawnPixels": 19743,
+        "spriteDraws": 0,
+        "drawImageCalls": 1,
+        "drawImageSources": [
+          {
+            "same": false,
+            "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "centerCoverage": 0.9130434782608695,
+        "bodyCoverage": 0.8913043478260869,
+        "sectionCoverage": 1,
+        "expectedPath": {
+          "start": {
+            "x": 640,
+            "y": 216
+          },
+          "end": {
+            "x": 640,
+            "y": 648
+          }
+        }
+      },
+      {
+        "name": "reduced-flash",
+        "lowFx": false,
+        "reducedFlash": true,
+        "drawnPixels": 18622,
+        "spriteDraws": 0,
+        "drawImageCalls": 1,
+        "drawImageSources": [
+          {
+            "same": false,
+            "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "centerCoverage": 0.9130434782608695,
+        "bodyCoverage": 0.8913043478260869,
+        "sectionCoverage": 1,
+        "expectedPath": {
+          "start": {
+            "x": 640,
+            "y": 216
+          },
+          "end": {
+            "x": 640,
+            "y": 648
+          }
+        }
+      },
+      {
+        "name": "mobile-lowFx",
+        "lowFx": true,
+        "reducedFlash": true,
+        "drawnPixels": 13603,
+        "spriteDraws": 0,
+        "drawImageCalls": 1,
+        "drawImageSources": [
+          {
+            "same": false,
+            "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+            "width": 512,
+            "height": 512
+          }
+        ],
+        "centerCoverage": 0.9130434782608695,
+        "bodyCoverage": 0.8913043478260869,
+        "sectionCoverage": 1,
+        "expectedPath": {
+          "start": {
+            "x": 640,
+            "y": 216
+          },
+          "end": {
+            "x": 640,
+            "y": 648
+          }
+        }
+      }
+    ],
+    "warmupPasses": 2,
+    "queuedAssets": [
+      {
+        "requestedPath": "./assets/vfx/rc50/infernal-skull-clean.png",
+        "src": "http://127.0.0.1:44627/assets/vfx/rc50/infernal-skull-clean.png?v=31332",
+        "width": 1254,
+        "height": 1254,
+        "complete": true
+      },
+      {
+        "requestedPath": "./assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp",
+        "src": "http://127.0.0.1:44627/assets/generated-v31224/boss-vfx/balrog_gate_meteor.webp?v=31332",
+        "width": 512,
+        "height": 512,
+        "complete": true
+      }
+    ],
+    "errors": [],
+    "failedResponses": []
+  }
+}
