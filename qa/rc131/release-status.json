@@ -2,11 +2,12 @@
   "version": "RC131",
   "reportDateKST": "2026-10-03",
   "repository": "kjb7876-lang/hapil1",
-  "overallStatus": "hero_loading_bug_reproduced_fixed_tested_uploaded_and_deployed_audio_archive_retry_incomplete",
+  "overallStatus": "hero_loading_bug_fixed_tested_uploaded_and_deployed_audio_archive_retry_incomplete",
   "startingMain": "22c12fcb8a2c1eda4d527e737199718778fa13d8",
   "runtimeCommit": "2193a14aa2b4368918dbcf610593db4d615d10da",
   "verifiedPromotedMain": "aa33070a15483bceb62047fc12bfd4eabb1e0bdd",
-  "revisionNote": "The verified main differs from runtimeCommit only by the handoff document. This report is also data/documentation only; its containing commit is not a new game-code revision.",
+  "revisionNote": "After runtimeCommit, only handoff and release-status records were added. The report-containing commit is not a new gameplay revision.",
+  "metadataCorrection": "Candidate artifact ID, size, digest, runtime fingerprints and finish timestamp were refreshed from the final fetched Actions job log and artifact-list API. This supersedes the first summary's copied metadata; the confirmed test counts and pass/fail conclusions are unchanged.",
   "deployment": {
     "url": "https://kjb7876-lang.github.io/hapil1/?v=43101",
     "verifiedPagesCommit": "aa33070a15483bceb62047fc12bfd4eabb1e0bdd",
@@ -17,14 +18,14 @@
     "deploy": "success"
   },
   "implementation": {
-    "confirmedDefect": "When a selected hero bitmap or actual action atlas was pending, some native draw paths painted no hero body despite other decoded poses of that same hero being available. Lauren also had a direct renderer outside the final Ln boundary.",
-    "fix": "Keep decoded original draws unchanged. While the requested asset is unavailable, select an already decoded nearest-direction bitmap belonging to the same hero and rebuild its actual render metadata. Preserve alpha and hit flags but do not inherit stale atlas crops. Restore the original action immediately when its image becomes ready.",
-    "lauren": "The direct renderer now selects fallback image and its matching body/foot-anchor metadata together.",
-    "identitySafety": "Never substitute another hero or an arbitrary effect. If all images for that hero are unavailable, no replacement body is fabricated; native loader and independent game/UI state remain intact.",
-    "loader": "The existing bounded image retry loader remains authoritative. Requested cache entries are not overwritten by fallback images.",
+    "confirmedDefect": "Selected hero images or action atlases could paint no body while pending, despite other same-hero poses already being decoded. Lauren also had a separate direct-render availability branch.",
+    "fix": "Decoded original draws keep the original parameters. While the requested image is pending, choose an already decoded nearest-direction bitmap from the same hero, rebuild metadata for that bitmap, remove stale atlas crops and preserve alpha/hit. Restore the original action as soon as its image is decoded.",
+    "lauren": "Direct renderer selects fallback bitmap and corresponding body/foot-anchor metadata together.",
+    "identitySafety": "Never borrow another hero or an arbitrary effect. No real bitmap display is guaranteed before any image of that hero has decoded.",
+    "loader": "The existing bounded retry loader is retained; fallback images do not overwrite requested cache entries.",
     "newArtworkFiles": 0,
     "changedRuntimeFiles": ["assets/rc131/hero-images.js", "assets/index-v31526.js", "index.html"],
-    "preserved": ["original decoded hero pixels", "approved connected-laser renderer", "777-reference base movement 6.471685", "RC130 barrage bitmap 20 percent cap", "stationary basic melee images", "RC129 named phases, graze and STORY/DREAM", "HELL removal", "RC128 awakening", "RC127 defense conversion and committed boss casts", "existing combat music and effects", "latest narration updates", "damage and collision rules", "save formats"]
+    "preserved": ["normal hero artwork pixels", "approved connected-laser renderer", "777-reference movement 6.471685", "RC130 barrage bitmap 20 percent cap", "stationary basic melee images", "RC129 phases, graze and STORY/DREAM", "HELL removal", "RC128 awakening", "RC127 defense and committed casts", "existing combat audio and latest narration", "damage, collision and save formats"]
   },
   "candidateVerification": {
     "run": 37124621005,
@@ -32,7 +33,7 @@
     "workflowHead": "8771178ed332bc9ec673f49c543e676eddd4a004",
     "actualCleanTestedCommit": "2193a14aa2b4368918dbcf610593db4d615d10da",
     "status": "success",
-    "workflowRevisionNote": "The workflow applied and committed the exact patch on the work branch first, then tested that new clean revision. Its trigger SHA is not the tested runtime SHA.",
+    "revisionNote": "The workflow applied and committed the patch on the work branch before testing the clean resulting revision; trigger SHA and tested SHA differ deliberately.",
     "newUnitAssertions": 344,
     "imageComparison": {
       "status": "passed",
@@ -52,7 +53,7 @@
       "optionErrors": 0,
       "unexpectedJSErrors": 0,
       "unexpectedHTTPFailures": 0,
-      "scope": "Explicit local native-render fixtures with the selected image and actual atlas deliberately held pending while other same-hero poses are decoded. These are not observed production failure counts or complete campaign plays."
+      "scope": "Explicit local native sprite-render fixtures. Selected bitmap/actual atlas is deliberately held pending while other same-hero art is decoded. These are not production incident counts or campaign completions."
     },
     "existingHeroDirections": {"cases": 64, "status": "passed", "heroes": 8},
     "existingHeroActions": {"casesPerProfile": 56, "profiles": ["desktop", "mobile"], "status": "passed"},
@@ -63,12 +64,20 @@
       "nestedCandidateSuitesPassed": 16,
       "nestedCandidateSuitesFailed": 0,
       "status": "passed",
-      "finishedAtUTC": "2026-10-03T13:10:02.989Z",
-      "naturalStory": {"status": "passed", "usedProgressCheats": false, "firstZone": "dist00", "finalZone": "dist01", "elapsedMs": 116365, "finalHP": 120, "JSErrors": 0, "HTTPFailures": 0, "scope": "Native first-region waves, first boss and portal progression; not all-hero full campaigns."},
-      "approvedLaser": {"types": 80, "renderedRows": 160, "changedPixelRatio": 0, "warningProfiles": 3, "warningPixelExact": true}
+      "finishedAtUTC": "2026-10-03T13:08:59.613Z",
+      "naturalStory": {"test": "tests/rc115-natural-story-portal-browser.cjs", "status": "passed", "scope": "Native first-region waves, first boss and portal progression; not all-hero full campaigns."},
+      "approvedLaserSuites": ["approved-art", "laser-phases", "laser-continuity", "laser-telegraph"],
+      "approvedLaserStatus": "passed"
     },
-    "countingNote": "The 16 nested suites are part of the 10-entry gate; RC130 overlaps other regressions. Do not add these as independent test-case totals.",
-    "artifact": {"id": 11273955895, "name": "rc131-verified-37124621005-1", "bytes": 151332441, "sha256": "f2a3142f669383b985ebab54e036c9e0567830f820eddd0e49efb0b9ff7c9a0a15", "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37124621005/artifacts/11273955895", "contents": ["workflow-result.json", "image-comparison.json", "baseline and candidate per-hero results and normal/pending galleries", "RC130 regression logs", "release gate results and screenshots"]}
+    "countingNote": "The 16 candidate suites are nested inside the 10-entry gate, and RC130 overlaps other regressions. Do not sum these as independent case totals.",
+    "artifact": {
+      "id": 11274666206,
+      "name": "rc131-verified-37124621005-1",
+      "bytes": 219169918,
+      "sha256": "f756ea64002d383ddcea05440fa27bb00c39f4000aedaa47930175f1c5d43771",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37124621005/artifacts/11274666206",
+      "contents": ["workflow-result.json", "image-comparison.json", "baseline/candidate image results and normal/pending galleries", "RC130 regression evidence", "release gate evidence"]
+    }
   },
   "publicVerification": {
     "run": 37125277285,
@@ -85,10 +94,10 @@
     "observedBaseSpeed": 6.471684999999999,
     "bitmapCapAssertionsPassed": true,
     "initialAllOwnArtUnavailableCalls": {"pc": 5, "portrait": 8, "landscape": 4},
-    "initialAvailabilityNote": "These cumulative counters occurred during initial decode and did not continue increasing in the recorded later samples. The fix does not claim to paint a real hero bitmap before any same-hero asset is decoded.",
+    "initialAvailabilityNote": "Initial decode counters did not continue increasing in recorded later samples. No claim of rendering a real image before any same-hero bitmap has decoded.",
     "attachmentImported": false,
     "finishedAtUTC": "2026-10-03T13:12:26.158Z",
-    "scope": "Read-only public bytes, three natural startup/combat observations, actual integration counters and existing gameplay assertions. No HTTP-response substitution, HP boost or progress injection; not physical-device certification.",
+    "scope": "Read-only public bytes and three natural startup/combat observations, with original game assertions. No response substitution or HP/progress injection. Not physical-device certification.",
     "artifact": {"id": 11274956171, "name": "rc131-public-37125277285-1", "bytes": 4543770, "sha256": "dd357ced47ecced3cb276cb82425bfb205bf043c4ca35e8fc96daa231b1a73d8", "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37125277285/artifacts/11274956171"}
   },
   "audioArchiveRetry": {
@@ -102,17 +111,17 @@
     "newAudioFilesUploaded": 0,
     "newAudioMapped": false,
     "status": "incomplete",
-    "reason": "Files archive read returned no readable contents. Materialization produced a raw file reference, but local container/Python execution repeatedly returned ClientError, preventing ZIP listing/extraction and media review.",
-    "provenanceNote": "The existing eight registered combat audio files were preserved and reverified; they were not assumed to be the complete or identical contents of this ZIP. No unreviewed gendered hurt voice was assigned."
+    "reason": "Files archive read returned no readable content. Raw materialization succeeded, but local container/Python execution repeatedly returned ClientError, preventing extraction and audio review.",
+    "provenanceNote": "Existing eight combat sounds and narration were preserved, not assumed to be the identical or complete ZIP contents. No unreviewed gendered hurt voice was assigned."
   },
-  "runtimeSHA256": {
-    "index.html": "3c8c88017a4e8ebea36c0edc7485d0f691fc77c08d18cdd2e5fda1f8f817bc51",
-    "assets/index-v31526.js": "eb5e31972a454315d610881bbc958e9b0c36d830ade70317b62fcbc30b0bf6145",
-    "assets/rc131/hero-images.js": "14bd17fc2bb99b0d931abd17beb2c1d7b6e8cb5f605953c12a0fac68f3df7763",
+  "runtimeSHA256FromFinalJobLog": {
+    "index.html": "9e8d47b536257ae45ce757bbc5fce90575d3d83147a7963867d9ea152f2a2a66",
+    "assets/index-v31526.js": "7d059d9ef963c905e3bf64b77f3268616953f02f66e16ec8878640750e9e96b1",
+    "assets/rc131/hero-images.js": "c7d8f359592f37661d69c62b4e5315d3f4983d2bba6a4ffc5d54c61832c4428d",
     "assets/rc77/connected-laser.js": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
     "assets/rc127/combat-policy.js": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
     "assets/rc130/projectile-policy.js": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
   },
-  "limitations": ["No complete guarantee when all same-hero images are unavailable", "Fallback may temporarily show a neighboring direction until original art loads", "Not an exhaustive artistic review of all attack frames", "No all-hero all-map natural campaign completion claim", "No physical iPhone/Safari or low-end Android benchmark", "Audio ZIP retry remains incomplete"],
+  "limitations": ["All same-hero images unavailable remains a loading limitation", "Fallback can temporarily use a neighboring direction", "Not every artistic pose or skill frame reviewed", "Not every hero/map natural campaign completed", "No physical iPhone/Safari or low-end Android benchmark", "Audio ZIP retry remains incomplete"],
   "handoff": "DOTS_RC131_HERO_IMAGES_HANDOFF_20261003.md"
 }
