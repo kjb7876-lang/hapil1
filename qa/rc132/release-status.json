@@ -1,0 +1,114 @@
+{
+  "version": "RC132",
+  "overallStatus": "three_gameplay_fixes_uploaded_deployed_and_verified_twenty_new_audio_attachments_not_imported",
+  "repository": "kjb7876-lang/hapil1",
+  "startingMain": "a624e894788a8a1c21d6ca611299985d62eaf97e",
+  "testedRuntimeCommit": "ec03aa2fd7dd95c7273fff48942470b59424c21f",
+  "verifiedPublicCommit": "019a5618cfd9d007513fc921b3f6426ea02dc430",
+  "revisionNote": "The verified public commit adds only the handoff document after the tested runtime commit. This release-status file is documentation only; its containing commit may be newer without changing the tested runtime.",
+  "implementation": {
+    "lifesteal": {
+      "scope": "DREAM only; actual main-hero and hunter/slayer party lifesteal commit paths",
+      "existingEarnedHealingMultiplier": 0.25,
+      "maxRecipientHPPerHit": 0.01,
+      "maxRecipientHPPerRollingCombatSecond": 0.02,
+      "windowSeconds": 1,
+      "storyAndPractice": "unchanged",
+      "noDirectHPWritesByPolicy": true,
+      "healingBlockAndNoRevivalPreserved": true,
+      "qualification": "The inspected native lifesteal was damage-proportional without a per-second maximum-HP cap. This identified sustain contributor is limited; other damage mitigation, invulnerability and awakening protection are separate and unchanged. No claim of a full-campaign subjective balance certification."
+    },
+    "wrathProgression": {
+      "zone": "ep1b07",
+      "successor": "ep1b08",
+      "scope": "DREAM current wrath encounter only",
+      "cause": "The authoritative FLOW gate excluded noncombat actors, but the shared combat-clear predicate, exit rendering and one native interaction path required an empty raw enemy array. A retained noncombat actor kept full auto in hostiles-or-waves even after canonical clear.",
+      "fixedPaths": ["MONGSE_zoneCombatCleared", "exit rendering", "native exit interaction"],
+      "preservedGates": ["living required enemies", "boss defeat", "mandatory spawns", "waves", "objectives", "native loot and clues", "portal proximity", "pause and transition state"],
+      "noForcedTeleportOrProgressInjectionInRuntime": true,
+      "baselineBugReproducedInControlledFixture": true,
+      "userExactSaveReproduced": false
+    },
+    "mirrorLaser": {
+      "scope": "extra DREAM mirror laser owned by __HAPIL_MIRROR_V31347__",
+      "generationRemoved": true,
+      "collisionAndDamageRemoved": true,
+      "plainColorDrawingRemoved": true,
+      "legacyTaggedQueuedDamageCleaned": true,
+      "inertCompatibilityAPIKept": true,
+      "memoryArtworkFunctionsPreservedVerbatim": ["poly", "memoryArt", "drawMemory"],
+      "approvedConnectedLasersAndAlliedRicochetsUnchanged": true
+    },
+    "preserved": ["777-reference basic movement 6.471685", "enemy barrage bitmap 20 percent bound", "stationary fading melee images", "RC129 phases and graze", "HELL removal", "RC128 awakening", "RC131 hero image fallback", "committed boss cast completion", "approved connected-laser renderer", "existing combat and narration audio"]
+  },
+  "verification": {
+    "runId": 37130966064,
+    "testedCommit": "ec03aa2fd7dd95c7273fff48942470b59424c21f",
+    "unitContracts": "passed in prepare job 111225887215",
+    "preservation": {"status":"passed","jobId":111225968915,"evidenceBranch":"qa/rc132-37130966064-preservation","evidenceFile":"qa/rc132/evidence/suite-result.json","artifactId":11277345217},
+    "dreamBrowser": {
+      "status": "passed",
+      "jobId": 111225968904,
+      "evidenceBranch": "qa/rc132-37130966064-dream-browser",
+      "results": "qa/rc132/evidence/browser-results.json",
+      "wrathComparison": "qa/rc132/evidence/wrath-consistency.json",
+      "artifactId": 11277160718,
+      "normalPostDefeatProfilesPassed": ["pc", "portrait", "landscape"],
+      "retainedNoncombatActorProfilesPassed": ["pc", "portrait", "landscape"],
+      "baselineComparison": "The pinned old PC build remained in ep1b07 and incorrectly requested combat while FLOW.gate was clear. The new build transitioned to ep1b08 through the original movement/portal route.",
+      "mirrorGenerationHitsDraws": [0, 0, 0],
+      "scope": "Real renderer and native startup, followed by explicit checkpoint and post-defeat fixtures. Native QA invokes the original death handler. These are not natural DREAM boss kills, the user's exact save, or complete campaigns."
+    },
+    "coreRegression": {"status":"passed","jobId":111225968903,"suiteCount":22,"failedSuites":0,"evidenceBranch":"qa/rc132-37130966064-core","evidenceFile":"qa/rc132/evidence/suite-stdout.log","artifactId":11277595326},
+    "extendedReleaseGate": {
+      "status": "passed",
+      "jobId": 111225968899,
+      "suiteCount": 10,
+      "failedSuites": 0,
+      "evidenceBranch": "qa/rc132-37130966064-release",
+      "evidenceFile": "qa/rc132/evidence/release-summary.json",
+      "artifactId": 11276737904,
+      "naturalStory": {"usedProgressCheats":false,"firstZone":"dist00","finalZone":"dist01","changedZone":true,"finalHP":222,"elapsedMs":90230},
+      "finishedAtUTC": "2026-10-03T15:00:46.497Z"
+    },
+    "countingNote": "Regression bundles overlap. Do not add the 22 core suites, 10 outer release entries, nested assertions or staged screenshots as independent campaigns.",
+    "history": [{"runId":37130257312,"dreamBrowser":"failed","core":"passed","preservation":"passed","release":"passed","reason":"First wrath consistency patch covered exit rendering/interaction but the shared combat-clear predicate still held auto progression in combat. The observed baseline assertion and shared predicate were corrected; the final run is a new passing run, not a relabeled old result."}]
+  },
+  "deployment": {
+    "url": "https://kjb7876-lang.github.io/hapil1/?v=43201",
+    "verifiedRuntimePagesCommit": "019a5618cfd9d007513fc921b3f6426ea02dc430",
+    "pagesRunId": 37131590998,
+    "buildJobId": 111227622277,
+    "deployJobId": 111227809295,
+    "buildStatus": "success",
+    "deployStatus": "success",
+    "publicRunId": 37131591841,
+    "publicJobId": 111227622595,
+    "publicAttempt": 1,
+    "publicStatus": "passed",
+    "publicExactFilesChecked": 32,
+    "publicProfiles": ["pc", "portrait", "landscape"],
+    "publicEvidenceBranch": "qa/rc132-public-37131591841-1",
+    "publicEvidenceFile": "qa/rc132/public-evidence/summary.json",
+    "scope": "Read-only published file hashes and actual initial STORY combat in three emulated browser profiles. The new mirror removal is observed and DREAM-only healing remains disabled in STORY. No HTTP-response replacement, HP injection or progress injection."
+  },
+  "runtimeSHA256": {
+    "index.html": "16ff019e47321e1253fc7202a6df19d38e5b428c0ea5705a42ca0a85fb9baf1a",
+    "assets/index-v31526.js": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e",
+    "assets/rc132/dream-balance.js": "38f7a45c19a5772aaa7a185914a40332a0d3c0bd707638b51c36a58f1be6632e",
+    "assets/combat-v31412/outgoing-native.js": "8c626e661bb458fbbfa5978cb6b852dd7d06a80fbace40b540538ba253465de0"
+  },
+  "newAudioAttachments": {
+    "attachedFiles": 20,
+    "bytesRead": false,
+    "decodedAndReviewed": false,
+    "newBinariesUploaded": 0,
+    "newRuntimeAudioMappings": 0,
+    "status": "not_imported",
+    "reason": "Repeated ClientError from the local container/Python execution service prevented reading and decoding mounted files. Files read also provided no readable audio content. No imaginary hashes, binaries or playable URLs were substituted.",
+    "pendingInventory": "qa/rc132/audio-pending.json",
+    "existingEightCombatAssets": "preserved and verified separately; not the new twenty attachments"
+  },
+  "limitations": ["Twenty new audio attachments are still unimported", "Wrath regression is a controlled post-defeat reproduction, not the user's exact save", "No all-hero all-map full-campaign certification", "No physical iPhone/Safari or low-end Android benchmark", "No claim that unbounded lifesteal was the only possible contributor to survivability"],
+  "handoff": "DOTS_RC132_DREAM_COMBAT_HANDOFF_20261003.md"
+}
