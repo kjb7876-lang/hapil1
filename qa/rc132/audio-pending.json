@@ -1,0 +1,33 @@
+{
+  "version": "RC132",
+  "source": "20 individually attached audio files in the current conversation",
+  "status": "blocked_local_execution_service_ClientError",
+  "filesRead": 0,
+  "filesDecoded": 0,
+  "filesUploadedThisTask": 0,
+  "runtimeReferencesAdded": 0,
+  "note": "These are filename-based placement intentions, not completed listening review, hash verification, binary upload or live routing. Existing combat and narration media remain unchanged. Do not mark imported merely because an older eight-file combat catalog exists.",
+  "genderRule": "Use a hurt voice only after verifying both the hero identity and the male/female clip mapping; do not substitute the active hero voice for an unidentified ally.",
+  "entries": [
+    {"filename":"Short_magical_blink__#4-1791000353126.wav","intendedRole":"player blink","reviewed":false},
+    {"filename":"Short_male_combat_hi_#1-1790999771415.wav","intendedRole":"male ally hurt variant","reviewed":false},
+    {"filename":"Short_male_combat_hi_#2-1790999771385.wav","intendedRole":"male ally hurt variant","reviewed":false},
+    {"filename":"Short_male_combat_hi_#4-1790999767038.wav","intendedRole":"male ally hurt variant","reviewed":false},
+    {"filename":"Short_melee_hit_impa_#1-1791000243196.wav","intendedRole":"melee impact variant; keep enemy-hit throttling","reviewed":false},
+    {"filename":"Short_melee_hit_impa_#3-1791000250226.wav","intendedRole":"melee impact variant; keep enemy-hit throttling","reviewed":false},
+    {"filename":"Short_melee_hit_impa_#4-1791000252248.wav","intendedRole":"melee impact variant; keep enemy-hit throttling","reviewed":false},
+    {"filename":"Sinister_demonic_dec_#1-1790999974172.wav","intendedRole":"boss dark-magic cue after listening review","reviewed":false},
+    {"filename":"Temporal Stutter.mp3","intendedRole":"time-space combat music after duration and loop review","reviewed":false},
+    {"filename":"Time_manipulation_aw_#1-1791000657816.wav","intendedRole":"awakening activation","reviewed":false},
+    {"filename":"time_tick_tack_sound_#1-1790999531800.wav","intendedRole":"sparse time-control cue","reviewed":false},
+    {"filename":"time_tick_tack_sound_#2-1790999537390.wav","intendedRole":"sparse time-control cue","reviewed":false},
+    {"filename":"time_tick_tack_sound_#3-1790999542258.wav","intendedRole":"sparse time-control cue","reviewed":false},
+    {"filename":"tree_weapon_attack_s_#2-1790999357019.mp3","intendedRole":"tree-boss weapon or root attack after listening review","reviewed":false},
+    {"filename":"ups_sound_#4-1790999480559.wav","intendedRole":null,"reviewed":false,"note":"Unclassified; filename alone is insufficient."},
+    {"filename":"歪時計の音.mp3","intendedRole":"time-space combat music or ambience after duration and loop review","reviewed":false},
+    {"filename":"Resonance_energy_gai_#2-1791000424116.wav","intendedRole":"resonance gain, grouped and throttled","reviewed":false},
+    {"filename":"Short_female_combat__#1-1790999688976.wav","intendedRole":"female ally hurt variant","reviewed":false},
+    {"filename":"Short_female_combat__#4-1790999692508.wav","intendedRole":"female ally hurt variant","reviewed":false},
+    {"filename":"Short_game_menu_navi_#4-1791000546558.wav","intendedRole":"menu navigation","reviewed":false}
+  ]
+}
