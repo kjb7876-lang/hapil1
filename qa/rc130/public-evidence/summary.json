@@ -1,0 +1,1196 @@
+{
+  "version": "RC130",
+  "testedCommit": "3d9028db93da4da3f34538982118146879f12ffa",
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "files": [
+    {
+      "file": "index.html",
+      "attempt": 8,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537",
+      "actual": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537"
+    },
+    {
+      "file": "assets/rc130/projectile-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+      "actual": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
+    },
+    {
+      "file": "assets/rc130/audio-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+      "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+      "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+    },
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/rc129/danmaku-director.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+      "actual": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3"
+    },
+    {
+      "file": "assets/rc129/danmaku-hud.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+      "actual": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/story-narration/v1/mixer.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+      "actual": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197"
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+      "actual": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+    },
+    {
+      "file": "audio/v31361/contact-kinetic.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913",
+      "actual": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913"
+    },
+    {
+      "file": "audio/v31361/contact-heavy.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8",
+      "actual": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8"
+    }
+  ],
+  "readiness": [
+    {
+      "file": "index.html",
+      "attempt": 0,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 1,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 2,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 3,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 4,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 5,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 6,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 7,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "93039a8f79cad97aea17ae17f5162601c321251a6b809743ddebf9d1b6f130e4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 8,
+      "status": 200,
+      "expected": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9",
+      "actual": "038155a5e9286760afc1c66accbc7f88c5b82810a2cfda1ee2c2f4038b6fbef9"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537",
+      "actual": "713101fa75feb60442a5f67e5198331b7bdf18b4c2f0c8ff0949223f2e807537"
+    },
+    {
+      "file": "assets/rc130/projectile-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+      "actual": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
+    },
+    {
+      "file": "assets/rc130/audio-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+      "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+      "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+    },
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/rc129/danmaku-director.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+      "actual": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3"
+    },
+    {
+      "file": "assets/rc129/danmaku-hud.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+      "actual": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/story-narration/v1/mixer.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+      "actual": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197"
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+      "actual": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+    },
+    {
+      "file": "audio/v31361/contact-kinetic.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913",
+      "actual": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913"
+    },
+    {
+      "file": "audio/v31361/contact-heavy.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8",
+      "actual": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8"
+    }
+  ],
+  "profiles": [
+    {
+      "name": "pc",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "time": 0.17670000000000027,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 5,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 1.793400000000001,
+          "x": 17.959271173529704,
+          "y": 16.06803703703704,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 18,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 57,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 3.1131999999999995,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 3,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 309,
+            "bitmapDraws": 154,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 30,
+            "meleeMissing": 0,
+            "retiredMelee": 2,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 100,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 4.4166000000000025,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 546,
+            "bitmapDraws": 383,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 30,
+            "meleeMissing": 0,
+            "retiredMelee": 2,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 114,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 5.8698000000000095,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 3,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 725,
+            "bitmapDraws": 562,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 30,
+            "meleeMissing": 0,
+            "retiredMelee": 2,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 122,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 7.350000000000025,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 5,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 936,
+            "bitmapDraws": 773,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 30,
+            "meleeMissing": 0,
+            "retiredMelee": 2,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 133,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 8.820000000000025,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 2,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1050,
+            "bitmapDraws": 887,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 57,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 147,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 10.313400000000014,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 8,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1172,
+            "bitmapDraws": 1009,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 77,
+            "meleeMissing": 0,
+            "retiredMelee": 4,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 160,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 11.809899999999999,
+          "x": 18.02851877062713,
+          "y": 17.040655624149014,
+          "hp": 124,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 5,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1239,
+            "bitmapDraws": 1054,
+            "cappedDraws": 0,
+            "maxRatio": 0.11759117767639056,
+            "meleeDraws": 77,
+            "meleeMissing": 0,
+            "retiredMelee": 4,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 173,
+            "enemyHitAccepted": 9,
+            "neutralHurt": 4,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "portrait",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "time": 0.15330000000000019,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 1.4200000000000006,
+          "x": 17.981195447615228,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 36,
+            "enemyHitAccepted": 1,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 2.4601,
+          "x": 17.981195447615228,
+          "y": 16.000000000000004,
+          "hp": 239.3,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 14,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 253,
+            "bitmapDraws": 209,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336502,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 70,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 3.7335000000000016,
+          "x": 18.4774317133364,
+          "y": 16.54625412454563,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 595,
+            "bitmapDraws": 535,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336544,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 113,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 5.047000000000005,
+          "x": 18.645674722163374,
+          "y": 17.026009114077628,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 14,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1158,
+            "bitmapDraws": 1082,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336544,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 158,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 4,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 6.394000000000005,
+          "x": 19.030500157751607,
+          "y": 18.137155265385804,
+          "hp": 236.83000000000007,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 7,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1483,
+            "bitmapDraws": 1391,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336583,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 207,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 6,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 7.75740000000001,
+          "x": 19.45628086122805,
+          "y": 19.30171002760426,
+          "hp": 232.13220000000004,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1768,
+            "bitmapDraws": 1646,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336583,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 265,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 9,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 9.094199999999997,
+          "x": 19.45628086122805,
+          "y": 19.30171002760426,
+          "hp": 237.805,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 6,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2008,
+            "bitmapDraws": 1874,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336583,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 313,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 12,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 10.47759999999999,
+          "x": 19.45628086122805,
+          "y": 19.30171002760426,
+          "hp": 237.3078,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 2053,
+            "bitmapDraws": 1905,
+            "cappedDraws": 0,
+            "maxRatio": 0.18661690124336583,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 363,
+            "enemyHitAccepted": 9,
+            "neutralHurt": 13,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "landscape",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "time": 0.16989999999999963,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 5,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 1.983199999999999,
+          "x": 18.514398085015042,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 71,
+            "bitmapDraws": 48,
+            "cappedDraws": 0,
+            "maxRatio": 0.1692718690829499,
+            "meleeDraws": 12,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 61,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 3.449999999999997,
+          "x": 20.243647556769652,
+          "y": 17.63695905058081,
+          "hp": 222.2,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 6,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 550,
+            "bitmapDraws": 463,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790447,
+            "meleeDraws": 12,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 99,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 4.966500000000008,
+          "x": 20.243647556769652,
+          "y": 17.63695905058081,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 868,
+            "bitmapDraws": 713,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790455,
+            "meleeDraws": 12,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 134,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 5,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 6.466500000000024,
+          "x": 21.610294162068335,
+          "y": 18.617126729290376,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 5,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 919,
+            "bitmapDraws": 730,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790455,
+            "meleeDraws": 12,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 174,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 6,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 7.966400000000043,
+          "x": 22.10766407286431,
+          "y": 19.11449664008635,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1042,
+            "bitmapDraws": 771,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790455,
+            "meleeDraws": 23,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 208,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 8,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 9.483000000000027,
+          "x": 23.027926796140573,
+          "y": 19.63078440986297,
+          "hp": 235.20520000000002,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1075,
+            "bitmapDraws": 782,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790455,
+            "meleeDraws": 23,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 244,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 12,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 10.999600000000003,
+          "x": 23.975409043905575,
+          "y": 20.597035495431292,
+          "hp": 234.91320000000002,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 12,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1144,
+            "bitmapDraws": 805,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790455,
+            "meleeDraws": 23,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 268,
+            "enemyHitAccepted": 10,
+            "neutralHurt": 15,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        },
+        {
+          "time": 12.516199999999976,
+          "x": 24.58296981571508,
+          "y": 21.015979296624526,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 3,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1210,
+            "bitmapDraws": 827,
+            "cappedDraws": 0,
+            "maxRatio": 0.17312702561790455,
+            "meleeDraws": 23,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 315,
+            "enemyHitAccepted": 11,
+            "neutralHurt": 18,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "attachmentImported": false,
+  "scope": "Read-only deployed bytes and natural startup, not full campaigns or physical-phone performance"
+}
