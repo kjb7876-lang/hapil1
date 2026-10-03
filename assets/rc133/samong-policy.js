@@ -17,7 +17,7 @@
  function clean(raw){if(!raw||raw.version!==1)return null;return {version:1,count:Math.floor(clamp(raw.count,0,7)),pending:raw.pending===true&&finite(raw.count)>=7,lastEntry:typeof raw.lastEntry==='string'?raw.lastEntry.slice(0,120):null,serial:Math.max(0,Math.floor(finite(raw.serial))),admitting:false};}
  function consume(s){const m=memory(s);m.count=0;m.pending=false;m.serial++;}
  function enter(s,wasAwake,before,after,origin='ego'){
-  if(!enabled(s)||origin!=='ego'||wasAwake||!(after>s.time)||!(after>before))return false;
+  if(!enabled(s)||origin!=='ego'||wasAwake||![s.time,before,after].every(Number.isFinite)||!(after>s.time)||!(after>before))return false;
   const m=memory(s),token=String(s.time)+':'+String(after);
   if(m.lastEntry===token)return false;m.lastEntry=token;m.count=Math.min(7,m.count+1);m.pending=m.count===7;
   if(m.pending)root.__HAPIL_SAMONG_RC91__?.tryEgo?.(s);
@@ -25,7 +25,7 @@
  }
  function admit(s,passive,origin){
   const m=memory(s);
-  if(!enabled(s)||m.admitting||finite(passive.active)>1e-8||finite(passive.cooldown)>1e-8)return false;
+  if(!['ego','revival'].includes(origin)||!enabled(s)||m.admitting||finite(passive.active)>1e-8||finite(passive.cooldown)>1e-8)return false;
   if(origin==='ego'&&(!(s.hp>0)||!m.pending))return false;
   if(origin==='revival'&&!root.__HAPIL_AWAKENING_POLICY_RC128__?.claim?.(s,passive))return false;
   m.admitting=true;return true;

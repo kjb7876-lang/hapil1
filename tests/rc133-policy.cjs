@@ -217,4 +217,6 @@ function advance(s, seconds) {
   eq(Policy.clean({ version: 2, count: 4 }), null, 'unknown save version is rejected');
 }
 
+{const s=fresh();ok(!Policy.enter(s,false,s.time,Infinity),'non-finite EGO event cannot count');eq(Policy.status(s).count,0,'invalid event leaves counter unchanged');ok(!Policy.admit(s,s.samongPassiveRC91,'unknown'),'unknown admission origin is rejected');eq(s.samongEgoRC133.admitting,false,'invalid origin cannot hold admission');}
+
 console.log('RC133_POLICY_RESULT', JSON.stringify({ checks, status: 'passed', scope: 'RC133 admission, encounter revival, upgrades, and save sanitation' }));

@@ -33,7 +33,7 @@
   const im=pictures.get(id);return im.complete&&im.naturalWidth>0?im:null;
  }
  function activate(s,origin){
-  if(!enabled(s)||!Number.isFinite(s.hp)||!(n(s.maxHp)>0)||(origin==='revival'?s.hp>0:s.hp<=0))return false;
+  if(!['ego','revival'].includes(origin)||!enabled(s)||!Number.isFinite(s.hp)||!(n(s.maxHp)>0)||(origin==='revival'?s.hp>0:s.hp<=0))return false;
   const P=window.__HAPIL_PARTY_V31322__;
   if(P?.state===s&&P?.status?.role==='guest')return false;
   const m=memory(s);if(m.cooldown>1e-8||m.active>1e-8)return false;
