@@ -460,7 +460,15 @@ async function assertNativeImpact(evidence) {
     assert.equal(mobileRequests.length,0,'mobile title/prologue never preloads combat uploads');
     const mobileInput=await page.evaluate(()=>({touchPoints:navigator.maxTouchPoints,coarse:matchMedia('(pointer: coarse)').matches,viewport:{width:innerWidth,height:innerHeight}}));
     assert(mobileInput.touchPoints>0&&mobileInput.coarse,'fresh context exposes a real Chromium touch input surface');
-    for(let i=0;i<2&&await page.locator('#mongse-christian-opening-v31236').isVisible();i++)await page.locator('.mongse-christian-opening__advance').tap();
+    // The overlay owns touch advancement; the decorative button is not the
+    // active touch target during the mark phase. Tap the live quote surface
+    // once, then retain the authored mark timer and fade/removal lifecycle.
+    const openingPhase=await page.evaluate(()=>{
+      const root=document.getElementById('mongse-christian-opening-v31236');
+      return root&&!root.classList.contains('is-leaving')?root.dataset.phase:null;
+    });
+    if(openingPhase==='quote')await page.locator('#mongse-christian-opening-v31236').tap({position:{x:20,y:20}});
+    await page.locator('#mongse-christian-opening-v31236').waitFor({state:'detached',timeout:6000});
     await page.getByRole('button',{name:'새 게임 시작',exact:true}).tap();
     await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).tap();
     await page.waitForFunction(()=>window.__MONGSE_QA_STATE__&&window.__MONGSE_QA_API__,null,{timeout:60000});
@@ -474,12 +482,9 @@ async function assertNativeImpact(evidence) {
     check('mobile touch start keeps title/story upload-free and starts native combat music');
 
     const openMobileSettings=async()=>{
-      const direct=page.getByRole('button',{name:'설정 · 메뉴',exact:true});
-      if(await direct.isVisible())await direct.tap();
-      else{
-        await page.getByRole('button',{name:'시스템 메뉴 열기',exact:true}).tap();
-        await page.getByRole('dialog',{name:'시스템 메뉴',exact:true}).getByRole('button',{name:/설정·진행 지도/}).tap();
-      }
+      // Touch CSS hides the native topbar. Its replacement toolbar dispatches
+      // Settings on trusted pointerdown through the mobile action controller.
+      await page.getByRole('button',{name:'설정 메뉴 열기',exact:true}).tap();
       await page.getByRole('dialog',{name:'설정',exact:true}).waitFor();
     };
     const closeMobileSettings=()=>page.getByRole('dialog',{name:'설정',exact:true}).getByRole('button',{name:'닫기 ×',exact:true}).tap();
