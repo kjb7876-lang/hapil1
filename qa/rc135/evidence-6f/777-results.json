@@ -1,0 +1,654 @@
+{
+  "status": "passed",
+  "commit": "6f9d95bc54e4ff85e306718264b8bd7f49747323",
+  "fixture": "Isolated pending-navigation fixture: native R action callback staged on trusted Settings pointerdown before native modal pause. Real ultimate target snapshots and queued hits; no pending-array/HP/clock edits. Normal UI code/nav/save flow; not natural progression.",
+  "scope": [
+    "pc",
+    "portrait",
+    "landscape"
+  ],
+  "profiles": [
+    {
+      "name": "pc",
+      "viewport": [
+        1180,
+        757
+      ],
+      "mobile": false,
+      "status": "passed",
+      "errors": [],
+      "missing": [],
+      "storyCode": {
+        "before": {
+          "zone": "dist00",
+          "frontierZone": "dist00",
+          "completedZones": [],
+          "enemies": 4,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 0,
+          "activeTimeMastery": 0,
+          "developerMaps": null,
+          "hasMapGrant": false,
+          "canInner": false,
+          "mode": "STORY",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": false,
+          "samongUnlocked": false,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "after": {
+          "zone": "dist00",
+          "frontierZone": "village",
+          "completedZones": [],
+          "enemies": 4,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": {
+            "version": 1,
+            "code": "777",
+            "allMaps": true
+          },
+          "hasMapGrant": true,
+          "canInner": false,
+          "mode": "STORY",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": false,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "rejectedMessage": "코드를 확인해 주세요.",
+        "acceptedMessage": "승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 64개 맵 이동 해금"
+      },
+      "storyHiddenButtonBeforeDream": 0,
+      "freshDream": {
+        "zone": "dist00",
+        "frontierZone": "dist00",
+        "completedZones": [],
+        "enemies": 1,
+        "bossDefeated": false,
+        "endingCleared": false,
+        "activeHeroMastery": 7,
+        "activeTimeMastery": 8,
+        "developerMaps": null,
+        "hasMapGrant": false,
+        "canInner": false,
+        "mode": "DREAM",
+        "hp": 240,
+        "maxHp": 240,
+        "practice": false,
+        "samongEnabled": true,
+        "samongUnlocked": true,
+        "party": {
+          "role": "offline",
+          "paused": false,
+          "disconnected": false
+        },
+        "fixedSpeed": 6.471684999999999
+      },
+      "dreamCode": {
+        "before": {
+          "zone": "dist00",
+          "frontierZone": "dist00",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": null,
+          "hasMapGrant": false,
+          "canInner": false,
+          "mode": "DREAM",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": true,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "after": {
+          "zone": "dist00",
+          "frontierZone": "village",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": {
+            "version": 1,
+            "code": "777",
+            "allMaps": true
+          },
+          "hasMapGrant": true,
+          "canInner": true,
+          "mode": "DREAM",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": true,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "rejectedMessage": "코드를 확인해 주세요.",
+        "acceptedMessage": "승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 64개 맵 이동 해금"
+      },
+      "navigationDrain": {
+        "manualModeViaUi": true,
+        "pendingAtPause": true,
+        "settled": true
+      },
+      "nativeMapAccess": {
+        "mapCount": 64,
+        "frontier": "village",
+        "selectedZone": "village"
+      },
+      "directArena": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "active": true,
+        "bossId": "inner-evil-rc133",
+        "entry": "developer-777",
+        "actorCount": 1,
+        "completedZones": [],
+        "bossDefeated": false,
+        "endingCleared": false
+      },
+      "nativeSlotReload": {
+        "mapFlag": {
+          "version": 1,
+          "code": "777",
+          "allMaps": true
+        },
+        "hasMapGrant": true,
+        "canInner": true,
+        "entry": "developer-777",
+        "actorCount": 1,
+        "completedZones": [],
+        "bossDefeated": false,
+        "endingCleared": false,
+        "bossId": "inner-evil-rc133"
+      },
+      "freshDreamAfterLoad": {
+        "zone": "dist00",
+        "frontierZone": "dist00",
+        "completedZones": [],
+        "enemies": 1,
+        "bossDefeated": false,
+        "endingCleared": false,
+        "activeHeroMastery": 7,
+        "activeTimeMastery": 8,
+        "developerMaps": null,
+        "hasMapGrant": false,
+        "canInner": false,
+        "mode": "DREAM",
+        "hp": 240,
+        "maxHp": 240,
+        "practice": false,
+        "samongEnabled": true,
+        "samongUnlocked": true,
+        "party": {
+          "role": "offline",
+          "paused": false,
+          "disconnected": false
+        },
+        "fixedSpeed": 6.471684999999999
+      }
+    },
+    {
+      "name": "portrait",
+      "viewport": [
+        390,
+        844
+      ],
+      "mobile": true,
+      "status": "passed",
+      "errors": [],
+      "missing": [],
+      "storyCode": {
+        "before": {
+          "zone": "dist00",
+          "frontierZone": "dist00",
+          "completedZones": [],
+          "enemies": 4,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 0,
+          "activeTimeMastery": 0,
+          "developerMaps": null,
+          "hasMapGrant": false,
+          "canInner": false,
+          "mode": "STORY",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": false,
+          "samongUnlocked": false,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "after": {
+          "zone": "dist00",
+          "frontierZone": "village",
+          "completedZones": [],
+          "enemies": 4,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": {
+            "version": 1,
+            "code": "777",
+            "allMaps": true
+          },
+          "hasMapGrant": true,
+          "canInner": false,
+          "mode": "STORY",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": false,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "rejectedMessage": "코드를 확인해 주세요.",
+        "acceptedMessage": "승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 64개 맵 이동 해금"
+      },
+      "storyHiddenButtonBeforeDream": 0,
+      "freshDream": {
+        "zone": "dist00",
+        "frontierZone": "dist00",
+        "completedZones": [],
+        "enemies": 1,
+        "bossDefeated": false,
+        "endingCleared": false,
+        "activeHeroMastery": 7,
+        "activeTimeMastery": 8,
+        "developerMaps": null,
+        "hasMapGrant": false,
+        "canInner": false,
+        "mode": "DREAM",
+        "hp": 240,
+        "maxHp": 240,
+        "practice": false,
+        "samongEnabled": true,
+        "samongUnlocked": true,
+        "party": {
+          "role": "offline",
+          "paused": false,
+          "disconnected": false
+        },
+        "fixedSpeed": 6.471684999999999
+      },
+      "dreamCode": {
+        "before": {
+          "zone": "dist00",
+          "frontierZone": "dist00",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": null,
+          "hasMapGrant": false,
+          "canInner": false,
+          "mode": "DREAM",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": true,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "after": {
+          "zone": "dist00",
+          "frontierZone": "village",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": {
+            "version": 1,
+            "code": "777",
+            "allMaps": true
+          },
+          "hasMapGrant": true,
+          "canInner": true,
+          "mode": "DREAM",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": true,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "rejectedMessage": "코드를 확인해 주세요.",
+        "acceptedMessage": "승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 64개 맵 이동 해금"
+      },
+      "navigationDrain": {
+        "manualModeViaUi": true,
+        "pendingAtPause": true,
+        "settled": true
+      },
+      "nativeMapAccess": {
+        "mapCount": 64,
+        "frontier": "village",
+        "selectedZone": "village"
+      },
+      "directArena": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "active": true,
+        "bossId": "inner-evil-rc133",
+        "entry": "developer-777",
+        "actorCount": 1,
+        "completedZones": [],
+        "bossDefeated": false,
+        "endingCleared": false
+      },
+      "nativeSlotReload": {
+        "mapFlag": {
+          "version": 1,
+          "code": "777",
+          "allMaps": true
+        },
+        "hasMapGrant": true,
+        "canInner": true,
+        "entry": "developer-777",
+        "actorCount": 1,
+        "completedZones": [],
+        "bossDefeated": false,
+        "endingCleared": false,
+        "bossId": "inner-evil-rc133"
+      },
+      "freshDreamAfterLoad": {
+        "zone": "dist00",
+        "frontierZone": "dist00",
+        "completedZones": [],
+        "enemies": 1,
+        "bossDefeated": false,
+        "endingCleared": false,
+        "activeHeroMastery": 7,
+        "activeTimeMastery": 8,
+        "developerMaps": null,
+        "hasMapGrant": false,
+        "canInner": false,
+        "mode": "DREAM",
+        "hp": 240,
+        "maxHp": 240,
+        "practice": false,
+        "samongEnabled": true,
+        "samongUnlocked": true,
+        "party": {
+          "role": "offline",
+          "paused": false,
+          "disconnected": false
+        },
+        "fixedSpeed": 6.471684999999999
+      }
+    },
+    {
+      "name": "landscape",
+      "viewport": [
+        844,
+        390
+      ],
+      "mobile": true,
+      "status": "passed",
+      "errors": [],
+      "missing": [],
+      "storyCode": {
+        "before": {
+          "zone": "dist00",
+          "frontierZone": "dist00",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 0,
+          "activeTimeMastery": 0,
+          "developerMaps": null,
+          "hasMapGrant": false,
+          "canInner": false,
+          "mode": "STORY",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": false,
+          "samongUnlocked": false,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "after": {
+          "zone": "dist00",
+          "frontierZone": "village",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": {
+            "version": 1,
+            "code": "777",
+            "allMaps": true
+          },
+          "hasMapGrant": true,
+          "canInner": false,
+          "mode": "STORY",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": false,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "rejectedMessage": "코드를 확인해 주세요.",
+        "acceptedMessage": "승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 64개 맵 이동 해금"
+      },
+      "storyHiddenButtonBeforeDream": 0,
+      "freshDream": {
+        "zone": "dist00",
+        "frontierZone": "dist00",
+        "completedZones": [],
+        "enemies": 1,
+        "bossDefeated": false,
+        "endingCleared": false,
+        "activeHeroMastery": 7,
+        "activeTimeMastery": 8,
+        "developerMaps": null,
+        "hasMapGrant": false,
+        "canInner": false,
+        "mode": "DREAM",
+        "hp": 240,
+        "maxHp": 240,
+        "practice": false,
+        "samongEnabled": true,
+        "samongUnlocked": true,
+        "party": {
+          "role": "offline",
+          "paused": false,
+          "disconnected": false
+        },
+        "fixedSpeed": 6.471684999999999
+      },
+      "dreamCode": {
+        "before": {
+          "zone": "dist00",
+          "frontierZone": "dist00",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": null,
+          "hasMapGrant": false,
+          "canInner": false,
+          "mode": "DREAM",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": true,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "after": {
+          "zone": "dist00",
+          "frontierZone": "village",
+          "completedZones": [],
+          "enemies": 1,
+          "bossDefeated": false,
+          "endingCleared": false,
+          "activeHeroMastery": 7,
+          "activeTimeMastery": 8,
+          "developerMaps": {
+            "version": 1,
+            "code": "777",
+            "allMaps": true
+          },
+          "hasMapGrant": true,
+          "canInner": true,
+          "mode": "DREAM",
+          "hp": 240,
+          "maxHp": 240,
+          "practice": false,
+          "samongEnabled": true,
+          "samongUnlocked": true,
+          "party": {
+            "role": "offline",
+            "paused": true,
+            "disconnected": false
+          },
+          "fixedSpeed": 6.471684999999999
+        },
+        "rejectedMessage": "코드를 확인해 주세요.",
+        "acceptedMessage": "승인 완료 · 사몽 모드 해금 · 모든 스킬·콜라보 MAX · 공명 성장 계속 · 전체 64개 맵 이동 해금"
+      },
+      "navigationDrain": {
+        "manualModeViaUi": true,
+        "pendingAtPause": true,
+        "settled": true
+      },
+      "nativeMapAccess": {
+        "mapCount": 64,
+        "frontier": "village",
+        "selectedZone": "village"
+      },
+      "directArena": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "active": true,
+        "bossId": "inner-evil-rc133",
+        "entry": "developer-777",
+        "actorCount": 1,
+        "completedZones": [],
+        "bossDefeated": false,
+        "endingCleared": false
+      },
+      "nativeSlotReload": {
+        "mapFlag": {
+          "version": 1,
+          "code": "777",
+          "allMaps": true
+        },
+        "hasMapGrant": true,
+        "canInner": true,
+        "entry": "developer-777",
+        "actorCount": 1,
+        "completedZones": [],
+        "bossDefeated": false,
+        "endingCleared": false,
+        "bossId": "inner-evil-rc133"
+      },
+      "freshDreamAfterLoad": {
+        "zone": "dist00",
+        "frontierZone": "dist00",
+        "completedZones": [],
+        "enemies": 1,
+        "bossDefeated": false,
+        "endingCleared": false,
+        "activeHeroMastery": 7,
+        "activeTimeMastery": 8,
+        "developerMaps": null,
+        "hasMapGrant": false,
+        "canInner": false,
+        "mode": "DREAM",
+        "hp": 240,
+        "maxHp": 240,
+        "practice": false,
+        "samongEnabled": true,
+        "samongUnlocked": true,
+        "party": {
+          "role": "offline",
+          "paused": false,
+          "disconnected": false
+        },
+        "fixedSpeed": 6.471684999999999
+      }
+    }
+  ]
+}

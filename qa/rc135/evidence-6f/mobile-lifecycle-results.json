@@ -1,0 +1,835 @@
+{
+  "dirty": false,
+  "commit": "6f9d95bc54e4ff85e306718264b8bd7f49747323",
+  "status": "passed",
+  "browser": {
+    "version": "140.0.7339.186",
+    "executable": "/home/runner/.cache/ms-playwright/chromium-1193/chrome-linux/chrome"
+  },
+  "scope": "Staged native Dream dist04 trio pressure fixture; repeated orientation uses CDP setDeviceMetricsOverride with mobile screenOrientation, not Playwright viewport-only resizing; hidden scene is separately staged through stageV3128BossShowcase(cult04), forceDefeatCurrentBossR4, fight phase, both awakening timers, and player-only invulnerability. Mobile viewport orientation/background, hidden-to-Story cleanup and native save/reload. HP, projectile arrays, and source art are never edited.",
+  "profiles": [
+    {
+      "viewport": "portrait-first 390x844",
+      "errors": [],
+      "httpErrors": [],
+      "status": "completed-density-reached",
+      "scenario": {
+        "kind": "native Dream dist04 midboss trio entered through RC69 native route; manual player controls; player-only invulnerability; no HP edits and no injected projectiles",
+        "hiddenScene": "QA stageV3128BossShowcase(cult04) + forceDefeatCurrentBossR4, then staged fight phase, boss awakening timer, Samong timer, and player-only invulnerability; not natural progression",
+        "projectileThresholdForDense": 24,
+        "progressStaging": "After the 20s native-route sample, readiness timers only were moved to within 0.05 game seconds for the three already-live native midbosses. Actor HP, player HP, hostile projectile arrays, source art and attacks were not edited; all subsequent attacks/projectile admissions ran through native frames."
+      },
+      "launch": {
+        "zone": "dist00",
+        "mode": "DREAM",
+        "state": true
+      },
+      "nativeEntry": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "naturalPhase": {
+        "label": "native route readiness, no readiness edits",
+        "startedAt": 0.32,
+        "wallSeconds": 20
+      },
+      "naturalSnapshot": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 4.720000000000003,
+        "hp": 240,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13589.711537599927,
+            "maxHp": 13809,
+            "readyAt": 4.840000000000003,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13392.558271999966,
+            "maxHp": 13617,
+            "readyAt": 4.840000000000003,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 4.840000000000003,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 18,
+        "admittedMidbossProjectiles": 18,
+        "finiteProjectiles": 18,
+        "projectileSources": [
+          "mb-dist04"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "naturalPeak": {
+        "max": 20,
+        "maxAt": {
+          "wallMs": 18252.600000000006,
+          "time": 4.280000000000003,
+          "count": 20,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 20,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 0
+        },
+        "samples": 111,
+        "startTime": 0.32
+      },
+      "pressureSnapshot": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.839999999999966,
+        "hp": 240,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13616.578327999814,
+            "maxHp": 13809,
+            "readyAt": 13.620000000000006,
+            "patternReadyAt": 13.800000000000006
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13419.05150719991,
+            "maxHp": 13617,
+            "readyAt": 10.01999999999998,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 9.959999999999965,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "pressureTiming": {
+        "rafIntervals": {
+          "count": 239,
+          "p50Ms": 183.40000000000146,
+          "p95Ms": 300,
+          "maxMs": 650,
+          "over50": 239,
+          "over100": 233,
+          "over250": 16
+        },
+        "longTasks": {
+          "count": 241,
+          "p50Ms": 179,
+          "p95Ms": 276,
+          "maxMs": 568,
+          "over50": 241,
+          "over100": 228,
+          "over250": 15
+        }
+      },
+      "pressurePeak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 25394.800000000003,
+          "time": 5.880000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 3,
+          "mb-dist04-trio-rc69-3": 14
+        },
+        "samples": 240,
+        "startTime": 0.32
+      },
+      "denseThresholdReached": true,
+      "errorsAtPressure": 0,
+      "httpErrorsAtPressure": 0,
+      "orientation": [
+        {
+          "iteration": 1,
+          "size": [
+            844,
+            390
+          ],
+          "state": {
+            "viewport": [
+              844,
+              390
+            ],
+            "screen": {
+              "width": 844,
+              "height": 390,
+              "orientation": "landscape-primary",
+              "angle": 90,
+              "visualViewport": [
+                844,
+                390
+              ]
+            },
+            "canvas": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "backing": [
+                702,
+                395
+              ]
+            },
+            "camera": null,
+            "midbosses": 3,
+            "projectiles": 20,
+            "time": 10.359999999999955,
+            "inBounds": true
+          },
+          "retainedThreeMidbosses": true,
+          "layoutMatchesViewport": true
+        },
+        {
+          "iteration": 2,
+          "size": [
+            390,
+            844
+          ],
+          "state": {
+            "viewport": [
+              390,
+              844
+            ],
+            "screen": {
+              "width": 390,
+              "height": 844,
+              "orientation": "portrait-primary",
+              "angle": 0,
+              "visualViewport": [
+                390,
+                844
+              ]
+            },
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "backing": [
+                1247,
+                702
+              ]
+            },
+            "camera": null,
+            "midbosses": 3,
+            "projectiles": 20,
+            "time": 10.439999999999953,
+            "inBounds": true
+          },
+          "retainedThreeMidbosses": true,
+          "layoutMatchesViewport": true
+        },
+        {
+          "iteration": 3,
+          "size": [
+            844,
+            390
+          ],
+          "state": {
+            "viewport": [
+              844,
+              390
+            ],
+            "screen": {
+              "width": 844,
+              "height": 390,
+              "orientation": "landscape-primary",
+              "angle": 90,
+              "visualViewport": [
+                844,
+                390
+              ]
+            },
+            "canvas": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "backing": [
+                702,
+                395
+              ]
+            },
+            "camera": null,
+            "midbosses": 3,
+            "projectiles": 20,
+            "time": 10.55999999999995,
+            "inBounds": true
+          },
+          "retainedThreeMidbosses": true,
+          "layoutMatchesViewport": true
+        },
+        {
+          "iteration": 4,
+          "size": [
+            390,
+            844
+          ],
+          "state": {
+            "viewport": [
+              390,
+              844
+            ],
+            "screen": {
+              "width": 390,
+              "height": 844,
+              "orientation": "portrait-primary",
+              "angle": 0,
+              "visualViewport": [
+                390,
+                844
+              ]
+            },
+            "canvas": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "backing": [
+                1247,
+                702
+              ]
+            },
+            "camera": null,
+            "midbosses": 3,
+            "projectiles": 20,
+            "time": 10.639999999999949,
+            "inBounds": true
+          },
+          "retainedThreeMidbosses": true,
+          "layoutMatchesViewport": true
+        },
+        {
+          "iteration": 5,
+          "size": [
+            844,
+            390
+          ],
+          "state": {
+            "viewport": [
+              844,
+              390
+            ],
+            "screen": {
+              "width": 844,
+              "height": 390,
+              "orientation": "landscape-primary",
+              "angle": 90,
+              "visualViewport": [
+                844,
+                390
+              ]
+            },
+            "canvas": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "backing": [
+                702,
+                395
+              ]
+            },
+            "camera": null,
+            "midbosses": 3,
+            "projectiles": 16,
+            "time": 10.759999999999946,
+            "inBounds": true
+          },
+          "retainedThreeMidbosses": true,
+          "layoutMatchesViewport": true
+        }
+      ],
+      "orientationSummary": {
+        "allLayoutsContained": true,
+        "allThreeActorsRetained": true,
+        "mismatches": []
+      },
+      "lifecycleHarness": {
+        "focusOverride": "disabled on the owning Playwright main-frame CDP session",
+        "visibilityOverride": false,
+        "syntheticEvents": false,
+        "clockEdits": false
+      },
+      "backgroundHeldBefore": [
+        "ArrowRight"
+      ],
+      "visibility": {
+        "beforeState": "visible",
+        "beforeTime": 11.239999999999936,
+        "hiddenObserved": {
+          "state": "hidden",
+          "hidden": true,
+          "time": 11.279999999999935,
+          "events": [
+            {
+              "state": "hidden",
+              "hidden": true,
+              "at": 64615.20000000001
+            }
+          ]
+        },
+        "returned": {
+          "state": "visible",
+          "hidden": false,
+          "time": 11.359999999999934,
+          "events": [
+            {
+              "state": "hidden",
+              "hidden": true,
+              "at": 64615.20000000001
+            },
+            {
+              "state": "visible",
+              "hidden": false,
+              "at": 64643.600000000006
+            }
+          ]
+        },
+        "nativeTimeAdvanced": true
+      },
+      "lifecycleControl": {
+        "status": "observed",
+        "events": [
+          {
+            "name": "freeze",
+            "trusted": true,
+            "hidden": true,
+            "time": 11.439999999999932,
+            "heldKeys": [],
+            "at": 65566.9
+          },
+          {
+            "name": "resume",
+            "trusted": true,
+            "hidden": true,
+            "time": 11.439999999999932,
+            "heldKeys": [],
+            "at": 66603.1
+          }
+        ],
+        "frozenStart": 11.439999999999932,
+        "frozenEnd": 11.439999999999932,
+        "wallFrozenMs": 1736,
+        "beforeTime": 11.359999999999934,
+        "afterTime": 11.55999999999993,
+        "heldKeys": []
+      },
+      "hiddenExit": {
+        "hidden": {
+          "defeated": {
+            "pass": true,
+            "bossId": "c104-boss",
+            "boss": true,
+            "midboss": false,
+            "remainingProjectiles": 0
+          },
+          "phase": "fight",
+          "active": true,
+          "camera": {
+            "x": 444.8,
+            "y": 218.9375,
+            "scale": 0.305,
+            "personaMirrorRC134": true
+          },
+          "mood": "opposition",
+          "bossId": "inner-evil-rc133",
+          "duelStats": {
+            "guards": 2,
+            "repairs": 0,
+            "mirrors": 0,
+            "releases": 0
+          },
+          "gameCanvas": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          }
+        },
+        "story": {
+          "mode": "STORY",
+          "duelActive": false,
+          "mood": "normal",
+          "composeApplied": false,
+          "filterBefore": "sepia(0.3)",
+          "filterAfter": "sepia(0.3)",
+          "globalAlphaBefore": 0.5,
+          "globalAlphaAfter": 0.5,
+          "pixelBefore": [
+            35,
+            69,
+            103,
+            255
+          ],
+          "pixelAfter": [
+            35,
+            69,
+            103,
+            255
+          ],
+          "positionDescriptor": {
+            "value": 10.895784051422972,
+            "writable": true,
+            "enumerable": true,
+            "configurable": true
+          },
+          "duelStats": {
+            "guards": 2,
+            "repairs": 0,
+            "mirrors": 0,
+            "releases": 2
+          },
+          "encounter": false
+        },
+        "canvasAfter": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "size": [
+            1247,
+            702
+          ]
+        },
+        "storyOverlay": 1
+      },
+      "nativeSave": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 11.639999999999928,
+        "hero": "hwando",
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "triad": true
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "hp": 6304,
+            "maxHp": 6304,
+            "triad": true
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "hp": 5819,
+            "maxHp": 5819,
+            "triad": true
+          }
+        ],
+        "playerHp": 240,
+        "slot": {
+          "zone": "dist04",
+          "heroId": "hwando",
+          "savedAt": "2026-10-04T16:54:52.910Z",
+          "midbossTrio": [
+            {
+              "id": "mb-dist04",
+              "hp": 13809,
+              "maxHp": 13809,
+              "owner": "mb-dist04"
+            },
+            {
+              "id": "mb-dist04-duo-rc59",
+              "hp": 13617,
+              "maxHp": 13617,
+              "owner": "mb-dist04"
+            },
+            {
+              "id": "mb-dist04-trio-rc69-3",
+              "hp": 12569,
+              "maxHp": 12569,
+              "owner": "mb-dist04"
+            }
+          ],
+          "midbossEncounter": {
+            "version": 1,
+            "zone": "dist04",
+            "ids": [
+              "mb-dist04",
+              "mb-dist04-duo-rc59",
+              "mb-dist04-trio-rc69-3"
+            ],
+            "members": [
+              {
+                "id": "mb-dist04",
+                "template": "mb-dist04",
+                "visual": "mb-dist04",
+                "x": 16.479301524582603,
+                "y": 5.013018361728317,
+                "hp": 13809,
+                "maxHp": 13809
+              },
+              {
+                "id": "mb-dist04-duo-rc59",
+                "template": "mb-dist04",
+                "visual": "mb-dist04",
+                "x": 21.936398157013144,
+                "y": 7.187102695591443,
+                "hp": 13617,
+                "maxHp": 13617
+              },
+              {
+                "id": "mb-dist04-trio-rc69-3",
+                "template": "mb-dist04",
+                "visual": "mb-dist04",
+                "x": 6.540341001760796,
+                "y": 6.566532510267444,
+                "hp": 12569,
+                "maxHp": 12569
+              }
+            ]
+          }
+        },
+        "slotSaved": true,
+        "titleAfterReload": 1,
+        "restored": {
+          "zone": "dist04",
+          "time": 0.28,
+          "mode": "DREAM",
+          "playerHp": 240,
+          "actors": [
+            {
+              "id": "mb-dist04",
+              "hp": 13809,
+              "maxHp": 13809
+            },
+            {
+              "id": "mb-dist04-duo-rc59",
+              "hp": 13617,
+              "maxHp": 13617
+            },
+            {
+              "id": "mb-dist04-trio-rc69-3",
+              "hp": 12569,
+              "maxHp": 12569
+            }
+          ],
+          "innerMode": false
+        },
+        "restoreMatches": true
+      },
+      "final": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 0.32,
+        "hp": 240,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13809,
+            "maxHp": 13809,
+            "readyAt": 0,
+            "patternReadyAt": 0.4
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13617,
+            "maxHp": 13617,
+            "readyAt": 0,
+            "patternReadyAt": 0.4
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 0,
+            "patternReadyAt": 0.4
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 5,
+        "admittedMidbossProjectiles": 5,
+        "finiteProjectiles": 5,
+        "projectileSources": [
+          "mb-dist04"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "errorsAtEnd": 0,
+      "httpErrorsAtEnd": 0
+    }
+  ]
+}

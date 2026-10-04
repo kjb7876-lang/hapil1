@@ -1,0 +1,20 @@
+{
+  "testedCommit": "6f9d95bc54e4ff85e306718264b8bd7f49747323",
+  "referenceOnly": true,
+  "gameplayCandidateBranch": "codex/rc134-integrated",
+  "mobile": {
+    "run": 37218373603,
+    "job": 111483469435,
+    "artifact": 11309460506,
+    "artifactSha256": "50ba150de1570e96f5765eed37a03558d72dec2d0ace31212c37a8ea0de8032f",
+    "assertions": "passed",
+    "workflowJobConclusion": "failure",
+    "failureReason": "Final clean-tree check: combat-audio-browser wrote qa-results because wrapper omitted its HAPIL_COMBAT_AUDIO_OUTPUT variable. This was fixed in candidate 28f2d96176054c0e0a20b8157591acaf28520be8; do not relabel prior job success."
+  },
+  "777": {
+    "status": "passed",
+    "scope": "Staged native R action admission on trusted Settings pointerdown before native dialog pause. Actual ultimate target snapshots; no queued-hit, HP, progress or clock editing. All three profiles pendingAtPause=true and original ten-second drain condition retained. Separate from ordinary CI and natural progression.",
+    "originalHarnessSha256": "d620c14716a584d8d60d86c91d8e08bda8cffc42136713f10416a1771f4160e7",
+    "reproduction": "Set HAPIL_SOURCE_ROOT to an exact intended gameplay checkout, then run this portable evidence harness; this reference-only branch itself is not the tested runtime."
+  }
+}
