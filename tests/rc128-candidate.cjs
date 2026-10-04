@@ -59,7 +59,7 @@ try{
  }
  const indexHash=digest(narrationIndexBase(prior));report.narrationIndexExtension={actual:report.files['index.html'],approvedBase:indexHash,expectedBase:accepted['index.html']};
  const rc133Compatibility=require('../tools/rc133-release-compatibility.cjs');
- const hasExactRC133=rc130Migration?.report.deltaSha256==='e887e8bdb706e5d2d319c5a5e8445c7040338ea6c3bfd68cc0b74f84601e5f99';
+ const hasExactRC133=rc130Migration?.report.deltaSha256==='2a619af09efcf5ba50f0b5e228abf43fbdea0970c1c45a16a992dcee89ecf4e9';
  const promotionHash=(f,expected)=>f==='index.html'?indexHash:hasExactRC133&&rc133Compatibility.supports(f)?rc133Compatibility.verify(root,rc130Migration,f,expected):rc130Migration?.historical[f]?digest(rc130Migration.historical[f]):report.files[f];
  report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>promotionHash(f,expected)!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
  if(hasExactRC133)report.explicitRC133Compatibility={method:'Full current-runtime proof plus exact preimage/output pins for three approved revisions; browser suites still test current bytes',files:Object.keys(rc133Compatibility.revisions)};

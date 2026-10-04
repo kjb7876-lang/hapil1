@@ -71479,9 +71479,14 @@ function MONGSE_installBossVisualPatchV31224() {
       MONGSE_projectileV31224.impactSpriteV31224 ??=
         MONGSE_actorVisualV31224.impact;
       if (
-        MONGSE_projectileV31224.themeProjectile ||
-        MONGSE_projectileV31224.codeNativeBarrage31219 ||
-        !MONGSE_projectileV31224.sprite
+        (MONGSE_projectileV31224.themeProjectile ||
+          MONGSE_projectileV31224.codeNativeBarrage31219 ||
+          !MONGSE_projectileV31224.sprite) &&
+        // RC134 Persona owns these source sprites. The native theme flag also
+        // serves simulation, so keep it while excluding this legacy art rewrite.
+        !(MONGSE_projectileV31224.rc133InnerShot === true &&
+          MONGSE_projectileV31224.sourceId === 'inner-evil-rc133' &&
+          /^\.\/assets\/rc134\/persona-skills\/(?:small-orb|eye|diamond|clock|star|eclipse|lance|shield|vortex)\.png(?:\?v=43402)?$/.test(MONGSE_projectileV31224.sprite))
       )
         MONGSE_projectileV31224.sprite =
           MONGSE_actorVisualV31224.projectile;
