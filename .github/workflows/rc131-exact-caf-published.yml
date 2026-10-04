@@ -1,0 +1,46 @@
+name: RC131 exact-caf published contract reconciliation
+on:
+  push:
+    branches: [codex/rc133-rc131-public-cafbea9]
+permissions:
+  contents: read
+concurrency:
+  group: rc131-exact-caf-published
+  cancel-in-progress: false
+jobs:
+  published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: cafbea9fb98aa9842436fffb61c199bcd48c8dff
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated read-only public browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc131-exact-caf-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/rc131-npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/rc131-browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc131-exact-caf-public" >> "$GITHUB_ENV"
+      - name: Run unchanged RC131 public contract against exact deployed caf
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "cafbea9fb98aa9842436fffb61c199bcd48c8dff"
+          test -z "$(git status --porcelain)"
+          node qa/rc131/public-smoke.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc131-exact-caf-public-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc131-exact-caf-public/
+          retention-days: 14
+
