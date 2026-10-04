@@ -287,7 +287,7 @@ async function main() {
     });
     assert.equal(new Set(outputRows.map(row => row.file)).size, expectedOutputCount, 'manifest output paths must be unique');
 
-    
+
     const personaManifest = JSON.parse(localBytes('assets/rc134/persona-skills/manifest.json'));
     assert.equal(personaManifest.outputs.length, 9, 'nine approved Persona crops');
     const keys = ['small-orb','eye','diamond','clock','star','eclipse','lance','shield','vortex'];

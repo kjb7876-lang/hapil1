@@ -190,7 +190,8 @@ const canvasObserver = `(() => {
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 async function openSettings(page) {
   const tryTap = async locator => {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 8; i++) {
+      if(await page.locator('#hapil-story-rc51:visible').count()) await advanceNarrative(page);
       const box = await locator.boundingBox().catch(() => null);
       if (box && box.width > 1 && box.height > 1) {
         if(mobile) await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
@@ -208,12 +209,22 @@ async function openSettings(page) {
   await page.locator('.rc61-settings').waitFor({ state: 'visible' });
 }
 async function advanceNarrative(page) {
-  for (let i = 0; i < 18; i++) {
-    const story = page.locator('#hapil-story-rc51');
-    if (!(await story.count()) || !(await story.isVisible().catch(() => false))) break;
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(80);
+  const deadline=Date.now()+45000;
+  let settled=0;
+  while(Date.now()<deadline){
+    const story=page.locator('#hapil-story-rc51:visible');
+    if(await story.count()){
+      settled=0;
+      const next=story.getByRole('button',{name:/계속/});
+      if(await next.isVisible().catch(()=>false))await next.click();
+      else await page.keyboard.press('Enter');
+      await page.waitForTimeout(200);
+    }else{
+      if(++settled>=2)break;
+      await page.waitForTimeout(150);
+    }
   }
+  assert.equal(await page.locator('#hapil-story-rc51:visible').count(),0,'native Story dialogue must finish before Settings');
   await page.waitForFunction(() => window.__HAPIL_CONTROLS_V31329__?.binding?.phase === 'game');
 }
 async function startRun(page, dream) {
