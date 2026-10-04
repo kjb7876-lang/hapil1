@@ -43,12 +43,12 @@ function env(){
  const {Final,Samong,window,state}=env(),s=state('neon');s.enemies.push({id:'c104-boss',hp:0,maxHp:1500,x:22,y:8,boss:true});
  Final.beforeDeath(s,s.enemies[0]);const m=s.innerFinalRC133;m.intro=0;const a=Final.boss(s);a.hp=Math.ceil(a.maxHp*.1);s.hp=0;
  ok(Samong.tryRevive(s),'near-final player death starts the paired awakening before respawn');
- eq(Math.round(s.hp/s.maxHp*100),22,'player returns at a bounded low health');eq(Math.round(a.hp/a.maxHp*100),22,'hidden boss returns at a bounded low health');
+ eq(Math.round(s.hp/s.maxHp*100),22,'player returns at a bounded low health');eq(Math.round(a.hp/a.maxHp*100),10,'living hidden boss keeps its damaged health');
  eq(Samong.active(s),true,'player receives the seven-second Samong awakening');eq(m.awake,7,'boss receives its opposing awakening');eq(Final.mood(s),'opposition','the arena enters the half-white/half-red duel');
  eq(s.samongPassiveRC91.encounterRC128.used,true,'the normal encounter revival token is consumed');
  const snap=Final.snapshot(s),passive=Samong.snapshot(s),restored=state('neon');restored.time=s.time;Final.restore(restored,snap);Samong.restore(restored,passive);
  const ra=Final.boss(restored);ok(restored.innerFinalRC133.clash.used&&!!ra,'native save restore retains one-use duel and both combatants');
- eq(Math.round(restored.hp/restored.maxHp*100),22,'native restore preserves duel player health');eq(Math.round(ra.hp/ra.maxHp*100),22,'native restore preserves duel boss health');
+ eq(Math.round(restored.hp/restored.maxHp*100),22,'native restore preserves duel player health');eq(Math.round(ra.hp/ra.maxHp*100),10,'native restore preserves living boss progress');
  restored.samongPassiveRC91.active=0;restored.samongPassiveRC91.cooldown=0;restored.hp=0;eq(Samong.tryRevive(restored),false,'duel token cannot grant a second lethal revival');
  ra.hp=0;eq(Final.beforeDeath(restored,ra),false,'a second boss defeat completes the hidden fight instead of replaying the clash');eq(restored.innerFinalRC133.phase,'complete','hidden finale completes after the actual final defeat');
  const modes=env();const story=state();story.gameModeV31346='STORY';story.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];eq(modes.Final.beforeDeath(story,story.enemies[0]),false,'Story cult death is unchanged');
@@ -68,6 +68,21 @@ function env(){
  const restored=state('hunter');restored.time=s.time;restored.hp=220;Final.restore(restored,finalSave);Samong.restore(restored,passiveSave);eq(Final.boss(restored).hp,bossHp,'restored duel preserves actual living boss progress');
  eq(Final.mood(restored),'opposition','restored paired arena is active');eq(policy.status(restored).pending,false,'restored pending EGO is already consumed');
  restored.hp=0;eq(Samong.tryRevive(restored),false,'restore cannot grant another life');
+}
+
+// Boss-first lethal damage has the same one-use paired admission for every
+// hero. The living player's health and healing ceiling are never rewritten.
+{
+ for(const hero of ['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner']){
+  const {Final,Samong,window,state}=env(),s=state(hero);s.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];Final.start(s,s.enemies[0]);const a=Final.boss(s);s.hp=740;s.heroHealingCeiling=810;a.hp=0;
+  Object.assign(window.__HAPIL_SAMONG_POLICY_RC133__.memory(s),{count:7,pending:true});
+  ok(Final.beforeDeath(s,a),hero+' first boss lethal is intercepted before native removal');eq(a.hp,Math.ceil(a.maxHp*.22),hero+' dead boss revives once at 22%');eq(s.hp,740,hero+' living player health preserved');eq(s.heroHealingCeiling,810,hero+' living healing ceiling preserved');
+  eq(s.innerFinalRC133.clash.reason,'boss',hero+' saves genuine boss-first cause');eq(Final.mood(s),'opposition',hero+' counter awakening produces split arena');eq(window.__HAPIL_SAMONG_POLICY_RC133__.status(s).pending,false,hero+' pending EGO is consumed once');
+  const restored=state(hero);restored.hp=s.hp;restored.heroHealingCeiling=s.heroHealingCeiling;restored.time=s.time;Final.restore(restored,Final.snapshot(s));Samong.restore(restored,Samong.snapshot(s));
+  eq(restored.hp,740,hero+' boss-first restore retains living player HP');eq(restored.innerFinalRC133.clash.reason,'boss',hero+' boss-first cause survives restore');
+  restored.hp=0;restored.samongPassiveRC91.active=0;restored.samongPassiveRC91.cooldown=0;eq(Samong.tryRevive(restored),false,hero+' second player lethal cannot revive');
+  const dead=Final.boss(restored);dead.hp=0;eq(Final.beforeDeath(restored,dead),false,hero+' second boss lethal is terminal');eq(restored.innerFinalRC133.phase,'complete',hero+' terminal second lethal saves completion');
+ }
 }
 
 // Every supplied skill enters the actual constructor/cast adapter. No skill

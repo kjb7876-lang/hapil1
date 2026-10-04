@@ -79,8 +79,8 @@
   if(!enabled(s))return false;
   if(a?.id==='c104-boss')return start(s,a);
   if(a?.id===ID&&a.hp<=0&&s.innerFinalRC133?.phase!=='complete'){
-   const m=s.innerFinalRC133,nearFatal=m.playerFatalAt>=0&&s.time-m.playerFatalAt<=.9;
-   if(!m.clash?.used&&(s.hp<=0||nearFatal)&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
+   const m=s.innerFinalRC133;
+   if(!m.clash?.used&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
    m.phase='complete';m.hp=0;m.awake=0;cleanup(s);metrics.completed++;if(m.entry==='developer-777'){s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
   }
   return false;
@@ -95,8 +95,9 @@
   const oldClash=m.clash,oldActor={hp:a.hp,invulnerableUntil:a.invulnerableUntil,atomicCastUntil31210:a.atomicCastUntil31210},oldState={hp:m.hp,awake:m.awake,awakeningCooldown:m.awakeningCooldown,shotDelay:m.shotDelay,playerFatalAt:m.playerFatalAt,clashFreeze:m.clashFreeze};
   m.clash={version:1,used:true,admitted:false,admitting:true,at:s.time,until:s.time+7,reason};
   // Publish both actor states before the player's admission emits feedback or
-  // a save observer. A deliberate lethal hit cannot lower a healthy boss.
-  a.hp=Math.max(n(a.hp),Math.max(1,Math.ceil(a.maxHp*.22)));
+  // a save observer. Only the actor whose HP became lethal is revived;
+  // the living opponent keeps its actual combat progress.
+  if(a.hp<=0)a.hp=Math.max(1,Math.ceil(a.maxHp*.22));
   a.invulnerableUntil=Math.max(n(a.invulnerableUntil),s.time+.55);a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+.55);
   m.hp=a.hp;m.awake=7;m.awakeningCooldown=28;m.shotDelay=1.35;m.playerFatalAt=-1;m.clashFreeze=.2;
   if(!A.activateFinalClash(s)){Object.assign(a,oldActor);Object.assign(m,oldState);m.clash=oldClash;return false;}

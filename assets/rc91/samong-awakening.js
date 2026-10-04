@@ -73,7 +73,8 @@
   m.active=Math.max(n(m.active),profile.duration);m.duration=profile.duration;m.cooldown=Math.max(n(m.cooldown),profile.cooldown);m.grace=profile.grace;m.origin='revival';
   if(!reuse)m.activations=Math.max(0,n(m.activations))+1;
   m.heroId=HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando';
-  s.hp=Math.max(1,Math.ceil(s.maxHp*.22));s.heroHealingCeiling=s.hp;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);
+  if(s.hp<=0){s.hp=Math.max(1,Math.ceil(s.maxHp*.22));s.heroHealingCeiling=s.hp;}
+  s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);
   const before=n(s.awakeningUntil);s.awakeningUntil=Math.max(before,s.time+m.active);
   window.__HAPIL_AWAKENING_POLICY_RC128__?.ownEgo(s,m,before,s.awakeningUntil);
   s.heroStatus='死夢覺醒 · 쌍각성 · '+profile.duration+'초';s.heroSleepUntil=s.time;s.heroCharmUntil=s.time;s.staggerUntil=s.time;
