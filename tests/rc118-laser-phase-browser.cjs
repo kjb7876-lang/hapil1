@@ -8,7 +8,12 @@ const harness='\nwindow.__RC109_NATIVE__={initial:oi,cast:(...a)=>Ei(...a),queue
 const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html'));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav'})[path.extname(f)]||'application/octet-stream');res.end(f.endsWith('index-v31526.js')?(process.env.RC118_BASELINE?execFileSync('git',['show','d9bcd51693456ff778a953650940a11dae5a4d66:assets/index-v31526.js'],{cwd:root,encoding:'utf8',maxBuffer:16*1024*1024}):fs.readFileSync(f,'utf8'))+harness:fs.readFileSync(f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
 async function main(){let browser;try{
  browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
- const page=await browser.newPage(process.env.RC118_MOBILE?{viewport:{width:844,height:390},isMobile:true,hasTouch:true}:{viewport:{width:1180,height:757}});await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_BLOOD_RC16__?.installed);
+ const page=await browser.newPage(process.env.RC118_MOBILE?{viewport:{width:844,height:390},isMobile:true,hasTouch:true}:{viewport:{width:1180,height:757}});await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
+ // RC33 installs after the bundle and replaces each owner's beam URL. Creating
+ // a cast before that replacement can leave its beam unequal to its owner's
+ // current beam and make valid() reject the first warning frame. Wait for the
+ // actual renderer/owner installation rather than an earlier blood-layer flag.
+ await page.waitForFunction(baseline=>window.__HAPIL_BLOOD_RC16__?.installed&&window.__HAPIL_RC33__?.installed&&window.__HAPIL_CONNECTED_LASER_V31377__?.installed&&(baseline||window.__HAPIL_RC133_NATIVE__?.installed),!!process.env.RC118_BASELINE);
  const rows=await page.evaluate(async()=>{
  const R=window.__RC109_NATIVE__,B=window.__HAPIL_RC86_BRIDGE__,L=window.__HAPIL_LASERS_V31332__;
    const clean=state=>{Object.assign(state,{time:105,x:18,y:16,hp:100000,maxHp:100000,invulnerableUntil:10000,practiceV31329:true,gameModeV31346:'DREAM',activeHeroId:'hwando',pendingHits:[],impactQueue:[],hostileProjectiles:[],effects:[],bossLaserCastsV31330:[],bossUltimateCastsV31334:[]});state.fxSerial=100;state.enemies=[];return state;};

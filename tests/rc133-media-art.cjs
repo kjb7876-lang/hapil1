@@ -24,7 +24,7 @@ for(const r of chrono){
  if(index===12)check(d.alphaOnlyRectMasks.length===0,'hourglass center spire is retained without the prior polygon mask');
 }
 for(const r of qa.externalDerivatives??[]){if(r.file){const b=fs.readFileSync(path.join(root,r.file));check(hash(b)===(r.sha256??r.outputSha256),'generated derivative exact pixels');}}
-const snippet=fs.readFileSync(root+'/assets/rc133/native-install.js.txt','utf8'),bundle=fs.readFileSync(root+'/assets/index-v31526.js','utf8');check(bundle.includes(snippet),'reviewable native snippet exactly synchronized');check(snippet.includes("? .72:radius.call(this,a)"),'humanoid core radius unchanged');check(snippet.includes("!\/laser|beam|ray|optic\/i.test(skill??'')"),'Chrono variation excludes approved beam signatures');
+const snippet=fs.readFileSync(root+'/assets/rc133/native-install.js.txt','utf8'),bundle=fs.readFileSync(root+'/assets/index-v31526.js','utf8');check(bundle.includes(snippet),'reviewable native snippet exactly synchronized');check(snippet.includes("? .72:radius.call(this,a)"),'humanoid core radius unchanged');check(snippet.includes("ctx.filter=transform?.hit?'brightness(2.2) contrast(0.85)':'brightness(1.8) contrast(0.8)'"),'hidden-only body readability precedes whole-arena mood; source alpha and geometry unchanged');check(snippet.includes("!\/laser|beam|ray|optic\/i.test(skill??'')"),'Chrono variation excludes approved beam signatures');
 // Exercise the exact native URL adapter after the owned-image loader has removed
 // registry query strings. Other assets and data/blob URLs retain their old URL.
 const vm=require('node:vm'),urlAdapter=snippet.split('\n').find(line=>line.includes('const assetUrl=MONGSE_assetUrl;'));
