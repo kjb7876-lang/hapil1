@@ -105,6 +105,21 @@
     }
     return scaled;
   }
+  function nativeOutgoingAmount(s, a, amount) {
+    const policy = current(s, a)?.finalDamage;
+    if (policy?.direction !== 'outgoing' || !finite(amount)) return amount;
+    return amount === policy.amount ? policy.baseline : amount / policy.factor;
+  }
+  function outgoingBudget(s, a, admitted) {
+    const tx = current(s, a), policy = tx?.finalDamage;
+    if (policy?.direction !== 'outgoing' || !finite(admitted)) return admitted;
+    // The downstream native burst window retains its original units. Scale the
+    // admitted packet, and account for spent budget in those same native units.
+    const amount = admitted * policy.factor;
+    tx.finalDamage = Object.freeze({ ...policy, baseline: admitted, amount });
+    step(s, a, 'native-outgoing-budget');
+    return amount;
+  }
   function outgoingHeal(s,a,amount){const tx=current(s,a);if(tx&&tx.kind==='OUTGOING'&&finite(amount))tx.lifestealApplied+=Math.max(0,amount);}
   function resource(s, a, key, amount) {
     const tx = current(s, a);
@@ -250,7 +265,7 @@
   }
   function reset(s) { if (object(s) && !worlds.get(s)?.stack.length) {worlds.delete(s);evidenceByWorld.delete(s);} }
   const api = Object.freeze({ version: VERSION, installed: true, get bound() { return !!adapters; },
-    results: CONTACT_RESULTS, limit: LIMIT, bind, player, ally, enemy, computed, finalDamage, outgoingHeal, captureEvidence, readEvidence, credit, graze, perfect, convert, heal,
+    results: CONTACT_RESULTS, limit: LIMIT, bind, player, ally, enemy, computed, finalDamage, nativeOutgoingAmount, outgoingBudget, outgoingHeal, captureEvidence, readEvidence, credit, graze, perfect, convert, heal,
     transaction, mark, markIfUnset, resource, ego, step, snapshot, reset, metrics: () => ({ ...stats }),
     policy: Object.freeze({ playerDamageWrappers: 0, gameplayDedup: 'native-authoritative-ledgers',
       journalPersisted: false, randomCalls: 0, renderSideEffects: false, missSemantics: 'reserved; no hit is inferred from an unobserved path' }) });

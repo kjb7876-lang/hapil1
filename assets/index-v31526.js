@@ -90919,7 +90919,7 @@ function MONGSE_installBossProgressionV31236() {
     }
     const MONGSE_damageV31236 = Math.max(
         0,
-        MONGSE_finiteBossProgressionV31236(MONGSE_requestedDamageV31236, 0),
+        window.__HAPIL_COMBAT_CORE_V31401__.nativeOutgoingAmount(MONGSE_stateV31236,MONGSE_actorV31236,MONGSE_finiteBossProgressionV31236(MONGSE_requestedDamageV31236, 0)),
       ),
       MONGSE_burstCapV31236 = Math.max(
         1,
@@ -90949,7 +90949,7 @@ function MONGSE_installBossProgressionV31236() {
     const MONGSE_gatedHealthV31576 = MONGSE_phaseGateBaseV31236(
       MONGSE_stateV31236,
       MONGSE_actorV31236,
-      MONGSE_appliedDamageV31236,
+      window.__HAPIL_COMBAT_CORE_V31401__.outgoingBudget(MONGSE_stateV31236,MONGSE_actorV31236,MONGSE_appliedDamageV31236),
     );
     MONGSE_actorV31236.burstDamageWindowSpentV31576 =
       Number(MONGSE_actorV31236.burstDamageWindowSpentV31576 ?? 0) +
@@ -90957,7 +90957,7 @@ function MONGSE_installBossProgressionV31236() {
         0,
         Math.min(
           MONGSE_appliedDamageV31236,
-          MONGSE_healthBeforeV31576 - Number(MONGSE_gatedHealthV31576 ?? 0),
+          window.__HAPIL_COMBAT_CORE_V31401__.nativeOutgoingAmount(MONGSE_stateV31236,MONGSE_actorV31236,MONGSE_healthBeforeV31576 - Number(MONGSE_gatedHealthV31576 ?? 0)),
         ),
       );
     return MONGSE_gatedHealthV31576;

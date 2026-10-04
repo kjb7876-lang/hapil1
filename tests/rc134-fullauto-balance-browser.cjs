@@ -38,6 +38,11 @@ async function fixtures(browser,revision,device){
      const target=s.enemies[0],hp=target.hp;T.outgoing(s,80,source,buff,variant==='777'?window.__HAPIL_PROGRESSION_V31338__.master({infinitePower:20}):buff?{damage:3,infinitePower:20,heroMastery_gunner:3}:{});const event=Core.snapshot(s).events.at(-1);rows.push({direction:'outgoing',gameMode,mode,variant,kind,damage:hp-target.hp,amount:event?.appliedDamage,final:event?.finalDamage??null,result:event?.result,maxHp:target.maxHp});
     }
    }
+   const bursts=[];for(const gameMode of ['STORY','DREAM'])for(const initialMode of ['manual','semi','full']){
+    const s=make(gameMode,true),passives=window.__HAPIL_PROGRESSION_V31338__.master({infinitePower:20}),target=s.enemies[0],packets=[];
+    for(const [mode,advance] of [[initialMode,0],['full',0],['manual',0],['full',.21],['semi',0]]){set(mode);s.time+=advance;const hp=target.hp;T.outgoing(s,100000,{heroId:'gunner',actionKey:'rc134-burst'},true,passives);const event=Core.snapshot(s).events.at(-1);packets.push({mode,time:s.time,damage:hp-target.hp,spent:target.burstDamageWindowSpentV31576,result:event.result,final:event.finalDamage??null});}
+    bursts.push({gameMode,initialMode,packets});
+   }
    // Native slot serialization and restoration: no multiplier in actor/growth
    // fields, no mode stacking, and bounded hidden health stays mode-independent.
    const s=make('DREAM',true),Bridge=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,raw={damage:3,infinitePower:1234,speed:3};s.zone='cult04';const leader=Bridge.actor('cult04','c104-boss');
@@ -45,7 +50,7 @@ async function fixtures(browser,revision,device){
    const serial=[];for(const mode of ['full','manual','full']){set(mode);const rawSave=Bridge.serializeSave(s,'gunner',[],raw,0),restored=T.initial();Bridge.restoreEntry(restored,rawSave);serial.push({mode,keys:Object.keys(rawSave).filter(k=>/finalDamage|fullauto|multiplierRC134/i.test(k)),hp:rawSave.hp,maxHp:rawSave.maxHp,passives:rawSave.passives,restoredHp:restored.hp,restoredMaxHp:restored.maxHp});}
    const toggles=[];for(let i=0;i<9;i++){const mode=['full','manual','semi'][i%3];set(mode);const fresh=make('STORY');fresh.combatModeV31329='full';T.incoming(fresh,20,fresh.x,fresh.y,{id:600+i,sourceId:'dist00-boss',born:99,vx:1,vy:0,x:fresh.x,y:fresh.y});toggles.push({mode,damage:240-fresh.hp});}
    const P=window.__HAPIL_PARTY_V31322__,role=P.status.role,authority=[];set('full');P.setNetworkRole('guest');try{const s=make('STORY'),target=s.enemies[0];const incoming=T.incoming(s,20,s.x,s.y,{id:999,sourceId:target.id,born:99});T.outgoing(s,80,{heroId:'gunner'});authority.push({incoming,hp:s.hp,enemyHp:target.hp,events:Core.snapshot(s).events.map(e=>({result:e.result,final:e.finalDamage??null}))});}finally{P.setNetworkRole(role);}
-   return {rows,health,serial,toggles,authority,mobile:window.__HAPIL_MOBILE_V31366__?.enabled()===true};
+   return {rows,bursts,health,serial,toggles,authority,mobile:window.__HAPIL_MOBILE_V31366__?.enabled()===true};
   }finally{B.state.current=original;B.settings.current=settings;C.clear();}
  })};
  }finally{await context.close();}
@@ -65,7 +70,8 @@ async function fixtures(browser,revision,device){
   for(const row of candidate.serial)assert.deepEqual(row.keys,[],'native save contains no transient multiplier');
   assert.deepEqual(candidate.serial,baseline.serial,'native slot bytes/vitals/growth unchanged by full auto');
   assert.deepEqual(candidate.authority,baseline.authority,'guest authority rejection precedes all scaling');for(const row of candidate.authority){assert.equal(row.incoming,false);assert.equal(row.hp,240);assert.equal(row.enemyHp,100000);for(const event of row.events){assert.equal(event.result,'REJECTED');assert.equal(event.final,null);}}
+  for(let i=0;i<candidate.bursts.length;i++)for(let j=0;j<candidate.bursts[i].packets.length;j++){const a=candidate.bursts[i].packets[j],b=baseline.bursts[i].packets[j];assert(Math.abs(a.damage-b.damage*(a.mode==='full'?1.7:1))<1e-7,'native cap sequence keeps final ratio');assert(Math.abs(a.spent-b.spent)<1e-7,'native burst spending retains original units across toggles');assert.equal(a.result,b.result,'exhausted burst window retains native rejection');assert(Math.abs(a.final.baseline-b.damage)<1e-7,'journal records admitted burst amount');}
   for(let i=0;i<candidate.toggles.length;i++){const a=candidate.toggles[i],b=baseline.toggles[i];assert(Math.abs(a.damage-b.damage*(a.mode==='full'?.1:1))<1e-8,'repeated effective-mode changes have exact ratios');}
  }
- report.status='passed';console.log('RC134_FULLAUTO_BROWSER',JSON.stringify({status:report.status,profiles:report.profiles.length,pairedDamageCases:720,sameBuildBase:base,exactRatios:true,hiddenHealthUnchanged:true,nativeSerialization:true}));
+ report.status='passed';console.log('RC134_FULLAUTO_BROWSER',JSON.stringify({status:report.status,profiles:report.profiles.length,pairedDamageCases:720,pairedBurstPackets:60,sameBuildBase:base,exactRatios:true,hiddenHealthUnchanged:true,nativeSerialization:true}));
  }finally{if(report.status==='running')report.status='failed';fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));await browser?.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});

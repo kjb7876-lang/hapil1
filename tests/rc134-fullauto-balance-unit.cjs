@@ -35,4 +35,14 @@ for(let i=0;i<20;i++){
 }
 for(const value of [0,-1,NaN,Infinity])equal(Object.is(C.finalDamage(s,s,value,'incoming'),value),true,'invalid/empty packet remains native-owned');
 equal(C.snapshot(s).pendingTransactions,0,'journal is idle after all checks');
+mode='full';
+C.enemy(s,enemy,100,{heroId:'gunner'},()=>{
+ equal(C.finalDamage(s,enemy,100,'outgoing'),170,'outgoing packet has one factor');
+ equal(C.nativeOutgoingAmount(s,enemy,170),100,'downstream native cap reads original units');
+ equal(C.outgoingBudget(s,enemy,20),34,'native admitted packet keeps exact outgoing ratio');
+ equal(C.nativeOutgoingAmount(s,enemy,34),20,'window spending excludes transient gain');
+ equal(C.finalDamage(s,enemy,34,'outgoing'),34,'nested helper cannot repeat admitted multiplier');
+ equal(C.outgoingBudget(s,enemy,0),0,'exhausted window cannot manufacture damage');
+});
+equal(C.snapshot(s).events.at(-1).finalDamage.baseline,0,'journal reflects admitted native budget');
 console.log('RC134_FULLAUTO_UNIT',JSON.stringify({status:'passed',checks,exactFactors:true,nestedOnce:true,transientOnly:true}));
