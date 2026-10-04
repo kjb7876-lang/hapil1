@@ -18,10 +18,11 @@ Published main remains `709b66816aaa2f11f772a0a34e6003ea8f242b39` (Pages deploy 
 | Narration combat audio path classifier | Exact registered-origin/path classification, unknown/foreign/SFX negative cases; exact admitted infernal variant; 404 fixtures target the actual registered files |
 | RC91 sanitized active 9 vs 7 | Real save-validation fix; unupgraded saves stay at 7, valid duration upgrades round-trip at 8/9, malformed ranks clamp |
 | RC108 old cooldown reduction | Assert approved default77 and seven-entry behavior; first/duplicate EGO entry cannot shorten cooldown or activate early |
+| RC128 old promotion hashes | Full current runtime proof followed by exact old/new pins for the three approved RC91/core/test revisions; current browser game is never substituted; 19 negative/positive guard checks |
 | Reviewed85 rejects RC133 | Frozen exact authorized delta, full tree/inventory validation, detached unchanged historical proof; negative byte/mode/extra/symlink tests |
 | RC127 one Pages503 | Same709 read-only published job passed on attempt2 (job111354725810). Evidence push then hit existing branch collision; candidate uses attempt-specific artifact and evidence branch names, no force push |
 
-The unchanged strict narration decoder gate reproduces byte-identically on reviewed85 and709 with local Chromium151: 1,056 observations, 528 fixed-rate failures across264 identical MP3s, zero native44.1kHz failures. No narration asset, fixture, test or threshold was changed. Official hosted Chromium140 validation remains necessary. Attempted isolated Chromium140 install returned403 `Domain forbidden` from Playwright CDN/Microsoft hosts; this was a network restriction, not an automatic approval review rejection.
+The unchanged strict narration decoder gate reproduces byte-identically on reviewed85 and709 with local Chromium151: 1,056 observations, 528 fixed-rate failures across264 identical MP3s, zero native44.1kHz failures. No narration asset, fixture, test or threshold was changed. The unchanged gate passed on exact candidate c52085f in hosted Chromium140.0.7339.186 (run37176156987 / job111359064517): all1,056 observations passed and528 fixed-rate outputs exactly matched reference PCM. Local Chromium151 remains a documented decoder-version difference. Attempted isolated Chromium140 install returned403 `Domain forbidden` from Playwright CDN/Microsoft hosts; this was a network restriction, not an automatic approval review rejection.
 
 ## Natural finale evidence
 

@@ -12,8 +12,7 @@
   "blockers": [
     "Thirteen additional exact Library audio deliveries remain pending parent transfer; official helper materialization previously failed with hosted apps tools/list network failure. No paused uploads retried. IDs/filenames in pending-media.json.",
     "Three unauditioned Short_male_combat_hi sources remain held and unassigned. No acoustic gender or listening-quality claim.",
-    "New 777/save-history and legacy-workflow reconciliation candidate requires exact CI and explicit parent coordination before another main write.",
-    "Unchanged narration decoder gate fails identically on reviewed85 baseline in local Chromium151; official hosted Chromium140 validation pending. Gate and audio bytes remain unchanged."
+    "New 777/save-history and legacy-workflow reconciliation candidate requires exact CI and explicit parent coordination before another main write."
   ],
   "passed": {
     "rc133Policy": 131,
@@ -129,8 +128,7 @@
   "remainingRequestItems": [
     "Thirteen additional exact Library audio deliveries remain pending parent transfer; official helper materialization previously failed with hosted apps tools/list network failure. No paused uploads retried. IDs/filenames in pending-media.json.",
     "Three unauditioned Short_male_combat_hi sources remain held and unassigned. No acoustic gender or listening-quality claim.",
-    "New 777/save-history and legacy-workflow reconciliation candidate requires exact CI and explicit parent coordination before another main write.",
-    "Unchanged narration decoder gate fails identically on reviewed85 baseline in local Chromium151; official hosted Chromium140 validation pending. Gate and audio bytes remain unchanged."
+    "New 777/save-history and legacy-workflow reconciliation candidate requires exact CI and explicit parent coordination before another main write."
   ],
   "fixedFailures": [
     "RC69 injected three midbosses into Story; native admission now enforces 2/3.",
@@ -308,7 +306,7 @@
     "canonicalTtsUnits": 119,
     "existingPublishedUnits": 85
   },
-  "updatedAt": "2026-10-04",
+  "updatedAt": "2026-10-04T04:16:37.997098+00:00",
   "previousRuntimeCI": {
     "status": "passed",
     "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
@@ -358,9 +356,8 @@
   "pendingFinalAdapterChecks": {
     "localArtAndUrlChecks": 268,
     "nativeCacheRevision": "43305",
-    "bundleCacheRevision": "43306",
-    "scope": "Narrow native Chrono URL revision after owned-image normalization; no gameplay geometry changes",
-    "exactCI": "pending final commit"
+    "historicalPublication": "709b66816aaa2f11f772a0a34e6003ea8f242b39 passed exact26 suites and public49 files/44 images at3profiles",
+    "followupFinalGate": "Full exact candidate CI, native completed-history save/reload, exhaustive Dream identity/render audit, parent publication coordination"
   },
   "candidateFullAuto": {
     "testSha": "4872635c78541c5a98806e752e386e30f5851e91",
@@ -428,6 +425,34 @@
       "Completed finale history preserved after village/mode reload without changing another encounter",
       "Exact authorized runtime delta and detached unchanged reviewed85 preservation"
     ],
-    "titleCodeScope": "Current UI exposes developer code only in gameplay Settings. Optional title-phase carry is unit-only internal API coverage; no added title Settings UI or title-origin browser claim."
+    "titleCodeScope": "Current UI exposes developer code only in gameplay Settings. Optional title-phase carry is unit-only internal API coverage; no added title Settings UI or title-origin browser claim.",
+    "native777Browser": {
+      "status": "passed",
+      "runtimeCommit": "fc99afd9e428eab392d506ea5400de44dd0634b4",
+      "testCommit": "c52085f48bd9e0f19a3dd9ac1438c5e1b4394dc2",
+      "profiles": [
+        "pc",
+        "portrait",
+        "landscape"
+      ],
+      "jsErrors": 0,
+      "httpErrors": 0,
+      "evidence": "reconciliation-local/native-777/results.json"
+    },
+    "hostedNarrationDecoder": {
+      "status": "passed",
+      "commit": "c52085f48bd9e0f19a3dd9ac1438c5e1b4394dc2",
+      "runId": 37176156987,
+      "jobId": 111359064517,
+      "browser": "140.0.7339.186",
+      "decodedRows": 1056,
+      "exactReferencePcmMatches": 528,
+      "gateFixtureAudioUnchanged": true,
+      "localChromium151DifferenceRetained": true
+    },
+    "legacyCompatibility": {
+      "scope": "Three exact old/new file hash pairs after complete runtime proof; no runtime replacement",
+      "unitChecks": 19
+    }
   }
 }

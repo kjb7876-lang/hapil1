@@ -16,5 +16,8 @@ try{
  deny('mode change',()=>fs.chmodSync(path.join(root,'audio/owned.ogg'),0o755));
  deny('symlink replacement',()=>{fs.unlinkSync(path.join(root,'assets/unchanged.js'));fs.symlinkSync('../index.html',path.join(root,'assets/unchanged.js'));});
  deny('loader modification',()=>fs.appendFileSync(path.join(root,'index.html'),'script'));
+ const compatibility=require('../tools/rc133-release-compatibility.cjs');
+ for(const [file,[before,after]]of Object.entries(compatibility.revisions)){assert.equal(compatibility.validate(file,before,after),before);checks++;assert.throws(()=>compatibility.validate(file,'0'.repeat(64),after));checks++;assert.throws(()=>compatibility.validate(file,before,'0'.repeat(64)));checks++;}
+ assert.throws(()=>compatibility.validate('assets/rc133/arbitrary.js','0'.repeat(64),'0'.repeat(64)));checks++;
  console.log('RC133_PRESERVATION_UNIT',JSON.stringify({status:'passed',checks,scope:'Exact working inventory/bytes/modes and negative cases; detached full baseline proof is a separate exact-commit check'}));
 }finally{fs.rmSync(root,{recursive:true,force:true});}
