@@ -8,7 +8,7 @@
     "data",
     "index.html"
   ],
-  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections; no arbitrary namespace exemption; narration85 and all other runtime bytes remain protected.",
+  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected.",
   "baselineGuards": {
     "tools/story-narration-release85-preservation.cjs": "92ed29cdf627a5801277110515e73f75b9cb384868f252eeb40b7844a12bb1c5",
     "tools/rc130-preservation.cjs": "0677d03ad18952f8c4e08e5138c26617235c7b58cb18046c817ecbce5303554a"
@@ -859,6 +859,76 @@
       "reason": "Show seven-entry counter and actual bounded awakening timers."
     },
     {
+      "file": "assets/story-narration/v1/audio/murder01-post-6206cf6b0cff5b9aee7227b9.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "215d1151a070dae00a461b881089827939645afb",
+        "file": "assets/story-narration/v1/audio/murder01-post-6206cf6b0cff5b9aee7227b9.mp3",
+        "sha256": "6206cf6b0cff5b9aee7227b99451fbf713b8cabecde0a6654fc0b19e47481bee"
+      },
+      "reason": "Integrate exact user-approved frozen TTS86 output; preserve all prior assets and routes."
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-528fc9801b1d930011410fa0.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "090ebcef389452b1a360b53362c1296efc720514",
+        "file": "assets/story-narration/v1/audio/p-528fc9801b1d930011410fa0.mp3",
+        "sha256": "528fc9801b1d930011410fa06cafd5348e8efe8d67fb50311ac8c4aaf4ae556b"
+      },
+      "reason": "Integrate exact user-approved frozen TTS86 output; preserve all prior assets and routes."
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-9b69d5462a3117d00a02394b.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e1f27bce4f21e0f2c58099e18d6a61b3baf7c12d",
+        "file": "assets/story-narration/v1/audio/p-9b69d5462a3117d00a02394b.mp3",
+        "sha256": "9b69d5462a3117d00a02394b5bfe8634514d16bb776b0e8f1411a42fbf411b06"
+      },
+      "reason": "Integrate exact user-approved frozen TTS86 output; preserve all prior assets and routes."
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-bcc875690178af1726ad7589.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e5d9fe6aad267351f2c368e9249c34bda2fd8bf9",
+        "file": "assets/story-narration/v1/audio/p-bcc875690178af1726ad7589.mp3",
+        "sha256": "bcc875690178af1726ad7589030c1bb9c66253dd2cc59bd6c3b75cc78d19b427"
+      },
+      "reason": "Integrate exact user-approved frozen TTS86 output; preserve all prior assets and routes."
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-e97a8118bd30b67e4dcc4c49.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "cd7001468bf7ea3065bf5a3c4f64a8671349346a",
+        "file": "assets/story-narration/v1/audio/p-e97a8118bd30b67e4dcc4c49.mp3",
+        "sha256": "e97a8118bd30b67e4dcc4c4962b92c9b18f21ddd60ff772e65bc72f3addebc11"
+      },
+      "reason": "Integrate exact user-approved frozen TTS86 output; preserve all prior assets and routes."
+    },
+    {
+      "file": "assets/story-narration/v1/manifest.json",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "301a78c70e028201ea59f15a6124671daa78d315",
+        "file": "assets/story-narration/v1/manifest.json"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "da5b4d64ec541e4f3d34c1d6f27d56e52aaa2cfd",
+        "file": "assets/story-narration/v1/manifest.json",
+        "sha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006"
+      },
+      "reason": "Integrate exact user-approved frozen TTS86 output; preserve all prior assets and routes."
+    },
+    {
       "file": "audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav",
       "before": null,
       "after": {
@@ -1604,11 +1674,11 @@
       },
       "after": {
         "mode": "100644",
-        "gitBlob": "f852a06d2fcdb5fcc5066eb95127a7155c5a33d9",
+        "gitBlob": "6e9364db02336a5239bf006cbba60e2b7d2ac8fe",
         "file": "index.html",
-        "sha256": "69a0c400238e505eaf56408355ff29983110bf5a4b9766de9ce1622d1f56bd50"
+        "sha256": "a564526e3c904d9d689e87aafb6b42def7c8903368359e1168aad7ed981356b7"
       },
-      "reason": "Refresh only approved hidden first-lethal policy script cache keys; preserve reviewed85 narration and unrelated runtime."
+      "reason": "Refresh approved hidden first-lethal policy script keys and TTS86 manifest query; preserve prior264 audio and unrelated runtime."
     }
   ]
 }

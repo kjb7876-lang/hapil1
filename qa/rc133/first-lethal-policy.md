@@ -16,5 +16,6 @@ clash completes the encounter; player defeat follows the ordinary death path.
 Validation distinguishes staged HP/callback tests from a replay that loads
 an unedited genuine Dream checkpoint through native Continue and uses normal
 full-auto combat plus keyboard defense. No claim of zero possible bugs or a
-fresh unassisted campaign is made. Reviewed 85 narration and parent-managed
-86 packaging remain separate.
+fresh unassisted campaign is made. Frozen TTS86 is integrated as exactly five new MP3s and one manifest change;
+all prior264 audio assets and189 routes remain preserved. Additional13 audio
+remains separate.
