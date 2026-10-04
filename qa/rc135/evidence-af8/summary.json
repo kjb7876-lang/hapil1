@@ -1,0 +1,72 @@
+{
+  "commit": "af8e03fb01cbbd3ae0e56bb8c36b5029e93efff6",
+  "source": "/workspace/rc133-tools/final-viewport-audit/candidate-natural-longplay-709b668-20261004-assisted2/checkpoint-2026-10-04T03-36-33-914Z-hidden-final-entry.json",
+  "sourceHash": "10e3c0c1a4a7b13504ca00839ab1fc6ddc521c3ddde4cf58280731143a44cef2",
+  "scope": "Native Continue of genuine prior assisted Dream checkpoint before cult-leader death; unedited HP/progress/boss. Current full-auto only, no held defense or runtime mutations. Source checkpoint has historical assisted campaign provenance; this segment is unassisted, not a fresh unassisted campaign.",
+  "reason": "hidden-complete",
+  "elapsedSeconds": 155.35,
+  "samples": 138,
+  "first": {
+    "control": "full",
+    "held": [],
+    "time": 0.14665599999999987,
+    "zone": "cult04",
+    "hp": 270,
+    "maxHp": 270,
+    "boss": {
+      "id": "c104-boss",
+      "hp": 21910.008371583444,
+      "maxHp": 139536
+    },
+    "inner": null,
+    "completed": 60,
+    "guard": false,
+    "imminent": false,
+    "danger": false,
+    "modal": false,
+    "samong": {
+      "active": 4.3002999999998535,
+      "activations": 232
+    }
+  },
+  "last": {
+    "control": "full",
+    "held": [],
+    "time": 102.87172400000337,
+    "zone": "cult04",
+    "hp": 270,
+    "maxHp": 270,
+    "boss": null,
+    "inner": {
+      "phase": "complete",
+      "hp": 0,
+      "maxHp": 792744,
+      "healthModel": 2,
+      "cycle": 35,
+      "awake": 0,
+      "mood": "normal",
+      "clash": {
+        "version": 1,
+        "used": true,
+        "admitted": true,
+        "admitting": false,
+        "at": 79.60389600000077,
+        "until": 86.60389600000077,
+        "reason": "boss"
+      }
+    },
+    "completed": 60,
+    "guard": false,
+    "imminent": false,
+    "danger": false,
+    "modal": false,
+    "samong": {
+      "active": 0,
+      "activations": 234
+    }
+  },
+  "guardStarts": 0,
+  "storySlot1Hash": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9",
+  "errors": [],
+  "httpErrors": []
+}

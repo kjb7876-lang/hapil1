@@ -25,6 +25,18 @@ const server = http.createServer((req,res)=>{
 const report = { dirty:!!cp.execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim(), commit: cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(), status:'running', browser:null,
   scope:rotationOnly?'Live native Dream trio, five alternating real CDP orientations at the unchanged 250ms checkpoint, CPU x4/DPR2; no stress, background, freeze or save claim. Staged unlock and native route entry.':lifecycleOnly?'Lifecycle-only follow-up: no stress window or readiness staging; mobile viewport orientation/background, CDP freeze/active, hidden-to-Story cleanup and native save/reload. Dream route is opened through the native UI.':'Staged native Dream dist04 trio pressure fixture; repeated orientation uses CDP setDeviceMetricsOverride with mobile screenOrientation, not Playwright viewport-only resizing; hidden scene is separately staged through stageV3128BossShowcase(cult04), forceDefeatCurrentBossR4, fight phase, both awakening timers, and player-only invulnerability. Mobile viewport orientation/background, hidden-to-Story cleanup and native save/reload. HP, projectile arrays, and source art are never edited.', profiles:[] };
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
+// Playwright 1.55.1 enables focus emulation on its own main-frame CDP session.
+// That session's override keeps hidden/frozen pages visible; disabling it on a
+// second public CDP session does not remove the original owner's override.
+// Use the pinned in-process bridge only to undo this test-browser setting.
+// Fail closed if the bridge changes. No DOM visibility/events or game clocks
+// are fabricated, and the real freeze/resume assertions below remain strict.
+function focusOwner(page){
+ const impl=page._connection?.toImpl?.(page),delegate=impl?.delegate??impl?._delegate;
+ const client=delegate?._mainFrameSession?._client;
+ assert.equal(typeof client?.send,'function','pinned Playwright primary CDP session must be available');
+ return client;
+}
 const snapshotScript = `
 (() => {
  const s=window.__MONGSE_QA_STATE__, P=window.__HAPIL_PERSONA_DUEL_RC134__, H=window.__HAPIL_INNER_FINAL_RC133__;
@@ -54,7 +66,7 @@ const snapshotScript = `
   page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});
   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});
   await page.addInitScript(()=>{let x=0x134;Math.random=()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return(x>>>0)/4294967296;};const m=window.__MIDBOSS_PRESSURE_TIMING__={raf:[],longTasks:[],recording:false,lastRaf:null};const frame=t=>{if(m.recording&&m.lastRaf!==null)m.raf.push(t-m.lastRaf);m.lastRaf=t;requestAnimationFrame(frame);};requestAnimationFrame(frame);if(PerformanceObserver.supportedEntryTypes.includes('longtask'))new PerformanceObserver(list=>{if(m.recording)m.longTasks.push(...list.getEntries().map(e=>e.duration));}).observe({type:'longtask'});});
-  await page.addInitScript(()=>{window.__RC134_LIFECYCLE_EVENTS__=[];for(const name of ['freeze','resume'])document.addEventListener(name,()=>window.__RC134_LIFECYCLE_EVENTS__.push({name,time:window.__MONGSE_QA_STATE__?.time,at:performance.now()}),true);});
+  await page.addInitScript(()=>{window.__RC134_LIFECYCLE_EVENTS__=[];for(const name of ['freeze','resume'])document.addEventListener(name,event=>window.__RC134_LIFECYCLE_EVENTS__.push({name,trusted:event.isTrusted,hidden:document.hidden,time:window.__MONGSE_QA_STATE__?.time,heldKeys:[...(window.__HAPIL_CONTROLS_V31329__?.binding?.input?.current??[])],at:performance.now()}),true);});
   await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
   await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_RC69__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready,null,{timeout:60000});
   await page.keyboard.press('Escape');
@@ -118,6 +130,10 @@ const snapshotScript = `
    assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);row.status='passed-rotation-only';report.status='passed-rotation-only';save();console.log('PASS RC135 live CDP rotation',JSON.stringify(row.orientationSummary));await context.close();return;
   }
   // Real tab background/return: a second page becomes foreground, then the game page returns.
+  const focusClient=focusOwner(page);await focusClient.send('Emulation.setFocusEmulationEnabled',{enabled:false});
+  row.lifecycleHarness={focusOverride:'disabled on the owning Playwright main-frame CDP session',visibilityOverride:false,syntheticEvents:false,clockEdits:false};
+  await page.keyboard.down('ArrowRight');
+  row.backgroundHeldBefore=await page.evaluate(()=>[...(window.__HAPIL_CONTROLS_V31329__?.binding?.input?.current??[])]);
   row.visibility=await page.evaluate(()=>{window.__RC134_VISIBILITY_EVENTS__=[];document.addEventListener('visibilitychange',()=>window.__RC134_VISIBILITY_EVENTS__.push({state:document.visibilityState,hidden:document.hidden,at:performance.now()}));const s=window.__MONGSE_QA_STATE__;return{beforeState:document.visibilityState,beforeTime:s?.time};});
   const background=await context.newPage();await background.goto('about:blank');await background.bringToFront();
   try{await page.waitForFunction(()=>document.visibilityState==='hidden',null,{timeout:5000});row.visibility.hiddenObserved=await page.evaluate(()=>({state:document.visibilityState,hidden:document.hidden,time:window.__MONGSE_QA_STATE__?.time,events:window.__RC134_VISIBILITY_EVENTS__}));}
@@ -126,7 +142,7 @@ const snapshotScript = `
   row.visibility.returned=await page.evaluate(()=>({state:document.visibilityState,hidden:document.hidden,time:window.__MONGSE_QA_STATE__?.time,events:window.__RC134_VISIBILITY_EVENTS__}));
   row.visibility.nativeTimeAdvanced=row.visibility.returned.time>row.visibility.beforeTime;
   row.lifecycleControl={status:'unsupported',beforeTime:row.visibility.returned.time,afterTime:null};
-  try{const lifecycleCdp=await context.newCDPSession(page);await lifecycleCdp.send('Page.enable');const frozenAt=Date.now();await lifecycleCdp.send('Page.setWebLifecycleState',{state:'frozen'});await new Promise(resolve=>setTimeout(resolve,1200));await lifecycleCdp.send('Page.setWebLifecycleState',{state:'active'});await page.waitForTimeout(500);const events=await page.evaluate(()=>window.__RC134_LIFECYCLE_EVENTS__),freeze=events.find(e=>e.name==='freeze'),resume=events.find(e=>e.name==='resume');row.lifecycleControl={status:freeze&&resume?'observed':'unobserved',events,frozenStart:freeze?.time??null,frozenEnd:resume?.time??null,wallFrozenMs:Date.now()-frozenAt,beforeTime:row.visibility.returned.time,afterTime:await page.evaluate(()=>window.__MONGSE_QA_STATE__?.time),heldKeys:await page.evaluate(()=>[...(window.__HAPIL_CONTROLS_V31329__?.binding?.input?.current??[])])};}catch(error){row.lifecycleControl={status:'unsupported',reason:String(error),beforeTime:row.visibility.returned.time};}
+  try{const lifecycleCdp=await context.newCDPSession(page);await lifecycleCdp.send('Page.enable');const frozenAt=Date.now();await lifecycleCdp.send('Page.setWebLifecycleState',{state:'frozen'});await new Promise(resolve=>setTimeout(resolve,1200));await lifecycleCdp.send('Page.setWebLifecycleState',{state:'active'});await page.bringToFront();await focusClient.send('Emulation.setFocusEmulationEnabled',{enabled:true});await page.waitForTimeout(500);const events=await page.evaluate(()=>window.__RC134_LIFECYCLE_EVENTS__),freeze=events.find(e=>e.name==='freeze'),resume=events.find(e=>e.name==='resume');row.lifecycleControl={status:freeze&&resume?'observed':'unobserved',events,frozenStart:freeze?.time??null,frozenEnd:resume?.time??null,wallFrozenMs:Date.now()-frozenAt,beforeTime:row.visibility.returned.time,afterTime:await page.evaluate(()=>window.__MONGSE_QA_STATE__?.time),heldKeys:await page.evaluate(()=>[...(window.__HAPIL_CONTROLS_V31329__?.binding?.input?.current??[])])};}catch(error){row.lifecycleControl={status:'unsupported',reason:String(error),beforeTime:row.visibility.returned.time};}
 
   // Native hidden fight camera/mood entry, then return to Story and verify ownership/filter cleanup.
   row.hiddenExit=await page.evaluate(()=>{
@@ -183,6 +199,10 @@ const snapshotScript = `
   for(const entry of row.orientation){assert(Math.abs(entry.state.canvas.width-entry.size[0])<1,'canvas must use the new orientation width');assert(Math.abs(entry.state.canvas.y+entry.state.canvas.height-entry.size[1])<1,'canvas must meet the new viewport bottom');}
   if(!lifecycleOnly)assert.equal(row.denseThresholdReached,true,'dense fixture requires at least 24 actual native projectiles');
   assert.equal(row.lifecycleControl.status,'observed','accepted CDP command is insufficient: real freeze and resume events must be observed');
+  assert.equal(row.visibility.hiddenObserved.state,'hidden','real background visibility must be observed');
+  assert(row.backgroundHeldBefore.includes('ArrowRight'),'trusted input is held before backgrounding');
+  assert(row.lifecycleControl.events.every(e=>e.trusted),'freeze and resume events must come from Chromium');
+  assert(row.lifecycleControl.events.every(e=>e.hidden),'freeze and resume occur while actually hidden');
   assert.equal(row.lifecycleControl.frozenEnd,row.lifecycleControl.frozenStart,'native simulation stays paused throughout the actual freeze');
   assert(row.lifecycleControl.afterTime>row.lifecycleControl.beforeTime,'native simulation resumes after thaw');
   assert.deepEqual(row.lifecycleControl.heldKeys,[],'thaw leaves no held input');
