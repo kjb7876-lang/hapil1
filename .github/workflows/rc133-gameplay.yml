@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [native-gameplay, preservation, legacy-release]
+        suite: [native-gameplay, preservation, legacy-release, mobile-lifecycle, midboss-motions, core-ui]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -59,6 +59,12 @@ jobs:
           const out=process.env.HAPIL_QA_OUTPUT;fs.mkdirSync(out,{recursive:true});
           const tests=process.env.SUITE==='native-gameplay'
             ? ['rc134-persona-effects-browser','rc134-persona-policy','rc134-persona-art','rc134-fullauto-balance-unit','rc134-fullauto-balance-browser','rc134-render-equivalence-browser','rc133-duel-hitboxes','rc133-performance-browser','rc133-bitmap-browser','rc133-policy','rc95-flow-policy-smoke','rc133-developer-maps','rc133-777-browser','rc133-feedback-unit','rc133-media-assets','rc133-media-art','rc133-media-audio','rc133-media-browser','combat-audio-controller','combat-audio-bridge','combat-audio-impact','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc88-danmaku-rpg-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
+            : process.env.SUITE==='core-ui'
+              ? ['rc133-777-browser','rc135-rotation-browser']
+            : process.env.SUITE==='midboss-motions'
+              ? ['rc135-midboss-motions-browser']
+            : process.env.SUITE==='mobile-lifecycle'
+              ? ['rc134-mobile-lifecycle-browser','rc115-touchscreen-browser','combat-audio-browser']
             : process.env.SUITE==='legacy-release'
               ? ['rc133-preservation-unit','rc91-samong-and-laser-smoke','rc129-unit','rc129-startup','rc129-browser','laser-release-gate','rc133-public-contract']
               : ['rc127-policy','rc131-hero-unit','rc130-unit','rc130-isolation','story-narration-manifest','rc130-browser','rc119-laser-body-browser','rc115-natural-story-portal-browser'];

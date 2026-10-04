@@ -171,3 +171,11 @@ html.hapil-touch-v31366 .game-stage>.combat-encounter-intro,
 html.hapil-touch-v31366 .game-stage>.combat-narrative-manifest,
 html.hapil-touch-v31366 .game-stage>.radio-dialog{display:none!important}
 html.hapil-touch-v31366 .game:after{content:none!important}
+
+/* RC135: low-fx globally gives every element a transition duration. With
+   default transition-property:all this animates battlefield dimensions on
+   rotation; throttled frames can retain the entire previous orientation.
+   Viewport geometry must update atomically; control feedback is unchanged. */
+html.hapil-touch-v31366 .game,
+html.hapil-touch-v31366 .game>.game-stage,
+html.hapil-touch-v31366 .game>.game-stage>canvas{transition:none!important}

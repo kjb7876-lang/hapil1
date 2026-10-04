@@ -1,0 +1,559 @@
+{
+  "version": 1,
+  "tool": "image_gen__imagegen",
+  "scope": "Six DIST authored identities only; the remaining 33 unique identities await the coordinated ImageGen handoff. Genuine ImageGen raster poses, unchanged complete RGBA source PNGs. Inspected zero-alpha internal gutters and corrected foot/hover pivots; native idle/anticipation/strike draws passed PC, portrait and landscape fixtures. No full natural campaign or physical-phone claim.",
+  "identities": {
+    "mb-dist01": {
+      "routes": [
+        "dist01"
+      ],
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "exists": true,
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab",
+        "repoPath": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      },
+      "atlas": {
+        "path": "./assets/rc135/midboss-motions/sheets/mb-dist01.png",
+        "width": 2172,
+        "height": 724,
+        "sha256": "dc8c9fdaac6d22999762103a8bbb87f342274d3d846ee2fb2afe06b30cb5dd97"
+      },
+      "baseHeight": 649,
+      "motions": {
+        "idle": {
+          "sourceRect": [
+            0,
+            0,
+            700,
+            724
+          ],
+          "pivot": [
+            335,
+            694
+          ],
+          "visibleBounds": [
+            15,
+            42,
+            681,
+            691
+          ],
+          "boundaryAlphaMax": {
+            "left": 1,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            700,
+            0,
+            598,
+            724
+          ],
+          "pivot": [
+            290,
+            690
+          ],
+          "visibleBounds": [
+            19,
+            29,
+            578,
+            687
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1298,
+            0,
+            874,
+            724
+          ],
+          "pivot": [
+            402,
+            680
+          ],
+          "visibleBounds": [
+            22,
+            42,
+            865,
+            679
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 3,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      }
+    },
+    "mb-dist02": {
+      "routes": [
+        "dist02"
+      ],
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "exists": true,
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40",
+        "repoPath": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      },
+      "atlas": {
+        "path": "./assets/rc135/midboss-motions/sheets/mb-dist02.png",
+        "width": 2172,
+        "height": 724,
+        "sha256": "659910f3ab056834be155e1b15df141fb31012d7f5efeec9656e3d348338a6c3"
+      },
+      "baseHeight": 515,
+      "motions": {
+        "idle": {
+          "sourceRect": [
+            0,
+            0,
+            790,
+            724
+          ],
+          "pivot": [
+            335,
+            645
+          ],
+          "visibleBounds": [
+            133,
+            133,
+            654,
+            648
+          ],
+          "boundaryAlphaMax": {
+            "left": 1,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            790,
+            0,
+            584,
+            724
+          ],
+          "pivot": [
+            240,
+            636
+          ],
+          "visibleBounds": [
+            51,
+            51,
+            536,
+            637
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 1
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1374,
+            0,
+            798,
+            724
+          ],
+          "pivot": [
+            356,
+            640
+          ],
+          "visibleBounds": [
+            164,
+            212,
+            734,
+            661
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      }
+    },
+    "mb-dist03": {
+      "routes": [
+        "dist03"
+      ],
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "exists": true,
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb",
+        "repoPath": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      },
+      "atlas": {
+        "path": "./assets/rc135/midboss-motions/sheets/mb-dist03.png",
+        "width": 2172,
+        "height": 724,
+        "sha256": "07f275d4152b56735386681ea4a93eb9b2f85f80197902b7ab42d3edfcf2d293"
+      },
+      "baseHeight": 564,
+      "motions": {
+        "idle": {
+          "sourceRect": [
+            0,
+            0,
+            713,
+            724
+          ],
+          "pivot": [
+            355,
+            679
+          ],
+          "visibleBounds": [
+            32,
+            113,
+            603,
+            677
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            713,
+            0,
+            656,
+            724
+          ],
+          "pivot": [
+            307,
+            680
+          ],
+          "visibleBounds": [
+            110,
+            37,
+            619,
+            678
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1369,
+            0,
+            803,
+            724
+          ],
+          "pivot": [
+            281,
+            652
+          ],
+          "visibleBounds": [
+            37,
+            175,
+            786,
+            654
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      }
+    },
+    "mb-dist04": {
+      "routes": [
+        "dist04"
+      ],
+      "reference": {
+        "path": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+        "exists": true,
+        "sha256": "5ef8be714a241330274fafddb5dd29c0bc9f74f1f1e05d5687cf549a9952801c",
+        "repoPath": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp"
+      },
+      "atlas": {
+        "path": "./assets/rc135/midboss-motions/sheets/mb-dist04.png",
+        "width": 2172,
+        "height": 724,
+        "sha256": "0009360f5197f324669c0ddbe3937ffd9541f5d6d9a5e0b9159a3b0387579ebd"
+      },
+      "baseHeight": 696,
+      "motions": {
+        "idle": {
+          "sourceRect": [
+            0,
+            0,
+            575,
+            724
+          ],
+          "pivot": [
+            300,
+            717
+          ],
+          "visibleBounds": [
+            62,
+            17,
+            501,
+            713
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 1
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            575,
+            0,
+            736,
+            724
+          ],
+          "pivot": [
+            425,
+            716
+          ],
+          "visibleBounds": [
+            97,
+            17,
+            725,
+            713
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 1
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1311,
+            0,
+            861,
+            724
+          ],
+          "pivot": [
+            438,
+            716
+          ],
+          "visibleBounds": [
+            38,
+            100,
+            849,
+            713
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 1,
+            "top": 0,
+            "bottom": 1
+          }
+        }
+      }
+    },
+    "mb-dist05": {
+      "routes": [
+        "dist05"
+      ],
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "exists": true,
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+        "repoPath": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      },
+      "atlas": {
+        "path": "./assets/rc135/midboss-motions/sheets/mb-dist05.png",
+        "width": 2172,
+        "height": 724,
+        "sha256": "eadab8cb7bf84a029604850aef1f3f496b66069ce725aef4214d31e0a51cad31"
+      },
+      "baseHeight": 550,
+      "motions": {
+        "idle": {
+          "sourceRect": [
+            0,
+            0,
+            713,
+            724
+          ],
+          "pivot": [
+            345,
+            665
+          ],
+          "visibleBounds": [
+            133,
+            111,
+            583,
+            661
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            713,
+            0,
+            649,
+            724
+          ],
+          "pivot": [
+            297,
+            664
+          ],
+          "visibleBounds": [
+            129,
+            125,
+            613,
+            662
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1362,
+            0,
+            810,
+            724
+          ],
+          "pivot": [
+            398,
+            668
+          ],
+          "visibleBounds": [
+            35,
+            140,
+            736,
+            666
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      }
+    },
+    "mb-dist06": {
+      "routes": [
+        "dist06"
+      ],
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "exists": true,
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12",
+        "repoPath": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      },
+      "atlas": {
+        "path": "./assets/rc135/midboss-motions/sheets/mb-dist06.png",
+        "width": 2172,
+        "height": 724,
+        "sha256": "ee2862939b69ffbec919eedf1f6472ab6e8f8494c2a0c0f4e7967a634328b92c"
+      },
+      "baseHeight": 638,
+      "motions": {
+        "idle": {
+          "sourceRect": [
+            0,
+            0,
+            704,
+            724
+          ],
+          "pivot": [
+            352,
+            685
+          ],
+          "visibleBounds": [
+            86,
+            49,
+            625,
+            687
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            704,
+            0,
+            718,
+            724
+          ],
+          "pivot": [
+            368,
+            686
+          ],
+          "visibleBounds": [
+            88,
+            51,
+            630,
+            689
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1422,
+            0,
+            750,
+            724
+          ],
+          "pivot": [
+            368,
+            686
+          ],
+          "visibleBounds": [
+            72,
+            63,
+            688,
+            689
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      }
+    }
+  }
+}

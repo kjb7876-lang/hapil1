@@ -1,0 +1,1085 @@
+{
+  "audit": "read-only pixel/source QA for RC135 authored midboss ImageGen sheets",
+  "audited_at_utc": "2026-10-04 16:08:02 UTC",
+  "repository_commit": "ad98bd3d611bf44c9f484d9392f16919a9019fca",
+  "roster_path": "/workspace/hapil1-rc134-integrated/qa/rc135/authored-midboss-roster.json",
+  "manifest_path": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/dist-manifest.json",
+  "rect_conventions": {
+    "manifest_sourceRect": "[x,y,width,height]",
+    "report_recommended_rect": "half-open [x0,y0,x1,y1]; all recommended y extents are [0,724)"
+  },
+  "summary": {
+    "reference_identities_verified": 6,
+    "genuine_three_pose_visual_pass": [
+      "mb-dist01",
+      "mb-dist02",
+      "mb-dist03",
+      "mb-dist04",
+      "mb-dist05",
+      "mb-dist06"
+    ],
+    "transparent_rgba_sources": 6,
+    "foreign_character_spill_found": false,
+    "only_recommended_rect_or_pivot_changes": [
+      "mb-dist02",
+      "mb-dist04",
+      "mb-dist06 optional stricter zero-alpha gutters"
+    ],
+    "important_crop_limits": [
+      "mb-dist01 strike/effect bbox ends at x=2164 exclusive, 8 columns from right atlas edge",
+      "mb-dist04 strike/blood-arc bbox ends at x=2160 exclusive, 12 columns from right atlas edge; alpha-1 residue touches atlas edge"
+    ]
+  },
+  "atlases": [
+    {
+      "identity": "mb-dist01",
+      "route": "dist01",
+      "generation_reference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab"
+      },
+      "imagegen_source": "/workspace/generated_images/exec-a0ab4ba8-de09-4e85-bb39-5f4e8ba8b041.png",
+      "sha256": "dc8c9fdaac6d22999762103a8bbb87f342274d3d846ee2fb2afe06b30cb5dd97",
+      "size_bytes": 2351820,
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "repo_sheet": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/sheets/mb-dist01.png",
+      "repo_sheet_sha256": "dc8c9fdaac6d22999762103a8bbb87f342274d3d846ee2fb2afe06b30cb5dd97",
+      "source_matches_repo_sheet": true,
+      "alpha_zero_fraction": 0.439647,
+      "alpha_ge16_fraction": 0.459327,
+      "significant_bounds_alpha_ge16_xyxy": [
+        14,
+        27,
+        2164,
+        692
+      ],
+      "frames": [
+        {
+          "motion": "idle",
+          "manifest_source_rect_xywh": [
+            0,
+            0,
+            700,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            0,
+            0,
+            700,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            335,
+            694
+          ],
+          "suggested_pivot_local_xy": [
+            335,
+            694
+          ],
+          "manifest_visible_bounds": [
+            15,
+            42,
+            681,
+            691
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            14,
+            41,
+            683,
+            692
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 1,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "anticipation",
+          "manifest_source_rect_xywh": [
+            700,
+            0,
+            598,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            700,
+            0,
+            598,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            290,
+            690
+          ],
+          "suggested_pivot_local_xy": [
+            290,
+            690
+          ],
+          "manifest_visible_bounds": [
+            19,
+            29,
+            578,
+            687
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            18,
+            27,
+            579,
+            688
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "strike",
+          "manifest_source_rect_xywh": [
+            1298,
+            0,
+            874,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            1298,
+            0,
+            874,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            402,
+            680
+          ],
+          "suggested_pivot_local_xy": [
+            402,
+            680
+          ],
+          "manifest_visible_bounds": [
+            22,
+            42,
+            865,
+            679
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            19,
+            40,
+            866,
+            680
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 3,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      ],
+      "audit_comment": "Same angel-spider identity as generationReference. Pose progression is readable; the third pose includes an attached purple energy shield/arc. Keep the broad third-frame box: significant bbox ends at x=2164 exclusive, leaving 8 columns to the atlas edge. The proposed cuts match current manifest and are fully alpha-zero around each split.",
+      "five_column_zero_alpha_checks": [
+        {
+          "cut_x": 700,
+          "strip_xyxy": [
+            698,
+            0,
+            703,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        },
+        {
+          "cut_x": 1298,
+          "strip_xyxy": [
+            1296,
+            0,
+            1301,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        }
+      ]
+    },
+    {
+      "identity": "mb-dist02",
+      "route": "dist02",
+      "generation_reference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40"
+      },
+      "imagegen_source": "/workspace/generated_images/exec-c6e7b6e2-caac-4d91-b8b3-81b919928f3b.png",
+      "sha256": "659910f3ab056834be155e1b15df141fb31012d7f5efeec9656e3d348338a6c3",
+      "size_bytes": 1382347,
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "repo_sheet": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/sheets/mb-dist02.png",
+      "repo_sheet_sha256": "659910f3ab056834be155e1b15df141fb31012d7f5efeec9656e3d348338a6c3",
+      "source_matches_repo_sheet": true,
+      "alpha_zero_fraction": 0.669327,
+      "alpha_ge16_fraction": 0.274233,
+      "significant_bounds_alpha_ge16_xyxy": [
+        133,
+        50,
+        2111,
+        661
+      ],
+      "frames": [
+        {
+          "motion": "idle",
+          "manifest_source_rect_xywh": [
+            0,
+            0,
+            790,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            0,
+            0,
+            790,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            335,
+            645
+          ],
+          "suggested_pivot_local_xy": [
+            335,
+            648
+          ],
+          "manifest_visible_bounds": [
+            133,
+            133,
+            654,
+            648
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            133,
+            132,
+            655,
+            648
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 1,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "anticipation",
+          "manifest_source_rect_xywh": [
+            790,
+            0,
+            584,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            790,
+            0,
+            584,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            240,
+            636
+          ],
+          "suggested_pivot_local_xy": [
+            240,
+            638
+          ],
+          "manifest_visible_bounds": [
+            51,
+            51,
+            536,
+            637
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            51,
+            50,
+            537,
+            638
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 1
+          }
+        },
+        {
+          "motion": "strike",
+          "manifest_source_rect_xywh": [
+            1374,
+            0,
+            798,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            1374,
+            0,
+            798,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            356,
+            640
+          ],
+          "suggested_pivot_local_xy": [
+            356,
+            638
+          ],
+          "manifest_visible_bounds": [
+            164,
+            212,
+            734,
+            661
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            163,
+            211,
+            737,
+            661
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      ],
+      "audit_comment": "Same horned swamp demon. Three distinct stances; overhead cleaver and low impact spray are present. Current manifest cuts 748/1432 have alpha-1 residue at crop edges. The proposed x cuts 790/1374 each have a 5-column alpha-zero gutter. Move strike pivot off the low impact debris and onto the feet.",
+      "five_column_zero_alpha_checks": [
+        {
+          "cut_x": 790,
+          "strip_xyxy": [
+            788,
+            0,
+            793,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        },
+        {
+          "cut_x": 1374,
+          "strip_xyxy": [
+            1372,
+            0,
+            1377,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        }
+      ]
+    },
+    {
+      "identity": "mb-dist03",
+      "route": "dist03",
+      "generation_reference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb"
+      },
+      "imagegen_source": "/workspace/generated_images/exec-9b33d9b9-a486-4484-a9e1-6bf2c7a0c6a4.png",
+      "sha256": "07f275d4152b56735386681ea4a93eb9b2f85f80197902b7ab42d3edfcf2d293",
+      "size_bytes": 1216907,
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "repo_sheet": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/sheets/mb-dist03.png",
+      "repo_sheet_sha256": "07f275d4152b56735386681ea4a93eb9b2f85f80197902b7ab42d3edfcf2d293",
+      "source_matches_repo_sheet": true,
+      "alpha_zero_fraction": 0.708454,
+      "alpha_ge16_fraction": 0.223211,
+      "significant_bounds_alpha_ge16_xyxy": [
+        31,
+        36,
+        2155,
+        678
+      ],
+      "frames": [
+        {
+          "motion": "idle",
+          "manifest_source_rect_xywh": [
+            0,
+            0,
+            713,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            0,
+            0,
+            713,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            355,
+            679
+          ],
+          "suggested_pivot_local_xy": [
+            355,
+            679
+          ],
+          "manifest_visible_bounds": [
+            32,
+            113,
+            603,
+            677
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            31,
+            113,
+            605,
+            678
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "anticipation",
+          "manifest_source_rect_xywh": [
+            713,
+            0,
+            656,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            713,
+            0,
+            656,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            307,
+            680
+          ],
+          "suggested_pivot_local_xy": [
+            307,
+            680
+          ],
+          "manifest_visible_bounds": [
+            110,
+            37,
+            619,
+            678
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            109,
+            36,
+            620,
+            678
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "strike",
+          "manifest_source_rect_xywh": [
+            1369,
+            0,
+            803,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            1369,
+            0,
+            803,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            281,
+            652
+          ],
+          "suggested_pivot_local_xy": [
+            281,
+            652
+          ],
+          "manifest_visible_bounds": [
+            37,
+            175,
+            786,
+            654
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            37,
+            175,
+            786,
+            655
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      ],
+      "audit_comment": "Same red blood guardian. Idle, overhead wind-up, and low slash are clear. Current cuts are already in 5-column alpha-zero gutters. Keep the full third-frame box for its blood arc; significant bbox ends at x=2155 exclusive, 17 columns from atlas edge.",
+      "five_column_zero_alpha_checks": [
+        {
+          "cut_x": 713,
+          "strip_xyxy": [
+            711,
+            0,
+            716,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        },
+        {
+          "cut_x": 1369,
+          "strip_xyxy": [
+            1367,
+            0,
+            1372,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        }
+      ]
+    },
+    {
+      "identity": "mb-dist04",
+      "route": "dist04",
+      "generation_reference": {
+        "path": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+        "sha256": "5ef8be714a241330274fafddb5dd29c0bc9f74f1f1e05d5687cf549a9952801c"
+      },
+      "imagegen_source": "/workspace/generated_images/exec-eddf948e-f352-4080-8660-bb6dbf6033f3.png",
+      "sha256": "0009360f5197f324669c0ddbe3937ffd9541f5d6d9a5e0b9159a3b0387579ebd",
+      "size_bytes": 1864230,
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "repo_sheet": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/sheets/mb-dist04.png",
+      "repo_sheet_sha256": "0009360f5197f324669c0ddbe3937ffd9541f5d6d9a5e0b9159a3b0387579ebd",
+      "source_matches_repo_sheet": true,
+      "alpha_zero_fraction": 0.577309,
+      "alpha_ge16_fraction": 0.351392,
+      "significant_bounds_alpha_ge16_xyxy": [
+        61,
+        16,
+        2160,
+        713
+      ],
+      "frames": [
+        {
+          "motion": "idle",
+          "manifest_source_rect_xywh": [
+            0,
+            0,
+            575,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            0,
+            0,
+            575,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            300,
+            717
+          ],
+          "suggested_pivot_local_xy": [
+            300,
+            717
+          ],
+          "manifest_visible_bounds": [
+            62,
+            17,
+            501,
+            713
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            61,
+            16,
+            501,
+            713
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 1
+          }
+        },
+        {
+          "motion": "anticipation",
+          "manifest_source_rect_xywh": [
+            575,
+            0,
+            736,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            575,
+            0,
+            736,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            425,
+            716
+          ],
+          "suggested_pivot_local_xy": [
+            425,
+            716
+          ],
+          "manifest_visible_bounds": [
+            97,
+            17,
+            725,
+            713
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            97,
+            17,
+            725,
+            713
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 1
+          }
+        },
+        {
+          "motion": "strike",
+          "manifest_source_rect_xywh": [
+            1311,
+            0,
+            861,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            1311,
+            0,
+            861,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            438,
+            716
+          ],
+          "suggested_pivot_local_xy": [
+            438,
+            716
+          ],
+          "manifest_visible_bounds": [
+            38,
+            100,
+            849,
+            713
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            37,
+            100,
+            849,
+            713
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 1,
+            "top": 0,
+            "bottom": 1
+          }
+        }
+      ],
+      "audit_comment": "Correct approved bloodied zombie guardian reference. Poses are distinct and the raised sword/thrust are included. Current cuts 586/1324 leave alpha-1 edge pixels; proposed 575/1311 cuts have 5-column alpha-zero gutters. The strike blood-arc bbox ends at x=2160 exclusive (12 columns from the edge); no high-alpha pixel is clipped, though faint alpha-1 residue touches right/bottom canvas edges. The strike pivot should sit on the forward planted boot near source x=1749.",
+      "five_column_zero_alpha_checks": [
+        {
+          "cut_x": 575,
+          "strip_xyxy": [
+            573,
+            0,
+            578,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        },
+        {
+          "cut_x": 1311,
+          "strip_xyxy": [
+            1309,
+            0,
+            1314,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        }
+      ]
+    },
+    {
+      "identity": "mb-dist05",
+      "route": "dist05",
+      "generation_reference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c"
+      },
+      "imagegen_source": "/workspace/generated_images/exec-be9cf010-e6ad-42c1-aeba-ad6844fc5c0b.png",
+      "sha256": "eadab8cb7bf84a029604850aef1f3f496b66069ce725aef4214d31e0a51cad31",
+      "size_bytes": 1333844,
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "repo_sheet": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/sheets/mb-dist05.png",
+      "repo_sheet_sha256": "eadab8cb7bf84a029604850aef1f3f496b66069ce725aef4214d31e0a51cad31",
+      "source_matches_repo_sheet": true,
+      "alpha_zero_fraction": 0.651429,
+      "alpha_ge16_fraction": 0.260765,
+      "significant_bounds_alpha_ge16_xyxy": [
+        132,
+        111,
+        2102,
+        668
+      ],
+      "frames": [
+        {
+          "motion": "idle",
+          "manifest_source_rect_xywh": [
+            0,
+            0,
+            713,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            0,
+            0,
+            713,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            345,
+            665
+          ],
+          "suggested_pivot_local_xy": [
+            345,
+            664
+          ],
+          "manifest_visible_bounds": [
+            133,
+            111,
+            583,
+            661
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            132,
+            111,
+            584,
+            665
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "anticipation",
+          "manifest_source_rect_xywh": [
+            713,
+            0,
+            649,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            713,
+            0,
+            649,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            297,
+            664
+          ],
+          "suggested_pivot_local_xy": [
+            297,
+            664
+          ],
+          "manifest_visible_bounds": [
+            129,
+            125,
+            613,
+            662
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            129,
+            124,
+            616,
+            664
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "strike",
+          "manifest_source_rect_xywh": [
+            1362,
+            0,
+            810,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            1362,
+            0,
+            810,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            398,
+            668
+          ],
+          "suggested_pivot_local_xy": [
+            398,
+            668
+          ],
+          "manifest_visible_bounds": [
+            35,
+            140,
+            736,
+            666
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            34,
+            139,
+            740,
+            668
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      ],
+      "audit_comment": "Same hooded messenger specter. Upright hover, folded reach, and horizontal lunge are distinct. Scroll and turquoise spectral effects are attached to the matching poses; no unrelated figure. Current rects are clean. Since it has no feet, either anchor each pose to the hem for a stable hover baseline or document a shared torso anchor; current y pivots leave increasingly more cloak below the anchor.",
+      "five_column_zero_alpha_checks": [
+        {
+          "cut_x": 713,
+          "strip_xyxy": [
+            711,
+            0,
+            716,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        },
+        {
+          "cut_x": 1362,
+          "strip_xyxy": [
+            1360,
+            0,
+            1365,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        }
+      ]
+    },
+    {
+      "identity": "mb-dist06",
+      "route": "dist06",
+      "generation_reference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12"
+      },
+      "imagegen_source": "/workspace/generated_images/exec-e7463c3c-9008-4ae5-84fd-a99bbd70fc3f.png",
+      "sha256": "ee2862939b69ffbec919eedf1f6472ab6e8f8494c2a0c0f4e7967a634328b92c",
+      "size_bytes": 1527864,
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "repo_sheet": "/workspace/hapil1-rc134-integrated/assets/rc135/midboss-motions/sheets/mb-dist06.png",
+      "repo_sheet_sha256": "ee2862939b69ffbec919eedf1f6472ab6e8f8494c2a0c0f4e7967a634328b92c",
+      "source_matches_repo_sheet": true,
+      "alpha_zero_fraction": 0.642669,
+      "alpha_ge16_fraction": 0.324331,
+      "significant_bounds_alpha_ge16_xyxy": [
+        86,
+        49,
+        2110,
+        689
+      ],
+      "frames": [
+        {
+          "motion": "idle",
+          "manifest_source_rect_xywh": [
+            0,
+            0,
+            704,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            0,
+            0,
+            704,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            352,
+            685
+          ],
+          "suggested_pivot_local_xy": [
+            352,
+            685
+          ],
+          "manifest_visible_bounds": [
+            86,
+            49,
+            625,
+            687
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            86,
+            49,
+            625,
+            687
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "anticipation",
+          "manifest_source_rect_xywh": [
+            704,
+            0,
+            718,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            704,
+            0,
+            718,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            368,
+            686
+          ],
+          "suggested_pivot_local_xy": [
+            368,
+            686
+          ],
+          "manifest_visible_bounds": [
+            88,
+            51,
+            630,
+            689
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            88,
+            51,
+            631,
+            689
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        {
+          "motion": "strike",
+          "manifest_source_rect_xywh": [
+            1422,
+            0,
+            750,
+            724
+          ],
+          "recommended_source_rect_xywh": [
+            1422,
+            0,
+            750,
+            724
+          ],
+          "manifest_pivot_local_xy": [
+            368,
+            686
+          ],
+          "suggested_pivot_local_xy": [
+            368,
+            686
+          ],
+          "manifest_visible_bounds": [
+            72,
+            63,
+            688,
+            689
+          ],
+          "actual_alpha_ge16_bounds_local_xyxy": [
+            72,
+            63,
+            688,
+            689
+          ],
+          "manifest_boundary_alpha_max": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      ],
+      "audit_comment": "Regenerated source passes the structure-motion check: closed upright spire; skull plates flare with acolytes raising their arms; then the spire opens/leans right while an acolyte reaches outward. The figures match those in generationReference. Current cuts 708/1414 retain visible art but have alpha-1 specks on crop borders. Proposed 704/1422 have 5-column alpha-zero gutters; update local x pivots to keep world anchors 352, 1072, 1790.",
+      "five_column_zero_alpha_checks": [
+        {
+          "cut_x": 704,
+          "strip_xyxy": [
+            702,
+            0,
+            707,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        },
+        {
+          "cut_x": 1422,
+          "strip_xyxy": [
+            1420,
+            0,
+            1425,
+            724
+          ],
+          "max_alpha": 0,
+          "nonzero_pixels": 0
+        }
+      ]
+    }
+  ]
+}

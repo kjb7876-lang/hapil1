@@ -100,9 +100,14 @@ async function settleNavigation(page, mobile) {
   // Use normal manual-mode UI, then resume simulation to finish that transaction.
   // Waiting inside the paused Settings screen cannot advance those hits.
   await page.locator('.rc61-settings').getByRole('radio', { name: '수동', exact: true }).check();
+  // The native dialog header is a sibling of .rc61-settings content.
+  // Check this even when this run has no pending ultimate to settle.
+  const close = page.getByRole('dialog', { name: '설정', exact: true }).getByRole('button', { name: '닫기 ×', exact: true });
+  assert.equal(await close.count(), 1, 'native Settings header exposes one close button');
+  assert(await close.isVisible(), 'native Settings header close remains visible');
   const pending = await page.evaluate(() => window.__RC133_777_QA__.pendingNavigation());
   if (pending) {
-    await page.locator('.rc61-settings').getByRole('button', { name: '닫기 ×', exact: true }).click();
+    await close.click();
     await advanceNarrative(page);
     await page.waitForFunction(() => !window.__RC133_777_QA__.pendingNavigation(), null, { timeout: 10000 });
     await openSettings(page, mobile);

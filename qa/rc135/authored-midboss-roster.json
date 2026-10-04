@@ -1,0 +1,3811 @@
+{
+  "schema": "rc135-authored-midboss-references/v1",
+  "commit": "ad98bd3d611bf44c9f484d9392f16919a9019fca",
+  "scope": "Current map-authored first midboss references, no heterogeneous runtime partners. Source pixels must be inspected before imagegen.",
+  "activeRoutes": 41,
+  "uniqueSources": 39,
+  "unique": [
+    {
+      "identity": "mb-dist01",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "exists": true,
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab",
+        "repoPath": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      },
+      "routes": [
+        {
+          "zone": "dist01",
+          "name": "보라검천사",
+          "id": "mb-dist01",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-dist02",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "exists": true,
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40",
+        "repoPath": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      },
+      "routes": [
+        {
+          "zone": "dist02",
+          "name": "늪의 뿔악마 군주",
+          "id": "mb-dist02",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-dist03",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "exists": true,
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb",
+        "repoPath": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      },
+      "routes": [
+        {
+          "zone": "dist03",
+          "name": "핏빛 수호로 추격자",
+          "id": "mb-dist03",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-dist04",
+      "reference": {
+        "path": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+        "exists": true,
+        "sha256": "5ef8be714a241330274fafddb5dd29c0bc9f74f1f1e05d5687cf549a9952801c",
+        "repoPath": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp"
+      },
+      "routes": [
+        {
+          "zone": "dist04",
+          "name": "되살아난 첫 수호자",
+          "id": "mb-dist04",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-dist05",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "exists": true,
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+        "repoPath": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      },
+      "routes": [
+        {
+          "zone": "dist05",
+          "name": "숨이 끊긴 전령의 그림자",
+          "id": "mb-dist05",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-dist06",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "exists": true,
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12",
+        "repoPath": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      },
+      "routes": [
+        {
+          "zone": "dist06",
+          "name": "소환진 검은기둥",
+          "id": "mb-dist06",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1a08",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "exists": true,
+        "sha256": "edd69005102d38f80d970adecbaea0a3c211fb02155847118596acd80555cc38",
+        "repoPath": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1a08",
+          "name": "백의 안정화 감독",
+          "id": "mb-ep1a08",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1a09",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "exists": true,
+        "sha256": "8bffe21ec24477edca293d0e929e835ddb82a40ec504b056a8d0343d668b99ef",
+        "repoPath": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1a09",
+          "name": "갈망의 주사실 감시핵",
+          "id": "mb-ep1a09",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1a10",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "exists": true,
+        "sha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+        "repoPath": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1a10",
+          "name": "오만의 폐허핵",
+          "id": "mb-ep1a10",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1a11",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "exists": true,
+        "sha256": "e0d1e44e2f61c858b7b7f1c65fe2c83ab8b96a52fc5d45ffe9630ad86a29c4a5",
+        "repoPath": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1a11",
+          "name": "초천사의 웃는 가면",
+          "id": "mb-ep1a11",
+          "arc": "DIST"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b01",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "exists": true,
+        "sha256": "c74acf16eec339212df1841db3a9bebf11076704bacdf38fc713b898bb97ffec",
+        "repoPath": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b01",
+          "name": "교만의 잔향 · 제72문",
+          "id": "mb-ep1b01",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b02",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "exists": true,
+        "sha256": "e5d1f2b1c91ba1a560f66e4bbfc52838d880bfdf31d11ab189383b3bed9acb04",
+        "repoPath": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b02",
+          "name": "나태의 껍데기 파수",
+          "id": "mb-ep1b02",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b03",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "exists": true,
+        "sha256": "a05ecc5d2e4ef73872b59b2895939f62ef03dcd41e2761815c332d4257deb7d4",
+        "repoPath": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b03",
+          "name": "금이 간 비교잔영",
+          "id": "mb-ep1b03",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b04",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "exists": true,
+        "sha256": "b5dcd32af019b5d4266c89d1b6c9a3e87f824377308a908d37208e570b2a8cc7",
+        "repoPath": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b04",
+          "name": "폐기주방 감독",
+          "id": "mb-ep1b04",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b05",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "exists": true,
+        "sha256": "8aa4b200019560224b1d342d81891cc5e11f40a266c4c7ab1bf9b8e835ff25d0",
+        "repoPath": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b05",
+          "name": "심장빛 무대감독",
+          "id": "mb-ep1b05",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b06",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "exists": true,
+        "sha256": "98556a8c80a9facafaabc7690b99067cf42f1d23e8559d447900213797f7c43f",
+        "repoPath": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b06",
+          "name": "금고 장부감시자",
+          "id": "mb-ep1b06",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b06b",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "exists": true,
+        "sha256": "bd0cdd0a8bdba5a60ae41af3d85bd9421bb3c09713ce5809bbd7e394e517eba6",
+        "repoPath": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b06b",
+          "name": "겨울숲 가시파수",
+          "id": "mb-ep1b06b",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b07",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "exists": true,
+        "sha256": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+        "repoPath": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b07",
+          "name": "호텔 화염기사",
+          "id": "mb-ep1b07",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b08",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "exists": true,
+        "sha256": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+        "repoPath": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b08",
+          "name": "역십자가 시체경호체",
+          "id": "mb-ep1b08",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-ep1b09",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "exists": true,
+        "sha256": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+        "repoPath": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+      },
+      "routes": [
+        {
+          "zone": "ep1b09",
+          "name": "생체부트로더 연산핵",
+          "id": "mb-ep1b09",
+          "arc": "EP1B"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "u201-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "routes": [
+        {
+          "zone": "u201",
+          "name": "제4단계 전쟁관리자",
+          "id": "u201-mid",
+          "arc": "U2"
+        },
+        {
+          "zone": "u205",
+          "name": "제14단계 역전 관리자",
+          "id": "u205-mid",
+          "arc": "U2"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "u202-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "routes": [
+        {
+          "zone": "u202",
+          "name": "제8단계 자비 교정관",
+          "id": "u202-mid",
+          "arc": "U2"
+        },
+        {
+          "zone": "u204",
+          "name": "제12단계 기억 검열기",
+          "id": "u204-mid",
+          "arc": "U2"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "u203-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "exists": true,
+        "sha256": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+        "repoPath": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+      },
+      "routes": [
+        {
+          "zone": "u203",
+          "name": "기억의 문 수호 프레임",
+          "id": "u203-mid",
+          "arc": "U2"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-last302-v31231",
+      "reference": {
+        "path": "assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "exists": true,
+        "sha256": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+        "repoPath": "assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+      },
+      "routes": [
+        {
+          "zone": "last302",
+          "name": "검은 안개 심장 · 불면의 기억",
+          "id": "mb-last302-v31231",
+          "arc": "LAST3"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-kair01-v31231",
+      "reference": {
+        "path": "assets/kair/enemies/resonance-slave.png",
+        "exists": true,
+        "sha256": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+        "repoPath": "assets/kair/enemies/resonance-slave.png"
+      },
+      "routes": [
+        {
+          "zone": "kair01",
+          "name": "최초명령 코어 오염체",
+          "id": "mb-kair01-v31231",
+          "arc": "KAIRO"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-hando01",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "exists": true,
+        "sha256": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+        "repoPath": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+      },
+      "routes": [
+        {
+          "zone": "hando01",
+          "name": "의존 신호 포식자",
+          "id": "mb-hando01",
+          "arc": "HANDO"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-hando02",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "exists": true,
+        "sha256": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+        "repoPath": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+      },
+      "routes": [
+        {
+          "zone": "hando02",
+          "name": "코어 운반 집행자",
+          "id": "mb-hando02",
+          "arc": "HANDO"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-hando03",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "exists": true,
+        "sha256": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+        "repoPath": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+      },
+      "routes": [
+        {
+          "zone": "hando03",
+          "name": "환수검 모조체",
+          "id": "mb-hando03",
+          "arc": "HANDO"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-murder01",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "exists": true,
+        "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+        "repoPath": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+      },
+      "routes": [
+        {
+          "zone": "murder01",
+          "name": "파란불 역주행 목격자",
+          "id": "mb-murder01",
+          "arc": "MURDER"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-murder02",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "exists": true,
+        "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+        "repoPath": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+      },
+      "routes": [
+        {
+          "zone": "murder02",
+          "name": "공실장부 당직감사",
+          "id": "mb-murder02",
+          "arc": "MURDER"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-murder03",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "exists": true,
+        "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+        "repoPath": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+      },
+      "routes": [
+        {
+          "zone": "murder03",
+          "name": "옥상 인과보관인",
+          "id": "mb-murder03",
+          "arc": "MURDER"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "c101-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "exists": true,
+        "sha256": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+        "repoPath": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+      },
+      "routes": [
+        {
+          "zone": "cult01",
+          "name": "칩 제단 방화벽",
+          "id": "c101-mid",
+          "arc": "CULT"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "c104-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "exists": true,
+        "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+        "repoPath": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+      },
+      "routes": [
+        {
+          "zone": "cult04",
+          "name": "적그리스도 배양좌",
+          "id": "c104-mid",
+          "arc": "CULT"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "u206-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "exists": true,
+        "sha256": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+        "repoPath": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+      },
+      "routes": [
+        {
+          "zone": "u206",
+          "name": "제17단계 중앙이주 코어",
+          "id": "u206-mid",
+          "arc": "U2"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "mb-kair04-v31231",
+      "reference": {
+        "path": "assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "exists": true,
+        "sha256": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+        "repoPath": "assets/generated-v3125/kair-guardians/guardian_50.webp"
+      },
+      "routes": [
+        {
+          "zone": "kair04",
+          "name": "휴식 수확관 · 과로의 수문장",
+          "id": "mb-kair04-v31231",
+          "arc": "KAIRO"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "kair-great-05",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "exists": true,
+        "sha256": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+        "repoPath": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+      },
+      "routes": [
+        {
+          "zone": "kair08",
+          "name": "대수문장 05",
+          "id": "kair-great-05",
+          "arc": "KAIRO"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "murder04-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "exists": true,
+        "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+        "repoPath": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+      },
+      "routes": [
+        {
+          "zone": "murder04",
+          "name": "진술 봉쇄 인과핵",
+          "id": "murder04-mid",
+          "arc": "MURDER"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "c105-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "exists": true,
+        "sha256": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+        "repoPath": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+      },
+      "routes": [
+        {
+          "zone": "cult05",
+          "name": "ID 생체조 관리자",
+          "id": "c105-mid",
+          "arc": "CULT"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    },
+    {
+      "identity": "c106-mid",
+      "reference": {
+        "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "exists": true,
+        "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+        "repoPath": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+      },
+      "routes": [
+        {
+          "zone": "cult06",
+          "name": "기계재판 집행핵",
+          "id": "c106-mid",
+          "arc": "CULT"
+        }
+      ],
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "zone": "dist01",
+      "arc": "DIST",
+      "mapName": "거미동굴",
+      "order": 2,
+      "id": "mb-dist01",
+      "name": "보라검천사",
+      "kind": "corruptedGuardian",
+      "sprite": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+      "phaseSprites": [
+        "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      ],
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "move": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "windup": "./assets/generated-v31224/actors-normalized/8dea7c288479_purple_sword_spider_angel_attack.webp",
+        "attackA": "./assets/generated-v31224/actors-normalized/8dea7c288479_purple_sword_spider_angel_attack.webp",
+        "attackB": "./assets/generated-v31224/actors-normalized/8dea7c288479_purple_sword_spider_angel_attack.webp",
+        "rain": "./assets/generated-v31224/actors-normalized/8dea7c288479_purple_sword_spider_angel_attack.webp",
+        "rift": "./assets/generated-v31224/actors-normalized/8dea7c288479_purple_sword_spider_angel_attack.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/d93bb825dd04_purple_sword_spider_angel_transition.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/d93bb825dd04_purple_sword_spider_angel_transition.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/d93bb825dd04_purple_sword_spider_angel_transition.webp",
+        "death": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+      "spriteContract": {
+        "actorId": "mb-dist01",
+        "zone": "dist01",
+        "family": "dist",
+        "category": "meleeBlade",
+        "mode": "replacement",
+        "idleSprite": "./assets/episode1a/generated-v31217/purple_sword_spider_angel.webp",
+        "attackImage": "./assets/generated-v31219/actor-actions/purple_sword_spider_angel_attack.webp",
+        "attackSprite": "./assets/generated-v31219/actor-actions/purple_sword_spider_angel_attack.webp",
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "exists": true,
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab",
+        "repoPath": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "exists": true,
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab",
+        "repoPath": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "exists": true,
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab",
+        "repoPath": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+        "exists": true,
+        "sha256": "46b6f5ffff8dd9a041fa250d4be1975cc0f40d37f4676c4cdecfb2506bcbc2ab",
+        "repoPath": "assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp"
+      }
+    },
+    {
+      "zone": "dist02",
+      "arc": "DIST",
+      "mapName": "늪지대의 뿔악마",
+      "order": 3,
+      "id": "mb-dist02",
+      "name": "늪의 뿔악마 군주",
+      "kind": "hornDemon",
+      "sprite": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "move": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "death": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+      "spriteContract": {
+        "actorId": "mb-dist02",
+        "zone": "dist02",
+        "family": "dist",
+        "category": "meleeClaw",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "exists": true,
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40",
+        "repoPath": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "exists": true,
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40",
+        "repoPath": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "exists": true,
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40",
+        "repoPath": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+        "exists": true,
+        "sha256": "69df826108e59ca10ea2ef87790a7153cfb6e2c29d8e35bde5d0199cd88a5c40",
+        "repoPath": "assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp"
+      }
+    },
+    {
+      "zone": "dist03",
+      "arc": "DIST",
+      "mapName": "무너진성",
+      "order": 4,
+      "id": "mb-dist03",
+      "name": "핏빛 수호로 추격자",
+      "kind": "corruptedGuardian",
+      "sprite": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "move": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "death": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+      "spriteContract": {
+        "actorId": "mb-dist03",
+        "zone": "dist03",
+        "family": "dist",
+        "category": "meleeBlade",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "exists": true,
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb",
+        "repoPath": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "exists": true,
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb",
+        "repoPath": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "exists": true,
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb",
+        "repoPath": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+        "exists": true,
+        "sha256": "4149365a94e2facc31723490cb2bbb79e650e620a609e029c0c911b7fb3c6ddb",
+        "repoPath": "assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp"
+      }
+    },
+    {
+      "zone": "dist04",
+      "arc": "DIST",
+      "mapName": "시체들이 되살아난 밤",
+      "order": 5,
+      "id": "mb-dist04",
+      "name": "되살아난 첫 수호자",
+      "kind": "corruptedGuardian",
+      "sprite": "./assets/episode1a/corrupted_guardian.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "move": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "death": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+      "spriteContract": {
+        "actorId": "mb-dist04",
+        "zone": "dist04",
+        "family": "dist",
+        "category": "meleeBlade",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/episode1a/corrupted_guardian.webp",
+        "exists": true,
+        "sha256": "2d7d33abed68b2bb0d09d401a9e4d023787c502e06c8ec7e83e21c12210f4ff2",
+        "repoPath": "assets/episode1a/corrupted_guardian.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "exists": true,
+        "sha256": "b444df28b4d5da4e28bc9a029df90bca960c85a03ccd5a93c6bd78d8246362a1",
+        "repoPath": "assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp",
+        "exists": true,
+        "sha256": "b444df28b4d5da4e28bc9a029df90bca960c85a03ccd5a93c6bd78d8246362a1",
+        "repoPath": "assets/generated-v31224/actors-normalized/42daad5a3557_dist_fallen_comrade_demon_echo.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+        "exists": true,
+        "sha256": "5ef8be714a241330274fafddb5dd29c0bc9f74f1f1e05d5687cf549a9952801c",
+        "repoPath": "assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp"
+      },
+      "referenceNote": "RC69 rendered leader comradeArtRC69 is the approved bloodied zombie guardian; old effective idle cache is stale. Same identity must own every fission copy."
+    },
+    {
+      "zone": "dist05",
+      "arc": "DIST",
+      "mapName": "일곱 기둥",
+      "order": 6,
+      "id": "mb-dist05",
+      "name": "숨이 끊긴 전령의 그림자",
+      "kind": "specter",
+      "sprite": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "move": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "death": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+      "spriteContract": {
+        "actorId": "mb-dist05",
+        "zone": "dist05",
+        "family": "dist",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "exists": true,
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+        "repoPath": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "exists": true,
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+        "repoPath": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "exists": true,
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+        "repoPath": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+        "exists": true,
+        "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+        "repoPath": "assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp"
+      }
+    },
+    {
+      "zone": "dist06",
+      "arc": "DIST",
+      "mapName": "추락",
+      "order": 7,
+      "id": "mb-dist06",
+      "name": "소환진 검은기둥",
+      "kind": "mage",
+      "sprite": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "move": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "death": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+      "spriteContract": {
+        "actorId": "mb-dist06",
+        "zone": "dist06",
+        "family": "dist",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "exists": true,
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12",
+        "repoPath": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "exists": true,
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12",
+        "repoPath": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "exists": true,
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12",
+        "repoPath": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp",
+        "exists": true,
+        "sha256": "f60f62d28ba58581b436443cc0547d615498b675d28555eaef84e978031a8d12",
+        "repoPath": "assets/generated-v31224/actors-normalized/be8d2dfe3789_dist_summoning_black_pillar.webp"
+      }
+    },
+    {
+      "zone": "ep1a07",
+      "arc": "DIST",
+      "mapName": "추락의 소용돌이",
+      "order": 8,
+      "id": "mb-ep1a07",
+      "name": "무의 기억포식자",
+      "kind": "void",
+      "sprite": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "move": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "death": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1a07",
+        "zone": "ep1a07",
+        "family": "ep1a",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "exists": true,
+        "sha256": "25b527d53ce4d738100e4e0b2ad656c11fd054052bb07a23c2ccd822439baa2b",
+        "repoPath": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "exists": true,
+        "sha256": "25b527d53ce4d738100e4e0b2ad656c11fd054052bb07a23c2ccd822439baa2b",
+        "repoPath": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "exists": true,
+        "sha256": "25b527d53ce4d738100e4e0b2ad656c11fd054052bb07a23c2ccd822439baa2b",
+        "repoPath": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": false,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp",
+        "exists": true,
+        "sha256": "25b527d53ce4d738100e4e0b2ad656c11fd054052bb07a23c2ccd822439baa2b",
+        "repoPath": "assets/generated-v31224/actors-normalized/bd76fc560725_ep1a_void_memory_devourer.webp"
+      }
+    },
+    {
+      "zone": "ep1a08",
+      "arc": "DIST",
+      "mapName": "피로 물든 병원",
+      "order": 9,
+      "id": "mb-ep1a08",
+      "name": "백의 안정화 감독",
+      "kind": "orderly",
+      "sprite": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "move": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "death": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1a08",
+        "zone": "ep1a08",
+        "family": "ep1a",
+        "category": "rangedOrganic",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "exists": true,
+        "sha256": "edd69005102d38f80d970adecbaea0a3c211fb02155847118596acd80555cc38",
+        "repoPath": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "exists": true,
+        "sha256": "edd69005102d38f80d970adecbaea0a3c211fb02155847118596acd80555cc38",
+        "repoPath": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "exists": true,
+        "sha256": "edd69005102d38f80d970adecbaea0a3c211fb02155847118596acd80555cc38",
+        "repoPath": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "exists": true,
+        "sha256": "edd69005102d38f80d970adecbaea0a3c211fb02155847118596acd80555cc38",
+        "repoPath": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      }
+    },
+    {
+      "zone": "ep1a09",
+      "arc": "DIST",
+      "mapName": "주사실과 결전의 날",
+      "order": 10,
+      "id": "mb-ep1a09",
+      "name": "갈망의 주사실 감시핵",
+      "kind": "void",
+      "sprite": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "move": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "death": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1a09",
+        "zone": "ep1a09",
+        "family": "ep1a",
+        "category": "rangedBallistic",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "exists": true,
+        "sha256": "8bffe21ec24477edca293d0e929e835ddb82a40ec504b056a8d0343d668b99ef",
+        "repoPath": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "exists": true,
+        "sha256": "8bffe21ec24477edca293d0e929e835ddb82a40ec504b056a8d0343d668b99ef",
+        "repoPath": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "exists": true,
+        "sha256": "8bffe21ec24477edca293d0e929e835ddb82a40ec504b056a8d0343d668b99ef",
+        "repoPath": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "exists": true,
+        "sha256": "8bffe21ec24477edca293d0e929e835ddb82a40ec504b056a8d0343d668b99ef",
+        "repoPath": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      }
+    },
+    {
+      "zone": "ep1a10",
+      "arc": "DIST",
+      "mapName": "환자와 중독의 도시",
+      "order": 11,
+      "id": "mb-ep1a10",
+      "name": "오만의 폐허핵",
+      "kind": "hornDemon",
+      "sprite": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "move": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "death": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1a10",
+        "zone": "ep1a10",
+        "family": "ep1a",
+        "category": "meleeClaw",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "exists": true,
+        "sha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+        "repoPath": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "exists": true,
+        "sha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+        "repoPath": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "exists": true,
+        "sha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+        "repoPath": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "exists": true,
+        "sha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+        "repoPath": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      }
+    },
+    {
+      "zone": "ep1a11",
+      "arc": "DIST",
+      "mapName": "천사의 가면과 의목사 후보생",
+      "order": 12,
+      "id": "mb-ep1a11",
+      "name": "초천사의 웃는 가면",
+      "kind": "corruptedGuardian",
+      "sprite": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "move": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "death": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1a11",
+        "zone": "ep1a11",
+        "family": "ep1a",
+        "category": "meleeBlade",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "exists": true,
+        "sha256": "e0d1e44e2f61c858b7b7f1c65fe2c83ab8b96a52fc5d45ffe9630ad86a29c4a5",
+        "repoPath": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "exists": true,
+        "sha256": "e0d1e44e2f61c858b7b7f1c65fe2c83ab8b96a52fc5d45ffe9630ad86a29c4a5",
+        "repoPath": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "exists": true,
+        "sha256": "e0d1e44e2f61c858b7b7f1c65fe2c83ab8b96a52fc5d45ffe9630ad86a29c4a5",
+        "repoPath": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "exists": true,
+        "sha256": "e0d1e44e2f61c858b7b7f1c65fe2c83ab8b96a52fc5d45ffe9630ad86a29c4a5",
+        "repoPath": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      }
+    },
+    {
+      "zone": "ep1b01",
+      "arc": "EP1B",
+      "mapName": "솔로몬의 봉인식",
+      "order": 14,
+      "id": "mb-ep1b01",
+      "name": "교만의 잔향 · 제72문",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+      "phaseSprites": [
+        "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "./assets/generated-v31224/actors-normalized/90412a2f1bcc_seal_residual.webp",
+        "./assets/generated-v31224/actors-normalized/c5b71f1b12a8_boss_pride_demon.webp"
+      ],
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "move": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "death": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b01",
+        "zone": "ep1b01",
+        "family": "ep1b",
+        "category": "rangedHoly",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "exists": true,
+        "sha256": "c74acf16eec339212df1841db3a9bebf11076704bacdf38fc713b898bb97ffec",
+        "repoPath": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "exists": true,
+        "sha256": "c74acf16eec339212df1841db3a9bebf11076704bacdf38fc713b898bb97ffec",
+        "repoPath": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "exists": true,
+        "sha256": "c74acf16eec339212df1841db3a9bebf11076704bacdf38fc713b898bb97ffec",
+        "repoPath": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "exists": true,
+        "sha256": "c74acf16eec339212df1841db3a9bebf11076704bacdf38fc713b898bb97ffec",
+        "repoPath": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      }
+    },
+    {
+      "zone": "ep1b02",
+      "arc": "EP1B",
+      "mapName": "나태의 집",
+      "order": 15,
+      "id": "mb-ep1b02",
+      "name": "나태의 껍데기 파수",
+      "kind": "hornDemon",
+      "sprite": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "move": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "death": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b02",
+        "zone": "ep1b02",
+        "family": "ep1b",
+        "category": "meleeClaw",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "exists": true,
+        "sha256": "e5d1f2b1c91ba1a560f66e4bbfc52838d880bfdf31d11ab189383b3bed9acb04",
+        "repoPath": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "exists": true,
+        "sha256": "e5d1f2b1c91ba1a560f66e4bbfc52838d880bfdf31d11ab189383b3bed9acb04",
+        "repoPath": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "exists": true,
+        "sha256": "e5d1f2b1c91ba1a560f66e4bbfc52838d880bfdf31d11ab189383b3bed9acb04",
+        "repoPath": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "exists": true,
+        "sha256": "e5d1f2b1c91ba1a560f66e4bbfc52838d880bfdf31d11ab189383b3bed9acb04",
+        "repoPath": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      }
+    },
+    {
+      "zone": "ep1b03",
+      "arc": "EP1B",
+      "mapName": "금이 간 안경",
+      "order": 16,
+      "id": "mb-ep1b03",
+      "name": "금이 간 비교잔영",
+      "kind": "connector",
+      "sprite": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "move": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "death": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b03",
+        "zone": "ep1b03",
+        "family": "ep1b",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "exists": true,
+        "sha256": "a05ecc5d2e4ef73872b59b2895939f62ef03dcd41e2761815c332d4257deb7d4",
+        "repoPath": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "exists": true,
+        "sha256": "a05ecc5d2e4ef73872b59b2895939f62ef03dcd41e2761815c332d4257deb7d4",
+        "repoPath": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "exists": true,
+        "sha256": "a05ecc5d2e4ef73872b59b2895939f62ef03dcd41e2761815c332d4257deb7d4",
+        "repoPath": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "exists": true,
+        "sha256": "a05ecc5d2e4ef73872b59b2895939f62ef03dcd41e2761815c332d4257deb7d4",
+        "repoPath": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      }
+    },
+    {
+      "zone": "ep1b04",
+      "arc": "EP1B",
+      "mapName": "탐식의 주방",
+      "order": 17,
+      "id": "mb-ep1b04",
+      "name": "폐기주방 감독",
+      "kind": "hornDemon",
+      "sprite": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "move": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "death": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b04",
+        "zone": "ep1b04",
+        "family": "ep1b",
+        "category": "meleeClaw",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "exists": true,
+        "sha256": "b5dcd32af019b5d4266c89d1b6c9a3e87f824377308a908d37208e570b2a8cc7",
+        "repoPath": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "exists": true,
+        "sha256": "b5dcd32af019b5d4266c89d1b6c9a3e87f824377308a908d37208e570b2a8cc7",
+        "repoPath": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "exists": true,
+        "sha256": "b5dcd32af019b5d4266c89d1b6c9a3e87f824377308a908d37208e570b2a8cc7",
+        "repoPath": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "exists": true,
+        "sha256": "b5dcd32af019b5d4266c89d1b6c9a3e87f824377308a908d37208e570b2a8cc7",
+        "repoPath": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      }
+    },
+    {
+      "zone": "ep1b05",
+      "arc": "EP1B",
+      "mapName": "붉은 하이힐",
+      "order": 18,
+      "id": "mb-ep1b05",
+      "name": "심장빛 무대감독",
+      "kind": "corruptedGuardian",
+      "sprite": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "move": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "death": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b05",
+        "zone": "ep1b05",
+        "family": "ep1b",
+        "category": "meleeBlade",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "exists": true,
+        "sha256": "8aa4b200019560224b1d342d81891cc5e11f40a266c4c7ab1bf9b8e835ff25d0",
+        "repoPath": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "exists": true,
+        "sha256": "8aa4b200019560224b1d342d81891cc5e11f40a266c4c7ab1bf9b8e835ff25d0",
+        "repoPath": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "exists": true,
+        "sha256": "8aa4b200019560224b1d342d81891cc5e11f40a266c4c7ab1bf9b8e835ff25d0",
+        "repoPath": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "exists": true,
+        "sha256": "8aa4b200019560224b1d342d81891cc5e11f40a266c4c7ab1bf9b8e835ff25d0",
+        "repoPath": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      }
+    },
+    {
+      "zone": "ep1b06",
+      "arc": "EP1B",
+      "mapName": "맘몬의 금고",
+      "order": 19,
+      "id": "mb-ep1b06",
+      "name": "금고 장부감시자",
+      "kind": "hotelClerk",
+      "sprite": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "move": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "death": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b06",
+        "zone": "ep1b06",
+        "family": "ep1b",
+        "category": "rangedBallistic",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "exists": true,
+        "sha256": "98556a8c80a9facafaabc7690b99067cf42f1d23e8559d447900213797f7c43f",
+        "repoPath": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "exists": true,
+        "sha256": "98556a8c80a9facafaabc7690b99067cf42f1d23e8559d447900213797f7c43f",
+        "repoPath": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "exists": true,
+        "sha256": "98556a8c80a9facafaabc7690b99067cf42f1d23e8559d447900213797f7c43f",
+        "repoPath": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "exists": true,
+        "sha256": "98556a8c80a9facafaabc7690b99067cf42f1d23e8559d447900213797f7c43f",
+        "repoPath": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      }
+    },
+    {
+      "zone": "ep1b06b",
+      "arc": "EP1B",
+      "mapName": "눈보라 속의 소년",
+      "order": 20,
+      "id": "mb-ep1b06b",
+      "name": "겨울숲 가시파수",
+      "kind": "tank",
+      "sprite": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "move": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "death": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b06b",
+        "zone": "ep1b06b",
+        "family": "ep1b",
+        "category": "rangedOrganic",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-organic.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "exists": true,
+        "sha256": "bd0cdd0a8bdba5a60ae41af3d85bd9421bb3c09713ce5809bbd7e394e517eba6",
+        "repoPath": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "exists": true,
+        "sha256": "bd0cdd0a8bdba5a60ae41af3d85bd9421bb3c09713ce5809bbd7e394e517eba6",
+        "repoPath": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "exists": true,
+        "sha256": "bd0cdd0a8bdba5a60ae41af3d85bd9421bb3c09713ce5809bbd7e394e517eba6",
+        "repoPath": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "exists": true,
+        "sha256": "bd0cdd0a8bdba5a60ae41af3d85bd9421bb3c09713ce5809bbd7e394e517eba6",
+        "repoPath": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      }
+    },
+    {
+      "zone": "ep1b07",
+      "arc": "EP1B",
+      "mapName": "불을 지른 남자",
+      "order": 21,
+      "id": "mb-ep1b07",
+      "name": "호텔 화염기사",
+      "kind": "balrog",
+      "sprite": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "move": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "death": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b07",
+        "zone": "ep1b07",
+        "family": "ep1b",
+        "category": "meleeBlade",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "exists": true,
+        "sha256": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+        "repoPath": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "exists": true,
+        "sha256": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+        "repoPath": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "exists": true,
+        "sha256": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+        "repoPath": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+        "exists": true,
+        "sha256": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+        "repoPath": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+      }
+    },
+    {
+      "zone": "ep1b08",
+      "arc": "EP1B",
+      "mapName": "하늘에 서려는 자",
+      "order": 22,
+      "id": "mb-ep1b08",
+      "name": "역십자가 시체경호체",
+      "kind": "tank",
+      "sprite": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "move": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "death": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b08",
+        "zone": "ep1b08",
+        "family": "ep1b",
+        "category": "rangedHoly",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "exists": true,
+        "sha256": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+        "repoPath": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "exists": true,
+        "sha256": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+        "repoPath": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "exists": true,
+        "sha256": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+        "repoPath": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+        "exists": true,
+        "sha256": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+        "repoPath": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+      }
+    },
+    {
+      "zone": "ep1b09",
+      "arc": "EP1B",
+      "mapName": "생체 부트로더",
+      "order": 23,
+      "id": "mb-ep1b09",
+      "name": "생체부트로더 연산핵",
+      "kind": "void",
+      "sprite": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "move": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "death": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+      "spriteContract": {
+        "actorId": "mb-ep1b09",
+        "zone": "ep1b09",
+        "family": "ep1b",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "exists": true,
+        "sha256": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+        "repoPath": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "exists": true,
+        "sha256": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+        "repoPath": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "exists": true,
+        "sha256": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+        "repoPath": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+        "exists": true,
+        "sha256": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+        "repoPath": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+      }
+    },
+    {
+      "zone": "u201",
+      "arc": "U2",
+      "mapName": "방어의 군단",
+      "order": 24,
+      "id": "u201-mid",
+      "name": "제4단계 전쟁관리자",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "move": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "death": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+      "spriteContract": {
+        "actorId": "u201-mid",
+        "zone": "u201",
+        "family": "u2",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      }
+    },
+    {
+      "zone": "u202",
+      "arc": "U2",
+      "mapName": "잔인한 구원",
+      "order": 25,
+      "id": "u202-mid",
+      "name": "제8단계 자비 교정관",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "move": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "death": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+      "spriteContract": {
+        "actorId": "u202-mid",
+        "zone": "u202",
+        "family": "u2",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      }
+    },
+    {
+      "zone": "u203",
+      "arc": "U2",
+      "mapName": "기억의 문",
+      "order": 29,
+      "id": "u203-mid",
+      "name": "기억의 문 수호 프레임",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "move": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "death": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+      "spriteContract": {
+        "actorId": "u203-mid",
+        "zone": "u203",
+        "family": "u2",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "exists": true,
+        "sha256": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+        "repoPath": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "exists": true,
+        "sha256": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+        "repoPath": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "exists": true,
+        "sha256": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+        "repoPath": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+        "exists": true,
+        "sha256": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+        "repoPath": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+      }
+    },
+    {
+      "zone": "last302",
+      "arc": "LAST3",
+      "mapName": "잠들지 못하는 마을",
+      "order": 33,
+      "id": "mb-last302-v31231",
+      "name": "검은 안개 심장 · 불면의 기억",
+      "kind": "specter",
+      "sprite": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+      "actionSprites": {
+        "idle": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "move": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "windup": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "attackA": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "attackB": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "rain": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "rift": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "hit": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "stagger": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "transition": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "death": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+      },
+      "effectiveIdle": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+      "effectiveAction": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+      "spriteContract": {
+        "actorId": "mb-last302-v31231",
+        "zone": "last302",
+        "family": "last3",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "exists": true,
+        "sha256": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+        "repoPath": "assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "exists": true,
+        "sha256": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+        "repoPath": "assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "exists": true,
+        "sha256": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+        "repoPath": "assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+        "exists": true,
+        "sha256": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+        "repoPath": "assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+      }
+    },
+    {
+      "zone": "kair01",
+      "arc": "KAIRO",
+      "mapName": "최초명령의 세계",
+      "order": 35,
+      "id": "mb-kair01-v31231",
+      "name": "최초명령 코어 오염체",
+      "kind": "slave",
+      "sprite": "./assets/kair/enemies/resonance-slave.png",
+      "actionSprites": {
+        "idle": "./assets/kair/enemies/resonance-slave.png",
+        "move": "./assets/kair/enemies/resonance-slave.png",
+        "windup": "./assets/kair/enemies/resonance-slave.png",
+        "attackA": "./assets/kair/enemies/resonance-slave.png",
+        "attackB": "./assets/kair/enemies/resonance-slave.png",
+        "rain": "./assets/kair/enemies/resonance-slave.png",
+        "rift": "./assets/kair/enemies/resonance-slave.png",
+        "hit": "./assets/kair/enemies/resonance-slave.png",
+        "stagger": "./assets/kair/enemies/resonance-slave.png",
+        "transition": "./assets/kair/enemies/resonance-slave.png",
+        "death": "./assets/kair/enemies/resonance-slave.png"
+      },
+      "effectiveIdle": "./assets/kair/enemies/resonance-slave.png",
+      "effectiveAction": "./assets/kair/enemies/resonance-slave.png",
+      "spriteContract": {
+        "actorId": "mb-kair01-v31231",
+        "zone": "kair01",
+        "family": "kair",
+        "category": "meleeImpact",
+        "mode": "overlay",
+        "idleSprite": "./assets/kair/enemies/resonance-slave.png",
+        "attackImage": "./assets/combat/v31237/enemies/melee-impact.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-impact.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-impact.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/kair/enemies/resonance-slave.png",
+        "exists": true,
+        "sha256": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+        "repoPath": "assets/kair/enemies/resonance-slave.png"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/kair/enemies/resonance-slave.png",
+        "exists": true,
+        "sha256": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+        "repoPath": "assets/kair/enemies/resonance-slave.png"
+      },
+      "effectiveActionReference": {
+        "path": "assets/kair/enemies/resonance-slave.png",
+        "exists": true,
+        "sha256": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+        "repoPath": "assets/kair/enemies/resonance-slave.png"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/kair/enemies/resonance-slave.png",
+        "exists": true,
+        "sha256": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+        "repoPath": "assets/kair/enemies/resonance-slave.png"
+      }
+    },
+    {
+      "zone": "hando01",
+      "arc": "HANDO",
+      "mapName": "성 안에 소환된 의목사",
+      "order": 45,
+      "id": "mb-hando01",
+      "name": "의존 신호 포식자",
+      "kind": "seal",
+      "sprite": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "move": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "death": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+      "spriteContract": {
+        "actorId": "mb-hando01",
+        "zone": "hando01",
+        "family": "hando",
+        "category": "meleeClaw",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-claw.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "exists": true,
+        "sha256": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+        "repoPath": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "exists": true,
+        "sha256": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+        "repoPath": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "exists": true,
+        "sha256": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+        "repoPath": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+        "exists": true,
+        "sha256": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+        "repoPath": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+      }
+    },
+    {
+      "zone": "hando02",
+      "arc": "HANDO",
+      "mapName": "두 주인의 각성",
+      "order": 46,
+      "id": "mb-hando02",
+      "name": "코어 운반 집행자",
+      "kind": "connector",
+      "sprite": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "move": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "death": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+      "spriteContract": {
+        "actorId": "mb-hando02",
+        "zone": "hando02",
+        "family": "hando",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "exists": true,
+        "sha256": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+        "repoPath": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "exists": true,
+        "sha256": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+        "repoPath": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "exists": true,
+        "sha256": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+        "repoPath": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+        "exists": true,
+        "sha256": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+        "repoPath": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+      }
+    },
+    {
+      "zone": "hando03",
+      "arc": "HANDO",
+      "mapName": "함께 되찾은 코어",
+      "order": 47,
+      "id": "mb-hando03",
+      "name": "환수검 모조체",
+      "kind": "slave",
+      "sprite": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "move": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "windup": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackA": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackB": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rain": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "rift": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "death": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+      "spriteContract": {
+        "actorId": "mb-hando03",
+        "zone": "hando03",
+        "family": "hando",
+        "category": "meleeBlade",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "attackImage": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/melee-blade.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "exists": true,
+        "sha256": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+        "repoPath": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "exists": true,
+        "sha256": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+        "repoPath": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "exists": true,
+        "sha256": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+        "repoPath": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+        "exists": true,
+        "sha256": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+        "repoPath": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+      }
+    },
+    {
+      "zone": "murder01",
+      "arc": "MURDER",
+      "mapName": "윤하람",
+      "order": 48,
+      "id": "mb-murder01",
+      "name": "파란불 역주행 목격자",
+      "kind": "rainWitness",
+      "sprite": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "move": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "death": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+      "spriteContract": {
+        "actorId": "mb-murder01",
+        "zone": "murder01",
+        "family": "murder",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "exists": true,
+        "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+        "repoPath": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "exists": true,
+        "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+        "repoPath": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "exists": true,
+        "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+        "repoPath": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+        "exists": true,
+        "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+        "repoPath": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+      }
+    },
+    {
+      "zone": "murder02",
+      "arc": "MURDER",
+      "mapName": "장민재와 새빛호텔",
+      "order": 49,
+      "id": "mb-murder02",
+      "name": "공실장부 당직감사",
+      "kind": "hotelClerk",
+      "sprite": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "move": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "death": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+      "spriteContract": {
+        "actorId": "mb-murder02",
+        "zone": "murder02",
+        "family": "murder",
+        "category": "rangedBallistic",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-ballistic.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "exists": true,
+        "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+        "repoPath": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "exists": true,
+        "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+        "repoPath": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "exists": true,
+        "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+        "repoPath": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+        "exists": true,
+        "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+        "repoPath": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+      }
+    },
+    {
+      "zone": "murder03",
+      "arc": "MURDER",
+      "mapName": "옥상의 순환",
+      "order": 51,
+      "id": "mb-murder03",
+      "name": "옥상 인과보관인",
+      "kind": "rooftopEcho",
+      "sprite": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "move": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "death": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+      "spriteContract": {
+        "actorId": "mb-murder03",
+        "zone": "murder03",
+        "family": "murder",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "exists": true,
+        "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+        "repoPath": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "exists": true,
+        "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+        "repoPath": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "exists": true,
+        "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+        "repoPath": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+        "exists": true,
+        "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+        "repoPath": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+      }
+    },
+    {
+      "zone": "cult01",
+      "arc": "CULT",
+      "mapName": "하나로 묶인 악몽",
+      "order": 52,
+      "id": "c101-mid",
+      "name": "칩 제단 방화벽",
+      "kind": "tank",
+      "sprite": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "move": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "death": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+      "spriteContract": {
+        "actorId": "c101-mid",
+        "zone": "cult01",
+        "family": "cult",
+        "category": "rangedHoly",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "exists": true,
+        "sha256": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+        "repoPath": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "exists": true,
+        "sha256": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+        "repoPath": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "exists": true,
+        "sha256": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+        "repoPath": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+        "exists": true,
+        "sha256": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+        "repoPath": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+      }
+    },
+    {
+      "zone": "cult04",
+      "arc": "CULT",
+      "mapName": "교주의 사몽",
+      "order": 57,
+      "id": "c104-mid",
+      "name": "적그리스도 배양좌",
+      "kind": "tank",
+      "sprite": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "move": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "death": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+      "spriteContract": {
+        "actorId": "c104-mid",
+        "zone": "cult04",
+        "family": "cult",
+        "category": "rangedHoly",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-holy.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "exists": true,
+        "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+        "repoPath": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "exists": true,
+        "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+        "repoPath": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "exists": true,
+        "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+        "repoPath": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "exists": true,
+        "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+        "repoPath": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+      }
+    },
+    {
+      "zone": "u204",
+      "arc": "U2",
+      "mapName": "시스템의 거부권",
+      "order": 26,
+      "id": "u204-mid",
+      "name": "제12단계 기억 검열기",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "move": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "death": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+      "spriteContract": {
+        "actorId": "u204-mid",
+        "zone": "u204",
+        "family": "u2",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+        "exists": true,
+        "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+        "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+      }
+    },
+    {
+      "zone": "u205",
+      "arc": "U2",
+      "mapName": "관리자 권한",
+      "order": 27,
+      "id": "u205-mid",
+      "name": "제14단계 역전 관리자",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "move": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "death": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+      "spriteContract": {
+        "actorId": "u205-mid",
+        "zone": "u205",
+        "family": "u2",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+        "exists": true,
+        "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+        "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+      }
+    },
+    {
+      "zone": "u206",
+      "arc": "U2",
+      "mapName": "중앙 코어 이주실",
+      "order": 28,
+      "id": "u206-mid",
+      "name": "제17단계 중앙이주 코어",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "move": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "death": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+      "spriteContract": {
+        "actorId": "u206-mid",
+        "zone": "u206",
+        "family": "u2",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "exists": true,
+        "sha256": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+        "repoPath": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "exists": true,
+        "sha256": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+        "repoPath": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "exists": true,
+        "sha256": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+        "repoPath": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+        "exists": true,
+        "sha256": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+        "repoPath": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+      }
+    },
+    {
+      "zone": "kair04",
+      "arc": "KAIRO",
+      "mapName": "예순여섯 수문장",
+      "order": 36,
+      "id": "mb-kair04-v31231",
+      "name": "휴식 수확관 · 과로의 수문장",
+      "kind": "tank",
+      "sprite": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "move": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "windup": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "attackA": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "attackB": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "rain": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "rift": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "hit": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "stagger": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "transition": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "death": "./assets/generated-v3125/kair-guardians/guardian_50.webp"
+      },
+      "effectiveIdle": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+      "effectiveAction": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+      "spriteContract": {
+        "actorId": "mb-kair04-v31231",
+        "zone": "kair04",
+        "family": "kair",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "exists": true,
+        "sha256": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+        "repoPath": "assets/generated-v3125/kair-guardians/guardian_50.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "exists": true,
+        "sha256": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+        "repoPath": "assets/generated-v3125/kair-guardians/guardian_50.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "exists": true,
+        "sha256": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+        "repoPath": "assets/generated-v3125/kair-guardians/guardian_50.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v3125/kair-guardians/guardian_50.webp",
+        "exists": true,
+        "sha256": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+        "repoPath": "assets/generated-v3125/kair-guardians/guardian_50.webp"
+      }
+    },
+    {
+      "zone": "kair08",
+      "arc": "KAIRO",
+      "mapName": "뉴런 게이트 · 노이론 게이트",
+      "order": 40,
+      "id": "kair-great-05",
+      "name": "대수문장 05",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "move": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "death": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+      "spriteContract": {
+        "actorId": "kair-great-05",
+        "zone": "kair08",
+        "family": "kair",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "exists": true,
+        "sha256": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+        "repoPath": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "exists": true,
+        "sha256": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+        "repoPath": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "exists": true,
+        "sha256": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+        "repoPath": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+        "exists": true,
+        "sha256": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+        "repoPath": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+      }
+    },
+    {
+      "zone": "murder04",
+      "arc": "MURDER",
+      "mapName": "고서진과 청록빌라",
+      "order": 50,
+      "id": "murder04-mid",
+      "name": "진술 봉쇄 인과핵",
+      "kind": "loopBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "move": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "death": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+      "spriteContract": {
+        "actorId": "murder04-mid",
+        "zone": "murder04",
+        "family": "murder",
+        "category": "rangedArcane",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-arcane.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "exists": true,
+        "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+        "repoPath": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "exists": true,
+        "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+        "repoPath": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "exists": true,
+        "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+        "repoPath": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+        "exists": true,
+        "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+        "repoPath": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+      }
+    },
+    {
+      "zone": "cult05",
+      "arc": "CULT",
+      "mapName": "돌아오는 현실의 기억",
+      "order": 54,
+      "id": "c105-mid",
+      "name": "ID 생체조 관리자",
+      "kind": "tank",
+      "sprite": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "move": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "death": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+      "spriteContract": {
+        "actorId": "c105-mid",
+        "zone": "cult05",
+        "family": "cult",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "exists": true,
+        "sha256": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+        "repoPath": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "exists": true,
+        "sha256": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+        "repoPath": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "exists": true,
+        "sha256": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+        "repoPath": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+        "exists": true,
+        "sha256": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+        "repoPath": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+      }
+    },
+    {
+      "zone": "cult06",
+      "arc": "CULT",
+      "mapName": "처음 세웠던 목표",
+      "order": 55,
+      "id": "c106-mid",
+      "name": "기계재판 집행핵",
+      "kind": "commandBoss",
+      "sprite": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+      "actionSprites": {
+        "idle": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "move": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "windup": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackA": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackB": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rain": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "rift": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "hit": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "stagger": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "transition": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "death": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+      },
+      "effectiveIdle": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+      "effectiveAction": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+      "spriteContract": {
+        "actorId": "c106-mid",
+        "zone": "cult06",
+        "family": "cult",
+        "category": "rangedTech",
+        "mode": "overlay",
+        "idleSprite": "./assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "attackImage": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "attackSprite": null,
+        "attackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "fallbackAttackOverlay": "./assets/combat/v31237/enemies/ranged-tech.webp",
+        "identityPreserved": true,
+        "twoImageContract": true
+      },
+      "spriteReference": {
+        "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "exists": true,
+        "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+        "repoPath": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+      },
+      "effectiveIdleReference": {
+        "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "exists": true,
+        "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+        "repoPath": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+      },
+      "effectiveActionReference": {
+        "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "exists": true,
+        "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+        "repoPath": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+      },
+      "requiredMotions": [
+        "idle",
+        "anticipation",
+        "strike"
+      ],
+      "active": true,
+      "generationReference": {
+        "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "exists": true,
+        "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+        "repoPath": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+      }
+    }
+  ],
+  "generationAssignment": {
+    "DIST": [
+      "mb-dist01",
+      "mb-dist02",
+      "mb-dist03",
+      "mb-dist04",
+      "mb-dist05",
+      "mb-dist06"
+    ],
+    "owner": "gameplay root; do not duplicate DIST six",
+    "remainingOwner": "parent-assigned native image workers",
+    "format": "Three distinct full-body raster poses: idle, anticipation, strike; individual RGBA frames or three-cell transparent atlas with source rectangles; preserve source silhouettes/weapons and pivot/scale. Same generated set reused for each identity fission copy."
+  },
+  "reviewNotes": [
+    {
+      "zone": "dist04",
+      "note": "Use generationReference for actual approved RC69 leader bloodied guardian. effectiveIdleReference is a stale older fallen-comrade cache."
+    },
+    {
+      "zone": "ep1b06b",
+      "note": "Current image visibly depicts molten gold safe; authored winter-forest thorn-guardian narrative mismatch. Parent should resolve generation direction with map/story context rather than blindly preserving wrong vault identity."
+    }
+  ]
+}

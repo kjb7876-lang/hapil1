@@ -32,7 +32,9 @@ for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,
   let delayed=false;if(!a.enemies.some(e=>e.midboss)){a.enemies=[];delayed=true;Q.spawnMidbossWave(a);}N.midpoint(a);A.scaleEnemies(a);
   const leaders=a.enemies.filter(e=>e.midboss&&e.hp>0),entry={mode,zone:row.zone,delayed,count:leaders.length,actors:leaders.map(e=>({id:e.id,sprite:e.sprite,maxHp:e.maxHp}))};mid.push(entry);
   test(leaders.length===(mode==='DREAM'?3:2),'native initial/delayed midboss count '+mode+' '+row.zone,entry);
-  test(new Set(leaders.map(e=>e.sprite)).size>=2,'distinct source sprites '+mode+' '+row.zone,entry);
+  const authored=N.authoredMidboss(row.zone,leaders[0]);
+  test(leaders.every(e=>e.sprite===authored.sprite&&e.rc135FissionIdentity===authored.id&&e.rc133TemplateId===authored.id&&e.combatOwnerIdRC69===authored.id),'map-authored same-identity fission '+mode+' '+row.zone,{...entry,expected:authored.id,sprite:authored.sprite});
+  test(new Set(leaders.map(e=>e.id)).size===leaders.length,'independent fission entity IDs '+mode+' '+row.zone,entry);
   const initialVisuals=leaders.filter(a=>a.rc133VisualTemplate).map(a=>Q.midbossPresentation(a,100));test(initialVisuals.every(a=>a.actual===a.expected),'chosen visual remains the attack body '+mode+' '+row.zone,initialVisuals);
   const survivor=leaders.at(-1);leaders[0].hp=0;a.enemies=a.enemies.filter(e=>e!==leaders[0]);N.midpoint(a);
   test(a.enemies.filter(e=>e.midboss).length===leaders.length-1,'death does not refill '+mode+' '+row.zone);
