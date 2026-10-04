@@ -1,0 +1,55 @@
+{
+  "candidateCommit": "28f2d96176054c0e0a20b8157591acaf28520be8",
+  "candidateBranch": "codex/rc134-integrated",
+  "repository": "kjb7876-lang/hapil1",
+  "checkedAt": "2026-10-04T17:11:22Z",
+  "referenceOnly": true,
+  "gameplay": {
+    "run": 37218796453,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37218796453",
+    "jobs": {
+      "core-ui": 111484789234,
+      "preservation": 111484789313,
+      "mobile-lifecycle": 111484789319,
+      "native-gameplay": 111484789333,
+      "midboss-motions": 111484789356,
+      "legacy-release": 111484789360
+    },
+    "jobConclusions": "all success"
+  },
+  "fullauto": {
+    "run": 37218796446,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37218796446",
+    "jobConclusions": "all three success"
+  },
+  "canonical": {
+    "run": 37218373642,
+    "candidateCommit": "6f9d95bc54e4ff85e306718264b8bd7f49747323",
+    "activeJobConclusions": "all success; main-only published-audio skipped",
+    "scope": "The 28 follow-up changed only workflow evidence output and checkpoint prose. This is accurately retained at its own tested SHA, not relabeled exact 28."
+  },
+  "artifacts": {
+    "mobile": {
+      "id": 11309680628,
+      "sha256": "b88d543aaf53b71a6fc3abfe718ed02f5ae1f67f91df799824573637fe7b918c",
+      "verifiedDownloadedBytes": true
+    },
+    "core-ui": {
+      "id": 11309635711,
+      "sha256": "e93edea769a924baadb0858fceb786de76b2774ef130e55dd80576a0786d93f3",
+      "verifiedDownloadedBytes": true
+    },
+    "motions": {
+      "id": 11310175417,
+      "sha256": "6c4a359395a3e3bb4e647dcd6e4da16ea5614c1e0c0a0fbaa3466dcf4308af44",
+      "verifiedDownloadedBytes": false
+    }
+  },
+  "loadedRuntime": "Active bundle, mobile JS, rotation CSS and index HTML are byte-identical to af8e03fb01cbbd3ae0e56bb8c36b5029e93efff6. Native review snippet and explicit output hash were synchronized; assertions were not relaxed.",
+  "publication": "none: main and Pages not written",
+  "remaining": "Root DIST6 are generated, inspected and integrated. Other33 belong to parent workers. Episode11 Library prepare succeeded but transfer failed twice, so there are no readable episode bytes, no pixel inspection and no integration yet; parent Git asset staging SHA is needed. Full39 final exact QA and publication remain coordinated with parent. Physical phone/OS background testing and fresh unassisted full Dream campaign are not claimed."
+}

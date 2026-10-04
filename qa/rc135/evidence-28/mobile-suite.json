@@ -1,0 +1,28 @@
+{
+  "commit": "28f2d96176054c0e0a20b8157591acaf28520be8",
+  "suite": "mobile-lifecycle",
+  "tests": [
+    {
+      "name": "rc134-mobile-lifecycle-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 59259,
+      "error": null
+    },
+    {
+      "name": "rc115-touchscreen-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14004,
+      "error": null
+    },
+    {
+      "name": "combat-audio-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 45576,
+      "error": null
+    }
+  ],
+  "status": "passed"
+}

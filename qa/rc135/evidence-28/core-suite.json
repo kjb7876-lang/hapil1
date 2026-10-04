@@ -1,0 +1,21 @@
+{
+  "commit": "28f2d96176054c0e0a20b8157591acaf28520be8",
+  "suite": "core-ui",
+  "tests": [
+    {
+      "name": "rc133-777-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 48177,
+      "error": null
+    },
+    {
+      "name": "rc135-rotation-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23820,
+      "error": null
+    }
+  ],
+  "status": "passed"
+}
