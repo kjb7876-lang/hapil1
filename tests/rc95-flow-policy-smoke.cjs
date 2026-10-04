@@ -12,6 +12,11 @@ assert.doesNotThrow(()=>R.balance(s,{},undefined),'an early frame waits safely f
 const ranks=[{}, {elite:true}, {midboss:true}, {boss:true}, {boss:true,phaseCount:4}];let last=0;
 for(const flags of ranks){const w={...s,time:1,activeHeroId:'hwando',enemies:[{id:'rank',hp:100,maxHp:100,...flags}]};R.balance(w,{},api);const e=w.enemies[0];assert(e.maxHp>last,'higher combat ranks have higher health with the same player');last=e.maxHp;e.hp-=7;const before=e.hp,max=e.maxHp;R.balance(w,{damage:3},api);assert.equal(e.hp,before);assert.equal(e.maxHp,max,'upgrading mid-fight never rescales or heals the current target');}
 const ally={id:'ally',friendly:true,hp:55,maxHp:100},aw={...s,enemies:[ally]};R.balance(aw,{},api);assert.equal(ally.hp,55);assert.equal(ally.maxHp,100,'friendly narrative actors keep their authored health');
+const inner={id:'inner-evil-rc133',boss:true,hp:3600,maxHp:6000},other={id:'ordinary-boss',boss:true,hp:100,maxHp:100},bounded={...s,zone:'cult04',enemies:[inner,other]};
+window.__HAPIL_INNER_FINAL_RC133__={active:state=>state===bounded,boss:()=>inner};
+R.balance(bounded,{},api);assert.equal(inner.maxHp,6000,'the active hidden owner retains its bounded health model');assert.equal(inner.hp,3600,'generic calibration never heals the wounded hidden actor');assert(other.rc95Balance,'other ranked actors still receive native calibration');
+const impostor={...inner,rc133InnerBoss:true},outside={...s,enemies:[impostor]};R.balance(outside,{},api);assert(impostor.rc95Balance,'an actor flag or copied ID alone does not exempt generic calibration');
+delete window.__HAPIL_INNER_FINAL_RC133__;
 vm.runInNewContext(fs.readFileSync('assets/combat-v31412/skill-completion.js','utf8'),{window,Math,Number,Object,WeakMap,Set});
 const K=window.__HAPIL_SKILL_COMPLETION_V31412__;assert.equal(K.scaleBasicDamage(350,{actionKey:'A'}),100);assert.equal(K.scaleBasicDamage(350,{actionKey:'Q',basicChainRC95:true}),100,'A-triggered Q echoes follow the same faster-attack DPS normalization');assert.equal(K.scaleBasicDamage(350,{actionKey:'Q'}),350,'a separately cast Q retains full skill damage');
 console.log('RC95 PASS: exact six-second phases, exclusive admission, thrown-cast cleanup, resume/rollback, rank order, stable wounded HP, and one normalization for all A-generated damage.');

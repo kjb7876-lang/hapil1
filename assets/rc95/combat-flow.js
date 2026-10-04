@@ -36,7 +36,10 @@
   const policy=window.__HAPIL_RUN_V31400__?.get(s),humans=clamp(n(policy?.humanPlayers,1),1,8),ais=policy?.aiEnabled?Math.min(6,policy.aiHeroes?.length||1):0;
   const narrative=mode(s)==='STORY'?.25:0,party=1+(humans-1)*.70+ais*.40+narrative;
   const reference=base*(1+progress*2.2),model=reference*Math.pow(actual/reference,.78)*party;
-  for(const a of s.enemies??[]){if(protectedActor(a)||a.id==='c104-boss'||a.hp<=0||a.temporarySummonV31368||a.rc95Balance?.version===1)continue;
+  const inner=window.__HAPIL_INNER_FINAL_RC133__,bounded=inner?.active(s)?inner.boss(s):null;
+  // The inner persona already owns a bounded, growth-derived health model.
+  // Generic encounter calibration must not overwrite that actor's health.
+  for(const a of s.enemies??[]){if(a===bounded||protectedActor(a)||a.id==='c104-boss'||a.hp<=0||a.temporarySummonV31368||a.rc95Balance?.version===1)continue;
    const r=rank(a),old=Math.max(1,n(a.maxHp,1)),fraction=clamp(n(a.hp)/old,0,1),seconds=targets[r]*(1+progress*.25)*(mode(s)==='HELL'?1.12:mode(s)==='DREAM'?1.04:1);
    const target=model*seconds,newMax=Math.round(clamp(old,target*.85,target*1.45));
    a.bossHpScaledV31230=true;a.maxHp=Math.max(1,newMax);a.hp=Math.max(1,Math.round(a.maxHp*fraction));a.rc95Balance={version:1,rank:r,originalMax:old,max:a.maxHp,playerDps:actual,referenceDps:reference,party,seconds};stats.balanced++;

@@ -52,6 +52,14 @@
  }
  function encounterSnapshot(s){const m=cleanEncounter(s.midbossEncounterRC133,s.zone);if(!m)return null;return {...m,members:s.enemies.filter(a=>m.ids.includes(a.id)&&a.hp>0).map(a=>({id:a.id,template:a.rc133TemplateId??a.combatOwnerIdRC69??a.templateId??a.duoMateOfRC59??a.id,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}))};}
  function alternativesFor(zone,first){const arc=N[zone]?.arc;const rows=Object.values(N).flatMap(z=>(z.enemies??[]).filter(a=>a.midboss&&a.sprite&&a.sprite!==first.sprite).map(a=>({a,score:(z.arc===arc?0:1000)+Math.abs(n(z.order)-n(N[zone]?.order))}))).sort((a,b)=>a.score-b.score);const unique=new Map();for(const row of rows)if(!unique.has(row.a.sprite))unique.set(row.a.sprite,row.a);return [...unique.values()].slice(0,2);}
+ function copyVisual(a,source,zone){
+  for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase','phaseScales'])a[key]=source[key]??null;
+  a.rc133VisualTemplate=source.id;a.name=(source.name??a.name)+' · 협공';
+  // The legacy attack presenter caches its own idle/attack body. Rebuild it
+  // after changing visual ownership so an attack cannot restore the old body.
+  for(const key of ['midbossSpriteSetV31237','midbossAttackSpritePatchAppliedV31237','midbossSpriteZoneV31237','midbossSpriteAssetRevisionV31237','midbossAttackPoseTokenV31237','midbossAttackPoseStartedAtV31237','midbossAttackPoseUntilV31237'])delete a[key];
+  MONGSE_applyMidbossSpriteContractV31237(a,zone);
+ }
  function midpoint(s){
   if(!s||s.practiceV31329)return;
   const group=s.enemies.filter(a=>a.midboss&&!a.visualOnly&&!a.friendly&&a.hp>0);if(!group.length)return;
@@ -64,7 +72,7 @@
   const alternatives=alternativesFor(s.zone,first);
   for(const a of chosen)a.rc133TemplateId??=a.combatOwnerIdRC69??a.templateId??a.duoMateOfRC59??a.id;
   const used=new Set([first.sprite]);
-  for(let i=1;i<chosen.length;i++){const a=chosen[i],source=alternatives.find(row=>!used.has(row.sprite));if(used.has(a.sprite)&&source){for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase','phaseScales'])a[key]=source[key]??null;a.rc133VisualTemplate=source.id;a.name=(source.name??a.name)+' · 협공';}used.add(a.sprite);}
+  for(let i=1;i<chosen.length;i++){const a=chosen[i],source=alternatives.find(row=>!used.has(row.sprite));if(used.has(a.sprite)&&source)copyVisual(a,source,s.zone);used.add(a.sprite);}
   for(let i=chosen.length;i<count;i++){
    const source=alternatives.find(row=>!used.has(row.sprite))??alternatives[i%Math.max(1,alternatives.length)]??first,a=Jr(source,s.zone),id=String(first.id)+'-partner-'+i+'-rc133';
    Object.assign(a,{id,name:(source.name??first.name)+' · 잔영 '+(i+1),boss:false,midboss:true,rc133Midboss:true,rc133Owner:first.id,rc133TemplateId:source.id,
@@ -102,14 +110,20 @@
   B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
   const enemies=B.restoreEnemies;B.restoreEnemies=function(raw,...args){let result=enemies.call(this,raw,...args);const previous=new Map(result.map(a=>[a.id,a]));const roster=cleanEncounter(raw?.midbossEncounterRC133,raw?.zone);
    const rows=roster?.members??raw?.midbossRC133??[];if(roster)result=result.filter(a=>!a.midboss||a.visualOnly||a.friendly);
-   for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.id===row.template&&a.midboss);if(!source)continue;const a=previous.get(row.id)??Jr(source,raw.zone);const visual=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.midboss&&a.id===row.visual);if(visual){for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase','phaseScales'])a[key]=visual[key]??null;a.rc133VisualTemplate=visual.id;}Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133TemplateId:row.template,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});result.push(a);}return result;};
+   for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.id===row.template&&a.midboss);if(!source)continue;const a=previous.get(row.id)??Jr(source,raw.zone);const visual=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.midboss&&a.id===row.visual);if(visual)copyVisual(a,visual,raw.zone);Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133TemplateId:row.template,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});result.push(a);}return result;};
   const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);if(s){delete s.midbossEncounterRC133;delete s.rc133WarpOwner;}if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;midpoint(s);foundation(s);return result;};
   const gap=MONGSE_tickBossGapCharge31226;MONGSE_tickBossGapCharge31226=function(s,a,...args){if(a&&(a.boss||a.midboss)){a.gapChargeV31226=null;for(const key of ['pendingHits','impactQueue'])if(s?.[key]?.some(h=>h.sourceId===a.id&&h.gapChargeV31226))s[key]=s[key].filter(h=>h.sourceId!==a.id||!h.gapChargeV31226);if(a.activePattern==='gapChargeV31226')a.activePattern='';warp(s,a);return null;}return gap.call(this,s,a,...args);};
   const brain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(stationary(a)){pin(a);return {target:null,moveScale:0,speedScale:0};}return brain.call(this,s,a,...args);};
   const movement=ft;ft=function(zone,a,...args){if(stationary(a)){pin(a);return {x:a.x,y:a.y};}return movement.call(this,zone,a,...args);};
   const stand=window.__HAPIL_STAND_V31335__,standTick=stand.tick;stand.tick=function(s,...args){const result=standTick.call(this,s,...args);for(const a of s?.enemies??[])pin(a);return result;};
   const standBody=stand.drawBody;stand.drawBody=function(ctx,cache,a,time,settings,sprite,size,transform){if(a?.rc133InnerBoss){const path=a.sprite??sprite,im=MONGSE_queueImage(cache,path),point=G(a.x,a.y);
-    if(im?.complete&&im.naturalWidth&&window.__HAPIL_MEDIA_ART_RC133__?.ready){ctx.save();try{ctx.globalAlpha*=transform?.alpha??1;const aura=window.__HAPIL_MEDIA_ART_RC133__.picture(window.__HAPIL_MEDIA_ART_RC133__.paths.eclipse);if(aura&&a.sprite?.includes('/awake-')){ctx.save();ctx.globalAlpha*=.38;ctx.drawImage(aura,point.x-58,point.y-126,116,116);ctx.restore();}if(transform?.hit)ctx.filter='brightness(1.3)';const h=122,w=h*224/400;ctx.drawImage(im,point.x-w*.5,point.y-h*.96,w,h);}finally{ctx.restore();}}
+    if(im?.complete&&im.naturalWidth&&window.__HAPIL_MEDIA_ART_RC133__?.ready){ctx.save();try{ctx.globalAlpha*=transform?.alpha??1;const aura=window.__HAPIL_MEDIA_ART_RC133__.picture(window.__HAPIL_MEDIA_ART_RC133__.paths.eclipse);if(aura&&a.sprite?.includes('/awake-')){ctx.save();ctx.globalAlpha*=.38;ctx.drawImage(aura,point.x-58,point.y-126,116,116);ctx.restore();}if(transform?.hit)ctx.filter='brightness(1.3)';const h=122,w=h*224/400;
+      if(path.split(/[?#]/)[0].endsWith('/portrait.png')){
+       // The reveal source has extra transparent headroom. Match the fight
+       // body's visible height and foot pivot without altering source pixels.
+       const visible=h*367/400,width=visible*210/224;
+       ctx.drawImage(im,0,164,210,224,point.x-width*.5,point.y-visible+h*.028,width,visible);
+      }else ctx.drawImage(im,point.x-w*.5,point.y-h*.96,w,h);}finally{ctx.restore();}}
     else Ln(ctx,cache,path,a.x,a.y,122,{...transform,offsetX:0,offsetY:0,visualSizeV31338:122});return true;}return standBody.apply(this,arguments);};
   const radius=MONGSE_enemyHitRadius;MONGSE_enemyHitRadius=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||a?.rc133InnerBoss)? .72:radius.call(this,a);};
   const manifest=MONGSE_zoneAssetManifest,assetPlan=MONGSE_zoneAssetPlan31220;
