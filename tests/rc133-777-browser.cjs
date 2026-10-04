@@ -27,7 +27,8 @@ const mime = {
 const qaBridge = `
 window.__RC133_777_QA__=Object.freeze({
  maps:()=>Object.keys(N).filter(id=>N[id]&&Number.isFinite(N[id].order)).map(id=>({id,name:N[id].name||id,order:N[id].order})),
- frontier:()=>window.__HAPIL_DEVELOPER_MAPS_RC133__.frontier(N)
+ frontier:()=>window.__HAPIL_DEVELOPER_MAPS_RC133__.frontier(N),
+ pendingNavigation:()=>MONGSE_shouldBlockZoneTransitionV31310(window.__MONGSE_QA_STATE__)
 });`;
 
 const server = http.createServer((req, res) => {
@@ -92,6 +93,23 @@ async function advanceNarrative(page) {
     await page.waitForTimeout(80);
   }
   await page.waitForFunction(() => window.__MONGSE_QA_STATE__ && window.__HAPIL_CONTROLS_V31329__?.binding?.phase === 'game');
+}
+
+async function settleNavigation(page, mobile) {
+  // Native map selection is guarded while an ultimate's admitted hits remain.
+  // Use normal manual-mode UI, then resume simulation to finish that transaction.
+  // Waiting inside the paused Settings screen cannot advance those hits.
+  await page.locator('.rc61-settings').getByRole('radio', { name: '수동', exact: true }).check();
+  const pending = await page.evaluate(() => window.__RC133_777_QA__.pendingNavigation());
+  if (pending) {
+    await page.locator('.rc61-settings').getByRole('button', { name: '닫기 ×', exact: true }).click();
+    await advanceNarrative(page);
+    await page.waitForFunction(() => !window.__RC133_777_QA__.pendingNavigation(), null, { timeout: 10000 });
+    await openSettings(page, mobile);
+  }
+  assert.equal(await page.evaluate(() => window.__RC133_777_QA__.pendingNavigation()), false,
+    'native ultimate transaction must settle before map navigation');
+  return { manualModeViaUi: true, pendingAtPause: pending, settled: true };
 }
 
 async function startNewRun(page, dream) {
@@ -226,6 +244,7 @@ async function main() {
         assert.equal(row.freshDream.canInner, false, 'a fresh Dream run cannot use the hidden arena until code entry');
 
         row.dreamCode = await enterDeveloperCode(page, 'DREAM', mobile);
+        row.navigationDrain = await settleNavigation(page, mobile);
         const mapDetails = page.locator('.rc61-settings details').filter({ has: page.getByText('방문한 맵 다시 가기', { exact: true }) });
         await mapDetails.locator('summary').click();
         const expectedMaps = await page.evaluate(() => window.__RC133_777_QA__.maps());

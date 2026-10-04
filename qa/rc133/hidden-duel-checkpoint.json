@@ -2,7 +2,7 @@
   "schema": "rc133-hidden-duel-checkpoint-v1",
   "baseMain": "cafbea9fb98aa9842436fffb61c199bcd48c8dff",
   "status": "candidate-ready-for-exact-ci",
-  "latestFocusedChecks": 87,
+  "latestFocusedChecks": 96,
   "latestFocusedResult": "passed",
   "browserBeforeSentinelFix": {
     "profiles": [
@@ -47,8 +47,10 @@
     "scope": "nine supplied skill bitmaps at 1/12/24 projectiles; final enlargement + RC130 cap and pre-render contact"
   },
   "limits": [
-    "Collision encloses measured alpha bounds; internal transparent holes are not per-pixel masks.",
-    "New stronger encounter is verified with staged native fixtures; natural campaign victory on this candidate remains unverified.",
+    "Collision encloses transformed alpha bounds; internal transparent holes are not per-pixel masks.",
+    "The stronger encounter completed from a genuine pre-cult-death checkpoint with ordinary D assistance. A fresh full campaign and a naturally occurring first-lethal clash on this runtime were not verified.",
+    "First-lethal simultaneous awakening, save observations, rollback, replay prevention and all nine skills are covered separately by staged fixtures.",
+    "Viewport coverage uses Chromium desktop/mobile emulation, not physical mobile devices.",
     "main/Pages publication requires parent coordination."
   ],
   "implementation": [
@@ -59,5 +61,26 @@
     "All nine supplied skills dispatch real native bullet/pending-area packets with readable windups, queue and damage bounds.",
     "Final renderer geometry is computed before collision on an isolated recorder; prior draw footprints are unnecessary.",
     "Player anatomical bodies remain at 66px without weapon/aura hurtbox growth; beams and committed outgoing target checks use main-body geometry."
-  ]
+  ],
+  "nativeSaveContinuation": {
+    "commit": "134243e2ae297b5fd89614def074a5e042e14c0b",
+    "sourceSha256": "10e3c0c1a4a7b13504ca00839ab1fc6ddc521c3ddde4cf58280731143a44cef2",
+    "scope": "Native Continue of genuine prior assisted Dream checkpoint before cult-leader death; unchanged HP/progress/enemies/boss; full-auto plus ordinary D defense. Not fresh/unassisted full-campaign play.",
+    "result": "hidden-complete",
+    "elapsedSeconds": 175.174,
+    "samples": 160,
+    "bossMaxHp": 792744,
+    "skillCycles": 31,
+    "pageErrors": 0,
+    "httpFailures": 0,
+    "firstLethalClashObserved": false,
+    "storySlot1Sha256": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9",
+    "evidenceDirectory": "/workspace/rc133-tools/hidden-deep-natural-134243e"
+  },
+  "navigationHarnessCorrection": {
+    "reproducedAt": "134243e2ae297b5fd89614def074a5e042e14c0b",
+    "fixture": "4x CPU throttle; normal UI, no progress edits",
+    "cause": "An admitted ultimate transaction blocks map changes; Settings pauses its remaining hit processing. Full-auto could also leave the frontier map before the next menu opened.",
+    "resolution": "Select manual mode through Settings; resume native combat until the existing transaction settles; reopen Settings and select the map. The gameplay transition guard is preserved."
+  }
 }
