@@ -92,12 +92,14 @@
   const party=root.__HAPIL_PARTY_V31322__;if(party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected))return false;
   // Reserve before any feedback callback can reenter. Player admission owns
   // the pending EGO counter and revival ledger in the same transaction.
-  const oldClash=m.clash;m.clash={version:1,used:true,admitted:false,admitting:true,at:s.time,until:s.time+7,reason};
-  if(!A.activateFinalClash(s)){m.clash=oldClash;return false;}
-  // A deliberate lethal hit must never lower a healthy boss to 22%.
+  const oldClash=m.clash,oldActor={hp:a.hp,invulnerableUntil:a.invulnerableUntil,atomicCastUntil31210:a.atomicCastUntil31210},oldState={hp:m.hp,awake:m.awake,awakeningCooldown:m.awakeningCooldown,shotDelay:m.shotDelay,playerFatalAt:m.playerFatalAt,clashFreeze:m.clashFreeze};
+  m.clash={version:1,used:true,admitted:false,admitting:true,at:s.time,until:s.time+7,reason};
+  // Publish both actor states before the player's admission emits feedback or
+  // a save observer. A deliberate lethal hit cannot lower a healthy boss.
   a.hp=Math.max(n(a.hp),Math.max(1,Math.ceil(a.maxHp*.22)));
   a.invulnerableUntil=Math.max(n(a.invulnerableUntil),s.time+.55);a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+.55);
   m.hp=a.hp;m.awake=7;m.awakeningCooldown=28;m.shotDelay=1.35;m.playerFatalAt=-1;m.clashFreeze=.2;
+  if(!A.activateFinalClash(s)){Object.assign(a,oldActor);Object.assign(m,oldState);m.clash=oldClash;return false;}
   cleanup(s);s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);s.targetEnemyId=ID;
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerAwake',s,a,'duel-clash');
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:2.3,text:'쌍각성 · 검백과 흑적, 서로를 향해 다시 선다',color:'#f3d9e8',critical:true});

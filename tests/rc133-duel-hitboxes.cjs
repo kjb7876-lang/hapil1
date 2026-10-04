@@ -81,6 +81,15 @@ function env(){
  const restored=state();Final.restore(restored,Final.snapshot(s));eq(restored.innerFinalRC133.cycle,9,'deck position survives native restore');eq(Final.boss(restored).maxHp,m.maxHp,'reload cannot recalibrate health');
 }
 
+// Synchronous feedback/save observers see both sides awakened. Reentrant
+// lethal admission cannot see or replay a partially published transaction.
+{
+ const {Final,Samong,window,state}=env(),s=state();s.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];Final.start(s,s.enemies[0]);const a=Final.boss(s);a.hp=0;s.hp=0;Object.assign(window.__HAPIL_SAMONG_POLICY_RC133__.memory(s),{count:7,pending:true});let observed=null;
+ window.__HAPIL_COMBAT_CORE_V31401__={step:()=>{observed={inner:Final.snapshot(s),player:Samong.snapshot(s),hp:s.hp};eq(Samong.activateFinalClash(s),false,'reentrant observer cannot replay admission');}};
+ ok(Final.startClash(s,a),'simultaneous lethal duel admits');eq(observed.inner.awake,7,'save observer sees boss awakening already published');eq(observed.inner.hp,a.hp,'save observer sees revived boss health');eq(observed.hp,220,'save observer sees player revival');eq(observed.player.egoRC133.pending,false,'observer sees pending EGO consumption');eq(observed.inner.clash.admitted,true,'observer sees committed duel admission');
+ const denied=state();denied.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];Final.start(denied,denied.enemies[0]);denied.hp=0;const d=Final.boss(denied),before=Final.snapshot(denied);window.__HAPIL_SAMONG_POLICY_RC133__.memory(denied).admitting=true;eq(Final.startClash(denied,d),false,'concurrent EGO admission refuses special transaction');eq(JSON.stringify(Final.snapshot(denied)),JSON.stringify(before),'failed admission rolls back all hidden actor state');
+}
+
 // Bitmap geometry uses measured opaque pixels (not transparent canvas gutters)
 // while retaining the native physical radius if an image is unreadable.
 {
