@@ -190,17 +190,22 @@ async function runProfile(browser,[name,width,height,mobile]){
   for(const kind of ['player','boss-first','boss-first-wounded-player','simultaneous']){
    const entry=await arena(page,mobile);if(kind==='player'){row.body=await inspectBody(page);assert(row.body.body.rx<=16&&row.body.body.ry<=33);assert(row.body.height>0&&row.body.height<=160);assert.equal(row.body.shots.length,9);assert(row.body.shots.every(x=>x.measured&&x.bitmap&&x.points===4&&x.area>0));}
    const before=await page.evaluate(kind=>{
-    const s=window.__MONGSE_QA_STATE__,H=window.__HAPIL_INNER_FINAL_RC133__,A=window.__HAPIL_SAMONG_RC91__,U=window.__HAPIL_SAMONG_POLICY_RC133__,a=H.boss(s),hp=a.hp;
+    const s=window.__MONGSE_QA_STATE__,H=window.__HAPIL_INNER_FINAL_RC133__,A=window.__HAPIL_SAMONG_RC91__,U=window.__HAPIL_SAMONG_POLICY_RC133__,a=H.boss(s),hp=a.hp,priorPosition={x:s.x,y:s.y};
+    // Pixel fixture only: keep both bodies in the portrait camera. Entry above
+    // used the normal native UI; this is not a natural campaign claim.
+    s.x=a.x-1.2;s.y=a.y+1.2;
     Object.assign(U.memory(s),{count:7,pending:true});
     let admitted,priorPlayerHp;
     if(kind==='player'){s.hp=0;priorPlayerHp=s.hp;admitted=A.tryRevive(s);}
     else if(kind.startsWith('boss-first')){s.hp=kind==='boss-first'?s.maxHp:Math.ceil(s.maxHp*.3);priorPlayerHp=s.hp;a.hp=0;admitted=H.beforeDeath(s,a);}
     else{s.hp=0;priorPlayerHp=s.hp;a.hp=0;admitted=H.beforeDeath(s,a);}
-    return{admitted,priorBossHp:hp,priorPlayerHp,hp:s.hp,playerMaxHp:s.maxHp,bossHp:H.boss(s)?.hp??0,bossMaxHp:s.innerFinalRC133.maxHp,bossAwake:s.innerFinalRC133.awake,playerActive:A.active(s),phase:s.innerFinalRC133.phase,clash:s.innerFinalRC133.clash,mood:H.mood(s),ego:U.status(s)};
+    return{admitted,priorPosition,position:{x:s.x,y:s.y},renderFrames:H.metrics().frames,priorBossHp:hp,priorPlayerHp,hp:s.hp,playerMaxHp:s.maxHp,bossHp:H.boss(s)?.hp??0,bossMaxHp:s.innerFinalRC133.maxHp,bossAwake:s.innerFinalRC133.awake,playerActive:A.active(s),phase:s.innerFinalRC133.phase,clash:s.innerFinalRC133.clash,mood:H.mood(s),ego:U.status(s)};
    },kind);
    assert(before.admitted);assert.equal(before.clash.used,true);assert.equal(before.clash.admitted,true);assert.equal(before.ego.count,0);assert.equal(before.ego.pending,false);assert(before.playerActive&&before.bossAwake>0);assert.equal(before.mood,'opposition');
    if(kind.startsWith('boss-first')){assert.equal(before.hp,before.priorPlayerHp);assert.equal(before.clash.reason,'boss');}else{assert.equal(before.hp,Math.ceil(before.playerMaxHp*.22));assert.equal(before.clash.reason,kind==='player'?'player':'both');}
    if(kind==='player')assert.equal(before.bossHp,before.priorBossHp);else assert.equal(before.bossHp,Math.ceil(before.bossMaxHp*.22));
+   await page.waitForFunction(probe=>{const s=window.__MONGSE_QA_STATE__,H=window.__HAPIL_INNER_FINAL_RC133__;return s.time>=probe.clash.at+.4&&H.metrics().frames>=probe.renderFrames+2&&H.mood(s)==='opposition';},before);
+   const rendered=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,H=window.__HAPIL_INNER_FINAL_RC133__;return{time:s.time,hp:s.hp,bossHp:H.boss(s)?.hp,mood:H.mood(s),frames:H.metrics().frames,enemyHud:document.querySelector('.rc15-enemies')?.textContent,allyHud:document.querySelector('.rc15-allies')?.textContent};});
    await page.screenshot({path:output+'/'+name+'-'+kind+'.png'});
    const restored=await nativeReload(page,mobile);assert.equal(restored.phase,'fight');assert.equal(restored.maxHp,before.bossMaxHp);assert.equal(restored.clash.used,true);assert.equal(restored.clash.reason,before.clash.reason);assert(restored.playerActive&&restored.bossAwake>0);assert.equal(restored.mood,'opposition');
    const replay=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,A=window.__HAPIL_SAMONG_RC91__,hp=s.hp,m=s.samongPassiveRC91,active=m.active,cooldown=m.cooldown;try{s.hp=0;m.active=0;m.cooldown=0;return A.tryRevive(s);}finally{s.hp=hp;m.active=active;m.cooldown=cooldown;}});assert.equal(replay,false,'loaded one-use clash cannot revive again even with expired timers');
@@ -208,7 +213,7 @@ async function runProfile(browser,[name,width,height,mobile]){
    const completed=await nativeReload(page,mobile,true);assert.equal(completed.phase,'complete');assert.equal(completed.clash.used,true);assert.equal(completed.bossHp,0);assert.equal(completed.mood,'normal');
    const afterCompletionReplay=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,A=window.__HAPIL_SAMONG_RC91__,hp=s.hp,m=s.samongPassiveRC91,active=m.active,cooldown=m.cooldown;try{s.hp=0;m.active=0;m.cooldown=0;return A.tryRevive(s);}finally{s.hp=hp;m.active=active;m.cooldown=cooldown;}});assert.equal(afterCompletionReplay,false,'second simultaneous lethal cannot revive even when boss completion callback runs first');
    if(kind==='simultaneous'){await page.waitForTimeout(250);await page.screenshot({path:output+'/'+name+'-complete-normal.png'});}
-   row.cases.push({kind,fixture:'Staged HP/callback boundary in live public game; native slot save/load via ordinary UI; first clash and terminal second boss lethal',entry,before,restored,replay,second,completed,afterCompletionReplay});save();
+   row.cases.push({kind,fixture:'Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal',entry,before,rendered,restored,replay,second,completed,afterCompletionReplay});save();
   }
   assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);row.status='passed';console.log('RC133_PUBLIC_DUEL_PROFILE',JSON.stringify(row));
  }catch(e){row.status='failed';row.error=String(e.stack||e);row.state=await snapshotRun(page).catch(()=>null);row.ui=await page.locator('body').innerText().catch(()=>null);await page.screenshot({path:output+'/'+name+'-failure.png'}).catch(()=>{});throw e;}finally{save();await context.close();}
