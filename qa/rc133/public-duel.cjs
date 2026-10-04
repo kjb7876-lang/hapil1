@@ -2,7 +2,7 @@
 // Public, unreplaced network responses. Lethal-boundary probes are staged client fixtures.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
-const root=path.resolve(__dirname,'../..'),runtime='ac1e642ff6e225658cd11a147d702c85d67559be',base=process.env.HAPIL_TEST_BASE||'https://kjb7876-lang.github.io/hapil1/';
+const root=path.resolve(__dirname,'../..'),runtime='091143090653efffc7e64ab8262db25f91c3d293',base=process.env.HAPIL_TEST_BASE||'https://kjb7876-lang.github.io/hapil1/';
 if(process.env.GITHUB_ACTIONS)assert.equal(base,'https://kjb7876-lang.github.io/hapil1/');
 const output=process.env.HAPIL_QA_OUTPUT||'/tmp/rc133-public-duel';fs.mkdirSync(output,{recursive:true});
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
