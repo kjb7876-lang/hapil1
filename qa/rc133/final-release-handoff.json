@@ -36,7 +36,7 @@
     "status": "complete with documented visual and device coverage limits"
   },
   "publication": {
-    "status": "pending parent coordination",
+    "status": "exact091 core deployed and publicverified; fullproject still incomplete",
     "freshMainObserved": "80adeec6e12d1e96973012e535ad1575ae12d1c8",
     "mainObservedAt": "2026-10-04T11:09:14Z",
     "candidateDescendsObservedMain": true,
@@ -46,7 +46,14 @@
     "auditRuntimePin": "091143090653efffc7e64ab8262db25f91c3d293",
     "deployedFilesToVerify": 68,
     "stagedPublicCasesToVerify": 12,
-    "publicVerified": false
+    "publicVerified": true,
+    "publishedRuntimeSha": "091143090653efffc7e64ab8262db25f91c3d293",
+    "previousMain": "80adeec6e12d1e96973012e535ad1575ae12d1c8",
+    "pagesRun": 37198605549,
+    "publicDuelRun": 37198766339,
+    "publicDuelAuditCommit": "149a0285b779976a0210f4e0feea3de6702bb9a9",
+    "publishedAudioPassed": true,
+    "allNineMainWorkflowsPassed": true
   },
   "narration": {
     "release": 86,
@@ -62,12 +69,13 @@
     "manifestSha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006"
   },
   "remainingCoverageLimits": [
-    "Main/Pages/public audit awaits parent coordination and actual deployment",
+    "Published091 core verified; targetedportraitcomposition fix and later audio-integrated full audit remain required",
     "Mobile viewport emulation, not physical phones",
     "Assisted native-save continuation, not a fresh unassisted campaign",
     "Bounded render-call measurement, not sustained FPS/device performance",
     "Original dark artwork and red-half portrait contrast remain visual limits; divider may cross the body/bar, and framing proof applies to recorded positions",
     "Additional13 audio and three held short-male voices remain separate parent work"
   ],
-  "twoComprehensiveRoundsComplete": true
+  "twoComprehensiveRoundsComplete": true,
+  "twoComprehensiveRoundsScope": "Implemented091 core, not additional13/heldvoices or later contrast/audio completion"
 }

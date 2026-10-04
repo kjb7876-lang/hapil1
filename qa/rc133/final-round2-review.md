@@ -89,3 +89,9 @@ work; they are not silently assigned. No zero-possible-bug guarantee is made.
 This review supersedes older pending-CI/count fields in historical RC133 status
 documents. The evidence/public-audit branch carries QA/workflow additions only;
 091 remains the exact release/runtime revision.
+
+## Coordinated publication result
+
+Parent coordinated exact091. Main was fast-forwarded from80adeec without force. [Pages37198605549](https://github.com/kjb7876-lang/hapil1/actions/runs/37198605549) and all nine main workflows passed. The [actual public duel audit37198766339](https://github.com/kjb7876-lang/hapil1/actions/runs/37198766339), audit149a028, verified68 deployed files and12/12 staged cases across PC/portrait/landscape, including boss-first with a healthy/wounded living player, counterawakening, EGO consumption and native save/reload. Canonical public audio checked269 active MP3s plus14 retired files and the legacy combat/runtime set. See `evidence/publication-091.json`.
+
+This completes publication of the implemented091 core. Additional13/held voices remain separate, and the portrait contrast issue is now traced to two hidden-mood compositions per RC108 frame; its separate focused fix and a full audit after remaining audio integration are still required. The full project and its automation are not closed.

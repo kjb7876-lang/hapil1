@@ -1,0 +1,2017 @@
+{
+  "schemaVersion": 1,
+  "publishedRuntime": "091143090653efffc7e64ab8262db25f91c3d293",
+  "previousMain": "80adeec6e12d1e96973012e535ad1575ae12d1c8",
+  "nonForceFastForward": true,
+  "pagesRun": 37198605549,
+  "pagesConclusion": "success",
+  "basicPublicRun": 37198606246,
+  "basicPublicFiles": 53,
+  "publicDuelRun": 37198766339,
+  "publicDuelJob": 111425948932,
+  "publicAuditCommit": "149a0285b779976a0210f4e0feea3de6702bb9a9",
+  "publicDuelPass": {
+    "runtime": "091143090653efffc7e64ab8262db25f91c3d293",
+    "audit": "149a0285b779976a0210f4e0feea3de6702bb9a9",
+    "files": 68,
+    "profiles": [
+      {
+        "name": "pc",
+        "status": "passed",
+        "cases": [
+          "player",
+          "boss-first",
+          "boss-first-wounded-player",
+          "simultaneous"
+        ]
+      },
+      {
+        "name": "portrait",
+        "status": "passed",
+        "cases": [
+          "player",
+          "boss-first",
+          "boss-first-wounded-player",
+          "simultaneous"
+        ]
+      },
+      {
+        "name": "landscape",
+        "status": "passed",
+        "cases": [
+          "player",
+          "boss-first",
+          "boss-first-wounded-player",
+          "simultaneous"
+        ]
+      }
+    ]
+  },
+  "profiles": [
+    {
+      "name": "pc",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "cases": [
+        {
+          "kind": "player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 0,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 661746,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.270299999999983,
+              "until": 9.270299999999983,
+              "reason": "player"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 1
+            }
+          },
+          "rendered": {
+            "time": 2.6729719999999806,
+            "hp": 240,
+            "bossHp": 661746,
+            "mood": "opposition",
+            "frames": 185,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식661746 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.6초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.270299999999983,
+              "until": 9.270299999999983,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 661746,
+            "bossAwake": 6.698671999999999,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.270299999999983,
+              "until": 9.270299999999983,
+              "reason": "player"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.270299999999983,
+              "until": 9.270299999999983,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 279,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 240,
+            "hp": 240,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.010572000000003,
+              "until": 9.010572000000003,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 2
+            }
+          },
+          "rendered": {
+            "time": 2.413227999999999,
+            "hp": 240,
+            "bossHp": 145689.0877753492,
+            "mood": "opposition",
+            "frames": 467,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145682 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.5초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.010572000000003,
+              "until": 9.010572000000003,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145716.5797746906,
+            "bossAwake": 6.690672000000002,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.010572000000003,
+              "until": 9.010572000000003,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.010572000000003,
+              "until": 9.010572000000003,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first-wounded-player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 562,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 72,
+            "hp": 72,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.016500000000004,
+              "until": 9.016500000000004,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 3
+            }
+          },
+          "rendered": {
+            "time": 2.419155999999996,
+            "hp": 240,
+            "bossHp": 145689.0837519336,
+            "mood": "opposition",
+            "frames": 761,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145680 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.7초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016500000000004,
+              "until": 9.016500000000004,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145715.9078642721,
+            "bossAwake": 6.690688000000001,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016500000000004,
+              "until": 9.016500000000004,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016500000000004,
+              "until": 9.016500000000004,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "simultaneous",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 854,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.0105720000000016,
+              "until": 9.010572000000002,
+              "reason": "both"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 4
+            }
+          },
+          "rendered": {
+            "time": 2.415883999999997,
+            "hp": 240,
+            "bossHp": 145689.755662352,
+            "mood": "opposition",
+            "frames": 1039,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145689 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.6초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0105720000000016,
+              "until": 9.010572000000002,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 145715.90786427193,
+            "bossAwake": 6.693328000000001,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0105720000000016,
+              "until": 9.010572000000002,
+              "reason": "both"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0105720000000016,
+              "until": 9.010572000000002,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        }
+      ],
+      "body": {
+        "body": {
+          "rx": 16,
+          "ry": 33
+        },
+        "enemyPath": "https://kjb7876-lang.github.io/hapil1/assets/rc133/art/base-2.png?v=31332",
+        "enemyPoints": [
+          {
+            "x": 962.2400000000002,
+            "y": 337.48500000000007
+          },
+          {
+            "x": 1030.5600000000002,
+            "y": 337.48500000000007
+          },
+          {
+            "x": 1030.5600000000002,
+            "y": 448.8100000000002
+          },
+          {
+            "x": 962.2400000000002,
+            "y": 448.8100000000002
+          }
+        ],
+        "height": 111.3250000000001,
+        "shots": [
+          {
+            "skill": "small-orb",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8707.348298860079
+          },
+          {
+            "skill": "eye",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8425.165715100722
+          },
+          {
+            "skill": "diamond",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10226.408040398115
+          },
+          {
+            "skill": "clock",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 11333.593579167315
+          },
+          {
+            "skill": "star",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7807.971786185829
+          },
+          {
+            "skill": "eclipse",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 11196.43587477138
+          },
+          {
+            "skill": "lance",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10658.618166518443
+          },
+          {
+            "skill": "shield",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 11338.761545741974
+          },
+          {
+            "skill": "vortex",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10560.26336090393
+          }
+        ]
+      }
+    },
+    {
+      "name": "portrait",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "cases": [
+        {
+          "kind": "player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 0,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 661746,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.4500000000000104,
+              "until": 9.45000000000001,
+              "reason": "player"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 1
+            }
+          },
+          "rendered": {
+            "time": 2.85800000000001,
+            "hp": 240,
+            "bossHp": 661746,
+            "mood": "opposition",
+            "frames": 172,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식661746 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.5초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.4500000000000104,
+              "until": 9.45000000000001,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 661746,
+            "bossAwake": 6.679983999999999,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.4500000000000104,
+              "until": 9.45000000000001,
+              "reason": "player"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.4500000000000104,
+              "until": 9.45000000000001,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 316,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 240,
+            "hp": 240,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.0331000000000055,
+              "until": 9.033100000000005,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 2
+            }
+          },
+          "rendered": {
+            "time": 2.4383960000000053,
+            "hp": 240,
+            "bossHp": 145689.07972851789,
+            "mood": "opposition",
+            "frames": 500,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145686 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.5초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0331000000000055,
+              "until": 9.033100000000005,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145715.22790702217,
+            "bossAwake": 6.696032,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0331000000000055,
+              "until": 9.033100000000005,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0331000000000055,
+              "until": 9.033100000000005,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first-wounded-player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 644,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 72,
+            "hp": 72,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.033300000000002,
+              "until": 9.033300000000002,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 3
+            }
+          },
+          "rendered": {
+            "time": 2.4412680000000018,
+            "hp": 240,
+            "bossHp": 145689.7767852845,
+            "mood": "opposition",
+            "frames": 830,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145682 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.6초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.033300000000002,
+              "until": 9.033300000000002,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145716.59687420737,
+            "bossAwake": 6.685359999999999,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.033300000000002,
+              "until": 9.033300000000002,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.033300000000002,
+              "until": 9.033300000000002,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "simultaneous",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 966,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.016600000000005,
+              "until": 9.016600000000004,
+              "reason": "both"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 4
+            }
+          },
+          "rendered": {
+            "time": 2.4192400000000047,
+            "hp": 240,
+            "bossHp": 145688.411841515,
+            "mood": "opposition",
+            "frames": 1154,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145689 / 661746적 상태무적 0.1초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.6초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016600000000005,
+              "until": 9.016600000000004,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 145712.54831217928,
+            "bossAwake": 6.704032,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016600000000005,
+              "until": 9.016600000000004,
+              "reason": "both"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016600000000005,
+              "until": 9.016600000000004,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        }
+      ],
+      "body": {
+        "body": {
+          "rx": 16,
+          "ry": 33
+        },
+        "enemyPath": "https://kjb7876-lang.github.io/hapil1/assets/rc133/art/base-2.png?v=31332",
+        "enemyPoints": [
+          {
+            "x": 962.24,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 448.81000000000006
+          },
+          {
+            "x": 962.24,
+            "y": 448.81000000000006
+          }
+        ],
+        "height": 111.32500000000005,
+        "shots": [
+          {
+            "skill": "small-orb",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8254.315789473683
+          },
+          {
+            "skill": "eye",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7986.814814814818
+          },
+          {
+            "skill": "diamond",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 9694.340740740741
+          },
+          {
+            "skill": "clock",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10743.92079207921
+          },
+          {
+            "skill": "star",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7401.732718894011
+          },
+          {
+            "skill": "eclipse",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10613.8992325659
+          },
+          {
+            "skill": "lance",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10104.063511204908
+          },
+          {
+            "skill": "shield",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10748.819875776395
+          },
+          {
+            "skill": "vortex",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10010.825983878613
+          }
+        ]
+      }
+    },
+    {
+      "name": "landscape",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "cases": [
+        {
+          "kind": "player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 0,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 661746,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 3.3664999999999976,
+              "until": 10.366499999999998,
+              "reason": "player"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 1
+            }
+          },
+          "rendered": {
+            "time": 3.769155999999989,
+            "hp": 240,
+            "bossHp": 661746,
+            "mood": "opposition",
+            "frames": 285,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식661746 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.6초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 3.3664999999999976,
+              "until": 10.366499999999998,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 661746,
+            "bossAwake": 6.690703999999988,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 3.3664999999999976,
+              "until": 10.366499999999998,
+              "reason": "player"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 3.3664999999999976,
+              "until": 10.366499999999998,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 374,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 240,
+            "hp": 240,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.0501,
+              "until": 9.0501,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 2
+            }
+          },
+          "rendered": {
+            "time": 2.452755999999989,
+            "hp": 240,
+            "bossHp": 145689.7808086987,
+            "mood": "opposition",
+            "frames": 669,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145682 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.5초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0501,
+              "until": 9.0501,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145716.60492103698,
+            "bossAwake": 6.69332799999998,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0501,
+              "until": 9.0501,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0501,
+              "until": 9.0501,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first-wounded-player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 763,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 72,
+            "hp": 72,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.0000000000000036,
+              "until": 9.000000000000004,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 3
+            }
+          },
+          "rendered": {
+            "time": 2.4026399999999994,
+            "hp": 240,
+            "bossHp": 145689.8019316311,
+            "mood": "opposition",
+            "frames": 1058,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145681 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.7초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0000000000000036,
+              "until": 9.000000000000004,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145715.95413355084,
+            "bossAwake": 6.696015999999999,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0000000000000036,
+              "until": 9.000000000000004,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0000000000000036,
+              "until": 9.000000000000004,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "simultaneous",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 1142,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "both"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 4
+            }
+          },
+          "rendered": {
+            "time": 2.419223999999995,
+            "hp": 240,
+            "bossHp": 145689.7516389352,
+            "mood": "opposition",
+            "frames": 1435,
+            "enemyHud": "적 THREAT교주의 사몽 · 생존 1사후의 나 · 악한 무의식145686 / 661746적 상태무적 0.2초현재 시전 중인 공격 없음",
+            "allyHud": "아군 STATUS환도240 / 240현재 상태무적 0.6초"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 145716.56770444213,
+            "bossAwake": 6.693375999999999,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "both"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        }
+      ],
+      "body": {
+        "body": {
+          "rx": 16,
+          "ry": 33
+        },
+        "enemyPath": "https://kjb7876-lang.github.io/hapil1/assets/rc133/art/base-2.png?v=31332",
+        "enemyPoints": [
+          {
+            "x": 962.24,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 448.81000000000006
+          },
+          {
+            "x": 962.24,
+            "y": 448.81000000000006
+          }
+        ],
+        "height": 111.32500000000005,
+        "shots": [
+          {
+            "skill": "small-orb",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8254.315789473683
+          },
+          {
+            "skill": "eye",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7986.814814814815
+          },
+          {
+            "skill": "diamond",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 9694.340740740734
+          },
+          {
+            "skill": "clock",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10743.920792079207
+          },
+          {
+            "skill": "star",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7401.732718894011
+          },
+          {
+            "skill": "eclipse",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10613.8992325659
+          },
+          {
+            "skill": "lance",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10104.063511204904
+          },
+          {
+            "skill": "shield",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10748.819875776398
+          },
+          {
+            "skill": "vortex",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10010.825983878613
+          }
+        ]
+      }
+    }
+  ],
+  "mainWorkflows": [
+    {
+      "id": 37198606246,
+      "name": "RC133 published Pages verification",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606246"
+    },
+    {
+      "id": 37198606227,
+      "name": "RC130 published Pages verification",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606227"
+    },
+    {
+      "id": 37198606235,
+      "name": "RC126 published Pages verification",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606235"
+    },
+    {
+      "id": 37198606236,
+      "name": "RC132 published Pages verification",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606236"
+    },
+    {
+      "id": 37198606240,
+      "name": "RC127 published Pages verification",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606240"
+    },
+    {
+      "id": 37198606270,
+      "name": "Laser release audit",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606270"
+    },
+    {
+      "id": 37198606210,
+      "name": "RC129 danmaku release verification",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606210"
+    },
+    {
+      "id": 37198606292,
+      "name": "Canonical story narration audit",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198606292"
+    },
+    {
+      "id": 37198605549,
+      "name": "pages build and deployment",
+      "sha": "091143090653efffc7e64ab8262db25f91c3d293",
+      "conclusion": "success",
+      "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37198605549"
+    }
+  ],
+  "canonicalJobs": [
+    {
+      "id": 111425475743,
+      "name": "narration",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 111425475918,
+      "name": "gameplay-regression (release)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 111425475934,
+      "name": "published-audio",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 111425475962,
+      "name": "gameplay-regression (topology)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 111425475973,
+      "name": "gameplay-regression (dream)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 111425475980,
+      "name": "gameplay-regression (death-dialog)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "publishedAudio": {
+    "job": 111425475934,
+    "status": "success",
+    "narrationRuntimeFiles": 6,
+    "activeMp3Files": 269,
+    "retiredAudioFiles": 14,
+    "legacyCombatAudioFiles": 8,
+    "legacyCombatRuntimeFiles": 4
+  },
+  "scope": "Current implemented core and TTS86 publication verified. Four lethal cases per three emulated profiles are staged HP/callback probes on actual unreplaced public responses, not natural campaign victory.",
+  "remaining": [
+    "Additional13 audio transfer is parent approval-tool blocked; no duplicate transfer attempted",
+    "Three held short-male sources remain unassigned",
+    "Published091 portrait mood is applied twice; separate targetedfix branch in progress, not yet published",
+    "A new full audit is required after remaining audio integration",
+    "Physical phones are not covered; no zero-possible-bug or fullproject-completion claim"
+  ]
+}
