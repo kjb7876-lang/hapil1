@@ -477,50 +477,50 @@
         "path": "./assets/rc135/midboss-motions/sheets/mb-dist06.png",
         "width": 2172,
         "height": 724,
-        "sha256": "2fe866769cdb04e7005a8855c68e17d10056520349fb40771ffb96e29fca59ab"
+        "sha256": "ee2862939b69ffbec919eedf1f6472ab6e8f8494c2a0c0f4e7967a634328b92c"
       },
-      "baseHeight": 596,
+      "baseHeight": 638,
       "motions": {
         "idle": {
           "sourceRect": [
             0,
             0,
-            721,
+            708,
             724
           ],
           "pivot": [
-            360,
-            665
+            352,
+            685
           ],
           "visibleBounds": [
-            117,
-            74,
-            631,
-            670
+            86,
+            49,
+            625,
+            687
           ],
           "boundaryAlphaMax": {
             "left": 0,
-            "right": 0,
+            "right": 1,
             "top": 0,
             "bottom": 0
           }
         },
         "anticipation": {
           "sourceRect": [
-            721,
+            708,
             0,
-            724,
+            706,
             724
           ],
           "pivot": [
-            359,
-            665
+            364,
+            686
           ],
           "visibleBounds": [
-            91,
-            63,
-            637,
-            671
+            84,
+            51,
+            626,
+            689
           ],
           "boundaryAlphaMax": {
             "left": 0,
@@ -531,23 +531,23 @@
         },
         "strike": {
           "sourceRect": [
-            1445,
+            1414,
             0,
-            727,
+            758,
             724
           ],
           "pivot": [
-            365,
-            665
+            376,
+            686
           ],
           "visibleBounds": [
-            86,
-            58,
-            631,
-            673
+            80,
+            63,
+            696,
+            689
           ],
           "boundaryAlphaMax": {
-            "left": 1,
+            "left": 0,
             "right": 0,
             "top": 0,
             "bottom": 0
