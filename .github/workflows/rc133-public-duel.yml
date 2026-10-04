@@ -1,4 +1,5 @@
 name: RC133 public hidden duel transaction audit
+# Coordinated main091 is deployed; verify its real Pages bytes and native duel boundaries.
 on:
   push:
     branches: [codex/rc133-public-both-first]
