@@ -1,0 +1,66 @@
+name: RC136 exact public native Persona audit
+on:
+  push:
+    branches: [codex/rc136-public-live-audit]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc136-public-live-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  public:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [bytes, desktop, mobile]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: audit
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/checkout@v6
+        with:
+          ref: d15a148241afecfe94ebf37e3e3d830e383531fa
+          path: runtime
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated public browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc136-public-browser"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")" >> "$GITHUB_ENV"
+          echo "HAPIL_RC134_ROOT=$GITHUB_WORKSPACE/runtime" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc136-public-evidence" >> "$GITHUB_ENV"
+      - name: Verify public exact runtime and native UI
+        env:
+          SUITE: ${{ matrix.suite }}
+          HAPIL_EXPECTED_COMMIT: d15a148241afecfe94ebf37e3e3d830e383531fa
+          HAPIL_PUBLIC_URL: https://kjb7876-lang.github.io/hapil1/
+        run: |
+          set -euo pipefail
+          test "$(git -C runtime rev-parse HEAD)" = "$HAPIL_EXPECTED_COMMIT"
+          test -z "$(git -C runtime status --porcelain)"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          case "$SUITE" in
+            bytes) node audit/qa/rc136-public/public-bytes.cjs ;;
+            desktop) node audit/qa/rc136-public/public-native-nine.cjs ;;
+            mobile) HAPIL_PUBLIC_MOBILE=1 node audit/qa/rc136-public/public-native-nine.cjs ;;
+          esac
+          test -z "$(git -C runtime status --porcelain)"
+          node -e 'const fs=require("fs"),p=process.env.HAPIL_QA_OUTPUT;for(const f of ["results.json","public-bytes.json"]){if(!fs.existsSync(p+"/"+f))continue;const d=JSON.parse(fs.readFileSync(p+"/"+f));console.log("RC136_PUBLIC_RESULT",JSON.stringify({commit:d.commit,status:d.status,files:d.files?.length,captures:d.captures?.length,profile:d.profile,rotations:d.rotations?.status,contrast:d.contrast?.status,functional:d.functional?.summary,errors:d.pageErrors,httpErrors:d.httpErrors}));}'
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc136-public-d15a148-${{ matrix.suite }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc136-public-evidence/
+          retention-days: 14
