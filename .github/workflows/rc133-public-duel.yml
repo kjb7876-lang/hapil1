@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '22'
       - name: Fetch exact deployed runtime reference
-        run: git fetch --no-tags --depth=1 origin 84f60f4ab79fc595ca40db9101e19f900e555946
+        run: git fetch --no-tags --depth=1 origin d0b40d904e7aa694f84f59ecc31e215b1f33d53f
       - name: Prepare isolated browser
         shell: bash
         run: |

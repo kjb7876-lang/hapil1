@@ -2,7 +2,7 @@
 // Public, unreplaced network responses. Lethal-boundary probes are staged client fixtures.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
-const root=path.resolve(__dirname,'../..'),runtime='84f60f4ab79fc595ca40db9101e19f900e555946',base=process.env.HAPIL_TEST_BASE||'https://kjb7876-lang.github.io/hapil1/';
+const root=path.resolve(__dirname,'../..'),runtime='d0b40d904e7aa694f84f59ecc31e215b1f33d53f',base=process.env.HAPIL_TEST_BASE||'https://kjb7876-lang.github.io/hapil1/';
 if(process.env.GITHUB_ACTIONS)assert.equal(base,'https://kjb7876-lang.github.io/hapil1/');
 const output=process.env.HAPIL_QA_OUTPUT||'/tmp/rc133-public-duel';fs.mkdirSync(output,{recursive:true});
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
@@ -220,7 +220,7 @@ async function runProfile(browser,[name,width,height,mobile]){
 }
 (async()=>{let browser;try{
  assert.equal(cp.execFileSync('git',['diff','--name-only',runtime,'HEAD','--','assets','audio','data','index.html'],{cwd:root,encoding:'utf8'}).trim(),'','audit branch must preserve exact deployed runtime');
- const art=JSON.parse(original('qa/rc133/art-processing.json')),files=new Set(['index.html','assets/index-v31526.js','assets/rc133/bitmap-contact.js','assets/combat-v31402/contact-geometry.js','assets/rc133/inner-final.js','assets/rc133/media-art.js','assets/rc91/samong-awakening.js','assets/rc133/samong-policy.js','assets/rc133/developer-maps.js','assets/story-narration/v1/manifest.json','assets/story-narration/v1/player.js','assets/story-narration/v1/surfaces.js',...art.sources.map(x=>x.file),...art.outputs.map(x=>x.file),...art.externalDerivatives.map(x=>x.file)]);
+ const art=JSON.parse(original('qa/rc133/art-processing.json')),files=new Set(['index.html','assets/index-v31526.js','assets/rc133/bitmap-contact.js','assets/combat-v31402/contact-geometry.js','assets/rc133/inner-final.js','assets/rc133/media-art.js','assets/rc91/samong-awakening.js','assets/rc133/samong-policy.js','assets/rc133/developer-maps.js','assets/story-narration/v1/manifest.json','assets/story-narration/v1/player.js','assets/story-narration/v1/surfaces.js',...art.sources.map(x=>x.file),...art.outputs.map(x=>x.file),...art.externalDerivatives.map(x=>x.file),...JSON.parse(original('assets/story-narration/v1/manifest.json')).assets&&Object.keys(JSON.parse(original('assets/story-narration/v1/manifest.json')).assets).filter(f=>/6206cf6b0cff5b9aee7227b9|528fc9801b1d930011410fa0|9b69d5462a3117d00a02394b|bcc875690178af1726ad7589|e97a8118bd30b67e4dcc4c49/.test(f)).map(f=>'assets/story-narration/v1/'+f)]);
  for(const file of files){const response=await fetch(base+file+'?public-duel='+runtime+'-'+Date.now(),{signal:AbortSignal.timeout(20000)}),bytes=Buffer.from(await response.arrayBuffer()),expected=digest(original(file));assert.equal(response.status,200,file);assert.equal(digest(bytes),expected,file+' exact public bytes');report.files.push({file,sha256:expected,bytes:bytes.length});}
  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
  for(const profile of [['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]])await runProfile(browser,profile);
