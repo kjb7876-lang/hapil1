@@ -8,7 +8,7 @@
     "data",
     "index.html"
   ],
-  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected. Targeted hidden portrait correction changes only the exact inner-final output and its cache query.",
+  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected. Targeted hidden portrait correction changes only the exact inner-final output and its cache query. User-approved RC134 measured mobile compositing/cache optimization; three exact runtime outputs, all art/audio/data/contact/quality settings remain byte-protected.",
   "baselineGuards": {
     "tools/story-narration-release85-preservation.cjs": "92ed29cdf627a5801277110515e73f75b9cb384868f252eeb40b7844a12bb1c5",
     "tools/rc130-preservation.cjs": "0677d03ad18952f8c4e08e5138c26617235c7b58cb18046c817ecbce5303554a"
@@ -641,11 +641,11 @@
       "before": null,
       "after": {
         "mode": "100644",
-        "gitBlob": "ef697ef156e100949976d65587d62871b2fb1c0e",
+        "gitBlob": "53e9d7eda1c51e525316a6accc6956dc65f357a1",
         "file": "assets/rc133/inner-final.js",
-        "sha256": "819f54e14679bcb48daeba300d899efb15581dad5a809e8927fc726f9475e62c"
+        "sha256": "22d8fff72961d17f87bc343592ad3f2662458ad7037337ea2cac224282b53f5f"
       },
-      "reason": "User-approved correction: either actor first lethal admits one saved atomic revival and dual awakening; only lethal actor HP is restored, living opponent progress is preserved. Apply hidden mood once after RC108 camera composition to correct portrait darkness."
+      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
     },
     {
       "file": "assets/rc133/media-art.js",
@@ -1674,11 +1674,26 @@
       },
       "after": {
         "mode": "100644",
-        "gitBlob": "f694d318c8c58b2e7e34f6566719f9d85621e14c",
+        "gitBlob": "ccf28d42a63ad3ded4e90a8ce7b0e7cdc7152c17",
         "file": "index.html",
-        "sha256": "d01bd736e6c914d8ed5c709be467e1fae4f2eade4d3f664220677ab4aac72a60"
+        "sha256": "242dfc49172b05e0b8de9559f22475790f9932ad803001c9dca5185f797045c1"
       },
-      "reason": "Refresh approved hidden first-lethal policy script keys and TTS86 manifest query; preserve prior264 audio and unrelated runtime. Round1 readability fix: isolated hidden body brightness within balanced canvas save/restore; source alpha, pixels, sizing, hitboxes and full-arena moods preserved."
+      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
+    },
+    {
+      "file": "assets/rc108/portrait-split.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f1b2a8ee5b09f22b119e8f67584d4107856e5e4d",
+        "file": "assets/rc108/portrait-split.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d9381c2473d4df15ef7b1fd9a4cf64918006cd23",
+        "file": "assets/rc108/portrait-split.js",
+        "sha256": "c5b11b4ffdf467b3fab882d8e531f56027269e245488cc69b98bad735e7e5bc6"
+      },
+      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
     }
   ]
 }

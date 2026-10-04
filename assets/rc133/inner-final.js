@@ -165,7 +165,9 @@
   const mode=mood(s);if(mode==='normal'||!ctx||!canvas||root.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics?.()?.rendering===true)return false;
   const w=canvas.width,h=canvas.height;ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
    const pass=(x,width,bossSide)=>{ctx.save();try{ctx.beginPath();ctx.rect(x,0,width,h);ctx.clip();ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);ctx.filter='none';if(bossSide){ctx.globalCompositeOperation='multiply';ctx.fillStyle='#ff6078';ctx.fillRect(x,0,width,h);}}finally{ctx.restore();}};
-   if(mode==='opposition'){pass(0,w/2,false);pass(w/2,w/2,true);ctx.fillStyle='#eedee4';ctx.fillRect(w/2-1,0,2,h);}else pass(0,w,mode==='boss');
+   // Grayscale and contrast are point-wise: process the assembled frame once,
+   // then tint its right half. The opaque divider covers the fractional seam.
+   if(mode==='opposition'){pass(0,w,false);ctx.save();try{ctx.filter='none';ctx.globalCompositeOperation='multiply';ctx.fillStyle='#ff6078';ctx.fillRect(w/2,0,w/2,h);}finally{ctx.restore();}ctx.fillStyle='#eedee4';ctx.fillRect(w/2-1,0,2,h);}else pass(0,w,mode==='boss');
    if(s.innerFinalRC133?.clash?.used&&s.time<s.innerFinalRC133.clash.until){ctx.filter='none';ctx.globalAlpha=.96;ctx.textAlign='center';ctx.textBaseline='top';ctx.font='700 14px system-ui,sans-serif';ctx.lineWidth=4;ctx.strokeStyle='#07040c';ctx.strokeText('쌍각성 · 사몽의 나와 마주 서다',w/2,Math.max(58,h*.11));ctx.fillStyle='#fff3f5';ctx.fillText('쌍각성 · 사몽의 나와 마주 서다',w/2,Math.max(58,h*.11));}
   }finally{ctx.restore();}metrics.frames++;return true;
  }

@@ -41,9 +41,14 @@
   next=clampCamera(next,scale,{x:logical.x,y:180,width:logical.width,height:360});
   const resolved=smooth(s,slot,next,focusId);stats.cameras[slot]={x:resolved.x,y:resolved.y,scale:resolved.scale,focusId};return resolved;
  }
- function store(canvas,slot){let map=cache.get(canvas);if(!map||map.width!==canvas.width||map.height!==canvas.height){map={width:canvas.width,height:canvas.height,boss:document.createElement('canvas'),hero:document.createElement('canvas'),ready:{boss:false,hero:false}};cache.set(canvas,map);}
-  const copy=map[slot];if(copy.width!==canvas.width)copy.width=canvas.width;if(copy.height!==canvas.height)copy.height=canvas.height;
-  const ctx=copy.getContext('2d');if(ctx){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,copy.width,copy.height);ctx.drawImage(canvas,0,0);map.ready[slot]=true;}return map;
+ function store(canvas,slot){let map=cache.get(canvas);if(!map||map.width!==canvas.width||map.height!==canvas.height){
+   const half=Math.floor(canvas.height/2),sourceY=Math.floor((canvas.height-half)/2),above=Math.min(1,sourceY),below=Math.min(1,canvas.height-sourceY-half);
+   // Keep only the central viewport plus its sampling neighbours. The one-row
+   // gutters preserve bilinear edge pixels when an odd height stretches below.
+   map={width:canvas.width,height:canvas.height,cropY:sourceY-above,copyHeight:half+above+below,sourceY:above,boss:document.createElement('canvas'),hero:document.createElement('canvas'),ready:{boss:false,hero:false}};
+   for(const key of ['boss','hero']){map[key].width=map.width;map[key].height=map.copyHeight;}cache.set(canvas,map);
+  }
+  const copy=map[slot],ctx=copy.getContext('2d');if(ctx){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,copy.width,copy.height);ctx.drawImage(canvas,0,map.cropY,map.width,map.copyHeight,0,0,map.width,map.copyHeight);map.ready[slot]=true;}return map;
  }
  function render(canvas,s,images,hero,settings,draw){
   const box=canvas.getBoundingClientRect();if(!active(s)||!box.width||!box.height){cache.delete(canvas);draw(canvas,s,images,hero,settings);return;}
@@ -51,8 +56,8 @@
   try{draw(canvas,s,images,hero,settings);stats.drawPasses++;if(target==='boss')stats.bossPasses++;else stats.heroPasses++;}
   finally{rendering=false;}
   const map=store(canvas,target),other=target==='boss'?'hero':'boss';
-  if(!map.ready[other]){const ctx=map[other].getContext('2d');map[other].width=canvas.width;map[other].height=canvas.height;ctx?.drawImage(map[target],0,0);map.ready[other]=true;}
-  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,half=Math.floor(h/2),sourceY=Math.floor((h-half)/2);
+  if(!map.ready[other]){const ctx=map[other].getContext('2d');ctx?.drawImage(map[target],0,0);map.ready[other]=true;}
+  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,half=Math.floor(h/2),sourceY=map.sourceY;
   if(!ctx)return;ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.clearRect(0,0,w,h);ctx.fillStyle='#020610';ctx.fillRect(0,0,w,h);
   // Render equal-aspect central viewport crops. The old full-height-to-half
   // draw squashed every actor and exposed an awkward extra-wide crop.
