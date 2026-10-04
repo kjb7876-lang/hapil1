@@ -1,0 +1,41 @@
+name: RC133 public hidden duel transaction audit
+on:
+  push:
+    branches: [codex/rc133-public-duel-80adeec]
+    paths: ['qa/rc133/public-duel.cjs', '.github/workflows/rc133-public-duel.yml']
+permissions:
+  contents: read
+jobs:
+  public-duel:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Fetch exact deployed runtime reference
+        run: git fetch --no-tags --depth=1 origin 80adeec6e12d1e96973012e535ad1575ae12d1c8
+      - name: Prepare isolated browser
+        shell: bash
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc133-public-duel-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-public-duel-evidence" >> "$GITHUB_ENV"
+      - name: Verify public bytes and staged native transaction boundaries
+        run: node qa/rc133/public-duel.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc133-public-duel-${{ github.sha }}
+          path: ${{ runner.temp }}/rc133-public-duel-evidence/
+          retention-days: 14
