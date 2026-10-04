@@ -1,0 +1,68 @@
+name: RC133 public777 exact-caf UI verification
+on:
+  push:
+    branches: [codex/rc133-public-777-cafbea9]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc133-public777-caf-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  public777:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated browser and preserve audit source
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc133-public777-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm-public777.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser-public777.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          cp qa/rc133/public-777-cafbea9.cjs "$RUNNER_TEMP/public-777.cjs"
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_REPO=$GITHUB_WORKSPACE" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-public777-evidence" >> "$GITHUB_ENV"
+      - name: Check out the exact deployed game revision
+        env:
+          RUNTIME_SHA: cafbea9fb98aa9842436fffb61c199bcd48c8dff
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin "$RUNTIME_SHA"
+          git checkout --detach "$RUNTIME_SHA"
+          test "$(git rev-parse HEAD)" = "$RUNTIME_SHA"
+          test -z "$(git status --porcelain)"
+      - name: Verify public777 via normal UI and real document reload
+        env:
+          PUBLIC_HAPIL_URL: https://kjb7876-lang.github.io/hapil1/
+        run: node "$RUNNER_TEMP/public-777.cjs"
+      - name: Print bounded structured evidence
+        if: always()
+        env:
+          AUDIT_SOURCE_SHA: ${{ github.sha }}
+        run: |
+          node <<'JS'
+          const fs=require('fs'),path=require('path');
+          const file=path.join(process.env.HAPIL_QA_OUTPUT,'results.json');
+          if(!fs.existsSync(file)){console.log('PUBLIC777_REPORT_MISSING');process.exit(0);}
+          const r=JSON.parse(fs.readFileSync(file));
+          console.log('RC133_PUBLIC777_EVIDENCE',JSON.stringify({auditSourceSha:process.env.AUDIT_SOURCE_SHA,runtimeSha:r.commit,base:r.base,status:r.status,publicByteChecks:r.publicByteChecks,profiles:r.profiles.map(p=>({name:p.name,status:p.status,error:p.error??null,errors:p.errors,httpErrors:p.missing,mapCount:p.nativeMapAccess?.mapCount,storyCodeUnlock:p.storyCode?.after?.samongUnlocked,directArena:p.directArena,liveCombat:p.liveCombat?{hp:p.liveCombat.hp,maxHp:p.liveCombat.maxHp,modelMaxHp:p.liveCombat.modelMaxHp,phase:p.liveCombat.phase,bodyDrawn:p.liveCombat.bodyDraws.some(s=>/\/rc133\/art\/(base|awake)-/.test(s))}:null,pageReloaded:p.pageReloaded,nativeSlotReload:p.nativeSlotReload,failureState:p.failureState?{zone:p.failureState.zone,hp:p.failureState.hp,inner:p.failureState.inner,enemies:p.failureState.enemies,metrics:p.failureState.metrics}:null}))}));
+          JS
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: public777-cafbea9-${{ github.run_id }}
+          path: ${{ runner.temp }}/rc133-public777-evidence/
+          retention-days: 14
+
