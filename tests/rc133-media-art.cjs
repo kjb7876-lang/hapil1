@@ -25,4 +25,12 @@ for(const r of chrono){
 }
 for(const r of qa.externalDerivatives??[]){if(r.file){const b=fs.readFileSync(path.join(root,r.file));check(hash(b)===(r.sha256??r.outputSha256),'generated derivative exact pixels');}}
 const snippet=fs.readFileSync(root+'/assets/rc133/native-install.js.txt','utf8'),bundle=fs.readFileSync(root+'/assets/index-v31526.js','utf8');check(bundle.includes(snippet),'reviewable native snippet exactly synchronized');check(snippet.includes("? .72:radius.call(this,a)"),'humanoid core radius unchanged');check(snippet.includes("!\/laser|beam|ray|optic\/i.test(skill??'')"),'Chrono variation excludes approved beam signatures');
+// Exercise the exact native URL adapter after the owned-image loader has removed
+// registry query strings. Other assets and data/blob URLs retain their old URL.
+const vm=require('node:vm'),urlAdapter=snippet.split('\n').find(line=>line.includes('const assetUrl=MONGSE_assetUrl;'));
+check(!!urlAdapter,'native Chrono revision adapter is present');
+const urlContext={MONGSE_assetUrl:p=>!p||/^(?:data:|blob:)/.test(p)?p:p+(p.includes('?')?'&':'?')+'v=31332'};vm.createContext(urlContext);vm.runInContext(urlAdapter,urlContext);
+for(let i=0;i<16;i++)check(urlContext.MONGSE_assetUrl('./assets/rc133/art/chrono-'+i+'.png').endsWith('v=31332&rc133=43305'),'canonical native Chrono URL retains corrected pixel revision '+i);
+for(const p of ['./assets/rc133/art/chrono-12.png?v=43305','assets/rc133/art/chrono-14.png'])check(urlContext.MONGSE_assetUrl(p).endsWith('&rc133=43305'),'registry and relative Chrono URLs preserve revision '+p);
+for(const p of ['./assets/rc133/art/base-0.png','./assets/rc133/art/chrono-16.png','data:image/png;base64,abc','blob:fixture',null])check(urlContext.MONGSE_assetUrl(p)===(!p||/^(?:data:|blob:)/.test(p)?p:p+'?v=31332'),'unrelated native image URL unchanged '+p);
 console.log('RC133_MEDIA_ART_RESULT',JSON.stringify({status:'passed',checks,sources:6,outputs:44,scope:'file/pixel identity, source-reconstructed Chrono crops and masks, recovered effect margins, label-excluding crops, common feet pivot and native code preservation; native renders run in rc133-browser'}));

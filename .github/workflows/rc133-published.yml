@@ -1,0 +1,52 @@
+name: RC133 published Pages verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/index-v31526.js'
+      - 'assets/rc133/**'
+      - 'qa/rc133/art-processing.json'
+      - 'qa/rc133/published.cjs'
+      - '.github/workflows/rc133-published.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc133-published-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  published:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated read-only browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc133-public-runtime"
+          mkdir -p "$RUNNER_TEMP/rc133-public"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-public" >> "$GITHUB_ENV"
+      - name: Verify exact public bytes and normal game startup
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: node qa/rc133/published.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc133-public-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc133-public/
+          retention-days: 14

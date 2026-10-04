@@ -1,20 +1,19 @@
 {
-  "status": "media-integrated-precommit-checks-passed-exact-CI-pending-parent-publication",
+  "status": "crop-and-native-cache-fix-implemented-final-commit-CI-and-publication-pending",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-media-integration",
-  "testedSha": null,
-  "testedWorkingTree": true,
+  "testedSha": "4872635c78541c5a98806e752e386e30f5851e91",
+  "testedWorkingTree": false,
   "mainSha": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
   "pagesSha": null,
   "published": false,
   "sourceImagesInspected": true,
   "audio39MeasuredLocally": true,
   "blockers": [
-    "Thirteen additional exact Library audio files were resolved but official helper materialization failed with hosted apps tools/list network failure. Pending parent transfer; source IDs and filenames in pending-media.json.",
-    "Three unauditioned Short_male_combat_hi sources remain unassigned. No acoustic gender or listening-quality claim.",
-    "Main/Pages publication requires parent coordination, fresh-main confirmation, exact combined CI, deployed SHA/public hashes and three public viewport checks.",
-    "Natural assisted Dream hidden-final victory is not established; same unmodified campaign continues on runtime6778046f.",
-    "Earlier strict fixed-rate PCM fingerprint check failed on Chromium151; this integration preserves latest narration85 bytes and does not weaken that comparison."
+    "Thirteen additional exact Library audio deliveries remain pending parent transfer; official helper materialization previously failed with hosted apps tools/list network failure. No paused uploads retried. IDs/filenames in pending-media.json.",
+    "Three unauditioned Short_male_combat_hi sources remain held and unassigned. No acoustic gender or listening-quality claim.",
+    "Final narrow cache-adapter commit requires exact CI, fresh-main confirmation, coordinated main/Pages publication and public byte/viewport verification.",
+    "Current candidate assisted Dream has reached cult01/count55; hidden-final victory remains unverified. Full-auto candidate encountered two actual deaths."
   ],
   "passed": {
     "rc133Policy": 131,
@@ -99,24 +98,39 @@
       "actualBrowser": "all28 derivatives WebAudio decode; actual native parry and committed infernal effect playback; mute/unmute and max2 effects"
     },
     "mediaArt": {
-      "checks": 152,
+      "checks": 244,
       "sourceHashes": 6,
-      "outputs": 44
+      "outputs": 44,
+      "testSha": "4872635c78541c5a98806e752e386e30f5851e91",
+      "scope": "All16 Chrono RGBA crops reconstruct exactly from preserved atlas and recorded masks; upper effects restored, edge fragments removed; source/body pivots preserved"
+    },
+    "chronoNativeHelper": {
+      "testSha": "4872635c78541c5a98806e752e386e30f5851e91",
+      "acceptedCallsPerProfile": 16,
+      "drawsPerProfile": 16,
+      "profiles": [
+        "pc",
+        "portrait",
+        "landscape"
+      ],
+      "scope": "Diagnostic native helper invocation/path coverage only on487; text fixture IDs produced non-finite sizes, so screenshot pixel coverage is excluded and corrected numeric-ID rerun is pending."
     }
   },
   "physicalMobileTested": false,
   "fullNaturalCampaignTested": false,
   "zeroBugGuarantee": false,
   "ci": {
-    "status": "pending",
+    "status": "passed-on-previous-exact-candidate-final-cache-adapter-pending",
+    "commit": "4872635c78541c5a98806e752e386e30f5851e91",
+    "runId": 37171054170,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37171054170",
     "suiteCount": 26
   },
   "remainingRequestItems": [
-    "Thirteen additional exact Library audio files were resolved but official helper materialization failed with hosted apps tools/list network failure. Pending parent transfer; source IDs and filenames in pending-media.json.",
-    "Three unauditioned Short_male_combat_hi sources remain unassigned. No acoustic gender or listening-quality claim.",
-    "Main/Pages publication requires parent coordination, fresh-main confirmation, exact combined CI, deployed SHA/public hashes and three public viewport checks.",
-    "Natural assisted Dream hidden-final victory is not established; same unmodified campaign continues on runtime6778046f.",
-    "Earlier strict fixed-rate PCM fingerprint check failed on Chromium151; this integration preserves latest narration85 bytes and does not weaken that comparison."
+    "Thirteen additional exact Library audio deliveries remain pending parent transfer; official helper materialization previously failed with hosted apps tools/list network failure. No paused uploads retried. IDs/filenames in pending-media.json.",
+    "Three unauditioned Short_male_combat_hi sources remain held and unassigned. No acoustic gender or listening-quality claim.",
+    "Final narrow cache-adapter commit requires exact CI, fresh-main confirmation, coordinated main/Pages publication and public byte/viewport verification.",
+    "Current candidate assisted Dream has reached cult01/count55; hidden-final victory remains unverified. Full-auto candidate encountered two actual deaths."
   ],
   "fixedFailures": [
     "RC69 injected three midbosses into Story; native admission now enforces 2/3.",
@@ -140,7 +154,8 @@
     "Persistent global Story completion was mistaken for Dream completion; Dream terminal detection now requires innerFinalRC133.phase=complete.",
     "Local Acorn/Chromium path mistakes were corrected for RC132 tests; original failed logs remain retained.",
     "Viewport screenshot fixtures originally replaced only an inner render function; full-frame native compositor now receives the staged state through the outermost bridge.",
-    "Audio unmute assertions now isolate consumed parry contacts from legitimate fresh outgoing-hit sounds."
+    "Audio unmute assertions now isolate consumed parry contacts from legitimate fresh outgoing-hit sounds.",
+    "Chrono diagnostic string IDs converted to NaN inside native pulse math; accepted helper calls alone do not prove visible pixels. Corrected numeric-ID/cache-request/pixel rerun required."
   ],
   "evidenceDirectory": "qa/rc133/evidence/6778046",
   "testEvidenceCommit": "6778046f7d889b09962357e9f282a265d2b235ec",
@@ -168,34 +183,20 @@
   },
   "naturalDreamGuardAssist": {
     "status": "running",
-    "runtimeSha": "6778046f7d889b09962357e9f282a265d2b235ec",
-    "previousAttempts": [
-      {
-        "folder": "dream-native-guard-assist",
-        "maxCompletedZones": 4,
-        "nativeDeaths": 1,
-        "stopReason": "operator-interruption-to-improve-input-harness"
-      },
-      {
-        "folder": "dream-native-guard-assist-v2",
-        "nativeDeaths": 1,
-        "stopReason": "operator-interruption-to-include-native-area-geometry"
-      }
-    ],
-    "currentFolder": "dream-native-guard-assist-v6",
-    "scope": "Normal keyboard D inputs, read-only native threat geometry, unchanged full-auto setting. No HP/enemy/unlock/route edits. Distinct from unassisted full-auto trial.",
-    "timeBudgetMs": 3600000,
+    "runtimeSha": "4872635c78541c5a98806e752e386e30f5851e91",
+    "currentFolder": "candidate-natural-longplay-4872635c-20261004-assisted",
+    "scope": "Native Continue from supplied hando02/count49 checkpoint, then normal conditional D defense. No HP/enemy/unlock/progress edits; distinct from full-auto segments.",
     "checkpoint": {
-      "zone": "kair01",
-      "hp": 240,
-      "completed": 36,
+      "zone": "cult01",
+      "hp": 245,
+      "completed": 55,
       "nativeDeaths": 0,
       "jsErrors": 0,
       "httpErrors": 0
     },
-    "checkpointAt": "2026-10-04T00:59:36.589Z",
+    "checkpointAt": "2026-10-04T02:56:55.213Z",
     "hiddenFinalReached": false,
-    "checkpointSource": "qa/rc133/natural-dream-checkpoints/20261004T005936Z-kair01.json"
+    "storySlot1Sha256": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9"
   },
   "additionalFailedChecks": [
     {
@@ -275,23 +276,25 @@
     }
   ],
   "runtimeHashes": {
-    "assets/index-v31526.js": "6772f1aec1239c7a71b337e661ee01e260a85e46ff18544376a7e255300f6289",
+    "assets/index-v31526.js": "ffa35331d12eae207c088f8617f52adb1628e460c359e38a7e5881de304042b4",
     "assets/rc25/raid.js": "eb57b745abeda0a7571951105f2323fd2b7b71ab5d1e7894f5acb5901ca7d7fd",
     "assets/rc95/combat-flow.js": "e301657c8ff39c3441138527390fee0862355630f1df26dbe4ecb6d7d4e0407d",
     "assets/rc133/samong-policy.js": "b44e64d00c066c53c89c63a81a6cae8bbc8743ea66136938f2b22e76ab91d688",
     "assets/rc133/inner-final.js": "0eb6e7248b9ade46e6523e07871e1cf695991c1c5fe6a77d101dd7a2813a8020",
     "assets/story-narration/v1/manifest.json": "20cb70771a0d33aa3cbc4b61934103f9529d702c289b135db494945f5038c550",
-    "assets/rc133/media-art.js": "c7458d89821b7a25d92fd9e6d47c6c98365dbbd685f4df713eed6a3a3b6b5491",
+    "assets/rc133/media-art.js": "d9a47aac1ceb9695ad18feadb0328bd0c24c06b864108fcafe57f5d8943bdf7b",
     "assets/rc133/media-audio.js": "3158ae0f78487992e04f6923ef0c9b2501428afd77e41db3940e06571e48a36d",
     "assets/rc133/media-catalog.js": "f342158a573a2fee2d18a2f8b801ba675b8ae43f9094571e82b12cb183ba2520",
     "assets/rc87/episode-cosmic.js": "3594fc5efdffd988110d15da308fa47d1145bfcabae8a985ba515ceac316cacf",
     "assets/rc88/danmaku-rpg.js": "eac7d427c889c5ca7eaf2609887ebc3b6cdc2f315a466d2c5bf095432e0272c5"
   },
-  "latestRuntimeSha": "6778046f7d889b09962357e9f282a265d2b235ec",
+  "latestRuntimeSha": "4872635c78541c5a98806e752e386e30f5851e91",
   "latestRuntimeCI": {
-    "status": "pending",
-    "branch": "codex/rc133-media-integration",
-    "requiredSuites": 26
+    "status": "passed-on-previous-exact-candidate-final-cache-adapter-pending",
+    "commit": "4872635c78541c5a98806e752e386e30f5851e91",
+    "runId": 37171054170,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37171054170",
+    "suiteCount": 26
   },
   "newNarrativeText": {
     "source": "qa/rc133/new-text-surfaces.json",
@@ -300,7 +303,7 @@
     "canonicalTtsUnits": 119,
     "existingPublishedUnits": 85
   },
-  "updatedAt": "2026-10-04T01:09:38.061755+00:00",
+  "updatedAt": "2026-10-04T03:00:46.599854+00:00",
   "previousRuntimeCI": {
     "status": "passed",
     "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
@@ -308,7 +311,7 @@
     "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939"
   },
   "mediaIntegration": {
-    "status": "implemented-uncommitted",
+    "status": "integrated-committed-and-tested",
     "sourceImages": 6,
     "requiredArtOutputs": 44,
     "optionalGeneratedEclipse": true,
@@ -323,7 +326,7 @@
     "mapping": "qa/rc133/audio-runtime-mapping.json",
     "artProvenance": "qa/rc133/art-processing.json",
     "audioProvenance": "qa/rc133/audio-processing.json",
-    "localTestsArePrecommit": true
+    "localTestsArePrecommit": false
   },
   "historicalTestedSha": "6778046f7d889b09962357e9f282a265d2b235ec",
   "previousGameplayCI": {
@@ -346,5 +349,59 @@
       "reason": "HTTPError400: GitHub Fetch URL is not an allowed public GitHub repository or search endpoint.",
       "scope": "read-only workflow collection path; no mutation attempted"
     }
-  ]
+  ],
+  "pendingFinalAdapterChecks": {
+    "localArtAndUrlChecks": 268,
+    "nativeCacheRevision": "43305",
+    "bundleCacheRevision": "43306",
+    "scope": "Narrow native Chrono URL revision after owned-image normalization; no gameplay geometry changes",
+    "exactCI": "pending final commit"
+  },
+  "candidateFullAuto": {
+    "testSha": "4872635c78541c5a98806e752e386e30f5851e91",
+    "elapsedMs": 253000,
+    "nativeDeaths": 2,
+    "completedZonesAtStart": 49,
+    "completedZonesAtEnd": 49,
+    "status": "stopped-after-two-native-checkpoint-respawns",
+    "usedProgressCheats": false,
+    "scope": "Native Continue at hando02; actual death hooks count respawns. Preserved native hando03 save used by subsequent assisted continuation."
+  },
+  "candidateEightMinuteCheckpoint": {
+    "testSha": "9a80f8aaf4a0dba1c90270f665e1535294e3822a",
+    "elapsedMs": 492900,
+    "from": "kair03",
+    "to": "hando02",
+    "completedZonesFrom": 45,
+    "completedZonesTo": 49,
+    "usedProgressCheats": false,
+    "jsErrors": 0,
+    "httpErrors": 0,
+    "scope": "Eight-minute full-auto native-save segment from an earlier assisted campaign checkpoint; five-second HP sampling does not establish zero actual deaths or a complete full-auto campaign."
+  },
+  "cropCorrection": {
+    "commits": [
+      "c57c4eaa73ecc0280fe5a3224b3fb4bc1272b92a",
+      "4872635c78541c5a98806e752e386e30f5851e91"
+    ],
+    "fixedChronoFrames": [
+      4,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15
+    ],
+    "recoveredUpperSourceRows": [
+      12,
+      13,
+      14
+    ],
+    "sourceOriginalsUnchanged": true,
+    "bodyPivotsAndHitboxesUnchanged": true,
+    "provenance": "art-processing.json pixelDerivation uses half-open source and output-local alpha-only masks",
+    "independentPixelAudit": "/workspace/rc133-tools/crop-fix-audit/report.md"
+  },
+  "runtimeHashesScope": "Current working tree before final cache-adapter commit; historical test evidence retains its original exact SHA."
 }
