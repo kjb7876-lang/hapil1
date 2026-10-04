@@ -30,3 +30,7 @@ Each timestamped JSON is an exact copy of a native game autosave generated durin
 - QA mode: assisted natural gameplay (full-auto combat with ordinary D-key defensive input); no HP, enemy, unlock, or progress edits.
 - Gameplay source: candidate runtime SHA `6778046f7d889b09962357e9f282a265d2b235ec`, test branch HEAD at capture `a8274cce3c44dcf9245e6f21b9cb5ed691532a5f`.
 - The protected Story ending remains in native slot 1.
+- `20261004T015511Z-murder01.json`: exact native autosave captured 2026-10-04 01:55:11.846 UTC; Dream `murder01`, HP 240, 51 zones completed. The adjacent 01:55:43 UTC heartbeat showed 0 actual deaths and a phase-1 `mb-murder01`; `innerFinalRC133.phase` was not complete. The latest telemetry checkpoint at 01:54:09 UTC reported 0 JS errors and 0 HTTP errors. SHA-256 `e4f44990bbd817878ccccf1766e5c8e6ce8e3988a62ee877a6ad1d006fe0d3da`.
+- QA mode: assisted natural gameplay (full-auto combat with ordinary D-key defensive input); no HP, enemy, unlock, or progress edits.
+- Gameplay source: candidate runtime SHA `6778046f7d889b09962357e9f282a265d2b235ec`, test branch HEAD at capture `dc154b2ab653e399e79844334815e5262b52d85e`.
+- The protected Story ending remains in native slot 1.

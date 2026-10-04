@@ -1,0 +1,872 @@
+{
+  "version": 14,
+  "sourceVersion": 14,
+  "balanceRevision": 316,
+  "savedAt": "2026-10-04T01:55:11.846Z",
+  "heroId": "hwando",
+  "runPolicyV31400": {
+    "version": 1,
+    "aiEnabled": false,
+    "aiHeroes": [],
+    "humanHeroes": [],
+    "humanPlayers": 1,
+    "locked": true,
+    "origin": "new"
+  },
+  "legacyRosterV31400": null,
+  "partyIds": [
+    "gunner"
+  ],
+  "zone": "murder01",
+  "frontierZone": "murder01",
+  "x": 6.490398771830917,
+  "y": 26.433448968940148,
+  "hp": 240,
+  "clues": [
+    "ego-reward-v31217:dist00",
+    "ego-reward-v31217:dist01",
+    "ego-reward-v31217:dist02",
+    "ego-reward-v31217:dist03",
+    "ego-reward-v31217:dist05",
+    "ego-reward-v31217:dist06",
+    "ego-reward-v31217:ep1a08",
+    "ego-reward-v31217:ep1a09",
+    "ego-reward-v31217:ep1a10",
+    "ego-reward-v31217:ep1a11",
+    "ego-reward-v31217:ep1b01",
+    "ego-reward-v31217:ep1b02",
+    "ego-reward-v31217:ep1b03",
+    "ego-reward-v31217:ep1b04",
+    "ego-reward-v31217:ep1b05",
+    "ego-reward-v31217:ep1b06",
+    "ego-reward-v31217:ep1b06b",
+    "ego-reward-v31217:ep1b07",
+    "ego-reward-v31217:ep1b08",
+    "ego-reward-v31217:ep1b09",
+    "ego-reward-v31217:u201",
+    "ego-reward-v31217:u202",
+    "ego-reward-v31217:u204",
+    "ego-reward-v31217:u205",
+    "ego-reward-v31217:u206",
+    "ego-reward-v31217:u203",
+    "ego-reward-v31217:last305",
+    "ego-reward-v31217:last301",
+    "ego-reward-v31217:last302",
+    "ego-reward-v31217:kair01",
+    "ego-reward-v31217:kair04",
+    "ego-reward-v31217:kair05",
+    "ego-reward-v31217:kair06",
+    "ego-reward-v31217:kair07",
+    "ego-reward-v31217:kair08",
+    "ego-reward-v31217:kair09",
+    "ego-reward-v31217:kair10",
+    "ego-reward-v31217:kair02",
+    "ego-reward-v31217:kair03",
+    "ego-reward-v31217:hando01",
+    "ego-reward-v31217:hando02",
+    "ego-reward-v31217:hando03"
+  ],
+  "bossDefeated": false,
+  "villageTalk": false,
+  "passives": {
+    "damage": 3,
+    "speed": 3,
+    "cooldown": 3,
+    "evolution": 3,
+    "attack": 12,
+    "skillQ": 8,
+    "skillW": 8,
+    "skillE": 8,
+    "skillR": 6,
+    "awakening": 8,
+    "autoEvade": 8,
+    "heroMastery_hwando": 7,
+    "heroMastery_seoha": 0,
+    "heroMastery_neon": 0,
+    "heroMastery_michaela": 0,
+    "heroMastery_lauren": 0,
+    "heroMastery_hunter": 0,
+    "heroMastery_slayer": 0,
+    "heroMastery_gunner": 0,
+    "resonanceThread_hwando": 6,
+    "resonanceThread_seoha": 0,
+    "resonanceThread_neon": 0,
+    "resonanceThread_michaela": 0,
+    "resonanceThread_lauren": 0,
+    "resonanceThread_hunter": 0,
+    "resonanceThread_slayer": 0,
+    "resonanceThread_gunner": 0,
+    "timeMastery_hwando": 5,
+    "timeMastery_seoha": 0,
+    "timeMastery_neon": 0,
+    "timeMastery_michaela": 0,
+    "timeMastery_lauren": 0,
+    "timeMastery_hunter": 0,
+    "timeMastery_slayer": 0,
+    "timeMastery_gunner": 0,
+    "infinitePower": 0,
+    "infiniteVitality": 0,
+    "infiniteSpeed": 0,
+    "infiniteCooldown": 0,
+    "collabPowerV31234": 0,
+    "collabScaleV31234": 0,
+    "collabTempoV31234": 0,
+    "samongResonance": 0,
+    "samongCooldown": 0,
+    "samongDuration": 0,
+    "samongPower": 0,
+    "samongProtection": 0
+  },
+  "enemies": [
+    {
+      "id": "mb-murder01",
+      "x": 17.64044943820225,
+      "y": 16.000000000000004,
+      "hp": 98545.2527004,
+      "phaseIndex": 1,
+      "currentPhase": 1,
+      "summonOwnerId": null,
+      "summonPhase": 0,
+      "rc95Balance": {
+        "version": 1,
+        "rank": "midboss",
+        "originalMax": 176735.52000000002,
+        "max": 98700,
+        "playerDps": 3069.3214894561256,
+        "referenceDps": 1117.6379834419972,
+        "party": 1,
+        "seconds": 27.69684210526316
+      }
+    },
+    {
+      "id": "mb-murder01-duo-rc59",
+      "x": 21.676692788073183,
+      "y": 12.484456848369147,
+      "hp": 98700,
+      "phaseIndex": 1,
+      "currentPhase": 1,
+      "summonOwnerId": null,
+      "summonPhase": 0,
+      "rc95Balance": {
+        "version": 1,
+        "rank": "midboss",
+        "originalMax": 137853.36000000002,
+        "max": 98700,
+        "playerDps": 3069.3214894561256,
+        "referenceDps": 1117.6379834419972,
+        "party": 1,
+        "seconds": 27.69684210526316
+      }
+    },
+    {
+      "id": "mb-murder01-trio-rc69-3",
+      "x": 21.252441027483567,
+      "y": 19.831865924894572,
+      "hp": 98700,
+      "phaseIndex": 1,
+      "currentPhase": 1,
+      "summonOwnerId": null,
+      "summonPhase": 0,
+      "rc95Balance": {
+        "version": 1,
+        "rank": "midboss",
+        "originalMax": 127249.92000000001,
+        "max": 98700,
+        "playerDps": 3069.3214894561256,
+        "referenceDps": 1117.6379834419972,
+        "party": 1,
+        "seconds": 27.69684210526316
+      }
+    }
+  ],
+  "shards": 0,
+  "resonance": 2,
+  "spawnedWaves": [
+    1,
+    2,
+    3
+  ],
+  "completedZones": [
+    "dist00",
+    "dist01",
+    "dist02",
+    "dist03",
+    "dist04",
+    "dist05",
+    "dist06",
+    "ep1a08",
+    "ep1a09",
+    "ep1a10",
+    "ep1a11",
+    "dreamRest",
+    "ep1b01",
+    "ep1b02",
+    "ep1b03",
+    "ep1b04",
+    "ep1b05",
+    "ep1b06",
+    "ep1b06b",
+    "ep1b07",
+    "ep1b08",
+    "ep1b09",
+    "restEp1b",
+    "u201",
+    "u202",
+    "u204",
+    "u205",
+    "u206",
+    "u203",
+    "restU2",
+    "last304",
+    "last305",
+    "last301",
+    "last302",
+    "last303",
+    "restLast3",
+    "kair01",
+    "kair04",
+    "kair05",
+    "kair06",
+    "kair07",
+    "kair08",
+    "kair09",
+    "kair10",
+    "kair02",
+    "kair03",
+    "restKairo",
+    "hando01",
+    "hando02",
+    "hando03",
+    "restHando"
+  ],
+  "egoDrops": [],
+  "loopCycles": {},
+  "activeGhosts": [],
+  "supportPolicyVersionV31233": 1,
+  "collabGrowthV31234": {
+    "power": 0,
+    "scale": 0,
+    "tempo": 0
+  },
+  "collabUpgradeVersionV31234": 1,
+  "rc126AssetLedger": {
+    "version": 1,
+    "sequence": 6580,
+    "zones": {
+      "dist00": {
+        "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1",
+        "./assets/vfx/v31323/salvage/cult/neural-ego-vat.webp": "salvo:489",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:987"
+      },
+      "dist01": {
+        "./assets/generated-v31306/projectiles/dist01-purple-web-blade.webp": "salvo:515",
+        "./assets/combat/v31237/enemies/melee-claw.webp": "salvo:543",
+        "./assets/combat/v31237/enemies/melee-blade.webp": "salvo:544",
+        "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp": "salvo:545"
+      },
+      "dist02": {
+        "./assets/vfx/v31324/salvage-zones/dist02/neural-ego-vat.webp": "salvo:551",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:556",
+        "./assets/vfx/bosses/v312/mb-dist02.webp": "salvo:558",
+        "./assets/vfx/v31323/boss/mb-dist02/mb-dist02.webp": "salvo:565",
+        "./assets/combat/v31237/enemies/melee-blade.webp": "salvo:581",
+        "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp": "salvo:582",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:593",
+        "./assets/generated-v31224/actors-normalized/8dea7c288479_purple_sword_spider_angel_attack.webp": "salvo:676"
+      },
+      "dist03": {
+        "./assets/vfx/bosses/v393/dist03-blood-oath.webp": "salvo:705",
+        "./assets/vfx/bosses/v31314/blood-oath-arrow.webp": "salvo:718",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:747",
+        "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp": "salvo:753",
+        "./assets/combat/v31237/enemies/melee-claw.webp": "salvo:1219"
+      },
+      "dist04": {
+        "./assets/vfx/bosses/v393/dist04-fallen-cross.webp": "salvo:762",
+        "./assets/combat/v31237/enemies/melee-blade.webp": "salvo:799",
+        "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp": "salvo:813",
+        "./assets/vfx/v31323/boss/mb-dist04/dist04-fallen-cross.webp": "salvo:836"
+      },
+      "dist05": {
+        "./assets/vfx/v31324/salvage-zones/dist05/neural-ego-vat.webp": "salvo:1702",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:1703",
+        "./assets/vfx/v31315/seal-shard.webp": "salvo:1724",
+        "./assets/vfx/v31315/spirit-orb.webp": "salvo:1749",
+        "./assets/vfx/bosses/v393/dist05-message-glyph.webp": "salvo:1752",
+        "./assets/vfx/v31323/boss/mb-dist05/spirit-orb.webp": "salvo:1758",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:1771",
+        "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp": "salvo:1776",
+        "./assets/combat/v31237/enemies/melee-claw.webp": "salvo:1791"
+      },
+      "dist06": {
+        "./assets/vfx/v31324/salvage-zones/dist06/neural-ego-vat.webp": "salvo:1866",
+        "./assets/vfx/v31315/spirit-orb.webp": "salvo:1868",
+        "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1871",
+        "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp": "salvo:2001"
+      },
+      "ep1a08": {
+        "./assets/vfx/v31324/salvage-zones/ep1a08/hospital-craving-cabinet.webp": "salvo:2048",
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:2049",
+        "./assets/vfx/bosses/v393/ep1a08-restraint-wave.webp": "salvo:2050",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:2163",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:2199",
+        "./assets/vfx/v31323/boss/mb-ep1a08/ep1a08-restraint-wave.webp": "salvo:2228",
+        "./assets/generated-v31224/boss-vfx/lucifer_feather_lance.webp": "salvo:2257"
+      },
+      "ep1a09": {
+        "./assets/generated-v31342-rc39/poison_syringe_volley_bloodied.webp": "salvo:2261",
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:2262",
+        "./assets/vfx/v31323/salvage/infernal/inferno-meteor.webp": "salvo:2263",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:2264",
+        "./assets/vfx/v31315/blood-cleaver-wave.webp": "salvo:2265",
+        "./assets/vfx/bosses/v393/ep1a09-injection-burst.webp": "salvo:2266",
+        "./assets/generated-v3128/projectiles/hospital_syringe.webp": "salvo:2273",
+        "./assets/combat/v31237/enemies/melee-claw.webp": "salvo:2283",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:2308",
+        "./assets/combat/v31237/enemies/ranged-organic.webp": "salvo:2332",
+        "./assets/generated-v31224/boss-vfx/lucifer_feather_lance.webp": "salvo:2358"
+      },
+      "ep1a10": {
+        "./assets/vfx/v31323/salvage/spectral/memory_archivist_statue.webp": "salvo:2417",
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:2418",
+        "./assets/vfx/bosses/v393/ep1a10-pride-shock.webp": "salvo:2420",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:2434",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:2441",
+        "./assets/generated-v31224/boss-vfx/lucifer_feather_lance.webp": "salvo:2533",
+        "./assets/combat/v31237/enemies/melee-blade.webp": "salvo:2619"
+      },
+      "ep1a11": {
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:2622",
+        "./assets/vfx/v31324/salvage-zones/ep1a11/hospital-craving-cabinet.webp": "salvo:2623",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:2638",
+        "./assets/generated-v31224/boss-vfx/lucifer_judgment_sigil.webp": "salvo:2639",
+        "./assets/generated-v31224/boss-vfx/lucifer_feather_lance.webp": "salvo:2649",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:2652",
+        "./assets/props/v3100/memory_archivist_statue.webp": "salvo:2702"
+      },
+      "ep1b01": {
+        "./assets/generated-v3128/projectiles/pride_cross.webp": "salvo:2815",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:2818",
+        "./assets/vfx/v31324/salvage-zones/ep1b01/envy_mirror_shard.webp": "salvo:2821",
+        "./assets/generated-v31224/boss-vfx/wrath_pride_execution_sigil.webp": "salvo:2822",
+        "./assets/generated-v3128/projectiles/telekinetic_debris.webp": "salvo:2823",
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:2824",
+        "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2849",
+        "./assets/props/v3100/infernal_oath_effigy.webp": "salvo:2880",
+        "./assets/combat/v31237/enemies/melee-claw.webp": "salvo:2952"
+      },
+      "ep1b02": {
+        "./assets/vfx/v31323/salvage/web/slime-sleep-glob.webp": "salvo:2953",
+        "./assets/vfx/bosses/v3102/ep1b02_sloth_trash_cluster.webp": "salvo:2954",
+        "./assets/vfx/v31324/salvage-zones/ep1b02/silver_seal_pillar.webp": "salvo:2959",
+        "./assets/combat/v31237/enemies/ranged-organic.webp": "salvo:2971",
+        "./assets/generated-v31342-rc39/dirty_tissue_projectile_bloodied.webp": "salvo:3046",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:3093"
+      },
+      "ep1b03": {
+        "./assets/vfx/v31324/salvage-zones/ep1b03/envy_mirror_shard.webp": "salvo:3120",
+        "./assets/vfx/bosses/v3102/ep1b03_envy_cleaver_glass_cluster.webp": "salvo:3121",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:3123",
+        "./assets/vfx/v31323/salvage/frost/envy_mirror_shard.webp": "salvo:3126",
+        "./assets/vfx/v31323/boss/b03-boss/ep1b03_envy_cleaver_glass_cluster.webp": "salvo:3200"
+      },
+      "ep1b04": {
+        "./assets/vfx/bosses/v3102/ep1b04_glutton_kitchen_cluster.webp": "salvo:3233",
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:3236",
+        "./assets/generated-v31342-rc39/kitchen_knife_projectile_bloodied.webp": "salvo:3297"
+      },
+      "ep1b05": {
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:3352",
+        "./assets/vfx/v31323/boss/b05-boss/ep1b05_lipstick_heel_control_strings.webp": "salvo:3354",
+        "./assets/vfx/v31315/thread-needle.webp": "salvo:3355",
+        "./assets/vfx/bosses/v3102/ep1b05_lust_heel_lipstick_cluster.webp": "salvo:3358",
+        "./assets/rc24/lust-lipstick.png": "salvo:3459",
+        "./assets/generated-v3128/projectiles/control_blades.webp": "salvo:3459",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:3468"
+      },
+      "ep1b06": {
+        "./assets/vfx/bosses/v3102/ep1b06_greed_money_gold_cluster.webp": "salvo:3485",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:3486",
+        "./assets/generated-v31342-rc39/golden_treasure_projectile_bloodied.webp": "salvo:3488"
+      },
+      "ep1b06b": {
+        "./assets/generated-v31342-rc39/golden_treasure_projectile_bloodied.webp": "salvo:3569",
+        "./assets/vfx/bosses/v3102/ep1b06b_greed_golden_calf_cluster.webp": "salvo:3570",
+        "./assets/vfx/v31324/salvage-zones/ep1b06b/silver_seal_pillar.webp": "salvo:3576",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:3586",
+        "./assets/vfx/v31323/boss/b06b-boss/ep1b06b_greed_golden_calf_cluster.webp": "salvo:3619"
+      },
+      "ep1b07": {
+        "./assets/vfx/bosses/v3102/ep1b07_wrath_burning_debris_cluster.webp": "salvo:3684",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:3686",
+        "./assets/vfx/v31323/salvage/infernal/inferno-meteor.webp": "salvo:3688",
+        "./assets/vfx/v31323/boss/b07-boss/ep1b07_wrath_burning_debris_cluster.webp": "salvo:3776"
+      },
+      "ep1b08": {
+        "./assets/vfx/bosses/v3102/ep1b08_pride_cross_undead_cluster.webp": "salvo:3790",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:3792",
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:3795",
+        "./assets/vfx/v31324/salvage-zones/ep1b08/silver_seal_pillar.webp": "salvo:3799",
+        "./assets/vfx/v31323/boss/b08-boss/ep1b08_pride_cross_undead_cluster.webp": "salvo:3840"
+      },
+      "ep1b09": {
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:3882",
+        "./assets/vfx/v31315/control-lance.webp": "salvo:3883",
+        "./assets/vfx/bosses/v3102/ep1b09_pride_machine_debris_cluster.webp": "salvo:3884"
+      },
+      "u201": {
+        "./assets/vfx/v31323/salvage/machine/bootloader-cable-junction.webp": "salvo:3928",
+        "./assets/generated-v31224/boss-vfx/controller_deletion_core.webp": "salvo:3929",
+        "./assets/vfx/v31324/salvage-zones/u201/bootloader-cable-junction.webp": "salvo:3933",
+        "./assets/vfx/v31315/control-lance.webp": "salvo:3970",
+        "./assets/vfx/v31323/boss/u201-mid/control-lance.webp": "salvo:4002",
+        "./assets/u2/drone_laser.png": "salvo:4007",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:4128"
+      },
+      "u202": {
+        "./assets/vfx/v31315/control-lance.webp": "salvo:4151",
+        "./assets/generated-v31224/boss-vfx/controller_deletion_core.webp": "salvo:4152",
+        "./assets/vfx/v31324/salvage-zones/u202/bootloader-cable-junction.webp": "salvo:4154",
+        "./assets/vfx/v31323/salvage/machine/bootloader-cable-junction.webp": "salvo:4162",
+        "./assets/u2/drone_laser.png": "salvo:4186",
+        "./assets/props/v3100/signal_requiem_monument.webp": "salvo:4252"
+      },
+      "u204": {
+        "./assets/generated-v31224/boss-vfx/controller_deletion_core.webp": "salvo:4266",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:4275",
+        "./assets/u2/drone_laser.png": "salvo:4277"
+      },
+      "u205": {
+        "./assets/vfx/generated/v387/boss-causality-reversal.webp": "salvo:4348",
+        "./assets/vfx/v31324/salvage-zones/u205/bootloader-cable-junction.webp": "salvo:4349",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:4351",
+        "./assets/generated-v31224/boss-vfx/controller_deletion_core.webp": "salvo:4356",
+        "./assets/vfx/v31315/control-lance.webp": "salvo:4363",
+        "./assets/u2/drone_laser.png": "salvo:4385",
+        "./assets/props/v3100/signal_requiem_monument.webp": "salvo:4458"
+      },
+      "u206": {
+        "./assets/generated-v31224/boss-vfx/controller_deletion_core.webp": "salvo:4512",
+        "./assets/u2/drone_laser.png": "salvo:4522",
+        "./assets/props/v3100/signal_requiem_monument.webp": "salvo:4617"
+      },
+      "u203": {
+        "./assets/vfx/v31315/control-lance.webp": "salvo:4637",
+        "./assets/generated-v31224/boss-vfx/controller_deletion_core.webp": "salvo:4638",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:4660",
+        "./assets/vfx/v31324/salvage-zones/u203/bootloader-cable-junction.webp": "salvo:4661"
+      },
+      "last305": {
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:4680",
+        "./assets/vfx/generated/v31309/goblin-drum-impact-pulse.webp": "salvo:4681",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:4710"
+      },
+      "last301": {
+        "./assets/generated-v31224/boss-vfx/sleepless_six_sword_wave.webp": "salvo:4776",
+        "./assets/vfx/v31323/boss/l301-boss/sleepless_six_sword_wave.webp": "salvo:4806"
+      },
+      "last302": {
+        "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:4840",
+        "./assets/generated-v3128/projectiles/sleepless_soul.webp": "salvo:4841",
+        "./assets/vfx/v31324/salvage-zones/last302/slime-sleep-glob.webp": "salvo:4850",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:4851",
+        "./assets/kair/enemies/resonance-slave.png": "salvo:4979"
+      },
+      "last303": {
+        "./assets/generated-v3128/projectiles/sleepless_soul.webp": "salvo:4980",
+        "./assets/vfx/v31323/boss/l303-boss/sleepless_soul.webp": "salvo:5041"
+      },
+      "kair01": {
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5052",
+        "./assets/vfx/v31315/chrono-shard.webp": "salvo:5056",
+        "./assets/vfx/v31323/salvage/machine/bootloader-cable-junction.webp": "salvo:5057",
+        "./assets/generated-v3128/projectiles/chrono_orb.webp": "salvo:5067",
+        "./assets/kair/skills/dead-time-opening.png": "salvo:5070",
+        "./assets/generated-v3125/kair-guardians/guardian_50.webp": "salvo:5071",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:5072",
+        "./assets/kair/skills/time-severance.png": "salvo:5075",
+        "./assets/generated-v31224/boss-vfx/kair_chrono_crescent.webp": "salvo:5087",
+        "./assets/vfx/generated/v387/boss-chrono-time-rupture.webp": "salvo:5179"
+      },
+      "kair04": {
+        "./assets/generated-v3128/projectiles/chrono_orb.webp": "salvo:5272",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5274",
+        "./assets/generated-v31224/boss-vfx/kair_chrono_crescent.webp": "salvo:5291",
+        "./assets/vfx/generated/v387/boss-chrono-time-rupture.webp": "salvo:5297",
+        "./assets/kair/skills/dead-time-opening.png": "salvo:5335",
+        "./assets/vfx/v31323/boss/mb-kair04-v31231/chrono_orb.webp": "salvo:5360",
+        "./assets/props/v3100/rollback_hourglass_reliquary.webp": "salvo:5458",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:5469"
+      },
+      "kair05": {
+        "./assets/vfx/generated/v31309/kair-neuron-synapse-orb.webp": "salvo:5482",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5511",
+        "./assets/vfx/v31323/boss/kair-great-01/kair-neuron-synapse-orb.webp": "salvo:5512"
+      },
+      "kair06": {
+        "./assets/vfx/generated/v387/boss-chrono-time-rupture.webp": "salvo:5522",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5523",
+        "./assets/vfx/v31315/chrono-shard.webp": "salvo:5543",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:5556",
+        "./assets/vfx/v31323/boss/kair-great-02/boss-chrono-time-rupture.webp": "salvo:5627"
+      },
+      "kair07": {
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5636",
+        "./assets/generated-v3128/projectiles/chrono_orb.webp": "salvo:5639",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:5643",
+        "./assets/vfx/v31323/boss/kair-great-04/chrono_orb.webp": "salvo:5675"
+      },
+      "kair08": {
+        "./assets/vfx/generated/v31309/kair-neuron-synapse-orb.webp": "salvo:5692",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:5694",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5696",
+        "./assets/generated-v31224/boss-vfx/kair_chrono_crescent.webp": "salvo:5721",
+        "./assets/generated-v3128/projectiles/chrono_orb.webp": "salvo:5737",
+        "./assets/vfx/v31315/chrono-shard.webp": "salvo:5743",
+        "./assets/vfx/generated/v387/boss-chrono-time-rupture.webp": "salvo:5799",
+        "./assets/kair/skills/dead-time-opening.png": "salvo:5801",
+        "./assets/props/v3100/rollback_hourglass_reliquary.webp": "salvo:5859"
+      },
+      "kair09": {
+        "./assets/vfx/v31315/spirit-orb.webp": "salvo:5868",
+        "./assets/vfx/generated/v387/boss-black-sun-eclipse.webp": "salvo:5869",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5871",
+        "./assets/vfx/v31323/boss/mb-kair09-v31231/boss-black-sun-eclipse.webp": "salvo:5891",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:5920"
+      },
+      "kair10": {
+        "./assets/vfx/v31315/chrono-shard.webp": "salvo:5962",
+        "./assets/generated-v3128/projectiles/chrono_orb.webp": "salvo:5963",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:5964",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:5969",
+        "./assets/vfx/v31323/boss/kair-great-06/chrono_orb.webp": "salvo:5994"
+      },
+      "kair02": {
+        "./assets/vfx/time-passives/v310/projectile-stasis.webp": "salvo:6067",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:6069",
+        "./assets/vfx/v31323/boss/kair-great-03/projectile-stasis.webp": "salvo:6072",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:6079",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:6082"
+      },
+      "kair03": {
+        "./assets/vfx/generated/v31309/siren-choir-chorus-wave.webp": "salvo:6092",
+        "./assets/vfx/v31323/salvage/chrono/rollback_hourglass_reliquary.webp": "salvo:6097",
+        "./assets/combat/v31237/enemies/ranged-arcane.webp": "salvo:6101",
+        "./assets/vfx/v31323/boss/k103-boss/siren-choir-chorus-wave.webp": "salvo:6178",
+        "./assets/combat/v31237/enemies/ranged-ballistic.webp": "salvo:6200"
+      },
+      "hando01": {
+        "./assets/generated-v31224/boss-vfx/hando_phantom_reclaim_wave.webp": "salvo:6203",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:6206",
+        "./assets/vfx/v31323/salvage/seal/silver_seal_pillar.webp": "salvo:6208",
+        "./assets/generated-v3128/projectiles/control_blades.webp": "salvo:6223",
+        "./assets/props/v3100/rollback_hourglass_reliquary.webp": "salvo:6313"
+      },
+      "hando02": {
+        "./assets/generated-v31224/boss-vfx/hando_phantom_reclaim_wave.webp": "salvo:6335",
+        "./assets/vfx/v31315/seal-shard.webp": "salvo:6338",
+        "./assets/vfx/v31323/salvage/seal/silver_seal_pillar.webp": "salvo:6341",
+        "./assets/vfx/v31323/salvage/machine/bootloader-cable-junction.webp": "salvo:6343",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:6354",
+        "./assets/generated-v3128/projectiles/control_blades.webp": "salvo:6368",
+        "./assets/props/v3100/rollback_hourglass_reliquary.webp": "salvo:6397"
+      },
+      "hando03": {
+        "./assets/vfx/v31315/seal-shard.webp": "salvo:6515",
+        "./assets/generated-v31224/boss-vfx/hando_phantom_reclaim_wave.webp": "salvo:6517",
+        "./assets/combat/v31237/enemies/ranged-tech.webp": "salvo:6518",
+        "./assets/vfx/v31323/salvage/machine/bootloader-cable-junction.webp": "salvo:6520",
+        "./assets/vfx/v31323/salvage/seal/silver_seal_pillar.webp": "salvo:6522",
+        "./assets/vfx/v31323/boss/h103-boss/hando_phantom_reclaim_wave.webp": "salvo:6529"
+      }
+    }
+  },
+  "rosterPolicyVersionV31234": "3.12.34",
+  "supportPolicyVersionV31234": 1,
+  "hapilEndingCleared": true,
+  "entryFlowCompletedV31301": true,
+  "narrativeStructureSchemaV31308": 1,
+  "cooldownRemainingV31310": {},
+  "supportCooldownRemainingV31310": {},
+  "enemySkillSuppressionRemainingV31310": 0,
+  "pendingUltimatesV31310": [],
+  "collabStateV31315": {
+    "version": 1,
+    "zone": "murder01",
+    "cooldowns": {
+      "gunner+hwando": 0.160000000000025
+    },
+    "pending": []
+  },
+  "hellModeV31322": {
+    "version": 1,
+    "statPolicy": "pattern-v31365",
+    "enabled": false,
+    "enemies": [
+      {
+        "id": "mb-murder01",
+        "hp": 98545.2527004,
+        "reinforcement": null
+      },
+      {
+        "id": "mb-murder01-duo-rc59",
+        "hp": 98700,
+        "reinforcement": null
+      },
+      {
+        "id": "mb-murder01-trio-rc69-3",
+        "hp": 98700,
+        "reinforcement": null
+      }
+    ]
+  },
+  "gameModeV31346": "DREAM",
+  "episode1ACompleteRC59": true,
+  "lastShelterZoneRC59": "restHando",
+  "midbossDuoSpawnedRC59": true,
+  "rc95CombatFlow": {
+    "version": 1,
+    "zone": "murder01",
+    "elapsed": 0.27330000000006294
+  },
+  "episodeCosmicFinalV387": null,
+  "midbossTrioRosterRC69": [
+    {
+      "id": "mb-murder01",
+      "owner": "mb-murder01",
+      "hp": 98545.2527004,
+      "maxHp": 98700,
+      "x": 17.64044943820225,
+      "y": 16.000000000000004,
+      "sprite": "./assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+      "name": "파란불 역주행 목격자",
+      "currentPhase": 1
+    },
+    {
+      "id": "mb-murder01-duo-rc59",
+      "owner": "mb-murder01",
+      "hp": 98700,
+      "maxHp": 98700,
+      "x": 21.676692788073183,
+      "y": 12.484456848369147,
+      "sprite": "./assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+      "name": "공실장부 당직감사 · 협공",
+      "currentPhase": 1
+    },
+    {
+      "id": "mb-murder01-trio-rc69-3",
+      "owner": "mb-murder01",
+      "hp": 98700,
+      "maxHp": 98700,
+      "x": 21.252441027483567,
+      "y": 19.831865924894572,
+      "sprite": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+      "name": "진술 봉쇄 인과핵 · 협공",
+      "currentPhase": 1
+    }
+  ],
+  "danmakuRpgRC88": null,
+  "samongRC91": {
+    "version": 1,
+    "unlocked": true,
+    "clock": 15556.94450000438,
+    "active": 0,
+    "cooldown": 53.1176999999996,
+    "grace": 0,
+    "activations": 197,
+    "heroId": null,
+    "duration": 7,
+    "origin": "ego",
+    "egoRC133": {
+      "version": 1,
+      "count": 1,
+      "pending": false,
+      "lastEntry": "274.83146000002944:284.7314600000294",
+      "serial": 196,
+      "admitting": false
+    },
+    "upgradesRC133": {
+      "samongResonance": 0,
+      "samongCooldown": 0,
+      "samongDuration": 0,
+      "samongPower": 0,
+      "samongProtection": 0
+    },
+    "encounterRC128": {
+      "version": 1,
+      "zone": "murder01",
+      "encounter": 59,
+      "used": false,
+      "beforeUntil": 0,
+      "ownedUntil": 0
+    },
+    "enemies": [
+      {
+        "id": "mb-murder01",
+        "hp": 98545.2527004,
+        "maxHp": 98700,
+        "stats": {
+          "version": 1,
+          "factor": 2,
+          "baseMaxHp": 49350,
+          "observedMaxHp": 98700,
+          "fields": {}
+        }
+      },
+      {
+        "id": "mb-murder01-duo-rc59",
+        "hp": 98700,
+        "maxHp": 98700,
+        "stats": {
+          "version": 1,
+          "factor": 2,
+          "baseMaxHp": 49350,
+          "observedMaxHp": 98700,
+          "fields": {}
+        }
+      },
+      {
+        "id": "mb-murder01-trio-rc69-3",
+        "hp": 98700,
+        "maxHp": 98700,
+        "stats": {
+          "version": 1,
+          "factor": 2,
+          "baseMaxHp": 49350,
+          "observedMaxHp": 98700,
+          "fields": {}
+        }
+      }
+    ]
+  },
+  "danmakuRC129": {
+    "version": 1,
+    "zone": "murder01",
+    "mode": "DREAM",
+    "phase": null,
+    "graze": {
+      "combo": 0,
+      "last": -1000000000,
+      "guard": 0,
+      "budget": 0,
+      "budgetAge": 0.30650000000000005,
+      "seen": [],
+      "rewarded": 0
+    }
+  },
+  "innerFinalRC133": null,
+  "samongUpgradesRC133": {
+    "samongResonance": 0,
+    "samongCooldown": 0,
+    "samongDuration": 0,
+    "samongPower": 0,
+    "samongProtection": 0
+  },
+  "midbossRC133": [],
+  "midbossEncounterRC133": {
+    "version": 1,
+    "zone": "murder01",
+    "ids": [
+      "mb-murder01",
+      "mb-murder01-duo-rc59",
+      "mb-murder01-trio-rc69-3"
+    ],
+    "members": [
+      {
+        "id": "mb-murder01",
+        "template": "mb-murder01",
+        "visual": null,
+        "x": 17.64044943820225,
+        "y": 16.000000000000004,
+        "hp": 98545.2527004,
+        "maxHp": 98700
+      },
+      {
+        "id": "mb-murder01-duo-rc59",
+        "template": "mb-murder01",
+        "visual": "mb-murder02",
+        "x": 21.676692788073183,
+        "y": 12.484456848369147,
+        "hp": 98700,
+        "maxHp": 98700
+      },
+      {
+        "id": "mb-murder01-trio-rc69-3",
+        "template": "mb-murder01",
+        "visual": "murder04-mid",
+        "x": 21.252441027483567,
+        "y": 19.831865924894572,
+        "hp": 98700,
+        "maxHp": 98700
+      }
+    ]
+  },
+  "mongseFoundationRC133": {
+    "version": 1,
+    "regions": [
+      "dist00",
+      "dist01",
+      "dist02",
+      "dist03",
+      "dist04",
+      "dist05",
+      "dist06",
+      "ep1a08",
+      "ep1a09",
+      "ep1a10",
+      "ep1a11",
+      "dreamRest",
+      "ep1b01",
+      "ep1b02",
+      "ep1b03",
+      "ep1b04",
+      "ep1b05",
+      "ep1b06",
+      "ep1b06b",
+      "ep1b07",
+      "ep1b08",
+      "ep1b09",
+      "restEp1b",
+      "u201",
+      "u202",
+      "u204",
+      "u205",
+      "u206",
+      "u203",
+      "restU2",
+      "last304",
+      "last305",
+      "last301",
+      "last302",
+      "last303",
+      "restLast3",
+      "kair01",
+      "kair04",
+      "kair05",
+      "kair06",
+      "kair07",
+      "kair08",
+      "kair09",
+      "kair10",
+      "kair02",
+      "kair03",
+      "restKairo",
+      "hando01",
+      "hando02",
+      "hando03",
+      "restHando",
+      "murder01"
+    ],
+    "waypoints": [
+      "dreamRest",
+      "restEp1b",
+      "restU2",
+      "restLast3",
+      "restKairo",
+      "restHando"
+    ],
+    "resources": {
+      "memory": 0
+    }
+  }
+}
