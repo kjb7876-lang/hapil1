@@ -10,10 +10,14 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeU
  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
  for(const [name,width,height,mobile] of [['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),row={name,errors:[]};report.profiles.push(row);page.on('pageerror',e=>row.errors.push(String(e)));
-  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready);await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current);
-  row.result=await page.evaluate(()=>{
+  await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready);await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game'&&window.__HAPIL_CONTROLS_V31329__.binding.state.current);await page.locator('.game-stage canvas').waitFor({state:'visible'});
+  row.result=await page.evaluate(async()=>{
    const Q=window.__RC133_BITMAP_QA__,M=window.__HAPIL_MEDIA_ART_RC133__,V=window.__HAPIL_BITMAP_NATIVE_RC133__,C=window.__HAPIL_CONTACT_V31336__,canvas=document.querySelector('.game-stage canvas'),ctx=canvas.getContext('2d'),cache=Object.create(null),s=Q.initial(),B=window.__HAPIL_CONTROLS_V31329__.binding;
    Object.assign(s,{zone:'cult04',time:100,x:16,y:24,hp:240,maxHp:240,activeHeroId:'gunner',enemies:[],gameModeV31346:'STORY',encounterLockUntil31226:0,encounterDialogue31226:null});for(const p of M.assets()){const image=M.picture(p);if(image)cache[p]=image;}V.observe(canvas,cache);
+   // This fixture selects gunner while the live party initially renders hwando.
+   // Queue gunner through the actual renderer and wait for its native image decode.
+   let torso=null;const deadline=performance.now()+10000;
+   while(!(torso=V.body(s,s,true))&&performance.now()<deadline)await new Promise(resolve=>setTimeout(resolve,20));
    const results=[],problems=[];let checks=0;const test=(pass,label,extra)=>{checks++;if(!pass)problems.push({label,extra});};
    for(const [skill,sprite] of Object.entries(M.skills))for(const population of [1,12,24]){
     s.time+=.1;const q={id:83,sourceId:'inner-evil-rc133',boss:true,kind:'projectile',born:90,sourceBorn:90,x:16,y:24,previousX:15.96,previousY:23.99,vx:3,vy:1,radius:.24,sprite,color:'#ee3344',accent:'#fff',visualScaleV31224:1.5};s.hostileProjectiles=Array.from({length:population},()=>q);
@@ -32,7 +36,7 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeU
     const evidence=C.projectile(s,s,q);test(evidence.bitmap===true,'simulation uses final image plan '+skill+'/'+population);q.collisionDisabledUntil31219=s.time+1;test(!C.projectile(s,s,q).hit,'warning remains collision-free '+skill+'/'+population);
     results.push({skill,population,delta,area:plan.area,hit:evidence.hit,heart:evidence.heart});
    }
-   const torso=V.body(s,s,true);test(!!torso,'real player body measured');const body=C.body(s,s);test(body.rx<=16&&body.ry>=16&&body.ry<=33,'anatomical body excludes weapon/aura',{body});
+   test(!!torso,'real player body measured');const body=C.body(s,s);test(body.rx<=16&&body.ry>=16&&body.ry<=33,'anatomical body excludes weapon/aura',{body});
    // No providers or draw callbacks mutate native health or enqueue attacks.
    test(s.hp===240&&s.pendingHits.length===0,'geometry replay cannot damage or enqueue');
    return{checks,problems,results,metrics:V.metrics()};

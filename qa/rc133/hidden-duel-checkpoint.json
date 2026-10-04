@@ -63,24 +63,32 @@
     "Player anatomical bodies remain at 66px without weapon/aura hurtbox growth; beams and committed outgoing target checks use main-body geometry."
   ],
   "nativeSaveContinuation": {
-    "commit": "134243e2ae297b5fd89614def074a5e042e14c0b",
+    "commit": "a61b1a17b0fb2c277f3b9fc67d3c0217785f89c0",
     "sourceSha256": "10e3c0c1a4a7b13504ca00839ab1fc6ddc521c3ddde4cf58280731143a44cef2",
     "scope": "Native Continue of genuine prior assisted Dream checkpoint before cult-leader death; unchanged HP/progress/enemies/boss; full-auto plus ordinary D defense. Not fresh/unassisted full-campaign play.",
     "result": "hidden-complete",
-    "elapsedSeconds": 175.174,
-    "samples": 160,
+    "elapsedSeconds": 227.19,
+    "samples": 210,
     "bossMaxHp": 792744,
-    "skillCycles": 31,
+    "skillCycles": 46,
     "pageErrors": 0,
     "httpFailures": 0,
     "firstLethalClashObserved": false,
     "storySlot1Sha256": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9",
-    "evidenceDirectory": "/workspace/rc133-tools/hidden-deep-natural-134243e"
+    "evidenceDirectory": "/workspace/rc133-tools/hidden-deep-natural-a61b1a1"
   },
   "navigationHarnessCorrection": {
     "reproducedAt": "134243e2ae297b5fd89614def074a5e042e14c0b",
     "fixture": "4x CPU throttle; normal UI, no progress edits",
     "cause": "An admitted ultimate transaction blocks map changes; Settings pauses its remaining hit processing. Full-auto could also leave the frontier map before the next menu opened.",
     "resolution": "Select manual mode through Settings; resume native combat until the existing transaction settles; reopen Settings and select the map. The gameplay transition guard is preserved."
+  },
+  "browserReadinessCorrection": {
+    "failures": [
+      "bitmap real player body measured before gunner decoded",
+      "contact canvas getContext before game canvas mounted"
+    ],
+    "cause": "Title state binding is not game DOM readiness; synthetic gunner is not the initially rendered hwando party.",
+    "resolution": "Require native game phase and visible canvas; queue the actual gunner renderer and wait for native image decode, then run the same body/geometry assertions. No gameplay bytes changed."
   }
 }
