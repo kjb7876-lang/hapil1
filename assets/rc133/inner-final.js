@@ -5,16 +5,18 @@
  const ID='inner-evil-rc133',ZONE='cult04',n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,cl=(v,a,b)=>Math.max(a,Math.min(b,n(v)));
  const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0};let native=null;
  const HP_LIMIT=3000000;
+ // These nine independently cropped designs are travelling native attacks.
+ // No ground strike can teleport across the owned halves of this duel.
  const deck=Object.freeze([
-  {key:'small-orb',name:'무의식의 반향',kind:'bullet'},
-  {key:'eye',name:'악의 시선',kind:'bullet'},
-  {key:'diamond',name:'찢어진 기억',kind:'bullet'},
-  {key:'clock',name:'사후의 시계',shape:'circle',radius:1.35,repeats:2,windup:1.25,gap:.55},
-  {key:'star',name:'흑적의 십자',shape:'cross',radius:5,width:.46,anchor:'boss',windup:1.35},
-  {key:'eclipse',name:'악몽의 일식',shape:'donut',radius:4.4,innerRadius:2.35,windup:1.55},
-  {key:'lance',name:'무의식의 성창',shape:'line',radius:9,width:.48,windup:1.35},
-  {key:'shield',name:'사후의 결계',shape:'circle',radius:2.45,windup:1.25},
-  {key:'vortex',name:'기억의 소용돌이',shape:'donut',radius:3.25,innerRadius:1.65,windup:1.45}
+  {key:'small-orb',name:'욕망의 씨앗',kind:'bullet',spread:1,speed:1},
+  {key:'eye',name:'악의 시선',kind:'bullet',spread:.55,speed:1.08},
+  {key:'diamond',name:'감춘 충동',kind:'bullet',spread:.8,speed:.95,stagger:.14},
+  {key:'clock',name:'끝없는 갈망',kind:'bullet',count:6,spread:.7,speed:.88,stagger:.16,warning:.85},
+  {key:'star',name:'순수악의의 분기',kind:'bullet',count:6,spread:1.2,speed:1.05},
+  {key:'eclipse',name:'욕망의 일식',kind:'bullet',count:2,spread:.5,speed:.8,warning:.95},
+  {key:'lance',name:'악의의 관통',kind:'bullet',count:3,spread:.38,speed:1.3},
+  {key:'shield',name:'되비친 집착',kind:'bullet',count:4,spread:1.15,speed:.9},
+  {key:'vortex',name:'내면의 소용돌이',kind:'bullet',count:5,spread:.95,speed:1.1,stagger:.1}
  ].map(Object.freeze));
  const art={ready:false,map:null,body:null,awakening:null,skills:[]};
  const traits=Object.freeze({
@@ -37,7 +39,7 @@
  function build(s,m){
   const template=root.__HAPIL_RC86_BRIDGE__?.actor(ZONE,'c104-boss');if(!template||!native)return null;
   const a=root.__HAPIL_RC86_BRIDGE__.cloneEnemy(template,ZONE),own=native.heroes.find(h=>h.id===m.hero);
-  Object.assign(a,{id:ID,name:'사후의 나 · 악한 무의식',kind:'sentinel',hp:m.hp,maxHp:m.maxHp,boss:true,midboss:false,rc133InnerBoss:true,
+  Object.assign(a,{id:ID,name:'페르소나 · 순수악의',kind:'sentinel',hp:m.hp,maxHp:m.maxHp,boss:true,midboss:false,rc133InnerBoss:true,
    x:m.x,y:m.y,scale:1,fixedPhase:1,currentPhase:1,phaseCount:1,phaseMax:1,humanPhase0:false,narrativeMultiPhase:false,
    sprite:art.ready?frame(s,{x:m.x,y:m.y}):(own?.sprite??template.sprite),phaseSprites:null,actionSprites:null,phaseScales:null,patternSet:'',
    readyAt:1e12,patternReadyAt:1e12,attackAt:0,invulnerableUntil:s.time+m.intro,staggerUntil:0,recoverUntil:0,
@@ -45,7 +47,7 @@
   delete a.actionSpritesByPhase;delete a.standProfileRC69;delete a.dreamCosmicTrialV31346;delete a.samongStatsRC91;delete a.hellStatsV31322;
   // Enroll a stable baseline so the existing Dream scaler cannot double this bounded health again.
   a.samongStatsRC91={version:1,factor:2,baseMaxHp:m.maxHp/2,observedMaxHp:m.maxHp,fields:{}};
-  s.enemies=s.enemies.filter(e=>e.id!==ID);s.enemies.push(a);return a;
+  s.enemies=s.enemies.filter(e=>e.id!==ID);s.enemies.push(a);root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);return a;
  }
  function health(s,leader,raw={}){
   const hero=native?.heroes.find(h=>h.id===s.activeHeroId),flow=root.__HAPIL_COMBAT_FLOW_RC95__;let dps=0;
@@ -63,8 +65,8 @@
   s.dreamFinalV31346={version:1,index:6,phase:'complete',activeId:null,safeUntil:0,complete:true};
   s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',entry,hero:s.activeHeroId,healthModel:2,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,cycle:0,x:p.x,y:p.y,intro:2,clash:cleanClash(null),clashFreeze:0,playerFatalAt:-1};
   s.bossDefeated=false;if(entry==='cult-death')s.completedZones?.delete(ZONE);s.targetEnemyId=ID;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+2);
-  build(s,s.innerFinalRC133);metrics.entries++;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerReveal',s,s,'reveal');
-  (s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration:1.8,text:entry==='developer-777'?'777 · 사후의 나 히든 결전':'교주의 죽음 뒤, 사후에 숨겨 둔 나의 악이 깨어난다',color:'#f3ccdf',critical:true});
+  build(s,s.innerFinalRC133);root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s,true);metrics.entries++;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerReveal',s,s,'reveal');
+  (s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration:1.8,text:entry==='developer-777'?'777 · 사후의 나 히든 결전':'외부의 악을 넘어, 내 욕망의 순수악의가 거울에서 깨어난다',color:'#f3ccdf',critical:true});
   return true;
  }
  function start(s,leader){
@@ -81,7 +83,7 @@
   if(a?.id===ID&&a.hp<=0&&s.innerFinalRC133?.phase!=='complete'){
    const m=s.innerFinalRC133;
    if(!m.clash?.used&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
-   m.phase='complete';m.hp=0;m.awake=0;cleanup(s);metrics.completed++;if(m.entry==='developer-777'){s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
+   m.phase='complete';m.hp=0;m.awake=0;cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
   }
   return false;
  }
@@ -99,7 +101,8 @@
   // the living opponent keeps its actual combat progress.
   if(a.hp<=0)a.hp=Math.max(1,Math.ceil(a.maxHp*.22));
   a.invulnerableUntil=Math.max(n(a.invulnerableUntil),s.time+.55);a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+.55);
-  m.hp=a.hp;m.awake=7;m.awakeningCooldown=28;m.shotDelay=1.35;m.playerFatalAt=-1;m.clashFreeze=.2;
+  m.hp=a.hp;m.awake=7;m.awakeningCooldown=28;m.shotDelay=.55;m.playerFatalAt=-1;m.clashFreeze=.2;
+  root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);
   if(!A.activateFinalClash(s)){Object.assign(a,oldActor);Object.assign(m,oldState);m.clash=oldClash;return false;}
   cleanup(s);s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);s.targetEnemyId=ID;
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerAwake',s,a,'duel-clash');
@@ -111,58 +114,55 @@
   if(m.clash?.used)return false;
   return startClash(s,a,a?.hp<=0?'both':'player');
  }
- function castSkill(s,a,m,skill,trait){
-  if(typeof native.cast!=='function')return false;
-  const before=new Set(s.pendingHits??[]),sprite=art.skillMap?.[skill.key];
-  const radius=skill.shape==='line'?Math.max(skill.radius,Math.min(32,Math.hypot(s.x-a.x,s.y-a.y)+1.4)):skill.radius;
-  native.cast(s,a,{...skill,radius,repeats:skill.repeats??1,gap:skill.gap??0,width:skill.width??0,innerRadius:skill.innerRadius??0,damage:Math.min(18,12*m.scale),color:trait.color,accent:'#fff0e7',status:'none',statusValue:0,impactSprite:sprite,impactFallbackSprite:sprite},1);
-  const emitted=(s.pendingHits??[]).filter(q=>!before.has(q)&&q.sourceId===ID);
-  for(const q of emitted){q.rc133Skill=skill.key;q.noGroundWarningRC79=false;q.rc133InnerShot=true;q.rc133Cycle=m.cycle;q.sevenSinImpactSprite=sprite;q.impactFallbackSprite=sprite;q.damage=cl(q.damage,0,20);}
-  return emitted.length>0;
- }
  function tick(s,dt){
-  if(!active(s)||!native||!(dt>0)||native.locked(s)||s.paused||s.pause||n(s.timeStopUntil)>s.time)return;
+  if(!active(s)){root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);return;}
+  if(!native||!(dt>0)||native.locked(s)||s.paused||s.pause||n(s.timeStopUntil)>s.time)return;
   const party=root.__HAPIL_PARTY_V31322__;if(party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected))return;
   const m=s.innerFinalRC133,a=boss(s);if(!a)return;
-  dt=cl(dt,0,.1);m.elapsed+=dt;m.hp=a.hp;m.x=a.x;m.y=a.y;m.intro=Math.max(0,m.intro-dt);m.clashFreeze=Math.max(0,n(m.clashFreeze)-dt);
-  a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.navPath=[];a.readyAt=a.patternReadyAt=1e12;
+  dt=cl(dt,0,.1);root.__HAPIL_PERSONA_DUEL_RC134__?.tick(s,dt);m.elapsed+=dt;m.hp=a.hp;m.x=a.x;m.y=a.y;m.intro=Math.max(0,m.intro-dt);m.clashFreeze=Math.max(0,n(m.clashFreeze)-dt);
+  a.navPath=[];a.readyAt=a.patternReadyAt=1e12;
   if(m.clashFreeze>0)return;
   if(m.intro>0)return;m.phase='fight';m.awake=Math.max(0,m.awake-dt);m.awakeningCooldown=Math.max(0,m.awakeningCooldown-dt);
   if(m.awakeningCooldown<=0){m.awake=7;m.awakeningCooldown=28;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerAwake',s,a,'awake-'+m.cycle);
-   (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y,born:s.time,duration:.9,text:'惡夢覺醒 · 나의 힘을 기억한다',color:'#ff8ca4',critical:true});}
+   (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y,born:s.time,duration:.9,text:'惡夢覺醒 · 욕망이 순수악의로 되돌아온다',color:'#ff8ca4',critical:true});}
   if(art.ready)a.sprite=frame(s,a);
-  m.shotDelay=Math.max(0,m.shotDelay-dt);const trait=traits[m.hero]??traits.hwando,count=trait.count;s.hostileProjectiles??=[];if(m.shotDelay>0||s.hostileProjectiles.length+count>72)return;
-  // Borrow the hero's role/motif, never its unbounded damage or invulnerability.
-  const angle=Math.atan2(s.y-a.y,s.x-a.x),distance=Math.max(2.8,Math.hypot(s.x-a.x,s.y-a.y)),gap=Math.asin(Math.min(.75,1.3/distance))+.18,warning=trait.warning??.65;
-  const skill=deck[m.cycle%deck.length];
-  if((s.pendingHits?.length??0)>20)return;
-  if(skill.kind!=='bullet'){if(!castSkill(s,a,m,skill,trait)){m.shotDelay=.22;return;}m.cycle++;m.shotDelay=m.awake>0?2.2:2.9;metrics.skills++;return;}
-  a.atomicCastUntil31210=s.time+1.1;
-  const before=s.hostileProjectiles.length,pattern=m.hero,turn=(m.cycle%8)*.045;
+  // Never release generic/fallback boss weapons while the two source atlases
+  // are unavailable. Body/arena readiness and native HP continue normally.
+  if(!art.ready)return;
+  m.shotDelay=Math.max(0,m.shotDelay-dt);const trait=traits[m.hero]??traits.hwando,skill=deck[m.cycle%deck.length],mutual=m.awake>0&&root.__HAPIL_SAMONG_RC91__.active(s),count=mutual?Math.min(3,skill.count??trait.count):skill.count??trait.count;
+  s.hostileProjectiles??=[];if(m.shotDelay>0||s.hostileProjectiles.length+count>48)return;
+  const angle=Math.atan2(s.y-a.y,s.x-a.x),distance=Math.max(2.8,Math.hypot(s.x-a.x,s.y-a.y)),gap=Math.asin(Math.min(.75,1.3/distance))+.18,warning=mutual?.5:Math.max(.65,skill.warning??trait.warning??.65);
+  a.atomicCastUntil31210=s.time+warning+.3;
+  const before=s.hostileProjectiles.length,turn=(m.cycle%8)*.045,sprite=art.skillMap?.[skill.key];if(!sprite)return;
   for(let i=0;i<count;i++){
-   const paired=(i%2?1:-1),rank=Math.floor(i/2);let theta;
-   if(m.hero==='seoha')theta=angle+paired*(.06+rank*.27)+turn;
-   else if(m.hero==='neon')theta=angle+paired*(.12+rank*.31)+(m.cycle%2?-.19:.19);
-   else if(m.hero==='michaela')theta=angle+([-.72,.72,-.24,.24][i%4])+turn;
-   else if(m.hero==='lauren')theta=angle+paired*(.1+rank*.2)+Math.sin(m.cycle*.7)*.24;
-   else if(m.hero==='hunter')theta=angle+paired*(.035+rank*.085)+(m.cycle%2?.11:-.11);
-   else if(m.hero==='slayer')theta=angle+((i/(count-1))-.5)*trait.spread*2;
-   else if(m.hero==='gunner')theta=angle+i*Math.PI*2/count+m.cycle*.31;
-   else theta=angle+paired*(gap+rank*trait.spread)+turn;
-   const stage=m.hero==='seoha'||m.hero==='hunter'?rank:Math.floor(i/3),speed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));
-   native.bullet(s,a,{vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius:.24,damage:Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:trait.life,frozenUntil:s.time+warning+stage*.08,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color:trait.color,accent:'#fff0e7',sprite:art.ready?(art.skillMap?.[skill.key]??art.traitSkills?.[m.hero]??art.skills[m.cycle%art.skills.length]):null,label:trait.name+' · 무의식의 반향',rc133Pattern:pattern,rc133Cycle:m.cycle,rc133ShotIndex:i});
+   const paired=i%2?1:-1,rank=Math.floor(i/2);let offset;
+   if(m.hero==='seoha')offset=paired*(.06+rank*.27)+turn;
+   else if(m.hero==='neon')offset=paired*(.12+rank*.31)+(m.cycle%2?-.19:.19);
+   else if(m.hero==='michaela')offset=[-.72,.72,-.24,.24][i%4]+turn;
+   else if(m.hero==='lauren')offset=paired*(.1+rank*.2)+Math.sin(m.cycle*.7)*.24;
+   else if(m.hero==='hunter')offset=paired*(.035+rank*.085)+(m.cycle%2?.11:-.11);
+   else if(m.hero==='slayer')offset=(i/Math.max(1,count-1)-.5)*trait.spread*2;
+   else if(m.hero==='gunner')offset=(i-(count-1)/2)*.24+Math.sin(m.cycle*.31)*.16;
+   else offset=paired*(gap+rank*trait.spread)+turn;
+   // Every shot crosses toward screen-left. Keep its initial aim; no instant
+   // retarget, actor lunge, blanket area hit or permanent player stat copy.
+   const theta=Math.PI*.75+cl(((angle-Math.PI*.75+Math.PI*3)%(Math.PI*2)-Math.PI)+offset*skill.spread,-1.05,1.05),speed=Math.min(6.4,trait.speed*skill.speed+(mutual?1.4:m.awake>0?.6:0)),stage=mutual?i*.045:(skill.stagger??.08)*(m.hero==='seoha'||m.hero==='hunter'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
+   native.bullet(s,a,{vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage:mutual?Math.min(14,8*m.scale):Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:Math.min(12,Math.max(trait.life,distance/speed+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color:trait.color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),label:skill.name,rc133Pattern:m.hero,rc133Cycle:m.cycle,rc133ShotIndex:i});
   }
   const emitted=s.hostileProjectiles.slice(before);if(!emitted.length){m.shotDelay=.22;return;}
-  for(const q of emitted){q.rc133InnerShot=true;q.rc133Skill=skill.key;q.rc133Trait=m.hero;q.rc133Pattern=m.hero;q.rc133Cycle=m.cycle;const theta=Math.atan2(q.vy,q.vx),boundedSpeed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));q.vx=Math.cos(theta)*boundedSpeed;q.vy=Math.sin(theta)*boundedSpeed;q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(20,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
-  (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:trait.name,color:trait.color,critical:false});
-  if(s.hostileProjectiles.length>before)root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
-  m.cycle++;m.shotDelay=m.awake>0?2.1:2.8;metrics.volleys++;
+  for(const q of emitted){const theta=Math.atan2(q.vy,q.vx),speed=Math.min(6.4,trait.speed*skill.speed+(mutual?1.4:m.awake>0?.6:0));Object.assign(q,{rc133InnerShot:true,rc133Skill:skill.key,rc133Trait:m.hero,rc133Pattern:m.hero,rc133Cycle:m.cycle,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(mutual?14:20,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:mutual?'純惡意 · '+skill.name:skill.name,color:trait.color,critical:false});
+  root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
+  m.cycle++;m.shotDelay=mutual?.42:m.awake>0?1.35:2.4;metrics.volleys++;metrics.skills++;
+
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}
  function compose(ctx,s,canvas){
   // RC108 caches native camera passes before assembling the portrait frame.
   // Apply hidden-battle color once, after those camera images are assembled.
-  const mode=mood(s);if(mode==='normal'||!ctx||!canvas||root.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics?.()?.rendering===true)return false;
+  const mode=mood(s);if(!ctx||!canvas||root.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics?.()?.rendering===true)return false;
+  if(root.__HAPIL_PERSONA_DUEL_RC134__?.active(s))root.__HAPIL_PERSONA_DUEL_RC134__.backdrop(ctx,canvas);
+  if(mode==='normal')return false;
   const w=canvas.width,h=canvas.height;ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
    const pass=(x,width,bossSide)=>{ctx.save();try{ctx.beginPath();ctx.rect(x,0,width,h);ctx.clip();ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);ctx.filter='none';if(bossSide){ctx.globalCompositeOperation='multiply';ctx.fillStyle='#ff6078';ctx.fillRect(x,0,width,h);}}finally{ctx.restore();}};
    // Grayscale and contrast are point-wise: process the assembled frame once,
@@ -175,9 +175,9 @@
  function map(s,fallback){return active(s)&&art.ready?(s.innerFinalRC133.phase==='reveal'?(art.reveal??art.map):art.map):fallback;}
  function configure(value){if(!value?.ready||!value.map||!value.body||!value.awakening||!value.skills?.length)return false;Object.assign(art,value,{frames:value.frames??null,awakeFrames:value.awakeFrames??null});return true;}
  function bind(value){native=value;return true;}
- function snapshot(s){const m=s?.innerFinalRC133,a=boss(s);return clean(m?{...m,hp:a?.hp??m.hp,x:a?.x??m.x,y:a?.y??m.y}:null);}
+ function snapshot(s){root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);const m=s?.innerFinalRC133,a=boss(s);return clean(m?{...m,hp:a?.hp??m.hp,x:a?.x??m.x,y:a?.y??m.y}:null);}
  function restore(s,raw){
-  const m=clean(raw);cleanup(s);s.enemies=(s.enemies??[]).filter(a=>a.id!==ID);delete s.innerFinalRC133;
+  const m=clean(raw);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);cleanup(s);s.enemies=(s.enemies??[]).filter(a=>a.id!==ID);delete s.innerFinalRC133;
   if(!m||(m.entry==='developer-777'&&!root.__HAPIL_DEVELOPER_MAPS_RC133__?.has(s)))return;
   // A completed run keeps its history in the village or another mode. Its
   // encounter flags and actor cleanup apply only to the actual Dream arena.

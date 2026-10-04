@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "coordinateConvention": "sourceRect=[left,top,right,bottom], right/bottom exclusive; independent designs, not animation frames",
+  "sources": [
+    {
+      "path": "assets/persona-skills-source/persona-skills-atlas-1.png",
+      "library_file_id": "libfile_949c390ddda48191871b4cebb2e0f5d9",
+      "sha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "library_file_id": "libfile_0dc6a7c5a6f4819189835eef968cd83b",
+      "sha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "size": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "key": "small-orb",
+      "path": "assets/rc134/persona-skills/small-orb.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        2,
+        63,
+        49,
+        112
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        47,
+        49
+      ],
+      "sha256": "63816d1179af8bec7d7f6dcfeb322e823f19f28909d6d67a95ed0484a30b9b89",
+      "rgbaSha256": "e31b095c956e3b76cef7cbb034f39885fcee62e996a19934c0aa5f0770466d58",
+      "alphaExtrema": [
+        0,
+        252
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    },
+    {
+      "key": "eye",
+      "path": "assets/rc134/persona-skills/eye.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        195,
+        429,
+        353,
+        506
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        158,
+        77
+      ],
+      "sha256": "a2f80da5d101a331fd6dc8fd3861c2b7e62f0b56bf109aa103a2decfd25e5a9f",
+      "rgbaSha256": "f825e76b2e780dbe065e4752d4b2b81c3f1ea386ede65c0cd582fbe67aac51a4",
+      "alphaExtrema": [
+        0,
+        252
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": 0
+    },
+    {
+      "key": "diamond",
+      "path": "assets/rc134/persona-skills/diamond.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-1.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        300,
+        8,
+        353,
+        96
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        53,
+        88
+      ],
+      "sha256": "30517ce4fbe07a9cc86cca01c16f1978437bc053a495d95fe946d8b1dc8aab6e",
+      "rgbaSha256": "2c669ad670d08f1af1875642119e94bc0baab606fb810b87b7edca402b0c9983",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    },
+    {
+      "key": "clock",
+      "path": "assets/rc134/persona-skills/clock.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        470,
+        400,
+        568,
+        564
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        98,
+        164
+      ],
+      "sha256": "a95ddd9dcc0435fa2e7d6c83565c8e3f14db0163dd5b420cfdd351c879bb1068",
+      "rgbaSha256": "84bfbe1e93160a35cd25e63d81790e90812777286e5d1d851ed8ce1bd1e5a1e1",
+      "alphaExtrema": [
+        0,
+        253
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    },
+    {
+      "key": "star",
+      "path": "assets/rc134/persona-skills/star.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        579,
+        138,
+        670,
+        261
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        91,
+        123
+      ],
+      "sha256": "bd4b63ebf9e1d3e54cc4a51f3103864ce33cfd8e72d8dd6e590efce5e04da586",
+      "rgbaSha256": "7ce9d4105e05e56b9d0755475f7a6793596fb006520cec2933087ca1e9c37ba2",
+      "alphaExtrema": [
+        0,
+        252
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    },
+    {
+      "key": "eclipse",
+      "path": "assets/rc134/persona-skills/eclipse.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        1086,
+        403,
+        1293,
+        587
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        207,
+        184
+      ],
+      "sha256": "a02b0edf404a2fb7e3ae528590ecc79686eba3205e110b366686422feec46e02",
+      "rgbaSha256": "08d87672ee62ea01f68ca7c46df014c62dedf2b480a98ef9576f107ad089f131",
+      "alphaExtrema": [
+        0,
+        253
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    },
+    {
+      "key": "lance",
+      "path": "assets/rc134/persona-skills/lance.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        189,
+        521,
+        369,
+        590
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        180,
+        69
+      ],
+      "sha256": "0f1f22adaa4b42aadc6ec43c5b6121d5501fccb9065f623da8af7b47a7426fdf",
+      "rgbaSha256": "032044d15f9f4d387d101a9e2638a45bf51585f93599efa8bf3993506865093d",
+      "alphaExtrema": [
+        0,
+        252
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": 0
+    },
+    {
+      "key": "shield",
+      "path": "assets/rc134/persona-skills/shield.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": [
+        673,
+        401,
+        839,
+        554
+      ],
+      "alphaOnlyRectMasks": [],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        166,
+        153
+      ],
+      "sha256": "899813b911adfc7746cfcf8ee61953a0cf650c8be6d8e758d7083c980f3e34fb",
+      "rgbaSha256": "845449aa61e987f4ee119e13969f12323c8c0fd049897d38c1a8d9e58a426049",
+      "alphaExtrema": [
+        0,
+        239
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    },
+    {
+      "key": "vortex",
+      "path": "assets/rc134/persona-skills/vortex.png",
+      "source": "assets/persona-skills-source/persona-skills-atlas-1.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        934,
+        676,
+        1110,
+        807
+      ],
+      "alphaOnlyRectMasks": [
+        [
+          0,
+          114,
+          50,
+          131
+        ],
+        [
+          162,
+          114,
+          176,
+          131
+        ]
+      ],
+      "maskCoordinateSpace": "output-local, half-open",
+      "size": [
+        176,
+        131
+      ],
+      "sha256": "4e69b904486120a51174df3428912ef8152455e6d7c1d860256f7b7ce9afd72a",
+      "rgbaSha256": "78ef712c9101f4c276ebb0b6b676bf267fb5de7d9f39cec98e21cd80558938e0",
+      "alphaExtrema": [
+        0,
+        253
+      ],
+      "operations": [
+        "exact half-open rectangle crop",
+        "alpha-only exclusion of adjacent portal roofs",
+        "PNG lossless encoding"
+      ],
+      "sourceHeading": null
+    }
+  ],
+  "policy": "No generation, recoloring, chroma key, alpha threshold, resampling or labels. Only documented adjacent-row portal alpha is excluded. Originals are preserved. Runtime rotation follows native projectile direction; round motifs stay upright. Body and arena remain existing art."
+}

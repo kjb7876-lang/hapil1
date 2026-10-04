@@ -1,0 +1,443 @@
+{
+  "coordinate_convention": "native pixels, bbox=[left,top,right,bottom], right/bottom exclusive; visually estimated review crops, not production-validated frame extraction",
+  "first": {
+    "filename": "persona-skills-atlas-1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "layout": "Irregular unlabelled atlas of distinct effects, not a sequential animation grid.",
+    "candidate_crops": [
+      {
+        "name": "rightward_eye_comet",
+        "bbox": [
+          280,
+          201,
+          405,
+          270
+        ],
+        "use": "Boss leftward aimed shot by horizontal mirror; source tip faces right."
+      },
+      {
+        "name": "rightward_heavy_lance",
+        "bbox": [
+          211,
+          267,
+          349,
+          332
+        ],
+        "use": "Fast dash-afterimage projectile; source tip faces right."
+      },
+      {
+        "name": "crescent_slash_a",
+        "bbox": [
+          3,
+          332,
+          193,
+          485
+        ],
+        "use": "Melee sweep or reciprocal clash accent."
+      },
+      {
+        "name": "crescent_slash_b",
+        "bbox": [
+          178,
+          334,
+          301,
+          482
+        ],
+        "use": "Alternate slash accent; independent artwork, not guaranteed adjacent frame."
+      },
+      {
+        "name": "orbital_black_hole",
+        "bbox": [
+          620,
+          199,
+          804,
+          333
+        ],
+        "use": "Large delayed gravity shot; cropped separately from small orbit above."
+      },
+      {
+        "name": "white_core_cross",
+        "bbox": [
+          477,
+          79,
+          568,
+          211
+        ],
+        "use": "Charge telegraph or focused impact."
+      },
+      {
+        "name": "horizontal_red_blade",
+        "bbox": [
+          612,
+          477,
+          843,
+          565
+        ],
+        "use": "Horizontal lunge beam."
+      },
+      {
+        "name": "spiked_ground_burst",
+        "bbox": [
+          401,
+          555,
+          552,
+          689
+        ],
+        "use": "Impact at dash endpoint."
+      },
+      {
+        "name": "spiral_column",
+        "bbox": [
+          1099,
+          570,
+          1254,
+          793
+        ],
+        "use": "Awakening pillar or timed hazard; not an arena replacement."
+      },
+      {
+        "name": "clock_orbit",
+        "bbox": [
+          148,
+          675,
+          324,
+          805
+        ],
+        "use": "Brief time-lock telegraph."
+      },
+      {
+        "name": "vortex",
+        "bbox": [
+          935,
+          680,
+          1112,
+          803
+        ],
+        "use": "Projectile collapse or awakening charge."
+      },
+      {
+        "name": "eclipse_platform",
+        "bbox": [
+          640,
+          943,
+          951,
+          1249
+        ],
+        "use": "Skill-only awakening overlay; avoid treating as permanent arena."
+      }
+    ],
+    "inventory": "Top: small orb, eye, star, diamond and slit projectiles; ringed black holes and clock motifs. Upper-middle: eye/comet projectiles, crescents, ring slash, crosses. Middle: elongated swords/lances, ground spikes, vertical/spiral columns. Lower-middle: clocks, orbit rings, hourglass, vortices, portals. Bottom: stone head/hand, cathedral, eclipse platform, pillars/doorways; decorative summon pieces should not replace existing boss body or arena.",
+    "original_filename": "53d54f80-c361-49d5-abf0-3a00559627d2(1).png"
+  },
+  "second": {
+    "filename": "persona-skills-atlas-2.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "category_regions": [
+      {
+        "label": "기본 탄환 (소형)",
+        "translation": "Basic projectiles (small)",
+        "bbox": [
+          0,
+          35,
+          282,
+          360
+        ]
+      },
+      {
+        "label": "중형 탄환",
+        "translation": "Medium projectiles",
+        "bbox": [
+          286,
+          36,
+          670,
+          363
+        ]
+      },
+      {
+        "label": "대형 탄환",
+        "translation": "Large projectiles",
+        "bbox": [
+          675,
+          35,
+          1128,
+          365
+        ]
+      },
+      {
+        "label": "특수 패턴 탄환",
+        "translation": "Special-pattern projectiles",
+        "bbox": [
+          1134,
+          34,
+          1536,
+          376
+        ]
+      },
+      {
+        "label": "스킬 이펙트 (발사형)",
+        "translation": "Skill effects (fired)",
+        "bbox": [
+          0,
+          400,
+          366,
+          701
+        ]
+      },
+      {
+        "label": "스킬 이펙트 (설치형)",
+        "translation": "Skill effects (placed)",
+        "bbox": [
+          370,
+          405,
+          670,
+          701
+        ]
+      },
+      {
+        "label": "방어 / 보조 이펙트",
+        "translation": "Defense / support effects",
+        "bbox": [
+          673,
+          402,
+          983,
+          701
+        ]
+      },
+      {
+        "label": "사몽 각성 전용 이펙트",
+        "translation": "Samong awakening-exclusive effects (label visually read)",
+        "bbox": [
+          989,
+          398,
+          1536,
+          706
+        ]
+      },
+      {
+        "label": "타격 / 피격 이펙트",
+        "translation": "Strike / hit effects",
+        "bbox": [
+          0,
+          747,
+          251,
+          1024
+        ]
+      },
+      {
+        "label": "상태 이펙트 (시간왜곡 / 중력 / 공간)",
+        "translation": "Status effects (time distortion / gravity / space)",
+        "bbox": [
+          258,
+          747,
+          652,
+          1024
+        ]
+      },
+      {
+        "label": "배경 오버레이 (연출용)",
+        "translation": "Background overlays (presentation)",
+        "bbox": [
+          657,
+          749,
+          941,
+          1024
+        ]
+      },
+      {
+        "label": "기타 오브젝트 (소환물 등)",
+        "translation": "Other objects (summons etc.)",
+        "bbox": [
+          947,
+          746,
+          1329,
+          1024
+        ]
+      },
+      {
+        "label": "색상 변형 예시",
+        "translation": "Color variation examples",
+        "bbox": [
+          1332,
+          746,
+          1536,
+          1024
+        ]
+      }
+    ],
+    "candidate_crops": [
+      {
+        "name": "small_red_orb",
+        "bbox": [
+          4,
+          66,
+          49,
+          110
+        ]
+      },
+      {
+        "name": "fired_eye_comet",
+        "bbox": [
+          203,
+          428,
+          349,
+          501
+        ]
+      },
+      {
+        "name": "fired_heavy_lance",
+        "bbox": [
+          202,
+          527,
+          363,
+          586
+        ]
+      },
+      {
+        "name": "fired_fast_comet",
+        "bbox": [
+          206,
+          602,
+          368,
+          676
+        ]
+      },
+      {
+        "name": "defense_sphere",
+        "bbox": [
+          675,
+          402,
+          839,
+          558
+        ]
+      },
+      {
+        "name": "medium_ringed_orb",
+        "bbox": [
+          368,
+          40,
+          428,
+          138
+        ]
+      },
+      {
+        "name": "large_black_hole",
+        "bbox": [
+          669,
+          37,
+          865,
+          191
+        ]
+      },
+      {
+        "name": "awakening_eclipse",
+        "bbox": [
+          1090,
+          402,
+          1288,
+          588
+        ]
+      },
+      {
+        "name": "impact_diagonal_spark",
+        "bbox": [
+          86,
+          868,
+          158,
+          937
+        ]
+      }
+    ],
+    "warning": "Category regions intentionally contain multiple designs. Never draw category rectangles directly. Exclude Korean title strips and crop individual designs; spacing is irregular. Red/gray backdrop RGB mostly has alpha near zero; preserve alpha rather than chroma-key colors.",
+    "original_filename": "e1c62624-2442-450a-b9c1-18e021e8562b(2).png"
+  },
+  "files": [
+    {
+      "bytes": 2962564,
+      "sha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "corners": [
+        [
+          61,
+          18,
+          16,
+          2
+        ],
+        [
+          118,
+          28,
+          27,
+          0
+        ],
+        [
+          61,
+          12,
+          7,
+          1
+        ],
+        [
+          58,
+          55,
+          50,
+          0
+        ]
+      ],
+      "filename": "persona-skills-atlas-2.png",
+      "original_filename": "e1c62624-2442-450a-b9c1-18e021e8562b(2).png"
+    },
+    {
+      "bytes": 3009312,
+      "sha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "corners": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "filename": "persona-skills-atlas-1.png",
+      "original_filename": "53d54f80-c361-49d5-abf0-3a00559627d2(1).png"
+    }
+  ]
+}

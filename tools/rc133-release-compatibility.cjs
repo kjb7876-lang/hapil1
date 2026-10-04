@@ -3,7 +3,7 @@
 // The full RC133 runtime guard runs first; this never changes the game under test.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const BASE='4670211fcd1a2e5076a3f9c57fc67e55cd0486a9';
-const DELTA='74d09a563450eb594f2d8973f1e3dd7b8a67db44d259ffbccd74e7b63216ae92';
+const DELTA='e887e8bdb706e5d2d319c5a5e8445c7040338ea6c3bfd68cc0b74f84601e5f99';
 const revisions=Object.freeze({
  'assets/rc91/samong-awakening.js':['e10f8ca145914fe517cbf88012b73a74a5db6c57e8bab5334993c12bb97e9f79','cfffadfdf64f93a72dd5bac30344dfb9dd3cabdb8d60ea69188b00d18f0de633'],
  'assets/combat-v31402/combat-core.js':['c718770947023a573a9b57cbefcb319940cd434029592fda51bf8d94f7822ece','b73edca7e9fa5a76de4a72a08b462a127c8e4f44e643a8b825f2924b0ca6e063'],

@@ -3,7 +3,7 @@
 // detached baseline. No path class is exempt from current byte/mode validation.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const BASE='4670211fcd1a2e5076a3f9c57fc67e55cd0486a9';
-const DELTA_HASH='74d09a563450eb594f2d8973f1e3dd7b8a67db44d259ffbccd74e7b63216ae92';
+const DELTA_HASH='e887e8bdb706e5d2d319c5a5e8445c7040338ea6c3bfd68cc0b74f84601e5f99';
 const ROOTS=['assets','audio','data','index.html'];
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
 function rows(exec,ref){return exec('git',['ls-tree','-r','-z',ref,'--',...ROOTS]).split('\0').filter(Boolean).map(line=>{const m=/^(100644|100755) blob ([a-f0-9]{40})\t(.+)$/.exec(line);assert(m,'Nonordinary protected Git entry');return {mode:m[1],gitBlob:m[2],file:m[3]};}).sort((a,b)=>a.file.localeCompare(b.file));}
