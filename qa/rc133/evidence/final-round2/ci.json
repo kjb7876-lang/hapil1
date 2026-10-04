@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 1,
+  "runtimeSha": "091143090653efffc7e64ab8262db25f91c3d293",
+  "rc133Run": 37195960039,
+  "canonicalRun": 37195960044,
+  "rc133Rows": [
+    {
+      "name": "rc133-duel-hitboxes",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 44,
+      "error": null
+    },
+    {
+      "name": "rc133-performance-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 35949,
+      "error": null
+    },
+    {
+      "name": "rc133-bitmap-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9903,
+      "error": null
+    },
+    {
+      "name": "rc133-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 25,
+      "error": null
+    },
+    {
+      "name": "rc95-flow-policy-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 24,
+      "error": null
+    },
+    {
+      "name": "rc133-developer-maps",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 33,
+      "error": null
+    },
+    {
+      "name": "rc133-777-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 33141,
+      "error": null
+    },
+    {
+      "name": "rc133-feedback-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30,
+      "error": null
+    },
+    {
+      "name": "rc133-media-assets",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6433,
+      "error": null
+    },
+    {
+      "name": "rc133-media-art",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 938,
+      "error": null
+    },
+    {
+      "name": "rc133-media-audio",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 27,
+      "error": null
+    },
+    {
+      "name": "rc133-media-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19367,
+      "error": null
+    },
+    {
+      "name": "combat-audio-controller",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 84,
+      "error": null
+    },
+    {
+      "name": "combat-audio-bridge",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 67,
+      "error": null
+    },
+    {
+      "name": "combat-audio-impact",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 56,
+      "error": null
+    },
+    {
+      "name": "rc132-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 710,
+      "error": null
+    },
+    {
+      "name": "rc59-death-checkpoint-midboss-duo-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 52,
+      "error": null
+    },
+    {
+      "name": "rc87-episode-cosmic-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 44,
+      "error": null
+    },
+    {
+      "name": "rc88-danmaku-rpg-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 27,
+      "error": null
+    },
+    {
+      "name": "rc133-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 33764,
+      "error": null
+    },
+    {
+      "name": "rc133-contact-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3755,
+      "error": null
+    },
+    {
+      "name": "rc133-exit-damage-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2584,
+      "error": null
+    },
+    {
+      "name": "rc128-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 62449,
+      "error": null
+    },
+    {
+      "name": "rc132-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 62129,
+      "error": null
+    },
+    {
+      "name": "rc127-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 57,
+      "error": null
+    },
+    {
+      "name": "rc131-hero-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36,
+      "error": null
+    },
+    {
+      "name": "rc130-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 56,
+      "error": null
+    },
+    {
+      "name": "rc130-isolation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30,
+      "error": null
+    },
+    {
+      "name": "story-narration-manifest",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14255,
+      "error": null
+    },
+    {
+      "name": "rc130-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23592,
+      "error": null
+    },
+    {
+      "name": "rc119-laser-body-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1105,
+      "error": null
+    },
+    {
+      "name": "rc115-natural-story-portal-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 91056,
+      "error": null
+    },
+    {
+      "name": "rc133-preservation-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 39,
+      "error": null
+    },
+    {
+      "name": "rc91-samong-and-laser-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 59,
+      "error": null
+    },
+    {
+      "name": "rc129-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 59,
+      "error": null
+    },
+    {
+      "name": "rc129-startup",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7379,
+      "error": null
+    },
+    {
+      "name": "rc129-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 35395,
+      "error": null
+    },
+    {
+      "name": "laser-release-gate",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 365012,
+      "error": null
+    },
+    {
+      "name": "rc133-public-contract",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 101705,
+      "error": null
+    }
+  ],
+  "rc133Jobs": [
+    {
+      "id": 111417755238,
+      "name": "audit (native-gameplay)",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417755369,
+      "name": "audit (legacy-release)",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417755391,
+      "name": "audit (preservation)",
+      "conclusion": "success"
+    }
+  ],
+  "canonicalJobs": [
+    {
+      "id": 111417755214,
+      "name": "narration",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417755312,
+      "name": "gameplay-regression (dream)",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417755319,
+      "name": "gameplay-regression (topology)",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417755371,
+      "name": "gameplay-regression (death-dialog)",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417755372,
+      "name": "gameplay-regression (release)",
+      "conclusion": "success"
+    },
+    {
+      "id": 111417756060,
+      "name": "published-audio",
+      "conclusion": "skipped"
+    }
+  ],
+  "decoder": {
+    "browser": "Chromium 140.0.7339.186",
+    "assets": 269,
+    "observations": 1076,
+    "fixedPcmExactMatches": 538,
+    "strictTolerancesUnchanged": true
+  },
+  "limitations": [
+    "published-audio is main-only and skipped before deployment",
+    "Public Pages is not verified by these branch runs"
+  ]
+}

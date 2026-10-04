@@ -1,0 +1,374 @@
+{
+  "runtimeSha": "091143090653efffc7e64ab8262db25f91c3d293",
+  "staged": true,
+  "scope": "Actual native scenes on explicit isolated Story/Dream state fixtures; source ownership and native render inspection, not natural campaign progression. Earlier startup-overlay captures were rejected and replaced.",
+  "status": "admitted-unobscured-captures",
+  "screenshots": [
+    {
+      "name": "story-murder03-base-blue-executor",
+      "matchingFrames": 47,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "murder03",
+        "mode": "STORY",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "murder03",
+        "mode": "STORY",
+        "enemies": [
+          {
+            "id": "blue-executor",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/generated-v31224/actors-normalized/c5b5ea2b085c_cycle_idle.webp",
+            "hp": 50783,
+            "maxHp": 50783,
+            "phase": 1,
+            "phaseCount": 3,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          },
+          {
+            "id": "mb-murder03",
+            "boss": false,
+            "midboss": true,
+            "sprite": "./assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+            "hp": 24287,
+            "maxHp": 24287,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          },
+          {
+            "id": "mb-murder03-partner-1-rc133",
+            "boss": false,
+            "midboss": true,
+            "sprite": "./assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+            "hp": 17001,
+            "maxHp": 17001,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          }
+        ],
+        "inner": null
+      }
+    },
+    {
+      "name": "story-part1-lucifer-cosmic",
+      "matchingFrames": 75,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "ep1a11",
+        "mode": "STORY",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "ep1a11",
+        "mode": "STORY",
+        "enemies": [
+          {
+            "id": "a11-cosmic-v31318",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/actors/v31318/cosmic-lucifer-idle.webp",
+            "hp": 37388,
+            "maxHp": 37388,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": true
+          }
+        ],
+        "inner": null
+      }
+    },
+    {
+      "name": "story-rc87-part2-source-cosmic",
+      "matchingFrames": 54,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "ep1b09",
+        "mode": "STORY",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "ep1b09",
+        "mode": "STORY",
+        "enemies": [
+          {
+            "id": "b09-boss",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/episode1b/generated-v394/boss_pride_cyborg.webp",
+            "hp": 41356,
+            "maxHp": 41356,
+            "phase": 3,
+            "phaseCount": 3,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": true,
+            "lucifer": false
+          }
+        ],
+        "inner": null
+      }
+    },
+    {
+      "name": "story-rc87-part7-midboss-cosmic",
+      "matchingFrames": 74,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "murder03",
+        "mode": "STORY",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "murder03",
+        "mode": "STORY",
+        "enemies": [
+          {
+            "id": "mb-murder03",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/murder/rooftop_echo.png",
+            "hp": 50783,
+            "maxHp": 50783,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": true,
+            "lucifer": false
+          }
+        ],
+        "inner": null
+      }
+    },
+    {
+      "name": "dream-midboss-trio-dist01",
+      "matchingFrames": 52,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "dist01",
+        "mode": "DREAM",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "dist01",
+        "mode": "DREAM",
+        "enemies": [
+          {
+            "id": "mb-dist01",
+            "boss": false,
+            "midboss": true,
+            "sprite": "./assets/generated-v31224/actors-normalized/6998402eb8e7_purple_sword_spider_angel.webp",
+            "hp": 12830,
+            "maxHp": 12830,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          },
+          {
+            "id": "mb-dist01-partner-1-rc133",
+            "boss": false,
+            "midboss": true,
+            "sprite": "./assets/generated-v31224/actors-normalized/5168d3dce2f0_horned_swamp_demon.webp",
+            "hp": 7813,
+            "maxHp": 7813,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          },
+          {
+            "id": "mb-dist01-partner-2-rc133",
+            "boss": false,
+            "midboss": true,
+            "sprite": "./assets/generated-v31224/actors-normalized/693a5923c4c1_dist_blood_guardian_pursuer.webp",
+            "hp": 7813,
+            "maxHp": 7813,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          }
+        ],
+        "inner": null
+      }
+    },
+    {
+      "name": "dream-cosmic-trial-sixth",
+      "matchingFrames": 47,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "cult04",
+        "mode": "DREAM",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "enemies": [
+          {
+            "id": "c104-boss",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/generated-v31224/actors-normalized/b96a428432e9_pride_hierophant_idle.webp",
+            "hp": 139536,
+            "maxHp": 139536,
+            "phase": 1,
+            "phaseCount": 4,
+            "visual": null,
+            "trial": 6,
+            "inner": false,
+            "cosmic": false,
+            "lucifer": false
+          }
+        ],
+        "inner": null
+      }
+    },
+    {
+      "name": "dream-inner-final-reveal",
+      "matchingFrames": 54,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "cult04",
+        "mode": "DREAM",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "enemies": [
+          {
+            "id": "inner-evil-rc133",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/rc133/art/portrait.png",
+            "hp": 280500,
+            "maxHp": 280500,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": true,
+            "cosmic": false,
+            "lucifer": false
+          }
+        ],
+        "inner": {
+          "phase": "reveal",
+          "awake": 0,
+          "hp": 280500,
+          "maxHp": 280500
+        }
+      }
+    },
+    {
+      "name": "dream-inner-final-awake",
+      "matchingFrames": 45,
+      "captureState": {
+        "hp": 240,
+        "maxHp": 240,
+        "liveBindingHp": 240,
+        "liveBindingMatchesFixture": true,
+        "zone": "cult04",
+        "mode": "DREAM",
+        "storyOverlayPresent": false,
+        "deathOverlayPresent": false
+      },
+      "overlaysClear": true,
+      "drawState": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "enemies": [
+          {
+            "id": "inner-evil-rc133",
+            "boss": true,
+            "midboss": false,
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "hp": 280500,
+            "maxHp": 280500,
+            "phase": 1,
+            "phaseCount": 1,
+            "visual": null,
+            "trial": null,
+            "inner": true,
+            "cosmic": false,
+            "lucifer": false
+          }
+        ],
+        "inner": {
+          "phase": "fight",
+          "awake": 7,
+          "hp": 280500,
+          "maxHp": 280500
+        }
+      }
+    }
+  ]
+}

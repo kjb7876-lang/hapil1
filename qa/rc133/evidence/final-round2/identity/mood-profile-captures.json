@@ -1,0 +1,1744 @@
+{
+  "candidate": "091143090653efffc7e64ab8262db25f91c3d293",
+  "staged": true,
+  "scope": "Live native game UI and canvas screenshots of the inner boss in all four RC133 compositor moods. Only mood/state/position fixture fields are staged; no pixel or source asset edits.",
+  "profiles": [
+    {
+      "name": "pc",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "mobile": false,
+      "deviceScaleFactor": 1,
+      "screenshots": [
+        {
+          "mood": "normal",
+          "file": "boss-visibility-pc-normal.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "normal",
+            "actualMood": "normal",
+            "sprite": "./assets/rc133/art/base-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 0,
+            "passive": false,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/base-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 36,
+            "matchingFrames": 5,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "normal",
+              "sprite": "./assets/rc133/art/base-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.005241958084788,
+                "y": 11.994758041915212
+              },
+              "awake": false,
+              "passive": false,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1050,
+                "height": 590,
+                "css": {
+                  "x": 0,
+                  "y": 32,
+                  "width": 1280,
+                  "height": 824,
+                  "top": 32,
+                  "right": 1280,
+                  "bottom": 856,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.8199999928474426,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.8199999928474426,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.8199999928474426,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.8199999928474426,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 32,
+              "width": 1280,
+              "height": 824,
+              "top": 32,
+              "right": 1280,
+              "bottom": 856,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "player",
+          "file": "boss-visibility-pc-player.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "player",
+            "actualMood": "player",
+            "sprite": "./assets/rc133/art/base-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 0,
+            "passive": true,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/base-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 118,
+            "matchingFrames": 6,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "player",
+              "sprite": "./assets/rc133/art/base-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.755523722891184,
+                "y": 11.244476277108818
+              },
+              "awake": false,
+              "passive": true,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1050,
+                "height": 590,
+                "css": {
+                  "x": 0,
+                  "y": 32,
+                  "width": 1280,
+                  "height": 824,
+                  "top": 32,
+                  "right": 1280,
+                  "bottom": 856,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.8199999928474426,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.8199999928474426,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.8199999928474426,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.8199999928474426,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 32,
+              "width": 1280,
+              "height": 824,
+              "top": 32,
+              "right": 1280,
+              "bottom": 856,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "boss",
+          "file": "boss-visibility-pc-boss.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "boss",
+            "actualMood": "boss",
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 7,
+            "passive": false,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/awake-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 174,
+            "matchingFrames": 5,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "boss",
+              "sprite": "./assets/rc133/art/awake-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 17.99074074074075,
+                "y": 12.00925925925927
+              },
+              "awake": true,
+              "passive": false,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1050,
+                "height": 590,
+                "css": {
+                  "x": 0,
+                  "y": 32,
+                  "width": 1280,
+                  "height": 824,
+                  "top": 32,
+                  "right": 1280,
+                  "bottom": 856,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.8199999928474426,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.8199999928474426,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.8199999928474426,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.8199999928474426,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 32,
+              "width": 1280,
+              "height": 824,
+              "top": 32,
+              "right": 1280,
+              "bottom": 856,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "opposition",
+          "file": "boss-visibility-pc-opposition.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "opposition",
+            "actualMood": "opposition",
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 7,
+            "passive": true,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/awake-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 250,
+            "matchingFrames": 5,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "opposition",
+              "sprite": "./assets/rc133/art/awake-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.755523722891184,
+                "y": 11.244476277108818
+              },
+              "awake": true,
+              "passive": true,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1050,
+                "height": 590,
+                "css": {
+                  "x": 0,
+                  "y": 32,
+                  "width": 1280,
+                  "height": 824,
+                  "top": 32,
+                  "right": 1280,
+                  "bottom": 856,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.8199999928474426,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.8199999928474426,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.8199999928474426,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.8199999928474426,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 32,
+              "width": 1280,
+              "height": 824,
+              "top": 32,
+              "right": 1280,
+              "bottom": 856,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        }
+      ],
+      "errors": [],
+      "httpErrors": [],
+      "status": "captured"
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "mobile": true,
+      "deviceScaleFactor": 2,
+      "screenshots": [
+        {
+          "mood": "normal",
+          "file": "boss-visibility-portrait-normal.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "normal",
+            "actualMood": "normal",
+            "sprite": "./assets/rc133/art/base-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 0,
+            "passive": false,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/base-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 49,
+            "matchingFrames": 6,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "normal",
+              "sprite": "./assets/rc133/art/base-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 17.990740740740737,
+                "y": 12.009259259259258
+              },
+              "awake": false,
+              "passive": false,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1247,
+                "height": 702,
+                "css": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 390,
+                  "height": 844,
+                  "top": 0,
+                  "right": 390,
+                  "bottom": 844,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 1,
+                  "b": 0,
+                  "c": 0,
+                  "d": 1,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 1,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 1,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": true
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "player",
+          "file": "boss-visibility-portrait-player.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "player",
+            "actualMood": "player",
+            "sprite": "./assets/rc133/art/base-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 0,
+            "passive": true,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/base-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 225,
+            "matchingFrames": 4,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "player",
+              "sprite": "./assets/rc133/art/base-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.223441962978445,
+                "y": 11.776558037021557
+              },
+              "awake": false,
+              "passive": true,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1247,
+                "height": 702,
+                "css": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 390,
+                  "height": 844,
+                  "top": 0,
+                  "right": 390,
+                  "bottom": 844,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 1,
+                  "b": 0,
+                  "c": 0,
+                  "d": 1,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 1,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 1,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": true
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "boss",
+          "file": "boss-visibility-portrait-boss.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "boss",
+            "actualMood": "boss",
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 7,
+            "passive": false,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/awake-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 289,
+            "matchingFrames": 4,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "boss",
+              "sprite": "./assets/rc133/art/awake-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.003500813017794,
+                "y": 11.996499186982206
+              },
+              "awake": true,
+              "passive": false,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1247,
+                "height": 702,
+                "css": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 390,
+                  "height": 844,
+                  "top": 0,
+                  "right": 390,
+                  "bottom": 844,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 1,
+                  "b": 0,
+                  "c": 0,
+                  "d": 1,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 1,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 1,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": true
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "opposition",
+          "file": "boss-visibility-portrait-opposition.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "opposition",
+            "actualMood": "opposition",
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 7,
+            "passive": true,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/awake-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 465,
+            "matchingFrames": 4,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "opposition",
+              "sprite": "./assets/rc133/art/awake-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.217823096776314,
+                "y": 11.782176903223686
+              },
+              "awake": true,
+              "passive": true,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 1247,
+                "height": 702,
+                "css": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 390,
+                  "height": 844,
+                  "top": 0,
+                  "right": 390,
+                  "bottom": 844,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 1,
+                  "b": 0,
+                  "c": 0,
+                  "d": 1,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 1,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 1,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": true
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 0,
+              "width": 390,
+              "height": 844,
+              "top": 0,
+              "right": 390,
+              "bottom": 844,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        }
+      ],
+      "errors": [],
+      "httpErrors": [],
+      "status": "captured"
+    },
+    {
+      "name": "landscape",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "mobile": true,
+      "deviceScaleFactor": 2,
+      "screenshots": [
+        {
+          "mood": "normal",
+          "file": "boss-visibility-landscape-normal.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "normal",
+            "actualMood": "normal",
+            "sprite": "./assets/rc133/art/base-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 0,
+            "passive": false,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/base-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 44,
+            "matchingFrames": 4,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "normal",
+              "sprite": "./assets/rc133/art/base-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 17.99074074074074,
+                "y": 12.00925925925926
+              },
+              "awake": false,
+              "passive": false,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 702,
+                "height": 395,
+                "css": {
+                  "x": 0,
+                  "y": 36,
+                  "width": 844,
+                  "height": 354,
+                  "top": 36,
+                  "right": 844,
+                  "bottom": 390,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.5481054782867432,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.5481054782867432,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.5481054782867432,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.5481054782867432,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "top": 36,
+              "right": 844,
+              "bottom": 390,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "player",
+          "file": "boss-visibility-landscape-player.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "player",
+            "actualMood": "player",
+            "sprite": "./assets/rc133/art/base-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 0,
+            "passive": true,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/base-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 99,
+            "matchingFrames": 4,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "player",
+              "sprite": "./assets/rc133/art/base-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.755523722891184,
+                "y": 11.244476277108818
+              },
+              "awake": false,
+              "passive": true,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 702,
+                "height": 395,
+                "css": {
+                  "x": 0,
+                  "y": 36,
+                  "width": 844,
+                  "height": 354,
+                  "top": 36,
+                  "right": 844,
+                  "bottom": 390,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.5481054782867432,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.5481054782867432,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.5481054782867432,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.5481054782867432,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "top": 36,
+              "right": 844,
+              "bottom": 390,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "boss",
+          "file": "boss-visibility-landscape-boss.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "boss",
+            "actualMood": "boss",
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 7,
+            "passive": false,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/awake-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 144,
+            "matchingFrames": 4,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "boss",
+              "sprite": "./assets/rc133/art/awake-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 17.990740740740748,
+                "y": 12.009259259259265
+              },
+              "awake": true,
+              "passive": false,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 702,
+                "height": 395,
+                "css": {
+                  "x": 0,
+                  "y": 36,
+                  "width": 844,
+                  "height": 354,
+                  "top": 36,
+                  "right": 844,
+                  "bottom": 390,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.5481054782867432,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.5481054782867432,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.5481054782867432,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.5481054782867432,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "top": 36,
+              "right": 844,
+              "bottom": 390,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        },
+        {
+          "mood": "opposition",
+          "file": "boss-visibility-landscape-opposition.png",
+          "stagedFixture": true,
+          "route": {
+            "route": {
+              "pass": true,
+              "zone": "cult04",
+              "bossId": "c104-boss",
+              "hero": {
+                "x": 16.000000000000004,
+                "y": 16.000000000000004
+              },
+              "boss": {
+                "x": 24.202247191011242,
+                "y": 22.561797752808992
+              },
+              "lane": "bottom"
+            },
+            "entry": "cult-death",
+            "actorId": "inner-evil-rc133",
+            "actorSprite": "./assets/rc133/art/portrait.png",
+            "map": "./assets/rc133/art/arena.webp",
+            "zone": "cult04",
+            "mode": "DREAM",
+            "staged": true
+          },
+          "configuration": {
+            "expectedMood": "opposition",
+            "actualMood": "opposition",
+            "sprite": "./assets/rc133/art/awake-2.png",
+            "actorId": "inner-evil-rc133",
+            "actor": {
+              "x": 20,
+              "y": 10,
+              "hp": 280500,
+              "maxHp": 280500
+            },
+            "player": {
+              "x": 18.8,
+              "y": 11.2,
+              "hp": 240,
+              "maxHp": 240
+            },
+            "innerPhase": "fight",
+            "awake": 7,
+            "passive": true,
+            "map": "./assets/rc133/art/arena.webp"
+          },
+          "sourceFrame": {
+            "src": "./assets/rc133/art/awake-2.png",
+            "width": 224,
+            "height": 400
+          },
+          "nativeDraw": {
+            "frames": 199,
+            "matchingFrames": 5,
+            "state": {
+              "zone": "cult04",
+              "mode": "DREAM",
+              "phase": "fight",
+              "mood": "opposition",
+              "sprite": "./assets/rc133/art/awake-2.png",
+              "actor": {
+                "x": 20,
+                "y": 10
+              },
+              "player": {
+                "x": 18.755523722891184,
+                "y": 11.244476277108818
+              },
+              "awake": true,
+              "passive": true,
+              "actorId": "inner-evil-rc133",
+              "maxHp": 280500,
+              "hp": 280500
+            }
+          },
+          "captureWaitMs": 120,
+          "diagnostics": {
+            "canvas": [
+              {
+                "width": 702,
+                "height": 395,
+                "css": {
+                  "x": 0,
+                  "y": 36,
+                  "width": 844,
+                  "height": 354,
+                  "top": 36,
+                  "right": 844,
+                  "bottom": 390,
+                  "left": 0
+                },
+                "transform": {
+                  "a": 0.5481054782867432,
+                  "b": 0,
+                  "c": 0,
+                  "d": 0.5481054782867432,
+                  "e": 0,
+                  "f": 0,
+                  "m11": 0.5481054782867432,
+                  "m12": 0,
+                  "m13": 0,
+                  "m14": 0,
+                  "m21": 0,
+                  "m22": 0.5481054782867432,
+                  "m23": 0,
+                  "m24": 0,
+                  "m31": 0,
+                  "m32": 0,
+                  "m33": 1,
+                  "m34": 0,
+                  "m41": 0,
+                  "m42": 0,
+                  "m43": 0,
+                  "m44": 1,
+                  "is2D": true,
+                  "isIdentity": false
+                },
+                "filter": "none"
+              }
+            ],
+            "stage": {
+              "x": 0,
+              "y": 36,
+              "width": 844,
+              "height": 354,
+              "top": 36,
+              "right": 844,
+              "bottom": 390,
+              "left": 0
+            },
+            "overlays": [
+              {
+                "id": "hapil-party-dialog",
+                "visible": false
+              }
+            ]
+          }
+        }
+      ],
+      "errors": [],
+      "httpErrors": [],
+      "status": "captured"
+    }
+  ],
+  "pageErrors": [],
+  "httpErrors": [],
+  "status": "captured"
+}

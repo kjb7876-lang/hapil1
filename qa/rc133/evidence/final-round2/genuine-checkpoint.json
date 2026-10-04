@@ -1,0 +1,68 @@
+{
+  "commit": "091143090653efffc7e64ab8262db25f91c3d293",
+  "source": "/workspace/rc133-tools/final-viewport-audit/candidate-natural-longplay-709b668-20261004-assisted2/checkpoint-2026-10-04T03-36-33-914Z-hidden-final-entry.json",
+  "sourceHash": "10e3c0c1a4a7b13504ca00839ab1fc6ddc521c3ddde4cf58280731143a44cef2",
+  "scope": "Native Continue of genuine prior assisted Dream checkpoint before cult-leader death; unedited HP/progress/boss. Full-auto plus ordinary D defense input; no fresh-campaign or unassisted victory claim.",
+  "reason": "hidden-complete",
+  "elapsedSeconds": 224.637,
+  "samples": 203,
+  "first": {
+    "time": 0.114672,
+    "zone": "cult04",
+    "hp": 270,
+    "maxHp": 270,
+    "boss": {
+      "id": "c104-boss",
+      "hp": 21908.169934550482,
+      "maxHp": 139536
+    },
+    "inner": null,
+    "completed": 60,
+    "guard": false,
+    "imminent": false,
+    "danger": false,
+    "modal": false,
+    "samong": {
+      "active": 4.48349999999986,
+      "activations": 232
+    }
+  },
+  "last": {
+    "time": 165.83758000000995,
+    "zone": "cult04",
+    "hp": 270,
+    "maxHp": 270,
+    "boss": null,
+    "inner": {
+      "phase": "complete",
+      "hp": 0,
+      "maxHp": 792744,
+      "healthModel": 2,
+      "cycle": 46,
+      "awake": 0,
+      "mood": "normal",
+      "clash": {
+        "version": 1,
+        "used": true,
+        "admitted": true,
+        "admitting": false,
+        "at": 122.00769600000469,
+        "until": 129.00769600000467,
+        "reason": "boss"
+      }
+    },
+    "completed": 60,
+    "guard": false,
+    "imminent": false,
+    "danger": false,
+    "modal": false,
+    "samong": {
+      "active": 0,
+      "activations": 235
+    }
+  },
+  "guardStarts": 24,
+  "storySlot1Hash": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9",
+  "errors": [],
+  "httpErrors": []
+}

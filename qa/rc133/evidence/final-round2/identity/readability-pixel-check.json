@@ -1,0 +1,522 @@
+{
+  "candidate": "091143090653efffc7e64ab8262db25f91c3d293",
+  "baseline": "/workspace/rc133-tools/final-round1-identity",
+  "regions": [
+    {
+      "profile": "pc",
+      "mood": "normal",
+      "boxPhysicalPixels": [
+        820,
+        335,
+        880,
+        425
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-pc-normal.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-pc-normal.png",
+      "baseline": {
+        "pixels": 5400,
+        "meanLuma": 41.233,
+        "medianLuma": 35.515,
+        "p90Luma": 67.495,
+        "stdLuma": 24.172
+      },
+      "candidate": {
+        "pixels": 5400,
+        "meanLuma": 58.436,
+        "medianLuma": 57.473,
+        "p90Luma": 85.614,
+        "stdLuma": 27.511
+      },
+      "meanLumaChangePercent": 41.7
+    },
+    {
+      "profile": "pc",
+      "mood": "player",
+      "boxPhysicalPixels": [
+        820,
+        335,
+        880,
+        425
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-pc-player.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-pc-player.png",
+      "baseline": {
+        "pixels": 5400,
+        "meanLuma": 60.363,
+        "medianLuma": 34.0,
+        "p90Luma": 167.0,
+        "stdLuma": 59.604
+      },
+      "candidate": {
+        "pixels": 5400,
+        "meanLuma": 77.316,
+        "medianLuma": 63.0,
+        "p90Luma": 168.0,
+        "stdLuma": 52.77
+      },
+      "meanLumaChangePercent": 28.1
+    },
+    {
+      "profile": "pc",
+      "mood": "boss",
+      "boxPhysicalPixels": [
+        820,
+        335,
+        880,
+        425
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-pc-boss.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-pc-boss.png",
+      "baseline": {
+        "pixels": 5400,
+        "meanLuma": 18.398,
+        "medianLuma": 15.831,
+        "p90Luma": 33.321,
+        "stdLuma": 12.957
+      },
+      "candidate": {
+        "pixels": 5400,
+        "meanLuma": 28.966,
+        "medianLuma": 28.164,
+        "p90Luma": 45.845,
+        "stdLuma": 15.738
+      },
+      "meanLumaChangePercent": 57.4
+    },
+    {
+      "profile": "pc",
+      "mood": "opposition",
+      "boxPhysicalPixels": [
+        820,
+        335,
+        880,
+        425
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-pc-opposition.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-pc-opposition.png",
+      "baseline": {
+        "pixels": 5400,
+        "meanLuma": 33.599,
+        "medianLuma": 19.179,
+        "p90Luma": 93.259,
+        "stdLuma": 32.002
+      },
+      "candidate": {
+        "pixels": 5400,
+        "meanLuma": 41.743,
+        "medianLuma": 34.44,
+        "p90Luma": 90.826,
+        "stdLuma": 27.736
+      },
+      "meanLumaChangePercent": 24.2
+    },
+    {
+      "profile": "portrait",
+      "mood": "normal",
+      "boxPhysicalPixels": [
+        330,
+        310,
+        490,
+        500
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-portrait-normal.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-portrait-normal.png",
+      "baseline": {
+        "pixels": 30400,
+        "meanLuma": 44.393,
+        "medianLuma": 39.99,
+        "p90Luma": 68.986,
+        "stdLuma": 24.656
+      },
+      "candidate": {
+        "pixels": 30400,
+        "meanLuma": 51.902,
+        "medianLuma": 47.387,
+        "p90Luma": 80.819,
+        "stdLuma": 26.56
+      },
+      "meanLumaChangePercent": 16.9
+    },
+    {
+      "profile": "portrait",
+      "mood": "player",
+      "boxPhysicalPixels": [
+        330,
+        310,
+        490,
+        500
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-portrait-player.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-portrait-player.png",
+      "baseline": {
+        "pixels": 30400,
+        "meanLuma": 37.151,
+        "medianLuma": 25.0,
+        "p90Luma": 91.0,
+        "stdLuma": 40.582
+      },
+      "candidate": {
+        "pixels": 30400,
+        "meanLuma": 36.657,
+        "medianLuma": 31.0,
+        "p90Luma": 68.0,
+        "stdLuma": 28.243
+      },
+      "meanLumaChangePercent": -1.3
+    },
+    {
+      "profile": "portrait",
+      "mood": "boss",
+      "boxPhysicalPixels": [
+        330,
+        310,
+        490,
+        500
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-portrait-boss.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-portrait-boss.png",
+      "baseline": {
+        "pixels": 30400,
+        "meanLuma": 6.274,
+        "medianLuma": 4.348,
+        "p90Luma": 13.546,
+        "stdLuma": 7.004
+      },
+      "candidate": {
+        "pixels": 30400,
+        "meanLuma": 8.721,
+        "medianLuma": 6.773,
+        "p90Luma": 18.179,
+        "stdLuma": 7.977
+      },
+      "meanLumaChangePercent": 39.0
+    },
+    {
+      "profile": "portrait",
+      "mood": "opposition",
+      "boxPhysicalPixels": [
+        330,
+        310,
+        490,
+        500
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-portrait-opposition.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-portrait-opposition.png",
+      "baseline": {
+        "pixels": 30400,
+        "meanLuma": 20.262,
+        "medianLuma": 8.135,
+        "p90Luma": 39.0,
+        "stdLuma": 34.77
+      },
+      "candidate": {
+        "pixels": 30400,
+        "meanLuma": 25.356,
+        "medianLuma": 10.98,
+        "p90Luma": 61.0,
+        "stdLuma": 38.153
+      },
+      "meanLumaChangePercent": 25.1
+    },
+    {
+      "profile": "landscape",
+      "mood": "normal",
+      "boxPhysicalPixels": [
+        1020,
+        230,
+        1220,
+        410
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-landscape-normal.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-landscape-normal.png",
+      "baseline": {
+        "pixels": 36000,
+        "meanLuma": 52.421,
+        "medianLuma": 45.28,
+        "p90Luma": 94.425,
+        "stdLuma": 29.645
+      },
+      "candidate": {
+        "pixels": 36000,
+        "meanLuma": 56.932,
+        "medianLuma": 50.564,
+        "p90Luma": 95.174,
+        "stdLuma": 29.646
+      },
+      "meanLumaChangePercent": 8.6
+    },
+    {
+      "profile": "landscape",
+      "mood": "player",
+      "boxPhysicalPixels": [
+        1020,
+        230,
+        1220,
+        410
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-landscape-player.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-landscape-player.png",
+      "baseline": {
+        "pixels": 36000,
+        "meanLuma": 60.676,
+        "medianLuma": 42.575,
+        "p90Luma": 138.575,
+        "stdLuma": 48.555
+      },
+      "candidate": {
+        "pixels": 36000,
+        "meanLuma": 65.765,
+        "medianLuma": 52.0,
+        "p90Luma": 139.818,
+        "stdLuma": 46.953
+      },
+      "meanLumaChangePercent": 8.4
+    },
+    {
+      "profile": "landscape",
+      "mood": "boss",
+      "boxPhysicalPixels": [
+        1020,
+        230,
+        1220,
+        410
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-landscape-boss.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-landscape-boss.png",
+      "baseline": {
+        "pixels": 36000,
+        "meanLuma": 25.153,
+        "medianLuma": 20.604,
+        "p90Luma": 50.343,
+        "stdLuma": 17.21
+      },
+      "candidate": {
+        "pixels": 36000,
+        "meanLuma": 28.197,
+        "medianLuma": 23.526,
+        "p90Luma": 53.044,
+        "stdLuma": 17.634
+      },
+      "meanLumaChangePercent": 12.1
+    },
+    {
+      "profile": "landscape",
+      "mood": "opposition",
+      "boxPhysicalPixels": [
+        1020,
+        230,
+        1220,
+        410
+      ],
+      "baselineImage": "/workspace/rc133-tools/final-round1-identity/boss-visibility-landscape-opposition.png",
+      "candidateImage": "/workspace/rc133-tools/final-round2-identity/boss-visibility-landscape-opposition.png",
+      "baseline": {
+        "pixels": 36000,
+        "meanLuma": 33.378,
+        "medianLuma": 22.526,
+        "p90Luma": 79.705,
+        "stdLuma": 27.218
+      },
+      "candidate": {
+        "pixels": 36000,
+        "meanLuma": 36.66,
+        "medianLuma": 28.305,
+        "p90Luma": 80.918,
+        "stdLuma": 26.789
+      },
+      "meanLumaChangePercent": 9.8
+    }
+  ],
+  "portraitBoundsAssessment": {
+    "schema": "native-portrait-boss-bounds/v1",
+    "candidate": "091143090653efffc7e64ab8262db25f91c3d293",
+    "profile": "portrait",
+    "mood": "opposition",
+    "stagedFixture": true,
+    "screenshot": "portrait-opposition-bounds-verified.png",
+    "rawEvidence": "portrait-opposition-bounds.json",
+    "admission": {
+      "liveBindingMatchesQA": true,
+      "liveBindingMatchesFixture": true,
+      "bindingPhase": "game",
+      "zone": "cult04",
+      "playerHp": 240,
+      "boss": {
+        "id": "inner-evil-rc133",
+        "sprite": "./assets/rc133/art/awake-2.png",
+        "hp": 280500,
+        "maxHp": 280500,
+        "x": 20,
+        "y": 10
+      },
+      "targetEnemyId": "inner-evil-rc133",
+      "mood": "opposition",
+      "storyOverlay": false,
+      "deathOverlay": false,
+      "nativeCompositorFrames": 25,
+      "bossPasses": 13,
+      "heroPasses": 12,
+      "bossCameraFocusId": "inner-evil-rc133",
+      "heroCameraFocusId": "hero",
+      "pageErrors": 0,
+      "httpErrors": 0
+    },
+    "sourceImage": "./assets/rc133/art/awake-2.png",
+    "sourceDimensions": {
+      "width": 224,
+      "height": 400
+    },
+    "canvasInternalPixels": {
+      "width": 1247,
+      "height": 702
+    },
+    "rc108CentralCropInternalPixels": {
+      "left": 0,
+      "top": 175,
+      "right": 1247,
+      "bottom": 526
+    },
+    "drawBounds": {
+      "boss": {
+        "samples": 6,
+        "canvasBoundsInternalPixels": {
+          "left": {
+            "min": 606.1471237445595,
+            "max": 606.1471237445595
+          },
+          "top": {
+            "min": 311.33558519952146,
+            "max": 311.33558519952146
+          },
+          "right": {
+            "min": 641.0972492568812,
+            "max": 641.0972492568812
+          },
+          "bottom": {
+            "min": 373.7465236143816,
+            "max": 373.7465236143816
+          }
+        },
+        "allSamplesWithinCrop": true,
+        "firstSample": {
+          "time": 0.45329999999999965,
+          "target": "boss",
+          "frame": 15,
+          "canvas": {
+            "width": 1247,
+            "height": 702,
+            "isDomCanvas": true
+          },
+          "source": {
+            "src": "http://127.0.0.1:38947/assets/rc133/art/awake-2.png?v=31332",
+            "naturalWidth": 224,
+            "naturalHeight": 400
+          },
+          "sourceRect": null,
+          "destinationRect": {
+            "x": 875.84,
+            "y": 287.88,
+            "width": 68.32,
+            "height": 122
+          },
+          "transform": {
+            "a": 0.5115650689742637,
+            "b": 0,
+            "c": 0,
+            "d": 0.5115650689742637,
+            "e": 158.0979737341404,
+            "f": 164.0662331432104
+          },
+          "canvasBounds": {
+            "left": 606.1471237445595,
+            "top": 311.33558519952146,
+            "right": 641.0972492568812,
+            "bottom": 373.7465236143816
+          },
+          "intersectCanvas": {
+            "left": 606.1471237445595,
+            "top": 311.33558519952146,
+            "right": 641.0972492568812,
+            "bottom": 373.7465236143816
+          },
+          "filter": "brightness(1.8) contrast(0.8)",
+          "globalAlpha": 1
+        }
+      },
+      "hero": {
+        "samples": 6,
+        "canvasBoundsInternalPixels": {
+          "left": {
+            "min": 640.0651335381709,
+            "max": 640.4124424396788
+          },
+          "top": {
+            "min": 290.8729815112814,
+            "max": 290.8729815112814
+          },
+          "right": {
+            "min": 675.0152590504927,
+            "max": 675.3625679520005
+          },
+          "bottom": {
+            "min": 353.28391992614155,
+            "max": 353.28391992614155
+          }
+        },
+        "allSamplesWithinCrop": true,
+        "firstSample": {
+          "time": 0.45329999999999965,
+          "target": "hero",
+          "frame": 14,
+          "canvas": {
+            "width": 1247,
+            "height": 702,
+            "isDomCanvas": true
+          },
+          "source": {
+            "src": "http://127.0.0.1:38947/assets/rc133/art/awake-2.png?v=31332",
+            "naturalWidth": 224,
+            "naturalHeight": 400
+          },
+          "sourceRect": null,
+          "destinationRect": {
+            "x": 875.84,
+            "y": 287.88,
+            "width": 68.32,
+            "height": 122
+          },
+          "transform": {
+            "a": 0.5115650689742637,
+            "b": 0,
+            "c": 0,
+            "d": 0.5115650689742637,
+            "e": 192.0159835277518,
+            "f": 143.60362945497036
+          },
+          "canvasBounds": {
+            "left": 640.0651335381709,
+            "top": 290.8729815112814,
+            "right": 675.0152590504927,
+            "bottom": 353.28391992614155
+          },
+          "intersectCanvas": {
+            "left": 640.0651335381709,
+            "top": 290.8729815112814,
+            "right": 675.0152590504927,
+            "bottom": 353.28391992614155
+          },
+          "filter": "brightness(1.8) contrast(0.8)",
+          "globalAlpha": 1
+        }
+      }
+    },
+    "finding": {
+      "recordedPositionClipped": false,
+      "bodyOffscreen": false,
+      "contrast": "subjectively very low against the dark-red opposition half at portrait size",
+      "hud": "boss bar/readout visually crowded near the horizontal pane divider; no quantitative HUD clearance measurement was taken",
+      "limit": "draw bounds apply to this staged inner-boss position and awake-2 frame only; pre-wait metrics stored under fixture.portrait are excluded from camera-focus conclusions"
+    }
+  },
+  "notes": "Fixed screen-space ROIs cover the inner boss body and nearby arena pixels. Luminance changes are coarse pixel corroboration; visual crops/contact sheets are the primary readability evidence. The verified portrait bounds prove the full awake-2 draw rect is inside the RC108 central crop at the staged capture position; the low-contrast observation remains subjective, and HUD clearance at the divider was not quantified."
+}

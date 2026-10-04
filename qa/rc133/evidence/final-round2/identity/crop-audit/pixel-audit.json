@@ -1,0 +1,4663 @@
+{
+  "baseline": "9a80f8aaf4a0dba1c90270f665e1535294e3822a",
+  "candidate": "091143090653efffc7e64ab8262db25f91c3d293",
+  "checks": {
+    "changedPathsFromBaseline": [
+      ".github/workflows/rc127-published.yml",
+      ".github/workflows/rc133-gameplay.yml",
+      ".github/workflows/rc133-published.yml",
+      ".github/workflows/story-narration-audit.yml",
+      "assets/combat-v31402/contact-geometry.js",
+      "assets/index-v31526.js",
+      "assets/rc133/art/chrono-10.png",
+      "assets/rc133/art/chrono-12.png",
+      "assets/rc133/art/chrono-13.png",
+      "assets/rc133/art/chrono-14.png",
+      "assets/rc133/art/chrono-15.png",
+      "assets/rc133/art/chrono-4.png",
+      "assets/rc133/art/chrono-9.png",
+      "assets/rc133/bitmap-contact.js",
+      "assets/rc133/developer-maps.js",
+      "assets/rc133/inner-final.js",
+      "assets/rc133/media-art.js",
+      "assets/rc133/native-install.js.txt",
+      "assets/rc91/samong-awakening.js",
+      "assets/rc95/combat-flow.js",
+      "assets/story-narration/v1/audio/murder01-post-6206cf6b0cff5b9aee7227b9.mp3",
+      "assets/story-narration/v1/audio/p-528fc9801b1d930011410fa0.mp3",
+      "assets/story-narration/v1/audio/p-9b69d5462a3117d00a02394b.mp3",
+      "assets/story-narration/v1/audio/p-bcc875690178af1726ad7589.mp3",
+      "assets/story-narration/v1/audio/p-e97a8118bd30b67e4dcc4c49.mp3",
+      "assets/story-narration/v1/manifest.json",
+      "index.html",
+      "qa/rc130/public-smoke.cjs",
+      "qa/rc133/art-processing.json",
+      "qa/rc133/authorized-runtime-delta.json",
+      "qa/rc133/evidence/final-round1/ci.json",
+      "qa/rc133/evidence/final-round1/genuine-checkpoint.json",
+      "qa/rc133/evidence/final-round1/performance.json",
+      "qa/rc133/evidence/final-round1/renderer-readiness.json",
+      "qa/rc133/final-round1-review.md",
+      "qa/rc133/first-lethal-policy.md",
+      "qa/rc133/hidden-duel-checkpoint.json",
+      "qa/rc133/published.cjs",
+      "qa/rc133/reconciliation.md",
+      "qa/rc133/release-status.json",
+      "qa/rc133/request-coverage.json",
+      "qa/rc133/two-round-audit.md",
+      "tests/combat-audio-browser.cjs",
+      "tests/fixtures/story-narration-decoder-edges.json",
+      "tests/lib/combat-audio-catalog.cjs",
+      "tests/rc108-combat-browser.cjs",
+      "tests/rc118-laser-phase-browser.cjs",
+      "tests/rc128-candidate.cjs",
+      "tests/rc133-777-browser.cjs",
+      "tests/rc133-bitmap-browser.cjs",
+      "tests/rc133-browser.cjs",
+      "tests/rc133-contact-browser.cjs",
+      "tests/rc133-developer-maps.cjs",
+      "tests/rc133-duel-hitboxes.cjs",
+      "tests/rc133-media-art.cjs",
+      "tests/rc133-performance-browser.cjs",
+      "tests/rc133-preservation-unit.cjs",
+      "tests/rc133-public-contract.cjs",
+      "tests/rc91-samong-and-laser-smoke.cjs",
+      "tests/rc95-flow-policy-smoke.cjs",
+      "tests/story-narration-decoder-edges.cjs",
+      "tools/rc130-preservation.cjs",
+      "tools/rc133-extract-art.py",
+      "tools/rc133-preservation.cjs",
+      "tools/rc133-release-compatibility.cjs",
+      "tools/story-narration-release86-preservation.cjs"
+    ],
+    "cropPixelReconstruction": [
+      {
+        "alphaBounds": [
+          5,
+          8,
+          53,
+          51
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/small-orb.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          8,
+          5,
+          7
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          61,
+          49
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/eye.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          49,
+          105
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/diamond.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          99,
+          106
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/clock.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          46,
+          67
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/star.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          10,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          168,
+          143
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 6,
+          "masks": [
+            [
+              5,
+              35,
+              8,
+              47
+            ],
+            [
+              160,
+              90,
+              170,
+              110
+            ],
+            [
+              136,
+              136,
+              173,
+              148
+            ],
+            [
+              137,
+              111,
+              161,
+              137
+            ],
+            [
+              143,
+              97,
+              161,
+              108
+            ],
+            [
+              164,
+              132,
+              169,
+              137
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/eclipse.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          219,
+          88
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 4,
+          "masks": [
+            [
+              90,
+              5,
+              110,
+              12
+            ],
+            [
+              85,
+              68,
+              101,
+              88
+            ],
+            [
+              208,
+              71,
+              219,
+              88
+            ],
+            [
+              5,
+              75,
+              9,
+              88
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/lance.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          133,
+          115
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/shield.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          5,
+          5,
+          166,
+          117
+        ],
+        "detail": {
+          "kind": "vfx-source-crop-plus-transparent-pad-alpha-masks",
+          "maskCount": 5,
+          "masks": [
+            [
+              0,
+              15,
+              15,
+              82
+            ],
+            [
+              0,
+              87,
+              12,
+              109
+            ],
+            [
+              18,
+              106,
+              32,
+              118
+            ],
+            [
+              82,
+              112,
+              112,
+              122
+            ],
+            [
+              156,
+              108,
+              167,
+              122
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/vortex.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alphaBounds": [
+          44,
+          94,
+          280,
+          250
+        ],
+        "detail": {
+          "actualSourceRect": [
+            0,
+            0,
+            314,
+            314
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-0.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          44,
+          94,
+          34,
+          64
+        ]
+      },
+      {
+        "alphaBounds": [
+          29,
+          49,
+          279,
+          272
+        ],
+        "detail": {
+          "actualSourceRect": [
+            314,
+            0,
+            627,
+            314
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-1.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          29,
+          49,
+          34,
+          42
+        ]
+      },
+      {
+        "alphaBounds": [
+          33,
+          55,
+          266,
+          277
+        ],
+        "detail": {
+          "actualSourceRect": [
+            627,
+            0,
+            940,
+            314
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-2.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          33,
+          55,
+          47,
+          37
+        ]
+      },
+      {
+        "alphaBounds": [
+          6,
+          31,
+          279,
+          295
+        ],
+        "detail": {
+          "actualSourceRect": [
+            940,
+            0,
+            1254,
+            314
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-3.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          6,
+          31,
+          35,
+          19
+        ]
+      },
+      {
+        "alphaBounds": [
+          38,
+          23,
+          284,
+          312
+        ],
+        "detail": {
+          "actualSourceRect": [
+            0,
+            314,
+            314,
+            627
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              158,
+              312,
+              160,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-4.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          38,
+          23,
+          30,
+          1
+        ]
+      },
+      {
+        "alphaBounds": [
+          15,
+          8,
+          294,
+          281
+        ],
+        "detail": {
+          "actualSourceRect": [
+            314,
+            314,
+            627,
+            627
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-5.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          15,
+          8,
+          19,
+          32
+        ]
+      },
+      {
+        "alphaBounds": [
+          14,
+          98,
+          284,
+          194
+        ],
+        "detail": {
+          "actualSourceRect": [
+            627,
+            314,
+            940,
+            627
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-6.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          14,
+          98,
+          29,
+          119
+        ]
+      },
+      {
+        "alphaBounds": [
+          4,
+          21,
+          276,
+          279
+        ],
+        "detail": {
+          "actualSourceRect": [
+            940,
+            314,
+            1254,
+            627
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-7.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          4,
+          21,
+          38,
+          34
+        ]
+      },
+      {
+        "alphaBounds": [
+          26,
+          0,
+          291,
+          249
+        ],
+        "detail": {
+          "actualSourceRect": [
+            0,
+            627,
+            314,
+            940
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              146,
+              286,
+              172,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 2
+        },
+        "file": "assets/rc133/art/chrono-8.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          26,
+          0,
+          23,
+          64
+        ]
+      },
+      {
+        "alphaBounds": [
+          21,
+          4,
+          283,
+          310
+        ],
+        "detail": {
+          "actualSourceRect": [
+            314,
+            627,
+            627,
+            940
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 5,
+          "masks": [
+            [
+              68,
+              296,
+              112,
+              313
+            ],
+            [
+              145,
+              294,
+              151,
+              299
+            ],
+            [
+              155,
+              285,
+              177,
+              295
+            ],
+            [
+              155,
+              308,
+              170,
+              313
+            ],
+            [
+              140,
+              312,
+              141,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-9.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          21,
+          4,
+          30,
+          3
+        ]
+      },
+      {
+        "alphaBounds": [
+          25,
+          4,
+          276,
+          312
+        ],
+        "detail": {
+          "actualSourceRect": [
+            627,
+            627,
+            940,
+            940
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 4,
+          "masks": [
+            [
+              37,
+              291,
+              49,
+              313
+            ],
+            [
+              243,
+              289,
+              260,
+              313
+            ],
+            [
+              19,
+              304,
+              27,
+              313
+            ],
+            [
+              63,
+              312,
+              64,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-10.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          25,
+          4,
+          37,
+          1
+        ]
+      },
+      {
+        "alphaBounds": [
+          16,
+          2,
+          268,
+          247
+        ],
+        "detail": {
+          "actualSourceRect": [
+            940,
+            627,
+            1254,
+            940
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-11.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          16,
+          2,
+          46,
+          66
+        ]
+      },
+      {
+        "alphaBounds": [
+          35,
+          13,
+          278,
+          289
+        ],
+        "detail": {
+          "actualSourceRect": [
+            0,
+            900,
+            314,
+            1214
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-12.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          35,
+          13,
+          36,
+          25
+        ]
+      },
+      {
+        "alphaBounds": [
+          12,
+          13,
+          281,
+          289
+        ],
+        "detail": {
+          "actualSourceRect": [
+            314,
+            900,
+            627,
+            1214
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              248,
+              67,
+              252,
+              70
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-13.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          12,
+          13,
+          32,
+          25
+        ]
+      },
+      {
+        "alphaBounds": [
+          20,
+          17,
+          263,
+          291
+        ],
+        "detail": {
+          "actualSourceRect": [
+            627,
+            900,
+            940,
+            1214
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-14.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          20,
+          17,
+          50,
+          23
+        ]
+      },
+      {
+        "alphaBounds": [
+          2,
+          1,
+          284,
+          246
+        ],
+        "detail": {
+          "actualSourceRect": [
+            940,
+            940,
+            1254,
+            1254
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              113,
+              0,
+              114,
+              1
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-15.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          2,
+          1,
+          30,
+          68
+        ]
+      }
+    ],
+    "externalDerivatives": [
+      {
+        "alpha128Bounds": [
+          40,
+          27,
+          1220,
+          1223
+        ],
+        "alpha8Bounds": [
+          10,
+          2,
+          1246,
+          1248
+        ],
+        "alphaBounds": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "bytes": 1533199,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 82,
+          "left": 61,
+          "right": 3,
+          "top": 12
+        },
+        "file": "assets/rc133/art/awakening-eclipse.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 1533199,
+        "manifestDimensions": [
+          1254,
+          1254
+        ],
+        "manifestSha256": "12e69e1c64e1970b5620588cbe4028cc7c4e7d93cc26444984ae1affaf36f759",
+        "manifestSourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+        "mode": "RGBA",
+        "sha256": "12e69e1c64e1970b5620588cbe4028cc7c4e7d93cc26444984ae1affaf36f759",
+        "sourceHashMatches": true,
+        "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+        "transparentMarginsPx": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "manifestedOutputs": [
+      {
+        "bytes": 2409050,
+        "dimensions": [
+          1672,
+          941
+        ],
+        "dimensionsMatch": true,
+        "file": "assets/rc133/art/arena.webp",
+        "format": "WEBP",
+        "hashMatches": true,
+        "manifestBytes": 2409050,
+        "manifestDimensions": [
+          1672,
+          941
+        ],
+        "manifestSha256": "02798e550e6b070c3f43258f83be23f95273ca3ec1c05a7717091c471b2d9978",
+        "manifestSourceSha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+        "mode": "RGB",
+        "sha256": "02798e550e6b070c3f43258f83be23f95273ca3ec1c05a7717091c471b2d9978",
+        "sourceHashMatches": true,
+        "sourceSha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b"
+      },
+      {
+        "bytes": 2192074,
+        "dimensions": [
+          1672,
+          941
+        ],
+        "dimensionsMatch": true,
+        "file": "assets/rc133/art/reveal.webp",
+        "format": "WEBP",
+        "hashMatches": true,
+        "manifestBytes": 2192074,
+        "manifestDimensions": [
+          1672,
+          941
+        ],
+        "manifestSha256": "e30ead2edefcd1df3e220c19a74f146452e64dc256af4017bc5871f9da6ec40d",
+        "manifestSourceSha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+        "mode": "RGB",
+        "sha256": "e30ead2edefcd1df3e220c19a74f146452e64dc256af4017bc5871f9da6ec40d",
+        "sourceHashMatches": true,
+        "sourceSha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24"
+      },
+      {
+        "alpha128Bounds": [
+          8,
+          167,
+          207,
+          385
+        ],
+        "alpha8Bounds": [
+          7,
+          164,
+          208,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          164,
+          210,
+          388
+        ],
+        "bytes": 76168,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 7,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/portrait.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 76168,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "d36bf20c26724709a195cb225b53d1c6b43e856bcf244a6ed2a297c98fcbd73a",
+        "manifestSourceSha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+        "mode": "RGBA",
+        "sha256": "d36bf20c26724709a195cb225b53d1c6b43e856bcf244a6ed2a297c98fcbd73a",
+        "sourceHashMatches": true,
+        "sourceSha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+        "transparentMarginsPx": [
+          0,
+          164,
+          14,
+          12
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          14,
+          29,
+          224,
+          386
+        ],
+        "alpha8Bounds": [
+          11,
+          28,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          395
+        ],
+        "bytes": 136357,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 63,
+          "right": 182,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-0.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 136357,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          26,
+          0,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          27,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          26,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          25,
+          224,
+          392
+        ],
+        "bytes": 134489,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 179,
+          "right": 182,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-1.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 134489,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          25,
+          0,
+          8
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          22,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          20,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          19,
+          224,
+          388
+        ],
+        "bytes": 133371,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 170,
+          "right": 190,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-2.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 133371,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          19,
+          0,
+          12
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          29,
+          223,
+          386
+        ],
+        "alpha8Bounds": [
+          0,
+          28,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          393
+        ],
+        "bytes": 136960,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 182,
+          "right": 147,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-3.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 136960,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          26,
+          0,
+          7
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          10,
+          27,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          7,
+          26,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          24,
+          224,
+          393
+        ],
+        "bytes": 122152,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 124,
+          "right": 148,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-4.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 122152,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          24,
+          0,
+          7
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          25,
+          224,
+          386
+        ],
+        "alpha8Bounds": [
+          0,
+          24,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          22,
+          224,
+          393
+        ],
+        "bytes": 127505,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 146,
+          "right": 148,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-5.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 127505,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          22,
+          0,
+          7
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          26,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          25,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          25,
+          224,
+          391
+        ],
+        "bytes": 126765,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 146,
+          "right": 193,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-6.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 126765,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          25,
+          0,
+          9
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          23,
+          210,
+          386
+        ],
+        "alpha8Bounds": [
+          0,
+          22,
+          211,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          21,
+          223,
+          389
+        ],
+        "bytes": 134646,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 193,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-7.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 134646,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          21,
+          1,
+          11
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          8,
+          29,
+          224,
+          386
+        ],
+        "alpha8Bounds": [
+          6,
+          28,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          16,
+          224,
+          393
+        ],
+        "bytes": 167518,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 201,
+          "right": 253,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-0.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 167518,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          16,
+          0,
+          7
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          28,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          27,
+          224,
+          388
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          394
+        ],
+        "bytes": 163617,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 246,
+          "right": 272,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-1.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 163617,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          26,
+          0,
+          6
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          23,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          22,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          22,
+          224,
+          389
+        ],
+        "bytes": 166185,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 272,
+          "right": 285,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-2.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 166185,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          22,
+          0,
+          11
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          30,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          29,
+          224,
+          388
+        ],
+        "alphaBounds": [
+          0,
+          28,
+          224,
+          396
+        ],
+        "bytes": 168579,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 276,
+          "right": 220,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-3.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 168579,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          28,
+          0,
+          4
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          29,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          28,
+          224,
+          388
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          395
+        ],
+        "bytes": 161572,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 222,
+          "right": 206,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-4.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 161572,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          26,
+          0,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          28,
+          224,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          27,
+          224,
+          388
+        ],
+        "alphaBounds": [
+          0,
+          25,
+          224,
+          396
+        ],
+        "bytes": 159069,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 208,
+          "right": 266,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-5.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 159069,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          25,
+          0,
+          4
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          35,
+          224,
+          386
+        ],
+        "alpha8Bounds": [
+          0,
+          34,
+          224,
+          387
+        ],
+        "alphaBounds": [
+          0,
+          28,
+          224,
+          395
+        ],
+        "bytes": 167849,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 261,
+          "right": 236,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-6.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 167849,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          28,
+          0,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          25,
+          220,
+          385
+        ],
+        "alpha8Bounds": [
+          0,
+          24,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          24,
+          224,
+          397
+        ],
+        "bytes": 166631,
+        "dimensions": [
+          224,
+          400
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 233,
+          "right": 144,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-7.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 166631,
+        "manifestDimensions": [
+          224,
+          400
+        ],
+        "manifestSha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
+        "manifestSourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "mode": "RGBA",
+        "sha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
+        "sourceHashMatches": true,
+        "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "transparentMarginsPx": [
+          0,
+          24,
+          0,
+          3
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          15,
+          14,
+          40,
+          44
+        ],
+        "alpha8Bounds": [
+          12,
+          9,
+          42,
+          49
+        ],
+        "alphaBounds": [
+          5,
+          8,
+          53,
+          51
+        ],
+        "bytes": 3065,
+        "dimensions": [
+          58,
+          58
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/small-orb.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 3065,
+        "manifestDimensions": [
+          58,
+          58
+        ],
+        "manifestSha256": "69b34f1f8ac183825a05dedbf816a6bb618c0315526edbbe0e8120ef1b7fadf5",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "69b34f1f8ac183825a05dedbf816a6bb618c0315526edbbe0e8120ef1b7fadf5",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          8,
+          5,
+          7
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          10,
+          17,
+          51,
+          43
+        ],
+        "alpha8Bounds": [
+          5,
+          15,
+          61,
+          46
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          61,
+          49
+        ],
+        "bytes": 4855,
+        "dimensions": [
+          66,
+          54
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/eye.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 4855,
+        "manifestDimensions": [
+          66,
+          54
+        ],
+        "manifestSha256": "6f363a492146782f0adc96628603aac9fa7b6d27bd90ca4002de2c48fbf8ce11",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "6f363a492146782f0adc96628603aac9fa7b6d27bd90ca4002de2c48fbf8ce11",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          5,
+          5,
+          46,
+          105
+        ],
+        "alpha8Bounds": [
+          5,
+          5,
+          49,
+          105
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          49,
+          105
+        ],
+        "bytes": 9322,
+        "dimensions": [
+          54,
+          110
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/diamond.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 9322,
+        "manifestDimensions": [
+          54,
+          110
+        ],
+        "manifestSha256": "a51af7454d95ee169eb3b8cff521e2a76aec2ffe3cf69b4534821cb6812a9456",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "a51af7454d95ee169eb3b8cff521e2a76aec2ffe3cf69b4534821cb6812a9456",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          5,
+          5,
+          99,
+          106
+        ],
+        "alpha8Bounds": [
+          5,
+          5,
+          99,
+          106
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          99,
+          106
+        ],
+        "bytes": 23728,
+        "dimensions": [
+          104,
+          111
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/clock.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 23728,
+        "manifestDimensions": [
+          104,
+          111
+        ],
+        "manifestSha256": "78cd7828f3c5938b92ec2139120d5be4d566e569394a9e9ad7b42e1b4c84d907",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "78cd7828f3c5938b92ec2139120d5be4d566e569394a9e9ad7b42e1b4c84d907",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          5,
+          7,
+          35,
+          67
+        ],
+        "alpha8Bounds": [
+          5,
+          5,
+          39,
+          67
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          46,
+          67
+        ],
+        "bytes": 4076,
+        "dimensions": [
+          56,
+          72
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/star.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 4076,
+        "manifestDimensions": [
+          56,
+          72
+        ],
+        "manifestSha256": "e5c41ec6f0847a69ec57857764ea5e6adb5498fea8b07f6f371a10a2ca877b5e",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "e5c41ec6f0847a69ec57857764ea5e6adb5498fea8b07f6f371a10a2ca877b5e",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          10,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          5,
+          7,
+          165,
+          139
+        ],
+        "alpha8Bounds": [
+          5,
+          5,
+          168,
+          143
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          168,
+          143
+        ],
+        "bytes": 50238,
+        "dimensions": [
+          173,
+          148
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/eclipse.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 50238,
+        "manifestDimensions": [
+          173,
+          148
+        ],
+        "manifestSha256": "b49126ae5fac926a5b2f08f132c20aeb53065585f403db873dc9af2419edbebb",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "b49126ae5fac926a5b2f08f132c20aeb53065585f403db873dc9af2419edbebb",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          5,
+          8,
+          214,
+          84
+        ],
+        "alpha8Bounds": [
+          5,
+          5,
+          219,
+          88
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          219,
+          88
+        ],
+        "bytes": 25071,
+        "dimensions": [
+          224,
+          93
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/lance.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 25071,
+        "manifestDimensions": [
+          224,
+          93
+        ],
+        "manifestSha256": "c7c9579891c9de1fb9a56b9200f742329a8218c378cf33a1f8313e3f53d5d851",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "c7c9579891c9de1fb9a56b9200f742329a8218c378cf33a1f8313e3f53d5d851",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          6,
+          5,
+          124,
+          107
+        ],
+        "alpha8Bounds": [
+          5,
+          5,
+          126,
+          110
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          133,
+          115
+        ],
+        "bytes": 29827,
+        "dimensions": [
+          138,
+          120
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/shield.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 29827,
+        "manifestDimensions": [
+          138,
+          120
+        ],
+        "manifestSha256": "64608771890353ed2a82c7c227e104c60918711e9b5d3963aa38f1df707faa1e",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "64608771890353ed2a82c7c227e104c60918711e9b5d3963aa38f1df707faa1e",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          15,
+          10,
+          158,
+          117
+        ],
+        "alpha8Bounds": [
+          14,
+          5,
+          159,
+          117
+        ],
+        "alphaBounds": [
+          5,
+          5,
+          166,
+          117
+        ],
+        "bytes": 43749,
+        "dimensions": [
+          171,
+          122
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/vortex.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 43749,
+        "manifestDimensions": [
+          171,
+          122
+        ],
+        "manifestSha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a",
+        "manifestSourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "mode": "RGBA",
+        "sha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a",
+        "sourceHashMatches": true,
+        "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "transparentMarginsPx": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          44,
+          94,
+          280,
+          250
+        ],
+        "alpha8Bounds": [
+          44,
+          94,
+          280,
+          250
+        ],
+        "alphaBounds": [
+          44,
+          94,
+          280,
+          250
+        ],
+        "bytes": 101256,
+        "dimensions": [
+          314,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-0.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 101256,
+        "manifestDimensions": [
+          314,
+          314
+        ],
+        "manifestSha256": "55909c956ba4e4437c699c329398230ea0e70f7836dfa570b7ccc5cd25ed585e",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "55909c956ba4e4437c699c329398230ea0e70f7836dfa570b7ccc5cd25ed585e",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          44,
+          94,
+          34,
+          64
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          29,
+          49,
+          279,
+          272
+        ],
+        "alpha8Bounds": [
+          29,
+          49,
+          279,
+          272
+        ],
+        "alphaBounds": [
+          29,
+          49,
+          279,
+          272
+        ],
+        "bytes": 164266,
+        "dimensions": [
+          313,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-1.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 164266,
+        "manifestDimensions": [
+          313,
+          314
+        ],
+        "manifestSha256": "2138851c7765e2081effa31f49409e180acfa32a62cebd56d233e31bde9886b0",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "2138851c7765e2081effa31f49409e180acfa32a62cebd56d233e31bde9886b0",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          29,
+          49,
+          34,
+          42
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          33,
+          55,
+          266,
+          277
+        ],
+        "alpha8Bounds": [
+          33,
+          55,
+          266,
+          277
+        ],
+        "alphaBounds": [
+          33,
+          55,
+          266,
+          277
+        ],
+        "bytes": 137389,
+        "dimensions": [
+          313,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-2.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 137389,
+        "manifestDimensions": [
+          313,
+          314
+        ],
+        "manifestSha256": "87fb9bdaf47a2b542de367c285595334af4b65282359bc98928e49f466789821",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "87fb9bdaf47a2b542de367c285595334af4b65282359bc98928e49f466789821",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          33,
+          55,
+          47,
+          37
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          6,
+          31,
+          279,
+          295
+        ],
+        "alpha8Bounds": [
+          6,
+          31,
+          279,
+          295
+        ],
+        "alphaBounds": [
+          6,
+          31,
+          279,
+          295
+        ],
+        "bytes": 185400,
+        "dimensions": [
+          314,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-3.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 185400,
+        "manifestDimensions": [
+          314,
+          314
+        ],
+        "manifestSha256": "92d150e7e2edbcb143d538964c03eb8b6f927d1b00a523facd7697346c91dfc1",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "92d150e7e2edbcb143d538964c03eb8b6f927d1b00a523facd7697346c91dfc1",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          6,
+          31,
+          35,
+          19
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          38,
+          23,
+          284,
+          312
+        ],
+        "alpha8Bounds": [
+          38,
+          23,
+          284,
+          312
+        ],
+        "alphaBounds": [
+          38,
+          23,
+          284,
+          312
+        ],
+        "bytes": 150700,
+        "dimensions": [
+          314,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-4.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 150700,
+        "manifestDimensions": [
+          314,
+          313
+        ],
+        "manifestSha256": "05f1760cc1e0f6fa4a24e4f030e35f852822cf26f351dd5ba6cb36636a8ca956",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "05f1760cc1e0f6fa4a24e4f030e35f852822cf26f351dd5ba6cb36636a8ca956",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          38,
+          23,
+          30,
+          1
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          15,
+          8,
+          294,
+          281
+        ],
+        "alpha8Bounds": [
+          15,
+          8,
+          294,
+          281
+        ],
+        "alphaBounds": [
+          15,
+          8,
+          294,
+          281
+        ],
+        "bytes": 181397,
+        "dimensions": [
+          313,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-5.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 181397,
+        "manifestDimensions": [
+          313,
+          313
+        ],
+        "manifestSha256": "3a66a656d7660c0f859f69cf6d333fe4aab5ab8a0e1fd9c4a985e2b5fb8cd16a",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "3a66a656d7660c0f859f69cf6d333fe4aab5ab8a0e1fd9c4a985e2b5fb8cd16a",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          15,
+          8,
+          19,
+          32
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          14,
+          98,
+          284,
+          194
+        ],
+        "alpha8Bounds": [
+          14,
+          98,
+          284,
+          194
+        ],
+        "alphaBounds": [
+          14,
+          98,
+          284,
+          194
+        ],
+        "bytes": 85874,
+        "dimensions": [
+          313,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-6.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 85874,
+        "manifestDimensions": [
+          313,
+          313
+        ],
+        "manifestSha256": "8ae6e64aeaca42b9c377cf80cd2c0528c408d2cc0e697395aae38746f6be7ac2",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "8ae6e64aeaca42b9c377cf80cd2c0528c408d2cc0e697395aae38746f6be7ac2",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          14,
+          98,
+          29,
+          119
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          4,
+          21,
+          276,
+          279
+        ],
+        "alpha8Bounds": [
+          4,
+          21,
+          276,
+          279
+        ],
+        "alphaBounds": [
+          4,
+          21,
+          276,
+          279
+        ],
+        "bytes": 161370,
+        "dimensions": [
+          314,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-7.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 161370,
+        "manifestDimensions": [
+          314,
+          313
+        ],
+        "manifestSha256": "cc0eaa0c7f9c0d82e9e4104e8febb0b1271fb570b8e74e519a3f979c781f2a1e",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "cc0eaa0c7f9c0d82e9e4104e8febb0b1271fb570b8e74e519a3f979c781f2a1e",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          4,
+          21,
+          38,
+          34
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          26,
+          0,
+          291,
+          249
+        ],
+        "alpha8Bounds": [
+          26,
+          0,
+          291,
+          249
+        ],
+        "alphaBounds": [
+          26,
+          0,
+          291,
+          249
+        ],
+        "bytes": 136353,
+        "dimensions": [
+          314,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 2
+        },
+        "file": "assets/rc133/art/chrono-8.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 136353,
+        "manifestDimensions": [
+          314,
+          313
+        ],
+        "manifestSha256": "0adbfc4eeb3d854186f2c1695ad1e60da7f6443105210db16092c55d5c73061e",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "0adbfc4eeb3d854186f2c1695ad1e60da7f6443105210db16092c55d5c73061e",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          26,
+          0,
+          23,
+          64
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          21,
+          4,
+          283,
+          310
+        ],
+        "alpha8Bounds": [
+          21,
+          4,
+          283,
+          310
+        ],
+        "alphaBounds": [
+          21,
+          4,
+          283,
+          310
+        ],
+        "bytes": 156973,
+        "dimensions": [
+          313,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-9.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 156973,
+        "manifestDimensions": [
+          313,
+          313
+        ],
+        "manifestSha256": "5143d72349fdfaf8d2a2f55889e30286402f10d4f174a763c2e93c980b1ef251",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "5143d72349fdfaf8d2a2f55889e30286402f10d4f174a763c2e93c980b1ef251",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          21,
+          4,
+          30,
+          3
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          25,
+          4,
+          276,
+          312
+        ],
+        "alpha8Bounds": [
+          25,
+          4,
+          276,
+          312
+        ],
+        "alphaBounds": [
+          25,
+          4,
+          276,
+          312
+        ],
+        "bytes": 155467,
+        "dimensions": [
+          313,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-10.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 155467,
+        "manifestDimensions": [
+          313,
+          313
+        ],
+        "manifestSha256": "1b1c30cbb033e40bd4278ace543ccfaaed30139401251155d61e5f469dddaf47",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "1b1c30cbb033e40bd4278ace543ccfaaed30139401251155d61e5f469dddaf47",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          25,
+          4,
+          37,
+          1
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          16,
+          2,
+          268,
+          247
+        ],
+        "alpha8Bounds": [
+          16,
+          2,
+          268,
+          247
+        ],
+        "alphaBounds": [
+          16,
+          2,
+          268,
+          247
+        ],
+        "bytes": 162700,
+        "dimensions": [
+          314,
+          313
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-11.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 162700,
+        "manifestDimensions": [
+          314,
+          313
+        ],
+        "manifestSha256": "6860356b5bdcd7b85efbd84adef4e2a23dd1b77ff278f6270f2348fd5b3aac9b",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "6860356b5bdcd7b85efbd84adef4e2a23dd1b77ff278f6270f2348fd5b3aac9b",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          16,
+          2,
+          46,
+          66
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          35,
+          13,
+          278,
+          289
+        ],
+        "alpha8Bounds": [
+          35,
+          13,
+          278,
+          289
+        ],
+        "alphaBounds": [
+          35,
+          13,
+          278,
+          289
+        ],
+        "bytes": 174734,
+        "dimensions": [
+          314,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-12.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 174734,
+        "manifestDimensions": [
+          314,
+          314
+        ],
+        "manifestSha256": "bd886ef798dea655d0bf3b912e208d5dbbfd42d19141b334ade14d78bd681dff",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "bd886ef798dea655d0bf3b912e208d5dbbfd42d19141b334ade14d78bd681dff",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          35,
+          13,
+          36,
+          25
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          12,
+          13,
+          281,
+          289
+        ],
+        "alpha8Bounds": [
+          12,
+          13,
+          281,
+          289
+        ],
+        "alphaBounds": [
+          12,
+          13,
+          281,
+          289
+        ],
+        "bytes": 174780,
+        "dimensions": [
+          313,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-13.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 174780,
+        "manifestDimensions": [
+          313,
+          314
+        ],
+        "manifestSha256": "6f56cbf3f3627ba402aab79c781bdcc0e648bedf06083f194f31b40910029885",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "6f56cbf3f3627ba402aab79c781bdcc0e648bedf06083f194f31b40910029885",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          12,
+          13,
+          32,
+          25
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          20,
+          17,
+          263,
+          291
+        ],
+        "alpha8Bounds": [
+          20,
+          17,
+          263,
+          291
+        ],
+        "alphaBounds": [
+          20,
+          17,
+          263,
+          291
+        ],
+        "bytes": 156161,
+        "dimensions": [
+          313,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-14.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 156161,
+        "manifestDimensions": [
+          313,
+          314
+        ],
+        "manifestSha256": "63dcaf11f5e744dbd5a4d73a0873e575594e7cfe262a36018e3c193bbf1be331",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "63dcaf11f5e744dbd5a4d73a0873e575594e7cfe262a36018e3c193bbf1be331",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          20,
+          17,
+          50,
+          23
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          2,
+          1,
+          284,
+          246
+        ],
+        "alpha8Bounds": [
+          2,
+          1,
+          284,
+          246
+        ],
+        "alphaBounds": [
+          2,
+          1,
+          284,
+          246
+        ],
+        "bytes": 150890,
+        "dimensions": [
+          314,
+          314
+        ],
+        "dimensionsMatch": true,
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-15.png",
+        "format": "PNG",
+        "hashMatches": true,
+        "manifestBytes": 150890,
+        "manifestDimensions": [
+          314,
+          314
+        ],
+        "manifestSha256": "06930dd9be257780d3d73d947dda781ab2a7ba019889973501be83ee063cd283",
+        "manifestSourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "mode": "RGBA",
+        "sha256": "06930dd9be257780d3d73d947dda781ab2a7ba019889973501be83ee063cd283",
+        "sourceHashMatches": true,
+        "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+        "transparentMarginsPx": [
+          2,
+          1,
+          30,
+          68
+        ]
+      }
+    ],
+    "nonArtRuntimeOrHitboxPaths": [
+      ".github/workflows/rc127-published.yml",
+      ".github/workflows/rc133-gameplay.yml",
+      ".github/workflows/rc133-published.yml",
+      ".github/workflows/story-narration-audit.yml",
+      "assets/combat-v31402/contact-geometry.js",
+      "assets/index-v31526.js",
+      "assets/rc133/bitmap-contact.js",
+      "assets/rc133/developer-maps.js",
+      "assets/rc133/inner-final.js",
+      "assets/rc133/media-art.js",
+      "assets/rc133/native-install.js.txt",
+      "assets/rc91/samong-awakening.js",
+      "assets/rc95/combat-flow.js",
+      "assets/story-narration/v1/audio/murder01-post-6206cf6b0cff5b9aee7227b9.mp3",
+      "assets/story-narration/v1/audio/p-528fc9801b1d930011410fa0.mp3",
+      "assets/story-narration/v1/audio/p-9b69d5462a3117d00a02394b.mp3",
+      "assets/story-narration/v1/audio/p-bcc875690178af1726ad7589.mp3",
+      "assets/story-narration/v1/audio/p-e97a8118bd30b67e4dcc4c49.mp3",
+      "assets/story-narration/v1/manifest.json",
+      "index.html",
+      "qa/rc130/public-smoke.cjs",
+      "qa/rc133/authorized-runtime-delta.json",
+      "qa/rc133/evidence/final-round1/ci.json",
+      "qa/rc133/evidence/final-round1/genuine-checkpoint.json",
+      "qa/rc133/evidence/final-round1/performance.json",
+      "qa/rc133/evidence/final-round1/renderer-readiness.json",
+      "qa/rc133/final-round1-review.md",
+      "qa/rc133/first-lethal-policy.md",
+      "qa/rc133/hidden-duel-checkpoint.json",
+      "qa/rc133/published.cjs",
+      "qa/rc133/reconciliation.md",
+      "qa/rc133/release-status.json",
+      "qa/rc133/request-coverage.json",
+      "qa/rc133/two-round-audit.md",
+      "tests/combat-audio-browser.cjs",
+      "tests/fixtures/story-narration-decoder-edges.json",
+      "tests/lib/combat-audio-catalog.cjs",
+      "tests/rc108-combat-browser.cjs",
+      "tests/rc118-laser-phase-browser.cjs",
+      "tests/rc128-candidate.cjs",
+      "tests/rc133-777-browser.cjs",
+      "tests/rc133-bitmap-browser.cjs",
+      "tests/rc133-browser.cjs",
+      "tests/rc133-contact-browser.cjs",
+      "tests/rc133-developer-maps.cjs",
+      "tests/rc133-duel-hitboxes.cjs",
+      "tests/rc133-performance-browser.cjs",
+      "tests/rc133-preservation-unit.cjs",
+      "tests/rc133-public-contract.cjs",
+      "tests/rc91-samong-and-laser-smoke.cjs",
+      "tests/rc95-flow-policy-smoke.cjs",
+      "tests/story-narration-decoder-edges.cjs",
+      "tools/rc130-preservation.cjs",
+      "tools/rc133-preservation.cjs",
+      "tools/rc133-release-compatibility.cjs",
+      "tools/story-narration-release86-preservation.cjs"
+    ],
+    "otherOutputBaselineComparison": [
+      {
+        "file": "assets/rc133/art/arena.webp",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/reveal.webp",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/portrait.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-0.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-1.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-2.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-3.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-4.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-5.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-6.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/base-7.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-0.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-1.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-2.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-3.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-4.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-5.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-6.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/awake-7.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/small-orb.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/eye.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/diamond.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/clock.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/star.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/eclipse.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/lance.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/shield.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/vortex.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-0.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-1.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-2.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-3.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-5.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-6.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-7.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-8.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      },
+      {
+        "file": "assets/rc133/art/chrono-11.png",
+        "sameOutputShaAsBaseline": true,
+        "samePivotAsBaseline": true
+      }
+    ],
+    "personaFrames": [
+      {
+        "alpha128Bounds": [
+          14,
+          29,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          395
+        ],
+        "baselineSha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 63,
+          "right": 182,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-0.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            111.0,
+            427
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          27,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          25,
+          224,
+          392
+        ],
+        "baselineSha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 179,
+          "right": 182,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-1.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            333.0,
+            430
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          22,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          19,
+          224,
+          388
+        ],
+        "baselineSha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 170,
+          "right": 190,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-2.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            554.5,
+            434
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          29,
+          223,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          393
+        ],
+        "baselineSha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 182,
+          "right": 147,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-3.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            776.0,
+            429
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          10,
+          27,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          24,
+          224,
+          393
+        ],
+        "baselineSha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 124,
+          "right": 148,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-4.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            998.0,
+            429
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          25,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          22,
+          224,
+          393
+        ],
+        "baselineSha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 146,
+          "right": 148,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-5.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            1219.5,
+            429
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          26,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          25,
+          224,
+          391
+        ],
+        "baselineSha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 146,
+          "right": 193,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-6.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            1441.0,
+            431
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          23,
+          210,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          21,
+          223,
+          389
+        ],
+        "baselineSha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 193,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/base-7.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            1663.0,
+            433
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          8,
+          29,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          16,
+          224,
+          393
+        ],
+        "baselineSha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 201,
+          "right": 253,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-0.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            111.0,
+            862
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          28,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          394
+        ],
+        "baselineSha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 246,
+          "right": 272,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-1.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            333.0,
+            863
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          23,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          22,
+          224,
+          389
+        ],
+        "baselineSha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 272,
+          "right": 285,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-2.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            554.5,
+            866
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          30,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          28,
+          224,
+          396
+        ],
+        "baselineSha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 276,
+          "right": 220,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-3.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            776.0,
+            861
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          29,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          26,
+          224,
+          395
+        ],
+        "baselineSha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 222,
+          "right": 206,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-4.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            998.0,
+            862
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          28,
+          224,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          25,
+          224,
+          396
+        ],
+        "baselineSha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 208,
+          "right": 266,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-5.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            1219.5,
+            861
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          35,
+          224,
+          386
+        ],
+        "alphaBounds": [
+          0,
+          28,
+          224,
+          395
+        ],
+        "baselineSha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 261,
+          "right": 236,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-6.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            1441.0,
+            856
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
+        "size": [
+          224,
+          400
+        ]
+      },
+      {
+        "alpha128Bounds": [
+          0,
+          25,
+          220,
+          385
+        ],
+        "alphaBounds": [
+          0,
+          24,
+          224,
+          397
+        ],
+        "baselineSha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 233,
+          "right": 144,
+          "top": 0
+        },
+        "file": "assets/rc133/art/awake-7.png",
+        "pivot": {
+          "canvasPx": [
+            112,
+            384
+          ],
+          "normalized": [
+            0.5,
+            0.96
+          ],
+          "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
+          "sourcePx": [
+            1663.0,
+            866
+          ]
+        },
+        "sameHashAsBaseline": true,
+        "samePivotAsBaseline": true,
+        "sha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
+        "size": [
+          224,
+          400
+        ]
+      }
+    ],
+    "sixPreservedSources": [
+      {
+        "actualSha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+        "bytes": 2046418,
+        "file": "assets/rc133/source-art/libfile_2cc2c525f0bc81918ac00e11fb72ba3d.png",
+        "incomingSha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+        "manifestSha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+        "matchesIncomingByteForByte": true,
+        "matchesManifest": true
+      },
+      {
+        "actualSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "bytes": 2501904,
+        "file": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+        "incomingSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "manifestSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "matchesIncomingByteForByte": true,
+        "matchesManifest": true
+      },
+      {
+        "actualSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+        "bytes": 2962564,
+        "file": "assets/rc133/source-art/libfile_77701ac3d1e08191bf1f9f03b29ac967.png",
+        "incomingSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+        "manifestSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+        "matchesIncomingByteForByte": true,
+        "matchesManifest": true
+      },
+      {
+        "actualSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "bytes": 3009312,
+        "file": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+        "incomingSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "manifestSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "matchesIncomingByteForByte": true,
+        "matchesManifest": true
+      },
+      {
+        "actualSha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+        "bytes": 2997194,
+        "file": "assets/rc133/source-art/libfile_a0e71293286481918c55e03101fbcc90.png",
+        "incomingSha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+        "manifestSha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+        "matchesIncomingByteForByte": true,
+        "matchesManifest": true
+      },
+      {
+        "actualSha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+        "bytes": 3389675,
+        "file": "assets/rc133/source-art/libfile_fd6b302c3e6481918851054ea82e72c9.png",
+        "incomingSha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+        "manifestSha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+        "matchesIncomingByteForByte": true,
+        "matchesManifest": true
+      }
+    ]
+  },
+  "findings": {
+    "updatedChrono": [
+      {
+        "alphaBounds": [
+          38,
+          23,
+          284,
+          312
+        ],
+        "detail": {
+          "actualSourceRect": [
+            0,
+            314,
+            314,
+            627
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              158,
+              312,
+              160,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-4.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          38,
+          23,
+          30,
+          1
+        ]
+      },
+      {
+        "alphaBounds": [
+          21,
+          4,
+          283,
+          310
+        ],
+        "detail": {
+          "actualSourceRect": [
+            314,
+            627,
+            627,
+            940
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 5,
+          "masks": [
+            [
+              68,
+              296,
+              112,
+              313
+            ],
+            [
+              145,
+              294,
+              151,
+              299
+            ],
+            [
+              155,
+              285,
+              177,
+              295
+            ],
+            [
+              155,
+              308,
+              170,
+              313
+            ],
+            [
+              140,
+              312,
+              141,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-9.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          21,
+          4,
+          30,
+          3
+        ]
+      },
+      {
+        "alphaBounds": [
+          25,
+          4,
+          276,
+          312
+        ],
+        "detail": {
+          "actualSourceRect": [
+            627,
+            627,
+            940,
+            940
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 4,
+          "masks": [
+            [
+              37,
+              291,
+              49,
+              313
+            ],
+            [
+              243,
+              289,
+              260,
+              313
+            ],
+            [
+              19,
+              304,
+              27,
+              313
+            ],
+            [
+              63,
+              312,
+              64,
+              313
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-10.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          25,
+          4,
+          37,
+          1
+        ]
+      },
+      {
+        "alphaBounds": [
+          35,
+          13,
+          278,
+          289
+        ],
+        "detail": {
+          "actualSourceRect": [
+            0,
+            900,
+            314,
+            1214
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-12.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          35,
+          13,
+          36,
+          25
+        ]
+      },
+      {
+        "alphaBounds": [
+          12,
+          13,
+          281,
+          289
+        ],
+        "detail": {
+          "actualSourceRect": [
+            314,
+            900,
+            627,
+            1214
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              248,
+              67,
+              252,
+              70
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-13.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          12,
+          13,
+          32,
+          25
+        ]
+      },
+      {
+        "alphaBounds": [
+          20,
+          17,
+          263,
+          291
+        ],
+        "detail": {
+          "actualSourceRect": [
+            627,
+            900,
+            940,
+            1214
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 0,
+          "masks": []
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-14.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          20,
+          17,
+          50,
+          23
+        ]
+      },
+      {
+        "alphaBounds": [
+          2,
+          1,
+          284,
+          246
+        ],
+        "detail": {
+          "actualSourceRect": [
+            940,
+            940,
+            1254,
+            1254
+          ],
+          "kind": "chrono-source-crop-alpha-masks",
+          "maskCount": 1,
+          "masks": [
+            [
+              113,
+              0,
+              114,
+              1
+            ]
+          ]
+        },
+        "edgeAlpha": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0
+        },
+        "file": "assets/rc133/art/chrono-15.png",
+        "manifestPixelDerivationBoundsMatch": true,
+        "pixelReconstructionExact": true,
+        "transparentMarginsPx": [
+          2,
+          1,
+          30,
+          68
+        ]
+      }
+    ]
+  },
+  "head": "091143090653efffc7e64ab8262db25f91c3d293",
+  "manifestSchema": "rc133-art-processing-v1",
+  "outputs": [],
+  "worktreeStatus": ""
+}
