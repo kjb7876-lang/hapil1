@@ -146,11 +146,11 @@
       },
       "after": {
         "mode": "100644",
-        "gitBlob": "24887c749052324d17c9d7ddc1ef9d7fc90d6b35",
+        "gitBlob": "92eca9049547e1fc8a1bbf9f90359b58af9b95cd",
         "file": "assets/rc108/portrait-split.js",
-        "sha256": "b0e740c332588823590a89237c28a83fd61d3c2e00b6574326953d8a0ed72a48"
+        "sha256": "41c9c2a4f1ef9d95dea8db16d35843eaf081b3c0e18e7c63a1e632b0aa8e0359"
       },
-      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs. User-approved RC136 measured mobile fix: clip only invisible native portrait paint outside the retained central rows and one-pixel sampling gutters. Keep the exact source crop, backing resolution, one-pass alternating cameras, HUD/mood post-composition, simulation, image contact and native projectile/damage producers."
+      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs. User-approved RC136 measured mobile fix: clip only invisible native portrait paint outside the retained central rows and one-pixel sampling gutters. Keep the exact source crop, backing resolution, one-pass alternating cameras, HUD/mood post-composition, simulation, image contact and native projectile/damage producers. Preserve native image-smoothing settings across clip restoration."
     },
     {
       "file": "assets/rc128/combat-feedback.js",

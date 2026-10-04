@@ -18,164 +18,1510 @@
       "assets/rc134/persona-duel.js": "a40bdec0d9ccf542050a8536432790a092cf2271f5636e21597deae5d3564903"
     },
     "B": {
-      "assets/rc108/portrait-split.js": "b0e740c332588823590a89237c28a83fd61d3c2e00b6574326953d8a0ed72a48",
+      "assets/rc108/portrait-split.js": "41c9c2a4f1ef9d95dea8db16d35843eaf081b3c0e18e7c63a1e632b0aa8e0359",
       "assets/index-v31526.js": "01519664ecb8bc94a1b809369c030e2cae11b0aa1587120fbf0316171b1130fc",
       "assets/rc133/bitmap-contact.js": "4cfd72730a2097dc743ce5b3abed696a1ddc84c60e0b2aaae6417622b7aa5a2d",
       "assets/rc134/persona-duel.js": "a40bdec0d9ccf542050a8536432790a092cf2271f5636e21597deae5d3564903"
     },
-    "scope": "Runtime JS stayed unchanged for all eight paired runs; B working-tree clip candidate, HEAD is base28 until checkpoint; native bundle/collision/Persona identical.",
+    "scope": "Final smoothing-preserving clip variant. Native bundle, collision and Persona byte-identical; benchmark does not change HP/protection/readiness/projectile producers.",
     "harnessSha256": "f58a463c2104600e4b1edf64de8fddf5fe7c3493def25f31cffb1aaeafe53daf"
   },
   "metrics": {
     "RAF p50": {
       "A": {
         "values": [
-          266.5,
-          250,
+          233.3000000000029,
+          233.40000000000146,
           249.89999999999418,
-          249.90000000000146
+          250
         ],
-        "median": 249.95000000000073,
-        "min": 249.89999999999418,
-        "max": 266.5
+        "median": 241.64999999999782,
+        "min": 233.3000000000029,
+        "max": 250
       },
       "B": {
         "values": [
-          216.70000000000437,
-          233.29999999999563,
-          216.6999999999971,
-          216.6999999999971
+          216.59999999999854,
+          216.59999999999854,
+          233.39999999999418,
+          233.29999999999563
         ],
-        "median": 216.70000000000073,
-        "min": 216.6999999999971,
-        "max": 233.29999999999563
+        "median": 224.9499999999971,
+        "min": 216.59999999999854,
+        "max": 233.39999999999418
       },
-      "medianReductionPercent": 13.30266053210638
+      "medianReductionPercent": 6.910821435961467
     },
     "RAF p95": {
       "A": {
         "values": [
-          366.70000000000437,
-          366.6000000000022,
-          366.8000000000029,
-          350.09999999999854
+          316.70000000000437,
+          366.6000000000058,
+          349.90000000000146,
+          350
         ],
-        "median": 366.6500000000033,
-        "min": 350.09999999999854,
-        "max": 366.8000000000029
+        "median": 349.9500000000007,
+        "min": 316.70000000000437,
+        "max": 366.6000000000058
       },
       "B": {
         "values": [
+          283.2000000000007,
           300,
-          300,
-          300,
-          283.40000000000146
+          333.2999999999993,
+          300
         ],
         "median": 300.0,
-        "min": 283.40000000000146,
-        "max": 300
+        "min": 283.2000000000007,
+        "max": 333.2999999999993
       },
-      "medianReductionPercent": 18.178099004500936
+      "medianReductionPercent": 14.273467638234216
     },
     "Longtask p95": {
       "A": {
         "values": [
-          339,
-          340,
-          349,
-          331
+          311,
+          327,
+          330,
+          345
         ],
-        "median": 339.5,
-        "min": 331,
-        "max": 349
+        "median": 328.5,
+        "min": 311,
+        "max": 345
       },
       "B": {
         "values": [
-          280,
-          279,
-          279,
-          269
+          256,
+          270,
+          306,
+          279
         ],
-        "median": 279.0,
-        "min": 269,
-        "max": 280
+        "median": 274.5,
+        "min": 256,
+        "max": 306
       },
-      "medianReductionPercent": 17.82032400589102
+      "medianReductionPercent": 16.43835616438356
     },
     "render p50": {
       "A": {
         "values": [
-          163.3999999910593,
-          159.3999999910593,
-          152.79999999701977,
-          153.8999999910593
+          149.40000000596046,
+          151,
+          158.70000000298023,
+          159.30000001192093
         ],
-        "median": 156.6499999910593,
-        "min": 152.79999999701977,
-        "max": 163.3999999910593
+        "median": 154.85000000149012,
+        "min": 149.40000000596046,
+        "max": 159.30000001192093
       },
       "B": {
         "values": [
-          134.3999999910593,
-          135.20000000298023,
-          134.79999999701977,
-          132.79999999701977
+          127.70000000298023,
+          132.59999999403954,
+          142.40000000596046,
+          136.5
         ],
-        "median": 134.59999999403954,
-        "min": 132.79999999701977,
-        "max": 135.20000000298023
+        "median": 134.54999999701977,
+        "min": 127.70000000298023,
+        "max": 142.40000000596046
       },
-      "medianReductionPercent": 14.075965527148583
+      "medianReductionPercent": 13.109460771246372
     },
     "render p95": {
       "A": {
         "values": [
-          267.8999999910593,
-          262.09999999403954,
-          273.5,
-          253.30000001192093
+          230.70000000298023,
+          248.09999999403954,
+          251.6000000089407,
+          258.5
         ],
-        "median": 264.9999999925494,
-        "min": 253.30000001192093,
-        "max": 273.5
+        "median": 249.85000000149012,
+        "min": 230.70000000298023,
+        "max": 258.5
       },
       "B": {
         "values": [
-          196.79999999701977,
-          209.40000000596046,
-          207,
-          181.70000000298023
+          195.29999999701977,
+          195.30000001192093,
+          217.6000000089407,
+          198.69999998807907
         ],
-        "median": 201.89999999850988,
-        "min": 181.70000000298023,
-        "max": 209.40000000596046
+        "median": 197.0,
+        "min": 195.29999999701977,
+        "max": 217.6000000089407
       },
-      "medianReductionPercent": 23.81132075313721
+      "medianReductionPercent": 21.152691615439235
     },
     "simulation p95": {
       "A": {
         "values": [
-          81.29999999701977,
-          76.30000001192093,
-          76.3999999910593,
-          73.79999999701977
+          72.19999998807907,
+          80.70000000298023,
+          77.90000000596046,
+          80.29999999701977
         ],
-        "median": 76.35000000149012,
-        "min": 73.79999999701977,
-        "max": 81.29999999701977
+        "median": 79.10000000149012,
+        "min": 72.19999998807907,
+        "max": 80.70000000298023
       },
       "B": {
         "values": [
-          79.20000000298023,
-          80,
-          78,
-          79.6000000089407
+          73.79999999701977,
+          73.5,
+          88.40000000596046,
+          81.09999999403954
         ],
-        "median": 79.40000000596046,
-        "min": 78,
-        "max": 80
+        "median": 77.44999999552965,
+        "min": 73.5,
+        "max": 88.40000000596046
       },
-      "medianReductionPercent": -3.994760974997802
+      "medianReductionPercent": 2.0859671377109756
     }
-  }
+  },
+  "perRun": [
+    {
+      "tag": "B",
+      "index": 1,
+      "recordedHead": "516a30458ae132637057fe1a9220a35ba4d67b24",
+      "dirty": true,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.279999999999978,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.299772799828,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.153809599917,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 25865.60000000894,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 226,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 225,
+          "p50Ms": 216.59999999999854,
+          "p95Ms": 283.2000000000007,
+          "maxMs": 583.3000000000011,
+          "over50": 225,
+          "over100": 214,
+          "over250": 30
+        },
+        "longTasks": {
+          "count": 225,
+          "p50Ms": 198,
+          "p95Ms": 256,
+          "maxMs": 495,
+          "over50": 225,
+          "over100": 201,
+          "over250": 16
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 227,
+          "p50": 127.70000000298023,
+          "p95": 195.29999999701977,
+          "max": 447.20000000298023
+        },
+        "simulation": {
+          "count": 227,
+          "p50": 50.70000000298023,
+          "p95": 73.79999999701977,
+          "max": 153.5
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "A",
+      "index": 1,
+      "recordedHead": "28f2d96176054c0e0a20b8157591acaf28520be8",
+      "dirty": false,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.319999999999977,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.509669599827,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.360787999916,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 29289.60000000894,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 227,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 226,
+          "p50Ms": 233.3000000000029,
+          "p95Ms": 316.70000000000437,
+          "maxMs": 583.1999999999989,
+          "over50": 226,
+          "over100": 221,
+          "over250": 75
+        },
+        "longTasks": {
+          "count": 226,
+          "p50Ms": 221,
+          "p95Ms": 311,
+          "maxMs": 487,
+          "over50": 226,
+          "over100": 215,
+          "over250": 56
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 228,
+          "p50": 149.40000000596046,
+          "p95": 230.70000000298023,
+          "max": 454
+        },
+        "simulation": {
+          "count": 228,
+          "p50": 50.70000000298023,
+          "p95": 72.19999998807907,
+          "max": 122.90000000596046
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "A",
+      "index": 2,
+      "recordedHead": "28f2d96176054c0e0a20b8157591acaf28520be8",
+      "dirty": false,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.319999999999977,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.509669599827,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.360787999916,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 29498.70000000298,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 227,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 226,
+          "p50Ms": 233.40000000000146,
+          "p95Ms": 366.6000000000058,
+          "maxMs": 583.3000000000011,
+          "over50": 226,
+          "over100": 223,
+          "over250": 89
+        },
+        "longTasks": {
+          "count": 228,
+          "p50Ms": 223,
+          "p95Ms": 327,
+          "maxMs": 496,
+          "over50": 228,
+          "over100": 220,
+          "over250": 68
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 228,
+          "p50": 151,
+          "p95": 248.09999999403954,
+          "max": 442.59999999403954
+        },
+        "simulation": {
+          "count": 228,
+          "p50": 49.30000001192093,
+          "p95": 80.70000000298023,
+          "max": 125.70000000298023
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "B",
+      "index": 2,
+      "recordedHead": "516a30458ae132637057fe1a9220a35ba4d67b24",
+      "dirty": true,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.319999999999977,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.509669599827,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.360787999916,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 25816.70000000298,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 227,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 226,
+          "p50Ms": 216.59999999999854,
+          "p95Ms": 300,
+          "maxMs": 616.6000000000004,
+          "over50": 226,
+          "over100": 211,
+          "over250": 45
+        },
+        "longTasks": {
+          "count": 226,
+          "p50Ms": 200,
+          "p95Ms": 270,
+          "maxMs": 524,
+          "over50": 226,
+          "over100": 206,
+          "over250": 28
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 228,
+          "p50": 132.59999999403954,
+          "p95": 195.30000001192093,
+          "max": 475.8999999910593
+        },
+        "simulation": {
+          "count": 228,
+          "p50": 49.8999999910593,
+          "p95": 73.5,
+          "max": 115.30000001192093
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "B",
+      "index": 3,
+      "recordedHead": "516a30458ae132637057fe1a9220a35ba4d67b24",
+      "dirty": true,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.319999999999977,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.509669599827,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.360787999916,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 28635.90000000596,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 227,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 226,
+          "p50Ms": 233.39999999999418,
+          "p95Ms": 333.2999999999993,
+          "maxMs": 583.3999999999996,
+          "over50": 226,
+          "over100": 212,
+          "over250": 80
+        },
+        "longTasks": {
+          "count": 227,
+          "p50Ms": 219,
+          "p95Ms": 306,
+          "maxMs": 483,
+          "over50": 227,
+          "over100": 205,
+          "over250": 55
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 228,
+          "p50": 142.40000000596046,
+          "p95": 217.6000000089407,
+          "max": 436
+        },
+        "simulation": {
+          "count": 228,
+          "p50": 57.5,
+          "p95": 88.40000000596046,
+          "max": 160.59999999403954
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "A",
+      "index": 3,
+      "recordedHead": "28f2d96176054c0e0a20b8157591acaf28520be8",
+      "dirty": false,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.279999999999978,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.299772799828,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.153809599917,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 30069.80000001192,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 226,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 225,
+          "p50Ms": 249.89999999999418,
+          "p95Ms": 349.90000000000146,
+          "maxMs": 583.3000000000011,
+          "over50": 225,
+          "over100": 220,
+          "over250": 98
+        },
+        "longTasks": {
+          "count": 225,
+          "p50Ms": 229,
+          "p95Ms": 330,
+          "maxMs": 487,
+          "over50": 225,
+          "over100": 215,
+          "over250": 83
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 227,
+          "p50": 158.70000000298023,
+          "p95": 251.6000000089407,
+          "max": 444.59999999403954
+        },
+        "simulation": {
+          "count": 227,
+          "p50": 51.69999998807907,
+          "p95": 77.90000000596046,
+          "max": 106.70000000298023
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "A",
+      "index": 4,
+      "recordedHead": "28f2d96176054c0e0a20b8157591acaf28520be8",
+      "dirty": false,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.279999999999978,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.299772799828,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.153809599917,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 31065.39999999106,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 226,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 225,
+          "p50Ms": 250,
+          "p95Ms": 350,
+          "maxMs": 583.2999999999993,
+          "over50": 225,
+          "over100": 224,
+          "over250": 101
+        },
+        "longTasks": {
+          "count": 226,
+          "p50Ms": 231,
+          "p95Ms": 345,
+          "maxMs": 515,
+          "over50": 226,
+          "over100": 218,
+          "over250": 88
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 227,
+          "p50": 159.30000001192093,
+          "p95": 258.5,
+          "max": 459.79999999701977
+        },
+        "simulation": {
+          "count": 227,
+          "p50": 52.900000005960464,
+          "p95": 80.29999999701977,
+          "max": 127.8999999910593
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "tag": "B",
+      "index": 4,
+      "recordedHead": "516a30458ae132637057fe1a9220a35ba4d67b24",
+      "dirty": true,
+      "status": "passed-native-benchmark",
+      "initialNative": {
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "hp": 8082,
+            "maxHp": 8082,
+            "readyAt": 0.535,
+            "patternReadyAt": 0.675
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "hp": 6304,
+            "maxHp": 6304,
+            "readyAt": 0.55,
+            "patternReadyAt": 0.6900000000000001
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "hp": 5819,
+            "maxHp": 5819,
+            "readyAt": 0.5650000000000001,
+            "patternReadyAt": 0.7050000000000001
+          }
+        ],
+        "mode": "manual",
+        "playerHp": 240,
+        "playerMaxHp": 240,
+        "time": 0.32
+      },
+      "finalNative": {
+        "zone": "dist04",
+        "mode": "DREAM",
+        "time": 9.319999999999977,
+        "hp": 98.8000000000003,
+        "maxHp": 240,
+        "midbosses": [
+          {
+            "id": "mb-dist04",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13615.509669599827,
+            "maxHp": 13809,
+            "readyAt": 15.09999999999999,
+            "patternReadyAt": 15.27999999999999
+          },
+          {
+            "id": "mb-dist04-duo-rc59",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 13416.360787999916,
+            "maxHp": 13617,
+            "readyAt": 10.099999999999978,
+            "patternReadyAt": 9.09
+          },
+          {
+            "id": "mb-dist04-trio-rc69-3",
+            "owner": "mb-dist04",
+            "identity": "mb-dist04",
+            "sprite": "./assets/episode1b/generated-v31342-rc39/zombie_guardian_knight_bloodied.webp",
+            "hp": 12569,
+            "maxHp": 12569,
+            "readyAt": 8.834999999999996,
+            "patternReadyAt": 8.904999999999996
+          }
+        ],
+        "midbossCount": 3,
+        "hostileProjectiles": 22,
+        "admittedMidbossProjectiles": 22,
+        "finiteProjectiles": 22,
+        "projectileSources": [
+          "mb-dist04",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "nativeSourceIds": [
+          "mb-dist04",
+          "mb-dist04-duo-rc59",
+          "mb-dist04-trio-rc69-3"
+        ],
+        "hiddenActive": false,
+        "hiddenMood": "normal",
+        "canvas": {
+          "backing": [
+            1247,
+            702
+          ],
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844
+          },
+          "dpr": 2
+        },
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false
+        },
+        "binding": {
+          "phase": "game",
+          "blocked": false
+        },
+        "story": false,
+        "gameOver": false
+      },
+      "peak": {
+        "max": 35,
+        "maxAt": {
+          "wallMs": 27762.80000001192,
+          "time": 5.920000000000004,
+          "count": 35,
+          "midbossCount": 3
+        },
+        "sourcePeak": {
+          "mb-dist04": 23,
+          "mb-dist04-duo-rc59": 0,
+          "mb-dist04-trio-rc69-3": 15
+        },
+        "samples": 227,
+        "startTime": 0.32
+      },
+      "timing": {
+        "rafIntervals": {
+          "count": 226,
+          "p50Ms": 233.29999999999563,
+          "p95Ms": 300,
+          "maxMs": 599.8999999999996,
+          "over50": 226,
+          "over100": 211,
+          "over250": 59
+        },
+        "longTasks": {
+          "count": 228,
+          "p50Ms": 208,
+          "p95Ms": 279,
+          "maxMs": 508,
+          "over50": 228,
+          "over100": 205,
+          "over250": 33
+        }
+      },
+      "operations": {
+        "render": {
+          "count": 228,
+          "p50": 136.5,
+          "p95": 198.69999998807907,
+          "max": 457.20000000298023
+        },
+        "simulation": {
+          "count": 228,
+          "p50": 54.1000000089407,
+          "p95": 81.09999999403954,
+          "max": 116.40000000596046
+        }
+      },
+      "errors": [],
+      "httpErrors": []
+    }
+  ]
 }
