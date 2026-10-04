@@ -332,6 +332,14 @@ async function main() {
       } catch (error) {
         row.status = 'failed';
         row.error = error.stack || String(error);
+        row.failureState = await snapshotRun(page).catch(() => null);
+        row.failureUi = await page.evaluate(() => ({
+          text: document.body.innerText.slice(-5000),
+          inner: window.__MONGSE_QA_STATE__?.innerFinalRC133 ?? null,
+          pending: window.__MONGSE_QA_STATE__?.pendingStrikes?.map(q => ({targetId:q.targetId,at:q.at,ultimate:q.ultimateCastIdV31309})) ?? [],
+          time: window.__MONGSE_QA_STATE__?.time,
+        })).catch(() => null);
+        console.error('RC133_777_FAILURE_STATE', JSON.stringify({run:row.failureState,ui:row.failureUi,errors:row.errors}));
         await page.screenshot({ path: path.join(output, `${name}-developer-777-debug.png`), fullPage: false }).catch(() => {});
         saveReport();
         throw error;
