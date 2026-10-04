@@ -1,0 +1,44 @@
+name: RC136 corrected exact public startup audit
+on:
+  push:
+    branches: [codex/rc136-public-live-audit]
+    paths: ['qa/rc136-public/public-startup.cjs', '.github/workflows/rc136-public-startup.yml']
+permissions:
+  contents: read
+jobs:
+  startup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with: {path: audit, persist-credentials: false, show-progress: false}
+      - uses: actions/checkout@v6
+        with: {path: runtime, ref: d15a148241afecfe94ebf37e3e3d830e383531fa, persist-credentials: false, show-progress: false}
+      - uses: actions/setup-node@v6
+        with: {node-version: '22'}
+      - name: Prepare isolated browser
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc136-startup-browser"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")" >> "$GITHUB_ENV"
+          echo "HAPIL_RC134_ROOT=$GITHUB_WORKSPACE/runtime" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc136-startup-evidence" >> "$GITHUB_ENV"
+      - name: Verify 53 required images and ordinary Story startup
+        env:
+          HAPIL_EXPECTED_COMMIT: d15a148241afecfe94ebf37e3e3d830e383531fa
+          EXPECTED_SHA: d15a148241afecfe94ebf37e3e3d830e383531fa
+        run: |
+          set -euo pipefail
+          test "$(git -C runtime rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git -C runtime status --porcelain)"
+          node audit/qa/rc136-public/public-startup.cjs
+          test -z "$(git -C runtime status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc136-public-startup-d15-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc136-startup-evidence/
+          retention-days: 14

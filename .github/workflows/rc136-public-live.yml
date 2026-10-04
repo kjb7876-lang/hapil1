@@ -10,6 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   public:
+    if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[startup-only]')
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
