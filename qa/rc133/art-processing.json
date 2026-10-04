@@ -1115,9 +1115,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [44, 94, 34, 64] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          0,
+          0,
+          314,
+          314
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          44,
+          94,
+          280,
+          250
+        ],
+        "transparentMarginsPx": [
+          44,
+          94,
+          34,
+          64
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-1.png",
@@ -1139,9 +1171,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [29, 49, 34, 42] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          314,
+          0,
+          627,
+          314
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          29,
+          49,
+          279,
+          272
+        ],
+        "transparentMarginsPx": [
+          29,
+          49,
+          34,
+          42
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-2.png",
@@ -1163,9 +1227,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [33, 55, 47, 37] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          627,
+          0,
+          940,
+          314
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          33,
+          55,
+          266,
+          277
+        ],
+        "transparentMarginsPx": [
+          33,
+          55,
+          47,
+          37
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-3.png",
@@ -1187,9 +1283,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [6, 31, 35, 19] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          940,
+          0,
+          1254,
+          314
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          6,
+          31,
+          279,
+          295
+        ],
+        "transparentMarginsPx": [
+          6,
+          31,
+          35,
+          19
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-4.png",
@@ -1203,7 +1331,7 @@
         627
       ],
       "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "1b6aa5fa312fc29b5304fbafb52122be5e5505965a7c5d3635708567f28ce3c0",
+      "outputSha256": "05f1760cc1e0f6fa4a24e4f030e35f852822cf26f351dd5ba6cb36636a8ca956",
       "outputBytes": 150700,
       "outputDimensions": [
         314,
@@ -1211,9 +1339,49 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [38, 23, 30, 1] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          0,
+          314,
+          314,
+          627
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [
+          [
+            158,
+            312,
+            160,
+            313
+          ]
+        ],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          38,
+          23,
+          284,
+          312
+        ],
+        "transparentMarginsPx": [
+          38,
+          23,
+          30,
+          1
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-5.png",
@@ -1235,9 +1403,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [15, 8, 19, 32] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          314,
+          314,
+          627,
+          627
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          15,
+          8,
+          294,
+          281
+        ],
+        "transparentMarginsPx": [
+          15,
+          8,
+          19,
+          32
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-6.png",
@@ -1259,9 +1459,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [14, 98, 29, 119] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          627,
+          314,
+          940,
+          627
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          14,
+          98,
+          284,
+          194
+        ],
+        "transparentMarginsPx": [
+          14,
+          98,
+          29,
+          119
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-7.png",
@@ -1283,9 +1515,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [4, 21, 38, 34] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          940,
+          314,
+          1254,
+          627
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          4,
+          21,
+          276,
+          279
+        ],
+        "transparentMarginsPx": [
+          4,
+          21,
+          38,
+          34
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-8.png",
@@ -1307,10 +1571,49 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
-        "Cleared isolated top-edge flecks with output-local rectangles: [(146, 286, 172, 314)]."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [26, 0, 23, 64] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          0,
+          627,
+          314,
+          940
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [
+          [
+            146,
+            286,
+            172,
+            313
+          ]
+        ],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          26,
+          0,
+          291,
+          249
+        ],
+        "transparentMarginsPx": [
+          26,
+          0,
+          23,
+          64
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-9.png",
@@ -1324,7 +1627,7 @@
         940
       ],
       "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "f84a60994f8280dd782a45f6cddba14138ab951f5ef397bfdaef87910182da34",
+      "outputSha256": "5143d72349fdfaf8d2a2f55889e30286402f10d4f174a763c2e93c980b1ef251",
       "outputBytes": 156973,
       "outputDimensions": [
         313,
@@ -1332,10 +1635,73 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
-        "Cleared isolated top-edge flecks with output-local rectangles: [(68, 296, 112, 314), (145, 294, 151, 299), (155, 285, 177, 295), (155, 308, 170, 314)]."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [21, 4, 30, 3] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          314,
+          627,
+          627,
+          940
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [
+          [
+            68,
+            296,
+            112,
+            313
+          ],
+          [
+            145,
+            294,
+            151,
+            299
+          ],
+          [
+            155,
+            285,
+            177,
+            295
+          ],
+          [
+            155,
+            308,
+            170,
+            313
+          ],
+          [
+            140,
+            312,
+            141,
+            313
+          ]
+        ],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          21,
+          4,
+          283,
+          310
+        ],
+        "transparentMarginsPx": [
+          21,
+          4,
+          30,
+          3
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-10.png",
@@ -1349,7 +1715,7 @@
         940
       ],
       "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "cec68a053570ec65e1932be40d21d9a5901b974534506f95924c880757f4e9cd",
+      "outputSha256": "1b1c30cbb033e40bd4278ace543ccfaaed30139401251155d61e5f469dddaf47",
       "outputBytes": 155467,
       "outputDimensions": [
         313,
@@ -1357,10 +1723,67 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
-        "Cleared isolated top-edge flecks with output-local rectangles: [(37, 291, 49, 314), (243, 289, 260, 314), (19, 304, 27, 314)]."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [25, 4, 37, 1] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          627,
+          627,
+          940,
+          940
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [
+          [
+            37,
+            291,
+            49,
+            313
+          ],
+          [
+            243,
+            289,
+            260,
+            313
+          ],
+          [
+            19,
+            304,
+            27,
+            313
+          ],
+          [
+            63,
+            312,
+            64,
+            313
+          ]
+        ],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          25,
+          4,
+          276,
+          312
+        ],
+        "transparentMarginsPx": [
+          25,
+          4,
+          37,
+          1
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-11.png",
@@ -1382,9 +1805,41 @@
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [16, 2, 46, 66] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          940,
+          627,
+          1254,
+          940
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          16,
+          2,
+          268,
+          247
+        ],
+        "transparentMarginsPx": [
+          16,
+          2,
+          46,
+          66
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-12.png",
@@ -1393,24 +1848,56 @@
       "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
       "sourceRect": [
         0,
-        953,
+        900,
         314,
-        1254
+        1214
       ],
-      "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "4dbc42bb0ee2479f993dd061e72a205f80ce0caefa1ee629fc7359f63a33e375",
-      "outputBytes": 168142,
+      "operation": "reviewed-atlas-alpha-crop",
+      "outputSha256": "bd886ef798dea655d0bf3b912e208d5dbbfd42d19141b334ade14d78bd681dff",
+      "outputBytes": 174734,
       "outputDimensions": [
         314,
-        301
+        314
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
-        "Trimmed 13 top-edge rows to remove adjacent-row artifact.",
-        "Cleared small adjacent-row fragment with output-local polygon masks: [[[146, 0], [171, 0], [170, 21], [167, 28], [160, 35], [153, 28], [146, 21]]]."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded.",
+        "Restored the cyan hourglass center spire; the prior top trim and polygon mask removed intended artwork.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [35, 13, 36, 25] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          0,
+          940,
+          314,
+          1254
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          35,
+          13,
+          278,
+          289
+        ],
+        "transparentMarginsPx": [
+          35,
+          13,
+          36,
+          25
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-13.png",
@@ -1419,24 +1906,63 @@
       "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
       "sourceRect": [
         314,
-        953,
+        900,
         627,
-        1254
+        1214
       ],
-      "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "c1c9c92ffc205c02ef4636a76e73c1ec44e3becc608c95c67658c429992fcff4",
-      "outputBytes": 164092,
+      "operation": "reviewed-atlas-alpha-crop",
+      "outputSha256": "6f56cbf3f3627ba402aab79c781bdcc0e648bedf06083f194f31b40910029885",
+      "outputBytes": 174780,
       "outputDimensions": [
         313,
-        301
+        314
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
-        "Trimmed 13 top-edge rows to remove adjacent-row artifact.",
-        "Cleared isolated top-edge flecks with output-local rectangles: [(248, 14, 252, 17)]."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded.",
+        "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [12, 13, 32, 25] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          314,
+          940,
+          627,
+          1254
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [
+          [
+            248,
+            67,
+            252,
+            70
+          ]
+        ],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          12,
+          13,
+          281,
+          289
+        ],
+        "transparentMarginsPx": [
+          12,
+          13,
+          32,
+          25
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-14.png",
@@ -1445,22 +1971,55 @@
       "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
       "sourceRect": [
         627,
+        900,
         940,
-        940,
-        1254
+        1214
       ],
-      "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "edf133a3f664a4ca00fcadf9c35f659aaa6bb44bd446ac1b4cd1064e2f3c9902",
-      "outputBytes": 153169,
+      "operation": "reviewed-atlas-alpha-crop",
+      "outputSha256": "63dcaf11f5e744dbd5a4d73a0873e575594e7cfe262a36018e3c193bbf1be331",
+      "outputBytes": 156161,
       "outputDimensions": [
         313,
         314
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [20, 17, 50, 23] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          627,
+          940,
+          940,
+          1254
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          20,
+          17,
+          263,
+          291
+        ],
+        "transparentMarginsPx": [
+          20,
+          17,
+          50,
+          23
+        ]
+      }
     },
     {
       "file": "assets/rc133/art/chrono-15.png",
@@ -1474,17 +2033,57 @@
         1254
       ],
       "operation": "4x4-cell-alpha-crop",
-      "outputSha256": "421a21094debf1bfa971f9b6a6d47f25b269c01774cb41af13e36a18545b7255",
-      "outputBytes": 150891,
+      "outputSha256": "06930dd9be257780d3d73d947dda781ab2a7ba019889973501be83ee063cd283",
+      "outputBytes": 150890,
       "outputDimensions": [
         314,
         314
       ],
       "status": "complete",
       "notes": [
-        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
-      ]
+        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+        "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
+        "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [2, 1, 30, 68] px."
+      ],
+      "pixelDerivation": {
+        "version": 1,
+        "sourceCellRect": [
+          940,
+          940,
+          1254,
+          1254
+        ],
+        "sourceRectConvention": "half-open",
+        "maskCoordinateSpace": "output-local",
+        "alphaOnlyRectMasks": [
+          [
+            113,
+            0,
+            114,
+            1
+          ]
+        ],
+        "resize": null,
+        "paddingPx": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alphaBounds": [
+          2,
+          1,
+          284,
+          246
+        ],
+        "transparentMarginsPx": [
+          2,
+          1,
+          30,
+          68
+        ]
+      }
     }
   ],
   "externalDerivatives": [

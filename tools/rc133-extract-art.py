@@ -119,27 +119,33 @@ VFX_MASKS = {
     ),
 }
 
-CHRONO_TOP_CLIP = {
-    12: 13,  # cyan shard at the top cell boundary, separate from the hourglass frame
-    13: 13,  # green flecks from the row above at the top edge of the vortex frame
-}
-CHRONO_POLYGON_MASKS = {
-    12: (((146, 0), (171, 0), (170, 21), (167, 28), (160, 35), (153, 28), (146, 21)),),
+# The last-row hourglass, vortex and lance extend above the nominal y=940
+# cell boundary. These reviewed bounds include their complete upper artwork
+# and remove only empty trailing rows, retaining the nominal 314 px height.
+# In particular, the hourglass's cyan center spire belongs to the effect.
+CHRONO_SOURCE_RECTS = {
+    12: (0, 900, 314, 1214),
+    13: (314, 900, 627, 1214),
+    14: (627, 900, 940, 1214),
 }
 CHRONO_RECT_MASKS = {
-    8: ((146, 286, 172, 314),),  # top spike of the blue hourglass crosses this cell's bottom edge
+    4: ((158, 312, 160, 313),),  # two detached pixels from the lower atlas row
+    8: ((146, 286, 172, 313),),  # top spike of the blue hourglass crosses this cell's bottom edge
     9: (
-        (68, 296, 112, 314),
+        (68, 296, 112, 313),
         (145, 294, 151, 299),
         (155, 285, 177, 295),
-        (155, 308, 170, 314),
+        (155, 308, 170, 313),
+        (140, 312, 141, 313),  # remaining detached bottom-edge pixel
     ),  # green and violet fragments from the vortex below
     10: (
-        (37, 291, 49, 314),
-        (243, 289, 260, 314),
-        (19, 304, 27, 314),
+        (37, 291, 49, 313),
+        (243, 289, 260, 313),
+        (19, 304, 27, 313),
+        (63, 312, 64, 313),  # remaining detached bottom-edge pixel
     ),  # the lance's upper feathers cross this cell's bottom edge
-    13: ((248, 14, 252, 17),),  # isolated three-pixel green fleck from the row above
+    13: ((248, 67, 252, 70),),  # prior isolated three-pixel fleck, translated to the recovered source crop
+    15: ((113, 0, 114, 1),),  # detached green pixel from the row above
 }
 
 
@@ -417,36 +423,51 @@ def process_chrono(records: list[dict[str, Any]]) -> None:
             x1 = round((col + 1) * atlas.width / 4)
             y0 = round(row * atlas.height / 4)
             y1 = round((row + 1) * atlas.height / 4)
-            y0 += CHRONO_TOP_CLIP.get(index, 0)
-            rect = (x0, y0, x1, y1)
+            cell_rect = (x0, y0, x1, y1)
+            rect = CHRONO_SOURCE_RECTS.get(index, cell_rect)
             out = ART_DIR / f"chrono-{index}.png"
             crop = atlas.crop(rect)
-            polygons = CHRONO_POLYGON_MASKS.get(index, ())
             rectangles = CHRONO_RECT_MASKS.get(index, ())
-            if polygons or rectangles:
+            if rectangles:
                 alpha = crop.getchannel("A")
                 draw = ImageDraw.Draw(alpha)
-                for polygon in polygons:
-                    draw.polygon(polygon, fill=0)
                 for x0, y0, x1, y1 in rectangles:
                     draw.rectangle((x0, y0, x1 - 1, y1 - 1), fill=0)
                 crop.putalpha(alpha)
+            alpha_bbox = crop.getchannel("A").getbbox()
+            if not alpha_bbox:
+                raise RuntimeError(f"Empty Chrono crop {index}")
+            margins = [alpha_bbox[0], alpha_bbox[1], crop.width - alpha_bbox[2], crop.height - alpha_bbox[3]]
+            if index in CHRONO_SOURCE_RECTS and min(margins) < 5:
+                raise RuntimeError(f"Recovered Chrono crop lacks 5 px margin: {index}: {margins}")
             save_png(crop, out)
             add_record(
                 records,
                 source=CHRONO_SOURCE,
                 out=out,
                 rect=list(rect),
-                operation="4x4-cell-alpha-crop",
+                operation="reviewed-atlas-alpha-crop" if index in CHRONO_SOURCE_RECTS else "4x4-cell-alpha-crop",
                 semantic_name=name,
                 notes=[
-                    "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
-                    "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
-                    *([f"Trimmed {CHRONO_TOP_CLIP[index]} top-edge rows to remove adjacent-row artifact."] if index in CHRONO_TOP_CLIP else []),
-                    *([f"Cleared small adjacent-row fragment with output-local polygon masks: {[[list(point) for point in polygon] for polygon in polygons]}."] if polygons else []),
-                    *([f"Cleared isolated top-edge flecks with output-local rectangles: {list(rectangles)}."] if rectangles else []),
+                    "Source RGBA colors are retained exactly; no scaling or recoloring.",
+                    "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
+                    *(["Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded."] if index in CHRONO_SOURCE_RECTS else []),
+                    *(["Restored the cyan hourglass center spire; the prior top trim and polygon mask removed intended artwork."] if index == 12 else []),
+                    *(["Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive."] if rectangles else []),
+                    f"Measured transparent margins around all nonzero alpha (left,top,right,bottom): {margins} px.",
                 ],
             )
+            records[-1]["pixelDerivation"] = {
+                "version": 1,
+                "sourceCellRect": list(cell_rect),
+                "sourceRectConvention": "half-open",
+                "maskCoordinateSpace": "output-local",
+                "alphaOnlyRectMasks": [list(r) for r in rectangles],
+                "resize": None,
+                "paddingPx": [0, 0, 0, 0],
+                "alphaBounds": list(alpha_bbox),
+                "transparentMarginsPx": margins,
+            }
 
 
 def write_manifest(outputs: list[dict[str, Any]]) -> None:
