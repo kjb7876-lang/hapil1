@@ -130,6 +130,7 @@
       }else ctx.drawImage(im,point.x-w*.5,point.y-h*.96,w,h);}finally{ctx.restore();}}
     else Ln(ctx,cache,path,a.x,a.y,122,{...transform,offsetX:0,offsetY:0,visualSizeV31338:122});return true;}return standBody.apply(this,arguments);};
   const radius=MONGSE_enemyHitRadius;MONGSE_enemyHitRadius=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||a?.rc133InnerBoss)? .72:radius.call(this,a);};
+  const torso=MONGSE_enemyTorsoOffset;MONGSE_enemyTorsoOffset=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||a?.rc133InnerBoss)?{x:0,y:-122*.62}:torso.call(this,a);};
   const manifest=MONGSE_zoneAssetManifest,assetPlan=MONGSE_zoneAssetPlan31220;
   function extraAssets(zone){const paths=new Set(),visit=v=>{if(typeof v==='string'&&v.startsWith('./assets/'))paths.add(v);else if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')Object.values(v).forEach(visit);};if(zone==='cult04')for(const path of window.__HAPIL_MEDIA_ART_RC133__?.assets()??[])paths.add(path);if(/^kair/.test(zone))for(const path of window.__HAPIL_MEDIA_ART_RC133__?.chrono??[])paths.add(path);const first=N[zone]?.enemies?.find(a=>a.midboss);if(first)for(const a of alternativesFor(zone,first))for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase'])visit(a[key]);return paths;}
   MONGSE_zoneAssetManifest=function(zone,...args){return new Set([...manifest.call(this,zone,...args),...extraAssets(zone)]);};
