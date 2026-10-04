@@ -34,3 +34,7 @@ Each timestamped JSON is an exact copy of a native game autosave generated durin
 - QA mode: assisted natural gameplay (full-auto combat with ordinary D-key defensive input); no HP, enemy, unlock, or progress edits.
 - Gameplay source: candidate runtime SHA `6778046f7d889b09962357e9f282a265d2b235ec`, test branch HEAD at capture `dc154b2ab653e399e79844334815e5262b52d85e`.
 - The protected Story ending remains in native slot 1.
+- `20261004T021454Z-cult01.json`: exact native autosave captured 2026-10-04 02:14:54.135 UTC; assisted Dream `cult01`, HP 245, 55 zones completed. The runner’s final 02:15:06 UTC checkpoint showed HP 205.81/245, 0 actual native deaths, `c101-mid` at 91.62k/106.96k, and `innerFinalRC133.phase` not complete; it recorded 0 JS errors and 0 HTTP errors. SHA-256 `2dce48808bcdc2291029431a4099cf91dee07fbae0afecad625d67a6b648eabe`.
+- QA mode: assisted natural gameplay (full-auto combat with ordinary D-key defensive input); no HP, enemy, unlock, or progress edits. This is separate from the subsequent full-auto-only media-candidate run.
+- Gameplay source: candidate runtime SHA `6778046f7d889b09962357e9f282a265d2b235ec`, test branch HEAD at capture `b1cc50103930e760d192a066a369fe29246eb7e3`.
+- The protected Story ending remains in native slot 1.
