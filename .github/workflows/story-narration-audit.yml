@@ -2,7 +2,7 @@
 name: Canonical story narration audit
 on:
   push:
-    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality]
+    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance]
     paths:
       - '.github/workflows/story-narration-audit.yml'
       - 'assets/story-narration/**'

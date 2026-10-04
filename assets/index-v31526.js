@@ -46074,7 +46074,8 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
       MONGSE_damageSource,
     ),
     MONGSE_armoredBaseV31337 = window.__HAPIL_RANGES_V31337__?.defend(e.activeHeroId,MONGSE_damageBudget31213.applied) ?? MONGSE_damageBudget31213.applied,
-    a = Math.max(window.__HAPIL_RAID_RC24__?.floorDamage?.(e,MONGSE_damageSource,0) ?? 0, window.__HAPIL_HEART_V31336__?.packet(e,e,MONGSE_damageSource,MONGSE_armoredBaseV31337,MONGSE_rawDamage31213) ?? MONGSE_armoredBaseV31337) * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e)??1) * (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e)??1) * (window.__HAPIL_DAMAGE_RC108__?.incoming(e,MONGSE_damageSource)??1) * (window.__HAPIL_POLICY_RC127__?.incoming(e,MONGSE_damageSource)??1),
+    MONGSE_finalIncomingRC134 = Math.max(window.__HAPIL_RAID_RC24__?.floorDamage?.(e,MONGSE_damageSource,0) ?? 0, window.__HAPIL_HEART_V31336__?.packet(e,e,MONGSE_damageSource,MONGSE_armoredBaseV31337,MONGSE_rawDamage31213) ?? MONGSE_armoredBaseV31337) * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e)??1) * (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e)??1) * (window.__HAPIL_DAMAGE_RC108__?.incoming(e,MONGSE_damageSource)??1) * (window.__HAPIL_POLICY_RC127__?.incoming(e,MONGSE_damageSource)??1),
+    a = window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(e,e,MONGSE_finalIncomingRC134,'incoming'),
     MONGSE_preserveHeroUltimatePose =
       e.heroMotion?.kind === `skill` &&
       e.heroMotion?.skillIndex === 3 &&
@@ -46465,7 +46466,7 @@ function MONGSE_tickSevenSinHeroEffects(e) {
     let t = Math.min(Number(e.heroHealingCeiling ?? e.hp), e.hp);
     ((e.hp = Math.min(e.hp, t)), (e.heroHealingCeiling = e.hp));
   } else e.heroHealingCeiling = e.hp;
-  let i = (t, n) => {
+  let i = (t, n) => window.__HAPIL_COMBAT_CORE_V31401__.transaction(e,e,{dot31213:n},'status-damage',() => {
     if (e.time < Number(e.invulnerableUntil ?? 0) || e.hp <= 0 || window.__HAPIL_SAMONG_RC91__?.protected(e)) return !1;
     let MONGSE_rawDotDamage31213 = Math.max(
         1,
@@ -46481,7 +46482,9 @@ function MONGSE_tickSevenSinHeroEffects(e) {
         MONGSE_rawDotDamage31213,
         { dot31213: n },
       ).applied * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e)??1) * (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e)??1) * (window.__HAPIL_DAMAGE_RC108__?.incoming(e,{sourceId:n===`출혈`?e.heroBleedSourceIdRC108:n===`화상`?e.heroBurnSourceIdRC108:e.heroEnvyPoisonSourceIdRC108})??1);
+    MONGSE_dotDamage = window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(e,e,MONGSE_dotDamage,'incoming');
     if (!(MONGSE_dotDamage > 0)) return !1;
+    window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'HIT','native-status-damage',{appliedDamage:MONGSE_dotDamage});
     return (
       (e.hp = Math.max(0, e.hp - MONGSE_dotDamage)),
       (!(e.heroMotion?.until > e.time) ||
@@ -46506,7 +46509,7 @@ function MONGSE_tickSevenSinHeroEffects(e) {
       }),
       !0
     );
-  };
+  },{kind:'STATUS',damage:t});
   if (
     Number(e.heroBleedUntil ?? 0) > e.time &&
     e.time >= Number(e.heroBleedNextAt ?? 1 / 0)
@@ -90916,7 +90919,7 @@ function MONGSE_installBossProgressionV31236() {
     }
     const MONGSE_damageV31236 = Math.max(
         0,
-        MONGSE_finiteBossProgressionV31236(MONGSE_requestedDamageV31236, 0),
+        window.__HAPIL_COMBAT_CORE_V31401__.nativeOutgoingAmount(MONGSE_stateV31236,MONGSE_actorV31236,MONGSE_finiteBossProgressionV31236(MONGSE_requestedDamageV31236, 0)),
       ),
       MONGSE_burstCapV31236 = Math.max(
         1,
@@ -90946,7 +90949,7 @@ function MONGSE_installBossProgressionV31236() {
     const MONGSE_gatedHealthV31576 = MONGSE_phaseGateBaseV31236(
       MONGSE_stateV31236,
       MONGSE_actorV31236,
-      MONGSE_appliedDamageV31236,
+      window.__HAPIL_COMBAT_CORE_V31401__.outgoingBudget(MONGSE_stateV31236,MONGSE_actorV31236,MONGSE_appliedDamageV31236),
     );
     MONGSE_actorV31236.burstDamageWindowSpentV31576 =
       Number(MONGSE_actorV31236.burstDamageWindowSpentV31576 ?? 0) +
@@ -90954,7 +90957,7 @@ function MONGSE_installBossProgressionV31236() {
         0,
         Math.min(
           MONGSE_appliedDamageV31236,
-          MONGSE_healthBeforeV31576 - Number(MONGSE_gatedHealthV31576 ?? 0),
+          window.__HAPIL_COMBAT_CORE_V31401__.nativeOutgoingAmount(MONGSE_stateV31236,MONGSE_actorV31236,MONGSE_healthBeforeV31576 - Number(MONGSE_gatedHealthV31576 ?? 0)),
         ),
       );
     return MONGSE_gatedHealthV31576;
@@ -101790,7 +101793,8 @@ function HAPIL_applyCounterDamageV31303(state, enemy, rawDamage, reward, source 
     rawAccepted = Math.max(0, HAPIL_finiteV31303(rawDamage)) *
       (window.__HAPIL_DANMAKU_RPG_RC88__?.castDamageFactor(state, enemy, HAPIL_bossCastDamageFactorV31342(state, enemy)) ?? HAPIL_bossCastDamageFactorV31342(state, enemy)) *
       (window.__HAPIL_DANMAKU_RPG_RC88__?.damageFactor(state, enemy) ?? 1),
-    damage = (window.__HAPIL_RC79__?.balancedDamage(state,enemy,rawAccepted) ?? rawAccepted) * (window.__HAPIL_DAMAGE_RC108__?.power(state,source)??1) * .5,
+    nativeDamageRC134 = (window.__HAPIL_RC79__?.balancedDamage(state,enemy,rawAccepted) ?? rawAccepted) * (window.__HAPIL_DAMAGE_RC108__?.power(state,source)??1) * .5,
+    damage = window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(state,enemy,nativeDamageRC134,'outgoing'),
     hpAfter = Math.max(
       0,
       typeof MONGSE_phaseGateHealth === "function"
@@ -119435,7 +119439,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
     const heavy=!!(source?.boss||source?.midboss),hpTerm=source?.heavyBossSkill?a.maxHp*(source.boss?.025:.015):0;
     a.time=s.time;if(source&&typeof source==='object'&&!MONGSE_reserveHostileHit31215(a,source)){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,a,'REJECTED','native-rehit-ledger');return false;}
     const raw=Math.max(0,Math.round((num(damage)+hpTerm)*num(MONGSE_COMBAT_PHYSICS_V3128.enemyDamageMultiplier,1)*(window.__HAPIL_HELL_V31322__?.damageMultiplier?.(s)??1)));
-    let value=0;const previousTexts=a.floatTexts;a.floatTexts=s.floatTexts;a.fxSerial=s.fxSerial;try{value=MONGSE_limitHeroDamage31213(a,raw,source).applied;s.fxSerial=a.fxSerial;}finally{if(previousTexts===undefined)delete a.floatTexts;else a.floatTexts=previousTexts;delete a.fxSerial;}value=window.__HAPIL_RANGES_V31337__?.defend(a.heroId,value)??value;value=window.__HAPIL_HEART_V31336__?.packet(s,a,source,value,raw)??value;value*=window.__HAPIL_SAMONG_RC91__?.incomingFactor(s)??1;value*=window.__HAPIL_DAMAGE_RC108__?.incoming(s,source)??1;if(value<=0){window.__HAPIL_COMBAT_RC47__?.absorbed(s,a,source);return false;}
+    let value=0;const previousTexts=a.floatTexts;a.floatTexts=s.floatTexts;a.fxSerial=s.fxSerial;try{value=MONGSE_limitHeroDamage31213(a,raw,source).applied;s.fxSerial=a.fxSerial;}finally{if(previousTexts===undefined)delete a.floatTexts;else a.floatTexts=previousTexts;delete a.fxSerial;}value=window.__HAPIL_RANGES_V31337__?.defend(a.heroId,value)??value;value=window.__HAPIL_HEART_V31336__?.packet(s,a,source,value,raw)??value;value*=window.__HAPIL_SAMONG_RC91__?.incomingFactor(s)??1;value*=window.__HAPIL_DAMAGE_RC108__?.incoming(s,source)??1;value=window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(s,a,value,'incoming');if(value<=0){window.__HAPIL_COMBAT_RC47__?.absorbed(s,a,source);return false;}
     window.__HAPIL_COMBAT_CORE_V31401__.mark(s,a,'HIT','native-ally-damage',{appliedDamage:value});
     window.__HAPIL_ENEMY_FEEL_V31361__?.hit(s,a,source,value);
     a.hp=Math.max(0,a.hp-value);window.__HAPIL_CONTROLS_V31329__?.recordDamage(s,a,source,value);window.__HAPIL_THEME_V31323__?.afterDamage(s,a,source);a.invulnerableUntil=s.time+(heavy?.68:.5);a.hitUntil=s.time+.2;if(source?.status==='slow')a.slowUntil=s.time+1.2;motion(s,a,'hurt',a.x-num(source?.originX,a.x),a.y-num(source?.originY,a.y));stats.allyDamage+=value;
