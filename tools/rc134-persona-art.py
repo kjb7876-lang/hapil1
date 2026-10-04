@@ -19,7 +19,7 @@ EXPECTED={1:'29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12',2
 LIBRARY={1:'libfile_949c390ddda48191871b4cebb2e0f5d9',2:'libfile_0dc6a7c5a6f4819189835eef968cd83b'}
 # The two pointed portal roofs in the next atlas row enter this rectangle's
 # bottom corners. Remove only their alpha; retain swirl, orbiting shards and RGB.
-MASKS={'vortex':[(0,114,40,131),(162,121,176,131)]}
+MASKS={'vortex':[(0,114,50,131),(162,114,176,131)]}
 def digest(b):return hashlib.sha256(b).hexdigest()
 def main():
  OUTPUT.mkdir(parents=True,exist_ok=True);images={};sources=[];outputs=[]
