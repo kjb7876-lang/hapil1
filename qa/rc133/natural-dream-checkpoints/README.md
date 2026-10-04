@@ -26,3 +26,7 @@ Each timestamped JSON is an exact copy of a native game autosave generated durin
 - QA mode: assisted natural gameplay (full-auto combat with ordinary D-key defensive input); no HP, enemy, unlock, or progress edits.
 - Gameplay source: candidate runtime SHA `6778046f7d889b09962357e9f282a265d2b235ec`, test branch HEAD at capture `4418d46c16f876bdc87629bdc921d5b2771c1803`.
 - The protected Story ending remains in native slot 1.
+- `20261004T013707Z-kair03.json`: exact native autosave captured 2026-10-04 01:37:07.430 UTC; Dream `kair03`, HP 240, 45 zones completed. The adjacent 01:37:31 UTC heartbeat showed 0 actual deaths and a phase-1 `k103-boss`; `innerFinalRC133.phase` was not complete. The latest telemetry checkpoint at 01:36:09 UTC reported 0 JS errors and 0 HTTP errors. SHA-256 `2fb6e7cf05e5dc1ec997b5cc790db6aa7cba83391ec2e48c51d7856069a7860c`.
+- QA mode: assisted natural gameplay (full-auto combat with ordinary D-key defensive input); no HP, enemy, unlock, or progress edits.
+- Gameplay source: candidate runtime SHA `6778046f7d889b09962357e9f282a265d2b235ec`, test branch HEAD at capture `a8274cce3c44dcf9245e6f21b9cb5ed691532a5f`.
+- The protected Story ending remains in native slot 1.
