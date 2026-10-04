@@ -31,6 +31,19 @@ for(let i=0;i<2;i++)for(const k of ['hp','maxHp','damage','speed','attackSpeed']
 assert.equal(dream.enemies[2].maxHp,100);const hp=dream.enemies[0].hp-=17;const ds=api.snapshot(dream),dl=fresh('DREAM');dl.enemies=[{...mob},{...boss}];api.restore(dl,ds);api.scaleEnemies(dl);assert.equal(dl.enemies[0].hp,hp);assert.equal(dl.enemies[0].maxHp,200);
 dl.gameModeV31346='STORY';api.scaleEnemies(dl);assert.equal(dl.enemies[0].maxHp,100);assert.equal(dl.enemies[0].hp,hp/2);
 assert.equal(api.sanitize({version:1,active:999,cooldown:-1,enemies:[]}).active,7);
+// The approved duration track permits 8/9 seconds only with its saved bounded rank.
+vm.runInContext(read('assets/rc133/samong-policy.js'),c);
+for(const [rank,expected]of [[0,7],[1,8],[2,9],[999,9],[-1,7],['2',7],[NaN,7]]){
+ const clean=api.sanitize({version:1,duration:999,active:999,cooldown:-1,grace:999,upgradesRC133:{samongDuration:rank},enemies:[]});
+ assert.equal(clean.duration,expected);assert.equal(clean.active,expected);assert.equal(clean.cooldown,expected);assert.equal(clean.grace,1);
+}
+assert.equal(api.sanitize({version:1,active:999,duration:9,enemies:[]}).active,7,'duration alone cannot grant upgrade time');
+assert.equal(api.sanitize({version:1,active:-1,duration:9,upgradesRC133:{samongDuration:2},enemies:[]}).active,0);
+const upgraded=fresh('DREAM');upgraded.samongUpgradesRC133={samongDuration:2};upgraded.hp=0;
+assert(api.tryRevive(upgraded));assert.equal(api.snapshot(upgraded).active,9);assert.equal(api.snapshot(upgraded).cooldown,77);
+const upgradedSave=JSON.parse(JSON.stringify(api.snapshot(upgraded))),upgradedLoad=fresh('DREAM');api.restore(upgradedLoad,upgradedSave);
+assert.equal(api.snapshot(upgradedLoad).active,9,'valid upgraded active time survives save/restore');
+
 // Revival precedes the party reducer's knockdown normalization.
 vm.runInContext(read('assets/combat-v31402/combat-core.js'),c);const core=window.__HAPIL_COMBAT_CORE_V31401__;
 let down=false;core.bind({reducePlayer(world,damage){world.hp-=damage;return true;},route(world,reduce,args){const ok=reduce(world,...args);if(world.hp<=0)down=true;return ok;}});

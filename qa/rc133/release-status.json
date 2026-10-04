@@ -1,19 +1,19 @@
 {
-  "status": "crop-and-native-cache-fix-implemented-final-commit-CI-and-publication-pending",
+  "status": "777-and-completed-history-fixes-implemented-prepublication-validation-in-progress",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
   "branch": "codex/rc133-media-integration",
   "testedSha": "4872635c78541c5a98806e752e386e30f5851e91",
   "testedWorkingTree": false,
-  "mainSha": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
-  "pagesSha": null,
-  "published": false,
+  "mainSha": "709b66816aaa2f11f772a0a34e6003ea8f242b39",
+  "pagesSha": "709b66816aaa2f11f772a0a34e6003ea8f242b39",
+  "published": true,
   "sourceImagesInspected": true,
   "audio39MeasuredLocally": true,
   "blockers": [
     "Thirteen additional exact Library audio deliveries remain pending parent transfer; official helper materialization previously failed with hosted apps tools/list network failure. No paused uploads retried. IDs/filenames in pending-media.json.",
     "Three unauditioned Short_male_combat_hi sources remain held and unassigned. No acoustic gender or listening-quality claim.",
-    "Final narrow cache-adapter commit requires exact CI, fresh-main confirmation, coordinated main/Pages publication and public byte/viewport verification.",
-    "Current candidate assisted Dream has reached cult01/count55; hidden-final victory remains unverified. Full-auto candidate encountered two actual deaths."
+    "New 777/save-history and legacy-workflow reconciliation candidate requires exact CI and explicit parent coordination before another main write.",
+    "Unchanged narration decoder gate fails identically on reviewed85 baseline in local Chromium151; official hosted Chromium140 validation pending. Gate and audio bytes remain unchanged."
   ],
   "passed": {
     "rc133Policy": 131,
@@ -129,8 +129,8 @@
   "remainingRequestItems": [
     "Thirteen additional exact Library audio deliveries remain pending parent transfer; official helper materialization previously failed with hosted apps tools/list network failure. No paused uploads retried. IDs/filenames in pending-media.json.",
     "Three unauditioned Short_male_combat_hi sources remain held and unassigned. No acoustic gender or listening-quality claim.",
-    "Final narrow cache-adapter commit requires exact CI, fresh-main confirmation, coordinated main/Pages publication and public byte/viewport verification.",
-    "Current candidate assisted Dream has reached cult01/count55; hidden-final victory remains unverified. Full-auto candidate encountered two actual deaths."
+    "New 777/save-history and legacy-workflow reconciliation candidate requires exact CI and explicit parent coordination before another main write.",
+    "Unchanged narration decoder gate fails identically on reviewed85 baseline in local Chromium151; official hosted Chromium140 validation pending. Gate and audio bytes remain unchanged."
   ],
   "fixedFailures": [
     "RC69 injected three midbosses into Story; native admission now enforces 2/3.",
@@ -182,21 +182,26 @@
     "evidence": "dream-after-fix-fullauto/dream-run-summary.json"
   },
   "naturalDreamGuardAssist": {
-    "status": "running",
-    "runtimeSha": "4872635c78541c5a98806e752e386e30f5851e91",
-    "currentFolder": "candidate-natural-longplay-4872635c-20261004-assisted",
-    "scope": "Native Continue from supplied hando02/count49 checkpoint, then normal conditional D defense. No HP/enemy/unlock/progress edits; distinct from full-auto segments.",
+    "status": "actual-hidden-final-defeated",
+    "runtimeSha": "709b66816aaa2f11f772a0a34e6003ea8f242b39",
+    "currentFolder": "/workspace/rc133-tools/final-viewport-audit/candidate-natural-longplay-709b668-20261004-assisted2",
+    "scope": "Uncheated native-save continuation with normal conditional D defense; hybrid assisted campaign across recorded runtime revisions, separate from full-auto segments and staged777. No HP/enemy/unlock/progress edits.",
+    "hiddenFinalReached": true,
+    "hiddenFinalCompleted": true,
+    "entryAt": "2026-10-04T03:36:33.499Z",
+    "victoryAt": "2026-10-04T03:37:22.505Z",
     "checkpoint": {
-      "zone": "cult01",
-      "hp": 245,
-      "completed": 55,
+      "zone": "cult04",
+      "hp": 270,
+      "completed": 60,
       "nativeDeaths": 0,
+      "nativeRevivals": 0,
       "jsErrors": 0,
       "httpErrors": 0
     },
-    "checkpointAt": "2026-10-04T02:56:55.213Z",
-    "hiddenFinalReached": false,
-    "storySlot1Sha256": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9"
+    "terminalAutosaveSha256": "b37f9693aaaaa09432e58d2a5a4a803b96924ba5dce9180ba9099dbe36a9fb46",
+    "storySlot1Sha256": "b0013264d56835f3cf2bb7996479c6f18c98803f561a4887fcb34cb957f8fdd9",
+    "known709RestoreDefect": "Village save reload drops completed-history field. Boss remains defeated/normal mood/no filters. New candidate preserves record; staged native727/profile passes."
   },
   "additionalFailedChecks": [
     {
@@ -288,7 +293,7 @@
     "assets/rc87/episode-cosmic.js": "3594fc5efdffd988110d15da308fa47d1145bfcabae8a985ba515ceac316cacf",
     "assets/rc88/danmaku-rpg.js": "eac7d427c889c5ca7eaf2609887ebc3b6cdc2f315a466d2c5bf095432e0272c5"
   },
-  "latestRuntimeSha": "4872635c78541c5a98806e752e386e30f5851e91",
+  "latestRuntimeSha": "709b66816aaa2f11f772a0a34e6003ea8f242b39",
   "latestRuntimeCI": {
     "status": "passed-on-previous-exact-candidate-final-cache-adapter-pending",
     "commit": "4872635c78541c5a98806e752e386e30f5851e91",
@@ -303,7 +308,7 @@
     "canonicalTtsUnits": 119,
     "existingPublishedUnits": 85
   },
-  "updatedAt": "2026-10-04T03:00:46.599854+00:00",
+  "updatedAt": "2026-10-04",
   "previousRuntimeCI": {
     "status": "passed",
     "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
@@ -403,5 +408,26 @@
     "provenance": "art-processing.json pixelDerivation uses half-open source and output-local alpha-only masks",
     "independentPixelAudit": "/workspace/rc133-tools/crop-fix-audit/report.md"
   },
-  "runtimeHashesScope": "Current working tree before final cache-adapter commit; historical test evidence retains its original exact SHA."
+  "runtimeHashesScope": "Current working tree before final cache-adapter commit; historical test evidence retains its original exact SHA.",
+  "currentCandidate": {
+    "baseSha": "709b66816aaa2f11f772a0a34e6003ea8f242b39",
+    "published": false,
+    "workingTreeValidation": {
+      "developerMapsUnitChecks": 121,
+      "nativeBrowserChecksPerProfile": 727,
+      "profiles": 3,
+      "combatAudioChecks": 36,
+      "publicContractScripts": [
+        "rc130/public-smoke",
+        "rc132/published"
+      ]
+    },
+    "features": [
+      "Run-scoped777 all real maps plus explicit Dream persona entry; saved flag; new-run reset; existing mastery/movement preserved",
+      "Awakening saved duration bounded by sanitized upgrade rank; legacy7/default77 retained",
+      "Completed finale history preserved after village/mode reload without changing another encounter",
+      "Exact authorized runtime delta and detached unchanged reviewed85 preservation"
+    ],
+    "titleCodeScope": "Current UI exposes developer code only in gameplay Settings. Optional title-phase carry is unit-only internal API coverage; no added title Settings UI or title-origin browser claim."
+  }
 }

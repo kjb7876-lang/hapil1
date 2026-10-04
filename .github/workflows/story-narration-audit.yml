@@ -1,7 +1,7 @@
 name: Canonical story narration audit
 on:
   push:
-    branches: [main, 'dot/story-narration-qa-*']
+    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration]
     paths:
       - '.github/workflows/story-narration-audit.yml'
       - 'assets/story-narration/**'

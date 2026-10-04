@@ -13,7 +13,7 @@ const output = process.env.HAPIL_COMBAT_AUDIO_OUTPUT || path.join(root, 'qa-resu
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/combat-audio/v1/manifest.json'), 'utf8'));
 const runtime = process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const playwright = runtime ? require(path.join(runtime, 'playwright')) : require('playwright');
-const uploaded = pathname => pathname.includes('/assets/combat-audio/v1/audio/');
+const uploaded = pathname => pathname.includes('/assets/combat-audio/v1/audio/') || pathname.includes('/audio/rc133/processed/');
 const requests = [];
 const failurePaths = new Set();
 const mime = {'.html':'text/html; charset=utf-8', '.js':'application/javascript', '.css':'text/css', '.json':'application/json', '.mp3':'audio/mpeg', '.wav':'audio/wav', '.ogg':'audio/ogg', '.png':'image/png', '.webp':'image/webp', '.svg':'image/svg+xml', '.woff2':'font/woff2'};
@@ -44,7 +44,14 @@ function installMediaProbe() {
   const play = HTMLMediaElement.prototype.play;
   const elements = new Set(), ids = new WeakMap(), events = [];
   let serial = 0, maxMusic = 0, maxEffects = 0;
-  const kind = media => /\/combat-audio\/v1\/audio\/music-/.test(media.src) ? 'music' : /\/combat-audio\/v1\/audio\/effect-/.test(media.src) ? 'effect' : 'legacy';
+  const kind = media => {
+    if(!media.src)return 'legacy';
+    const canonical=value=>{try{const u=new URL(value,document.baseURI);return u.origin+u.pathname;}catch{return null;}};
+    const source=canonical(media.src),catalog=window.__HAPIL_COMBAT_AUDIO_CATALOG_V1__;
+    for(const [group,label] of [['music','music'],['effects','effect']])
+      if(Object.values(catalog?.[group]??{}).some(profile=>canonical(profile.path)===source))return label;
+    return 'legacy';
+  };
   const sample = () => {
     const active = [...elements].filter(media => media.src && ((!media.paused && !media.ended) || media.__hapilCombatPending));
     const music = active.filter(media => kind(media) === 'music').length;
@@ -172,7 +179,10 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
         terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false});
     }
     if (deadOwner) a.hp = 0;
-    return {ids, owner:a.id, zone:s.zone, hp:s.hp, beforeClones:s.enemies.filter(x=>x.envyHallucination).length};
+    const variants=window.__HAPIL_MEDIA_AUDIO_EVENTS_RC133__?.enemyHeavy;let hash=0;for(const char of String(ids[0]))hash=(hash*31+char.charCodeAt(0))>>>0;
+    const role=variants?.length?variants[hash%variants.length]:'dark',profile=__HAPIL_COMBAT_AUDIO_CATALOG_V1__.effects[role],pathname=new URL(profile.path,document.baseURI).pathname;
+    const before=__combatMediaProbe.events.filter(e=>e.type==='accepted'&&e.src&&new URL(e.src).pathname===pathname).length;
+    return {ids, owner:a.id, zone:s.zone, hp:s.hp, beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
   }, {label, mechanic, count, deadOwner, kind});
 }
 
@@ -231,6 +241,17 @@ async function assertNativeImpact(evidence) {
     }, manifest.assets);
     for(const decoded of report.decoded){const asset=manifest.assets.find(x=>x.role===decoded.role);assert(Math.abs(decoded.duration-asset.duration)<.15, decoded.role+' real decoded duration');assert.equal(decoded.channels,2,decoded.role+' stereo channels');assert(decoded.energy>0,decoded.role+' non-silent PCM');}
     check('all eight immutable real assets decode in Chromium');
+    const classification=await page.evaluate(()=>{
+      const C=__HAPIL_COMBAT_AUDIO_CATALOG_V1__,kind=__combatMediaProbe.kind;
+      return {music:Object.values(C.music).every(p=>kind({src:new URL(p.path,document.baseURI).href})==='music'),
+        effects:Object.values(C.effects).every(p=>kind({src:new URL(p.path,document.baseURI).href})==='effect'),
+        unknown:kind({src:new URL('./audio/music-unknown.mp3',document.baseURI).href}),
+        foreign:kind({src:'https://invalid.example'+new URL(C.music.clockwork.path,document.baseURI).pathname}),
+        empty:kind({src:''})};
+    });
+    assert.deepEqual(classification,{music:true,effects:true,unknown:'legacy',foreign:'legacy',empty:'legacy'});
+    check('only exact registered runtime paths classify as music/effects; unknown/foreign paths rejected');
+
 
     for(const [zone,rank,role] of [['dist01','ordinary','clockwork'],['dist02','midboss','clockworkIntense'],['dist06','boss','foldingSpace']]){
       await stage(zone,rank); await waitPlayed(role); await waitMusic(role);
@@ -258,9 +279,9 @@ async function assertNativeImpact(evidence) {
     }
 
     await stage('dist06','boss'); await waitMusic('foldingSpace');
-    let before=await played('dark');
-    const dark=await queueImpact({label:'발록 지옥 충격'}); await assertNativeImpact(dark); await waitPlayed('dark',before);
-    check('native infernal impact plays dark effect');
+    let before;
+    const dark=await queueImpact({label:'발록 지옥 충격'}); await assertNativeImpact(dark); await waitPlayed(dark.infernalAudio.role,dark.infernalAudio.before);
+    check('native infernal impact plays exact registered variant selected from its admitted impact ID');
 
     await stage('u203','boss'); await waitMusic('foldingSpace');
     before=await played('blackHole');
@@ -414,7 +435,7 @@ async function assertNativeImpact(evidence) {
 
     // New document clears failure memoization; fail only the ordinary combat
     // MP3. Native fallback must remain playable and frames/text must progress.
-    failurePaths.add(new URL(manifest.assets.find(x=>x.role==='clockwork').path, 'http://localhost/').pathname);
+    failurePaths.add(await page.evaluate(()=>new URL(__HAPIL_COMBAT_AUDIO_CATALOG_V1__.music.clockwork.path,document.baseURI).pathname));
     await startGame();
     await page.evaluate(()=>__HAPIL_STORY_RC51__.close(true));
     // Inline setup because stage() deliberately requires successful combat routing.
@@ -428,11 +449,11 @@ async function assertNativeImpact(evidence) {
     await page.waitForTimeout(1000);
     assert.equal((await snapshot()).audio.music,0,'failed upload cannot keep a playing deck or a delayed retry');
     check('HTTP404 upload preserves native fallback, frame progress and canonical card continuation');
-    failurePaths.add(new URL(manifest.assets.find(x=>x.role==='dark').path, 'http://localhost/').pathname);
+    for(const pathname of await page.evaluate(()=>[...new Set(['dark',...(__HAPIL_MEDIA_AUDIO_EVENTS_RC133__?.enemyHeavy??[])].map(role=>new URL(__HAPIL_COMBAT_AUDIO_CATALOG_V1__.effects[role].path,document.baseURI).pathname))]))failurePaths.add(pathname);
     await stage('dist06','boss'); await waitMusic('foldingSpace');
     const missingEffect=await queueImpact({label:'발록 지옥 충격'}); await assertNativeImpact(missingEffect);
     await page.waitForFunction(()=>__HAPIL_COMBAT_AUDIO_V1__.diagnostics.failedPaths>=2,null,{timeout:15000});
-    assert.equal(await played('dark'),0,'404 effect cannot report accepted real playback');
+    assert.equal(await played(missingEffect.infernalAudio.role),missingEffect.infernalAudio.before,'404 effect cannot report accepted real playback');
     await page.waitForFunction(()=>__combatMediaProbe.sample().effects===0);
     const failedAttempts=await page.evaluate(()=>__combatMediaProbe.events.filter(x=>x.kind==='effect'&&x.type==='play').length);
     await page.keyboard.press('Shift'); await page.waitForTimeout(1000);

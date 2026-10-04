@@ -38,7 +38,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: rc127-public-${{ github.run_id }}
+          name: rc127-public-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/rc127-public/
           retention-days: 14
   evidence:
@@ -51,14 +51,14 @@ jobs:
       - uses: actions/checkout@v6
         with: {ref: '${{ github.sha }}', show-progress: false}
       - uses: actions/download-artifact@v4
-        with: {name: 'rc127-public-${{ github.run_id }}', path: 'qa/rc127-public'}
+        with: {name: 'rc127-public-${{ github.run_id }}-${{ github.run_attempt }}', path: 'qa/rc127-public'}
       - name: Keep read-only service observations in evidence branch
         env:
           PUBLIC_RESULT: ${{ needs.published.result }}
         run: |
-          printf '{"run":%s,"commit":"%s","result":"%s"}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" "$PUBLIC_RESULT" > qa/rc127-public/summary.json
+          printf '{"run":%s,"attempt":%s,"commit":"%s","result":"%s"}\n' "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" "$GITHUB_SHA" "$PUBLIC_RESULT" > qa/rc127-public/summary.json
           git config user.name 'HAPIL RC127 public evidence'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add qa/rc127-public
           git commit -m "RC127 public evidence $GITHUB_RUN_ID ($PUBLIC_RESULT)"
-          git push origin HEAD:refs/heads/qa/rc127-public-$GITHUB_RUN_ID
+          git push origin HEAD:refs/heads/qa/rc127-public-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT

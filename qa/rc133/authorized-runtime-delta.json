@@ -1,0 +1,1726 @@
+{
+  "version": 1,
+  "base": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
+  "baseTree": "1b30fbfe22350dfc879eab16b05238929c70c46d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections; no arbitrary namespace exemption; narration85 and all other runtime bytes remain protected.",
+  "baselineGuards": {
+    "tools/story-narration-release85-preservation.cjs": "92ed29cdf627a5801277110515e73f75b9cb384868f252eeb40b7844a12bb1c5",
+    "tools/rc130-preservation.cjs": "0677d03ad18952f8c4e08e5138c26617235c7b58cb18046c817ecbce5303554a"
+  },
+  "files": [
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "2dc8fabb2d14b7ed8bb167f52383a98243974e22",
+        "file": "assets/combat-audio/v1/controller.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e125be62032fc090e1610867f70bd3c54eafee26",
+        "file": "assets/combat-audio/v1/controller.js",
+        "sha256": "149c7a115be1a50eb6f00a722d5800e755023506c41e7eeba75f92dbd991680e",
+        "bytes": 11476
+      },
+      "reason": "Admit approved processed audio variants through native bounded mixer; preserve combat-only gates and two-voice limits."
+    },
+    {
+      "file": "assets/combat-v31402/combat-core.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "5d2530a3e2e953bf593ce1fe1f8ae8a2d4099030",
+        "file": "assets/combat-v31402/combat-core.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "cf1eb305687aef6faba27990aceaaa60fd96ebcf",
+        "file": "assets/combat-v31402/combat-core.js",
+        "sha256": "135853abf9239899cd7c8df1e24c6abf4bb53d564bc9258e041be9805a0a048e",
+        "bytes": 15993
+      },
+      "reason": "Publish projectile-removal feedback from actual admitted transaction outcomes."
+    },
+    {
+      "file": "assets/controller-v31406/resonance-channel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "694cda4c5fcf6afdec571232c07754d34b6baae6",
+        "file": "assets/controller-v31406/resonance-channel.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "819a3c79fe8779aa646b021325eda06e6dd00e3e",
+        "file": "assets/controller-v31406/resonance-channel.js",
+        "sha256": "ec116124a5765ae1175f6551c45529213f72353a3e2a43d939bffc068a0a9521",
+        "bytes": 13053
+      },
+      "reason": "Record seven actual EGO transitions at the native channel boundary."
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "3087afb368bd6050a5dfcfa184a1184521a776b2",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "48d2701903d52fe929d67bc428c8e23528482475",
+        "file": "assets/index-v31526.js",
+        "sha256": "24ed278be6af0e82b0eb8eb3439cc202e96a4f7b81d3db0483b4fa11cdb3d6c3",
+        "bytes": 6166336
+      },
+      "reason": "Native RC133 boss/warp/midboss/hidden/media integration plus explicit run777 access and compatible save restoration; preserve previous movement/laser/size/fallback/healing policies."
+    },
+    {
+      "file": "assets/rc108/damage-policy.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "bcef5a1f8227b4aef72753fb8b8be23cf1a0e990",
+        "file": "assets/rc108/damage-policy.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "ada4abaa9602007ab69bf14644d7d3065820f780",
+        "file": "assets/rc108/damage-policy.js",
+        "sha256": "01942659173c8dd78ca05c44b5497715d110f185e33a57d3ac3c8c7274710399",
+        "bytes": 2149
+      },
+      "reason": "Delegate Dream EGO cooldown/upgrade behavior to atomic seven-entry RC133 policy."
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "d419456755ffc83640bd4ff12bc58bf3878af2c9",
+        "file": "assets/rc128/combat-feedback.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9420a257775b90a1a752cfbe302504532b9153a4",
+        "file": "assets/rc128/combat-feedback.js",
+        "sha256": "631e9e3808e0c8e2d14021b39db67d18b7b8303a04d50d998d158fa4deb9e722",
+        "bytes": 16999
+      },
+      "reason": "Admitted defensive/removal feedback, once per accepted transaction; consume throttles after admission."
+    },
+    {
+      "file": "assets/rc133/art/arena.webp",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "0419578ff6b94799f2b129f2100157b4d0af7ed7",
+        "file": "assets/rc133/art/arena.webp",
+        "sha256": "02798e550e6b070c3f43258f83be23f95273ca3ec1c05a7717091c471b2d9978",
+        "bytes": 2409050
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-0.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "74c0eb5f532fb30974e51c4f23de45877c911dcc",
+        "file": "assets/rc133/art/awake-0.png",
+        "sha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
+        "bytes": 167518
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-1.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "c176c00b6b8c9ed8118954619de7af16d2c34dd4",
+        "file": "assets/rc133/art/awake-1.png",
+        "sha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
+        "bytes": 163617
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-2.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "09a7d6f7b3971be39d265013832e9ac4bf9329ba",
+        "file": "assets/rc133/art/awake-2.png",
+        "sha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
+        "bytes": 166185
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-3.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "c1f21a28b86ffb0bb0e5a84f11e5f7efaa4ce685",
+        "file": "assets/rc133/art/awake-3.png",
+        "sha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
+        "bytes": 168579
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-4.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "0196f47f12e22ed9f9919d38729318ec317159d2",
+        "file": "assets/rc133/art/awake-4.png",
+        "sha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
+        "bytes": 161572
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-5.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "73ea26757617aadbebae1f571fd74dfac1a53cc7",
+        "file": "assets/rc133/art/awake-5.png",
+        "sha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
+        "bytes": 159069
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-6.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "862855b0fcb26e53211ad51aeadaf8d0345d05d2",
+        "file": "assets/rc133/art/awake-6.png",
+        "sha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
+        "bytes": 167849
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awake-7.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "fc668120dbe889d561d8510d23e1d6511b6c4583",
+        "file": "assets/rc133/art/awake-7.png",
+        "sha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
+        "bytes": 166631
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/awakening-eclipse.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "682ceb1d8847ab673a305a887388b8bf4b4385d8",
+        "file": "assets/rc133/art/awakening-eclipse.png",
+        "sha256": "12e69e1c64e1970b5620588cbe4028cc7c4e7d93cc26444984ae1affaf36f759",
+        "bytes": 1533199
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-0.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "c215ab687d5a0a815ee1e5895b5291c81b65425b",
+        "file": "assets/rc133/art/base-0.png",
+        "sha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
+        "bytes": 136357
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-1.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "61ed75197030fccc1392b4166948a4882913bdc6",
+        "file": "assets/rc133/art/base-1.png",
+        "sha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
+        "bytes": 134489
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-2.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "2d815a8bdda1bbf009d3371cc6ed1c445cde3ea1",
+        "file": "assets/rc133/art/base-2.png",
+        "sha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
+        "bytes": 133371
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-3.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "989dd9f10b86534b36e9de170e896a09b5715d67",
+        "file": "assets/rc133/art/base-3.png",
+        "sha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
+        "bytes": 136960
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-4.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "f8c0160459e0128c39e554de257c81eb29db4ff0",
+        "file": "assets/rc133/art/base-4.png",
+        "sha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
+        "bytes": 122152
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-5.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "dcef70beb70839cf793c65966f679dac13d21ff3",
+        "file": "assets/rc133/art/base-5.png",
+        "sha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
+        "bytes": 127505
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-6.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7ee42f5f16aab6f117dee973d8777a3f1af1e045",
+        "file": "assets/rc133/art/base-6.png",
+        "sha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
+        "bytes": 126765
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/base-7.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "718eb4b4b9740a5e0da1b73f826f72b8e494d76c",
+        "file": "assets/rc133/art/base-7.png",
+        "sha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
+        "bytes": 134646
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-0.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e5ccfb6b2b0d406d2639bf240cb6996e4ae4ba68",
+        "file": "assets/rc133/art/chrono-0.png",
+        "sha256": "55909c956ba4e4437c699c329398230ea0e70f7836dfa570b7ccc5cd25ed585e",
+        "bytes": 101256
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-1.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "1476f00dcc803b218ec0444bfb273b799f173897",
+        "file": "assets/rc133/art/chrono-1.png",
+        "sha256": "2138851c7765e2081effa31f49409e180acfa32a62cebd56d233e31bde9886b0",
+        "bytes": 164266
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-10.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "3a3e88da526bcc7b17e2abd9b49b5240a3b9cedc",
+        "file": "assets/rc133/art/chrono-10.png",
+        "sha256": "1b1c30cbb033e40bd4278ace543ccfaaed30139401251155d61e5f469dddaf47",
+        "bytes": 155467
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-11.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e2c0ca2d1df1c85929a9ef2648035b63d3781b2c",
+        "file": "assets/rc133/art/chrono-11.png",
+        "sha256": "6860356b5bdcd7b85efbd84adef4e2a23dd1b77ff278f6270f2348fd5b3aac9b",
+        "bytes": 162700
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-12.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "6b9b994097ef3b0b6faf77f51e3885d0a4dd4f42",
+        "file": "assets/rc133/art/chrono-12.png",
+        "sha256": "bd886ef798dea655d0bf3b912e208d5dbbfd42d19141b334ade14d78bd681dff",
+        "bytes": 174734
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-13.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "a7d3399b22ff55b32ea40330bf2bae051fe379e4",
+        "file": "assets/rc133/art/chrono-13.png",
+        "sha256": "6f56cbf3f3627ba402aab79c781bdcc0e648bedf06083f194f31b40910029885",
+        "bytes": 174780
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-14.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "0893859fe08afb58196b7025d22638b7e517b3c1",
+        "file": "assets/rc133/art/chrono-14.png",
+        "sha256": "63dcaf11f5e744dbd5a4d73a0873e575594e7cfe262a36018e3c193bbf1be331",
+        "bytes": 156161
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-15.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "bc189a3c146833ff1e1a4327d1b59c8222e28efc",
+        "file": "assets/rc133/art/chrono-15.png",
+        "sha256": "06930dd9be257780d3d73d947dda781ab2a7ba019889973501be83ee063cd283",
+        "bytes": 150890
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-2.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "6885c5f3de465ee5fab371f88826e867dd945b9a",
+        "file": "assets/rc133/art/chrono-2.png",
+        "sha256": "87fb9bdaf47a2b542de367c285595334af4b65282359bc98928e49f466789821",
+        "bytes": 137389
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-3.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8317251f08ef6220a500306d12c177cc9d376f9a",
+        "file": "assets/rc133/art/chrono-3.png",
+        "sha256": "92d150e7e2edbcb143d538964c03eb8b6f927d1b00a523facd7697346c91dfc1",
+        "bytes": 185400
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-4.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "ea6111845283b55513ba09cc9257fac14e43ecf3",
+        "file": "assets/rc133/art/chrono-4.png",
+        "sha256": "05f1760cc1e0f6fa4a24e4f030e35f852822cf26f351dd5ba6cb36636a8ca956",
+        "bytes": 150700
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-5.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4716242b98c1c79b26314a5d1c7c4193da25e382",
+        "file": "assets/rc133/art/chrono-5.png",
+        "sha256": "3a66a656d7660c0f859f69cf6d333fe4aab5ab8a0e1fd9c4a985e2b5fb8cd16a",
+        "bytes": 181397
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-6.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "f9c3fe995b32e952d141a828fb86160fbc04505b",
+        "file": "assets/rc133/art/chrono-6.png",
+        "sha256": "8ae6e64aeaca42b9c377cf80cd2c0528c408d2cc0e697395aae38746f6be7ac2",
+        "bytes": 85874
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-7.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d8581e84f24d4b1e25dd65f41119f6861bf3d17a",
+        "file": "assets/rc133/art/chrono-7.png",
+        "sha256": "cc0eaa0c7f9c0d82e9e4104e8febb0b1271fb570b8e74e519a3f979c781f2a1e",
+        "bytes": 161370
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-8.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "281584cc128f9615b67338dfdea6533f8f7fa738",
+        "file": "assets/rc133/art/chrono-8.png",
+        "sha256": "0adbfc4eeb3d854186f2c1695ad1e60da7f6443105210db16092c55d5c73061e",
+        "bytes": 136353
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/chrono-9.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "13cbadccef6a5db9b633127cc00a5892f11145c4",
+        "file": "assets/rc133/art/chrono-9.png",
+        "sha256": "5143d72349fdfaf8d2a2f55889e30286402f10d4f174a763c2e93c980b1ef251",
+        "bytes": 156973
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/clock.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "11c34c0c83b5d3d92d5348e035ad1be3d27c1e94",
+        "file": "assets/rc133/art/clock.png",
+        "sha256": "78cd7828f3c5938b92ec2139120d5be4d566e569394a9e9ad7b42e1b4c84d907",
+        "bytes": 23728
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/diamond.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7f6a1697c16b00b27dd9441a3ff075c2cfa66293",
+        "file": "assets/rc133/art/diamond.png",
+        "sha256": "a51af7454d95ee169eb3b8cff521e2a76aec2ffe3cf69b4534821cb6812a9456",
+        "bytes": 9322
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/eclipse.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "63b979e54bb10bd0ba1321645d1351ae0887af64",
+        "file": "assets/rc133/art/eclipse.png",
+        "sha256": "b49126ae5fac926a5b2f08f132c20aeb53065585f403db873dc9af2419edbebb",
+        "bytes": 50238
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/eye.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "fdfbeb37de7f6404ef25c291ac77b5b1c80f8d04",
+        "file": "assets/rc133/art/eye.png",
+        "sha256": "6f363a492146782f0adc96628603aac9fa7b6d27bd90ca4002de2c48fbf8ce11",
+        "bytes": 4855
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/lance.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "baccdae9bebe858f70c5dc77c554b1cde4577ccc",
+        "file": "assets/rc133/art/lance.png",
+        "sha256": "c7c9579891c9de1fb9a56b9200f742329a8218c378cf33a1f8313e3f53d5d851",
+        "bytes": 25071
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/portrait.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "90bad10007c594b4a6753de4e126b387fbe21570",
+        "file": "assets/rc133/art/portrait.png",
+        "sha256": "d36bf20c26724709a195cb225b53d1c6b43e856bcf244a6ed2a297c98fcbd73a",
+        "bytes": 76168
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/reveal.webp",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e3200de786f08748ddc7489499ecbb413d149e03",
+        "file": "assets/rc133/art/reveal.webp",
+        "sha256": "e30ead2edefcd1df3e220c19a74f146452e64dc256af4017bc5871f9da6ec40d",
+        "bytes": 2192074
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/shield.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9dd7c67a9e8283c3ab1d44293c0c08b6ab19edea",
+        "file": "assets/rc133/art/shield.png",
+        "sha256": "64608771890353ed2a82c7c227e104c60918711e9b5d3963aa38f1df707faa1e",
+        "bytes": 29827
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/small-orb.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "a4f67ebccd96005c8cca287eb2198dcff9c6b562",
+        "file": "assets/rc133/art/small-orb.png",
+        "sha256": "69b34f1f8ac183825a05dedbf816a6bb618c0315526edbbe0e8120ef1b7fadf5",
+        "bytes": 3065
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/star.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "51513b0779d4f52aae9e814b4379b419b080ec84",
+        "file": "assets/rc133/art/star.png",
+        "sha256": "e5c41ec6f0847a69ec57857764ea5e6adb5498fea8b07f6f371a10a2ca877b5e",
+        "bytes": 4076
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/art/vortex.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "003a18c5484279baf67cbbf42088e579a53ac0b2",
+        "file": "assets/rc133/art/vortex.png",
+        "sha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a",
+        "bytes": 43749
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/developer-maps.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8a8dbf2ed830ce65d0fd642054beb230a3a3204c",
+        "file": "assets/rc133/developer-maps.js",
+        "sha256": "4ee25c79087ce267e07d234615566792456ff91f9d9f8eebb88d27d96468ecd3",
+        "bytes": 1545
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "29c45d84c06444bdd9ded9582c11276eaf947a4d",
+        "file": "assets/rc133/inner-final.js",
+        "sha256": "6222566f5e3f191488f4543599b29c5592220fc52387c7a1e395cc45a5ee6761",
+        "bytes": 12069
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/media-art.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "00e64111cdf0931fd46aaec448fe3b59c4b13f67",
+        "file": "assets/rc133/media-art.js",
+        "sha256": "d9a47aac1ceb9695ad18feadb0328bd0c24c06b864108fcafe57f5d8943bdf7b",
+        "bytes": 2388
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/media-audio.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "3bd89a187e6883768cf086ea10dc93f9429bd364",
+        "file": "assets/rc133/media-audio.js",
+        "sha256": "3158ae0f78487992e04f6923ef0c9b2501428afd77e41db3940e06571e48a36d",
+        "bytes": 1449
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/media-catalog.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "5cdfecca15105f3e3f957862edeea100c9a22e91",
+        "file": "assets/rc133/media-catalog.js",
+        "sha256": "f342158a573a2fee2d18a2f8b801ba675b8ae43f9094571e82b12cb183ba2520",
+        "bytes": 15573
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "046105bd3495581df2935544ed5713806a2a3b3d",
+        "file": "assets/rc133/native-install.js.txt",
+        "sha256": "58f15884ece2c946191e6ce8eb3c1524e1ca1187e326474e46ff55b3aa23e438",
+        "bytes": 20438
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/samong-policy.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "deb2d97bbeac0a3ac025b2d2f8213f05aea04f29",
+        "file": "assets/rc133/samong-policy.js",
+        "sha256": "b44e64d00c066c53c89c63a81a6cae8bbc8743ea66136938f2b22e76ab91d688",
+        "bytes": 3802
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_2cc2c525f0bc81918ac00e11fb72ba3d.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7de301cb60aaf5fa7d18fcc1f92873e06a753ed0",
+        "file": "assets/rc133/source-art/libfile_2cc2c525f0bc81918ac00e11fb72ba3d.png",
+        "sha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+        "bytes": 2046418
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4bef07198f2afa1622e54fcdd4ca8b291e1a946e",
+        "file": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+        "sha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+        "bytes": 2501904
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_77701ac3d1e08191bf1f9f03b29ac967.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d166e34bb9574a100946c8d77d9b31965d364256",
+        "file": "assets/rc133/source-art/libfile_77701ac3d1e08191bf1f9f03b29ac967.png",
+        "sha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+        "bytes": 2962564
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "02946143e7e69c4fc051fac99cda3262b8385a41",
+        "file": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+        "sha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+        "bytes": 3009312
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_a0e71293286481918c55e03101fbcc90.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9c85b0b920701fa8271f9d1cf1ef9bd401ab161c",
+        "file": "assets/rc133/source-art/libfile_a0e71293286481918c55e03101fbcc90.png",
+        "sha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+        "bytes": 2997194
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_fd6b302c3e6481918851054ea82e72c9.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "64a41a08e26fc145e996a11021bb559cfde06648",
+        "file": "assets/rc133/source-art/libfile_fd6b302c3e6481918851054ea82e72c9.png",
+        "sha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+        "bytes": 3389675
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc25/raid.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "08ffbf19ac36c7ab7afcd4b5b08a2d10f1348df8",
+        "file": "assets/rc25/raid.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "215d458d11ca526043ce8ea4c48aa77e2348cce0",
+        "file": "assets/rc25/raid.js",
+        "sha256": "eb57b745abeda0a7571951105f2323fd2b7b71ab5d1e7894f5acb5901ca7d7fd",
+        "bytes": 7669
+      },
+      "reason": "Preserve bounded Dream incoming damage transaction routing."
+    },
+    {
+      "file": "assets/rc87/episode-cosmic.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "0c3aaf0950108c7223f394bd3d81fdca8bd29787",
+        "file": "assets/rc87/episode-cosmic.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "45b73aa08fc9185d680f12860d1f89260a7c7d2a",
+        "file": "assets/rc87/episode-cosmic.js",
+        "sha256": "3594fc5efdffd988110d15da308fa47d1145bfcabae8a985ba515ceac316cacf",
+        "bytes": 24545
+      },
+      "reason": "Six Story-only source-owned episode awakening identities/decks; preserve legacy saves."
+    },
+    {
+      "file": "assets/rc88/danmaku-rpg.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "39ea33a3f5ca7d973ff92c15372058d3148567f1",
+        "file": "assets/rc88/danmaku-rpg.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "3dce89686accf656d86f7a263b14ad1783a90e12",
+        "file": "assets/rc88/danmaku-rpg.js",
+        "sha256": "eac7d427c889c5ca7eaf2609887ebc3b6cdc2f315a466d2c5bf095432e0272c5",
+        "bytes": 26778
+      },
+      "reason": "Preserve EGO7 Dream awakening admission at native progression boundary."
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f1cbbc1b3bbd3a2cabe8ccc6eb6cc72729b6ad58",
+        "file": "assets/rc91/samong-awakening.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "505e0aae0da7ff0531588dfb12efa17e88c779d3",
+        "file": "assets/rc91/samong-awakening.js",
+        "sha256": "8cde33ed362444d980f19ad4cbb86cec64d8b1141589db922a2bea3d8e0fd108",
+        "bytes": 14948
+      },
+      "reason": "Atomic Dream EGO7/revival/save upgrades; validate duration against sanitized upgrade rank; preserve default7/77 and Story exclusions."
+    },
+    {
+      "file": "assets/rc95/combat-flow.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "067bd00eb34b0afd4faccfd01c11a3c545847711",
+        "file": "assets/rc95/combat-flow.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7f50b577ba8352811b38fa5ad4b782be959ee957",
+        "file": "assets/rc95/combat-flow.js",
+        "sha256": "e301657c8ff39c3441138527390fee0862355630f1df26dbe4ecb6d7d4e0407d",
+        "bytes": 9477
+      },
+      "reason": "Owner-attached art and transaction feedback through native combat presentation."
+    },
+    {
+      "file": "assets/rc96/resonance-hud.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "420604cdc5359984f3a9710d00f56ed31db77afd",
+        "file": "assets/rc96/resonance-hud.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "407549bb06d61b28fe9bae7765a656925e429974",
+        "file": "assets/rc96/resonance-hud.js",
+        "sha256": "fb22f9c1ab4454c03b991d531310fb900c9a18c8925058ea0f223f0372385f8e",
+        "bytes": 3481
+      },
+      "reason": "Show seven-entry counter and actual bounded awakening timers."
+    },
+    {
+      "file": "audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "f575fd130f7cdb8ef628361257421114ffeb05c0",
+        "file": "audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav",
+        "sha256": "a8af3a45f523fc1472fcd2acecbb9242509a1f2e7a52524bc5a00943031ccb05",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Ancient_demon_awaken_#2-1791000075383.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b4b9ab0c0d009906ccf5e01767c64d0f5d4bc620",
+        "file": "audio/rc133/originals/Ancient_demon_awaken_#2-1791000075383.wav",
+        "sha256": "dc8d305e51ef3d41dce065faa6b02be32a69651772e538d51ec5c01ca62138bd",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Ancient_demon_awaken_#3-1791000075383.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "3b68d96c30e6ef5bc03a86696a6bb462d00f5b16",
+        "file": "audio/rc133/originals/Ancient_demon_awaken_#3-1791000075383.wav",
+        "sha256": "27414fd4f5278a8807406a3e9375bdac4be76844e48405fa6c34cd2dbdabde90",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Ancient_demon_awaken_#4-1791000075383.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "3448c2f7bef39706a5fb99bce9edd009a268a336",
+        "file": "audio/rc133/originals/Ancient_demon_awaken_#4-1791000075383.wav",
+        "sha256": "7e636c80b791d91064d0d35e95d54284dd13d28023065704d60f2671bdc12c02",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Clockwork Ticks (1)(1).mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "2deb4922c8011977d8a6b7aa6145465a676f9ecd",
+        "file": "audio/rc133/originals/Clockwork Ticks (1)(1).mp3",
+        "sha256": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+        "bytes": 4905154
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Clockwork Ticks(1).mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "a4a3eadcf38697e8b92af5c9d57ee5e4122aaa0f",
+        "file": "audio/rc133/originals/Clockwork Ticks(1).mp3",
+        "sha256": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+        "bytes": 5198727
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Control of Time(1).mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "fcc7ea836e770d7eebcc4b82fe19fda88bc9a71f",
+        "file": "audio/rc133/originals/Control of Time(1).mp3",
+        "sha256": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+        "bytes": 1743095
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Dark_demonic_attack__#3-1790999830236.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9e8533a951e3c2926ff38ec605952f4bf318aab3",
+        "file": "audio/rc133/originals/Dark_demonic_attack__#3-1790999830236.wav",
+        "sha256": "5780aca586e12f25224f848fd3c80770f8440a978219ccc856df3fef05d6690f",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Dark_fantasy_demon_e_#3-1790999939460(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "2836243f798ee35169761488e4907b9188fb15e1",
+        "file": "audio/rc133/originals/Dark_fantasy_demon_e_#3-1790999939460(1).wav",
+        "sha256": "8510730ad3ebff97216f48bfcf1cd0ecc7956153ac548c05124a3789ce775d87",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_black_hole_a_#1-1791000219272(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "ca921c161edd81671eb5a2871352c3e4aa348925",
+        "file": "audio/rc133/originals/Demonic_black_hole_a_#1-1791000219272(1).wav",
+        "sha256": "1c57c45972af864793ab4cfbf4666f7e37dd61c69ef21d6bbb5252737126ab05",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_illusion_cre_#1-1791000032651(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b408c84094aec7bcf985c80f5deea0bc3c02efea",
+        "file": "audio/rc133/originals/Demonic_illusion_cre_#1-1791000032651(1).wav",
+        "sha256": "b58c308723496c8da52f9d7c5c3a2244040a6a49152d631df1eeb12f913e74c0",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_illusion_cre_#1-1791000032651(2).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b408c84094aec7bcf985c80f5deea0bc3c02efea",
+        "file": "audio/rc133/originals/Demonic_illusion_cre_#1-1791000032651(2).wav",
+        "sha256": "b58c308723496c8da52f9d7c5c3a2244040a6a49152d631df1eeb12f913e74c0",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_laser_chargi_#1-1791000143316(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "cc724dab219ca021a41b3ac5e0b6754fb26d18c7",
+        "file": "audio/rc133/originals/Demonic_laser_chargi_#1-1791000143316(1).wav",
+        "sha256": "07641aed9bc13915a33edef2639de385c028a4f8ded2963511ebe59125ef523a",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_laser_chargi_#1-1791000143316.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "cc724dab219ca021a41b3ac5e0b6754fb26d18c7",
+        "file": "audio/rc133/originals/Demonic_laser_chargi_#1-1791000143316.wav",
+        "sha256": "07641aed9bc13915a33edef2639de385c028a4f8ded2963511ebe59125ef523a",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_laser_chargi_#4-1791000154420(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b70b4d1a9fe13a0f2548496995f37d71ac776755",
+        "file": "audio/rc133/originals/Demonic_laser_chargi_#4-1791000154420(1).wav",
+        "sha256": "97cfc34fa00dcb02fc5b45e7bfda7088d0fffd115688e1942c91a29ccd23bf5e",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_laser_chargi_#4-1791000154420.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b70b4d1a9fe13a0f2548496995f37d71ac776755",
+        "file": "audio/rc133/originals/Demonic_laser_chargi_#4-1791000154420.wav",
+        "sha256": "97cfc34fa00dcb02fc5b45e7bfda7088d0fffd115688e1942c91a29ccd23bf5e",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_rage_skill_a_#4-1790999904551(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "393b8bad8501f5df4e72f5d90fdfed13494d4bcb",
+        "file": "audio/rc133/originals/Demonic_rage_skill_a_#4-1790999904551(1).wav",
+        "sha256": "aaf8fc57390bbb0504e08b91b6e8e68262851b58198871e47eee5bd95c0b1ffc",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Demonic_rage_skill_a_#4-1790999904551.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "393b8bad8501f5df4e72f5d90fdfed13494d4bcb",
+        "file": "audio/rc133/originals/Demonic_rage_skill_a_#4-1790999904551.wav",
+        "sha256": "aaf8fc57390bbb0504e08b91b6e8e68262851b58198871e47eee5bd95c0b1ffc",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Folding Space(1).mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7999baffce9cb7a6de7c17b177988cfd16f85187",
+        "file": "audio/rc133/originals/Folding Space(1).mp3",
+        "sha256": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+        "bytes": 4814147
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Folding Space(2).mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7999baffce9cb7a6de7c17b177988cfd16f85187",
+        "file": "audio/rc133/originals/Folding Space(2).mp3",
+        "sha256": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+        "bytes": 4814147
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Massive_demonic_ener_#1-1791000176874(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "909a2fd0bb330bf6795b55425e4b2eb461680e61",
+        "file": "audio/rc133/originals/Massive_demonic_ener_#1-1791000176874(1).wav",
+        "sha256": "1c0241f385dd38af82327842d7a9badb95303f3fc2d549879447f8df6ad9d7c0",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Massive_demonic_ener_#1-1791000176874.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "909a2fd0bb330bf6795b55425e4b2eb461680e61",
+        "file": "audio/rc133/originals/Massive_demonic_ener_#1-1791000176874.wav",
+        "sha256": "1c0241f385dd38af82327842d7a9badb95303f3fc2d549879447f8df6ad9d7c0",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Massive_demonic_ener_#2-1791000188083(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4aec3846406dfbbb6f1634de5b55c53aeb26c956",
+        "file": "audio/rc133/originals/Massive_demonic_ener_#2-1791000188083(1).wav",
+        "sha256": "8a5a3342de3ed66537dfbb1fac230c410ba6ca0ec923bea2db5feb26305d5bce",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Massive_demonic_ener_#2-1791000188083.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4aec3846406dfbbb6f1634de5b55c53aeb26c956",
+        "file": "audio/rc133/originals/Massive_demonic_ener_#2-1791000188083.wav",
+        "sha256": "8a5a3342de3ed66537dfbb1fac230c410ba6ca0ec923bea2db5feb26305d5bce",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Near-Silence Restart(1).mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8d781be47575b04061c8a3d273272bf91d2ea255",
+        "file": "audio/rc133/originals/Near-Silence Restart(1).mp3",
+        "sha256": "41a49d56119ecad4f8cd04be2d6eeb355dd95a8529ef99dd84ecd3359c63d64b",
+        "bytes": 1498479
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Near-Silence Restart.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8d781be47575b04061c8a3d273272bf91d2ea255",
+        "file": "audio/rc133/originals/Near-Silence Restart.mp3",
+        "sha256": "41a49d56119ecad4f8cd04be2d6eeb355dd95a8529ef99dd84ecd3359c63d64b",
+        "bytes": 1498479
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Perfect_parry_sound,_#2-1791000286664.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "eb0d4af21a037e19e5cf4bb017b248f0422b16ff",
+        "file": "audio/rc133/originals/Perfect_parry_sound,_#2-1791000286664.wav",
+        "sha256": "2defdc93671b6105c0f8efaa281597522cd6e8777898c8a92480a9a3e2956a2c",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Powerful_demonic_hea_#1-1790999865399.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e87095020c8f8ea31c0a3e5e29558b56b652e114",
+        "file": "audio/rc133/originals/Powerful_demonic_hea_#1-1790999865399.wav",
+        "sha256": "61fe79a2ff344ce555f3403dd3895803ed2cdb45e6e3e6b0e36e878376051192",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Powerful_demonic_hea_#2-1790999865400.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "eccd7c4755a73338f70b9f9cf98742beae105714",
+        "file": "audio/rc133/originals/Powerful_demonic_hea_#2-1790999865400.wav",
+        "sha256": "a81a6eb53222081886819372191db655af211f9475cd30503a259442e569dd01",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Quick_dodge_sound,_f_#3-1791000315957.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4f293727d95c25e3e368c585b758f3cc20ad6c84",
+        "file": "audio/rc133/originals/Quick_dodge_sound,_f_#3-1791000315957.wav",
+        "sha256": "859c65d8c9c22b9127c911f9b05d2525fad49b6541aaaf19b840d4540a08f172",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Quick_dodge_sound,_f_#4-1791000321516.wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7a8c4746735b67697869c385f3bfcd89afdf4a9f",
+        "file": "audio/rc133/originals/Quick_dodge_sound,_f_#4-1791000321516.wav",
+        "sha256": "94e7f1be1070e5ba1c5bb961f6ad0a7f58c013c91e2641e5551916672f2edad0",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_magical_blink__#4-1791000353126(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e6df7d9cee2d9d18258555bf19b55df4150ef655",
+        "file": "audio/rc133/originals/Short_magical_blink__#4-1791000353126(1).wav",
+        "sha256": "3a31443e2777226a3e689ed935f6387e43fd67f38b3b6162d794ccd911b1f9e2",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_male_combat_hi_#1-1790999771415(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "28ba065f27c2ddd6f30e9b1c80ab515f9f5ef8f3",
+        "file": "audio/rc133/originals/Short_male_combat_hi_#1-1790999771415(1).wav",
+        "sha256": "b07af69110c3b400e5df0b974210c8bf7b2060a1e5d8ddc0d153f471b394bb83",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_male_combat_hi_#2-1790999771385(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "285156a7267d755b56f324a21ebdd7cf68fecbf6",
+        "file": "audio/rc133/originals/Short_male_combat_hi_#2-1790999771385(1).wav",
+        "sha256": "0dd04f6bf90ae0c0e8d9f7a5d7d53c06e9f3c619afd38b04a2f781d86860cafe",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_male_combat_hi_#4-1790999767038(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "ae6f962859d9875b2f4842e1105bc579e6917648",
+        "file": "audio/rc133/originals/Short_male_combat_hi_#4-1790999767038(1).wav",
+        "sha256": "aa444fb7429f96a1485a8129ebf839a8e123f6b8f75f40493dad3d9735922bb5",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_melee_hit_impa_#1-1791000243196(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e5659c3cf0874d1a42fae9b7c099778ee8c15f73",
+        "file": "audio/rc133/originals/Short_melee_hit_impa_#1-1791000243196(1).wav",
+        "sha256": "0988d8f3fdee77dcfb84584429ab445c69082c217d44b5c083247dc4ff57d910",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_melee_hit_impa_#3-1791000250226(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7140de79a1fab3c272c895289c3e4d3cd9400e6b",
+        "file": "audio/rc133/originals/Short_melee_hit_impa_#3-1791000250226(1).wav",
+        "sha256": "4f574de89a60b2143557ab3cdb41928d95af09c3a2509d7b15dc5c731ea4fe7b",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/Short_melee_hit_impa_#4-1791000252248(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "df6816a1eb461900d107d8177828b28339e09417",
+        "file": "audio/rc133/originals/Short_melee_hit_impa_#4-1791000252248(1).wav",
+        "sha256": "c3114678df6438488af001b134d07e4943c0c26d7763311c242a4a71e10f6441",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/originals/demon_roar_#4-1790999603479(1).wav",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "408c54c790813ab04e121dffdd5eee0da400e29d",
+        "file": "audio/rc133/originals/demon_roar_#4-1790999603479(1).wav",
+        "sha256": "fb23f2a4ee8e21f8931b6717fc02bd5bd0de35ffd8a101b7307d20f9c70b030d",
+        "bytes": 432078
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__1-1791000066648-a8af3a45.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "5a9eee987c8a60b455783947bf5644c6658b6ab2",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__1-1791000066648-a8af3a45.ogg",
+        "sha256": "2f9ca6127d103a947c50955181e0434321918a26181d5a57ed2ee2cc106e9782",
+        "bytes": 25635
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__2-1791000075383-dc8d305e.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "1e5bc5cebdabb3e37d3ec0ce237d267a81d2e99d",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__2-1791000075383-dc8d305e.ogg",
+        "sha256": "87690b49c95f1917816feff4b43384589d12a86f79a2b075cb26d95b065b23ec",
+        "bytes": 24241
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__3-1791000075383-27414fd4.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "6a081804cc8d05d100f9d443b6d2dc3db31fa941",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__3-1791000075383-27414fd4.ogg",
+        "sha256": "77e570c26f1b663457f69a822bee0ce01d06f3035d52ad7ce73ea9550a853eab",
+        "bytes": 25486
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__4-1791000075383-7e636c80.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "84c0257666e883a758b2e0a5edeae708fbb8219b",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__4-1791000075383-7e636c80.ogg",
+        "sha256": "4ffcb5286e89f5581a12fb2f46b9546f0324715a922c0429303311f1cda45a2f",
+        "bytes": 22495
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/bgm/Clockwork_Ticks_1-4918e942.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "1c9b7a5a42af7a57a33f702171108d661226cdbc",
+        "file": "audio/rc133/processed/bgm/Clockwork_Ticks_1-4918e942.mp3",
+        "sha256": "3707ca9e0c960c43db47836bf9cdaa410d02b9d79255e36f41317f700027957b",
+        "bytes": 3964844
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/bgm/Clockwork_Ticks_1_1-ae97c712.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7e30397f7b4b1dd871f41dc148348518cc862a79",
+        "file": "audio/rc133/processed/bgm/Clockwork_Ticks_1_1-ae97c712.mp3",
+        "sha256": "f5ab13fe2dcbba2bc01ac49d3d77f9d25db7b651f06b37b52286032eee939cd1",
+        "bytes": 3757484
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/bgm/Control_of_Time_1-231007d6.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "0e2bc96ec2977033a3e80472b33320f957eadc22",
+        "file": "audio/rc133/processed/bgm/Control_of_Time_1-231007d6.mp3",
+        "sha256": "6e86cd7f0fac21e70ec9b08434f4aea4ac6179a9ec2fe2870771b67f752f59b9",
+        "bytes": 1496684
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "c8f449e6d24ee7b8bbc730adf2c3419a64f5c77f",
+        "file": "audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3",
+        "sha256": "91bd5ef70ce6756702471d1b3594093141534129bed82c13dc7f9a7d3790bce6",
+        "bytes": 4047404
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/bgm/Near-Silence_Restart-41a49d56.mp3",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8452d09258f802b660fc5efa3f66f02b4e4c785e",
+        "file": "audio/rc133/processed/bgm/Near-Silence_Restart-41a49d56.mp3",
+        "sha256": "779a8d86d4a68736ebf518e148a3d9a50bd9673997ea87622de12baf1bd4a9bf",
+        "bytes": 1204844
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/blink/Short_magical_blink___4-1791000353126_1-3a31443e.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "0a469f3dbbd4d40b8a0d7a142473475a1a19b4f3",
+        "file": "audio/rc133/processed/blink/Short_magical_blink___4-1791000353126_1-3a31443e.ogg",
+        "sha256": "cd035e7d9fd7d626b21eacee6cb6cf6176b4b5c528650aa7e30b81d06e4702d2",
+        "bytes": 27855
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/dodge/Quick_dodge_sound__f__3-1791000315957-859c65d8.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "2ec510b14f06f537da3b772e67742d5d97720550",
+        "file": "audio/rc133/processed/dodge/Quick_dodge_sound__f__3-1791000315957-859c65d8.ogg",
+        "sha256": "74eb3a381b4eabf3229b033ea8d547a57ca80b5e2596e1e3da801627c433a208",
+        "bytes": 26174
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/dodge/Quick_dodge_sound__f__4-1791000321516-94e7f1be.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "a5a1eb74132fd479a136e8bd33d6b359d457b33d",
+        "file": "audio/rc133/processed/dodge/Quick_dodge_sound__f__4-1791000321516-94e7f1be.ogg",
+        "sha256": "f56190b272af3116a62ea0ac2e074b65ee2fe91d1636bed56cae84c94817b3b1",
+        "bytes": 24724
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-charge/Demonic_laser_chargi__1-1791000143316-07641aed.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "fa8652357196eb75224a9e7ea4f6ad56e734cd9a",
+        "file": "audio/rc133/processed/enemy-charge/Demonic_laser_chargi__1-1791000143316-07641aed.ogg",
+        "sha256": "fdd31a09b2655659b4985a4172eb8bb1c4465d1a1cf7ca86e9b22b7c52b9b472",
+        "bytes": 32627
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-charge/Demonic_laser_chargi__4-1791000154420-97cfc34f.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "55b8dcc2707c19440c23e9100e89d2d67e4abe11",
+        "file": "audio/rc133/processed/enemy-charge/Demonic_laser_chargi__4-1791000154420-97cfc34f.ogg",
+        "sha256": "68e0e90c849bd8ace35eaf949746ec30d6bfd0cbe595d03f490541e5c1b89ee8",
+        "bytes": 27767
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-energy/Massive_demonic_ener__1-1791000176874-1c0241f3.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4eb736683d9a7e477d906744d65d5a74bd3ac998",
+        "file": "audio/rc133/processed/enemy-energy/Massive_demonic_ener__1-1791000176874-1c0241f3.ogg",
+        "sha256": "11fa11a403e01c634ecc0e7a0d69669a055d4a5f529a502668382e18f9c67b7d",
+        "bytes": 25366
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-energy/Massive_demonic_ener__2-1791000188083-8a5a3342.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "2258a7c3c1f5ffc2025395177d2e0e4903f6749a",
+        "file": "audio/rc133/processed/enemy-energy/Massive_demonic_ener__2-1791000188083-8a5a3342.ogg",
+        "sha256": "75b20095915e57049457e3c5258c0b91adcd6de1c78ce71de32e2ef5279cac41",
+        "bytes": 25487
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-heavy/Dark_demonic_attack___3-1790999830236-5780aca5.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "30acdad4ff21d2b3903ec297099c56157fd98a5a",
+        "file": "audio/rc133/processed/enemy-heavy/Dark_demonic_attack___3-1790999830236-5780aca5.ogg",
+        "sha256": "16fa845997ee681eab1fbaab1310333dff2800d208a8277e912ae1c59c219e04",
+        "bytes": 22155
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-heavy/Dark_fantasy_demon_e__3-1790999939460_1-8510730a.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "96ef57113bf82e1c6ba6b377214a549c999bd86f",
+        "file": "audio/rc133/processed/enemy-heavy/Dark_fantasy_demon_e__3-1790999939460_1-8510730a.ogg",
+        "sha256": "61bbbc3ac82ec1e83bd0b202c04d5602c22ce46037ca109fbdc5fa3926937812",
+        "bytes": 39469
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-heavy/Powerful_demonic_hea__1-1790999865399-61fe79a2.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "367440ac51ce1be896aa700a075fa9fceadfe8d7",
+        "file": "audio/rc133/processed/enemy-heavy/Powerful_demonic_hea__1-1790999865399-61fe79a2.ogg",
+        "sha256": "3b4999e43f02e65708fc7793fd48f9322aca625ff72c63bea06823cb6a44cdea",
+        "bytes": 23566
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-heavy/Powerful_demonic_hea__2-1790999865400-a81a6eb5.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9015d44d5e9d8465e44456e164a2fed94be93b23",
+        "file": "audio/rc133/processed/enemy-heavy/Powerful_demonic_hea__2-1790999865400-a81a6eb5.ogg",
+        "sha256": "0b8908e26d0f1d2ea7be7649f57bd6a90082c9cf0bd2f0da7e79ea4d545c48ab",
+        "bytes": 24848
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-rage/Demonic_rage_skill_a__4-1790999904551-aaf8fc57.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "cdc92827304b2d0f386e81df799a59cb441b7b32",
+        "file": "audio/rc133/processed/enemy-rage/Demonic_rage_skill_a__4-1790999904551-aaf8fc57.ogg",
+        "sha256": "785ca3749095ea95468f8461331eb7104c25408ae1b27ca6d232a890d82ff6ce",
+        "bytes": 23700
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-roar/demon_roar__4-1790999603479_1-fb23f2a4.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "77bde183c907e7c55d4c3a8c72ba649ea1742503",
+        "file": "audio/rc133/processed/enemy-roar/demon_roar__4-1790999603479_1-fb23f2a4.ogg",
+        "sha256": "cce4b8869e01e054773b37c64dacb73c1d6041596b450cf460f8d72196245be0",
+        "bytes": 22897
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/enemy-void/Demonic_black_hole_a__1-1791000219272_1-1c57c459.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "fd1bd001efa3f2ede234c4852cfdea106aaf4445",
+        "file": "audio/rc133/processed/enemy-void/Demonic_black_hole_a__1-1791000219272_1-1c57c459.ogg",
+        "sha256": "d203f5c75202cd6601e5da0f67a4e6f06180fdadb13107391fcd5c99dd677bea",
+        "bytes": 24410
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/illusion/Demonic_illusion_cre__1-1791000032651_1-b58c3087.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "32bc5f384808bef28c482a872f38c1fe7343be4a",
+        "file": "audio/rc133/processed/illusion/Demonic_illusion_cre__1-1791000032651_1-b58c3087.ogg",
+        "sha256": "15ef0ccc55e9bccb8e55b6f4621cb9fd43eb7776322c56582927d2ab27cb8c8f",
+        "bytes": 25994
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__1-1791000243196_1-0988d8f3.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "392bf457128c142fda1d26968a7c92f214503e7d",
+        "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__1-1791000243196_1-0988d8f3.ogg",
+        "sha256": "93d43475dc4a7ab9af921fec7a5cf9df2adb3aff71bdc943797adfe7c2e4fc09",
+        "bytes": 28692
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__3-1791000250226_1-4f574de8.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "0e1f586ac267c0c81e73f9a8841878d3e01a06f0",
+        "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__3-1791000250226_1-4f574de8.ogg",
+        "sha256": "495857cebeccae467dee501b7ddc3ca81749a8140441ee3c1cd1deb5a7765a20",
+        "bytes": 27889
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__4-1791000252248_1-c3114678.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "780b7999839bd467c7079632e28ee0af4884a5cf",
+        "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__4-1791000252248_1-c3114678.ogg",
+        "sha256": "50b47a32cda76585096c3c0a741b06564aad2267c3baf41080652092c5379012",
+        "bytes": 28889
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "audio/rc133/processed/parry/Perfect_parry_sound___2-1791000286664-2defdc93.ogg",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d7fbd82fd080c998f49127e4406792c2d3fd2ae3",
+        "file": "audio/rc133/processed/parry/Perfect_parry_sound___2-1791000286664-2defdc93.ogg",
+        "sha256": "3934a48172249c6f6c75f73f6b88f5182dfd7a8b2b37670ad7a4dca2de334f6e",
+        "bytes": 23002
+      },
+      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1b4a54e6e63e177fb1f045f00ddcfed62a9dbc2c",
+        "file": "index.html"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "23b39522b0fae8f01f86fecfd4cc4bb92c3f2986",
+        "file": "index.html",
+        "sha256": "9f8b87a47d988209b594317ca58e186dee083905cbf5da63ec5f01e4e1997e3a",
+        "bytes": 9940
+      },
+      "reason": "Load approved RC133 gameplay/media modules with reviewed cache revisions; preserve narration85 loader."
+    }
+  ]
+}

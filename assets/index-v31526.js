@@ -53999,11 +53999,14 @@ function Ri() {
       (t) => {
         if (e !== `game`) return;
         let n = P.current;
-        if (!(t === `hub` || N[t].order <= N[n.frontierZone].order)) {
+        const developerMaps=window.__HAPIL_DEVELOPER_MAPS_RC133__,inner=t===developerMaps?.innerId;
+        if(inner&&!developerMaps.canInner(n)){B(`777 코드로 사몽 히든 결전 이동을 해금해 주세요.`);return;}
+        if(inner)t='cult04';
+        if (!N[t] || !(inner || t === `hub` || N[t].order <= N[n.frontierZone]?.order)) {
           B(`아직 도달하지 않은 지역입니다.`);
           return;
         }
-        if (t === n.zone) {
+        if (t === n.zone && !inner) {
           u(null);
           return;
         }
@@ -54056,15 +54059,16 @@ function Ri() {
           (n.heroMotion = ai(n.time, n.facing, n.direction)),
           (n.invulnerableUntil = n.time + 0.85),
           he.includes(t)
-            ? (ii(n, t, ze.current.mapEntryDialogue !== !1),
+            ? (ii(n, t, !inner && ze.current.mapEntryDialogue !== !1),
               xe(t) && ((n.loopCycles[t] = 0), (n.loopNextAt = n.time + 1.2)))
             : ((n.enemies = []),
               (n.spawnedWaves = new Set()),
               (n.bossDefeated = n.completedZones.has(t))),
+          inner && window.__HAPIL_INNER_FINAL_RC133__.developerStart(n),
           u(null),
           (Re.current = ze.current.autoCombat === !0),
           p(Re.current),
-          B(`${N[t].name} 재방문 · 본편 진행도는 유지됩니다.`),
+          B(inner?'777 · 사후의 나 히든 결전':`${N[t].name} 재방문 · 본편 진행도는 유지됩니다.`),
           void 0);
       },
       [V, Ue, e, B],
@@ -54083,6 +54087,7 @@ function Ri() {
           MONGSE_enemiesBefore = P.current.enemies.length;
 
         window.__HAPIL_SAMONG_RC91__?.unlock(P.current,'777');
+        window.__HAPIL_DEVELOPER_MAPS_RC133__.grant(P.current,window.__HAPIL_CONTROLS_V31329__?.binding?.phase!=='game');
         ((R.current = t),
           h(t),
           (P.current.activeHeroMastery = 7),
@@ -54198,6 +54203,7 @@ function Ri() {
           (P.current.activeHeroId=i),
           (P.current.zone='dist00'),
           (P.current.frontierZone='dist00'),
+          window.__HAPIL_DEVELOPER_MAPS_RC133__.beginRun(P.current,window.__HAPIL_DEVELOPER_MAPS_RC133__.frontier(N)),
           ii(P.current,'dist00',false),
           (Le.current=[window.__HAPIL_POLICY_V31400__.partner(i)]),
           window.__HAPIL_PARTY_V31322__?.configure?.({
@@ -65528,12 +65534,12 @@ function Gi({settings:e,set:t,zones:n,currentZone:r,revisit:i,returnToTitle:a,op
     toggle('showAttackTelegraphs','공격 예고 범위','적 공격의 위험 범위를 표시합니다.'),toggle('largeText','큰 글자','전투 정보의 글자를 키웁니다.'),(0,q.jsxs)('label',{children:[(0,q.jsx)('b',{children:'터치 조작'}),(0,q.jsx)('select',{'aria-label':'터치 조작',value:window.__HAPIL_MOBILE_V31366__?.snapshot?.().options.mode??'auto',onChange:event=>{const mode=event.target.value;window.__HAPIL_MOBILE_V31366__?.setMode(mode);t(v=>({...v,mobileUi:mode==='on'}));},children:[['auto','기기에 맞게'],['on','항상 표시'],['off','숨김']].map(([value,label])=>(0,q.jsx)('option',{value,children:label},value))})]})
   ]})]}),
   (0,q.jsxs)('section',{children:[(0,q.jsx)('h3',{children:'진행'}),(0,q.jsx)('nav',{children:[['save','저장 · 불러오기'],['growth','공명 강화'],['codex','독백 기록']].map(([id,label])=>(0,q.jsx)('button',{type:'button',onClick:()=>open?.(id),children:label},id))}),
-    (0,q.jsxs)('details',{children:[(0,q.jsx)('summary',{children:'방문한 맵 다시 가기'}),(0,q.jsx)('div',{className:'memory-map-grid',children:n.filter(id=>N[id]&&id!=='ep1a07').map(id=>(0,q.jsx)('button',{disabled:id===r,onClick:()=>i(id),children:N[id].name||id},id))})]}),
+    (0,q.jsxs)('details',{children:[(0,q.jsx)('summary',{children:'방문한 맵 다시 가기'}),(0,q.jsx)('div',{className:'memory-map-grid',children:n.filter(id=>N[id]&&(id!=='ep1a07'||window.__HAPIL_DEVELOPER_MAPS_RC133__?.has(window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current))).map(id=>(0,q.jsx)('button',{disabled:id===r,onClick:()=>i(id),children:N[id].name||id},id))}),window.__HAPIL_DEVELOPER_MAPS_RC133__?.canInner(window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current)&&(0,q.jsx)('button',{'data-rc133-map':'inner-evil-rc133',onClick:()=>i('inner-evil-rc133'),children:'히든 결전 · 사후의 나'})]}),
     (0,q.jsx)('button',{className:'return-title-button',onClick:a,children:'자동 저장 후 시작 화면으로'})]}),
   (0,q.jsxs)('section',{className:'developer-code-settings-v31576',children:[(0,q.jsx)('h3',{children:'개발자 코드'}),(0,q.jsxs)('form',{className:'developer-code-form-v31576',onSubmit:submitDeveloperCode,children:[
     (0,q.jsxs)('label',{children:[(0,q.jsx)('b',{children:'관리 코드'}),(0,q.jsx)('input',{type:'text',inputMode:'numeric',autoComplete:'off',maxLength:3,pattern:'[0-9]*',value:developerCode,'aria-label':'개발자 코드',onChange:event=>setDeveloperCode(event.target.value.slice(0,3))})]}),
     (0,q.jsx)('button',{type:'submit',disabled:!developerCode.trim(),children:'코드 적용'}),
-    (0,q.jsx)('p',{role:'status','aria-live':'polite',children:developerCodeMessage||'777: 사몽 모드·모든 영웅 스킬·콜라보 강화·전체 맵 이동을 해금합니다.'})
+    (0,q.jsx)('p',{role:'status','aria-live':'polite',children:developerCodeMessage||'777: 사몽 모드·모든 영웅 스킬·콜라보 강화·전체 맵과 사몽 히든 결전 이동을 해금합니다. 이동 해금은 현재 게임에 저장되며 새 게임에서는 초기화됩니다.'})
   ]})]})
  ]});
 }
@@ -126516,6 +126522,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  const S=()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
  const U=()=>window.__HAPIL_SAMONG_POLICY_RC133__;
  const H=()=>window.__HAPIL_INNER_FINAL_RC133__;
+ const D=()=>window.__HAPIL_DEVELOPER_MAPS_RC133__;
  const metrics={warps:0,warpCancelled:0,midbossAdded:0,removals:0};
  function authority(s){const p=window.__HAPIL_PARTY_V31322__;return !(p?.state===s&&(p.status?.role==='guest'||p.status?.paused||p.status?.disconnected));}
  function safeDestination(s,a,p){
@@ -126606,9 +126613,9 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
   // reviewed Chrono pixel revision on the native URL as well as the art registry.
   const assetUrl=MONGSE_assetUrl;MONGSE_assetUrl=function(path,...args){const value=assetUrl.call(this,path,...args);return /^\.?\/?assets\/rc133\/art\/chrono-(?:[0-9]|1[0-5])\.png$/.test(String(path??'').split(/[?#]/)[0])?value+(value.includes('?')?'&':'?')+'rc133=43305':value;};
   const B=window.__HAPIL_RC86_BRIDGE__,save=B.serializeSave,norm=B.normalizeSave,restore=B.restoreEntry;
-  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.innerFinalRC133=H().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
-  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.innerFinalRC133=H().clean(raw?.innerFinalRC133);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
-  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
+  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.developerMapsRC133=D().clean(s.developerMapsRC133);result.innerFinalRC133=H().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
+  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.developerMapsRC133=D().clean(raw?.developerMapsRC133);if(result.developerMapsRC133)result.frontierZone=D().frontier(N);result.innerFinalRC133=H().clean(raw?.innerFinalRC133);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
+  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
   const enemies=B.restoreEnemies;B.restoreEnemies=function(raw,...args){let result=enemies.call(this,raw,...args);const previous=new Map(result.map(a=>[a.id,a]));const roster=cleanEncounter(raw?.midbossEncounterRC133,raw?.zone);
    const rows=roster?.members??raw?.midbossRC133??[];if(roster)result=result.filter(a=>!a.midboss||a.visualOnly||a.friendly);
    for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.id===row.template&&a.midboss);if(!source)continue;const a=previous.get(row.id)??Jr(source,raw.zone);const visual=Object.values(N).flatMap(z=>z.enemies??[]).find(a=>a.midboss&&a.id===row.visual);if(visual){for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase','phaseScales'])a[key]=visual[key]??null;a.rc133VisualTemplate=visual.id;}Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133TemplateId:row.template,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});result.push(a);}return result;};

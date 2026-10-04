@@ -111,8 +111,10 @@
  }
  function sanitize(raw){
   if(!raw||raw.version!==1)return null;
-  const activeLeft=clamp(raw.active,0,9),cooldown=clamp(raw.cooldown,0,COOLDOWN);
-  return {version:1,unlocked:raw.unlocked===true,clock:Math.max(0,n(raw.clock)),active:activeLeft,cooldown:Math.max(activeLeft,cooldown),grace:Math.min(activeLeft,clamp(raw.grace,0,1)),activations:Math.max(0,Math.floor(n(raw.activations))),heroId:HEROES.includes(raw.heroId)?raw.heroId:null,duration:Math.max(7,clamp(raw.duration,7,9)),origin:raw.origin==='ego'?'ego':'revival',egoRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.clean(raw.egoRC133)??null,upgradesRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.upgrades(raw.upgradesRC133)??null,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.sanitize(raw.encounterRC128)??null,
+  const upgradesRC133=window.__HAPIL_SAMONG_POLICY_RC133__?.upgrades(raw.upgradesRC133)??null,
+   duration=clamp(raw.duration,7,7+(upgradesRC133?.samongDuration??0)),
+   activeLeft=clamp(raw.active,0,duration),cooldown=clamp(raw.cooldown,0,COOLDOWN);
+  return {version:1,unlocked:raw.unlocked===true,clock:Math.max(0,n(raw.clock)),active:activeLeft,cooldown:Math.max(activeLeft,cooldown),grace:Math.min(activeLeft,clamp(raw.grace,0,1)),activations:Math.max(0,Math.floor(n(raw.activations))),heroId:HEROES.includes(raw.heroId)?raw.heroId:null,duration,origin:raw.origin==='ego'?'ego':'revival',egoRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.clean(raw.egoRC133)??null,upgradesRC133,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.sanitize(raw.encounterRC128)??null,
    enemies:(Array.isArray(raw.enemies)?raw.enemies:[]).slice(0,384).filter(a=>typeof a?.id==='string'&&a.id.length<180&&Number.isFinite(a.hp)&&Number.isFinite(a.maxHp)&&a.maxHp>0&&a.hp>=0&&a.hp<=a.maxHp&&a.stats?.version===1&&[1,2].includes(a.stats.factor)&&Number.isFinite(a.stats.baseMaxHp)&&a.stats.baseMaxHp>0).map(a=>({...a,stats:{version:1,factor:a.stats.factor,baseMaxHp:a.stats.baseMaxHp,observedMaxHp:a.maxHp,fields:Object.fromEntries(FIELDS.filter(k=>Number.isFinite(a.stats.fields?.[k])).map(k=>[k,a.stats.fields[k]]))}}))};
  }
  function restoreVitals(s,raw){

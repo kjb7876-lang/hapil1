@@ -344,6 +344,8 @@ function validateReviewedRevision(root, exec, ensure) {
 }
 
 function verify(root){
+ // RC133_PRESERVATION_DELEGATE: exact authorized delta plus detached unchanged prior guard.
+ if(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('./assets/rc133/developer-maps.js?v=43307'))return require('./rc133-preservation.cjs').verify(root);
  // NARRATION85_PRESERVATION_DELEGATE: exact current bytes, then unchanged prior proof.
  if(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('    <script src="./assets/story-narration/v1/player.js?v=2026100309"></script>'))return require('./story-narration-release85-preservation.cjs').verify(root);
  // NARRATION82_PRESERVATION_DELEGATE: exact current bytes, then unchanged prior proof.

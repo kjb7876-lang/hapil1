@@ -17,6 +17,10 @@ const fixedFiles = [
   'index.html',
   'assets/index-v31526.js',
   'assets/rc133/media-art.js',
+  'assets/rc133/developer-maps.js',
+  'assets/rc133/inner-final.js',
+  'assets/rc133/samong-policy.js',
+  'assets/rc91/samong-awakening.js',
   'qa/rc133/art-processing.json',
 ];
 const expectedOutputCount = 44;
