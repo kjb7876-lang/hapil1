@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "base": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
+  "deltaSha256": "465d7989ce3ba1cf04b054256ed417dd57f10f3a50241324b375fd4360b240aa",
+  "authorizedFiles": 146,
+  "narration86": {
+    "status": "passed",
+    "base": "80adeec6e12d1e96973012e535ad1575ae12d1c8",
+    "frozenSource": "06ad4ad64501163bc5207a7ac6d277e1660f2b65",
+    "manifestSha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006",
+    "addedAudio": 5,
+    "activeAudio": 269,
+    "includedUnits": 86,
+    "includedRoutes": 191,
+    "oldAssetsPreserved": 264,
+    "oldRoutesPreserved": 189,
+    "historical85GuardUnchanged": true
+  },
+  "currentRuntimeProof": {
+    "checkedFiles": 3199,
+    "checkedDirectories": 504,
+    "workingTreeMatches": true,
+    "committedTreeMatches": true
+  },
+  "method": "Exact per-file preimage/output hashes and full committed/working inventory, then unchanged reviewed-85 and prior preservation guards on detached pinned baseline",
+  "testedCommit": "785a2158983412384909cf701a6d8198581ed5f3",
+  "scope": "Full exact authorized delta and historical guards; summary of complete local output, not a replacement assertion."
+}

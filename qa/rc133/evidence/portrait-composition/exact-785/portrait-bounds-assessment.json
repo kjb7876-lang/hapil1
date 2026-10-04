@@ -1,0 +1,68 @@
+{
+  "candidate": "785a2158983412384909cf701a6d8198581ed5f3",
+  "staged": true,
+  "status": "passed",
+  "actualInnerBossCamera": true,
+  "bindingMatchesQA": true,
+  "bindingMatchesFixture": true,
+  "mood": "opposition",
+  "overlays": {
+    "story": false,
+    "death": false
+  },
+  "errors": [],
+  "httpErrors": [],
+  "bodyBounds": [
+    {
+      "target": "boss",
+      "drawFrame": 23,
+      "canvasBounds": {
+        "left": 606.1471237445595,
+        "top": 311.33558519952146,
+        "right": 641.0972492568812,
+        "bottom": 373.7465236143816
+      },
+      "centralHalfSourceCrop": {
+        "left": 0,
+        "top": 175,
+        "right": 1247,
+        "bottom": 526
+      },
+      "fullyInsideSourceCrop": true,
+      "source": {
+        "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+        "naturalWidth": 224,
+        "naturalHeight": 400
+      },
+      "filter": "brightness(1.8) contrast(0.8)",
+      "globalAlpha": 1,
+      "sourceCropMethod": "Exact RC108 floor(height/2) and floor((height-half)/2)"
+    },
+    {
+      "target": "hero",
+      "drawFrame": 24,
+      "canvasBounds": {
+        "left": 640.5249955620048,
+        "top": 290.8729815112814,
+        "right": 675.4751210743266,
+        "bottom": 353.28391992614155
+      },
+      "centralHalfSourceCrop": {
+        "left": 0,
+        "top": 175,
+        "right": 1247,
+        "bottom": 526
+      },
+      "fullyInsideSourceCrop": true,
+      "source": {
+        "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+        "naturalWidth": 224,
+        "naturalHeight": 400
+      },
+      "filter": "brightness(1.8) contrast(0.8)",
+      "globalAlpha": 1,
+      "sourceCropMethod": "Exact RC108 floor(height/2) and floor((height-half)/2)"
+    }
+  ],
+  "visualReview": "Actual native pixels reviewed. Red arena and cloak gain luminance after one final mood pass. Dark source cloak and bars near the split divider still reduce local contrast; this does not guarantee all-position visibility. No crop, source sprite or pixel edits."
+}

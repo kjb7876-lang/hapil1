@@ -1,0 +1,690 @@
+{
+  "candidate": "785a2158983412384909cf701a6d8198581ed5f3",
+  "profile": "portrait",
+  "mood": "opposition",
+  "staged": true,
+  "sourceFrame": "./assets/rc133/art/awake-2.png",
+  "records": [],
+  "errors": [],
+  "httpErrors": [],
+  "capture": {
+    "fixture": {
+      "zone": "cult04",
+      "player": {
+        "x": 18.8,
+        "y": 11.2,
+        "hp": 240,
+        "maxHp": 240
+      },
+      "boss": {
+        "id": "inner-evil-rc133",
+        "sprite": "./assets/rc133/art/awake-2.png",
+        "x": 20,
+        "y": 10,
+        "hp": 280500,
+        "maxHp": 280500
+      },
+      "mood": "opposition",
+      "canvas": [
+        {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "transform": {
+            "a": 1,
+            "b": 0,
+            "c": 0,
+            "d": 1,
+            "e": 0,
+            "f": 0,
+            "m11": 1,
+            "m12": 0,
+            "m13": 0,
+            "m14": 0,
+            "m21": 0,
+            "m22": 1,
+            "m23": 0,
+            "m24": 0,
+            "m31": 0,
+            "m32": 0,
+            "m33": 1,
+            "m34": 0,
+            "m41": 0,
+            "m42": 0,
+            "m43": 0,
+            "m44": 1,
+            "is2D": true,
+            "isIdentity": true
+          },
+          "filter": "none"
+        }
+      ],
+      "portrait": {
+        "frames": 12,
+        "drawPasses": 12,
+        "bossPasses": 6,
+        "heroPasses": 6,
+        "composites": 12,
+        "pointerBlocked": 0,
+        "cameras": {
+          "hero": {
+            "x": 314.83239114258697,
+            "y": 140.5118640212461,
+            "scale": 0.525,
+            "focusId": "hero"
+          },
+          "boss": {
+            "x": 193.63938095031608,
+            "y": 251.9005963062789,
+            "scale": 0.525,
+            "focusId": "dist00-boss"
+          }
+        },
+        "rendering": false,
+        "target": "hero",
+        "frame": 12
+      },
+      "viewport": {
+        "x": 473.6492890995261,
+        "y": 0,
+        "width": 332.70142180094786,
+        "height": 720,
+        "k": 1.1722222222222223
+      },
+      "map": "./assets/rc133/art/arena.webp"
+    },
+    "liveState": {
+      "bindingMatchesQA": true,
+      "bindingMatchesFixture": true,
+      "bindingPhase": "game",
+      "zone": "cult04",
+      "targetEnemyId": "inner-evil-rc133",
+      "playerHp": 240,
+      "boss": {
+        "id": "inner-evil-rc133",
+        "sprite": "./assets/rc133/art/awake-2.png",
+        "hp": 280500,
+        "maxHp": 280500,
+        "x": 20,
+        "y": 10
+      },
+      "mood": "opposition",
+      "portrait": {
+        "frames": 24,
+        "drawPasses": 24,
+        "bossPasses": 12,
+        "heroPasses": 12,
+        "composites": 24,
+        "pointerBlocked": 0,
+        "cameras": {
+          "hero": {
+            "x": 197.53070905375068,
+            "y": 147.375,
+            "scale": 0.525,
+            "focusId": "hero"
+          },
+          "boss": {
+            "x": 162.25,
+            "y": 168.375,
+            "scale": 0.525,
+            "focusId": "inner-evil-rc133"
+          }
+        },
+        "rendering": false,
+        "target": "hero",
+        "frame": 24
+      },
+      "cameraFocusMatchesInner": true
+    },
+    "draws": [
+      {
+        "time": 0.4267000000000002,
+        "target": "boss",
+        "frame": 13,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 158.0979737341404,
+          "f": 164.0662331432104
+        },
+        "canvasBounds": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "intersectCanvas": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "hero",
+        "frame": 14,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 192.47499805779808,
+          "f": 143.60362945497036
+        },
+        "canvasBounds": {
+          "left": 640.5241480682172,
+          "top": 290.8729815112814,
+          "right": 675.4742735805389,
+          "bottom": 353.28391992614155
+        },
+        "intersectCanvas": {
+          "left": 640.5241480682172,
+          "top": 290.8729815112814,
+          "right": 675.4742735805389,
+          "bottom": 353.28391992614155
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "boss",
+        "frame": 15,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 158.0979737341404,
+          "f": 164.0662331432104
+        },
+        "canvasBounds": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "intersectCanvas": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "hero",
+        "frame": 16,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 192.47529542403936,
+          "f": 143.60362945497036
+        },
+        "canvasBounds": {
+          "left": 640.5244454344585,
+          "top": 290.8729815112814,
+          "right": 675.4745709467802,
+          "bottom": 353.28391992614155
+        },
+        "intersectCanvas": {
+          "left": 640.5244454344585,
+          "top": 290.8729815112814,
+          "right": 675.4745709467802,
+          "bottom": 353.28391992614155
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "boss",
+        "frame": 17,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 158.0979737341404,
+          "f": 164.0662331432104
+        },
+        "canvasBounds": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "intersectCanvas": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "hero",
+        "frame": 18,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 192.47556305365651,
+          "f": 143.60362945497036
+        },
+        "canvasBounds": {
+          "left": 640.5247130640756,
+          "top": 290.8729815112814,
+          "right": 675.4748385763974,
+          "bottom": 353.28391992614155
+        },
+        "intersectCanvas": {
+          "left": 640.5247130640756,
+          "top": 290.8729815112814,
+          "right": 675.4748385763974,
+          "bottom": 353.28391992614155
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "boss",
+        "frame": 19,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 158.0979737341404,
+          "f": 164.0662331432104
+        },
+        "canvasBounds": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "intersectCanvas": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "hero",
+        "frame": 20,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 192.4756968684651,
+          "f": 143.60362945497036
+        },
+        "canvasBounds": {
+          "left": 640.5248468788842,
+          "top": 290.8729815112814,
+          "right": 675.4749723912059,
+          "bottom": 353.28391992614155
+        },
+        "intersectCanvas": {
+          "left": 640.5248468788842,
+          "top": 290.8729815112814,
+          "right": 675.4749723912059,
+          "bottom": 353.28391992614155
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "boss",
+        "frame": 21,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 158.0979737341404,
+          "f": 164.0662331432104
+        },
+        "canvasBounds": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "intersectCanvas": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "hero",
+        "frame": 22,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 192.47578607833748,
+          "f": 143.60362945497036
+        },
+        "canvasBounds": {
+          "left": 640.5249360887566,
+          "top": 290.8729815112814,
+          "right": 675.4750616010783,
+          "bottom": 353.28391992614155
+        },
+        "intersectCanvas": {
+          "left": 640.5249360887566,
+          "top": 290.8729815112814,
+          "right": 675.4750616010783,
+          "bottom": 353.28391992614155
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "boss",
+        "frame": 23,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 158.0979737341404,
+          "f": 164.0662331432104
+        },
+        "canvasBounds": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "intersectCanvas": {
+          "left": 606.1471237445595,
+          "top": 311.33558519952146,
+          "right": 641.0972492568812,
+          "bottom": 373.7465236143816
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      },
+      {
+        "time": 0.4267000000000002,
+        "target": "hero",
+        "frame": 24,
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "isDomCanvas": true
+        },
+        "source": {
+          "src": "http://127.0.0.1:39727/assets/rc133/art/awake-2.png?v=31332",
+          "naturalWidth": 224,
+          "naturalHeight": 400
+        },
+        "sourceRect": null,
+        "destinationRect": {
+          "x": 875.84,
+          "y": 287.88,
+          "width": 68.32,
+          "height": 122
+        },
+        "transform": {
+          "a": 0.5115650689742637,
+          "b": 0,
+          "c": 0,
+          "d": 0.5115650689742637,
+          "e": 192.47584555158573,
+          "f": 143.60362945497036
+        },
+        "canvasBounds": {
+          "left": 640.5249955620048,
+          "top": 290.8729815112814,
+          "right": 675.4751210743266,
+          "bottom": 353.28391992614155
+        },
+        "intersectCanvas": {
+          "left": 640.5249955620048,
+          "top": 290.8729815112814,
+          "right": 675.4751210743266,
+          "bottom": 353.28391992614155
+        },
+        "filter": "brightness(1.8) contrast(0.8)",
+        "globalAlpha": 1
+      }
+    ],
+    "drawCounts": {
+      "total": 12,
+      "boss": 6,
+      "hero": 6
+    },
+    "overlays": {
+      "story": false,
+      "death": false
+    },
+    "liveHp": 240
+  },
+  "status": "captured-postwait-live-binding"
+}

@@ -1,0 +1,881 @@
+{
+  "testedRuntime": "785a2158983412384909cf701a6d8198581ed5f3",
+  "recordedAt": "2026-10-04 11:55:58 UTC",
+  "complete": true,
+  "runs": [
+    {
+      "id": 37199489054,
+      "head_sha": "785a2158983412384909cf701a6d8198581ed5f3",
+      "name": "RC133 exact gameplay audit",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37199489054",
+      "run_started_at": "2026-10-04T11:39:43Z",
+      "updated_at": "2026-10-04T11:50:43Z"
+    },
+    {
+      "id": 37199489067,
+      "head_sha": "785a2158983412384909cf701a6d8198581ed5f3",
+      "name": "Canonical story narration audit",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37199489067",
+      "run_started_at": "2026-10-04T11:39:43Z",
+      "updated_at": "2026-10-04T11:52:28Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 111428052642,
+      "name": "audit (native-gameplay)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Install isolated validation runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Verify exact checkout and run regressions",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 11,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 12,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 13,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052743,
+      "name": "audit (preservation)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Install isolated validation runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Verify exact checkout and run regressions",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 11,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 12,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 13,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052746,
+      "name": "audit (legacy-release)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Install isolated validation runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Verify exact checkout and run regressions",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 11,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 12,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 13,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052646,
+      "name": "narration",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Install media verification tools",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Validate canonical source and original voice contracts",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Install isolated browser runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 7,
+          "name": "Exercise playback and interrupted flows",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 8,
+          "name": "Preserve narration layout evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 15,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 16,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 17,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052747,
+      "name": "gameplay-regression (topology)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Fetch approved art reference",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Install isolated Chromium runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Test exact clean revision",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 7,
+          "name": "Print concise evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 8,
+          "name": "Preserve exact evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 15,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 16,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 17,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052752,
+      "name": "gameplay-regression (death-dialog)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Fetch approved art reference",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Install isolated Chromium runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Test exact clean revision",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 7,
+          "name": "Print concise evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 8,
+          "name": "Preserve exact evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 15,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 16,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 17,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052781,
+      "name": "gameplay-regression (dream)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Fetch approved art reference",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Install isolated Chromium runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Test exact clean revision",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 7,
+          "name": "Print concise evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 8,
+          "name": "Preserve exact evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 15,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 16,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 17,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428052806,
+      "name": "gameplay-regression (release)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Fetch approved art reference",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Install isolated Chromium runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Test exact clean revision",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 7,
+          "name": "Print concise evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 8,
+          "name": "Preserve exact evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 15,
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 16,
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 17,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 111428053238,
+      "name": "published-audio",
+      "status": "completed",
+      "conclusion": "skipped",
+      "steps": []
+    }
+  ],
+  "tests": [
+    {
+      "name": "rc133-duel-hitboxes",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 62,
+      "error": null
+    },
+    {
+      "name": "rc133-performance-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 38342,
+      "error": null
+    },
+    {
+      "name": "rc133-bitmap-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 12384,
+      "error": null
+    },
+    {
+      "name": "rc133-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 31,
+      "error": null
+    },
+    {
+      "name": "rc95-flow-policy-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30,
+      "error": null
+    },
+    {
+      "name": "rc133-developer-maps",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 43,
+      "error": null
+    },
+    {
+      "name": "rc133-777-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 44415,
+      "error": null
+    },
+    {
+      "name": "rc133-feedback-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 33,
+      "error": null
+    },
+    {
+      "name": "rc133-media-assets",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7849,
+      "error": null
+    },
+    {
+      "name": "rc133-media-art",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1257,
+      "error": null
+    },
+    {
+      "name": "rc133-media-audio",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36,
+      "error": null
+    },
+    {
+      "name": "rc133-media-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23022,
+      "error": null
+    },
+    {
+      "name": "combat-audio-controller",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 131,
+      "error": null
+    },
+    {
+      "name": "combat-audio-bridge",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 96,
+      "error": null
+    },
+    {
+      "name": "combat-audio-impact",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 74,
+      "error": null
+    },
+    {
+      "name": "rc132-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1091,
+      "error": null
+    },
+    {
+      "name": "rc59-death-checkpoint-midboss-duo-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 68,
+      "error": null
+    },
+    {
+      "name": "rc87-episode-cosmic-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 55,
+      "error": null
+    },
+    {
+      "name": "rc88-danmaku-rpg-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 39,
+      "error": null
+    },
+    {
+      "name": "rc133-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 41907,
+      "error": null
+    },
+    {
+      "name": "rc133-contact-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5161,
+      "error": null
+    },
+    {
+      "name": "rc133-exit-damage-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3857,
+      "error": null
+    },
+    {
+      "name": "rc128-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 77687,
+      "error": null
+    },
+    {
+      "name": "rc132-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 70452,
+      "error": null
+    },
+    {
+      "name": "rc127-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36,
+      "error": null
+    },
+    {
+      "name": "rc131-hero-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 28,
+      "error": null
+    },
+    {
+      "name": "rc130-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 42,
+      "error": null
+    },
+    {
+      "name": "rc130-isolation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 21,
+      "error": null
+    },
+    {
+      "name": "story-narration-manifest",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10237,
+      "error": null
+    },
+    {
+      "name": "rc130-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 17051,
+      "error": null
+    },
+    {
+      "name": "rc119-laser-body-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 977,
+      "error": null
+    },
+    {
+      "name": "rc115-natural-story-portal-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 74772,
+      "error": null
+    },
+    {
+      "name": "rc133-preservation-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 55,
+      "error": null
+    },
+    {
+      "name": "rc91-samong-and-laser-smoke",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 82,
+      "error": null
+    },
+    {
+      "name": "rc129-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 78,
+      "error": null
+    },
+    {
+      "name": "rc129-startup",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8672,
+      "error": null
+    },
+    {
+      "name": "rc129-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 41674,
+      "error": null
+    },
+    {
+      "name": "laser-release-gate",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 425970,
+      "error": null
+    },
+    {
+      "name": "rc133-public-contract",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 107886,
+      "error": null
+    }
+  ],
+  "narrationStrict": {
+    "job_id": 111428052646,
+    "decodedRows": 1076,
+    "exactReferencePcmMatches": 538,
+    "activeAudio": 269,
+    "oldAudio": 264,
+    "includedUnits": 86,
+    "manifestSha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006"
+  },
+  "publication": {
+    "candidatePublished": false,
+    "currentPublicRuntime": "091143090653efffc7e64ab8262db25f91c3d293",
+    "mainOnlyPublishedAudioJob": "expected skipped on feature branch"
+  }
+}

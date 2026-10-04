@@ -1,0 +1,130 @@
+{
+  "testedRuntime": "785a2158983412384909cf701a6d8198581ed5f3",
+  "files": [
+    {
+      "file": "boss-visibility-landscape-boss.png",
+      "bytes": 1491852,
+      "sha256": "4b705a3f0550af4422c65f8d2b6f5f6806ddc63e6159a2c49fb0f0319cecfed8"
+    },
+    {
+      "file": "boss-visibility-landscape-normal.png",
+      "bytes": 1780523,
+      "sha256": "93dfc7840095448b3d202314cdc2cb319f1e8cbbf0ea2f16b7549585fcac8e28"
+    },
+    {
+      "file": "boss-visibility-landscape-opposition.png",
+      "bytes": 1483326,
+      "sha256": "03c27f01182b31312d5a198e81ddbdaa6a31ac50fe34cfd95660b7f472a7c56b"
+    },
+    {
+      "file": "boss-visibility-landscape-player.png",
+      "bytes": 1367716,
+      "sha256": "fc119a71d79417eda13920a022811bb89be2c7f6ecff3ee56225d91a7b0d60ce"
+    },
+    {
+      "file": "boss-visibility-pc-boss.png",
+      "bytes": 1449137,
+      "sha256": "6617f5eaf3848d88bc4f748082bffb6bcf9d3f2caab4b22e406985e8bd0c0a66"
+    },
+    {
+      "file": "boss-visibility-pc-normal.png",
+      "bytes": 1744650,
+      "sha256": "65364ac014b808a28394b3f6fb016ba89fce764c528236b7bfe7ffd58b3de7e5"
+    },
+    {
+      "file": "boss-visibility-pc-opposition.png",
+      "bytes": 1457148,
+      "sha256": "b226877857f8942a0ce6883dc1b01c35893569397637455a435326f8391f4412"
+    },
+    {
+      "file": "boss-visibility-pc-player.png",
+      "bytes": 1341350,
+      "sha256": "4e6af7154c2c049907839b6181ead94d0eff948fd6c9763881887efcdf6140bd"
+    },
+    {
+      "file": "boss-visibility-portrait-boss.png",
+      "bytes": 1626795,
+      "sha256": "04d595746f713f953c0881c4311ed8ab7d2f42b2a34f1f2f35cdd27de016b3a5"
+    },
+    {
+      "file": "boss-visibility-portrait-normal.png",
+      "bytes": 1901475,
+      "sha256": "d1a1c4410808f4cb5a843afc23009779f5106e84f8bba1b6ee22d8266d107451"
+    },
+    {
+      "file": "boss-visibility-portrait-opposition.png",
+      "bytes": 1593538,
+      "sha256": "c9defc4182fa2e1e3964805501e8f2bf7268c5ef38296f4252cee27607f7abf8"
+    },
+    {
+      "file": "boss-visibility-portrait-player.png",
+      "bytes": 1476781,
+      "sha256": "1f8e9d01b569311ea959051a779db468f2645cf6e78d2a9e8fe8babe557308ec"
+    },
+    {
+      "file": "ci-proof.json",
+      "bytes": 21428,
+      "sha256": "25aed4c8d7a00452e811627db8bfea6080c903367d987a801fa4597628d5c582"
+    },
+    {
+      "file": "local-performance.json",
+      "bytes": 13635,
+      "sha256": "b5fb9b9f38bef1a37466271dc8538598a9e9e20842734e5134cd7c151a18fa7b"
+    },
+    {
+      "file": "mood-profile-captures.json",
+      "bytes": 49475,
+      "sha256": "7ff99067593298e38808f510ac98f0af421cf2c784230804053a7b2b90967b6b"
+    },
+    {
+      "file": "native-continuation-final.png",
+      "bytes": 1309638,
+      "sha256": "285b8f7eb8668fb5f0910944c36ca7ca6e5ec0d00d4b001da0833a85e7bee0a9"
+    },
+    {
+      "file": "native-continuation-runner.cjs",
+      "bytes": 6164,
+      "sha256": "80b037c067d087321c374e16bf27532006d478cb2484ebedb93e0189879dfd95"
+    },
+    {
+      "file": "native-continuation-source-autosave.json",
+      "bytes": 27259,
+      "sha256": "10e3c0c1a4a7b13504ca00839ab1fc6ddc521c3ddde4cf58280731143a44cef2"
+    },
+    {
+      "file": "native-continuation-summary.json",
+      "bytes": 1845,
+      "sha256": "2aa43afedb45b440261e201fb396d03ac19580e8b276f1556f1aef3de152906e"
+    },
+    {
+      "file": "native-continuation-timeline.jsonl",
+      "bytes": 98335,
+      "sha256": "0987627a00cfb4ceac88ff80aa20bc39e7bb401038eecf0e45d59ea7de1d43e2"
+    },
+    {
+      "file": "portrait-bounds-assessment.json",
+      "bytes": 2053,
+      "sha256": "0906853930ae0bff1fa41fcd5a3e0ffafca195923e2c58057a707bcd913f0c10"
+    },
+    {
+      "file": "portrait-bounds-audit-verified.cjs",
+      "bytes": 9222,
+      "sha256": "5ad3c76b110afcce03b178017d985e09574c7ea469dc0b6e291da95a5ad9d4af"
+    },
+    {
+      "file": "portrait-opposition-bounds-verified.png",
+      "bytes": 1593480,
+      "sha256": "fc3ffaee7efff20cc89be726fd1a4d2a0e490008778c470e0abf86493c1f6463"
+    },
+    {
+      "file": "portrait-opposition-bounds.json",
+      "bytes": 18181,
+      "sha256": "fa0498ae7ca2e476d2e19686e0cb1ade5239427d4c2a38a31ce1ad3345a4ec4a"
+    },
+    {
+      "file": "runtime-preservation-summary.json",
+      "bytes": 1166,
+      "sha256": "5cb3357890c4b15970674d5ea3003f566d365dde33a2e4ac7d7a2aa78c7b3050"
+    }
+  ]
+}
