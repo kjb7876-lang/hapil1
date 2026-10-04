@@ -449,7 +449,7 @@ def process_chrono(records: list[dict[str, Any]]) -> None:
                 operation="reviewed-atlas-alpha-crop" if index in CHRONO_SOURCE_RECTS else "4x4-cell-alpha-crop",
                 semantic_name=name,
                 notes=[
-                    "Source RGBA colors are retained exactly; no scaling or recoloring.",
+                    "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
                     "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
                     *(["Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded."] if index in CHRONO_SOURCE_RECTS else []),
                     *(["Restored the cyan hourglass center spire; the prior top trim and polygon mask removed intended artwork."] if index == 12 else []),

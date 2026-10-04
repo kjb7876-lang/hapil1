@@ -1115,7 +1115,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [44, 94, 34, 64] px."
       ],
@@ -1171,7 +1171,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [29, 49, 34, 42] px."
       ],
@@ -1227,7 +1227,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [33, 55, 47, 37] px."
       ],
@@ -1283,7 +1283,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [6, 31, 35, 19] px."
       ],
@@ -1339,7 +1339,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [38, 23, 30, 1] px."
@@ -1403,7 +1403,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [15, 8, 19, 32] px."
       ],
@@ -1459,7 +1459,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [14, 98, 29, 119] px."
       ],
@@ -1515,7 +1515,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [4, 21, 38, 34] px."
       ],
@@ -1571,7 +1571,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [26, 0, 23, 64] px."
@@ -1635,7 +1635,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [21, 4, 30, 3] px."
@@ -1723,7 +1723,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [25, 4, 37, 1] px."
@@ -1805,7 +1805,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [16, 2, 46, 66] px."
       ],
@@ -1861,7 +1861,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded.",
         "Restored the cyan hourglass center spire; the prior top trim and polygon mask removed intended artwork.",
@@ -1919,7 +1919,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded.",
         "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
@@ -1984,7 +1984,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Reviewed source bounds recover the complete upper effect above the nominal last-row cell; only empty trailing source rows are excluded.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [20, 17, 50, 23] px."
@@ -2041,7 +2041,7 @@
       ],
       "status": "complete",
       "notes": [
-        "Source RGBA colors are retained exactly; no scaling or recoloring.",
+        "Source RGB values are retained exactly; only recorded masks change alpha. No scaling or recoloring.",
         "Nominal cells use nearest-integer partitions of the 1254x1254 source.",
         "Alpha-only output-local rectangle masks remove the listed detached neighboring fragments; all rectangle ends are exclusive.",
         "Measured transparent margins around all nonzero alpha (left,top,right,bottom): [2, 1, 30, 68] px."

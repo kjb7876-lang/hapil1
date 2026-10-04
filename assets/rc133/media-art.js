@@ -6,7 +6,8 @@
  const skillNames=['small-orb','eye','diamond','clock','star','eclipse','lance','shield','vortex'];
  const skills=Object.fromEntries(skillNames.map(k=>[k,base+k+'.png']));
  const traitSkills={hwando:skills.lance,seoha:skills.clock,neon:skills.star,michaela:skills.diamond,lauren:skills.vortex,hunter:skills.eye,slayer:skills.eclipse,gunner:skills['small-orb']};
- const chrono=Array.from({length:16},(_,i)=>base+'chrono-'+i+'.png');
+ // The revision also invalidates prior PNG crops in returning browsers.
+ const chrono=Array.from({length:16},(_,i)=>base+'chrono-'+i+'.png?v=43305');
  const pictures=new Map(),failed=new Set();let ready=false;
  // The optional generated eclipse is excluded from the required set: its failure cannot hide source frames.
  const required=[paths.map,paths.reveal,paths.portrait,...frames,...awakeFrames,...Object.values(skills),...chrono];
