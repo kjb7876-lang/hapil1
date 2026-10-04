@@ -1,0 +1,547 @@
+{
+  "commit": "785a2158983412384909cf701a6d8198581ed5f3",
+  "status": "passed",
+  "scope": "Bounded real native render measurements with staged invulnerability and mood timers. Mobile profiles are Chromium emulation; no physical phone, sustained FPS, thermal or full-campaign performance claim.",
+  "profiles": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "errors": [],
+      "httpErrors": [],
+      "moods": [
+        {
+          "compositionCalls": {
+            "total": 111,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 111,
+            "finalApplied": 0
+          },
+          "mood": "normal",
+          "render": {
+            "count": 111,
+            "medianMs": 2.2000000029802322,
+            "p95Ms": 4.700000002980232,
+            "maxMs": 11.400000005960464
+          },
+          "animation": {
+            "count": 109,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 33.30000000000018,
+            "maxMs": 66.69999999999982
+          },
+          "longTasks": {
+            "count": 1,
+            "medianMs": 54,
+            "p95Ms": 54,
+            "maxMs": 54
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 0
+        },
+        {
+          "compositionCalls": {
+            "total": 116,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 116,
+            "finalApplied": 116
+          },
+          "mood": "player",
+          "render": {
+            "count": 116,
+            "medianMs": 8.799999997019768,
+            "p95Ms": 10.400000005960464,
+            "maxMs": 13.399999991059303
+          },
+          "animation": {
+            "count": 115,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 16.800000000000182,
+            "maxMs": 50
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 116
+        },
+        {
+          "compositionCalls": {
+            "total": 102,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 102,
+            "finalApplied": 102
+          },
+          "mood": "boss",
+          "render": {
+            "count": 102,
+            "medianMs": 10.900000005960464,
+            "p95Ms": 13.700000002980232,
+            "maxMs": 25.400000005960464
+          },
+          "animation": {
+            "count": 101,
+            "medianMs": 16.69999999999891,
+            "p95Ms": 33.399999999999636,
+            "maxMs": 49.900000000001455
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 219
+        },
+        {
+          "compositionCalls": {
+            "total": 87,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 87,
+            "finalApplied": 87
+          },
+          "mood": "opposition",
+          "render": {
+            "count": 87,
+            "medianMs": 15.100000008940697,
+            "p95Ms": 18,
+            "maxMs": 30.899999991059303
+          },
+          "animation": {
+            "count": 86,
+            "medianMs": 16.700000000000728,
+            "p95Ms": 33.399999999999636,
+            "maxMs": 33.5
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 307
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "httpErrors": [],
+      "moods": [
+        {
+          "compositionCalls": {
+            "total": 226,
+            "recursive": 113,
+            "recursiveApplied": 0,
+            "final": 113,
+            "finalApplied": 0
+          },
+          "mood": "normal",
+          "render": {
+            "count": 226,
+            "medianMs": 7.0999999940395355,
+            "p95Ms": 11.399999991059303,
+            "maxMs": 53.5
+          },
+          "animation": {
+            "count": 110,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 33.30000000000018,
+            "maxMs": 66.59999999999991
+          },
+          "longTasks": {
+            "count": 1,
+            "medianMs": 60,
+            "p95Ms": 60,
+            "maxMs": 60
+          },
+          "canvas": {
+            "width": 1069,
+            "height": 601,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 0
+        },
+        {
+          "compositionCalls": {
+            "total": 186,
+            "recursive": 93,
+            "recursiveApplied": 0,
+            "final": 93,
+            "finalApplied": 93
+          },
+          "mood": "player",
+          "render": {
+            "count": 186,
+            "medianMs": 11,
+            "p95Ms": 14,
+            "maxMs": 32
+          },
+          "animation": {
+            "count": 92,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 33.400000000000546,
+            "maxMs": 33.400000000000546
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 1069,
+            "height": 601,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 93
+        },
+        {
+          "compositionCalls": {
+            "total": 162,
+            "recursive": 81,
+            "recursiveApplied": 0,
+            "final": 81,
+            "finalApplied": 81
+          },
+          "mood": "boss",
+          "render": {
+            "count": 162,
+            "medianMs": 9.799999997019768,
+            "p95Ms": 17.19999998807907,
+            "maxMs": 27.099999994039536
+          },
+          "animation": {
+            "count": 80,
+            "medianMs": 16.799999999999272,
+            "p95Ms": 33.400000000000546,
+            "maxMs": 50
+          },
+          "longTasks": {
+            "count": 1,
+            "medianMs": 56,
+            "p95Ms": 56,
+            "maxMs": 56
+          },
+          "canvas": {
+            "width": 1140,
+            "height": 641,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 175
+        },
+        {
+          "compositionCalls": {
+            "total": 136,
+            "recursive": 68,
+            "recursiveApplied": 0,
+            "final": 68,
+            "finalApplied": 68
+          },
+          "mood": "opposition",
+          "render": {
+            "count": 136,
+            "medianMs": 18.899999991059303,
+            "p95Ms": 21.799999997019768,
+            "maxMs": 33.29999999701977
+          },
+          "animation": {
+            "count": 67,
+            "medianMs": 33.29999999999927,
+            "p95Ms": 33.399999999999636,
+            "maxMs": 50.100000000000364
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 1140,
+            "height": 641,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 244
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "landscape",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "errors": [],
+      "httpErrors": [],
+      "moods": [
+        {
+          "compositionCalls": {
+            "total": 118,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 118,
+            "finalApplied": 0
+          },
+          "mood": "normal",
+          "render": {
+            "count": 118,
+            "medianMs": 1.9000000059604645,
+            "p95Ms": 3.2000000029802322,
+            "maxMs": 4.299999997019768
+          },
+          "animation": {
+            "count": 116,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 16.799999999999272,
+            "maxMs": 49.90000000000009
+          },
+          "longTasks": {
+            "count": 1,
+            "medianMs": 52,
+            "p95Ms": 52,
+            "maxMs": 52
+          },
+          "canvas": {
+            "width": 601,
+            "height": 338,
+            "filter": "none",
+            "transform": [
+              0.46980467438697815,
+              0,
+              0,
+              0.46980467438697815,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 0
+        },
+        {
+          "compositionCalls": {
+            "total": 120,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 120,
+            "finalApplied": 120
+          },
+          "mood": "player",
+          "render": {
+            "count": 120,
+            "medianMs": 5,
+            "p95Ms": 6.800000011920929,
+            "maxMs": 8.699999988079071
+          },
+          "animation": {
+            "count": 119,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 16.800000000000182,
+            "maxMs": 16.800000000000182
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 601,
+            "height": 338,
+            "filter": "none",
+            "transform": [
+              0.46980467438697815,
+              0,
+              0,
+              0.46980467438697815,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 120
+        },
+        {
+          "compositionCalls": {
+            "total": 120,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 120,
+            "finalApplied": 120
+          },
+          "mood": "boss",
+          "render": {
+            "count": 120,
+            "medianMs": 7.199999988079071,
+            "p95Ms": 8.800000011920929,
+            "maxMs": 21.5
+          },
+          "animation": {
+            "count": 119,
+            "medianMs": 16.699999999999818,
+            "p95Ms": 16.700000000000728,
+            "maxMs": 33.399999999999636
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 641,
+            "height": 361,
+            "filter": "none",
+            "transform": [
+              0.5011249780654907,
+              0,
+              0,
+              0.5011249780654907,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 240
+        },
+        {
+          "compositionCalls": {
+            "total": 115,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 115,
+            "finalApplied": 115
+          },
+          "mood": "opposition",
+          "render": {
+            "count": 115,
+            "medianMs": 9.5,
+            "p95Ms": 13.200000002980232,
+            "maxMs": 23.799999997019768
+          },
+          "animation": {
+            "count": 114,
+            "medianMs": 16.69999999999891,
+            "p95Ms": 16.80000000000109,
+            "maxMs": 49.900000000001455
+          },
+          "longTasks": {
+            "count": 0,
+            "medianMs": null,
+            "p95Ms": null,
+            "maxMs": null
+          },
+          "canvas": {
+            "width": 641,
+            "height": 361,
+            "filter": "none",
+            "transform": [
+              0.5011249780654907,
+              0,
+              0,
+              0.5011249780654907,
+              0,
+              0
+            ]
+          },
+          "frameCompositions": 355
+        }
+      ],
+      "status": "passed"
+    }
+  ]
+}

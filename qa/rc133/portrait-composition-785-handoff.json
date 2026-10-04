@@ -2,9 +2,9 @@
   "candidate": "785a2158983412384909cf701a6d8198581ed5f3",
   "codeBranch": "codex/rc133-hidden-portrait-contrast",
   "evidenceBranch": "codex/rc133-portrait-contrast-evidence",
-  "currentPublishedRuntime": "091143090653efffc7e64ab8262db25f91c3d293",
-  "codePublished": false,
-  "parentCoordinationRequiredBeforeMainWrite": true,
+  "currentPublishedRuntime": "785a2158983412384909cf701a6d8198581ed5f3",
+  "codePublished": true,
+  "parentCoordinationRequiredBeforeMainWrite": false,
   "freshMainBeforePublicationRequired": true,
   "runtimeChanges": [
     "assets/rc133/inner-final.js",
@@ -26,13 +26,24 @@
   },
   "historicalPublishedEvidenceCommit": "50aa2de736664e3daeec255260bd3597d59c90e4",
   "remaining": [
-    "Parent coordination for candidate publication and fresh main check",
-    "Actual public68-file/12-case audit repinned after candidate publication",
+    "Luna follow-up implemented asset identity matrix and bounded performance report",
     "Additional13 audio transfer blocked in parent approval tool",
     "Three held combat voices unassigned",
+    "Parent dist03 TTS replacement in separate package",
     "Audit after remaining audio integration",
     "No physical-device or full fresh unassisted campaign claim"
   ],
   "fullProjectComplete": false,
-  "closeAutomation": false
+  "closeAutomation": false,
+  "publicationCoordinated": true,
+  "publicationPushSuccessObservedAt": "2026-10-04 12:15:04 UTC",
+  "allMainWorkflowsPassed": 9,
+  "publicAuditRun": 37201608137,
+  "publicAuditCommit": "e09132b0302515623bb84ac200fc18909e2d4489",
+  "actualPublicFilesVerified": 68,
+  "actualPublicTransactionCasesVerified": 12,
+  "actualPublicMoodStatesVerified": 12,
+  "rc126RetryPassed": true,
+  "publicationReport": "qa/rc133/portrait-publication-785.md",
+  "lunaFollowup": "Full remaining implemented asset identity matrix and bounded performance in progress; unavailable audio remains pending"
 }

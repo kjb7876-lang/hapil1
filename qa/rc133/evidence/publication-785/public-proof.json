@@ -1,0 +1,2859 @@
+{
+  "runtime": "785a2158983412384909cf701a6d8198581ed5f3",
+  "audit": "e09132b0302515623bb84ac200fc18909e2d4489",
+  "run": 37201608137,
+  "job": 111434275523,
+  "status": "passed",
+  "verifiedPublicFiles": 68,
+  "verifiedCases": 12,
+  "verifiedMoodStates": 12,
+  "scope": "Actual unmodified public Pages responses; native UI plus explicit staged boundary/render fixtures. Not a natural campaign or physical phone claim. Original composition observer forwards native function without implementing the fix.",
+  "pass": {
+    "runtime": "785a2158983412384909cf701a6d8198581ed5f3",
+    "audit": "e09132b0302515623bb84ac200fc18909e2d4489",
+    "files": 68,
+    "profiles": [
+      {
+        "name": "pc",
+        "status": "passed",
+        "cases": [
+          "player",
+          "boss-first",
+          "boss-first-wounded-player",
+          "simultaneous"
+        ],
+        "moods": [
+          "normal",
+          "player",
+          "boss",
+          "opposition"
+        ]
+      },
+      {
+        "name": "portrait",
+        "status": "passed",
+        "cases": [
+          "player",
+          "boss-first",
+          "boss-first-wounded-player",
+          "simultaneous"
+        ],
+        "moods": [
+          "normal",
+          "player",
+          "boss",
+          "opposition"
+        ]
+      },
+      {
+        "name": "landscape",
+        "status": "passed",
+        "cases": [
+          "player",
+          "boss-first",
+          "boss-first-wounded-player",
+          "simultaneous"
+        ],
+        "moods": [
+          "normal",
+          "player",
+          "boss",
+          "opposition"
+        ]
+      }
+    ]
+  },
+  "profiles": [
+    {
+      "name": "pc",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "cases": [
+        {
+          "kind": "player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 96,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 661746,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 5.777100000000024,
+              "until": 12.777100000000024,
+              "reason": "player"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 1
+            }
+          },
+          "rendered": {
+            "time": 6.179756000000038,
+            "hp": 240,
+            "bossHp": 661746,
+            "mood": "opposition",
+            "frames": 349,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd661746 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 5.777100000000024,
+              "until": 12.777100000000024,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 661746,
+            "bossAwake": 6.714687999999991,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 5.777100000000024,
+              "until": 12.777100000000024,
+              "reason": "player"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 5.777100000000024,
+              "until": 12.777100000000024,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 469,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 240,
+            "hp": 240,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.015216000000002,
+              "until": 9.015216000000002,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 2
+            }
+          },
+          "rendered": {
+            "time": 2.4152319999999903,
+            "hp": 240,
+            "bossHp": 145688.4450346935,
+            "mood": "opposition",
+            "frames": 726,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145689 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.1\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.5\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.015216000000002,
+              "until": 9.015216000000002,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145709.23000009617,
+            "bossAwake": 6.720015999999991,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.015216000000002,
+              "until": 9.015216000000002,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.015216000000002,
+              "until": 9.015216000000002,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first-wounded-player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 851,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 72,
+            "hp": 72,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.014599999999997,
+              "until": 9.014599999999998,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 3
+            }
+          },
+          "rendered": {
+            "time": 2.417271999999992,
+            "hp": 240,
+            "bossHp": 145689.78483211505,
+            "mood": "opposition",
+            "frames": 1102,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145683 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.014599999999997,
+              "until": 9.014599999999998,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145711.9136183548,
+            "bossAwake": 6.709328,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.014599999999997,
+              "until": 9.014599999999998,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.014599999999997,
+              "until": 9.014599999999998,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "simultaneous",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 1229,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.010527999999996,
+              "until": 9.010527999999995,
+              "reason": "both"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 4
+            }
+          },
+          "rendered": {
+            "time": 2.4131999999999914,
+            "hp": 240,
+            "bossHp": 145689.08777534837,
+            "mood": "opposition",
+            "frames": 1484,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145689 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.010527999999996,
+              "until": 9.010527999999995,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 145711.88444859104,
+            "bossAwake": 6.706688,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.010527999999996,
+              "until": 9.010527999999995,
+              "reason": "both"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.010527999999996,
+              "until": 9.010527999999995,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        }
+      ],
+      "moods": [
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "normal",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 0
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "player",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "boss",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "opposition",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 1050,
+            "height": 590,
+            "filter": "none",
+            "transform": [
+              0.8199999928474426,
+              0,
+              0,
+              0.8199999928474426,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        }
+      ],
+      "body": {
+        "body": {
+          "rx": 16,
+          "ry": 33
+        },
+        "enemyPath": "https://kjb7876-lang.github.io/hapil1/assets/rc133/art/base-2.png?v=31332",
+        "enemyPoints": [
+          {
+            "x": 962.2400000000002,
+            "y": 337.48500000000007
+          },
+          {
+            "x": 1030.5600000000002,
+            "y": 337.48500000000007
+          },
+          {
+            "x": 1030.5600000000002,
+            "y": 448.8100000000002
+          },
+          {
+            "x": 962.2400000000002,
+            "y": 448.8100000000002
+          }
+        ],
+        "height": 111.3250000000001,
+        "shots": [
+          {
+            "skill": "small-orb",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8707.348298860079
+          },
+          {
+            "skill": "eye",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8425.165715100722
+          },
+          {
+            "skill": "diamond",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10226.408040398119
+          },
+          {
+            "skill": "clock",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 11333.593579167315
+          },
+          {
+            "skill": "star",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7807.971786185829
+          },
+          {
+            "skill": "eclipse",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 11196.435874771372
+          },
+          {
+            "skill": "lance",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10658.618166518441
+          },
+          {
+            "skill": "shield",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 11338.761545741967
+          },
+          {
+            "skill": "vortex",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10560.263360903928
+          }
+        ]
+      }
+    },
+    {
+      "name": "portrait",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "cases": [
+        {
+          "kind": "player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 76,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 661746,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 5.634800000000021,
+              "until": 12.63480000000002,
+              "reason": "player"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 1
+            }
+          },
+          "rendered": {
+            "time": 6.040144000000012,
+            "hp": 240,
+            "bossHp": 661746,
+            "mood": "opposition",
+            "frames": 241,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd661746 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 5.634800000000021,
+              "until": 12.63480000000002,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 661746,
+            "bossAwake": 6.690672000000005,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 5.634800000000021,
+              "until": 12.63480000000002,
+              "reason": "player"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 5.634800000000021,
+              "until": 12.63480000000002,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 336,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 240,
+            "hp": 240,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.016600000000006,
+              "until": 9.016600000000006,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 2
+            }
+          },
+          "rendered": {
+            "time": 2.4192720000000043,
+            "hp": 240,
+            "bossHp": 145689.1129216975,
+            "mood": "opposition",
+            "frames": 508,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145680 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.5\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016600000000006,
+              "until": 9.016600000000006,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145707.21829225754,
+            "bossAwake": 6.728000000000006,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016600000000006,
+              "until": 9.016600000000006,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016600000000006,
+              "until": 9.016600000000006,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first-wounded-player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 608,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 72,
+            "hp": 72,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 3
+            }
+          },
+          "rendered": {
+            "time": 2.419255999999994,
+            "hp": 240,
+            "bossHp": 145689.10889828188,
+            "mood": "opposition",
+            "frames": 766,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145690 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.1\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145717.28085487324,
+            "bossAwake": 6.687968000000001,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.016599999999999,
+              "until": 9.016599999999999,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "simultaneous",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 866,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.0165999999999973,
+              "until": 9.016599999999997,
+              "reason": "both"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 4
+            }
+          },
+          "rendered": {
+            "time": 2.4192719999999914,
+            "hp": 240,
+            "bossHp": 145689.11694511317,
+            "mood": "opposition",
+            "frames": 1034,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145684 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0165999999999973,
+              "until": 9.016599999999997,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 145716.60492103896,
+            "bossAwake": 6.688016,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0165999999999973,
+              "until": 9.016599999999997,
+              "reason": "both"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0165999999999973,
+              "until": 9.016599999999997,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        }
+      ],
+      "moods": [
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "normal",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 24,
+            "recursive": 12,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 0
+          },
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 246,
+            "drawPasses": 246,
+            "bossPasses": 123,
+            "heroPasses": 123,
+            "composites": 246,
+            "pointerBlocked": 0,
+            "cameras": {
+              "boss": {
+                "x": 116.88999999999999,
+                "y": 145.69499999999996,
+                "scale": 0.525,
+                "focusId": "inner-evil-rc133"
+              },
+              "hero": {
+                "x": 330.6431681992881,
+                "y": 128.3217255586696,
+                "scale": 0.525,
+                "focusId": "hero"
+              }
+            },
+            "rendering": false,
+            "target": "hero",
+            "frame": 246
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "player",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 24,
+            "recursive": 12,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 272,
+            "drawPasses": 272,
+            "bossPasses": 136,
+            "heroPasses": 136,
+            "composites": 272,
+            "pointerBlocked": 0,
+            "cameras": {
+              "boss": {
+                "x": 116.88999999999999,
+                "y": 145.69499999999996,
+                "scale": 0.525,
+                "focusId": "inner-evil-rc133"
+              },
+              "hero": {
+                "x": 153.23505768985228,
+                "y": 124.73153684011845,
+                "scale": 0.525,
+                "focusId": "hero"
+              }
+            },
+            "rendering": false,
+            "target": "hero",
+            "frame": 272
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "boss",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 24,
+            "recursive": 12,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 298,
+            "drawPasses": 298,
+            "bossPasses": 149,
+            "heroPasses": 149,
+            "composites": 298,
+            "pointerBlocked": 0,
+            "cameras": {
+              "boss": {
+                "x": 116.88999999999999,
+                "y": 145.69499999999996,
+                "scale": 0.525,
+                "focusId": "inner-evil-rc133"
+              },
+              "hero": {
+                "x": 152.17229663890222,
+                "y": 124.6951880655619,
+                "scale": 0.525,
+                "focusId": "hero"
+              }
+            },
+            "rendering": false,
+            "target": "hero",
+            "frame": 298
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "opposition",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 24,
+            "recursive": 12,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "filter": "none",
+            "transform": [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 323,
+            "drawPasses": 323,
+            "bossPasses": 162,
+            "heroPasses": 161,
+            "composites": 323,
+            "pointerBlocked": 0,
+            "cameras": {
+              "boss": {
+                "x": 116.88999999999999,
+                "y": 145.69499999999996,
+                "scale": 0.525,
+                "focusId": "inner-evil-rc133"
+              },
+              "hero": {
+                "x": 152.17084783688176,
+                "y": 124.69500171785505,
+                "scale": 0.525,
+                "focusId": "hero"
+              }
+            },
+            "rendering": false,
+            "target": "boss",
+            "frame": 323
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        }
+      ],
+      "body": {
+        "body": {
+          "rx": 16,
+          "ry": 33
+        },
+        "enemyPath": "https://kjb7876-lang.github.io/hapil1/assets/rc133/art/base-2.png?v=31332",
+        "enemyPoints": [
+          {
+            "x": 962.24,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 448.81000000000006
+          },
+          {
+            "x": 962.24,
+            "y": 448.81000000000006
+          }
+        ],
+        "height": 111.32500000000005,
+        "shots": [
+          {
+            "skill": "small-orb",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8254.315789473683
+          },
+          {
+            "skill": "eye",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7986.814814814815
+          },
+          {
+            "skill": "diamond",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 9694.34074074074
+          },
+          {
+            "skill": "clock",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10743.920792079207
+          },
+          {
+            "skill": "star",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7401.732718894009
+          },
+          {
+            "skill": "eclipse",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10613.8992325659
+          },
+          {
+            "skill": "lance",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10104.063511204908
+          },
+          {
+            "skill": "shield",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10748.819875776398
+          },
+          {
+            "skill": "vortex",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10010.825983878613
+          }
+        ]
+      }
+    },
+    {
+      "name": "landscape",
+      "status": "passed",
+      "errors": [],
+      "httpErrors": [],
+      "cases": [
+        {
+          "kind": "player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 66,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 661746,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 6.214500000000031,
+              "until": 13.214500000000031,
+              "reason": "player"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 1
+            }
+          },
+          "rendered": {
+            "time": 6.6171400000000515,
+            "hp": 240,
+            "bossHp": 661746,
+            "mood": "opposition",
+            "frames": 359,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd661746 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 6.214500000000031,
+              "until": 13.214500000000031,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 661746,
+            "bossAwake": 6.693311999999989,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 6.214500000000031,
+              "until": 13.214500000000031,
+              "reason": "player"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 6.214500000000031,
+              "until": 13.214500000000031,
+              "reason": "player"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 437,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 240,
+            "hp": 240,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.0000000000000013,
+              "until": 9.000000000000002,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 2
+            }
+          },
+          "rendered": {
+            "time": 2.402655999999987,
+            "hp": 240,
+            "bossHp": 145689.77678528285,
+            "mood": "opposition",
+            "frames": 732,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145678 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.5\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0000000000000013,
+              "until": 9.000000000000002,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145716.60089762113,
+            "bossAwake": 6.690687999999984,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0000000000000013,
+              "until": 9.000000000000002,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.0000000000000013,
+              "until": 9.000000000000002,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "boss-first-wounded-player",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 812,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 72,
+            "hp": 72,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 1.9999999999999996,
+              "until": 9,
+              "reason": "boss"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 3
+            }
+          },
+          "rendered": {
+            "time": 2.4026719999999977,
+            "hp": 240,
+            "bossHp": 145689.8059550467,
+            "mood": "opposition",
+            "frames": 1107,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145682 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.7\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 1.9999999999999996,
+              "until": 9,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 145716.63006738503,
+            "bossAwake": 6.693327999999999,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 1.9999999999999996,
+              "until": 9,
+              "reason": "boss"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 1.9999999999999996,
+              "until": 9,
+              "reason": "boss"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        },
+        {
+          "kind": "simultaneous",
+          "fixture": "Staged HP/callback boundary and near-boss pixel position in live public game; native slot UI; captures wait for actual post-admission frames; first clash and terminal second boss lethal",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "before": {
+            "admitted": true,
+            "priorPosition": {
+              "x": 6.485393258426967,
+              "y": 25.51460674157304
+            },
+            "position": {
+              "x": 22,
+              "y": 11.2
+            },
+            "renderFrames": 1183,
+            "priorBossHp": 661746,
+            "priorPlayerHp": 0,
+            "hp": 53,
+            "playerMaxHp": 240,
+            "bossHp": 145585,
+            "bossMaxHp": 661746,
+            "bossAwake": 7,
+            "playerActive": true,
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "admitting": false,
+              "at": 2.033199999999996,
+              "until": 9.033199999999995,
+              "reason": "both"
+            },
+            "mood": "opposition",
+            "ego": {
+              "count": 0,
+              "pending": false,
+              "serial": 4
+            }
+          },
+          "rendered": {
+            "time": 2.435839999999993,
+            "hp": 240,
+            "bossHp": 145689.7556623507,
+            "mood": "opposition",
+            "frames": 1478,
+            "enemyHud": "\uc801 THREAT\uad50\uc8fc\uc758 \uc0ac\ubabd \u00b7 \uc0dd\uc874 1\uc0ac\ud6c4\uc758 \ub098 \u00b7 \uc545\ud55c \ubb34\uc758\uc2dd145683 / 661746\uc801 \uc0c1\ud0dc\ubb34\uc801 0.2\ucd08\ud604\uc7ac \uc2dc\uc804 \uc911\uc778 \uacf5\uaca9 \uc5c6\uc74c",
+            "allyHud": "\uc544\uad70 STATUS\ud658\ub3c4240 / 240\ud604\uc7ac \uc0c1\ud0dc\ubb34\uc801 0.6\ucd08"
+          },
+          "restored": {
+            "phase": "fight",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.033199999999996,
+              "until": 9.033199999999995,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 145717.24766169192,
+            "bossAwake": 6.688,
+            "playerActive": true,
+            "mood": "opposition",
+            "maxHp": 661746
+          },
+          "replay": false,
+          "second": {
+            "handled": true,
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.033199999999996,
+              "until": 9.033199999999995,
+              "reason": "both"
+            },
+            "mood": "normal",
+            "boss": false,
+            "pending": 0,
+            "shots": 0
+          },
+          "completed": {
+            "phase": "complete",
+            "clash": {
+              "version": 1,
+              "used": true,
+              "admitted": true,
+              "at": 2.033199999999996,
+              "until": 9.033199999999995,
+              "reason": "both"
+            },
+            "hp": 240,
+            "bossHp": 0,
+            "bossAwake": 0,
+            "playerActive": true,
+            "mood": "normal",
+            "maxHp": 661746
+          },
+          "afterCompletionReplay": false
+        }
+      ],
+      "moods": [
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "normal",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 0
+          },
+          "canvas": {
+            "width": 802,
+            "height": 451,
+            "filter": "none",
+            "transform": [
+              0.6264062523841858,
+              0,
+              0,
+              0.6264062523841858,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "player",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 802,
+            "height": 451,
+            "filter": "none",
+            "transform": [
+              0.6264062523841858,
+              0,
+              0,
+              0.6264062523841858,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "boss",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 802,
+            "height": 451,
+            "filter": "none",
+            "transform": [
+              0.6264062523841858,
+              0,
+              0,
+              0.6264062523841858,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        },
+        {
+          "fixture": "Staged timers, immunity and near-boss position; original composition observer; actual unreplaced public game",
+          "entry": {
+            "entry": "developer-777",
+            "healthModel": 2,
+            "maxHp": 661746,
+            "completed": [],
+            "ending": false,
+            "traits": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ],
+            "skills": [
+              "small-orb",
+              "eye",
+              "diamond",
+              "clock",
+              "star",
+              "eclipse",
+              "lance",
+              "shield",
+              "vortex"
+            ]
+          },
+          "bindingMatchesQA": true,
+          "bindingPhase": "game",
+          "bossId": "inner-evil-rc133",
+          "phase": "fight",
+          "mood": "opposition",
+          "hp": 240,
+          "bossHp": 661746,
+          "compositionCalls": {
+            "total": 12,
+            "recursive": 0,
+            "recursiveApplied": 0,
+            "final": 12,
+            "finalApplied": 12
+          },
+          "canvas": {
+            "width": 802,
+            "height": 451,
+            "filter": "none",
+            "transform": [
+              0.6264062523841858,
+              0,
+              0,
+              0.6264062523841858,
+              0,
+              0
+            ]
+          },
+          "portrait": {
+            "frames": 0,
+            "drawPasses": 0,
+            "bossPasses": 0,
+            "heroPasses": 0,
+            "composites": 0,
+            "pointerBlocked": 0,
+            "cameras": {},
+            "rendering": false,
+            "target": "hero",
+            "frame": 0
+          },
+          "overlays": {
+            "story": false,
+            "death": false
+          }
+        }
+      ],
+      "body": {
+        "body": {
+          "rx": 16,
+          "ry": 33
+        },
+        "enemyPath": "https://kjb7876-lang.github.io/hapil1/assets/rc133/art/base-2.png?v=31332",
+        "enemyPoints": [
+          {
+            "x": 962.24,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 337.485
+          },
+          {
+            "x": 1030.56,
+            "y": 448.81000000000006
+          },
+          {
+            "x": 962.24,
+            "y": 448.81000000000006
+          }
+        ],
+        "height": 111.32500000000005,
+        "shots": [
+          {
+            "skill": "small-orb",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 8254.315789473683
+          },
+          {
+            "skill": "eye",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7986.814814814815
+          },
+          {
+            "skill": "diamond",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 9694.340740740745
+          },
+          {
+            "skill": "clock",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10743.920792079207
+          },
+          {
+            "skill": "star",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 7401.732718894008
+          },
+          {
+            "skill": "eclipse",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10613.899232565896
+          },
+          {
+            "skill": "lance",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10104.0635112049
+          },
+          {
+            "skill": "shield",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10748.819875776398
+          },
+          {
+            "skill": "vortex",
+            "measured": true,
+            "bitmap": true,
+            "points": 4,
+            "area": 10010.825983878613
+          }
+        ]
+      }
+    }
+  ]
+}

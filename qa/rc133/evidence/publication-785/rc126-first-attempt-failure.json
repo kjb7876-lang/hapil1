@@ -1,0 +1,61 @@
+{
+  "runtime": "785a2158983412384909cf701a6d8198581ed5f3",
+  "run": 37201439277,
+  "job": 111433786593,
+  "sourceLog": "/workspace/rc133-tools/785-publication-luna/rc126-published-job-111433786593.log",
+  "cause": "One HTTP503 for next-map prefetch asset. PC profile loggedpassed; subsequent profile stopped atHTTP-error assertion. Do not claim all later first-attempt assertions executed.",
+  "observations": [
+    {
+      "name": "pc",
+      "passed": true,
+      "final": {
+        "zone": "dist00",
+        "time": 19.644099999999888,
+        "hp": 240,
+        "hero": "hwando",
+        "shots": 0,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 6,
+            "staggered": 25,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 24,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 6,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/v31323/salvage/debris/telekinetic_debris.webp": "salvo:1",
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:2"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "httpErrors": [],
+      "errors": []
+    }
+  ],
+  "logContext": [
+    "2026-10-04T12:16:03.5969244Z Exact HTML deployment ready d01bd736e6c914d8ed5c709be467e1fae4f2eade4d3f664220677ab4aac72a60",
+    "2026-10-04T12:17:01.6411463Z AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:",
+    "2026-10-04T12:17:01.6412888Z +     status: 503,"
+  ],
+  "action": "Re-run exact failed job, unchanged code and assertions",
+  "retry": {
+    "run": 37201439277,
+    "attempt": 2,
+    "job": 111435204392,
+    "result": "passed, exact code/assertions unchanged;13files/3profiles, no HTTP/browser errors"
+  }
+}
