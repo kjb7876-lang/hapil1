@@ -1,7 +1,7 @@
 name: RC133 exact gameplay audit
 on:
   push:
-    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration, codex/rc133-hidden-boss-hitboxes, codex/rc133-both-first-lethal]
+    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration, codex/rc133-hidden-boss-hitboxes, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast]
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,8 +1,8 @@
-# Full final round2 after the completed round1 review; exact runtime unchanged.
+# Full regression for the portrait composition correction above reviewed091 core.
 name: Canonical story narration audit
 on:
   push:
-    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal]
+    branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast]
     paths:
       - '.github/workflows/story-narration-audit.yml'
       - 'assets/story-narration/**'

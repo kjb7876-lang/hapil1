@@ -8,7 +8,7 @@
     "data",
     "index.html"
   ],
-  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected.",
+  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected. Targeted hidden portrait correction changes only the exact inner-final output and its cache query.",
   "baselineGuards": {
     "tools/story-narration-release85-preservation.cjs": "92ed29cdf627a5801277110515e73f75b9cb384868f252eeb40b7844a12bb1c5",
     "tools/rc130-preservation.cjs": "0677d03ad18952f8c4e08e5138c26617235c7b58cb18046c817ecbce5303554a"
@@ -641,11 +641,11 @@
       "before": null,
       "after": {
         "mode": "100644",
-        "gitBlob": "cb5c79899687a723ce1b780477d6444cab6d19d3",
+        "gitBlob": "ef697ef156e100949976d65587d62871b2fb1c0e",
         "file": "assets/rc133/inner-final.js",
-        "sha256": "4d55f4bd2a32b4eaa62b78912471d2eee894214f73af9379996372233456a126"
+        "sha256": "819f54e14679bcb48daeba300d899efb15581dad5a809e8927fc726f9475e62c"
       },
-      "reason": "User-approved correction: either actor first lethal admits one saved atomic revival and dual awakening; only lethal actor HP is restored, living opponent progress is preserved."
+      "reason": "User-approved correction: either actor first lethal admits one saved atomic revival and dual awakening; only lethal actor HP is restored, living opponent progress is preserved. Apply hidden mood once after RC108 camera composition to correct portrait darkness."
     },
     {
       "file": "assets/rc133/media-art.js",
@@ -1674,9 +1674,9 @@
       },
       "after": {
         "mode": "100644",
-        "gitBlob": "1fe4e642e0a1a5a63f2a2f02dd8ef82725198bf9",
+        "gitBlob": "f694d318c8c58b2e7e34f6566719f9d85621e14c",
         "file": "index.html",
-        "sha256": "01b0897b4adcdcc9ca033f2cdfc08bd2f83f00739c656cf8d61ea1ae5437233a"
+        "sha256": "d01bd736e6c914d8ed5c709be467e1fae4f2eade4d3f664220677ab4aac72a60"
       },
       "reason": "Refresh approved hidden first-lethal policy script keys and TTS86 manifest query; preserve prior264 audio and unrelated runtime. Round1 readability fix: isolated hidden body brightness within balanced canvas save/restore; source alpha, pixels, sizing, hitboxes and full-arena moods preserved."
     }
