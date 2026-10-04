@@ -117,7 +117,7 @@
           "sourceRect": [
             0,
             0,
-            748,
+            790,
             724
           ],
           "pivot": [
@@ -132,50 +132,50 @@
           ],
           "boundaryAlphaMax": {
             "left": 1,
-            "right": 1,
+            "right": 0,
             "top": 0,
             "bottom": 0
           }
         },
         "anticipation": {
           "sourceRect": [
-            748,
+            790,
             0,
-            684,
+            584,
             724
           ],
           "pivot": [
-            282,
+            240,
             636
           ],
           "visibleBounds": [
-            93,
             51,
-            578,
+            51,
+            536,
             637
           ],
           "boundaryAlphaMax": {
             "left": 0,
-            "right": 1,
+            "right": 0,
             "top": 0,
             "bottom": 1
           }
         },
         "strike": {
           "sourceRect": [
-            1432,
+            1374,
             0,
-            740,
+            798,
             724
           ],
           "pivot": [
-            298,
-            654
+            356,
+            640
           ],
           "visibleBounds": [
-            106,
+            164,
             212,
-            676,
+            734,
             661
           ],
           "boundaryAlphaMax": {
@@ -301,7 +301,7 @@
           "sourceRect": [
             0,
             0,
-            586,
+            575,
             724
           ],
           "pivot": [
@@ -323,47 +323,47 @@
         },
         "anticipation": {
           "sourceRect": [
-            586,
+            575,
             0,
-            738,
+            736,
             724
           ],
           "pivot": [
-            414,
+            425,
             716
           ],
           "visibleBounds": [
-            86,
+            97,
             17,
-            714,
+            725,
             713
           ],
           "boundaryAlphaMax": {
-            "left": 1,
-            "right": 1,
+            "left": 0,
+            "right": 0,
             "top": 0,
             "bottom": 1
           }
         },
         "strike": {
           "sourceRect": [
-            1324,
+            1311,
             0,
-            848,
+            861,
             724
           ],
           "pivot": [
-            336,
+            438,
             716
           ],
           "visibleBounds": [
-            25,
+            38,
             100,
-            836,
+            849,
             713
           ],
           "boundaryAlphaMax": {
-            "left": 1,
+            "left": 0,
             "right": 1,
             "top": 0,
             "bottom": 1
@@ -398,7 +398,7 @@
           ],
           "pivot": [
             345,
-            664
+            665
           ],
           "visibleBounds": [
             133,
@@ -422,7 +422,7 @@
           ],
           "pivot": [
             297,
-            658
+            664
           ],
           "visibleBounds": [
             129,
@@ -446,7 +446,7 @@
           ],
           "pivot": [
             398,
-            653
+            668
           ],
           "visibleBounds": [
             35,
@@ -485,7 +485,7 @@
           "sourceRect": [
             0,
             0,
-            708,
+            704,
             724
           ],
           "pivot": [
@@ -500,26 +500,26 @@
           ],
           "boundaryAlphaMax": {
             "left": 0,
-            "right": 1,
+            "right": 0,
             "top": 0,
             "bottom": 0
           }
         },
         "anticipation": {
           "sourceRect": [
-            708,
+            704,
             0,
-            706,
+            718,
             724
           ],
           "pivot": [
-            364,
+            368,
             686
           ],
           "visibleBounds": [
-            84,
+            88,
             51,
-            626,
+            630,
             689
           ],
           "boundaryAlphaMax": {
@@ -531,19 +531,19 @@
         },
         "strike": {
           "sourceRect": [
-            1414,
+            1422,
             0,
-            758,
+            750,
             724
           ],
           "pivot": [
-            376,
+            368,
             686
           ],
           "visibleBounds": [
-            80,
+            72,
             63,
-            696,
+            688,
             689
           ],
           "boundaryAlphaMax": {
