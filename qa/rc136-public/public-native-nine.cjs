@@ -190,9 +190,10 @@ const canvasObserver = `(() => {
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 async function openSettings(page) {
   const tryTap = async locator => {
+    if(!await locator.count() || !await locator.isVisible().catch(()=>false)) return false;
     for (let i = 0; i < 8; i++) {
       if(await page.locator('#hapil-story-rc51:visible').count()) await advanceNarrative(page);
-      const box = await locator.boundingBox().catch(() => null);
+      const box = await locator.boundingBox({timeout:1000}).catch(() => null);
       if (box && box.width > 1 && box.height > 1) {
         if(mobile) await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
         else await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
@@ -202,8 +203,7 @@ async function openSettings(page) {
     }
     return false;
   };
-  let opened = await tryTap(page.getByRole('button', { name: '설정 · 메뉴', exact: true }));
-  if (!opened) opened = await tryTap(page.locator('[data-mobile-action="Menu"]'));
+  let opened = await tryTap(mobile ? page.locator('[data-mobile-action="Menu"]') : page.getByRole('button', { name: '설정 · 메뉴', exact: true }));
   if (!opened) opened = await tryTap(page.locator('.rc108-settings-trigger'));
   assert(opened, 'Settings did not open through visible native controls');
   await page.locator('.rc61-settings').waitFor({ state: 'visible' });
@@ -383,6 +383,19 @@ async function main() {
     report.missingDraws = keys.filter(key => !capturedSkills.has(key));
     report.finalNative = await readNative(page);
     report.boundaryMovement = await helpers.move(page,report.functional,admittedSeen);
+    await openSettings(page);
+    await page.locator('.rc61-settings').getByRole('radio',{name:'완전자동',exact:true}).check();
+    await page.getByRole('dialog',{name:'설정',exact:true}).getByRole('button',{name:'닫기 ×',exact:true}).click();
+    await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__.effective()==='full');
+    const fullStart=report.functional.transactions.length;
+    for(let i=0;i<40;i++){
+      await page.waitForTimeout(250);
+      if(!await page.evaluate(()=>window.__HAPIL_PERSONA_DUEL_RC134__.active(window.__MONGSE_QA_STATE__)))break;
+      await helpers.observe(page,report.functional,admittedSeen);
+    }
+    const fullEvents=report.functional.transactions.slice(fullStart).filter(e=>e.controlMode==='full');
+    report.publicFullMode={scope:'Normal Settings full-auto radio selection then ten-second actual native transaction observation; no HP, enemy, projectile, timer or damage edits',outgoing:fullEvents.filter(e=>e.finalDamage.direction==='outgoing').length,incoming:fullEvents.filter(e=>e.finalDamage.direction==='incoming').length,factors:[...new Set(fullEvents.map(e=>e.finalDamage.factor))]};
+    assert(report.publicFullMode.outgoing>0,'published full mode emits actual admitted outgoing transactions');
     report.functional.summary = helpers.validate(report.functional);
     assert.equal(report.status,'all-nine-native-emissions-and-exact-render-frames-captured');
     assert.deepEqual(report.pageErrors??[],[]);

@@ -7,7 +7,7 @@ permissions:
   contents: read
 concurrency:
   group: rc136-public-live-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   public:
     if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[startup-only]')
