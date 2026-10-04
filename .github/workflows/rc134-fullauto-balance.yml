@@ -1,0 +1,87 @@
+name: RC134 full-auto exact damage balance
+on:
+  push:
+    branches: [codex/rc134-fullauto-balance]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc134-fullauto-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [damage, natural, rc128-candidate]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          show-progress: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare pinned references and isolated browser
+        shell: bash
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc134-balance-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+          git fetch --no-tags --depth=1 origin 59f5381c046cb4b2416a97c704f34770e887602d
+          git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc134-balance-evidence" >> "$GITHUB_ENV"
+      - name: Test exact committed runtime
+        env:
+          SUITE: ${{ matrix.suite }}
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          node --input-type=module --check < assets/index-v31526.js
+          case "$SUITE" in
+            damage)
+              node tests/rc134-fullauto-balance-unit.cjs | tee "$HAPIL_QA_OUTPUT/unit.log"
+              node tests/rc133-preservation-unit.cjs | tee "$HAPIL_QA_OUTPUT/negative-preservation.log"
+              if node tools/rc133-preservation.cjs > "$HAPIL_QA_OUTPUT/exact-preservation.log" 2>&1; then
+                echo "Exact runtime and TTS86 preservation passed"
+              else
+                tail -c 16000 "$HAPIL_QA_OUTPUT/exact-preservation.log"
+                exit 1
+              fi
+              node tests/rc134-fullauto-balance-browser.cjs | tee "$HAPIL_QA_OUTPUT/damage.log"
+              ;;
+            natural)
+              node tests/rc134-fullauto-natural-browser.cjs | tee "$HAPIL_QA_OUTPUT/natural.log"
+              ;;
+            rc128-candidate)
+              if node tests/rc128-candidate.cjs > "$HAPIL_QA_OUTPUT/rc128-candidate.log" 2>&1; then
+                echo "Exact RC128 candidate compatibility passed"
+              else
+                tail -c 20000 "$HAPIL_QA_OUTPUT/rc128-candidate.log"
+                exit 1
+              fi
+              ;;
+          esac
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc134-balance-${{ github.sha }}-${{ matrix.suite }}
+          path: ${{ runner.temp }}/rc134-balance-evidence/
+          retention-days: 14

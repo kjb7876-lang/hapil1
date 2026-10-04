@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
 const root=path.resolve(__dirname,'..'),base='59f5381c046cb4b2416a97c704f34770e887602d',out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc134-fullauto-balance';fs.mkdirSync(out,{recursive:true});
 const changed=['index.html','assets/index-v31526.js','assets/combat-v31402/combat-core.js'];
-const before=Object.fromEntries(changed.map(f=>[f,cp.execFileSync('git',['show',base+':'+f],{cwd:root})]));
+const before=Object.fromEntries(changed.map(f=>[f,cp.execFileSync('git',['show',base+':'+f],{cwd:root,maxBuffer:48*1024*1024})]));
 const names=['MONGSE_objectiveDamageAllowedV31309','HAPIL_claimCounterWindowV31303','sr','ir','HAPIL_effectiveGrowthV31400','gr','MONGSE_infiniteStats','MONGSE_heroOutgoingModeMultiplier31213','HAPIL_applyCounterDamageV31303','MONGSE_triggerEnemyBreak','HAPIL_awardComboMilestoneV31303','HAPIL_bindDamageHitV31315','MONGSE_attachEffectTarget','MONGSE_beginNarrativeAttack','MONGSE_enemyPhase','MONGSE_enemyActivePhase'];
 const bridge=`\nwindow.__RC134_BALANCE_TEST__={initial:oi,incoming:Y,status:MONGSE_tickSevenSinHeroEffects,outgoing:(s,power,source,critical=false,passives={})=>window.__HAPIL_OUTGOING_V31402__.create({P:{current:s},R:{current:passives},Re:{current:false},Ke:()=>{},native:{${names.map(n=>`get ${n}(){return ${n};}`).join(',')}}})(s.enemies[0],power,'#fff',critical,0,source)};`;
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.woff2':'font/woff2','.webp':'image/webp','.png':'image/png','.mp3':'audio/mpeg','.wav':'audio/wav','.ogg':'audio/ogg','.json':'application/json'};

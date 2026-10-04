@@ -1,7 +1,7 @@
 name: RC133 exact gameplay audit
 on:
   push:
-    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration, codex/rc133-hidden-boss-hitboxes, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality]
+    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration, codex/rc133-hidden-boss-hitboxes, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance]
   workflow_dispatch:
 permissions:
   contents: read
@@ -39,6 +39,7 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y ffmpeg
           git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
           git fetch --no-tags --depth=1 origin 785a2158983412384909cf701a6d8198581ed5f3
+          git fetch --no-tags --depth=1 origin 59f5381c046cb4b2416a97c704f34770e887602d
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
@@ -57,7 +58,7 @@ jobs:
           const fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('assert/strict');
           const out=process.env.HAPIL_QA_OUTPUT;fs.mkdirSync(out,{recursive:true});
           const tests=process.env.SUITE==='native-gameplay'
-            ? ['rc134-render-equivalence-browser','rc133-duel-hitboxes','rc133-performance-browser','rc133-bitmap-browser','rc133-policy','rc95-flow-policy-smoke','rc133-developer-maps','rc133-777-browser','rc133-feedback-unit','rc133-media-assets','rc133-media-art','rc133-media-audio','rc133-media-browser','combat-audio-controller','combat-audio-bridge','combat-audio-impact','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc88-danmaku-rpg-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
+            ? ['rc134-fullauto-balance-unit','rc134-fullauto-balance-browser','rc134-render-equivalence-browser','rc133-duel-hitboxes','rc133-performance-browser','rc133-bitmap-browser','rc133-policy','rc95-flow-policy-smoke','rc133-developer-maps','rc133-777-browser','rc133-feedback-unit','rc133-media-assets','rc133-media-art','rc133-media-audio','rc133-media-browser','combat-audio-controller','combat-audio-bridge','combat-audio-impact','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc88-danmaku-rpg-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
             : process.env.SUITE==='legacy-release'
               ? ['rc133-preservation-unit','rc91-samong-and-laser-smoke','rc129-unit','rc129-startup','rc129-browser','laser-release-gate','rc133-public-contract']
               : ['rc127-policy','rc131-hero-unit','rc130-unit','rc130-isolation','story-narration-manifest','rc130-browser','rc119-laser-body-browser','rc115-natural-story-portal-browser'];
