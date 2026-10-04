@@ -1,0 +1,2035 @@
+{
+  "title": "RC134 native mobile-quality profile checkpoint",
+  "scope": "Read-only CPU4 Chromium profile on exact 785 runtime vs candidate 59f5381; local localhost-served app; no code/runtime changes during measurements.",
+  "baseline": {
+    "commit": "785a2158983412384909cf701a6d8198581ed5f3",
+    "worktree": "clean at profile start"
+  },
+  "candidate": {
+    "commit": "59f5381c046cb4b2416a97c704f34770e887602d",
+    "worktree": "clean at profile start; runtime same two measured renderer changes from bbdc1a6, later commit only fixed test literals"
+  },
+  "browser": {
+    "version": "151.0.7922.173",
+    "executable": "/usr/bin/chromium",
+    "cpuThrottleRate": 4,
+    "deviceScaleFactor": 2,
+    "seed": "xorshift32 0x785133"
+  },
+  "fixture": {
+    "type": "native hidden-mutual Dream boss route staged through existing QA showcase/defeat API; controls set to manual to prevent auto-kill; actual native boss tick generates projectiles; both awakening timers and player invulnerability staged for bounded render isolation",
+    "sampleSeconds": 8,
+    "warm": "10 s minimum, then until inner elapsed >= 6 s, cycle >= 2 and hostile projectiles > 0; max 120 s wall",
+    "observed": "one live hidden boss; 4-6 hostile projectiles, max 6; not dense hostile-combat validation or full campaign"
+  },
+  "portraitRepeats": {
+    "viewportCss": {
+      "width": 390,
+      "height": 844
+    },
+    "baseline": [
+      {
+        "commit": "785a2158983412384909cf701a6d8198581ed5f3",
+        "status": "passed",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scenario": {
+          "zone": "cult04",
+          "mode": "DREAM",
+          "phase": "fight",
+          "hiddenBoss": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272734.60055888037,
+              "awake": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272734.60055888037,
+              "boss": true
+            }
+          ],
+          "hostileProjectiles": 4,
+          "counts": {
+            "hostileProjectiles": 4,
+            "enemyExitFxV31327": 5,
+            "bossLaserCastsV31330": 0,
+            "bossUltimateCastsV31334": 0,
+            "enemyFeedbackV31361": 0,
+            "bossOrdnanceCues31210": 0,
+            "bossBlackHolesRC32": 0
+          },
+          "mood": "opposition",
+          "elapsedSceneSeconds": 6.9944479999999984,
+          "innerBossElapsed": 6.8344479999999965,
+          "innerBossCycle": 2,
+          "innerBossShotDelay": 0.3827040000000004,
+          "nativeInnerTickCalls": 46,
+          "nativeInnerTickLastDt": 0.024,
+          "nativeInnerTickPositiveDtCalls": 254,
+          "paused": false,
+          "storyOverlayOpen": false,
+          "readingBlocked": false,
+          "modalBlocked": false,
+          "localInputBlocked": false,
+          "bindingPhase": "game",
+          "bindingHasState": true,
+          "player": {
+            "hp": 240,
+            "maxHp": 240,
+            "invulnerableUntil": 120.12
+          },
+          "timeStopUntil": 2.173216000000001,
+          "phaseState": null,
+          "gameOver": false,
+          "partyRole": "offline",
+          "partyPaused": false,
+          "partyDisconnected": false,
+          "document": {
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": "BODY"
+          },
+          "encounterDialogue": null,
+          "encounterLockUntil": 0,
+          "encounterWallUnlockAt": 0
+        },
+        "seconds": 8.18440000000596,
+        "renderTopLevel": {
+          "count": 46,
+          "p50Ms": 111.5,
+          "p95Ms": 124.5,
+          "maxMs": 134,
+          "over50": 46,
+          "over100": 45,
+          "over250": 0
+        },
+        "renderCameraPass": {
+          "count": 46,
+          "p50Ms": 18.80000001192093,
+          "p95Ms": 28.19999998807907,
+          "maxMs": 29.299999997019768,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "simulationBeforeRender": {
+          "count": 46,
+          "p50Ms": 18.399999991059303,
+          "p95Ms": 28.399999991059303,
+          "maxMs": 32.099999994039536,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "controlsStage": {
+          "count": 46,
+          "p50Ms": 0,
+          "p95Ms": 0.4000000059604645,
+          "maxMs": 0.7999999970197678,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeAppliedFinal": {
+          "count": 92,
+          "p50Ms": 29.5,
+          "p95Ms": 35,
+          "maxMs": 38.29999999701977,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeNoop": null,
+        "compositionCalls": 92,
+        "rafInterval": {
+          "count": 45,
+          "p50Ms": 183.3000000000029,
+          "p95Ms": 200,
+          "maxMs": 216.6999999999971,
+          "over50": 45,
+          "over100": 45,
+          "over250": 0
+        },
+        "longTasks": {
+          "count": 45,
+          "p50Ms": 167,
+          "p95Ms": 184,
+          "maxMs": 193,
+          "over50": 45,
+          "over100": 45,
+          "over250": 0
+        },
+        "projectileDensity": {
+          "samples": 46,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "innerBossTick": {
+          "calls": 46,
+          "totalMs": 0.3999999761581421,
+          "maxMs": 0.09999999403953552
+        },
+        "copy": {
+          "count": 46,
+          "totalMs": 2293.9999999552965,
+          "maxMs": 56.79999999701977,
+          "sourcePixels": 40268124,
+          "destinationPixels": 40268124
+        },
+        "selfCanvas": {
+          "count": 92,
+          "totalMs": 1480.0000000447035,
+          "maxMs": 28.200000002980232,
+          "sourcePixels": 80536248,
+          "destinationPixels": 80536248
+        },
+        "cacheBytes": {},
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "dpr": 2
+        },
+        "layoutReads": {
+          "count": 1213,
+          "totalMs": 47.19999986886978,
+          "maxMs": 1.3999999910593033
+        },
+        "domMatrixInverse": {
+          "count": 286,
+          "totalMs": 1.7999999821186066,
+          "maxMs": 1
+        },
+        "heapBytes": 44046046,
+        "domNodes": 434,
+        "images": {
+          "resources": 117,
+          "encodedBytes": 31939366,
+          "transferBytes": 31974466,
+          "decode": {
+            "loadCount": 34,
+            "decodeCalls": 271,
+            "decodeResolved": 271,
+            "decodeRejected": 0,
+            "decodeTotalMs": 58154.700000196695,
+            "decodeMaxMs": 2723.7000000029802
+          }
+        },
+        "resources": {
+          "count": 250,
+          "encodedBytes": 42361671,
+          "transferBytes": 42436671
+        },
+        "errors": [],
+        "httpErrors": []
+      },
+      {
+        "commit": "785a2158983412384909cf701a6d8198581ed5f3",
+        "status": "passed",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scenario": {
+          "zone": "cult04",
+          "mode": "DREAM",
+          "phase": "fight",
+          "hiddenBoss": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272728.8992729603,
+              "awake": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272728.8992729603,
+              "boss": true
+            }
+          ],
+          "hostileProjectiles": 4,
+          "counts": {
+            "hostileProjectiles": 4,
+            "enemyExitFxV31327": 7,
+            "bossLaserCastsV31330": 0,
+            "bossUltimateCastsV31334": 0,
+            "enemyFeedbackV31361": 1,
+            "bossOrdnanceCues31210": 0,
+            "bossBlackHolesRC32": 0
+          },
+          "mood": "opposition",
+          "elapsedSceneSeconds": 6.9836479999999925,
+          "innerBossElapsed": 6.8236479999999915,
+          "innerBossCycle": 2,
+          "innerBossShotDelay": 0.4094240000000005,
+          "nativeInnerTickCalls": 43,
+          "nativeInnerTickLastDt": 0.026671999999999536,
+          "nativeInnerTickPositiveDtCalls": 246,
+          "paused": false,
+          "storyOverlayOpen": false,
+          "readingBlocked": false,
+          "modalBlocked": false,
+          "localInputBlocked": false,
+          "bindingPhase": "game",
+          "bindingHasState": true,
+          "player": {
+            "hp": 240,
+            "maxHp": 240,
+            "invulnerableUntil": 120.16
+          },
+          "timeStopUntil": 2.173231999999999,
+          "phaseState": null,
+          "gameOver": false,
+          "partyRole": "offline",
+          "partyPaused": false,
+          "partyDisconnected": false,
+          "document": {
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": "BODY"
+          },
+          "encounterDialogue": null,
+          "encounterLockUntil": 0,
+          "encounterWallUnlockAt": 0
+        },
+        "seconds": 8.130200000002981,
+        "renderTopLevel": {
+          "count": 43,
+          "p50Ms": 119,
+          "p95Ms": 135.80000001192093,
+          "maxMs": 146.70000000298023,
+          "over50": 43,
+          "over100": 42,
+          "over250": 0
+        },
+        "renderCameraPass": {
+          "count": 43,
+          "p50Ms": 20.400000005960464,
+          "p95Ms": 29.30000001192093,
+          "maxMs": 31.700000002980232,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "simulationBeforeRender": {
+          "count": 43,
+          "p50Ms": 19.299999997019768,
+          "p95Ms": 32.599999994039536,
+          "maxMs": 35.29999999701977,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "controlsStage": {
+          "count": 43,
+          "p50Ms": 0,
+          "p95Ms": 0.10000000894069672,
+          "maxMs": 0.4000000059604645,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeAppliedFinal": {
+          "count": 43,
+          "p50Ms": 34.400000005960464,
+          "p95Ms": 40.80000001192093,
+          "maxMs": 49.3999999910593,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeNoop": {
+          "count": 43,
+          "p50Ms": 0,
+          "p95Ms": 0.09999999403953552,
+          "maxMs": 0.7999999970197678,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "compositionCalls": {
+          "total": 86,
+          "appliedFinal": 43,
+          "noOp": 43
+        },
+        "rafInterval": {
+          "count": 42,
+          "p50Ms": 183.3000000000029,
+          "p95Ms": 233.3000000000029,
+          "maxMs": 233.40000000000873,
+          "over50": 42,
+          "over100": 42,
+          "over250": 0
+        },
+        "longTasks": {
+          "count": 42,
+          "p50Ms": 176,
+          "p95Ms": 211,
+          "maxMs": 214,
+          "over50": 42,
+          "over100": 42,
+          "over250": 0
+        },
+        "projectileDensity": {
+          "samples": 43,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "innerBossTick": {
+          "calls": 43,
+          "totalMs": 0.4000000059604645,
+          "maxMs": 0.10000000894069672
+        },
+        "copy": {
+          "count": 43,
+          "totalMs": 2215.600000023842,
+          "maxMs": 69.6000000089407,
+          "sourcePixels": 37641942,
+          "destinationPixels": 37641942
+        },
+        "selfCanvas": {
+          "count": 86,
+          "totalMs": 1486.199999973178,
+          "maxMs": 31,
+          "sourcePixels": 75283884,
+          "destinationPixels": 75283884
+        },
+        "cacheBytes": {
+          "fullSize": 7003152,
+          "croppedFormula": 3521528
+        },
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "dpr": 2
+        },
+        "layoutReads": {
+          "count": 1159,
+          "totalMs": 52.10000005364418,
+          "maxMs": 1.7999999970197678
+        },
+        "domMatrixInverse": {
+          "count": 279,
+          "totalMs": 1.699999988079071,
+          "maxMs": 0.8999999910593033
+        },
+        "heapBytes": 42120052,
+        "domNodes": 427,
+        "images": {
+          "resources": 117,
+          "encodedBytes": 31939366,
+          "transferBytes": 31974466,
+          "decode": {
+            "loadCount": 34,
+            "decodeCalls": 271,
+            "decodeResolved": 271,
+            "decodeRejected": 0,
+            "decodeTotalMs": 64119.60000003874,
+            "decodeMaxMs": 2819.2000000029802
+          }
+        },
+        "resources": {
+          "count": 250,
+          "encodedBytes": 42361671,
+          "transferBytes": 42436671
+        },
+        "errors": [],
+        "httpErrors": []
+      },
+      {
+        "commit": "785a2158983412384909cf701a6d8198581ed5f3",
+        "status": "passed",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scenario": {
+          "zone": "cult04",
+          "mode": "DREAM",
+          "phase": "fight",
+          "hiddenBoss": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272728.33477231994,
+              "awake": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272728.33477231994,
+              "boss": true
+            }
+          ],
+          "hostileProjectiles": 4,
+          "counts": {
+            "hostileProjectiles": 4,
+            "enemyExitFxV31327": 8,
+            "bossLaserCastsV31330": 0,
+            "bossUltimateCastsV31334": 0,
+            "enemyFeedbackV31361": 1,
+            "bossOrdnanceCues31210": 0,
+            "bossBlackHolesRC32": 0
+          },
+          "mood": "opposition",
+          "elapsedSceneSeconds": 6.957023999999993,
+          "innerBossElapsed": 6.837023999999994,
+          "innerBossCycle": 2,
+          "innerBossShotDelay": 0.3800800000000035,
+          "nativeInnerTickCalls": 44,
+          "nativeInnerTickLastDt": 0.032,
+          "nativeInnerTickPositiveDtCalls": 243,
+          "paused": false,
+          "storyOverlayOpen": false,
+          "readingBlocked": false,
+          "modalBlocked": false,
+          "localInputBlocked": false,
+          "bindingPhase": "game",
+          "bindingHasState": true,
+          "player": {
+            "hp": 240,
+            "maxHp": 240,
+            "invulnerableUntil": 120.12
+          },
+          "timeStopUntil": 2.1465760000000014,
+          "phaseState": null,
+          "gameOver": false,
+          "partyRole": "offline",
+          "partyPaused": false,
+          "partyDisconnected": false,
+          "document": {
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": "BODY"
+          },
+          "encounterDialogue": null,
+          "encounterLockUntil": 0,
+          "encounterWallUnlockAt": 0
+        },
+        "seconds": 8.19330000001192,
+        "renderTopLevel": {
+          "count": 44,
+          "p50Ms": 119.40000000596046,
+          "p95Ms": 130,
+          "maxMs": 134.20000000298023,
+          "over50": 44,
+          "over100": 44,
+          "over250": 0
+        },
+        "renderCameraPass": {
+          "count": 44,
+          "p50Ms": 22,
+          "p95Ms": 26,
+          "maxMs": 28.600000008940697,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "simulationBeforeRender": {
+          "count": 44,
+          "p50Ms": 19.400000005960464,
+          "p95Ms": 28.899999991059303,
+          "maxMs": 33.599999994039536,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "controlsStage": {
+          "count": 44,
+          "p50Ms": 0,
+          "p95Ms": 0.7999999970197678,
+          "maxMs": 1.1000000089406967,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeAppliedFinal": {
+          "count": 44,
+          "p50Ms": 34.20000000298023,
+          "p95Ms": 38.30000001192093,
+          "maxMs": 40.6000000089407,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeNoop": {
+          "count": 44,
+          "p50Ms": 0,
+          "p95Ms": 0.10000000894069672,
+          "maxMs": 0.29999999701976776,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "compositionCalls": {
+          "total": 88,
+          "appliedFinal": 44,
+          "noOp": 44
+        },
+        "rafInterval": {
+          "count": 43,
+          "p50Ms": 183.40000000000873,
+          "p95Ms": 200,
+          "maxMs": 216.6999999999971,
+          "over50": 43,
+          "over100": 43,
+          "over250": 0
+        },
+        "longTasks": {
+          "count": 44,
+          "p50Ms": 178,
+          "p95Ms": 194,
+          "maxMs": 198,
+          "over50": 44,
+          "over100": 44,
+          "over250": 0
+        },
+        "projectileDensity": {
+          "samples": 44,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "innerBossTick": {
+          "calls": 44,
+          "totalMs": 1.300000011920929,
+          "maxMs": 0.5999999940395355
+        },
+        "copy": {
+          "count": 44,
+          "totalMs": 2305.2000000029802,
+          "maxMs": 58.5,
+          "sourcePixels": 38517336,
+          "destinationPixels": 38517336
+        },
+        "selfCanvas": {
+          "count": 88,
+          "totalMs": 1473.7000000029802,
+          "maxMs": 30,
+          "sourcePixels": 77034672,
+          "destinationPixels": 77034672
+        },
+        "cacheBytes": {
+          "fullSize": 7003152,
+          "croppedFormula": 3521528
+        },
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "dpr": 2
+        },
+        "layoutReads": {
+          "count": 1160,
+          "totalMs": 50.40000006556511,
+          "maxMs": 1.2999999970197678
+        },
+        "domMatrixInverse": {
+          "count": 281,
+          "totalMs": 0.800000011920929,
+          "maxMs": 0.4000000059604645
+        },
+        "heapBytes": 61286848,
+        "domNodes": 427,
+        "images": {
+          "resources": 117,
+          "encodedBytes": 31939366,
+          "transferBytes": 31974466,
+          "decode": {
+            "loadCount": 34,
+            "decodeCalls": 271,
+            "decodeResolved": 271,
+            "decodeRejected": 0,
+            "decodeTotalMs": 65630.20000006258,
+            "decodeMaxMs": 2628.3999999910593
+          }
+        },
+        "resources": {
+          "count": 250,
+          "encodedBytes": 42361671,
+          "transferBytes": 42436671
+        },
+        "errors": [],
+        "httpErrors": []
+      }
+    ],
+    "candidate": [
+      {
+        "commit": "59f5381c046cb4b2416a97c704f34770e887602d",
+        "status": "passed",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scenario": {
+          "zone": "cult04",
+          "mode": "DREAM",
+          "phase": "fight",
+          "hiddenBoss": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272722.365732321,
+              "awake": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272722.365732321,
+              "boss": true
+            }
+          ],
+          "hostileProjectiles": 4,
+          "counts": {
+            "hostileProjectiles": 4,
+            "enemyExitFxV31327": 9,
+            "bossLaserCastsV31330": 0,
+            "bossUltimateCastsV31334": 0,
+            "enemyFeedbackV31361": 1,
+            "bossOrdnanceCues31210": 0,
+            "bossBlackHolesRC32": 0
+          },
+          "mood": "opposition",
+          "elapsedSceneSeconds": 6.885039999999993,
+          "innerBossElapsed": 6.765039999999993,
+          "innerBossCycle": 2,
+          "innerBossShotDelay": 0.47340800000000166,
+          "nativeInnerTickCalls": 48,
+          "nativeInnerTickLastDt": 0.0266559999999986,
+          "nativeInnerTickPositiveDtCalls": 266,
+          "paused": false,
+          "storyOverlayOpen": false,
+          "readingBlocked": false,
+          "modalBlocked": false,
+          "localInputBlocked": false,
+          "bindingPhase": "game",
+          "bindingHasState": true,
+          "player": {
+            "hp": 240,
+            "maxHp": 240,
+            "invulnerableUntil": 120.12
+          },
+          "timeStopUntil": 2.135936,
+          "phaseState": null,
+          "gameOver": false,
+          "partyRole": "offline",
+          "partyPaused": false,
+          "partyDisconnected": false,
+          "document": {
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": "BODY"
+          },
+          "encounterDialogue": null,
+          "encounterLockUntil": 0,
+          "encounterWallUnlockAt": 0
+        },
+        "seconds": 8.17340000000596,
+        "renderTopLevel": {
+          "count": 48,
+          "p50Ms": 94.1000000089407,
+          "p95Ms": 102.6000000089407,
+          "maxMs": 103.29999999701977,
+          "over50": 48,
+          "over100": 5,
+          "over250": 0
+        },
+        "renderCameraPass": {
+          "count": 48,
+          "p50Ms": 21.099999994039536,
+          "p95Ms": 25.700000002980232,
+          "maxMs": 30.69999998807907,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "simulationBeforeRender": {
+          "count": 48,
+          "p50Ms": 17.100000008940697,
+          "p95Ms": 27.400000005960464,
+          "maxMs": 32.79999999701977,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "controlsStage": {
+          "count": 48,
+          "p50Ms": 0,
+          "p95Ms": 0.10000000894069672,
+          "maxMs": 0.4000000059604645,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeAppliedFinal": {
+          "count": 96,
+          "p50Ms": 7.9000000059604645,
+          "p95Ms": 11,
+          "maxMs": 12.299999997019768,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeNoop": null,
+        "compositionCalls": 96,
+        "rafInterval": {
+          "count": 47,
+          "p50Ms": 166.6999999999971,
+          "p95Ms": 200,
+          "maxMs": 233.40000000000873,
+          "over50": 47,
+          "over100": 47,
+          "over250": 0
+        },
+        "longTasks": {
+          "count": 48,
+          "p50Ms": 156,
+          "p95Ms": 184,
+          "maxMs": 208,
+          "over50": 48,
+          "over100": 48,
+          "over250": 0
+        },
+        "projectileDensity": {
+          "samples": 48,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "innerBossTick": {
+          "calls": 48,
+          "totalMs": 1.7000000029802322,
+          "maxMs": 0.7000000029802322
+        },
+        "copy": {
+          "count": 48,
+          "totalMs": 2483.1999999582767,
+          "maxMs": 64.5,
+          "sourcePixels": 42018912,
+          "destinationPixels": 21129168
+        },
+        "selfCanvas": {
+          "count": 48,
+          "totalMs": 439.0999999642372,
+          "maxMs": 11.899999991059303,
+          "sourcePixels": 42018912,
+          "destinationPixels": 42018912
+        },
+        "cacheBytes": {},
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "dpr": 2
+        },
+        "layoutReads": {
+          "count": 1258,
+          "totalMs": 59.59999994933605,
+          "maxMs": 1.1000000089406967
+        },
+        "domMatrixInverse": {
+          "count": 293,
+          "totalMs": 2.5,
+          "maxMs": 0.5999999940395355
+        },
+        "heapBytes": 57640200,
+        "domNodes": 434,
+        "images": {
+          "resources": 117,
+          "encodedBytes": 31939366,
+          "transferBytes": 31974466,
+          "decode": {
+            "loadCount": 34,
+            "decodeCalls": 271,
+            "decodeResolved": 271,
+            "decodeRejected": 0,
+            "decodeTotalMs": 56288.30000014603,
+            "decodeMaxMs": 2676.7999999970198
+          }
+        },
+        "resources": {
+          "count": 250,
+          "encodedBytes": 42362305,
+          "transferBytes": 42437305
+        },
+        "errors": [],
+        "httpErrors": []
+      },
+      {
+        "commit": "59f5381c046cb4b2416a97c704f34770e887602d",
+        "status": "passed",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scenario": {
+          "zone": "cult04",
+          "mode": "DREAM",
+          "phase": "fight",
+          "hiddenBoss": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272725.7783177615,
+              "awake": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272725.7783177615,
+              "boss": true
+            }
+          ],
+          "hostileProjectiles": 4,
+          "counts": {
+            "hostileProjectiles": 4,
+            "enemyExitFxV31327": 8,
+            "bossLaserCastsV31330": 0,
+            "bossUltimateCastsV31334": 0,
+            "enemyFeedbackV31361": 2,
+            "bossOrdnanceCues31210": 0,
+            "bossBlackHolesRC32": 0
+          },
+          "mood": "opposition",
+          "elapsedSceneSeconds": 6.877055999999998,
+          "innerBossElapsed": 6.7570559999999995,
+          "innerBossCycle": 2,
+          "innerBossShotDelay": 0.46006399999999587,
+          "nativeInnerTickCalls": 48,
+          "nativeInnerTickLastDt": 0,
+          "nativeInnerTickPositiveDtCalls": 276,
+          "paused": false,
+          "storyOverlayOpen": false,
+          "readingBlocked": false,
+          "modalBlocked": false,
+          "localInputBlocked": false,
+          "bindingPhase": "game",
+          "bindingHasState": true,
+          "player": {
+            "hp": 240,
+            "maxHp": 240,
+            "invulnerableUntil": 120.12
+          },
+          "timeStopUntil": 2.122591999999999,
+          "phaseState": null,
+          "gameOver": false,
+          "partyRole": "offline",
+          "partyPaused": false,
+          "partyDisconnected": false,
+          "document": {
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": "BODY"
+          },
+          "encounterDialogue": null,
+          "encounterLockUntil": 0,
+          "encounterWallUnlockAt": 0
+        },
+        "seconds": 8.132899999991059,
+        "renderTopLevel": {
+          "count": 48,
+          "p50Ms": 93.70000000298023,
+          "p95Ms": 105.20000000298023,
+          "maxMs": 109.59999999403954,
+          "over50": 48,
+          "over100": 8,
+          "over250": 0
+        },
+        "renderCameraPass": {
+          "count": 48,
+          "p50Ms": 19.80000001192093,
+          "p95Ms": 25.700000002980232,
+          "maxMs": 29.099999994039536,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "simulationBeforeRender": {
+          "count": 48,
+          "p50Ms": 20.299999997019768,
+          "p95Ms": 27.299999997019768,
+          "maxMs": 29.899999991059303,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "controlsStage": {
+          "count": 48,
+          "p50Ms": 0,
+          "p95Ms": 0.6000000089406967,
+          "maxMs": 0.7000000029802322,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeAppliedFinal": {
+          "count": 48,
+          "p50Ms": 9.5,
+          "p95Ms": 13.199999988079071,
+          "maxMs": 18.200000002980232,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeNoop": {
+          "count": 48,
+          "p50Ms": 0,
+          "p95Ms": 0.10000000894069672,
+          "maxMs": 0.10000000894069672,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "compositionCalls": {
+          "total": 96,
+          "appliedFinal": 48,
+          "noOp": 48
+        },
+        "rafInterval": {
+          "count": 47,
+          "p50Ms": 166.6999999999971,
+          "p95Ms": 200,
+          "maxMs": 200,
+          "over50": 47,
+          "over100": 47,
+          "over250": 0
+        },
+        "longTasks": {
+          "count": 48,
+          "p50Ms": 157,
+          "p95Ms": 174,
+          "maxMs": 185,
+          "over50": 48,
+          "over100": 48,
+          "over250": 0
+        },
+        "projectileDensity": {
+          "samples": 48,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "innerBossTick": {
+          "calls": 48,
+          "totalMs": 7.400000020861626,
+          "maxMs": 5.4000000059604645
+        },
+        "copy": {
+          "count": 48,
+          "totalMs": 2545.300000026822,
+          "maxMs": 64.40000000596046,
+          "sourcePixels": 42018912,
+          "destinationPixels": 21129168
+        },
+        "selfCanvas": {
+          "count": 48,
+          "totalMs": 461.2000000178814,
+          "maxMs": 14.5,
+          "sourcePixels": 42018912,
+          "destinationPixels": 42018912
+        },
+        "cacheBytes": {
+          "fullSize": 7003152,
+          "croppedFormula": 3521528
+        },
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "dpr": 2
+        },
+        "layoutReads": {
+          "count": 1280,
+          "totalMs": 50.90000003576279,
+          "maxMs": 1.2000000029802322
+        },
+        "domMatrixInverse": {
+          "count": 310,
+          "totalMs": 3.2999999821186066,
+          "maxMs": 1
+        },
+        "heapBytes": 51999648,
+        "domNodes": 427,
+        "images": {
+          "resources": 117,
+          "encodedBytes": 31939366,
+          "transferBytes": 31974466,
+          "decode": {
+            "loadCount": 34,
+            "decodeCalls": 271,
+            "decodeResolved": 271,
+            "decodeRejected": 0,
+            "decodeTotalMs": 63785.79999996722,
+            "decodeMaxMs": 2407.5
+          }
+        },
+        "resources": {
+          "count": 250,
+          "encodedBytes": 42362305,
+          "transferBytes": 42437305
+        },
+        "errors": [],
+        "httpErrors": []
+      },
+      {
+        "commit": "59f5381c046cb4b2416a97c704f34770e887602d",
+        "status": "passed",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scenario": {
+          "zone": "cult04",
+          "mode": "DREAM",
+          "phase": "fight",
+          "hiddenBoss": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272732.6000777613,
+              "awake": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "inner-evil-rc133",
+              "hp": 272732.6000777613,
+              "boss": true
+            }
+          ],
+          "hostileProjectiles": 4,
+          "counts": {
+            "hostileProjectiles": 4,
+            "enemyExitFxV31327": 7,
+            "bossLaserCastsV31330": 0,
+            "bossUltimateCastsV31334": 0,
+            "enemyFeedbackV31361": 0,
+            "bossOrdnanceCues31210": 0,
+            "bossBlackHolesRC32": 0
+          },
+          "mood": "opposition",
+          "elapsedSceneSeconds": 7.015711999999996,
+          "innerBossElapsed": 6.815711999999997,
+          "innerBossCycle": 2,
+          "innerBossShotDelay": 0.39337599999999767,
+          "nativeInnerTickCalls": 48,
+          "nativeInnerTickLastDt": 0.024,
+          "nativeInnerTickPositiveDtCalls": 273,
+          "paused": false,
+          "storyOverlayOpen": false,
+          "readingBlocked": false,
+          "modalBlocked": false,
+          "localInputBlocked": false,
+          "bindingPhase": "game",
+          "bindingHasState": true,
+          "player": {
+            "hp": 240,
+            "maxHp": 240,
+            "invulnerableUntil": 120.16
+          },
+          "timeStopUntil": 2.213248,
+          "phaseState": null,
+          "gameOver": false,
+          "partyRole": "offline",
+          "partyPaused": false,
+          "partyDisconnected": false,
+          "document": {
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": "BODY"
+          },
+          "encounterDialogue": null,
+          "encounterLockUntil": 0,
+          "encounterWallUnlockAt": 0
+        },
+        "seconds": 8.09679999999702,
+        "renderTopLevel": {
+          "count": 48,
+          "p50Ms": 93,
+          "p95Ms": 106.1000000089407,
+          "maxMs": 116.70000000298023,
+          "over50": 48,
+          "over100": 11,
+          "over250": 0
+        },
+        "renderCameraPass": {
+          "count": 48,
+          "p50Ms": 21,
+          "p95Ms": 26.5,
+          "maxMs": 34.1000000089407,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "simulationBeforeRender": {
+          "count": 48,
+          "p50Ms": 17.700000002980232,
+          "p95Ms": 29.400000005960464,
+          "maxMs": 34.80000001192093,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "controlsStage": {
+          "count": 48,
+          "p50Ms": 0,
+          "p95Ms": 0.699999988079071,
+          "maxMs": 0.800000011920929,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeAppliedFinal": {
+          "count": 48,
+          "p50Ms": 9.5,
+          "p95Ms": 11,
+          "maxMs": 11.5,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "composeNoop": {
+          "count": 48,
+          "p50Ms": 0,
+          "p95Ms": 0.10000000894069672,
+          "maxMs": 0.7999999970197678,
+          "over50": 0,
+          "over100": 0,
+          "over250": 0
+        },
+        "compositionCalls": {
+          "total": 96,
+          "appliedFinal": 48,
+          "noOp": 48
+        },
+        "rafInterval": {
+          "count": 47,
+          "p50Ms": 166.6999999999971,
+          "p95Ms": 200,
+          "maxMs": 216.6999999999971,
+          "over50": 47,
+          "over100": 47,
+          "over250": 0
+        },
+        "longTasks": {
+          "count": 48,
+          "p50Ms": 160,
+          "p95Ms": 181,
+          "maxMs": 182,
+          "over50": 48,
+          "over100": 48,
+          "over250": 0
+        },
+        "projectileDensity": {
+          "samples": 48,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "innerBossTick": {
+          "calls": 48,
+          "totalMs": 2.600000023841858,
+          "maxMs": 0.699999988079071
+        },
+        "copy": {
+          "count": 48,
+          "totalMs": 2499.399999856949,
+          "maxMs": 61.70000000298023,
+          "sourcePixels": 42018912,
+          "destinationPixels": 21129168
+        },
+        "selfCanvas": {
+          "count": 48,
+          "totalMs": 440.99999998509884,
+          "maxMs": 11.299999997019768,
+          "sourcePixels": 42018912,
+          "destinationPixels": 42018912
+        },
+        "cacheBytes": {
+          "fullSize": 7003152,
+          "croppedFormula": 3521528
+        },
+        "canvas": {
+          "width": 1247,
+          "height": 702,
+          "css": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "dpr": 2
+        },
+        "layoutReads": {
+          "count": 1251,
+          "totalMs": 50.90000009536743,
+          "maxMs": 2.3999999910593033
+        },
+        "domMatrixInverse": {
+          "count": 288,
+          "totalMs": 3.399999976158142,
+          "maxMs": 1.2999999970197678
+        },
+        "heapBytes": 59038138,
+        "domNodes": 434,
+        "images": {
+          "resources": 117,
+          "encodedBytes": 31939366,
+          "transferBytes": 31974466,
+          "decode": {
+            "loadCount": 34,
+            "decodeCalls": 271,
+            "decodeResolved": 271,
+            "decodeRejected": 0,
+            "decodeTotalMs": 55532.70000003278,
+            "decodeMaxMs": 2550.3999999910593
+          }
+        },
+        "resources": {
+          "count": 250,
+          "encodedBytes": 42362305,
+          "transferBytes": 42437305
+        },
+        "errors": [],
+        "httpErrors": []
+      }
+    ],
+    "summary": {
+      "baselineTopLevelRenderP95Ms": [
+        124.5,
+        135.80000001192093,
+        130
+      ],
+      "medianBaselineTopLevelRenderP95Ms": 130,
+      "candidateTopLevelRenderP95Ms": [
+        102.6000000089407,
+        105.20000000298023,
+        106.1000000089407
+      ],
+      "medianCandidateTopLevelRenderP95Ms": 105.20000000298023,
+      "medianRenderP95ReductionPercent": 19.1,
+      "baselineAppliedComposeP95Ms": [
+        35,
+        40.80000001192093,
+        38.30000001192093
+      ],
+      "candidateAppliedComposeP95Ms": [
+        11,
+        13.199999988079071,
+        11
+      ],
+      "medianBaselineAppliedComposeP95Ms": 38.30000001192093,
+      "medianCandidateAppliedComposeP95Ms": 11,
+      "baselineRafP95Ms": [
+        200,
+        233.3000000000029,
+        200
+      ],
+      "candidateRafP95Ms": [
+        200,
+        200,
+        200
+      ],
+      "medianBaselineRafP95Ms": 200,
+      "medianCandidateRafP95Ms": 200,
+      "baselineLongTaskP95Ms": [
+        184,
+        211,
+        194
+      ],
+      "candidateLongTaskP95Ms": [
+        184,
+        174,
+        181
+      ],
+      "medianBaselineLongTaskP95Ms": 194,
+      "medianCandidateLongTaskP95Ms": 181,
+      "baselineCacheCopyAvgMs": [
+        49.86956521641949,
+        51.5255813959033,
+        52.39090909097683
+      ],
+      "candidateCacheCopyAvgMs": [
+        51.7333333324641,
+        53.02708333389213,
+        52.0708333303531
+      ],
+      "medianBaselineCacheCopyAvgMs": 51.5255813959033,
+      "medianCandidateCacheCopyAvgMs": 52.0708333303531,
+      "selfCanvasCallsPerFrameBaseline": [
+        2,
+        2,
+        2
+      ],
+      "selfCanvasCallsPerFrameCandidate": [
+        1,
+        1,
+        1
+      ],
+      "cacheFootprintReductionPercent": null
+    }
+  },
+  "landscapePair": {
+    "viewportCss": {
+      "width": 844,
+      "height": 390
+    },
+    "baseline": {
+      "commit": "785a2158983412384909cf701a6d8198581ed5f3",
+      "status": "passed",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "scenario": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "phase": "fight",
+        "hiddenBoss": [
+          {
+            "id": "inner-evil-rc133",
+            "hp": 272726.3462292764,
+            "awake": true
+          }
+        ],
+        "actors": [
+          {
+            "id": "inner-evil-rc133",
+            "hp": 272726.3462292764,
+            "boss": true
+          }
+        ],
+        "hostileProjectiles": 4,
+        "counts": {
+          "hostileProjectiles": 4,
+          "enemyExitFxV31327": 8,
+          "bossLaserCastsV31330": 0,
+          "bossUltimateCastsV31334": 0,
+          "enemyFeedbackV31361": 1,
+          "bossOrdnanceCues31210": 0,
+          "bossBlackHolesRC32": 0
+        },
+        "mood": "opposition",
+        "elapsedSceneSeconds": 6.946367999999998,
+        "innerBossElapsed": 6.786367999999999,
+        "innerBossCycle": 2,
+        "innerBossShotDelay": 0.42273600000000466,
+        "nativeInnerTickCalls": 83,
+        "nativeInnerTickLastDt": 0.016,
+        "nativeInnerTickPositiveDtCalls": 569,
+        "paused": false,
+        "storyOverlayOpen": false,
+        "readingBlocked": false,
+        "modalBlocked": false,
+        "localInputBlocked": false,
+        "bindingPhase": "game",
+        "bindingHasState": true,
+        "player": {
+          "hp": 240,
+          "maxHp": 240,
+          "invulnerableUntil": 120.16
+        },
+        "timeStopUntil": 2.1705759999999996,
+        "phaseState": null,
+        "gameOver": false,
+        "partyRole": "offline",
+        "partyPaused": false,
+        "partyDisconnected": false,
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false,
+          "activeElement": "BODY"
+        },
+        "encounterDialogue": null,
+        "encounterLockUntil": 0,
+        "encounterWallUnlockAt": 0
+      },
+      "seconds": 8.046699999988078,
+      "renderTopLevel": {
+        "count": 83,
+        "p50Ms": 56,
+        "p95Ms": 69.30000001192093,
+        "maxMs": 78.5,
+        "over50": 63,
+        "over100": 0,
+        "over250": 0
+      },
+      "renderCameraPass": {
+        "count": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "maxMs": null,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "simulationBeforeRender": {
+        "count": 83,
+        "p50Ms": 16.5,
+        "p95Ms": 26.899999991059303,
+        "maxMs": 50.6000000089407,
+        "over50": 1,
+        "over100": 0,
+        "over250": 0
+      },
+      "controlsStage": {
+        "count": 83,
+        "p50Ms": 0,
+        "p95Ms": 0.29999999701976776,
+        "maxMs": 0.7000000029802322,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "composeAppliedFinal": {
+        "count": 83,
+        "p50Ms": 33.29999999701977,
+        "p95Ms": 43.79999999701977,
+        "maxMs": 50.8999999910593,
+        "over50": 2,
+        "over100": 0,
+        "over250": 0
+      },
+      "composeNoop": {
+        "count": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "maxMs": null,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "compositionCalls": {
+        "total": 83,
+        "appliedFinal": 83,
+        "noOp": 0
+      },
+      "rafInterval": {
+        "count": 82,
+        "p50Ms": 100,
+        "p95Ms": 116.69999999999709,
+        "maxMs": 149.89999999999418,
+        "over50": 82,
+        "over100": 23,
+        "over250": 0
+      },
+      "longTasks": {
+        "count": 84,
+        "p50Ms": 84,
+        "p95Ms": 107,
+        "maxMs": 144,
+        "over50": 84,
+        "over100": 10,
+        "over250": 0
+      },
+      "projectileDensity": {
+        "samples": 83,
+        "min": 4,
+        "p50": 6,
+        "p95": 6,
+        "max": 6,
+        "final": 4,
+        "nativeActorCountMax": 1
+      },
+      "innerBossTick": {
+        "calls": 83,
+        "totalMs": 5.5999999940395355,
+        "maxMs": 0.9000000059604645
+      },
+      "copy": null,
+      "selfCanvas": {
+        "count": 166,
+        "totalMs": 2788.5000000298023,
+        "maxMs": 43.70000000298023,
+        "sourcePixels": 46030140,
+        "destinationPixels": 46030140
+      },
+      "cacheBytes": {
+        "fullSize": 2218320,
+        "croppedFormula": 1117584
+      },
+      "canvas": {
+        "width": 702,
+        "height": 395,
+        "css": {
+          "x": 0,
+          "y": 36,
+          "width": 844,
+          "height": 354,
+          "top": 36,
+          "right": 844,
+          "bottom": 390,
+          "left": 0
+        },
+        "dpr": 2
+      },
+      "layoutReads": {
+        "count": 1932,
+        "totalMs": 76.90000003576279,
+        "maxMs": 5.100000008940697
+      },
+      "domMatrixInverse": {
+        "count": 510,
+        "totalMs": 2.7000000327825546,
+        "maxMs": 0.9000000059604645
+      },
+      "heapBytes": 46221355,
+      "domNodes": 434,
+      "images": {
+        "resources": 117,
+        "encodedBytes": 31939366,
+        "transferBytes": 31974466,
+        "decode": {
+          "loadCount": 34,
+          "decodeCalls": 269,
+          "decodeResolved": 269,
+          "decodeRejected": 0,
+          "decodeTotalMs": 47721.199999928474,
+          "decodeMaxMs": 2724.7000000029802
+        }
+      },
+      "resources": {
+        "count": 250,
+        "encodedBytes": 42361671,
+        "transferBytes": 42436671
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    "candidate": {
+      "commit": "59f5381c046cb4b2416a97c704f34770e887602d",
+      "status": "passed",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "scenario": {
+        "zone": "cult04",
+        "mode": "DREAM",
+        "phase": "fight",
+        "hiddenBoss": [
+          {
+            "id": "inner-evil-rc133",
+            "hp": 272731.75076863565,
+            "awake": true
+          }
+        ],
+        "actors": [
+          {
+            "id": "inner-evil-rc133",
+            "hp": 272731.75076863565,
+            "boss": true
+          }
+        ],
+        "hostileProjectiles": 4,
+        "counts": {
+          "hostileProjectiles": 4,
+          "enemyExitFxV31327": 8,
+          "bossLaserCastsV31330": 0,
+          "bossUltimateCastsV31334": 0,
+          "enemyFeedbackV31361": 1,
+          "bossOrdnanceCues31210": 0,
+          "bossBlackHolesRC32": 0
+        },
+        "mood": "opposition",
+        "elapsedSceneSeconds": 6.906399999999994,
+        "innerBossElapsed": 6.786399999999995,
+        "innerBossCycle": 2,
+        "innerBossShotDelay": 0.4307040000000028,
+        "nativeInnerTickCalls": 92,
+        "nativeInnerTickLastDt": 0.013328000000000466,
+        "nativeInnerTickPositiveDtCalls": 574,
+        "paused": false,
+        "storyOverlayOpen": false,
+        "readingBlocked": false,
+        "modalBlocked": false,
+        "localInputBlocked": false,
+        "bindingPhase": "game",
+        "bindingHasState": true,
+        "player": {
+          "hp": 240,
+          "maxHp": 240,
+          "invulnerableUntil": 120.08
+        },
+        "timeStopUntil": 2.122575999999999,
+        "phaseState": null,
+        "gameOver": false,
+        "partyRole": "offline",
+        "partyPaused": false,
+        "partyDisconnected": false,
+        "document": {
+          "visibilityState": "visible",
+          "hidden": false,
+          "activeElement": "BODY"
+        },
+        "encounterDialogue": null,
+        "encounterLockUntil": 0,
+        "encounterWallUnlockAt": 0
+      },
+      "seconds": 8.05979999999702,
+      "renderTopLevel": {
+        "count": 92,
+        "p50Ms": 44.79999999701977,
+        "p95Ms": 53.70000000298023,
+        "maxMs": 57.70000000298023,
+        "over50": 21,
+        "over100": 0,
+        "over250": 0
+      },
+      "renderCameraPass": {
+        "count": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "maxMs": null,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "simulationBeforeRender": {
+        "count": 92,
+        "p50Ms": 16,
+        "p95Ms": 23.200000002980232,
+        "maxMs": 26.400000005960464,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "controlsStage": {
+        "count": 92,
+        "p50Ms": 0,
+        "p95Ms": 0.20000000298023224,
+        "maxMs": 0.9000000059604645,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "composeAppliedFinal": {
+        "count": 92,
+        "p50Ms": 25,
+        "p95Ms": 31,
+        "maxMs": 39.5,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "composeNoop": {
+        "count": 0,
+        "p50Ms": null,
+        "p95Ms": null,
+        "maxMs": null,
+        "over50": 0,
+        "over100": 0,
+        "over250": 0
+      },
+      "compositionCalls": {
+        "total": 92,
+        "appliedFinal": 92,
+        "noOp": 0
+      },
+      "rafInterval": {
+        "count": 91,
+        "p50Ms": 83.39999999999418,
+        "p95Ms": 100.09999999999127,
+        "maxMs": 116.70000000001164,
+        "over50": 91,
+        "over100": 5,
+        "over250": 0
+      },
+      "longTasks": {
+        "count": 91,
+        "p50Ms": 78,
+        "p95Ms": 92,
+        "maxMs": 96,
+        "over50": 91,
+        "over100": 0,
+        "over250": 0
+      },
+      "projectileDensity": {
+        "samples": 92,
+        "min": 4,
+        "p50": 6,
+        "p95": 6,
+        "max": 6,
+        "final": 4,
+        "nativeActorCountMax": 1
+      },
+      "innerBossTick": {
+        "calls": 92,
+        "totalMs": 0.8999999910593033,
+        "maxMs": 0.29999999701976776
+      },
+      "copy": null,
+      "selfCanvas": {
+        "count": 92,
+        "totalMs": 2335.0999999791384,
+        "maxMs": 39.400000005960464,
+        "sourcePixels": 25510680,
+        "destinationPixels": 25510680
+      },
+      "cacheBytes": {
+        "fullSize": 2218320,
+        "croppedFormula": 1117584
+      },
+      "canvas": {
+        "width": 702,
+        "height": 395,
+        "css": {
+          "x": 0,
+          "y": 36,
+          "width": 844,
+          "height": 354,
+          "top": 36,
+          "right": 844,
+          "bottom": 390,
+          "left": 0
+        },
+        "dpr": 2
+      },
+      "layoutReads": {
+        "count": 2138,
+        "totalMs": 71.30000004172325,
+        "maxMs": 2.2000000029802322
+      },
+      "domMatrixInverse": {
+        "count": 560,
+        "totalMs": 3.8000000715255737,
+        "maxMs": 0.9000000059604645
+      },
+      "heapBytes": 74937128,
+      "domNodes": 434,
+      "images": {
+        "resources": 117,
+        "encodedBytes": 31939366,
+        "transferBytes": 31974466,
+        "decode": {
+          "loadCount": 34,
+          "decodeCalls": 269,
+          "decodeResolved": 269,
+          "decodeRejected": 0,
+          "decodeTotalMs": 46574.099999934435,
+          "decodeMaxMs": 2631.7999999970198
+        }
+      },
+      "resources": {
+        "count": 250,
+        "encodedBytes": 42362305,
+        "transferBytes": 42437305
+      },
+      "errors": [],
+      "httpErrors": []
+    },
+    "summary": {
+      "topLevelRenderP95Ms": {
+        "baseline": 69.30000001192093,
+        "candidate": 53.70000000298023
+      },
+      "appliedComposeP95Ms": {
+        "baseline": 43.79999999701977,
+        "candidate": 31
+      },
+      "rafP95Ms": {
+        "baseline": 116.69999999999709,
+        "candidate": 100.09999999999127
+      },
+      "longTaskP95Ms": {
+        "baseline": 107,
+        "candidate": 92
+      },
+      "actors": {
+        "baseline": 1,
+        "candidate": 1
+      },
+      "projectiles": {
+        "baseline": {
+          "samples": 83,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        },
+        "candidate": {
+          "samples": 92,
+          "min": 4,
+          "p50": 6,
+          "p95": 6,
+          "max": 6,
+          "final": 4,
+          "nativeActorCountMax": 1
+        }
+      }
+    }
+  },
+  "failedInitialSetup": {
+    "file": "baseline-785-hidden-mutual-timeout-capture.json",
+    "error": "page.waitForFunction: Timeout 120000ms exceeded.\n    at /workspace/rc133-tools/mobile-quality/profile-785-hidden-mutual.cjs:183:18",
+    "initialCause": "default full-auto controls killed the staged hidden boss before the first native volley; not a UI lock or runtime error",
+    "warmTimeoutState": {
+      "zone": "cult04",
+      "mode": "DREAM",
+      "phase": "complete",
+      "hiddenBoss": [],
+      "actors": [],
+      "hostileProjectiles": 0,
+      "counts": {
+        "hostileProjectiles": 0,
+        "enemyExitFxV31327": 0,
+        "bossLaserCastsV31330": 0,
+        "bossUltimateCastsV31334": 0,
+        "enemyFeedbackV31361": 0,
+        "bossOrdnanceCues31210": 0,
+        "bossBlackHolesRC32": 0
+      },
+      "mood": "normal",
+      "elapsedSceneSeconds": 20.44546399999976,
+      "innerBossElapsed": 3.9837599999999966,
+      "innerBossCycle": 1,
+      "innerBossShotDelay": 0.6647199999999993,
+      "nativeInnerTickCalls": 1362,
+      "nativeInnerTickLastDt": 0.03339999999999418,
+      "nativeInnerTickPositiveDtCalls": 886,
+      "paused": false,
+      "storyOverlayOpen": false,
+      "readingBlocked": false,
+      "modalBlocked": false,
+      "localInputBlocked": false,
+      "bindingPhase": "game",
+      "bindingHasState": true,
+      "player": {
+        "hp": 240,
+        "maxHp": 240,
+        "invulnerableUntil": 120.12
+      },
+      "timeStopUntil": 7.1223199999999975,
+      "phaseState": null,
+      "gameOver": false,
+      "partyRole": "offline",
+      "partyPaused": false,
+      "partyDisconnected": false,
+      "document": {
+        "visibilityState": "visible",
+        "hidden": false,
+        "activeElement": "BODY"
+      },
+      "encounterDialogue": null,
+      "encounterLockUntil": 0,
+      "encounterWallUnlockAt": 0
+    },
+    "diagnostics": {
+      "rafSamples": 1362,
+      "topLevelRenders": 1365,
+      "cameraRenders": 1364,
+      "canvas": {
+        "width": 1247,
+        "height": 702
+      },
+      "actorAlive": [],
+      "activeHostileProjectiles": [],
+      "localInputBlocked": false,
+      "partyStatus": {
+        "role": "offline",
+        "paused": false,
+        "disconnected": false
+      },
+      "resources": 250
+    },
+    "screenshot": "/workspace/rc133-tools/mobile-quality/baseline-785-hidden-mutual-timeout-capture-warm-timeout.png"
+  },
+  "caveats": [
+    "The first active portrait repeat predates splitting composeApplied vs no-op timings; its overall compose field is preserved, while r2/r3 isolate final applied compose.",
+    "All profile runs are headless local Chromium with CPU throttling4 and DPR2 emulation; no physical-device/FPS/thermal claim.",
+    "Decode duration is the summed latency of overlapping HTMLImageElement.decode() promises, not CPU decode cost.",
+    "Image/media resources are served locally; transfer figures are app resource entries, not remote production network measurements.",
+    "No hidden-filter, touch, audio, save/reload, orientation-change or lifecycle/browser-resume matrix was run during this batch. Root requested those checks or remote CI after local Chrome contention clears.",
+    "Dense natural projectile combat and multiple concurrent boss actor scenarios remain pending; this hidden-mutual fixture observed at most6 projectiles and one boss.",
+    "The native template proof does not represent full campaign progress."
+  ],
+  "sourceFiles": {
+    "harness": "/workspace/rc133-tools/mobile-quality/profile-785-hidden-mutual.cjs",
+    "publicProof": "/workspace/rc133-tools/785-publication-root/public-proof.json"
+  },
+  "reports": {
+    "portraitBaseline": [
+      "/workspace/rc133-tools/mobile-quality/baseline-785-hidden-mutual-active-manual-r1.json",
+      "/workspace/rc133-tools/mobile-quality/baseline-785-hidden-mutual-active-manual-r2.json",
+      "/workspace/rc133-tools/mobile-quality/baseline-785-hidden-mutual-active-manual-r3.json"
+    ],
+    "landscapeBaseline": "/workspace/rc133-tools/mobile-quality/baseline-785-hidden-mutual-active-manual-landscape-r1.json"
+  }
+}
