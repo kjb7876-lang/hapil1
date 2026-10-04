@@ -1,0 +1,45 @@
+{
+  "scope": "Controlled test-only RC33 installer delay; actual runtime sources unchanged; pre-readiness failure is expected negative evidence. The fixed test retains all original per-phase count assertions.",
+  "installerDelayMs": 10000,
+  "before": [
+    {
+      "phase": "warning",
+      "lowFx": false,
+      "tearDraws": 0,
+      "beamDraws": 0,
+      "pixels": 0,
+      "initialBeam": "./assets/vfx/rc32/boss-lasers/dist06-boss.webp",
+      "currentOwnerBeam": "./assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402#owner=dist06-boss",
+      "ownerReadyBefore": false,
+      "ownerReady": true
+    },
+    {
+      "phase": "warning",
+      "lowFx": true,
+      "tearDraws": 2,
+      "beamDraws": 0,
+      "pixels": 82673,
+      "initialBeam": "./assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402#owner=dist06-boss",
+      "currentOwnerBeam": "./assets/vfx/rc33/boss-laser-families/balrog.webp?v=33402#owner=dist06-boss",
+      "ownerReadyBefore": true,
+      "ownerReady": true
+    }
+  ],
+  "after": [
+    {
+      "phase": "warning",
+      "lowFx": false,
+      "tearDraws": 2,
+      "beamDraws": 0,
+      "pixels": 82673
+    },
+    {
+      "phase": "warning",
+      "lowFx": true,
+      "tearDraws": 2,
+      "beamDraws": 0,
+      "pixels": 82673
+    }
+  ],
+  "fixedRows": 12
+}
