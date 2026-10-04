@@ -1,11 +1,15 @@
 {
   "schema": "rc133-hidden-duel-checkpoint-v1",
   "baseMain": "cafbea9fb98aa9842436fffb61c199bcd48c8dff",
-  "status": "implementation-in-progress",
-  "latestFocusedChecks": 58,
+  "status": "candidate-ready-for-exact-ci",
+  "latestFocusedChecks": 87,
   "latestFocusedResult": "passed",
   "browserBeforeSentinelFix": {
-    "profiles": ["pc", "portrait", "landscape"],
+    "profiles": [
+      "pc",
+      "portrait",
+      "landscape"
+    ],
     "checksPerProfile": 898,
     "result": "passed",
     "pageErrors": 0,
@@ -18,11 +22,42 @@
     "oldDreamDist00ResetLoop": "fixed before 6778046; not a current reproduced blocker",
     "naturalAssistedHiddenVictory": "recorded on 709 by the existing QA task"
   },
-  "reviewFollowups": [
-    "Make paired awakening occur on the first hidden-battle lethal player hit, without the current 18-percent boss-health gate.",
-    "Review atomic EGO pending-trigger consumption and one-use revival persistence.",
-    "Raise hidden-final challenge using bounded player-growth scaling and exercise every supplied skill type.",
-    "Make projectile geometry independent of a prior render and review player, enemy, area, and beam image alignment."
+  "reviewFollowups": [],
+  "published": false,
+  "newBrowser": {
+    "profiles": [
+      "pc",
+      "portrait",
+      "landscape"
+    ],
+    "checksPerProfile": 929,
+    "result": "passed",
+    "pageErrors": 0,
+    "httpFailures": 0,
+    "fixture": "staged"
+  },
+  "bitmapBrowser": {
+    "profiles": [
+      "pc",
+      "portrait",
+      "landscape"
+    ],
+    "checksPerProfile": 165,
+    "result": "passed",
+    "scope": "nine supplied skill bitmaps at 1/12/24 projectiles; final enlargement + RC130 cap and pre-render contact"
+  },
+  "limits": [
+    "Collision encloses measured alpha bounds; internal transparent holes are not per-pixel masks.",
+    "New stronger encounter is verified with staged native fixtures; natural campaign victory on this candidate remains unverified.",
+    "main/Pages publication requires parent coordination."
   ],
-  "published": false
+  "implementation": [
+    "First hidden-player lethal admission triggers one persisted dual awakening even with full boss HP.",
+    "Existing active awakening is reused and pending EGO7 consumed once; normal encounter entitlement is consumed.",
+    "Boss living HP is preserved during clash; lethal boss returns to at least 22%.",
+    "New HP model floors source leader health at 1.65x, includes native DPS x140 xbounded-growth, and caps at 3000000; legacy active save health is preserved.",
+    "All nine supplied skills dispatch real native bullet/pending-area packets with readable windups, queue and damage bounds.",
+    "Final renderer geometry is computed before collision on an isolated recorder; prior draw footprints are unnecessary.",
+    "Player anatomical bodies remain at 66px without weapon/aura hurtbox growth; beams and committed outgoing target checks use main-body geometry."
+  ]
 }

@@ -2,7 +2,7 @@
  * Body contact is resolved only after the observed closest approach or actual heart entry.
  * This intentionally never predicts unobserved future bullet motion. */
 (function(root){'use strict';
- function create({project,heroes,combat}){
+ function create({project,heroes,combat,projectileVisual,actorVisual}){
  if(typeof project!=='function'||typeof heroes!=='function')throw Error('Geometry dependency missing');
 const P=()=>window.__HAPIL_PARTY_V31322__,C=()=>window.__HAPIL_COMBAT_V31333__,N=(v,d=0)=>Number.isFinite(v)?v:d;
 const cfg=Object.freeze({bodyRadius:16,heartRadius:4.5,groundBodyRadius:.42,groundHeartRadius:.12,maxFrame:.28});
@@ -42,18 +42,46 @@ function classifyBitmapRelative(r0,r1,fp,body,heart){
  const rect={left:-fp.width/2,top:-fp.height/2,right:fp.width/2,bottom:fp.height/2},near=segmentRectDistance(a,b,rect),heartHit=near.d<=heart,hit=near.d<=body;
  return{hit,heart:heartHit,t:hit?near.t:Infinity,d:near.d,kind:'projectile-bitmap'};
 }
-function projectile(s,a,q){if(!hero(a)||C().frozen(s,q)||a.hp<=0)return{hit:false,heart:false,t:Infinity};const now=C().core(a),before=previous(s,a),b0=bullet(q,true),b1=bullet(q),scale=Math.max(1,Math.min(1.5,N(q.visualScaleV31224,1))),physical=Math.max(0,N(q.radius,.2))*27*scale;
- const footprint=bitmapFootprints.get(q);if(footprint){const rel0={x:b0.x-before.x,y:b0.y-before.y},rel1={x:b1.x-now.x,y:b1.y-now.y},visual=classifyBitmapRelative(rel0,rel1,footprint,cfg.bodyRadius,cfg.heartRadius),core=classifyRelative(rel0,rel1,cfg.bodyRadius+physical,cfg.heartRadius+physical);return{...(visual.hit&&(!core.hit||visual.t<=core.t)?visual:core),kind:'projectile'};}
- // The bitmap is larger than the old physical radius for many boss weapons.
- // Enclose its active image footprint; release/telegraph gating remains in the projectile pipeline.
- const extent=q.danmakuV31316?(q.danmakuRadialV31316?32:40):q.boss?68:q.midboss?56:50;
- const visual=q.sprite&&!q.narrativeGlyph?
-   (String(q.sourceId)==='dist00-boss'?Math.hypot(70,35):extent*Math.SQRT2*.5)*scale-cfg.bodyRadius:0;
- const r=Math.max(physical,visual);
- return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+r,cfg.heartRadius+r),kind:'projectile'};}
+function polygonDistance(a,b,points){
+ if(!Array.isArray(points)||points.length<3||!points.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)))return{d:Infinity,t:Infinity};
+ const signed=points.reduce((sum,p,i)=>sum+p.x*points[(i+1)%points.length].y-p.y*points[(i+1)%points.length].x,0);if(Math.abs(signed)<1e-9)return{d:Infinity,t:Infinity};
+ const inside=p=>{let sign=0;for(let i=0;i<points.length;i++){const x=points[i],y=points[(i+1)%points.length],cross=(y.x-x.x)*(p.y-x.y)-(y.y-x.y)*(p.x-x.x);if(Math.abs(cross)<1e-8)continue;const next=Math.sign(cross);if(sign&&sign!==next)return false;sign=next;}return true;};
+ if(inside(a))return{d:0,t:0};if(inside(b))return{d:0,t:1};
+ let best={d:Infinity,t:Infinity};for(let i=0;i<points.length;i++){
+  const x=points[i],y=points[(i+1)%points.length],p=pointSegment(x,a,b),aa=pointSegment(a,x,y),bb=pointSegment(b,x,y);if(p.d<best.d)best=p;if(aa.d<best.d)best={d:aa.d,t:0};if(bb.d<best.d)best={d:bb.d,t:1};
+  const ax=b.x-a.x,ay=b.y-a.y,bx=y.x-x.x,by=y.y-x.y,den=ax*by-ay*bx;if(Math.abs(den)>1e-9){const dx=x.x-a.x,dy=x.y-a.y,t=(dx*by-dy*bx)/den,u=(dx*ay-dy*ax)/den;if(t>=0&&t<=1&&u>=0&&u<=1)return{d:0,t};}
+ }return best;
+}
+function body(s,a){
+ const core=C().core(a),visual=actorVisual?.(s,a),pts=visual?.points;
+ if(!pts?.length)return{center:core,rx:cfg.bodyRadius,ry:cfg.bodyRadius};
+ const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),bottom=Math.max(...ys),height=Math.min(66,Math.max(...ys)-Math.min(...ys));
+ // Weapons, flowing garments, auras and auxiliary Stand bodies never grow the
+ // anatomical player hurtbox. The fixed 66px body normalization is authored.
+ return{center:{x:core.x,y:bottom-height/2},rx:Math.max(8,Math.min(cfg.bodyRadius,(Math.max(...xs)-Math.min(...xs))/2)),ry:Math.max(cfg.bodyRadius,height/2)};
+}
+function classifyPolygonRelative(r0,r1,points,rx,ry){
+ const p=points.map(v=>({x:v.x/rx,y:v.y/ry})),neg=v=>({x:-v.x/rx,y:-v.y/ry}),near=polygonDistance(neg(r0),neg(r1),p);
+ return{hit:near.d<=1,t:near.d<=1?near.t:Infinity,d:near.d};
+}
+function projectile(s,a,q){
+ if(!hero(a)||C().frozen(s,q)||a.hp<=0)return{hit:false,heart:false,t:Infinity};
+ const now=C().core(a),before=previous(s,a),b0=bullet(q,true),b1=bullet(q),scale=Math.max(1,Math.min(1.5,N(q.visualScaleV31224,1))),physical=Math.max(0,N(q.radius,.2))*27*scale;
+ const plan=projectileVisual?.(s,q);
+ if(plan?.points?.length){
+  const anatomy=body(s,a),offset={x:anatomy.center.x-now.x,y:anatomy.center.y-now.y},r0={x:b0.x-before.x-offset.x,y:b0.y-before.y-offset.y},r1={x:b1.x-anatomy.center.x,y:b1.y-anatomy.center.y};
+  const contact=classifyPolygonRelative(r0,r1,plan.points,anatomy.rx,anatomy.ry),heart=classifyPolygonRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},plan.points,cfg.heartRadius,cfg.heartRadius);
+  return{...contact,hit:contact.hit||heart.hit,heart:heart.hit,t:heart.hit?Math.min(contact.t,heart.t):contact.t,kind:'projectile',bitmap:true,bodyGap:(contact.d-1)*Math.min(anatomy.rx,anatomy.ry)};
+ }
+ const footprint=bitmapFootprints.get(q);
+ if(footprint){const visual=classifyBitmapRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},footprint,cfg.bodyRadius,cfg.heartRadius);return{...visual,kind:'projectile',bitmap:true,bodyGap:visual.d-cfg.bodyRadius};}
+ // When the actual bitmap is not decoded, its native visible fallback owns
+ // the physical radius. No guessed square or transparent-gutter enlargement.
+ return{...classifyRelative({x:b0.x-before.x,y:b0.y-before.y},{x:b1.x-now.x,y:b1.y-now.y},cfg.bodyRadius+physical,cfg.heartRadius+physical),kind:'projectile'};
+}
 function stamp(s,a,h,evidence){if(evidence?.kind==='projectile'&&evidence.hit&&!C().piercing(h)&&Number.isFinite(evidence.t)){h.x=N(h.previousX,h.x)+(h.x-N(h.previousX,h.x))*evidence.t;h.y=N(h.previousY,h.y)+(h.y-N(h.previousY,h.y))*evidence.t;}h.heartContactV31336={target:key(s,a),time:s.time,heart:!!evidence?.heart};combat?.captureEvidence(s,a,h,evidence);return h;}
 function first(s,q,actors,hostAlive=true){let best=null;for(const a of [...(hostAlive?[s]:[]),...actors]){const k=key(s,a);if(a.hp<=0||C().seen(q,k))continue;const evidence=projectile(s,a,q);if(evidence.hit&&(!best||evidence.t<best.t||evidence.t===best.t&&k<best.key))best={a,t:evidence.t,key:k,evidence};}return best;}
-function graze(s,q){const e=projectile(s,s,q),r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}
+function graze(s,q){const e=projectile(s,s,q);if(e.bitmap)return !e.hit&&e.bodyGap>0&&e.bodyGap<=19.44;const r=cfg.bodyRadius+Math.max(0,N(q.radius,.2))*27*Math.max(1,N(q.visualScaleV31224,1));return e.d>r&&e.d<=r+19.44;}
 function prepareHost(s,q){const e=projectile(s,s,q);if(e.hit)stamp(s,s,q,e);return e.hit;}
 function areaDistance(a,h){if(root.__HAPIL_FINITE_NATIVE_RC126__?.handles(h))return root.__HAPIL_FINITE_NATIVE_RC126__.distance(a,h);if(!a||!h||![a.x,a.y,h.x,h.y,h.radius].every(Number.isFinite)||h.radius<0)return Infinity;
  if(h.shape===`donut`&&(!Number.isFinite(h.innerRadius)||h.innerRadius<0||h.innerRadius>h.radius))return Infinity;
@@ -76,14 +104,14 @@ function classify(s,a,h){if(!hero(a)||!h||typeof h!=='object')return{hit:false,h
  if(h.kind&&!h.shape||h.exitDamageV31327||h.laserV31330)return{hit:true,heart:false,kind:'unmarked'};
  return area(s,a,h);
 }
-function beam(s,a,segments,width){const p=C().core(a),d=Math.min(...segments.map(g=>C().segmentDistance(p,C().core(g.a),C().core(g.b))));return{hit:d<=width+cfg.bodyRadius,heart:d<=width+cfg.heartRadius,kind:'beam',distance:d};}
+function beam(s,a,segments,width){const p=C().core(a),anatomy=body(s,a),d=Math.min(...segments.map(g=>C().segmentDistance(p,C().core(g.a),C().core(g.b))));const contact=segments.some(g=>{const local=v=>({x:(v.x-anatomy.center.x)/(anatomy.rx+width),y:(v.y-anatomy.center.y)/(anatomy.ry+width)});return pointSegment(zero,local(C().core(g.a)),local(C().core(g.b))).d<=1;});return{hit:contact,heart:d<=width+cfg.heartRadius,kind:'beam',distance:d};}
 function exitEvidence(s,a,body,start,end,old,current){const lo=Math.max(start,body.born),hi=Math.min(end,body.born+body.duration);if(!(hi>lo))return{hit:false,heart:false};const span=Math.max(1e-9,end-start),at=t=>{const f=Math.max(0,Math.min(1,(t-start)/span));return{x:old.x+(current.x-old.x)*f,y:old.y+(current.y-old.y)*f};};
  const point=t=>{const f=Math.max(0,Math.min(1,(t-body.born)/body.flight)),p=project(body.x+body.dx*body.travel*f,body.y+body.dy*body.travel*f),co=Math.cos(body.rotation),si=Math.sin(body.rotation);return{x:p.x+body.bodyCX*co-body.bodyCY*si,y:p.y+body.visualY+body.bodyCX*si+body.bodyCY*co};};
  const p0=point(lo),p1=point(hi),a0=at(lo),a1=at(hi),co=Math.cos(body.rotation),si=Math.sin(body.rotation);
  const test=r=>{const rx=body.bodyW/2+r,ry=body.bodyH/2+r,rel=(p,a)=>{const x=p.x-a.x,y=p.y-a.y;return{x:(x*co+y*si)/rx,y:(-x*si+y*co)/ry};};const v0=rel(p0,a0),v1=rel(p1,a1),dx=v1.x-v0.x,dy=v1.y-v0.y,ll=dx*dx+dy*dy,passed=ll<1e-12||-(v0.x*dx+v0.y*dy)/ll<=1;return {inside:C().segmentDistance(zero,v0,v1)<=1,passed};};const h=test(cfg.heartRadius),b=test(cfg.bodyRadius);return{hit:h.inside||b.inside&&b.passed,heart:h.inside,kind:'exit'};
 }
 function drawDebug(ctx,s){ctx.save();try{ctx.globalAlpha=.9;ctx.shadowBlur=0;ctx.setLineDash([]);for(const a of [s,...(P()?.state===s?P().actors:[])].filter(hero)){const p=C().core(a);for(const [r,col]of [[cfg.bodyRadius,'#7bddff'],[cfg.heartRadius,'#ff6688']]){ctx.strokeStyle=col;ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x,p.y,r,0,Math.PI*2);ctx.stroke();}}ctx.strokeStyle='#ff9b75';for(const h of [...s.pendingHits??[],...s.impactQueue??[]]){if(!Number.isFinite(h.x)||!Number.isFinite(h.y))continue;const p=project(h.x,h.y),r=Math.max(0,N(h.radius)),shape=h.shape;ctx.beginPath();if(['circle','donut','safe'].includes(shape)){ctx.ellipse(p.x,p.y,r*27*Math.SQRT2,r*13.5*Math.SQRT2,0,0,Math.PI*2);if(shape==='donut'){ctx.stroke();ctx.beginPath();ctx.ellipse(p.x,p.y,N(h.innerRadius)*27*Math.SQRT2,N(h.innerRadius)*13.5*Math.SQRT2,0,0,Math.PI*2);}}else if(shape==='line'){const dx=h.x-N(h.originX,h.x),dy=h.y-N(h.originY,h.y),len=Math.max(.001,Math.hypot(dx,dy)),ux=dx/len,uy=dy/len,w=N(h.width);const points=[[-uy*w,ux*w],[ux*r-uy*w,uy*r+ux*w],[ux*r+uy*w,uy*r-ux*w],[uy*w,-ux*w]];points.forEach((q,i)=>{const g=project(N(h.originX,h.x)+q[0],N(h.originY,h.y)+q[1]);i?ctx.lineTo(g.x,g.y):ctx.moveTo(g.x,g.y);});ctx.closePath();}else if(shape==='cross'){const w=N(h.width),pts=[[-w,-r],[w,-r],[w,-w],[r,-w],[r,w],[w,w],[w,r],[-w,r],[-w,w],[-r,w],[-r,-w],[-w,-w]];pts.forEach((q,i)=>{const g=project(h.x+q[0],h.y+q[1]);i?ctx.lineTo(g.x,g.y):ctx.moveTo(g.x,g.y);});ctx.closePath();}else if(['cone','fan','sector'].includes(shape)){const ox=N(h.originX,h.x),oy=N(h.originY,h.y),o=project(ox,oy),angle=Math.atan2(h.y-oy,h.x-ox),w=N(h.width);ctx.moveTo(o.x,o.y);for(let i=0;i<=32;i++){const a=angle-w+2*w*i/32,g=project(ox+Math.cos(a)*r,oy+Math.sin(a)*r);ctx.lineTo(g.x,g.y);}ctx.closePath();}ctx.stroke();}for(const cast of s.bossLaserCastsV31330??[]){const L=window.__HAPIL_LASERS_V31332__;if(!L?.valid(cast,s.zone))continue;ctx.lineWidth=Math.max(1,cast.width*54);ctx.globalAlpha=.25;for(const g of L.geometry(cast,s.time)){const p=C().core(g.a),q=C().core(g.b);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}ctx.globalAlpha=.9;ctx.lineWidth=1;ctx.strokeStyle='#ffe6a1';for(const q of s.hostileProjectiles??[]){const a=bullet(q,true),b=bullet(q);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}finally{ctx.restore();}}
-return Object.freeze({installed:true,version:'3.14.03',cfg,capture,previous,projectile,classifyRelative,classifyBitmapRelative,recordProjectileBitmap,first,stamp,prepareHost,graze,classify,area,areaDistance,beam,exitEvidence,drawDebug,hero});
+return Object.freeze({installed:true,version:'3.14.03',cfg,capture,previous,projectile,classifyRelative,classifyBitmapRelative,classifyPolygonRelative,body,recordProjectileBitmap,first,stamp,prepareHost,graze,classify,area,areaDistance,beam,exitEvidence,drawDebug,hero});
 }
  root.__HAPIL_GEOMETRY_V31402__=Object.freeze({version:'3.14.03-RC1',installed:true,create});
 })(typeof window!=='undefined'?window:globalThis);

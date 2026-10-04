@@ -101,10 +101,14 @@
   if(installed)return true;
   if(!window.__HAPIL_RC131_NATIVE_INSTALLED__||!window.__HAPIL_DANMAKU_HUD_RC129__?.installed||!window.__HAPIL_SAMONG_RC91__?.installed||!window.__HAPIL_RC95_NATIVE__)return false;
   H().bind(window.__HAPIL_RC95_NATIVE__);
+  const bitmap=rootBitmap();window.__HAPIL_BITMAP_NATIVE_RC133__=bitmap;
+
   // Owned-image normalization removes sprite queries before queueing. Keep the
   // reviewed Chrono pixel revision on the native URL as well as the art registry.
   const assetUrl=MONGSE_assetUrl;MONGSE_assetUrl=function(path,...args){const value=assetUrl.call(this,path,...args);return /^\.?\/?assets\/rc133\/art\/chrono-(?:[0-9]|1[0-5])\.png$/.test(String(path??'').split(/[?#]/)[0])?value+(value.includes('?')?'&':'?')+'rc133=43305':value;};
   const B=window.__HAPIL_RC86_BRIDGE__,save=B.serializeSave,norm=B.normalizeSave,restore=B.restoreEntry;
+  const frame=B.renderFrame;B.renderFrame=function(canvas,s,cache,...args){bitmap.observe(canvas,cache);return frame.call(this,canvas,s,cache,...args);};
+
   B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.developerMapsRC133=D().clean(s.developerMapsRC133);result.innerFinalRC133=H().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
   B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.developerMapsRC133=D().clean(raw?.developerMapsRC133);if(result.developerMapsRC133)result.frontierZone=D().frontier(N);result.innerFinalRC133=H().clean(raw?.innerFinalRC133);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
   B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
@@ -144,6 +148,12 @@
   const P=window.__HAPIL_POLICY_RC127__,bridge=Object.create(P);Object.defineProperty(bridge,'incoming',{value:function(s,h){const v=P.incoming(s,h);return U().enabled(s)&&n(s.resonance)>0?Math.max(.25,v*U().profile(s).defense):v;}});window.__HAPIL_POLICY_RC127__=Object.freeze(bridge);
   installed=true;window.__HAPIL_RC133_NATIVE__=Object.freeze({installed:true,version:'RC133',warp,destination,safeDestination,midpoint,stationary,pin,cleanEncounter,encounterSnapshot,upgradeSection,makeState:oi,enter:(s,z)=>ii(s,z),normalize:(raw)=>ji(raw),save:(s,...args)=>Fi(s,...args),metrics:()=>({...metrics}),foundation,cleanFoundation});
   return true;
+ }
+ function rootBitmap(){
+  const opts=s=>{const config=window.__HAPIL_CONTROLS_V31329__?.binding?.settings?.current??{},size=s.hostileProjectiles?.length??0,lod=size>=24?0:size>=12?1:2;return {...config,projectileLodSmartR1:lod,lowFx:config.lowFx||lod===0};};
+  return window.__HAPIL_BITMAP_CONTACT_RC133__.create({render:HAPIL_drawProjectileRC13,project:G,camera:s=>HAPIL_viewCameraRC104(s.x,s.y,s),world:(ctx,canvas,s)=>window.__HAPIL_ADAPTIVE_RC125__?.applyWorld(ctx,canvas,s),alphaBounds:im=>HAPIL_RC13_RENDER.imageBounds(im),settings:opts,
+   heroDraw:(ctx,cache,a,time)=>{const h=F.find(h=>h.id===(a.activeHeroId??a.heroId));if(!h)return;const motion=a.heroMotion?.until>time?a.heroMotion:{...(a.heroMotion??{}),kind:'idle',dx:0,dy:0},path=MONGSE_readyHeroSprite(cache,Tn(h,motion,time),MONGSE_heroFallbackSprite(h,motion,a.direction??'front'),h.sprite),o=An(Hn(motion,time,h.id!=='hwando'&&h.id!=='gunner',En(h,motion)),h,motion,path);Ln(ctx,cache,path,a.x,a.y,On,{...o,glowBlur:0});},
+   enemyDraw:(ctx,cache,a,time,settings)=>Yn(ctx,cache,a,time,settings)});
  }
  function cleanFoundation(raw){return {version:1,regions:Array.isArray(raw?.regions)?raw.regions.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],waypoints:Array.isArray(raw?.waypoints)?raw.waypoints.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],resources:{memory:Math.max(0,Math.min(9999,Math.floor(n(raw?.resources?.memory))))}};}
  function foundation(s){if(!s)return null;const m=s.mongseFoundationRC133=cleanFoundation(s.mongseFoundationRC133);if(!m.regions.includes(s.zone)&&N[s.zone])m.regions.push(s.zone);if(N[s.zone]?.rest&&!m.waypoints.includes(s.zone))m.waypoints.push(s.zone);return m;}

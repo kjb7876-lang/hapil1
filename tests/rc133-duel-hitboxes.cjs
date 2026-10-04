@@ -10,10 +10,10 @@ function env(){
  window.__HAPIL_RC86_BRIDGE__={actor:(zone,id)=>({id,zone,name:'교주',hp:0,maxHp:1500,sprite:'./assets/cult-v3123/pride_cyborg_cult_leader.webp'}),cloneEnemy:a=>({...a}),point:()=>({x:23,y:10})};
  window.__HAPIL_CONTROLS_V31329__={binding:{passives:{current:{}}}};
  vm.runInContext(read('assets/rc133/inner-final.js'),context,{filename:'assets/rc133/inner-final.js'});
- const Final=window.__HAPIL_INNER_FINAL_RC133__,Samong=window.__HAPIL_SAMONG_RC91__,shots=[];
- let serial=1;Final.bind({heroes:Samong.heroes.map(id=>({id,sprite:'hero-'+id})),locked:()=>false,bullet:(s,a,spec)=>{const q={id:serial++,sourceId:a.id,x:a.x,y:a.y,previousX:a.x,previousY:a.y,...spec};s.hostileProjectiles.push(q);shots.push(q);return q;}});
+ const Final=window.__HAPIL_INNER_FINAL_RC133__,Samong=window.__HAPIL_SAMONG_RC91__,shots=[],casts=[];
+ let serial=1;Final.bind({heroes:Samong.heroes.map(id=>({id,sprite:'hero-'+id})),locked:()=>false,bullet:(s,a,spec)=>{const q={id:serial++,sourceId:a.id,x:a.x,y:a.y,previousX:a.x,previousY:a.y,...spec};s.hostileProjectiles.push(q);shots.push(q);return q;},cast:(s,a,spec)=>{const q={...spec,id:serial++,sourceId:a.id,born:s.time,at:s.time+spec.windup,x:spec.anchor==='boss'?a.x:s.x,y:spec.anchor==='boss'?a.y:s.y,originX:a.x,originY:a.y};s.pendingHits.push(q);casts.push(q);return q;}});
  const state=(hero='gunner')=>({zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,hp:220,maxHp:1000,time:10,x:7,y:9,activeHeroId:hero,enemies:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],floatTexts:[],fxSerial:1,bossDefeated:false,completedZones:new Set(),spawnedWaves:new Set()});
- return{window,context,Final,Samong,shots,state};
+ return{window,context,Final,Samong,shots,casts,state};
 }
 
 // Every awakened identity now launches a unique, finite pattern through the
@@ -24,7 +24,7 @@ function env(){
  const m=s.innerFinalRC133;eq(Final.snapshot(s).playerFatalAt,-1,'fresh hidden boss has no false near-lethal marker');m.intro=0;m.awakeningCooldown=10;
  const signatures=new Set();
  for(const id of ['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner']){
-  const a=Final.boss(s);m.hero=id;s.activeHeroId=id;m.shotDelay=0;s.hostileProjectiles=[];s.time+=1;
+  const a=Final.boss(s);m.hero=id;m.cycle=0;s.activeHeroId=id;m.shotDelay=0;s.hostileProjectiles=[];s.time+=1;
   const first=shots.length;Final.tick(s,.016);const wave=shots.slice(first);
   eq(wave.length,Final.traits[id].count,id+' emits its bounded authored pattern');
   ok(wave.every(q=>q.rc133InnerShot&&q.rc133Trait===id&&q.rc133Pattern===id&&q.damage>0&&q.radius<=.32),id+' shots keep ownership/damage/radius');
@@ -33,7 +33,7 @@ function env(){
  }
  eq(signatures.size,8,'all eight hero borrow-patterns are geometrically distinct');
  // The hostile queue cap delays a wave without losing its retry opportunity.
- m.hero='gunner';s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:70},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'full queue refuses overflow shots');
+ m.hero='gunner';m.cycle=0;s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:70},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'full queue refuses overflow shots');
  s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,6,'a freed queue promptly admits the pending skill');
 }
 
@@ -54,16 +54,31 @@ function env(){
  const modes=env();const story=state();story.gameModeV31346='STORY';story.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];eq(modes.Final.beforeDeath(story,story.enemies[0]),false,'Story cult death is unchanged');
 }
 
-// If the normal lethal revival wins first, a boss defeat inside the same
-// short transaction window upgrades that existing awakening without a second
-// activation, cut-in, or cooldown claim. The pending lethal marker survives a
-// native save/load while the duel is unresolved.
+// The very first lethal contact must trigger at full boss HP. An existing
+// EGO awakening is reused; one pending seventh entry is consumed atomically.
 {
- const {Final,Samong,state}=env(),s=state('hunter');s.enemies.push({id:'c104-boss',hp:0,maxHp:1500,x:22,y:8,boss:true});Final.beforeDeath(s,s.enemies[0]);const m=s.innerFinalRC133;m.intro=0;const a=Final.boss(s);a.hp=Math.ceil(a.maxHp*.3);s.hp=0;
- ok(Samong.tryRevive(s),'normal lethal revive remains available above the paired threshold');const activations=s.samongPassiveRC91.activations,fatalAt=m.playerFatalAt,finalSave=Final.snapshot(s),passiveSave=Samong.snapshot(s);
- eq(finalSave.playerFatalAt,fatalAt,'near-lethal transaction marker is saved');const restored=state('hunter');restored.time=s.time;restored.hp=s.hp;Final.restore(restored,finalSave);Samong.restore(restored,passiveSave);const restoredBoss=Final.boss(restored);
- ok(!!restoredBoss&&restored.innerFinalRC133.playerFatalAt===fatalAt,'near-lethal marker and hidden boss restore together');restoredBoss.hp=0;
- ok(Final.beforeDeath(restored,restoredBoss),'near-simultaneous boss defeat upgrades the existing awakening');eq(Samong.active(restored),true,'existing player awakening stays active');eq(restored.samongPassiveRC91.activations,activations,'upgrade does not admit a second player awakening');eq(Math.round(restored.hp/restored.maxHp*100),22,'upgraded player remains at bounded health');eq(Math.round(restoredBoss.hp/restoredBoss.maxHp*100),22,'upgraded boss returns at bounded health');eq(Final.mood(restored),'opposition','upgrade enters opposing arena treatment');
+ const {Final,Samong,window,state}=env(),s=state('hunter');s.enemies.push({id:'c104-boss',hp:0,maxHp:1500,x:22,y:8,boss:true});Final.beforeDeath(s,s.enemies[0]);const m=s.innerFinalRC133;m.intro=0;const a=Final.boss(s),bossHp=a.hp;
+ const policy=window.__HAPIL_SAMONG_POLICY_RC133__;
+ Object.assign(policy.memory(s),{count:7,pending:true});ok(Samong.tryEgo(s),'pre-existing EGO awakening fixture admitted');
+ const activations=s.samongPassiveRC91.activations;Object.assign(policy.memory(s),{count:7,pending:true});s.hp=0;
+ ok(Samong.tryRevive(s),'first lethal hit admits the duel even at full boss health');eq(a.hp,bossHp,'intentional lethal damage cannot reduce a healthy boss');
+ eq(s.samongPassiveRC91.activations,activations,'existing active awakening is reused without double activation');eq(policy.status(s).count,0,'pending seventh entry consumed in the dual transaction');eq(policy.status(s).pending,false,'no second EGO remains queued');eq(policy.status(s).serial,2,'each actual admission consumes the pending entry once');
+ const finalSave=Final.snapshot(s),passiveSave=Samong.snapshot(s);eq(finalSave.clash.admitted,true,'admitted duel marker saved');
+ s.hp=0;eq(Samong.activateFinalClash(s),false,'direct replay cannot bypass the used special token');
+ const restored=state('hunter');restored.time=s.time;restored.hp=220;Final.restore(restored,finalSave);Samong.restore(restored,passiveSave);eq(Final.boss(restored).hp,bossHp,'restored duel preserves actual living boss progress');
+ eq(Final.mood(restored),'opposition','restored paired arena is active');eq(policy.status(restored).pending,false,'restored pending EGO is already consumed');
+ restored.hp=0;eq(Samong.tryRevive(restored),false,'restore cannot grant another life');
+}
+
+// Every supplied skill enters the actual constructor/cast adapter. No skill
+// is claimed merely because it is preloaded or used as decorative feedback.
+{
+ const {Final,state,shots,casts}=env(),s=state();s.enemies=[{id:'c104-boss',hp:0,maxHp:180000}];Final.start(s,s.enemies[0]);const m=s.innerFinalRC133;m.intro=0;
+ ok(m.maxHp>=180000*1.65,'hidden boss is tougher than the defeated cult leader');eq(m.healthModel,2,'new bounded model is saved');
+ const keys=new Set();for(let i=0;i<9;i++){s.time++;s.hostileProjectiles=[];s.pendingHits=[];m.shotDelay=0;Final.tick(s,.016);const packets=[...s.hostileProjectiles,...s.pendingHits];ok(packets.length>0,'skill '+Final.deck[i].key+' actually dispatched');packets.forEach(q=>keys.add(q.rc133Skill));ok(packets.every(q=>q.damage>0&&q.damage<=20&&q.sourceId===Final.id),'bounded real packets for '+Final.deck[i].key);}
+ eq(keys.size,9,'all nine supplied skills used in one persisted cycle');ok(shots.length>0&&casts.length>0,'native bullet and native area paths both exercised');
+ eq(Final.health(s,{maxHp:1e100},{infinitePower:1e100}),3000000,'unbounded growth cannot exceed HP ceiling');
+ const restored=state();Final.restore(restored,Final.snapshot(s));eq(restored.innerFinalRC133.cycle,9,'deck position survives native restore');eq(Final.boss(restored).maxHp,m.maxHp,'reload cannot recalibrate health');
 }
 
 // Bitmap geometry uses measured opaque pixels (not transparent canvas gutters)

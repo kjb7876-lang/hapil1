@@ -3,7 +3,19 @@
 (function(root){
  'use strict';
  const ID='inner-evil-rc133',ZONE='cult04',n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,cl=(v,a,b)=>Math.max(a,Math.min(b,n(v)));
- const metrics={entries:0,volleys:0,completed:0,frames:0,restores:0};let native=null;
+ const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0};let native=null;
+ const HP_LIMIT=3000000;
+ const deck=Object.freeze([
+  {key:'small-orb',name:'무의식의 반향',kind:'bullet'},
+  {key:'eye',name:'악의 시선',kind:'bullet'},
+  {key:'diamond',name:'찢어진 기억',kind:'bullet'},
+  {key:'clock',name:'사후의 시계',shape:'circle',radius:1.35,repeats:2,windup:1.25,gap:.55},
+  {key:'star',name:'흑적의 십자',shape:'cross',radius:5,width:.46,anchor:'boss',windup:1.35},
+  {key:'eclipse',name:'악몽의 일식',shape:'donut',radius:4.4,innerRadius:2.35,windup:1.55},
+  {key:'lance',name:'무의식의 성창',shape:'line',radius:9,width:.48,windup:1.35},
+  {key:'shield',name:'사후의 결계',shape:'circle',radius:2.45,windup:1.25},
+  {key:'vortex',name:'기억의 소용돌이',shape:'donut',radius:3.25,innerRadius:1.65,windup:1.45}
+ ].map(Object.freeze));
  const art={ready:false,map:null,body:null,awakening:null,skills:[]};
  const traits=Object.freeze({
   hwando:{name:'검의 쌍호',count:4,spread:.26,speed:3.8,color:'#efc878',life:4.5},
@@ -19,8 +31,8 @@
  function active(s){return enabled(s)&&s.hp>0&&['reveal','fight'].includes(s.innerFinalRC133?.phase);}
  function boss(s){return s?.enemies?.find(a=>a.id===ID&&a.hp>0);}
  function growth(s,raw={}){const score=Math.log2(1+Math.max(0,n(raw.infinitePower)))+.08*Math.min(150,Object.values(raw).reduce((a,b)=>a+Math.max(0,n(b)),0));return cl(1+score*.045,1,2.1);}
- function cleanClash(raw){if(!raw||raw.version!==1)return {version:1,used:false,at:0,until:0,reason:null};return {version:1,used:raw.used===true,at:cl(raw.at,0,100000),until:cl(raw.until,0,100000),reason:['player','boss','both'].includes(raw.reason)?raw.reason:null};}
- function clean(raw){if(!raw||raw.version!==1||raw.zone!==ZONE||!['reveal','fight','complete'].includes(raw.phase))return null;const maxHp=cl(raw.maxHp,100,12600),hp=cl(raw.hp,0,maxHp),phase=hp<=0?'complete':raw.phase,fatalAt=Number.isFinite(raw.playerFatalAt)?n(raw.playerFatalAt,-1):-1;return {version:1,zone:ZONE,phase,entry:raw.entry==='developer-777'?'developer-777':'cult-death',hero:Object.hasOwn(traits,raw.hero)?raw.hero:'hwando',maxHp,hp:phase==='complete'?0:hp,scale:cl(raw.scale,1,2.1),elapsed:cl(raw.elapsed,0,100000),awake:phase==='complete'?0:cl(raw.awake,0,7),awakeningCooldown:cl(raw.awakeningCooldown,0,35),shotDelay:cl(raw.shotDelay,0,10),cycle:Math.floor(cl(raw.cycle,0,1000000)),x:cl(raw.x,1,31),y:cl(raw.y,1,31),intro:cl(raw.intro,0,2),clash:cleanClash(raw.clash),clashFreeze:cl(raw.clashFreeze,0,.2),playerFatalAt:fatalAt<0?-1:cl(fatalAt,0,100000)};}
+ function cleanClash(raw){if(!raw||raw.version!==1)return {version:1,used:false,admitted:false,at:0,until:0,reason:null};return {version:1,used:raw.used===true,admitted:raw.used===true,at:cl(raw.at,0,100000),until:cl(raw.until,0,100000),reason:['player','boss','both'].includes(raw.reason)?raw.reason:null};}
+ function clean(raw){if(!raw||raw.version!==1||raw.zone!==ZONE||!['reveal','fight','complete'].includes(raw.phase))return null;const maxHp=cl(raw.maxHp,100,HP_LIMIT),hp=cl(raw.hp,0,maxHp),phase=hp<=0?'complete':raw.phase,fatalAt=Number.isFinite(raw.playerFatalAt)?n(raw.playerFatalAt,-1):-1;return {version:1,zone:ZONE,phase,entry:raw.entry==='developer-777'?'developer-777':'cult-death',hero:Object.hasOwn(traits,raw.hero)?raw.hero:'hwando',healthModel:raw.healthModel===2?2:1,maxHp,hp:phase==='complete'?0:hp,scale:cl(raw.scale,1,2.1),elapsed:cl(raw.elapsed,0,100000),awake:phase==='complete'?0:cl(raw.awake,0,7),awakeningCooldown:cl(raw.awakeningCooldown,0,35),shotDelay:cl(raw.shotDelay,0,10),cycle:Math.floor(cl(raw.cycle,0,1000000)),x:cl(raw.x,1,31),y:cl(raw.y,1,31),intro:cl(raw.intro,0,2),clash:cleanClash(raw.clash),clashFreeze:cl(raw.clashFreeze,0,.2),playerFatalAt:fatalAt<0?-1:cl(fatalAt,0,100000)};}
  function cleanup(s,id=ID){if(!s)return;root.__HAPIL_MODES_V31346__?.dreamFinal?.cleanup(s,id);for(const key of ['effects','floatTexts'])if(Array.isArray(s[key]))s[key]=s[key].filter(q=>q.sourceId!==id&&q.ownerId!==id);}
  function build(s,m){
   const template=root.__HAPIL_RC86_BRIDGE__?.actor(ZONE,'c104-boss');if(!template||!native)return null;
@@ -35,14 +47,21 @@
   a.samongStatsRC91={version:1,factor:2,baseMaxHp:m.maxHp/2,observedMaxHp:m.maxHp,fields:{}};
   s.enemies=s.enemies.filter(e=>e.id!==ID);s.enemies.push(a);return a;
  }
+ function health(s,leader,raw={}){
+  const hero=native?.heroes.find(h=>h.id===s.activeHeroId),flow=root.__HAPIL_COMBAT_FLOW_RC95__;let dps=0;
+  if(hero&&typeof flow?.estimate==='function')dps=n(flow.estimate(s,raw,hero,native));
+  // Calibrate once at entry. No regeneration or midfight rescaling: progress
+  // remains finite, and growth cannot exceed this encounter's hard ceiling.
+  return Math.round(cl(Math.max(12000,n(leader?.maxHp,1500)*1.65,dps*140*growth(s,raw)),12000,HP_LIMIT));
+ }
  function begin(s,leader,entry){
   if(!native||!leader)return false;
-  const raw=root.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??{},scale=growth(s,raw),maxHp=Math.round(Math.max(700,Math.min(6000,n(leader.maxHp,1500)*.8))*scale);
+  const raw=root.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??{},scale=growth(s,raw),maxHp=health(s,leader,raw);
   const p=root.__HAPIL_RC86_BRIDGE__.point(ZONE,23.2,10,.8);
   if(entry==='developer-777'){for(const a of s.enemies)cleanup(s,a.id);cleanup(s);s.enemies=[];s.spawnedWaves=new Set([1,2,3,4]);}
   else {cleanup(s,leader.id);s.enemies=s.enemies.filter(e=>e!==leader);}
   s.dreamFinalV31346={version:1,index:6,phase:'complete',activeId:null,safeUntil:0,complete:true};
-  s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',entry,hero:s.activeHeroId,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,cycle:0,x:p.x,y:p.y,intro:2,clash:cleanClash(null),clashFreeze:0,playerFatalAt:-1};
+  s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',entry,hero:s.activeHeroId,healthModel:2,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,cycle:0,x:p.x,y:p.y,intro:2,clash:cleanClash(null),clashFreeze:0,playerFatalAt:-1};
   s.bossDefeated=false;if(entry==='cult-death')s.completedZones?.delete(ZONE);s.targetEnemyId=ID;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+2);
   build(s,s.innerFinalRC133);metrics.entries++;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerReveal',s,s,'reveal');
   (s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration:1.8,text:entry==='developer-777'?'777 · 사후의 나 히든 결전':'교주의 죽음 뒤, 사후에 숨겨 둔 나의 악이 깨어난다',color:'#f3ccdf',critical:true});
@@ -71,15 +90,15 @@
   const m=s?.innerFinalRC133;if(!encounter(s)||!a||m.clash?.used)return false;
   const A=root.__HAPIL_SAMONG_RC91__;if(typeof A?.activateFinalClash!=='function')return false;
   const party=root.__HAPIL_PARTY_V31322__;if(party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected))return false;
-  const alreadyAwake=A.active(s),oldBossHp=a.hp,oldPlayerHp=s.hp,oldPlayerCeiling=s.heroHealingCeiling,oldPlayerStatus=s.heroStatus,oldAwake=m.awake,oldCooldown=m.awakeningCooldown,oldShotDelay=m.shotDelay;
-  // One finite encounter token: both sides return at a low, bounded health
-  // value and awaken together. The hidden encounter cannot farm more lives.
-  m.clash={version:1,used:true,at:s.time,until:s.time+7,reason};m.clashFreeze=.2;
-  a.hp=Math.max(1,Math.ceil(a.maxHp*.22));a.invulnerableUntil=Math.max(n(a.invulnerableUntil),s.time+.55);a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+.55);
-  m.hp=a.hp;m.awake=7;m.awakeningCooldown=28;m.shotDelay=.9;m.playerFatalAt=-1;
-  s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);s.targetEnemyId=ID;
-  if(alreadyAwake){s.hp=Math.max(1,Math.ceil(s.maxHp*.22));s.heroHealingCeiling=s.hp;s.heroStatus='死夢覺醒 · 쌍각성';}
-  else if(!A.activateFinalClash(s)){m.clash=cleanClash(null);m.clashFreeze=0;m.playerFatalAt=n(s.time,-1);a.hp=oldBossHp;m.hp=oldBossHp;m.awake=oldAwake;m.awakeningCooldown=oldCooldown;m.shotDelay=oldShotDelay;s.hp=oldPlayerHp;s.heroHealingCeiling=oldPlayerCeiling;s.heroStatus=oldPlayerStatus;return false;}
+  // Reserve before any feedback callback can reenter. Player admission owns
+  // the pending EGO counter and revival ledger in the same transaction.
+  const oldClash=m.clash;m.clash={version:1,used:true,admitted:false,admitting:true,at:s.time,until:s.time+7,reason};
+  if(!A.activateFinalClash(s)){m.clash=oldClash;return false;}
+  // A deliberate lethal hit must never lower a healthy boss to 22%.
+  a.hp=Math.max(n(a.hp),Math.max(1,Math.ceil(a.maxHp*.22)));
+  a.invulnerableUntil=Math.max(n(a.invulnerableUntil),s.time+.55);a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+.55);
+  m.hp=a.hp;m.awake=7;m.awakeningCooldown=28;m.shotDelay=1.35;m.playerFatalAt=-1;m.clashFreeze=.2;
+  cleanup(s);s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);s.targetEnemyId=ID;
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerAwake',s,a,'duel-clash');
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:2.3,text:'쌍각성 · 검백과 흑적, 서로를 향해 다시 선다',color:'#f3d9e8',critical:true});
   metrics.clashes=(metrics.clashes??0)+1;return true;
@@ -87,11 +106,16 @@
  function onPlayerLethal(s){
   if(!encounter(s)||s.hp>0)return false;const m=s.innerFinalRC133,a=s.enemies.find(e=>e.id===ID);
   if(m.clash?.used)return false;
-  m.playerFatalAt=n(s.time,-1);
-  // If the player falls while the boss is already at the final 18%, fire the
-  // paired finale before the normal respawn path can erase the encounter.
-  if(a&&a.hp>0&&a.hp<=a.maxHp*.18)return startClash(s,a,'player');
-  return false;
+  return startClash(s,a,a?.hp<=0?'both':'player');
+ }
+ function castSkill(s,a,m,skill,trait){
+  if(typeof native.cast!=='function')return false;
+  const before=new Set(s.pendingHits??[]),sprite=art.skillMap?.[skill.key];
+  const radius=skill.shape==='line'?Math.max(skill.radius,Math.min(32,Math.hypot(s.x-a.x,s.y-a.y)+1.4)):skill.radius;
+  native.cast(s,a,{...skill,radius,repeats:skill.repeats??1,gap:skill.gap??0,width:skill.width??0,innerRadius:skill.innerRadius??0,damage:Math.min(18,12*m.scale),color:trait.color,accent:'#fff0e7',status:'none',statusValue:0,impactSprite:sprite,impactFallbackSprite:sprite},1);
+  const emitted=(s.pendingHits??[]).filter(q=>!before.has(q)&&q.sourceId===ID);
+  for(const q of emitted){q.rc133Skill=skill.key;q.noGroundWarningRC79=false;q.rc133InnerShot=true;q.rc133Cycle=m.cycle;q.sevenSinImpactSprite=sprite;q.impactFallbackSprite=sprite;q.damage=cl(q.damage,0,20);}
+  return emitted.length>0;
  }
  function tick(s,dt){
   if(!active(s)||!native||!(dt>0)||native.locked(s)||s.paused||s.pause||n(s.timeStopUntil)>s.time)return;
@@ -107,6 +131,9 @@
   m.shotDelay=Math.max(0,m.shotDelay-dt);const trait=traits[m.hero]??traits.hwando,count=trait.count;s.hostileProjectiles??=[];if(m.shotDelay>0||s.hostileProjectiles.length+count>72)return;
   // Borrow the hero's role/motif, never its unbounded damage or invulnerability.
   const angle=Math.atan2(s.y-a.y,s.x-a.x),distance=Math.max(2.8,Math.hypot(s.x-a.x,s.y-a.y)),gap=Math.asin(Math.min(.75,1.3/distance))+.18,warning=trait.warning??.65;
+  const skill=deck[m.cycle%deck.length];
+  if((s.pendingHits?.length??0)>20)return;
+  if(skill.kind!=='bullet'){if(!castSkill(s,a,m,skill,trait)){m.shotDelay=.22;return;}m.cycle++;m.shotDelay=m.awake>0?2.2:2.9;metrics.skills++;return;}
   a.atomicCastUntil31210=s.time+1.1;
   const before=s.hostileProjectiles.length,pattern=m.hero,turn=(m.cycle%8)*.045;
   for(let i=0;i<count;i++){
@@ -120,10 +147,10 @@
    else if(m.hero==='gunner')theta=angle+i*Math.PI*2/count+m.cycle*.31;
    else theta=angle+paired*(gap+rank*trait.spread)+turn;
    const stage=m.hero==='seoha'||m.hero==='hunter'?rank:Math.floor(i/3),speed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));
-   native.bullet(s,a,{vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius:.24,damage:Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:trait.life,frozenUntil:s.time+warning+stage*.08,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color:trait.color,accent:'#fff0e7',sprite:art.ready?(art.traitSkills?.[m.hero]??art.skills[m.cycle%art.skills.length]):null,label:trait.name+' · 무의식의 반향',rc133Pattern:pattern,rc133Cycle:m.cycle,rc133ShotIndex:i});
+   native.bullet(s,a,{vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius:.24,damage:Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:trait.life,frozenUntil:s.time+warning+stage*.08,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color:trait.color,accent:'#fff0e7',sprite:art.ready?(art.skillMap?.[skill.key]??art.traitSkills?.[m.hero]??art.skills[m.cycle%art.skills.length]):null,label:trait.name+' · 무의식의 반향',rc133Pattern:pattern,rc133Cycle:m.cycle,rc133ShotIndex:i});
   }
   const emitted=s.hostileProjectiles.slice(before);if(!emitted.length){m.shotDelay=.22;return;}
-  for(const q of emitted){q.rc133InnerShot=true;q.rc133Trait=m.hero;const theta=Math.atan2(q.vy,q.vx),boundedSpeed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));q.vx=Math.cos(theta)*boundedSpeed;q.vy=Math.sin(theta)*boundedSpeed;q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(20,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  for(const q of emitted){q.rc133InnerShot=true;q.rc133Skill=skill.key;q.rc133Trait=m.hero;q.rc133Pattern=m.hero;q.rc133Cycle=m.cycle;const theta=Math.atan2(q.vy,q.vx),boundedSpeed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));q.vx=Math.cos(theta)*boundedSpeed;q.vy=Math.sin(theta)*boundedSpeed;q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(20,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:trait.name,color:trait.color,critical:false});
   if(s.hostileProjectiles.length>before)root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
   m.cycle++;m.shotDelay=m.awake>0?2.1:2.8;metrics.volleys++;
@@ -156,7 +183,7 @@
   s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.enemies=s.enemies.filter(a=>!a.dreamCosmicTrialV31346&&a.id!=='c104-boss');s.bossDefeated=false;build(s,m);
  }
 
- const api=Object.freeze({version:'RC133',id:ID,traits,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,map,frame,configure,bind,snapshot,restore,metrics:()=>({...metrics,artReady:art.ready})});
+ const api=Object.freeze({version:'RC133',id:ID,traits,deck,health,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,map,frame,configure,bind,snapshot,restore,metrics:()=>({...metrics,artReady:art.ready})});
  root.__HAPIL_INNER_FINAL_RC133__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

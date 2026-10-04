@@ -15,6 +15,6 @@
  function picture(path){const im=pictures.get(path);return im?.complete&&im.naturalWidth?im:null;}
  function effect(kind){return picture(['guard','parry','dream-guard'].includes(kind)?skills.shield:kind==='dodge'?skills.vortex:kind==='cancel'?skills.star:kind==='heavy'||kind==='critical'?skills.lance:skills['small-orb']);}
  const api=Object.freeze({paths,frames,awakeFrames,skills,traitSkills,chrono,assets:()=>required.slice(),picture,effect,get ready(){return ready;},diagnostics:()=>({ready,decoded:required.filter(p=>picture(p)).length,required:required.length,failed:[...failed]})});root.__HAPIL_MEDIA_ART_RC133__=api;
- Promise.all(required.map(load)).then(ok=>{if(!ok.every(Boolean))return;ready=root.__HAPIL_INNER_FINAL_RC133__?.configure({ready:true,...paths,frames,awakeFrames,skills:Object.values(skills),traitSkills,pivot:[.5,.96],canvas:[224,400]})===true;});
+ Promise.all(required.map(load)).then(ok=>{if(!ok.every(Boolean))return;ready=root.__HAPIL_INNER_FINAL_RC133__?.configure({ready:true,...paths,frames,awakeFrames,skills:Object.values(skills),skillMap:skills,traitSkills,pivot:[.5,.96],canvas:[224,400]})===true;});
  load(paths.eclipse);
 })(window);
