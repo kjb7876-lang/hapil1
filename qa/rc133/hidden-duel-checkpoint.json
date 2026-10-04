@@ -1,0 +1,28 @@
+{
+  "schema": "rc133-hidden-duel-checkpoint-v1",
+  "baseMain": "cafbea9fb98aa9842436fffb61c199bcd48c8dff",
+  "status": "implementation-in-progress",
+  "latestFocusedChecks": 58,
+  "latestFocusedResult": "passed",
+  "browserBeforeSentinelFix": {
+    "profiles": ["pc", "portrait", "landscape"],
+    "checksPerProfile": 898,
+    "result": "passed",
+    "pageErrors": 0,
+    "httpFailures": 0,
+    "fixture": "staged"
+  },
+  "contextCorrection": {
+    "sixPersonaOriginalsAndDerivatives": "already integrated in main caf; no new six-image upload",
+    "originalAudio39": "already integrated; additional 13 pending separately",
+    "oldDreamDist00ResetLoop": "fixed before 6778046; not a current reproduced blocker",
+    "naturalAssistedHiddenVictory": "recorded on 709 by the existing QA task"
+  },
+  "reviewFollowups": [
+    "Make paired awakening occur on the first hidden-battle lethal player hit, without the current 18-percent boss-health gate.",
+    "Review atomic EGO pending-trigger consumption and one-use revival persistence.",
+    "Raise hidden-final challenge using bounded player-growth scaling and exercise every supplied skill type.",
+    "Make projectile geometry independent of a prior render and review player, enemy, area, and beam image alignment."
+  ],
+  "published": false
+}

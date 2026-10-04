@@ -35013,6 +35013,7 @@ function Jn(e, t, n, r, i) {
         (n.boss ? 44 : n.midboss ? 38 : 30) *
         u *
         MONGSE_projectileBitmapScale31224;
+      window.__HAPIL_CONTACT_V31336__?.recordProjectileBitmap?.(n,d,MONGSE_lowLodBitmapSize31223,MONGSE_lowLodBitmapSize31223,MONGSE_projectileRotation31222);
       (e.drawImage(
         d,
         -MONGSE_lowLodBitmapSize31223 / 2,
@@ -35093,6 +35094,7 @@ function Jn(e, t, n, r, i) {
       (n.boss ? 68 : n.midboss ? 56 : 50) *
       u *
       MONGSE_projectileBitmapScale31224;
+    window.__HAPIL_CONTACT_V31336__?.recordProjectileBitmap?.(n,d,t,t,MONGSE_projectileRotation31222);
     e.drawImage(d, -t / 2, -t / 2, t, t);
   } else if (!n.bitmapDecodedV31229)
     Wn(
@@ -106796,6 +106798,7 @@ if (typeof window !== "undefined") {
         ? "#fff0a1"
         : projectile.color ?? "#ffffff";
       context.shadowBlur = settings.lowFx ? 0 : projectile.boss ? 12 : 7;
+      window.__HAPIL_CONTACT_V31336__?.recordProjectileBitmap?.(projectile,image,size,size,rotation);
       context.drawImage(image, -size / 2, -size / 2, size, size);
       context.restore();
       projectile.actualBitmapRenderedV31307 = true;

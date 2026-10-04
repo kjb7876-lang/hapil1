@@ -58,8 +58,25 @@
   window.__HAPIL_FEEDBACK_RC128__?.awakening(s,m);
   window.__HAPIL_COMBAT_CORE_V31401__?.step?.(s,s,'samong-'+origin+'-rc133');return true;
  }
- function tryRevive(s){return activate(s,'revival');}
+ function tryRevive(s){if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
  function tryEgo(s){return activate(s,'ego');}
+ function activateFinalClash(s){
+  const inner=window.__HAPIL_INNER_FINAL_RC133__,encounter=inner?.encounter?.(s),clash=s?.innerFinalRC133?.clash;
+  if(!encounter||s.hp>0||clash?.used!==true||!Number.isFinite(s.maxHp)||s.maxHp<=0)return false;
+  const P=window.__HAPIL_PARTY_V31322__;if(P?.state===s&&P.status?.role==='guest')return false;
+  const m=memory(s),profile=window.__HAPIL_SAMONG_POLICY_RC133__?.profile(s)??{duration:7,cooldown:COOLDOWN,grace:.6};
+  // The one encounter-bound dual awakening consumes the ordinary lethal
+  // entitlement if it is still available, but cannot refill it later.
+  const ledger=window.__HAPIL_AWAKENING_POLICY_RC128__?.sync?.(s,m,true);if(ledger)ledger.used=true;
+  m.active=profile.duration;m.duration=profile.duration;m.cooldown=Math.max(n(m.cooldown),profile.cooldown);m.grace=profile.grace;m.origin='revival';m.activations=Math.max(0,n(m.activations))+1;
+  m.heroId=HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando';
+  s.hp=Math.max(1,Math.ceil(s.maxHp*.22));s.heroHealingCeiling=s.hp;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);
+  const before=n(s.awakeningUntil);s.awakeningUntil=Math.max(before,s.time+profile.duration);
+  window.__HAPIL_AWAKENING_POLICY_RC128__?.ownEgo(s,m,before,s.awakeningUntil);
+  s.heroStatus='死夢覺醒 · 쌍각성 · '+profile.duration+'초';s.heroSleepUntil=s.time;s.heroCharmUntil=s.time;s.staggerUntil=s.time;
+  picture(m.heroId);window.__HAPIL_FEEDBACK_RC128__?.awakening(s,m);window.__HAPIL_COMBAT_CORE_V31401__?.step?.(s,s,'samong-hidden-final-clash-rc133');
+  return true;
+ }
  function advance(s,dt,blocked){
   if(s?.samongPassiveRC91)window.__HAPIL_AWAKENING_POLICY_RC128__?.sync(s,s.samongPassiveRC91,enabled(s));
   if(!s||blocked||!enabled(s)||!Number.isFinite(dt)||dt<=0)return;
@@ -166,6 +183,6 @@
   }return result;};
   installed=true;return true;
  }
- window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,tryRevive,tryEgo,activate,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
+ window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,tryRevive,tryEgo,activate,activateFinalClash,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
  function ready(){if(!install()&&++tries<2000)setTimeout(ready,20);}ready();
 })();
