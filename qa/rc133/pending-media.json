@@ -1,0 +1,99 @@
+{
+  "status": "awaiting-parent-transfer",
+  "files": [
+    {
+      "name": "Short_female_combat__#1-1790999688976.wav",
+      "library_file_id": "libfile_20dccfdbfc648191972ff33aba8961fe",
+      "file_id": "file_00000000938c8209869ae91c98d54c76",
+      "size_bytes": 432078,
+      "source": "female-temporal-menu.json"
+    },
+    {
+      "name": "Short_female_combat__#4-1790999692508.wav",
+      "library_file_id": "libfile_eca65b1213fc8191a2c3db7fb95970ae",
+      "file_id": "file_00000000f0308206b731941ec14f1453",
+      "size_bytes": 432078,
+      "source": "female-temporal-menu.json"
+    },
+    {
+      "name": "Temporal Stutter.mp3",
+      "library_file_id": "libfile_358faef96b208191a54cf4a14d72e29a",
+      "file_id": "file_000000001ff48206a020eb1198de7b66",
+      "size_bytes": 4654016,
+      "source": "female-temporal-menu.json"
+    },
+    {
+      "name": "Short_game_menu_navi_#4-1791000546558.wav",
+      "library_file_id": "libfile_c55e242da2508191bc61919aa8f448e3",
+      "file_id": "file_00000000ba308209a0a2b2917acc1c72",
+      "size_bytes": 432078,
+      "source": "female-temporal-menu.json"
+    },
+    {
+      "name": "Sinister_demonic_dec_#1-1790999974172.wav",
+      "library_file_id": "libfile_c1c33dd556488191abf55cf9f99d71b5",
+      "file_id": "file_00000000c13c8209962846de78772920",
+      "size_bytes": 432078,
+      "source": "sinister-timeclock.json"
+    },
+    {
+      "name": "Time_manipulation_aw_#1-1791000657816.wav",
+      "library_file_id": "libfile_5ef2bd1a4984819192aeee7b9dbcdd50",
+      "file_id": "file_00000000f2e88209ae3c225bd75b1aa7",
+      "size_bytes": 432078,
+      "source": "sinister-timeclock.json"
+    },
+    {
+      "name": "time_tick_tack_sound_#1-1790999531800.wav",
+      "library_file_id": "libfile_c4b768d290d481918e2e80f58d24ad18",
+      "file_id": "file_0000000013d88209806ea7bff88cd01a",
+      "size_bytes": 432078,
+      "source": "sinister-timeclock.json"
+    },
+    {
+      "name": "time_tick_tack_sound_#2-1790999537390.wav",
+      "library_file_id": "libfile_5088c3e778a48191ac53c5d3c9e17e23",
+      "file_id": "file_000000007bf4820686a5f5d198bb68fc",
+      "size_bytes": 432078,
+      "source": "sinister-timeclock.json"
+    },
+    {
+      "name": "time_tick_tack_sound_#3-1790999542258.wav",
+      "library_file_id": "libfile_f7b13521b15481919a0fc1fe73e5a681",
+      "file_id": "file_000000000d188209aa05d43edd82a1f8",
+      "size_bytes": 432078,
+      "source": "sinister-timeclock.json"
+    },
+    {
+      "name": "tree_weapon_attack_s_#2-1790999357019.mp3",
+      "library_file_id": "libfile_7760980f8ca081919b6b124e444d5318",
+      "file_id": "file_00000000ddb482069b3f3029af3c48b4",
+      "size_bytes": 55341,
+      "source": "tree-ups-clock-ja-resonance.json"
+    },
+    {
+      "name": "ups_sound_#4-1790999480559.wav",
+      "library_file_id": "libfile_c24addb42d6081919b80bb2906633e73",
+      "file_id": "file_00000000683482098d4546887a52e092",
+      "size_bytes": 432078,
+      "source": "tree-ups-clock-ja-resonance.json"
+    },
+    {
+      "name": "歪時計の音.mp3",
+      "library_file_id": "libfile_199b9238d570819197833896913ec2a5",
+      "file_id": "file_00000000ae948209a1f68bbf3803251b",
+      "size_bytes": 4884111,
+      "source": "tree-ups-clock-ja-resonance.json"
+    },
+    {
+      "name": "Resonance_energy_gai_#2-1791000424116.wav",
+      "library_file_id": "libfile_c7c5d9bd252c8191827f303bea3c42aa",
+      "file_id": "file_000000001d5c82098f9f28ba6d1693b4",
+      "size_bytes": 432078,
+      "source": "tree-ups-clock-ja-resonance.json"
+    }
+  ],
+  "error": "hosted apps tools/list request failed: network",
+  "unchangedSearchResultDirectory": "/workspace/rc133-tools/missing-library-audio-search",
+  "consumerContract": "Full unchanged search JSON + official library_download.py; do not bypass searched results with prepare_materialize."
+}

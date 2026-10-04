@@ -144,7 +144,7 @@
     if(!enabled(s))return;
     const m=memory(s);tempo(s);
     if(m.connection&&n(s.time)>=m.connection.until){
-      const a=rows(s.enemies).find(a=>a.id===m.connection.id);delete m.connection;
+      const a=rows(s.enemies).find(a=>a.id===m.connection.id&&!a.episodeCosmicFinalV387);delete m.connection;
       if(a){a.rc89ConnectionDone=true;a.protectedNarrativeTargetV31307=false;a.hp=0;
         const binding=window.__HAPIL_CONTROLS_V31329__?.binding;
         if(binding?.state?.current===s&&binding.actions?.death)binding.actions.death(a);}
@@ -226,7 +226,7 @@
   }
   function beforeDeath(s,a) {
     if(!enabled(s)||!a||n(a.hp)>0)return false;
-    if(s.zone==='ep1b09'&&a.id==='b09-boss'&&!a.rc89ConnectionDone){
+    if(s.zone==='ep1b09'&&a.id==='b09-boss'&&!a.episodeCosmicFinalV387&&!a.rc89ConnectionDone){
       a.hp=1;a.protectedNarrativeTargetV31307=true;a.readyAt=Infinity;a.patternReadyAt=Infinity;
       memory(s).connection={id:a.id,until:n(s.time)+1.2};return true;
     }
@@ -328,7 +328,7 @@
     const data=sanitize(raw,s.zone);if(!data)return;
     const restoredClock=s.zone==='cult04'&&Number.isFinite(clockOverride)?Math.max(0,clockOverride):summonClock(s);
     s.rc88Encounter={zone:s.zone,owners:{},cosmicKills:data.cosmicKills,samongWeakUntil:restoredClock+data.samongWeakRemaining,shotCharges:0,shotUntil:0};
-    if(data.connectionRemaining!=null){const a=rows(s.enemies).find(a=>a.id==='b09-boss');if(a){a.hp=1;a.protectedNarrativeTargetV31307=true;a.readyAt=Infinity;a.patternReadyAt=Infinity;s.rc88Encounter.connection={id:a.id,until:n(s.time)+data.connectionRemaining};}}
+    if(data.connectionRemaining!=null){const a=rows(s.enemies).find(a=>a.id==='b09-boss'&&!a.episodeCosmicFinalV387);if(a){a.hp=1;a.protectedNarrativeTargetV31307=true;a.readyAt=Infinity;a.patternReadyAt=Infinity;s.rc88Encounter.connection={id:a.id,until:n(s.time)+data.connectionRemaining};}}
     if(data.arveliaFreed&&s.zone==='kair02'){
       s.rc88Encounter.arveliaFreed=true;s.enemies=rows(s.enemies).filter(a=>a.id!=='kair-great-03');s.bossDefeated=true;
     }

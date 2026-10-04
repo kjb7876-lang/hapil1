@@ -1,0 +1,1516 @@
+{
+  "schema": "rc133-art-processing-v1",
+  "toolchain": {
+    "python": "3.12.14",
+    "pillow": "12.3.0"
+  },
+  "directionOrder": [
+    "down",
+    "down-left",
+    "left",
+    "up-left",
+    "up",
+    "up-right",
+    "right",
+    "down-right"
+  ],
+  "sources": [
+    {
+      "file": "assets/rc133/source-art/libfile_2cc2c525f0bc81918ac00e11fb72ba3d.png",
+      "originalFilename": "7bd1d479-13bf-4738-83a9-468da699bd61.png",
+      "visualDescription": "Eight-view hooded boss sprite sheet",
+      "sha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+      "bytes": 2046418,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "preservationStatus": "original bytes preserved"
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "originalFilename": "86549152-71de-4dcc-a85e-33e5db5db3c8(2).png",
+      "visualDescription": "Labeled normal and awakened eight-direction boss sheet",
+      "sha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "bytes": 2501904,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "preservationStatus": "original bytes preserved"
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_77701ac3d1e08191bf1f9f03b29ac967.png",
+      "originalFilename": "e1c62624-2442-450a-b9c1-18e021e8562b(1).png",
+      "visualDescription": "Labeled projectile and effect reference sheet",
+      "sha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "bytes": 2962564,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "preservationStatus": "original bytes preserved"
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "originalFilename": "53d54f80-c361-49d5-abf0-3a00559627d2.png",
+      "visualDescription": "Transparent red and black effects sheet",
+      "sha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "bytes": 3009312,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "preservationStatus": "original bytes preserved"
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_a0e71293286481918c55e03101fbcc90.png",
+      "originalFilename": "4eb905f3-e3e8-432a-bf7c-df7b9d4648e1(2).png",
+      "visualDescription": "Floating ruins landscape reference",
+      "sha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+      "bytes": 2997194,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "preservationStatus": "original bytes preserved"
+    },
+    {
+      "file": "assets/rc133/source-art/libfile_fd6b302c3e6481918851054ea82e72c9.png",
+      "originalFilename": "37ced3de-d8b2-4049-8607-e1bf307b963e.png",
+      "visualDescription": "Circular battle arena background",
+      "sha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+      "bytes": 3389675,
+      "dimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "preservationStatus": "original bytes preserved"
+    }
+  ],
+  "referenceSources": [
+    {
+      "sourceFile": "assets/rc133/source-art/libfile_77701ac3d1e08191bf1f9f03b29ac967.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "status": "preserved-reference-only-not-a-runtime-vfx-atlas",
+      "reason": "The labeled design sheet is retained as reference; isolated effects come from the transparent effects atlas."
+    }
+  ],
+  "outputs": [
+    {
+      "file": "assets/rc133/art/arena.webp",
+      "semanticName": "circular arena background",
+      "sourceFile": "assets/rc133/source-art/libfile_fd6b302c3e6481918851054ea82e72c9.png",
+      "sourceSha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "operation": "lossless-webp-encode",
+      "outputSha256": "02798e550e6b070c3f43258f83be23f95273ca3ec1c05a7717091c471b2d9978",
+      "outputBytes": 2409050,
+      "outputDimensions": [
+        1672,
+        941
+      ],
+      "status": "complete",
+      "notes": [
+        "Full source image; decoded RGB pixels verified exact after WebP encode."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/reveal.webp",
+      "semanticName": "floating ruins reveal background",
+      "sourceFile": "assets/rc133/source-art/libfile_a0e71293286481918c55e03101fbcc90.png",
+      "sourceSha256": "d92b611f50b601a9d78b311ca4d4d20bf1c5a02ca657c6a1a3d191e9555f9d24",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "operation": "lossless-webp-encode",
+      "outputSha256": "e30ead2edefcd1df3e220c19a74f146452e64dc256af4017bc5871f9da6ec40d",
+      "outputBytes": 2192074,
+      "outputDimensions": [
+        1672,
+        941
+      ],
+      "status": "complete",
+      "notes": [
+        "Full source image; decoded RGB pixels verified exact after WebP encode."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/portrait.png",
+      "semanticName": "front-facing portrait",
+      "sourceFile": "assets/rc133/source-art/libfile_2cc2c525f0bc81918ac00e11fb72ba3d.png",
+      "sourceSha256": "7772d96f7c69d1b5950548b1b27417910b843aa4ade9a72e827f35b6052fb66f",
+      "sourceRect": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "operation": "first-cell-png-crop",
+      "outputSha256": "d36bf20c26724709a195cb225b53d1c6b43e856bcf244a6ed2a297c98fcbd73a",
+      "outputBytes": 76168,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          222.0,
+          437
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "First/front-facing cell of the inspected 4x2 sheet; transparency retained.",
+        "Uniform scale fits source cell width to 224 px; only fully transparent trailing rows were removed."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-0.png",
+      "semanticName": "base down",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        0,
+        62,
+        222,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
+      "outputBytes": 136357,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          111.0,
+          427
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-1.png",
+      "semanticName": "base down-left",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        222,
+        62,
+        444,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
+      "outputBytes": 134489,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down-left",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          333.0,
+          430
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-2.png",
+      "semanticName": "base left",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        444,
+        62,
+        665,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
+      "outputBytes": 133371,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "left",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          554.5,
+          434
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-3.png",
+      "semanticName": "base up-left",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        665,
+        62,
+        887,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
+      "outputBytes": 136960,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "up-left",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          776.0,
+          429
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-4.png",
+      "semanticName": "base up",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        887,
+        62,
+        1109,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
+      "outputBytes": 122152,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "up",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          998.0,
+          429
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-5.png",
+      "semanticName": "base up-right",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        1109,
+        62,
+        1330,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
+      "outputBytes": 127505,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "up-right",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          1219.5,
+          429
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-6.png",
+      "semanticName": "base right",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        1330,
+        62,
+        1552,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
+      "outputBytes": 126765,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "right",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          1441.0,
+          431
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/base-7.png",
+      "semanticName": "base down-right",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        1552,
+        62,
+        1774,
+        438
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
+      "outputBytes": 134646,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down-right",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          1663.0,
+          433
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-0.png",
+      "semanticName": "awake down",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        0,
+        497,
+        222,
+        871
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
+      "outputBytes": 167518,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          111.0,
+          862
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-1.png",
+      "semanticName": "awake down-left",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        222,
+        497,
+        444,
+        873
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
+      "outputBytes": 163617,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down-left",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          333.0,
+          863
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-2.png",
+      "semanticName": "awake left",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        444,
+        497,
+        665,
+        871
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
+      "outputBytes": 166185,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "left",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          554.5,
+          866
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-3.png",
+      "semanticName": "awake up-left",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        665,
+        497,
+        887,
+        873
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
+      "outputBytes": 168579,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "up-left",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          776.0,
+          861
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-4.png",
+      "semanticName": "awake up",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        887,
+        497,
+        1109,
+        873
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
+      "outputBytes": 161572,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "up",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          998.0,
+          862
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-5.png",
+      "semanticName": "awake up-right",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        1109,
+        497,
+        1330,
+        873
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
+      "outputBytes": 159069,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "up-right",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          1219.5,
+          861
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-6.png",
+      "semanticName": "awake right",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        1330,
+        497,
+        1552,
+        867
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
+      "outputBytes": 167849,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "right",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          1441.0,
+          856
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/awake-7.png",
+      "semanticName": "awake down-right",
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "sourceRect": [
+        1552,
+        497,
+        1774,
+        879
+      ],
+      "operation": "cell-crop-uniform-resize-foot-anchor",
+      "outputSha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
+      "outputBytes": 166631,
+      "outputDimensions": [
+        224,
+        400
+      ],
+      "status": "complete",
+      "direction": "down-right",
+      "pivot": {
+        "normalized": [
+          0.5,
+          0.96
+        ],
+        "canvasPx": [
+          112,
+          384
+        ],
+        "sourcePx": [
+          1663.0,
+          866
+        ],
+        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+      },
+      "notes": [
+        "Labeled title bands excluded by the source row bounds.",
+        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
+        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
+        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/small-orb.png",
+      "semanticName": "small-orb",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        89,
+        20,
+        137,
+        68
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "69b34f1f8ac183825a05dedbf816a6bb618c0315526edbbe0e8120ef1b7fadf5",
+      "outputBytes": 3065,
+      "outputDimensions": [
+        58,
+        58
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 8, 5, 7] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/eye.png",
+      "semanticName": "eye",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        139,
+        91,
+        195,
+        135
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "6f363a492146782f0adc96628603aac9fa7b6d27bd90ca4002de2c48fbf8ce11",
+      "outputBytes": 4855,
+      "outputDimensions": [
+        66,
+        54
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/diamond.png",
+      "semanticName": "diamond",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        354,
+        98,
+        398,
+        198
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "a51af7454d95ee169eb3b8cff521e2a76aec2ffe3cf69b4534821cb6812a9456",
+      "outputBytes": 9322,
+      "outputDimensions": [
+        54,
+        110
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/clock.png",
+      "semanticName": "clock",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        788,
+        107,
+        882,
+        208
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "78cd7828f3c5938b92ec2139120d5be4d566e569394a9e9ad7b42e1b4c84d907",
+      "outputBytes": 23728,
+      "outputDimensions": [
+        104,
+        111
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/star.png",
+      "semanticName": "star",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        488,
+        15,
+        534,
+        77
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "e5c41ec6f0847a69ec57857764ea5e6adb5498fea8b07f6f371a10a2ca877b5e",
+      "outputBytes": 4076,
+      "outputDimensions": [
+        56,
+        72
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 10, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/eclipse.png",
+      "semanticName": "ring/eclipsed orb",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        170,
+        798,
+        333,
+        936
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "b49126ae5fac926a5b2f08f132c20aeb53065585f403db873dc9af2419edbebb",
+      "outputBytes": 50238,
+      "outputDimensions": [
+        173,
+        148
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Cleared isolated neighboring atlas flecks with output-local masks: [(5, 35, 8, 47), (160, 90, 170, 110), (136, 136, 173, 148), (137, 111, 161, 137), (143, 97, 161, 108), (164, 132, 169, 137)].",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/lance.png",
+      "semanticName": "lance",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        625,
+        472,
+        839,
+        555
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "c7c9579891c9de1fb9a56b9200f742329a8218c378cf33a1f8313e3f53d5d851",
+      "outputBytes": 25071,
+      "outputDimensions": [
+        224,
+        93
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Cleared isolated neighboring atlas flecks with output-local masks: [(90, 5, 110, 12), (85, 68, 101, 88), (208, 71, 219, 88), (5, 75, 9, 88)].",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/shield.png",
+      "semanticName": "shield",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        17,
+        684,
+        145,
+        794
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "64608771890353ed2a82c7c227e104c60918711e9b5d3963aa38f1df707faa1e",
+      "outputBytes": 29827,
+      "outputDimensions": [
+        138,
+        120
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/vortex.png",
+      "semanticName": "vortex",
+      "sourceFile": "assets/rc133/source-art/libfile_7b12e0c0188481918329b8dcdbaac089.png",
+      "sourceSha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12",
+      "sourceRect": [
+        952,
+        685,
+        1113,
+        797
+      ],
+      "operation": "isolated-alpha-crop",
+      "outputSha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a",
+      "outputBytes": 43749,
+      "outputDimensions": [
+        171,
+        122
+      ],
+      "status": "complete",
+      "notes": [
+        "Transparent RGBA pixels retained.",
+        "Five transparent pixels added around the manually bounded source crop.",
+        "Cleared isolated neighboring atlas flecks with output-local masks: [(0, 15, 15, 82), (0, 87, 12, 109), (18, 106, 32, 118), (82, 112, 112, 122), (156, 108, 167, 122)].",
+        "Measured output transparent margins around alpha bounds (left,top,right,bottom): [5, 5, 5, 5] px."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-0.png",
+      "semanticName": "gold-shard",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "55909c956ba4e4437c699c329398230ea0e70f7836dfa570b7ccc5cd25ed585e",
+      "outputBytes": 101256,
+      "outputDimensions": [
+        314,
+        314
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-1.png",
+      "semanticName": "blue-clock",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        314,
+        0,
+        627,
+        314
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "2138851c7765e2081effa31f49409e180acfa32a62cebd56d233e31bde9886b0",
+      "outputBytes": 164266,
+      "outputDimensions": [
+        313,
+        314
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-2.png",
+      "semanticName": "turquoise-crescent",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        627,
+        0,
+        940,
+        314
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "87fb9bdaf47a2b542de367c285595334af4b65282359bc98928e49f466789821",
+      "outputBytes": 137389,
+      "outputDimensions": [
+        313,
+        314
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-3.png",
+      "semanticName": "gold-wheel",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        940,
+        0,
+        1254,
+        314
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "92d150e7e2edbcb143d538964c03eb8b6f927d1b00a523facd7697346c91dfc1",
+      "outputBytes": 185400,
+      "outputDimensions": [
+        314,
+        314
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-4.png",
+      "semanticName": "fiery-impact",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        0,
+        314,
+        314,
+        627
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "1b6aa5fa312fc29b5304fbafb52122be5e5505965a7c5d3635708567f28ce3c0",
+      "outputBytes": 150700,
+      "outputDimensions": [
+        314,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-5.png",
+      "semanticName": "violet-clock",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        314,
+        314,
+        627,
+        627
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "3a66a656d7660c0f859f69cf6d333fe4aab5ab8a0e1fd9c4a985e2b5fb8cd16a",
+      "outputBytes": 181397,
+      "outputDimensions": [
+        313,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-6.png",
+      "semanticName": "blue-arrow",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        627,
+        314,
+        940,
+        627
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "8ae6e64aeaca42b9c377cf80cd2c0528c408d2cc0e697395aae38746f6be7ac2",
+      "outputBytes": 85874,
+      "outputDimensions": [
+        313,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-7.png",
+      "semanticName": "green-burst",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        940,
+        314,
+        1254,
+        627
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "cc0eaa0c7f9c0d82e9e4104e8febb0b1271fb570b8e74e519a3f979c781f2a1e",
+      "outputBytes": 161370,
+      "outputDimensions": [
+        314,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-8.png",
+      "semanticName": "gold-cross",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        0,
+        627,
+        314,
+        940
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "0adbfc4eeb3d854186f2c1695ad1e60da7f6443105210db16092c55d5c73061e",
+      "outputBytes": 136353,
+      "outputDimensions": [
+        314,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
+        "Cleared isolated top-edge flecks with output-local rectangles: [(146, 286, 172, 314)]."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-9.png",
+      "semanticName": "red-ring",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        314,
+        627,
+        627,
+        940
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "f84a60994f8280dd782a45f6cddba14138ab951f5ef397bfdaef87910182da34",
+      "outputBytes": 156973,
+      "outputDimensions": [
+        313,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
+        "Cleared isolated top-edge flecks with output-local rectangles: [(68, 296, 112, 314), (145, 294, 151, 299), (155, 285, 177, 295), (155, 308, 170, 314)]."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-10.png",
+      "semanticName": "white-ice-impact",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        627,
+        627,
+        940,
+        940
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "cec68a053570ec65e1932be40d21d9a5901b974534506f95924c880757f4e9cd",
+      "outputBytes": 155467,
+      "outputDimensions": [
+        313,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
+        "Cleared isolated top-edge flecks with output-local rectangles: [(37, 291, 49, 314), (243, 289, 260, 314), (19, 304, 27, 314)]."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-11.png",
+      "semanticName": "gold-crescent",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        940,
+        627,
+        1254,
+        940
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "6860356b5bdcd7b85efbd84adef4e2a23dd1b77ff278f6270f2348fd5b3aac9b",
+      "outputBytes": 162700,
+      "outputDimensions": [
+        314,
+        313
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-12.png",
+      "semanticName": "blue-hourglass",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        0,
+        953,
+        314,
+        1254
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "4dbc42bb0ee2479f993dd061e72a205f80ce0caefa1ee629fc7359f63a33e375",
+      "outputBytes": 168142,
+      "outputDimensions": [
+        314,
+        301
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
+        "Trimmed 13 top-edge rows to remove adjacent-row artifact.",
+        "Cleared small adjacent-row fragment with output-local polygon masks: [[[146, 0], [171, 0], [170, 21], [167, 28], [160, 35], [153, 28], [146, 21]]]."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-13.png",
+      "semanticName": "violet-vortex",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        314,
+        953,
+        627,
+        1254
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "c1c9c92ffc205c02ef4636a76e73c1ec44e3becc608c95c67658c429992fcff4",
+      "outputBytes": 164092,
+      "outputDimensions": [
+        313,
+        301
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source.",
+        "Trimmed 13 top-edge rows to remove adjacent-row artifact.",
+        "Cleared isolated top-edge flecks with output-local rectangles: [(248, 14, 252, 17)]."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-14.png",
+      "semanticName": "white-gold-lance",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        627,
+        940,
+        940,
+        1254
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "edf133a3f664a4ca00fcadf9c35f659aaa6bb44bd446ac1b4cd1064e2f3c9902",
+      "outputBytes": 153169,
+      "outputDimensions": [
+        313,
+        314
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    },
+    {
+      "file": "assets/rc133/art/chrono-15.png",
+      "semanticName": "dark-red-cross",
+      "sourceFile": "assets/kair/skills/chrono-skill-vfx-atlas-v2.png",
+      "sourceSha256": "235bea7e232a035e40d3231026d7d2e4c8255026b9dff09d73a7ab1f62e10599",
+      "sourceRect": [
+        940,
+        940,
+        1254,
+        1254
+      ],
+      "operation": "4x4-cell-alpha-crop",
+      "outputSha256": "421a21094debf1bfa971f9b6a6d47f25b269c01774cb41af13e36a18545b7255",
+      "outputBytes": 150891,
+      "outputDimensions": [
+        314,
+        314
+      ],
+      "status": "complete",
+      "notes": [
+        "4x4 tile crop from the existing transparent atlas; no scaling or recoloring.",
+        "Pixel boundaries use nearest-integer partitions of the 1254x1254 source."
+      ]
+    }
+  ],
+  "externalDerivatives": [
+    {
+      "file": "assets/rc133/art/awakening-eclipse.png",
+      "semanticName": "awakening eclipse",
+      "sourceFile": "assets/rc133/source-art/libfile_77701ac3d1e08191bf1f9f03b29ac967.png",
+      "sourceSha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719",
+      "sourceRect": null,
+      "operation": "external-imagegen-clean-isolation-derivative",
+      "outputSha256": "12e69e1c64e1970b5620588cbe4028cc7c4e7d93cc26444984ae1affaf36f759",
+      "outputBytes": 1533199,
+      "outputDimensions": [
+        1254,
+        1254
+      ],
+      "status": "complete-external-derivative",
+      "notes": [
+        "Generated and copied by the parent agent; this extraction script records but does not recreate it."
+      ]
+    }
+  ],
+  "notes": [
+    "All six staged user PNGs are retained byte-for-byte in source-art/.",
+    "The labeled projectile/effect design sheet remains reference-only; it is not published as a runtime texture atlas.",
+    "Background WebPs are encoded losslessly and checked by exact decoded RGB pixel comparison.",
+    "The script does not register or wire these files into runtime code."
+  ]
+}

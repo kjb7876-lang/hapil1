@@ -43,6 +43,14 @@ for(const a of [...command.enemies].filter(a=>a.rc88Part)){a.hp=0;api.beforeDeat
 command.time+=4;assert.equal(api.damageFactor(command,command.enemies[0]),1);
 const copies=state('ep1b09','b09-boss');api.tick(copies);copies.enemies[0].currentPhase=2;api.tick(copies);
 assert.equal(copies.enemies.filter(a=>a.rc88Part).length,2,'new phase replaces old copies');
+const cosmicCopies=state('ep1b09','b09-boss'),cosmicSource=cosmicCopies.enemies[0];
+cosmicSource.episodeCosmicFinalV387=true;cosmicSource.hp=0;
+assert.equal(api.beforeDeath(cosmicCopies,cosmicSource),false,'source Cosmic death cannot replay the original narrative connection');
+assert.equal(cosmicSource.hp,0);assert.equal(cosmicCopies.rc88Encounter?.connection,undefined);
+cosmicSource.hp=700;api.restore(cosmicCopies,{...api.snapshot(copies),connectionRemaining:1});
+assert.equal(cosmicSource.hp,700,'old connection save cannot replace source Cosmic HP with 1');
+cosmicCopies.rc88Encounter.connection={id:cosmicSource.id,until:cosmicCopies.time};api.tick(cosmicCopies);
+assert.equal(cosmicSource.hp,700,'stale original connection cannot kill a source Cosmic actor');
 const swords=state('hando03','h103-boss');api.tick(swords);const blade=swords.enemies.find(a=>a.rc88Part);blade.hp=0;
 const supportCount=echo.length;api.beforeDeath(swords,blade);assert.equal(echo.length,supportCount+2);
 const duo=state('cult03','c103-mid');duo.enemies.push({id:'c103-boss',hp:1000,maxHp:1000,x:20,y:15});

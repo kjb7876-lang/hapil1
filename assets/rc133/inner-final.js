@@ -26,7 +26,7 @@
   const a=root.__HAPIL_RC86_BRIDGE__.cloneEnemy(template,ZONE),own=native.heroes.find(h=>h.id===m.hero);
   Object.assign(a,{id:ID,name:'사후의 나 · 악한 무의식',kind:'sentinel',hp:m.hp,maxHp:m.maxHp,boss:true,midboss:false,rc133InnerBoss:true,
    x:m.x,y:m.y,scale:1,fixedPhase:1,currentPhase:1,phaseCount:1,phaseMax:1,humanPhase0:false,narrativeMultiPhase:false,
-   sprite:art.ready?(m.awake>0?art.awakening:art.body):(own?.sprite??template.sprite),phaseSprites:null,actionSprites:null,phaseScales:null,patternSet:'',
+   sprite:art.ready?frame(s,{x:m.x,y:m.y}):(own?.sprite??template.sprite),phaseSprites:null,actionSprites:null,phaseScales:null,patternSet:'',
    readyAt:1e12,patternReadyAt:1e12,attackAt:0,invulnerableUntil:s.time+m.intro,staggerUntil:0,recoverUntil:0,
    noBossSummons:true,requiredForClear:true,rc133GrowthScale:m.scale,navPath:[],moveDx:0,moveDy:0,moveVx:0,moveVy:0});
   delete a.actionSpritesByPhase;delete a.standProfileRC69;delete a.dreamCosmicTrialV31346;delete a.samongStatsRC91;delete a.hellStatsV31322;
@@ -42,7 +42,7 @@
   s.dreamFinalV31346={version:1,index:6,phase:'complete',activeId:null,safeUntil:0,complete:true};
   s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',hero:s.activeHeroId,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,cycle:0,x:p.x,y:p.y,intro:2};
   s.bossDefeated=false;s.completedZones?.delete(ZONE);s.targetEnemyId=ID;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+2);
-  build(s,s.innerFinalRC133);metrics.entries++;
+  build(s,s.innerFinalRC133);metrics.entries++;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerReveal',s,s,'reveal');
   (s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration:1.8,text:'교주의 죽음 뒤, 사후에 숨겨 둔 나의 악이 깨어난다',color:'#f3ccdf',critical:true});
   return true;
  }
@@ -59,9 +59,9 @@
   dt=cl(dt,0,.1);m.elapsed+=dt;m.hp=a.hp;m.x=a.x;m.y=a.y;m.intro=Math.max(0,m.intro-dt);
   a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.navPath=[];a.readyAt=a.patternReadyAt=1e12;
   if(m.intro>0)return;m.phase='fight';m.awake=Math.max(0,m.awake-dt);m.awakeningCooldown=Math.max(0,m.awakeningCooldown-dt);
-  if(m.awakeningCooldown<=0){m.awake=7;m.awakeningCooldown=28;
+  if(m.awakeningCooldown<=0){m.awake=7;m.awakeningCooldown=28;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerAwake',s,a,'awake-'+m.cycle);
    (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y,born:s.time,duration:.9,text:'惡夢覺醒 · 나의 힘을 기억한다',color:'#ff8ca4',critical:true});}
-  if(art.ready)a.sprite=m.awake>0?art.awakening:art.body;
+  if(art.ready)a.sprite=frame(s,a);
   m.shotDelay=Math.max(0,m.shotDelay-dt);const trait=traits[m.hero]??traits.hwando,count=trait.count;if(m.shotDelay>0||s.hostileProjectiles.length+count>72)return;
   // Borrow the hero's role/motif, never its unbounded damage or invulnerability.
   const angle=Math.atan2(s.y-a.y,s.x-a.x),distance=Math.max(2.8,Math.hypot(s.x-a.x,s.y-a.y)),gap=Math.asin(Math.min(.75,1.3/distance))+.18,warning=trait.warning??.65;
@@ -69,10 +69,11 @@
   const before=s.hostileProjectiles.length;
   for(let i=0;i<count;i++){
    const side=i%2?1:-1,theta=angle+side*(gap+Math.floor(i/2)*trait.spread),speed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));
-   native.bullet(s,a,{vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius:.24,damage:Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:trait.life,frozenUntil:s.time+warning,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color:trait.color,accent:'#fff0e7',sprite:art.ready?art.skills[m.cycle%art.skills.length]:null,label:trait.name+' · 무의식의 반향'});
+   native.bullet(s,a,{vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius:.24,damage:Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:trait.life,frozenUntil:s.time+warning,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color:trait.color,accent:'#fff0e7',sprite:art.ready?(art.traitSkills?.[m.hero]??art.skills[m.cycle%art.skills.length]):null,label:trait.name+' · 무의식의 반향'});
   }
   for(const q of s.hostileProjectiles.slice(before)){q.rc133InnerShot=true;q.rc133Trait=m.hero;const theta=Math.atan2(q.vy,q.vx),speed=Math.min(4.8,trait.speed+(m.awake>0?.6:0));q.vx=Math.cos(theta)*speed;q.vy=Math.sin(theta)*speed;q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(20,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),s.time+warning);}
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:trait.name,color:trait.color,critical:false});
+  if(s.hostileProjectiles.length>before)root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
   m.cycle++;m.shotDelay=m.awake>0?2.1:2.8;metrics.volleys++;
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}
@@ -83,15 +84,16 @@
    if(mode==='opposition'){pass(0,w/2,false);pass(w/2,w/2,true);ctx.fillStyle='#eedee4';ctx.fillRect(w/2-1,0,2,h);}else pass(0,w,mode==='boss');
   }finally{ctx.restore();}metrics.frames++;return true;
  }
- function map(s,fallback){return active(s)&&art.ready?art.map:fallback;}
- function configure(value){if(!value?.ready||!value.map||!value.body||!value.awakening||!value.skills?.length)return false;Object.assign(art,value);return true;}
+ function frame(s,a){if(s.innerFinalRC133?.phase==='reveal'&&art.portrait)return art.portrait;const awake=s.innerFinalRC133?.awake>0,list=awake?art.awakeFrames:art.frames; if(!Array.isArray(list)||list.length!==8)return awake?art.awakening:art.body; const dx=s.x-a.x,dy=s.y-a.y,theta=Math.atan2((dx+dy)*.5,dx-dy),index=((Math.round((theta-Math.PI/2)/(Math.PI/4))%8)+8)%8;return list[index];}
+ function map(s,fallback){return active(s)&&art.ready?(s.innerFinalRC133.phase==='reveal'?(art.reveal??art.map):art.map):fallback;}
+ function configure(value){if(!value?.ready||!value.map||!value.body||!value.awakening||!value.skills?.length)return false;Object.assign(art,value,{frames:value.frames??null,awakeFrames:value.awakeFrames??null});return true;}
  function bind(value){native=value;return true;}
  function snapshot(s){const m=s?.innerFinalRC133,a=boss(s);return clean(m?{...m,hp:a?.hp??m.hp,x:a?.x??m.x,y:a?.y??m.y}:null);}
  function restore(s,raw){const m=clean(raw);cleanup(s);s.enemies=(s.enemies??[]).filter(a=>a.id!==ID);delete s.innerFinalRC133;if(!m||!enabled(s))return;cleanup(s,'c104-boss');s.innerFinalRC133=m;metrics.restores++;
   if(m.phase==='complete'){s.enemies=s.enemies.filter(a=>a.id!==ID&&a.id!=='c104-boss'&&!a.dreamCosmicTrialV31346);s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.bossDefeated=true;return;}
   s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.enemies=s.enemies.filter(a=>!a.dreamCosmicTrialV31346&&a.id!=='c104-boss');s.bossDefeated=false;build(s,m);
  }
- const api=Object.freeze({version:'RC133',id:ID,traits,enabled,active,boss,growth,clean,start,beforeDeath,tick,mood,compose,map,configure,bind,snapshot,restore,metrics:()=>({...metrics,artReady:art.ready})});
+ const api=Object.freeze({version:'RC133',id:ID,traits,enabled,active,boss,growth,clean,start,beforeDeath,tick,mood,compose,map,frame,configure,bind,snapshot,restore,metrics:()=>({...metrics,artReady:art.ready})});
  root.__HAPIL_INNER_FINAL_RC133__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

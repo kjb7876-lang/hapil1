@@ -24944,6 +24944,7 @@ var MONGSE_V3128_ASSET_ROOT = './assets/generated-v3128/',
       String(e?.id ?? '') +
       ' ' +
       String(e?.name ?? '');
+    if (/^ep1a/i.test(r)) return MONGSE_BOSS_PROJECTILE_SPRITES3128.hospitalSyringe;
     if (/^u20|^u2/i.test(r))
       return MONGSE_BOSS_PROJECTILE_SPRITES3128.hospitalSyringe;
     if (/^last30|^last3/i.test(r))
@@ -49858,7 +49859,7 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
     const key=t.rainGroupId??t.spatialRiftCastId??t.telekineticCastId??t.id;
     if(key!=null){
       if(/공허 기억흡입|공허 기억흡수|기억핵 과부하/.test(String(t.label??'')))window.__HAPIL_COMBAT_AUDIO_V1__?.emit('blackHole',e,MONGSE_impactSource,key);
-      else if(t.boss&&!n&&t.shape!=='safe'&&MONGSE_bossBarrageTheme(MONGSE_impactSource)==='infernal')window.__HAPIL_COMBAT_AUDIO_V1__?.emit('dark',e,MONGSE_impactSource,key);
+      else if(t.boss&&!n&&t.shape!=='safe'&&MONGSE_bossBarrageTheme(MONGSE_impactSource)==='infernal'){if(window.__HAPIL_MEDIA_AUDIO_RC133__?.event('enemyHeavy',e,MONGSE_impactSource,key)!==true)window.__HAPIL_COMBAT_AUDIO_V1__?.emit('dark',e,MONGSE_impactSource,key);}
     }
   }
   window.__HAPIL_ENEMY_FEEL_V31361__?.strike(e,t);
@@ -126613,12 +126614,21 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
   const brain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(stationary(a)){pin(a);return {target:null,moveScale:0,speedScale:0};}return brain.call(this,s,a,...args);};
   const movement=ft;ft=function(zone,a,...args){if(stationary(a)){pin(a);return {x:a.x,y:a.y};}return movement.call(this,zone,a,...args);};
   const stand=window.__HAPIL_STAND_V31335__,standTick=stand.tick;stand.tick=function(s,...args){const result=standTick.call(this,s,...args);for(const a of s?.enemies??[])pin(a);return result;};
-  const standBody=stand.drawBody;stand.drawBody=function(ctx,cache,a,time,settings,sprite,size,transform){if(a?.rc133InnerBoss){Ln(ctx,cache,sprite,a.x,a.y,122,{...transform,offsetX:0,offsetY:0,visualSizeV31338:122});return true;}return standBody.apply(this,arguments);};
+  const standBody=stand.drawBody;stand.drawBody=function(ctx,cache,a,time,settings,sprite,size,transform){if(a?.rc133InnerBoss){const path=a.sprite??sprite,im=MONGSE_queueImage(cache,path),point=G(a.x,a.y);
+    if(im?.complete&&im.naturalWidth&&window.__HAPIL_MEDIA_ART_RC133__?.ready){ctx.save();try{ctx.globalAlpha*=transform?.alpha??1;const aura=window.__HAPIL_MEDIA_ART_RC133__.picture(window.__HAPIL_MEDIA_ART_RC133__.paths.eclipse);if(aura&&a.sprite?.includes('/awake-')){ctx.save();ctx.globalAlpha*=.38;ctx.drawImage(aura,point.x-58,point.y-126,116,116);ctx.restore();}if(transform?.hit)ctx.filter='brightness(1.3)';const h=122,w=h*224/400;ctx.drawImage(im,point.x-w*.5,point.y-h*.96,w,h);}finally{ctx.restore();}}
+    else Ln(ctx,cache,path,a.x,a.y,122,{...transform,offsetX:0,offsetY:0,visualSizeV31338:122});return true;}return standBody.apply(this,arguments);};
   const radius=MONGSE_enemyHitRadius;MONGSE_enemyHitRadius=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||a?.rc133InnerBoss)? .72:radius.call(this,a);};
   const manifest=MONGSE_zoneAssetManifest,assetPlan=MONGSE_zoneAssetPlan31220;
-  function extraAssets(zone){const paths=new Set(),visit=v=>{if(typeof v==='string'&&v.startsWith('./assets/'))paths.add(v);else if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')Object.values(v).forEach(visit);};const first=N[zone]?.enemies?.find(a=>a.midboss);if(first)for(const a of alternativesFor(zone,first))for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase'])visit(a[key]);return paths;}
+  function extraAssets(zone){const paths=new Set(),visit=v=>{if(typeof v==='string'&&v.startsWith('./assets/'))paths.add(v);else if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')Object.values(v).forEach(visit);};if(zone==='cult04')for(const path of window.__HAPIL_MEDIA_ART_RC133__?.assets()??[])paths.add(path);if(/^kair/.test(zone))for(const path of window.__HAPIL_MEDIA_ART_RC133__?.chrono??[])paths.add(path);const first=N[zone]?.enemies?.find(a=>a.midboss);if(first)for(const a of alternativesFor(zone,first))for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase'])visit(a[key]);return paths;}
   MONGSE_zoneAssetManifest=function(zone,...args){return new Set([...manifest.call(this,zone,...args),...extraAssets(zone)]);};
   MONGSE_zoneAssetPlan31220=function(zone,...args){const value=assetPlan.call(this,zone,...args);for(const path of extraAssets(zone)){for(const key of ['all','A','pins'])value[key]?.add(path);for(const key of ['B','C','deferred'])value[key]?.delete(path);}return value;};
+  const projectile=MONGSE_themeProjectileSprite3128;
+  const chronoOrdinary={kair01:0,kair02:2,kair03:9,kair04:12,kair05:1,kair06:2,kair07:3,kair08:6,kair09:5,kair10:13};
+  const chronoBoss={'kair-great-01':1,'kair-great-02':2,'kair-great-03':12,'kair-great-04':3,'kair-great-05':6,'kair-great-06':13,'k103-boss':9};
+  MONGSE_themeProjectileSprite3128=function(a,zone,...args){if(/^ep1a/.test(zone)&&!a?.boss&&!a?.midboss)return MONGSE_BOSS_PROJECTILE_SPRITES3128.hospitalSyringe;if(window.__HAPIL_MEDIA_ART_RC133__?.ready&&/^kair/.test(zone)&&!a?.boss&&!a?.midboss)return window.__HAPIL_MEDIA_ART_RC133__.chrono[chronoOrdinary[zone]??0];return projectile.call(this,a,zone,...args);};
+  const visual=MONGSE_resolveBossVisualV31224;MONGSE_resolveBossVisualV31224=function(a,zone,skill,...args){const v=visual.call(this,a,zone,skill,...args),index=chronoBoss[a?.id];if(window.__HAPIL_MEDIA_ART_RC133__?.ready&&index!==undefined&&/chrono_(?:orb|crescent)/.test(v?.projectile??'')&&!/laser|beam|ray|optic/i.test(skill??''))return {...v,projectile:window.__HAPIL_MEDIA_ART_RC133__.chrono[index]};return v;};
+  const castAudio=Ei;Ei=function(s,a,...args){const before=new Set(s?.pendingHits??[]),result=castAudio.call(this,s,a,...args),admitted=(s?.pendingHits??[]).filter(h=>!before.has(h)&&h.sourceId===a?.id&&h.damage>0&&!h.damageSuppressed&&!h.damageSuppressedV31226);if(admitted.length){const hit=admitted[0],laser=admitted.some(h=>h.laserV31330||h.laserV31331||h.bloodV31516||h.shape==='line');window.__HAPIL_MEDIA_AUDIO_RC133__?.event(laser?'laserCharge':'enemyEnergy',s,a,'cast-'+String(hit.id));}return result;};
+  const wrathAudio=MONGSE_tickSevenSinBossMechanics;MONGSE_tickSevenSinBossMechanics=function(s,...args){const a=s?.enemies?.find(a=>a.id==='b07-boss'),before=a?.wrathDashCount??0,result=wrathAudio.call(this,s,...args);if(a&&(a.wrathDashCount??0)>before)window.__HAPIL_MEDIA_AUDIO_RC133__?.event('enemyRage',s,a,'rage-'+a.wrathDashCount);return result;};
   const oldPanel=Vi;Vi=function(props){return (0,q.jsxs)(q.Fragment,{children:[(0,q.jsx)(oldPanel,props),upgradeSection(props)]});};
   const spent=MONGSE_totalGrowthSpent;MONGSE_totalGrowthSpent=function(raw){return spent.call(this,raw)+Object.values(U().upgrades(raw)).reduce((a,b)=>a+b,0);};
   const tick=window.__HAPIL_LASERS_V31330__.tick;window.__HAPIL_LASERS_V31330__.tick=function(s,dt){if(s&&dt>0&&!MONGSE_isEncounterLocked31226(s)&&authority(s)){s.samongUpgradesRC133=U().upgrades(window.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??s.samongUpgradesRC133);foundation(s);midpoint(s);for(const a of s.enemies){pin(a);warp(s,a);}}return tick.apply(this,arguments);};

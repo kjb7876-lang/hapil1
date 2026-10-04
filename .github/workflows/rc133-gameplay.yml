@@ -1,7 +1,7 @@
 name: RC133 exact gameplay audit
 on:
   push:
-    branches: [codex/rc133-samong-inner-self]
+    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration]
   workflow_dispatch:
 permissions:
   contents: read
@@ -56,7 +56,7 @@ jobs:
           const fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('assert/strict');
           const out=process.env.HAPIL_QA_OUTPUT;fs.mkdirSync(out,{recursive:true});
           const tests=process.env.SUITE==='native-gameplay'
-            ? ['rc133-policy','rc133-feedback-unit','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
+            ? ['rc133-policy','rc133-feedback-unit','rc133-media-assets','rc133-media-art','rc133-media-audio','rc133-media-browser','combat-audio-controller','combat-audio-bridge','combat-audio-impact','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc88-danmaku-rpg-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
             : ['rc127-policy','rc131-hero-unit','rc130-unit','rc130-isolation','story-narration-manifest','rc130-browser','rc119-laser-body-browser','rc115-natural-story-portal-browser'];
           const report={commit:process.env.EXPECTED_SHA,suite:process.env.SUITE,tests:[],status:'running'};
           for(const name of tests){const dest=path.join(out,name);fs.mkdirSync(dest,{recursive:true});const started=Date.now(),r=cp.spawnSync(process.execPath,['tests/'+name+'.cjs'],{encoding:'utf8',maxBuffer:32e6,timeout:240000,env:{...process.env,HAPIL_QA_OUTPUT:dest,HAPIL_RELEASE_OUTPUT:dest}});fs.writeFileSync(path.join(dest,'stdout.log'),r.stdout||'');fs.writeFileSync(path.join(dest,'stderr.log'),r.stderr||'');let passed=r.status===0&&!r.error;

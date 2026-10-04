@@ -2,7 +2,7 @@
   "runtimeSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
   "locale": "ko-KR",
   "scope": "New RC133 text only; logical surface IDs identify source fields, not new DOM IDs.",
-  "narrationStatus": "No new RC133 text is voiced. The existing 119 canonical narration units / 82 published units do not include these additions.",
+  "narrationStatus": "No new RC133 text is voiced. Existing119 canonical narration units /85 published units exclude these additions.",
   "narrative": [
     {
       "surfaceId": "rc133.inner-final.reveal.floatText",
@@ -63,5 +63,17 @@
       "trigger": "Existing growth panel opened during DREAM."
     }
   ],
-  "ending": "No new ending dialogue or quest text was added; hidden persona defeat closes through the existing native clear route."
+  "ending": "No new ending dialogue or quest text was added; hidden persona defeat closes through the existing native clear route.",
+  "cosmicPresentation": {
+    "source": "assets/rc87/episode-cosmic.js",
+    "scope": "Source boss titles retained in Story awakening actor/arrival labels. No new ending dialogue or recording.",
+    "arrivalTemplate": "제${part}부 진최종 · ${actor.name}",
+    "actorNameTemplate": "코스믹 각성 · ${sourceBossName}",
+    "voiceIncluded": false
+  },
+  "rooftopCombatTelegraphs": [
+    "옥상 기록 · 좌표 반향",
+    "옥상 기록 · 인과 회랑",
+    "옥상 기록 · 역행 고리"
+  ]
 }

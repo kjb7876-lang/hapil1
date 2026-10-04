@@ -1,6 +1,6 @@
-# RC133 gameplay handoff — publication paused by parent
+# RC133 gameplay and source-media handoff
 
-Gameplay is implemented on `codex/rc133-samong-inner-self`. Latest runtime SHA: **6778046f7d889b09962357e9f282a265d2b235ec**. Main **0d0017b379ab584e7e791c5bcaea4c54e7fc2b36** is merged, including narration82. Main/Pages were not changed; parent explicitly paused publication and source-asset transfer. Uploaded source artwork/audio remain incomplete. No zero-bug guarantee.
+Combined integration is on `codex/rc133-media-integration`; exact candidate CI is pending. The prior runtime **6778046f7d889b09962357e9f282a265d2b235ec** passed 18/18 CI suites. Main **4670211fcd1a2e5076a3f9c57fc67e55cd0486a9** is merged, preserving narration85. Main/Pages have not changed; publication remains coordinated by the parent. No zero-bug guarantee.
 
 ## Behavior delivered
 
@@ -9,7 +9,7 @@ Gameplay is implemented on `codex/rc133-samong-inner-self`. Latest runtime SHA: 
 - Legacy and V31315 boss self-charge movement removed. Wrath keeps ignition/rage without its body charge; named signature decks retain their nonmoving projectile grammar. Nearby eligible bosses reserve terrain/hazard/player/ally-safe warp destinations with warning, cast deferral, cancellation and shared cooldown. Fixed cosmic/persona bodies stay stationary.
 - All 41 current native midboss routes admit Story2/Dream3 at initial or delayed spawn. Living IDs and HP persist; defeated members do not respawn or double-scale on load. Authored alternative sprites prefer the same arc. Humanoid core size/target stays consistent through Stand phases; Stand remains auxiliary.
 - Actual Dream cult-leader death admits the unconscious afterlife persona; native persona death closes through the ordinary route. Eight bounded borrowed hero traits, HP<=12600, growth1–2.1, <=72 hostile projectiles, <=20 packet damage, <=4.8 speed and visible collision delay. Native difficulty/defense reducers remain authoritative.
-- Normal/player black-white/boss black-red/opposed half-screen compositions preserve HUD order and restore the canvas context. End/death/reload/mode checks stop filter leakage. Registered source art now selects the boss awakening image on its timer, returns to its body image at expiry, and restores the active image on load. Source images are still absent; tests use explicitly staged shipped sprites.
+- Normal/player black-white/boss black-red/opposed half-screen compositions preserve HUD order and restore the canvas context. End/death/reload/mode checks stop filter leakage. All six source images were pixel-inspected and preserved. Forty-four deterministic source outputs include the concept reveal, playable arena, portrait, eight base/eight awakening directions, nine isolated skills and sixteen native Chrono crops. Bodies share a 224×400 canvas/feet pivot; native hit radius remains .72. Source art selects on the real timer and restores on native load. An optional generated transparent eclipse derivative is separately labeled in provenance.
 - HELL deletion/save compatibility, RC127 movement/cast policy, RC130 cap, RC131 fallback, RC132 healing/mirror-removal/portal behavior, approved laser pixels and current narration preserved. HapilMongse adds only a bounded save foundation for visited regions/rest waypoints/memory; no full open-world quests/maps/story.
 
 ## Natural Dream reset diagnosis and fixes
@@ -23,6 +23,13 @@ Two verified defects were fixed in `20ce104`:
 
 The twelve-case native restart/weak-contact suite is explicitly staged. It checks bounded weak contacts, same-group duplicates, independent groups, unchanged major attack floors/leech, new rosters, discarded casts/clocks and retained EGO count. See [diagnosis](qa/rc133/dream-reset-diagnosis.md).
 
+## Source media and Story boss identity
+
+- All39 original audio bytes are preserved;31 unique sources yield23 nonvoice SFX and5 BGM derivatives. Processing uses measured static attenuation, DC filtering, conservative onset trim/preroll and fades. FFmpeg and browser decoding pass; decoded maximum sample/true peak is −1.8dBFS/−1.8dBTP. This is headroom measurement, not a clipping-repair or acoustic audition claim.
+- Twenty-nine event assignments use admitted native hit/parry/dodge/removal and actual cast/phase events through the existing bounded mixer. Generic guard/hurt and player awakening retain native fallbacks. Three unauditioned Short_male_combat_hi sources stay unassigned.
+- The six Story episode finales now awaken their actual source boss, source artwork and native signature deck, with a bounded rooftop native-bullet fallback. Legacy Kair IDs migrate on load; real Dream Kair encounters stay separate. The b09 connection hook now excludes the source Cosmic actor in death, tick and restore; all six native death closures are regression-covered. Hospital generic projectiles now resolve to the authored syringe. Kair ordinary shots and nonbeam boss projectiles use varied native Chrono crops; approved laser/beam art is excluded from that replacement.
+- Provenance: [art](qa/rc133/art-processing.json), [audio](qa/rc133/audio-processing.json), [event mapping](qa/rc133/audio-runtime-mapping.json). Processing scripts preserve originals.
+
 ## Validation
 
 Exact 6007eea CI: 18/18 suites passed, [run37151933176](https://github.com/kjb7876-lang/hapil1/actions/runs/37151933176). This includes 642 native checks per PC/portrait/landscape, native contacts 8, restart/weak contacts 12, hero render 72 per viewport, RC132 browser/wrath, RC130 bitmap/pixel limits, approved laser pixels, narration82 manifest and natural Story first-boss→dist01. Units: policy 131, feedback 68, RC132 32, RC127 174, hero 344, RC130 799, isolation 28. Local initial Acorn/Chromium path failures were corrected; original failed logs remain retained.
@@ -35,6 +42,10 @@ After the reset fixes, a separate unassisted full-auto Dream trial at 6007eea st
 
 Additional check **failed**: `story-narration-decoder-edges.cjs` on Chromium 151.0.7922.173 decoded all 1020 rows / 255 files; native-rate 510 rows passed, fixed-rate 510 rows failed strict PCM/fingerprint checks (sample-count delta 0). Narration files, fixtures and test bytes match main 0d0017b. Reference/tolerances/audio were not changed. This does not establish missing phonemes or device output. See the committed compact failure summary and the retained full log outside the repo.
 
+The combined dirty-tree precommit run passes723 native checks per desktop/portrait/landscape, actual uploaded drawImage frames, all four outer compositor states, six actual native source signatures, and legacy save restore. Audio units pass95 checks; actual browser playback covers native parry, committed infernal effects, all28 decodes, mute/unmute and max2 voices. These are staged fixtures and precommit checks, not an exact-SHA release or natural hidden victory.
+
+Natural assisted Dream continues on prior runtime6778046f, with normal D-key guard input and no HP/enemy/progress edits. The retained 36-zone native kair01 checkpoint has HP240, zero native deaths/JS/HTTP errors. Story slot1 stays protected. Latest live status progresses beyond that checkpoint; a completed natural hidden final is still pending.
+
 ## New narrative text / TTS handoff
 
 [Text surfaces](qa/rc133/new-text-surfaces.json) contains exact strings, logical surface IDs, source functions, trigger and position. Three new narrative strings:
@@ -43,10 +54,12 @@ Additional check **failed**: `story-narration-decoder-edges.cjs` on Chromium 151
 - `rc133.inner-final.boss.name`: 사후의 나 · 악한 무의식 — persona actor/target/boss name, including native restore.
 - `rc133.inner-final.awakening.floatText`: 惡夢覺醒 · 나의 힘을 기억한다 — boss awakening countdown; boss position, 0.9s.
 
-These are **not voiced**. Existing 119 canonical TTS units / 82 published units exclude them. Trait telegraphs and other new UI text are listed separately; no new ending dialogue was added.
+These are **not voiced**. Existing119 canonical TTS units /85 published units exclude them. Trait telegraphs and other new UI text are listed separately; no new ending dialogue was added.
 
 ## Remaining blockers
 
-Parent-paused source transfer means the six persona concept map/body/skill/awakening images, original cosmic identity artwork and recovered audio39 ZIP/manifest are absent here. No alternate upload was attempted. Pixel inspection, source art integration, audio measurement/processed copies/placement/playback/gender review remain incomplete; existing assets are temporary fallbacks. The additional strict fixed-PCM decoder failure remains unresolved. Physical phones and a completed natural Dream hidden-final campaign are unverified.
+Thirteen additional exact Library audio files were resolved, but the official unchanged-search download helper failed with `hosted apps tools/list request failed: network`. [Pending source IDs/filenames](qa/rc133/pending-media.json) records each exact item. Full unchanged API search JSON remains at `/workspace/rc133-tools/missing-library-audio-search`; the parent can transfer selected sources through that consumer contract. No guessed URLs or alternate searched-ID materialization was attempted.
 
-Before publication, parent must coordinate source assets, resolve/report remaining acceptance failures, confirm fresh main, run combined exact-SHA CI, then verify Pages/deployed SHA/public runtime hashes and PC/portrait/landscape public smoke. Do not publish this branch while that pause remains in force.
+Three unknown voice clips await audition. The earlier strict fixed-rate PCM decoder comparison failed on Chromium151; its failure evidence remains preserved, and this work does not change narration85 bytes, comparison reference or tolerances. Physical phones and natural Dream hidden-final victory remain unverified.
+
+Before publication, confirm fresh main, pass combined exact-SHA CI, coordinate with the parent, then verify Pages/deployed SHA, public runtime hashes and desktop/portrait/landscape smoke. The integration branch is reviewable; it is not a deployed release.

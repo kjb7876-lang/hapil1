@@ -1,19 +1,20 @@
 {
-  "status": "exact-gameplay-ci-passed-natural-dream-running-assets-and-publication-paused",
+  "status": "media-integrated-precommit-checks-passed-exact-CI-pending-parent-publication",
   "startSha": "473f5fe6ab717bb975c35f198938f43dd55f9358",
-  "branch": "codex/rc133-samong-inner-self",
-  "testedSha": "6778046f7d889b09962357e9f282a265d2b235ec",
-  "testedWorkingTree": false,
-  "mainSha": "0d0017b379ab584e7e791c5bcaea4c54e7fc2b36",
+  "branch": "codex/rc133-media-integration",
+  "testedSha": null,
+  "testedWorkingTree": true,
+  "mainSha": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
   "pagesSha": null,
   "published": false,
-  "sourceImagesInspected": false,
-  "audio39MeasuredLocally": false,
+  "sourceImagesInspected": true,
+  "audio39MeasuredLocally": true,
   "blockers": [
-    "Parent paused asset transfer after user-cancelled staging; no alternative upload attempted. Six source images and recovered audio ZIP/manifest are absent here.",
-    "Uploaded persona art, audio39 integration and original cosmic identity art remain pending parent asset coordination. Existing hero/zone assets are temporary fallbacks.",
-    "Latest narration82 main is merged by normal history-preserving merge; main/Pages publication remains parent-paused pending source assets and final coordination.",
-    "Additional fixed-PCM decoder edge test fails on local Chromium151: 510 fixed rows fail, 510 native-rate rows pass, all 1020 decoded; do not claim its acceptance. Narration bytes match main0d0017b."
+    "Thirteen additional exact Library audio files were resolved but official helper materialization failed with hosted apps tools/list network failure. Pending parent transfer; source IDs and filenames in pending-media.json.",
+    "Three unauditioned Short_male_combat_hi sources remain unassigned. No acoustic gender or listening-quality claim.",
+    "Main/Pages publication requires parent coordination, fresh-main confirmation, exact combined CI, deployed SHA/public hashes and three public viewport checks.",
+    "Natural assisted Dream hidden-final victory is not established; same unmodified campaign continues on runtime6778046f.",
+    "Earlier strict fixed-rate PCM fingerprint check failed on Chromium151; this integration preserves latest narration85 bytes and does not weaken that comparison."
   ],
   "passed": {
     "rc133Policy": 131,
@@ -31,8 +32,8 @@
     },
     "rc133NativeBrowser": {
       "profiles": 3,
-      "checksPerProfile": 646,
-      "scope": "Staged native EGO/save, 41 current midboss routes x STORY/DREAM with initial/delayed entry and surviving save/restore, 29 dynamic boss profiles, wrath, warp reservation, eight persona traits and four compositions; normal React upgrade purchase; actual cult and persona death closure; full-frame ending filter 0"
+      "checksPerProfile": 723,
+      "scope": "Staged native EGO/save, 41 current midboss routes x STORY/DREAM with initial/delayed entry and surviving save/restore, 29 dynamic boss profiles, wrath, warp reservation, eight persona traits and four compositions; normal React upgrade purchase; actual cult and persona death closure; full-frame ending filter 0; six source-owned Story Cosmic signatures and legacy aliases; all44 uploaded images decoded, eight base/awake directions, actual native drawImage and full compositor"
     },
     "rc128NativeBrowser": {
       "profiles": 3,
@@ -78,10 +79,8 @@
       "evidence": "qa/rc133/evidence/6778046/natural-story-first-portal-6007eea.json"
     },
     "narrationManifest": {
-      "includedUnits": 82,
-      "pendingUnits": 37,
-      "unchangedFromIntegratedMain": true,
-      "sha256": "6ddb1b8765e653fdc1fea807ff7855d004a56be0215417f1d10fad3fb10c867f"
+      "includedUnits": 85,
+      "unchangedFromIntegratedMain": true
     },
     "naturalStoryCI": {
       "usedProgressCheats": false,
@@ -94,29 +93,30 @@
     "nativeWeakExitAndRestart": {
       "cases": 12,
       "scope": "Staged actual native weak exit/player reducers and RC59 restart path in STORY/DREAM. Weak damage and duplicate ledger, normal major floors/leech, discarded stale casts/clocks, preserved EGO count."
+    },
+    "mediaAudio": {
+      "checks": 95,
+      "actualBrowser": "all28 derivatives WebAudio decode; actual native parry and committed infernal effect playback; mute/unmute and max2 effects"
+    },
+    "mediaArt": {
+      "checks": 152,
+      "sourceHashes": 6,
+      "outputs": 44
     }
   },
   "physicalMobileTested": false,
   "fullNaturalCampaignTested": false,
   "zeroBugGuarantee": false,
   "ci": {
-    "status": "passed",
-    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
-    "runId": 37154208939,
-    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939",
-    "suites": {
-      "native-gameplay": 10,
-      "preservation": 8
-    },
-    "evidence": "qa/rc133/evidence/ci-6778046.json"
+    "status": "pending",
+    "suiteCount": 26
   },
   "remainingRequestItems": [
-    "Uploaded source persona map/body/skills/awakening art pixel inspection and integration",
-    "Original cosmic identity source art after parent asset coordination",
-    "Audio39 measurement, processed copies, placement, runtime playback and gender review",
-    "Resolve additional strict fixed-PCM decoder failure on Chromium151 without weakening the comparison contract",
-    "Natural Dream hidden-final completion; physical phone QA",
-    "Parent-coordinated main/Pages publication, deployed SHA and public runtime hash/desktop/portrait/landscape checks"
+    "Thirteen additional exact Library audio files were resolved but official helper materialization failed with hosted apps tools/list network failure. Pending parent transfer; source IDs and filenames in pending-media.json.",
+    "Three unauditioned Short_male_combat_hi sources remain unassigned. No acoustic gender or listening-quality claim.",
+    "Main/Pages publication requires parent coordination, fresh-main confirmation, exact combined CI, deployed SHA/public hashes and three public viewport checks.",
+    "Natural assisted Dream hidden-final victory is not established; same unmodified campaign continues on runtime6778046f.",
+    "Earlier strict fixed-rate PCM fingerprint check failed on Chromium151; this integration preserves latest narration85 bytes and does not weaken that comparison."
   ],
   "fixedFailures": [
     "RC69 injected three midbosses into Story; native admission now enforces 2/3.",
@@ -126,7 +126,10 @@
     "After inner completion the ordinary Dream awakening compositor re-applied grayscale; completed cult04 suppresses that pass.",
     "Weak derived exiting bodies acquired a fresh 10%-max-HP heart bonus and major-owner raid modifiers; bounded weak damage is now preserved.",
     "Old boss casts and RC95/RC129 clocks survived same-zone death restarts and resolved new actors by matching ID; new roster admission now clears them.",
-    "Registered persona awakening art was accepted but never selected; native timer transition/expiry and save reconstruction now select it, with four staged existing-art checks per viewport."
+    "Registered persona awakening art was accepted but never selected; native timer transition/expiry and save reconstruction now select it, with four staged existing-art checks per viewport.",
+    "The late hospital projectile resolver overrode the authored syringe with infernal art; final resolver now agrees with the hospital source registry.",
+    "The native action resolver passed inherited cult firehead art to the persona draw; the persona renderer now draws its own source frame.",
+    "Source-ID b09 Cosmic death replayed the earlier RC88 narrative connection and revived at HP1; Cosmic ownership now excludes that connection in death/tick/restore. Native death-closure regressions cover all six source finales."
   ],
   "harnessCorrections": [
     "Deprecated ep1a07 is outside current route and migrates to ep1a08; tested separately.",
@@ -135,11 +138,13 @@
     "An initial rc127-policy-unit.cjs invocation failed because the actual script is rc127-policy.cjs; corrected test passed.",
     "Five-second HP sampling missed lethal frames; forwarding native death hooks now count actual respawns.",
     "Persistent global Story completion was mistaken for Dream completion; Dream terminal detection now requires innerFinalRC133.phase=complete.",
-    "Local Acorn/Chromium path mistakes were corrected for RC132 tests; original failed logs remain retained."
+    "Local Acorn/Chromium path mistakes were corrected for RC132 tests; original failed logs remain retained.",
+    "Viewport screenshot fixtures originally replaced only an inner render function; full-frame native compositor now receives the staged state through the outermost bridge.",
+    "Audio unmute assertions now isolate consumed parry contacts from legitimate fresh outgoing-hit sounds."
   ],
   "evidenceDirectory": "qa/rc133/evidence/6778046",
   "testEvidenceCommit": "6778046f7d889b09962357e9f282a265d2b235ec",
-  "integratedMainSha": "0d0017b379ab584e7e791c5bcaea4c54e7fc2b36",
+  "integratedMainSha": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
   "naturalStoryFullCampaign": {
     "status": "passed",
     "testSha": "1d17a7bba5594c84c5d88360d9132c105254df0b",
@@ -163,7 +168,7 @@
   },
   "naturalDreamGuardAssist": {
     "status": "running",
-    "runtimeSha": "6007eea2da1ce34bebbee259b328b461d16466e3",
+    "runtimeSha": "6778046f7d889b09962357e9f282a265d2b235ec",
     "previousAttempts": [
       {
         "folder": "dream-native-guard-assist",
@@ -177,23 +182,20 @@
         "stopReason": "operator-interruption-to-include-native-area-geometry"
       }
     ],
-    "currentFolder": "dream-native-guard-assist-v3",
+    "currentFolder": "dream-native-guard-assist-v6",
     "scope": "Normal keyboard D inputs, read-only native threat geometry, unchanged full-auto setting. No HP/enemy/unlock/route edits. Distinct from unassisted full-auto trial.",
     "timeBudgetMs": 3600000,
     "checkpoint": {
-      "zone": "dist04",
+      "zone": "kair01",
       "hp": 240,
-      "boss": {
-        "id": "mb-dist04",
-        "hp": 17110.743518301922,
-        "maxHp": 17457,
-        "phase": 1
-      },
-      "completed": 4,
-      "nativeDeaths": 0
+      "completed": 36,
+      "nativeDeaths": 0,
+      "jsErrors": 0,
+      "httpErrors": 0
     },
-    "checkpointAt": "2026-10-03T21:20:17.205Z",
-    "hiddenFinalReached": false
+    "checkpointAt": "2026-10-04T00:59:36.589Z",
+    "hiddenFinalReached": false,
+    "checkpointSource": "qa/rc133/natural-dream-checkpoints/20261004T005936Z-kair01.json"
   },
   "additionalFailedChecks": [
     {
@@ -273,26 +275,76 @@
     }
   ],
   "runtimeHashes": {
-    "assets/index-v31526.js": "2206d554e03b135a053f551e37946c5e0899b3671498206288f2cc83b9b968bd",
+    "assets/index-v31526.js": "6772f1aec1239c7a71b337e661ee01e260a85e46ff18544376a7e255300f6289",
     "assets/rc25/raid.js": "eb57b745abeda0a7571951105f2323fd2b7b71ab5d1e7894f5acb5901ca7d7fd",
     "assets/rc95/combat-flow.js": "e301657c8ff39c3441138527390fee0862355630f1df26dbe4ecb6d7d4e0407d",
     "assets/rc133/samong-policy.js": "b44e64d00c066c53c89c63a81a6cae8bbc8743ea66136938f2b22e76ab91d688",
-    "assets/rc133/inner-final.js": "afb7ac3068d75aa7471e1b6d9a692dc158f5a73008cb954455ad9933fe0bb1c6",
-    "assets/story-narration/v1/manifest.json": "6ddb1b8765e653fdc1fea807ff7855d004a56be0215417f1d10fad3fb10c867f"
+    "assets/rc133/inner-final.js": "0eb6e7248b9ade46e6523e07871e1cf695991c1c5fe6a77d101dd7a2813a8020",
+    "assets/story-narration/v1/manifest.json": "20cb70771a0d33aa3cbc4b61934103f9529d702c289b135db494945f5038c550",
+    "assets/rc133/media-art.js": "c7458d89821b7a25d92fd9e6d47c6c98365dbbd685f4df713eed6a3a3b6b5491",
+    "assets/rc133/media-audio.js": "3158ae0f78487992e04f6923ef0c9b2501428afd77e41db3940e06571e48a36d",
+    "assets/rc133/media-catalog.js": "f342158a573a2fee2d18a2f8b801ba675b8ae43f9094571e82b12cb183ba2520",
+    "assets/rc87/episode-cosmic.js": "3594fc5efdffd988110d15da308fa47d1145bfcabae8a985ba515ceac316cacf",
+    "assets/rc88/danmaku-rpg.js": "eac7d427c889c5ca7eaf2609887ebc3b6cdc2f315a466d2c5bf095432e0272c5"
   },
   "latestRuntimeSha": "6778046f7d889b09962357e9f282a265d2b235ec",
   "latestRuntimeCI": {
-    "status": "passed",
-    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
-    "runId": 37154208939,
-    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939"
+    "status": "pending",
+    "branch": "codex/rc133-media-integration",
+    "requiredSuites": 26
   },
   "newNarrativeText": {
     "source": "qa/rc133/new-text-surfaces.json",
     "narrativeStrings": 3,
     "voiced": false,
     "canonicalTtsUnits": 119,
-    "existingPublishedUnits": 82
+    "existingPublishedUnits": 85
   },
-  "updatedAt": "2026-10-03T21:20:18.063355+00:00"
+  "updatedAt": "2026-10-04T01:09:38.061755+00:00",
+  "previousRuntimeCI": {
+    "status": "passed",
+    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
+    "runId": 37154208939,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939"
+  },
+  "mediaIntegration": {
+    "status": "implemented-uncommitted",
+    "sourceImages": 6,
+    "requiredArtOutputs": 44,
+    "optionalGeneratedEclipse": true,
+    "originalAudioFiles": 39,
+    "uniqueSources": 31,
+    "processedDerivatives": 28,
+    "sfxDerivatives": 23,
+    "bgmDerivatives": 5,
+    "runtimeEventAssignments": 29,
+    "heldUnauditionedVoices": 3,
+    "decodedTruePeakMaxDbTP": -1.8,
+    "mapping": "qa/rc133/audio-runtime-mapping.json",
+    "artProvenance": "qa/rc133/art-processing.json",
+    "audioProvenance": "qa/rc133/audio-processing.json",
+    "localTestsArePrecommit": true
+  },
+  "historicalTestedSha": "6778046f7d889b09962357e9f282a265d2b235ec",
+  "previousGameplayCI": {
+    "status": "passed",
+    "commit": "6778046f7d889b09962357e9f282a265d2b235ec",
+    "runId": 37154208939,
+    "url": "https://github.com/kjb7876-lang/hapil1/actions/runs/37154208939",
+    "suites": {
+      "native-gameplay": 10,
+      "preservation": 8
+    },
+    "evidence": "qa/rc133/evidence/ci-6778046.json"
+  },
+  "toolFailures": [
+    {
+      "tool": "mcp__codex_apps__github_fetch",
+      "args": {
+        "url": "https://api.github.com/repos/kjb7876-lang/hapil1/actions/workflows/rc133-gameplay.yml/runs?branch=codex%2Frc133-media-integration&per_page=3"
+      },
+      "reason": "HTTPError400: GitHub Fetch URL is not an allowed public GitHub repository or search endpoint.",
+      "scope": "read-only workflow collection path; no mutation attempted"
+    }
+  ]
 }

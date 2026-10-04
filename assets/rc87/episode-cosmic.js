@@ -2,14 +2,14 @@
 (() => {
   'use strict';
 
-  const VERSION = '3.87.02';
+  const VERSION = '3.87.03';
   const EPISODES = Object.freeze([
-    Object.freeze({part: 2, zone: 'ep1b09', triggerId: 'b09-boss', cosmicId: 'kair-great-01'}),
-    Object.freeze({part: 3, zone: 'u203', triggerId: 'u203-boss', cosmicId: 'kair-great-02'}),
-    Object.freeze({part: 4, zone: 'last303', triggerId: 'l303-boss', cosmicId: 'kair-great-03'}),
-    Object.freeze({part: 5, zone: 'kair03', triggerId: 'k103-boss', cosmicId: 'kair-great-04'}),
-    Object.freeze({part: 6, zone: 'hando03', triggerId: 'h103-boss', cosmicId: 'kair-great-05'}),
-    Object.freeze({part: 7, zone: 'murder03', triggerId: 'mb-murder03', cosmicId: 'kair-great-06'}),
+    Object.freeze({part: 2, zone: 'ep1b09', triggerId: 'b09-boss', cosmicId: 'b09-boss', legacyCosmicId: 'kair-great-01', pose: './assets/episode1b/generated-v394/boss_pride_cyborg.webp', color: '#d9ba74'}),
+    Object.freeze({part: 3, zone: 'u203', triggerId: 'u203-boss', cosmicId: 'u203-boss', legacyCosmicId: 'kair-great-02', pose: './assets/generated-v3125/boss-actions/controller_transition.webp', color: '#96bfea'}),
+    Object.freeze({part: 4, zone: 'last303', triggerId: 'l303-boss', cosmicId: 'l303-boss', legacyCosmicId: 'kair-great-03', pose: './assets/generated-v3125/boss-actions/bulmyeongwi_transition.webp', color: '#b7a5ce'}),
+    Object.freeze({part: 5, zone: 'kair03', triggerId: 'k103-boss', cosmicId: 'k103-boss', legacyCosmicId: 'kair-great-04', pose: './assets/generated-v3125/boss-actions/siren_transition.webp', color: '#f3a4bb'}),
+    Object.freeze({part: 6, zone: 'hando03', triggerId: 'h103-boss', cosmicId: 'h103-boss', legacyCosmicId: 'kair-great-05', pose: './assets/generated-v31212/boss-actions/hando_transition.webp', color: '#eee2fc'}),
+    Object.freeze({part: 7, zone: 'murder03', triggerId: 'mb-murder03', cosmicId: 'mb-murder03', legacyCosmicId: 'kair-great-06', pose: './assets/murder/rooftop_echo.png', color: '#98ceec'}),
   ]);
   const byZone = new Map(EPISODES.map(row => [row.zone, row]));
   const modeAllowed = mode => mode === 'STORY';
@@ -49,12 +49,25 @@
     return [...result];
   }
 
+  // Each finale belongs to its defeated source boss. Kair IDs are save aliases only.
+  function sourceTemplate(bridge, spec) {
+    const source = bridge.actor(spec.zone, spec.triggerId);
+    if (!source) return null;
+    const native = typeof bridge.cloneEnemy === 'function' ? bridge.cloneEnemy(source, spec.zone) : {...source};
+    const phase = Math.max(1, finite(source.phaseMax, finite(source.phaseCount, 1)));
+    const actions = array(source.actionSpritesByPhase).at(-1) ?? source.actionSprites ?? {};
+    return {...native, sprite: spec.pose, phaseSprites: Array.from({length: phase + 1}, () => spec.pose),
+      phaseSpriteFallbacks: null, actionSpritesByPhase: null,
+      actionSprites: {...actions, idle: spec.pose, move: spec.pose, transition: spec.pose},
+      fixedPhase: phase, currentPhase: phase};
+  }
+
   function addArrivalCue(state, spec, profile, actor) {
     const now = finite(state.time);
     const id = Number.isFinite(Number(state.fxSerial)) ? state.fxSerial++ : 0;
     (state.floatTexts ??= []).push({
       id, x: actor.x, y: actor.y - 2.3, born: now, duration: 1.55,
-      text: `제${spec.part}부 진최종 · 코스믹 ${String(EPISODES.indexOf(spec) + 1).padStart(2, '0')}`,
+      text: `제${spec.part}부 진최종 · ${actor.name}`,
       color: profile.color, critical: true,
     });
     (state.effects ??= []).push({
@@ -66,8 +79,8 @@
   }
 
   function buildBoss(state, bridge, spec, stage, saved = null, restoring = false) {
-    const template = bridge.templates?.[spec.cosmicId];
-    const profile = window.__HAPIL_SAMONG_COSMIC_V386__?.bosses?.find(row => row.id === spec.cosmicId);
+    const template = sourceTemplate(bridge, spec);
+    const profile = {title: (template?.name ?? spec.triggerId) + " · 코스믹 각성", color: spec.color, accent: "#fff0e6"};
     if (!template || !profile) return null;
     const now = finite(state?.time);
     const index = EPISODES.indexOf(spec);
@@ -78,11 +91,11 @@
       finite(stage.triggerMaxHp, finite(triggerTemplate?.maxHp, triggerTemplate?.hp)) * 1.16,
     );
     const maxHp = Math.max(1, Math.round(finite(saved?.maxHp, seedHp)));
-    const phase = 1 + Math.floor(index / 2);
+    const phase = Math.max(1, finite(template.fixedPhase, 1));
     const actor = {
       ...template,
       id: spec.cosmicId,
-      name: `코스믹 대수문장 ${String(index + 1).padStart(2, '0')} · ${template.name ?? '고정 우주 보스'}`,
+      name: `코스믹 각성 · ${template.name ?? spec.triggerId}`,
       eliteName: profile.title,
       x: finite(saved?.x, finite(stage.triggerX, 15)),
       y: finite(saved?.y, finite(stage.triggerY, 14)),
@@ -97,10 +110,10 @@
       noBossSummons: true,
       themedSummonAt: Number.POSITIVE_INFINITY,
       themedOrdnanceAt: Number.POSITIVE_INFINITY,
-      fixedPhase: Math.max(phase, Math.floor(finite(saved?.currentPhase, phase))),
-      currentPhase: Math.max(phase, Math.floor(finite(saved?.currentPhase, phase))),
-      phaseMax: Math.max(3, finite(template.phaseMax, finite(template.phaseCount, 3))),
-      phaseCount: Math.max(3, finite(template.phaseCount, 3)),
+      fixedPhase: phase,
+      currentPhase: phase,
+      phaseMax: phase,
+      phaseCount: phase,
       phaseTransitionUntil: restoring ? 0 : now + 0.78,
       invulnerableUntil: restoring ? 0 : now + 0.78,
       readyAt: restoring ? now : now + 1.05,
@@ -190,10 +203,31 @@
     return false;
   }
 
+  function rooftopSignature(state, actor, bridge) {
+    const native = window.__HAPIL_RC95_NATIVE__;
+    if (!native?.bullet || !Array.isArray(state.hostileProjectiles)) return null;
+    const cycle = Math.max(0, Math.floor(finite(actor.signatureFollowupCycle31212)));
+    const mode = cycle % 3, count = mode === 1 ? 8 : 12;
+    if (state.hostileProjectiles.length + count > 72) return null;
+    const angle = Math.atan2(state.y - actor.y, state.x - actor.x), before = state.hostileProjectiles.length;
+    for (let i = 0; i < count; i++) {
+      const theta = mode === 0 ? angle + (i - (count - 1) / 2) * .17 : i * Math.PI * 2 / count + (mode === 1 ? Math.PI / 8 : cycle * .13);
+      native.bullet(state, actor, {vx: Math.cos(theta) * 2.7, vy: Math.sin(theta) * 2.7,
+        radius: .22, damage: 12, life: 5.5, frozenUntil: state.time + .9,
+        homingMode31212: 'none', patternKind: 'rc95-volley', status: 'none',
+        sprite: bridge.projectileSprite(actor, state.zone), color: '#98ceec', accent: '#e4f9ff'});
+    }
+    const admitted = state.hostileProjectiles.slice(before);
+    for (const q of admitted) q.collisionDisabledUntil31219 = Math.max(finite(q.collisionDisabledUntil31219), state.time + .9);
+    if (!admitted.length) return null;
+    actor.signatureFollowupCycle31212 = cycle + 1;
+    return {name: ['옥상 기록 · 좌표 반향', '옥상 기록 · 인과 회랑', '옥상 기록 · 역행 고리'][mode], count: admitted.length, cycle: cycle + 1};
+  }
+
   function dispatchSignature(state, bridge, actor, stage) {
     if (!actor || actor.hp <= 0 || typeof bridge.signatureAttack !== 'function') return false;
     let attack;
-    try { attack = bridge.signatureAttack(state, actor); }
+    try { attack = bridge.signatureAttack(state, actor); if (!attack && actor.id === 'mb-murder03') attack = rooftopSignature(state, actor, bridge); }
     catch { return false; }
     if (!attack || !(Number(attack.count) > 0) || !attack.name) return false;
     actor.episodeCosmicSignatureNameV387 = String(attack.name);
@@ -263,7 +297,7 @@
   function sanitize(raw, zone) {
     if (!raw || typeof raw !== 'object') return null;
     const spec = byZone.get(String(zone ?? raw.zone ?? ''));
-    if (!spec || raw.version !== 1 || raw.zone !== spec.zone || raw.cosmicId !== spec.cosmicId ||
+    if (!spec || raw.version !== 1 || raw.zone !== spec.zone || ![spec.cosmicId, spec.legacyCosmicId].includes(raw.cosmicId) ||
         !['pending', 'active', 'complete'].includes(raw.status)) return null;
     const numeric = ['triggerX', 'triggerY', 'triggerMaxHp', 'queuedAt', 'startedAt', 'completedAt', 'hp', 'maxHp', 'x', 'y', 'currentPhase', 'signatureCycle', 'nextSignatureAt', 'signatureDelayRemaining'];
     if (numeric.some(key => raw[key] !== undefined && !Number.isFinite(Number(raw[key])))) return null;
@@ -304,7 +338,7 @@
       const stage = sanitize(save?.episodeCosmicFinalV387, save?.zone);
       if (!stage || stage.status !== 'active' || !Array.isArray(actors)) return actors;
       const spec = byZone.get(stage.zone);
-      const cleaned = actors.filter(actor => actor.id !== spec.triggerId && actor.id !== spec.cosmicId);
+      const cleaned = actors.filter(actor => actor.id !== spec.triggerId && actor.id !== spec.cosmicId && actor.id !== spec.legacyCosmicId);
       const bridge = window.__HAPIL_RC86_BRIDGE__;
       const restored = buildBoss({time: 0}, bridge, spec, stage, stage, true);
       if (restored) cleaned.push(restored);
@@ -345,7 +379,7 @@
     if (!bridge || !bossApi?.installed || typeof bridge.zoneCombatCleared !== 'function' ||
         typeof bridge.persistentTick !== 'function' || !bridge.templates ||
         typeof bridge.zoneAssetManifest !== 'function' || typeof bridge.zoneAssetPlan !== 'function' ||
-        EPISODES.some(spec => !bridge.actor(spec.zone, spec.triggerId) || !bridge.templates[spec.cosmicId])) return false;
+        EPISODES.some(spec => !bridge.actor(spec.zone, spec.triggerId))) return false;
     if (!installSaveHooks(bridge)) return false;
 
     baseZoneClear = bridge.zoneCombatCleared;
@@ -379,7 +413,7 @@
       bridge.zoneAssetManifest = function HAPIL_episodeCosmicManifestV387(zone, ...args) {
         const result = new Set(oldManifest.call(this, zone, ...args) ?? []);
         const spec = byZone.get(zone);
-        if (spec) for (const path of bossAssets(bridge.templates[spec.cosmicId])) result.add(path);
+        if (spec) for (const path of bossAssets(sourceTemplate(bridge, spec))) result.add(path);
         return result;
       };
     }
@@ -391,7 +425,7 @@
         if (!spec) return plan;
         const output = {...plan};
         for (const key of ['all', 'A', 'B', 'C', 'deferred', 'pins']) output[key] = new Set(plan?.[key] ?? []);
-        for (const path of bossAssets(bridge.templates[spec.cosmicId])) {
+        for (const path of bossAssets(sourceTemplate(bridge, spec))) {
           output.all.add(path);
           output.A.add(path);
           output.pins.add(path);
@@ -420,13 +454,13 @@
       audit() {
         const rows = EPISODES.map((spec, index) => {
           const trigger = bridge.actor(spec.zone, spec.triggerId);
-          const boss = bridge.templates[spec.cosmicId];
+          const boss = sourceTemplate(bridge, spec);
           return {
             part: spec.part, zone: spec.zone, triggerId: spec.triggerId,
             triggerKind: trigger?.boss ? 'boss' : trigger?.midboss ? 'midboss' : 'missing',
             cosmicId: spec.cosmicId, order: index + 1,
             assets: bossAssets(boss),
-            valid: Boolean(trigger && boss && (trigger.boss || trigger.midboss) && boss.phaseCount >= 3),
+            valid: Boolean(trigger && boss && (trigger.boss || trigger.midboss) && boss.id === spec.triggerId && boss.sprite === spec.pose),
           };
         });
         const dreamIsolated = !modeAllowed('DREAM');
@@ -440,9 +474,9 @@
       },
       policy: Object.freeze({
         finalMaps: 'parts 2-7; part 1 retains masked Lucifer and part 8 retains the separate Samong finale',
-        order: 'native Kair Great 01-06, one after the authored final boss of each part',
+        order: 'the source boss awakens into its own stationary Cosmic form in parts 2-7; legacy Kair IDs migrate on load',
         gate: 'the original portal and EGO clear remain locked until the episode Cosmic boss is defeated',
-        modes: 'Story/Hell episode finals; Dream remains its separate six-stage encounter',
+        modes: 'Story episode finals; Dream retains its separate six-stage encounter',
       }),
     });
     return true;

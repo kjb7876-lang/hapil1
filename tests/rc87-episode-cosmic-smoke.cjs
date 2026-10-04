@@ -8,7 +8,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const runtime = read('assets/rc87/episode-cosmic.js');
 const html = read('index.html');
 const bundle = read('assets/index-v31526.js');
-const ids = Array.from({length: 6}, (_, i) => 'kair-great-0' + (i + 1));
+const legacyIds = Array.from({length: 6}, (_, i) => 'kair-great-0' + (i + 1));
 const episodes = [
   {part: 2, zone: 'ep1b09', triggerId: 'b09-boss'},
   {part: 3, zone: 'u203', triggerId: 'u203-boss'},
@@ -18,16 +18,17 @@ const episodes = [
   {part: 7, zone: 'murder03', triggerId: 'mb-murder03'},
 ];
 
-assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39301/);
+assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39303/);
 assert.match(bundle, /__HAPIL_EPISODE_COSMIC_V387__\?\.beforeDeath\(t, e\)/,
   'campaign Cosmic final death must enter the regular reward and map-clear route');
 assert.match(bundle, /get zoneCombatCleared\(\)/);
 assert.match(bundle, /set restoreEnemies\(value\)/);
 
+const ids = episodes.map(row => row.triggerId);
 const triggerActors = new Map(episodes.map((episode, i) => [episode.zone, {
   id: episode.triggerId, name: 'Episode boss ' + (i + 2), boss: i !== 5,
   midboss: i === 5, hp: 1200 + i * 100, maxHp: 1200 + i * 100,
-  x: 8 + i, y: 9 + i,
+  x: 8 + i, y: 9 + i, phaseCount: 2, phaseMax: 2, sprite: './assets/actors/source-' + i + '.webp', patternSet: 'source-deck-' + i,
 }]));
 const templates = Object.fromEntries(ids.map((id, i) => [id, {
   id, name: 'Kair Great ' + (i + 1), boss: true, phaseCount: 3, phaseMax: 3,
@@ -102,7 +103,10 @@ for (let i = 0; i < episodes.length; i++) {
   assert.equal(boss.boss, true);
   assert.equal(boss.midboss, false, 'episode Cosmic must be a true final boss, not a transient midboss echo');
   assert.equal(boss.episodeCosmicPartV387, episode.part);
-  const path = templates[ids[i]].sprite;
+  assert.equal(boss.sourceBossId, episode.triggerId);
+  assert.equal(boss.patternSet, triggerActors.get(episode.zone).patternSet, 'source native deck must retain ownership');
+  assert(!boss.sprite.includes('great-'), 'source awakening must not borrow Kair art');
+  const path = api.episodes[i].pose;
   assert(bridge.zoneAssetManifest(episode.zone).has(path), path + ' must preload in its episode map');
   const plan = bridge.zoneAssetPlan(episode.zone);
   assert(plan.A.has(path) && plan.pins.has(path), path + ' must be promoted before the Cosmic arrival');
@@ -143,6 +147,8 @@ const serialized = bridge.serializeSave(saveState);
 assert.equal(serialized.episodeCosmicFinalV387.status, 'active');
 assert.equal(serialized.episodeCosmicFinalV387.hp, activeBoss.hp);
 assert.equal(serialized.episodeCosmicFinalV387.signatureDelayRemaining, 4.25);
+const migrated = bridge.normalizeSave({...serialized, episodeCosmicFinalV387: {...serialized.episodeCosmicFinalV387, cosmicId: legacyIds[1]}});
+assert.equal(migrated.episodeCosmicFinalV387.cosmicId, ids[1], 'old Kair save ID migrates to source boss');
 const normalized = bridge.normalizeSave(serialized);
 assert.equal(normalized.episodeCosmicFinalV387.cosmicId, ids[1]);
 const restoredActors = bridge.restoreEnemies(normalized);
@@ -166,4 +172,4 @@ assert.equal(bridge.serializeSave(saveState).episodeCosmicFinalV387, null,
   'a previous episode stage must not leak into saves for a different map');
 assert.equal(api.sanitize({...serialized.episodeCosmicFinalV387, cosmicId: 'c104-boss'}, 'u203'), null,
   'save payloads must not inject a different Cosmic or Samong actor');
-console.log('RC87 PASS: parts 2–7 gate their exits behind mapped native Cosmic true-final bosses; part 1 Lucifer, part 8 Samong, Dream trials, native signatures, asset promotion, and save/resume stay isolated.');
+console.log('RC87 PASS: parts 2–7 gate their exits behind source-owned Cosmic true-final bosses; part 1 Lucifer, part 8 Samong, Dream trials, native signatures, asset promotion, and save/resume stay isolated.');
