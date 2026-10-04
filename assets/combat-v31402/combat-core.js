@@ -85,6 +85,26 @@
   }
   function markIfUnset(s, a, result, reason) { const tx = current(s, a); if (tx && !tx.result) mark(s, a, result, reason); }
   function computed(s,a,amount){const tx=current(s,a);if(tx&&finite(amount))tx.computedDamage=amount;}
+  function controlMode() {
+    const mode = root.__HAPIL_CONTROLS_V31329__?.effective?.();
+    return ['manual', 'semi', 'full'].includes(mode) ? mode : 'semi';
+  }
+  // RC134: read the effective control setting once per authoritative damage
+  // transaction. Apply after the native budget, armor, floors and other buffs;
+  // keep this transient policy out of actor stats, growth, and saved state.
+  function finalDamage(s, a, amount, direction) {
+    if (!finite(amount) || !(amount > 0)) return amount;
+    const tx = current(s, a), key = direction === 'outgoing' ? 'outgoing' : 'incoming';
+    if (tx?.finalDamage) return tx.finalDamage.amount;
+    const mode = tx?.controlMode ?? controlMode();
+    const factor = mode === 'full' ? (key === 'outgoing' ? 1.70 : 0.10) : 1;
+    const scaled = amount * factor;
+    if (tx) {
+      tx.finalDamage = Object.freeze({ direction: key, baseline: amount, factor, amount: scaled });
+      step(s, a, 'final-' + key + '-control-mode');
+    }
+    return scaled;
+  }
   function outgoingHeal(s,a,amount){const tx=current(s,a);if(tx&&tx.kind==='OUTGOING'&&finite(amount))tx.lifestealApplied+=Math.max(0,amount);}
   function resource(s, a, key, amount) {
     const tx = current(s, a);
@@ -98,6 +118,7 @@
     const row = Object.freeze({ schema: 2, sequence: ++m.sequence, epoch: m.epoch,
       time: numeric(tx.time), zone: text(tx.zone), mode: text(s.gameModeV31346 ?? 'STORY'),
       kind: tx.kind, result, reason: tx.reason ?? 'native-returned-no-effect',
+      controlMode: tx.controlMode, finalDamage: tx.finalDamage ?? null,
       targetId: id(s, a), heroId: tx.heroId, source: tx.sourceView,
       ...(tx.kind==='OUTGOING'?{attackerHeroId:tx.attackerHeroId,criticalRequested:tx.criticalRequested,
        computedDamage:tx.computedDamage??null,lifestealApplied:tx.lifestealApplied,
@@ -126,6 +147,7 @@
     if (shared) { stats.nestedContacts++; step(s, a, origin); return fn(); }
     const tx = { actor: a, source, sourceView: sourceView(source, s, a), before: stateView(a),
       heroId: hero(s, a), zone: s.zone, time: s.time, kind, requestedDamage: options.damage,
+      controlMode: controlMode(), finalDamage: null,
       steps: [origin], result: null, reason: null, appliedDamage: 0,
       resonanceAwarded: 0, resonanceSpent: 0, healed: 0, egoStarted: false, downed: false,
       attackerHeroId: text(source?.heroId??source?.heroId31213??source?.impactHeroIdV31315??s.activeHeroId),
@@ -228,7 +250,7 @@
   }
   function reset(s) { if (object(s) && !worlds.get(s)?.stack.length) {worlds.delete(s);evidenceByWorld.delete(s);} }
   const api = Object.freeze({ version: VERSION, installed: true, get bound() { return !!adapters; },
-    results: CONTACT_RESULTS, limit: LIMIT, bind, player, ally, enemy, computed, outgoingHeal, captureEvidence, readEvidence, credit, graze, perfect, convert, heal,
+    results: CONTACT_RESULTS, limit: LIMIT, bind, player, ally, enemy, computed, finalDamage, outgoingHeal, captureEvidence, readEvidence, credit, graze, perfect, convert, heal,
     transaction, mark, markIfUnset, resource, ego, step, snapshot, reset, metrics: () => ({ ...stats }),
     policy: Object.freeze({ playerDamageWrappers: 0, gameplayDedup: 'native-authoritative-ledgers',
       journalPersisted: false, randomCalls: 0, renderSideEffects: false, missSemantics: 'reserved; no hit is inferred from an unobserved path' }) });
