@@ -8,7 +8,7 @@
     "data",
     "index.html"
   ],
-  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected. Targeted hidden portrait correction changes only the exact inner-final output and its cache query. User-approved RC134 measured mobile compositing/cache optimization; three exact runtime outputs, all art/audio/data/contact/quality settings remain byte-protected.",
+  "scope": "User-approved RC133 gameplay/hidden/media plus777/save validation corrections and exact frozen TTS86 six-file increment; no arbitrary namespace exemption; prior264 narration assets and all other runtime bytes remain protected. Targeted hidden portrait correction changes only the exact inner-final output and its cache query. User-approved RC134 measured mobile compositing/cache optimization; three exact runtime outputs, all art/audio/data/contact/quality settings remain byte-protected. Explicit RC134 latest two-atlas source-only Persona attacks, half-arena mirror movement/fixed duel camera and hidden-only opaque backdrop; unchanged humanoid contact geometry, first-lethal ledger, Story routes and frozen TTS86.",
   "baselineGuards": {
     "tools/story-narration-release85-preservation.cjs": "92ed29cdf627a5801277110515e73f75b9cb384868f252eeb40b7844a12bb1c5",
     "tools/rc130-preservation.cjs": "0677d03ad18952f8c4e08e5138c26617235c7b58cb18046c817ecbce5303554a"
@@ -83,11 +83,44 @@
       },
       "after": {
         "mode": "100644",
-        "gitBlob": "c58b6d4f45aa6962e22f98cf2292fdda93374cb9",
+        "gitBlob": "765b001ef0ee6d1bdf039bbbc84f119c60cbc672",
         "file": "assets/index-v31526.js",
-        "sha256": "9d9c5ce6fa759d481ce9199c9e99e3b730090a22d2e5ddbd18ceade05ceebfb7"
+        "sha256": "15405a870dd95117c276ce9c8672cc0dc28b8728f19333f81798ea1e46c14186"
       },
-      "reason": "Native approved RC133 gameplay/media/777 integration, owned midboss presentation-cache restoration and consistent reveal geometry; preserve prior movement/laser/size/fallback/healing policies. Current hidden-duel scope: first-lethal atomic paired awakening, bounded strength and nine skills, final alpha/camera geometry, humanoid main-body aim, and script cache revision as applicable. Round1 readability fix: isolated hidden body brightness within balanced canvas save/restore; source alpha, pixels, sizing, hitboxes and full-arena moods preserved."
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/persona-skills-source/persona-skills-atlas-1.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "02946143e7e69c4fc051fac99cda3262b8385a41",
+        "file": "assets/persona-skills-source/persona-skills-atlas-1.png",
+        "sha256": "29b7bf33c3f45a98e6e4d84351c46422e98478eb13897a4208547fd530567d12"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/persona-skills-source/persona-skills-atlas-2.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d166e34bb9574a100946c8d77d9b31965d364256",
+        "file": "assets/persona-skills-source/persona-skills-atlas-2.png",
+        "sha256": "dcd861c0d01b37b9e93b6105b97218d52bd2b1c526268746852f23fcbb122719"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/persona-skills-source/source-manifest.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "32cbed7157e5499b96073fe5ee10f30c0f86b100",
+        "file": "assets/persona-skills-source/source-manifest.json",
+        "sha256": "c531cdae64c95ba026e195199ddaf386fa8d63ca0379f27b482149479ae03240"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
     },
     {
       "file": "assets/rc108/damage-policy.js",
@@ -103,6 +136,21 @@
         "sha256": "01942659173c8dd78ca05c44b5497715d110f185e33a57d3ac3c8c7274710399"
       },
       "reason": "Delegate Dream EGO cooldown/upgrade behavior to atomic seven-entry RC133 policy."
+    },
+    {
+      "file": "assets/rc108/portrait-split.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f1b2a8ee5b09f22b119e8f67584d4107856e5e4d",
+        "file": "assets/rc108/portrait-split.js"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d9381c2473d4df15ef7b1fd9a4cf64918006cd23",
+        "file": "assets/rc108/portrait-split.js",
+        "sha256": "c5b11b4ffdf467b3fab882d8e531f56027269e245488cc69b98bad735e7e5bc6"
+      },
+      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
     },
     {
       "file": "assets/rc128/combat-feedback.js",
@@ -641,22 +689,22 @@
       "before": null,
       "after": {
         "mode": "100644",
-        "gitBlob": "53e9d7eda1c51e525316a6accc6956dc65f357a1",
+        "gitBlob": "5051599de7be6de9656dc25aea5ca2fbcaeaeb89",
         "file": "assets/rc133/inner-final.js",
-        "sha256": "22d8fff72961d17f87bc343592ad3f2662458ad7037337ea2cac224282b53f5f"
+        "sha256": "b87a89baa6b765eef6fe3258847194dac9c13b558b6ba25fceaa098e908f7569"
       },
-      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
     },
     {
       "file": "assets/rc133/media-art.js",
       "before": null,
       "after": {
         "mode": "100644",
-        "gitBlob": "16adbd2cebf9ff03ecaef7d6f4453dd370fbaa78",
+        "gitBlob": "11a67a5ec293a37613409f90625432a4eb0a8f85",
         "file": "assets/rc133/media-art.js",
-        "sha256": "db4fcbb55d55ad00f367e733afedf8d5fc64d98e2e98bc42052a0e35758d1107"
+        "sha256": "0746c8c29d2803308b3495094a0c849f43a3d8decf1b3d803fc0bf3d36ef20fe"
       },
-      "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file. Current hidden-duel scope: first-lethal atomic paired awakening, bounded strength and nine skills, final alpha/camera geometry, humanoid main-body aim, and script cache revision as applicable."
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
     },
     {
       "file": "assets/rc133/media-audio.js",
@@ -685,11 +733,11 @@
       "before": null,
       "after": {
         "mode": "100644",
-        "gitBlob": "e952f68a11d95cb9c11f25caa2da8d0b73286e6a",
+        "gitBlob": "250f47a6893554a2194005feb3bf22dc11d1984b",
         "file": "assets/rc133/native-install.js.txt",
-        "sha256": "e06a0b1594b413eb2a5b7c19796078bb21fecaf391e2810a63c6825f3891ced1"
+        "sha256": "7c09db6f8094bc688f74d6db9047ec5a43fe06b71489368db616f25b8930bdc4"
       },
-      "reason": "Rebuild cached midboss attack-body ownership after visual replacement and save restore; normalize reveal body height and foot pivot using verified source alpha geometry. Current hidden-duel scope: first-lethal atomic paired awakening, bounded strength and nine skills, final alpha/camera geometry, humanoid main-body aim, and script cache revision as applicable. Round1 readability fix: isolated hidden body brightness within balanced canvas save/restore; source alpha, pixels, sizing, hitboxes and full-arena moods preserved."
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
     },
     {
       "file": "assets/rc133/samong-policy.js",
@@ -767,6 +815,127 @@
         "sha256": "14c60ee1d80b80d8bbab1545152773527a38b60e03f653090b0c1f3acc05a10b"
       },
       "reason": "Explicit approved RC133 gameplay module or source-preserving art/audio delivery; exact output bytes and mode frozen per file."
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4f6cfd0dd0a6164846ac1ec1776956fb10ca7157",
+        "file": "assets/rc134/persona-duel.js",
+        "sha256": "a40bdec0d9ccf542050a8536432790a092cf2271f5636e21597deae5d3564903"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/clock.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9d5da99d4bd4008fc1b09c86ccb17d53848f4438",
+        "file": "assets/rc134/persona-skills/clock.png",
+        "sha256": "a95ddd9dcc0435fa2e7d6c83565c8e3f14db0163dd5b420cfdd351c879bb1068"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/diamond.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "f917f70bca21d6dc85a019ad65b92086c471187b",
+        "file": "assets/rc134/persona-skills/diamond.png",
+        "sha256": "30517ce4fbe07a9cc86cca01c16f1978437bc053a495d95fe946d8b1dc8aab6e"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/eclipse.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "faf9f0acecf09cfa8dfd65967aa6a3f9508e0875",
+        "file": "assets/rc134/persona-skills/eclipse.png",
+        "sha256": "a02b0edf404a2fb7e3ae528590ecc79686eba3205e110b366686422feec46e02"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/eye.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "4bb52537341e2aa9b2eae01447cb72ec894816f5",
+        "file": "assets/rc134/persona-skills/eye.png",
+        "sha256": "a2f80da5d101a331fd6dc8fd3861c2b7e62f0b56bf109aa103a2decfd25e5a9f"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/lance.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "749987421ccd1adf1e96d80b7104a135d839b9fe",
+        "file": "assets/rc134/persona-skills/lance.png",
+        "sha256": "0f1f22adaa4b42aadc6ec43c5b6121d5501fccb9065f623da8af7b47a7426fdf"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/manifest.json",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "053f252f1a1f35802125bf77fe4236cef0897cd4",
+        "file": "assets/rc134/persona-skills/manifest.json",
+        "sha256": "b79c1563712c12e90d776be1eff4374ae3df6b7119e5bef1d0d8869232459412"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/shield.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "a66bf7919e108b276ae4e7767b382635cd631f7c",
+        "file": "assets/rc134/persona-skills/shield.png",
+        "sha256": "899813b911adfc7746cfcf8ee61953a0cf650c8be6d8e758d7083c980f3e34fb"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/small-orb.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "79271265e41269228fd7597170df0906142ee9d5",
+        "file": "assets/rc134/persona-skills/small-orb.png",
+        "sha256": "63816d1179af8bec7d7f6dcfeb322e823f19f28909d6d67a95ed0484a30b9b89"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/star.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "84abad1abe39cac88a73aa7a44c4e744dca1b8d8",
+        "file": "assets/rc134/persona-skills/star.png",
+        "sha256": "bd4b63ebf9e1d3e54cc4a51f3103864ce33cfd8e72d8dd6e590efce5e04da586"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
+    },
+    {
+      "file": "assets/rc134/persona-skills/vortex.png",
+      "before": null,
+      "after": {
+        "mode": "100644",
+        "gitBlob": "83a85169d5c337bf52f7191baa161f755fc2d3e4",
+        "file": "assets/rc134/persona-skills/vortex.png",
+        "sha256": "4f5fbd05e04890c975189c3b3329d870afb34715b5e7afd225d035e4dfbda69d"
+      },
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
     },
     {
       "file": "assets/rc25/raid.js",
@@ -1674,26 +1843,11 @@
       },
       "after": {
         "mode": "100644",
-        "gitBlob": "ccf28d42a63ad3ded4e90a8ce7b0e7cdc7152c17",
+        "gitBlob": "e4a8f7e0029b38808e2b5b99d1c9bd0f0ffdebbc",
         "file": "index.html",
-        "sha256": "242dfc49172b05e0b8de9559f22475790f9932ad803001c9dca5185f797045c1"
+        "sha256": "7982e751ea93d85434542a9e9153e7159235c89cb390a1e8b86c6ebd6d90f178"
       },
-      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
-    },
-    {
-      "file": "assets/rc108/portrait-split.js",
-      "before": {
-        "mode": "100644",
-        "gitBlob": "f1b2a8ee5b09f22b119e8f67584d4107856e5e4d",
-        "file": "assets/rc108/portrait-split.js"
-      },
-      "after": {
-        "mode": "100644",
-        "gitBlob": "d9381c2473d4df15ef7b1fd9a4cf64918006cd23",
-        "file": "assets/rc108/portrait-split.js",
-        "sha256": "c5b11b4ffdf467b3fab882d8e531f56027269e245488cc69b98bad735e7e5bc6"
-      },
-      "reason": "User-approved RC134 mobile lag and quality: retain only central portrait camera pixels plus bilinear sampling gutters; apply mutual-awakening point-wise color once. Exact RGBA/canvas-state and camera equivalence preserve art, resolution, combat, contact and telegraphs."
+      "reason": "Explicit RC134 latest two-atlas Persona skill-only art, safe fixed half-arena ownership and mirrored movement, native cross-center attacks with bounded rapid mutual awakening; preserve original body/arena and other modes."
     }
   ]
 }

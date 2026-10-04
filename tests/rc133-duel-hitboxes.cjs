@@ -5,12 +5,13 @@ const ok=(v,m)=>{checks++;assert.ok(v,m);},eq=(a,b,m)=>{checks++;assert.equal(a,
 
 function env(){
  const window={},context=vm.createContext({window,console,Set,Map,Math,Date,Object,Array,Number,String,JSON,Event,setTimeout:()=>0,clearTimeout:()=>{}});
- for(const file of ['assets/rc128/awakening-policy.js','assets/rc133/samong-policy.js','assets/rc91/samong-awakening.js'])vm.runInContext(read(file),context,{filename:file});
+ for(const file of ['assets/rc128/awakening-policy.js','assets/rc133/samong-policy.js','assets/rc91/samong-awakening.js','assets/rc134/persona-duel.js'])vm.runInContext(read(file),context,{filename:file});
  window.__HAPIL_PARTY_V31322__=null;
  window.__HAPIL_RC86_BRIDGE__={actor:(zone,id)=>({id,zone,name:'교주',hp:0,maxHp:1500,sprite:'./assets/cult-v3123/pride_cyborg_cult_leader.webp'}),cloneEnemy:a=>({...a}),point:()=>({x:23,y:10})};
  window.__HAPIL_CONTROLS_V31329__={binding:{passives:{current:{}}}};
  vm.runInContext(read('assets/rc133/inner-final.js'),context,{filename:'assets/rc133/inner-final.js'});
  const Final=window.__HAPIL_INNER_FINAL_RC133__,Samong=window.__HAPIL_SAMONG_RC91__,shots=[],casts=[];
+ const skillMap=Object.fromEntries(Final.deck.map(k=>[k.key,'./assets/rc134/persona-skills/'+k.key+'.png']));Final.configure({ready:true,map:'map',body:'body',awakening:'awake',skills:Object.values(skillMap),skillMap});
  let serial=1;Final.bind({heroes:Samong.heroes.map(id=>({id,sprite:'hero-'+id})),locked:()=>false,bullet:(s,a,spec)=>{const q={id:serial++,sourceId:a.id,x:a.x,y:a.y,previousX:a.x,previousY:a.y,...spec};s.hostileProjectiles.push(q);shots.push(q);return q;},cast:(s,a,spec)=>{const q={...spec,id:serial++,sourceId:a.id,born:s.time,at:s.time+spec.windup,x:spec.anchor==='boss'?a.x:s.x,y:spec.anchor==='boss'?a.y:s.y,originX:a.x,originY:a.y};s.pendingHits.push(q);casts.push(q);return q;}});
  const state=(hero='gunner')=>({zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,hp:220,maxHp:1000,time:10,x:7,y:9,activeHeroId:hero,enemies:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],floatTexts:[],fxSerial:1,bossDefeated:false,completedZones:new Set(),spawnedWaves:new Set()});
  return{window,context,Final,Samong,shots,casts,state};
@@ -91,7 +92,7 @@ function env(){
  const {Final,state,shots,casts}=env(),s=state();s.enemies=[{id:'c104-boss',hp:0,maxHp:180000}];Final.start(s,s.enemies[0]);const m=s.innerFinalRC133;m.intro=0;
  ok(m.maxHp>=180000*1.65,'hidden boss is tougher than the defeated cult leader');eq(m.healthModel,2,'new bounded model is saved');
  const keys=new Set();for(let i=0;i<9;i++){s.time++;s.hostileProjectiles=[];s.pendingHits=[];m.shotDelay=0;Final.tick(s,.016);const packets=[...s.hostileProjectiles,...s.pendingHits];ok(packets.length>0,'skill '+Final.deck[i].key+' actually dispatched');packets.forEach(q=>keys.add(q.rc133Skill));ok(packets.every(q=>q.damage>0&&q.damage<=20&&q.sourceId===Final.id),'bounded real packets for '+Final.deck[i].key);}
- eq(keys.size,9,'all nine supplied skills used in one persisted cycle');ok(shots.length>0&&casts.length>0,'native bullet and native area paths both exercised');
+ eq(keys.size,9,'all nine supplied skills used in one persisted cycle');ok(shots.length>0&&casts.length===0,'RC134 replaces teleporting area hits with cross-center native projectiles');
  eq(Final.health(s,{maxHp:1e100},{infinitePower:1e100}),3000000,'unbounded growth cannot exceed HP ceiling');
  const restored=state();Final.restore(restored,Final.snapshot(s));eq(restored.innerFinalRC133.cycle,9,'deck position survives native restore');eq(Final.boss(restored).maxHp,m.maxHp,'reload cannot recalibrate health');
 }

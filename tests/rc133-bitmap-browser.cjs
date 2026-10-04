@@ -19,7 +19,7 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeU
    let torso=null;const deadline=performance.now()+10000;
    while(!(torso=V.body(s,s,true))&&performance.now()<deadline)await new Promise(resolve=>setTimeout(resolve,20));
    const results=[],problems=[];let checks=0;const test=(pass,label,extra)=>{checks++;if(!pass)problems.push({label,extra});};
-   for(const [skill,sprite] of Object.entries(M.skills))for(const population of [1,12,24]){
+   for(const [skill,sprite] of Object.entries({...M.skills,...Object.fromEntries(Object.entries(M.personaSkills).map(([k,v])=>['persona-'+k,v]))}))for(const population of [1,12,24]){
     s.time+=.1;const q={id:83,sourceId:'inner-evil-rc133',boss:true,kind:'projectile',born:90,sourceBorn:90,x:16,y:24,previousX:15.96,previousY:23.99,vx:3,vy:1,radius:.24,sprite,color:'#ee3344',accent:'#fff',visualScaleV31224:1.5};s.hostileProjectiles=Array.from({length:population},()=>q);
     const plan=V.projectile(s,q);test(!!plan,'pre-render plan exists '+skill+'/'+population);
     if(!plan)continue;
