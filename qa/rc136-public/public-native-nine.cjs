@@ -193,7 +193,8 @@ async function openSettings(page) {
     for (let i = 0; i < 3; i++) {
       const box = await locator.boundingBox().catch(() => null);
       if (box && box.width > 1 && box.height > 1) {
-        await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+        if(mobile) await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+        else await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
         if (await page.locator('.rc61-settings').isVisible().catch(() => false)) return true;
       }
       await page.waitForTimeout(100);
@@ -381,6 +382,7 @@ async function main() {
   } catch (error) {
     report.status = 'error';
     report.error = error.stack || String(error);
+    try { const p=browser?.contexts()[0]?.pages()[0]; if(p){await p.screenshot({path:path.join(output,'failure.png')});report.failureNative=await readNative(p);} } catch (_) {}
     throw error;
   } finally {
     save();

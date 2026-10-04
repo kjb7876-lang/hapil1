@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [bytes, desktop, mobile]
+        suite: ${{ contains(github.event.head_commit.message, '[failed-only]') && fromJSON('["bytes","mobile"]') || fromJSON('["bytes","desktop","mobile"]') }}
     steps:
       - uses: actions/checkout@v6
         with:
