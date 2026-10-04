@@ -1,0 +1,1850 @@
+{
+  "version": "RC130",
+  "testedCommit": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "files": [
+    {
+      "file": "index.html",
+      "attempt": 3,
+      "status": 200,
+      "expected": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb",
+      "actual": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e",
+      "actual": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e"
+    },
+    {
+      "file": "assets/rc130/projectile-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+      "actual": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
+    },
+    {
+      "file": "assets/rc130/audio-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+      "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+      "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+    },
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/rc129/danmaku-director.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+      "actual": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3"
+    },
+    {
+      "file": "assets/rc129/danmaku-hud.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+      "actual": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/story-narration/v1/mixer.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+      "actual": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197"
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+      "actual": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+    },
+    {
+      "file": "audio/v31361/contact-kinetic.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913",
+      "actual": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913"
+    },
+    {
+      "file": "audio/v31361/contact-heavy.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8",
+      "actual": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8"
+    },
+    {
+      "file": "assets/combat-audio/v1/catalog.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc",
+      "actual": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc"
+    },
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e",
+      "actual": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e"
+    },
+    {
+      "file": "assets/combat-audio/v1/native-bridge.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58",
+      "actual": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58"
+    },
+    {
+      "file": "assets/combat-audio/v1/manifest.json",
+      "attempt": 0,
+      "status": 200,
+      "expected": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e",
+      "actual": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+      "actual": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+      "actual": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+      "actual": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+      "actual": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+      "actual": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+      "actual": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+      "actual": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+      "actual": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872"
+    }
+  ],
+  "readiness": [
+    {
+      "file": "index.html",
+      "attempt": 0,
+      "status": 200,
+      "expected": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb",
+      "actual": "489dc49054c64d85379afa7ac660a79eb1d0186759cfd4c85a6317ea5c23339b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 1,
+      "status": 200,
+      "expected": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb",
+      "actual": "489dc49054c64d85379afa7ac660a79eb1d0186759cfd4c85a6317ea5c23339b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 2,
+      "status": 200,
+      "expected": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb",
+      "actual": "489dc49054c64d85379afa7ac660a79eb1d0186759cfd4c85a6317ea5c23339b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 3,
+      "status": 200,
+      "expected": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb",
+      "actual": "0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e",
+      "actual": "b6d566c007627561261d17f46e5900cbc26b09f256a182fa565589b7a482179e"
+    },
+    {
+      "file": "assets/rc130/projectile-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72",
+      "actual": "ef8e1c92baab33aa25e1987489c7f2a17adf15bb9d8c44b69642ccf3c7a54d72"
+    },
+    {
+      "file": "assets/rc130/audio-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e",
+      "actual": "f8e4d18b55e38672acbded3ab11e947b1d2e97185e849829dcda2bec14fa489e"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33",
+      "actual": "5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33"
+    },
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/rc129/danmaku-director.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3",
+      "actual": "7ec963b20d1043f365ea8fd37a87f886bb3ed845b8d1e02d3be4443b11adeed3"
+    },
+    {
+      "file": "assets/rc129/danmaku-hud.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47",
+      "actual": "d1b0301a573e183d43e5711ec5b87ace83463bf738733637603932f0cf039a47"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/story-narration/v1/mixer.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197",
+      "actual": "2af3f7043894e03f3fb380525f68f95f93156952b7a4a5920fffc6663a6bb197"
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5",
+      "actual": "b91b6557a78ea0a2a59b5aa0d010aee5c22ed6fcf3b31ba15e31581ee9d0acf5"
+    },
+    {
+      "file": "audio/v31361/contact-kinetic.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913",
+      "actual": "6b19214185896be7fdb0ab6e179b77423e901b0324e5b84e3b8d64cebc3cc913"
+    },
+    {
+      "file": "audio/v31361/contact-heavy.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8",
+      "actual": "f2225f484c186a3b82065943e11c23cc676f6f397789442750dc8af516f0e2e8"
+    },
+    {
+      "file": "assets/combat-audio/v1/catalog.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc",
+      "actual": "cba0a6e4ba6bf644e9b0cba163cc7e265a090926dd21f717c4fab96b40cfc2cc"
+    },
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e",
+      "actual": "82ce51a1c5b6db97b3d659dbb7c799cc31d98917c33fb1d61ae18206decde35e"
+    },
+    {
+      "file": "assets/combat-audio/v1/native-bridge.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58",
+      "actual": "3f7e2ce22dcae61b2393c54f9d4aa301a9c7535c573e50dbcd29c6420989ac58"
+    },
+    {
+      "file": "assets/combat-audio/v1/manifest.json",
+      "attempt": 0,
+      "status": 200,
+      "expected": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e",
+      "actual": "aa0196067da281583660be4263b53c6f399148388ea52bda05506315c5036f1e"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+      "actual": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+      "actual": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+      "actual": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+      "actual": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+      "actual": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+      "actual": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+      "attempt": 0,
+      "status": 200,
+      "expected": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+      "actual": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573"
+    },
+    {
+      "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+      "attempt": 0,
+      "status": 200,
+      "expected": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+      "actual": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872"
+    }
+  ],
+  "profiles": [
+    {
+      "name": "pc",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "time": 0.13679999999999973,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 1.5335000000000005,
+          "x": 17.812097733548917,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 18,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 61,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 2.9999999999999987,
+          "x": 17.812097733548917,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 18,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 110,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 4.4667999999999966,
+          "x": 17.812097733548917,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 18,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 163,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 5.9802000000000035,
+          "x": 17.472931066882246,
+          "y": 16.339166666666674,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 18,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 204,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 7.47000000000001,
+          "x": 17.472931066882246,
+          "y": 16.339166666666674,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 18,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 251,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 8.813200000000007,
+          "x": 17.472931066882246,
+          "y": 16.339166666666674,
+          "hp": 225.10000000000002,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 48,
+            "bitmapDraws": 16,
+            "cappedDraws": 0,
+            "maxRatio": 0.06521287265945605,
+            "meleeDraws": 35,
+            "meleeMissing": 0,
+            "retiredMelee": 1,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 297,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 9.863299999999992,
+          "x": 17.399651178437605,
+          "y": 16.414936949053708,
+          "hp": 227.148,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 99,
+            "bitmapDraws": 37,
+            "cappedDraws": 0,
+            "maxRatio": 0.06521287265945605,
+            "meleeDraws": 45,
+            "meleeMissing": 0,
+            "retiredMelee": 2,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 325,
+            "enemyHitAccepted": 9,
+            "neutralHurt": 2,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 11.036699999999971,
+          "x": 17.399651178437605,
+          "y": 16.414936949053708,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 102,
+            "bitmapDraws": 38,
+            "cappedDraws": 0,
+            "maxRatio": 0.06521287265945605,
+            "meleeDraws": 49,
+            "meleeMissing": 0,
+            "retiredMelee": 3,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 355,
+            "enemyHitAccepted": 10,
+            "neutralHurt": 2,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "portrait",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "time": 0.1368000000000002,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 4,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 1.2967000000000009,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 40,
+            "enemyHitAccepted": 1,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 2.5166000000000017,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 82,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 3.8364,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 122,
+            "enemyHitAccepted": 4,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 5.163400000000001,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 169,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 6.463400000000007,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 213,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 7.803300000000006,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 9,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 256,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 9.11649999999999,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 11,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 293,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 10.443299999999974,
+          "x": 17.771947010260856,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 6,
+            "bitmapDraws": 6,
+            "cappedDraws": 0,
+            "maxRatio": 0.09146808845214464,
+            "meleeDraws": 11,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 337,
+            "enemyHitAccepted": 9,
+            "neutralHurt": 1,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "landscape",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "time": 0.17670000000000027,
+          "x": 16.000000000000004,
+          "y": 16.000000000000004,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 0,
+            "bitmapDraws": 0,
+            "cappedDraws": 0,
+            "maxRatio": 0,
+            "meleeDraws": 5,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 0,
+            "enemyHitAccepted": 0,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 1.9432000000000003,
+          "x": 18.7405854011298,
+          "y": 16.24478518518519,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 12,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 66,
+            "bitmapDraws": 31,
+            "cappedDraws": 0,
+            "maxRatio": 0.16926688985739266,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 51,
+            "enemyHitAccepted": 2,
+            "neutralHurt": 0,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 3.443199999999999,
+          "x": 20.70498680463755,
+          "y": 18.215610517518495,
+          "hp": 222,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 9,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 725,
+            "bitmapDraws": 628,
+            "cappedDraws": 1,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 88,
+            "enemyHitAccepted": 3,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 4.976500000000008,
+          "x": 21.508690508341253,
+          "y": 19.0193142212222,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1379,
+            "bitmapDraws": 1260,
+            "cappedDraws": 28,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 128,
+            "enemyHitAccepted": 5,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 6.493100000000023,
+          "x": 21.508690508341253,
+          "y": 19.0193142212222,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1379,
+            "bitmapDraws": 1260,
+            "cappedDraws": 28,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 13,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 172,
+            "enemyHitAccepted": 6,
+            "neutralHurt": 3,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 7.99310000000004,
+          "x": 22.065772604252185,
+          "y": 19.5146738408919,
+          "hp": 236.9,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1472,
+            "bitmapDraws": 1291,
+            "cappedDraws": 28,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 15,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 210,
+            "enemyHitAccepted": 7,
+            "neutralHurt": 6,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 9.526300000000028,
+          "x": 22.311387888889882,
+          "y": 19.7164792195218,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1523,
+            "bitmapDraws": 1308,
+            "cappedDraws": 28,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 15,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 236,
+            "enemyHitAccepted": 8,
+            "neutralHurt": 7,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "foldingSpace",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 11.042900000000015,
+          "x": 22.255110666587445,
+          "y": 19.86304393686437,
+          "hp": 237.09999999999997,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1571,
+            "bitmapDraws": 1324,
+            "cappedDraws": 28,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 17,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 262,
+            "enemyHitAccepted": 9,
+            "neutralHurt": 8,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        },
+        {
+          "time": 12.542899999999994,
+          "x": 22.275698350249996,
+          "y": 19.86411600008853,
+          "hp": 240,
+          "mode": "STORY",
+          "speed": 6.471684999999999,
+          "shots": 0,
+          "finite": true,
+          "policy": {
+            "projectileCalls": 1571,
+            "bitmapDraws": 1324,
+            "cappedDraws": 28,
+            "maxRatio": 0.19999999999999998,
+            "meleeDraws": 17,
+            "meleeMissing": 0,
+            "retiredMelee": 0,
+            "ratio": 0.2
+          },
+          "audio": {
+            "version": "RC130",
+            "enemyHitRequests": 307,
+            "enemyHitAccepted": 10,
+            "neutralHurt": 9,
+            "verifiedHurt": 0,
+            "enemyHitEvery": 6,
+            "enemyHitMinimumInterval": 1.1,
+            "unreviewedVoicesDisabled": true,
+            "uploadedArchiveImported": false
+          },
+          "danmaku": true,
+          "combatAudio": {
+            "loaded": true,
+            "music": 4,
+            "effects": 4,
+            "diagnostics": {
+              "mode": "combat",
+              "selected": "timeControl",
+              "zone": "dist00",
+              "latched": true,
+              "rank": "boss",
+              "generation": 4,
+              "activeEffects": 0,
+              "eventCount": 0,
+              "failedPaths": 0,
+              "suspended": false
+            }
+          }
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "attachmentImported": false,
+  "scope": "Read-only deployed bytes and natural startup, not full campaigns or physical-phone performance",
+  "combatAudio": {
+    "registeredAssets": [
+      {
+        "role": "clockworkIntense",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+        "sha256": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+        "bytes": 4905154
+      },
+      {
+        "role": "clockwork",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+        "sha256": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+        "bytes": 5198727
+      },
+      {
+        "role": "timeControl",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+        "sha256": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+        "bytes": 1743095
+      },
+      {
+        "role": "dark",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+        "sha256": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+        "bytes": 648044
+      },
+      {
+        "role": "roar",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+        "sha256": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+        "bytes": 648044
+      },
+      {
+        "role": "blackHole",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+        "sha256": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+        "bytes": 648044
+      },
+      {
+        "role": "illusion",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+        "sha256": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+        "bytes": 648044
+      },
+      {
+        "role": "foldingSpace",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+        "sha256": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+        "bytes": 4814147
+      }
+    ],
+    "archiveBytesVerified": false,
+    "provenance": "Verified against the repository manifest; no claim that the unreadable conversation ZIP is this same set."
+  }
+}
