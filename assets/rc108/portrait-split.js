@@ -53,8 +53,13 @@
  function render(canvas,s,images,hero,settings,draw){
   const box=canvas.getBoundingClientRect();if(!active(s)||!box.width||!box.height){cache.delete(canvas);draw(canvas,s,images,hero,settings);return;}
   target=frame++%2===0?'boss':'hero';rendering=true;
-  try{draw(canvas,s,images,hero,settings);stats.drawPasses++;if(target==='boss')stats.bossPasses++;else stats.heroPasses++;}
-  finally{rendering=false;}
+  // Only this central crop reaches either viewport. Retain its sampling gutter
+  // while clipping invisible native paint; camera, backing size and draw cadence
+  // are unchanged. A native resize resets the clip for that first resized frame.
+  const native=canvas.getContext('2d'),height=canvas.height,halfHeight=Math.floor(height/2),crop=Math.floor((height-halfHeight)/2),gutter=Math.min(1,crop),tail=Math.min(1,height-crop-halfHeight);
+  native?.save();
+  try{if(native){native.setTransform(1,0,0,1,0,0);native.beginPath();native.rect(0,crop-gutter,canvas.width,halfHeight+gutter+tail);native.clip();}draw(canvas,s,images,hero,settings);stats.drawPasses++;if(target==='boss')stats.bossPasses++;else stats.heroPasses++;}
+  finally{native?.restore();rendering=false;}
   const map=store(canvas,target),other=target==='boss'?'hero':'boss';
   if(!map.ready[other]){const ctx=map[other].getContext('2d');ctx?.drawImage(map[target],0,0);map.ready[other]=true;}
   const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,half=Math.floor(h/2),sourceY=map.sourceY;
