@@ -1,0 +1,2381 @@
+{
+  "scope": "Latest authored native decks and staged combat reducers/rendering in Chromium; not natural campaign clears",
+  "profiles": [
+    {
+      "name": "pc",
+      "checks": 856,
+      "problems": [],
+      "volleys": [
+        {
+          "id": "dist00-boss",
+          "zone": "dist00",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-dist01",
+          "zone": "dist01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist02",
+          "zone": "dist02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist03",
+          "zone": "dist03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist04",
+          "zone": "dist04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist05",
+          "zone": "dist05",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "dist06-boss",
+          "zone": "dist06",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-dist06",
+          "zone": "dist06",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a07",
+          "zone": "ep1a07",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a08",
+          "zone": "ep1a08",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a09",
+          "zone": "ep1a09",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a10",
+          "zone": "ep1a10",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "a11-boss",
+          "zone": "ep1a11",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1a11",
+          "zone": "ep1a11",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1b01",
+          "zone": "ep1b01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b02-boss",
+          "zone": "ep1b02",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b02",
+          "zone": "ep1b02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b03-boss",
+          "zone": "ep1b03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b03",
+          "zone": "ep1b03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b04-boss",
+          "zone": "ep1b04",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b04",
+          "zone": "ep1b04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b05-boss",
+          "zone": "ep1b05",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b05",
+          "zone": "ep1b05",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b06-boss",
+          "zone": "ep1b06",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b06",
+          "zone": "ep1b06",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b06b-boss",
+          "zone": "ep1b06b",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b06b",
+          "zone": "ep1b06b",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b07-boss",
+          "zone": "ep1b07",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b07",
+          "zone": "ep1b07",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b08-boss",
+          "zone": "ep1b08",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b08",
+          "zone": "ep1b08",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b09",
+          "zone": "ep1b09",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u201-mid",
+          "zone": "u201",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u202-mid",
+          "zone": "u202",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u203-mid",
+          "zone": "u203",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "l301-boss",
+          "zone": "last301",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-last302-v31231",
+          "zone": "last302",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "l303-boss",
+          "zone": "last303",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-kair01-v31231",
+          "zone": "kair01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "k103-boss",
+          "zone": "kair03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-hando01",
+          "zone": "hando01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-hando02",
+          "zone": "hando02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "h103-boss",
+          "zone": "hando03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-hando03",
+          "zone": "hando03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-murder01",
+          "zone": "murder01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-murder02",
+          "zone": "murder02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-murder03",
+          "zone": "murder03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c101-mid",
+          "zone": "cult01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c102-boss",
+          "zone": "cult02",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "c103-mid",
+          "zone": "cult03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "c103-boss",
+          "zone": "cult03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "c104-mid",
+          "zone": "cult04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c104-boss",
+          "zone": "cult04",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "u204-mid",
+          "zone": "u204",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u205-mid",
+          "zone": "u205",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u206-mid",
+          "zone": "u206",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "l305-boss",
+          "zone": "last305",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-kair04-v31231",
+          "zone": "kair04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "kair-great-01",
+          "zone": "kair05",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-02",
+          "zone": "kair06",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-04",
+          "zone": "kair07",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-05",
+          "zone": "kair08",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-kair09-v31231",
+          "zone": "kair09",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-06",
+          "zone": "kair10",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "murder04-mid",
+          "zone": "murder04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c105-mid",
+          "zone": "cult05",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c106-mid",
+          "zone": "cult06",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "blue-executor",
+          "zone": "murder03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        }
+      ],
+      "dynamics": [
+        "mb-dist03",
+        "mb-dist05",
+        "dist06-boss",
+        "mb-dist06",
+        "b07-boss",
+        "mb-ep1b07",
+        "b09-boss",
+        "u201-mid",
+        "u202-mid",
+        "u203-mid",
+        "u203-boss",
+        "l301-boss",
+        "mb-last302-v31231",
+        "l303-boss",
+        "kair-great-03",
+        "k103-boss",
+        "h103-boss",
+        "c102-boss",
+        "c104-mid",
+        "c104-boss",
+        "u204-mid",
+        "u205-mid",
+        "u206-mid",
+        "kair-great-01",
+        "kair-great-02",
+        "kair-great-04",
+        "kair-great-05",
+        "kair-great-06",
+        "c106-mid"
+      ],
+      "spectacles": [
+        "mb-dist06",
+        "h103-boss",
+        "u203-boss",
+        "b09-boss"
+      ],
+      "finales": [
+        "dist00-boss",
+        "mb-dist01",
+        "mb-dist02",
+        "mb-dist03",
+        "mb-dist04",
+        "mb-dist05",
+        "dist06-boss",
+        "mb-dist06",
+        "mb-ep1a07",
+        "mb-ep1a08",
+        "mb-ep1a09",
+        "mb-ep1a10",
+        "a11-boss",
+        "mb-ep1a11",
+        "mb-ep1b01",
+        "b02-boss",
+        "mb-ep1b02",
+        "b03-boss",
+        "mb-ep1b03",
+        "b04-boss",
+        "mb-ep1b04",
+        "b05-boss",
+        "mb-ep1b05",
+        "b06-boss",
+        "mb-ep1b06",
+        "b06b-boss",
+        "mb-ep1b06b",
+        "b07-boss",
+        "mb-ep1b07",
+        "b08-boss",
+        "mb-ep1b08",
+        "b09-boss",
+        "mb-ep1b09",
+        "u201-mid",
+        "u202-mid",
+        "u203-mid",
+        "u203-boss",
+        "l301-boss",
+        "mb-last302-v31231",
+        "l303-boss",
+        "mb-kair01-v31231",
+        "kair-great-03",
+        "k103-boss",
+        "mb-hando01",
+        "mb-hando02",
+        "h103-boss",
+        "mb-hando03",
+        "mb-murder01",
+        "mb-murder02",
+        "mb-murder03",
+        "c101-mid",
+        "c102-boss",
+        "c103-mid",
+        "c103-boss",
+        "c104-mid",
+        "c104-boss",
+        "u204-mid",
+        "u205-mid",
+        "u206-mid",
+        "l305-boss",
+        "mb-kair04-v31231",
+        "kair-great-01",
+        "kair-great-02",
+        "kair-great-04",
+        "kair-great-05",
+        "mb-kair09-v31231",
+        "kair-great-06",
+        "murder04-mid",
+        "c105-mid",
+        "c106-mid",
+        "blue-executor"
+      ],
+      "ordinary": [
+        {
+          "id": "mb-dist02",
+          "card": "뿔악마 늪가르기",
+          "hits": 1
+        },
+        {
+          "id": "mb-dist05",
+          "card": "마지막 유언 교차",
+          "hits": 1
+        },
+        {
+          "id": "dist06-boss",
+          "card": "포기하면 편하다",
+          "hits": 1
+        },
+        {
+          "id": "mb-ep1a07",
+          "card": "이름 소거 십자",
+          "hits": 1
+        },
+        {
+          "id": "mb-ep1a10",
+          "card": "도움 거부의 벽",
+          "hits": 1
+        },
+        {
+          "id": "a11-boss",
+          "card": "거짓구원의 단일명령",
+          "hits": 1
+        },
+        {
+          "id": "mb-ep1a11",
+          "card": "666 균열",
+          "hits": 1
+        },
+        {
+          "id": "b02-boss",
+          "card": "오물봉투 낙하",
+          "hits": 4
+        },
+        {
+          "id": "mb-ep1b02",
+          "card": "오물봉투 낙하",
+          "hits": 4
+        },
+        {
+          "id": "b05-boss",
+          "card": "아스모데우스 하트탄",
+          "hits": 3
+        },
+        {
+          "id": "mb-ep1b05",
+          "card": "아스모데우스 하트탄",
+          "hits": 3
+        },
+        {
+          "id": "b08-boss",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "mb-ep1b08",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "mb-last302-v31231",
+          "card": "불면의 십자시선",
+          "hits": 1
+        },
+        {
+          "id": "l303-boss",
+          "card": "불면의 십자시선",
+          "hits": 1
+        },
+        {
+          "id": "mb-kair01-v31231",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-03",
+          "card": "유예의 열린 시간방",
+          "hits": 1
+        },
+        {
+          "id": "k103-boss",
+          "card": "조류의 열린 숨구멍",
+          "hits": 1
+        },
+        {
+          "id": "mb-hando01",
+          "card": "위조 귀환좌표",
+          "hits": 1
+        },
+        {
+          "id": "h103-boss",
+          "card": "EGO 환수탈취",
+          "hits": 3
+        },
+        {
+          "id": "mb-murder02",
+          "card": "무음계단 경보",
+          "hits": 1
+        },
+        {
+          "id": "mb-murder03",
+          "card": "낙하 원인역전",
+          "hits": 4
+        },
+        {
+          "id": "c101-mid",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "c102-boss",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "c103-mid",
+          "card": "한리안 · 황금 역십자가",
+          "hits": 1
+        },
+        {
+          "id": "c103-boss",
+          "card": "백이온 · 질서의 방벽",
+          "hits": 1
+        },
+        {
+          "id": "l305-boss",
+          "card": "불면의 십자시선",
+          "hits": 1
+        },
+        {
+          "id": "mb-kair04-v31231",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-01",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-02",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-04",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-05",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "mb-kair09-v31231",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-06",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "murder04-mid",
+          "card": "파란불 회귀명령",
+          "hits": 1
+        },
+        {
+          "id": "c106-mid",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "blue-executor",
+          "card": "파란불 회귀명령",
+          "hits": 1
+        }
+      ],
+      "cosmic": [
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "flag": "episodeCosmicFinalV387",
+          "card": "사이보그 회장 · 생체 부트로더 · 해일 나선",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 5000,
+          "concurrent": 1
+        },
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "flag": "episodeCosmicFinalV387",
+          "card": "컨트롤러 · 기억의 문 · 쌍성 공명",
+          "phase": 3,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 5000,
+          "concurrent": 1
+        },
+        {
+          "id": "l303-boss",
+          "zone": "last303",
+          "flag": "episodeCosmicFinalV387",
+          "card": "불면귀 · 오로라 물결",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 5000,
+          "concurrent": 1
+        },
+        {
+          "id": "k103-boss",
+          "zone": "kair03",
+          "flag": "episodeCosmicFinalV387",
+          "card": "세이렌 모르 · 아르키메데스 나선",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 5000,
+          "concurrent": 1
+        },
+        {
+          "id": "h103-boss",
+          "zone": "hando03",
+          "flag": "episodeCosmicFinalV387",
+          "card": "EGO 강탈 악몽왕 · 쌍성 나선",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 5000,
+          "concurrent": 1
+        },
+        {
+          "id": "mb-murder03",
+          "zone": "murder03",
+          "flag": "episodeCosmicFinalV387",
+          "card": "옥상 인과보관인 · 삼행성 궤도",
+          "phase": 2,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.5,
+            "endAt": 106.14,
+            "damage": 14,
+            "recovery": 112.38
+          },
+          "contacts": 1,
+          "hpLoss": 5000,
+          "concurrent": 1
+        },
+        {
+          "id": "a11-cosmic-v31318",
+          "zone": "ep1a11",
+          "flag": "cosmicLuciferV31318",
+          "card": "피의 천문 · 혈광 소멸포",
+          "clocks": {
+            "born": 105,
+            "at": 108.8,
+            "recovery": 116.85999999999999
+          },
+          "phase": 2,
+          "hpLoss": 5000,
+          "concurrent": 1,
+          "admission": "next arsenal action deferred; concurrent native projectile exercised"
+        }
+      ],
+      "screens": [
+        "b09-boss",
+        "u203-boss",
+        "l303-boss",
+        "k103-boss",
+        "h103-boss",
+        "mb-murder03",
+        "a11-cosmic-v31318-warning",
+        "a11-cosmic-v31318",
+        "a11-cosmic-v31318-end"
+      ],
+      "overlap": {
+        "phase": {
+          "index": 1,
+          "name": "레이저",
+          "title": "혈광포 · /// 삼중 사선",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 0.05,
+          "remaining": 11.95,
+          "duration": 12,
+          "cycle": 1,
+          "serial": 1,
+          "band": 1,
+          "bands": 3,
+          "stage": "active",
+          "draining": false,
+          "rest": 0,
+          "castRemaining": 0
+        },
+        "old": 6,
+        "remaining": 6,
+        "laser": {
+          "id": 9,
+          "contacts": 1,
+          "born": 113.19999999999925,
+          "fireAt": 115.29999999999924,
+          "endAt": 119.01999999999924
+        },
+        "events": [
+          {
+            "schema": 2,
+            "sequence": 1,
+            "epoch": 1,
+            "time": 113.19999999999925,
+            "zone": "ep1b03",
+            "mode": "STORY",
+            "kind": "CONTACT",
+            "result": "HIT",
+            "reason": "native-player-damage",
+            "controlMode": "semi",
+            "finalDamage": {
+              "direction": "incoming",
+              "baseline": 100,
+              "factor": 1,
+              "amount": 100
+            },
+            "targetId": "__host",
+            "heroId": "hwando",
+            "source": {
+              "id": "1",
+              "ownerId": "b03-boss",
+              "born": 111.64999999999937,
+              "family": "projectile",
+              "geometry": null,
+              "shape": null,
+              "boss": true,
+              "midboss": false,
+              "x": 21.333251325157562,
+              "y": 18.175782687380604,
+              "originX": 16,
+              "originY": 16,
+              "vx": 3.3332820782234722,
+              "vy": 1.3598641796128796,
+              "heart": false
+            },
+            "requestedDamage": 10,
+            "appliedDamage": 100,
+            "hpBefore": 10000,
+            "hpAfter": 9900,
+            "hpLoss": 100,
+            "resonanceBefore": 0,
+            "resonanceAfter": 0,
+            "resonanceAwarded": 0,
+            "resonanceSpent": 0,
+            "healed": 0,
+            "egoStarted": false,
+            "downed": false,
+            "before": {
+              "hp": 10000,
+              "resonance": 0,
+              "invulnerableUntil": 0,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "after": {
+              "hp": 9900,
+              "resonance": 0,
+              "invulnerableUntil": 113.19999999999925,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "returned": true,
+            "path": [
+              "player-entry",
+              "party-authority-route",
+              "player-reducer",
+              "final-incoming-control-mode",
+              "host-after-damage",
+              "host-damage-notice"
+            ],
+            "fault": null
+          },
+          {
+            "schema": 2,
+            "sequence": 2,
+            "epoch": 1,
+            "time": 115.34999999999924,
+            "zone": "ep1b03",
+            "mode": "STORY",
+            "kind": "CONTACT",
+            "result": "HIT",
+            "reason": "native-player-damage",
+            "controlMode": "semi",
+            "finalDamage": {
+              "direction": "incoming",
+              "baseline": 5000,
+              "factor": 1,
+              "amount": 5000
+            },
+            "targetId": "__host",
+            "heroId": "hwando",
+            "source": {
+              "id": "9",
+              "ownerId": "b03-boss",
+              "born": 113.19999999999925,
+              "family": "laser",
+              "geometry": null,
+              "shape": "line",
+              "boss": true,
+              "midboss": false,
+              "x": 12.759739336390245,
+              "y": 8.879218009170748,
+              "originX": 18.7,
+              "originY": 18.7,
+              "vx": null,
+              "vy": null,
+              "heart": true
+            },
+            "requestedDamage": 518,
+            "appliedDamage": 5000,
+            "hpBefore": 9900,
+            "hpAfter": 4900,
+            "hpLoss": 5000,
+            "resonanceBefore": 0,
+            "resonanceAfter": 0,
+            "resonanceAwarded": 0,
+            "resonanceSpent": 0,
+            "healed": 0,
+            "egoStarted": false,
+            "downed": false,
+            "before": {
+              "hp": 9900,
+              "resonance": 0,
+              "invulnerableUntil": 0,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "after": {
+              "hp": 4900,
+              "resonance": 0,
+              "invulnerableUntil": 115.34999999999924,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "returned": true,
+            "path": [
+              "player-entry",
+              "party-authority-route",
+              "player-reducer",
+              "final-incoming-control-mode",
+              "host-after-damage",
+              "host-damage-notice"
+            ],
+            "fault": null
+          }
+        ]
+      },
+      "bounds": {
+        "projectileCap": 56,
+        "observedMax": 12,
+        "stress": 56
+      },
+      "errors": []
+    },
+    {
+      "name": "portrait",
+      "checks": 856,
+      "problems": [],
+      "volleys": [
+        {
+          "id": "dist00-boss",
+          "zone": "dist00",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-dist01",
+          "zone": "dist01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist02",
+          "zone": "dist02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist03",
+          "zone": "dist03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist04",
+          "zone": "dist04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-dist05",
+          "zone": "dist05",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "dist06-boss",
+          "zone": "dist06",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-dist06",
+          "zone": "dist06",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a07",
+          "zone": "ep1a07",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a08",
+          "zone": "ep1a08",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a09",
+          "zone": "ep1a09",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1a10",
+          "zone": "ep1a10",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "a11-boss",
+          "zone": "ep1a11",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1a11",
+          "zone": "ep1a11",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-ep1b01",
+          "zone": "ep1b01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b02-boss",
+          "zone": "ep1b02",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b02",
+          "zone": "ep1b02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b03-boss",
+          "zone": "ep1b03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b03",
+          "zone": "ep1b03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b04-boss",
+          "zone": "ep1b04",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b04",
+          "zone": "ep1b04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b05-boss",
+          "zone": "ep1b05",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b05",
+          "zone": "ep1b05",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b06-boss",
+          "zone": "ep1b06",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b06",
+          "zone": "ep1b06",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b06b-boss",
+          "zone": "ep1b06b",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b06b",
+          "zone": "ep1b06b",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b07-boss",
+          "zone": "ep1b07",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b07",
+          "zone": "ep1b07",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b08-boss",
+          "zone": "ep1b08",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b08",
+          "zone": "ep1b08",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-ep1b09",
+          "zone": "ep1b09",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u201-mid",
+          "zone": "u201",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u202-mid",
+          "zone": "u202",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u203-mid",
+          "zone": "u203",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "l301-boss",
+          "zone": "last301",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-last302-v31231",
+          "zone": "last302",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "l303-boss",
+          "zone": "last303",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-kair01-v31231",
+          "zone": "kair01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "k103-boss",
+          "zone": "kair03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-hando01",
+          "zone": "hando01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-hando02",
+          "zone": "hando02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "h103-boss",
+          "zone": "hando03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-hando03",
+          "zone": "hando03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-murder01",
+          "zone": "murder01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-murder02",
+          "zone": "murder02",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-murder03",
+          "zone": "murder03",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c101-mid",
+          "zone": "cult01",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c102-boss",
+          "zone": "cult02",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "c103-mid",
+          "zone": "cult03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "c103-boss",
+          "zone": "cult03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "c104-mid",
+          "zone": "cult04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c104-boss",
+          "zone": "cult04",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "u204-mid",
+          "zone": "u204",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u205-mid",
+          "zone": "u205",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "u206-mid",
+          "zone": "u206",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "l305-boss",
+          "zone": "last305",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "mb-kair04-v31231",
+          "zone": "kair04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "kair-great-01",
+          "zone": "kair05",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-02",
+          "zone": "kair06",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-04",
+          "zone": "kair07",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-05",
+          "zone": "kair08",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "mb-kair09-v31231",
+          "zone": "kair09",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "kair-great-06",
+          "zone": "kair10",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        },
+        {
+          "id": "murder04-mid",
+          "zone": "murder04",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c105-mid",
+          "zone": "cult05",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "c106-mid",
+          "zone": "cult06",
+          "boss": false,
+          "cards": 80,
+          "old": 5,
+          "total": 10
+        },
+        {
+          "id": "blue-executor",
+          "zone": "murder03",
+          "boss": true,
+          "cards": 80,
+          "old": 6,
+          "total": 12
+        }
+      ],
+      "dynamics": [
+        "mb-dist03",
+        "mb-dist05",
+        "dist06-boss",
+        "mb-dist06",
+        "b07-boss",
+        "mb-ep1b07",
+        "b09-boss",
+        "u201-mid",
+        "u202-mid",
+        "u203-mid",
+        "u203-boss",
+        "l301-boss",
+        "mb-last302-v31231",
+        "l303-boss",
+        "kair-great-03",
+        "k103-boss",
+        "h103-boss",
+        "c102-boss",
+        "c104-mid",
+        "c104-boss",
+        "u204-mid",
+        "u205-mid",
+        "u206-mid",
+        "kair-great-01",
+        "kair-great-02",
+        "kair-great-04",
+        "kair-great-05",
+        "kair-great-06",
+        "c106-mid"
+      ],
+      "spectacles": [
+        "mb-dist06",
+        "h103-boss",
+        "u203-boss",
+        "b09-boss"
+      ],
+      "finales": [
+        "dist00-boss",
+        "mb-dist01",
+        "mb-dist02",
+        "mb-dist03",
+        "mb-dist04",
+        "mb-dist05",
+        "dist06-boss",
+        "mb-dist06",
+        "mb-ep1a07",
+        "mb-ep1a08",
+        "mb-ep1a09",
+        "mb-ep1a10",
+        "a11-boss",
+        "mb-ep1a11",
+        "mb-ep1b01",
+        "b02-boss",
+        "mb-ep1b02",
+        "b03-boss",
+        "mb-ep1b03",
+        "b04-boss",
+        "mb-ep1b04",
+        "b05-boss",
+        "mb-ep1b05",
+        "b06-boss",
+        "mb-ep1b06",
+        "b06b-boss",
+        "mb-ep1b06b",
+        "b07-boss",
+        "mb-ep1b07",
+        "b08-boss",
+        "mb-ep1b08",
+        "b09-boss",
+        "mb-ep1b09",
+        "u201-mid",
+        "u202-mid",
+        "u203-mid",
+        "u203-boss",
+        "l301-boss",
+        "mb-last302-v31231",
+        "l303-boss",
+        "mb-kair01-v31231",
+        "kair-great-03",
+        "k103-boss",
+        "mb-hando01",
+        "mb-hando02",
+        "h103-boss",
+        "mb-hando03",
+        "mb-murder01",
+        "mb-murder02",
+        "mb-murder03",
+        "c101-mid",
+        "c102-boss",
+        "c103-mid",
+        "c103-boss",
+        "c104-mid",
+        "c104-boss",
+        "u204-mid",
+        "u205-mid",
+        "u206-mid",
+        "l305-boss",
+        "mb-kair04-v31231",
+        "kair-great-01",
+        "kair-great-02",
+        "kair-great-04",
+        "kair-great-05",
+        "mb-kair09-v31231",
+        "kair-great-06",
+        "murder04-mid",
+        "c105-mid",
+        "c106-mid",
+        "blue-executor"
+      ],
+      "ordinary": [
+        {
+          "id": "mb-dist02",
+          "card": "뿔악마 늪가르기",
+          "hits": 1
+        },
+        {
+          "id": "mb-dist05",
+          "card": "마지막 유언 교차",
+          "hits": 1
+        },
+        {
+          "id": "dist06-boss",
+          "card": "포기하면 편하다",
+          "hits": 1
+        },
+        {
+          "id": "mb-ep1a07",
+          "card": "이름 소거 십자",
+          "hits": 1
+        },
+        {
+          "id": "mb-ep1a10",
+          "card": "도움 거부의 벽",
+          "hits": 1
+        },
+        {
+          "id": "a11-boss",
+          "card": "거짓구원의 단일명령",
+          "hits": 1
+        },
+        {
+          "id": "mb-ep1a11",
+          "card": "666 균열",
+          "hits": 1
+        },
+        {
+          "id": "b02-boss",
+          "card": "오물봉투 낙하",
+          "hits": 4
+        },
+        {
+          "id": "mb-ep1b02",
+          "card": "오물봉투 낙하",
+          "hits": 4
+        },
+        {
+          "id": "b05-boss",
+          "card": "아스모데우스 하트탄",
+          "hits": 3
+        },
+        {
+          "id": "mb-ep1b05",
+          "card": "아스모데우스 하트탄",
+          "hits": 3
+        },
+        {
+          "id": "b08-boss",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "mb-ep1b08",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "mb-last302-v31231",
+          "card": "불면의 십자시선",
+          "hits": 1
+        },
+        {
+          "id": "l303-boss",
+          "card": "불면의 십자시선",
+          "hits": 1
+        },
+        {
+          "id": "mb-kair01-v31231",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-03",
+          "card": "유예의 열린 시간방",
+          "hits": 1
+        },
+        {
+          "id": "k103-boss",
+          "card": "조류의 열린 숨구멍",
+          "hits": 1
+        },
+        {
+          "id": "mb-hando01",
+          "card": "위조 귀환좌표",
+          "hits": 1
+        },
+        {
+          "id": "h103-boss",
+          "card": "EGO 환수탈취",
+          "hits": 3
+        },
+        {
+          "id": "mb-murder02",
+          "card": "무음계단 경보",
+          "hits": 1
+        },
+        {
+          "id": "mb-murder03",
+          "card": "낙하 원인역전",
+          "hits": 4
+        },
+        {
+          "id": "c101-mid",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "c102-boss",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "c103-mid",
+          "card": "한리안 · 황금 역십자가",
+          "hits": 1
+        },
+        {
+          "id": "c103-boss",
+          "card": "백이온 · 질서의 방벽",
+          "hits": 1
+        },
+        {
+          "id": "l305-boss",
+          "card": "불면의 십자시선",
+          "hits": 1
+        },
+        {
+          "id": "mb-kair04-v31231",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-01",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-02",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-04",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-05",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "mb-kair09-v31231",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "kair-great-06",
+          "card": "자비로운 단일결론",
+          "hits": 1
+        },
+        {
+          "id": "murder04-mid",
+          "card": "파란불 회귀명령",
+          "hits": 1
+        },
+        {
+          "id": "c106-mid",
+          "card": "피 묻은 시체 소환진",
+          "hits": 4
+        },
+        {
+          "id": "blue-executor",
+          "card": "파란불 회귀명령",
+          "hits": 1
+        }
+      ],
+      "cosmic": [
+        {
+          "id": "b09-boss",
+          "zone": "ep1b09",
+          "flag": "episodeCosmicFinalV387",
+          "card": "사이보그 회장 · 생체 부트로더 · 해일 나선",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 500,
+          "concurrent": 1
+        },
+        {
+          "id": "u203-boss",
+          "zone": "u203",
+          "flag": "episodeCosmicFinalV387",
+          "card": "컨트롤러 · 기억의 문 · 쌍성 공명",
+          "phase": 3,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 500,
+          "concurrent": 1
+        },
+        {
+          "id": "l303-boss",
+          "zone": "last303",
+          "flag": "episodeCosmicFinalV387",
+          "card": "불면귀 · 오로라 물결",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 500,
+          "concurrent": 1
+        },
+        {
+          "id": "k103-boss",
+          "zone": "kair03",
+          "flag": "episodeCosmicFinalV387",
+          "card": "세이렌 모르 · 아르키메데스 나선",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 500,
+          "concurrent": 1
+        },
+        {
+          "id": "h103-boss",
+          "zone": "hando03",
+          "flag": "episodeCosmicFinalV387",
+          "card": "EGO 강탈 악몽왕 · 쌍성 나선",
+          "phase": 4,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.7,
+            "endAt": 106.34,
+            "damage": 18,
+            "recovery": 112.78
+          },
+          "contacts": 1,
+          "hpLoss": 500,
+          "concurrent": 1
+        },
+        {
+          "id": "mb-murder03",
+          "zone": "murder03",
+          "flag": "episodeCosmicFinalV387",
+          "card": "옥상 인과보관인 · 삼행성 궤도",
+          "phase": 2,
+          "clocks": {
+            "born": 102,
+            "fireAt": 104.5,
+            "endAt": 106.14,
+            "damage": 14,
+            "recovery": 112.38
+          },
+          "contacts": 1,
+          "hpLoss": 500,
+          "concurrent": 1
+        },
+        {
+          "id": "a11-cosmic-v31318",
+          "zone": "ep1a11",
+          "flag": "cosmicLuciferV31318",
+          "card": "피의 천문 · 혈광 소멸포",
+          "clocks": {
+            "born": 105,
+            "at": 108.8,
+            "recovery": 116.85999999999999
+          },
+          "phase": 2,
+          "hpLoss": 500,
+          "concurrent": 1,
+          "admission": "next arsenal action deferred; concurrent native projectile exercised"
+        }
+      ],
+      "screens": [
+        "b09-boss",
+        "u203-boss",
+        "l303-boss",
+        "k103-boss",
+        "h103-boss",
+        "mb-murder03",
+        "a11-cosmic-v31318-warning",
+        "a11-cosmic-v31318",
+        "a11-cosmic-v31318-end"
+      ],
+      "overlap": {
+        "phase": {
+          "index": 1,
+          "name": "레이저",
+          "title": "혈광포 · /// 삼중 사선",
+          "bossName": "호텔 부매니저 · 레비아탄",
+          "ownerId": "b03-boss",
+          "elapsed": 0.05,
+          "remaining": 11.95,
+          "duration": 12,
+          "cycle": 1,
+          "serial": 1,
+          "band": 1,
+          "bands": 3,
+          "stage": "active",
+          "draining": false,
+          "rest": 0,
+          "castRemaining": 0
+        },
+        "old": 6,
+        "remaining": 6,
+        "laser": {
+          "id": 9,
+          "contacts": 1,
+          "born": 113.19999999999925,
+          "fireAt": 115.29999999999924,
+          "endAt": 119.01999999999924
+        },
+        "events": [
+          {
+            "schema": 2,
+            "sequence": 1,
+            "epoch": 1,
+            "time": 113.19999999999925,
+            "zone": "ep1b03",
+            "mode": "STORY",
+            "kind": "CONTACT",
+            "result": "HIT",
+            "reason": "native-player-damage",
+            "controlMode": "semi",
+            "finalDamage": {
+              "direction": "incoming",
+              "baseline": 10,
+              "factor": 1,
+              "amount": 10
+            },
+            "targetId": "__host",
+            "heroId": "hwando",
+            "source": {
+              "id": "1",
+              "ownerId": "b03-boss",
+              "born": 111.64999999999937,
+              "family": "projectile",
+              "geometry": null,
+              "shape": null,
+              "boss": true,
+              "midboss": false,
+              "x": 21.333251325157562,
+              "y": 18.175782687380604,
+              "originX": 16,
+              "originY": 16,
+              "vx": 3.3332820782234722,
+              "vy": 1.3598641796128796,
+              "heart": false
+            },
+            "requestedDamage": 10,
+            "appliedDamage": 10,
+            "hpBefore": 10000,
+            "hpAfter": 9990,
+            "hpLoss": 10,
+            "resonanceBefore": 0,
+            "resonanceAfter": 0,
+            "resonanceAwarded": 0,
+            "resonanceSpent": 0,
+            "healed": 0,
+            "egoStarted": false,
+            "downed": false,
+            "before": {
+              "hp": 10000,
+              "resonance": 0,
+              "invulnerableUntil": 0,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "after": {
+              "hp": 9990,
+              "resonance": 0,
+              "invulnerableUntil": 113.19999999999925,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "returned": true,
+            "path": [
+              "player-entry",
+              "party-authority-route",
+              "player-reducer",
+              "final-incoming-control-mode",
+              "host-after-damage",
+              "host-damage-notice"
+            ],
+            "fault": null
+          },
+          {
+            "schema": 2,
+            "sequence": 2,
+            "epoch": 1,
+            "time": 115.34999999999924,
+            "zone": "ep1b03",
+            "mode": "STORY",
+            "kind": "CONTACT",
+            "result": "HIT",
+            "reason": "native-player-damage",
+            "controlMode": "semi",
+            "finalDamage": {
+              "direction": "incoming",
+              "baseline": 500,
+              "factor": 1,
+              "amount": 500
+            },
+            "targetId": "__host",
+            "heroId": "hwando",
+            "source": {
+              "id": "9",
+              "ownerId": "b03-boss",
+              "born": 113.19999999999925,
+              "family": "laser",
+              "geometry": null,
+              "shape": "line",
+              "boss": true,
+              "midboss": false,
+              "x": 12.759739336390245,
+              "y": 8.879218009170748,
+              "originX": 18.7,
+              "originY": 18.7,
+              "vx": null,
+              "vy": null,
+              "heart": true
+            },
+            "requestedDamage": 518,
+            "appliedDamage": 500,
+            "hpBefore": 9990,
+            "hpAfter": 9490,
+            "hpLoss": 500,
+            "resonanceBefore": 0,
+            "resonanceAfter": 0,
+            "resonanceAwarded": 0,
+            "resonanceSpent": 0,
+            "healed": 0,
+            "egoStarted": false,
+            "downed": false,
+            "before": {
+              "hp": 9990,
+              "resonance": 0,
+              "invulnerableUntil": 0,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "after": {
+              "hp": 9490,
+              "resonance": 0,
+              "invulnerableUntil": 115.34999999999924,
+              "awakeningUntil": 0,
+              "awakeningReadyAt": 0,
+              "downUntil": null,
+              "guardActive": false
+            },
+            "returned": true,
+            "path": [
+              "player-entry",
+              "party-authority-route",
+              "player-reducer",
+              "final-incoming-control-mode",
+              "host-after-damage",
+              "host-damage-notice"
+            ],
+            "fault": null
+          }
+        ]
+      },
+      "bounds": {
+        "projectileCap": 40,
+        "observedMax": 12,
+        "stress": 40
+      },
+      "errors": []
+    }
+  ],
+  "status": "passed",
+  "baseCommit": "d15a148241afecfe94ebf37e3e3d830e383531fa",
+  "sourceSha256": {
+    "assets/index-v31526.js": "61e01e754a0973f72c651cde336e874044a5377f79c7236124df9ab00b9802e1",
+    "assets/rc129/danmaku-director.js": "20bcf0ba658ce9a431a043160e2d72b938f7770abedf57f9edb5c292b2569636"
+  }
+}
