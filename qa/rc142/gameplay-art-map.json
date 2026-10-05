@@ -1,0 +1,125 @@
+{
+  "schema": "rc142-gameplay-art-map/v1",
+  "runtimeOwner": "codex/rc142-gameplay-audit",
+  "notes": "Exact decoded artwork paths selected by the native game renderer. PNG/WebP source bytes are unchanged.",
+  "cultLeader": {
+    "zone": "cult04",
+    "entityId": "c104-boss",
+    "sourceFacing": "right",
+    "phaseThresholds": [
+      0.76,
+      0.5,
+      0.25
+    ],
+    "phases": [
+      {
+        "index": 0,
+        "name": "사이보그 교주",
+        "atHealth": ">76%",
+        "path": "assets/generated-v31224/actors-normalized/b96a428432e9_pride_hierophant_idle.webp",
+        "sha256": "54173f0c3a2e12a08a36b3099fff211981f58cc6db180ee3006392f6cf407071"
+      },
+      {
+        "index": 1,
+        "name": "EGO 탈취체",
+        "atHealth": ">50% to ≤76%",
+        "path": "assets/generated-v31224/actors-normalized/c6827b44795a_superego_cyborg_cult_leader.webp",
+        "sha256": "621eef1d0f3aa3c27794fe855d1479c4489b58bf8319290b4f3dd56f2490a182"
+      },
+      {
+        "index": 2,
+        "name": "삼중자아 합일체",
+        "atHealth": ">25% to ≤50%",
+        "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+        "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece"
+      },
+      {
+        "index": 3,
+        "name": "적그리스도 소환좌",
+        "atHealth": "≤25%",
+        "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+        "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf"
+      }
+    ]
+  },
+  "hiddenPersona": {
+    "zone": "cult04",
+    "entityId": "inner-evil-rc133",
+    "normalArt": "assets/rc134/persona-skills",
+    "samongArt": "assets/rc133/art",
+    "attacks": [
+      {
+        "key": "small-orb",
+        "normalCount": 8,
+        "awakenedCount": 10,
+        "formation": "fan",
+        "normalSha256": "63816d1179af8bec7d7f6dcfeb322e823f19f28909d6d67a95ed0484a30b9b89",
+        "samongSha256": "69b34f1f8ac183825a05dedbf816a6bb618c0315526edbbe0e8120ef1b7fadf5"
+      },
+      {
+        "key": "eye",
+        "normalCount": 5,
+        "awakenedCount": 6,
+        "formation": "twin",
+        "normalSha256": "a2f80da5d101a331fd6dc8fd3861c2b7e62f0b56bf109aa103a2decfd25e5a9f",
+        "samongSha256": "6f363a492146782f0adc96628603aac9fa7b6d27bd90ca4002de2c48fbf8ce11"
+      },
+      {
+        "key": "diamond",
+        "normalCount": 6,
+        "awakenedCount": 8,
+        "formation": "sweep",
+        "normalSha256": "30517ce4fbe07a9cc86cca01c16f1978437bc053a495d95fe946d8b1dc8aab6e",
+        "samongSha256": "a51af7454d95ee169eb3b8cff521e2a76aec2ffe3cf69b4534821cb6812a9456"
+      },
+      {
+        "key": "clock",
+        "normalCount": 9,
+        "awakenedCount": 12,
+        "formation": "spiral",
+        "normalSha256": "a95ddd9dcc0435fa2e7d6c83565c8e3f14db0163dd5b420cfdd351c879bb1068",
+        "samongSha256": "78cd7828f3c5938b92ec2139120d5be4d566e569394a9e9ad7b42e1b4c84d907"
+      },
+      {
+        "key": "star",
+        "normalCount": 9,
+        "awakenedCount": 12,
+        "formation": "fan",
+        "normalSha256": "bd4b63ebf9e1d3e54cc4a51f3103864ce33cfd8e72d8dd6e590efce5e04da586",
+        "samongSha256": "e5c41ec6f0847a69ec57857764ea5e6adb5498fea8b07f6f371a10a2ca877b5e"
+      },
+      {
+        "key": "eclipse",
+        "normalCount": 3,
+        "awakenedCount": 4,
+        "formation": "needle",
+        "normalSha256": "a02b0edf404a2fb7e3ae528590ecc79686eba3205e110b366686422feec46e02",
+        "samongSha256": "b49126ae5fac926a5b2f08f132c20aeb53065585f403db873dc9af2419edbebb"
+      },
+      {
+        "key": "lance",
+        "normalCount": 5,
+        "awakenedCount": 6,
+        "formation": "focus",
+        "normalSha256": "0f1f22adaa4b42aadc6ec43c5b6121d5501fccb9065f623da8af7b47a7426fdf",
+        "samongSha256": "c7c9579891c9de1fb9a56b9200f742329a8218c378cf33a1f8313e3f53d5d851"
+      },
+      {
+        "key": "shield",
+        "normalCount": 6,
+        "awakenedCount": 8,
+        "formation": "cross-fan",
+        "normalSha256": "899813b911adfc7746cfcf8ee61953a0cf650c8be6d8e758d7083c980f3e34fb",
+        "samongSha256": "64608771890353ed2a82c7c227e104c60918711e9b5d3963aa38f1df707faa1e"
+      },
+      {
+        "key": "vortex",
+        "normalCount": 8,
+        "awakenedCount": 10,
+        "formation": "spiral",
+        "normalSha256": "4e69b904486120a51174df3428912ef8152455e6d7c1d860256f7b7ce9afd72a",
+        "samongSha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a"
+      }
+    ]
+  }
+}

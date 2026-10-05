@@ -12,7 +12,7 @@ function env(){
  vm.runInContext(read('assets/rc133/inner-final.js'),context,{filename:'assets/rc133/inner-final.js'});
  const Final=window.__HAPIL_INNER_FINAL_RC133__,Samong=window.__HAPIL_SAMONG_RC91__,shots=[],casts=[];
 
- const skillMap=Object.fromEntries(Final.deck.map(k=>[k.key,'./assets/rc134/persona-skills/'+k.key+'.png']));Final.configure({ready:true,map:'map',body:'body',awakening:'awake',skills:Object.values(skillMap),skillMap});
+ const skillMap=Object.fromEntries(Final.deck.map(k=>[k.key,'./assets/rc134/persona-skills/'+k.key+'.png'])),samongSkillMap=Object.fromEntries(Final.deck.map(k=>[k.key,'./assets/rc133/art/'+k.key+'.png']));Final.configure({ready:true,map:'map',body:'body',awakening:'awake',skills:[...Object.values(skillMap),...Object.values(samongSkillMap)],skillMap,samongSkillMap});
  let serial=1;Final.bind({heroes:Samong.heroes.map(id=>({id,sprite:'hero-'+id})),locked:()=>false,bullet:(s,a,spec)=>{const q={id:serial++,sourceId:a.id,x:a.x,y:a.y,previousX:a.x,previousY:a.y,...spec};s.hostileProjectiles.push(q);shots.push(q);return q;},cast:(s,a,spec)=>{const q={...spec,id:serial++,sourceId:a.id,born:s.time,at:s.time+spec.windup,x:spec.anchor==='boss'?a.x:s.x,y:spec.anchor==='boss'?a.y:s.y,originX:a.x,originY:a.y};s.pendingHits.push(q);casts.push(q);return q;}});
  const state=(hero='gunner')=>({zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,hp:220,maxHp:1000,time:10,x:7,y:9,activeHeroId:hero,enemies:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],floatTexts:[],fxSerial:1,bossDefeated:false,completedZones:new Set(),spawnedWaves:new Set()});
  return{window,context,Final,Samong,shots,casts,state};
@@ -28,7 +28,7 @@ function env(){
  for(const id of ['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner']){
   const a=Final.boss(s);m.hero=id;m.cycle=0;s.activeHeroId=id;m.shotDelay=0;s.hostileProjectiles=[];s.time+=1;
   const first=shots.length;Final.tick(s,.016);const wave=shots.slice(first);
-  eq(wave.length,Final.deck[0].count,id+' emits its bounded authored pattern');
+  eq(wave.length,Math.min(12,Math.ceil(Final.deck[0].count*1.5)),id+' emits its bounded denser authored pattern');
   ok(wave.every(q=>q.rc133InnerShot&&q.rc133Skill===Final.deck[0].key&&q.rc133Pattern===Final.deck[0].key&&q.damage>0&&q.radius<=.32),id+' shots keep ownership/damage/radius');
   ok(wave.every(q=>q.frozenUntil>=s.time+.65&&q.collisionDisabledUntil31219>=q.frozenUntil),id+' telegraph delays collision');
   const directions=wave.map(q=>Math.atan2(q.vy,q.vx).toFixed(3)).sort().join(',');signatures.add(directions);
@@ -36,7 +36,7 @@ function env(){
  eq(signatures.size,1,'dedicated skill geometry is independent of borrowed hero traits');
  // The hostile queue cap delays a wave without losing its retry opportunity.
  m.hero='gunner';m.cycle=0;s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:70},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'full queue refuses overflow shots');
- s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,5,'a freed queue promptly admits the pending skill');
+ s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,8,'a freed queue promptly admits the pending skill');
 }
 
 // A lethal player hit close to the hidden boss's defeat becomes one saved,

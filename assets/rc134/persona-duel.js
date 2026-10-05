@@ -28,7 +28,7 @@
   let best=p[0],distance=Infinity;for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length],dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((target.x-a.x)*dx+(target.y-a.y)*dy)/(dx*dx+dy*dy||1))),c={x:a.x+t*dx,y:a.y+t*dy},d=(c.x-target.x)**2+(c.y-target.y)**2;if(d<distance){best=c;distance=d;}}return{...best};
  }
  function mirror(q){return{x:policy.centerSum-finite(q?.x,19),y:policy.centerSum-finite(q?.y,19)};}
- function face(s,a){const dx=a.x-s.x,dy=a.y-s.y,h=dx-dy,v=(dx+dy)*.5,dir=Math.abs(h)>Math.abs(v)*1.12?(h<0?'left':'right'):(v<0?'back':'front');s.facing=dx<0?-1:1;s.direction=dir;if(s.heroMotion)s.heroMotion.direction=dir;a.facing=-s.facing;a.direction=dir==='left'?'right':dir==='right'?'left':dir==='back'?'front':'back';}
+ function face(s,a){const dx=a.x-s.x,dy=a.y-s.y,h=dx-dy,v=(dx+dy)*.5,dir=Math.abs(h)>Math.abs(v)*1.12?(h<0?'left':'right'):(v<0?'back':'front');s.facing=h<0?-1:1;s.direction=dir;if(s.heroMotion)s.heroMotion.direction=dir;a.facing=-s.facing;a.direction=dir==='left'?'right':dir==='right'?'left':dir==='back'?'front':'back';}
  function releaseActor(a){const g=guards.get(a);if(!g)return;for(const key of['x','y'])Object.defineProperty(a,key,{...g.original[key],value:g.value[key]});guards.delete(a);stats.releases++;}
  function guard(s,a,side,radius){if(!a)return false;const old=guards.get(a);if(old?.state===s&&old.side===side)return true;if(old)releaseActor(a);
   const original={x:Object.getOwnPropertyDescriptor(a,'x'),y:Object.getOwnPropertyDescriptor(a,'y')};if(!original.x?.configurable||!original.y?.configurable||!Object.hasOwn(original.x,'value')||!Object.hasOwn(original.y,'value'))return false;
@@ -47,7 +47,7 @@
  }
  // The preserved floor projects inside x=67..1213, y=354..672. Include
  // the humanoid headroom and keep the centerline at the painted view center.
- function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=Math.min(1.05,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
+ function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=Math.min(1,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
  function constrained(s,a){return guards.get(a)?.state===s&&active(s);}
  function backdrop(ctx,canvas){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.globalCompositeOperation='destination-over';ctx.fillStyle='#020610';ctx.fillRect(0,0,canvas.width,canvas.height);}finally{ctx.restore();}}
  root.__HAPIL_PERSONA_DUEL_RC134__=Object.freeze({version:'RC134',policy,active,mirror,mutual,cooldownFactor,tempo,swapped,swap,polygon,contains,point,guard,enforce,tick,release,camera,constrained,backdrop,metrics:()=>({...stats})});

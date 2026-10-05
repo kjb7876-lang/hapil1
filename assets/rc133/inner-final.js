@@ -5,18 +5,19 @@
  const ID='inner-evil-rc133',ZONE='cult04',n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,cl=(v,a,b)=>Math.max(a,Math.min(b,n(v)));
  const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0};let native=null;
  const HP_LIMIT=3000000;
- // These nine independently cropped designs are travelling native attacks.
+ // Nine lossless skill crops power the baseline volley; the original source
+ // atlas supplies distinct motifs during either side's awakening.
  // No ground strike can teleport across the owned halves of this duel.
  const deck=Object.freeze([
-  {key:'small-orb',name:'욕망의 씨앗',kind:'bullet',count:5,spread:1,speed:1},
-  {key:'eye',name:'악의 시선',kind:'bullet',count:3,spread:.55,speed:1.08},
-  {key:'diamond',name:'감춘 충동',kind:'bullet',count:4,spread:.8,speed:.95,stagger:.14},
-  {key:'clock',name:'끝없는 갈망',kind:'bullet',count:6,spread:.7,speed:.88,stagger:.16,warning:.85},
-  {key:'star',name:'순수악의의 분기',kind:'bullet',count:6,spread:1.2,speed:1.05},
-  {key:'eclipse',name:'욕망의 일식',kind:'bullet',count:2,spread:.5,speed:.8,warning:.95},
-  {key:'lance',name:'악의의 관통',kind:'bullet',count:3,spread:.38,speed:1.3},
-  {key:'shield',name:'되비친 집착',kind:'bullet',count:4,spread:1.15,speed:.9},
-  {key:'vortex',name:'내면의 소용돌이',kind:'bullet',count:5,spread:.95,speed:1.1,stagger:.1}
+  {key:'small-orb',name:'욕망의 씨앗',kind:'bullet',count:5,spread:1,speed:1,formation:'fan'},
+  {key:'eye',name:'악의 시선',kind:'bullet',count:3,spread:.55,speed:1.08,formation:'twin'},
+  {key:'diamond',name:'감춘 충동',kind:'bullet',count:4,spread:.8,speed:.95,stagger:.14,formation:'sweep'},
+  {key:'clock',name:'끝없는 갈망',kind:'bullet',count:6,spread:.7,speed:.88,stagger:.16,warning:.85,formation:'spiral'},
+  {key:'star',name:'순수악의의 분기',kind:'bullet',count:6,spread:1.2,speed:1.05,formation:'fan'},
+  {key:'eclipse',name:'욕망의 일식',kind:'bullet',count:2,spread:.5,speed:.8,warning:.95,formation:'needle'},
+  {key:'lance',name:'악의의 관통',kind:'bullet',count:3,spread:.38,speed:1.3,formation:'focus'},
+  {key:'shield',name:'되비친 집착',kind:'bullet',count:4,spread:1.15,speed:.9,formation:'cross-fan'},
+  {key:'vortex',name:'내면의 소용돌이',kind:'bullet',count:5,spread:.95,speed:1.1,stagger:.1,formation:'spiral'}
  ].map(Object.freeze));
  const art={ready:false,map:null,body:null,awakening:null,skills:[]};
  const traits=Object.freeze({
@@ -29,9 +30,9 @@
   slayer:{name:'칼날의 부채',count:8,spread:.32,speed:3.7,color:'#ef8b79',life:4.5},
   gunner:{name:'시간 파편의 궤적',count:6,spread:.24,speed:3.6,color:'#77e6cb',life:6}
  });
- const skillPath=key=>'./assets/rc134/persona-skills/'+key+'.png';
- function approvedSprite(key,path){return deck.some(k=>k.key===key)&&typeof path==='string'&&path.split('?')[0]===skillPath(key)&&(!path.includes('?')||/^v=\d+$/.test(path.split('?')[1]));}
- function acceptsSkill(s,a,p){return a?.id===ID&&a.rc133InnerBoss===true&&active(s)&&approvedSprite(p?.rc133Skill,p?.sprite)&&p.sprite===art.skillMap?.[p.rc133Skill];}
+ const skillPath=key=>'./assets/rc134/persona-skills/'+key+'.png',sourceSkillPath=key=>'./assets/rc133/art/'+key+'.png';
+ function approvedSprite(key,path){return deck.some(k=>k.key===key)&&typeof path==='string'&&(path.split('?')[0]===skillPath(key)||path.split('?')[0]===sourceSkillPath(key))&&(!path.includes('?')||/^v=\d+$/.test(path.split('?')[1]));}
+ function acceptsSkill(s,a,p){return a?.id===ID&&a.rc133InnerBoss===true&&active(s)&&approvedSprite(p?.rc133Skill,p?.sprite)&&(p.sprite===art.skillMap?.[p.rc133Skill]||p.sprite===art.samongSkillMap?.[p.rc133Skill]);}
  function enabled(s){return root.__HAPIL_SAMONG_RC91__?.enabled(s)===true&&s.zone===ZONE;}
  function active(s){return enabled(s)&&s.hp>0&&['reveal','fight'].includes(s.innerFinalRC133?.phase);}
  function boss(s){return s?.enemies?.find(a=>a.id===ID&&a.hp>0);}
@@ -136,23 +137,26 @@
   // Never release generic/fallback boss weapons while the two source atlases
   // are unavailable. Body/arena readiness and native HP continue normally.
   if(!art.ready)return;
-  m.shotDelay=Math.max(0,m.shotDelay-dt);const skill=deck[m.cycle%deck.length],mutual=m.awake>0&&root.__HAPIL_SAMONG_RC91__.active(s),empowered=m.awake>0||root.__HAPIL_SAMONG_RC91__.active(s),count=empowered?Math.min(3,skill.count):skill.count,color='#ef9fce';
-  s.hostileProjectiles??=[];if(m.shotDelay>0||s.hostileProjectiles.length+count>48)return;
-  const angle=Math.atan2(s.y-a.y,s.x-a.x),distance=Math.max(2.8,Math.hypot(s.x-a.x,s.y-a.y)),gap=Math.asin(Math.min(.75,1.3/distance))+.18,warning=empowered?.25:Math.max(.65,skill.warning??.65);
-  a.atomicCastUntil31210=s.time+warning+.3;
-  const before=s.hostileProjectiles.length,turn=(m.cycle%8)*.045,sprite=art.skillMap?.[skill.key];if(!sprite)return;
+  m.shotDelay=Math.max(0,m.shotDelay-dt);const skill=deck[m.cycle%deck.length],mutual=m.awake>0&&root.__HAPIL_SAMONG_RC91__.active(s),empowered=m.awake>0||root.__HAPIL_SAMONG_RC91__.active(s),count=empowered?Math.min(12,skill.count*2):Math.min(12,Math.ceil(skill.count*1.5)),color='#ef9fce';
+  s.hostileProjectiles??=[];if(m.shotDelay>0)return;if(s.hostileProjectiles.length+count>60){m.shotDelay=.12;return;}
+  const lead=Math.max(0,Math.min(.28,Math.hypot(s.x-a.x,s.y-a.y)/6)),aimX=s.x+cl(n(s.moveVx),-8,8)*lead,aimY=s.y+cl(n(s.moveVy),-8,8)*lead,angle=Math.atan2(aimY-a.y,aimX-a.x),distance=Math.max(2.8,Math.hypot(aimX-a.x,aimY-a.y)),warning=empowered?.62:Math.max(.72,skill.warning??.72);
+  a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+warning+.35);
+  const before=s.hostileProjectiles.length,turn=(m.cycle%8)*.045,sprite=empowered?art.samongSkillMap?.[skill.key]:art.skillMap?.[skill.key];if(!sprite)return;
   for(let i=0;i<count;i++){
-   const paired=i%2?1:-1,rank=Math.floor(i/2),offset=(skill.key==='small-orb'||skill.key==='star'||skill.key==='shield')?(i-(count-1)/2)*.24:paired*(.08+rank*.22)+turn;
-   // Every shot crosses toward screen-left. Keep its initial aim; no instant
-   // retarget, actor lunge, blanket area hit or permanent player stat copy.
-   const center=root.__HAPIL_PERSONA_DUEL_RC134__?.swapped(s)?-Math.PI*.25:Math.PI*.75,theta=center+cl(((angle-center+Math.PI*3)%(Math.PI*2)-Math.PI)+offset*skill.spread,-1.05,1.05),speed=Math.min(6.4,(empowered?.55:3.6)*skill.speed),stage=mutual?i*.045:(skill.stagger??.08)*(skill.key==='diamond'||skill.key==='clock'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
-   native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage:mutual?Math.min(14,8*m.scale):Math.min(20,10*m.scale*(m.awake>0?1.2:1)),life:Math.min(12,Math.max(5.5,distance/speed+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i});
+   const paired=i%2?1:-1,rank=Math.floor(i/2),center=root.__HAPIL_PERSONA_DUEL_RC134__?.swapped(s)?-Math.PI*.25:Math.PI*.75,spread=(i-(count-1)/2)*skill.spread/Math.max(1,count-1),turnOffset=turn+(m.cycle%deck.length)*.012;
+   let offset=skill.formation==='focus'?spread*.22:skill.formation==='twin'?paired*(.13+rank*.12):skill.formation==='spiral'?spread+turnOffset:skill.formation==='sweep'?spread+Math.sin(i*.8+turnOffset)*.22:skill.formation==='cross-fan'?spread+paired*(.08+rank*.06):skill.formation==='needle'?spread*.12:spread+paired*.07;
+   // Preserve the mirrored arena lane, but lead a moving player slightly.
+   const desired=angle+offset,delta=((desired-center+Math.PI*3)%(Math.PI*2)-Math.PI),theta=center+cl(delta,-1.18,1.18),speed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed),stage=mutual?i*.035:(skill.stagger??.08)*(skill.key==='diamond'||skill.key==='clock'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
+   const damage=Math.min(mutual?24:22,(mutual?20:empowered?18:13)*m.scale);
+   native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(12,Math.max(4,distance/speed+1.8)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i});
   }
   const emitted=s.hostileProjectiles.slice(before);if(!emitted.length){m.shotDelay=.22;return;}
-  for(const q of emitted){const theta=Math.atan2(q.vy,q.vx),speed=Math.min(6.4,(empowered?.55:3.6)*skill.speed);Object.assign(q,{rc133InnerShot:true,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(mutual?14:20,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  for(const q of emitted){const theta=Math.atan2(q.vy,q.vx),speed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed);Object.assign(q,{rc133InnerShot:true,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!skill.key.endsWith('eye')&&!skill.key.endsWith('lance'),vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(mutual?24:22,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:mutual?'純惡意 · '+skill.name:skill.name,color,critical:false});
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
-  m.cycle++;m.shotDelay=mutual?.45:empowered?.6:1.35;metrics.volleys++;metrics.skills++;
+  // Finish the current wind-up/release window before opening another cast.
+  // This keeps high-count awakened volleys from overlapping their own lock.
+  m.cycle++;m.shotDelay=Math.max(mutual?.46:empowered?.68:1.05,warning+.35);metrics.volleys++;metrics.skills++;
 
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}
@@ -178,7 +182,7 @@
  }
  function frame(s,a){if(s.innerFinalRC133?.phase==='reveal'&&art.portrait)return art.portrait;const awake=s.innerFinalRC133?.awake>0,list=awake?art.awakeFrames:art.frames; if(!Array.isArray(list)||list.length!==8)return awake?art.awakening:art.body; const dx=s.x-a.x,dy=s.y-a.y,theta=Math.atan2((dx+dy)*.5,dx-dy),index=((Math.round((theta-Math.PI/2)/(Math.PI/4))%8)+8)%8;return list[index];}
  function map(s,fallback){return active(s)&&art.ready?(s.innerFinalRC133.phase==='reveal'?(art.reveal??art.map):art.map):fallback;}
- function configure(value){if(!value?.ready||!value.map||!value.body||!value.awakening||!deck.every(k=>approvedSprite(k.key,value.skillMap?.[k.key])))return false;Object.assign(art,value,{frames:value.frames??null,awakeFrames:value.awakeFrames??null});return true;}
+  function configure(value){if(!value?.ready||!value.map||!value.body||!value.awakening||!deck.every(k=>approvedSprite(k.key,value.skillMap?.[k.key])&&approvedSprite(k.key,value.samongSkillMap?.[k.key])&&value.skillMap[k.key].split('?')[0]===skillPath(k.key)&&value.samongSkillMap[k.key].split('?')[0]===sourceSkillPath(k.key)))return false;Object.assign(art,value,{frames:value.frames??null,awakeFrames:value.awakeFrames??null});return true;}
  function bind(value){native=value;return true;}
  function snapshot(s){root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);const m=s?.innerFinalRC133,a=boss(s);return clean(m?{...m,hp:a?.hp??m.hp,x:a?.x??m.x,y:a?.y??m.y}:null);}
  function restore(s,raw){

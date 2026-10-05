@@ -10,7 +10,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "c3ace3d9d518b654059c788f84697d8c7362d7c5328d498c7ba6391e9b40a098",
+  "targetProtectedRowsSha256": "ba671d5fd149adae897dc1a5e6be7cf334daf7e22067fffa2d85a84bfcd3c86e",
   "files": [
     {
       "file": "assets/combat-audio/v1/controller.js",
@@ -41,6 +41,17 @@
         "sha256": "95b2a82dec74e3810f451d82dd7bc117d560ef2936096bb90a54f5b84292787c"
       },
       "reason": "RC140 exact asset dependency output: assets/combat-audio/v1/manifest.json"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/README.md",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/README.md",
+        "mode": "100644",
+        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
+        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
     },
     {
       "file": "assets/generated-story10-cycle-20261005/cyclic-murder-manifest.json",
@@ -252,17 +263,6 @@
       "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/metadata/original-ep1a10-manifest.json"
     },
     {
-      "file": "assets/generated-story10-cycle-20261005/README.md",
-      "before": null,
-      "after": {
-        "file": "assets/generated-story10-cycle-20261005/README.md",
-        "mode": "100644",
-        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
-        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
-      },
-      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
-    },
-    {
       "file": "assets/index-v31526.js",
       "before": {
         "file": "assets/index-v31526.js",
@@ -293,6 +293,36 @@
       "reason": "RC141 supplied-audio integration output: assets/rc128/combat-feedback.js"
     },
     {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "ae7dbee2662efc67af22e233cf418b324fe53f90"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "afc61f3de7fb72b1e0fff268e4b5ab9b414e727e",
+        "sha256": "0327067719dc8192c3d6f75941c872a2f4619a5ecad4388357ee584d687a4fb1"
+      },
+      "reason": "RC142 gameplay output: assets/rc133/inner-final.js; RC142 gameplay feature integration output: assets/rc133/inner-final.js"
+    },
+    {
+      "file": "assets/rc133/media-art.js",
+      "before": {
+        "file": "assets/rc133/media-art.js",
+        "mode": "100644",
+        "gitBlob": "11a67a5ec293a37613409f90625432a4eb0a8f85"
+      },
+      "after": {
+        "file": "assets/rc133/media-art.js",
+        "mode": "100644",
+        "gitBlob": "06e5579d137199a135186957099bf549a3ca9d86",
+        "sha256": "20169499355965563545434f98b4870848db8ecd24b84fe743af636ea3d69ce8"
+      },
+      "reason": "RC142 gameplay output: assets/rc133/media-art.js; RC142 gameplay feature integration output: assets/rc133/media-art.js"
+    },
+    {
       "file": "assets/rc133/media-audio.js",
       "before": {
         "file": "assets/rc133/media-audio.js",
@@ -321,6 +351,21 @@
         "sha256": "70153d7dab7154b409e0767faf255d3fd0af500f19c64fac8485fb48a4cc9629"
       },
       "reason": "RC140 exact asset dependency output: assets/rc133/native-install.js.txt; RC141 supplied-audio integration output: assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "7bb259a5f86a0a2d2f94558d3e469271babb0e36"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "0ca6bc7dc967e2b7be71cf17c3e7b1708d77b4bd",
+        "sha256": "ea66d8d1c8e3761c7737fc13f702ab3664b833f00217438e3a8b469329d6e97e"
+      },
+      "reason": "RC142 gameplay output: assets/rc134/persona-duel.js; RC142 gameplay feature integration output: assets/rc134/persona-duel.js"
     },
     {
       "file": "assets/rc135/midboss-motions.js",
@@ -786,6 +831,17 @@
       "reason": "RC141 supplied-audio integration output: assets/rc141/media-additions.js"
     },
     {
+      "file": "assets/rc142/cult-leader-art.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc142/cult-leader-art.js",
+        "mode": "100644",
+        "gitBlob": "fe641f64b67b6a7b2803ecc3c5355ba64c119e34",
+        "sha256": "46a9f095acc60e45563e5b4ca78983d7b71b68b5a335dd3b5a532d9114dcd2e4"
+      },
+      "reason": "RC142 gameplay output: assets/rc142/cult-leader-art.js"
+    },
+    {
       "file": "assets/rc51/story.css",
       "before": {
         "file": "assets/rc51/story.css",
@@ -972,10 +1028,10 @@
       "after": {
         "file": "index.html",
         "mode": "100644",
-        "gitBlob": "67482cbcbd5c50d165d16bbb6aca8f5985c434b8",
-        "sha256": "9d159d882806e0b06b94e55203f3dd8e08a09427583f6f84d5db3f9dc69fbe63"
+        "gitBlob": "bb8ea6b441b2fa9801d57e8a6c57ad981dda3e59",
+        "sha256": "781ce3a2029483e3c60315dfe878a50b304aad5d9868dd3917989a5c5862fb58"
       },
-      "reason": "RC140 loader integration output: index.html; RC141 supplied-audio integration output: index.html"
+      "reason": "RC140 loader integration output: index.html; RC141 supplied-audio integration output: index.html; RC142 gameplay feature integration output: index.html"
     }
   ]
 }
