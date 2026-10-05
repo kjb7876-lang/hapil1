@@ -2,7 +2,7 @@
   "version": 1,
   "base": "0a4965a17ac69a05ffd79645a537a0f202417408",
   "baseTree": "65cba3f9be4bbedb71450aa66a51db96dee89f1a",
-  "candidateCommit": "dbb5ea22c73986764c3d028d550f90879b593e91",
+  "candidateCommit": "e8573df594ad4e970370278b293447e99f6a536f",
   "previousDeltaSha256": "47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11",
   "protectedRoots": [
     "assets",
@@ -10,8 +10,23 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "706842ddbd3f88ced7dcc64bfecfebcfa8dd3f2a2a99cb2d7cc93117a1c3b3a1",
+  "targetProtectedRowsSha256": "c3ace3d9d518b654059c788f84697d8c7362d7c5328d498c7ba6391e9b40a098",
   "files": [
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "before": {
+        "file": "assets/combat-audio/v1/controller.js",
+        "mode": "100644",
+        "gitBlob": "e125be62032fc090e1610867f70bd3c54eafee26"
+      },
+      "after": {
+        "file": "assets/combat-audio/v1/controller.js",
+        "mode": "100644",
+        "gitBlob": "f0a75237b477b0390ae209dac17dbbd8c036616b",
+        "sha256": "01973eecf79bc186a1830dd8ef9a7e87d4291d180bf4437e8645ebc5672ed684"
+      },
+      "reason": "RC141 supplied-audio integration output: assets/combat-audio/v1/controller.js"
+    },
     {
       "file": "assets/combat-audio/v1/manifest.json",
       "before": {
@@ -26,17 +41,6 @@
         "sha256": "95b2a82dec74e3810f451d82dd7bc117d560ef2936096bb90a54f5b84292787c"
       },
       "reason": "RC140 exact asset dependency output: assets/combat-audio/v1/manifest.json"
-    },
-    {
-      "file": "assets/generated-story10-cycle-20261005/README.md",
-      "before": null,
-      "after": {
-        "file": "assets/generated-story10-cycle-20261005/README.md",
-        "mode": "100644",
-        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
-        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
-      },
-      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
     },
     {
       "file": "assets/generated-story10-cycle-20261005/cyclic-murder-manifest.json",
@@ -248,6 +252,17 @@
       "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/metadata/original-ep1a10-manifest.json"
     },
     {
+      "file": "assets/generated-story10-cycle-20261005/README.md",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/README.md",
+        "mode": "100644",
+        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
+        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
+    },
+    {
       "file": "assets/index-v31526.js",
       "before": {
         "file": "assets/index-v31526.js",
@@ -257,10 +272,40 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "gitBlob": "b476955c6813d46b312dafe5ea699dde721cfcfd",
-        "sha256": "cdf24b4d327eba9cb6bddda1f1c5bfb1cb5be870b45dcbfa9c2634993b553615"
+        "gitBlob": "7cb532859dcfe55a58594b7757b77800bac455c7",
+        "sha256": "1054177f8171e592b025416a349348d505ba399ee92e3779d8b57e6873d8b7fc"
       },
-      "reason": "RC140 active gameplay bundle output: assets/index-v31526.js"
+      "reason": "RC140 active gameplay bundle output: assets/index-v31526.js; RC141 supplied-audio integration output: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "05663cbe9923772ea3f3f853c1dc3557448b44ec"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "a051e63c87afdeeaa42d4cf426499ccdac86c09b",
+        "sha256": "eb8c7fa534b9332c44fb1b4e2c6057d595adda17c9605ea127a53b6ae1cd7857"
+      },
+      "reason": "RC141 supplied-audio integration output: assets/rc128/combat-feedback.js"
+    },
+    {
+      "file": "assets/rc133/media-audio.js",
+      "before": {
+        "file": "assets/rc133/media-audio.js",
+        "mode": "100644",
+        "gitBlob": "3bd89a187e6883768cf086ea10dc93f9429bd364"
+      },
+      "after": {
+        "file": "assets/rc133/media-audio.js",
+        "mode": "100644",
+        "gitBlob": "c8bb730b3003f341ecf51653f5aa58b36b0f8484",
+        "sha256": "7ebde52ffff6e1eafdc40bc44d4383507dce0daa2aa640b7031b5a09380837fb"
+      },
+      "reason": "RC141 supplied-audio integration output: assets/rc133/media-audio.js"
     },
     {
       "file": "assets/rc133/native-install.js.txt",
@@ -272,10 +317,10 @@
       "after": {
         "file": "assets/rc133/native-install.js.txt",
         "mode": "100644",
-        "gitBlob": "1302dc9bdbb0cd0807f0f56151a43c983a0f8959",
-        "sha256": "da6779fa37addbf0f307dbad0f88513941b39047b12ee02a7984b0ea7792e631"
+        "gitBlob": "a6a02007cbcd8a61ae501b30503bd4b27353b02b",
+        "sha256": "70153d7dab7154b409e0767faf255d3fd0af500f19c64fac8485fb48a4cc9629"
       },
-      "reason": "RC140 exact asset dependency output: assets/rc133/native-install.js.txt"
+      "reason": "RC140 exact asset dependency output: assets/rc133/native-install.js.txt; RC141 supplied-audio integration output: assets/rc133/native-install.js.txt"
     },
     {
       "file": "assets/rc135/midboss-motions.js",
@@ -730,6 +775,17 @@
       "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-runtime.js"
     },
     {
+      "file": "assets/rc141/media-additions.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc141/media-additions.js",
+        "mode": "100644",
+        "gitBlob": "e81a3f289f381facbc5931941b50713793964065",
+        "sha256": "d2c05cae20013b77fbb0a3cf3d1547caa7aa5eeaf77bf107681ec3929a950e64"
+      },
+      "reason": "RC141 supplied-audio integration output: assets/rc141/media-additions.js"
+    },
+    {
       "file": "assets/rc51/story.css",
       "before": {
         "file": "assets/rc51/story.css",
@@ -916,10 +972,10 @@
       "after": {
         "file": "index.html",
         "mode": "100644",
-        "gitBlob": "e0e2aef3fd96a6971e943d3b14666f5352af4066",
-        "sha256": "7e262084d2def6851f41fde4750dedcd59d7a1c36a2d6a840bf0d3cbb4eeb1b4"
+        "gitBlob": "67482cbcbd5c50d165d16bbb6aca8f5985c434b8",
+        "sha256": "9d159d882806e0b06b94e55203f3dd8e08a09427583f6f84d5db3f9dc69fbe63"
       },
-      "reason": "RC140 loader integration output: index.html"
+      "reason": "RC140 loader integration output: index.html; RC141 supplied-audio integration output: index.html"
     }
   ]
 }
