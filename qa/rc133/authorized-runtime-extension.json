@@ -10,7 +10,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "ba671d5fd149adae897dc1a5e6be7cf334daf7e22067fffa2d85a84bfcd3c86e",
+  "targetProtectedRowsSha256": "fe2a622e6fa0f6b8851f5131c6a7364a86a32c464de3926193936d8e23270041",
   "files": [
     {
       "file": "assets/combat-audio/v1/controller.js",
@@ -362,8 +362,8 @@
       "after": {
         "file": "assets/rc134/persona-duel.js",
         "mode": "100644",
-        "gitBlob": "0ca6bc7dc967e2b7be71cf17c3e7b1708d77b4bd",
-        "sha256": "ea66d8d1c8e3761c7737fc13f702ab3664b833f00217438e3a8b469329d6e97e"
+        "gitBlob": "c71845eabdeaffd17eb186669a6b185719c963ad",
+        "sha256": "f56fdee0d9912fdb9b0acde101fb1f2786a63c037279d7c0bf51fc2e2e2793ac"
       },
       "reason": "RC142 gameplay output: assets/rc134/persona-duel.js; RC142 gameplay feature integration output: assets/rc134/persona-duel.js"
     },

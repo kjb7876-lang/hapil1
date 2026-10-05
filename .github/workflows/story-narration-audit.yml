@@ -127,8 +127,7 @@ jobs:
           node tests/story-narration-webaudio-browser.cjs
           node tests/combat-audio-browser.cjs
           HAPIL_DECODER_EDGE_REPORT="$HAPIL_NARRATION_OUTPUT/decoder-edges.json" node tests/story-narration-decoder-edges.cjs
-          HAPIL_QA_OUTPUT="$HAPIL_NARRATION_OUTPUT/rc130-public" node qa/rc130/public-smoke.cjs
-          HAPIL_QA_OUTPUT="$HAPIL_NARRATION_OUTPUT/rc132-public" node qa/rc132/published.cjs
+          HAPIL_QA_OUTPUT="$HAPIL_NARRATION_OUTPUT/local-public" node tests/rc133-public-contract.cjs
       - name: Preserve narration layout evidence
         if: always()
         uses: actions/upload-artifact@v7
@@ -186,7 +185,7 @@ jobs:
             dream) node tests/rc121-dream-regression-browser.cjs ;;
             death-dialog) node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
             topology) node tests/rc121-connected-topology-browser.cjs ;;
-            release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc142-gameplay-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc142-gameplay-browser.cjs && node tests/rc142-movement-space-browser.cjs && node tests/rc142-persona-volley-browser.cjs ;;
           esac
       - name: Print concise evidence
         if: always()

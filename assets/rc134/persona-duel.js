@@ -5,7 +5,7 @@
 (function(root){'use strict';
  const guards=new WeakMap(),runs=new WeakMap(),polygons=new Map(),ID='inner-evil-rc133';
  const finite=(x,d=0)=>Number.isFinite(x)?x:d;
- const policy=Object.freeze({centerSum:38,acrossRadius:15,depthRadius:8.3,centerGap:1.45,heroRadius:.8,bossRadius:.8,trackingSeconds:.09,maxSpeed:18});
+ const policy=Object.freeze({centerSum:38,acrossRadius:16,depthRadius:8.8,centerGap:1.45,heroRadius:.8,bossRadius:.8,trackingSeconds:.09,maxSpeed:18});
  const active=s=>root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)===true;
  const stats={guards:0,repairs:0,mirrors:0,releases:0,swaps:0};
  const mutual=s=>active(s)&&s.innerFinalRC133.awake>0&&root.__HAPIL_SAMONG_RC91__?.active(s)===true;
@@ -15,7 +15,7 @@
  function swap(s,on){if(!(s?.hp>0))return false;root.__HAPIL_BATTLE_ARENA_RC138__?.release(s);const m=s.innerFinalRC133,a=s.enemies?.find(a=>a.id===ID);if(!a||!!m.duelSwap===on)return false;const allies=[s,...(root.__HAPIL_PARTY_V31322__?.state===s?root.__HAPIL_PARTY_V31322__.actors??[]:[])],actors=[...allies,a],positions=actors.map(mirror);for(const q of actors)releaseActor(q);m.duelSwap=on;for(let i=0;i<actors.length;i++){actors[i].x=positions[i].x;actors[i].y=positions[i].y;actors[i].navPath=[];for(const k of ['moveDx','moveDy','moveVx','moveVy'])if(Number.isFinite(actors[i][k]))actors[i][k]*=-1;}stats.swaps++;enforce(s);return true;}
  function clip(points,value){const out=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],va=value(a),vb=value(b),inside=va>=-1e-10,next=vb>=-1e-10;if(inside)out.push(a);if(inside!==next){const t=va/(va-vb);out.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});}}return out;}
  function polygon(side,radius){const key=side+':'+radius;if(polygons.has(key))return polygons.get(key);
-  // Conservative floor ellipse inside the preserved arena's visible platform.
+  // Expanded floor ellipse remains inside the shared arena platform.
   // Clip its inward edge normals by actor radius, then by native map bounds
   // and the vertical centerline. The right floor is the exact left reflection.
   const source=Array.from({length:64},(_,i)=>{const a=i*Math.PI*2/64,u=Math.cos(a)*policy.acrossRadius,v=Math.sin(a)*policy.depthRadius;return{x:policy.centerSum/2+(v+u)/Math.SQRT2,y:policy.centerSum/2+(v-u)/Math.SQRT2};});
@@ -45,8 +45,8 @@
  function tick(s,dt){const a=enforce(s),party=root.__HAPIL_PARTY_V31322__;if(!a||a.hp<=0||s.hp<=0||s.paused||s.pause||finite(s.timeStopUntil)>s.time||party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected))return;const m=s.innerFinalRC133,clock=finite(m.tempoClock)-finite(m.tempoMutualStart),at=2+((m.tempoSeed??137)%100)/100;if(mutual(s)&&m.tempoActive&&!m.duelSwap&&!m.duelSwapDone&&clock>=at){swap(s,true);m.duelSwapUntil=clock+.7;m.duelSwapDone=true;}else if(m.duelSwap&&(!mutual(s)||clock>=finite(m.duelSwapUntil)))swap(s,false);if(!(dt>0))return;const t=Math.min(.1,dt),target=point(mirror(s),swapped(s)?'left':'right',policy.bossRadius),amount=1-Math.exp(-t/policy.trackingSeconds),dx=(target.x-a.x)*amount,dy=(target.y-a.y)*amount,d=Math.hypot(dx,dy),limit=d>policy.maxSpeed*t?policy.maxSpeed*t/d:1,old={x:a.x,y:a.y};set(a,{x:a.x+dx*limit,y:a.y+dy*limit},swapped(s)?'left':'right',policy.bossRadius);
   a.moveDx=a.x-old.x;a.moveDy=a.y-old.y;a.moveVx=a.moveDx/t;a.moveVy=a.moveDy/t;a.movingUntil=Math.hypot(a.moveDx,a.moveDy)>1e-6?s.time+.12:0;a.navPath=[];face(s,a);stats.mirrors++;
  }
- // The preserved floor projects inside x=67..1213, y=354..672. Include
- // the humanoid headroom and keep the centerline at the painted view center.
+ // The expanded walkable floor projects inside x=60..1220, y=360..666.
+ // Keep the centerline at the painted view center in every viewport.
  function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=Math.min(1,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
  function constrained(s,a){return guards.get(a)?.state===s&&active(s);}
  function backdrop(ctx,canvas){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.globalCompositeOperation='destination-over';ctx.fillStyle='#020610';ctx.fillRect(0,0,canvas.width,canvas.height);}finally{ctx.restore();}}

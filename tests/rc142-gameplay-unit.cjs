@@ -35,4 +35,11 @@ ok(persona.includes('Math.max(mutual?.46:empowered?.68:1.05,warning+.35)'),'next
 ok(media.includes('samongSkillMap:samongSkills'),'awake attacks use the source-art map');
 ok(duel.includes('s.facing=h<0?-1:1'),'hidden duel facing follows projected screen X');
 ok(duel.includes('Math.min(1,Math.max(1,view.width-24)/1200'),'desktop arena zoom remains at or below 1x');
-console.log(JSON.stringify({status:'passed',checks,scope:'c104 authored phase routing, asset preload, native renderer hooks, awake attack/facing/camera invariants'}));
+const movementMetrics=source=>{const w={};vm.runInNewContext(source,{window:w,Math,Number,Object,Set,WeakMap,Map,Array});const D=w.__HAPIL_PERSONA_DUEL_RC134__,p=D.polygon('left',.8);let twice=0;for(let i=0;i<p.length;i++){const a=p[i],b=p[(i+1)%p.length];twice+=a.x*b.y-a.y*b.x;}const px=p.map(q=>640+27*(q.x-q.y)),py=p.map(q=>13.5*(q.x+q.y));return{policy:D.policy,area:Math.abs(twice/2),bounds:{x:[Math.min(...px),Math.max(...px)],y:[Math.min(...py),Math.max(...py)]},rightArea:(()=>{let n=0,r=D.polygon('right',.8);for(let i=0;i<r.length;i++){const a=r[i],b=r[(i+1)%r.length];n+=a.x*b.y-a.y*b.x;}return Math.abs(n/2);})()};};
+const baseline=movementMetrics(duel.replace('acrossRadius:16,depthRadius:8.8','acrossRadius:15,depthRadius:8.3')),expanded=movementMetrics(duel);
+ok(expanded.policy.acrossRadius===16&&expanded.policy.depthRadius===8.8,'physical arena radius increases independent of camera zoom');
+ok(expanded.area>baseline.area*1.07&&expanded.area<baseline.area*1.08,'player walkable polygon grows about seven percent in each native combat half');
+ok(expanded.bounds.x[0]<baseline.bounds.x[0]-35&&expanded.bounds.y[0]<baseline.bounds.y[0]-8&&expanded.bounds.y[1]>baseline.bounds.y[1]+8,'projected native player bounds grow outward on all three outer edges');
+ok(expanded.bounds.x[0]>0&&expanded.bounds.x[1]<1280&&expanded.bounds.y[0]>0&&expanded.bounds.y[1]<720,'expanded player bounds remain on the logical canvas');
+ok(Math.abs(expanded.area-expanded.rightArea)<1e-8&&Math.abs(expanded.bounds.x[1]-600.85)<1e-8,'opposite combat half mirrors exactly and centerline gap stays fixed');
+console.log(JSON.stringify({status:'passed',checks,scope:'c104 authored phase routing, asset preload, native renderer hooks, movement-space and attack/facing/camera invariants'}));

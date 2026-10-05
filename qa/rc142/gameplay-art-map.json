@@ -121,5 +121,27 @@
         "samongSha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a"
       }
     ]
+  },
+  "movementRange": {
+    "scope": {
+      "modes": ["STORY", "DREAM"],
+      "activeCombatMaps": 55,
+      "sharedBounds": true,
+      "actorRadiusWorldUnits": 0.8,
+      "movementOwner": "assets/rc138/battle-arena.js -> assets/rc134/persona-duel.js"
+    },
+    "before": {
+      "referenceCommit": "076c347b56b75ac9a6265bf91654605b497bcfbc",
+      "policy": { "acrossRadius": 15, "depthRadius": 8.3, "centerGap": 1.45 },
+      "playerHalfAreaWorldUnitsSquared": 147.1780510972126,
+      "projectedBounds": { "x": [97.91067733256716, 600.85], "y": [370.34863637351464, 655.6513636264854] }
+    },
+    "after": {
+      "policy": { "acrossRadius": 16, "depthRadius": 8.8, "centerGap": 1.45 },
+      "playerHalfAreaWorldUnitsSquared": 157.71315498684564,
+      "areaIncreasePercent": 7.1581,
+      "projectedBounds": { "x": [59.72836911567401, 600.85], "y": [360.7994215406675, 665.2005784593325] }
+    },
+    "nativeMovementEvidence": "tests/rc142-movement-space-browser.cjs walks every edge through final ft() movement and coordinate guards in every map/mode fixture across PC, portrait and landscape browsers; output is staged fixture evidence, not a natural campaign run."
   }
 }
