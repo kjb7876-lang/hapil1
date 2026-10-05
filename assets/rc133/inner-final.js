@@ -3,7 +3,7 @@
 (function(root){
  'use strict';
  const ID='inner-evil-rc133',ZONE='cult04',n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,cl=(v,a,b)=>Math.max(a,Math.min(b,n(v)));
- const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0};let native=null;
+ const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0,compositorFrames:0,compositorLayers:0};let native=null,moodLayer=null,moodFilterSvg=null;
  const HP_LIMIT=3000000;
  // Nine lossless skill crops power the baseline volley; the original source
  // atlas supplies distinct motifs during either side's awakening.
@@ -87,7 +87,7 @@
   if(a?.id===ID&&a.hp<=0&&s.innerFinalRC133?.phase!=='complete'){
    const m=s.innerFinalRC133;
    if(!m.bossRevived&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
-   m.phase='complete';m.hp=0;m.awake=0;cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
+   m.phase='complete';m.hp=0;m.awake=0;releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
   }
   return false;
  }
@@ -118,7 +118,7 @@
   metrics.clashes=(metrics.clashes??0)+1;return true;
  }
  function onPlayerLethal(s){
-  if(!encounter(s)||s.hp>0)return false;const m=s.innerFinalRC133,a=s.enemies.find(e=>e.id===ID);
+  if(!encounter(s)||s.hp>0)return false;releaseMoodLayer();const m=s.innerFinalRC133,a=s.enemies.find(e=>e.id===ID);
   if(m.playerRevived||root.__HAPIL_SAMONG_RC91__?.revivalAuthorized?.(s)!==true)return false;
   return startClash(s,a,a?.hp<=0?'both':'player');
  }
@@ -160,12 +160,23 @@
 
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}
+ const FILTER_ID='hapil-inner-final-boss-rc142';
+ const playerFilter='grayscale(1) contrast(1.08)',bossFilter='url("#'+FILTER_ID+'")';
+ function ensureMoodFilter(){if(moodFilterSvg?.isConnected)return;const doc=root.document;if(!doc?.createElementNS)return;const ns='http://www.w3.org/2000/svg',svg=doc.createElementNS(ns,'svg');svg.setAttribute('aria-hidden','true');svg.setAttribute('width','0');svg.setAttribute('height','0');svg.style.cssText='position:fixed;left:-10px;top:-10px;width:0;height:0;overflow:hidden;pointer-events:none';const filter=doc.createElementNS(ns,'filter');filter.setAttribute('id',FILTER_ID);filter.setAttribute('color-interpolation-filters','sRGB');const matrix=doc.createElementNS(ns,'feColorMatrix');matrix.setAttribute('type','matrix');matrix.setAttribute('values','0.229608 0.772416 0.077976 0 -0.04 0.086440659 0.290791906 0.029355671 0 -0.015058824 0.108050824 0.363489882 0.036694588 0 -0.018823529 0 0 0 1 0');filter.append(matrix);svg.append(filter);(doc.body??doc.documentElement).append(svg);moodFilterSvg=svg;}
+ function syncMoodLayer(layer){const c=layer?.canvas,o=layer?.overlay;if(!c?.isConnected||!o?.isConnected||c.parentElement!==layer.parent)return false;if(o.width!==c.width)o.width=c.width;if(o.height!==c.height)o.height=c.height;const left=c.offsetLeft,top=c.offsetTop,width=c.offsetWidth,height=c.offsetHeight;if(layer.geometry!==left+':'+top+':'+width+':'+height){o.style.left=left+'px';o.style.top=top+'px';o.style.width=width+'px';o.style.height=height+'px';layer.geometry=left+':'+top+':'+width+':'+height;}layer.dirty=false;return true;}
+ function releaseMoodLayer(canvas=null){const layer=moodLayer;if(!layer){if(moodFilterSvg?.parentNode)moodFilterSvg.remove();moodFilterSvg=null;return false;}if(canvas&&layer.canvas!==canvas)return false;layer.observer?.disconnect();root.removeEventListener?.('resize',layer.resize);if(layer.canvas.style.filter===layer.appliedFilter)layer.canvas.style.filter=layer.originalFilter;if(layer.overlay.parentNode)layer.overlay.remove();moodLayer=null;if(moodFilterSvg?.parentNode)moodFilterSvg.remove();moodFilterSvg=null;return true;}
+ function applyMoodLayer(canvas,mode){if(!canvas?.isConnected||!canvas.matches?.('.game-stage > canvas')||!root.document)return false;if(mode==='boss'){ensureMoodFilter();if(!moodFilterSvg?.isConnected)return false;}if(moodLayer&&moodLayer.canvas!==canvas)releaseMoodLayer();let layer=moodLayer;if(!layer){const parent=canvas.parentElement;if(!parent)return false;const overlay=root.document.createElement('canvas');overlay.className='rc142-inner-hud-overlay';overlay.setAttribute('aria-hidden','true');overlay.dataset.rc142InnerHud='true';overlay.width=canvas.width;overlay.height=canvas.height;const z=root.getComputedStyle(canvas).zIndex;overlay.style.cssText='position:absolute;pointer-events:none;display:block;box-sizing:border-box;max-width:none;max-height:none;object-fit:fill;z-index:'+(/^-?\d+$/.test(z)?z:'0');parent.insertBefore(overlay,canvas.nextSibling);layer={canvas,parent,overlay,originalFilter:canvas.style.filter,appliedFilter:'',geometry:'',dirty:true,observer:null,resize:null};if(typeof root.ResizeObserver==='function'){layer.observer=new root.ResizeObserver(()=>{layer.dirty=true;syncMoodLayer(layer);});layer.observer.observe(canvas);layer.observer.observe(parent);}layer.resize=()=>{layer.dirty=true;syncMoodLayer(layer);};root.addEventListener?.('resize',layer.resize,{passive:true});moodLayer=layer;metrics.compositorLayers++;}if(layer.dirty||layer.overlay.width!==canvas.width||layer.overlay.height!==canvas.height){if(!syncMoodLayer(layer))return false;}else if(!canvas.isConnected||!layer.overlay.isConnected||canvas.parentElement!==layer.parent)return false;const filter=mode==='boss'?bossFilter:playerFilter;if(canvas.style.filter!==filter){canvas.style.filter=filter;layer.appliedFilter=filter;}return true;}
+ function prepareHud(ctx,s,canvas){const layer=moodLayer;if(!ctx||!layer||layer.canvas!==canvas||!canvas.isConnected||!layer.overlay.isConnected||canvas.parentElement!==layer.parent)return ctx;if(layer.dirty||layer.overlay.width!==canvas.width||layer.overlay.height!==canvas.height)if(!syncMoodLayer(layer))return ctx;const out=layer.overlay.getContext('2d');if(!out)return ctx;out.setTransform(1,0,0,1,0,0);out.clearRect(0,0,layer.overlay.width,layer.overlay.height);const transform=ctx.getTransform?.();if(transform)out.setTransform(transform);out.globalAlpha=1;out.globalCompositeOperation='source-over';out.filter='none';out.shadowBlur=0;return out;}
  function compose(ctx,s,canvas){
   // RC108 caches native camera passes before assembling the portrait frame.
   // Apply hidden-battle color once, after those camera images are assembled.
-  const mode=mood(s);if(!ctx||!canvas||root.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics?.()?.rendering===true)return false;
+  const mode=mood(s);if(!ctx||!canvas)return false;if(mode==='normal'){releaseMoodLayer();return false;}if(root.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics?.()?.rendering===true)return false;
   if(root.__HAPIL_PERSONA_DUEL_RC134__?.active(s))root.__HAPIL_PERSONA_DUEL_RC134__.backdrop(ctx,canvas);
-  if(mode==='normal')return false;
+  // Grade the actual world canvas in the browser compositor. The transparent
+  // HUD sibling is cleared/redrawn separately so feedback remains readable.
+  const clash=s.innerFinalRC133?.clash?.used&&s.time<s.innerFinalRC133.clash.until;
+  if(!clash&&(mode==='player'||mode==='boss')&&applyMoodLayer(canvas,mode)){metrics.frames++;metrics.compositorFrames++;return true;}
+  releaseMoodLayer(canvas);
   const w=canvas.width,h=canvas.height;ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
    const pass=(x,width,bossSide)=>{ctx.save();try{ctx.beginPath();ctx.rect(x,0,width,h);ctx.clip();ctx.filter='grayscale(1) contrast(1.08)';ctx.drawImage(canvas,0,0);ctx.filter='none';if(bossSide){ctx.globalCompositeOperation='multiply';ctx.fillStyle='#ff6078';ctx.fillRect(x,0,width,h);}}finally{ctx.restore();}};
    // Tint actual world ownership after the two cached views are assembled.
@@ -186,7 +197,7 @@
  function bind(value){native=value;return true;}
  function snapshot(s){root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);const m=s?.innerFinalRC133,a=boss(s);return clean(m?{...m,hp:a?.hp??m.hp,x:a?.x??m.x,y:a?.y??m.y}:null);}
  function restore(s,raw){
-  const m=clean(raw);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);cleanup(s);s.enemies=(s.enemies??[]).filter(a=>a.id!==ID);delete s.innerFinalRC133;
+  releaseMoodLayer();const m=clean(raw);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);cleanup(s);s.enemies=(s.enemies??[]).filter(a=>a.id!==ID);delete s.innerFinalRC133;
   if(!m||(m.entry==='developer-777'&&!root.__HAPIL_DEVELOPER_MAPS_RC133__?.has(s)))return;
   // A completed run keeps its history in the village or another mode. Its
   // encounter flags and actor cleanup apply only to the actual Dream arena.
@@ -199,7 +210,7 @@
   s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.enemies=s.enemies.filter(a=>!a.dreamCosmicTrialV31346&&a.id!=='c104-boss');s.bossDefeated=false;build(s,m);
  }
 
- const api=Object.freeze({version:'RC133',id:ID,traits,deck,acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,map,frame,configure,bind,snapshot,restore,metrics:()=>({...metrics,artReady:art.ready})});
+ const api=Object.freeze({version:'RC133',id:ID,traits,deck,acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
  root.__HAPIL_INNER_FINAL_RC133__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
