@@ -31,7 +31,7 @@ window.__HAPIL_SAMONG_RC91__ = {
     if (!Policy.admit(s, passive, 'ego')) return false;
     const profile = Policy.profile(s);
     passive.active = profile.duration;
-    passive.cooldown = profile.cooldown;
+    passive.cooldown = profile.cooldown;passive.origin='ego';
     passive.activations = (passive.activations || 0) + 1;
     Policy.complete(s, true);
     return true;
@@ -43,7 +43,7 @@ window.__HAPIL_SAMONG_RC91__ = {
     // A nested EGO trigger during revival must see the same occupied lock.
     const nestedEgo = this.tryEgo(s);
     passive.active = Policy.profile(s).duration;
-    passive.cooldown = Policy.profile(s).cooldown;
+    passive.cooldown = Policy.profile(s).cooldown;passive.origin='revival';
     passive.activations = (passive.activations || 0) + 1;
     s.hp = Math.ceil(s.maxHp * .5);
     Policy.complete(s, true);
@@ -111,7 +111,7 @@ function advance(s, seconds) {
 {
   const s = fresh();
   s.samongPassiveRC91.active = 2;
-  s.samongPassiveRC91.cooldown = 5;
+  s.samongPassiveRC91.cooldown = 5;s.samongPassiveRC91.origin='ego';
   for (let i = 1; i <= 6; i++) entry(s, i);
   entry(s, 7);
   eq(s.samongPassiveRC91.activations, 0, 'occupied awakening rejects stacking');
@@ -124,7 +124,7 @@ function advance(s, seconds) {
   eq(Policy.status(s).count, 0, 'successful retry consumes the pending count');
 
   const cooling = fresh();
-  cooling.samongPassiveRC91.cooldown = 2;
+  cooling.samongPassiveRC91.cooldown = 2;cooling.samongPassiveRC91.origin='ego';
   for (let i = 1; i <= 7; i++) entry(cooling, i);
   eq(cooling.samongPassiveRC91.activations, 0, 'cooldown blocks the seventh activation');
   ok(Policy.status(cooling).pending, 'cooldown-blocked seventh admission stays pending');

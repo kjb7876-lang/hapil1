@@ -45975,6 +45975,7 @@ function Y(e, t, n, r, i = !1) {
   return window.__HAPIL_COMBAT_CORE_V31401__.player(e,t,n,r,i);
 }
 function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
+  if(window.__HAPIL_AWAKENING_RULES_RC137__?.permitDamage(e,i)===false)return false;
   if(window.__HAPIL_SAMONG_RC91__?.protected(e)){window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'INVULNERABLE','samong-revival-grace-rc91');return !1;}
   if(window.__HAPIL_DEFENSE_V31356__?.blockDamage(e,e,i,t)){window.__HAPIL_COMBAT_CORE_V31401__.markIfUnset(e,e,'INVULNERABLE','D-held-no-credit');window.__HAPIL_COMBAT_RC47__?.absorbed(e,e,i,n,r);return !1;}
   if(window.__HAPIL_LOOP_V31365__?.beforeIncoming(e,e,i,t)){window.__HAPIL_COMBAT_CORE_V31401__.mark(e,e,'SHIELD','ego-protection');window.__HAPIL_COMBAT_RC47__?.absorbed(e,e,i,n,r);return !1;}
@@ -50992,7 +50993,7 @@ function ji(e) {
     frontierZone: S,
     x: a(t.x),
     y: a(t.y),
-    hp: _i(t.hp, 240, 1, 240 + MONGSE_infiniteStats(h).maxHpBonus),
+    hp: _i(t.hp, 240, 0, 240 + MONGSE_infiniteStats(h).maxHpBonus),
     clues: u,
     bossDefeated: i < 5 ? s === `village` : !!t.bossDefeated,
     villageTalk: !!t.villageTalk,
@@ -54441,6 +54442,8 @@ function Ri() {
             blocked:s, clear:MONGSE_zoneCombatCleared(o,o.zone), sound:!!ze.current.sound, voiceVolume:ze.current.sfxVolume, selectPhysician:HAPIL_selectPhysicianRC51,
             finish:()=>{HAPIL_commitFinalEndingV31301(o,L.current,Le.current,R.current,Be.current);window.dispatchEvent(new CustomEvent('hapil:final-event',{detail:{phase:'ending-title'}}));}
           }) || s;
+          s=window.__HAPIL_SAMONG_RC91__?.deathPending(o)===true||s;
+          window.__HAPIL_AWAKENING_RULES_RC137__?.prepare(o);
           const HAPIL_heroDeltaRC51=a;
           window.__HAPIL_SAMONG_RC91__?.advance(o,MONGSE_frameDeltaMs31220/1000,s||window.__HAPIL_PARTY_V31322__?.status?.paused===true||window.__HAPIL_PARTY_V31322__?.status?.disconnected===true);
           if(!s)a=window.__HAPIL_STORY_RC51__?.clock(o,a)??a;
@@ -62030,6 +62033,7 @@ function Ri() {
                window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);
                let s = new Set();
                for (let e of o.hostileProjectiles) {
+                if(window.__HAPIL_AWAKENING_RULES_RC137__?.expired(o,e)){MONGSE_recordProjectileRemoval31215(o,e,'awakening-lifetime');s.add(e);continue;}
                 if (MONGSE_isEncounterLocked31226(o)) continue;
                 if (e.projectileRemovalReason31215 || e.parriedV31356 || e.cancelled) { s.add(e); continue; }
                 if (MONGSE_removeMalformedHostileProjectile31216(o, e)) {
@@ -62047,13 +62051,13 @@ function Ri() {
                   continue;
                 }
                 MONGSE_prepareBossScatterHoming31211(o, e);
-                window.__HAPIL_COMBAT_SAFETY_RC126__?.steer(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1));
+                window.__HAPIL_COMBAT_SAFETY_RC126__?.steer(o,e,window.__HAPIL_AWAKENING_RULES_RC137__?.travelDelta(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1))??a);
                 if (
                   ((e.previousX = e.x),
                   (e.previousY = e.y),
                   e.frozenUntil <= o.time &&
                     o.timeStopUntil <= o.time &&
-                    MONGSE_stepSignatureProjectile31212(o, e, a * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1)),
+                    MONGSE_stepSignatureProjectile31212(o, e, window.__HAPIL_AWAKENING_RULES_RC137__?.travelDelta(o,e,a*(window.__HAPIL_SAMONG_RC91__?.incomingFactor(o)??1))??a),
                   window.__HAPIL_MODES_V31346__?.reflect(o,e),
                   e.x < MONGSE_PROJECTILE_WORLD_MIN_V31214 ||
                     e.x > MONGSE_PROJECTILE_WORLD_MAX_V31214 ||
@@ -62119,6 +62123,7 @@ function Ri() {
               window.__HAPIL_SKILL_COMPLETION_V31412__?.observe(o);
               for (let e of o.enemies) {
                 if (e?.cosmicLuciferV31318 === true || e?.echoChildV31368 === true) continue;
+                if(window.__HAPIL_AWAKENING_RULES_RC137__?.barrage(o,e,()=>bi(o,e,MONGSE_enemyPhase(e))))continue;
                 const HAPIL_partyEnemyScopeV31322 = window.__HAPIL_PARTY_V31322__?.enemyTargetScope(o, e);
                 try {
                 if (
@@ -62764,6 +62769,7 @@ function Ri() {
                 MONGSE_faceEnemyTowardHero31229(o, e);
                 } finally { HAPIL_partyEnemyScopeV31322?.(); }
               }
+              window.__HAPIL_AWAKENING_RULES_RC137__?.prepare(o);
               window.__HAPIL_THEME_V31323__?.prepareHits(o);
               HAPIL_preserveCommittedCombatQueuesV31303(o);
               let MONGSE_combatReleased31226 =
@@ -63070,7 +63076,7 @@ function Ri() {
                 !o.enemies.some((e) => e.id === o.targetEnemyId) &&
                 (o.targetEnemyId = null),
               (window.__HAPIL_SAMONG_RC91__?.tryRevive(o)),
-              (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) &&
+              (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) && window.__HAPIL_SAMONG_RC91__?.consumeCheckpoint(o) &&
                 ((window.__HAPIL_EPISODE1_RC59__?.beforeRespawn(o)),
                 (window.__HAPIL_EXIT_V31327__?.reset(o)),
                 HAPIL_resetEncounterOnEntryRC133(o),
@@ -63901,6 +63907,7 @@ function Ri() {
                       }),
                     ],
                   }),
+                (0, q.jsx)(HAPIL_DeathChoiceRC137,{state:P.current}),
                 (0, q.jsx)(`div`, { className: `toast`, children: C }),
                 (0, q.jsx)(`div`, {
                   className: `mobile-pad`,
@@ -126731,4 +126738,19 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  function cleanFoundation(raw){return {version:1,regions:Array.isArray(raw?.regions)?raw.regions.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],waypoints:Array.isArray(raw?.waypoints)?raw.waypoints.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],resources:{memory:Math.max(0,Math.min(9999,Math.floor(n(raw?.resources?.memory))))}};}
  function foundation(s){if(!s)return null;const m=s.mongseFoundationRC133=cleanFoundation(s.mongseFoundationRC133);if(!m.regions.includes(s.zone)&&N[s.zone])m.regions.push(s.zone);if(N[s.zone]?.rest&&!m.waypoints.includes(s.zone))m.waypoints.push(s.zone);return m;}
  function ready(){if(install()||++attempts>=1200)return;setTimeout(ready,20);}ready();
+})();
+
+/* RC137 native React death choice and final lexical admission boundaries. */
+function HAPIL_DeathChoiceRC137({state:s}){
+ const A=window.__HAPIL_SAMONG_RC91__;if(!(s?.hp<=0)||!A?.deathPending(s))return null;
+ return (0,q.jsxs)('section',{role:'dialog','aria-modal':true,'aria-label':'부활 선택',id:'hapil-death-choice-rc137','data-death-choice-rc137':true,style:{position:'absolute',zIndex:100,inset:'20% 10% auto',padding:'24px',background:'#10111ded',border:'1px solid #b9a9d1',color:'#fff',textAlign:'center'},children:[
+  (0,q.jsx)('h2',{children:'EGO 붕괴 · 부활 선택'}),(0,q.jsx)('p',{children:'부활 방법을 선택할 때까지 전투가 멈춥니다.'}),
+  A.canRevive(s)&&(0,q.jsx)('button',{type:'button',onClick:()=>A.chooseRevival(s,'samong'),children:'사몽 위기 부활'}),
+  (0,q.jsx)('button',{type:'button',onClick:()=>A.chooseRevival(s,'checkpoint'),children:'체크포인트에서 부활'})]});
+}
+(()=>{const R=()=>window.__HAPIL_AWAKENING_RULES_RC137__;
+ const mechanics=MONGSE_tickSevenSinBossMechanics;MONGSE_tickSevenSinBossMechanics=function(s,...args){if(R()?.awake(s))return {wrathDashes:0,cancelled:0};return mechanics.call(this,s,...args);};
+ const laser=MONGSE_pushThemeLaser3129;MONGSE_pushThemeLaser3129=function(s,a,...args){if(R()?.allowCast(s,a)===false)return null;const result=laser.call(this,s,a,...args);if(result)R()?.castCompleted(s,a);return result;};
+ const cast=Ei;Ei=function(s,a,...args){if(R()?.allowCast(s,a)===false)return null;const result=cast.call(this,s,a,...args);R()?.castCompleted(s,a);return result;};
+ for(const api of [window.__HAPIL_LASERS_V31330__,window.__HAPIL_BOSSES_V31334__])if(api?.start){const start=api.start;api.start=function(s,a,...args){if(R()?.allowCast(s,a)===false)return null;const result=start.call(this,s,a,...args);if(result)R()?.castCompleted(s,a);return result;};}
 })();
