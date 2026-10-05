@@ -124621,6 +124621,15 @@ var HAPIL_RC13_RENDER = (()=>{
   if(!boss(e))return render(ctx);
   let largest=null,draws=0;const baseMatrix=ctx.getTransform?.(),baseScale=baseMatrix?Math.hypot(baseMatrix.a,baseMatrix.b)||1:1;
   const rawDraw=ctx.drawImage.bind(ctx);
+  if(kind==='projectile'&&window.__HAPIL_RC142_LEGACY_PROJECTILE_SCOPE__!==true){
+   const originalDraw=ctx.drawImage,fastDraw=(...args)=>{
+    const p=footprint(ctx,args);if(!p)return rawDraw(...args);
+    const m=p.matrix,scale=m?Math.min(Math.hypot(m.a,m.b),Math.hypot(m.c,m.d))/baseScale:1;p.long*=Math.max(.001,scale);p.short*=Math.max(.001,scale);draws++;
+    const out=enlarge(p,104);e.visibleLongEdgeRC13=p.long*Math.abs(out[p.k+2]/p.w);e.visibleShortEdgeRC13=p.short*(out[p.k+2]/p.w);return rawDraw(...out);
+   };
+   let installed=false;try{ctx.drawImage=fastDraw;installed=ctx.drawImage===fastDraw;}catch{}
+   if(installed){try{const result=render(ctx);if(draws)stats.projectiles++;return result;}finally{ctx.drawImage=originalDraw;}}
+  }
   const view=new Proxy(Object.create(null),{get(local,key){
    if(Object.hasOwn(local,key))return local[key];const target=ctx;
    if(key==='drawImage')return(...args)=>{
