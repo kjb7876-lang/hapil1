@@ -57,14 +57,16 @@
   saved.phase=m.phase;saved.graze=m.graze;
  }
  function clearOwned(s,ids,reason){
+  // RC137: a new spell changes admission only. Released bullets, fields, warning
+  // packets and recovery keep their own native clocks until contact/expiry.
+  if(reason==='spell-complete')return 0;
   let removed=0;const owns=q=>ids.includes(owner(q))&&!friendly(q)&&!persistent(q);
-  // Finish all casts before this is called on a live phase boundary. Persistent
-  // blackholes/fields are opt-in carryovers; ally and reflected shots never cancel.
+  // Explicit owner exit retains cleanup, including not-yet-released deliveries.
+  // Persistent fields and ally/reflected shots retain their existing policy.
   for(const key of ['hostileProjectiles','pendingHits','impactQueue']){
    if(!Array.isArray(s[key]))continue;
    s[key]=s[key].filter(q=>{
     if(!owns(q))return true;
-    if(key!=='hostileProjectiles'&&Math.max(num(q.at),num(q.impactAt),num(q.endAt))>s.time)return true;
     q.rc129RemovalReason=reason;removed++;return false;
    });
   }

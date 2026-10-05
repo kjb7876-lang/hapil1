@@ -3,7 +3,7 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
 const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc134-persona-effects';fs.mkdirSync(out,{recursive:true});
-const bridge='\nwindow.__RC134_EFFECT_QA__={initial:oi,hero:id=>F.find(h=>h.id===id),remove:(...a)=>MONGSE_recordProjectileRemoval31215(...a)};';
+const bridge=`\nwindow.__RC134_EFFECT_QA__={initial:oi,hero:id=>F.find(h=>h.id===id),remove:(...a)=>MONGSE_recordProjectileRemoval31215(...a),common:(s,a)=>{bi(s,a,MONGSE_enemyPhase(a));Ei(s,a,{kind:'fan',count:7});MONGSE_pushThemeProjectile3129(s,a,{vx:1,vy:1,damage:10});},nativeTick:s=>{window.__HAPIL_LASERS_V31330__.tick(s,.05);MONGSE_tickBossThemeOrdnance(s);MONGSE_tickBossCombatPatternsV31230(s);MONGSE_tickBossCombatBrainSmartR1(s,s.enemies[0],.05);},move:(s,q,dt)=>MONGSE_stepSignatureProjectile31212(s,q,dt)};`;
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2','.json':'application/json'};
 const server=http.createServer((req,res)=>{try{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+'/'))return res.writeHead(403).end();res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');const bytes=fs.readFileSync(file);res.end(file.endsWith('/assets/index-v31526.js')?bytes.toString()+bridge:bytes);}catch{res.writeHead(404).end();}});
 const report={commit:cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),scope:'Staged native source-only warnings, flights, terminal impacts and removals on desktop/portrait/landscape browser emulation',status:'running',profiles:[]};
@@ -40,7 +40,26 @@ const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(rep
      }
      rows.push({key,packet:q,packets:packets.length,warning,flight,endings});H.restore(s,null);
     }}finally{binding.state.current=original;T.begin(original,.016);}
-    return{checks,problems,rows,sourcePaths:[...allowed]};
+    const timed=[],P=window.__HAPIL_PERSONA_DUEL_RC134__;
+    try{for(const hero of window.__HAPIL_SAMONG_RC91__.heroes){
+     const s=Q.initial();Object.assign(s,{zone:'cult04',time:100,x:16,y:24,hp:240,maxHp:240,activeHeroId:hero,gameModeV31346:'DREAM',samongUnlockedRC91:true,practiceV31329:false,encounterLockUntil31226:0,encounterDialogue31226:null,encounterWallUnlockAtV31227:0,timeStopUntil:0,invulnerableUntil:0});binding.state.current=s;
+     const leader=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');leader.hp=0;s.enemies=[leader];check(H.start(s,leader),'timed hidden start '+hero);const a=H.boss(s),seen=new Map(),waves=[];let maxPending=0;
+     for(let step=0;step<600;step++){
+      s.time+=.05;H.tick(s,.05);Q.nativeTick(s);Q.common(s,a);T.begin(s,.05);
+      maxPending=Math.max(maxPending,s.hostileProjectiles.length);
+      for(const q of s.hostileProjectiles){if(!seen.has(q.id)){seen.set(q.id,q.rc133Skill);waves.push({time:s.time,cycle:q.rc133Cycle,key:q.rc133Skill});check(q.rc133InnerShot&&allowed.has(clean(q.sprite))&&['fallbackSprite','sevenSinImpactSprite','impactSpriteV31224','impactFallbackSprite','telegraphSpriteV31224'].every(k=>clean(q[k])===clean(q.sprite)),'timed actual native packet only approved '+hero,{sprite:q.sprite,skill:q.rc133Skill});}
+       if(q.frozenUntil<=s.time)Q.move(s,q,.05);
+      }
+      s.hostileProjectiles=s.hostileProjectiles.filter(q=>q.expiresAt>s.time&&!q.projectileRemovalReason31215);
+     }
+     const keys=[...new Set(seen.values())],volleyTimes=[...new Map(waves.map(q=>[q.cycle,q.time])).values()];check(keys.length===9,'timed native rotation emits all nine '+hero,keys);check(volleyTimes.length>=18,'frequent timed emissions '+hero,volleyTimes);check(maxPending<=48,'timed native queue bounded '+hero,maxPending);check(s.pendingHits.every(q=>q.sourceId!==H.id),'common native casts blocked '+hero,s.pendingHits.map(q=>({source:q.sourceId,label:q.label,path:q.sprite})));
+     for(const [x,y]of [[12,19],[19,26]]){s.x=x;s.y=y;for(let j=0;j<180;j++)P.tick(s,.016);check(Math.abs(a.x+s.x-38)<1e-5&&Math.abs(a.y+s.y-38)<1e-5,'both axes center symmetry '+hero,{player:{x:s.x,y:s.y},boss:{x:a.x,y:a.y}});check(P.contains(s,'left')&&P.contains(a,'right'),'native floor halves maintained '+hero);}
+     s.samongPassiveRC91={active:7,cooldown:77};Object.assign(s.innerFinalRC133,{awake:7,cycle:0,shotDelay:0});s.hostileProjectiles=[];H.tick(s,.016);check(s.hostileProjectiles.every(q=>Math.hypot(q.vx,q.vy)<=.85&&q.frozenUntil-s.time>=.25&&q.frozenUntil-s.time<.5),'actual awakened skill quick warning and very slow travel '+hero);check(Math.abs(s.innerFinalRC133.shotDelay-.45)<1e-8,'exact mutual half cadence '+hero);
+     const tempoSteps=[];for(let i=0;i<230;i++){const dt=P.tempo(s,.016);tempoSteps.push(dt);P.tick(s,dt);}check(tempoSteps.some(x=>x===0)&&tempoSteps.some(x=>x>0),'bounded stop recovers in actual browser '+hero);check(!P.swapped(s),'brief faction exchange already returned '+hero);
+     const saved=H.snapshot(s),r=Q.initial();Object.assign(r,{zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,hp:240,maxHp:240,activeHeroId:hero,time:s.time,x:s.x,y:s.y,samongPassiveRC91:{active:7,cooldown:77}});H.restore(r,saved);const origStep=P.tempo(s,.016),restoredStep=P.tempo(r,.016);check(origStep===restoredStep&&r.innerFinalRC133.tempoSeed===s.innerFinalRC133.tempoSeed,'native hidden save preserves seeded tempo progress '+hero);H.restore(r,null);
+     timed.push({hero,keys,packets:seen.size,volleys:volleyTimes.length,maxPending,firstTime:volleyTimes[0],lastTime:volleyTimes.at(-1)});H.restore(s,null);
+    }}finally{binding.state.current=original;T.begin(original,.016);}
+    return{checks,problems,rows,timed,sourcePaths:[...allowed]};
    });save();assert.deepEqual(row.result.problems,[]);assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);row.status='passed';console.log('RC134_PERSONA_EFFECTS',JSON.stringify({name,checks:row.result.checks,status:'passed'}));
   }finally{save();await context.close();}
  }

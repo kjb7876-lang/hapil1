@@ -10,16 +10,16 @@ assert(!api.unlocked());assert.equal(api.select('DREAM'),'STORY');assert.equal(a
 assert(!api.unlock(null,'old-dream-preference'));assert.equal(api.select('DREAM'),'STORY');
 storage.set('hapilEndingCleared','true');assert.equal(api.select('DREAM'),'DREAM');storage.clear();
 assert(api.unlock(null,'777'));assert.equal(api.select('DREAM'),'DREAM');assert.equal(api.select('HELL'),'STORY');
-let s=fresh('STORY');s.hp=0;assert(!api.tryRevive(s));
-s=fresh('DREAM');s.hp=0;assert(api.tryRevive(s));assert.equal(s.hp,120);assert.equal(api.snapshot(s).active,7);assert.equal(api.snapshot(s).cooldown,77);assert.equal(api.incomingBuff(s),.12);
+let s=fresh('STORY');s.hp=0;assert(!api.chooseRevival(s,'samong'));
+s=fresh('DREAM');s.hp=0;assert(api.chooseRevival(s,'samong'));assert.equal(s.hp,120);assert.equal(api.snapshot(s).active,7);assert.equal(api.snapshot(s).cooldown,77);assert.equal(api.incomingBuff(s),.12);
 for(let i=0;i<10;i++)api.advance(s,.1,true);assert.equal(api.snapshot(s).active,7,'paused time is never consumed');
 for(let i=0;i<35;i++)api.advance(s,.1,false);assert(Math.abs(api.snapshot(s).active-3.5)<1e-7);assert.equal(s.time,10,'the awakening clock does not depend on world time');
 const saved=JSON.parse(JSON.stringify(api.snapshot(s))),loaded=fresh('DREAM');api.restore(loaded,saved);
 assert(Math.abs(api.snapshot(loaded).active-3.5)<1e-7);assert(Math.abs(api.snapshot(loaded).cooldown-73.5)<1e-7);
 for(let i=0;i<35;i++)api.advance(loaded,.1,false);assert(!api.active(loaded));assert(Math.abs(api.snapshot(loaded).cooldown-70)<1e-7);
-loaded.hp=0;assert(!api.tryRevive(loaded),'a second lethal hit during cooldown is not another revival');loaded.hp=240;
-const delayed=fresh('DREAM');delayed.hp=0;api.tryRevive(delayed);api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,3.5,'slow frames consume real combat time');api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,0);assert.equal(api.snapshot(delayed).cooldown,70);
-for(let i=0;i<700;i++)api.advance(loaded,.1,false);loaded.hp=0;assert(!api.tryRevive(loaded),'RC128: cooldown expiry alone does not refill the encounter revival');loaded.hp=240;loaded.zone='rc128-next-encounter';api.advance(loaded,.01,false);loaded.hp=0;assert(api.tryRevive(loaded));assert.equal(api.snapshot(loaded).activations,2);
+loaded.hp=0;assert(!api.chooseRevival(loaded,'samong'),'a second lethal hit during cooldown is not another revival');loaded.hp=240;
+const delayed=fresh('DREAM');delayed.hp=0;api.chooseRevival(delayed,'samong');api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,3.5,'slow frames consume real combat time');api.advance(delayed,3.5,false);assert.equal(api.snapshot(delayed).active,0);assert.equal(api.snapshot(delayed).cooldown,70);
+for(let i=0;i<700;i++)api.advance(loaded,.1,false);loaded.hp=0;assert(!api.chooseRevival(loaded,'samong'),'RC128: cooldown expiry alone does not refill the encounter revival');loaded.hp=240;loaded.zone='rc128-next-encounter';api.advance(loaded,.01,false);loaded.hp=0;assert(api.chooseRevival(loaded,'samong'));assert.equal(api.snapshot(loaded).activations,2);
 // Exactly 2x the same Story baseline; repeated ticks/load/mode selection never stack.
 const mob={id:'mob',hp:70,maxHp:100,damage:10,speed:2,attackSpeed:1,defense:3};
 const boss={id:'boss',boss:true,hp:700,maxHp:1000,damage:20,speed:3,attackSpeed:1};
@@ -40,14 +40,14 @@ for(const [rank,expected]of [[0,7],[1,8],[2,9],[999,9],[-1,7],['2',7],[NaN,7]]){
 assert.equal(api.sanitize({version:1,active:999,duration:9,enemies:[]}).active,7,'duration alone cannot grant upgrade time');
 assert.equal(api.sanitize({version:1,active:-1,duration:9,upgradesRC133:{samongDuration:2},enemies:[]}).active,0);
 const upgraded=fresh('DREAM');upgraded.samongUpgradesRC133={samongDuration:2};upgraded.hp=0;
-assert(api.tryRevive(upgraded));assert.equal(api.snapshot(upgraded).active,9);assert.equal(api.snapshot(upgraded).cooldown,77);
+assert(api.chooseRevival(upgraded,'samong'));assert.equal(api.snapshot(upgraded).active,9);assert.equal(api.snapshot(upgraded).cooldown,77);
 const upgradedSave=JSON.parse(JSON.stringify(api.snapshot(upgraded))),upgradedLoad=fresh('DREAM');api.restore(upgradedLoad,upgradedSave);
 assert.equal(api.snapshot(upgradedLoad).active,9,'valid upgraded active time survives save/restore');
 
 // Revival precedes the party reducer's knockdown normalization.
 vm.runInContext(read('assets/combat-v31402/combat-core.js'),c);const core=window.__HAPIL_COMBAT_CORE_V31401__;
 let down=false;core.bind({reducePlayer(world,damage){world.hp-=damage;return true;},route(world,reduce,args){const ok=reduce(world,...args);if(world.hp<=0)down=true;return ok;}});
-s=fresh('DREAM');s.hp=1;assert(core.player(s,30,0,0,{}));assert.equal(s.hp,120);assert(!down);assert(api.active(s));
+s=fresh('DREAM');s.hp=1;assert(core.player(s,30,0,0,{}));assert.equal(s.hp,-29);assert(down);assert(api.deathPending(s));assert(api.chooseRevival(s,'samong'));assert.equal(s.hp,120);assert(api.active(s));
 // Adjacent segments share one authored texture strip; no repeated muzzle caps.
 vm.runInContext(read('assets/rc77/connected-laser.js'),c);const laser=window.__HAPIL_CONNECTED_LASER_V31377__,records=[];
 const ctx={depth:0,circles:0,circleClips:0,circleImages:0,save(){this.depth++;},restore(){this.depth--;},translate(){},rotate(){},transform(){},arc(x,y,r,start,end){assert.equal(x,0);assert.equal(y,0);assert.equal(r,16);assert.equal(start,0);assert.equal(end,Math.PI*2);this.circlePath=true;this.circles++;},clip(){if(this.circlePath)this.circleClips++;},closePath(){},setLineDash(){},beginPath(){this.circlePath=false;this.moves=0;this.lines=0;},moveTo(){this.moves++;},lineTo(){this.lines++;},stroke(){records.push({color:this.strokeStyle,width:this.lineWidth,moves:this.moves,lines:this.lines,join:this.lineJoin});},drawImage(image){assert.equal(image.width,200);if(this.circlePath)this.circleImages++;this.images=(this.images||0)+1;}};

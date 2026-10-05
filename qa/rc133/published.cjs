@@ -22,8 +22,17 @@ const fixedFiles = [
   'assets/rc133/samong-policy.js',
   'assets/rc91/samong-awakening.js',
   'qa/rc133/art-processing.json',
+  'assets/rc137/art-data.js',
+  'assets/rc137/boss-art.js',
+  'assets/rc137/awakening-portraits.js',
+  'assets/rc137/boss-projectiles-source.png',
+  'assets/rc137/winter-thorn-sentry.png',
+  'assets/rc137/u2-independent-sentries.png',
+  'qa/rc137/art-manifest.json',
 ];
 const expectedOutputCount = 44;
+const expectedRuntimeCount = 53;
+let personaOutputRows=[];
 const report = {
   version: 'RC133',
   testedCommit: null,
@@ -190,21 +199,21 @@ async function runProfile(browser, profile, outputRows) {
     url.searchParams.set('qa', '1');
     url.searchParams.set('rc133-qa', name + '-' + Date.now());
     await page.goto(url.href, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    await page.waitForFunction(() => {
+    await page.waitForFunction(expectedRuntimeCount => {
       const native = window.__HAPIL_RC133_NATIVE__;
       const art = window.__HAPIL_MEDIA_ART_RC133__;
-      if (native?.installed !== true || art?.ready !== true) return false;
+      if (native?.installed !== true || art?.ready !== true || window.__HAPIL_BOSS_ART_RC137__?.ready !== true) return false;
       const d = art.diagnostics();
-      return d.ready === true && d.required === 44 && d.decoded === 44 && d.failed.length === 0;
-    }, null, { timeout: 60000 });
+      return d.ready === true && d.required === expectedRuntimeCount && d.decoded === expectedRuntimeCount && d.failed.length === 0;
+    }, expectedRuntimeCount, { timeout: 60000 });
 
     const imageData = await page.evaluate(runtimeDimensions);
-    assert.deepEqual(imageData.diagnostics, { ready: true, decoded: 44, required: 44, failed: [] },
-      'all 44 required public art images must decode');
+    assert.deepEqual(imageData.diagnostics, { ready: true, decoded: expectedRuntimeCount, required: expectedRuntimeCount, failed: [] },
+      'all 53 required public art images must decode');
     const observedByFile = new Map(imageData.images.map(image => [image.file, image]));
-    assert.equal(imageData.images.length, expectedOutputCount, 'runtime decoder exposes 44 output images');
-    assert.equal(observedByFile.size, expectedOutputCount, 'runtime art paths are unique');
-    const dimensions = outputRows.map(output => {
+    assert.equal(imageData.images.length, expectedRuntimeCount, 'runtime decoder exposes all 53 required outputs');
+    assert.equal(observedByFile.size, expectedRuntimeCount, 'runtime art paths are unique');
+    const dimensions = outputRows.concat(personaOutputRows).map(output => {
       const image = observedByFile.get(output.file);
       assert(image, 'runtime must decode manifest output: ' + output.file);
       assert.equal(image.decoded, true, 'runtime image decoded: ' + output.file);
@@ -213,6 +222,10 @@ async function runProfile(browser, profile, outputRows) {
       return { file: output.file, width: image.width, height: image.height };
     });
     row.art = { diagnostics: imageData.diagnostics, decodedDimensions: dimensions };
+    row.mobMotions137=await page.evaluate(()=>{const M=window.__HAPIL_MOB_MOTIONS_RC137__;return {ids:M.data.actors.length,newFrames:M.data.sources.reduce((n,s)=>n+s.cells.length,0),metrics:M.metrics()};});
+    assert.equal(row.mobMotions137.ids,197);assert.equal(row.mobMotions137.newFrames,133);assert.deepEqual(row.mobMotions137.metrics.errors,[]);
+    row.bossArt137=await page.evaluate(()=>{const A=window.__HAPIL_BOSS_ART_RC137__;return {ready:A.ready,owners:Object.keys(A.data.owners).length,cells:A.data.cells.length,error:window.__HAPIL_BOSS_ART_RC137_ERROR__??null,policy:A.policy};});
+    assert.deepEqual({ready:row.bossArt137.ready,owners:row.bossArt137.owners,cells:row.bossArt137.cells,error:row.bossArt137.error},{ready:true,owners:71,cells:26,error:null});
 
     // Enter a fresh ordinary STORY game using only the normal UI. No save or
     // gameplay fields are injected; ordinary autosaves stay inside this fresh
@@ -270,6 +283,7 @@ async function main() {
     assert.match(testedCommit, /^[0-9a-f]{40}$/i, 'checkout must have an exact full commit SHA');
     assert.equal(process.env.EXPECTED_SHA, testedCommit, 'EXPECTED_SHA must equal the exact checkout SHA');
     assert.equal(process.env.GITHUB_SHA, testedCommit, 'GITHUB_SHA must equal the exact checkout SHA');
+    report.runtimeRequiredImages=expectedRuntimeCount; report.catalog='44 original art outputs plus nine approved Persona crops';
 
     const manifest = JSON.parse(localBytes('qa/rc133/art-processing.json').toString('utf8'));
     assert.equal(manifest.schema, 'rc133-art-processing-v1');
@@ -284,9 +298,25 @@ async function main() {
     });
     assert.equal(new Set(outputRows.map(row => row.file)).size, expectedOutputCount, 'manifest output paths must be unique');
 
+
+    const personaManifest = JSON.parse(localBytes('assets/rc134/persona-skills/manifest.json'));
+    assert.equal(personaManifest.outputs.length, 9, 'nine approved Persona crops');
+    const keys = ['small-orb','eye','diamond','clock','star','eclipse','lance','shield','vortex'];
+    personaOutputRows = personaManifest.outputs.map((row,index) => {
+      assert.equal(row.key,keys[index]);
+      assert.equal(row.path,'assets/rc134/persona-skills/'+keys[index]+'.png');
+      assert.match(row.sha256,/^[a-f0-9]{64}$/);
+      assert(Array.isArray(row.size)&&row.size.length===2&&row.size.every(n=>Number.isSafeInteger(n)&&n>0));
+      const bytes=localBytes(row.path);assert.equal(sha256(bytes),row.sha256);
+      return {file:row.path,sha256:row.sha256,bytes:bytes.length,dimensions:row.size};
+    });
+
     const expected = new Map(fixedFiles.map(file => [file, expectedFile(file)]));
-    for (const row of outputRows) expected.set(row.file, row);
-    assert.equal(expected.size, fixedFiles.length + expectedOutputCount, 'fixed files and all outputs are unique');
+    for (const row of outputRows.concat(personaOutputRows)) expected.set(row.file, row);
+    assert.equal(expected.size, fixedFiles.length + expectedRuntimeCount, 'fixed files and all 53 outputs are unique');
+    const delta=JSON.parse(localBytes('qa/rc133/authorized-runtime-delta.json'));
+    for(const row of delta.files){const file=row.after.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.after.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
+    for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
     const derivative = manifest.externalDerivatives?.[0];
     if (derivative) {

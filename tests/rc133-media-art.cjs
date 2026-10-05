@@ -29,7 +29,7 @@ const snippet=fs.readFileSync(root+'/assets/rc133/native-install.js.txt','utf8')
 // registry query strings. Other assets and data/blob URLs retain their old URL.
 const vm=require('node:vm'),urlAdapter=snippet.split('\n').find(line=>line.includes('const assetUrl=MONGSE_assetUrl;'));
 check(!!urlAdapter,'native Chrono revision adapter is present');
-const urlContext={MONGSE_assetUrl:p=>!p||/^(?:data:|blob:)/.test(p)?p:p+(p.includes('?')?'&':'?')+'v=31332'};vm.createContext(urlContext);vm.runInContext(urlAdapter,urlContext);
+const urlContext={window:{},MONGSE_assetUrl:p=>!p||/^(?:data:|blob:)/.test(p)?p:p+(p.includes('?')?'&':'?')+'v=31332'};vm.createContext(urlContext);vm.runInContext(urlAdapter,urlContext);
 for(let i=0;i<16;i++)check(urlContext.MONGSE_assetUrl('./assets/rc133/art/chrono-'+i+'.png').endsWith('v=31332&rc133=43305'),'canonical native Chrono URL retains corrected pixel revision '+i);
 for(const p of ['./assets/rc133/art/chrono-12.png?v=43305','assets/rc133/art/chrono-14.png'])check(urlContext.MONGSE_assetUrl(p).endsWith('&rc133=43305'),'registry and relative Chrono URLs preserve revision '+p);
 for(const p of ['./assets/rc133/art/base-0.png','./assets/rc133/art/chrono-16.png','data:image/png;base64,abc','blob:fixture',null])check(urlContext.MONGSE_assetUrl(p)===(!p||/^(?:data:|blob:)/.test(p)?p:p+'?v=31332'),'unrelated native image URL unchanged '+p);

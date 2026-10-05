@@ -1,0 +1,10 @@
+html body.rc15-playing .game-stage > #hapil-death-choice-rc137 {
+ display:block !important;
+ position:fixed !important;
+ inset:20dvh max(16px, calc((100vw - 540px) / 2)) auto !important;
+ z-index:2147483000 !important;
+ pointer-events:auto !important;
+ max-height:65dvh;
+ overflow:auto;
+}
+[data-death-choice-rc137] button {min-height:48px;margin:8px;padding:10px 18px;touch-action:manipulation}

@@ -25,12 +25,12 @@
  }
  function admit(s,passive,origin){
   const m=memory(s);
-  if(!['ego','revival'].includes(origin)||!enabled(s)||m.admitting||finite(passive.active)>1e-8||finite(passive.cooldown)>1e-8)return false;
+  if(!['ego','revival'].includes(origin)||!enabled(s)||m.admitting||finite(passive[origin+'Cooldown'],passive.origin===origin?finite(passive.cooldown):0)>1e-8)return false;
   if(origin==='ego'&&(!(s.hp>0)||!m.pending))return false;
   if(origin==='revival'&&!root.__HAPIL_AWAKENING_POLICY_RC128__?.claim?.(s,passive))return false;
-  m.admitting=true;return true;
+  m.admitting=true;m.admittingOrigin=origin;return true;
  }
- function complete(s,ok){const m=memory(s);if(ok&&m.pending)consume(s);m.admitting=false;}
+ function complete(s,ok){const m=memory(s);if(ok&&m.pending&&m.admittingOrigin==='ego')consume(s);m.admitting=false;delete m.admittingOrigin;}
  function gain(s,amount,kind){if(!enabled(s)||!(amount>0))return amount;const p=profile(s),bonus=['parry','graze'].includes(kind)?1+(p.gain-1)*.5:1;return amount*p.gain*bonus;}
  function purchase(s,raw,shards,key){
   const t=tracks.find(t=>t.key===key),u=upgrades(raw),credit=Math.max(0,Math.floor(finite(shards)));

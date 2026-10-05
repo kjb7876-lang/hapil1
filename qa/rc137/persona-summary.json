@@ -1,0 +1,539 @@
+{
+  "status": "passed",
+  "baseCommit": "0fd11601c9fdb0b3dd8afc01f325e42c92200a36",
+  "scope": "Staged native browser constructors, common attack hooks, warning/flight/contact/terminal draws, timed emissions; no natural campaign or publication claim",
+  "sourceAtlases": 2,
+  "sourceCrops": 9,
+  "newArtwork": false,
+  "testedFileSha256": {
+    "assets/rc133/inner-final.js": "7d03e855fa2527cb5f6ad116711a12dac04cd421fa0dcc7cf484506db68cb7b7",
+    "assets/rc134/persona-duel.js": "fc409b742b528380be1154174762e63dfd5de35a2bc292eea63679ab9358eb0c",
+    "assets/rc133/native-install.js.txt": "c10ad6a17f301f9126cbc7f6f5dad759e6a2285bd4b3c48fa33152bbfb7f861a",
+    "assets/index-v31526.js": "2498719dd25f7d67b8bf371b6307378f1591a9499a89d5ed5b9e57f111a2d914"
+  },
+  "unitChecks": {
+    "rc134-persona-policy": 8700,
+    "rc134-persona-art": 73,
+    "rc133-duel-hitboxes": 192,
+    "rc133-policy": 131
+  },
+  "profiles": [
+    {
+      "name": "pc",
+      "checks": 976,
+      "status": "passed",
+      "pageErrors": [],
+      "httpErrors": [],
+      "sourcePaths": [
+        "./assets/rc134/persona-skills/small-orb.png",
+        "./assets/rc134/persona-skills/eye.png",
+        "./assets/rc134/persona-skills/diamond.png",
+        "./assets/rc134/persona-skills/clock.png",
+        "./assets/rc134/persona-skills/star.png",
+        "./assets/rc134/persona-skills/eclipse.png",
+        "./assets/rc134/persona-skills/lance.png",
+        "./assets/rc134/persona-skills/shield.png",
+        "./assets/rc134/persona-skills/vortex.png"
+      ],
+      "timed": [
+        {
+          "hero": "hwando",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "seoha",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "neon",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "michaela",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "lauren",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "hunter",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "slayer",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "gunner",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        }
+      ]
+    },
+    {
+      "name": "portrait",
+      "checks": 976,
+      "status": "passed",
+      "pageErrors": [],
+      "httpErrors": [],
+      "sourcePaths": [
+        "./assets/rc134/persona-skills/small-orb.png",
+        "./assets/rc134/persona-skills/eye.png",
+        "./assets/rc134/persona-skills/diamond.png",
+        "./assets/rc134/persona-skills/clock.png",
+        "./assets/rc134/persona-skills/star.png",
+        "./assets/rc134/persona-skills/eclipse.png",
+        "./assets/rc134/persona-skills/lance.png",
+        "./assets/rc134/persona-skills/shield.png",
+        "./assets/rc134/persona-skills/vortex.png"
+      ],
+      "timed": [
+        {
+          "hero": "hwando",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "seoha",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "neon",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "michaela",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "lauren",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "hunter",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "slayer",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "gunner",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        }
+      ]
+    },
+    {
+      "name": "landscape",
+      "checks": 976,
+      "status": "passed",
+      "pageErrors": [],
+      "httpErrors": [],
+      "sourcePaths": [
+        "./assets/rc134/persona-skills/small-orb.png",
+        "./assets/rc134/persona-skills/eye.png",
+        "./assets/rc134/persona-skills/diamond.png",
+        "./assets/rc134/persona-skills/clock.png",
+        "./assets/rc134/persona-skills/star.png",
+        "./assets/rc134/persona-skills/eclipse.png",
+        "./assets/rc134/persona-skills/lance.png",
+        "./assets/rc134/persona-skills/shield.png",
+        "./assets/rc134/persona-skills/vortex.png"
+      ],
+      "timed": [
+        {
+          "hero": "hwando",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "seoha",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "neon",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "michaela",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "lauren",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "hunter",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "slayer",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        },
+        {
+          "hero": "gunner",
+          "keys": [
+            "small-orb",
+            "eye",
+            "diamond",
+            "clock",
+            "star",
+            "eclipse",
+            "lance",
+            "shield",
+            "vortex"
+          ],
+          "packets": 90,
+          "volleys": 24,
+          "maxPending": 33,
+          "firstTime": 104.99999999999972,
+          "lastTime": 129.7499999999988
+        }
+      ]
+    }
+  ],
+  "integration": "Parent wires tempo(s, unscaledDt) once at main simulation boundary; advances state.time and ongoing spells using returned dt. Player cooldown/image UI and any-awakening global attack sealing are separate coordinated changes."
+}

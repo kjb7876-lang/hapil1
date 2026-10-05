@@ -1,0 +1,1165 @@
+{
+  "status": "pass",
+  "baseCommit": "d15a148241afecfe94ebf37e3e3d830e383531fa",
+  "implementationCommit": "c4aea977ebe124db87597c9aff98966895da144f",
+  "scope": "Native staged movement, combat manual override, touch ownership and real CDP orientation; separate deterministic 30/60/120Hz coverage",
+  "browser": "151.0.7922.173",
+  "execution": "PC/mobile results from complete profile runs; CPU\u00d74 rerun after replacing the wall-time-only sampler with a >=3 native frame requirement. Production source unchanged between runs. Staged native route, legal starting points and player-only invulnerability. No natural campaign completion claim.",
+  "sourceSha256": {
+    "assets/index-v31526.js": "0e321d54dd8e2b9d2b7e362694bb9a5e310ede2fb23a0d3650a3ffdb041d6d57",
+    "assets/rc137/direction-input.js": "5ed476c048c5232dfcb92c5cbe6b5c971034b872fbab4a7cf8bf4ed7e6ef85f2",
+    "tests/rc137-direction-input-browser.cjs": "3e6329c62b6fb858fd59bb9b369de3b94e6433eae305bfe3743ae06c67285d0a",
+    "tests/rc137-direction-input-unit.cjs": "52fd05be682b59fa93107724fe848f5c57d856b1f2ffa1b605e0d87e6535f290"
+  },
+  "summary": {
+    "nativeKeyCases": 54,
+    "trustedWheelAxisCases": 8,
+    "maxSingleAxisOrthogonalPixels": 1.7053025658242404e-13,
+    "keyRelease": true,
+    "trustedMultitouchAndHybridOwnership": true,
+    "realCDPOrientations": 2,
+    "fixedMovement777WorldSpeed": 6.471684999999999
+  },
+  "regressions": {
+    "directionUnit": {
+      "status": "pass",
+      "checks": 902,
+      "simulationFPS": [
+        30,
+        60,
+        120
+      ]
+    },
+    "rc127Policy": {
+      "status": "pass",
+      "checks": 174
+    },
+    "rc134FullautoBalanceUnit": {
+      "status": "pass",
+      "checks": 183
+    },
+    "rc133PreservationUnit": {
+      "status": "pass",
+      "checks": 19
+    },
+    "syntaxAndWhitespace": "pass"
+  },
+  "profiles": [
+    {
+      "name": "pc",
+      "status": "pass",
+      "errors": [],
+      "missing": [],
+      "cases": [
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 9,
+          "progress": 27.236254385988786,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 22.911111111773405,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 14,
+          "progress": 24.87354414287455,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 15.05714285714287,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 11,
+          "progress": 53.942678346512025,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 19.36363636390731,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 4,
+          "progress": 38.587033841988614,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 52.67500000074506,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 10,
+          "progress": 49.89875658615199,
+          "maxOrthogonal": 1.7053025658242404e-13,
+          "meanFrameMs": 22.039999999999964,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 9,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 21.522222223215675,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 8,
+          "progress": 22.586756685244268,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 24.26250000149014,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 9,
+          "progress": 24.12431258189963,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 20.0222222222222,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 7,
+          "progress": 47.91904249124798,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 27.171428572705867,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 6,
+          "progress": 51.570851241899845,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 30.76666666716331,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 7,
+          "progress": 52.005128131331674,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 30.8571428575685,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 5,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 36.86000000119202,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 11,
+          "progress": 25.747407840602932,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 18.654545455358278,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 10,
+          "progress": 25.192123320058386,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 19.829999999999927,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 9,
+          "progress": 47.8193597429464,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 20.188888889220024,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 9,
+          "progress": 55.135293941998725,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 21.34444444576891,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 8,
+          "progress": 47.91703684570098,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 25.637500000372484,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 8,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 26.43750000111754,
+          "camera": {
+            "x": 164.56612680618179,
+            "y": 39.239446289106695,
+            "scale": 0.7423037323775556,
+            "wholeMapV31345": true,
+            "adaptiveRC125": true
+          }
+        }
+      ],
+      "release": {
+        "transition": {
+          "dx": 0,
+          "dy": -25.62470441567956
+        },
+        "stop": {
+          "dx": 0,
+          "dy": 0,
+          "velocity": [
+            0,
+            0
+          ],
+          "held": []
+        }
+      },
+      "fixedSpeed": 6.471684999999999
+    },
+    {
+      "name": "mobile",
+      "status": "pass",
+      "errors": [],
+      "missing": [],
+      "cases": [
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 6,
+          "progress": 21.95834910324436,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 32.383333334326686,
+          "camera": {
+            "x": 300.3364927780928,
+            "y": 139.80745200403524,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 10,
+          "progress": 26.941817180479006,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 21.19999999970196,
+          "camera": {
+            "x": 300.6950699884734,
+            "y": 124.95934657370702,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 10,
+          "progress": 53.64118416105134,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 21.300000000596082,
+          "camera": {
+            "x": 317.0132994002787,
+            "y": 132.43785664130576,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 4,
+          "progress": 37.90310271238752,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 48.950000001490025,
+          "camera": {
+            "x": 287.2203426578932,
+            "y": 133.07580449566808,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 9,
+          "progress": 46.27152527783454,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 21.600000000993433,
+          "camera": {
+            "x": 291.33667595552976,
+            "y": 142.00198951483057,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 8,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 25.612500000745058,
+          "camera": {
+            "x": 299.4189270408525,
+            "y": 135.14086692686465,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 5,
+          "progress": 20.756540345194935,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 35.100000001192164,
+          "camera": {
+            "x": 300.21982449974723,
+            "y": 140.61103894778998,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 7,
+          "progress": 28.051289789945827,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 30.014285715137184,
+          "camera": {
+            "x": 300.7048456848843,
+            "y": 124.86565072958504,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 6,
+          "progress": 47.37964203687227,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 31.4166666671634,
+          "camera": {
+            "x": 315.5260041077621,
+            "y": 131.96971081178097,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 7,
+          "progress": 58.205131255339325,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 29.242857144134437,
+          "camera": {
+            "x": 279.9596833752294,
+            "y": 132.99343365076544,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 3,
+          "progress": 21.70416017090986,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 57.93333333333309,
+          "camera": {
+            "x": 295.238011054208,
+            "y": 137.64113250266635,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 6,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 34.16666666617008,
+          "camera": {
+            "x": 299.5468993568753,
+            "y": 134.66170502089693,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 9,
+          "progress": 23.760150036634343,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 21.499999999668944,
+          "camera": {
+            "x": 302.38540211531785,
+            "y": 139.9697458258606,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 8,
+          "progress": 25.213928492335583,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 25.40000000000009,
+          "camera": {
+            "x": 301.0761097003278,
+            "y": 126.90520332692502,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 8,
+          "progress": 51.97273866440412,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 25.07499999962738,
+          "camera": {
+            "x": 317.19154726032474,
+            "y": 132.24515414946723,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 8,
+          "progress": 52.124500419309584,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 23.350000001117678,
+          "camera": {
+            "x": 284.5141077969396,
+            "y": 132.99654014248844,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 7,
+          "progress": 45.455422210811946,
+          "maxOrthogonal": 1.1368683772161603e-13,
+          "meanFrameMs": 26.61428571428561,
+          "camera": {
+            "x": 291.6565093794641,
+            "y": 142.38750925233035,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 7,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 29.271428572280065,
+          "camera": {
+            "x": 299.79928357345386,
+            "y": 134.91271417176495,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        }
+      ],
+      "release": {
+        "transition": {
+          "dx": 0,
+          "dy": -22.057078103757988
+        },
+        "stop": {
+          "dx": 0,
+          "dy": 0,
+          "velocity": [
+            0,
+            0
+          ],
+          "held": []
+        }
+      },
+      "multiTouch": {
+        "diagonal": {
+          "dx": 10.86044771612353,
+          "dy": -10.86044771612336,
+          "held": [
+            "ArrowUp",
+            "ArrowRight"
+          ]
+        },
+        "hybridOwnership": true,
+        "stickAndAttack": true
+      },
+      "stickAxes": [
+        {
+          "key": "ArrowUp",
+          "dx": 0,
+          "dy": -26.37831051520891,
+          "keys": [
+            "ArrowUp"
+          ]
+        },
+        {
+          "key": "ArrowDown",
+          "dx": 0,
+          "dy": 28.376550052346374,
+          "keys": [
+            "ArrowDown"
+          ]
+        },
+        {
+          "key": "ArrowLeft",
+          "dx": -54.12917377417875,
+          "dy": 0,
+          "keys": [
+            "ArrowLeft"
+          ]
+        },
+        {
+          "key": "ArrowRight",
+          "dx": 54.47806391545612,
+          "dy": -5.684341886080802e-14,
+          "keys": [
+            "ArrowRight"
+          ]
+        }
+      ],
+      "fullAutoTouch": {
+        "dx": 0,
+        "dy": -21.563983103568944,
+        "keys": [
+          "ArrowUp"
+        ]
+      },
+      "rotation": {
+        "touchMove": {
+          "dx": 0,
+          "dy": -16.122739568511747
+        },
+        "landscape": {
+          "frames": 14,
+          "progress": 23.661663698635664,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 15.542857142644218,
+          "camera": {
+            "x": -32.50849629245795,
+            "y": -64.19402901006715,
+            "scale": 1.05,
+            "combatViewportRC104": true,
+            "adaptiveRC125": true
+          }
+        }
+      },
+      "fixedSpeed": 6.471684999999999
+    },
+    {
+      "name": "mobile-cpu4",
+      "status": "pass",
+      "errors": [],
+      "missing": [],
+      "cases": [
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 4,
+          "progress": 18.72089149836711,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 124.02500000000009,
+          "camera": {
+            "x": 299.99859106985923,
+            "y": 143.6674791139523,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 5,
+          "progress": 22.610218505440912,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 64.01999999999971,
+          "camera": {
+            "x": 299.9569538305959,
+            "y": 122.90438913432959,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 5,
+          "progress": 44.98439519364729,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 80.87999999880776,
+          "camera": {
+            "x": 320.50934232138184,
+            "y": 132.8716629363774,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 4,
+          "progress": 37.584167418496236,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 180.8249999970194,
+          "camera": {
+            "x": 285.3171409126393,
+            "y": 133.19683619578348,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 5,
+          "progress": 42.057610314426654,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 89.419999998212,
+          "camera": {
+            "x": 289.2963269788601,
+            "y": 144.9708711463413,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "manual",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 4,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 105.6999999970194,
+          "camera": {
+            "x": 303.9382271583275,
+            "y": 134.57413110256095,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 4,
+          "progress": 17.61566302374382,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 103.125,
+          "camera": {
+            "x": 300.0152169935075,
+            "y": 141.12677432417763,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 4,
+          "progress": 17.850947160844726,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 96.37499999701959,
+          "camera": {
+            "x": 303.94256090101936,
+            "y": 124.2438721237242,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 4,
+          "progress": 35.23132604748764,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 114.44999999999982,
+          "camera": {
+            "x": 322.0760848756844,
+            "y": 133.09638827081494,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 4,
+          "progress": 37.584167418496236,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 120.125,
+          "camera": {
+            "x": 284.321916881754,
+            "y": 133.19968787435386,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 4,
+          "progress": 33.28022155125376,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 112.42499999776464,
+          "camera": {
+            "x": 291.24836695522856,
+            "y": 142.9750644999532,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "semi",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 4,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 119.125,
+          "camera": {
+            "x": 303.90620615814305,
+            "y": 134.59258575085946,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp"
+          ],
+          "frames": 5,
+          "progress": 22.492197596823587,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 81.65999999761553,
+          "camera": {
+            "x": 301.37109782510333,
+            "y": 143.8845677386905,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowDown"
+          ],
+          "frames": 4,
+          "progress": 17.73018810826926,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 89.49999999776446,
+          "camera": {
+            "x": 300.0012631182351,
+            "y": 124.41433169554185,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowLeft"
+          ],
+          "frames": 5,
+          "progress": 44.98439519364729,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 90.0199999988079,
+          "camera": {
+            "x": 322.88755912222524,
+            "y": 133.03139427576178,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowRight"
+          ],
+          "frames": 4,
+          "progress": 38.587033841988614,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 119.44999999776519,
+          "camera": {
+            "x": 279.29933058922774,
+            "y": 133.06282143405795,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp",
+            "ArrowRight"
+          ],
+          "frames": 3,
+          "progress": 24.569900722349985,
+          "maxOrthogonal": 5.684341886080802e-14,
+          "meanFrameMs": 170.33333333333334,
+          "camera": {
+            "x": 297.064307802433,
+            "y": 141.28284813206645,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        },
+        {
+          "mode": "full",
+          "keys": [
+            "ArrowUp",
+            "ArrowDown"
+          ],
+          "frames": 4,
+          "progress": 0,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 119.29999999850952,
+          "camera": {
+            "x": 299.9474117105858,
+            "y": 134.4175460126186,
+            "scale": 0.525,
+            "portraitSplitRC108": "hero"
+          }
+        }
+      ],
+      "release": {
+        "transition": {
+          "dx": 0,
+          "dy": -14.185994332436167
+        },
+        "stop": {
+          "dx": 0,
+          "dy": 0,
+          "velocity": [
+            0,
+            0
+          ],
+          "held": []
+        }
+      },
+      "multiTouch": {
+        "diagonal": {
+          "dx": 13.07061793286266,
+          "dy": -13.070617932862604,
+          "held": [
+            "ArrowUp",
+            "ArrowRight"
+          ]
+        },
+        "hybridOwnership": true,
+        "stickAndAttack": true
+      },
+      "stickAxes": [
+        {
+          "key": "ArrowUp",
+          "dx": 0,
+          "dy": -14.348592801695531,
+          "keys": [
+            "ArrowUp"
+          ]
+        },
+        {
+          "key": "ArrowDown",
+          "dx": 0,
+          "dy": 14.348592801695588,
+          "keys": [
+            "ArrowDown"
+          ]
+        },
+        {
+          "key": "ArrowLeft",
+          "dx": -27.688713850574572,
+          "dy": 0,
+          "keys": [
+            "ArrowLeft"
+          ]
+        },
+        {
+          "key": "ArrowRight",
+          "dx": 28.697185603391063,
+          "dy": 0,
+          "keys": [
+            "ArrowRight"
+          ]
+        }
+      ],
+      "fullAutoTouch": {
+        "dx": 0,
+        "dy": -8.14360479512817,
+        "keys": [
+          "ArrowUp"
+        ]
+      },
+      "rotation": {
+        "touchMove": {
+          "dx": 0,
+          "dy": -14.594030752073138
+        },
+        "landscape": {
+          "frames": 5,
+          "progress": 22.492197596823644,
+          "maxOrthogonal": 0,
+          "meanFrameMs": 68.87999999761523,
+          "camera": {
+            "x": -32.50849629245795,
+            "y": -55.718300639456444,
+            "scale": 1.05,
+            "combatViewportRC104": true,
+            "adaptiveRC125": true
+          }
+        }
+      },
+      "fixedSpeed": 6.471684999999999
+    }
+  ]
+}

@@ -17,7 +17,7 @@
   let p=m.encounterRC128;
   if(!p||p.version!==VERSION){
    // A legacy save with prior activations must not gain a free extra revival.
-   p={version:VERSION,zone:zone(s),encounter:0,used:finite(m.activations)>0,beforeUntil:0,ownedUntil:0};
+   p={version:VERSION,zone:zone(s),encounter:0,used:finite(m.activations)>0&&!['ego','counter'].includes(m.origin),beforeUntil:0,ownedUntil:0};
    m.encounterRC128=p;
   }
   return p;
@@ -46,7 +46,7 @@
  }
  function claim(s,m){
   const p=sync(s,m,true);
-  if(!p||p.used||finite(m.active)>1e-8||finite(m.cooldown)>1e-8)return false;
+  if(!p||p.used||finite(m.revivalCooldown,m.origin==='revival'?finite(m.cooldown):0)>1e-8)return false;
   // Claim before HP/EGO mutation, preventing re-entrant lethal-contact revival.
   p.used=true;
   return true;
@@ -57,7 +57,7 @@
  }
  function snapshot(s,m){
   // Serialization is read-only: a save operation does not clear timers or grant a charge.
-  return sanitize(m?.encounterRC128)??{version:VERSION,zone:zone(s),encounter:0,used:finite(m?.activations)>0,beforeUntil:0,ownedUntil:0};
+  return sanitize(m?.encounterRC128)??{version:VERSION,zone:zone(s),encounter:0,used:finite(m?.activations)>0&&!['ego','counter'].includes(m?.origin),beforeUntil:0,ownedUntil:0};
  }
  function restore(s,m,raw){
   if(!s||!m)return;
@@ -68,7 +68,7 @@
  }
  function ready(s,m){
   const p=m?.encounterRC128;
-  return !p?.used&&finite(m?.active)<=1e-8&&finite(m?.cooldown)<=1e-8;
+  return !p?.used&&finite(m?.revivalCooldown,m?.origin==='revival'?finite(m?.cooldown):0)<=1e-8;
  }
  const api=Object.freeze({version:'RC128',sanitize,sync,claim,ownEgo,snapshot,restore,ready});
  root.__HAPIL_AWAKENING_POLICY_RC128__=api;

@@ -24,7 +24,10 @@
      const transform=base.inverse().multiply(raw.getTransform()),at=(x,y)=>{const a=dx+(x-sx)/sw*dw,c=dy+(y-sy)/sh*dh;return{x:transform.a*a+transform.c*c+transform.e,y:transform.b*a+transform.d*c+transform.f};};
      const points=[at(l,t),at(r,t),at(r,b),at(l,b)],area=Math.abs((r-l)/sw*dw*(b-t)/sh*dh*(transform.a*transform.d-transform.b*transform.c));
      if(!(area>1e-6)||!points.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)))return;
-     rows.push({points,area,alpha:raw.globalAlpha,path:im.currentSrc||im.src||'',crop:[l,t,r-l,b-t]});
+     const box=canvas.getBoundingClientRect(),px=box.width/Math.max(1,canvas.width),py=box.height/Math.max(1,canvas.height);
+     const screen=[at(l,t),at(r,t),at(r,b),at(l,b)].map(p=>{const q=base.transformPoint(p);return{x:q.x*px,y:q.y*py};});
+     const left=Math.min(...screen.map(p=>p.x)),right=Math.max(...screen.map(p=>p.x)),top=Math.min(...screen.map(p=>p.y)),bottom=Math.max(...screen.map(p=>p.y));
+     rows.push({points,area,alpha:raw.globalAlpha,path:im.currentSrc||im.src||'',crop:[l,t,r-l,b-t],displayBounds:{left,right,top,bottom,width:right-left,height:bottom-top,longEdge:Math.max(right-left,bottom-top)}});
     };
     if(['fill','stroke','fillRect','strokeRect','clearRect','fillText','strokeText','putImageData'].includes(k))return noop;
     const v=Reflect.get(raw,k,raw);return typeof v==='function'?v.bind(raw):v;
@@ -43,7 +46,7 @@
    const rows=measure(s,q,render),p=project(q.x,q.y),center={x:p.x,y:p.y+n(q.visualYV31333,-18)};
    // A trailing echo, warning icon, aura or Stand is not the main attack body.
    const row=rows.filter(r=>{const x=r.points.reduce((v,p)=>v+p.x,0)/4,y=r.points.reduce((v,p)=>v+p.y,0)/4;return Math.hypot(x-center.x,y-center.y)<180;}).sort((a,b)=>b.area*b.alpha-a.area*a.alpha)[0];
-   const value=row?{points:row.points.map(p=>({x:p.x-center.x,y:p.y-center.y})),path:row.path,area:row.area}:null;
+   const value=row?{points:row.points.map(p=>({x:p.x-center.x,y:p.y-center.y})),path:row.path,area:row.area,displayBounds:row.displayBounds}:null;
    memo.set(q,{signature,value});return value;
   }
   function body(s,a,isHero){const signature=[s,s.time,a.x,a.y,a.activeHeroId??a.heroId,a.sprite,a.heroMotion?.kind,a.heroMotion?.until,a.currentPhase,a.fixedPhase],old=bodies.get(a);if(old?.value&&signature.every((x,i)=>x===old.signature[i]))return old.value;const rows=measure(s,a,isHero?heroDraw:enemyDraw),value=rows.at(-1)??null;bodies.set(a,{signature,value});return value;}

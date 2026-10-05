@@ -145,6 +145,7 @@
   const vignette=ctx.createRadialGradient(width/2,height/2,Math.min(width,height)*.22,width/2,height/2,Math.max(width,height)*.65);
   vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(1,'rgba(5,4,12,0.2)');ctx.globalAlpha=fade;ctx.fillStyle=vignette;ctx.fillRect(0,0,width,height);
   if(head){ctx.save();ctx.translate(head.x,head.y-8*head.scale);ctx.scale(1,.55);ctx.globalAlpha=.7*fade;motif(ctx,profile,clamp(54*head.scale,22,68),t,compact);if(entry>0&&!reduced()){ctx.globalAlpha=entry*.65;ctx.strokeStyle=profile.accent;ctx.lineWidth=1.4;ring(ctx,clamp(50*head.scale,20,70)*(1+t*1.7));}ctx.restore();}
+  if(root.__HAPIL_AWAKENING_PORTRAITS_RC137__)return;
   const badgeY=compact?height*.57:25,badgeX=compact?width*.72:width*.73;
   ctx.save();ctx.translate(badgeX,badgeY);ctx.globalAlpha=fade;
   if(compact||!head){ctx.save();ctx.translate(0,32);motif(ctx,profile,compact?19:26,t,true);ctx.restore();}
@@ -180,6 +181,7 @@
     ctx.save();ctx.beginPath();ctx.rect(3,3,Math.max(0,width-6),Math.max(0,height-6));ctx.clip();ctx.drawImage(canvas,0,0,canvas.width,canvas.height,dx,dy,width,height);ctx.restore();
    }else m.shake=0;
    drawAwakening(ctx,s,width,height,compact);
+   root.__HAPIL_AWAKENING_PORTRAITS_RC137__?.draw(ctx,s,width,height,compact);
    for(const e of m.effects){
     const age=(t-e.born)/e.duration,alpha=1-clamp(age,0,1),p=point(s,e.x,e.y,width,height);
     ctx.save();ctx.globalAlpha=alpha*.85;ctx.strokeStyle=e.color;ctx.fillStyle=e.color;

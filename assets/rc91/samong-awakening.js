@@ -33,14 +33,14 @@
   const im=pictures.get(id);return im.complete&&im.naturalWidth>0?im:null;
  }
  function activate(s,origin){
-  if(!['ego','revival'].includes(origin)||!enabled(s)||!Number.isFinite(s.hp)||!(n(s.maxHp)>0)||(origin==='revival'?s.hp>0:s.hp<=0))return false;
+  if(!['ego','revival'].includes(origin)||!enabled(s)||!Number.isFinite(s.hp)||!(n(s.maxHp)>0)||(origin==='revival'?(s.hp>0||!revivalAuthorized(s)):s.hp<=0))return false;
   const P=window.__HAPIL_PARTY_V31322__;
   if(P?.state===s&&P?.status?.role==='guest')return false;
-  const m=memory(s);if(m.cooldown>1e-8||m.active>1e-8)return false;
+  const m=memory(s);if(n(m[origin+'Cooldown'],m.origin===origin?n(m.cooldown):0)>1e-8)return false;
   const policy=window.__HAPIL_SAMONG_POLICY_RC133__;
   if(policy?!policy.admit(s,m,origin):origin!=='revival'||(window.__HAPIL_AWAKENING_POLICY_RC128__&&!window.__HAPIL_AWAKENING_POLICY_RC128__.claim(s,m)))return false;
   const config=policy?.profile(s)??{duration:DURATION,cooldown:COOLDOWN,grace:.6};
-  m.active=config.duration;m.duration=config.duration;m.cooldown=config.cooldown;m.grace=config.grace;m.origin=origin;m.activations=Math.max(0,n(m.activations))+1;
+  m.active=config.duration;m.duration=config.duration;m[origin+'Cooldown']=config.cooldown;m.cooldown=Math.max(n(m.egoCooldown),n(m.revivalCooldown));m.grace=config.grace;m.origin=origin;m.activations=Math.max(0,n(m.activations))+1;
   m.heroId=HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando';
   if(origin==='revival')s.hp=Math.max(1,Math.ceil(s.maxHp*.5));
   // Keep the native EGO state for this awakening only; the normal resonance
@@ -58,20 +58,33 @@
   window.__HAPIL_FEEDBACK_RC128__?.awakening(s,m);
   window.__HAPIL_COMBAT_CORE_V31401__?.step?.(s,s,'samong-'+origin+'-rc133');return true;
  }
- function tryRevive(s){if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
+ const choices=new WeakMap();
+ function revivalAuthorized(s){return choices.get(s)==='samong';}
+ function canRevive(s){return enabled(s)&&!memory(s).encounterRC128?.used&&n(memory(s).revivalCooldown,memory(s).origin==='revival'?n(memory(s).cooldown):0)<=1e-8;}
+ function chooseRevival(s,choice){
+  if(!s||!(s.hp<=0)||!['samong','checkpoint'].includes(choice)||choices.has(s))return false;
+  choices.set(s,choice);
+  if(choice==='checkpoint')return true;
+  try{return tryRevive(s);}finally{choices.delete(s);}
+ }
+ function deathPending(s){return !!s&&s.hp<=0&&choices.get(s)!=='checkpoint';}
+ function consumeCheckpoint(s){if(!s||s.hp>0||choices.get(s)!=='checkpoint')return false;choices.delete(s);return true;}
+ function tryRevive(s){if(!s||s.hp>0||!revivalAuthorized(s))return false;if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
  function tryEgo(s){return activate(s,'ego');}
  function activateFinalClash(s){
   const inner=window.__HAPIL_INNER_FINAL_RC133__,clash=s?.innerFinalRC133?.clash;
   if(!inner?.encounter?.(s)||clash?.used!==true||clash.admitting!==true||clash.admitted===true||!Number.isFinite(s.maxHp)||s.maxHp<=0)return false;
+  if(s.hp<=0&&!revivalAuthorized(s))return false;
   const P=window.__HAPIL_PARTY_V31322__;if(P?.state===s&&(P.status?.role==='guest'||P.status?.paused||P.status?.disconnected))return false;
   const policy=window.__HAPIL_SAMONG_POLICY_RC133__,ego=policy?.memory(s);
   if(ego?.admitting)return false;
   const m=memory(s),profile=policy?.profile(s)??{duration:7,cooldown:COOLDOWN,grace:.6},reuse=n(m.active)>0;
-  if(ego)ego.admitting=true;
+  const ledger=window.__HAPIL_AWAKENING_POLICY_RC128__?.sync?.(s,m,true);if(s.hp<=0&&(ledger?.used||n(m.revivalCooldown,m.origin==='revival'?n(m.cooldown):0)>1e-8))return false;
+  if(ego){ego.admitting=true;ego.admittingOrigin=s.hp<=0?'revival':'counter';}
   clash.admitted=true;clash.admitting=false;
-  const ledger=window.__HAPIL_AWAKENING_POLICY_RC128__?.sync?.(s,m,true);if(ledger)ledger.used=true;
-  m.active=Math.max(n(m.active),profile.duration);m.duration=profile.duration;m.cooldown=Math.max(n(m.cooldown),profile.cooldown);m.grace=profile.grace;m.origin='revival';
-  if(!reuse)m.activations=Math.max(0,n(m.activations))+1;
+  if(ledger&&s.hp<=0)ledger.used=true;
+  m.active=Math.max(n(m.active),profile.duration);m.duration=profile.duration;if(s.hp<=0)m.revivalCooldown=profile.cooldown;m.cooldown=Math.max(n(m.egoCooldown),n(m.revivalCooldown));m.grace=profile.grace;m.origin=s.hp<=0?'revival':'counter';
+  if(!reuse||s.hp<=0)m.activations=Math.max(0,n(m.activations))+1;
   m.heroId=HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando';
   if(s.hp<=0){s.hp=Math.max(1,Math.ceil(s.maxHp*.22));s.heroHealingCeiling=s.hp;}
   s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+.9);
@@ -87,7 +100,7 @@
   if(!s||blocked||!enabled(s)||!Number.isFinite(dt)||dt<=0)return;
   const m=memory(s),step=dt;
   tryRevive(s);if(s.hp<=0)return;
-  m.lastDelta=step;m.clock+=step;m.active=Math.max(0,m.active-step);m.cooldown=Math.max(0,m.cooldown-step);m.grace=Math.max(0,m.grace-step);
+  m.lastDelta=step;m.clock+=step;m.active=Math.max(0,m.active-step);m.egoCooldown=Math.max(0,n(m.egoCooldown,m.origin==='ego'?n(m.cooldown):0)-step);m.revivalCooldown=Math.max(0,n(m.revivalCooldown,m.origin==='revival'?n(m.cooldown):0)-step);m.cooldown=Math.max(m.egoCooldown,m.revivalCooldown);m.grace=Math.max(0,m.grace-step);
   if(m.active<1e-8){m.active=0;m.grace=0;}
   window.__HAPIL_AWAKENING_POLICY_RC128__?.sync(s,m,true);
   tryEgo(s);
@@ -126,17 +139,18 @@
  // once, after native damage caps/mitigation/floors, without mutating the attack.
  const incomingFactor=s=>enabled(s)?2:1;
  const incomingBuff=s=>active(s)?.12:1;
- function status(s){const m=s?.samongPassiveRC91;return{enabled:enabled(s),active:active(s),remaining:Math.max(0,Math.min(9,n(m?.active))),cooldown:Math.max(0,Math.min(COOLDOWN,n(m?.cooldown))),ready:enabled(s)&&n(m?.cooldown)<=1e-8&&!m?.encounterRC128?.used,reviveUsed:m?.encounterRC128?.used===true};}
+ function status(s){const m=s?.samongPassiveRC91;return{enabled:enabled(s),active:active(s),remaining:Math.max(0,Math.min(9,n(m?.active))),cooldown:Math.max(0,Math.min(COOLDOWN,n(m?.cooldown))),ready:enabled(s)&&n(m?.revivalCooldown,m?.origin==='revival'?n(m?.cooldown):0)<=1e-8&&!m?.encounterRC128?.used,reviveUsed:m?.encounterRC128?.used===true};}
  function snapshot(s){
-  const m=memory(s);return {version:1,unlocked:unlocked(s),clock:n(m.clock),active:clamp(m.active,0,9),cooldown:clamp(m.cooldown,0,COOLDOWN),grace:clamp(m.grace,0,1),activations:Math.max(0,Math.floor(n(m.activations))),heroId:HEROES.includes(m.heroId)?m.heroId:null,duration:clamp(m.duration,7,9),origin:m.origin==='ego'?'ego':'revival',egoRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.clean(s.samongEgoRC133)??null,upgradesRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.upgrades(s.samongUpgradesRC133)??null,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.snapshot(s,m)??null,
+  const m=memory(s);return {version:1,unlocked:unlocked(s),clock:n(m.clock),active:clamp(m.active,0,9),cooldown:clamp(m.cooldown,0,COOLDOWN),egoCooldown:clamp(n(m.egoCooldown,m.origin==='ego'?n(m.cooldown):0),0,COOLDOWN),revivalCooldown:clamp(n(m.revivalCooldown,m.origin==='revival'?n(m.cooldown):0),0,COOLDOWN),grace:clamp(m.grace,0,1),activations:Math.max(0,Math.floor(n(m.activations))),heroId:HEROES.includes(m.heroId)?m.heroId:null,duration:clamp(m.duration,7,9),origin:['ego','revival','counter'].includes(m.origin)?m.origin:'revival',bossAwakeningRC137:window.__HAPIL_AWAKENING_RULES_RC137__?.snapshot(s)??null,egoRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.clean(s.samongEgoRC133)??null,upgradesRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.upgrades(s.samongUpgradesRC133)??null,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.snapshot(s,m)??null,
    enemies:(s.enemies??[]).filter(a=>hostile(a)&&a.samongStatsRC91).slice(0,384).map(a=>({id:String(a.id),hp:Math.max(0,n(a.hp)),maxHp:Math.max(1,n(a.maxHp)),stats:JSON.parse(JSON.stringify(a.samongStatsRC91))}))};
  }
+ function safeZone(raw){return typeof raw?.zone==='string'?raw.zone:null;}
  function sanitize(raw){
   if(!raw||raw.version!==1)return null;
   const upgradesRC133=window.__HAPIL_SAMONG_POLICY_RC133__?.upgrades(raw.upgradesRC133)??null,
    duration=clamp(raw.duration,7,7+(upgradesRC133?.samongDuration??0)),
    activeLeft=clamp(raw.active,0,duration),cooldown=clamp(raw.cooldown,0,COOLDOWN);
-  return {version:1,unlocked:raw.unlocked===true,clock:Math.max(0,n(raw.clock)),active:activeLeft,cooldown:Math.max(activeLeft,cooldown),grace:Math.min(activeLeft,clamp(raw.grace,0,1)),activations:Math.max(0,Math.floor(n(raw.activations))),heroId:HEROES.includes(raw.heroId)?raw.heroId:null,duration,origin:raw.origin==='ego'?'ego':'revival',egoRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.clean(raw.egoRC133)??null,upgradesRC133,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.sanitize(raw.encounterRC128)??null,
+  return {version:1,unlocked:raw.unlocked===true,clock:Math.max(0,n(raw.clock)),active:activeLeft,cooldown:Math.max(activeLeft,cooldown),egoCooldown:clamp(n(raw.egoCooldown,raw.origin==='ego'?cooldown:0),0,COOLDOWN),revivalCooldown:clamp(n(raw.revivalCooldown,!['ego','counter'].includes(raw.origin)?cooldown:0),0,COOLDOWN),grace:Math.min(activeLeft,clamp(raw.grace,0,1)),activations:Math.max(0,Math.floor(n(raw.activations))),heroId:HEROES.includes(raw.heroId)?raw.heroId:null,duration,origin:['ego','revival','counter'].includes(raw.origin)?raw.origin:'revival',bossAwakeningRC137:window.__HAPIL_AWAKENING_RULES_RC137__?.clean(raw.bossAwakeningRC137,safeZone(raw.bossAwakeningRC137))??null,egoRC133:window.__HAPIL_SAMONG_POLICY_RC133__?.clean(raw.egoRC133)??null,upgradesRC133,encounterRC128:window.__HAPIL_AWAKENING_POLICY_RC128__?.sanitize(raw.encounterRC128)??null,
    enemies:(Array.isArray(raw.enemies)?raw.enemies:[]).slice(0,384).filter(a=>typeof a?.id==='string'&&a.id.length<180&&Number.isFinite(a.hp)&&Number.isFinite(a.maxHp)&&a.maxHp>0&&a.hp>=0&&a.hp<=a.maxHp&&a.stats?.version===1&&[1,2].includes(a.stats.factor)&&Number.isFinite(a.stats.baseMaxHp)&&a.stats.baseMaxHp>0).map(a=>({...a,stats:{version:1,factor:a.stats.factor,baseMaxHp:a.stats.baseMaxHp,observedMaxHp:a.maxHp,fields:Object.fromEntries(FIELDS.filter(k=>Number.isFinite(a.stats.fields?.[k])).map(k=>[k,a.stats.fields[k]]))}}))};
  }
  function restoreVitals(s,raw){
@@ -147,6 +161,7 @@
  function restore(s,raw){
   const data=sanitize(raw);if(!s||!data)return;if(data.unlocked)unlock(s,'validated-save');
   s.samongEgoRC133=data.egoRC133??{version:1,count:0,pending:false,lastEntry:null,serial:0,admitting:false};s.samongUpgradesRC133=data.upgradesRC133??{};
+  window.__HAPIL_AWAKENING_RULES_RC137__?.restore(s,data.bossAwakeningRC137);
   s.samongPassiveRC91={...data};delete s.samongPassiveRC91.enemies;delete s.samongPassiveRC91.unlocked;
   if(!enabled(s)){s.samongPassiveRC91.active=0;s.samongPassiveRC91.grace=0;}
   window.__HAPIL_AWAKENING_POLICY_RC128__?.restore(s,s.samongPassiveRC91,data.encounterRC128);
@@ -188,6 +203,6 @@
   }return result;};
   installed=true;return true;
  }
- window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,tryRevive,tryEgo,activate,activateFinalClash,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
+ window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,revivalAuthorized,canRevive,chooseRevival,deathPending,consumeCheckpoint,tryRevive,tryEgo,activate,activateFinalClash,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
  function ready(){if(!install()&&++tries<2000)setTimeout(ready,20);}ready();
 })();

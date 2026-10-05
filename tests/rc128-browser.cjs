@@ -32,7 +32,7 @@ async function main(){
      const B=window.__HAPIL_RC86_BRIDGE__,T=window.__RC128_NATIVE__,A=window.__HAPIL_SAMONG_RC91__,F=window.__HAPIL_FEEDBACK_RC128__,s=T.initial(),template=B.actor('ep1b03','b03-boss');if(!template)throw Error('native boss fixture absent');const actor=B.cloneEnemy(template,'ep1b03');
      Object.assign(s,{zone:'ep1b03',time:100,x:24,y:23,hp:240,maxHp:240,activeHeroId:hero,gameModeV31346:mode,hellModeV31322:mode==='HELL',samongUnlockedRC91:true,practiceV31329:false,timeStopUntil:0});
      Object.assign(actor,{x:8,y:8,hp:actor.maxHp,staggerUntil:0,invulnerableUntil:0,phaseTransitionUntil:0});s.enemies=[actor];
-     s.hp=0;const revived=A.tryRevive(s);if(!revived)s.hp=240;
+     s.hp=0;const revived=A.chooseRevival(s,'samong');if(!revived)s.hp=240;
      // Explicit synthetic journal packet for presentation testing only.
      F.record(s,actor,{epoch:1,sequence:1,kind:'OUTGOING',result:'HIT',targetId:actor.id,attackerHeroId:hero,source:{family:['hunter','gunner','neon'].includes(hero)?'projectile':'actor'},appliedDamage:20,hpBefore:100,hpAfter:80,criticalRequested:true},{});
      window.__RC128_FIXED_STATE__=s;

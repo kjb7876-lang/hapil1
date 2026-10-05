@@ -1,0 +1,82 @@
+name: RC137 exact integrated gameplay and art
+on:
+  push:
+    branches: [main, codex/rc137-boss-art-review]
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc134*', 'qa/rc137/**', '.github/workflows/rc137-integration.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc137-integrated-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [pc, portrait, landscape]
+        round: [1, 2]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated Chromium and read-only decoder
+        shell: bash
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc137-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc137-evidence" >> "$GITHUB_ENV"
+      - name: Verify exact runtime and native art transactions
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC137_PROFILE: ${{ matrix.profile }}
+          RC137_ROUND: ${{ matrix.round }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          node --input-type=module --check < assets/index-v31526.js
+          node tests/rc137-art-unit.cjs
+          node tests/rc137-admission-unit.cjs
+          node tests/rc137-mob-motions-unit.cjs
+          node tests/rc137-enemy-classes-unit.cjs
+          node tests/rc137-awakening-portraits-unit.cjs
+          node tests/rc137-direction-input-unit.cjs
+          node tests/rc137-samong-rules.cjs
+          node tests/rc137-admission-cooldown.cjs
+          node tests/rc137-persona-revival-choice.cjs
+          node tests/rc133-duel-hitboxes.cjs
+          node tests/rc134-persona-policy.cjs
+          node tests/rc137-audit-browser.cjs | tee "$HAPIL_QA_OUTPUT/native-audit.log"
+          if test "$RC137_PROFILE" = pc; then
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/persona" node tests/rc134-persona-effects-browser.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/admission" node tests/rc137-direct-admission-browser.cjs
+          fi
+          if test "$RC137_PROFILE" = pc && test "$RC137_ROUND" = 1; then
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/input" node tests/rc137-direction-input-browser.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/revival" node tests/rc137-death-choice-browser.cjs
+          fi
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc137-${{ github.sha }}-${{ matrix.profile }}-${{ matrix.round }}
+          path: ${{ runner.temp }}/rc137-evidence/
+          retention-days: 14

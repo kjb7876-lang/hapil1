@@ -11,6 +11,7 @@ function env(){
  window.__HAPIL_CONTROLS_V31329__={binding:{passives:{current:{}}}};
  vm.runInContext(read('assets/rc133/inner-final.js'),context,{filename:'assets/rc133/inner-final.js'});
  const Final=window.__HAPIL_INNER_FINAL_RC133__,Samong=window.__HAPIL_SAMONG_RC91__,shots=[],casts=[];
+
  const skillMap=Object.fromEntries(Final.deck.map(k=>[k.key,'./assets/rc134/persona-skills/'+k.key+'.png']));Final.configure({ready:true,map:'map',body:'body',awakening:'awake',skills:Object.values(skillMap),skillMap});
  let serial=1;Final.bind({heroes:Samong.heroes.map(id=>({id,sprite:'hero-'+id})),locked:()=>false,bullet:(s,a,spec)=>{const q={id:serial++,sourceId:a.id,x:a.x,y:a.y,previousX:a.x,previousY:a.y,...spec};s.hostileProjectiles.push(q);shots.push(q);return q;},cast:(s,a,spec)=>{const q={...spec,id:serial++,sourceId:a.id,born:s.time,at:s.time+spec.windup,x:spec.anchor==='boss'?a.x:s.x,y:spec.anchor==='boss'?a.y:s.y,originX:a.x,originY:a.y};s.pendingHits.push(q);casts.push(q);return q;}});
  const state=(hero='gunner')=>({zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,hp:220,maxHp:1000,time:10,x:7,y:9,activeHeroId:hero,enemies:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],floatTexts:[],fxSerial:1,bossDefeated:false,completedZones:new Set(),spawnedWaves:new Set()});
@@ -27,15 +28,15 @@ function env(){
  for(const id of ['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner']){
   const a=Final.boss(s);m.hero=id;m.cycle=0;s.activeHeroId=id;m.shotDelay=0;s.hostileProjectiles=[];s.time+=1;
   const first=shots.length;Final.tick(s,.016);const wave=shots.slice(first);
-  eq(wave.length,Final.traits[id].count,id+' emits its bounded authored pattern');
-  ok(wave.every(q=>q.rc133InnerShot&&q.rc133Trait===id&&q.rc133Pattern===id&&q.damage>0&&q.radius<=.32),id+' shots keep ownership/damage/radius');
+  eq(wave.length,Final.deck[0].count,id+' emits its bounded authored pattern');
+  ok(wave.every(q=>q.rc133InnerShot&&q.rc133Skill===Final.deck[0].key&&q.rc133Pattern===Final.deck[0].key&&q.damage>0&&q.radius<=.32),id+' shots keep ownership/damage/radius');
   ok(wave.every(q=>q.frozenUntil>=s.time+.65&&q.collisionDisabledUntil31219>=q.frozenUntil),id+' telegraph delays collision');
   const directions=wave.map(q=>Math.atan2(q.vy,q.vx).toFixed(3)).sort().join(',');signatures.add(directions);
  }
- eq(signatures.size,8,'all eight hero borrow-patterns are geometrically distinct');
+ eq(signatures.size,1,'dedicated skill geometry is independent of borrowed hero traits');
  // The hostile queue cap delays a wave without losing its retry opportunity.
  m.hero='gunner';m.cycle=0;s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:70},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'full queue refuses overflow shots');
- s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,6,'a freed queue promptly admits the pending skill');
+ s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,5,'a freed queue promptly admits the pending skill');
 }
 
 // A lethal player hit close to the hidden boss's defeat becomes one saved,
@@ -43,7 +44,7 @@ function env(){
 {
  const {Final,Samong,window,state}=env(),s=state('neon');s.enemies.push({id:'c104-boss',hp:0,maxHp:1500,x:22,y:8,boss:true});
  Final.beforeDeath(s,s.enemies[0]);const m=s.innerFinalRC133;m.intro=0;const a=Final.boss(s);a.hp=Math.ceil(a.maxHp*.1);s.hp=0;
- ok(Samong.tryRevive(s),'near-final player death starts the paired awakening before respawn');
+ eq(Samong.tryRevive(s),false,'near-final player death waits for explicit choice');eq(s.hp,0,'pending choice never restores HP');ok(Samong.chooseRevival(s,'samong'),'explicit player choice starts the paired awakening');
  eq(Math.round(s.hp/s.maxHp*100),22,'player returns at a bounded low health');eq(Math.round(a.hp/a.maxHp*100),10,'living hidden boss keeps its damaged health');
  eq(Samong.active(s),true,'player receives the seven-second Samong awakening');eq(m.awake,7,'boss receives its opposing awakening');eq(Final.mood(s),'opposition','the arena enters the half-white/half-red duel');
  eq(s.samongPassiveRC91.encounterRC128.used,true,'the normal encounter revival token is consumed');
@@ -62,12 +63,12 @@ function env(){
  const policy=window.__HAPIL_SAMONG_POLICY_RC133__;
  Object.assign(policy.memory(s),{count:7,pending:true});ok(Samong.tryEgo(s),'pre-existing EGO awakening fixture admitted');
  const activations=s.samongPassiveRC91.activations;Object.assign(policy.memory(s),{count:7,pending:true});s.hp=0;
- ok(Samong.tryRevive(s),'first lethal hit admits the duel even at full boss health');eq(a.hp,bossHp,'intentional lethal damage cannot reduce a healthy boss');
- eq(s.samongPassiveRC91.activations,activations,'existing active awakening is reused without double activation');eq(policy.status(s).count,0,'pending seventh entry consumed in the dual transaction');eq(policy.status(s).pending,false,'no second EGO remains queued');eq(policy.status(s).serial,2,'each actual admission consumes the pending entry once');
+ eq(Samong.tryRevive(s),false,'first lethal awaits the real choice');ok(Samong.chooseRevival(s,'samong'),'actual choice admits duel at full boss health');eq(a.hp,bossHp,'intentional lethal damage cannot reduce a healthy boss');
+ eq(s.samongPassiveRC91.activations,activations+1,'distinct chosen revival refreshes awakening once');eq(policy.status(s).count,7,'revival preserves independent pending EGO7');eq(policy.status(s).pending,true,'EGO remains queued for its own admission');eq(policy.status(s).serial,1,'revival cannot repeat EGO admission');
  const finalSave=Final.snapshot(s),passiveSave=Samong.snapshot(s);eq(finalSave.clash.admitted,true,'admitted duel marker saved');
  s.hp=0;eq(Samong.activateFinalClash(s),false,'direct replay cannot bypass the used special token');
  const restored=state('hunter');restored.time=s.time;restored.hp=220;Final.restore(restored,finalSave);Samong.restore(restored,passiveSave);eq(Final.boss(restored).hp,bossHp,'restored duel preserves actual living boss progress');
- eq(Final.mood(restored),'opposition','restored paired arena is active');eq(policy.status(restored).pending,false,'restored pending EGO is already consumed');
+ eq(Final.mood(restored),'opposition','restored paired arena is active');eq(policy.status(restored).pending,true,'restore retains independent pending EGO');
  restored.hp=0;eq(Samong.tryRevive(restored),false,'restore cannot grant another life');
 }
 
@@ -78,10 +79,10 @@ function env(){
   const {Final,Samong,window,state}=env(),s=state(hero);s.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];Final.start(s,s.enemies[0]);const a=Final.boss(s);s.hp=740;s.heroHealingCeiling=810;a.hp=0;
   Object.assign(window.__HAPIL_SAMONG_POLICY_RC133__.memory(s),{count:7,pending:true});
   ok(Final.beforeDeath(s,a),hero+' first boss lethal is intercepted before native removal');eq(a.hp,Math.ceil(a.maxHp*.22),hero+' dead boss revives once at 22%');eq(s.hp,740,hero+' living player health preserved');eq(s.heroHealingCeiling,810,hero+' living healing ceiling preserved');
-  eq(s.innerFinalRC133.clash.reason,'boss',hero+' saves genuine boss-first cause');eq(Final.mood(s),'opposition',hero+' counter awakening produces split arena');eq(window.__HAPIL_SAMONG_POLICY_RC133__.status(s).pending,false,hero+' pending EGO is consumed once');
+  eq(s.innerFinalRC133.clash.reason,'boss',hero+' saves genuine boss-first cause');eq(Final.mood(s),'opposition',hero+' counter awakening produces split arena');eq(window.__HAPIL_SAMONG_POLICY_RC133__.status(s).pending,true,hero+' boss counter preserves pending EGO');
   const restored=state(hero);restored.hp=s.hp;restored.heroHealingCeiling=s.heroHealingCeiling;restored.time=s.time;Final.restore(restored,Final.snapshot(s));Samong.restore(restored,Samong.snapshot(s));
   eq(restored.hp,740,hero+' boss-first restore retains living player HP');eq(restored.innerFinalRC133.clash.reason,'boss',hero+' boss-first cause survives restore');
-  restored.hp=0;restored.samongPassiveRC91.active=0;restored.samongPassiveRC91.cooldown=0;eq(Samong.tryRevive(restored),false,hero+' second player lethal cannot revive');
+  restored.hp=0;restored.samongPassiveRC91.active=0;restored.samongPassiveRC91.cooldown=0;eq(Samong.tryRevive(restored),false,hero+' first player lethal awaits choice');ok(Samong.chooseRevival(restored,'samong'),hero+' real choice retains its separate revival');
   const dead=Final.boss(restored);dead.hp=0;eq(Final.beforeDeath(restored,dead),false,hero+' second boss lethal is terminal');eq(restored.innerFinalRC133.phase,'complete',hero+' terminal second lethal saves completion');
  }
 }
@@ -102,7 +103,7 @@ function env(){
 {
  const {Final,Samong,window,state}=env(),s=state();s.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];Final.start(s,s.enemies[0]);const a=Final.boss(s);a.hp=0;s.hp=0;Object.assign(window.__HAPIL_SAMONG_POLICY_RC133__.memory(s),{count:7,pending:true});let observed=null;
  window.__HAPIL_COMBAT_CORE_V31401__={step:()=>{observed={inner:Final.snapshot(s),player:Samong.snapshot(s),hp:s.hp};eq(Samong.activateFinalClash(s),false,'reentrant observer cannot replay admission');}};
- ok(Final.startClash(s,a),'simultaneous lethal duel admits');eq(observed.inner.awake,7,'save observer sees boss awakening already published');eq(observed.inner.hp,a.hp,'save observer sees revived boss health');eq(observed.hp,220,'save observer sees player revival');eq(observed.player.egoRC133.pending,false,'observer sees pending EGO consumption');eq(observed.inner.clash.admitted,true,'observer sees committed duel admission');
+ eq(Samong.tryRevive(s),false,'simultaneous player lethal waits for choice');ok(Samong.chooseRevival(s,'samong'),'simultaneous real choice admits duel');eq(observed.inner.awake,7,'save observer sees boss awakening already published');eq(observed.inner.hp,a.hp,'save observer sees revived boss health');eq(observed.hp,220,'save observer sees player revival');eq(observed.player.egoRC133.pending,true,'observer sees independent EGO7 preserved');eq(observed.inner.clash.admitted,true,'observer sees committed duel admission');
  const denied=state();denied.enemies=[{id:'c104-boss',hp:0,maxHp:1500}];Final.start(denied,denied.enemies[0]);denied.hp=0;const d=Final.boss(denied),before=Final.snapshot(denied);window.__HAPIL_SAMONG_POLICY_RC133__.memory(denied).admitting=true;eq(Final.startClash(denied,d),false,'concurrent EGO admission refuses special transaction');eq(JSON.stringify(Final.snapshot(denied)),JSON.stringify(before),'failed admission rolls back all hidden actor state');
 }
 

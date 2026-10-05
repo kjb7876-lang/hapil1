@@ -98,9 +98,10 @@
     if (tx?.finalDamage) return tx.finalDamage.amount;
     const mode = tx?.controlMode ?? controlMode();
     const factor = mode === 'full' ? (key === 'outgoing' ? 1.70 : 0.10) : 1;
-    const scaled = amount * factor;
+    const classFactor=key==='incoming'?root.__HAPIL_ENEMY_CLASSES_RC137__?.incoming(s,tx?.source)??1:1;
+    const scaled = amount * factor * classFactor;
     if (tx) {
-      tx.finalDamage = Object.freeze({ direction: key, baseline: amount, factor, amount: scaled });
+      tx.finalDamage = Object.freeze({ direction: key, baseline: amount * classFactor, factor, ...(classFactor!==1?{classFactor,nativeBaseline:amount}:{}), amount: scaled });
       step(s, a, 'final-' + key + '-control-mode');
     }
     return scaled;

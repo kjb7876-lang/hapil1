@@ -6,6 +6,8 @@ on:
       - 'index.html'
       - 'assets/index-v31526.js'
       - 'assets/rc133/**'
+      - 'assets/rc137/**'
+      - 'qa/rc137/**'
       - 'qa/rc133/art-processing.json'
       - 'qa/rc133/published.cjs'
       - '.github/workflows/rc133-published.yml'

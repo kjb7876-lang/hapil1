@@ -11,7 +11,7 @@ const fresh=hero=>({gameModeV31346:'DREAM',activeHeroId:hero,time:10,hp:0,maxHp:
 api.unlock(null,'777');
 for(const hero of [...api.heroes].reverse()){
   const s=fresh(hero);s.hp=-4;s.heroHealingBlockedUntil=13.1;s.heroHealingCeiling=-4;
-  assert(api.tryRevive(s));assert.equal(s.hp,120);
+  assert(api.chooseRevival(s,'samong'));assert.equal(s.hp,120);
   c.MONGSE_tickSevenSinHeroEffects(s);
   assert.equal(s.hp,120,hero+': revival must survive a pre-lethal healing ceiling');
   assert.equal(s.heroHealingBlockedUntil,13.1,'revival does not erase the ordinary healing debuff');

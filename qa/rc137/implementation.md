@@ -1,0 +1,28 @@
+# RC137 integrated gameplay and authored art
+
+This candidate starts at main `d15a148241afecfe94ebf37e3e3d830e383531fa`. All implementation and publication are within the user's approved gameplay scope. Tests marked staged exercise native constructors, reducers, real input or rendering; they do not certify a natural full campaign.
+
+## Resulting behavior
+
+- Held keyboard arrows and trusted mobile controls own screen-axis motion. Manual input takes priority over auto-routing, targeting, auto-dodge, inertia and body separation. Safety warps retain their separate valid-destination checks.
+- Already committed boss attacks retain warning, release, contact, recovery and actual retirement through subsequent casts and HP phase changes. Owner death and zone departure still clean owned attacks. Awakening intentionally overrides nonbullet damage/admission while those effects expire naturally.
+- Persona admits only its two approved source atlases and nine distinct skill crops. It tracks both world coordinates around center `(19,19)`, with opposite diagonal placement, safe bounds and correct facing. Mutual awakening uses a seeded bounded shared spell clock, brief stops, and a bounded faction exchange; existing shots retain world coordinates and manual input stays responsive.
+- An actual player death waits for an explicit native Samong/checkpoint button. Waiting freezes combat and survives native save/reload. Boss revival is independent. EGO7 and crisis revival have independent reuse clocks; revival preserves pending EGO7. One crisis revival remains bounded by the existing encounter ledger.
+- Active player Samong halves admitted attack-skill cooldowns exactly once in single and mutual awakening. Existing EGO modifiers remain independent. All eight correct player portraits and the Persona portrait persist in separate upper-right HUD slots for the active window.
+- Active player or boss Samong seals new nonbullet boss skills and suppresses existing nonbullet damage through its own expiry. Boss bullets are rapidly admitted with bounded queues and extremely slow travel. After awakening, nonbullet reuse is multiplied by1.77 once, beyond committed warning/recovery, and saved as per-skill remaining times. Bullet reuse is unchanged. Cosmic forms, final cult leader and Persona are exempt only from the post1.77 factor. Fresh encounter entry resets that transient post modifier.
+- Explicit enemy classes cover ordinary1, midboss2, boss3, important4 (root keeper/Balrog), sins4.5, episode final5, Cosmic6, final cult7 and Persona8. Per-packet pressure/cadence rises monotonically for equal native inputs. Native linked follow-up shots are bounded, keep owner art and do not shorten the existing cast; Persona keeps its richer nine-skill deck. Permanent growth and native health scaling are preserved.
+- Seventy-one ranked owners have distinct projectile source designs; only common jellybean shots retain cross-owner reuse. Actual CSS alpha footprints above110% of the authoritative main humanoid body use a0.24s minimum interval,3 active large-shot limit and spaced spawn. Associated giant warning and every release gate shift with the projectile. Nominal expiry alone does not release an active slot. RC130 viewport sizing remains enforced.
+- Winter thorn sentry and two U2 humanoids have corrected static identities. These three static images do not count as finished boss motion sets.
+- All197 ordinary hostile IDs select a different authored attack pose on native attack/recovery clocks. There are133 new ImageGen families plus2 inspected existing pose families (6 IDs). Nine source PNGs are preserved byte-for-byte, with exact half-open rectangles and pixel hashes. Runtime extraction normalizes small frames, lazy-loads sheets, bounds the cache to48, and supplies a safe idle URL to legacy retry/preload paths. HP, world motion, facing, physical radius and protected/objective flags are retained.
+
+## Verification contract
+
+`.github/workflows/rc137-integration.yml` checks one clean exact commit in fresh PC, mobile portrait and landscape browsers twice. It covers71 owned projectile designs,61 canonical narrative maps,41 Story pairs/Dream trios,197 native ordinary attack draws, all8 player/Persona portrait combinations and committed native cooldown deadlines. Companion runs cover actual trusted keyboard/touch input, native death-choice save/reload, all9 Persona volleys, direct awakening producer seals and all7 actual Cosmic forms including Lucifer bloodlight cannon warning/contact/recovery with parallel packets.
+
+Working integration also passed720 paired native damage cases and60 burst packets against the same build with only mode factors neutralized. Story naturally progressed dist00→dist01 in37.8s; an initially unlocked Dream profile progressed dist00→dist01 in53.1s. Those runs did not modify in-run HP, enemies or progress and had no JS/HTTP errors. Exact commit CI must rerun these checks before publication.
+
+The per-file authorized delta pins every changed protected runtime path, preserving original preimages and historical guard hashes. The original TTS86 narration and approved audio source bytes stay protected. Public verification hashes all exact authorized outputs and checks normal startup in all three browser profiles without gameplay injection.
+
+## Remaining evidence limits
+
+The separate33 pending boss motion sets and held/untransferred audio are not claimed as delivered by this change. Physical phone performance and a fresh natural full Dream hidden-finale completion remain unverified. Short synthetic or staged tests do not establish a broad performance improvement or a zero-bug guarantee.
