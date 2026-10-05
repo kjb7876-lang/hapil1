@@ -21,6 +21,7 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
  const mobileCpu=Math.max(1,Number(process.env.RC142_MOBILE_CPU)||4);
  for(const [name,width,height,mobile,cpu] of [['pc',1280,900,false,1],['portrait',390,844,true,mobileCpu],['landscape',844,390,true,mobileCpu]].filter(p=>!profileOnly||p[0]===profileOnly)){
   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,cpuThrottle:cpu,errors:[],httpErrors:[]};report.profiles.push(row);
+  if(process.env.RC142_LEGACY_SCOPE==='1')await page.addInitScript(()=>{window.__HAPIL_RC142_LEGACY_PROJECTILE_SCOPE__=true;});
   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:cpu});
   page.on('pageerror',e=>{row.errors.push(e.stack||e.message);report.errors.push({profile:name,error:e.stack||e.message});});page.on('response',r=>{if(r.status()>=400){const e={profile:name,status:r.status(),url:r.url()};row.httpErrors.push(e);report.httpErrors.push(e);}});
   await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_MEDIA_ART_RC133__?.ready&&window.__RC142_VOLLEY_QA__?.step,{timeout:60000});
