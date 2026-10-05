@@ -1,0 +1,675 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-05T06:05:21.872571+00:00",
+  "title": "HAPIL circular-murder finale and four zombie story characters",
+  "assetSet": "cyclic-murder-v1",
+  "targetGames": [
+    "HAPIL main game",
+    "StoryWorld"
+  ],
+  "generationMethod": "Built-in imagegen; all raster creation, pose edits and transparency edits used imagegen. No Python raster edits, recolors, procedural monsters, repacking or cropping. Original PNGs copied losslessly.",
+  "assetCount": 11,
+  "subjects": [
+    {
+      "id": "blue-executor",
+      "name": "파란불 집행체",
+      "zone": "murder03",
+      "sourceUnits": [
+        "murder03.pre",
+        "murder03.post"
+      ],
+      "design": "One coherent humanoid zombie/object fusion. Pale undead face, silver sedan grille/body metal, cracked wheel shoulder, green traffic-signal chest core, scorched firedoor forearm and attached rooftop causal ring. The erased safety inspector Lee Woosol is not the evil boss identity.",
+      "poses": [
+        "idle",
+        "charge",
+        "attack"
+      ]
+    },
+    {
+      "id": "yoon-haram",
+      "name": "윤하람",
+      "sourceUnits": [
+        "murder01.pre",
+        "murder01.post",
+        "murder04.post"
+      ],
+      "profession": "Copy editor/proofreader; softened safety report wording.",
+      "identityCues": "Brown-charcoal raincoat, glasses, proofs, red correction pencil, phone pocket.",
+      "poses": [
+        "idle",
+        "lurch"
+      ]
+    },
+    {
+      "id": "jang-minjae",
+      "name": "장민재",
+      "sourceUnits": [
+        "murder02.pre",
+        "murder02.post",
+        "murder04.post"
+      ],
+      "profession": "Driver and former security-record handler; deleted seventh-floor access records.",
+      "identityCues": "Navy civilian zip jacket, car keys, crossbody record bag.",
+      "poses": [
+        "idle",
+        "lurch"
+      ]
+    },
+    {
+      "id": "go-seojin",
+      "name": "고서진",
+      "sourceUnits": [
+        "murder04.pre",
+        "murder04.post"
+      ],
+      "profession": "Facilities manager; deferred alarm circuit and firedoor repair.",
+      "identityCues": "Work jacket, stubble, utility tools/gloves, scorched alarm faceplate, circuit tester and cable.",
+      "poses": [
+        "idle",
+        "lurch"
+      ]
+    },
+    {
+      "id": "han-igyeong",
+      "name": "한이경",
+      "sourceUnits": [
+        "murder04.post",
+        "murder03.post"
+      ],
+      "profession": "Frontdesk manager; false vacancy ledger delayed seventh-floor search.",
+      "identityCues": "Black bob, navy blazer/skirt, cream blouse, blank badge, green occupancy ledger and pen.",
+      "poses": [
+        "idle",
+        "lurch"
+      ]
+    }
+  ],
+  "narrativeEvidence": {
+    "authoritativeUnitsFileSha256": "22690241c3b4f96832bc7cbff09662c63e5cc5833906d0b5ab6c6e270db1afc7",
+    "units": [
+      {
+        "id": "murder01.pre",
+        "title": "윤하람",
+        "textSha256": "61f523631a0472eaa62a58c892ee1db3131fed2b319cc9c67586a2de5d30c4dd",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder01.post",
+        "title": "윤하람",
+        "textSha256": "d0a7aee4185ba236a5547a607a5f784e8a504f2818d1164102f782ffa7849e5f",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder02.pre",
+        "title": "장민재와 새빛호텔",
+        "textSha256": "184b7a3dd25df17547340fd395de8a3370b6e58bccf10f3f39e8b7991c5d5c72",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder02.post",
+        "title": "장민재와 새빛호텔",
+        "textSha256": "24f51281b1e9711a910f0c32ec363df2e95c5b5ab387c030c346c74738336c77",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder04.pre",
+        "title": "고서진과 청록빌라",
+        "textSha256": "7d372424e7b2ecfb919c1c1ffb33e2a8f1486d778457ec32317cd58db14cbe03",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder04.post",
+        "title": "고서진과 청록빌라",
+        "textSha256": "27213b3f5c5815240877e24bb52e5683355324df288eab3240e71ccdcce909d9",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder03.pre",
+        "title": "옥상의 순환",
+        "textSha256": "c484c4ae6389f1cb3cd7652ff9e7d48059ab860385d24eb3e775a840aea95ebc",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      },
+      {
+        "id": "murder03.post",
+        "title": "옥상의 순환",
+        "textSha256": "d0fbff4e0c8533f3924f2d16aff17b7e71c54e8e60a6ddb67e68907b836901a9",
+        "source": "data/story-rc51.js",
+        "sourceSha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+      }
+    ],
+    "readScope": "Every murder01, murder02, murder04 and murder03 pre/post text read before design."
+  },
+  "referenceEvidence": [
+    {
+      "path": "assets/murder/blue_executor.webp",
+      "url": "https://github.com/kjb7876-lang/hapil1/blob/main/assets/murder/blue_executor.webp",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/references/blue_executor.webp",
+      "sha256": "2292306904683b930670f8c607273b50a76e62d998bf74f3e715e632bea5cb90",
+      "observation": "Inspected actual image: multi-monster labeled contact sheet. Runtime crop/atlas mapping was not verified; this is not a claim of a runtime bug."
+    },
+    {
+      "path": "/workspace/shared/core_midboss/sources/mb-murder01.webp",
+      "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+      "observation": "Actual pixel inspection; used for dark painted style only, not canonical named-person portrait identity."
+    },
+    {
+      "path": "/workspace/shared/core_midboss/sources/mb-murder02.webp",
+      "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+      "observation": "Actual pixel inspection; used for dark painted style only, not canonical named-person portrait identity."
+    },
+    {
+      "path": "/workspace/shared/core_midboss/sources/murder04-mid.webp",
+      "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+      "observation": "Actual pixel inspection; used for dark painted style only, not canonical named-person portrait identity."
+    },
+    {
+      "path": "/workspace/shared/core_midboss/sources/mb-murder03.webp",
+      "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+      "observation": "Actual pixel inspection; used for dark painted style only, not canonical named-person portrait identity."
+    }
+  ],
+  "integrationNotes": [
+    "Use the same 11 immutable final PNGs in both games. No repository write, deployment or upload performed by the art task.",
+    "Each file is a single standalone pose, not an atlas. All final canvases are 1254 x 1254 RGBA.",
+    "Manual registration metadata is in source-canvas pixels and normalized 0..1. Anchor is midpoint between the two soles at the lower sole height. Draw registration should keep entity foot anchor fixed between poses.",
+    "Torso hurtbox and weak-core circle are visual guides, not engine-verified collision measurements. Causal ring, wheel shoulder, coat fringe and firedoor arm are decorative outside the torso hurtbox; firedoor may need a separate timed attack box.",
+    "For content-based draw bounds, use contentBoundsAlpha20, not raw nonzero-alpha bounds: imagegen leaves very faint alpha 1..19 traces around otherwise transparent silhouettes. No visible silhouette touches canvas border. Do not call this mathematically perfect alpha extraction.",
+    "Padding requests were not exactly honored by the generator: complete physical silhouettes are in frame, but some heads/ring/soles have narrow margins. Use supplied anchor/bounds at integration rather than assuming universal 10% padding.",
+    "The four faces/wardrobes are newly designed adult interpretations based on narrative occupations. No claim is made that they match unseen preexisting portraits.",
+    "Only the four specified people are zombified; not all game heroes. Lee Woosol is not depicted as an evil character.",
+    "Idle and lurch clouded-eye/pallor states are visually consistent after final correction passes. No graphic gore and no readable text burned into sprites."
+  ],
+  "assets": [
+    {
+      "key": "blue_executor_idle",
+      "file": "assets/cyclic-murder-v1/blue_executor_idle.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/blue_executor_idle.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "aa4bbeab4ff115d4288e9ef5d16f38001a0996fe6bd8b93a9953a575e488ec13",
+      "bytes": 1708694,
+      "contentBoundsAlpha20": [
+        270,
+        73,
+        1038,
+        1207
+      ],
+      "alphaBoundsAny": [
+        69,
+        21,
+        1230,
+        1236
+      ],
+      "fullyTransparentPixels": 955708,
+      "traceAlphaPixels1to19": 58799,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "blue-executor",
+      "pose": "idle",
+      "anchorPx": [
+        642,
+        1207
+      ],
+      "torsoHurtboxPx": [
+        480,
+        270,
+        370,
+        640
+      ],
+      "weakCoreCirclePx": [
+        694,
+        459,
+        45
+      ],
+      "anchorNormalized": [
+        0.511962,
+        0.96252
+      ],
+      "torsoHurtboxNormalized": [
+        0.382775,
+        0.215311,
+        0.295056,
+        0.510367
+      ],
+      "weakCoreCircleNormalized": [
+        0.553429,
+        0.366029,
+        0.035885
+      ]
+    },
+    {
+      "key": "blue_executor_charge",
+      "file": "assets/cyclic-murder-v1/blue_executor_charge.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/blue_executor_charge.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "d72e716e0b12c8387a48ae8a2371df2138549e5f2998f246bfdb41fc911a4c6c",
+      "bytes": 2265964,
+      "contentBoundsAlpha20": [
+        160,
+        26,
+        1214,
+        1236
+      ],
+      "alphaBoundsAny": [
+        0,
+        19,
+        1236,
+        1254
+      ],
+      "fullyTransparentPixels": 748633,
+      "traceAlphaPixels1to19": 78248,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "blue-executor",
+      "pose": "charge",
+      "anchorPx": [
+        636,
+        1236
+      ],
+      "torsoHurtboxPx": [
+        475,
+        300,
+        390,
+        640
+      ],
+      "weakCoreCirclePx": [
+        675,
+        534,
+        45
+      ],
+      "anchorNormalized": [
+        0.507177,
+        0.985646
+      ],
+      "torsoHurtboxNormalized": [
+        0.378788,
+        0.239234,
+        0.311005,
+        0.510367
+      ],
+      "weakCoreCircleNormalized": [
+        0.538278,
+        0.425837,
+        0.035885
+      ]
+    },
+    {
+      "key": "blue_executor_attack",
+      "file": "assets/cyclic-murder-v1/blue_executor_attack.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/blue_executor_attack.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "2e50218647b624bb38f9c3f81292376ddcbcbee9c17900fca4041cad7f1c5122",
+      "bytes": 2230687,
+      "contentBoundsAlpha20": [
+        60,
+        35,
+        1225,
+        1223
+      ],
+      "alphaBoundsAny": [
+        0,
+        21,
+        1238,
+        1254
+      ],
+      "fullyTransparentPixels": 787093,
+      "traceAlphaPixels1to19": 71804,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "blue-executor",
+      "pose": "attack",
+      "anchorPx": [
+        640,
+        1223
+      ],
+      "torsoHurtboxPx": [
+        444,
+        270,
+        370,
+        660
+      ],
+      "weakCoreCirclePx": [
+        631,
+        511,
+        45
+      ],
+      "anchorNormalized": [
+        0.510367,
+        0.975279
+      ],
+      "torsoHurtboxNormalized": [
+        0.354067,
+        0.215311,
+        0.295056,
+        0.526316
+      ],
+      "weakCoreCircleNormalized": [
+        0.50319,
+        0.407496,
+        0.035885
+      ]
+    },
+    {
+      "key": "yoon_haram_idle",
+      "file": "assets/cyclic-murder-v1/yoon_haram_idle.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/yoon_haram_idle.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "043b684f0c73cec1237181d483f3d6a4a6f3b56bd95c055f0f416caa353c5388",
+      "bytes": 856579,
+      "contentBoundsAlpha20": [
+        445,
+        16,
+        869,
+        1234
+      ],
+      "alphaBoundsAny": [
+        73,
+        14,
+        1198,
+        1238
+      ],
+      "fullyTransparentPixels": 1224549,
+      "traceAlphaPixels1to19": 15622,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "yoon-haram",
+      "pose": "idle",
+      "anchorPx": [
+        625,
+        1234
+      ],
+      "anchorNormalized": [
+        0.498405,
+        0.984051
+      ]
+    },
+    {
+      "key": "yoon_haram_lurch",
+      "file": "assets/cyclic-murder-v1/yoon_haram_lurch.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/yoon_haram_lurch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "7a5f8bbcd4a98bd0e01013c9dce0220f03b65fc8ad43e4f209d52fac52287e91",
+      "bytes": 957256,
+      "contentBoundsAlpha20": [
+        396,
+        31,
+        886,
+        1219
+      ],
+      "alphaBoundsAny": [
+        97,
+        21,
+        1208,
+        1224
+      ],
+      "fullyTransparentPixels": 1189997,
+      "traceAlphaPixels1to19": 19915,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "yoon-haram",
+      "pose": "lurch",
+      "anchorPx": [
+        599,
+        1219
+      ],
+      "anchorNormalized": [
+        0.477671,
+        0.972089
+      ]
+    },
+    {
+      "key": "jang_minjae_idle",
+      "file": "assets/cyclic-murder-v1/jang_minjae_idle.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/jang_minjae_idle.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "58b834bb61ce84ed138357babed6efd0e3fd29c37248a651e19d664a82dbbbaa",
+      "bytes": 795815,
+      "contentBoundsAlpha20": [
+        417,
+        25,
+        850,
+        1199
+      ],
+      "alphaBoundsAny": [
+        89,
+        23,
+        1210,
+        1206
+      ],
+      "fullyTransparentPixels": 1256247,
+      "traceAlphaPixels1to19": 17152,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "jang-minjae",
+      "pose": "idle",
+      "anchorPx": [
+        617,
+        1199
+      ],
+      "anchorNormalized": [
+        0.492026,
+        0.95614
+      ]
+    },
+    {
+      "key": "jang_minjae_lurch",
+      "file": "assets/cyclic-murder-v1/jang_minjae_lurch.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/jang_minjae_lurch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9821be5b9c7b2d175234260d96447fe343b84b655447b5d19afaf50cbe091c9b",
+      "bytes": 865757,
+      "contentBoundsAlpha20": [
+        365,
+        49,
+        1030,
+        1214
+      ],
+      "alphaBoundsAny": [
+        41,
+        21,
+        1212,
+        1222
+      ],
+      "fullyTransparentPixels": 1230224,
+      "traceAlphaPixels1to19": 17407,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "jang-minjae",
+      "pose": "lurch",
+      "anchorPx": [
+        634,
+        1214
+      ],
+      "anchorNormalized": [
+        0.505582,
+        0.968102
+      ]
+    },
+    {
+      "key": "go_seojin_idle",
+      "file": "assets/cyclic-murder-v1/go_seojin_idle.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/go_seojin_idle.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "57fccf9c99d38f3f33a3fd95687f6cce5ac47cc25dc781a00bc9e1b1f511abd4",
+      "bytes": 1021283,
+      "contentBoundsAlpha20": [
+        374,
+        21,
+        938,
+        1237
+      ],
+      "alphaBoundsAny": [
+        97,
+        18,
+        1210,
+        1240
+      ],
+      "fullyTransparentPixels": 1177757,
+      "traceAlphaPixels1to19": 19142,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "go-seojin",
+      "pose": "idle",
+      "anchorPx": [
+        610,
+        1237
+      ],
+      "anchorNormalized": [
+        0.486443,
+        0.986443
+      ]
+    },
+    {
+      "key": "go_seojin_lurch",
+      "file": "assets/cyclic-murder-v1/go_seojin_lurch.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/go_seojin_lurch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "2a2b4c07a644f543e9d31aace587ff035aed516efe24f9879a749d5e69dfbc6e",
+      "bytes": 1188507,
+      "contentBoundsAlpha20": [
+        301,
+        26,
+        1122,
+        1233
+      ],
+      "alphaBoundsAny": [
+        91,
+        19,
+        1210,
+        1238
+      ],
+      "fullyTransparentPixels": 1106203,
+      "traceAlphaPixels1to19": 25209,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "go-seojin",
+      "pose": "lurch",
+      "anchorPx": [
+        671,
+        1233
+      ],
+      "anchorNormalized": [
+        0.535088,
+        0.983254
+      ]
+    },
+    {
+      "key": "han_igyeong_idle",
+      "file": "assets/cyclic-murder-v1/han_igyeong_idle.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/han_igyeong_idle.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "1cee4885823aaec4c8d5908b3cc239f23effbaa0f719ea36b88e8588c7e26487",
+      "bytes": 655929,
+      "contentBoundsAlpha20": [
+        463,
+        40,
+        803,
+        1214
+      ],
+      "alphaBoundsAny": [
+        33,
+        19,
+        1210,
+        1222
+      ],
+      "fullyTransparentPixels": 1305411,
+      "traceAlphaPixels1to19": 10792,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "han-igyeong",
+      "pose": "idle",
+      "anchorPx": [
+        621,
+        1214
+      ],
+      "anchorNormalized": [
+        0.495215,
+        0.968102
+      ]
+    },
+    {
+      "key": "han_igyeong_lurch",
+      "file": "assets/cyclic-murder-v1/han_igyeong_lurch.png",
+      "localFile": "/workspace/shared/cyclic_murder_art_20261005/deliverables/han_igyeong_lurch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "349c947bcb49ecc6cb76586275d453ab40f6162fe0a5811ec05a73257d34aabb",
+      "bytes": 749402,
+      "contentBoundsAlpha20": [
+        425,
+        32,
+        1025,
+        1226
+      ],
+      "alphaBoundsAny": [
+        33,
+        29,
+        1218,
+        1231
+      ],
+      "fullyTransparentPixels": 1282227,
+      "traceAlphaPixels1to19": 14805,
+      "visiblePixelsTouchingCanvasBorder": 0,
+      "visualQA": "Inspected actual pixels with view_image; full body, coherent silhouette, matched identity/occupation, low gore, no embedded environment.",
+      "subjectId": "han-igyeong",
+      "pose": "lurch",
+      "anchorPx": [
+        621,
+        1226
+      ],
+      "anchorNormalized": [
+        0.495215,
+        0.977671
+      ]
+    }
+  ]
+}
