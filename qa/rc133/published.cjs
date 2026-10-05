@@ -256,8 +256,19 @@ async function runProfile(browser, profile, outputRows) {
     assert.equal(live.mode, 'STORY', 'normal new game remains in STORY mode');
     assert.equal(live.canvas, true, 'the actual game canvas is visible');
     assert(Number.isFinite(live.hp) && live.hp > 0, 'live player HP remains above zero at observation');
-    row.arena138=await page.evaluate(async()=>{const R=window.__HAPIL_BATTLE_ARENA_RC138__,s=window.__MONGSE_QA_STATE__,rows=Object.values(window.__HAPIL_MAP_DATA_RC138__),images=[];for(const row of rows.filter(r=>r.decision==='new-imagegen')){const im=new Image();im.src=row.activeMap;await im.decode();images.push({path:row.activeMap,width:im.naturalWidth,height:im.naturalHeight});}return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:rows.length,newImages:images,split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics()};});
-    assert.equal(row.arena138.maps,55);assert.equal(row.arena138.newImages.length,6);assert(row.arena138.snapshot.locked&&row.arena138.playerValid&&row.arena138.enemyValid,'normal public Story owns actual halves');
+    row.arena138=await page.evaluate(async()=>{
+      const R=window.__HAPIL_BATTLE_ARENA_RC138__,s=window.__MONGSE_QA_STATE__,rows=window.__HAPIL_MAP_DATA_RC138__,entries=Object.entries(rows),generated=entries.filter(([zone,row])=>row.decision==='new-imagegen'||(zone==='ep1a10'&&row.decision==='story-aligned-art')),images=[];
+      for(const[zone,row]of generated){const im=new Image();im.src=row.activeMap;await im.decode();images.push({zone,path:row.activeMap,width:im.naturalWidth,height:im.naturalHeight});}
+      const road=new Image();road.src=rows.murder01.activeMap;await road.decode();
+      return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:entries.length,newImages:images,ep1a10:rows.ep1a10,murder01:rows.murder01,reusedRoad:{path:rows.murder01.activeMap,width:road.naturalWidth,height:road.naturalHeight},split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics()};
+    });
+    assert.equal(row.arena138.maps,55);
+    assert.deepEqual(row.arena138.newImages.map(image=>image.zone).sort(),['ep1a08','ep1a10','ep1b07','kair02','kair04','murder02']);
+    assert.equal(row.arena138.ep1a10.decision,'story-aligned-art');
+    assert.equal(row.arena138.ep1a10.activeMap,'./assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png');
+    assert.equal(row.arena138.murder01.decision,'reassigned-original-ep1a10-road');
+    assert.equal(row.arena138.reusedRoad.path,'./assets/v31345/maps/ep1a10.webp');
+    assert(row.arena138.snapshot.locked&&row.arena138.playerValid&&row.arena138.enemyValid,'normal public Story owns actual halves');
     if(name.includes('portrait')){assert.equal(row.arena138.split.cameras.hero.side,'left');assert.equal(row.arena138.split.cameras.boss.side,'right');}
     row.game = live;
     assert.deepEqual(row.errors, [], 'no browser page errors');
