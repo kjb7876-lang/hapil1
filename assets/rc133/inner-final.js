@@ -45,7 +45,7 @@
   Object.assign(a,{id:ID,name:'페르소나 · 순수악의',kind:'sentinel',hp:m.hp,maxHp:m.maxHp,boss:true,midboss:false,rc133InnerBoss:true,
    x:m.x,y:m.y,scale:1,fixedPhase:1,currentPhase:1,phaseCount:1,phaseMax:1,humanPhase0:false,narrativeMultiPhase:false,
    sprite:art.ready?frame(s,{x:m.x,y:m.y}):(own?.sprite??template.sprite),phaseSprites:null,actionSprites:null,phaseScales:null,patternSet:'',
-   readyAt:1e12,patternReadyAt:1e12,attackAt:0,invulnerableUntil:s.time+m.intro,staggerUntil:0,recoverUntil:0,
+   readyAt:1e12,patternReadyAt:1e12,themedOrdnanceAt:1e12,bossCombatPatternReadyAtV31230:1e12,bossHpScaledV31230:true,attackAt:0,invulnerableUntil:s.time+m.intro,staggerUntil:0,recoverUntil:0,
    noBossSummons:true,requiredForClear:true,rc133GrowthScale:m.scale,navPath:[],moveDx:0,moveDy:0,moveVx:0,moveVy:0});
   delete a.actionSpritesByPhase;delete a.standProfileRC69;delete a.dreamCosmicTrialV31346;delete a.samongStatsRC91;delete a.hellStatsV31322;
   // Enroll a stable baseline so the existing Dream scaler cannot double this bounded health again.
@@ -127,7 +127,7 @@
   const party=root.__HAPIL_PARTY_V31322__;if(party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected))return;
   const m=s.innerFinalRC133,a=boss(s);if(!a)return;
   dt=cl(dt,0,.1);root.__HAPIL_PERSONA_DUEL_RC134__?.tick(s,dt);m.elapsed+=dt;m.hp=a.hp;m.x=a.x;m.y=a.y;m.intro=Math.max(0,m.intro-dt);m.clashFreeze=Math.max(0,n(m.clashFreeze)-dt);
-  a.navPath=[];a.readyAt=a.patternReadyAt=1e12;
+  a.navPath=[];a.readyAt=a.patternReadyAt=a.themedOrdnanceAt=a.bossCombatPatternReadyAtV31230=1e12;
   if(m.clashFreeze>0)return;
   if(m.intro>0)return;m.phase='fight';m.awake=Math.max(0,m.awake-dt);m.awakeningCooldown=Math.max(0,m.awakeningCooldown-dt);
   if(m.awakeningCooldown<=0){m.awake=7;m.awakeningCooldown=28;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerAwake',s,a,'awake-'+m.cycle);
