@@ -7,7 +7,7 @@ const { checkedUrl } = require('../qa/rc133/public-url.cjs');
 const root = path.resolve(__dirname, '..');
 const delta = JSON.parse(fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-delta.json')));
 const extensionBytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension.json'));
-assert.equal(require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'),'c658a708420029780e20346cf916706e2d69f9b5b92dacf4df9ea3879c381a3b','exact extension manifest pin');
+assert.equal(require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'),'3ef6bbfce2c7a4c904cfca1b357d464d13c176efc21ba8793979f7c7e0a3385b','exact extension manifest pin');
 const extension = JSON.parse(extensionBytes);
 let checks = 0;
 const key = 'rc133-verify';
