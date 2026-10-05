@@ -1,7 +1,7 @@
 {
   "schema": "rc142-gameplay-art-map/v1",
   "runtimeOwner": "codex/rc142-gameplay-audit",
-  "notes": "Exact decoded artwork paths selected by the native game renderer. PNG/WebP source bytes are unchanged.",
+  "notes": "Exact decoded artwork paths selected by the native game renderer. PNG/WebP source bytes are unchanged. Persona collision-shape reuse and its HUD-isolated compositor are pinned below.",
   "cultLeader": {
     "zone": "cult04",
     "entityId": "c104-boss",
@@ -173,7 +173,7 @@
     },
     "nativeMovementEvidence": "tests/rc142-movement-space-browser.cjs walks every edge through final ft() movement and coordinate guards in every map/mode fixture across PC, portrait and landscape browsers; output is staged fixture evidence, not a natural campaign run."
   },
-  "runtimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
+  "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
   "runtimeSourceSha256": {
     "cultLeaderFourFormMapping": {
       "path": "assets/rc142/cult-leader-art.js",
@@ -181,7 +181,7 @@
     },
     "hiddenPersonaCombat": {
       "path": "assets/rc133/inner-final.js",
-      "sha256": "0327067719dc8192c3d6f75941c872a2f4619a5ecad4388357ee584d687a4fb1"
+      "sha256": "e3b289888b495a78bc73c623253ae9946672084bbc2dbecc29569dded08b517a"
     },
     "hiddenPersonaSkillMapping": {
       "path": "assets/rc133/media-art.js",
@@ -190,6 +190,14 @@
     "hiddenPersonaArenaMovement": {
       "path": "assets/rc134/persona-duel.js",
       "sha256": "f56fdee0d9912fdb9b0acde101fb1f2786a63c037279d7c0bf51fc2e2e2793ac"
+    },
+    "hiddenPersonaCollisionGeometry": {
+      "path": "assets/rc133/bitmap-contact.js",
+      "sha256": "8867bf49e738673d4a8453052ea85bb857c3304d9a1f47f2556182aae09dddc4"
+    },
+    "hiddenPersonaHUDCompositor": {
+      "path": "assets/rc91/samong-awakening.js",
+      "sha256": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee"
     }
   }
 }

@@ -1,243 +1,342 @@
 {
-  "schema": "rc142-browser-performance-comparison/v1",
-  "candidateRuntimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
-  "baselineRuntimeRevision": "9463d5be63efe005ac3652a986743ac3a60f38b3",
-  "baselineRuntimeFileSha256": "ea66d8d1c8e3761c7737fc13f702ab3664b833f00217438e3a8b469329d6e97e",
-  "candidateRuntimeFileSha256": "f56fdee0d9912fdb9b0acde101fb1f2786a63c037279d7c0bf51fc2e2e2793ac",
-  "scope": "One workload, same Chromium binary, canvas scene, viewport, DPR=2 mobile emulation and 5.2-second active window. PC and mobile idle precede active. Performance-only runs omit the exhaustive hit/evasion matrix; both runtimes have identical volley code. CPU×4 is an emulation stress profile, not a phone measurement. Do not label as mobile performance pass.",
-  "measurements": [
-    {
-      "revision": "baseline",
-      "repeat": 1,
-      "cpuThrottle": 1,
-      "viewport": "portrait",
-      "idle": {
-        "rafP95Ms": 16.800000000000182,
-        "rafMaxMs": 66.69999999999982,
-        "framesOver100ms": 0
+  "schema": "rc142-persona-nine-pattern-performance/v3",
+  "publicMainRevision": "076c347b56b75ac9a6265bf91654605b497bcfbc",
+  "candidateRuntimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
+  "scope": "Exact public-main runtime vs exact candidate runtime sources. Staged hidden Persona fixture; nine sequential volleys with the boss forced awakened for the entire sequence; 390x844 portrait emulation, DPR=2, Chromium 151, CPU throttle 1x. The forced-awake lock is QA-only. This is not a natural campaign or physical-device result.",
+  "expectedAwakenedShots": {
+    "source": "Measured successful additions through the native projectile emitter wrapper; an event is counted only when the hostileProjectiles array grows. Counts use the same nine sequential pattern order.",
+    "patterns": [
+      "small-orb",
+      "eye",
+      "diamond",
+      "clock",
+      "star",
+      "eclipse",
+      "lance",
+      "shield",
+      "vortex"
+    ],
+    "publicMainCounts": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "candidateCounts": [
+      10,
+      6,
+      8,
+      12,
+      12,
+      4,
+      6,
+      8,
+      10
+    ],
+    "publicMainTotal": 26,
+    "candidateTotal": 76,
+    "candidateToBaselineRatio": 2.923076923076923,
+    "allNineAwakenedForWholeSequence": true
+  },
+  "measurements": {
+    "method": "Three sequential, uninstrumented RAF observation repeats per runtime. Same browser binary, view/DPR/CPU throttle, state setup, and nine-pattern order; each output reports all nine volleys while awake was held at 7 for the full performance-only sequence. This is staged browser emulation; not a physical device.",
+    "baseline": [
+      {
+        "repeat": 1,
+        "runtimeRevision": "076c347b56b75ac9a6265bf91654605b497bcfbc",
+        "status": "passed",
+        "viewport": "390x844 portrait",
+        "deviceScaleFactor": 2,
+        "browser": "Chromium 151",
+        "cpuThrottle": 1,
+        "idleP95Ms": 16.700000000000273,
+        "activeP50Ms": 50,
+        "activeP95Ms": 66.60000000000036,
+        "activeMaxMs": 116.69999999999982,
+        "observedFrames": 175,
+        "volleys": 9,
+        "awakenedForAllNineVolleys": true,
+        "jsErrors": 0,
+        "httpErrors": 0,
+        "allImagesReady": true,
+        "bitmapContactPlans": 1911,
+        "bitmapContactDecoded": 1911,
+        "bitmapContactMissing": 0,
+        "personaShapeReuses": null,
+        "personaShapeMisses": null
       },
-      "activePersona": {
-        "rafP95Ms": 83.30000000000018,
-        "rafMaxMs": 116.69999999999982,
-        "framesOver100ms": 3,
-        "observedFrames": 103,
-        "projectilesAtSample": 14,
-        "volleyCount": 3
+      {
+        "repeat": 2,
+        "runtimeRevision": "076c347b56b75ac9a6265bf91654605b497bcfbc",
+        "status": "passed",
+        "viewport": "390x844 portrait",
+        "deviceScaleFactor": 2,
+        "browser": "Chromium 151",
+        "cpuThrottle": 1,
+        "idleP95Ms": 16.799999999999272,
+        "activeP50Ms": 50,
+        "activeP95Ms": 66.70000000000073,
+        "activeMaxMs": 116.69999999999982,
+        "observedFrames": 181,
+        "volleys": 9,
+        "awakenedForAllNineVolleys": true,
+        "jsErrors": 0,
+        "httpErrors": 0,
+        "allImagesReady": true,
+        "bitmapContactPlans": 1955,
+        "bitmapContactDecoded": 1955,
+        "bitmapContactMissing": 0,
+        "personaShapeReuses": null,
+        "personaShapeMisses": null
+      },
+      {
+        "repeat": 3,
+        "runtimeRevision": "076c347b56b75ac9a6265bf91654605b497bcfbc",
+        "status": "passed",
+        "viewport": "390x844 portrait",
+        "deviceScaleFactor": 2,
+        "browser": "Chromium 151",
+        "cpuThrottle": 1,
+        "idleP95Ms": 16.700000000000728,
+        "activeP50Ms": 50,
+        "activeP95Ms": 66.69999999999891,
+        "activeMaxMs": 166.69999999999982,
+        "observedFrames": 181,
+        "volleys": 9,
+        "awakenedForAllNineVolleys": true,
+        "jsErrors": 0,
+        "httpErrors": 0,
+        "allImagesReady": true,
+        "bitmapContactPlans": 1958,
+        "bitmapContactDecoded": 1958,
+        "bitmapContactMissing": 0,
+        "personaShapeReuses": null,
+        "personaShapeMisses": null
       }
+    ],
+    "candidate": [
+      {
+        "repeat": 1,
+        "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
+        "status": "passed",
+        "viewport": "390x844 portrait",
+        "deviceScaleFactor": 2,
+        "browser": "Chromium 151",
+        "cpuThrottle": 1,
+        "idleP95Ms": 16.800000000000182,
+        "activeP50Ms": 33.29999999999927,
+        "activeP95Ms": 50,
+        "activeMaxMs": 116.69999999999982,
+        "observedFrames": 350,
+        "volleys": 9,
+        "awakenedForAllNineVolleys": true,
+        "jsErrors": 0,
+        "httpErrors": 0,
+        "allImagesReady": true,
+        "bitmapContactPlans": 778,
+        "bitmapContactDecoded": 778,
+        "bitmapContactMissing": 0,
+        "personaShapeReuses": 4330,
+        "personaShapeMisses": 62
+      },
+      {
+        "repeat": 2,
+        "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
+        "status": "passed",
+        "viewport": "390x844 portrait",
+        "deviceScaleFactor": 2,
+        "browser": "Chromium 151",
+        "cpuThrottle": 1,
+        "idleP95Ms": 16.700000000000728,
+        "activeP50Ms": 33.30000000000109,
+        "activeP95Ms": 50.100000000000364,
+        "activeMaxMs": 100,
+        "observedFrames": 318,
+        "volleys": 9,
+        "awakenedForAllNineVolleys": true,
+        "jsErrors": 0,
+        "httpErrors": 0,
+        "allImagesReady": true,
+        "bitmapContactPlans": 605,
+        "bitmapContactDecoded": 605,
+        "bitmapContactMissing": 0,
+        "personaShapeReuses": 8208,
+        "personaShapeMisses": 84
+      },
+      {
+        "repeat": 3,
+        "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
+        "status": "passed",
+        "viewport": "390x844 portrait",
+        "deviceScaleFactor": 2,
+        "browser": "Chromium 151",
+        "cpuThrottle": 1,
+        "idleP95Ms": 16.700000000000273,
+        "activeP50Ms": 50,
+        "activeP95Ms": 66.70000000000073,
+        "activeMaxMs": 133.30000000000018,
+        "observedFrames": 319,
+        "volleys": 9,
+        "awakenedForAllNineVolleys": true,
+        "jsErrors": 0,
+        "httpErrors": 0,
+        "allImagesReady": true,
+        "bitmapContactPlans": 2095,
+        "bitmapContactDecoded": 2095,
+        "bitmapContactMissing": 0,
+        "personaShapeReuses": 17355,
+        "personaShapeMisses": 61
+      }
+    ]
+  },
+  "instrumentedCanvasSelfBlit": {
+    "method": "A CanvasRenderingContext2D.drawImage wrapper timed only native-stage calls during the same nine-pattern sequence. Instrumentation adds overhead; counts and durations are directional same-browser evidence.",
+    "baseline": {
+      "calls": 494,
+      "measuredMs": 2462.699999988079,
+      "grayscaleFilterCalls": 185
     },
-    {
-      "revision": "baseline",
-      "repeat": 1,
-      "cpuThrottle": 1,
-      "viewport": "landscape",
-      "idle": {
-        "rafP95Ms": 16.800000000000182,
-        "rafMaxMs": 50,
-        "framesOver100ms": 0
-      },
-      "activePersona": {
-        "rafP95Ms": 50.099999999999454,
-        "rafMaxMs": 150,
-        "framesOver100ms": 1,
-        "observedFrames": 169,
-        "projectilesAtSample": 12,
-        "volleyCount": 4
-      }
+    "candidate": {
+      "calls": 137,
+      "measuredMs": 498.6000002324581,
+      "grayscaleFilterCalls": 0
     },
-    {
-      "revision": "candidate",
-      "repeat": 1,
-      "cpuThrottle": 1,
-      "viewport": "portrait",
-      "idle": {
-        "rafP95Ms": 16.800000000000182,
-        "rafMaxMs": 33.5,
-        "framesOver100ms": 0
-      },
-      "activePersona": {
-        "rafP95Ms": 83.39999999999964,
-        "rafMaxMs": 200,
-        "framesOver100ms": 4,
-        "observedFrames": 88,
-        "projectilesAtSample": 24,
-        "volleyCount": 3
-      }
-    },
-    {
-      "revision": "candidate",
-      "repeat": 1,
-      "cpuThrottle": 1,
-      "viewport": "landscape",
-      "idle": {
-        "rafP95Ms": 16.800000000000182,
-        "rafMaxMs": 66.69999999999982,
-        "framesOver100ms": 0
-      },
-      "activePersona": {
-        "rafP95Ms": 66.69999999999982,
-        "rafMaxMs": 116.69999999999982,
-        "framesOver100ms": 2,
-        "observedFrames": 145,
-        "projectilesAtSample": 0,
-        "volleyCount": 4
-      }
-    },
-    {
-      "revision": "baseline",
-      "repeat": 1,
-      "cpuThrottle": 4,
-      "viewport": "portrait",
-      "idle": {
-        "rafP95Ms": 100,
-        "rafMaxMs": 249.89999999999964,
-        "framesOver100ms": 1
-      },
-      "activePersona": {
-        "rafP95Ms": 466.59999999999854,
-        "rafMaxMs": 483.3000000000011,
-        "framesOver100ms": 18,
-        "observedFrames": 18,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "baseline",
-      "repeat": 1,
-      "cpuThrottle": 4,
-      "viewport": "landscape",
-      "idle": {
-        "rafP95Ms": 50.100000000000364,
-        "rafMaxMs": 283.3000000000011,
-        "framesOver100ms": 1
-      },
-      "activePersona": {
-        "rafP95Ms": 349.8999999999978,
-        "rafMaxMs": 383.3000000000029,
-        "framesOver100ms": 23,
-        "observedFrames": 24,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "baseline",
-      "repeat": 2,
-      "cpuThrottle": 4,
-      "viewport": "portrait",
-      "idle": {
-        "rafP95Ms": 99.89999999999964,
-        "rafMaxMs": 116.60000000000036,
-        "framesOver100ms": 2
-      },
-      "activePersona": {
-        "rafP95Ms": 433.2999999999993,
-        "rafMaxMs": 666.6999999999989,
-        "framesOver100ms": 19,
-        "observedFrames": 19,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "baseline",
-      "repeat": 2,
-      "cpuThrottle": 4,
-      "viewport": "landscape",
-      "idle": {
-        "rafP95Ms": 133.3000000000011,
-        "rafMaxMs": 233.3000000000011,
-        "framesOver100ms": 6
-      },
-      "activePersona": {
-        "rafP95Ms": 416.59999999999854,
-        "rafMaxMs": 533.2000000000007,
-        "framesOver100ms": 21,
-        "observedFrames": 22,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "candidate",
-      "repeat": 1,
-      "cpuThrottle": 4,
-      "viewport": "portrait",
-      "idle": {
-        "rafP95Ms": 83.39999999999964,
-        "rafMaxMs": 249.89999999999964,
-        "framesOver100ms": 1
-      },
-      "activePersona": {
-        "rafP95Ms": 450,
-        "rafMaxMs": 716.6000000000004,
-        "framesOver100ms": 16,
-        "observedFrames": 17,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "candidate",
-      "repeat": 1,
-      "cpuThrottle": 4,
-      "viewport": "landscape",
-      "idle": {
-        "rafP95Ms": 66.60000000000036,
-        "rafMaxMs": 116.60000000000036,
-        "framesOver100ms": 1
-      },
-      "activePersona": {
-        "rafP95Ms": 400,
-        "rafMaxMs": 500,
-        "framesOver100ms": 22,
-        "observedFrames": 24,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "candidate",
-      "repeat": 2,
-      "cpuThrottle": 4,
-      "viewport": "portrait",
-      "idle": {
-        "rafP95Ms": 100.10000000000036,
-        "rafMaxMs": 233.29999999999927,
-        "framesOver100ms": 3
-      },
-      "activePersona": {
-        "rafP95Ms": 583.3000000000011,
-        "rafMaxMs": 599.8999999999996,
-        "framesOver100ms": 17,
-        "observedFrames": 18,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    },
-    {
-      "revision": "candidate",
-      "repeat": 2,
-      "cpuThrottle": 4,
-      "viewport": "landscape",
-      "idle": {
-        "rafP95Ms": 116.69999999999891,
-        "rafMaxMs": 283.3000000000011,
-        "framesOver100ms": 3
-      },
-      "activePersona": {
-        "rafP95Ms": 400,
-        "rafMaxMs": 516.6999999999971,
-        "framesOver100ms": 23,
-        "observedFrames": 24,
-        "projectilesAtSample": 10,
-        "volleyCount": 1
-      }
-    }
-  ],
+    "observation": "Live boss/player whole-world grading moves to the browser compositor; the prior full-frame grayscale self-blit is removed from those modes. HUD feedback stays in a transparent sibling canvas. The remaining self-blits are unfiltered engine operations."
+  },
+  "compositorLifecycle": {
+    "status": "passed",
+    "checks": [
+      "boss-only red CSS filter",
+      "player-only grayscale CSS filter",
+      "separate transparent HUD drawing canvas",
+      "mode exit restores the original canvas filter",
+      "player lethal path removes mood layer",
+      "terminal hidden-boss defeat removes mood layer",
+      "SVG filter definition and overlay are removed on exit"
+    ],
+    "exactRuntimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376"
+  },
   "assessment": {
-    "cpu1x": "PC and portrait active p95 are essentially equal to baseline; landscape rose by one coarse ~16.7ms frame in a single run. No stable regression shown.",
-    "cpu4x": "Both baseline and candidate are slow and noisy; candidate is faster on portrait in one run and slower in another; landscape candidate p95 was 400ms in both runs versus 350ms/417ms baseline. This does not isolate a stable regression, but it also is not a pass. Frame delays remain a material emulation limitation.",
-    "physicalDevices": "Not tested."
+    "p95": "Public main p95: 66.6ms, 66.7ms, 66.7ms. Candidate p95: 50.0ms, 50.1ms, 66.7ms; medians 66.7ms vs 50.1ms. Two candidate repeats are lower and one ties; three coarse browser samples do not establish a broad mobile-performance pass.",
+    "throughput": "All nine patterns remain active. Native projectile-array admissions confirm 26 awakened shots on public main and 76 on the candidate (2.92x). This isolated fixture holds boss awakening for the whole sequence; it does not represent naturally timed awakenings. Candidate p95 remains far above a 16.7ms 60fps budget.",
+    "renderingCosts": "The baseline self-blits the stage canvas 464 times (178 grayscale); candidate self-blits are 0. Wrapped persona-sprite drawImage calls rise from 3177 to 27729 as projectile volume increases. Thus the measured improvement is removal of expensive whole-canvas grayscale self-blits, not a reduction in all rendering work.",
+    "bitmapContactCache": "Candidate repeats recorded 4,330–17,355 stable persona-shape reuses and 61–84 misses. All candidate runs reported every image decoded and zero missing contact plans; misses are shape-cache misses, not missing files.",
+    "physicalDevices": "Not tested.",
+    "legacyComparison": "The older 9463d5 runtime is excluded from barrage-performance attribution. Movement is checked separately by tests/rc142-movement-space-browser.cjs across 55 maps, two modes, four arena edges, and three browser layouts."
+  },
+  "instrumentedCanvasRendering": {
+    "method": "Timed CanvasRenderingContext2D method wrapper attached only to the native game-stage canvas during the same nine-pattern sustained-awake sequence. Wrapper overhead affects timing; use call counts and durations as directional same-browser evidence, not uninstrumented frame timing.",
+    "baseline": {
+      "drawImage": {
+        "selfBlit": {
+          "calls": 464,
+          "measuredMs": 2275.1,
+          "filters": {
+            "grayscale(1) contrast(1.08)": 178,
+            "none": 286
+          }
+        },
+        "personaSprite": {
+          "calls": 3177,
+          "measuredMs": 31.7,
+          "filters": {
+            "none": 3000,
+            "brightness(1.8) contrast(0.8)": 13,
+            "brightness(2.2) contrast(0.85)": 164
+          }
+        },
+        "image": {
+          "calls": 353,
+          "measuredMs": 5.9,
+          "filters": {
+            "none": 353
+          }
+        },
+        "other": {
+          "calls": 4285,
+          "measuredMs": 80.0,
+          "filters": {
+            "none": 4285
+          }
+        }
+      },
+      "stroke": {
+        "stroke": {
+          "calls": 4612,
+          "measuredMs": 8.2,
+          "filters": {}
+        }
+      },
+      "fillRect": {
+        "fillRect": {
+          "calls": 4075,
+          "measuredMs": 10.2,
+          "filters": {}
+        }
+      },
+      "fillText": {
+        "fillText": {
+          "calls": 888,
+          "measuredMs": 6.5,
+          "filters": {}
+        }
+      },
+      "strokeText": {
+        "strokeText": {
+          "calls": 178,
+          "measuredMs": 0.9,
+          "filters": {}
+        }
+      }
+    },
+    "candidate": {
+      "drawImage": {
+        "personaSprite": {
+          "calls": 27729,
+          "measuredMs": 160.3,
+          "filters": {
+            "none": 27403,
+            "brightness(1.8) contrast(0.8)": 13,
+            "brightness(2.2) contrast(0.85)": 313
+          }
+        },
+        "image": {
+          "calls": 651,
+          "measuredMs": 11.5,
+          "filters": {
+            "none": 651
+          }
+        },
+        "other": {
+          "calls": 8167,
+          "measuredMs": 165.0,
+          "filters": {
+            "none": 8167
+          }
+        }
+      },
+      "stroke": {
+        "stroke": {
+          "calls": 8350,
+          "measuredMs": 14.3,
+          "filters": {}
+        }
+      },
+      "fillRect": {
+        "fillRect": {
+          "calls": 3914,
+          "measuredMs": 10.9,
+          "filters": {}
+        }
+      },
+      "fillText": {},
+      "strokeText": {}
+    },
+    "observation": "The baseline makes 464 canvas self-blits, including 178 grayscale self-blits (about 2.28 seconds of wrapped drawImage calls). The candidate records zero canvas self-blits in this fixture after moving boss-only grading to the browser compositor. Candidate sprite-image draws rise with the 2.92x emitted projectile count, so the self-blit improvement is not a claim that total drawImage calls fell."
   }
 }

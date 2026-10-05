@@ -2,7 +2,7 @@
   "version": 1,
   "base": "0a4965a17ac69a05ffd79645a537a0f202417408",
   "baseTree": "65cba3f9be4bbedb71450aa66a51db96dee89f1a",
-  "candidateCommit": "e8573df594ad4e970370278b293447e99f6a536f",
+  "candidateCommit": "969b57748ca29cfbd827fa65bfd09e698158f376",
   "previousDeltaSha256": "47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11",
   "protectedRoots": [
     "assets",
@@ -10,7 +10,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "fe2a622e6fa0f6b8851f5131c6a7364a86a32c464de3926193936d8e23270041",
+  "targetProtectedRowsSha256": "df9a972160713818e15d6acc2d91e9f1c41b9b6cfbc1b1c74a35c9b53f370938",
   "files": [
     {
       "file": "assets/combat-audio/v1/controller.js",
@@ -41,17 +41,6 @@
         "sha256": "95b2a82dec74e3810f451d82dd7bc117d560ef2936096bb90a54f5b84292787c"
       },
       "reason": "RC140 exact asset dependency output: assets/combat-audio/v1/manifest.json"
-    },
-    {
-      "file": "assets/generated-story10-cycle-20261005/README.md",
-      "before": null,
-      "after": {
-        "file": "assets/generated-story10-cycle-20261005/README.md",
-        "mode": "100644",
-        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
-        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
-      },
-      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
     },
     {
       "file": "assets/generated-story10-cycle-20261005/cyclic-murder-manifest.json",
@@ -263,6 +252,17 @@
       "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/metadata/original-ep1a10-manifest.json"
     },
     {
+      "file": "assets/generated-story10-cycle-20261005/README.md",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/README.md",
+        "mode": "100644",
+        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
+        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
+    },
+    {
       "file": "assets/index-v31526.js",
       "before": {
         "file": "assets/index-v31526.js",
@@ -293,6 +293,21 @@
       "reason": "RC141 supplied-audio integration output: assets/rc128/combat-feedback.js"
     },
     {
+      "file": "assets/rc133/bitmap-contact.js",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "4b366761ebb221c6b92e88d09c2178b76a505b66"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "b42988932db00edb9f56714016e57d914fc1ee7f",
+        "sha256": "8867bf49e738673d4a8453052ea85bb857c3304d9a1f47f2556182aae09dddc4"
+      },
+      "reason": "RC142 verified runtime compositor and collision-cache output: assets/rc133/bitmap-contact.js"
+    },
+    {
       "file": "assets/rc133/inner-final.js",
       "before": {
         "file": "assets/rc133/inner-final.js",
@@ -302,8 +317,8 @@
       "after": {
         "file": "assets/rc133/inner-final.js",
         "mode": "100644",
-        "gitBlob": "afc61f3de7fb72b1e0fff268e4b5ab9b414e727e",
-        "sha256": "0327067719dc8192c3d6f75941c872a2f4619a5ecad4388357ee584d687a4fb1"
+        "gitBlob": "a9cebc9cfa4aa9838a4ce197129629c1d701df93",
+        "sha256": "e3b289888b495a78bc73c623253ae9946672084bbc2dbecc29569dded08b517a"
       },
       "reason": "RC142 gameplay output: assets/rc133/inner-final.js; RC142 gameplay feature integration output: assets/rc133/inner-final.js"
     },
@@ -872,6 +887,21 @@
       "reason": "RC140 exact asset dependency output: assets/rc51/story.js"
     },
     {
+      "file": "assets/rc91/samong-awakening.js",
+      "before": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "1a00d8554fcb33b24f81d8630753676a66878e51"
+      },
+      "after": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "3d1403a478894f90593d70315f10450b41cbded2",
+        "sha256": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee"
+      },
+      "reason": "RC142 verified runtime compositor and collision-cache output: assets/rc91/samong-awakening.js"
+    },
+    {
       "file": "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
       "before": null,
       "after": {
@@ -1028,8 +1058,8 @@
       "after": {
         "file": "index.html",
         "mode": "100644",
-        "gitBlob": "bb8ea6b441b2fa9801d57e8a6c57ad981dda3e59",
-        "sha256": "781ce3a2029483e3c60315dfe878a50b304aad5d9868dd3917989a5c5862fb58"
+        "gitBlob": "2811c0d3083adf57a62d62a231dc774ace7bb975",
+        "sha256": "ca3e06ecf8478d62f36db33a702b14d769414f5f8f08570693fe8f69a31bdd59"
       },
       "reason": "RC140 loader integration output: index.html; RC141 supplied-audio integration output: index.html; RC142 gameplay feature integration output: index.html"
     }

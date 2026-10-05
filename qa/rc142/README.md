@@ -1,23 +1,25 @@
-# RC142 gameplay and art audit
+# RC142 gameplay and performance audit
 
-The runtime candidate audited here is `ec943d56408ea5bfa217fd55e0aa000de6131420`. This follow-up audit adds tests and evidence only; it does not change game runtime code.
+The candidate runtime tested here is `969b57748ca29cfbd827fa65bfd09e698158f376`. It retains the nine hidden-Persona attack patterns and adds stable bitmap-contact shape reuse plus browser-compositor color grading for the live boss-only and player-only views.
 
 ## Art and StoryWorld handoff
 
-`gameplay-art-map.json` records the four cult leader forms, the hidden Persona identity, all nine normal/awakened skill paths, and movement bounds. It also pins the SHA-256 of the cult form runtime, Persona runtime, skill mapping and movement policy. Use its `runtimeSourceSha256` object for StoryWorld synchronization. The mapping file SHA-256 is `f6599d7e526e0f7efbfed38c85a74f4e8381145074ddd538560f2b0018b2ee77`.
+`gameplay-art-map.json` records the four cult leader forms, hidden Persona identity, nine normal/awakened skill paths, movement bounds, and exact hashes for the collision cache and HUD-isolated compositor. Its `runtimeSourceSha256` object is the StoryWorld synchronization contract. The uploaded Library concept images remained inaccessible and were not substituted; checked-in game art was decoded by the browser tests.
 
-## Persona attack coverage
+## Attack and render coverage
 
-`persona-volley-audit.json` covers all nine attack patterns in both normal and awakened states. The staged browser fixture uses the native projectile motion, contact geometry and player-damage transaction path. Every pattern showed the warning text, a disabled collision interval followed by release, native transaction evidence for each measured contact, and a terminal reason for every shot. The test compared eight fixed sidestep directions; every attack/mode pair had a route with fewer measured contacts than standing still. Some evasion routes still take hits.
+`persona-volley-audit.json` covers all nine attack patterns in normal and awakened modes. The exact candidate run passed 18 pattern/mode pairs: every shot reached a native terminal reason, and every pattern/mode pair had an evasion route with fewer measured contacts than standing. This is a staged fixture, not a natural hidden-finale victory.
 
-`persona-render-audit.json` summarizes 1,632 checks each on PC, portrait and landscape. These verify image identity in warning, flight and terminal effect states for all nine patterns, along with the timed native attack rotation. This is staged encounter evidence, not a claim that a natural campaign run defeated the hidden finale.
+`persona-render-audit.json` records 1,632 image/effect checks on PC, portrait, and landscape. The 86-check compositor equivalence test passed the exact detached-canvas path. A live-canvas probe also verified boss red, player grayscale, isolated HUD drawing, and filter/overlay cleanup after mode exit, player-lethal handling, and terminal boss defeat.
 
-## Browser performance comparison
+## Matched nine-pattern performance
 
-`performance-comparison.json` contains two CPU×4 runs for each runtime and one CPU×1 run per runtime. The same Chromium build and scene were used. The candidate and baseline PC/portrait CPU×1 active p95 were about 83 ms. Landscape was 67 ms for candidate and 50 ms for baseline in the single run. CPU×4 measurements were noisy: candidate portrait p95 was 450/583 ms versus baseline 467/433 ms; candidate landscape was 400/400 ms versus baseline 350/417 ms. Candidate results varied in both directions, so this does not establish a stable regression. Both revisions have substantial emulated mobile frame delays; this is not a mobile performance pass, and no attack count was reduced for the comparison. Physical devices were not tested.
+`performance-comparison.json` compares exact candidate runtime sources `969b5774` with fresh public main `076c347b`, using the same nine sequential volleys, 390×844 viewport, DPR 2, Chromium 151, and CPU throttle 1×. A QA-only fixture keeps the boss awakened for all nine volleys on both revisions. The baseline p95 RAF intervals were 66.6–66.7ms in three repeats; the candidate was 50.0ms, 50.1ms, and 66.7ms. The candidate median was lower, with one tie. The small sample and coarse browser intervals do not establish a general mobile-performance pass; 50ms is still far above the 16.7ms 60fps budget.
 
-The separate native Story/Dream map-boundary audit walked all four movement edges across 55 combat maps, two modes and three layouts (330 fixtures). The attack and movement browser tests are staged fixture checks. Natural hidden-finale completion remains unverified.
+The native projectile emitter recorded 26 baseline and 76 candidate projectile admissions across the same nine patterns. This is a measured 2.92× increase, with all nine attacks retained. In a wrapper-instrumented run, whole-stage self-blits fell from 464 to zero, including 178 grayscale self-blits on baseline. The candidate shifts boss-only grading to the browser compositor. Sprite-image `drawImage` calls increased from 3,177 to 27,729 as the workload emitted more projectiles; this is not evidence that all rendering work fell. Wrapper timing adds overhead, so call durations are directional same-browser evidence. Bitmap silhouette plans reused 4,330–17,355 times across candidate repeats, with 61–84 shape-cache misses; every image decoded and no contact plan was missing.
 
-## Other limitations
+This report does not use the older `9463d5` result to attribute barrage cost. Movement is covered separately by `tests/rc142-movement-space-browser.cjs` across 55 maps, two modes, four arena edges, and three browser layouts. No physical phone was tested.
 
-The six Library concept-image files could not be downloaded in this environment: the authorized file download was rejected as unresolved, and the signed read URL was denied by the network proxy with HTTP 403. Their pixels were not inspected or substituted. The shipped audit confirms the checked-in project art decodes in browser tests; it does not verify those six inaccessible source uploads. No physical-phone test was run.
+## Remaining validation limits
+
+The hidden finale has not been naturally completed in the campaign; the feature tests use staged encounter fixtures. The six uploaded Library images could not be downloaded in this environment, so their pixels were not inspected. These checks do not prove the absence of every bug.

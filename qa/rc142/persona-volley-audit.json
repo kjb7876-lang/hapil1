@@ -1,6 +1,6 @@
 {
   "schema": "rc142-persona-volley-audit/v1",
-  "runtimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
+  "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
   "sourceRun": {
     "status": "passed",
     "stagedFixture": true,
@@ -35,7 +35,19 @@
       "./assets/rc133/art/shield.png",
       "./assets/rc134/persona-skills/vortex.png?v=43402",
       "./assets/rc133/art/vortex.png"
-    ]
+    ],
+    "runtimeCommit": "969b57748ca29cfbd827fa65bfd09e698158f376",
+    "exactRuntimeChecks": {
+      "status": "passed",
+      "profile": "PC 1280x900, portrait 390x844, landscape 844x390",
+      "patternModePairs": 18,
+      "normalPairs": 9,
+      "awakenedPairs": 9,
+      "allShotsResolved": 18,
+      "evasionPairsWithFewerContacts": 18,
+      "jsErrors": 0,
+      "httpErrors": 0
+    }
   },
   "scope": "All nine attack patterns, normal and awakened; actual contact geometry, native damage ledger and hero-hit/map-boundary terminal reasons. Evasion winner chosen from eight fixed legal movement vectors. Staged fixture, not a natural campaign claim.",
   "patternOutcomes": [

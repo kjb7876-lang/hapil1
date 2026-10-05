@@ -1,6 +1,6 @@
 {
   "schema": "rc142-persona-render-audit/v1",
-  "runtimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
+  "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
   "status": "passed",
   "profiles": [
     {
@@ -55,5 +55,6 @@
       "httpErrors": []
     }
   ],
-  "coverage": "Every skill image identity was checked in the native warning, flight, hit/parry/skill/expired terminal effect and timed native pattern rotation."
+  "coverage": "Every skill image identity was checked in the native warning, flight, hit/parry/skill/expired terminal effect and timed native pattern rotation.",
+  "sourceRunCommit": "969b57748ca29cfbd827fa65bfd09e698158f376"
 }
