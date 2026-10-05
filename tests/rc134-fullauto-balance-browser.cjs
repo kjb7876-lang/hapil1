@@ -1,7 +1,9 @@
 'use strict';
 // Real native reducers in paired current-build contexts. The reference disables
 // ONLY the effective-mode final factor; class pressure and every other reducer
-// remain identical. Fixtures are not natural campaign evidence.
+// remain identical. Fixtures are not natural campaign evidence. Explicit native body/heart stamps
+// keep raster decode/animation readiness out of this isolated reducer comparison;
+// actual raster contact remains covered by the bitmap/native contact suites.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
 const root=path.resolve(__dirname,'..'),base='59f5381c046cb4b2416a97c704f34770e887602d',out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc134-fullauto-balance';fs.mkdirSync(out,{recursive:true});
@@ -23,15 +25,16 @@ async function fixtures(browser,revision,device){
    for(const gameMode of ['STORY','DREAM'])for(const mode of ['manual','semi','full'])for(const variant of ['none','buffs','777']){
     const buff=variant!=='none';
     set(mode);
-    for(const kind of ['projectile','laser','body-floor','ultimate-floor','weak-exit','melee','bleed','burn','poison','ally-projectile','ally-laser']){
+    for(const kind of ['projectile','heart-projectile','laser','body-floor','ultimate-floor','weak-exit','melee','bleed','burn','poison','ally-projectile','ally-laser']){
      const s=make(gameMode,buff),source={id:123,sourceId:'dist00-boss',born:99,x:s.x,y:s.y,originX:20,originY:24,damage:20,radius:.24,at:100,shape:'circle'};let result,duplicate=null,target=s;
      if(variant==='777'){s.activeHeroMastery=7;s.activeTimeMastery=8;}
-     if(kind==='projectile'){Object.assign(source,{vx:1,vy:0});s.hostileProjectiles.push(source);}if(kind==='laser')Object.assign(source,{boss:true,laserV31330:true,shape:'line',raidBodyContactRC24:false,heartContactRC24:true});if(kind==='body-floor')Object.assign(source,{boss:true,raidBodyContactRC24:true,heartContactRC24:true});if(kind==='ultimate-floor')Object.assign(source,{boss:true,raidUltimateRC24:true,heartContactRC24:true});
-     if(kind.startsWith('ally-')){const P=window.__HAPIL_PARTY_V31322__,a={slotId:'rc134-ally',heroId:'hwando',name:'native ally',x:s.x,y:s.y,hp:240,maxHp:240,invulnerableUntil:0,downUntil:0};P.actors.push(a);target=a;Object.assign(source,{vx:1,vy:0});if(kind==='ally-laser')Object.assign(source,{boss:true,laserV31330:true});else s.hostileProjectiles.push(source);try{result=P.debug.allyDamage(s,a,20,source);duplicate=P.debug.allyDamage(s,a,20,source);}finally{P.actors.splice(P.actors.indexOf(a),1);}}
+     source.heartContactV31336={target:'__host',time:s.time,heart:kind==='heart-projectile'||kind==='laser'||kind.endsWith('floor')};
+     if(kind==='projectile'||kind==='heart-projectile'){Object.assign(source,{vx:1,vy:0});s.hostileProjectiles.push(source);}if(kind==='laser')Object.assign(source,{boss:true,laserV31330:true,shape:'line',raidBodyContactRC24:false,heartContactRC24:true});if(kind==='body-floor')Object.assign(source,{boss:true,raidBodyContactRC24:true,heartContactRC24:true});if(kind==='ultimate-floor')Object.assign(source,{boss:true,raidUltimateRC24:true,heartContactRC24:true});
+     if(kind.startsWith('ally-')){const P=window.__HAPIL_PARTY_V31322__,a={slotId:'rc134-ally',heroId:'hwando',name:'native ally',x:s.x,y:s.y,hp:240,maxHp:240,invulnerableUntil:0,downUntil:0};P.actors.push(a);target=a;source.heartContactV31336={target:a.slotId,time:s.time,heart:kind==='ally-laser'};Object.assign(source,{vx:1,vy:0});if(kind==='ally-laser')Object.assign(source,{boss:true,laserV31330:true});else s.hostileProjectiles.push(source);try{result=P.debug.allyDamage(s,a,20,source);duplicate=P.debug.allyDamage(s,a,20,source);}finally{P.actors.splice(P.actors.indexOf(a),1);}}
      else if(['bleed','burn','poison'].includes(kind)){const tag={bleed:'Bleed',burn:'Burn',poison:'EnvyPoison'}[kind];s['hero'+tag+'Until']=101;s['hero'+tag+'NextAt']=100;s['hero'+tag+'SourceIdRC108']='dist00-boss';result=T.status(s);}
      else if(kind==='weak-exit'){const e={...source,duration:5,dx:1,dy:0,travel:1,contacted:[],damage:1};result=window.__HAPIL_EXIT_V31328__.debug.apply(s,s,e,e,{heart:true});duplicate=window.__HAPIL_EXIT_V31328__.debug.apply(s,s,e,e,{heart:true});}
      else{result=T.incoming(s,kind.endsWith('floor')?1:20,s.x,s.y,source);duplicate=T.incoming(s,20,s.x,s.y,source);}
-     const event=Core.snapshot(s).events.findLast(e=>e.appliedDamage>0);rows.push({direction:'incoming',gameMode,mode,variant,kind,damage:240-target.hp,amount:event?.appliedDamage??240-target.hp,final:event?.finalDamage??null,duplicate,result,eventKind:event?.kind});
+     const event=Core.snapshot(s).events.findLast(e=>e.appliedDamage>0);rows.push({direction:'incoming',gameMode,mode,variant,kind,heartEvidence:source.heartContactV31336,damage:240-target.hp,amount:event?.appliedDamage??240-target.hp,final:event?.finalDamage??null,duplicate,result,eventKind:event?.kind});
     }
     for(const kind of ['projectile','laser','dot','melee','skill','ultimate','companion','collab','reflected']){
      const s=make(gameMode,buff),source={heroId:'gunner',actionKey:'rc134-'+kind};
@@ -49,7 +52,7 @@ async function fixtures(browser,revision,device){
    const s=make('DREAM',true),Bridge=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,raw={damage:3,infinitePower:1234,speed:3};s.zone='cult04';const leader=Bridge.actor('cult04','c104-boss');
    for(const mode of ['full','manual','semi','full','manual','full']){set(mode);health.push({mode,hp:H.health(s,leader,raw),growth:H.growth(s,raw)});}
    const serial=[];for(const mode of ['full','manual','full']){set(mode);const rawSave=Bridge.serializeSave(s,'gunner',[],raw,0),restored=T.initial();Bridge.restoreEntry(restored,rawSave);serial.push({mode,keys:Object.keys(rawSave).filter(k=>/finalDamage|fullauto|multiplierRC134/i.test(k)),hp:rawSave.hp,maxHp:rawSave.maxHp,passives:rawSave.passives,restoredHp:restored.hp,restoredMaxHp:restored.maxHp});}
-   const toggles=[];for(let i=0;i<9;i++){const mode=['full','manual','semi'][i%3];set(mode);const fresh=make('STORY');fresh.combatModeV31329='full';T.incoming(fresh,20,fresh.x,fresh.y,{id:600+i,sourceId:'dist00-boss',born:99,vx:1,vy:0,x:fresh.x,y:fresh.y});toggles.push({mode,damage:240-fresh.hp});}
+   const toggles=[];for(let i=0;i<9;i++){const mode=['full','manual','semi'][i%3];set(mode);const fresh=make('STORY');fresh.combatModeV31329='full';T.incoming(fresh,20,fresh.x,fresh.y,{id:600+i,sourceId:'dist00-boss',born:99,vx:1,vy:0,x:fresh.x,y:fresh.y,heartContactV31336:{target:'__host',time:fresh.time,heart:false}});toggles.push({mode,damage:240-fresh.hp});}
    const P=window.__HAPIL_PARTY_V31322__,role=P.status.role,authority=[];set('full');P.setNetworkRole('guest');try{const s=make('STORY'),target=s.enemies[0];const incoming=T.incoming(s,20,s.x,s.y,{id:999,sourceId:target.id,born:99});T.outgoing(s,80,{heroId:'gunner'});authority.push({incoming,hp:s.hp,enemyHp:target.hp,events:Core.snapshot(s).events.map(e=>({result:e.result,final:e.finalDamage??null}))});}finally{P.setNetworkRole(role);}
    return {rows,bursts,health,serial,toggles,authority,mobile:window.__HAPIL_MOBILE_V31366__?.enabled()===true};
   }finally{B.state.current=original;B.settings.current=settings;C.clear();}
@@ -60,13 +63,14 @@ async function fixtures(browser,revision,device){
  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
  for(const device of ['pc','phone']){
   const baseline=await fixtures(browser,'baseline',device),candidate=await fixtures(browser,'candidate',device);report.profiles.push({device,baseline,candidate});assert.deepEqual(baseline.errors,[]);assert.deepEqual(candidate.errors,[]);assert.equal(candidate.mobile,device==='phone');
-  assert.equal(candidate.rows.length,360);assert.equal(baseline.rows.length,candidate.rows.length);
+  assert.equal(candidate.rows.length,378);assert.equal(baseline.rows.length,candidate.rows.length);
   for(let i=0;i<candidate.rows.length;i++){
-   const old=baseline.rows[i],next=candidate.rows[i],factor=next.mode==='full'?(next.direction==='incoming'?.1:1.7):1,label=JSON.stringify({device,...next});
-   if(old.damage===0){assert.equal(next.damage,0,'both references seal the same awake nonbullet '+label);assert.equal(old.direction,'incoming');assert.equal(old.gameMode,'DREAM');assert(old.variant!=='none');assert(!['projectile','ally-projectile'].includes(old.kind));continue;}
+   const old=baseline.rows[i],next=candidate.rows[i];if(next.direction==='incoming')assert.deepEqual(next.heartEvidence,old.heartEvidence,'paired reducer inputs have identical authoritative body/heart evidence');const factor=next.mode==='full'?(next.direction==='incoming'?.1:1.7):1,label=JSON.stringify({device,...next});
+   if(old.damage===0){assert.equal(next.damage,0,'both references seal the same awake nonbullet '+label);assert.equal(old.direction,'incoming');assert.equal(old.gameMode,'DREAM');assert(old.variant!=='none');assert(!['projectile','heart-projectile','ally-projectile'].includes(old.kind));continue;}
    assert(old.damage>0,'baseline native fixture must hit '+label);assert(Math.abs(next.damage-old.damage*factor)<1e-7,'same-build HP damage ratio '+label);assert(Math.abs(next.amount-old.amount*factor)<1e-7,'native applied amount ratio '+label);assert.equal(next.final.factor,factor,'transaction factor '+label);assert(Math.abs(next.final.baseline-old.amount)<1e-7,'unmodified native amount '+label);
    if(next.direction==='outgoing'){assert.equal(next.maxHp,old.maxHp);assert.equal(next.result,'HIT');}else if(next.duplicate!==null)assert.equal(next.duplicate,false,'native rehit ledger unchanged '+label);
   }
+  for(const row of candidate.rows.filter(r=>r.kind==='heart-projectile'&&r.variant==='none')){const body=candidate.rows.find(r=>r.direction==='incoming'&&r.kind==='projectile'&&r.gameMode===row.gameMode&&r.mode===row.mode&&r.variant===row.variant);assert(row.damage>body.damage,'Explicit native heart evidence contributes its actual bonus');}
   for(const row of candidate.health){assert.equal(row.hp,candidate.health[0].hp);assert.equal(row.growth,candidate.health[0].growth);}
   assert.deepEqual(candidate.health,baseline.health,'hidden health and permanent growth match same-build baseline');
   for(const row of candidate.serial)assert.deepEqual(row.keys,[],'native save contains no transient multiplier');
@@ -75,5 +79,5 @@ async function fixtures(browser,revision,device){
   for(let i=0;i<candidate.bursts.length;i++)for(let j=0;j<candidate.bursts[i].packets.length;j++){const a=candidate.bursts[i].packets[j],b=baseline.bursts[i].packets[j];assert(Math.abs(a.damage-b.damage*(a.mode==='full'?1.7:1))<1e-7,'native cap sequence keeps final ratio');assert(Math.abs(a.spent-b.spent)<1e-7,'native burst spending retains original units across toggles');assert.equal(a.result,b.result,'exhausted burst window retains native rejection');assert(Math.abs(a.final.baseline-b.damage)<1e-7,'journal records admitted burst amount');}
   for(let i=0;i<candidate.toggles.length;i++){const a=candidate.toggles[i],b=baseline.toggles[i];assert(Math.abs(a.damage-b.damage*(a.mode==='full'?.1:1))<1e-8,'repeated effective-mode changes have exact ratios');}
  }
- report.status='passed';console.log('RC134_FULLAUTO_BROWSER',JSON.stringify({status:report.status,profiles:report.profiles.length,pairedDamageCases:720,pairedBurstPackets:60,sameBuildBase:'current candidate; only control-mode final factor neutralized',historicalBase:base,exactRatios:true,hiddenHealthUnchanged:true,nativeSerialization:true}));
+ report.status='passed';console.log('RC134_FULLAUTO_BROWSER',JSON.stringify({status:report.status,profiles:report.profiles.length,pairedDamageCases:756,pairedBurstPackets:60,sameBuildBase:'current candidate; only control-mode final factor neutralized',historicalBase:base,exactRatios:true,hiddenHealthUnchanged:true,nativeSerialization:true}));
  }finally{if(report.status==='running')report.status='failed';fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));await browser?.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});
