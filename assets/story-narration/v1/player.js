@@ -183,7 +183,7 @@
       if (entry) return entry;
       const data = await manifest(signal), candidate = data.scenes[sceneKey];
       if (!Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) return null;
-      if (!candidate || candidate.textSha256 !== await sha256(text)) throw new Error('Narration does not match this text');
+      if (!candidate || candidate.textSha256 !== await sha256(window.__HAPIL_NARRATION_START_RC139__?.voiceText(text)??text)) throw new Error('Narration does not match this text');
       if (signal.aborted) throw new Error('Narration cancelled');
       const clips = (candidate.clips || [candidate]).map(clip => {
         const url = new URL(clip.audio, manifestURL);
@@ -221,7 +221,7 @@
       // Never reuse an element across attempts: queued events/promises belong to that attempt.
       releaseMedia();
       const clip = new Audio(details.url); media = clip;
-      clip.preload = 'none'; clip.setAttribute('playsinline', '');
+      clip.preload = 'auto'; clip.setAttribute('playsinline', '');
       const current = () => !disposed && request === generation && media === clip;
       const listenMedia = (event, callback) => {
         clip.addEventListener(event, callback);
@@ -242,7 +242,11 @@
         if (!current() || state === 'paused' || state === 'ended' || state === 'blocked') return;
         started(request, Number.isFinite(clip.duration) ? clip.duration : details.duration);
       });
-      updateVolume(); if (offset > 0) clip.currentTime = offset;
+      updateVolume();
+      await window.__HAPIL_NARRATION_START_RC139__?.mediaReady(clip,controller.signal,current);
+      await window.__HAPIL_NARRATION_START_RC139__?.wait({signal:controller.signal,isCurrent:current});
+      if(!current())return false;
+      if (offset > 0) clip.currentTime = offset;
       updateDucking(true);
       await clip.play();
       if (!current()) { clip.pause(); return false; }
@@ -283,6 +287,9 @@
             if (disposed || request !== generation) return false;
             if (contextInterrupted()) { contextChanged(); return false; }
             if (audioContext.state !== 'running') throw new Error('Narration audio suspended');
+            await window.__HAPIL_NARRATION_START_RC139__?.wait({signal,isCurrent:()=>!disposed&&request===generation&&active===api&&!document.hidden});
+            if(disposed||request!==generation||signal.aborted)return false;
+            if(contextInterrupted()){contextChanged();return false;}
             source = audioContext.createBufferSource(); gain = audioContext.createGain();
             source.buffer = buffer; gain.gain.value = effectiveVolume(); source.connect(gain); gain.connect(audioContext.destination);
             source.onended = () => finished(request); startedAt = audioContext.currentTime;

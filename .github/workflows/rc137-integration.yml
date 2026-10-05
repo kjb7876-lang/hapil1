@@ -2,7 +2,7 @@ name: RC137 exact integrated gameplay and art
 on:
   push:
     branches: [main, codex/rc137-boss-art-review]
-    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'qa/rc138/**', 'tests/rc134*', 'qa/rc137/**', '.github/workflows/rc137-integration.yml']
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'qa/rc138/**', 'qa/rc139/**', 'tests/rc134*', 'qa/rc137/**', '.github/workflows/rc137-integration.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -53,6 +53,7 @@ jobs:
           mkdir -p "$HAPIL_QA_OUTPUT"
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc138-arena-unit.cjs
+          node tests/rc139-narration-unit.cjs
           node tests/rc137-art-unit.cjs
           node tests/rc137-admission-unit.cjs
           node tests/rc137-mob-motions-unit.cjs
@@ -67,6 +68,7 @@ jobs:
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/arena" node tests/rc138-arena-browser.cjs
           node tests/rc137-audit-browser.cjs | tee "$HAPIL_QA_OUTPUT/native-audit.log"
           if test "$RC137_PROFILE" = pc; then
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/narration" node tests/rc139-narration-browser.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/persona" node tests/rc134-persona-effects-browser.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/admission" node tests/rc137-direct-admission-browser.cjs

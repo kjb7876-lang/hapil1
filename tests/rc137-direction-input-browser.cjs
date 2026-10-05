@@ -90,30 +90,12 @@ async function prepare(page, mode, zone = "dist04") {
         throw Error(
           "native route did not enter " + zone + ": " + JSON.stringify(entered),
         );
+      C.binding.input.current.clear();
+      const R=window.__HAPIL_BATTLE_ARENA_RC138__;
       let point = null;
-      for (let r = 0; r < 12 && !point; r++)
-        for (const [x, y] of [
-          [16 + r, 16],
-          [16 - r, 16],
-          [16, 16 + r],
-          [16, 16 - r],
-        ]) {
-          const a = { x, y },
-            safe = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].every(
-              (key) => {
-                const v = D.read(new Set([key])),
-                  p = Q.move(zone, a, { x: v.x * 2.6, y: v.y * 2.6 }, 0.48);
-                return (
-                  Math.hypot(p.x - a.x - v.x * 2.6, p.y - a.y - v.y * 2.6) <
-                  1e-6
-                );
-              },
-            );
-          if (safe) {
-            point = a;
-            break;
-          }
-        }
+      for(let r=0;r<8&&!point;r++)for(const [x,y]of [[13.8+r,24.2],[13.8-r,24.2],[13.8,24.2+r],[13.8,24.2-r]]){
+        const a={x,y};if(R.contains(a,'left',.8)&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].every(key=>{const v=D.read(new Set([key]));return R.contains({x:x+v.x*2.6,y:y+v.y*2.6},'left',.8);}))point=a;
+      }
       if (!point) throw Error("no native clear movement fixture");
       s.x = point.x;
       s.y = point.y;
@@ -158,14 +140,14 @@ async function sample(page, keys, duration = 220) {
         throw Error("late full-auto dodge overwrote held input");
     }
     window.__RC137_SAMPLES__ = [];
-    window.__RC137_RECORD__ = true;
+    window.__RC137_RECORD__ = true;const epoch=(window.__RC137_RECORD_EPOCH__??0)+1;window.__RC137_RECORD_EPOCH__=epoch;
     const q = window.__RC137_DIRECTION_QA__;
-    let prior = { x: s.x, y: s.y },
-      last = performance.now();
+    let prior = null,last = 0;
     function frame(at) {
-      if (!window.__RC137_RECORD__) return;
-      const state = window.__MONGSE_QA_STATE__,
-        a = q.project(prior.x, prior.y),
+      if (!window.__RC137_RECORD__||window.__RC137_RECORD_EPOCH__!==epoch) return;
+      const state = window.__MONGSE_QA_STATE__;
+      if(!prior){prior={x:state.x,y:state.y};last=at;requestAnimationFrame(frame);return;}
+      const a = q.project(prior.x, prior.y),
         b = q.project(state.x, state.y),
         cam = q.camera(state);
       window.__RC137_SAMPLES__.push({

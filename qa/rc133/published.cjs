@@ -211,6 +211,8 @@ async function runProfile(browser, profile, outputRows) {
       return d.ready === true && d.required === expectedRuntimeCount && d.decoded === expectedRuntimeCount && d.failed.length === 0;
     }, expectedRuntimeCount, { timeout: 60000 });
 
+    const narration139=await page.evaluate(()=>{const A=__HAPIL_NARRATION_START_RC139__,d=__HAPIL_STORY_DATA_RC51__;return {delayMs:A?.delayMs,displayEllipses:(d.raw.match(/\.{3,}|…/g)||[]).length,restoredFields:d.narrationTextRevision.displayRestoredFields,originalWrapped:__HAPIL_STORY_VOICE_RC49__?.startRC139===true,spokenReconstruction:A.voiceText(d.raw)===d.raw?false:true};});
+    assert.deepEqual(narration139,{delayMs:500,displayEllipses:14,restoredFields:23,originalWrapped:true,spokenReconstruction:true});row.narration139=narration139;
     const imageData = await page.evaluate(runtimeDimensions);
     assert.deepEqual(imageData.diagnostics, { ready: true, decoded: expectedRuntimeCount, required: expectedRuntimeCount, failed: [] },
       'all 53 required public art images must decode');
