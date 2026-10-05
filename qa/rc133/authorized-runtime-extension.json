@@ -2,7 +2,7 @@
   "version": 1,
   "base": "0a4965a17ac69a05ffd79645a537a0f202417408",
   "baseTree": "65cba3f9be4bbedb71450aa66a51db96dee89f1a",
-  "candidateCommit": "969b57748ca29cfbd827fa65bfd09e698158f376",
+  "candidateCommit": "a5a8aa4e9672e282b07470b11520c2d9bcd193db",
   "previousDeltaSha256": "47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11",
   "protectedRoots": [
     "assets",
@@ -10,7 +10,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "df9a972160713818e15d6acc2d91e9f1c41b9b6cfbc1b1c74a35c9b53f370938",
+  "targetProtectedRowsSha256": "0078ebd7be1701143edb2705550e4c16bfbb4db3e89f509dbf047a41dbaf8488",
   "files": [
     {
       "file": "assets/combat-audio/v1/controller.js",
@@ -272,10 +272,10 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "gitBlob": "7cb532859dcfe55a58594b7757b77800bac455c7",
-        "sha256": "1054177f8171e592b025416a349348d505ba399ee92e3779d8b57e6873d8b7fc"
+        "gitBlob": "222012fcec513bad69599deb56ee20e082e79052",
+        "sha256": "062d71eb84de61a06b910b130ce8bffc78d6899552db432fb0b78eab4b5e5552"
       },
-      "reason": "RC140 active gameplay bundle output: assets/index-v31526.js; RC141 supplied-audio integration output: assets/index-v31526.js"
+      "reason": "RC140/RC141 exact gameplay bundle output plus RC142 fast boss-projectile draw wrapper: assets/index-v31526.js"
     },
     {
       "file": "assets/rc128/combat-feedback.js",
