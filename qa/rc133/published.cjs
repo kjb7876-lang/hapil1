@@ -327,7 +327,7 @@ async function main() {
     for (const row of outputRows.concat(personaOutputRows)) expected.set(row.file, row);
     assert.equal(expected.size, fixedFiles.length + expectedRuntimeCount, 'fixed files and all 53 outputs are unique');
     const delta=JSON.parse(localBytes('qa/rc133/authorized-runtime-delta.json'));
-    const extensionBytes=localBytes('qa/rc133/authorized-runtime-extension.json');assert.equal(sha256(extensionBytes),'3ef6bbfce2c7a4c904cfca1b357d464d13c176efc21ba8793979f7c7e0a3385b','exact authorized runtime extension digest');const extension=JSON.parse(extensionBytes);
+    const extensionBytes=localBytes('qa/rc133/authorized-runtime-extension.json');assert.equal(sha256(extensionBytes),'20fb3ec5485ee26ee34cdc77b5dca73a58a08cf52c5a3259c44f7800ffb08b82','exact authorized runtime extension digest');const extension=JSON.parse(extensionBytes);
     assert.equal(extension.base,'0a4965a17ac69a05ffd79645a537a0f202417408');assert.equal(extension.previousDeltaSha256,'47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11');
     report.runtimeExtension={base:extension.base,candidateCommit:extension.candidateCommit,sha256:sha256(extensionBytes),changedFiles:extension.files.length};
     const runtimeOutputs=new Map(delta.files.map(row=>[row.after.file,row.after]));

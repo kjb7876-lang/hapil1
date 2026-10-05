@@ -120,7 +120,1156 @@
         "normalSha256": "4e69b904486120a51174df3428912ef8152455e6d7c1d860256f7b7ce9afd72a",
         "samongSha256": "c843b4bb5d511507ab1872c634843686a2190dbca2c48082054a7bb4f1bf774a"
       }
-    ]
+    ],
+    "bodyDirections": {
+      "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+      "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+      "ownershipMask": {
+        "file": "qa/rc142/persona-direction-ownership.png",
+        "sha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "thresholdUse": "Alpha >= 20 locates eight four-connected opaque pose-core seeds per row only; no source pixel is removed by alpha thresholding.",
+        "ownershipRule": "Every source pixel with nonzero alpha in the two authored rows is assigned to the nearest pose-core pixel by Euclidean distance; core pixels remain assigned to their own direction."
+      },
+      "directionOrder": [
+        "down",
+        "down-left",
+        "left",
+        "up-left",
+        "up",
+        "up-right",
+        "right",
+        "down-right"
+      ],
+      "canvasPx": [
+        344,
+        400
+      ],
+      "sourceScale": [
+        1,
+        1
+      ],
+      "frames": [
+        {
+          "path": "assets/rc133/art/base-0.png",
+          "direction": "down",
+          "sourceRect": [
+            0,
+            62,
+            243,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "23c22d2cf05940bbd89fd672498e1c8f7e2ca26409d1215bedd1764a6ac694f9",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              130.7143,
+              427
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 1,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              41,
+              19
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              41,
+              19,
+              60,
+              5
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-1.png",
+          "direction": "down-left",
+          "sourceRect": [
+            221,
+            62,
+            472,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "3f267637464684a9636b947e47950a030b98df736096f5b60c46c326613dbd75",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              375.6014,
+              430
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 2,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              17,
+              16
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              17,
+              16,
+              76,
+              8
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-2.png",
+          "direction": "left",
+          "sourceRect": [
+            430,
+            63,
+            687,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "665cba201aee9d28db1472080c801bf169ed138004966b9b706899fa2fae7d77",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              555.3457,
+              434
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 3,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              47,
+              13
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              47,
+              13,
+              40,
+              12
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-3.png",
+          "direction": "up-left",
+          "sourceRect": [
+            638,
+            72,
+            896,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "8c106a04440677d9185f287d01e228b65b457c9699dde2ff16718f3010ae0b27",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              759.7291,
+              429
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 4,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              50,
+              27
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              50,
+              27,
+              36,
+              7
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-4.png",
+          "direction": "up",
+          "sourceRect": [
+            883,
+            65,
+            1110,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "700899fa7f664423bd869ea05197d78a75550333b2b66439b02f5754dd838231",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              997.8049,
+              429
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 5,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              57,
+              20
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              57,
+              20,
+              60,
+              7
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-5.png",
+          "direction": "up-right",
+          "sourceRect": [
+            1094,
+            67,
+            1323,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "436c8dd453dfd6888c7d19b66ffce86e38eeee0218949ce651d6e3ca04a84df0",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              1243.5522,
+              429
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 6,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              22,
+              22
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              22,
+              22,
+              93,
+              7
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-6.png",
+          "direction": "right",
+          "sourceRect": [
+            1301,
+            69,
+            1534,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "faa53fe78361a38e3171bc5d8a85507f764700d1435a6ab31dfc29c5cb48ec34",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              1417.3256,
+              431
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 7,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              56,
+              22
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              56,
+              22,
+              55,
+              9
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/base-7.png",
+          "direction": "down-right",
+          "sourceRect": [
+            1496,
+            67,
+            1773,
+            438
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "278add597a1ebc6a3d11de2cf600d668225fdbcf30a4441a44447a443c306192",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              1608.4589,
+              433
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              62,
+              1774,
+              438
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 8,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              60,
+              18
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              60,
+              18,
+              7,
+              11
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-0.png",
+          "direction": "down",
+          "sourceRect": [
+            0,
+            497,
+            258,
+            871
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "87c0f9ef6f7ed014642377648acb467fc34d9f50eb2dadb5c5926032162a02b8",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              129.2473,
+              862
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 9,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              43,
+              19
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              43,
+              19,
+              43,
+              7
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-1.png",
+          "direction": "down-left",
+          "sourceRect": [
+            230,
+            497,
+            479,
+            873
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "3f6a8fffbf64afe3ec54ed97143d5afd52666525ac8300d6819ca60c35c9464c",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              373.1603,
+              863
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 10,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              29,
+              18
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              29,
+              18,
+              66,
+              6
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-2.png",
+          "direction": "left",
+          "sourceRect": [
+            429,
+            506,
+            683,
+            871
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "af8114f0f17ab10f13dea8006e570fbcec4278f9b1f71997fdd6dea734b96179",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              550.7362,
+              866
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 11,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              50,
+              24
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              50,
+              24,
+              40,
+              11
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-3.png",
+          "direction": "up-left",
+          "sourceRect": [
+            636,
+            499,
+            892,
+            873
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "18141f6e9c18399970152af8771d1809dce1af5e6dd3cc3562340cbcc586099e",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              750.1759,
+              861
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 12,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              58,
+              22
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              58,
+              22,
+              30,
+              4
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-4.png",
+          "direction": "up",
+          "sourceRect": [
+            875,
+            497,
+            1123,
+            873
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "ec41880da2aee71173059d038f08ece08657f2fe382e7d6467f2bc90e4831fd5",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              995.1613,
+              862
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 13,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              52,
+              19
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              52,
+              19,
+              44,
+              5
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-5.png",
+          "direction": "up-right",
+          "sourceRect": [
+            1107,
+            504,
+            1351,
+            873
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "ac7f8048622eb3c66cc03ca1c2ba4d3a7d2706fc6000ef8281656288d5bf2b74",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              1237.7363,
+              861
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 14,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              41,
+              27
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              41,
+              27,
+              59,
+              4
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-6.png",
+          "direction": "right",
+          "sourceRect": [
+            1306,
+            500,
+            1570,
+            867
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "29475b325f5a0d9d97bd308156a071fd1684c2c6d6e0a694a1f0d4c21e04298b",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              1435.5333,
+              856
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 15,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              42,
+              28
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              42,
+              28,
+              38,
+              5
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        },
+        {
+          "path": "assets/rc133/art/awake-7.png",
+          "direction": "down-right",
+          "sourceRect": [
+            1500,
+            505,
+            1774,
+            879
+          ],
+          "outputDimensions": [
+            344,
+            400
+          ],
+          "outputSha256": "a0a5d16d9ee1607475a6358e17a12549573b9217cbf2b4ab1f8b6ff2a5535e08",
+          "pivot": {
+            "normalized": [
+              0.5,
+              0.96
+            ],
+            "canvasPx": [
+              172,
+              384
+            ],
+            "sourcePx": [
+              1610.9416,
+              866
+            ],
+            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
+          },
+          "pixelDerivation": {
+            "sourceRectConvention": "half-open",
+            "sourceRowRect": [
+              0,
+              497,
+              1774,
+              884
+            ],
+            "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+            "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+            "ownerId": 16,
+            "canvasPx": [
+              344,
+              400
+            ],
+            "pasteOffsetPx": [
+              61,
+              23
+            ],
+            "sourceToOutputScale": [
+              1,
+              1
+            ],
+            "resampling": "none",
+            "transparentMarginsPx": [
+              61,
+              23,
+              9,
+              3
+            ],
+            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+          }
+        }
+      ],
+      "runtimeDelta": {
+        "baseMain": "3b49284e2b81039849994d0649bf8793272b4d42",
+        "runtimeCommit": "e832fde34769d87a1930459a953aa75f686795cc",
+        "changedProtectedFileCount": 20,
+        "changedProtectedFiles": [
+          {
+            "file": "assets/index-v31526.js",
+            "mode": "100644",
+            "gitBlob": "d4e42f1f28280a5294c139ac9815c2469a1bc3fa",
+            "sha256": "0bce36994b47862576669955002e4fb112443e192f577bfaac7c3c923366c0a0"
+          },
+          {
+            "file": "assets/rc133/art/awake-0.png",
+            "mode": "100644",
+            "gitBlob": "b0ff33cfdb50a6a743065fb90db119970e42e978",
+            "sha256": "87c0f9ef6f7ed014642377648acb467fc34d9f50eb2dadb5c5926032162a02b8"
+          },
+          {
+            "file": "assets/rc133/art/awake-1.png",
+            "mode": "100644",
+            "gitBlob": "cce52258e2dcb1bc02f53eb94f375e3b25ce1538",
+            "sha256": "3f6a8fffbf64afe3ec54ed97143d5afd52666525ac8300d6819ca60c35c9464c"
+          },
+          {
+            "file": "assets/rc133/art/awake-2.png",
+            "mode": "100644",
+            "gitBlob": "e2d084af27a84b249567f99bc605bfa690de5450",
+            "sha256": "af8114f0f17ab10f13dea8006e570fbcec4278f9b1f71997fdd6dea734b96179"
+          },
+          {
+            "file": "assets/rc133/art/awake-3.png",
+            "mode": "100644",
+            "gitBlob": "718546860cbf6f8d3545f1961d5728c94a2d0289",
+            "sha256": "18141f6e9c18399970152af8771d1809dce1af5e6dd3cc3562340cbcc586099e"
+          },
+          {
+            "file": "assets/rc133/art/awake-4.png",
+            "mode": "100644",
+            "gitBlob": "3564f3d30792a0fcd80174f1466129fecb80ae0c",
+            "sha256": "ec41880da2aee71173059d038f08ece08657f2fe382e7d6467f2bc90e4831fd5"
+          },
+          {
+            "file": "assets/rc133/art/awake-5.png",
+            "mode": "100644",
+            "gitBlob": "d57735c39443effd74c5013697a2111f6eed26ba",
+            "sha256": "ac7f8048622eb3c66cc03ca1c2ba4d3a7d2706fc6000ef8281656288d5bf2b74"
+          },
+          {
+            "file": "assets/rc133/art/awake-6.png",
+            "mode": "100644",
+            "gitBlob": "ba8dfea0772fde754377dc591b678420613040b6",
+            "sha256": "29475b325f5a0d9d97bd308156a071fd1684c2c6d6e0a694a1f0d4c21e04298b"
+          },
+          {
+            "file": "assets/rc133/art/awake-7.png",
+            "mode": "100644",
+            "gitBlob": "9f57ba257fdbb4cc6f03cf5763d12f240775a4b9",
+            "sha256": "a0a5d16d9ee1607475a6358e17a12549573b9217cbf2b4ab1f8b6ff2a5535e08"
+          },
+          {
+            "file": "assets/rc133/art/base-0.png",
+            "mode": "100644",
+            "gitBlob": "2269187215ac5508a0fb109e1730294cd4453f0c",
+            "sha256": "23c22d2cf05940bbd89fd672498e1c8f7e2ca26409d1215bedd1764a6ac694f9"
+          },
+          {
+            "file": "assets/rc133/art/base-1.png",
+            "mode": "100644",
+            "gitBlob": "8255940efbc1d0d34f6cac39bdcb383d97aad121",
+            "sha256": "3f267637464684a9636b947e47950a030b98df736096f5b60c46c326613dbd75"
+          },
+          {
+            "file": "assets/rc133/art/base-2.png",
+            "mode": "100644",
+            "gitBlob": "c5e1f52fdf39440944e4a53563dd51ccf03aaec2",
+            "sha256": "665cba201aee9d28db1472080c801bf169ed138004966b9b706899fa2fae7d77"
+          },
+          {
+            "file": "assets/rc133/art/base-3.png",
+            "mode": "100644",
+            "gitBlob": "d6ecc7f9cc63dec0e2ddc9ad52bbc6b4d5e44ade",
+            "sha256": "8c106a04440677d9185f287d01e228b65b457c9699dde2ff16718f3010ae0b27"
+          },
+          {
+            "file": "assets/rc133/art/base-4.png",
+            "mode": "100644",
+            "gitBlob": "7b725f4df8a64b0bf78b42a82851112e040d47e3",
+            "sha256": "700899fa7f664423bd869ea05197d78a75550333b2b66439b02f5754dd838231"
+          },
+          {
+            "file": "assets/rc133/art/base-5.png",
+            "mode": "100644",
+            "gitBlob": "db0be511027b9b21d00c8a71227c6d2f27848bb9",
+            "sha256": "436c8dd453dfd6888c7d19b66ffce86e38eeee0218949ce651d6e3ca04a84df0"
+          },
+          {
+            "file": "assets/rc133/art/base-6.png",
+            "mode": "100644",
+            "gitBlob": "8402992d6ee95ad8624ddfd33451337757c4f3ee",
+            "sha256": "faa53fe78361a38e3171bc5d8a85507f764700d1435a6ab31dfc29c5cb48ec34"
+          },
+          {
+            "file": "assets/rc133/art/base-7.png",
+            "mode": "100644",
+            "gitBlob": "9862c753b6cd8981c96915cb1e69dfb36c6b18a0",
+            "sha256": "278add597a1ebc6a3d11de2cf600d668225fdbcf30a4441a44447a443c306192"
+          },
+          {
+            "file": "assets/rc133/media-art.js",
+            "mode": "100644",
+            "gitBlob": "349024d50aa8788ec2d64097cffe55dea63d7019",
+            "sha256": "d5719d4dd6f909624b91e4c23a9994018761f3e7b870fc2b57d999a02c148e58"
+          },
+          {
+            "file": "assets/rc133/native-install.js.txt",
+            "mode": "100644",
+            "gitBlob": "ae897939667c5241adfa1ed6f97368954769671a",
+            "sha256": "42b672b4f9f0227b2adb5bc6f57d2c80e25da1a3f80f61a0a17bea332753fc20"
+          },
+          {
+            "file": "index.html",
+            "mode": "100644",
+            "gitBlob": "f23e66dd6438982729609c0d982af464e5f1233f",
+            "sha256": "d44977449cf1026ef68c9ebe0dc747b6fa084ec7f08caf09cf9b37de703cb6dd"
+          }
+        ]
+      }
+    }
   },
   "movementRange": {
     "scope": {
@@ -173,11 +1322,11 @@
     },
     "nativeMovementEvidence": "tests/rc142-movement-space-browser.cjs walks every edge through final ft() movement and coordinate guards in every map/mode fixture across PC, portrait and landscape browsers; output is staged fixture evidence, not a natural campaign run."
   },
-  "runtimeRevision": "a5a8aa4e9672e282b07470b11520c2d9bcd193db",
+  "runtimeRevision": "e832fde34769d87a1930459a953aa75f686795cc",
   "runtimeSourceSha256": {
     "personaProjectileRenderer": {
       "path": "assets/index-v31526.js",
-      "sha256": "062d71eb84de61a06b910b130ce8bffc78d6899552db432fb0b78eab4b5e5552"
+      "sha256": "0bce36994b47862576669955002e4fb112443e192f577bfaac7c3c923366c0a0"
     },
     "cultLeaderFourFormMapping": {
       "path": "assets/rc142/cult-leader-art.js",
@@ -189,7 +1338,7 @@
     },
     "hiddenPersonaSkillMapping": {
       "path": "assets/rc133/media-art.js",
-      "sha256": "20169499355965563545434f98b4870848db8ecd24b84fe743af636ea3d69ce8"
+      "sha256": "d5719d4dd6f909624b91e4c23a9994018761f3e7b870fc2b57d999a02c148e58"
     },
     "hiddenPersonaArenaMovement": {
       "path": "assets/rc134/persona-duel.js",
@@ -202,6 +1351,10 @@
     "hiddenPersonaHUDCompositor": {
       "path": "assets/rc91/samong-awakening.js",
       "sha256": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee"
+    },
+    "personaBodyCropCache": {
+      "path": "index.html",
+      "sha256": "d44977449cf1026ef68c9ebe0dc747b6fa084ec7f08caf09cf9b37de703cb6dd"
     }
   }
 }

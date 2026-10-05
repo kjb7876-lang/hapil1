@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),cp=r
 const BASE='4670211fcd1a2e5076a3f9c57fc67e55cd0486a9';
 const DELTA_HASH='47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11';
 const EXTENSION_BASE='0a4965a17ac69a05ffd79645a537a0f202417408';
-const EXTENSION_HASH='3ef6bbfce2c7a4c904cfca1b357d464d13c176efc21ba8793979f7c7e0a3385b';
+const EXTENSION_HASH='20fb3ec5485ee26ee34cdc77b5dca73a58a08cf52c5a3259c44f7800ffb08b82';
 const ROOTS=['assets','audio','data','index.html'];
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
 function rows(exec,ref){return exec('git',['ls-tree','-r','-z',ref,'--',...ROOTS]).split('\0').filter(Boolean).map(line=>{const m=/^(100644|100755) blob ([a-f0-9]{40})\t(.+)$/.exec(line);assert(m,'Nonordinary protected Git entry');return {mode:m[1],gitBlob:m[2],file:m[3]};}).sort((a,b)=>a.file.localeCompare(b.file));}

@@ -2,7 +2,7 @@
   "version": 1,
   "base": "0a4965a17ac69a05ffd79645a537a0f202417408",
   "baseTree": "65cba3f9be4bbedb71450aa66a51db96dee89f1a",
-  "candidateCommit": "a5a8aa4e9672e282b07470b11520c2d9bcd193db",
+  "candidateCommit": "e832fde34769d87a1930459a953aa75f686795cc",
   "previousDeltaSha256": "47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11",
   "protectedRoots": [
     "assets",
@@ -10,7 +10,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "0078ebd7be1701143edb2705550e4c16bfbb4db3e89f509dbf047a41dbaf8488",
+  "targetProtectedRowsSha256": "e726c0f3b71287007102b3146910016aa2ae9c871afaa1c7ae3b17ec471aaf26",
   "files": [
     {
       "file": "assets/combat-audio/v1/controller.js",
@@ -270,12 +270,12 @@
         "gitBlob": "51caec7157eb436521fb58d8ef832ae16e04c003"
       },
       "after": {
-        "file": "assets/index-v31526.js",
         "mode": "100644",
-        "gitBlob": "222012fcec513bad69599deb56ee20e082e79052",
-        "sha256": "062d71eb84de61a06b910b130ce8bffc78d6899552db432fb0b78eab4b5e5552"
+        "gitBlob": "d4e42f1f28280a5294c139ac9815c2469a1bc3fa",
+        "file": "assets/index-v31526.js",
+        "sha256": "0bce36994b47862576669955002e4fb112443e192f577bfaac7c3c923366c0a0"
       },
-      "reason": "RC140/RC141 exact gameplay bundle output plus RC142 fast boss-projectile draw wrapper: assets/index-v31526.js"
+      "reason": "RC140/RC141 exact gameplay bundle output plus RC142 fast boss-projectile draw wrapper: assets/index-v31526.js RC142 source-atlas crop fix: matched draw canvas, feet pivot, and cache revision to verified 344x400 source-pixel outputs."
     },
     {
       "file": "assets/rc128/combat-feedback.js",
@@ -291,6 +291,246 @@
         "sha256": "eb8c7fa534b9332c44fb1b4e2c6057d595adda17c9605ea127a53b6ae1cd7857"
       },
       "reason": "RC141 supplied-audio integration output: assets/rc128/combat-feedback.js"
+    },
+    {
+      "file": "assets/rc133/art/awake-0.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "74c0eb5f532fb30974e51c4f23de45877c911dcc",
+        "file": "assets/rc133/art/awake-0.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b0ff33cfdb50a6a743065fb90db119970e42e978",
+        "file": "assets/rc133/art/awake-0.png",
+        "sha256": "87c0f9ef6f7ed014642377648acb467fc34d9f50eb2dadb5c5926032162a02b8"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-0.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-1.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c176c00b6b8c9ed8118954619de7af16d2c34dd4",
+        "file": "assets/rc133/art/awake-1.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "cce52258e2dcb1bc02f53eb94f375e3b25ce1538",
+        "file": "assets/rc133/art/awake-1.png",
+        "sha256": "3f6a8fffbf64afe3ec54ed97143d5afd52666525ac8300d6819ca60c35c9464c"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-1.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-2.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "09a7d6f7b3971be39d265013832e9ac4bf9329ba",
+        "file": "assets/rc133/art/awake-2.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "e2d084af27a84b249567f99bc605bfa690de5450",
+        "file": "assets/rc133/art/awake-2.png",
+        "sha256": "af8114f0f17ab10f13dea8006e570fbcec4278f9b1f71997fdd6dea734b96179"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-2.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-3.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c1f21a28b86ffb0bb0e5a84f11e5f7efaa4ce685",
+        "file": "assets/rc133/art/awake-3.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "718546860cbf6f8d3545f1961d5728c94a2d0289",
+        "file": "assets/rc133/art/awake-3.png",
+        "sha256": "18141f6e9c18399970152af8771d1809dce1af5e6dd3cc3562340cbcc586099e"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-3.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-4.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "0196f47f12e22ed9f9919d38729318ec317159d2",
+        "file": "assets/rc133/art/awake-4.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "3564f3d30792a0fcd80174f1466129fecb80ae0c",
+        "file": "assets/rc133/art/awake-4.png",
+        "sha256": "ec41880da2aee71173059d038f08ece08657f2fe382e7d6467f2bc90e4831fd5"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-4.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-5.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "73ea26757617aadbebae1f571fd74dfac1a53cc7",
+        "file": "assets/rc133/art/awake-5.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d57735c39443effd74c5013697a2111f6eed26ba",
+        "file": "assets/rc133/art/awake-5.png",
+        "sha256": "ac7f8048622eb3c66cc03ca1c2ba4d3a7d2706fc6000ef8281656288d5bf2b74"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-5.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-6.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "862855b0fcb26e53211ad51aeadaf8d0345d05d2",
+        "file": "assets/rc133/art/awake-6.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "ba8dfea0772fde754377dc591b678420613040b6",
+        "file": "assets/rc133/art/awake-6.png",
+        "sha256": "29475b325f5a0d9d97bd308156a071fd1684c2c6d6e0a694a1f0d4c21e04298b"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-6.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/awake-7.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "fc668120dbe889d561d8510d23e1d6511b6c4583",
+        "file": "assets/rc133/art/awake-7.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9f57ba257fdbb4cc6f03cf5763d12f240775a4b9",
+        "file": "assets/rc133/art/awake-7.png",
+        "sha256": "a0a5d16d9ee1607475a6358e17a12549573b9217cbf2b4ab1f8b6ff2a5535e08"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/awake-7.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-0.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c215ab687d5a0a815ee1e5895b5291c81b65425b",
+        "file": "assets/rc133/art/base-0.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "2269187215ac5508a0fb109e1730294cd4453f0c",
+        "file": "assets/rc133/art/base-0.png",
+        "sha256": "23c22d2cf05940bbd89fd672498e1c8f7e2ca26409d1215bedd1764a6ac694f9"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-0.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-1.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "61ed75197030fccc1392b4166948a4882913bdc6",
+        "file": "assets/rc133/art/base-1.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8255940efbc1d0d34f6cac39bdcb383d97aad121",
+        "file": "assets/rc133/art/base-1.png",
+        "sha256": "3f267637464684a9636b947e47950a030b98df736096f5b60c46c326613dbd75"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-1.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-2.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "2d815a8bdda1bbf009d3371cc6ed1c445cde3ea1",
+        "file": "assets/rc133/art/base-2.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "c5e1f52fdf39440944e4a53563dd51ccf03aaec2",
+        "file": "assets/rc133/art/base-2.png",
+        "sha256": "665cba201aee9d28db1472080c801bf169ed138004966b9b706899fa2fae7d77"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-2.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-3.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "989dd9f10b86534b36e9de170e896a09b5715d67",
+        "file": "assets/rc133/art/base-3.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "d6ecc7f9cc63dec0e2ddc9ad52bbc6b4d5e44ade",
+        "file": "assets/rc133/art/base-3.png",
+        "sha256": "8c106a04440677d9185f287d01e228b65b457c9699dde2ff16718f3010ae0b27"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-3.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-4.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f8c0160459e0128c39e554de257c81eb29db4ff0",
+        "file": "assets/rc133/art/base-4.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "7b725f4df8a64b0bf78b42a82851112e040d47e3",
+        "file": "assets/rc133/art/base-4.png",
+        "sha256": "700899fa7f664423bd869ea05197d78a75550333b2b66439b02f5754dd838231"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-4.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-5.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "dcef70beb70839cf793c65966f679dac13d21ff3",
+        "file": "assets/rc133/art/base-5.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "db0be511027b9b21d00c8a71227c6d2f27848bb9",
+        "file": "assets/rc133/art/base-5.png",
+        "sha256": "436c8dd453dfd6888c7d19b66ffce86e38eeee0218949ce651d6e3ca04a84df0"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-5.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-6.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "7ee42f5f16aab6f117dee973d8777a3f1af1e045",
+        "file": "assets/rc133/art/base-6.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "8402992d6ee95ad8624ddfd33451337757c4f3ee",
+        "file": "assets/rc133/art/base-6.png",
+        "sha256": "faa53fe78361a38e3171bc5d8a85507f764700d1435a6ab31dfc29c5cb48ec34"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-6.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
+    },
+    {
+      "file": "assets/rc133/art/base-7.png",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "718eb4b4b9740a5e0da1b73f826f72b8e494d76c",
+        "file": "assets/rc133/art/base-7.png"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "9862c753b6cd8981c96915cb1e69dfb36c6b18a0",
+        "file": "assets/rc133/art/base-7.png",
+        "sha256": "278add597a1ebc6a3d11de2cf600d668225fdbcf30a4441a44447a443c306192"
+      },
+      "reason": "RC142 verified source-atlas crop output: assets/rc133/art/base-7.png; original RGBA pixels assigned by the reviewed ownership map, at 1:1 scale with common feet pivot."
     },
     {
       "file": "assets/rc133/bitmap-contact.js",
@@ -330,12 +570,12 @@
         "gitBlob": "11a67a5ec293a37613409f90625432a4eb0a8f85"
       },
       "after": {
-        "file": "assets/rc133/media-art.js",
         "mode": "100644",
-        "gitBlob": "06e5579d137199a135186957099bf549a3ca9d86",
-        "sha256": "20169499355965563545434f98b4870848db8ecd24b84fe743af636ea3d69ce8"
+        "gitBlob": "349024d50aa8788ec2d64097cffe55dea63d7019",
+        "file": "assets/rc133/media-art.js",
+        "sha256": "d5719d4dd6f909624b91e4c23a9994018761f3e7b870fc2b57d999a02c148e58"
       },
-      "reason": "RC142 gameplay output: assets/rc133/media-art.js; RC142 gameplay feature integration output: assets/rc133/media-art.js"
+      "reason": "RC142 gameplay output: assets/rc133/media-art.js; RC142 gameplay feature integration output: assets/rc133/media-art.js RC142 source-atlas crop fix: matched draw canvas, feet pivot, and cache revision to verified 344x400 source-pixel outputs."
     },
     {
       "file": "assets/rc133/media-audio.js",
@@ -360,12 +600,12 @@
         "gitBlob": "dbe7c2e4c30f23054ee1437ff90f53c55a676195"
       },
       "after": {
-        "file": "assets/rc133/native-install.js.txt",
         "mode": "100644",
-        "gitBlob": "a6a02007cbcd8a61ae501b30503bd4b27353b02b",
-        "sha256": "70153d7dab7154b409e0767faf255d3fd0af500f19c64fac8485fb48a4cc9629"
+        "gitBlob": "ae897939667c5241adfa1ed6f97368954769671a",
+        "file": "assets/rc133/native-install.js.txt",
+        "sha256": "42b672b4f9f0227b2adb5bc6f57d2c80e25da1a3f80f61a0a17bea332753fc20"
       },
-      "reason": "RC140 exact asset dependency output: assets/rc133/native-install.js.txt; RC141 supplied-audio integration output: assets/rc133/native-install.js.txt"
+      "reason": "RC140 exact asset dependency output: assets/rc133/native-install.js.txt; RC141 supplied-audio integration output: assets/rc133/native-install.js.txt RC142 source-atlas crop fix: matched draw canvas, feet pivot, and cache revision to verified 344x400 source-pixel outputs."
     },
     {
       "file": "assets/rc134/persona-duel.js",
@@ -1056,12 +1296,12 @@
         "gitBlob": "23bf9ebe426722c20b3dff7c8b233b05f7249618"
       },
       "after": {
-        "file": "index.html",
         "mode": "100644",
-        "gitBlob": "2811c0d3083adf57a62d62a231dc774ace7bb975",
-        "sha256": "ca3e06ecf8478d62f36db33a702b14d769414f5f8f08570693fe8f69a31bdd59"
+        "gitBlob": "f23e66dd6438982729609c0d982af464e5f1233f",
+        "file": "index.html",
+        "sha256": "d44977449cf1026ef68c9ebe0dc747b6fa084ec7f08caf09cf9b37de703cb6dd"
       },
-      "reason": "RC140 loader integration output: index.html; RC141 supplied-audio integration output: index.html; RC142 gameplay feature integration output: index.html"
+      "reason": "RC140 loader integration output: index.html; RC141 supplied-audio integration output: index.html; RC142 gameplay feature integration output: index.html RC142 source-atlas crop fix: matched draw canvas, feet pivot, and cache revision to verified 344x400 source-pixel outputs."
     }
   ]
 }
