@@ -222,7 +222,7 @@
       releaseMedia();
       const clip = new Audio(details.url); media = clip;
       clip.preload = 'auto'; clip.setAttribute('playsinline', '');
-      const current = () => !disposed && request === generation && media === clip;
+      const current = () => !disposed && request === generation && media === clip && active === api && !document.hidden;
       const listenMedia = (event, callback) => {
         clip.addEventListener(event, callback);
         mediaListeners.push(() => clip.removeEventListener(event, callback));
@@ -257,6 +257,9 @@
       if (disposed || state === 'unavailable' || state === 'playing' || state === 'loading') return false;
       if (active !== api) { active?.pause(false, true); active = api; }
       if (state === 'ended') { offset = 0; clipIndex = 0; }
+      // A card can mount after visibilitychange already fired. Hold it before
+      // unlock/fetch; a cancelled WebAudio wait must not fall through to media.
+      if (document.hidden) { resumeWhenVisible = true; display('paused'); return false; }
       resumeWhenVisible = resumeWhenContextRunning = false;
       unlock();
       const request = ++generation; display('loading'); onLoading?.();
@@ -298,12 +301,16 @@
             return started(request, buffer.duration);
           } catch (error) {
             if (disposed || request !== generation || signal.aborted) return false;
+            if (document.hidden) { pause(false, true); resumeWhenVisible = true; return false; }
             if (contextInterrupted()) { contextChanged(); return false; }
             stopSource();
           }
         }
         return await playMedia(request, details);
-      } catch { return failed(request); }
+      } catch {
+        if (!disposed && request === generation && document.hidden) { pause(false, true); resumeWhenVisible = true; return false; }
+        return failed(request);
+      }
     }
     const api = Object.freeze({
       play, pause,

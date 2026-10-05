@@ -367,3 +367,13 @@ test('playlist transition interrupted during next load retains the next clip and
   assert.equal(f.narrationSources().length, 2); f.currentSource().finish(); assert.equal(ended, 1);
   f.advance(749); assert.equal(f.player.blocksAdvance, true); f.advance(1); assert.equal(f.player.blocksAdvance, false);
 });
+
+
+test('a card first mounted while hidden holds without a media fallback and starts once when visible', async t => {
+  const f = fixture(); t.after(f.clean); f.hide(true);
+  assert.equal(await f.player.play(), false); assert.equal(f.player.status, 'paused');
+  f.advance(1000); assert.equal(f.narrationSources().length, 0);
+  f.hide(false); await until(() => f.player.playing, 'first visible onset');
+  assert.equal(f.narrationSources().length, 1);
+  assert.deepEqual(f.currentSource().startArgs, [0, 0]);
+});
