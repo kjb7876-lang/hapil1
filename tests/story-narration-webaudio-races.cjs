@@ -11,9 +11,13 @@ const {test} = require('node:test');
 const playerSource = fs.readFileSync(path.join(__dirname, '../assets/story-narration/v1/player.js'), 'utf8');
 const settle = () => new Promise(resolve => setImmediate(resolve));
 async function until(predicate, description) {
-  for (let attempt = 0; attempt < 100; attempt++) {
+  const deadline = Date.now() + 2000;
+  while (Date.now() < deadline) {
     if (predicate()) return;
-    await settle();
+    // WebCrypto runs in a real worker, independently of our fake audio clock.
+    // Await its actual completion; 100 immediate spins can finish before a
+    // healthy worker is scheduled on a loaded CI runner.
+    await new Promise(resolve => setTimeout(resolve, 1));
   }
   assert.fail('Did not observe ' + description);
 }
