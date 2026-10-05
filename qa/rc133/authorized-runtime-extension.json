@@ -1,0 +1,925 @@
+{
+  "version": 1,
+  "base": "0a4965a17ac69a05ffd79645a537a0f202417408",
+  "baseTree": "65cba3f9be4bbedb71450aa66a51db96dee89f1a",
+  "candidateCommit": "dbb5ea22c73986764c3d028d550f90879b593e91",
+  "previousDeltaSha256": "47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "706842ddbd3f88ced7dcc64bfecfebcfa8dd3f2a2a99cb2d7cc93117a1c3b3a1",
+  "files": [
+    {
+      "file": "assets/combat-audio/v1/manifest.json",
+      "before": {
+        "file": "assets/combat-audio/v1/manifest.json",
+        "mode": "100644",
+        "gitBlob": "022b6393d3e8c43522c8acd36c6050e5ee17ac50"
+      },
+      "after": {
+        "file": "assets/combat-audio/v1/manifest.json",
+        "mode": "100644",
+        "gitBlob": "07f376ff72085a55a1743258fa14c07650ecbe5e",
+        "sha256": "95b2a82dec74e3810f451d82dd7bc117d560ef2936096bb90a54f5b84292787c"
+      },
+      "reason": "RC140 exact asset dependency output: assets/combat-audio/v1/manifest.json"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/README.md",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/README.md",
+        "mode": "100644",
+        "gitBlob": "35170c940eb4c1f4d2cc54a3875cc424d513db9d",
+        "sha256": "0b2596d13cda5c3fdab15740f6b21f42a0f2d9b9d037a1a1693b71ac78fc51ef"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/README.md"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder-manifest.json",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder-manifest.json",
+        "mode": "100644",
+        "gitBlob": "900aa3d9d0b8999168a8750c23242d463cdd83ce",
+        "sha256": "28e46a1c71fc84dced55435fc3fbd5cc77b72aa15d6d1f1752737ac7aba1d1ab"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder-manifest.json"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_attack.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_attack.png",
+        "mode": "100644",
+        "gitBlob": "d73722fcb3bb4d2257024511eeb2ae9e761b34cf",
+        "sha256": "2e50218647b624bb38f9c3f81292376ddcbcbee9c17900fca4041cad7f1c5122"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_attack.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_charge.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_charge.png",
+        "mode": "100644",
+        "gitBlob": "4abd0891277cffefed7caed9bc390982eb565da1",
+        "sha256": "d72e716e0b12c8387a48ae8a2371df2138549e5f2998f246bfdb41fc911a4c6c"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_charge.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_idle.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_idle.png",
+        "mode": "100644",
+        "gitBlob": "e7e91ea976a61ae639af3eba53ec35ff7081e039",
+        "sha256": "aa4bbeab4ff115d4288e9ef5d16f38001a0996fe6bd8b93a9953a575e488ec13"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/blue_executor_idle.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/go_seojin_idle.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/go_seojin_idle.png",
+        "mode": "100644",
+        "gitBlob": "45b8c5fc34e444bbc277af9bb94eb5139af802a9",
+        "sha256": "57fccf9c99d38f3f33a3fd95687f6cce5ac47cc25dc781a00bc9e1b1f511abd4"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/go_seojin_idle.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/go_seojin_lurch.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/go_seojin_lurch.png",
+        "mode": "100644",
+        "gitBlob": "9ca43facbebc8d758da4d36853700880345d33cd",
+        "sha256": "2a2b4c07a644f543e9d31aace587ff035aed516efe24f9879a749d5e69dfbc6e"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/go_seojin_lurch.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/han_igyeong_idle.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/han_igyeong_idle.png",
+        "mode": "100644",
+        "gitBlob": "fb41c46afc11fa56127a9be922e34e554047843e",
+        "sha256": "1cee4885823aaec4c8d5908b3cc239f23effbaa0f719ea36b88e8588c7e26487"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/han_igyeong_idle.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/han_igyeong_lurch.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/han_igyeong_lurch.png",
+        "mode": "100644",
+        "gitBlob": "678a87a308ca7c372e774aab80aa9e79df7586a5",
+        "sha256": "349c947bcb49ecc6cb76586275d453ab40f6162fe0a5811ec05a73257d34aabb"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/han_igyeong_lurch.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/jang_minjae_idle.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/jang_minjae_idle.png",
+        "mode": "100644",
+        "gitBlob": "985da2794951e8a8e64b96c79b86cc5927264211",
+        "sha256": "58b834bb61ce84ed138357babed6efd0e3fd29c37248a651e19d664a82dbbbaa"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/jang_minjae_idle.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/jang_minjae_lurch.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/jang_minjae_lurch.png",
+        "mode": "100644",
+        "gitBlob": "cb94b4c5a2a9ae2324c177422db9aede9d89647b",
+        "sha256": "9821be5b9c7b2d175234260d96447fe343b84b655447b5d19afaf50cbe091c9b"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/jang_minjae_lurch.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/yoon_haram_idle.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/yoon_haram_idle.png",
+        "mode": "100644",
+        "gitBlob": "657a03e42774061297b298684ae441f10e4288f4",
+        "sha256": "043b684f0c73cec1237181d483f3d6a4a6f3b56bd95c055f0f416caa353c5388"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/yoon_haram_idle.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/cyclic-murder/yoon_haram_lurch.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/cyclic-murder/yoon_haram_lurch.png",
+        "mode": "100644",
+        "gitBlob": "0661f759c84544edf4c251aa94ccdbb91e4624d9",
+        "sha256": "7a5f8bbcd4a98bd0e01013c9dce0220f03b65fc8ad43e4f209d52fac52287e91"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/cyclic-murder/yoon_haram_lurch.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/ep1a10-manifest.json",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/ep1a10-manifest.json",
+        "mode": "100644",
+        "gitBlob": "cd82db05b3746030b3347ff45f1526ac9201ad7e",
+        "sha256": "4cb116b26236bd8b2955840c368065000fb8c8554214ee2a108f39441b603a82"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/ep1a10-manifest.json"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/ep1a10/a10-o1-white-mask-pursuer-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/ep1a10/a10-o1-white-mask-pursuer-atlas.png",
+        "mode": "100644",
+        "gitBlob": "7c061ac8b86edb7a75fbdd85b1b170e50f6163d4",
+        "sha256": "eada909efe08785df573a9a878b200b77d27b0867d617048cd56d64b3f37875b"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/ep1a10/a10-o1-white-mask-pursuer-atlas.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png",
+        "mode": "100644",
+        "gitBlob": "27b5748d9be4557363d85943578e012f2fea595e",
+        "sha256": "4a6ea846f35328bbd352f3a06b1984c57f46de04202725fd2b9085405d32a975"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/ep1a10/mb-ep1a10-pride-ruin-core-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/ep1a10/mb-ep1a10-pride-ruin-core-atlas.png",
+        "mode": "100644",
+        "gitBlob": "872648104bec06b98c7b9bf96443d8529b37f1e7",
+        "sha256": "fdcaf1b370816931cce64086ce9128d93e483fedbd46a972b16407f4d3e35212"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/ep1a10/mb-ep1a10-pride-ruin-core-atlas.png"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/file-sha256-manifest.json",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/file-sha256-manifest.json",
+        "mode": "100644",
+        "gitBlob": "8f1483af76388b3000adf0cf1baf36230879acd0",
+        "sha256": "f44b334ffe9d6bbac44f0ada5b097cad6bb45fd22dc68cf235ef23d52d385549"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/file-sha256-manifest.json"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/metadata/original-cyclic-murder-manifest.json",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/metadata/original-cyclic-murder-manifest.json",
+        "mode": "100644",
+        "gitBlob": "d08c153c9997b2bdd33cc7aaea4dd33e270f6bbc",
+        "sha256": "98d8743f8aa3a543d5d0370381e1c0d7f2b2fd3a9becde98401ea70a5c32f7a4"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/metadata/original-cyclic-murder-manifest.json"
+    },
+    {
+      "file": "assets/generated-story10-cycle-20261005/metadata/original-ep1a10-manifest.json",
+      "before": null,
+      "after": {
+        "file": "assets/generated-story10-cycle-20261005/metadata/original-ep1a10-manifest.json",
+        "mode": "100644",
+        "gitBlob": "7a8ff04214153d02537e7e17c1d922a1b7d62436",
+        "sha256": "f615b70b24dac2e9de52e8d3db1f73902b316497209d27889978772d3dcbb2ff"
+      },
+      "reason": "RC140 exact asset dependency output: assets/generated-story10-cycle-20261005/metadata/original-ep1a10-manifest.json"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "51caec7157eb436521fb58d8ef832ae16e04c003"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "b476955c6813d46b312dafe5ea699dde721cfcfd",
+        "sha256": "cdf24b4d327eba9cb6bddda1f1c5bfb1cb5be870b45dcbfa9c2634993b553615"
+      },
+      "reason": "RC140 active gameplay bundle output: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "dbe7c2e4c30f23054ee1437ff90f53c55a676195"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "1302dc9bdbb0cd0807f0f56151a43c983a0f8959",
+        "sha256": "da6779fa37addbf0f307dbad0f88513941b39047b12ee02a7984b0ea7792e631"
+      },
+      "reason": "RC140 exact asset dependency output: assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc135/midboss-motions.js",
+      "before": {
+        "file": "assets/rc135/midboss-motions.js",
+        "mode": "100644",
+        "gitBlob": "0d2bafb54f1d65ccdade965bf5dba0f344ba4c15"
+      },
+      "after": {
+        "file": "assets/rc135/midboss-motions.js",
+        "mode": "100644",
+        "gitBlob": "9e0625ac43f6331bd619a94bb5d222d7776a5b6a",
+        "sha256": "3f85578442cde639dbfec33e9d9ab42132393bbda0d39fb6495c5e9a81edf8d5"
+      },
+      "reason": "RC140 exact asset dependency output: assets/rc135/midboss-motions.js"
+    },
+    {
+      "file": "assets/rc137/mob-motions.js",
+      "before": {
+        "file": "assets/rc137/mob-motions.js",
+        "mode": "100644",
+        "gitBlob": "941d9adca8c541b33bf0462dab7226665dd226a4"
+      },
+      "after": {
+        "file": "assets/rc137/mob-motions.js",
+        "mode": "100644",
+        "gitBlob": "3798d06314bbdd53cb7494cc1809f62374568220",
+        "sha256": "389184f5e53c1959d225c78deba8e5ed8f3e7f5915625d86eab2ba7e8625940b"
+      },
+      "reason": "RC140 mob pose and boss art output: assets/rc137/mob-motions.js"
+    },
+    {
+      "file": "assets/rc138/map-data.js",
+      "before": {
+        "file": "assets/rc138/map-data.js",
+        "mode": "100644",
+        "gitBlob": "b1574c68f2ebff9bd48c83ad2fd09ba98fdaf130"
+      },
+      "after": {
+        "file": "assets/rc138/map-data.js",
+        "mode": "100644",
+        "gitBlob": "1dc5764742166cd845eca6b543382665301405b2",
+        "sha256": "67c0b7aafb0958f99e5070ffb74570d5cd52821a5f9ec55863b58e11ac70c60b"
+      },
+      "reason": "RC140 route map content output: assets/rc138/map-data.js"
+    },
+    {
+      "file": "assets/rc140/README.md",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/README.md",
+        "mode": "100644",
+        "gitBlob": "a99d643c5ac3f4afd098d46aab6d60cf384b3e92",
+        "sha256": "efac71d88df9c531ad2d1df8f0dfb0879103819959c33311e094ca366bb00bac"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/README.md"
+    },
+    {
+      "file": "assets/rc140/story-cycle-midboss-data.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-midboss-data.js",
+        "mode": "100644",
+        "gitBlob": "d1e6d117824813517f4469c906b8ca69b071094a",
+        "sha256": "914323cb3716b0a8c663cb5cb63e6d20dee88e90ebe50b06ca5d4d108067b340"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-midboss-data.js"
+    },
+    {
+      "file": "assets/rc140/story-cycle-midboss-index.json",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-midboss-index.json",
+        "mode": "100644",
+        "gitBlob": "c1c1659d797013446fe814be6d87a960e0e6edbc",
+        "sha256": "0a08de2dc762342e62178e2263e67d4989e263a7b0f42aa58c07cf7fca133869"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-midboss-index.json"
+    },
+    {
+      "file": "assets/rc140/story-cycle-mob-data.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-mob-data.js",
+        "mode": "100644",
+        "gitBlob": "4d9da562eac7fe42e068f090c201647f51353a6e",
+        "sha256": "a4bfdba2e064b2b427b475f9ca8dbe920df38bd591376bee0d251a5ec0821b83"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-mob-data.js"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/c101-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/c101-mid.png",
+        "mode": "100644",
+        "gitBlob": "5815a5af8c045f51456d58bf3dea831e370a6f42",
+        "sha256": "9d9aed9d1387151b8eb054fdcbdf44939a9fedcb48378f6422636d4b2f792200"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/c101-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/c104-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/c104-mid.png",
+        "mode": "100644",
+        "gitBlob": "cfb67972d3f989cb68bd7fc16fa33cbf8bb826a1",
+        "sha256": "9dac22ed00c5c9a138c0ed39b4849b1877dabe5af03d5ac44513d2c3093b95d5"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/c104-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/c105-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/c105-mid.png",
+        "mode": "100644",
+        "gitBlob": "dc2c68ca9eade8b48e578aff5210fad2db4fbc3f",
+        "sha256": "0821ab272748610fd7b4afbbe0490404ec889d70c47b8ef7efa6188649a919b5"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/c105-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/c106-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/c106-mid.png",
+        "mode": "100644",
+        "gitBlob": "bf4fb5d41e383145ae7cf9cbc17766616d5526dd",
+        "sha256": "75f19233170152193c19792a0837241528371ef47e08b46ba83ff8b9b52d5dd7"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/c106-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/kair-great-05.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/kair-great-05.png",
+        "mode": "100644",
+        "gitBlob": "2fc10690a78e6e27c2076486dd4156e1fcf55895",
+        "sha256": "bd4cd22d481af0ce60f9d2c301a4e117cf7e154c47c52d7fd733b728963689f9"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/kair-great-05.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1a08-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1a08-atlas.png",
+        "mode": "100644",
+        "gitBlob": "9df2c1bed1477c703c14fbfadcc781f1c6bfe22d",
+        "sha256": "07ee5ea3fa82ba456ac1abb0fba5605d13cba1d76c1baf240ba456bdc43092fe"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1a08-atlas.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1a09-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1a09-atlas.png",
+        "mode": "100644",
+        "gitBlob": "f033962d0623597e3cc5d38480a2e6ddfe6ba3c4",
+        "sha256": "2b91903a6bd8696ceed1b9b94797e748752c13b3562f9ec9feae3914ecb40727"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1a09-atlas.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1a11-atlas-v2.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1a11-atlas-v2.png",
+        "mode": "100644",
+        "gitBlob": "a27d7dfb2ad0a3f1ea4cec7fc379417f44b0393d",
+        "sha256": "f8106a04b8efa6c4ba3542a9af25660180b60905252d2a8b5b97755eee58b488"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1a11-atlas-v2.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b01-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b01-atlas.png",
+        "mode": "100644",
+        "gitBlob": "b67d0046464d46369521e8b9e88297132c1149ab",
+        "sha256": "f1efddb527be230c87c97db1b6466d9098d80c46be31bcd17e9967f21769ce76"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b01-atlas.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b02-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b02-atlas.png",
+        "mode": "100644",
+        "gitBlob": "f11b009c383f20e816ce39c3971b5c2768e8463b",
+        "sha256": "76706d1e65c1cd4c68b3a83d190f4c10087c2152e4bb222a2b39b66d90fc206e"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b02-atlas.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b03-atlas-v2.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b03-atlas-v2.png",
+        "mode": "100644",
+        "gitBlob": "490c53d59f55d61b9bbfe33f9909fdd34aaf9f7d",
+        "sha256": "d3cb157ed0c268cea3c66642f3e543bfc68f17de3cecfb40091bb09eeed0022a"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b03-atlas-v2.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b04-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b04-atlas.png",
+        "mode": "100644",
+        "gitBlob": "fd380eb5309d2ecad3803adf957e9dc413110f98",
+        "sha256": "233b0302858db4f34ec435b6b0165314bbf2fb7fe8cd3466d8193f54a07afa52"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b04-atlas.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b05-atlas.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b05-atlas.png",
+        "mode": "100644",
+        "gitBlob": "f74ba15f7d55bf4d2cc8ae1e9be70a43deddfa2e",
+        "sha256": "e69015879f3e31bc5eb8ac46a07f73ba3835ac01ca04401e4f61cf21a58ebe92"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b05-atlas.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b06-atlas-v2.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b06-atlas-v2.png",
+        "mode": "100644",
+        "gitBlob": "f1f50910eff54c5274bb25cf7b62fbeec25a7f47",
+        "sha256": "d57a1bcbe607bef74adf78001e56b660d574f1065cdfa3e62154316f87717e3c"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b06-atlas-v2.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b06b-atlas-v2.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b06b-atlas-v2.png",
+        "mode": "100644",
+        "gitBlob": "79f9b907bc4df000591661c04472ca013b302772",
+        "sha256": "18c3f0b556cbf614856446c85df4b8bfa4c7452a0ad5a11dbf87cf72a16ebbdf"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b06b-atlas-v2.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b07.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b07.png",
+        "mode": "100644",
+        "gitBlob": "8d54285ec58e22e6cf60d7d98983b5b558748ae7",
+        "sha256": "bd52dc1adf3b69b6d1c2e6f6c122cc6f1f36a6df46ab3cc26b7f99b6f3b89629"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b07.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b08.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b08.png",
+        "mode": "100644",
+        "gitBlob": "0a9abb368563feab056892c33e02e3e4cb1a151b",
+        "sha256": "2d8a38f3d7fbb7315ddbfdeea9d7817ef41e1833aaf5b352753c0ff073f785b4"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b08.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-ep1b09.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-ep1b09.png",
+        "mode": "100644",
+        "gitBlob": "3e86a9753ea0db18de29eb3da0e1b6b776643866",
+        "sha256": "a7842f2602e58793fd20e6ec4745a137abcb73a27750fbcaf2ddeaac1a250ede"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-ep1b09.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-hando01.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-hando01.png",
+        "mode": "100644",
+        "gitBlob": "6a895ba20ab21ebb0f1d55b1fc5e6bc969ad6216",
+        "sha256": "6197bf1273dd20f004ca9d318165766546ccdcc6c6600d63028171d680641353"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-hando01.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-hando02.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-hando02.png",
+        "mode": "100644",
+        "gitBlob": "bbb9d7bcd47b9d36eb496c3c756247bf288af994",
+        "sha256": "280033709731dd357ec963f4eb101b240a46726a4b2b0435527be39e088e0c2d"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-hando02.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-hando03.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-hando03.png",
+        "mode": "100644",
+        "gitBlob": "772b6694d69a3012a43ecfaf9f26c0a1ed9d31f1",
+        "sha256": "c1069205aa03a8e196a8def31a9663f74f8193df0cb9d046b0783462b05dcf5e"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-hando03.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-kair01-v31231.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-kair01-v31231.png",
+        "mode": "100644",
+        "gitBlob": "e02446ab883c70780cdee571493a5889f9473712",
+        "sha256": "e196494c0874cd81cc05b349d7531998cb1d1d434d8d9d313a8deaae7ef99464"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-kair01-v31231.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-kair04-v31231.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-kair04-v31231.png",
+        "mode": "100644",
+        "gitBlob": "413c837bee266f83215848f10fd37c7364a56c0b",
+        "sha256": "bfd3db3fb200227082707a64298f2d08d618a6fec146569dc983aa575f68dafa"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-kair04-v31231.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-last302-v31231.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-last302-v31231.png",
+        "mode": "100644",
+        "gitBlob": "f6b29c46e90e79e6d22bbecfdc1a8cb315619b1a",
+        "sha256": "5db0201941adc599d8df5675c9e627df0f397d1bc82e3014479b86ebb7155f01"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-last302-v31231.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-murder01.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-murder01.png",
+        "mode": "100644",
+        "gitBlob": "50abc0b351de4deed21e99382c6396752f7aa0fa",
+        "sha256": "e2adc45edad73afb9edbef21d71a71ce1299c541d3898eb36c6e01d67fb481e0"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-murder01.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-murder02.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-murder02.png",
+        "mode": "100644",
+        "gitBlob": "d63fd46aa0b89a5fb1d3d39a6adb2e067562debf",
+        "sha256": "ef682d3d16ea7ee99723e51ae50123831a3a97cad20aa8ee3f7e7a2e895788d4"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-murder02.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/mb-murder03.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/mb-murder03.png",
+        "mode": "100644",
+        "gitBlob": "dea2bf22384077b9fc49300cee8c85da9382e0dc",
+        "sha256": "ef5b404544f55be2e24a85ef6c180ccfc00398967e585ac813c9d6bfc576faa4"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/mb-murder03.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/murder04-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/murder04-mid.png",
+        "mode": "100644",
+        "gitBlob": "38d959f3e18289c9ac5c7c1cd0d70d91fb0d7f8b",
+        "sha256": "739c63c5d735bf5cae74907f30408ffc1208c8fafdb24bf8646ad8018549e30d"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/murder04-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/u201-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/u201-mid.png",
+        "mode": "100644",
+        "gitBlob": "5308bd0fe56684fe89f57becd876ecf275a0a39c",
+        "sha256": "c68a766dee2cda53a61d82c5925f966df280a06dab51acf23d62770b7132d238"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/u201-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/u202-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/u202-mid.png",
+        "mode": "100644",
+        "gitBlob": "f35c66fa9566a7c5a5e688500d13e7c1b4a858c2",
+        "sha256": "2dae881d555a259288bcfe857d8fa32d3fe8fceb1b459326822c731fba6cc02e"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/u202-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/u203-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/u203-mid.png",
+        "mode": "100644",
+        "gitBlob": "9e1a44ea4952238d94b732b8f1e80f1db1d6c501",
+        "sha256": "ca61d11a547144d2221e49d4a1416271e9e74b8355952ae88259e4932127b8a6"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/u203-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-motions/u206-mid.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-motions/u206-mid.png",
+        "mode": "100644",
+        "gitBlob": "2f8f01cdc6b5c59e7986f02b604682dd94d48dd2",
+        "sha256": "101ab5a8742368d192b585fe4a909ef39213f122bcbe5bee1d934b0838b1efa4"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-motions/u206-mid.png"
+    },
+    {
+      "file": "assets/rc140/story-cycle-runtime.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc140/story-cycle-runtime.js",
+        "mode": "100644",
+        "gitBlob": "86ca76711455daa19fd9a0f6160f86f863709ad5",
+        "sha256": "5e7f3024d285c3f74d2edcb95cbcad403e950fdf9e74801c5b8dec3873f5ed62"
+      },
+      "reason": "RC140 story-cycle and authored motion output: assets/rc140/story-cycle-runtime.js"
+    },
+    {
+      "file": "assets/rc51/story.css",
+      "before": {
+        "file": "assets/rc51/story.css",
+        "mode": "100644",
+        "gitBlob": "1cab9fdfb30d9eac9e92008fd2c91e5c9c4f4527"
+      },
+      "after": {
+        "file": "assets/rc51/story.css",
+        "mode": "100644",
+        "gitBlob": "75c09718060188c8ce52b5b5733396d199ab6b6d",
+        "sha256": "2e38c07ebd5caf1592806dd773377d9f86793b830164c544008b28cfba3d6a8c"
+      },
+      "reason": "RC140 exact asset dependency output: assets/rc51/story.css"
+    },
+    {
+      "file": "assets/rc51/story.js",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "b538fbc4e09856e0658b079424e7402e72bf817c"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "2fdc43ab163d69a2d9b9f082d29fe2137a1608b8",
+        "sha256": "8f2cbdaf8fc70ab59e0405ce1de85627fd2c3cf1a6a4b918a6a8413be5aae7fe"
+      },
+      "reason": "RC140 exact asset dependency output: assets/rc51/story.js"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+        "mode": "100644",
+        "gitBlob": "d36d0ee79cefe6063a629e17d1b18e7b81102b02",
+        "sha256": "f8875fb45764ee7e7edb295765fbe008c4963d2f10842d035f16cd1ff4c16f86"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+        "mode": "100644",
+        "gitBlob": "6f7e14cfd4879da62cbd69f725626c7d2b7562dc",
+        "sha256": "fbdd14cc3cf05fae96a105f0fb4034c96d80ff47a3b3849c9f5a730b3044dee9"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+        "mode": "100644",
+        "gitBlob": "cbc0e88cf7adbaa115da7f12f1fd210d4a2977b4",
+        "sha256": "bf158be7b2fff09be9d960983bbe212f2a298f9487326ee8527ce89bb2914e2c"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+        "mode": "100644",
+        "gitBlob": "50d74a27d647ef21035ea25efdbb867c9b15622b",
+        "sha256": "4a16ab0091e057f17d35552fd684f18b47dfe0db09cb8a9574dc7915a53162b2"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+        "mode": "100644",
+        "gitBlob": "5d66578cacc30891b2c3d3e9fa01f70bce8cd1d2",
+        "sha256": "5d67a44eacc67efa94154af105eefe40ff5e61df8348ad0a49850bf1b8f8c233"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+        "mode": "100644",
+        "gitBlob": "9be246c68246467f2799906b6e06e2ba1a3c198f",
+        "sha256": "5e0f4f4e639c37c9d1bf6d5b12161e278be36407c964ea9955286738e08c5ff2"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+        "mode": "100644",
+        "gitBlob": "7e1ff58e78aa3598c5918baf4f0d82beffe0df30",
+        "sha256": "a5d59544ec4a9c04112154f7c58879bc34cdb3b07bb7bcfe86fa1acf0187e75b"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+        "mode": "100644",
+        "gitBlob": "d5a895ee1b06574efeb1e3edf8be0b5325da4ecc",
+        "sha256": "a9d8a2dbb7aacf58fbe743b45cbf0f3766be4ca686eacc90cd52ffe1dbcdb999"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+        "mode": "100644",
+        "gitBlob": "bf738d3632b3715c1580b6a87741407f36dba778",
+        "sha256": "c09716d4ad080a6076e0e5a8c021cf43686e73266c9c1c00a42040bf6a68f9a8"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+        "mode": "100644",
+        "gitBlob": "1a07490aab622a9133b6f0916ae78501981feb85",
+        "sha256": "ce571fd82755c2bb35fda70eeb4c995d9dec0e051285a07004bd9ba3ffbb5b4a"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+        "mode": "100644",
+        "gitBlob": "69591a3a6a311dc07616b02424073663d42a2a81",
+        "sha256": "de4207237483af374322a0d96c6442e641d26c9f39e740201fb4c5d228e0ab64"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3",
+      "before": null,
+      "after": {
+        "file": "assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3",
+        "mode": "100644",
+        "gitBlob": "a8a901b7eb0cf2ce0c4b16c5f1379292a78ebd3d",
+        "sha256": "fafcd98ab7d2bf8e8e32adb62448f1092fcc0844b4494e0fd748a2ad1799baec"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3"
+    },
+    {
+      "file": "assets/story-narration/v1/manifest.json",
+      "before": {
+        "file": "assets/story-narration/v1/manifest.json",
+        "mode": "100644",
+        "gitBlob": "da5b4d64ec541e4f3d34c1d6f27d56e52aaa2cfd"
+      },
+      "after": {
+        "file": "assets/story-narration/v1/manifest.json",
+        "mode": "100644",
+        "gitBlob": "4f4dd182c00815d9922e57e301cab8fd96ecee98",
+        "sha256": "b8f1c2e9e6883c008b07bc5186f4edb1d2ca8eb7612f29af292d6920150935cc"
+      },
+      "reason": "RC140 preserved narration continuation output: assets/story-narration/v1/manifest.json"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "23bf9ebe426722c20b3dff7c8b233b05f7249618"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e0e2aef3fd96a6971e943d3b14666f5352af4066",
+        "sha256": "7e262084d2def6851f41fde4750dedcd59d7a1c36a2d6a840bf0d3cbb4eeb1b4"
+      },
+      "reason": "RC140 loader integration output: index.html"
+    }
+  ]
+}

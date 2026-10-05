@@ -11,6 +11,8 @@ on:
       - 'qa/rc133/art-processing.json'
       - 'qa/rc133/published.cjs'
       - 'qa/rc133/public-url.cjs'
+      - 'qa/rc133/authorized-runtime-extension.json'
+      - 'tools/rc133-preservation.cjs'
       - '.github/workflows/rc133-published.yml'
   workflow_dispatch:
 permissions:
@@ -43,6 +45,8 @@ jobs:
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-public" >> "$GITHUB_ENV"
+      - name: Verify approved historical and exact extension deltas
+        run: node tools/rc133-preservation.cjs
       - name: Verify exact public bytes and normal game startup
         env:
           EXPECTED_SHA: ${{ github.sha }}

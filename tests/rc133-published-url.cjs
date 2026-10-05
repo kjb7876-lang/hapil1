@@ -6,6 +6,9 @@ const assert = require('node:assert/strict');
 const { checkedUrl } = require('../qa/rc133/public-url.cjs');
 const root = path.resolve(__dirname, '..');
 const delta = JSON.parse(fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-delta.json')));
+const extensionBytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension.json'));
+assert.equal(require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'),'8984736c00e2a4f534350f1ecad41a46b5e4767db9859259b0a4e29cb05234bc','exact extension manifest pin');
+const extension = JSON.parse(extensionBytes);
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
@@ -21,7 +24,8 @@ function verify(file) {
   return url;
 }
 
-for (const row of delta.files) verify(row.after.file);
+const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
 assert(reserved.pathname.includes('%23')); checks++;
 const spaced = verify('audio/rc133/originals/Clockwork Ticks (1)(1).mp3');
@@ -30,4 +34,4 @@ verify('audio/literal?query#fragment%25 한글.wav');
 for (const file of ['', '/index.html', '../index.html', 'assets/../index.html', 'assets//file.png', 'assets/./file.png', 'assets\\file.png', 'https://other.example/file.png']) {
   assert.throws(() => checkedUrl(file, key, value), undefined, file); checks++;
 }
-console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:delta.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));
+console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));

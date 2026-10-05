@@ -46,6 +46,7 @@ const report = {
   status: 'running',
   readiness: [],
   files: [],
+  runtimeExtension: null,
   optionalDerivative: null,
   profiles: [],
   scope: 'Exact public bytes and normal new-story startup; no direct save/state injection, unlock, or campaign-completion claim',
@@ -315,7 +316,12 @@ async function main() {
     for (const row of outputRows.concat(personaOutputRows)) expected.set(row.file, row);
     assert.equal(expected.size, fixedFiles.length + expectedRuntimeCount, 'fixed files and all 53 outputs are unique');
     const delta=JSON.parse(localBytes('qa/rc133/authorized-runtime-delta.json'));
-    for(const row of delta.files){const file=row.after.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.after.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
+    const extensionBytes=localBytes('qa/rc133/authorized-runtime-extension.json');assert.equal(sha256(extensionBytes),'8984736c00e2a4f534350f1ecad41a46b5e4767db9859259b0a4e29cb05234bc','exact authorized runtime extension digest');const extension=JSON.parse(extensionBytes);
+    assert.equal(extension.base,'0a4965a17ac69a05ffd79645a537a0f202417408');assert.equal(extension.previousDeltaSha256,'47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11');
+    report.runtimeExtension={base:extension.base,candidateCommit:extension.candidateCommit,sha256:sha256(extensionBytes),changedFiles:extension.files.length};
+    const runtimeOutputs=new Map(delta.files.map(row=>[row.after.file,row.after]));
+    for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
+    for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
     const derivative = manifest.externalDerivatives?.[0];
