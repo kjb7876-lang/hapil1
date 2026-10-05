@@ -1,0 +1,757 @@
+{
+  "schema": "rc142-persona-volley-audit/v1",
+  "runtimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
+  "sourceRun": {
+    "status": "passed",
+    "stagedFixture": true,
+    "profile": "PC 1280x900, CPU 1x",
+    "coverage": [
+      "small-orb",
+      "eye",
+      "diamond",
+      "clock",
+      "star",
+      "eclipse",
+      "lance",
+      "shield",
+      "vortex"
+    ],
+    "actualSourcePaths": [
+      "./assets/rc134/persona-skills/small-orb.png?v=43402",
+      "./assets/rc133/art/small-orb.png",
+      "./assets/rc134/persona-skills/eye.png?v=43402",
+      "./assets/rc133/art/eye.png",
+      "./assets/rc134/persona-skills/diamond.png?v=43402",
+      "./assets/rc133/art/diamond.png",
+      "./assets/rc134/persona-skills/clock.png?v=43402",
+      "./assets/rc133/art/clock.png",
+      "./assets/rc134/persona-skills/star.png?v=43402",
+      "./assets/rc133/art/star.png",
+      "./assets/rc134/persona-skills/eclipse.png?v=43402",
+      "./assets/rc133/art/eclipse.png",
+      "./assets/rc134/persona-skills/lance.png?v=43402",
+      "./assets/rc133/art/lance.png",
+      "./assets/rc134/persona-skills/shield.png?v=43402",
+      "./assets/rc133/art/shield.png",
+      "./assets/rc134/persona-skills/vortex.png?v=43402",
+      "./assets/rc133/art/vortex.png"
+    ]
+  },
+  "scope": "All nine attack patterns, normal and awakened; actual contact geometry, native damage ledger and hero-hit/map-boundary terminal reasons. Evasion winner chosen from eight fixed legal movement vectors. Staged fixture, not a natural campaign claim.",
+  "patternOutcomes": [
+    {
+      "skill": "small-orb",
+      "awake": false,
+      "standing": {
+        "shots": 8,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 4,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 4,
+          "map-boundary": 4
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 8,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 1,
+        "nativeDamageTransactionResults": {
+          "HIT": 1
+        },
+        "acceptedDamageContacts": 1,
+        "terminalReasons": {
+          "hero-hit": 1,
+          "map-boundary": 7
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "small-orb",
+      "awake": true,
+      "standing": {
+        "shots": 10,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 5,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 3
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 5,
+          "map-boundary": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 10,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 2,
+        "nativeDamageTransactionResults": {
+          "HIT": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 2,
+          "map-boundary": 8
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "eye",
+      "awake": false,
+      "standing": {
+        "shots": 5,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 3,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 1
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 3,
+          "map-boundary": 2
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 5,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "eye",
+      "awake": true,
+      "standing": {
+        "shots": 6,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 3,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 1
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 3,
+          "map-boundary": 3
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 6,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 2,
+        "nativeDamageTransactionResults": {
+          "HIT": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 2,
+          "map-boundary": 4
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "diamond",
+      "awake": false,
+      "standing": {
+        "shots": 6,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 5,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 3
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 5,
+          "map-boundary": 1
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 6,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 6
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "diamond",
+      "awake": true,
+      "standing": {
+        "shots": 8,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 7,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 5
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 7,
+          "map-boundary": 1
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 8,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 8
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "clock",
+      "awake": false,
+      "standing": {
+        "shots": 9,
+        "telegraphSeconds": 0.85,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 7,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 5
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 7,
+          "map-boundary": 2
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 9,
+        "telegraphSeconds": 0.85,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 9
+        },
+        "allShotsResolved": true,
+        "movementRoute": "east",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "clock",
+      "awake": true,
+      "standing": {
+        "shots": 12,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 9,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 7
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 9,
+          "map-boundary": 3
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 12,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 1,
+        "nativeDamageTransactionResults": {
+          "HIT": 1
+        },
+        "acceptedDamageContacts": 1,
+        "terminalReasons": {
+          "hero-hit": 1,
+          "map-boundary": 11
+        },
+        "allShotsResolved": true,
+        "movementRoute": "east",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "star",
+      "awake": false,
+      "standing": {
+        "shots": 9,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 4,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 4,
+          "map-boundary": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 9,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 2,
+        "nativeDamageTransactionResults": {
+          "HIT": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 2,
+          "map-boundary": 7
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "star",
+      "awake": true,
+      "standing": {
+        "shots": 12,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 6,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 4
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 6,
+          "map-boundary": 6
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 12,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 4,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 4,
+          "map-boundary": 8
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "eclipse",
+      "awake": false,
+      "standing": {
+        "shots": 3,
+        "telegraphSeconds": 0.95,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 3,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 1
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 3
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 3,
+        "telegraphSeconds": 0.95,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 3
+        },
+        "allShotsResolved": true,
+        "movementRoute": "east",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "eclipse",
+      "awake": true,
+      "standing": {
+        "shots": 4,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 4,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 4
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 4,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 4
+        },
+        "allShotsResolved": true,
+        "movementRoute": "east",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "lance",
+      "awake": false,
+      "standing": {
+        "shots": 5,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 5,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 3
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 5,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "lance",
+      "awake": true,
+      "standing": {
+        "shots": 6,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 6,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 4
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 6
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 6,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 0,
+        "nativeDamageTransactionResults": {},
+        "acceptedDamageContacts": 0,
+        "terminalReasons": {
+          "map-boundary": 6
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "shield",
+      "awake": false,
+      "standing": {
+        "shots": 6,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 4,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 4,
+          "map-boundary": 2
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 6,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 1,
+        "nativeDamageTransactionResults": {
+          "HIT": 1
+        },
+        "acceptedDamageContacts": 1,
+        "terminalReasons": {
+          "hero-hit": 1,
+          "map-boundary": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "shield",
+      "awake": true,
+      "standing": {
+        "shots": 8,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 3,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 1
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 3,
+          "map-boundary": 5
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 8,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 2,
+        "nativeDamageTransactionResults": {
+          "HIT": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 2,
+          "map-boundary": 6
+        },
+        "allShotsResolved": true,
+        "movementRoute": "north",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "vortex",
+      "awake": false,
+      "standing": {
+        "shots": 8,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 5,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 3
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 5,
+          "map-boundary": 3
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 8,
+        "telegraphSeconds": 0.72,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 2,
+        "nativeDamageTransactionResults": {
+          "HIT": 2
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 2,
+          "map-boundary": 6
+        },
+        "allShotsResolved": true,
+        "movementRoute": "east",
+        "movementWorldUnits": 10.179
+      }
+    },
+    {
+      "skill": "vortex",
+      "awake": true,
+      "standing": {
+        "shots": 10,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 6,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 4
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 6,
+          "map-boundary": 4
+        },
+        "allShotsResolved": true,
+        "movementRoute": "standing",
+        "movementWorldUnits": 1.476
+      },
+      "bestEvasionAmongEightRoutes": {
+        "shots": 10,
+        "telegraphSeconds": 0.62,
+        "warningRendered": true,
+        "collisionGateOpensAfterWarning": true,
+        "nativeGeometryContacts": 3,
+        "nativeDamageTransactionResults": {
+          "HIT": 2,
+          "INVULNERABLE": 1
+        },
+        "acceptedDamageContacts": 2,
+        "terminalReasons": {
+          "hero-hit": 3,
+          "map-boundary": 7
+        },
+        "allShotsResolved": true,
+        "movementRoute": "east",
+        "movementWorldUnits": 10.179
+      }
+    }
+  ],
+  "browserErrors": [],
+  "httpErrors": []
+}

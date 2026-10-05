@@ -1,0 +1,243 @@
+{
+  "schema": "rc142-browser-performance-comparison/v1",
+  "candidateRuntimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
+  "baselineRuntimeRevision": "9463d5be63efe005ac3652a986743ac3a60f38b3",
+  "baselineRuntimeFileSha256": "ea66d8d1c8e3761c7737fc13f702ab3664b833f00217438e3a8b469329d6e97e",
+  "candidateRuntimeFileSha256": "f56fdee0d9912fdb9b0acde101fb1f2786a63c037279d7c0bf51fc2e2e2793ac",
+  "scope": "One workload, same Chromium binary, canvas scene, viewport, DPR=2 mobile emulation and 5.2-second active window. PC and mobile idle precede active. Performance-only runs omit the exhaustive hit/evasion matrix; both runtimes have identical volley code. CPU×4 is an emulation stress profile, not a phone measurement. Do not label as mobile performance pass.",
+  "measurements": [
+    {
+      "revision": "baseline",
+      "repeat": 1,
+      "cpuThrottle": 1,
+      "viewport": "portrait",
+      "idle": {
+        "rafP95Ms": 16.800000000000182,
+        "rafMaxMs": 66.69999999999982,
+        "framesOver100ms": 0
+      },
+      "activePersona": {
+        "rafP95Ms": 83.30000000000018,
+        "rafMaxMs": 116.69999999999982,
+        "framesOver100ms": 3,
+        "observedFrames": 103,
+        "projectilesAtSample": 14,
+        "volleyCount": 3
+      }
+    },
+    {
+      "revision": "baseline",
+      "repeat": 1,
+      "cpuThrottle": 1,
+      "viewport": "landscape",
+      "idle": {
+        "rafP95Ms": 16.800000000000182,
+        "rafMaxMs": 50,
+        "framesOver100ms": 0
+      },
+      "activePersona": {
+        "rafP95Ms": 50.099999999999454,
+        "rafMaxMs": 150,
+        "framesOver100ms": 1,
+        "observedFrames": 169,
+        "projectilesAtSample": 12,
+        "volleyCount": 4
+      }
+    },
+    {
+      "revision": "candidate",
+      "repeat": 1,
+      "cpuThrottle": 1,
+      "viewport": "portrait",
+      "idle": {
+        "rafP95Ms": 16.800000000000182,
+        "rafMaxMs": 33.5,
+        "framesOver100ms": 0
+      },
+      "activePersona": {
+        "rafP95Ms": 83.39999999999964,
+        "rafMaxMs": 200,
+        "framesOver100ms": 4,
+        "observedFrames": 88,
+        "projectilesAtSample": 24,
+        "volleyCount": 3
+      }
+    },
+    {
+      "revision": "candidate",
+      "repeat": 1,
+      "cpuThrottle": 1,
+      "viewport": "landscape",
+      "idle": {
+        "rafP95Ms": 16.800000000000182,
+        "rafMaxMs": 66.69999999999982,
+        "framesOver100ms": 0
+      },
+      "activePersona": {
+        "rafP95Ms": 66.69999999999982,
+        "rafMaxMs": 116.69999999999982,
+        "framesOver100ms": 2,
+        "observedFrames": 145,
+        "projectilesAtSample": 0,
+        "volleyCount": 4
+      }
+    },
+    {
+      "revision": "baseline",
+      "repeat": 1,
+      "cpuThrottle": 4,
+      "viewport": "portrait",
+      "idle": {
+        "rafP95Ms": 100,
+        "rafMaxMs": 249.89999999999964,
+        "framesOver100ms": 1
+      },
+      "activePersona": {
+        "rafP95Ms": 466.59999999999854,
+        "rafMaxMs": 483.3000000000011,
+        "framesOver100ms": 18,
+        "observedFrames": 18,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "baseline",
+      "repeat": 1,
+      "cpuThrottle": 4,
+      "viewport": "landscape",
+      "idle": {
+        "rafP95Ms": 50.100000000000364,
+        "rafMaxMs": 283.3000000000011,
+        "framesOver100ms": 1
+      },
+      "activePersona": {
+        "rafP95Ms": 349.8999999999978,
+        "rafMaxMs": 383.3000000000029,
+        "framesOver100ms": 23,
+        "observedFrames": 24,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "baseline",
+      "repeat": 2,
+      "cpuThrottle": 4,
+      "viewport": "portrait",
+      "idle": {
+        "rafP95Ms": 99.89999999999964,
+        "rafMaxMs": 116.60000000000036,
+        "framesOver100ms": 2
+      },
+      "activePersona": {
+        "rafP95Ms": 433.2999999999993,
+        "rafMaxMs": 666.6999999999989,
+        "framesOver100ms": 19,
+        "observedFrames": 19,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "baseline",
+      "repeat": 2,
+      "cpuThrottle": 4,
+      "viewport": "landscape",
+      "idle": {
+        "rafP95Ms": 133.3000000000011,
+        "rafMaxMs": 233.3000000000011,
+        "framesOver100ms": 6
+      },
+      "activePersona": {
+        "rafP95Ms": 416.59999999999854,
+        "rafMaxMs": 533.2000000000007,
+        "framesOver100ms": 21,
+        "observedFrames": 22,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "candidate",
+      "repeat": 1,
+      "cpuThrottle": 4,
+      "viewport": "portrait",
+      "idle": {
+        "rafP95Ms": 83.39999999999964,
+        "rafMaxMs": 249.89999999999964,
+        "framesOver100ms": 1
+      },
+      "activePersona": {
+        "rafP95Ms": 450,
+        "rafMaxMs": 716.6000000000004,
+        "framesOver100ms": 16,
+        "observedFrames": 17,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "candidate",
+      "repeat": 1,
+      "cpuThrottle": 4,
+      "viewport": "landscape",
+      "idle": {
+        "rafP95Ms": 66.60000000000036,
+        "rafMaxMs": 116.60000000000036,
+        "framesOver100ms": 1
+      },
+      "activePersona": {
+        "rafP95Ms": 400,
+        "rafMaxMs": 500,
+        "framesOver100ms": 22,
+        "observedFrames": 24,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "candidate",
+      "repeat": 2,
+      "cpuThrottle": 4,
+      "viewport": "portrait",
+      "idle": {
+        "rafP95Ms": 100.10000000000036,
+        "rafMaxMs": 233.29999999999927,
+        "framesOver100ms": 3
+      },
+      "activePersona": {
+        "rafP95Ms": 583.3000000000011,
+        "rafMaxMs": 599.8999999999996,
+        "framesOver100ms": 17,
+        "observedFrames": 18,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    },
+    {
+      "revision": "candidate",
+      "repeat": 2,
+      "cpuThrottle": 4,
+      "viewport": "landscape",
+      "idle": {
+        "rafP95Ms": 116.69999999999891,
+        "rafMaxMs": 283.3000000000011,
+        "framesOver100ms": 3
+      },
+      "activePersona": {
+        "rafP95Ms": 400,
+        "rafMaxMs": 516.6999999999971,
+        "framesOver100ms": 23,
+        "observedFrames": 24,
+        "projectilesAtSample": 10,
+        "volleyCount": 1
+      }
+    }
+  ],
+  "assessment": {
+    "cpu1x": "PC and portrait active p95 are essentially equal to baseline; landscape rose by one coarse ~16.7ms frame in a single run. No stable regression shown.",
+    "cpu4x": "Both baseline and candidate are slow and noisy; candidate is faster on portrait in one run and slower in another; landscape candidate p95 was 400ms in both runs versus 350ms/417ms baseline. This does not isolate a stable regression, but it also is not a pass. Frame delays remain a material emulation limitation.",
+    "physicalDevices": "Not tested."
+  }
+}

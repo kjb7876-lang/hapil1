@@ -1,0 +1,59 @@
+{
+  "schema": "rc142-persona-render-audit/v1",
+  "runtimeRevision": "ec943d56408ea5bfa217fd55e0aa000de6131420",
+  "status": "passed",
+  "profiles": [
+    {
+      "name": "pc",
+      "checks": 1632,
+      "skills": [
+        "small-orb",
+        "eye",
+        "diamond",
+        "clock",
+        "star",
+        "eclipse",
+        "lance",
+        "shield",
+        "vortex"
+      ],
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "name": "portrait",
+      "checks": 1632,
+      "skills": [
+        "small-orb",
+        "eye",
+        "diamond",
+        "clock",
+        "star",
+        "eclipse",
+        "lance",
+        "shield",
+        "vortex"
+      ],
+      "errors": [],
+      "httpErrors": []
+    },
+    {
+      "name": "landscape",
+      "checks": 1632,
+      "skills": [
+        "small-orb",
+        "eye",
+        "diamond",
+        "clock",
+        "star",
+        "eclipse",
+        "lance",
+        "shield",
+        "vortex"
+      ],
+      "errors": [],
+      "httpErrors": []
+    }
+  ],
+  "coverage": "Every skill image identity was checked in the native warning, flight, hit/parry/skill/expired terminal effect and timed native pattern rotation."
+}
