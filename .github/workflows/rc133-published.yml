@@ -10,6 +10,7 @@ on:
       - 'qa/rc137/**'
       - 'qa/rc133/art-processing.json'
       - 'qa/rc133/published.cjs'
+      - 'qa/rc133/public-url.cjs'
       - '.github/workflows/rc133-published.yml'
   workflow_dispatch:
 permissions:

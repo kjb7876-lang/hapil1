@@ -7,11 +7,11 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const cp = require('node:child_process');
+const { checkedUrl } = require('./public-url.cjs');
 
 const root = path.resolve(__dirname, '../..');
 const base = 'https://kjb7876-lang.github.io/hapil1/';
 const baseUrl = new URL(base);
-const basePath = baseUrl.pathname;
 const outputDir = process.env.HAPIL_QA_OUTPUT || path.join(root, 'qa-results/rc133-public');
 const fixedFiles = [
   'index.html',
@@ -55,15 +55,6 @@ const save = () => fs.writeFileSync(path.join(outputDir, 'summary.json'), JSON.s
 const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const localBytes = file => fs.readFileSync(path.join(root, file));
-
-function checkedUrl(file, cacheKey, cacheValue) {
-  const url = new URL(file, baseUrl);
-  assert.equal(url.origin, baseUrl.origin, 'public file must remain on the fixed Pages origin');
-  assert.equal(url.pathname, basePath + file, 'public path must stay under the fixed Pages root');
-  assert.equal(url.search, '', 'manifest and fixed paths cannot supply query strings');
-  url.searchParams.set(cacheKey, cacheValue);
-  return url;
-}
 
 function validateArtPath(file) {
   assert.equal(typeof file, 'string');
