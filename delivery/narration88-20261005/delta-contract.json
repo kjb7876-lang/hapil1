@@ -1,0 +1,92 @@
+{
+  "schema": "hapil-frozen88-small-delta-contract-v1",
+  "baselinePublicManifestSha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006",
+  "targetPublicManifestSha256": "b8f1c2e9e6883c008b07bc5186f4edb1d2ca8eb7612f29af292d6920150935cc",
+  "frozenIdentity": {
+    "manifestSha256": "9fafa62348396a56d8d12a3a6c7d15e9e3186f2904cd613539c1daaa0ddc863e",
+    "bindingsSha256": "a19d99f020c6c1ca22deca39265f9a5b80fc2f725d7857842bd5886236617d3a",
+    "copyPlanSha256": "5f62a56e326a112fc9715b5f3efa1248314459248e062e221be5cadfd25f0119"
+  },
+  "repositoryDeltaPaths": [
+    "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+    "assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+    "assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+    "assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+    "assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+    "assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+    "assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+    "assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+    "assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+    "assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+    "assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+    "assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3",
+    "assets/story-narration/v1/manifest.json"
+  ],
+  "newlyRetiredExistingPaths": [
+    "audio/dist03-pre-98b8fb341f762758245daccb.mp3",
+    "audio/p-8e4df36eb396f0d9b66572c2.mp3"
+  ],
+  "originalMappings": {
+    "dist00.pre": {
+      "audio": "../../../assets/rc26/audio/opening-memory.wav",
+      "duration": 54.65,
+      "sha256": "bb28c14aa803c0de945e4a2ce77afc54398e9f1aecb065bd693091af91a7ee91",
+      "legacy": true
+    },
+    "dist00.post": {
+      "audio": "../../../assets/rc26/audio/root-memory.wav",
+      "duration": 13.25,
+      "sha256": "d63d9588c7b6d6548046345616987e785968442a8f8e08b0af89d1e7ffacd2ed",
+      "legacy": true
+    }
+  },
+  "originals": [
+    {
+      "id": "dist00.pre",
+      "bundlePath": "originals/opening-memory.wav",
+      "existingRepositoryPath": "assets/rc26/audio/opening-memory.wav",
+      "sha256": "bb28c14aa803c0de945e4a2ce77afc54398e9f1aecb065bd693091af91a7ee91",
+      "gitBlobSha": "5424f9e7e18ba40ac02b03f6454925d25b5a39b3",
+      "duration": 54.65,
+      "preserveExistingBytes": true
+    },
+    {
+      "id": "dist00.post",
+      "bundlePath": "originals/root-memory.wav",
+      "existingRepositoryPath": "assets/rc26/audio/root-memory.wav",
+      "sha256": "d63d9588c7b6d6548046345616987e785968442a8f8e08b0af89d1e7ffacd2ed",
+      "gitBlobSha": "f309038678d8d297449503301193b34f91895e07",
+      "duration": 13.25,
+      "preserveExistingBytes": true
+    }
+  ],
+  "durableBackup": {
+    "checkpointId": "850910b72c8542b69cd940bb5878f24e",
+    "checkpointSequence": 794,
+    "libraryFileId": "libfile_01c2962ed12c81919a22ca77b4fc9c4c",
+    "fileId": "file_000000002c648230b7ba40288a1111ca",
+    "archiveName": "HAPIL-checkpoint-sources-sources-85ac6da66926-850910b72c85.tar.gz",
+    "archiveSha256": "8d2d5feec196302ea6d68497ba08a114ab238a31ef42be30022c06e4eb024e06",
+    "archiveSizeBytes": 13690077,
+    "verifiedAt": "2026-10-05T04:50:50.882480+00:00",
+    "proofArchiveMembers": {
+      "proof/frozen88-verification.json": "pipeline/proposals/release88_frozen_backup_20261005_0435/verification.json",
+      "proof/frozen88-seal.json": "pipeline/proposals/release88_frozen_backup_20261005_0435/seal.json"
+    }
+  },
+  "counts": {
+    "acceptedScenes": 88,
+    "activeMp3Files": 279,
+    "retiredMp3Files": 16,
+    "runtimeRoutes": 199,
+    "protectedBaselineScenes": 85,
+    "newMp3Files": 12,
+    "originalRecordings": 2
+  },
+  "protectedBaselineCheckMandatory": true,
+  "doNotDeleteExistingAudio": true,
+  "runtimeCodeIncluded": false,
+  "fullPackageZipSha256": "197d048bf255c775896ebad87839a407a8bc477786765f7576f479240cf49cbd",
+  "fullPackageZipBytes": 115042733,
+  "noUploadOrRepositoryMutationPerformed": true
+}

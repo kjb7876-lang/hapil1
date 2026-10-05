@@ -1,0 +1,1623 @@
+{
+  "schema": "hapil-episode-midboss-imagegen-3motions/v1",
+  "source_commit": "af8e03fb01cbbd3ae0e56bb8c36b5029e93efff6",
+  "tool": "built-in image_gen.imagegen",
+  "model": "not exposed by tool",
+  "frame_order": [
+    "idle",
+    "anticipation",
+    "strike"
+  ],
+  "reuse": "Same identity atlas and frames reused for Story 2 fission copies and Dream 3 fission copies. Never introduce heterogeneous partners.",
+  "frames_are_equal_cells": false,
+  "note": "Use measured sourceRect and per-frame pivot, not equal thirds. Frames retain original generated pixels and alpha. No procedural art, tinting, pixel synthesis or postprocessing. Pivots are visually calibrated suggested root anchors; game integration must verify animation alignment.",
+  "identities": [
+    {
+      "identity": "mb-ep1a08",
+      "routes": [
+        {
+          "zone": "ep1a08",
+          "name": "백의 안정화 감독",
+          "id": "mb-ep1a08",
+          "arc": "DIST"
+        }
+      ],
+      "file": "mb-ep1a08-atlas.png",
+      "sha256": "07ee5ea3fa82ba456ac1abb0fba5605d13cba1d76c1baf240ba456bdc43092fe",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.6139532725016276,
+      "zeroAlphaGutters": [
+        [
+          490,
+          495
+        ],
+        [
+          964,
+          971
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp",
+        "exists": true,
+        "sha256": "edd69005102d38f80d970adecbaea0a3c211fb02155847118596acd80555cc38",
+        "repoPath": "assets/generated-v31224/actors-normalized/c386e08b76cf_ep1a_stabilization_supervisor.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            492,
+            1024
+          ],
+          "pivot": [
+            250,
+            933
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            37,
+            112,
+            490,
+            987
+          ],
+          "visibleBoundsAlphaGT10": [
+            61,
+            120,
+            480,
+            936
+          ],
+          "nonzeroAlphaPixels": 198153,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            492,
+            0,
+            475,
+            1024
+          ],
+          "pivot": [
+            258,
+            933
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            3,
+            42,
+            472,
+            1024
+          ],
+          "visibleBoundsAlphaGT10": [
+            10,
+            46,
+            464,
+            935
+          ],
+          "nonzeroAlphaPixels": 202414,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            967,
+            0,
+            569,
+            1024
+          ],
+          "pivot": [
+            283,
+            933
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            4,
+            31,
+            554,
+            999
+          ],
+          "visibleBoundsAlphaGT10": [
+            8,
+            217,
+            551,
+            935
+          ],
+          "nonzeroAlphaPixels": 206632,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 1
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1a09",
+      "routes": [
+        {
+          "zone": "ep1a09",
+          "name": "갈망의 주사실 감시핵",
+          "id": "mb-ep1a09",
+          "arc": "DIST"
+        }
+      ],
+      "file": "mb-ep1a09-atlas.png",
+      "sha256": "2b91903a6bd8696ceed1b9b94797e748752c13b3562f9ec9feae3914ecb40727",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.7382233937581381,
+      "zeroAlphaGutters": [
+        [
+          528,
+          577
+        ],
+        [
+          951,
+          991
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp",
+        "exists": true,
+        "sha256": "8bffe21ec24477edca293d0e929e835ddb82a40ec504b056a8d0343d668b99ef",
+        "repoPath": "assets/generated-v31224/actors-normalized/be575f229a97_ep1a_craving_injection_watcher.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            552,
+            1024
+          ],
+          "pivot": [
+            272,
+            800
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            15,
+            144,
+            528,
+            952
+          ],
+          "visibleBoundsAlphaGT10": [
+            22,
+            174,
+            522,
+            768
+          ],
+          "nonzeroAlphaPixels": 159132,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            552,
+            0,
+            419,
+            1024
+          ],
+          "pivot": [
+            253,
+            800
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            25,
+            155,
+            399,
+            952
+          ],
+          "visibleBoundsAlphaGT10": [
+            59,
+            182,
+            397,
+            776
+          ],
+          "nonzeroAlphaPixels": 102928,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            971,
+            0,
+            565,
+            1024
+          ],
+          "pivot": [
+            306,
+            800
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            20,
+            25,
+            551,
+            974
+          ],
+          "visibleBoundsAlphaGT10": [
+            64,
+            162,
+            539,
+            831
+          ],
+          "nonzeroAlphaPixels": 149679,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1a10",
+      "routes": [
+        {
+          "zone": "ep1a10",
+          "name": "오만의 폐허핵",
+          "id": "mb-ep1a10",
+          "arc": "DIST"
+        }
+      ],
+      "file": "mb-ep1a10-atlas.png",
+      "sha256": "3a081357f854229dbf18d1fae7b895a5a49b1a68c3a4a6cd518fa0736319b502",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.6902135213216146,
+      "zeroAlphaGutters": [
+        [
+          498,
+          521
+        ],
+        [
+          998,
+          1025
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+        "exists": true,
+        "sha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+        "repoPath": "assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            509,
+            1024
+          ],
+          "pivot": [
+            260,
+            815
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            49,
+            65,
+            498,
+            982
+          ],
+          "visibleBoundsAlphaGT10": [
+            54,
+            225,
+            473,
+            812
+          ],
+          "nonzeroAlphaPixels": 172390,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            509,
+            0,
+            502,
+            1024
+          ],
+          "pivot": [
+            241,
+            815
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            12,
+            21,
+            489,
+            1004
+          ],
+          "visibleBoundsAlphaGT10": [
+            24,
+            268,
+            472,
+            812
+          ],
+          "nonzeroAlphaPixels": 165906,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            1011,
+            0,
+            525,
+            1024
+          ],
+          "pivot": [
+            229,
+            815
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            14,
+            34,
+            515,
+            990
+          ],
+          "visibleBoundsAlphaGT10": [
+            23,
+            301,
+            512,
+            820
+          ],
+          "nonzeroAlphaPixels": 148956,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1a11",
+      "routes": [
+        {
+          "zone": "ep1a11",
+          "name": "초천사의 웃는 가면",
+          "id": "mb-ep1a11",
+          "arc": "DIST"
+        }
+      ],
+      "file": "mb-ep1a11-atlas-v2.png",
+      "sha256": "f8106a04b8efa6c4ba3542a9af25660180b60905252d2a8b5b97755eee58b488",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.6161588033040365,
+      "zeroAlphaGutters": [
+        [
+          546,
+          559
+        ],
+        [
+          1008,
+          1023
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp",
+        "exists": true,
+        "sha256": "e0d1e44e2f61c858b7b7f1c65fe2c83ab8b96a52fc5d45ffe9630ad86a29c4a5",
+        "repoPath": "assets/generated-v31224/actors-normalized/a6f6c2767d0f_ep1a_false_archangel_smiling_mask.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            552,
+            1024
+          ],
+          "pivot": [
+            270,
+            875
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            23,
+            41,
+            546,
+            938
+          ],
+          "visibleBoundsAlphaGT10": [
+            28,
+            219,
+            508,
+            872
+          ],
+          "nonzeroAlphaPixels": 206043,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            552,
+            0,
+            463,
+            1024
+          ],
+          "pivot": [
+            218,
+            875
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            7,
+            87,
+            456,
+            972
+          ],
+          "visibleBoundsAlphaGT10": [
+            43,
+            173,
+            392,
+            879
+          ],
+          "nonzeroAlphaPixels": 185351,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            1015,
+            0,
+            521,
+            1024
+          ],
+          "pivot": [
+            265,
+            875
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            8,
+            39,
+            493,
+            1000
+          ],
+          "visibleBoundsAlphaGT10": [
+            19,
+            217,
+            483,
+            880
+          ],
+          "nonzeroAlphaPixels": 212336,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b01",
+      "routes": [
+        {
+          "zone": "ep1b01",
+          "name": "교만의 잔향 · 제72문",
+          "id": "mb-ep1b01",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b01-atlas.png",
+      "sha256": "f1efddb527be230c87c97db1b6466d9098d80c46be31bcd17e9967f21769ce76",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.6368859608968099,
+      "zeroAlphaGutters": [
+        [
+          528,
+          535
+        ],
+        [
+          902,
+          915
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp",
+        "exists": true,
+        "sha256": "c74acf16eec339212df1841db3a9bebf11076704bacdf38fc713b898bb97ffec",
+        "repoPath": "assets/generated-v31224/actors-normalized/b42dcd0ea03d_gate72_pride_echo.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            531,
+            1024
+          ],
+          "pivot": [
+            270,
+            845
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            23,
+            9,
+            528,
+            984
+          ],
+          "visibleBoundsAlphaGT10": [
+            27,
+            171,
+            511,
+            858
+          ],
+          "nonzeroAlphaPixels": 210632,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            531,
+            0,
+            377,
+            1024
+          ],
+          "pivot": [
+            191,
+            845
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            4,
+            21,
+            371,
+            961
+          ],
+          "visibleBoundsAlphaGT10": [
+            28,
+            201,
+            353,
+            844
+          ],
+          "nonzeroAlphaPixels": 138726,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            908,
+            0,
+            628,
+            1024
+          ],
+          "pivot": [
+            212,
+            845
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            7,
+            134,
+            610,
+            986
+          ],
+          "visibleBoundsAlphaGT10": [
+            13,
+            208,
+            607,
+            853
+          ],
+          "nonzeroAlphaPixels": 221771,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b02",
+      "routes": [
+        {
+          "zone": "ep1b02",
+          "name": "나태의 껍데기 파수",
+          "id": "mb-ep1b02",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b02-atlas.png",
+      "sha256": "76706d1e65c1cd4c68b3a83d190f4c10087c2152e4bb222a2b39b66d90fc206e",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.7099043528238932,
+      "zeroAlphaGutters": [
+        [
+          470,
+          495
+        ],
+        [
+          958,
+          973
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp",
+        "exists": true,
+        "sha256": "e5d1f2b1c91ba1a560f66e4bbfc52838d880bfdf31d11ab189383b3bed9acb04",
+        "repoPath": "assets/generated-v31224/actors-normalized/20995250d5fa_sloth_shell_sentinel.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            482,
+            1024
+          ],
+          "pivot": [
+            240,
+            782
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            0,
+            114,
+            470,
+            982
+          ],
+          "visibleBoundsAlphaGT10": [
+            15,
+            268,
+            450,
+            786
+          ],
+          "nonzeroAlphaPixels": 153557,
+          "clearLeftRightEdges": [
+            false,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            482,
+            0,
+            483,
+            1024
+          ],
+          "pivot": [
+            258,
+            782
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            13,
+            21,
+            476,
+            952
+          ],
+          "visibleBoundsAlphaGT10": [
+            38,
+            234,
+            465,
+            764
+          ],
+          "nonzeroAlphaPixels": 141491,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            965,
+            0,
+            571,
+            1024
+          ],
+          "pivot": [
+            245,
+            782
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            8,
+            35,
+            571,
+            920
+          ],
+          "visibleBoundsAlphaGT10": [
+            10,
+            310,
+            565,
+            784
+          ],
+          "nonzeroAlphaPixels": 161233,
+          "clearLeftRightEdges": [
+            true,
+            false
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 1,
+          "right": 1,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b03",
+      "routes": [
+        {
+          "zone": "ep1b03",
+          "name": "금이 간 비교잔영",
+          "id": "mb-ep1b03",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b03-atlas-v2.png",
+      "sha256": "d3cb157ed0c268cea3c66642f3e543bfc68f17de3cecfb40091bb09eeed0022a",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.7369721730550131,
+      "zeroAlphaGutters": [
+        [
+          450,
+          497
+        ],
+        [
+          995,
+          1053
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp",
+        "exists": true,
+        "sha256": "a05ecc5d2e4ef73872b59b2895939f62ef03dcd41e2761815c332d4257deb7d4",
+        "repoPath": "assets/generated-v31224/actors-normalized/094c62d396f7_cracked_comparison_echo.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            473,
+            1024
+          ],
+          "pivot": [
+            250,
+            855
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            62,
+            36,
+            450,
+            960
+          ],
+          "visibleBoundsAlphaGT10": [
+            64,
+            151,
+            423,
+            856
+          ],
+          "nonzeroAlphaPixels": 141902,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            473,
+            0,
+            551,
+            1024
+          ],
+          "pivot": [
+            307,
+            855
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            24,
+            17,
+            522,
+            952
+          ],
+          "visibleBoundsAlphaGT10": [
+            94,
+            174,
+            518,
+            856
+          ],
+          "nonzeroAlphaPixels": 142009,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            1024,
+            0,
+            512,
+            1024
+          ],
+          "pivot": [
+            246,
+            855
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            29,
+            181,
+            464,
+            984
+          ],
+          "visibleBoundsAlphaGT10": [
+            32,
+            184,
+            463,
+            855
+          ],
+          "nonzeroAlphaPixels": 129796,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b04",
+      "routes": [
+        {
+          "zone": "ep1b04",
+          "name": "폐기주방 감독",
+          "id": "mb-ep1b04",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b04-atlas.png",
+      "sha256": "233b0302858db4f34ec435b6b0165314bbf2fb7fe8cd3466d8193f54a07afa52",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.688568115234375,
+      "zeroAlphaGutters": [
+        [
+          486,
+          525
+        ],
+        [
+          1002,
+          1019
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp",
+        "exists": true,
+        "sha256": "b5dcd32af019b5d4266c89d1b6c9a3e87f824377308a908d37208e570b2a8cc7",
+        "repoPath": "assets/generated-v31224/actors-normalized/947dfea12b7e_discarded_kitchen_overseer.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            505,
+            1024
+          ],
+          "pivot": [
+            260,
+            840
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            17,
+            196,
+            486,
+            992
+          ],
+          "visibleBoundsAlphaGT10": [
+            23,
+            324,
+            482,
+            839
+          ],
+          "nonzeroAlphaPixels": 164330,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            505,
+            0,
+            505,
+            1024
+          ],
+          "pivot": [
+            245,
+            840
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            20,
+            16,
+            497,
+            990
+          ],
+          "visibleBoundsAlphaGT10": [
+            24,
+            161,
+            482,
+            844
+          ],
+          "nonzeroAlphaPixels": 183692,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            1010,
+            0,
+            526,
+            1024
+          ],
+          "pivot": [
+            250,
+            840
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            9,
+            35,
+            525,
+            1006
+          ],
+          "visibleBoundsAlphaGT10": [
+            18,
+            406,
+            514,
+            860
+          ],
+          "nonzeroAlphaPixels": 141818,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b05",
+      "routes": [
+        {
+          "zone": "ep1b05",
+          "name": "심장빛 무대감독",
+          "id": "mb-ep1b05",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b05-atlas.png",
+      "sha256": "e69015879f3e31bc5eb8ac46a07f73ba3835ac01ca04401e4f61cf21a58ebe92",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.6840953826904297,
+      "zeroAlphaGutters": [
+        [
+          542,
+          569
+        ],
+        [
+          963,
+          967
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp",
+        "exists": true,
+        "sha256": "8aa4b200019560224b1d342d81891cc5e11f40a266c4c7ab1bf9b8e835ff25d0",
+        "repoPath": "assets/generated-v31224/actors-normalized/cd804c90bfe4_heartlight_stage_director.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            555,
+            1024
+          ],
+          "pivot": [
+            280,
+            820
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            29,
+            91,
+            542,
+            1024
+          ],
+          "visibleBoundsAlphaGT10": [
+            31,
+            212,
+            521,
+            822
+          ],
+          "nonzeroAlphaPixels": 181039,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            555,
+            0,
+            410,
+            1024
+          ],
+          "pivot": [
+            205,
+            820
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            14,
+            21,
+            408,
+            1024
+          ],
+          "visibleBoundsAlphaGT10": [
+            27,
+            208,
+            405,
+            820
+          ],
+          "nonzeroAlphaPixels": 137408,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            965,
+            0,
+            571,
+            1024
+          ],
+          "pivot": [
+            225,
+            820
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            2,
+            30,
+            571,
+            1000
+          ],
+          "visibleBoundsAlphaGT10": [
+            11,
+            219,
+            563,
+            818
+          ],
+          "nonzeroAlphaPixels": 178428,
+          "clearLeftRightEdges": [
+            true,
+            false
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 2,
+          "top": 0,
+          "bottom": 1
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b06",
+      "routes": [
+        {
+          "zone": "ep1b06",
+          "name": "금고 장부감시자",
+          "id": "mb-ep1b06",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b06-atlas-v2.png",
+      "sha256": "d57a1bcbe607bef74adf78001e56b660d574f1065cdfa3e62154316f87717e3c",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.7566363016764323,
+      "zeroAlphaGutters": [
+        [
+          416,
+          451
+        ],
+        [
+          1016,
+          1041
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp",
+        "exists": true,
+        "sha256": "98556a8c80a9facafaabc7690b99067cf42f1d23e8559d447900213797f7c43f",
+        "repoPath": "assets/generated-v31224/actors-normalized/820420d0c62e_vault_ledger_watcher.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            433,
+            1024
+          ],
+          "pivot": [
+            265,
+            800
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            43,
+            193,
+            416,
+            982
+          ],
+          "visibleBoundsAlphaGT10": [
+            46,
+            200,
+            360,
+            797
+          ],
+          "nonzeroAlphaPixels": 118285,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            433,
+            0,
+            595,
+            1024
+          ],
+          "pivot": [
+            362,
+            800
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            18,
+            21,
+            583,
+            952
+          ],
+          "visibleBoundsAlphaGT10": [
+            138,
+            238,
+            529,
+            800
+          ],
+          "nonzeroAlphaPixels": 120931,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            1028,
+            0,
+            508,
+            1024
+          ],
+          "pivot": [
+            242,
+            800
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            13,
+            34,
+            482,
+            920
+          ],
+          "visibleBoundsAlphaGT10": [
+            27,
+            238,
+            479,
+            802
+          ],
+          "nonzeroAlphaPixels": 143562,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      }
+    },
+    {
+      "identity": "mb-ep1b06b",
+      "routes": [
+        {
+          "zone": "ep1b06b",
+          "name": "겨울숲 가시파수",
+          "id": "mb-ep1b06b",
+          "arc": "EP1B"
+        }
+      ],
+      "file": "mb-ep1b06b-atlas-v2.png",
+      "sha256": "18c3f0b556cbf614856446c85df4b8bfa4c7452a0ad5a11dbf87cf72a16ebbdf",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaZeroFraction": 0.7811044057210287,
+      "zeroAlphaGutters": [
+        [
+          444,
+          505
+        ],
+        [
+          984,
+          1021
+        ]
+      ],
+      "sourceReference": {
+        "path": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp",
+        "exists": true,
+        "sha256": "bd0cdd0a8bdba5a60ae41af3d85bd9421bb3c09713ce5809bbd7e394e517eba6",
+        "repoPath": "assets/generated-v31224/actors-normalized/32dfddbbf2cd_molten_vault_sentinel.webp"
+      },
+      "sourceHashVerified": true,
+      "frames": [
+        {
+          "motion": "idle",
+          "sourceRect": [
+            0,
+            0,
+            474,
+            1024
+          ],
+          "pivot": [
+            260,
+            755
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            25,
+            240,
+            444,
+            856
+          ],
+          "visibleBoundsAlphaGT10": [
+            27,
+            242,
+            438,
+            756
+          ],
+          "nonzeroAlphaPixels": 124839,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "anticipation",
+          "sourceRect": [
+            474,
+            0,
+            528,
+            1024
+          ],
+          "pivot": [
+            266,
+            755
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            31,
+            268,
+            510,
+            998
+          ],
+          "visibleBoundsAlphaGT10": [
+            33,
+            270,
+            482,
+            752
+          ],
+          "nonzeroAlphaPixels": 113280,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        },
+        {
+          "motion": "strike",
+          "sourceRect": [
+            1002,
+            0,
+            534,
+            1024
+          ],
+          "pivot": [
+            188,
+            755
+          ],
+          "pivotSpace": "sourceRect-local",
+          "alphaBounds": [
+            19,
+            35,
+            524,
+            968
+          ],
+          "visibleBoundsAlphaGT10": [
+            21,
+            301,
+            523,
+            753
+          ],
+          "nonzeroAlphaPixels": 106174,
+          "clearLeftRightEdges": [
+            true,
+            true
+          ],
+          "distinctPoseQA": "Reviewed full-body pose separately in atlas; visibly articulated shape change, identity and weapons retained."
+        }
+      ],
+      "qa": {
+        "noLabels": true,
+        "noGrid": true,
+        "noVisibleSubjectClipping": true,
+        "threeDistinctArticulatedPoses": true,
+        "edgeMaxAlpha": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        }
+      },
+      "identityCorrection": "Canonical map 눈보라 속의 소년; boss 겨울숲 가시파수, tank/rangedOrganic. Replaced incompatible molten-safe reference with unique frost-covered charcoal thorn/root guardian. Wrong source inspected and hash-verified for audit but deliberately not passed to generator."
+    }
+  ]
+}

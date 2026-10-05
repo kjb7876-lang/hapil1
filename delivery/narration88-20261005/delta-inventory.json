@@ -1,0 +1,121 @@
+{
+  "schema": "hapil-small-delta-inventory-v1",
+  "files": [
+    {
+      "path": "README.txt",
+      "sha256": "2b2f46b555ef12d36691d52349f987a43a1dc0c60994d17e1e43cd098c57afb9",
+      "sizeBytes": 2760
+    },
+    {
+      "path": "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+      "sha256": "f8875fb45764ee7e7edb295765fbe008c4963d2f10842d035f16cd1ff4c16f86",
+      "sizeBytes": 718508
+    },
+    {
+      "path": "assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+      "sha256": "fbdd14cc3cf05fae96a105f0fb4034c96d80ff47a3b3849c9f5a730b3044dee9",
+      "sizeBytes": 1607084
+    },
+    {
+      "path": "assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+      "sha256": "bf158be7b2fff09be9d960983bbe212f2a298f9487326ee8527ce89bb2914e2c",
+      "sizeBytes": 490796
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+      "sha256": "4a16ab0091e057f17d35552fd684f18b47dfe0db09cb8a9574dc7915a53162b2",
+      "sizeBytes": 271148
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+      "sha256": "5d67a44eacc67efa94154af105eefe40ff5e61df8348ad0a49850bf1b8f8c233",
+      "sizeBytes": 338348
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+      "sha256": "5e0f4f4e639c37c9d1bf6d5b12161e278be36407c964ea9955286738e08c5ff2",
+      "sizeBytes": 176300
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+      "sha256": "a5d59544ec4a9c04112154f7c58879bc34cdb3b07bb7bcfe86fa1acf0187e75b",
+      "sizeBytes": 289196
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+      "sha256": "a9d8a2dbb7aacf58fbe743b45cbf0f3766be4ca686eacc90cd52ffe1dbcdb999",
+      "sizeBytes": 222764
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+      "sha256": "c09716d4ad080a6076e0e5a8c021cf43686e73266c9c1c00a42040bf6a68f9a8",
+      "sizeBytes": 246572
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+      "sha256": "ce571fd82755c2bb35fda70eeb4c995d9dec0e051285a07004bd9ba3ffbb5b4a",
+      "sizeBytes": 225836
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+      "sha256": "de4207237483af374322a0d96c6442e641d26c9f39e740201fb4c5d228e0ab64",
+      "sizeBytes": 399020
+    },
+    {
+      "path": "assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3",
+      "sha256": "fafcd98ab7d2bf8e8e32adb62448f1092fcc0844b4494e0fd748a2ad1799baec",
+      "sizeBytes": 234284
+    },
+    {
+      "path": "assets/story-narration/v1/manifest.json",
+      "sha256": "b8f1c2e9e6883c008b07bc5186f4edb1d2ca8eb7612f29af292d6920150935cc",
+      "sizeBytes": 266465
+    },
+    {
+      "path": "baseline/public86-manifest.json",
+      "sha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006",
+      "sizeBytes": 252121
+    },
+    {
+      "path": "delta-contract.json",
+      "sha256": "73a4697b91b645f0b8bbef0de0c4567776fa0fdda81c9cda207a959dc7e1b020",
+      "sizeBytes": 4122
+    },
+    {
+      "path": "proof/backup-union-verification.json",
+      "sha256": "ff5663e26ac330ba72ef0bc8b5cae9fd47549dac5833fdbed48c06981dcf3494",
+      "sizeBytes": 856
+    },
+    {
+      "path": "proof/checkpoint794-receipt.json",
+      "sha256": "967692c8c401373e842a79846d8bd398513dcec9b4b399567caaa08228a0cfcc",
+      "sizeBytes": 65498
+    },
+    {
+      "path": "proof/frozen88-seal.json",
+      "sha256": "a3c3db84d76fefc28e46cc0f18bb3476edd17c836c90cd9eca5e12d0bc177111",
+      "sizeBytes": 991
+    },
+    {
+      "path": "proof/frozen88-verification.json",
+      "sha256": "b843faf748882757ba658db0d8130bed03113fc618ad720818c13977fd3f3d4d",
+      "sizeBytes": 1125
+    },
+    {
+      "path": "proof/full-package-decode-verification.json",
+      "sha256": "f3dda61399b8121dac22fbf7925e58389150a11b3140125b3c0a64231791fd1a",
+      "sizeBytes": 764
+    },
+    {
+      "path": "proof/public86-to88-delta.json",
+      "sha256": "735d16e9ec25c6b46d1b4125734c85ffa8a9caf39dc1987784529d997ab40d85",
+      "sizeBytes": 2669
+    },
+    {
+      "path": "validate_delta.py",
+      "sha256": "c4398ad08cf7485146015a088b06ea56934aa30ea5ff06ce93e8ea0679552989",
+      "sizeBytes": 7779
+    }
+  ],
+  "inventorySelfExcluded": true
+}

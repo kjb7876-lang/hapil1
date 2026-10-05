@@ -1,0 +1,511 @@
+{
+  "schema": "hapil-remaining-media-staging-inventory-v1",
+  "stagingOnly": true,
+  "sourceArchives": [
+    {
+      "filename": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sha256": "53a7bd293420ec667cc15d4dac9396d0f3029165bf26d0218322bc20721ccdea",
+      "zipBytes": 5154619
+    },
+    {
+      "filename": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sha256": "1c8e55b8f77489328d77a005525ddee5263b810816646eb6e6076682385a0eec",
+      "zipBytes": 22104532
+    },
+    {
+      "filename": "core_midboss_all22.zip",
+      "sha256": "da20b92342d34c79c699aa95a4e461bc780d8188a1a63023c34c4627cc3d6112",
+      "zipBytes": 33425675
+    }
+  ],
+  "files": [
+    {
+      "path": "delivery/narration88-20261005/README.txt",
+      "bytes": 2760,
+      "sha256": "2b2f46b555ef12d36691d52349f987a43a1dc0c60994d17e1e43cd098c57afb9",
+      "gitBlobSha": "7b5aa17b9ea8e00d57f92ee6b223e3ea13f8c3c6",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/README.txt"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+      "bytes": 718508,
+      "sha256": "f8875fb45764ee7e7edb295765fbe008c4963d2f10842d035f16cd1ff4c16f86",
+      "gitBlobSha": "d36d0ee79cefe6063a629e17d1b18e7b81102b02",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+      "bytes": 1607084,
+      "sha256": "fbdd14cc3cf05fae96a105f0fb4034c96d80ff47a3b3849c9f5a730b3044dee9",
+      "gitBlobSha": "6f7e14cfd4879da62cbd69f725626c7d2b7562dc",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+      "bytes": 490796,
+      "sha256": "bf158be7b2fff09be9d960983bbe212f2a298f9487326ee8527ce89bb2914e2c",
+      "gitBlobSha": "cbc0e88cf7adbaa115da7f12f1fd210d4a2977b4",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+      "bytes": 271148,
+      "sha256": "4a16ab0091e057f17d35552fd684f18b47dfe0db09cb8a9574dc7915a53162b2",
+      "gitBlobSha": "50d74a27d647ef21035ea25efdbb867c9b15622b",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+      "bytes": 338348,
+      "sha256": "5d67a44eacc67efa94154af105eefe40ff5e61df8348ad0a49850bf1b8f8c233",
+      "gitBlobSha": "5d66578cacc30891b2c3d3e9fa01f70bce8cd1d2",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+      "bytes": 176300,
+      "sha256": "5e0f4f4e639c37c9d1bf6d5b12161e278be36407c964ea9955286738e08c5ff2",
+      "gitBlobSha": "9be246c68246467f2799906b6e06e2ba1a3c198f",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+      "bytes": 289196,
+      "sha256": "a5d59544ec4a9c04112154f7c58879bc34cdb3b07bb7bcfe86fa1acf0187e75b",
+      "gitBlobSha": "7e1ff58e78aa3598c5918baf4f0d82beffe0df30",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+      "bytes": 222764,
+      "sha256": "a9d8a2dbb7aacf58fbe743b45cbf0f3766be4ca686eacc90cd52ffe1dbcdb999",
+      "gitBlobSha": "d5a895ee1b06574efeb1e3edf8be0b5325da4ecc",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+      "bytes": 246572,
+      "sha256": "c09716d4ad080a6076e0e5a8c021cf43686e73266c9c1c00a42040bf6a68f9a8",
+      "gitBlobSha": "bf738d3632b3715c1580b6a87741407f36dba778",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+      "bytes": 225836,
+      "sha256": "ce571fd82755c2bb35fda70eeb4c995d9dec0e051285a07004bd9ba3ffbb5b4a",
+      "gitBlobSha": "1a07490aab622a9133b6f0916ae78501981feb85",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+      "bytes": 399020,
+      "sha256": "de4207237483af374322a0d96c6442e641d26c9f39e740201fb4c5d228e0ab64",
+      "gitBlobSha": "69591a3a6a311dc07616b02424073663d42a2a81",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3",
+      "bytes": 234284,
+      "sha256": "fafcd98ab7d2bf8e8e32adb62448f1092fcc0844b4494e0fd748a2ad1799baec",
+      "gitBlobSha": "a8a901b7eb0cf2ce0c4b16c5f1379292a78ebd3d",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3"
+    },
+    {
+      "path": "delivery/narration88-20261005/assets/story-narration/v1/manifest.json",
+      "bytes": 266465,
+      "sha256": "b8f1c2e9e6883c008b07bc5186f4edb1d2ca8eb7612f29af292d6920150935cc",
+      "gitBlobSha": "4f4dd182c00815d9922e57e301cab8fd96ecee98",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/assets/story-narration/v1/manifest.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/baseline/public86-manifest.json",
+      "bytes": 252121,
+      "sha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006",
+      "gitBlobSha": "da5b4d64ec541e4f3d34c1d6f27d56e52aaa2cfd",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/baseline/public86-manifest.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/delta-contract.json",
+      "bytes": 4122,
+      "sha256": "73a4697b91b645f0b8bbef0de0c4567776fa0fdda81c9cda207a959dc7e1b020",
+      "gitBlobSha": "044c06e04f1d816031742f9579cb77155638310d",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/delta-contract.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/delta-inventory.json",
+      "bytes": 4409,
+      "sha256": "25d733274f560a1df47afc0226bbf785536ff1bc1a571cc1ac7392fab628ac7c",
+      "gitBlobSha": "3f8f68c3a817a989ffae02916d933ad1be866c1d",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/delta-inventory.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/proof/backup-union-verification.json",
+      "bytes": 856,
+      "sha256": "ff5663e26ac330ba72ef0bc8b5cae9fd47549dac5833fdbed48c06981dcf3494",
+      "gitBlobSha": "106b17f866bd5b51be7b22dc11863459590f248e",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/proof/backup-union-verification.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/proof/checkpoint794-receipt.json",
+      "bytes": 65498,
+      "sha256": "967692c8c401373e842a79846d8bd398513dcec9b4b399567caaa08228a0cfcc",
+      "gitBlobSha": "f3dde8b134d0d20ded5c28467a0c7b9b5d960846",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/proof/checkpoint794-receipt.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/proof/frozen88-seal.json",
+      "bytes": 991,
+      "sha256": "a3c3db84d76fefc28e46cc0f18bb3476edd17c836c90cd9eca5e12d0bc177111",
+      "gitBlobSha": "827f3609a724ff17826a56cf18a73e595117de37",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/proof/frozen88-seal.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/proof/frozen88-verification.json",
+      "bytes": 1125,
+      "sha256": "b843faf748882757ba658db0d8130bed03113fc618ad720818c13977fd3f3d4d",
+      "gitBlobSha": "8c195b9eaa645efab5732d0e743c7c3c9a9bd49d",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/proof/frozen88-verification.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/proof/full-package-decode-verification.json",
+      "bytes": 764,
+      "sha256": "f3dda61399b8121dac22fbf7925e58389150a11b3140125b3c0a64231791fd1a",
+      "gitBlobSha": "6fd6274fd2595a8307454c3eac45aa399adefdac",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/proof/full-package-decode-verification.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/proof/public86-to88-delta.json",
+      "bytes": 2669,
+      "sha256": "735d16e9ec25c6b46d1b4125734c85ffa8a9caf39dc1987784529d997ab40d85",
+      "gitBlobSha": "9f593abe6268ba2e0680dabdf8cc0fc56a130406",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/proof/public86-to88-delta.json"
+    },
+    {
+      "path": "delivery/narration88-20261005/validate_delta.py",
+      "bytes": 7779,
+      "sha256": "c4398ad08cf7485146015a088b06ea56934aa30ea5ff06ce93e8ea0679552989",
+      "gitBlobSha": "8f093a9e8636756296219241eee70c70732380c0",
+      "sourceArchive": "tts88-consumer-transfer-20261005/HAPIL-frozen88-delta-20261005.zip",
+      "sourceMember": "HAPIL-frozen88-delta/validate_delta.py"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1a08-atlas.png",
+      "bytes": 2371695,
+      "sha256": "07ee5ea3fa82ba456ac1abb0fba5605d13cba1d76c1baf240ba456bdc43092fe",
+      "gitBlobSha": "9df2c1bed1477c703c14fbfadcc781f1c6bfe22d",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1a08-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1a09-atlas.png",
+      "bytes": 1864408,
+      "sha256": "2b91903a6bd8696ceed1b9b94797e748752c13b3562f9ec9feae3914ecb40727",
+      "gitBlobSha": "f033962d0623597e3cc5d38480a2e6ddfe6ba3c4",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1a09-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1a10-atlas.png",
+      "bytes": 2047455,
+      "sha256": "3a081357f854229dbf18d1fae7b895a5a49b1a68c3a4a6cd518fa0736319b502",
+      "gitBlobSha": "c240eba061ce58a33f6b1df26820f34a14b8f329",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1a10-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1a11-atlas-v2.png",
+      "bytes": 2365867,
+      "sha256": "f8106a04b8efa6c4ba3542a9af25660180b60905252d2a8b5b97755eee58b488",
+      "gitBlobSha": "a27d7dfb2ad0a3f1ea4cec7fc379417f44b0393d",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1a11-atlas-v2.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b01-atlas.png",
+      "bytes": 2097909,
+      "sha256": "f1efddb527be230c87c97db1b6466d9098d80c46be31bcd17e9967f21769ce76",
+      "gitBlobSha": "b67d0046464d46369521e8b9e88297132c1149ab",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b01-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b02-atlas.png",
+      "bytes": 1946124,
+      "sha256": "76706d1e65c1cd4c68b3a83d190f4c10087c2152e4bb222a2b39b66d90fc206e",
+      "gitBlobSha": "f11b009c383f20e816ce39c3971b5c2768e8463b",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b02-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b03-atlas-v2.png",
+      "bytes": 1961083,
+      "sha256": "d3cb157ed0c268cea3c66642f3e543bfc68f17de3cecfb40091bb09eeed0022a",
+      "gitBlobSha": "490c53d59f55d61b9bbfe33f9909fdd34aaf9f7d",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b03-atlas-v2.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b04-atlas.png",
+      "bytes": 2062810,
+      "sha256": "233b0302858db4f34ec435b6b0165314bbf2fb7fe8cd3466d8193f54a07afa52",
+      "gitBlobSha": "fd380eb5309d2ecad3803adf957e9dc413110f98",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b04-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b05-atlas.png",
+      "bytes": 1950702,
+      "sha256": "e69015879f3e31bc5eb8ac46a07f73ba3835ac01ca04401e4f61cf21a58ebe92",
+      "gitBlobSha": "f74ba15f7d55bf4d2cc8ae1e9be70a43deddfa2e",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b05-atlas.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b06-atlas-v2.png",
+      "bytes": 1834742,
+      "sha256": "d57a1bcbe607bef74adf78001e56b660d574f1065cdfa3e62154316f87717e3c",
+      "gitBlobSha": "f1f50910eff54c5274bb25cf7b62fbeec25a7f47",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b06-atlas-v2.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/mb-ep1b06b-atlas-v2.png",
+      "bytes": 1724277,
+      "sha256": "18c3f0b556cbf614856446c85df4b8bfa4c7452a0ad5a11dbf87cf72a16ebbdf",
+      "gitBlobSha": "79f9b907bc4df000591661c04472ca013b302772",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "mb-ep1b06b-atlas-v2.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/episode/manifest.json",
+      "bytes": 40194,
+      "sha256": "0dc7dab0cbefd645c8efd2960894102af74a86b120aeb7785615604c769b9d2d",
+      "gitBlobSha": "654b30f23b304a8558bf62a9ca5dbfd3fbb7d02a",
+      "sourceArchive": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sourceMember": "manifest.json"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-ep1b07.png",
+      "bytes": 1201170,
+      "sha256": "bd52dc1adf3b69b6d1c2e6f6c122cc6f1f36a6df46ab3cc26b7f99b6f3b89629",
+      "gitBlobSha": "8d54285ec58e22e6cf60d7d98983b5b558748ae7",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-ep1b07.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-ep1b08.png",
+      "bytes": 1370446,
+      "sha256": "2d8a38f3d7fbb7315ddbfdeea9d7817ef41e1833aaf5b352753c0ff073f785b4",
+      "gitBlobSha": "0a9abb368563feab056892c33e02e3e4cb1a151b",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-ep1b08.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-ep1b09.png",
+      "bytes": 968286,
+      "sha256": "a7842f2602e58793fd20e6ec4745a137abcb73a27750fbcaf2ddeaac1a250ede",
+      "gitBlobSha": "3e86a9753ea0db18de29eb3da0e1b6b776643866",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-ep1b09.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/u201-mid.png",
+      "bytes": 1659560,
+      "sha256": "c68a766dee2cda53a61d82c5925f966df280a06dab51acf23d62770b7132d238",
+      "gitBlobSha": "5308bd0fe56684fe89f57becd876ecf275a0a39c",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/u201-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/u202-mid.png",
+      "bytes": 1162982,
+      "sha256": "2dae881d555a259288bcfe857d8fa32d3fe8fceb1b459326822c731fba6cc02e",
+      "gitBlobSha": "f35c66fa9566a7c5a5e688500d13e7c1b4a858c2",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/u202-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/u203-mid.png",
+      "bytes": 1174181,
+      "sha256": "ca61d11a547144d2221e49d4a1416271e9e74b8355952ae88259e4932127b8a6",
+      "gitBlobSha": "9e1a44ea4952238d94b732b8f1e80f1db1d6c501",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/u203-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-last302-v31231.png",
+      "bytes": 1278933,
+      "sha256": "5db0201941adc599d8df5675c9e627df0f397d1bc82e3014479b86ebb7155f01",
+      "gitBlobSha": "f6b29c46e90e79e6d22bbecfdc1a8cb315619b1a",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-last302-v31231.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-kair01-v31231.png",
+      "bytes": 1729440,
+      "sha256": "e196494c0874cd81cc05b349d7531998cb1d1d434d8d9d313a8deaae7ef99464",
+      "gitBlobSha": "e02446ab883c70780cdee571493a5889f9473712",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-kair01-v31231.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-hando01.png",
+      "bytes": 1685155,
+      "sha256": "6197bf1273dd20f004ca9d318165766546ccdcc6c6600d63028171d680641353",
+      "gitBlobSha": "6a895ba20ab21ebb0f1d55b1fc5e6bc969ad6216",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-hando01.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-hando02.png",
+      "bytes": 1740932,
+      "sha256": "280033709731dd357ec963f4eb101b240a46726a4b2b0435527be39e088e0c2d",
+      "gitBlobSha": "bbb9d7bcd47b9d36eb496c3c756247bf288af994",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-hando02.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-hando03.png",
+      "bytes": 1912754,
+      "sha256": "c1069205aa03a8e196a8def31a9663f74f8193df0cb9d046b0783462b05dcf5e",
+      "gitBlobSha": "772b6694d69a3012a43ecfaf9f26c0a1ed9d31f1",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-hando03.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-murder01.png",
+      "bytes": 1373556,
+      "sha256": "e2adc45edad73afb9edbef21d71a71ce1299c541d3898eb36c6e01d67fb481e0",
+      "gitBlobSha": "50abc0b351de4deed21e99382c6396752f7aa0fa",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-murder01.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-murder02.png",
+      "bytes": 1308810,
+      "sha256": "ef682d3d16ea7ee99723e51ae50123831a3a97cad20aa8ee3f7e7a2e895788d4",
+      "gitBlobSha": "d63fd46aa0b89a5fb1d3d39a6adb2e067562debf",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-murder02.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-murder03.png",
+      "bytes": 1608938,
+      "sha256": "ef5b404544f55be2e24a85ef6c180ccfc00398967e585ac813c9d6bfc576faa4",
+      "gitBlobSha": "dea2bf22384077b9fc49300cee8c85da9382e0dc",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-murder03.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/c101-mid.png",
+      "bytes": 1936283,
+      "sha256": "9d9aed9d1387151b8eb054fdcbdf44939a9fedcb48378f6422636d4b2f792200",
+      "gitBlobSha": "5815a5af8c045f51456d58bf3dea831e370a6f42",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/c101-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/c104-mid.png",
+      "bytes": 1624583,
+      "sha256": "9dac22ed00c5c9a138c0ed39b4849b1877dabe5af03d5ac44513d2c3093b95d5",
+      "gitBlobSha": "cfb67972d3f989cb68bd7fc16fa33cbf8bb826a1",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/c104-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/u206-mid.png",
+      "bytes": 1227321,
+      "sha256": "101ab5a8742368d192b585fe4a909ef39213f122bcbe5bee1d934b0838b1efa4",
+      "gitBlobSha": "2f8f01cdc6b5c59e7986f02b604682dd94d48dd2",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/u206-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/mb-kair04-v31231.png",
+      "bytes": 1093398,
+      "sha256": "bfd3db3fb200227082707a64298f2d08d618a6fec146569dc983aa575f68dafa",
+      "gitBlobSha": "413c837bee266f83215848f10fd37c7364a56c0b",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/mb-kair04-v31231.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/kair-great-05.png",
+      "bytes": 961184,
+      "sha256": "bd4cd22d481af0ce60f9d2c301a4e117cf7e154c47c52d7fd733b728963689f9",
+      "gitBlobSha": "2fc10690a78e6e27c2076486dd4156e1fcf55895",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/kair-great-05.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/murder04-mid.png",
+      "bytes": 1129757,
+      "sha256": "739c63c5d735bf5cae74907f30408ffc1208c8fafdb24bf8646ad8018549e30d",
+      "gitBlobSha": "38d959f3e18289c9ac5c7c1cd0d70d91fb0d7f8b",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/murder04-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/c105-mid.png",
+      "bytes": 1866762,
+      "sha256": "0821ab272748610fd7b4afbbe0490404ec889d70c47b8ef7efa6188649a919b5",
+      "gitBlobSha": "dc2c68ca9eade8b48e578aff5210fad2db4fbc3f",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/c105-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/output/c106-mid.png",
+      "bytes": 2391928,
+      "sha256": "75f19233170152193c19792a0837241528371ef47e08b46ba83ff8b9b52d5dd7",
+      "gitBlobSha": "bf4fb5d41e383145ae7cf9cbc17766616d5526dd",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/output/c106-mid.png"
+    },
+    {
+      "path": "delivery/midboss33-20261005/core/manifest.json",
+      "bytes": 66512,
+      "sha256": "5ef58ae58ee16a8431b4709b56440f6fd36d5976b764939ebb8add1287dfccc0",
+      "gitBlobSha": "72976fba38f399231d5a8a08227a3f260e7d262a",
+      "sourceArchive": "core_midboss_all22.zip",
+      "sourceMember": "core_midboss/manifest.json (essential mapping fields retained exactly)"
+    },
+    {
+      "path": "delivery/midboss33-20261005/identity-map.json",
+      "bytes": 15070,
+      "sha256": "8e5cbd2f6e2538024664d2fd0526ad400bfdbe32f1b1eec4b642043e3ab144ea",
+      "gitBlobSha": "9fe1a61af3c3d41f5bc491e1c781bb3acca8fe49",
+      "sourceArchive": null,
+      "sourceMember": null
+    },
+    {
+      "path": "delivery/midboss33-20261005/README.txt",
+      "bytes": 3290,
+      "sha256": "2965f464d02814a572c22dc50b758b33cf2a0df3d3764332f5fe50a01859dc54",
+      "gitBlobSha": "65cf0c778361a97ed6cb7910e1e5588872cfa61d",
+      "sourceArchive": null,
+      "sourceMember": null
+    }
+  ]
+}

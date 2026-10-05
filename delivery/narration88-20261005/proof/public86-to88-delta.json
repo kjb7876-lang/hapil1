@@ -1,0 +1,57 @@
+{
+  "baselinePublicManifestSha256": "2204f5c49e77ceda2cfb6411a2c0a8bd4238d52cfe44133928a642594afa4006",
+  "candidatePublicManifestSha256": "b8f1c2e9e6883c008b07bc5186f4edb1d2ca8eb7612f29af292d6920150935cc",
+  "activeBefore": 269,
+  "activeAfter": 279,
+  "retiredBefore": 14,
+  "retiredAfter": 16,
+  "addedAudioPaths": [
+    "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+    "assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+    "assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+    "assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+    "assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+    "assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+    "assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+    "assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+    "assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+    "assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+    "assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+    "assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3"
+  ],
+  "newlyRetiredAssetsPreserved": [
+    "audio/dist03-pre-98b8fb341f762758245daccb.mp3",
+    "audio/p-8e4df36eb396f0d9b66572c2.mp3"
+  ],
+  "addedRuntimeRoutes": [
+    "hando01:pre",
+    "journal:hando01:entry",
+    "journal:kair06:all",
+    "journal:kair06:body",
+    "journal:restKairo:all",
+    "journal:restKairo:body",
+    "journal:restKairo:entry",
+    "kair06:post"
+  ],
+  "changedRuntimeRoutes": [
+    "dist03:pre",
+    "journal:dist03:all",
+    "journal:dist03:entry"
+  ],
+  "minimalIntegrationDeltaPaths": [
+    "assets/story-narration/v1/audio/dist03-pre-f8875fb45764ee7e7edb2957.mp3",
+    "assets/story-narration/v1/audio/hando01-pre-fbdd14cc3cf05fae96a105f0.mp3",
+    "assets/story-narration/v1/audio/kair06-post-bf158be7b2fff09be9d96098.mp3",
+    "assets/story-narration/v1/audio/p-4a16ab0091e057f17d35552f.mp3",
+    "assets/story-narration/v1/audio/p-5d67a44eacc67efa94154af1.mp3",
+    "assets/story-narration/v1/audio/p-5e0f4f4e639c37c9d1bf6d5b.mp3",
+    "assets/story-narration/v1/audio/p-a5d59544ec4a9c04112154f7.mp3",
+    "assets/story-narration/v1/audio/p-a9d8a2dbb7aacf58fbe743b4.mp3",
+    "assets/story-narration/v1/audio/p-c09716d4ad080a6076e0e5a8.mp3",
+    "assets/story-narration/v1/audio/p-ce571fd82755c2bb35fda70e.mp3",
+    "assets/story-narration/v1/audio/p-de4207237483af374322a0d9.mp3",
+    "assets/story-narration/v1/audio/p-fafcd98ab7d2bf8e8e32adb6.mp3",
+    "assets/story-narration/v1/manifest.json"
+  ],
+  "allHistoricalAssetsRetained": true
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "hapil-frozen88-local-seal-v1",
+  "canonicalReleaseRoot": "/workspace/scratch/344e17fbf410/hapil_story_audio/releases/reviewed-88-20261005-0421",
+  "manifestSha256": "9fafa62348396a56d8d12a3a6c7d15e9e3186f2904cd613539c1daaa0ddc863e",
+  "bindingsSha256": "a19d99f020c6c1ca22deca39265f9a5b80fc2f725d7857842bd5886236617d3a",
+  "copyPlanSha256": "5f62a56e326a112fc9715b5f3efa1248314459248e062e221be5cadfd25f0119",
+  "preparationScriptHashes": {
+    "freeze_common.py": "253891e5d3400204cc7efb15fcb99978ffbbd91bec4d04ea287955e8ee177f17",
+    "materialize_freeze.py": "b0b0aa58e3bca2d942d3ebe22ae3ec5b95af7297915949dc2ab8c3ea4cef78bd",
+    "verify_freeze.py": "2fce9071d49d3eb861c86c1f9a69d33dd08f701e890ddc63c25054aff8cf890f"
+  },
+  "readinessSha256": "879d2407362a478363ed931a53487b561b23963aa4afab3b6ad1cbea07ab1782",
+  "preparationSealSha256": "b2dd60c3a3fcc11016322bc7f2f042544ec584312bd0dc6f8f2d37fb8f72f528",
+  "publicationHold": true,
+  "verifiedFrozenBackupPending": true
+}

@@ -1,0 +1,2514 @@
+{
+  "schema": "hapil-imagegen-motion-atlases-v1",
+  "count": 22,
+  "aliases": {
+    "u205-mid": "u201-mid",
+    "u204-mid": "u202-mid"
+  },
+  "notes": [
+    "Original generated pixels untouched; only file copy performed.",
+    "Cell bounds are measured transparent-gutter splits, not equal thirds.",
+    "Engine integration must normalize common anatomical pivot/scale; provisional pivots are not runtime-ready.",
+    "All 22 source SHA256 hashes matched pinned roster; all input pixels inspected before generation."
+  ],
+  "assets": [
+    {
+      "id": "mb-ep1b07",
+      "source": {
+        "identity": "mb-ep1b07",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp",
+          "exists": true,
+          "sha256": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+          "repoPath": "assets/generated-v31224/actors-normalized/b30f4a94acb6_hotel_flame_knight.webp"
+        },
+        "routes": [
+          {
+            "zone": "ep1b07",
+            "name": "호텔 화염기사",
+            "id": "mb-ep1b07",
+            "arc": "EP1B"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "9e7c77ace266161bd577d7a5058ad665e72f894b472a5061b65cf1f2d43041b9",
+      "outputSha256": "bd52dc1adf3b69b6d1c2e6f6c122cc6f1f36a6df46ab3cc26b7f99b6f3b89629",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.7214065504715973,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            660,
+            724
+          ],
+          "alphaBounds": [
+            100,
+            92,
+            494,
+            675
+          ],
+          "provisionalPivot": [
+            297.0,
+            675
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            660,
+            0,
+            718,
+            724
+          ],
+          "alphaBounds": [
+            873,
+            46,
+            1257,
+            662
+          ],
+          "provisionalPivot": [
+            1065.0,
+            662
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1378,
+            0,
+            794,
+            724
+          ],
+          "alphaBounds": [
+            1567,
+            210,
+            2129,
+            647
+          ],
+          "provisionalPivot": [
+            1848.0,
+            647
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-ep1b07.png"
+    },
+    {
+      "id": "mb-ep1b08",
+      "source": {
+        "identity": "mb-ep1b08",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp",
+          "exists": true,
+          "sha256": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+          "repoPath": "assets/generated-v31224/actors-normalized/f02422d95ccb_ep1b08_pride_zombie.webp"
+        },
+        "routes": [
+          {
+            "zone": "ep1b08",
+            "name": "역십자가 시체경호체",
+            "id": "mb-ep1b08",
+            "arc": "EP1B"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "ca88c3d22ea61fc81c89dd6ae1665d606137961b393b3077ec5b4f9514bbf28e",
+      "outputSha256": "2d8a38f3d7fbb7315ddbfdeea9d7817ef41e1833aaf5b352753c0ff073f785b4",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.67343665740769,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            644,
+            724
+          ],
+          "alphaBounds": [
+            136,
+            15,
+            546,
+            681
+          ],
+          "provisionalPivot": [
+            341.0,
+            681
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            644,
+            0,
+            740,
+            724
+          ],
+          "alphaBounds": [
+            742,
+            120,
+            1355,
+            667
+          ],
+          "provisionalPivot": [
+            1048.5,
+            667
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1384,
+            0,
+            788,
+            724
+          ],
+          "alphaBounds": [
+            1413,
+            86,
+            2139,
+            672
+          ],
+          "provisionalPivot": [
+            1776.0,
+            672
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-ep1b08.png"
+    },
+    {
+      "id": "mb-ep1b09",
+      "source": {
+        "identity": "mb-ep1b09",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp",
+          "exists": true,
+          "sha256": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+          "repoPath": "assets/generated-v31224/actors-normalized/81909f0b3692_ascension_calculation_orb.webp"
+        },
+        "routes": [
+          {
+            "zone": "ep1b09",
+            "name": "생체부트로더 연산핵",
+            "id": "mb-ep1b09",
+            "arc": "EP1B"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "8a208029448df7df223495594526e0623ede8a4c7b6b59bf2c08480616a807f0",
+      "outputSha256": "a7842f2602e58793fd20e6ec4745a137abcb73a27750fbcaf2ddeaac1a250ede",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.7814487246014061,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            750,
+            724
+          ],
+          "alphaBounds": [
+            267,
+            137,
+            680,
+            570
+          ],
+          "provisionalPivot": [
+            473.5,
+            570
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            750,
+            0,
+            667,
+            724
+          ],
+          "alphaBounds": [
+            879,
+            128,
+            1344,
+            592
+          ],
+          "provisionalPivot": [
+            1111.5,
+            592
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1417,
+            0,
+            755,
+            724
+          ],
+          "alphaBounds": [
+            1491,
+            99,
+            2044,
+            587
+          ],
+          "provisionalPivot": [
+            1767.5,
+            587
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-ep1b09.png"
+    },
+    {
+      "id": "u201-mid",
+      "source": {
+        "identity": "u201-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp",
+          "exists": true,
+          "sha256": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+          "repoPath": "assets/generated-v31224/actors-normalized/838c3c4440d1_u2_suppression_knight.webp"
+        },
+        "routes": [
+          {
+            "zone": "u201",
+            "name": "제4단계 전쟁관리자",
+            "id": "u201-mid",
+            "arc": "U2"
+          },
+          {
+            "zone": "u205",
+            "name": "제14단계 역전 관리자",
+            "id": "u205-mid",
+            "arc": "U2"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "de51faaa3b22720d2b95e2b4019ef619637bea513348bbf7d471f7bf7b675779",
+      "outputSha256": "c68a766dee2cda53a61d82c5925f966df280a06dab51acf23d62770b7132d238",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6416769685500036,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            683,
+            724
+          ],
+          "alphaBounds": [
+            77,
+            112,
+            600,
+            685
+          ],
+          "provisionalPivot": [
+            338.5,
+            685
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            683,
+            0,
+            611,
+            724
+          ],
+          "alphaBounds": [
+            766,
+            31,
+            1285,
+            682
+          ],
+          "provisionalPivot": [
+            1025.5,
+            682
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1294,
+            0,
+            878,
+            724
+          ],
+          "alphaBounds": [
+            1303,
+            198,
+            2159,
+            676
+          ],
+          "provisionalPivot": [
+            1731.0,
+            676
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/u201-mid.png"
+    },
+    {
+      "id": "u202-mid",
+      "source": {
+        "identity": "u202-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp",
+          "exists": true,
+          "sha256": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+          "repoPath": "assets/generated-v31224/actors-normalized/8e86a4cadfc7_u2_mirror_priest.webp"
+        },
+        "routes": [
+          {
+            "zone": "u202",
+            "name": "제8단계 자비 교정관",
+            "id": "u202-mid",
+            "arc": "U2"
+          },
+          {
+            "zone": "u204",
+            "name": "제12단계 기억 검열기",
+            "id": "u204-mid",
+            "arc": "U2"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "0b35d983820e4d90db80cd664b21084ebb509d81ef4bc7c8fd3e4ad5fc001734",
+      "outputSha256": "2dae881d555a259288bcfe857d8fa32d3fe8fceb1b459326822c731fba6cc02e",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.736966209822655,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            638,
+            724
+          ],
+          "alphaBounds": [
+            190,
+            146,
+            525,
+            649
+          ],
+          "provisionalPivot": [
+            357.5,
+            649
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            638,
+            0,
+            677,
+            724
+          ],
+          "alphaBounds": [
+            752,
+            124,
+            1276,
+            649
+          ],
+          "provisionalPivot": [
+            1014.0,
+            649
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1315,
+            0,
+            857,
+            724
+          ],
+          "alphaBounds": [
+            1354,
+            199,
+            2137,
+            649
+          ],
+          "provisionalPivot": [
+            1745.5,
+            649
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/u202-mid.png"
+    },
+    {
+      "id": "u203-mid",
+      "source": {
+        "identity": "u203-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp",
+          "exists": true,
+          "sha256": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+          "repoPath": "assets/generated-v31224/actors-normalized/85f150dbf0f7_controller_guardian.webp"
+        },
+        "routes": [
+          {
+            "zone": "u203",
+            "name": "기억의 문 수호 프레임",
+            "id": "u203-mid",
+            "arc": "U2"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "0ba5ea7e8b1defd7e488e790c940c8f8f6310732fbef6411f4d87e2615f283f4",
+      "outputSha256": "ca61d11a547144d2221e49d4a1416271e9e74b8355952ae88259e4932127b8a6",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.733293143269945,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            680,
+            724
+          ],
+          "alphaBounds": [
+            165,
+            98,
+            565,
+            650
+          ],
+          "provisionalPivot": [
+            365.0,
+            650
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            680,
+            0,
+            718,
+            724
+          ],
+          "alphaBounds": [
+            796,
+            162,
+            1318,
+            654
+          ],
+          "provisionalPivot": [
+            1057.0,
+            654
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1398,
+            0,
+            774,
+            724
+          ],
+          "alphaBounds": [
+            1478,
+            151,
+            2122,
+            652
+          ],
+          "provisionalPivot": [
+            1800.0,
+            652
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/u203-mid.png"
+    },
+    {
+      "id": "mb-last302-v31231",
+      "source": {
+        "identity": "mb-last302-v31231",
+        "reference": {
+          "path": "assets/episode1b/generated-v394/bulmyeongwi_b.webp",
+          "exists": true,
+          "sha256": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+          "repoPath": "assets/episode1b/generated-v394/bulmyeongwi_b.webp"
+        },
+        "routes": [
+          {
+            "zone": "last302",
+            "name": "검은 안개 심장 · 불면의 기억",
+            "id": "mb-last302-v31231",
+            "arc": "LAST3"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "6f07cc384033e310ae7560aed90e8f79e71127e61ed26f0f9362b52bec43ffc3",
+      "outputSha256": "5db0201941adc599d8df5675c9e627df0f397d1bc82e3014479b86ebb7155f01",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6367072637180388,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            714,
+            724
+          ],
+          "alphaBounds": [
+            208,
+            85,
+            609,
+            671
+          ],
+          "provisionalPivot": [
+            408.5,
+            671
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            714,
+            0,
+            642,
+            724
+          ],
+          "alphaBounds": [
+            823,
+            148,
+            1302,
+            670
+          ],
+          "provisionalPivot": [
+            1062.5,
+            670
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1356,
+            0,
+            816,
+            724
+          ],
+          "alphaBounds": [
+            1410,
+            86,
+            2169,
+            675
+          ],
+          "provisionalPivot": [
+            1789.5,
+            675
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-last302-v31231.png"
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "source": {
+        "identity": "mb-kair01-v31231",
+        "reference": {
+          "path": "assets/kair/enemies/resonance-slave.png",
+          "exists": true,
+          "sha256": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+          "repoPath": "assets/kair/enemies/resonance-slave.png"
+        },
+        "routes": [
+          {
+            "zone": "kair01",
+            "name": "최초명령 코어 오염체",
+            "id": "mb-kair01-v31231",
+            "arc": "KAIRO"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "b5b9b0686105fdd7ed404c4d81255b107a9fca43ce6332d82f3a571be6186f36",
+      "outputSha256": "e196494c0874cd81cc05b349d7531998cb1d1d434d8d9d313a8deaae7ef99464",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.5743541609433982,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            726,
+            724
+          ],
+          "alphaBounds": [
+            141,
+            134,
+            652,
+            647
+          ],
+          "provisionalPivot": [
+            396.5,
+            647
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            726,
+            0,
+            675,
+            724
+          ],
+          "alphaBounds": [
+            801,
+            110,
+            1350,
+            649
+          ],
+          "provisionalPivot": [
+            1075.5,
+            649
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1401,
+            0,
+            771,
+            724
+          ],
+          "alphaBounds": [
+            1453,
+            128,
+            2166,
+            649
+          ],
+          "provisionalPivot": [
+            1809.5,
+            649
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-kair01-v31231.png"
+    },
+    {
+      "id": "mb-hando01",
+      "source": {
+        "identity": "mb-hando01",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp",
+          "exists": true,
+          "sha256": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+          "repoPath": "assets/generated-v31224/actors-normalized/c5f90d9ed1ee_return_coordinate_devourer.webp"
+        },
+        "routes": [
+          {
+            "zone": "hando01",
+            "name": "의존 신호 포식자",
+            "id": "mb-hando01",
+            "arc": "HANDO"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "2d5a331abbc2f5de8e27674a36c7ee365fae12f1331e695f57f204740f1d2534",
+      "outputSha256": "6197bf1273dd20f004ca9d318165766546ccdcc6c6600d63028171d680641353",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6196093169724164,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            719,
+            724
+          ],
+          "alphaBounds": [
+            146,
+            183,
+            619,
+            647
+          ],
+          "provisionalPivot": [
+            382.5,
+            647
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            719,
+            0,
+            690,
+            724
+          ],
+          "alphaBounds": [
+            855,
+            201,
+            1318,
+            646
+          ],
+          "provisionalPivot": [
+            1086.5,
+            646
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1409,
+            0,
+            763,
+            724
+          ],
+          "alphaBounds": [
+            1526,
+            133,
+            2098,
+            647
+          ],
+          "provisionalPivot": [
+            1812.0,
+            647
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-hando01.png"
+    },
+    {
+      "id": "mb-hando02",
+      "source": {
+        "identity": "mb-hando02",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp",
+          "exists": true,
+          "sha256": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+          "repoPath": "assets/generated-v31224/actors-normalized/458e99f2058e_order_seal_officer.webp"
+        },
+        "routes": [
+          {
+            "zone": "hando02",
+            "name": "코어 운반 집행자",
+            "id": "mb-hando02",
+            "arc": "HANDO"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "e6de0d69441272806870236b5769139680b73326198fdeab18ce2a87c7e97baa",
+      "outputSha256": "280033709731dd357ec963f4eb101b240a46726a4b2b0435527be39e088e0c2d",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.5808659686822747,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            720,
+            724
+          ],
+          "alphaBounds": [
+            178,
+            120,
+            620,
+            660
+          ],
+          "provisionalPivot": [
+            399.0,
+            660
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            720,
+            0,
+            670,
+            724
+          ],
+          "alphaBounds": [
+            830,
+            159,
+            1301,
+            662
+          ],
+          "provisionalPivot": [
+            1065.5,
+            662
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1390,
+            0,
+            782,
+            724
+          ],
+          "alphaBounds": [
+            1479,
+            155,
+            2138,
+            662
+          ],
+          "provisionalPivot": [
+            1808.5,
+            662
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-hando02.png"
+    },
+    {
+      "id": "mb-hando03",
+      "source": {
+        "identity": "mb-hando03",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp",
+          "exists": true,
+          "sha256": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+          "repoPath": "assets/generated-v31224/actors-normalized/6f957d283d31_phantom_reclaim_blade.webp"
+        },
+        "routes": [
+          {
+            "zone": "hando03",
+            "name": "환수검 모조체",
+            "id": "mb-hando03",
+            "arc": "HANDO"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "38d5a1daa818ce8e9274ec3d48a727406552f1596742b0af85410f5ce50dc367",
+      "outputSha256": "c1069205aa03a8e196a8def31a9663f74f8193df0cb9d046b0783462b05dcf5e",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.5404533337403213,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            688,
+            724
+          ],
+          "alphaBounds": [
+            100,
+            100,
+            582,
+            627
+          ],
+          "provisionalPivot": [
+            341.0,
+            627
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            688,
+            0,
+            655,
+            724
+          ],
+          "alphaBounds": [
+            794,
+            111,
+            1288,
+            625
+          ],
+          "provisionalPivot": [
+            1041.0,
+            625
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1343,
+            0,
+            829,
+            724
+          ],
+          "alphaBounds": [
+            1399,
+            105,
+            2135,
+            625
+          ],
+          "provisionalPivot": [
+            1767.0,
+            625
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-hando03.png"
+    },
+    {
+      "id": "mb-murder01",
+      "source": {
+        "identity": "mb-murder01",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp",
+          "exists": true,
+          "sha256": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+          "repoPath": "assets/generated-v31224/actors-normalized/83e3f3bd00f9_rain_witness.webp"
+        },
+        "routes": [
+          {
+            "zone": "murder01",
+            "name": "파란불 역주행 목격자",
+            "id": "mb-murder01",
+            "arc": "MURDER"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "d24169c3e2b97b73e6fb5ffe5d700d488fc850ab5ac4ec3262f9442e5bac4c8e",
+      "outputSha256": "e2adc45edad73afb9edbef21d71a71ce1299c541d3898eb36c6e01d67fb481e0",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6738277474232574,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            649,
+            724
+          ],
+          "alphaBounds": [
+            207,
+            33,
+            550,
+            673
+          ],
+          "provisionalPivot": [
+            378.5,
+            673
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            649,
+            0,
+            663,
+            724
+          ],
+          "alphaBounds": [
+            749,
+            106,
+            1254,
+            668
+          ],
+          "provisionalPivot": [
+            1001.5,
+            668
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1312,
+            0,
+            860,
+            724
+          ],
+          "alphaBounds": [
+            1371,
+            135,
+            2145,
+            666
+          ],
+          "provisionalPivot": [
+            1758.0,
+            666
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-murder01.png"
+    },
+    {
+      "id": "mb-murder02",
+      "source": {
+        "identity": "mb-murder02",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp",
+          "exists": true,
+          "sha256": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+          "repoPath": "assets/generated-v31224/actors-normalized/2bb588948301_hotel_clerk.webp"
+        },
+        "routes": [
+          {
+            "zone": "murder02",
+            "name": "공실장부 당직감사",
+            "id": "mb-murder02",
+            "arc": "MURDER"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "ce724b68699d53514b7e69864aba35e1c331f624d5823b083b8d4dbef7ca6c98",
+      "outputSha256": "ef682d3d16ea7ee99723e51ae50123831a3a97cad20aa8ee3f7e7a2e895788d4",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6728458889126299,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            626,
+            724
+          ],
+          "alphaBounds": [
+            146,
+            17,
+            510,
+            684
+          ],
+          "provisionalPivot": [
+            328.0,
+            684
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            626,
+            0,
+            715,
+            724
+          ],
+          "alphaBounds": [
+            742,
+            82,
+            1268,
+            678
+          ],
+          "provisionalPivot": [
+            1005.0,
+            678
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1341,
+            0,
+            831,
+            724
+          ],
+          "alphaBounds": [
+            1415,
+            116,
+            2152,
+            669
+          ],
+          "provisionalPivot": [
+            1783.5,
+            669
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-murder02.png"
+    },
+    {
+      "id": "mb-murder03",
+      "source": {
+        "identity": "mb-murder03",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp",
+          "exists": true,
+          "sha256": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+          "repoPath": "assets/generated-v31224/actors-normalized/570df4477372_rooftop_echo.webp"
+        },
+        "routes": [
+          {
+            "zone": "murder03",
+            "name": "옥상 인과보관인",
+            "id": "mb-murder03",
+            "arc": "MURDER"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "c579eea8ea120ced3c6598993c8909ec71368ecce807ede1c916b17d930f9719",
+      "outputSha256": "ef5b404544f55be2e24a85ef6c180ccfc00398967e585ac813c9d6bfc576faa4",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6203927688409999,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            643,
+            724
+          ],
+          "alphaBounds": [
+            88,
+            55,
+            621,
+            682
+          ],
+          "provisionalPivot": [
+            354.5,
+            682
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            643,
+            0,
+            708,
+            724
+          ],
+          "alphaBounds": [
+            665,
+            133,
+            1320,
+            678
+          ],
+          "provisionalPivot": [
+            992.5,
+            678
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1351,
+            0,
+            821,
+            724
+          ],
+          "alphaBounds": [
+            1382,
+            31,
+            2150,
+            669
+          ],
+          "provisionalPivot": [
+            1766.0,
+            669
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-murder03.png"
+    },
+    {
+      "id": "c101-mid",
+      "source": {
+        "identity": "c101-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp",
+          "exists": true,
+          "sha256": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+          "repoPath": "assets/generated-v31224/actors-normalized/1fc9834a3db7_c101_rose_guardian.webp"
+        },
+        "routes": [
+          {
+            "zone": "cult01",
+            "name": "칩 제단 방화벽",
+            "id": "c101-mid",
+            "arc": "CULT"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "7a9955b02999e3de3bc5a56fbf4d0deaf0eeecb603ee9a86a3a61cea3248e674",
+      "outputSha256": "9d9aed9d1387151b8eb054fdcbdf44939a9fedcb48378f6422636d4b2f792200",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.5179392672181354,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            661,
+            724
+          ],
+          "alphaBounds": [
+            118,
+            60,
+            613,
+            670
+          ],
+          "provisionalPivot": [
+            365.5,
+            670
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            661,
+            0,
+            646,
+            724
+          ],
+          "alphaBounds": [
+            709,
+            127,
+            1284,
+            667
+          ],
+          "provisionalPivot": [
+            996.5,
+            667
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1307,
+            0,
+            865,
+            724
+          ],
+          "alphaBounds": [
+            1331,
+            52,
+            2159,
+            663
+          ],
+          "provisionalPivot": [
+            1745.0,
+            663
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/c101-mid.png"
+    },
+    {
+      "id": "c104-mid",
+      "source": {
+        "identity": "c104-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp",
+          "exists": true,
+          "sha256": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+          "repoPath": "assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp"
+        },
+        "routes": [
+          {
+            "zone": "cult04",
+            "name": "적그리스도 배양좌",
+            "id": "c104-mid",
+            "arc": "CULT"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "20e1eca4e8327c1a69b3dc96eecf77e5002a5fe188693d75f7f8705fe891fabf",
+      "outputSha256": "9dac22ed00c5c9a138c0ed39b4849b1877dabe5af03d5ac44513d2c3093b95d5",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.5333113305454656,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            721,
+            724
+          ],
+          "alphaBounds": [
+            189,
+            123,
+            623,
+            633
+          ],
+          "provisionalPivot": [
+            406.0,
+            633
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            721,
+            0,
+            661,
+            724
+          ],
+          "alphaBounds": [
+            831,
+            148,
+            1300,
+            626
+          ],
+          "provisionalPivot": [
+            1065.5,
+            626
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1382,
+            0,
+            790,
+            724
+          ],
+          "alphaBounds": [
+            1464,
+            145,
+            2117,
+            623
+          ],
+          "provisionalPivot": [
+            1790.5,
+            623
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/c104-mid.png"
+    },
+    {
+      "id": "u206-mid",
+      "source": {
+        "identity": "u206-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp",
+          "exists": true,
+          "sha256": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+          "repoPath": "assets/generated-v31224/actors-normalized/4f26454d8ae2_enemy_void_core.webp"
+        },
+        "routes": [
+          {
+            "zone": "u206",
+            "name": "제17단계 중앙이주 코어",
+            "id": "u206-mid",
+            "arc": "U2"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "5bd4bd0886ac5944689ac57f1a06611a998eda744085c571c0854658eede35ce",
+      "outputSha256": "101ab5a8742368d192b585fe4a909ef39213f122bcbe5bee1d934b0838b1efa4",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.6400032304671205,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            680,
+            724
+          ],
+          "alphaBounds": [
+            145,
+            201,
+            589,
+            602
+          ],
+          "provisionalPivot": [
+            367.0,
+            602
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            680,
+            0,
+            748,
+            724
+          ],
+          "alphaBounds": [
+            771,
+            163,
+            1357,
+            595
+          ],
+          "provisionalPivot": [
+            1064.0,
+            595
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1428,
+            0,
+            744,
+            724
+          ],
+          "alphaBounds": [
+            1517,
+            168,
+            2132,
+            602
+          ],
+          "provisionalPivot": [
+            1824.5,
+            602
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/u206-mid.png"
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "source": {
+        "identity": "mb-kair04-v31231",
+        "reference": {
+          "path": "assets/generated-v3125/kair-guardians/guardian_50.webp",
+          "exists": true,
+          "sha256": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+          "repoPath": "assets/generated-v3125/kair-guardians/guardian_50.webp"
+        },
+        "routes": [
+          {
+            "zone": "kair04",
+            "name": "휴식 수확관 · 과로의 수문장",
+            "id": "mb-kair04-v31231",
+            "arc": "KAIRO"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "8395fb454c814c0214078b768a2700ef78244e447eb63de0cd6090a04a22d3e8",
+      "outputSha256": "bfd3db3fb200227082707a64298f2d08d618a6fec146569dc983aa575f68dafa",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.737911820965986,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            681,
+            724
+          ],
+          "alphaBounds": [
+            219,
+            195,
+            542,
+            598
+          ],
+          "provisionalPivot": [
+            380.5,
+            598
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            681,
+            0,
+            686,
+            724
+          ],
+          "alphaBounds": [
+            852,
+            125,
+            1259,
+            598
+          ],
+          "provisionalPivot": [
+            1055.5,
+            598
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1367,
+            0,
+            805,
+            724
+          ],
+          "alphaBounds": [
+            1475,
+            210,
+            2144,
+            598
+          ],
+          "provisionalPivot": [
+            1809.5,
+            598
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/mb-kair04-v31231.png"
+    },
+    {
+      "id": "kair-great-05",
+      "source": {
+        "identity": "kair-great-05",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp",
+          "exists": true,
+          "sha256": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+          "repoPath": "assets/generated-v31224/actors-normalized/ba23b5fa3237_great_05.webp"
+        },
+        "routes": [
+          {
+            "zone": "kair08",
+            "name": "대수문장 05",
+            "id": "kair-great-05",
+            "arc": "KAIRO"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "2cf27183ba49eb49ab28f78d4ae69ca2dfc4d0464f173f76c1c4bac314b0c549",
+      "outputSha256": "bd4cd22d481af0ce60f9d2c301a4e117cf7e154c47c52d7fd733b728963689f9",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.7585384807138569,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            680,
+            724
+          ],
+          "alphaBounds": [
+            182,
+            187,
+            541,
+            566
+          ],
+          "provisionalPivot": [
+            361.5,
+            566
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            680,
+            0,
+            705,
+            724
+          ],
+          "alphaBounds": [
+            877,
+            196,
+            1270,
+            575
+          ],
+          "provisionalPivot": [
+            1073.5,
+            575
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1385,
+            0,
+            787,
+            724
+          ],
+          "alphaBounds": [
+            1519,
+            180,
+            2109,
+            579
+          ],
+          "provisionalPivot": [
+            1814.0,
+            579
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/kair-great-05.png"
+    },
+    {
+      "id": "murder04-mid",
+      "source": {
+        "identity": "murder04-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp",
+          "exists": true,
+          "sha256": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+          "repoPath": "assets/generated-v31224/actors-normalized/0c66fa2bfd51_silent_alarm.webp"
+        },
+        "routes": [
+          {
+            "zone": "murder04",
+            "name": "진술 봉쇄 인과핵",
+            "id": "murder04-mid",
+            "arc": "MURDER"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "599fae47f6b4ba5b757eea3d307b263b52d247bcfc46b537f980276d2eb16faa",
+      "outputSha256": "739c63c5d735bf5cae74907f30408ffc1208c8fafdb24bf8646ad8018549e30d",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.7396599615396355,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            560,
+            724
+          ],
+          "alphaBounds": [
+            91,
+            132,
+            500,
+            610
+          ],
+          "provisionalPivot": [
+            295.5,
+            610
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            560,
+            0,
+            679,
+            724
+          ],
+          "alphaBounds": [
+            620,
+            160,
+            1209,
+            623
+          ],
+          "provisionalPivot": [
+            914.5,
+            623
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1239,
+            0,
+            933,
+            724
+          ],
+          "alphaBounds": [
+            1270,
+            139,
+            2138,
+            600
+          ],
+          "provisionalPivot": [
+            1704.0,
+            600
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/murder04-mid.png"
+    },
+    {
+      "id": "c105-mid",
+      "source": {
+        "identity": "c105-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp",
+          "exists": true,
+          "sha256": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+          "repoPath": "assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp"
+        },
+        "routes": [
+          {
+            "zone": "cult05",
+            "name": "ID 생체조 관리자",
+            "id": "c105-mid",
+            "arc": "CULT"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "d31291028d0333ae307b8cbccc546fd2626a22cd7b7316ba15fd39cbe475830a",
+      "outputSha256": "0821ab272748610fd7b4afbbe0490404ec889d70c47b8ef7efa6188649a919b5",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.5569566964785365,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            728,
+            724
+          ],
+          "alphaBounds": [
+            118,
+            113,
+            636,
+            635
+          ],
+          "provisionalPivot": [
+            377.0,
+            635
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            728,
+            0,
+            660,
+            724
+          ],
+          "alphaBounds": [
+            839,
+            83,
+            1322,
+            633
+          ],
+          "provisionalPivot": [
+            1080.5,
+            633
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1388,
+            0,
+            784,
+            724
+          ],
+          "alphaBounds": [
+            1455,
+            143,
+            2158,
+            634
+          ],
+          "provisionalPivot": [
+            1806.5,
+            634
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/c105-mid.png"
+    },
+    {
+      "id": "c106-mid",
+      "source": {
+        "identity": "c106-mid",
+        "reference": {
+          "path": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp",
+          "exists": true,
+          "sha256": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+          "repoPath": "assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp"
+        },
+        "routes": [
+          {
+            "zone": "cult06",
+            "name": "기계재판 집행핵",
+            "id": "c106-mid",
+            "arc": "CULT"
+          }
+        ],
+        "requiredMotions": [
+          "idle",
+          "anticipation",
+          "strike"
+        ]
+      },
+      "sourceSha256Verified": "958b9296a76f8d2452617f82a20917acf4b3aa5c13f8589cabe5df0366c4fece",
+      "outputSha256": "75f19233170152193c19792a0837241528371ef47e08b46ba83ff8b9b52d5dd7",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparentFraction": 0.456237981136107,
+      "edgeAlphaPixels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cutAlphaPixels": [
+        0,
+        0
+      ],
+      "cells": [
+        {
+          "motion": "idle",
+          "cellBounds": [
+            0,
+            0,
+            685,
+            724
+          ],
+          "alphaBounds": [
+            89,
+            63,
+            650,
+            652
+          ],
+          "provisionalPivot": [
+            369.5,
+            652
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "anticipation",
+          "cellBounds": [
+            685,
+            0,
+            643,
+            724
+          ],
+          "alphaBounds": [
+            720,
+            83,
+            1300,
+            656
+          ],
+          "provisionalPivot": [
+            1010.0,
+            656
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        },
+        {
+          "motion": "strike",
+          "cellBounds": [
+            1328,
+            0,
+            844,
+            724
+          ],
+          "alphaBounds": [
+            1357,
+            65,
+            2148,
+            662
+          ],
+          "provisionalPivot": [
+            1752.5,
+            662
+          ],
+          "pivotNote": "Bounding-box center baseline only; engine integration must establish anatomical pivot and common scale."
+        }
+      ],
+      "visualQA": "Source identity/style retained. Three genuinely articulated poses inspected. No outer-edge clipping in accepted image.",
+      "engineNormalizationRequired": true,
+      "generatedWith": "built-in image_gen__imagegen",
+      "sameIdentityFission": {
+        "Story": 2,
+        "Dream": 3
+      },
+      "file": "output/c106-mid.png"
+    }
+  ]
+}

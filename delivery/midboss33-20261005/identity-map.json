@@ -1,0 +1,530 @@
+{
+  "schema": "hapil-staged-midboss33-selection-v1",
+  "identityCount": 33,
+  "poseCount": 99,
+  "aliases": {
+    "u205-mid": "u201-mid",
+    "u204-mid": "u202-mid"
+  },
+  "assets": [
+    {
+      "identity": "mb-ep1a08",
+      "file": "episode/mb-ep1a08-atlas.png",
+      "sha256": "07ee5ea3fa82ba456ac1abb0fba5605d13cba1d76c1baf240ba456bdc43092fe",
+      "routes": [
+        {
+          "zone": "ep1a08",
+          "name": "백의 안정화 감독",
+          "id": "mb-ep1a08",
+          "arc": "DIST"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1a09",
+      "file": "episode/mb-ep1a09-atlas.png",
+      "sha256": "2b91903a6bd8696ceed1b9b94797e748752c13b3562f9ec9feae3914ecb40727",
+      "routes": [
+        {
+          "zone": "ep1a09",
+          "name": "갈망의 주사실 감시핵",
+          "id": "mb-ep1a09",
+          "arc": "DIST"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1a10",
+      "file": "episode/mb-ep1a10-atlas.png",
+      "sha256": "3a081357f854229dbf18d1fae7b895a5a49b1a68c3a4a6cd518fa0736319b502",
+      "routes": [
+        {
+          "zone": "ep1a10",
+          "name": "오만의 폐허핵",
+          "id": "mb-ep1a10",
+          "arc": "DIST"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "superseded-for-integration-by-360705f0"
+    },
+    {
+      "identity": "mb-ep1a11",
+      "file": "episode/mb-ep1a11-atlas-v2.png",
+      "sha256": "f8106a04b8efa6c4ba3542a9af25660180b60905252d2a8b5b97755eee58b488",
+      "routes": [
+        {
+          "zone": "ep1a11",
+          "name": "초천사의 웃는 가면",
+          "id": "mb-ep1a11",
+          "arc": "DIST"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b01",
+      "file": "episode/mb-ep1b01-atlas.png",
+      "sha256": "f1efddb527be230c87c97db1b6466d9098d80c46be31bcd17e9967f21769ce76",
+      "routes": [
+        {
+          "zone": "ep1b01",
+          "name": "교만의 잔향 · 제72문",
+          "id": "mb-ep1b01",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b02",
+      "file": "episode/mb-ep1b02-atlas.png",
+      "sha256": "76706d1e65c1cd4c68b3a83d190f4c10087c2152e4bb222a2b39b66d90fc206e",
+      "routes": [
+        {
+          "zone": "ep1b02",
+          "name": "나태의 껍데기 파수",
+          "id": "mb-ep1b02",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b03",
+      "file": "episode/mb-ep1b03-atlas-v2.png",
+      "sha256": "d3cb157ed0c268cea3c66642f3e543bfc68f17de3cecfb40091bb09eeed0022a",
+      "routes": [
+        {
+          "zone": "ep1b03",
+          "name": "금이 간 비교잔영",
+          "id": "mb-ep1b03",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b04",
+      "file": "episode/mb-ep1b04-atlas.png",
+      "sha256": "233b0302858db4f34ec435b6b0165314bbf2fb7fe8cd3466d8193f54a07afa52",
+      "routes": [
+        {
+          "zone": "ep1b04",
+          "name": "폐기주방 감독",
+          "id": "mb-ep1b04",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b05",
+      "file": "episode/mb-ep1b05-atlas.png",
+      "sha256": "e69015879f3e31bc5eb8ac46a07f73ba3835ac01ca04401e4f61cf21a58ebe92",
+      "routes": [
+        {
+          "zone": "ep1b05",
+          "name": "심장빛 무대감독",
+          "id": "mb-ep1b05",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b06",
+      "file": "episode/mb-ep1b06-atlas-v2.png",
+      "sha256": "d57a1bcbe607bef74adf78001e56b660d574f1065cdfa3e62154316f87717e3c",
+      "routes": [
+        {
+          "zone": "ep1b06",
+          "name": "금고 장부감시자",
+          "id": "mb-ep1b06",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b06b",
+      "file": "episode/mb-ep1b06b-atlas-v2.png",
+      "sha256": "18c3f0b556cbf614856446c85df4b8bfa4c7452a0ad5a11dbf87cf72a16ebbdf",
+      "routes": [
+        {
+          "zone": "ep1b06b",
+          "name": "겨울숲 가시파수",
+          "id": "mb-ep1b06b",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "episode/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b07",
+      "file": "core/output/mb-ep1b07.png",
+      "sha256": "bd52dc1adf3b69b6d1c2e6f6c122cc6f1f36a6df46ab3cc26b7f99b6f3b89629",
+      "routes": [
+        {
+          "zone": "ep1b07",
+          "name": "호텔 화염기사",
+          "id": "mb-ep1b07",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b08",
+      "file": "core/output/mb-ep1b08.png",
+      "sha256": "2d8a38f3d7fbb7315ddbfdeea9d7817ef41e1833aaf5b352753c0ff073f785b4",
+      "routes": [
+        {
+          "zone": "ep1b08",
+          "name": "역십자가 시체경호체",
+          "id": "mb-ep1b08",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-ep1b09",
+      "file": "core/output/mb-ep1b09.png",
+      "sha256": "a7842f2602e58793fd20e6ec4745a137abcb73a27750fbcaf2ddeaac1a250ede",
+      "routes": [
+        {
+          "zone": "ep1b09",
+          "name": "생체부트로더 연산핵",
+          "id": "mb-ep1b09",
+          "arc": "EP1B"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "u201-mid",
+      "file": "core/output/u201-mid.png",
+      "sha256": "c68a766dee2cda53a61d82c5925f966df280a06dab51acf23d62770b7132d238",
+      "routes": [
+        {
+          "zone": "u201",
+          "name": "제4단계 전쟁관리자",
+          "id": "u201-mid",
+          "arc": "U2"
+        },
+        {
+          "zone": "u205",
+          "name": "제14단계 역전 관리자",
+          "id": "u205-mid",
+          "arc": "U2"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "u202-mid",
+      "file": "core/output/u202-mid.png",
+      "sha256": "2dae881d555a259288bcfe857d8fa32d3fe8fceb1b459326822c731fba6cc02e",
+      "routes": [
+        {
+          "zone": "u202",
+          "name": "제8단계 자비 교정관",
+          "id": "u202-mid",
+          "arc": "U2"
+        },
+        {
+          "zone": "u204",
+          "name": "제12단계 기억 검열기",
+          "id": "u204-mid",
+          "arc": "U2"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "u203-mid",
+      "file": "core/output/u203-mid.png",
+      "sha256": "ca61d11a547144d2221e49d4a1416271e9e74b8355952ae88259e4932127b8a6",
+      "routes": [
+        {
+          "zone": "u203",
+          "name": "기억의 문 수호 프레임",
+          "id": "u203-mid",
+          "arc": "U2"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-last302-v31231",
+      "file": "core/output/mb-last302-v31231.png",
+      "sha256": "5db0201941adc599d8df5675c9e627df0f397d1bc82e3014479b86ebb7155f01",
+      "routes": [
+        {
+          "zone": "last302",
+          "name": "검은 안개 심장 · 불면의 기억",
+          "id": "mb-last302-v31231",
+          "arc": "LAST3"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-kair01-v31231",
+      "file": "core/output/mb-kair01-v31231.png",
+      "sha256": "e196494c0874cd81cc05b349d7531998cb1d1d434d8d9d313a8deaae7ef99464",
+      "routes": [
+        {
+          "zone": "kair01",
+          "name": "최초명령 코어 오염체",
+          "id": "mb-kair01-v31231",
+          "arc": "KAIRO"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-hando01",
+      "file": "core/output/mb-hando01.png",
+      "sha256": "6197bf1273dd20f004ca9d318165766546ccdcc6c6600d63028171d680641353",
+      "routes": [
+        {
+          "zone": "hando01",
+          "name": "의존 신호 포식자",
+          "id": "mb-hando01",
+          "arc": "HANDO"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-hando02",
+      "file": "core/output/mb-hando02.png",
+      "sha256": "280033709731dd357ec963f4eb101b240a46726a4b2b0435527be39e088e0c2d",
+      "routes": [
+        {
+          "zone": "hando02",
+          "name": "코어 운반 집행자",
+          "id": "mb-hando02",
+          "arc": "HANDO"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-hando03",
+      "file": "core/output/mb-hando03.png",
+      "sha256": "c1069205aa03a8e196a8def31a9663f74f8193df0cb9d046b0783462b05dcf5e",
+      "routes": [
+        {
+          "zone": "hando03",
+          "name": "환수검 모조체",
+          "id": "mb-hando03",
+          "arc": "HANDO"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-murder01",
+      "file": "core/output/mb-murder01.png",
+      "sha256": "e2adc45edad73afb9edbef21d71a71ce1299c541d3898eb36c6e01d67fb481e0",
+      "routes": [
+        {
+          "zone": "murder01",
+          "name": "파란불 역주행 목격자",
+          "id": "mb-murder01",
+          "arc": "MURDER"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-murder02",
+      "file": "core/output/mb-murder02.png",
+      "sha256": "ef682d3d16ea7ee99723e51ae50123831a3a97cad20aa8ee3f7e7a2e895788d4",
+      "routes": [
+        {
+          "zone": "murder02",
+          "name": "공실장부 당직감사",
+          "id": "mb-murder02",
+          "arc": "MURDER"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-murder03",
+      "file": "core/output/mb-murder03.png",
+      "sha256": "ef5b404544f55be2e24a85ef6c180ccfc00398967e585ac813c9d6bfc576faa4",
+      "routes": [
+        {
+          "zone": "murder03",
+          "name": "옥상 인과보관인",
+          "id": "mb-murder03",
+          "arc": "MURDER"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "c101-mid",
+      "file": "core/output/c101-mid.png",
+      "sha256": "9d9aed9d1387151b8eb054fdcbdf44939a9fedcb48378f6422636d4b2f792200",
+      "routes": [
+        {
+          "zone": "cult01",
+          "name": "칩 제단 방화벽",
+          "id": "c101-mid",
+          "arc": "CULT"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "c104-mid",
+      "file": "core/output/c104-mid.png",
+      "sha256": "9dac22ed00c5c9a138c0ed39b4849b1877dabe5af03d5ac44513d2c3093b95d5",
+      "routes": [
+        {
+          "zone": "cult04",
+          "name": "적그리스도 배양좌",
+          "id": "c104-mid",
+          "arc": "CULT"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "u206-mid",
+      "file": "core/output/u206-mid.png",
+      "sha256": "101ab5a8742368d192b585fe4a909ef39213f122bcbe5bee1d934b0838b1efa4",
+      "routes": [
+        {
+          "zone": "u206",
+          "name": "제17단계 중앙이주 코어",
+          "id": "u206-mid",
+          "arc": "U2"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "mb-kair04-v31231",
+      "file": "core/output/mb-kair04-v31231.png",
+      "sha256": "bfd3db3fb200227082707a64298f2d08d618a6fec146569dc983aa575f68dafa",
+      "routes": [
+        {
+          "zone": "kair04",
+          "name": "휴식 수확관 · 과로의 수문장",
+          "id": "mb-kair04-v31231",
+          "arc": "KAIRO"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "kair-great-05",
+      "file": "core/output/kair-great-05.png",
+      "sha256": "bd4cd22d481af0ce60f9d2c301a4e117cf7e154c47c52d7fd733b728963689f9",
+      "routes": [
+        {
+          "zone": "kair08",
+          "name": "대수문장 05",
+          "id": "kair-great-05",
+          "arc": "KAIRO"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "murder04-mid",
+      "file": "core/output/murder04-mid.png",
+      "sha256": "739c63c5d735bf5cae74907f30408ffc1208c8fafdb24bf8646ad8018549e30d",
+      "routes": [
+        {
+          "zone": "murder04",
+          "name": "진술 봉쇄 인과핵",
+          "id": "murder04-mid",
+          "arc": "MURDER"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "c105-mid",
+      "file": "core/output/c105-mid.png",
+      "sha256": "0821ab272748610fd7b4afbbe0490404ec889d70c47b8ef7efa6188649a919b5",
+      "routes": [
+        {
+          "zone": "cult05",
+          "name": "ID 생체조 관리자",
+          "id": "c105-mid",
+          "arc": "CULT"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    },
+    {
+      "identity": "c106-mid",
+      "file": "core/output/c106-mid.png",
+      "sha256": "75f19233170152193c19792a0837241528371ef47e08b46ba83ff8b9b52d5dd7",
+      "routes": [
+        {
+          "zone": "cult06",
+          "name": "기계재판 집행핵",
+          "id": "c106-mid",
+          "arc": "CULT"
+        }
+      ],
+      "mapping": "core/manifest.json",
+      "precedence": "source-selection"
+    }
+  ],
+  "sourceArchives": [
+    {
+      "filename": "output/episode_midboss/HAPIL_episode_midboss_11x3_imagegen.zip",
+      "sha256": "1c8e55b8f77489328d77a005525ddee5263b810816646eb6e6076682385a0eec",
+      "zipBytes": 22104532
+    },
+    {
+      "filename": "core_midboss_all22.zip",
+      "sha256": "da20b92342d34c79c699aa95a4e461bc780d8188a1a63023c34c4627cc3d6112",
+      "zipBytes": 33425675
+    }
+  ]
+}
