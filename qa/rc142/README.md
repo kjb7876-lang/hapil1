@@ -4,7 +4,7 @@ The original main-versus-candidate comparison below uses runtime `969b57748ca29c
 
 ## Art and StoryWorld handoff
 
-`gameplay-art-map.json` records the four cult leader forms, hidden Persona identity, nine normal/awakened skill paths, movement bounds, and exact hashes for the final projectile renderer, collision cache, and HUD-isolated compositor. Its `runtimeSourceSha256` object is the StoryWorld synchronization contract. `runtimeRevision` points to the last runtime-changing commit (`a5a8aa4`); later candidate commits contain tests and reports. The uploaded Library concept images remained inaccessible and were not substituted; checked-in game art was decoded by the browser tests.
+`gameplay-art-map.json` records the four cult leader forms, hidden Persona identity, nine normal/awakened skill paths, movement bounds, and exact hashes for the final projectile renderer, collision cache, and HUD-isolated compositor. Its `runtimeSourceSha256` object is the StoryWorld synchronization contract. `runtimeRevision` points to the last runtime-changing commit (`a5a8aa4`); later candidate commits contain tests and reports. The checked-in art paths and source hashes were verified by the browser tests.
 
 ## Attack and render coverage
 
