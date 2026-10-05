@@ -62,7 +62,7 @@ try{
  const hasExactRC133=rc130Migration?.report.deltaSha256==='47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11';
  const promotionHash=(f,expected)=>hasExactRC133&&rc133Compatibility.supports(f)?rc133Compatibility.verify(root,rc130Migration,f,expected):f==='index.html'?indexHash:rc130Migration?.historical[f]?digest(rc130Migration.historical[f]):report.files[f];
  report.promotionMismatches=Object.entries(accepted).filter(([f,expected])=>promotionHash(f,expected)!==expected).map(([file,expected])=>({file,expected,actual:report.files[file]}));
- if(hasExactRC133)report.explicitRC133Compatibility={method:'Full current-runtime proof plus exact preimage/output pins for six approved revisions; browser suites still test current bytes',files:Object.keys(rc133Compatibility.revisions)};
+ if(hasExactRC133)report.explicitRC133Compatibility={method:'Full current-runtime proof plus exact historical output pins and exact chained extension outputs for six approved revisions; browser suites still test current bytes',files:Object.keys(rc133Compatibility.revisions)};
  if(report.promotionMismatches.length)throw Error('RC128 preservation mismatch: '+JSON.stringify(report.promotionMismatches));
  fs.writeFileSync(path.join(out,'candidate-manifest.json'),JSON.stringify({commit:report.commit,files:report.files,protectedFiles:report.protectedFiles},null,2));
  for(const f of [...Object.keys(generated).filter(f=>/\.(?:js|cjs)$/.test(f)),'assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js','tests/rc128-policy.cjs','tests/rc128-browser.cjs',...(rc129?['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js','tests/rc129-unit.cjs','tests/rc129-browser.cjs']:[])]){

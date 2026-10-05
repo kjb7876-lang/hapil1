@@ -1,6 +1,8 @@
 'use strict';
-// Six exact authorized revisions used by the older RC128 promotion gate.
-// The full RC133 runtime guard runs first; this never changes the game under test.
+// Six exact historical revisions used by the older RC128 promotion gate.
+// The full RC133 runtime guard runs first and pins each path's complete output
+// chain (the original delta, plus its exact extension output when applicable).
+// This compatibility projection never changes the game under test.
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const BASE='4670211fcd1a2e5076a3f9c57fc67e55cd0486a9';
 const DELTA='47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11';
@@ -14,6 +16,27 @@ const revisions=Object.freeze({
 });
 const digest=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 function validate(file,before,after){const row=revisions[file];assert(row,'Unapproved RC128 compatibility path');assert.equal(before,row[0],'RC128 compatibility preimage');assert.equal(after,row[1],'RC128 compatibility exact output');return before;}
+function gitBlob(bytes){return crypto.createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');}
+function verifyRuntimeOutputChain(root,report,file,currentBytes=fs.readFileSync(path.join(root,file))){
+ const old=report.approvedDelta.find(row=>row.file===file);
+ const expectedHistorical=revisions[file]?.[1];assert(expectedHistorical,'Unapproved RC128 compatibility path');
+ const currentHash=digest(currentBytes),extension=report.approvedExtension?.find(row=>row.file===file);
+ // The old RC128 smoke-test source lives outside the protected runtime roots,
+ // so its exact bytes remain checked directly by the independent revision pin.
+ if(!old){assert(!extension,'Runtime extension cannot authorize an unprotected compatibility fixture');assert.equal(currentHash,expectedHistorical,'Exact compatibility fixture output');return {historicalOutput:expectedHistorical,currentOutput:currentHash,extensionOutput:null};}
+ assert.equal(old.after.sha256,expectedHistorical,'Historical compatibility output pin');
+ if(extension){
+  assert(extension.after,'Compatibility path removed by runtime extension');
+  assert.deepEqual({file:extension.before?.file,mode:extension.before?.mode,gitBlob:extension.before?.gitBlob},{file,mode:old.after.mode,gitBlob:old.after.gitBlob},'Runtime extension must start at exact historical output');
+  assert.equal(extension.after.file,file,'Runtime extension output path');
+  assert.equal(extension.after.sha256,currentHash,'Current runtime bytes differ from exact authorized extension output');
+  assert.equal(extension.after.gitBlob,gitBlob(currentBytes),'Current runtime Git blob differs from exact authorized extension output');
+  const stat=fs.statSync(path.join(root,file));assert.equal(extension.after.mode,stat.mode&0o111?'100755':'100644','Current runtime mode differs from exact authorized extension output');
+  return {historicalOutput:old.after.sha256,currentOutput:currentHash,extensionOutput:extension.after.sha256};
+ }
+ assert.equal(currentHash,old.after.sha256,'Current runtime bytes differ from exact historical output');
+ return {historicalOutput:old.after.sha256,currentOutput:currentHash,extensionOutput:null};
+}
 function verify(root,migration,file,expected){
  const r=migration.report;assert.equal(r.status,'passed');assert.equal(r.base,BASE);assert.equal(r.deltaSha256,DELTA);assert.equal(r.currentRuntimeProof?.workingTreeMatches,true);assert.equal(r.currentRuntimeProof?.committedTreeMatches,true);
  const baseDigest=digest(cp.execFileSync('git',['--no-replace-objects','show',BASE+':'+file],{cwd:root}));
@@ -23,8 +46,8 @@ function verify(root,migration,file,expected){
  if(file==='index.html')assert.equal(baseDigest,'0d5269e770deb660b675edb77fb9e67c9d8688e87fcb3e0eec65f5a12b6d0fbb','Exact approved loader preimage');
  if(file==='assets/rc128/combat-feedback.js')assert.equal(baseDigest,'5a086c4a1c3c904ab3a6642f6302485aa40ce69e0b615d871fe9d87b79c60e33','Exact approved feedback preimage');
  const before=['index.html','assets/rc128/combat-feedback.js'].includes(file)?revisions[file][0]:baseDigest;
- const after=digest(fs.readFileSync(path.join(root,file)));assert.equal(expected,revisions[file]?.[0]);
- if(file.startsWith('assets/')||file==='index.html'){const row=r.approvedDelta.find(row=>row.file===file);assert(row,'Missing exact runtime revision');assert.equal(row.after.sha256,after,'Compatibility output differs from verified runtime');}
- return validate(file,before,after);
+ assert.equal(expected,revisions[file]?.[0]);
+ const chain=verifyRuntimeOutputChain(root,r,file);
+ return validate(file,before,chain.historicalOutput);
 }
-module.exports={supports:file=>Object.hasOwn(revisions,file),validate,verify,revisions};
+module.exports={supports:file=>Object.hasOwn(revisions,file),validate,verify,verifyRuntimeOutputChain,revisions};

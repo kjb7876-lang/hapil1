@@ -19,5 +19,18 @@ try{
  const compatibility=require('../tools/rc133-release-compatibility.cjs');
  for(const [file,[before,after]]of Object.entries(compatibility.revisions)){assert.equal(compatibility.validate(file,before,after),before);checks++;assert.throws(()=>compatibility.validate(file,'0'.repeat(64),after));checks++;assert.throws(()=>compatibility.validate(file,before,'0'.repeat(64)));checks++;}
  assert.throws(()=>compatibility.validate('assets/rc133/arbitrary.js','0'.repeat(64),'0'.repeat(64)));checks++;
+ const repo=path.resolve(__dirname,'..'),migration=require('../tools/rc133-preservation.cjs').verify(repo).report;
+ for(const file of Object.keys(compatibility.revisions)){
+  const chain=compatibility.verifyRuntimeOutputChain(repo,migration,file),current=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');
+  assert.equal(chain.currentOutput,current,'Exact compatibility output chain: '+file);checks++;
+ }
+ const historical=compatibility.revisions['index.html'][1],indexChain=compatibility.verifyRuntimeOutputChain(repo,migration,'index.html');
+ assert.equal(indexChain.historicalOutput,historical,'Exact historical index output remains pinned');checks++;
+ assert.equal(indexChain.extensionOutput,indexChain.currentOutput,'Current index output must match its exact approved extension');checks++;
+ assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,migration,'index.html',Buffer.concat([fs.readFileSync(path.join(repo,'index.html')),Buffer.from('\nunauthorized')])));checks++;
+ const brokenLink=structuredClone(migration);brokenLink.approvedExtension.find(row=>row.file==='index.html').before.gitBlob='0'.repeat(40);
+ assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,brokenLink,'index.html'));checks++;
+ const brokenHistorical=structuredClone(migration);brokenHistorical.approvedDelta.find(row=>row.file==='index.html').after.sha256='0'.repeat(64);
+ assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,brokenHistorical,'index.html'));checks++;
  console.log('RC133_PRESERVATION_UNIT',JSON.stringify({status:'passed',checks,scope:'Exact working inventory/bytes/modes and negative cases; detached full baseline proof is a separate exact-commit check'}));
 }finally{fs.rmSync(root,{recursive:true,force:true});}
