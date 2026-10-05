@@ -30,4 +30,4 @@ This report does not use the older `9463d5` result to attribute barrage cost. Mo
 
 ## Remaining validation limits
 
-The hidden finale has not been naturally completed in the campaign; the feature tests use staged encounter fixtures. The six uploaded Library images could not be downloaded in this environment, so their pixels were not inspected. These checks do not prove the absence of every bug.
+The hidden finale has not been naturally completed in the campaign; the feature tests use staged encounter fixtures. This handoff maps checked-in art only; uploaded reference art is not included. These checks do not prove the absence of every bug.
