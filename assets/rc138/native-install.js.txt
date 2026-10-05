@@ -1,0 +1,36 @@
+/* RC138_NATIVE_ARENA: final lexical ownership, native ranged reducers, unchanged laser paths. */
+(()=>{'use strict';let attempts=0;const Arena=()=>window.__HAPIL_BATTLE_ARENA_RC138__,state=()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
+ function install(){if(!window.__HAPIL_RC133_NATIVE__?.installed||!window.__HAPIL_MAP_FORMAT_RC138__||!Arena())return false;
+  const R=Arena(),nativeClear=MONGSE_zoneCombatCleared;R.bind({combat:[...he],clear:(...args)=>nativeClear(...args)});window.__HAPIL_MAP_FORMAT_RC138__.install(N);
+  const contains=ot;ot=function(z,x,y){return R.enabledZone(z)?R.contains({x,y},'all',0):contains.apply(this,arguments);};
+  const blocked=ut;ut=function(z,x,y,r=.45){return R.enabledZone(z)?!R.contains({x,y},'all',r):blocked.apply(this,arguments);};
+  const legal=dt;dt=function(z,p,r=.45){return R.enabledZone(z)?R.point(p,'all',r):legal.apply(this,arguments);};
+  const move=ft;ft=function(z,a,v,r=.45){const result=move.apply(this,arguments),s=state();if(s?.zone!==z||!R.enabled(s))return result;const owned=R.movement(s,a,result,r);return a===s?window.__HAPIL_DIRECTION_INPUT_RC137__?.constrain(s,owned)??owned:owned;};
+  const portals=MONGSE_zonePortalAnchors;MONGSE_zonePortalAnchors=function(z){if(!R.enabledZone(z))return portals.apply(this,arguments);const entry=R.point(R.format.entry,'left',.8),exit=R.point(R.format.exit,'right',.8);return{zone:z,theme:'left-right',entry,exit,interactionEntry:entry,interactionExit:exit};};
+  const flow=window.__HAPIL_FLOW_V31343__;for(const p of Object.values(flow.profiles)){p.entryAnchorWorld={...R.format.entry};p.exitAnchorWorld={...R.format.exit};p.routePolyline=[p.entryAnchorWorld,p.exitAnchorWorld];p.length=Math.hypot(p.exitAnchorWorld.x-p.entryAnchorWorld.x,p.exitAnchorWorld.y-p.entryAnchorWorld.y);p.u={x:(p.exitAnchorWorld.x-p.entryAnchorWorld.x)/p.length,y:(p.exitAnchorWorld.y-p.entryAnchorWorld.y)/p.length};p.v={x:-p.u.y,y:p.u.x};p.flowMode='LEFT_RIGHT';}
+  MONGSE_zoneCombatCleared=function(s,z=s?.zone){return R.enabled(s)&&z===s.zone?R.clear(s,z):nativeClear.apply(this,arguments);};
+  const fg=flow.gate;flow.gate=function(s,z=s?.zone){const old=fg.apply(this,arguments);return R.enabled(s)&&z===s.zone&&(!(s.hp>0)||(s.enemies??[]).some(R.live))?{clear:false,reason:s.hp<=0?'부활 선택 대기':'남은 적'}:old;};
+  const entry=ii;ii=function(s,z,...args){R.release(s);const result=entry.call(this,s,z,...args);R.enforce(s);return result;};
+  const factory=Jr;Jr=function(row,z,...args){const a=factory.call(this,row,z,...args),s=state();if(s?.zone===z&&R.enabled(s))R.enroll(s,a);return a;};
+  const controls=window.__HAPIL_CONTROLS_V31329__,frame=controls.frameStart;controls.frameStart=function(s,...args){R.enforce(s);return frame.call(this,s,...args);};
+  const viewport=window.__HAPIL_VIEWPORT_RC104__,camera=viewport.camera;viewport.camera=function(s,...args){return R.camera(s,viewport.view())??camera.call(this,s,...args);};
+  const restore=window.__HAPIL_RC86_BRIDGE__.restoreEntry;window.__HAPIL_RC86_BRIDGE__.restoreEntry=function(s,...args){const result=restore.call(this,s,...args);R.enforce(s);return result;};
+  const profile=He;He=function(a,...args){const p=profile.call(this,a,...args),s=state();return a?.rc138Ranged&&R.enabled(s)?R.ranged(s,a,p):p;};
+  const distance=MONGSE_updateBossDistanceMode31222;MONGSE_updateBossDistanceMode31222=function(s,a,...args){if(R.enabled(s)&&R.hostile(a)){a.distanceCombatMode31222='ranged';return 'ranged';}return distance.call(this,s,a,...args);};
+  const attack=MONGSE_resolveBossAttackProfile31222;MONGSE_resolveBossAttackProfile31222=function(s,a,p,...args){return R.ranged(s,a,attack.call(this,s,a,p,...args));};
+  const counter=MONGSE_enemyCounterAttackProfile31229;MONGSE_enemyCounterAttackProfile31229=function(s,a,p,...args){return R.ranged(s,a,counter.call(this,s,a,p,...args));};
+  const tactic=MONGSE_tickEnemyCounterTactic31229;MONGSE_tickEnemyCounterTactic31229=function(s,a,...args){return R.enabled(s)&&R.hostile(a)?{active:false,action:'hold',reason:'ranged-half'}:tactic.call(this,s,a,...args);};
+  const damage=Y;Y=function(s,amount,x,y,p,...args){if(R.bodyPacket(s,p))return false;return damage.call(this,s,amount,x,y,p,...args);};
+  const contact=HAPIL_reducePlayerContactV31401;HAPIL_reducePlayerContactV31401=function(s,amount,x,y,p,...args){if(R.bodyPacket(s,p)){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,s,'REJECTED','body-contact-rc138');return false;}return contact.call(this,s,amount,x,y,p,...args);};
+  const safe=window.__HAPIL_RC133_NATIVE__.safeDestination,oldNative=window.__HAPIL_RC133_NATIVE__;window.__HAPIL_RC133_NATIVE__=Object.freeze({...oldNative,safeDestination:(s,a,p)=>R.enabled(s)&&!R.contains(p,R.side(s,false),.72)?false:safe(s,a,p)});
+  MONGSE_drawBossRuleOverlay31215=function(){return 0;};window.__MONGSE_DRAW_BOSS_RULE_OVERLAY_V31215__=MONGSE_drawBossRuleOverlay31215;
+  const fx=HAPIL_drawSkillRC13;HAPIL_drawSkillRC13=function(ctx,cache,p,time,settings,...args){const s=state();if(!R.enabled(s)||!p?.sourceId&&!p?.ownershipSourceIdV31322||p?.laserShot||p?.laserV31330||p?.laserV31331||p?.bloodV31516||p?.shape==='line'||p?.persistentProjectile31222||p?.bossImpactTransitV31232)return fx.apply(this,arguments);
+   // Contact geometry and telegraph outlines remain authoritative. Bound only
+   // oversized opaque decoration, retaining a local source-owned effect.
+   const owner=s.enemies.find(a=>a.id===(p.sourceId??p.ownershipSourceIdV31322));if(!R.hostile(owner))return fx.apply(this,arguments);const own=Object.getOwnPropertyDescriptor(ctx,'drawImage'),draw=ctx.drawImage;ctx.drawImage=function(...args){const fit=window.__HAPIL_PRESENTATION_RC130__?.bitmapArgs(this,args);return draw.apply(this,fit?.args??args);};try{return fx.call(this,ctx,cache,{...p,size:Math.min(Number(p.size)||1,3.2)},time,settings,...args);}finally{if(own)Object.defineProperty(ctx,'drawImage',own);else delete ctx.drawImage;}
+  };
+  const split=window.__HAPIL_PORTRAIT_SPLIT_RC108__;window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({...split,version:'RC138',arenaCoverage:true});
+  window.__HAPIL_NATIVE_ARENA_RC138__=Object.freeze({installed:true,version:'RC138',maps:N,profile:(s,a)=>R.ranged(s,a,He(a)),portal:MONGSE_zonePortalAnchors,clear:MONGSE_zoneCombatCleared,render:$n,bodyDamage:(...a)=>Y(...a)});R.enforce(state());return true;
+ }
+ function ready(){if(install()||++attempts>=1200)return;setTimeout(ready,20);}ready();
+})();

@@ -1,0 +1,2881 @@
+{
+  "schema": "rc138-map-format/v1",
+  "reference": "./assets/rc133/art/arena.webp",
+  "referenceSize": [
+    1672,
+    941
+  ],
+  "logicalCanvas": [
+    1280,
+    720
+  ],
+  "worldCenter": [
+    19,
+    19
+  ],
+  "projection": {
+    "x": "640+27*(x-y)",
+    "y": "13.5*(x+y)"
+  },
+  "floor": {
+    "acrossRadius": 15,
+    "depthRadius": 8.3,
+    "centerGap": 1.45
+  },
+  "entry": [
+    13.8,
+    24.2
+  ],
+  "rightExit": [
+    24.8,
+    13.2
+  ],
+  "cameraOnlySectors": [
+    2,
+    3
+  ],
+  "drawSectorGuides": false,
+  "mapTransform": "uniform whole-source scale; center actual floor; no raster crop or recolor",
+  "rows": [
+    {
+      "id": "dist00",
+      "name": "악마화 나무의 정원",
+      "arc": "DIST",
+      "map": "./assets/maps/rc53/dist00-demon-tree.webp",
+      "mapVariants": [],
+      "subtitle": "검은 뿌리가 타락한 천사를 묶은 궁전 정원",
+      "enemies": [
+        {
+          "id": "dist00-boss",
+          "name": "뿌리의 문지기",
+          "boss": true,
+          "ranged": false,
+          "patternSet": "dist00"
+        }
+      ],
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "sourceSha256": "63223c3c97905da217cd69ea111faa222bbc73ae90987f25dd1a8faf92b52d26",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/rc53/dist00-demon-tree.webp"
+    },
+    {
+      "id": "dist01",
+      "name": "거미동굴",
+      "arc": "DIST",
+      "map": "./assets/maps/rc53/dist01-spider-cave.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "dist01-sp1",
+          "name": "망각의 거미",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist01-sp2",
+          "name": "보랏빛 알집지기",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist01-s1",
+          "name": "거미줄에 묶인 수호병",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-dist01",
+          "name": "보라검천사",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "dist01"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "921ac7d2a2893aa53374a459b27d9ae87e4cc5c50cbdf0281259875820e72526",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/rc53/dist01-spider-cave.webp"
+    },
+    {
+      "id": "dist02",
+      "name": "늪지대의 뿔악마",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/dist02.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "dist02-h1",
+          "name": "늪의 염소머리 악마",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist02-g1",
+          "name": "늪에서 되살아난 전우",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist02-m1",
+          "name": "수렁 주문사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "dist02-sp1",
+          "name": "진흙등 거미",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-dist02",
+          "name": "늪의 뿔악마 군주",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "dist02"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "def470ccf337bdfdaff1b1277b16db768e573950de15a969d65a15da93d3f4c6",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/dist02.webp"
+    },
+    {
+      "id": "dist03",
+      "name": "무너진성",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/dist03.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "dist03-s1",
+          "name": "쓰러진 수호병",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist03-c1",
+          "name": "보라검 추격천사",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist03-g1",
+          "name": "피냄새 추적자",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist03-sp1",
+          "name": "기억 운반거미",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-dist03",
+          "name": "핏빛 수호로 추격자",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "dist03"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "904546cc8b4eb9decef9cd00dca421e6986faa136543ea56b228008f9a20aa33",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/dist03.webp"
+    },
+    {
+      "id": "dist04",
+      "name": "시체들이 되살아난 밤",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/dist04.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "dist04-c1",
+          "name": "되살아난 방패동료",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist04-s1",
+          "name": "이름 잃은 전우",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist04-g1",
+          "name": "피로 꿰맨 전령",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist04-c2",
+          "name": "보라검 부활자",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-dist04",
+          "name": "되살아난 첫 수호자",
+          "boss": false,
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "dist04"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "23752d48ed3fdb6b1c1125ac079cea47c0cc348814187347c15774e09f174124",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/dist04.webp"
+    },
+    {
+      "id": "dist05",
+      "name": "일곱 기둥",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/dist05.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "dist05-h1",
+          "name": "소환진 순례악마",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist05-m1",
+          "name": "검은기둥 주문사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "dist05-c1",
+          "name": "검은기둥 가고일 수호자",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist05-s1",
+          "name": "마지막 길의 호위병",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-dist05",
+          "name": "숨이 끊긴 전령의 그림자",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "dist05"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "238b2903ad8e105c04b77ba0794b1829708b45d92da880dde5d42a60104d2a7c",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/dist05.webp"
+    },
+    {
+      "id": "dist06",
+      "name": "추락",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/dist06.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "dist06-h1",
+          "name": "지옥문 파수악마",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist06-m1",
+          "name": "검은기둥 화염술사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "dist06-c1",
+          "name": "소환진 타락천사",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "dist06-boss",
+          "name": "발록 · 지옥의 문지기",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "balrog"
+        },
+        {
+          "id": "mb-dist06",
+          "name": "소환진 검은기둥",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "dist06"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "4ccb43cfbcf03a45f4179da7b8a68a73d9c420ab3e2d8e77fb76c8bc57c7699f",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/dist06.webp"
+    },
+    {
+      "id": "ep1a08",
+      "name": "피로 물든 병원",
+      "arc": "DIST",
+      "map": "./assets/maps/ep1a_08_blood_hospital_rc24.png",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "a08-o1",
+          "name": "백의 구속자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a08-s1",
+          "name": "복도 비명잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a08-c1",
+          "name": "소독등 타락천사",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "a08-o2",
+          "name": "안정화 집행체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "mb-ep1a08",
+          "name": "백의 안정화 감독",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1a08"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "7e39b87a6645304e75f2e5631207cb882c7585b80baadb9878a46e4f88c28119",
+      "decision": "new-imagegen",
+      "reason": "Cramped corridor/crossing or fragmented floor cannot provide continuous common battle geometry without major stretching or clipping.",
+      "floorCenterY": 0.57,
+      "activeMap": "./assets/rc138/map-ep1a08.png",
+      "generatedOriginal": "/workspace/generated_images/exec-b3f21c74-0aec-4d25-95b9-caae442017f5.png",
+      "outputSha256": "c7c8e0577cbb5e2152c01d6e7ba90c929b8f45043077302ddfe55ae73aca4690"
+    },
+    {
+      "id": "ep1a09",
+      "name": "주사실과 결전의 날",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/ep1a09.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "a09-o1",
+          "name": "주사실 감시환각",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a09-v1",
+          "name": "갈망의 약병핵",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a09-d1",
+          "name": "재구성된 발록잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a09-c1",
+          "name": "웃는 초천사 실루엣",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-ep1a09",
+          "name": "갈망의 주사실 감시핵",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1a09"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "d776a61822e935835fdaa5ba30c58d3b0ceb1f6e0517c0171844432601c4cee5",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/ep1a09.webp"
+    },
+    {
+      "id": "ep1a10",
+      "name": "환자와 중독의 도시",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/ep1a10.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "a10-s1",
+          "name": "부정의 잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a10-o1",
+          "name": "오만의 흰 가면",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a10-h1",
+          "name": "갈망의 도시짐승",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "a10-v1",
+          "name": "중독의 폐허핵",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "mb-ep1a10",
+          "name": "오만의 폐허핵",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "ep1a10"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "c628157977ae7026840e7720e518cd646bdf4ae7e850ac5517346a93c88a0b22",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/ep1a10.webp"
+    },
+    {
+      "id": "ep1a11",
+      "name": "천사의 가면과 의목사 후보생",
+      "arc": "DIST",
+      "map": "./assets/v31345/maps/ep1a11.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "a11-c1",
+          "name": "거짓천국 근위천사",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "a11-o1",
+          "name": "치료거부의 가면",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a11-d1",
+          "name": "초자아 잠식체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "a11-boss",
+          "name": "루시퍼 · 가면 벗은 초천사",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-ep1a"
+        },
+        {
+          "id": "mb-ep1a11",
+          "name": "초천사의 웃는 가면",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "ep1a11"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "e96f1f020965b4dc8996706d9214b4a95e15a69c9df86c5779350e7a9eb49315",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/v31345/maps/ep1a11.webp"
+    },
+    {
+      "id": "ep1b01",
+      "name": "솔로몬의 봉인식",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_01_solomon_chapel.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_01_solomon_chapel.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b01-r1",
+          "name": "일흔두 번째 인장 잔류체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b01-c1",
+          "name": "검은 실의 외부 신호",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b01-s1",
+          "name": "이름 없던 공포",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "mb-ep1b01",
+          "name": "교만의 잔향 · 제72문",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b01"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "4575a0bb26e199841beb647e955ecdc685703fb930a8635446e98dad6c88e4f5",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_01_solomon_chapel.jpg"
+    },
+    {
+      "id": "ep1b02",
+      "name": "나태의 집",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_02_sloth_house.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_02_sloth_house.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b02-m1",
+          "name": "곰팡이와 오물 봉투",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b02-b1",
+          "name": "등에 붙은 쓰레기더미",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b02-o1",
+          "name": "미뤄 둔 시간의 형상",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b02-boss",
+          "name": "나태에 잠식된 남자",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "ep1b02"
+        },
+        {
+          "id": "mb-ep1b02",
+          "name": "나태의 껍데기 파수",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "ep1b02"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "21b2d1f6fbdeeb873e378735b29678f6891d38b1c8f365d5a87f572ffe3b4859",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_02_sloth_house.jpg"
+    },
+    {
+      "id": "ep1b03",
+      "name": "금이 간 안경",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_03_cracked_glasses.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_03_cracked_glasses.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b03-g1",
+          "name": "찢어진 사진의 망령",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b03-c1",
+          "name": "긴 뱀의 그림자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b03-g2",
+          "name": "칼날과 유리 조각",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b03-boss",
+          "name": "호텔 부매니저 · 레비아탄",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "ep1b03"
+        },
+        {
+          "id": "mb-ep1b03",
+          "name": "금이 간 비교잔영",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b03"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "5b3bb7190c93cca8922f1b5cc44170a44e35395ff645b62f4f87bf9259f6b9a5",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_03_cracked_glasses.jpg"
+    },
+    {
+      "id": "ep1b04",
+      "name": "탐식의 주방",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_04_glutton_kitchen.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_04_glutton_kitchen.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b04-g1",
+          "name": "버려진 최고급 식재료",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b04-b1",
+          "name": "살아 있는 거대한 위장",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b04-s1",
+          "name": "끓어오르는 검은 소화액",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b04-boss",
+          "name": "최고급 호텔의 총주방장 · 탐식의 귀 베엘제붑",
+          "boss": true,
+          "midboss": false,
+          "ranged": false,
+          "patternSet": "ep1b04"
+        },
+        {
+          "id": "mb-ep1b04",
+          "name": "폐기주방 감독",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "ep1b04"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "dcbb3335d2bae315448dcf6277a3bcec83210f2e438e187946765ba891efea0b",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_04_glutton_kitchen.jpg"
+    },
+    {
+      "id": "ep1b05",
+      "name": "붉은 하이힐",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_05_asmodai_stage_rc24.png",
+      "mapVariants": [
+        "./assets/maps/ep1b_05_asmodai_stage_rc24.png"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b05-p1",
+          "name": "얼굴 없는 남자의 박수",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b05-a1",
+          "name": "붉은 하이힐 칼날",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b05-p2",
+          "name": "공중을 가르는 립스틱 탄환",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b05-boss",
+          "name": "붉은 하이힐의 서윤",
+          "boss": true,
+          "midboss": false,
+          "ranged": false,
+          "patternSet": "ep1b05"
+        },
+        {
+          "id": "mb-ep1b05",
+          "name": "심장빛 무대감독",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "ep1b05"
+        }
+      ],
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "sourceSha256": "061115250c0999659a19d1a2013c4ec0779e59d7396720086a34f577cd311593",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_05_asmodai_stage_rc24.png"
+    },
+    {
+      "id": "ep1b06",
+      "name": "맘몬의 금고",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_06_mammon_vault.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_06_mammon_vault.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b06-f1",
+          "name": "칼날이 된 지폐",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b06-c1",
+          "name": "박제된 여우의 악마",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b06-f2",
+          "name": "모든 면이 뒷면인 동전",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b06-boss",
+          "name": "회장에게 고용된 총지배인 · 맘몬",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "ep1b06"
+        },
+        {
+          "id": "mb-ep1b06",
+          "name": "금고 장부감시자",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b06"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "4104cfad195705c6a662b595774f2d37d50deea6c31a6b00ec94ccf345930ed2",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_06_mammon_vault.jpg"
+    },
+    {
+      "id": "ep1b06b",
+      "name": "눈보라 속의 소년",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_06b_mammon_winter_forest_v3110.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_06b_mammon_winter_forest_v3110.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b06b-h1",
+          "name": "고슴도치 가시 사탕",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b06b-f1",
+          "name": "눈보라 속 여우 악마",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b06b-v1",
+          "name": "낡은 장난감 요요",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b06b-boss",
+          "name": "소년이 된 총지배인 · 맘몬",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "ep1b06b"
+        },
+        {
+          "id": "mb-ep1b06b",
+          "name": "겨울숲 가시파수",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b06b"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "872aeb22f625a05abb407ba141c771169c1bc4fc477cc8c460ce84295c4eef83",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_06b_mammon_winter_forest_v3110.jpg"
+    },
+    {
+      "id": "ep1b07",
+      "name": "불을 지른 남자",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_07_hotel_fire.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_07_hotel_fire.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b07-f1",
+          "name": "불길 속의 늑대",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b07-s1",
+          "name": "불길 속의 용",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b07-f2",
+          "name": "불길 속의 곰",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "b07-boss",
+          "name": "불을 지른 청소부 · 사탄",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "ep1b07"
+        },
+        {
+          "id": "mb-ep1b07",
+          "name": "호텔 화염기사",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b07"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "abeff8749180868b0a8d6899da5a337839220534cff36b03df07189f7542ddf5",
+      "decision": "new-imagegen",
+      "reason": "Cramped corridor/crossing or fragmented floor cannot provide continuous common battle geometry without major stretching or clipping.",
+      "floorCenterY": 0.57,
+      "activeMap": "./assets/rc138/map-ep1b07.png",
+      "generatedOriginal": "/workspace/generated_images/exec-8659c6a4-af16-4eb7-a6f6-849e4ff7f6a1.png",
+      "outputSha256": "88c59fac3a5affe32c790f1123ac77683f0380d7841556319b5a45141ab30d32"
+    },
+    {
+      "id": "ep1b08",
+      "name": "하늘에 서려는 자",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_08_pride_cathedral.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_08_pride_cathedral.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b08-c1",
+          "name": "전극을 두른 좀비 수호기사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b08-h1",
+          "name": "창처럼 날아오는 역십자가",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b08-v1",
+          "name": "육망성의 흑마술 실험체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b08-boss",
+          "name": "백색 정장의 호텔 그룹 회장",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "mb-ep1b08",
+          "name": "역십자가 시체경호체",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "9ca552fb60bbcc669364be8f1055af3761c9160a2d6f08d2b98b6454de017e65",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_08_pride_cathedral.jpg"
+    },
+    {
+      "id": "ep1b09",
+      "name": "생체 부트로더",
+      "arc": "EP1B",
+      "map": "./assets/maps/ep1b_09_black_sun_core.jpg",
+      "mapVariants": [
+        "./assets/maps/ep1b_09_black_sun_core.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "b09-h1",
+          "name": "강철 턱의 사이보그 개",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b09-o1",
+          "name": "인간의 뇌를 닮은 투명 연산 장치",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b09-c1",
+          "name": "설원 아래의 기계 다리",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "b09-boss",
+          "name": "사이보그 회장 · 생체 부트로더",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-ep1b"
+        },
+        {
+          "id": "mb-ep1b09",
+          "name": "생체부트로더 연산핵",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b09"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "4ef5a25e89a26609094e5bbe34c67d2246ca082c1412d10f63a83464a43d1e60",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/ep1b_09_black_sun_core.jpg"
+    },
+    {
+      "id": "u201",
+      "name": "방어의 군단",
+      "arc": "U2",
+      "map": "./assets/generated-v3125/maps/u2_war_loop.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/u2_war_loop.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "u201-e1",
+          "name": "전쟁기억 정찰드론",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u201-e2",
+          "name": "폭격기억 사이보그 사냥개",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u201-e3",
+          "name": "참호 공명기사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u201-mid",
+          "name": "제4단계 전쟁관리자",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b07"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "50652acebcb60c2f2e51363cf3253a0a097706b43bffb017d4f4a5c750b338e4",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/u2_war_loop.jpg"
+    },
+    {
+      "id": "u202",
+      "name": "잔인한 구원",
+      "arc": "U2",
+      "map": "./assets/maps/u2_02_suppression.jpg",
+      "mapVariants": [
+        "./assets/maps/u2_02_suppression.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "u202-e1",
+          "name": "가짜 자비 수집가",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u202-e2",
+          "name": "복종 봉인구",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "u202-e3",
+          "name": "감옥 공명기사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u202-mid",
+          "name": "제8단계 자비 교정관",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b05"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "4d83f12564b77ea6af88835f633e2a2dfaaf0feb9a01c2a62ed22de796bf667b",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/u2_02_suppression.jpg"
+    },
+    {
+      "id": "u203",
+      "name": "기억의 문",
+      "arc": "U2",
+      "map": "./assets/maps/generated-v31213/u203_controller_memory_nexus.jpg",
+      "mapVariants": [
+        "./assets/maps/generated-v31213/u203_controller_memory_nexus.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "u203-e1",
+          "name": "이동문 청람잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u203-e2",
+          "name": "이동문 공허잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u203-e3",
+          "name": "최종문 공명기사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u203-mid",
+          "name": "기억의 문 수호 프레임",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "u203-boss",
+          "name": "컨트롤러 · 기억의 문",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-u2"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        1000
+      ],
+      "sourceSha256": "afa5dab58544cf1294e278e98ee74a30df99854ff984183051435893d5dedf83",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/generated-v31213/u203_controller_memory_nexus.jpg"
+    },
+    {
+      "id": "last301",
+      "name": "타락천사 기사",
+      "arc": "LAST3",
+      "map": "./assets/maps/last3_03_fallen_court.jpg",
+      "mapVariants": [
+        "./assets/maps/last3_03_fallen_court.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "l301-boss",
+          "name": "타락천사 기사",
+          "boss": true,
+          "ranged": false,
+          "patternSet": "last301"
+        },
+        {
+          "id": "l301-clone1",
+          "name": "타락천사 분열체 I",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "l301-clone2",
+          "name": "타락천사 분열체 II",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "l301-clone3",
+          "name": "타락천사 분열체 III",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "l301-clone4",
+          "name": "타락천사 분열체 IV",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "l301-clone5",
+          "name": "타락천사 분열체 V",
+          "boss": false,
+          "ranged": false
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "0cb02b60cf0caeddd6d88e7d0e21ca4652d395fd11541f2e5f5ce1c0b1ea4d4e",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/last3_03_fallen_court.jpg"
+    },
+    {
+      "id": "last302",
+      "name": "잠들지 못하는 마을",
+      "arc": "LAST3",
+      "map": "./assets/maps/last3_01_village.jpg",
+      "mapVariants": [
+        "./assets/maps/last3_01_village.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "l302-e1",
+          "name": "포구 검은 안개",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "l302-e2",
+          "name": "잠들지 못한 검은 영혼",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "l302-e3",
+          "name": "귀비탕 공명 안개핵",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "mb-last302-v31231",
+          "name": "검은 안개 심장 · 불면의 기억",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "final-last3"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "5e778be1a8ccca6a9827ba1835b8e32a8853c88c940a9805b1c9db92c08db7eb",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/last3_01_village.jpg"
+    },
+    {
+      "id": "last303",
+      "name": "한약과 불면귀",
+      "arc": "LAST3",
+      "map": "./assets/generated-v3128/maps/last3_02_sleepless_gate_v3128.jpg",
+      "mapVariants": [
+        "./assets/generated-v3128/maps/last3_02_sleepless_gate_v3128.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "l303-boss",
+          "name": "불면귀",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-last3"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "bcbbb803862c90f04ce343ec758874fc147f550b329451eb41d20200d735ba65",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3128/maps/last3_02_sleepless_gate_v3128.jpg"
+    },
+    {
+      "id": "kair01",
+      "name": "최초명령의 세계",
+      "arc": "KAIRO",
+      "map": "./assets/maps/kair_01_academy.jpg",
+      "mapVariants": [
+        "./assets/maps/kair_01_academy.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-academy-wave-1",
+          "name": "최초명령 훈련파동 1",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-academy-wave-2",
+          "name": "최초명령 훈련파동 2",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-academy-wave-3",
+          "name": "최초명령 훈련파동 3",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "kair-academy-wave-4",
+          "name": "최초명령 훈련파동 4",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-academy-wave-5",
+          "name": "최초명령 훈련파동 5",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-academy-wave-6",
+          "name": "최초명령 훈련파동 6",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-kair01-v31231",
+          "name": "최초명령 코어 오염체",
+          "boss": false,
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "dd8d234d074f07c31186a892d83963579fd70ee8791f6851b4ecaf53e1716662",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/kair_01_academy.jpg"
+    },
+    {
+      "id": "kair02",
+      "name": "아르벨리아, 유예의 수문장",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_sealed_corridor.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_sealed_corridor.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-43",
+          "name": "시간수문장 43",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-44",
+          "name": "시간수문장 44",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-45",
+          "name": "시간수문장 45",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-46",
+          "name": "시간수문장 46",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-47",
+          "name": "시간수문장 47",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-48",
+          "name": "시간수문장 48",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-59",
+          "name": "상위수문장 59",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-elite-60",
+          "name": "상위수문장 60",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-great-03",
+          "name": "아르벨리아, 유예의 수문장",
+          "boss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "8f8d783b1718b6e80469b489688b71acaa190e6be413b2892ae27b293d3a1cbb",
+      "decision": "new-imagegen",
+      "reason": "Cramped corridor/crossing or fragmented floor cannot provide continuous common battle geometry without major stretching or clipping.",
+      "floorCenterY": 0.57,
+      "activeMap": "./assets/rc138/map-kair02.png",
+      "generatedOriginal": "/workspace/generated_images/exec-04357849-bae9-4bcf-a45b-05a491059a8d.png",
+      "outputSha256": "b157e4f00e8780e9e3a105e974980bc844e653a69e1166b1f92f77390a2257e4"
+    },
+    {
+      "id": "kair03",
+      "name": "세이렌 모르",
+      "arc": "KAIRO",
+      "map": "./assets/maps/rc53/kair03-siren-timeway.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "k103-boss",
+          "name": "세이렌 모르",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "832aaa38766ecf20a6c79064195103fec24a7957a5c0ba7ca4580ea2bc5cc136",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/rc53/kair03-siren-timeway.webp"
+    },
+    {
+      "id": "hando01",
+      "name": "성 안에 소환된 의목사",
+      "arc": "HANDO",
+      "map": "./assets/rc15/hando01.png",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "h101-s1",
+          "name": "성벽 침식 봉인병",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "h101-t1",
+          "name": "악몽 정찰체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "h101-s2",
+          "name": "의존 신호 포식자",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-hando01",
+          "name": "의존 신호 포식자",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "hando01"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "5592aaeb938a0ee161ec95ea6b9f1f904705c72cbfa470b3f94d95fbb2fcc154",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/rc15/hando01.png"
+    },
+    {
+      "id": "hando02",
+      "name": "두 주인의 각성",
+      "arc": "HANDO",
+      "map": "./assets/rc15/hando02.png",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "h102-s1",
+          "name": "붕괴선 파수병",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "h102-c1",
+          "name": "기억절제 연결자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "h102-t1",
+          "name": "무명 검흔",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "h102-s2",
+          "name": "코어 운반 집행자",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "mb-hando02",
+          "name": "코어 운반 집행자",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "hando02"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "b948fada55aa5bb5d5ad3f4066ed20b883bf4e9ba990ff42ae3e5441b9ebc902",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/rc15/hando02.png"
+    },
+    {
+      "id": "hando03",
+      "name": "함께 되찾은 코어",
+      "arc": "HANDO",
+      "map": "./assets/rc15/hando03.png",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "h103-c1",
+          "name": "EGO 탈취 연결자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "h103-s1",
+          "name": "환수검 모조체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "h103-t1",
+          "name": "백은 없는 그림자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "h103-boss",
+          "name": "EGO 강탈 악몽왕",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-hando"
+        },
+        {
+          "id": "mb-hando03",
+          "name": "환수검 모조체",
+          "midboss": true,
+          "ranged": false,
+          "patternSet": "hando03"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "6e3d7bc9f9091554046169a6324ef20d8283f34c7256127d1a2b43a2139c6d54",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/rc15/hando03.png"
+    },
+    {
+      "id": "murder01",
+      "name": "윤하람",
+      "arc": "MURDER",
+      "map": "./assets/maps/murder_01_crosswalk.jpg",
+      "mapVariants": [
+        "./assets/maps/murder_01_crosswalk.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "mb-murder01",
+          "name": "파란불 역주행 목격자",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "murder01"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "ca604ffd6b5da37f3ecf98dbf945b3b4efcdff90856a2067e04347d8852bf6eb",
+      "decision": "new-imagegen",
+      "reason": "Cramped corridor/crossing or fragmented floor cannot provide continuous common battle geometry without major stretching or clipping.",
+      "floorCenterY": 0.57,
+      "activeMap": "./assets/rc138/map-murder01.png",
+      "generatedOriginal": "/workspace/generated_images/exec-0649f40e-559e-4a45-93ae-c0b7c20b4c92.png",
+      "outputSha256": "61738bedc097023f91206a8b65a96d1c295df5ddc6264bd09016831b39357e4f",
+      "signage": "SAEBIT HOTEL, canonical Saebit Hotel"
+    },
+    {
+      "id": "murder02",
+      "name": "장민재와 새빛호텔",
+      "arc": "MURDER",
+      "map": "./assets/maps/murder_02_hotel_stair.jpg",
+      "mapVariants": [
+        "./assets/maps/murder_02_hotel_stair.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "mb-murder02",
+          "name": "공실장부 당직감사",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "murder02"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "8b3a6d756ecd3b41b86bbcf9ce34a3a2b017e902f8a68262bc28169bc860b6db",
+      "decision": "new-imagegen",
+      "reason": "Cramped corridor/crossing or fragmented floor cannot provide continuous common battle geometry without major stretching or clipping.",
+      "floorCenterY": 0.57,
+      "activeMap": "./assets/rc138/map-murder02.png",
+      "generatedOriginal": "/workspace/generated_images/exec-a4befbd8-57ce-44cb-b2fe-9ad793eb9591.png",
+      "outputSha256": "ffba7104db702055a3d86ee82b7a649bd89314e9fbb12c9f393389372f81c32d"
+    },
+    {
+      "id": "murder03",
+      "name": "옥상의 순환",
+      "arc": "MURDER",
+      "map": "./assets/maps/rc56/murder03-rooftop-loop.webp",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "mb-murder03",
+          "name": "옥상 인과보관인",
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "murder03"
+        }
+      ],
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "sourceSha256": "7f03dd75a49660de606a93b6d6367f54871023cd8fc9b2f89e67df4a3c5dc9bf",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/rc56/murder03-rooftop-loop.webp"
+    },
+    {
+      "id": "cult01",
+      "name": "하나로 묶인 악몽",
+      "arc": "CULT",
+      "map": "./assets/maps/latest-v3123/black_rose_chip_injection_altar.jpg",
+      "mapVariants": [
+        "./assets/maps/latest-v3123/black_rose_chip_injection_altar.jpg",
+        "./assets/maps/v3121/cult_01_black_rose_infiltration.jpg",
+        "./assets/maps/v3121/cult_01_sermon_depth.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "c101-e1",
+          "name": "흑장미 눈가린 신도",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c101-e2",
+          "name": "흑장미 귀막은 신도",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c101-e3",
+          "name": "세뇌 신호 점액체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c101-mid",
+          "name": "칩 제단 방화벽",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "85a38a395331da984ff16c73ae9e138392797bdb7402f53255eac9b9fb379bff",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/latest-v3123/black_rose_chip_injection_altar.jpg"
+    },
+    {
+      "id": "cult02",
+      "name": "교주가 기다리는 전쟁",
+      "arc": "CULT",
+      "map": "./assets/maps/generated-v31213/cult02_neural_choir_arena.jpg",
+      "mapVariants": [
+        "./assets/maps/generated-v31213/cult02_neural_choir_arena.jpg",
+        "./assets/maps/v3121/cult_02_chip_choir.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "c102-e1",
+          "name": "신경 케이블 포식체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c102-e2",
+          "name": "합일 주파수 결정",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c102-e3",
+          "name": "과열 시냅스 점액체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c102-boss",
+          "name": "네트워크 합창체",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        1000
+      ],
+      "sourceSha256": "20f6a94d3d1cac7d31c989958d50e7e67e6d3016438c08e2f9a2a56c65b2b26a",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/generated-v31213/cult02_neural_choir_arena.jpg"
+    },
+    {
+      "id": "cult03",
+      "name": "사몽의 문턱",
+      "arc": "CULT",
+      "map": "./assets/maps/generated-v31213/cult03_triune_ego_extraction_arena.jpg",
+      "mapVariants": [
+        "./assets/maps/generated-v31213/cult03_triune_ego_extraction_arena.jpg",
+        "./assets/generated-v3128/maps/cult_03_id_biovats_v3128.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "c103-e1",
+          "name": "EGO 구속 연결자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c103-e2",
+          "name": "SUPER EGO 절개결정",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c103-e3",
+          "name": "ID 잔류 점액체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c103-mid",
+          "name": "이단의목사 한리안",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "rc55-c103-han"
+        },
+        {
+          "id": "c103-boss",
+          "name": "이단의목사 백이온",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "rc55-c103-baek"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        1000
+      ],
+      "sourceSha256": "9df293ea34b10f041410137beec97f9dfab9e8fc4605547dae3ed0fdfa31d2a3",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/generated-v31213/cult03_triune_ego_extraction_arena.jpg"
+    },
+    {
+      "id": "cult04",
+      "name": "교주의 사몽",
+      "arc": "CULT",
+      "map": "./assets/maps/rc53/cult04-final-judgment.jpg",
+      "mapVariants": [],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "c104-e1",
+          "name": "소환좌 칩 수호체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c104-e2",
+          "name": "아마겟돈 계산결정",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c104-mid",
+          "name": "적그리스도 배양좌",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "final-ep1b"
+        },
+        {
+          "id": "c104-boss",
+          "name": "교만의 사이보그 교주",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-ep1b"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        1000
+      ],
+      "sourceSha256": "109d98ffb6a61c1b53862a75d06124d0f603b5a56617f4220750023afe22c794",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/rc53/cult04-final-judgment.jpg"
+    },
+    {
+      "id": "u204",
+      "name": "시스템의 거부권",
+      "arc": "U2",
+      "map": "./assets/maps/u2_01_observation.jpg",
+      "mapVariants": [
+        "./assets/maps/u2_01_observation.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "u204-e1",
+          "name": "첫 기억 청람잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u204-e2",
+          "name": "기억 공백 망령",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u204-e3",
+          "name": "문턱 관측거미",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u204-mid",
+          "name": "제12단계 기억 검열기",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "1001026642cd8d5411fc14dfd9674c6781a85921e9ef1b62151b0857f22108a0",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/u2_01_observation.jpg"
+    },
+    {
+      "id": "u205",
+      "name": "관리자 권한",
+      "arc": "U2",
+      "map": "./assets/maps/u2_03_void_core.jpg",
+      "mapVariants": [
+        "./assets/maps/u2_03_void_core.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "u205-e1",
+          "name": "학대기록 공허체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u205-e2",
+          "name": "관리자 추적견",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u205-e3",
+          "name": "역전기록 수집가",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u205-mid",
+          "name": "제14단계 역전 관리자",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b09"
+        }
+      ],
+      "sourceSize": [
+        1600,
+        900
+      ],
+      "sourceSha256": "b8c46ced13d4e9ca8c21ea5250c1f3f924fd95ffc66dd7f56ef3608b507277ee",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/u2_03_void_core.jpg"
+    },
+    {
+      "id": "u206",
+      "name": "중앙 코어 이주실",
+      "arc": "U2",
+      "map": "./assets/generated-v3128/maps/u2_memory_gate_v3128.jpg",
+      "mapVariants": [
+        "./assets/generated-v3128/maps/u2_memory_gate_v3128.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "u206-e1",
+          "name": "기억이주 연결자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u206-e2",
+          "name": "중앙이주 공명기사",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u206-e3",
+          "name": "입양기억 청람잔영",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "u206-mid",
+          "name": "제17단계 중앙이주 코어",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "final-u2"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "0eedfd6b9ec263de1a43af5af6b8eadd2327d30cbf0c2783e167833516a49ac6",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3128/maps/u2_memory_gate_v3128.jpg"
+    },
+    {
+      "id": "last304",
+      "name": "중립 지역의 재각성",
+      "arc": "LAST3",
+      "map": "./assets/generated-v3125/maps/fusion_neutral_meadow.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/fusion_neutral_meadow.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "l304-e1",
+          "name": "중립초원 슬라임",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "l304-e2",
+          "name": "중립초원 늑대",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "l304-e3",
+          "name": "장미이슬 슬라임",
+          "boss": false,
+          "ranged": true
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "466914aa9cfd2e12ad23fd2b9bb80c4e73336b3a1d23a4611136492ad365c075",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/fusion_neutral_meadow.jpg"
+    },
+    {
+      "id": "last305",
+      "name": "고블린 두목과 장미 인장",
+      "arc": "LAST3",
+      "map": "./assets/generated-v3125/maps/fusion_goblin_forest.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/fusion_goblin_forest.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "l305-e1",
+          "name": "숲 고블린",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "l305-e2",
+          "name": "피리 고블린",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "l305-boss",
+          "name": "고블린 추장",
+          "boss": true,
+          "ranged": true,
+          "patternSet": "final-last3"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "e4d0f6a7803d51fc23b5b9af629d73f3489e1b450d294b1358499b84b6c99562",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/fusion_goblin_forest.jpg"
+    },
+    {
+      "id": "kair04",
+      "name": "예순여섯 수문장",
+      "arc": "KAIRO",
+      "map": "./assets/maps/kair_02_gatefront.jpg",
+      "mapVariants": [
+        "./assets/maps/kair_02_gatefront.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-01",
+          "name": "시간수문장 01",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-02",
+          "name": "시간수문장 02",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-03",
+          "name": "시간수문장 03",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-04",
+          "name": "시간수문장 04",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-05",
+          "name": "시간수문장 05",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-06",
+          "name": "시간수문장 06",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-49",
+          "name": "상위수문장 49",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-elite-50",
+          "name": "상위수문장 50",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "mb-kair04-v31231",
+          "name": "휴식 수확관 · 과로의 수문장",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "5ee14c205b9316c99488fd7450c9ac5cfa3dc601ee62756f996fa13fe44de565",
+      "decision": "new-imagegen",
+      "reason": "Cramped corridor/crossing or fragmented floor cannot provide continuous common battle geometry without major stretching or clipping.",
+      "floorCenterY": 0.57,
+      "activeMap": "./assets/rc138/map-kair04.png",
+      "generatedOriginal": "/workspace/generated_images/exec-62f546e8-d425-49aa-b0e1-9ec0d0ff49ee.png",
+      "outputSha256": "3c13528faa1296be1a25d54e95e993025a8f77829d217ed41e25d5c9a5c90ef8"
+    },
+    {
+      "id": "kair05",
+      "name": "빼앗긴 시간",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_time_forest.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_time_forest.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-07",
+          "name": "시간수문장 07",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-08",
+          "name": "시간수문장 08",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-09",
+          "name": "시간수문장 09",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-10",
+          "name": "시간수문장 10",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-11",
+          "name": "시간수문장 11",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-12",
+          "name": "시간수문장 12",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-51",
+          "name": "상위수문장 51",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-great-01",
+          "name": "대수문장 01",
+          "boss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "1d593d509597d67a09c89cf53a259f987a853c06de35c0b1e632efeed0fad2fb",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/kair_time_forest.jpg"
+    },
+    {
+      "id": "kair06",
+      "name": "닫힌 층의 명령",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_polluted_waterway.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_polluted_waterway.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-13",
+          "name": "시간수문장 13",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-14",
+          "name": "시간수문장 14",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-15",
+          "name": "시간수문장 15",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-16",
+          "name": "시간수문장 16",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-17",
+          "name": "시간수문장 17",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-18",
+          "name": "시간수문장 18",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-52",
+          "name": "상위수문장 52",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-great-02",
+          "name": "대수문장 02",
+          "boss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "de4e56cc1b05a78ba08dfaef1396f3456bacf4585265f4c0fbba3708c39f5f89",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/kair_polluted_waterway.jpg"
+    },
+    {
+      "id": "kair07",
+      "name": "검은 공방",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_black_workshop.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_black_workshop.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-19",
+          "name": "시간수문장 19",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-20",
+          "name": "시간수문장 20",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-21",
+          "name": "시간수문장 21",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-22",
+          "name": "시간수문장 22",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-23",
+          "name": "시간수문장 23",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-24",
+          "name": "시간수문장 24",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-53",
+          "name": "상위수문장 53",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-elite-54",
+          "name": "상위수문장 54",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-great-04",
+          "name": "대수문장 04",
+          "boss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "5a48219bc80e5af1de4008d1e0e82f40047817891fd60adafca9de9d4feeaea8",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/kair_black_workshop.jpg"
+    },
+    {
+      "id": "kair08",
+      "name": "뉴런 게이트 · 노이론 게이트",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_neuron_gate.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_neuron_gate.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-25",
+          "name": "시간수문장 25",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-26",
+          "name": "시간수문장 26",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-27",
+          "name": "시간수문장 27",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-28",
+          "name": "시간수문장 28",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-29",
+          "name": "시간수문장 29",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-30",
+          "name": "시간수문장 30",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-55",
+          "name": "상위수문장 55",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-great-05",
+          "name": "대수문장 05",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "5e3021144fe9d2a7aac075ec9cd8ff935fa5f9bc5d99b965e1b2968e66104471",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/kair_neuron_gate.jpg"
+    },
+    {
+      "id": "kair09",
+      "name": "망각의 묘지",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_oblivion_cemetery.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_oblivion_cemetery.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-31",
+          "name": "시간수문장 31",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-32",
+          "name": "시간수문장 32",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-33",
+          "name": "시간수문장 33",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-34",
+          "name": "시간수문장 34",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-35",
+          "name": "시간수문장 35",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-36",
+          "name": "시간수문장 36",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-56",
+          "name": "상위수문장 56",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-elite-57",
+          "name": "상위수문장 57",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "mb-kair09-v31231",
+          "name": "망각 묘지기 · 삭제된 선택",
+          "boss": true,
+          "midboss": false,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "3195bc1b1ed5a8fb0f015f11b54343e822ef2695d90e9628a6b468cc82ef9cd5",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/kair_oblivion_cemetery.jpg"
+    },
+    {
+      "id": "kair10",
+      "name": "붕괴 의식장",
+      "arc": "KAIRO",
+      "map": "./assets/generated-v3125/maps/kair_collapsed_ritual.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/kair_collapsed_ritual.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "kair-guardian-37",
+          "name": "시간수문장 37",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-38",
+          "name": "시간수문장 38",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-39",
+          "name": "시간수문장 39",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-40",
+          "name": "시간수문장 40",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-41",
+          "name": "시간수문장 41",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-guardian-42",
+          "name": "시간수문장 42",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "kair-elite-58",
+          "name": "상위수문장 58",
+          "boss": false,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        },
+        {
+          "id": "kair-great-06",
+          "name": "대수문장 06",
+          "boss": true,
+          "ranged": true,
+          "patternSet": "final-kairo"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "6e43bc9ea78d787c019222da8c50b1671e74c0cc76aa8fa5ad1cc29d11abbd45",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/kair_collapsed_ritual.jpg"
+    },
+    {
+      "id": "murder04",
+      "name": "고서진과 청록빌라",
+      "arc": "MURDER",
+      "map": "./assets/generated-v3125/maps/murder_teal_villa.jpg",
+      "mapVariants": [
+        "./assets/generated-v3125/maps/murder_teal_villa.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "murder04-e1",
+          "name": "공실 표기 잔재",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "murder04-e2",
+          "name": "제출되지 못한 문장",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "murder04-e3",
+          "name": "은폐기록 연결체",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "murder04-mid",
+          "name": "진술 봉쇄 인과핵",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "final-murder"
+        }
+      ],
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceSha256": "57d5a9a5199c377cd64c7ffdb416065b9664be2458abfd2836e53b2ee8d7a78a",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/generated-v3125/maps/murder_teal_villa.jpg"
+    },
+    {
+      "id": "cult05",
+      "name": "돌아오는 현실의 기억",
+      "arc": "CULT",
+      "map": "./assets/maps/v3121/cult_03_unity_vat.jpg",
+      "mapVariants": [
+        "./assets/maps/v3121/cult_03_unity_vat.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "c105-e1",
+          "name": "ID 배양 점액체",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c105-e2",
+          "name": "생체기계 악몽",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c105-e3",
+          "name": "본능 추출 결정",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c105-mid",
+          "name": "ID 생체조 관리자",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b04"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "e67840729bf9732ebe203e44722b93ac4494ec6b6cc7d6767b9cc693211d5d5c",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/v3121/cult_03_unity_vat.jpg"
+    },
+    {
+      "id": "cult06",
+      "name": "처음 세웠던 목표",
+      "arc": "CULT",
+      "map": "./assets/maps/generated-v31212/cult06_mechanical_judgment_arena.jpg",
+      "mapVariants": [
+        "./assets/maps/generated-v31212/cult06_mechanical_judgment_arena.jpg"
+      ],
+      "subtitle": "",
+      "enemies": [
+        {
+          "id": "c106-e1",
+          "name": "SUPER EGO 판결인장",
+          "boss": false,
+          "ranged": false
+        },
+        {
+          "id": "c106-e2",
+          "name": "기계재판 연결자",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c106-e3",
+          "name": "죄책감 압축결정",
+          "boss": false,
+          "ranged": true
+        },
+        {
+          "id": "c106-mid",
+          "name": "기계재판 집행핵",
+          "boss": false,
+          "midboss": true,
+          "ranged": true,
+          "patternSet": "ep1b08"
+        }
+      ],
+      "sourceSize": [
+        960,
+        600
+      ],
+      "sourceSha256": "13c837712b7002dbfc466bbfc08c34c44d911b422b8a46e57e459eb7bbfb355a",
+      "decision": "uniform-reconfiguration",
+      "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
+      "floorCenterY": 0.5,
+      "activeMap": "./assets/maps/generated-v31212/cult06_mechanical_judgment_arena.jpg"
+    }
+  ],
+  "excludedHistoricalRecords": [
+    {
+      "id": "ep1a07",
+      "reason": "RC60 removes this empty combat record from he and migrates native saves to ep1a08; preserve this authored route deletion.",
+      "sourceMap": "./assets/maps/rc54/ep1a07-darkfall.webp"
+    }
+  ]
+}

@@ -26,7 +26,7 @@
   if(!previous||previous.zone!==s.zone){rows[slot]={...camera,focusId,zone:s.zone,at:now};return{...camera,portraitSplitRC108:slot};}
   const dt=Math.max(0,Math.min(.08,(now-previous.at)/1000)),amount=1-Math.exp(-dt/.14),dx=(camera.x-previous.x)*amount,dy=(camera.y-previous.y)*amount,step=Math.hypot(dx,dy),maxStep=32,limit=step>maxStep?maxStep/step:1;
   const next={x:previous.x+dx*limit,y:previous.y+dy*limit,scale:camera.scale,focusId,zone:s.zone,at:now};
-  rows[slot]=next;return{x:next.x,y:next.y,scale:next.scale,portraitSplitRC108:slot};
+  rows[slot]=next;return{...camera,x:next.x,y:next.y,scale:next.scale,portraitSplitRC108:slot};
  }
  function camera(s,fallback,project,zone,exit){
   if(!active(s))return null;
@@ -38,8 +38,9 @@
   let next={x:640-heroPoint.x*scale,y:360-heroPoint.y*scale,scale},focusId='hero';
   if(boss){const p=point(project,boss.x,boss.y),lift=boss.boss?21:15;next={x:640-p.x*scale,y:360+lift-p.y*scale,scale};focusId=String(boss.id);}
   const logical=window.__HAPIL_VIEWPORT_RC104__?.view?.()??{x:473,y:0,width:334,height:720};
-  next=clampCamera(next,scale,{x:logical.x,y:180,width:logical.width,height:360});
-  const resolved=smooth(s,slot,next,focusId);stats.cameras[slot]={x:resolved.x,y:resolved.y,scale:resolved.scale,focusId};return resolved;
+  const arena=window.__HAPIL_BATTLE_ARENA_RC138__?.coverage(s,slot,project,logical);
+  next=arena??clampCamera(next,scale,{x:logical.x,y:180,width:logical.width,height:360});
+  const resolved=smooth(s,slot,next,focusId);stats.cameras[slot]={x:resolved.x,y:resolved.y,scale:resolved.scale,focusId,...(arena?{side:arena.rc138Side,row:arena.rc138Row,coverage:arena.rc138Coverage}:{})};return resolved;
  }
  function store(canvas,slot){let map=cache.get(canvas);if(!map||map.width!==canvas.width||map.height!==canvas.height){
    const half=Math.floor(canvas.height/2),sourceY=Math.floor((canvas.height-half)/2),above=Math.min(1,sourceY),below=Math.min(1,canvas.height-sourceY-half);
@@ -71,6 +72,6 @@
  }
  function pointerBlocked(event,rect){if(!active(lastState)||!event||!rect)return false;const blocked=event.clientY<rect.top+rect.height/2;if(blocked)stats.pointerBlocked++;return blocked;}
  function pointer(event,rect,base){if(!active(lastState)||typeof base!=='function'||event.clientY<rect.top+rect.height/2)return null;const point=base(event,rect),half=rect.height/2,v=Math.max(0,Math.min(1,(event.clientY-rect.top-half)/half));return point?{x:point.x,y:180+v*360}:null;}
- function shouldRender(canvas,s){return active(s)&&!rendering;}
+ function shouldRender(canvas,s){const box=canvas?.getBoundingClientRect?.();return active(s)&&!rendering&&box?.width>0&&box?.height>0;}
  window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({version:'RC115',active,shouldRender,render,camera,pointer,pointerBlocked,metrics:()=>({...stats,cameras:{...stats.cameras},rendering,target,frame}),policy:{portraitWorldRangeMultiplier:2,desktopAndLandscapeUnchanged:true}});
 })();

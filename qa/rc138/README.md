@@ -1,0 +1,15 @@
+# Native left/right combat arenas
+
+RC138 applies the same Persona floor geometry, continuous floor bounds, entry and valid right-side portal to all **55 active combat zones**. RC60's deleted `ep1a07` record remains deleted and its save migration remains intact. Rest areas retain their existing geometry.
+
+All living hostile actors, including optional combat actors and summons, hold the right half; the player and party hold the left half. Native coordinate setters, factory/array admission, movement, safe warps and restore enforce ownership. Shots and laser contact keep their continuous world coordinates. The native wave, reservation, phase and objective gate still owns completion; one midboss or a temporary empty wave does not open the exit. Actual player death releases ownership without marking completion, and the explicit native revival choice relocks a surviving fight. Persona's bounded mutual faction swap is the single ownership exception.
+
+All hostile ordinary/basic profiles use native travelling ranged attacks; direct body/melee packets are rejected at the actual reducer. Decorative blanket boss overlays are removed, and oversized source-owned nonlaser effects retain the RC130 bitmap cap. Existing travelling shots and actual laser geometry/telegraphs remain authoritative.
+
+Portrait retains exactly two cached views: enemy domain above, allied domain below. Internally each domain continuously tracks three vertical coverage bands. No six-sector grid, labels, colored boxes or row guides are drawn. Opposing awakening tint follows each view's actual world-center seam, including temporary faction swaps; HUD remains composed afterward.
+
+`map-format-manifest.json` records 49 uniform whole-source reconfigurations, six actual ImageGen replacements, source preimage hashes and generated output hashes. All original images remain unchanged. New images preserve hospital, burning hotel, sealed time passage, clock gate, rainy Saebit crosswalk and burned hotel entrance themes. Raster edits used ImageGen; generated originals were copied unchanged.
+
+`tests/rc138-arena-unit.cjs` exercises direct coordinate writes, summons, replaced rosters, native future-wave gates, death/revival, party guards and Persona swaps/dead release. `tests/rc138-arena-browser.cjs` exercises authored native rosters across all 55 maps, native save normalization/restore, right portal admission, eight bound native attacks and native damage delivery, and captures actual final renderer output for every map. These are explicitly staged regression fixtures, not natural campaign completion. Separate unmodified full-auto Story/Dream first-zone runs verify natural portal advancement without HP/enemy/progress edits. Exact CI repeats native arena and complete RC137 audits on PC, portrait and landscape in two fresh rounds.
+
+Full natural hidden-finale completion, physical-device measurements, the remaining 33 boss motion sets and held unassigned audio are separate outstanding evidence/scope; this release does not claim them complete.

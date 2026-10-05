@@ -29,6 +29,10 @@ const fixedFiles = [
   'assets/rc137/winter-thorn-sentry.png',
   'assets/rc137/u2-independent-sentries.png',
   'qa/rc137/art-manifest.json',
+  'assets/rc138/battle-arena.js',
+  'assets/rc138/map-data.js',
+  'assets/rc138/map-format.js',
+  'qa/rc138/map-format-manifest.json',
 ];
 const expectedOutputCount = 44;
 const expectedRuntimeCount = 53;
@@ -202,7 +206,7 @@ async function runProfile(browser, profile, outputRows) {
     await page.waitForFunction(expectedRuntimeCount => {
       const native = window.__HAPIL_RC133_NATIVE__;
       const art = window.__HAPIL_MEDIA_ART_RC133__;
-      if (native?.installed !== true || art?.ready !== true || window.__HAPIL_BOSS_ART_RC137__?.ready !== true) return false;
+      if (window.__HAPIL_NATIVE_ARENA_RC138__?.installed!==true||native?.installed !== true || art?.ready !== true || window.__HAPIL_BOSS_ART_RC137__?.ready !== true) return false;
       const d = art.diagnostics();
       return d.ready === true && d.required === expectedRuntimeCount && d.decoded === expectedRuntimeCount && d.failed.length === 0;
     }, expectedRuntimeCount, { timeout: 60000 });
@@ -258,6 +262,9 @@ async function runProfile(browser, profile, outputRows) {
     assert.equal(live.mode, 'STORY', 'normal new game remains in STORY mode');
     assert.equal(live.canvas, true, 'the actual game canvas is visible');
     assert(Number.isFinite(live.hp) && live.hp > 0, 'live player HP remains above zero at observation');
+    row.arena138=await page.evaluate(async()=>{const R=window.__HAPIL_BATTLE_ARENA_RC138__,s=window.__MONGSE_QA_STATE__,rows=Object.values(window.__HAPIL_MAP_DATA_RC138__),images=[];for(const row of rows.filter(r=>r.decision==='new-imagegen')){const im=new Image();im.src=row.activeMap;await im.decode();images.push({path:row.activeMap,width:im.naturalWidth,height:im.naturalHeight});}return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:rows.length,newImages:images,split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics()};});
+    assert.equal(row.arena138.maps,55);assert.equal(row.arena138.newImages.length,6);assert(row.arena138.snapshot.locked&&row.arena138.playerValid&&row.arena138.enemyValid,'normal public Story owns actual halves');
+    if(name.includes('portrait')){assert.equal(row.arena138.split.cameras.hero.side,'left');assert.equal(row.arena138.split.cameras.boss.side,'right');}
     row.game = live;
     assert.deepEqual(row.errors, [], 'no browser page errors');
     assert.deepEqual(row.httpErrors, [], 'no HTTP errors');
