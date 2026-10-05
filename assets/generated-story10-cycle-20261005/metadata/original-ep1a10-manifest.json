@@ -1,0 +1,286 @@
+{
+  "schema": "hapil-ep1a10-story-aligned-art/v1",
+  "generatedAtUtc": "2026-10-05T05:53:02Z",
+  "generationTool": "image_gen__imagegen",
+  "scene": {
+    "zone": "ep1a10",
+    "routeIndex": 10,
+    "title": "환자와 중독의 도시",
+    "narrativeSource": "data/story-rc51.js",
+    "narrativeSourceGitBlobSha": "b665f36e3420233287811edf4e235d4f863265a6",
+    "prePostReadInFull": true
+  },
+  "scope": {
+    "sharedConsumers": [
+      "HAPIL main",
+      "StoryWorld separate"
+    ],
+    "codeMutationPerformed": false,
+    "uploaded": false,
+    "ep1a11Changed": false,
+    "rasterPostprocessing": "None. Final PNGs are byte-identical copies of ImageGen outputs. Runtime sourceRect cropping is metadata only; originals retained."
+  },
+  "verifiedSource": {
+    "repository": "kjb7876-lang/hapil1",
+    "branch": "main",
+    "inspectedTreeSha": "0a4965a17ac69a05ffd79645a537a0f202417408",
+    "indexPath": "assets/index-v31526.js",
+    "indexGitBlobSha": "51caec7157eb436521fb58d8ef832ae16e04c003",
+    "activeMapBindingPath": "assets/rc138/map-data.js",
+    "activeMapBindingGitBlobSha": "b1574c68f2ebff9bd48c83ad2fd09ba98fdaf130",
+    "mobMotionBindingPath": "assets/rc137/mob-motion-data.js",
+    "mobMotionBindingGitBlobSha": "4b94283ef686c22d6e4a77f997bae728d0e973b4"
+  },
+  "map": {
+    "file": "deliverables/ep1a10-hospital-denial-map.png",
+    "width": 1586,
+    "height": 992,
+    "mode": "RGB",
+    "sha256": "4a6ea846f35328bbd352f3a06b1984c57f46de04202725fd2b9085405d32a975",
+    "bytes": 3041206,
+    "assetType": "opaque hospital-isolation/addiction-denial arena",
+    "design": [
+      "Peripheral empty hospital beds, privacy curtains, medical cabinets and broken mirror panels",
+      "Broad uninterrupted central left/right fighting floor",
+      "Warm distant treatment corridor contrasted with cold moonlight",
+      "No roads, crosswalks, cars, painted text, UI, grids, people or gore"
+    ],
+    "replacementFor": "./assets/v31345/maps/ep1a10.webp",
+    "fallbackLegacyMap": "./assets/maps/ep1a_10_addiction_city.jpg",
+    "integration": "Use for ep1a10 only. HAPIL arena projection and StoryWorld free-roam scale/collision adaptation remain separate consumer decisions; pixels are shared."
+  },
+  "actors": [
+    {
+      "entity": "masked-pursuer",
+      "actorId": "a10-o1",
+      "baseName": "오만의 흰 가면",
+      "wave2ActorId": "a10-o1-w2-2",
+      "wave2Name": "오만의 흰 가면 추격대",
+      "kind": "orderly",
+      "class": "mob",
+      "originalAsset": "./assets/episode1a/hallucinated_orderly.webp",
+      "originalSha256": "08f37adeb8f767ab37d605305f7b7413a85d64b7901c01bb23232459249d3014",
+      "currentAttackGroup": "M012",
+      "currentAttack": "./assets/rc137/mob-frames/M012.png",
+      "asset": {
+        "file": "deliverables/a10-o1-white-mask-pursuer-atlas.png",
+        "width": 2170,
+        "height": 725,
+        "mode": "RGBA",
+        "sha256": "eada909efe08785df573a9a878b200b77d27b0867d617048cd56d64b3f37875b",
+        "bytes": 1014619
+      },
+      "bakedFacing": "left",
+      "baseVisibleHeight": 558,
+      "poses": {
+        "idle": {
+          "sourceRect": [
+            96,
+            0,
+            640,
+            725
+          ],
+          "pivot": [
+            260,
+            662
+          ],
+          "visibleBoundsAlpha8": [
+            58,
+            103,
+            462,
+            661
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            736,
+            0,
+            596,
+            725
+          ],
+          "pivot": [
+            290,
+            649
+          ],
+          "visibleBoundsAlpha8": [
+            64,
+            147,
+            524,
+            648
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1332,
+            0,
+            808,
+            725
+          ],
+          "pivot": [
+            482,
+            655
+          ],
+          "visibleBoundsAlpha8": [
+            28,
+            208,
+            710,
+            655
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      },
+      "integrationScope": "Route ep1a10 a10-o1 and its generated wave descendants only. Original hallucinated_orderly.webp and M012 are also shared by ep1a08/09/11; do not replace those globally."
+    },
+    {
+      "entity": "pride-ruin-core",
+      "actorId": "mb-ep1a10",
+      "name": "오만의 폐허핵",
+      "kind": "hornDemon",
+      "class": "midboss",
+      "originalAsset": "./assets/generated-v31224/actors-normalized/df4a6534a6d4_ep1a_pride_ruin_core.webp",
+      "originalSha256": "15581e30c868772a84370b93f6b8b420f20752efb6bf65e4f99e862cd246023b",
+      "underlyingOriginalAsset": "./assets/episode1a/generated-v393/ep1a_pride_ruin_core.webp",
+      "asset": {
+        "file": "deliverables/mb-ep1a10-pride-ruin-core-atlas.png",
+        "width": 2172,
+        "height": 724,
+        "mode": "RGBA",
+        "sha256": "fdcaf1b370816931cce64086ce9128d93e483fedbd46a972b16407f4d3e35212",
+        "bytes": 1725077
+      },
+      "bakedFacing": "left",
+      "baseVisibleHeight": 608,
+      "poses": {
+        "idle": {
+          "sourceRect": [
+            96,
+            0,
+            600,
+            724
+          ],
+          "pivot": [
+            250,
+            669
+          ],
+          "visibleBoundsAlpha8": [
+            32,
+            60,
+            471,
+            668
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "anticipation": {
+          "sourceRect": [
+            710,
+            0,
+            620,
+            724
+          ],
+          "pivot": [
+            293,
+            663
+          ],
+          "visibleBoundsAlpha8": [
+            39,
+            118,
+            589,
+            661
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        },
+        "strike": {
+          "sourceRect": [
+            1330,
+            0,
+            825,
+            724
+          ],
+          "pivot": [
+            550,
+            660
+          ],
+          "visibleBoundsAlpha8": [
+            12,
+            150,
+            805,
+            657
+          ],
+          "boundaryAlphaMax": {
+            "left": 0,
+            "right": 0,
+            "top": 0,
+            "bottom": 0
+          }
+        }
+      },
+      "identityPreserved": [
+        "Broad dark metal/tarnished gold humanoid armor",
+        "Unmistakable shattered round chest-mirror core",
+        "Crown-like hollow collar and tattered brown waist cloth"
+      ],
+      "newStoryMotifs": [
+        "Gaunt masked zombie-human face",
+        "Clinical white cloth and restraint bands"
+      ],
+      "integrationScope": "mb-ep1a10 only. Keep this distinct from a10-o1 and all ep1a11 Lucifer assets."
+    }
+  ],
+  "relocationCandidate": {
+    "asset": "./assets/v31345/maps/ep1a10.webp",
+    "sha256": "c628157977ae7026840e7720e518cd646bdf4ae7e850ac5517346a93c88a0b22",
+    "actualPixels": "Rain-wet ruined road and crosswalk battleground",
+    "recommendedTarget": "murder01",
+    "targetNarrative": "rain-crosswalk / traffic-lanes / vehicle-path",
+    "fallbackOriginal": "./assets/maps/ep1a_10_addiction_city.jpg",
+    "fallbackSha256": "b2327d6150def2dcfc2a3fece7d514ef1a761b511c48a552387afaa3547114da",
+    "mappingChanged": false
+  },
+  "qualityChecks": {
+    "pixelsInspected": true,
+    "genuineAlphaForBothAtlases": true,
+    "allSixSourceRectBoundariesZeroAlpha": true,
+    "allThreePosesDistinctEachActor": true,
+    "characterPartsInsideSourceRects": true,
+    "noRasterEditingOutsideImagegen": true,
+    "mapCentralFloorOpen": true,
+    "noTextPaintedInAnyAsset": true,
+    "runtimeGameplayTested": false,
+    "physicalPhoneTested": false
+  },
+  "preview": "preview.html",
+  "prompts": "metadata/prompts.json",
+  "implementationNotes": [
+    "Source rectangles deliberately use unequal widths because ImageGen allocated extra room for strike poses. Do not assume equal thirds.",
+    "Pivots are sourceRect-local, manually reviewed foot/ground anchors and should be verified in each renderer at target display scale.",
+    "Keep body hitboxes tied to the recognizable torso/legs; trailing restraint ribbons and empty alpha margin must not expand collision radii.",
+    "No animation timing, AI, combat damage, scene mapping or deploy was changed by this asset package."
+  ]
+}
