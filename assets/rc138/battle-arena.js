@@ -1,13 +1,17 @@
 /* RC138: native actor ownership; cameras and travelling attacks never own coordinates. */
 (function(root){'use strict';
- let native=null;const runs=new WeakMap(),guards=new WeakMap(),arrays=new WeakMap();
+ let native=null;const runs=new WeakMap(),guards=new WeakMap(),arrays=new WeakMap(),clearing=new WeakSet();
  const n=(v,d=0)=>Number.isFinite(v)?v:d,D=()=>root.__HAPIL_PERSONA_DUEL_RC134__;
  const stats={guards:0,repairs:0,releases:0,deaths:0,relocks:0,spawns:0,bodyRejected:0};
  const format=Object.freeze({width:1280,height:720,center:{x:19,y:19},entry:{x:13.8,y:24.2},exit:{x:24.8,y:13.2},playerRadius:.8,enemyRadius:.72,centerGap:1.45,cameraColumns:2,cameraRows:3});
  const enabledZone=z=>!!native?.combat.has(z),enabled=s=>!!s&&enabledZone(s.zone);
  const hostile=a=>!!a&&!a.visualOnly&&!a.friendly&&!a.ally&&!a.neutral&&!a.canonAlly&&!a.canonAllyV31217&&!a.canonicalAllyV31217&&!a.protectedNarrativeTargetV31307&&!a.protectedNarrativeTargetV31238;
  const live=a=>hostile(a)&&(n(a.hp)>0||a.revivalPending===true||a.phaseTransitionActive===true);
- function clear(s,z=s?.zone){if(!enabled(s)||z!==s.zone)return false;if(!(s.hp>0)||(s.enemies??[]).some(live))return false;return native.clear(s,z)===true;}
+ function clear(s,z=s?.zone){if(!enabled(s)||z!==s.zone)return false;if(!(s.hp>0)||(s.enemies??[]).some(live))return false;if(clearing.has(s))return false;
+  // Native final-phase clear gates may construct their next boss before adding
+  // it to the roster. Its enrollment must retain the lock without re-entering
+  // that same construction gate. The outer native gate remains authoritative.
+  clearing.add(s);try{return native.clear(s,z)===true;}finally{clearing.delete(s);}}
  const locked=s=>enabled(s)&&s.hp>0&&!clear(s);
  const swapped=s=>D()?.swapped(s)===true,side=(s,allied)=>swapped(s)?allied?'right':'left':allied?'left':'right';
  function point(p,which='all',radius=.48){return D().point(p,which,radius);}

@@ -13,9 +13,9 @@
   // Both cards stay adjacent at the upper-right; distinct slots avoid covering
   // each other even when opposing awakenings and faction exchange overlap.
   ctx.save();try{ctx.filter='none';ctx.shadowBlur=0;ctx.globalCompositeOperation='source-over';ctx.textBaseline='top';ctx.textAlign='center';
-   entries.forEach((entry,i)=>{const x=width-margin-w-i*(w+gap);ctx.globalAlpha=.68;ctx.fillStyle='#080b15';ctx.fillRect(x-3,y-3,w+6,h+23);ctx.globalAlpha=.96;
+   entries.forEach((entry,i)=>{const x=width-margin-w-i*(w+gap);ctx.globalAlpha=.68;ctx.fillStyle='#080b15';ctx.fillRect(x-3,y-3,w+6,h+34);ctx.globalAlpha=.96;
     const im=entry.image;let imageRect=null;if(im?.complete&&im.naturalWidth&&im.naturalHeight){const fit=Math.min(w/im.naturalWidth,h/im.naturalHeight),iw=im.naturalWidth*fit,ih=im.naturalHeight*fit;imageRect={x:x+(w-iw)/2,y,width:iw,height:ih};ctx.drawImage(im,imageRect.x,imageRect.y,iw,ih);}
-    ctx.font=(narrow?'10':'12')+'px sans-serif';ctx.fillStyle=entry.kind==='persona'?'#ffc5cd':'#f2edff';ctx.fillText(entry.label+' · '+Math.max(0,entry.remaining).toFixed(1)+'초',x+w/2,y+h+3);
+    ctx.font=(narrow?'10':'12')+'px sans-serif';ctx.fillStyle=entry.kind==='persona'?'#ffc5cd':'#f2edff';ctx.fillText(entry.label,x+w/2,y+h+3,w);ctx.fillText(Math.max(0,entry.remaining).toFixed(1)+'초',x+w/2,y+h+(narrow?15:18),w);
     observed.push({kind:entry.kind,hero:entry.hero,path:entry.path,decoded:!!imageRect,imageRect,card:{x:x-3,y:y-3,width:w+6,height:h+23},width,height});
    });
   }finally{ctx.restore();}rows.set(s,observed);return true;

@@ -395,6 +395,15 @@ async function assertNativeImpact(evidence) {
         terrainPiercing31214:true,obstaclePiercing31214:true,losRequired31214:false});
       return{id,owner:a.id,partyTargets:allies.length+1};
     });
+    // RC137 requires a real choice even in full-auto Story. Native lethal
+    // delivery must silence media and hold HP/time before checkpoint admission.
+    await page.getByRole('dialog',{name:'부활 선택',exact:true}).waitFor({timeout:8000});
+    await waitSilent();
+    const waiting=await page.evaluate(()=>({hp:__MONGSE_QA_STATE__.hp,time:__MONGSE_QA_STATE__.time}));
+    await page.waitForTimeout(1200);
+    assert.deepEqual(await page.evaluate(()=>({hp:__MONGSE_QA_STATE__.hp,time:__MONGSE_QA_STATE__.time})),waiting);
+    assert.equal(waiting.hp,0);
+    await page.getByRole('button',{name:'체크포인트에서 부활',exact:true}).click();
     await page.waitForSelector('#hapil-death-verse-rc59',{timeout:8000});
     await waitSilent();
     assert.equal(await page.locator('#hapil-death-verse-title-rc59').textContent(),'죽음은 끝이 아니라 다시 걷는 문턱');
@@ -407,7 +416,7 @@ async function assertNativeImpact(evidence) {
     assert(deathModalMs>=2800&&deathModalMs<4300,`native full-auto death modal keeps its3second restart (${deathModalMs}ms)`);
     report.eventEvidence.push({...death,deathModalMs});
     await settings({autoCombat:false,combatMode:'manual',autoStoryAdvance:false});
-    check('native lethal party hit cancels uploads during death modal and preserves3second auto-restart');
+    check('native lethal party hit silences uploads while explicit choice holds HP/time; chosen checkpoint preserves3second verse dismissal');
     await stage('dist01','ordinary'); await waitMusic('clockwork');
     await page.evaluate(()=>{const s=__MONGSE_QA_STATE__;s.zone='hub';s.enemies=[];}); await waitSilent();
     check('scene change to hub ends uploaded music/effects');
