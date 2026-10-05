@@ -9,6 +9,8 @@ on:
       - 'assets/rc23/feedback.js'
       - 'assets/rc128/combat-feedback.js'
       - 'qa/rc130/public-smoke.cjs'
+      - 'tests/combat-audio-catalog.cjs'
+      - 'tests/lib/combat-audio-catalog.cjs'
       - '.github/workflows/rc130-published.yml'
 permissions:
   contents: read
@@ -35,7 +37,7 @@ jobs:
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc130-public" >> "$GITHUB_ENV"
       - name: Verify exact published files and all three browser profiles
-        run: node qa/rc130/public-smoke.cjs
+        run: node tests/combat-audio-catalog.cjs && node qa/rc130/public-smoke.cjs
       - uses: actions/upload-artifact@v7
         if: always()
         with:

@@ -14,6 +14,7 @@ on:
       - 'assets/rc139/**'
       - 'assets/index-v31526.js'
       - 'tests/combat-audio*'
+      - 'tests/lib/combat-audio-catalog.cjs'
       - 'tools/combat-audio-apply.cjs'
       - 'tools/rc130-preservation.cjs'
       - 'tools/rc133-*.cjs'
@@ -84,6 +85,7 @@ jobs:
           node --check assets/combat-audio/v1/controller.js
           node --check assets/combat-audio/v1/native-bridge.js
           node tests/combat-audio-assets.cjs
+          node tests/combat-audio-catalog.cjs
           node --test tests/combat-audio-controller.cjs tests/combat-audio-bridge.cjs tests/combat-audio-native-sfx.cjs tests/combat-audio-impact.cjs
           node --check assets/story-narration/v1/player.js
           node --check assets/story-narration/v1/mixer.js
