@@ -79,9 +79,10 @@
   const policy=window.__HAPIL_SAMONG_POLICY_RC133__,ego=policy?.memory(s);
   if(ego?.admitting)return false;
   const m=memory(s),profile=policy?.profile(s)??{duration:7,cooldown:COOLDOWN,grace:.6},reuse=n(m.active)>0;
+  const ledger=window.__HAPIL_AWAKENING_POLICY_RC128__?.sync?.(s,m,true);if(s.hp<=0&&(ledger?.used||n(m.revivalCooldown,m.origin==='revival'?n(m.cooldown):0)>1e-8))return false;
   if(ego){ego.admitting=true;ego.admittingOrigin=s.hp<=0?'revival':'counter';}
   clash.admitted=true;clash.admitting=false;
-  const ledger=window.__HAPIL_AWAKENING_POLICY_RC128__?.sync?.(s,m,true);if(ledger&&s.hp<=0)ledger.used=true;
+  if(ledger&&s.hp<=0)ledger.used=true;
   m.active=Math.max(n(m.active),profile.duration);m.duration=profile.duration;if(s.hp<=0)m.revivalCooldown=profile.cooldown;m.cooldown=Math.max(n(m.egoCooldown),n(m.revivalCooldown));m.grace=profile.grace;m.origin=s.hp<=0?'revival':'counter';
   if(!reuse||s.hp<=0)m.activations=Math.max(0,n(m.activations))+1;
   m.heroId=HEROES.includes(s.activeHeroId)?s.activeHeroId:'hwando';
