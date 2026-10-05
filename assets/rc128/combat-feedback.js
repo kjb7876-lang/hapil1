@@ -101,7 +101,9 @@
   return true;
  }
  function awakening(s,m){
-  const f=state(s);pause(s,f,.06);if(root.__HAPIL_MEDIA_AUDIO_RC133__?.event('playerAwake',s,s,'ego-'+String(s.time))===true)return;sound(s,HEROES[m?.heroId]?.sound||'arcane',7,.42);
+  const f=state(s);pause(s,f,.06);const token='ego-'+String(s.time);
+  if(m?.heroId==='seoha'&&root.__HAPIL_MEDIA_AUDIO_RC133__?.event('timeAwakening',s,s,token)===true)return;
+  if(root.__HAPIL_MEDIA_AUDIO_RC133__?.event('playerAwake',s,s,token)===true)return;sound(s,HEROES[m?.heroId]?.sound||'arcane',7,.42);
  }
  function point(s,x,y,cssWidth,cssHeight){
   const data=cameras.get(s),adaptive=root.__HAPIL_ADAPTIVE_RC125__;

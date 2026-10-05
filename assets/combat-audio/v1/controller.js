@@ -67,7 +67,7 @@
         const profile = Object.freeze(group === "effects" ? {
           ...value,
           voices: 1,
-          cooldown: Math.max(value.rc133 === true ? .18 : 2.5, number(value.cooldown, 2.5)),
+          cooldown: Math.max(value.rc133 === true || value.rc141 === true ? .18 : 2.5, number(value.cooldown, 2.5)),
           duration: Math.max(0.05, number(value.duration, 2.5)),
         } : { ...value });
         catalog[group][key] = profile;
@@ -251,7 +251,9 @@
   function emit(kind, eventState, actor, eventKey) {
     refreshCatalog();
     const effect = catalog.effects[kind];
-    if ((!EFFECT_KINDS.has(kind) && !(kind.startsWith("rc133") && effect?.rc133 === true)) || !effect || !adapter ||
+    const admittedCustomEffect = (kind.startsWith("rc133") && effect?.rc133 === true) ||
+      (kind.startsWith("rc141") && effect?.rc141 === true);
+    if ((!EFFECT_KINDS.has(kind) && !admittedCustomEffect) || !effect || !adapter ||
       !eligibleActor(kind, eventState, actor) ||
       (typeof eventKey !== "string" && typeof eventKey !== "number") || `${eventKey}` === "") return false;
 
@@ -271,7 +273,7 @@
     if (time < (readyAt.get(voiceKey) || 0) || voices.has(voiceKey)) return true;
     if (voices.size >= MAX_EFFECTS) {
       const lowest = Math.min(...[...voices.keys()].map(key => number(catalog.effects[key]?.priority ?? Object.values(catalog.effects).find(p=>p.group===key)?.priority, 2)));
-      if (effect.rc133 !== true || number(effect.priority, 2) <= lowest) return true;
+      if ((effect.rc133 !== true && effect.rc141 !== true) || number(effect.priority, 2) <= lowest) return true;
       clearEffects();
     }
     readyAt.set(voiceKey, time + effect.cooldown);

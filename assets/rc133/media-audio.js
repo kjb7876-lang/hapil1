@@ -8,10 +8,13 @@
   const token=row.epoch+':'+row.sequence;
   if(row.kind==='REMOVAL'&&row.result==='CANCELLED')return event('removal',s,s,token);
   if(row.kind==='CONTACT'&&row.targetId==='__host'){
-   if(f.kind==='parry')return event('parry',s,s,token);
-   if(f.kind==='dodge')return event('dodge',s,s,token);
-   if(['guard','dream-guard'].includes(f.kind))return event('guard',s,s,token);
-   if(row.result==='HIT'&&row.appliedDamage>0)return event('hurt',s,s,token);
+   let played=false;
+   if(f.kind==='parry')played=event('parry',s,s,token)||played;
+   else if(f.kind==='dodge')played=event('dodge',s,s,token)||played;
+   else if(['guard','dream-guard'].includes(f.kind))played=event('guard',s,s,token)||played;
+   else if(row.result==='HIT'&&row.appliedDamage>0)played=event('hurt',s,s,token)||played;
+   if(row.resonanceAwarded>0&&row.resonanceBefore<100&&row.resonanceBefore+row.resonanceAwarded>=100)played=event('resonanceEnergy',s,s,token+':resonance-full')||played;
+   if(played)return true;
   }
   if(row.kind==='OUTGOING'&&row.result==='HIT'&&row.appliedDamage>0&&row.attackerHeroId===s.activeHeroId)return event(f.power>=1?'heavyHit':'meleeHit',s,s,token);
   return false;
