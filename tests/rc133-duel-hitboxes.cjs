@@ -11,6 +11,7 @@ function env(){
  window.__HAPIL_CONTROLS_V31329__={binding:{passives:{current:{}}}};
  vm.runInContext(read('assets/rc133/inner-final.js'),context,{filename:'assets/rc133/inner-final.js'});
  const Final=window.__HAPIL_INNER_FINAL_RC133__,Samong=window.__HAPIL_SAMONG_RC91__,shots=[],casts=[];
+ window.__HAPIL_SAMONG_RC91__={...Samong,revivalAuthorized:()=>true};
  const skillMap=Object.fromEntries(Final.deck.map(k=>[k.key,'./assets/rc134/persona-skills/'+k.key+'.png']));Final.configure({ready:true,map:'map',body:'body',awakening:'awake',skills:Object.values(skillMap),skillMap});
  let serial=1;Final.bind({heroes:Samong.heroes.map(id=>({id,sprite:'hero-'+id})),locked:()=>false,bullet:(s,a,spec)=>{const q={id:serial++,sourceId:a.id,x:a.x,y:a.y,previousX:a.x,previousY:a.y,...spec};s.hostileProjectiles.push(q);shots.push(q);return q;},cast:(s,a,spec)=>{const q={...spec,id:serial++,sourceId:a.id,born:s.time,at:s.time+spec.windup,x:spec.anchor==='boss'?a.x:s.x,y:spec.anchor==='boss'?a.y:s.y,originX:a.x,originY:a.y};s.pendingHits.push(q);casts.push(q);return q;}});
  const state=(hero='gunner')=>({zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,hp:220,maxHp:1000,time:10,x:7,y:9,activeHeroId:hero,enemies:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],floatTexts:[],fxSerial:1,bossDefeated:false,completedZones:new Set(),spawnedWaves:new Set()});
@@ -27,15 +28,15 @@ function env(){
  for(const id of ['hwando','seoha','neon','michaela','lauren','hunter','slayer','gunner']){
   const a=Final.boss(s);m.hero=id;m.cycle=0;s.activeHeroId=id;m.shotDelay=0;s.hostileProjectiles=[];s.time+=1;
   const first=shots.length;Final.tick(s,.016);const wave=shots.slice(first);
-  eq(wave.length,Final.traits[id].count,id+' emits its bounded authored pattern');
-  ok(wave.every(q=>q.rc133InnerShot&&q.rc133Trait===id&&q.rc133Pattern===id&&q.damage>0&&q.radius<=.32),id+' shots keep ownership/damage/radius');
+  eq(wave.length,Final.deck[0].count,id+' emits its bounded authored pattern');
+  ok(wave.every(q=>q.rc133InnerShot&&q.rc133Skill===Final.deck[0].key&&q.rc133Pattern===Final.deck[0].key&&q.damage>0&&q.radius<=.32),id+' shots keep ownership/damage/radius');
   ok(wave.every(q=>q.frozenUntil>=s.time+.65&&q.collisionDisabledUntil31219>=q.frozenUntil),id+' telegraph delays collision');
   const directions=wave.map(q=>Math.atan2(q.vy,q.vx).toFixed(3)).sort().join(',');signatures.add(directions);
  }
- eq(signatures.size,8,'all eight hero borrow-patterns are geometrically distinct');
+ eq(signatures.size,1,'dedicated skill geometry is independent of borrowed hero traits');
  // The hostile queue cap delays a wave without losing its retry opportunity.
  m.hero='gunner';m.cycle=0;s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:70},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'full queue refuses overflow shots');
- s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,6,'a freed queue promptly admits the pending skill');
+ s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,5,'a freed queue promptly admits the pending skill');
 }
 
 // A lethal player hit close to the hidden boss's defeat becomes one saved,
@@ -81,7 +82,7 @@ function env(){
   eq(s.innerFinalRC133.clash.reason,'boss',hero+' saves genuine boss-first cause');eq(Final.mood(s),'opposition',hero+' counter awakening produces split arena');eq(window.__HAPIL_SAMONG_POLICY_RC133__.status(s).pending,false,hero+' pending EGO is consumed once');
   const restored=state(hero);restored.hp=s.hp;restored.heroHealingCeiling=s.heroHealingCeiling;restored.time=s.time;Final.restore(restored,Final.snapshot(s));Samong.restore(restored,Samong.snapshot(s));
   eq(restored.hp,740,hero+' boss-first restore retains living player HP');eq(restored.innerFinalRC133.clash.reason,'boss',hero+' boss-first cause survives restore');
-  restored.hp=0;restored.samongPassiveRC91.active=0;restored.samongPassiveRC91.cooldown=0;eq(Samong.tryRevive(restored),false,hero+' second player lethal cannot revive');
+  restored.hp=0;restored.samongPassiveRC91.active=0;restored.samongPassiveRC91.cooldown=0;eq(Samong.tryRevive(restored),true,hero+' authorized first player lethal retains its separate revival');
   const dead=Final.boss(restored);dead.hp=0;eq(Final.beforeDeath(restored,dead),false,hero+' second boss lethal is terminal');eq(restored.innerFinalRC133.phase,'complete',hero+' terminal second lethal saves completion');
  }
 }
