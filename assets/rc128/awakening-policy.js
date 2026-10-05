@@ -17,7 +17,7 @@
   let p=m.encounterRC128;
   if(!p||p.version!==VERSION){
    // A legacy save with prior activations must not gain a free extra revival.
-   p={version:VERSION,zone:zone(s),encounter:0,used:finite(m.activations)>0&&m.origin!=='ego',beforeUntil:0,ownedUntil:0};
+   p={version:VERSION,zone:zone(s),encounter:0,used:finite(m.activations)>0&&!['ego','counter'].includes(m.origin),beforeUntil:0,ownedUntil:0};
    m.encounterRC128=p;
   }
   return p;
@@ -57,7 +57,7 @@
  }
  function snapshot(s,m){
   // Serialization is read-only: a save operation does not clear timers or grant a charge.
-  return sanitize(m?.encounterRC128)??{version:VERSION,zone:zone(s),encounter:0,used:finite(m?.activations)>0&&m?.origin!=='ego',beforeUntil:0,ownedUntil:0};
+  return sanitize(m?.encounterRC128)??{version:VERSION,zone:zone(s),encounter:0,used:finite(m?.activations)>0&&!['ego','counter'].includes(m?.origin),beforeUntil:0,ownedUntil:0};
  }
  function restore(s,m,raw){
   if(!s||!m)return;
