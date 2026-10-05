@@ -49948,6 +49948,8 @@ function HAPIL_blinkVectorV31345(input, facing, automaticVector = null, lastManu
   const pressed=key=>input?.has?.(key)===true;
   let x=(pressed(`ArrowRight`)?1:0)-(pressed(`ArrowLeft`)?1:0);
   let y=(pressed(`ArrowDown`)?1:0)-(pressed(`ArrowUp`)?1:0);
+  const manual=window.__HAPIL_DIRECTION_INPUT_RC137__?.read(input);
+  if(manual?.held){x=manual.x;y=manual.y;}
   if (!x && !y && automaticVector && Number.isFinite(automaticVector.x) && Number.isFinite(automaticVector.y)) {
     x = automaticVector.x;
     y = automaticVector.y;
@@ -61318,6 +61320,8 @@ function Ri() {
               ((e = MONGSE_roleIntent31222.dx),
                 (t = MONGSE_roleIntent31222.dy),
                 (o.targetEnemyId = MONGSE_roleIntent31222.target?.id ?? o.targetEnemyId));
+            // RC137: held arrows own locomotion, including opposing-key cancellation.
+            if(MONGSE_manualDirection31222){const v=window.__HAPIL_DIRECTION_INPUT_RC137__.read(I.current);e=v.x;t=v.y;hi(o);}
             MONGSE_isEncounterLocked31226(o) &&
               ((e = 0), (t = 0), (o.target = null), (o.path = []), hi(o));
             if (window.__HAPIL_THEME_V31323__?.rootActive(o,o)) { e=0; t=0; o.target=null; o.path=[]; o.moveVx=0; o.moveVy=0; }
@@ -61339,6 +61343,7 @@ function Ri() {
               !(e || t) &&
                 Math.hypot(o.moveVx, o.moveVy) < 0.025 &&
                 ((o.moveVx = 0), (o.moveVy = 0)));
+            window.__HAPIL_DIRECTION_INPUT_RC137__?.velocity(o);
             let g =
                 o.heroMotion.until > o.time &&
                 ![`idle`, `move`].includes(o.heroMotion.kind),
@@ -61349,7 +61354,7 @@ function Ri() {
             if (S > 0.015) {
               let e = o.x,
                 t = o.y,
-                n = ft(o.zone, o, { x: y * HAPIL_heroDeltaRC51, y: x * HAPIL_heroDeltaRC51 }, 0.48);
+                n = window.__HAPIL_DIRECTION_INPUT_RC137__.constrain(o, ft(o.zone, o, { x: y * HAPIL_heroDeltaRC51, y: x * HAPIL_heroDeltaRC51 }, 0.48));
               ((o.x = n.x), (o.y = n.y));
               let r = o.x - e,
                 i = o.y - t,
@@ -62939,7 +62944,7 @@ function Ri() {
                       { x: t * 0.22, y: 0.18 },
                       e.boss ? 0.82 : e.midboss ? 0.68 : 0.44,
                     ),
-                    r = ft(o.zone, o, { x: -t * 0.18, y: -0.12 }, 0.48);
+                    r = (!Re.current||MONGSE_manualDirection31222||window.__HAPIL_MOVEMENT_V31336__?.active(o,o)) ? {x:o.x,y:o.y} : ft(o.zone, o, { x: -t * 0.18, y: -0.12 }, 0.48);
                   ((e.x = n.x), (e.y = n.y), (o.x = r.x), (o.y = r.y), hi(o));
                   continue;
                 }
@@ -62963,7 +62968,7 @@ function Ri() {
                     { x: s * a * (1 - l), y: c * a * (1 - l) },
                     u,
                   ),
-                  f = ft(o.zone, o, { x: -s * a * l, y: -c * a * l }, 0.48);
+                  f = (!Re.current||MONGSE_manualDirection31222||window.__HAPIL_MOVEMENT_V31336__?.active(o,o)) ? {x:o.x,y:o.y} : ft(o.zone, o, { x: -s * a * l, y: -c * a * l }, 0.48);
                 ((e.x = d.x),
                   (e.y = d.y),
                   (o.x = f.x),
@@ -119740,7 +119745,7 @@ mem.dt=clamp(delta,0,.05);mem.effects=[...(s.effects??[])];mem.bullets=[...(s.ho
 function boundFor(a,hero=false){const saved=a.themeVisualBoxV31323;if(saved&&saved.w>0)return saved;const height=hero?112:a.boss?Math.min(300,num(Ge(a.kind,true,false,!!a.elite,a.scale),220)):a.midboss?174:103;return{w:height*(hero?.55:.7)+6,h:height*.87+6,cx:0,cy:-height*.46};}
 function separate(s,dt){if(!dt||MONGSE_isEncounterLocked31226(s))return;const heroes=allies(s).filter(a=>a.hp>0),entities=[...heroes,...(s.enemies??[]).filter(a=>a.hp>0&&!a.visualOnly&&!a.objectiveStructureV31238&&!a.protectedNarrativeTargetV31307)];const heroSet=new Set(heroes);const rows=entities.map(a=>{const q=G(a.x,a.y),box=boundFor(a,heroSet.has(a));return{a,box,x:q.x+box.cx,y:q.y+box.cy,isHero:heroSet.has(a)};});
 const cells=new Map(),seen=new Set();for(let i=0;i<rows.length;i++){const r=rows[i],gx=Math.floor(r.x/180),gy=Math.floor(r.y/180);for(let xx=gx-1;xx<=gx+1;xx++)for(let yy=gy-1;yy<=gy+1;yy++){for(const j of cells.get(xx+','+yy)??[]){const q=rows[j],dx=r.x-q.x,dy=r.y-q.y,ox=(r.box.w+q.box.w)/2-Math.abs(dx),oy=(r.box.h+q.box.h)/2-Math.abs(dy);if(ox<=0||oy<=0)continue;
-const weight=t=>t.a.boss||t.a.midboss||(t.a===s&&window.__HAPIL_LOOP_V31365__?.isCharging(s))||window.__HAPIL_CHANNEL_V31364__?.active(s,t.a)||rootActive(s,t.a)||num(t.a.attackAt)>s.time||num(t.a.activePatternUntil)>s.time?0:t.isHero?(num(t.a.heroMotion?.until)>s.time&&['attack','skill','dash'].includes(t.a.heroMotion?.kind)?0:.16):1;let rw=weight(r),qw=weight(q),sum=rw+qw;if(!sum)continue;let px=0,py=0;if(ox<=oy*1.8)px=(dx<0?-1:1)*Math.min(ox+1,dt*110);else py=(dy<0?-1:1)*Math.min(oy+1,dt*62);for(const [t,sign,w]of [[r,1,rw/sum],[q,-1,qw/sum]]){if(!w)continue;const sx=px*sign*w,sy=py*sign*w,wx=(sx/27+sy/13.5)/2,wy=(-sx/27+sy/13.5)/2,p=dtSafe(s,t.a,wx,wy);t.a.x=p.x;t.a.y=p.y;t.x+=sx;t.y+=sy;metrics.separationSteps++;}}}const key=gx+','+gy,list=cells.get(key)??[];list.push(i);cells.set(key,list);}}
+const weight=t=>t.a===s&&(window.__HAPIL_CONTROLS_V31329__?.effective()!=='full'||window.__HAPIL_DIRECTION_INPUT_RC137__?.held(s)||window.__HAPIL_MOVEMENT_V31336__?.active(s,s))||t.a.boss||t.a.midboss||(t.a===s&&window.__HAPIL_LOOP_V31365__?.isCharging(s))||window.__HAPIL_CHANNEL_V31364__?.active(s,t.a)||rootActive(s,t.a)||num(t.a.attackAt)>s.time||num(t.a.activePatternUntil)>s.time?0:t.isHero?(num(t.a.heroMotion?.until)>s.time&&['attack','skill','dash'].includes(t.a.heroMotion?.kind)?0:.16):1;let rw=weight(r),qw=weight(q),sum=rw+qw;if(!sum)continue;let px=0,py=0;if(ox<=oy*1.8)px=(dx<0?-1:1)*Math.min(ox+1,dt*110);else py=(dy<0?-1:1)*Math.min(oy+1,dt*62);for(const [t,sign,w]of [[r,1,rw/sum],[q,-1,qw/sum]]){if(!w)continue;const sx=px*sign*w,sy=py*sign*w,wx=(sx/27+sy/13.5)/2,wy=(-sx/27+sy/13.5)/2,p=dtSafe(s,t.a,wx,wy);t.a.x=p.x;t.a.y=p.y;t.x+=sx;t.y+=sy;metrics.separationSteps++;}}}const key=gx+','+gy,list=cells.get(key)??[];list.push(i);cells.set(key,list);}}
 function dtSafe(s,a,x,y){const p=dt(s.zone,{x:b(a.x+x),y:b(a.y+y)},.42);return Number.isFinite(p?.x)&&Number.isFinite(p?.y)?p:{x:a.x,y:a.y};}
 function finish(s,delta){if(!s)return;state=s;const mem=stateMemory.get(s);if(!mem||mem.zone!==s.zone)return;const current=new Set(s.effects??[]),bullets=new Set(s.hostileProjectiles??[]);for(const e of mem.bullets)if(!bullets.has(e))terminal(s,e,e.partyHitV31322?'contact':'end');for(const e of mem.effects)if(!current.has(e)||s.time>=num(e.born)+num(e.duration,1))terminal(s,e,'dissolve');
 for(const e of s.effects??[]){bind(e,s);if(e.themeBombV31323){const h=[...(s.pendingHits??[]),...(s.impactQueue??[])].find(h=>h.id===e.themeHitID323);if(h){e.themeEnd323=num(h.impactAt,h.at);e.duration=Math.max(.01,e.themeEnd323-e.born);if(h.damageSuppressedV31226)e.duration=Math.max(.001,s.time-e.born);}else if(s.time>=e.themeEnd323)e.duration=Math.max(.001,s.time-e.born);}}
@@ -121293,7 +121298,8 @@ var HAPIL_VISUAL_GEOMETRY_V31335={"./assets/heroes/normalized/hwando/sprite_3280
   return true;
  }
  function observe(s,a,input){if(!s||!a)return false;const dx=N(input?.moveX),dy=N(input?.moveY);if(Math.hypot(dx,dy)>.01||input?.actions?.dash)note(s,a,dx,dy);return active(s,a);}
- function host(s,keys){if(!s)return;const dx=Number(keys?.has('ArrowRight'))-Number(keys?.has('ArrowLeft')),dy=Number(keys?.has('ArrowDown'))-Number(keys?.has('ArrowUp'));
+ function host(s,keys){if(!s)return;const v=window.__HAPIL_DIRECTION_INPUT_RC137__?.acquire(s,keys),dx=v?.x??0,dy=v?.y??0;
+  if(v?.held&&!dx&&!dy)note(s,s);
   if(dx||dy){s.lastManualBlinkVectorRC79={x:dx,y:dy,zone:s.zone,hero:s.activeHeroId};note(s,s,dx,dy);}else if(s.target&&!s.target.autoProgressV31301&&!s.target.autoAwakeningV31336)note(s,s);
  }
  function statusLocked(s,a){return !s||!a||a.hp<=0||MONGSE_isEncounterLocked31226(s)||P()?.status.role==='guest'||P()?.status.disconnected||window.__HAPIL_THEME_V31323__?.rootActive(s,a)||N(a.heroSleepUntil)>s.time||N(a.heroCharmUntil)>s.time||N(a.recoveryUntilV31322)>s.time;}
@@ -123643,7 +123649,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function noteA(s){if(s&&!casting.has(s))mem(s).intent=s.time+.9;}
  function blocked(s){const b=C()?.binding,common=!b||b.state?.current!==s||b.phase!=='game'||s.hp<=0||b.modal?.current||b.blocked?.()||document.hidden||window.__HAPIL_READING_V31342__?.blocked||P()?.blocksNativeInput?.()||P()?.status?.paused||L()?.blocked(s);return !window.__HAPIL_ACTION_CONTRACT_V31406__.decide('AUTO_SKILL',{blocked:common,defending:!!D()?.active(s),charging:!!L()?.isCharging(s),timeStopped:n(s.timeStopUntil)>s.time,statusLocked:!!window.__HAPIL_MOVEMENT_V31336__?.statusLocked(s,s)}).allowed;}
  function valid(s,e){return e.hp>0&&!e.visualOnly&&!e.objectiveStructureV31238&&!e.protectedNarrativeTargetV31307&&n(e.invulnerableUntil)<=s.time;}
- function dodge(s){const control=C(),b=control?.binding;if(!b||control.effective(b.settings?.current)!=='full'||n(s.invulnerableUntil)>s.time||!L()?.imminent(s,.2))return false;const c=window.__HAPIL_COMBAT_V31333__,ctx=c?.dangerContext(s,s);if(!ctx)return false;const h=s.activeHeroId,g=gr(h,b.passives?.current?.[fr(h)]??0),distance=2.25+n(g.dashBonus)*.55;
+ function dodge(s){const control=C(),b=control?.binding;if(!b||control.effective(b.settings?.current)!=='full'||window.__HAPIL_DIRECTION_INPUT_RC137__?.held(s)||window.__HAPIL_MOVEMENT_V31336__?.active(s,s)||n(s.invulnerableUntil)>s.time||!L()?.imminent(s,.2))return false;const c=window.__HAPIL_COMBAT_V31333__,ctx=c?.dangerContext(s,s);if(!ctx)return false;const h=s.activeHeroId,g=gr(h,b.passives?.current?.[fr(h)]??0),distance=2.25+n(g.dashBonus)*.55;
   const risk=p=>Math.max(...[0,.2,.45].map(t=>c.dangerAt(s,p,ctx,t)+(window.__HAPIL_LASERS_V31330__?.danger(s,p,t)??0)+(window.__HAPIL_BOSSES_V31334__?.danger(s,p,t)??0)));
   let best=null;for(let i=0;i<16;i++){const angle=i*Math.PI/8,v={x:Math.cos(angle),y:Math.sin(angle)},p=dt(s.zone,{x:s.x+v.x*distance,y:s.y+v.y*distance},.46);if(!L().safePoint(s,p)||J(s,p)<1)continue;const score=risk(p);if(score>2.5)continue;if(!best||score<best.score)best={v,score};}
   if(!best)return false;const before=s.lastDodgeAt;s.simpleDodgeVectorV31368=best.v;s.autoDodgeBlinkDispatchV31576=true;try{b.actions.dash();}finally{delete s.simpleDodgeVectorV31368;delete s.autoDodgeBlinkDispatchV31576;}if(s.lastDodgeAt!==before){stats.dodges++;return true;}return false;
@@ -126732,3 +126738,6 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  function foundation(s){if(!s)return null;const m=s.mongseFoundationRC133=cleanFoundation(s.mongseFoundationRC133);if(!m.regions.includes(s.zone)&&N[s.zone])m.regions.push(s.zone);if(N[s.zone]?.rest&&!m.waypoints.includes(s.zone))m.waypoints.push(s.zone);return m;}
  function ready(){if(install()||++attempts>=1200)return;setTimeout(ready,20);}ready();
 })();
+
+/* RC137_DIRECTION_INPUT_NATIVE: final projection and native manual ownership. */
+window.__HAPIL_DIRECTION_INPUT_RC137__.bind({project:(...args)=>G(...args),clearTarget:(s)=>hi(s),resetDodge:(s,reason)=>MONGSE_resetHeroAutoDodge31223(s,reason)});
