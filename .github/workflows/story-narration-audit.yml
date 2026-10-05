@@ -15,6 +15,8 @@ on:
       - 'assets/index-v31526.js'
       - 'tests/combat-audio*'
       - 'tests/lib/combat-audio-catalog.cjs'
+      - 'qa/rc130/public-smoke.cjs'
+      - 'qa/rc132/published.cjs'
       - 'tools/combat-audio-apply.cjs'
       - 'tools/rc130-preservation.cjs'
       - 'tools/rc133-*.cjs'
@@ -121,6 +123,8 @@ jobs:
           node tests/story-narration-webaudio-browser.cjs
           node tests/combat-audio-browser.cjs
           HAPIL_DECODER_EDGE_REPORT="$HAPIL_NARRATION_OUTPUT/decoder-edges.json" node tests/story-narration-decoder-edges.cjs
+          HAPIL_QA_OUTPUT="$HAPIL_NARRATION_OUTPUT/rc130-public" node qa/rc130/public-smoke.cjs
+          HAPIL_QA_OUTPUT="$HAPIL_NARRATION_OUTPUT/rc132-public" node qa/rc132/published.cjs
       - name: Preserve narration layout evidence
         if: always()
         uses: actions/upload-artifact@v7
