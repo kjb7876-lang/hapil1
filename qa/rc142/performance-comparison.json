@@ -227,7 +227,8 @@
     "renderingCosts": "The baseline self-blits the stage canvas 464 times (178 grayscale); candidate self-blits are 0. Wrapped persona-sprite drawImage calls rise from 3177 to 27729 as projectile volume increases. Thus the measured improvement is removal of expensive whole-canvas grayscale self-blits, not a reduction in all rendering work.",
     "bitmapContactCache": "Candidate repeats recorded 4,330–17,355 stable persona-shape reuses and 61–84 misses. All candidate runs reported every image decoded and zero missing contact plans; misses are shape-cache misses, not missing files.",
     "physicalDevices": "Not tested.",
-    "legacyComparison": "The older 9463d5 runtime is excluded from barrage-performance attribution. Movement is checked separately by tests/rc142-movement-space-browser.cjs across 55 maps, two modes, four arena edges, and three browser layouts."
+    "legacyComparison": "The older 9463d5 runtime is excluded from barrage-performance attribution. Movement is checked separately by tests/rc142-movement-space-browser.cjs across 55 maps, two modes, four arena edges, and three browser layouts.",
+    "cpuThrottle4x": "One matched nine-pattern run measured p95 250ms baseline vs 216.7ms candidate, with 26 vs 76 native projectile admissions. Both were severe slowdowns (over-100ms intervals in every baseline frame and 411/451 candidate frames). Single-run browser emulation; no 60fps claim."
   },
   "instrumentedCanvasRendering": {
     "method": "Timed CanvasRenderingContext2D method wrapper attached only to the native game-stage canvas during the same nine-pattern sustained-awake sequence. Wrapper overhead affects timing; use call counts and durations as directional same-browser evidence, not uninstrumented frame timing.",
@@ -338,5 +339,71 @@
       "strokeText": {}
     },
     "observation": "The baseline makes 464 canvas self-blits, including 178 grayscale self-blits (about 2.28 seconds of wrapped drawImage calls). The candidate records zero canvas self-blits in this fixture after moving boss-only grading to the browser compositor. Candidate sprite-image draws rise with the 2.92x emitted projectile count, so the self-blit improvement is not a claim that total drawImage calls fell."
+  },
+  "additionalCpuThrottleCheck": {
+    "method": "One full sustained-awake nine-pattern sequence per revision at the same 390x844/DPR2/Chromium151 setup with CPU throttling 4x. A longer test-only sequence timeout was used so both revisions could complete all nine volleys. Single pair, browser emulation only; not a physical-device measurement.",
+    "baseline": {
+      "runtimeRevision": "076c347b56b75ac9a6265bf91654605b497bcfbc",
+      "status": "passed",
+      "viewport": "390x844 portrait",
+      "deviceScaleFactor": 2,
+      "browser": "Chromium 151",
+      "cpuThrottle": 4,
+      "idleP95Ms": 83.39999999999964,
+      "activeP50Ms": 200,
+      "activeP95Ms": 250,
+      "activeMaxMs": 466.59999999999854,
+      "observedFrames": 271,
+      "framesOver100ms": 271,
+      "volleys": 9,
+      "awakenedForAllNineVolleys": true,
+      "emittedProjectileCounts": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      "nativeProjectileAdmissions": 26,
+      "jsErrors": 0,
+      "httpErrors": 0,
+      "allImagesReady": true
+    },
+    "candidate": {
+      "runtimeRevision": "ebfab3abe7da056572b0477dee6ef7feba46fcbc",
+      "status": "passed",
+      "viewport": "390x844 portrait",
+      "deviceScaleFactor": 2,
+      "browser": "Chromium 151",
+      "cpuThrottle": 4,
+      "idleP95Ms": 66.70000000000073,
+      "activeP50Ms": 149.90000000000146,
+      "activeP95Ms": 216.70000000000073,
+      "activeMaxMs": 466.7000000000007,
+      "observedFrames": 451,
+      "framesOver100ms": 411,
+      "volleys": 9,
+      "awakenedForAllNineVolleys": true,
+      "emittedProjectileCounts": [
+        10,
+        6,
+        8,
+        12,
+        12,
+        4,
+        6,
+        8,
+        10
+      ],
+      "nativeProjectileAdmissions": 76,
+      "jsErrors": 0,
+      "httpErrors": 0,
+      "allImagesReady": true
+    },
+    "assessment": "Candidate p95 was lower in this single matched run (216.7ms vs 250ms), but both remained far above 16.7ms and maximum intervals were about 467ms. This indicates a directional improvement over baseline under this fixture, not acceptable mobile frame pacing."
   }
 }
