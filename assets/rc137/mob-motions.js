@@ -3,7 +3,7 @@
  * frames, release the full sheet and bound the ordinary-pose cache to 48.
  * Native attack clocks, world position, facing, stats and contacts are retained. */
 (function(root){'use strict';
- const D=root.__HAPIL_MOB_MOTION_DATA_RC137__,rows=new Map(D.actors.map(r=>[r.id,r])),extra=root.__HAPIL_STORY_CYCLE_MOB_DATA_RC140__?.sources??[],sheets=new Map([...D.sources,...extra].map(r=>[r.path,r]));
+ const D=root.__HAPIL_MOB_MOTION_DATA_RC137__,rows=new Map(D.actors.map(r=>[r.id,r])),storyCycleMob=root.__HAPIL_STORY_CYCLE_MOB_DATA_RC140__,extra=Array.isArray(storyCycleMob?.sources)?storyCycleMob.sources:storyCycleMob?.source?.path?[storyCycleMob.source]:[],sheets=new Map([...D.sources,...extra].map(r=>[r.path,r]));
  const frames=new Map(),loading=new Map(),errors=new Map();let clock=0;
  const clean=p=>String(p??'').split(/[?#]/)[0],metrics={decodedSheets:0,attackDraws:0,existingPoseDraws:0,authoredPoseDraws:0,evictions:0};
  function row(a){if(!a||a.boss||a.midboss||a.friendly||a.visualOnly||a.objectiveStructureV31238||a.protectedObjective||a.narrativeStructureV31238||a.neutral||a.canonAlly||a.canonAllyV31217||a.canonicalAllyV31217)return null;const id=a.rc133TemplateId??a.templateId??a.id;return rows.get(id)??(String(id??'').startsWith('a10-o1-w2-')?rows.get('a10-o1'):null)??null;}
@@ -16,7 +16,7 @@
  function picture(path){const f=frames.get(clean(path));if(!f)return null;f.used=++clock;if(f.metadata&&!f.metadataInstalled&&typeof root.__HAPIL_RC86_BRIDGE__?.setSpriteMetadata==='function'){root.__HAPIL_RC86_BRIDGE__.setSpriteMetadata(clean(path),f.metadata);f.metadataInstalled=true;}return f.image;}
  function fallback(path){const r=D.actors.find(r=>r.source&&clean(r.attack)===clean(path));return r?.idle??null;}
  function pose(a,time){const r=row(a);if(r?.authoredPoses){if(Number(a.attackAt??0)>time)return Number(a.attackImpactAt??0)>time?'anticipation':'strike';if(Number(a.recoverUntil??0)>time||Number(a.atomicCastUntil31210??0)>time)return 'strike';return 'idle';}return Math.max(Number(a.attackAt??0),Number(a.recoverUntil??0),Number(a.atomicCastUntil31210??0))>time?'attack':'idle';}
- function select(a,time){const r=row(a);if(!r)return null;const selected=pose(a,time);if(r.authoredPoses){const path=r.authoredPoses[selected]??r.authoredPoses.idle;if(picture(path)){metrics.authoredPoseDraws++;return path;}if(r.source)load(r.source).catch(()=>{});return r.idle;}if(selected==='idle')return r.idle;if(r.source){const im=picture(r.attack);if(!im){load(r.source).catch(()=>{});return r.idle;}metrics.attackDraws++;}else metrics.existingPoseDraws++;return r.attack;}
+ function select(a,time){const r=row(a);if(!r)return null;const selected=pose(a,time);if(r.authoredPoses){const path=r.authoredPoses[selected]??r.authoredPoses.idle,ready=picture(path);if(ready){metrics.authoredPoseDraws++;return path;}if(r.source)load(r.source).catch(()=>{});return r.idle;}if(selected==='idle')return r.idle;if(r.source){const im=picture(r.attack);if(!im){load(r.source).catch(()=>{});return r.idle;}metrics.attackDraws++;}else metrics.existingPoseDraws++;return r.attack;}
  async function warmZone(zone){const list=D.actors.filter(r=>r.zones.includes(zone));await Promise.all([...new Set(list.map(r=>r.source).filter(Boolean))].map(load));return list.length;}
  root.__HAPIL_MOB_MOTIONS_RC137__=Object.freeze({data:D,row,pose,select,picture,fallback,warmZone,load,metrics:()=>({...metrics,cachedFrames:frames.size,inflight:loading.size,errors:[...errors].map(([path,error])=>({path,error}))})});
 })(window);

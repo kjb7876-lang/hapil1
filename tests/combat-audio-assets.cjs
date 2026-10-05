@@ -18,6 +18,22 @@ for(const row of manifest.assets){
  assert.equal(probe.streams.length,1);const stream=probe.streams[0];assert.equal(Number(stream.sample_rate),48000);assert.equal(stream.channels,2);assert(Number(probe.format.duration)>0);
  if(row.kind==='music'){
   assert.equal(stream.codec_name,'mp3');assert.equal(row.sha256,row.sourceSha256,'music bytes must retain exact uploaded recording');
+  for(const key of ['sourceIntegratedLufs','sourceTruePeakDbtp','sourceSamplePeakDbfs','catalogGainDb','effectiveIntegratedLufsBeforeUserVolume','effectiveTruePeakDbtpBeforeUserVolume'])assert(Number.isFinite(row[key]),'measured source/headroom field missing: '+row.role+'/'+key);
+  assert.equal(row.measuredWith,'FFmpeg astats decoded sample peak + ebur128 true-peak/integrated-loudness scan of original MP3');
+  const loudnessGain=20*Math.log10(profile.gain);
+  assert(Math.abs(row.catalogGainDb-loudnessGain)<.002,'catalog gain dB differs: '+row.role);
+  assert(Math.abs(row.effectiveIntegratedLufsBeforeUserVolume-(row.sourceIntegratedLufs+loudnessGain))<.11,'effective integrated loudness differs: '+row.role);
+  assert(Math.abs(row.effectiveTruePeakDbtpBeforeUserVolume-(row.sourceTruePeakDbtp+loudnessGain))<.11,'effective true peak differs: '+row.role);
+  assert(row.effectiveTruePeakDbtpBeforeUserVolume<=-9.0,'music output lacks playback headroom: '+row.role);
+  const scan=cp.spawnSync('ffmpeg',['-hide_banner','-v','info','-nostats','-i',file,'-map','0:a:0','-af','astats=metadata=0:reset=0,ebur128=peak=true:framelog=quiet','-f','null','-'],{encoding:'utf8',maxBuffer:8*1024*1024});
+  assert.equal(scan.status,0,'FFmpeg source scan failed: '+row.role);const measured=scan.stderr;
+  const truePeak=[...measured.matchAll(/True peak:\s*Peak:\s*(-?\d+(?:\.\d+)?)\s*dBFS/g)].at(-1)?.[1];
+  const integrated=[...measured.matchAll(/Integrated loudness:\s*I:\s*(-?\d+(?:\.\d+)?)\s*LUFS/g)].at(-1)?.[1];
+  const samplePeak=[...measured.matchAll(/Peak level dB:\s*(-?\d+(?:\.\d+)?)/g)].at(-1)?.[1];
+  assert(truePeak&&integrated&&samplePeak,'FFmpeg source scan incomplete: '+row.role);
+  assert(Math.abs(Number(truePeak)-row.sourceTruePeakDbtp)<=.11,'source true-peak metadata drift: '+row.role);
+  assert(Math.abs(Number(integrated)-row.sourceIntegratedLufs)<=.11,'source loudness metadata drift: '+row.role);
+  assert(Math.abs(Number(samplePeak)-row.sourceSamplePeakDbfs)<=.11,'source sample-peak metadata drift: '+row.role);
   // MP3 container duration includes encoder priming/padding. Compare the
   // decoded time grid used by the measured loop windows instead.
   const pcm=cp.execFileSync('ffmpeg',['-v','error','-i',file,'-map','0:a:0','-f','f32le','-'],{maxBuffer:128*1024*1024});

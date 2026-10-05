@@ -1,7 +1,10 @@
 {
   "schema": "hapil-additional-user-audio-staging-v1",
-  "status": "originals-staged-for-integration-review",
+  "status": "originals-preserved; measured playback candidates prepared; runtime-unassigned",
   "runtimeIntegrated": false,
+  "processingReport": "processing-report.json",
+  "candidateDerivativeCount": 10,
+  "heldWithoutDerivativeCount": 3,
   "audioFileCount": 13,
   "allFileBytes": 13914248,
   "sourceManifestUrl": "https://github.com/kjb7876-lang/hapil1/blob/9a80f8aaf4a0dba1c90270f665e1535294e3822a/qa/rc133/pending-media.json",
@@ -13,11 +16,12 @@
   "byteDuplicateMatchesAgainstPrior39": [],
   "measurementMethod": "FFprobe format and stream metadata; full FFmpeg decode; loudnorm input integrated loudness and true peak; native-rate all-channel PCM sample statistics. Leading/trailing quiet uses contiguous 10 ms all-channel RMS windows below -50 dBFS.",
   "warnings": [
-    "8 of 13 files have measured true peaks above 0 dBTP; highest +1.58dBTP. Evaluate attenuation and derivative true peak before mixing.",
+    "8 of 13 files have measured true peaks above 0 dBTP; highest +1.58dBTP. Ten non-suspect originals have candidate copies verified below -1.0 dBTP and -1.5 dBFS; three uncertain vocal/content files remain held without derivatives.",
     "Short_game_menu_navi_#4-1791000546558.wav has 1.63 seconds of measured leading quiet. Review after audition before using the untrimmed original for immediate UI feedback.",
-    "No semantic listening audition was performed. Voice gender, spoken content, language and game-event suitability remain unverified. Filename labels must not establish voice gender or event assignment.",
+    "The menu candidate trims 1.595 seconds and retains 35 ms preroll; this verifies the file's onset preparation only. Runtime click-to-audio latency remains untested because no menu event is mapped.",
+    "No semantic listening audition was performed. Voice gender, spoken content, language, BGM loop points and game-event suitability remain unverified. Filename labels and spectrogram shape do not establish voice gender or event assignment.",
     "Rail/full-scale samples and true-peak overs are signal measurements, not perceived-distortion diagnoses.",
-    "Original filenames and bytes are preserved. This asset-only delivery has no cue mappings, no audio transformations, and no runtime/deployment changes."
+    "Original filenames and bytes are preserved. Ten statically gained, filtered and faded candidate derivatives are separate from originals; three uncertain voice/content sources have no derivatives. There are no cue mappings or runtime/deployment changes."
   ],
   "files": [
     {

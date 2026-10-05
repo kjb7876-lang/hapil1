@@ -146,6 +146,11 @@
   const draw137=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,p,...args){return art137?art137.withPacket(p,()=>draw137(ctx,cache,p,...args)):draw137(ctx,cache,p,...args);};
   const queue137=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){const im=art137?.picture(path,S());if(im){cache[path]=im;return im;}return queue137(cache,path,...args);};
   const body137=window.__HAPIL_STAND_V31335__.drawBody;window.__HAPIL_STAND_V31335__.drawBody=function(ctx,cache,a,time,settings,sprite,size,o={}){
+   const authoredRow=mob137?.row(a),authoredImage=authoredRow?.authoredPoses?mob137.picture(sprite):null;
+   if(authoredImage?.complete&&authoredImage.naturalWidth){
+    const p=G(a.x,a.y),r=In(authoredImage,sprite),anchor=Ye(sprite),kind=Je(sprite),h=Number(size)||55,center=!!o.centerPivot,w=kind==='actor'||kind==='prop'?h*Math.min(r.width/Math.max(1,r.height),kind==='prop'?1.86:/^\.\/assets\/generated-v31224\/actors-normalized\//.test(sprite)?1.75:1.72):h*Math.min(authoredImage.naturalWidth/Math.max(1,authoredImage.naturalHeight),1.05);
+    ctx.save();try{ctx.globalAlpha*=o.alpha??1;ctx.translate(p.x+(o.offsetX??0),p.y-(center?0:h*.43)+(o.offsetY??0));ctx.rotate(o.rotation??0);ctx.scale(o.scaleX??1,o.scaleY??1);if(o.glow){ctx.shadowColor=o.glow;ctx.shadowBlur=Math.min(o.glowBlur??13,5);}if(o.hit)ctx.filter='brightness(1.3) saturate(1.1)';if(center){const box=In(authoredImage,sprite),ratio=box.width/Math.max(1,box.height),cw=h*Math.min(ratio,1.86);ctx.drawImage(authoredImage,box.x,box.y,box.width,box.height,-cw/2,-h/2,cw,h);}else if(kind==='actor'||kind==='prop'){ctx.translate(0,h*.43);ctx.drawImage(authoredImage,r.x,r.y,r.width,r.height,-w*anchor[0],-h*anchor[1],w,h);}else ctx.drawImage(authoredImage,-w/2,-h*.43,w,h);}finally{ctx.restore();}return true;
+   }
    const id=a?.rc135FissionIdentity??a?.id,w=id==='mb-ep1b06b'?art137.data.winter:art137.data.independentBodies[id];
    if(w){
     const im=MONGSE_queueImage(cache,w.path,'eager');if(!im?.complete||!im.naturalWidth)return false;
@@ -217,7 +222,7 @@
   const tick=window.__HAPIL_LASERS_V31330__.tick;window.__HAPIL_LASERS_V31330__.tick=function(s,dt){if(s&&dt>0&&!MONGSE_isEncounterLocked31226(s)&&authority(s)){s.samongUpgradesRC133=U().upgrades(window.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??s.samongUpgradesRC133);foundation(s);midpoint(s);for(const a of s.enemies){pin(a,s);warp(s,a);}}return tick.apply(this,arguments);};
   const removal=MONGSE_recordProjectileRemoval31215;MONGSE_recordProjectileRemoval31215=function(s,q,reason,...args){const duplicate=q?.rc133RemovalPublished===true,result=removal.call(this,s,q,reason,...args);if(q&&!duplicate&&result&&['parry','skill','absorbed','hero-skill','cancelled','hero-nullify'].includes(reason)){q.rc133RemovalPublished=true;const C=window.__HAPIL_COMBAT_CORE_V31401__;C.transaction(s,q,q,'native-projectile-removal-rc133',()=>{C.mark(s,q,'CANCELLED',reason);},{kind:'REMOVAL'});metrics.removals++;}return result;};
   const P=window.__HAPIL_POLICY_RC127__,bridge=Object.create(P);Object.defineProperty(bridge,'incoming',{value:function(s,h){const v=P.incoming(s,h);return U().enabled(s)&&n(s.resonance)>0?Math.max(.25,v*U().profile(s).defense):v;}});window.__HAPIL_POLICY_RC127__=Object.freeze(bridge);
-  installed=true;window.__HAPIL_RC133_NATIVE__=Object.freeze({installed:true,version:'RC133',warp,destination,safeDestination,midpoint,authoredMidboss,fissionIdentity,stationary,pin,cleanEncounter,encounterSnapshot,upgradeSection,makeState:oi,enter:(s,z)=>ii(s,z),normalize:(raw)=>ji(raw),save:(s,...args)=>Fi(s,...args),metrics:()=>({...metrics}),foundation,cleanFoundation});
+  installed=true;window.__HAPIL_RC133_NATIVE__=Object.freeze({installed:true,version:'RC133',disableBossChargesV31315:true,warp,destination,safeDestination,midpoint,authoredMidboss,fissionIdentity,stationary,pin,cleanEncounter,encounterSnapshot,upgradeSection,makeState:oi,enter:(s,z)=>ii(s,z),normalize:(raw)=>ji(raw),save:(s,...args)=>Fi(s,...args),metrics:()=>({...metrics}),foundation,cleanFoundation});
   return true;
  }
  function rootBitmap(){

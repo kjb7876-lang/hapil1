@@ -44,10 +44,13 @@ if(c){const recovery=a.recoverUntil;const q=old.find(q=>q.expiresAt>s.time);test
 
 }
 const overlap={phase:D.phase(s),old:old.length,remaining:s.hostileProjectiles.length,laser:c?{id:c.id,contacts:c.contacts.length,born:c.born,fireAt:c.fireAt,endAt:c.endAt}:null,events:C.snapshot(s).events.slice(-5)};
-// Actual dynamic producers survive later cards, phase changes and admission
-// suppression, and still remove their own warnings on death or zone exit.
+// The retired V31315 charge producer stays disabled for every ranked boss;
+// old saved warnings are suppressed without deleting unrelated hits.
 for(const row of dynamic.rankedRows()){
- const {s,a}=make(row.zone,row.actor.id,true),cast=dynamic.enqueue(s,a);if(!cast)continue;const hit=cast.hit,clock=hit.at;s.enemySkillsSuppressedUntilV31309=s.time+2;a.fixedPhase=3;a.currentPhase=3;dynamic.tick(s);test(s.pendingHits.includes(hit)&&hit.at===clock,'dynamic committed hit survives phase/suppression',{id:a.id});dynamic.onImpact(s,hit);test(!hit.damageSuppressedV31226,'dynamic committed contact survives phase/suppression',{id:a.id});a.hp=0;dynamic.tick(s);test(!s.pendingHits.includes(hit)&&!s.effects.some(e=>e.dynamicBossChargeV31315),'dynamic death cleans pending warning',{id:a.id});dynamics.push(a.id);
+ const {s,a}=make(row.zone,row.actor.id,true),cast=dynamic.enqueue(s,a);test(cast===null,'V31315 charge admission remains disabled',{id:a.id});
+ const legacy={sourceId:a.id,at:s.time+1,damage:20,dynamicBossAttackV31315:true};s.pendingHits=[legacy,{sourceId:'ally',at:s.time+2}];s.impactQueue=[{...legacy}];s.effects=[{dynamicBossChargeV31315:true,sourceId:a.id},{kind:'authored'}];
+ dynamic.onImpact(s,legacy);test(legacy.damageSuppressedV31226===true,'legacy charge contact cannot deal damage',{id:a.id});dynamic.tick(s);
+ test(s.pendingHits.length===1&&s.pendingHits[0].sourceId==='ally'&&s.impactQueue.length===0,'legacy charge cleanup preserves unrelated work',{id:a.id});test(!s.effects.some(e=>e.dynamicBossChargeV31315)&&s.effects.some(e=>e.kind==='authored'),'legacy charge cleanup preserves authored effects',{id:a.id});dynamics.push(a.id);
 }
 for(const [id,profile] of Object.entries(P.profiles)){
  const {s,a}=make(profile.zone,id,true),cast=P.trySchedule(s,a,'rolling-ordnance',1);test(!!cast,'actual spectacle producer admitted',{id});if(!cast)continue;const hits=s.pendingHits.slice();s.enemySkillsSuppressedUntilV31309=s.time+2;s.time+=.1;a.fixedPhase=3;a.currentPhase=3;P.tick(s);test(hits.every(h=>s.pendingHits.includes(h)&&h.at>h.born),'spectacle phase/suppression preserves owned warning',{id});s.enemySkillsSuppressedUntilV31309=0;s.time=hits[0].at;T.impact(s,hits[0]);test(!hits[0].damageSuppressedV31226&&s.effects.some(e=>e.spectacleImpactV31317),'spectacle native impact reaches authored recovery',{id});s.zone='hub';P.tick(s);test(!P.active(s)&&!s.pendingHits.some(h=>h.spectacleV31317),'spectacle zone exit clears own cast',{id});spectacles.push(id);

@@ -15,7 +15,14 @@
       "duration": 187.9335,
       "processing": "byte-identical uploaded MP3; runtime static gain and crossfade",
       "sourceEffectiveGainBeforeUserVolume": 0.2897,
-      "path": "./assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3"
+      "path": "./assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+      "sourceIntegratedLufs": -13.2,
+      "sourceTruePeakDbtp": -0.1,
+      "sourceSamplePeakDbfs": -0.1,
+      "measuredWith": "FFmpeg astats decoded sample peak + ebur128 true-peak/integrated-loudness scan of original MP3",
+      "catalogGainDb": -10.761,
+      "effectiveIntegratedLufsBeforeUserVolume": -24.0,
+      "effectiveTruePeakDbtpBeforeUserVolume": -10.9
     },
     {
       "role": "clockwork",
@@ -28,7 +35,14 @@
       "duration": 198.1735,
       "processing": "byte-identical uploaded MP3; runtime static gain and crossfade",
       "sourceEffectiveGainBeforeUserVolume": 0.2639,
-      "path": "./assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3"
+      "path": "./assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+      "sourceIntegratedLufs": -12.4,
+      "sourceTruePeakDbtp": -0.6,
+      "sourceSamplePeakDbfs": -0.7,
+      "measuredWith": "FFmpeg astats decoded sample peak + ebur128 true-peak/integrated-loudness scan of original MP3",
+      "catalogGainDb": -11.571,
+      "effectiveIntegratedLufsBeforeUserVolume": -24.0,
+      "effectiveTruePeakDbtpBeforeUserVolume": -12.2
     },
     {
       "role": "timeControl",
@@ -41,7 +55,14 @@
       "duration": 74.7735,
       "processing": "byte-identical uploaded MP3; runtime static gain and crossfade",
       "sourceEffectiveGainBeforeUserVolume": 0.3177,
-      "path": "./assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3"
+      "path": "./assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+      "sourceIntegratedLufs": -14.0,
+      "sourceTruePeakDbtp": 0.5,
+      "sourceSamplePeakDbfs": 0.5,
+      "measuredWith": "FFmpeg astats decoded sample peak + ebur128 true-peak/integrated-loudness scan of original MP3",
+      "catalogGainDb": -9.96,
+      "effectiveIntegratedLufsBeforeUserVolume": -24.0,
+      "effectiveTruePeakDbtpBeforeUserVolume": -9.5
     },
     {
       "role": "dark",
@@ -166,7 +187,14 @@
       "duration": 203.1735,
       "processing": "byte-identical uploaded MP3; runtime static gain and crossfade",
       "sourceEffectiveGainBeforeUserVolume": 0.3115,
-      "path": "./assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3"
+      "path": "./assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+      "sourceIntegratedLufs": -13.8,
+      "sourceTruePeakDbtp": -3.2,
+      "sourceSamplePeakDbfs": -3.2,
+      "measuredWith": "FFmpeg astats decoded sample peak + ebur128 true-peak/integrated-loudness scan of original MP3",
+      "catalogGainDb": -10.131,
+      "effectiveIntegratedLufsBeforeUserVolume": -23.9,
+      "effectiveTruePeakDbtpBeforeUserVolume": -13.3
     }
   ]
 }
