@@ -62122,8 +62122,9 @@ function Ri() {
               HAPIL_tickCounterWindowsV31303(o);
               window.__HAPIL_SKILL_COMPLETION_V31412__?.observe(o);
               for (let e of o.enemies) {
-                if (e?.cosmicLuciferV31318 === true || e?.echoChildV31368 === true) continue;
+                if (e?.echoChildV31368 === true) continue;
                 if(window.__HAPIL_AWAKENING_RULES_RC137__?.barrage(o,e,()=>bi(o,e,MONGSE_enemyPhase(e))))continue;
+                if(e?.cosmicLuciferV31318===true)continue;
                 const HAPIL_partyEnemyScopeV31322 = window.__HAPIL_PARTY_V31322__?.enemyTargetScope(o, e);
                 try {
                 if (
@@ -119488,7 +119489,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
   function tick(s,dtSeconds){
     if(!active()||s!==world||bridge?.paused)return;dtSeconds=clamp(dtSeconds,0,.04);
     if(lastZone!==s.zone||num(s.time)<lastTime){lastZone=s.zone;actors=roster.slice(1).map((r,i)=>spawn(r,i+1,s));inputs.clear();strikes.length=0;hostDownUntil=0;hostDownPosition=null;preload();}
-    lastTime=s.time;if(hostDownUntil&&s.time>=hostDownUntil){hostDownUntil=0;s.hp=s.maxHp*.5;s.invulnerableUntil=s.time+1.2;hostDownPosition=null;stats.revives++;}
+    lastTime=s.time;if(hostDownUntil&&s.hp>0){hostDownUntil=0;hostDownPosition=null;stats.revives++;}
     if(MONGSE_isEncounterLocked31226(s))return;
     window.__HAPIL_PARTY_BUFFS_V31322__?.tick(s,dtSeconds);
     for(const [i,a]of actors.entries()){
@@ -119511,7 +119512,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
     if(scopedTarget&&s===world)return allyDamage(s,scopedTarget,args[0],args[3]);
     if(!enabled||s!==world)return base(s,...args);
     if(hostDownUntil){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,s,'INVULNERABLE','cooperative-down-state');return false;}
-    const result=base(s,...args);if(s.hp<=0){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,s,'HIT','cooperative-knockdown',{downed:true});hostDownUntil=s.time+8;hostDownPosition={x:s.x,y:s.y};s.hp=1;s.invulnerableUntil=s.time+8.1;}return result;
+    const result=base(s,...args);if(s.hp<=0){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,s,'HIT','cooperative-knockdown',{downed:true});hostDownUntil=Infinity;hostDownPosition={x:s.x,y:s.y};s.hp=0;}return result;
   }
   function shouldRespawn(s){
     if(role==='guest')return false;if(!enabled||s!==world)return s.hp<=0;

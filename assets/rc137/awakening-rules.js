@@ -25,7 +25,7 @@
  function snapshot(s){return clean(s.rc137BossAwakening,s.zone);}
  function restore(s,raw){s.rc137BossAwakening=clean(raw,s.zone)??{version:1,zone:s.zone,wasAwake:false,post:false};}
  function allowCast(s,a){return !awake(s)||!boss(a);}
- function barrage(s,a,emit){if(!awake(s)||!boss(a)||a.hp<=0||a.rc133InnerBoss)return false;const at=n(a.rc137BulletReadyAt);if(at>s.time)return true;a.rc137BulletReadyAt=s.time+.42;a.rc137LastCastBullet=true;
+ function barrage(s,a,emit){if(!awake(s)||!boss(a)||a.hp<=0||a.rc133InnerBoss)return false;const at=n(a.rc137BulletReadyAt);if(at>s.time)return true;a.rc137BulletReadyAt=s.time+.42;
   const own=(s.hostileProjectiles??[]).filter(q=>q.sourceId===a.id);if(own.length>=24||(s.hostileProjectiles??[]).length>=144)return true;
   const before=(s.hostileProjectiles??[]).length;emit();const emitted=(s.hostileProjectiles??[]).slice(before);const room=Math.min(4,24-own.length,144-before),keep=new Set(emitted.slice(0,room));s.hostileProjectiles=s.hostileProjectiles.filter((q,i)=>i<before||keep.has(q));
   for(const [i,q]of [...keep].entries()){q.rc137Bullet=true;q.rc137ExpiresAt=s.time+9;q.motionReleaseAt31219=Math.max(n(q.motionReleaseAt31219),s.time+.18+i*.035);q.collisionDisabledUntil31219=q.motionReleaseAt31219;}
