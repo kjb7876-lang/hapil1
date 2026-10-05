@@ -17,7 +17,11 @@ for(const[id,row]of Object.entries(index.identities)){
 }
 const mapText=fs.readFileSync(path.join(root,'assets/rc138/map-data.js'),'utf8');
 assert(mapText.includes('"ep1a10":{"map":"./assets/maps/ep1a_10_addiction_city.jpg","activeMap":"./assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png"'));
-assert(mapText.includes('"murder01":{"map":"./assets/maps/murder_01_crosswalk.jpg","activeMap":"./assets/rc138/map-murder01.png"'));
+assert(mapText.includes('"murder01":{"map":"./assets/maps/murder_01_crosswalk.jpg","activeMap":"./assets/v31345/maps/ep1a10.webp","decision":"reassigned-original-ep1a10-road"'));
+const murderRoadPath=path.join(root,'assets/v31345/maps/ep1a10.webp');
+assert.equal(crypto.createHash('sha256').update(fs.readFileSync(murderRoadPath)).digest('hex'),'c628157977ae7026840e7720e518cd646bdf4ae7e850ac5517346a93c88a0b22','murder01 uses exact original ep1a10 road bytes');
+const hospitalPath=path.join(root,'assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png');
+assert.equal(crypto.createHash('sha256').update(fs.readFileSync(hospitalPath)).digest('hex'),'4a6ea846f35328bbd352f3a06b1984c57f46de04202725fd2b9085405d32a975','ep1a10 hospital map bytes preserved');
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml','.wav':'audio/wav','.mp3':'audio/mpeg','.woff2':'font/woff2'};
 const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://127.0.0.1').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404).end();}});
 const allProfiles=Object.keys(index.identities),mobileProfiles=['mb-ep1a10','mb-murder01','u201-mid','mb-kair01-v31231','kair-great-05'];
