@@ -1,7 +1,7 @@
 name: RC137 exact integrated gameplay and art
 on:
   push:
-    branches: [main, codex/rc137-boss-art-review]
+    branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice]
     paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'qa/rc138/**', 'qa/rc139/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc137/**', '.github/workflows/rc137-integration.yml']
   workflow_dispatch:
 permissions:
