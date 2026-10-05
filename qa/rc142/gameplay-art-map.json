@@ -173,8 +173,12 @@
     },
     "nativeMovementEvidence": "tests/rc142-movement-space-browser.cjs walks every edge through final ft() movement and coordinate guards in every map/mode fixture across PC, portrait and landscape browsers; output is staged fixture evidence, not a natural campaign run."
   },
-  "runtimeRevision": "969b57748ca29cfbd827fa65bfd09e698158f376",
+  "runtimeRevision": "a5a8aa4e9672e282b07470b11520c2d9bcd193db",
   "runtimeSourceSha256": {
+    "personaProjectileRenderer": {
+      "path": "assets/index-v31526.js",
+      "sha256": "062d71eb84de61a06b910b130ce8bffc78d6899552db432fb0b78eab4b5e5552"
+    },
     "cultLeaderFourFormMapping": {
       "path": "assets/rc142/cult-leader-art.js",
       "sha256": "46a9f095acc60e45563e5b4ca78983d7b71b68b5a335dd3b5a532d9114dcd2e4"
