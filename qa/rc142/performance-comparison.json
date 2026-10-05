@@ -228,7 +228,8 @@
     "bitmapContactCache": "Candidate repeats recorded 4,330–17,355 stable persona-shape reuses and 61–84 misses. All candidate runs reported every image decoded and zero missing contact plans; misses are shape-cache misses, not missing files.",
     "physicalDevices": "Not tested.",
     "legacyComparison": "The older 9463d5 runtime is excluded from barrage-performance attribution. Movement is checked separately by tests/rc142-movement-space-browser.cjs across 55 maps, two modes, four arena edges, and three browser layouts.",
-    "cpuThrottle4x": "Two matched full-sequence repeats per runtime. Baseline p95 250/250ms; candidate p95 266.6/283.3ms, with 26 vs 76 actual projectile admissions. Candidate median intervals were lower, but p95 tails were about 7–13% slower. Both builds have severe frame pacing under this emulation (max 467–667ms); do not claim a general mobile win."
+    "cpuThrottle4x": "Two matched full-sequence repeats per runtime. Baseline p95 250/250ms; candidate p95 266.6/283.3ms, with 26 vs 76 actual projectile admissions. Candidate median intervals were lower, but p95 tails were about 7–13% slower. Both builds have severe frame pacing under this emulation (max 467–667ms); do not claim a general mobile win.",
+    "followupRendererOptimization": "The RC142 direct drawImage wrapper preserves native emitted shots and exact drawImage arguments. At CPU 1×, three repeats show unchanged rounded p50/p95 medians. At CPU 4×, two repeats show lower median p50 (183.3→174.9ms) and p95 (258.35→241.75ms), with effectively unchanged median maximum (~516.7ms). This is a small emulator-only result; drawImage remains the largest CPU profile bucket and intervals remain far beyond 16.7ms."
   },
   "instrumentedCanvasRendering": {
     "method": "Timed CanvasRenderingContext2D method wrapper attached only to the native game-stage canvas during the same nine-pattern sustained-awake sequence. Wrapper overhead affects timing; use call counts and durations as directional same-browser evidence, not uninstrumented frame timing.",
@@ -260,7 +261,7 @@
         },
         "other": {
           "calls": 4285,
-          "measuredMs": 80.0,
+          "measuredMs": 80,
           "filters": {
             "none": 4285
           }
@@ -315,7 +316,7 @@
         },
         "other": {
           "calls": 8167,
-          "measuredMs": 165.0,
+          "measuredMs": 165,
           "filters": {
             "none": 8167
           }
@@ -475,5 +476,366 @@
       }
     ],
     "assessment": "Candidate p50 was lower in both repeats, but p95 was worse in both final candidate repeats: baseline 250/250ms, candidate 266.6/283.3ms. Every sample remained far above 16.7ms, with maximum intervals 467–667ms. This is not a mobile performance pass."
+  },
+  "followupRendererOptimization": {
+    "schema": "rc142-projectile-render-scope-ablation/v1",
+    "runtimeCommit": "a5a8aa4e9672e282b07470b11520c2d9bcd193db",
+    "runtimeBundleSha256": "062d71eb84de61a06b910b130ce8bffc78d6899552db432fb0b78eab4b5e5552",
+    "measurementHarnessCommit": "c2df2cc04a9b780d47df549a22a27507e76768dd",
+    "comparison": "Same exact runtime and native nine-volley setup. Legacy mode routes boss projectiles through the pre-existing Proxy; optimized mode temporarily wraps drawImage directly on the same CanvasRenderingContext2D. Only renderer dispatch differs.",
+    "workload": {
+      "browser": "Chromium 151",
+      "viewport": "390x844 portrait",
+      "deviceScaleFactor": 2,
+      "sequence": "nine sequential hidden-Persona attack patterns, awake held at 7 for the full sequence",
+      "shotCountsByPattern": [
+        10,
+        6,
+        8,
+        12,
+        12,
+        4,
+        6,
+        8,
+        10
+      ],
+      "shotsPerSequence": 76
+    },
+    "drawPathEquivalence": {
+      "realPattern": "small-orb",
+      "legacyDrawImageCalls": 2,
+      "optimizedDrawImageCalls": 2,
+      "drawArgsPreserved": true,
+      "visibleBoundsPreserved": true,
+      "legacyVisibleBounds": [
+        104,
+        100.60016764459347
+      ],
+      "optimizedVisibleBounds": [
+        104,
+        100.60016764459347
+      ]
+    },
+    "cpuThrottle1x": {
+      "legacyProxy": [
+        {
+          "repeat": 1,
+          "p50Ms": 33.3,
+          "p95Ms": 50.1,
+          "maxMs": 116.7,
+          "frames": 319,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        },
+        {
+          "repeat": 2,
+          "p50Ms": 33.4,
+          "p95Ms": 66.7,
+          "maxMs": 150.1,
+          "frames": 329,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        },
+        {
+          "repeat": 3,
+          "p50Ms": 33.4,
+          "p95Ms": 50.1,
+          "maxMs": 116.7,
+          "frames": 310,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        }
+      ],
+      "directWrapper": [
+        {
+          "repeat": 1,
+          "p50Ms": 33.4,
+          "p95Ms": 50.1,
+          "maxMs": 100,
+          "frames": 309,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        },
+        {
+          "repeat": 2,
+          "p50Ms": 33.3,
+          "p95Ms": 50,
+          "maxMs": 116.7,
+          "frames": 320,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        },
+        {
+          "repeat": 3,
+          "p50Ms": 50,
+          "p95Ms": 66.7,
+          "maxMs": 116.6,
+          "frames": 312,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        }
+      ],
+      "medianP50Ms": {
+        "legacy": 33.4,
+        "optimized": 33.4
+      },
+      "medianP95Ms": {
+        "legacy": 50.1,
+        "optimized": 50.1
+      },
+      "medianMaxMs": {
+        "legacy": 116.7,
+        "optimized": 116.6
+      },
+      "assessment": "The CPU 1× p50 and p95 medians are unchanged after rounding to 0.1ms; individual repeats vary, so this does not demonstrate a CPU 1× speedup."
+    },
+    "cpuThrottle4x": {
+      "legacyProxy": [
+        {
+          "repeat": 1,
+          "p50Ms": 183.3,
+          "p95Ms": 250,
+          "maxMs": 550,
+          "frames": 463,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        },
+        {
+          "repeat": 2,
+          "p50Ms": 183.3,
+          "p95Ms": 266.7,
+          "maxMs": 483.3,
+          "frames": 487,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        }
+      ],
+      "directWrapper": [
+        {
+          "repeat": 1,
+          "p50Ms": 166.6,
+          "p95Ms": 233.4,
+          "maxMs": 566.6,
+          "frames": 447,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        },
+        {
+          "repeat": 2,
+          "p50Ms": 183.2,
+          "p95Ms": 250.1,
+          "maxMs": 466.6,
+          "frames": 481,
+          "shotsByPattern": [
+            10,
+            6,
+            8,
+            12,
+            12,
+            4,
+            6,
+            8,
+            10
+          ],
+          "shotTotal": 76,
+          "awakenedForAllNineVolleys": true,
+          "allImagesReady": true,
+          "jsErrors": 0,
+          "httpErrors": 0
+        }
+      ],
+      "medianP50Ms": {
+        "legacy": 183.3,
+        "optimized": 174.9
+      },
+      "medianP95Ms": {
+        "legacy": 258.35,
+        "optimized": 241.75
+      },
+      "medianMaxMs": {
+        "legacy": 516.7,
+        "optimized": 516.6
+      },
+      "assessment": "In two CPU 4× paired repeats, the direct wrapper has lower median p50 and p95, while median maximum interval is effectively unchanged. Results remain severely over the 16.7ms 60fps budget and are not a mobile-performance pass."
+    },
+    "cpu1Profile": {
+      "sampleCount": 11439,
+      "sampledMs": 12892.5,
+      "topSelf": [
+        {
+          "functionName": "drawImage",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "samples": 2922,
+          "selfMs": 3257.8260000000114
+        },
+        {
+          "functionName": "(program)",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "samples": 1374,
+          "selfMs": 1866.7709999999986
+        },
+        {
+          "functionName": "(idle)",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "samples": 785,
+          "selfMs": 864.0490000000008
+        },
+        {
+          "functionName": "castUntil",
+          "url": "http://127.0.0.1:36741/assets/combat-v31412/skill-completion.js?v=42701",
+          "lineNumber": 28,
+          "columnNumber": 20,
+          "samples": 698,
+          "selfMs": 781.4909999999999
+        },
+        {
+          "functionName": "(anonymous)",
+          "url": "http://127.0.0.1:36741/assets/index-v31526.js?v=43803",
+          "lineNumber": 119228,
+          "columnNumber": 29,
+          "samples": 260,
+          "selfMs": 290.33000000000027
+        }
+      ],
+      "drawImageSharePercent": 25.3,
+      "note": "Chromium attributes the largest self-time bucket to native drawImage; this profile does not separate map/background raster work from projectile sprite draws."
+    },
+    "limitations": [
+      "QA-only staged encounter; awake is forced for measurement and does not represent natural campaign timing.",
+      "CPU throttling is browser-emulator evidence, not a physical-device test.",
+      "No claim of 60fps or universal performance improvement."
+    ]
   }
 }
