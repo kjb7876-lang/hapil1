@@ -16,13 +16,14 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from PIL import Image, ImageDraw, __version__ as pillow_version
+from PIL import Image, ImageChops, ImageDraw, __version__ as pillow_version
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "assets/rc133/source-art"
 ART_DIR = ROOT / "assets/rc133/art"
 QA_PATH = ROOT / "qa/rc133/art-processing.json"
+PERSONA_OWNERSHIP_PATH = ROOT / "qa/rc142/persona-direction-ownership.png"
 
 SOURCE_META = {
     "libfile_a0e71293286481918c55e03101fbcc90.png": {
@@ -186,6 +187,7 @@ def add_record(
     direction: str | None = None,
     pivot: dict[str, Any] | None = None,
     notes: list[str] | None = None,
+    pixel_derivation: dict[str, Any] | None = None,
 ) -> None:
     records.append(
         {
@@ -202,6 +204,7 @@ def add_record(
             **({"direction": direction} if direction is not None else {}),
             **({"pivot": pivot} if pivot is not None else {}),
             **({"notes": notes} if notes else {}),
+            **({"pixelDerivation": pixel_derivation} if pixel_derivation is not None else {}),
         }
     )
 
@@ -253,68 +256,148 @@ def foot_baseline(
     return lower_start + bbox[3] - 1
 
 
-def process_persona(records: list[dict[str, Any]]) -> None:
+def process_persona(records: list[dict[str, Any]]) -> dict[str, Any]:
     source = SOURCE_DIR / "libfile_5cb215e0010c819184a9934248eb7f61.png"
+    if not PERSONA_OWNERSHIP_PATH.is_file():
+        raise FileNotFoundError(
+            f"Reviewed Persona ownership map is required: {PERSONA_OWNERSHIP_PATH}"
+        )
+    ownership_sha256 = sha256(PERSONA_OWNERSHIP_PATH)
     with Image.open(source) as sheet:
         sheet.load()
         if sheet.size != (1774, 887) or sheet.mode != "RGBA":
             raise RuntimeError("Unexpected persona sheet dimensions or mode")
-        rows = (("base", 62, 438), ("awake", 497, 884))
-        for form, y0, y1 in rows:
-            for index, direction in enumerate(DIRECTIONS):
-                x0 = round(index * sheet.width / 8)
-                x1 = round((index + 1) * sheet.width / 8)
-                source_cell = sheet.crop((x0, y0, x1, y1))
-                alpha_bbox = source_cell.getchannel("A").getbbox()
-                if alpha_bbox is None:
-                    raise RuntimeError(f"Empty persona cell {form}-{index}")
-                # Drop only fully transparent trailing rows. This keeps the
-                # sprite intact while leaving enough canvas below the aligned feet.
-                crop_y1 = y0 + alpha_bbox[3]
-                rect = (x0, y0, x1, crop_y1)
-                raw = sheet.crop(rect)
-                foot_y = foot_baseline(sheet, x0, x1, y0, crop_y1)
-                scale = 224 / raw.width
-                new_height = round(raw.height * scale)
-                resized = raw.resize((224, new_height), Image.Resampling.LANCZOS)
-                mapped_foot_row = round((foot_y - y0 + 0.5) * scale - 0.5)
-                paste_y = 384 - mapped_foot_row
-                if paste_y < 0 or paste_y + new_height > 400:
-                    raise RuntimeError(f"{form}-{index} does not fit 224x400 canvas")
-                canvas = Image.new("RGBA", (224, 400), (0, 0, 0, 0))
-                canvas.alpha_composite(resized, (0, paste_y))
-                # Lanczos resampling of transparent sheet-edge pixels can leave
-                # nearly invisible, full-width residue above the hood. Clear only
-                # sub-5-alpha interpolation noise in the first 28 canvas rows.
-                top_pixels = canvas.load()
-                for yy in range(28):
-                    for xx in range(224):
-                        r, g, b, a = top_pixels[xx, yy]
-                        if a <= 4:
-                            top_pixels[xx, yy] = (0, 0, 0, 0)
-                out = ART_DIR / f"{form}-{index}.png"
-                save_png(canvas, out)
-                add_record(
-                    records,
-                    source=source,
-                    out=out,
-                    rect=list(rect),
-                    operation="cell-crop-uniform-resize-foot-anchor",
-                    semantic_name=f"{form} {direction}",
-                    direction=direction,
-                    pivot={
-                        "normalized": [0.5, 0.96],
-                        "canvasPx": [112, 384],
-                        "sourcePx": [(x0 + x1) / 2, foot_y],
-                        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows",
-                    },
-                    notes=[
-                        "Labeled title bands excluded by the source row bounds.",
-                        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-                        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-                        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood.",
-                    ],
-                )
+        with Image.open(PERSONA_OWNERSHIP_PATH) as owner_image:
+            owner_image.load()
+            if owner_image.size != sheet.size or owner_image.mode != "L":
+                raise RuntimeError("Unexpected Persona ownership map dimensions or mode")
+            rows = (("base", 62, 438, 0), ("awake", 497, 884, 8))
+            for form, row_y0, row_y1, owner_offset in rows:
+                for index, direction in enumerate(DIRECTIONS):
+                    owner_id = owner_offset + index + 1
+                    owner_mask = owner_image.point(
+                        lambda value, expected=owner_id: 255 if value == expected else 0
+                    )
+                    selected_alpha = ImageChops.multiply(
+                        owner_mask, sheet.getchannel("A")
+                    )
+                    bbox = selected_alpha.crop(
+                        (0, row_y0, sheet.width, row_y1)
+                    ).getbbox()
+                    if bbox is None:
+                        raise RuntimeError(f"Empty Persona owner {form}-{index}")
+                    local_x0, local_y0, local_x1, local_y1 = bbox
+                    x0, y0, x1, y1 = local_x0, local_y0 + row_y0, local_x1, local_y1 + row_y0
+                    rect = (x0, y0, x1, y1)
+                    raw = sheet.crop(rect)
+                    local_owner = owner_image.crop(rect).point(
+                        lambda value, expected=owner_id: 255 if value == expected else 0
+                    )
+                    raw.putalpha(ImageChops.multiply(raw.getchannel("A"), local_owner))
+
+                    foot_y0 = max(row_y0, row_y1 - 70)
+                    strong_alpha = sheet.getchannel("A").crop(
+                        (0, foot_y0, sheet.width, row_y1)
+                    ).point(lambda value: 255 if value >= 220 else 0)
+                    strong_owner = owner_image.crop(
+                        (0, foot_y0, sheet.width, row_y1)
+                    ).point(lambda value, expected=owner_id: 255 if value == expected else 0)
+                    foot_box = ImageChops.multiply(strong_alpha, strong_owner).getbbox()
+                    if foot_box is None:
+                        raise RuntimeError(f"No opaque foot pixels in {form}-{index}")
+                    foot_y = foot_y0 + foot_box[3] - 1
+                    foot_x_values: list[int] = []
+                    source_alpha = sheet.getchannel("A").load()
+                    source_owner = owner_image.load()
+                    for source_y in range(max(foot_y0, foot_y - 7), foot_y + 1):
+                        foot_x_values.extend(
+                            x
+                            for x in range(x0, x1)
+                            if source_alpha[x, source_y] >= 220
+                            and source_owner[x, source_y] == owner_id
+                        )
+                    if not foot_x_values:
+                        raise RuntimeError(f"No horizontal foot anchor pixels in {form}-{index}")
+                    foot_x = sum(foot_x_values) / len(foot_x_values)
+
+                    canvas_size = (344, 400)
+                    output_pivot = (172, 384)
+                    paste_x = round(output_pivot[0] - (foot_x - x0))
+                    paste_y = output_pivot[1] - (foot_y - y0)
+                    if (
+                        paste_x < 0
+                        or paste_x + raw.width > canvas_size[0]
+                        or paste_y < 0
+                        or paste_y + raw.height > canvas_size[1]
+                    ):
+                        raise RuntimeError(
+                            f"{form}-{index} does not fit the {canvas_size[0]}x{canvas_size[1]} canvas"
+                        )
+                    canvas = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+                    canvas.alpha_composite(raw, (paste_x, paste_y))
+                    visible = canvas.getchannel("A").getbbox()
+                    if visible is None:
+                        raise RuntimeError(f"Empty Persona output {form}-{index}")
+                    margins = [
+                        visible[0],
+                        visible[1],
+                        canvas.width - visible[2],
+                        canvas.height - visible[3],
+                    ]
+                    out = ART_DIR / f"{form}-{index}.png"
+                    save_png(canvas, out)
+                    add_record(
+                        records,
+                        source=source,
+                        out=out,
+                        rect=list(rect),
+                        operation="ownership-mask-1x-crop-source-foot-anchor",
+                        semantic_name=f"{form} {direction}",
+                        direction=direction,
+                        pivot={
+                            "normalized": [0.5, 0.96],
+                            "canvasPx": list(output_pivot),
+                            "sourcePx": [round(foot_x, 4), foot_y],
+                            "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip.",
+                        },
+                        pixel_derivation={
+                            "sourceRectConvention": "half-open",
+                            "sourceRowRect": [0, row_y0, sheet.width, row_y1],
+                            "ownershipMaskFile": rel(PERSONA_OWNERSHIP_PATH),
+                            "ownershipMaskSha256": ownership_sha256,
+                            "ownerId": owner_id,
+                            "canvasPx": list(canvas_size),
+                            "pasteOffsetPx": [paste_x, paste_y],
+                            "sourceToOutputScale": [1, 1],
+                            "resampling": "none",
+                            "transparentMarginsPx": margins,
+                            "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent.",
+                        },
+                        notes=[
+                            "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+                            "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+                            "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas.",
+                        ],
+                    )
+    with Image.open(PERSONA_OWNERSHIP_PATH) as owner_image:
+        owner_image.load()
+        with Image.open(source) as source_image:
+            source_image.load()
+            if not isinstance(owner_image, Image.Image) or owner_image.size != source_image.size:
+                raise RuntimeError("Persona ownership map no longer matches its source image")
+    return {
+        "sourceFile": rel(source),
+        "sourceSha256": sha256(source),
+        "maskFile": rel(PERSONA_OWNERSHIP_PATH),
+        "maskSha256": ownership_sha256,
+        "maskEncoding": "L-mode PNG; 0=unassigned/transparent; 1-8=base direction order; 9-16=awake direction order.",
+        "thresholdUse": "Alpha >= 20 locates eight four-connected opaque pose-core seeds per row only; no source pixel is removed by alpha thresholding.",
+        "ownershipRule": "Every source pixel with nonzero alpha in the two authored rows is assigned to the nearest pose-core pixel by Euclidean distance; core pixels remain assigned to their own direction.",
+        "sourceRows": {"base": [0, 62, 1774, 438], "awake": [0, 497, 1774, 884]},
+        "targetCanvasPx": [344, 400],
+        "uniformSourceScale": [1, 1],
+        "directionCount": 16,
+    }
 
 
 def process_portrait(records: list[dict[str, Any]]) -> None:
@@ -470,7 +553,9 @@ def process_chrono(records: list[dict[str, Any]]) -> None:
             }
 
 
-def write_manifest(outputs: list[dict[str, Any]]) -> None:
+def write_manifest(
+    outputs: list[dict[str, Any]], persona_ownership: dict[str, Any]
+) -> None:
     sources = []
     for filename, meta in SOURCE_META.items():
         path = SOURCE_DIR / filename
@@ -521,6 +606,7 @@ def write_manifest(outputs: list[dict[str, Any]]) -> None:
             "pillow": pillow_version,
         },
         "directionOrder": list(DIRECTIONS),
+        "personaOwnership": persona_ownership,
         "sources": sources,
         "referenceSources": references,
         "outputs": outputs,
@@ -552,10 +638,10 @@ def main() -> None:
         "floating ruins reveal background",
     )
     process_portrait(outputs)
-    process_persona(outputs)
+    persona_ownership = process_persona(outputs)
     process_vfx(outputs)
     process_chrono(outputs)
-    write_manifest(outputs)
+    write_manifest(outputs, persona_ownership)
     print(f"Wrote {len(outputs)} derived images and {QA_PATH}")
 
 

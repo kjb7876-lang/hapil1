@@ -14,6 +14,38 @@
     "right",
     "down-right"
   ],
+  "personaOwnership": {
+    "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+    "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+    "maskFile": "qa/rc142/persona-direction-ownership.png",
+    "maskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+    "maskEncoding": "L-mode PNG; 0=unassigned/transparent; 1-8=base direction order; 9-16=awake direction order.",
+    "thresholdUse": "Alpha >= 20 locates eight four-connected opaque pose-core seeds per row only; no source pixel is removed by alpha thresholding.",
+    "ownershipRule": "Every source pixel with nonzero alpha in the two authored rows is assigned to the nearest pose-core pixel by Euclidean distance; core pixels remain assigned to their own direction.",
+    "sourceRows": {
+      "base": [
+        0,
+        62,
+        1774,
+        438
+      ],
+      "awake": [
+        0,
+        497,
+        1774,
+        884
+      ]
+    },
+    "targetCanvasPx": [
+      344,
+      400
+    ],
+    "uniformSourceScale": [
+      1,
+      1
+    ],
+    "directionCount": 16
+  },
   "sources": [
     {
       "file": "assets/rc133/source-art/libfile_2cc2c525f0bc81918ac00e11fb72ba3d.png",
@@ -203,14 +235,14 @@
       "sourceRect": [
         0,
         62,
-        222,
+        243,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "2744efec61f2486cea7b3067c41a313219352c27b21d2a9c042128224060c184",
-      "outputBytes": 136357,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "23c22d2cf05940bbd89fd672498e1c8f7e2ca26409d1215bedd1764a6ac694f9",
+      "outputBytes": 137931,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -221,21 +253,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          111.0,
+          130.7143,
           427
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 1,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          41,
+          19
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          41,
+          19,
+          60,
+          5
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-1.png",
@@ -243,16 +306,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        222,
+        221,
         62,
-        444,
+        472,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "eaeac7fba3387edc3a256b18713ba5b373c59261515037398f97ffaf16e0131a",
-      "outputBytes": 134489,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "3f267637464684a9636b947e47950a030b98df736096f5b60c46c326613dbd75",
+      "outputBytes": 134398,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -263,21 +326,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          333.0,
+          375.6014,
           430
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 2,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          17,
+          16
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          17,
+          16,
+          76,
+          8
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-2.png",
@@ -285,16 +379,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        444,
-        62,
-        665,
+        430,
+        63,
+        687,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "39e19f42a9bd92a4e2a8b92739f8b91a43a808661540f0cd40b59c7464c21415",
-      "outputBytes": 133371,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "665cba201aee9d28db1472080c801bf169ed138004966b9b706899fa2fae7d77",
+      "outputBytes": 131468,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -305,21 +399,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          554.5,
+          555.3457,
           434
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 3,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          47,
+          13
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          47,
+          13,
+          40,
+          12
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-3.png",
@@ -327,16 +452,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        665,
-        62,
-        887,
+        638,
+        72,
+        896,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "d6efe43f27239287f152e482ed58dd4971ed49a811514addc6eebed32e00760a",
-      "outputBytes": 136960,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "8c106a04440677d9185f287d01e228b65b457c9699dde2ff16718f3010ae0b27",
+      "outputBytes": 132082,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -347,21 +472,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          776.0,
+          759.7291,
           429
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 4,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          50,
+          27
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          50,
+          27,
+          36,
+          7
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-4.png",
@@ -369,16 +525,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        887,
-        62,
-        1109,
+        883,
+        65,
+        1110,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "58817e17ead4d01dee5a514a2650829108816fead8be068ba226e532254b4573",
-      "outputBytes": 122152,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "700899fa7f664423bd869ea05197d78a75550333b2b66439b02f5754dd838231",
+      "outputBytes": 120148,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -389,21 +545,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          998.0,
+          997.8049,
           429
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 5,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          57,
+          20
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          57,
+          20,
+          60,
+          7
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-5.png",
@@ -411,16 +598,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        1109,
-        62,
-        1330,
+        1094,
+        67,
+        1323,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "09c48940c07646e129bcfdf6c7691f7318d205d187e055ac6216998ec7dbe4e3",
-      "outputBytes": 127505,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "436c8dd453dfd6888c7d19b66ffce86e38eeee0218949ce651d6e3ca04a84df0",
+      "outputBytes": 122533,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -431,21 +618,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          1219.5,
+          1243.5522,
           429
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 6,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          22,
+          22
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          22,
+          22,
+          93,
+          7
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-6.png",
@@ -453,16 +671,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        1330,
-        62,
-        1552,
+        1301,
+        69,
+        1534,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "0acd4a2fbddd2097708137aa75208a60d71170c4c94d4eeb69b8867dc6c80bf4",
-      "outputBytes": 126765,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "faa53fe78361a38e3171bc5d8a85507f764700d1435a6ab31dfc29c5cb48ec34",
+      "outputBytes": 115924,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -473,21 +691,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          1441.0,
+          1417.3256,
           431
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 7,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          56,
+          22
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          56,
+          22,
+          55,
+          9
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/base-7.png",
@@ -495,16 +744,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        1552,
-        62,
-        1774,
+        1496,
+        67,
+        1773,
         438
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "2077cb99b6b39e91a54dfbe09d2cfb17cfd4984d22f1c718207a71be0ee82282",
-      "outputBytes": 134646,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "278add597a1ebc6a3d11de2cf600d668225fdbcf30a4441a44447a443c306192",
+      "outputBytes": 146900,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -515,21 +764,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          1663.0,
+          1608.4589,
           433
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          62,
+          1774,
+          438
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 8,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          60,
+          18
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          60,
+          18,
+          7,
+          11
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-0.png",
@@ -539,14 +819,14 @@
       "sourceRect": [
         0,
         497,
-        222,
+        258,
         871
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "7d1f63172a6d3f61519a962fac80640155ad238d4e224218709647bb50b25109",
-      "outputBytes": 167518,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "87c0f9ef6f7ed014642377648acb467fc34d9f50eb2dadb5c5926032162a02b8",
+      "outputBytes": 175930,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -557,21 +837,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          111.0,
+          129.2473,
           862
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 9,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          43,
+          19
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          43,
+          19,
+          43,
+          7
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-1.png",
@@ -579,16 +890,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        222,
+        230,
         497,
-        444,
+        479,
         873
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "24f3aed38d1d5d6c45094bc4f3b2357a2287c071a3c3d3a9ffb6e75aab2bdfe1",
-      "outputBytes": 163617,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "3f6a8fffbf64afe3ec54ed97143d5afd52666525ac8300d6819ca60c35c9464c",
+      "outputBytes": 158774,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -599,21 +910,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          333.0,
+          373.1603,
           863
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 10,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          29,
+          18
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          29,
+          18,
+          66,
+          6
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-2.png",
@@ -621,16 +963,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        444,
-        497,
-        665,
+        429,
+        506,
+        683,
         871
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "141cd0ffe7e65b1c453fa09357b3754f22d2892206e9d6ff36f1215b2182931e",
-      "outputBytes": 166185,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "af8114f0f17ab10f13dea8006e570fbcec4278f9b1f71997fdd6dea734b96179",
+      "outputBytes": 156317,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -641,21 +983,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          554.5,
+          550.7362,
           866
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 11,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          50,
+          24
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          50,
+          24,
+          40,
+          11
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-3.png",
@@ -663,16 +1036,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        665,
-        497,
-        887,
+        636,
+        499,
+        892,
         873
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "65428a125fcbdbe83462abdc327a8b648f191581117b076962c6edb200a56ac3",
-      "outputBytes": 168579,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "18141f6e9c18399970152af8771d1809dce1af5e6dd3cc3562340cbcc586099e",
+      "outputBytes": 166140,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -683,21 +1056,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          776.0,
+          750.1759,
           861
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 12,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          58,
+          22
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          58,
+          22,
+          30,
+          4
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-4.png",
@@ -705,16 +1109,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        887,
+        875,
         497,
-        1109,
+        1123,
         873
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "9ce8f05851e24a5c53cae77ab5de98e75c54d320a55d7cbc344ebf21dc075e50",
-      "outputBytes": 161572,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "ec41880da2aee71173059d038f08ece08657f2fe382e7d6467f2bc90e4831fd5",
+      "outputBytes": 160834,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -725,21 +1129,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          998.0,
+          995.1613,
           862
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 13,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          52,
+          19
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          52,
+          19,
+          44,
+          5
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-5.png",
@@ -747,16 +1182,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        1109,
-        497,
-        1330,
+        1107,
+        504,
+        1351,
         873
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "216725f2e7d74b67bced6408adbc6e4bf7fd01b07e0416898156c783aeaf3187",
-      "outputBytes": 159069,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "ac7f8048622eb3c66cc03ca1c2ba4d3a7d2706fc6000ef8281656288d5bf2b74",
+      "outputBytes": 153648,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -767,21 +1202,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          1219.5,
+          1237.7363,
           861
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 14,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          41,
+          27
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          41,
+          27,
+          59,
+          4
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-6.png",
@@ -789,16 +1255,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        1330,
-        497,
-        1552,
+        1306,
+        500,
+        1570,
         867
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "503f1d93ec0953a4e97054673159afe2e3145c2f69b576ffd15d003682779e63",
-      "outputBytes": 167849,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "29475b325f5a0d9d97bd308156a071fd1684c2c6d6e0a694a1f0d4c21e04298b",
+      "outputBytes": 149746,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -809,21 +1275,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          1441.0,
+          1435.5333,
           856
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 15,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          42,
+          28
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          42,
+          28,
+          38,
+          5
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/awake-7.png",
@@ -831,16 +1328,16 @@
       "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
       "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
       "sourceRect": [
-        1552,
-        497,
+        1500,
+        505,
         1774,
         879
       ],
-      "operation": "cell-crop-uniform-resize-foot-anchor",
-      "outputSha256": "982288b68f2d74edc05b809cc49ccb88861e90fc56c70fa9cbb12567e0655f76",
-      "outputBytes": 166631,
+      "operation": "ownership-mask-1x-crop-source-foot-anchor",
+      "outputSha256": "a0a5d16d9ee1607475a6358e17a12549573b9217cbf2b4ab1f8b6ff2a5535e08",
+      "outputBytes": 181884,
       "outputDimensions": [
-        224,
+        344,
         400
       ],
       "status": "complete",
@@ -851,21 +1348,52 @@
           0.96
         ],
         "canvasPx": [
-          112,
+          172,
           384
         ],
         "sourcePx": [
-          1663.0,
+          1610.9416,
           866
         ],
-        "sourceFootDetection": "last alpha >= 220 pixel in the bottom 70 source rows"
+        "sourceFootDetection": "Mean x and last y of owned alpha >= 220 pixels within the last 8 rows of the bottom-70-pixel strip."
       },
       "notes": [
-        "Labeled title bands excluded by the source row bounds.",
-        "Only fully transparent trailing source rows were removed to fit the requested 400 px canvas.",
-        "Uniform scale fits source cell width to 224 px; the original cell geometry is retained.",
-        "Cleared alpha values 0–4 only within the first 28 canvas rows to remove full-width resampling residue above the hood."
-      ]
+        "Original atlas pose, cloak, orb and low-alpha aura are separated by the reviewed per-pixel ownership map; no generated replacement pixels are used.",
+        "All nontransparent pixels in this pose's authored row are assigned to exactly one direction; alpha >= 20 is only used to locate pose-core seeds, never to delete pixels.",
+        "Source pixels are retained at 1:1 scale and translated so the measured opaque-foot pivot lands at [172,384] on the common 344x400 canvas."
+      ],
+      "pixelDerivation": {
+        "sourceRectConvention": "half-open",
+        "sourceRowRect": [
+          0,
+          497,
+          1774,
+          884
+        ],
+        "ownershipMaskFile": "qa/rc142/persona-direction-ownership.png",
+        "ownershipMaskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+        "ownerId": 16,
+        "canvasPx": [
+          344,
+          400
+        ],
+        "pasteOffsetPx": [
+          61,
+          23
+        ],
+        "sourceToOutputScale": [
+          1,
+          1
+        ],
+        "resampling": "none",
+        "transparentMarginsPx": [
+          61,
+          23,
+          9,
+          3
+        ],
+        "pixelRule": "Copy original source RGBA where the ownership mask equals ownerId; all other source positions stay transparent."
+      }
     },
     {
       "file": "assets/rc133/art/small-orb.png",

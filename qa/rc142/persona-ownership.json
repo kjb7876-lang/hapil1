@@ -1,0 +1,428 @@
+{
+  "schema": "rc142-persona-ownership/v1",
+  "sourceFile": "assets/rc133/source-art/libfile_5cb215e0010c819184a9934248eb7f61.png",
+  "sourceSha256": "66c1c110ccc7f3f82168e7835080b59b3eebd83028d7e040034b188da009864f",
+  "sourceDimensions": [
+    1774,
+    887
+  ],
+  "maskFile": "qa/rc142/persona-direction-ownership.png",
+  "maskSha256": "e8e0fc05f8608f2c2b1b11c91d60bce37c56126be9816e85f14a48461ec0f049",
+  "maskMode": "L",
+  "maskDimensions": [
+    1774,
+    887
+  ],
+  "pixelEncoding": {
+    "0": "unassigned or fully transparent source pixel",
+    "1-8": "base directions in directionOrder",
+    "9-16": "awake directions in directionOrder"
+  },
+  "toolchain": {
+    "python": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "thresholdUse": "Seed discovery only; no source alpha level is thresholded away.",
+  "rows": [
+    {
+      "form": "base",
+      "sourceRowRect": [
+        0,
+        62,
+        1774,
+        438
+      ],
+      "seedRule": "4-connected components of source alpha >= 20; retain eight ordered cores with at least 10000 pixels",
+      "ownershipRule": "Every nontransparent source pixel is assigned to the nearest core pixel by Euclidean distance; seed pixels remain fixed to their own core.",
+      "nontransparentSourcePixels": 457177,
+      "unassignedNontransparentPixels": 0,
+      "cores": [
+        {
+          "label": 1,
+          "area": 46795,
+          "centroid": [
+            124.3694,
+            258.8474
+          ],
+          "sourceRect": [
+            13,
+            74,
+            232,
+            430
+          ],
+          "directionIndex": 0,
+          "ownerId": 1,
+          "assignedNontransparentPixels": 59064,
+          "assignedSourceRect": [
+            0,
+            62,
+            243,
+            438
+          ]
+        },
+        {
+          "label": 5,
+          "area": 44554,
+          "centroid": [
+            341.6364,
+            261.2387
+          ],
+          "sourceRect": [
+            243,
+            75,
+            462,
+            432
+          ],
+          "directionIndex": 1,
+          "ownerId": 2,
+          "assignedNontransparentPixels": 56465,
+          "assignedSourceRect": [
+            221,
+            62,
+            472,
+            438
+          ]
+        },
+        {
+          "label": 6,
+          "area": 43676,
+          "centroid": [
+            559.1932,
+            260.4531
+          ],
+          "sourceRect": [
+            445,
+            75,
+            682,
+            436
+          ],
+          "directionIndex": 2,
+          "ownerId": 3,
+          "assignedNontransparentPixels": 56192,
+          "assignedSourceRect": [
+            430,
+            63,
+            687,
+            438
+          ]
+        },
+        {
+          "label": 8,
+          "area": 44525,
+          "centroid": [
+            784.7601,
+            256.3354
+          ],
+          "sourceRect": [
+            667,
+            76,
+            887,
+            432
+          ],
+          "directionIndex": 3,
+          "ownerId": 4,
+          "assignedNontransparentPixels": 59337,
+          "assignedSourceRect": [
+            638,
+            72,
+            896,
+            438
+          ]
+        },
+        {
+          "label": 2,
+          "area": 45095,
+          "centroid": [
+            994.7274,
+            266.6441
+          ],
+          "sourceRect": [
+            896,
+            74,
+            1101,
+            431
+          ],
+          "directionIndex": 4,
+          "ownerId": 5,
+          "assignedNontransparentPixels": 56032,
+          "assignedSourceRect": [
+            883,
+            65,
+            1110,
+            438
+          ]
+        },
+        {
+          "label": 3,
+          "area": 44323,
+          "centroid": [
+            1206.7225,
+            260.1213
+          ],
+          "sourceRect": [
+            1106,
+            74,
+            1310,
+            432
+          ],
+          "directionIndex": 5,
+          "ownerId": 6,
+          "assignedNontransparentPixels": 55804,
+          "assignedSourceRect": [
+            1094,
+            67,
+            1323,
+            438
+          ]
+        },
+        {
+          "label": 7,
+          "area": 37998,
+          "centroid": [
+            1410.3007,
+            263.8743
+          ],
+          "sourceRect": [
+            1309,
+            75,
+            1519,
+            433
+          ],
+          "directionIndex": 6,
+          "ownerId": 7,
+          "assignedNontransparentPixels": 51517,
+          "assignedSourceRect": [
+            1301,
+            69,
+            1534,
+            438
+          ]
+        },
+        {
+          "label": 4,
+          "area": 48845,
+          "centroid": [
+            1635.2068,
+            265.8452
+          ],
+          "sourceRect": [
+            1505,
+            74,
+            1761,
+            436
+          ],
+          "directionIndex": 7,
+          "ownerId": 8,
+          "assignedNontransparentPixels": 62766,
+          "assignedSourceRect": [
+            1496,
+            67,
+            1773,
+            438
+          ]
+        }
+      ]
+    },
+    {
+      "form": "awake",
+      "sourceRowRect": [
+        0,
+        497,
+        1774,
+        884
+      ],
+      "seedRule": "4-connected components of source alpha >= 20; retain eight ordered cores with at least 10000 pixels",
+      "ownershipRule": "Every nontransparent source pixel is assigned to the nearest core pixel by Euclidean distance; seed pixels remain fixed to their own core.",
+      "nontransparentSourcePixels": 537695,
+      "unassignedNontransparentPixels": 0,
+      "cores": [
+        {
+          "label": 1,
+          "area": 54230,
+          "centroid": [
+            122.9219,
+            690.6372
+          ],
+          "sourceRect": [
+            8,
+            509,
+            247,
+            864
+          ],
+          "directionIndex": 0,
+          "ownerId": 9,
+          "assignedNontransparentPixels": 73547,
+          "assignedSourceRect": [
+            0,
+            497,
+            258,
+            871
+          ]
+        },
+        {
+          "label": 2,
+          "area": 48321,
+          "centroid": [
+            346.8737,
+            693.4497
+          ],
+          "sourceRect": [
+            238,
+            509,
+            474,
+            865
+          ],
+          "directionIndex": 1,
+          "ownerId": 10,
+          "assignedNontransparentPixels": 65099,
+          "assignedSourceRect": [
+            230,
+            497,
+            479,
+            873
+          ]
+        },
+        {
+          "label": 3,
+          "area": 46546,
+          "centroid": [
+            556.0555,
+            688.7785
+          ],
+          "sourceRect": [
+            438,
+            509,
+            678,
+            868
+          ],
+          "directionIndex": 2,
+          "ownerId": 11,
+          "assignedNontransparentPixels": 63738,
+          "assignedSourceRect": [
+            429,
+            506,
+            683,
+            871
+          ]
+        },
+        {
+          "label": 4,
+          "area": 48842,
+          "centroid": [
+            768.0013,
+            684.6909
+          ],
+          "sourceRect": [
+            645,
+            509,
+            885,
+            863
+          ],
+          "directionIndex": 3,
+          "ownerId": 12,
+          "assignedNontransparentPixels": 67811,
+          "assignedSourceRect": [
+            636,
+            499,
+            892,
+            873
+          ]
+        },
+        {
+          "label": 5,
+          "area": 51575,
+          "centroid": [
+            997.7517,
+            697.6608
+          ],
+          "sourceRect": [
+            885,
+            509,
+            1111,
+            864
+          ],
+          "directionIndex": 4,
+          "ownerId": 13,
+          "assignedNontransparentPixels": 69206,
+          "assignedSourceRect": [
+            875,
+            497,
+            1123,
+            873
+          ]
+        },
+        {
+          "label": 6,
+          "area": 46638,
+          "centroid": [
+            1226.8477,
+            686.6657
+          ],
+          "sourceRect": [
+            1115,
+            509,
+            1338,
+            863
+          ],
+          "directionIndex": 5,
+          "ownerId": 14,
+          "assignedNontransparentPixels": 63447,
+          "assignedSourceRect": [
+            1107,
+            504,
+            1351,
+            873
+          ]
+        },
+        {
+          "label": 7,
+          "area": 44225,
+          "centroid": [
+            1428.3687,
+            685.0791
+          ],
+          "sourceRect": [
+            1317,
+            509,
+            1547,
+            859
+          ],
+          "directionIndex": 6,
+          "ownerId": 15,
+          "assignedNontransparentPixels": 60858,
+          "assignedSourceRect": [
+            1306,
+            500,
+            1570,
+            867
+          ]
+        },
+        {
+          "label": 8,
+          "area": 55190,
+          "centroid": [
+            1646.0109,
+            694.7641
+          ],
+          "sourceRect": [
+            1508,
+            509,
+            1771,
+            868
+          ],
+          "directionIndex": 7,
+          "ownerId": 16,
+          "assignedNontransparentPixels": 73989,
+          "assignedSourceRect": [
+            1500,
+            505,
+            1774,
+            879
+          ]
+        }
+      ]
+    }
+  ]
+}

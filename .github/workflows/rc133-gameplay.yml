@@ -1,7 +1,7 @@
 name: RC133 exact gameplay audit
 on:
   push:
-    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration, codex/rc133-hidden-boss-hitboxes, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance, codex/rc134-persona-mirror, codex/rc134-integrated, codex/rc136-mobile-profile, codex/rc137-boss-art-review]
+    branches: [codex/rc133-samong-inner-self, codex/rc133-media-integration, codex/rc133-hidden-boss-hitboxes, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance, codex/rc134-persona-mirror, codex/rc134-integrated, codex/rc136-mobile-profile, codex/rc137-boss-art-review, codex/rc142-persona-crop-fix]
   workflow_dispatch:
 permissions:
   contents: read
@@ -58,7 +58,7 @@ jobs:
           const fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('assert/strict');
           const out=process.env.HAPIL_QA_OUTPUT;fs.mkdirSync(out,{recursive:true});
           const tests=process.env.SUITE==='native-gameplay'
-            ? ['rc134-persona-effects-browser','rc134-persona-policy','rc134-persona-art','rc134-fullauto-balance-unit','rc134-fullauto-balance-browser','rc134-render-equivalence-browser','rc133-duel-hitboxes','rc133-performance-browser','rc133-bitmap-browser','rc133-policy','rc95-flow-policy-smoke','rc133-developer-maps','rc133-777-browser','rc133-feedback-unit','rc133-media-assets','rc133-media-art','rc133-media-audio','rc133-media-browser','combat-audio-controller','combat-audio-bridge','combat-audio-impact','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc88-danmaku-rpg-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
+            ? ['rc134-persona-effects-browser','rc134-persona-policy','rc134-persona-art','rc134-fullauto-balance-unit','rc134-fullauto-balance-browser','rc134-render-equivalence-browser','rc133-duel-hitboxes','rc133-performance-browser','rc133-bitmap-browser','rc133-policy','rc95-flow-policy-smoke','rc133-developer-maps','rc133-777-browser','rc133-feedback-unit','rc133-media-assets','rc133-media-art','rc142-persona-crops','rc133-media-audio','rc133-media-browser','combat-audio-controller','combat-audio-bridge','combat-audio-impact','rc132-unit','rc59-death-checkpoint-midboss-duo-smoke','rc87-episode-cosmic-smoke','rc88-danmaku-rpg-smoke','rc133-browser','rc133-contact-browser','rc133-exit-damage-browser','rc128-browser','rc132-browser']
             : process.env.SUITE==='core-ui'
               ? ['rc133-777-browser','rc135-rotation-browser']
             : process.env.SUITE==='midboss-motions'
