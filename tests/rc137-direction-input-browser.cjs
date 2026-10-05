@@ -187,6 +187,7 @@ async function sample(page, keys, duration = 220) {
     requestAnimationFrame(frame);
   });
   await page.waitForTimeout(duration);
+  await page.waitForFunction(()=>window.__RC137_SAMPLES__.length>=3,null,{timeout:10000});
   const rows = await page.evaluate(() => {
     window.__RC137_RECORD__ = false;
     return window.__RC137_SAMPLES__;
