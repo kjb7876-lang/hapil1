@@ -35552,14 +35552,29 @@ function MONGSE_emitDeathBurnRC144(state,actor){
   actor.deathBurnEmittedRC144=true;
   const serial=Number.isFinite(state.fxSerial)?state.fxSerial++:state.defeated.length;
   state.defeated.push({id:serial,x:actor.x,y:actor.y,born:state.time,
-    duration:actor.boss?1.25:actor.midboss?0.95:0.72,
-    sprite:actor.actionSprites?.death??MONGSE_phaseSprite(actor)??actor.sprite,
+    duration:window.__HAPIL_BODY_ASH_RC145__?.target(actor)?0.82:actor.boss?1.25:actor.midboss?0.95:0.72,
+    sprite:actor.rc133InnerBoss?actor.sprite:actor.actionSprites?.death??MONGSE_phaseSprite(actor)??actor.sprite,
     kind:actor.kind,size:Ge(actor.kind,!!actor.boss,!!actor.midboss,!!actor.elite,actor.scale)*MONGSE_phaseScale(actor)*(actor.boss?1.1:1),
     facing:actor.facing,sourceFacing31223:actor.sourceFacing31223??MONGSE_BOSS_SOURCE_FACING_BY_ENTITY_V31223[actor.id]??null,
-    boss:!!actor.boss,midboss:!!actor.midboss,burnRC144:true});
+    boss:!!actor.boss,midboss:!!actor.midboss,burnRC144:true,sourceActorIdRC145:actor.id});
   return true;
 }
 window.__HAPIL_DEATH_BURN_RC144__=Object.freeze({emit:MONGSE_emitDeathBurnRC144,asset:MONGSE_DEATH_FIRE_RC144});
+function MONGSE_drawPersonaBodyRC145(ctx,cache,actor,path,transform){
+  const media=window.__HAPIL_MEDIA_ART_RC133__,image=media?.picture(path)??MONGSE_queueImage(cache,path);
+  if(!image?.complete||!image.naturalWidth)return false;
+  const point=G(actor.x,actor.y),h=122,bodyCanvas=media?.canvas??[344,400],w=h*bodyCanvas[0]/bodyCanvas[1];
+  ctx.save();
+  try{
+    ctx.globalAlpha*=transform?.alpha??1;
+    ctx.filter=transform?.hit?'brightness(2.2) contrast(0.85)':'brightness(1.8) contrast(0.8)';
+    if(path?.split(/[?#]/)[0].endsWith('/portrait.png')){
+      const visible=h*367/400,width=visible*210/224;
+      ctx.drawImage(image,0,164,210,224,point.x-width*.5,point.y-visible+h*.028,width,visible);
+    }else ctx.drawImage(image,point.x-w*.5,point.y-h*.96,w,h);
+  }finally{ctx.restore();}
+  return true;
+}
 function Yn(e, t, n, r, i, a = !1) {
   n=window.__HAPIL_PRESENTATION_V31328__?.renderActor(n,r)??n;
   window.__HAPIL_CONTACT_RC23__?.drawHit(e,G(n.x,n.y),n,r,i);
@@ -35759,11 +35774,22 @@ function Yn(e, t, n, r, i, a = !1) {
     (n.boss || n.midboss) && MONGSE_actionSpriteBlend31224 < 1
       ? { ...S, alpha: MONGSE_actionSpriteBlend31224 }
       : S;
-  if (
-    (window.__HAPIL_STAND_V31335__?.drawBody(e,t,n,r,i,s,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224) ?? Ln(e, t, s, n.x, n.y, MONGSE_cloneBodySizeV314RC9, MONGSE_currentActorTransform31224),
-    MONGSE_drawLivingEmbersRC144(e,n,r,MONGSE_cloneBodySizeV314RC9,i),
-    !(n.boss || n.midboss || n.elite || a || n.hp < n.maxHp || n.attackAt > r))
-  ) {
+  if(window.__HAPIL_BODY_ASH_RC145__?.target(n)&&n.rc133InnerBoss&&n.sprite?.includes('/awake-')){
+    const media=window.__HAPIL_MEDIA_ART_RC133__,aura=media?.picture(media.personaAwakening);
+    if(aura&&media.picture(n.sprite)){e.save();e.globalAlpha*=.38*(MONGSE_currentActorTransform31224.alpha??1);e.drawImage(aura,o.x-58,o.y-126,116,116);e.restore();}
+  }
+  const MONGSE_bodyAshPreviewRC145=window.__HAPIL_BODY_ASH_RC145__?.living({
+    ctx:e,actor:n,sprite:n.rc133InnerBoss?(n.sprite??s):s,size:n.rc133InnerBoss?122:MONGSE_cloneBodySizeV314RC9,center:o,time:r,settings:i,
+    drawBody:ctx=>(n.rc133InnerBoss&&MONGSE_drawPersonaBodyRC145(ctx,t,n,n.sprite??s,MONGSE_currentActorTransform31224)
+      ||window.__HAPIL_STAND_V31335__?.drawBody(ctx,t,n,r,i,s,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224))
+      ??Ln(ctx,t,s,n.x,n.y,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224),
+  });
+  if(!MONGSE_bodyAshPreviewRC145){
+    window.__HAPIL_STAND_V31335__?.drawBody(e,t,n,r,i,s,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224)
+      ??Ln(e,t,s,n.x,n.y,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224);
+    MONGSE_drawLivingEmbersRC144(e,n,r,MONGSE_cloneBodySizeV314RC9,i);
+  }
+  if (!(n.boss || n.midboss || n.elite || a || n.hp < n.maxHp || n.attackAt > r)) {
     e.restore();
     return;
   }
@@ -35832,6 +35858,19 @@ function Yn(e, t, n, r, i, a = !1) {
 }
 function Xn(e, t, n, r, i) {
   let a = Math.max(0, Math.min(1, (r - n.born) / n.duration));
+  const ash145=window.__HAPIL_BODY_ASH_RC145__;
+  if(n.burnRC144&&ash145?.target(n)){
+    if(ash145.death({
+      ctx:e,actor:n,sprite:n.sprite,size:n.sourceActorIdRC145==='inner-evil-rc133'?122:n.size,center:G(n.x,n.y),progress:a,time:r,lowFx:i.lowFx,
+      ready:!!(n.sourceActorIdRC145==='inner-evil-rc133'?window.__HAPIL_MEDIA_ART_RC133__?.picture(n.sprite):MONGSE_queueImage(t,n.sprite))?.complete,
+      drawBody:ctx=>n.sourceActorIdRC145==='inner-evil-rc133'&&MONGSE_drawPersonaBodyRC145(ctx,t,n,n.sprite,{})
+        ||Ln(ctx,t,n.sprite,n.x,n.y,n.size,{
+        scaleX:MONGSE_spriteFacingScale31222(n.sprite,n.facing,n.sourceFacing31223),
+      }),
+    }))return;
+    Ln(e,t,n.sprite,n.x,n.y,n.size,{scaleX:MONGSE_spriteFacingScale31222(n.sprite,n.facing,n.sourceFacing31223)});
+    return;
+  }
   if(n.burnRC144){
     const flare=Math.sin(Math.PI*Math.min(1,a/.88));
     if(flare>0)Ln(e,t,MONGSE_DEATH_FIRE_RC144,n.x,n.y,Math.min(190,Math.max(60,n.size*.98)),{
@@ -52122,8 +52161,8 @@ function Ri() {
             x: e.x,
             y: e.y,
             born: t.time,
-            duration: e.boss ? 1.25 : 0.72,
-            sprite: e.actionSprites?.death ?? MONGSE_phaseSprite(e) ?? e.sprite,
+            duration:window.__HAPIL_BODY_ASH_RC145__?.target(e)?0.82:e.boss?1.25:0.72,
+            sprite: e.rc133InnerBoss?e.sprite:e.actionSprites?.death ?? MONGSE_phaseSprite(e) ?? e.sprite,
             kind: e.kind,
             size:
               Ge(e.kind, !!e.boss, !!e.midboss, !!e.elite, e.scale) *
@@ -52137,8 +52176,9 @@ function Ri() {
             boss: !!e.boss,
             midboss: !!e.midboss,
             burnRC144: true,
+            sourceActorIdRC145:e.id,
           }),
-          t.effects.push({
+          !window.__HAPIL_BODY_ASH_RC145__?.target(e)&&t.effects.push({
             id: t.fxSerial++,
             kind: `burst`,
             x: e.x,
