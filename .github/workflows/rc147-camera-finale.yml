@@ -14,6 +14,8 @@ on:
       - 'tests/rc88-danmaku-rpg-*.cjs'
       - 'tests/rc142-persona-volley-browser.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
+      - 'tests/rc133-published-url.cjs'
+      - 'qa/rc133/published.cjs'
       - 'qa/rc148/**'
       - '.github/workflows/rc147-camera-finale.yml'
   workflow_dispatch:
@@ -68,6 +70,7 @@ jobs:
           node --check assets/rc86/samong-cosmic.js
           node --check assets/rc88/danmaku-rpg.js
           node --check qa/rc130/public-smoke.cjs
+          node tests/rc133-published-url.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-cosmic" node tests/rc148-six-cosmic-perf-browser.cjs

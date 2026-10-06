@@ -367,7 +367,7 @@ async function main() {
       report.optionalDerivative = { checked: false, reason: 'manifest has no external derivative' };
     }
 
-    assert.equal(expected.size,290,'the exact approved RC147 public set contains 290 unique files');
+    assert.equal(expected.size,291,'the exact approved RC148 public set contains 291 unique files');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
