@@ -12,6 +12,7 @@ on:
       - 'qa/rc133/published.cjs'
       - 'qa/rc133/public-url.cjs'
       - 'qa/rc133/authorized-runtime-extension.json'
+      - 'qa/rc133/authorized-runtime-extension-4.json'
       - 'tools/rc133-preservation.cjs'
       - '.github/workflows/rc133-published.yml'
   workflow_dispatch:

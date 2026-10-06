@@ -20,10 +20,10 @@ function gitBlob(bytes){return crypto.createHash('sha1').update(Buffer.from('blo
 function verifyRuntimeOutputChain(root,report,file,currentBytes=fs.readFileSync(path.join(root,file))){
  const old=report.approvedDelta.find(row=>row.file===file);
  const expectedHistorical=revisions[file]?.[1];assert(expectedHistorical,'Unapproved RC128 compatibility path');
- const currentHash=digest(currentBytes),extension=report.approvedExtension?.find(row=>row.file===file),extension2=report.approvedExtension2?.find(row=>row.file===file),extension3=report.approvedExtension3?.find(row=>row.file===file);
+ const currentHash=digest(currentBytes),extension=report.approvedExtension?.find(row=>row.file===file),extension2=report.approvedExtension2?.find(row=>row.file===file),extension3=report.approvedExtension3?.find(row=>row.file===file),extension4=report.approvedExtension4?.find(row=>row.file===file);
  // The old RC128 smoke-test source lives outside the protected runtime roots,
  // so its exact bytes remain checked directly by the independent revision pin.
- if(!old){assert(!extension&&!extension2&&!extension3,'Runtime extension cannot authorize an unprotected compatibility fixture');assert.equal(currentHash,expectedHistorical,'Exact compatibility fixture output');return {historicalOutput:expectedHistorical,currentOutput:currentHash,extensionOutput:null};}
+ if(!old){assert(!extension&&!extension2&&!extension3&&!extension4,'Runtime extension cannot authorize an unprotected compatibility fixture');assert.equal(currentHash,expectedHistorical,'Exact compatibility fixture output');return {historicalOutput:expectedHistorical,currentOutput:currentHash,extensionOutput:null};}
  assert.equal(old.after.sha256,expectedHistorical,'Historical compatibility output pin');
  if(extension){
   assert(extension.after,'Compatibility path removed by runtime extension');
@@ -41,12 +41,18 @@ function verifyRuntimeOutputChain(root,report,file,currentBytes=fs.readFileSync(
    assert.deepEqual({file:extension3.before?.file,mode:extension3.before?.mode,gitBlob:extension3.before?.gitBlob},{file,mode:preceding.mode,gitBlob:preceding.gitBlob},'Third runtime extension must start at exact preceding output');
    assert.equal(extension3.after.file,file,'Third runtime extension output path');extensionOutput=extension3.after.sha256;
   }
+  if(extension4){
+   assert(extension4.after,'Compatibility path removed by fourth runtime extension');
+   const preceding=extension3?.after??extension2?.after??extension.after;
+   assert.deepEqual({file:extension4.before?.file,mode:extension4.before?.mode,gitBlob:extension4.before?.gitBlob},{file,mode:preceding.mode,gitBlob:preceding.gitBlob},'Fourth runtime extension must start at exact preceding output');
+   assert.equal(extension4.after.file,file,'Fourth runtime extension output path');extensionOutput=extension4.after.sha256;
+  }
   assert.equal(extensionOutput,currentHash,'Current runtime bytes differ from exact authorized extension chain output');
-  const row=extension3||extension2||extension;assert.equal(row.after.gitBlob,gitBlob(currentBytes),'Current runtime Git blob differs from exact authorized extension chain output');
+  const row=extension4||extension3||extension2||extension;assert.equal(row.after.gitBlob,gitBlob(currentBytes),'Current runtime Git blob differs from exact authorized extension chain output');
   const stat=fs.statSync(path.join(root,file));assert.equal(row.after.mode,stat.mode&0o111?'100755':'100644','Current runtime mode differs from exact authorized extension chain output');
   return {historicalOutput:old.after.sha256,currentOutput:currentHash,extensionOutput};
  }
- assert(!extension2&&!extension3,'Later runtime extension cannot apply without its first output');
+ assert(!extension2&&!extension3&&!extension4,'Later runtime extension cannot apply without its first output');
  assert.equal(currentHash,old.after.sha256,'Current runtime bytes differ from exact historical output');
  return {historicalOutput:old.after.sha256,currentOutput:currentHash,extensionOutput:null};
 }

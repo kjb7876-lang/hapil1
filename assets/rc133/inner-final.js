@@ -65,7 +65,7 @@
   const raw=root.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??{},scale=growth(s,raw),maxHp=health(s,leader,raw);
   const p=root.__HAPIL_RC86_BRIDGE__.point(ZONE,23.2,10,.8);
   if(entry==='developer-777'){for(const a of s.enemies)cleanup(s,a.id);cleanup(s);s.enemies=[];s.spawnedWaves=new Set([1,2,3,4]);}
-  else {cleanup(s,leader.id);s.enemies=s.enemies.filter(e=>e!==leader);}
+  else {root.__HAPIL_DEATH_BURN_RC144__?.emit(s,leader);cleanup(s,leader.id);s.enemies=s.enemies.filter(e=>e!==leader);}
   s.dreamFinalV31346={version:1,index:6,phase:'complete',activeId:null,safeUntil:0,complete:true};
   s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',entry,hero:s.activeHeroId,healthModel:2,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,cycle:0,x:p.x,y:p.y,intro:2,clash:cleanClash(null),clashFreeze:0,playerFatalAt:-1};
   s.bossDefeated=false;if(entry==='cult-death')s.completedZones?.delete(ZONE);s.targetEnemyId=ID;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+2);
@@ -87,7 +87,7 @@
   if(a?.id===ID&&a.hp<=0&&s.innerFinalRC133?.phase!=='complete'){
    const m=s.innerFinalRC133;
    if(!m.bossRevived&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
-   m.phase='complete';m.hp=0;m.awake=0;releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
+   m.phase='complete';m.hp=0;m.awake=0;releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){root.__HAPIL_DEATH_BURN_RC144__?.emit(s,a);s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
   }
   return false;
  }

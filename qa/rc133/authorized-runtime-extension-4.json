@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "fafa1d2ad336753fa74513c7646823126527427a",
+  "baseTree": "ad1d2cd25d94116426590e881d83da583ebad4c7",
+  "previousExtensionSha256": "cba933bc3b3692a2d1c155826f177d4d31d14d903a69221785345b7017ce4976",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "a1786e4e4bc8b6e80cf487bdd4b9bde3f4684aeb1cd9774a690b8d5687237bb9",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "0efa5b5b1ed978d22f3af6ca51353f5c4217615c"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2a66bd3b368519b7d3c12e6766f338583bff1cc7",
+        "sha256": "8bed840c7f16579e52e536fc230aeac0447b3c89a7ff8ef060de3cfa7edc6cb8"
+      },
+      "reason": "RC144 confirmed-death burn and HP-based embers; exact browser cache revision: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "a9cebc9cfa4aa9838a4ce197129629c1d701df93"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "1b7eb9c34c1d514ae6538f6d5ea5ee72297b2d1f",
+        "sha256": "e4e6dad9bcdffd2b27bc60cefb71d47d5b689e9f3408290728882cb00dfa0574"
+      },
+      "reason": "RC144 confirmed-death burn and HP-based embers; exact browser cache revision: assets/rc133/inner-final.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "dd6b4c8d600be3ba32231c44c597ecf75e26b3a0"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c744ae559b7d1dee166a846b64600b85f4997193",
+        "sha256": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+      },
+      "reason": "RC144 confirmed-death burn and HP-based embers; exact browser cache revision: index.html"
+    }
+  ]
+}

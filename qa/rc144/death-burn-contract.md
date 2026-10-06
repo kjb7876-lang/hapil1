@@ -1,0 +1,11 @@
+# RC144 enemy death and ember visual contract
+
+The native enemy death callback in `assets/index-v31526.js` admits the effect only after all transformation and revival hooks decline the death. It adds one `defeated` visual row and removes the actor immediately. The existing reward and zone-clear timing remain in that callback; its source-owned projectile and queued-hit cleanup now removes even launched packets at confirmed death. An actor that is no longer in `state.enemies` cannot reenter the callback.
+
+Special consumers that remove an actor themselves can call `window.__HAPIL_DEATH_BURN_RC144__.emit(state, actor)` before removal, only after `actor.hp <= 0` is confirmed. The emitter is idempotent for that actor and adds a visual row only. It does not award rewards, apply damage, change collision, or schedule a portal. Dream cult leader death, the first five trial bosses, and developer 777 Persona completion use this contract. Persona's one-use lethal revival does not emit a death visual. The final native Persona defeat does.
+
+Existing image: `./assets/vfx/bosses/v393/ep1b-wrath-fire.webp` (68,056 bytes; SHA-256 `4a76a4423765f785ed695135e0a58a924bdd036c03a5296c18cc594a2599a533`). The body sprite stays the actor's approved death/current sprite. The fire image, short body fade, and bounded ash fragments are drawn from each `defeated` row. A row lives at most 1.25 game seconds; the normal game tick limits retained rows to 10, or 6 with low effects, and zone transitions clear the array. The image is queued on the normal world renderer cache.
+
+Living embers are derived directly from `actor.hp / actor.maxHp` at draw time below 75% HP. Healing, phase resets, and restoration remove or change them on the next render. They are visual only and stay around the lower body. Native telegraphs and the mandatory HP bar draw later and remain readable.
+
+Browser QA: `tests/rc144-death-burn-browser.cjs` stages mob, midboss, boss, simultaneous deaths, Dream cult death, Persona revival and completion; renders native desktop, portrait, and landscape canvases, checks fire image decode and HP-scaled ember pixels, and reports JS/HTTP failures. `tests/rc144-perf-browser.cjs` compares the pinned public base and candidate in one Chromium with identical 6 living and 6 defeated actor fixtures. These are staged checks, not natural campaign completion.

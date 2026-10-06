@@ -1,0 +1,73 @@
+name: RC144 confirmed death and ember VFX
+on:
+  push:
+    branches: [main, codex/rc143-persona-mobile-cult]
+    paths:
+      - 'assets/index-v31526.js'
+      - 'assets/rc133/inner-final.js'
+      - 'index.html'
+      - 'tests/rc144*'
+      - 'qa/rc133/authorized-runtime-extension-4.json'
+      - 'tools/rc133-preservation.cjs'
+      - '.github/workflows/rc144-death-burn.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc144-death-burn-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [pc, portrait, landscape]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated Chromium
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc144-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc144-evidence" >> "$GITHUB_ENV"
+      - name: Verify exact candidate and browser transactions
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC144_PROFILE: ${{ matrix.profile }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node --check assets/index-v31526.js
+          node --check assets/rc133/inner-final.js
+          node tests/rc144-death-burn-browser.cjs
+          if test "$RC144_PROFILE" = pc; then node tools/rc133-preservation.cjs; fi
+      - name: Compare pinned public base and candidate under one browser
+        if: matrix.profile == 'portrait'
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC144_PROFILE: portrait
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/rc144-base" fafa1d2ad336753fa74513c7646823126527427a
+          RC144_BASE_ROOT="$RUNNER_TEMP/rc144-base" node tests/rc144-perf-browser.cjs
+          git worktree remove "$RUNNER_TEMP/rc144-base"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc144-${{ matrix.profile }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc144-evidence/
+          retention-days: 14
