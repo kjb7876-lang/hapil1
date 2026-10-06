@@ -1,0 +1,596 @@
+{
+  "version": "RC130",
+  "testedCommit": "bc77068bee69f5cae36d9aa4c2c5a77e5f4e9f20",
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "files": [
+    {
+      "file": "data/story-rc51.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202",
+      "actual": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+    },
+    {
+      "file": "assets/foundation-v31400/policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "0f1c1308aac462fa35d922e1d928eb981a528cb63249cfb9dfd03f32d012bac4",
+      "actual": "0f1c1308aac462fa35d922e1d928eb981a528cb63249cfb9dfd03f32d012bac4"
+    }
+  ],
+  "readiness": [
+    {
+      "file": "data/story-rc51.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202",
+      "actual": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202"
+    },
+    {
+      "file": "assets/foundation-v31400/policy.js",
+      "attempt": 0,
+      "status": 200,
+      "expected": "0f1c1308aac462fa35d922e1d928eb981a528cb63249cfb9dfd03f32d012bac4",
+      "actual": "0f1c1308aac462fa35d922e1d928eb981a528cb63249cfb9dfd03f32d012bac4"
+    },
+    {
+      "file": "index.html",
+      "attempt": 0,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 1,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 2,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 3,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 4,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 5,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 6,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 7,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 8,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 9,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 10,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 11,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 12,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 13,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 14,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 15,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 16,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 17,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 18,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 19,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 20,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 21,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 22,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 23,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 24,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 25,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 26,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 27,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 28,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    },
+    {
+      "file": "index.html",
+      "attempt": 29,
+      "status": 200,
+      "expected": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc",
+      "actual": "3290b7e6e6e853cdfdc6e3c896a4a1e821886dbb5005ec95b738558a66eef77b"
+    }
+  ],
+  "profiles": [],
+  "status": "failed",
+  "attachmentImported": false,
+  "scope": "Read-only deployed bytes and natural startup, not full campaigns or physical-phone performance",
+  "combatAudio": {
+    "registeredAssets": [
+      {
+        "role": "clockworkIntense",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-clockworkintense-ae97c71269451d343b52edcf.mp3",
+        "sha256": "ae97c71269451d343b52edcf417a79dba22d3ac2eb6d65d33bd10c591d8777d1",
+        "bytes": 4905154
+      },
+      {
+        "role": "clockwork",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-clockwork-4918e942934bb1f3f0c85071.mp3",
+        "sha256": "4918e942934bb1f3f0c85071310bdbca118d0ef8ca4db695835c30854d1ff257",
+        "bytes": 5198727
+      },
+      {
+        "role": "timeControl",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-timecontrol-231007d6ce8e9e5b7bc0da68.mp3",
+        "sha256": "231007d6ce8e9e5b7bc0da68fe2716880ff8c074d2c5b7b971ee57963fe91711",
+        "bytes": 1743095
+      },
+      {
+        "role": "dark",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-dark-b0b217a7bd594d0e1e43df38.wav",
+        "sha256": "b0b217a7bd594d0e1e43df38fc4a8c1528cbc1413db5988df02fd40c7de42efe",
+        "bytes": 648044
+      },
+      {
+        "role": "roar",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-roar-6ac814d7d0235399c1eed3ad.wav",
+        "sha256": "6ac814d7d0235399c1eed3ad4f34bc73b1cd5f0efbcdb448ccff3feab2293be1",
+        "bytes": 648044
+      },
+      {
+        "role": "blackHole",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-blackhole-a5c38b64889796e5fdd23f31.wav",
+        "sha256": "a5c38b64889796e5fdd23f312ae9859737a138c83d642cb8f8ce8de32f8f05dc",
+        "bytes": 648044
+      },
+      {
+        "role": "illusion",
+        "kind": "effect",
+        "file": "assets/combat-audio/v1/audio/effect-illusion-dd1e16a6a87d0b52d2a8747e.wav",
+        "sha256": "dd1e16a6a87d0b52d2a8747e4ae14f189c0eeadd6bf1c249c89502763ade2573",
+        "bytes": 648044
+      },
+      {
+        "role": "foldingSpace",
+        "kind": "music",
+        "file": "assets/combat-audio/v1/audio/music-foldingspace-c535f55cc0d31b7d5189e572.mp3",
+        "sha256": "c535f55cc0d31b7d5189e572379aedcecd641d8248d61097c59425d039405872",
+        "bytes": 4814147
+      },
+      {
+        "role": "clockworkIntense",
+        "kind": "music",
+        "file": "audio/rc133/processed/bgm/Clockwork_Ticks_1_1-ae97c712.mp3",
+        "sha256": "f5ab13fe2dcbba2bc01ac49d3d77f9d25db7b651f06b37b52286032eee939cd1",
+        "bytes": 3757484
+      },
+      {
+        "role": "clockwork",
+        "kind": "music",
+        "file": "audio/rc133/processed/bgm/Clockwork_Ticks_1-4918e942.mp3",
+        "sha256": "3707ca9e0c960c43db47836bf9cdaa410d02b9d79255e36f41317f700027957b",
+        "bytes": 3964844
+      },
+      {
+        "role": "timeControl",
+        "kind": "music",
+        "file": "audio/rc133/processed/bgm/Control_of_Time_1-231007d6.mp3",
+        "sha256": "6e86cd7f0fac21e70ec9b08434f4aea4ac6179a9ec2fe2870771b67f752f59b9",
+        "bytes": 1496684
+      },
+      {
+        "role": "foldingSpace",
+        "kind": "music",
+        "file": "audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3",
+        "sha256": "91bd5ef70ce6756702471d1b3594093141534129bed82c13dc7f9a7d3790bce6",
+        "bytes": 4047404
+      },
+      {
+        "role": "nearSilence",
+        "kind": "music",
+        "file": "audio/rc133/processed/bgm/Near-Silence_Restart-41a49d56.mp3",
+        "sha256": "779a8d86d4a68736ebf518e148a3d9a50bd9673997ea87622de12baf1bd4a9bf",
+        "bytes": 1204844
+      },
+      {
+        "role": "dark",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-heavy/Dark_demonic_attack___3-1790999830236-5780aca5.ogg",
+        "sha256": "16fa845997ee681eab1fbaab1310333dff2800d208a8277e912ae1c59c219e04",
+        "bytes": 22155
+      },
+      {
+        "role": "roar",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-roar/demon_roar__4-1790999603479_1-fb23f2a4.ogg",
+        "sha256": "cce4b8869e01e054773b37c64dacb73c1d6041596b450cf460f8d72196245be0",
+        "bytes": 22897
+      },
+      {
+        "role": "blackHole",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-void/Demonic_black_hole_a__1-1791000219272_1-1c57c459.ogg",
+        "sha256": "d203f5c75202cd6601e5da0f67a4e6f06180fdadb13107391fcd5c99dd677bea",
+        "bytes": 24410
+      },
+      {
+        "role": "illusion",
+        "kind": "effects",
+        "file": "audio/rc133/processed/illusion/Demonic_illusion_cre__1-1791000032651_1-b58c3087.ogg",
+        "sha256": "15ef0ccc55e9bccb8e55b6f4621cb9fd43eb7776322c56582927d2ab27cb8c8f",
+        "bytes": 25994
+      },
+      {
+        "role": "rc133MeleeHit0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__1-1791000243196_1-0988d8f3.ogg",
+        "sha256": "93d43475dc4a7ab9af921fec7a5cf9df2adb3aff71bdc943797adfe7c2e4fc09",
+        "bytes": 28692
+      },
+      {
+        "role": "rc133MeleeHit1",
+        "kind": "effects",
+        "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__3-1791000250226_1-4f574de8.ogg",
+        "sha256": "495857cebeccae467dee501b7ddc3ca81749a8140441ee3c1cd1deb5a7765a20",
+        "bytes": 27889
+      },
+      {
+        "role": "rc133MeleeHit2",
+        "kind": "effects",
+        "file": "audio/rc133/processed/melee-impact/Short_melee_hit_impa__4-1791000252248_1-c3114678.ogg",
+        "sha256": "50b47a32cda76585096c3c0a741b06564aad2267c3baf41080652092c5379012",
+        "bytes": 28889
+      },
+      {
+        "role": "rc133Parry0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/parry/Perfect_parry_sound___2-1791000286664-2defdc93.ogg",
+        "sha256": "3934a48172249c6f6c75f73f6b88f5182dfd7a8b2b37670ad7a4dca2de334f6e",
+        "bytes": 23002
+      },
+      {
+        "role": "rc133Dodge0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/dodge/Quick_dodge_sound__f__3-1791000315957-859c65d8.ogg",
+        "sha256": "74eb3a381b4eabf3229b033ea8d547a57ca80b5e2596e1e3da801627c433a208",
+        "bytes": 26174
+      },
+      {
+        "role": "rc133Dodge1",
+        "kind": "effects",
+        "file": "audio/rc133/processed/dodge/Quick_dodge_sound__f__4-1791000321516-94e7f1be.ogg",
+        "sha256": "f56190b272af3116a62ea0ac2e074b65ee2fe91d1636bed56cae84c94817b3b1",
+        "bytes": 24724
+      },
+      {
+        "role": "rc133Removal0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/blink/Short_magical_blink___4-1791000353126_1-3a31443e.ogg",
+        "sha256": "cd035e7d9fd7d626b21eacee6cb6cf6176b4b5c528650aa7e30b81d06e4702d2",
+        "bytes": 27855
+      },
+      {
+        "role": "rc133InnerAwake0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__1-1791000066648-a8af3a45.ogg",
+        "sha256": "2f9ca6127d103a947c50955181e0434321918a26181d5a57ed2ee2cc106e9782",
+        "bytes": 25635
+      },
+      {
+        "role": "rc133InnerAwake1",
+        "kind": "effects",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__2-1791000075383-dc8d305e.ogg",
+        "sha256": "87690b49c95f1917816feff4b43384589d12a86f79a2b075cb26d95b065b23ec",
+        "bytes": 24241
+      },
+      {
+        "role": "rc133InnerAwake2",
+        "kind": "effects",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__3-1791000075383-27414fd4.ogg",
+        "sha256": "77e570c26f1b663457f69a822bee0ce01d06f3035d52ad7ce73ea9550a853eab",
+        "bytes": 25486
+      },
+      {
+        "role": "rc133InnerAwake3",
+        "kind": "effects",
+        "file": "audio/rc133/processed/awakening-phase/Ancient_demon_awaken__4-1791000075383-7e636c80.ogg",
+        "sha256": "4ffcb5286e89f5581a12fb2f46b9546f0324715a922c0429303311f1cda45a2f",
+        "bytes": 22495
+      },
+      {
+        "role": "rc133InnerShot0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-energy/Massive_demonic_ener__1-1791000176874-1c0241f3.ogg",
+        "sha256": "11fa11a403e01c634ecc0e7a0d69669a055d4a5f529a502668382e18f9c67b7d",
+        "bytes": 25366
+      },
+      {
+        "role": "rc133InnerShot1",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-energy/Massive_demonic_ener__2-1791000188083-8a5a3342.ogg",
+        "sha256": "75b20095915e57049457e3c5258c0b91adcd6de1c78ce71de32e2ef5279cac41",
+        "bytes": 25487
+      },
+      {
+        "role": "rc133LaserCharge0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-charge/Demonic_laser_chargi__1-1791000143316-07641aed.ogg",
+        "sha256": "fdd31a09b2655659b4985a4172eb8bb1c4465d1a1cf7ca86e9b22b7c52b9b472",
+        "bytes": 32627
+      },
+      {
+        "role": "rc133LaserCharge1",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-charge/Demonic_laser_chargi__4-1791000154420-97cfc34f.ogg",
+        "sha256": "68e0e90c849bd8ace35eaf949746ec30d6bfd0cbe595d03f490541e5c1b89ee8",
+        "bytes": 27767
+      },
+      {
+        "role": "rc133EnemyRage0",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-rage/Demonic_rage_skill_a__4-1790999904551-aaf8fc57.ogg",
+        "sha256": "785ca3749095ea95468f8461331eb7104c25408ae1b27ca6d232a890d82ff6ce",
+        "bytes": 23700
+      },
+      {
+        "role": "rc133EnemyHeavy1",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-heavy/Dark_fantasy_demon_e__3-1790999939460_1-8510730a.ogg",
+        "sha256": "61bbbc3ac82ec1e83bd0b202c04d5602c22ce46037ca109fbdc5fa3926937812",
+        "bytes": 39469
+      },
+      {
+        "role": "rc133EnemyHeavy2",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-heavy/Powerful_demonic_hea__1-1790999865399-61fe79a2.ogg",
+        "sha256": "3b4999e43f02e65708fc7793fd48f9322aca625ff72c63bea06823cb6a44cdea",
+        "bytes": 23566
+      },
+      {
+        "role": "rc133EnemyHeavy3",
+        "kind": "effects",
+        "file": "audio/rc133/processed/enemy-heavy/Powerful_demonic_hea__2-1790999865400-a81a6eb5.ogg",
+        "sha256": "0b8908e26d0f1d2ea7be7649f57bd6a90082c9cf0bd2f0da7e79ea4d545c48ab",
+        "bytes": 24848
+      },
+      {
+        "role": "rc141MenuNavigation",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/Short_game_menu_navi__4-1791000546558-2a2600cc.ogg",
+        "sha256": "ec2604b39c1e68238043a5f273f6a5bf04b4e0042e5af0095edab21305c940b3",
+        "bytes": 9839
+      },
+      {
+        "role": "rc141TimeAwakening",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/Time_manipulation_aw__1-1791000657816-42a47f20.ogg",
+        "sha256": "2b55ed494eeb47117fff7159394ed8bd055aa77f1ed47aa428f694934f735c1b",
+        "bytes": 26648
+      },
+      {
+        "role": "rc141TimeTick0",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/time_tick_tack_sound__1-1790999531800-db7f759e.ogg",
+        "sha256": "d584d313d5b560317c217a4d75575868850e80d1730a06eb1fb5a490eac8bb22",
+        "bytes": 38625
+      },
+      {
+        "role": "rc141TimeTick1",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/time_tick_tack_sound__2-1790999537390-d72161ef.ogg",
+        "sha256": "989e00c2525364cc04191a71da687a3bc0d83c00b8f2f6df22ced61a8a2ca282",
+        "bytes": 28474
+      },
+      {
+        "role": "rc141TimeTick2",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/time_tick_tack_sound__3-1790999542258-732bf5e2.ogg",
+        "sha256": "295fa352c10e92bfe58f0d1d57f7023393f2d8b37eff3dd23c215f94c235039f",
+        "bytes": 34175
+      },
+      {
+        "role": "rc141TreeWeapon",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/tree_weapon_attack_s__2-1790999357019-d187038c.ogg",
+        "sha256": "9ac381a436051e81adf2e1a7e972ceeaf261141496966a571df646f6073e9d11",
+        "bytes": 30166
+      },
+      {
+        "role": "rc141ResonanceEnergy",
+        "kind": "effects",
+        "file": "delivery/additional-audio13-20261005/processed/sfx-candidate/Resonance_energy_gai__2-1791000424116-211cce07.ogg",
+        "sha256": "1ecabb4e4efd2aac32f2dfee0c2de5f237a69c22e2b184daac92d62eaeaed562",
+        "bytes": 33982
+      }
+    ],
+    "rc141PublicEffects": [
+      {
+        "key": "rc141MenuNavigation",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/Short_game_menu_navi__4-1791000546558-2a2600cc.ogg",
+        "sha256": "ec2604b39c1e68238043a5f273f6a5bf04b4e0042e5af0095edab21305c940b3"
+      },
+      {
+        "key": "rc141TimeAwakening",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/Time_manipulation_aw__1-1791000657816-42a47f20.ogg",
+        "sha256": "2b55ed494eeb47117fff7159394ed8bd055aa77f1ed47aa428f694934f735c1b"
+      },
+      {
+        "key": "rc141TimeTick0",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/time_tick_tack_sound__1-1790999531800-db7f759e.ogg",
+        "sha256": "d584d313d5b560317c217a4d75575868850e80d1730a06eb1fb5a490eac8bb22"
+      },
+      {
+        "key": "rc141TimeTick1",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/time_tick_tack_sound__2-1790999537390-d72161ef.ogg",
+        "sha256": "989e00c2525364cc04191a71da687a3bc0d83c00b8f2f6df22ced61a8a2ca282"
+      },
+      {
+        "key": "rc141TimeTick2",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/time_tick_tack_sound__3-1790999542258-732bf5e2.ogg",
+        "sha256": "295fa352c10e92bfe58f0d1d57f7023393f2d8b37eff3dd23c215f94c235039f"
+      },
+      {
+        "key": "rc141TreeWeapon",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/tree_weapon_attack_s__2-1790999357019-d187038c.ogg",
+        "sha256": "9ac381a436051e81adf2e1a7e972ceeaf261141496966a571df646f6073e9d11"
+      },
+      {
+        "key": "rc141ResonanceEnergy",
+        "path": "./delivery/additional-audio13-20261005/processed/sfx-candidate/Resonance_energy_gai__2-1791000424116-211cce07.ogg",
+        "sha256": "1ecabb4e4efd2aac32f2dfee0c2de5f237a69c22e2b184daac92d62eaeaed562"
+      }
+    ],
+    "archiveBytesVerified": false,
+    "provenance": "Verified against the repository manifest; no claim that the unreadable conversation ZIP is this same set."
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Exact committed public bytes unavailable: index.html\n    at main (/home/runner/work/hapil1/hapil1/qa/rc130/public-smoke.cjs:40:3)"
+}
