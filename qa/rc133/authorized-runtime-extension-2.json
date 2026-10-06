@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "be4cf6a839ada85acf5a980de899aa661c1a2bc0",
+  "baseTree": "d23e07c401197c2b4cb75de53e4219e988430a11",
+  "previousExtensionSha256": "20fb3ec5485ee26ee34cdc77b5dca73a58a08cf52c5a3259c44f7800ffb08b82",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "f02bfdef518d183dc77a98c324a03d279c19744f08c29c3d4ec34ac11af13599",
+  "files": [
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f23e66dd6438982729609c0d982af464e5f1233f"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "67d39e6989d425e863f6e6ee3b3c4a4aa5e27005",
+        "sha256": "50fcbbc2e3ef96f537665a6071aec11230f7faee3c0d650b63ccc757b0778f57"
+      },
+      "reason": "RC132 startup dependency cache-key update and exact readiness check: index.html"
+    }
+  ]
+}

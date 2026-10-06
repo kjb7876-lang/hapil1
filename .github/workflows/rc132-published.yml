@@ -8,6 +8,7 @@ on:
       - 'assets/rc132/**'
       - 'assets/combat-v31412/outgoing-native.js'
       - 'qa/rc132/published.cjs'
+      - 'tests/rc132-startup-readiness.cjs'
       - 'tests/combat-audio-catalog.cjs'
       - 'tests/lib/combat-audio-catalog.cjs'
       - '.github/workflows/rc132-published.yml'
@@ -36,7 +37,7 @@ jobs:
           echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc132-public" >> "$GITHUB_ENV"
       - name: Verify exact public bytes and three real startup profiles
-        run: node tests/combat-audio-catalog.cjs && node qa/rc132/published.cjs
+        run: node tests/combat-audio-catalog.cjs && node tests/rc132-startup-readiness.cjs && node qa/rc132/published.cjs
       - uses: actions/upload-artifact@v7
         if: always()
         with:

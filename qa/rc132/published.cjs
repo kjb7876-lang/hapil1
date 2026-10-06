@@ -3,7 +3,7 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),Module=require('module');
 let code=fs.readFileSync(path.join(__dirname,'../rc130/public-smoke.cjs'),'utf8');
 function replace(from,to){assert.equal(code.split(from).length-1,1,'RC132 public QA anchor');code=code.replace(from,to);}
-replace("const files=['index.html',","const files=['assets/rc132/dream-balance.js','assets/combat-v31412/outgoing-native.js','assets/rc131/hero-images.js','index.html',");
+replace("const files=['data/story-rc51.js','assets/foundation-v31400/policy.js','index.html',","const files=['assets/rc132/dream-balance.js','assets/combat-v31412/outgoing-native.js','assets/rc131/hero-images.js','data/story-rc51.js','assets/foundation-v31400/policy.js','index.html',");
 replace("version:'RC130',testedCommit:","version:'RC132',testedCommit:");
 replace("base+'?v=43001&qa=1'","base+'?v=43201&qa=1'");
 replace("window.__HAPIL_RC130_NATIVE_INSTALLED__&&window.__HAPIL_RC127_INSTALLED__","window.__HAPIL_DREAM_BALANCE_RC132__?.version==='RC132'&&window.__HAPIL_MIRROR_V31347__?.removed===true&&window.__HAPIL_RC130_NATIVE_INSTALLED__&&window.__HAPIL_RC127_INSTALLED__");
