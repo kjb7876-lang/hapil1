@@ -6,6 +6,7 @@ on:
       - 'assets/**'
       - 'index.html'
       - 'qa/rc133/**'
+      - 'qa/rc130/public-smoke.cjs'
       - 'tools/rc133-*.cjs'
       - 'tests/rc147-*.cjs'
       - 'tests/rc86-samong-cosmic-*.cjs'
@@ -61,6 +62,7 @@ jobs:
           node --check assets/index-v31526.js
           node --check assets/rc86/samong-cosmic.js
           node --check assets/rc88/danmaku-rpg.js
+          node --check qa/rc130/public-smoke.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           if test "$RC147_PROFILE" = pc; then
