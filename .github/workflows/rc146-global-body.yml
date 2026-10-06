@@ -9,6 +9,7 @@ on:
       - 'tests/rc145-body-ash-browser.cjs'
       - 'tests/rc146-global-body-browser.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
+      - 'tests/rc142-gameplay-browser.cjs'
       - 'qa/rc133/authorized-runtime-extension-5.json'
       - 'qa/rc133/published.cjs'
       - 'tools/rc133-preservation.cjs'
@@ -59,6 +60,7 @@ jobs:
           node --check assets/index-v31526.js
           node --check assets/rc145/body-ash.js
           node tests/rc145-body-ash-browser.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc146-evidence/rc142" node tests/rc142-gameplay-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc146-evidence/rc144" node tests/rc144-death-burn-browser.cjs
           if test "$RC145_PROFILE" = pc; then
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc146-evidence/global" node tests/rc146-global-body-browser.cjs

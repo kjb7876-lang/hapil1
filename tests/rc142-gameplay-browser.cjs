@@ -20,9 +20,13 @@ const save=()=>fs.writeFileSync(path.join(out,'rc142-gameplay.json'),JSON.string
   for(let i=0;i<profile.length;i++){
    const actor=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');Object.assign(actor,{hp:Math.round(actor.maxHp*profile[i]),x:23,y:12,attackAt:0,recoverUntil:0,staggerUntil:0,atomicCastUntil31210:0,fixedPhase:null});art.applyActor(actor);s.enemies=[actor];
    const phase=Q.phase(actor),path=Q.phaseSprite(cache,actor,0);if(phase!==i||path!==art.paths[i]||actor.phaseNames[i]!==expectedNames[i])throw Error('phase mapping mismatch '+JSON.stringify({i,phase,path,name:actor.phaseNames[i]}));
-   const canvas=document.createElement('canvas');canvas.width=live.width;canvas.height=live.height;const ctx=canvas.getContext('2d'),draw=ctx.drawImage.bind(ctx),drawn=[];ctx.drawImage=(image,...args)=>{if(image?.src)drawn.push(new URL(image.src,location.href).pathname);return draw(image,...args);};
-   for(let frame=0;frame<3;frame++)B.renderFrame(canvas,s,cache,'gunner',{...C.binding.settings.current,reducedFlash:true,lowFx:true,showCombatInfo:false});
+   const canvas=document.createElement('canvas');canvas.width=live.width;canvas.height=live.height;const ctx=canvas.getContext('2d'),draw=ctx.drawImage.bind(ctx),drawn=[];let bodyComposite=0;
+   ctx.drawImage=(image,...args)=>{if(image?.src)drawn.push(new URL(image.src,location.href).pathname);if(image instanceof HTMLCanvasElement)bodyComposite++;return draw(image,...args);};
+   const prototype=CanvasRenderingContext2D.prototype,nativeDraw=prototype.drawImage;
+   prototype.drawImage=function(image,...args){if(image?.src)drawn.push(new URL(image.src,location.href).pathname);return nativeDraw.call(this,image,...args);};
+   try{for(let frame=0;frame<3;frame++)B.renderFrame(canvas,s,cache,'gunner',{...C.binding.settings.current,reducedFlash:true,lowFx:true,showCombatInfo:false});}finally{prototype.drawImage=nativeDraw;}
    const expected=projectPaths[i];if(!drawn.includes(expected))throw Error('native Yn draw path absent '+JSON.stringify({phase:i,expected,drawn}));
+   if(profile[i]<.7&&bodyComposite===0)throw Error('wounded form omitted body composite '+i);
    captures.push({phase:i,name:actor.phaseNames[i],sprite:path,ratio:profile[i],decoded:true,actualDrawPath:expected,drawCount:drawn.filter(p=>p===expected).length,png:canvas.toDataURL('image/png')});
   }
   C.binding.state.current=original;return{checked:captures.length,manifestIncludesForms:true,phases:captures};
