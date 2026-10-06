@@ -1,8 +1,8 @@
 name: RC137 exact integrated gameplay and art
 on:
   push:
-    branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit]
-    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc137/**', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
+    branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult]
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc137/**', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -76,6 +76,14 @@ jobs:
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/admission" node tests/rc137-direct-admission-browser.cjs
           fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/gameplay" node tests/rc142-gameplay-browser.cjs
+          if test "$RC137_ROUND" = 1; then
+            RC143_PROFILE="$RC137_PROFILE" HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/persona-live-$RC137_PROFILE" node tests/rc143-persona-live-browser.cjs
+            if test "$RC137_PROFILE" = pc; then
+              RC142_PROFILE=pc HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/persona-nine-patterns" node tests/rc142-persona-volley-browser.cjs
+            elif test "$RC137_PROFILE" = portrait; then
+              HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/mobile-viewport" node tests/rc143-mobile-viewport-browser.cjs
+            fi
+          fi
           if test "$RC137_PROFILE" = pc && test "$RC137_ROUND" = 1; then
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/input" node tests/rc137-direction-input-browser.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/revival" node tests/rc137-death-choice-browser.cjs

@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "fef4463b7e1c9f13c05e2266aa44bb631426af80",
+  "baseTree": "e2183450ac658a9921094d47f421eda7633cdc75",
+  "previousExtensionSha256": "917d061a8a533c914d123aab980ae7c5a5c7266342cdd6d3e0e48505b9e1bc6f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "0f02160b0aa9f3adebeabd75d5192a25b33468f4699966a4b2cc419653871604",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d4e42f1f28280a5294c139ac9815c2469a1bc3fa"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "0efa5b5b1ed978d22f3af6ca51353f5c4217615c",
+        "sha256": "f10cfe648abaa4583457eb5ea7046f978567a2fd6b7a4fe97906ea986f056e16"
+      },
+      "reason": "RC143 Persona projectile passage, cult leader form alignment, and exact cache revision: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc137/awakening-rules.js",
+      "before": {
+        "file": "assets/rc137/awakening-rules.js",
+        "mode": "100644",
+        "gitBlob": "a0203831931379bc5bd9f7accb0ffb95a5010ce6"
+      },
+      "after": {
+        "file": "assets/rc137/awakening-rules.js",
+        "mode": "100644",
+        "gitBlob": "c121f13935f6dd2a5c3f8628a452be7b0378d45c",
+        "sha256": "2be91fcd5a3fee4a816b1beda2113f04d93491af34fe576434c0019ccdd43a80"
+      },
+      "reason": "RC143 Persona projectile passage, cult leader form alignment, and exact cache revision: assets/rc137/awakening-rules.js"
+    },
+    {
+      "file": "assets/rc142/cult-leader-art.js",
+      "before": {
+        "file": "assets/rc142/cult-leader-art.js",
+        "mode": "100644",
+        "gitBlob": "fe641f64b67b6a7b2803ecc3c5355ba64c119e34"
+      },
+      "after": {
+        "file": "assets/rc142/cult-leader-art.js",
+        "mode": "100644",
+        "gitBlob": "b41fdf64e32289b9f3010f02f73285f8501930dd",
+        "sha256": "b4b6e8f08f02cf19518b2e183525ea551c7347cc722a4f2144ce098e1d1d5f7c"
+      },
+      "reason": "RC143 Persona projectile passage, cult leader form alignment, and exact cache revision: assets/rc142/cult-leader-art.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "67d39e6989d425e863f6e6ee3b3c4a4aa5e27005"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "dd6b4c8d600be3ba32231c44c597ecf75e26b3a0",
+        "sha256": "8406e8742bfd0617d6bcf6e7beab58303e4371f62826a5cdfccfe474ccb776f9"
+      },
+      "reason": "RC143 Persona projectile passage, cult leader form alignment, and exact cache revision: index.html"
+    }
+  ]
+}

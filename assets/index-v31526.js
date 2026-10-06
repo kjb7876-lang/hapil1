@@ -122287,6 +122287,9 @@ function install(){
  function polygon(s){const p=window.__HAPIL_TERRAIN_V31345__?.profile?.(s?.zone)?.world;return Array.isArray(p)&&p.length>=3?p.map(q=>({x:num(q.x??q[0]),y:num(q.y??q[1])})):[{x:1.4,y:1.4},{x:30.6,y:1.4},{x:30.6,y:18.6},{x:1.4,y:18.6}];}
  function segmentHit(a,b,c,d){const rx=b.x-a.x,ry=b.y-a.y,sx=d.x-c.x,sy=d.y-c.y,den=rx*sy-ry*sx;if(Math.abs(den)<1e-8)return null;const qx=c.x-a.x,qy=c.y-a.y,t=(qx*sy-qy*sx)/den,u=(qx*ry-qy*rx)/den;return t>=0&&t<=1&&u>=0&&u<=1?{t,x:a.x+t*rx,y:a.y+t*ry}:null;}
  function reflect(s,p){
+  // The hidden Persona owns the opposite half of this arena. Its authored
+  // shots must pass through the Dream terrain seam to reach the player.
+  if(p?.rc133InnerShot===true&&p.sourceId==='inner-evil-rc133'&&window.__HAPIL_INNER_FINAL_RC133__?.encounter(s))return false;
   if(mode(s)!=='DREAM'||!p||num(p.dreamReflectionCountV31346)>=4||!Number.isFinite(p.vx)||!Number.isFinite(p.vy))return false;
   const a={x:num(p.previousX,p.x),y:num(p.previousY,p.y)},b={x:num(p.x),y:num(p.y)},poly=polygon(s);let best=null;
   for(let i=0;i<poly.length;i++){const c=poly[i],d=poly[(i+1)%poly.length],h=segmentHit(a,b,c,d);if(h&&(!best||h.t<best.t))best={...h,c,d};}

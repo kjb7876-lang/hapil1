@@ -1,10 +1,10 @@
 /* RC142: restore the authored four-form cult-leader route at the live renderer. */
 (function(root){'use strict';
  const paths=Object.freeze([
-  './assets/generated-v31224/actors-normalized/b96a428432e9_pride_hierophant_idle.webp',
+  './assets/cult-v3123/pride_cyborg_cult_leader.webp',
   './assets/generated-v31224/actors-normalized/c6827b44795a_superego_cyborg_cult_leader.webp',
   './assets/generated-v31224/actors-normalized/a000c91070d3_final_pride_cyborg_lord.webp',
-  './assets/generated-v31224/actors-normalized/b78f35cef818_six_legged_cyborg_lord_final.webp'
+  './assets/generated-v31224/actors-normalized/57967d1070df_black_ritual_cyborg_boss.webp'
  ]);
  const phaseNames=Object.freeze(['사이보그 교주','EGO 탈취체','삼중자아 합일체','적그리스도 소환좌']);
  const states=Object.freeze(['idle','move','windup','attackA','attackB','rain','rift','hit','stagger','transition','death']);

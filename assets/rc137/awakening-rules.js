@@ -39,7 +39,14 @@
  }
  function suppress(s,q){if(!q||bullet(s,q)||!boss(owner(s,q)??q))return false;if(awake(s)){q.rc137AwakeningSealed=true;q.damageSuppressedV31226=true;}return q.rc137AwakeningSealed===true;}
  function permitDamage(s,q){if(q?.rc137AwakeningSealed)return false;if(q&&!bullet(s,q)&&QUEUES.some(key=>(s[key]??[]).some(c=>c.rc137AwakeningSealed&&c.sourceId===q.sourceId&&(c.id!=null&&c.id===q.id||c.id!=null&&c.id===q.raidUltimateCastIdRC25||Number.isFinite(c.born)&&c.born===q.born))))return false;if(!awake(s)||bullet(s,q))return true;return !boss(owner(s,q)??q);}
- function travelDelta(s,q,dt){return awake(s)&&boss(owner(s,q)??q)?dt*.06:dt;}
+ function travelDelta(s,q,dt){
+  // The Persona duel keeps its actors on separate halves. Its only offensive
+  // reach is a travelling projectile, including during either awakening.
+  // The general boss bullet slow otherwise lets a seven second awakening
+  // expire before these shots can reach the other half of the arena.
+  if(q?.rc133InnerShot===true&&q.sourceId==='inner-evil-rc133'&&owner(s,q)?.rc133InnerBoss===true)return dt;
+  return awake(s)&&boss(owner(s,q)??q)?dt*.06:dt;
+ }
  function expired(s,q){return Number.isFinite(q?.rc137ExpiresAt)&&s.time>=q.rc137ExpiresAt;}
  function sealCharge(s,a){const q=a?.gapChargeV31226;if(q&&(awake(s)||q.rc137AwakeningSealed)){q.rc137AwakeningSealed=true;if(s.time>=q.endAt){a.gapChargeV31226=null;if(a.activePattern==='gapChargeV31226')a.activePattern='';}return true;}return false;}
  function reset(s){s.rc137BossAwakening={version:1,zone:s.zone,wasAwake:false,post:false};for(const a of s.enemies??[]){delete a.rc137NonbulletReuse;delete a.rc137NonbulletCooldowns;delete a.rc137LastCastBullet;delete a.rc137BulletReadyAt;}}

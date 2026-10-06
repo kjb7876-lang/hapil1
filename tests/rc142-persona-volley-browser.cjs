@@ -37,11 +37,11 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
     H.tick(s,.016);const started=s.time,shots=s.hostileProjectiles.filter(q=>q.rc133InnerShot&&q.rc133Skill===skill.key&&q.rc133Cycle===index),expected=awake?Math.min(12,skill.count*2):Math.min(12,Math.ceil(skill.count*1.5)),warning=Math.min(...shots.map(q=>q.frozenUntil-started)),expectedWarning=awake?.62:Math.max(.72,skill.warning??.72),sprite=(awake?M.samongSkills:M.personaSkills)[skill.key];
     const disabled=shots.length===expected&&shots.every(q=>q.collisionDisabledUntil31219>=q.frozenUntil&&q.frozenUntil-started>=expectedWarning-1e-7&&q.rc133Skill===skill.key&&q.sprite===sprite),warningText=s.floatTexts.some(q=>q.sourceId===H.id&&String(q.text).includes(skill.name)&&q.born===started),initialTime=s.time,locked=shots.every(q=>{const early=Q.frozen(s,q);s.time=q.frozenUntil+.001;const released=!Q.frozen(s,q);s.time=initialTime;return early&&released;});
     if(!disabled||!warningText||!locked)throw Error('native warning/count/contact gate failed '+JSON.stringify({pattern:skill.key,awake,shots:shots.length,expected,warning,expectedWarning,disabled,warningText,locked}));
-    const resolved=new Set(),hits=[],transactions=[],terminal=[],startPlayer={x:s.x,y:s.y},maxTime=started+30,bounds=Q.bounds;let firstContactAt=null,steps=0,warningChecks=0;
+    const resolved=new Set(),hits=[],transactions=[],terminal=[],crossings=[],startPlayer={x:s.x,y:s.y},maxTime=started+12,bounds=Q.bounds;let firstContactAt=null,steps=0,warningChecks=0;
     while(s.time<maxTime&&steps<1600&&resolved.size<shots.length){s.time+=.02;if(route){const p=Q.move(s.zone,s,{x:route[1]*.07,y:route[2]*.07},.42);s.x=p.x;s.y=p.y;}
      for(const q of shots){if(resolved.has(q.id))continue;
       if(s.time<q.frozenUntil){warningChecks++;if(Q.prepareHost(s,q))throw Error('warning created early collision '+skill.key+'/'+awake);continue;}
-      q.previousX=q.x;q.previousY=q.y;Q.step(s,q,.02);
+      q.previousX=q.x;q.previousY=q.y;const travel=window.__HAPIL_AWAKENING_RULES_RC137__.travelDelta(s,q,.02*(window.__HAPIL_SAMONG_RC91__.incomingFactor(s)??1));Q.step(s,q,travel);window.__HAPIL_MODES_V31346__.reflect(s,q);if(q.previousX>q.previousY&&q.x<=q.y)crossings.push({id:q.id,at:s.time-started,from:[q.previousX,q.previousY],to:[q.x,q.y],travel});
       if(Q.prepareHost(s,q)){
        firstContactAt??=s.time-started;hits.push(q.id);q.reachedHero31213=true;
        const accepted=Q.damage(s,q.damage,q.originX??q.x,q.originY??q.y,q),event=core.snapshot(s).events.at(-1);
@@ -52,7 +52,7 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
       }
      }steps++;
     }
-    const moveDistance=Math.hypot(s.x-startPlayer.x,s.y-startPlayer.y),allResolved=resolved.size===shots.length,geometryHits=hits.length,landed=transactions.filter(q=>q.result==='HIT'&&q.hpLoss>0&&q.geometry==='measured-contact-not-forecast').length,result={pattern:skill.key,index,awake,route:route?.[0]??'standing',shots:shots.length,warningSeconds:warning,warningText,collisionDisabledUntilRelease:disabled,releaseGate:locked,earlyCollisionSamples:warningChecks,geometryHits,nativeDamageTransactions:transactions,acceptedNativeHits:landed,terminalReasons:terminal,playerMoveWorldUnits:moveDistance,firstContactSeconds:firstContactAt,simulationSteps:steps,allPacketsResolved:allResolved};
+    const moveDistance=Math.hypot(s.x-startPlayer.x,s.y-startPlayer.y),allResolved=resolved.size===shots.length,geometryHits=hits.length,landed=transactions.filter(q=>q.result==='HIT'&&q.hpLoss>0&&q.geometry==='measured-contact-not-forecast').length,result={pattern:skill.key,index,awake,route:route?.[0]??'standing',shots:shots.length,warningSeconds:warning,warningText,collisionDisabledUntilRelease:disabled,releaseGate:locked,earlyCollisionSamples:warningChecks,geometryHits,nativeDamageTransactions:transactions,acceptedNativeHits:landed,terminalReasons:terminal,boundaryCrossings:crossings,playerMoveWorldUnits:moveDistance,firstContactSeconds:firstContactAt,simulationSteps:steps,allPacketsResolved:allResolved};
     H.restore(s,null);return result;
    }
    const patterns=[];for(let i=0;i<H.deck.length;i++)for(const awake of [false,true]){const standing=scenario(i,awake,null),evasion=routes.map(r=>scenario(i,awake,r)).sort((a,b)=>a.geometryHits-b.geometryHits||b.playerMoveWorldUnits-a.playerMoveWorldUnits)[0];patterns.push({key:H.deck[i].key,awake,standing,bestEvasion:evasion});}
@@ -61,7 +61,7 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
   if(name==='pc'&&!perfOnly)for(const pattern of row.scenarios.patterns){
    const stand=pattern.standing,dodge=pattern.bestEvasion;
    for(const outcome of [stand,dodge])if(!outcome.allPacketsResolved||outcome.terminalReasons.length!==outcome.shots||outcome.terminalReasons.some(v=>!['hero-hit','map-boundary'].includes(v))||outcome.nativeDamageTransactions.length!==outcome.geometryHits||outcome.nativeDamageTransactions.some(v=>!['HIT','INVULNERABLE'].includes(v.result)||v.result==='HIT'&&v.hpLoss<=0||v.result==='INVULNERABLE'&&v.hpLoss!==0||v.geometry!=='measured-contact-not-forecast'||v.kind!=='projectile'))throw Error('actual native terminal/damage transaction failed '+JSON.stringify({pattern:pattern.key,awake:pattern.awake,outcome}));
-   if(stand.acceptedNativeHits<1)throw Error('standing fixture never admitted an actual native hit '+pattern.key+'/'+pattern.awake);
+   if(stand.acceptedNativeHits<1||stand.boundaryCrossings.length<1)throw Error('boss-side shot never crossed the boundary and admitted native damage '+pattern.key+'/'+pattern.awake);
    if(!stand.warningText||!stand.collisionDisabledUntilRelease||!stand.releaseGate||!(dodge.geometryHits<stand.geometryHits)||dodge.playerMoveWorldUnits<1)throw Error('pattern warning or native sidestep outcome failed '+JSON.stringify({pattern:pattern.key,awake:pattern.awake,stand,dodge}));
    if(stand.firstContactSeconds!==null&&stand.firstContactSeconds<=stand.warningSeconds)throw Error('contact preceded the authored warning '+pattern.key);
   }
