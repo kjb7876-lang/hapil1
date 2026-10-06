@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '3.86.02';
+  const VERSION = '3.147.01';
   const BOSSES = Object.freeze([
     Object.freeze({ id: 'kair-great-01', title: '시계 대수문장 · 되감긴 시계 고리', color: '#8ceaff', accent: '#e7fcff' }),
     Object.freeze({ id: 'kair-great-02', title: '해일 대수문장 · 역류 조수탄', color: '#8abaff', accent: '#e2f0ff' }),
@@ -24,9 +24,11 @@
     }),
   });
   const FIRST_DELAY = 1.3;
-  const SUMMON_INTERVAL = 6.35;
-  const SUMMON_LIFETIME = 5.5;
   const HOME = Object.freeze({ x: 23.2, y: 10 });
+  const FORMATION = Object.freeze([
+    [16.5, 13.5], [21, 9], [20.5, 17.5],
+    [25, 13], [24.5, 21.5], [29, 17],
+  ]);
   const num = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
   const finiteArray = value => Array.isArray(value) ? value : [];
   const clock = state => window.__HAPIL_DANMAKU_RPG_RC88__?.summonClock(state) ?? num(state?.time);
@@ -159,10 +161,10 @@
     });
   }
 
-  function addSummonEffect(state, profile, index) {
+  function addSummonEffect(state, profile, index, x = HOME.x, y = HOME.y) {
     const id = Number.isFinite(Number(state.fxSerial)) ? state.fxSerial++ : 0;
     (state.effects ??= []).push({
-      id, kind: 'glitch', x: HOME.x, y: HOME.y, tx: HOME.x, ty: HOME.y,
+      id, kind: 'glitch', x, y, tx: x, ty: y,
       born: num(state.time), duration: 0.72, color: profile.color,
       accent: profile.accent, size: 5.2 + index * 0.3, angle: 0,
       imageOnly: false, samongCosmicSummonV386: true,
@@ -182,7 +184,10 @@
     } catch {
       return false;
     }
-    if (!attack || !(Number(attack.count) > 0) || !attack.name) return false;
+    if (!attack || !attack.name) return false;
+    // Mobile admission caps can defer a real native signature while earlier
+    // Cosmic volleys are still alive. Preserve the body and retry next beat.
+    if (!(Number(attack.count) > 0)) return null;
     actor.samongCosmicPatternDispatchedV386 = true;
     actor.samongCosmicPatternNameV386 = String(attack.name);
     actor.samongCosmicPatternCountV386 = Math.max(0, Math.floor(Number(attack.count)));
@@ -191,8 +196,7 @@
     const activeUntil = num(state.time) + 1.8;
     actor.activePatternUntil = Math.max(num(actor.activePatternUntil), activeUntil);
     actor.castVisualUntil31210 = Math.max(num(actor.castVisualUntil31210), activeUntil);
-    actor.readyAt = Math.max(num(actor.readyAt), num(state.time) + SUMMON_LIFETIME + 0.8);
-    actor.patternReadyAt = Math.max(num(actor.patternReadyAt), num(state.time) + SUMMON_LIFETIME + 0.8);
+    actor.readyAt = actor.patternReadyAt = Number.POSITIVE_INFINITY;
     const id = Number.isFinite(Number(state.fxSerial)) ? state.fxSerial++ : 0;
     (state.floatTexts ??= []).push({
       id, x: actor.x, y: actor.y - 2.3, born: num(state.time),
@@ -202,8 +206,7 @@
     return true;
   }
 
-  function retireActive(state, wave) {
-    const id = wave?.activeId;
+  function retireSummon(state, wave, id) {
     if (!id) return false;
     const matches = row => row && (
       row.id === id && row.samongCosmicSummonV386 === true ||
@@ -211,12 +214,6 @@
       row.sourceBossId === id || row.summonSourceId === id
     );
     state.enemies = finiteArray(state.enemies).filter(row => !matches(row));
-    if (window.__HAPIL_DANMAKU_RPG_RC88__?.preserveSummonAttacks(state, id)) {
-      if (state.targetEnemyId === id) state.targetEnemyId = null;
-      wave.activeId = null;
-      wave.activeUntil = 0;
-      return true;
-    }
     for (const key of [
       'hostileProjectiles', 'pendingHits', 'impactQueue', 'pendingStrikes',
       'narrativeCasts', 'telekineticCasts', 'spatialRiftBarrages',
@@ -226,8 +223,7 @@
       if (Array.isArray(state[key])) state[key] = state[key].filter(row => !matches(row));
     }
     if (state.targetEnemyId === id) state.targetEnemyId = null;
-    wave.activeId = null;
-    wave.activeUntil = 0;
+    wave.activeIds = finiteArray(wave.activeIds).filter(value => value !== id);
     return true;
   }
 
@@ -243,34 +239,37 @@
     const templateHp = Math.max(1, num(template.maxHp, template.hp));
     const hp = Math.max(1, Math.round(templateHp * 0.18));
     const phase = 1 + Math.floor(index / 2);
+    const home = FORMATION[index];
+    const point = bridge.point?.(state.zone, home[0], home[1], .8) ?? { x: home[0], y: home[1] };
     const actor = {
       ...template,
       id: profile.id,
       name: '코스믹 ' + String(index + 1).padStart(2, '0') + ' · ' + (template.name ?? '대수문장'),
       eliteName: profile.title,
-      x: HOME.x,
-      y: HOME.y,
+      x: point.x,
+      y: point.y,
       hp,
       maxHp: hp,
       boss: true,
-      midboss: true,
+      midboss: false,
       canonAlly: false,
       canonicalAllyV31217: false,
       canonAllyV31217: false,
       noBossSummons: true,
       themedSummonAt: Number.POSITIVE_INFINITY,
       themedOrdnanceAt: Number.POSITIVE_INFINITY,
-      summonOwnerId: 'c104-boss',
-      sourceBossId: 'c104-boss',
-      episodeBossSummon: true,
+      // Pride's episodeBossSummon lifecycle retires children whose phase
+      // differs from the owner. These six independent bodies must stay alive
+      // through their native warnings until the player awakening strikes.
+      episodeBossSummon: false,
       noLootV386: true,
       fixedPhase: phase,
       currentPhase: phase,
       phaseMax: Math.max(phase, num(template.phaseMax, num(template.phaseCount, 3))),
       phaseCount: Math.max(phase, num(template.phaseCount, 3)),
-      readyAt: num(state.time) + SUMMON_LIFETIME + 0.8,
-      patternReadyAt: num(state.time) + SUMMON_LIFETIME + 0.8,
-      invulnerableUntil: num(state.time) + 0.55,
+      readyAt: Number.POSITIVE_INFINITY,
+      patternReadyAt: Number.POSITIVE_INFINITY,
+      invulnerableUntil: Number.POSITIVE_INFINITY,
       phaseTransitionUntil: num(state.time) + 0.62,
       recoverUntil: 0,
       attackAt: 0,
@@ -283,22 +282,23 @@
       samongCosmicIndexV386: index + 1,
       samongCosmicPhaseV386: phase,
       samongCosmicSourceBossV386: 'c104-boss',
-      samongCosmicDispatchAtV386: num(state.time) + 0.82,
+      samongCosmicDispatchAtV386: num(state.time) + 0.42 + index * 0.26,
     };
     window.__HAPIL_DANMAKU_RPG_RC88__?.prepareSummon(state, actor);
+    actor.invulnerableUntil = Number.POSITIVE_INFINITY;
+    actor.phaseTransitionUntil = num(state.time) + 0.05;
+    actor.samongCosmicDispatchAtV386 = num(state.time) + 0.42 + index * 0.26;
     state.enemies.push(actor);
-    wave.activeId = actor.id;
-    wave.activeUntil = clock(state) + SUMMON_LIFETIME;
-    wave.nextIndex = index + 1;
-    wave.nextAt = clock(state) + SUMMON_INTERVAL;
-    wave.status = index === BOSSES.length - 1 ? 'last-summon' : 'summoning';
+    (wave.activeIds ??= []).push(actor.id);
+    wave.nextIndex = Math.max(num(wave.nextIndex), index + 1);
+    wave.status = 'six-awakened';
     addFloat(state, actor.x, actor.y - 2.1, '사몽 · 교주의 꼭두각시 · ' + profile.title, profile.color);
-    addSummonEffect(state, profile, index);
+    addSummonEffect(state, profile, index, actor.x, actor.y);
     return true;
   }
 
   function canUseSamong(state, bridge) {
-    if (!state || state.zone !== 'cult04') return false;
+    if (!state || state.zone !== 'cult04' || !(state.hp > 0)) return false;
     const mode = bridge.modeApi?.mode?.(state);
     if (mode !== 'STORY') return false;
     const battle = state.hapilFinalBattleV31300;
@@ -315,7 +315,7 @@
   function stopWave(state, reason) {
     const wave = state?.hapilSamongCosmicWaveV386;
     if (!wave) return false;
-    retireActive(state, wave);
+    for (const id of [...finiteArray(wave.activeIds)]) retireSummon(state, wave, id);
     wave.status = reason;
     wave.endedAt = num(state.time);
     return true;
@@ -327,8 +327,8 @@
     if (!canUseSamong(state, bridge)) {
       const battle = state.hapilFinalBattleV31300;
       const bossAlive = finiteArray(state.enemies).some(actor => actor?.id === 'c104-boss' && actor.hp > 0);
-      if (existing && (state.zone !== 'cult04' || battle?.completed === true || !bossAlive || bridge.modeApi?.mode?.(state) === 'DREAM')) {
-        stopWave(state, 'ended');
+      if (existing && (state.zone !== 'cult04' || !(state.hp > 0) || battle?.completed === true || !bossAlive || bridge.modeApi?.mode?.(state) === 'DREAM')) {
+        stopWave(state, state.hp > 0 ? 'ended' : 'player-death');
         delete state.hapilSamongCosmicWaveV386;
       }
       return 0;
@@ -336,32 +336,84 @@
     let wave = state.hapilSamongCosmicWaveV386;
     if (!wave) {
       wave = state.hapilSamongCosmicWaveV386 = {
-        version: 1, status: 'charging', nextIndex: 0,
+        version: 2, status: 'charging', nextIndex: 0,
         startedAt: clock(state), nextAt: clock(state) + FIRST_DELAY,
-        activeId: null, activeUntil: 0,
+        activeIds: [], crisisAt: null, awakeningAt: null, strikeIndex: 0,
       };
       const finalBoss = finiteArray(state.enemies).find(actor => actor.id === 'c104-boss');
       addFloat(state, num(finalBoss?.x, HOME.x), num(finalBoss?.y, HOME.y) - 1.8, '사몽 · 코스믹 망령 여섯 체 호출', '#f3ecff');
     }
     if (wave.status === 'complete' || wave.status === 'failed' || wave.status === 'ended') return 0;
-    const active = wave.activeId
-      ? finiteArray(state.enemies).find(actor => actor?.id === wave.activeId && actor.samongCosmicSummonV386 === true)
-      : null;
-    if (wave.activeId && (!active || active.hp <= 0 || clock(state) >= num(wave.activeUntil))) retireActive(state, wave);
-    else if (active && active.samongCosmicPatternDispatchedV386 !== true &&
-        num(state.time) >= num(active.samongCosmicDispatchAtV386)) {
-      if (!dispatchSignature(state, bridge, active)) {
-        wave.status = 'failed';
-        wave.failure = 'native-cosmic-signature-dispatch-failed:' + active.id;
+    if (wave.nextIndex < BOSSES.length && clock(state) >= num(wave.nextAt)) {
+      // All six bodies enter on the same simulation tick. Their distinct native
+      // signatures release in short intervals so warnings stay legible.
+      for (let index = wave.nextIndex; index < BOSSES.length; index++)
+        if (!createSummon(state, bridge, wave, index)) return -1;
+    }
+    const live = finiteArray(state.enemies).filter(actor => actor?.samongCosmicSummonV386 && actor.hp > 0);
+    for (const actor of live) if (!actor.samongCosmicPatternDispatchedV386 && num(state.time) >= num(actor.samongCosmicDispatchAtV386)) {
+      const admitted = dispatchSignature(state, bridge, actor);
+      if (admitted === null) {
+        actor.samongCosmicRetryCountV386 = num(actor.samongCosmicRetryCountV386) + 1;
+        actor.samongCosmicDispatchAtV386 = num(state.time) + .2;
+        if (actor.samongCosmicRetryCountV386 <= 80) continue;
+      }
+      if (!admitted) {
+        wave.status = 'failed'; wave.failure = 'native-cosmic-signature-dispatch-failed:' + actor.id;
         return -1;
       }
     }
-    if (!wave.activeId && wave.nextIndex < BOSSES.length && clock(state) >= num(wave.nextAt)) {
-      if (!createSummon(state, bridge, wave, wave.nextIndex)) return -1;
+    if (wave.status === 'six-awakened' && live.length === 6 && live.every(actor => actor.samongCosmicPatternDispatchedV386)) {
+      wave.status = 'crisis'; wave.crisisAt = clock(state);
+      state.hp = 1;
+      state.invulnerableUntil = Math.max(num(state.invulnerableUntil), num(state.time) + 3.5);
+      state.heroStatus = '코스믹 여섯 체 · 플레이어 위기';
+      addFloat(state, state.x, state.y - 1.7, '여섯 코스믹의 압박 · 코어 임계', '#ffb9dc');
     }
-    if (wave.nextIndex >= BOSSES.length && !wave.activeId) {
-      wave.status = 'complete';
-      wave.completedAt = num(state.time);
+    if (wave.status === 'crisis' && clock(state) >= num(wave.crisisAt) + 1.2 &&
+        !window.__HAPIL_STORY_RC51__?.isOpen?.() &&
+        (state.hapilFinalBattleV31300?.awakeningCommittedRC108 === true ||
+         window.__HAPIL_FINAL_AWAKENING_RC108__?.complete?.(state))) {
+      wave.status = 'awakening'; wave.awakeningAt = clock(state); wave.strikeIndex = 0;
+      state.invulnerableUntil = Math.max(num(state.invulnerableUntil), num(state.time) + 2.5);
+    }
+    if (wave.status === 'awakening') {
+      while (wave.strikeIndex < BOSSES.length && clock(state) >= num(wave.awakeningAt) + .28 * wave.strikeIndex) {
+        const index = wave.strikeIndex++, id = BOSSES[index].id;
+        const actor = finiteArray(state.enemies).find(row => row.id === id && row.samongCosmicSummonV386);
+        if (!actor) continue;
+        // An admitted player awakening strike defeats one body. Native RC88
+        // records the kill; source cleanup is owned by that real death.
+        addSummonEffect(state, BOSSES[index], index, actor.x, actor.y);
+        addFloat(state, actor.x, actor.y - 2.2, '플레이어 사몽 각성 · 코스믹 격파', '#d9fbff');
+        actor.hp = 0;
+        window.__HAPIL_DANMAKU_RPG_RC88__?.beforeDeath?.(state, actor);
+        retireSummon(state, wave, id);
+      }
+      if (wave.strikeIndex === BOSSES.length) {
+        wave.status = 'complete'; wave.completedAt = num(state.time);
+        const leader = finiteArray(state.enemies).find(actor => actor.id === 'c104-boss' && actor.hp > 0);
+        const battle = state.hapilFinalBattleV31300;
+        if (leader && battle && !battle.finalHitCommittedV31377) {
+          battle.finalHitCommittedV31377 = true;
+          battle.finalHitModeV31377 = 'samong-awakening';
+          addFloat(state, leader.x, leader.y - 2.4, '교주의 사몽 회로 소멸', '#f9e7ff');
+          addSummonEffect(state, { color: '#f9e7ff', accent: '#ffffff' }, 6, leader.x, leader.y);
+          leader.hp = 0;
+          const binding = window.__HAPIL_CONTROLS_V31329__?.binding;
+          if (binding?.state?.current === state && typeof binding.actions?.death === 'function')
+            binding.actions.death(leader);
+          else { state.enemies = finiteArray(state.enemies).filter(actor => actor !== leader); state.bossDefeated = true; }
+          retireSummon(state, wave, leader.id);
+          window.__HAPIL_V31300_PATCH__?.finalBattle?.tick?.(state);
+          // Headless/restore fixtures lack the native death callback, but must
+          // retain an idempotent terminal state until the normal ending route.
+          if (!battle.completed && !state.enemies.some(actor => actor.id === leader.id)) {
+            battle.completed = true; battle.completedAt = num(state.time);
+          }
+        }
+        state.heroStatus = '코스믹 여섯 체와 교주의 사몽 회로 소멸';
+      }
     }
     return wave.nextIndex;
   }
@@ -467,13 +519,8 @@
     const wave = state?.hapilSamongCosmicWaveV386;
     return wave ? {
       status: wave.status, nextIndex: wave.nextIndex, nextAt: wave.nextAt,
-      activeId: wave.activeId, activeUntil: wave.activeUntil,
-      dispatchAt: wave.activeId
-        ? finiteArray(state?.enemies).find(actor => actor.id === wave.activeId)?.samongCosmicDispatchAtV386 ?? null
-        : null,
-      patternName: wave.activeId
-        ? finiteArray(state?.enemies).find(actor => actor.id === wave.activeId)?.samongCosmicPatternNameV386 ?? null
-        : null,
+      activeIds: [...finiteArray(wave.activeIds)],
+      crisisAt: wave.crisisAt, awakeningAt: wave.awakeningAt, strikeIndex: wave.strikeIndex,
       startedAt: wave.startedAt, completedAt: wave.completedAt ?? null,
       failure: wave.failure ?? null,
     } : null;
@@ -524,6 +571,14 @@
       tick(state, bridge);
       return result;
     };
+    const oldPhaseGate = bridge.phaseGateHealth;
+    bridge.phaseGateHealth = function HAPIL_samongCosmicCrisisGateRC86(state, actor, damage) {
+      if (state?.zone === 'cult04' && bridge.modeApi?.mode?.(state) === 'STORY' &&
+          actor?.samongCosmicSummonV386 === true &&
+          state.hapilSamongCosmicWaveV386?.status !== 'complete')
+        return Math.max(1, num(actor.hp, 1));
+      return oldPhaseGate(state, actor, damage);
+    };
 
     installed = true;
     window.__HAPIL_APOSTATE_VISUALS_RC86__ = Object.freeze({
@@ -547,7 +602,7 @@
       },
       policy: Object.freeze({
         storyFinal: 'cult04 c104-boss phase 2 only; Dream six-map trials keep their independent regional bosses',
-        schedule: 'one native Kair Great boss at a time; six indexed summons; hostile-source cleanup on expiry',
+        schedule: 'six simultaneous Kair Great bodies; staggered native warnings; player awakening defeats six; death-owned hostile cleanup',
         identity: 'kair-great-01 through kair-great-06 use their original phase-aware themed signature ordnance decks',
       }),
     });

@@ -105,60 +105,67 @@ const server = http.createServer((req, res) => {
       const state = {
         zone: 'cult04', gameModeV31346: 'STORY', time: 20, fxSerial: 1,
         x: 16, y: 10, hp: 1000, maxHp: 1000, bossDefeated: false,
+        clues:new Set(),egoDrops:[],loopCycles:{},resonance:0,spawnedWaves:new Set([1,2,3,4]),completedZones:new Set(),
         enemies: [boss], floatTexts: [], effects: [],
         hostileProjectiles: [], pendingHits: [], impactQueue: [], pendingStrikes: [],
         narrativeCasts: [], telekineticCasts: [], spatialRiftBarrages: [],
         bossOrdnanceCues: [], spatialRiftCasts: [], bossLaserCastsV31330: [],
         bossUltimateCastsV31334: [], dreamMirrorLasersV31347: [],
         hapilFinalBattleV31300: {
-          stage: 7, secondPhaseActive: true, monochromeActiveV31377: true, completed: false,
+          stage: 7, secondPhaseActive: true, monochromeActiveV31377: true, completed: false, awakeningPendingRC108: true, combatElapsedRC79: 0,
         },
       };
       api.tick(state);
+      state.time += 1.3; state.hapilFinalBattleV31300.combatElapsedRC79 = 1.3; api.tick(state);
+      const summonedTogether = state.enemies.filter(row => row.samongCosmicSummonV386 && row.hp > 0).length;
       const summonRows = [];
       for (let index = 0; index < 6; index++) {
-        state.time = api.snapshot(state).nextAt;
-        api.tick(state);
-        const actor = state.enemies.find(row => row.samongCosmicSummonV386 === true);
-        if (!actor) throw new Error('Summon ' + (index + 1) + ' did not appear');
+        const actor = state.enemies.find(row => row.id === 'kair-great-0' + (index + 1) && row.samongCosmicSummonV386);
+        if (!actor) throw new Error('Simultaneous Cosmic ' + (index + 1) + ' did not appear');
         const phase = window.__HAPIL_RC86_BROWSER_TEST__.bossPhase(actor);
         const patterns = window.__HAPIL_RC86_BROWSER_TEST__.patterns(actor, phase);
         if (!patterns.length) throw new Error(actor.id + ' has no live phase pattern');
         const auditPatterns = api.nativePatterns(actor.id, phase);
         const ownSignatures = api.signatureDeck(actor.id);
-        if (ownSignatures.length < 3) throw new Error(actor.id + ' has no complete boss-specific signature deck');
-        state.time = api.snapshot(state).dispatchAt;
+        if (ownSignatures.length < 3) throw new Error(actor.id + ' has no boss-specific signature deck');
+        state.time = actor.samongCosmicDispatchAtV386;
+        state.hapilFinalBattleV31300.combatElapsedRC79 = state.time - 20;
         api.tick(state);
-        if (actor.samongCosmicPatternDispatchedV386 !== true) throw new Error(actor.id + ' did not cast during its summon');
-        if (!ownSignatures.includes(actor.samongCosmicPatternNameV386)) {
-          throw new Error(actor.id + ' cast a pattern outside its native signature deck: ' + actor.samongCosmicPatternNameV386);
-        }
-        const sourceRows = [
-          ...state.pendingHits, ...state.hostileProjectiles,
-          ...state.bossLaserCastsV31330, ...state.pendingStrikes,
-        ].filter(row => row.sourceId === actor.id);
-        if (!(actor.samongCosmicPatternCountV386 > 0) || sourceRows.length === 0) {
-          throw new Error(actor.id + ' signature dispatch did not emit live hostile ordnance: ' + JSON.stringify({
-            attackCount: actor.samongCosmicPatternCountV386, sourceRows,
-          }));
-        }
-        summonRows.push({
-          id: actor.id, index: actor.samongCosmicIndexV386, phase,
-          patternCount: patterns.length,
-          signaturePatterns: ownSignatures,
-          patternName: actor.samongCosmicPatternNameV386,
-          attackCount: actor.samongCosmicPatternCountV386,
-          hostileRows: sourceRows.length,
-          names: auditPatterns.slice(0, 4).map(row => row.name),
-          sprite: actor.sprite, assetCount: api.audit().bosses[index].assets.length,
-        });
-        state.time = api.snapshot(state).activeUntil;
-        api.tick(state);
+        if (!ownSignatures.includes(actor.samongCosmicPatternNameV386)) throw new Error(actor.id + ' did not cast its native signature');
+        const sourceRows = [...state.pendingHits, ...state.hostileProjectiles, ...state.bossLaserCastsV31330, ...state.pendingStrikes]
+          .filter(row => row.sourceId === actor.id);
+        if (!(actor.samongCosmicPatternCountV386 > 0) || sourceRows.length === 0) throw new Error(actor.id + ' has no live ordnance');
+        summonRows.push({id:actor.id,index:actor.samongCosmicIndexV386,phase,patternCount:patterns.length,
+          signaturePatterns:ownSignatures,patternName:actor.samongCosmicPatternNameV386,
+          attackCount:actor.samongCosmicPatternCountV386,hostileRows:sourceRows.length,
+          names:auditPatterns.slice(0,4).map(row=>row.name),sprite:actor.sprite,assetCount:api.audit().bosses[index].assets.length});
       }
+      const crisis = api.snapshot(state).status === 'crisis' && state.hp === 1;
+      const R=window.__HAPIL_DANMAKU_RPG_RC88__,saved=R.snapshot(state),restored={
+        ...state,enemies:[{...boss}],hostileProjectiles:[],pendingHits:[],impactQueue:[],
+        pendingStrikes:[],effects:[],floatTexts:[],rc88Encounter:null,hapilSamongCosmicWaveV386:null,
+        hapilFinalBattleV31300:{...state.hapilFinalBattleV31300},
+      };
+      R.restore(restored,saved,state.hapilFinalBattleV31300.combatElapsedRC79,boss.maxHp);
+      const restoredSix=restored.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0);
+      if(restoredSix.length!==6||restoredSix.some(a=>!a.samongCosmicPatternDispatchedV386))throw Error('native mid-crisis save did not restore six dispatched bosses');
+      api.tick(restored);
+      if(restored.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0).length!==6)throw Error('restored wave spawned duplicate bodies');
+      const bridge=window.__HAPIL_RC86_BRIDGE__,nativeSave=bridge.serializeSave(state,'hwando',[],{},0),normalized=bridge.normalizeSave(nativeSave);
+      if(nativeSave?.danmakuRpgRC88?.wave?.active?.length!==6||normalized?.danmakuRpgRC88?.wave?.active?.length!==6)
+        throw Error('native save schema omitted the six live bosses');
+      const nativeLoaded={...state,enemies:[{...boss}],hostileProjectiles:[],pendingHits:[],impactQueue:[],pendingStrikes:[],effects:[],floatTexts:[],rc88Encounter:null,hapilSamongCosmicWaveV386:null,
+        hapilFinalBattleV31300:{...state.hapilFinalBattleV31300}};
+      bridge.restoreEntry(nativeLoaded,normalized);
+      if(nativeLoaded.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0).length!==6)
+        throw Error('native save/normalize/entry reload did not restore the six bosses');
+      state.time += 1.21; state.hapilFinalBattleV31300.combatElapsedRC79 = state.time - 20; api.tick(state);
+      for (let i = 0; i < 5; i++) { state.time += .29; state.hapilFinalBattleV31300.combatElapsedRC79 = state.time - 20; api.tick(state); }
       return {
-        audit, visuals, apostateRenderPaths, summonRows,
-        wave: api.snapshot(state),
+        audit, visuals, apostateRenderPaths, summonRows, summonedTogether, crisis, restoredSix:restoredSix.length, awakened: state.hapilFinalBattleV31300.awakeningCommittedRC108,
+        wave: api.snapshot(state), nativeReloadedSix:nativeLoaded.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0).length,
         bossRemains: state.enemies.some(row => row.id === 'c104-boss'),
+        leaderDissolved: state.hapilFinalBattleV31300.finalHitModeV31377 === 'samong-awakening' && state.hapilFinalBattleV31300.completed === true,
         bossDefeated: state.bossDefeated,
         remainingSummonOrdnance: [
           ...state.pendingHits, ...state.hostileProjectiles,
@@ -182,13 +189,19 @@ const server = http.createServer((req, res) => {
     ), 'each summon must cast its own boss-specific signature and emit live hostile ordnance: ' + JSON.stringify(result.summonRows));
     assert.equal(new Set(result.summonRows.map(row => row.signaturePatterns.join('|'))).size, 6,
       'all six summons must retain their six distinct authored signature decks');
+    assert.equal(result.summonedTogether, 6);
+    assert.equal(result.restoredSix, 6);
+    assert.equal(result.nativeReloadedSix, 6);
+    assert.equal(result.crisis, true);
+    assert.equal(result.awakened, true);
     assert.equal(result.wave.status, 'complete');
     assert(result.audit.signatureDecksDistinct, 'each Cosmic Great must retain a distinct attack deck');
     assert(result.audit.bosses.every(row => row.signatureDeckUnique), 'all six signature decks must be complete and unique');
-    assert.equal(result.bossRemains, true);
-    assert.equal(result.bossDefeated, false);
-    assert.equal(result.remainingSummonOrdnance, true, 'RC88 keeps already committed hostile attacks after a summon retires; native lifetimes finish them');
-    assert.equal(result.callouts, 7);
+    assert.equal(result.bossRemains, false);
+    assert.equal(result.bossDefeated, true);
+    assert.equal(result.leaderDissolved, true);
+    assert.equal(result.remainingSummonOrdnance, false, 'actual Cosmic deaths clear source-owned hazards');
+    assert(result.callouts >= 7);
     assert.deepEqual(errors, []);
     await page.screenshot({path: path.join(output, 'rc86-samong-audit.png')});
     console.log('RC86 BROWSER PASS ' + JSON.stringify({
@@ -201,7 +214,7 @@ const server = http.createServer((req, res) => {
       trialsAreSeparate: result.audit.regionalTrialsAreDifferentBosses,
       apostateVisuals: result.visuals,
       wave: result.wave,
-      mapClearStayedWithFinalBoss: !result.bossDefeated && result.bossRemains,
+      mapClearFollowedSixAwakening: result.bossDefeated && !result.bossRemains,
       callouts: result.callouts,
       pageErrors: errors.length,
     }));

@@ -39,6 +39,12 @@
       const p=bridge.project(boss.x,boss.y);ctx.globalAlpha=.75;ctx.strokeStyle='#c59aff';ctx.lineWidth=1.7;
       for(const a of rows(s.enemies).filter(a=>a.rc89Wraith&&live(a))){
         const q=bridge.project(a.x,a.y);ctx.beginPath();ctx.moveTo(p.x,p.y-45);ctx.bezierCurveTo(p.x,p.y-100,q.x,q.y-95,q.x,q.y-40);ctx.stroke();}
+      ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='700 12px system-ui,sans-serif';
+      for(const a of rows(s.enemies).filter(a=>a.rc88InteractiveCosmic&&live(a))){
+        const q=bridge.project(a.x,a.y),index=a.samongCosmicIndexV386;
+        ctx.lineWidth=3.5;ctx.strokeStyle='#120d20';ctx.fillStyle='#f9edff';
+        ctx.strokeText('코스믹 '+index+'/6',q.x,q.y-91);ctx.fillText('코스믹 '+index+'/6',q.x,q.y-91);
+      }
       const kills=rows(m?.cosmicKills).length;
       for(let i=0;i<6;i++){ctx.fillStyle=i<kills?'#4b4059':'#c59aff';ctx.fillRect(p.x-36+i*12,p.y-112,9,4);}
     }
@@ -239,7 +245,8 @@
         m.cosmicKills.push(a.samongCosmicIndexV386);
         m.samongWeakUntil=summonClock(s)+3.2;
         const wave=s.hapilSamongCosmicWaveV386;
-        if(wave?.activeId===a.id){wave.activeId=null;wave.activeUntil=0;wave.nextAt=Math.min(n(wave.nextAt),summonClock(s)+.85);}
+        if(wave?.version===2)wave.activeIds=rows(wave.activeIds).filter(id=>id!==a.id);
+        else if(wave?.activeId===a.id){wave.activeId=null;wave.activeUntil=0;wave.nextAt=Math.min(n(wave.nextAt),summonClock(s)+.85);}
       }
       if(s.targetEnemyId===a.id)s.targetEnemyId=null;
       (s.defeated??=[]).push({...a,id:s.fxSerial++,born:n(s.time),duration:.72});
@@ -289,12 +296,20 @@
       samongCosmicDispatchAtV386:n(s.time)+.08});
   }
   function snapshot(s) {
-    if(!s?.rc88Encounter||s.rc88Encounter.zone!==s.zone)return null;
-    const m=s.rc88Encounter;
+    if(!s||s.rc88Encounter?.zone!==s.zone&&!(s.zone==='cult04'&&s.hapilSamongCosmicWaveV386))return null;
+    const m=s.rc88Encounter??{owners:{},cosmicKills:[]};
     return {zone:s.zone,owners:Object.fromEntries(Object.entries(m.owners).slice(0,5).map(([id,o])=>
       [id,{phases:[...o.phases],dead:[...o.dead],cycle:o.cycle,enraged:o.enraged,
         delay:Math.max(0,o.nextAt-n(s.time)),weak:Math.max(0,o.weakUntil-n(s.time))}])),
-      connectionRemaining:m.connection?Math.max(0,m.connection.until-n(s.time)):null,arveliaFreed:m.arveliaFreed===true,cosmicKills:[...m.cosmicKills],samongWeakRemaining:Math.max(0,n(m.samongWeakUntil)-summonClock(s)),wave:s.hapilSamongCosmicWaveV386?{
+      connectionRemaining:m.connection?Math.max(0,m.connection.until-n(s.time)):null,arveliaFreed:m.arveliaFreed===true,cosmicKills:[...m.cosmicKills],samongWeakRemaining:Math.max(0,n(m.samongWeakUntil)-summonClock(s)),wave:s.hapilSamongCosmicWaveV386?.version===2?{
+        version:2,status:s.hapilSamongCosmicWaveV386.status,nextIndex:s.hapilSamongCosmicWaveV386.nextIndex,
+        delay:Math.max(0,n(s.hapilSamongCosmicWaveV386.nextAt)-summonClock(s)),
+        crisisElapsed:s.hapilSamongCosmicWaveV386.crisisAt==null?null:Math.max(0,summonClock(s)-n(s.hapilSamongCosmicWaveV386.crisisAt)),
+        awakeningElapsed:s.hapilSamongCosmicWaveV386.awakeningAt==null?null:Math.max(0,summonClock(s)-n(s.hapilSamongCosmicWaveV386.awakeningAt)),
+        strikeIndex:s.hapilSamongCosmicWaveV386.strikeIndex,
+        active:rows(s.enemies).filter(a=>a.samongCosmicSummonV386&&a.hp>0).map(a=>({index:a.samongCosmicIndexV386,hp:a.hp,maxHp:a.maxHp,
+          dispatched:a.samongCosmicPatternDispatchedV386===true,dispatchRemaining:Math.max(0,n(a.samongCosmicDispatchAtV386)-n(s.time))})),
+      }:s.hapilSamongCosmicWaveV386?{
         nextIndex:s.hapilSamongCosmicWaveV386.nextIndex,
         activeIndex:rows(s.enemies).find(a=>a.rc88InteractiveCosmic&&a.hp>0)?.samongCosmicIndexV386??0,
         activeHp:rows(s.enemies).find(a=>a.rc88InteractiveCosmic&&a.hp>0)?.hp??0,
@@ -316,7 +331,15 @@
     }
     return {zone,owners,connectionRemaining:zone==='ep1b09'&&raw.connectionRemaining!=null?Math.max(0,Math.min(1.2,n(raw.connectionRemaining))):null,arveliaFreed:raw.arveliaFreed===true,cosmicKills:[...new Set(rows(raw.cosmicKills).filter(v=>[1,2,3,4,5,6].includes(v)))],
       samongWeakRemaining:Math.max(0,Math.min(3.2,n(raw.samongWeakRemaining))),
-      wave:zone==='cult04'&&raw.wave?{nextIndex:Math.max(0,Math.min(6,Math.floor(n(raw.wave.nextIndex)))),
+      wave:zone==='cult04'&&raw.wave?.version===2?{version:2,status:['charging','six-awakened','crisis','awakening','complete'].includes(raw.wave.status)?raw.wave.status:'charging',
+        nextIndex:Math.max(0,Math.min(6,Math.floor(n(raw.wave.nextIndex)))),delay:Math.max(0,Math.min(10,n(raw.wave.delay))),
+        crisisElapsed:raw.wave.crisisElapsed==null?null:Math.max(0,Math.min(10,n(raw.wave.crisisElapsed))),
+        awakeningElapsed:raw.wave.awakeningElapsed==null?null:Math.max(0,Math.min(10,n(raw.wave.awakeningElapsed))),
+        strikeIndex:Math.max(0,Math.min(6,Math.floor(n(raw.wave.strikeIndex)))),
+        active:rows(raw.wave.active).filter(a=>[1,2,3,4,5,6].includes(a?.index)&&n(a.hp)>0).slice(0,6)
+          .map(a=>({index:a.index,hp:Math.max(1,n(a.hp)),maxHp:Math.max(1,Math.min(250000,n(a.maxHp))),
+            dispatched:a.dispatched===true,dispatchRemaining:Math.max(0,Math.min(3,n(a.dispatchRemaining)))}))
+      }:zone==='cult04'&&raw.wave?{nextIndex:Math.max(0,Math.min(6,Math.floor(n(raw.wave.nextIndex)))),
         activeIndex:Math.max(0,Math.min(6,Math.floor(n(raw.wave.activeIndex)))),activeHp:Math.max(0,n(raw.wave.activeHp)),
         activeMaxHp:Math.max(0,Math.min(250000,n(raw.wave.activeMaxHp))),
         activeRemaining:Math.max(0,Math.min(5.5,n(raw.wave.activeRemaining,5.5))),
@@ -339,17 +362,31 @@
       if(p)buildPart(s,owner,p,part.index,part.phase,part);}
     if(data.wave&&s.zone==='cult04') {
       const clock=restoredClock,w=data.wave;
-      const wave=s.hapilSamongCosmicWaveV386={version:1,status:w.nextIndex>=6&&!w.activeIndex?'complete':'summoning',
-        startedAt:clock,nextIndex:w.nextIndex,nextAt:clock+w.delay,activeId:null,activeUntil:0};
-      if(w.activeIndex&&w.activeHp>0&&!data.cosmicKills.includes(w.activeIndex)) {
+      if(w.version===2){
+        const wave=s.hapilSamongCosmicWaveV386={version:2,status:w.status,startedAt:clock,
+          nextIndex:w.nextIndex,nextAt:clock+w.delay,activeIds:[],
+          crisisAt:w.crisisElapsed==null?null:clock-w.crisisElapsed,
+          awakeningAt:w.awakeningElapsed==null?null:clock-w.awakeningElapsed,strikeIndex:w.strikeIndex};
         s.enemies=s.enemies.filter(a=>!a.samongCosmicSummonV386);
-        if(window.__HAPIL_SAMONG_COSMIC_V386__?.restoreSummon(s,wave,w.activeIndex-1)) {
-          const a=s.enemies.find(a=>a.id===wave.activeId);
-          a.maxHp=w.activeMaxHp>0?w.activeMaxHp:Number.isFinite(finalMaxHp)&&finalMaxHp>0?Math.max(30,Math.round(finalMaxHp*.018)):Math.max(a.maxHp,w.activeHp);
-          a.hp=Math.min(a.maxHp,w.activeHp);
-          wave.activeUntil=clock+w.activeRemaining;
-          wave.nextAt=clock+w.delay;
+        for(const item of w.active){
+          if(data.cosmicKills.includes(item.index))continue;
+          if(window.__HAPIL_SAMONG_COSMIC_V386__?.restoreSummon(s,wave,item.index-1)){
+            const a=s.enemies.find(a=>a.id==='kair-great-0'+item.index&&a.samongCosmicSummonV386);
+            if(a){a.maxHp=item.maxHp;a.hp=Math.min(item.hp,item.maxHp);
+              a.samongCosmicPatternDispatchedV386=item.dispatched;
+              a.samongCosmicDispatchAtV386=n(s.time)+item.dispatchRemaining;}
+          }
         }
+        wave.nextIndex=w.nextIndex;wave.status=w.status;
+      }else {
+      // Version 1 stored one transient echo; restart the new six-body scene
+      // rather than interpreting its single activeId as six simultaneous IDs.
+      s.rc88Encounter.cosmicKills=[];
+      s.enemies=s.enemies.filter(a=>!a.samongCosmicSummonV386);
+      const battle=s.hapilFinalBattleV31300;
+      if(battle){battle.awakeningPendingRC108=true;battle.awakeningCommittedRC108=false;}
+      s.hapilSamongCosmicWaveV386={version:2,status:'charging',
+        startedAt:clock,nextIndex:0,nextAt:clock+1.3,activeIds:[],crisisAt:null,awakeningAt:null,strikeIndex:0};
       }
     }
   }

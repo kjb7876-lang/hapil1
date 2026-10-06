@@ -99714,7 +99714,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       lethal
     ) {
       const battle = state.hapilFinalBattleV31300;
-      if(battle?.awakeningPendingRC108===true)return 1;
+      if(battle?.awakeningPendingRC108===true||state.hapilSamongCosmicWaveV386?.status!=='complete')return 1;
       if (battle?.monochromeActiveV31377 !== true || Number(battle.stage ?? 0) < 7) return 1;
       const manualAge = Date.now() - Number(window.__HAPIL_MANUAL_COMBAT_INPUT_AT_V31300__ ?? 0);
       if (manualAge > 1300) return 1;
@@ -99746,8 +99746,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
     battle.stage = stage;
     const phase = finalStageName[stage];
     if (phase === "hero-down") {
-      state.hp = Math.max(1, Math.min(Number(state.hp ?? 1), 1));
-      state.heroStatus = "행동 불능 · 코어 압박";
+      state.heroStatus = "교주의 압박 · 코어 균열";
     } else if (phase === "core-revival") {
       enemy.hp = Math.max(1, Math.round(enemy.maxHp * 0.18));
       state.heroStatus = "합일 코어가 교주를 되살린다";
@@ -99771,11 +99770,11 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       battle.finalHitCommittedV31377 = false;
       battle.awakeningPendingRC108 = true;
       battle.awakeningCommittedRC108 = false;
-      state.hp = Math.max(1, Math.min(Number(state.hp ?? 1), 1));
+      state.hp = Math.max(1, Math.min(Number(state.hp ?? 1), Math.ceil(Number(state.maxHp ?? 1) * .45)));
       state.resonance = 0;
       state.awakeningUntil = Number(state.time ?? 0);
       state.damageBuffUntil = Number(state.time ?? 0);
-      state.heroStatus = "사몽의 위압 · 각성 대기";
+      state.heroStatus = "교주 사몽 각성 · 코스믹 소환 대기";
     } else if (phase === "duel") {
       state.floatTexts?.push({
         id: state.fxSerial++, x: enemy.x, y: enemy.y, born: state.time, duration: 1.75,
@@ -99794,14 +99793,16 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       enemy.readyAt = Math.max(Number(enemy.readyAt ?? 0), state.time + 0.28);
       enemy.patternReadyAt = Math.max(Number(enemy.patternReadyAt ?? 0), state.time + 0.62);
       state.invulnerableUntil = Math.max(Number(state.invulnerableUntil ?? 0), state.time + 0.4);
-      state.heroStatus = "사몽 결전 · 마지막 타격은 직접 수행";
+      state.heroStatus = "사몽 결전 · 코스믹 여섯 체의 압박";
     }
     emit(phase, { zone: state.zone, bossId: enemy.id, stage });
   };
 
   const completeFinalAwakeningRC108 = (state) => {
     const battle=state?.hapilFinalBattleV31300;
-    if(state?.zone!=='cult04'||!battle||battle.completed||battle.stage<5||battle.awakeningPendingRC108!==true)return false;
+    const wave=state?.hapilSamongCosmicWaveV386;
+    if(state?.zone!=='cult04'||!battle||battle.completed||battle.stage<7||battle.awakeningPendingRC108!==true||
+       wave?.status!=='crisis'||!Number.isFinite(wave.crisisAt)||Number(battle.combatElapsedRC79??0)<wave.crisisAt+1.2)return false;
     battle.awakeningPendingRC108=false;
     battle.awakeningCommittedRC108=true;
     battle.awakeningAtRC108=Number(state.time??0);
@@ -99824,9 +99825,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       for (let stage = battle.stage + 1; stage < finalStageAt.length; stage += 1) {
         if (elapsed < finalStageAt[stage]) break;
         applyFinalStage(state, battle, enemy, stage);
-        if(stage===5&&!window.__HAPIL_STORY_RC51__?.records)completeFinalAwakeningRC108(state);
       }
-      if(battle.stage>=7&&battle.awakeningPendingRC108===true&&!window.__HAPIL_STORY_RC51__?.isOpen?.())completeFinalAwakeningRC108(state);
       return battle.stage;
     }
     if (

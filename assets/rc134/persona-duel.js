@@ -47,7 +47,7 @@
  }
  // The expanded walkable floor projects inside x=60..1220, y=360..666.
  // Keep the centerline at the painted view center in every viewport.
- function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=Math.min(1,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
+ function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=.96*Math.min(1,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
  function constrained(s,a){return guards.get(a)?.state===s&&active(s);}
  function backdrop(ctx,canvas){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.globalCompositeOperation='destination-over';ctx.fillStyle='#020610';ctx.fillRect(0,0,canvas.width,canvas.height);}finally{ctx.restore();}}
  root.__HAPIL_PERSONA_DUEL_RC134__=Object.freeze({version:'RC134',policy,active,mirror,mutual,cooldownFactor,tempo,swapped,swap,polygon,contains,point,guard,enforce,tick,release,camera,constrained,backdrop,metrics:()=>({...stats})});

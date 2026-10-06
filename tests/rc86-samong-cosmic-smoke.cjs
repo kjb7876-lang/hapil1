@@ -16,9 +16,9 @@ const art = {
   baekAction: './assets/vfx/rc86/cult03-heretic-baek-attack-v2.png',
 };
 
-assert.match(html, /assets\/index-v31526\.js\?v=40806/);
-assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=39301/);
-assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39301/);
+assert.match(html, /assets\/index-v31526\.js\?v=44701/);
+assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=44701/);
+assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39303/);
 assert.match(bundle, /__HAPIL_RC86_BRIDGE__/);
 assert.match(bundle, /text:`사몽 시련 \$\{p\.index\} · \$\{p\.role\}`/,
   'regional Dream encounters must not be mislabeled as the six Kair Great bosses');
@@ -64,6 +64,7 @@ const bridge = {
     {name: actor.id + ' native pattern ' + phase, shape: 'line', windup: 1.5},
   ] : [],
   signatureProfile: actor => actor ? {deck: [actor.id + '-first', actor.id + '-second', actor.id + '-third']} : null,
+  phaseGateHealth(_state, actor, damage) { return Math.max(0, actor.hp - damage); },
   signatureAttack(state, actor) {
     const count = (state.signatureAttacks ??= []).filter(row => row.id === actor.id).length;
     const name = this.signatureProfile(actor).deck[count % 3];
@@ -89,6 +90,14 @@ const window = {
   __HAPIL_COSMIC_V31348__: {installed: true},
 };
 vm.runInNewContext(runtime, {window, setTimeout: fn => fn()});
+window.__HAPIL_DANMAKU_RPG_RC88__ = {
+  summonClock: state => state.time,
+  prepareSummon(_state, actor) { actor.hp = actor.maxHp = 30; actor.rc88InteractiveCosmic = true; },
+  beforeDeath(state, actor) { state.enemies = state.enemies.filter(row => row !== actor); (state.rc88Encounter ??= {cosmicKills: []}).cosmicKills.push(actor.samongCosmicIndexV386); return true; },
+};
+window.__HAPIL_FINAL_AWAKENING_RC108__ = {
+  complete(state) { const battle = state.hapilFinalBattleV31300; if (!battle.awakeningPendingRC108) return false; battle.awakeningPendingRC108 = false; battle.awakeningCommittedRC108 = true; state.hp = state.maxHp; return true; },
+};
 const api = window.__HAPIL_SAMONG_COSMIC_V386__;
 const visuals = window.__HAPIL_APOSTATE_VISUALS_RC86__;
 assert(api?.installed && visuals?.installed, 'RC86 runtime and art hooks must install');
@@ -126,7 +135,7 @@ for (const id of ids) assert(cult04Plan.A.has(templates[id].sprite), id + ' atla
 
 const boss = {id: 'c104-boss', hp: 1000, maxHp: 1000, boss: true, hapilSecondPhaseV31300: true};
 const state = {
-  zone: 'cult04', gameModeV31346: 'STORY', time: 10, fxSerial: 1,
+  zone: 'cult04', gameModeV31346: 'STORY', time: 10, hp: 240, maxHp: 240, x: 12, y: 22, fxSerial: 1,
   enemies: [boss], bossDefeated: false, floatTexts: [], effects: [],
   hostileProjectiles: [], pendingHits: [], impactQueue: [], pendingStrikes: [],
   narrativeCasts: [], telekineticCasts: [], spatialRiftBarrages: [],
@@ -134,56 +143,56 @@ const state = {
   bossUltimateCastsV31334: [], dreamMirrorLasersV31347: [],
   hapilFinalBattleV31300: {
     stage: 7, secondPhaseActive: true, monochromeActiveV31377: true, completed: false,
+    awakeningPendingRC108: true, awakeningCommittedRC108: false,
   },
 };
 assert.equal(bridge.persistentTick(state), 37);
 assert.equal(bridge.lastTickState, state);
 assert.equal(api.snapshot(state).status, 'charging');
-const sequence = [];
-for (let index = 0; index < ids.length; index++) {
-  state.time = api.snapshot(state).nextAt;
-  api.tick(state);
-  const clone = state.enemies.find(actor => actor.samongCosmicSummonV386);
-  assert(clone, 'Samong summon ' + (index + 1) + ' did not appear');
-  assert.equal(clone.id, ids[index]);
-  assert.equal(clone.boss, true);
-  assert.equal(clone.midboss, true, 'a summon must not end the map when its own HP is depleted');
-  assert.equal(clone.noBossSummons, true, 'cosmic echoes must not recursively multiply');
-  assert.equal(clone.themedOrdnanceAt, Number.POSITIVE_INFINITY,
-    'the direct Kair signature cast must not get duplicated by the automatic route');
-  assert.equal(clone.samongCosmicIndexV386, index + 1);
-  assert(clone.hp > 0 && clone.maxHp < templates[clone.id].maxHp);
-  assert(api.nativePatterns(clone.id, clone.fixedPhase).length > 0,
-    clone.id + ' must use a real Kair Great attack deck');
-  sequence.push(clone.id);
+state.time = api.snapshot(state).nextAt;
+api.tick(state);
+const clones = state.enemies.filter(actor => actor.samongCosmicSummonV386);
+assert.equal(clones.length, 6, 'all six bodies must appear in the same tick');
+assert.deepEqual(clones.map(actor => actor.id), ids);
+assert.equal(new Set(clones.map(actor => actor.x + ':' + actor.y)).size, 6, 'six readable arena positions');
+assert(clones.every(actor => actor.boss && !actor.midboss && actor.noBossSummons && actor.hp > 0 && actor.invulnerableUntil === Infinity && !actor.episodeBossSummon), 'native midpoint and Pride cleanup must not retire live Cosmic bodies');
+assert.equal(bridge.phaseGateHealth(state, clones[0], clones[0].hp * 10), clones[0].hp, 'native damage must not retire a Cosmic before the awakening');
+assert.equal(api.snapshot(state).status, 'six-awakened');
+assert.equal(state.hapilFinalBattleV31300.awakeningCommittedRC108, false);
+for (const clone of clones) {
   state.time = clone.samongCosmicDispatchAtV386;
   api.tick(state);
-  assert.equal(clone.samongCosmicPatternDispatchedV386, true,
-    clone.id + ' must dispatch a native boss pattern during its summon');
-  assert(bridge.signatureProfile(clone).deck.includes(clone.samongCosmicPatternNameV386),
-    clone.id + ' must use its own native identity deck, not a shared generic pattern');
-  assert.deepEqual(state.signatureAttacks.at(-1), {id: clone.id, name: clone.samongCosmicPatternNameV386});
-  if (index === 0) {
-    state.hostileProjectiles.push({id: 'cosmic-owned', sourceId: clone.id}, {id: 'final-boss-owned', sourceId: boss.id});
-    clone.hp = 0;
-    state.time += 0.01;
-    api.tick(state);
-    assert(!state.enemies.some(actor => actor.samongCosmicSummonV386));
-    assert.deepEqual(state.hostileProjectiles.map(row => row.sourceId), [boss.id],
-      'retiring an echo must clear only its own hostile projectiles');
-    assert.equal(state.bossDefeated, false);
-    continue;
-  }
-  state.time = api.snapshot(state).activeUntil;
-  api.tick(state);
-  assert(!state.enemies.some(actor => actor.samongCosmicSummonV386),
-    clone.id + ' should retire before the next echo appears');
+  assert.equal(clone.samongCosmicPatternDispatchedV386, true, clone.id + ' signature must release');
+  assert(bridge.signatureProfile(clone).deck.includes(clone.samongCosmicPatternNameV386));
 }
-assert.deepEqual(sequence, ids);
+assert.equal(api.snapshot(state).status, 'crisis');
+assert.equal(state.hp, 1);
+assert.equal(state.hapilFinalBattleV31300.awakeningCommittedRC108, false);
+state.hostileProjectiles.push({id:'cosmic-owned',sourceId:ids[0]},{id:'leader-owned',sourceId:boss.id});
+state.time += 1.21;
+api.tick(state);
+assert.equal(state.hapilFinalBattleV31300.awakeningCommittedRC108, true);
+assert.equal(state.hp, 240);
+for (let i = 0; i < 5; i++) { state.time += .29; api.tick(state); }
 assert.equal(api.snapshot(state).status, 'complete');
-assert.equal(state.enemies[0], boss, 'the final boss must remain the sole map-clear authority');
-assert.equal(state.bossDefeated, false);
-assert.equal(state.effects.filter(effect => effect.samongCosmicSummonV386).length, 6);
+assert.equal(state.enemies.length, 0, 'player awakening dissolves the leader after six Cosmic strikes');
+assert.equal(state.hapilFinalBattleV31300.finalHitModeV31377, 'samong-awakening');
+assert.equal(state.hapilFinalBattleV31300.completed, true);
+assert.deepEqual(state.rc88Encounter.cosmicKills, [1,2,3,4,5,6]);
+assert.deepEqual(state.hostileProjectiles.map(row => row.sourceId), [], 'real deaths clear Cosmic and leader hazards');
+assert.equal(state.effects.filter(effect => effect.samongCosmicSummonV386).length, 13);
+const once = state.rc88Encounter.cosmicKills.length;
+state.time += 20; api.tick(state);
+assert.equal(state.rc88Encounter.cosmicKills.length, once, 'completed wave is idempotent');
+assert.equal(state.bossDefeated, true);
+
+const deadState={...state,time:35,hp:240,bossDefeated:false,enemies:[{...boss,hp:1000}],hapilSamongCosmicWaveV386:undefined,
+  hapilFinalBattleV31300:{stage:7,secondPhaseActive:true,monochromeActiveV31377:true,completed:false,awakeningPendingRC108:true}};
+api.tick(deadState);deadState.time=api.snapshot(deadState).nextAt;api.tick(deadState);
+assert.equal(deadState.enemies.filter(actor=>actor.samongCosmicSummonV386).length,6);
+deadState.hp=0;api.tick(deadState);
+assert.equal(deadState.hapilSamongCosmicWaveV386,undefined,'player death clears the once-only encounter');
+assert.equal(deadState.enemies.filter(actor=>actor.samongCosmicSummonV386).length,0,'player death removes all six bodies');
 
 const dreamState = {
   ...state, time: 50, gameModeV31346: 'DREAM',
@@ -209,4 +218,4 @@ const earlyState = {
 };
 api.tick(earlyState);
 assert.equal(earlyState.hapilSamongCosmicWaveV386, undefined, 'summons must not leak into the first phase');
-console.log('RC86 PASS: apostate idle/action art stays identity-consistent; six unique Kair Great decks summon only in Story with bounded cleanup and Dream isolation.');
+console.log('RC86 PASS: six simultaneous unique Kair bodies, delayed player crisis/awakening, native signatures, death cleanup, idempotence, Dream isolation.');

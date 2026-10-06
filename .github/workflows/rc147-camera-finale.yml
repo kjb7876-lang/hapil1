@@ -1,0 +1,81 @@
+name: RC147 camera and finale exact candidate
+on:
+  push:
+    branches: [main, codex/rc147-camera-persona-finale]
+    paths:
+      - 'assets/**'
+      - 'index.html'
+      - 'qa/rc133/**'
+      - 'tools/rc133-*.cjs'
+      - 'tests/rc147-*.cjs'
+      - 'tests/rc86-samong-cosmic-*.cjs'
+      - 'tests/rc88-danmaku-rpg-*.cjs'
+      - 'tests/rc142-persona-volley-browser.cjs'
+      - '.github/workflows/rc147-camera-finale.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rc147-camera-finale-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [pc, portrait, landscape]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare isolated Chromium
+        run: |
+          set -euo pipefail
+          R="$RUNNER_TEMP/rc147-runtime"
+          npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
+          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
+          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+      - name: Verify exact gameplay and screens
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC147_PROFILE: ${{ matrix.profile }}
+          RC142_PROFILE: ${{ matrix.profile }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node --check assets/index-v31526.js
+          node --check assets/rc86/samong-cosmic.js
+          node --check assets/rc88/danmaku-rpg.js
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
+          if test "$RC147_PROFILE" = pc; then
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-auto" node tests/rc147-auto-defense-browser.cjs
+            node tests/rc86-samong-cosmic-smoke.cjs
+            node tests/rc86-samong-cosmic-browser.cjs
+            node tests/rc88-danmaku-rpg-smoke.cjs
+            node tests/rc88-danmaku-rpg-browser.cjs
+            node tests/rc75-ending-and-awakening.cjs
+            node tests/rc133-preservation-unit.cjs
+            node tests/rc128-candidate.cjs
+          fi
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc147-${{ github.sha }}-${{ matrix.profile }}
+          path: ${{ runner.temp }}/rc147-*/
+          retention-days: 14

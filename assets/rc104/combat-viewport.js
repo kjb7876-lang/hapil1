@@ -35,10 +35,10 @@
    // resize the world on screen: keep one mobile camera zoom and pan around it.
    // When all live threats fit at this zoom, preserve the old safe-area fit;
    // when they do not, keep the hero centered instead of zooming out or in.
-   const scale=1.05;
+   const scale=1.0;
    function offset(min,max,lo,hi,mapMin,mapMax,viewMin,viewMax){const a=lo-min*scale,b=hi-max*scale,axis=lo===safe.left?'x':'y',ideal=portrait?(lo+hi)/2-(axis==='x'?hero.x:hero.y)*scale:(a+b)/2;let x=a<=b?clamp(ideal,a,b):portrait?(lo+hi)/2-(axis==='x'?hero.x:hero.y)*scale:(a+b)/2;if(map&&!portrait){const ma=viewMax-mapMax*scale,mb=viewMin-mapMin*scale;x=clamp((ma+mb)/2,Math.min(a,b),Math.max(a,b));if(Math.max(a,ma)<=Math.min(b,mb))x=clamp(x,Math.max(a,ma),Math.min(b,mb));}return x;}
    result={x:offset(left,right,safe.left,safe.right,map?.x,map?.x+map?.width,v.x,v.x+v.width),y:offset(top,bottom,safe.top,safe.bottom,map?.y,map?.y+map?.height,v.y,v.y+v.height),scale,combatViewportRC104:true};
-   api.last={view:v,safe,protected:{left,right,top,bottom},map,camera:result,enemyCount:enemies.length,zoomPolicy:'fixed-mobile-1.05'};
+   api.last={view:v,safe,protected:{left,right,top,bottom},map,camera:result,enemyCount:enemies.length,zoomPolicy:'fixed-mobile-1.00'};
   }
   cache.set(s,{time:s.time,x:s.x,y:s.y,zone:s.zone,revision,camera:result});return result;
  }

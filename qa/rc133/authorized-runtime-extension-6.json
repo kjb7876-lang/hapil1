@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "base": "9176b5752fda94f41a72b48012dbaa01f17d0ff5",
+  "baseTree": "8363a1e1bf946942ffcf8aa43c324cd382b1aede",
+  "previousExtensionSha256": "b3070d19c90ac7df0eba62ab7520c32142561c92b79a3b3bc2438487462fa5ed",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "3db59c92d09d0438d1d065e308770499a4f69b24a1ab68306c583b2ee0e5e428",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "5ef09b45fbf868cd3adf256aa865c80e830ec8e9"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "1dd2c8156432639195536df5074ff80aac3c59fc",
+        "sha256": "518fac2aa29170fdb27f11030edeb2297dc4c0483312db5fa3b4f1a729ca9d8c"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc104/combat-viewport.js",
+      "before": {
+        "file": "assets/rc104/combat-viewport.js",
+        "mode": "100644",
+        "gitBlob": "1e19fd518c9bcd5a9594b7db0e320696e224b651"
+      },
+      "after": {
+        "file": "assets/rc104/combat-viewport.js",
+        "mode": "100644",
+        "gitBlob": "b13717bda5005a5157403ad6af5911b61c546e22",
+        "sha256": "f0ceb60d7699cb4bb8ee061dd3ed84a3c86c2c50cf3a653d07881f3f01d61ae7"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc104/combat-viewport.js"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "1b7eb9c34c1d514ae6538f6d5ea5ee72297b2d1f"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "a786ce6b463c35c9316b4b74ac16dcab181b9c03",
+        "sha256": "30a010a0306ba3cc5c127c31fe43afee11a2ee123f137ed748c40dff41bd9dd8"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc133/inner-final.js"
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "c71845eabdeaffd17eb186669a6b185719c963ad"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "978c6a991090485ccbe0f0ee8d0ca19ca5ccaa3c",
+        "sha256": "7182330851c9fc0f22ada901482e807e412115ab4057687887fe791dbcf15a08"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc134/persona-duel.js"
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "before": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "3d2305afe7bde1e8292aaed18752aaf8a0341c61"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "184eb1091cf745c21c4988c4cd084383fb0f6c07",
+        "sha256": "bc9734c5c183f8bb95ebe16a8b1eff38c51962e299317321a49603301a9c93ec"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc138/battle-arena.js"
+    },
+    {
+      "file": "assets/rc51/story.js",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "2fdc43ab163d69a2d9b9f082d29fe2137a1608b8"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "c7e8765e65e6601b242ecddb24cb871669f7ad0c",
+        "sha256": "34951d412f861f89ac9e4cd801392d5773ebbefe6ac9a416016b2bbad68f2180"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc51/story.js"
+    },
+    {
+      "file": "assets/rc86/samong-cosmic.js",
+      "before": {
+        "file": "assets/rc86/samong-cosmic.js",
+        "mode": "100644",
+        "gitBlob": "40989514d86e7f24ee0112f9ff2ae8dc927e9303"
+      },
+      "after": {
+        "file": "assets/rc86/samong-cosmic.js",
+        "mode": "100644",
+        "gitBlob": "00f710c28bb5099df698c1e9eea0b29c94fb05dc",
+        "sha256": "d0b0662808cb715be0b5af37e73febd991ba7aac38d48ad4267c4959a576fe89"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc86/samong-cosmic.js"
+    },
+    {
+      "file": "assets/rc88/danmaku-rpg.js",
+      "before": {
+        "file": "assets/rc88/danmaku-rpg.js",
+        "mode": "100644",
+        "gitBlob": "3dce89686accf656d86f7a263b14ad1783a90e12"
+      },
+      "after": {
+        "file": "assets/rc88/danmaku-rpg.js",
+        "mode": "100644",
+        "gitBlob": "d72f8a451d58ef540a921b417a94d2460e6bbe83",
+        "sha256": "20526d509de73bc33aa17b8ef51c7682c5dd903d96c397fc26ac68afa0aa1f1f"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: assets/rc88/danmaku-rpg.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cf79bb8b57e30d91049e2f752e5e372cdef68417"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "925d6fbd15b79fd58d8b19ae8f44723d04ff73a9",
+        "sha256": "ebb86067a56c43b433fb08cd04096463769441ec9713831f7cd76151d9932294"
+      },
+      "reason": "RC147 camera, simultaneous Cosmic finale, Persona projectile admission, and loader revision: index.html"
+    }
+  ]
+}

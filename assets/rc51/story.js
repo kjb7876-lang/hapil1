@@ -113,7 +113,7 @@
   root.dataset.zone=s.zone;root.dataset.phase=kind;
   if(kind==='post'&&r.postBackdrop){root.style.backgroundImage=`linear-gradient(rgba(3,5,12,.55),rgba(3,5,12,.75)),url("${r.postBackdrop}")`;root.style.backgroundSize='cover';root.style.backgroundPosition='center';root.dataset.flashback='medieval';}
   const panel=el('section','rc51-panel'),head=el('header','rc51-header');
-  head.append(el('small','rc51-kicker',kind==='pre'?'전투 전 · 기억':kind==='firstPost'?'전투 후 · 돌아오는 현실':kind==='awakenPre'?'전투 전 · 사몽 각성':'전투 후 · 남겨진 기억'));
+  head.append(el('small','rc51-kicker',kind==='pre'?'전투 전 · 기억':kind==='firstPost'?'전투 후 · 돌아오는 현실':kind==='awakenPre'?'전투 중 · 위기의 각성':'전투 후 · 남겨진 기억'));
   const title=el('h1','',`${String(r.index).padStart(2,'0')} · ${r.title}`);title.id='rc51-title';head.append(title);if(r.postNarrator&&kind==='post')head.append(el('small','rc51-kicker',r.postNarrator));panel.append(head);
   const box=el('div','rc51-copybox'),copy=el('article','rc51-copy'),character=window.__HAPIL_RC140_STORY_CYCLE_ART__?.characters?.[r.zone];
   if(character){const pose=kind==='pre'?'idle':'lurch',frame=character.poses?.[pose];if(frame){const figure=el('figure','rc140-story-character'),image=el('img','');figure.dataset.character=character.id;figure.dataset.pose=pose;figure.setAttribute('aria-label',character.name);image.src=frame.path;image.alt=`${character.name} · ${pose==='idle'?'기억':'유령 잔상'}`;image.decoding='async';image.loading='eager';figure.append(image,el('figcaption','',character.name));copy.append(figure);}}
@@ -158,9 +158,9 @@
   const battle=s.hapilFinalBattleV31300;
   if(s.zone==='cult04'&&battle&&!battle.completed){
    if(battle.stage>=5&&!m.firstPost){m.firstPost=true;return show(s,r,'firstPost',r.firstPost,()=>{},ctx);}
-   if(battle.stage>=5&&!m.awakenPre){m.awakenPre=true;ctx.selectPhysician?.();return show(s,r,'awakenPre',r.awakenPre,()=>window.__HAPIL_FINAL_AWAKENING_RC108__?.complete?.(s),ctx);}
+   if(battle.stage>=7&&s.hapilSamongCosmicWaveV386?.status==='crisis'&&!m.awakenPre){m.awakenPre=true;ctx.selectPhysician?.();return show(s,r,'awakenPre',r.awakenPre,()=>window.__HAPIL_FINAL_AWAKENING_RC108__?.complete?.(s),ctx);}
   }
-  if(!m.post&&ctx.clear&&(s.zone!=='cult04'||(battle?.completed===true&&battle.finalHitCommittedV31377===true&&Number(battle.combatElapsedRC79)>=60))){m.post=true;return show(s,r,'post',r.post,()=>{if(s.zone==='cult04')ctx.finish?.();},ctx);}
+  if(!m.post&&ctx.clear&&(s.zone!=='cult04'||(battle?.completed===true&&battle.finalHitCommittedV31377===true))){m.post=true;return show(s,r,'post',r.post,()=>{if(s.zone==='cult04')ctx.finish?.();},ctx);}
   return false;
  }
  // World time is the single clock for enemy AI, attacks, beams and projectiles.

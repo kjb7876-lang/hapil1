@@ -9,12 +9,14 @@ const boss={id:'c104-boss',hp:25,maxHp:100,phaseMax:3,x:12,y:12};
 const s={zone:'cult04',time:10,hp:20,maxHp:200,resonance:0,enemies:[boss],fxSerial:1,floatTexts:[],x:16,y:16};
 assert.equal(c.MONGSE_phaseGateHealth(s,boss,26),1);assert(s.hapilFinalBattleV31300);assert.equal(s.hapilFinalBattleV31300.stage,0);
 for(let frame=1;frame<=140;frame++){s.time=10+frame*.05;c.tick(s);if(s.hapilFinalBattleV31300.stage<7)assert(c.MONGSE_phaseGateHealth(s,boss,10000)>=1,'transition cannot be killed early');}
-assert.equal(s.hapilFinalBattleV31300.stage,7);assert.equal(s.hapilFinalBattleV31300.secondPhaseActive,true);assert.equal(s.hapilFinalBattleV31300.monochromeActiveV31377,true,'Samong awakening must activate the grayscale second fight');assert.equal(s.hapilFinalBattleV31300.finalHitCommittedV31377,false);assert.equal(s.hp,200);assert.equal(boss.maxHp,95);
-assert.deepEqual(events,['first-defeat','hero-down','core-revival','memory','death','samong','hero-awakening','duel','resume']);
-assert.equal(s.hapilFinalBattleV31300.awakeningCommittedRC108,true,'headless fallback completes the awakening checkpoint');
-assert(s.hapilFinalBattleV31300.awakeningAtRC108>=s.hapilFinalBattleV31300.startedAt+4.58,'awakening follows the danger and Samong stage');
+assert.equal(s.hapilFinalBattleV31300.stage,7);assert.equal(s.hapilFinalBattleV31300.secondPhaseActive,true);assert.equal(s.hapilFinalBattleV31300.monochromeActiveV31377,true,'leader Samong activates the grayscale fight');assert.equal(s.hapilFinalBattleV31300.finalHitCommittedV31377,false);assert.equal(s.hp,20);assert.equal(boss.maxHp,95);
+assert.deepEqual(events,['first-defeat','hero-down','core-revival','memory','death','samong','duel','resume']);
+assert.equal(s.hapilFinalBattleV31300.awakeningCommittedRC108,false,'player awakening waits for six Cosmic bosses and crisis');
+assert.equal(c.window.__HAPIL_FINAL_AWAKENING_RC108__.complete(s),false);
 c.window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__=false;assert.equal(c.MONGSE_phaseGateHealth(s,boss,10000),1,'the final cultist must survive before a permitted phase-2 finishing blow');
-const manualBoss={id:'c104-boss',hp:100,maxHp:100,hapilSecondPhaseV31300:true};const manualState={zone:'cult04',hapilFinalBattleV31300:{stage:7,monochromeActiveV31377:true,finalHitCommittedV31377:false}};c.window.__HAPIL_MANUAL_COMBAT_INPUT_AT_V31300__=Date.now();assert.equal(c.MONGSE_phaseGateHealth(manualState,manualBoss,10000),0,'manual phase-2 input can finish the boss');assert.equal(manualState.hapilFinalBattleV31300.finalHitModeV31377,'manual');delete c.window.__HAPIL_MANUAL_COMBAT_INPUT_AT_V31300__;
+const manualBoss={id:'c104-boss',hp:100,maxHp:100,hapilSecondPhaseV31300:true};const manualState={zone:'cult04',hapilSamongCosmicWaveV386:{status:'complete'},hapilFinalBattleV31300:{stage:7,monochromeActiveV31377:true,finalHitCommittedV31377:false}};c.window.__HAPIL_MANUAL_COMBAT_INPUT_AT_V31300__=Date.now();assert.equal(c.MONGSE_phaseGateHealth(manualState,manualBoss,10000),0,'manual phase-2 input can finish the boss');assert.equal(manualState.hapilFinalBattleV31300.finalHitModeV31377,'manual');delete c.window.__HAPIL_MANUAL_COMBAT_INPUT_AT_V31300__;
+s.hapilSamongCosmicWaveV386={status:'crisis',crisisAt:.8};s.hapilFinalBattleV31300.combatElapsedRC79=2.1;assert.equal(c.window.__HAPIL_FINAL_AWAKENING_RC108__.complete(s),true);assert.equal(s.hp,200);assert.equal(s.hapilFinalBattleV31300.awakeningCommittedRC108,true);assert.equal(events.at(-1),'hero-awakening');
+s.hapilSamongCosmicWaveV386.status='complete';
 c.window.__HAPIL_AUTO_COMBAT_ACTIVE_V31301__=true;assert.equal(c.MONGSE_phaseGateHealth(s,boss,10000),0,'full-auto can finish phase two');assert.equal(s.hapilFinalBattleV31300.finalHitCommittedV31377,true);assert.equal(s.hapilFinalBattleV31300.finalHitModeV31377,'full-auto');
 s.enemies=[];s.bossDefeated=true;c.tick(s);assert(s.hapilFinalBattleV31300.completed);assert.equal(events.at(-1),'ending');
 const start=code.indexOf('function HAPIL_commitFinalEndingV31301('),end=code.indexOf('\n}\n',start)+2;
@@ -29,4 +31,4 @@ vm.runInNewContext(read('data/story-rc51.js'),ctx);vm.runInNewContext(read('asse
 const hero={time:10,hp:100,zone:'cult04',gameModeV31346:'STORY',activeHeroId:'hwando',hapilSamongActiveV31300:true,hapilFinalBattleV31300:{stage:7,secondPhaseActive:true},pendingStrikes:[{at:10.4}],effects:[{heroId31213:'hwando',born:10,deliveryRoutesV31322:[{born:10,at:10.4}],deliverySeedV31322:{born:10}}]};
 const dt=w.__HAPIL_STORY_RC51__.clock(hero,.04);assert.equal(dt,0);assert.equal(hero.effects[0].deliveryRoutesV31322[0].at,hero.pendingStrikes[0].at,'accelerated art arrival and damage remain aligned during freeze');
 assert.equal(hero.effects[0].deliverySeedV31322.born,hero.effects[0].born);
-console.log('RC75 PASS: first lethal -> grayscale phase 2 -> permitted final hit -> guarded ending save/village cleanup; awakening flight clock aligned.');
+console.log('RC75 PASS: leader Samong -> six-body crisis gate -> player awakening -> permitted final hit -> ending save/village cleanup.');
