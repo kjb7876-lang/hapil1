@@ -1,4 +1,6 @@
-# RC145 body ash preview
+# RC145 body ash preview (historical scope)
+
+RC146 extends this preview to every hostile rank. See `qa/rc146/global-body-ash.md` for the current effect contract and verification.
 
 Local preview branch based on public `51bcd427017e88350b1c5c02e4dd7dce6bad1f8f`. This branch is not published to main or Pages.
 

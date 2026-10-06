@@ -18,6 +18,9 @@ const extension3=JSON.parse(extension3Bytes);
 const extension4Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-4.json'));
 assert.equal(require('node:crypto').createHash('sha256').update(extension4Bytes).digest('hex'),'2dbd0fc8914afca21b25a01062cc0ffbc94594b10d8b0a98b2322dd5b07ddb4a','exact fourth extension manifest pin');
 const extension4=JSON.parse(extension4Bytes);
+const extension5Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-5.json'));
+assert.equal(require('node:crypto').createHash('sha256').update(extension5Bytes).digest('hex'),'b3070d19c90ac7df0eba62ab7520c32142561c92b79a3b3bc2438487462fa5ed','exact fifth extension manifest pin');
+const extension5=JSON.parse(extension5Bytes);
 assert.equal(extension2.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'));
 assert.equal(extension2.files.length,1);assert.equal(extension2.files[0].file,'index.html');
 assert.equal(extension2.files[0].before.gitBlob,extension.files.find(row=>row.file==='index.html')?.after?.gitBlob,'second index path chains from the first extension output');
@@ -25,6 +28,8 @@ assert.equal(extension3.previousExtensionSha256,require('node:crypto').createHas
 assert.equal(extension3.files.find(row=>row.file==='index.html')?.before.gitBlob,extension2.files[0].after.gitBlob,'third index path chains from the second extension output');
 assert.equal(extension4.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension3Bytes).digest('hex'));
 assert.equal(extension4.files.find(row=>row.file==='index.html')?.before.gitBlob,extension3.files.find(row=>row.file==='index.html')?.after.gitBlob,'fourth index path chains from the third extension output');
+assert.equal(extension5.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension4Bytes).digest('hex'));
+assert.equal(extension5.files.find(row=>row.file==='index.html')?.before.gitBlob,extension4.files.find(row=>row.file==='index.html')?.after.gitBlob,'fifth index path chains from the fourth extension output');
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
@@ -40,7 +45,7 @@ function verify(file) {
   return url;
 }
 
-const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension2.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension3.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension4.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension2.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension3.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension4.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension5.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
 assert(reserved.pathname.includes('%23')); checks++;
@@ -50,4 +55,4 @@ verify('audio/literal?query#fragment%25 한글.wav');
 for (const file of ['', '/index.html', '../index.html', 'assets/../index.html', 'assets//file.png', 'assets/./file.png', 'assets\\file.png', 'https://other.example/file.png']) {
   assert.throws(() => checkedUrl(file, key, value), undefined, file); checks++;
 }
-console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, extension3Files:extension3.files.length, extension4Files:extension4.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));
+console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, extension3Files:extension3.files.length, extension4Files:extension4.files.length, extension5Files:extension5.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));

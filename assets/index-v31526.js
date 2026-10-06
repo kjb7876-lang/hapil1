@@ -35553,10 +35553,13 @@ function MONGSE_emitDeathBurnRC144(state,actor){
   const serial=Number.isFinite(state.fxSerial)?state.fxSerial++:state.defeated.length;
   state.defeated.push({id:serial,x:actor.x,y:actor.y,born:state.time,
     duration:window.__HAPIL_BODY_ASH_RC145__?.target(actor)?0.82:actor.boss?1.25:actor.midboss?0.95:0.72,
-    sprite:actor.rc133InnerBoss?actor.sprite:actor.actionSprites?.death??MONGSE_phaseSprite(actor)??actor.sprite,
+    sprite:actor.cosmicLuciferV31318?window.__HAPIL_LUCIFER_V31318__?.bodyPath(actor,state.time)??actor.sprite:actor.rc133InnerBoss?actor.sprite:actor.actionSprites?.death??MONGSE_phaseSprite(actor)??actor.sprite,
     kind:actor.kind,size:Ge(actor.kind,!!actor.boss,!!actor.midboss,!!actor.elite,actor.scale)*MONGSE_phaseScale(actor)*(actor.boss?1.1:1),
     facing:actor.facing,sourceFacing31223:actor.sourceFacing31223??MONGSE_BOSS_SOURCE_FACING_BY_ENTITY_V31223[actor.id]??null,
-    boss:!!actor.boss,midboss:!!actor.midboss,burnRC144:true,sourceActorIdRC145:actor.id});
+    boss:!!actor.boss,midboss:!!actor.midboss,burnRC144:true,sourceActorIdRC145:actor.id,
+    cosmicBodyRC145:!!actor.cosmicLuciferV31318,cosmicBodyGeometryRC145:actor.cosmicLuciferV31318?window.__HAPIL_LUCIFER_V31318__?.geometry(actor,state.time):null,
+    echoBodySizeRC145:actor.echoChildV31368?window.__HAPIL_ECHOES_V31368__?.childDrawSizeV31368(actor,state):null,
+    echoBossImageCloneRC145:!!actor.echoBossImageCloneV31368});
   return true;
 }
 window.__HAPIL_DEATH_BURN_RC144__=Object.freeze({emit:MONGSE_emitDeathBurnRC144,asset:MONGSE_DEATH_FIRE_RC144});
@@ -35780,6 +35783,7 @@ function Yn(e, t, n, r, i, a = !1) {
   }
   const MONGSE_bodyAshPreviewRC145=window.__HAPIL_BODY_ASH_RC145__?.living({
     ctx:e,actor:n,sprite:n.rc133InnerBoss?(n.sprite??s):s,size:n.rc133InnerBoss?122:MONGSE_cloneBodySizeV314RC9,center:o,time:r,settings:i,
+    cacheable:!n.boss&&!n.midboss&&!n.echoChildV31368&&!f&&!p&&!m&&!h&&!n.ghostUntil&&n.kind!=='slime'&&MONGSE_actionSpriteBlend31224===1&&!!MONGSE_queueImage(t,s)?.naturalWidth,
     drawBody:ctx=>(n.rc133InnerBoss&&MONGSE_drawPersonaBodyRC145(ctx,t,n,n.sprite??s,MONGSE_currentActorTransform31224)
       ||window.__HAPIL_STAND_V31335__?.drawBody(ctx,t,n,r,i,s,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224))
       ??Ln(ctx,t,s,n.x,n.y,MONGSE_cloneBodySizeV314RC9,MONGSE_currentActorTransform31224),
@@ -35860,15 +35864,20 @@ function Xn(e, t, n, r, i) {
   let a = Math.max(0, Math.min(1, (r - n.born) / n.duration));
   const ash145=window.__HAPIL_BODY_ASH_RC145__;
   if(n.burnRC144&&ash145?.target(n)){
+    const lucifer=n.cosmicBodyRC145?window.__HAPIL_LUCIFER_V31318__:null,echo=n.echoBodySizeRC145?window.__HAPIL_ECHOES_V31368__:null,
+      g=lucifer?(n.cosmicBodyGeometryRC145??lucifer.geometry(n,n.born)):null,point=G(n.x,n.y),
+      size=g?.height??(echo?n.echoBodySizeRC145:n.sourceActorIdRC145==='inner-evil-rc133'?122:n.size),
+      offset=echo?(n.echoBossImageCloneRC145&&size>92?size*.43:31):0,
+      center=g?{x:g.x+g.width/2,y:g.y+g.height}:echo?{x:point.x,y:point.y-offset+size*.5}:point;
+    const drawBody=ctx=>lucifer?lucifer.drawDeath(ctx,t,n):echo?echo.drawDeath(ctx,t,n):
+      n.sourceActorIdRC145==='inner-evil-rc133'&&MONGSE_drawPersonaBodyRC145(ctx,t,n,n.sprite,{})
+      ||Ln(ctx,t,n.sprite,n.x,n.y,n.size,{scaleX:MONGSE_spriteFacingScale31222(n.sprite,n.facing,n.sourceFacing31223)});
     if(ash145.death({
-      ctx:e,actor:n,sprite:n.sprite,size:n.sourceActorIdRC145==='inner-evil-rc133'?122:n.size,center:G(n.x,n.y),progress:a,time:r,lowFx:i.lowFx,
+      ctx:e,actor:n,sprite:n.sprite,size,center,progress:a,time:r,lowFx:i.lowFx,
       ready:!!(n.sourceActorIdRC145==='inner-evil-rc133'?window.__HAPIL_MEDIA_ART_RC133__?.picture(n.sprite):MONGSE_queueImage(t,n.sprite))?.complete,
-      drawBody:ctx=>n.sourceActorIdRC145==='inner-evil-rc133'&&MONGSE_drawPersonaBodyRC145(ctx,t,n,n.sprite,{})
-        ||Ln(ctx,t,n.sprite,n.x,n.y,n.size,{
-        scaleX:MONGSE_spriteFacingScale31222(n.sprite,n.facing,n.sourceFacing31223),
-      }),
+      drawBody,
     }))return;
-    Ln(e,t,n.sprite,n.x,n.y,n.size,{scaleX:MONGSE_spriteFacingScale31222(n.sprite,n.facing,n.sourceFacing31223)});
+    if(lucifer||echo){if(!drawBody(e))Ln(e,t,n.sprite,n.x,n.y,n.size,{scaleX:MONGSE_spriteFacingScale31222(n.sprite,n.facing,n.sourceFacing31223)});}else drawBody(e);
     return;
   }
   if(n.burnRC144){
@@ -36641,6 +36650,7 @@ function $n(e, t, n, r, i) {
     MONGSE_telekineticCasts = t.telekineticCasts,
     MONGSE_floatTexts = t.floatTexts.filter(fx => HAPIL_showFloatTextV31317(fx, i)),
     MONGSE_defeated = t.defeated;
+  window.__HAPIL_BODY_ASH_RC145__?.sync(t);
   i.lowFx &&
     ((MONGSE_egoDrops = MONGSE_egoDrops.slice(-6)),
     (MONGSE_effectsBehind = MONGSE_trimEffects(MONGSE_effectsBehind, 18)),
@@ -52162,7 +52172,7 @@ function Ri() {
             y: e.y,
             born: t.time,
             duration:window.__HAPIL_BODY_ASH_RC145__?.target(e)?0.82:e.boss?1.25:0.72,
-            sprite: e.rc133InnerBoss?e.sprite:e.actionSprites?.death ?? MONGSE_phaseSprite(e) ?? e.sprite,
+            sprite: e.cosmicLuciferV31318?window.__HAPIL_LUCIFER_V31318__?.bodyPath(e,t.time)??e.sprite:e.rc133InnerBoss?e.sprite:e.actionSprites?.death ?? MONGSE_phaseSprite(e) ?? e.sprite,
             kind: e.kind,
             size:
               Ge(e.kind, !!e.boss, !!e.midboss, !!e.elite, e.scale) *
@@ -52177,6 +52187,10 @@ function Ri() {
             midboss: !!e.midboss,
             burnRC144: true,
             sourceActorIdRC145:e.id,
+            cosmicBodyRC145:!!e.cosmicLuciferV31318,
+            cosmicBodyGeometryRC145:e.cosmicLuciferV31318?window.__HAPIL_LUCIFER_V31318__?.geometry(e,t.time):null,
+            echoBodySizeRC145:e.echoChildV31368?window.__HAPIL_ECHOES_V31368__?.childDrawSizeV31368(e,t):null,
+            echoBossImageCloneRC145:!!e.echoBossImageCloneV31368,
           }),
           !window.__HAPIL_BODY_ASH_RC145__?.target(e)&&t.effects.push({
             id: t.fxSerial++,
@@ -118705,13 +118719,18 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     let im=MONGSE_queueImage(cache,path,'eager');
     if(!im?.complete||!(im.naturalWidth||im.width))im=MONGSE_queueImage(cache,paths.idle,'eager');
     if(!im?.complete||!(im.naturalWidth||im.width))return false;
-    ctx.save();try {
-      ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;
-      ctx.translate(g.x+g.width/2,g.y+g.height/2);ctx.rotate(g.tilt);
-      ctx.drawImage(im,-g.width/2,-g.height/2,g.width,g.height);
-    }finally{ctx.restore();}
+    const drawBody=bodyCtx=>{bodyCtx.save();try {
+      bodyCtx.globalAlpha=1;bodyCtx.globalCompositeOperation='source-over';bodyCtx.filter='none';bodyCtx.shadowBlur=0;
+      bodyCtx.translate(g.x+g.width/2,g.y+g.height/2);bodyCtx.rotate(g.tilt);
+      bodyCtx.drawImage(im,-g.width/2,-g.height/2,g.width,g.height);
+    }finally{bodyCtx.restore();}return true;};
+    const ash=window.__HAPIL_BODY_ASH_RC145__;
+    if(!ash?.living({ctx,actor:a,sprite:path,size:g.height,center:{x:g.x+g.width/2,y:g.y+g.height},time:now,drawBody}))drawBody(ctx);
     return true;
   }
+  function bodyPath(a,now){const paths=posePaths();return paths[poseFor(a,now)]??paths.idle;}
+  function drawDeath(ctx,cache,row){const g=row.cosmicBodyGeometryRC145??geometry(row,row.born),im=MONGSE_queueImage(cache,row.sprite,'eager');if(!im?.complete||!(im.naturalWidth||im.width))return false;
+    ctx.save();try{ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.translate(g.x+g.width/2,g.y+g.height/2);ctx.rotate(g.tilt);ctx.drawImage(im,-g.width/2,-g.height/2,g.width,g.height);}finally{ctx.restore();}return true;}
   function mapFor(s,fallback) {if(s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete'))return assets()?.arenaMap??fallback;const art=window.__HAPIL_MAP_ART_RC56__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_RC54__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_V31345__?.path(s?.zone);return art??fallback;}
   function cameraFor(s,fallback) {return s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?{x:140.8,y:30,scale:.78}:fallback;}
   function shouldDrawFront(s,a) {return own(a)&&a.hp>0&&(s?.effects??[]).some(e=>e.cosmicImpactV31318&&e.cosmicModeV31318==='blood-beam'&&e.sourceId===a.id&&s.time>=e.born&&s.time<e.born+e.duration);}
@@ -118743,7 +118762,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     installed=true;
     window.__HAPIL_LUCIFER_V31318__=Object.freeze({version:'3.13.18',installed,ID,zone:ZONE,anchor:ANCHOR,
       regenInterval:INTERVAL,regenFraction:FRACTION,maxHp:baseMaxHp,makeActor,actorFor,active,own,beforeDeath,tick,
-      serialize,sanitizeInto,restore,poseFor,geometry,mouthPoint,draw,mapFor,cameraFor,shouldDrawFront,drawFront,audit});
+      serialize,sanitizeInto,restore,poseFor,geometry,mouthPoint,bodyPath,draw,drawDeath,mapFor,cameraFor,shouldDrawFront,drawFront,audit});
     return true;
   }
   function schedule(){if(install())return;if(++attempts<640)setTimeout(schedule,0);}schedule();
@@ -123857,7 +123876,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function validParent(s,a){return !!a&&(a.boss||a.midboss)&&a.hp>0&&!a.echoChildV31368&&!a.visualOnly&&!a.objectiveStructureV31238&&!a.protectedNarrativeTargetV31307&&n(a.phaseTransitionUntil)<=s.time&&n(a.combatEntryGraceUntilV31239)<=s.time;}
  function fx(s,kind,p,extra={}){const a=s.echoFxV31368??=[];a.push({kind,x:p.x,y:p.y,born:s.time,duration:.32,zone:s.zone,...extra});if(a.length>cfg.maxFx)a.splice(0,a.length-cfg.maxFx);}
  function cancelChild(s,a,reason='owner'){if(reason!=='exploded')for(const k of ['pendingHits','impactQueue'])for(const h of s[k]??[])if(h.echoChildIdV31368===a.id){h.damageSuppressedV31226=true;h.canceledV31368=true;}
-  s.enemies=(s.enemies??[]).filter(e=>e!==a);if(reason!=='exploded')fx(s,'disperse',a,{color:a.echoColorV31368,sprite:a.sprite});stats.canceled++;}
+  s.enemies=(s.enemies??[]).filter(e=>e!==a);if(reason!=='exploded'&&!(reason==='destroyed'&&window.__HAPIL_BODY_ASH_RC145__?.target(a)))fx(s,'disperse',a,{color:a.echoColorV31368,sprite:a.sprite});stats.canceled++;}
  function onDeath(s,a){if(!a?.echoChildV31368)return false;window.__HAPIL_DEATH_BURN_RC144__?.emit(s,a);cancelChild(s,a,'destroyed');stats.killed++;return true;}
  function stage(s,a,kind='bolt'){if(!validParent(s,a)||locked(s))return false;const m=mem(s),cache=C()?.binding?.cache?.current,path=sprite(a,s);if(!path)return false;if(cache)sourceImage(cache,path);
   if(m.cues.length>=cfg.maxCues||m.cues.some(c=>c.ownerId===a.id))return false;
@@ -123907,11 +123926,14 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   }finally{ctx.restore();}return true;}
  function bossDrawHeightV31368(a){if(!a||typeof Ge!=='function')return 0;const base=Number(Ge(a.kind,a.boss===true,a.midboss===true,a.elite===true,a.scale)),phase=typeof MONGSE_phaseScale==='function'?Number(MONGSE_phaseScale(a)):1,height=base*(Number.isFinite(phase)?phase:1)*(a.boss===true?1.1:1);return Number.isFinite(height)&&height>0?height:0;}
  function childDrawSizeV31368(a,state){if(!a?.echoBossImageCloneV31368)return a?.echoFuseV31368?92:72;const parent=(state?.enemies??[]).find(q=>q?.id===a.echoOwnerV31368&&(q.boss===true||q.midboss===true)),height=parent?bossDrawHeightV31368(parent):n(a.echoBossImageHeightV31368,0);return height>0?height:(a.echoFuseV31368?92:72);}
- function drawChild(ctx,cache,a,time,settings={},state){if(!a?.echoChildV31368)return false;if(a.hp<=0)return true;const p=G(a.x,a.y),size=childDrawSizeV31368(a,state),bossArt=a.echoBossImageCloneV31368===true&&size>92,barWidth=bossArt?limit(size*.42,72,132):40,offset=bossArt?size*.43:31;ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';image(ctx,cache,a.sprite,{x:p.x,y:p.y-offset},size,1,1);MONGSE_drawLivingEmbersRC144(ctx,a,time,size,settings);ctx.fillStyle='#101823';ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth,4);ctx.fillStyle=a.echoColorV31368;ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth*limit(a.hp/a.maxHp,0,1),4);ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f6e5d1';ctx.fillText(a.echoFuseV31368?'자폭 '+Math.max(0,a.echoFuseV31368-time).toFixed(1):'잔영 · 격추 가능',p.x,p.y+23);}finally{ctx.restore();}return true;}
+ function drawDeath(ctx,cache,row){const size=n(row.echoBodySizeRC145,72),p=G(row.x,row.y),offset=row.echoBossImageCloneRC145&&size>92?size*.43:31;return image(ctx,cache,row.sprite,{x:p.x,y:p.y-offset},size,1,1);}
+ function drawChild(ctx,cache,a,time,settings={},state){if(!a?.echoChildV31368)return false;if(a.hp<=0)return true;const p=G(a.x,a.y),size=childDrawSizeV31368(a,state),bossArt=a.echoBossImageCloneV31368===true&&size>92,barWidth=bossArt?limit(size*.42,72,132):40,offset=bossArt?size*.43:31;ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';const ash=window.__HAPIL_BODY_ASH_RC145__,drawBody=bodyCtx=>image(bodyCtx,cache,a.sprite,{x:p.x,y:p.y-offset},size,1,1);
+   if(!ash?.living({ctx,actor:a,sprite:a.sprite,size,center:{x:p.x,y:p.y-offset+size*.5},time,drawBody})){drawBody(ctx);MONGSE_drawLivingEmbersRC144(ctx,a,time,size,settings);}
+   ctx.fillStyle='#101823';ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth,4);ctx.fillStyle=a.echoColorV31368;ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth*limit(a.hp/a.maxHp,0,1),4);ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f6e5d1';ctx.fillText(a.echoFuseV31368?'자폭 '+Math.max(0,a.echoFuseV31368-time).toFixed(1):'잔영 · 격추 가능',p.x,p.y+23);}finally{ctx.restore();}return true;}
  function draw(ctx,cache,s,settings={}){const m=memory.get(s);ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';for(const c of settings.showAttackTelegraphs===true?(s.echoCuesV31368??m?.cues??[]):[]){if(c.zone!==s.zone||!owner(s,c.ownerId))continue;const a=G(c.x,c.y),b=G(c.tx,c.ty);ctx.save();try{ctx.strokeStyle=c.color;ctx.globalAlpha*=settings.reducedFlash?.5:.8;ctx.lineWidth=2;ctx.setLineDash([7,8]);ctx.beginPath();ctx.moveTo(a.x,a.y-18);ctx.lineTo(b.x,b.y-18);ctx.stroke();ctx.setLineDash([]);image(ctx,cache,c.path,{x:a.x,y:a.y-34},66,1);ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillStyle=c.accent;ctx.fillText(c.kind==='summon'?'잔영 소환 · 격추 가능':'분신 돌진 · 예고선 이탈',a.x,a.y-78);}finally{ctx.restore();}}
    for(const e of s.echoFxV31368??[]){const u=(s.time-e.born)/e.duration;if(u<0||u>=1)continue;const p=G(e.x,e.y);ctx.save();try{ctx.globalAlpha*=(1-u)*.65;ctx.strokeStyle=e.color??'#dcba97';ctx.lineWidth=1.3;for(let i=0;i<4;i++){const t=i*Math.PI/2+.6,r=8+u*22;ctx.beginPath();ctx.moveTo(p.x+Math.cos(t)*6,p.y-24+Math.sin(t)*6);ctx.lineTo(p.x+Math.cos(t)*r,p.y-24+Math.sin(t)*r);ctx.stroke();}}finally{ctx.restore();}}
   }finally{ctx.restore();ctx.beginPath();}}
- window.__HAPIL_ECHOES_V31368__=Object.freeze({installed:true,cfg,tick,clear,stage,spawn,onDeath,terminal,drawBolt,drawChild,bossDrawHeightV31368,childDrawSizeV31368,draw,validParent,metrics:()=>({...stats}),snapshot:s=>({cues:memory.get(s)?.cues??[],children:s.enemies?.filter(e=>e.echoChildV31368)??[],bolts:s.hostileProjectiles?.filter(q=>q.echoBoltV31368)??[]})});
+ window.__HAPIL_ECHOES_V31368__=Object.freeze({installed:true,cfg,tick,clear,stage,spawn,onDeath,terminal,drawBolt,drawChild,drawDeath,bossDrawHeightV31368,childDrawSizeV31368,draw,validParent,metrics:()=>({...stats}),snapshot:s=>({cues:memory.get(s)?.cues??[],children:s.enemies?.filter(e=>e.echoChildV31368)??[],bolts:s.hostileProjectiles?.filter(q=>q.echoBoltV31368)??[]})});
 })();
 
 ;(()=>{'use strict';let attempts=0;function finish(){if(!window.__HAPIL_V31366_RELEASE__?.installed||!window.__HAPIL_PATIENT_V31368__){if(++attempts<1400)setTimeout(finish,10);return;}

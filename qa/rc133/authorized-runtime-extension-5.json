@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "base": "51bcd427017e88350b1c5c02e4dd7dce6bad1f8f",
+  "baseTree": "34be6e7de233b67f19030f057b57f5917d628552",
+  "previousExtensionSha256": "2dbd0fc8914afca21b25a01062cc0ffbc94594b10d8b0a98b2322dd5b07ddb4a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "b8641bf2beaebf119444702744eb42fcb7c4632374b7df3b61fb1a6fe5e37f3a",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2a66bd3b368519b7d3c12e6766f338583bff1cc7"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "5ef09b45fbf868cd3adf256aa865c80e830ec8e9",
+        "sha256": "7808619c8901ee22014549e93dcd52a220dca02393d0f135400fbe52f05546d7"
+      },
+      "reason": "RC146 global body-bound wounds and ash render for every hostile rank, with cache and loader revision: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc145/body-ash.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc145/body-ash.js",
+        "mode": "100644",
+        "gitBlob": "e0f43ace4e218799013b7658ce0be4764d3b28be",
+        "sha256": "07d6b429e1504fa4a99a87bb69f5bad15383ddf72e0a2148f7a92ab6ce7a9dd8"
+      },
+      "reason": "RC146 global body-bound wounds and ash render for every hostile rank, with cache and loader revision: assets/rc145/body-ash.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c744ae559b7d1dee166a846b64600b85f4997193"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cf79bb8b57e30d91049e2f752e5e372cdef68417",
+        "sha256": "265a3bbc4d082d9ebcf411e334020edecdffea38ed5ed280ad1f8ce8b5af5edc"
+      },
+      "reason": "RC146 global body-bound wounds and ash render for every hostile rank, with cache and loader revision: index.html"
+    }
+  ]
+}
