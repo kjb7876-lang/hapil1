@@ -1,7 +1,7 @@
 name: RC127 published Pages verification
 on:
   push:
-    branches: [main]
+    branches: [main, codex/rc143-persona-mobile-cult]
     paths: ['assets/**', 'index.html', 'qa/rc127/published-smoke.cjs', '.github/workflows/rc127-published.yml']
 permissions:
   contents: read
@@ -33,7 +33,7 @@ jobs:
           const fs=require('node:fs'),crypto=require('node:crypto'),hash=b=>crypto.createHash('sha256').update(b).digest('hex'),expected=hash(fs.readFileSync('index.html'));
           (async()=>{for(let n=0;n<30;n++){try{const r=await fetch('https://kjb7876-lang.github.io/hapil1/?rc127-ready='+Date.now(),{signal:AbortSignal.timeout(15000)});if(r.ok&&hash(Buffer.from(await r.arrayBuffer()))===expected){console.log('RC127 exact HTML deployment ready',expected);return;}}catch(e){console.log('Readiness retry',n,e.message);}await new Promise(r=>setTimeout(r,10000));}throw Error('Expected RC127 HTML not yet deployed');})().catch(e=>{console.error(e);process.exitCode=1;});
           NODE
-      - name: Verify sixteen public files and observe fixed movement in actual game state
+      - name: Verify exact public files and observe fixed movement in actual game state
         run: node qa/rc127/published-smoke.cjs
       - uses: actions/upload-artifact@v4
         if: always()
