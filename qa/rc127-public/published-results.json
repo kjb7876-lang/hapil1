@@ -1,0 +1,3590 @@
+{
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "testedCommit": "be4cf6a839ada85acf5a980de899aa661c1a2bc0",
+  "files": [
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/rc128/awakening-policy.js",
+      "status": 200,
+      "expected": "8e3a23fee4c99b275410bde10c7b0f3901f0967dbbd24257d216da65d1ecbce7",
+      "actual": "8e3a23fee4c99b275410bde10c7b0f3901f0967dbbd24257d216da65d1ecbce7"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "status": 200,
+      "expected": "eb8c7fa534b9332c44fb1b4e2c6057d595adda17c9605ea127a53b6ae1cd7857",
+      "actual": "eb8c7fa534b9332c44fb1b4e2c6057d595adda17c9605ea127a53b6ae1cd7857"
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "status": 200,
+      "expected": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee",
+      "actual": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee"
+    },
+    {
+      "file": "assets/combat-v31402/combat-core.js",
+      "status": 200,
+      "expected": "c2962da4b5491182da367c2153646312c333aed4f37344866882c47502b4478f",
+      "actual": "c2962da4b5491182da367c2153646312c333aed4f37344866882c47502b4478f"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "expected": "d44977449cf1026ef68c9ebe0dc747b6fa084ec7f08caf09cf9b37de703cb6dd",
+      "actual": "d44977449cf1026ef68c9ebe0dc747b6fa084ec7f08caf09cf9b37de703cb6dd"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "status": 200,
+      "expected": "0bce36994b47862576669955002e4fb112443e192f577bfaac7c3c923366c0a0",
+      "actual": "0bce36994b47862576669955002e4fb112443e192f577bfaac7c3c923366c0a0"
+    },
+    {
+      "file": "assets/rc126/finite-native.js",
+      "status": 200,
+      "expected": "03175e9eafea7ca2308181a440d6442408b8accc21d423b652e56f3b514ac6f2",
+      "actual": "03175e9eafea7ca2308181a440d6442408b8accc21d423b652e56f3b514ac6f2"
+    },
+    {
+      "file": "assets/rc126/combat-safety.js",
+      "status": 200,
+      "expected": "240873e01b5a0c992e4d2a033700692e1e88b3eb0d4fd1a046eb43fd15094214",
+      "actual": "240873e01b5a0c992e4d2a033700692e1e88b3eb0d4fd1a046eb43fd15094214"
+    },
+    {
+      "file": "assets/rc108/laser-topology.js",
+      "status": 200,
+      "expected": "847cd751098f99afce6624211bd09e03b96beda1205456877338f650104d3c56",
+      "actual": "847cd751098f99afce6624211bd09e03b96beda1205456877338f650104d3c56"
+    },
+    {
+      "file": "assets/rc95/combat-flow.js",
+      "status": 200,
+      "expected": "00797136ce9bf0993bedcc7c301d8f558175ed9367685847aba6a501902f3297",
+      "actual": "00797136ce9bf0993bedcc7c301d8f558175ed9367685847aba6a501902f3297"
+    },
+    {
+      "file": "assets/combat-v31402/projectile-pipeline.js",
+      "status": 200,
+      "expected": "9dc44d6e0b5d39bd66f2fec7ebc7cc715b9d33e2932cfa3a921730714b5d74e0",
+      "actual": "9dc44d6e0b5d39bd66f2fec7ebc7cc715b9d33e2932cfa3a921730714b5d74e0"
+    },
+    {
+      "file": "assets/combat-v31402/contact-geometry.js",
+      "status": 200,
+      "expected": "a71a2e9a2922e90650b7f29aeb3e2e0ff45829e7a887c2e8fd7343dc206c8505",
+      "actual": "a71a2e9a2922e90650b7f29aeb3e2e0ff45829e7a887c2e8fd7343dc206c8505"
+    },
+    {
+      "file": "assets/rc43/bloodied-flight.js",
+      "status": 200,
+      "expected": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5",
+      "actual": "b35b46985212169ce0869bc14b087d43aca525592dce0931fe3462d1eeea1fe5"
+    },
+    {
+      "file": "assets/rc77/connected-laser.js",
+      "status": 200,
+      "expected": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf",
+      "actual": "d13975dce2e5a5f087c3eefa17b4a54fd7f9eecc64441873301b6c25215c31cf"
+    },
+    {
+      "file": "assets/rc124/laser-overrun.js",
+      "status": 200,
+      "expected": "82145eeadee46f3b476781b246ca0174892784f740127921733bc9a36dad4eaf",
+      "actual": "82145eeadee46f3b476781b246ca0174892784f740127921733bc9a36dad4eaf"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.js",
+      "status": 200,
+      "expected": "c20b3a90b70805dd20871ec32969004d4105a0925cdb9f7bd41c6c7ffbbd2e5e",
+      "actual": "c20b3a90b70805dd20871ec32969004d4105a0925cdb9f7bd41c6c7ffbbd2e5e"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.css",
+      "status": 200,
+      "expected": "d5238143850c23e7d7e229cb305d730534a3600758dde967e338108562db31d3",
+      "actual": "d5238143850c23e7d7e229cb305d730534a3600758dde967e338108562db31d3"
+    }
+  ],
+  "screens": [
+    {
+      "name": "pc",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 29,
+              "accepted": 29,
+              "discarded": 0,
+              "throttled": 5,
+              "pauses": 9,
+              "frames": 49,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 26
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 28
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 1.6064999999999994,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 0,
+              "staggered": 0,
+              "zigzags": 0,
+              "originalAssets": 0,
+              "substitutedAssets": 0,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 0,
+              "zones": {}
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 63,
+              "accepted": 63,
+              "discarded": 0,
+              "throttled": 12,
+              "pauses": 20,
+              "frames": 103,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 58
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 60
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 61
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 62
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 63
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 3.4533999999999954,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 1,
+              "staggered": 5,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 0,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 1,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 97,
+              "accepted": 97,
+              "discarded": 0,
+              "throttled": 18,
+              "pauses": 31,
+              "frames": 155,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 95
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 96
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 5.263099999999996,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 2,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 6,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 2,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 131,
+              "accepted": 129,
+              "discarded": 2,
+              "throttled": 22,
+              "pauses": 41,
+              "frames": 197,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 127
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 128
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 129
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 130
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 131
+              }
+            ],
+            "stopBudget": 0.084,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 6.776599999999998,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 2,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 6,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 2,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 162,
+              "accepted": 160,
+              "discarded": 2,
+              "throttled": 24,
+              "pauses": 51,
+              "frames": 234,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 159
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 160
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 161
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 162
+              }
+            ],
+            "stopBudget": 0.082,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 8.186599999999993,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 191,
+              "accepted": 189,
+              "discarded": 2,
+              "throttled": 26,
+              "pauses": 59,
+              "frames": 274,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 189
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 190
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 191
+              }
+            ],
+            "stopBudget": 0.08,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 9.75989999999996,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 10,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 257,
+              "accepted": 241,
+              "discarded": 16,
+              "throttled": 51,
+              "pauses": 66,
+              "frames": 312,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "dodge",
+                "label": "회피",
+                "color": "#b5d8ee",
+                "sequence": 252
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 254
+              }
+            ],
+            "stopBudget": 0.078,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 11.233099999999933,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 313,
+              "accepted": 289,
+              "discarded": 24,
+              "throttled": 74,
+              "pauses": 75,
+              "frames": 346,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 309
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 310
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 312
+              }
+            ],
+            "stopBudget": 0.08,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 12.57309999999991,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 383,
+              "accepted": 353,
+              "discarded": 30,
+              "throttled": 109,
+              "pauses": 82,
+              "frames": 389,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 376
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 378
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 380
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 381
+              },
+              {
+                "kind": "guard",
+                "label": "무적",
+                "color": "#b5d8ee",
+                "sequence": 383
+              }
+            ],
+            "stopBudget": 0.054,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 14.22659999999988,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 415,
+              "accepted": 380,
+              "discarded": 35,
+              "throttled": 114,
+              "pauses": 91,
+              "frames": 459,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 411
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 412
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 413
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 414
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 16.16329999999986,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 455,
+              "accepted": 420,
+              "discarded": 35,
+              "throttled": 123,
+              "pauses": 100,
+              "frames": 513,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 451
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 452
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 453
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 454
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 18.003199999999865,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 4,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 4,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1",
+                  "./assets/vfx/v31323/salvage/web/slime-sleep-glob.webp": "salvo:4"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 493,
+              "accepted": 457,
+              "discarded": 36,
+              "throttled": 131,
+              "pauses": 111,
+              "frames": 570,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 489
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 490
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 493
+              }
+            ],
+            "stopBudget": 0.026,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 19.919699999999867,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 4,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 2,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 4,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1",
+                  "./assets/vfx/v31323/salvage/web/slime-sleep-glob.webp": "salvo:4"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        }
+      ],
+      "final": {
+        "rc128": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 493,
+            "accepted": 457,
+            "discarded": 36,
+            "throttled": 131,
+            "pauses": 111,
+            "frames": 570,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 3,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 489
+            },
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#e74750",
+              "sequence": 490
+            },
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 493
+            }
+          ],
+          "stopBudget": 0.026,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "rc127": {
+          "installed": true,
+          "fixed": 6.471684999999999,
+          "actual": 6.471684999999999,
+          "incoming": 0.8779999999999999
+        },
+        "zone": "dist00",
+        "time": 19.919699999999867,
+        "hp": 240,
+        "hero": "hwando",
+        "shots": 0,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 4,
+            "staggered": 10,
+            "zigzags": 0,
+            "originalAssets": 2,
+            "substitutedAssets": 7,
+            "nativeBeams": 0,
+            "spawnMoves": 1,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 4,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1",
+                "./assets/vfx/v31323/salvage/web/slime-sleep-glob.webp": "salvo:4"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "passed": true
+    },
+    {
+      "name": "portrait",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 35,
+              "accepted": 35,
+              "discarded": 0,
+              "throttled": 7,
+              "pauses": 11,
+              "frames": 96,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 34
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 35
+              }
+            ],
+            "stopBudget": 0.028,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 1.5099000000000002,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 1,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 1,
+              "staggered": 0,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 0,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 1,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 77,
+              "accepted": 76,
+              "discarded": 1,
+              "throttled": 18,
+              "pauses": 22,
+              "frames": 204,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 73
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 74
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 75
+              },
+              {
+                "kind": "hurt",
+                "label": "피격",
+                "color": "#f4baa0",
+                "sequence": 77
+              }
+            ],
+            "stopBudget": 0.04,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 3.3162999999999982,
+          "hp": 239.64475,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 2,
+              "staggered": 5,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 6,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 2,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 120,
+              "accepted": 117,
+              "discarded": 3,
+              "throttled": 22,
+              "pauses": 32,
+              "frames": 306,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 118
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 119
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 120
+              }
+            ],
+            "stopBudget": 0.04,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 5.129599999999999,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 12,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 12,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 153,
+              "accepted": 145,
+              "discarded": 8,
+              "throttled": 24,
+              "pauses": 39,
+              "frames": 412,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 149
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 151
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 152
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 153
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 6.876400000000007,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 13,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 186,
+              "accepted": 177,
+              "discarded": 9,
+              "throttled": 27,
+              "pauses": 48,
+              "frames": 498,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 183
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 184
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 185
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 186
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 8.543,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 12,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 225,
+              "accepted": 205,
+              "discarded": 20,
+              "throttled": 32,
+              "pauses": 55,
+              "frames": 568,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 219
+              },
+              {
+                "kind": "hurt",
+                "label": "피해 감소",
+                "color": "#f4baa0",
+                "sequence": 222
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 223
+              }
+            ],
+            "stopBudget": 0.08,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 9.909599999999973,
+          "hp": 238.6985845,
+          "hero": "hwando",
+          "shots": 3,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 258,
+              "accepted": 227,
+              "discarded": 31,
+              "throttled": 32,
+              "pauses": 62,
+              "frames": 652,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 255
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 256
+              }
+            ],
+            "stopBudget": 0.078,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 11.50949999999995,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 294,
+              "accepted": 254,
+              "discarded": 40,
+              "throttled": 32,
+              "pauses": 74,
+              "frames": 748,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 292
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 293
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 294
+              }
+            ],
+            "stopBudget": 0.084,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 13.239899999999926,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 316,
+              "accepted": 270,
+              "discarded": 46,
+              "throttled": 32,
+              "pauses": 83,
+              "frames": 902,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 1,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 316
+              }
+            ],
+            "stopBudget": 0.042,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 15.146399999999895,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 357,
+              "accepted": 311,
+              "discarded": 46,
+              "throttled": 40,
+              "pauses": 96,
+              "frames": 1050,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 354
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 355
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 356
+              }
+            ],
+            "stopBudget": 0.082,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 17.186299999999907,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 390,
+              "accepted": 340,
+              "discarded": 50,
+              "throttled": 43,
+              "pauses": 105,
+              "frames": 1214,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 388
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 390
+              }
+            ],
+            "stopBudget": 0.056,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 19.176299999999888,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 427,
+              "accepted": 376,
+              "discarded": 51,
+              "throttled": 46,
+              "pauses": 115,
+              "frames": 1358,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 425
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 427
+              }
+            ],
+            "stopBudget": 0.028,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 21.162899999999905,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        }
+      ],
+      "final": {
+        "rc128": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 427,
+            "accepted": 376,
+            "discarded": 51,
+            "throttled": 46,
+            "pauses": 115,
+            "frames": 1358,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 2,
+          "recent": [
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#e74750",
+              "sequence": 425
+            },
+            {
+              "kind": "hit",
+              "label": "",
+              "color": "#ec5267",
+              "sequence": 427
+            }
+          ],
+          "stopBudget": 0.028,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "rc127": {
+          "installed": true,
+          "fixed": 6.471684999999999,
+          "actual": 6.471684999999999,
+          "incoming": 0.8779999999999999
+        },
+        "zone": "dist00",
+        "time": 21.162899999999905,
+        "hp": 240,
+        "hero": "hwando",
+        "shots": 0,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 6,
+            "staggered": 15,
+            "zigzags": 0,
+            "originalAssets": 1,
+            "substitutedAssets": 20,
+            "nativeBeams": 0,
+            "spawnMoves": 0,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 6,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "passed": true
+    },
+    {
+      "name": "landscape",
+      "errors": [],
+      "httpErrors": [],
+      "samples": [
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 33,
+              "accepted": 30,
+              "discarded": 3,
+              "throttled": 4,
+              "pauses": 10,
+              "frames": 76,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 31
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 32
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 33
+              }
+            ],
+            "stopBudget": 0.028,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 1.8930999999999971,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 2,
+              "staggered": 5,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 6,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 2,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 68,
+              "accepted": 61,
+              "discarded": 7,
+              "throttled": 12,
+              "pauses": 21,
+              "frames": 161,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 2,
+            "recent": [
+              {
+                "kind": "hurt",
+                "label": "피격",
+                "color": "#f4baa0",
+                "sequence": 66
+              },
+              {
+                "kind": "hurt",
+                "label": "피격",
+                "color": "#f4baa0",
+                "sequence": 68
+              }
+            ],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 3.8163999999999936,
+          "hp": 239.98775,
+          "hero": "hwando",
+          "shots": 7,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 3,
+              "staggered": 5,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 7,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 3,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 107,
+              "accepted": 98,
+              "discarded": 9,
+              "throttled": 19,
+              "pauses": 33,
+              "frames": 250,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 7,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 98
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 102
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 103
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 104
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 105
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 106
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 107
+              }
+            ],
+            "stopBudget": 0.026,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 5.733200000000011,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 5,
+              "staggered": 10,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 14,
+              "nativeBeams": 0,
+              "spawnMoves": 0,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 5,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 153,
+              "accepted": 144,
+              "discarded": 9,
+              "throttled": 30,
+              "pauses": 41,
+              "frames": 369,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 147
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 150
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 152
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 153
+              }
+            ],
+            "stopBudget": 0.082,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 7.749800000000035,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 199,
+              "accepted": 189,
+              "discarded": 10,
+              "throttled": 40,
+              "pauses": 49,
+              "frames": 459,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 194
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 195
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 197
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 198
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 199
+              }
+            ],
+            "stopBudget": 0.08,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 9.749800000000025,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 9,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 6,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 20,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 6,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 243,
+              "accepted": 229,
+              "discarded": 14,
+              "throttled": 42,
+              "pauses": 57,
+              "frames": 518,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 239
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 240
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 241
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 242
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 243
+              }
+            ],
+            "stopBudget": 0.08,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 11.623200000000015,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 21,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 321,
+              "accepted": 301,
+              "discarded": 20,
+              "throttled": 79,
+              "pauses": 66,
+              "frames": 593,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "guard",
+                "label": "무적",
+                "color": "#b5d8ee",
+                "sequence": 313
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 317
+              },
+              {
+                "kind": "dodge",
+                "label": "회피",
+                "color": "#b5d8ee",
+                "sequence": 319
+              }
+            ],
+            "stopBudget": 0.082,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 13.540000000000008,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 21,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 430,
+              "accepted": 405,
+              "discarded": 25,
+              "throttled": 145,
+              "pauses": 77,
+              "frames": 679,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "dodge",
+                "label": "회피",
+                "color": "#b5d8ee",
+                "sequence": 420
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 422
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 425
+              },
+              {
+                "kind": "guard",
+                "label": "무적",
+                "color": "#b5d8ee",
+                "sequence": 428
+              }
+            ],
+            "stopBudget": 0.082,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 15.526399999999994,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 21,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 511,
+              "accepted": 474,
+              "discarded": 37,
+              "throttled": 193,
+              "pauses": 83,
+              "frames": 778,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 0,
+            "recent": [],
+            "stopBudget": 0.014,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 17.53309999999995,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 21,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 551,
+              "accepted": 514,
+              "discarded": 37,
+              "throttled": 204,
+              "pauses": 96,
+              "frames": 882,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 3,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 549
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 550
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#ec5267",
+                "sequence": 551
+              }
+            ],
+            "stopBudget": 0.056,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 19.516299999999898,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 21,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 594,
+              "accepted": 557,
+              "discarded": 37,
+              "throttled": 217,
+              "pauses": 107,
+              "frames": 988,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 4,
+            "recent": [
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 590
+              },
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 591
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 592
+              },
+              {
+                "kind": "hit",
+                "label": "",
+                "color": "#e74750",
+                "sequence": 594
+              }
+            ],
+            "stopBudget": 0.056,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 1
+          },
+          "zone": "dist00",
+          "time": 21.532899999999902,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 0,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 7,
+              "staggered": 15,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 21,
+              "nativeBeams": 0,
+              "spawnMoves": 1,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 7,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        },
+        {
+          "rc128": {
+            "version": "RC128",
+            "installed": true,
+            "totals": {
+              "events": 638,
+              "accepted": 600,
+              "discarded": 38,
+              "throttled": 223,
+              "pauses": 117,
+              "frames": 1085,
+              "drawErrors": 0,
+              "missingArt": 0
+            },
+            "effects": 5,
+            "recent": [
+              {
+                "kind": "critical",
+                "label": "치명",
+                "color": "#ec5267",
+                "sequence": 633
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#e74750",
+                "sequence": 634
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 635
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#ec5267",
+                "sequence": 636
+              },
+              {
+                "kind": "heavy",
+                "label": "강타",
+                "color": "#e74750",
+                "sequence": 637
+              }
+            ],
+            "stopBudget": 0.088,
+            "missingHeroes": [],
+            "heroes": [
+              "hwando",
+              "seoha",
+              "neon",
+              "michaela",
+              "lauren",
+              "hunter",
+              "slayer",
+              "gunner"
+            ]
+          },
+          "rc127": {
+            "installed": true,
+            "fixed": 6.471684999999999,
+            "actual": 6.471684999999999,
+            "incoming": 0.8779999999999999
+          },
+          "zone": "dist00",
+          "time": 23.566099999999857,
+          "hp": 240,
+          "hero": "hwando",
+          "shots": 6,
+          "finite": true,
+          "finiteNative": "RC126-finite-2",
+          "rc126": {
+            "installed": true,
+            "stats": {
+              "volleys": 8,
+              "staggered": 20,
+              "zigzags": 0,
+              "originalAssets": 1,
+              "substitutedAssets": 27,
+              "nativeBeams": 0,
+              "spawnMoves": 2,
+              "duplicateCosmetics": 0
+            },
+            "ledger": {
+              "version": 1,
+              "sequence": 8,
+              "zones": {
+                "dist00": {
+                  "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+                }
+              }
+            }
+          },
+          "adaptive": true,
+          "deathDialog": false
+        }
+      ],
+      "final": {
+        "rc128": {
+          "version": "RC128",
+          "installed": true,
+          "totals": {
+            "events": 638,
+            "accepted": 600,
+            "discarded": 38,
+            "throttled": 223,
+            "pauses": 117,
+            "frames": 1085,
+            "drawErrors": 0,
+            "missingArt": 0
+          },
+          "effects": 5,
+          "recent": [
+            {
+              "kind": "critical",
+              "label": "치명",
+              "color": "#ec5267",
+              "sequence": 633
+            },
+            {
+              "kind": "heavy",
+              "label": "강타",
+              "color": "#e74750",
+              "sequence": 634
+            },
+            {
+              "kind": "heavy",
+              "label": "강타",
+              "color": "#ec5267",
+              "sequence": 635
+            },
+            {
+              "kind": "heavy",
+              "label": "강타",
+              "color": "#ec5267",
+              "sequence": 636
+            },
+            {
+              "kind": "heavy",
+              "label": "강타",
+              "color": "#e74750",
+              "sequence": 637
+            }
+          ],
+          "stopBudget": 0.088,
+          "missingHeroes": [],
+          "heroes": [
+            "hwando",
+            "seoha",
+            "neon",
+            "michaela",
+            "lauren",
+            "hunter",
+            "slayer",
+            "gunner"
+          ]
+        },
+        "rc127": {
+          "installed": true,
+          "fixed": 6.471684999999999,
+          "actual": 6.471684999999999,
+          "incoming": 0.8779999999999999
+        },
+        "zone": "dist00",
+        "time": 23.566099999999857,
+        "hp": 240,
+        "hero": "hwando",
+        "shots": 6,
+        "finite": true,
+        "finiteNative": "RC126-finite-2",
+        "rc126": {
+          "installed": true,
+          "stats": {
+            "volleys": 8,
+            "staggered": 20,
+            "zigzags": 0,
+            "originalAssets": 1,
+            "substitutedAssets": 27,
+            "nativeBeams": 0,
+            "spawnMoves": 2,
+            "duplicateCosmetics": 0
+          },
+          "ledger": {
+            "version": 1,
+            "sequence": 8,
+            "zones": {
+              "dist00": {
+                "./assets/vfx/rc50/infernal-skull-clean.png": "salvo:1"
+              }
+            }
+          }
+        },
+        "adaptive": true,
+        "deathDialog": false
+      },
+      "passed": true
+    }
+  ],
+  "scope": "Read-only published startup, not full campaigns or physical phones",
+  "passed": true
+}
