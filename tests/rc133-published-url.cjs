@@ -28,7 +28,7 @@ const extension7Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-run
 assert.equal(require('node:crypto').createHash('sha256').update(extension7Bytes).digest('hex'),'894d0da81edf4e88348f9ec436f44ce75928126a2e2095e3dcf878235faf8fe2','exact seventh extension manifest pin');
 const extension7=JSON.parse(extension7Bytes);
 const extension8Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-8.json'));
-assert.equal(require('node:crypto').createHash('sha256').update(extension8Bytes).digest('hex'),'cba4020e6d53cbbdccd21ec590d5cddd5bec2f37fd5d77123d419f8783fc3009','exact eighth extension manifest pin');
+assert.equal(require('node:crypto').createHash('sha256').update(extension8Bytes).digest('hex'),'73a01f3e7598ae69bb199ef208a433437851fa479bdf03615cbbc9e028b5d660','exact eighth extension manifest pin');
 const extension8=JSON.parse(extension8Bytes);
 assert.equal(extension2.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'));
 assert.equal(extension2.files.length,1);assert.equal(extension2.files[0].file,'index.html');

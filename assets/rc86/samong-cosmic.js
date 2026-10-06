@@ -401,6 +401,17 @@
 
   function tickMobileSequence(state, bridge, wave) {
     holdLeaderDuringMobileWave(state);
+    // A real player attack may defeat the current body before the scripted
+    // awakening strike. Treat RC88's native death ledger as the same ordered
+    // progression, including cleanup, so the next body cannot deadlock.
+    const killed = new Set(finiteArray(state.rc88Encounter?.cosmicKills));
+    while (wave.strikeIndex < BOSSES.length && killed.has(wave.strikeIndex + 1)) {
+      retireSummon(state, wave, BOSSES[wave.strikeIndex].id);
+      wave.strikeIndex++;
+      wave.nextIndex = Math.max(num(wave.nextIndex), wave.strikeIndex);
+      wave.nextAt = clock(state) + .55;
+    }
+    if (wave.strikeIndex === BOSSES.length) { finishStoryLeader(state, wave); return wave.nextIndex; }
     let live = finiteArray(state.enemies).filter(actor => actor.samongCosmicSummonV386 && actor.hp > 0);
     if (live.length > 1) {
       convertToMobileSequence(state, wave);
