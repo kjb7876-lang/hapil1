@@ -23,7 +23,9 @@ const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(rep
   for(let i=0;i<20&&await page.evaluate(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===true);i++)await page.keyboard.press('Enter');
   for(let i=0;i<6&&await page.evaluate(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===true);i++){await page.evaluate(()=>window.__HAPIL_STORY_RC51__.close());await page.waitForTimeout(80);}
   await page.waitForTimeout(200);
-  row.storyDialogueOpen=await page.evaluate(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===true);
+  // A later native wave callback can open another line after the first drain.
+  // Settle that final line immediately before the unobscured art capture.
+  row.storyDialogueOpen=await page.evaluate(()=>{const story=window.__HAPIL_STORY_RC51__;if(story?.isOpen?.())story.close();return story?.isOpen?.()===true;});
   await page.screenshot({path:path.join(out,`${name}-${row.view}-six.png`)});
   if(!before){
   row.crisis=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current,W=window.__HAPIL_SAMONG_COSMIC_V386__,live=s.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0);s.time=Math.max(s.time,...live.map(a=>a.samongCosmicDispatchAtV386))+.1;s.hapilFinalBattleV31300.combatElapsedRC79=4;W.tick(s);return{liveBefore:live.length,status:W.snapshot(s)?.status,hp:s.hp,dispatched:s.enemies.filter(a=>a.samongCosmicPatternDispatchedV386).length,zone:s.zone,mode:window.__HAPIL_MODES_V31346__.mode(s),battle:{...s.hapilFinalBattleV31300},leader:s.enemies.find(a=>a.id==='c104-boss')?{hp:s.enemies.find(a=>a.id==='c104-boss').hp,second:s.enemies.find(a=>a.id==='c104-boss').hapilSecondPhaseV31300}:null,clock:window.__HAPIL_DANMAKU_RPG_RC88__.summonClock(s),time:s.time};});
