@@ -113232,9 +113232,10 @@ function MONGSE_shouldBlockZoneTransitionV31310(state) {
     const current = phaseSpriteAt(actor, phase);
     if (!current || !actor?.actionSprites || typeof actor.actionSprites !== "object")
       return;
+    const stableCosmic = actor.samongCosmicSummonV386 === true;
     try {
-      actor.actionSprites.death = current;
-      actor.currentPhaseDeathSpriteV31311 = current;
+      if (!stableCosmic || actor.actionSprites.death !== current) actor.actionSprites.death = current;
+      if (!stableCosmic || actor.currentPhaseDeathSpriteV31311 !== current) actor.currentPhaseDeathSpriteV31311 = current;
     } catch {}
     if (Array.isArray(actor.actionSpritesByPhase)) {
       const index = Math.max(
@@ -113247,7 +113248,7 @@ function MONGSE_shouldBlockZoneTransitionV31310(state) {
       const sheet = actor.actionSpritesByPhase[index];
       if (sheet && typeof sheet === "object") {
         try {
-          sheet.death = current;
+          if (!stableCosmic || sheet.death !== current) sheet.death = current;
         } catch {}
       }
     }

@@ -116,7 +116,14 @@
   const viewport=window.__HAPIL_VIEWPORT_RC104__?.backingViewport?.(),coverScale=Math.max((viewport?.width??innerWidth)/1280,(viewport?.height??innerHeight)/720);
   const adaptive=Math.max(.75,Math.min(1,base/.6));
   const result=options.quality==='battery'?Math.min(base,.32):Math.min(options.quality==='full'?1.25:1,Math.max(.4,coverScale*(options.quality==='full'?1.2:.95)*adaptive));
-  if(result<base)metrics.renderCaps++;return result;
+  // The balanced preset should spend fewer pixels on the two densest finale
+  // frames. This changes only the canvas backing surface; simulation,
+  // world coordinates, camera coverage and authored sprites are untouched.
+  const persona=world?.innerFinalRC133?.phase==='fight',sixCosmic=(world?.enemies??[]).filter(a=>a?.hp>0&&a?.samongCosmicSummonV386).length>=6;
+  const compactViewport=Math.min(viewport?.width??innerWidth,viewport?.height??innerHeight)<=640;
+  const cap=compactViewport ? persona ? .82 : sixCosmic&&(world?.hostileProjectiles?.length??0)>=24 ? .72 : null : null;
+  const budgeted=options.quality==='balanced'&&cap!==null?Math.min(result,cap):result;
+  if(budgeted<base)metrics.renderCaps++;return budgeted;
  }
  const setText=(el,t)=>{if(!el||el.textContent===t)return;if(el.firstChild?.nodeType===3&&el.childNodes.length===1)el.firstChild.nodeValue=t;else el.textContent=t;};
  function ensureSettingsControl(){const list=[...document.querySelectorAll('.settings-layout section')].find(section=>section.querySelector('h3')?.textContent.includes('화면'))?.querySelector('.settings-list');if(!list)return;

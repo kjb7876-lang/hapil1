@@ -2,7 +2,7 @@
 // Native-rendered staged screenshots; camera comparison replaces only three camera files with main bytes.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
-const root=path.resolve(__dirname,'..'),base=process.env.RC147_BASE_SHA||'9176b5752fda94f41a72b48012dbaa01f17d0ff5',out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc147-camera-finale';
+const root=path.resolve(process.env.RC147_RUNTIME_ROOT||path.resolve(__dirname,'..')),base=process.env.RC147_BASE_SHA||'9176b5752fda94f41a72b48012dbaa01f17d0ff5',out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc147-camera-finale';
 fs.mkdirSync(out,{recursive:true});
 const originalCamera=new Map(['assets/rc104/combat-viewport.js','assets/rc134/persona-duel.js','assets/rc138/battle-arena.js'].map(file=>[file,cp.execFileSync('git',['show',base+':'+file],{cwd:root})]));
 const bridge='\nwindow.__RC147_QA__={initial:oi};';

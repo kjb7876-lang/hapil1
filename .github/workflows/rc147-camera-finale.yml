@@ -9,10 +9,12 @@ on:
       - 'qa/rc130/public-smoke.cjs'
       - 'tools/rc133-*.cjs'
       - 'tests/rc147-*.cjs'
+      - 'tests/rc148-*.cjs'
       - 'tests/rc86-samong-cosmic-*.cjs'
       - 'tests/rc88-danmaku-rpg-*.cjs'
       - 'tests/rc142-persona-volley-browser.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
+      - 'qa/rc148/**'
       - '.github/workflows/rc147-camera-finale.yml'
   workflow_dispatch:
 permissions:
@@ -55,16 +57,25 @@ jobs:
           EXPECTED_SHA: ${{ github.sha }}
           RC147_PROFILE: ${{ matrix.profile }}
           RC142_PROFILE: ${{ matrix.profile }}
+          RC148_PROFILE: ${{ matrix.profile }}
+          RC148_SEED: '132148'
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           node --check assets/index-v31526.js
+          node --check assets/hapil-mobile-v31406.js
           node --check assets/rc86/samong-cosmic.js
           node --check assets/rc88/danmaku-rpg.js
           node --check qa/rc130/public-smoke.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-cosmic" node tests/rc148-six-cosmic-perf-browser.cjs
+          if test "$RC147_PROFILE" = portrait; then
+            RC148_DISPATCH=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-dense" node tests/rc148-six-cosmic-perf-browser.cjs
+            RC142_PERF_ONLY=1 RC142_SEED=132148 RC142_HEAP_PROBE=1 RC142_SEQUENCE_TIMEOUT_MS=240000 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-persona-nine" node tests/rc142-persona-volley-browser.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-persona-memory" node tests/rc148-persona-memory-browser.cjs
+          fi
           if test "$RC147_PROFILE" = pc; then
             node tests/rc142-gameplay-unit.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-auto" node tests/rc147-auto-defense-browser.cjs

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "c3c18acdea64fc8255d265fd3c66bae28a94ddb4",
+  "baseTree": "27d44a1a1ab54b1bae31ba148dc7fa0bd8a7ea35",
+  "previousExtensionSha256": "7698992cb90cc1480985a9e7c61c6543c239934f3be9eb6b0a5163df6b0c5413",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "7e3048786acbeced4ae867b53fa66f4014657da85dc3720b79566a9d71233753",
+  "files": [
+    {
+      "file": "assets/hapil-mobile-v31406.js",
+      "before": {
+        "file": "assets/hapil-mobile-v31406.js",
+        "mode": "100644",
+        "gitBlob": "8b52a5d18776febf246bef1f058cade145f6ab4b"
+      },
+      "after": {
+        "file": "assets/hapil-mobile-v31406.js",
+        "mode": "100644",
+        "gitBlob": "f29fcb17fec2720152412703d6f8fd2c5d1f8878",
+        "sha256": "64580c3f0567a0e7cbe9b705ddb02b8aa31aa3518085c04074b430257ef79d37"
+      },
+      "reason": "RC148 bounded mobile Persona backing budget and idempotent boss phase-death sprite synchronization: assets/hapil-mobile-v31406.js"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "1dd2c8156432639195536df5074ff80aac3c59fc"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "185fa61ec34ce512cb182e05244189a90b67a721",
+        "sha256": "6314dba851144a4526a4016c60a56cf2b4a6ff1c547751d6b87322c0208dcd48"
+      },
+      "reason": "RC148 bounded mobile Persona backing budget and idempotent boss phase-death sprite synchronization: assets/index-v31526.js"
+    }
+  ]
+}
