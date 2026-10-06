@@ -9,4 +9,5 @@ assert.match(smoke,/data\/story-rc51\.js','assets\/foundation-v31400\/policy\.js
 assert.match(smoke,/page\.on\('requestfailed'/,'the public QA records failed requests separately from HTTP error responses');
 assert.match(smoke,/Startup dependencies missing:/,'the public QA reports missing globals before attempting the new-game flow');
 assert.match(published,/const files=\['data\/story-rc51\.js','assets\/foundation-v31400\/policy\.js','index\.html'/,'RC132 preserves startup dependency coverage while adding RC132 assets');
-console.log(JSON.stringify({status:'passed',checks:7}));
+for(const file of ['tests/rc48-story-voice-smoke.cjs','tests/rc51-story-and-samong-smoke.cjs'])assert(read(file).includes('data/story-rc51.js?v=2026100601'),`${file} follows the active cache-busted story-data URL`);
+console.log(JSON.stringify({status:'passed',checks:9}));

@@ -65,7 +65,7 @@ const entryState=state();entryState.encounterDialogue31226={kind:'legacy',lines:
 let s=state();assert(api.active(s));assert.equal(api.clock(s,.04),0);assert(s.lastAttack<100);assert(s.cooldowns.Q<101);assert(s.pendingStrikes[0].at<100.2);assert.equal(s.effects[1].born,100);assert.equal(s.effects[1].size,50);assert.equal(s.effects[0].size,77.5);assert.equal(api.power(s),5);assert.equal(api.incoming(s),.12);
 let stopped=0,slow=0;for(let i=0;i<150;i++){const dt=api.clock(s,.04);assert(dt===0||Math.abs(dt-.0064)<1e-9);if(dt===0)stopped++;else slow++;s.time+=dt;}assert(stopped>50&&slow>50,'recurrent stops and slow motion both occur');
 for(const modify of [s=>s.gameModeV31346='HELL',s=>s.gameModeV31346='DREAM',s=>s.practiceV31329=true,s=>s.zone='cult03',s=>s.hapilFinalBattleV31300.stage=6,s=>s.hapilFinalBattleV31300.completed=true,s=>s.hp=0,s=>s.activeHeroId='slayer']){s=state();modify(s);assert(!api.active(s));assert.equal(api.clock(s,.04),.04);assert.equal(api.power(s),1);assert.equal(api.incoming(s),1);assert(!classes.has('rc51-samong'));assert(!classes.has('rc51-time-stop'));}
-const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=202610022'));
+const main=read('assets/index-v31526.js'),html=read('index.html');assert(html.indexOf('story-rc51.js')<html.indexOf('index-v31526.js'));assert(html.includes('data/story-rc51.js?v=2026100601'));
 assert(main.includes('if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'));
 assert(main.includes('function HAPIL_installCanonicalStoryRC51(){'));
 assert(main.includes('prepareCombat(s,z,false);api.suppressEntry(s);'));
