@@ -39,7 +39,12 @@ assert.equal(extension5.files.find(row=>row.file==='index.html')?.before.gitBlob
 assert.equal(extension6.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension5Bytes).digest('hex'));
 assert.equal(extension6.files.find(row=>row.file==='index.html')?.before.gitBlob,extension5.files.find(row=>row.file==='index.html')?.after.gitBlob,'sixth index path chains from the fifth extension output');
 assert.equal(extension7.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension6Bytes).digest('hex'));
-for(const row of extension7.files){const line=require('node:child_process').execFileSync('git',['ls-tree',extension7.base,'--',row.file],{cwd:root,encoding:'utf8'});assert.equal(row.before.gitBlob,/ blob ([a-f0-9]{40})\t/.exec(line)?.[1],'seventh path chains from the preceding exact output: '+row.file);}
+// This unit also runs from shallow CI checkouts. The full preservation proof
+// resolves the pinned base tree; here, pin the unchanged mobile preimage and
+// chain the index preimage from the prior exact extension without Git history.
+assert.deepEqual(extension7.files.map(row=>row.file),['assets/hapil-mobile-v31406.js','assets/index-v31526.js']);
+assert.equal(extension7.files[0].before.gitBlob,'8b52a5d18776febf246bef1f058cade145f6ab4b');
+assert.equal(extension7.files[1].before.gitBlob,extension6.files.find(row=>row.file==='assets/index-v31526.js')?.after?.gitBlob);
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
