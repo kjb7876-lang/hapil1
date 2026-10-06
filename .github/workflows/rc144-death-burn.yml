@@ -7,6 +7,7 @@ on:
       - 'assets/rc133/inner-final.js'
       - 'index.html'
       - 'tests/rc144*'
+      - 'tests/rc142-gameplay-unit.cjs'
       - 'qa/rc133/authorized-runtime-extension-4.json'
       - 'tools/rc133-preservation.cjs'
       - '.github/workflows/rc144-death-burn.yml'
