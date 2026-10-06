@@ -50,9 +50,22 @@ for(const hero of A.heroes){const s=fresh(hero);ok(H.developerStart(s),'777 isol
   signatures.add(wave.map(q=>[q.vx.toFixed(3),q.vy.toFixed(3),(q.frozenUntil-s.time).toFixed(3)]).join('|'));
  }
  eq(signatures.size,9,'nine genuinely different travelling patterns');eq(s.pendingHits.length,0,'no teleporting area damage');
- m.awake=7;s.samongPassiveRC91={active:7,cooldown:77};m.shotDelay=0;m.cycle=0;s.hostileProjectiles=[];H.tick(s,.016);const delay=m.shotDelay;
- ok(delay===.97&&s.hostileProjectiles.length===H.deck[0].count*2&&s.hostileProjectiles.every(q=>q.rc134Mutual&&q.damage<=24&&q.sprite===samongSkills[H.deck[0].key]&&q.frozenUntil-s.time>=.62-1e-8),'double-count mutual volley uses the original red source art and a clear warning');
- s.hostileProjectiles=Array.from({length:60},()=>({}));m.shotDelay=0;const n=shots.length;H.tick(s,.016);eq(shots.length,n,'native safety cap rejects a volley before overflow');
+ m.awake=7;s.samongPassiveRC91={active:7,cooldown:77};
+ for(let i=0;i<H.deck.length;i++){m.shotDelay=0;m.cycle=i;s.hostileProjectiles=[];H.tick(s,.016);const wave=s.hostileProjectiles,skill=H.deck[i],oldRedCount=Math.min(12,skill.count*2);
+  eq(wave.length,oldRedCount*2,'red '+skill.key+' emits exactly twice the previous red volley');
+  ok(wave.every(q=>q.rc134Mutual&&q.rc150RedPersonaShot&&q.visualScaleV31224===1.2&&q.damage<=24&&q.sprite===samongSkills[skill.key]&&q.frozenUntil-s.time>=.62-1e-8),'red '+skill.key+' retains source art, windup, hitbox and visual size');
+  ok(wave.every(q=>Math.abs(Math.hypot(q.vx,q.vy)-Math.min(7.5,4.4*skill.speed*(skill.formation==='spiral'?1+((q.rc133ShotIndex%3)-1)*.08:1))*2)<1e-7),'red '+skill.key+' speed is exactly twice its old bounded speed');
+ }
+ s.hostileProjectiles=Array.from({length:96},()=>({}));m.shotDelay=0;const n=shots.length;H.tick(s,.016);eq(shots.length,n,'native safety cap defers an entire red volley before overflow');
+ eq(H.attackSpeedFactor(s),.7,'red Persona slows actual player attack cadence once');
+ s.hostileProjectiles=[];m.cycle=3;m.shotDelay=0;m.redTimeReadyAt=0;H.tick(s,.016);
+ ok(Math.abs(m.redTimeWarnUntil-m.elapsed-.7)<1e-8&&Math.abs(m.redTimeActiveUntil-m.redTimeWarnUntil-4)<1e-8&&Math.abs(m.redTimeReadyAt-m.elapsed-12)<1e-8,'red clock uses 0.7 second warning, 4 second window and 12 second cooldown');
+ eq(H.redTimeActive(s),false,'clock warning does not block early');
+ m.elapsed=m.redTimeWarnUntil+.01;eq(H.redTimeActive(s),true,'clock begins after warning');
+ let blocked=0;for(let i=1;i<=100;i++){s.basicAttackCount=i;s.lastAttack=i/10;const before=m.redTimeSeed,decision=H.redTimeBlocks(s,a,{id:'pellet-'+i});if(decision)blocked++;eq(H.redTimeBlocks(s,a,{id:'second-pellet-'+i}),decision,'same attack has one roll');eq(m.redTimeSeed,(Math.imul(before,1664525)+1013904223)>>>0,'one PRNG step per attack');}
+ ok(blocked>50&&blocked<80,'seeded clock blocks approximately 66 percent of distinct attacks');
+ const savedClock=H.snapshot(s),r=fresh();H.restore(r,savedClock);eq(r.innerFinalRC133.redTimeSeed,m.redTimeSeed,'native save retains clock roll seed');eq(r.innerFinalRC133.redTimeRolls.length,64,'native save retains bounded recent attack decisions');
+ m.elapsed=m.redTimeActiveUntil+.01;eq(H.redTimeBlocks(s,a,{id:'late'}),false,'clock ends after four seconds');m.awake=0;eq(H.attackSpeedFactor(s),1,'attack speed restores after red awakening');
  for(const view of[{width:334,height:720},{width:1280,height:720},{width:1558,height:720}]){const c=P.camera(s,view);near(c.x+640*c.scale,640,'screen centerline fixed');ok(c.scale*1200<=view.width-24+1e-8,'horizontal halves visible');}
 }
 {const s=fresh(),a=start(s),m=s.innerFinalRC133;m.awake=7;s.samongPassiveRC91={active:7,cooldown:77};Object.assign(m,{tempoSeed:0,tempoClock:0,tempoActive:false,tempoMutualStart:0});const initial={...m},sequence=()=>Array.from({length:400},()=>P.tempo(s,.016)),seed=sequence();Object.assign(m,initial);eq(JSON.stringify(seed),JSON.stringify(sequence()),'seeded tempo repeats');ok(new Set(seed).size>=5,'bounded burst stop slow reburst');ok(seed.every(v=>v>=0&&v<=.1)&&seed.some(v=>v===0),'bounded brief stops');ok(seed.some((v,i)=>v===0&&seed[i+1]>0),'unscaled clock recovers from stop');eq(P.cooldownFactor(s),.5,'mutual attacks halve once');s.samongPassiveRC91.active=0;eq(P.cooldownFactor(s),1,'no cooldown reduction outside mutual');s.samongPassiveRC91.active=7;m.tempoClock=m.tempoMutualStart+2.8;P.tick(s,.016);ok(P.swapped(s),'brief mutual ownership swap');ok(P.contains(s,'right')&&P.contains(a,'left'),'swapped owned halves');for(let i=0;i<180;i++)P.tick(s,.016);near(a.x+s.x,38,'swap point symmetry x');near(a.y+s.y,38,'swap point symmetry y');m.tempoClock=m.tempoMutualStart+3.8;P.tick(s,.016);ok(!P.swapped(s)&&P.contains(s,'left')&&P.contains(a,'right'),'atomic return to usual halves');eq(P.cooldownFactor(s),.5,'swap does not compound cooldown');}

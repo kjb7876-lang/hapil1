@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const VERSION = '3.147.01';
+  const VERSION = '3.150.01';
   const BOSSES = Object.freeze([
     Object.freeze({ id: 'kair-great-01', title: '시계 대수문장 · 되감긴 시계 고리', color: '#8ceaff', accent: '#e7fcff' }),
     Object.freeze({ id: 'kair-great-02', title: '해일 대수문장 · 역류 조수탄', color: '#8abaff', accent: '#e2f0ff' }),
@@ -32,6 +32,13 @@
   const num = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
   const finiteArray = value => Array.isArray(value) ? value : [];
   const clock = state => window.__HAPIL_DANMAKU_RPG_RC88__?.summonClock(state) ?? num(state?.time);
+  // A narrow desktop browser window is not a mobile device. Keep the chosen
+  // encounter mode in the wave so rotation cannot change it mid-battle.
+  const touchMobile = () => Boolean(
+    num(window.navigator?.maxTouchPoints) > 0 &&
+    window.matchMedia?.('(pointer: coarse)')?.matches === true &&
+    Math.min(num(window.screen?.width, 9999), num(window.screen?.height, 9999)) <= 900
+  );
   let installed = false;
   let attempts = 0;
 
@@ -193,6 +200,7 @@
     actor.samongCosmicPatternCountV386 = Math.max(0, Math.floor(Number(attack.count)));
     actor.samongCosmicPatternPhaseV386 = num(attack.phase, num(actor.samongCosmicPhaseV386, 1));
     actor.samongCosmicPatternAtV386 = num(state.time);
+    actor.samongCosmicPatternClockV386 = clock(state);
     const activeUntil = num(state.time) + 1.8;
     actor.activePatternUntil = Math.max(num(actor.activePatternUntil), activeUntil);
     actor.castVisualUntil31210 = Math.max(num(actor.castVisualUntil31210), activeUntil);
@@ -206,14 +214,13 @@
     return true;
   }
 
-  function retireSummon(state, wave, id) {
+  function clearOwnedThreats(state, id) {
     if (!id) return false;
     const matches = row => row && (
       row.id === id && row.samongCosmicSummonV386 === true ||
       row.summonOwnerId === id || row.sourceId === id || row.ownerId === id ||
       row.sourceBossId === id || row.summonSourceId === id
     );
-    state.enemies = finiteArray(state.enemies).filter(row => !matches(row));
     for (const key of [
       'hostileProjectiles', 'pendingHits', 'impactQueue', 'pendingStrikes',
       'narrativeCasts', 'telekineticCasts', 'spatialRiftBarrages',
@@ -222,6 +229,15 @@
     ]) {
       if (Array.isArray(state[key])) state[key] = state[key].filter(row => !matches(row));
     }
+    return true;
+  }
+
+  function retireSummon(state, wave, id) {
+    if (!id) return false;
+    state.enemies = finiteArray(state.enemies).filter(row => !(row?.id === id && row.samongCosmicSummonV386 === true) &&
+      row?.summonOwnerId !== id && row?.sourceId !== id && row?.ownerId !== id &&
+      row?.sourceBossId !== id && row?.summonSourceId !== id);
+    clearOwnedThreats(state, id);
     if (state.targetEnemyId === id) state.targetEnemyId = null;
     wave.activeIds = finiteArray(wave.activeIds).filter(value => value !== id);
     return true;
@@ -282,16 +298,19 @@
       samongCosmicIndexV386: index + 1,
       samongCosmicPhaseV386: phase,
       samongCosmicSourceBossV386: 'c104-boss',
-      samongCosmicDispatchAtV386: num(state.time) + 0.42 + index * 0.26,
+      samongCosmicDispatchAtV386: num(state.time) + (wave.sequentialMobile ? 0.08 : 0.42 + index * 0.26),
     };
     window.__HAPIL_DANMAKU_RPG_RC88__?.prepareSummon(state, actor);
     actor.invulnerableUntil = Number.POSITIVE_INFINITY;
     actor.phaseTransitionUntil = num(state.time) + 0.05;
-    actor.samongCosmicDispatchAtV386 = num(state.time) + 0.42 + index * 0.26;
+    actor.samongCosmicDispatchAtV386 = num(state.time) + (wave.sequentialMobile ? 0.08 : 0.42 + index * 0.26);
     state.enemies.push(actor);
     (wave.activeIds ??= []).push(actor.id);
     wave.nextIndex = Math.max(num(wave.nextIndex), index + 1);
-    wave.status = 'six-awakened';
+    wave.status = wave.sequentialMobile
+      ? wave.crisisAt == null ? 'mobile-single' : wave.awakeningAt == null ? 'crisis' : 'awakening'
+      : 'six-awakened';
+    if (wave.sequentialMobile) state.heroStatus = '코스믹 ' + (index + 1) + '/6 · 한 체씩 대면';
     addFloat(state, actor.x, actor.y - 2.1, '사몽 · 교주의 꼭두각시 · ' + profile.title, profile.color);
     addSummonEffect(state, profile, index, actor.x, actor.y);
     return true;
@@ -321,6 +340,126 @@
     return true;
   }
 
+  function holdLeaderDuringMobileWave(state) {
+    const leader = finiteArray(state.enemies).find(actor => actor.id === 'c104-boss' && actor.hp > 0);
+    if (!leader) return;
+    for (const key of ['readyAt', 'patternReadyAt', 'bossCombatPatternReadyAtV31230', 'themedOrdnanceAt'])
+      leader[key] = Number.POSITIVE_INFINITY;
+    leader.invulnerableUntil = Number.POSITIVE_INFINITY;
+    clearOwnedThreats(state, leader.id);
+  }
+
+  function releaseLeaderAfterMobileWave(state) {
+    const leader = finiteArray(state.enemies).find(actor => actor.id === 'c104-boss' && actor.hp > 0);
+    if (!leader) return;
+    for (const key of ['readyAt', 'patternReadyAt', 'bossCombatPatternReadyAtV31230', 'themedOrdnanceAt'])
+      if (leader[key] === Number.POSITIVE_INFINITY) leader[key] = num(state.time) + .4;
+    if (leader.invulnerableUntil === Number.POSITIVE_INFINITY) leader.invulnerableUntil = num(state.time) + .4;
+  }
+
+  function convertToMobileSequence(state, wave) {
+    if (wave.sequentialMobile || wave.status === 'complete') return;
+    const killed = new Set(finiteArray(state.rc88Encounter?.cosmicKills));
+    const index = BOSSES.findIndex((_, position) => !killed.has(position + 1));
+    if (index < 0) return;
+    const keep = finiteArray(state.enemies).find(actor => actor.id === BOSSES[index].id &&
+      actor.samongCosmicSummonV386 && actor.hp > 0);
+    for (const actor of finiteArray(state.enemies).filter(actor => actor.samongCosmicSummonV386 && actor.hp > 0))
+      if (actor !== keep) retireSummon(state, wave, actor.id);
+    wave.sequentialMobile = true;
+    wave.strikeIndex = index;
+    wave.nextIndex = keep ? index + 1 : index;
+    wave.activeIds = keep ? [keep.id] : [];
+    if (!keep) wave.nextAt = clock(state) + .35;
+    if (wave.status === 'six-awakened') wave.status = keep?.samongCosmicPatternDispatchedV386 ? 'crisis' : 'mobile-single';
+    if (wave.status === 'crisis' && wave.crisisAt == null && keep?.samongCosmicPatternDispatchedV386)
+      wave.crisisAt = clock(state);
+  }
+
+  function finishStoryLeader(state, wave) {
+    wave.status = 'complete'; wave.completedAt = num(state.time);
+    const leader = finiteArray(state.enemies).find(actor => actor.id === 'c104-boss' && actor.hp > 0);
+    const battle = state.hapilFinalBattleV31300;
+    if (leader && battle && !battle.finalHitCommittedV31377) {
+      battle.finalHitCommittedV31377 = true;
+      battle.finalHitModeV31377 = 'samong-awakening';
+      addFloat(state, leader.x, leader.y - 2.4, '교주의 사몽 회로 소멸', '#f9e7ff');
+      addSummonEffect(state, { color: '#f9e7ff', accent: '#ffffff' }, 6, leader.x, leader.y);
+      leader.hp = 0;
+      const binding = window.__HAPIL_CONTROLS_V31329__?.binding;
+      if (binding?.state?.current === state && typeof binding.actions?.death === 'function')
+        binding.actions.death(leader);
+      else { state.enemies = finiteArray(state.enemies).filter(actor => actor !== leader); state.bossDefeated = true; }
+      retireSummon(state, wave, leader.id);
+      window.__HAPIL_V31300_PATCH__?.finalBattle?.tick?.(state);
+      if (!battle.completed && !state.enemies.some(actor => actor.id === leader.id)) {
+        battle.completed = true; battle.completedAt = num(state.time);
+      }
+    }
+    state.heroStatus = '코스믹 여섯 체와 교주의 사몽 회로 소멸';
+  }
+
+  function tickMobileSequence(state, bridge, wave) {
+    holdLeaderDuringMobileWave(state);
+    let live = finiteArray(state.enemies).filter(actor => actor.samongCosmicSummonV386 && actor.hp > 0);
+    if (live.length > 1) {
+      convertToMobileSequence(state, wave);
+      live = finiteArray(state.enemies).filter(actor => actor.samongCosmicSummonV386 && actor.hp > 0);
+      if (live.length > 1) { wave.status = 'failed'; wave.failure = 'mobile-cosmic-overlap'; return -1; }
+    }
+    if (!live.length && wave.nextIndex < BOSSES.length &&
+        ['charging', 'mobile-single', 'crisis', 'awakening'].includes(wave.status) &&
+        clock(state) >= num(wave.nextAt)) {
+      if (!createSummon(state, bridge, wave, wave.nextIndex)) return -1;
+      live = finiteArray(state.enemies).filter(actor => actor.samongCosmicSummonV386 && actor.hp > 0);
+    }
+    const actor = live[0];
+    if (actor && !actor.samongCosmicPatternDispatchedV386 && num(state.time) >= num(actor.samongCosmicDispatchAtV386)) {
+      const admitted = dispatchSignature(state, bridge, actor);
+      if (admitted === null) {
+        actor.samongCosmicRetryCountV386 = num(actor.samongCosmicRetryCountV386) + 1;
+        actor.samongCosmicDispatchAtV386 = num(state.time) + .2;
+        if (actor.samongCosmicRetryCountV386 > 80) {
+          wave.status = 'failed'; wave.failure = 'mobile-cosmic-signature-admission-timeout:' + actor.id;
+          return -1;
+        }
+      } else if (!admitted) {
+        wave.status = 'failed'; wave.failure = 'mobile-cosmic-signature-dispatch-failed:' + actor.id;
+        return -1;
+      }
+    }
+    if (wave.status === 'mobile-single' && actor?.samongCosmicPatternDispatchedV386) {
+      wave.status = 'crisis'; wave.crisisAt = clock(state);
+      state.hp = 1;
+      state.invulnerableUntil = Math.max(num(state.invulnerableUntil), num(state.time) + 3.5);
+      state.heroStatus = '첫 코스믹의 압박 · 플레이어 위기';
+      addFloat(state, state.x, state.y - 1.7, '코스믹 1/6 · 코어 임계', '#ffb9dc');
+    }
+    if (wave.status === 'crisis' && clock(state) >= num(wave.crisisAt) + 1.2 &&
+        !window.__HAPIL_STORY_RC51__?.isOpen?.() &&
+        (state.hapilFinalBattleV31300?.awakeningCommittedRC108 === true ||
+         window.__HAPIL_FINAL_AWAKENING_RC108__?.complete?.(state))) {
+      wave.status = 'awakening'; wave.awakeningAt = clock(state);
+      state.invulnerableUntil = Math.max(num(state.invulnerableUntil), num(state.time) + 2.5);
+    }
+    if (wave.status === 'awakening' && actor?.samongCosmicPatternDispatchedV386 &&
+        !window.__HAPIL_STORY_RC51__?.isOpen?.() &&
+        num(state.time) >= num(actor.activePatternUntil) &&
+        clock(state) >= Math.max(num(wave.awakeningAt) + .28, num(actor.samongCosmicPatternClockV386) + 1.8)) {
+      const index = num(actor.samongCosmicIndexV386) - 1;
+      if (index !== wave.strikeIndex) { wave.status = 'failed'; wave.failure = 'mobile-cosmic-order:' + actor.id; return -1; }
+      addSummonEffect(state, BOSSES[index], index, actor.x, actor.y);
+      addFloat(state, actor.x, actor.y - 2.2, '플레이어 사몽 각성 · 코스믹 ' + (index + 1) + '/6 격파', '#d9fbff');
+      actor.hp = 0;
+      window.__HAPIL_DANMAKU_RPG_RC88__?.beforeDeath?.(state, actor);
+      retireSummon(state, wave, actor.id);
+      wave.strikeIndex++;
+      wave.nextAt = clock(state) + .55;
+      if (wave.strikeIndex === BOSSES.length) finishStoryLeader(state, wave);
+    }
+    return wave.nextIndex;
+  }
+
   function tick(state, bridge) {
     if (!state) return 0;
     const existing = state.hapilSamongCosmicWaveV386;
@@ -339,11 +478,17 @@
         version: 2, status: 'charging', nextIndex: 0,
         startedAt: clock(state), nextAt: clock(state) + FIRST_DELAY,
         activeIds: [], crisisAt: null, awakeningAt: null, strikeIndex: 0,
+        sequentialMobile: touchMobile(),
       };
       const finalBoss = finiteArray(state.enemies).find(actor => actor.id === 'c104-boss');
       addFloat(state, num(finalBoss?.x, HOME.x), num(finalBoss?.y, HOME.y) - 1.8, '사몽 · 코스믹 망령 여섯 체 호출', '#f3ecff');
     }
-    if (wave.status === 'complete' || wave.status === 'failed' || wave.status === 'ended') return 0;
+    if (wave.status === 'complete' || wave.status === 'failed' || wave.status === 'ended') {
+      if (wave.sequentialMobile && wave.status !== 'complete') releaseLeaderAfterMobileWave(state);
+      return 0;
+    }
+    if (touchMobile() && !wave.sequentialMobile) convertToMobileSequence(state, wave);
+    if (wave.sequentialMobile) return tickMobileSequence(state, bridge, wave);
     if (wave.nextIndex < BOSSES.length && clock(state) >= num(wave.nextAt)) {
       // All six bodies enter on the same simulation tick. Their distinct native
       // signatures release in short intervals so warnings stay legible.
@@ -519,6 +664,7 @@
     const wave = state?.hapilSamongCosmicWaveV386;
     return wave ? {
       status: wave.status, nextIndex: wave.nextIndex, nextAt: wave.nextAt,
+      sequentialMobile: wave.sequentialMobile === true,
       activeIds: [...finiteArray(wave.activeIds)],
       crisisAt: wave.crisisAt, awakeningAt: wave.awakeningAt, strikeIndex: wave.strikeIndex,
       startedAt: wave.startedAt, completedAt: wave.completedAt ?? null,
@@ -590,6 +736,7 @@
     window.__HAPIL_SAMONG_COSMIC_V386__ = Object.freeze({
       version: VERSION, installed: true,
       bosses: BOSSES, tick: state => tick(state, bridge),
+      mobileDevice: touchMobile,
       restoreSummon: (state, wave, index) => createSummon(state, bridge, wave, index),
       snapshot, audit: () => bossAudit(bridge),
       nativePatterns: (id, phase = 2) => {
@@ -602,7 +749,7 @@
       },
       policy: Object.freeze({
         storyFinal: 'cult04 c104-boss phase 2 only; Dream six-map trials keep their independent regional bosses',
-        schedule: 'six simultaneous Kair Great bodies; staggered native warnings; player awakening defeats six; death-owned hostile cleanup',
+        schedule: 'touch mobile: one Kair Great combat body at a time and source cleanup before next; desktop: six simultaneous bodies; player awakening defeats six',
         identity: 'kair-great-01 through kair-great-06 use their original phase-aware themed signature ordnance decks',
       }),
     });

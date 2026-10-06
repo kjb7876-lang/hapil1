@@ -16,8 +16,8 @@ const art = {
   baekAction: './assets/vfx/rc86/cult03-heretic-baek-attack-v2.png',
 };
 
-assert.match(html, /assets\/index-v31526\.js\?v=44701/);
-assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=44701/);
+assert.match(html, /assets\/index-v31526\.js\?v=45001/);
+assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=45001/);
 assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39303/);
 assert.match(bundle, /__HAPIL_RC86_BRIDGE__/);
 assert.match(bundle, /text:`사몽 시련 \$\{p\.index\} · \$\{p\.role\}`/,
@@ -218,4 +218,62 @@ const earlyState = {
 };
 api.tick(earlyState);
 assert.equal(earlyState.hapilSamongCosmicWaveV386, undefined, 'summons must not leak into the first phase');
+// The same final Story route becomes a true one-body sequence on a touch
+// device; resizing a desktop browser alone leaves the six-body route above.
+window.navigator = {maxTouchPoints: 5};
+window.screen = {width: 390, height: 844};
+window.matchMedia = query => ({matches: query === '(pointer: coarse)'});
+assert.equal(api.mobileDevice(), true);
+const mobileState = {
+  ...state, time: 100, hp: 240, bossDefeated: false, enemies: [{...boss, hp: 1000}],
+  hostileProjectiles: [{sourceId:'c104-boss'}], pendingHits: [{sourceId:'c104-boss'}],
+  impactQueue: [], effects: [], floatTexts: [], rc88Encounter: {cosmicKills: []},
+  hapilSamongCosmicWaveV386: undefined,
+  hapilFinalBattleV31300: {stage:7,secondPhaseActive:true,monochromeActiveV31377:true,
+    completed:false,awakeningPendingRC108:true,awakeningCommittedRC108:false},
+};
+const mobileLive = () => mobileState.enemies.filter(actor => actor.samongCosmicSummonV386 && actor.hp > 0);
+api.tick(mobileState);
+assert.equal(api.snapshot(mobileState).sequentialMobile, true);
+assert.equal(mobileState.hostileProjectiles.length, 0, 'leader ordnance pauses during mobile Cosmic sequence');
+mobileState.time = api.snapshot(mobileState).nextAt;
+api.tick(mobileState);
+assert.deepEqual(mobileLive().map(actor => actor.id), ids.slice(0,1));
+const mobileOrder=[];
+for (let index=0; index<6; index++) {
+  const actor=mobileLive()[0];
+  assert.equal(actor?.id, ids[index], 'each mobile boss appears once in canonical order');
+  mobileOrder.push(actor.id);
+  mobileState.time=Math.max(mobileState.time,actor.samongCosmicDispatchAtV386)+.01;
+  api.tick(mobileState);
+  assert.equal(actor.samongCosmicPatternDispatchedV386,true,'mobile boss must emit its native signature');
+  if(index===0){
+    assert.equal(api.snapshot(mobileState).status,'crisis');
+    assert.equal(mobileState.hp,1);
+    mobileState.time+=1.21;api.tick(mobileState);
+    assert.equal(api.snapshot(mobileState).status,'awakening');
+    assert.equal(mobileState.hapilFinalBattleV31300.awakeningCommittedRC108,true);
+  }
+  mobileState.hostileProjectiles.push({sourceId:actor.id,id:'shot-'+index});
+  mobileState.pendingHits.push({sourceId:actor.id,id:'hit-'+index});
+  mobileState.bossLaserCastsV31330.push({sourceId:actor.id,id:'cast-'+index});
+  mobileState.time=Math.max(mobileState.time,actor.activePatternUntil,actor.samongCosmicPatternClockV386+1.8)+.01;
+  api.tick(mobileState);
+  assert.equal(mobileLive().length,0,'old body must die before the next appears');
+  for(const key of ['hostileProjectiles','pendingHits','bossLaserCastsV31330'])
+    assert(!mobileState[key].some(row=>row.sourceId===actor.id),'old boss '+key+' must be cleaned');
+  if(index<5){
+    if(index===1)window.screen={width:844,height:390};
+    mobileState.time=api.snapshot(mobileState).nextAt;
+    api.tick(mobileState);
+    assert.equal(mobileLive().length,1,'rotation/next arrival keeps one body');
+  }
+}
+assert.deepEqual(mobileOrder,ids);
+assert.deepEqual(mobileState.rc88Encounter.cosmicKills,[1,2,3,4,5,6]);
+assert.equal(api.snapshot(mobileState).status,'complete');
+assert.equal(mobileState.hapilFinalBattleV31300.completed,true);
+assert.equal(mobileState.bossDefeated,true);
+mobileState.time+=20;api.tick(mobileState);
+assert.equal(mobileState.rc88Encounter.cosmicKills.length,6,'mobile finale must be idempotent');
 console.log('RC86 PASS: six simultaneous unique Kair bodies, delayed player crisis/awakening, native signatures, death cleanup, idempotence, Dream isolation.');

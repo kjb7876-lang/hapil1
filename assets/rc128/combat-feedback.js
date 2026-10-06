@@ -18,6 +18,8 @@
   gunner:Object.freeze({name:'기억사수',color:'#9cd8d4',accent:'#d9c7ed',dark:'#182332',motif:'memory',sound:'shot'})
  });
  const states=new WeakMap(),cameras=new WeakMap(),fallbackPictures=new Map();
+ let statusSkull=null;
+ function skull(){if(statusSkull||typeof Image==='undefined')return statusSkull;statusSkull=new Image();statusSkull.decoding='async';statusSkull.src='./assets/vfx/generated/v389/boss-demon-skull-projectile.webp';return statusSkull;}
  const totals={events:0,accepted:0,discarded:0,throttled:0,pauses:0,frames:0,drawErrors:0,missingArt:0};
  let installed=false,attempts=0;
  function reduced(){return root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches===true;}
@@ -106,12 +108,44 @@
   if(root.__HAPIL_MEDIA_AUDIO_RC133__?.event('playerAwake',s,s,token)===true)return;sound(s,HEROES[m?.heroId]?.sound||'arcane',7,.42);
  }
  function point(s,x,y,cssWidth,cssHeight){
-  const data=cameras.get(s),adaptive=root.__HAPIL_ADAPTIVE_RC125__;
-  // Portrait has two native cameras. Never guess a world-to-screen mapping there.
-  if(!data||!adaptive?.wide?.())return null;
-  const p=data.project(x,y),v=adaptive.view(cssWidth,cssHeight),c=data.camera;
-  if(!p||![p.x,p.y,c?.x,c?.y,c?.scale].every(Number.isFinite))return null;
-  return{x:(c.x+p.x*c.scale-v.x)*v.k,y:(c.y+p.y*c.scale-v.y)*v.k,scale:c.scale*v.k};
+  const data=cameras.get(s),viewport=root.__HAPIL_VIEWPORT_RC104__;
+  if(!viewport)return null;
+  // The portrait composite places the native hero-camera crop in its lower
+  // half. Use that camera even when the alternating current pass is the boss.
+  const split=root.__HAPIL_PORTRAIT_SPLIT_RC108__,portrait=split?.active?.(s)===true;
+  const project=data?.project??root.__HAPIL_RC86_BRIDGE__?.project;
+  const fallback=root.__HAPIL_VISUAL_V31345__?.full??{x:0,y:0,scale:1};
+  const touch=root.document?.documentElement?.classList?.contains('hapil-touch-v31366')===true;
+  const c=portrait?split.metrics?.()?.cameras?.hero:data?.camera??viewport.last?.camera??(touch?viewport.camera?.(s,fallback,project,{id:s.zone},null):root.__HAPIL_VISUAL_V31345__?.camera?.(s,fallback)??fallback);
+  const p=project?.(x,y),v=viewport.view(cssWidth,cssHeight);
+  if(!p||!v||![p.x,p.y,c?.x,c?.y,c?.scale,v.x,v.y,v.k].every(Number.isFinite))return null;
+  return{x:(c.x+p.x*c.scale-v.x)*v.k,y:(c.y+p.y*c.scale+(portrait&&!split.metrics?.()?.rendering?180:0)-v.y)*v.k,scale:c.scale*v.k};
+ }
+ function ailments(s){
+  if(!s||!(n(s.hp)>0))return [];
+  const t=n(s.time),rows=[],add=(key,label,until)=>{if(n(until)>t)rows.push({key,label,remaining:n(until)-t});};
+  add('sleep','수면',s.heroSleepUntil);add('charm','매혹',s.heroCharmUntil);
+  add('bleed','출혈',s.heroBleedUntil);add('burn','화상',s.heroBurnUntil);
+  add('poison','유리독',s.heroEnvyPoisonUntil);add('slow','둔화',s.heroSlowUntil);
+  add('heal','회복 차단',s.heroHealingBlockedUntil);add('steal','흡혈 억제',s.lifestealSuppressedUntil);
+  add('root','속박',s.themeRootUntilV31323);
+  if(root.__HAPIL_INNER_FINAL_RC133__?.red?.(s))rows.push({key:'red',label:'공속 −30% · 흡혈 −50%',remaining:n(s.innerFinalRC133.awake)});
+  return rows;
+ }
+ function drawAilments(ctx,s,width,height){
+  const split=root.__HAPIL_PORTRAIT_SPLIT_RC108__,pass=split?.metrics?.();
+  if(pass?.rendering&&pass.target==='boss')return;
+  const rows=ailments(s);if(!rows.length)return;
+  const p=point(s,n(s.x),n(s.y),width,height);state(s).lastAilmentsDraw={rows:rows.map(r=>r.key),point:p};if(!p)return;
+  const icon=skull(),compact=width<600,columns=compact?2:3,cardWidth=compact?112:125,cardHeight=24,totalWidth=Math.min(columns,rows.length)*cardWidth;
+  const x=clamp(p.x-totalWidth/2,4,Math.max(4,width-totalWidth-4));
+  const y=clamp(p.y-38*clamp(p.scale,.7,1.4)-Math.ceil(rows.length/columns)*cardHeight,8,Math.max(8,height-rows.length*cardHeight));
+  ctx.save();try{ctx.filter='none';ctx.globalCompositeOperation='source-over';ctx.textBaseline='middle';ctx.textAlign='left';ctx.font='700 10px sans-serif';
+   rows.forEach((row,i)=>{const cx=x+(i%columns)*cardWidth,cy=y+Math.floor(i/columns)*cardHeight;ctx.globalAlpha=.88;ctx.fillStyle='#180c18';ctx.fillRect(cx+1,cy+1,cardWidth-3,cardHeight-2);ctx.globalAlpha=1;
+    if(icon?.complete&&icon.naturalWidth){const sx=Math.floor(icon.naturalWidth*.38);ctx.drawImage(icon,sx,0,icon.naturalWidth-sx,icon.naturalHeight,cx+2,cy+1,23,21);}
+    ctx.fillStyle='#ffe3df';ctx.fillText(row.label,cx+25,cy+9,cardWidth-28);ctx.fillStyle='#ff9eaa';ctx.fillText(row.remaining.toFixed(1)+'초',cx+25,cy+18,cardWidth-28);
+   });
+  }finally{ctx.restore();}
  }
  function segment(ctx,x1,y1,x2,y2){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
  function ring(ctx,r,a=0,b=Math.PI*2){ctx.beginPath();ctx.arc(0,0,r,a,b);ctx.stroke();}
@@ -188,6 +222,7 @@
    }else m.shake=0;
    drawAwakening(ctx,s,width,height,compact);
    root.__HAPIL_AWAKENING_PORTRAITS_RC137__?.draw(ctx,s,width,height,compact);
+   drawAilments(ctx,s,width,height);
    for(const e of m.effects){
     const age=(t-e.born)/e.duration,alpha=1-clamp(age,0,1),p=point(s,e.x,e.y,width,height);
     ctx.save();ctx.globalAlpha=alpha*.85;ctx.strokeStyle=e.color;ctx.fillStyle=e.color;
@@ -203,7 +238,7 @@
   finally{ctx.restore();}
   return true;
  }
- function snapshot(s){const m=s&&states.get(s);return{version:'RC128',installed,totals:{...totals},effects:m?.effects.length||0,recent:m?.effects.map(e=>({kind:e.kind,label:e.label,color:e.color,sequence:e.sequence}))||[],stopBudget:m?.budget||0,missingHeroes:m?Array.from(m.artMissing):[],heroes:Object.keys(HEROES)};}
+ function snapshot(s){const m=s&&states.get(s);return{version:'RC128',installed,totals:{...totals},effects:m?.effects.length||0,recent:m?.effects.map(e=>({kind:e.kind,label:e.label,color:e.color,sequence:e.sequence}))||[],lastAilmentsDraw:m?.lastAilmentsDraw??null,stopBudget:m?.budget||0,missingHeroes:m?Array.from(m.artMissing):[],heroes:Object.keys(HEROES)};}
  function install(){
   if(installed)return true;
   const v=root.__HAPIL_VIEWPORT_RC104__;
@@ -212,7 +247,7 @@
   v.camera=function(s,fallback,project,...args){const camera=original.call(this,s,fallback,project,...args);if(s&&typeof project==='function'&&camera)cameras.set(s,{project,camera});return camera;};
   installed=true;return true;
  }
- const api=Object.freeze({version:'RC128',heroes:HEROES,record,classify,awakening,draw,snapshot,install,get installed(){return installed;}});
+ const api=Object.freeze({version:'RC128',heroes:HEROES,record,classify,awakening,draw,ailments,snapshot,install,get installed(){return installed;}});
  root.__HAPIL_FEEDBACK_RC128__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  function ready(){if(install()||++attempts>1200)return;root.setTimeout?.(ready,25);}

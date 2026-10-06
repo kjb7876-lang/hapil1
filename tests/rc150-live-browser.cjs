@@ -1,0 +1,60 @@
+'use strict';
+// Staged native browser fixture. No campaign progress or boss kill is claimed.
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
+const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
+const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/tmp/rc150-live';fs.mkdirSync(out,{recursive:true});
+const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.woff2':'font/woff2'};
+const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404).end();}});
+(async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;try{
+ browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ const report=[];
+ for(const [name,width,height,mobile]of[['pc',1280,900,false],['portrait',390,844,true],['landscape',844,390,true]].filter(row=>!process.env.RC150_PROFILE||row[0]===process.env.RC150_PROFILE)){
+  const context=await browser.newContext({viewport:{width,height},screen:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));await page.goto('http://127.0.0.1:'+server.address().port+'/?rc150=1',{waitUntil:'domcontentloaded'});
+  console.log('RC150 PROFILE LOAD '+name);
+  await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_AWAKENING_IMPACT_RC150__&&window.__HAPIL_INNER_FINAL_RC133__?.metrics()?.artReady,null,{timeout:20000});
+  console.log('RC150 PROFILE READY '+name);
+  await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();
+  await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
+  console.log('RC150 PROFILE GAME '+name);
+  for(let turn=0;turn<80&&await page.evaluate(()=>window.__HAPIL_STORY_RC51__?.isOpen?.());turn++)await page.keyboard.press('Enter');
+  await page.waitForFunction(()=>!window.__HAPIL_STORY_RC51__?.isOpen?.(),null,{timeout:10000});
+  await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.heroBleedUntil=s.time+10;s.heroBurnUntil=s.time+8;s.heroEnvyPoisonUntil=s.time+9;});
+  await page.waitForTimeout(200);const liveStatus=await page.evaluate(()=>({s:window.__HAPIL_FEEDBACK_RC128__.snapshot(window.__HAPIL_CONTROLS_V31329__.binding.state.current),portrait:window.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics(),viewport:window.__HAPIL_VIEWPORT_RC104__?.last,adaptive:window.__HAPIL_ADAPTIVE_RC125__?.snapshot()?.lastCamera}));
+  assert(liveStatus.s.lastAilmentsDraw?.point,'active native timers must project a visible status overlay');
+  await page.screenshot({path:path.join(out,name+'-status-fixture.png')});
+  await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;window.__HAPIL_AWAKENING_IMPACT_RC150__.player(s,'fixture-flash',window.__HAPIL_SAMONG_RC91__.art.gunner,'기억사수 · 각성');});
+  await page.waitForTimeout(220);assert(await page.evaluate(()=>window.__HAPIL_AWAKENING_PORTRAITS_RC137__.flashSnapshot(window.__HAPIL_CONTROLS_V31329__.binding.state.current).some(row=>row.label==='기억사수 · 각성')),'native awakening event owns a live portrait');await page.screenshot({path:path.join(out,name+'-awakening-fixture.png')});
+  await page.waitForTimeout(1500);assert.equal(await page.evaluate(()=>window.__HAPIL_AWAKENING_PORTRAITS_RC137__.flashSnapshot(window.__HAPIL_CONTROLS_V31329__.binding.state.current).length),0,'portrait exits after the 1.5-second window');
+  const result=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,B=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,N=window.__HAPIL_RC133_NATIVE__,I=window.__HAPIL_AWAKENING_IMPACT_RC150__,A=window.__HAPIL_SAMONG_RC91__,s=N.makeState(),old=C.binding.state.current;
+   Object.assign(s,{zone:'cult04',time:100,hp:240,maxHp:240,x:12,y:24,activeHeroId:'gunner',gameModeV31346:'DREAM',samongUnlockedRC91:true,spawnedWaves:new Set([1,2,3,4]),completedZones:new Set(),enemies:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],floatTexts:[],encounterLockUntil31226:0,encounterDialogue31226:null,timeStopUntil:0,invulnerableUntil:0});
+   const leader=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');leader.hp=0;s.enemies=[leader];C.binding.state.current=s;if(!H.start(s,leader))throw Error('Persona fixture entry');
+   const a=H.boss(s),before=a.hp;I.player(s,'fixture-player',A.art.gunner,'기억사수 · 각성');const burst={before,after:a.hp,raw:Math.round(a.maxHp*.07),texts:s.floatTexts.filter(t=>String(t.text).includes('각성 충격')).map(t=>t.text)};
+   I.player(s,'fixture-player',A.art.gunner,'기억사수 · 각성');burst.duplicateHp=a.hp;
+   s.invulnerableUntil=0;s.hp=240;const bossBefore=s.hp;I.boss(s,a,'fixture-boss',window.__HAPIL_MEDIA_ART_RC133__.paths.awakening,'Persona · 순수악의');const boss={before:bossBefore,after:s.hp,raw:Math.round(s.maxHp*.07)};
+   s.hp=Math.max(1,s.hp);s.invulnerableUntil=0;s.timeStopUntil=0;s.paused=false;s.pause=false;a.invulnerableUntil=0;s.heroBleedUntil=s.time+3;s.heroBurnUntil=s.time+2;s.heroEnvyPoisonUntil=s.time+4;
+   const status=window.__HAPIL_FEEDBACK_RC128__.ailments(s).map(r=>r.key);
+   Object.assign(s.innerFinalRC133,{phase:'fight',intro:0,awake:7,awakeningCooldown:28,shotDelay:0,cycle:3,redTimeReadyAt:0});H.tick(s,.016);
+   const m=s.innerFinalRC133,shots=s.hostileProjectiles.filter(q=>q.rc133Cycle===3),warning=!H.redTimeActive(s)&&m.redTimeWarnUntil>m.elapsed,diagnostic={active:H.active(s),locked:window.__HAPIL_RC95_NATIVE__?.locked?.(s),story:window.__HAPIL_STORY_RC51__?.isOpen?.(),timeStop:s.timeStopUntil,shotDelay:m.shotDelay,cycle:m.cycle,art:H.metrics().artReady};
+   m.elapsed=m.redTimeWarnUntil+.01;const hpBefore=a.hp;let blocked=0,allowed=0,sameRolls=true;
+   for(let i=1;i<=60;i++){s.basicAttackCount=i;s.lastAttack=s.time+i*.001;const key='basic:'+i+':'+s.lastAttack,beforeRoll=m.redTimeSeed,prior=a.hp;
+    C.binding.actions.damage(a,1,'#fff',false,0,{id:'one-'+i,heroId:'gunner',born:s.time});const mid=a.hp;
+    C.binding.actions.damage(a,1,'#fff',false,0,{id:'two-'+i,heroId:'gunner',born:s.time});const end=a.hp;
+    const row=m.redTimeRolls.find(r=>r[0]===key);if(!row||m.redTimeSeed!==(Math.imul(beforeRoll,1664525)+1013904223>>>0)||row[1]&&end!==prior||!row[1]&&!(mid<prior&&end<mid))sameRolls=false;
+    if(row?.[1])blocked++;else allowed++;
+   }
+   const clock={warning,active:H.redTimeActive(s),shotCount:shots.length,speed:Math.hypot(shots[0]?.vx,shots[0]?.vy),visualScale:shots[0]?.visualScaleV31224,blocked,allowed,sameRolls,hpLoss:hpBefore-a.hp,rolls:m.redTimeRolls.length};
+   const nativeSave=B.serializeSave(s,'gunner',[],{},0),nativeNormalized=B.normalizeSave(nativeSave),saved=H.snapshot(s),restored=N.makeState();Object.assign(restored,{zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,enemies:[],completedZones:new Set(),spawnedWaves:new Set([1,2,3,4])});H.restore(restored,nativeNormalized?.innerFinalRC133??saved);
+   const reload={active:H.redTimeActive(restored),rolls:restored.innerFinalRC133?.redTimeRolls?.length,seed:restored.innerFinalRC133?.redTimeSeed,nativeSaved:nativeSave?.innerFinalRC133?.redTimeRolls?.length,nativeNormalized:nativeNormalized?.innerFinalRC133?.redTimeRolls?.length};
+   C.binding.state.current=s;window.__RC150_STAGED_STATE__=s;return{burst,boss,status,clock,reload,diagnostic,oldStatePresent:!!old};});
+  console.log('RC150 PROFILE RESULT '+name+' '+JSON.stringify(result));
+  assert(result.burst.after<result.burst.before&&result.burst.duplicateHp===result.burst.after,'player burst is one-time native damage');
+  assert(result.boss.after<result.boss.before&&result.boss.after>0&&result.boss.before-result.boss.after<=result.boss.raw,'boss burst uses native incoming mitigation with a hard seven-percent applied cap');
+  assert(result.status.includes('bleed')&&result.status.includes('burn')&&result.status.includes('poison'));
+  assert(result.clock.warning&&result.clock.active&&result.clock.shotCount===24&&result.clock.visualScale===1.2);
+  assert(result.clock.sameRolls&&result.clock.blocked>30&&result.clock.blocked<50&&result.clock.allowed>0);
+  assert(result.reload.active&&result.reload.rolls===result.clock.rolls&&result.reload.nativeSaved===result.clock.rolls&&result.reload.nativeNormalized===result.clock.rolls);
+  assert.deepEqual(errors,[]);report.push({name,...result,statusProjection:liveStatus.s.lastAilmentsDraw.point,errors:errors.length});await context.close();
+ }
+ fs.writeFileSync(path.join(out,'results.json'),JSON.stringify({status:'passed',profiles:report},null,2));console.log('RC150 LIVE BROWSER '+JSON.stringify({status:'passed',profiles:report.map(r=>({name:r.name,burst:r.burst,boss:r.boss,clock:r.clock,reload:r.reload,errors:r.errors}))}));
+}finally{await browser?.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});

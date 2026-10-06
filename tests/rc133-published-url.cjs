@@ -27,6 +27,9 @@ const extension6=JSON.parse(extension6Bytes);
 const extension7Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-7.json'));
 assert.equal(require('node:crypto').createHash('sha256').update(extension7Bytes).digest('hex'),'894d0da81edf4e88348f9ec436f44ce75928126a2e2095e3dcf878235faf8fe2','exact seventh extension manifest pin');
 const extension7=JSON.parse(extension7Bytes);
+const extension8Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-8.json'));
+assert.equal(require('node:crypto').createHash('sha256').update(extension8Bytes).digest('hex'),'cba4020e6d53cbbdccd21ec590d5cddd5bec2f37fd5d77123d419f8783fc3009','exact eighth extension manifest pin');
+const extension8=JSON.parse(extension8Bytes);
 assert.equal(extension2.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'));
 assert.equal(extension2.files.length,1);assert.equal(extension2.files[0].file,'index.html');
 assert.equal(extension2.files[0].before.gitBlob,extension.files.find(row=>row.file==='index.html')?.after?.gitBlob,'second index path chains from the first extension output');
@@ -45,6 +48,15 @@ assert.equal(extension7.previousExtensionSha256,require('node:crypto').createHas
 assert.deepEqual(extension7.files.map(row=>row.file),['assets/hapil-mobile-v31406.js','assets/index-v31526.js']);
 assert.equal(extension7.files[0].before.gitBlob,'8b52a5d18776febf246bef1f058cade145f6ab4b');
 assert.equal(extension7.files[1].before.gitBlob,extension6.files.find(row=>row.file==='assets/index-v31526.js')?.after?.gitBlob);
+assert.equal(extension8.base,'98e27c4e25f639989f3d41034a915567e9a31f4e');
+assert.equal(extension8.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension7Bytes).digest('hex'));
+assert.deepEqual(extension8.files.map(row=>row.file),[
+  'assets/combat-v31412/outgoing-native.js','assets/index-v31526.js','assets/rc108/portrait-split.js',
+  'assets/rc128/combat-feedback.js','assets/rc132/dream-balance.js','assets/rc133/inner-final.js',
+  'assets/rc137/awakening-portraits.js','assets/rc150/awakening-impact.js','assets/rc86/samong-cosmic.js',
+  'assets/rc88/danmaku-rpg.js','assets/rc91/samong-awakening.js','index.html']);
+assert.equal(extension8.files.find(row=>row.file==='assets/index-v31526.js').before.gitBlob,extension7.files.find(row=>row.file==='assets/index-v31526.js')?.after?.gitBlob);
+assert.equal(extension8.files.find(row=>row.file==='assets/rc150/awakening-impact.js').before,null);
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
@@ -62,6 +74,7 @@ function verify(file) {
 
 const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension2.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension3.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension4.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension5.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension6.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension7.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+for(const row of extension8.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
 assert(reserved.pathname.includes('%23')); checks++;
@@ -71,4 +84,4 @@ verify('audio/literal?query#fragment%25 한글.wav');
 for (const file of ['', '/index.html', '../index.html', 'assets/../index.html', 'assets//file.png', 'assets/./file.png', 'assets\\file.png', 'https://other.example/file.png']) {
   assert.throws(() => checkedUrl(file, key, value), undefined, file); checks++;
 }
-console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, extension3Files:extension3.files.length, extension4Files:extension4.files.length, extension5Files:extension5.files.length, extension6Files:extension6.files.length, extension7Files:extension7.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));
+console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, extension3Files:extension3.files.length, extension4Files:extension4.files.length, extension5Files:extension5.files.length, extension6Files:extension6.files.length, extension7Files:extension7.files.length, extension8Files:extension8.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));

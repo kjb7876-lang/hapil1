@@ -1,5 +1,5 @@
 'use strict';
-// Staged native six-actor Story finale. Browser frame and heap observations
+// Staged native Story finale: six PC actors or one active touch-mobile actor.
 // are comparative evidence, not a natural clear or physical-device result.
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),cp=require('node:child_process');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/pw155/node_modules','playwright'));
@@ -31,7 +31,8 @@ const save=()=>fs.writeFileSync(path.join(out,'six-cosmic-results.json'),JSON.st
   row.heapUsage=await cdp.send('Runtime.getHeapUsage');await page.screenshot({path:path.join(out,name+'-six-cosmic.png')});
   row.phaseSprite=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current,a=s.enemies.find(v=>v.samongCosmicSummonV386&&Array.isArray(v.phaseSprites)&&v.phaseSprites.length>=2&&v.actionSprites);if(!a)return{applicable:false};const before=a.actionSprites.death,original=a.fixedPhase,phase=Math.min(a.phaseSprites.length,Math.max(2,original+1));a.fixedPhase=phase;a.currentPhase=phase;const resolvedPhase=window.__RC148_PERF_QA__.phase(a);const expected=a.phaseSprites[Math.max(0,Math.min(a.phaseSprites.length-1,a.humanPhase0?resolvedPhase:resolvedPhase-1))],actual=a.actionSprites.death,metadata=a.currentPhaseDeathSpriteV31311;return{applicable:true,actor:a.id,before,requestedPhase:phase,resolvedPhase,expected,actual,metadata,updated:actual===expected&&metadata===expected};});
   await context.close();save();
-  if(row.scene.actorIds.length!==6||row.dialogueOpen||row.errors.length||row.httpErrors.length||row.measure.frames<1||row.phaseSprite.applicable&&!row.phaseSprite.updated||process.env.RC148_DISPATCH==='1'&&(row.dispatch?.actors!==6||row.dispatch.dispatched<5||row.measure.peakProjectiles<50))throw Error('six-actor native stress failed '+JSON.stringify(row));
+  const expected=mobile?1:6;
+  if(row.scene.actorIds.length!==expected||row.dialogueOpen||row.errors.length||row.httpErrors.length||row.measure.frames<1||mobile&&row.measure.peakActors>1||row.phaseSprite.applicable&&!row.phaseSprite.updated||process.env.RC148_DISPATCH==='1'&&(row.dispatch?.actors!==expected||row.dispatch.dispatched<expected||row.measure.peakProjectiles<(mobile?1:50)))throw Error('Cosmic finale native stress failed '+JSON.stringify(row));
  }
  report.status='passed';save();console.log('RC148 SIX COSMIC',JSON.stringify({status:report.status,profiles:report.profiles.map(r=>({name:r.name,scene:r.scene,measure:r.measure,heapUsage:r.heapUsage,errors:r.errors.length,http:r.httpErrors.length}))}));
 }catch(e){report.status='failed';report.failure=e.stack||String(e);save();console.error(report.failure);process.exitCode=1;}finally{await browser?.close();server.close();}})();

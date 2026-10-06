@@ -13,7 +13,10 @@
   let world=states.get(s);if(!world||time<world.time){world={time,recipients:new WeakMap()};states.set(s,world);}world.time=time;
   let record=world.recipients.get(actor);if(!record){record=[];world.recipients.set(actor,record);}
   while(record.length&&record[0].at<=time-SECONDS)record.shift();
-  const spent=record.reduce((sum,item)=>sum+item.amount,0),allowed=Math.max(0,Math.min(amount*RATE,max*HIT,max*WINDOW-spent,max-hp));
+  const spent=record.reduce((sum,item)=>sum+item.amount,0),baseAllowed=Math.max(0,Math.min(amount*RATE,max*HIT,max*WINDOW-spent,max-hp));
+  // This reducer receives earned lifesteal only. Apply the red Persona tax to
+  // the admitted heal, never to unrelated healing or a party member.
+  const allowed=baseAllowed*(actor===s&&root.__HAPIL_INNER_FINAL_RC133__?.red?.(s)?0.5:1);
   if(allowed+1e-10<amount)stats.limited++;
   if(allowed>0){const last=record[record.length-1];if(last&&last.at===time)last.amount+=allowed;else if(record.length<128)record.push({at:time,amount:allowed});else return 0;stats.approved+=allowed;}
   return allowed;

@@ -27,6 +27,10 @@
         t *= window.__HAPIL_AI_V31338__?.power(HAPIL_hitSourceV31315?.heroId??HAPIL_hitSourceV31315?.heroId31213??HAPIL_hitSourceV31315?.impactHeroIdV31315??a.activeHeroId) ?? 1;
         t = window.__HAPIL_SKILL_COMPLETION_V31412__?.scaleBasicDamage(t,HAPIL_hitSourceV31315) ?? t;
         if (!Number.isFinite(t)) { core.mark(a, o, 'REJECTED', 'nonfinite-scaled-power'); return; }
+        if (window.__HAPIL_INNER_FINAL_RC133__?.redTimeBlocks?.(a,o,HAPIL_hitSourceV31315)) {
+          core.mark(a,o,'REJECTED','red-time-clock');
+          return;
+        }
         let MONGSE_counterRewardV31303 = HAPIL_claimCounterWindowV31303(a, o),
           s = R.current.damage ?? 0,
           c = 1 + Math.min(20, a.combo) * 0.018,

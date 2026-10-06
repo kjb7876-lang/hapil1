@@ -303,6 +303,7 @@
         delay:Math.max(0,o.nextAt-n(s.time)),weak:Math.max(0,o.weakUntil-n(s.time))}])),
       connectionRemaining:m.connection?Math.max(0,m.connection.until-n(s.time)):null,arveliaFreed:m.arveliaFreed===true,cosmicKills:[...m.cosmicKills],samongWeakRemaining:Math.max(0,n(m.samongWeakUntil)-summonClock(s)),wave:s.hapilSamongCosmicWaveV386?.version===2?{
         version:2,status:s.hapilSamongCosmicWaveV386.status,nextIndex:s.hapilSamongCosmicWaveV386.nextIndex,
+        sequentialMobile:s.hapilSamongCosmicWaveV386.sequentialMobile===true,
         delay:Math.max(0,n(s.hapilSamongCosmicWaveV386.nextAt)-summonClock(s)),
         crisisElapsed:s.hapilSamongCosmicWaveV386.crisisAt==null?null:Math.max(0,summonClock(s)-n(s.hapilSamongCosmicWaveV386.crisisAt)),
         awakeningElapsed:s.hapilSamongCosmicWaveV386.awakeningAt==null?null:Math.max(0,summonClock(s)-n(s.hapilSamongCosmicWaveV386.awakeningAt)),
@@ -331,7 +332,8 @@
     }
     return {zone,owners,connectionRemaining:zone==='ep1b09'&&raw.connectionRemaining!=null?Math.max(0,Math.min(1.2,n(raw.connectionRemaining))):null,arveliaFreed:raw.arveliaFreed===true,cosmicKills:[...new Set(rows(raw.cosmicKills).filter(v=>[1,2,3,4,5,6].includes(v)))],
       samongWeakRemaining:Math.max(0,Math.min(3.2,n(raw.samongWeakRemaining))),
-      wave:zone==='cult04'&&raw.wave?.version===2?{version:2,status:['charging','six-awakened','crisis','awakening','complete'].includes(raw.wave.status)?raw.wave.status:'charging',
+      wave:zone==='cult04'&&raw.wave?.version===2?{version:2,status:['charging','six-awakened','mobile-single','crisis','awakening','complete'].includes(raw.wave.status)?raw.wave.status:'charging',
+        sequentialMobile:raw.wave.sequentialMobile===true,
         nextIndex:Math.max(0,Math.min(6,Math.floor(n(raw.wave.nextIndex)))),delay:Math.max(0,Math.min(10,n(raw.wave.delay))),
         crisisElapsed:raw.wave.crisisElapsed==null?null:Math.max(0,Math.min(10,n(raw.wave.crisisElapsed))),
         awakeningElapsed:raw.wave.awakeningElapsed==null?null:Math.max(0,Math.min(10,n(raw.wave.awakeningElapsed))),
@@ -363,21 +365,30 @@
     if(data.wave&&s.zone==='cult04') {
       const clock=restoredClock,w=data.wave;
       if(w.version===2){
+        const sequentialMobile=w.sequentialMobile===true||window.__HAPIL_SAMONG_COSMIC_V386__?.mobileDevice?.()===true;
+        const firstMissing=[1,2,3,4,5,6].find(index=>!data.cosmicKills.includes(index))??7;
+        const selected=sequentialMobile?w.active.find(item=>item.index===firstMissing):null;
         const wave=s.hapilSamongCosmicWaveV386={version:2,status:w.status,startedAt:clock,
           nextIndex:w.nextIndex,nextAt:clock+w.delay,activeIds:[],
           crisisAt:w.crisisElapsed==null?null:clock-w.crisisElapsed,
-          awakeningAt:w.awakeningElapsed==null?null:clock-w.awakeningElapsed,strikeIndex:w.strikeIndex};
+          awakeningAt:w.awakeningElapsed==null?null:clock-w.awakeningElapsed,strikeIndex:w.strikeIndex,
+          sequentialMobile};
         s.enemies=s.enemies.filter(a=>!a.samongCosmicSummonV386);
-        for(const item of w.active){
+        for(const item of sequentialMobile?(selected?[selected]:[]):w.active){
           if(data.cosmicKills.includes(item.index))continue;
           if(window.__HAPIL_SAMONG_COSMIC_V386__?.restoreSummon(s,wave,item.index-1)){
             const a=s.enemies.find(a=>a.id==='kair-great-0'+item.index&&a.samongCosmicSummonV386);
             if(a){a.maxHp=item.maxHp;a.hp=Math.min(item.hp,item.maxHp);
-              a.samongCosmicPatternDispatchedV386=item.dispatched;
-              a.samongCosmicDispatchAtV386=n(s.time)+item.dispatchRemaining;}
+              // Transient attack packets are not part of the native save. A
+              // restored mobile boss reissues its one signature before defeat.
+              a.samongCosmicPatternDispatchedV386=sequentialMobile?false:item.dispatched;
+              a.samongCosmicDispatchAtV386=n(s.time)+Math.max(sequentialMobile ? .08 : 0,item.dispatchRemaining);}
           }
         }
-        wave.nextIndex=w.nextIndex;wave.status=w.status;
+        wave.nextIndex=sequentialMobile?(selected?selected.index:firstMissing-1):w.nextIndex;
+        wave.strikeIndex=sequentialMobile?Math.max(0,firstMissing-1):w.strikeIndex;
+        wave.status=sequentialMobile&&w.status==='six-awakened'?'mobile-single':w.status;
+        if(sequentialMobile&&wave.status==='charging'&&selected)wave.status='mobile-single';
       }else {
       // Version 1 stored one transient echo; restart the new six-body scene
       // rather than interpreting its single activeId as six simultaneous IDs.

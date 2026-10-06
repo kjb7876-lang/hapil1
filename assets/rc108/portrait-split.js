@@ -69,6 +69,7 @@
   // draw squashed every actor and exposed an awkward extra-wide crop.
   ctx.drawImage(map.boss,0,sourceY,w,half,0,0,w,half);ctx.drawImage(map.hero,0,sourceY,w,half,0,half,w,h-half);
   ctx.fillStyle='rgba(220,240,255,.66)';ctx.fillRect(0,half-1,w,2);stats.frames++;stats.composites++;lastState=s;
+  window.__HAPIL_AWAKENING_PORTRAITS_RC137__?.drawFlashOverlay?.(ctx,s,canvas);
  }
  function pointerBlocked(event,rect){if(!active(lastState)||!event||!rect)return false;const blocked=event.clientY<rect.top+rect.height/2;if(blocked)stats.pointerBlocked++;return blocked;}
  function pointer(event,rect,base){if(!active(lastState)||typeof base!=='function'||event.clientY<rect.top+rect.height/2)return null;const point=base(event,rect),half=rect.height/2,v=Math.max(0,Math.min(1,(event.clientY-rect.top-half)/half));return point?{x:point.x,y:180+v*360}:null;}

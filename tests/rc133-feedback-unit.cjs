@@ -202,6 +202,20 @@ for (const fixture of [
   eq(view.recent.at(-1).sequence, 64, 'bounded queue keeps the newest effect');
 }
 
+{
+  const s=fresh();s.heroBleedUntil=13;s.heroBurnUntil=12;s.heroEnvyPoisonUntil=14;
+  let rows=Feedback.ailments(s);
+  eq(rows.length,3,'only three actually active ailments receive skull labels');
+  eq(rows.find(r=>r.key==='bleed').remaining,3,'bleed shows the actual remaining timer');
+  s.heroBleedUntil=17;eq(Feedback.ailments(s).find(r=>r.key==='bleed').remaining,7,'refresh updates the displayed timer');
+  s.time=14.1;rows=Feedback.ailments(s);eq(rows.length,1,'expired statuses leave the display');
+  s.hp=0;eq(Feedback.ailments(s).length,0,'lethal player state clears status display');
+  s.hp=100;s.heroBleedUntil=0;eq(Feedback.ailments(s).length,0,'native cure clears status display');
+  window.__HAPIL_INNER_FINAL_RC133__={red:x=>x===s};s.innerFinalRC133={awake:5};
+  eq(Feedback.ailments(s).find(r=>r.key==='red').remaining,5,'red Persona tax has a real active-timer label');
+  window.__HAPIL_INNER_FINAL_RC133__={red:()=>false};eq(Feedback.ailments(s).length,0,'red label clears when encounter ends');
+}
+
 console.log('RC133_FEEDBACK_UNIT_RESULT', JSON.stringify({
   checks, status: 'passed', scope: 'RC128 hit/parry/dodge/removal classification, collision-miss suppression, source throttles and bounded effect burst'
 }));

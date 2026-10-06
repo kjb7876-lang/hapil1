@@ -46206,7 +46206,7 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
     ),
     MONGSE_armoredBaseV31337 = window.__HAPIL_RANGES_V31337__?.defend(e.activeHeroId,MONGSE_damageBudget31213.applied) ?? MONGSE_damageBudget31213.applied,
     MONGSE_finalIncomingRC134 = Math.max(window.__HAPIL_RAID_RC24__?.floorDamage?.(e,MONGSE_damageSource,0) ?? 0, window.__HAPIL_HEART_V31336__?.packet(e,e,MONGSE_damageSource,MONGSE_armoredBaseV31337,MONGSE_rawDamage31213) ?? MONGSE_armoredBaseV31337) * (window.__HAPIL_SAMONG_RC91__?.incomingFactor(e)??1) * (window.__HAPIL_SAMONG_RC91__?.incomingBuff(e)??1) * (window.__HAPIL_DAMAGE_RC108__?.incoming(e,MONGSE_damageSource)??1) * (window.__HAPIL_POLICY_RC127__?.incoming(e,MONGSE_damageSource)??1),
-    a = window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(e,e,MONGSE_finalIncomingRC134,'incoming'),
+    a = Math.min(window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(e,e,MONGSE_finalIncomingRC134,'incoming'),i?.awakeningImpactRC150?Math.max(1,Math.round(e.maxHp*.07)):Number.POSITIVE_INFINITY),
     MONGSE_preserveHeroUltimatePose =
       e.heroMotion?.kind === `skill` &&
       e.heroMotion?.skillIndex === 3 &&
@@ -52424,7 +52424,7 @@ function Ri() {
           a = F.find((e) => e.id === L.current) ?? F[0],
           o = gr(a.id, R.current[fr(a.id)] ?? 0),
           s = i.timeAccelerationUntil > i.time,
-          c = 0.36 * o.cooldownMultiplier * (s ? 0.78 : 1) / (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1);
+          c = 0.36 * o.cooldownMultiplier * (s ? 0.78 : 1) / ((window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)*(window.__HAPIL_INNER_FINAL_RC133__?.attackSpeedFactor?.(i)??1));
         window.__HAPIL_MOVEMENT_V31336__?.host(i,I.current);
         if (MONGSE_isEncounterLocked31226(i) || window.__HAPIL_MOVING_V31335__?.hardLocked(i,i)) return;
         if (!r && i.time - i.lastAttack < c) return;
@@ -61346,8 +61346,8 @@ function Ri() {
               (o.targetEnemyId = l.id);
               (o.time >= o.awakeningNextAttackAt &&
                 Number(o.autoEvadeUntil31223 ?? 0) <= o.time &&
-                o.time - o.lastAttack >= 0.28 / (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1) &&
-                ((o.awakeningNextAttackAt = o.time + 0.34 / (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)),
+                o.time - o.lastAttack >= 0.28 / ((window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)*(window.__HAPIL_INNER_FINAL_RC133__?.attackSpeedFactor?.(o)??1)) &&
+                ((o.awakeningNextAttackAt = o.time + 0.34 / ((window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)*(window.__HAPIL_INNER_FINAL_RC133__?.attackSpeedFactor?.(o)??1))),
                 Ye(32, 4, n.color, !0)),
                 o.time >= o.awakeningNextAuraAt &&
                   ((o.awakeningNextAuraAt =
@@ -61577,7 +61577,7 @@ function Ri() {
                   n = { KeyQ: 0, KeyW: 1, KeyE: 2, KeyR: 3 }[e.code],
                   r =
                     e.code === `KeyA`
-                      ? o.time - o.lastAttack >= 0.26 / (window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)
+                      ? o.time - o.lastAttack >= 0.26 / ((window.__HAPIL_SKILL_COMPLETION_V31412__?.config.attackSpeedMultiplier ?? 1)*(window.__HAPIL_INNER_FINAL_RC133__?.attackSpeedFactor?.(o)??1))
                       : e.code === `KeyS` || e.code === `Space`
                         ? true
                         : n !== void 0
@@ -99775,6 +99775,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
       state.awakeningUntil = Number(state.time ?? 0);
       state.damageBuffUntil = Number(state.time ?? 0);
       state.heroStatus = "교주 사몽 각성 · 코스믹 소환 대기";
+      window.__HAPIL_AWAKENING_IMPACT_RC150__?.boss?.(state,enemy,'cult-final',window.__HAPIL_CULT_LEADER_ART_RC142__?.paths?.[3],'사이비 교주 · 사몽 각성');
     } else if (phase === "duel") {
       state.floatTexts?.push({
         id: state.fxSerial++, x: enemy.x, y: enemy.y, born: state.time, duration: 1.75,
@@ -99811,6 +99812,7 @@ queueMicrotask(() => setTimeout(MONGSE_scheduleMidbossSpritesV31237, 0));
     state.awakeningUntil=Math.max(Number(state.awakeningUntil??0),Number(state.time??0)+300);
     state.damageBuffUntil=Math.max(Number(state.damageBuffUntil??0),Number(state.time??0)+300);
     state.heroStatus="사몽 각성 · 흑백 결전 · 공명/궁극기 강화";
+    window.__HAPIL_AWAKENING_IMPACT_RC150__?.player?.(state,'story-final',window.__HAPIL_SAMONG_RC91__?.art?.hwando,'환도 · 사몽 각성');
     emit('hero-awakening',{zone:state.zone,bossId:battle.bossId,stage:battle.stage});
     return true;
   };
@@ -101965,7 +101967,7 @@ function HAPIL_applyCounterDamageV31303(state, enemy, rawDamage, reward, source 
       (window.__HAPIL_DANMAKU_RPG_RC88__?.castDamageFactor(state, enemy, HAPIL_bossCastDamageFactorV31342(state, enemy)) ?? HAPIL_bossCastDamageFactorV31342(state, enemy)) *
       (window.__HAPIL_DANMAKU_RPG_RC88__?.damageFactor(state, enemy) ?? 1),
     nativeDamageRC134 = (window.__HAPIL_RC79__?.balancedDamage(state,enemy,rawAccepted) ?? rawAccepted) * (window.__HAPIL_DAMAGE_RC108__?.power(state,source)??1) * .5,
-    damage = window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(state,enemy,nativeDamageRC134,'outgoing'),
+    damage = Math.min(window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(state,enemy,nativeDamageRC134,'outgoing'),source?.awakeningImpactRC150?Math.max(1,Math.round(enemy.maxHp*.07)):Number.POSITIVE_INFINITY),
     hpAfter = Math.max(
       0,
       typeof MONGSE_phaseGateHealth === "function"
@@ -119111,7 +119113,7 @@ function bullet(ctx,cache,e,time,settings={}){
  if(time<start||e.hideUntilRelease31219&&((e.codeNativeBarrage31219===true&&e.bodySpawned31219!==true)||time+1e-9<Math.max(num(e.motionReleaseAt31219,-1),num(e.collisionDisabledUntil31219,-1))))return true;
  const p=G(num(e.x),num(e.y)),dx=num(e.motionVx31219,num(e.vx,num(e.tx)-num(e.x))),dy=num(e.motionVy31219,num(e.vy,num(e.ty)-num(e.y))),q=G(num(e.x)+dx,num(e.y)+dy);
  const round=radial(chosen.path),rotation=round?0:Math.atan2(q.y-p.y,q.x-p.x)-heading(chosen.path,e);
- const w=num(chosen.image.naturalWidth,chosen.image.width),h=num(chosen.image.naturalHeight,chosen.image.height),size=clamp(num(e.radius,num(e.r,.5))*64,34,88),scale=size/Math.max(w,h);
+ const w=num(chosen.image.naturalWidth,chosen.image.width),h=num(chosen.image.naturalHeight,chosen.image.height),size=clamp(num(e.radius,num(e.r,.5))*64,34,88)*(e.rc133InnerShot&&e.rc150RedPersonaShot?1.2:1),scale=size/Math.max(w,h);
  ctx.save();try{
   ctx.globalAlpha=clamp(num(MONGSE_skillFxOpacity(settings),1),0,1);ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;
   const age=Math.max(0,time-num(e.danmakuLaunchedAtV31316,e.motionReleaseAt31219));
@@ -124030,7 +124032,7 @@ window.__HAPIL_RC86_BRIDGE__ = Object.freeze({
   set phaseGateHealth(value) { MONGSE_phaseGateHealth = value; },
   get movement() { return ft; },
   set movement(value) { ft = value; },
-  counterDamage(state, actor, damage) { return HAPIL_applyCounterDamageV31303(state, actor, damage); },
+  counterDamage(state, actor, damage, source) { return HAPIL_applyCounterDamageV31303(state, actor, damage, null, source); },
   zoneBoss(zone) { return N[zone]?.enemies?.find(actor => actor.boss === true) ?? null; },
   get modeApi() { return window.__HAPIL_MODES_V31346__; },
   get patterns() { return MONGSE_patternsForEnemy; },

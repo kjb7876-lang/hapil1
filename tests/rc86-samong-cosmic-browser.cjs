@@ -218,6 +218,61 @@ const server = http.createServer((req, res) => {
       callouts: result.callouts,
       pageErrors: errors.length,
     }));
+    const mobileContext = await browser.newContext({viewport:{width:390,height:844},screen:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+    try {
+      const mobile = await mobileContext.newPage();
+      const mobileErrors=[]; mobile.on('pageerror',error=>mobileErrors.push(error.message));
+      await mobile.goto('http://127.0.0.1:' + server.address().port + '/?rc86=mobile', {waitUntil:'domcontentloaded'});
+      await mobile.waitForFunction(() => window.__HAPIL_SAMONG_COSMIC_V386__?.installed === true && window.__HAPIL_DANMAKU_RPG_RC88__?.installed === true && window.__HAPIL_RC86_BRIDGE__?.serializeSave);
+      const sequential = await mobile.evaluate(() => {
+        const api=window.__HAPIL_SAMONG_COSMIC_V386__,R=window.__HAPIL_DANMAKU_RPG_RC88__,bridge=window.__HAPIL_RC86_BRIDGE__;
+        const leader={id:'c104-boss',hp:5000,maxHp:5000,boss:true,hapilSecondPhaseV31300:true,x:18,y:5};
+        const state={zone:'cult04',gameModeV31346:'STORY',time:20,fxSerial:1,x:16,y:10,hp:1000,maxHp:1000,bossDefeated:false,
+          clues:new Set(),egoDrops:[],loopCycles:{},resonance:0,spawnedWaves:new Set([1,2,3,4]),completedZones:new Set(),
+          enemies:[leader],floatTexts:[],effects:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],pendingStrikes:[],
+          narrativeCasts:[],telekineticCasts:[],spatialRiftBarrages:[],bossOrdnanceCues:[],spatialRiftCasts:[],
+          bossLaserCastsV31330:[],bossUltimateCastsV31334:[],dreamMirrorLasersV31347:[],
+          hapilFinalBattleV31300:{stage:7,secondPhaseActive:true,monochromeActiveV31377:true,completed:false,awakeningPendingRC108:true,combatElapsedRC79:0}};
+        const sync=()=>{state.hapilFinalBattleV31300.combatElapsedRC79=state.time-20;api.tick(state);};
+        const alive=()=>state.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0);
+        const seen=[],sourceCleared=[],maxLive={value:0};let restored=false, nativeRestored=false;
+        for(let step=0;step<1800 && api.snapshot(state)?.status!=='complete';step++){
+          sync();const live=alive();maxLive.value=Math.max(maxLive.value,live.length);
+          if(live.length>1)throw Error('mobile overlap '+live.map(a=>a.id));
+          const actor=live[0];
+          if(actor?.samongCosmicPatternDispatchedV386&&!seen.includes(actor.id)){
+            seen.push(actor.id);
+            const packets=[...state.hostileProjectiles,...state.pendingHits,...state.pendingStrikes,...state.bossLaserCastsV31330].filter(q=>q.sourceId===actor.id);
+            if(!packets.length)throw Error('native attack absent '+actor.id);
+            if(!restored){
+              const raw=R.snapshot(state),save=bridge.serializeSave(state,'hwando',[],{},0),normalized=bridge.normalizeSave(save);
+              if(!raw.wave.sequentialMobile||raw.wave.active.length!==1||normalized?.danmakuRpgRC88?.wave?.active?.length!==1)throw Error('mobile native save shape');
+              const reload={...state,enemies:[{...leader}],hostileProjectiles:[],pendingHits:[],pendingStrikes:[],impactQueue:[],floatTexts:[],effects:[],
+                rc88Encounter:null,hapilSamongCosmicWaveV386:null,hapilFinalBattleV31300:{...state.hapilFinalBattleV31300}};
+              R.restore(reload,raw,state.hapilFinalBattleV31300.combatElapsedRC79,leader.maxHp);
+              if(reload.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0).length!==1||reload.hapilSamongCosmicWaveV386?.sequentialMobile!==true)throw Error('mobile direct restore');
+              const nativeReload={...reload,enemies:[{...leader}],rc88Encounter:null,hapilSamongCosmicWaveV386:null};
+              bridge.restoreEntry(nativeReload,normalized);
+              nativeRestored=nativeReload.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0).length===1;
+              restored=true;
+            }
+          }
+          const prior=state.hapilSamongCosmicWaveV386?.strikeIndex??0;
+          state.time+=.1;sync();
+          const next=state.hapilSamongCosmicWaveV386?.strikeIndex??0;
+          if(next>prior){const oldId='kair-great-0'+next;sourceCleared.push(![...state.hostileProjectiles,...state.pendingHits,...state.pendingStrikes,...state.bossLaserCastsV31330].some(q=>q.sourceId===oldId));}
+        }
+        return {mobile:api.mobileDevice(),seen,maxLive:maxLive.value,restored,nativeRestored,sourceCleared,wave:api.snapshot(state),leaderDead:!state.enemies.some(a=>a.id==='c104-boss'),errors:[]};
+      });
+      assert.equal(sequential.mobile,true);
+      assert.equal(sequential.maxLive,1);
+      assert.deepEqual(sequential.seen,Array.from({length:6},(_,i)=>'kair-great-0'+(i+1)));
+      assert.equal(sequential.restored,true);assert.equal(sequential.nativeRestored,true);
+      assert.equal(sequential.wave?.status,'complete');assert.equal(sequential.leaderDead,true);
+      assert(sequential.sourceCleared.length===6&&sequential.sourceCleared.every(Boolean));
+      assert.deepEqual(mobileErrors,[]);
+      console.log('RC86 MOBILE BROWSER PASS '+JSON.stringify(sequential));
+    } finally { await mobileContext.close(); }
   } finally {
     await browser.close();
     server.close();

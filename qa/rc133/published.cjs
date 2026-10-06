@@ -342,7 +342,9 @@ async function main() {
     assert.equal(extension6.version,1);assert.equal(extension6.base,'9176b5752fda94f41a72b48012dbaa01f17d0ff5');assert.deepEqual(extension6.protectedRoots,['assets','audio','data','index.html']);assert.equal(extension6.previousExtensionSha256,sha256(extension5Bytes));assert.equal(extension6.files.find(row=>row.file==='index.html')?.before.gitBlob,extension5.files.find(row=>row.file==='index.html')?.after.gitBlob,'sixth index delta starts from the prior extension output');
     const extension7Bytes=localBytes('qa/rc133/authorized-runtime-extension-7.json');assert.equal(sha256(extension7Bytes),'894d0da81edf4e88348f9ec436f44ce75928126a2e2095e3dcf878235faf8fe2','exact seventh authorized runtime extension digest');const extension7=JSON.parse(extension7Bytes);
     assert.equal(extension7.version,1);assert.equal(extension7.base,'c3c18acdea64fc8255d265fd3c66bae28a94ddb4');assert.deepEqual(extension7.protectedRoots,['assets','audio','data','index.html']);assert.equal(extension7.previousExtensionSha256,sha256(extension6Bytes));
-    report.runtimeExtension={base:extension.base,candidateCommit:extension.candidateCommit,sha256:sha256(extensionBytes),changedFiles:extension.files.length,extension2Base:extension2.base,extension2Sha256:sha256(extension2Bytes),extension2ChangedFiles:extension2.files.length,extension3Base:extension3.base,extension3Sha256:sha256(extension3Bytes),extension3ChangedFiles:extension3.files.length,extension4Base:extension4.base,extension4Sha256:sha256(extension4Bytes),extension4ChangedFiles:extension4.files.length,extension5Base:extension5.base,extension5Sha256:sha256(extension5Bytes),extension5ChangedFiles:extension5.files.length,extension6Base:extension6.base,extension6Sha256:sha256(extension6Bytes),extension6ChangedFiles:extension6.files.length,extension7Base:extension7.base,extension7Sha256:sha256(extension7Bytes),extension7ChangedFiles:extension7.files.length};
+    const extension8Bytes=localBytes('qa/rc133/authorized-runtime-extension-8.json');assert.equal(sha256(extension8Bytes),'cba4020e6d53cbbdccd21ec590d5cddd5bec2f37fd5d77123d419f8783fc3009','exact eighth authorized runtime extension digest');const extension8=JSON.parse(extension8Bytes);
+    assert.equal(extension8.version,1);assert.equal(extension8.base,'98e27c4e25f639989f3d41034a915567e9a31f4e');assert.deepEqual(extension8.protectedRoots,['assets','audio','data','index.html']);assert.equal(extension8.previousExtensionSha256,sha256(extension7Bytes));
+    report.runtimeExtension={base:extension.base,candidateCommit:extension.candidateCommit,sha256:sha256(extensionBytes),changedFiles:extension.files.length,extension2Base:extension2.base,extension2Sha256:sha256(extension2Bytes),extension2ChangedFiles:extension2.files.length,extension3Base:extension3.base,extension3Sha256:sha256(extension3Bytes),extension3ChangedFiles:extension3.files.length,extension4Base:extension4.base,extension4Sha256:sha256(extension4Bytes),extension4ChangedFiles:extension4.files.length,extension5Base:extension5.base,extension5Sha256:sha256(extension5Bytes),extension5ChangedFiles:extension5.files.length,extension6Base:extension6.base,extension6Sha256:sha256(extension6Bytes),extension6ChangedFiles:extension6.files.length,extension7Base:extension7.base,extension7Sha256:sha256(extension7Bytes),extension7ChangedFiles:extension7.files.length,extension8Base:extension8.base,extension8Sha256:sha256(extension8Bytes),extension8ChangedFiles:extension8.files.length};
     const runtimeOutputs=new Map(delta.files.map(row=>[row.after.file,row.after]));
     for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
     for(const row of extension2.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
@@ -351,6 +353,7 @@ async function main() {
     for(const row of extension5.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
     for(const row of extension6.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
     for(const row of extension7.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
+    for(const row of extension8.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -367,7 +370,7 @@ async function main() {
       report.optionalDerivative = { checked: false, reason: 'manifest has no external derivative' };
     }
 
-    assert.equal(expected.size,291,'the exact approved RC148 public set contains 291 unique files');
+    assert.equal(expected.size,292,'the exact approved RC150 public set contains 292 unique files');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
