@@ -9,6 +9,12 @@ const delta = JSON.parse(fs.readFileSync(path.join(root, 'qa/rc133/authorized-ru
 const extensionBytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension.json'));
 assert.equal(require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'),'20fb3ec5485ee26ee34cdc77b5dca73a58a08cf52c5a3259c44f7800ffb08b82','exact extension manifest pin');
 const extension = JSON.parse(extensionBytes);
+const extension2Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-2.json'));
+assert.equal(require('node:crypto').createHash('sha256').update(extension2Bytes).digest('hex'),'917d061a8a533c914d123aab980ae7c5a5c7266342cdd6d3e0e48505b9e1bc6f','exact second extension manifest pin');
+const extension2 = JSON.parse(extension2Bytes);
+assert.equal(extension2.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'));
+assert.equal(extension2.files.length,1);assert.equal(extension2.files[0].file,'index.html');
+assert.equal(extension2.files[0].before.gitBlob,extension.files.find(row=>row.file==='index.html')?.after?.gitBlob,'second index path chains from the first extension output');
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
@@ -24,7 +30,7 @@ function verify(file) {
   return url;
 }
 
-const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension2.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
 assert(reserved.pathname.includes('%23')); checks++;
@@ -34,4 +40,4 @@ verify('audio/literal?query#fragment%25 한글.wav');
 for (const file of ['', '/index.html', '../index.html', 'assets/../index.html', 'assets//file.png', 'assets/./file.png', 'assets\\file.png', 'https://other.example/file.png']) {
   assert.throws(() => checkedUrl(file, key, value), undefined, file); checks++;
 }
-console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));
+console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));
