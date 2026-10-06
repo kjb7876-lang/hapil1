@@ -1,4 +1,5 @@
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -11,7 +12,16 @@ vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/rc26/story.js'), 'utf
 const story = storyContext.window.__HAPIL_STORY_RC26__;
 
 assert(!html.includes('./assets/rc26/story.js?v=35201'), 'the superseded opening/interlude module must not load in the game');
-assert(html.includes('./data/story-rc51.js?v=2026100601'), 'the uploaded monologue data must be the active story source');
+const activeStoryScript = html.match(/<script\b[^>]*\bsrc="([^"]*data\/story-rc51\.js\?[^\"]*)"[^>]*><\/script>/);
+assert(activeStoryScript, 'the approved story data file must be an active script tag');
+const activeStoryUrl = new URL(activeStoryScript[1], 'https://hapil.invalid/');
+assert.equal(activeStoryUrl.pathname, '/data/story-rc51.js', 'the active story source path stays canonical');
+assert(activeStoryUrl.searchParams.has('v'), 'the active story source keeps its cache key');
+assert(html.indexOf(activeStoryScript[0]) < html.indexOf('assets/rc51/story.js'), 'story data loads before its runtime');
+assert(html.indexOf('assets/rc51/story.js') < html.indexOf('assets/index-v31526.js'), 'story runtime loads before the game bundle');
+const approvedStoryHash = JSON.parse(fs.readFileSync(path.join(root, 'qa/rc129/manifest.json'), 'utf8')).preservedNarrationRuntime['data/story-rc51.js'];
+const activeStoryHash = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, 'data/story-rc51.js'))).digest('hex');
+assert.equal(activeStoryHash, approvedStoryHash, 'the active story script bytes match the approved source hash');
 assert(bundle.includes('if(window.__HAPIL_STORY_RC51__?.replacesLegacy)return false;'), 'legacy interlude requests must be inert');
 assert(/\.\/assets\/index-v31526\.js\?v=\d+/.test(html));
 assert(bundle.includes('storySound: v.sound'));
