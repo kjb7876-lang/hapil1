@@ -8,6 +8,7 @@ on:
       - 'index.html'
       - 'tests/rc145-body-ash-browser.cjs'
       - 'tests/rc146-global-body-browser.cjs'
+      - 'tests/rc142-gameplay-unit.cjs'
       - 'qa/rc133/authorized-runtime-extension-5.json'
       - 'qa/rc133/published.cjs'
       - 'tools/rc133-preservation.cjs'
@@ -63,6 +64,7 @@ jobs:
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc146-evidence/global" node tests/rc146-global-body-browser.cjs
             node tools/rc133-preservation.cjs > "$RUNNER_TEMP/rc146-evidence/preservation.log"
             node tests/rc133-preservation-unit.cjs
+            node tests/rc142-gameplay-unit.cjs
             node tests/rc133-published-url.cjs
           fi
           test -z "$(git status --porcelain)"
