@@ -36,7 +36,8 @@ async function main(){let browser;try{
  assert.equal(new Set(files).size,files.length,'no duplicate public-file assertions');
  report.combatAudio={registeredAssets:media,rc141PublicEffects:rc141Effects.map(({key,path,sha256})=>({key,path,sha256})),archiveBytesVerified:false,provenance:'Verified against the repository manifest; no claim that the unreadable conversation ZIP is this same set.'};save();
  for(const file of files){const expected=hash(fs.readFileSync(path.join(root,file)));let match=null;
-  for(let attempt=0;attempt<30;attempt++){let row;try{const url=new URL(file,base);url.searchParams.set('rc130-verify',report.testedCommit+'-'+Date.now());const r=await fetch(url,{signal:AbortSignal.timeout(20000)}),actual=hash(Buffer.from(await r.arrayBuffer()));row={file,attempt,status:r.status,expected,actual};}catch(e){row={file,attempt,error:String(e.message)};}report.readiness.push(row);save();if(row.status===200&&row.actual===expected){match=row;break;}await sleep(4000);}
+  // Pages deploy can finish after this audit starts; allow up to six minutes for a new index.
+  for(let attempt=0;attempt<90;attempt++){let row;try{const url=new URL(file,base);url.searchParams.set('rc130-verify',report.testedCommit+'-'+Date.now());const r=await fetch(url,{signal:AbortSignal.timeout(20000)}),actual=hash(Buffer.from(await r.arrayBuffer()));row={file,attempt,status:r.status,expected,actual};}catch(e){row={file,attempt,error:String(e.message)};}report.readiness.push(row);save();if(row.status===200&&row.actual===expected){match=row;break;}await sleep(4000);}
   assert(match,'Exact committed public bytes unavailable: '+file);report.files.push(match);save();
  }
  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM,args:['--no-sandbox','--disable-dev-shm-usage']});

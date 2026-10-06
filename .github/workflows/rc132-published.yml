@@ -8,6 +8,7 @@ on:
       - 'assets/rc132/**'
       - 'assets/combat-v31412/outgoing-native.js'
       - 'qa/rc132/published.cjs'
+      - 'qa/rc130/public-smoke.cjs'
       - 'tests/rc132-startup-readiness.cjs'
       - 'tests/combat-audio-catalog.cjs'
       - 'tests/lib/combat-audio-catalog.cjs'

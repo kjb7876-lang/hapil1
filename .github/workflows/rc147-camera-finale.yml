@@ -11,6 +11,7 @@ on:
       - 'tests/rc86-samong-cosmic-*.cjs'
       - 'tests/rc88-danmaku-rpg-*.cjs'
       - 'tests/rc142-persona-volley-browser.cjs'
+      - 'tests/rc142-gameplay-unit.cjs'
       - '.github/workflows/rc147-camera-finale.yml'
   workflow_dispatch:
 permissions:
@@ -63,6 +64,7 @@ jobs:
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           if test "$RC147_PROFILE" = pc; then
+            node tests/rc142-gameplay-unit.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-auto" node tests/rc147-auto-defense-browser.cjs
             node tests/rc86-samong-cosmic-smoke.cjs
             node tests/rc86-samong-cosmic-browser.cjs
