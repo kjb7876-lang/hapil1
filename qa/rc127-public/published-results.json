@@ -1,0 +1,68 @@
+{
+  "base": "https://kjb7876-lang.github.io/hapil1/",
+  "testedCommit": "d7accb3dafd809baa14dc99a10fd06003271a749",
+  "files": [
+    {
+      "file": "assets/rc127/combat-policy.js",
+      "status": 200,
+      "expected": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960",
+      "actual": "4be7da4843589e97c3f9285d2879da075002c1a4e021ceeca601f128b6a32960"
+    },
+    {
+      "file": "assets/rc127/dark-jelly.js",
+      "status": 200,
+      "expected": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1",
+      "actual": "56ef824d1a9881fc9dbdaf672371910cd90ffa678f79c7df7166b00f9b0eb1a1"
+    },
+    {
+      "file": "assets/combat-v31412/skill-completion.js",
+      "status": 200,
+      "expected": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070",
+      "actual": "3ca85c5b287f700b55839db1558450220342ee9367f3ab68ffa421058a98f070"
+    },
+    {
+      "file": "assets/rc128/awakening-policy.js",
+      "status": 200,
+      "expected": "8e3a23fee4c99b275410bde10c7b0f3901f0967dbbd24257d216da65d1ecbce7",
+      "actual": "8e3a23fee4c99b275410bde10c7b0f3901f0967dbbd24257d216da65d1ecbce7"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "status": 200,
+      "expected": "eb8c7fa534b9332c44fb1b4e2c6057d595adda17c9605ea127a53b6ae1cd7857",
+      "actual": "eb8c7fa534b9332c44fb1b4e2c6057d595adda17c9605ea127a53b6ae1cd7857"
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "status": 200,
+      "expected": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee",
+      "actual": "ccf088ae47aaf0ee4ffc75ec21a946226d5d54e6bf6dd1f688bee84708531aee"
+    },
+    {
+      "file": "assets/combat-v31402/combat-core.js",
+      "status": 200,
+      "expected": "c2962da4b5491182da367c2153646312c333aed4f37344866882c47502b4478f",
+      "actual": "c2962da4b5491182da367c2153646312c333aed4f37344866882c47502b4478f"
+    },
+    {
+      "file": "assets/rc23/feedback.js",
+      "status": 200,
+      "expected": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655",
+      "actual": "7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655"
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "expected": "ebb86067a56c43b433fb08cd04096463769441ec9713831f7cd76151d9932294",
+      "actual": "ebb86067a56c43b433fb08cd04096463769441ec9713831f7cd76151d9932294"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "status": 200,
+      "expected": "6314dba851144a4526a4016c60a56cf2b4a6ff1c547751d6b87322c0208dcd48",
+      "actual": "518fac2aa29170fdb27f11030edeb2297dc4c0483312db5fa3b4f1a729ca9d8c"
+    }
+  ],
+  "screens": [],
+  "scope": "Read-only published startup, not full campaigns or physical phones"
+}
