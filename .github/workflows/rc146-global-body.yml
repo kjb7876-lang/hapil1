@@ -9,6 +9,7 @@ on:
       - 'tests/rc145-body-ash-browser.cjs'
       - 'tests/rc146-global-body-browser.cjs'
       - 'qa/rc133/authorized-runtime-extension-5.json'
+      - 'qa/rc133/published.cjs'
       - 'tools/rc133-preservation.cjs'
       - 'tools/rc133-release-compatibility.cjs'
       - '.github/workflows/rc146-global-body.yml'
