@@ -22,4 +22,6 @@ The six-boss fixture's game time barely advances during its 12-second capture be
 
 Four repeated Persona entry and exit cycles under the same seed, with forced GC after each, retained about 27.7–29.8 MB on baseline and 27.6–29.4 MB in the first candidate run. The committed-SHA run rose from 28.3 to 29.4 MB across four cycles. Each candidate cycle removed the Persona HUD overlay and SVG color filter on exit. This bounded test cannot distinguish warm-up retention from a small longer-lived leak.
 
+A further six-cycle comparison retained 28.06–30.97 MB for the candidate and 28.17–31.22 MB for baseline, with no browser errors or filter residue. Neither six-cycle series increased on every step. Longer natural sessions would still be needed to rule out a slow leak.
+
 The browser suites also check native six-boss creation, phase sprite selection, zero JavaScript and HTTP errors, and the nine-pattern shot sequence. Exact-commit CI runs PC, portrait, and landscape layouts, plus the denser portrait and memory checks.
