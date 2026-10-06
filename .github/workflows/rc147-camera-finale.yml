@@ -70,7 +70,7 @@ jobs:
             node tests/rc88-danmaku-rpg-browser.cjs
             node tests/rc75-ending-and-awakening.cjs
             node tests/rc133-preservation-unit.cjs
-            node tests/rc128-candidate.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-legacy" node tests/rc128-candidate.cjs
           fi
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
