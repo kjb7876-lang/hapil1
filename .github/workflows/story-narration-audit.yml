@@ -192,6 +192,16 @@ jobs:
             topology) node tests/rc121-connected-topology-browser.cjs ;;
             release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc142-gameplay-browser.cjs && node tests/rc142-movement-space-browser.cjs && node tests/rc142-persona-volley-browser.cjs ;;
           esac
+      - name: Publish allowlisted test status only
+        if: always()
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),root=process.env.HAPIL_QA_OUTPUT;
+          const statuses=new Set(['passed','failed','running']),suites=new Set(['rc128-candidate','renderer-syntax','bundle-syntax','approved-art','laser-phases','laser-continuity','laser-telegraph','combat','map-advance','natural-story']);
+          const rows=[];for(const file of ['release/release-summary.json','release/rc128-candidate/results.json','persona-volley-results.json','movement-space-results.json']){const p=path.join(root,file);if(!fs.existsSync(p))continue;try{const x=JSON.parse(fs.readFileSync(p,'utf8')),row={test:file,status:statuses.has(x.status)?x.status:'unknown',category:typeof x.failure==='string'?(x.failure.includes('browser volley frame stress')?'frame-stall':x.failure.includes('timed out')?'timeout':x.failure.includes('AssertionError')?'assertion':'other'):'none'};if(Array.isArray(x.suites))row.suites=x.suites.filter(r=>suites.has(r.name)).map(r=>({name:r.name,status:statuses.has(r.status)?r.status:'unknown'}));if(Array.isArray(x.profiles))row.profiles=x.profiles.filter(r=>['pc','portrait','landscape'].includes(r.name)).map(r=>({name:r.name,frames:Number.isFinite(r.frameStress?.frames)?r.frameStress.frames:null,maxLongTaskMs:Array.isArray(r.frameStress?.longTaskDurations)?Math.max(0,...r.frameStress.longTaskDurations.filter(Number.isFinite)):null}));rows.push(row);}catch{rows.push({test:file,status:'parse-error'});}}
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'## Allowlisted test status\n\nNo stderr, error messages, paths or environment values are included.\n\n```json\n'+JSON.stringify(rows,null,2)+'\n```\n');
+          NODE
       - name: Print concise evidence
         if: always()
         run: |
