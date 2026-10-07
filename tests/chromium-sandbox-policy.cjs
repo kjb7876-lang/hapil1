@@ -77,6 +77,9 @@ assert.deepEqual(badSwitches, [], `sandbox-disabling Chromium switches: ${badSwi
 assert.deepEqual(badOptions, [], `Chromium launches without explicit sandbox: ${badOptions.join(', ')}`);
 assert.deepEqual(badRunnerMutations, [], `active workflows alter OS ownership, permissions, or kernel settings: ${badRunnerMutations.join(', ')}`);
 assert(launchers.length > 0, 'the audit must find Chromium launch sites');
+const pngPacker = fs.readFileSync(path.join(root, 'tools/rc154-pack-visual-evidence.cjs'), 'utf8');
+assert(pngPacker.includes('chrome-sandbox-smoke.json') && pngPacker.includes('browserVersionFromSmoke'), 'the PNG packer must use exact sandbox-smoke evidence for Chrome version');
+assert(!/HAPIL_CHROMIUM|\/usr\/bin\/chromium/.test(pngPacker), 'the PNG packer must not launch or inspect bundled Chromium');
 for (const relative of chromeStableWorkflowFiles) {
   const text = fs.readFileSync(path.join(root, relative), 'utf8');
   const launchCount = [...text.matchAll(/chromium\.launch\s*\(/g)].length;
