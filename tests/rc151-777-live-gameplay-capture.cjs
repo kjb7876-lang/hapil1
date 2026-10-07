@@ -126,7 +126,7 @@ async function stateSummary(page) {
       inner:s?.innerFinalRC133?{entry:s.innerFinalRC133.entry,phase:s.innerFinalRC133.phase,intro:s.innerFinalRC133.intro,shotDelay:s.innerFinalRC133.shotDelay,awakeningCooldown:s.innerFinalRC133.awakeningCooldown,awake:s.innerFinalRC133.awake,cycle:s.innerFinalRC133.cycle}:null,
       frameBlockers:{reading:window.__HAPIL_READING_V31342__?.blocked??null,partyUi:window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()===true,records:window.__HAPIL_RECORDS_V31365__?.isOpen?.()===true,dialogs:[...document.querySelectorAll('[role="dialog"],dialog,.rc61-settings,.growth-modal,.story-interlude')].filter(e=>e.getClientRects().length).map(e=>({tag:e.tagName,cls:typeof e.className==='string'?e.className:'',text:(e.innerText||'').slice(0,240)})).slice(0,8)},
       actors:actors.filter(a=>a.boss&&a.hp>0).map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,x:a.x,y:a.y,attackAt:a.attackAt,recoverUntil:a.recoverUntil})),
-      projectiles:(s?.hostileProjectiles??[]).filter(q=>q.hostile!==false).map(q=>({sourceId:q.sourceId,sprite:q.sprite,skill:q.rc133Skill,red:q.rc150RedPersonaShot,age:s.time-q.born})).slice(0,16),
+      projectiles:(s?.hostileProjectiles??[]).filter(q=>q.hostile!==false).map(q=>({sourceId:q.sourceId,sprite:q.sprite,skill:q.rc133Skill,red:q.rc150RedPersonaShot,innerShot:q.rc133InnerShot===true,danmaku:q.danmakuV31316===true,rc95Bullet:q.rc95Bullet===true,commonSprite:q.rc126CommonSprite??null,drawPath:q.bitmapPathV31355??null,drawFallback:q.bitmapFallbackV31355??null,bitmapRendered:q.bitmapRenderedDreamV31353===true,age:s.time-q.born})).slice(0,16),
       raidPackets:['hostileProjectiles','pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'].flatMap(queue=>(s?.[queue]??[]).filter(q=>['b05-boss','mb-ep1b05'].includes(q.sourceId??q.ownerId)).map(q=>({queue,sourceId:q.sourceId??q.ownerId,sprite:q.sprite??q.image??q.impactSprite,assetPaths:['sprite','image','projectileSprite','impactSprite'].map(key=>q[key]).filter(Boolean),heel:q.lustKindRC24==='heel',age:Number.isFinite(q.born)?s.time-q.born:null}))).slice(0,16),
       balrogRenderer:window.__MONGSE_BALROG_POSE_RC151__?.metrics?.()??null };
   });
@@ -212,14 +212,22 @@ async function captureWhen(page, label, file, predicate, timeout=Number(process.
     await closeSettings(page);
     await advanceNarrative(page);
     await page.keyboard.down('ArrowRight');await page.waitForTimeout(250);await page.keyboard.up('ArrowRight');
-    await captureWhen(page,'native 777 Persona baseline volley','04-persona-normal-projectile.png',()=>{
-      const s=window.__MONGSE_QA_STATE__;
-      return s?.innerFinalRC133?.entry==='developer-777'&&s.innerFinalRC133.awake<=0&&(s.hostileProjectiles??[]).some(q=>q.rc133InnerShot&&q.rc150RedPersonaShot===false&&s.time-q.born<1.8);
+    const normalPersona=await captureWhen(page,'native 777 Persona baseline volley','04-persona-normal-projectile.png',()=>{
+      const s=window.__MONGSE_QA_STATE__,q=(s?.hostileProjectiles??[]).find(q=>q.rc133InnerShot&&q.rc150RedPersonaShot===false&&q.bitmapRenderedDreamV31353===true&&q.bitmapPathV31355===q.sprite&&q.bitmapFallbackV31355===false&&s.time-q.born<1.8);
+      return s?.innerFinalRC133?.entry==='developer-777'&&s.innerFinalRC133.awake<=0&&q?{skill:q.rc133Skill,packet:{innerShot:q.rc133InnerShot,danmaku:q.danmakuV31316===true,rc95Bullet:q.rc95Bullet===true,commonSprite:q.rc126CommonSprite??null},sprite:q.sprite,drawPath:q.bitmapPathV31355,bitmapFallback:q.bitmapFallbackV31355}:false;
     },90000);
-    await captureWhen(page,'native 777 Persona red awakened volley','05-persona-red-projectile.png',()=>{
-      const s=window.__MONGSE_QA_STATE__;
-      return s?.innerFinalRC133?.entry==='developer-777'&&s.innerFinalRC133.awake>0&&(s.hostileProjectiles??[]).some(q=>q.rc133InnerShot&&q.rc150RedPersonaShot===true&&s.time-q.born<1.8);
+    const redPersona=await captureWhen(page,'native 777 Persona red awakened volley','05-persona-red-projectile.png',()=>{
+      const s=window.__MONGSE_QA_STATE__,q=(s?.hostileProjectiles??[]).find(q=>q.rc133InnerShot&&q.rc150RedPersonaShot===true&&q.bitmapRenderedDreamV31353===true&&q.bitmapPathV31355===q.sprite&&q.bitmapFallbackV31355===false&&s.time-q.born<1.8);
+      return s?.innerFinalRC133?.entry==='developer-777'&&s.innerFinalRC133.awake>0&&q?{skill:q.rc133Skill,packet:{innerShot:q.rc133InnerShot,danmaku:q.danmakuV31316===true,rc95Bullet:q.rc95Bullet===true,commonSprite:q.rc126CommonSprite??null},sprite:q.sprite,drawPath:q.bitmapPathV31355,bitmapFallback:q.bitmapFallbackV31355}:false;
     },90000);
+    for(const [label,capture,rootPath] of [['normal',normalPersona,'./assets/rc134/persona-skills/'],['red',redPersona,'./assets/rc133/art/']]){
+      assert.equal(capture.evidence?.packet?.innerShot,true,label+' emitted packet carries the dedicated Persona draw flag');
+      assert.equal(capture.evidence?.packet?.rc95Bullet,true,label+' packet still comes from the native hostile projectile transaction');
+      assert.equal(capture.evidence?.drawPath,capture.evidence?.sprite,label+' actual decoded bitmap is the packet skill sprite');
+      assert.equal(capture.evidence?.bitmapFallback,false,label+' actual draw did not fall back');
+      assert(capture.evidence?.drawPath?.startsWith(rootPath),label+' actual draw uses its dedicated authored atlas');
+      assert(!capture.evidence?.drawPath?.includes('danmaku-jellybean.webp'),label+' actual draw did not select the shared jellybean');
+    }
 
     assert.deepEqual(report.errors,[],'no JS errors during live gameplay');
     assert.deepEqual(report.httpErrors,[],'no failed asset/network requests during live gameplay');
