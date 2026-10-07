@@ -9,7 +9,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "be3594a78ff6d93f3352b88ff1c7875a568b406c46df5078b8e0eb1a9a287f3d",
+  "targetProtectedRowsSha256": "7a1d0b5a903d559e863829e5a36f0b8622aa727653e6f72b7573ba972aec68b7",
   "files": [
     {
       "file": "assets/index-v31526.js",
@@ -25,6 +25,21 @@
         "sha256": "0f0db4989ce32a8908560bd6873b66c5c87ba4ec858d674b223e0ec94bc18f93"
       },
       "reason": "RC153 native boss bundle scatter and steering lock, physically legal right-center placement and full body/weapon camera fit: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "41590609d84d220494607d57f8e7446caef983b3"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "e07610408543e3e6e27150e257e1bd042ffecc7a",
+        "sha256": "3fa3460dc262f6bb54558e19efb4610a5e0952b40fac61c8719f9d691459be57"
+      },
+      "reason": "RC153 native boss bundle scatter and steering lock, physically legal right-center placement and full body/weapon camera fit: assets/rc133/inner-final.js"
     },
     {
       "file": "assets/rc133/native-install.js.txt",
@@ -77,8 +92,8 @@
       "after": {
         "file": "assets/rc153/combat-layout.js",
         "mode": "100644",
-        "gitBlob": "d5fd2fd0ee4bd1c0caa276e1a45927858da9b4c2",
-        "sha256": "9387822ef42ecde1eaeff0a453eb0f2836968659d982b0ff9f201dc9401b6b7d"
+        "gitBlob": "e4013786bd63f394e600accc54472d60acddcba3",
+        "sha256": "c0079aad10e6e23a09c6e6223c6291f71f235357efaf1126017566dd9d1c0428"
       },
       "reason": "RC153 native boss bundle scatter and steering lock, physically legal right-center placement and full body/weapon camera fit: assets/rc153/combat-layout.js"
     },
