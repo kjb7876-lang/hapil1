@@ -117357,7 +117357,7 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
     }catch{return image;}
   }
   function drawShot(ctx,cache,q,time,settings={}) {
-    if(!q?.danmakuV31316||hero(q))return false;
+    if(!q?.danmakuV31316||hero(q)||q.rc133InnerShot===true)return false;
     const row=ownerFor(q);if(!row||row.zone!==q.danmakuZoneV31316)return true;
     if(q.bodySpawned31219!==true)return true;
     const im=MONGSE_queueImage(cache,q.danmakuArtV31316,"eager");if(!im?.complete||!im.naturalWidth)return true;
@@ -126572,7 +126572,7 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   const danmaku=window.__HAPIL_DANMAKU_V31316__;
   if(!danmaku?.installed||typeof danmaku.drawShot!=='function'||typeof danmaku.drawCue!=='function'||typeof Jn!=='function'||typeof Gn!=='function')return false;
   const projectileBase=Jn;Jn=function HAPIL_finalDanmakuBitmapRC71(ctx,cache,projectile,time,settings={},...rest){
-   if(projectile?.danmakuV31316){stats.projectileDispatches++;if(danmaku.drawShot(ctx,cache,projectile,time,settings))return;}
+   if(projectile?.danmakuV31316&&projectile?.rc133InnerShot!==true){stats.projectileDispatches++;if(danmaku.drawShot(ctx,cache,projectile,time,settings))return;}
    return projectileBase.call(this,ctx,cache,projectile,time,settings,...rest);
   };
   const effectBase=Gn;Gn=function HAPIL_finalDanmakuCueRC71(ctx,cache,effect,time,settings={},...rest){

@@ -20,10 +20,10 @@ function gitBlob(bytes){return crypto.createHash('sha1').update(Buffer.from('blo
 function verifyRuntimeOutputChain(root,report,file,currentBytes=fs.readFileSync(path.join(root,file))){
  const old=report.approvedDelta.find(row=>row.file===file);
  const expectedHistorical=revisions[file]?.[1];assert(expectedHistorical,'Unapproved RC128 compatibility path');
- const currentHash=digest(currentBytes),extension=report.approvedExtension?.find(row=>row.file===file),extension2=report.approvedExtension2?.find(row=>row.file===file),extension3=report.approvedExtension3?.find(row=>row.file===file),extension4=report.approvedExtension4?.find(row=>row.file===file),extension5=report.approvedExtension5?.find(row=>row.file===file),extension6=report.approvedExtension6?.find(row=>row.file===file),extension7=report.approvedExtension7?.find(row=>row.file===file),extension8=report.approvedExtension8?.find(row=>row.file===file),extension9=report.approvedExtension9?.find(row=>row.file===file);
+ const currentHash=digest(currentBytes),extension=report.approvedExtension?.find(row=>row.file===file),extension2=report.approvedExtension2?.find(row=>row.file===file),extension3=report.approvedExtension3?.find(row=>row.file===file),extension4=report.approvedExtension4?.find(row=>row.file===file),extension5=report.approvedExtension5?.find(row=>row.file===file),extension6=report.approvedExtension6?.find(row=>row.file===file),extension7=report.approvedExtension7?.find(row=>row.file===file),extension8=report.approvedExtension8?.find(row=>row.file===file),extension9=report.approvedExtension9?.find(row=>row.file===file),extension10=report.approvedExtension10?.find(row=>row.file===file),extension11=report.approvedExtension11?.find(row=>row.file===file),extension12=report.approvedExtension12?.find(row=>row.file===file),extension13=report.approvedExtension13?.find(row=>row.file===file);
  // The old RC128 smoke-test source lives outside the protected runtime roots,
  // so its exact bytes remain checked directly by the independent revision pin.
- if(!old){assert(!extension&&!extension2&&!extension3&&!extension4&&!extension5&&!extension6&&!extension7&&!extension8&&!extension9,'Runtime extension cannot authorize an unprotected compatibility fixture');assert.equal(currentHash,expectedHistorical,'Exact compatibility fixture output');return {historicalOutput:expectedHistorical,currentOutput:currentHash,extensionOutput:null};}
+ if(!old){assert(!extension&&!extension2&&!extension3&&!extension4&&!extension5&&!extension6&&!extension7&&!extension8&&!extension9&&!extension10&&!extension11&&!extension12&&!extension13,'Runtime extension cannot authorize an unprotected compatibility fixture');assert.equal(currentHash,expectedHistorical,'Exact compatibility fixture output');return {historicalOutput:expectedHistorical,currentOutput:currentHash,extensionOutput:null};}
  assert.equal(old.after.sha256,expectedHistorical,'Historical compatibility output pin');
  if(extension){
   assert(extension.after,'Compatibility path removed by runtime extension');
@@ -78,13 +78,13 @@ function verifyRuntimeOutputChain(root,report,file,currentBytes=fs.readFileSync(
    assert.equal(extension9.after.file,file,'Ninth runtime extension output path');extensionOutput=extension9.after.sha256;
   }
   let row=extension9||extension8||extension7||extension6||extension5||extension4||extension3||extension2||extension;
-  for(const number of [10,11,12]){const next=report['approvedExtension'+number]?.find(r=>r.file===file);if(!next)continue;assert(next.after,'Compatibility path removed by runtime extension '+number);assert.deepEqual({file:next.before?.file,mode:next.before?.mode,gitBlob:next.before?.gitBlob},{file,mode:row.after.mode,gitBlob:row.after.gitBlob},'Exact preceding extension output '+number);assert.equal(next.after.file,file);row=next;extensionOutput=next.after.sha256;}
+  for(const number of [10,11,12,13]){const next=report['approvedExtension'+number]?.find(r=>r.file===file);if(!next)continue;assert(next.after,'Compatibility path removed by runtime extension '+number);assert.deepEqual({file:next.before?.file,mode:next.before?.mode,gitBlob:next.before?.gitBlob},{file,mode:row.after.mode,gitBlob:row.after.gitBlob},'Exact preceding extension output '+number);assert.equal(next.after.file,file);row=next;extensionOutput=next.after.sha256;}
   assert.equal(extensionOutput,currentHash,'Current runtime bytes differ from exact authorized extension chain output');
   assert.equal(row.after.gitBlob,gitBlob(currentBytes),'Current runtime Git blob differs from exact authorized extension chain output');
   const stat=fs.statSync(path.join(root,file));assert.equal(row.after.mode,stat.mode&0o111?'100755':'100644','Current runtime mode differs from exact authorized extension chain output');
   return {historicalOutput:old.after.sha256,currentOutput:currentHash,extensionOutput};
  }
- assert(!extension2&&!extension3&&!extension4&&!extension5&&!extension6&&!extension7&&!extension8&&!extension9,'Later runtime extension cannot apply without its first output');
+ assert(!extension2&&!extension3&&!extension4&&!extension5&&!extension6&&!extension7&&!extension8&&!extension9&&!extension10&&!extension11&&!extension12&&!extension13,'Later runtime extension cannot apply without its first output');
  assert.equal(currentHash,old.after.sha256,'Current runtime bytes differ from exact historical output');
  return {historicalOutput:old.after.sha256,currentOutput:currentHash,extensionOutput:null};
 }

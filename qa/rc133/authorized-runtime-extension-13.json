@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "3ca4874fb8e387ecc3922117922c08d7f7d541d4",
+  "baseTree": "c44c84c0f97408b182974511d55a7c029f601d45",
+  "previousExtensionSha256": "b80f0b96ac1de271a95e4eaf43153b9da3e70ca02f72ad55b5946eeb809c79f3",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "e79e0cc008548bd9422305c028b48b9d7e595f5d45fa180c13e58570a14454a1",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f54a83b230f4264c92d7ee89e67e9ef5829a8c26"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "c4ec45d5f8c509adfd182bc5ae595a0e955377b4",
+        "sha256": "bc6c8bb44e21f68842b285857a5f6dac972674b2987d18e039f910476fd8b435"
+      },
+      "reason": "Route Persona shot packets past generic danmaku rendering while retaining authored skill art: assets/index-v31526.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "68450b6b09b3afe7062a9919e1ee96736db24a14"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "eb342e8d0e9ff4882f303005454a339f98d26e05",
+        "sha256": "85a0a4871dc4bf3be4141c57bbbde2562e364e9c0134b1f36e06381c455373d9"
+      },
+      "reason": "Route Persona shot packets past generic danmaku rendering while retaining authored skill art: index.html"
+    }
+  ]
+}
