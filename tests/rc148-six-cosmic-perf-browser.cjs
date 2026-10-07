@@ -11,7 +11,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 const report={status:'running',runtimeCommit:cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),runtimeDirty:!!cp.execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim(),seed:process.env.RC148_SEED?Number(process.env.RC148_SEED):null,staged:true,profiles:[],errors:[]};
 const save=()=>fs.writeFileSync(path.join(out,'six-cosmic-results.json'),JSON.stringify(report,null,2));
 (async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage','--enable-precise-memory-info']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage','--enable-precise-memory-info']});
  for(const [name,width,height,mobile] of [['pc',1280,900,false],['portrait',390,844,true],['landscape',844,390,true]].filter(row=>!process.env.RC148_PROFILE||row[0]===process.env.RC148_PROFILE)){
   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,cpuThrottle:mobile?4:1,errors:[],httpErrors:[]};report.profiles.push(row);
   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:row.cpuThrottle});

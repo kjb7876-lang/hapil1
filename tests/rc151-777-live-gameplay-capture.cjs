@@ -152,7 +152,7 @@ async function captureWhen(page, label, file, predicate, timeout=Number(process.
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   let browser,context;
   try {
-    browser=await chromium.launch({ executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium', args:['--no-sandbox','--disable-dev-shm-usage'] });
+    browser=await chromium.launch({chromiumSandbox: true,  executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium', args:['--disable-dev-shm-usage'] });
     context=await browser.newContext({ viewport:{width:1280,height:900}, deviceScaleFactor:1 });
     const page=await context.newPage();
     page.on('pageerror',error=>report.errors.push(error.stack||error.message));

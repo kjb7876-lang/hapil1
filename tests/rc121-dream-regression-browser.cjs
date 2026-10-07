@@ -16,7 +16,7 @@ async function start(page){
 }
 async function main(){await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const result={testedCommit:require('node:child_process').execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),fixtures:[],natural:[]};let browser;
 try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  {const context=await browser.newContext({viewport:{width:1180,height:757}}),page=await context.newPage();page.setDefaultTimeout(15000);await start(page);
  result.fixtures=await page.evaluate(()=>{const R=window.__HAPIL_SAMONG_RICOCHET_RC108__,A=window.__HAPIL_SAMONG_RC91__,N=window.__RC121_NATIVE__,rows=[];
  const record=(name,fn)=>{try{rows.push({name,passed:true,value:fn()});}catch(e){rows.push({name,passed:false,error:e.stack||String(e)});}};

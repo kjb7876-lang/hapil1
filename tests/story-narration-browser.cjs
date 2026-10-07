@@ -27,7 +27,7 @@ const server=http.createServer((req,res)=>{
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const runtime=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,playwright=runtime?require(path.join(runtime,'playwright')):require('playwright');
- const browser=await playwright.chromium.launch({headless:true,executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox']});
+ const browser=await playwright.chromium.launch({chromiumSandbox: true, headless:true,executablePath:process.env.HAPIL_CHROMIUM||undefined,args:[]});
  const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));
  const url=`http://127.0.0.1:${server.address().port}`;
  const waitState=state=>page.waitForFunction(expected=>document.querySelector('#hapil-story-rc51')?.dataset.narrationState===expected,state,{timeout:6000});

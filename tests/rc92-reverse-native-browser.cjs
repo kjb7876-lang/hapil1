@@ -10,7 +10,7 @@ const server=http.createServer((req,res)=>{
  try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff':'font/woff','.woff2':'font/woff2'})[path.extname(file)]||'application/octet-stream');res.end(file.endsWith('index-v31526.js')?fs.readFileSync(file,'utf8')+harness:fs.readFileSync(file));}catch{res.writeHead(404).end();}
 }).listen(0,'127.0.0.1');
 const results=[];
-(async()=>{const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM,args:['--no-sandbox','--disable-dev-shm-usage']});try{
+(async()=>{const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM,args:['--disable-dev-shm-usage']});try{
  for(const mobile of [true,false]){
   const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:900},isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[],missing=[];
   page.on('pageerror',e=>errors.push(e.stack));page.on('response',r=>{if(r.status()===404&&r.url().startsWith('http://127.0.0.1:'))missing.push(r.url());});

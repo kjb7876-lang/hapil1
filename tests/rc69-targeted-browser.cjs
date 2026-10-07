@@ -9,7 +9,7 @@ const server=require('node:http').createServer((req,res)=>{
 }).listen(0,'127.0.0.1');
 const assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/tmp/chromium',args:['--no-sandbox']});
+ const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/tmp/chromium',args:[]});
  try{
  const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);

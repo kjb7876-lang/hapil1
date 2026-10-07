@@ -7,7 +7,7 @@ const bridge='\nwindow.__RC146_QA__={initial:oi,actors:z=>N[z]?.enemies??[],rost
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.wav':'audio/wav','.mp3':'audio/mpeg','.woff2':'font/woff2'};
 const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');const bytes=fs.readFileSync(file);res.end(file.endsWith('/assets/index-v31526.js')?Buffer.concat([bytes,Buffer.from(bridge)]):bytes);}catch{res.writeHead(404).end();}});
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={status:'running',staged:true,profiles:[]};try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  for(const [name,w,h]of[['pc',1280,900],['portrait',390,844],['landscape',844,390]]){
   const page=await browser.newPage({viewport:{width:w,height:h},deviceScaleFactor:name==='pc'?1:2,isMobile:name!=='pc',hasTouch:name!=='pc'}),row={name,errors:[],httpErrors:[]};
   if(process.env.RC146_CPU_THROTTLE){const cdp=await page.context().newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:Number(process.env.RC146_CPU_THROTTLE)});row.cpuThrottle=Number(process.env.RC146_CPU_THROTTLE);}

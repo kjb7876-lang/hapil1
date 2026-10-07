@@ -11,7 +11,7 @@ async function main(){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={commit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),status:'running',profiles:[],cases:[],scope:'48 staged native renders and 3 unmodified startup observations; not 48 natural boss clears'};
  const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));save();
  try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],httpErrors=[];
   const profile={name,errors,httpErrors};report.profiles.push(profile);save();

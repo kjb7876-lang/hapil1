@@ -10,7 +10,7 @@ const server=http.createServer((req,res)=>{try{const f=path.resolve(root,'.'+dec
 const report={status:'running',commit:cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),scope:'Fresh Story and already-unlocked Dream title launches; native first-map progression only, not full campaign or physical-phone evidence',runs:[]};
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  for(const mode of ['STORY','DREAM']){
   const context=await browser.newContext({viewport:{width:1180,height:757}}),page=await context.newPage(),row={mode,errors:[],failedResponses:[],samples:[],usedCombatOrProgressCheats:false,profileInitiallyDreamUnlocked:mode==='DREAM'};report.runs.push(row);save();
   try{page.on('pageerror',e=>row.errors.push(String(e)));page.on('response',r=>{if(r.status()>=400)row.failedResponses.push({status:r.status(),url:r.url()});});

@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
 
 (async () => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  const browser = await chromium.launch({ executablePath: process.env.HAPIL_CHROMIUM || undefined, args: ['--no-sandbox'] });
+  const browser = await chromium.launch({chromiumSandbox: true,  executablePath: process.env.HAPIL_CHROMIUM || undefined, args: [] });
   try {
     const page = await browser.newPage();
     const errors = [];

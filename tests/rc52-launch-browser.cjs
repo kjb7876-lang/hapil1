@@ -8,7 +8,7 @@ const server=require('node:http').createServer((req,res)=>{
  try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.statusCode=404;res.end();}
 }).listen(0,'127.0.0.1');
 const assert=require('node:assert/strict');
-(async()=>{const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox']});try{
+(async()=>{const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||undefined,args:[]});try{
  const errors=[],results=[];const page=await browser.newPage({viewport:{width:1280,height:900}});page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
  assert.equal(await page.locator('#mongse-christian-opening-v31236').count(),1);await page.keyboard.press('Escape');

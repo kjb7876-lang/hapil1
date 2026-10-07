@@ -20,7 +20,7 @@ async function main(){
   }
   assert(ready,'Exact RC129 deployment did not become available');
   for(const file of files){const url=new URL(file,base);url.searchParams.set('rc129-verify',String(Date.now()));const r=await fetch(url,{signal:AbortSignal.timeout(30000)}),actual=hash(Buffer.from(await r.arrayBuffer())),expected=hash(fs.readFileSync(path.join(root,file)));report.files.push({file,status:r.status,expected,actual});save();assert.equal(r.status,200,file);assert.equal(actual,expected,'Published bytes differ: '+file);}
-  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM,args:['--no-sandbox','--disable-dev-shm-usage']});
+  browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM,args:['--disable-dev-shm-usage']});
   for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
    const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),row={name,errors:[],httpErrors:[],samples:[]};report.screens.push(row);page.setDefaultTimeout(30000);
    page.on('pageerror',e=>row.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({url:r.url(),status:r.status()});});

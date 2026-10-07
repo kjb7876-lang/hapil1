@@ -12,7 +12,7 @@ async function boot(page,mode='STORY'){
  if(mode==='STORY'){await page.waitForSelector('#hapil-story-rc51[data-phase="pre"]');await page.getByRole('button',{name:'계속 · Enter',exact:true}).click();}
  await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.setMode('manual'));
 }
-(async()=>{const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM,args:['--no-sandbox','--disable-dev-shm-usage']});try{
+(async()=>{const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM,args:['--disable-dev-shm-usage']});try{
  for(const mobile of [false,true]){
   const context=await browser.newContext({viewport:mobile?{width:414,height:896}:{width:1280,height:900},isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),errors=[];page.on('pageerror',e=>{errors.push(e.stack);console.log('PAGE_FAULT',e.message);});
   await page.goto('http://127.0.0.1:'+server.address().port+'/?qa=1');await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();

@@ -9,7 +9,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 const report={status:'running',runtimeCommit:cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),runtimeDirty:!!cp.execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim(),seed:Number(process.env.RC148_SEED)||132148,staged:true,profile:'portrait',cpuThrottle:4,cycles:[],errors:[],httpErrors:[]};
 const save=()=>fs.writeFileSync(path.join(out,'persona-memory-results.json'),JSON.stringify(report,null,2));
 (async()=>{await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage','--enable-precise-memory-info']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage','--enable-precise-memory-info']});
  const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true}),page=await context.newPage(),cdp=await context.newCDPSession(page);
  await cdp.send('Emulation.setCPUThrottlingRate',{rate:4});await page.addInitScript(seed=>{let value=seed>>>0;Math.random=()=>((value=Math.imul(value,1664525)+1013904223>>>0)/4294967296);},report.seed);
  page.on('pageerror',e=>report.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)report.httpErrors.push({status:r.status(),url:r.url()});});

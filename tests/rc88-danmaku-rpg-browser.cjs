@@ -8,7 +8,7 @@ const server=http.createServer((req,res)=>{
  catch{res.statusCode=404;res.end();}
 }).listen(0,'127.0.0.1');
 (async()=>{
- const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox','--disable-dev-shm-usage']});
+ const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--disable-dev-shm-usage']});
  try{
  const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];
  page.on('pageerror',e=>errors.push(e.stack));

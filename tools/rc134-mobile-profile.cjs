@@ -50,7 +50,7 @@ const stat = values => {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser;
   try {
-    browser = await chromium.launch({ executablePath: process.env.HAPIL_CHROMIUM || '/usr/bin/chromium', args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+    browser = await chromium.launch({chromiumSandbox: true,  executablePath: process.env.HAPIL_CHROMIUM || '/usr/bin/chromium', args: ['--disable-dev-shm-usage'] });
     report.browser = { version: browser.version(), executable: process.env.HAPIL_CHROMIUM || '/usr/bin/chromium' };
     const context = await browser.newContext({ viewport: { width: profileWidth, height: profileHeight }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     const page = await context.newPage();

@@ -16,7 +16,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 const collectStrings=(value,found=new Set())=>{if(typeof value==='string'&&/^(?:\.\/)?assets\//.test(value))found.add(value.replace(/^\.\//,''));else if(Array.isArray(value))for(const item of value)collectStrings(item,found);else if(value&&typeof value==='object')for(const item of Object.values(value))collectStrings(item,found);return found;};
 (async()=>{await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});let browser;
  try{
-  browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+  browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
   const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(String(e.stack||e)));
   await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);
   await page.waitForFunction(()=>window.__HAPIL_RC86_BRIDGE__?.zoneActors&&window.__HAPIL_MAP_DATA_RC138__&&window.__HAPIL_RC140_MIDBOSS_DATA__&&window.__HAPIL_STORY_DATA_RC51__,null,{timeout:30000});

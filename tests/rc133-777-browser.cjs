@@ -208,9 +208,9 @@ async function main() {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser;
   try {
-    browser = await chromium.launch({
+    browser = await chromium.launch({chromiumSandbox: true,
       executablePath: process.env.HAPIL_CHROMIUM || '/usr/bin/chromium',
-      args: ['--no-sandbox', '--disable-dev-shm-usage'],
+      args: ['--disable-dev-shm-usage'],
     });
     for (const [name, width, height, mobile] of [
       ['pc', 1180, 757, false],

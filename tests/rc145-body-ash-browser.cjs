@@ -7,7 +7,7 @@ const viewport={pc:[1280,900],portrait:[390,844],landscape:[844,390]}[profile];a
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
 const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404).end();}});
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={profile,staged:true,status:'running',errors:[],httpErrors:[]};try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  const page=await browser.newPage({viewport:{width:viewport[0],height:viewport[1]},deviceScaleFactor:profile==='pc'?1:2,isMobile:profile!=='pc',hasTouch:profile!=='pc'});
  if(process.env.RC145_CPU_THROTTLE){const cdp=await page.context().newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:Number(process.env.RC145_CPU_THROTTLE)});report.cpuThrottle=Number(process.env.RC145_CPU_THROTTLE);}
  page.on('pageerror',e=>report.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)report.httpErrors.push({url:r.url(),status:r.status()});});

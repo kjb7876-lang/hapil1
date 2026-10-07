@@ -1,6 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
+const output=process.env.RC119_BODY_OUTPUT||path.join(process.env.HAPIL_QA_OUTPUT||'/tmp','rc119-approved-art');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
-(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});try{
+(async()=>{const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});try{
  const baseline=execFileSync('git',['show','19a4c1f:assets/rc77/connected-laser.js'],{encoding:'utf8'}),current=fs.readFileSync('assets/rc77/connected-laser.js','utf8');
  for(const [name,software,lowFx]of [['gpu',false,false],['canvas',true,false],['mobile-lowFx',true,true]]){
  const page=await browser.newPage({viewport:{width:260,height:220},hasTouch:lowFx,isMobile:lowFx});
@@ -15,6 +16,6 @@ const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.joi
  ctx.clearRect(0,0,260,220);const empty=document.createElement('canvas');empty.width=256;empty.height=128;R.render(ctx,lines,{width:14,complex:true,image:empty,color:'#f12655',accent:'#ffe8ef',low:lowFx,alpha:1});
  const data=ctx.getImageData(0,0,260,220).data;let addedPixels=0;for(let i=3;i<data.length;i+=4)if(data[i])addedPixels++;return{cross,body,tip,addedPixels,png};},{lowFx}));}
  const [before,after]=captures;assert.equal(after.png,before.png,'authored beam differs from approved 19a4c1f style');assert.equal(after.addedPixels,0,'extra rectangle/body painted over transparent artwork');assert(after.cross>200&&after.body>200&&after.tip<15,'cross/body/tip regression');
- fs.mkdirSync('/workspace/hapil-deliverables/RC119-body',{recursive:true});fs.writeFileSync('/workspace/hapil-deliverables/RC119-body/'+name+'-restored.png',Buffer.from(after.png.split(',')[1],'base64'));delete after.png;console.log(name,JSON.stringify({baselinePixelMatch:true,...after}));await page.close();
+ fs.mkdirSync(output,{recursive:true});fs.writeFileSync(path.join(output,name+'-restored.png'),Buffer.from(after.png.split(',')[1],'base64'));delete after.png;console.log(name,JSON.stringify({baselinePixelMatch:true,...after}));await page.close();
  }
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

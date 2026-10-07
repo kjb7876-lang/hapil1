@@ -9,7 +9,7 @@ const server=require('node:http').createServer((req,res)=>{
 }).listen(0,'127.0.0.1');
 const assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox']});
+ const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||undefined,args:[]});
  try{
  const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`);await page.waitForFunction(()=>window.__HAPIL_STORY_NATIVE_RC51__?.installed);await page.evaluate(()=>document.fonts.ready);await page.keyboard.press('Escape');await page.waitForSelector('#mongse-christian-opening-v31236',{state:'detached'});

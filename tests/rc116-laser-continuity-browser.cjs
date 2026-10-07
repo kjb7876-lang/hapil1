@@ -28,7 +28,7 @@ async function main() {
   let browser;
   try {
     const approved = execFileSync('git', ['show', `${baseline}:assets/rc77/connected-laser.js`], {cwd:root, encoding:'utf8', maxBuffer:2*1024*1024});
-    browser = await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM || '/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+    browser = await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM || '/usr/bin/chromium',args:['--disable-dev-shm-usage']});
     const page = await browser.newPage({viewport:{width:1180,height:757}});
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));

@@ -44,9 +44,9 @@ const server = http.createServer((req, res) => {
 }).listen(0, '127.0.0.1');
 
 (async () => {
-  const browser = await chromium.launch({
+  const browser = await chromium.launch({chromiumSandbox: true,
     executablePath: process.env.HAPIL_CHROMIUM || undefined,
-    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    args: ['--disable-dev-shm-usage'],
   });
   try {
     const page = await browser.newPage({viewport: {width: 1280, height: 900}});

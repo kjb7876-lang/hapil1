@@ -314,7 +314,7 @@ async function run() {
   }
   const runtime = process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
   const playwright = runtime ? require(path.join(runtime, 'playwright')) : require('playwright');
-  const browser = await playwright.chromium.launch({headless: true, executablePath: process.env.HAPIL_CHROMIUM || undefined, args: ['--no-sandbox']});
+  const browser = await playwright.chromium.launch({chromiumSandbox: true, headless: true, executablePath: process.env.HAPIL_CHROMIUM || undefined, args: []});
   const report = {schema: fixture.schema, pass: false, browserVersion: browser.version(), files: scenes + paragraphs, scenes, paragraphs,
     referenceDecoder: fixture.provenance.decoder, nativeReferencePcm: fixture.provenance.nativeReferencePcm, nativeSampleRates: fixture.provenance.nativeSampleRates, controls, contexts: [], rows: [],
     limitation: 'Edge-signal decode equivalence only. Does not establish phoneme completeness, listening quality, runtime scheduling, HTMLMediaElement fallback, or device output.'};

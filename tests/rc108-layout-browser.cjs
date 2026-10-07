@@ -8,7 +8,7 @@ const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeU
 const overlap=(a,b)=>a&&b&&Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>1&&Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>1;
 const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0&&e.getBoundingClientRect().height>0;
 (async()=>{let browser;try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  const summaries=[];
  for(const [name,width,height,mobile] of [['desktop',1180,757,false],['landscape',844,390,true],['portrait',390,844,true]].filter(v=>!process.env.HAPIL_QA_VIEW||v[0]===process.env.HAPIL_QA_VIEW)){
   let finish,elapsed;

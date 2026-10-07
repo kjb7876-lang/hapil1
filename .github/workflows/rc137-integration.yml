@@ -36,7 +36,6 @@ jobs:
           if [ -f /etc/apt/apt-mirrors.txt ]; then printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
           node "$R/node_modules/playwright/cli.js" install --with-deps chromium
           CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
-          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
           sudo apt-get install -y ffmpeg
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
@@ -51,6 +50,7 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
           mkdir -p "$HAPIL_QA_OUTPUT"
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc152-position-unit.cjs

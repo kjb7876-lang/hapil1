@@ -51,7 +51,7 @@ const audioRequests = () => requests.filter(url => /\.(mp3|wav|ogg|m4a)$/i.test(
   let browser;
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   try {
-    browser = await playwright.chromium.launch({headless: true, executablePath: process.env.HAPIL_CHROMIUM || undefined, args: ['--no-sandbox']});
+    browser = await playwright.chromium.launch({chromiumSandbox: true, headless: true, executablePath: process.env.HAPIL_CHROMIUM || undefined, args: []});
     const page = await browser.newPage(), errors = [];
     page.on('pageerror', error => errors.push(String(error)));
     await page.goto(`http://127.0.0.1:${server.address().port}`);

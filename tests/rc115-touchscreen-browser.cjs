@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/works
 const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(f)]||'application/octet-stream');res.end(fs.readFileSync(f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
 const touch=(session,type,id,x,y)=>session.send('Input.dispatchTouchEvent',{type,touchPoints:type==='touchEnd'?[]:[{id,x,y,radiusX:5,radiusY:5,force:1}]});
 (async()=>{let browser;try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});const rows=[];
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});const rows=[];
  for(const [name,width,height]of [['landscape',844,390],['portrait',390,844]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:true,hasTouch:true,deviceScaleFactor:2}),page=await context.newPage(),errors=[],clicks=[];page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.stack||e.message));
   await page.goto(`http://127.0.0.1:${server.address().port}/?mobile=1&qa=1`);await page.waitForFunction(()=>window.__HAPIL_SAMONG_RC91__?.installed);await page.keyboard.press('Escape');await page.evaluate(()=>window.__HAPIL_SAMONG_RC91__.unlock(null,'777'));

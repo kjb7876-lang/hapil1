@@ -9,7 +9,7 @@ const server=require('node:http').createServer((req,res)=>{
 }).listen(0,'127.0.0.1');
 const assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--no-sandbox','--disable-dev-shm-usage']});
+ const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||undefined,args:['--disable-dev-shm-usage']});
  const results=[];
  try {
   for(const [index,mobile] of (process.env.HAPIL_QA_HERO==='slayer'?[[6,false],[6,true]]:[...Array.from({length:8},(_,i)=>[i,false]),[6,true]])){

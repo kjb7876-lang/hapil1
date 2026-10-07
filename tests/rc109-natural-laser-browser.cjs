@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||'/works
 const harness='\nwindow.__RC109_NATIVE__={initial:oi,cast:(...a)=>Ei(...a),queue:(...a)=>MONGSE_queueImage(...a),impact:(...a)=>MONGSE_spawnTelegraphedImpact(...a),drawEffect:(...a)=>Gn(...a),project:G,core:p=>window.__HAPIL_COMBAT_V31333__?.core(p),hit:Di};';
 const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html'));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav'})[path.extname(f)]||'application/octet-stream');res.end(f.endsWith('index-v31526.js')?fs.readFileSync(f,'utf8')+harness:fs.readFileSync(f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
 async function main(){let browser;try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  const viewports=[['desktop',1180,757,false],['landscape',844,390,true],['portrait',390,844,true]],all=[];
  for(const [name,width,height,touch] of viewports){
  const context=await browser.newContext({viewport:{width,height},isMobile:touch,hasTouch:touch,deviceScaleFactor:touch?2:1}),page=await context.newPage(),errors=[],missing=[];page.on('pageerror',e=>errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()===404)missing.push(r.url());});

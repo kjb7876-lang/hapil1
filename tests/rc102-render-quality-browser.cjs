@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||path.jo
 const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html')));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}try{res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2'})[path.extname(f)]||'application/octet-stream');res.end(fs.readFileSync(process.env.HAPIL_BASELINE_ASSET&&f.endsWith('/hapil-mobile-v31406.js')?process.env.HAPIL_BASELINE_ASSET:f));}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');
 const overlap=(a,b)=>a&&b&&Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>1&&Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>1;
 (async()=>{let browser;try{
- browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  const results=[];
  for(const [name,width,height,mobile,dpr] of [['pc',1180,757,false,1],['pc-retina',1180,757,false,2],['phone',390,844,true,3],['landscape',844,390,true,3],['mini',375,812,true,3]].filter(([name])=>!process.env.HAPIL_QA_CASE||name===process.env.HAPIL_QA_CASE)){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:dpr}),page=await context.newPage(),failed=[];

@@ -60,7 +60,7 @@ async function fixtures(browser,revision,device){
  }finally{await context.close();}
 }
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const report={base,commit:cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),scope:'Paired same-build native reducer fixtures; synthetic damage setup, not natural campaign',profiles:[],status:'running'};try{
- browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
  for(const device of ['pc','phone']){
   const baseline=await fixtures(browser,'baseline',device),candidate=await fixtures(browser,'candidate',device);report.profiles.push({device,baseline,candidate});assert.deepEqual(baseline.errors,[]);assert.deepEqual(candidate.errors,[]);assert.equal(candidate.mobile,device==='phone');
   assert.equal(candidate.rows.length,378);assert.equal(baseline.rows.length,candidate.rows.length);
