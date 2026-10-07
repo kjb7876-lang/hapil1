@@ -21,13 +21,13 @@
   let ctx=surface.getContext('2d'),bounds=null,drawn;
   const paint=()=>{
    ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.clearRect(0,0,span,span);
-   const original=ctx.drawImage;
+   const original=ctx.drawImage,owned=Object.getOwnPropertyDescriptor(ctx,'drawImage');
    ctx.drawImage=function(...args){
     const offset=args.length===9?5:1,im=args[0],x=args[offset],y=args[offset+1],w=args[offset+2]??im.naturalWidth??im.width,h=args[offset+3]??im.naturalHeight??im.height,m=this.getTransform(),pad=Math.ceil((this.shadowBlur||0)*2)+2;
     for(const [px,py]of[[x,y],[x+w,y],[x,y+h],[x+w,y+h]]){const xx=m.a*px+m.c*py+m.e+left,yy=m.b*px+m.d*py+m.f+top;if(!bounds)bounds=[xx-pad,yy-pad,xx+pad,yy+pad];else{bounds[0]=Math.min(bounds[0],xx-pad);bounds[1]=Math.min(bounds[1],yy-pad);bounds[2]=Math.max(bounds[2],xx+pad);bounds[3]=Math.max(bounds[3],yy+pad);}}
     return original.apply(this,args);
    };
-   ctx.save();try{ctx.translate(-left,-top);drawn=draw(ctx);}finally{ctx.restore();ctx.drawImage=original;}
+   ctx.save();try{ctx.translate(-left,-top);drawn=draw(ctx);}finally{ctx.restore();if(owned)Object.defineProperty(ctx,'drawImage',owned);else delete ctx.drawImage;}
   };
   paint();
   if(bounds&&(bounds[0]<left||bounds[1]<top||bounds[2]>left+span||bounds[3]>top+span)){

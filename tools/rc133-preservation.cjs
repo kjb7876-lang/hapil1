@@ -31,7 +31,7 @@ const EXTENSION12_HASH='b80f0b96ac1de271a95e4eaf43153b9da3e70ca02f72ad55b5946eeb
 const EXTENSION13_BASE='3ca4874fb8e387ecc3922117922c08d7f7d541d4';
 const EXTENSION13_HASH='0d5f6268c360515eff35a98977776ee7e9f2c3139e1b7d7a69040ea8375c8192';
 const EXTENSION14_BASE='c7bc9e7d97c4b961987049c656fe624b463e0a58';
-const EXTENSION14_HASH='67289aff9765b303138830514b2c9950408c6f79d99bba3af3bc2d8051993396';
+const EXTENSION14_HASH='ccc65824c5e7be74c5d94d373e13b7de905015b2b581ab2037e3e8088b65fc89';
 const ROOTS=['assets','audio','data','index.html'];
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
 function rows(exec,ref){return exec('git',['ls-tree','-r','-z',ref,'--',...ROOTS]).split('\0').filter(Boolean).map(line=>{const m=/^(100644|100755) blob ([a-f0-9]{40})\t(.+)$/.exec(line);assert(m,'Nonordinary protected Git entry');return {mode:m[1],gitBlob:m[2],file:m[3]};}).sort((a,b)=>a.file.localeCompare(b.file));}

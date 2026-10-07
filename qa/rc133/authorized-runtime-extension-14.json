@@ -9,7 +9,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "39a5cd45c93a63633f34849fff469b3818494272c3c3dd726480ca4b996e59b5",
+  "targetProtectedRowsSha256": "2362424f93370225a4c1c76a386e714cb56e83fecd94dd5d361c3e5902f826af",
   "files": [
     {
       "file": "assets/index-v31526.js",
@@ -111,8 +111,8 @@
       "after": {
         "file": "assets/rc145/body-ash.js",
         "mode": "100644",
-        "gitBlob": "31388d1f8771c2ac424f61f39c6ff6b01d6c6542",
-        "sha256": "0b3c1b9ce0097076e04851a94d021fad85fc2652c3426c2774927a2547c4a1a9"
+        "gitBlob": "e72450c1046cc6eb39a22228c5926993d2f9974e",
+        "sha256": "65239178285ccd476906d2bb480c12751a9ec50a463f7b69776046a3d1e7882e"
       },
       "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc145/body-ash.js"
     },
