@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "6bc749f3f274cdcfb7979aca0d22dc3698549543",
+  "baseTree": "91ada5a3e89b3a798e1c43eb2f4fc3d8293ea93f",
+  "previousExtensionSha256": "58d8c4487e8435394cb6e7753f6d8c20c0eed5b627f0a5b89cee2b0ad690177b",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "9f298b7f1fb00810a0b9ddd475a8d1302af0348ae23f75fa28980b483886b584",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "009f5ffb8192a1d3546f6a1d64210cb0e160360a"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "0dc43991586e75b81a8a8ad2f6ab83dcab0fed25",
+        "sha256": "a7274ddd669e84316919a3c01048ac4f5cd0d4472d4c6c82e5a995a0035756fa"
+      },
+      "reason": "Implement portrait combat pause and atomic Samong revival without increasing public file count: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.css",
+      "before": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "03e5a7c363f2c954f9cad82fc60df6de386339a9"
+      },
+      "after": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "08388a8dc3e97c56dc5938d2635669327020c85f",
+        "sha256": "ade45810e7013304b9dbab1aa8a82b820678e63740392243359ece306f9a0c27"
+      },
+      "reason": "Implement portrait combat pause and atomic Samong revival without increasing public file count: assets/rc125/adaptive-battlefield.css"
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "58b208543a9228dd823446765289f58385a10aaa"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "b1180be1d75435e21c26238bec99de0258bf0af2",
+        "sha256": "d12997b719a872951a192b1e03742c1cb652cbc8e0e2756b9e252cda7acdc38d"
+      },
+      "reason": "Implement portrait combat pause and atomic Samong revival without increasing public file count: assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "before": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "02fbae8e33b5d13a4ddaeb92bb827741dcdc1460"
+      },
+      "after": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "3569aeb257689bdbd1dff9382c9510a363fa3b33",
+        "sha256": "403d5c656fe30e9bbdf96df08bc5884f990c5fdd160c94914bd48251e0f98f5e"
+      },
+      "reason": "Implement portrait combat pause and atomic Samong revival without increasing public file count: assets/rc91/samong-awakening.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "380472ca37559fdbcd028072acae879bf201a343"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "fb5242789f817e939c9a8666277d5090b9e1d629",
+        "sha256": "06a96f84553c6cbafb73ce14e9097fea301ae2928d67e1c6da01f52275be2177"
+      },
+      "reason": "Implement portrait combat pause and atomic Samong revival without increasing public file count: index.html"
+    }
+  ]
+}

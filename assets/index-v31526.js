@@ -36556,6 +36556,7 @@ typeof window !== `undefined` &&
   (window.__MONGSE_DRAW_BOSS_RULE_OVERLAY_V31215__ =
     MONGSE_drawBossRuleOverlay31215);
 function $n(e, t, n, r, i) {
+  if(window.__HAPIL_ORIENTATION_PAUSE_RC152__?.sync?.())return;
   window.__HAPIL_COMBAT_LAYOUT_RC153__?.scatter(t);
   if (!e) return;
   const portraitSplitRC108=window.__HAPIL_PORTRAIT_SPLIT_RC108__;
@@ -46216,6 +46217,7 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
   window.__HAPIL_ENEMY_FEEL_V31361__?.hit(e,e,MONGSE_damageSource,a,{originX:n,originY:r});
   return (
     (e.hp -= a),window.__HAPIL_RAID_RC24__?.afterHit?.(e,MONGSE_damageSource,a),window.__HAPIL_LOOP_V31365__?.onDamage(e,e,a),
+    e.hp<=0&&window.__HAPIL_SAMONG_RC91__?.tryAutomaticRevival?.(e),
     (e.combo = 0),
     (e.comboUntil = 0),
     (e.invulnerableUntil = e.time),
@@ -46651,6 +46653,7 @@ function MONGSE_tickSevenSinHeroEffects(e) {
     e.time >= Number(e.heroEnvyPoisonNextAt ?? 1 / 0)
   )
     ((e.heroEnvyPoisonNextAt = e.time + 0.68), i(3, `유리독`) && (a += 1));
+  if(e.hp<=0)window.__HAPIL_SAMONG_RC91__?.tryAutomaticRevival?.(e);
   return { bleedTicks: t, burnTicks: n, poisonTicks: a, healingBlocked: r };
 }
 function MONGSE_clearSevenSinTransientState(e) {
@@ -54562,6 +54565,7 @@ function Ri() {
           if(!window.__HAPIL_COMBAT_V31333__?.installed){t=requestAnimationFrame(i);return;}
           // Hidden tabs retain simulation state without rendering or polling combat DOM.
           if(document.hidden){t=requestAnimationFrame(i);return;}
+          if(window.__HAPIL_ORIENTATION_PAUSE_RC152__?.sync?.()){t=requestAnimationFrame(i);return;}
           MONGSE_noteFrameTime31220(
             Me.current,
             MONGSE_frameDeltaMs31220,

@@ -7,7 +7,7 @@
  const art=Object.freeze(Object.fromEntries(HEROES.map(id=>[id,'./assets/rc91/awakening/'+id+'.png'])));
  const n=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
  const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,n(v)));
- const pictures=new Map(),tempo=new WeakMap();let installed=false,tries=0,mobileHud=null;
+ const pictures=new Map(),tempo=new WeakMap(),automaticRevival=new WeakSet();let installed=false,tries=0,mobileHud=null;
  function unlocked(s){
   if(s?.hapilEndingCleared===true||s?.samongUnlockedRC91===true||window.__HAPIL_ENDING_CLEARED_V31300__===true)return true;
   try{return localStorage.getItem(KEY)==='true'||localStorage.getItem('hapilEndingCleared')==='true';}catch(_){return false;}
@@ -61,7 +61,7 @@
  }
  const choices=new WeakMap();
  function revivalAuthorized(s){return choices.get(s)==='samong';}
- function canRevive(s){return enabled(s)&&!memory(s).encounterRC128?.used&&n(memory(s).revivalCooldown,memory(s).origin==='revival'?n(memory(s).cooldown):0)<=1e-8;}
+ function canRevive(s){if(!s||s.hp>0||!enabled(s)||!(n(s.maxHp)>0))return false;const P=window.__HAPIL_PARTY_V31322__;if(P?.state===s&&P?.status?.role==='guest')return false;const m=memory(s);window.__HAPIL_AWAKENING_POLICY_RC128__?.sync?.(s,m,true);return !m.encounterRC128?.used&&n(m.revivalCooldown,m.origin==='revival'?n(m.cooldown):0)<=1e-8;}
  function chooseRevival(s,choice){
   if(!s||!(s.hp<=0)||!['samong','checkpoint'].includes(choice)||choices.has(s))return false;
   choices.set(s,choice);
@@ -71,6 +71,7 @@
  function deathPending(s){return !!s&&s.hp<=0&&choices.get(s)!=='checkpoint';}
  function consumeCheckpoint(s){if(!s||s.hp>0||choices.get(s)!=='checkpoint')return false;choices.delete(s);return true;}
  function tryRevive(s){if(!s||s.hp>0||!revivalAuthorized(s))return false;if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
+ function tryAutomaticRevival(s){if(!canRevive(s)||automaticRevival.has(s)||choices.has(s))return false;automaticRevival.add(s);choices.set(s,'samong');try{return tryRevive(s);}finally{choices.delete(s);automaticRevival.delete(s);}}
  function tryEgo(s){return activate(s,'ego');}
  function activateFinalClash(s){
   const inner=window.__HAPIL_INNER_FINAL_RC133__,clash=s?.innerFinalRC133?.clash;
@@ -204,6 +205,6 @@
   }return result;};
   installed=true;return true;
  }
- window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,revivalAuthorized,canRevive,chooseRevival,deathPending,consumeCheckpoint,tryRevive,tryEgo,activate,activateFinalClash,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
+ window.__HAPIL_SAMONG_RC91__=Object.freeze({version:'RC91',get installed(){return installed;},heroes:HEROES,art,duration:DURATION,cooldown:COOLDOWN,unlocked,unlock,select,enabled,active,protected:protectedNow,revivalAuthorized,canRevive,chooseRevival,deathPending,consumeCheckpoint,tryRevive,tryAutomaticRevival,tryEgo,activate,activateFinalClash,advance,scaleEnemies,incomingFactor,incomingBuff,status,delta:(s,fallback)=>n(s?.samongPassiveRC91?.lastDelta,fallback),snapshot,sanitize,restore,restoreVitals,draw,picture,clock:s=>n(s?.samongPassiveRC91?.clock)});
  function ready(){if(!install()&&++tries<2000)setTimeout(ready,20);}ready();
 })();

@@ -32,3 +32,39 @@
  function bind(api){deps=api;for(const id of api.ranked??[])ranked.add(id);}
  root.__HAPIL_COMBAT_LAYOUT_RC153__=Object.freeze({policy,boss,eligible,scatter,lock,position,bounds,camera,bind,metrics:()=>JSON.parse(JSON.stringify(stats))});
 })(window);
+
+
+/* RC152_ORIENTATION_PAUSE_BEGIN */
+/* RC152: stop the live combat frame while a touch device is in portrait. */
+(()=>{'use strict';
+ const LABEL='가로 화면으로 전환해주세요',CLASS='rc152-portrait-paused';
+ let gate=null,paused=false,enters=0,resumes=0,blocked=0;
+ const html=()=>document.documentElement;
+ const control=()=>window.__HAPIL_CONTROLS_V31329__;
+ const mobile=()=>navigator.userAgentData?.mobile===true||/android|iphone|ipod|ipad|mobile/i.test(String(navigator.userAgent??''))||(navigator.platform==='MacIntel'&&(navigator.maxTouchPoints??0)>1);
+ const game=()=>{const phase=control()?.binding?.phase;return phase!=null?phase==='game':document.body?.classList.contains('rc15-playing')===true;};
+ const shouldPauseFor=({mobile:touch,game:playing,width,height}={})=>touch===true&&playing===true&&Number.isFinite(width)&&Number.isFinite(height)&&height>width;
+ function mount(){if(gate||!document.body)return gate;gate=document.createElement('div');gate.id='rc152-orientation-gate';gate.className='rc152-orientation-gate';gate.setAttribute('role','status');gate.setAttribute('aria-live','polite');gate.textContent=LABEL;document.body.appendChild(gate);return gate;}
+ function clearHeldInput(){
+  const binding=control()?.binding;
+  let cleared=false;try{if(typeof control()?.clear==='function'){control().clear();cleared=true;}}catch{}
+  try{binding?.input?.current?.clear?.();}catch{}
+  if(!cleared)try{window.__HAPIL_MOBILE_V31366__?.clear?.('portrait-orientation');}catch{}
+ }
+ function sync(){
+  const next=shouldPauseFor({mobile:mobile(),game:game(),width:window.innerWidth,height:window.innerHeight});
+  html().classList.toggle(CLASS,next);
+  if(next&&!paused){paused=true;enters++;clearHeldInput();}
+  else if(!next&&paused){paused=false;resumes++;}
+  if(next)mount();
+  return next;
+ }
+ function blockInput(event){if(!sync())return;blocked++;if(event.cancelable)event.preventDefault();event.stopImmediatePropagation();}
+ for(const type of ['keydown','keyup','beforeinput','pointerdown','pointerup','pointermove','pointercancel','mousedown','mouseup','mousemove','click','dblclick','contextmenu','wheel','dragstart','touchstart','touchmove','touchend','touchcancel'])window.addEventListener(type,blockInput,{capture:true,passive:false});
+ for(const type of ['resize','orientationchange','pageshow'])window.addEventListener(type,sync,{passive:true});
+ window.visualViewport?.addEventListener?.('resize',sync,{passive:true});
+ document.addEventListener('visibilitychange',sync);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mount();sync();},{once:true});else{mount();sync();}
+ window.__HAPIL_ORIENTATION_PAUSE_RC152__=Object.freeze({version:'RC152',label:LABEL,shouldPauseFor,sync,paused:()=>paused,metrics:()=>({paused,enters,resumes,blocked,gateText:gate?.textContent??null})});
+})();
+/* RC152_ORIENTATION_PAUSE_END */

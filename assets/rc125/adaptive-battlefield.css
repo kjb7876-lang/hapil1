@@ -96,3 +96,9 @@ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc10
  html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing:has(.game[data-combat-input="manual"]) #hapil-mobile-controls-v31366 [data-mobile-action="A"]{position:static!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important}
  html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-resonance-rc96{top:calc(var(--rc154-safe-top) + 4px)!important;right:auto!important;left:calc(var(--rc154-safe-left) + 4px)!important;width:100px!important;max-width:100px!important;padding:1px 3px!important}
 }
+
+
+/* RC152: orientation pause screen and safe-area text */
+#rc152-orientation-gate{display:none;position:fixed;inset:0;z-index:2147483647;box-sizing:border-box;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 20px) calc(env(safe-area-inset-right,0px) + 20px) calc(env(safe-area-inset-bottom,0px) + 20px) calc(env(safe-area-inset-left,0px) + 20px);background:#03050c;color:#f4f7ff;font:700 clamp(20px,5vw,30px)/1.4 system-ui,sans-serif;text-align:center;touch-action:none;overscroll-behavior:contain;}
+html.rc152-portrait-paused #rc152-orientation-gate{display:grid}
+html.rc152-portrait-paused body.rc15-playing .game,html.rc152-portrait-paused body.rc15-playing #hapil-mobile-controls-v31366,html.rc152-portrait-paused body.rc15-playing #rc108-control-overlay,html.rc152-portrait-paused body.rc15-playing #rc15-sidepanels{visibility:hidden!important}
