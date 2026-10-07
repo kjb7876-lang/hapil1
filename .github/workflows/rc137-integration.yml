@@ -79,6 +79,18 @@ jobs:
           node tests/rc133-duel-hitboxes.cjs
           node tests/rc134-persona-policy.cjs
           node tests/rc142-gameplay-unit.cjs
+          if command -v google-chrome-stable >/dev/null 2>&1; then
+            CHROME_STABLE_BIN="$(command -v google-chrome-stable)"
+          elif command -v google-chrome >/dev/null 2>&1; then
+            CHROME_STABLE_BIN="$(command -v google-chrome)"
+          else
+            echo 'CHROME_STABLE_SANDBOX_SMOKE {"status":"skipped","reason":"Google Chrome Stable is not preinstalled on this runner"}' | tee -a "$GITHUB_STEP_SUMMARY"
+            CHROME_STABLE_BIN=''
+          fi
+          if test -n "$CHROME_STABLE_BIN"; then
+            "$CHROME_STABLE_BIN" --version
+            node tests/rc153-chrome-sandbox-smoke.cjs
+          fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/arena" node tests/rc138-arena-browser.cjs
           git fetch --no-tags origin c7bc9e7d97c4b961987049c656fe624b463e0a58
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc152-image" node tests/rc152-image-browser.cjs
