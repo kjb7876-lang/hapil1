@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "a7a6990271d046f05531f389184df99e397e1f5f",
+  "baseTree": "ccfc20eedf521cde69b38c6215e560c7060cbdf3",
+  "previousExtensionSha256": "c069e870f5a6f3e2dd77c35ec461ad7f42400591c9d7411fb3e2db75ffbae2d2",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "9ab0dfda8d812127da1061d45c17d6c1caa7edb673f2e9dd9dab229c931f620d",
+  "files": [
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "a157d2dd28b4d165503b5843ed6c50b2086ecdf5",
+        "file": "assets/rc133/inner-final.js"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "7d9be58176f36d59ae84f7a383f107cef23d9283",
+        "sha256": "cb4aac90253189b11c732e1050f38a10766f528459cef19a4ee436e71645bdb9"
+      },
+      "reason": "Restore the exact doubled red Persona volley, bounded simultaneous-state damage, and native solo-state damage contracts: assets/rc133/inner-final.js"
+    }
+  ]
+}

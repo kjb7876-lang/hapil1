@@ -36,6 +36,9 @@ const extension9=JSON.parse(extension9Bytes);
 const extension10Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-10.json'));
 assert.equal(require('node:crypto').createHash('sha256').update(extension10Bytes).digest('hex'),'c069e870f5a6f3e2dd77c35ec461ad7f42400591c9d7411fb3e2db75ffbae2d2','exact tenth extension manifest pin');
 const extension10=JSON.parse(extension10Bytes);
+const extension11Bytes = fs.readFileSync(path.join(root, 'qa/rc133/authorized-runtime-extension-11.json'));
+assert.equal(require('node:crypto').createHash('sha256').update(extension11Bytes).digest('hex'),'46c9ea04641aaee8b56bd75302bd36855b4f2ac376962aa84646f22c14e0ede1','exact eleventh extension manifest pin');
+const extension11=JSON.parse(extension11Bytes);
 assert.equal(extension2.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extensionBytes).digest('hex'));
 assert.equal(extension2.files.length,1);assert.equal(extension2.files[0].file,'index.html');
 assert.equal(extension2.files[0].before.gitBlob,extension.files.find(row=>row.file==='index.html')?.after?.gitBlob,'second index path chains from the first extension output');
@@ -75,6 +78,11 @@ assert.equal(extension10.previousExtensionSha256,require('node:crypto').createHa
 assert.deepEqual(extension10.files.map(row=>row.file),['assets/rc133/native-install.js.txt']);
 assert.equal(extension10.files[0].before.gitBlob,'ae897939667c5241adfa1ed6f97368954769671a');
 assert.equal(extension10.files[0].after.sha256,require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,extension10.files[0].file))).digest('hex'));
+assert.equal(extension11.base,'a7a6990271d046f05531f389184df99e397e1f5f');
+assert.equal(extension11.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension10Bytes).digest('hex'));
+assert.deepEqual(extension11.files.map(row=>row.file),['assets/rc133/inner-final.js']);
+assert.equal(extension11.files[0].before.gitBlob,'a157d2dd28b4d165503b5843ed6c50b2086ecdf5');
+assert.equal(extension11.files[0].after.sha256,require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,extension11.files[0].file))).digest('hex'));
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
@@ -95,7 +103,8 @@ for(const row of extension7.files){if(row.after===null)runtimeFiles.delete(row.f
 for(const row of extension8.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension9.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension10.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
-assert.equal(runtimeFiles.size,293,'the chained exact runtime set contains 293 unique files through the tenth extension'); checks++;
+for(const row of extension11.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+assert.equal(runtimeFiles.size,293,'the chained exact runtime set contains 293 unique files through the eleventh extension'); checks++;
 for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
 assert(reserved.pathname.includes('%23')); checks++;
@@ -105,4 +114,4 @@ verify('audio/literal?query#fragment%25 한글.wav');
 for (const file of ['', '/index.html', '../index.html', 'assets/../index.html', 'assets//file.png', 'assets/./file.png', 'assets\\file.png', 'https://other.example/file.png']) {
   assert.throws(() => checkedUrl(file, key, value), undefined, file); checks++;
 }
-console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, extension3Files:extension3.files.length, extension4Files:extension4.files.length, extension5Files:extension5.files.length, extension6Files:extension6.files.length, extension7Files:extension7.files.length, extension8Files:extension8.files.length, extension9Files:extension9.files.length, extension10Files:extension10.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));
+console.log('RC133_PUBLIC_URL_UNIT', JSON.stringify({status:'passed', checks, authorizedFiles:runtimeFiles.size, historicalFiles:delta.files.length, extensionFiles:extension.files.length, extension2Files:extension2.files.length, extension3Files:extension3.files.length, extension4Files:extension4.files.length, extension5Files:extension5.files.length, extension6Files:extension6.files.length, extension7Files:extension7.files.length, extension8Files:extension8.files.length, extension9Files:extension9.files.length, extension10Files:extension10.files.length, extension11Files:extension11.files.length, originalNamesEncoded:true, fixedOriginAndRoot:true}));

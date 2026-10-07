@@ -160,7 +160,7 @@
   // Never release generic/fallback boss weapons while the two source atlases
   // are unavailable. Body/arena readiness and native HP continue normally.
   if(!art.ready)return;
-  m.shotDelay=Math.max(0,m.shotDelay-dt);const skill=deck[m.cycle%deck.length],red=m.awake>0,mutual=red&&root.__HAPIL_SAMONG_RC91__.active(s),empowered=red||root.__HAPIL_SAMONG_RC91__.active(s),count=red?Math.min(12,skill.count*2):empowered?Math.min(12,skill.count*2):Math.min(12,Math.ceil(skill.count*1.5)),color='#ef9fce';
+  m.shotDelay=Math.max(0,m.shotDelay-dt);const skill=deck[m.cycle%deck.length],red=m.awake>0,mutual=red&&root.__HAPIL_SAMONG_RC91__.active(s),empowered=red||root.__HAPIL_SAMONG_RC91__.active(s),count=red?Math.min(12,skill.count*2)*2:empowered?Math.min(12,skill.count*2):Math.min(12,Math.ceil(skill.count*1.5)),color='#ef9fce';
   // Admit a whole volley or defer it. Never silently clip one of the nine
   // doubled red patterns against the shared projectile budget.
   s.hostileProjectiles??=[];if(m.shotDelay>0)return;if(s.hostileProjectiles.length+count>HOSTILE_QUEUE_LIMIT){deferVolley(m);return;}
@@ -174,7 +174,7 @@
    // Keep the actual player vector in the permitted mirrored lane. Width,
    // release order, origin band and speed distinguish the nine native paths.
    const desired=angle+offset,delta=((desired-center+Math.PI*3)%(Math.PI*2)-Math.PI),theta=center+cl(delta,-1.4,1.4),baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*(skill.formation==='spiral'?1+((i%3)-1)*.08:1)),speed=red?baselineSpeed*2:baselineSpeed,stage=mutual?i*.035:(skill.stagger??.08)*(skill.key==='diamond'||skill.key==='clock'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
-   const damage=red?26*m.scale:empowered?18*m.scale:13*m.scale;
+   const damage=red?(mutual?Math.min(24,26*m.scale):26*m.scale):empowered?18*m.scale:13*m.scale;
    native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(18,Math.max(7,distance/(speed*.65)+warning+stage+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i,rc147Speed:speed});
   }
   const emitted=s.hostileProjectiles.slice(before);if(emitted.length!==count){
