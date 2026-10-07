@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "16fec1ca6cd6b4939dbb8a98a11b9ab62a0b2ef8",
+  "baseTree": "bd2ec44060b728a93e22fe5c46d091b2c0aa7f04",
+  "previousExtensionSha256": "64d2e3896ea9f448e76adb18ace5ca1e04867e7bd194808cdc253ed70f5b42d6",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "306cbf608e76d7d399a35dcdfa6a2ff0200a871c6bc9386a5f62b43e08e83a7c",
+  "files": [
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "ae897939667c5241adfa1ed6f97368954769671a",
+        "file": "assets/rc133/native-install.js.txt"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "0b55f330bb1d36255af291060e2b0804e6da156c",
+        "sha256": "e35160a0aeb52a36ef75bf605f5287129daafa235a8ae3495eb1feb62cab5ec2"
+      },
+      "reason": "Synchronize the reviewable native RC133 install source with the exact bundled implementation: assets/rc133/native-install.js.txt"
+    }
+  ]
+}
