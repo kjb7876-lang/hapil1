@@ -2,6 +2,8 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8'),code=read('assets/index-v31526.js');
 const events=[],stored=new Map();let saved=null;
 const c={window:{},Date,Math,Number,Set,emit:phase=>events.push(phase),MONGSE_phaseGateHealth:()=>0,MONGSE_isPersistentBossCastActive:()=>false,MONGSE_storageSet:(k,v)=>stored.set(k,v)};vm.createContext(c);
+// The ending now imports the actual atomic coordinate transfer dependency.
+const positionStart=code.indexOf('function MONGSE_applyPositionRC152(');assert(positionStart>=0);vm.runInContext(code.slice(positionStart,code.indexOf('\n',positionStart)),c);
 const a=code.indexOf('  const basePhaseGateHealthV31300 ='),b=code.indexOf('  MONGSE_tickPersistentBossCastProtection = function HAPIL_tickNonInterruptAndFinalV31300',a);
 vm.runInContext(code.slice(a,b)+'\nglobalThis.tick=tickFinalBattle;',c);
 const wa=code.indexOf('  const basePhaseGateHealth = MONGSE_phaseGateHealth;'),wb=code.indexOf('  const basePersistentTick =',wa);vm.runInContext(code.slice(wa,wb),c);
