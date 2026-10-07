@@ -53,7 +53,17 @@
  function prepare(s){if(!s)return;const m=memory(s),on=awake(s);if(m.wasAwake&&!on){m.post=true;for(const a of s.enemies??[])if(a.rc137LastCastBullet===false)transitionCooldowns(s,a);}m.wasAwake=on;
   for(const a of s.enemies??[])if(boss(a))sealCharge(s,a);
   if(on)for(const key of QUEUES)for(const q of s[key]??[])suppress(s,q);
-  for(const q of s.hostileProjectiles??[]){if(on&&boss(owner(s,q)??q)){q.rc137Bullet=true;q.rc137ExpiresAt??=s.time+9;} }
+  for(const q of s.hostileProjectiles??[]){
+   // Hidden Persona shots are the boss's authored long flight attack. Their
+   // native nominal `life` is not a terminal condition; let contact or the
+   // actual map boundary resolve them. Clear a legacy awakening deadline too.
+   if(q?.rc133InnerShot===true&&q.sourceId==='inner-evil-rc133'){
+    if(on&&boss(owner(s,q)??q))q.rc137Bullet=true;
+    delete q.rc137ExpiresAt;
+    continue;
+   }
+   if(on&&boss(owner(s,q)??q)){q.rc137Bullet=true;q.rc137ExpiresAt??=s.time+9;}
+  }
  }
  function seconds(v){return Math.max(0,Math.min(360,n(v)));}
  function clean(raw,zone){if(raw?.version!==1||raw.zone!==zone)return null;return {version:1,zone,wasAwake:raw.wasAwake===true,post:raw.post===true,cooldowns:(Array.isArray(raw.cooldowns)?raw.cooldowns:[]).slice(0,96).filter(a=>typeof a?.id==='string'&&a.id.length<180).map(a=>({id:a.id,timers:Object.fromEntries(COOLDOWNS.filter(k=>Number.isFinite(a.timers?.[k])).map(k=>[k,seconds(a.timers[k])])),reuse:Object.fromEntries(Object.entries(a.reuse??{}).slice(0,64).filter(([key,v])=>key.length<=160&&v&&Number.isFinite(v.until)).map(([key,v])=>[key,{until:seconds(v.until),anchor:seconds(v.anchor),base:seconds(v.base),applied:v.applied===true}]))}))};}

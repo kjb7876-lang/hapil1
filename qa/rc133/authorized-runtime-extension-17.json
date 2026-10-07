@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "base": "e568bc400fa674908c50bef99236a2752ce9f18a",
+  "baseTree": "942569fed2e1ccef7457388be808f3e00a10a32a",
+  "previousExtensionSha256": "c7d10f63b82a6d40126c49ba4b4f88016fbc7cc3fe65ae599d2f81aefcc34ff1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "5cb96c5542bf82a538c8b60243fe4386cbe1efa8849479ea442ce4792b9a0214",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "25f250ddc0ced80ad16c1573e781b08cd8cf8acb"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "009f5ffb8192a1d3546f6a1d64210cb0e160360a",
+        "sha256": "1814ffedaae4d2349d2717bd348794b56e12957e611800b8a1784d8cee934659"
+      },
+      "reason": "Bounded Persona lifecycle/map-flip fix preserving e568 camera and runtime contracts: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "e07610408543e3e6e27150e257e1bd042ffecc7a"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "55b8a25269f857a3b1a888c9a4a4f04f6f1aeeb4",
+        "sha256": "58b7ca11dd9877d48250576b79d4f3ae2a0192bb3f1e74b436b644c43560aa9b"
+      },
+      "reason": "Bounded Persona lifecycle/map-flip fix preserving e568 camera and runtime contracts: assets/rc133/inner-final.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "e5af6daef9f1970b206aec0242af1341925b96f9"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "399378d757eca375e4aacde63f362d4cd5d0d551",
+        "sha256": "edaa4c65e5a4e2ac357daae9f49a687710ed80af1a8c519c46eaeda1701f859a"
+      },
+      "reason": "Bounded Persona lifecycle/map-flip fix preserving e568 camera and runtime contracts: assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "a51955d233d89a239b996e1c6d5cb6ca4ee2df36"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "a303c93d99ea0f650a25dfd15c59a92d4f0756f1",
+        "sha256": "abb3904d3f28cc15d950fbf6f0cf955b65baa503739e897e2b684d9631f8dc30"
+      },
+      "reason": "Bounded Persona lifecycle/map-flip fix preserving e568 camera and runtime contracts: assets/rc134/persona-duel.js"
+    },
+    {
+      "file": "assets/rc137/awakening-rules.js",
+      "before": {
+        "file": "assets/rc137/awakening-rules.js",
+        "mode": "100644",
+        "gitBlob": "c121f13935f6dd2a5c3f8628a452be7b0378d45c"
+      },
+      "after": {
+        "file": "assets/rc137/awakening-rules.js",
+        "mode": "100644",
+        "gitBlob": "15ea7ae5d15f5c816006317517898a8470c06461",
+        "sha256": "be2ec71572afe4737ce0bddf71699a0bdc0d98ee333a83e479aba6827dfb53be"
+      },
+      "reason": "Bounded Persona lifecycle/map-flip fix preserving e568 camera and runtime contracts: assets/rc137/awakening-rules.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "0c02f3d454f93dc7ff1e4680b80bd90700805874"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ead06df3fa96e148c9ebe46c3e84866c4ebe2c4a",
+        "sha256": "4f8c8605994243b7fa833d6a654333d70284f7cca073fbd47c49c68f5db72d33"
+      },
+      "reason": "Bounded Persona lifecycle/map-flip fix preserving e568 camera and runtime contracts: index.html"
+    }
+  ]
+}
