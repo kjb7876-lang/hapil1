@@ -54,6 +54,10 @@ jobs:
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc152-position-unit.cjs
           node tests/rc153-combat-unit.cjs
+          if test "$RC137_PROFILE" = portrait && test "$RC137_ROUND" = 1; then
+            git fetch --no-tags origin 8b24a22120d7787746339ed7c422eee149e04b22
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/portrait-composition" node tests/rc153-portrait-composition-browser.cjs
+          fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc153-combat" node tests/rc153-combat-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc153-boundary" node tests/rc153-boundary-input-browser.cjs
           node tests/rc138-arena-unit.cjs

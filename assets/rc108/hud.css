@@ -77,3 +77,6 @@ html.hapil-touch-v31366 body.rc15-playing:has(.game[data-combat-input="manual"])
 @media (orientation:portrait){html.hapil-touch-v31366:not(.hapil-mobile-auto-v31311) body.rc15-playing:has(.game[data-combat-input="auto"]) #hapil-mobile-controls-v31366 [data-mobile-action="A"]{position:fixed!important;right:calc(env(safe-area-inset-right,0px) + 8px)!important;bottom:calc(env(safe-area-inset-bottom,0px) + 84px)!important;left:auto!important;top:auto!important;width:64px!important;height:64px!important;min-width:64px!important;min-height:64px!important;border-radius:50%!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;z-index:44!important}}
 /* RC110: compact S/D action labels remain in the ally pane on touch landscape. */
 html.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys{display:flex!important}
+
+/* RC154: split panes own their viewport crop; CSS must not crop it a second time. */
+html.hapil-touch-v31366.rc125-adaptive .game-stage > canvas.rc154-portrait-composite{object-fit:fill!important}

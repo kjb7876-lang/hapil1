@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "8b24a22120d7787746339ed7c422eee149e04b22",
+  "baseTree": "1bb5f90075bb8b5ce69120236faceaf4f76f8c84",
+  "previousExtensionSha256": "6c65e3e0de6d92fcb4aa94a8e3c20ef74db7a31a1cf1120f9d5372f7cc159974",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "38f502a496baa8f90aa9a7bd74b16f6dcc8c44b9d244203fe7fe79f037cad11e",
+  "files": [
+    {
+      "file": "assets/rc108/hud.css",
+      "before": {
+        "file": "assets/rc108/hud.css",
+        "mode": "100644",
+        "gitBlob": "5688e2e36405e098bad3ebc3e64dad86231d465e"
+      },
+      "after": {
+        "file": "assets/rc108/hud.css",
+        "mode": "100644",
+        "gitBlob": "8e77382a86b29f150144222ed5f74c0c12190899",
+        "sha256": "d060609ee27741e2a39371f027caaf7622adef05d00659ed0d3e2b6c8bab07e7"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc108/hud.css"
+    },
+    {
+      "file": "assets/rc108/portrait-split.js",
+      "before": {
+        "file": "assets/rc108/portrait-split.js",
+        "mode": "100644",
+        "gitBlob": "5c3efcd7cde62c25e453ff0595a6f13b4e51ca25"
+      },
+      "after": {
+        "file": "assets/rc108/portrait-split.js",
+        "mode": "100644",
+        "gitBlob": "9fbfd7582b0d646af2dbfedd644f644410a47cb0",
+        "sha256": "b388059946003480581a0daba4e04c046c8cd825ebf07855cf4d05d129aceba3"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc108/portrait-split.js"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.js",
+      "before": {
+        "file": "assets/rc125/adaptive-battlefield.js",
+        "mode": "100644",
+        "gitBlob": "8aa8902a0d894ed8864380e4414b1aaeac3d400f"
+      },
+      "after": {
+        "file": "assets/rc125/adaptive-battlefield.js",
+        "mode": "100644",
+        "gitBlob": "84fd2c64f95372d6886cae001f7216507b852ca7",
+        "sha256": "8692c57b86dd8b780dee0da8880d9be2bef510e978c65b8d0b345c68514e59bf"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc125/adaptive-battlefield.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7b93d6b49f481f801a66d41d49b7e862a8256edb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "81e27ac6e568ba75e4f103ae0b15360dbe64a7ba",
+        "sha256": "02b6d5c9d43897d74ef59cb657b22e86c16c42a40c94b7195653246e2cce9593"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: index.html"
+    }
+  ]
+}

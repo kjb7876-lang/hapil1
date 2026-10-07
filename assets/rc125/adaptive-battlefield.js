@@ -48,7 +48,7 @@
  }
  function pointer(event,rect){measure();if(!wide())return base.pointer(event,rect);if(!event||!rect||rect.width<=0||rect.height<=0)return null;const v=view(rect.width,rect.height);return{x:v.x+(event.clientX-rect.left)/v.k,y:v.y+(event.clientY-rect.top)/v.k};}
  function applyWorld(ctx,target,state){
-  if(target!==canvas)bind();measure();if(!wide()||target!==canvas)return false;
+  if(target!==canvas)bind();measure();if(window.__HAPIL_PORTRAIT_SPLIT_RC108__?.active(state)||!wide()||target!==canvas)return false;
   const v=view(),rx=1280/v.width,ry=720/v.height;
   // Fixed backing dimensions stay within the existing performance budget. The
   // inverse CSS aspect transform makes the FINAL displayed world isotropic.
