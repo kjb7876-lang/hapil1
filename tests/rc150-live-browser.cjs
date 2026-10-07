@@ -17,8 +17,16 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
   await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();
   await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
   console.log('RC150 PROFILE GAME '+name);
-  for(let turn=0;turn<80&&await page.evaluate(()=>window.__HAPIL_STORY_RC51__?.isOpen?.());turn++)await page.keyboard.press('Enter');
-  await page.waitForFunction(()=>!window.__HAPIL_STORY_RC51__?.isOpen?.(),null,{timeout:10000});
+  // The game phase becomes active before its first animation frame opens the
+  // native pre-fight story card. Wait for that real card before sending input;
+  // otherwise a fast profile can skip the loop and observe a card opened one
+  // frame later, falsely timing out on a still-live dialog.
+  await page.waitForFunction(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===true,null,{timeout:10000});
+  for(let turn=0;turn<80;turn++){
+   if(!(await page.evaluate(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===true)))break;
+   await page.keyboard.press('Enter');
+  }
+  await page.waitForFunction(()=>window.__HAPIL_STORY_RC51__?.isOpen?.()===false,null,{timeout:10000});
   await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.heroBleedUntil=s.time+10;s.heroBurnUntil=s.time+8;s.heroEnvyPoisonUntil=s.time+9;});
   await page.waitForTimeout(200);const liveStatus=await page.evaluate(()=>({s:window.__HAPIL_FEEDBACK_RC128__.snapshot(window.__HAPIL_CONTROLS_V31329__.binding.state.current),portrait:window.__HAPIL_PORTRAIT_SPLIT_RC108__?.metrics(),viewport:window.__HAPIL_VIEWPORT_RC104__?.last,adaptive:window.__HAPIL_ADAPTIVE_RC125__?.snapshot()?.lastCamera}));
   assert(liveStatus.s.lastAilmentsDraw?.point,'active native timers must project a visible status overlay');
