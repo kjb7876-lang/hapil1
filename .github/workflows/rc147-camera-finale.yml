@@ -19,6 +19,7 @@ on:
       - 'qa/rc133/published.cjs'
       - 'qa/rc148/**'
       - '.github/workflows/rc147-camera-finale.yml'
+      - '.github/workflows/rc137-integration.yml'
   workflow_dispatch:
 permissions:
   contents: read
