@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "baseline": "3e45b69e3e30b6363f0c8cc53d18bdae76491ced",
+  "scope": "Native main-game creation, movement and alternate hostile queue ingress; line numbers are candidate-local locators, exact bytes pinned by extension15",
+  "calls": {
+    "MONGSE_pushThemeProjectile3129": [
+      48080,
+      48226,
+      48270,
+      48314,
+      48355,
+      48681,
+      71283,
+      77748,
+      77854,
+      117260,
+      118912,
+      126682,
+      126861,
+      126862,
+      126872
+    ],
+    "MONGSE_stepSignatureProjectile31212": [
+      3321,
+      4124,
+      4922,
+      5179,
+      5180,
+      5338,
+      35410,
+      62207,
+      66341,
+      66489,
+      66638
+    ],
+    "MONGSE_prepareBossScatterHoming31211": [
+      30736,
+      55429,
+      55610,
+      62200
+    ],
+    "MONGSE_steerReturningProjectile": [
+      29792,
+      35455,
+      55118,
+      55450,
+      55482,
+      55721
+    ],
+    "MONGSE_bounceSignatureProjectile31212": [
+      35482,
+      62215,
+      66343,
+      66504
+    ],
+    "MONGSE_spawnBossCombatPatternV31230": [
+      77913,
+      78008,
+      123755
+    ],
+    "MONGSE_spawnThemeOrdnanceKind3129": [
+      48818,
+      48893,
+      48980,
+      54724,
+      54767,
+      66308
+    ],
+    "MONGSE_tickBossThemeOrdnance": [
+      48918,
+      54961,
+      62167
+    ]
+  },
+  "directQueueIngress": [
+    5329,
+    44592,
+    45582,
+    45704,
+    45833,
+    47592,
+    55669,
+    59445,
+    59477,
+    69398,
+    119359,
+    123980
+  ],
+  "retargetWrites": [
+    30817,
+    35392,
+    35442,
+    48150,
+    48155,
+    48593,
+    48607,
+    48648,
+    71303,
+    74645,
+    111035,
+    117263,
+    118915
+  ],
+  "hookCoverage": {
+    "completeEmitters": "Ei, bi, boss patterns, theme ordnance; complete birth batches after native return",
+    "alternateIngress": "all native signature step calls and render preflight inspect source-owned hostile queue",
+    "steering": "converted shots clear homing/orbit/return/retarget; native signature step locks velocity; returning steer skips converted shots",
+    "broadAttackExclusions": "single shot, angular span >.34 rad, origins >1.25 world units apart, lasers, persistent hazards, bombs/pollution, friendly/reflected/removed shots",
+    "NPC": "native friendly/narrative protection and rest-zone actors excluded; ranked coverage reported individually by browser"
+  },
+  "caveat": "Catalog and staged route verification do not prove a naturally completed Story/Dream campaign."
+}

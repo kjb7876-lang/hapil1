@@ -1,0 +1,587 @@
+{
+  "rankedIds": [
+    "mb-dist01",
+    "mb-dist02",
+    "mb-dist03",
+    "mb-dist04",
+    "mb-dist05",
+    "dist06-boss",
+    "mb-dist06",
+    "mb-ep1a07",
+    "mb-ep1a08",
+    "mb-ep1a09",
+    "mb-ep1a10",
+    "a11-boss",
+    "mb-ep1a11",
+    "mb-ep1b01",
+    "b02-boss",
+    "mb-ep1b02",
+    "b03-boss",
+    "mb-ep1b03",
+    "b04-boss",
+    "mb-ep1b04",
+    "b05-boss",
+    "mb-ep1b05",
+    "b06-boss",
+    "mb-ep1b06",
+    "b06b-boss",
+    "mb-ep1b06b",
+    "b07-boss",
+    "mb-ep1b07",
+    "b08-boss",
+    "mb-ep1b08",
+    "b09-boss",
+    "mb-ep1b09",
+    "u201-mid",
+    "u202-mid",
+    "u203-mid",
+    "u203-boss",
+    "l301-boss",
+    "mb-last302-v31231",
+    "l303-boss",
+    "mb-kair01-v31231",
+    "kair-great-03",
+    "k103-boss",
+    "mb-hando01",
+    "mb-hando02",
+    "h103-boss",
+    "mb-hando03",
+    "mb-murder01",
+    "mb-murder02",
+    "mb-murder03",
+    "c101-mid",
+    "c102-boss",
+    "c103-mid",
+    "c103-boss",
+    "c104-mid",
+    "c104-boss",
+    "u204-mid",
+    "u205-mid",
+    "u206-mid",
+    "l305-boss",
+    "mb-kair04-v31231",
+    "kair-great-01",
+    "kair-great-02",
+    "kair-great-04",
+    "kair-great-05",
+    "mb-kair09-v31231",
+    "kair-great-06",
+    "murder04-mid",
+    "c105-mid",
+    "c106-mid",
+    "dist00-boss",
+    "blue-executor",
+    "l304-e1"
+  ],
+  "hostileOwners": [
+    {
+      "id": "mb-dist01",
+      "zone": "dist01",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-dist02",
+      "zone": "dist02",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-dist03",
+      "zone": "dist03",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-dist04",
+      "zone": "dist04",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-dist05",
+      "zone": "dist05",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "dist06-boss",
+      "zone": "dist06",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-dist06",
+      "zone": "dist06",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1a08",
+      "zone": "ep1a08",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1a09",
+      "zone": "ep1a09",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1a10",
+      "zone": "ep1a10",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "a11-boss",
+      "zone": "ep1a11",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1a11",
+      "zone": "ep1a11",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b01",
+      "zone": "ep1b01",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b02-boss",
+      "zone": "ep1b02",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b02",
+      "zone": "ep1b02",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b03-boss",
+      "zone": "ep1b03",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b03",
+      "zone": "ep1b03",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b04-boss",
+      "zone": "ep1b04",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b04",
+      "zone": "ep1b04",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b05-boss",
+      "zone": "ep1b05",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b05",
+      "zone": "ep1b05",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b06-boss",
+      "zone": "ep1b06",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b06",
+      "zone": "ep1b06",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b06b-boss",
+      "zone": "ep1b06b",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b06b",
+      "zone": "ep1b06b",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b07-boss",
+      "zone": "ep1b07",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b07",
+      "zone": "ep1b07",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b08-boss",
+      "zone": "ep1b08",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b08",
+      "zone": "ep1b08",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "b09-boss",
+      "zone": "ep1b09",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-ep1b09",
+      "zone": "ep1b09",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u201-mid",
+      "zone": "u201",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u202-mid",
+      "zone": "u202",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u203-mid",
+      "zone": "u203",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u203-boss",
+      "zone": "u203",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "l301-boss",
+      "zone": "last301",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-last302-v31231",
+      "zone": "last302",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "l303-boss",
+      "zone": "last303",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "zone": "kair01",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "k103-boss",
+      "zone": "kair03",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-hando01",
+      "zone": "hando01",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-hando02",
+      "zone": "hando02",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "h103-boss",
+      "zone": "hando03",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-hando03",
+      "zone": "hando03",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-murder01",
+      "zone": "murder01",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-murder02",
+      "zone": "murder02",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-murder03",
+      "zone": "murder03",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "blue-executor",
+      "zone": "murder03",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c101-mid",
+      "zone": "cult01",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c102-boss",
+      "zone": "cult02",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c103-mid",
+      "zone": "cult03",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c103-boss",
+      "zone": "cult03",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c104-mid",
+      "zone": "cult04",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c104-boss",
+      "zone": "cult04",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u204-mid",
+      "zone": "u204",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u205-mid",
+      "zone": "u205",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "u206-mid",
+      "zone": "u206",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "l304-e1",
+      "zone": "last304",
+      "boss": false,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "l305-boss",
+      "zone": "last305",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "zone": "kair04",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "kair-great-01",
+      "zone": "kair05",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "kair-great-02",
+      "zone": "kair06",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "kair-great-04",
+      "zone": "kair07",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "kair-great-05",
+      "zone": "kair08",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "zone": "kair09",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "kair-great-06",
+      "zone": "kair10",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "murder04-mid",
+      "zone": "murder04",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c105-mid",
+      "zone": "cult05",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "c106-mid",
+      "zone": "cult06",
+      "boss": false,
+      "midboss": true,
+      "plannedPatterns": 64
+    },
+    {
+      "id": "dist00-boss",
+      "zone": "dist00",
+      "boss": true,
+      "midboss": false,
+      "plannedPatterns": 64
+    }
+  ],
+  "protectedActors": [
+    {
+      "id": "kair-great-03",
+      "zone": "kair02",
+      "reason": "native friendly/narrative protection",
+      "flags": {
+        "canonAlly": true,
+        "canonicalAllyV31217": true
+      }
+    }
+  ],
+  "inactiveRanked": [
+    {
+      "id": "mb-ep1a07",
+      "zone": "ep1a07",
+      "reason": "native rest zone"
+    }
+  ],
+  "missingRanked": []
+}

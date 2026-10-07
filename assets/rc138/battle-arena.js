@@ -23,10 +23,12 @@
   // not replace it or reinterpret the explicit mutual faction-swap exception.
   if(D()?.constrained(s,a))return true;
   const original={x:Object.getOwnPropertyDescriptor(a,'x'),y:Object.getOwnPropertyDescriptor(a,'y')};if(!original.x?.configurable||!original.y?.configurable||!Object.hasOwn(original.x,'value')||!Object.hasOwn(original.y,'value'))return false;
-  const g={state:s,side:which,radius,original,value:point(a,which,radius)};guards.set(a,g);for(const k of ['x','y'])Object.defineProperty(a,k,{configurable:true,enumerable:original[k].enumerable,get(){return g.value[k];},set(v){if(!locked(s)||s.zone!==g.zone&&g.zone){releaseActor(a);a[k]=v;return;}const q=point({...g.value,[k]:n(v,g.value[k])},g.side,g.radius);if(Math.abs(q[k]-v)>1e-7)stats.repairs++;g.value=q;}});g.zone=s.zone;stats.guards++;return true;
+  const g={state:s,side:which,radius,original,value:actorPoint(a,a,which,radius)};guards.set(a,g);for(const k of ['x','y'])Object.defineProperty(a,k,{configurable:true,enumerable:original[k].enumerable,get(){return g.value[k];},set(v){if(!locked(s)||s.zone!==g.zone&&g.zone){releaseActor(a);a[k]=v;return;}const q=actorPoint(a,{...g.value,[k]:n(v,g.value[k])},g.side,g.radius);if(Math.abs(q[k]-v)>1e-7)stats.repairs++;g.value=q;}});g.zone=s.zone;stats.guards++;return true;
  }
- function applyPosition(a,q){if(D()?.applyPosition(a,q))return true;const g=guards.get(a);if(!g||!locked(g.state)||g.state.zone!==g.zone)return false;g.value=point(q,g.side,g.radius);return true;}
+ function actorPoint(a,q,which,radius){return point(root.__HAPIL_COMBAT_LAYOUT_RC153__?.position(a,q)??q,which,radius);}
+ function applyPosition(a,q){if(D()?.applyPosition(a,q))return true;const g=guards.get(a);if(!g||!locked(g.state)||g.state.zone!==g.zone)return false;g.value=actorPoint(a,q,g.side,g.radius);return true;}
  function enroll(s,a,allied=false){if(!a)return a;if(!allied&&!hostile(a))return a;const r=runs.get(s);if(!r)return a;if(!allied){a.rc138Ranged=true;a.rc138BattleZone=s.zone;}
+  if(!allied&&!r.actors.has(a)&&locked(s)&&a.id!=='inner-evil-rc133'&&root.__HAPIL_COMBAT_LAYOUT_RC153__?.boss(a)){const index=[...r.actors].filter(b=>b.hp>0&&root.__HAPIL_COMBAT_LAYOUT_RC153__.boss(b)).length,v=36+(index%3)*2,q=point({x:(v+10)/2,y:(v-10)/2},'right',format.enemyRadius);if(!applyPosition(a,q)){a.x=q.x;a.y=q.y;}if(a.rc133Anchor)a.rc133Anchor={x:a.x,y:a.y};a.rc153BattlePlacement={zone:s.zone,index};}
   guard(s,a,allied);r.actors.add(a);stats.spawns++;return a;
  }
  function watch(s,r){if(r.watched)return;r.watched=true;
@@ -42,11 +44,11 @@
   for(const a of s.enemies??[])if(hostile(a)){enroll(s,a);if(a.hp<=0&&!a.revivalPending)releaseActor(a);}
   return snapshot(s);
  }
- function movement(s,a,q,radius=.48){if(!enabled(s))return q;if(D()?.constrained(s,a))return D().position(a,q);const allied=a===s||(root.__HAPIL_PARTY_V31322__?.state===s&&(root.__HAPIL_PARTY_V31322__.actors??[]).includes(a));return point(q,locked(s)?side(s,allied):'all',locked(s)?(allied?format.playerRadius:format.enemyRadius):radius);}
+ function movement(s,a,q,radius=.48){if(!enabled(s))return q;if(D()?.constrained(s,a))return D().position(a,q);const allied=a===s||(root.__HAPIL_PARTY_V31322__?.state===s&&(root.__HAPIL_PARTY_V31322__.actors??[]).includes(a));return locked(s)?actorPoint(a,q,side(s,allied),allied?format.playerRadius:format.enemyRadius):point(q,'all',radius);}
  function ranged(s,a,p){if(!enabled(s)||!hostile(a))return p;return {...p,ranged:true,range:Math.max(40,n(p?.range)),preferredMin:7,preferredMax:13,lunge:0,fxKind:'enemyProjectile',shape:'orb',distanceMode31222:'ranged',counterTacticProjectile31229:true,counterTacticMelee31229:false,normalEnemyProjectileV31237:true,normalEnemyMeleeV31237:false,enemyCombatRoleV31237:'ranged',rc138Ranged:true};}
  function bodyPacket(s,p){const rejected=enabled(s)&&!!p&&(String(p.id??'').startsWith('melee:')||p.bodyContact===true||p.bodyContactV31328===true||p.contactOwnerKind==='body');if(rejected)stats.bodyRejected++;return rejected;}
- function camera(s,view={x:0,y:0,width:1280,height:720}){if(!enabled(s))return null;const scale=.96*Math.min(1.05,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,battleArenaRC138:true};}
- function coverage(s,slot,project,view){if(!enabled(s))return null;const ally=slot!=='boss',which=side(s,ally),scale=Math.min(.56,Math.max(.35,(view.width-20)/600)),center=which==='left'?340:940;
+ function camera(s,view={x:0,y:0,width:1280,height:720}){if(!enabled(s))return null;const whole=root.__HAPIL_COMBAT_LAYOUT_RC153__?.camera(s,view);if(whole)return whole;const scale=.96*Math.min(1.05,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,battleArenaRC138:true};}
+ function coverage(s,slot,project,view){if(!enabled(s))return null;const whole=root.__HAPIL_COMBAT_LAYOUT_RC153__?.camera(s,view,slot);if(whole)return whole;const ally=slot!=='boss',which=side(s,ally),scale=Math.min(.56,Math.max(.35,(view.width-20)/600)),center=which==='left'?340:940;
   const subjects=ally?[s]:(s.enemies??[]).filter(a=>hostile(a)&&a.hp>0);const chosen=subjects.find(a=>a.id===s.targetEnemyId)??subjects[0]??s,p=project(chosen.x,chosen.y);
   // Three continuous vertical coverage bands are internal diagnostics only.
   // There are still exactly two native views and no six-sector map decoration.

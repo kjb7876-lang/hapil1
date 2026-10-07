@@ -20,7 +20,7 @@
   return true;
  }
  function destination(s,a){
-  let best=null;for(let x=4;x<=28;x+=4)for(let y=4;y<=28;y+=4){const p=dt(s.zone,{x,y},.72);if(!safeDestination(s,a,p))continue;const score=Math.hypot(p.x-s.x,p.y-s.y)-Math.hypot(p.x-a.x,p.y-a.y)*.15;if(!best||score>best.score)best={...p,score};}return best;
+  let best=null;for(let x=4;x<=28;x+=4)for(let y=4;y<=28;y+=4){const raw=dt(s.zone,{x,y},.72),p=window.__HAPIL_BATTLE_ARENA_RC138__?.movement(s,a,raw,.72)??raw;if(!safeDestination(s,a,p))continue;const score=Math.hypot(p.x-s.x,p.y-s.y)-Math.hypot(p.x-a.x,p.y-a.y)*.15;if(!best||score>best.score)best={...p,score};}return best;
  }
  function releaseWarp(s,a){delete a.rc133Warp;if(s.rc133WarpOwner===a.id)delete s.rc133WarpOwner;}
  function warp(s,a){
