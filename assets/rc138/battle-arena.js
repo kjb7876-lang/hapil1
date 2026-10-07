@@ -25,6 +25,7 @@
   const original={x:Object.getOwnPropertyDescriptor(a,'x'),y:Object.getOwnPropertyDescriptor(a,'y')};if(!original.x?.configurable||!original.y?.configurable||!Object.hasOwn(original.x,'value')||!Object.hasOwn(original.y,'value'))return false;
   const g={state:s,side:which,radius,original,value:point(a,which,radius)};guards.set(a,g);for(const k of ['x','y'])Object.defineProperty(a,k,{configurable:true,enumerable:original[k].enumerable,get(){return g.value[k];},set(v){if(!locked(s)||s.zone!==g.zone&&g.zone){releaseActor(a);a[k]=v;return;}const q=point({...g.value,[k]:n(v,g.value[k])},g.side,g.radius);if(Math.abs(q[k]-v)>1e-7)stats.repairs++;g.value=q;}});g.zone=s.zone;stats.guards++;return true;
  }
+ function applyPosition(a,q){if(D()?.applyPosition(a,q))return true;const g=guards.get(a);if(!g||!locked(g.state)||g.state.zone!==g.zone)return false;g.value=point(q,g.side,g.radius);return true;}
  function enroll(s,a,allied=false){if(!a)return a;if(!allied&&!hostile(a))return a;const r=runs.get(s);if(!r)return a;if(!allied){a.rc138Ranged=true;a.rc138BattleZone=s.zone;}
   guard(s,a,allied);r.actors.add(a);stats.spawns++;return a;
  }
@@ -41,7 +42,7 @@
   for(const a of s.enemies??[])if(hostile(a)){enroll(s,a);if(a.hp<=0&&!a.revivalPending)releaseActor(a);}
   return snapshot(s);
  }
- function movement(s,a,q,radius=.48){if(!enabled(s))return q;const allied=a===s||(root.__HAPIL_PARTY_V31322__?.state===s&&(root.__HAPIL_PARTY_V31322__.actors??[]).includes(a));return point(q,locked(s)?side(s,allied):'all',radius);}
+ function movement(s,a,q,radius=.48){if(!enabled(s))return q;if(D()?.constrained(s,a))return D().position(a,q);const allied=a===s||(root.__HAPIL_PARTY_V31322__?.state===s&&(root.__HAPIL_PARTY_V31322__.actors??[]).includes(a));return point(q,locked(s)?side(s,allied):'all',locked(s)?(allied?format.playerRadius:format.enemyRadius):radius);}
  function ranged(s,a,p){if(!enabled(s)||!hostile(a))return p;return {...p,ranged:true,range:Math.max(40,n(p?.range)),preferredMin:7,preferredMax:13,lunge:0,fxKind:'enemyProjectile',shape:'orb',distanceMode31222:'ranged',counterTacticProjectile31229:true,counterTacticMelee31229:false,normalEnemyProjectileV31237:true,normalEnemyMeleeV31237:false,enemyCombatRoleV31237:'ranged',rc138Ranged:true};}
  function bodyPacket(s,p){const rejected=enabled(s)&&!!p&&(String(p.id??'').startsWith('melee:')||p.bodyContact===true||p.bodyContactV31328===true||p.contactOwnerKind==='body');if(rejected)stats.bodyRejected++;return rejected;}
  function camera(s,view={x:0,y:0,width:1280,height:720}){if(!enabled(s))return null;const scale=.96*Math.min(1.05,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,battleArenaRC138:true};}
@@ -55,5 +56,5 @@
  function drawBoundary(ctx,s,project){if(!locked(s))return false;const poly=D().polygon('all',.8).map(p=>project(p.x,p.y)),top=Math.min(...poly.map(p=>p.y)),bottom=Math.max(...poly.map(p=>p.y)),x=project(19,19).x;ctx.save();try{ctx.globalAlpha=.48;ctx.strokeStyle='#c9dce6';ctx.lineWidth=1.5;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke();}finally{ctx.restore();}return true;}
  function snapshot(s){return{version:1,zone:s?.zone,enabled:enabled(s),locked:locked(s),clear:enabled(s)&&clear(s),reason:!enabled(s)?'rest':s.hp<=0?'death-choice':clear(s)?'clear':'combat',playerSide:side(s,true),enemySide:side(s,false),hostiles:(s?.enemies??[]).filter(live).length,entry:{...format.entry},exit:{...format.exit}};}
  function bind(api){native={...api,combat:new Set(api.combat)};}
- root.__HAPIL_BATTLE_ARENA_RC138__=Object.freeze({version:'RC138',format,bind,enabledZone,enabled,hostile,live,clear,locked,side,point,contains,guard,enroll,enforce,release,releaseActor,movement,ranged,bodyPacket,camera,coverage,drawBoundary,snapshot,metrics:()=>({...stats})});
+ root.__HAPIL_BATTLE_ARENA_RC138__=Object.freeze({version:'RC138',format,bind,enabledZone,enabled,hostile,live,clear,locked,side,point,contains,guard,applyPosition,enroll,enforce,release,releaseActor,movement,ranged,bodyPacket,camera,coverage,drawBoundary,snapshot,metrics:()=>({...stats})});
 })(typeof window!=='undefined'?window:globalThis);

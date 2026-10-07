@@ -33,7 +33,7 @@
    if(s.rc133WarpOwner!==a.id||old.zone!==s.zone||!safeDestination(s,a,old)){releaseWarp(s,a);metrics.warpCancelled++;return;}
    if(busy||s.time<old.at)return;
    if(Math.hypot(s.x-a.x,s.y-a.y)>3.4){releaseWarp(s,a);metrics.warpCancelled++;return;}
-   a.x=old.x;a.y=old.y;a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.navPath=[];a.gapChargeV31226=null;releaseWarp(s,a);
+   MONGSE_applyPositionRC152(a, old);a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.navPath=[];a.gapChargeV31226=null;releaseWarp(s,a);
    s.rc133WarpReadyAt=s.time+3;metrics.warps++;
    (s.effects??=[]).push({id:s.fxSerial++,kind:'burst',x:a.x,y:a.y,tx:a.x,ty:a.y,born:s.time,duration:.28,size:1.3,color:'#b8add6',accent:'#e8e6f4'});return;
   }
@@ -43,7 +43,7 @@
   (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y,born:s.time,duration:.5,text:'공간 이탈',color:'#d2c8e9',critical:false});
  }
  function stationary(a){return !!(a?.rc133InnerBoss||a?.episodeCosmicFinalV387||a?.dreamCosmicTrialV31346||a?.cosmicLuciferV31318);}
- function pin(a,s=S()){if(a?.rc133InnerBoss&&a.id===H()?.id&&Duel()?.active(s)){Duel().enforce(s);a.navPath=[];a.gapChargeV31226=null;delete a.rc133Warp;return;}if(!stationary(a))return;const p=a.rc133Anchor??={x:a.x,y:a.y};a.x=p.x;a.y=p.y;a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.movingUntil=0;a.navPath=[];a.gapChargeV31226=null;delete a.rc133Warp;}
+ function pin(a,s=S()){if(a?.rc133InnerBoss&&a.id===H()?.id&&Duel()?.active(s)){Duel().enforce(s);a.navPath=[];a.gapChargeV31226=null;delete a.rc133Warp;return;}if(!stationary(a))return;const p=a.rc133Anchor??={x:a.x,y:a.y};MONGSE_applyPositionRC152(a, p);a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.movingUntil=0;a.navPath=[];a.gapChargeV31226=null;delete a.rc133Warp;}
  function cleanEncounter(raw,zone){
   if(raw?.version!==1||raw.zone!==zone||!N[zone]||!Array.isArray(raw.ids))return null;
   const ids=[...new Set(raw.ids.filter(id=>typeof id==='string'&&id.length<180))].slice(0,3);
@@ -155,7 +155,8 @@
   const draw137=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,p,...args){return art137?art137.withPacket(p,()=>draw137(ctx,cache,p,...args)):draw137(ctx,cache,p,...args);};
   const queue137=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){const im=art137?.picture(path,S());if(im){cache[path]=im;return im;}return queue137(cache,path,...args);};
   const body137=window.__HAPIL_STAND_V31335__.drawBody;window.__HAPIL_STAND_V31335__.drawBody=function(ctx,cache,a,time,settings,sprite,size,o={}){
-   const authoredRow=mob137?.row(a),authoredImage=authoredRow?.authoredPoses?mob137.picture(sprite):null;
+   const authoredRow=mob137?.row(a),authoredImage=authoredRow?(mob137.picture(sprite)??(authoredRow.attackGeometry&&sprite===authoredRow.attack?MONGSE_queueImage(cache,sprite):null)):null,poseGeometry=mob137?.geometry(a,sprite,Number(size)||55);
+   if(authoredImage?.complete&&authoredImage.naturalWidth&&poseGeometry){const p=G(a.x,a.y),g=poseGeometry;ctx.save();try{ctx.globalAlpha*=o.alpha??1;ctx.translate(p.x+(o.offsetX??0),p.y+(o.offsetY??0));ctx.rotate(o.rotation??0);ctx.scale(o.scaleX??1,o.scaleY??1);if(o.glow){ctx.shadowColor=o.glow;ctx.shadowBlur=Math.min(o.glowBlur??13,5);}if(o.hit)ctx.filter='brightness(1.3) saturate(1.1)';ctx.drawImage(authoredImage,g.x,g.y,g.width,g.height);}finally{ctx.restore();}return true;}
    if(authoredImage?.complete&&authoredImage.naturalWidth){
     const p=G(a.x,a.y),r=In(authoredImage,sprite),anchor=Ye(sprite),kind=Je(sprite),h=Number(size)||55,center=!!o.centerPivot,w=kind==='actor'||kind==='prop'?h*Math.min(r.width/Math.max(1,r.height),kind==='prop'?1.86:/^\.\/assets\/generated-v31224\/actors-normalized\//.test(sprite)?1.75:1.72):h*Math.min(authoredImage.naturalWidth/Math.max(1,authoredImage.naturalHeight),1.05);
     ctx.save();try{ctx.globalAlpha*=o.alpha??1;ctx.translate(p.x+(o.offsetX??0),p.y-(center?0:h*.43)+(o.offsetY??0));ctx.rotate(o.rotation??0);ctx.scale(o.scaleX??1,o.scaleY??1);if(o.glow){ctx.shadowColor=o.glow;ctx.shadowBlur=Math.min(o.glowBlur??13,5);}if(o.hit)ctx.filter='brightness(1.3) saturate(1.1)';if(center){const box=In(authoredImage,sprite),ratio=box.width/Math.max(1,box.height),cw=h*Math.min(ratio,1.86);ctx.drawImage(authoredImage,box.x,box.y,box.width,box.height,-cw/2,-h/2,cw,h);}else if(kind==='actor'||kind==='prop'){ctx.translate(0,h*.43);ctx.drawImage(authoredImage,r.x,r.y,r.width,r.height,-w*anchor[0],-h*anchor[1],w,h);}else ctx.drawImage(authoredImage,-w/2,-h*.43,w,h);}finally{ctx.restore();}return true;
@@ -183,7 +184,7 @@
   const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);if(s){delete s.midbossEncounterRC133;delete s.rc133WarpOwner;}if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;Duel()?.enforce(s);midpoint(s);foundation(s);return result;};
   const gap=MONGSE_tickBossGapCharge31226;MONGSE_tickBossGapCharge31226=function(s,a,...args){if(a&&(a.boss||a.midboss)){a.gapChargeV31226=null;for(const key of ['pendingHits','impactQueue'])if(s?.[key]?.some(h=>h.sourceId===a.id&&h.gapChargeV31226))s[key]=s[key].filter(h=>h.sourceId!==a.id||!h.gapChargeV31226);if(a.activePattern==='gapChargeV31226')a.activePattern='';warp(s,a);return null;}return gap.call(this,s,a,...args);};
   const brain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(stationary(a)){pin(a,s);return {target:null,moveScale:0,speedScale:0};}return brain.call(this,s,a,...args);};
-  const movement=ft;ft=function(zone,a,...args){const s=S();if(stationary(a)){pin(a,s);return {x:a.x,y:a.y};}const result=movement.call(this,zone,a,...args);return Duel()?.constrained(s,a)?Duel().point(result,'left'):result;};
+  const movement=ft;ft=function(zone,a,...args){const s=S();if(stationary(a)){pin(a,s);return {x:a.x,y:a.y};}const result=movement.call(this,zone,a,...args);return Duel()?.constrained(s,a)?Duel().position(a,result):result;};
   const stand=window.__HAPIL_STAND_V31335__,standTick=stand.tick;stand.tick=function(s,...args){const result=standTick.call(this,s,...args);for(const a of s?.enemies??[])pin(a,s);return result;};
   const standBody=stand.drawBody;stand.drawBody=function(ctx,cache,a,time,settings,sprite,size,transform){if(a?.rc133InnerBoss){const path=a.sprite??sprite,im=MONGSE_queueImage(cache,path),point=G(a.x,a.y);
     if(im?.complete&&im.naturalWidth&&window.__HAPIL_MEDIA_ART_RC133__?.ready){ctx.save();try{ctx.globalAlpha*=transform?.alpha??1;const aura=window.__HAPIL_MEDIA_ART_RC133__.picture(window.__HAPIL_MEDIA_ART_RC133__.personaAwakening);if(aura&&a.sprite?.includes('/awake-')){ctx.save();ctx.globalAlpha*=.38;ctx.drawImage(aura,point.x-58,point.y-126,116,116);ctx.restore();}ctx.filter=transform?.hit?'brightness(2.2) contrast(0.85)':'brightness(1.8) contrast(0.8)';const h=122,bodyCanvas=window.__HAPIL_MEDIA_ART_RC133__.canvas??[224,400],w=h*bodyCanvas[0]/bodyCanvas[1];

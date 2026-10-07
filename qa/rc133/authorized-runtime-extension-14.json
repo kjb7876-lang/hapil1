@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "base": "c7bc9e7d97c4b961987049c656fe624b463e0a58",
+  "baseTree": "ea3be39ad27b8c94a74b8a3c664c28bb37150901",
+  "previousExtensionSha256": "0d5f6268c360515eff35a98977776ee7e9f2c3139e1b7d7a69040ea8375c8192",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "39a5cd45c93a63633f34849fff469b3818494272c3c3dd726480ca4b996e59b5",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "c4ec45d5f8c509adfd182bc5ae595a0e955377b4"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "ab6c37d1c4f653381c539a06ababbdb914940184",
+        "sha256": "4696418c2912e42eb8fe410125d6bd67efc06f9b3105d5b26ceacb53b727a034"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "0b55f330bb1d36255af291060e2b0804e6da156c"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "eccaf114e3088aa1c95476947baf758e56ac3b0e",
+        "sha256": "e3af7e629571db4172f34e6e3ceda0b0adcff4719c55fe2de0f71990f8a76908"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "978c6a991090485ccbe0f0ee8d0ca19ca5ccaa3c"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "a51955d233d89a239b996e1c6d5cb6ca4ee2df36",
+        "sha256": "e0ed3bcd1214b6cd7b8538f01b569ad1c7a4eb7eefb5d9676c708381585f6eeb"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc134/persona-duel.js"
+    },
+    {
+      "file": "assets/rc137/mob-motion-data.js",
+      "before": {
+        "file": "assets/rc137/mob-motion-data.js",
+        "mode": "100644",
+        "gitBlob": "4b94283ef686c22d6e4a77f997bae728d0e973b4"
+      },
+      "after": {
+        "file": "assets/rc137/mob-motion-data.js",
+        "mode": "100644",
+        "gitBlob": "28277bbf356adebfe062788f1881a6c02949bfa7",
+        "sha256": "630135d9fc0c3ff4c3e88f2a35a72f525b17cc2fe569ed1aeefd10d973d15654"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc137/mob-motion-data.js"
+    },
+    {
+      "file": "assets/rc137/mob-motions.js",
+      "before": {
+        "file": "assets/rc137/mob-motions.js",
+        "mode": "100644",
+        "gitBlob": "3798d06314bbdd53cb7494cc1809f62374568220"
+      },
+      "after": {
+        "file": "assets/rc137/mob-motions.js",
+        "mode": "100644",
+        "gitBlob": "c9312d13de3cfabdafa8393451c65e0e5df7176b",
+        "sha256": "d5e3488f212ab4708bb2cd48b4369cbb2b98cbd3ca7fd14e8a7f853998983f30"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc137/mob-motions.js"
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "before": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "184eb1091cf745c21c4988c4cd084383fb0f6c07"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "0192ecb30f7c19e6621d162e15832139ae56d017",
+        "sha256": "e95b811562e69fc9f1005055bdf342a0c2d36ad55fa13fe847c5eaa2d43e31fa"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc138/battle-arena.js"
+    },
+    {
+      "file": "assets/rc145/body-ash.js",
+      "before": {
+        "file": "assets/rc145/body-ash.js",
+        "mode": "100644",
+        "gitBlob": "e0f43ace4e218799013b7658ce0be4764d3b28be"
+      },
+      "after": {
+        "file": "assets/rc145/body-ash.js",
+        "mode": "100644",
+        "gitBlob": "31388d1f8771c2ac424f61f39c6ff6b01d6c6542",
+        "sha256": "0b3c1b9ce0097076e04851a94d021fad85fc2652c3426c2774927a2547c4a1a9"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: assets/rc145/body-ash.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "eb342e8d0e9ff4882f303005454a339f98d26e05"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "1d4df198ba4669442830ed7e25ae083039a9c671",
+        "sha256": "87df65f28c48048a5d817a227108ce3089c8a55bbea129f59cbdbf92f4128da1"
+      },
+      "reason": "RC152 measured body/weapon bounds, native idle pose calibration and atomic owned-coordinate transfers: index.html"
+    }
+  ]
+}

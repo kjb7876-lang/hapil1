@@ -1,0 +1,13 @@
+# RC152 image and coordinate corrections
+
+Base: c7bc9e7d97c4b961987049c656fe624b463e0a58. Main has not been published by this task.
+
+The staged Chromium renderer comparison covers Balrog idle / raised sword / recovery, both facings, nominal sizes 210 and 500, HP 100 / 70 / 69.9 / 40 / 15 percent and death onset. The old compositor loses up to 5,746 alpha>16 pixels. The new compositor has no fully missing original alpha>16 pixels. Four idle cases retain the pre-existing single translucent boundary pixel change from alpha17 to alpha15; this is explicitly checked against the baseline rather than counted as clipping. Native before/after full-frame renders and three ordinary pose comparisons are exported by tests/rc152-image-browser.cjs.
+
+The temporary wound canvas now measures the actual transformed image rectangle union (including raised weapons), keeps the seven existing buckets, bounded pose layouts and the 12 MiB overlay cache. An extent beyond the largest bucket preserves the complete direct draw instead of clipping; death then uses a bounded fade fallback. Actual tested Balrog cases do not use that fallback. No source raster bytes were edited. No per-frame alpha pixel scan was added.
+
+All 197 ordinary actor rows now retain measured native idle alpha silhouettes. Attack source core heights and feet are aligned to their own native idle crop and pivot. Species dimensions remain inherited from the native size. Outer weapons and effects remain in the extracted image; they are not cropped to the body core. The six identities with existing attack images also receive calibration. Three source examples are visually captured; 197 numerical calibrations are checked. This is staged validation, not natural completion or a full visual review of all 197 identities.
+
+Owned movement transfers now apply precomputed coordinate pairs through one projection. The native arena and Persona APIs share the guard's exact radius and current side; manual blink endpoint validation includes the player's half and radius. Existing c7 Persona dispatch exceptions remain at both renderer entry points. Directional behavior at curved boundaries still requires the exact browser input matrix.
+
+Remaining supplied-document scope: full boss projectile generation/release/retarget inventory and scatter conversion; render-aware far-right physical boss placement; comprehensive native Persona warning/flight/hit diagnostics; natural progression and physical phone evidence. These have not been implemented or declared passed in this image-focused checkpoint. No zero-bug claim and no final full-request deployment approval is inferred from focused image checks.

@@ -35,6 +35,8 @@
   const g={state:s,side,radius,original,value:point(a,side,radius)};guards.set(a,g);
   for(const key of['x','y'])Object.defineProperty(a,key,{configurable:true,enumerable:original[key].enumerable,get(){return g.value[key];},set(v){if(!active(s)||!(s.hp>0)){releaseActor(a);a[key]=v;return;}const next=point({...g.value,[key]:finite(v,g.value[key])},side,radius);if(next.x!==v&&key==='x'||next.y!==v&&key==='y')stats.repairs++;g.value=next;}});stats.guards++;return true;
  }
+ function position(a,q){const g=guards.get(a);return g&&active(g.state)?point(q,g.side,g.radius):q;}
+ function applyPosition(a,q){const g=guards.get(a);if(!g||!active(g.state)||!(g.state.hp>0))return false;g.value=point(q,g.side,g.radius);return true;}
  function set(a,q,side,radius){const g=guards.get(a),p=point(q,side,radius);if(g)g.value=p;else{a.x=p.x;a.y=p.y;}return p;}
  function release(s){const run=runs.get(s);if(!run)return;const undo=s.innerFinalRC133?.duelSwap===true;for(const a of run.actors){const p=undo?mirror(a):null;releaseActor(a);if(p){a.x=p.x;a.y=p.y;}}if(s.innerFinalRC133){s.innerFinalRC133.duelSwap=false;s.innerFinalRC133.tempoActive=false;}runs.delete(s);}
  function enforce(s,spawn=false){if(!active(s)||!(s.hp>0)){release(s);return null;}if(swapped(s)&&!mutual(s))swap(s,false);let run=runs.get(s);if(!run){run={actors:new Set()};runs.set(s,run);}
@@ -50,5 +52,5 @@
  function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=.96*Math.min(1,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
  function constrained(s,a){return guards.get(a)?.state===s&&active(s);}
  function backdrop(ctx,canvas){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.globalCompositeOperation='destination-over';ctx.fillStyle='#020610';ctx.fillRect(0,0,canvas.width,canvas.height);}finally{ctx.restore();}}
- root.__HAPIL_PERSONA_DUEL_RC134__=Object.freeze({version:'RC134',policy,active,mirror,mutual,cooldownFactor,tempo,swapped,swap,polygon,contains,point,guard,enforce,tick,release,camera,constrained,backdrop,metrics:()=>({...stats})});
+ root.__HAPIL_PERSONA_DUEL_RC134__=Object.freeze({version:'RC134',policy,active,mirror,mutual,cooldownFactor,tempo,swapped,swap,polygon,contains,point,guard,enforce,tick,release,camera,constrained,position,applyPosition,backdrop,metrics:()=>({...stats})});
 })(typeof window!=='undefined'?window:globalThis);
