@@ -8,7 +8,7 @@ Native hostile boss birth batches with two or more travelling shots in an angula
 
 All living hostile registered bosses, midbosses and ranked special owners in native combat maps use world across x−y=6..12 and depth x+y=35..41, inside the radius-aware native floor. First enrollment assigns separate depth rows for two/three simultaneous bosses. Atomic movement, direct guard setters, stationary anchors and checked far-warp candidates use the same physical destination. Persona retains its point-inversion ownership and explicit faction swap.
 
-The camera fits conservative whole body/weapon extents (3 nominal sizes wide, 2.4 above and .6 below the foot), using the actual native actor/phase/clone nominal size, uniform scale and viewport/HUD clearance. Portrait's two existing views each fit their full subject. Render fitting does not alter body pixels, hitboxes or source sprite sizes.
+The camera fits conservative whole body/weapon extents (3 nominal sizes wide, 2.4 above and .6 below the foot), using the actual native actor/phase/clone nominal size, uniform scale and viewport/HUD clearance. Portrait's two existing views each fit their full subject. Render fitting does not alter source sprites, hitboxes or nominal sizes. Wound compositing first paints the native body, then applies its bounded colour overlay with source-atop so its original alpha silhouette survives fractional-position resampling; death onset has the same protection, while later dissolve phases retain their masks.
 
 Red Persona awakening impact remains an exact 2.38% maximum-HP packet through the existing guaranteed native damage path. Ordinary attacks retain their separate seeded 66% time-defense roll; awakening packets bypass that roll. No percentage or RNG logic was changed.
 
