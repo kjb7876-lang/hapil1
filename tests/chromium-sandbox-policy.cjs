@@ -80,6 +80,8 @@ assert(launchers.length > 0, 'the audit must find Chromium launch sites');
 const pngPacker = fs.readFileSync(path.join(root, 'tools/rc154-pack-visual-evidence.cjs'), 'utf8');
 assert(pngPacker.includes('chrome-sandbox-smoke.json') && pngPacker.includes('browserVersionFromSmoke'), 'the PNG packer must use exact sandbox-smoke evidence for Chrome version');
 assert(!/HAPIL_CHROMIUM|\/usr\/bin\/chromium/.test(pngPacker), 'the PNG packer must not launch or inspect bundled Chromium');
+const rc150LiveBrowser = fs.readFileSync(path.join(root, 'tests/rc150-live-browser.cjs'), 'utf8');
+assert(rc150LiveBrowser.includes("isOpen?.()===true,null,{timeout:10000})") && rc150LiveBrowser.includes("isOpen?.()===false,null,{timeout:10000})") && rc150LiveBrowser.includes("page.keyboard.press('Enter')"), 'the RC150 live browser must observe the native story card opening, send real keyboard input, and verify closure');
 for (const relative of chromeStableWorkflowFiles) {
   const text = fs.readFileSync(path.join(root, relative), 'utf8');
   const launchCount = [...text.matchAll(/chromium\.launch\s*\(/g)].length;
