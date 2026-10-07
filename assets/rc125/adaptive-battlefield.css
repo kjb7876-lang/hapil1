@@ -71,3 +71,28 @@ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc10
  html.rc125-adaptive:not(.hapil-touch-v31366).rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys {left:40%!important;gap:3px!important}
  html.rc125-adaptive:not(.hapil-touch-v31366).rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys button {font-size:10px!important;padding:0 5px!important}
 }
+
+:root{--rc154-safe-left:env(safe-area-inset-left,0px);--rc154-safe-right:env(safe-area-inset-right,0px);--rc154-safe-top:env(safe-area-inset-top,0px);--rc154-safe-bottom:env(safe-area-inset-bottom,0px)}
+/* RC154 mobile landscape: battlefield owns the full viewport; compact controls
+   overlay corners rather than reserving rails. Safe-area values remain CSS env. */
+@media (orientation:landscape){
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing .game{grid-template-rows:0px minmax(0,1fr) 0px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc15-sidepanels{display:none!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay{height:0!important;background:none!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-settings-trigger{top:calc(var(--rc154-safe-top) + 4px)!important;right:calc(var(--rc154-safe-right) + 4px)!important;width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay #hapil-resonance-rc96{top:calc(var(--rc154-safe-top) + 4px)!important;right:auto!important;left:calc(var(--rc154-safe-left) + 4px)!important;width:100px!important;max-width:100px!important;padding:1px 3px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing .hm-movement{width:76px!important;height:76px!important;left:calc(var(--rc154-safe-left) + 6px)!important;bottom:calc(var(--rc154-safe-bottom) + 6px)!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing .hm-actions{right:calc(var(--rc154-safe-right) + 6px)!important;bottom:calc(var(--rc154-safe-bottom) + 6px)!important;gap:6px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-mobile-controls-v31366 .hm-actions button{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;padding:2px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-mobile-controls-v31366 .hm-actions button b{font-size:18px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-mobile-controls-v31366 .hm-actions button small{font-size:9px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-mobile-controls-v31366 [data-mobile-action="A"]{position:static!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing .combat-controls-more{display:none!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout.hapil-mobile-auto-v31311 body.rc15-playing :is(.hm-movement,.hm-actions){display:none!important}
+}
+
+@media (orientation:landscape){
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-mobile-controls-v31366 [data-mobile-action="Menu"]{display:none!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing:has(.game[data-combat-input="manual"]) #hapil-mobile-controls-v31366 [data-mobile-action="A"]{position:static!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important}
+ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #hapil-resonance-rc96{top:calc(var(--rc154-safe-top) + 4px)!important;right:auto!important;left:calc(var(--rc154-safe-left) + 4px)!important;width:100px!important;max-width:100px!important;padding:1px 3px!important}
+}

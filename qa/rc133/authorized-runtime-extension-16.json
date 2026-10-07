@@ -9,7 +9,7 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "38f502a496baa8f90aa9a7bd74b16f6dcc8c44b9d244203fe7fe79f037cad11e",
+  "targetProtectedRowsSha256": "b868be318eea2bf8c083ec4d9d04729630d9cda3c29fb50dd99f846eeae14835",
   "files": [
     {
       "file": "assets/rc108/hud.css",
@@ -42,6 +42,21 @@
       "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc108/portrait-split.js"
     },
     {
+      "file": "assets/rc125/adaptive-battlefield.css",
+      "before": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "f795813db0a3ccc52d24b75ac363fe0b846badc9"
+      },
+      "after": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "03e5a7c363f2c954f9cad82fc60df6de386339a9",
+        "sha256": "17773cd83a28af7cf153b2cb9f586f59de29862c429e27cbe997671a456aa4b9"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc125/adaptive-battlefield.css"
+    },
+    {
       "file": "assets/rc125/adaptive-battlefield.js",
       "before": {
         "file": "assets/rc125/adaptive-battlefield.js",
@@ -57,6 +72,21 @@
       "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc125/adaptive-battlefield.js"
     },
     {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "e4013786bd63f394e600accc54472d60acddcba3"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "40aedb767719280f1f237174701ef0dae9ebfb46",
+        "sha256": "d3470b0ecbf762c3d44ab394f1b6327bed4626635c922c2fdb20a7f45508730b"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc153/combat-layout.js"
+    },
+    {
       "file": "index.html",
       "before": {
         "file": "index.html",
@@ -66,8 +96,8 @@
       "after": {
         "file": "index.html",
         "mode": "100644",
-        "gitBlob": "81e27ac6e568ba75e4f103ae0b15360dbe64a7ba",
-        "sha256": "02b6d5c9d43897d74ef59cb657b22e86c16c42a40c94b7195653246e2cce9593"
+        "gitBlob": "6318e48974038441075dfede9b426cc533f90d82",
+        "sha256": "e8c6a32b3054d04ce1afa20f17f47a5d493f3dd6490a5406a835c7aa29c060ff"
       },
       "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: index.html"
     }

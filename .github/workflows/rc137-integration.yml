@@ -2,7 +2,7 @@ name: RC137 exact integrated gameplay and art
 on:
   push:
     branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc151-mobile-a-visibility, codex/rc152-image-combat]
-    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc152*', 'tests/rc153*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc133/published.cjs', 'qa/rc153/**', 'qa/rc137/**', 'tools/rc133-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc152*', 'tests/rc153*', 'tests/rc154*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc133/published.cjs', 'qa/rc153/**', 'qa/rc137/**', 'tools/rc133-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -57,6 +57,7 @@ jobs:
           if test "$RC137_PROFILE" = portrait && test "$RC137_ROUND" = 1; then
             git fetch --no-tags origin 8b24a22120d7787746339ed7c422eee149e04b22
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/portrait-composition" node tests/rc153-portrait-composition-browser.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/mobile-layout" node tests/rc154-mobile-layout-browser.cjs
           fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc153-combat" node tests/rc153-combat-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc153-boundary" node tests/rc153-boundary-input-browser.cjs
