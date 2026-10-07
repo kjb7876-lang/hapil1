@@ -27,18 +27,15 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Prepare isolated Chromium and read-only decoder
+      - name: Prepare Playwright runtime and read-only decoder
         shell: bash
         run: |
           set -euo pipefail
           R="$RUNNER_TEMP/rc137-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
           if [ -f /etc/apt/apt-mirrors.txt ]; then printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
           sudo apt-get install -y ffmpeg
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc137-evidence" >> "$GITHUB_ENV"
       - name: Verify exact runtime and native art transactions
         env:
@@ -51,26 +48,15 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
           mkdir -p "$HAPIL_QA_OUTPUT"
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc152-position-unit.cjs
           node tests/rc153-combat-unit.cjs
           node tests/rc154-pack-visual-evidence-unit.cjs
           node tests/rc154-cosmic-loader-unit.cjs
-          if test "$RC137_PROFILE" = pc && test "$RC137_ROUND" = 1; then
-            if command -v google-chrome-stable >/dev/null 2>&1; then
-              CHROME_STABLE_BIN="$(command -v google-chrome-stable)"
-            elif command -v google-chrome >/dev/null 2>&1; then
-              CHROME_STABLE_BIN="$(command -v google-chrome)"
-            else
-              echo 'CHROME_STABLE_SANDBOX_SMOKE {"status":"skipped","reason":"Google Chrome Stable is not preinstalled on this runner"}' | tee -a "$GITHUB_STEP_SUMMARY"
-              CHROME_STABLE_BIN=''
-            fi
-            if test -n "$CHROME_STABLE_BIN"; then
-              "$CHROME_STABLE_BIN" --version
-              node tests/rc153-chrome-sandbox-smoke.cjs
-            fi
-          fi
           if test "$RC137_PROFILE" = portrait && test "$RC137_ROUND" = 1; then
             git fetch --no-tags origin 8b24a22120d7787746339ed7c422eee149e04b22
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/portrait-composition" node tests/rc153-portrait-composition-browser.cjs

@@ -8,7 +8,7 @@ const harness='\nconst rc125NativeRender=$n;$n=function(...a){if(window.__RC125_
 function serve(before){return http.createServer((req,res)=>{try{let relative=decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/^\//,'')||'index.html';const file=path.resolve(root,relative);if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}let data=before&&baseline[relative]?baseline[relative]:fs.readFileSync(file);if(relative==='assets/index-v31526.js')data=data.toString()+harness;res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.wav':'audio/wav','.woff2':'font/woff2','.svg':'image/svg+xml'})[path.extname(file)]||'application/octet-stream');res.end(data);}catch{res.writeHead(404).end();}}).listen(0,'127.0.0.1');}
 const beforeServer=serve(true),afterServer=serve(false);
 (async()=>{let browser;const rows=[];try{
- browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const [name,width,height,mobile] of [['pc',1180,757,false],['desktop',1920,1080,false],['portrait',390,844,true],['landscape',844,390,true]]){
   for(const before of [true,false]){
    const phase=before?'before':'after',context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),errors=[],failed=[];page.setDefaultTimeout(20000);

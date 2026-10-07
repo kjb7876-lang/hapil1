@@ -21,6 +21,8 @@ on:
       - 'qa/rc133/authorized-runtime-extension-11.json'
       - 'qa/rc133/authorized-runtime-extension-12.json'
       - 'qa/rc133/authorized-runtime-extension-13.json'
+      - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/rc153-chrome-sandbox-smoke.cjs'
       - 'tools/rc133-preservation.cjs'
       - '.github/workflows/rc133-published.yml'
   workflow_dispatch:
@@ -50,11 +52,15 @@ jobs:
           mkdir -p "$RUNNER_TEMP/rc133-public"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
           if [ -f /etc/apt/apt-mirrors.txt ]; then printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-public" >> "$GITHUB_ENV"
+      - name: Verify Chrome Stable sandbox before public assertions
+        run: |
+          set -euo pipefail
+          command -v google-chrome
+          google-chrome --version
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
       - name: Verify approved historical and exact extension deltas
         run: node tools/rc133-preservation.cjs
       - name: Verify exact public bytes and normal game startup

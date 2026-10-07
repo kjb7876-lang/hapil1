@@ -13,7 +13,7 @@ const save=()=>fs.writeFileSync(path.join(out,'movement-space-results.json'),JSO
 function polygonMetrics(points){let twice=0;for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length];twice+=a.x*b.y-a.y*b.x;}const px=points.map(p=>640+27*(p.x-p.y)),py=points.map(p=>13.5*(p.x+p.y));return{vertices:points.length,areaWorld:Math.abs(twice/2),projectedBounds:{x:[Math.min(...px),Math.max(...px)],y:[Math.min(...py),Math.max(...py)]}};}
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;try{
  if(process.env.EXPECTED_SHA)assert(report.commit===process.env.EXPECTED_SHA&&!report.dirty,'exact clean revision required');
- browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const [name,width,height,mobile] of [['pc',1280,900,false],['portrait',390,844,true],['landscape',844,390,true]]){
   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,errors:[],httpErrors:[]};report.profiles.push(row);
   page.on('pageerror',e=>row.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});

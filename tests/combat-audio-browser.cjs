@@ -203,7 +203,7 @@ async function assertNativeImpact(evidence) {
   fs.mkdirSync(output, {recursive:true});
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   try {
-    browser=await playwright.chromium.launch({chromiumSandbox: true, headless:true, executablePath:process.env.HAPIL_CHROMIUM || undefined, args:[]});
+    browser=await playwright.chromium.launch({chromiumSandbox: true, channel: 'chrome', headless:true, args:[]});
     page=await browser.newPage({viewport:{width:1280,height:900}});
     page.setDefaultTimeout(20000);
     await page.addInitScript(installMediaProbe);

@@ -12,6 +12,20 @@ on:
       - 'tests/rc148-*.cjs'
       - 'tests/rc86-samong-cosmic-*.cjs'
       - 'tests/rc88-danmaku-rpg-*.cjs'
+      - 'tests/rc108-combat-browser.cjs'
+      - 'tests/rc115-natural-story-portal-browser.cjs'
+      - 'tests/rc116-laser-*-browser.cjs'
+      - 'tests/rc118-laser-phase-browser.cjs'
+      - 'tests/rc119-laser-body-browser.cjs'
+      - 'tests/rc122-autoplay-browser.cjs'
+      - 'tests/rc123-boundary-browser.cjs'
+      - 'tests/rc125-*-browser.cjs'
+      - 'tests/rc126-combat-browser.cjs'
+      - 'tests/rc127-browser.cjs'
+      - 'tests/rc128-browser.cjs'
+      - 'tests/rc129-browser.cjs'
+      - 'tests/rc153-chrome-sandbox-smoke.cjs'
+      - 'tests/chromium-sandbox-policy.cjs'
       - 'tests/rc142-persona-volley-browser.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
       - 'tests/rc134-persona-effects-browser.cjs'
@@ -45,18 +59,15 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Prepare isolated Chromium
+      - name: Prepare Playwright runtime
         run: |
           set -euo pipefail
           R="$RUNNER_TEMP/rc147-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
           if [ -f /etc/apt/apt-mirrors.txt ]; then printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
           sudo apt-get install -y ffmpeg
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
       - name: Verify exact gameplay and screens
         env:
           EXPECTED_SHA: ${{ github.sha }}
@@ -69,6 +80,9 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
           node --check assets/index-v31526.js
           node --check assets/hapil-mobile-v31406.js
           node --check assets/rc86/samong-cosmic.js

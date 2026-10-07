@@ -9,7 +9,7 @@ const server=http.createServer((req,res)=>{try{const file=path.resolve(root,'.'+
 const report={commit:cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),scope:'Staged native source-only warnings, flights, terminal impacts and removals on desktop/portrait/landscape browser emulation',status:'running',profiles:[]};
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;try{
- browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,true],['landscape',844,390,true]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1}),page=await context.newPage(),row={name,errors:[],httpErrors:[]};report.profiles.push(row);
   try{page.on('pageerror',e=>row.errors.push(String(e)));page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});

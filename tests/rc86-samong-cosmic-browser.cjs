@@ -44,8 +44,7 @@ const server = http.createServer((req, res) => {
 }).listen(0, '127.0.0.1');
 
 (async () => {
-  const browser = await chromium.launch({chromiumSandbox: true,
-    executablePath: process.env.HAPIL_CHROMIUM || undefined,
+  const browser = await chromium.launch({chromiumSandbox: true, channel: 'chrome',
     args: ['--disable-dev-shm-usage'],
   });
   try {

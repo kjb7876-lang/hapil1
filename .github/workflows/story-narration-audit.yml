@@ -24,6 +24,8 @@ on:
       - 'qa/rc153/**'
       - 'qa/rc130/public-smoke.cjs'
       - 'qa/rc132/published.cjs'
+      - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/rc153-chrome-sandbox-smoke.cjs'
       - 'tools/combat-audio-apply.cjs'
       - 'tools/rc130-preservation.cjs'
       - 'tools/rc133-*.cjs'
@@ -44,6 +46,20 @@ on:
       - 'tools/story-narration-release85-preservation.cjs'
       - 'tools/story-narration-release86-preservation.cjs'
       - 'tests/rc121-connected-topology-browser.cjs'
+      - 'tests/rc121-dream-regression-browser.cjs'
+      - 'tests/dream-death-dialog-browser.cjs'
+      - 'tests/rc108-combat-browser.cjs'
+      - 'tests/rc115-natural-story-portal-browser.cjs'
+      - 'tests/rc116-laser-*-browser.cjs'
+      - 'tests/rc118-laser-phase-browser.cjs'
+      - 'tests/rc119-laser-body-browser.cjs'
+      - 'tests/rc122-autoplay-browser.cjs'
+      - 'tests/rc123-boundary-browser.cjs'
+      - 'tests/rc125-*-browser.cjs'
+      - 'tests/rc126-combat-browser.cjs'
+      - 'tests/rc127-browser.cjs'
+      - 'tests/rc128-browser.cjs'
+      - 'tests/rc129-browser.cjs'
       - 'assets/rc51/story.js'
       - 'assets/title/v31236/christian-opening-v31236.js'
       - 'data/story-rc51.js'
@@ -121,15 +137,16 @@ jobs:
         run: |
           QA_RUNTIME="$RUNNER_TEMP/story-narration-runtime"
           npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1
-          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")" >> "$GITHUB_ENV"
       - name: Exercise playback and interrupted flows
         env:
           HAPIL_NARRATION_OUTPUT: ${{ runner.temp }}/story-narration-evidence
           HAPIL_COMBAT_AUDIO_OUTPUT: ${{ runner.temp }}/story-narration-evidence/combat-audio
         run: |
           node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
           node tests/story-narration-browser.cjs
           node tests/story-narration-surfaces-browser.cjs
           node tests/story-narration-audio-browser.cjs
@@ -164,18 +181,14 @@ jobs:
           node-version: '22'
       - name: Fetch approved art reference
         run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
-      - name: Install isolated Chromium runtime
+      - name: Install isolated Playwright runtime
         run: |
           QA_RUNTIME="$RUNNER_TEMP/rc121-runtime"
           npm install --prefix "$QA_RUNTIME" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
-          node "$QA_RUNTIME/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/chromium-install.log" 2>&1
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$QA_RUNTIME/node_modules/playwright")
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$QA_RUNTIME/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/narration-gameplay-evidence" >> "$GITHUB_ENV"
           echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/narration-gameplay-evidence/release" >> "$GITHUB_ENV"
           echo "RC119_BODY_OUTPUT=$RUNNER_TEMP/narration-gameplay-evidence/release/approved-art" >> "$GITHUB_ENV"
-          "$CHROMIUM" --version
       - name: Test exact clean revision
         env:
           SUITE: ${{ matrix.suite }}
@@ -186,6 +199,9 @@ jobs:
           test "$(git rev-parse HEAD)" = "$TESTED_COMMIT"
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
           echo "RC121_TESTED_COMMIT=$TESTED_COMMIT suite=$SUITE"
           mkdir -p "$HAPIL_QA_OUTPUT"
           printf '%s\n' "$TESTED_COMMIT" > "$HAPIL_QA_OUTPUT/tested-commit.txt"

@@ -83,7 +83,7 @@ async function capture(browser,source){
 async function main(){let browser;
  try{
   const approvedSource=execFileSync('git',['show',`${baseline}:assets/index-v31526.js`],{cwd:root,encoding:'utf8',maxBuffer:16*1024*1024});
-  browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
+  browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
   const approved=await capture(browser,approvedSource),current=await capture(browser,null);
   const comparisonPage=await browser.newPage();
   const comparisons=await comparisonPage.evaluate(async pairs=>{

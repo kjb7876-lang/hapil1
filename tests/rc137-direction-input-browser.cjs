@@ -222,8 +222,7 @@ function verify(rows, x, y, label) {
   await new Promise((r) => server.listen(0, "127.0.0.1", r));
   let browser;
   try {
-    browser = await chromium.launch({chromiumSandbox: true,
-      executablePath: process.env.HAPIL_CHROMIUM || "/usr/bin/chromium",
+    browser = await chromium.launch({chromiumSandbox: true, channel: 'chrome',
       args: ["--disable-dev-shm-usage"],
     });
     report.browser = browser.version();

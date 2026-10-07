@@ -8,7 +8,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
 const result={status:'running',staged:true,scope:'Full-auto Story finale state machine with held D and without D; not natural campaign completion',variants:[],errors:[],httpErrors:[]};
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2));
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;try{
- browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
+ browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
  const page=await browser.newPage({viewport:{width:1280,height:900}});page.on('pageerror',e=>result.errors.push(e.stack||e.message));page.on('response',r=>{if(r.status()>=400)result.httpErrors.push({status:r.status(),url:r.url()});});
  await page.goto('http://127.0.0.1:'+server.address().port+'/?rc147auto=1');await page.waitForFunction(()=>window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_SAMONG_COSMIC_V386__?.installed&&window.__RC147_AUTO_QA__?.initial);
  await page.keyboard.press('Escape');await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');

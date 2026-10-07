@@ -1,7 +1,7 @@
 'use strict';
 // Read-only release audit. Does not change game state, gameplay files or saves.
 // RC128 candidate integration is tested only in a disposable local worktree.
-// Linux + Chromium at /usr/bin/chromium are required by the existing suites.
+// A Linux runner with preinstalled Google Chrome Stable and Playwright is required.
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');

@@ -17,7 +17,41 @@ const badSwitches = [];
 const badOptions = [];
 const badRunnerMutations = [];
 const launchers = [];
+const chromeStableLaunchers = [];
 const activeBranch = 'codex/rc152-image-combat';
+const chromeStableWorkflowFiles = [
+  'tests/rc153-chrome-sandbox-smoke.cjs',
+  'tests/rc153-combat-browser.cjs', 'tests/rc153-boundary-input-browser.cjs',
+  'tests/rc153-portrait-composition-browser.cjs', 'tests/rc154-mobile-layout-browser.cjs',
+  'tests/rc138-arena-browser.cjs', 'tests/rc152-image-browser.cjs', 'tests/rc137-audit-browser.cjs',
+  'tests/rc139-narration-browser.cjs', 'tests/rc137-boss-lifecycle-browser.cjs',
+  'tests/rc134-persona-effects-browser.cjs', 'tests/rc137-direct-admission-browser.cjs',
+  'tests/rc142-gameplay-browser.cjs', 'tests/rc143-persona-live-browser.cjs',
+  'tests/rc142-persona-volley-browser.cjs', 'tests/rc143-mobile-viewport-browser.cjs',
+  'tests/rc137-direction-input-browser.cjs', 'tests/rc137-death-choice-browser.cjs',
+  'tests/rc147-camera-finale-browser.cjs', 'tests/rc148-six-cosmic-perf-browser.cjs',
+  'tests/rc148-persona-memory-browser.cjs', 'tests/rc150-live-browser.cjs',
+  'tests/rc147-auto-defense-browser.cjs', 'tests/rc86-samong-cosmic-browser.cjs',
+  'tests/rc88-danmaku-rpg-browser.cjs', 'tests/dream-death-dialog-browser.cjs',
+  'tests/rc121-connected-topology-browser.cjs', 'tests/rc121-dream-regression-browser.cjs',
+  'tests/rc142-movement-space-browser.cjs', 'tests/story-narration-browser.cjs',
+  'tests/story-narration-surfaces-browser.cjs', 'tests/story-narration-audio-browser.cjs',
+  'tests/story-narration-webaudio-browser.cjs', 'tests/story-narration-decoder-edges.cjs',
+  'tests/combat-audio-browser.cjs', 'tests/rc119-laser-body-browser.cjs',
+  'tests/rc118-laser-phase-browser.cjs', 'tests/rc116-laser-continuity-browser.cjs',
+  'tests/rc116-laser-telegraph-browser.cjs', 'tests/rc108-combat-browser.cjs',
+  'tests/rc115-natural-story-portal-browser.cjs', 'tests/rc128-browser.cjs',
+  'tests/rc127-browser.cjs', 'tests/rc126-combat-browser.cjs',
+  'tests/rc125-adaptive-battlefield-browser.cjs', 'tests/rc125-first-frame-browser.cjs',
+  'tests/rc123-boundary-browser.cjs', 'tests/rc122-autoplay-browser.cjs',
+  'tests/rc129-browser.cjs', 'qa/rc130/public-smoke.cjs', 'qa/rc133/published.cjs'
+];
+const activeWorkflows = [
+  '.github/workflows/rc137-integration.yml',
+  '.github/workflows/rc147-camera-finale.yml',
+  '.github/workflows/story-narration-audit.yml',
+  '.github/workflows/rc133-published.yml'
+];
 
 for (const relative of paths) {
   const file = path.join(root, relative);
@@ -43,4 +77,20 @@ assert.deepEqual(badSwitches, [], `sandbox-disabling Chromium switches: ${badSwi
 assert.deepEqual(badOptions, [], `Chromium launches without explicit sandbox: ${badOptions.join(', ')}`);
 assert.deepEqual(badRunnerMutations, [], `active workflows alter OS ownership, permissions, or kernel settings: ${badRunnerMutations.join(', ')}`);
 assert(launchers.length > 0, 'the audit must find Chromium launch sites');
-console.log(JSON.stringify({ status: 'passed', chromiumLaunches: launchers.length, scannedPaths: paths.length, activeWorkflows: 3, explicitSandbox: true, fallback: false, runnerPrivilegeMutation: false }));
+for (const relative of chromeStableWorkflowFiles) {
+  const text = fs.readFileSync(path.join(root, relative), 'utf8');
+  const launchCount = [...text.matchAll(/chromium\.launch\s*\(/g)].length;
+  const channelCount = [...text.matchAll(/\bchannel\s*:\s*(['"])chrome\1/g)].length;
+  assert(launchCount > 0, `${relative}: expected a browser launch`);
+  assert.equal(channelCount, launchCount, `${relative}: every launch must explicitly use channel 'chrome'`);
+  assert(!/\bexecutablePath\s*:/.test(text), `${relative}: executablePath can silently select bundled Chromium`);
+  chromeStableLaunchers.push({ file: relative, launches: launchCount });
+}
+for (const relative of activeWorkflows) {
+  const text = fs.readFileSync(path.join(root, relative), 'utf8');
+  assert(!/playwright\/cli\.js[^\n]*install[^\n]*chromium/i.test(text), `${relative}: do not install or select bundled Chromium`);
+  assert(!/HAPIL_CHROMIUM\s*=/.test(text), `${relative}: do not inject a bundled Chromium executable path`);
+  assert(text.includes('command -v google-chrome') && text.includes('google-chrome --version'), `${relative}: require the preinstalled Chrome Stable command`);
+  assert(text.includes('tests/rc153-chrome-sandbox-smoke.cjs'), `${relative}: exact workflow must require Chrome sandbox smoke`);
+}
+console.log(JSON.stringify({ status: 'passed', chromiumLaunches: launchers.length, chromeStableLaunchers, scannedPaths: paths.length, activeWorkflows: activeWorkflows.length, explicitSandbox: true, chromeChannel: true, fallback: false, runnerPrivilegeMutation: false }));

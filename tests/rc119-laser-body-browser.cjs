@@ -1,7 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
 const output=process.env.RC119_BODY_OUTPUT||path.join(process.env.HAPIL_QA_OUTPUT||'/tmp','rc119-approved-art');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'):'playwright');
-(async()=>{const browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});try{
+(async()=>{const browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});try{
  const baseline=execFileSync('git',['show','19a4c1f:assets/rc77/connected-laser.js'],{encoding:'utf8'}),current=fs.readFileSync('assets/rc77/connected-laser.js','utf8');
  for(const [name,software,lowFx]of [['gpu',false,false],['canvas',true,false],['mobile-lowFx',true,true]]){
  const page=await browser.newPage({viewport:{width:260,height:220},hasTouch:lowFx,isMobile:lowFx});

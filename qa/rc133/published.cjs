@@ -418,7 +418,7 @@ async function main() {
     const playwrightRoot = process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
     assert(playwrightRoot, 'isolated Playwright runtime path is required');
     const { chromium } = require(path.join(playwrightRoot, 'playwright'));
-    browser = await chromium.launch({chromiumSandbox: true,  executablePath: process.env.HAPIL_CHROMIUM, args: ['--disable-dev-shm-usage'] });
+    browser = await chromium.launch({chromiumSandbox: true, channel: 'chrome',  args: ['--disable-dev-shm-usage'] });
     for (const profile of [
       ['pc', 1180, 757, false],
       ['portrait', 390, 844, true],
