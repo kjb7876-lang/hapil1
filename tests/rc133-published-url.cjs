@@ -75,6 +75,7 @@ function verify(file) {
 const runtimeFiles=new Set(delta.files.map(row=>row.after.file));for(const row of extension.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension2.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension3.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension4.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension5.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}for(const row of extension6.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension7.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension8.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+assert.equal(runtimeFiles.size,289,'the chained exact runtime set contains 289 unique files through the eighth extension'); checks++;
 for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
 assert(reserved.pathname.includes('%23')); checks++;
