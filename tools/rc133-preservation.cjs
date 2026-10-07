@@ -44,7 +44,7 @@ function verifyFiles(root,expected){
 function verify(root){
  root=path.resolve(root);assert(fs.lstatSync(root).isDirectory()&&!fs.lstatSync(root).isSymbolicLink());
  const exec=(cmd,args,cwd=root)=>cp.execFileSync(cmd,cmd==='git'?['--no-replace-objects',...args]:args,{cwd,encoding:'utf8',maxBuffer:48*1024*1024});
- for(const ref of [BASE,EXTENSION_BASE,EXTENSION2_BASE,EXTENSION3_BASE,EXTENSION4_BASE,EXTENSION5_BASE,EXTENSION6_BASE,EXTENSION7_BASE,EXTENSION8_BASE,EXTENSION9_BASE,EXTENSION10_BASE,EXTENSION11_BASE])if(cp.spawnSync('git',['--no-replace-objects','cat-file','-e',ref+'^{commit}'],{cwd:root,stdio:'ignore'}).status!==0)exec('git',['fetch','--no-tags','--depth=1','origin',ref]);
+ for(const ref of [BASE,EXTENSION_BASE,EXTENSION2_BASE,EXTENSION3_BASE,EXTENSION4_BASE,EXTENSION5_BASE,EXTENSION6_BASE,EXTENSION7_BASE,EXTENSION8_BASE,EXTENSION9_BASE,EXTENSION10_BASE,EXTENSION11_BASE,EXTENSION12_BASE])if(cp.spawnSync('git',['--no-replace-objects','cat-file','-e',ref+'^{commit}'],{cwd:root,stdio:'ignore'}).status!==0)exec('git',['fetch','--no-tags','--depth=1','origin',ref]);
  const bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-delta.json'));assert.equal(digest(bytes),DELTA_HASH,'Authorized runtime delta changed');const delta=JSON.parse(bytes);
  assert.equal(delta.version,1);assert.equal(delta.base,BASE);assert.deepEqual(delta.protectedRoots,ROOTS);assert.equal(exec('git',['rev-parse',BASE+'^{tree}']).trim(),delta.baseTree,'Detached baseline tree pin');
  const base=rows(exec,BASE),expected=new Map(base.map(r=>[r.file,r]));assert.equal(new Set(delta.files.map(r=>r.file)).size,delta.files.length,'Duplicate approved delta path');
