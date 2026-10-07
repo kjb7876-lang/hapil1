@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "b02bc568f1faf66c4bf02e0a51f16e7dff67d197",
+  "baseTree": "5c92e22741b959e8b1f79325a1cc10ca7b6f6fd4",
+  "previousExtensionSha256": "46c9ea04641aaee8b56bd75302bd36855b4f2ac376962aa84646f22c14e0ede1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "0175da051c951af361a94cfdd4559692e566e0a5aff53bb1f2bdd222f370d87c",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "99b11d3579b6417f52be2f745fc2ce76b0571700",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f54a83b230f4264c92d7ee89e67e9ef5829a8c26",
+        "sha256": "6b3fa280567af34833136ce3398cfffc7948c975e49f47c28f9c1b1d8550595e"
+      },
+      "reason": "RC151 complete Persona release lock and guaranteed red Persona awakening impact, retaining authored art and current gameplay: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "7d9be58176f36d59ae84f7a383f107cef23d9283",
+        "file": "assets/rc133/inner-final.js"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "41590609d84d220494607d57f8e7446caef983b3",
+        "sha256": "36b6864c7156e91a58c88822a00b9a6df1e43bca99ef0030838e8cbf6720e98d"
+      },
+      "reason": "RC151 complete Persona release lock and guaranteed red Persona awakening impact, retaining authored art and current gameplay: assets/rc133/inner-final.js"
+    },
+    {
+      "file": "assets/rc150/awakening-impact.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "0d757d43cea2dd2b8227bef230425539c7e3201f",
+        "file": "assets/rc150/awakening-impact.js"
+      },
+      "after": {
+        "file": "assets/rc150/awakening-impact.js",
+        "mode": "100644",
+        "gitBlob": "36840856610073691e712dfb21f70a6d1684b6ee",
+        "sha256": "7c1f8ab160e1eb225b7facb7a8a515b7f1e8a70d05ee64708cecd45966204774"
+      },
+      "reason": "RC151 complete Persona release lock and guaranteed red Persona awakening impact, retaining authored art and current gameplay: assets/rc150/awakening-impact.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "47b0ac1dc3de172a963bd953010c45d4bbb10719",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "68450b6b09b3afe7062a9919e1ee96736db24a14",
+        "sha256": "449289a6671961b957404057d8b57051f44318980a3d36f0036e1bbe31d19f5c"
+      },
+      "reason": "RC151 complete Persona release lock and guaranteed red Persona awakening impact, retaining authored art and current gameplay: index.html"
+    }
+  ]
+}

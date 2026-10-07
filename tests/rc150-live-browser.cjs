@@ -36,7 +36,7 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
    const status=window.__HAPIL_FEEDBACK_RC128__.ailments(s).map(r=>r.key);
    Object.assign(s.innerFinalRC133,{phase:'fight',intro:0,awake:7,awakeningCooldown:28,shotDelay:0,cycle:3,redTimeReadyAt:0});H.tick(s,.016);
    const m=s.innerFinalRC133,shots=s.hostileProjectiles.filter(q=>q.rc133Cycle===3),warning=!H.redTimeActive(s)&&m.redTimeWarnUntil>m.elapsed,diagnostic={active:H.active(s),locked:window.__HAPIL_RC95_NATIVE__?.locked?.(s),story:window.__HAPIL_STORY_RC51__?.isOpen?.(),timeStop:s.timeStopUntil,shotDelay:m.shotDelay,cycle:m.cycle,art:H.metrics().artReady};
-   m.elapsed=m.redTimeWarnUntil+.01;const hpBefore=a.hp;let blocked=0,allowed=0,sameRolls=true;
+   m.elapsed=m.redTimeWarnUntil+.01;const redBefore=a.hp,redMax=a.maxHp,redSeed=m.redTimeSeed,redRolls=m.redTimeRolls.length;I.player(s,'fixture-red-guaranteed',A.art.gunner,'기억사수 · 각성');const guaranteed={damage:redBefore-a.hp,expected:redMax*.0238,seedUnchanged:m.redTimeSeed===redSeed,rollsUnchanged:m.redTimeRolls.length===redRolls};I.player(s,'fixture-red-guaranteed',A.art.gunner,'기억사수 · 각성');guaranteed.duplicateDamage=redBefore-a.hp;const hpBefore=a.hp;let blocked=0,allowed=0,sameRolls=true;
    for(let i=1;i<=60;i++){s.basicAttackCount=i;s.lastAttack=s.time+i*.001;const key='basic:'+i+':'+s.lastAttack,beforeRoll=m.redTimeSeed,prior=a.hp;
     C.binding.actions.damage(a,1,'#fff',false,0,{id:'one-'+i,heroId:'gunner',born:s.time});const mid=a.hp;
     C.binding.actions.damage(a,1,'#fff',false,0,{id:'two-'+i,heroId:'gunner',born:s.time});const end=a.hp;
@@ -46,12 +46,13 @@ const server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+deco
    const clock={warning,active:H.redTimeActive(s),shotCount:shots.length,speed:Math.hypot(shots[0]?.vx,shots[0]?.vy),visualScale:shots[0]?.visualScaleV31224,blocked,allowed,sameRolls,hpLoss:hpBefore-a.hp,rolls:m.redTimeRolls.length};
    const nativeSave=B.serializeSave(s,'gunner',[],{},0),nativeNormalized=B.normalizeSave(nativeSave),saved=H.snapshot(s),restored=N.makeState();Object.assign(restored,{zone:'cult04',gameModeV31346:'DREAM',samongUnlockedRC91:true,enemies:[],completedZones:new Set(),spawnedWaves:new Set([1,2,3,4])});H.restore(restored,nativeNormalized?.innerFinalRC133??saved);
    const reload={active:H.redTimeActive(restored),rolls:restored.innerFinalRC133?.redTimeRolls?.length,seed:restored.innerFinalRC133?.redTimeSeed,nativeSaved:nativeSave?.innerFinalRC133?.redTimeRolls?.length,nativeNormalized:nativeNormalized?.innerFinalRC133?.redTimeRolls?.length};
-   C.binding.state.current=s;window.__RC150_STAGED_STATE__=s;return{burst,boss,status,clock,reload,diagnostic,oldStatePresent:!!old};});
+   C.binding.state.current=s;window.__RC150_STAGED_STATE__=s;return{burst,boss,status,clock,reload,guaranteed,diagnostic,oldStatePresent:!!old};});
   console.log('RC150 PROFILE RESULT '+name+' '+JSON.stringify(result));
   assert(result.burst.after<result.burst.before&&result.burst.duplicateHp===result.burst.after,'player burst is one-time native damage');
   assert(result.boss.after<result.boss.before&&result.boss.after>0&&result.boss.before-result.boss.after<=result.boss.raw,'boss burst uses native incoming mitigation with a hard seven-percent applied cap');
   assert(result.status.includes('bleed')&&result.status.includes('burn')&&result.status.includes('poison'));
   assert(result.clock.warning&&result.clock.active&&result.clock.shotCount===24&&result.clock.visualScale===1.2);
+  assert(Math.abs(result.guaranteed.damage-result.guaranteed.expected)<1e-8&&result.guaranteed.duplicateDamage===result.guaranteed.damage&&result.guaranteed.seedUnchanged&&result.guaranteed.rollsUnchanged,'red Persona awakening is guaranteed max HP 2.38%, once, without a 66% defense roll');
   assert(result.clock.sameRolls&&result.clock.blocked>30&&result.clock.blocked<50&&result.clock.allowed>0);
   assert(result.reload.active&&result.reload.rolls===result.clock.rolls&&result.reload.nativeSaved===result.clock.rolls&&result.reload.nativeNormalized===result.clock.rolls);
   assert.deepEqual(errors,[]);report.push({name,...result,statusProjection:liveStatus.s.lastAilmentsDraw.point,errors:errors.length});await context.close();

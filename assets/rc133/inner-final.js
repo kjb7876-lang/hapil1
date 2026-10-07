@@ -106,7 +106,7 @@
   return 'hit:'+String(source?.skillKey??source?.skillIndex??source?.actionKey??'A')+':'+String(source?.born??source?.sourceBorn??last)+':'+String(source?.id??s.fxSerial??0);
  }
  function redTimeBlocks(s,target,source){
-  if(target?.id!==ID||!redTimeActive(s))return false;
+  if(source?.awakeningImpactRC150||target?.id!==ID||!redTimeActive(s))return false;
   const m=s.innerFinalRC133,key=redTimeKey(s,source);m.redTimeRolls??=[];
   const prior=m.redTimeRolls.find(row=>row[0]===key);if(prior)return prior[1];
   m.redTimeSeed=(Math.imul(n(m.redTimeSeed,0x133150),1664525)+1013904223)>>>0;
@@ -193,7 +193,9 @@
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
   // Finish the current wind-up/release window before opening another cast.
   // This keeps high-count awakened volleys from overlapping their own lock.
-  m.queueRetryCount=0;m.cycle++;m.shotDelay=Math.max(mutual?.46:empowered?.68:1.05,warning+.35);metrics.volleys++;metrics.skills++;
+  const releaseEnd=Math.max(s.time+warning,...emitted.map(q=>n(q.frozenUntil,s.time+warning)));
+  a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),releaseEnd+.35);
+  m.queueRetryCount=0;m.cycle++;m.shotDelay=Math.max(mutual?.46:empowered?.68:1.05,a.atomicCastUntil31210-s.time);metrics.volleys++;metrics.skills++;
 
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}

@@ -102072,7 +102072,7 @@ function HAPIL_applyCounterDamageV31303(state, enemy, rawDamage, reward, source 
       (window.__HAPIL_DANMAKU_RPG_RC88__?.castDamageFactor(state, enemy, HAPIL_bossCastDamageFactorV31342(state, enemy)) ?? HAPIL_bossCastDamageFactorV31342(state, enemy)) *
       (window.__HAPIL_DANMAKU_RPG_RC88__?.damageFactor(state, enemy) ?? 1),
     nativeDamageRC134 = (window.__HAPIL_RC79__?.balancedDamage(state,enemy,rawAccepted) ?? rawAccepted) * (window.__HAPIL_DAMAGE_RC108__?.power(state,source)??1) * .5,
-    damage = Math.min(window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(state,enemy,nativeDamageRC134,'outgoing'),source?.awakeningImpactRC150?Math.max(1,Math.round(enemy.maxHp*.07)):Number.POSITIVE_INFINITY),
+    damage = source?.awakeningImpactRC150&&source?.personaGuaranteedRC151&&enemy.id==='inner-evil-rc133' ? enemy.maxHp*.0238 : Math.min(window.__HAPIL_COMBAT_CORE_V31401__.finalDamage(state,enemy,nativeDamageRC134,'outgoing'),source?.awakeningImpactRC150?Math.max(1,Math.round(enemy.maxHp*.07)):Number.POSITIVE_INFINITY),
     hpAfter = Math.max(
       0,
       typeof MONGSE_phaseGateHealth === "function"

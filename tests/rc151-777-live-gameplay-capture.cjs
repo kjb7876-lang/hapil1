@@ -107,7 +107,11 @@ async function selectMap(page, id) {
   for(let attempt=0;attempt<20&&!selected;attempt++){
     await button.click();
     selected=await page.waitForFunction(expected => window.__MONGSE_QA_STATE__?.zone === expected, id, { timeout:900 }).then(()=>true).catch(()=>false);
-    if(!selected)await page.waitForTimeout(350);
+    if(!selected){
+      // Settings pauses the committed ultimate; finish it in live combat.
+      await closeSettings(page);await page.waitForTimeout(750);await advanceNarrative(page);await openSettings(page);
+      if(!(await details.locator('.memory-map-grid').isVisible().catch(()=>false)))await details.locator('summary').click();
+    }
   }
   if(!selected){report.lastState=await stateSummary(page).catch(()=>null);report.mapDiagnostic={requested:id,buttonName:target.name,zoneBefore};saveReport();throw new Error(`normal map UI remained blocked for ${id}; last native state is saved in run-report.json`);}
   await closeSettings(page);

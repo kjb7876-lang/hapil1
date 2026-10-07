@@ -82,7 +82,7 @@ assert.equal(extension11.base,'a7a6990271d046f05531f389184df99e397e1f5f');
 assert.equal(extension11.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension10Bytes).digest('hex'));
 assert.deepEqual(extension11.files.map(row=>row.file),['assets/rc133/inner-final.js']);
 assert.equal(extension11.files[0].before.gitBlob,'a157d2dd28b4d165503b5843ed6c50b2086ecdf5');
-assert.equal(extension11.files[0].after.sha256,require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,extension11.files[0].file))).digest('hex'));
+const extension12Bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-12.json')),extension12=JSON.parse(extension12Bytes);assert.equal(require('node:crypto').createHash('sha256').update(extension12Bytes).digest('hex'),'b80f0b96ac1de271a95e4eaf43153b9da3e70ca02f72ad55b5946eeb809c79f3');assert.equal(extension12.base,'b02bc568f1faf66c4bf02e0a51f16e7dff67d197');assert.equal(extension12.previousExtensionSha256,require('node:crypto').createHash('sha256').update(extension11Bytes).digest('hex'));assert.equal(extension12.files.find(r=>r.file===extension11.files[0].file).before.gitBlob,extension11.files[0].after.gitBlob);for(const row of extension12.files)assert.equal(row.after.sha256,require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,row.file))).digest('hex'));
 let checks = 0;
 const key = 'rc133-verify';
 const value = 'exact sha #1?&= / 한글';
@@ -104,6 +104,7 @@ for(const row of extension8.files){if(row.after===null)runtimeFiles.delete(row.f
 for(const row of extension9.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension10.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 for(const row of extension11.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
+for(const row of extension12.files){if(row.after===null)runtimeFiles.delete(row.file);else runtimeFiles.add(row.file);}
 assert.equal(runtimeFiles.size,293,'the chained exact runtime set contains 293 unique files through the eleventh extension'); checks++;
 for (const file of runtimeFiles) verify(file);
 const reserved = verify('audio/rc133/originals/Ancient_demon_awaken_#1-1791000066648.wav');
