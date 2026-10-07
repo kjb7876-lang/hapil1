@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "base": "8fbfa8f6983c70129e6deaadfd74c9e620483386",
+  "baseTree": "f5b2b150b41e78f2a36da710746599205d5add83",
+  "previousExtensionSha256": "73a01f3e7598ae69bb199ef208a433437851fa479bdf03615cbbc9e028b5d660",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "6be430050a650353e113a3aaecbd2783ccfd6240a7f29ba790dd41212f2841e5",
+  "files": [
+    {
+      "file": "assets/actors/v31511/balrog-raised-body.png",
+      "before": null,
+      "after": {
+        "file": "assets/actors/v31511/balrog-raised-body.png",
+        "mode": "100644",
+        "gitBlob": "90c395a868ea3fb55e173258bff6ad50ff35e778",
+        "sha256": "21d3a8aaefc10cd9fa3aa711bd42f02b7b05cb0c130676bd95bd7a5899302dcf"
+      },
+      "reason": "Add isolated upright Balrog actor pose used by the combat renderer: assets/actors/v31511/balrog-raised-body.png"
+    },
+    {
+      "file": "assets/actors/v31511/balrog-raised-sword.png",
+      "before": null,
+      "after": {
+        "file": "assets/actors/v31511/balrog-raised-sword.png",
+        "mode": "100644",
+        "gitBlob": "7bab136b1ebb9aca4c34c4c549a24ebedea27df5",
+        "sha256": "0cb0ea58b3fc627fd6731ddc2f79541cdac12a5472d5614ca50cdbfba3bf0055"
+      },
+      "reason": "Add isolated raised sword overlay for Balrog live attack frames: assets/actors/v31511/balrog-raised-sword.png"
+    },
+    {
+      "file": "assets/combat-v31402/projectile-pipeline.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "d7400e1ed7ede6b637d9ae208ff1c6d35f9da86a",
+        "file": "assets/combat-v31402/projectile-pipeline.js"
+      },
+      "after": {
+        "file": "assets/combat-v31402/projectile-pipeline.js",
+        "mode": "100644",
+        "gitBlob": "4dfb76596e0906afeb254c4e3b1b6c3b5777c221",
+        "sha256": "f7c468b571405d368a0cf8f6481e1b83f981484b57a99fe7740c17c2ed49fd99"
+      },
+      "reason": "Keep hidden Persona skill imagery authored in its art atlas while it moves through the native projectile renderer: assets/combat-v31402/projectile-pipeline.js"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "5f84eb90b10a0b1ff796a19109d69bca4ca32f7a",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "99b11d3579b6417f52be2f745fc2ce76b0571700",
+        "sha256": "c8d95059c3d5dbfd0f10a1c1fd0a157e5c2c909da03f30baa948a812c74046ef"
+      },
+      "reason": "Add visible Balrog raised-sword pose, exact asset preload, and inner-final handoff cleanup for stale encounter dialogue: assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc108/hud.css",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "71136b4cf7cf9246e3d3796532ab91ddfa5d621d",
+        "file": "assets/rc108/hud.css"
+      },
+      "after": {
+        "file": "assets/rc108/hud.css",
+        "mode": "100644",
+        "gitBlob": "5688e2e36405e098bad3ebc3e64dad86231d465e",
+        "sha256": "d3726ce761eeb3321d403f7567c85e2d81db7c10be45841653bd3157f41a3bfc"
+      },
+      "reason": "Restore the A touch target in semiauto mode within portrait safe-area bounds: assets/rc108/hud.css"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "943415f559bac340642d041be0c345c28487bcc8",
+        "file": "assets/rc133/inner-final.js"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "a157d2dd28b4d165503b5843ed6c50b2086ecdf5",
+        "sha256": "6c4bcc3b92b9e6d04491086bb4786db840af2832c7f4adbe479921e0916a740a"
+      },
+      "reason": "Bound whole Persona volleys, retry over-capacity admission without advancing skills, and retain doubled red-awakening speed/damage: assets/rc133/inner-final.js"
+    },
+    {
+      "file": "assets/rc25/raid.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "215d458d11ca526043ce8ea4c48aa77e2348cce0",
+        "file": "assets/rc25/raid.js"
+      },
+      "after": {
+        "file": "assets/rc25/raid.js",
+        "mode": "100644",
+        "gitBlob": "71c7b01b433dff429727543e1c32bd01eafb2088",
+        "sha256": "038eac26b158de46a91a880d0a471af5973ba4e20321ad7575bb728a43a2f41b"
+      },
+      "reason": "Bind b05 and mb-b05 projectile and impact transactions to the isolated approved high-heel source: assets/rc25/raid.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "d3b99ec9b606d7daa7c44380d6845ccb029a53ee",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "47b0ac1dc3de172a963bd953010c45d4bbb10719",
+        "sha256": "24ebc7f48794e439985be42073b2c6f4b73bcb2d722f7895ec7e7295fa3efbd2"
+      },
+      "reason": "Advance cache keys for the updated Persona, mobile HUD, raid feedback, and gameplay runtime: index.html"
+    }
+  ]
+}

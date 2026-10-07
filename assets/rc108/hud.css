@@ -72,6 +72,8 @@ html.hapil-touch-v31366 body.rc15-playing:has(.game[data-combat-input="manual"])
 html.hapil-touch-v31366 body.rc15-playing:has(.game[data-combat-input="manual"]) .combat-controls-more:after{content:'⋯';font-size:24px}
 @media (orientation:landscape){html.hapil-touch-v31366.rc108-wide-layout body.rc15-playing:has(.game[data-combat-input="manual"]) #hapil-mobile-controls-v31366 [data-mobile-action="A"]{right:10px!important;bottom:calc(env(safe-area-inset-bottom,0px) + 108px)!important;width:88px!important;height:88px!important;min-width:88px!important;min-height:88px!important}html.hapil-touch-v31366.rc108-wide-layout body.rc15-playing:has(.game[data-combat-input="manual"]) .combat-controls-more{inset:44px 8px auto auto!important}}
 
-html.hapil-touch-v31366 body.rc15-playing:not(:has(.game[data-combat-input="manual"])) #hapil-mobile-controls-v31366 [data-mobile-action="A"]{display:none!important}
+/* RC151: semi-automatic still accepts held A input. Keep its touch button beside S/D;
+   full-auto keeps using RC111's existing action-rail hide rule. */
+@media (orientation:portrait){html.hapil-touch-v31366:not(.hapil-mobile-auto-v31311) body.rc15-playing:has(.game[data-combat-input="auto"]) #hapil-mobile-controls-v31366 [data-mobile-action="A"]{position:fixed!important;right:calc(env(safe-area-inset-right,0px) + 8px)!important;bottom:calc(env(safe-area-inset-bottom,0px) + 84px)!important;left:auto!important;top:auto!important;width:64px!important;height:64px!important;min-width:64px!important;min-height:64px!important;border-radius:50%!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;z-index:44!important}}
 /* RC110: compact S/D action labels remain in the ally pane on touch landscape. */
 html.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc108-control-overlay .rc108-skill-keys{display:flex!important}

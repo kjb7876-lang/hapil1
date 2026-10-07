@@ -3,7 +3,8 @@
 (function(root){
  'use strict';
  const ID='inner-evil-rc133',ZONE='cult04',n=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d,cl=(v,a,b)=>Math.max(a,Math.min(b,n(v)));
- const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0,compositorFrames:0,compositorLayers:0};let native=null,moodLayer=null,moodFilterSvg=null;
+ const HOSTILE_QUEUE_LIMIT=96,MAX_QUEUE_RETRY_COUNT=8,QUEUE_RETRY_BASE_SECONDS=.12,QUEUE_RETRY_MAX_SECONDS=1.2;
+ const metrics={entries:0,volleys:0,skills:0,completed:0,frames:0,restores:0,compositorFrames:0,compositorLayers:0,queueDeferrals:0,partialVolleyRollbacks:0,queueRetryBackoffs:0};let native=null,moodLayer=null,moodFilterSvg=null;
  const HP_LIMIT=3000000;
  // Nine lossless skill crops power the baseline volley; the original source
  // atlas supplies distinct motifs during either side's awakening.
@@ -38,7 +39,8 @@
  function boss(s){return s?.enemies?.find(a=>a.id===ID&&a.hp>0);}
  function growth(s,raw={}){const score=Math.log2(1+Math.max(0,n(raw.infinitePower)))+.08*Math.min(150,Object.values(raw).reduce((a,b)=>a+Math.max(0,n(b)),0));return cl(1+score*.045,1,2.1);}
  function cleanClash(raw){if(!raw||raw.version!==1)return {version:1,used:false,admitted:false,at:0,until:0,reason:null};return {version:1,used:raw.used===true,admitted:raw.used===true,at:cl(raw.at,0,100000),until:cl(raw.until,0,100000),reason:['player','boss','both'].includes(raw.reason)?raw.reason:null};}
- function clean(raw){if(!raw||raw.version!==1||raw.zone!==ZONE||!['reveal','fight','complete'].includes(raw.phase))return null;const maxHp=cl(raw.maxHp,100,HP_LIMIT),hp=cl(raw.hp,0,maxHp),phase=hp<=0?'complete':raw.phase,fatalAt=Number.isFinite(raw.playerFatalAt)?n(raw.playerFatalAt,-1):-1;return {version:1,zone:ZONE,phase,entry:raw.entry==='developer-777'?'developer-777':'cult-death',hero:Object.hasOwn(traits,raw.hero)?raw.hero:'hwando',healthModel:raw.healthModel===2?2:1,maxHp,hp:phase==='complete'?0:hp,scale:cl(raw.scale,1,2.1),elapsed:cl(raw.elapsed,0,100000),awake:phase==='complete'?0:cl(raw.awake,0,7),awakeningCooldown:cl(raw.awakeningCooldown,0,35),shotDelay:cl(raw.shotDelay,0,10),cycle:Math.floor(cl(raw.cycle,0,1000000)),x:cl(raw.x,1,31),y:cl(raw.y,1,31),intro:cl(raw.intro,0,2),clash:cleanClash(raw.clash),clashFreeze:cl(raw.clashFreeze,0,.2),playerFatalAt:fatalAt<0?-1:cl(fatalAt,0,100000),bossRevived:raw.bossRevived===true||raw.bossRevived==null&&raw.clash?.used===true&&['boss','both'].includes(raw.clash.reason),playerRevived:raw.playerRevived===true||raw.playerRevived==null&&raw.clash?.used===true&&['player','both'].includes(raw.clash.reason),duelSwap:raw.duelSwap===true,duelSwapUntil:cl(raw.duelSwapUntil,0,100000),duelSwapDone:raw.duelSwapDone===true,tempoSeed:Math.floor(cl(raw.tempoSeed,0,4294967295)),tempoClock:cl(raw.tempoClock,0,100000),tempoMutualStart:cl(raw.tempoMutualStart,0,100000),tempoActive:raw.tempoActive===true,redTimeReadyAt:cl(raw.redTimeReadyAt,0,100000),redTimeWarnUntil:phase==='complete'?0:cl(raw.redTimeWarnUntil,0,100000),redTimeActiveUntil:phase==='complete'?0:cl(raw.redTimeActiveUntil,0,100000),redTimeSeed:Math.floor(cl(raw.redTimeSeed,0,4294967295)),redTimeRolls:Array.isArray(raw.redTimeRolls)?raw.redTimeRolls.filter(row=>Array.isArray(row)&&typeof row[0]==='string'&&row[0].length<=160&&typeof row[1]==='boolean').slice(-64):[]};}
+ function clean(raw){if(!raw||raw.version!==1||raw.zone!==ZONE||!['reveal','fight','complete'].includes(raw.phase))return null;const maxHp=cl(raw.maxHp,100,HP_LIMIT),hp=cl(raw.hp,0,maxHp),phase=hp<=0?'complete':raw.phase,fatalAt=Number.isFinite(raw.playerFatalAt)?n(raw.playerFatalAt,-1):-1;return {version:1,zone:ZONE,phase,entry:raw.entry==='developer-777'?'developer-777':'cult-death',hero:Object.hasOwn(traits,raw.hero)?raw.hero:'hwando',healthModel:raw.healthModel===2?2:1,maxHp,hp:phase==='complete'?0:hp,scale:cl(raw.scale,1,2.1),elapsed:cl(raw.elapsed,0,100000),awake:phase==='complete'?0:cl(raw.awake,0,7),awakeningCooldown:cl(raw.awakeningCooldown,0,35),shotDelay:cl(raw.shotDelay,0,10),queueRetryCount:Math.floor(cl(raw.queueRetryCount,0,MAX_QUEUE_RETRY_COUNT)),cycle:Math.floor(cl(raw.cycle,0,1000000)),x:cl(raw.x,1,31),y:cl(raw.y,1,31),intro:cl(raw.intro,0,2),clash:cleanClash(raw.clash),clashFreeze:cl(raw.clashFreeze,0,.2),playerFatalAt:fatalAt<0?-1:cl(fatalAt,0,100000),bossRevived:raw.bossRevived===true||raw.bossRevived==null&&raw.clash?.used===true&&['boss','both'].includes(raw.clash.reason),playerRevived:raw.playerRevived===true||raw.playerRevived==null&&raw.clash?.used===true&&['player','both'].includes(raw.clash.reason),duelSwap:raw.duelSwap===true,duelSwapUntil:cl(raw.duelSwapUntil,0,100000),duelSwapDone:raw.duelSwapDone===true,tempoSeed:Math.floor(cl(raw.tempoSeed,0,4294967295)),tempoClock:cl(raw.tempoClock,0,100000),tempoMutualStart:cl(raw.tempoMutualStart,0,100000),tempoActive:raw.tempoActive===true,redTimeReadyAt:cl(raw.redTimeReadyAt,0,100000),redTimeWarnUntil:phase==='complete'?0:cl(raw.redTimeWarnUntil,0,100000),redTimeActiveUntil:phase==='complete'?0:cl(raw.redTimeActiveUntil,0,100000),redTimeSeed:Math.floor(cl(raw.redTimeSeed,0,4294967295)),redTimeRolls:Array.isArray(raw.redTimeRolls)?raw.redTimeRolls.filter(row=>Array.isArray(row)&&typeof row[0]==='string'&&row[0].length<=160&&typeof row[1]==='boolean').slice(-64):[]};}
+ function deferVolley(m){m.queueRetryCount=Math.min(MAX_QUEUE_RETRY_COUNT,Math.floor(n(m.queueRetryCount))+1);metrics.queueDeferrals++;if(m.queueRetryCount===MAX_QUEUE_RETRY_COUNT)metrics.queueRetryBackoffs++;m.shotDelay=Math.min(QUEUE_RETRY_MAX_SECONDS,QUEUE_RETRY_BASE_SECONDS*2**Math.min(MAX_QUEUE_RETRY_COUNT-1,m.queueRetryCount-1));return m.shotDelay;}
  function cleanup(s,id=ID){if(!s)return;root.__HAPIL_MODES_V31346__?.dreamFinal?.cleanup(s,id);for(const key of ['effects','floatTexts'])if(Array.isArray(s[key]))s[key]=s[key].filter(q=>q.sourceId!==id&&q.ownerId!==id);}
  function build(s,m){
   const template=root.__HAPIL_RC86_BRIDGE__?.actor(ZONE,'c104-boss');if(!template||!native)return null;
@@ -62,12 +64,13 @@
  }
  function begin(s,leader,entry){
   if(!native||!leader)return false;
+  native.prepareFinalTransition?.(s);
   const raw=root.__HAPIL_CONTROLS_V31329__?.binding?.passives?.current??{},scale=growth(s,raw),maxHp=health(s,leader,raw);
   const p=root.__HAPIL_RC86_BRIDGE__.point(ZONE,23.2,10,.8);
   if(entry==='developer-777'){for(const a of s.enemies)cleanup(s,a.id);cleanup(s);s.enemies=[];s.spawnedWaves=new Set([1,2,3,4]);}
   else {root.__HAPIL_DEATH_BURN_RC144__?.emit(s,leader);cleanup(s,leader.id);s.enemies=s.enemies.filter(e=>e!==leader);}
   s.dreamFinalV31346={version:1,index:6,phase:'complete',activeId:null,safeUntil:0,complete:true};
-  s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',entry,hero:s.activeHeroId,healthModel:2,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,cycle:0,x:p.x,y:p.y,intro:2,clash:cleanClash(null),clashFreeze:0,playerFatalAt:-1,redTimeReadyAt:0,redTimeWarnUntil:0,redTimeActiveUntil:0,redTimeSeed:(Math.floor(n(s.time)*1000)+Math.floor(n(s.fxSerial))*997+0x133150)>>>0,redTimeRolls:[]};
+  s.innerFinalRC133={version:1,zone:ZONE,phase:'reveal',entry,hero:s.activeHeroId,healthModel:2,maxHp,hp:maxHp,scale,elapsed:0,awake:0,awakeningCooldown:14,shotDelay:3,queueRetryCount:0,cycle:0,x:p.x,y:p.y,intro:2,clash:cleanClash(null),clashFreeze:0,playerFatalAt:-1,redTimeReadyAt:0,redTimeWarnUntil:0,redTimeActiveUntil:0,redTimeSeed:(Math.floor(n(s.time)*1000)+Math.floor(n(s.fxSerial))*997+0x133150)>>>0,redTimeRolls:[]};
   s.bossDefeated=false;if(entry==='cult-death')s.completedZones?.delete(ZONE);s.targetEnemyId=ID;s.invulnerableUntil=Math.max(n(s.invulnerableUntil),s.time+2);
   build(s,s.innerFinalRC133);root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s,true);metrics.entries++;root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerReveal',s,s,'reveal');
   (s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration:1.8,text:entry==='developer-777'?'777 · 사후의 나 히든 결전':'외부의 악을 넘어, 내 욕망의 순수악의가 거울에서 깨어난다',color:'#f3ccdf',critical:true});
@@ -157,33 +160,40 @@
   // Never release generic/fallback boss weapons while the two source atlases
   // are unavailable. Body/arena readiness and native HP continue normally.
   if(!art.ready)return;
-  m.shotDelay=Math.max(0,m.shotDelay-dt);const skill=deck[m.cycle%deck.length],red=m.awake>0,mutual=red&&root.__HAPIL_SAMONG_RC91__.active(s),empowered=red||root.__HAPIL_SAMONG_RC91__.active(s),count=red?Math.min(12,skill.count*2)*2:empowered?Math.min(12,skill.count*2):Math.min(12,Math.ceil(skill.count*1.5)),color='#ef9fce';
+  m.shotDelay=Math.max(0,m.shotDelay-dt);const skill=deck[m.cycle%deck.length],red=m.awake>0,mutual=red&&root.__HAPIL_SAMONG_RC91__.active(s),empowered=red||root.__HAPIL_SAMONG_RC91__.active(s),count=red?Math.min(12,skill.count*2):empowered?Math.min(12,skill.count*2):Math.min(12,Math.ceil(skill.count*1.5)),color='#ef9fce';
   // Admit a whole volley or defer it. Never silently clip one of the nine
   // doubled red patterns against the shared projectile budget.
-  s.hostileProjectiles??=[];if(m.shotDelay>0)return;if(s.hostileProjectiles.length+count>96){m.shotDelay=.12;return;}
-  const lead=Math.max(0,Math.min(.28,Math.hypot(s.x-a.x,s.y-a.y)/6)),aimX=s.x+cl(n(s.moveVx),-8,8)*lead,aimY=s.y+cl(n(s.moveVy),-8,8)*lead,angle=Math.atan2(aimY-a.y,aimX-a.x),distance=Math.max(2.8,Math.hypot(aimX-a.x,aimY-a.y)),warning=empowered?.62:Math.max(.72,skill.warning??.72);
+  s.hostileProjectiles??=[];if(m.shotDelay>0)return;if(s.hostileProjectiles.length+count>HOSTILE_QUEUE_LIMIT){deferVolley(m);return;}
+  const lead=Math.max(0,Math.min(.28,Math.hypot(s.x-a.x,s.y-a.y)/6)),aimX=s.x+cl(n(s.moveVx),-8,8)*lead,aimY=s.y+cl(n(s.moveVy),-8,8)*lead,angle=Math.atan2(aimY-a.y,aimX-a.x),distance=Math.max(2.8,Math.hypot(aimX-a.x,aimY-a.y)),warning=empowered?1.4:Math.max(.72,skill.warning??.72);
   a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),s.time+warning+.35);
   const before=s.hostileProjectiles.length,turn=(m.cycle%8)*.045,sprite=empowered?art.samongSkillMap?.[skill.key]:art.skillMap?.[skill.key];if(!sprite)return;
   for(let i=0;i<count;i++){
    const paired=i%2?1:-1,rank=Math.floor(i/2),center=root.__HAPIL_PERSONA_DUEL_RC134__?.swapped(s)?-Math.PI*.25:Math.PI*.75,spread=(i-(count-1)/2)*skill.spread/Math.max(1,count-1),turnOffset=turn+(m.cycle%deck.length)*.012;
    let offset=skill.formation==='focus'?spread*.22:skill.formation==='twin'?paired*(.13+rank*.12):skill.formation==='spiral'?spread+turnOffset:skill.formation==='sweep'?spread+Math.sin(i*.8+turnOffset)*.22:skill.formation==='cross-fan'?spread+paired*(.08+rank*.06):skill.formation==='needle'?spread*.12:spread+paired*.07;
+   if(red&&skill.formation==='fan')offset+=(m.cycle%2===0?-.16:.16);
    // Keep the actual player vector in the permitted mirrored lane. Width,
    // release order, origin band and speed distinguish the nine native paths.
    const desired=angle+offset,delta=((desired-center+Math.PI*3)%(Math.PI*2)-Math.PI),theta=center+cl(delta,-1.4,1.4),baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*(skill.formation==='spiral'?1+((i%3)-1)*.08:1)),speed=red?baselineSpeed*2:baselineSpeed,stage=mutual?i*.035:(skill.stagger??.08)*(skill.key==='diamond'||skill.key==='clock'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
-   const damage=Math.min(mutual?24:22,(mutual?20:empowered?18:13)*m.scale);
+   const damage=red?26*m.scale:empowered?18*m.scale:13*m.scale;
    native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(18,Math.max(7,distance/(speed*.65)+warning+stage+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i,rc147Speed:speed});
   }
-  const emitted=s.hostileProjectiles.slice(before);if(!emitted.length){m.shotDelay=.22;return;}
+  const emitted=s.hostileProjectiles.slice(before);if(emitted.length!==count){
+   // The native emitter may reject a subset after our admission check. Remove
+   // this attempted volley as a unit so neither the queue nor skill cycle can
+   // retain a partial pattern. The same pattern is retried with bounded delay.
+   if(emitted.length){const rollback=new Set(emitted);s.hostileProjectiles=s.hostileProjectiles.filter(q=>!rollback.has(q));metrics.partialVolleyRollbacks++;}
+   deferVolley(m);return;
+  }
   if(red&&skill.key==='clock'&&m.elapsed>=n(m.redTimeReadyAt)){
    m.redTimeWarnUntil=m.elapsed+.7;m.redTimeActiveUntil=m.redTimeWarnUntil+4;m.redTimeReadyAt=m.elapsed+12;m.redTimeRolls=[];
    (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y-2,born:s.time,duration:.7,text:'붉은 시간 · 0.7초 후 시간 차단',color:'#ff9fb5',critical:true});
   }
-  for(const q of emitted){const theta=Math.atan2(q.vy,q.vx),speed=n(q.rc147Speed,(empowered?4.4:3.6)*skill.speed),index=n(q.rc133ShotIndex),band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!skill.key.endsWith('eye')&&!skill.key.endsWith('lance'),vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(mutual?24:22,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  for(const [emittedIndex,q] of emitted.entries()){const theta=Math.atan2(q.vy,q.vx),index=emittedIndex,spiral=skill.formation==='spiral'?1+((index%3)-1)*.08:1,baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*spiral),speed=red?baselineSpeed*2:baselineSpeed,band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:index,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!skill.key.endsWith('eye')&&!skill.key.endsWith('lance'),rc147Speed:speed,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(54.6,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:mutual?'純惡意 · '+skill.name:skill.name,color,critical:false});
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
   // Finish the current wind-up/release window before opening another cast.
   // This keeps high-count awakened volleys from overlapping their own lock.
-  m.cycle++;m.shotDelay=Math.max(mutual?.46:empowered?.68:1.05,warning+.35);metrics.volleys++;metrics.skills++;
+  m.queueRetryCount=0;m.cycle++;m.shotDelay=Math.max(mutual?.46:empowered?.68:1.05,warning+.35);metrics.volleys++;metrics.skills++;
 
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}
@@ -240,7 +250,7 @@
   s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.enemies=s.enemies.filter(a=>!a.dreamCosmicTrialV31346&&a.id!=='c104-boss');s.bossDefeated=false;build(s,m);
  }
 
- const api=Object.freeze({version:'RC133',id:ID,traits,deck,acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,red,attackSpeedFactor,redTimeActive,redTimeBlocks,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
+ const api=Object.freeze({version:'RC133',id:ID,traits,deck,queueAdmission:Object.freeze({limit:HOSTILE_QUEUE_LIMIT,maxRetryCount:MAX_QUEUE_RETRY_COUNT,baseDelaySeconds:QUEUE_RETRY_BASE_SECONDS,maxDelaySeconds:QUEUE_RETRY_MAX_SECONDS}),acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,red,attackSpeedFactor,redTimeActive,redTimeBlocks,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
  root.__HAPIL_INNER_FINAL_RC133__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

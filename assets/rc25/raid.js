@@ -59,8 +59,8 @@
   }
   markLust(s);sweep(s);
  }
- function markLust(s){const ids=new Set(['b05-boss','mb-ep1b05']);const kinds=['hostileProjectiles','pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'];
-  for(const k of kinds)for(const h of s[k]??[]){if(!h||!ids.has(String(h.sourceId??h.ownerId??''))||h.friendly||h.reflected||h.visualOnly)continue;const id=Number(h.id),raw=String(h.sourceId)+String(h.born)+String(h.x)+String(h.y),seed=Number.isFinite(id)?id:[...raw].reduce((n,c)=>(Math.imul(n,31)+c.charCodeAt(0))>>>0,0),heel=seed%2===0,path=heel?'./assets/rc24/lust-heel.png':'./assets/rc24/lust-lipstick.png';h.lustKindRC24=heel?'heel':'lipstick';h.raidImageKeyRC24=path;h.sprite=path;h.image=path;h.path=path;h.asset=path;h.projectileSprite=path;h.impactSprite=path;h.impactFallbackSprite=path;h.color=heel?'#fa315d':'#e9b947';h.accent=heel?'#ffe4ed':'#fff1b9';h.radius=Math.max(num(h.radius),heel?2.05:.65);}}
+ function markProjectile(s,h){const ids=new Set(['b05-boss','mb-ep1b05']);if(!h||!ids.has(String(h.sourceId??h.ownerId??''))||h.friendly||h.reflected||h.visualOnly)return h;const path='./assets/rc24/lust-heel.png';h.lustKindRC24='heel';h.raidImageKeyRC24=path;h.sprite=path;h.image=path;h.path=path;h.asset=path;h.projectileSprite=path;h.impactSprite=path;h.impactFallbackSprite=path;h.color='#fa315d';h.accent='#ffe4ed';h.radius=Math.max(num(h.radius),2.05);return h;}
+ function markLust(s){const kinds=['hostileProjectiles','pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'];for(const k of kinds)for(const h of s[k]??[])markProjectile(s,h);}
  function sweep(s){const control=window.__HAPIL_CONTROLS_V31329__?.binding;if(control?.state?.current!==s||control.phase!=='game'||!(s.hp>0))return;
   for(const a of s.enemies){if(!(a.hp>0)||a.visualOnly||a.protectedNarrativeTargetV31307||a.friendly||a.objectiveStructureV31238)continue;metrics.bodyChecks++;
    const er=Math.min(2.15,Math.max(.55,num(a.bodyRadius,num(a.radius,.85)))),dx=num(s.x)-num(a.x),dy=num(s.y)-num(a.y),d=Math.hypot(dx,dy);if(d>er+.38)continue;
@@ -72,7 +72,7 @@
  const modesafe=s=>mode(s);
  function dHeld(s){return !!(window.__HAPIL_CHANNEL_V31364__?.active?.(s)||window.__HAPIL_CHANNEL_V31364__?.held?.(s));}
  function diagnostics(){return {...metrics,contactInterval:CUT,damageByMode:{...ratios},laserMinimum:.5,ultimateMinimum:.66,ultimateHealingMultiplier:.34,ultimateHealingSeconds:6};}
- window.__HAPIL_RAID_RC24__=Object.freeze({version:VERSION,flags,suppress,bypassCap,floorDamage,afterHit,healing,ownerColor,damagePalette,damageScale,tick,sweep,dHeld,diagnostics});
+ window.__HAPIL_RAID_RC24__=Object.freeze({version:VERSION,flags,suppress,bypassCap,floorDamage,afterHit,healing,ownerColor,damagePalette,damageScale,markProjectile,tick,sweep,dHeld,diagnostics});
  const frame=()=>{const s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;if(s&&window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game')tick(s);if(typeof requestAnimationFrame==='function')requestAnimationFrame(frame);};
  if(typeof requestAnimationFrame==='function')requestAnimationFrame(frame);else setInterval(frame,33);
 })();

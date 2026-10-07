@@ -31,7 +31,12 @@ function visible(p,time) {
   p.bitmapRenderedDreamV31353=false;
   deps.bindBitmap(p);
   const nativePath=p.danmakuV31316?p.danmakuArtV31316:null;
-  const selected=ready(cache,p.rc126CommonSprite)||ready(cache,nativePath)||ready(cache,p.sprite)||ready(cache,p.fallbackSprite)||ready(cache,FALLBACK);
+  // Persona attacks carry an authored skill sprite. Their native danmaku
+  // flags only describe motion and contact; they must not promote the shared
+  // jellybean bitmap ahead of the skill art.
+  const selected=p.rc133InnerShot===true
+   ? ready(cache,p.sprite)||ready(cache,p.fallbackSprite)||ready(cache,FALLBACK)
+   : ready(cache,p.rc126CommonSprite)||ready(cache,nativePath)||ready(cache,p.sprite)||ready(cache,p.fallbackSprite)||ready(cache,FALLBACK);
   if(!selected)return false;
   const im=selected.path.split('?')[0].endsWith('/danmaku-jellybean.webp')?(root.__HAPIL_COMBAT_SAFETY_RC126__?.tintCommon(selected.image,p.danmakuColorV31316??p.color,p)??selected.image):selected.image,at=deps.project(p.x,p.y),finite=(v,d)=>Number.isFinite(Number(v))?Number(v):d;
   const scale=Math.max(.7,Math.min(1.6,finite(p.visualScaleV31224,1)));

@@ -35,8 +35,34 @@ function env(){
  }
  eq(signatures.size,1,'dedicated skill geometry is independent of borrowed hero traits');
  // The hostile queue cap delays a wave without losing its retry opportunity.
- m.hero='gunner';m.cycle=0;s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:70},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'full queue refuses overflow shots');
+ m.hero='gunner';m.cycle=0;s.activeHeroId='gunner';m.shotDelay=0;s.hostileProjectiles=Array.from({length:90},(_,i)=>({id:'held-'+i}));const old=shots.length;Final.tick(s,.016);eq(shots.length,old,'queue refuses a volley that would exceed its 96-projectile limit');
  s.hostileProjectiles=[];m.shotDelay=0;Final.tick(s,.016);eq(shots.length-old,8,'a freed queue promptly admits the pending skill');
+}
+
+// Queue admission stays atomic at the exact capacity, saves bounded retry
+// state, and retries the same deck slot after backoff or native partial emits.
+{
+ const q=env(),s=q.state(),mStart=(q.Final.beforeDeath(s,{id:'c104-boss',hp:0,maxHp:1200,x:22,y:8,boss:true}),s.innerFinalRC133);mStart.intro=0;mStart.awakeningCooldown=100;
+ const admission=q.Final.queueAdmission;eq(admission.limit,96,'the native queue limit is an explicit public contract');eq(admission.maxRetryCount,8,'retry count has a hard cap');eq(admission.maxDelaySeconds,1.2,'retry delay has a hard cap');
+ const normal=q.Final.deck[0],normalCount=Math.min(12,Math.ceil(normal.count*1.5));mStart.cycle=0;mStart.shotDelay=0;s.hostileProjectiles=Array.from({length:admission.limit-normalCount},(_,i)=>({id:'normal-fill-'+i}));
+ q.Final.tick(s,.016);eq(s.hostileProjectiles.length,admission.limit,'normal volley fits exactly in the final available slots');eq(mStart.cycle,1,'exact-fit normal volley advances one deck slot');eq(mStart.queueRetryCount,0,'successful admission clears retry state');
+ mStart.cycle=0;mStart.shotDelay=0;s.hostileProjectiles=Array.from({length:admission.limit-normalCount+1},(_,i)=>({id:'normal-overfill-'+i}));const beforeShots=q.shots.length,queueBefore=s.hostileProjectiles.length;
+ q.Final.tick(s,.016);eq(q.shots.length,beforeShots,'one slot too few refuses the entire normal volley');eq(s.hostileProjectiles.length,queueBefore,'normal refusal leaves all queued projectiles untouched');eq(mStart.cycle,0,'normal refusal preserves the skill cycle');eq(mStart.queueRetryCount,1,'normal refusal increments retry count');eq(mStart.shotDelay,.12,'first refusal schedules the base backoff');
+ const retryDelays=[.12,.24,.48,.96,1.2,1.2,1.2,1.2];
+ for(let attempt=1;attempt<=admission.maxRetryCount;attempt++){
+  while(mStart.queueRetryCount<attempt)q.Final.tick(s,.1);
+  eq(mStart.queueRetryCount,attempt,'retry attempt '+attempt+' is recorded');eq(mStart.shotDelay,retryDelays[attempt-1],'retry attempt '+attempt+' uses bounded exponential delay');eq(mStart.cycle,0,'retry attempt '+attempt+' does not skip the pending skill');eq(s.hostileProjectiles.length,queueBefore,'retry attempt '+attempt+' retains existing queue');
+ }
+ const saved=q.Final.snapshot(s),restored=q.state();restored.time=s.time;q.Final.restore(restored,saved);eq(q.Final.snapshot(restored).queueRetryCount,8,'save/load preserves retry count');eq(q.Final.snapshot(restored).cycle,0,'save/load preserves pending skill slot');
+ restored.hostileProjectiles=[];restored.innerFinalRC133.shotDelay=0;q.Final.tick(restored,.016);eq(restored.hostileProjectiles.length,normalCount,'freed queue retries one whole volley');eq(restored.innerFinalRC133.cycle,1,'successful retry advances only one skill');eq(restored.innerFinalRC133.queueRetryCount,0,'successful retry resets bounded backoff');
+
+ const red=env(),rs=red.state(),rm=(red.Final.beforeDeath(rs,{id:'c104-boss',hp:0,maxHp:1200,x:22,y:8,boss:true}),rs.innerFinalRC133);rm.intro=0;rm.awakeningCooldown=100;rm.awake=7;
+ const redSlot=red.Final.deck.findIndex(skill=>Math.min(12,skill.count*2)===12),redCount=12;ok(redSlot>=0,'deck contains a bounded maximum red volley');rm.cycle=redSlot;rm.shotDelay=0;rs.hostileProjectiles=Array.from({length:admission.limit-redCount},(_,i)=>({id:'red-fill-'+i}));red.Final.tick(rs,.016);eq(rs.hostileProjectiles.length,admission.limit,'maximum 12-shot red volley fits exactly at capacity');eq(rm.cycle,redSlot+1,'exact-fit red volley advances once');
+ rm.cycle=redSlot;rm.shotDelay=0;rs.hostileProjectiles=Array.from({length:admission.limit-redCount+1},(_,i)=>({id:'red-overfill-'+i}));const redShots=red.shots.length;red.Final.tick(rs,.016);eq(red.shots.length,redShots,'one slot too few refuses the maximum red volley atomically');eq(rm.cycle,redSlot,'red refusal preserves its deck slot');eq(rs.hostileProjectiles.length,admission.limit-redCount+1,'red refusal preserves queued shots');
+
+ const partial=env(),ps=partial.state(),pm=(partial.Final.beforeDeath(ps,{id:'c104-boss',hp:0,maxHp:1200,x:22,y:8,boss:true}),ps.innerFinalRC133);pm.intro=0;pm.awakeningCooldown=100;pm.awake=7;pm.cycle=redSlot;pm.shotDelay=0;
+ partial.Final.bind({heroes:[],locked:()=>false,bullet:(state,actor,spec)=>{if(state.hostileProjectiles.length>=4)return null;const shot={id:'partial-'+state.hostileProjectiles.length,sourceId:actor.id,x:actor.x,y:actor.y,...spec};state.hostileProjectiles.push(shot);return shot;},cast:()=>null});
+ partial.Final.tick(ps,.016);eq(ps.hostileProjectiles.length,0,'native partial volley is rolled back from live queue');eq(pm.cycle,redSlot,'partial native volley cannot advance skill cycle');eq(pm.queueRetryCount,1,'partial native volley follows retry policy');eq(partial.Final.metrics().partialVolleyRollbacks,1,'partial rollback is counted');
 }
 
 // A lethal player hit close to the hidden boss's defeat becomes one saved,
