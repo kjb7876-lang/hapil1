@@ -19,7 +19,13 @@ try{
  const compatibility=require('../tools/rc133-release-compatibility.cjs');
  for(const [file,[before,after]]of Object.entries(compatibility.revisions)){assert.equal(compatibility.validate(file,before,after),before);checks++;assert.throws(()=>compatibility.validate(file,'0'.repeat(64),after));checks++;assert.throws(()=>compatibility.validate(file,before,'0'.repeat(64)));checks++;}
  assert.throws(()=>compatibility.validate('assets/rc133/arbitrary.js','0'.repeat(64),'0'.repeat(64)));checks++;
- const repo=path.resolve(__dirname,'..'),migration=require('../tools/rc133-preservation.cjs').verify(repo).report;
+ const repo=path.resolve(__dirname,'..');
+ const required=require('../tools/rc133-preservation.cjs').REQUIRED_BASES;
+ const manifestBases=['authorized-runtime-delta.json',...Array.from({length:15},(_,i)=>'authorized-runtime-extension'+(i?'-'+(i+1):'')+'.json')].map(file=>JSON.parse(fs.readFileSync(path.join(repo,'qa/rc133',file),'utf8')).base);
+ assert.deepEqual([...required],manifestBases,'Every pinned base must be fetched on a shallow CI checkout');checks++;
+ assert(Object.isFrozen(required));checks++;
+ assert.equal(new Set(required).size,16);checks++;
+ const migration=require('../tools/rc133-preservation.cjs').verify(repo).report;
  for(const file of Object.keys(compatibility.revisions)){
   const chain=compatibility.verifyRuntimeOutputChain(repo,migration,file),current=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');
   assert.equal(chain.currentOutput,current,'Exact compatibility output chain: '+file);checks++;
