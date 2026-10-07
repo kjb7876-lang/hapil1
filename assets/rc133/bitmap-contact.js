@@ -11,7 +11,7 @@
   function boxKeyFor(canvas){return [canvas.width,canvas.height,root.innerWidth,root.innerHeight,root.devicePixelRatio].join(':');}
   function canvasBounds(canvas,refresh=false){if(!canvas)return null;const key=boxKeyFor(canvas);if(refresh||canvas!==boxTarget||!boxValue||key!==boxKey){boxTarget=canvas;boxValue=canvas.getBoundingClientRect();boxKey=key;stats.boundsReads++;}return boxValue;}
   function observe(canvas,images){if(canvas){target=canvas;canvasBounds(canvas,true);}if(images)cache=images;}
-  function measure(s,actor,draw){
+  function measure(s,actor,draw,worldOnly=false){
    const canvas=target??document.querySelector('.game-stage canvas');if(!canvas)return [];
    const loaded=root.__HAPIL_MEDIA_ART_RC133__?.picture(actor.sprite);if(loaded&&!cache[actor.sprite]?.naturalWidth)cache[actor.sprite]=loaded;
    const rows=[],raw=ctx,noop=()=>{};
@@ -35,8 +35,7 @@
     const v=Reflect.get(raw,k,raw);return typeof v==='function'?v.bind(raw):v;
    },set(o,k,v){if(k==='drawImage'||typeof v==='function'){o[k]=v;return true;}return Reflect.set(raw,k,v,raw);},defineProperty:(o,k,v)=>Reflect.defineProperty(o,k,v),deleteProperty:(o,k)=>Reflect.deleteProperty(o,k)});
    raw.save();let base;try{
-    raw.setTransform(n(canvas.width,1280)/1280,0,0,n(canvas.height,720)/720,0,0);raw.globalAlpha=1;raw.filter='none';world?.(view,canvas,s);
-    const cam=camera(s);view.translate(cam.x,cam.y);view.scale(cam.scale??1,cam.scale??1);base=raw.getTransform();
+    raw.setTransform(n(canvas.width,1280)/1280,0,0,n(canvas.height,720)/720,0,0);raw.globalAlpha=1;raw.filter='none';if(!worldOnly){world?.(view,canvas,s);const cam=camera(s);view.translate(cam.x,cam.y);view.scale(cam.scale??1,cam.scale??1);}base=raw.getTransform();
     draw(view,cache,{...actor},s.time,settings(s));
    }finally{raw.restore();raw.beginPath();}
    stats.plans++;if(rows.length)stats.decoded++;else stats.missing++;return rows;
@@ -73,9 +72,22 @@
    let relativeDisplayBounds=null;if(typeof signature==='string'&&value?.displayBounds&&box){const dx=p.x*box.width/Math.max(1,canvas.width),dy=p.y*box.height/Math.max(1,canvas.height),r=value.displayBounds;relativeDisplayBounds={left:r.left-dx,right:r.right-dx,top:r.top-dy,bottom:r.bottom-dy,width:r.width,height:r.height,longEdge:r.longEdge};}
    memo.set(q,{signature,value,relativeDisplayBounds});return value;
   }
+  // Presentation envelope only: the established contact measure remains unchanged.
+  // Record the native current and raised attack poses before choosing a camera.
+  // No live canvas paint or actor HP/position/time writes occur here.
+  const envelopes=new Map();
+  function paintEnvelope(s,a,isHero){
+   const weapon=root.__MONGSE_BALROG_POSE_RC151__?.weapon,key=JSON.stringify([s.zone,a.id,a.activeHeroId,a.heroId,a.sprite,a.currentPhase,a.fixedPhase,a.phaseIndex,a.humanPhase0,a.scale,a.facing,a.maxHp>0?Math.floor(a.hp/a.maxHp*4):0,a.attackAt,a.recoverUntil,a.heroMotion?.kind,a.heroMotion?.until,a.heroMotion?.dx,a.heroMotion?.dy,a.rc133InnerBoss,cache[a.sprite]?.naturalWidth,cache[weapon]?.naturalWidth,root.__HAPIL_MEDIA_ART_RC133__?.ready]);
+   const foot=project(a.x,a.y),old=envelopes.get(key);if(old)return{left:foot.x+old.left,right:foot.x+old.right,top:foot.y+old.top,bottom:foot.y+old.bottom,nativePaint:true};
+   const clone={...a,hitUntil:0,hitFlashUntil:0},rows=measure(s,clone,isHero?heroDraw:enemyDraw,true);
+   if(!isHero)rows.push(...measure(s,{...clone,attackAt:s.time+2,recoverUntil:s.time+2},enemyDraw,true));
+   if(!rows.length)return null;
+   const points=rows.flatMap(r=>r.points),pad=28,value={left:Math.min(...points.map(p=>p.x))-foot.x-pad,right:Math.max(...points.map(p=>p.x))-foot.x+pad,top:Math.min(...points.map(p=>p.y))-foot.y-pad,bottom:Math.max(...points.map(p=>p.y))-foot.y+pad};
+   if(!Object.values(value).every(Number.isFinite))return null;envelopes.set(key,value);while(envelopes.size>96)envelopes.delete(envelopes.keys().next().value);return{left:foot.x+value.left,right:foot.x+value.right,top:foot.y+value.top,bottom:foot.y+value.bottom,nativePaint:true};
+  }
   function body(s,a,isHero){const signature=[s,s.time,a.x,a.y,a.activeHeroId??a.heroId,a.sprite,a.heroMotion?.kind,a.heroMotion?.until,a.currentPhase,a.fixedPhase],old=bodies.get(a);if(old?.value&&signature.every((x,i)=>x===old.signature[i]))return old.value;const rows=measure(s,a,isHero?heroDraw:enemyDraw),value=rows.at(-1)??null;bodies.set(a,{signature,value});return value;}
   function enemyContact(s,a,x,y,lift,padding){const row=body(s,a,false);if(!row)return null;const point=project(x,y);point.y+=lift;const points=row.points.map(v=>({x:v.x-point.x,y:v.y-point.y}));return root.__HAPIL_CONTACT_V31336__.classifyPolygonRelative({x:0,y:0},{x:0,y:0},points,padding,padding).hit;}
-  return Object.freeze({observe,projectile,body,enemyContact,metrics:()=>({...stats})});
+  return Object.freeze({observe,projectile,body,paintEnvelope,enemyContact,metrics:()=>({...stats})});
  }
  root.__HAPIL_BITMAP_CONTACT_RC133__=Object.freeze({create});
 })(window);

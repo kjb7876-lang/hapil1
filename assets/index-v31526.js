@@ -127051,7 +127051,7 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
 
 /* RC153_NATIVE_COMBAT: finalize complete native emissions before warning/travel. */
 (()=>{'use strict';let tries=0;function install(){const L=window.__HAPIL_COMBAT_LAYOUT_RC153__;if(!L||!window.__HAPIL_NATIVE_ARENA_RC138__?.installed)return false;
- L.bind({project:G,ranked:window.__HAPIL_DANMAKU_V31316__.rankedRows().map(r=>r.actor.id),size:a=>Ge(a.kind,!!a.boss,!!a.midboss,!!a.elite,a.scale)*MONGSE_phaseScale(a)*(a.boss?1.1:1)*(window.__HAPIL_BOSS_CLONE_VISUAL_V314RC9__?.prepareCloneVisual(a)??1)});
+ L.bind({project:G,paintEnvelope:(s,a,isHero)=>window.__HAPIL_BITMAP_NATIVE_RC133__?.paintEnvelope?.(s,a,isHero),ranked:window.__HAPIL_DANMAKU_V31316__.rankedRows().map(r=>r.actor.id),size:a=>Ge(a.kind,!!a.boss,!!a.midboss,!!a.elite,a.scale)*MONGSE_phaseScale(a)*(a.boss?1.1:1)*(window.__HAPIL_BOSS_CLONE_VISUAL_V314RC9__?.prepareCloneVisual(a)??1)});
  const wrap=fn=>function(s,...args){const result=fn.call(this,s,...args);L.scatter(s);return result;};Ei=wrap(Ei);bi=wrap(bi);MONGSE_spawnBossCombatPatternV31230=wrap(MONGSE_spawnBossCombatPatternV31230);MONGSE_spawnThemeOrdnanceKind3129=wrap(MONGSE_spawnThemeOrdnanceKind3129);MONGSE_tickBossThemeOrdnance=wrap(MONGSE_tickBossThemeOrdnance);
  const controls=window.__HAPIL_CONTROLS_V31329__,frame=controls.frameStart;controls.frameStart=function(s,...args){L.scatter(s);return frame.call(this,s,...args);};window.__HAPIL_NATIVE_COMBAT_RC153__=Object.freeze({installed:true,version:'RC153'});return true;}
  function ready(){if(install()||++tries>=1200)return;setTimeout(ready,20);}ready();})();

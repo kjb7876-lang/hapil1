@@ -9,8 +9,23 @@
     "data",
     "index.html"
   ],
-  "targetProtectedRowsSha256": "b868be318eea2bf8c083ec4d9d04729630d9cda3c29fb50dd99f846eeae14835",
+  "targetProtectedRowsSha256": "12ecf467b80ff6ecbb17525fe8b61d043435eac49427075179cc5ec89738c661",
   "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "fb89097d6aa273173029ceccb72c48590b1c5f86"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "25f250ddc0ced80ad16c1573e781b08cd8cf8acb",
+        "sha256": "7a7a3a071c84766b9f046f5a30fe12c1cbe7968e7a05366585ab04d4fdddd5d3"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/index-v31526.js"
+    },
     {
       "file": "assets/rc108/hud.css",
       "before": {
@@ -72,6 +87,21 @@
       "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc125/adaptive-battlefield.js"
     },
     {
+      "file": "assets/rc133/bitmap-contact.js",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "b42988932db00edb9f56714016e57d914fc1ee7f"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "88cd1c383206831f951781dc292b32b7544001b7",
+        "sha256": "2ca3340e992097d7537e010a6ae9e428161636e339a1b29bceedd792548469e9"
+      },
+      "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc133/bitmap-contact.js"
+    },
+    {
       "file": "assets/rc153/combat-layout.js",
       "before": {
         "file": "assets/rc153/combat-layout.js",
@@ -81,8 +111,8 @@
       "after": {
         "file": "assets/rc153/combat-layout.js",
         "mode": "100644",
-        "gitBlob": "40aedb767719280f1f237174701ef0dae9ebfb46",
-        "sha256": "d3470b0ecbf762c3d44ab394f1b6327bed4626635c922c2fdb20a7f45508730b"
+        "gitBlob": "51d44e1f546ad529b321e9fcfe383722cf8336b6",
+        "sha256": "4d07df4864b1c4d263c7d997a152a9ff6af4884583fdf7e61e05352b68368700"
       },
       "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: assets/rc153/combat-layout.js"
     },
@@ -96,8 +126,8 @@
       "after": {
         "file": "index.html",
         "mode": "100644",
-        "gitBlob": "6318e48974038441075dfede9b426cc533f90d82",
-        "sha256": "e8c6a32b3054d04ce1afa20f17f47a5d493f3dd6490a5406a835c7aa29c060ff"
+        "gitBlob": "0c02f3d454f93dc7ff1e4680b80bd90700805874",
+        "sha256": "cb29aa5924f8ae0de7ac50a8221ca9285b17ad4d36d080a45e1945676c4512a0"
       },
       "reason": "RC154 portrait copies the actual horizontal viewport and vertical pane with sampling gutters; source art, world geometry and single-pass cadence retained: index.html"
     }
