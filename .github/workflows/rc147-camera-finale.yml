@@ -1,7 +1,7 @@
 name: RC147 camera and finale exact candidate
 on:
   push:
-    branches: [main, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic]
+    branches: [main, codex/rc152-image-combat, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic]
     paths:
       - 'assets/**'
       - 'index.html'

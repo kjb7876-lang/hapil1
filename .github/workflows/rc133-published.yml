@@ -12,6 +12,7 @@ on:
       - 'qa/rc133/published.cjs'
       - 'qa/rc133/public-url.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
+      - 'tests/rc147-*.cjs'
       - 'tests/rc142-gameplay-browser.cjs'
       - 'qa/rc133/authorized-runtime-extension.json'
       - 'qa/rc133/authorized-runtime-extension-4.json'

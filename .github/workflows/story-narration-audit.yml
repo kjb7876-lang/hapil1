@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/story-narration-audit.yml'
       - 'tests/rc154*'
+      - 'tests/rc147-*.cjs'
       - 'assets/story-narration/**'
       - 'assets/combat-audio/**'
       - 'assets/rc91/samong-awakening.js'
