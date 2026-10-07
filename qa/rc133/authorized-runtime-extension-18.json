@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "b9b0ea3bad7200e7cc1049ea8f5e712c386006e1",
+  "baseTree": "7fd7da1b102c10c9a39021bb6d432a3285439967",
+  "previousExtensionSha256": "756aa754fef2ae3e6e786a7bd1f52e5df49bb1cd47d0f59b93489899602600ba",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "8db22d8c3c272f5957726f1fb60ac10781b19ec32c279f6276ea02a00f36e011",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "51d44e1f546ad529b321e9fcfe383722cf8336b6"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "2057745625bad1b912d1e3a72b33b2a91e280c72",
+        "sha256": "0e048db1d1f4fee67f161e2fb676e41bd15f7facc470833d6c251992e81588ea"
+      },
+      "reason": "Landscape camera clearance and near-actor projectile bounds: assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ead06df3fa96e148c9ebe46c3e84866c4ebe2c4a"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "13a86fb686fb21adab10ebad9a742fddebbc00e5",
+        "sha256": "d1dac1f7d2cfc458003e94df2a5ef305b4965834d66bd62106f7f528d1155716"
+      },
+      "reason": "Landscape camera clearance and near-actor projectile bounds: index.html"
+    }
+  ]
+}
