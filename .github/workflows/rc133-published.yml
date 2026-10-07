@@ -49,6 +49,7 @@ jobs:
           R="$RUNNER_TEMP/rc133-public-runtime"
           mkdir -p "$RUNNER_TEMP/rc133-public"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 > "$RUNNER_TEMP/npm.log" 2>&1
+          if [ -f /etc/apt/apt-mirrors.txt ]; then printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
           node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/browser.log" 2>&1
           CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
