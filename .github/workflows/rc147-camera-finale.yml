@@ -26,6 +26,8 @@ on:
       - 'tests/rc129-browser.cjs'
       - 'tests/rc153-chrome-sandbox-smoke.cjs'
       - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/story-narration-decoder-edges.cjs'
+      - 'tests/fixtures/story-narration-chrome-stable-v154.json'
       - 'tests/rc142-persona-volley-browser.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
       - 'tests/rc134-persona-effects-browser.cjs'

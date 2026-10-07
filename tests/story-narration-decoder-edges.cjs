@@ -16,10 +16,16 @@ const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const assetRoot = path.join(root, 'assets/story-narration/v1');
 const fixturePath = path.join(__dirname, 'fixtures/story-narration-decoder-edges.json');
+const chromeStableFixture = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/story-narration-chrome-stable-v154.json'), 'utf8'));
 const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const REFERENCE_PCM = 'ffmpeg-mp3-fixed-s16-audiobus-f32-v1';
 const NATIVE_REFERENCE_PCM = 'ffmpeg-swr-source-audiobus-f32-native-v1';
 const NATIVE_SAMPLE_RATES = Object.freeze([44100, 48000]);
+// Chrome 154 output is independently pinned by full PCM SHA-256. These tight
+// numerical limits compare its edge representation with the FFmpeg reference.
+const CHROME_STABLE_FIXED_TOLERANCES = Object.freeze({
+  rmsRelative: .01, peakRelative: .04, probeNrmse: .025, probeCorrelation: .9997, activityFrames: 0
+});
 const CONFIG = Object.freeze({
   sampleRate: 24000, channels: 1, bitRate: 128000,
   edgeSeconds: 1, frameSeconds: .01,
@@ -115,8 +121,8 @@ function probeFit(reference, actual, offset) {
     correlation: rr && aa ? ra / Math.sqrt(rr * aa) : rr === aa ? 1 : 0};
 }
 
-function compare(reference, actual, mode) {
-  const tolerance = TOLERANCES[mode], failures = [], metrics = {};
+function compare(reference, actual, mode, options = {}) {
+  const tolerance = options.tolerance ? {...TOLERANCES[mode], ...options.tolerance} : TOLERANCES[mode], failures = [], metrics = {};
   if (!actual.finite) failures.push('non-finite PCM');
   const expectedLength = reference.sampleCount * actual.sampleRate / reference.sampleRate;
   metrics.lengthDeltaSamples = actual.sampleCount - expectedLength;
@@ -166,7 +172,7 @@ function compare(reference, actual, mode) {
     const value = actual.activity[1][key];
     if (range.length && (value === null || value < Math.min(...range) - tolerance.activityFrames || value > Math.max(...range) + tolerance.activityFrames)) failures.push(`${key} activity timing`);
   }
-  if (mode === 'fixed') for (const edge of ['firstSamples', 'lastSamples']) {
+  if (mode === 'fixed' && options.boundarySamples !== false) for (const edge of ['firstSamples', 'lastSamples']) {
     if (reference[edge].some((value, i) => Math.abs(value - actual[edge][i]) > TOLERANCES.absoluteSampleError)) failures.push(`${edge} boundary PCM`);
   }
   const hints = [];
@@ -196,9 +202,13 @@ function referenceFor(expected, mode, sampleRate) {
   return native.reference;
 }
 
-function compareDecoded(expected, result) {
+function compareDecoded(expected, result, asset = null) {
   const reference = referenceFor(expected, result.mode, result.signature.sampleRate);
-  const comparison = compare(reference, result.signature, result.mode);
+  const chromeStablePcmSha256 = asset && chromeStableFixture.assets[asset]?.pcmSha256;
+  const chromeStableGoldenMatch = result.mode === 'fixed' && chromeStablePcmSha256 === result.pcmSha256;
+  const comparison = compare(reference, result.signature, result.mode, chromeStableGoldenMatch ? {
+    tolerance: CHROME_STABLE_FIXED_TOLERANCES, boundarySamples: false
+  } : undefined);
   if (result.mode === 'native') {
     // Keep the original physical-duration rule. A rounded native reference must
     // not make an extra destination sample eligible at fractional source lengths.
@@ -211,9 +221,10 @@ function compareDecoded(expected, result) {
       comparison.failures.push('decoded sample count');
     }
   }
-  if (result.mode === 'fixed' && result.pcmSha256 !== expected.ffmpegPcmSha256) {
+  if (result.mode === 'fixed' && result.pcmSha256 !== expected.ffmpegPcmSha256 && !chromeStableGoldenMatch) {
     comparison.failures.push('complete fixed-rate PCM fingerprint');
   }
+  if (result.mode === 'fixed') comparison.metrics.chromeStableGoldenMatch = chromeStableGoldenMatch;
   comparison.pass = comparison.failures.length === 0;
   return comparison;
 }
@@ -226,6 +237,21 @@ function validateFixture() {
   assert.equal(fixture.schema, 'hapil-decoder-edges-v2');
   assert.equal(fixture.provenance.nativeReferencePcm, NATIVE_REFERENCE_PCM);
   assert.deepEqual(fixture.provenance.nativeSampleRates, NATIVE_SAMPLE_RATES);
+  assert.equal(chromeStableFixture.schema, 'hapil-chrome-stable-decoder-reference-v1');
+  assert.deepEqual(chromeStableFixture.browserVersions, ['154.0.8037.57', '154.0.8037.97']);
+  assert.equal(chromeStableFixture.captureJobs.length, 2);
+  assert.deepEqual(Object.keys(chromeStableFixture.assets).sort(), Object.keys(fixture.assets).sort(), 'Chrome Stable exact PCM golden must cover the full deployed MP3 corpus');
+  const observed = chromeStableFixture.measuredAgainstFfmpeg;
+  assert.equal(observed.sourceAssets, 279); assert.equal(observed.fixedRows, 558);
+  assert.deepEqual(observed.sampleCountDeltaSamples, {min: 0, max: 0}); assert.equal(observed.activityFrameDeltaMax, 0);
+  assert(observed.headRmsErrorMax <= CHROME_STABLE_FIXED_TOLERANCES.rmsRelative);
+  assert(observed.tailRmsErrorMax <= CHROME_STABLE_FIXED_TOLERANCES.rmsRelative);
+  assert(observed.headPeakErrorMax <= CHROME_STABLE_FIXED_TOLERANCES.peakRelative);
+  assert(observed.tailPeakErrorMax <= CHROME_STABLE_FIXED_TOLERANCES.peakRelative);
+  assert(observed.headProbeNrmseMax <= CHROME_STABLE_FIXED_TOLERANCES.probeNrmse);
+  assert(observed.tailProbeNrmseMax <= CHROME_STABLE_FIXED_TOLERANCES.probeNrmse);
+  assert(observed.headProbeCorrelationMin >= CHROME_STABLE_FIXED_TOLERANCES.probeCorrelation);
+  assert(observed.tailProbeCorrelationMin >= CHROME_STABLE_FIXED_TOLERANCES.probeCorrelation);
   assert.equal(fixture.provenance.referencePcm, REFERENCE_PCM, 'fixture must use the independently decoded PCM16 representation');
   assert.deepEqual(fixture.config, CONFIG, 'fixture measurement algorithm configuration');
   assert.deepEqual(fixture.tolerances, TOLERANCES, 'fixture comparison tolerances');
@@ -239,6 +265,8 @@ function validateFixture() {
     assert.equal(expected.sha256, entry.sha256, `${audio}: manifest hash`);
     assert.equal(bytes.length, expected.bytes, `${audio}: byte count`);
     assert.equal(bytes.length, entry.bytes, `${audio}: manifest byte count`);
+    assert.equal(chromeStableFixture.assets[audio].sha256, expected.sha256, `${audio}: Chrome Stable golden source MP3 SHA-256`);
+    assert.match(chromeStableFixture.assets[audio].pcmSha256, /^[0-9a-f]{64}$/, `${audio}: Chrome Stable golden PCM SHA-256`);
     for (const key of ['sampleRate', 'channels', 'bitRate']) assert.equal(entry[key], CONFIG[key], `${audio}: ${key}`);
     assert.equal(expected.reference.sampleRate, CONFIG.sampleRate);
     assert.equal(expected.reference.searchBins, 0);
@@ -259,6 +287,12 @@ function validateFixture() {
     if (audio.startsWith('audio/p-')) paragraphs++; else scenes++;
   }
   assert.equal(scenes, 88); assert.equal(paragraphs, 191);
+  const goldenAudio = Object.keys(chromeStableFixture.assets).sort()[0], goldenExpected = fixture.assets[goldenAudio];
+  const goldenMatch = compareDecoded(goldenExpected, {mode: 'fixed', pcmSha256: chromeStableFixture.assets[goldenAudio].pcmSha256, signature: goldenExpected.reference}, goldenAudio);
+  assert.equal(goldenMatch.pass, true, 'captured Chrome Stable exact PCM golden must pass independent numerical edge checks');
+  const alteredGolden = chromeStableFixture.assets[goldenAudio].pcmSha256.replace(/^./, char => char === '0' ? '1' : '0');
+  const alteredGoldenResult = compareDecoded(goldenExpected, {mode: 'fixed', pcmSha256: alteredGolden, signature: goldenExpected.reference}, goldenAudio);
+  assert.equal(alteredGoldenResult.pass, false, 'a non-golden complete PCM fingerprint must still fail');
   return {fixture, scenes, paragraphs};
 }
 
@@ -364,7 +398,7 @@ async function run() {
         }, {audio, expected, config: CONFIG});
         const previous = {};
         for (const result of results) {
-          const comparison = compareDecoded(expected, result);
+          const comparison = compareDecoded(expected, result, audio);
           if (result.channels !== CONFIG.channels) comparison.failures.push('decoded channel count');
           if (result.signature.sampleRate !== report.contexts.find(context => context.mode === result.mode).sampleRate) comparison.failures.push('decoded rate differs from AudioContext');
           if (previous[result.mode] && previous[result.mode] !== result.pcmSha256) comparison.failures.push('repeat decode PCM differs');
@@ -373,6 +407,7 @@ async function run() {
             referencePcmSha256: result.mode === 'fixed' ? expected.ffmpegPcmSha256 : expected.nativeReferences[String(result.signature.sampleRate)].ffmpegNativePcmSha256,
             referencePcmKind: result.mode === 'fixed' ? REFERENCE_PCM : NATIVE_REFERENCE_PCM,
             entirePcmMatchesReference: result.mode === 'fixed' ? result.pcmSha256 === expected.ffmpegPcmSha256 : null,
+            entirePcmMatchesChromeStable154: result.mode === 'fixed' ? result.pcmSha256 === chromeStableFixture.assets[audio].pcmSha256 : null,
             sampleRate: result.signature.sampleRate, sampleCount: result.signature.sampleCount,
             firstAboveThreshold: result.signature.firstAboveThreshold, lastAboveThreshold: result.signature.lastAboveThreshold,
             activity: result.signature.activity[1], ...comparison, pass: comparison.failures.length === 0});
@@ -392,11 +427,13 @@ async function run() {
     }
     if (process.env.HAPIL_DECODER_EDGE_REPORT) fs.writeFileSync(process.env.HAPIL_DECODER_EDGE_REPORT, JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify({pass: report.pass, browserVersion: report.browserVersion, files: report.files, scenes, paragraphs,
-      decodedRows: report.decodedRows, exactReferencePcmMatches: report.exactReferencePcmMatches, contexts: report.contexts, maxima, failedRows: report.failedRows, pageErrors: errors,
+      decodedRows: report.decodedRows, exactReferencePcmMatches: report.exactReferencePcmMatches,
+      exactChromeStablePcmMatches: report.rows.filter(row => row.mode === 'fixed' && row.entirePcmMatchesChromeStable154).length,
+      contexts: report.contexts, maxima, failedRows: report.failedRows, pageErrors: errors,
       reportPath: process.env.HAPIL_DECODER_EDGE_REPORT || null, limitation: report.limitation}, null, 2));
     assert.equal(report.pass, true, 'Browser decoder edge comparison failed; inspect zero-alignment fingerprints, sample counts, and lag diagnostics above. Do not infer missing phonemes from numerical differences alone.');
   } finally { await browser.close(); }
 }
 
-module.exports = {CONFIG, TOLERANCES, REFERENCE_PCM, NATIVE_REFERENCE_PCM, NATIVE_SAMPLE_RATES, signature, compare, referenceFor, compareDecoded, detectorControls, validateFixture};
+module.exports = {CONFIG, TOLERANCES, CHROME_STABLE_FIXED_TOLERANCES, REFERENCE_PCM, NATIVE_REFERENCE_PCM, NATIVE_SAMPLE_RATES, signature, compare, referenceFor, compareDecoded, detectorControls, validateFixture};
 if (require.main === module) run().catch(error => { console.error(error); process.exitCode = 1; });

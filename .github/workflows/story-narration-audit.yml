@@ -25,6 +25,8 @@ on:
       - 'qa/rc130/public-smoke.cjs'
       - 'qa/rc132/published.cjs'
       - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/story-narration-decoder-edges.cjs'
+      - 'tests/fixtures/story-narration-chrome-stable-v154.json'
       - 'tests/rc153-chrome-sandbox-smoke.cjs'
       - 'tools/combat-audio-apply.cjs'
       - 'tools/rc130-preservation.cjs'
