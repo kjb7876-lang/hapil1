@@ -60,6 +60,16 @@ jobs:
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: node qa/rc133/published.cjs
+      - name: Publish allowlisted public verification status
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),p=path.join(process.env.HAPIL_QA_OUTPUT,'summary.json');
+          const x=fs.existsSync(p)?JSON.parse(fs.readFileSync(p,'utf8')):{};
+          const status=['passed','failed','running'].includes(x.status)?x.status:'unavailable';
+          const row={status,expectedFiles:Number.isSafeInteger(x.expectedFiles)?x.expectedFiles:null,verifiedFiles:Array.isArray(x.files)?x.files.filter(v=>v.status==='passed').length:0,readinessAttempts:Array.isArray(x.readiness)?x.readiness.length:0,passedProfiles:Array.isArray(x.profiles)?x.profiles.filter(v=>v.status==='passed').length:0};
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'## Public verification status\n\n```json\n'+JSON.stringify(row,null,2)+'\n```\n');
+          NODE
       - uses: actions/upload-artifact@v7
         if: always()
         with:

@@ -12,6 +12,7 @@ const { checkedUrl } = require('./public-url.cjs');
 const root = path.resolve(__dirname, '../..');
 const base = 'https://kjb7876-lang.github.io/hapil1/';
 const baseUrl = new URL(base);
+const manifestOnly = process.argv.includes('--manifest-only');
 const outputDir = process.env.HAPIL_QA_OUTPUT || path.join(root, 'qa-results/rc133-public');
 const fixedFiles = [
   'index.html',
@@ -389,12 +390,16 @@ async function main() {
       report.optionalDerivative = { checked: false, reason: 'manifest has no external derivative' };
     }
 
-    assert.equal(expected.size,299,'the exact approved RC153 public set contains 299 unique files');
+    const addedLayoutFiles=['assets/rc108/hud.css','assets/rc125/adaptive-battlefield.css'];
+    for(const file of addedLayoutFiles){assert(expected.has(file),'required RC154 layout file '+file);assert(extension16.files.some(row=>row.file===file&&row.after?.sha256===expected.get(file).sha256),'layout file matches pinned sixteenth extension '+file);}
+    assert.equal(expected.size-addedLayoutFiles.length,299,'the prior exact public set stays complete');
+    assert.equal(expected.size,301,'the exact RC154 public set includes both additional CSS files');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
     report.expectedIndexSha256 = localIndexHash;
     save();
+    if(manifestOnly){report.status='manifest-passed';report.scope='Local pinned manifest and file-byte preflight only; no public requests or browser verification';report.manifestFiles=[...expected.keys()].sort();return;}
     await waitForExactHtml(localIndexHash, testedCommit);
 
     const fileResults = await mapLimit([...expected.values()], 8, item => verifyPublicFile(item, testedCommit));
@@ -421,7 +426,7 @@ async function main() {
   } finally {
     save();
     await browser?.close();
-    console.log('RC133_PUBLIC_RESULT', JSON.stringify({
+    console.log(manifestOnly?'RC133_LOCAL_MANIFEST_RESULT':'RC133_PUBLIC_RESULT', JSON.stringify({
       status: report.status,
       testedCommit: report.testedCommit,
       files: report.files.filter(row => row.status === 'passed').length,
@@ -429,7 +434,7 @@ async function main() {
       artOutputs: report.expectedArtOutputs,
       profiles: report.profiles.map(row => ({ name: row.name, status: row.status, errors: row.errors, httpErrors: row.httpErrors })),
     }));
-    process.exitCode = report.status === 'passed' ? 0 : 1;
+    process.exitCode = report.status === (manifestOnly?'manifest-passed':'passed') ? 0 : 1;
   }
 }
 
