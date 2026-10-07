@@ -175,7 +175,7 @@ jobs:
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/narration-gameplay-evidence" >> "$GITHUB_ENV"
           echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/narration-gameplay-evidence/release" >> "$GITHUB_ENV"
           echo "RC119_BODY_OUTPUT=$RUNNER_TEMP/narration-gameplay-evidence/release/approved-art" >> "$GITHUB_ENV"
-          "$HAPIL_CHROMIUM" --version
+          "$CHROMIUM" --version
       - name: Test exact clean revision
         env:
           SUITE: ${{ matrix.suite }}
