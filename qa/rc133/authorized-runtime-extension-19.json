@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "71ba98e3f17f173e073b21e753b6e7d6ba81596f",
+  "baseTree": "7c6f41021d7cd3738f736bf4e9ce2d86740f569c",
+  "previousExtensionSha256": "4280324566016df6f528c464237387b5bc7cce952807634680060e722c3e4415",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "targetProtectedRowsSha256": "f1ca7ef5697336e3602c33f7c0ccf37710b6a2887ad11d3b5b89eedee296f555",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "2057745625bad1b912d1e3a72b33b2a91e280c72"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "58b208543a9228dd823446765289f58385a10aaa",
+        "sha256": "addf689869b7a6f47928c0067d0d150372109cecf469a460264a2c8de079b5a8"
+      },
+      "reason": "Use native painted actor and near-projectile envelopes for every battle camera: assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "13a86fb686fb21adab10ebad9a742fddebbc00e5"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "380472ca37559fdbcd028072acae879bf201a343",
+        "sha256": "157118272247433aecca422e1feeffc9a6059962709fb2c6f53f672cc565db51"
+      },
+      "reason": "Use native painted actor and near-projectile envelopes for every battle camera: index.html"
+    }
+  ]
+}

@@ -3,17 +3,18 @@
 // entry point and the unchanged bundle output independently.
 const assert=require('node:assert/strict'),crypto=require('node:crypto');
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),blob=b=>crypto.createHash('sha1').update(Buffer.from('blob '+Buffer.byteLength(b)+'\0')).update(b).digest('hex');
-function verify({html,bundle,extension15,extension16,extension17,extension18}){
+function verify({html,bundle,extension15,extension16,extension17,extension18,extension19}){
  const legacy=/assets\/index-v31526\.js\?v=45001/;
  if(legacy.test(html)&&!html.includes('assets/rc153/combat-layout.js')&&!bundle.includes('__HAPIL_NATIVE_COMBAT_RC153__')){assert.match(html,legacy);return'historical-45001';}
  assert.equal(sha(extension15),'6c65e3e0de6d92fcb4aa94a8e3c20ef74db7a31a1cf1120f9d5372f7cc159974','fixed prior extension');
  assert.equal(sha(extension16),'c7d10f63b82a6d40126c49ba4b4f88016fbc7cc3fe65ae599d2f81aefcc34ff1','fixed layout extension');
  assert.equal(sha(extension17),'756aa754fef2ae3e6e786a7bd1f52e5df49bb1cd47d0f59b93489899602600ba','fixed Persona lifecycle extension');
  assert.equal(sha(extension18),'4280324566016df6f528c464237387b5bc7cce952807634680060e722c3e4415','fixed landscape camera extension');
- const prior=JSON.parse(extension15),layout=JSON.parse(extension16),persona=JSON.parse(extension17),camera=JSON.parse(extension18);
- assert.equal(prior.base,'3e45b69e3e30b6363f0c8cc53d18bdae76491ced');assert.equal(layout.base,'8b24a22120d7787746339ed7c422eee149e04b22');assert.equal(layout.previousExtensionSha256,sha(extension15));assert.equal(persona.base,'e568bc400fa674908c50bef99236a2752ce9f18a');assert.equal(persona.previousExtensionSha256,sha(extension16));assert.equal(camera.base,'b9b0ea3bad7200e7cc1049ea8f5e712c386006e1');assert.equal(camera.previousExtensionSha256,sha(extension17));
- const previousHtml=persona.files.find(r=>r.file==='index.html'),currentHtml=camera.files.find(r=>r.file==='index.html'),previousBundle=persona.files.find(r=>r.file==='assets/index-v31526.js');assert(previousHtml?.after&&currentHtml?.before&&currentHtml?.after&&previousBundle?.after,'exact chained loader outputs');assert.equal(currentHtml.before.gitBlob,previousHtml.after.gitBlob,'camera loader exact HTML preimage');
+ assert.equal(sha(extension19),'58d8c4487e8435394cb6e7753f6d8c20c0eed5b627f0a5b89cee2b0ad690177b','fixed all-profile pixel-envelope extension');
+ const prior=JSON.parse(extension15),layout=JSON.parse(extension16),persona=JSON.parse(extension17),camera=JSON.parse(extension18),envelope=JSON.parse(extension19);
+ assert.equal(prior.base,'3e45b69e3e30b6363f0c8cc53d18bdae76491ced');assert.equal(layout.base,'8b24a22120d7787746339ed7c422eee149e04b22');assert.equal(layout.previousExtensionSha256,sha(extension15));assert.equal(persona.base,'e568bc400fa674908c50bef99236a2752ce9f18a');assert.equal(persona.previousExtensionSha256,sha(extension16));assert.equal(camera.base,'b9b0ea3bad7200e7cc1049ea8f5e712c386006e1');assert.equal(camera.previousExtensionSha256,sha(extension17));assert.equal(envelope.base,'71ba98e3f17f173e073b21e753b6e7d6ba81596f');assert.equal(envelope.previousExtensionSha256,sha(extension18));
+ const previousHtml=persona.files.find(r=>r.file==='index.html'),cameraHtml=camera.files.find(r=>r.file==='index.html'),currentHtml=envelope.files.find(r=>r.file==='index.html'),previousBundle=persona.files.find(r=>r.file==='assets/index-v31526.js');assert(previousHtml?.after&&currentHtml?.before&&currentHtml?.after&&previousBundle?.after,'exact chained loader outputs');assert.equal(cameraHtml.before.gitBlob,previousHtml.after.gitBlob,'camera loader exact HTML preimage');assert.equal(currentHtml.before.gitBlob,cameraHtml.after.gitBlob,'pixel-envelope loader exact HTML preimage');
  for(const [file,text,row]of[['index.html',html,currentHtml],['assets/index-v31526.js',bundle,previousBundle]]){assert.equal(sha(text),row.after.sha256,'fixed output SHA-256 '+file);assert.equal(blob(text),row.after.gitBlob,'fixed output Git blob '+file);assert.equal(row.after.mode,'100644','fixed output mode '+file);}
- assert.equal((html.match(/assets\/index-v31526\.js\?v=\d+/g)||[]).length,1,'one bundle loader');assert.match(html,/assets\/index-v31526\.js\?v=15504/);assert.match(html,/assets\/rc153\/combat-layout\.js\?v=15506/);return'exact-chained-RC155';
+ assert.equal((html.match(/assets\/index-v31526\.js\?v=\d+/g)||[]).length,1,'one bundle loader');assert.match(html,/assets\/index-v31526\.js\?v=15504/);assert.match(html,/assets\/rc153\/combat-layout\.js\?v=15507/);return'exact-chained-RC155';
 }
 module.exports={verify};
