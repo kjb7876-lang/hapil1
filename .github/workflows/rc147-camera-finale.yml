@@ -50,6 +50,7 @@ jobs:
           set -euo pipefail
           R="$RUNNER_TEMP/rc147-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          if [ -f /etc/apt/apt-mirrors.txt ]; then printf 'https://archive.ubuntu.com/ubuntu\n' | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
           node "$R/node_modules/playwright/cli.js" install --with-deps chromium
           sudo mkdir -p /workspace/hapil-deliverables/RC119-body
           sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
