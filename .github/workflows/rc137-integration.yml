@@ -1,8 +1,8 @@
 name: RC137 exact integrated gameplay and art
 on:
   push:
-    branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc151-mobile-a-visibility]
-    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc137/**', 'tools/rc133-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
+    branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc151-mobile-a-visibility, codex/rc152-image-combat]
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc152*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc137/**', 'tools/rc133-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -52,6 +52,7 @@ jobs:
           test -z "$(git status --porcelain)"
           mkdir -p "$HAPIL_QA_OUTPUT"
           node --input-type=module --check < assets/index-v31526.js
+          node tests/rc152-position-unit.cjs
           node tests/rc138-arena-unit.cjs
           node tests/rc139-narration-unit.cjs
           node tests/rc133-published-url.cjs
@@ -68,6 +69,8 @@ jobs:
           node tests/rc134-persona-policy.cjs
           node tests/rc142-gameplay-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/arena" node tests/rc138-arena-browser.cjs
+          git fetch --no-tags origin c7bc9e7d97c4b961987049c656fe624b463e0a58
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc152-image" node tests/rc152-image-browser.cjs
           node tests/rc137-audit-browser.cjs | tee "$HAPIL_QA_OUTPUT/native-audit.log"
           if test "$RC137_PROFILE" = pc; then
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/narration" node tests/rc139-narration-browser.cjs
