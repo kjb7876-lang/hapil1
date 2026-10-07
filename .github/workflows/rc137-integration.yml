@@ -36,7 +36,7 @@ jobs:
           node "$R/node_modules/playwright/cli.js" install --with-deps chromium
           CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
           sudo ln -sf "$CHROMIUM" /usr/bin/chromium
-          sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc137-evidence" >> "$GITHUB_ENV"
