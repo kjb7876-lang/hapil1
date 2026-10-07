@@ -92,7 +92,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install media verification tools
-        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+        run: sudo apt-get install -y ffmpeg
       - name: Validate canonical source and original voice contracts
         run: |
           node --check assets/combat-audio/v1/catalog.js
