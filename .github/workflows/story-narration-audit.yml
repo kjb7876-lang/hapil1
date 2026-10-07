@@ -18,6 +18,8 @@ on:
       - 'assets/index-v31526.js'
       - 'tests/combat-audio*'
       - 'tests/lib/combat-audio-catalog.cjs'
+      - 'qa/rc133/published.cjs'
+      - 'qa/rc153/**'
       - 'qa/rc130/public-smoke.cjs'
       - 'qa/rc132/published.cjs'
       - 'tools/combat-audio-apply.cjs'
