@@ -16,6 +16,7 @@ on:
       - 'tests/rc142-gameplay-unit.cjs'
       - 'tests/rc150-*.cjs'
       - 'tests/rc133-published-url.cjs'
+      - 'tests/rc133-preservation-unit.cjs'
       - 'qa/rc133/published.cjs'
       - 'qa/rc148/**'
       - '.github/workflows/rc147-camera-finale.yml'
