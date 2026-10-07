@@ -28,6 +28,7 @@ on:
       - 'tools/rc130-preservation.cjs'
       - 'tools/rc133-*.cjs'
       - 'tests/rc128-candidate.cjs'
+      - 'tests/laser-release-gate.cjs'
       - 'tests/rc91-samong-and-laser-smoke.cjs'
       - 'tests/rc133-*.cjs'
       - 'tests/rc134-*.cjs'

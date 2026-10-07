@@ -46,7 +46,10 @@ for (const [name, args] of suites) {
   const result = spawnSync(process.execPath, args, {
     cwd: root,
     encoding: 'utf8',
-    timeout: name === 'rc128-candidate' ? 900000 : name === 'natural-story' ? 210000 : 180000,
+    // The isolated historical candidate checks out the full asset tree in a
+    // disposable worktree; on hosted runners it can exceed the old 15-minute
+    // cap while Git is still materializing a few thousand unchanged files.
+    timeout: name === 'rc128-candidate' ? 1800000 : name === 'natural-story' ? 210000 : 180000,
     maxBuffer: 32 * 1024 * 1024,
     env: { ...process.env, HAPIL_QA_OUTPUT: directory, HAPIL_NATURAL_LIMIT_MS: '150000' }
   });
