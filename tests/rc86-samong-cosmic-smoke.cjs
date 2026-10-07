@@ -16,7 +16,7 @@ const art = {
   baekAction: './assets/vfx/rc86/cult03-heretic-baek-attack-v2.png',
 };
 
-assert.match(html, /assets\/index-v31526\.js\?v=45001/);
+require('../tools/rc154-cosmic-loader.cjs').verify({html,bundle,extension15:fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-15.json')),extension16:fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-16.json'))});
 assert.match(html, /assets\/rc86\/samong-cosmic\.js\?v=45001/);
 assert.match(html, /assets\/rc87\/episode-cosmic\.js\?v=39303/);
 assert.match(bundle, /__HAPIL_RC86_BRIDGE__/);
