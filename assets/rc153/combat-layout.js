@@ -37,7 +37,9 @@
   // leaving the authored legal floor, hero size and humanoid Stand rules intact.
   if(!s||!deps||!boss(a)||a.id==='inner-evil-rc133'||a.rc133HumanPhase||a.humanPhase0||root.__HAPIL_STAND_V31335__?.profile?.(a)||root.__HAPIL_MOBILE_V31366__?.enabled?.()!==true||!(root.innerWidth>root.innerHeight)||!root.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s))return 1;
   const polygon=root.__HAPIL_PERSONA_DUEL_RC134__?.polygon?.('all',.8),width=n(root.innerWidth),height=n(root.innerHeight),mapWidth=n(deps.mapWidth?.(s),1584),hero=framing(s,[s]),paint=deps.paintEnvelope?.(s,a,false,true);if(!polygon?.length||!hero||!paint||!(height>0&&width>0&&mapWidth>0))return 1;
-  const css=root.document&&root.getComputedStyle?.(root.document.documentElement),inset=k=>Math.max(0,parseFloat(css?.getPropertyValue('--rc154-safe-'+k))||0),required=.9*width/(mapWidth*(height/720)),budget=(height-Math.min(8+inset('top'),height*.22)-Math.min(12+inset('bottom'),height*.24))/(height/720)/required;
+  // Keep one CSS pixel above the coverage boundary: replaying the native
+  // bitmap transform can otherwise round an exact90% fit just below it.
+  const css=root.document&&root.getComputedStyle?.(root.document.documentElement),inset=k=>Math.max(0,parseFloat(css?.getPropertyValue('--rc154-safe-'+k))||0),required=(.9*width+1)/(mapWidth*(height/720)),budget=(height-Math.min(8+inset('top'),height*.22)-Math.min(12+inset('bottom'),height*.24))/(height/720)/required;
   // A first-frame probe may run before the body or raised weapon has decoded.
   // A complete image must invalidate that provisional fit, just as it does the
   // fixed camera frame. Actor movement and attack clocks remain outside the key.
