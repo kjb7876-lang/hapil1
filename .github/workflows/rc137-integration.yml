@@ -160,4 +160,5 @@ jobs:
         with:
           name: ego-comparison-${{ github.sha }}
           path: ${{ runner.temp }}/rc155-ego-comparison/
+          if-no-files-found: error
           retention-days: 14
