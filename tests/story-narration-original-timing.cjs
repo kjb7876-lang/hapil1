@@ -294,3 +294,22 @@ test('a muted untouched original keeps its text timer and never starts audio', a
   const f = fixture({phase: 'post', sound: false}); t.after(f.clean); await settle();
   f.advance(14050); assert(!f.card.isConnected); assert.equal(f.fetches.length, 0); assert.equal(f.narrationSources().length, 0); assert(!f.audible());
 });
+
+test('browser fixture keeps native loading deadlines outside its deliberate hang case', async () => {
+  const browser=read('tests/story-narration-browser.cjs'),begin=browser.indexOf('const originalTimeout=window.setTimeout.bind(window);'),end=browser.indexOf('</script>',begin);
+  assert(begin>=0&&end>begin,'execute the actual fixture timer adapter');
+  const queued=[],window={setTimeout(fn,ms,...args){queued.push({fn,ms,args});return queued.length;}};
+  const scope={window};vm.createContext(scope);vm.runInContext(browser.slice(begin,end),scope);
+  let fired=0;const callback=value=>{fired+=value;};
+  assert.equal(window.setTimeout(callback,15000,2),1);assert.equal(queued[0].ms,15000,'normal cold download/decode keeps the native15s deadline');
+  queued[0].fn(...queued[0].args);assert.equal(fired,2,'timer registration retains the real callback and arguments');
+  window.__loadTimeout=300;window.setTimeout(callback,15000,3);assert.equal(queued[1].ms,300,'deliberately hung request retains its short bound');
+  delete window.__loadTimeout;window.setTimeout(callback,700,4);assert.equal(queued[2].ms,700,'other native timers remain exact');
+  const start=browser.indexOf('const start=async'),finish=browser.indexOf('\n const audioCount=',start);assert(start>=0&&finish>start);
+  const events=[];scope.url='unit-fixture';scope.page={goto:async url=>{assert.equal(url,scope.url);delete window.__loadTimeout;events.push('navigate');},evaluate:async(fn,arg)=>{scope.arg=arg;return vm.runInContext('('+fn.toString()+')(arg)',scope);},click:async selector=>{assert.equal(selector,'#start');events.push(window.__loadTimeout??15000);}};
+  vm.runInContext(browser.slice(start,finish)+';this.startFixture=start;',scope);
+  await scope.startFixture(300);assert.deepEqual(events,['navigate',300],'hang override is installed before the real start helper clicks');events.length=0;
+  await scope.startFixture();assert.deepEqual(events,['navigate',15000],'next normal fixture restores its independent native loading deadline');
+  assert(browser.includes("mode='hang';await start(300);await waitState('blocked')"),'hung-media blocked/skip assertions remain required');
+  assert(browser.includes('state,{timeout:6000}'),'real playing-state assertion retains its original6s limit');
+});
