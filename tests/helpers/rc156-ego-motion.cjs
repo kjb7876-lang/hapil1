@@ -2,7 +2,11 @@
 const assert=require('node:assert/strict');
 // This is an ordinary-time native-input fixture. It does not set animation
 // timestamps or invent an eight-frame animation for the supplied still atlas.
-async function collect(page,{fixture,capture,label,report}){
+function capturePolicy(direction,phase,fullViewport){
+ if(fullViewport)return {record:(direction===0||direction===4)&&(phase==='walk'||phase==='release'),full:true};
+ return {record:true,full:direction===0&&phase==='flight'};
+}
+async function collect(page,{fixture,capture,label,report,fullViewport=false}){
  const directions=[['ArrowRight'],['ArrowRight','ArrowDown'],['ArrowDown'],['ArrowLeft','ArrowDown'],['ArrowLeft'],['ArrowLeft','ArrowUp'],['ArrowUp'],['ArrowRight','ArrowUp']];
  for(let direction=0;direction<directions.length;direction++){
   const metadata=await fixture(page,{zone:'dist00',action:'move'}),keys=directions[direction];
@@ -17,9 +21,10 @@ async function collect(page,{fixture,capture,label,report}){
     requestAnimationFrame(sample);
    }requestAnimationFrame(sample);
   });
-  const snapshots=[],record={label,direction,keys,staged:true,status:'running',snapshots};(report.motion??=[]).push(record);async function snap(phase,full=false){
+  const snapshots=[],record={label,direction,keys,staged:true,status:'running',snapshots};(report.motion??=[]).push(record);async function snap(phase){
    const state=await page.evaluate(()=>{const rows=__RC156_MOTION_ROWS__,s=__HAPIL_CONTROLS_V31329__.binding.state.current,canvas=document.querySelector('.game-stage canvas'),r=canvas.getBoundingClientRect(),draws=__RC155_BITMAP_CAPTURE__,latest=draws.filter(d=>/ego155:(walk|attack):/.test(d.token)&&d.alpha>0).at(-1);if(!latest)throw Error('Native EGO motion frame was not painted');const d=latest.destination,pad=18,left=Math.max(0,r.x+d.left-pad),top=Math.max(0,r.y+d.top-pad),right=Math.min(innerWidth,r.x+d.right+pad),bottom=Math.min(innerHeight,r.y+d.bottom+pad);return{time:s.time,motion:s.heroMotion?{...s.heroMotion}:null,lastSample:rows.at(-1),lastDraw:latest,clip:{x:left,y:top,width:right-left,height:bottom-top}};});
-   await capture(page,label+'-d'+direction+'-'+phase,{...metadata,actionTimestamp:state.time,nativeInput:keys,sequence:true,sequenceScope:'Ordinary-time native arrow/A handler and RAF state transitions; staged EGO/dist00 fixture, not natural Persona victory',phase,...state},full?null:state.clip);snapshots.push({phase,...state});
+   const plan=capturePolicy(direction,phase,fullViewport);
+   if(plan.record)await capture(page,label+'-d'+direction+'-'+phase,{...metadata,actionTimestamp:state.time,nativeInput:keys,sequence:true,sequenceScope:'Ordinary-time native arrow/A handler and RAF state transitions; staged EGO/dist00 fixture, not natural Persona victory. Attack direction is selected by the native target aim.',phase,...state,captureScope:plan.full?'original-full-viewport':'moving-detail-clip',requestedClip:plan.full?null:state.clip},plan.full?null:state.clip);snapshots.push({phase,...state,captureRecorded:plan.record,captureScope:plan.full?'original-full-viewport':'moving-detail-clip'});
   }
   try{
    for(const key of keys)await page.keyboard.down(key);await page.waitForTimeout(180);await snap('walk');for(const key of keys)await page.keyboard.up(key);
@@ -27,7 +32,7 @@ async function collect(page,{fixture,capture,label,report}){
    // handler choose direction, source frame and native contact transactions.
    const launch=await page.evaluate(()=>{const C=__HAPIL_CONTROLS_V31329__,s=C.binding.state.current,m=s.heroMotion,a=s.enemies.find(a=>a.id==='dist00-boss');if(!a||!(a.hp>0))throw Error('Exact authored dist00 motion target lost: '+JSON.stringify({zone:s.zone,time:s.time,enemies:s.enemies.map(a=>({id:a.id,hp:a.hp})),ledger:s.egoGuardianRC155}));const dx=m?.dx??0,dy=m?.dy??0,len=Math.hypot(dx,dy);if(!(len>0))throw Error('Native directional input never reached movement');const x=s.x+dx/len*3,y=s.y+dy/len*3;__RC155_QA__.position(a,{x,y});a.rc133Anchor={x:a.x,y:a.y};a.moveDx=a.moveDy=a.moveVx=a.moveVy=0;a.movingUntil=0;s.targetEnemyId=a.id;return{time:s.time,lastAttack:s.lastAttack,player:{x:s.x,y:s.y},target:{id:a.id,x:a.x,y:a.y},nativeMovement:{dx,dy}};});
    await page.keyboard.press('a');await page.waitForFunction(at=>{const s=__HAPIL_CONTROLS_V31329__.binding.state.current;return s.lastAttack>at;},launch.lastAttack,{timeout:3000});
-   for(const [phase,delay]of [['release',32],['flight',64],['recover',180]]){await page.waitForTimeout(delay);await snap(phase,direction===0&&phase==='flight');}
+   for(const [phase,delay]of [['release',32],['flight',64],['recover',180]]){await page.waitForTimeout(delay);await snap(phase);}
    await page.waitForTimeout(160);
    const evidence=await page.evaluate(()=>{__RC156_MOTION_ACTIVE__=false;const s=__HAPIL_CONTROLS_V31329__.binding.state.current;s.paused=true;s.practicePatternV31365={finished:true};const result={rows:__RC156_MOTION_ROWS__,draws:__RC155_BITMAP_CAPTURE__,transactions:__HAPIL_COMBAT_CORE_V31401__.snapshot(s).events};delete window.__RC155_BITMAP_CAPTURE__;return result;});
    const row=Object.assign(record,{launch,...evidence});
@@ -38,4 +43,4 @@ async function collect(page,{fixture,capture,label,report}){
   }finally{record.finalState=await page.evaluate(()=>{const s=__HAPIL_CONTROLS_V31329__.binding.state.current;return{zone:s.zone,time:s.time,enemies:s.enemies.map(a=>({id:a.id,hp:a.hp})),rows:window.__RC156_MOTION_ROWS__??[],draws:window.__RC155_BITMAP_CAPTURE__??null,ledger:s.egoGuardianRC155};});record.finalState.draws??=record.draws??[];for(const key of keys)await page.keyboard.up(key);await page.evaluate(()=>{__RC156_MOTION_ACTIVE__=false;delete window.__RC155_BITMAP_CAPTURE__;});}
  }
 }
-module.exports={collect};
+module.exports={collect,capturePolicy};

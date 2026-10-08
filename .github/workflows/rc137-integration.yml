@@ -54,9 +54,19 @@ jobs:
           node tests/rc155-ego-art-unit.cjs
           git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
           git fetch --no-tags origin 03ddd7159c20c1d9610c07dbd3f70ee94a1f9e37
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-source-cloak" node qa/rc156/source-cloak-audit.cjs
           RC156_SOURCE_CLIP=1 RC156_APPEARANCE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-appearance" node tests/rc155-ego-browser.cjs
           node tests/rc156-motion-unit.cjs
-          RC156_MOTION=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-motion" node tests/rc155-ego-browser.cjs
+          RC156_MOTION=1 RC156_FULL_VIEWPORT=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-motion" node tests/rc155-ego-browser.cjs
+      - name: Preserve source cloak overlap diagnostics
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-source-cloak-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-source-cloak/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
       - name: Preserve small original EGO appearance PNGs
         uses: actions/upload-artifact@v7
         if: always() && matrix.profile == 'pc' && matrix.round == 1
