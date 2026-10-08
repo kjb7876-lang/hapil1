@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "867009b0a767f3531b78f730d776e491312f8ec6",
+  "baseTree": "2c746a21bbd1f9b7e0f6e301ec8b363b9643e1ba",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "9bc84ed623356b9e2680ba0c58617741e0983aba0ea019da47c2b096bb01af39",
+  "files": [
+    {
+      "file": "assets/rc155/ego-guardian.js",
+      "before": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "5a1eaa9482016a2d6749333a17f69d1131943803"
+      },
+      "after": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "1cc213e8241145e63f8a4e5a6cd512bd9dfe2f1d",
+        "sha256": "3dde7170da7e99a8bed55de620b7ef37ac1dab956648cc199fd18c376530e61f"
+      },
+      "reason": "Authorized current published EGO navigation and saved stable-zone route index migration for assets/rc155/ego-guardian.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a72244eb0e0eccb743f1f5a319672e67929468ec"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c402e41e448dee13623a43abbfbbf532c283d005",
+        "sha256": "261bbd6d19943e1d2a33617a180874f49e82ed8afc8b7286cd1980ab132b07f0"
+      },
+      "reason": "Authorized current published EGO navigation and saved stable-zone route index migration for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "a14e73ad1cfe2525dd02332fa2ea91d2e9e9ba54f342adbdb2dfee168c3b0cfa"
+}

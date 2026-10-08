@@ -24,11 +24,18 @@
  function incrementDecimal(v){let a=decimal(v).split(''),i=a.length-1;for(;i>=0;i--){if(a[i]!=='9'){a[i]=String(Number(a[i])+1);break;}a[i]='0';}if(i<0)a.unshift('1');if(a.length>MAX_VISIT_DIGITS)return null;return a.join('');}
  const defaults=()=>({version:VERSION,personaVictory:false,heroUnlocked:false,pendingTransformation:false,pendingFromZone:null,transformed:false,active:false,routeIndex:-1,direction:-1,cycle:0,outerEndpointReached:false,clearCount:0,routeUnlocked:false,firstClearZone:null,routeZone:null,currentZone:null,currentVisitId:null,visitSerial:'0',currentVisitCleared:false,clearReadyVisitId:null,clearedVisitIds:[],cutInSerial:0,cutInPending:false,traitsApplied:false});
  function canonicalRoute(narrative,world){
-  const raw=narrative?.zoneOrder??narrative?.route??narrative?.proof?.route;
-  if(!Array.isArray(raw)||raw[0]!=='hub'||raw[1]!=='dist01')return [];
-  // `hub` is a free-revisit/home node; the authored combat route starts at
-  // dist01. The root guardian is its own endpoint immediately before dist01.
-  const rows=['dist00',...raw.slice(1)];
+  const current=root.__HAPIL_STORY_DATA_RC51__?.records,raw=narrative?.zoneOrder??narrative?.route??narrative?.proof?.route;
+  let rows;
+  if(current!==undefined){
+   // RC60's published route has already removed ep1a07. The current authored
+   // records own navigation; older narrative zoneOrder is archival metadata.
+   if(!Array.isArray(current)||current[0]?.zone!=='dist00'||current.at(-1)?.zone!=='cult04')return [];
+   rows=[...current.map(record=>record?.zone),'village'];
+  }else{
+   if(!Array.isArray(raw)||raw[0]!=='hub'||raw[1]!=='dist01')return [];
+   // Legacy saves/isolated consumers retain the original narrative contract.
+   rows=['dist00',...raw.slice(1)];
+  }
   // A missing authored map must fail closed. Filtering it out would silently
   // skip a route node and make the saved route differ from the narrative.
   if(rows.length<3||rows.length>128||rows[0]!=='dist00'||rows.at(-1)!=='village')return [];
@@ -42,6 +49,9 @@
   if(index<0){index=1;direction=1;}else if(index>=route.length){index=route.length-2;direction=-1;}
   return {index,direction,zone:route[index]};
  }
+ // Saved stable zone identity survives a published route index shift. This
+ // migration changes no clear/visit/cycle count or navigation direction.
+ function alignRoute(m,route){const index=validRoute(route)?route.indexOf(m?.routeZone):-1;if(index<0||!m?.active)return false;m.routeIndex=index;return true;}
  function cleanClearedIds(raw){return [...new Set((Array.isArray(raw)?raw:[]).filter(validVisit))].slice(-MAX_CLEAR_IDS);}
  function clean(raw,legacy){
   if((!raw||raw.version!==VERSION)&&legacy?.innerFinalRC133?.phase==='complete'&&legacy.innerFinalRC133.entry==='cult-death'){
@@ -86,6 +96,7 @@
  function onMapEntry(s,zone,world,narrative){
   if(!s||!safeZone(zone))return {changed:false,transformed:false,advanced:false};
   const m=state(s),route=canonicalRoute(narrative??root.__MONGSE_NARRATIVE_V395__,world),index=route.indexOf(zone),prior=m.currentZone;
+  if(m.active)alignRoute(m,route);
   if(m.pendingTransformation){
    if(zone!==m.pendingFromZone&&index>=0){
     if(!incrementDecimal(m.visitSerial))return {changed:false,transformed:false,advanced:false,reason:'visit-id-exhausted'};
@@ -117,7 +128,7 @@
   return {changed:true,transformed:false,advanced,detour:!advanced,from:prior,to:zone,routeIndex:m.routeIndex,direction:m.direction,flipped,cleared,visitId:m.currentVisitId};
  }
  function observeClear(s,zone,clear){const m=s?.[FIELD];if(!m?.active||zone!==m.routeZone||zone!==m.currentZone||!m.currentVisitId||passage(zone,null))return false;if(clear===true){if(m.currentVisitCleared||m.clearReadyVisitId===m.currentVisitId||m.clearedVisitIds.includes(m.currentVisitId))return false;m.clearReadyVisitId=m.currentVisitId;return true;}if(m.clearReadyVisitId===m.currentVisitId)m.clearReadyVisitId=null;return false;}
- function nextZone(s,zone,world,narrative){const m=s?.[FIELD];if(!m?.active||zone!==m.routeZone)return null;const route=canonicalRoute(narrative??root.__MONGSE_NARRATIVE_V395__,world);if(route[m.routeIndex]!==zone)return null;return nextStep(m,route)?.zone??null;}
+ function nextZone(s,zone,world,narrative){const m=s?.[FIELD];if(!m?.active||zone!==m.routeZone)return null;const route=canonicalRoute(narrative??root.__MONGSE_NARRATIVE_V395__,world);if(!alignRoute(m,route)||route[m.routeIndex]!==zone)return null;return nextStep(m,route)?.zone??null;}
  const originalLinks=new WeakMap();
  function rememberLinks(world){if(!world||typeof world!=='object'||originalLinks.has(world))return;const map=new Map();for(const [zone,row]of Object.entries(world))if(row&&Object.hasOwn(row,'next'))map.set(zone,row.next);originalLinks.set(world,map);}
  function restoreLinks(world){const map=world&&originalLinks.get(world);if(!map)return;for(const [zone,next]of map)if(world[zone])try{world[zone].next=next;}catch(_){}originalLinks.delete(world);}
