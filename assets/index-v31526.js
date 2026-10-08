@@ -123430,6 +123430,10 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  }
  function tinted(image,id,cloth=false){
   if(!image||image.complete===false||!has(id))return image;
+  // Authenticated EGO crops already carry the user's authored palette. Legacy
+  // hero recoloring would replace their bitmap and erase source provenance.
+  const ego=window.__HAPIL_EGO_ART_RC155__,token=image.egoTokenRC155;
+  if(ego?.owns(token)&&ego.picture(token)===image)return image;
   const tag=id+(cloth?'cloth':'fx');if(tags.get(image)===tag)return image;
   const iw=num(image.naturalWidth,image.width),ih=num(image.naturalHeight,image.height);if(!(iw>0&&ih>0))return image;
   const key=tag+'|'+String(image.src??'')+'|'+iw+'x'+ih,old=tints.get(key);

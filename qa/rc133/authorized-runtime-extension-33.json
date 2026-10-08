@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "21ea2cfdb57265deed39c6ecbd68f2e3ce4f6dbb",
+  "baseTree": "e13f2f0096f52925bc029c440a03496cc7b881b4",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "fe18a30c1338b0864b3c562fbb8f1425efe4635c7dee78b6c06099c7298da8a0",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "830d6d9dd1bb0c802d2ef3f0f7455547241f639c"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "27e425c7dc9ab7705c4f0d88c63256f64120deae",
+        "sha256": "38b8d62e2c55e41335649edb70b069d965eca1384558e763ce93341489fd8621"
+      },
+      "reason": "Authorized authenticated EGO crop palette preservation through the native hero tint renderer for assets/index-v31526.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6bd2cb595b210c377589050a19c9264352a53fa4"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "9d899f82f1770044b2fd66e41c95af840b48c2d1",
+        "sha256": "f1e48d08280f169ce597f1d04caa18edf23c38c7a9019fef428fbd20f974a361"
+      },
+      "reason": "Authorized authenticated EGO crop palette preservation through the native hero tint renderer for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "c83c4b4a666d22bf6a0947d9c3a7c50b3bfa4a59026314397c4cfa0d62a59326"
+}
