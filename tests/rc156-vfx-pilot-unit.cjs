@@ -18,6 +18,13 @@ const actorMethod=/actor\(zone, id\) \{[^\n]+\}/.exec(bridge)?.[0],bossMethod=/z
 const authored={id:'c104-boss',boss:true},select={N:{dist01:{enemies:[]},cult04:{enemies:[authored]}}};vm.runInNewContext('this.B={'+actorMethod+','+bossMethod+'};',select);
 eq(select.B.zoneBoss('dist01'),null,'missing boss selection remains null');eq(select.B.actor('dist01','dist01-boss'),null,'missing authored ID cannot produce a fixture');eq(select.B.actor('cult04','c104-boss'),authored,'exact ID query retains the disclosed source identity');eq(select.B.actor('cult04','unknown'),null,'unknown source cannot silently borrow another owner');
 const browser=fs.readFileSync(path.join(__dirname,'rc156-vfx-pilot-browser.cjs'),'utf8');ok(browser.includes("B.actor('cult04','c104-boss');if(!source)throw Error"),'browser requires the exact source before clone');
+const sequenceStart=browser.indexOf('function sequenceStage('),sequenceEnd=browser.indexOf('\nconst report=',sequenceStart),sequenceVM={};ok(sequenceStart>=0&&sequenceEnd>sequenceStart,'actual capture admission helper boundaries');vm.runInNewContext(browser.slice(sequenceStart,sequenceEnd)+';this.select=sequenceStage;',sequenceVM);
+const mainSources=new Set(['7']),mainHit={kind:'OUTGOING',result:'HIT',appliedDamage:12,source:{id:7},targetId:'target',time:100.34};
+eq(sequenceVM.select(0,[],mainSources,false).stage,'flight','first sample without contact is a real pre-contact flight');
+for(const alteration of [{source:{id:8}},{result:'PARRY'},{result:'INVULNERABLE'},{appliedDamage:0},{kind:'INCOMING'}])eq(sequenceVM.select(2,[{...mainHit,...alteration}],mainSources,false).stage,null,'other owner or uncommitted contact cannot label an actual main-A HIT');
+eq(sequenceVM.select(2,[mainHit],mainSources,false).stage,'actual-hit','only real admitted main-A damage selects the contact original');
+eq(sequenceVM.select(3,[mainHit],mainSources,true).stage,null,'a repeated transaction snapshot cannot create a second contact stage');
+eq(JSON.parse(JSON.stringify(sequenceVM.select(2,[mainHit],mainSources,false).contacts)),[{sourceId:7,targetId:'target',time:100.34,damage:12}],'capture metadata retains exact contact identity/time/damage');
 // Execute the real RC4 direction + RC5 selection/draw layers. Their authored
 // atlas supersedes the logical Tn/muzzle path; folder-prefix matching is invalid.
 const evidence=require('../qa/rc156/direction-evidence.js'),vectorStart=bundle.indexOf('function Cn(e, t) {'),vectorEnd=bundle.indexOf('function MONGSE_readyHeroSprite',vectorStart),directionStart=bundle.indexOf(' function direction(m){'),directionEnd=bundle.indexOf('\n function frame(hero,dir,active)',directionStart),rc5Start=bundle.indexOf("(()=>{'use strict';",bundle.indexOf('HAPIL FINAL RC5: canonical on-screen')),rc5End=bundle.indexOf('\n/* HAPIL FINAL RC6:',rc5Start);
@@ -41,17 +48,31 @@ for(const kind of ['move','attack','dash','idle','hurt'])for(const [dx,dy]of [[1
 ok(!browser.includes("filter(d=>String(d.src).includes('/hero_direction'))"),'browser draw audit follows selected native source rather than a legacy folder');
 ok(browser.indexOf('report.directions.push(')<browser.indexOf("'directional native source/frame/flip/pivot missing:"),'failing directional rows are retained before their assertion');
 ok(browser.indexOf('report.pairs.push(pair)')<browser.indexOf('const ready=await enterCombatThroughNativeUI(page,scene,variant)'),'partial pair evidence survives later assertion failures');
-// The real native color context unwraps __rawHeroContextV31364. A plain paint
-// proxy accidentally exposed that raw canvas and the original bitmap escaped.
+// Readability feedback rejected replacing the native crescent with a faint
+// cue. Exercise the real color-context unwrap: native paint must survive once
+// in both variants, while only the admitted variant adds a private cue.
 const styleStart=bundle.indexOf(' function context(ctx,id,cloth=false){'),styleEnd=bundle.indexOf('\n function queue(s)',styleStart),styleVM={has:()=>true,views:new WeakMap(),meta:new WeakMap(),tinted:im=>im,ink:c=>c};
 ok(styleStart>=0&&styleEnd>styleStart,'actual native color-context source boundaries');vm.createContext(styleVM);vm.runInContext(bundle.slice(styleStart,styleEnd)+';this.style=context;',styleVM);
 for(const hero of ['hwando','gunner'])for(const enabled of [false,true]){
  let bitmapPaints=0,nativeCalls=0;const raw={...ctx,drawImage(){bitmapPaints++;}},state=fixture(hero),before=JSON.stringify(state),trial=create({...adapter(),enabled}),styled=styleVM.style(raw,hero);
  trial.drawEffect(view=>{nativeCalls++;styleVM.style(view,hero).drawImage({src:'native.png'});return 'native-return';},styled,{},state.effects[0],100.3,{},state);
- eq(bitmapPaints,enabled?0:1,'real native style unwrapping cannot escape admitted trial paint proxy '+hero+' '+enabled);
- eq(trial.snapshot(state).totals.mutedBitmaps,enabled?1:0,'actual attempted native bitmap is recorded separately from visible flight');
+ eq(bitmapPaints,1,'actual native artwork remains visible exactly once '+hero+' '+enabled);
+ eq(trial.snapshot(state).totals.nativeEffectCalls,1,'native dispatch is recorded without a paint-suppression proxy');
  eq(nativeCalls,1,'real style dispatch still executes exactly once');eq(JSON.stringify(state),before,'native style dispatch preserves authoritative combat state');
  eq(trial.snapshot(state).totals.flights>0,enabled,'admitted trial still paints the weapon-aligned flight');
+}
+for(const hero of ['hwando','gunner']){
+ const state=fixture(hero),trial=create({...adapter(),enabled:true}),saved=JSON.stringify(state),paints=[],stack=[];
+ const canvas={globalAlpha:1,save(){stack.push(this.globalAlpha);},restore(){this.globalAlpha=stack.pop();},beginPath(){},closePath(){},moveTo(){},lineTo(){},translate(){},rotate(){},stroke(){paints.push({kind:'stroke',alpha:this.globalAlpha,width:this.lineWidth,color:this.strokeStyle});},fill(){paints.push({kind:'fill',alpha:this.globalAlpha,color:this.fillStyle});},drawImage(){paints.push({kind:'native'});}};
+ trial.drawEffect(c=>c.drawImage({}),canvas,{},state.effects[0],100.04,{reducedFlash:true,lowFx:true},state);
+ eq(trial.snapshot(state).flights.length,1,'early native delivery interval is visible for '+hero);
+ eq(paints.filter(p=>p.kind==='native').length,1,'strong native release stays underneath the cue');
+ ok(paints.some(p=>p.color==='#17242f'&&p.alpha>=.85),'reducedFlash retains a local dark contrast edge');
+ ok(paints.some(p=>p.color=== (hero==='hwando'?'#eff5ff':'#98efff')&&p.alpha>=.85),'reducedFlash retains a light local core');
+ eq(canvas.globalAlpha,1,'overlay restores caller opacity');eq(stack.length,0,'overlay balances every canvas save');eq(JSON.stringify(state),saved,'readability tuning cannot alter native pending/contact/speed/range');
+ state.time=100.34;trial.record(state,state.enemies[0],{kind:'OUTGOING',attackerHeroId:hero,result:'HIT',appliedDamage:1,epoch:2,sequence:1,time:state.time},{id:7,heroId:hero,actionKey:'A'});
+ const impact={...state.effects[0],deliveryRoutesV31322:undefined,damageHitV31315:true};let impacts=0;trial.drawEffect(c=>{impacts++;c.drawImage({});},canvas,{},impact,state.time,{},state);eq(impacts,1,'native committed-contact artwork is never suppressed');
+ paints.length=0;trial.drawHits(canvas,state,state.enemies[0],100.46,{reducedFlash:true,lowFx:true});ok(paints.some(p=>p.color=== (hero==='hwando'?'#eff5ff':'#98efff')),'local contact core remains visible120ms after actual HIT');eq(trial.snapshot(state).hits.length,1,'one contact remains private and bounded');
 }
 // Reproduce the actual resized-canvas contract: native tint canvases retain
 // original naturalWidth/Height metadata, but drawImage uses their backing size.
