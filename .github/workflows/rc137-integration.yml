@@ -102,6 +102,7 @@ jobs:
           node tests/rc153-chrome-sandbox-smoke.cjs
           git fetch --no-tags origin fd4478c224848f85c354049b6e22c33aa41d5b0b
           node tests/rc156-vfx-pilot-unit.cjs
+          node tests/rc156-vfx-texture-cache-unit.cjs
           node tests/rc156-vfx-video-unit.cjs
           node tests/rc156-boot-audit-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
