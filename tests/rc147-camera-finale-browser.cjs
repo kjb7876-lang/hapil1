@@ -13,13 +13,16 @@ const report={status:'running',base,candidate:cp.execFileSync('git',['rev-parse'
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
 // Select an actual painted live-projectile frame instead of assuming that a
 // volley is still nearby700ms after launch. Pause only this disclosed picture
-// fixture, after the native RAF painted both bodies and a nearby live shot.
+// fixture, after native time advances and both measured bodies/a nearby shot exist.
 function holdPersonaCaptureFrame(){
  const s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current,L=window.__HAPIL_COMBAT_LAYOUT_RC153__;
- if(!s||!L)return false;
+ if(!s||!L||!(s.time>window.__RC147_PERSONA_STARTED__))return false;
  const anchors=[s,...(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly)],nearby=(s.hostileProjectiles??[]).filter(q=>q.rc133InnerShot&&!q.friendly&&!q.reflected&&!q.cancelled&&!q.projectileRemovalReason31215&&!q.reachedHero31213&&!q.reachedMapBoundary31213&&q.kind!=='telegraph'&&Number.isFinite(q.x)&&Number.isFinite(q.y)&&anchors.some(a=>Math.hypot(q.x-a.x,q.y-a.y)<=26));
  const painted=L.bounds(s)?.nativePaintActors;if(!nearby.length||!Number.isInteger(painted)||painted<2)return false;
- s.paused=true;return{time:s.time,shotIds:nearby.map(q=>q.id),phase:s.innerFinalRC133?.phase};
+ // The main RAF's blocked flag reads practicePatternV31365.finished, not
+ // s.paused. Retain the prior fixture property exactly for normal resume.
+ window.__RC147_CAPTURE_HOLD__={state:s,had:Object.hasOwn(s,'practicePatternV31365'),previous:s.practicePatternV31365};
+ s.practicePatternV31365={...s.practicePatternV31365,finished:true};return{time:s.time,shotIds:nearby.map(q=>q.id),phase:s.innerFinalRC133?.phase,pauseMechanism:'native-practice-finished'};
 }
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;try{
  browser=await chromium.launch({chromiumSandbox: true, channel: 'chrome', args:['--disable-dev-shm-usage']});
@@ -57,13 +60,13 @@ function holdPersonaCaptureFrame(){
    else for(let i=1;i<6&&!b.completed;i++){s.time+=.29;b.combatElapsedRC79=awakeningAt+.29*i;W.tick(s);}
    return{wave:W.snapshot(s)?.status??null,battleCompleted:b.completed===true,finalHitMode:b.finalHitModeV31377,leaderPresent:s.enemies.some(a=>a.id==='c104-boss'),cosmics:s.enemies.filter(a=>a.samongCosmicSummonV386&&a.hp>0).length,bossDefeated:s.bossDefeated,ending:s.hapilEndingCleared===true};});
   }
-  row.persona=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,B=window.__HAPIL_RC86_BRIDGE__,s=window.__RC147_QA__.initial();Object.assign(s,{zone:'cult04',time:200,x:13.8,y:24.2,hp:240,maxHp:240,activeHeroId:'gunner',gameModeV31346:'DREAM',samongUnlockedRC91:true,spawnedWaves:new Set([1,2,3,4]),completedZones:new Set(),hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],encounterLockUntil31226:0,encounterDialogue31226:null,encounterWallUnlockAtV31227:0,timeStopUntil:0,invulnerableUntil:999});const cult=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');cult.hp=0;s.enemies=[cult];C.binding.state.current=s;if(!H.start(s,cult))throw Error('Dream Persona fixture did not start');Object.assign(s.innerFinalRC133,{phase:'fight',intro:0,awake:7,awakeningCooldown:28,shotDelay:0,cycle:0});H.tick(s,.016);window.__RC147_TRACKED_PERSONA__=s.hostileProjectiles.filter(q=>q.rc133InnerShot);return{phase:s.innerFinalRC133.phase,mood:H.mood(s),shots:s.hostileProjectiles.filter(q=>q.rc133InnerShot).length,camera:window.__HAPIL_VIEWPORT_RC104__.camera(s,null,()=>({x:0,y:0}),{map:'./none'},null)};});
+  row.persona=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,B=window.__HAPIL_RC86_BRIDGE__,s=window.__RC147_QA__.initial();Object.assign(s,{zone:'cult04',time:200,x:13.8,y:24.2,hp:240,maxHp:240,activeHeroId:'gunner',gameModeV31346:'DREAM',samongUnlockedRC91:true,spawnedWaves:new Set([1,2,3,4]),completedZones:new Set(),hostileProjectiles:[],pendingHits:[],impactQueue:[],effects:[],encounterLockUntil31226:0,encounterDialogue31226:null,encounterWallUnlockAtV31227:0,timeStopUntil:0,invulnerableUntil:999});const cult=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');cult.hp=0;s.enemies=[cult];C.binding.state.current=s;if(!H.start(s,cult))throw Error('Dream Persona fixture did not start');Object.assign(s.innerFinalRC133,{phase:'fight',intro:0,awake:7,awakeningCooldown:28,shotDelay:0,cycle:0});H.tick(s,.016);window.__RC147_TRACKED_PERSONA__=s.hostileProjectiles.filter(q=>q.rc133InnerShot);window.__RC147_PERSONA_STARTED__=s.time;return{phase:s.innerFinalRC133.phase,mood:H.mood(s),shots:s.hostileProjectiles.filter(q=>q.rc133InnerShot).length,camera:window.__HAPIL_VIEWPORT_RC104__.camera(s,null,()=>({x:0,y:0}),{map:'./none'},null)};});
   if(!before){const handle=await page.waitForFunction(holdPersonaCaptureFrame,null,{timeout:3000});row.personaCapture=await handle.jsonValue();await handle.dispose();}
   else await page.waitForTimeout(700);
   row.framing=await framing();console.log('RC147_FRAME_DIAGNOSTIC',JSON.stringify({commit:report.candidate,profile:name,view:row.view,framing:row.framing,initialShots:row.persona.shots}));
   if(!before){assert.equal(row.framing.measuredAt,row.personaCapture.time,'capture holds the same actual native game timestamp');assert(row.framing.nearbyPersona.some(q=>row.personaCapture.shotIds.includes(q.id)),'actual qualifying shot survives into the measured camera frame');}
   await page.screenshot({path:path.join(out,`${name}-${row.view}-persona.png`)});
-  if(!before)await page.evaluate(()=>{__HAPIL_CONTROLS_V31329__.binding.state.current.paused=false;});
+  if(!before)await page.evaluate(()=>{const held=window.__RC147_CAPTURE_HOLD__,s=__HAPIL_CONTROLS_V31329__.binding.state.current;if(!held||held.state!==s)throw Error('Native capture world changed before resume');if(held.had)s.practicePatternV31365=held.previous;else delete s.practicePatternV31365;delete window.__RC147_CAPTURE_HOLD__;});
   if(!before)await page.waitForTimeout(700);
   row.personaLive=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{phase:s.innerFinalRC133?.phase,time:s.time,shots:s.hostileProjectiles.filter(q=>q.rc133InnerShot).length,tracked:(window.__RC147_TRACKED_PERSONA__??[]).map(q=>({id:q.id,sourceId:q.sourceId,assetId:q.sprite,x:q.x,y:q.y,life:q.life,born:q.born,present:s.hostileProjectiles.includes(q),friendly:!!q.friendly,reflected:!!q.reflected,cancelled:!!q.cancelled,removalReason:q.projectileRemovalReason31215??null,reachedHero:!!q.reachedHero31213,reachedMapBoundary:!!q.reachedMapBoundary31213})),canvasFilter:document.querySelector('.game-stage canvas')?.style.filter||'',canvas:document.querySelector('.game-stage canvas')?.getBoundingClientRect().toJSON()};});
   await context.close();save();
