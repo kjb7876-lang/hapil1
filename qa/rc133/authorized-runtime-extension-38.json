@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "3ab3bfd0adb94d386f70e4a618af85d99b0c3de4",
+  "baseTree": "db130939c9f4eaa1df7fd6ea031ac9466f4e9f55",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "7d16ab130552f53d2bb501b93015efd34d338a728ff22507866c405c09a3bd66",
+  "files": [
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "4a6f093842dd06dc54491e77f2ca63cf02d086f3"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "4d71fb2ddfbf0db7d4737cca249801946bd57538",
+        "sha256": "9894860137a66d95abbb3fcfcd14c6873663702570435bd48a9dd88e40b3d5c7"
+      },
+      "reason": "Authorized correction of provisional body/raised-weapon decode fit caching and matching browser cache keys for assets/rc133/bitmap-contact.js"
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "b26e27b80b3e933f3419aaf7dffc91e2981ca9ef"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "f629e55c4ec7cc960d9c0613be31951251225dd3",
+        "sha256": "6ae2b0d6af12765d63d9adb8a7e9cf300bf4a9decd87fe6e43344c4ff7a32e42"
+      },
+      "reason": "Authorized correction of provisional body/raised-weapon decode fit caching and matching browser cache keys for assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "3d599eddf84af628bf425a3925ce71730f688aca"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "b5bb7656abf1addb10a1b0483c87d46807492224",
+        "sha256": "f24f5728ace69bd935a8ebb76774a4d507d41ab9d5282356f0324b9580af980e"
+      },
+      "reason": "Authorized correction of provisional body/raised-weapon decode fit caching and matching browser cache keys for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "bf86547c347d6895c321783c1586897e7710436547ab8d869c1746dc37946697"
+}
