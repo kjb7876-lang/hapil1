@@ -24,7 +24,7 @@ try{
  const manifestBases=['authorized-runtime-delta.json',...Array.from({length:35},(_,i)=>'authorized-runtime-extension'+(i?'-'+(i+1):'')+'.json')].map(file=>JSON.parse(fs.readFileSync(path.join(repo,'qa/rc133',file),'utf8')).base);
  assert.deepEqual([...required],manifestBases,'Every pinned base must be fetched on a shallow CI checkout');checks++;
  assert(Object.isFrozen(required));checks++;
- assert.equal(new Set(required).size,35);checks++;
+ assert.equal(new Set(required).size,36);checks++;
  const migration=require('../tools/rc133-preservation.cjs').verify(repo).report;
  for(const file of Object.keys(compatibility.revisions)){
   const chain=compatibility.verifyRuntimeOutputChain(repo,migration,file),current=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');
