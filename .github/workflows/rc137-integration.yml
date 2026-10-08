@@ -7,8 +7,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc137-integrated-${{ github.ref }}
-  cancel-in-progress: true
+  group: rc137-integrated-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   audit:
     runs-on: ubuntu-24.04

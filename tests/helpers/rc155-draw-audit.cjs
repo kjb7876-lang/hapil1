@@ -5,6 +5,8 @@ function installDrawAudit(){
  const original=CanvasRenderingContext2D.prototype.drawImage;
  CanvasRenderingContext2D.prototype.drawImage=function(image,...args){
   const bitmap=window.__RC155_BITMAP_CAPTURE__,cutins=window.__RC155_CUTIN_CAPTURE__;
+  const trace=window.__RC155_DRAW_TRACE__;
+  if(trace){const token=image?.egoTokenRC155??null,source=image?.src??null,same=this.canvas===document.querySelector('.game-stage canvas'),key=[same,token,source??'anonymous'].join('|');if(Object.hasOwn(trace.counts,key)||Object.keys(trace.counts).length<32)trace.counts[key]=(trace.counts[key]??0)+1;if((token||String(source).includes('ego-originals-'))&&trace.images.length<48)trace.images.push({token,source,onGameCanvas:same,width:this.canvas?.width,height:this.canvas?.height,alpha:this.globalAlpha});}
   if((bitmap||cutins)&&this.canvas===document.querySelector('.game-stage canvas')){
    const at=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current?.time;
    if(bitmap&&image?.egoTokenRC155&&bitmap.length<4096)bitmap.push({token:image.egoTokenRC155,at,crop:image.egoSourceRectRC155,source:image.src,onGameCanvas:true,alpha:this.globalAlpha});
