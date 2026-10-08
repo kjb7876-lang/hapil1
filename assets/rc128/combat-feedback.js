@@ -208,11 +208,10 @@
   m.effects=m.effects.filter(e=>t-e.born<e.duration).slice(-limit);
   ctx.save();
   try{
-   // Mobile displays the logical backing with CSS cover. Place the HUD in
-   // its visible crop after the two world views have been composited.
-   const touch=root.document?.documentElement?.classList?.contains('hapil-touch-v31366'),view=touch?root.__HAPIL_VIEWPORT_RC104__?.view?.(width,height):null;
-   if(view?.k>0)ctx.setTransform(canvas.width/1280/view.k,0,0,canvas.height/720/view.k,view.x*canvas.width/1280,view.y*canvas.height/720);
-   else ctx.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
+   // point() already projects through the visible world camera into CSS pixels.
+   // Match the actual displayed canvas; a second legacy cover transform would
+   // offset and stretch mobile impact/guard/removal cues relative to the actor.
+   ctx.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
    ctx.filter='none';ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.shadowBlur=0;
    ctx.lineCap='round';ctx.lineJoin='round';
    // Shake the composited picture by at most 1.3 CSS px. This does not move hitboxes.

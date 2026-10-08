@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "e7e12199914f0544a5405694d50efe057dee3360",
+  "baseTree": "9e917a0bd7bf27b470cad6ff242079bb5d72eec1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "92c046f5cd555602f9a4e0c52aff93d88643055374fa999451cb2484d16a4624",
+  "files": [
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "11815c57dca530a31f7fdf6652d067486b82cc65"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "4afd63330f61be3df733a31e2d6ce10a976be471",
+        "sha256": "951c963c7b05328ac12adcf60e03794c936ca22dfdbdb13cae1dd63f183567d0"
+      },
+      "reason": "Authorized CSS-pixel combat feedback alignment without changing transactions or physics for assets/rc128/combat-feedback.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c402e41e448dee13623a43abbfbbf532c283d005"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2e51c8f4cabdabeba3f275a5e4c010b714462ab9",
+        "sha256": "638078bbf1054175dd4b15c700b1638bec01919699fb6c61a928a5632e0224a6"
+      },
+      "reason": "Authorized CSS-pixel combat feedback alignment without changing transactions or physics for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "468bb535cd5450e1c53a46c28cbf17759fee0ac902b6f53a5b247a98b7af128c"
+}
