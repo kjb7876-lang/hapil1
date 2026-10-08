@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: '22'
       - name: Prepare Playwright runtime and read-only decoder
+        id: prepare_runtime
         shell: bash
         run: |
           set -euo pipefail
@@ -37,7 +38,47 @@ jobs:
           sudo apt-get install -y ffmpeg
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc137-evidence" >> "$GITHUB_ENV"
+      - name: Verify independent unpublished two-hero VFX trial
+        if: always() && !cancelled() && steps.prepare_runtime.outcome == 'success' && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc156-vfx-pilot-unit.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Preserve small original VFX trial PNG and metadata
+        id: vfx_trial_artifact
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-unpublished-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Report official VFX trial artifact identifiers
+        if: always() && steps.vfx_trial_artifact.outcome == 'success'
+        env:
+          VFX_TRIAL_ARTIFACT_ID: ${{ steps.vfx_trial_artifact.outputs.artifact-id }}
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),assert=require('assert/strict');
+          const row={runId:process.env.GITHUB_RUN_ID,artifactId:process.env.VFX_TRIAL_ARTIFACT_ID,sha:process.env.GITHUB_SHA};
+          assert.match(row.runId,/^\d+$/);assert.match(row.artifactId,/^\d+$/);assert.match(row.sha,/^[a-f0-9]{40}$/);
+          console.log('RC156_VFX_TRIAL_ARTIFACT',JSON.stringify(row));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'Unpublished two-hero original PNG trial: '+JSON.stringify(row)+'\n');
+          NODE
+
       - name: Verify exact runtime and native art transactions
+        if: ${{ always() && !cancelled() && steps.prepare_runtime.outcome == 'success' }}
         env:
           EXPECTED_SHA: ${{ github.sha }}
           RC137_PROFILE: ${{ matrix.profile }}
@@ -167,41 +208,3 @@ jobs:
           path: ${{ runner.temp }}/rc155-ego-comparison/
           if-no-files-found: error
           retention-days: 14
-
-      - name: Verify independent unpublished two-hero VFX trial
-        if: always() && !cancelled() && matrix.profile == 'pc' && matrix.round == 1
-        env:
-          EXPECTED_SHA: ${{ github.sha }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
-          test -z "$(git status --porcelain)"
-          node tests/chromium-sandbox-policy.cjs
-          command -v google-chrome
-          google-chrome --version
-          node tests/rc156-vfx-pilot-unit.cjs
-          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
-          test -z "$(git status --porcelain)"
-      - name: Preserve small original VFX trial PNG and metadata
-        id: vfx_trial_artifact
-        uses: actions/upload-artifact@v7
-        if: always() && matrix.profile == 'pc' && matrix.round == 1
-        with:
-          name: vfx-trial-unpublished-${{ github.sha }}
-          path: ${{ runner.temp }}/rc156-vfx-trial/
-          if-no-files-found: error
-          compression-level: 0
-          retention-days: 14
-      - name: Report official VFX trial artifact identifiers
-        if: always() && steps.vfx_trial_artifact.outcome == 'success'
-        env:
-          VFX_TRIAL_ARTIFACT_ID: ${{ steps.vfx_trial_artifact.outputs.artifact-id }}
-        run: |
-          node <<'NODE'
-          const fs=require('fs'),assert=require('assert/strict');
-          const row={runId:process.env.GITHUB_RUN_ID,artifactId:process.env.VFX_TRIAL_ARTIFACT_ID,sha:process.env.GITHUB_SHA};
-          assert.match(row.runId,/^\d+$/);assert.match(row.artifactId,/^\d+$/);assert.match(row.sha,/^[a-f0-9]{40}$/);
-          console.log('RC156_VFX_TRIAL_ARTIFACT',JSON.stringify(row));
-          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'Unpublished two-hero original PNG trial: '+JSON.stringify(row)+'\n');
-          NODE
