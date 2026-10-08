@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "base": "73a410daf5267fdf1ad2a9cdbaffd85afc407f09",
+  "baseTree": "c62535b1f318e740634f0502efe9f8f567b1feda",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6a56829b728ac365c0b11d2f105ee7b687583df22a27be0e362c579145c6386e",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "0dc43991586e75b81a8a8ad2f6ab83dcab0fed25"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "55ea5ea7ff8005620afa32a7496437b6f572bd4c",
+        "sha256": "a06ad2ebd4684ab3b54912a65eb6fd6830a7d5ae496a41a90769a542125b716e"
+      },
+      "reason": "EGO route/save/trait integration required for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "55b8a25269f857a3b1a888c9a4a4f04f6f1aeeb4"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "83bbc2aa742ca5b11570c337c5c6beb64f8e7d1b",
+        "sha256": "82735499fb5fae373c1efc8d5aafc77fd0302ce0f1242446dc758e1bf60ec38b"
+      },
+      "reason": "EGO route/save/trait integration required for assets/rc133/inner-final.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "399378d757eca375e4aacde63f362d4cd5d0d551"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "139ccbf0ec92c296be73b6892965bfbdd8262983",
+        "sha256": "b76579af16a74b95b5127e193ec11d0d9a969b0a78418593ed2a9f4bda47bf0a"
+      },
+      "reason": "EGO route/save/trait integration required for assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc155/ego-guardian.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "54010b833d6b21ab4b88198caad34d1ea98e9670",
+        "sha256": "f2717e53501030f6312b923887261ad88b299ab15e8323ae06cd610786b575d3"
+      },
+      "reason": "EGO route/save/trait integration required for assets/rc155/ego-guardian.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "fb5242789f817e939c9a8666277d5090b9e1d629"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c4eac06b22175840dc56e39a53cc912690d4b7a0",
+        "sha256": "afab38b35d46fb7e80e09eff82be161988af3d60d435788f496da99f9821aced"
+      },
+      "reason": "EGO route/save/trait integration required for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "49b9c98a659a908e621b499a35af36a53e80229772b48368f31c7ffbd2fb1a31"
+}

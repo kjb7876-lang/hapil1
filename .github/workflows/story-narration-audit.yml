@@ -42,6 +42,7 @@ on:
       - 'tests/rc142-*.cjs'
       - 'tests/rc143-*.cjs'
       - 'tests/rc153-*.cjs'
+      - 'tests/rc155-*.cjs'
       - 'qa/rc142/**'
       - 'tools/story-narration-release73-preservation.cjs'
       - 'tools/story-narration-release82-preservation.cjs'
@@ -211,7 +212,7 @@ jobs:
             dream) node tests/rc121-dream-regression-browser.cjs ;;
             death-dialog) node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
             topology) node tests/rc121-connected-topology-browser.cjs ;;
-            release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc142-gameplay-browser.cjs && node tests/rc142-movement-space-browser.cjs && node tests/rc142-persona-volley-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc155-ego-guardian-unit.cjs && node tests/rc142-gameplay-browser.cjs && node tests/rc142-movement-space-browser.cjs && node tests/rc142-persona-volley-browser.cjs ;;
           esac
       - name: Publish allowlisted test status only
         if: always()

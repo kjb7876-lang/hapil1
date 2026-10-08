@@ -90,7 +90,7 @@
   if(a?.id===ID&&a.hp<=0&&s.innerFinalRC133?.phase!=='complete'){
    const m=s.innerFinalRC133;
    if(!m.bossRevived&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
-   m.phase='complete';m.hp=0;m.awake=0;releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){root.__HAPIL_DEATH_BURN_RC144__?.emit(s,a);s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
+   m.phase='complete';m.hp=0;m.awake=0;if(m.entry==='cult-death')root.__HAPIL_EGO_GUARDIAN_RC155__?.confirmPersonaVictory(s,m);releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){root.__HAPIL_DEATH_BURN_RC144__?.emit(s,a);s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
   }
   return false;
  }

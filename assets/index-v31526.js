@@ -126750,6 +126750,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  const S=()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
  const U=()=>window.__HAPIL_SAMONG_POLICY_RC133__;
  const H=()=>window.__HAPIL_INNER_FINAL_RC133__;
+ const E=()=>window.__HAPIL_EGO_GUARDIAN_RC155__;
  const Duel=()=>window.__HAPIL_PERSONA_DUEL_RC134__;
  const D=()=>window.__HAPIL_DEVELOPER_MAPS_RC133__;
  const metrics={warps:0,warpCancelled:0,midbossAdded:0,removals:0};
@@ -126860,7 +126861,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  }
  function install(){
   if(installed)return true;
-  if(!window.__HAPIL_RC131_NATIVE_INSTALLED__||!window.__HAPIL_DANMAKU_HUD_RC129__?.installed||!window.__HAPIL_SAMONG_RC91__?.installed||!window.__HAPIL_RC95_NATIVE__)return false;
+  if(!window.__HAPIL_RC131_NATIVE_INSTALLED__||!window.__HAPIL_DANMAKU_HUD_RC129__?.installed||!window.__HAPIL_SAMONG_RC91__?.installed||!window.__HAPIL_RC95_NATIVE__||!E()?.version)return false;
   window.__HAPIL_ENEMY_CLASSES_RC137__?.install(N);
   const classCast137=Ei;Ei=function(s,a,...args){const C=window.__HAPIL_ENEMY_CLASSES_RC137__,packets=C?.count(s,a)??0,before=Object.fromEntries(['readyAt','patternReadyAt','bossCombatPatternReadyAtV31230','laserReadyAtRC94','bloodReadyRC16'].map(k=>[k,a?.[k]])),result=classCast137.call(this,s,a,...args);C?.castReuse(s,a,before);C?.followup(s,a,packets,p=>MONGSE_pushThemeProjectile3129(s,a,p));return result;};
   const classPattern137=MONGSE_spawnBossCombatPatternV31230;MONGSE_spawnBossCombatPatternV31230=function(s,a,...args){const C=window.__HAPIL_ENEMY_CLASSES_RC137__,packets=C?.count(s,a)??0,before=Object.fromEntries(['readyAt','patternReadyAt','bossCombatPatternReadyAtV31230','laserReadyAtRC94','bloodReadyRC16'].map(k=>[k,a?.[k]])),result=classPattern137.call(this,s,a,...args);C?.castReuse(s,a,before);C?.followup(s,a,packets,p=>MONGSE_pushThemeProjectile3129(s,a,p));return result;};
@@ -126882,7 +126883,35 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
    s.encounterWallUnlockAtV31227=0;
    return wasLocked||!!dialogue;
   }});
-  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){Duel()?.enforce(s);return frameStart.call(this,s,...args);};
+  const partyBuffs=window.__HAPIL_PARTY_BUFFS_V31322__;
+  if(partyBuffs&&!window.__HAPIL_EGO_PARTY_TRAITS_RC155__){
+   const nativeProviders=partyBuffs.providers,nativePower=partyBuffs.power,nativeTick=partyBuffs.tick;
+   const providerIds=s=>nativeProviders.call(partyBuffs,s),egoActive=s=>E().state(s).active===true;
+   const effectiveIds=s=>egoActive(s)?E().heroes.slice():providerIds(s);
+   window.__HAPIL_PARTY_BUFFS_V31322__=Object.freeze({...partyBuffs,
+    providers:effectiveIds,
+    power(s,target,critical,source){
+     const ids=providerIds(s),extra=E().additionalHeroTraits(egoActive(s),ids),party=window.__HAPIL_PARTY_V31322__,actor=source?.partySlotV31322?party?.actors?.find(a=>a.slotId===source.partySlotV31322):s,id=source?.heroId??s.activeHeroId;
+     let multiplier=nativePower.call(partyBuffs,s,target,critical,source);
+     if(extra.includes('hwando'))multiplier*=1.06;
+     if(extra.includes('gunner')&&ui(id))multiplier*=1.08;
+     if(extra.includes('lauren')&&(target?.boss||target?.midboss))multiplier*=1.08;
+     if(extra.includes('hunter')&&critical)multiplier*=1.08;
+     if(extra.includes('slayer')&&actor&&actor.hp<=actor.maxHp*.5)multiplier*=1.12;
+     return multiplier;
+    },
+    tick(s,dt,...args){
+     const result=nativeTick.call(partyBuffs,s,dt,...args);if(!egoActive(s)||!s||s.paused||s.pause||MONGSE_isEncounterLocked31226(s))return result;
+     const ids=providerIds(s),extra=E().additionalHeroTraits(true,ids),party=window.__HAPIL_PARTY_V31322__,step=Math.max(0,Math.min(.04,n(dt)));
+     if(extra.includes('seoha')){for(const key of ['Q','W','E'])if(n(s.cooldowns?.[key])>s.time)s.cooldowns[key]=Math.max(s.time,s.cooldowns[key]-step*.06);for(const a of party?.state===s?party.actors??[]:[])if(a.hp>0)for(let i=0;i<3;i++)a.skillReady[i]=Math.max(s.time,n(a.skillReady?.[i])-step*.06);}
+     if(extra.includes('michaela')){const actors=[s,...(party?.state===s?party.actors??[]:[])].filter(a=>a.hp>0&&(!a.slotId||!a.downUntil||a.downUntil<=s.time));for(const a of actors){if(a===s&&party?.status?.slots?.[0]?.down)continue;a.hp=Math.min(a.maxHp,a.hp+a.maxHp*.003*step);}}
+     return result;
+    }
+   });
+   const damageBase=MONGSE_limitHeroDamage31213;MONGSE_limitHeroDamage31213=function(actor,amount,source){const result=damageBase.call(this,actor,amount,source),party=window.__HAPIL_PARTY_V31322__,s=party?.state??S(),extra=E().additionalHeroTraits(egoActive(s),providerIds(s)),eligible=s&&(actor===s||party?.state===s&&(party.actors??[]).includes(actor));return eligible&&extra.includes('neon')?Math.max(0,n(result)*.92):result;};
+   window.__HAPIL_EGO_PARTY_TRAITS_RC155__=Object.freeze({installed:true,heroes:E().heroes,traits:E().traits,providers:effectiveIds,additional:(s)=>E().additionalHeroTraits(egoActive(s),providerIds(s))});
+  }
+  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){E()?.sync(s,N,window.__MONGSE_NARRATIVE_V395__);E()?.applyEnemyScaling(s);Duel()?.enforce(s);return frameStart.call(this,s,...args);};
   const viewport=window.__HAPIL_VIEWPORT_RC104__,camera=viewport.camera;viewport.camera=function(s,...args){return Duel()?.camera(s,viewport.view?.())??camera.call(this,s,...args);};
   const split=window.__HAPIL_PORTRAIT_SPLIT_RC108__;window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({...split,
    active:s=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.active(s),shouldRender:(canvas,s)=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.shouldRender(canvas,s),
@@ -126919,13 +126948,14 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
   const B=window.__HAPIL_RC86_BRIDGE__,save=B.serializeSave,norm=B.normalizeSave,restore=B.restoreEntry;
   const frame=B.renderFrame;B.renderFrame=function(canvas,s,cache,...args){bitmap.observe(canvas,cache);return frame.call(this,canvas,s,cache,...args);};
 
-  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.developerMapsRC133=D().clean(s.developerMapsRC133);result.innerFinalRC133=H().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
-  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.developerMapsRC133=D().clean(raw?.developerMapsRC133);if(result.developerMapsRC133)result.frontierZone=D().frontier(N);result.innerFinalRC133=H().clean(raw?.innerFinalRC133);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
-  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
+  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.developerMapsRC133=D().clean(s.developerMapsRC133);result.innerFinalRC133=H().snapshot(s);result.egoGuardianRC155=E().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
+  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.developerMapsRC133=D().clean(raw?.developerMapsRC133);if(result.developerMapsRC133)result.frontierZone=D().frontier(N);result.innerFinalRC133=H().clean(raw?.innerFinalRC133);result.egoGuardianRC155=E().migrate(raw);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
+  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);E().restore(s,raw?.egoGuardianRC155,raw);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
   const enemies=B.restoreEnemies;B.restoreEnemies=function(raw,...args){let result=enemies.call(this,raw,...args);const previous=new Map(result.map(a=>[a.id,a]));const roster=cleanEncounter(raw?.midbossEncounterRC133,raw?.zone);
    const rows=roster?.members??raw?.midbossRC133??[];if(roster)result=result.filter(a=>!a.midboss||a.visualOnly||a.friendly);
-   for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=authoredMidboss(raw.zone,previous.get(row.id));if(!source)continue;const a=Jr(source,raw.zone);Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});fissionIdentity(a,source,raw.zone,result.filter(a=>a.midboss).length);result.push(a);}return result;};
-  const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);if(s){delete s.midbossEncounterRC133;delete s.rc133WarpOwner;}if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;Duel()?.enforce(s);midpoint(s);foundation(s);return result;};
+   for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=authoredMidboss(raw.zone,previous.get(row.id));if(!source)continue;const a=Jr(source,raw.zone);Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});fissionIdentity(a,source,raw.zone,result.filter(a=>a.midboss).length);result.push(a);}const egoState={egoGuardianRC155:E().clean(raw?.egoGuardianRC155,raw),enemies:result};E().restoreScaling(egoState,raw?.egoGuardianRC155?.scaledActors);return result;};
+  const zoneClear=MONGSE_zoneCombatCleared;MONGSE_zoneCombatCleared=function(s,z=s?.zone,...args){const cleared=zoneClear.call(this,s,z,...args);E()?.observeClear(s,z,cleared);return cleared;};
+  const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);if(s){delete s.midbossEncounterRC133;delete s.rc133WarpOwner;E()?.onMapEntry(s,args[0]??s.zone,N,window.__MONGSE_NARRATIVE_V395__);}if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;Duel()?.enforce(s);midpoint(s);foundation(s);return result;};
   const gap=MONGSE_tickBossGapCharge31226;MONGSE_tickBossGapCharge31226=function(s,a,...args){if(a&&(a.boss||a.midboss)){a.gapChargeV31226=null;for(const key of ['pendingHits','impactQueue'])if(s?.[key]?.some(h=>h.sourceId===a.id&&h.gapChargeV31226))s[key]=s[key].filter(h=>h.sourceId!==a.id||!h.gapChargeV31226);if(a.activePattern==='gapChargeV31226')a.activePattern='';warp(s,a);return null;}return gap.call(this,s,a,...args);};
   const brain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(stationary(a)){pin(a,s);return {target:null,moveScale:0,speedScale:0};}return brain.call(this,s,a,...args);};
   const movement=ft;ft=function(zone,a,...args){const s=S();if(stationary(a)){pin(a,s);return {x:a.x,y:a.y};}const result=movement.call(this,zone,a,...args);return Duel()?.constrained(s,a)?Duel().position(a,result):result;};
