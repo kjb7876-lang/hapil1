@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "679f8d2d066142dd6e65b74a03590796c216b464",
+  "baseTree": "1fbbb5210fd98951d011dcc9840d9e3a89ff364e",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5ae43f820fbabe70cca92840203a1abd116dc0acfef3cb42d1e97613d7b66ce8",
+  "files": [
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "8b79a48b41fc32641cfb6097eff81e31e6c70cbf"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "738b9b9fc8c85187c2bd54394f3894efff479e5c",
+        "sha256": "605d86d312e6adbeea41eb5f0ccc09b045d6787901950fd98614f92f469da56f"
+      },
+      "reason": "Authorized editable native source synchronization with the preserved deployed bundle for assets/rc133/native-install.js.txt"
+    }
+  ],
+  "targetProtectedRowsSha256": "8c7eec1b6a07242220d86372e0db7116783d3476045611d6523c043fc293b3c1"
+}
