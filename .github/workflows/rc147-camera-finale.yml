@@ -32,6 +32,7 @@ on:
       - 'tests/rc142-gameplay-unit.cjs'
       - 'tests/rc134-persona-effects-browser.cjs'
       - 'tests/rc150-*.cjs'
+      - 'tests/rc154-cosmic-loader-unit.cjs'
       - 'tests/rc155-*.cjs'
       - 'tests/rc133-published-url.cjs'
       - 'tests/rc133-preservation-unit.cjs'
@@ -112,6 +113,7 @@ jobs:
             node tests/rc88-danmaku-rpg-browser.cjs
             node tests/rc75-ending-and-awakening.cjs
             node tests/rc133-preservation-unit.cjs
+            node tests/rc154-cosmic-loader-unit.cjs
             node tests/rc155-ego-guardian-unit.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-legacy" node tests/rc128-candidate.cjs
           fi
