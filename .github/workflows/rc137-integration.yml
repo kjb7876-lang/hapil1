@@ -143,7 +143,12 @@ jobs:
 
       - name: Capture independent raw comparison evidence
         if: always() && !cancelled() && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC137_PROFILE: pc
+        shell: bash
         run: |
+          set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs

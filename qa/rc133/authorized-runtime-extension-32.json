@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "538a6b87a6ac2ecef840a380a5aa871a736025b1",
+  "baseTree": "ec7612f616d3296d22dfa0a52b56c8a33d349045",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d55719022dd94b74d0ebd7b8a1e67c7f0067da0814494094394d27fc9748dfba",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d74e2617fe44e452b37c7099aba218e58365b910"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "830d6d9dd1bb0c802d2ef3f0f7455547241f639c",
+        "sha256": "438f974d43d9c8f3b205b2f442ee4379155d92a267191e352d5b4e4c9e7ab61f"
+      },
+      "reason": "Authorized exact raw ordnance source-catalog query and preserved native producer binding for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "65f547edcad8e4cd287d9712f15d7930656602e8"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "df316392597d78a1f4cf0f983963a7c25d33d388",
+        "sha256": "d04f9ef9e45a64e7589b0c168382c5b5fd3c8f90d28198a53e8e326b101c355c"
+      },
+      "reason": "Authorized exact raw ordnance source-catalog query and preserved native producer binding for assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "438cf7ec67ae2583afccd8a544380a127971c7e7"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6bd2cb595b210c377589050a19c9264352a53fa4",
+        "sha256": "b85ee94a41e060a202d29a7e051c8458b3e673bfe9887f78713f4988ec23f6e8"
+      },
+      "reason": "Authorized exact raw ordnance source-catalog query and preserved native producer binding for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "11d2dae2c3bf18da820b6ce7883f866797b605ce0dfe591092ac2b3caca35c5b"
+}
