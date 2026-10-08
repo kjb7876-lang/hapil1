@@ -2,7 +2,7 @@ name: RC137 exact integrated gameplay and art
 on:
   push:
     branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc151-mobile-a-visibility, codex/rc152-image-combat]
-    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc150-*.cjs', 'tests/story-narration-decoder-edges.cjs', 'tests/fixtures/story-narration-chrome-stable-v154.json', 'tests/rc152*', 'tests/rc153*', 'tests/rc154*', 'tests/rc155-*.cjs', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc133/published.cjs', 'qa/rc153/**', 'qa/rc137/**', 'tools/rc133-*.cjs', 'tools/rc154-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc150-*.cjs', 'tests/story-narration-decoder-edges.cjs', 'tests/fixtures/story-narration-chrome-stable-v154.json', 'tests/rc152*', 'tests/rc153*', 'tests/rc154*', 'tests/rc155-*.cjs', 'tests/rc156-*.cjs', 'qa/rc156/**', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc133/published.cjs', 'qa/rc153/**', 'qa/rc137/**', 'tools/rc133-*.cjs', 'tools/rc154-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -167,3 +167,41 @@ jobs:
           path: ${{ runner.temp }}/rc155-ego-comparison/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Verify independent unpublished two-hero VFX trial
+        if: always() && !cancelled() && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc156-vfx-pilot-unit.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Preserve small original VFX trial PNG and metadata
+        id: vfx_trial_artifact
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-unpublished-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Report official VFX trial artifact identifiers
+        if: always() && steps.vfx_trial_artifact.outcome == 'success'
+        env:
+          VFX_TRIAL_ARTIFACT_ID: ${{ steps.vfx_trial_artifact.outputs.artifact-id }}
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),assert=require('assert/strict');
+          const row={runId:process.env.GITHUB_RUN_ID,artifactId:process.env.VFX_TRIAL_ARTIFACT_ID,sha:process.env.GITHUB_SHA};
+          assert.match(row.runId,/^\d+$/);assert.match(row.artifactId,/^\d+$/);assert.match(row.sha,/^[a-f0-9]{40}$/);
+          console.log('RC156_VFX_TRIAL_ARTIFACT',JSON.stringify(row));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'Unpublished two-hero original PNG trial: '+JSON.stringify(row)+'\n');
+          NODE

@@ -22,6 +22,7 @@ const activeBranch = 'codex/rc152-image-combat';
 const chromeStableWorkflowFiles = [
   'tests/rc153-chrome-sandbox-smoke.cjs',
   'tests/rc155-ego-browser.cjs',
+  'tests/rc156-vfx-pilot-browser.cjs',
   'tests/rc153-combat-browser.cjs', 'tests/rc153-boundary-input-browser.cjs',
   'tests/rc153-portrait-composition-browser.cjs', 'tests/rc154-mobile-layout-browser.cjs',
   'tests/rc138-arena-browser.cjs', 'tests/rc152-image-browser.cjs', 'tests/rc137-audit-browser.cjs',
