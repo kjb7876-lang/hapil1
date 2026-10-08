@@ -43,6 +43,8 @@ on:
       - 'tests/rc143-*.cjs'
       - 'tests/rc153-*.cjs'
       - 'tests/rc155-*.cjs'
+      - 'tests/rc156-*.cjs'
+      - 'qa/rc156/**'
       - 'qa/rc142/**'
       - 'tools/story-narration-release73-preservation.cjs'
       - 'tools/story-narration-release82-preservation.cjs'

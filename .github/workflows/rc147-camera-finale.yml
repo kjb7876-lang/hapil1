@@ -34,6 +34,8 @@ on:
       - 'tests/rc150-*.cjs'
       - 'tests/rc154-cosmic-loader-unit.cjs'
       - 'tests/rc155-*.cjs'
+      - 'tests/rc156-*.cjs'
+      - 'qa/rc156/**'
       - 'tests/rc133-published-url.cjs'
       - 'tests/rc133-preservation-unit.cjs'
       - 'qa/rc133/published.cjs'
