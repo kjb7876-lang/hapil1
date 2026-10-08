@@ -88,6 +88,7 @@
   const m=state(s),route=canonicalRoute(narrative??root.__MONGSE_NARRATIVE_V395__,world),index=route.indexOf(zone),prior=m.currentZone;
   if(m.pendingTransformation){
    if(zone!==m.pendingFromZone&&index>=0){
+    if(!incrementDecimal(m.visitSerial))return {changed:false,transformed:false,advanced:false,reason:'visit-id-exhausted'};
     m.pendingTransformation=false;m.pendingFromZone=null;m.transformed=true;m.active=true;m.routeIndex=index;m.direction=-1;m.cycle=0;m.outerEndpointReached=false;m.clearCount=0;m.routeUnlocked=false;m.firstClearZone=null;m.routeZone=zone;m.currentZone=zone;m.traitsApplied=true;m.cutInSerial=Math.min(MAX,m.cutInSerial+1);m.cutInPending=true;
     if(!beginVisit(m)){m.active=false;m.transformed=false;m.pendingTransformation=true;m.pendingFromZone=prior;return {changed:false,transformed:false,advanced:false,reason:'visit-id-exhausted'};}
     s.egoGuardianNameRC155=NAME;s.egoGuardianTraitsRC155=compositeTraitSources([]);return {changed:true,transformed:true,advanced:false,from:prior,to:zone,routeIndex:index,direction:-1,visitId:m.currentVisitId};
@@ -101,6 +102,9 @@
   const confirmed=isExpected&&(passage(source,world)?(s.completedZones?.has?.(source)||source==='hub'||source==='village'):m.clearReadyVisitId===m.currentVisitId&&s.completedZones?.has?.(source));
   let advanced=false,flipped=false,wasRoot=false,cleared=null;
   if(confirmed){
+   // Reserve a serial before committing clear/direction/index so an exhausted
+   // saved counter cannot partially commit a route edge or difficulty increase.
+   if(!incrementDecimal(m.visitSerial))return {changed:false,transformed:false,advanced:false,reason:'visit-id-exhausted',from:prior,to:zone};
    if(!passage(source,world))cleared=markClear(s,m,source,m.currentVisitId);
    const previousIndex=m.routeIndex,previousDirection=m.direction;wasRoot=source==='dist00'&&previousIndex===0&&previousDirection===-1;
    m.direction=expected.direction;m.routeIndex=expected.index;m.routeZone=zone;flipped=previousDirection!==m.direction;

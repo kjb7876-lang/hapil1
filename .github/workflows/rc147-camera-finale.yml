@@ -115,6 +115,8 @@ jobs:
             node tests/rc133-preservation-unit.cjs
             node tests/rc154-cosmic-loader-unit.cjs
             node tests/rc155-ego-guardian-unit.cjs
+            node tests/rc155-ego-art-unit.cjs
+            node tests/rc155-combat-quality-unit.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-legacy" node tests/rc128-candidate.cjs
           fi
           test -z "$(git status --porcelain)"
