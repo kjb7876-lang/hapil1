@@ -38,6 +38,32 @@ jobs:
           sudo apt-get install -y ffmpeg
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc137-evidence" >> "$GITHUB_ENV"
+      - name: Capture independent EGO appearance regression PNGs
+        if: always() && !cancelled() && steps.prepare_runtime.outcome == 'success' && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc155-ego-art-unit.cjs
+          git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
+          RC156_APPEARANCE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-appearance" node tests/rc155-ego-browser.cjs
+      - name: Preserve small original EGO appearance PNGs
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-appearance-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-ego-appearance/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
       - name: Verify independent unpublished two-hero VFX trial
         if: always() && !cancelled() && steps.prepare_runtime.outcome == 'success' && matrix.profile == 'pc' && matrix.round == 1
         env:
@@ -96,6 +122,8 @@ jobs:
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc152-position-unit.cjs
           node tests/rc153-combat-unit.cjs
+          git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
+          node tests/rc156-runtime-quality-unit.cjs
           node tests/rc154-pack-visual-evidence-unit.cjs
           node tests/rc154-cosmic-loader-unit.cjs
           if test "$RC137_PROFILE" = portrait && test "$RC137_ROUND" = 1; then

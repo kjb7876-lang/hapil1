@@ -32362,6 +32362,13 @@ function Cn(e, t) {
     i = Math.max(0.001, Math.hypot(n, r));
   return { x: n / i, y: r / i };
 }
+// A zero component is a valid world direction, not a missing facing value.
+// Only a stationary or invalid pair falls back; this changes presentation only.
+function HAPIL_projectDirectionRC156(dx, dy, facing = 1) {
+  if (!Number.isFinite(dx) || !Number.isFinite(dy) || Math.hypot(dx, dy) < 1e-4)
+    return Cn(Number.isFinite(facing) && facing !== 0 ? facing : 1, 0);
+  return Cn(dx, dy);
+}
 function wn(e, t, n) {
   let r = Math.abs(e) + Math.abs(t) < 1e-4,
     i = Cn(r ? n : e, r ? 0 : t);
@@ -33899,7 +33906,7 @@ function Hn(e, t, n = !1, r = !1) {
     o = Math.sin(t * 3.2),
     s = e.facing || 1,
     c = r ? 1 : s,
-    l = Cn(e.dx || s, e.dy);
+    l = HAPIL_projectDirectionRC156(e.dx, e.dy, s);
   if (e.kind === `move`) {
     let i = Math.abs(a),
       o = Math.cos(e.phase ?? t * 11),
@@ -35371,7 +35378,7 @@ function MONGSE_bossCastPresentationTransform31211(e, t) {
             Math.max(0.01, r - n - MONGSE_holdSeconds31214),
         ),
       ),
-    o = Cn(e.attackDx || e.facing, e.attackDy);
+    o = HAPIL_projectDirectionRC156(e.attackDx, e.attackDy, e.facing);
   return {
     active: !0,
     phase: `release`,
@@ -35653,7 +35660,7 @@ function Yn(e, t, n, r, i, a = !1) {
     b =
       n.boss &&
       (String(n.activePattern ?? ``).includes(`염동`) || n.telekineticUntil > r),
-    x = Cn(n.moveDx || n.facing, n.moveDy),
+    x = HAPIL_projectDirectionRC156(n.moveDx, n.moveDy, n.facing),
     S = {
       scaleX: l,
       offsetX: f
@@ -35695,7 +35702,7 @@ function Yn(e, t, n, r, i, a = !1) {
       a = bn((r - n.attackImpactAt) / t),
       o = r < n.attackImpactAt ? xn(0, 1, i) : 1,
       s = r < n.attackImpactAt ? 0 : Sn(a),
-      c = Cn(n.attackDx || n.facing, n.attackDy),
+      c = HAPIL_projectDirectionRC156(n.attackDx, n.attackDy, n.facing),
       u = -o * (n.boss ? 4 : n.midboss ? 3.2 : 2.5),
       d = n.boss ? 13 : n.midboss ? 10 : g ? 5 : 8,
       f = r < n.attackImpactAt ? 0 : (1 - s) * d,
@@ -37025,7 +37032,7 @@ function $n(e, t, n, r, i) {
       te,
       T,
     ),
-    oe = Cn(te.dx || te.facing, te.dy);
+    oe = HAPIL_projectDirectionRC156(te.dx, te.dy, te.facing);
   (C.push({
     depth: t.x + t.y + 0.02,
     draw: () => {
@@ -127102,7 +127109,11 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
 
 /* RC153_NATIVE_COMBAT: finalize complete native emissions before warning/travel. */
 (()=>{'use strict';let tries=0;function install(){const L=window.__HAPIL_COMBAT_LAYOUT_RC153__;if(!L||!window.__HAPIL_NATIVE_ARENA_RC138__?.installed)return false;
- L.bind({project:G,paintEnvelope:(s,a,isHero)=>window.__HAPIL_BITMAP_NATIVE_RC133__?.paintEnvelope?.(s,a,isHero),ranked:window.__HAPIL_DANMAKU_V31316__.rankedRows().map(r=>r.actor.id),size:a=>Ge(a.kind,!!a.boss,!!a.midboss,!!a.elite,a.scale)*MONGSE_phaseScale(a)*(a.boss?1.1:1)*(window.__HAPIL_BOSS_CLONE_VISUAL_V314RC9__?.prepareCloneVisual(a)??1)});
+ const controls=window.__HAPIL_CONTROLS_V31329__;let renderState=null;
+ L.bind({project:G,paintEnvelope:(s,a,isHero,unscaled)=>window.__HAPIL_BITMAP_NATIVE_RC133__?.paintEnvelope?.(s,a,isHero,unscaled),mapWidth:s=>{const path=N[s?.zone]?.map,im=controls.binding.cache.current[path];return im?.complete&&im.naturalWidth>0?Math.min(1584,990*im.naturalWidth/im.naturalHeight):1584;},ranked:window.__HAPIL_DANMAKU_V31316__.rankedRows().map(r=>r.actor.id),size:a=>Ge(a.kind,!!a.boss,!!a.midboss,!!a.elite,a.scale)*MONGSE_phaseScale(a)*(a.boss?1.1:1)*(window.__HAPIL_BOSS_CLONE_VISUAL_V314RC9__?.prepareCloneVisual(a)??1)});
+ const nativeActor=Yn;Yn=function(ctx,cache,a,...args){const s=a?.rc156PresentationState??renderState??controls.binding.state.current,factor=a?.rc156EnvelopeProbe?1:(L.actorScale?.(s,a)??1);if(factor===1)return nativeActor.call(this,ctx,cache,a,...args);const foot=G(a.x,a.y);ctx.save();try{ctx.translate(foot.x,foot.y);ctx.scale(factor,factor);ctx.translate(-foot.x,-foot.y);return nativeActor.call(this,ctx,cache,a,...args);}finally{ctx.restore();}};
+ const nativeFrame=$n;$n=function(canvas,s,...args){const prior=renderState;renderState=s;try{return nativeFrame.call(this,canvas,s,...args);}finally{renderState=prior;}};
+ const nativeTorso=MONGSE_enemyTorsoOffset;MONGSE_enemyTorsoOffset=function(a,...args){const offset=nativeTorso.call(this,a,...args),factor=a?.rc156EnvelopeProbe?1:(L.actorScale?.(a?.rc156PresentationState??renderState??controls.binding.state.current,a)??1);return factor===1?offset:{x:offset.x*factor,y:offset.y*factor};};
  const wrap=fn=>function(s,...args){const result=fn.call(this,s,...args);L.scatter(s);return result;};Ei=wrap(Ei);bi=wrap(bi);MONGSE_spawnBossCombatPatternV31230=wrap(MONGSE_spawnBossCombatPatternV31230);MONGSE_spawnThemeOrdnanceKind3129=wrap(MONGSE_spawnThemeOrdnanceKind3129);MONGSE_tickBossThemeOrdnance=wrap(MONGSE_tickBossThemeOrdnance);
- const controls=window.__HAPIL_CONTROLS_V31329__,frame=controls.frameStart;controls.frameStart=function(s,...args){L.scatter(s);return frame.call(this,s,...args);};window.__HAPIL_NATIVE_COMBAT_RC153__=Object.freeze({installed:true,version:'RC153'});return true;}
+ const frame=controls.frameStart;controls.frameStart=function(s,...args){L.scatter(s);return frame.call(this,s,...args);};window.__HAPIL_NATIVE_COMBAT_RC153__=Object.freeze({installed:true,version:'RC153'});return true;}
  function ready(){if(install()||++tries>=1200)return;setTimeout(ready,20);}ready();})();
