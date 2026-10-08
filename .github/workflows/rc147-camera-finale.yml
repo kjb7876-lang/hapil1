@@ -44,8 +44,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc147-camera-finale-${{ github.ref }}
-  cancel-in-progress: true
+  group: rc147-camera-finale-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   native-browser:
     runs-on: ubuntu-24.04

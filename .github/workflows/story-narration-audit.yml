@@ -76,8 +76,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: story-narration-${{ github.ref }}
-  cancel-in-progress: true
+  group: story-narration-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   published-audio:
     if: github.ref == 'refs/heads/main'
