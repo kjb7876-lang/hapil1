@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "c589b854acb58a71dd255d5b58a6b3207ed80e84",
+  "baseTree": "30ed4d5aeaf3522d32cf7354b0bf616767f90b3f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "bb365419555049a1a30f74f10806285976dea3bd66e5e65fee905513a4e05d64",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "9fc62bf65d9cfd5efddf1bb15be058a32377b907"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2e7cfe0c1eb9eabd0f5872d5004c82dda302c3bc",
+        "sha256": "2db1cd85c7d1063c734cab33ed2aed22d37a3d9e3dc554aef8aac05ee920639f"
+      },
+      "reason": "Authorized exact per-owner legacy ordnance catalog and source skill diagnostics for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc155/combat-provenance.js",
+      "before": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "5830e83dd8f2d07c1ecea2b5dfe4e3f6b9ed1d72"
+      },
+      "after": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "60b712de8724a4a88664fff98a127136e63cacfa",
+        "sha256": "ee2511431436e5b38dfc2c7dda6bead37721a06d50af17e780a6727c13cadb60"
+      },
+      "reason": "Authorized exact per-owner legacy ordnance catalog and source skill diagnostics for assets/rc155/combat-provenance.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cd43ceb7fcb7a3b8fa89056fc079ce14aaabec05"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "19870d0c006c4e4da2a51e0031db44c387dff08c",
+        "sha256": "f96ddbeb714668dcf7efa2ade4207cb2a814d71e6e1a2cd0ac7b7134bc7944db"
+      },
+      "reason": "Authorized exact per-owner legacy ordnance catalog and source skill diagnostics for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "f3e5878cb760280a4f75d25e27cf0f69334be68bfdb2c72903c49b8b23dee8b8"
+}

@@ -83,10 +83,6 @@ jobs:
           node tests/rc155-ego-art-unit.cjs
           node tests/rc155-combat-quality-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/ego" node tests/rc155-ego-browser.cjs
-          if test "$RC137_PROFILE" = pc && test "$RC137_ROUND" = 1; then
-            git fetch --no-tags origin 73a410daf5267fdf1ad2a9cdbaffd85afc407f09
-            RC155_COMPARE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc155-ego-comparison" node tests/rc155-ego-browser.cjs
-          fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/arena" node tests/rc138-arena-browser.cjs
           git fetch --no-tags origin c7bc9e7d97c4b961987049c656fe624b463e0a58
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc152-image" node tests/rc152-image-browser.cjs
@@ -144,6 +140,19 @@ jobs:
           name: rc137-${{ github.sha }}-${{ matrix.profile }}-${{ matrix.round }}
           path: ${{ runner.temp }}/rc137-evidence/
           retention-days: 14
+
+      - name: Capture independent raw comparison evidence
+        if: always() && !cancelled() && matrix.profile == 'pc' && matrix.round == 1
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc155-ego-guardian-unit.cjs
+          node tests/rc155-ego-art-unit.cjs
+          git fetch --no-tags origin 73a410daf5267fdf1ad2a9cdbaffd85afc407f09
+          RC155_COMPARE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc155-ego-comparison" node tests/rc155-ego-browser.cjs
 
       - name: Upload small raw EGO before-after evidence
         uses: actions/upload-artifact@v7
