@@ -55,6 +55,7 @@ jobs:
           git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
           git fetch --no-tags origin 03ddd7159c20c1d9610c07dbd3f70ee94a1f9e37
           RC156_SOURCE_CLIP=1 RC156_APPEARANCE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-appearance" node tests/rc155-ego-browser.cjs
+          node tests/rc156-motion-unit.cjs
           RC156_MOTION=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-motion" node tests/rc155-ego-browser.cjs
       - name: Preserve small original EGO appearance PNGs
         uses: actions/upload-artifact@v7

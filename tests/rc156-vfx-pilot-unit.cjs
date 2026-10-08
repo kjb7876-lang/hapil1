@@ -92,6 +92,7 @@ ok(!browser.includes('clock.fastForward(')&&!browser.includes('cancelAnimationFr
 ok(browser.indexOf('await page.clock.pauseAt(new Date(CLOCK_START+1000))')<browser.indexOf("await bootReadiness(page,scene.name+"),'each controlled context pauses before navigation/native callbacks');
 ok(browser.includes('await page.clock.runFor(16)')&&browser.includes('Date.now()+60000'),'boot explicitly fires every due callback within the original real-time budget');
 ok(!browser.includes('CLOCK_FIXTURE'),'no one-hour pauseAt jump coalesces native companion bootstrap');
+ok(browser.includes('window.__RC156_RESET_SEED__();});await page.addInitScript(installDrawAudit)'),'original native UI/bootstrap RNG is seeded before any trial is installed');ok(browser.indexOf("console.log('RC156_PRE_TRIAL_NATIVE'")<browser.indexOf('const P=__HAPIL_VFX_PILOT_RC156__.create('),'pre-trial native party serial is recorded before either presentation variant');
 ok(browser.includes('party:record.launch.stages.at(-1).party'),'strict launch comparison includes unchanged native companion state');
 ok(browser.includes("'native paired frame clock or combat RNG diverged'"),'actual browser preserves exact frame and RNG equality in addition to full contact equality');
 async function continuationChecks(){
