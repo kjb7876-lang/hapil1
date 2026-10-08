@@ -41,6 +41,36 @@ for(const kind of ['move','attack','dash','idle','hurt'])for(const [dx,dy]of [[1
 ok(!browser.includes("filter(d=>String(d.src).includes('/hero_direction'))"),'browser draw audit follows selected native source rather than a legacy folder');
 ok(browser.indexOf('report.directions.push(')<browser.indexOf("'directional native source/frame/flip/pivot missing:"),'failing directional rows are retained before their assertion');
 ok(browser.indexOf('report.pairs.push(pair)')<browser.indexOf('const ready=await enterCombatThroughNativeUI(page,scene,variant)'),'partial pair evidence survives later assertion failures');
+// The real native color context unwraps __rawHeroContextV31364. A plain paint
+// proxy accidentally exposed that raw canvas and the original bitmap escaped.
+const styleStart=bundle.indexOf(' function context(ctx,id,cloth=false){'),styleEnd=bundle.indexOf('\n function queue(s)',styleStart),styleVM={has:()=>true,views:new WeakMap(),meta:new WeakMap(),tinted:im=>im,ink:c=>c};
+ok(styleStart>=0&&styleEnd>styleStart,'actual native color-context source boundaries');vm.createContext(styleVM);vm.runInContext(bundle.slice(styleStart,styleEnd)+';this.style=context;',styleVM);
+for(const hero of ['hwando','gunner'])for(const enabled of [false,true]){
+ let bitmapPaints=0,nativeCalls=0;const raw={...ctx,drawImage(){bitmapPaints++;}},state=fixture(hero),before=JSON.stringify(state),trial=create({...adapter(),enabled}),styled=styleVM.style(raw,hero);
+ trial.drawEffect(view=>{nativeCalls++;styleVM.style(view,hero).drawImage({src:'native.png'});return 'native-return';},styled,{},state.effects[0],100.3,{},state);
+ eq(bitmapPaints,enabled?0:1,'real native style unwrapping cannot escape admitted trial paint proxy '+hero+' '+enabled);
+ eq(trial.snapshot(state).totals.mutedBitmaps,enabled?1:0,'actual attempted native bitmap is recorded separately from visible flight');
+ eq(nativeCalls,1,'real style dispatch still executes exactly once');eq(JSON.stringify(state),before,'native style dispatch preserves authoritative combat state');
+ eq(trial.snapshot(state).totals.flights>0,enabled,'admitted trial still paints the weapon-aligned flight');
+}
+// Reproduce the actual resized-canvas contract: native tint canvases retain
+// original naturalWidth/Height metadata, but drawImage uses their backing size.
+const auditStart=browser.indexOf('function installDrawAudit(){'),auditEnd=browser.indexOf('\nasync function png(',auditStart),auditScope={document:{querySelector:()=>stageCanvas},window:{__RC156_PAINTS__:[]},HTMLCanvasElement:class {},CanvasRenderingContext2D:class {drawImage(){this.nativeCalls=(this.nativeCalls??0)+1;}getTransform(){return{...matrix};}}};
+const stageCanvas={};vm.createContext(auditScope);vm.runInContext(browser.slice(auditStart,auditEnd)+';installDrawAudit();',auditScope);
+const tintedCanvas=new auditScope.HTMLCanvasElement();Object.assign(tintedCanvas,{width:1400,height:700,naturalWidth:1774,naturalHeight:887,src:'http://127.0.0.1:1/assets/hero-authored-v314rc5/hwando-walk-atlas.png?v=1'});
+const painted=new auditScope.CanvasRenderingContext2D();painted.canvas=stageCanvas;painted.globalAlpha=1;painted.drawImage(tintedCanvas,1050.3945885005637,350.3945885005637,349.60541149943634,349.60541149943634,-39.61788617886179,-71.54471544715447,79.23577235772358,79.23577235772358);
+const observed=JSON.parse(JSON.stringify(auditScope.window.__RC156_PAINTS__[0]));eq(observed.imageSize,[1400,700],'actual tint raster dimensions are independent of native source metadata');eq(observed.declaredNaturalSize,[1774,887],'original image dimension metadata is retained for diagnosis');eq(painted.nativeCalls,1,'draw observer still executes native paint exactly once');
+const resizedRow={hero:'hwando',kind:'move',pose:{path:'./assets/hero_direction334/hwando/e.webp',options:{canonicalHeroRC5:{hero:'hwando',kind:'move',dir:'right',sheet:'walk',frame:7}}},body:{path:tintedCanvas.src,area:10},projectedInput:{x:1,y:0},authored:{path:'./assets/hero-authored-v314rc5/hwando-walk-atlas.png',direction:'right',state:{sheet:'walk',frame:7},feet:[441,442,442,441,402,400,401,400],imageSize:[1774,887]},draws:[observed]};
+eq(evidence.inspect(resizedRow,'http://127.0.0.1:1/').status,'passed','real resized frame7 source cell and measured400px foot remain exact');resizedRow.draws[0].imageSize=[1774,887];eq(evidence.inspect(resizedRow,'http://127.0.0.1:1/').status,'failed','the old declared-size assumption reproduces the atlas-cell false failure');
+// Execute the real stationary pin plus the exact QA staging helper. Resetting
+// x/y alone leaves its cached old anchor free to overwrite those coordinates.
+const stageBridgeStart=browser.indexOf('const bridge='),stageBridgeEnd=browser.indexOf('\nconst mime=',stageBridgeStart),bridgeScope={};vm.runInNewContext(browser.slice(stageBridgeStart,stageBridgeEnd)+';this.value=bridge;',bridgeScope);
+const pinStart=bundle.indexOf(' function pin(a,s=S())'),pinEnd=bundle.indexOf('\n',pinStart),apply=/function MONGSE_applyPositionRC152\(actor,point\)\{[^\n]+\}/.exec(bundle)?.[0],stageVM={window:{__HAPIL_BATTLE_ARENA_RC138__:{applyPosition:()=>false}},F:[],N:{},S:()=>({}),stationary:()=>true,Duel:()=>null,H:()=>null};
+ok(pinStart>=0&&pinEnd>pinStart&&apply,'actual stationary pin and atomic position helper boundaries');stageVM.window=Object.assign(stageVM,stageVM.window);vm.createContext(stageVM);vm.runInContext(apply+bundle.slice(pinStart,pinEnd)+bridgeScope.value,stageVM);
+for(const [x,y]of [[22.968019524202912,14.985409739070793],[22.967881702778374,14.985457859402931]]){
+ const target={id:'c104-boss',x:23,y:15,hp:100,rc133Anchor:{x,y},moveVx:.02,moveVy:-.04,movingUntil:101},state={x:13.8,y:24.2,time:100,enemies:[target],moveVx:1,moveVy:-1};stageVM.pin(target,state);eq([target.x,target.y],[x,y],'actual native pin reproduces retained pre-comparison target coordinates');
+ const restored=stageVM.__RC156_QA__.stageFixedPositions(state);stageVM.pin(target,state);eq([target.x,target.y],[23,15],'same fixture spawn and its native stationary anchor stay aligned');eq([state.moveVx,state.moveVy,target.moveVx,target.moveVy],[0,0,0,0],'disclosed stationary fixture resets retained movement consistently');eq(target.hp,100,'staging does not alter target HP');eq(restored.before.target.anchor.x,x,'original cached anchor is recorded before fixture synchronization');
+}
 const workflow=fs.readFileSync(path.join(__dirname,'../.github/workflows/rc137-integration.yml'),'utf8'),trialAt=workflow.indexOf('- name: Verify independent unpublished two-hero VFX trial'),mandatoryAt=workflow.indexOf('- name: Verify exact runtime and native art transactions');
 ok(trialAt>=0&&trialAt<mandatoryAt,'minimum independent trial runs before long mandatory matrix checks');
 ok(workflow.slice(mandatoryAt,mandatoryAt+240).includes("always() && !cancelled() && steps.prepare_runtime.outcome == 'success'"),'a trial failure cannot skip prepared mandatory matrix checks');
