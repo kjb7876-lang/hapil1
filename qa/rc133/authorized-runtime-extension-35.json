@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "0955df81c0d335c1b99787a3f3114e99dbab31c0",
+  "baseTree": "b5f45cb2804718256bf9faa362371798b80d1d2a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "8a3239ca382bb81f533fdbcc1dfc1380f70e1609fad93852cfce93e2c5f40041",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "27e425c7dc9ab7705c4f0d88c63256f64120deae"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "02815be3f7920b1ea761e5f5d1718220311b1fb1",
+        "sha256": "66ba38e0b7cd874c263f3b58892dcc0195d5a255ef816038f86d421c0a324457"
+      },
+      "reason": "Authorized authenticated EGO crop selection before legacy raster fallback for assets/index-v31526.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "755ada156b930fcacba0298d9ea91713a524241e"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "0c13d638a75a27bc5869b0de17d327e2e775de4c",
+        "sha256": "cf5e0fdc347d31e5dfc499156ad9235f55da625201a20138f8738af6b9841601"
+      },
+      "reason": "Authorized authenticated EGO crop selection before legacy raster fallback for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "14450503f64d8494b2f1b0e64d315e9d02e6a66c7460a59f9a81f1dd85d0a6c8"
+}

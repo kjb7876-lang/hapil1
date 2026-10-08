@@ -104595,8 +104595,15 @@ if (typeof window !== "undefined") {
   }
 
   function chooseDecoded(cache, candidates, role = "effect") {
-    for (const path of uniquePaths(candidates)) {
-      const image = queueImageIntegrity(cache, path, "eager");
+    for (const path of new Set(candidates ?? [])) {
+      // EGO crops are authenticated decoded canvases, not URL strings. Keep
+      // candidate order and normal raster retry policy without filtering a
+      // valid authored crop into an unrelated legacy skill fallback.
+      const ego = window.__HAPIL_EGO_ART_RC155__;
+      const authored = ego?.owns(path) ? ego.picture(path) : null;
+      const image = authored ?? (isImagePath(path)
+        ? queueImageIntegrity(cache, path, "eager")
+        : null);
       if (!isDecoded(image)) continue;
       lastGoodByRole.set(role, path);
       return Object.freeze({ path, image, role });
