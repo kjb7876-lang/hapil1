@@ -100,7 +100,9 @@ jobs:
           command -v google-chrome
           google-chrome --version
           node tests/rc153-chrome-sandbox-smoke.cjs
+          git fetch --no-tags origin fd4478c224848f85c354049b6e22c33aa41d5b0b
           node tests/rc156-vfx-pilot-unit.cjs
+          node tests/rc156-vfx-video-unit.cjs
           node tests/rc156-boot-audit-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
           test -z "$(git status --porcelain)"
@@ -114,6 +116,26 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 14
+      - name: Preserve small VFX motion and source-frame metadata
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-motion-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial-motion/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Preserve complete original VFX video-source PNGs
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-rawframes-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial-rawframes/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
       - name: Report official VFX trial artifact identifiers
         if: always() && steps.vfx_trial_artifact.outcome == 'success'
         env:
