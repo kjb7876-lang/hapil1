@@ -14,20 +14,34 @@ async function collect(page,{fixture,capture,label,report,fullViewport=false}){
    const C=__HAPIL_CONTROLS_V31329__,s=C.binding.state.current;C.setMode('manual');C.binding.actions.dismiss();
    delete s.practicePatternV31365;s.paused=false;s.invulnerableUntil=s.time+99;
    window.__RC155_BITMAP_CAPTURE__=[];window.__RC156_MOTION_ROWS__=[];window.__RC156_MOTION_ACTIVE__=true;
-   window.__RC156_MOTION_OBSERVATION__={frames:0,observed:{move:0,attack:0,other:0},retained:{move:0,attack:0,other:0},first:null,violations:[]};
+   window.__RC156_MOTION_OBSERVATION__={frames:0,samples:0,observed:{move:0,attack:0,other:0},retained:{move:0,attack:0,other:0},first:null,violations:[]};
    const epoch=window.__RC156_MOTION_EPOCH__=(window.__RC156_MOTION_EPOCH__??0)+1;
-   function sample(){if(!__RC156_MOTION_ACTIVE__||epoch!==__RC156_MOTION_EPOCH__)return;
+   function observe(cause,input=null){if(!__RC156_MOTION_ACTIVE__||epoch!==__RC156_MOTION_EPOCH__)return;
     const s=__HAPIL_CONTROLS_V31329__.binding.state.current,canvas=document.querySelector('.game-stage canvas'),A=__HAPIL_EGO_ART_RC155__,frame=A.selected(s,s.heroMotion),body=__HAPIL_BITMAP_NATIVE_RC133__.body(s,s,true);
-    const row={time:s.time,world:{x:s.x,y:s.y},motion:s.heroMotion?{...s.heroMotion}:null,frame,body,camera:__RC155_QA__.camera(s),viewport:__HAPIL_VIEWPORT_RC104__.view(),projectedFoot:__RC155_QA__.project(s.x,s.y),scroll:{x:scrollX,y:scrollY},canvas:canvas.getBoundingClientRect().toJSON(),lastDraw:(__RC155_BITMAP_CAPTURE__??[]).filter(r=>r.token==='ego155:'+frame?.kind+':'+frame?.index).at(-1)??null},observation=__RC156_MOTION_OBSERVATION__,bucket=['move','attack'].includes(row.motion?.kind)?row.motion.kind:'other';
-    observation.frames++;observation.observed[bucket]++;observation.first??={camera:{...row.camera},scroll:{...row.scroll}};
+    const row={cause,input,time:s.time,world:{x:s.x,y:s.y},motion:s.heroMotion?{...s.heroMotion}:null,frame,body,camera:__RC155_QA__.camera(s),viewport:__HAPIL_VIEWPORT_RC104__.view(),projectedFoot:__RC155_QA__.project(s.x,s.y),scroll:{x:scrollX,y:scrollY},canvas:canvas.getBoundingClientRect().toJSON(),lastDraw:(__RC155_BITMAP_CAPTURE__??[]).filter(r=>r.token==='ego155:'+frame?.kind+':'+frame?.index).at(-1)??null},observation=__RC156_MOTION_OBSERVATION__,bucket=['move','attack'].includes(row.motion?.kind)?row.motion.kind:'other';
+    observation.samples++;if(cause==='raf')observation.frames++;observation.observed[bucket]++;observation.first??={camera:{...row.camera},scroll:{...row.scroll}};
     const first=observation.first;if(!(Math.abs(row.camera.x-first.camera.x)<.001&&Math.abs(row.camera.y-first.camera.y)<.001&&Math.abs(row.camera.scale-first.camera.scale)<.00001&&row.scroll.x===first.scroll.x&&row.scroll.y===first.scroll.y)&&observation.violations.length<8)observation.violations.push({time:row.time,camera:row.camera,scroll:row.scroll});
     // Keep the same180-row maximum, reserving60 rows for each actual native
     // motion bucket. A slow full-viewport screenshot cannot consume the entire
     // observation budget before A occurs. Camera/scroll are checked on EVERY
     // observed frame, including the frames omitted from the bounded report.
     if(observation.retained[bucket]<60){observation.retained[bucket]++;__RC156_MOTION_ROWS__.push(row);}
-    requestAnimationFrame(sample);
-   }requestAnimationFrame(sample);
+   }
+   function sample(){observe('raf');if(__RC156_MOTION_ACTIVE__&&epoch===__RC156_MOTION_EPOCH__)requestAnimationFrame(sample);}
+   // A can legitimately proc a skill before the next RAF. Record trusted DOM
+   // input and the real native executor's return, then retain the skill/RAF
+   // transition too. The observer does not disable the existing proc or RNG.
+   const restores=[];
+   const input=event=>{if(event.code!=='KeyA')return;const detail={code:event.code,trusted:event.isTrusted===true};
+    if(event.type==='keydown'){
+     const actions=__HAPIL_CONTROLS_V31329__.binding.actions,original=actions.attack;
+     const wrapped=function(...args){try{const value=original.apply(this,args);observe('native-A',detail);return value;}finally{if(actions.attack===wrapped)actions.attack=original;}};
+     actions.attack=wrapped;restores.push(()=>{if(actions.attack===wrapped)actions.attack=original;});
+    }observe('input:'+event.type,detail);
+   };
+   window.addEventListener('keydown',input,true);window.addEventListener('keyup',input,true);
+   window.__RC156_MOTION_STOP__=()=>{__RC156_MOTION_ACTIVE__=false;window.removeEventListener('keydown',input,true);window.removeEventListener('keyup',input,true);for(const restore of restores)restore();};
+   requestAnimationFrame(sample);
   });
   const snapshots=[],record={label,direction,keys,staged:true,status:'running',snapshots};(report.motion??=[]).push(record);async function snap(phase){
    const state=await page.evaluate(()=>{const rows=__RC156_MOTION_ROWS__,s=__HAPIL_CONTROLS_V31329__.binding.state.current,canvas=document.querySelector('.game-stage canvas'),r=canvas.getBoundingClientRect(),draws=__RC155_BITMAP_CAPTURE__,latest=draws.filter(d=>/ego155:(walk|attack):/.test(d.token)&&d.alpha>0).at(-1);if(!latest)throw Error('Native EGO motion frame was not painted');const d=latest.destination,pad=18,left=Math.max(0,r.x+d.left-pad),top=Math.max(0,r.y+d.top-pad),right=Math.min(innerWidth,r.x+d.right+pad),bottom=Math.min(innerHeight,r.y+d.bottom+pad);return{time:s.time,motion:s.heroMotion?{...s.heroMotion}:null,lastSample:rows.at(-1),lastDraw:latest,clip:{x:left,y:top,width:right-left,height:bottom-top}};});
@@ -44,13 +58,14 @@ async function collect(page,{fixture,capture,label,report,fullViewport=false}){
    await page.waitForTimeout(160);
    const evidence=await page.evaluate(()=>{__RC156_MOTION_ACTIVE__=false;const s=__HAPIL_CONTROLS_V31329__.binding.state.current;s.paused=true;s.practicePatternV31365={finished:true};const result={rows:__RC156_MOTION_ROWS__,observation:__RC156_MOTION_OBSERVATION__,draws:__RC155_BITMAP_CAPTURE__,transactions:__HAPIL_COMBAT_CORE_V31401__.snapshot(s).events};delete window.__RC155_BITMAP_CAPTURE__;return result;});
    const row=Object.assign(record,{launch,...evidence});
-   assert(row.rows.length>2,'actual native RAF motion samples missing');assert(row.rows.length<=180,'bounded native motion observer escaped its180-row budget');assert(row.rows.some(r=>r.motion?.kind==='move'),'actual input move state missing');assert(row.rows.some(r=>r.motion?.kind==='attack'),'actual A attack state missing: '+JSON.stringify({label,direction,observation:row.observation,launch,snapshots:snapshots.map(r=>({phase:r.phase,time:r.time,motion:r.motion,token:r.lastDraw?.token}))}));
+   assert(row.observation.frames>2,'actual native RAF motion samples missing');assert(row.rows.length<=180,'bounded native motion observer escaped its180-row budget');assert(row.rows.some(r=>r.cause==='raf'&&r.motion?.kind==='move'),'actual input move state missing');assert(row.rows.some(r=>r.motion?.kind==='attack'),'actual A attack state missing: '+JSON.stringify({label,direction,observation:row.observation,launch,snapshots:snapshots.map(r=>({phase:r.phase,time:r.time,motion:r.motion,token:r.lastDraw?.token}))}));
+   assert(row.rows.some(r=>r.input?.code==='KeyA'&&r.input.trusted),'actual trusted A DOM input transition missing');assert(row.rows.some(r=>r.cause==='native-A'),'actual native A executor transition missing');
    assert(row.draws.some(r=>r.token.startsWith('ego155:walk:')&&r.alpha>0)&&row.draws.some(r=>r.token.startsWith('ego155:attack:')&&r.alpha>0),'real walk-to-attack source switch missing');
    assert(row.draws.every(r=>r.destination.left>=-.01&&r.destination.top>=-.01&&r.destination.right<=r.destination.canvasWidth+.01&&r.destination.bottom<=r.destination.canvasHeight+.01),'native full source body/cloak/weapon crop escaped the canvas');
    const first=row.rows[0];assert(row.rows.every(r=>Math.abs(r.camera.x-first.camera.x)<.001&&Math.abs(r.camera.y-first.camera.y)<.001&&Math.abs(r.camera.scale-first.camera.scale)<.00001&&r.scroll.x===first.scroll.x&&r.scroll.y===first.scroll.y),'EGO motion changed fixed camera or DOM scroll');
    assert.deepEqual(row.observation.violations,[],'EGO motion changed fixed camera or DOM scroll on an omitted observation frame');
    record.status='passed';
-  }finally{record.finalState=await page.evaluate(()=>{const s=__HAPIL_CONTROLS_V31329__.binding.state.current;return{zone:s.zone,time:s.time,enemies:s.enemies.map(a=>({id:a.id,hp:a.hp})),rows:window.__RC156_MOTION_ROWS__??[],observation:window.__RC156_MOTION_OBSERVATION__??null,draws:window.__RC155_BITMAP_CAPTURE__??null,ledger:s.egoGuardianRC155};});record.finalState.draws??=record.draws??[];for(const key of keys)await page.keyboard.up(key);await page.evaluate(()=>{__RC156_MOTION_ACTIVE__=false;delete window.__RC155_BITMAP_CAPTURE__;});}
+  }finally{record.finalState=await page.evaluate(()=>{const s=__HAPIL_CONTROLS_V31329__.binding.state.current;return{zone:s.zone,time:s.time,enemies:s.enemies.map(a=>({id:a.id,hp:a.hp})),rows:window.__RC156_MOTION_ROWS__??[],observation:window.__RC156_MOTION_OBSERVATION__??null,draws:window.__RC155_BITMAP_CAPTURE__??null,ledger:s.egoGuardianRC155};});record.finalState.draws??=record.draws??[];for(const key of keys)await page.keyboard.up(key);await page.evaluate(()=>{window.__RC156_MOTION_STOP__?.();__RC156_MOTION_ACTIVE__=false;delete window.__RC155_BITMAP_CAPTURE__;});}
  }
 }
 module.exports={collect,capturePolicy};

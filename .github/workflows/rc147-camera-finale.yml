@@ -95,6 +95,7 @@ jobs:
           node --check assets/rc88/danmaku-rpg.js
           node --check qa/rc130/public-smoke.cjs
           node tests/rc133-published-url.cjs
+          node tests/rc156-camera-capture-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-cosmic" node tests/rc148-six-cosmic-perf-browser.cjs
