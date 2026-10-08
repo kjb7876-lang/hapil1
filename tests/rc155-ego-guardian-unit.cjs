@@ -2,6 +2,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const E=require('../assets/rc155/ego-guardian.js');
+const vm=require('node:vm');
 let checks=0;
 function ok(value,message){checks++;assert.ok(value,message);}
 function eq(actual,expected,message){checks++;assert.equal(actual,expected,message);}
@@ -47,6 +48,7 @@ const activeSave=E.snapshot(s),activeRestore=fresh();E.restore(activeRestore,act
 const first=progressOne(s);eq(first.from,'village','route leaves outer endpoint toward interior');eq(E.state(s).clearCount,0,'passage map does not count as combat clear');
 const current=E.state(s).routeZone;const beforeRetry=E.state(s).clearCount;const visitBeforeRetry=E.state(s).currentVisitId;
 eq(enter(s,current).advanced,false,'death restart on the same map cannot advance route');eq(E.state(s).currentVisitId,visitBeforeRetry,'same-map retry preserves one visit ID');eq(E.state(s).clearCount,beforeRetry,'same-map retry does not increase difficulty');
+const revivalWindow={__HAPIL_RC86_BRIDGE__:{modeApi:{installed:true},serializeSave(){return{};},normalizeSave(raw){return raw;},restoreEntry(){return true;},renderFrame(){return true;}},__HAPIL_DANMAKU_RPG_RC88__:{installed:true}};vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../assets/rc91/samong-awakening.js'),'utf8'),{window:revivalWindow,setTimeout:()=>0});const revival= fresh();E.restore(revival,E.snapshot(s),{zone:current});revival.zone=current;revival.hp=0;revival.gameModeV31346='DREAM';revival.samongUnlockedRC91=true;eq(revivalWindow.__HAPIL_SAMONG_RC91__.tryAutomaticRevival(revival),true,'native automatic Samong revival succeeds during an active EGO visit');eq(revival.hp,120,'native revival restores half maximum HP');eq(E.state(revival).currentVisitId,visitBeforeRetry,'revival preserves the exact current route visit ID');eq(E.state(revival).clearCount,beforeRetry,'revival does not increase cumulative difficulty');const revivedEntry=E.onMapEntry(revival,current,world,narrative);eq(revivedEntry.advanced,false,'same-map entry after native revival does not skip a route edge');eq(E.state(revival).currentVisitId,visitBeforeRetry,'same-map return after revival does not mint a new visit');
 const detourZone=current==='cult04'?'dist02':'cult04';const detour=enter(s,detourZone);eq(detour.advanced,false,'free revisit remains a detour outside EGO route');eq(s.freeRevisitPolicyV31226.allowAllUnlocked,true,'free-revisit policy remains unchanged');eq(E.state(s).clearCount,beforeRetry,'detour alone does not increase difficulty');
 const returnToRoute=enter(s,current);eq(returnToRoute.advanced,false,'returning from a free revisit does not skip a route node');eq(E.state(s).routeZone,current,'free revisit return preserves EGO route index');
 
