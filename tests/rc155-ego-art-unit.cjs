@@ -1,5 +1,5 @@
 'use strict';
-const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..'),Art=require('../assets/rc155/ego-art.js'),E=require('../assets/rc155/ego-guardian.js');let checks=0;
 const ok=(v,m)=>{checks++;assert.ok(v,m);},eq=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);};
 const expected=[['analysis_output_2_walk_dodge.png',1368283,'c29ca613f90f9d0beb43868db0e1f4074d9d2f87492502179eaa639e20bf33ab',[1774,404]],['analysis_output_1_attack.png',1537843,'93d4f9256d1e36b38ad1f44e3f0e0bfc418904c4011bd6b78f5fcf96ab16394b',[1774,456]],['916b1ac1-15ea-49dc-b3b0-f91ea1b8ef81.png',3357732,'526c4ec202505562204f0fd4614cf4f4c8494bfe4acf2ecd52f30a3e51f31724',[1536,1024]],['ego_samong_awaken_cutin.png',3414508,'f2b62df647f229d81578ac3ad945517d4797a5b5df1fa4497510a1f19c7c6c8e',[1024,1536]]];
@@ -19,6 +19,19 @@ for(let y=1;y<=5;y++)for(let x=1;x<=5;x++){if(x===1||x===5||y===1||y===5){const 
 eq(Art.clearMatte({data:rgba},7,7),24,'flood removes only edge-connected matte');eq(rgba[(3*7+3)*4+3],255,'enclosed black cloth stays opaque');eq(rgba[3],0,'outer background becomes transparent');eq(rgba[(1*7+1)*4+3],255,'red outline stays opaque');
 const native=fs.readFileSync(path.join(root,'assets/rc133/native-install.js.txt'),'utf8'),bundle=fs.readFileSync(path.join(root,'assets/index-v31526.js'),'utf8'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 for(const hook of ['Art()?.present(canvas,s)','Art()?.drawBody(ctx,path,x,y,size,o,G)','Art().withSkill(S(),e,()=>egoFx.call(this,ctx,cache,e,time,settings))','Art()?.assets()'])ok(native.includes(hook),'native transaction/presentation hook '+hook);
-ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=15510'),'normal runtime loads EGO art');
+ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=15512'),'normal runtime loads EGO art');
 const s={zone:'cult04'};E.recordPersonaVictory(s);eq(E.state(s).cutInPending,false,'victory frame does not start cut-in');eq(E.consumeCutIn(s),false,'untransformed victory cannot consume cut-in');
-console.log('RC155_EGO_ART_UNIT',JSON.stringify({status:'passed',checks,originals:expected.length,derivedPixelBytes:pixels*4,naturalPersonaVictoryVerified:false}));
+async function presentationChecks(){
+ class SourceImage{set src(value){this._src=value;this.complete=true;this.naturalWidth=value.includes('cutin')?1024:1774;this.naturalHeight=value.includes('cutin')?1536:456;this.onload?.();}get src(){return this._src;}}
+ const window={Image:SourceImage,document:{hidden:false},__HAPIL_EGO_GUARDIAN_RC155__:E,__HAPIL_ORIENTATION_PAUSE_RC152__:{paused:()=>false}};
+ vm.runInNewContext(fs.readFileSync(path.join(root,'assets/rc155/ego-art.js'),'utf8'),{window});const A=window.__HAPIL_EGO_ART_RC155__;await A.ensure({egoGuardianRC155:{active:true}});
+ for(const [w,h]of [[1280,900],[844,390],[667,300],[844,240]])for(const dpr of [1,2]){
+  const state={hp:240,time:100,egoGuardianRC155:{active:true,cutInPending:true,cutInSerial:1}},draws=[],stack=[];
+  const ctx={matrix:[dpr,0,0,dpr,0,0],filter:'brightness(2)',globalCompositeOperation:'multiply',globalAlpha:.5,save(){stack.push({matrix:this.matrix.slice(),filter:this.filter,globalCompositeOperation:this.globalCompositeOperation,globalAlpha:this.globalAlpha});},restore(){Object.assign(this,stack.pop());},setTransform(...args){this.matrix=args;},drawImage(im,x,y,width,height){draws.push({im,x,y,width,height,matrix:this.matrix.slice()});},fillRect(){},fillText(){},measureText:t=>({width:t.length*12})};
+  const canvas={width:1280*dpr,height:720*dpr,getContext:()=>ctx,getBoundingClientRect:()=>({width:w,height:h})};
+  ok(A.present(canvas,state),'cut-in presents on live CSS viewport');const image=draws[0],cssW=image.width*image.matrix[0]*w/canvas.width,cssH=image.height*image.matrix[3]*h/canvas.height;
+  ok(Math.abs(cssW/cssH-1024/1536)<1e-12,'original cut-in aspect survives backing/CSS/DPR '+w+'x'+h+'@'+dpr);ok(cssW<=w*.42+1e-8&&cssH<=h*.88+1e-8,'cut-in contains the complete original person');eq(ctx.matrix,[dpr,0,0,dpr,0,0],'cut-in restores the native drawing transform');eq(ctx.filter,'brightness(2)','cut-in has no filter leak');eq(ctx.globalCompositeOperation,'multiply','cut-in has no blend leak');eq(state.egoGuardianRC155.cutInPending,false,'actual draw consumes saved cut-in once');
+ }
+ const deferred={hp:240,time:100,egoGuardianRC155:{active:true,cutInPending:true,cutInSerial:1}};eq(A.present({width:1280,height:720,getContext:()=>({}),getBoundingClientRect:()=>({width:0,height:0})},deferred),false,'zero-area rotation frame defers presentation');eq(deferred.egoGuardianRC155.cutInPending,true,'zero-area frame cannot consume the cut-in');
+}
+presentationChecks().then(()=>console.log('RC155_EGO_ART_UNIT',JSON.stringify({status:'passed',checks,originals:expected.length,derivedPixelBytes:pixels*4,naturalPersonaVictoryVerified:false}))).catch(error=>{console.error(error);process.exitCode=1;});

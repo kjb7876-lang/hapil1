@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "4f0b6a7a43e049323e59bb22e9bb11a6b6a7584f",
+  "baseTree": "882b29fccc09eeafed2c5452098e6938380fcec1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f8d1ee758f530d24616a55614bd9c1c094ff5b7483161872c3db3181b818896f",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "e6cdda3ae1df0a6b3230d86f5c373d818a8b9819"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "8cf2320e547223bff788581ab35d6d5c10820356",
+        "sha256": "104d2560067cd572b5ae49bd7d208ac515be402e32b5559dee9f534c6b708774"
+      },
+      "reason": "Authorized fixed Persona pose framing, decoded bitmap invalidation and CSS-pixel cut-in aspect correction for assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "ad15bcebbbbbac6445d21614f84898c77feaa174"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "1eb4e5dd7cb6658411003fd36e9959f4e6f93e53",
+        "sha256": "ab193bc332018b0a0beb24413106935ba294da8694a30a69e5d9e7f74e3686f6"
+      },
+      "reason": "Authorized fixed Persona pose framing, decoded bitmap invalidation and CSS-pixel cut-in aspect correction for assets/rc155/ego-art.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ac20f1300f388b672634c420c140b9ee567546eb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a72244eb0e0eccb743f1f5a319672e67929468ec",
+        "sha256": "50a7b8d72b8f0cdfbda344fa8e043d560dbaece31f36690120c50106fb07a3e1"
+      },
+      "reason": "Authorized fixed Persona pose framing, decoded bitmap invalidation and CSS-pixel cut-in aspect correction for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "abd101cb9a89109690749e1952932af4850738ecc2d022002bd1393117cf82e2"
+}
