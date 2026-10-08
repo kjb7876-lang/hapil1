@@ -18,6 +18,17 @@ const rgba=new Uint8ClampedArray(7*7*4);for(let i=0;i<49;i++){rgba[i*4]=30;rgba[
 for(let y=1;y<=5;y++)for(let x=1;x<=5;x++){if(x===1||x===5||y===1||y===5){const i=(y*7+x)*4;rgba[i]=180;rgba[i+1]=40;rgba[i+2]=40;}}
 eq(Art.clearMatte({data:rgba},7,7),24,'flood removes only edge-connected matte');eq(rgba[(3*7+3)*4+3],255,'enclosed black cloth stays opaque');eq(rgba[3],0,'outer background becomes transparent');eq(rgba[(1*7+1)*4+3],255,'red outline stays opaque');
 const native=fs.readFileSync(path.join(root,'assets/rc133/native-install.js.txt'),'utf8'),bundle=fs.readFileSync(path.join(root,'assets/index-v31526.js'),'utf8'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+// Execute the native projection used by dash afterimages. The incomplete old
+// fixture produced NaN offsets, which Canvas ignores rather than translating
+// to the hero. This proves the fixture defect without weakening containment.
+const vectorStart=bundle.indexOf('function Cn(e, t) {'),vectorEnd=bundle.indexOf('\nfunction wn(',vectorStart),vectors={};
+ok(vectorStart>=0&&vectorEnd>vectorStart,'native world projection has explicit boundaries');
+vm.runInNewContext(bundle.slice(vectorStart,vectorEnd)+';this.project=Cn;',vectors);
+const incomplete={dx:0,dy:-1},invalid=vectors.project(incomplete.dx||incomplete.facing,incomplete.dy);
+ok(!Number.isFinite(invalid.x)&&!Number.isFinite(invalid.y),'missing native facing reproduces the invalid afterimage fixture');
+for(const kind of ['move','dash','attack'])for(const [dx,dy]of directions){const motion={kind,dx,dy,facing:dx-dy<0?-1:1},p=vectors.project(motion.dx||motion.facing,motion.dy);ok(Number.isFinite(p.x)&&Number.isFinite(p.y),'complete native fixture projects finite '+kind+' '+dx+','+dy);}
+const browserFixture=fs.readFileSync(path.join(root,'tests/rc155-ego-browser.cjs'),'utf8');
+ok(browserFixture.includes('dx,dy,facing:dx-dy<0?-1:1,phase:1000'),'all browser direction fixtures retain the native facing field');
 for(const hook of ['Art()?.present(canvas,s)','Art()?.drawBody(ctx,path,x,y,size,o,G)','Art().withSkill(S(),e,()=>egoFx.call(this,ctx,cache,e,time,settings))','Art()?.assets()'])ok(native.includes(hook),'native transaction/presentation hook '+hook);
 ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=15523'),'normal runtime loads EGO art');
 const s={zone:'cult04'};E.recordPersonaVictory(s);eq(E.state(s).cutInPending,false,'victory frame does not start cut-in');eq(E.consumeCutIn(s),false,'untransformed victory cannot consume cut-in');
