@@ -35,15 +35,18 @@ const accepted={
 const directory=fs.mkdtempSync(path.join(os.tmpdir(),'hapil-rc128-')),candidate=path.join(directory,'candidate');
 const report={commit:git('rev-parse','HEAD'),scope:'isolated candidate; staged browser fixtures and regressions are not full-campaign natural play',startedAt:new Date().toISOString(),status:'running',suites:[],files:{},protectedFiles:{}};
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));save();
+const stage=name=>{report.stage=name;(report.stages??=[]).push({name,at:new Date().toISOString()});save();console.log('RC128_PREPARATION_STAGE',JSON.stringify({commit:report.commit,name,at:report.stages.at(-1).at}));};
 try{
+ stage('viewport-reference');
  const historical='257b920a470e0ee6a04e5a52d71157f66232682c';
  if(run('git',['cat-file','-e',historical+':index.html']).status!==0)git('fetch','--no-tags','--depth=1','origin',historical);
  report.viewportReference=historical;
- const generated=build(root);report.files=manifest(generated);
+ stage('build-current-candidate');const generated=build(root);report.files=manifest(generated);
+ stage('full-preservation-proof');
  const rc130Migration=generated['index.html'].includes('./assets/rc130/projectile-policy.js')?require('../tools/rc130-preservation.cjs').verify(root):null;
  if(rc130Migration)report.explicitRC130Migration=rc130Migration.report;
  for(const f of ['assets/index-v31526.js','assets/rc77/connected-laser.js','assets/rc127/combat-policy.js','assets/rc127/dark-jelly.js','assets/combat-v31412/skill-completion.js','assets/rc95/combat-flow.js','assets/story-narration/v1/player.js','assets/story-narration/v1/surfaces.js','assets/story-narration/v1/manifest.json','assets/rc51/story.js','data/story-rc51.js'])if(fs.existsSync(path.join(root,f)))report.protectedFiles[f]=hash(path.join(root,f));
- git('worktree','add','--detach',candidate,'HEAD');
+ stage('candidate-worktree');git('worktree','add','--detach',candidate,'HEAD');
  for(const[f,text]of Object.entries(generated))fs.writeFileSync(path.join(candidate,f),text);
  for(const f of ['assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js'])report.files[f]=hash(path.join(candidate,f));
  for(const[f,expected]of Object.entries(report.protectedFiles))if(hash(path.join(candidate,f))!==expected)throw Error('Protected file changed: '+f);
@@ -57,7 +60,7 @@ try{
   const old='./assets/rc95/combat-flow.js?v=42901';if(prior.split(old).length!==2)throw Error('RC95 cache revision missing');prior=prior.replace(old,'./assets/rc95/combat-flow.js?v=42701');
   report.explicitRC129LoaderMigration={priorIndexHash:digest(prior),currentIndexHash:report.files['index.html'],newModules:['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js']};
  }
- const indexHash=digest(narrationIndexBase(prior));report.narrationIndexExtension={actual:report.files['index.html'],approvedBase:indexHash,expectedBase:accepted['index.html']};
+ stage('exact-promotion-pins');const indexHash=digest(narrationIndexBase(prior));report.narrationIndexExtension={actual:report.files['index.html'],approvedBase:indexHash,expectedBase:accepted['index.html']};
  const rc133Compatibility=require('../tools/rc133-release-compatibility.cjs');
  const hasExactRC133=rc130Migration?.report.deltaSha256==='47e45218eea38f09453ddaa5b2f8639e9a5d9e0f1c0a332c4382a5fa6dd27b11';
  const promotionHash=(f,expected)=>hasExactRC133&&rc133Compatibility.supports(f)?rc133Compatibility.verify(root,rc130Migration,f,expected):f==='index.html'?indexHash:rc130Migration?.historical[f]?digest(rc130Migration.historical[f]):report.files[f];
@@ -65,11 +68,12 @@ try{
  if(hasExactRC133)report.explicitRC133Compatibility={method:'Full current-runtime proof plus exact historical output pins and exact chained extension outputs for six approved revisions; browser suites still test current bytes',files:Object.keys(rc133Compatibility.revisions)};
  if(report.promotionMismatches.length)throw Error('RC128 preservation mismatch: '+JSON.stringify(report.promotionMismatches));
  fs.writeFileSync(path.join(out,'candidate-manifest.json'),JSON.stringify({commit:report.commit,files:report.files,protectedFiles:report.protectedFiles},null,2));
- for(const f of [...Object.keys(generated).filter(f=>/\.(?:js|cjs)$/.test(f)),'assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js','tests/rc128-policy.cjs','tests/rc128-browser.cjs',...(rc129?['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js','tests/rc129-unit.cjs','tests/rc129-browser.cjs']:[])]){
+ stage('syntax-checks');for(const f of [...Object.keys(generated).filter(f=>/\.(?:js|cjs)$/.test(f)),'assets/rc128/awakening-policy.js','assets/rc128/combat-feedback.js','tests/rc128-policy.cjs','tests/rc128-browser.cjs',...(rc129?['assets/rc129/danmaku-director.js','assets/rc129/danmaku-hud.js','tests/rc129-unit.cjs','tests/rc129-browser.cjs']:[])]){
   const result=run(process.execPath,['--check',f],{cwd:candidate});if(result.status!==0)throw Error('Syntax check '+f+'\n'+result.stderr);
  }
  const suites=[...(rc129?['rc129-unit','rc129-browser']:[]),'rc128-policy','rc128-browser','rc127-policy','rc127-browser','rc126-finite-native','rc126-combat-safety-smoke','rc43-bloodied-projectile-flight','rc126-combat-browser','rc125-adaptive-battlefield-browser','rc125-first-frame-browser','rc123-boundary-smoke','rc122-autoplay-policy-smoke','rc115-map-advance-smoke','rc91-samong-and-laser-smoke'];
  for(const name of suites){
+  stage('suite:'+name);
   const output=path.join(out,name);fs.mkdirSync(output,{recursive:true});const started=Date.now();
   const result=run(process.execPath,['tests/'+name+'.cjs'],{cwd:candidate,timeout:/rc12[89]-browser/.test(name)?240000:180000,env:{...process.env,HAPIL_QA_OUTPUT:output,HAPIL_RELEASE_OUTPUT:output}});
   fs.writeFileSync(path.join(output,'stdout.log'),result.stdout||'');fs.writeFileSync(path.join(output,'stderr.log'),result.stderr||'');
@@ -80,7 +84,7 @@ try{
  report.status=report.suites.every(r=>r.status==='passed')?'passed':'failed';
 }catch(error){report.status='failed';report.error=String(error.stack||error);console.error(error);}
 finally{
- report.finishedAt=new Date().toISOString();save();
+ stage('cleanup');report.finishedAt=new Date().toISOString();save();
  try{git('worktree','remove','--force',candidate);}catch(error){report.cleanupWarning=String(error);save();}
  fs.rmSync(directory,{recursive:true,force:true});console.log('RC128_CANDIDATE_RESULT',JSON.stringify(report));process.exitCode=report.status==='passed'?0:1;
 }

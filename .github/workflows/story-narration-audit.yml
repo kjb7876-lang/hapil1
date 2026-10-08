@@ -186,6 +186,21 @@ jobs:
           node-version: '22'
       - name: Fetch approved art reference
         run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Prepare pinned preservation history before release checks
+        if: matrix.suite == 'release'
+        run: |
+          node tests/rc128-prefetch-unit.cjs
+          node <<'NODE'
+          const assert=require('node:assert/strict'),cp=require('node:child_process');
+          const refs=require('./tools/rc133-preservation.cjs').REQUIRED_BASES;
+          assert(Array.isArray(refs)&&refs.length>0&&refs.every(ref=>/^[a-f0-9]{40}$/.test(ref)));
+          const head=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();assert.match(head,/^[a-f0-9]{40}$/);
+          const shallow=cp.execFileSync('git',['rev-parse','--is-shallow-repository'],{encoding:'utf8'}).trim();assert(['true','false'].includes(shallow));
+          cp.execFileSync('git',['fetch','--no-tags',...(shallow==='true'?['--unshallow']:[]),'origin',...new Set([head,...refs])],{stdio:'inherit'});
+          assert.equal(cp.execFileSync('git',['rev-parse','--is-shallow-repository'],{encoding:'utf8'}).trim(),'false');
+          for(const ref of refs)cp.execFileSync('git',['--no-replace-objects','cat-file','-e',ref+':index.html'],{stdio:'inherit'});
+          console.log('RC128_PRESERVATION_HISTORY_READY',JSON.stringify({references:refs.length,fullAncestry:true,checksSkipped:0}));
+          NODE
       - name: Install isolated Playwright runtime
         run: |
           QA_RUNTIME="$RUNNER_TEMP/rc121-runtime"
