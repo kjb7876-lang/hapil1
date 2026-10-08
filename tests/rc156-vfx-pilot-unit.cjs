@@ -78,7 +78,8 @@ ok(!workflow.includes('continue-on-error:'),'trial and mandatory assertion failu
 // Replay the exact continuation helper with a simulated native button handler,
 // clock and visible body draw. A closed overlay alone is insufficient evidence.
 const helperStart=browser.indexOf('async function enterCombatThroughNativeUI('),helperEnd=browser.indexOf('\n(async()=>',helperStart),helperScope={assert};ok(helperStart>=0&&helperEnd>helperStart,'actual native continuation helper has explicit boundaries');
-vm.runInNewContext(browser.slice(helperStart,helperEnd)+';this.enter=enterCombatThroughNativeUI;',helperScope);
+const clockWaitStart=browser.indexOf('async function waitWithClock('),clockWaitEnd=browser.indexOf('\nasync function bootReadiness(',clockWaitStart);ok(clockWaitStart>=0&&clockWaitEnd>clockWaitStart,'actual paused-clock UI wait has explicit boundaries');
+vm.runInNewContext(browser.slice(clockWaitStart,clockWaitEnd)+browser.slice(helperStart,helperEnd)+';this.enter=enterCombatThroughNativeUI;this.wait=waitWithClock;',helperScope);
 function nativeUIFixture(block){
  const state={time:100,paused:true,activeHeroId:'hwando'},world={phase:'game',story:true,clicks:0,drawn:false},context={URL,location:{href:'http://127.0.0.1:1/'},__HAPIL_CONTROLS_V31329__:{binding:{phase:'game',state:{current:state}}},__HAPIL_BITMAP_NATIVE_RC133__:{body:()=>world.drawn?{path:'http://127.0.0.1:1/assets/hero_direction/hwando/right.webp?v=1',area:100}:null},__HAPIL_ORIENTATION_PAUSE_RC152__:{paused:()=>false}};context.window=context;vm.createContext(context);
  const evaluate=fn=>vm.runInContext('('+fn.toString()+')()',context);
@@ -94,6 +95,8 @@ ok(!browser.includes('CLOCK_FIXTURE'),'no one-hour pauseAt jump coalesces native
 ok(browser.includes('party:record.launch.stages.at(-1).party'),'strict launch comparison includes unchanged native companion state');
 ok(browser.includes("'native paired frame clock or combat RNG diverged'"),'actual browser preserves exact frame and RNG equality in addition to full contact equality');
 async function continuationChecks(){
+ let due=0,uiPhase='boot',steps=0;const clockPage={evaluate:async predicate=>{const scope={window:{ready:uiPhase==='game'}};return vm.runInNewContext('('+predicate.toString()+')()',scope);},clock:{runFor:async ms=>{steps++;due+=ms;if(due>=48)uiPhase='game';}}};
+ await helperScope.wait(clockPage,()=>window.ready);eq(steps,3,'real paused-clock wait fires all three due UI callback steps');eq(uiPhase,'game','due native phase callback releases the readiness gate');
  const f=nativeUIFixture(),ready=await helperScope.enter(f.page,{name:'simulated-native-story'},'after');
  eq(f.world.clicks,2,'normal native UI handler completes typing then acknowledges story');eq(ready.normalUIAcknowledgements.length,2,'actual button acknowledgements are recorded');ok(ready.samples.at(-1).time>ready.start+.12,'continuation proves advancing simulation time');ok(ready.samples.at(-1).draws.length>0,'continuation proves a visible authored hero draw');eq(f.state.paused,true,'only after live proof is the comparison presentation paused');eq(f.context.__RC156_PAINTS__,undefined,'temporary draw observer is cleaned');
  for(const reason of ['time','draw','origin']){const stuck=nativeUIFixture(reason);checks++;await assert.rejects(helperScope.enter(stuck.page,{name:'blocked-'+reason},'after'),/advancing combat with an actual hero draw/);eq(stuck.context.__RC156_PAINTS__,undefined,'failed continuation also cleans observer '+reason);}
