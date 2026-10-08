@@ -54,12 +54,23 @@ jobs:
           node tests/rc155-ego-art-unit.cjs
           git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
           RC156_APPEARANCE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-appearance" node tests/rc155-ego-browser.cjs
+          RC156_MOTION=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-motion" node tests/rc155-ego-browser.cjs
       - name: Preserve small original EGO appearance PNGs
         uses: actions/upload-artifact@v7
         if: always() && matrix.profile == 'pc' && matrix.round == 1
         with:
           name: ego-appearance-${{ github.sha }}
           path: ${{ runner.temp }}/rc156-ego-appearance/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Preserve original EGO native motion crops and trace
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-motion-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-ego-motion/
           if-no-files-found: error
           compression-level: 0
           retention-days: 14

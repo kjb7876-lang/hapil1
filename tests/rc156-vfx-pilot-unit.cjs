@@ -88,6 +88,9 @@ function nativeUIFixture(block){
 ok(browser.indexOf('await page.clock.install(')<browser.indexOf("report.stage='native-boot';await bootReadiness(page,"),'official clock is installed before that page navigates or creates native timers');
 ok(browser.includes('page.clock.runFor(80)')&&browser.includes('page.clock.runFor(64)'),'native continuation and contact samples execute every due callback at matched elapsed times');
 ok(!browser.includes('clock.fastForward(')&&!browser.includes('cancelAnimationFrame(')&&!browser.includes('clearInterval('),'comparison does not skip timer firings or disable native RAF/companions');
+ok(browser.indexOf('await page.clock.pauseAt(new Date(CLOCK_START+1000))')<browser.indexOf("await bootReadiness(page,scene.name+"),'each controlled context pauses before navigation/native callbacks');
+ok(browser.includes('await page.clock.runFor(16)')&&browser.includes('Date.now()+60000'),'boot explicitly fires every due callback within the original real-time budget');
+ok(!browser.includes('CLOCK_FIXTURE'),'no one-hour pauseAt jump coalesces native companion bootstrap');
 ok(browser.includes('party:record.launch.stages.at(-1).party'),'strict launch comparison includes unchanged native companion state');
 ok(browser.includes("'native paired frame clock or combat RNG diverged'"),'actual browser preserves exact frame and RNG equality in addition to full contact equality');
 async function continuationChecks(){

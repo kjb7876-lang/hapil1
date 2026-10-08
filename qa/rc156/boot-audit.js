@@ -19,8 +19,7 @@ function installBootAudit(root) {
     if (!active) return {};
     const dependencies = flags(), identity = JSON.stringify(dependencies);
     if (identity !== previous) {
-      previous = identity;
-      if (transitions.length < 160) transitions.push({cause, time: root.performance.now(), dependencies});
+      const prior=JSON.parse(previous||'{}');previous = identity;const delta=Object.fromEntries(Object.entries(dependencies).filter(([key,value])=>JSON.stringify(prior[key])!==JSON.stringify(value)));if (transitions.length < 160) transitions.push({cause, time: root.performance.now(), delta});
     }
     return dependencies;
   }
