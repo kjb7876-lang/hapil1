@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "3ba8183dc9a8534049759b8e943475d9b8a96d46",
+  "baseTree": "f5998105f3d664de67f22a7a50a5a6e570f097d8",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "c13cd630d60c3472143090095c40de3fbfa0756fa410e1af5aa1c083d8ad75a6",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "3720779b4e47ea0b28881163911dded9291a764d"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7b518aef1f3075ad0a4b050b9417b8e285bbe450",
+        "sha256": "60c9eaf3d54589a814e220010b78b2955b645d97e75f4f091dde82b94bdee530"
+      },
+      "reason": "Authorized native void-emitter provenance and region-specific stable battle framing for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "074e5bab0b76e6c65b267f8358ba1a5888d6d673"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "8b79a48b41fc32641cfb6097eff81e31e6c70cbf",
+        "sha256": "6c3c9fb3311e5fb091b8e8eaacd3dfb29160d68864002c0f611178ffabad79e8"
+      },
+      "reason": "Authorized native void-emitter provenance and region-specific stable battle framing for assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "f207f0edb46c3f2ac5dfaf0a172d5586eeef3de5"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "e6cdda3ae1df0a6b3230d86f5c373d818a8b9819",
+        "sha256": "d01490c38c5b22558cbd39dd8865b54f27b70a0af8e8d45f97290c4de464dec8"
+      },
+      "reason": "Authorized native void-emitter provenance and region-specific stable battle framing for assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "assets/rc155/combat-provenance.js",
+      "before": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "b587b82d9584ecb158164225b728df259a71fe41"
+      },
+      "after": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "30ecdcbb26a2407dab7d588f70a0fe943426b456",
+        "sha256": "bcca30314a199f5346fdaefa24ddceef7e962a9f524889744b7177df688f585d"
+      },
+      "reason": "Authorized native void-emitter provenance and region-specific stable battle framing for assets/rc155/combat-provenance.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a85db45bbc9afd86b18c257b8540381c15b682a7"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ac20f1300f388b672634c420c140b9ee567546eb",
+        "sha256": "82182622f96e26500b2c1490194d55337d9606484916aa5b538e3752e020802c"
+      },
+      "reason": "Authorized native void-emitter provenance and region-specific stable battle framing for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "dab24d1bda3e1b90678c4d8caecd69c5ba11775f15913ff094c840d698fed9e9"
+}
