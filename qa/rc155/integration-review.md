@@ -41,3 +41,5 @@ The comparison harness uses one origin and exact baseline Git bytes vs candidate
 ## Security
 
 All active launchers retain `channel:'chrome'` and `chromiumSandbox:true`; static security audit checks all runner/test/tool paths. Browser launch failure remains failure. Existing RC137/RC147/Canonical assertions are kept. No OS security changes or sandbox-disabling fallback.
+
+Local full preservation/candidate preflight did not complete: the unchanged nested historical guards materialize many complete pinned trees and exceeded available temporary storage (2.8GiB free before execution). `git worktree add` logged unable-to-write errors, then its cleanup reported `fatal: ... is not a working tree`. Independent original hashes, current extension fingerprints and focused assertions passed; the full preservation chain must still pass on exact remote CI. No old worktree/result was removed, and the historical guard was not relaxed. The initial parallel attempt and a sequential attempt are both classified as environment-blocked local preflight, not application success.
