@@ -22,4 +22,20 @@ const workflow=fs.readFileSync(path.join(__dirname,'../.github/workflows/rc137-i
 ok(trialAt>=0&&trialAt<mandatoryAt,'minimum independent trial runs before long mandatory matrix checks');
 ok(workflow.slice(mandatoryAt,mandatoryAt+240).includes("always() && !cancelled() && steps.prepare_runtime.outcome == 'success'"),'a trial failure cannot skip prepared mandatory matrix checks');
 ok(!workflow.includes('continue-on-error:'),'trial and mandatory assertion failures remain workflow failures');
-console.log('RC156_VFX_PILOT_UNIT',JSON.stringify({status:'passed',checks,heroes:['hwando','gunner'],basicOnly:true,gameplayWrites:false,combatRandomCalls:0,naturalPlayVerified:false}));
+// Replay the exact continuation helper with a simulated native button handler,
+// clock and visible body draw. A closed overlay alone is insufficient evidence.
+const helperStart=browser.indexOf('async function enterCombatThroughNativeUI('),helperEnd=browser.indexOf('\n(async()=>',helperStart),helperScope={assert};ok(helperStart>=0&&helperEnd>helperStart,'actual native continuation helper has explicit boundaries');
+vm.runInNewContext(browser.slice(helperStart,helperEnd)+';this.enter=enterCombatThroughNativeUI;',helperScope);
+function nativeUIFixture(block){
+ const state={time:100,paused:true,activeHeroId:'hwando'},world={phase:'game',story:true,clicks:0,drawn:false},context={URL,location:{href:'http://127.0.0.1:1/'},__HAPIL_CONTROLS_V31329__:{binding:{phase:'game',state:{current:state}}},__HAPIL_BITMAP_NATIVE_RC133__:{body:()=>world.drawn?{path:'./assets/hero_direction/hwando/right.webp',area:100}:null},__HAPIL_ORIENTATION_PAUSE_RC152__:{paused:()=>false}};context.window=context;vm.createContext(context);
+ const evaluate=fn=>vm.runInContext('('+fn.toString()+')()',context);
+ const page={evaluate:async fn=>evaluate(fn),waitForFunction:async fn=>{if(!evaluate(fn))throw Error('native phase unavailable');},waitForTimeout:async ms=>{if(!world.story&&!state.paused){if(block!=='time')state.time+=ms/1000;if(block!=='draw'){world.drawn=true;context.__RC156_PAINTS__?.push({src:'http://127.0.0.1:1/assets/hero_direction/hwando/right.webp?v=1',alpha:1});}}},getByRole:(role,options)=>{assert.equal(role,'button');assert.ok(options.name.test('계속 · Enter'));return{count:async()=>world.story?1:0,isVisible:async()=>world.story,innerText:async()=> '계속 · Enter',click:async()=>{assert.ok(world.story);world.clicks++;if(world.clicks===2)world.story=false;}};}};
+ return{page,state,world,context};
+}
+async function continuationChecks(){
+ const f=nativeUIFixture(),ready=await helperScope.enter(f.page,{name:'simulated-native-story'},'after');
+ eq(f.world.clicks,2,'normal native UI handler completes typing then acknowledges story');eq(ready.normalUIAcknowledgements.length,2,'actual button acknowledgements are recorded');ok(ready.samples.at(-1).time>ready.start+.12,'continuation proves advancing simulation time');ok(ready.samples.at(-1).draws.length>0,'continuation proves a visible authored hero draw');eq(f.state.paused,true,'only after live proof is the comparison presentation paused');eq(f.context.__RC156_PAINTS__,undefined,'temporary draw observer is cleaned');
+ for(const reason of ['time','draw']){const stuck=nativeUIFixture(reason);checks++;await assert.rejects(helperScope.enter(stuck.page,{name:'blocked-'+reason},'after'),/advancing combat with an actual hero draw/);eq(stuck.context.__RC156_PAINTS__,undefined,'failed continuation also cleans observer '+reason);}
+ ok(!browser.includes('encounterDialogue31226:null')&&!browser.includes('encounterLockUntil31226:0')&&!browser.includes('actions.dismiss()'),'fixture never clears narrative flags or calls a dismiss shortcut');
+}
+continuationChecks().then(()=>console.log('RC156_VFX_PILOT_UNIT',JSON.stringify({status:'passed',checks,heroes:['hwando','gunner'],basicOnly:true,gameplayWrites:false,combatRandomCalls:0,naturalPlayVerified:false,continuationScope:'simulated native UI/clock/draw gate; actual browser is separate'}))).catch(error=>{console.error(error);process.exitCode=1;});
