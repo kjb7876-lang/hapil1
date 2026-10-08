@@ -78,6 +78,7 @@ jobs:
           google-chrome --version
           node tests/rc153-chrome-sandbox-smoke.cjs
           node tests/rc156-vfx-pilot-unit.cjs
+          node tests/rc156-boot-audit-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
           test -z "$(git status --porcelain)"
       - name: Preserve small original VFX trial PNG and metadata

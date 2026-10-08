@@ -85,7 +85,7 @@ function nativeUIFixture(block){
  const page={evaluate:async fn=>evaluate(fn),waitForFunction:async fn=>{if(!evaluate(fn))throw Error('native phase unavailable');},clock:{runFor:async ms=>{if(!world.story&&!state.paused){if(block!=='time')state.time+=ms/1000;if(block!=='draw'){world.drawn=true;context.__RC156_PAINTS__?.push({src:'http://127.0.0.1:'+(block==='origin'?2:1)+'/assets/hero_direction/hwando/right.webp?v=1',alpha:1});}}}},getByRole:(role,options)=>{assert.equal(role,'button');assert.ok(options.name.test('계속 · Enter'));return{count:async()=>world.story?1:0,isVisible:async()=>world.story,innerText:async()=> '계속 · Enter',click:async()=>{assert.ok(world.story);world.clicks++;if(world.clicks===2)world.story=false;}};}};
  return{page,state,world,context};
 }
-ok(browser.indexOf('page.clock.install(')<browser.indexOf("report.stage='native-boot';await page.goto"),'official clock is installed before native timers or navigation');
+ok(browser.indexOf('await page.clock.install(')<browser.indexOf("report.stage='native-boot';await bootReadiness(page,"),'official clock is installed before that page navigates or creates native timers');
 ok(browser.includes('page.clock.runFor(80)')&&browser.includes('page.clock.runFor(64)'),'native continuation and contact samples execute every due callback at matched elapsed times');
 ok(!browser.includes('clock.fastForward(')&&!browser.includes('cancelAnimationFrame(')&&!browser.includes('clearInterval('),'comparison does not skip timer firings or disable native RAF/companions');
 ok(browser.includes('party:record.launch.stages.at(-1).party'),'strict launch comparison includes unchanged native companion state');
