@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "5a88b7eb6147a3dbd4c952f5baa28dda6543b683",
+  "baseTree": "838c6dcfbe14b9f58ef2af08a936578396c084ba",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5502195824e87afae3dc14e96b5a1aa72efe26140e232f6111c861d645094986",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "75a3358bc36c4bed92fa732fc1eca9c85410b4e7"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "c73e1611aad15b806fbd8015f46e8cb1d2ebd29e",
+        "sha256": "5a6d3c556ef82ba5930ef5f9d2e1a541e8ce674ef94d47fdb9448a28ac337b3c"
+      },
+      "reason": "Authorized queue-bound EGO launch owner/action metadata and original skill-sheet selection for assets/rc155/ego-art.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "9d899f82f1770044b2fd66e41c95af840b48c2d1"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "755ada156b930fcacba0298d9ea91713a524241e",
+        "sha256": "7f44f068d563e028d21f77e31b87a7e40af7d79d6354ff89541ada367da80461"
+      },
+      "reason": "Authorized queue-bound EGO launch owner/action metadata and original skill-sheet selection for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "b4a64dfc676fbc6e4ca9d8ea9ba37fbc6e8bb04aa33ba164c390f47db2922f57"
+}
