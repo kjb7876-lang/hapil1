@@ -50,8 +50,8 @@ remote workflows remain the actual safe-browser execution path.
 
 The added test must pass on its own exact clean commit in RC137. Prior251 all
 three workflows are green and retained; they are not claimed as the next SHA's
-result. Original source cloak overlap and dark walking-boot alpha losses still
-need corrected extraction and actual visual review. Pages/main publication,
+result. The subsequent anatomy repair is documented in anatomy-repair.md; source cloak
+overlap and actual final visual review remain open. Pages/main publication,
 public byte/hash verification and final Library delivery stay held pending
 visual defects and parent/user comparison delivery; passing camera/owner gates
 alone does not mean the complete EGO/art task is finished.

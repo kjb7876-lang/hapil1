@@ -31,7 +31,7 @@ for(const kind of ['move','dash','attack'])for(const [dx,dy]of directions){const
 const browserFixture=fs.readFileSync(path.join(root,'tests/rc155-ego-browser.cjs'),'utf8');
 ok(browserFixture.includes('dx,dy,facing:dx-dy<0?-1:1,phase:1000'),'all browser direction fixtures retain the native facing field');
 for(const hook of ['Art()?.present(canvas,s)','Art()?.drawBody(ctx,path,x,y,size,o,G)','Art().withSkill(S(),e,()=>egoFx.call(this,ctx,cache,e,time,settings))','Art()?.assets()'])ok(native.includes(hook),'native transaction/presentation hook '+hook);
-ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=15602'),'normal runtime loads EGO art');
+ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=15603'),'normal runtime loads EGO art');
 const s={zone:'cult04'};E.recordPersonaVictory(s);eq(E.state(s).cutInPending,false,'victory frame does not start cut-in');eq(E.consumeCutIn(s),false,'untransformed victory cannot consume cut-in');
 async function presentationChecks(){
  const decodedSources=new Map();
@@ -46,6 +46,32 @@ async function presentationChecks(){
  // Every original protected anatomy pixel survives source ownership and mask,
  // including old dark landmarks after an expanded crop's local origin changes.
  for(const kind of ['walk','attack'])for(let index=0;index<8;index++){const f=A.frame(kind,index),[x,y,w,h]=f.rect,im=decodedSources.get(f.path),cv=A.picture('ego155:'+kind+':'+index);let lostCore=0,recoveredBright=0,foreignRetained=0;for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){const sx=x+xx,sy=y+yy,p=(yy*w+xx)*4,source=((sy*im.naturalWidth+sx)*4),isCore=A.inPolygon(sx-f.cellRect[0]+.5,yy+.5,A.cores[kind][index]),own=A.weaponRegions[kind][index],isOwn=own&&A.inPolygon(sx+.5,sy+.5,own),foreign=Object.entries(A.weaponRegions[kind]).some(([i,poly])=>Number(i)!==index&&A.inPolygon(sx+.5,sy+.5,poly));if(isCore&&!cv.rgba.subarray(p,p+4).equals(im.rgba.subarray(source,source+4)))lostCore++;if(!isCore&&!isOwn&&foreign&&cv.rgba[p+3])foreignRetained++;if(isOwn&&(sx<f.cellRect[0]||sx>=f.cellRect[0]+f.cellRect[2])&&(Math.max(...im.rgba.subarray(source,source+3))>=91||Math.max(...im.rgba.subarray(source,source+3))-Math.min(...im.rgba.subarray(source,source+3))>=27)&&cv.rgba.subarray(p,p+4).equals(im.rgba.subarray(source,source+4)))recoveredBright++;}eq(lostCore,0,'all source anatomy pixels survive '+kind+index);eq(foreignRetained,0,'known neighbouring weapon pixels are excluded '+kind+index);if(A.weaponRegions[kind][index])ok(recoveredBright>0,'visible source weapon pixels pass the unchanged matte foreground barrier beyond the former cell '+kind+index);const oldCell=[0,221,443,665,887,1109,1331,1552][index],oldPivot=(kind==='walk'?[110,109,67,116,71,86,96,124]:[98,95,81,85,96,100,30,126])[index];eq(f.rect[0]+f.pivot[0],oldCell+oldPivot,'crop expansion retains independent baseline supporting foot '+kind+index);eq(f.coreHeight,kind==='walk'?276:309,'crop does not reduce the existing body scale '+kind+index);}
+ // Fifteen untouched direction/action masks stay byte-identical to the
+ // preserved candidate. A boot repair cannot silently change another pose.
+ const priorWindow={Image:SourceImage,document:window.document};
+ vm.runInNewContext(cp.execFileSync('git',['show','e1111aa8b3930d3d13f4e9b1218b500dbfa164a0:assets/rc155/ego-art.js'],{cwd:root,encoding:'utf8'}),{window:priorWindow});
+ const priorArt=priorWindow.__HAPIL_EGO_ART_RC155__;await priorArt.ensure({egoGuardianRC155:{active:true}});
+ for(const kind of ['walk','attack'])for(let i=0;i<8;i++)if(kind!=='walk'||i!==3)eq(A.picture('ego155:'+kind+':'+i).rgba,priorArt.picture('ego155:'+kind+':'+i).rgba,'unaffected real compositor RGBA '+kind+i);
+ // Independently hand-located source landmarks include both boots, rather
+ // than assuming a declared core polygon is itself a correct body silhouette.
+ const footSource=decodedSources.get(A.paths.walk),rightWalk=A.picture('ego155:walk:3'),rightFrame=A.frame('walk',3);
+ for(const [sx,sy,rgba]of [[755,381,[26,16,13,249]],[770,378,[11,6,6,251]],[758,340,[94,46,35,251]],[806,364,[18,10,11,250]]]){
+  const source=(sy*footSource.naturalWidth+sx)*4,dest=((sy-rightFrame.rect[1])*rightWalk.width+sx-rightFrame.rect[0])*4;
+  eq(Array.from(footSource.rgba.subarray(source,source+4)),rgba,'independent source anatomy landmark '+sx+','+sy);
+  eq(Array.from(rightWalk.rgba.subarray(dest,dest+4)),rgba,'real compositor preserves audited shin/boot '+sx+','+sy);
+ }
+ for(const [sx,sy]of [[780,383],[785,376]]){
+  const dest=((sy-rightFrame.rect[1])*rightWalk.width+sx-rightFrame.rect[0])*4;
+  eq(rightWalk.rgba[dest+3],0,'outside-foot ground is not added to satisfy a misclassified old landmark '+sx+','+sy);
+ }
+ for(const [kind,frames]of Object.entries(A.anatomyRegions))for(const [index,regions]of Object.entries(frames)){
+  const f=A.frame(kind,Number(index)),im=decodedSources.get(f.path),cv=A.picture('ego155:'+kind+':'+index);let preserved=0;
+  for(let yy=0;yy<cv.height;yy++)for(let xx=0;xx<cv.width;xx++)if(regions.some(p=>A.inPolygon(f.rect[0]+xx+.5,f.rect[1]+yy+.5,p))){
+   const source=((f.rect[1]+yy)*im.naturalWidth+f.rect[0]+xx)*4,dest=(yy*cv.width+xx)*4;
+   assert(cv.rgba.subarray(dest,dest+4).equals(im.rgba.subarray(source,source+4)),'new anatomical silhouette pixel lost '+kind+index+' '+xx+','+yy);preserved++;
+  }
+  ok(preserved>1000,'whole bounded anatomy regions are protected, beyond four sampled pixels');
+ }
  eq(A.diagnostics().maskedCanvases,16,'only body frames use the explicit protected exterior mask');eq(A.diagnostics().croppedCanvases,25,'all sixteen bodies and nine effects retain full source ranges');
  for(const [token,px,py,expectedRGBA]of[['ego155:walk:6',95,281,[70,53,54,251]],['ego155:walk:6',110,35,[59,48,47,251]],['ego155:attack:6',30,316,[53,19,17,252]],['ego155:attack:6',93,160,[30,13,14,252]]]){const cv=A.picture(token),f=A.frame(token.split(':')[1],Number(token.split(':')[2])),offset=(py*cv.width+px+f.cellOffset)*4;eq(Array.from(cv.rgba.subarray(offset,offset+4)),expectedRGBA,'actual source black hood/armour/boot landmark remains exact '+token+' '+px+','+py);}
  eq([A.frame('walk',6).rect[0]+A.frame('walk',6).pivot[0],A.frame('walk',6).pivot[1]],[1331+96,290],'walk6 uses the actual supporting boot shown in source pixel audit');eq([A.frame('attack',6).rect[0]+A.frame('attack',6).pivot[0],A.frame('attack',6).pivot[1]],[1331+30,328],'attack6 uses the low supporting boot instead of the cloak centre');

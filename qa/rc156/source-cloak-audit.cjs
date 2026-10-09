@@ -24,6 +24,26 @@ function components(im,f,A,diagonal){
  }
  return{neighbours:diagonal?8:4,alphaAdmission:'retained alpha>0; no RGB/alpha editing',components:rows.sort((a,b)=>b.pixels-a.pixels),ownershipEstablished:false};
 }
+// Review-only ownership candidate: remove the isolated upper predecessor
+// fragment, never the connected lower cloak/body component. Runtime untouched.
+function detachedCandidate(body,f,A){
+ const w=body.width,h=body.height,seen=new Uint8Array(w*h),rgba=Buffer.from(body.rgba),removed=[];
+ for(let start=0;start<w*h;start++){
+  if(seen[start]||!rgba[start*4+3])continue;const queue=[start];seen[start]=1;let fragment=false,protectedPixel=false,insideUpper=true;
+  for(let i=0;i<queue.length;i++){
+   const n=queue[i],x=n%w,y=Math.floor(n/w),sx=f.rect[0]+x,sy=f.rect[1]+y;
+   fragment||=sx>=665&&sx<698&&sy>=209&&sy<312;
+   insideUpper&&=sx>=665&&sx<693&&sy>=209&&sy<246;
+   protectedPixel||=A.inPolygon(x+.5-f.cellOffset,y+.5,A.cores[f.kind][f.index])||(A.anatomyRegions?.[f.kind]?.[f.index]??[]).some(p=>A.inPolygon(sx+.5,sy+.5,p))||(A.weaponRegions[f.kind][f.index]&&A.inPolygon(sx+.5,sy+.5,A.weaponRegions[f.kind][f.index]));
+   for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=x+dx,yy=y+dy,j=yy*w+xx;if(xx<0||xx>=w||yy<0||yy>=h||seen[j]||!rgba[j*4+3])continue;seen[j]=1;queue.push(j);}
+  }
+  if(fragment&&insideUpper&&!protectedPixel){assert.equal(queue.length,603,'exact isolated upper source component');for(const n of queue){rgba[n*4+3]=0;removed.push(n);}}
+ }
+ assert.equal(removed.length,603,'review candidate must only remove the isolated source fragment');
+ const changed=new Set(removed);let preserved=0;
+ for(let p=0;p<rgba.length;p+=4){const n=p/4;assert(rgba.subarray(p,p+3).equals(body.rgba.subarray(p,p+3)),'candidate never edits RGB');if(!changed.has(n)){assert(rgba.subarray(p,p+4).equals(body.rgba.subarray(p,p+4)),'outside candidate remains exact');preserved++;}}
+ return {rgba,naturalWidth:w,naturalHeight:h,report:{appliedToRuntime:false,sourceRect:[665,209,28,37],clearedAlphaPixels:removed.length,unchangedPixels:preserved,protectedBodyOrWeaponPixelsRemoved:0,connectedLowerFragmentPixelsRemoved:0,limitation:'Only the isolated upper603 predecessor pixels are masked. The connected lower1776 fragment remains unresolved; this is not a complete silhouette repair.'}};
+}
 async function compositor(text){const window={Image:SourceImage,document:{hidden:false}};window.document.createElement=()=>{const cv={width:0,height:0};cv.getContext=()=>({drawImage(im,x,y,w,h){cv.rgba=crop(im,[x,y,w,h]).rgba;},getImageData:()=>({data:new Uint8ClampedArray(cv.rgba)}),putImageData:p=>{cv.rgba=Buffer.from(p.data);}});return cv;};vm.runInNewContext(text,{window});const A=window.__HAPIL_EGO_ART_RC155__;await A.ensure({egoGuardianRC155:{active:true}});return A;}
 const crcTable=Array.from({length:256},(_,i)=>{let c=i;for(let j=0;j<8;j++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});
 function chunk(type,bytes){const name=Buffer.from(type),body=Buffer.concat([name,bytes]),n=Buffer.alloc(4),crc=Buffer.alloc(4);n.writeUInt32BE(bytes.length);let c=0xffffffff;for(const b of body)c=crcTable[(c^b)&255]^(c>>>8);crc.writeUInt32BE((c^0xffffffff)>>>0);return Buffer.concat([n,body,crc]);}
@@ -40,7 +60,10 @@ function png(im,zoom){const w=im.naturalWidth*zoom,h=im.naturalHeight*zoom,raw=B
  save('walk-3-crossing-original-8x.png',crop(source,overlap),8,'Unassigned lower crossing region; no claim of per-character separation',overlap);
  save('walk-3-baseline-compositor-3x.png',{rgba:oldBody.rgba,naturalWidth:oldBody.width,naturalHeight:oldBody.height},3,'Actual03ddd715 source compositor; not public73a410d',oldFrame.rect);
  save('walk-3-current-compositor-3x.png',{rgba:body.rgba,naturalWidth:body.width,naturalHeight:body.height},3,'Current actual source compositor; diagnostic rather than game screenshot',frame.rect);
+ const candidate=detachedCandidate(body,frame,current);
+ save('walk-3-upper-ownership-candidate-3x.png',candidate,3,'Unpublished minimal ownership-mask candidate; lower connected overlap deliberately retained',frame.rect);
  const report={status:'known-source-overlap',commit:git('rev-parse','HEAD').toString().trim(),dirty:!!git('status','--porcelain').toString().trim(),baseline,baselineRole:'Source crop baseline03ddd715, not public73a410d',runtimeBlob:git('hash-object','assets/rc155/ego-art.js').toString().trim(),source:{path:current.paths.walk,bytes:fs.statSync(path.resolve(root,current.paths.walk)).size,sha256:sha(fs.readFileSync(path.resolve(root,current.paths.walk)))},frame:JSON.parse(JSON.stringify(frame)),baselineFrame:JSON.parse(JSON.stringify(oldFrame)),fragment:{sourceRect:region,insideOriginalCell:true,baselineVsCurrentDifferingPixels:differing,retainedForeground,retainedExactSourceRGBA:sourceMatches,diagnosis:'The upper left feather/cape fragment visibly continues from preceding walk frame2 into the old walk frame3 cell; the right-side weapon extension did not import it.'},crossing:{sourceRect:overlap,classification:'inference from visible source flow',limitation:'The original flat RGBA includes neighbouring cloak flow near the current front-cloak flow. It contains no per-character layers or alpha masks. Exact hidden current-frame design and a seam-free ownership boundary cannot be recovered from these composite bytes alone.'},decision:'No guessed cloak mask, dark-pixel erase, body shrink, original-byte change or regenerated frame is applied. Author-isolated complete walk frames2/3 or reviewed per-frame source masks are required for a reliable whole-design repair.',captures,bytes:captures.reduce((n,r)=>n+r.bytes,0),naturalPlayVerified:false,fullSilhouetteVerified:false};
+ report.reviewCandidate=candidate.report;
  report.connectivity=[components(body,frame,current,false),components(body,frame,current,true)];report.connectivityLimitation='A detached upper component is observable, but lower reported pixels also belong to a component containing protected current-frame anatomy. Connectivity alone cannot assign flat composited source ownership or authorize deleting that component.';
  assert(report.bytes<32*1024*1024);fs.writeFileSync(path.join(out,'source-cloak-report.json'),JSON.stringify(report,null,2));console.log('RC156_SOURCE_CLOAK_AUDIT',JSON.stringify({status:report.status,commit:report.commit,baseline:report.baseline,insideOriginalCell:true,differingPixels:differing,retainedForeground,retainedExactSourceRGBA:sourceMatches,connectivity:report.connectivity,captures:captures.length,bytes:report.bytes,fullSilhouetteVerified:false}));
 })().catch(e=>{console.error(e);process.exitCode=1;});
