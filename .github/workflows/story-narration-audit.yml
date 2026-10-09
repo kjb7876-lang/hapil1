@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/story-narration-audit.yml'
       - '.github/workflows/rc137-integration.yml'
+      - '.github/workflows/rc147-camera-finale.yml'
       - 'tests/rc154*'
       - 'tests/rc147-*.cjs'
       - 'assets/story-narration/**'

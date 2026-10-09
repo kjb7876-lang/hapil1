@@ -32,3 +32,8 @@ steps still capture the exact final runtime with normal Chrome sandbox. Do not
 publish Pages until major art defects and parent/user comparison delivery are
 resolved. Original source overlap, natural Persona victory, physical devices,
 local Chrome availability and Library transfer failures remain separately open.
+
+Local scoped evidence: art566, input/framing174, owner1207, EGO ledger12402
+(777 deterministic cases), current-tree preservation13 with3340 exact files,
+loader37 including tampered-manifest negatives. Full historical preservation,
+actual final Chrome assertions and raw capture review remain independent gates.

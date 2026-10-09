@@ -1,4 +1,5 @@
 name: RC137 exact integrated gameplay and art
+# Runner-only edits require the same three exact-SHA gates as runtime edits.
 on:
   push:
     branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc151-mobile-a-visibility, codex/rc152-image-combat]
