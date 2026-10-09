@@ -170,6 +170,7 @@ jobs:
           mkdir -p "$HAPIL_QA_OUTPUT"
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc152-position-unit.cjs
+          node tests/rc152-portrait-pause-unit.cjs
           node tests/rc153-combat-unit.cjs
           git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
           git fetch --no-tags origin 3ab3bfd0adb94d386f70e4a618af85d99b0c3de4
