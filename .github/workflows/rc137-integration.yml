@@ -51,6 +51,7 @@ jobs:
           command -v google-chrome
           google-chrome --version
           node tests/rc153-chrome-sandbox-smoke.cjs
+          git fetch --no-tags origin e1111aa8b3930d3d13f4e9b1218b500dbfa164a0
           node tests/rc155-ego-art-unit.cjs
           git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
           git fetch --no-tags origin 03ddd7159c20c1d9610c07dbd3f70ee94a1f9e37
