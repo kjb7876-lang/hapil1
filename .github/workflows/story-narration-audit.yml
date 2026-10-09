@@ -5,6 +5,7 @@ on:
     branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance, codex/rc134-persona-mirror, codex/rc134-integrated, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc152-image-combat]
     paths:
       - '.github/workflows/story-narration-audit.yml'
+      - '.github/workflows/rc137-integration.yml'
       - 'tests/rc154*'
       - 'tests/rc147-*.cjs'
       - 'assets/story-narration/**'
