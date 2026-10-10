@@ -7,9 +7,9 @@ const eq=(a,b,m)=>{checks++;assert.deepEqual(a,b,m);},throws=(f,m)=>{checks++;as
 const bytes=fs.readFileSync(root+'/qa/rc133/authorized-runtime-extension-44.json'),manifest=JSON.parse(bytes),priorBytes=fs.readFileSync(root+'/qa/rc133/authorized-runtime-extension-43.json'),prior=JSON.parse(priorBytes),historical42=fs.readFileSync(root+'/qa/rc133/authorized-runtime-extension-42.json');
 eq(hash(historical42),'98821e6adb19b1bdb598283d1215042b040ab261a9c31999b9e2c80942dd9abb','forty-second historical extension remains immutable');
 eq(hash(priorBytes),'1fba3ad5dffec988987e8180327dd22f44cedfde4a5542f09cfaddf7c664a945','forty-third historical extension remains immutable');
-eq(hash(bytes),'3acbfce5e90fdc222a7cd9cd1576ba7eb1b2ddd7a710d7fae98c40b2c88d2c23','forty-fourth exact extension digest');
+eq(hash(bytes),'811b8aec1b0b338d3c4f60ee4eeec736f0b7f52d30890af2ee577a1c07e05607','forty-fourth exact extension digest');
 eq(manifest.previousExtensionSha256,hash(priorBytes),'exact prior manifest');
-eq(manifest.base,'da7c3bdfabc51bce3cfbc41c6f69b3a0f8d0f26e','exact candidate before retry fix');
+eq(manifest.base,'53abbb573d928f5a7f0473e0a086dec29b12288b','exact candidate before retry fix');
 eq(git('rev-parse',manifest.base+'^{tree}').trim(),manifest.baseTree,'exact base tree');
 eq(manifest.files.map(r=>r.file),['assets/rc155/ego-art.js','index.html'],'only runtime code and its cache key change');
 const shape=rows=>rows.map(({file,mode,gitBlob})=>({file,mode,gitBlob})).sort((a,b)=>a.file.localeCompare(b.file));
