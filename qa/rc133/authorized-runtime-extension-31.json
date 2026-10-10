@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "6a613e574cad55ef37e415ad7059f5b2b5d65000",
+  "baseTree": "cd8da4dc89b8bded65caaeae328f54d426f4e057",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "ee1f278079f39c783401ebc538aa3fd988e57c31c4836f48e96c1d663aa18d0b",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2e7cfe0c1eb9eabd0f5872d5004c82dda302c3bc"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d74e2617fe44e452b37c7099aba218e58365b910",
+        "sha256": "ef53071d30bca75a9466f72c724ebb736a5c9f2933c5defdc4bf53879f3c3265"
+      },
+      "reason": "Authorized EGO native body/contact source correspondence and fixed all-direction camera envelope for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "88cd1c383206831f951781dc292b32b7544001b7"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "0319402c6d39f3eb3324fc016466cd859864d77a",
+        "sha256": "b75756171057e82c12246ea9a4402eee6d293b2350f399a271ac5fc02ef4cbc2"
+      },
+      "reason": "Authorized EGO native body/contact source correspondence and fixed all-direction camera envelope for assets/rc133/bitmap-contact.js"
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "738b9b9fc8c85187c2bd54394f3894efff479e5c"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "65f547edcad8e4cd287d9712f15d7930656602e8",
+        "sha256": "b1098b64a0a4a21048a2381c093d0ce459d2e823b339635253a6e50f33133d8c"
+      },
+      "reason": "Authorized EGO native body/contact source correspondence and fixed all-direction camera envelope for assets/rc133/native-install.js.txt"
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "8cf2320e547223bff788581ab35d6d5c10820356"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "5c1190fa7c0daaf220bce46be2e50194d156143b",
+        "sha256": "7a037f763fcfcf68b013fc471ee742984ce9b877a40bed0cf476759a81fff324"
+      },
+      "reason": "Authorized EGO native body/contact source correspondence and fixed all-direction camera envelope for assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "19870d0c006c4e4da2a51e0031db44c387dff08c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "438cf7ec67ae2583afccd8a544380a127971c7e7",
+        "sha256": "8524977ad108a924c17c05e25a4edb114e60c988d6713ee82ca86a6889bd110e"
+      },
+      "reason": "Authorized EGO native body/contact source correspondence and fixed all-direction camera envelope for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "6bd69500aa6191fa46eb2cfbb7b702a6296bfb244a000b4217db2eabbd23d57d"
+}

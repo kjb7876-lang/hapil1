@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "53abbb573d928f5a7f0473e0a086dec29b12288b",
+  "baseTree": "fe671e18e66bf3509d9f05498031ae060569d547",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "1fba3ad5dffec988987e8180327dd22f44cedfde4a5542f09cfaddf7c664a945",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "reason": "assets/rc155/ego-art.js retries failed EGO images and fonts with exponential backoff while preserving successful decodes.",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "300913120b10447eca7dc2c58b078cc4a049f908"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "cbd6bb5e8aedf95a9c7dc28ea6d9f43fa1fa8f3b",
+        "sha256": "65135dab04fc46b7dcc394d13cde53a42b6391c8ed53bec9d5feee4cdd400fb8"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html bumps the EGO art loader cache key so clients fetch the retry-capable module.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "634d6da84bd58d4326d4581d9be44e734504e5b5"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7dbd65f620add2f42e7f61f3ba139b359010eca8",
+        "sha256": "b775998fe92f42a37247c49aa3ec95aa690c8ec4fd8a503a53fb3805a8341153"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "db2184ed2709e0365fb69243382b8b4aa5e79bb65f42dbaec0236d8e18d1a97d"
+}

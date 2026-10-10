@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "eb133b787dedd7d330bd73c3c43f37bf75b032d8",
+  "baseTree": "6fcbe2c6759ea9774d50aa123425757dc4af9088",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6b5dde01a4d0d52db960b989e75d83d72cd29963caabeb702458d08945fca153",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "f629e55c4ec7cc960d9c0613be31951251225dd3"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "e04865c06346b2d8195539422631294ca5268787",
+        "sha256": "482b96dadd5919f113c90811b3b9440bf0ffc29cdc189da7566bf8ab4cff83c7"
+      },
+      "reason": "Authorized one-CSS-pixel map coverage fit guard above the strict90 percent boundary and matching browser cache key for assets/rc153/combat-layout.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "b5bb7656abf1addb10a1b0483c87d46807492224"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "4def1d8514253cc8cbbe697251e773f1b463998d",
+        "sha256": "afaacc50abf4e292bbaf145111a9a420554ba649ed4787d4f0c4a782ab30966a"
+      },
+      "reason": "Authorized one-CSS-pixel map coverage fit guard above the strict90 percent boundary and matching browser cache key for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "37c506143b4998b6cf4bf403b6dc14dee59afac933d9c7bf194868a77c8b0117"
+}

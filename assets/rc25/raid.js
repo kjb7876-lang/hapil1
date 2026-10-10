@@ -1,5 +1,7 @@
 (()=>{'use strict';
  const VERSION='3.25-RAID-RC25',CUT=.6;
+ const lustOwners=new Set(['b05-boss','mb-ep1b05']),lustProjectile='./assets/rc24/lust-heel.png';
+ const projectileAssets=a=>lustOwners.has(String(a?.id??''))?[lustProjectile]:[];
  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
  const mode=s=>window.__HAPIL_MODES_V31346__?.mode?.(s)||s?.gameModeV31346||'STORY';
  const ratios={STORY:.01,DREAM:.01};
@@ -59,7 +61,7 @@
   }
   markLust(s);sweep(s);
  }
- function markProjectile(s,h){const ids=new Set(['b05-boss','mb-ep1b05']);if(!h||!ids.has(String(h.sourceId??h.ownerId??''))||h.friendly||h.reflected||h.visualOnly)return h;const path='./assets/rc24/lust-heel.png';h.lustKindRC24='heel';h.raidImageKeyRC24=path;h.sprite=path;h.image=path;h.path=path;h.asset=path;h.projectileSprite=path;h.impactSprite=path;h.impactFallbackSprite=path;h.color='#fa315d';h.accent='#ffe4ed';h.radius=Math.max(num(h.radius),2.05);return h;}
+ function markProjectile(s,h){if(!h||!lustOwners.has(String(h.sourceId??h.ownerId??''))||h.friendly||h.reflected||h.visualOnly)return h;const path=lustProjectile;h.lustKindRC24='heel';h.raidImageKeyRC24=path;h.sprite=path;h.image=path;h.path=path;h.asset=path;h.projectileSprite=path;h.impactSprite=path;h.impactFallbackSprite=path;h.color='#fa315d';h.accent='#ffe4ed';h.radius=Math.max(num(h.radius),2.05);return h;}
  function markLust(s){const kinds=['hostileProjectiles','pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'];for(const k of kinds)for(const h of s[k]??[])markProjectile(s,h);}
  function sweep(s){const control=window.__HAPIL_CONTROLS_V31329__?.binding;if(control?.state?.current!==s||control.phase!=='game'||!(s.hp>0))return;
   for(const a of s.enemies){if(!(a.hp>0)||a.visualOnly||a.protectedNarrativeTargetV31307||a.friendly||a.objectiveStructureV31238)continue;metrics.bodyChecks++;
@@ -72,7 +74,7 @@
  const modesafe=s=>mode(s);
  function dHeld(s){return !!(window.__HAPIL_CHANNEL_V31364__?.active?.(s)||window.__HAPIL_CHANNEL_V31364__?.held?.(s));}
  function diagnostics(){return {...metrics,contactInterval:CUT,damageByMode:{...ratios},laserMinimum:.5,ultimateMinimum:.66,ultimateHealingMultiplier:.34,ultimateHealingSeconds:6};}
- window.__HAPIL_RAID_RC24__=Object.freeze({version:VERSION,flags,suppress,bypassCap,floorDamage,afterHit,healing,ownerColor,damagePalette,damageScale,markProjectile,tick,sweep,dHeld,diagnostics});
+ window.__HAPIL_RAID_RC24__=Object.freeze({version:VERSION,flags,suppress,bypassCap,floorDamage,afterHit,healing,ownerColor,damagePalette,damageScale,projectileAssets,markProjectile,tick,sweep,dHeld,diagnostics});
  const frame=()=>{const s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;if(s&&window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game')tick(s);if(typeof requestAnimationFrame==='function')requestAnimationFrame(frame);};
  if(typeof requestAnimationFrame==='function')requestAnimationFrame(frame);else setInterval(frame,33);
 })();

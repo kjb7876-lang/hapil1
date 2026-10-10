@@ -5,6 +5,8 @@ on:
     branches: [main, 'dot/story-narration-qa-*', codex/rc133-media-integration, codex/rc133-both-first-lethal, codex/rc133-hidden-portrait-contrast, codex/rc134-mobile-quality, codex/rc134-fullauto-balance, codex/rc134-persona-mirror, codex/rc134-integrated, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc152-image-combat]
     paths:
       - '.github/workflows/story-narration-audit.yml'
+      - '.github/workflows/rc137-integration.yml'
+      - '.github/workflows/rc147-camera-finale.yml'
       - 'tests/rc154*'
       - 'tests/rc147-*.cjs'
       - 'assets/story-narration/**'
@@ -42,6 +44,9 @@ on:
       - 'tests/rc142-*.cjs'
       - 'tests/rc143-*.cjs'
       - 'tests/rc153-*.cjs'
+      - 'tests/rc155-*.cjs'
+      - 'tests/rc156-*.cjs'
+      - 'qa/rc156/**'
       - 'qa/rc142/**'
       - 'tools/story-narration-release73-preservation.cjs'
       - 'tools/story-narration-release82-preservation.cjs'
@@ -75,8 +80,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: story-narration-${{ github.ref }}
-  cancel-in-progress: true
+  group: story-narration-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   published-audio:
     if: github.ref == 'refs/heads/main'
@@ -183,6 +188,21 @@ jobs:
           node-version: '22'
       - name: Fetch approved art reference
         run: git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
+      - name: Prepare pinned preservation history before release checks
+        if: matrix.suite == 'release'
+        run: |
+          node tests/rc128-prefetch-unit.cjs
+          node <<'NODE'
+          const assert=require('node:assert/strict'),cp=require('node:child_process');
+          const refs=require('./tools/rc133-preservation.cjs').REQUIRED_BASES;
+          assert(Array.isArray(refs)&&refs.length>0&&refs.every(ref=>/^[a-f0-9]{40}$/.test(ref)));
+          const head=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();assert.match(head,/^[a-f0-9]{40}$/);
+          const shallow=cp.execFileSync('git',['rev-parse','--is-shallow-repository'],{encoding:'utf8'}).trim();assert(['true','false'].includes(shallow));
+          cp.execFileSync('git',['fetch','--no-tags',...(shallow==='true'?['--unshallow']:[]),'origin',...new Set([head,...refs])],{stdio:'inherit'});
+          assert.equal(cp.execFileSync('git',['rev-parse','--is-shallow-repository'],{encoding:'utf8'}).trim(),'false');
+          for(const ref of refs)cp.execFileSync('git',['--no-replace-objects','cat-file','-e',ref+':index.html'],{stdio:'inherit'});
+          console.log('RC128_PRESERVATION_HISTORY_READY',JSON.stringify({references:refs.length,fullAncestry:true,checksSkipped:0}));
+          NODE
       - name: Install isolated Playwright runtime
         run: |
           QA_RUNTIME="$RUNNER_TEMP/rc121-runtime"
@@ -211,7 +231,7 @@ jobs:
             dream) node tests/rc121-dream-regression-browser.cjs ;;
             death-dialog) node tests/rc91-samong-and-laser-smoke.cjs && node tests/dream-death-dialog-browser.cjs ;;
             topology) node tests/rc121-connected-topology-browser.cjs ;;
-            release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc142-gameplay-browser.cjs && node tests/rc142-movement-space-browser.cjs && node tests/rc142-persona-volley-browser.cjs ;;
+            release) node tests/laser-release-gate.cjs && node tests/rc142-gameplay-unit.cjs && node tests/rc155-ego-guardian-unit.cjs && node tests/rc142-gameplay-browser.cjs && node tests/rc142-movement-space-browser.cjs && node tests/rc142-persona-volley-browser.cjs ;;
           esac
       - name: Publish allowlisted test status only
         if: always()

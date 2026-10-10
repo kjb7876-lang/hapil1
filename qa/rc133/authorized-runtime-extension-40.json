@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "03ddd7159c20c1d9610c07dbd3f70ee94a1f9e37",
+  "baseTree": "bd71a1e63feafe39beccda94bb1d82adea1ebbae",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "b79e72de498c142242b482168d10222cf56e1ae8db4e785869c56136f80a265b",
+  "files": [
+    {
+      "file": "assets/rc155/combat-provenance.js",
+      "before": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "60b712de8724a4a88664fff98a127136e63cacfa"
+      },
+      "after": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "5f992b2dd3f9aa64bd05f1d4606f96923aa334b8",
+        "sha256": "ec2c1e6db25c494949aa3a271f26fef07a516aa4cd39f93f97d4ccf6b7d0f3be"
+      },
+      "reason": "Authorized EGO source weapon crop ownership and immutable spawn/current projectile diagnosis with matching cache keys for assets/rc155/combat-provenance.js"
+    },
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "c8c1ad62568f639bb0570fd8141efd832b00f4c3"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "f48d68c0c3880807ab2a16348eed81a5643676b8",
+        "sha256": "95e2d74f44d5d75e2d701553bdf2e578426517cacea39af2c274721dfea9f326"
+      },
+      "reason": "Authorized EGO source weapon crop ownership and immutable spawn/current projectile diagnosis with matching cache keys for assets/rc155/ego-art.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "4def1d8514253cc8cbbe697251e773f1b463998d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6a42a2e44fe070f1c85b083ddf2209d9fc5f6465",
+        "sha256": "edefb5c8957ddf1d39790d557785536b7efcad32706da7dafc150ae62599cab2"
+      },
+      "reason": "Authorized EGO source weapon crop ownership and immutable spawn/current projectile diagnosis with matching cache keys for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "6aa37188b9c215109c5919a3e3cbe53b88d6e23f2ffb0fa35cb665c22659ecaf"
+}

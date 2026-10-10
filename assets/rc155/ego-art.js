@@ -1,0 +1,105 @@
+/* RC155: byte-preserved EGO sources, bounded render crops and saved one-shot cut-in. */
+(function(root){
+ 'use strict';
+ const base='./assets/ego-originals-20261008/';
+ const paths=Object.freeze({walk:base+'analysis_output_2_walk_dodge.png',attack:base+'analysis_output_1_attack.png',skills:base+'916b1ac1-15ea-49dc-b3b0-f91ea1b8ef81.png',cutin:base+'ego_samong_awaken_cutin.png'});
+ const walkFrame3Path='./ChatGPT 이미지 2026년 10월 10일 오전 10_09_41.png?v=15605';
+ const runtimePaths=Object.freeze([...Object.values(paths),walkFrame3Path]);
+ const edges=Object.freeze([0,221,443,665,887,1109,1331,1552,1774]);
+ // Visible weapon pixels cross several equal direction-cell guides. Keep
+ // source coordinates so extending a crop never moves its supporting foot.
+ const weaponRegions=Object.freeze({
+  walk:{3:[[793,255],[810,261],[870,334],[922,370],[928,376],[908,376],[875,360],[834,316]],4:[[1001,238],[1022,250],[1052,296],[1095,344],[1126,383],[1114,389],[1088,367],[1047,321]],6:[[1477,279],[1494,283],[1524,316],[1575,353],[1592,374],[1579,378],[1544,354],[1507,323]]},
+  attack:{0:[[125,310],[139,320],[178,379],[230,418],[248,425],[247,433],[229,432],[179,412],[153,382]],2:[[530,309],[548,316],[536,350],[463,411],[413,431],[398,431],[417,421],[501,331]],3:[[789,289],[807,298],[842,346],[893,405],[930,430],[907,430],[859,401],[813,358]],4:[[881,126],[883,135],[919,179],[976,237],[1007,249],[1028,249],[1000,265],[970,249],[913,186]],6:[[1453,310],[1457,326],[1401,387],[1355,429],[1308,452],[1270,455],[1265,450],[1294,447],[1354,415],[1433,330]]}
+ });
+ const inPolygon=(x,y,polygon)=>{let yes=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const[a,b]=polygon[i],[c,d]=polygon[j];if((b>y)!==(d>y)&&x<(c-a)*(y-b)/(d-b)+a)yes=!yes;}return yes;};
+ function sourceOwnership(data,f){const rgba=data.data,[sx,sy,w,h]=f.rect,[cellX,,cellW]=f.cellRect,own=weaponRegions[f.kind][f.index],foreign=Object.entries(weaponRegions[f.kind]).filter(([i])=>Number(i)!==f.index).map(([,p])=>p),core=cores[f.kind][f.index],anatomy=anatomyRegions[f.kind]?.[f.index]??[];let cleared=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const px=sx+x+.5,py=sy+y+.5,protectedCore=inPolygon(px-cellX,y+.5,core)||anatomy.some(p=>inPolygon(px,py,p)),ownedWeapon=own&&inPolygon(px,py,own),outside=px<cellX||px>=cellX+cellW,foreignWeapon=foreign.some(p=>inPolygon(px,py,p));if(!protectedCore&&!ownedWeapon&&(outside||foreignWeapon)){const a=(y*w+x)*4+3;if(rgba[a]){rgba[a]=0;cleared++;}}}return cleared;}
+ // Source-audited right-walking shin/boots. Keep the old protected core and
+ // add only these anatomical silhouettes; dark ground outside stays matte.
+ // Coordinates refer to the unchanged original atlas, not cropped pixels.
+ const anatomyRegions=Object.freeze({});
+ const feet=Object.freeze({walk:[110,109,67,116,71,86,96,124],attack:[98,95,81,85,96,100,30,126]});
+ const footY=Object.freeze({walk:[284,284,284,284,284,284,290,284],attack:[319,319,319,319,319,319,328,319]});
+ const crops=Object.freeze({'small-orb':[3,57,52,61],eye:[459,32,91,101],diamond:[61,118,44,87],clock:[860,12,170,235],star:[1018,16,133,217],eclipse:[1024,390,354,321],lance:[202,514,191,75],shield:[638,386,215,210],vortex:[1340,209,196,168]});
+ const skillKeys=Object.freeze({Q:'small-orb',W:'clock',E:'lance',R:'eclipse',A:'lance',S:'shield',D:'vortex'});
+ // Hand-located opaque anatomy from the supplied frames. These regions protect
+ // the black hood, armour, hands and boots even where they touch the matte.
+ // Feather/blade highlights and their one-source-pixel fringe also form flood
+ // barriers. Only exterior neutral matte loses alpha; retained RGBA is exact.
+ const cores=Object.freeze({
+  walk:[
+   [[110,5],[134,36],[145,83],[147,149],[135,196],[126,256],[122,279],[102,279],[96,255],[90,199],[75,151],[68,90],[82,39]],
+   [[109,5],[136,33],[145,88],[141,151],[129,211],[120,264],[119,282],[99,282],[93,263],[89,209],[79,150],[74,87],[82,33]],
+   [[88,8],[111,24],[130,65],[125,135],[105,179],[103,220],[94,255],[73,271],[42,278],[34,267],[66,242],[76,215],[74,177],[63,128],[62,66],[68,28]],
+   [[91,5],[116,24],[134,66],[129,126],[105,175],[92,208],[77,263],[64,276],[29,280],[24,270],[57,249],[71,204],[69,155],[62,100],[68,39]],
+   [[62,9],[85,23],[108,57],[122,109],[118,151],[101,194],[91,239],[75,271],[53,277],[42,267],[65,240],[74,197],[61,149],[52,97],[42,47]],
+   [[134,6],[153,23],[155,65],[147,125],[129,179],[109,231],[104,270],[92,278],[76,276],[72,264],[86,233],[95,195],[101,148],[111,102],[115,40]],
+   [[111,20],[135,35],[144,76],[138,133],[126,185],[111,219],[105,271],[105,290],[88,290],[81,272],[81,238],[83,203],[81,165],[84,118],[78,76],[83,44]],
+   [[111,7],[132,24],[135,66],[133,113],[121,160],[112,206],[129,249],[139,263],[138,273],[117,273],[107,257],[103,219],[102,172],[109,125],[110,78],[101,39]]
+  ],
+  attack:[
+   [[108,6],[132,27],[140,66],[143,122],[128,168],[127,216],[145,278],[155,294],[140,298],[123,290],[110,250],[99,194],[88,230],[85,284],[68,293],[57,287],[65,239],[67,189],[72,137],[62,83],[78,34]],
+   [[110,11],[140,33],[150,73],[147,135],[131,183],[128,235],[141,286],[140,303],[124,302],[113,264],[103,208],[96,263],[89,300],[73,299],[73,282],[79,230],[76,180],[71,116],[68,64],[82,30]],
+   [[89,10],[114,27],[130,64],[126,123],[108,180],[111,227],[139,282],[141,302],[128,304],[110,292],[94,249],[86,206],[77,244],[58,284],[35,289],[26,277],[51,250],[66,212],[63,157],[58,105],[64,48]],
+   [[83,10],[107,28],[120,62],[118,119],[104,179],[96,229],[110,281],[110,296],[91,298],[79,279],[79,235],[68,203],[54,259],[33,282],[15,282],[12,272],[38,245],[52,198],[53,141],[57,80],[63,41]],
+   [[102,9],[123,32],[131,73],[127,127],[111,188],[100,236],[97,296],[83,306],[61,304],[56,292],[77,272],[83,229],[73,185],[68,144],[61,98],[67,52],[81,22]],
+   [[133,6],[153,29],[160,69],[151,123],[138,174],[119,225],[100,289],[99,304],[84,304],[74,295],[80,271],[93,225],[103,177],[112,126],[112,77],[117,36]],
+   [[93,47],[115,58],[128,86],[131,132],[118,171],[86,211],[66,245],[56,282],[42,314],[42,326],[20,329],[7,325],[8,316],[23,308],[34,278],[43,237],[62,191],[67,136],[59,95],[72,66]],
+   [[90,10],[111,26],[124,58],[119,99],[136,147],[133,195],[128,255],[145,288],[144,301],[124,301],[109,281],[104,236],[98,204],[65,233],[37,271],[17,274],[16,260],[42,222],[64,180],[72,134],[77,90],[70,49]]
+  ]
+ });
+ const pictures=new Map(),derived=new Map(),failed=new Set(),presentations=new WeakMap();
+ let loading=null,fontReady=!root.document?.fonts,retryAt=0,retryDelay=500;const stats={bodyDraws:0,skillDraws:0,cutins:0,croppedCanvases:0,maskedCanvases:0,normalizedCanvases:0,cleanedAlphaPixels:0,failedMasks:0};
+ const active=s=>s?.egoGuardianRC155?.active===true;
+ const owns=p=>typeof p==='string'&&/^ego155:(?:walk|attack):[0-7]$|^ego155:skill:(?:small-orb|eye|diamond|clock|star|eclipse|lance|shield|vortex)$/.test(p);
+ function frame(kind,index){if(!['walk','attack'].includes(kind)||!Number.isInteger(index)||index<0||index>7)return null;if(kind==='walk'&&index===3)return {kind,index,path:walkFrame3Path,rect:[280,143,788,1001],cellRect:[280,143,788,1001],cellOffset:0,pivot:[104,977],coreHeight:961,isolated:true,flipX:true,alphaThreshold:2};const cellX=edges[index],cellWidth=edges[index+1]-cellX,y=kind==='walk'?100:119,height=kind==='walk'?304:337,weapon=weaponRegions[kind][index],x=Math.max(0,Math.min(cellX,weapon?Math.floor(Math.min(...weapon.map(p=>p[0])))-2:cellX)),right=Math.min(1774,Math.max(cellX+cellWidth,weapon?Math.ceil(Math.max(...weapon.map(p=>p[0])))+2:cellX+cellWidth)),offset=cellX-x;return {kind,index,path:paths[kind],rect:[x,y,right-x,height],cellRect:[cellX,y,cellWidth,height],cellOffset:offset,pivot:[feet[kind][index]+offset,footY[kind][index]],coreHeight:kind==='walk'?276:309,flipX:index===3};}
+ function sector(m={},s={}){const dx=Number(m.dx),dy=Number(m.dy);if(Number.isFinite(dx)&&Number.isFinite(dy)&&Math.hypot(dx,dy)>.001){const angle=Math.atan2((dx+dy)*.5,dx-dy);return [3,7,0,6,2,4,1,5][((Math.round(angle/(Math.PI/4))%8)+8)%8];}return ({front:0,back:1,left:2,right:3,nw:4,ne:5,sw:6,se:7})[m.direction??s.direction]??(m.facing<0?2:0);}
+ function selected(s,m={}){return active(s)?frame(['move','dash'].includes(m.kind)?'walk':'attack',sector(m,s)):null;}
+ function ensure(s){
+  if(!active(s)&&!s?.egoGuardianRC155?.pendingTransformation)return Promise.resolve(false);
+  if(loading)return loading;
+  if(typeof root.Image!=='function')return Promise.resolve(false);
+  const fonts=root.document?.fonts,needsFont=typeof fonts?.load==='function',missing=runtimePaths.filter(path=>!source(path));
+  if(!missing.length&&(!needsFont||fontReady))return Promise.resolve(true);
+  const now=()=>{const value=Number(root.performance?.now?.());return Number.isFinite(value)?value:Date.now();};
+  if(now()<retryAt)return Promise.resolve(false);
+  const jobs=missing.map(path=>new Promise(resolve=>{
+   let im;
+   try{im=new root.Image();pictures.set(path,im);im.decoding='async';im.onload=()=>{if(source(path)){failed.delete(path);resolve(true);}else{failed.add(path);resolve(false);}};im.onerror=()=>{failed.add(path);resolve(false);};im.src=path;}
+   catch{failed.add(path);resolve(false);}
+  }));
+  if(needsFont&&!fontReady){
+   try{jobs.push(fonts.load('16px "Noto Serif KR"',(root.__HAPIL_EGO_GUARDIAN_RC155__?.name??'마지막 수호자 EGO')+(root.__HAPIL_EGO_GUARDIAN_RC155__?.story??'')).then(rows=>{fontReady=rows.length>0;if(fontReady)failed.delete('font:Noto Serif KR');else failed.add('font:Noto Serif KR');return fontReady;}).catch(()=>{failed.add('font:Noto Serif KR');return false;}));}
+   catch{failed.add('font:Noto Serif KR');jobs.push(Promise.resolve(false));}
+  }
+  const attempt=Promise.all(jobs).then(rows=>{
+   const ok=rows.every(Boolean)&&runtimePaths.every(path=>!!source(path))&&(!needsFont||fontReady);
+   if(ok){retryAt=0;retryDelay=500;}else{retryAt=now()+retryDelay;retryDelay=Math.min(retryDelay*2,8000);}
+   return ok;
+  }).catch(()=>{retryAt=now()+retryDelay;retryDelay=Math.min(retryDelay*2,8000);return false;});
+  loading=attempt.finally(()=>{loading=null;});
+  return loading;
+ }
+ function source(path){const im=pictures.get(path);return im?.complete&&im.naturalWidth>0?im:null;}
+ // Historical helper retained for callers; picture() deliberately does not use
+ // it. RGB darkness cannot distinguish the supplied matte from black anatomy.
+ function clearMatte(data,width,height){const rgba=data.data,seen=new Uint8Array(width*height),queue=new Uint32Array(width*height);let first=0,last=0;const eligible=i=>{const p=i*4,r=rgba[p],g=rgba[p+1],b=rgba[p+2];return rgba[p+3]===0||Math.max(r,g,b)<91&&Math.max(r,g,b)-Math.min(r,g,b)<27;};const add=i=>{if(i>=0&&i<seen.length&&!seen[i]&&eligible(i)){seen[i]=1;queue[last++]=i;}};for(let x=0;x<width;x++){add(x);add((height-1)*width+x);}for(let y=1;y<height-1;y++){add(y*width);add(y*width+width-1);}while(first<last){const i=queue[first++],x=i%width;rgba[i*4+3]=0;if(x>0)add(i-1);if(x<width-1)add(i+1);add(i-width);add(i+width);}return last;}
+ function exteriorMatte(data,width,height,polygon,anatomy=[]){
+  const rgba=data.data,total=width*height,barrier=new Uint8Array(total),protectedCore=new Uint8Array(total),seen=new Uint8Array(total),queue=new Uint32Array(total);let first=0,last=0,removed=0;
+  const inside=(x,y)=>{let yes=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const [a,b]=polygon[i],[c,d]=polygon[j];if((b>y)!==(d>y)&&x<(c-a)*(y-b)/(d-b)+a)yes=!yes;}return yes;};
+  for(let y=0;y<height;y++)for(let x=0;x<width;x++){const i=y*width+x,p=i*4,hi=Math.max(rgba[p],rgba[p+1],rgba[p+2]),lo=Math.min(rgba[p],rgba[p+1],rgba[p+2]);if(inside(x+.5,y+.5)||anatomy.some(p=>inPolygon(x+.5,y+.5,p)))barrier[i]=protectedCore[i]=1;if(rgba[p+3]>0&&(hi>=91||hi-lo>=27))for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=x+dx,yy=y+dy;if(xx>=0&&xx<width&&yy>=0&&yy<height)barrier[yy*width+xx]=1;}}
+  const add=i=>{if(i>=0&&i<total&&!seen[i]&&!barrier[i]){seen[i]=1;queue[last++]=i;}};for(let x=0;x<width;x++){add(x);add((height-1)*width+x);}for(let y=1;y<height-1;y++){add(y*width);add(y*width+width-1);}while(first<last){const i=queue[first++],x=i%width;if(rgba[i*4+3]>0){rgba[i*4+3]=0;removed++;}if(x>0)add(i-1);if(x<width-1)add(i+1);add(i-width);add(i+width);}
+  // Remove only small, neutral ground islands disconnected from the protected
+  // person. Detached coloured cloak wisps and highlights retain their pixels.
+  for(let start=0;start<total;start++){if(seen[start]||!rgba[start*4+3])continue;first=0;last=1;queue[0]=start;seen[start]=1;let core=false,neutral=true,bright=false,top=height;const join=i=>{if(i>=0&&i<total&&!seen[i]&&rgba[i*4+3]){seen[i]=1;queue[last++]=i;}};while(first<last){const i=queue[first++],x=i%width,p=i*4;core||=!!protectedCore[i];bright||=Math.max(rgba[p],rgba[p+1],rgba[p+2])>=160;neutral&&=Math.max(rgba[p],rgba[p+1],rgba[p+2])-Math.min(rgba[p],rgba[p+1],rgba[p+2])<30;top=Math.min(top,Math.floor(i/width));if(x>0)join(i-1);if(x<width-1)join(i+1);join(i-width);join(i+width);}if(!core&&!bright&&neutral&&top>=height*.8&&last<=256)for(let j=0;j<last;j++){rgba[queue[j]*4+3]=0;removed++;}}
+  return removed;
+ }
+ function picture(path){if(!owns(path))return source(path);if(derived.has(path))return derived.get(path);const parts=path.split(':'),f=parts[1]==='skill'?{path:paths.skills,rect:crops[parts[2]]}:frame(parts[1],Number(parts[2])),im=source(f.path);if(!im||!root.document)return null;try{const pad=f.texturePadding??0,cv=root.document.createElement('canvas');cv.width=f.rect[2]+2*pad;cv.height=f.rect[3]+2*pad;const ctx=cv.getContext('2d');if(!ctx)throw Error('EGO crop needs a 2D canvas');ctx.drawImage(im,...f.rect,pad,pad,f.rect[2],f.rect[3]);let removed=0,ownershipRemoved=0,thresholded=0;if(f.isolated){const pixels=ctx.getImageData(0,0,cv.width,cv.height),rgba=pixels.data;for(let p=3;p<rgba.length;p+=4)if(rgba[p]<f.alphaThreshold){if(rgba[p])thresholded++;rgba[p]=0;}ctx.putImageData(pixels,0,0);stats.normalizedCanvases++;stats.cleanedAlphaPixels+=thresholded;}else if(f.kind){const pixels=ctx.getImageData(0,0,cv.width,cv.height);ownershipRemoved=sourceOwnership(pixels,f);removed=exteriorMatte(pixels,cv.width,cv.height,cores[f.kind][f.index].map(([x,y])=>[x+f.cellOffset,y]),(anatomyRegions[f.kind]?.[f.index]??[]).map(p=>p.map(([x,y])=>[x-f.rect[0],y-f.rect[1]])));ctx.putImageData(pixels,0,0);stats.maskedCanvases++;}Object.assign(cv,{src:f.path,complete:true,naturalWidth:cv.width,naturalHeight:cv.height,egoSourceRectRC155:f.rect.slice(),egoTexturePaddingRC156:pad,egoTokenRC155:path,egoSourceAlphaPreservedRC155:!removed&&!thresholded,egoRetainedRGBAExactRC156:true,egoAlphaThresholdRC156:f.isolated?f.alphaThreshold:null,egoThresholdedAlphaPixelsRC156:thresholded,egoExteriorMattePixelsRC156:removed,egoForeignWeaponPixelsRC156:ownershipRemoved,egoFlipXRC156:!!f.flipX});derived.set(path,cv);stats.croppedCanvases++;return cv;}catch(error){stats.failedMasks++;failed.add(path);return null;}}
+ function sprite(s,m){const f=selected(s,m);if(!f)return null;const path='ego155:'+f.kind+':'+f.index;return picture(path)?path:null;}
+ function drawBody(ctx,path,x,y,size,o={},project){if(!owns(path)||path.includes(':skill:'))return false;const parts=path.split(':'),f=frame(parts[1],Number(parts[2])),im=picture(path);if(!im)return false;const p=project(x,y),scale=Math.max(1,Math.min(180,Number(size)||90))/f.coreHeight,pivotX=f.pivot[0]+(f.texturePadding??0),pivotY=f.pivot[1]+(f.texturePadding??0);ctx.save();try{ctx.globalAlpha*=o.alpha??1;ctx.translate(p.x+(o.offsetX??0),p.y+(o.offsetY??0));if(f.flipX)ctx.scale(-1,1);if(o.hit)ctx.filter='brightness(1.28)';ctx.drawImage(im,-pivotX*scale,-pivotY*scale,im.width*scale,im.height*scale);}finally{ctx.restore();}stats.bodyDraws++;return true;}
+ function skillSprite(s,e){const owner=e?.heroIdV31225??e?.heroId31213??e?.deliveryHeroV31322??e?.deliverySeedV31322?.heroId??e?.heroIdV31313??e?.heroId??e?.sourceId;if(!active(s)||!e?.heroSkillVfx||e.partySlotV31322||owner!==s.activeHeroId)return null;const key=String(e.skillActionKey??e.heroActionKey31213??e.deliveryKeyV31322??e.deliverySeedV31322?.key??(e.ultimate?'R':'A')).toUpperCase(),kind=skillKeys[key];return kind&&picture('ego155:skill:'+kind)?'ego155:skill:'+kind:null;}
+ function withSkill(s,e,draw){const token=skillSprite(s,e);if(!token)return draw();const previous=e.sprite;e.sprite=token;try{stats.skillDraws++;return draw();}finally{e.sprite=previous;}}
+ function present(canvas,s){if(!canvas||!active(s)||s.hp<=0||root.document?.hidden||root.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused?.())return false;const E=root.__HAPIL_EGO_GUARDIAN_RC155__,m=s.egoGuardianRC155;let live=presentations.get(s);if(live&&live.serial!==m.cutInSerial){presentations.delete(s);live=null;}const im=source(paths.cutin);if(!live&&m.cutInPending&&im&&fontReady){live={serial:m.cutInSerial,start:s.time};}if(!live||!im||s.time-live.start>=5)return false;const ctx=canvas.getContext('2d'),box=canvas.getBoundingClientRect?.()??{width:canvas.width,height:canvas.height};if(!ctx||!(box.width>0&&box.height>0))return false;const width=box.width,height=box.height,scale=Math.min(width*.34/im.naturalWidth,height*.88/im.naturalHeight),w=im.naturalWidth*scale,h=im.naturalHeight*scale;ctx.save();try{ctx.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);ctx.filter='none';ctx.globalCompositeOperation='source-over';ctx.globalAlpha=Math.min(1,(5-(s.time-live.start))/.4);ctx.drawImage(im,width*.055,(height-h)/2,w,h);ctx.fillStyle='rgba(12,7,14,.88)';ctx.fillRect(width*.43,height*.16,width*.53,height*.68);ctx.fillStyle='#f5edf2';ctx.textAlign='center';ctx.font=Math.max(12,Math.min(24,width/44))+'px system-ui,Noto Serif KR,sans-serif';ctx.fillText(E.name,width*.695,height*.28);ctx.font=Math.max(10,Math.min(16,width/65))+'px system-ui,Noto Serif KR,sans-serif';const lines=[];let line='';for(const ch of E.story){if(ctx.measureText(line+ch).width>width*.47){lines.push(line);line='';}line+=ch;}if(line)lines.push(line);lines.forEach((text,i)=>ctx.fillText(text,width*.695,height*.42+i*Math.max(14,height*.04)));}finally{ctx.restore();}if(m.cutInPending){if(!E.consumeCutIn(s))return false;presentations.set(s,live);stats.cutins++;}return true;}
+ const api=Object.freeze({paths,walkFrame3Path,runtimePaths,crops,skillKeys,frame,sector,selected,ensure,source,picture,sprite,owns,drawBody,skillSprite,withSkill,present,clearMatte,exteriorMatte,cores,anatomyRegions,weaponRegions,inPolygon,sourceOwnership,assets:()=>Object.values(paths),runtimeAssets:()=>runtimePaths.slice(),diagnostics:()=>({...stats,decoded:runtimePaths.filter(p=>source(p)).length,required:runtimePaths.length,derived:derived.size,fontReady,failed:[...failed]})});
+ root.__HAPIL_EGO_ART_RC155__=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
+})(typeof window!=='undefined'?window:globalThis);

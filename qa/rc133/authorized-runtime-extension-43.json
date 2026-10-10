@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "f39a5ed4cea7582308caaf4ba619c026ad16f2c6",
+  "baseTree": "74c574cfde97205e2ab1519b8682d7d1a0390b0a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "98821e6adb19b1bdb598283d1215042b040ab261a9c31999b9e2c80942dd9abb",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "f01aa6a82d1eac7df3264e7b19d3512de59b0a7d"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "300913120b10447eca7dc2c58b078cc4a049f908",
+        "sha256": "891665a9b27c389a406a7bcf1c8e4ed5d2bae22d6d93331a9f5ed5ca770f8361"
+      },
+      "reason": "Update approved EGO frame crop metadata and runtime source: assets/rc155/ego-art.js"
+    },
+    {
+      "file": "assets/rc156/ego-walk-frame-3.json",
+      "before": {
+        "file": "assets/rc156/ego-walk-frame-3.json",
+        "mode": "100644",
+        "gitBlob": "2e84c155da8a7b3f4d829c39f7f33cd540f23fb6"
+      },
+      "after": {
+        "file": "assets/rc156/ego-walk-frame-3.json",
+        "mode": "100644",
+        "gitBlob": "8ed3fb314425a2f19f070c51d3aeae483a08243c",
+        "sha256": "30af46788ab637e0c11122ce991d2ff1cfc27a307a4d16afc1ad04670bfe18c1"
+      },
+      "reason": "Update approved EGO frame crop metadata and runtime source: assets/rc156/ego-walk-frame-3.json"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cd0697fe41d2c516a433ac9965f0debbf15f4cbd"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "634d6da84bd58d4326d4581d9be44e734504e5b5",
+        "sha256": "ca417a7f7cc97f0b7d21e6e7ca5cd20fc7f8a8efcbe187d4a4bfbf55232f03b5"
+      },
+      "reason": "Update approved EGO frame crop metadata and runtime source: index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "83f50d281698a6e1c94b486497f3e07e4f72c0a0b820abed2f46d7dff8fc5c66"
+}

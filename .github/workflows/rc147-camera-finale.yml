@@ -32,18 +32,23 @@ on:
       - 'tests/rc142-gameplay-unit.cjs'
       - 'tests/rc134-persona-effects-browser.cjs'
       - 'tests/rc150-*.cjs'
+      - 'tests/rc154-cosmic-loader-unit.cjs'
+      - 'tests/rc155-*.cjs'
+      - 'tests/rc156-*.cjs'
+      - 'qa/rc156/**'
       - 'tests/rc133-published-url.cjs'
       - 'tests/rc133-preservation-unit.cjs'
       - 'qa/rc133/published.cjs'
       - 'qa/rc148/**'
       - '.github/workflows/rc147-camera-finale.yml'
       - '.github/workflows/rc137-integration.yml'
+      - '.github/workflows/story-narration-audit.yml'
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: rc147-camera-finale-${{ github.ref }}
-  cancel-in-progress: true
+  group: rc147-camera-finale-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   native-browser:
     runs-on: ubuntu-24.04
@@ -91,6 +96,7 @@ jobs:
           node --check assets/rc88/danmaku-rpg.js
           node --check qa/rc130/public-smoke.cjs
           node tests/rc133-published-url.cjs
+          node tests/rc156-camera-capture-unit.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-cosmic" node tests/rc148-six-cosmic-perf-browser.cjs
@@ -111,6 +117,10 @@ jobs:
             node tests/rc88-danmaku-rpg-browser.cjs
             node tests/rc75-ending-and-awakening.cjs
             node tests/rc133-preservation-unit.cjs
+            node tests/rc154-cosmic-loader-unit.cjs
+            node tests/rc155-ego-guardian-unit.cjs
+            node tests/rc155-ego-art-unit.cjs
+            node tests/rc155-combat-quality-unit.cjs
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-legacy" node tests/rc128-candidate.cjs
           fi
           test -z "$(git status --porcelain)"

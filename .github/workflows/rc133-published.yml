@@ -45,6 +45,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
+      - name: Prepare pinned preservation history
+        run: node tests/rc128-prefetch-unit.cjs
       - name: Prepare isolated read-only browser
         run: |
           set -euo pipefail

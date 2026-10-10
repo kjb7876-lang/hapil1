@@ -32362,6 +32362,13 @@ function Cn(e, t) {
     i = Math.max(0.001, Math.hypot(n, r));
   return { x: n / i, y: r / i };
 }
+// A zero component is a valid world direction, not a missing facing value.
+// Only a stationary or invalid pair falls back; this changes presentation only.
+function HAPIL_projectDirectionRC156(dx, dy, facing = 1) {
+  if (!Number.isFinite(dx) || !Number.isFinite(dy) || Math.hypot(dx, dy) < 1e-4)
+    return Cn(Number.isFinite(facing) && facing !== 0 ? facing : 1, 0);
+  return Cn(dx, dy);
+}
 function wn(e, t, n) {
   let r = Math.abs(e) + Math.abs(t) < 1e-4,
     i = Cn(r ? n : e, r ? 0 : t);
@@ -33899,7 +33906,7 @@ function Hn(e, t, n = !1, r = !1) {
     o = Math.sin(t * 3.2),
     s = e.facing || 1,
     c = r ? 1 : s,
-    l = Cn(e.dx || s, e.dy);
+    l = HAPIL_projectDirectionRC156(e.dx, e.dy, s);
   if (e.kind === `move`) {
     let i = Math.abs(a),
       o = Math.cos(e.phase ?? t * 11),
@@ -33984,7 +33991,7 @@ function Un(e, t, n, r, i, a = !1, o, s = 1, showLabel = !0) {
   }
   if (showLabel) {
     const l = a ? `대표 · ${t}` : `지원 · ${o ?? t}`;
-    e.font = a ? `800 11px sans-serif` : `700 9px sans-serif`;
+    e.font = a ? `800 11px system-ui,Noto Serif KR,sans-serif` : `700 9px system-ui,Noto Serif KR,sans-serif`;
     const u = e.measureText(l).width + 12, f = c.y + (a ? 17 : 11);
     Pn(e, c.x - u / 2, f, u, a ? 18 : 15, 3);
     e.fillStyle = a ? `rgba(5,18,30,.94)` : `rgba(6,20,31,.82)`;
@@ -34849,7 +34856,7 @@ function qn(e, t, n, r, MONGSE_imageCache) {
     (e.shadowBlur = r.lowFx ? 0 : 8),
     (e.globalAlpha = 0.9),
     (e.textAlign = `center`),
-    (e.font = t.boss ? `900 13px sans-serif` : `900 11px sans-serif`),
+    (e.font = t.boss ? `900 13px system-ui,Noto Serif KR,sans-serif` : `900 11px system-ui,Noto Serif KR,sans-serif`),
     (e.fillStyle = t.shape === `safe` ? `#d8fff4` : t.accent));
   let _ = Math.max(0, t.at - n),
     v = t.perfectWindow > 0 && _ <= t.perfectWindow;
@@ -34940,7 +34947,7 @@ function MONGSE_drawTelegraphSafetyOverlay(e, t, n, r) {
     e.setLineDash([]),
     (e.globalAlpha = 1),
     (e.textAlign = `center`),
-    (e.font = t.boss ? `900 13px sans-serif` : `900 11px sans-serif`));
+    (e.font = t.boss ? `900 13px system-ui,Noto Serif KR,sans-serif` : `900 11px system-ui,Noto Serif KR,sans-serif`));
   let g = Math.max(0, t.at - n),
     _ = t.perfectWindow > 0 && g <= t.perfectWindow;
   ((e.fillStyle = _ ? `#fff2a8` : t.shape === `safe` ? `#d8fff4` : t.accent),
@@ -35085,8 +35092,8 @@ function Jn(e, t, n, r, i) {
       (e.textAlign = `center`),
       (e.textBaseline = `middle`),
       (e.font = n.boss
-        ? `900 13px "Noto Sans KR", sans-serif`
-        : `800 11px "Noto Sans KR", sans-serif`),
+        ? `900 13px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif`
+        : `800 11px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif`),
       e.fillText(t, 0, 0, r - 12));
   } else if (d?.complete && d.naturalWidth) {
     let t =
@@ -35371,7 +35378,7 @@ function MONGSE_bossCastPresentationTransform31211(e, t) {
             Math.max(0.01, r - n - MONGSE_holdSeconds31214),
         ),
       ),
-    o = Cn(e.attackDx || e.facing, e.attackDy);
+    o = HAPIL_projectDirectionRC156(e.attackDx, e.attackDy, e.facing);
   return {
     active: !0,
     phase: `release`,
@@ -35653,7 +35660,7 @@ function Yn(e, t, n, r, i, a = !1) {
     b =
       n.boss &&
       (String(n.activePattern ?? ``).includes(`염동`) || n.telekineticUntil > r),
-    x = Cn(n.moveDx || n.facing, n.moveDy),
+    x = HAPIL_projectDirectionRC156(n.moveDx, n.moveDy, n.facing),
     S = {
       scaleX: l,
       offsetX: f
@@ -35695,7 +35702,7 @@ function Yn(e, t, n, r, i, a = !1) {
       a = bn((r - n.attackImpactAt) / t),
       o = r < n.attackImpactAt ? xn(0, 1, i) : 1,
       s = r < n.attackImpactAt ? 0 : Sn(a),
-      c = Cn(n.attackDx || n.facing, n.attackDy),
+      c = HAPIL_projectDirectionRC156(n.attackDx, n.attackDy, n.facing),
       u = -o * (n.boss ? 4 : n.midboss ? 3.2 : 2.5),
       d = n.boss ? 13 : n.midboss ? 10 : g ? 5 : 8,
       f = r < n.attackImpactAt ? 0 : (1 - s) * d,
@@ -35826,12 +35833,12 @@ function Yn(e, t, n, r, i, a = !1) {
           ? `#ffd690`
           : `#ffb8bd`),
     (e.font = n.boss
-      ? `900 12px sans-serif`
+      ? `900 12px system-ui,Noto Serif KR,sans-serif`
       : n.midboss
-        ? `900 10px sans-serif`
+        ? `900 10px system-ui,Noto Serif KR,sans-serif`
         : n.elite || a
-          ? `800 9px sans-serif`
-          : `800 8px sans-serif`),
+          ? `800 9px system-ui,Noto Serif KR,sans-serif`
+          : `800 8px system-ui,Noto Serif KR,sans-serif`),
     (e.textAlign = `center`));
   let ne = n.boss
     ? `보스 P${MONGSE_enemyPhase(n)}/${n.phaseMax ?? Math.max(1, n.phaseCount ?? 3)}`
@@ -35850,7 +35857,7 @@ function Yn(e, t, n, r, i, a = !1) {
   ) {
     let t = He(n);
     ((e.fillStyle = t.accent),
-      (e.font = n.boss ? `900 11px sans-serif` : `800 9px sans-serif`),
+      (e.font = n.boss ? `900 11px system-ui,Noto Serif KR,sans-serif` : `800 9px system-ui,Noto Serif KR,sans-serif`),
       e.fillText(
         `준비 · ${n.activePattern || t.name}`,
         o.x,
@@ -36148,7 +36155,7 @@ function MONGSE_drawSpatialRiftCast(e, t, n, r) {
     e.setLineDash([]),
     (e.fillStyle = `#d9fff1`),
     (e.textAlign = `center`),
-    (e.font = `900 11px "Noto Sans KR", sans-serif`),
+    (e.font = `900 11px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif`),
     e.fillText(
       `안전 통로 · ${Math.max(0, n.telegraphEnd - t).toFixed(1)}초 뒤 균열 소거`,
       h.x,
@@ -36388,12 +36395,12 @@ function MONGSE_drawNarrativeCast(e, t, n, r, i) {
     e.fillText(n.statusName, d + l - 16, f + 21),
     (e.textAlign = `left`),
     (e.font = n.episodeBoss
-      ? `900 14px "Noto Sans KR", sans-serif`
-      : `800 12px "Noto Sans KR", sans-serif`),
+      ? `900 14px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif`
+      : `800 12px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif`),
     (e.fillStyle = `#f5fbff`));
   let m = MONGSE_wrapNarrativeCanvasText(e, n.text, l - 34, 4);
   (m.forEach((t, n) => e.fillText(t, d + 17, f + 48 + n * 21)),
-    (e.font = `800 10px "Noto Sans KR", sans-serif`),
+    (e.font = `800 10px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif`),
     (e.fillStyle = `#93a9bb`),
     e.fillText(`— ${n.speaker}`, d + 17, f + u - 13),
     (e.strokeStyle = n.accent),
@@ -36704,7 +36711,7 @@ function $n(e, t, n, r, i) {
         (c.save(),
           (c.fillStyle = `#dffff9`),
           (c.textAlign = `center`),
-          (c.font = `900 11px sans-serif`),
+          (c.font = `900 11px system-ui,Noto Serif KR,sans-serif`),
           (c.shadowColor = `#66ffe8`),
           (c.shadowBlur = i.reducedFlash ? 2 : 8),
           c.fillText(`EGO 파편 ×${e.amount} · 자동흡수`, t.x, t.y - 58),
@@ -36745,7 +36752,7 @@ function $n(e, t, n, r, i) {
       [`공명 거점`, `F · 이동문`].forEach((e, t) => {
         let n = G(ne.x, ne.y);
         ((c.fillStyle = t ? `#7ffff1` : `#fff`),
-          (c.font = t ? `700 12px sans-serif` : `700 15px sans-serif`),
+          (c.font = t ? `700 12px system-ui,Noto Serif KR,sans-serif` : `700 15px system-ui,Noto Serif KR,sans-serif`),
           (c.textAlign = `center`),
           c.fillText(e, n.x, n.y + 18 + t * 16));
       }));
@@ -36758,7 +36765,7 @@ function $n(e, t, n, r, i) {
       (c.save(),
       (c.fillStyle = `#e8f7ff`),
       (c.textAlign = `center`),
-      (c.font = `800 12px sans-serif`),
+      (c.font = `800 12px system-ui,Noto Serif KR,sans-serif`),
       (c.shadowColor = `#9acfff`),
       (c.shadowBlur = i.reducedFlash ? 2 : 7),
       c.fillText(`F · 침대에서 회복`, e.x, e.y - 55),
@@ -36774,7 +36781,7 @@ function $n(e, t, n, r, i) {
     (c.save(),
       (c.textAlign = `center`),
       (c.fillStyle = `#c9d8ff`),
-      (c.font = `800 12px sans-serif`),
+      (c.font = `800 12px system-ui,Noto Serif KR,sans-serif`),
       c.fillText(
         MONGSE_restPortalLocked31226
           ? `NPC 기록 동조 중 · 잠김`
@@ -36784,7 +36791,7 @@ function $n(e, t, n, r, i) {
       ),
       Math.hypot(t.x - ce.x, t.y - ce.y) < 3.2 &&
         ((c.fillStyle = `#fff4e6`),
-        (c.font = `700 11px sans-serif`),
+        (c.font = `700 11px system-ui,Noto Serif KR,sans-serif`),
         c.fillText(
           MONGSE_restPortalLocked31226
             ? `${Math.max(0, t.restPortalUnlockAt31226 - t.time).toFixed(1)}초 후 개방`
@@ -36805,7 +36812,7 @@ function $n(e, t, n, r, i) {
           (c.save(),
           (c.fillStyle = `#e7fbff`),
           (c.textAlign = `center`),
-          (c.font = `800 11px sans-serif`),
+          (c.font = `800 11px system-ui,Noto Serif KR,sans-serif`),
           (c.shadowColor = `#65dfff`),
           (c.shadowBlur = i.reducedFlash ? 2 : 7),
           c.fillText(`F · 미카엘라와 대화 · 에피소드 기록`, e.x, e.y - 64),
@@ -36857,7 +36864,7 @@ function $n(e, t, n, r, i) {
           (c.save(),
           (c.fillStyle = `#e7fffa`),
           (c.textAlign = `center`),
-          (c.font = `800 11px sans-serif`),
+          (c.font = `800 11px system-ui,Noto Serif KR,sans-serif`),
           (c.shadowColor = `#54e8d1`),
           (c.shadowBlur = i.reducedFlash ? 2 : 7),
           c.fillText(`F · ${e.name}`, a.x, a.y - 44),
@@ -36894,7 +36901,7 @@ function $n(e, t, n, r, i) {
       let r = G(MONGSE_exitPortal.x, MONGSE_exitPortal.y);
       ((c.fillStyle = `#b9fff1`),
         (c.textAlign = `center`),
-        (c.font = `800 11px sans-serif`),
+        (c.font = `800 11px system-ui,Noto Serif KR,sans-serif`),
         c.fillText(
           `F · ${N[t.zone].next ? `다음 페이지` : `귀환`}`,
           r.x,
@@ -36935,7 +36942,7 @@ function $n(e, t, n, r, i) {
     let e = G(ae.x, ae.y);
     ((c.fillStyle = `#b9ffe4`),
       (c.textAlign = `center`),
-      (c.font = `700 12px sans-serif`),
+      (c.font = `700 12px system-ui,Noto Serif KR,sans-serif`),
       c.fillText(`공명 주민 · R`, e.x, e.y + 15));
   }
   MONGSE_defeated.forEach((e) => Xn(c, n, e, t.time, i));
@@ -37012,7 +37019,7 @@ function $n(e, t, n, r, i) {
       t.heroMotion.until > t.time
         ? t.heroMotion
         : { ...t.heroMotion, kind: `idle`, dx: 0, dy: 0 },
-    T0 = Tn(ee, te, t.time),
+    T0 = window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time),
     T = MONGSE_readyHeroSprite(
       n,
       T0,
@@ -37025,7 +37032,7 @@ function $n(e, t, n, r, i) {
       te,
       T,
     ),
-    oe = Cn(te.dx || te.facing, te.dy);
+    oe = HAPIL_projectDirectionRC156(te.dx, te.dy, te.facing);
   (C.push({
     depth: t.x + t.y + 0.02,
     draw: () => {
@@ -37055,7 +37062,7 @@ function $n(e, t, n, r, i) {
       }),
         Un(
           c,
-          ee.name,
+          t.egoGuardianRC155?.active ? window.__HAPIL_EGO_GUARDIAN_RC155__.name : ee.name,
           ee.color,
           t.x,
           t.y,
@@ -101342,7 +101349,7 @@ function HAPIL_drawPriorityCombatReadabilityV31302(
     context.stroke();
     context.setLineDash([]);
     context.textAlign = "center";
-    context.font = '900 13px "Noto Sans KR", sans-serif';
+    context.font = '900 13px "Noto Sans KR", system-ui, Noto Serif KR, sans-serif';
     context.fillText(`반격 ${remaining.toFixed(1)}초`, point.x, point.y - 54);
     context.restore();
   }
@@ -104595,8 +104602,15 @@ if (typeof window !== "undefined") {
   }
 
   function chooseDecoded(cache, candidates, role = "effect") {
-    for (const path of uniquePaths(candidates)) {
-      const image = queueImageIntegrity(cache, path, "eager");
+    for (const path of new Set(candidates ?? [])) {
+      // EGO crops are authenticated decoded canvases, not URL strings. Keep
+      // candidate order and normal raster retry policy without filtering a
+      // valid authored crop into an unrelated legacy skill fallback.
+      const ego = window.__HAPIL_EGO_ART_RC155__;
+      const authored = ego?.owns(path) ? ego.picture(path) : null;
+      const image = authored ?? (isImagePath(path)
+        ? queueImageIntegrity(cache, path, "eager")
+        : null);
       if (!isDecoded(image)) continue;
       lastGoodByRole.set(role, path);
       return Object.freeze({ path, image, role });
@@ -115543,7 +115557,7 @@ function HAPIL_narrativeDeathFieldsV31313(actor) {
         context.fillStyle="rgba(8,5,9,.88)";context.fillRect(point.x-width/2-1,top-1,width+2,7);
         context.fillStyle=visual.ratio<=.35?"#fa886d":"#d06a62";context.fillRect(point.x-width/2,top,width*visual.ratio,5);
         if(targeted || visual.hit) {
-          context.font="700 10px sans-serif";context.textAlign="center";context.fillStyle="#fff0d5";
+          context.font="700 10px system-ui,Noto Serif KR,sans-serif";context.textAlign="center";context.fillStyle="#fff0d5";
           context.fillText(`${actor.name??reviewed.get(String(actor.id))?.name??"파괴 목표"} · ${visual.state}`,point.x,top-5);
         }
       } finally {context.restore();}
@@ -119006,7 +119020,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
       ctx.globalCompositeOperation="source-over";ctx.shadowBlur=0;
       ctx.globalAlpha=settings.reducedFlash?.09:.14;ctx.fillStyle=h.color??"#e63a55";ctx.fill(shape.fillRule);
       ctx.globalAlpha=1;ctx.lineWidth=2;ctx.strokeStyle="#f597a6";ctx.setLineDash([9,7]);ctx.stroke();ctx.setLineDash([]);
-      if(settings.showCombatInfo!==false){const p=h.shape==="line"?G((h.x+h.originX)/2,(h.y+h.originY)/2):G(h.x,h.y);ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.fillStyle="#ffe7ec";ctx.strokeStyle="#18080d";ctx.lineWidth=3;const label=h.cosmicModeV31318==="blood-beam"?"혈광포 · 양쪽 바깥으로":"비석 낙하 · 원 밖으로";ctx.strokeText(label,p.x,p.y-18);ctx.fillText(label,p.x,p.y-18);}
+      if(settings.showCombatInfo!==false){const p=h.shape==="line"?G((h.x+h.originX)/2,(h.y+h.originY)/2):G(h.x,h.y);ctx.font="bold 13px system-ui,Noto Serif KR,sans-serif";ctx.textAlign="center";ctx.fillStyle="#ffe7ec";ctx.strokeStyle="#18080d";ctx.lineWidth=3;const label=h.cosmicModeV31318==="blood-beam"?"혈광포 · 양쪽 바깥으로":"비석 낙하 · 원 밖으로";ctx.strokeText(label,p.x,p.y-18);ctx.fillText(label,p.x,p.y-18);}
     }finally{ctx.restore();ctx.beginPath();}
     h.cosmicTelegraphGeometryV31318=true;return true;
   }
@@ -119166,6 +119180,7 @@ const special=e=>!!(e?.cosmicShotV31318||e?.cosmicAttackV31318||e?.cosmicImpactV
 let queueBase,scope=null,installed=false,attempts=0,frameBudget=null;
 const endpointCache=new WeakMap();
 function cachedEndpoints(e,budget){budget=e.formationBudgetV31328??(e.formationBudgetV31328=Math.max(4,Math.min(40,budget)));const key=JSON.stringify([geometry(e),budget]);let row=endpointCache.get(e);if(row?.key===key)return row.points;const points=endpoints(e,budget);endpointCache.set(e,{key,points});return points;}
+function sourceAssets(id){const row=catalog.rows.find(r=>r.id===id);return row?[...new Set(Object.values(row.routes).flatMap(r=>[r.projectile,r.telegraph,r.impact]).filter(Boolean))]:[];}
 function candidates(row,e,purpose,requested){const route=row.routes[e?.bossWeaponFamilyV31311??e?.bossWeaponFamilyV31309??'rolling-ordnance']??Object.values(row.routes)[0];return [...new Set([requested,e?.spectacleAssetV31317,e?.sprite,e?.fallbackSprite,route?.[purpose],route?.projectile,...row.assets].map(clean))].filter(p=>row.assets.includes(p));}
 function pick(cache,e,purpose='projectile',requested){const row=owner(e);if(!row)return null;for(const p of candidates(row,e,purpose,requested)){const im=queueBase(cache,p,'eager');if(im?.complete&&num(im.naturalWidth,im.width)>0)return{image:im,path:p};}metrics.pending++;return null;}
 function repair(e,purpose='projectile'){const row=owner(e);if(!row)return e;const route=row.routes[e.bossWeaponFamilyV31311??e.bossWeaponFamilyV31309??'rolling-ordnance']??Object.values(row.routes)[0],isolatedHeel=['b05-boss','mb-ep1b05'].includes(row.id)?'./assets/rc24/lust-heel.png':null;for(const k of ['sprite','fallbackSprite','telegraphSpriteV31224','impactSpriteV31224','castSprite']){if(k==='castSprite'&&e[k]==null)continue;const wanted=k==='telegraphSpriteV31224'?'telegraph':k==='impactSpriteV31224'?'impact':purpose,p=clean(e[k]),next=isolatedHeel&&wanted!=='telegraph'?isolatedHeel:row.assets.includes(p)?p:clean(route[wanted]??route.projectile);if(e[k]!==next){e[k]=next;metrics.repairs++;}}e.imageOnly=true;e.ownerBoundV31322=row.id;return e;}
@@ -119243,7 +119258,7 @@ function install(){if(installed)return true;if(!window.__HAPIL_V31318_RELEASE__?
  const preloadAssets=z=>[...new Set([...zoneAssets(z),...(window.__HAPIL_TURRET_V31315__?.zoneAssets?.(z)??[])].map(clean))];
  MONGSE_zoneAssetManifest=function(z,...args){return new Set([...[...manifest(z,...args)].map(clean),...preloadAssets(z)]);};
  MONGSE_zoneAssetPlan31220=function(z,...args){const original=plan(z,...args),p={...original};for(const key of ['all','A','B','C','deferred','pins'])p[key]=new Set([...original[key]??[]].map(clean));for(const path of preloadAssets(z)){for(const key of ['all','A','pins'])p[key].add(path);for(const key of ['B','C','deferred'])p[key].delete(path);}return p;};
- installed=true;window.__HAPIL_ORDNANCE_V31322__=Object.freeze({version:VERSION,installed:true,owner,pick,repair,heading,radial,geometry,endpoints,poses,accepts,draw,bullet,syncFlights,zoneAssets,preloadAssets,clean,resolveAsset:clean,rows:()=>[...owners.values()],audit,counters:()=>({...metrics}),limits:{maxStamps:40,lowFxStamps:28,maxBitmapEdge:168,impactSeconds:.46}});return true;
+ installed=true;window.__HAPIL_ORDNANCE_V31322__=Object.freeze({version:VERSION,installed:true,owner,pick,repair,heading,radial,geometry,endpoints,poses,accepts,draw,bullet,syncFlights,zoneAssets,preloadAssets,clean,resolveAsset:clean,sourceAssets,rows:()=>[...owners.values()],audit,counters:()=>({...metrics}),limits:{maxStamps:40,lowFxStamps:28,maxBitmapEdge:168,impactSeconds:.46}});return true;
 }
 function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);}schedule();
 })();
@@ -119729,7 +119744,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
     if(!enabled||s!==world)return;
     for(const a of actors){queue.push({depth:a.x+a.y+.025,draw:()=>{
       const h=hero(a.heroId),m=a.heroMotion?.until>s.time?a.heroMotion:{...a.heroMotion,kind:alive(a)?'idle':'hurt'},path=MONGSE_readyHeroSprite(cache,Tn(h,m,s.time),MONGSE_heroFallbackSprite(h,m,a.direction),h.sprite),pose=An(Hn(m,s.time,h.id!=='hwando'&&h.id!=='gunner',En(h,m)),h,m,path);
-      ctx.save();try{Ln(ctx,cache,path,a.x,a.y,On,{...pose,alpha:alive(a)?1:.48});const p=G(a.x,a.y);ctx.fillStyle='#142126';ctx.fillRect(p.x-26,p.y+8,52,5);ctx.fillStyle=h.color;ctx.fillRect(p.x-26,p.y+8,52*Math.max(0,a.hp/a.maxHp),5);ctx.font='700 10px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f2f7fa';ctx.fillText((a.control==='ai'?'AI ':'')+a.name+(alive(a)?'':' · 재구성'),p.x,p.y+27);}finally{ctx.restore();}
+      ctx.save();try{Ln(ctx,cache,path,a.x,a.y,On,{...pose,alpha:alive(a)?1:.48});const p=G(a.x,a.y);ctx.fillStyle='#142126';ctx.fillRect(p.x-26,p.y+8,52,5);ctx.fillStyle=h.color;ctx.fillRect(p.x-26,p.y+8,52*Math.max(0,a.hp/a.maxHp),5);ctx.font='700 10px system-ui,Noto Serif KR,sans-serif';ctx.textAlign='center';ctx.fillStyle='#f2f7fa';ctx.fillText((a.control==='ai'?'AI ':'')+a.name+(alive(a)?'':' · 재구성'),p.x,p.y+27);}finally{ctx.restore();}
     }});}
   }
   function drawLaser(ctx,e,time,settings){
@@ -120562,7 +120577,7 @@ window.__HAPIL_HERO_CONTROL_FACTORY_V31406__.install({
      }}
     // Keep existing owner-coloured tears, scale the charging source by enemy rank.
     if(warning){const tear=MONGSE_queueImage(cc,c.tear,'eager');if(tear?.complete&&(tear.naturalWidth||tear.width)>0){const pos=G(a.x,a.y),torso=NUM(MONGSE_enemyTorsoOffset(a)?.y,-58),width=boss?12:9,height=(boss?30:22)+(boss?65:42)*charge;ctx.globalAlpha=opacity*(.48+.52*charge);for(const side of[-1,1])ctx.drawImage(tear,pos.x+side*(boss?14:11)-width/2,pos.y+torso-18,width,height);}}
-    if(warning&&settings.showCombatInfo!==false){const p=G(c.cx,c.cy),name=String(c.patternNameV31331??labels[c.type]).slice(0,70);ctx.globalAlpha=opacity;ctx.font=(boss?'bold 16px':'bold 13px')+' sans-serif';ctx.textAlign='center';ctx.lineWidth=4;ctx.strokeStyle='rgba(0,0,0,.88)';ctx.fillStyle=c.accent;const text=warning?name+' · '+Math.max(0,c.fireAt-s.time).toFixed(1)+'초':age<.8?(boss?'강공 · ':'')+name:'';if(text){ctx.strokeText(text,p.x,p.y+hw+33);ctx.fillText(text,p.x,p.y+hw+33);}}
+    if(warning&&settings.showCombatInfo!==false){const p=G(c.cx,c.cy),name=String(c.patternNameV31331??labels[c.type]).slice(0,70);ctx.globalAlpha=opacity;ctx.font=(boss?'bold 16px':'bold 13px')+' system-ui,Noto Serif KR,sans-serif';ctx.textAlign='center';ctx.lineWidth=4;ctx.strokeStyle='rgba(0,0,0,.88)';ctx.fillStyle=c.accent;const text=warning?name+' · '+Math.max(0,c.fireAt-s.time).toFixed(1)+'초':age<.8?(boss?'강공 · ':'')+name:'';if(text){ctx.strokeText(text,p.x,p.y+hw+33);ctx.fillText(text,p.x,p.y+hw+33);}}
    }finally{ctx.restore();}
   }}
  function evade(s,a,input){const threats=(s.bossLaserCastsV31330??[]).filter(c=>valid(c,s.zone)&&s.time>=c.born+.25&&s.time<c.fireAt+c.activeSeconds);if(!threats.length)return input;
@@ -121304,9 +121319,9 @@ return window.__HAPIL_LASER_TOPOLOGY_RC108__?.normalize(c,raw)??raw;}
   const a=npcState(s);if(!a)return false;const h=F.find(h=>h.id==='michaela');if(!h)return false;
   const motion={kind:'idle',started:0,until:s.time+1,facing:-1,dx:-1,dy:1,direction:'left'},sprite=MONGSE_readyHeroSprite(cache,Tn(h,motion,s.time),h.sprite),pose=An(Hn(motion,s.time,true,En(h,motion)),h,motion,sprite);
   ctx.save();try{Rn(ctx,a.x,a.y,20,.28);Ln(ctx,cache,sprite,a.x,a.y,On*.96,{...pose,offsetY:(pose.offsetY??0)-Math.sin(s.time*1.2)*.6,glow:'#c9b276',glowBlur:settings.reducedFlash?0:4});
-   const p=G(a.x,a.y);ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.globalAlpha=1;ctx.textAlign='center';ctx.font='700 11px sans-serif';ctx.fillStyle='#ece5d5';ctx.strokeStyle='#101822';ctx.lineWidth=3;ctx.strokeText('미카엘라',p.x,p.y+14);ctx.fillText('미카엘라',p.x,p.y+14);
-   if(a.talking){ctx.globalAlpha=Math.min(1,a.phase/.16,(3-a.phase)/.2);const w=118,y=p.y-On*.94-25;ctx.fillStyle='rgba(12,19,29,.88)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,27,7);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.65)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f0e5c7';ctx.font='500 12px sans-serif';ctx.fillText(a.text,p.x,y+18);}
-   if(J(s,a)<=3.6){const w=142,y=p.y-On*.94-53;ctx.globalAlpha=1;ctx.fillStyle='rgba(8,14,22,.94)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,22,6);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.85)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f5e8c7';ctx.font='700 11px sans-serif';ctx.fillText('F · 전체 서사 기록',p.x,y+15);}
+   const p=G(a.x,a.y);ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.globalAlpha=1;ctx.textAlign='center';ctx.font='700 11px system-ui,Noto Serif KR,sans-serif';ctx.fillStyle='#ece5d5';ctx.strokeStyle='#101822';ctx.lineWidth=3;ctx.strokeText('미카엘라',p.x,p.y+14);ctx.fillText('미카엘라',p.x,p.y+14);
+   if(a.talking){ctx.globalAlpha=Math.min(1,a.phase/.16,(3-a.phase)/.2);const w=118,y=p.y-On*.94-25;ctx.fillStyle='rgba(12,19,29,.88)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,27,7);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.65)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f0e5c7';ctx.font='500 12px system-ui,Noto Serif KR,sans-serif';ctx.fillText(a.text,p.x,y+18);}
+   if(J(s,a)<=3.6){const w=142,y=p.y-On*.94-53;ctx.globalAlpha=1;ctx.fillStyle='rgba(8,14,22,.94)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,22,6);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.85)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f5e8c7';ctx.font='700 11px system-ui,Noto Serif KR,sans-serif';ctx.fillText('F · 전체 서사 기록',p.x,y+15);}
   }finally{ctx.restore();ctx.beginPath();}metrics.npcDraws++;return true;
  }
  function queueNpc(queue,ctx,cache,s,settings){const a=npcState(s);if(a)queue.push({depth:a.x+a.y+.01,draw:()=>drawNpc(ctx,cache,s,settings)});}
@@ -121958,7 +121973,7 @@ function drawExit(ctx,s){const p=profile(s.zone);if(!p)return false;const g=gate
  if(!active)return true;
  const e=C(p.exitAnchorWorld.x,p.exitAnchorWorld.y);
  window.__HAPIL_CONTACT_RC23__.portal(ctx,e,s.time);
- ctx.save();ctx.textAlign='center';ctx.font='700 13px sans-serif';ctx.fillStyle='#c4fff2';ctx.fillText(s.flowTransitionErrorV31343??'WARP · 가까이 가면 자동 이동',e.x,e.y+62);ctx.restore();return true;
+ ctx.save();ctx.textAlign='center';ctx.font='700 13px system-ui,Noto Serif KR,sans-serif';ctx.fillStyle='#c4fff2';ctx.fillText(s.flowTransitionErrorV31343??'WARP · 가까이 가면 자동 이동',e.x,e.y+62);ctx.restore();return true;
 }
 window.__HAPIL_FLOW_V31345__=window.__HAPIL_FLOW_V31344__=window.__HAPIL_FLOW_V31343__={version:VERSION,installed:true,profiles,profile,contains,legal,project,point,required,gate,ready,blocked,reserve,settle,place,admit,bind,transition,beforeNative,clearHazards,drawFloor,drawExit,record,scope:Object.keys(profiles),nativeClear,nativeGeometry,waveAdvanceReady,bindObjective};
 }install();
@@ -122567,7 +122582,7 @@ function install(){
   open(){const s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;if(!s||(!N?.[s.zone]?.rest&&s.zone!=='hub')){window.__HAPIL_CONTROLS_V31329__?.binding?.notify?.('에피소드 기록은 쉼터에서 열람할 수 있습니다.');return false;}showArchive(s);return true;}
  };
  function showArchive(s){
-  let root=document.getElementById('hapil-archive-v31346');if(root)root.remove();const entries=archive.entries(s);let ei=0,pi=0,pages=[];root=document.createElement('div');root.id='hapil-archive-v31346';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');Object.assign(root.style,{position:'fixed',inset:'0',zIndex:'99999',background:'rgba(3,5,12,.94)',color:'#eef4ff',padding:'min(5vw,48px)',overflow:'auto',fontFamily:'sans-serif'});
+  let root=document.getElementById('hapil-archive-v31346');if(root)root.remove();const entries=archive.entries(s);let ei=0,pi=0,pages=[];root=document.createElement('div');root.id='hapil-archive-v31346';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');Object.assign(root.style,{position:'fixed',inset:'0',zIndex:'99999',background:'rgba(3,5,12,.94)',color:'#eef4ff',padding:'min(5vw,48px)',overflow:'auto',fontFamily:'system-ui,Noto Serif KR,sans-serif'});
   root.innerHTML='<div style="max-width:920px;margin:auto"><h2>EPISODE ARCHIVE · 기억 기록</h2><select aria-label="에피소드"></select><article style="white-space:pre-wrap;line-height:1.75;min-height:45vh;margin:20px 0;padding:22px;border:1px solid #596582;background:#0b1022"></article><div><button data-prev>이전</button> <button data-next>다음</button> <button data-close>닫기</button> <span data-page></span></div></div>';const sel=root.querySelector('select'),body=root.querySelector('article'),page=root.querySelector('[data-page]');for(const [i,e] of entries.entries()){const o=document.createElement('option');o.value=String(i);o.textContent=`${e.arc?e.arc+' · ':''}${e.name}`;sel.append(o);}
   function render(){const e=entries[ei]??{name:'기록 없음',text:'해금된 에피소드 기록이 없습니다.'};const chunks=e.text.match(/[\s\S]{1,1200}(?:\n\n|$)/g)??[e.text];pages=chunks;pi=Math.max(0,Math.min(pi,pages.length-1));body.textContent=`${e.name}\n\n${pages[pi]??''}`;page.textContent=` ${pi+1} / ${pages.length}`;}
   const close=()=>{root.remove();if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=false;};sel.onchange=()=>{ei=num(sel.value);pi=0;render();};root.querySelector('[data-prev]').onclick=()=>{if(pi>0)pi--;else if(ei>0){ei--;sel.value=String(ei);pi=999;}render();};root.querySelector('[data-next]').onclick=()=>{if(pi+1<pages.length)pi++;else if(ei+1<entries.length){ei++;sel.value=String(ei);pi=0;}render();};root.querySelector('[data-close]').onclick=close;root.onkeydown=e=>{if(e.key==='Escape')close();};document.body.append(root);if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;render();root.querySelector('select').focus();
@@ -123429,6 +123444,10 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  }
  function tinted(image,id,cloth=false){
   if(!image||image.complete===false||!has(id))return image;
+  // Authenticated EGO crops already carry the user's authored palette. Legacy
+  // hero recoloring would replace their bitmap and erase source provenance.
+  const ego=window.__HAPIL_EGO_ART_RC155__,token=image.egoTokenRC155;
+  if(ego?.owns(token)&&ego.picture(token)===image)return image;
   const tag=id+(cloth?'cloth':'fx');if(tags.get(image)===tag)return image;
   const iw=num(image.naturalWidth,image.width),ih=num(image.naturalHeight,image.height);if(!(iw>0&&ih>0))return image;
   const key=tag+'|'+String(image.src??'')+'|'+iw+'x'+ih,old=tints.get(key);
@@ -123723,7 +123742,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
    if(layer==='front'&&s.activeHeroId==='neon')for(const z of s.shmupSanctuaryV31365??[]){if(z.zone!==s.zone||z.heroId!==s.activeHeroId||z.expires<=s.time)continue;const a=G(z.x,z.y),b=G(z.tx,z.ty),u=cl((z.expires-s.time)/1.8,0,1);ctx.save();ctx.globalAlpha*=u*(quiet?.16:.28);ctx.lineWidth=low?5:7;ctx.beginPath();ctx.moveTo(a.x,a.y-4);ctx.lineTo(b.x,b.y-4);ctx.stroke();ctx.globalAlpha*=.7;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(a.x,a.y-4);ctx.lineTo(b.x,b.y-4);ctx.stroke();ctx.restore();}
    if(layer==='front'&&isCharging(s)){const p=G(s.x,s.y),elapsed=Math.max(0,s.time-n(s.chargeStartV31365,s.time)),u=cl(elapsed/cfg.charge2,0,1);ctx.translate(p.x,p.y-43);ctx.globalAlpha*=quiet?.45:.85;
     for(let j=0;j<(low?4:6);j++){const a=j*Math.PI/3+.2,b=48*(1-u)+12;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(Math.cos(a)*b,Math.sin(a)*b*.75);ctx.quadraticCurveTo(Math.cos(a+.3)*b*.5,Math.sin(a+.3)*b*.4,0,0);ctx.stroke();}
-    ctx.fillRect(-26,21,52*u,3);ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(s.chargeLevelV31365===2?'EGO RELEASE':s.chargeLevelV31365===1?'CHARGE II':'CHARGE I',0,36);}
+    ctx.fillRect(-26,21,52*u,3);ctx.font='bold 11px system-ui,Noto Serif KR,sans-serif';ctx.textAlign='center';ctx.fillText(s.chargeLevelV31365===2?'EGO RELEASE':s.chargeLevelV31365===1?'CHARGE II':'CHARGE I',0,36);}
   }finally{ctx.restore();ctx.beginPath();}
  }
  function background(ctx,s,rect){if(!s||(s.enemies??[]).every(a=>a.hp<=0||a.visualOnly))return;ctx.save();ctx.globalAlpha*=.13;ctx.fillStyle='#07101d';ctx.fillRect(rect.x,rect.y,rect.width,rect.height);ctx.restore();}
@@ -123764,7 +123783,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  }
  function nextAt(s,a,time){const p=phase(s,a),factor=mode(s)==='STORY'?1.12:mode(s)==='HELL'?.95:.90;return s.time+Math.max(2.2,(time-s.time)*factor*(p===4?.92:1));}
  function draw(ctx,s,settings){const a=(s.enemies??[]).find(a=>a.hp>0&&(a.boss||a.midboss)&&a.shmupPatternPlanV31365);if(!a)return;const plan=a.shmupPatternPlanV31365;if(s.time-plan.announcedAt>2.2&&!window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(s))return;
-  ctx.save();try{const p=G(a.x,a.y),o=MONGSE_enemyTorsoOffset(a);if(settings.showCombatInfo!==false){ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillStyle='rgba(5,10,18,.88)';ctx.fillRect(p.x-129,p.y+o.y-39,258,25);ctx.fillStyle='#ebf0f5';const rhythm=window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(s)?window.__HAPIL_COMBAT_FLOW_RC95__.phase(s):null;ctx.fillText(rhythm?rhythm.name+' · '+rhythm.remaining.toFixed(1)+'초':'규칙 '+plan.phase+' / '+plan.label,p.x,p.y+o.y-20);}
+  ctx.save();try{const p=G(a.x,a.y),o=MONGSE_enemyTorsoOffset(a);if(settings.showCombatInfo!==false){ctx.font='bold 12px system-ui,Noto Serif KR,sans-serif';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillStyle='rgba(5,10,18,.88)';ctx.fillRect(p.x-129,p.y+o.y-39,258,25);ctx.fillStyle='#ebf0f5';const rhythm=window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(s)?window.__HAPIL_COMBAT_FLOW_RC95__.phase(s):null;ctx.fillText(rhythm?rhythm.name+' · '+rhythm.remaining.toFixed(1)+'초':'규칙 '+plan.phase+' / '+plan.label,p.x,p.y+o.y-20);}
    const cue=a.shmupPhaseCueV31365;if(cue&&s.time<cue.until){ctx.globalAlpha*=settings.reducedFlash?.35:.6;ctx.strokeStyle=window.__HAPIL_PRESENTATION_V31328__?.ownerColor(a)??'#e5b77f';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(p.x-60,p.y+o.y-49);ctx.lineTo(p.x+60,p.y+o.y-49);ctx.stroke();}
   }finally{ctx.restore();ctx.beginPath();}}
  window.__HAPIL_GRAMMAR_V31365__=Object.freeze({version:'3.13.65',installed:true,FAMILIES,TITLE,phase,mode,family,schedule,nextAt,draw,metrics:()=>({...stats})});
@@ -124020,8 +124039,8 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function drawDeath(ctx,cache,row){const size=n(row.echoBodySizeRC145,72),p=G(row.x,row.y),offset=row.echoBossImageCloneRC145&&size>92?size*.43:31;return image(ctx,cache,row.sprite,{x:p.x,y:p.y-offset},size,1,1);}
  function drawChild(ctx,cache,a,time,settings={},state){if(!a?.echoChildV31368)return false;if(a.hp<=0)return true;const p=G(a.x,a.y),size=childDrawSizeV31368(a,state),bossArt=a.echoBossImageCloneV31368===true&&size>92,barWidth=bossArt?limit(size*.42,72,132):40,offset=bossArt?size*.43:31;ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';const ash=window.__HAPIL_BODY_ASH_RC145__,drawBody=bodyCtx=>image(bodyCtx,cache,a.sprite,{x:p.x,y:p.y-offset},size,1,1);
    if(!ash?.living({ctx,actor:a,sprite:a.sprite,size,center:{x:p.x,y:p.y-offset+size*.5},time,drawBody})){drawBody(ctx);MONGSE_drawLivingEmbersRC144(ctx,a,time,size,settings);}
-   ctx.fillStyle='#101823';ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth,4);ctx.fillStyle=a.echoColorV31368;ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth*limit(a.hp/a.maxHp,0,1),4);ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f6e5d1';ctx.fillText(a.echoFuseV31368?'자폭 '+Math.max(0,a.echoFuseV31368-time).toFixed(1):'잔영 · 격추 가능',p.x,p.y+23);}finally{ctx.restore();}return true;}
- function draw(ctx,cache,s,settings={}){const m=memory.get(s);ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';for(const c of settings.showAttackTelegraphs===true?(s.echoCuesV31368??m?.cues??[]):[]){if(c.zone!==s.zone||!owner(s,c.ownerId))continue;const a=G(c.x,c.y),b=G(c.tx,c.ty);ctx.save();try{ctx.strokeStyle=c.color;ctx.globalAlpha*=settings.reducedFlash?.5:.8;ctx.lineWidth=2;ctx.setLineDash([7,8]);ctx.beginPath();ctx.moveTo(a.x,a.y-18);ctx.lineTo(b.x,b.y-18);ctx.stroke();ctx.setLineDash([]);image(ctx,cache,c.path,{x:a.x,y:a.y-34},66,1);ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillStyle=c.accent;ctx.fillText(c.kind==='summon'?'잔영 소환 · 격추 가능':'분신 돌진 · 예고선 이탈',a.x,a.y-78);}finally{ctx.restore();}}
+   ctx.fillStyle='#101823';ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth,4);ctx.fillStyle=a.echoColorV31368;ctx.fillRect(p.x-barWidth/2,p.y+6,barWidth*limit(a.hp/a.maxHp,0,1),4);ctx.font='bold 10px system-ui,Noto Serif KR,sans-serif';ctx.textAlign='center';ctx.fillStyle='#f6e5d1';ctx.fillText(a.echoFuseV31368?'자폭 '+Math.max(0,a.echoFuseV31368-time).toFixed(1):'잔영 · 격추 가능',p.x,p.y+23);}finally{ctx.restore();}return true;}
+ function draw(ctx,cache,s,settings={}){const m=memory.get(s);ctx.save();try{ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.filter='none';for(const c of settings.showAttackTelegraphs===true?(s.echoCuesV31368??m?.cues??[]):[]){if(c.zone!==s.zone||!owner(s,c.ownerId))continue;const a=G(c.x,c.y),b=G(c.tx,c.ty);ctx.save();try{ctx.strokeStyle=c.color;ctx.globalAlpha*=settings.reducedFlash?.5:.8;ctx.lineWidth=2;ctx.setLineDash([7,8]);ctx.beginPath();ctx.moveTo(a.x,a.y-18);ctx.lineTo(b.x,b.y-18);ctx.stroke();ctx.setLineDash([]);image(ctx,cache,c.path,{x:a.x,y:a.y-34},66,1);ctx.font='bold 12px system-ui,Noto Serif KR,sans-serif';ctx.textAlign='center';ctx.fillStyle=c.accent;ctx.fillText(c.kind==='summon'?'잔영 소환 · 격추 가능':'분신 돌진 · 예고선 이탈',a.x,a.y-78);}finally{ctx.restore();}}
    for(const e of s.echoFxV31368??[]){const u=(s.time-e.born)/e.duration;if(u<0||u>=1)continue;const p=G(e.x,e.y);ctx.save();try{ctx.globalAlpha*=(1-u)*.65;ctx.strokeStyle=e.color??'#dcba97';ctx.lineWidth=1.3;for(let i=0;i<4;i++){const t=i*Math.PI/2+.6,r=8+u*22;ctx.beginPath();ctx.moveTo(p.x+Math.cos(t)*6,p.y-24+Math.sin(t)*6);ctx.lineTo(p.x+Math.cos(t)*r,p.y-24+Math.sin(t)*r);ctx.stroke();}}finally{ctx.restore();}}
   }finally{ctx.restore();ctx.beginPath();}}
  window.__HAPIL_ECHOES_V31368__=Object.freeze({installed:true,cfg,tick,clear,stage,spawn,onDeath,terminal,drawBolt,drawChild,drawDeath,bossDrawHeightV31368,childDrawSizeV31368,draw,validParent,metrics:()=>({...stats}),snapshot:s=>({cues:memory.get(s)?.cues??[],children:s.enemies?.filter(e=>e.echoChildV31368)??[],bolts:s.hostileProjectiles?.filter(q=>q.echoBoltV31368)??[]})});
@@ -125020,7 +125039,7 @@ function HAPIL_drawRiftRC13(ctx,time,cast,settings={}){return HAPIL_RC13_RENDER.
      for(const l of future){const a=projection(l.a),b=projection(l.b);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
     }ctx.setLineDash([]);
    }
-   if(warning&&settings.showCombatInfo!==false){const p=projection({x:c.cx,y:c.cy});ctx.setLineDash([]);ctx.globalAlpha=1;ctx.textAlign='center';ctx.font='bold 15px sans-serif';ctx.lineWidth=4;ctx.strokeStyle='#10050c';ctx.fillStyle='#ffe1dd';const label=c.patternNameV31331+' · '+Math.max(0,c.fireAt-now).toFixed(1)+'초';ctx.strokeText(label,p.x,p.y-38);ctx.fillText(label,p.x,p.y-38);}
+   if(warning&&settings.showCombatInfo!==false){const p=projection({x:c.cx,y:c.cy});ctx.setLineDash([]);ctx.globalAlpha=1;ctx.textAlign='center';ctx.font='bold 15px system-ui,Noto Serif KR,sans-serif';ctx.lineWidth=4;ctx.strokeStyle='#10050c';ctx.fillStyle='#ffe1dd';const label=c.patternNameV31331+' · '+Math.max(0,c.fireAt-now).toFixed(1)+'초';ctx.strokeText(label,p.x,p.y-38);ctx.fillText(label,p.x,p.y-38);}
   }finally{ctx.restore();}c.bloodBitmapRenderedRC16=!warning;c.bloodWarningRenderedRC16=warning;stats.draws++;stats.segments+=lines.length;return true;
  }
  function descriptor(owner,p){return{name:p.name,shape:'line',windup:p.windup,cooldown:p.cooldown,radius:45,width:p.width,damage:p.damage,repeats:1,gap:.3,color:owner.color,accent:owner.accent,phaseMin:0,laserV31330:true,laserV31331:true,bloodV31516:true,laserProfileV31331:p.key,laserTypeV31331:p.type,ownerIdV31331:owner.id};}
@@ -126750,6 +126769,8 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  const S=()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
  const U=()=>window.__HAPIL_SAMONG_POLICY_RC133__;
  const H=()=>window.__HAPIL_INNER_FINAL_RC133__;
+ const E=()=>window.__HAPIL_EGO_GUARDIAN_RC155__;
+ const Art=()=>window.__HAPIL_EGO_ART_RC155__;
  const Duel=()=>window.__HAPIL_PERSONA_DUEL_RC134__;
  const D=()=>window.__HAPIL_DEVELOPER_MAPS_RC133__;
  const metrics={warps:0,warpCancelled:0,midbossAdded:0,removals:0};
@@ -126860,13 +126881,14 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  }
  function install(){
   if(installed)return true;
-  if(!window.__HAPIL_RC131_NATIVE_INSTALLED__||!window.__HAPIL_DANMAKU_HUD_RC129__?.installed||!window.__HAPIL_SAMONG_RC91__?.installed||!window.__HAPIL_RC95_NATIVE__)return false;
+  if(!window.__HAPIL_RC131_NATIVE_INSTALLED__||!window.__HAPIL_DANMAKU_HUD_RC129__?.installed||!window.__HAPIL_SAMONG_RC91__?.installed||!window.__HAPIL_RC95_NATIVE__||!E()?.version)return false;
   window.__HAPIL_ENEMY_CLASSES_RC137__?.install(N);
   const classCast137=Ei;Ei=function(s,a,...args){const C=window.__HAPIL_ENEMY_CLASSES_RC137__,packets=C?.count(s,a)??0,before=Object.fromEntries(['readyAt','patternReadyAt','bossCombatPatternReadyAtV31230','laserReadyAtRC94','bloodReadyRC16'].map(k=>[k,a?.[k]])),result=classCast137.call(this,s,a,...args);C?.castReuse(s,a,before);C?.followup(s,a,packets,p=>MONGSE_pushThemeProjectile3129(s,a,p));return result;};
   const classPattern137=MONGSE_spawnBossCombatPatternV31230;MONGSE_spawnBossCombatPatternV31230=function(s,a,...args){const C=window.__HAPIL_ENEMY_CLASSES_RC137__,packets=C?.count(s,a)??0,before=Object.fromEntries(['readyAt','patternReadyAt','bossCombatPatternReadyAtV31230','laserReadyAtRC94','bloodReadyRC16'].map(k=>[k,a?.[k]])),result=classPattern137.call(this,s,a,...args);C?.castReuse(s,a,before);C?.followup(s,a,packets,p=>MONGSE_pushThemeProjectile3129(s,a,p));return result;};
   // Persona admits only its reviewed skill packets, including common/fallback native calls.
   const markBossProjectile=MONGSE_markBossProjectile31213;MONGSE_markBossProjectile31213=function(s,shot,...args){const result=markBossProjectile.call(this,s,shot,...args);window.__HAPIL_RAID_RC24__?.markProjectile?.(s,shot);return result;};
-  const personaBullet=MONGSE_pushThemeProjectile3129;MONGSE_pushThemeProjectile3129=function(s,a,p,...args){if(a?.id===H().id&&!H().acceptsSkill(s,a,p))return null;const shot=personaBullet.call(this,s,a,p,...args);window.__HAPIL_RAID_RC24__?.markProjectile?.(s,shot);return shot;};
+  const provenance=window.__HAPIL_COMBAT_PROVENANCE_RC155__;provenance?.bind({boss:a=>window.__HAPIL_COMBAT_LAYOUT_RC153__?.boss(a),assets:a=>{const id=a?.rc135FissionIdentity??a?.rc133TemplateId??a?.id;const authored=window.__HAPIL_ORDNANCE_V31322__?.rows?.().find(r=>r.id===id);return [...new Set([...(window.__HAPIL_THEME_V31323__?.catalog?.owners?.find(r=>r.id===id)?.assets??[]),...(authored?.assets??[]),...(window.__HAPIL_ORDNANCE_V31322__?.sourceAssets?.(id)??[]),...(window.__HAPIL_RAID_RC24__?.projectileAssets?.(a)??[])])];},common:()=>window.__HAPIL_DANMAKU_V31316__?.commonAsset});
+  const personaBullet=MONGSE_pushThemeProjectile3129;MONGSE_pushThemeProjectile3129=function(s,a,p,...args){if(provenance?.allow(s,a,p)===false||a?.id===H().id&&!H().acceptsSkill(s,a,p))return null;const start=s?.hostileProjectiles?.length??0,shot=personaBullet.call(this,s,a,p,...args);provenance?.finalizeAdded(s,start,a,p,admitted=>window.__HAPIL_RAID_RC24__?.markProjectile?.(s,admitted));return shot;};
   const personaCast=Ei;Ei=function(s,a,...args){if(a?.id===H().id)return null;return personaCast.call(this,s,a,...args);};
   const personaBrain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(a?.id===H().id)return null;return personaBrain.call(this,s,a,...args);};
   const personaOrdnance=MONGSE_tickBossThemeOrdnance;MONGSE_tickBossThemeOrdnance=function(s,...args){if(H().encounter(s)&&s.enemies.every(a=>a.id===H().id||a.hp<=0))return {volleys:0,lasers:0,patterns:{}};return personaOrdnance.call(this,s,...args);};
@@ -126882,7 +126904,35 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
    s.encounterWallUnlockAtV31227=0;
    return wasLocked||!!dialogue;
   }});
-  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){Duel()?.enforce(s);return frameStart.call(this,s,...args);};
+  const partyBuffs=window.__HAPIL_PARTY_BUFFS_V31322__;
+  if(partyBuffs&&!window.__HAPIL_EGO_PARTY_TRAITS_RC155__){
+   const nativeProviders=partyBuffs.providers,nativePower=partyBuffs.power,nativeTick=partyBuffs.tick;
+   const providerIds=s=>nativeProviders.call(partyBuffs,s),egoActive=s=>E().state(s).active===true;
+   const effectiveIds=s=>egoActive(s)?E().heroes.slice():providerIds(s);
+   window.__HAPIL_PARTY_BUFFS_V31322__=Object.freeze({...partyBuffs,
+    providers:effectiveIds,
+    power(s,target,critical,source){
+     const ids=providerIds(s),extra=E().additionalHeroTraits(egoActive(s),ids),party=window.__HAPIL_PARTY_V31322__,actor=source?.partySlotV31322?party?.actors?.find(a=>a.slotId===source.partySlotV31322):s,id=source?.heroId??s.activeHeroId;
+     let multiplier=nativePower.call(partyBuffs,s,target,critical,source);
+     if(extra.includes('hwando'))multiplier*=1.06;
+     if(extra.includes('gunner')&&ui(id))multiplier*=1.08;
+     if(extra.includes('lauren')&&(target?.boss||target?.midboss))multiplier*=1.08;
+     if(extra.includes('hunter')&&critical)multiplier*=1.08;
+     if(extra.includes('slayer')&&actor&&actor.hp<=actor.maxHp*.5)multiplier*=1.12;
+     return multiplier;
+    },
+    tick(s,dt,...args){
+     const result=nativeTick.call(partyBuffs,s,dt,...args);if(!egoActive(s)||!s||s.paused||s.pause||MONGSE_isEncounterLocked31226(s))return result;
+     const ids=providerIds(s),extra=E().additionalHeroTraits(true,ids),party=window.__HAPIL_PARTY_V31322__,step=Math.max(0,Math.min(.04,n(dt)));
+     if(extra.includes('seoha')){for(const key of ['Q','W','E'])if(n(s.cooldowns?.[key])>s.time)s.cooldowns[key]=Math.max(s.time,s.cooldowns[key]-step*.06);for(const a of party?.state===s?party.actors??[]:[])if(a.hp>0)for(let i=0;i<3;i++)a.skillReady[i]=Math.max(s.time,n(a.skillReady?.[i])-step*.06);}
+     if(extra.includes('michaela')){const actors=[s,...(party?.state===s?party.actors??[]:[])].filter(a=>a.hp>0&&(!a.slotId||!a.downUntil||a.downUntil<=s.time));for(const a of actors){if(a===s&&party?.status?.slots?.[0]?.down)continue;a.hp=Math.min(a.maxHp,a.hp+a.maxHp*.003*step);}}
+     return result;
+    }
+   });
+   const damageBase=MONGSE_limitHeroDamage31213;MONGSE_limitHeroDamage31213=function(actor,amount,source){const result=damageBase.call(this,actor,amount,source),party=window.__HAPIL_PARTY_V31322__,s=party?.state??S(),extra=E().additionalHeroTraits(egoActive(s),providerIds(s)),eligible=s&&(actor===s||party?.state===s&&(party.actors??[]).includes(actor));return eligible&&extra.includes('neon')?Math.max(0,n(result)*.92):result;};
+   window.__HAPIL_EGO_PARTY_TRAITS_RC155__=Object.freeze({installed:true,heroes:E().heroes,traits:E().traits,providers:effectiveIds,additional:(s)=>E().additionalHeroTraits(egoActive(s),providerIds(s))});
+  }
+  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){Art()?.ensure(s);E()?.sync(s,N,window.__MONGSE_NARRATIVE_V395__);E()?.applyEnemyScaling(s);Duel()?.enforce(s);return frameStart.call(this,s,...args);};
   const viewport=window.__HAPIL_VIEWPORT_RC104__,camera=viewport.camera;viewport.camera=function(s,...args){return Duel()?.camera(s,viewport.view?.())??camera.call(this,s,...args);};
   const split=window.__HAPIL_PORTRAIT_SPLIT_RC108__;window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({...split,
    active:s=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.active(s),shouldRender:(canvas,s)=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.shouldRender(canvas,s),
@@ -126917,15 +126967,19 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
   const assetUrl=MONGSE_assetUrl;MONGSE_assetUrl=function(path,...args){const ordinary=window.__HAPIL_MOB_MOTIONS_RC137__?.picture(path),fallback=window.__HAPIL_MOB_MOTIONS_RC137__?.fallback(path);if(ordinary)return ordinary.src;if(fallback)return assetUrl.call(this,fallback,...args);const value=assetUrl.call(this,path,...args);return /^\.?\/?assets\/rc133\/art\/chrono-(?:[0-9]|1[0-5])\.png$/.test(String(path??'').split(/[?#]/)[0])?value+(value.includes('?')?'&':'?')+'rc133=43305':value;};
   const personaQueue=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){const clean=String(path??'').split(/[?#]/)[0],im=/^\.?\/?assets\/rc134\/persona-skills\/[a-z-]+\.png$/.test(clean)?window.__HAPIL_MEDIA_ART_RC133__?.picture(clean):null;if(im){cache[clean]=im;return im;}return personaQueue.call(this,cache,path,...args);};
   const B=window.__HAPIL_RC86_BRIDGE__,save=B.serializeSave,norm=B.normalizeSave,restore=B.restoreEntry;
-  const frame=B.renderFrame;B.renderFrame=function(canvas,s,cache,...args){bitmap.observe(canvas,cache);return frame.call(this,canvas,s,cache,...args);};
+  const frame=B.renderFrame;B.renderFrame=function(canvas,s,cache,...args){bitmap.observe(canvas,cache);Art()?.ensure(s);const result=frame.call(this,canvas,s,cache,...args);Art()?.present(canvas,s);return result;};
+  const egoQueue=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){if(Art()?.owns(path)){const im=Art().picture(path);if(im)cache[path]=im;return im;}return egoQueue.call(this,cache,path,...args);};
+  const egoBody=Ln;Ln=function(ctx,cache,path,x,y,size,o={}){if(Art()?.drawBody(ctx,path,x,y,size,o,G))return;return egoBody.apply(this,arguments);};
+  const egoFx=Gn;Gn=function(ctx,cache,e,time,settings){return Art()?Art().withSkill(S(),e,()=>egoFx.call(this,ctx,cache,e,time,settings)):egoFx.apply(this,arguments);};
 
-  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.developerMapsRC133=D().clean(s.developerMapsRC133);result.innerFinalRC133=H().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
-  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.developerMapsRC133=D().clean(raw?.developerMapsRC133);if(result.developerMapsRC133)result.frontierZone=D().frontier(N);result.innerFinalRC133=H().clean(raw?.innerFinalRC133);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
-  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
+  B.serializeSave=function(s,...args){const result=save.call(this,s,...args);if(result){result.developerMapsRC133=D().clean(s.developerMapsRC133);result.innerFinalRC133=H().snapshot(s);result.egoGuardianRC155=E().snapshot(s);result.samongUpgradesRC133=U().upgrades(s.samongUpgradesRC133);result.midbossRC133=s.enemies.filter(a=>a.rc133Midboss&&a.hp>0).map(a=>({id:a.id,owner:a.rc133Owner,template:a.rc133TemplateId,visual:a.rc133VisualTemplate??null,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp}));result.midbossEncounterRC133=encounterSnapshot(s);result.mongseFoundationRC133=s.mongseFoundationRC133??null;}return result;};
+  B.normalizeSave=function(raw,...args){const result=norm.call(this,raw,...args);if(result){result.developerMapsRC133=D().clean(raw?.developerMapsRC133);if(result.developerMapsRC133)result.frontierZone=D().frontier(N);result.innerFinalRC133=H().clean(raw?.innerFinalRC133);result.egoGuardianRC155=E().migrate(raw);const u=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);result.samongUpgradesRC133=u;Object.assign(result.passives,u);result.midbossRC133=Array.isArray(raw?.midbossRC133)?raw.midbossRC133.filter(a=>a&&typeof a.id==='string'&&a.id.endsWith('-rc133')&&typeof a.template==='string'&&[a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)&&a.hp>0&&a.maxHp>=a.hp&&a.maxHp<=1000000000&&a.x>=1.4&&a.x<=30.6&&a.y>=1.4&&a.y<=30.6).slice(0,4):[];result.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,result.zone);result.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);}return result;};
+  B.restoreEntry=function(s,raw,...args){const result=restore.call(this,s,raw,...args);D().restore(s,raw?.developerMapsRC133);if(D().has(s))s.frontierZone=D().frontier(N);s.samongUpgradesRC133=U().upgrades(raw?.samongUpgradesRC133??raw?.passives);s.midbossEncounterRC133=cleanEncounter(raw?.midbossEncounterRC133,s.zone);midpoint(s);H().restore(s,raw?.innerFinalRC133);E().restore(s,raw?.egoGuardianRC155,raw);s.mongseFoundationRC133=cleanFoundation(raw?.mongseFoundationRC133);return result;};
   const enemies=B.restoreEnemies;B.restoreEnemies=function(raw,...args){let result=enemies.call(this,raw,...args);const previous=new Map(result.map(a=>[a.id,a]));const roster=cleanEncounter(raw?.midbossEncounterRC133,raw?.zone);
    const rows=roster?.members??raw?.midbossRC133??[];if(roster)result=result.filter(a=>!a.midboss||a.visualOnly||a.friendly);
-   for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=authoredMidboss(raw.zone,previous.get(row.id));if(!source)continue;const a=Jr(source,raw.zone);Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});fissionIdentity(a,source,raw.zone,result.filter(a=>a.midboss).length);result.push(a);}return result;};
-  const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);if(s){delete s.midbossEncounterRC133;delete s.rc133WarpOwner;}if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;Duel()?.enforce(s);midpoint(s);foundation(s);return result;};
+   for(const row of rows){if(result.some(a=>a.id===row.id))continue;const source=authoredMidboss(raw.zone,previous.get(row.id));if(!source)continue;const a=Jr(source,raw.zone);Object.assign(a,{id:row.id,rc133Owner:row.owner,rc133Midboss:true,boss:false,midboss:true,x:row.x,y:row.y,hp:row.hp,maxHp:row.maxHp});fissionIdentity(a,source,raw.zone,result.filter(a=>a.midboss).length);result.push(a);}const egoState={egoGuardianRC155:E().clean(raw?.egoGuardianRC155,raw),enemies:result};E().restoreScaling(egoState,raw?.egoGuardianRC155?.scaledActors);return result;};
+  const zoneClear=MONGSE_zoneCombatCleared;MONGSE_zoneCombatCleared=function(s,z=s?.zone,...args){const cleared=zoneClear.call(this,s,z,...args);E()?.observeClear(s,z,cleared);return cleared;};
+  const enter=ii;ii=function(s,...args){const result=enter.call(this,s,...args);if(s){delete s.midbossEncounterRC133;delete s.rc133WarpOwner;E()?.onMapEntry(s,args[0]??s.zone,N,window.__MONGSE_NARRATIVE_V395__);}if(s&&s.zone!=='cult04'&&s.innerFinalRC133?.phase!=='complete')delete s.innerFinalRC133;Duel()?.enforce(s);midpoint(s);foundation(s);return result;};
   const gap=MONGSE_tickBossGapCharge31226;MONGSE_tickBossGapCharge31226=function(s,a,...args){if(a&&(a.boss||a.midboss)){a.gapChargeV31226=null;for(const key of ['pendingHits','impactQueue'])if(s?.[key]?.some(h=>h.sourceId===a.id&&h.gapChargeV31226))s[key]=s[key].filter(h=>h.sourceId!==a.id||!h.gapChargeV31226);if(a.activePattern==='gapChargeV31226')a.activePattern='';warp(s,a);return null;}return gap.call(this,s,a,...args);};
   const brain=MONGSE_tickBossCombatBrainSmartR1;MONGSE_tickBossCombatBrainSmartR1=function(s,a,...args){if(stationary(a)){pin(a,s);return {target:null,moveScale:0,speedScale:0};}return brain.call(this,s,a,...args);};
   const movement=ft;ft=function(zone,a,...args){const s=S();if(stationary(a)){pin(a,s);return {x:a.x,y:a.y};}const result=movement.call(this,zone,a,...args);return Duel()?.constrained(s,a)?Duel().position(a,result):result;};
@@ -126961,7 +127015,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
   const radius=MONGSE_enemyHitRadius;MONGSE_enemyHitRadius=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||window.__HAPIL_MIDBOSS_MOTIONS_RC135__?.profile(a)||a?.id==='blue-executor'||a?.rc133InnerBoss||a?.id==='mb-ep1b06b'||a?.rc135FissionZone==='ep1b06b'||art137?.data.independentBodies[a?.rc135FissionIdentity??a?.id])? .72:radius.call(this,a);};
   const torso=MONGSE_enemyTorsoOffset;MONGSE_enemyTorsoOffset=function(a){return (window.__HAPIL_STAND_V31335__?.profile(a)?.human||window.__HAPIL_MIDBOSS_MOTIONS_RC135__?.profile(a)||a?.id==='blue-executor'||a?.rc133InnerBoss||a?.id==='mb-ep1b06b'||a?.rc135FissionZone==='ep1b06b'||art137?.data.independentBodies[a?.rc135FissionIdentity??a?.id])?{x:0,y:-122*.62}:torso.call(this,a);};
   const manifest=MONGSE_zoneAssetManifest,assetPlan=MONGSE_zoneAssetPlan31220;
-  function extraAssets(zone){const paths=new Set([...(window.__HAPIL_MIDBOSS_MOTIONS_RC135__?.assets(zone)??[]),...(window.__HAPIL_RC140_STORY_CYCLE_ART__?.assetsForZone(zone)??[]),'./assets/rc137/boss-projectiles-source.png',...(zone==='dist06'?['./assets/actors/v31511/balrog-raised-body.png','./assets/actors/v31511/balrog-raised-sword.png']:[]),...(zone==='ep1b06b'?[art137.data.winter.path]:[]),...(['u204','u205'].includes(zone)?[art137.data.independentBodiesSource?'./'+art137.data.independentBodiesSource.path:null].filter(Boolean):[])]),visit=v=>{if(typeof v==='string'&&v.startsWith('./assets/'))paths.add(v);else if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')Object.values(v).forEach(visit);};if(zone==='cult04')for(const path of window.__HAPIL_MEDIA_ART_RC133__?.assets()??[])paths.add(path);if(/^kair/.test(zone))for(const path of window.__HAPIL_MEDIA_ART_RC133__?.chrono??[])paths.add(path);const first=authoredMidboss(zone);if(first)for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase'])visit(first[key]);return paths;}
+  function extraAssets(zone){const paths=new Set([...(window.__HAPIL_MIDBOSS_MOTIONS_RC135__?.assets(zone)??[]),...(window.__HAPIL_RC140_STORY_CYCLE_ART__?.assetsForZone(zone)??[]),'./assets/rc137/boss-projectiles-source.png',...(zone==='dist06'?['./assets/actors/v31511/balrog-raised-body.png','./assets/actors/v31511/balrog-raised-sword.png']:[]),...(zone==='ep1b06b'?[art137.data.winter.path]:[]),...(['u204','u205'].includes(zone)?[art137.data.independentBodiesSource?'./'+art137.data.independentBodiesSource.path:null].filter(Boolean):[])]),visit=v=>{if(typeof v==='string'&&v.startsWith('./assets/'))paths.add(v);else if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')Object.values(v).forEach(visit);};if(E()?.state(S()).active||E()?.state(S()).pendingTransformation)for(const path of Art()?.assets()??[])paths.add(path);if(zone==='cult04')for(const path of window.__HAPIL_MEDIA_ART_RC133__?.assets()??[])paths.add(path);if(/^kair/.test(zone))for(const path of window.__HAPIL_MEDIA_ART_RC133__?.chrono??[])paths.add(path);const first=authoredMidboss(zone);if(first)for(const key of ['sprite','phaseSprites','phaseSpriteFallbacks','actionSprites','actionSpritesByPhase'])visit(first[key]);return paths;}
   MONGSE_zoneAssetManifest=function(zone,...args){return new Set([...manifest.call(this,zone,...args),...extraAssets(zone)]);};
   MONGSE_zoneAssetPlan31220=function(zone,...args){const value=assetPlan.call(this,zone,...args);for(const path of extraAssets(zone)){for(const key of ['all','A','pins'])value[key]?.add(path);for(const key of ['B','C','deferred'])value[key]?.delete(path);}return value;};
   const projectile=MONGSE_themeProjectileSprite3128;
@@ -126985,7 +127039,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
  function rootBitmap(){
   const opts=s=>{const config=window.__HAPIL_CONTROLS_V31329__?.binding?.settings?.current??{},size=s.hostileProjectiles?.length??0,lod=size>=24?0:size>=12?1:2;return {...config,projectileLodSmartR1:lod,lowFx:config.lowFx||lod===0};};
   return window.__HAPIL_BITMAP_CONTACT_RC133__.create({render:(...args)=>HAPIL_drawProjectileRC13(...args),project:G,camera:s=>HAPIL_viewCameraRC104(s.x,s.y,s),world:(ctx,canvas,s)=>window.__HAPIL_ADAPTIVE_RC125__?.applyWorld(ctx,canvas,s),alphaBounds:im=>HAPIL_RC13_RENDER.imageBounds(im),settings:opts,
-   heroDraw:(ctx,cache,a,time)=>{const h=F.find(h=>h.id===(a.activeHeroId??a.heroId));if(!h)return;const motion=a.heroMotion?.until>time?a.heroMotion:{...(a.heroMotion??{}),kind:'idle',dx:0,dy:0},path=MONGSE_readyHeroSprite(cache,Tn(h,motion,time),MONGSE_heroFallbackSprite(h,motion,a.direction??'front'),h.sprite),o=An(Hn(motion,time,h.id!=='hwando'&&h.id!=='gunner',En(h,motion)),h,motion,path);Ln(ctx,cache,path,a.x,a.y,On,{...o,glowBlur:0});},
+   heroDraw:(ctx,cache,a,time)=>{const h=F.find(h=>h.id===(a.activeHeroId??a.heroId));if(!h)return;const motion=a.heroMotion?.until>time?a.heroMotion:{...(a.heroMotion??{}),kind:'idle',dx:0,dy:0},path=MONGSE_readyHeroSprite(cache,Art()?.sprite(a,motion)??Tn(h,motion,time),MONGSE_heroFallbackSprite(h,motion,a.direction??'front'),h.sprite),o=An(Hn(motion,time,h.id!=='hwando'&&h.id!=='gunner',En(h,motion)),h,motion,path);Ln(ctx,cache,path,a.x,a.y,On,{...o,glowBlur:0});},
    enemyDraw:(ctx,cache,a,time,settings)=>Yn(ctx,cache,a,time,settings)});
  }
  function cleanFoundation(raw){return {version:1,regions:Array.isArray(raw?.regions)?raw.regions.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],waypoints:Array.isArray(raw?.waypoints)?raw.waypoints.filter(x=>typeof x==='string'&&N[x]).slice(0,160):[],resources:{memory:Math.max(0,Math.min(9999,Math.floor(n(raw?.resources?.memory))))}};}
@@ -127055,7 +127109,11 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
 
 /* RC153_NATIVE_COMBAT: finalize complete native emissions before warning/travel. */
 (()=>{'use strict';let tries=0;function install(){const L=window.__HAPIL_COMBAT_LAYOUT_RC153__;if(!L||!window.__HAPIL_NATIVE_ARENA_RC138__?.installed)return false;
- L.bind({project:G,paintEnvelope:(s,a,isHero)=>window.__HAPIL_BITMAP_NATIVE_RC133__?.paintEnvelope?.(s,a,isHero),ranked:window.__HAPIL_DANMAKU_V31316__.rankedRows().map(r=>r.actor.id),size:a=>Ge(a.kind,!!a.boss,!!a.midboss,!!a.elite,a.scale)*MONGSE_phaseScale(a)*(a.boss?1.1:1)*(window.__HAPIL_BOSS_CLONE_VISUAL_V314RC9__?.prepareCloneVisual(a)??1)});
+ const controls=window.__HAPIL_CONTROLS_V31329__;let renderState=null;
+ L.bind({project:G,paintEnvelope:(s,a,isHero,unscaled)=>window.__HAPIL_BITMAP_NATIVE_RC133__?.paintEnvelope?.(s,a,isHero,unscaled),mapWidth:s=>{const path=N[s?.zone]?.map,im=controls.binding.cache.current[path];return im?.complete&&im.naturalWidth>0?Math.min(1584,990*im.naturalWidth/im.naturalHeight):1584;},ranked:window.__HAPIL_DANMAKU_V31316__.rankedRows().map(r=>r.actor.id),size:a=>Ge(a.kind,!!a.boss,!!a.midboss,!!a.elite,a.scale)*MONGSE_phaseScale(a)*(a.boss?1.1:1)*(window.__HAPIL_BOSS_CLONE_VISUAL_V314RC9__?.prepareCloneVisual(a)??1)});
+ const nativeActor=Yn;Yn=function(ctx,cache,a,...args){const s=a?.rc156PresentationState??renderState??controls.binding.state.current,factor=a?.rc156EnvelopeProbe?1:(L.actorScale?.(s,a)??1);if(factor===1)return nativeActor.call(this,ctx,cache,a,...args);const foot=G(a.x,a.y);ctx.save();try{ctx.translate(foot.x,foot.y);ctx.scale(factor,factor);ctx.translate(-foot.x,-foot.y);return nativeActor.call(this,ctx,cache,a,...args);}finally{ctx.restore();}};
+ const nativeFrame=$n;$n=function(canvas,s,...args){const prior=renderState;renderState=s;try{return nativeFrame.call(this,canvas,s,...args);}finally{renderState=prior;}};
+ const nativeTorso=MONGSE_enemyTorsoOffset;MONGSE_enemyTorsoOffset=function(a,...args){const offset=nativeTorso.call(this,a,...args),factor=a?.rc156EnvelopeProbe?1:(L.actorScale?.(a?.rc156PresentationState??renderState??controls.binding.state.current,a)??1);return factor===1?offset:{x:offset.x*factor,y:offset.y*factor};};
  const wrap=fn=>function(s,...args){const result=fn.call(this,s,...args);L.scatter(s);return result;};Ei=wrap(Ei);bi=wrap(bi);MONGSE_spawnBossCombatPatternV31230=wrap(MONGSE_spawnBossCombatPatternV31230);MONGSE_spawnThemeOrdnanceKind3129=wrap(MONGSE_spawnThemeOrdnanceKind3129);MONGSE_tickBossThemeOrdnance=wrap(MONGSE_tickBossThemeOrdnance);
- const controls=window.__HAPIL_CONTROLS_V31329__,frame=controls.frameStart;controls.frameStart=function(s,...args){L.scatter(s);return frame.call(this,s,...args);};window.__HAPIL_NATIVE_COMBAT_RC153__=Object.freeze({installed:true,version:'RC153'});return true;}
+ const frame=controls.frameStart;controls.frameStart=function(s,...args){L.scatter(s);return frame.call(this,s,...args);};window.__HAPIL_NATIVE_COMBAT_RC153__=Object.freeze({installed:true,version:'RC153'});return true;}
  function ready(){if(install()||++tries>=1200)return;setTimeout(ready,20);}ready();})();

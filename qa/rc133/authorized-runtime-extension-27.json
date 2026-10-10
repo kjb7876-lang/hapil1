@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "74109f2b19a5e9563e67b13769e6a9211591aff0",
+  "baseTree": "ec9aa889c9ab085b9432d59778f968bdf253602d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0a9916507d5e2c80bc18090478c9766233df489b9e112c65ff5b227be41dcbb4",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "1eb4e5dd7cb6658411003fd36e9959f4e6f93e53"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "75a3358bc36c4bed92fa732fc1eca9c85410b4e7",
+        "sha256": "1957086aeb69d4d94f4616d129589c36b7fcf47c19830d05f97f3c06401bdbd1"
+      },
+      "reason": "Authorized native EGO skill metadata compatibility without changing damage or physics for assets/rc155/ego-art.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2e51c8f4cabdabeba3f275a5e4c010b714462ab9"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "d3706f5402b494e7b5ccebb8ba97bf2219a9782d",
+        "sha256": "241b59fe8e2f5ba46a479b4619a6f261c38296c6164cc9613aec3c9a8f7617d0"
+      },
+      "reason": "Authorized native EGO skill metadata compatibility without changing damage or physics for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "dc0e0a2316cd80359853c3c41657d3b5e5fcedb95b963d67c3e2177adf08fbc9"
+}

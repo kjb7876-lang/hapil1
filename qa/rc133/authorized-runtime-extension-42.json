@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "base": "37f7b84ca08b99d27142f4f39fc32b4513cc803a",
+  "baseTree": "f0e630eca92a0bdf7c364da6302aa8f5184eed06",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e43299f140991628db6dbf12c934fc535ad35119d0e040cf8f579b77daf1d6f6",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "630dc610aaa86ce390a59a5483c332cdf06f6c8b"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "f01aa6a82d1eac7df3264e7b19d3512de59b0a7d",
+        "sha256": "a3900f24b702e559523f73ae8c9c8179331eb5086bad21ddae8363c92af68715"
+      },
+      "reason": "Connect the approved isolated walk frame and right-facing pose correction: assets/rc155/ego-art.js"
+    },
+    {
+      "file": "assets/rc156/ego-walk-frame-3.json",
+      "before": null,
+      "after": {
+        "file": "assets/rc156/ego-walk-frame-3.json",
+        "mode": "100644",
+        "gitBlob": "2e84c155da8a7b3f4d829c39f7f33cd540f23fb6",
+        "sha256": "5043bfed827fbf6141fe244aace6cba1ce4d9e03eedcaf3d6f635586e6c7106a"
+      },
+      "reason": "Pin source provenance, threshold, crop, resize, and foot pivot: assets/rc156/ego-walk-frame-3.json"
+    },
+    {
+      "file": "assets/rc156/ego-walk-frame-3.png",
+      "before": null,
+      "after": {
+        "file": "assets/rc156/ego-walk-frame-3.png",
+        "mode": "100644",
+        "gitBlob": "0d7edfa73b48bdbc34b378b9f7fd0b93f70cc1e3",
+        "sha256": "ca972920758bd8d30c6d5652137304d44ae53ced9b76c709ef51bdeefa3dcf86"
+      },
+      "reason": "Add the deterministic bounded alpha-cleaned runtime frame: assets/rc156/ego-walk-frame-3.png"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cbf04211af49d503c54add183356dc174326e40d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cd0697fe41d2c516a433ac9965f0debbf15f4cbd",
+        "sha256": "9dcd180480c4a8cb480fb94779f824dba44c2f7fbac35a891b0c0594f372c15c"
+      },
+      "reason": "Bump EGO artwork cache key for the runtime change: index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "b8fafde09d9d139d59a81dde03ed10df2605eceb3bd7c4f479bcdcd105dce5a2"
+}

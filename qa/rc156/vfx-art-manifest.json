@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "baseline": "fd4478c224848f85c354049b6e22c33aa41d5b0b",
+  "scope": "Unpublished Hwando/gunner BASIC A presentation only; original texture pixels preserved.",
+  "sourceInspection": "Actual pixels viewed; alpha measured from original FFmpeg RGBA decode. No art regeneration, recolour, cut or source-byte edit.",
+  "heroes": {
+    "hwando": {
+      "flight": "./assets/vfx/heroes/hwando-a.webp",
+      "contact": "./assets/vfx/heroes/hwando-q.webp",
+      "heading": 3.141592653589793,
+      "pivot": [
+        0.25,
+        0.5
+      ],
+      "contactHeading": 1.5707963267948966,
+      "contactPivot": [
+        0.43,
+        0.88
+      ],
+      "size": 100,
+      "contactSize": 82
+    },
+    "gunner": {
+      "flight": "./assets/vfx/heroes/gunner-a.webp",
+      "contact": "./assets/vfx/generated/v31307/hero-impacts/gunner-memory-impact.webp",
+      "heading": 2.356194490192345,
+      "pivot": [
+        0.28,
+        0.7
+      ],
+      "contactHeading": 0,
+      "contactPivot": [
+        0.48,
+        0.51
+      ],
+      "size": 72,
+      "contactSize": 66
+    }
+  },
+  "files": [
+    {
+      "file": "./assets/vfx/heroes/hwando-a.webp",
+      "bytes": 11604,
+      "sha256": "f0cf521aa71630ae1ffa7733aed36ae970c5db5809e5476e6dc1850e6769ef5a",
+      "width": 256,
+      "height": 256,
+      "pix_fmt": "yuva420p",
+      "alphaPixels": 12801,
+      "partialAlpha": 5842,
+      "originalBytesUnchanged": true
+    },
+    {
+      "file": "./assets/vfx/heroes/hwando-q.webp",
+      "bytes": 12378,
+      "sha256": "0306c3f9f5d09c2c873fe27c9347d47118206a83c30a3e9128b0a72920a0f23f",
+      "width": 256,
+      "height": 256,
+      "pix_fmt": "yuva420p",
+      "alphaPixels": 9579,
+      "partialAlpha": 7356,
+      "originalBytesUnchanged": true
+    },
+    {
+      "file": "./assets/vfx/heroes/gunner-a.webp",
+      "bytes": 11496,
+      "sha256": "cd3cdded50b80cbc3e51b18308945ea2b124978b48c4cee96f646f166ac0a5c9",
+      "width": 256,
+      "height": 256,
+      "pix_fmt": "yuva420p",
+      "alphaPixels": 12936,
+      "partialAlpha": 4608,
+      "originalBytesUnchanged": true
+    },
+    {
+      "file": "./assets/vfx/generated/v31307/hero-impacts/gunner-memory-impact.webp",
+      "bytes": 130936,
+      "sha256": "ada0fb04984ded0ab5e3f1ae1eb878066ac41a0f91e80144dc603ab1adf31bff",
+      "width": 512,
+      "height": 512,
+      "pix_fmt": "argb",
+      "alphaPixels": 57613,
+      "partialAlpha": 57611,
+      "originalBytesUnchanged": true
+    }
+  ],
+  "selectionNotes": {
+    "hwando": "Existing silver crescent A keeps curved thickness and tapered original ends. Existing Q burst is used only as the A contact/muzzle texture; no Q action or mechanics change.",
+    "gunner": "Existing memory A provides a cyan round head and angular memory fragments; native owned memory-impact supplies actual-contact texture.",
+    "excluded": "Existing gunner laser-bullet is deliberately not the new private cue because its straight beam silhouette does not address the bar feedback. Native paint remains untouched; E/R and allied/EGO/other heroes excluded."
+  }
+}

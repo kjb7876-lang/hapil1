@@ -1,14 +1,15 @@
 name: RC137 exact integrated gameplay and art
+# Runner-only edits require the same three exact-SHA gates as runtime edits.
 on:
   push:
     branches: [main, codex/rc137-boss-art-review, codex/rc140-story-murder-sprites-voice, codex/rc141-natural-audio-followup, codex/rc142-gameplay-audit, codex/rc143-persona-mobile-cult, codex/rc151-mobile-a-visibility, codex/rc152-image-combat]
-    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc150-*.cjs', 'tests/story-narration-decoder-edges.cjs', 'tests/fixtures/story-narration-chrome-stable-v154.json', 'tests/rc152*', 'tests/rc153*', 'tests/rc154*', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc133/published.cjs', 'qa/rc153/**', 'qa/rc137/**', 'tools/rc133-*.cjs', 'tools/rc154-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
+    paths: ['assets/**', 'index.html', 'tests/rc137*', 'tests/rc138*', 'tests/rc139*', 'tests/rc142*', 'tests/rc143*', 'tests/rc150-*.cjs', 'tests/story-narration-decoder-edges.cjs', 'tests/fixtures/story-narration-chrome-stable-v154.json', 'tests/rc152*', 'tests/rc153*', 'tests/rc154*', 'tests/rc155-*.cjs', 'tests/rc156-*.cjs', 'qa/rc156/**', 'qa/rc138/**', 'qa/rc139/**', 'qa/rc142/**', 'tests/rc134*', 'tests/rc133-published-url.cjs', 'qa/rc133/public-url.cjs', 'qa/rc133/published.cjs', 'qa/rc153/**', 'qa/rc137/**', 'tools/rc133-*.cjs', 'tools/rc154-*.cjs', '.github/workflows/rc137-integration.yml', '.github/workflows/story-narration-audit.yml']
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: rc137-integrated-${{ github.ref }}
-  cancel-in-progress: true
+  group: rc137-integrated-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   audit:
     runs-on: ubuntu-24.04
@@ -28,6 +29,7 @@ jobs:
         with:
           node-version: '22'
       - name: Prepare Playwright runtime and read-only decoder
+        id: prepare_runtime
         shell: bash
         run: |
           set -euo pipefail
@@ -37,7 +39,121 @@ jobs:
           sudo apt-get install -y ffmpeg
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc137-evidence" >> "$GITHUB_ENV"
+      - name: Capture independent EGO appearance regression PNGs
+        if: always() && !cancelled() && steps.prepare_runtime.outcome == 'success' && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          git fetch --no-tags origin e1111aa8b3930d3d13f4e9b1218b500dbfa164a0
+          node tests/rc155-ego-art-unit.cjs
+          git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
+          git fetch --no-tags origin 03ddd7159c20c1d9610c07dbd3f70ee94a1f9e37
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-source-cloak" node qa/rc156/source-cloak-audit.cjs
+          RC156_SOURCE_CLIP=1 RC156_APPEARANCE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-appearance" node tests/rc155-ego-browser.cjs
+          node tests/rc156-motion-unit.cjs
+          RC156_MOTION=1 RC156_FULL_VIEWPORT=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-ego-motion" node tests/rc155-ego-browser.cjs
+      - name: Preserve source cloak overlap diagnostics
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-source-cloak-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-source-cloak/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Preserve small original EGO appearance PNGs
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-appearance-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-ego-appearance/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Preserve original EGO native motion crops and trace
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-motion-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-ego-motion/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Verify independent unpublished two-hero VFX trial
+        if: always() && !cancelled() && steps.prepare_runtime.outcome == 'success' && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          git fetch --no-tags origin fd4478c224848f85c354049b6e22c33aa41d5b0b
+          node tests/rc156-vfx-pilot-unit.cjs
+          node tests/rc156-vfx-texture-cache-unit.cjs
+          node tests/rc156-vfx-video-unit.cjs
+          node tests/rc156-boot-audit-unit.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc156-vfx-trial" node tests/rc156-vfx-pilot-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Preserve small original VFX trial PNG and metadata
+        id: vfx_trial_artifact
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-unpublished-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Preserve small VFX motion and source-frame metadata
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-motion-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial-motion/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Preserve complete original VFX video-source PNGs
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: vfx-trial-rawframes-${{ github.sha }}
+          path: ${{ runner.temp }}/rc156-vfx-trial-rawframes/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Report official VFX trial artifact identifiers
+        if: always() && steps.vfx_trial_artifact.outcome == 'success'
+        env:
+          VFX_TRIAL_ARTIFACT_ID: ${{ steps.vfx_trial_artifact.outputs.artifact-id }}
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),assert=require('assert/strict');
+          const row={runId:process.env.GITHUB_RUN_ID,artifactId:process.env.VFX_TRIAL_ARTIFACT_ID,sha:process.env.GITHUB_SHA};
+          assert.match(row.runId,/^\d+$/);assert.match(row.artifactId,/^\d+$/);assert.match(row.sha,/^[a-f0-9]{40}$/);
+          console.log('RC156_VFX_TRIAL_ARTIFACT',JSON.stringify(row));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'Unpublished two-hero original PNG trial: '+JSON.stringify(row)+'\n');
+          NODE
+
       - name: Verify exact runtime and native art transactions
+        if: ${{ always() && !cancelled() && steps.prepare_runtime.outcome == 'success' }}
         env:
           EXPECTED_SHA: ${{ github.sha }}
           RC137_PROFILE: ${{ matrix.profile }}
@@ -54,7 +170,16 @@ jobs:
           mkdir -p "$HAPIL_QA_OUTPUT"
           node --input-type=module --check < assets/index-v31526.js
           node tests/rc152-position-unit.cjs
+          node tests/rc152-portrait-pause-unit.cjs
           node tests/rc153-combat-unit.cjs
+          git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
+          git fetch --no-tags origin 3ab3bfd0adb94d386f70e4a618af85d99b0c3de4
+          git fetch --no-tags origin e1111aa8b3930d3d13f4e9b1218b500dbfa164a0
+          git fetch --no-tags origin 37f7b84ca08b99d27142f4f39fc32b4513cc803a
+          git fetch --no-tags origin 53abbb573d928f5a7f0473e0a086dec29b12288b
+          node tests/rc156-runtime-quality-unit.cjs
+          node tests/rc156-input-framing-unit.cjs
+          node tests/rc156-anatomy-preservation-unit.cjs
           node tests/rc154-pack-visual-evidence-unit.cjs
           node tests/rc154-cosmic-loader-unit.cjs
           if test "$RC137_PROFILE" = portrait && test "$RC137_ROUND" = 1; then
@@ -79,6 +204,10 @@ jobs:
           node tests/rc133-duel-hitboxes.cjs
           node tests/rc134-persona-policy.cjs
           node tests/rc142-gameplay-unit.cjs
+          node tests/rc155-ego-guardian-unit.cjs
+          node tests/rc155-ego-art-unit.cjs
+          node tests/rc155-combat-quality-unit.cjs
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/ego" node tests/rc155-ego-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/arena" node tests/rc138-arena-browser.cjs
           git fetch --no-tags origin c7bc9e7d97c4b961987049c656fe624b463e0a58
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/rc152-image" node tests/rc152-image-browser.cjs
@@ -135,4 +264,31 @@ jobs:
         with:
           name: rc137-${{ github.sha }}-${{ matrix.profile }}-${{ matrix.round }}
           path: ${{ runner.temp }}/rc137-evidence/
+          retention-days: 14
+
+      - name: Capture independent raw comparison evidence
+        if: always() && !cancelled() && matrix.profile == 'pc' && matrix.round == 1
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC137_PROFILE: pc
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc155-ego-guardian-unit.cjs
+          node tests/rc155-ego-art-unit.cjs
+          git fetch --no-tags origin 73a410daf5267fdf1ad2a9cdbaffd85afc407f09
+          RC155_COMPARE=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc155-ego-comparison" node tests/rc155-ego-browser.cjs
+
+      - name: Upload small raw EGO before-after evidence
+        uses: actions/upload-artifact@v7
+        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        with:
+          name: ego-comparison-${{ github.sha }}
+          path: ${{ runner.temp }}/rc155-ego-comparison/
+          if-no-files-found: error
           retention-days: 14

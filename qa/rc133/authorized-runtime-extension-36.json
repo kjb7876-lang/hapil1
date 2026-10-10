@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "b94b4196140797a6250f28db911f3391836f885a",
+  "baseTree": "4e6c87560ff33076d2ecbd897016aecea8180aee",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "00632015a4ce751aca4674821382b8879cc8556a192f92fccf2de90f98a9ac77",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "02815be3f7920b1ea761e5f5d1718220311b1fb1"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "ae68245ad511b8e2e21746d0b5514e66b5d18b66",
+        "sha256": "dc544eea7eb189bb36eea770380defd16eb3ba9633ebfcd35b3fd02ed4a597ba"
+      },
+      "reason": "Authorized original-alpha EGO crops, complete source ranges and bundled Korean font fallback for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc125/adaptive-battlefield.css",
+      "before": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "08388a8dc3e97c56dc5938d2635669327020c85f"
+      },
+      "after": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "63694fc312ed78094af521bcdff4ca97c31deae0",
+        "sha256": "61b4a607f8dfdbb84541a88d72c1e04beddc4b6274d005e4cbf527e891a1822e"
+      },
+      "reason": "Authorized original-alpha EGO crops, complete source ranges and bundled Korean font fallback for assets/rc125/adaptive-battlefield.css"
+    },
+    {
+      "file": "assets/rc155/ego-art.js",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "c73e1611aad15b806fbd8015f46e8cb1d2ebd29e"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "2d3cc7177f05e2d46aceb244f4cfbca3a3ac4737",
+        "sha256": "c69899bec050bcc08c82d51bacd4093a17d54cbb9572240ed85bc918c0bd0265"
+      },
+      "reason": "Authorized original-alpha EGO crops, complete source ranges and bundled Korean font fallback for assets/rc155/ego-art.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "0c13d638a75a27bc5869b0de17d327e2e775de4c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "9725aa17cafb5fafd617f12fbb0a9c839c5143bd",
+        "sha256": "8ed09f680221d870e59eb76d011793bb3d70150da67c0b894a40351821445b26"
+      },
+      "reason": "Authorized original-alpha EGO crops, complete source ranges and bundled Korean font fallback for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "86a926e02576e2b4dfaaa521398bad0dbbcfbbb5b1536b8bbc45c5929ac8ac16"
+}

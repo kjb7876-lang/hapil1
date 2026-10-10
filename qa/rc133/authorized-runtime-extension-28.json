@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "fdc4a066fa6e831839458cc5586d75cc8030df26",
+  "baseTree": "a3a385bd8428ed61729283896056bd4d6de33c45",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "4317936a257b8b65cbaee8cc43c6fd269be67b24a559173bc83108cd086ed0be",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7b518aef1f3075ad0a4b050b9417b8e285bbe450"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "9fc62bf65d9cfd5efddf1bb15be058a32377b907",
+        "sha256": "56a92ec07e422e13401ddd7cc650f97f1b831c4929925e3919672e81e7c599b8"
+      },
+      "reason": "Authorized final authored projectile provenance and immutable ownership diagnostics for assets/index-v31526.js"
+    },
+    {
+      "file": "assets/rc155/combat-provenance.js",
+      "before": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "30ecdcbb26a2407dab7d588f70a0fe943426b456"
+      },
+      "after": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "5830e83dd8f2d07c1ecea2b5dfe4e3f6b9ed1d72",
+        "sha256": "67822f257fd64634f0af10e49d84e046747a3798bbe06af1e9e45c1fc26cdb84"
+      },
+      "reason": "Authorized final authored projectile provenance and immutable ownership diagnostics for assets/rc155/combat-provenance.js"
+    },
+    {
+      "file": "assets/rc25/raid.js",
+      "before": {
+        "file": "assets/rc25/raid.js",
+        "mode": "100644",
+        "gitBlob": "71c7b01b433dff429727543e1c32bd01eafb2088"
+      },
+      "after": {
+        "file": "assets/rc25/raid.js",
+        "mode": "100644",
+        "gitBlob": "ec9572e46e78c14472edc3797a30fc8d4bf0282f",
+        "sha256": "061c1431a5a71908376846965f74d38740d25e0ff472a25bd95932d6c004aed3"
+      },
+      "reason": "Authorized final authored projectile provenance and immutable ownership diagnostics for assets/rc25/raid.js"
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "d3706f5402b494e7b5ccebb8ba97bf2219a9782d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cd43ceb7fcb7a3b8fa89056fc079ce14aaabec05",
+        "sha256": "60f156ba1717ca4a6524c056f04efc61c62825f0f435a6c4c1784c1b98913e7a"
+      },
+      "reason": "Authorized final authored projectile provenance and immutable ownership diagnostics for index.html"
+    }
+  ],
+  "targetProtectedRowsSha256": "94615493a9089cd07d7bc0ba3b053e95e57f3b5791ea1008cd19af4ff90b6833"
+}

@@ -1,7 +1,7 @@
 'use strict';
 // Deterministic unit coverage for combat-feedback classification and admission.
-// No renderer is invoked, so the DOM surface is intentionally omitted; the
-// module only needs a clock and a reduced-motion preference stub for record().
+// Transaction admission uses the native module. A narrow canvas command model
+// also checks final CSS projection, state restoration and draw errors.
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -214,6 +214,20 @@ for (const fixture of [
   window.__HAPIL_INNER_FINAL_RC133__={red:x=>x===s};s.innerFinalRC133={awake:5};
   eq(Feedback.ailments(s).find(r=>r.key==='red').remaining,5,'red Persona tax has a real active-timer label');
   window.__HAPIL_INNER_FINAL_RC133__={red:()=>false};eq(Feedback.ailments(s).length,0,'red label clears when encounter ends');
+}
+
+// Final display projection must not apply the former mobile cover transform
+// after point() has already produced a visible CSS-pixel impact location.
+window.__HAPIL_ADAPTIVE_RC125__={installed:true};
+const camera={x:-44.5,y:-133.17,scale:1.07},project=(x,y)=>({x:640+27*(x-y),y:13.5*(x+y)});let displayView;
+window.__HAPIL_VIEWPORT_RC104__={camera:()=>camera,view:()=>displayView};window.__HAPIL_VISUAL_V31345__={full:camera};window.document={documentElement:{classList:{contains:()=>true}}};
+ok(Feedback.install(),'feedback observes the authoritative camera projection');
+for(const [width,height]of [[1280,900],[844,390],[667,300],[844,240]])for(const dpr of[1,2]){
+ const k=Math.min(width/1280,height/720);displayView={x:(1280-width/k)/2,y:(720-height/k)/2,width:width/k,height:height/k,k};
+ const s=fresh();s.x=13.8;s.y=24.2;window.__HAPIL_VIEWPORT_RC104__.camera(s,null,project);Feedback.record(s,{x:s.x,y:s.y},contact(1,'SHIELD'),{});
+ const stack=[],translations=[],ctx={matrix:[dpr,0,0,dpr,0,0],save(){stack.push(this.matrix.slice());},restore(){this.matrix=stack.pop();},setTransform(...m){this.matrix=m;},translate(x,y){const m=this.matrix;this.matrix=[...m.slice(0,4),m[0]*x+m[2]*y+m[4],m[1]*x+m[3]*y+m[5]];translations.push(this.matrix.slice());},beginPath(){},arc(){},stroke(){},moveTo(){},lineTo(){},fillText(){}};
+ const canvas={width:1280*dpr,height:720*dpr,getBoundingClientRect:()=>({width,height})},before=snapshot(s).totals.drawErrors;
+ ok(Feedback.draw(ctx,s,canvas,{shake:false}),'feedback draw succeeds '+width+'x'+height+' DPR'+dpr);eq(snapshot(s).totals.drawErrors,before,'all graphics commands remain supported');eq(translations.length,1,'one admitted shield cue');const p=project(s.x,s.y),expectedX=(camera.x+p.x*camera.scale-displayView.x)*k,expectedY=(camera.y+p.y*camera.scale-displayView.y)*k-22*camera.scale*k,actual=translations[0];ok(Math.abs(actual[4]*width/canvas.width-expectedX)<1e-7,'impact x matches CSS world projection');ok(Math.abs(actual[5]*height/canvas.height-expectedY)<1e-7,'impact y matches CSS world projection');eq(ctx.matrix.join(','),[dpr,0,0,dpr,0,0].join(','),'restore native backing transform');eq(s.hp,100,'presentation leaves HP unchanged');eq(s.time,10,'presentation leaves combat clock unchanged');
 }
 
 console.log('RC133_FEEDBACK_UNIT_RESULT', JSON.stringify({
