@@ -175,6 +175,7 @@ jobs:
           git fetch --no-tags origin 7963058a238f0c2bf851f1929e2ac82f8832a20f
           git fetch --no-tags origin 3ab3bfd0adb94d386f70e4a618af85d99b0c3de4
           git fetch --no-tags origin e1111aa8b3930d3d13f4e9b1218b500dbfa164a0
+          git fetch --no-tags origin 37f7b84ca08b99d27142f4f39fc32b4513cc803a
           node tests/rc156-runtime-quality-unit.cjs
           node tests/rc156-input-framing-unit.cjs
           node tests/rc156-anatomy-preservation-unit.cjs
