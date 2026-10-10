@@ -1,5 +1,5 @@
 {
-  "purpose": "Runtime replacement for 1-based walk atlas column 04 (zero-based frame 3)",
+  "purpose": "Runtime crop for 1-based walk atlas column 04 (zero-based frame 3); the original upload and atlas remain unchanged",
   "source": "ChatGPT 이미지 2026년 10월 10일 오전 10_09_41.png",
   "sourceBranch": "codex/rc152-image-combat",
   "sourceCommit": "37f7b84ca08b99d27142f4f39fc32b4513cc803a",
@@ -16,25 +16,41 @@
     1044,
     1120
   ],
-  "cropPaddingPixels": 4,
-  "sourceCropExclusive": [
-    300,
-    163,
-    1048,
-    1124
+  "sourceAlphaOnePixels": 17744,
+  "runtimeSourceCropExclusive": [
+    280,
+    143,
+    1068,
+    1144
   ],
-  "runtimeResize": "Premultiplied RGBA Lanczos; threshold alpha below 2 again after resize",
-  "runtimeDimensions": [
-    399,
-    512
+  "runtimeSourceCropDimensions": [
+    788,
+    1001
   ],
+  "runtimeCropPaddingPixels": 24,
+  "runtimeCanvasPaddingPixels": 0,
+  "runtimeTransform": "No resampling. Retain every source RGBA pixel with alpha >= 2 exactly; set alpha below 2 to 0.",
   "runtimePivot": [
-    44.8075,
-    509.8689
+    104,
+    977
   ],
-  "runtimeCoreHeight": 512,
+  "runtimeCoreHeight": 961,
   "runtimeFlipX": true,
-  "runtimeBytes": 305262,
-  "runtimeSha256": "ca972920758bd8d30c6d5652137304d44ae53ced9b76c709ef51bdeefa3dcf86",
-  "sourceAlphaOnePixels": 17744
+  "runtimeThresholdedAlphaOnePixels": 16973,
+  "runtimeRetainedSourceAlpha2OrMorePixels": 358014,
+  "retainedPriorRuntimeOutput": {
+    "path": "assets/rc156/ego-walk-frame-3.png",
+    "active": false,
+    "dimensions": [
+      399,
+      512
+    ],
+    "bytes": 305262,
+    "sha256": "ca972920758bd8d30c6d5652137304d44ae53ced9b76c709ef51bdeefa3dcf86",
+    "pivot": [
+      44.8075,
+      509.8689
+    ],
+    "note": "Preserved unchanged for provenance; it is no longer the runtime source."
+  }
 }
