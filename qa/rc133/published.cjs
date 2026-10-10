@@ -445,9 +445,9 @@ async function main() {
     const addedLayoutFiles=['assets/rc108/hud.css','assets/rc125/adaptive-battlefield.css'];
     for(const file of addedLayoutFiles){assert(expected.has(file),'required RC154 layout file '+file);const owner=file==='assets/rc125/adaptive-battlefield.css'?extension36:extension16;if(owner===extension36)assert.equal(owner.files.find(r=>r.file===file).before.gitBlob,extension20.files.find(r=>r.file===file).after.gitBlob,'layout keeps the exact previous authorized preimage');assert(owner.files.some(row=>row.file===file&&row.after?.sha256===expected.get(file).sha256),'layout file matches its exact pinned runtime extension '+file);}
     const egoOriginalFiles=extension22.files.filter(row=>row.before===null).map(row=>row.file);assert.equal(egoOriginalFiles.length,7,'four raw images, original manifest and two runtime modules');for(const file of egoOriginalFiles)assert(expected.has(file),'added EGO original/runtime file '+file);
-    assert.equal(expected.size-egoOriginalFiles.length,302,'the prior 302-file set stays complete');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,300,'the prior 299-file set plus the EGO entrypoint stays complete');
-    assert.equal(expected.size,309,'the exact public set adds the seven EGO originals/runtime files');
+    assert.equal(expected.size-egoOriginalFiles.length,304,'the prior 302-file set plus the two isolated walk-frame outputs stays complete');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,302,'the prior 299-file set, EGO entrypoint and two isolated walk-frame outputs stay complete');
+    assert.equal(expected.size,311,'the exact public set adds the seven EGO originals/runtime files and two isolated walk-frame outputs');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
