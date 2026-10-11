@@ -113,7 +113,7 @@
   if(!direction&&velocity?.family==='actor'){
    // Accepted local melee has no projectile velocity. Use recorded origins or
    // the actual local attacker/owner position; never invent a horizontal heading.
-   const owner=(s.enemies??[]).find(a=>a.id===velocity.ownerId),slot=source?.partySlotV31322,party=root.__HAPIL_PARTY_V31322__,attacker=slot!=null?(party?.state===s?party.actors?.find(a=>a.slotId===slot):null):f.outgoing&&row.attackerHeroId===s.activeHeroId?s:owner,origin=Number.isFinite(velocity.originX)&&Number.isFinite(velocity.originY)?{x:velocity.originX,y:velocity.originY}:attacker;
+   const captured=source?.shmupOriginV31365,owner=(s.enemies??[]).find(a=>a.id===velocity.ownerId),slot=source?.partySlotV31322,party=root.__HAPIL_PARTY_V31322__,attacker=slot!=null?(party?.state===s?party.actors?.find(a=>a.slotId===slot):null):f.outgoing&&row.attackerHeroId===s.activeHeroId?s:owner,origin=Number.isFinite(velocity.originX)&&Number.isFinite(velocity.originY)?{x:velocity.originX,y:velocity.originY}:Number.isFinite(captured?.x)&&Number.isFinite(captured?.y)?captured:attacker;
    if(origin&&[origin.x,origin.y,target.x,target.y].every(Number.isFinite)&&Math.hypot(target.x-origin.x,target.y-origin.y)>1e-8)direction={x:target.x-origin.x,y:target.y-origin.y};
   }
   if(visible)m.effects.push({...f,x:n(target.x,n(s.x)),y:n(target.y,n(s.y)),targetId:key,direction,presentationPriority,born:t,sequence:row.sequence});
