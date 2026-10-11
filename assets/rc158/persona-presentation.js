@@ -11,7 +11,9 @@
   const a=project(q.x,q.y),b=project(q.x+vx,q.y+vy);
   return Math.atan2(b.y-a.y,b.x-a.x)-sourceAxes[q.rc133Skill];
  }
- const tinted=new WeakMap();
+ const tinted=new WeakMap();let activePicture=null;
+ const clean=path=>String(path??'').split(/[?#]/)[0];
+ const scopedPicture=path=>activePicture&&clean(path)===activePicture.path?activePicture.picture:null;
  function redPicture(im){
   if(!im?.complete||!im.naturalWidth||!root.document)return null;if(tinted.has(im))return tinted.get(im);
   const canvas=root.document.createElement('canvas');canvas.width=im.naturalWidth;canvas.height=im.naturalHeight;
@@ -23,8 +25,8 @@
  function withProjectile(cache,q,draw){
   if(q?.rc133InnerShot!==true||q.rc150RedPersonaShot!==true||q.rc133Skill!=='eclipse')return draw();
   const path=q.sprite,own=Object.hasOwn(cache,path),prior=cache[path],source=prior??root.__HAPIL_MEDIA_ART_RC133__?.picture?.(path),picture=redPicture(source);
-  if(!picture)return draw();cache[path]=picture;
-  try{return draw();}finally{if(own)cache[path]=prior;else delete cache[path];}
+  if(!picture)return draw();cache[path]=picture;const previous=activePicture;activePicture={path:clean(path),picture};
+  try{return draw();}finally{activePicture=previous;if(own)cache[path]=prior;else delete cache[path];}
  }
- root.__HAPIL_PERSONA_PRESENTATION_RC158__=Object.freeze({sourceAxes,policy,heading,redPicture,withProjectile});
+ root.__HAPIL_PERSONA_PRESENTATION_RC158__=Object.freeze({sourceAxes,policy,heading,redPicture,scopedPicture,withProjectile});
 })(typeof window!=='undefined'?window:globalThis);

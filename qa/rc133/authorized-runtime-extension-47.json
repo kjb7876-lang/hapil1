@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "eaa0635ebf153f134780ecaa86afade5cb86bb17",
+  "baseTree": "473188b1195b8e6c6d4c8b80762fba643835709f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d60e0ac6769e36e1970223dd66f0ac1df236eac6cf34ef63a2e11bd9a5a6a086",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: resolve scoped red Persona eclipse before native source atlas override",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d5ec2fc1e024381027d974aada11c7fe854921f5"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "dbb80ec15f06a02b8e52fe74b26a008947fc27c9",
+        "sha256": "553cd607527fc1a86b751fb93a6e79885cd193faf04180b3583f3b9240685513"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: synchronize native scoped red source resolver",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "a7bdc72c7c8d52417373d23ed4dbfc2c59d1eb28"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "47c92db2c8bac7acf1a669d0243612327910ece5",
+        "sha256": "6e6ba4b46ea5c2b3b3b2a64836468aedd5410ff82c18152fb83599edb28a9edc"
+      }
+    },
+    {
+      "file": "assets/rc158/persona-presentation.js",
+      "reason": "assets/rc158/persona-presentation.js: nested render scope for alpha-preserving red eclipse picture selection",
+      "before": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "f0ddab94066f35122aa79e4cee3a8fd4de6d00a5"
+      },
+      "after": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "ecc52c306a8b55c218f3c10c32ec860db815704b",
+        "sha256": "fa720de39069d4d5510a350ace14a2f6a9458a8efee245c0ee991708079dfc3d"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: refresh native loader and scoped presentation cache keys",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "01f7ec9d3f1449a77981c7cca0c6e4e15199162d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "86c1abd6d814f397f0480bbeea3f54656a96ff29",
+        "sha256": "ea99ea36be0f0806fac799c582eb19f20ea02cc19e871a4802ac8c12a2d6633c"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "873b6de1a27bd85733d322365a857144d229ea680945940274e98e8e5445a62a"
+}
