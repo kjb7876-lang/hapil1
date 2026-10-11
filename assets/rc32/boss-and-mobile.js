@@ -100,7 +100,7 @@
    image.onload=()=>{if(image.naturalWidth>0)stats.blackholeImagesReady++;};
    image.onerror=()=>{stats.blackholeImageFailures++;blackholeImages.delete(path);blackholeRetryAfter.set(path,Date.now());};
    const base=window.document?.baseURI||window.location?.href||'http://localhost/';
-   image.src=new URL(path+'?v=33201',base).href;
+   const url=new URL(path,base);if(!url.searchParams.has('v'))url.searchParams.set('v','33203');image.src=url.href;
    return image;
   }catch{blackholeImages.delete(path);return null;}
  }

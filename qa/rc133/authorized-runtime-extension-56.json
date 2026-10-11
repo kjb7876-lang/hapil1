@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "aa4ab9beac1f4ec79cf11f7d6762904918db6823",
+  "baseTree": "97bea6386f7e72f239b881e787775275b6ae1ed3",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f89d7f5628e46fbd76bf449d6757ec5fe9580c18758c46089e913390b1b66534",
+  "files": [
+    {
+      "file": "assets/rc32/boss-and-mobile.js",
+      "reason": "assets/rc32/boss-and-mobile.js: preserve existing cache query on owned Persona blackhole image URL and refresh loader revision",
+      "before": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "a82aea615a97a104a2809c9e3252d7d86fd3d675"
+      },
+      "after": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "d5e6b627f3374fca8a88810132ef1da1a4b5c12a",
+        "sha256": "700dcde52a33c583c71c8404bccd38b64ce0acf5db791ac0e28c43f1b49a0f23"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: preserve existing cache query on owned Persona blackhole image URL and refresh loader revision",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "9d48b5d52454fc14e9087b0ea00bdab5d9e5ba3c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "85234c71b8b544fc24a3137f700e8a29b74d4430",
+        "sha256": "9aab347fee99fdacfb46d6d1528f8fecb94ac3b333f3cbc5b78defa7007dfe6f"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "130d113cc87754628125f16072fac17bbb3d6a05a3cfebb213f4cfcd61fdf679"
+}
