@@ -26,7 +26,7 @@ async function run(openProbe,out){
    assert.equal(victory.atVictory.inner.entry,'cult-death');assert.equal(victory.atVictory.inner.bossRevived,true,'real first Persona lethal must perform its native revival');assert(victory.deaths.filter(d=>d.pre.id==='inner-evil-rc133').length>=2,'both native Persona death callbacks observed');assert(victory.atVictory.ego.personaVictory,'true native victory grants pending EGO');assert(victory.hits>0);
    if(cfg.mode==='manual'){
     await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;for(const d of s.egoDrops??[]){s.x=d.x;s.y=d.y;window.__HAPIL_CONTROLS_V31329__.binding.actions.interact();}const exit=window.__RC158_QA__.anchors(s.zone).interactionExit;s.x=exit.x;s.y=exit.y;});
-    await page.locator('button.interact-action').click();
+    if(cfg.isMobile)await page.locator('button.interact-action').tap();else await page.locator('button.interact-action').click();
    }
    // Use the real rendered record/interlude controls; never call ii/RC69 enter
    // or assign a destination here. Full mode gets no manual portal dispatch.
@@ -40,7 +40,7 @@ async function run(openProbe,out){
    const after=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,N=window.__HAPIL_RC133_NATIVE__,E=window.__HAPIL_EGO_GUARDIAN_RC155__,s=C.binding.state.current,raw=N.normalize(N.save(s,C.binding.hero.current,[],C.binding.passives.current,C.binding.shards.current)),restored=window.__RC158_QA__.initial();window.__HAPIL_RC86_BRIDGE__.restoreEntry(restored,raw);return{zone:s.zone,phase:C.binding.phase,ego:E.snapshot(s),saved:raw.egoGuardianRC155,restored:E.snapshot(restored),next:window.__RC158_QA__.world[s.zone]?.next};});
    assert.notEqual(after.zone,'cult04');assert(after.ego.transformed&&after.ego.active&&!after.ego.pendingTransformation);assert(after.saved.active&&after.restored.active,'actual post-UI activation persists without reentering a fixture map');for(const h of victory.blackholes){assert.match(h.sprite,/assets\/rc134\/persona-skills\/vortex\.png/);assert.equal(h.color,'#ed536b');}
    if(after.zone==='village'){
-    if(cfg.mode==='manual'){await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current,e=window.__RC158_QA__.anchors('village').interactionExit;s.x=e.x;s.y=e.y;});await page.locator('button.interact-action').click();}
+    if(cfg.mode==='manual'){await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current,e=window.__RC158_QA__.anchors('village').interactionExit;s.x=e.x;s.y=e.y;});if(cfg.isMobile)await page.locator('button.interact-action').tap();else await page.locator('button.interact-action').click();}
     for(let i=0;i<120;i++){if(await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='village'))break;if(cfg.mode==='manual'&&await page.locator('#hapil-story-rc51').count())await page.keyboard.press('Enter');await page.waitForTimeout(250);}
     await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='village',null,{timeout:30000});
    }
