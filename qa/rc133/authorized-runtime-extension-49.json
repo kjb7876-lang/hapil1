@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "2f15e6282ff9acef3c05380ec6b2b92d6dbd8a68",
+  "baseTree": "940b3bae694208b092392d54db1c0504468bfbfc",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5e2c38cdac69b93cf5268c196abb0174b4150182856e4ec3a07c631561b315fe",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: give mutual Persona awakening one bounded battle clock without one-sided Samong freezes or accelerated attack scheduling",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7aa10eeca9a1c9e743dee09cd17234abfac6c30d"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "3bf9836d4e9c0b3ec9c1984ff1221a95feaba820",
+        "sha256": "ff6428e549d8820663718659938f80460fc8d5bdad5af5ec766aef7cf1fac23c"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: give mutual Persona awakening one bounded battle clock without one-sided Samong freezes or accelerated attack scheduling",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "141cad03aa4d3a3158bc0d84c0dfe56e9c2d7b93"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "94eefe3877581145c12ba8415128f6d2eaf26851",
+        "sha256": "9fb1d738a1b11077aded7d7b59de6f7b48d5186b015f135bd15e12f30dba6771"
+      }
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "reason": "assets/rc134/persona-duel.js: give mutual Persona awakening one bounded battle clock without one-sided Samong freezes or accelerated attack scheduling",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "2bd0ed5e5a09d7a6e87634926f7087fa7f9d96ac"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "dd6ae98f36d05a1953c896404611007d7f6fffe6",
+        "sha256": "f645ecc713ef435128537c3dfcf73f03c146ec647dace8c5702b334edd71e912"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: give mutual Persona awakening one bounded battle clock without one-sided Samong freezes or accelerated attack scheduling",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6c6eadbe4eb9ba7b3b03f37a0b28ba1e3d81c144"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f127e834773e0f3507eb47aacaf853629111a7fb",
+        "sha256": "fb48dcd3313abc649f629d7343b0d2821862970a8712825faf46b2e3d382eff9"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "556e2703edfff44df6cb2a7173286f9fdebbb24ef1bbcb14e8ec4ea67d6c9aa3"
+}

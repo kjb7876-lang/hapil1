@@ -203,6 +203,9 @@
   const mobQueue137=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){const im=mob137?.picture(path);if(im){cache[path]=im;return im;}return mobQueue137.call(this,cache,path,...args);};
   const warning137=qn;qn=function(ctx,cache,h,...args){return h?.rc137ProjectileId!=null&&art137?art137.withPacket(h,()=>warning137.call(this,ctx,cache,h,...args)):warning137.call(this,ctx,cache,h,...args);};
   const draw137=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,p,...args){return art137?art137.withPacket(p,()=>draw137(ctx,cache,p,...args)):draw137(ctx,cache,p,...args);};
+  // Dream's one-sided Samong clock freezes the world and accelerates only
+  // hero schedules. A mutual Persona clash owns a shared, bounded clock.
+  const personaStory158=window.__HAPIL_STORY_RC51__;if(personaStory158)window.__HAPIL_STORY_RC51__=Object.freeze({...personaStory158,clock(s,dt){return Duel()?.sharedClock(s,dt)??personaStory158.clock(s,dt);}});
   // Directional Persona heads follow the current reflected velocity, including
   // the exact wall-contact frame; symmetric motifs keep their source axes.
   const personaAngle158=MONGSE_resolveScreenRenderAngleV31229;MONGSE_resolveScreenRenderAngleV31229=function(q,...args){const angle=window.__HAPIL_PERSONA_PRESENTATION_RC158__?.heading(q,G);if(Number.isFinite(angle)){q.lastScreenRenderAngleV31229=angle;return angle;}return personaAngle158.call(this,q,...args);};
