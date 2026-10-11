@@ -2,6 +2,7 @@
 const assert=require('node:assert/strict');
 function assertResetDamageTrace(death){
  const seen=new Set(),events=death.observation.ledger.events.filter(e=>e.sequence>death.after.ledgerSequence);
+ assert(events.some(e=>e.kind==='OUTGOING'&&e.result==='HIT'&&e.hpLoss>0),'actual post-reset damage required for HP accounting');
  for(const e of events){const key=e.epoch+':'+e.sequence;assert(!seen.has(key),'no duplicate post-reset transaction');seen.add(key);}
  for(const a of death.after.enemies){const live=death.observation.resumed.enemies.find(e=>e.id===a.id);assert(live,'post-reset actor retained');assert.equal(live.maxHp,a.maxHp,'calibrated maximum unchanged');let hp=a.hp;
   for(const e of events.filter(e=>e.targetId===a.id&&e.kind==='OUTGOING'&&e.result==='HIT')){assert.equal(e.hpBefore,hp,'post-reset damage continuity '+a.id);assert.equal(e.hpBefore-e.hpAfter,e.hpLoss,'recorded actual HP loss');hp=e.hpAfter;}
