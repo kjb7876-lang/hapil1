@@ -108,6 +108,7 @@
   const bounced=Math.floor(cl(q.boundaryContactCount31214,0,3)),remaining=Math.max(0,3-bounced),born=n(q.born,n(s.time));
   q.bounceRemaining31212=remaining;q.offscreenReturnAllowance31212=remaining;
   q.hardExpiresAt31213=Math.max(n(q.hardExpiresAt31213),born+18);q.hardExpiresAt31214=Math.max(n(q.hardExpiresAt31214),born+18);
+  if(s.time>=born+18)return 'persona-flight-limit';
   return remaining===0?'three-persona-wall-bounces':null;
  }
  function redTimeActive(s){const m=s?.innerFinalRC133;return red(s)&&n(m?.redTimeActiveUntil)>n(m?.elapsed)&&n(m?.elapsed)>=n(m?.redTimeWarnUntil);}
@@ -188,7 +189,7 @@
    // release order, origin band and speed distinguish the nine native paths.
    const desired=angle+offset,delta=((desired-center+Math.PI*3)%(Math.PI*2)-Math.PI),theta=center+cl(delta,-1.4,1.4),baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*(skill.formation==='spiral'?1+((i%3)-1)*.08:1)),speed=red?baselineSpeed*2:baselineSpeed,stage=mutual?i*.035:(skill.stagger??.08)*(skill.key==='diamond'||skill.key==='clock'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
    const damage=red?(mutual?Math.min(24,26*m.scale):26*m.scale):empowered?18*m.scale:13*m.scale;
-   native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(18,Math.max(7,distance/(speed*.65)+warning+stage+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i,rc147Speed:speed});
+   native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(18,Math.max(7,distance/(speed*.65)+warning+stage+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,...(root.__HAPIL_PERSONA_PRESENTATION_RC158__?.policy(skill.key)??{spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key)}),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i,rc147Speed:speed});
   }
   const emitted=s.hostileProjectiles.slice(before);if(emitted.length!==count){
    // The native emitter may reject a subset after our admission check. Remove
@@ -201,7 +202,7 @@
    m.redTimeWarnUntil=m.elapsed+.7;m.redTimeActiveUntil=m.redTimeWarnUntil+4;m.redTimeReadyAt=m.elapsed+12;m.redTimeRolls=[];
    (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y-2,born:s.time,duration:.7,text:'붉은 시간 · 0.7초 후 시간 차단',color:'#ff9fb5',critical:true});
   }
-  for(const [emittedIndex,q] of emitted.entries()){const theta=Math.atan2(q.vy,q.vx),index=emittedIndex,spiral=skill.formation==='spiral'?1+((index%3)-1)*.08:1,baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*spiral),speed=red?baselineSpeed*2:baselineSpeed,band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,rc150PersonaAwakeningShot:empowered,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:index,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!skill.key.endsWith('eye')&&!skill.key.endsWith('lance'),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,rc147Speed:speed,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(54.6,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  for(const [emittedIndex,q] of emitted.entries()){const theta=Math.atan2(q.vy,q.vx),index=emittedIndex,spiral=skill.formation==='spiral'?1+((index%3)-1)*.08:1,baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*spiral),speed=red?baselineSpeed*2:baselineSpeed,band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,rc150PersonaAwakeningShot:empowered,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:index,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,...(root.__HAPIL_PERSONA_PRESENTATION_RC158__?.policy(skill.key)??{spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key)}),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,rc147Speed:speed,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(54.6,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
   root.__HAPIL_COMBAT_LAYOUT_RC153__?.scatter(s);
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:mutual?'純惡意 · '+skill.name:skill.name,color,critical:false});
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
@@ -209,7 +210,7 @@
   // This keeps high-count awakened volleys from overlapping their own lock.
   const releaseEnd=Math.max(s.time+warning,...emitted.map(q=>n(q.frozenUntil,s.time+warning)));
   a.atomicCastUntil31210=Math.max(n(a.atomicCastUntil31210),releaseEnd+.35);
-  m.queueRetryCount=0;m.cycle++;m.shotDelay=Math.max(mutual?.46:empowered?.68:1.05,a.atomicCastUntil31210-s.time);metrics.volleys++;metrics.skills++;
+  m.queueRetryCount=0;m.cycle++;m.shotDelay=Math.max(mutual?Math.max(1.8,count*18/HOSTILE_QUEUE_LIMIT):empowered?.68:1.05,a.atomicCastUntil31210-s.time);metrics.volleys++;metrics.skills++;
 
  }
  function mood(s){if(!active(s))return 'normal';const p=root.__HAPIL_SAMONG_RC91__.active(s),b=s.innerFinalRC133.awake>0;return p&&b?'opposition':p?'player':b?'boss':'normal';}

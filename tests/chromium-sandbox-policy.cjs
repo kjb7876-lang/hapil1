@@ -20,7 +20,7 @@ const launchers = [];
 const chromeStableLaunchers = [];
 const activeBranch = 'codex/rc152-image-combat';
 const chromeStableWorkflowFiles = [
-  'tests/rc153-chrome-sandbox-smoke.cjs',
+  'tests/rc153-chrome-sandbox-smoke.cjs', 'tests/rc158-native-browser.cjs',
   'tests/rc155-ego-browser.cjs',
   'tests/rc156-vfx-pilot-browser.cjs',
   'tests/rc153-combat-browser.cjs', 'tests/rc153-boundary-input-browser.cjs',

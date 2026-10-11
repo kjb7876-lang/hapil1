@@ -203,6 +203,10 @@
   const mobQueue137=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){const im=mob137?.picture(path);if(im){cache[path]=im;return im;}return mobQueue137.call(this,cache,path,...args);};
   const warning137=qn;qn=function(ctx,cache,h,...args){return h?.rc137ProjectileId!=null&&art137?art137.withPacket(h,()=>warning137.call(this,ctx,cache,h,...args)):warning137.call(this,ctx,cache,h,...args);};
   const draw137=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,p,...args){return art137?art137.withPacket(p,()=>draw137(ctx,cache,p,...args)):draw137(ctx,cache,p,...args);};
+  // Directional Persona heads follow the current reflected velocity, including
+  // the exact wall-contact frame; symmetric motifs keep their source axes.
+  const personaAngle158=MONGSE_resolveScreenRenderAngleV31229;MONGSE_resolveScreenRenderAngleV31229=function(q,...args){const angle=window.__HAPIL_PERSONA_PRESENTATION_RC158__?.heading(q,G);if(Number.isFinite(angle)){q.lastScreenRenderAngleV31229=angle;return angle;}return personaAngle158.call(this,q,...args);};
+  const personaDraw158=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,q,...args){const P=window.__HAPIL_PERSONA_PRESENTATION_RC158__;return P?P.withProjectile(cache,q,()=>personaDraw158(ctx,cache,q,...args)):personaDraw158(ctx,cache,q,...args);};
   const queue137=MONGSE_queueImage;MONGSE_queueImage=function(cache,path,...args){const im=art137?.picture(path,S());if(im){cache[path]=im;return im;}return queue137(cache,path,...args);};
   const body137=window.__HAPIL_STAND_V31335__.drawBody;window.__HAPIL_STAND_V31335__.drawBody=function(ctx,cache,a,time,settings,sprite,size,o={}){
    const authoredRow=mob137?.row(a),authoredImage=authoredRow?(mob137.picture(sprite)??(authoredRow.attackGeometry&&sprite===authoredRow.attack?MONGSE_queueImage(cache,sprite):null)):null,poseGeometry=mob137?.geometry(a,sprite,Number(size)||55);
