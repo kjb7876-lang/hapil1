@@ -3,6 +3,7 @@ on:
   push:
     branches: [main, codex/rc152-image-combat, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic]
     paths:
+      - 'tests/rc158-*.cjs'
       - 'assets/**'
       - 'index.html'
       - 'qa/rc133/**'

@@ -54,12 +54,18 @@
  function alignRoute(m,route){const index=validRoute(route)?route.indexOf(m?.routeZone):-1;if(index<0||!m?.active)return false;m.routeIndex=index;return true;}
  function cleanClearedIds(raw){return [...new Set((Array.isArray(raw)?raw:[]).filter(validVisit))].slice(-MAX_CLEAR_IDS);}
  function clean(raw,legacy){
-  if((!raw||raw.version!==VERSION)&&legacy?.innerFinalRC133?.phase==='complete'&&legacy.innerFinalRC133.entry==='cult-death'){
-   const m=defaults();m.personaVictory=true;m.heroUnlocked=true;m.pendingTransformation=true;m.pendingFromZone=safeZone(legacy.zone)||'cult04';m.currentZone=safeZone(legacy.zone)||'cult04';return m;
+  const terminalPersona=legacy?.innerFinalRC133?.phase==='complete'&&legacy.innerFinalRC133.entry==='cult-death';
+  const personaZone=safeZone(legacy?.innerFinalRC133?.zone)||'cult04';
+  if((!raw||raw.version!==VERSION)&&terminalPersona){
+   const m=defaults();m.personaVictory=true;m.heroUnlocked=true;m.pendingTransformation=true;m.pendingFromZone=personaZone;m.currentZone=personaZone;return m;
   }
   if(!raw||raw.version!==VERSION)return defaults();
   const m=defaults();
   Object.assign(m,{personaVictory:raw.personaVictory===true,heroUnlocked:raw.heroUnlocked===true||raw.personaVictory===true,pendingTransformation:raw.pendingTransformation===true,pendingFromZone:safeZone(raw.pendingFromZone),transformed:raw.transformed===true,active:raw.active===true,routeIndex:Number.isInteger(raw.routeIndex)&&raw.routeIndex>=0&&raw.routeIndex<=127?raw.routeIndex:-1,direction:raw.direction===1?1:-1,cycle:uint(raw.cycle),outerEndpointReached:raw.outerEndpointReached===true,clearCount:uint(raw.clearCount),routeUnlocked:raw.routeUnlocked===true,firstClearZone:safeZone(raw.firstClearZone),routeZone:safeZone(raw.routeZone),currentZone:safeZone(raw.currentZone),currentVisitId:validVisit(raw.currentVisitId)?raw.currentVisitId:null,visitSerial:decimal(raw.visitSerial),currentVisitCleared:raw.currentVisitCleared===true,clearReadyVisitId:validVisit(raw.clearReadyVisitId)?raw.clearReadyVisitId:null,clearedVisitIds:cleanClearedIds(raw.clearedVisitIds),cutInSerial:uint(raw.cutInSerial),cutInPending:raw.cutInPending===true,traitsApplied:raw.traitsApplied===true});
+  // A save from the earlier handoff can contain a terminal real Persona
+  // battle but a valid, still-empty EGO ledger. Reconcile that authoritative
+  // completion once; an already transformed route is never restarted.
+  if(terminalPersona&&!m.transformed&&!m.active){m.personaVictory=true;m.heroUnlocked=true;m.pendingTransformation=true;m.pendingFromZone=personaZone;}
   if(!m.pendingTransformation)m.pendingFromZone=null;
   if(m.pendingTransformation&&(!m.pendingFromZone||m.transformed||m.active))m.pendingTransformation=false;
   if(m.active){m.transformed=true;m.pendingTransformation=false;m.pendingFromZone=null;if(m.routeIndex<0||!m.routeZone||!m.currentVisitId){m.active=false;m.routeIndex=-1;m.routeZone=null;m.currentVisitId=null;m.currentVisitCleared=false;m.clearReadyVisitId=null;}}

@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "base": "c3e71fd1496809308c95e24204c2ec99b8d180b3",
+  "baseTree": "cd34c33f935bd495193fda7cb2daa8267d0b8523",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "71e0cf4ff21778c3e25f204c8f79135271ef8fd865341bea9c934cc90185f988",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: native current velocity heading and per-projectile red eclipse scoped hooks",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d601415e5d085319699aff09631ccecf3790fb6d"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d5ec2fc1e024381027d974aada11c7fe854921f5",
+        "sha256": "9a36d9853422a93a25389dbf58e8a14ee5cde5bf1996c315c4b9869eb3549a8a"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: bounded awakening flight lifetime and dual casting pace",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "c2ba84eab14bc3c838148db03e78c75f204bfbbd"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "37823dded847732fd4cfdd34908639152c24f997",
+        "sha256": "d0b60d3bdddf9769fa39c5318ceb08b60f25a80945f9468cee7604887650fd81"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: synchronized editable native hooks",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "37668f27a32e3545606610ace85d9a54c1308a86"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "a7bdc72c7c8d52417373d23ed4dbfc2c59d1eb28",
+        "sha256": "8ed7ef3d86b11492bc6f12909f456dbdc3f8e3467eb7b26aa43446d4c15aca39"
+      }
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "reason": "assets/rc134/persona-duel.js: bounded nonzero battle clock tempo",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "a303c93d99ea0f650a25dfd15c59a92d4f0756f1"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "2bd0ed5e5a09d7a6e87634926f7087fa7f9d96ac",
+        "sha256": "bcad99a96d2048fbb803b5569c0bf00a039ba8f67438586814f53b0d3ca1a1c7"
+      }
+    },
+    {
+      "file": "assets/rc158/persona-presentation.js",
+      "reason": "assets/rc158/persona-presentation.js: inspected right-head source axes and alpha-preserving red eclipse cache",
+      "before": null,
+      "after": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "f0ddab94066f35122aa79e4cee3a8fd4de6d00a5",
+        "sha256": "df135f421e20d89a3d342b0b8dd1d0b059c54a9ddd2e562fe4a667af25f713a5"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: load presentation helper and refresh exact changed runtime cache keys",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2336982104f9bab1d5dc91b20691eb7221a18d97"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "01f7ec9d3f1449a77981c7cca0c6e4e15199162d",
+        "sha256": "cdb12b3b13a0858dc6ae4db9fd120bbf083177f5f3fb854fab34704e425b52e1"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "948e800f61b2de5b5ade866154253f6457eb2fda08c2e84909ad39f8ad10cfc7"
+}
