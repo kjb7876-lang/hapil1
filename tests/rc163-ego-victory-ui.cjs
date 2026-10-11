@@ -1,10 +1,12 @@
 'use strict';
 const assert=require('node:assert/strict');
+async function interact(page,cfg){if(cfg.isMobile)await page.locator('#hapil-mobile-controls-v31366 [data-mobile-action="F"]').tap();else await page.keyboard.press('KeyF');}
+async function advanceStory(page,cfg){for(const selector of ['#hapil-story-rc51 .rc51-footer button:last-child','.rc26-story-continue','.interlude-next']){const button=page.locator(selector).first();if(await button.isVisible()){if(cfg.isMobile)await button.tap();else await button.click();return true;}}return false;}
 async function run(openProbe,out){
  const results=[];
  for(const cfg of [{name:'pc-manual',mode:'manual',viewport:{width:1280,height:900}},{name:'mobile-full',mode:'full',viewport:{width:844,height:390},isMobile:true,hasTouch:true},{name:'mobile-manual-rotate',mode:'manual',viewport:{width:390,height:844},isMobile:true,hasTouch:true}]){
   const{page,errors}=await openProbe({viewport:cfg.viewport,isMobile:cfg.isMobile??false,hasTouch:cfg.hasTouch??false});try{
-   if(cfg.viewport.height>cfg.viewport.width&&cfg.isMobile){await page.waitForFunction(()=>window.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused()===true,null,{timeout:5000});await page.setViewportSize({width:844,height:390});}
+   if(cfg.viewport.height>cfg.viewport.width&&cfg.isMobile){await page.waitForFunction(()=>window.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused()===true,null,{timeout:5000});await page.screenshot({path:out+'/rc163-portrait-rotation-guide.png'});await page.setViewportSize({width:844,height:390});}
    await page.evaluate(mode=>{
     const Q=window.__RC158_QA__,C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,s=Q.initial();Object.assign(s,{zone:'cult04',time:100,gameModeV31346:'DREAM',samongUnlockedRC91:true,activeHeroId:'gunner'});C.binding.state.current=s;C.binding.hero.current='gunner';window.__HAPIL_RUN_V31400__.init(s,'gunner',{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'practice'});window.__HAPIL_PARTY_V31322__.configure(window.__HAPIL_RUN_V31400__.configFor(s,'gunner'));Q.enter(s,'cult04',false);C.binding.state.current=s;C.setMode(mode);s.invulnerableUntil=s.time+10000;
     // A staged full-health checkpoint. Do not assign enemy HP, phase, revival,
@@ -27,15 +29,15 @@ async function run(openProbe,out){
    assert.equal(victory.atVictory.inner.entry,'cult-death');assert.equal(victory.atVictory.inner.bossRevived,true,'real first Persona lethal must perform its native revival');assert(victory.deaths.filter(d=>d.pre.id==='inner-evil-rc133').length>=2,'both native Persona death callbacks observed');assert(victory.atVictory.ego.personaVictory,'true native victory grants pending EGO');assert(victory.hits>0);assert(victory.blackholes.length>0,'actual native Persona RC32 blackhole must emit');
    if(cfg.mode==='manual'){
     const missing=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return window.__RC158_QA__.clues(s.zone).filter(c=>!s.clues.has(c.id));});
-    for(const clue of missing){await page.evaluate(c=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.x=c.x;s.y=c.y;},clue);if(cfg.isMobile)await page.locator('button.interact-action').tap();else await page.locator('button.interact-action').click();for(let k=0;k<40&&await page.locator('#hapil-story-rc51').count();k++){await page.keyboard.press('Enter');await page.waitForTimeout(80);}}
+    for(const clue of missing){await page.evaluate(c=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.x=c.x;s.y=c.y;},clue);await interact(page,cfg);for(let k=0;k<40;k++){if(!await advanceStory(page,cfg))break;await page.waitForTimeout(80);}}
     await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;for(const d of s.egoDrops??[]){s.x=d.x;s.y=d.y;window.__HAPIL_CONTROLS_V31329__.binding.actions.interact();}const exit=window.__RC158_QA__.anchors(s.zone).interactionExit;s.x=exit.x;s.y=exit.y;});
-    if(cfg.isMobile)await page.locator('button.interact-action').tap();else await page.locator('button.interact-action').click();
+    await interact(page,cfg);
    }
    // Use the real rendered record/interlude controls; never call ii/RC69 enter
    // or assign a destination here. Full mode gets no manual portal dispatch.
    for(let i=0;i<80;i++){
     const changed=await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='cult04');if(changed)break;
-    if(cfg.mode==='manual'&&await page.locator('#hapil-story-rc51').count())await page.keyboard.press('Enter');
+    if(cfg.mode==='manual')await advanceStory(page,cfg);
     await page.waitForTimeout(250);
    }
    await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='cult04',null,{timeout:30000});
@@ -44,8 +46,8 @@ async function run(openProbe,out){
    const after=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,N=window.__HAPIL_RC133_NATIVE__,E=window.__HAPIL_EGO_GUARDIAN_RC155__,s=C.binding.state.current,raw=N.normalize(N.save(s,C.binding.hero.current,[],C.binding.passives.current,C.binding.shards.current)),restored=window.__RC158_QA__.initial();window.__HAPIL_RC86_BRIDGE__.restoreEntry(restored,raw);return{zone:s.zone,phase:C.binding.phase,ego:E.snapshot(s),art:window.__HAPIL_EGO_ART_RC155__.diagnostics(),sprite:window.__HAPIL_EGO_ART_RC155__.sprite(s,s.heroMotion),saved:raw.egoGuardianRC155,restored:E.snapshot(restored),next:window.__RC158_QA__.world[s.zone]?.next};});
    assert.notEqual(after.zone,'cult04');assert(after.ego.transformed&&after.ego.active&&!after.ego.pendingTransformation);assert(after.saved.active&&after.restored.active,'actual post-UI activation persists without reentering a fixture map');for(const h of victory.blackholes){assert.match(h.sprite,/assets\/rc134\/persona-skills\/vortex\.png/);assert.equal(h.color,'#ed536b');}
    if(after.zone==='village'){
-    if(cfg.mode==='manual'){await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current,e=window.__RC158_QA__.anchors('village').interactionExit;s.x=e.x;s.y=e.y;});if(cfg.isMobile)await page.locator('button.interact-action').tap();else await page.locator('button.interact-action').click();}
-    for(let i=0;i<120;i++){if(await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='village'))break;if(cfg.mode==='manual'&&await page.locator('#hapil-story-rc51').count())await page.keyboard.press('Enter');await page.waitForTimeout(250);}
+    if(cfg.mode==='manual'){await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current,e=window.__RC158_QA__.anchors('village').interactionExit;s.x=e.x;s.y=e.y;});await interact(page,cfg);}
+    for(let i=0;i<120;i++){if(await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='village'))break;if(cfg.mode==='manual')await advanceStory(page,cfg);await page.waitForTimeout(250);}
     await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__.binding.state.current.zone!=='village',null,{timeout:30000});
    }
    const reverse=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{zone:s.zone,ego:window.__HAPIL_EGO_GUARDIAN_RC155__.snapshot(s),next:window.__RC158_QA__.world[s.zone]?.next,terminal:!!s.hapilTerminalCompleteV31301};});assert.equal(reverse.zone,'cult04','actual village exit returns into canonical EGO reverse journey');assert(reverse.ego.active&&!reverse.terminal);assert.equal(reverse.next,'cult03');after.reverse=reverse;
