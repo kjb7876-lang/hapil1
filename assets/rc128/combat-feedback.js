@@ -86,20 +86,37 @@
   if(row.epoch===m.lastEpoch&&row.sequence<=m.lastSequence){totals.discarded++;return false;}
   m.lastEpoch=row.epoch;m.lastSequence=row.sequence;
   const f=classify(s,target,row,source);if(!f){totals.discarded++;return false;}
+  // Persona uses compact contact feedback so warnings and retained shots stay readable.
+  // The committed ledger remains authoritative; presentation never changes damage.
+  const persona=root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)===true;
+  if(persona&&f.outgoing&&row.attackerHeroId==='hwando'){f.color='#e2e8ef';f.accent='#ffffff';}
+  if(persona){
+   f.persona=true;
+   if(root.__HAPIL_INNER_FINAL_RC133__?.red?.(s))f.pause=0;
+   if(f.outgoing){f.duration=f.power>=1?.18:.12;f.pause=0;}
+  }
   totals.accepted++;
   const t=now();
   let defensiveKey=null;
   if(!f.outgoing&&row.result!=='HIT'){defensiveKey=String(row.result)+'|'+String(row.reason)+'|'+String(row.source?.ownerId??row.source?.id??'contact');const last=m.defensive.get(defensiveKey)??-1e9;if(t-last<(continuous(row,source)?.45:.18)){totals.throttled++;return false;}}
-  if(t<m.nextEffect&&f.power<1){totals.throttled++;return false;}
+  if(t<m.nextEffect&&f.power<1&&(!persona||f.outgoing)){totals.throttled++;return false;}
   if(defensiveKey!==null){m.defensive.set(defensiveKey,t);while(m.defensive.size>128)m.defensive.delete(m.defensive.keys().next().value);}
   m.nextEffect=t+.025;
-  m.effects.push({...f,x:n(target.x,n(s.x)),y:n(target.y,n(s.y)),born:t,sequence:row.sequence});
+  if(persona){
+   // Replace the previous flash on the same target instead of stacking critical hits.
+   const key=String(row.targetId);m.effects=m.effects.filter(e=>!e.persona||e.targetId!==key);
+  }
+  const velocity=row.source,hasDirection=Number.isFinite(velocity?.vx)&&Number.isFinite(velocity?.vy)&&Math.hypot(velocity.vx,velocity.vy)>1e-8;
+  m.effects.push({...f,x:n(target.x,n(s.x)),y:n(target.y,n(s.y)),targetId:String(row.targetId),direction:hasDirection?{x:velocity.vx,y:velocity.vy}:null,born:t,sequence:row.sequence});
   if(m.effects.length>32)m.effects.splice(0,m.effects.length-32);
   pause(s,m,f.pause);
-  if(!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'){
+  if(!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'&&(!persona||!f.outgoing)){
    m.shake=Math.max(m.shake,f.boss&&!f.outgoing?1.3:f.power>=1?1:.35);m.shakeUntil=t+.085;
   }
+  const audible=!persona||!f.outgoing||t>=n(m.nextPersonaSound);
+  if(audible){if(persona&&f.outgoing)m.nextPersonaSound=t+.08;
   if(root.__HAPIL_MEDIA_AUDIO_RC133__?.feedback(s,target,row,source,f)!==true)sound(s,f.sound,f.priority,f.power>=1?.35:.24,{channel:f.outgoing?'enemy-hit':f.kind==='guard'?'guard':'ally-hurt',heroId:s.activeHeroId});
+  }
   return true;
  }
  function awakening(s,m){
@@ -225,9 +242,9 @@
    for(const e of m.effects){
     const age=(t-e.born)/e.duration,alpha=1-clamp(age,0,1),p=point(s,e.x,e.y,width,height);
     ctx.save();ctx.globalAlpha=alpha*.85;ctx.strokeStyle=e.color;ctx.fillStyle=e.color;
-    if(p){ctx.translate(p.x,p.y-22*p.scale);const art=root.__HAPIL_MEDIA_ART_RC133__?.effect(e.kind);if(art){const size=(e.power>=1?44:30)*clamp(p.scale,.7,1.5);ctx.drawImage(art,-size/2,-size/2,size,size);}
+    if(p){ctx.translate(p.x,p.y-22*p.scale);const art=root.__HAPIL_MEDIA_ART_RC133__?.effect(e.kind);if(art&&(!e.persona||e.power>=1||!e.outgoing)){const size=(e.persona?(e.power>=1?30:24):(e.power>=1?44:30))*clamp(p.scale,.7,1.5);ctx.drawImage(art,-size/2,-size/2,size,size);}
      const r=(e.kind==='guard'?15:10+age*12)*clamp(p.scale,.7,1.5);ctx.lineWidth=e.power>=1?2:1.3;
-     if(['guard','parry','dream-guard'].includes(e.kind)){ring(ctx,r);if(e.kind==='parry'){segment(ctx,-r,0,r,0);segment(ctx,0,-r,0,r);}if(e.kind==='dream-guard')ring(ctx,r*.7,.2,5.8);}else if(e.kind==='dodge'){for(let i=0;i<3;i++){ctx.globalAlpha=alpha*(.6-i*.15);ctx.strokeRect(-r*.3-i*6,-r*.8,r*.6,r*1.6);}}else if(e.kind==='cancel'){segment(ctx,-r,-r,r,r);segment(ctx,-r,r,r,-r);}else{for(let i=0;i<(compact?4:6);i++){const a=i*Math.PI*2/(compact?4:6)+(e.sequence%7)*.2;segment(ctx,Math.cos(a)*r*.4,Math.sin(a)*r*.4,Math.cos(a)*r,Math.sin(a)*r);}}
+     if(['guard','parry','dream-guard'].includes(e.kind)){ring(ctx,r);if(e.kind==='parry'){segment(ctx,-r,0,r,0);segment(ctx,0,-r,0,r);}if(e.kind==='dream-guard')ring(ctx,r*.7,.2,5.8);}else if(e.kind==='dodge'){for(let i=0;i<3;i++){ctx.globalAlpha=alpha*(.6-i*.15);ctx.strokeRect(-r*.3-i*6,-r*.8,r*.6,r*1.6);}}else if(e.kind==='cancel'){segment(ctx,-r,-r,r,r);segment(ctx,-r,r,r,-r);}else if(e.persona){const end=e.direction&&point(s,e.x+e.direction.x,e.y+e.direction.y,width,height);if(end)ctx.rotate(Math.atan2(end.y-p.y,end.x-p.x));const length=(e.power>=1?16:10)*clamp(p.scale,.7,1.5);segment(ctx,-length*.45,0,length,0);segment(ctx,0,-length*.32,length*.3,length*.32);}else{for(let i=0;i<(compact?4:6);i++){const a=i*Math.PI*2/(compact?4:6)+(e.sequence%7)*.2;segment(ctx,Math.cos(a)*r*.4,Math.sin(a)*r*.4,Math.cos(a)*r,Math.sin(a)*r);}}
      if(e.label&&(e.power>=1||!e.outgoing)){ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(e.label,0,-r-6);}
     }else if(!e.outgoing){ctx.lineWidth=e.kind==='danger'?3:1.5;ctx.strokeRect(4,4,width-8,height-8);ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(e.label,width*.5,height*.76);}
     ctx.restore();

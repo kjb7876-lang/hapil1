@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "6a74c1be5cb91ecf8485dbce702decef7c44f366",
+  "baseTree": "f03137ff7aec2c786356448a04e0780cf3e98ae7",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0beb587b6d2e011330371a38d3744678a59ff64ab2bd11590c9e9accade4a41a",
+  "files": [
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "reason": "assets/rc128/combat-feedback.js: compact Persona contact feedback with silver Hwando, bounded hit audio and no outgoing clock interruption",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "4afd63330f61be3df733a31e2d6ce10a976be471"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "59df32681746a2ee7aec7238fd7ab5de1058126f",
+        "sha256": "26fc0e7df1e69b48cd0f978cfd5dd8c5d103520bd897e4e917174e80cd5f1e70"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: compact Persona contact feedback with silver Hwando, bounded hit audio and no outgoing clock interruption",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f127e834773e0f3507eb47aacaf853629111a7fb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "16290b8a155d109f72a014d9aed4c100fd9047ba",
+        "sha256": "fa78204ac04d59558ccabcd4e5f43f18f0fe318c5ee7f7a09223e600ea29315d"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "14136a5424a415c3fb8ebba936de769747c851ed3e0689b31ca9b826bb7ad827"
+}
