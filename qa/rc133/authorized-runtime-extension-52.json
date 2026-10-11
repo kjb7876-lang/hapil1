@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "50ea3f30d6910f47e49d5aece2cc83af7dfb794e",
+  "baseTree": "e1ac9dce727ccf657a4c137ca60452358169e438",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "84fab5ed56023360d7aaf1b13892ca63c5567e99b169b227f50b83dcd0e7ba59",
+  "files": [
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "reason": "assets/rc128/combat-feedback.js: preserve live damage cue priority, recover actual actor strike direction, and bound incoming audio admission",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "c2f8339d620a43f4c3ec1043c6be7336246f651a"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "d3e61aaa156a0e04274463181e21d81545e15f22",
+        "sha256": "8e39bda848432778765f243783bd87f16fce3f28f860f2d868ad845e6c8c5ee0"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: preserve live damage cue priority, recover actual actor strike direction, and bound incoming audio admission",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "48579bd832216fe2f5e306caf1e39bbdef2743cd"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "5e6fcd752b8cffc97b3826bbecc6cf2c389c6fb6",
+        "sha256": "87c9cbcbb65bffd2f4798fe04742a21fd2e8797a4c8825e3f594529f1a977a89"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "942ca12d864abbebdc82d9c96d56ae2c910d4eae4902f2945abebb2ce42f18c8"
+}
