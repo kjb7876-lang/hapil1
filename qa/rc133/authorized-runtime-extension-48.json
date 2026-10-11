@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "3e79bfb37621562755b23c1cbf0a597b06ad7689",
+  "baseTree": "92be4a4bbc399a05ba41cd37e6ff2c3ae401476f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "eebaf7581cbac4c50d72febae223e45418c4cd496d4ad0ed64790b457234eeca",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: preserve source-owned Persona projectile drawing independently of legacy unrelated-boss fallback routing",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "dbb80ec15f06a02b8e52fe74b26a008947fc27c9"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7aa10eeca9a1c9e743dee09cd17234abfac6c30d",
+        "sha256": "471bcc8a638315e7c1537d37dbb9b2ff44e7c9cd9ad2b4ae4f7498b8ec6d3c8b"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: preserve source-owned Persona projectile drawing independently of legacy unrelated-boss fallback routing",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "37823dded847732fd4cfdd34908639152c24f997"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "59e15394c9b196f6bf80c6ae97f5b186308b1b9e",
+        "sha256": "7298a4eb682bc2289da521f0494858d6a81d51384bb1eca556cb560ba42d9e7e"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: preserve source-owned Persona projectile drawing independently of legacy unrelated-boss fallback routing",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "47c92db2c8bac7acf1a669d0243612327910ece5"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "141cad03aa4d3a3158bc0d84c0dfe56e9c2d7b93",
+        "sha256": "d12d322c4321c25fc0d426e0dd9dfe3e4ed07ae1821461fdc9e4abb726d95493"
+      }
+    },
+    {
+      "file": "assets/rc158/persona-presentation.js",
+      "reason": "assets/rc158/persona-presentation.js: preserve source-owned Persona projectile drawing independently of legacy unrelated-boss fallback routing",
+      "before": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "ecc52c306a8b55c218f3c10c32ec860db815704b"
+      },
+      "after": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "d695a97fc206c6e914e557e9df6fea25127ab317",
+        "sha256": "1d699a057d2e60fd6335bbf83fecec20d03ce6e6565f0d93e5ca37e763e1d5ee"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: preserve source-owned Persona projectile drawing independently of legacy unrelated-boss fallback routing",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "86c1abd6d814f397f0480bbeea3f54656a96ff29"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6c6eadbe4eb9ba7b3b03f37a0b28ba1e3d81c144",
+        "sha256": "9a1759dd78fda30b6efb46956b4aaff9f77e147ce0524332e87723a57d5c1d4d"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "fdfbe578eb0f3810f123d09788dd17b143ab273d1eeb3a6c68875d5277fcbef9"
+}

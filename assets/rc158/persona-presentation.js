@@ -28,5 +28,16 @@
   if(!picture)return draw();cache[path]=picture;const previous=activePicture;activePicture={path:clean(path),picture};
   try{return draw();}finally{activePicture=previous;if(own)cache[path]=prior;else delete cache[path];}
  }
- root.__HAPIL_PERSONA_PRESENTATION_RC158__=Object.freeze({sourceAxes,policy,heading,redPicture,scopedPicture,withProjectile});
+ function owns(q){return q?.rc133InnerShot===true&&q.sourceId==='inner-evil-rc133';}
+ function draw(ctx,cache,q,time,settings,project,opacity){
+  if(!owns(q))return false;
+  const media=root.__HAPIL_MEDIA_ART_RC133__,path=q.rc158SourceSprite??(q.rc150PersonaAwakeningShot?media?.samongSkills:media?.personaSkills)?.[q.rc133Skill];
+  const source=media?.picture(path);if(!source)return true;
+  if(q.bodySpawned31219===false||Number(q.frozenUntil??0)>time)return true;
+  const image=q.rc150RedPersonaShot&&q.rc133Skill==='eclipse'?redPicture(source):source;if(!image)return true;
+  const p=project(q.x,q.y),angle=heading(q,project)??0,size=Math.max(34,Math.min(88,Number(q.radius??.5)*64))*(q.rc150RedPersonaShot?1.2:1),scale=size/Math.max(image.naturalWidth,image.naturalHeight);
+  ctx.save();try{ctx.globalAlpha*=Math.max(0,Math.min(1,opacity(settings)));ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.translate(p.x,p.y-18);ctx.rotate(angle);ctx.drawImage(image,-image.naturalWidth*scale/2,-image.naturalHeight*scale/2,image.naturalWidth*scale,image.naturalHeight*scale);}finally{ctx.restore();}
+  q.ordnanceBitmapPathV31322=path;q.ordnanceDirectionV31322=angle;return true;
+ }
+ root.__HAPIL_PERSONA_PRESENTATION_RC158__=Object.freeze({sourceAxes,policy,heading,redPicture,scopedPicture,withProjectile,owns,draw});
 })(typeof window!=='undefined'?window:globalThis);
