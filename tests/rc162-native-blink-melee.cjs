@@ -2,16 +2,22 @@
 // Geometry fixtures only: native attack, blink, hit admission, HP and drawing remain intact.
 const assert=require('node:assert/strict');
 async function setup(page,index){
- return page.evaluate(index=>{
+ await page.evaluate(()=>{
   const Q=window.__RC158_QA__,C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,B=window.__HAPIL_RC86_BRIDGE__,D=window.__HAPIL_PERSONA_DUEL_RC134__,s=Q.initial();
   // This isolated page removes lane ownership/tracking, not damage/strike validity.
   window.__HAPIL_BATTLE_ARENA_RC138__.bind({combat:[],clear:()=>false});
   window.__HAPIL_PERSONA_DUEL_RC134__=Object.freeze({...D,enforce:state=>H.boss(state),tick:()=>{}});
   Object.assign(s,{zone:'cult04',time:100,activeHeroId:'hwando',gameModeV31346:'DREAM',samongUnlockedRC91:true,encounterDialogue31226:null,encounterLockUntil31226:0,spawnedWaves:new Set([1,2,3,4]),lastAttack:-99});
-  C.binding.state.current=s;C.binding.hero.current='hwando';window.__HAPIL_RUN_V31400__.init(s,'hwando',{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'practice'});window.__HAPIL_PARTY_V31322__.configure(window.__HAPIL_RUN_V31400__.configFor(s,'hwando'));C.setMode('manual');C.binding.input.current.clear();
+  C.binding.state.current=s;C.binding.hero.current='hwando';window.__HAPIL_RUN_V31400__.init(s,'hwando',{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'practice'});window.__HAPIL_PARTY_V31322__.configure(window.__HAPIL_RUN_V31400__.configFor(s,'hwando'));Q.enter(s,'cult04',false);C.binding.state.current=s;s.encounterDialogue31226=null;s.encounterLockUntil31226=0;C.setMode('manual');C.binding.input.current.clear();
   const leader=B.cloneEnemy(B.actor('cult04','c104-boss'),'cult04');leader.hp=0;s.enemies=[leader];if(!H.start(s,leader))throw Error('native Persona start required');
   s.innerFinalRC133.phase='fight';s.innerFinalRC133.intro=0;s.innerFinalRC133.awake=0;s.innerFinalRC133.shotDelay=100;s.innerFinalRC133.awakeningCooldown=10000;
   s.invulnerableUntil=s.time+30;s.awakeningReadyAt=s.time+10000;
+ });
+ // Let real map-entry/roster/health initialization finish before reserving a strike.
+ await page.waitForTimeout(350);
+ return page.evaluate(index=>{
+  const Q=window.__RC158_QA__,C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,s=C.binding.state.current;
+  C.setMode('manual');C.binding.input.current.clear();s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.lastAttack=-99;s.activeHeroId='hwando';C.binding.hero.current='hwando';if(!H.encounter(s))throw Error('native Persona entry must survive initialization');
   const v=[[1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]][index],len=Math.hypot(...v),blink={x:-v[1]/len,y:v[0]/len};
   let start;for(let x=12;x<=22&&!start;x+=2)for(let y=12;y<=22&&!start;y+=2){const p={x,y},points=[p,{x:x+v[0]*3.5,y:y+v[1]*3.5},...Array.from({length:30},(_,i)=>({x:x+blink.x*i*.1,y:y+blink.y*i*.1}))];if(points.every(p=>Q.walkable(s.zone,p,s)))start=p;}
   if(!start)throw Error('no native walkable fixture for sector '+index);s.x=start.x;s.y=start.y;
