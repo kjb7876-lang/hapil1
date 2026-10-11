@@ -102,7 +102,7 @@
  }
  function encounter(s){return enabled(s)&&['reveal','fight'].includes(s.innerFinalRC133?.phase)&&s.enemies?.some(a=>a.id===ID);}
  function red(s){return encounter(s)&&s.hp>0&&n(s.innerFinalRC133?.awake)>0;}
- function attackSpeedFactor(s){return root.__HAPIL_PERSONA_DUEL_RC134__?.mutual(s)===true?1:red(s)?.7:1;}
+ function attackSpeedFactor(s){return red(s)?.7:1;}
  function personaFlightPolicy(s,q){
   if(!s||q?.sourceId!==ID||q.rc133InnerShot!==true||q.rc150PersonaAwakeningShot!==true)return null;
   const bounced=Math.floor(cl(q.boundaryContactCount31214,0,3)),remaining=Math.max(0,3-bounced),born=n(q.born,n(s.time));
