@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "0a916450773d77c5b32dbdcbf1e5fc907cea8e1a",
+  "baseTree": "13280c080d3cfd29e8a183902155f2082de5b552",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "54fbe82817ee17bf5391947542e5943df9442b87417d768dac62b5aed40da768",
+  "files": [
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "reason": "assets/rc128/combat-feedback.js: restore the contact effect transform before rendering upright combat labels",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "59df32681746a2ee7aec7238fd7ab5de1058126f"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "c2f8339d620a43f4c3ec1043c6be7336246f651a",
+        "sha256": "58ec8e6c89a8d9b65e32accad70bc93bffef46090376bec7fbdeada3b947873f"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: restore the contact effect transform before rendering upright combat labels",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "16290b8a155d109f72a014d9aed4c100fd9047ba"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "48579bd832216fe2f5e306caf1e39bbdef2743cd",
+        "sha256": "59c6631e1146e4745122c8fec173d686eac47d438dcbb63e6b66344a51ffe187"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "5a4048ffd1ecaffbbbf898faba058d65bb502f273134a2765aafb4f0c0c45e8a"
+}
