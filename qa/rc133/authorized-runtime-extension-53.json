@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "1807f6d2aa80e41c9bbe68bcbba61a599f07509f",
+  "baseTree": "dc4b275832dcef41532cfdbcd9075d9f0e3dcad9",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "eb43b5ef66714246df39bd41cfc188d8c1a129cf2ed0176ec75974bf17aa4b80",
+  "files": [
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "reason": "assets/rc128/combat-feedback.js: preserve live damage cue priority, recover actual actor strike direction, and bound incoming audio admission and resolve explicit companion attack slots safely",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "d3e61aaa156a0e04274463181e21d81545e15f22"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "6595165f039cea927b813f05f86dbf12e5623424",
+        "sha256": "f89dd38a22c19215768ee6c261068fa76c5cceb087bc1a1fea0c5693269ccf17"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: preserve live damage cue priority, recover actual actor strike direction, and bound incoming audio admission and resolve explicit companion attack slots safely",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "5e6fcd752b8cffc97b3826bbecc6cf2c389c6fb6"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6b6874ab9fdd4622d1f591fcf43842becdce3bc5",
+        "sha256": "60b4ae9ef845d4d019261c5bfa790b3a29acc1fa78a32e02ce1b78f7a1cc89cc"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "c6332a4864f255025e571ce82c0cfcf40a01db3afa7cce9ceb434e517323a652"
+}
