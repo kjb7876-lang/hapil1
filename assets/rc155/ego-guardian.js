@@ -138,7 +138,12 @@
  const originalLinks=new WeakMap();
  function rememberLinks(world){if(!world||typeof world!=='object'||originalLinks.has(world))return;const map=new Map();for(const [zone,row]of Object.entries(world))if(row&&Object.hasOwn(row,'next'))map.set(zone,row.next);originalLinks.set(world,map);}
  function restoreLinks(world){const map=world&&originalLinks.get(world);if(!map)return;for(const [zone,next]of map)if(world[zone])try{world[zone].next=next;}catch(_){}originalLinks.delete(world);}
- function sync(s,world,narrative){if(!s||!world)return false;const m=s[FIELD];if(!m?.active){restoreLinks(world);return false;}if(s.zone!==m.currentZone)onMapEntry(s,s.zone,world,narrative);const current=s[FIELD];if(!current?.active)return false;if(s.zone!==current.routeZone){restoreLinks(world);return false;}rememberLinks(world);const next=nextZone(s,s.zone,world,narrative);if(!next||!world[s.zone])return false;try{world[s.zone].next=next;return true;}catch(_){return false;}}
+ function sync(s,world,narrative){if(!s||!world)return false;let m=s[FIELD];
+  // Native portals enter village/rest maps without invoking combat ii(). Recover
+  // the saved victory before the active-only route guard, including legacy saves
+  // whose currentZone already names the destination but remain pending.
+  if(m?.pendingTransformation&&s.zone!==m.pendingFromZone){onMapEntry(s,s.zone,world,narrative);m=s[FIELD];}
+  if(!m?.active){restoreLinks(world);return false;}if(s.zone!==m.currentZone)onMapEntry(s,s.zone,world,narrative);const current=s[FIELD];if(!current?.active)return false;if(s.zone!==current.routeZone){restoreLinks(world);return false;}rememberLinks(world);const next=nextZone(s,s.zone,world,narrative);if(!next||!world[s.zone])return false;try{world[s.zone].next=next;return true;}catch(_){return false;}}
  function difficulty(clearCount){return 1+Math.min(2,uint(clearCount)*.01);}
  function factors(count){return {hp:difficulty(count),damage:1+Math.min(.5,uint(count)*.0025),speed:1+Math.min(.2,uint(count)*.001)};}
  function applyEnemyScaling(s){const m=s?.[FIELD];if(!m?.active||!Array.isArray(s.enemies))return 0;const f=factors(m.clearCount);let count=0;

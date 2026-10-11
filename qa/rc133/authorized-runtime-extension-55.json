@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "572aa0aa591182837c595f397a48e34042f949db",
+  "baseTree": "5ad6217deddd60fb808d7405f3b851e1dd19fdbc",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d9b212ecebcfd9b7ade81b55faf20ab434a4a5aad8ce446e634ab8019a36bc29",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: recover pending EGO victory on noncombat map entry and legacy saves; route Persona legacy blackhole to its owned red source while preserving combat physics and continue native manual/full-auto village reverse portals",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "3bf9836d4e9c0b3ec9c1984ff1221a95feaba820"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "e87b742645b9c112ad981868479731bd271973f4",
+        "sha256": "0fd629519ce86455195aedecfed1d22a340f934d98c47d2a7cbb39adc4bad961"
+      }
+    },
+    {
+      "file": "assets/rc155/ego-guardian.js",
+      "reason": "assets/rc155/ego-guardian.js: recover pending EGO victory on noncombat map entry and legacy saves; route Persona legacy blackhole to its owned red source while preserving combat physics and continue native manual/full-auto village reverse portals",
+      "before": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "c3b6e538c56de36b80a2e536a54f4bad2f179fdd"
+      },
+      "after": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "62127f1cc755c89729ca8067eada3b68cd590d4b",
+        "sha256": "a111dd7d2cd2627ac27c4fa30de2e8bac44a13f6789535c441e9d73e582545a8"
+      }
+    },
+    {
+      "file": "assets/rc32/boss-and-mobile.js",
+      "reason": "assets/rc32/boss-and-mobile.js: recover pending EGO victory on noncombat map entry and legacy saves; route Persona legacy blackhole to its owned red source while preserving combat physics and continue native manual/full-auto village reverse portals",
+      "before": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "30cbaa0bad09846b3a3d867d875297aeaffc344a"
+      },
+      "after": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "a82aea615a97a104a2809c9e3252d7d86fd3d675",
+        "sha256": "326c1f724292e57734f8c3c7eee7609b286820b844d77b4e95b5b0899db0f7da"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: recover pending EGO victory on noncombat map entry and legacy saves; route Persona legacy blackhole to its owned red source while preserving combat physics and continue native manual/full-auto village reverse portals",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "b2c36d53ce57754d449f5e8dbfc7b20ae1de712f"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "9d48b5d52454fc14e9087b0ea00bdab5d9e5ba3c",
+        "sha256": "5b96e54bd7224ddd68c6e7a56e47061cce7f80f69294ad38fd9c2f1450f6a431"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "adf0f60d50ed358b9201e552d84fef1735debd189b4f758df74df5b2b9d2c3a4"
+}

@@ -67,15 +67,20 @@
   const holes=s.bossBlackHolesRC32??(s.bossBlackHolesRC32=[]),next=s.bossBlackHoleNextRC32??(s.bossBlackHoleNextRC32=Object.create(null));
   s.bossBlackHolesRC32=holes.filter(h=>h.endAt>now&&(s.enemies??[]).some(a=>a.id===h.sourceId&&a.hp>0));
   const live=s.bossBlackHolesRC32;
+  const persona=a=>a?.id==='inner-evil-rc133'&&a.rc133InnerBoss===true;
+  const personaSprite=()=>window.__HAPIL_MEDIA_ART_RC133__?.personaSkills?.vortex||'./assets/rc134/persona-skills/vortex.png?v=43402';
+  // This legacy area/pull effect is independent of Persona's projectile deck.
+  // Repair its owned presentation on restored/live holes as well as new casts.
+  for(const h of live)if((s.enemies??[]).some(a=>a.id===h.sourceId&&persona(a))){h.sprite=personaSprite();h.color='#ed536b';h.accent='#ffe3e9';}
   for(const actor of (s.enemies??[])){
    if(!actor?.boss||actor.hp<=0||actor.visualOnly||actor.objectiveStructureV31238||actor.protectedNarrativeTargetV31307)continue;
    if(!Number.isFinite(next[actor.id]))next[actor.id]=now+8+(hash(actor.id)%6);
    if(now<next[actor.id]||live.some(h=>h.sourceId===actor.id)||live.some(h=>h.fireAt<=now&&h.endAt>now))continue;
    const owner=window.__HAPIL_LASERS_V31330__?.owners?.find(o=>o.id===actor.id);
-   const color=owner?.color||actor.bossColor||actor.color||actor.accent||'#a98bff';
+   const color=persona(actor)?'#ed536b':owner?.color||actor.bossColor||actor.color||actor.accent||'#a98bff';
    const dx=num(s.moveVx),dy=num(s.moveVy),lead=Math.min(.8,Math.hypot(dx,dy)*.2);
    const style=BLACKHOLE_STYLE[actor.id]||'abyssal';
-   const hole={id:s.fxSerial++,sourceId:actor.id,zone:s.zone,born:now,fireAt:now+1.25,endAt:now+4.35,x:clamp(s.x+dx*lead,1.5,30.5),y:clamp(s.y+dy*lead,1.5,30.5),radius:5.0,color,accent:owner?.accent||'#f8f1ff',sprite:BLACKHOLE_ROOT+style+'.webp',label:actor.name||owner?.name||'보스 블랙홀'};
+   const hole={id:s.fxSerial++,sourceId:actor.id,zone:s.zone,born:now,fireAt:now+1.25,endAt:now+4.35,x:clamp(s.x+dx*lead,1.5,30.5),y:clamp(s.y+dy*lead,1.5,30.5),radius:5.0,color,accent:persona(actor)?'#ffe3e9':owner?.accent||'#f8f1ff',sprite:persona(actor)?personaSprite():BLACKHOLE_ROOT+style+'.webp',label:actor.name||owner?.name||'보스 블랙홀'};
    live.push(hole);loadBlackholeImage(hole.sprite);next[actor.id]=hole.endAt+15+(hash(actor.id+':rc32')%8);stats.blackholesSpawned++;break;
   }
   for(const h of live){

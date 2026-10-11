@@ -53800,10 +53800,11 @@ function Ri() {
           void 0);
         return;
       }
-      if (he.includes(t.zone)) {
+      const egoVillage = t.zone === 'village' && t.egoGuardianRC155?.active === true;
+      if (he.includes(t.zone) || egoVillage) {
         let e = ci(t.zone),
           n = e.find((e) => !t.clues.has(e.id)),
-          r = !MONGSE_zoneCombatCleared(t, t.zone)
+          r = !(egoVillage || MONGSE_zoneCombatCleared(t, t.zone))
             ? void 0
             : xe(t.zone)
               ? n && J(t, n) < Lr
@@ -53826,7 +53827,7 @@ function Ri() {
         }
         let i = N[t.zone];
         if (
-          MONGSE_zoneCombatCleared(t, t.zone) &&
+          (egoVillage || MONGSE_zoneCombatCleared(t, t.zone)) &&
           Te(t.zone, t.clues) &&
           /* RC132_WRATH_EXIT */ (window.__HAPIL_DREAM_BALANCE_RC132__?.exitActorsClear(t,(window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)) ?? (window.__HAPIL_FLOW_V31343__?.profile(t.zone) ? window.__HAPIL_FLOW_V31343__.gate(t).clear : t.enemies.length === 0)) &&
           t.egoDrops.length === 0 &&
@@ -100140,6 +100141,9 @@ function HAPIL_autoProgressPlanV31301(state, settings, blocked = false) {
     );
   }
 
+  if (state.zone === "village" && state.egoGuardianRC155?.active === true && N.village?.next)
+    return target(MONGSE_zonePortalAnchors("village").interactionExit,"ego-return-portal",2.48);
+
   if (state.zone === "village")
     return state.villageTalk === true
       ? Object.freeze({ action: "complete", reason: "campaign-recorded" })
@@ -100347,6 +100351,7 @@ function HAPIL_commitFinalEndingV31301(
   shards,
 ) {
   if (!state) return Object.freeze({ ok: false, reason: "state-missing" });
+  if(state.egoGuardianRC155?.active||state.egoGuardianRC155?.pendingTransformation)return Object.freeze({ok:false,reason:"ego-journey-active"});
   if((window.__HAPIL_MODES_V31346__?.mode(state)??state.gameModeV31346??'STORY')!=='STORY')return Object.freeze({ok:false,reason:'story-ending-only'});
   const finalBattle = state.hapilFinalBattleV31300;
   const finalBossStillPresent = state.enemies?.some((entry) => entry.id === "c104-boss");

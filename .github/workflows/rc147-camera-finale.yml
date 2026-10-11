@@ -1,11 +1,12 @@
 name: RC147 camera and finale exact candidate
 on:
   push:
-    branches: [main, codex/rc161-persona-clarity, codex/rc162-persona-feedback-priority, codex/rc152-image-combat, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic]
+    branches: [main, codex/rc161-persona-clarity, codex/rc162-persona-feedback-priority, codex/rc163-ego-mobile-victory, codex/rc152-image-combat, codex/rc147-camera-persona-finale, codex/rc150-mobile-sequential-cosmic]
     paths:
       - 'tests/rc158-*.cjs'
       - 'tests/rc161-*.cjs'
       - 'tests/rc162-*.cjs'
+      - 'tests/rc163-*.cjs'
       - 'assets/**'
       - 'index.html'
       - 'qa/rc133/**'
