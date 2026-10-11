@@ -84,6 +84,12 @@
   if(!enabled(s)||!root.__HAPIL_DEVELOPER_MAPS_RC133__?.canInner(s))return false;
   return begin(s,root.__HAPIL_RC86_BRIDGE__?.actor(ZONE,'c104-boss'),'developer-777');
  }
+ function restartAfterMapEntry(s,entry){
+  if(!enabled(s)||!['cult-death','developer-777'].includes(entry))return false;
+  if(entry==='developer-777'){delete s.innerFinalRC133;return developerStart(s);}
+  const leader=s.enemies?.find(a=>a.id==='c104-boss');if(!leader)return false;
+  delete s.innerFinalRC133;leader.hp=0;return start(s,leader);
+ }
  function beforeDeath(s,a){
   if(!enabled(s))return false;
   if(a?.id==='c104-boss')return start(s,a);
@@ -96,7 +102,14 @@
  }
  function encounter(s){return enabled(s)&&['reveal','fight'].includes(s.innerFinalRC133?.phase)&&s.enemies?.some(a=>a.id===ID);}
  function red(s){return encounter(s)&&s.hp>0&&n(s.innerFinalRC133?.awake)>0;}
- function attackSpeedFactor(s){return red(s)?.7:1;}
+ function attackSpeedFactor(s){return root.__HAPIL_PERSONA_DUEL_RC134__?.mutual(s)===true?1:red(s)?.7:1;}
+ function personaFlightPolicy(s,q){
+  if(!s||q?.sourceId!==ID||q.rc133InnerShot!==true||q.rc150PersonaAwakeningShot!==true)return null;
+  const bounced=Math.floor(cl(q.boundaryContactCount31214,0,3)),remaining=Math.max(0,3-bounced),born=n(q.born,n(s.time));
+  q.bounceRemaining31212=remaining;q.offscreenReturnAllowance31212=remaining;
+  q.hardExpiresAt31213=Math.max(n(q.hardExpiresAt31213),born+18);q.hardExpiresAt31214=Math.max(n(q.hardExpiresAt31214),born+18);
+  return remaining===0?'three-persona-wall-bounces':null;
+ }
  function redTimeActive(s){const m=s?.innerFinalRC133;return red(s)&&n(m?.redTimeActiveUntil)>n(m?.elapsed)&&n(m?.elapsed)>=n(m?.redTimeWarnUntil);}
  function redTimeKey(s,source){
   const cast=source?.ultimateCastIdV31309??source?.collabCastIdV31315??source?.castIdV31309??source?.heroAttackId??source?.originAttackV31328;
@@ -175,7 +188,7 @@
    // release order, origin band and speed distinguish the nine native paths.
    const desired=angle+offset,delta=((desired-center+Math.PI*3)%(Math.PI*2)-Math.PI),theta=center+cl(delta,-1.4,1.4),baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*(skill.formation==='spiral'?1+((i%3)-1)*.08:1)),speed=red?baselineSpeed*2:baselineSpeed,stage=mutual?i*.035:(skill.stagger??.08)*(skill.key==='diamond'||skill.key==='clock'?rank:Math.floor(i/3)),radius=skill.key==='eclipse'?.31:skill.key==='lance'?.22:.24;
    const damage=red?(mutual?Math.min(24,26*m.scale):26*m.scale):empowered?18*m.scale:13*m.scale;
-   native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(18,Math.max(7,distance/(speed*.65)+warning+stage+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i,rc147Speed:speed});
+   native.bullet(s,a,{danmakuV31316:true,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,radius,damage,life:Math.min(18,Math.max(7,distance/(speed*.65)+warning+stage+2)),frozenUntil:s.time+warning+stage,homingMode31212:'none',patternKind:'rc95-volley',status:'none',color,accent:'#fff0e7',sprite,spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,label:skill.name,rc133Pattern:skill.key,rc133Skill:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:i,rc147Speed:speed});
   }
   const emitted=s.hostileProjectiles.slice(before);if(emitted.length!==count){
    // The native emitter may reject a subset after our admission check. Remove
@@ -188,7 +201,7 @@
    m.redTimeWarnUntil=m.elapsed+.7;m.redTimeActiveUntil=m.redTimeWarnUntil+4;m.redTimeReadyAt=m.elapsed+12;m.redTimeRolls=[];
    (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y-2,born:s.time,duration:.7,text:'붉은 시간 · 0.7초 후 시간 차단',color:'#ff9fb5',critical:true});
   }
-  for(const [emittedIndex,q] of emitted.entries()){const theta=Math.atan2(q.vy,q.vx),index=emittedIndex,spiral=skill.formation==='spiral'?1+((index%3)-1)*.08:1,baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*spiral),speed=red?baselineSpeed*2:baselineSpeed,band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:index,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!skill.key.endsWith('eye')&&!skill.key.endsWith('lance'),rc147Speed:speed,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(54.6,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  for(const [emittedIndex,q] of emitted.entries()){const theta=Math.atan2(q.vy,q.vx),index=emittedIndex,spiral=skill.formation==='spiral'?1+((index%3)-1)*.08:1,baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*spiral),speed=red?baselineSpeed*2:baselineSpeed,band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,rc150PersonaAwakeningShot:empowered,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:index,rc134Mutual:mutual,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,spriteHeading:0,screenAligned31222:!skill.key.endsWith('eye')&&!skill.key.endsWith('lance'),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,rc147Speed:speed,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(54.6,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
   root.__HAPIL_COMBAT_LAYOUT_RC153__?.scatter(s);
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:mutual?'純惡意 · '+skill.name:skill.name,color,critical:false});
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
@@ -253,7 +266,7 @@
   s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.enemies=s.enemies.filter(a=>!a.dreamCosmicTrialV31346&&a.id!=='c104-boss');s.bossDefeated=false;build(s,m);
  }
 
- const api=Object.freeze({version:'RC133',id:ID,traits,deck,queueAdmission:Object.freeze({limit:HOSTILE_QUEUE_LIMIT,maxRetryCount:MAX_QUEUE_RETRY_COUNT,baseDelaySeconds:QUEUE_RETRY_BASE_SECONDS,maxDelaySeconds:QUEUE_RETRY_MAX_SECONDS}),acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,red,attackSpeedFactor,redTimeActive,redTimeBlocks,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
+ const api=Object.freeze({version:'RC133',id:ID,traits,deck,queueAdmission:Object.freeze({limit:HOSTILE_QUEUE_LIMIT,maxRetryCount:MAX_QUEUE_RETRY_COUNT,baseDelaySeconds:QUEUE_RETRY_BASE_SECONDS,maxDelaySeconds:QUEUE_RETRY_MAX_SECONDS}),acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,restartAfterMapEntry,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,red,attackSpeedFactor,personaFlightPolicy,redTimeActive,redTimeBlocks,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
  root.__HAPIL_INNER_FINAL_RC133__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

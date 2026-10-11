@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "base": "9590204de0873852ac0d5a655f6c0bec4142051f",
+  "baseTree": "f54a97927c88b94fe4eb925ae57780c529fa3751",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "811b8aec1b0b338d3c4f60ee4eeec736f0b7f52d30890af2ee577a1c07e05607",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js applies the reviewed Persona projectile-flight, same-map death restart, natural EGO transition, and cache invalidation corrections.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "b972cd5b67e358e29b1137c28d92a7cf330516a7"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d601415e5d085319699aff09631ccecf3790fb6d",
+        "sha256": "5c5ec417be7e23ec2466626d229935cf24fe75f8fbefb04c197993cdba591b3f"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js applies the reviewed Persona projectile-flight, same-map death restart, natural EGO transition, and cache invalidation corrections.",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "83bbc2aa742ca5b11570c337c5c6beb64f8e7d1b"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "23338e614627f0dfc705969545daa384f35520c7",
+        "sha256": "b765bfd8303b06f2c410bd090cd365256b2ab9ec5dd0244ff458edef7181fa32"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt applies the reviewed Persona projectile-flight, same-map death restart, natural EGO transition, and cache invalidation corrections.",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "df316392597d78a1f4cf0f983963a7c25d33d388"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "37668f27a32e3545606610ace85d9a54c1308a86",
+        "sha256": "54814536f0c445a651c135200b54c00f91d72f0ddc2b7230b39f7f1519ae718b"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js applies the reviewed Persona projectile-flight, same-map death restart, natural EGO transition, and cache invalidation corrections.",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "e04865c06346b2d8195539422631294ca5268787"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "cadafdd824f0acd1a5ab1de1e1d81110a9842b46",
+        "sha256": "a226ca6bfb774b36178fcb5a284568929c90712ba1a7e241a5ed2224e1ce62df"
+      }
+    },
+    {
+      "file": "assets/rc155/ego-guardian.js",
+      "reason": "assets/rc155/ego-guardian.js applies the reviewed Persona projectile-flight, same-map death restart, natural EGO transition, and cache invalidation corrections.",
+      "before": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "1cc213e8241145e63f8a4e5a6cd512bd9dfe2f1d"
+      },
+      "after": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "c3b6e538c56de36b80a2e536a54f4bad2f179fdd",
+        "sha256": "f6c8825eb22ce7108249d5ddb77e9595e8c0ca23f35abcce0aab3aa4c583c575"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html applies the reviewed Persona projectile-flight, same-map death restart, natural EGO transition, and cache invalidation corrections.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7dbd65f620add2f42e7f61f3ba139b359010eca8"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2336982104f9bab1d5dc91b20691eb7221a18d97",
+        "sha256": "ffebfacabbc05363fa595b2397065044396860f98f7e8d8fcc30e71b6fb68d06"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "b1b6f3079dcb348fea5594552981dab1269e77c6eeda82f1963b8b255b496fdf"
+}
