@@ -189,6 +189,8 @@
   for(let i=0;i<count;i++){
    const paired=i%2?1:-1,rank=Math.floor(i/2),center=root.__HAPIL_PERSONA_DUEL_RC134__?.swapped(s)?-Math.PI*.25:Math.PI*.75,spread=(i-(count-1)/2)*skill.spread/Math.max(1,count-1),turnOffset=turn+(m.cycle%deck.length)*.012;
    let offset=skill.formation==='focus'?spread*.22:skill.formation==='twin'?paired*(.13+rank*.12):skill.formation==='spiral'?spread+turnOffset:skill.formation==='sweep'?spread+Math.sin(i*.8+turnOffset)*.22:skill.formation==='cross-fan'?spread+paired*(.08+rank*.06):skill.formation==='needle'?spread*.12:spread+paired*.07;
+   // Spread angularly at emission without changing the empowered three-return contract.
+   if(count>1&&(skill.formation==='focus'||skill.formation==='needle'))offset=(i/(count-1)-.5)*.96;
    if(red&&skill.formation==='fan')offset+=(m.cycle%2===0?-.16:.16);
    // Keep the actual player vector in the permitted mirrored lane. Width,
    // release order, origin band and speed distinguish the nine native paths.

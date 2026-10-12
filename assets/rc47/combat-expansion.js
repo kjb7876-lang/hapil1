@@ -28,6 +28,8 @@
     }
     (state.effects ??= []).push({
       id: state.fxSerial++, kind: 'goldImmuneRC47', goldImmuneRC47: true,
+      // The incoming source is provenance, never the owner of this local defense cue.
+      heroHitVfxV31315: true, visualOnly: true, ownerType: 'hero',
       x, y, originX: sx, originY: sy, born: now, duration: .32,
       sourceId: source.sourceId ?? source.ownerId ?? '',
     });

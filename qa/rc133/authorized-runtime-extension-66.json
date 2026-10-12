@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "dc49ec0bbef35619bc105adc2171796918b2844b",
+  "baseTree": "420161b040959bfdbaac9d9e4a88e0477582e3ba",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f80c38b5ec641d885de53a5ef4ae23d8700af8fb9159cac0009eec99ed450984",
+  "files": [
+    {
+      "file": "assets/rc47/combat-expansion.js",
+      "reason": "assets/rc47/combat-expansion.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/rc47/combat-expansion.js",
+        "mode": "100644",
+        "gitBlob": "56fc1d59501506fd72a5e9aeb8a1da91cff86a2b"
+      },
+      "after": {
+        "file": "assets/rc47/combat-expansion.js",
+        "mode": "100644",
+        "gitBlob": "0450062730945f6261dfda3b96a2f8ac76d4948d",
+        "sha256": "dc175d460bd76c9e8f393df16d12c9437e905c7d35e1f19ae40ac1c64c87503c"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "98a13b997aa696c48bb528a51ddb12eef3be92ba"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "be2de685ca100d5260aaac07b79085e25bf92ac9",
+        "sha256": "31a60a3dc9912904c1a69118e368ccdabef1b379999a2efc449819a865dfd6b9"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "acc4e6ce83a3cf2d6c15ca3be9ff8b8b06575aba"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "64a460deb3907ebd2291c647de02602e0cbd6635",
+        "sha256": "98b30dae5d5554375d6e40398211fb5a9804b3e5548293369818ed88a0d0a242"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "c543b83433bfc403470171af682bd46078c197c8c77aacc459dbfa5f779665ef"
+}
