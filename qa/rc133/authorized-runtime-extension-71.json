@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "184f4a44179241989c97a54ee58b521d00bb395f",
+  "baseTree": "8b0a5f00689a61276aba23a49f26079fea49d102",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5511537e83fe809e3dbab662f2d4fecc72137a94c29ac4284c0fe1e62b649e24",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "reason": "assets/rc155/ego-art.js: RC174 source-only hood/boot/blade/cape preservation, ownership separation, foot pivot or fresh body module cache key; original PNGs and other poses unchanged",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "a27f99841122c75c92aa2c7261425a84f73c5c51"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "b296202b783acadd6ccf2ba203f92e56f6ee1e9f",
+        "sha256": "0481903a0e21e64b0916f90a395dda61567b5ede64a97255633220e98098d0b8"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC174 source-only hood/boot/blade/cape preservation, ownership separation, foot pivot or fresh body module cache key; original PNGs and other poses unchanged",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "218480715127909471b356c7266b928f7cf78b3b"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "67727f332983505652615c1c23f814eedd5d73f9",
+        "sha256": "e20c27f34de74abd50c88f58514419b637337646d1132faaac1a1d18a15c435b"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "644422f6591dfeb3eb30a017ed9239386f7514937deb92d53398de9785e90778"
+}

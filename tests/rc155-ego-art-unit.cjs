@@ -41,7 +41,7 @@ for(const kind of ['move','dash','attack'])for(const [dx,dy]of directions){const
 const browserFixture=fs.readFileSync(path.join(root,'tests/rc155-ego-browser.cjs'),'utf8');
 ok(browserFixture.includes('dx,dy,facing:dx-dy<0?-1:1,phase:1000'),'all browser direction fixtures retain the native facing field');
 for(const hook of ['Art()?.present(canvas,s)','Art()?.drawBody(ctx,path,x,y,size,o,G)','Art().withSkill(S(),e,()=>egoFx.call(this,ctx,cache,e,time,settings))','Art()?.assets()'])ok(native.includes(hook),'native transaction/presentation hook '+hook);
-ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=17301'),'normal runtime loads the retry-capable EGO art module with a fresh cache key');
+ok(bundle.includes('window.__HAPIL_EGO_ART_RC155__?.sprite(t,te) ?? Tn(ee, te, t.time)'),'only the main player sprite uses transformed art');ok(html.includes('assets/rc155/ego-art.js?v=17401'),'normal runtime loads the retry-capable EGO art module with a fresh cache key');
 const s={zone:'cult04'};E.recordPersonaVictory(s);eq(E.state(s).cutInPending,false,'victory frame does not start cut-in');eq(E.consumeCutIn(s),false,'untransformed victory cannot consume cut-in');
 async function presentationChecks(){
  let retryClock=0,retryImageCount=0;const retryCounts=new Map(),retryPath=Art.walkFrame3Path;
@@ -86,7 +86,7 @@ async function presentationChecks(){
     const hi=Math.max(crop[p],crop[p+1],crop[p+2]),lo=Math.min(crop[p],crop[p+1],crop[p+2]);
     if(rendered.rgba[p]!==crop[p]||rendered.rgba[p+1]!==crop[p+1]||rendered.rgba[p+2]!==crop[p+2]||rendered.rgba[p+3]!==crop[p+3]&&rendered.rgba[p+3]!==0)invalid++;
     if(rendered.rgba[p+3]!==crop[p+3])changed++;
-    const xx=(p/4)%w,yy=Math.floor(p/4/w),px=x+xx+.5,py=y+yy+.5,cell=f.cellRect,core=A.inPolygon(px-cell[0],yy+.5,A.cores[f.kind][f.index]),own=A.weaponRegions[f.kind][f.index],isOwn=own&&A.inPolygon(px,py,own),foreign=Object.entries(A.weaponRegions[f.kind]).some(([i,poly])=>Number(i)!==f.index&&A.inPolygon(px,py,poly)),allowed=core||isOwn||px>=cell[0]&&px<cell[0]+cell[2]&&!foreign;
+    const xx=(p/4)%w,yy=Math.floor(p/4/w),px=x+xx+.5,py=y+yy+.5,cell=f.cellRect,core=A.inPolygon(px-cell[0],py-cell[1],A.cores[f.kind][f.index]),anatomy=(A.anatomyRegions[f.kind]?.[f.index]??[]).some(poly=>A.inPolygon(px,py,poly)),own=A.weaponRegions[f.kind][f.index],isOwn=own&&A.inPolygon(px,py,own),foreign=A.foreignWeaponRegions(f).some(poly=>A.frameProfiles[f.kind]?.[f.index]?A.nearPolygon(px,py,poly,2.5):A.inPolygon(px,py,poly))||(A.foreignRegions[f.kind]?.[f.index]??[]).some(poly=>A.inPolygon(px,py,poly)),cape=(A.ownershipRegions[f.kind]?.[f.index]??[]).some(poly=>A.inPolygon(px,py,poly)),allowed=core||anatomy||isOwn||(cape||px>=cell[0]&&px<cell[0]+cell[2])&&!foreign;
     if(allowed&&crop[p+3]>0&&hi>=160&&rendered.rgba[p+3]===0)lostBright++;
     if(crop[p+3]>0&&hi<91&&hi-lo<27&&rendered.rgba[p+3]===crop[p+3])retainedDark++;
    }
@@ -115,7 +115,7 @@ async function presentationChecks(){
   }
   let lostCore=0,recoveredBright=0,foreignRetained=0;
   for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){
-   const sx=x+xx,sy=y+yy,p=(yy*w+xx)*4,source=((sy*im.naturalWidth+sx)*4),isCore=A.inPolygon(sx-f.cellRect[0]+.5,yy+.5,A.cores[kind][index]),own=A.weaponRegions[kind][index],isOwn=own&&A.inPolygon(sx+.5,sy+.5,own),foreign=Object.entries(A.weaponRegions[kind]).some(([i,poly])=>Number(i)!==index&&A.inPolygon(sx+.5,sy+.5,poly));
+   const sx=x+xx,sy=y+yy,p=(yy*w+xx)*4,source=((sy*im.naturalWidth+sx)*4),isCore=A.inPolygon(sx-f.cellRect[0]+.5,sy-f.cellRect[1]+.5,A.cores[kind][index]),own=A.weaponRegions[kind][index],isOwn=own&&A.inPolygon(sx+.5,sy+.5,own),foreign=A.foreignWeaponRegions(f).some(poly=>A.inPolygon(sx+.5,sy+.5,poly));
    if(isCore&&!cv.rgba.subarray(p,p+4).equals(im.rgba.subarray(source,source+4)))lostCore++;
    if(!isCore&&!isOwn&&foreign&&cv.rgba[p+3])foreignRetained++;
    if(isOwn&&(sx<f.cellRect[0]||sx>=f.cellRect[0]+f.cellRect[2])&&(Math.max(...im.rgba.subarray(source,source+3))>=91||Math.max(...im.rgba.subarray(source,source+3))-Math.min(...im.rgba.subarray(source,source+3))>=27)&&cv.rgba.subarray(p,p+4).equals(im.rgba.subarray(source,source+4)))recoveredBright++;
@@ -124,8 +124,8 @@ async function presentationChecks(){
   eq(foreignRetained,0,'known neighbouring weapon pixels are excluded '+kind+index);
   if(A.weaponRegions[kind][index])ok(recoveredBright>0,'visible source weapon pixels pass the unchanged matte foreground barrier beyond the former cell '+kind+index);
   const oldCell=[0,221,443,665,887,1109,1331,1552][index],oldPivot=(kind==='walk'?[110,109,67,116,71,86,96,124]:[98,95,81,85,96,100,30,126])[index];
-  eq(f.rect[0]+f.pivot[0],oldCell+oldPivot,'crop expansion retains independent baseline supporting foot '+kind+index);
-  eq(f.coreHeight,kind==='walk'?276:309,'crop does not reduce the existing body scale '+kind+index);
+  eq(f.rect[0]+f.pivot[0],A.frameProfiles[kind]?.[index]?.pivot[0]??oldCell+oldPivot,'crop expansion retains the source-audited supporting foot '+kind+index);
+  eq(f.coreHeight,A.frameProfiles[kind]?.[index]?.coreHeight??(kind==='walk'?276:309),'source-audited anatomical height keeps uniform body scale '+kind+index);
  }
 
  // Fifteen untouched direction/action masks stay byte-identical to the
@@ -133,7 +133,7 @@ async function presentationChecks(){
  const priorWindow={Image:SourceImage,document:window.document};
  vm.runInNewContext(cp.execFileSync('git',['show','e1111aa8b3930d3d13f4e9b1218b500dbfa164a0:assets/rc155/ego-art.js'],{cwd:root,encoding:'utf8'}),{window:priorWindow});
  const priorArt=priorWindow.__HAPIL_EGO_ART_RC155__;await priorArt.ensure({egoGuardianRC155:{active:true}});
- for(const kind of ['walk','attack'])for(let i=0;i<8;i++)if(kind!=='walk'||i!==3)eq(A.picture('ego155:'+kind+':'+i).rgba,priorArt.picture('ego155:'+kind+':'+i).rgba,'unaffected real compositor RGBA '+kind+i);
+ for(const kind of ['walk','attack'])for(let i=0;i<8;i++)if(!A.frameProfiles[kind]?.[i]&&(kind!=='walk'||i!==3))eq(A.picture('ego155:'+kind+':'+i).rgba,priorArt.picture('ego155:'+kind+':'+i).rgba,'unaffected real compositor RGBA '+kind+i);
  // The replacement foot anchor sits on the visible supporting boot, and
  // render-time mirroring leaves that pivot fixed while turning the sword/cape.
  const rightWalk=A.picture('ego155:walk:3'),rightFrame=A.frame('walk',3),supportX=Math.round(rightFrame.pivot[0]),supportY=Math.floor(rightFrame.pivot[1]);

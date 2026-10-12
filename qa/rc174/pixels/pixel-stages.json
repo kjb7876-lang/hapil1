@@ -1,0 +1,1478 @@
+{
+  "baseline": "184f4a44179241989c97a54ee58b521d00bb395f",
+  "method": "Exact original RGBA -> crop -> sourceOwnership -> exteriorMatte; static local data, not browser evidence",
+  "sources": [
+    {
+      "file": "assets/ego-originals-20261008/analysis_output_2_walk_dodge.png",
+      "dimensions": [
+        1774,
+        404
+      ],
+      "sha256": "c29ca613f90f9d0beb43868db0e1f4074d9d2f87492502179eaa639e20bf33ab"
+    },
+    {
+      "file": "assets/ego-originals-20261008/analysis_output_1_attack.png",
+      "dimensions": [
+        1774,
+        456
+      ],
+      "sha256": "93d4f9256d1e36b38ad1f44e3f0e0bfc418904c4011bd6b78f5fcf96ab16394b"
+    }
+  ],
+  "poses": [
+    {
+      "frame": "walk-2",
+      "before": {
+        "kind": "walk",
+        "index": 2,
+        "path": "./assets/ego-originals-20261008/analysis_output_2_walk_dodge.png",
+        "rect": [
+          443,
+          100,
+          222,
+          304
+        ],
+        "cellRect": [
+          443,
+          100,
+          222,
+          304
+        ],
+        "cellOffset": 0,
+        "pivot": [
+          67,
+          284
+        ],
+        "coreHeight": 276,
+        "flipX": false
+      },
+      "after": {
+        "kind": "walk",
+        "index": 2,
+        "path": "./assets/ego-originals-20261008/analysis_output_2_walk_dodge.png",
+        "rect": [
+          418,
+          90,
+          293,
+          314
+        ],
+        "cellRect": [
+          443,
+          100,
+          222,
+          304
+        ],
+        "cellOffset": 25,
+        "rowOffset": 10,
+        "pivot": [
+          102,
+          293
+        ],
+        "coreHeight": 280,
+        "flipX": false
+      },
+      "beforeAlpha2Bounds": [
+        0,
+        7,
+        222,
+        304
+      ],
+      "afterAlpha2Bounds": [
+        25,
+        16,
+        275,
+        306
+      ]
+    },
+    {
+      "frame": "attack-2",
+      "before": {
+        "kind": "attack",
+        "index": 2,
+        "path": "./assets/ego-originals-20261008/analysis_output_1_attack.png",
+        "rect": [
+          396,
+          119,
+          269,
+          337
+        ],
+        "cellRect": [
+          443,
+          119,
+          222,
+          337
+        ],
+        "cellOffset": 47,
+        "pivot": [
+          128,
+          319
+        ],
+        "coreHeight": 309,
+        "flipX": false
+      },
+      "after": {
+        "kind": "attack",
+        "index": 2,
+        "path": "./assets/ego-originals-20261008/analysis_output_1_attack.png",
+        "rect": [
+          376,
+          109,
+          347,
+          347
+        ],
+        "cellRect": [
+          443,
+          119,
+          222,
+          337
+        ],
+        "cellOffset": 67,
+        "rowOffset": 10,
+        "pivot": [
+          154,
+          309
+        ],
+        "coreHeight": 308,
+        "flipX": false
+      },
+      "beforeAlpha2Bounds": [
+        22,
+        5,
+        269,
+        333
+      ],
+      "afterAlpha2Bounds": [
+        23,
+        15,
+        329,
+        343
+      ]
+    },
+    {
+      "frame": "attack-3",
+      "before": {
+        "kind": "attack",
+        "index": 3,
+        "path": "./assets/ego-originals-20261008/analysis_output_1_attack.png",
+        "rect": [
+          665,
+          119,
+          267,
+          337
+        ],
+        "cellRect": [
+          665,
+          119,
+          222,
+          337
+        ],
+        "cellOffset": 0,
+        "pivot": [
+          85,
+          319
+        ],
+        "coreHeight": 309,
+        "flipX": true
+      },
+      "after": {
+        "kind": "attack",
+        "index": 3,
+        "path": "./assets/ego-originals-20261008/analysis_output_1_attack.png",
+        "rect": [
+          642,
+          109,
+          310,
+          347
+        ],
+        "cellRect": [
+          665,
+          119,
+          222,
+          337
+        ],
+        "cellOffset": 23,
+        "rowOffset": 10,
+        "pivot": [
+          108,
+          309
+        ],
+        "coreHeight": 296,
+        "flipX": true
+      },
+      "beforeAlpha2Bounds": [
+        0,
+        5,
+        256,
+        334
+      ],
+      "afterAlpha2Bounds": [
+        15,
+        15,
+        257,
+        344
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "frame": "walk-2",
+      "label": "hood",
+      "sourcePoint": [
+        547,
+        116
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        66,
+        50,
+        51,
+        251
+      ],
+      "before": {
+        "crop": [
+          66,
+          50,
+          51,
+          251
+        ],
+        "ownership": [
+          66,
+          50,
+          51,
+          251
+        ],
+        "matte": [
+          66,
+          50,
+          51,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          66,
+          50,
+          51,
+          251
+        ],
+        "ownership": [
+          66,
+          50,
+          51,
+          251
+        ],
+        "matte": [
+          66,
+          50,
+          51,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "front-sole",
+      "sourcePoint": [
+        500,
+        376
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        11,
+        6,
+        6,
+        251
+      ],
+      "before": {
+        "crop": [
+          11,
+          6,
+          6,
+          251
+        ],
+        "ownership": [
+          11,
+          6,
+          6,
+          251
+        ],
+        "matte": [
+          11,
+          6,
+          6,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          11,
+          6,
+          6,
+          251
+        ],
+        "ownership": [
+          11,
+          6,
+          6,
+          251
+        ],
+        "matte": [
+          11,
+          6,
+          6,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "rear-sole",
+      "sourcePoint": [
+        591,
+        359
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        16,
+        4,
+        6,
+        251
+      ],
+      "before": {
+        "crop": [
+          16,
+          4,
+          6,
+          251
+        ],
+        "ownership": [
+          16,
+          4,
+          6,
+          251
+        ],
+        "matte": [
+          16,
+          4,
+          6,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          16,
+          4,
+          6,
+          251
+        ],
+        "ownership": [
+          16,
+          4,
+          6,
+          251
+        ],
+        "matte": [
+          16,
+          4,
+          6,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "rear-shin",
+      "sourcePoint": [
+        603,
+        346
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        57,
+        37,
+        36,
+        249
+      ],
+      "before": {
+        "crop": [
+          57,
+          37,
+          36,
+          249
+        ],
+        "ownership": [
+          57,
+          37,
+          36,
+          249
+        ],
+        "matte": [
+          57,
+          37,
+          36,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          57,
+          37,
+          36,
+          249
+        ],
+        "ownership": [
+          57,
+          37,
+          36,
+          249
+        ],
+        "matte": [
+          57,
+          37,
+          36,
+          249
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "front-shin-edge",
+      "sourcePoint": [
+        536,
+        333
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        49,
+        36,
+        33,
+        251
+      ],
+      "before": {
+        "crop": [
+          49,
+          36,
+          33,
+          251
+        ],
+        "ownership": [
+          49,
+          36,
+          33,
+          251
+        ],
+        "matte": [
+          49,
+          36,
+          33,
+          251
+        ]
+      },
+      "after": {
+        "crop": [
+          49,
+          36,
+          33,
+          251
+        ],
+        "ownership": [
+          49,
+          36,
+          33,
+          251
+        ],
+        "matte": [
+          49,
+          36,
+          33,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "sword-tip",
+      "sourcePoint": [
+        680,
+        363
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        144,
+        133,
+        132,
+        250
+      ],
+      "before": {
+        "crop": null,
+        "ownership": null,
+        "matte": null
+      },
+      "after": {
+        "crop": [
+          144,
+          133,
+          132,
+          250
+        ],
+        "ownership": [
+          144,
+          133,
+          132,
+          250
+        ],
+        "matte": [
+          144,
+          133,
+          132,
+          250
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "cape-outer",
+      "sourcePoint": [
+        670,
+        288
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        144,
+        100,
+        96,
+        248
+      ],
+      "before": {
+        "crop": null,
+        "ownership": null,
+        "matte": null
+      },
+      "after": {
+        "crop": [
+          144,
+          100,
+          96,
+          248
+        ],
+        "ownership": [
+          144,
+          100,
+          96,
+          248
+        ],
+        "matte": [
+          144,
+          100,
+          96,
+          248
+        ]
+      }
+    },
+    {
+      "frame": "walk-2",
+      "label": "pivot",
+      "sourcePoint": [
+        520,
+        383
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        8,
+        5,
+        5,
+        249
+      ],
+      "before": {
+        "crop": [
+          8,
+          5,
+          5,
+          249
+        ],
+        "ownership": [
+          8,
+          5,
+          5,
+          249
+        ],
+        "matte": [
+          8,
+          5,
+          5,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          8,
+          5,
+          5,
+          249
+        ],
+        "ownership": [
+          8,
+          5,
+          5,
+          249
+        ],
+        "matte": [
+          8,
+          5,
+          5,
+          249
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "hood",
+      "sourcePoint": [
+        552,
+        140
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        78,
+        61,
+        61,
+        251
+      ],
+      "before": {
+        "crop": [
+          78,
+          61,
+          61,
+          251
+        ],
+        "ownership": [
+          78,
+          61,
+          61,
+          251
+        ],
+        "matte": [
+          78,
+          61,
+          61,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          78,
+          61,
+          61,
+          251
+        ],
+        "ownership": [
+          78,
+          61,
+          61,
+          251
+        ],
+        "matte": [
+          78,
+          61,
+          61,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "front-sole",
+      "sourcePoint": [
+        512,
+        412
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        25,
+        14,
+        10,
+        252
+      ],
+      "before": {
+        "crop": [
+          25,
+          14,
+          10,
+          252
+        ],
+        "ownership": [
+          25,
+          14,
+          10,
+          252
+        ],
+        "matte": [
+          25,
+          14,
+          10,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          25,
+          14,
+          10,
+          252
+        ],
+        "ownership": [
+          25,
+          14,
+          10,
+          252
+        ],
+        "matte": [
+          25,
+          14,
+          10,
+          252
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "rear-sole",
+      "sourcePoint": [
+        617,
+        426
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        26,
+        18,
+        18,
+        252
+      ],
+      "before": {
+        "crop": [
+          26,
+          18,
+          18,
+          252
+        ],
+        "ownership": [
+          26,
+          18,
+          18,
+          252
+        ],
+        "matte": [
+          26,
+          18,
+          18,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          26,
+          18,
+          18,
+          252
+        ],
+        "ownership": [
+          26,
+          18,
+          18,
+          252
+        ],
+        "matte": [
+          26,
+          18,
+          18,
+          252
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "rear-shin",
+      "sourcePoint": [
+        617,
+        399
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        63,
+        36,
+        32,
+        253
+      ],
+      "before": {
+        "crop": [
+          63,
+          36,
+          32,
+          253
+        ],
+        "ownership": [
+          63,
+          36,
+          32,
+          253
+        ],
+        "matte": [
+          63,
+          36,
+          32,
+          253
+        ]
+      },
+      "after": {
+        "crop": [
+          63,
+          36,
+          32,
+          253
+        ],
+        "ownership": [
+          63,
+          36,
+          32,
+          253
+        ],
+        "matte": [
+          63,
+          36,
+          32,
+          253
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "sword-tip",
+      "sourcePoint": [
+        403,
+        418
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        174,
+        152,
+        147,
+        251
+      ],
+      "before": {
+        "crop": [
+          174,
+          152,
+          147,
+          251
+        ],
+        "ownership": [
+          174,
+          152,
+          147,
+          0
+        ],
+        "matte": [
+          174,
+          152,
+          147,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          174,
+          152,
+          147,
+          251
+        ],
+        "ownership": [
+          174,
+          152,
+          147,
+          251
+        ],
+        "matte": [
+          174,
+          152,
+          147,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "blade-crossing",
+      "sourcePoint": [
+        460,
+        367
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        252,
+        252,
+        244,
+        252
+      ],
+      "before": {
+        "crop": [
+          252,
+          252,
+          244,
+          252
+        ],
+        "ownership": [
+          252,
+          252,
+          244,
+          252
+        ],
+        "matte": [
+          252,
+          252,
+          244,
+          252
+        ]
+      },
+      "after": {
+        "crop": [
+          252,
+          252,
+          244,
+          252
+        ],
+        "ownership": [
+          252,
+          252,
+          244,
+          252
+        ],
+        "matte": [
+          252,
+          252,
+          244,
+          252
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "own-cape",
+      "sourcePoint": [
+        665,
+        391
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        142,
+        102,
+        97,
+        252
+      ],
+      "before": {
+        "crop": null,
+        "ownership": null,
+        "matte": null
+      },
+      "after": {
+        "crop": [
+          142,
+          102,
+          97,
+          252
+        ],
+        "ownership": [
+          142,
+          102,
+          97,
+          252
+        ],
+        "matte": [
+          142,
+          102,
+          97,
+          252
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "neighbour-boot",
+      "sourcePoint": [
+        714,
+        413
+      ],
+      "expectedKeep": false,
+      "sourceRGBA": [
+        18,
+        11,
+        12,
+        252
+      ],
+      "before": {
+        "crop": null,
+        "ownership": null,
+        "matte": null
+      },
+      "after": {
+        "crop": [
+          18,
+          11,
+          12,
+          252
+        ],
+        "ownership": [
+          18,
+          11,
+          12,
+          0
+        ],
+        "matte": [
+          18,
+          11,
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "frame": "attack-2",
+      "label": "pivot",
+      "sourcePoint": [
+        530,
+        418
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        28,
+        24,
+        23,
+        251
+      ],
+      "before": {
+        "crop": [
+          28,
+          24,
+          23,
+          251
+        ],
+        "ownership": [
+          28,
+          24,
+          23,
+          251
+        ],
+        "matte": [
+          28,
+          24,
+          23,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          28,
+          24,
+          23,
+          251
+        ],
+        "ownership": [
+          28,
+          24,
+          23,
+          251
+        ],
+        "matte": [
+          28,
+          24,
+          23,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "front-sole",
+      "sourcePoint": [
+        714,
+        413
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        18,
+        11,
+        12,
+        252
+      ],
+      "before": {
+        "crop": [
+          18,
+          11,
+          12,
+          252
+        ],
+        "ownership": [
+          18,
+          11,
+          12,
+          252
+        ],
+        "matte": [
+          18,
+          11,
+          12,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          18,
+          11,
+          12,
+          252
+        ],
+        "ownership": [
+          18,
+          11,
+          12,
+          252
+        ],
+        "matte": [
+          18,
+          11,
+          12,
+          252
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "rear-sole",
+      "sourcePoint": [
+        807,
+        412
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        30,
+        17,
+        17,
+        251
+      ],
+      "before": {
+        "crop": [
+          30,
+          17,
+          17,
+          251
+        ],
+        "ownership": [
+          30,
+          17,
+          17,
+          251
+        ],
+        "matte": [
+          30,
+          17,
+          17,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          30,
+          17,
+          17,
+          251
+        ],
+        "ownership": [
+          30,
+          17,
+          17,
+          251
+        ],
+        "matte": [
+          30,
+          17,
+          17,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "rear-shin",
+      "sourcePoint": [
+        806,
+        399
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        38,
+        31,
+        31,
+        251
+      ],
+      "before": {
+        "crop": [
+          38,
+          31,
+          31,
+          251
+        ],
+        "ownership": [
+          38,
+          31,
+          31,
+          251
+        ],
+        "matte": [
+          38,
+          31,
+          31,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          38,
+          31,
+          31,
+          251
+        ],
+        "ownership": [
+          38,
+          31,
+          31,
+          251
+        ],
+        "matte": [
+          38,
+          31,
+          31,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "sword-tip",
+      "sourcePoint": [
+        890,
+        425
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        185,
+        158,
+        150,
+        251
+      ],
+      "before": {
+        "crop": [
+          185,
+          158,
+          150,
+          251
+        ],
+        "ownership": [
+          185,
+          158,
+          150,
+          0
+        ],
+        "matte": [
+          185,
+          158,
+          150,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          185,
+          158,
+          150,
+          251
+        ],
+        "ownership": [
+          185,
+          158,
+          150,
+          251
+        ],
+        "matte": [
+          185,
+          158,
+          150,
+          251
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "neighbour-cape",
+      "sourcePoint": [
+        665,
+        391
+      ],
+      "expectedKeep": false,
+      "sourceRGBA": [
+        142,
+        102,
+        97,
+        252
+      ],
+      "before": {
+        "crop": [
+          142,
+          102,
+          97,
+          252
+        ],
+        "ownership": [
+          142,
+          102,
+          97,
+          252
+        ],
+        "matte": [
+          142,
+          102,
+          97,
+          252
+        ]
+      },
+      "after": {
+        "crop": [
+          142,
+          102,
+          97,
+          252
+        ],
+        "ownership": [
+          142,
+          102,
+          97,
+          0
+        ],
+        "matte": [
+          142,
+          102,
+          97,
+          0
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "neighbour-hand",
+      "sourcePoint": [
+        905,
+        282
+      ],
+      "expectedKeep": false,
+      "sourceRGBA": [
+        160,
+        70,
+        64,
+        251
+      ],
+      "before": {
+        "crop": [
+          160,
+          70,
+          64,
+          251
+        ],
+        "ownership": [
+          160,
+          70,
+          64,
+          0
+        ],
+        "matte": [
+          160,
+          70,
+          64,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          160,
+          70,
+          64,
+          251
+        ],
+        "ownership": [
+          160,
+          70,
+          64,
+          0
+        ],
+        "matte": [
+          160,
+          70,
+          64,
+          0
+        ]
+      }
+    },
+    {
+      "frame": "attack-3",
+      "label": "pivot",
+      "sourcePoint": [
+        750,
+        418
+      ],
+      "expectedKeep": true,
+      "sourceRGBA": [
+        21,
+        16,
+        14,
+        251
+      ],
+      "before": {
+        "crop": [
+          21,
+          16,
+          14,
+          251
+        ],
+        "ownership": [
+          21,
+          16,
+          14,
+          251
+        ],
+        "matte": [
+          21,
+          16,
+          14,
+          0
+        ]
+      },
+      "after": {
+        "crop": [
+          21,
+          16,
+          14,
+          251
+        ],
+        "ownership": [
+          21,
+          16,
+          14,
+          251
+        ],
+        "matte": [
+          21,
+          16,
+          14,
+          251
+        ]
+      }
+    }
+  ]
+}
