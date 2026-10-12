@@ -20,6 +20,7 @@
     if (now - old < .12) return false;
     target.lastGoldImmuneRC47 = now;
     const x = finite(target.x), y = finite(target.y);
+    if(target===state)source.playerBlockedContactRC171={at:now,x,y};
     let sx = finite(source.originX, finite(originX, finite(source.x, x - 1)));
     let sy = finite(source.originY, finite(originY, finite(source.y, y)));
     if (Number.isFinite(source.vx) && Number.isFinite(source.vy) &&

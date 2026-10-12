@@ -5,12 +5,13 @@ const s={time:1,fxSerial:1,effects:[],floatTexts:[]},hero={hp:100,x:13.8,y:24.2}
 assert.equal(combat.absorbed(s,hero,incoming),true);
 const cue=s.effects[0];assert.equal(cue.heroHitVfxV31315,true);assert.equal(cue.visualOnly,true);assert.equal(cue.ownerType,'hero');assert.equal(cue.blockedSourceIdRC171,incoming.sourceId);assert.equal(cue.sprite,undefined);assert.equal(incoming.heroHitVfxV31315,undefined);
 const src=fs.readFileSync(require.resolve('../assets/index-v31526.js'),'utf8');
-const bind=src.slice(src.indexOf('function bind(e,s=state){'),src.indexOf('function bind(e,s=state){')+160);
-const terminal=src.slice(src.indexOf("function terminal(s,e,reason='end',force=false){"),src.indexOf("function terminal(s,e,reason='end',force=false){")+160);
+const bind=src.slice(src.indexOf('function bind(e,s=state){'),src.indexOf('function bind(e,s=state){')+700);
+const terminal=src.slice(src.indexOf("function terminal(s,e,reason='end',force=false){"),src.indexOf("function terminal(s,e,reason='end',force=false){")+700);
 // Execute actual native guard prefixes: neither cue binding nor expiration may
 // reach the enemy art owner/terminal resolver. The source remains untouched.
 const scope={cue,s,window:{},state:s};vm.createContext(scope);
 vm.runInContext(bind.slice(0,bind.indexOf('if(e?.echoBolt'))+'throw Error("enemy owner reached")} result=bind(cue,s)',scope);assert.equal(scope.result,cue);
 vm.runInContext(terminal.slice(0,terminal.indexOf('if(e?.echoBolt'))+'throw Error("enemy terminal reached")} terminal(s,cue)',scope);
+scope.packet={playerBlockedContactRC171:{at:s.time,x:hero.x,y:hero.y},tx:hero.x,ty:hero.y};vm.runInContext("terminal(s,packet,'impact')",scope);scope.packet.tx+=1;assert.throws(()=>vm.runInContext("terminal(s,packet,'impact')",scope),/enemy terminal reached/,'other collision positions retain their terminal');scope.packet.tx=hero.x;scope.packet.playerBlockedContactRC171.at-=1;assert.throws(()=>vm.runInContext("terminal(s,packet,'impact')",scope),/enemy terminal reached/,'later accepted contacts retain terminal');
 assert.equal(s.effects.length,1);assert.equal(hero.hp,100);
 console.log('RC171 defense cue owner and native expiration guard passed');

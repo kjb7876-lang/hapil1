@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "cb587392cc6b1f95441057c495c12903cb865b26",
+  "baseTree": "cb3955337869add8876b01bfac48771f0711e7b9",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "95c93ba4f853a2ea49ed7b86d798d1284e1191dfebf11181a0bad20029526085",
+  "files": [
+    {
+      "file": "assets/rc47/combat-expansion.js",
+      "reason": "assets/rc47/combat-expansion.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/rc47/combat-expansion.js",
+        "mode": "100644",
+        "gitBlob": "a3c4b03fdfe611d9e61b86229fb3e32c79d6ce62"
+      },
+      "after": {
+        "file": "assets/rc47/combat-expansion.js",
+        "mode": "100644",
+        "gitBlob": "635f194c9f3c2d6138bb8ba0e0566ab1a9718978",
+        "sha256": "e2425862506d03462573b002e840900c478da81f0c317ef6352886adef6db005"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "be2de685ca100d5260aaac07b79085e25bf92ac9"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f2ada116a34def6b919d4208e550eae85a48efc9",
+        "sha256": "527daa3be34d011fe76e0603f34f0916976ceaa7a22a64c9059cff6d65da456f"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "147d195313c751979cdf3a1ebcaa124204efc7f5561dbfdadbd165ed654dcf74"
+}
