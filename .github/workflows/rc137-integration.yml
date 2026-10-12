@@ -15,7 +15,8 @@ jobs:
   audit:
     needs: persona-native-rc158
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    # PC round 1 runs the largest integrated audit and the raw comparison capture last.
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
@@ -297,6 +298,7 @@ jobs:
           retention-days: 14
 
       - name: Capture independent raw comparison evidence
+        id: ego_comparison_capture
         if: always() && !cancelled() && matrix.profile == 'pc' && matrix.round == 1
         env:
           EXPECTED_SHA: ${{ github.sha }}
@@ -316,7 +318,7 @@ jobs:
 
       - name: Upload small raw EGO before-after evidence
         uses: actions/upload-artifact@v7
-        if: always() && matrix.profile == 'pc' && matrix.round == 1
+        if: always() && matrix.profile == 'pc' && matrix.round == 1 && steps.ego_comparison_capture.outcome == 'success'
         with:
           name: ego-comparison-${{ github.sha }}
           path: ${{ runner.temp }}/rc155-ego-comparison/
