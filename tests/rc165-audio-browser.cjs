@@ -245,8 +245,9 @@ async function assertNativeImpact(evidence) {
     await settings({music:true,bgmVolume:.4});await stage('dist01','ordinary');await waitMusic('clockwork');
     const before=await played('clockwork'),profile=await page.evaluate(()=>__HAPIL_COMBAT_AUDIO_CATALOG_V1__.music.clockwork);
     const loopDeadline=(profile.loopEnd-profile.loopStart)*2*1000+20000;
-    await page.waitForFunction(before=>__combatMediaProbe.events.filter(e=>e.kind==='music'&&e.type==='accepted'&&e.src.includes('clockwork')).length>=before+2,before,{timeout:loopDeadline,polling:250});
-    report.naturalLoop={role:'clockwork',profile,acceptedBefore:before,acceptedAfter:await played('clockwork')};
+    const loopWallStart=Date.now();
+    await page.waitForFunction(({before,path})=>__combatMediaProbe.events.filter(e=>e.kind==='music'&&e.type==='accepted'&&e.src&&new URL(e.src).pathname===new URL(path,document.baseURI).pathname).length>=before+2,{before,path:profile.path},{timeout:loopDeadline,polling:250});
+    report.naturalLoop={role:'clockwork',elapsedWallMs:Date.now()-loopWallStart,profile,acceptedBefore:before,acceptedAfter:await played('clockwork')};
     check('two BGM loop transitions by natural elapsed time without seeking');
     await stage('dist02','midboss');await waitMusic('clockworkIntense');
     await page.evaluate(()=>{window.__testCombatHidden=true;Object.defineProperty(document,'hidden',{configurable:true,get:()=>window.__testCombatHidden});document.dispatchEvent(new Event('visibilitychange'));});await waitSilent();
