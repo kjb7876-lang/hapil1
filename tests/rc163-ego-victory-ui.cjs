@@ -5,7 +5,9 @@ async function advanceStory(page,cfg){for(const selector of ['#hapil-story-rc51 
 async function run(openProbe,out){
  const results=[];
  for(const cfg of [{name:'pc-manual',mode:'manual',viewport:{width:1280,height:900}},{name:'mobile-full',mode:'full',viewport:{width:844,height:390},isMobile:true,hasTouch:true},{name:'mobile-manual-rotate',mode:'manual',viewport:{width:390,height:844},isMobile:true,hasTouch:true}]){
-  const{page,errors}=await openProbe({viewport:cfg.viewport,isMobile:cfg.isMobile??false,hasTouch:cfg.hasTouch??false});try{
+  // Touch emulation alone keeps Playwright's desktop user agent. Use a real
+  // mobile UA so the production orientation detector is exercised unchanged.
+  const{page,errors}=await openProbe({viewport:cfg.viewport,isMobile:cfg.isMobile??false,hasTouch:cfg.hasTouch??false,...(cfg.isMobile?{userAgent:'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36'}:{})});try{
    if(cfg.viewport.height>cfg.viewport.width&&cfg.isMobile){await page.waitForFunction(()=>window.__HAPIL_ORIENTATION_PAUSE_RC152__?.paused()===true,null,{timeout:5000});await page.screenshot({path:out+'/rc163-portrait-rotation-guide.png'});await page.setViewportSize({width:844,height:390});}
    await page.evaluate(mode=>{
     const Q=window.__RC158_QA__,C=window.__HAPIL_CONTROLS_V31329__,H=window.__HAPIL_INNER_FINAL_RC133__,s=Q.initial();Object.assign(s,{zone:'cult04',time:100,gameModeV31346:'DREAM',samongUnlockedRC91:true,activeHeroId:'gunner'});C.binding.state.current=s;C.binding.hero.current='gunner';window.__HAPIL_RUN_V31400__.init(s,'gunner',{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'practice'});window.__HAPIL_PARTY_V31322__.configure(window.__HAPIL_RUN_V31400__.configFor(s,'gunner'));Q.enter(s,'cult04',false);C.binding.state.current=s;C.setMode(mode);s.invulnerableUntil=s.time+10000;
