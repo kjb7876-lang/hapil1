@@ -9,6 +9,7 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const baselineMute=process.argv.includes('--baseline-mute');
+const slotOnly=process.argv.includes('--slot-only');
 const baselineController=baselineMute?require('node:child_process').execFileSync('git',['show','9ebd7e31912ea519839dce8c7a84f802cad83a21:assets/combat-audio/v1/controller.js'],{cwd:root}):null;
 const fallback = process.env.HAPIL_SOURCE_ROOT ? path.resolve(process.env.HAPIL_SOURCE_ROOT) : root;
 const output = process.env.HAPIL_COMBAT_AUDIO_OUTPUT || path.join(root, 'qa-results', 'combat-audio-browser');
@@ -95,7 +96,7 @@ function observeDialogs(target) {
   });
 }
 const check = name => { report.checks.push(name); console.log('COMBAT_AUDIO_CHECK', name); };
-const snapshot = () => page.evaluate(() => ({audio:__combatMediaProbe.snapshot(), routing:__HAPIL_COMBAT_AUDIO_V1__.diagnostics, state:{zone:__MONGSE_QA_STATE__?.zone, time:__MONGSE_QA_STATE__?.time, hp:__MONGSE_QA_STATE__?.hp}}));
+const snapshot = () => page.evaluate(() => {const state=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;return {audio:__combatMediaProbe.snapshot(),routing:__HAPIL_COMBAT_AUDIO_V1__.diagnostics,state:{zone:state?.zone,time:state?.time,hp:state?.hp,enemies:state?.enemies?.map(e=>({id:e.id,hp:e.hp,boss:e.boss,midboss:e.midboss}))}};});
 const played = role => page.evaluate(role => {
   const catalog = __HAPIL_COMBAT_AUDIO_CATALOG_V1__;
   const source = new URL((catalog.music[role] || catalog.effects[role]).path, document.baseURI).pathname;
@@ -195,6 +196,7 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
 }
 
 async function scenario(name, run) {
+  if(slotOnly&&name!=='new-document-actual-slot-load'){(report.scenarios??=[]).push({name,status:'skipped',reason:'Unchanged runtime paths already verified at 3c754312d0919edb753fc8ff9c2e6b03c453ff4e'});return;}
   try { await page.evaluate(()=>{if(window.__testCombatHidden!==undefined){window.__testCombatHidden=false;document.dispatchEvent(new Event('visibilitychange'));}});await run(); (report.scenarios??=[]).push({name,status:'passed'}); }
   catch(error){ (report.scenarios??=[]).push({name,status:'failed',error:String(error.stack||error)}); console.log('RC165_SCENARIO_FAILURE '+name+' '+String(error)); }
 }
@@ -321,7 +323,9 @@ async function assertNativeImpact(evidence) {
     await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.settings());
     await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
     await page.locator('.save-slots article').first().getByRole('button',{name:'저장',exact:true}).click();
-    const saved=await snapshot();await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.dismiss());
+    const saved=await snapshot();
+    const savedSlot=await page.evaluate(()=>{const s=JSON.parse(localStorage.getItem('mongse_save_v10_slot_1'));return {zone:s?.zone,hp:s?.hp,savedAt:s?.savedAt,enemyIds:s?.enemies?.map(e=>e.id)};});assert.equal(savedSlot.zone,saved.state.zone);
+    await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.dismiss());
     await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.settings());
     expectedTitleDialog=true;
     const dialog=page.waitForEvent('dialog');const click=page.getByRole('button',{name:'자동 저장 후 시작 화면으로',exact:true}).click();
@@ -332,17 +336,19 @@ async function assertNativeImpact(evidence) {
     await page.keyboard.press('Escape');
     await page.getByRole('button',{name:'이어하기',exact:true}).click();
     await page.locator('.game').waitFor();
+    await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game'&&window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current);
     await page.evaluate(()=>{__HAPIL_STORY_RC51__.close(false);__HAPIL_CONTROLS_V31329__.binding.actions.dismiss();});
     await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.settings());
     await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
+    await page.evaluate(()=>{window.__rc165ObservedPreSlotLoadState=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;});
     await page.locator('.save-slots article').first().getByRole('button',{name:'불러오기',exact:true}).click();
-    await page.waitForFunction(zone=>__MONGSE_QA_STATE__.zone===zone,saved.state.zone);
-    report.slotLoad={slot:1,savedZone:saved.state.zone,loadedZone:(await snapshot()).state.zone,titleContinueMayUseAuto:true,newDocument:true};
+    await page.waitForFunction(zone=>{const b=window.__HAPIL_CONTROLS_V31329__?.binding;return b?.phase==='game'&&b.state?.current&&b.state.current!==window.__rc165ObservedPreSlotLoadState&&b.state.current.zone===zone;},saved.state.zone);
+    report.slotLoad={slot:1,savedSlot,nativeStateSource:"binding.state.current",nativeStateReplaced:true,savedZone:saved.state.zone,loadedZone:(await snapshot()).state.zone,titleContinueMayUseAuto:true,newDocument:true};
     await page.waitForFunction(()=>__HAPIL_COMBAT_AUDIO_V1__.diagnostics.mode==='combat'&&__combatMediaProbe.sample().music>0,null,{timeout:20000});
     report.slotLoad.reconnected=await snapshot();
     check('manual slot1 save, title silence, new document native continue, actual slot1 load, combat music reconnect without restaging');
     });
-    assert.equal(errors.length,0);report.pass=report.scenarios.every(row=>row.status==='passed');
+    assert.equal(errors.length,0);report.pass=report.scenarios.filter(row=>row.status!=='skipped').every(row=>row.status==='passed');
     if(!report.pass)throw Error('Independent audio scenarios failed: '+report.scenarios.filter(row=>row.status==='failed').map(row=>row.name).join(', '));
   }catch(error){report.pass=false;report.error=String(error.stack||error);throw error;}
   finally{report.errors=errors;console.log('RC165_AUDIO_RESULT '+JSON.stringify(report));await browser?.close();await new Promise(resolve=>server.close(resolve));}
