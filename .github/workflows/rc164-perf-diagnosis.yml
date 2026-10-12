@@ -1,0 +1,64 @@
+name: RC164 narrow Persona performance diagnosis
+on:
+  push:
+    branches: [codex/rc164-persona-perf-diagnosis]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: legacy-portrait-4-control, profile: portrait, cpu: '4', ua: '0', timed: '0', probe: '0'}
+          - {name: legacy-portrait-4-profile, profile: portrait, cpu: '4', ua: '0', timed: '0', probe: '1'}
+          - {name: legacy-portrait-1-profile, profile: portrait, cpu: '1', ua: '0', timed: '0', probe: '1'}
+          - {name: android-landscape-4-profile, profile: landscape, cpu: '4', ua: '1', timed: '0', probe: '1'}
+          - {name: android-landscape-1-profile, profile: landscape, cpu: '1', ua: '1', timed: '0', probe: '1'}
+          - {name: android-portrait-4-paused, profile: portrait, cpu: '4', ua: '1', timed: '1', probe: '1'}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with: {node-version: '22'}
+      - name: Prepare isolated profiler
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/rc164-runtime" --no-save --package-lock=false playwright@1.55.1
+          command -v google-chrome
+          google-chrome --version
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc164-runtime/node_modules" >> "$GITHUB_ENV"
+      - name: Profile unchanged runtime
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC142_PROFILE: ${{ matrix.profile }}
+          RC142_MOBILE_CPU: ${{ matrix.cpu }}
+          RC142_PERF_ONLY: '1'
+          RC142_SEED: '132148'
+          RC142_SEQUENCE_TIMEOUT_MS: '240000'
+          RC142_CPU_PROFILE: ${{ matrix.probe }}
+          RC142_CANVAS_PROBE: ${{ matrix.probe }}
+          RC164_COST_PROBE: ${{ matrix.probe }}
+          RC164_MOBILE_UA: ${{ matrix.ua }}
+          RC164_TIMED_ONLY: ${{ matrix.timed }}
+          RC164_NINE_SEQUENCE: '1'
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc164-perf
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          git fetch --no-tags --depth=1 origin 9ebd7e31912ea519839dce8c7a84f802cad83a21
+          test -z "$(git diff --name-only 9ebd7e31912ea519839dce8c7a84f802cad83a21 HEAD -- assets audio data index.html)"
+          node tests/rc142-persona-volley-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc164-${{ github.sha }}-${{ matrix.name }}
+          path: ${{ runner.temp }}/rc164-perf/
+          retention-days: 14
