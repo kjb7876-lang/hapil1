@@ -105,7 +105,7 @@
  function attackSpeedFactor(s){return red(s)?.7:1;}
  function preserveFlight(s,q){
   const a=boss(s);if(!encounter(s)||!a||!acceptsSkill(s,a,q)||q?.rc133InnerShot!==true||q.sourceId!==ID)return false;
-  if(![q.born,q.x,q.y,q.vx,q.vy].every(Number.isFinite)||q.born>s.time||q.projectileRemovalReason31215||q.cancelled||q.parriedV31356||q.reachedHero31213||q.reachedMapBoundary31213||q.themeTerminalV31323||q.themeEndedV31323||q.removed||q.destroyed||q.hitResolved||q.heavyCommitmentEnded||q.damageSuppressedV31226)return false;
+  if(![q.born,q.x,q.y,q.vx,q.vy].every(Number.isFinite)||q.born>s.time||q.projectileRemovalReason31215||q.reflected||q.cancelled||q.parriedV31356||q.reachedHero31213||q.reachedMapBoundary31213||q.themeTerminalV31323||q.themeEndedV31323||q.removed||q.destroyed||q.hitResolved||q.heavyCommitmentEnded||q.damageSuppressedV31226)return false;
   return q.rc150PersonaAwakeningShot!==true||(s.time<q.born+18&&n(q.boundaryContactCount31214)<3);
  }
  function personaFlightPolicy(s,q){

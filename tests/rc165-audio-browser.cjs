@@ -189,7 +189,7 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
       accepted:evaded&&s.lastDodgeAt!==-100,invulnerableUntil:s.invulnerableUntil,dashingUntil:s.dashingUntil,
       dashReady:s.dashReady,heroMotion:s.heroMotion?{kind:s.heroMotion.kind,until:s.heroMotion.until}:null};
     if (mechanic) { a.envyIllusionReadyAt = 0; s.hp = s.maxHp; }
-    const ids = [],queuedHits=[];
+    const ids = [],queuedHits=[];let nativePerfectRoute=null;
     for(let i=0;i<count;i++) {
       const id=s.fxSerial++; ids.push(id);
       const hit={id, perfectWindow:.52, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:nativeDeath?s.time+.4:s.time-.001,
@@ -198,8 +198,13 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
         label,color:'#7733ff',accent:'#ffffff',status:'none',statusValue:0,
         sevenSinMechanic:mechanic, telegraphEndedAt:s.time-.01,
         terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false};
-      (evaded ? s.pendingHits : s.impactQueue).push(hit);
-      queuedHits.push({id,queue:evaded?'pendingHits':'impactQueue',queuedAt:s.time,at:hit.at,impactAt:hit.impactAt,
+      if(evaded){
+        if(typeof MONGSE_queueReadyTelegraphs!=='function')throw Error('Native telegraph queue is unavailable');
+        const result=MONGSE_queueReadyTelegraphs(s,[hit]),queued=s.impactQueue.find(row=>String(row.id)===String(id));
+        nativePerfectRoute={result,queued:queued?{id:queued.id,sourceId:queued.sourceId,perfectEvadedV31226:queued.perfectEvadedV31226===true,damageSuppressedV31226:queued.damageSuppressedV31226===true}:null};
+        if(result?.breaks!==1||nativePerfectRoute.queued?.perfectEvadedV31226!==true||nativePerfectRoute.queued?.damageSuppressedV31226!==true)throw Error('Exact native impact did not take the perfect-evade suppression path');
+      }else s.impactQueue.push(hit);
+      queuedHits.push({id,queue:'impactQueue',queuedAt:s.time,at:hit.at,impactAt:hit.impactAt,
         sourceId:hit.sourceId,damage:hit.damage,cancelled:hit.cancelled,perfectWindow:hit.perfectWindow,
         shape:hit.shape,center:{x:hit.x,y:hit.y},origin:{x:hit.originX,y:hit.originY},radius:hit.radius});
     }
@@ -210,8 +215,8 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
     const variants=window.__HAPIL_MEDIA_AUDIO_EVENTS_RC133__?.enemyHeavy;let hash=0;for(const char of String(ids[0]))hash=(hash*31+char.charCodeAt(0))>>>0;
     const role=variants?.length?variants[hash%variants.length]:'dark',profile=__HAPIL_COMBAT_AUDIO_CATALOG_V1__.effects[role],pathname=new URL(profile.path,document.baseURI).pathname;
     const before=__combatMediaProbe.events.filter(e=>e.type==='accepted'&&e.src&&new URL(e.src).pathname===pathname).length;
-    window.__RC165_AUDIO_LAST_IMPACT__={ids:[...ids],queuedAt,owner:a.id,zone:s.zone,damage,cancelled,evaded,dash,queuedHits};
-    return {ids, cancellation, owner:a.id, zone:s.zone, hp:s.hp, queuedAt, dash,
+    window.__RC165_AUDIO_LAST_IMPACT__={ids:[...ids],queuedAt,owner:a.id,zone:s.zone,damage,cancelled,evaded,dash,queuedHits,nativePerfectRoute};
+    return {ids, cancellation, owner:a.id, zone:s.zone, hp:s.hp, queuedAt, dash, nativePerfectRoute,
       beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
   }, {label, mechanic, count, deadOwner, kind, damage, cancelled, evaded, nativeDeath});
 }
@@ -221,7 +226,7 @@ async function impactDiagnostics() {
     const s=__MONGSE_QA_STATE__,meta=window.__RC165_AUDIO_LAST_IMPACT__??{};
     const idKey=value=>value==null?null:String(value),ids=new Set((meta.ids??[]).map(idKey));
     const core=window.__HAPIL_COMBAT_CORE_V31401__?.snapshot?.(s);
-    const relatedCombat=(core?.events??[]).filter(row=>ids.has(idKey(row.source?.id))).map(row=>({time:row.time,result:row.result,reason:row.reason,
+    const relatedCombat=(core?.events??[]).filter(row=>ids.has(idKey(row.source?.id))).map(row=>({time:row.time,zone:row.zone,kind:row.kind,targetId:row.targetId,result:row.result,reason:row.reason,
       requestedDamage:row.requestedDamage,computedDamage:row.computedDamage,finalDamage:row.finalDamage,
       appliedDamage:row.appliedDamage,hpBefore:row.hpBefore,hpAfter:row.hpAfter,source:row.source,path:row.path}));
     return {meta,hero:{time:s.time,hp:s.hp,invulnerableUntil:s.invulnerableUntil,lastDodgeAt:s.lastDodgeAt,
@@ -295,7 +300,9 @@ async function assertNativeImpact(evidence) {
     await assertNativeImpact(hit);await waitPlayed(hit.infernalAudio.role,hit.infernalAudio.before);
     await page.waitForFunction(hp=>__MONGSE_QA_STATE__.hp<hp,hit.hp,{timeout:8000});
     assert.equal(await played(hit.infernalAudio.role),hit.infernalAudio.before+1);
-    report.realHit={beforeHp:hit.hp,afterHp:(await snapshot()).state.hp,role:hit.infernalAudio.role};
+    const hitDiagnostic=await impactDiagnostics(),targetDamageEvents=hitDiagnostic.combat.filter(event=>String(event.source?.id)===String(hit.ids[0])&&event.targetId==='__host'&&event.kind==='CONTACT'&&Number(event.appliedDamage)>0);
+    assert(targetDamageEvents.length>0,'native hit must commit positive CONTACT damage to the host');
+    report.realHit={beforeHp:hit.hp,afterHp:(await snapshot()).state.hp,role:hit.infernalAudio.role,targetDamageEvents};
     check('native queued damaging hit decreases actual HP and plays one accent');
     });
     for(const flags of [{evaded:true},{cancelled:true}]){
@@ -318,14 +325,15 @@ async function assertNativeImpact(evidence) {
         return effect?{hp:s.hp,time:s.time,effect:{id:effect.pendingHitId,born:effect.born}}:false;
       },{ids:suppressed.ids,owner:suppressed.owner},{timeout:8000});
       const immediateSettlement=await settlementHandle.jsonValue();
-      const diagnostic=await impactDiagnostics(),targetDamageEvents=diagnostic.combat.filter(event=>String(event.source?.id)===String(suppressed.ids[0])&&Number(event.appliedDamage)>0);
+      const diagnostic=await impactDiagnostics(),targetDamageEvents=diagnostic.combat.filter(event=>String(event.source?.id)===String(suppressed.ids[0])&&event.targetId==='__host'&&event.kind==='CONTACT'&&Number(event.appliedDamage)>0);
+      if(flags.evaded){assert.equal(suppressed.nativePerfectRoute?.result?.breaks,1,'native perfect-evade path must execute for this exact impact');assert.equal(suppressed.nativePerfectRoute?.queued?.perfectEvadedV31226,true,'exact native impact must carry its evade flag');assert.equal(suppressed.nativePerfectRoute?.queued?.damageSuppressedV31226,true,'exact native impact must carry its damage-suppression flag');}
       if(flags.evaded)assert.equal(targetDamageEvents.length,0,'perfect evade must suppress damage from this native impact');
       else assert(targetDamageEvents.length>0,'audio-only suppression must preserve damage from this native impact');
       await page.evaluate(()=>{const s=__MONGSE_QA_STATE__;s.invulnerableUntil=Math.max(s.invulnerableUntil,s.time+5);});
       await page.waitForTimeout(750);
       assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
       const afterSuppression=(await snapshot()).state.hp;
-      report.eventEvidence.push({flags,beforeHp:suppressed.hp,immediateSettlement,afterHp:afterSuppression,
+      report.eventEvidence.push({flags,nativePerfectRoute:suppressed.nativePerfectRoute,beforeHp:suppressed.hp,immediateSettlement,afterHp:afterSuppression,
         accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before,
         queuedAt:suppressed.queuedAt,dash:suppressed.dash,
         impactProcessed:diagnostic.processedEffects.some(effect=>suppressed.ids.some(id=>String(id)===String(effect.pendingHitId))&&String(effect.sourceId)===String(suppressed.owner)&&effect.telegraphImpact===true),

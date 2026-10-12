@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "dfe9fa7b5555d789ce662e3b74aeec26af4714a8",
+  "baseTree": "5ee6a10c5a89c6ffea5d67cb77f9bdc6db78af93",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "86f10fc03f564839bedf55e90277c6bbe3d8a49731db060ab9164c8643e809cf",
+  "files": [
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: do not retain reflected Persona projectiles through native ultimate nullification",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "3a69ebceaac4320139a4b0b9e8695787f275a35a"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "acc4e6ce83a3cf2d6c15ca3be9ff8b8b06575aba",
+        "sha256": "f02c687adb22095e358306da1a7a9faa85f8d302db95c68aea648ba8c607d80d"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "4169a494cb78f909c901909e5d40d6877e83f4a72efaa405e8e833940804415e"
+}
