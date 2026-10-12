@@ -1,7 +1,7 @@
 name: RC166 exact candidate image/combat and full audio validation
 on:
   push:
-    branches: [codex/rc166-image-combat-review]
+    branches: [codex/rc166-image-combat-review, codex/rc169-final-runtime-regression]
   workflow_dispatch:
 permissions:
   contents: read
