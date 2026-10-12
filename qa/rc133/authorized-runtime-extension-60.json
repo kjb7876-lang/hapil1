@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "42ab19229d4fb33b4376a099d6c97f21d6e37434",
+  "baseTree": "0174e4a6fb1f58a78a1e6f4f9133ee4b5889b993",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "7efd36ffa52d6c4e1838c7469e69cfb2266686ec214da6b8f2112e7c7065c965",
+  "files": [
+    {
+      "file": "index.html",
+      "reason": "index.html: invalidate stale combat controller cache after approved BGM-only mute fix",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e65037631ffa4ab3c2ca05676c29d38288a35980"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "d42cecf9508290388b17db00e3d3a00f0c4bb5e3",
+        "sha256": "ec7b5d92349bf9608df149cfa6686bfe9b69fee8c0429a9bf1b7ded1de673765"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "6c01fd216e8f2b72d891b71d54084422e4857e053b2a7779e01b7f8d95805156"
+}

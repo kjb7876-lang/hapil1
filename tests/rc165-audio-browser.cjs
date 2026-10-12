@@ -243,7 +243,7 @@ async function assertNativeImpact(evidence) {
     check('native queued damaging hit decreases actual HP and plays one accent');
     });
     for(const flags of [{evaded:true},{cancelled:true}]){
-      await scenario(flags.evaded?'native-perfect-evade':'explicit-cancelled-audio-flag',async()=>{
+      await scenario(flags.evaded?'native-perfect-evade':'explicit-audio-suppression-flag',async()=>{
       await settings({music:true,bgmVolume:.4});await stage('dist06','boss');
       const suppressed=await queueImpact({label:'발록 지옥 충격',damage:20,...flags});
       await page.waitForTimeout(750);
@@ -254,7 +254,8 @@ async function assertNativeImpact(evidence) {
       const afterSuppression=(await snapshot()).state.hp;
       report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before});
       if(flags.evaded) assert.equal(afterSuppression,suppressed.hp);
-      check(flags.evaded?'native perfect-evade has no accent or HP loss':'explicit cancelled flag has no accent; native HP delta is reported unchanged');
+      else assert(afterSuppression < suppressed.hp, 'audio suppression flag must preserve the existing native HP loss');
+      check(flags.evaded?'native perfect-evade has no accent or HP loss':'explicit audio-suppression flag has no accent and preserves positive native HP loss');
       });
     }
     await scenario('native-owner-death-cancellation',async()=>{
