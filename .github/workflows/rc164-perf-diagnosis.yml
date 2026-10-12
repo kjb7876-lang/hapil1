@@ -12,9 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {name: legacy-portrait-4-control, profile: portrait, cpu: '4', ua: '0', timed: '0', probe: '0'}
           - {name: legacy-portrait-4-profile, profile: portrait, cpu: '4', ua: '0', timed: '0', probe: '1'}
-          - {name: legacy-portrait-1-profile, profile: portrait, cpu: '1', ua: '0', timed: '0', probe: '1'}
           - {name: android-landscape-4-profile, profile: landscape, cpu: '4', ua: '1', timed: '0', probe: '1'}
           - {name: android-landscape-1-profile, profile: landscape, cpu: '1', ua: '1', timed: '0', probe: '1'}
           - {name: android-portrait-4-paused, profile: portrait, cpu: '4', ua: '1', timed: '1', probe: '1'}
