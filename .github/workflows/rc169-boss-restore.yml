@@ -36,6 +36,8 @@ jobs:
           node tests/rc154-cosmic-loader-unit.cjs
           node tests/rc156-anatomy-preservation-unit.cjs
           node tests/rc142-gameplay-unit.cjs
+          node tests/rc169-boss-restore-unit.cjs
+          node tests/rc157-death-restart-unit.cjs
           node tests/rc133-preservation-unit.cjs
           node tests/rc133-published-url.cjs
           node tests/rc155-ego-art-unit.cjs
@@ -45,6 +47,6 @@ jobs:
           node tests/rc163-egohandoff-unit.cjs
       - name: Bounded native boss restore contract
         run: |
-          test -z "$(git diff 30e90afeefa29bc9a8df63bdf1ea90e0c25a9965 HEAD -- assets audio data index.html)"
-          node tests/rc169-boss-restore.cjs
+          node -e "const a=require('node:assert/strict'),c=require('node:child_process');a.deepEqual(c.execFileSync('git',['diff','--name-only','30e90afeefa29bc9a8df63bdf1ea90e0c25a9965','HEAD','--','assets','audio','data','index.html'],{encoding:'utf8'}).trim().split('\n'),['assets/index-v31526.js','index.html']);"
+          node tests/rc169-boss-restore.cjs --plain-runtime
           test -z "$(git status --porcelain)"

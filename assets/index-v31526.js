@@ -54069,7 +54069,10 @@ function Ri() {
       [B],
     ),
     rt = (0, l.useCallback)(
-      (e) => {
+      async (e) => {
+        // Read the raw slot only after every mode/save wrapper is installed.
+        try { await HAPIL_waitForLaunchRC61(); }
+        catch (_) { B(`저장 자료를 준비하지 못했습니다. 잠시 후 다시 불러와 주세요.`); return; }
         let n = MONGSE_coreSanitizeLoadedSaveV31235(Mi(e));
         if (!n) {
           B(`이 슬롯은 비어 있습니다.`);
@@ -54091,6 +54094,7 @@ function Ri() {
           MONGSE_loadedBoss;
         (Object.assign(r, {
           zone: n.zone,
+          activeHeroId: n.heroId,
           x: n.x,
           y: n.y,
           hp: n.hp,
@@ -122615,6 +122619,11 @@ function install(){
       const validVitals=v?.id===b.id&&Number.isFinite(v.maxHp)&&v.maxHp>0&&Number.isFinite(v.hp)&&v.hp>=0&&v.hp<=v.maxHp;
       // Native actor restoration reconstructs template maxHp; old Hell multipliers do not own trial HP.
       const target=validVitals?v.maxHp:Math.max(1,Math.round(num(template.maxHp,template.hp)*.38));
+      // A restored cross-map trial already has valid saved encounter calibration.
+      // Initialize the native current-map threat metadata before restoring its HP.
+      if(validVitals&&saved?.rc95Balance?.version===1&&b.rc95Balance?.version===1&&b.rc95Balance.max===target&&saved.rc95Balance.max===target&&typeof MONGSE_applyBossProgressionV31236==='function'&&typeof MONGSE_applyActorCombatBalanceV31234==='function'){
+       MONGSE_applyBossProgressionV31236(b,s.zone);MONGSE_applyActorCombatBalanceV31234(b,s.zone);
+      }
       b.maxHp=target;b.hp=Math.max(0,Math.min(validVitals?v.hp:num(saved?.hp,b.hp),target));
       b.dreamCosmicTrialV31346=c.index+1;b.dreamAwakenedV31346=true;
       MONGSE_applyPositionRC152(b, HOME);b.navPath=[];b.moveVx=0;b.moveVy=0;delete b.hellStatsV31322;
@@ -126181,6 +126190,8 @@ function HAPIL_launchMissingRC61(){
     ['맵 경로',window.__HAPIL_STORY_ROUTE_RC60__?.installed],
     ['영웅 이미지',window.__HAPIL_HERO_CONSISTENCY_RC5__?.installed],
     ['맵 로더',typeof window.__HAPIL_RECOVERY_V31369__?.prepareMap==='function'],
+    ['게임 모드',window.__HAPIL_MODES_V31346__?.installed],
+    ['사몽 저장',window.__HAPIL_SAMONG_RC91__?.installed],
   ].filter(row=>!row[1]).map(row=>row[0]);
 }
 function HAPIL_waitForLaunchRC61(timeout=12000){

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "30e90afeefa29bc9a8df63bdf1ea90e0c25a9965",
+  "baseTree": "e1f791d4fa9bf88de0548b8eb2181ab2679ede0d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0fb12d79c569b1f2fdf30074f3f08c33492d76dde3adc7a3c910100eb917a753",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: preserve native saved hero, install save dependencies before loading, and initialize current-map trial threat before saved vitals",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "e87b742645b9c112ad981868479731bd271973f4"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "64a7ac745dfe9973511d73aa6c6e1035e4821ee5",
+        "sha256": "0498e5f425272ba750d8c1bb0b738bd4c58d473d160375887b846f6bf4bc54bf"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: preserve native saved hero, install save dependencies before loading, and initialize current-map trial threat before saved vitals (cache invalidation)",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "d42cecf9508290388b17db00e3d3a00f0c4bb5e3"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ea32e6f031be8b2c97cfa4120ff0a7a1c107879d",
+        "sha256": "8723e15a335dad1a4407d5d9d3fa815f3ed7c611771d2f7c9294d2bceede2faf"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "2d0aa9dad25490684974e2257b4d77b476c87ff87a89d534158e7ca12e71e9f3"
+}
