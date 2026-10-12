@@ -155,6 +155,7 @@ jobs:
           NODE
 
       - name: Verify exact runtime and native art transactions
+        id: runtime_audit
         if: ${{ always() && !cancelled() && steps.prepare_runtime.outcome == 'success' }}
         env:
           EXPECTED_SHA: ${{ github.sha }}
@@ -179,6 +180,9 @@ jobs:
           git fetch --no-tags origin e1111aa8b3930d3d13f4e9b1218b500dbfa164a0
           git fetch --no-tags origin 37f7b84ca08b99d27142f4f39fc32b4513cc803a
           git fetch --no-tags origin 53abbb573d928f5a7f0473e0a086dec29b12288b
+          # The strict anatomy audit compares the exact tree pinned by extension 63.
+          # The one-commit checkout does not contain this baseline object by default.
+          git fetch --no-tags --depth=1 origin fad178bbfdca9feeb69a5d93f81d5bd4852e49ed
           node tests/rc156-runtime-quality-unit.cjs
           node tests/rc156-input-framing-unit.cjs
           node tests/rc156-anatomy-preservation-unit.cjs
@@ -238,9 +242,29 @@ jobs:
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc137-evidence/revival" node tests/rc137-death-choice-browser.cjs
           fi
           test -z "$(git status --porcelain)"
+      - name: Check core PNG packaging input
+        id: core_png_input
+        if: ${{ always() && !cancelled() && matrix.profile == 'portrait' && matrix.round == 1 }}
+        env:
+          AUDIT_OUTCOME: ${{ steps.runtime_audit.outcome }}
+          CORE_PNG_INPUT: ${{ runner.temp }}/rc137-evidence/mobile-layout/results.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -s "$CORE_PNG_INPUT"; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          elif test "$AUDIT_OUTCOME" = success; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::error::Expected mobile-layout results are missing after the audit completed."
+            exit 1
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping core PNG packaging because the earlier audit stopped before producing mobile-layout results."
+          fi
+
       - name: Package only original core PNG evidence
         id: package_core_png
-        if: ${{ always() && matrix.profile == 'portrait' && matrix.round == 1 }}
+        if: ${{ always() && !cancelled() && matrix.profile == 'portrait' && matrix.round == 1 && steps.core_png_input.outputs.ready == 'true' }}
         run: node tools/rc154-pack-visual-evidence.cjs "$RUNNER_TEMP/rc137-evidence" "$RUNNER_TEMP/rc154-core-png"
       - name: Preserve small original PNG artifact
         id: core_png_artifact
