@@ -1,0 +1,435 @@
+{
+  "browserAuditSha": "36bd9e1d932bff3cbf0e7757590a052ff50c1b25",
+  "run": 38270040039,
+  "scope": "Already completed fixture browser log; grouping by world time and target coordinates, not observed native cast IDs or accepted hits",
+  "cohorts": [
+    {
+      "stage": "A-after-D-release",
+      "time": 5.896600000000004,
+      "nativeAwake": false,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 4,
+      "repeats": [
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.016600000000004,
+      "nativeAwake": false,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 4,
+      "repeats": [
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.136600000000004,
+      "nativeAwake": false,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 4,
+      "repeats": [
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.256600000000004,
+      "nativeAwake": false,
+      "AImages": 16,
+      "distinctIds": 16,
+      "targets": 4,
+      "repeats": [
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.336600000000004,
+      "nativeAwake": false,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 4,
+      "repeats": [
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.416600000000004,
+      "nativeAwake": false,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 4,
+      "repeats": [
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.496600000000004,
+      "nativeAwake": false,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 4,
+      "repeats": [
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.576600000000004,
+      "nativeAwake": false,
+      "AImages": 16,
+      "distinctIds": 16,
+      "targets": 4,
+      "repeats": [
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.6566000000000045,
+      "nativeAwake": true,
+      "AImages": 30,
+      "distinctIds": 30,
+      "targets": 6,
+      "repeats": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.736600000000005,
+      "nativeAwake": true,
+      "AImages": 30,
+      "distinctIds": 30,
+      "targets": 6,
+      "repeats": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.816600000000005,
+      "nativeAwake": true,
+      "AImages": 30,
+      "distinctIds": 30,
+      "targets": 6,
+      "repeats": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.896600000000005,
+      "nativeAwake": true,
+      "AImages": 36,
+      "distinctIds": 36,
+      "targets": 6,
+      "repeats": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 6.976600000000005,
+      "nativeAwake": true,
+      "AImages": 30,
+      "distinctIds": 30,
+      "targets": 6,
+      "repeats": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-D-release",
+      "time": 7.056600000000005,
+      "nativeAwake": true,
+      "AImages": 30,
+      "distinctIds": 30,
+      "targets": 6,
+      "repeats": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.283199999999914,
+      "nativeAwake": true,
+      "AImages": 20,
+      "distinctIds": 20,
+      "targets": 4,
+      "repeats": [
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.403199999999911,
+      "nativeAwake": true,
+      "AImages": 24,
+      "distinctIds": 24,
+      "targets": 4,
+      "repeats": [
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.523199999999909,
+      "nativeAwake": true,
+      "AImages": 20,
+      "distinctIds": 20,
+      "targets": 4,
+      "repeats": [
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.643199999999906,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.763199999999904,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.883199999999901,
+      "nativeAwake": true,
+      "AImages": 6,
+      "distinctIds": 6,
+      "targets": 1,
+      "repeats": [
+        6
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 12.9631999999999,
+      "nativeAwake": true,
+      "AImages": 5,
+      "distinctIds": 5,
+      "targets": 1,
+      "repeats": [
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.043199999999898,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.123199999999896,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.203199999999894,
+      "nativeAwake": true,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 2,
+      "repeats": [
+        6,
+        6
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.283199999999892,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.36319999999989,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.443199999999889,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.523199999999887,
+      "nativeAwake": true,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 2,
+      "repeats": [
+        6,
+        6
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.603199999999886,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.683199999999884,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.763199999999882,
+      "nativeAwake": true,
+      "AImages": 10,
+      "distinctIds": 10,
+      "targets": 2,
+      "repeats": [
+        5,
+        5
+      ]
+    },
+    {
+      "stage": "A-after-native-expiry",
+      "time": 13.84319999999988,
+      "nativeAwake": true,
+      "AImages": 12,
+      "distinctIds": 12,
+      "targets": 2,
+      "repeats": [
+        6,
+        6
+      ]
+    }
+  ]
+}
