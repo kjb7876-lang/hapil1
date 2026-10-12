@@ -150,8 +150,7 @@ async function stage(zone, rank = 'boss') {
     // cadence so each queued-event assertion has one known cause.
     for (const field of ['readyAt','patternReadyAt','themedOrdnanceAt','themedSummonAt','signatureFollowupAt31212','recoverUntil','stunnedUntil']) a[field] = s.time + 10000;
     a.invulnerableUntil = s.time + 10000;
-    // Isolate queued attack damage from native body-contact damage.
-    a.x = s.x < 16 ? 30 : 2; a.y = s.y < 16 ? 30 : 2;
+
     s.invulnerableUntil = s.time + 10000;
     s.encounterLockUntil31226 = 0; s.encounterWallUnlockAtV31227 = 0;
     s.encounterDialogue31226 = null;
@@ -169,14 +168,15 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
     const s = __MONGSE_QA_STATE__, a = s.enemies.find(x=>x.hp>0);
     if (!a) throw Error('Missing live native owner');
     s.invulnerableUntil = damage > 0 ? 0 : s.time + 10000;
-    s.lastDodgeAt = evaded ? s.time : -100; s.heroGuardUntil = 0; s.guardUntil = 0;
+    s.lastDodgeAt = -100; s.heroGuardUntil = 0; s.guardUntil = 0;
+    if (evaded) __HAPIL_CONTROLS_V31329__.binding.actions.dash();
     if (mechanic) { a.envyIllusionReadyAt = 0; s.hp = s.maxHp; }
     const ids = [];
     for(let i=0;i<count;i++) {
       const id=s.fxSerial++; ids.push(id);
-      s.impactQueue.push({id, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:s.time-.001,
+      (evaded ? s.pendingHits : s.impactQueue).push({id, perfectWindow:.52, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:s.time-.001,
         x:s.x,y:s.y,originX:a.x,originY:a.y,shape:kind,radius:4,innerRadius:0,width:1,
-        damage, cancelled, damageSuppressedV31226:evaded,boss:!!a.boss,midboss:!!a.midboss,patternSet:a.patternSet,
+        damage, cancelled,boss:!!a.boss,midboss:!!a.midboss,patternSet:a.patternSet,
         label,color:'#7733ff',accent:'#ffffff',status:'none',statusValue:0,
         sevenSinMechanic:mechanic, telegraphEndedAt:s.time-.01,
         terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false});
@@ -218,6 +218,9 @@ async function assertNativeImpact(evidence) {
       const suppressed=await queueImpact({label:'발록 지옥 충격',damage:20,...flags});
       await page.waitForTimeout(750);
       assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
+      if(flags.evaded) {
+        await page.waitForFunction(()=>__MONGSE_QA_STATE__.floatTexts.some(t=>t.text.startsWith('PERFECT EVADE')),null,{timeout:5000});
+      }
       const afterSuppression=(await snapshot()).state.hp;
       report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before});
       assert.equal(afterSuppression,suppressed.hp);
