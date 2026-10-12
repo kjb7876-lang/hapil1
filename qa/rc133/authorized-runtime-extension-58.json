@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "9e33ed662972e9730e8acc0e6ae74f4123bc7675",
+  "baseTree": "ff3a3d771c14841585483cda324e4586d597b88d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "4acf60f329842da0974817a2e1654e46fa3dc2fe6edd8ccbe785eaa96dc53acf",
+  "files": [
+    {
+      "file": "assets/rc28/mobile-layout.css",
+      "reason": "assets/rc28/mobile-layout.css: restore pointer events and separate safe-area placement for actual mobile F touch",
+      "before": {
+        "file": "assets/rc28/mobile-layout.css",
+        "mode": "100644",
+        "gitBlob": "e1bec6147361ad1ebb4cae41cdbd05d2634a7544"
+      },
+      "after": {
+        "file": "assets/rc28/mobile-layout.css",
+        "mode": "100644",
+        "gitBlob": "cbde70a740af4fc74d680252c52f94e397f0e1e8",
+        "sha256": "84a41df001e37714bae520cb9a668a42d73c8d88ab8f3d354909beaaff85f41c"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: restore pointer events and separate safe-area placement for actual mobile F touch",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "eacd87f586381a73f6dacce9dacf8029066d69b2"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e65037631ffa4ab3c2ca05676c29d38288a35980",
+        "sha256": "5a110587b814882f5316eaf8b6eff0764d08ecf0b2bf8ffcf38a15c0f40467b4"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "75d2254af97ade026e6ddd09d7b2bf289a8a9ed85ea9104486448798a43f4722"
+}

@@ -135,7 +135,7 @@
  function button(k,label){const b=document.createElement('button');b.type='button';b.dataset.mobileAction=k;b.setAttribute('aria-label',k==='Menu'?'설정 메뉴 열기':k==='S'?'블링크 대시':k==='D'?'공명 유지 · 손을 떼면 종료':label);b.innerHTML='<b></b><small></small>';b.firstChild.textContent=k==='Menu'?'⚙':k==='Quality'?'◐':k==='Party'?'✦':k==='S'?'↗':k==='D'?'◉':k==='Tab'?'표적':k==='Collab'?'협동':k;b.lastChild.textContent=label;return b;}
  function mount(next){if(next===game&&root?.isConnected)return;if(root)root.remove();game=next;root=null;if(!game)return;
   root=document.createElement('div');root.id='hapil-mobile-controls-v31366';
-  const toolbar=document.createElement('div');toolbar.className='hm-toolbar';toolbar.append(button('Menu','설정'));
+  const toolbar=document.createElement('div');toolbar.className='hm-toolbar';toolbar.append(button('Menu','설정'),button('F','문·기록'));
   const movement=document.createElement('div');movement.className='hm-movement';movement.innerHTML='<div class="hm-stick" data-mobile-stick role="group" aria-label="8방향 터치 이동 휠"><span></span></div>';
   const actions=document.createElement('div');actions.className='hm-actions';actions.setAttribute('role','group');actions.setAttribute('aria-label','전투 터치 버튼');
   for(const row of [['S','블링크'],['D','공명'],['A','사격/차지']])actions.append(button(...row));
@@ -147,7 +147,7 @@
   if(enabled()&&b?.modal?.current)ensureSettingsControl();
   if(!root||!b||document.hidden)return;const s=b.state.current;
   const vitals=root.querySelector('.hm-vitals');if(vitals){setText(vitals.firstElementChild,'HP '+Math.max(0,Math.ceil(finite(s.hp)))+' / '+Math.max(1,Math.ceil(finite(s.maxHp,1))));const resource=vitals.querySelector('.hm-resource'),v=window.__HAPIL_RESONANCE_HUD_RC96__?.status?.(s);if(resource)setText(resource,v?.remaining>0?'EGO '+v.remaining.toFixed(1)+'초':'공명 '+Math.floor(finite(s.resonance))+' / 100');vitals.style.setProperty('--hero-hp',Math.max(0,Math.min(100,100*finite(s.hp)/Math.max(1,finite(s.maxHp,1))))+'%');}
-  const blocked=!canInput('A');root.classList.toggle('hm-blocked',blocked);
+  const blocked=!canInput('A');root.classList.toggle('hm-blocked',blocked);root.querySelector('[data-mobile-action="F"]').disabled=!canInput('F');
   for(const el of root.querySelectorAll('.hm-actions [data-mobile-action]')){const k=el.dataset.mobileAction;
    const native=document.querySelector('.combat-hud [data-control-key="'+k+'"]'),remain=Math.max(0,finite(s.cooldowns?.[k])-s.time),owned=[...pointers.values()].some(p=>p.target===el),locked=blocked||(!owned&&(remain>.001||native?.disabled||k!=='D'&&D()?.active(s)));
    el.disabled=!!locked;if(remain>.001&&!owned)setText(el.lastChild,remain.toFixed(1)+'s');else{const label=({A:'사격/차지',S:'블링크',D:D()?.active(s)?'공명 중':'공명'})[k];setText(el.lastChild,label);}

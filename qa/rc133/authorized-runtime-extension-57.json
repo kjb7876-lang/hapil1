@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "5fd3ec2441c2177ed4c42660991ab269d3952339",
+  "baseTree": "36adf679ee7f785a1a8418d21ea9765d130b1a21",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "2ec170a4457963c1811a5c3f7b938c85c80ad93df142c1394cf4994eba8ad2ff",
+  "files": [
+    {
+      "file": "assets/hapil-mobile-v31406.js",
+      "reason": "assets/hapil-mobile-v31406.js: expose existing F interaction in mobile toolbar for real manual victory portal travel",
+      "before": {
+        "file": "assets/hapil-mobile-v31406.js",
+        "mode": "100644",
+        "gitBlob": "f29fcb17fec2720152412703d6f8fd2c5d1f8878"
+      },
+      "after": {
+        "file": "assets/hapil-mobile-v31406.js",
+        "mode": "100644",
+        "gitBlob": "d9f59dc064d655115b71797b0d8985b7582c81f2",
+        "sha256": "b0af90484ec08678d6e22a48315621f79920492ee58d64d1682e9486351b0c6f"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: expose existing F interaction in mobile toolbar for real manual victory portal travel",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "85234c71b8b544fc24a3137f700e8a29b74d4430"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "eacd87f586381a73f6dacce9dacf8029066d69b2",
+        "sha256": "6daf5d50a7d0059cbea6dd4977f7bf52d2b73a38e953edb770a05c7a6df59e65"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "fc50fd1d3d2ae1b7fcd9891db92ca2401d08c213bdde5ff702ce87b9fa13737f"
+}

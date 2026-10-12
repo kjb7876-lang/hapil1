@@ -60,15 +60,19 @@ html.hapil-touch-v31366 .hm-toolbar{
   display:block!important;grid-column:auto!important;grid-row:auto!important;
   padding:0!important;border:0!important;background:none!important;pointer-events:none!important;
 }
-html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar [data-mobile-action="Menu"]{
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar [data-mobile-action="Menu"],
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar [data-mobile-action="F"]{
   position:absolute!important;top:calc(env(safe-area-inset-top,0px) + 8px)!important;
   left:calc(env(safe-area-inset-left,0px) + 8px)!important;
   width:46px!important;height:46px!important;min-width:46px!important;padding:0!important;
   border-radius:13px!important;background:#0d1729e8!important;border:1px solid #7792ae!important;
   color:#ffe2a0!important;pointer-events:auto!important;box-shadow:none!important;
 }
+html.hapil-touch-v31366 #hapil-mobile-controls-v31366 .hm-toolbar [data-mobile-action="F"]{left:calc(env(safe-area-inset-left,0px) + 62px)!important}
 html.hapil-touch-v31366 .hm-toolbar [data-mobile-action="Menu"] b{display:block!important;font-size:24px!important;line-height:1!important}
 html.hapil-touch-v31366 .hm-toolbar [data-mobile-action="Menu"] small{display:none!important}
+html.hapil-touch-v31366 .hm-toolbar [data-mobile-action="F"] b{display:block!important;font-size:18px!important;line-height:1!important}
+html.hapil-touch-v31366 .hm-toolbar [data-mobile-action="F"] small{display:block!important;font-size:9px!important;line-height:1!important}
 html.hapil-touch-v31366 .hm-status{
   position:absolute!important;top:calc(env(safe-area-inset-top,0px) + 8px)!important;
   right:calc(env(safe-area-inset-right,0px) + 8px)!important;
