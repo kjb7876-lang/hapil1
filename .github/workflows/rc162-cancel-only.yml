@@ -1,0 +1,31 @@
+name: RC162 bounded reserved-strike cancellation
+on:
+  push:
+    branches: [codex/rc170-cancel-observation]
+permissions:
+  contents: read
+jobs:
+  cancellation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare sandboxed Chrome Stable
+        run: |
+          npm install --prefix "$RUNNER_TEMP/cancel-runtime" --no-save --package-lock=false playwright@1.55.1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/cancel-runtime/node_modules" >> "$GITHUB_ENV"
+          command -v google-chrome
+          google-chrome --version
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES="$RUNNER_TEMP/cancel-runtime/node_modules" node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Observe only native reserved-strike cancellation beyond deadline
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          test -z "$(git status --porcelain)"
+          timeout 90s node tests/rc162-cancel-only-browser.cjs
