@@ -202,6 +202,8 @@ async function assertNativeImpact(evidence) {
     page=await browser.newPage({viewport:{width:1280,height:900}});
     page.on('pageerror',error=>errors.push(String(error)));observeDialogs(page);
     await page.addInitScript(installMediaProbe);await startGame();
+    report.decoded=await page.evaluate(async assets=>{const ctx=new AudioContext(),out=[];try{for(const asset of assets){const response=await fetch(asset.path);if(!response.ok)throw Error('decode HTTP '+response.status);const b=await ctx.decodeAudioData(await response.arrayBuffer());out.push({role:asset.role,duration:b.duration,channels:b.numberOfChannels});}}finally{await ctx.close();}return out;},manifest.assets);
+    for(const decoded of report.decoded){const asset=manifest.assets.find(a=>a.role===decoded.role);assert(Math.abs(decoded.duration-asset.duration)<.15);assert.equal(decoded.channels,2);}check('eight original assets decode in Chromium; automated check, no physical listening claim');
     await stage('dist06','boss');await waitMusic('foldingSpace');
     const hit=await queueImpact({label:'발록 지옥 충격',damage:20});
     await assertNativeImpact(hit);await waitPlayed(hit.infernalAudio.role,hit.infernalAudio.before);
@@ -217,6 +219,16 @@ async function assertNativeImpact(evidence) {
       assert.equal((await snapshot()).state.hp,suppressed.hp);
       check('suppressed/cancelled native impact has no accent or HP loss '+JSON.stringify(flags));
     }
+    await stage('dist06','boss');await waitMusic('foldingSpace');
+    const capMark=await page.evaluate(()=>performance.now());
+    const pair=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(pair);await waitPlayed('blackHole');
+    const second=await queueImpact({label:'발록 지옥 충격'});await assertNativeImpact(second);await waitPlayed(second.infernalAudio.role,second.infernalAudio.before);
+    await page.waitForFunction(()=>__combatMediaProbe.sample().effects===2,null,{timeout:5000});
+    const third=await queueImpact({label:'질투 · 비교거울 반사',mechanic:'envy-mirror-bleed'});await assertNativeImpact(third);
+    await page.waitForTimeout(120);
+    const capped=(await snapshot()).audio;
+    assert.equal(capped.events.filter(e=>e.kind==='effect'&&e.type==='accepted'&&e.at>=capMark).length,2);
+    assert(capped.maxEffects<=2);check('two already-playing SFX admit no third native media voice');
     for(const mute of [{music:false},{bgmVolume:0}]){
       await settings({music:true,bgmVolume:.4});await stage('dist06','boss');await waitMusic('foldingSpace');
       const impact=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(impact);await waitPlayed('blackHole');
@@ -239,6 +251,23 @@ async function assertNativeImpact(evidence) {
     await stage('dist02','midboss');await waitMusic('clockworkIntense');
     await page.evaluate(()=>{window.__testCombatHidden=true;Object.defineProperty(document,'hidden',{configurable:true,get:()=>window.__testCombatHidden});document.dispatchEvent(new Event('visibilitychange'));});await waitSilent();
     await page.evaluate(()=>{window.__testCombatHidden=false;document.dispatchEvent(new Event('visibilitychange'));});await waitMusic('clockworkIntense');check('zone change and visibility return reconnect combat music');
+    await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
+    await page.locator('.save-slots article').first().getByRole('button',{name:'저장',exact:true}).click();
+    const saved=await snapshot();await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.dismiss());
+    await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.settings());
+    expectedTitleDialog=true;
+    const dialog=page.waitForEvent('dialog');const click=page.getByRole('button',{name:'자동 저장 후 시작 화면으로',exact:true}).click();
+    await (await dialog).accept();expectedTitleDialog=false;await click;
+    await page.locator('.title-screen').waitFor();await waitSilent();
+    await page.getByRole('button',{name:'이어하기',exact:true}).click();
+    await page.locator('.game').waitFor();
+    await page.evaluate(()=>{__HAPIL_STORY_RC51__.close(false);__HAPIL_CONTROLS_V31329__.binding.actions.dismiss();});
+    await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
+    await page.locator('.save-slots article').first().getByRole('button',{name:'불러오기',exact:true}).click();
+    await page.waitForFunction(zone=>__MONGSE_QA_STATE__.zone===zone,saved.state.zone);
+    report.slotLoad={slot:1,savedZone:saved.state.zone,loadedZone:(await snapshot()).state.zone,titleContinueMayUseAuto:true};
+    await stage('dist02','midboss');await waitMusic('clockworkIntense');
+    check('manual slot1 save, title silence, native continue, actual slot1 load, combat music reconnect');
     assert.equal(errors.length,0);report.pass=true;
   }catch(error){report.pass=false;report.error=String(error.stack||error);throw error;}
   finally{report.errors=errors;console.log('RC165_AUDIO_RESULT '+JSON.stringify(report));await browser?.close();await new Promise(resolve=>server.close(resolve));}
