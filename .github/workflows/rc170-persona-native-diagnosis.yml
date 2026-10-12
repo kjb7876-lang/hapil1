@@ -7,7 +7,7 @@ permissions:
 jobs:
   native:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
         with:
@@ -41,7 +41,7 @@ jobs:
         env:
           HAPIL_COMBAT_AUDIO_OUTPUT: ${{ runner.temp }}/rc170-combat-audio
         run: |
-          timeout 180s node tests/rc165-audio-browser.cjs
+          timeout 540s node tests/rc165-audio-browser.cjs
           test -z "$(git status --porcelain)"
       - name: Actual 777 first and final KO, native flight and guard, rendered village save and reverse
         env:

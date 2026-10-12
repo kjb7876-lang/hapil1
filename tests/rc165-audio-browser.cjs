@@ -301,12 +301,16 @@ async function assertNativeImpact(evidence) {
     for(const flags of [{evaded:true},{cancelled:true}]){
       await scenario(flags.evaded?'native-perfect-evade':'explicit-audio-suppression-flag',async()=>{
       await settings({music:true,bgmVolume:.4});await stage('dist06','boss');
+      const perfectTextCount=flags.evaded?await page.evaluate(()=>__MONGSE_QA_STATE__.floatTexts.filter(t=>String(t.text).startsWith('PERFECT EVADE')).length):0;
       const suppressed=await queueImpact({label:'발록 지옥 충격',damage:20,...flags});
       if(flags.evaded)assert.equal(suppressed.dash.accepted,true,'the native perfect-evade input must be accepted by the staged hero');
-      await assertNativeImpact(suppressed);
       if(flags.evaded) {
-        await page.waitForFunction(()=>__MONGSE_QA_STATE__.floatTexts.some(t=>t.text.startsWith('PERFECT EVADE')),null,{timeout:5000});
+        await page.waitForFunction(({count,queuedAt})=>{
+          const rows=__MONGSE_QA_STATE__.floatTexts.filter(t=>String(t.text).startsWith('PERFECT EVADE'));
+          return rows.length>count&&rows.some(t=>Number(t.born)>=queuedAt);
+        },{count:perfectTextCount,queuedAt:suppressed.queuedAt},{timeout:5000});
       }
+      await assertNativeImpact(suppressed);
       await page.waitForTimeout(750);
       assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
       const afterSuppression=(await snapshot()).state.hp;
