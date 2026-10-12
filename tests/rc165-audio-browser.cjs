@@ -247,7 +247,8 @@ async function assertNativeImpact(evidence) {
     const loopDeadline=(profile.loopEnd-profile.loopStart)*2*1000+20000;
     const loopWallStart=Date.now();
     await page.waitForFunction(({before,path})=>__combatMediaProbe.events.filter(e=>e.kind==='music'&&e.type==='accepted'&&e.src&&new URL(e.src).pathname===new URL(path,document.baseURI).pathname).length>=before+2,{before,path:profile.path},{timeout:loopDeadline,polling:250});
-    report.naturalLoop={role:'clockwork',elapsedWallMs:Date.now()-loopWallStart,profile,acceptedBefore:before,acceptedAfter:await played('clockwork')};
+    report.naturalLoop={role:'clockwork',elapsedWallMs:Date.now()-loopWallStart,profile,acceptedBefore:before,acceptedAfter:await played('clockwork'),events:(await snapshot()).audio.events.filter(e=>e.kind==='music'&&e.type==='accepted'&&e.src&&new URL(e.src).pathname===new URL(profile.path,'http://127.0.0.1:'+server.address().port).pathname)};
+    assert(report.naturalLoop.elapsedWallMs>(profile.loopEnd-profile.loopStart-profile.crossfade)*2*1000-5000);
     check('two BGM loop transitions by natural elapsed time without seeking');
     await stage('dist02','midboss');await waitMusic('clockworkIntense');
     await page.evaluate(()=>{window.__testCombatHidden=true;Object.defineProperty(document,'hidden',{configurable:true,get:()=>window.__testCombatHidden});document.dispatchEvent(new Event('visibilitychange'));});await waitSilent();
@@ -260,15 +261,19 @@ async function assertNativeImpact(evidence) {
     const dialog=page.waitForEvent('dialog');const click=page.getByRole('button',{name:'자동 저장 후 시작 화면으로',exact:true}).click();
     await (await dialog).accept();expectedTitleDialog=false;await click;
     await page.locator('.title-screen').waitFor();await waitSilent();
+    await page.reload({waitUntil:'domcontentloaded'});
+    await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding&&window.__HAPIL_COMBAT_AUDIO_V1__);
+    await page.keyboard.press('Escape');
     await page.getByRole('button',{name:'이어하기',exact:true}).click();
     await page.locator('.game').waitFor();
     await page.evaluate(()=>{__HAPIL_STORY_RC51__.close(false);__HAPIL_CONTROLS_V31329__.binding.actions.dismiss();});
     await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
     await page.locator('.save-slots article').first().getByRole('button',{name:'불러오기',exact:true}).click();
     await page.waitForFunction(zone=>__MONGSE_QA_STATE__.zone===zone,saved.state.zone);
-    report.slotLoad={slot:1,savedZone:saved.state.zone,loadedZone:(await snapshot()).state.zone,titleContinueMayUseAuto:true};
-    await stage('dist02','midboss');await waitMusic('clockworkIntense');
-    check('manual slot1 save, title silence, native continue, actual slot1 load, combat music reconnect');
+    report.slotLoad={slot:1,savedZone:saved.state.zone,loadedZone:(await snapshot()).state.zone,titleContinueMayUseAuto:true,newDocument:true};
+    await page.waitForFunction(()=>__HAPIL_COMBAT_AUDIO_V1__.diagnostics.mode==='combat'&&__combatMediaProbe.sample().music>0,null,{timeout:20000});
+    report.slotLoad.reconnected=await snapshot();
+    check('manual slot1 save, title silence, new document native continue, actual slot1 load, combat music reconnect without restaging');
     assert.equal(errors.length,0);report.pass=true;
   }catch(error){report.pass=false;report.error=String(error.stack||error);throw error;}
   finally{report.errors=errors;console.log('RC165_AUDIO_RESULT '+JSON.stringify(report));await browser?.close();await new Promise(resolve=>server.close(resolve));}
