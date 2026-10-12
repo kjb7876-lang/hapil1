@@ -1,0 +1,35 @@
+name: RC169 exact deployed public byte proof
+on:
+  push:
+    branches: [codex/rc169-public-byte-proof]
+permissions:
+  contents: read
+jobs:
+  public:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: fa5fb098cf899b75b125ee51f9f43c4d8159fdff
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Compare fixed official public URLs with exact deployed checkout
+        run: |
+          node <<'NODE'
+          const fs=require('node:fs'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+          const sha='fa5fb098cf899b75b125ee51f9f43c4d8159fdff',base='https://kjb7876-lang.github.io/hapil1/';
+          assert.equal(cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sha);
+          assert.equal(cp.execFileSync('git',['status','--porcelain'],{encoding:'utf8'}),'');
+          const paths=['index.html','assets/index-v31526.js?v=16901','assets/combat-audio/v1/controller.js?v=16601','assets/rc155/ego-guardian.js?v=16301','assets/rc155/ego-art.js?v=15606','assets/ego-originals-20261008/analysis_output_2_walk_dodge.png','assets/ego-originals-20261008/analysis_output_1_attack.png','assets/ego-originals-20261008/916b1ac1-15ea-49dc-b3b0-f91ea1b8ef81.png','assets/ego-originals-20261008/ego_samong_awaken_cutin.png','ChatGPT 이미지 2026년 10월 10일 오전 10_09_41.png?v=15605','assets/rc156/ego-walk-frame-3.png','data/story-rc51.js?v=2026100601','data/story-v31300.js?v=33501','data/story-delta-v314rc2.js?v=31500','data/story-delta-v314rc3.js?v=33501','assets/combat-audio/v1/manifest.json'];
+          const index=fs.readFileSync('index.html','utf8'),art=fs.readFileSync('assets/rc155/ego-art.js','utf8');
+          for(const path of paths.filter(x=>x.includes('?')&&!x.startsWith('ChatGPT ')))assert(index.includes('./'+path),'current HTML pins '+path);
+          assert(art.includes("const walkFrame3Path='./"+paths.find(x=>x.startsWith('ChatGPT '))+"'"),'current EGO derived root reference');
+          for(const name of paths.filter(x=>x.startsWith('assets/ego-originals-')).map(x=>x.split('/').at(-1)))assert(art.includes(name),'EGO source reference '+name);
+          const hash=b=>crypto.createHash('sha256').update(b).digest('hex');let cursor=0;const rows=new Array(paths.length);
+          async function worker(){while(cursor<paths.length){const i=cursor++,path=paths[i],file=path.split('?')[0],url=new URL(path,base);assert.equal(url.origin,'https://kjb7876-lang.github.io');assert(url.pathname.startsWith('/hapil1/'));const local=fs.readFileSync(file),row={path,url:url.href,localBytes:local.length,localSha256:hash(local),comparisonPerformed:false};try{const response=await fetch(url,{redirect:'error',signal:AbortSignal.timeout(30000)});row.httpStatus=response.status;assert(response.ok,'HTTP '+response.status);const bytes=Buffer.from(await response.arrayBuffer());Object.assign(row,{publicBytes:bytes.length,publicSha256:hash(bytes),comparisonPerformed:true,equal:hash(bytes)===hash(local)&&bytes.length===local.length});}catch(e){Object.assign(row,{equal:null,error:String(e)});}rows[i]=row;console.log('RC169_PUBLIC_FILE '+JSON.stringify(row));}}
+          (async()=>{await Promise.all(Array.from({length:4},()=>worker()));const result={sha,publicURL:base,checkedUTC:new Date().toISOString(),method:'One official public HTTPS GET per source-derived URL, no retries or binary transfer; exact byte count and SHA256 equality.',files:rows,allEqual:rows.every(x=>x.equal===true)};console.log('RC169_PUBLIC_HASH_RESULT '+JSON.stringify(result));assert(result.allEqual,'every exact public file must match');})().catch(e=>{console.error(e);process.exitCode=1});
+          NODE
