@@ -39,7 +39,17 @@ jobs:
       - name: Actual 777 first and final KO, native flight and guard, rendered village save and reverse
         env:
           EXPECTED_SHA: ${{ github.sha }}
+          RC170_CAPTURE_DIR: ${{ runner.temp }}/rc170-captures
         run: |
+          mkdir -p "$RC170_CAPTURE_DIR"
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           timeout 180s node tests/rc170-persona-native-regression.cjs
+      - name: Upload rendered browser captures
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rc170-persona-native-captures-${{ github.sha }}
+          path: ${{ runner.temp }}/rc170-captures/
+          if-no-files-found: ignore
+          retention-days: 3
