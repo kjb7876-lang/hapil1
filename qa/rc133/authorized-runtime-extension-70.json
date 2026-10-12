@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "36bd9e1d932bff3cbf0e7757590a052ff50c1b25",
+  "baseTree": "7257620394466f1dbae159789da4ad1ea0d2af6f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "9eef8fd7654c6d6332d4821d036c4407626ee7e56f4df4e434203268064aa203",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "reason": "assets/rc155/ego-art.js: RC173 owned EGO projectile rendering, non-collapsing lane fan, or fresh code cache key; no attack reservation or damage change",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "d7e97b958b8e34ce94a7152d7ef360485e315ce7"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "a27f99841122c75c92aa2c7261425a84f73c5c51",
+        "sha256": "e203faccbc5c81b6af3e37977d27d977d029f02a093f67df8f6ddcb437ec22e4"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC173 owned EGO projectile rendering, non-collapsing lane fan, or fresh code cache key; no attack reservation or damage change",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "0f3d7bb4d7d99466e235abf37ad788bf4e6253c6"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f6b41884260eb10dd05ecd0510364266623634c0",
+        "sha256": "c28716f35e15c7ca62e0306f7239e9fbdd164d363af075fe2dd2ab66eb94b61d"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: RC173 owned EGO projectile rendering, non-collapsing lane fan, or fresh code cache key; no attack reservation or damage change",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "64a460deb3907ebd2291c647de02602e0cbd6635"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "ed45a0a3f75a664a4657fb019a97f55a7241c1ef",
+        "sha256": "899f02a607d654d013a828acdcb66ade86f50ebf138abebd82f9598b0eba7274"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC173 owned EGO projectile rendering, non-collapsing lane fan, or fresh code cache key; no attack reservation or damage change",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "42674a4e27b0cbf87874ca434d3307975d839b79"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "218480715127909471b356c7266b928f7cf78b3b",
+        "sha256": "3a0016c0943caab665828f42ba3ea84633238b3deebf38cd9058c1454aaef4a2"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "3ca154ac230cafbb96339199f5d8fc1f750e4a38a5631bb13eba2c14a85ce652"
+}
