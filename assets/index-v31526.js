@@ -126195,6 +126195,7 @@ function HAPIL_launchMissingRC61(){
     ['맵 로더',typeof window.__HAPIL_RECOVERY_V31369__?.prepareMap==='function'],
     ['게임 모드',window.__HAPIL_MODES_V31346__?.installed],
     ['사몽 저장',window.__HAPIL_SAMONG_RC91__?.installed],
+    ['페르소나 저장·역행',window.__HAPIL_RC133_NATIVE__?.installed&&window.__HAPIL_EGO_GUARDIAN_RC155__?.version===1],
   ].filter(row=>!row[1]).map(row=>row[0]);
 }
 function HAPIL_waitForLaunchRC61(timeout=12000){

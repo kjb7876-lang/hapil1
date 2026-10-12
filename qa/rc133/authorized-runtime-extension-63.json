@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "fad178bbfdca9feeb69a5d93f81d5bd4852e49ed",
+  "baseTree": "bd400d71815b255aa6b489f3d8bea9e3504de6d3",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6db7b99531365a39b8a203b17f2ed824235926b8d4bfff6c340bce13f02211bc",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: wait for Persona save/restore installation before title continue can load a saved transformed state",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "8f00ff271a51b7793943ec0787211377f325a2f0",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "1f839ad934f0544c7beacbc2f03090a9ce12b1d7",
+        "sha256": "295c871d07539c2e8b4afe41a96f0e55f743e3e3ada7019cf710b467d2879363"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: cache-bust the bundle with the native Persona save readiness gate",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "44120bb02ed8e757ee74c1e91f4a38fe24a4dc89",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "42674a4e27b0cbf87874ca434d3307975d839b79",
+        "sha256": "062c7d6622bcff6f0c47af6d4d3c974a52a83aeae8fcbdc57b8d04919faf547b"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "4565dfcc301e44051bf793e5498c8d23fd720b63654a14160747d132703abf86"
+}
