@@ -43,7 +43,8 @@ jobs:
           node tests/rc137-direction-input-unit.cjs
           node tests/rc133-duel-hitboxes.cjs
           node tests/rc163-egohandoff-unit.cjs
-      - name: 24-minute native state soak
+      - name: Targeted fresh-document slot readiness after completed combat soak
         run: |
-          node tests/rc167-state-soak.cjs
+          test -z "$(git diff c83b811447c6430698f31a31ec33a5b15269b101 HEAD -- assets audio data index.html)"
+          node tests/rc167-state-soak.cjs --slot-only
           test -z "$(git status --porcelain)"
