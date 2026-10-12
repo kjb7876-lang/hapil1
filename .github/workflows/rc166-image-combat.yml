@@ -19,6 +19,8 @@ jobs:
           node-version: '22'
       - name: Install normal Chrome Stable validation runtime
         run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
           npm install --prefix "$RUNNER_TEMP/rc166" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
           node "$RUNNER_TEMP/rc166/node_modules/playwright/cli.js" install --with-deps chrome
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc166/node_modules" >> "$GITHUB_ENV"
