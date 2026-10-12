@@ -1,0 +1,49 @@
+name: RC169 bounded boss restore contract diagnosis
+on:
+  push:
+    branches: [codex/rc169-boss-restore]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install normal Chrome Stable validation runtime
+        run: |
+          sudo apt-get update
+          npm install --prefix "$RUNNER_TEMP/rc167" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          node "$RUNNER_TEMP/rc167/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc167/node_modules" >> "$GITHUB_ENV"
+      - name: Validate exact SHA and preservation
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/combat-audio-controller.cjs
+          node tests/combat-audio-native-sfx.cjs
+          node tests/combat-audio-impact.cjs
+          node tests/rc154-cosmic-loader-unit.cjs
+          node tests/rc156-anatomy-preservation-unit.cjs
+          node tests/rc142-gameplay-unit.cjs
+          node tests/rc133-preservation-unit.cjs
+          node tests/rc133-published-url.cjs
+          node tests/rc155-ego-art-unit.cjs
+          node tests/rc158-persona-presentation-unit.cjs
+          node tests/rc137-direction-input-unit.cjs
+          node tests/rc133-duel-hitboxes.cjs
+          node tests/rc163-egohandoff-unit.cjs
+      - name: Bounded native boss restore contract
+        run: |
+          test -z "$(git diff 30e90afeefa29bc9a8df63bdf1ea90e0c25a9965 HEAD -- assets audio data index.html)"
+          node tests/rc169-boss-restore.cjs
+          test -z "$(git status --porcelain)"
