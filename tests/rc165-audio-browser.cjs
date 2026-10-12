@@ -345,6 +345,18 @@ async function assertNativeImpact(evidence) {
     await page.locator('.save-slots article').first().getByRole('button',{name:'불러오기',exact:true}).click();
     await page.waitForFunction(zone=>{const b=window.__HAPIL_CONTROLS_V31329__?.binding;return b?.phase==='game'&&b.state?.current&&b.state.current!==window.__rc165ObservedPreSlotLoadState&&b.state.current.zone===zone;},saved.state.zone);
     report.slotLoad={slot:1,savedSlot,nativeStateSource:"binding.state.current",nativeStateReplaced:true,savedZone:saved.state.zone,loadedZone:(await snapshot()).state.zone,titleContinueMayUseAuto:true,newDocument:true};
+    const loadedState=await page.evaluateHandle(()=>__HAPIL_CONTROLS_V31329__.binding.state.current);
+    report.slotLoad.storyBefore=await page.evaluate(()=>({open:__HAPIL_STORY_RC51__.isOpen(),readingBlocked:__HAPIL_READING_V31342__.blocked,routing:__HAPIL_COMBAT_AUDIO_V1__.diagnostics}));
+    if(report.slotLoad.storyBefore.open){assert.equal(report.slotLoad.storyBefore.routing.mode,'paused');assert.equal(report.slotLoad.storyBefore.routing.selected,'blocked');}
+    const storyDeadline=Date.now()+15000;let storyClicks=0;
+    while(await page.evaluate(()=>__HAPIL_STORY_RC51__.isOpen())){
+      assert.ok(storyClicks<30&&Date.now()<storyDeadline,'loaded story must finish through bounded rendered Continue');
+      await page.locator('#hapil-story-rc51 .rc51-footer button:last-child').click({timeout:1000});storyClicks++;
+    }
+    await page.waitForFunction(()=>!__HAPIL_STORY_RC51__.isOpen()&&!__HAPIL_READING_V31342__.blocked,null,{timeout:1500});
+    assert.equal(await page.evaluate(s=>__HAPIL_CONTROLS_V31329__.binding.state.current===s,loadedState),true);await loadedState.dispose();
+    const afterStory=await snapshot();assert.equal(afterStory.state.zone,saved.state.zone);assert.deepEqual(afterStory.state.enemies.map(e=>e.id),savedSlot.enemyIds);
+    report.slotLoad.storyAdvance={renderedContinueClicks:storyClicks,sameNativeState:true,after:afterStory};
     await page.waitForFunction(()=>__HAPIL_COMBAT_AUDIO_V1__.diagnostics.mode==='combat'&&__combatMediaProbe.sample().music>0,null,{timeout:20000});
     report.slotLoad.reconnected=await snapshot();
     check('manual slot1 save, title silence, new document native continue, actual slot1 load, combat music reconnect without restaging');
