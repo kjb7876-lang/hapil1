@@ -150,6 +150,8 @@ async function stage(zone, rank = 'boss') {
     // cadence so each queued-event assertion has one known cause.
     for (const field of ['readyAt','patternReadyAt','themedOrdnanceAt','themedSummonAt','signatureFollowupAt31212','recoverUntil','stunnedUntil']) a[field] = s.time + 10000;
     a.invulnerableUntil = s.time + 10000;
+    // Isolate queued attack damage from native body-contact damage.
+    a.x = s.x < 16 ? 30 : 2; a.y = s.y < 16 ? 30 : 2;
     s.invulnerableUntil = s.time + 10000;
     s.encounterLockUntil31226 = 0; s.encounterWallUnlockAtV31227 = 0;
     s.encounterDialogue31226 = null;
@@ -216,7 +218,9 @@ async function assertNativeImpact(evidence) {
       const suppressed=await queueImpact({label:'발록 지옥 충격',damage:20,...flags});
       await page.waitForTimeout(750);
       assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
-      assert.equal((await snapshot()).state.hp,suppressed.hp);
+      const afterSuppression=(await snapshot()).state.hp;
+      report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before});
+      assert.equal(afterSuppression,suppressed.hp);
       check('suppressed/cancelled native impact has no accent or HP loss '+JSON.stringify(flags));
     }
     await stage('dist06','boss');await waitMusic('foldingSpace');
