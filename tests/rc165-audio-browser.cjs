@@ -138,6 +138,7 @@ async function stage(zone, rank = 'boss') {
     const controls = __HAPIL_CONTROLS_V31329__.binding;
     document.getElementById('hapil-death-verse-rc59')?.finishRC121?.();
     controls.actions.dismiss();
+    window.__HAPIL_CONTROLS_V31329__?.clear?.('rc165-audio-stage');
     __HAPIL_STORY_RC51__.close(false);
     const result = __MONGSE_QA_API__.stageV3128BossShowcase(zone);
     if (!result.pass) return result;
@@ -146,6 +147,15 @@ async function stage(zone, rank = 'boss') {
     __HAPIL_STORY_RC51__.beforeFrame(s, {clear:false, sound:false});
     __HAPIL_STORY_RC51__.close(true);
     s.hp = s.maxHp; s.awakeningUntil = 0;
+    // A preceding accepted hit or dash can leave a short-lived hurt/dash pose,
+    // invulnerability or input lock on this shared QA world. Start each staged
+    // encounter from a neutral hero state so the next action is measured itself.
+    s.invulnerableUntil = s.time + 10000;
+    s.lastDodgeAt = -100; s.dashingUntil = 0; s.dashReady = s.time;
+    s.autoEvadeUntil31223 = 0; s.heroGuardUntil = 0; s.guardUntil = 0;
+    s.bufferedAction = null; s.timeStopUntil = s.time;
+    s.heroMotion = {kind:'idle',started:s.time,until:s.time,facing:s.facing,dx:0,dy:0,direction:s.facing<0?'left':'right'};
+    window.__HAPIL_COMBAT_CORE_V31401__?.reset?.(s);
     s.bossDefeated = false; s.spawnedWaves = new Set([1,2,3,4]);
     for (const field of ['pendingHits','impactQueue','hostileProjectiles','narrativeCasts','telekineticCasts','spatialRiftCasts','pendingStrikes','pendingSpawns']) s[field] = [];
     a.boss = rank === 'boss'; a.midboss = rank === 'midboss';
@@ -170,19 +180,28 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
   return page.evaluate(({label, mechanic, count, deadOwner, kind, damage, cancelled, evaded, nativeDeath}) => {
     const s = __MONGSE_QA_STATE__, a = s.enemies.find(x=>x.hp>0);
     if (!a) throw Error('Missing live native owner');
+    const queuedAt=s.time, dodgeBefore=s.lastDodgeAt;
     s.invulnerableUntil = damage > 0 ? 0 : s.time + 10000;
     s.lastDodgeAt = -100; s.heroGuardUntil = 0; s.guardUntil = 0;
-    if (evaded) __HAPIL_CONTROLS_V31329__.binding.actions.dash();
+    let dashReturn=null;
+    if (evaded) dashReturn=__HAPIL_CONTROLS_V31329__.binding.actions.dash();
+    const dash={attempted:evaded,returnValue:dashReturn,lastDodgeAtBefore:dodgeBefore,lastDodgeAtAfter:s.lastDodgeAt,
+      accepted:evaded&&s.lastDodgeAt!==-100,invulnerableUntil:s.invulnerableUntil,dashingUntil:s.dashingUntil,
+      dashReady:s.dashReady,heroMotion:s.heroMotion?{kind:s.heroMotion.kind,until:s.heroMotion.until}:null};
     if (mechanic) { a.envyIllusionReadyAt = 0; s.hp = s.maxHp; }
-    const ids = [];
+    const ids = [],queuedHits=[];
     for(let i=0;i<count;i++) {
       const id=s.fxSerial++; ids.push(id);
-      (evaded ? s.pendingHits : s.impactQueue).push({id, perfectWindow:.52, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:nativeDeath?s.time+.4:s.time-.001,
+      const hit={id, perfectWindow:.52, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:nativeDeath?s.time+.4:s.time-.001,
         x:s.x,y:s.y,originX:a.x,originY:a.y,shape:kind,radius:4,innerRadius:0,width:1,
         damage, cancelled,boss:!!a.boss,midboss:!!a.midboss,patternSet:a.patternSet,
         label,color:'#7733ff',accent:'#ffffff',status:'none',statusValue:0,
         sevenSinMechanic:mechanic, telegraphEndedAt:s.time-.01,
-        terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false});
+        terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false};
+      (evaded ? s.pendingHits : s.impactQueue).push(hit);
+      queuedHits.push({id,queue:evaded?'pendingHits':'impactQueue',queuedAt:s.time,at:hit.at,impactAt:hit.impactAt,
+        sourceId:hit.sourceId,damage:hit.damage,cancelled:hit.cancelled,perfectWindow:hit.perfectWindow,
+        shape:hit.shape,center:{x:hit.x,y:hit.y},origin:{x:hit.originX,y:hit.originY},radius:hit.radius});
     }
     let cancellation=null;
 
@@ -191,14 +210,43 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
     const variants=window.__HAPIL_MEDIA_AUDIO_EVENTS_RC133__?.enemyHeavy;let hash=0;for(const char of String(ids[0]))hash=(hash*31+char.charCodeAt(0))>>>0;
     const role=variants?.length?variants[hash%variants.length]:'dark',profile=__HAPIL_COMBAT_AUDIO_CATALOG_V1__.effects[role],pathname=new URL(profile.path,document.baseURI).pathname;
     const before=__combatMediaProbe.events.filter(e=>e.type==='accepted'&&e.src&&new URL(e.src).pathname===pathname).length;
-    return {ids, cancellation, owner:a.id, zone:s.zone, hp:s.hp, beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
+    window.__RC165_AUDIO_LAST_IMPACT__={ids:[...ids],queuedAt,owner:a.id,zone:s.zone,damage,cancelled,evaded,dash,queuedHits};
+    return {ids, cancellation, owner:a.id, zone:s.zone, hp:s.hp, queuedAt, dash,
+      beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
   }, {label, mechanic, count, deadOwner, kind, damage, cancelled, evaded, nativeDeath});
+}
+
+async function impactDiagnostics() {
+  return page.evaluate(() => {
+    const s=__MONGSE_QA_STATE__,meta=window.__RC165_AUDIO_LAST_IMPACT__??{},ids=new Set(meta.ids??[]);
+    const core=window.__HAPIL_COMBAT_CORE_V31401__?.snapshot?.(s);
+    const relatedCombat=(core?.events??[]).filter(row=>ids.has(String(row.source?.id))).map(row=>({time:row.time,result:row.result,reason:row.reason,
+      requestedDamage:row.requestedDamage,computedDamage:row.computedDamage,finalDamage:row.finalDamage,
+      appliedDamage:row.appliedDamage,hpBefore:row.hpBefore,hpAfter:row.hpAfter,source:row.source,path:row.path}));
+    return {meta,hero:{time:s.time,hp:s.hp,invulnerableUntil:s.invulnerableUntil,lastDodgeAt:s.lastDodgeAt,
+        heroGuardUntil:s.heroGuardUntil,guardUntil:s.guardUntil,dashingUntil:s.dashingUntil,dashReady:s.dashReady,
+        autoEvadeUntil31223:s.autoEvadeUntil31223,heroMotion:s.heroMotion?{kind:s.heroMotion.kind,until:s.heroMotion.until}:null},
+      pendingHits:s.pendingHits.filter(hit=>ids.has(hit.id)).map(hit=>({id:hit.id,at:hit.at,damage:hit.damage,
+        damageSuppressedV31226:hit.damageSuppressedV31226,perfectEvadedV31226:hit.perfectEvadedV31226,cancelled:hit.cancelled})),
+      impactQueue:s.impactQueue.filter(hit=>ids.has(hit.id)).map(hit=>({id:hit.id,at:hit.at,impactAt:hit.impactAt,damage:hit.damage,
+        damageSuppressedV31226:hit.damageSuppressedV31226,perfectEvadedV31226:hit.perfectEvadedV31226,cancelled:hit.cancelled})),
+      processedEffects:s.effects.filter(effect=>ids.has(effect.pendingHitId)).map(effect=>({pendingHitId:effect.pendingHitId,
+        born:effect.born,telegraphImpact:effect.telegraphImpact,impactShape:effect.impactShape,impactX:effect.impactX,impactY:effect.impactY,
+        impactRadius:effect.impactRadius,sourceId:effect.sourceId})),
+      perfectTexts:s.floatTexts.filter(row=>String(row.text).startsWith('PERFECT EVADE')).map(row=>({text:row.text,born:row.born,duration:row.duration})),
+      combat:relatedCombat.slice(-12)};
+  });
 }
 
 async function scenario(name, run) {
   if(slotOnly&&name!=='new-document-actual-slot-load'){(report.scenarios??=[]).push({name,status:'skipped',reason:'Unchanged runtime paths already verified at 3c754312d0919edb753fc8ff9c2e6b03c453ff4e'});return;}
   try { await page.evaluate(()=>{if(window.__testCombatHidden!==undefined){window.__testCombatHidden=false;document.dispatchEvent(new Event('visibilitychange'));}});await run(); (report.scenarios??=[]).push({name,status:'passed'}); }
-  catch(error){ (report.scenarios??=[]).push({name,status:'failed',error:String(error.stack||error)}); console.log('RC165_SCENARIO_FAILURE '+name+' '+String(error)); }
+  catch(error){
+    (report.scenarios??=[]).push({name,status:'failed',error:String(error.stack||error)});
+    console.log('RC165_SCENARIO_FAILURE '+name+' '+String(error));
+    try{console.log('RC165_SCENARIO_DIAGNOSTIC '+name+' '+JSON.stringify(await impactDiagnostics()));}
+    catch(diagnosticError){console.log('RC165_SCENARIO_DIAGNOSTIC_ERROR '+name+' '+String(diagnosticError));}
+  }
 }
 
 async function assertNativeImpact(evidence) {
@@ -246,13 +294,20 @@ async function assertNativeImpact(evidence) {
       await scenario(flags.evaded?'native-perfect-evade':'explicit-audio-suppression-flag',async()=>{
       await settings({music:true,bgmVolume:.4});await stage('dist06','boss');
       const suppressed=await queueImpact({label:'발록 지옥 충격',damage:20,...flags});
-      await page.waitForTimeout(750);
-      assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
+      if(flags.evaded)assert.equal(suppressed.dash.accepted,true,'the native perfect-evade input must be accepted by the staged hero');
+      await assertNativeImpact(suppressed);
       if(flags.evaded) {
         await page.waitForFunction(()=>__MONGSE_QA_STATE__.floatTexts.some(t=>t.text.startsWith('PERFECT EVADE')),null,{timeout:5000});
       }
+      await page.waitForTimeout(750);
+      assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
       const afterSuppression=(await snapshot()).state.hp;
-      report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before});
+      const diagnostic=await impactDiagnostics();
+      report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,
+        accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before,
+        queuedAt:suppressed.queuedAt,dash:suppressed.dash,
+        impactProcessed:diagnostic.processedEffects.some(effect=>suppressed.ids.includes(effect.pendingHitId)),
+        combat:diagnostic.combat.filter(event=>String(event.source?.id)===String(suppressed.ids[0]))});
       if(flags.evaded) assert.equal(afterSuppression,suppressed.hp);
       else assert(afterSuppression < suppressed.hp, 'audio suppression flag must preserve the existing native HP loss');
       check(flags.evaded?'native perfect-evade has no accent or HP loss':'explicit audio-suppression flag has no accent and preserves positive native HP loss');
