@@ -311,17 +311,26 @@ async function assertNativeImpact(evidence) {
         },{count:perfectTextCount,queuedAt:suppressed.queuedAt},{timeout:5000});
       }
       await assertNativeImpact(suppressed);
+      const settlementHandle=await page.waitForFunction(({ids,owner})=>{
+        const s=__MONGSE_QA_STATE__,keys=new Set(ids.map(id=>String(id)));
+        if([...(s.pendingHits??[]),...(s.impactQueue??[])].some(hit=>keys.has(String(hit.id))))return false;
+        const effect=s.effects.find(row=>keys.has(String(row.pendingHitId))&&String(row.sourceId)===String(owner)&&row.telegraphImpact===true);
+        return effect?{hp:s.hp,time:s.time,effect:{id:effect.pendingHitId,born:effect.born}}:false;
+      },{ids:suppressed.ids,owner:suppressed.owner},{timeout:8000});
+      const immediateSettlement=await settlementHandle.jsonValue();
+      if(flags.evaded)assert.equal(immediateSettlement.hp,suppressed.hp,'perfect evade must suppress damage at the native impact frame');
+      else assert(immediateSettlement.hp<suppressed.hp,'audio-only suppression must preserve native damage at the impact frame');
+      await page.evaluate(()=>{const s=__MONGSE_QA_STATE__;s.invulnerableUntil=Math.max(s.invulnerableUntil,s.time+5);});
       await page.waitForTimeout(750);
       assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
       const afterSuppression=(await snapshot()).state.hp;
       const diagnostic=await impactDiagnostics();
-      report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,
+      report.eventEvidence.push({flags,beforeHp:suppressed.hp,immediateSettlement,afterHp:afterSuppression,
         accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before,
         queuedAt:suppressed.queuedAt,dash:suppressed.dash,
         impactProcessed:diagnostic.processedEffects.some(effect=>suppressed.ids.some(id=>String(id)===String(effect.pendingHitId))&&String(effect.sourceId)===String(suppressed.owner)&&effect.telegraphImpact===true),
         combat:diagnostic.combat.filter(event=>String(event.source?.id)===String(suppressed.ids[0]))});
-      if(flags.evaded) assert.equal(afterSuppression,suppressed.hp);
-      else assert(afterSuppression < suppressed.hp, 'audio suppression flag must preserve the existing native HP loss');
+      assert.equal(afterSuppression,immediateSettlement.hp,'no unrelated hit may contaminate the audio-settle window');
       check(flags.evaded?'native perfect-evade has no accent or HP loss':'explicit audio-suppression flag has no accent and preserves positive native HP loss');
       });
     }
