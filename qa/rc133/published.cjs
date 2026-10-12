@@ -475,9 +475,12 @@ for(const row of extension57.files){if(row.after===null)runtimeOutputs.delete(ro
     const addedLayoutFiles=['assets/rc108/hud.css','assets/rc125/adaptive-battlefield.css'];
     for(const file of addedLayoutFiles){assert(expected.has(file),'required RC154 layout file '+file);const owner=file==='assets/rc125/adaptive-battlefield.css'?extension36:extension16;if(owner===extension36)assert.equal(owner.files.find(r=>r.file===file).before.gitBlob,extension20.files.find(r=>r.file===file).after.gitBlob,'layout keeps the exact previous authorized preimage');assert(owner.files.some(row=>row.file===file&&row.after?.sha256===expected.get(file).sha256),'layout file matches its exact pinned runtime extension '+file);}
     const egoOriginalFiles=extension22.files.filter(row=>row.before===null).map(row=>row.file);assert.equal(egoOriginalFiles.length,7,'four raw images, original manifest and two runtime modules');for(const file of egoOriginalFiles)assert(expected.has(file),'added EGO original/runtime file '+file);
-    assert.equal(expected.size-egoOriginalFiles.length,305,'the prior 304-file set plus the scoped Persona presentation helper stays complete');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,303,'exact prior runtime set plus the scoped presentation helper');
-    assert.equal(expected.size,312,'exact public set with the scoped presentation helper');
+    const personaAreaFile='assets/rc32/boss-and-mobile.js';
+    assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
+    assert(extension55.files.some(row=>row.file===personaAreaFile&&row.before&&row.after),'RC32 inclusion retains its existing pinned preimage');
+    assert.equal(expected.size-egoOriginalFiles.length,306,'prior set plus scoped Persona presentation helper and RC32 area renderer');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,304,'exact prior runtime set plus the two scoped renderers');
+    assert.equal(expected.size,313,'exact public set including the RC32 area renderer');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
