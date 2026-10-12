@@ -30,6 +30,8 @@ const chromeStableWorkflowFiles = [
   'tests/rc134-persona-effects-browser.cjs', 'tests/rc137-direct-admission-browser.cjs',
   'tests/rc142-gameplay-browser.cjs', 'tests/rc143-persona-live-browser.cjs',
   'tests/rc142-persona-volley-browser.cjs', 'tests/rc143-mobile-viewport-browser.cjs',
+  'tests/rc144-death-burn-browser.cjs', 'tests/rc144-perf-browser.cjs',
+  'tests/rc145-body-ash-browser.cjs', 'tests/rc146-global-body-browser.cjs',
   'tests/rc137-direction-input-browser.cjs', 'tests/rc137-death-choice-browser.cjs',
   'tests/rc147-camera-finale-browser.cjs', 'tests/rc148-six-cosmic-perf-browser.cjs',
   'tests/rc148-persona-memory-browser.cjs', 'tests/rc150-live-browser.cjs',
@@ -51,6 +53,8 @@ const chromeStableWorkflowFiles = [
 const activeWorkflows = [
   '.github/workflows/rc137-integration.yml',
   '.github/workflows/rc147-camera-finale.yml',
+  '.github/workflows/rc144-death-burn.yml',
+  '.github/workflows/rc146-global-body.yml',
   '.github/workflows/story-narration-audit.yml',
   '.github/workflows/rc133-published.yml'
 ];

@@ -1,13 +1,15 @@
 name: RC146 global body ash exact candidate
 on:
   push:
-    branches: [main, codex/rc145-body-dissolve-preview]
+    branches: [main, codex/rc145-body-dissolve-preview, codex/rc170-persona-ego-native-fixes]
     paths:
       - 'assets/index-v31526.js'
       - 'assets/rc145/body-ash.js'
       - 'index.html'
       - 'tests/rc145-body-ash-browser.cjs'
       - 'tests/rc146-global-body-browser.cjs'
+      - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/rc153-chrome-sandbox-smoke.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
       - 'tests/rc142-gameplay-browser.cjs'
       - 'qa/rc133/authorized-runtime-extension-5.json'
@@ -38,15 +40,16 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Prepare isolated Chromium
+      - name: Prepare sandboxed Chrome Stable
         run: |
           set -euo pipefail
           R="$RUNNER_TEMP/rc146-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          command -v google-chrome
+          google-chrome --version
+          node tests/chromium-sandbox-policy.cjs
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES="$R/node_modules" node tests/rc153-chrome-sandbox-smoke.cjs
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc146-evidence" >> "$GITHUB_ENV"
       - name: Verify exact source, preservation and native body rendering
         env:

@@ -1,12 +1,14 @@
 name: RC144 confirmed death and ember VFX
 on:
   push:
-    branches: [main, codex/rc143-persona-mobile-cult]
+    branches: [main, codex/rc143-persona-mobile-cult, codex/rc170-persona-ego-native-fixes]
     paths:
       - 'assets/index-v31526.js'
       - 'assets/rc133/inner-final.js'
       - 'index.html'
       - 'tests/rc144*'
+      - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/rc153-chrome-sandbox-smoke.cjs'
       - 'tests/rc142-gameplay-unit.cjs'
       - 'qa/rc133/authorized-runtime-extension-4.json'
       - 'tools/rc133-preservation.cjs'
@@ -34,15 +36,16 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Prepare isolated Chromium
+      - name: Prepare sandboxed Chrome Stable
         run: |
           set -euo pipefail
           R="$RUNNER_TEMP/rc144-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
+          command -v google-chrome
+          google-chrome --version
+          node tests/chromium-sandbox-policy.cjs
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES="$R/node_modules" node tests/rc153-chrome-sandbox-smoke.cjs
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc144-evidence" >> "$GITHUB_ENV"
       - name: Verify exact candidate and browser transactions
         env:
