@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "8fa962c1df408a09c21c1e2105207f488306f8e7",
+  "baseTree": "5bde6c9a2c092b2bdcadca5080117f6fc26ae3d5",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6a17d107988ec9c1b253bbba6c51360925a8a56a2ff31aa879643d4e4f0b4e1e",
+  "files": [
+    {
+      "file": "assets/rc155/ego-art.js",
+      "reason": "assets/rc155/ego-art.js: apply accepted-hit body alpha once at the native active-hero draw for all heroes including EGO",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "3e4ef5f1377c480bb5e1850960f1548795d5b6d6"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "d7e97b958b8e34ce94a7152d7ef360485e315ce7",
+        "sha256": "a214aff0cfe6f0faa97eb04f499a22250546f71932b6ca69e86d9d99fecc34fe"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: apply accepted-hit body alpha once at the native active-hero draw for all heroes including EGO",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f2ada116a34def6b919d4208e550eae85a48efc9"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "0f3d7bb4d7d99466e235abf37ad788bf4e6253c6",
+        "sha256": "9f0338a1b6e66f561a895491b405ff0e7b28b0f5503325cb00087c16918f1efd"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "5629e2f274a5c812fb959b71f523fceb1f8672f43230153ed30a0d34d182f3aa"
+}

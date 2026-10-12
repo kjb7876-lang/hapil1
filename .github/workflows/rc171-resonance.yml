@@ -23,6 +23,16 @@ jobs:
           command -v google-chrome
           google-chrome --version
           CODEX_PRIMARY_RUNTIME_NODE_MODULES="$RUNNER_TEMP/rc171-runtime/node_modules" node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Check pixels, feedback, awakening and scatter contracts
+        run: |
+          node tests/rc171-defense-cue-unit.cjs
+          node tests/rc155-ego-art-unit.cjs
+          node tests/rc161-persona-feedback-unit.cjs
+          node tests/rc162-feedback-priority-unit.cjs
+          node tests/rc150-awakening-impact.cjs
+          node tests/rc153-combat-unit.cjs
+          node tests/rc158-persona-presentation-unit.cjs
+          node tests/rc163-egohandoff-unit.cjs
       - name: Trace actual D input and native generated effects
         env:
           EXPECTED_SHA: ${{ github.sha }}

@@ -37057,6 +37057,7 @@ function $n(e, t, n, r, i) {
       (HAPIL_captureHeroPoseV31315(t, n, ee, te, T, On, ie, t.x, t.y),
       Ln(c, n, T, t.x, t.y, On * (window.__HAPIL_STORY_RC51__?.heroSize(t) ?? 1), {
         ...ie,
+        alpha: (ie.alpha ?? 1) * (window.__HAPIL_FEEDBACK_RC128__?.playerFlash?.(t) ?? 1),
         glow: e ? MONGSE_awakeningProfile(ee.id).accent : ee.color,
         glowBlur: e ? 22 : void 0,
       }),
