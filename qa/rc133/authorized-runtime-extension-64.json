@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "880248954834d88cbebd909201eb3303d614a674",
+  "baseTree": "75cea8541c7b4255f9992f1a7ceb367b9433f1f5",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0fd1b8955a6bf07d1d5bc5f26dc6f473bcd20108de3e66bbc6bda8041be3250c",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: keep queued-impact audio suppression separate from native damage authority so cancelled audio cannot cancel otherwise eligible contact",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1f839ad934f0544c7beacbc2f03090a9ce12b1d7",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "98a13b997aa696c48bb528a51ddb12eef3be92ba",
+        "sha256": "52b4cef5d091cac1f1a5b20e2608a13d951a63258cfad64c05fca14f911652d4"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "309c83aafeb31c52c9445a00781fae41a479e034972be7c3700106110beb5f5c"
+}

@@ -7,7 +7,7 @@ permissions:
 jobs:
   native:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v6
         with:
@@ -25,6 +25,7 @@ jobs:
         run: |
           node tools/rc133-preservation.cjs
           node tests/rc133-preservation-unit.cjs
+          node tests/combat-audio-impact.cjs
           node tests/rc154-cosmic-loader-unit.cjs
           node tests/rc86-samong-cosmic-smoke.cjs
           node tests/rc142-gameplay-unit.cjs
@@ -36,6 +37,12 @@ jobs:
           node tests/rc170-persona-flight-unit.cjs
           node tests/rc155-ego-guardian-unit.cjs
           node tests/rc150-awakening-impact.cjs
+      - name: Real-media native audio collision and suppression matrix
+        env:
+          HAPIL_COMBAT_AUDIO_OUTPUT: ${{ runner.temp }}/rc170-combat-audio
+        run: |
+          timeout 180s node tests/rc165-audio-browser.cjs
+          test -z "$(git status --porcelain)"
       - name: Actual 777 first and final KO, native flight and guard, rendered village save and reverse
         env:
           EXPECTED_SHA: ${{ github.sha }}
