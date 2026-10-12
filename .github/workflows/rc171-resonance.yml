@@ -1,0 +1,35 @@
+name: RC171 native resonance diagnosis
+on:
+  push:
+    branches: [codex/rc171-ego-resonance-feedback]
+permissions:
+  contents: read
+jobs:
+  resonance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare sandboxed Chrome Stable
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc171-runtime" --no-save --package-lock=false playwright@1.55.1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc171-runtime/node_modules" >> "$GITHUB_ENV"
+          command -v google-chrome
+          google-chrome --version
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES="$RUNNER_TEMP/rc171-runtime/node_modules" node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Trace actual D input and native generated effects
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC170_CAPTURE_DIR: ${{ runner.temp }}/rc171-captures
+        run: timeout 120s node tests/rc171-resonance-diagnosis.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc171-${{ github.sha }}
+          path: ${{ runner.temp }}/rc171-captures/
