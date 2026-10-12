@@ -218,19 +218,20 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
 
 async function impactDiagnostics() {
   return page.evaluate(() => {
-    const s=__MONGSE_QA_STATE__,meta=window.__RC165_AUDIO_LAST_IMPACT__??{},ids=new Set(meta.ids??[]);
+    const s=__MONGSE_QA_STATE__,meta=window.__RC165_AUDIO_LAST_IMPACT__??{};
+    const idKey=value=>value==null?null:String(value),ids=new Set((meta.ids??[]).map(idKey));
     const core=window.__HAPIL_COMBAT_CORE_V31401__?.snapshot?.(s);
-    const relatedCombat=(core?.events??[]).filter(row=>ids.has(String(row.source?.id))).map(row=>({time:row.time,result:row.result,reason:row.reason,
+    const relatedCombat=(core?.events??[]).filter(row=>ids.has(idKey(row.source?.id))).map(row=>({time:row.time,result:row.result,reason:row.reason,
       requestedDamage:row.requestedDamage,computedDamage:row.computedDamage,finalDamage:row.finalDamage,
       appliedDamage:row.appliedDamage,hpBefore:row.hpBefore,hpAfter:row.hpAfter,source:row.source,path:row.path}));
     return {meta,hero:{time:s.time,hp:s.hp,invulnerableUntil:s.invulnerableUntil,lastDodgeAt:s.lastDodgeAt,
         heroGuardUntil:s.heroGuardUntil,guardUntil:s.guardUntil,dashingUntil:s.dashingUntil,dashReady:s.dashReady,
         autoEvadeUntil31223:s.autoEvadeUntil31223,heroMotion:s.heroMotion?{kind:s.heroMotion.kind,until:s.heroMotion.until}:null},
-      pendingHits:s.pendingHits.filter(hit=>ids.has(hit.id)).map(hit=>({id:hit.id,at:hit.at,damage:hit.damage,
+      pendingHits:s.pendingHits.filter(hit=>ids.has(idKey(hit.id))).map(hit=>({id:hit.id,at:hit.at,damage:hit.damage,
         damageSuppressedV31226:hit.damageSuppressedV31226,perfectEvadedV31226:hit.perfectEvadedV31226,cancelled:hit.cancelled})),
-      impactQueue:s.impactQueue.filter(hit=>ids.has(hit.id)).map(hit=>({id:hit.id,at:hit.at,impactAt:hit.impactAt,damage:hit.damage,
+      impactQueue:s.impactQueue.filter(hit=>ids.has(idKey(hit.id))).map(hit=>({id:hit.id,at:hit.at,impactAt:hit.impactAt,damage:hit.damage,
         damageSuppressedV31226:hit.damageSuppressedV31226,perfectEvadedV31226:hit.perfectEvadedV31226,cancelled:hit.cancelled})),
-      processedEffects:s.effects.filter(effect=>ids.has(effect.pendingHitId)).map(effect=>({pendingHitId:effect.pendingHitId,
+      processedEffects:s.effects.filter(effect=>ids.has(idKey(effect.pendingHitId))).map(effect=>({pendingHitId:effect.pendingHitId,
         born:effect.born,telegraphImpact:effect.telegraphImpact,impactShape:effect.impactShape,impactX:effect.impactX,impactY:effect.impactY,
         impactRadius:effect.impactRadius,sourceId:effect.sourceId})),
       perfectTexts:s.floatTexts.filter(row=>String(row.text).startsWith('PERFECT EVADE')).map(row=>({text:row.text,born:row.born,duration:row.duration})),
