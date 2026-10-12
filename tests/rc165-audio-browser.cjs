@@ -30,7 +30,9 @@ const server = http.createServer((req, res) => {
   if (!fs.existsSync(file)) file = path.resolve(fallback, '.' + relative);
   if (!file.startsWith(fallback + path.sep) && !file.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }
   try {
-    const bytes = baselineMute && url.pathname==='/assets/combat-audio/v1/controller.js' ? baselineController : fs.readFileSync(file), headers = {'content-type':mime[path.extname(file)] || 'application/octet-stream', 'cache-control':'no-store', 'accept-ranges':'bytes'};
+    let bytes = baselineMute && url.pathname==='/assets/combat-audio/v1/controller.js' ? baselineController : fs.readFileSync(file);
+    if(url.pathname==='/assets/index-v31526.js')bytes=Buffer.concat([bytes,Buffer.from('\n// RC165 QA-only exposure of the original module-scoped telegraph queue.\nwindow.__RC165_NATIVE_TELEGRAPH_QUEUE__=MONGSE_queueReadyTelegraphs;\n')]);
+    const headers = {'content-type':mime[path.extname(file)] || 'application/octet-stream', 'cache-control':'no-store', 'accept-ranges':'bytes'};
     const range = /^bytes=(\d+)-(\d*)$/.exec(req.headers.range || '');
     if (range) {
       const start = Number(range[1]), end = Math.min(bytes.length - 1, range[2] ? Number(range[2]) : bytes.length - 1);
@@ -83,7 +85,7 @@ function installMediaProbe() {
   };
 }
 
-const report = {scope:'actual Chromium media decoding and native game-frame hooks; QA-staged encounters, not a natural full campaign or physical speaker test', checks:[], decoded:[], eventEvidence:[]};
+const report = {scope:'actual Chromium media decoding and native game-frame hooks; QA-staged encounters, test-server bridge exports the unchanged module-scoped native telegraph queue; not a natural full campaign or physical speaker test', checks:[], decoded:[], eventEvidence:[]};
 let browser, page;
 const errors = [];
 const unexpectedDialogs = [];
@@ -199,8 +201,8 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
         sevenSinMechanic:mechanic, telegraphEndedAt:s.time-.01,
         terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false};
       if(evaded){
-        if(typeof MONGSE_queueReadyTelegraphs!=='function')throw Error('Native telegraph queue is unavailable');
-        const result=MONGSE_queueReadyTelegraphs(s,[hit]),queued=s.impactQueue.find(row=>String(row.id)===String(id));
+        if(typeof window.__RC165_NATIVE_TELEGRAPH_QUEUE__!=='function')throw Error('Native telegraph queue is unavailable');
+        const result=window.__RC165_NATIVE_TELEGRAPH_QUEUE__(s,[hit]),queued=s.impactQueue.find(row=>String(row.id)===String(id));
         nativePerfectRoute={result,queued:queued?{id:queued.id,sourceId:queued.sourceId,perfectEvadedV31226:queued.perfectEvadedV31226===true,damageSuppressedV31226:queued.damageSuppressedV31226===true}:null};
         if(result?.breaks!==1||nativePerfectRoute.queued?.perfectEvadedV31226!==true||nativePerfectRoute.queued?.damageSuppressedV31226!==true)throw Error('Exact native impact did not take the perfect-evade suppression path');
       }else s.impactQueue.push(hit);
