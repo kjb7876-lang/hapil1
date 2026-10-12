@@ -27,7 +27,7 @@ jobs:
         env:
           EXPECTED_SHA: ${{ github.sha }}
           RC170_CAPTURE_DIR: ${{ runner.temp }}/rc171-captures
-        run: timeout 120s node tests/rc171-resonance-diagnosis.cjs
+        run: timeout 120s node tests/rc171-ego-resonance-diagnosis.cjs
       - uses: actions/upload-artifact@v7
         if: always()
         with:
