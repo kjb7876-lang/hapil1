@@ -53,8 +53,14 @@
  // migration changes no clear/visit/cycle count or navigation direction.
  function alignRoute(m,route){const index=validRoute(route)?route.indexOf(m?.routeZone):-1;if(index<0||!m?.active)return false;m.routeIndex=index;return true;}
  function cleanClearedIds(raw){return [...new Set((Array.isArray(raw)?raw:[]).filter(validVisit))].slice(-MAX_CLEAR_IDS);}
+ function completedPersona(raw){
+  if(raw?.phase!=='complete')return false;
+  if(raw.entry==='cult-death')return true;
+  const clash=raw.clash,credibleClash=clash?.version===1&&clash.used===true&&['boss','both'].includes(clash.reason),revived=raw.bossRevived===true||raw.bossRevived==null&&credibleClash,compatibleClash=clash==null||clash.version===1&&(credibleClash||clash.used===false&&clash.reason==null);
+  return raw.entry==='developer-777'&&raw.version===1&&raw.zone==='cult04'&&raw.hp===0&&Number.isFinite(raw.maxHp)&&raw.maxHp>=100&&raw.maxHp<=3000000&&revived&&compatibleClash;
+ }
  function clean(raw,legacy){
-  const terminalPersona=legacy?.innerFinalRC133?.phase==='complete'&&legacy.innerFinalRC133.entry==='cult-death';
+  const terminalPersona=completedPersona(legacy?.innerFinalRC133);
   const personaZone=safeZone(legacy?.innerFinalRC133?.zone)||'cult04';
   if((!raw||raw.version!==VERSION)&&terminalPersona){
    const m=defaults();m.personaVictory=true;m.heroUnlocked=true;m.pendingTransformation=true;m.pendingFromZone=personaZone;m.currentZone=personaZone;return m;
@@ -91,7 +97,7 @@
  function restore(s,raw,legacy){if(!s)return null;const m=clean(raw,legacy);s[FIELD]=m;if(m.personaVictory)s.egoGuardianNameRC155=NAME;if(m.active){s.egoGuardianNameRC155=NAME;s.egoGuardianTraitsRC155=compositeTraitSources([]);}return m;}
  const NAME='마지막 수호자 EGO';
  function recordPersonaVictory(s){if(!s)return false;const m=state(s);if(m.personaVictory||m.transformed)return false;m.personaVictory=true;m.heroUnlocked=true;m.pendingTransformation=true;m.pendingFromZone=safeZone(s.zone)||'cult04';m.currentZone=safeZone(s.zone);return true;}
- function confirmPersonaVictory(s,finalState){return finalState?.phase==='complete'&&finalState?.entry==='cult-death'?recordPersonaVictory(s):false;}
+ function confirmPersonaVictory(s,finalState){return completedPersona(finalState)?recordPersonaVictory(s):false;}
  function beginVisit(m){const serial=incrementDecimal(m.visitSerial);if(!serial)return false;m.visitSerial=serial;m.currentVisitId='ego155-'+serial;m.currentVisitCleared=false;m.clearReadyVisitId=null;return true;}
  function passage(zone,world){return zone==='hub'||zone==='village'||/^rest/.test(String(zone))||world?.[zone]?.rest===true;}
  function markClear(s,m,zone,visitId){
@@ -165,7 +171,7 @@
  function consumeCutIn(s){const m=s?.[FIELD];if(!m?.cutInPending)return false;m.cutInPending=false;return true;}
  function clearPresentation(s){const m=s?.[FIELD];if(!m)return false;m.cutInPending=false;return true;}
  function projectileBudget(current,requested,cap=72){const c=uint(current,1000000),r=uint(requested,1000000),limit=uint(cap,4096);return c+r<=limit;}
- const api=Object.freeze({version:VERSION,field:FIELD,name:NAME,story:STORY,heroes:HEROES,traits:TRAITS,canonicalRoute,validRoute,nextStep,clean,migrate,state,snapshot,restore,recordPersonaVictory,confirmPersonaVictory,onMapEntry,observeClear,nextZone,sync,difficulty,factors,applyEnemyScaling,scalingRows,restoreScaling,dedupeTraitSources,compositeTraitSources,additionalHeroTraits,traitPlan,consumeCutIn,clearPresentation,projectileBudget,metrics:()=>({maxClearIds:MAX_CLEAR_IDS,maxScalingRows:MAX_SCALING_ROWS})});
+ const api=Object.freeze({version:VERSION,field:FIELD,name:NAME,story:STORY,heroes:HEROES,traits:TRAITS,canonicalRoute,validRoute,nextStep,completedPersona,clean,migrate,state,snapshot,restore,recordPersonaVictory,confirmPersonaVictory,onMapEntry,observeClear,nextZone,sync,difficulty,factors,applyEnemyScaling,scalingRows,restoreScaling,dedupeTraitSources,compositeTraitSources,additionalHeroTraits,traitPlan,consumeCutIn,clearPresentation,projectileBudget,metrics:()=>({maxClearIds:MAX_CLEAR_IDS,maxScalingRows:MAX_SCALING_ROWS})});
  root.__HAPIL_EGO_GUARDIAN_RC155__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

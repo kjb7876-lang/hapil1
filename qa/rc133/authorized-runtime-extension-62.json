@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "fa5fb098cf899b75b125ee51f9f43c4d8159fdff",
+  "baseTree": "eb6ebfac173a0be8e9b82d6471dbb2b38db02a20",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "84a64752af141bc6c54919aac339e714ede15752c6738bc131663eb002ef6e62",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: preserve only validated live authored Persona flights across accepted player ultimate nullification",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "64a7ac745dfe9973511d73aa6c6e1035e4821ee5"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "8f00ff271a51b7793943ec0787211377f325a2f0",
+        "sha256": "0673caf49b6ad4c300d5de99fa15c6e1d2e8d16310016487dd250631e90dd737"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: validate authored flight retention and route real final777 Persona defeat through native clear/restore",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "59e15394c9b196f6bf80c6ae97f5b186308b1b9e"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "3a69ebceaac4320139a4b0b9e8695787f275a35a",
+        "sha256": "30580cdce7a478e2398ad4ca724f450e2d648b95b588379994ae3cf567523580"
+      }
+    },
+    {
+      "file": "assets/rc155/ego-guardian.js",
+      "reason": "assets/rc155/ego-guardian.js: reserve and migrate EGO only from validated final777 revival/completion evidence while preserving cult-death",
+      "before": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "62127f1cc755c89729ca8067eada3b68cd590d4b"
+      },
+      "after": {
+        "file": "assets/rc155/ego-guardian.js",
+        "mode": "100644",
+        "gitBlob": "9720b365cb65c8fbad10f2f9742eaa30a8cca091",
+        "sha256": "5836587d8fad82955160596242da4838fa4f95fbd8c973d9b8a76605275d118a"
+      }
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "reason": "assets/rc128/combat-feedback.js: keep incoming player guard/parry vector cues without the enemy shield texture",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "bad1412b4b356ac6400872d73d627e6ccd395b56"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "9f2cad44085eb25aa2f39296c787bfb7024dfbdc",
+        "sha256": "242b95fc0da9fa4e0c4e1944c34324ed584f88e5a393bff57f525ea9599afdb7"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: invalidate the four changed runtime script pins to17001",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ea32e6f031be8b2c97cfa4120ff0a7a1c107879d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "44120bb02ed8e757ee74c1e91f4a38fe24a4dc89",
+        "sha256": "9d14ae5762480dc02dc45de002e7db953de8a2582faa213a092230279ffe90bf"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "4633446c14c23a14344fc9125c1742ffd1e2ccc63f78e2a616a07f572d88a402"
+}

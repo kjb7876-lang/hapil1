@@ -1,4 +1,4 @@
-name: RC170 bounded native Persona diagnosis
+name: RC170 bounded native Persona candidate regression
 on:
   push:
     branches: [codex/rc170-persona-ego-native-fixes]
@@ -7,7 +7,7 @@ permissions:
 jobs:
   native:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v6
         with:
@@ -16,17 +16,30 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Install normal Chrome Stable
+      - name: Install normal Chrome Stable and existing parser
         run: |
-          npm install --prefix "$RUNNER_TEMP/rc170" --no-save --package-lock=false playwright@1.55.1
+          npm install --prefix "$RUNNER_TEMP/rc170" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
           node "$RUNNER_TEMP/rc170/node_modules/playwright/cli.js" install --with-deps chrome
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc170/node_modules" >> "$GITHUB_ENV"
-      - name: Observe real menu entry, flight, guard drawing and final KO
+      - name: Exact preservation and focused source contracts
+        run: |
+          node tools/rc133-preservation.cjs
+          node tests/rc133-preservation-unit.cjs
+          node tests/rc154-cosmic-loader-unit.cjs
+          node tests/rc86-samong-cosmic-smoke.cjs
+          node tests/rc142-gameplay-unit.cjs
+          node tests/rc156-anatomy-preservation-unit.cjs
+          node tests/rc133-published-url.cjs
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc170-victory-contract-unit.cjs
+          node tests/rc170-player-defense-art-unit.cjs
+          node tests/rc170-persona-flight-unit.cjs
+          node tests/rc155-ego-guardian-unit.cjs
+          node tests/rc150-awakening-impact.cjs
+      - name: Actual 777 first and final KO, native flight and guard, rendered village save and reverse
         env:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
-          test -z "$(git diff fa5fb098cf899b75b125ee51f9f43c4d8159fdff HEAD -- assets audio data index.html tools qa)"
-          node tests/chromium-sandbox-policy.cjs
-          timeout 180s node tests/rc170-persona-native-diagnosis.cjs
+          timeout 180s node tests/rc170-persona-native-regression.cjs

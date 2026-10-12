@@ -96,13 +96,18 @@
   if(a?.id===ID&&a.hp<=0&&s.innerFinalRC133?.phase!=='complete'){
    const m=s.innerFinalRC133;
    if(!m.bossRevived&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
-   m.phase='complete';m.hp=0;m.awake=0;if(m.entry==='cult-death')root.__HAPIL_EGO_GUARDIAN_RC155__?.confirmPersonaVictory(s,m);releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;if(m.entry==='developer-777'){root.__HAPIL_DEATH_BURN_RC144__?.emit(s,a);s.enemies=s.enemies.filter(e=>e.id!==ID);s.targetEnemyId=null;s.bossDefeated=false;return true;}
+   m.phase='complete';m.hp=0;m.awake=0;root.__HAPIL_EGO_GUARDIAN_RC155__?.confirmPersonaVictory(s,m);releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;
   }
   return false;
  }
  function encounter(s){return enabled(s)&&['reveal','fight'].includes(s.innerFinalRC133?.phase)&&s.enemies?.some(a=>a.id===ID);}
  function red(s){return encounter(s)&&s.hp>0&&n(s.innerFinalRC133?.awake)>0;}
  function attackSpeedFactor(s){return red(s)?.7:1;}
+ function preserveFlight(s,q){
+  const a=boss(s);if(!encounter(s)||!a||!acceptsSkill(s,a,q)||q?.rc133InnerShot!==true||q.sourceId!==ID)return false;
+  if(![q.born,q.x,q.y,q.vx,q.vy].every(Number.isFinite)||q.born>s.time||q.projectileRemovalReason31215||q.cancelled||q.parriedV31356||q.reachedHero31213||q.reachedMapBoundary31213||q.themeTerminalV31323||q.themeEndedV31323||q.removed||q.destroyed||q.hitResolved||q.heavyCommitmentEnded||q.damageSuppressedV31226)return false;
+  return q.rc150PersonaAwakeningShot!==true||(s.time<q.born+18&&n(q.boundaryContactCount31214)<3);
+ }
  function personaFlightPolicy(s,q){
   if(!s||q?.sourceId!==ID||q.rc133InnerShot!==true||q.rc150PersonaAwakeningShot!==true)return null;
   const bounced=Math.floor(cl(q.boundaryContactCount31214,0,3)),remaining=Math.max(0,3-bounced),born=n(q.born,n(s.time));
@@ -255,19 +260,19 @@
  function snapshot(s){root.__HAPIL_PERSONA_DUEL_RC134__?.enforce(s);const m=s?.innerFinalRC133,a=boss(s);return clean(m?{...m,hp:a?.hp??m.hp,x:a?.x??m.x,y:a?.y??m.y}:null);}
  function restore(s,raw){
   releaseMoodLayer();const m=clean(raw);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);cleanup(s);s.enemies=(s.enemies??[]).filter(a=>a.id!==ID);delete s.innerFinalRC133;
-  if(!m||(m.entry==='developer-777'&&!root.__HAPIL_DEVELOPER_MAPS_RC133__?.has(s)))return;
+  if(!m||(m.entry==='developer-777'&&!root.__HAPIL_DEVELOPER_MAPS_RC133__?.has(s)&&!root.__HAPIL_EGO_GUARDIAN_RC155__?.completedPersona(raw)))return;
   // A completed run keeps its history in the village or another mode. Its
   // encounter flags and actor cleanup apply only to the actual Dream arena.
   if(m.phase==='complete'){
    s.innerFinalRC133=m;metrics.restores++;
-   if(enabled(s)){cleanup(s,'c104-boss');s.enemies=s.enemies.filter(a=>a.id!=='c104-boss'&&!a.dreamCosmicTrialV31346);s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.bossDefeated=m.entry!=='developer-777';}
+   if(enabled(s)){cleanup(s,'c104-boss');s.enemies=s.enemies.filter(a=>a.id!=='c104-boss'&&!a.dreamCosmicTrialV31346);s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.bossDefeated=m.entry!=='developer-777'||root.__HAPIL_EGO_GUARDIAN_RC155__?.completedPersona(raw)===true;}
    return;
   }
   if(!enabled(s))return;cleanup(s,'c104-boss');s.innerFinalRC133=m;metrics.restores++;
   s.dreamFinalV31346={version:1,index:6,phase:'complete',complete:true};s.enemies=s.enemies.filter(a=>!a.dreamCosmicTrialV31346&&a.id!=='c104-boss');s.bossDefeated=false;build(s,m);
  }
 
- const api=Object.freeze({version:'RC133',id:ID,traits,deck,queueAdmission:Object.freeze({limit:HOSTILE_QUEUE_LIMIT,maxRetryCount:MAX_QUEUE_RETRY_COUNT,baseDelaySeconds:QUEUE_RETRY_BASE_SECONDS,maxDelaySeconds:QUEUE_RETRY_MAX_SECONDS}),acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,restartAfterMapEntry,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,red,attackSpeedFactor,personaFlightPolicy,redTimeActive,redTimeBlocks,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
+ const api=Object.freeze({version:'RC133',id:ID,traits,deck,queueAdmission:Object.freeze({limit:HOSTILE_QUEUE_LIMIT,maxRetryCount:MAX_QUEUE_RETRY_COUNT,baseDelaySeconds:QUEUE_RETRY_BASE_SECONDS,maxDelaySeconds:QUEUE_RETRY_MAX_SECONDS}),acceptsSkill,health,enabled,active,encounter,boss,growth,clean,start,developerStart,restartAfterMapEntry,beforeDeath,onPlayerLethal,startClash,tick,mood,compose,prepareHud,map,frame,configure,bind,snapshot,restore,red,attackSpeedFactor,preserveFlight,personaFlightPolicy,redTimeActive,redTimeBlocks,metrics:()=>({...metrics,artReady:art.ready,compositorActive:!!moodLayer})});
  root.__HAPIL_INNER_FINAL_RC133__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

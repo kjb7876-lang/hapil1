@@ -109223,7 +109223,10 @@ function MONGSE_finalizePendingStrikesV31309(state, plan) {
     const projectiles = Array.isArray(state.hostileProjectiles)
       ? [...state.hostileProjectiles]
       : [];
+    const preserved = new Set(projectiles.filter(projectile =>
+      window.__HAPIL_INNER_FINAL_RC133__?.preserveFlight(state, projectile) === true));
     for (const projectile of projectiles) {
+      if (preserved.has(projectile)) continue;
       recordProjectileRemoval(state, projectile);
       removed += 1;
     }
@@ -109235,7 +109238,7 @@ function MONGSE_finalizePendingStrikesV31309(state, plan) {
       "narrativeCasts",
       "bossOrdnanceCues31210",
     ];
-    state.hostileProjectiles = [];
+    state.hostileProjectiles = projectiles.filter(projectile => preserved.has(projectile));
     for (const key of hostileQueues) {
       removed += Array.isArray(state[key]) ? state[key].length : 0;
       state[key] = [];
