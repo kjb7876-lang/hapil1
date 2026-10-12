@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 const combat=require('../assets/rc47/combat-expansion.js');
 const s={time:1,fxSerial:1,effects:[],floatTexts:[]},hero={hp:100,x:13.8,y:24.2},incoming={damage:10,sourceId:'u203-boss',x:24,y:14,sprite:'enemy-beam.webp'};
 assert.equal(combat.absorbed(s,hero,incoming),true);
-const cue=s.effects[0];assert.equal(cue.heroHitVfxV31315,true);assert.equal(cue.visualOnly,true);assert.equal(cue.ownerType,'hero');assert.equal(cue.sourceId,incoming.sourceId);assert.equal(cue.sprite,undefined);assert.equal(incoming.heroHitVfxV31315,undefined);
+const cue=s.effects[0];assert.equal(cue.heroHitVfxV31315,true);assert.equal(cue.visualOnly,true);assert.equal(cue.ownerType,'hero');assert.equal(cue.blockedSourceIdRC171,incoming.sourceId);assert.equal(cue.sprite,undefined);assert.equal(incoming.heroHitVfxV31315,undefined);
 const src=fs.readFileSync(require.resolve('../assets/index-v31526.js'),'utf8');
 const bind=src.slice(src.indexOf('function bind(e,s=state){'),src.indexOf('function bind(e,s=state){')+160);
 const terminal=src.slice(src.indexOf("function terminal(s,e,reason='end',force=false){"),src.indexOf("function terminal(s,e,reason='end',force=false){")+160);

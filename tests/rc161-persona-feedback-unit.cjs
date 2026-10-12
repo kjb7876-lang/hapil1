@@ -17,4 +17,17 @@ const G=(x,y)=>({x:(x-y)*32,y:(x+y)*16}),angles=[],sizes=[],canvas={width:1280,h
 for(const v of [[1,0],[0,1],[-1,0],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]]){wall+=1;const s={zone:'cult04',time:100,hp:100,maxHp:100,activeHeroId:'hwando',x:0,y:0,persona:true},target={x:10,y:10};window.__HAPIL_VIEWPORT_RC104__.camera(s,{},G);F.record(s,target,{epoch:1,sequence:1,kind:'OUTGOING',result:'HIT',targetId:'boss',attackerHeroId:'hwando',appliedDamage:10,hpBefore:100,hpAfter:90,criticalRequested:true,source:{vx:v[0],vy:v[1]}},{});F.draw(ctx,s,canvas,{});const d=G(v[0],v[1]);assert(Math.abs(angles.at(-1)-Math.atan2(d.y,d.x))<1e-10);assert.deepEqual(sizes.at(-1),[30,30]);assert.equal(depth,0);checks+=3;}
 assert.equal(F.snapshot().totals.drawErrors,0);checks++;
 }
+{
+ const hit=state({persona:true,red:true});wall+=1;
+ eq(F.playerFlash(hit),1,'no hit means no body flash');
+ F.record(hit,hit,row(1,{kind:'CONTACT',targetId:'__host',attackerHeroId:undefined}),{});
+ eq(F.playerFlash(hit),.58,'accepted positive damage gives one short body dip');
+ wall+=.1;eq(F.playerFlash(hit),1,'body returns after 90ms');
+ F.record(hit,hit,row(2,{kind:'CONTACT',targetId:'__host',result:'HIT'}),{});
+ eq(F.playerFlash(hit),1,'rapid repeat damage cannot strobe the body');
+ wall+=.4;F.record(hit,hit,row(3,{kind:'CONTACT',targetId:'__host',result:'EVADE',appliedDamage:0}),{});
+ eq(F.playerFlash(hit),1,'evade never emits damage flash');
+ wall+=.4;F.record(hit,hit,row(4,{kind:'CONTACT',targetId:'__host',result:'PARRY',appliedDamage:0}),{});
+ eq(F.playerFlash(hit),1,'parry never emits damage flash');
+}
 console.log('RC161_PERSONA_FEEDBACK_UNIT',JSON.stringify({checks,status:'passed',scope:'unit presentation admission; no native/physical-device claim'}));

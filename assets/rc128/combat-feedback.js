@@ -97,6 +97,7 @@
   }
   totals.accepted++;
   const t=now();
+  if(!f.outgoing&&row.result==='HIT'&&n(row.appliedDamage)>0&&!reduced()&&t>=n(m.nextPlayerFlash)){m.playerFlashUntil=t+.09;m.nextPlayerFlash=t+.3;}
   let defensiveKey=null;
   if(!f.outgoing&&row.result!=='HIT'){defensiveKey=String(row.result)+'|'+String(row.reason)+'|'+String(row.source?.ownerId??row.source?.id??'contact');const last=m.defensive.get(defensiveKey)??-1e9;if(t-last<(continuous(row,source)?.45:.18)){totals.throttled++;return false;}}
   if(t<m.nextEffect&&f.power<1&&(!persona||f.outgoing)){totals.throttled++;return false;}
@@ -120,7 +121,7 @@
   if(persona)m.effects.sort((a,b)=>n(a.presentationPriority)-n(b.presentationPriority));
   if(m.effects.length>32)m.effects.splice(0,m.effects.length-32);
   if(visible)pause(s,m,f.pause);
-  if(visible&&!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'&&(!persona||!f.outgoing)){
+  if(visible&&f.outgoing&&!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'&&(!persona||!f.outgoing)){
    m.shake=Math.max(m.shake,f.boss&&!f.outgoing?1.3:f.power>=1?1:.35);m.shakeUntil=t+.085;
   }
   const channel=f.outgoing?'nextPersonaSound':row.result==='HIT'?'nextPersonaHurtSound':'nextPersonaDefenseSound';
@@ -274,7 +275,8 @@
   v.camera=function(s,fallback,project,...args){const camera=original.call(this,s,fallback,project,...args);if(s&&typeof project==='function'&&camera)cameras.set(s,{project,camera});return camera;};
   installed=true;return true;
  }
- const api=Object.freeze({version:'RC128',heroes:HEROES,record,classify,awakening,draw,ailments,snapshot,install,get installed(){return installed;}});
+ function playerFlash(s){const m=s&&states.get(s);return m&&now()<n(m.playerFlashUntil)? .58:1;}
+ const api=Object.freeze({version:'RC128',heroes:HEROES,record,classify,awakening,draw,ailments,playerFlash,snapshot,install,get installed(){return installed;}});
  root.__HAPIL_FEEDBACK_RC128__=api;
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  function ready(){if(install()||++attempts>1200)return;root.setTimeout?.(ready,25);}

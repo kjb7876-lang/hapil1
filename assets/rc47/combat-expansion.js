@@ -31,7 +31,7 @@
       // The incoming source is provenance, never the owner of this local defense cue.
       heroHitVfxV31315: true, visualOnly: true, ownerType: 'hero',
       x, y, originX: sx, originY: sy, born: now, duration: .32,
-      sourceId: source.sourceId ?? source.ownerId ?? '',
+      blockedSourceIdRC171: source.sourceId ?? source.ownerId ?? '',
     });
     (state.floatTexts ??= []).push({id: state.fxSerial++, x, y, born: now,
       duration: .5, text: 'IMMUNE', color: '#ffd579', critical: false});

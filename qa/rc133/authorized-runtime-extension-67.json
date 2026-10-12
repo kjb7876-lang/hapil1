@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "0c2f62ab4a0dc28fc6b1eb7ea42351acdf0e5041",
+  "baseTree": "f1ff54282f42f03305a224f1b97f82112f30e2f9",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "3ebd0b6f157361e2813790240b087f721efb28bebd45c8b17e23e9122c0c02c4",
+  "files": [
+    {
+      "file": "assets/rc47/combat-expansion.js",
+      "reason": "assets/rc47/combat-expansion.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/rc47/combat-expansion.js",
+        "mode": "100644",
+        "gitBlob": "0450062730945f6261dfda3b96a2f8ac76d4948d"
+      },
+      "after": {
+        "file": "assets/rc47/combat-expansion.js",
+        "mode": "100644",
+        "gitBlob": "a3c4b03fdfe611d9e61b86229fb3e32c79d6ce62",
+        "sha256": "8bb2bcd3f190a5814e80990a22339679fd0cf0dae5120a692beeabb1983eee39"
+      }
+    },
+    {
+      "file": "assets/rc155/ego-art.js",
+      "reason": "assets/rc155/ego-art.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "cbd6bb5e8aedf95a9c7dc28ea6d9f43fa1fa8f3b"
+      },
+      "after": {
+        "file": "assets/rc155/ego-art.js",
+        "mode": "100644",
+        "gitBlob": "3e4ef5f1377c480bb5e1850960f1548795d5b6d6",
+        "sha256": "4c5dcbc5d3d1c9d068dcad40ffea046eb120c4ee66d334fffaa66f725089fdd9"
+      }
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "reason": "assets/rc128/combat-feedback.js: authorized RC171 player defense cue ownership or angular volley scatter; rewards, damage and return rules preserved",
+      "before": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "9f2cad44085eb25aa2f39296c787bfb7024dfbdc"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "gitBlob": "0fe743b00f39ff793ba8150ed8613afec12ae36d",
+        "sha256": "99e46c3478a95e069ef4420f33abc2c0045791b3278efba61a51c196e84b0d09"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "9c166df5e3ffd8a40ffd2094b1dd837c2eecaf571fe9ec9011e113052b66a773"
+}
