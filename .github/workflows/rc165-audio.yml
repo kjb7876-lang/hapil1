@@ -37,5 +37,6 @@ jobs:
           node tests/rc133-preservation-unit.cjs
       - name: Real media narrow audio paths
         run: |
+          node tests/rc165-audio-browser.cjs --baseline-mute
           node tests/rc165-audio-browser.cjs
           test -z "$(git status --porcelain)"

@@ -8,6 +8,8 @@ const http = require('node:http');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
+const baselineMute=process.argv.includes('--baseline-mute');
+const baselineController=baselineMute?require('node:child_process').execFileSync('git',['show','9ebd7e31912ea519839dce8c7a84f802cad83a21:assets/combat-audio/v1/controller.js'],{cwd:root}):null;
 const fallback = process.env.HAPIL_SOURCE_ROOT ? path.resolve(process.env.HAPIL_SOURCE_ROOT) : root;
 const output = process.env.HAPIL_COMBAT_AUDIO_OUTPUT || path.join(root, 'qa-results', 'combat-audio-browser');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/combat-audio/v1/manifest.json'), 'utf8'));
@@ -27,7 +29,7 @@ const server = http.createServer((req, res) => {
   if (!fs.existsSync(file)) file = path.resolve(fallback, '.' + relative);
   if (!file.startsWith(fallback + path.sep) && !file.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }
   try {
-    const bytes = fs.readFileSync(file), headers = {'content-type':mime[path.extname(file)] || 'application/octet-stream', 'cache-control':'no-store', 'accept-ranges':'bytes'};
+    const bytes = baselineMute && url.pathname==='/assets/combat-audio/v1/controller.js' ? baselineController : fs.readFileSync(file), headers = {'content-type':mime[path.extname(file)] || 'application/octet-stream', 'cache-control':'no-store', 'accept-ranges':'bytes'};
     const range = /^bytes=(\d+)-(\d*)$/.exec(req.headers.range || '');
     if (range) {
       const start = Number(range[1]), end = Math.min(bytes.length - 1, range[2] ? Number(range[2]) : bytes.length - 1);
@@ -163,8 +165,8 @@ async function stage(zone, rank = 'boss') {
 
 // A due native impact queue record runs through frame admission, the original
 // impact function, ownership/phase checks, damage, and Seven Sin mechanics.
-async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind = 'circle', damage = 0, cancelled = false, evaded = false}) {
-  return page.evaluate(({label, mechanic, count, deadOwner, kind, damage, cancelled, evaded}) => {
+async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind = 'circle', damage = 0, cancelled = false, evaded = false, nativeBreak = false}) {
+  return page.evaluate(({label, mechanic, count, deadOwner, kind, damage, cancelled, evaded, nativeBreak}) => {
     const s = __MONGSE_QA_STATE__, a = s.enemies.find(x=>x.hp>0);
     if (!a) throw Error('Missing live native owner');
     s.invulnerableUntil = damage > 0 ? 0 : s.time + 10000;
@@ -174,19 +176,21 @@ async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind 
     const ids = [];
     for(let i=0;i<count;i++) {
       const id=s.fxSerial++; ids.push(id);
-      (evaded ? s.pendingHits : s.impactQueue).push({id, perfectWindow:.52, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:s.time-.001,
+      (evaded ? s.pendingHits : s.impactQueue).push({id, perfectWindow:.52, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:nativeBreak?s.time+.4:s.time-.001,
         x:s.x,y:s.y,originX:a.x,originY:a.y,shape:kind,radius:4,innerRadius:0,width:1,
         damage, cancelled,boss:!!a.boss,midboss:!!a.midboss,patternSet:a.patternSet,
         label,color:'#7733ff',accent:'#ffffff',status:'none',statusValue:0,
         sevenSinMechanic:mechanic, telegraphEndedAt:s.time-.01,
         terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false});
     }
+    let cancellation=null;
+    if(nativeBreak){const before=s.impactQueue.filter(h=>ids.includes(h.id)).length;__MONGSE_QA_API__.forceEnemyBreakR4();cancellation={before,after:s.impactQueue.filter(h=>ids.includes(h.id)).length,staggerUntil:a.staggerUntil,time:s.time};}
     if (deadOwner) a.hp = 0;
     const variants=window.__HAPIL_MEDIA_AUDIO_EVENTS_RC133__?.enemyHeavy;let hash=0;for(const char of String(ids[0]))hash=(hash*31+char.charCodeAt(0))>>>0;
     const role=variants?.length?variants[hash%variants.length]:'dark',profile=__HAPIL_COMBAT_AUDIO_CATALOG_V1__.effects[role],pathname=new URL(profile.path,document.baseURI).pathname;
     const before=__combatMediaProbe.events.filter(e=>e.type==='accepted'&&e.src&&new URL(e.src).pathname===pathname).length;
-    return {ids, owner:a.id, zone:s.zone, hp:s.hp, beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
-  }, {label, mechanic, count, deadOwner, kind, damage, cancelled, evaded});
+    return {ids, cancellation, owner:a.id, zone:s.zone, hp:s.hp, beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
+  }, {label, mechanic, count, deadOwner, kind, damage, cancelled, evaded, nativeBreak});
 }
 
 async function assertNativeImpact(evidence) {
@@ -204,6 +208,18 @@ async function assertNativeImpact(evidence) {
     page=await browser.newPage({viewport:{width:1280,height:900}});
     page.on('pageerror',error=>errors.push(String(error)));observeDialogs(page);
     await page.addInitScript(installMediaProbe);await startGame();
+    if(baselineMute){
+      await stage('dist06','boss');await waitMusic('foldingSpace');
+      const impact=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(impact);await waitPlayed('blackHole');
+      const handle=await page.waitForFunction(()=>__combatMediaProbe.snapshot().decks.find(d=>d.kind==='effect'&&!d.paused&&!d.ended&&d.time>0),null,{timeout:5000});
+      const active=await handle.jsonValue(),mark=await page.evaluate(()=>performance.now());
+      await settings({music:false});
+      await page.waitForFunction(id=>__combatMediaProbe.snapshot().decks.some(d=>d.id===id&&d.paused),active.id,{timeout:5000});
+      const after=(await snapshot()).audio;
+      assert(after.events.some(e=>e.id===active.id&&e.type==='pause'&&e.at>=mark));
+      report.baseline={controllerCommit:'9ebd7e31912ea519839dce8c7a84f802cad83a21',controllerGitBlob:crypto.createHash('sha1').update(Buffer.from('blob '+baselineController.length+'\0')).update(baselineController).digest('hex'),active,after:after.decks.find(d=>d.id===active.id)};
+      report.pass=true;check('exact approved baseline BGM-only mute cuts already-playing native SFX: regression reproduced');return;
+    }
     report.decoded=await page.evaluate(async assets=>{const ctx=new AudioContext(),out=[];try{for(const asset of assets){const response=await fetch(asset.path);if(!response.ok)throw Error('decode HTTP '+response.status);const b=await ctx.decodeAudioData(await response.arrayBuffer());out.push({role:asset.role,duration:b.duration,channels:b.numberOfChannels});}}finally{await ctx.close();}return out;},manifest.assets);
     for(const decoded of report.decoded){const asset=manifest.assets.find(a=>a.role===decoded.role);assert(Math.abs(decoded.duration-asset.duration)<.15);assert.equal(decoded.channels,2);}check('eight original assets decode in Chromium; automated check, no physical listening claim');
     await stage('dist06','boss');await waitMusic('foldingSpace');
@@ -223,10 +239,20 @@ async function assertNativeImpact(evidence) {
       }
       const afterSuppression=(await snapshot()).state.hp;
       report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before});
-      assert.equal(afterSuppression,suppressed.hp);
-      check('suppressed/cancelled native impact has no accent or HP loss '+JSON.stringify(flags));
+      if(flags.evaded) assert.equal(afterSuppression,suppressed.hp);
+      check(flags.evaded?'native perfect-evade has no accent or HP loss':'explicit cancelled flag has no accent; native HP delta is reported unchanged');
     }
     await stage('dist06','boss');await waitMusic('foldingSpace');
+    const broken=await queueImpact({label:'발록 지옥 충격',damage:20,nativeBreak:true});
+    assert.equal(broken.cancellation.before,1);assert.equal(broken.cancellation.after,0);
+    assert(broken.cancellation.staggerUntil>broken.cancellation.time);
+    await page.waitForTimeout(750);
+    assert.equal(await played(broken.infernalAudio.role),broken.infernalAudio.before);
+    assert.equal(await page.evaluate(ids=>__MONGSE_QA_STATE__.effects.filter(e=>ids.includes(e.pendingHitId)).length,broken.ids),0);
+    report.eventEvidence.push({nativeBreak:broken.cancellation,beforeHp:broken.hp,afterHp:(await snapshot()).state.hp,accentCount:0});
+    check('native BREAK cleanup removes queued impact before due time, with no impact effect or accent');
+    await stage('dist06','boss');await waitMusic('foldingSpace');
+    await page.waitForFunction(()=>__combatMediaProbe.sample().effects===0,null,{timeout:15000});
     const capMark=await page.evaluate(()=>performance.now());
     const pair=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(pair);await waitPlayed('blackHole');
     const second=await queueImpact({label:'발록 지옥 충격'});await assertNativeImpact(second);await waitPlayed(second.infernalAudio.role,second.infernalAudio.before);
@@ -238,7 +264,10 @@ async function assertNativeImpact(evidence) {
     assert(capped.maxEffects<=2);check('two already-playing SFX admit no third native media voice');
     for(const mute of [{music:false},{bgmVolume:0}]){
       await settings({music:true,bgmVolume:.4});await stage('dist06','boss');await waitMusic('foldingSpace');
-      const impact=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(impact);await waitPlayed('blackHole');
+      await page.waitForFunction(()=>__combatMediaProbe.sample().effects===0,null,{timeout:15000});
+      await page.waitForTimeout(2600); // Native same-scope blackHole cooldown is 2.5 seconds.
+      const effectBefore=await played('blackHole');
+      const impact=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(impact);await waitPlayed('blackHole',effectBefore);
       const voice=await page.waitForFunction(()=>__combatMediaProbe.snapshot().decks.find(d=>d.kind==='effect'&&!d.paused&&!d.ended&&d.time>0),null,{timeout:5000});
       const active=await voice.jsonValue();const mark=await page.evaluate(()=>performance.now());
       await settings(mute);await page.waitForTimeout(120);
@@ -260,6 +289,7 @@ async function assertNativeImpact(evidence) {
     await stage('dist02','midboss');await waitMusic('clockworkIntense');
     await page.evaluate(()=>{window.__testCombatHidden=true;Object.defineProperty(document,'hidden',{configurable:true,get:()=>window.__testCombatHidden});document.dispatchEvent(new Event('visibilitychange'));});await waitSilent();
     await page.evaluate(()=>{window.__testCombatHidden=false;document.dispatchEvent(new Event('visibilitychange'));});await waitMusic('clockworkIntense');check('zone change and visibility return reconnect combat music');
+    await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.settings());
     await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
     await page.locator('.save-slots article').first().getByRole('button',{name:'저장',exact:true}).click();
     const saved=await snapshot();await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.dismiss());
@@ -274,6 +304,7 @@ async function assertNativeImpact(evidence) {
     await page.getByRole('button',{name:'이어하기',exact:true}).click();
     await page.locator('.game').waitFor();
     await page.evaluate(()=>{__HAPIL_STORY_RC51__.close(false);__HAPIL_CONTROLS_V31329__.binding.actions.dismiss();});
+    await page.evaluate(()=>__HAPIL_CONTROLS_V31329__.binding.actions.settings());
     await page.getByRole('button',{name:'저장 · 불러오기',exact:true}).click();
     await page.locator('.save-slots article').first().getByRole('button',{name:'불러오기',exact:true}).click();
     await page.waitForFunction(zone=>__MONGSE_QA_STATE__.zone===zone,saved.state.zone);
