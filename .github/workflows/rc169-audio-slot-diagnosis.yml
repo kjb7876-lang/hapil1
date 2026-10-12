@@ -1,0 +1,35 @@
+name: RC169 bounded native slot audio diagnosis
+on:
+  push:
+    branches: [codex/rc169-audio-slot-diagnosis]
+permissions:
+  contents: read
+jobs:
+  slot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install normal Chrome Stable runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install --prefix "$RUNNER_TEMP/rc169-slot" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          node "$RUNNER_TEMP/rc169-slot/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc169-slot/node_modules" >> "$GITHUB_ENV"
+      - name: Observe actual native slot and audio eligibility
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          test -z "$(git diff 46a9ada17d2d10f3bc280cc500400776a1dcd8c6 HEAD -- assets audio data index.html tools qa)"
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc165-audio-browser.cjs --slot-only
+          test -z "$(git status --porcelain)"
