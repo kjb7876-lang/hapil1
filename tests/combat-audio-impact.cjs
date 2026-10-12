@@ -6,6 +6,7 @@ const section=(first,last)=>{const a=source.indexOf(first),b=source.indexOf(last
 const code=section('function MONGSE_bossBarrageTheme(e)','function MONGSE_bossBarragePalette(e)')+
  section('function MONGSE_impactClearGap(e)','function Di(e, t)')+
  section('function MONGSE_queueReadyTelegraphs(e, t)','function Oi(e, t)');
+const heartPermitCode=section('function permit(s,a,h){','function instance(s,h,stamp=false){');
 function run({absorption=false,evaded=false,suppressed=false,cancelled=false,dead=false,line=false,unrelatedDrain=false}={}){
  const emissions=[],actor={id:absorption?'u203-boss':'dist06-boss',patternSet:absorption?'final-u2':'final-dist',boss:true,hp:dead?0:100,x:5,y:5};
  const state={time:1,fxSerial:1,zone:absorption?'u203':'dist06',hp:100,effects:[],impactQueue:[],enemies:[actor]};
@@ -15,6 +16,17 @@ function run({absorption=false,evaded=false,suppressed=false,cancelled=false,dea
  context.MONGSE_queueReadyTelegraphs(state,[hit]);const admitted=state.impactQueue[0];if(suppressed)admitted.damageSuppressedV31226=true;
  context.MONGSE_spawnTelegraphedImpact(state,admitted);return{state,actor,emissions,admitted};
 }
+test('audio-only cancelled marker does not reject native damage; explicit suppression still does',()=>{
+ const host={hp:100},ally={hp:100,slotId:'ally-1'},partyState={state:host,status:{role:'driver'},actors:[ally]};
+ const context={num:(value,defaultValue=0)=>Number.isFinite(Number(value))?Number(value):defaultValue,
+  party:()=>partyState,targetId:(s,a)=>a===s?'__host':String(a?.slotId??''),MONGSE_isEncounterLocked31226:()=>false};
+ vm.createContext(context);vm.runInContext(heartPermitCode,context);
+ assert.equal(context.permit(host,host,{id:1,cancelled:true}),true,'audio suppression alone leaves the native hit eligible');
+ assert.equal(context.permit(host,host,{id:2,cancelled:true,damageSuppressedV31226:true}),false,'damage suppression remains authoritative');
+ assert.equal(context.permit(host,host,{id:3,cancelled:true,themeTerminalV31323:true}),false,'terminal impact remains ineligible');
+ assert.equal(context.permit(host,host,{id:4,reflected:true}),false,'reflected impact remains ineligible');
+ assert.equal(context.permit(host,host,{id:5,visualOnly:true}),false,'visual-only impact remains ineligible');
+});
 test('a real infernal signature owner receives one dark accent after radial impact admission',()=>{
  const r=run();assert.equal(r.state.effects.length,1);assert.deepEqual(r.emissions.map(x=>x[0]),['dark']);assert.equal(r.emissions[0][2],r.actor);assert.equal(r.emissions[0][3],1);
 });

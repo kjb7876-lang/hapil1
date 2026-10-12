@@ -121560,7 +121560,9 @@ function permit(s,a,h){
  const p=party(),status=p?.status;
  if(status?.role==='guest'||status?.disconnected||(p?.state===s&&status?.paused)||MONGSE_isEncounterLocked31226(s))return false;
  if(a!==s&&(!targetId(s,a)||!p?.actors?.includes(a)))return false;
- return !(h&&typeof h==='object'&&(h.reflected===true||h.visualOnly===true||h.damageSuppressedV31226===true||h.themeTerminalV31323===true||h.cancelled===true));
+ // `cancelled` also suppresses queued-impact audio. Damage eligibility uses
+ // explicit suppression/terminal markers so an audio-only mute cannot reject a hit.
+ return !(h&&typeof h==='object'&&(h.reflected===true||h.visualOnly===true||h.damageSuppressedV31226===true||h.themeTerminalV31323===true));
 }
 function instance(s,h,stamp=false){
  if(!h||typeof h!=='object')return null;

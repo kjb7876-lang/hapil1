@@ -251,9 +251,16 @@ async function scenario(name, run) {
 }
 
 async function assertNativeImpact(evidence) {
-  await page.waitForFunction(ids => __MONGSE_QA_STATE__.effects.some(effect => ids.includes(effect.pendingHitId)), evidence.ids, {timeout:8000});
-  const effects = await page.evaluate(ids => __MONGSE_QA_STATE__.effects.filter(effect=>ids.includes(effect.pendingHitId)).map(effect=>({id:effect.pendingHitId, owner:effect.sourceId, class:effect.bossSkillClass, impact:effect.telegraphImpact})), evidence.ids);
-  assert(effects.some(effect=>effect.owner===evidence.owner&&effect.impact===true), 'native frame committed the queued impact');
+  await page.waitForFunction(ids => {
+    const keys=new Set(ids.map(id=>String(id))),s=__MONGSE_QA_STATE__;
+    return ![...(s.pendingHits??[]),...(s.impactQueue??[])].some(hit=>keys.has(String(hit.id)));
+  }, evidence.ids, {timeout:8000});
+  const effects = await page.evaluate(ids => {
+    const keys=new Set(ids.map(id=>String(id)));
+    return __MONGSE_QA_STATE__.effects.filter(effect=>keys.has(String(effect.pendingHitId)))
+      .map(effect=>({id:effect.pendingHitId, owner:effect.sourceId, class:effect.bossSkillClass, impact:effect.telegraphImpact, born:effect.born}));
+  }, evidence.ids);
+  assert(effects.some(effect=>String(effect.owner)===String(evidence.owner)&&effect.impact===true), 'native frame committed the queued impact');
   report.eventEvidence.push({...evidence, effects});
 }
 
@@ -307,7 +314,7 @@ async function assertNativeImpact(evidence) {
       report.eventEvidence.push({flags,beforeHp:suppressed.hp,afterHp:afterSuppression,
         accentCount:await played(suppressed.infernalAudio.role)-suppressed.infernalAudio.before,
         queuedAt:suppressed.queuedAt,dash:suppressed.dash,
-        impactProcessed:diagnostic.processedEffects.some(effect=>suppressed.ids.includes(effect.pendingHitId)),
+        impactProcessed:diagnostic.processedEffects.some(effect=>suppressed.ids.some(id=>String(id)===String(effect.pendingHitId))&&String(effect.sourceId)===String(suppressed.owner)&&effect.telegraphImpact===true),
         combat:diagnostic.combat.filter(event=>String(event.source?.id)===String(suppressed.ids[0]))});
       if(flags.evaded) assert.equal(afterSuppression,suppressed.hp);
       else assert(afterSuppression < suppressed.hp, 'audio suppression flag must preserve the existing native HP loss');
