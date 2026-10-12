@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "9ebd7e31912ea519839dce8c7a84f802cad83a21",
+  "baseTree": "93e883017ad44a1b1630aa52ef8c8d896628226c",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "57782d112764f8156a0e1e52882a2225c1a29446bfbccd0735984439dded2f46",
+  "files": [
+    {
+      "file": "assets/combat-audio/v1/controller.js",
+      "reason": "assets/combat-audio/v1/controller.js: preserve active SFX when only BGM is muted",
+      "before": {
+        "file": "assets/combat-audio/v1/controller.js",
+        "mode": "100644",
+        "gitBlob": "f0a75237b477b0390ae209dac17dbbd8c036616b"
+      },
+      "after": {
+        "file": "assets/combat-audio/v1/controller.js",
+        "mode": "100644",
+        "gitBlob": "71639450e06139657b9f47ce0814cbb53a5b2bec",
+        "sha256": "56f232a56f147535f60a03d260fd71a4bee1e62a8e97383fbabcdc66f84f6b01"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "adde4d1a24bbb82e178b1d5c02df027539336fe609792dbb578263c66c43656c"
+}

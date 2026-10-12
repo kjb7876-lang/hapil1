@@ -128,7 +128,7 @@
   function pause(reason) {
     if (mode !== "paused" || selected !== reason) {
       call("pauseMusic");
-      clearEffects();
+      if (reason !== "muted") clearEffects();
       applied = "";
     }
     mode = "paused";

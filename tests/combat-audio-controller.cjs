@@ -274,6 +274,27 @@ test("settings mute independently, update gain once, and cancel effects on sound
   assert.equal(h.calls.length, length);
 });
 
+test("BGM-only mute preserves active effects and the two-voice cap", () => {
+  for (const mute of [settings => { settings.music = false; }, settings => { settings.bgmVolume = 0; }]) {
+    const h = harness();
+    h.tick();
+    h.controller.emit("dark", h.state, h.enemy, "before-mute");
+    const stops = h.count("effects-stop");
+    mute(h.context.settings);
+    h.tick();
+    assert.equal(h.manager.paused, true);
+    assert.equal(h.manager.pendingEffects, 1, "BGM-only mute must preserve the active SFX");
+    assert.equal(h.count("effects-stop"), stops);
+    h.controller.emit("illusion", h.state, h.enemy, "second-voice");
+    h.controller.emit("blackHole", h.state, h.enemy, "third-voice");
+    assert.equal(h.count("effect"), 2);
+    assert.equal(h.controller.diagnostics.activeEffects, 2);
+    h.context.blocked = true;
+    h.tick();
+    assert.equal(h.manager.pendingEffects, 0, "blocked combat still cancels both effects");
+  }
+});
+
 test("effect events dedupe, enforce cooldown and cap overlapping uploaded voices", () => {
   const h = harness();
   h.enemy.boss = true;

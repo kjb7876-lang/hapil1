@@ -1,0 +1,245 @@
+'use strict';
+// Full published game, real HTMLAudioElement.play and real asset decoding.
+// QA only arranges native encounters/queued hits; normal game frames release
+// those hits and execute the sound hooks. No controller.emit/sync test calls.
+const fs = require('node:fs');
+const path = require('node:path');
+const http = require('node:http');
+const crypto = require('node:crypto');
+const assert = require('node:assert/strict');
+const root = path.resolve(__dirname, '..');
+const fallback = process.env.HAPIL_SOURCE_ROOT ? path.resolve(process.env.HAPIL_SOURCE_ROOT) : root;
+const output = process.env.HAPIL_COMBAT_AUDIO_OUTPUT || path.join(root, 'qa-results', 'combat-audio-browser');
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/combat-audio/v1/manifest.json'), 'utf8'));
+const runtime = process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
+const playwright = runtime ? require(path.join(runtime, 'playwright')) : require('playwright');
+const uploaded = pathname => pathname.includes('/assets/combat-audio/v1/audio/') || pathname.includes('/audio/rc133/processed/');
+const requests = [];
+const failurePaths = new Set();
+const mime = {'.html':'text/html; charset=utf-8', '.js':'application/javascript', '.css':'text/css', '.json':'application/json', '.mp3':'audio/mpeg', '.wav':'audio/wav', '.ogg':'audio/ogg', '.png':'image/png', '.webp':'image/webp', '.svg':'image/svg+xml', '.woff2':'font/woff2'};
+const server = http.createServer((req, res) => {
+  const url = new URL(req.url, 'http://localhost');
+  const relative = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname);
+  requests.push({path:url.pathname, at:Date.now(), range:req.headers.range || null});
+  if (failurePaths.has(url.pathname)) { res.writeHead(404); res.end(); return; }
+  let file = path.resolve(root, '.' + relative);
+  if (!file.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }
+  if (!fs.existsSync(file)) file = path.resolve(fallback, '.' + relative);
+  if (!file.startsWith(fallback + path.sep) && !file.startsWith(root + path.sep)) { res.writeHead(403); res.end(); return; }
+  try {
+    const bytes = fs.readFileSync(file), headers = {'content-type':mime[path.extname(file)] || 'application/octet-stream', 'cache-control':'no-store', 'accept-ranges':'bytes'};
+    const range = /^bytes=(\d+)-(\d*)$/.exec(req.headers.range || '');
+    if (range) {
+      const start = Number(range[1]), end = Math.min(bytes.length - 1, range[2] ? Number(range[2]) : bytes.length - 1);
+      if (start > end) { res.writeHead(416, {'content-range':`bytes */${bytes.length}`}); res.end(); return; }
+      res.writeHead(206, {...headers, 'content-range':`bytes ${start}-${end}/${bytes.length}`, 'content-length':end-start+1});
+      res.end(bytes.subarray(start, end + 1));
+    } else { res.writeHead(200, {...headers, 'content-length':bytes.length}); res.end(bytes); }
+  } catch { res.writeHead(404); res.end(); }
+});
+
+// Observe the real native method, preserving its exact return value and errors.
+// Sampling includes pending play promises, so a third loading effect also fails.
+function installMediaProbe() {
+  const play = HTMLMediaElement.prototype.play, pause = HTMLMediaElement.prototype.pause;
+  const elements = new Set(), ids = new WeakMap(), events = [];
+  let serial = 0, maxMusic = 0, maxEffects = 0;
+  const kind = media => {
+    if(!media.src)return 'legacy';
+    const canonical=value=>{try{const u=new URL(value,document.baseURI);return u.origin+u.pathname;}catch{return null;}};
+    const source=canonical(media.src),catalog=window.__HAPIL_COMBAT_AUDIO_CATALOG_V1__;
+    for(const [group,label] of [['music','music'],['effects','effect']])
+      if(Object.values(catalog?.[group]??{}).some(profile=>canonical(profile.path)===source))return label;
+    return 'legacy';
+  };
+  const sample = () => {
+    const active = [...elements].filter(media => media.src && ((!media.paused && !media.ended) || media.__hapilCombatPending));
+    const music = active.filter(media => kind(media) === 'music').length;
+    const effects = active.filter(media => kind(media) === 'effect').length;
+    maxMusic = Math.max(maxMusic, music); maxEffects = Math.max(maxEffects, effects);
+    return {music, effects};
+  };
+  const event = (media, type, extra = {}) => {
+    if (!ids.has(media)) ids.set(media, ++serial);
+    elements.add(media);
+    events.push({id:ids.get(media), type, src:media.src, kind:kind(media), at:performance.now(), time:media.currentTime, volume:media.volume, ...extra});
+    sample();
+  };
+  HTMLMediaElement.prototype.play = function (...args) {
+    event(this, 'play');
+    const result = Reflect.apply(play, this, args);
+    if (result?.then) result.then(() => event(this, 'accepted'), error => event(this, 'rejected', {error:String(error)}));
+    return result;
+  };
+  HTMLMediaElement.prototype.pause = function (...args) { event(this, 'pause'); return Reflect.apply(pause, this, args); };
+  document.addEventListener('playing', e => { if(e.target instanceof HTMLMediaElement) event(e.target, 'playing'); }, true);
+  setInterval(sample, 10);
+  window.__combatMediaProbe = {
+    elements, events, kind, sample,
+    snapshot:() => ({...sample(), maxMusic, maxEffects, events:[...events], decks:[...elements].map(media => ({id:ids.get(media), src:media.src, kind:kind(media), paused:media.paused, ended:media.ended, pending:!!media.__hapilCombatPending, time:media.currentTime, duration:media.duration, volume:media.volume, readyState:media.readyState}))}),
+  };
+}
+
+const report = {scope:'actual Chromium media decoding and native game-frame hooks; QA-staged encounters, not a natural full campaign or physical speaker test', checks:[], decoded:[], eventEvidence:[]};
+let browser, page;
+const errors = [];
+const unexpectedDialogs = [];
+let expectedTitleDialog = false;
+function observeDialogs(target) {
+  target.on('dialog', dialog => {
+    if(expectedTitleDialog&&dialog.type()==='confirm'&&dialog.message()==='현재 진행을 자동 저장하고 시작 화면으로 돌아갑니까?')return;
+    unexpectedDialogs.push({type:dialog.type(),message:dialog.message()});
+    void dialog.dismiss().catch(error=>errors.push('Unexpected-dialog cleanup: '+String(error)));
+  });
+}
+const check = name => { report.checks.push(name); console.log('COMBAT_AUDIO_CHECK', name); };
+const snapshot = () => page.evaluate(() => ({audio:__combatMediaProbe.snapshot(), routing:__HAPIL_COMBAT_AUDIO_V1__.diagnostics, state:{zone:__MONGSE_QA_STATE__?.zone, time:__MONGSE_QA_STATE__?.time, hp:__MONGSE_QA_STATE__?.hp}}));
+const played = role => page.evaluate(role => {
+  const catalog = __HAPIL_COMBAT_AUDIO_CATALOG_V1__;
+  const source = new URL((catalog.music[role] || catalog.effects[role]).path, document.baseURI).pathname;
+  return __combatMediaProbe.events.filter(event => event.type === 'accepted' && event.src && new URL(event.src).pathname === source).length;
+}, role);
+const waitPlayed = (role, after = 0) => page.waitForFunction(({role, after}) => {
+  const catalog = __HAPIL_COMBAT_AUDIO_CATALOG_V1__;
+  const source = new URL((catalog.music[role] || catalog.effects[role]).path, document.baseURI).pathname;
+  return __combatMediaProbe.events.filter(event => event.type === 'accepted' && event.src && new URL(event.src).pathname === source).length > after;
+}, {role, after}, {timeout:15000});
+const waitSilent = () => page.waitForFunction(() => {const x=__combatMediaProbe.sample();return x.music===0&&x.effects===0;}, null, {timeout:8000});
+const waitMusic = role => page.waitForFunction(role => {
+  const p = __HAPIL_COMBAT_AUDIO_CATALOG_V1__.music[role];
+  const pathname = new URL(p.path, document.baseURI).pathname;
+  const active = __combatMediaProbe.snapshot().decks.filter(x=>x.kind==='music'&&!x.paused&&!x.ended);
+  return __HAPIL_COMBAT_AUDIO_V1__.diagnostics.selected===role && active.length===1 && new URL(active[0].src).pathname===pathname && active[0].readyState>=2 && active[0].volume>0;
+}, role, {timeout:15000});
+
+async function settings(values) {
+  await page.evaluate(values => {
+    const binding = __HAPIL_CONTROLS_V31329__.binding;
+    binding.setSettings(current => ({...current, ...values}));
+    if ('autoCombat' in values) binding.auto.current = values.autoCombat;
+  }, values);
+}
+
+async function startGame() {
+  await page.goto(`http://127.0.0.1:${server.address().port}/?qa=1`, {waitUntil:'domcontentloaded'});
+  await page.waitForFunction(() => window.__HAPIL_DANMAKU_HUD_RC129__?.installed && window.__HAPIL_RC127_INSTALLED__, null, {timeout:60000});
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', {name:'새 게임 시작', exact:true}).click();
+  await page.getByRole('button', {name:'이 편성으로 접속', exact:true}).click();
+  await page.waitForFunction(() => window.__MONGSE_QA_STATE__ && window.__MONGSE_QA_API__, null, {timeout:60000});
+  await settings({music:true, sound:true, bgmVolume:.4, sfxVolume:.5, autoCombat:false, combatMode:'manual', autoStoryAdvance:false});
+}
+
+async function stage(zone, rank = 'boss') {
+  const result = await page.evaluate(({zone, rank}) => {
+    const controls = __HAPIL_CONTROLS_V31329__.binding;
+    document.getElementById('hapil-death-verse-rc59')?.finishRC121?.();
+    controls.actions.dismiss();
+    __HAPIL_STORY_RC51__.close(false);
+    const result = __MONGSE_QA_API__.stageV3128BossShowcase(zone);
+    if (!result.pass) return result;
+    const s = __MONGSE_QA_STATE__, a = s.enemies[0];
+    // Consume the canonical entry card through its own API, then allow frames.
+    __HAPIL_STORY_RC51__.beforeFrame(s, {clear:false, sound:false});
+    __HAPIL_STORY_RC51__.close(true);
+    s.hp = s.maxHp; s.awakeningUntil = 0;
+    s.bossDefeated = false; s.spawnedWaves = new Set([1,2,3,4]);
+    for (const field of ['pendingHits','impactQueue','hostileProjectiles','narrativeCasts','telekineticCasts','spatialRiftCasts','pendingStrikes','pendingSpawns']) s[field] = [];
+    a.boss = rank === 'boss'; a.midboss = rank === 'midboss';
+    // Retain the native actor/identity/phase. Suspend its autonomous attack
+    // cadence so each queued-event assertion has one known cause.
+    for (const field of ['readyAt','patternReadyAt','themedOrdnanceAt','themedSummonAt','signatureFollowupAt31212','recoverUntil','stunnedUntil']) a[field] = s.time + 10000;
+    a.invulnerableUntil = s.time + 10000;
+    s.invulnerableUntil = s.time + 10000;
+    s.encounterLockUntil31226 = 0; s.encounterWallUnlockAtV31227 = 0;
+    s.encounterDialogue31226 = null;
+    return {...result, id:a.id, name:a.name, humanPhase0:a.humanPhase0, phase:__HAPIL_RC86_BRIDGE__.phase(a), time:s.time};
+  }, {zone, rank});
+  assert.equal(result.pass, true, JSON.stringify(result));
+  await page.waitForFunction(zone=>__HAPIL_COMBAT_AUDIO_V1__.diagnostics.zone===zone&&__HAPIL_COMBAT_AUDIO_V1__.diagnostics.mode==='combat', zone, {timeout:15000});
+  return result;
+}
+
+// A due native impact queue record runs through frame admission, the original
+// impact function, ownership/phase checks, damage, and Seven Sin mechanics.
+async function queueImpact({label, mechanic, count = 1, deadOwner = false, kind = 'circle', damage = 0, cancelled = false, evaded = false}) {
+  return page.evaluate(({label, mechanic, count, deadOwner, kind, damage, cancelled, evaded}) => {
+    const s = __MONGSE_QA_STATE__, a = s.enemies.find(x=>x.hp>0);
+    if (!a) throw Error('Missing live native owner');
+    s.invulnerableUntil = damage > 0 ? 0 : s.time + 10000;
+    s.lastDodgeAt = evaded ? s.time : -100; s.heroGuardUntil = 0; s.guardUntil = 0;
+    if (mechanic) { a.envyIllusionReadyAt = 0; s.hp = s.maxHp; }
+    const ids = [];
+    for(let i=0;i<count;i++) {
+      const id=s.fxSerial++; ids.push(id);
+      s.impactQueue.push({id, sourceId:a.id, born:s.time-.5, at:s.time-.01, impactAt:s.time-.001,
+        x:s.x,y:s.y,originX:a.x,originY:a.y,shape:kind,radius:4,innerRadius:0,width:1,
+        damage, cancelled, damageSuppressedV31226:evaded,boss:!!a.boss,midboss:!!a.midboss,patternSet:a.patternSet,
+        label,color:'#7733ff',accent:'#ffffff',status:'none',statusValue:0,
+        sevenSinMechanic:mechanic, telegraphEndedAt:s.time-.01,
+        terrainPiercing31214:true, obstaclePiercing31214:true, losRequired31214:false});
+    }
+    if (deadOwner) a.hp = 0;
+    const variants=window.__HAPIL_MEDIA_AUDIO_EVENTS_RC133__?.enemyHeavy;let hash=0;for(const char of String(ids[0]))hash=(hash*31+char.charCodeAt(0))>>>0;
+    const role=variants?.length?variants[hash%variants.length]:'dark',profile=__HAPIL_COMBAT_AUDIO_CATALOG_V1__.effects[role],pathname=new URL(profile.path,document.baseURI).pathname;
+    const before=__combatMediaProbe.events.filter(e=>e.type==='accepted'&&e.src&&new URL(e.src).pathname===pathname).length;
+    return {ids, owner:a.id, zone:s.zone, hp:s.hp, beforeClones:s.enemies.filter(x=>x.envyHallucination).length,infernalAudio:{role,path:pathname,before}};
+  }, {label, mechanic, count, deadOwner, kind, damage, cancelled, evaded});
+}
+
+async function assertNativeImpact(evidence) {
+  await page.waitForFunction(ids => __MONGSE_QA_STATE__.effects.some(effect => ids.includes(effect.pendingHitId)), evidence.ids, {timeout:8000});
+  const effects = await page.evaluate(ids => __MONGSE_QA_STATE__.effects.filter(effect=>ids.includes(effect.pendingHitId)).map(effect=>({id:effect.pendingHitId, owner:effect.sourceId, class:effect.bossSkillClass, impact:effect.telegraphImpact})), evidence.ids);
+  assert(effects.some(effect=>effect.owner===evidence.owner&&effect.impact===true), 'native frame committed the queued impact');
+  report.eventEvidence.push({...evidence, effects});
+}
+
+
+(async () => {
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  try {
+    browser=await playwright.chromium.launch({chromiumSandbox:true,channel:'chrome',headless:true,args:[]});
+    page=await browser.newPage({viewport:{width:1280,height:900}});
+    page.on('pageerror',error=>errors.push(String(error)));observeDialogs(page);
+    await page.addInitScript(installMediaProbe);await startGame();
+    await stage('dist06','boss');await waitMusic('foldingSpace');
+    const hit=await queueImpact({label:'발록 지옥 충격',damage:20});
+    await assertNativeImpact(hit);await waitPlayed(hit.infernalAudio.role,hit.infernalAudio.before);
+    await page.waitForFunction(hp=>__MONGSE_QA_STATE__.hp<hp,hit.hp,{timeout:8000});
+    assert.equal(await played(hit.infernalAudio.role),hit.infernalAudio.before+1);
+    report.realHit={beforeHp:hit.hp,afterHp:(await snapshot()).state.hp,role:hit.infernalAudio.role};
+    check('native queued damaging hit decreases actual HP and plays one accent');
+    for(const flags of [{evaded:true},{cancelled:true}]){
+      await stage('dist06','boss');
+      const suppressed=await queueImpact({label:'발록 지옥 충격',damage:20,...flags});
+      await page.waitForTimeout(750);
+      assert.equal(await played(suppressed.infernalAudio.role),suppressed.infernalAudio.before);
+      assert.equal((await snapshot()).state.hp,suppressed.hp);
+      check('suppressed/cancelled native impact has no accent or HP loss '+JSON.stringify(flags));
+    }
+    for(const mute of [{music:false},{bgmVolume:0}]){
+      await settings({music:true,bgmVolume:.4});await stage('dist06','boss');await waitMusic('foldingSpace');
+      const impact=await queueImpact({label:'공허 기억흡입'});await assertNativeImpact(impact);await waitPlayed('blackHole');
+      const voice=await page.waitForFunction(()=>__combatMediaProbe.snapshot().decks.find(d=>d.kind==='effect'&&!d.paused&&!d.ended&&d.time>0),null,{timeout:5000});
+      const active=await voice.jsonValue();const mark=await page.evaluate(()=>performance.now());
+      await settings(mute);await page.waitForTimeout(120);
+      const after=(await snapshot()).audio;
+      assert(after.decks.some(d=>d.id===active.id&&!d.paused&&!d.ended&&d.time>active.time));
+      assert.equal(after.events.filter(e=>e.id===active.id&&e.type==='pause'&&e.at>=mark).length,0);
+      report.eventEvidence.push({mute,active,after:after.decks.find(d=>d.id===active.id)});
+      check('BGM-only mute preserves already-playing native SFX '+JSON.stringify(mute));
+      await page.waitForFunction(()=>__combatMediaProbe.sample().effects===0,null,{timeout:15000});
+    }
+    await settings({music:true,bgmVolume:.4});await stage('dist01','ordinary');await waitMusic('clockwork');
+    const before=await played('clockwork'),profile=await page.evaluate(()=>__HAPIL_COMBAT_AUDIO_CATALOG_V1__.music.clockwork);
+    const loopDeadline=(profile.loopEnd-profile.loopStart)*2*1000+20000;
+    await page.waitForFunction(before=>__combatMediaProbe.events.filter(e=>e.kind==='music'&&e.type==='accepted'&&e.src.includes('clockwork')).length>=before+2,before,{timeout:loopDeadline,polling:250});
+    report.naturalLoop={role:'clockwork',profile,acceptedBefore:before,acceptedAfter:await played('clockwork')};
+    check('two BGM loop transitions by natural elapsed time without seeking');
+    await stage('dist02','midboss');await waitMusic('clockworkIntense');
+    await page.evaluate(()=>{window.__testCombatHidden=true;Object.defineProperty(document,'hidden',{configurable:true,get:()=>window.__testCombatHidden});document.dispatchEvent(new Event('visibilitychange'));});await waitSilent();
+    await page.evaluate(()=>{window.__testCombatHidden=false;document.dispatchEvent(new Event('visibilitychange'));});await waitMusic('clockworkIntense');check('zone change and visibility return reconnect combat music');
+    assert.equal(errors.length,0);report.pass=true;
+  }catch(error){report.pass=false;report.error=String(error.stack||error);throw error;}
+  finally{report.errors=errors;console.log('RC165_AUDIO_RESULT '+JSON.stringify(report));await browser?.close();await new Promise(resolve=>server.close(resolve));}
+})();
