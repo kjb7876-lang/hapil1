@@ -1,0 +1,32 @@
+name: RC170 bounded accepted native Persona flight diagnosis
+on:
+  push:
+    branches: [codex/rc170-persona-flight-diagnosis]
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install normal Chrome Stable
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc170" --no-save --package-lock=false playwright@1.55.1
+          node "$RUNNER_TEMP/rc170/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc170/node_modules" >> "$GITHUB_ENV"
+      - name: Observe accepted native Q and R with existing Persona flights
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          test -z "$(git diff fa5fb098cf899b75b125ee51f9f43c4d8159fdff HEAD -- assets audio data index.html tools qa)"
+          node tests/chromium-sandbox-policy.cjs
+          timeout 60s node tests/rc170-persona-native-diagnosis.cjs --flight-only
