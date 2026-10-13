@@ -4,11 +4,8 @@
   const SETTINGS_KEY = "mongse_settings_v1";
   const ENDING_KEY = "hapilCampaignCompleteV31301";
   const isCleared = () => {
-    try {
-      return localStorage.getItem(ENDING_KEY) === "true";
-    } catch {
-      return false;
-    }
+    for(const name of ['localStorage','sessionStorage'])try{if(window[name]?.getItem(ENDING_KEY)==="true")return true;}catch{}
+    return false;
   };
 
   try {

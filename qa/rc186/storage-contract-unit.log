@@ -1,0 +1,2 @@
+RC186_STORAGE_CONTRACT passed: actual storage getter/setter/save writer; verified local, verified session and memory-only fallback distinguished. Validation/storage objects are fixtures, not real browser persistence or security bypass.
+RC186_SAMONG_STORAGE passed: actual unlock/unlocked retain title availability with verified local or session storage; memory-only is not represented as durable.

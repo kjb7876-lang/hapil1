@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "8634fafbd0b30c8332a5c6b4753e3eff33caa962",
+  "baseTree": "70af711ed01fe3cd0e9d054ef96f15f90eb111c2",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5b42d6a8d80a8e02ab27fa68f630b2e1ebe6ebdff5de82c7411f9b1a438f4765",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "223b41a55f3964e0b722342823dd3b7ca424bef3"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "86ac6ba850fc2e5b9e879bda41a8e28cd12a8c96",
+        "sha256": "4b848f4c7e21ba6b0d9f287464ec57b1d00a78f7348015677ba60182b406dcce"
+      }
+    },
+    {
+      "file": "assets/rc182/ending-flow.js",
+      "reason": "assets/rc182/ending-flow.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "b8f9d45f057e7f1f09cc469aef452b26a3addd93"
+      },
+      "after": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "b64a3a435655c53aa9d74c222d0c850f3050a06c",
+        "sha256": "6c14b470be6e0b00cfdbf72850ef918ba94c4384477378da8cd1ed1d78e6011b"
+      }
+    },
+    {
+      "file": "assets/hapil-title-v31342.js",
+      "reason": "assets/hapil-title-v31342.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/hapil-title-v31342.js",
+        "mode": "100644",
+        "gitBlob": "55ba0ca60d069419ba24fb2a3ec1554ff2e22ab5"
+      },
+      "after": {
+        "file": "assets/hapil-title-v31342.js",
+        "mode": "100644",
+        "gitBlob": "3520a978cce6d0ac8a1a295e31b6f0e5d3fba684",
+        "sha256": "9f1844b03e5690c6f30b0a06b351b7df313b7ff6f8d7e147eea62e570e18cda0"
+      }
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "reason": "assets/rc91/samong-awakening.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "3569aeb257689bdbd1dff9382c9510a363fa3b33"
+      },
+      "after": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "281e19fa9731189fbfa1cbf276590b2fdab5b787",
+        "sha256": "f22fa153a8465277a68d8479dd1fe5430ef0754f10d72fea58634bede8344795"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "921eba768f3bee6ac67b38d8736f51c94ca8469e"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a65eee37afcbe653cb16582fbc21cddd64132d7c",
+        "sha256": "16f9c9e55f9d8aee838ec6e24a1d35058224d718214005b5fc976b047f1e1ae5"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "b442de15a6556d3e2608c6aad66eb04b7d306f610a43c669a4f6a08c9c9114da"
+}

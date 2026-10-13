@@ -41043,7 +41043,8 @@ function MONGSE_writeSave(e, t) {
     let a = MONGSE_storageSet(n, r);
     if (MONGSE_storageGet(n) !== r || !ji(JSON.parse(r)))
       return notice({ ok: !1, persistent: !1 });
-    return (MONGSE_storageSet(n + `_mirror`, r), notice({ ok: !0, persistent: a }));
+    let reloadSafe=a;try{reloadSafe=reloadSafe||window.sessionStorage.getItem(n)===r;}catch{}
+    return (MONGSE_storageSet(n + `_mirror`, r), notice({ ok: !0, persistent: a, reloadSafe }));
   } catch {
     return notice({ ok: !1, persistent: !1 });
   }
@@ -100335,9 +100336,9 @@ function HAPIL_commitFinalEndingV31301(
   if(state.egoGuardianRC155?.active||state.egoGuardianRC155?.pendingTransformation)return Object.freeze({ok:false,reason:"ego-journey-active"});
   if((window.__HAPIL_MODES_V31346__?.mode(state)??state.gameModeV31346??'STORY')!=='STORY')return Object.freeze({ok:false,reason:'story-ending-only'});
   if(state.zone==='village'&&state.hapilTerminalCompleteV31301===true){
-    if(state.hapilEndingCommitSavedRC182===true)return Object.freeze({ok:true,alreadyCommitted:true,zone:state.zone});
-    const payload=Fi(state,heroId,partyIds,passives,shards),saved=MONGSE_writeSave('auto',payload);state.hapilEndingCommitSavedRC182=saved?.ok===true;
-    return Object.freeze({ok:saved?.ok===true,alreadyCommitted:true,zone:state.zone,payload});
+    if(state.hapilEndingCommitSavedRC182===true&&state.hapilEndingReloadSafeRC186===true)return Object.freeze({ok:true,alreadyCommitted:true,zone:state.zone});
+    const payload=Fi(state,heroId,partyIds,passives,shards),saved=MONGSE_writeSave('auto',payload);state.hapilEndingCommitSavedRC182=saved?.ok===true;state.hapilEndingReloadSafeRC186=saved?.ok===true&&(saved.reloadSafe===true||saved.persistent===true);
+    return Object.freeze({ok:state.hapilEndingReloadSafeRC186,alreadyCommitted:true,zone:state.zone,payload,reason:state.hapilEndingReloadSafeRC186?null:'checkpoint-not-reload-safe'});
   }
   if(!['cult04','village'].includes(state.zone))return Object.freeze({ok:false,reason:'not-final-map'});
   if(state.zone==='village'&&!state.completedZones?.has?.('cult04')&&!state.hapilFinalCombatClearedV31301)return Object.freeze({ok:false,reason:'final-combat-not-recorded'});
@@ -100399,8 +100400,10 @@ function HAPIL_commitFinalEndingV31301(
   const payload = Fi(state, heroId, partyIds, passives, shards);
   const saved = MONGSE_writeSave("auto", payload);
   state.hapilEndingCommitSavedRC182=saved?.ok===true;
+  state.hapilEndingReloadSafeRC186=saved?.ok===true&&(saved.reloadSafe===true||saved.persistent===true);
   return Object.freeze({
-    ok: saved?.ok === true,
+    ok: state.hapilEndingReloadSafeRC186,
+    reason: state.hapilEndingReloadSafeRC186?null:"checkpoint-not-reload-safe",
     zone: state.zone,
     frontierZone: state.frontierZone,
     villageTalk: state.villageTalk,

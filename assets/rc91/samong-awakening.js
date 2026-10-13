@@ -10,12 +10,12 @@
  const pictures=new Map(),tempo=new WeakMap(),automaticRevival=new WeakSet();let installed=false,tries=0,mobileHud=null;
  function unlocked(s){
   if(s?.hapilEndingCleared===true||s?.samongUnlockedRC91===true||window.__HAPIL_ENDING_CLEARED_V31300__===true)return true;
-  try{return localStorage.getItem(KEY)==='true'||localStorage.getItem('hapilEndingCleared')==='true';}catch(_){return false;}
+  for(const name of ['localStorage','sessionStorage'])try{if(window[name]?.getItem(KEY)==='true'||window[name]?.getItem('hapilEndingCleared')==='true')return true;}catch(_){}return false;
  }
  function unlock(s,reason){
   if(!['777','story-ending','validated-save'].includes(reason))return false;
   if(s)s.samongUnlockedRC91=true;
-  try{localStorage.setItem(KEY,'true');}catch(_){}
+  for(const name of ['localStorage','sessionStorage'])try{window[name]?.setItem(KEY,'true');}catch(_){}
   window.dispatchEvent?.(new Event('hapil-samong-unlocked-rc91'));return true;
  }
  function select(value,s){return ['DREAM','SAMONG'].includes(String(value).toUpperCase())&&unlocked(s)?'DREAM':'STORY';}
