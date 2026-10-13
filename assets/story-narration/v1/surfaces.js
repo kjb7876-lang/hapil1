@@ -8,6 +8,7 @@
     return {sound: settings.sound !== false, voiceVolume: settings.sfxVolume};
   }
   function journal(root) {
+    window.__HAPIL_MEMORY_FRAME_RC177__?.prepend(root.querySelector('.patient-body'));
     const zone = root.querySelector('.patient-index button[aria-current="true"]')?.dataset.zone || root.querySelector('.patient-zone')?.textContent.match(/^원문 구역 ([^\s·]+) ·/)?.[1];
     const tab = root.querySelector('[data-tab][aria-pressed="true"]')?.dataset.tab || 'all';
     const text = [...root.querySelectorAll('.patient-body .patient-text')].map(element => element.textContent).join('\n\n');
@@ -21,7 +22,9 @@
   }
   function ending(root) {
     if (!root.classList.contains('open') || root.dataset.phase !== 'ending-title') return null;
-    const text = root.querySelector('p')?.textContent;
+    const paragraph = root.querySelector('p');
+    window.__HAPIL_MEMORY_FRAME_RC177__?.prepend(paragraph?.parentElement);
+    const text = paragraph?.textContent;
     return text ? {key: 'ending:title', text} : null;
   }
   function schedule() {

@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "base": "50fe9e866852188ac1fb29a60893e0ae84703966",
+  "baseTree": "77a1eb780e1a4f3589a30552e347337157d4418c",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "3874d2eaa493d1f69f96e527ef520fbaed6268051194df6b79fb299755f81116",
+  "files": [
+    {
+      "file": "assets/rc177/memory-frame.js",
+      "reason": "assets/rc177/memory-frame.js: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": null,
+      "after": {
+        "file": "assets/rc177/memory-frame.js",
+        "mode": "100644",
+        "gitBlob": "d3ce24827de6b2f28c27351d8c2d29cb16e11d68",
+        "sha256": "5c71aa749f0d990646935a2ec74e5cec806fa33f07c916c2814f2b3516f28ed0"
+      }
+    },
+    {
+      "file": "assets/rc51/story.js",
+      "reason": "assets/rc51/story.js: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "c7e8765e65e6601b242ecddb24cb871669f7ad0c"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "ca3f3c55900ac6459a92f75cfb760d150009d91e",
+        "sha256": "00926395d6773a9d4cdd19d837120534ed3832cd3560947cc6fdf6265c1f494e"
+      }
+    },
+    {
+      "file": "assets/story-narration/v1/surfaces.js",
+      "reason": "assets/story-narration/v1/surfaces.js: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": {
+        "file": "assets/story-narration/v1/surfaces.js",
+        "mode": "100644",
+        "gitBlob": "9fa64d5d48cb070f3c01215d4a78109b21ceb375"
+      },
+      "after": {
+        "file": "assets/story-narration/v1/surfaces.js",
+        "mode": "100644",
+        "gitBlob": "1a384e60e9d26d2eac6a2e061a5f5482e6632d84",
+        "sha256": "dbbc164d0dc455370190301f3d8fd33a9ec7c0f0eaa00da2d3b4520ccfdd6aaf"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f8beb1e4f188be2ebf4912e624a812820eef3feb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "417f12d3b9f7ba393d118e02c4d83ba553bdec62",
+        "sha256": "86a5e4623e3fa7ac3c7f47c1f3bda17f6c389303a78a06655f534edb4fc0361c"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "5f0fba4f492a8b83f697ea485c687e6a15b01ba7a166e06093a7818261a1a692"
+}

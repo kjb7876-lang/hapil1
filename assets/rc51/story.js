@@ -117,6 +117,7 @@
   const title=el('h1','',`${String(r.index).padStart(2,'0')} · ${r.title}`);title.id='rc51-title';head.append(title);if(r.postNarrator&&kind==='post')head.append(el('small','rc51-kicker',r.postNarrator));panel.append(head);
   const box=el('div','rc51-copybox'),copy=el('article','rc51-copy'),character=window.__HAPIL_RC140_STORY_CYCLE_ART__?.characters?.[r.zone];
   if(character){const pose=kind==='pre'?'idle':'lurch',frame=character.poses?.[pose];if(frame){const figure=el('figure','rc140-story-character'),image=el('img','');figure.dataset.character=character.id;figure.dataset.pose=pose;figure.setAttribute('aria-label',character.name);image.src=frame.path;image.alt=`${character.name} · ${pose==='idle'?'기억':'유령 잔상'}`;image.decoding='async';image.loading='eager';figure.append(image,el('figcaption','',character.name));copy.append(figure);}}
+  window.__HAPIL_MEMORY_FRAME_RC177__?.prepend(copy);
   for(const paragraph of text.split(/\n\s*\n/))copy.append(el('p','',paragraph));box.append(copy);panel.append(box);
   const footer=el('footer','rc51-footer'),pause=el('button','','자동 넘김 멈춤'),next=el('button','','계속 · Enter'),audioPath=voicePath(r,kind),voiceButton=audioPath?el('button','','음성 재생'):null;pause.type=next.type='button';if(voiceButton)voiceButton.type='button';
   const full=window.__HAPIL_CONTROLS_V31329__?.effective?.()==='full';autoLeft=full&&window.__HAPIL_CONTROLS_V31329__?.binding?.settings?.current?.autoStoryAdvance!==false?Math.max(12,text.length/9):0;autoPaused=false;lastUi=performance.now();pause.hidden=!full;
