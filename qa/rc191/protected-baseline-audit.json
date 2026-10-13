@@ -1,0 +1,15 @@
+{
+  "baseline": "b9967485d1a9564cd3a9aeffb86a858275dcb708",
+  "candidateRuntimeCommit": "e2f0ffd6ead5612424e62f49f61d0b136baf88b8",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "changedPaths": [
+    "index.html"
+  ],
+  "htmlDifference": "cache keys only, verified by rc191-danmaku-restore-unit",
+  "scope": "all versioned assets/audio/data byte-identical to corrected ranged-only RC189 baseline"
+}
