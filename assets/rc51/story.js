@@ -113,7 +113,7 @@
   root.dataset.zone=s.zone;root.dataset.phase=kind;
   if(kind==='post'&&r.postBackdrop){root.style.backgroundImage=`linear-gradient(rgba(3,5,12,.55),rgba(3,5,12,.75)),url("${r.postBackdrop}")`;root.style.backgroundSize='cover';root.style.backgroundPosition='center';root.dataset.flashback='medieval';}
   const panel=el('section','rc51-panel'),head=el('header','rc51-header');
-  head.append(el('small','rc51-kicker',kind==='pre'?'전투 전 · 기억':kind==='firstPost'?'전투 후 · 돌아오는 현실':kind==='awakenPre'?'전투 중 · 위기의 각성':'전투 후 · 남겨진 기억'));
+  head.append(el('small','rc51-kicker',kind==='bedMemory'?'쉼터 · 꿈의 기억':kind==='pre'?'전투 전 · 기억':kind==='firstPost'?'전투 후 · 돌아오는 현실':kind==='awakenPre'?'전투 중 · 위기의 각성':'전투 후 · 남겨진 기억'));
   const title=el('h1','',`${String(r.index).padStart(2,'0')} · ${r.title}`);title.id='rc51-title';head.append(title);if(r.postNarrator&&kind==='post')head.append(el('small','rc51-kicker',r.postNarrator));panel.append(head);
   const box=el('div','rc51-copybox'),copy=el('article','rc51-copy'),character=window.__HAPIL_RC140_STORY_CYCLE_ART__?.characters?.[r.zone];
   if(character){const pose=kind==='pre'?'idle':'lurch',frame=character.poses?.[pose];if(frame){const figure=el('figure','rc140-story-character'),image=el('img','');figure.dataset.character=character.id;figure.dataset.pose=pose;figure.setAttribute('aria-label',character.name);image.src=frame.path;image.alt=`${character.name} · ${pose==='idle'?'기억':'유령 잔상'}`;image.decoding='async';image.loading='eager';figure.append(image,el('figcaption','',character.name));copy.append(figure);}}
@@ -127,7 +127,7 @@
    if(manager?.create)narration=originalNarration(s,root,audioPath,voiceButton,manager,ctx);
    else voiceButton.textContent='음성 파일을 불러올 수 없음';
   }
-  if(!audioPath){let narrationPausedAuto=false;const manualPause=pause.onclick;pause.onclick=()=>{narrationPausedAuto=false;manualPause();};const resumeAdvance=()=>{if(narrationPausedAuto){narrationPausedAuto=false;autoPaused=false;pause.textContent='자동 넘김 멈춤';}};narration=window.__HAPIL_STORY_NARRATION_V1__?.attach?.({root,text,zone:r.zone,phase:kind,ctx,onPlaying:seconds=>{resumeAdvance();if(autoLeft>0)autoLeft=Math.max(autoLeft,seconds+1.5);},onBlocked:resumeAdvance,onUserPause:()=>{if(!autoPaused&&autoLeft>0){narrationPausedAuto=true;autoPaused=true;pause.textContent='자동 넘김 계속';}}})??null;}
+  if(!audioPath&&!ctx.displayOnlyNarrative){let narrationPausedAuto=false;const manualPause=pause.onclick;pause.onclick=()=>{narrationPausedAuto=false;manualPause();};const resumeAdvance=()=>{if(narrationPausedAuto){narrationPausedAuto=false;autoPaused=false;pause.textContent='자동 넘김 멈춤';}};narration=window.__HAPIL_STORY_NARRATION_V1__?.attach?.({root,text,zone:r.zone,phase:kind,ctx,onPlaying:seconds=>{resumeAdvance();if(autoLeft>0)autoLeft=Math.max(autoLeft,seconds+1.5);},onBlocked:resumeAdvance,onUserPause:()=>{if(!autoPaused&&autoLeft>0){narrationPausedAuto=true;autoPaused=true;pause.textContent='자동 넘김 계속';}}})??null;}
   fit();document.fonts?.ready.then(()=>{if(root)fit();});next.focus();return true;
  }
  function suppressEntry(s){

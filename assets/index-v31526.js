@@ -51132,6 +51132,7 @@ function ji(e) {
     y: a(t.y),
     hp: _i(t.hp, 240, 0, 240 + MONGSE_infiniteStats(h).maxHpBonus),
     clues: u,
+    firstBedMemoryRC179: t.firstBedMemoryRC179 === true,
     bossDefeated: i < 5 ? s === `village` : !!t.bossDefeated,
     villageTalk: !!t.villageTalk,
     passives: h,
@@ -51250,6 +51251,7 @@ function Fi(e, t, n, r, i) {
     y: e.y,
     hp: e.hp,
     clues: [...e.clues],
+    firstBedMemoryRC179: e.firstBedMemoryRC179 === true,
     bossDefeated: e.bossDefeated,
     villageTalk: e.villageTalk,
     passives: r,
@@ -53899,6 +53901,7 @@ function Ri() {
             (t.heroStatus = ``),
             (t.heroStatusUntil = 0),
             B(`침대에서 호흡을 고르고 EGO를 완전히 회복했습니다.`),
+            window.__HAPIL_FIRST_BED_MEMORY_RC179__?.open(t),
             void 0);
           return;
         }
@@ -54100,6 +54103,7 @@ function Ri() {
           y: n.y,
           hp: n.hp,
           clues: new Set(n.clues),
+          firstBedMemoryRC179: n.firstBedMemoryRC179 === true,
           bossDefeated: n.bossDefeated,
           villageTalk: n.villageTalk,
           enemies: i,
