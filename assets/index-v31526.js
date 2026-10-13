@@ -118682,7 +118682,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
 (() => {
   'use strict';
   const ID='a11-cosmic-v31318', MASK='a11-boss', ZONE='ep1a11';
-  const ANCHOR=Object.freeze({x:8,y:8}), START='combat:cosmic-lucifer-v31318:started', DONE='combat:cosmic-lucifer-v31318:complete';
+  const ANCHOR=Object.freeze({x:24,y:14}), START='combat:cosmic-lucifer-v31318:started', DONE='combat:cosmic-lucifer-v31318:complete';
   const INTERVAL=6, FRACTION=.006, INTRO=2.2;
   let installed=false,attempts=0,baseMaxHp=36000;
   const lastTick=new WeakMap();
@@ -118811,14 +118811,15 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     return finite(a?.cosmicPoseUntilV31318)>now&&['raise','charge','fire','recovery'].includes(p)?(p==='recovery'?'idle':p):'idle';
   }
   function geometry(a,now=0) {
-    const p=G(ANCHOR.x,ANCHOR.y),pose=poseFor(a,now),width=finite(assets()?.actorWidth,450);
+    const p=G(finite(a?.x,ANCHOR.x),finite(a?.y,ANCHOR.y)),pose=poseFor(a,now),width=finite(assets()?.actorWidth,450);
     const height=width*2/3,bob=Math.sin(now*1.7)*3,anchor=assets()?.poseMeta?.[pose]?.anchorRatio??[.5,.881];
     return {pose,width,height,x:p.x-width*finite(anchor[0],.5),y:p.y+70-height*finite(anchor[1],.881)+bob,
       tilt:pose==='raise'?Math.sin(now*2.4)*.014:Math.sin(now*1.05)*.005};
   }
   function mouthPoint(a,now=0) {
     const g=geometry(a,now),meta=assets()?.poseMeta?.[g.pose],ratio=meta?.mouthRatio??assets()?.mouthRatio??[.5,.770];
-    return{x:g.x+g.width*finite(ratio[0],.5),y:g.y+g.height*finite(ratio[1],.770)};
+    const dx=g.width*(finite(ratio[0],.5)-.5),dy=g.height*(finite(ratio[1],.770)-.5),c=Math.cos(g.tilt),s=Math.sin(g.tilt);
+    return{x:g.x+g.width/2+dx*c-dy*s,y:g.y+g.height/2+dx*s+dy*c};
   }
   function draw(ctx,cache,a,now,settings={}) {
     const g=geometry(a,now),paths=posePaths(),path=paths[g.pose]??paths.idle;
@@ -118839,10 +118840,10 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   function drawDeath(ctx,cache,row){const g=row.cosmicBodyGeometryRC145??geometry(row,row.born),im=MONGSE_queueImage(cache,row.sprite,'eager');if(!im?.complete||!(im.naturalWidth||im.width))return false;
     ctx.save();try{ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter='none';ctx.shadowBlur=0;ctx.translate(g.x+g.width/2,g.y+g.height/2);ctx.rotate(g.tilt);ctx.drawImage(im,-g.width/2,-g.height/2,g.width,g.height);}finally{ctx.restore();}return true;}
   function mapFor(s,fallback) {if(s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete'))return assets()?.arenaMap??fallback;const art=window.__HAPIL_MAP_ART_RC56__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_RC54__?.rows?.[s?.zone]??window.__HAPIL_MAP_ART_V31345__?.path(s?.zone);return art??fallback;}
-  function cameraFor(s,fallback) {return s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?{x:140.8,y:30,scale:.78}:fallback;}
+  function cameraFor(s,fallback) {const R=window.__HAPIL_BATTLE_ARENA_RC138__;if(R?.enabled(s))return R.camera(s,window.__HAPIL_VIEWPORT_RC104__?.view())??fallback;return s?.zone===ZONE&&(active(s)||s.cosmicEncounterV31318?.stage==='complete')?{x:140.8,y:30,scale:.78}:fallback;}
   function shouldDrawFront(s,a) {return own(a)&&a.hp>0&&(s?.effects??[]).some(e=>e.cosmicImpactV31318&&e.cosmicModeV31318==='blood-beam'&&e.sourceId===a.id&&s.time>=e.born&&s.time<e.born+e.duration);}
   function drawFront(ctx,cache,s,settings) {const a=actorFor(s);return shouldDrawFront(s,a)?draw(ctx,cache,a,s.time,settings):false;}
-  function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,installed,exactOwner:ID==='a11-cosmic-v31318',fixedUpperAnchor:ANCHOR.x===8&&ANCHOR.y===8,regen:INTERVAL===6&&FRACTION===.006,save14:window.__HAPIL_GAMEPLAY_V31317__?.saveRevision===14,sourceBoss:!!N?.ep1a11?.enemies?.find(a=>a.id===MASK),maxHp:baseMaxHp>0};return{version:'3.13.18',checks,allPass:Object.values(checks).every(Boolean)};}
+  function audit(){const checks={inherited:window.__HAPIL_V31317_RELEASE__?.allPass===true,installed,exactOwner:ID==='a11-cosmic-v31318',fixedRightAnchor:ANCHOR.x-ANCHOR.y===10&&ANCHOR.x+ANCHOR.y===38,regen:INTERVAL===6&&FRACTION===.006,save14:window.__HAPIL_GAMEPLAY_V31317__?.saveRevision===14,sourceBoss:!!N?.ep1a11?.enemies?.find(a=>a.id===MASK),maxHp:baseMaxHp>0};return{version:'3.13.18',checks,allPass:Object.values(checks).every(Boolean)};}
   function install(){
     if(installed)return true;if(window.__HAPIL_V31317_RELEASE__?.allPass!==true)return false;
     baseMaxHp=Math.round(Jr(N[ZONE].enemies.find(a=>a.id===MASK),ZONE).maxHp*1.35);
@@ -120379,8 +120380,8 @@ install();
  }
  function activeUntil(s,a){return Math.max(n(a.attackAt),n(a.attackImpactAt),n(a.castPresentationUntil31211),
    n(a.atomicCastUntil31210),n(a.castVisualUntil31210),n(a.activePatternUntil));}
- function stateOf(s,a){let v=states.get(a);if(!v||v.zone!==s.zone||s.time<v.time-1e-6){const h=hash(a.id),dir=vector(a.moveDx,a.moveDy,n(a.facing,1));
-   v={zone:s.zone,time:s.time,angle:dir.angle,dx:dir.dx,dy:dir.dy,facing:n(a.facing,1)<0?-1:1,
+ function stateOf(s,a){let v=states.get(a);if(!v||v.zone!==s.zone||s.time<v.time-1e-6){const h=hash(a.id),dir=vector(n(s.x)-n(a.x),n(s.y)-n(a.y),n(a.facing,1));
+   v={zone:s.zone,time:s.time,angle:dir.angle,dx:dir.dx,dy:dir.dy,facing:dir.x<0?-1:1,
      direction:quantize(dir),nextAt:s.time+(h%83)/1000,lastTurn:s.time,hold:.16+(h%71)/1000,poll:.075+(h%59)/1000,
      cast:false,stamp:'',lockUntil:0,phase:h%83/1000};states.set(a,v);}
    return v;}
@@ -120410,8 +120411,7 @@ install();
    if(now<v.lockUntil||now<v.nextAt){a.facing=v.facing;a.direction=v.direction;stats.held++;return v.facing;}
    v.nextAt=now+v.poll;
    // The native party enemyTargetScope has already selected the correct player's position.
-   const moving=n(a.movingUntil)>now&&Math.hypot(n(a.moveDx),n(a.moveDy))>.05;
-   const d=moving?vector(a.moveDx,a.moveDy,v.facing):vector(n(s.x)-n(a.x),n(s.y)-n(a.y),v.facing);
+   const d=vector(n(s.x)-n(a.x),n(s.y)-n(a.y),v.facing);
    const change=Math.abs(anglediff(d.angle,v.angle));
    if(now-v.lastTurn>=v.hold&&change>.20)commit(a,v,d,now,false);
    else{a.facing=v.facing;a.direction=v.direction;stats.held++;}

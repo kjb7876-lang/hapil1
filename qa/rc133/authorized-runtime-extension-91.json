@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "4f08e9790f6cf132f1eb4109d571d1b8d744aa02",
+  "baseTree": "d3f5daabbf4491f663579981504eea262f22bed4",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "ab72f0eb7ff4ddd0fdc73a6bcc2e1e2df917d2277521f4ab51d5c975aaa5ee2b",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC193 explicit user physical-device correction: align Cosmic Lucifer body/mouth with guarded right actor and target-facing retreat presentation; damage/save/source assets unchanged",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7a2082da97d73703ea0ad4088a153b17ffc6a78a"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2e66088be59f0f80b194b07a3957b8a4940e501d",
+        "sha256": "2673985381d73b510215776d399e0c02552dc8b8e8bb08daa9d04d5ef233bd21"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC193 explicit user physical-device correction: align Cosmic Lucifer body/mouth with guarded right actor and target-facing retreat presentation; damage/save/source assets unchanged",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "fbfaf350b22ef35c48d1475c4abfe9a68602e5d3"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "96ef39a614e9a91a1655db009774ca3d53b271c3",
+        "sha256": "e37ba5035ba5cd4d79ef4da78e810597ead0cfdec5abfa6e6e762222a96aa5be"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "221476b2826df656809b4b5c6b341fbed03e77dd02ae1a70abf20992593905b1"
+}
