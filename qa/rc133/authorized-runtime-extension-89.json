@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "base": "e369825c19d2b7a3eddb54eeb39b6bf7900aa326",
+  "baseTree": "34fb4f67b7d9a4fe80224e3e6de6db55904081c4",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "152e41937a8889e2ae843a9979098aac177507acb918fe4d4f316bffe55947a1",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: restore exact corrected RC189 ranged-only runtime, preserving active damage-zero cues and admitted-projectile sound fix",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "809d57e68645fcf96b43fa76b27307d7e66c6c8f"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7a2082da97d73703ea0ad4088a153b17ffc6a78a",
+        "sha256": "197afb03df3c6b2264681fdadd79b24f10b496c138ea1d416f58c34e2259b714"
+      }
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "reason": "assets/rc138/battle-arena.js: restore exact corrected RC189 ranged-only runtime, preserving active damage-zero cues and admitted-projectile sound fix",
+      "before": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "30ad9e1c625afc5043e4d80e8898e5e07e3d6859"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "c0e7c9266465c57ccf58963a874c145a27f939ed",
+        "sha256": "1f5e1521b815d6bd7d8624b2e0dd12bb60883583529cd5701d86133dab50a539"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: restore exact corrected RC189 ranged-only runtime, preserving active damage-zero cues and admitted-projectile sound fix",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "04b8594efb344ca433be7142b80c4f06eeff06fe"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "3b4a7d00da8c313128815960c4864b1ae5b146ea",
+        "sha256": "bb727859680bde58fc7f8902157ba68688bd6ff3f679ebe76b7606a1c4b1eb2d"
+      }
+    },
+    {
+      "file": "assets/rc190/enemy-weapons.js",
+      "reason": "assets/rc190/enemy-weapons.js: remove unauthorized RC190 melee/rune runtime per explicit user ranged-only correction; prior candidate preserved",
+      "before": {
+        "file": "assets/rc190/enemy-weapons.js",
+        "mode": "100644",
+        "gitBlob": "ec46a31209b337dbb7f41e501212001e8a52b508"
+      },
+      "after": null
+    }
+  ],
+  "targetProtectedRowsSha256": "62feaf8908fec28a85d5343ceaebacdab7809cf8810bd723d4a90dc16d853b10"
+}

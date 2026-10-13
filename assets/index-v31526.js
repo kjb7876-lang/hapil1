@@ -62372,7 +62372,6 @@ function Ri() {
                     MONGSE_distanceMode31222,
                   );
                 r = MONGSE_enemyCounterAttackProfile31229(o, e, r);
-                r = window.__HAPIL_ENEMY_WEAPONS_RC190__?.profile(o,e,r) ?? r;
                 let s = r.ranged,
                   l = r.range + (e.boss || e.midboss ? (c - 1) * 0.12 : 0);
                 if (
@@ -62705,11 +62704,10 @@ function Ri() {
                   o.time >= e.readyAt &&
                   e.attackAt === 0 &&
                   e.recoverUntil <= o.time &&
-                  (window.__HAPIL_ENEMY_WEAPONS_RC190__?.allowStart(o,e,r,p) ?? true) &&
                   HAPIL_allowNormalRangedStartV31302(
                     o,
                     e,
-                    r.rc190Mode === 'blade' ? {...r,ranged:true} : r,
+                    r,
                     !!ze.current.lowFx,
                   )
                 ) {
@@ -62745,7 +62743,6 @@ function Ri() {
                           (e.boss || e.midboss ? (c - 1) * 0.09 : 0),
                       )),
                     void 0);
-                  window.__HAPIL_ENEMY_WEAPONS_RC190__?.begin(o,e,r);
                   MONGSE_markEnemyCounterAttackStarted31229(e, r, o.time);
                   window.__HAPIL_SKILL_COMPLETION_V31412__?.beginEnemyCast(o,e,c,e.attackAt);
                 }
@@ -62756,8 +62753,6 @@ function Ri() {
                     ((e.activePattern = ``),
                       (t.telekinetic || t.laserV31330) ||
                         MONGSE_spawnBossPatternFollowup31212(o, e, c));
-                  } else if (window.__HAPIL_ENEMY_WEAPONS_RC190__?.release(o,e,r,c,{blocked:pt,damage:Y,status:Ti,sound:(a,z)=>We(MONGSE_enemyAttackSfx(a,z),1)})) {
-                    MONGSE_finishEnemyCounterAttack31229(e,r,o.time);
                   } else {
                     if (r.lunge > 0) {
                       let t = ft(

@@ -17,7 +17,7 @@
  function point(p,which='all',radius=.48){return D().point(p,which,radius);}
  function contains(p,which='all',radius=.48){return D().contains(p,which,radius);}
  function releaseActor(a){const g=guards.get(a);if(!g)return;for(const k of ['x','y'])Object.defineProperty(a,k,{...g.original[k],value:g.value[k]});guards.delete(a);stats.releases++;}
- function release(s){root.__HAPIL_ENEMY_WEAPONS_RC190__?.reset(s);const r=runs.get(s);if(r)for(const a of r.actors)releaseActor(a);}
+ function release(s){const r=runs.get(s);if(r)for(const a of r.actors)releaseActor(a);}
  function guard(s,a,allied){if(!a||!locked(s))return false;const which=side(s,allied),radius=allied?format.playerRadius:format.enemyRadius,old=guards.get(a);if(old?.state===s&&old.side===which)return true;if(old)releaseActor(a);
   // Persona has its own stronger point-inversion guard. General ownership does
   // not replace it or reinterpret the explicit mutual faction-swap exception.
@@ -55,7 +55,7 @@
   const row=Math.max(0,Math.min(2,Math.floor((p.y-355)/106))),focusY=Math.max(440,Math.min(540,p.y-32));
   return{x:640-center*scale,y:360-focusY*scale,scale,rc138Side:which,rc138Row:row,rc138Coverage:{left:which==='left'?40:620,right:which==='left'?660:1240,top:355,bottom:673}};
  }
- function drawBoundary(ctx,s,project){root.__HAPIL_ENEMY_WEAPONS_RC190__?.draw(ctx,s,project);if(!locked(s))return false;const poly=D().polygon('all',.8).map(p=>project(p.x,p.y)),top=Math.min(...poly.map(p=>p.y)),bottom=Math.max(...poly.map(p=>p.y)),x=project(19,19).x;ctx.save();try{ctx.globalAlpha=.48;ctx.strokeStyle='#c9dce6';ctx.lineWidth=1.5;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke();}finally{ctx.restore();}return true;}
+ function drawBoundary(ctx,s,project){if(!locked(s))return false;const poly=D().polygon('all',.8).map(p=>project(p.x,p.y)),top=Math.min(...poly.map(p=>p.y)),bottom=Math.max(...poly.map(p=>p.y)),x=project(19,19).x;ctx.save();try{ctx.globalAlpha=.48;ctx.strokeStyle='#c9dce6';ctx.lineWidth=1.5;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke();}finally{ctx.restore();}return true;}
  function snapshot(s){return{version:1,zone:s?.zone,enabled:enabled(s),locked:locked(s),clear:enabled(s)&&clear(s),reason:!enabled(s)?'rest':s.hp<=0?'death-choice':clear(s)?'clear':'combat',playerSide:side(s,true),enemySide:side(s,false),hostiles:(s?.enemies??[]).filter(live).length,entry:{...format.entry},exit:{...format.exit}};}
  function bind(api){native={...api,combat:new Set(api.combat)};}
  root.__HAPIL_BATTLE_ARENA_RC138__=Object.freeze({version:'RC138',format,bind,enabledZone,enabled,hostile,live,clear,locked,side,point,contains,guard,applyPosition,enroll,enforce,release,releaseActor,movement,ranged,bodyPacket,camera,coverage,drawBoundary,snapshot,metrics:()=>({...stats})});
