@@ -23,7 +23,7 @@
   function ending(root) {
     if (!root.classList.contains('open') || root.dataset.phase !== 'ending-title') return null;
     const paragraph = root.querySelector('p');
-    window.__HAPIL_MEMORY_FRAME_RC177__?.prepend(paragraph?.parentElement);
+    window.__HAPIL_MEMORY_FRAME_RC177__?.prepend(paragraph?.parentElement,paragraph);
     const text = paragraph?.textContent;
     return text ? {key: 'ending:title', text} : null;
   }

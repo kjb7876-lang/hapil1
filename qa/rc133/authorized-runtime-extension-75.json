@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "8f1365014c17d73c49971ad2173ab7cde9e9a8a7",
+  "baseTree": "259b920ecd70428d7bccb857aa17255d4e87450d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "742fea39894d568e474bcca1ec0b0e77fa01963bec91909e64c0de9e5f710d8a",
+  "files": [
+    {
+      "file": "assets/rc177/memory-frame.js",
+      "reason": "assets/rc177/memory-frame.js: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": {
+        "file": "assets/rc177/memory-frame.js",
+        "mode": "100644",
+        "gitBlob": "d3ce24827de6b2f28c27351d8c2d29cb16e11d68"
+      },
+      "after": {
+        "file": "assets/rc177/memory-frame.js",
+        "mode": "100644",
+        "gitBlob": "d6dafbb226c578e6e151c8f8e32c2fa941949cc9",
+        "sha256": "a8e69f0a907874c72df5c118bdff9fb394d6ed6ab004bdc4fed3830067b9efbe"
+      }
+    },
+    {
+      "file": "assets/story-narration/v1/surfaces.js",
+      "reason": "assets/story-narration/v1/surfaces.js: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": {
+        "file": "assets/story-narration/v1/surfaces.js",
+        "mode": "100644",
+        "gitBlob": "1a384e60e9d26d2eac6a2e061a5f5482e6632d84"
+      },
+      "after": {
+        "file": "assets/story-narration/v1/surfaces.js",
+        "mode": "100644",
+        "gitBlob": "3158c04521f15c6a6e8b6603e560a44050ba7cab",
+        "sha256": "eb1f35978ed4ab7e38bf8ca0d5988bc24df3499ed598faf14434ca0d1908891f"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC177 authorized display-only memory heading; original story prose, recording bytes and narration inputs unchanged",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "417f12d3b9f7ba393d118e02c4d83ba553bdec62"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "82ce65a3f0eaa4e2166205ed5e74a651889f6911",
+        "sha256": "a28ee03f69943bb0e293cabb806604a200635c0551be879c681670bed35bf496"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "64903ec23ec66d046a2c488a7b3171a2adab9730ec8c5e7df8264723ad7c5878"
+}
