@@ -1,0 +1,185 @@
+{
+  "scope": "CPU/native/DOM/RGBA only; no new GPU/browser/device/natural play",
+  "rows": [
+    {
+      "file": "tests/rc184-ending-callback-ui-unit.cjs",
+      "exitCode": 0,
+      "output": "RC184_ENDING_CALLBACK_UI passed: extracted actual RC51 completion callback \u2192 real commit \u2192 actual failure notice/retry UI \u2192 final event \u2192 eye scene \u2192 real title handler/button/reload; failures never proceed, recovered save proceeds once, duplicates suppressed, dismiss unlocks game, records/DREAM unlock retained. DOM/storage/timers are fixtures; no browser or persistence-device claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc186-storage-reload-safe-unit.cjs",
+      "exitCode": 0,
+      "output": "RC186_STORAGE_CONTRACT passed: actual storage getter/setter/save writer; verified local, verified session and memory-only fallback distinguished. Validation/storage objects are fixtures, not real browser persistence or security bypass.\nRC186_SAMONG_STORAGE passed: actual unlock/unlocked retain title availability with verified local or session storage; memory-only is not represented as durable.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc182-ending-state-unit.cjs",
+      "exitCode": 0,
+      "output": "RC182_ENDING_STATE passed: actual STORY commit gating/idempotent save+unlock, actual frame body + guardian for earned/developer-777 fixtures, active EGO traits/render gate and reverse village portal, snapshot restore, incomplete/mode/authority/death/live-enemy negatives. ii/map loading and scene/render services are fixture dependencies; no natural progression/browser or real skill bitmap claim.\nRC183_ENDING_CHECKPOINT passed: failed save/repeated callback stays unsuccessful; successful retry avoids repeated unlock/completion.\nRC184_DREAM_PAUSE passed: actual native authority and binding/modal/reading/menu/pause/hidden/party conditions defer handoff, then resume once; no exit-lock suppression.\nRC186_ENDING_RELOAD_SAFE passed: memory-only ok:true cannot return; verified session checkpoint can recover.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc182-ending-eyes-unit.cjs",
+      "exitCode": 0,
+      "output": "RC182_ENDING_EYES passed: normal/reduced fixtures, one reserve/display/continuation, timer/key/click/pagehide cleanup, loaded seen state and DREAM suppression; existing reload return path retained without storage reset. No real browser animation/audio claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc185-tint-cache-unit.cjs",
+      "exitCode": 0,
+      "output": "RC185_TINT_CACHE passed: alternating owner palettes reused, 8-entry/4,194,304-pixel LRU bounds and oversized no-cache behavior. Canvas operations are fixtures; no real color blending/pixel or GPU performance claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc187-stroke-restore-unit.cjs",
+      "exitCode": 0,
+      "output": "RC187_STROKE_RESTORE passed: four unchanged modes and legacy absent mode accepted; malformed restored mode rejected by actual validator prefix, heading fallback is valid and fresh configuration repairs invalid input. No pattern/damage change or browser claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc181-opening-flow-unit.cjs",
+      "exitCode": 0,
+      "output": "RC181_OPENING_FLOW passed: exact single question; quote\u2192eyelids\u2192original mark\u2192title once, reduced-motion variant, repeated advance/init, Escape/pagehide/finish in all phases, timer/listener/body-lock removal and fresh restart fixture. No old narration attachment; no browser/animation/audio claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc180-rest-michaela-unit.cjs",
+      "exitCode": 0,
+      "output": "RC180_REST_NPC passed: actual npcState/queue/draw/patient interact; six rest zones x entry/revisit/cloned-save fixtures, one queue/image, exact dialogue and measured bubble, near/far record interaction; player/other NPC preserved. No browser or natural entry claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc179-first-bed-memory-unit.cjs",
+      "exitCode": 0,
+      "output": "RC179_FIRST_BED passed: six exact-paragraph module, dreamRest-only F-bed hook preserves recovery, once-only optional boolean save/load fixture, rejected show not recorded, original/other records intact, journal idempotent and display-only narration context. No browser/save UI claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc177-memory-frame-unit.cjs",
+      "exitCode": 0,
+      "output": "RC177_MEMORY_FRAME passed: actual story show for four phases x three reopened/cloned worlds, idempotent heading, unchanged paragraphs and TTS input; journal/ending selectors audited, no browser claim.\nRC177_SURFACES passed: actual journal and ending selectors/rebuilds preserve exact narration text and one display heading.\nRC179_DISPLAY_ONLY passed: actual show skips narration attachment for new bed prose.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc176-native-dot-and-clip.cjs",
+      "exitCode": 0,
+      "output": "RC176_NATIVE_DOT_CLIP passed: extracted native Y/contact/rehit/budget + actual combat core/channel/RC138; HP and real defense states, DOT combo/lifesteal exclusion, direct boss side effects preserved; 36 production-clip layouts and open-grid coverage. Physics constants/visual callbacks are fixture dependencies; no browser or bitmap collision claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc175-resonance-unit.cjs",
+      "exitCode": 0,
+      "output": "RC175_RESONANCE_UNIT passed: actual channel + native heal reducer; 7x amounts, duplicate contact/frame, HP cap, death, zone/hero/clock/load and healing restriction fixtures.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc173-cast-and-fan-unit.cjs",
+      "exitCode": 0,
+      "output": "RC173_CAST_FAN_UNIT {\"status\":\"passed\",\"scope\":\"Native basic enqueue loop and actual ar/gr/sr profiles; actual inner tick + scatter and native bounce reducer. Cast IDs and awakening states are unit fixtures, not browser observations; no real accepted-hit count claim.\",\"casts\":[{\"unitCastId\":\"fixture-0-1\",\"nativeAwake\":false,\"ordinal\":1,\"targets\":4,\"repeats\":3,\"basicReservations\":12,\"delaySeconds\":0.08125714285714285},{\"unitCastId\":\"fixture-0-4\",\"nativeAwake\":false,\"ordinal\":4,\"targets\":4,\"repeats\":4,\"basicReservations\":16,\"delaySeconds\":0.08125714285714285},{\"unitCastId\":\"fixture-1-1\",\"nativeAwake\":true,\"ordinal\":1,\"targets\":7,\"repeats\":5,\"basicReservations\":35,\"delaySeconds\":0.08125714285714285},{\"unitCastId\":\"fixture-1-4\",\"nativeAwake\":true,\"ordinal\":4,\"targets\":7,\"repeats\":6,\"basicReservations\":42,\"delaySeconds\":0.08125714285714285}],\"volleys\":112,\"minAngleSpan\":0.9599999999999997,\"maxAngleSpan\":0.9600000000000002}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc155-ego-guardian-unit.cjs",
+      "exitCode": 0,
+      "output": "{\"status\":\"passed\",\"checks\":12408,\"cases\":777,\"verifiedTwoRoundTrips\":2,\"nativeRoundTrips\":2,\"nativeRouteEdges\":305,\"cycleAfterAdditionalTraversal\":4,\"clearCount\":503,\"clearedVisits\":503,\"traitSources\":[\"hwando\",\"seoha\",\"persona\",\"gunner\"]}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc174-body-pixel-unit.cjs",
+      "exitCode": 0,
+      "output": "RC174_BODY_PIXEL_UNIT {\"status\":\"passed\",\"checks\":123220,\"landmarks\":24,\"independentMetalPixels\":97,\"scope\":\"Exact received-source pixels and local alpha pipeline; no browser/viewport/natural-play claim\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc155-ego-art-unit.cjs",
+      "exitCode": 0,
+      "output": "RC155_EGO_ART_UNIT {\"status\":\"passed\",\"checks\":501428,\"originals\":4,\"derivedPixelBytes\":9062472,\"naturalPersonaVictoryVerified\":false}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc188-zero-damage-vfx-unit.cjs",
+      "exitCode": 0,
+      "output": "RC188_ZERO_DAMAGE_VFX passed: actual outgoing reducer/core emits hurt timer, numbers and owned impact only for applied damage; positive hit and existing HP/stagger/combo formulas preserved. No browser claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc188-basic-audio-timing-unit.cjs",
+      "exitCode": 0,
+      "output": "RC189_ACTIVE_AUDIO passed: complete HTML-loaded native release block, admission/cap refusal, cancellation, dead source, specialty exclusion, stationary melee whoosh and repeated polls. Controlled native dependency fixtures; no playback/natural progression claim.\nRC188_BASIC_AUDIO start-prefix only; full release assertions delegated to RC189. Original claim corrected: actual native start/release prefixes; existing weapon sound at release, none during warning, repeated release suppressed, existing cooldown retained. No real playback/browser claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc189-active-audio-unit.cjs",
+      "exitCode": 0,
+      "output": "RC189_ACTIVE_AUDIO passed: complete HTML-loaded native release block, admission/cap refusal, cancellation, dead source, specialty exclusion, stationary melee whoosh and repeated polls. Controlled native dependency fixtures; no playback/natural progression claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc191-danmaku-restore-unit.cjs",
+      "exitCode": 0,
+      "output": "{\"status\":\"passed\",\"profiles\":32,\"scope\":\"historical RC191 exact RC189 restore; current HTML-active ranged profiles and unchanged budgets/body ban; all RC190 blade/rune hooks and runtime module removed. No browser claim.\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc158-persona-presentation-unit.cjs",
+      "exitCode": 0,
+      "output": "RC158_PRESENTATION_UNIT {\"status\":\"passed\",\"checks\":128,\"sourcePixels\":\"visually inspected right-head eye/lance, immutable SHA pins\",\"scope\":\"unit only; native browser and actual source RGBA are separate\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc161-persona-feedback-unit.cjs",
+      "exitCode": 0,
+      "output": "RC161_PERSONA_FEEDBACK_UNIT {\"checks\":85,\"status\":\"passed\",\"scope\":\"unit presentation admission; no native/physical-device claim\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc162-feedback-priority-unit.cjs",
+      "exitCode": 0,
+      "output": "RC162_FEEDBACK_PRIORITY_UNIT {\"status\":\"passed\",\"checks\":81,\"scope\":\"clock/ledger/canvas presentation contract; native and natural play are separate\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc170-persona-flight-unit.cjs",
+      "exitCode": 0,
+      "output": "RC170_PERSONA_FLIGHT_UNIT {\"status\":\"passed\",\"checks\":39,\"terminalCases\":[\"cancelled\",\"reflected\",\"owner-dead\",\"zone-transition\"],\"scope\":\"Actual inner-final gate and exact extracted native nullifyEnemySkills; external actor/counter helpers mocked, native browser flight separately verified.\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc151-persona-raid-unit.cjs",
+      "exitCode": 0,
+      "output": "RC151_PERSONA_RAID_UNIT {\"status\":\"passed\",\"checks\":59,\"personaVariants\":18,\"redVariants\":9,\"raidQueues\":6,\"heelSha256\":\"756be6a2f7a812a3f02477540935bfbe823ac80230a248c5fdcb250b76417167\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc134-persona-art.cjs",
+      "exitCode": 0,
+      "output": "RC134_PERSONA_ART {\"status\":\"passed\",\"checks\":73,\"sources\":2,\"outputs\":9,\"scope\":\"lossless decoded pixels and exact source identity; independently inspected designs, not invented animation frames\"}\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc192-persona-visibility-unit.cjs",
+      "exitCode": 0,
+      "output": "RC192_PERSONA_VISIBILITY passed: active modules + actual native dispatch, 12 visibility/lifetime fixtures, 8 directions, real native reflection and Persona seam exclusion; no HP/speed/collision mutation. Canvas/media/terrain services are fixtures; no browser/GPU claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc193-cosmic-facing-unit.cjs",
+      "exitCode": 0,
+      "output": "RC193_COSMIC_FACING passed: active native anchor/geometry/mouth/restore/camera, original HP/cycle/regen fields; actual direction update faces player while retreating but retains committed cast direction. CPU/assets/camera fixtures, no GPU/source pixels mutated.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc194-ranged-scatter-unit.cjs",
+      "exitCode": 0,
+      "output": "RC194_RANGED_SCATTER passed: actual native start and both producers, five unique angles/lateral sockets, original ready/damage/speed/count, distinct clock/mirror rhythm, native bounce/reflection vectors and return allowance retained, terminal-policy short TTL bypass with hit/boundary and bounded policy preserved. Dependency fixtures; no GPU/natural play claim.\n",
+      "error": ""
+    },
+    {
+      "file": "tests/rc195-blink-arena-unit.cjs",
+      "exitCode": 0,
+      "output": "{\"status\":\"passed\",\"oldWalkableLeftArea\":157.71315498684558,\"newWalkableLeftArea\":195.50001074714567,\"areaIncreasePercent\":23.959228869305015,\"newGridPoints\":424,\"edgeBlinkSamples\":40,\"scope\":\"actual native helper/walkability/apply position + real polygon/ray/camera policies; callback/viewport fixtures; no GPU/device readability claim\"}\n",
+      "error": ""
+    }
+  ]
+}

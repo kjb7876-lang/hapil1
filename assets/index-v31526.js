@@ -50066,21 +50066,15 @@ function MONGSE_telegraphDamageMultiplier31226(e, t) {
   return Math.max(0.52, Math.min(1.2, 0.52 + Math.max(0, o) * 0.68));
 }
 function HAPIL_blinkVectorV31345(input, facing, automaticVector = null, lastManualVector = null) {
-  const pressed=key=>input?.has?.(key)===true;
-  let x=(pressed(`ArrowRight`)?1:0)-(pressed(`ArrowLeft`)?1:0);
-  let y=(pressed(`ArrowDown`)?1:0)-(pressed(`ArrowUp`)?1:0);
-  const manual=window.__HAPIL_DIRECTION_INPUT_RC137__?.read(input);
-  if(manual?.held){x=manual.x;y=manual.y;}
-  if (!x && !y && automaticVector && Number.isFinite(automaticVector.x) && Number.isFinite(automaticVector.y)) {
-    x = automaticVector.x;
-    y = automaticVector.y;
-  }
-  if (!x && !y && lastManualVector && Number.isFinite(lastManualVector.x) && Number.isFinite(lastManualVector.y)) {
-    x = lastManualVector.x; y = lastManualVector.y;
-  }
-  if (!x && !y) x = Number(facing) < 0 ? -1 : 1;
-  const length = Math.max(1, Math.hypot(x, y));
-  return Object.freeze({ x: x / length, y: y / length });
+  const pressed=key=>input?.has?.(key)===true,keys=['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'];
+  const screenX=Number(pressed('ArrowRight'))-Number(pressed('ArrowLeft')),screenY=Number(pressed('ArrowDown'))-Number(pressed('ArrowUp'));
+  const screen=(x,y)=>{try{const v=window.__HAPIL_DIRECTION_INPUT_RC137__?.vector(x,y);if(v&&(v.x||v.y))return v;}catch(_){}const dx=x+y*2,dy=-x+y*2,d=Math.hypot(dx,dy)||1;return{x:dx/d,y:dy/d};};
+  let x=0,y=0;
+  if(keys.some(pressed)){if(!screenX&&!screenY)return Object.freeze({x:0,y:0});const v=screen(screenX,screenY);x=v.x;y=v.y;}
+  else if(automaticVector&&Number.isFinite(automaticVector.x)&&Number.isFinite(automaticVector.y)){x=automaticVector.x;y=automaticVector.y;}
+  if(!x&&!y&&lastManualVector&&Number.isFinite(lastManualVector.x)&&Number.isFinite(lastManualVector.y)){x=lastManualVector.x;y=lastManualVector.y;}
+  if(!x&&!y){const v=screen(Number(facing)<0?-1:1,0);x=v.x;y=v.y;}
+  const length=Math.max(1,Math.hypot(x,y));return Object.freeze({x:x/length,y:y/length});
 }
 function MONGSE_planAutoSkill(e, t, n = {}) {
   if (
@@ -53074,6 +53068,7 @@ function Ri() {
           t.combatModeV31329 === `full` && t.autoDodgeBlinkDispatchV31576 === true ? t.simpleDodgeVectorV31368 : null,
           t.lastManualBlinkVectorRC79?.zone===t.zone && t.lastManualBlinkVectorRC79?.hero===t.activeHeroId ? t.lastManualBlinkVectorRC79 : null,
         );
+      if(window.__HAPIL_DIRECTION_INPUT_RC137__?.read(I.current)?.held&&(i||a))t.lastManualBlinkVectorRC79={x:i,y:a,zone:t.zone,hero:t.activeHeroId};
       let c = t.x,
         l = t.y,
         d = window.__HAPIL_RC79__.blinkDestination(t, {x:i,y:a}, 2.25 + r.dashBonus * 0.55,

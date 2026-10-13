@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "a4ffe3a4f8b2db5d283ae0c200f9998c340077a6",
+  "baseTree": "49c68e928e80130da8b891c18f789a1b5cc25725",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "fb7e207d24630c3461437c82ae25dcb0b86eef94c90e4d7ac7781b0a1cd2e596",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized screen-direction blink and real legal-floor expansion with camera fitting; source art, saves and combat damage preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "686309204f584ac385f44b5e12da3f98676c0010"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2a579f3eb062d6264debd482b5201cdb1226ac5a",
+        "sha256": "37b3b86ac482a570a936c03f241d8f5d8eeaaf3097219e4635d598aab8b83c57"
+      }
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "reason": "assets/rc134/persona-duel.js: authorized screen-direction blink and real legal-floor expansion with camera fitting; source art, saves and combat damage preserved",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "dd6ae98f36d05a1953c896404611007d7f6fffe6"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "fcad81186db3afebe953a1d3305cc61b13916bdf",
+        "sha256": "d7d2a098957ec2ad820b32548ab0b5f16d9f3802158585b5b71c7f1e8ae723c7"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized screen-direction blink and real legal-floor expansion with camera fitting; source art, saves and combat damage preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8ce3bebd89d9be58537af0a61971fab57a3d7e64"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c38878d8e07f7ce1671a1f5097df02aa976e55f7",
+        "sha256": "e8b04ed0b22ea4d86d6e9fa804259f8fccc6ab367c9e8f22040d06ef89ed6a4a"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "542ebb25cfa3fe0cae3856b38cba42365be7a60a4c49c1c0fef37ba0f0f6b5e7"
+}

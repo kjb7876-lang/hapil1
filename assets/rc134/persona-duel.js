@@ -5,7 +5,7 @@
 (function(root){'use strict';
  const guards=new WeakMap(),runs=new WeakMap(),polygons=new Map(),ID='inner-evil-rc133';
  const finite=(x,d=0)=>Number.isFinite(x)?x:d;
- const policy=Object.freeze({centerSum:38,acrossRadius:16,depthRadius:8.8,centerGap:1.45,heroRadius:.8,bossRadius:.8,trackingSeconds:.09,maxSpeed:18});
+ const policy=Object.freeze({centerSum:38,acrossRadius:19,depthRadius:10.5,floorMax:31.2,centerGap:1.45,heroRadius:.8,bossRadius:.8,trackingSeconds:.09,maxSpeed:18});
  const active=s=>root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)===true;
  const stats={guards:0,repairs:0,mirrors:0,releases:0,swaps:0};
  const mutual=s=>active(s)&&s.innerFinalRC133.awake>0&&root.__HAPIL_SAMONG_RC91__?.active(s)===true;
@@ -22,7 +22,7 @@
   // and the vertical centerline. The right floor is the exact left reflection.
   const source=Array.from({length:64},(_,i)=>{const a=i*Math.PI*2/64,u=Math.cos(a)*policy.acrossRadius,v=Math.sin(a)*policy.depthRadius;return{x:policy.centerSum/2+(v+u)/Math.SQRT2,y:policy.centerSum/2+(v-u)/Math.SQRT2};});
   let result=source.map(p=>({...p}));for(let i=0;i<source.length;i++){const a=source[i],b=source[(i+1)%source.length],dx=b.x-a.x,dy=b.y-a.y,limit=radius*Math.hypot(dx,dy);result=clip(result,p=>dx*(p.y-a.y)-dy*(p.x-a.x)-limit);}
-  const hi=Math.min(30.6-radius,policy.centerSum-1.4-radius),lo=policy.centerSum-hi;for(const value of[p=>p.x-lo,p=>hi-p.x,p=>p.y-lo,p=>hi-p.y,...(side==='all'?[]:[p=>side==='left'?p.y-p.x-policy.centerGap:p.x-p.y-policy.centerGap])])result=clip(result,value);
+  const hi=Math.min(policy.floorMax-radius,policy.centerSum-1.4-radius),lo=policy.centerSum-hi;for(const value of[p=>p.x-lo,p=>hi-p.x,p=>p.y-lo,p=>hi-p.y,...(side==='all'?[]:[p=>side==='left'?p.y-p.x-policy.centerGap:p.x-p.y-policy.centerGap])])result=clip(result,value);
   const frozen=Object.freeze(result.map(Object.freeze));polygons.set(key,frozen);return frozen;
  }
  function contains(q,side='left',radius=side==='left'?policy.heroRadius:policy.bossRadius){if(!Number.isFinite(q?.x)||!Number.isFinite(q?.y))return false;const p=polygon(side,radius);return p.length>=3&&p.every((a,i)=>{const b=p[(i+1)%p.length];return(b.x-a.x)*(q.y-a.y)-(b.y-a.y)*(q.x-a.x)>=-1e-8;});}
@@ -49,9 +49,9 @@
  function tick(s,dt){const a=enforce(s),party=root.__HAPIL_PARTY_V31322__;if(!a||a.hp<=0||s.hp<=0||s.paused||s.pause||finite(s.timeStopUntil)>s.time||party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected))return;const m=s.innerFinalRC133,clock=finite(m.tempoClock)-finite(m.tempoMutualStart),at=2+((m.tempoSeed??137)%100)/100;if(mutual(s)&&m.tempoActive){if(!m.duelSwap&&!m.duelSwapDone&&m.duelSwapPhase!=='warning'&&clock>=at){m.duelSwapDone=true;m.duelSwapPhase='warning';m.duelSwapAt=clock+.55;cue(s,'맵 좌우·상하 반전 예고 · 안전 지대로 이동');}if(m.duelSwapPhase==='warning'&&clock>=finite(m.duelSwapAt)){if(swap(s,true)){m.duelSwapPhase='transition';m.duelSwapUntil=clock+.7;cue(s,'맵 반전 · 위치 교환','#ff9bb9');}else m.duelSwapPhase=null;}else if(m.duelSwap&&clock>=finite(m.duelSwapUntil)){if(swap(s,false)){m.duelSwapPhase='return';m.duelSwapReturnAt=clock+.2;cue(s,'맵 원위치 · 안전 착지','#c9f2ff');}else m.duelSwapPhase=null;}}else if(m.duelSwap){swap(s,false);m.duelSwapPhase='return';m.duelSwapReturnAt=clock+.2;cue(s,'맵 원위치 · 안전 착지','#c9f2ff');}else if(m.duelSwapPhase==='warning'){m.duelSwapPhase=null;m.duelSwapAt=0;}if(m.duelSwapPhase==='return'&&clock>=finite(m.duelSwapReturnAt)){m.duelSwapPhase=null;m.duelSwapReturnAt=0;}if(!(dt>0))return;const t=Math.min(.1,dt),target=point(mirror(s),swapped(s)?'left':'right',policy.bossRadius),amount=1-Math.exp(-t/policy.trackingSeconds),dx=(target.x-a.x)*amount,dy=(target.y-a.y)*amount,d=Math.hypot(dx,dy),limit=d>policy.maxSpeed*t?policy.maxSpeed*t/d:1,old={x:a.x,y:a.y};set(a,{x:a.x+dx*limit,y:a.y+dy*limit},swapped(s)?'left':'right',policy.bossRadius);
   a.moveDx=a.x-old.x;a.moveDy=a.y-old.y;a.moveVx=a.moveDx/t;a.moveVy=a.moveDy/t;a.movingUntil=Math.hypot(a.moveDx,a.moveDy)>1e-6?s.time+.12:0;a.navPath=[];face(s,a);stats.mirrors++;
  }
- // The expanded walkable floor projects inside x=60..1220, y=360..666.
+ // Frame the enlarged real polygon; the main RC153 camera also reserves native body/HUD space.
  // Keep the centerline at the painted view center in every viewport.
- function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const scale=.96*Math.min(1,Math.max(1,view.width-24)/1200,Math.max(1,view.height-24)/465);return{x:640-640*scale,y:360-462.5*scale,scale,personaMirrorRC134:true};}
+ function camera(s,view={x:0,y:0,width:1280,height:720}){if(!active(s))return null;const framed=root.__HAPIL_COMBAT_LAYOUT_RC153__?.camera?.(s,view);if(framed)return{...framed,personaMirrorRC134:true};const points=polygon('all',.8).map(p=>({x:640+(p.x-p.y)*27,y:(p.x+p.y)*13.5})),left=Math.min(...points.map(p=>p.x))-120,right=Math.max(...points.map(p=>p.x))+120,top=Math.min(...points.map(p=>p.y))-180,bottom=Math.max(...points.map(p=>p.y))+35,scale=.96*Math.min(1,Math.max(1,view.width-24)/(right-left),Math.max(1,view.height-24)/(bottom-top));return{x:640-(left+right)*scale/2,y:360-(top+bottom)*scale/2,scale,personaMirrorRC134:true};}
  function constrained(s,a){return guards.get(a)?.state===s&&active(s);}
  function backdrop(ctx,canvas){ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.filter='none';ctx.globalCompositeOperation='destination-over';ctx.fillStyle='#020610';ctx.fillRect(0,0,canvas.width,canvas.height);}finally{ctx.restore();}}
  root.__HAPIL_PERSONA_DUEL_RC134__=Object.freeze({version:'RC134',policy,active,mirror,mutual,cooldownFactor,sharedClock,tempo,swapped,swap,polygon,contains,point,guard,enforce,tick,release,camera,constrained,position,applyPosition,backdrop,metrics:()=>({...stats})});
