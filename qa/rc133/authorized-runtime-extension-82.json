@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "57add45e57a90f530f537a56851090e13a818b53",
+  "baseTree": "6592edb86b564957a728e9e8ec03beb1bf922789",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "850fc2846e0d917c152f5c6fa57ce0271c663c4250484aa1106ec5d96f3fb02d",
+  "files": [
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "42b63b90aa1fe89f2049fdc531ca31644dadcbbb"
+      },
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "d19c558a9698d24e9f4b596f9485bb0cc7ca92de",
+        "sha256": "5fc98743f6fe57d0c98ca606d1c4397fc710b242d88803c0acbd0b6a3557e15e"
+      }
+    },
+    {
+      "file": "assets/rc182/ending-flow.js",
+      "reason": "assets/rc182/ending-flow.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "17ae100038965ab2e0d0c405ce849e3e19a72f6f"
+      },
+      "after": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "b8f9d45f057e7f1f09cc469aef452b26a3addd93",
+        "sha256": "03f3bd652bdc90848d94f1793f00c7b618358daeab3c20c0bac5c5b266e37473"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a4353d929f5e7ecd6fddf36738973fa8db2d1b54"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "921eba768f3bee6ac67b38d8736f51c94ca8469e",
+        "sha256": "5a2874833d62c0472ccf898bc388159ed7235ae7243ec1814e41e6fd456ed591"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "77105668c8e1dd3dbf773e660268e740fb44273b5d21f87fc1eedde91028344f"
+}

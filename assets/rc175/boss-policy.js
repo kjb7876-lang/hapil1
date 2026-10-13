@@ -1,7 +1,7 @@
 /* RC175: shared straight-stroke geometry, owner tint and simulation-only hole DOT.
  * Ephemeral contact clocks never enter saves. Damage goes through native Y. */
 (function(root){'use strict';
- const n=(v,d=0)=>Number.isFinite(v)?v:d, clocks=new WeakMap(),tints=new WeakMap(),cycles=new WeakMap();
+ const n=(v,d=0)=>Number.isFinite(v)?v:d, clocks=new WeakMap(),tints=[],cycles=new WeakMap();let tintPixels=0;const MAX_TINT_PIXELS=4194304,MAX_TINT_ENTRIES=8;
  const config=Object.freeze({dotDamage:1,dotInterval:.5});
  const world=(u,v)=>({x:v+u/2,y:v-u/2});
  function strokes(c){
@@ -19,11 +19,11 @@
  function title(c){return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][Number.isInteger(c.rc175StrokeMode)?c.rc175StrokeMode:Math.abs(Math.trunc(n(c.id)))%4];}
  function tint(image,color){
   if(!image||image.complete===false||!(image.naturalWidth||image.width)||!root.document?.createElement)return image;
-  let row=tints.get(image);if(row?.color===color)return row.canvas;
+  const index=tints.findIndex(row=>row.image===image&&row.color===color);if(index>=0){const[row]=tints.splice(index,1);tints.push(row);return row.canvas;}
   const canvas=root.document.createElement('canvas');canvas.width=image.naturalWidth||image.width;canvas.height=image.naturalHeight||image.height;
   const ctx=canvas.getContext('2d');if(!ctx)return image;
   ctx.drawImage(image,0,0);ctx.globalCompositeOperation='color';ctx.fillStyle=color;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.globalCompositeOperation='destination-in';ctx.drawImage(image,0,0);ctx.globalCompositeOperation='source-over';
-  tints.set(image,{color,canvas});return canvas;
+  const pixels=canvas.width*canvas.height;if(pixels<=MAX_TINT_PIXELS){while(tints.length&&(tints.length>=MAX_TINT_ENTRIES||tintPixels+pixels>MAX_TINT_PIXELS))tintPixels-=tints.shift().pixels;tints.push({image,color,canvas,pixels});tintPixels+=pixels;}return canvas;
  }
  function dot(s,holes){
   const party=root.__HAPIL_PARTY_V31322__,binding=root.__HAPIL_CONTROLS_V31329__?.binding;
@@ -49,5 +49,5 @@
    }
   }
  }
- root.__HAPIL_BOSS_POLICY_RC175__=Object.freeze({config,configure,title,strokes,tint,dot});
+ root.__HAPIL_BOSS_POLICY_RC175__=Object.freeze({config,configure,title,strokes,tint,dot,tintMetrics:()=>({entries:tints.length,pixels:tintPixels,maxPixels:MAX_TINT_PIXELS,maxEntries:MAX_TINT_ENTRIES})});
 })(window);
