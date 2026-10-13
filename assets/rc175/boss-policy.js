@@ -27,7 +27,7 @@
  }
  function dot(s,holes){
   const party=root.__HAPIL_PARTY_V31322__,binding=root.__HAPIL_CONTROLS_V31329__?.binding;
-  const blocked=!s||!(s.hp>0)||s.paused||s.pause||root.__HAPIL_BATTLE_ARENA_RC138__?.locked?.(s)||n(s.timeStopUntil)>s.time||party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected)||binding?.state?.current===s&&(binding.phase!=='game'||binding.modal?.current||binding.blocked?.()||root.document?.hidden||root.__HAPIL_READING_V31342__?.blocked);
+  const blocked=!s||!(s.hp>0)||s.paused||s.pause||n(s.timeStopUntil)>s.time||party?.state===s&&(party.status?.role==='guest'||party.status?.paused||party.status?.disconnected)||binding?.state?.current===s&&(binding.phase!=='game'||binding.modal?.current||binding.blocked?.()||root.document?.hidden||root.__HAPIL_READING_V31342__?.blocked);
   if(blocked){if(s)clocks.delete(s);return;}
   let m=clocks.get(s);if(!m||m.zone!==s.zone||s.time<m.time){m={zone:s.zone,time:s.time,actors:new WeakMap()};clocks.set(s,m);}
   if(s.time===m.time&&m.done)return;

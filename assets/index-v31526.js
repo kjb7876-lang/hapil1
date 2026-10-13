@@ -46226,10 +46226,10 @@ function HAPIL_reducePlayerContactV31401(e, t, n, r, i = !1) {
   return (
     (e.hp -= a),window.__HAPIL_RAID_RC24__?.afterHit?.(e,MONGSE_damageSource,a),window.__HAPIL_LOOP_V31365__?.onDamage(e,e,a),
     e.hp<=0&&window.__HAPIL_SAMONG_RC91__?.tryAutomaticRevival?.(e),
-    (e.combo = 0),
-    (e.comboUntil = 0),
+    (i?.blackHoleDotRC175 === true || (e.combo = 0)),
+    (i?.blackHoleDotRC175 === true || (e.comboUntil = 0)),
     (e.invulnerableUntil = e.time),
-    MONGSE_bossLikeSource &&
+    i?.blackHoleDotRC175 !== true && MONGSE_bossLikeSource &&
       ((e.lifestealSuppressedUntil = Math.max(
         Number(e.lifestealSuppressedUntil ?? 0),
         e.time + (MONGSE_damageSource.boss ? 4.8 : 3.6),

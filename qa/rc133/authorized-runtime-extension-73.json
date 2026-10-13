@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "634bcd8e646ccdac4e6abded15c58a08ed132713",
+  "baseTree": "ddab2b4d593c474210ff882b915ba042cee36631",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "49ca55c5751728aa19d117020ac7059f27c935d34b11a1e4c8d8aa39d6684340",
+  "files": [
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "35e5f6dde95fa87a6696780db509eefd046f7674"
+      },
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "42b63b90aa1fe89f2049fdc531ca31644dadcbbb",
+        "sha256": "ccefc4a9d9aecec0c246e1fafc4dbd4654de61547bb377fd0424075ba3497ee0"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "60eae6d71b8e1623cdc90bac68fc3d2100fb2ac6"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f4aab5330915cf0585ef9c39d01a66bc60fdfa68",
+        "sha256": "bea69bbd2b8ecd3e256202dc2204e4cfb60e8b423f4e9664cb16d4635da2139f"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "5b5bd412af100d3d49147e80bf95f81b5b6ae9fb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f8beb1e4f188be2ebf4912e624a812820eef3feb",
+        "sha256": "4eb681b6806318e26af61d49a320935af1bd12cf21682ac51babb817e2998516"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "9ed046f3942dd913b78c992d1e40df701861d3fac144fdff68ca8654929ba48a"
+}
