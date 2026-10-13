@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "fec19bf65b8ac19d321f86db7a776baffe50f89e",
+  "baseTree": "bd6197a91b870742ed548b2dfb27068739466b3e",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d125c5c53649a9d98a807a21d75e021c8b6657200251123017e04ad1f140d1f5",
+  "files": [
+    {
+      "file": "assets/title/v31236/christian-opening-v31236.js",
+      "reason": "assets/title/v31236/christian-opening-v31236.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/title/v31236/christian-opening-v31236.js",
+        "mode": "100644",
+        "gitBlob": "9efca0618aeaf7a454b34f58daf59e27142d399b"
+      },
+      "after": {
+        "file": "assets/title/v31236/christian-opening-v31236.js",
+        "mode": "100644",
+        "gitBlob": "9234abc625006587cf1b0f6e1e4e4a19db32b0d7",
+        "sha256": "0f4e2acb734c702582749cd3b5218b870daee9e1c3f9aef16cdbf9286eb9c929"
+      }
+    },
+    {
+      "file": "assets/title/v31236/christian-opening-v31236.css",
+      "reason": "assets/title/v31236/christian-opening-v31236.css: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/title/v31236/christian-opening-v31236.css",
+        "mode": "100644",
+        "gitBlob": "712f48352f4f85b0cc06a6680ecdb919a2341816"
+      },
+      "after": {
+        "file": "assets/title/v31236/christian-opening-v31236.css",
+        "mode": "100644",
+        "gitBlob": "1d22288aafefe5f5b24008d81f34b2fbaa246a33",
+        "sha256": "99216820fa73a795d907bcd7a4e1945e5d31f4963a84e3d18e04582400e4a19d"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "add308f9f1c3cc2bc3200f4c475f0be4b4d29877"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f2ff647bf0f37d49c711fdc53579ad7450d9dd23",
+        "sha256": "c175eab6290cbc1502ce7c6624b0618ed9639cdaa79199edc35d5d756bda1da4"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "0a51ab1daf8cd8995c585d1d7b5beb6fd57013abce7faa663d786e79d4a9be8b"
+}

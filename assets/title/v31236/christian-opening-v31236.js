@@ -11,13 +11,14 @@
   document.body.classList.add("mongse-opening-active");
 
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches === true;
-  const quoteDuration = reduceMotion ? 2200 : 5100;
+  const quoteDuration = reduceMotion ? 2200 : 2600;
+  const eyeDuration = reduceMotion ? 0 : 700;
   const markDuration = reduceMotion ? 1500 : 2700;
   const fadeDuration = reduceMotion ? 200 : 740;
   const timers = new Set();
   let phase = "quote";
   let finished = false;
-  let narration = null;
+
 
   const later = (callback, delay) => {
     const timer = window.setTimeout(() => {
@@ -36,12 +37,12 @@
   const removeInputGuards = () => {
     overlay.removeEventListener("click", onAdvance);
     window.removeEventListener("keydown", onKeyDown, true);
+    window.removeEventListener("pagehide", finish);
   };
 
   const finish = () => {
     if (finished) return;
     finished = true;
-    narration?.stop();
     clearTimers();
     removeInputGuards();
     overlay.classList.add("is-leaving");
@@ -53,7 +54,6 @@
   const showMark = () => {
     if (finished || phase === "mark") return;
     clearTimers();
-    narration?.stop();
     phase = "mark";
     overlay.dataset.phase = "mark";
     overlay.setAttribute("aria-label", "合一");
@@ -62,8 +62,18 @@
     later(finish, markDuration);
   };
 
+  const closeEyes = () => {
+    if (finished || phase !== "quote") return;
+    clearTimers();
+    phase = "blink";
+    overlay.dataset.phase = "blink";
+    quote?.setAttribute("aria-hidden", "true");
+    later(showMark, eyeDuration);
+  };
+
   const advance = () => {
-    if (phase === "quote") showMark();
+    if (phase === "quote") closeEyes();
+    else if (phase === "blink") showMark();
     else finish();
   };
 
@@ -91,36 +101,25 @@
 
   overlay.addEventListener("click", onAdvance);
   window.addEventListener("keydown", onKeyDown, true);
+  window.addEventListener("pagehide", finish, {once:true});
   overlay.setAttribute("tabindex", "-1");
   window.requestAnimationFrame?.(() => overlay.focus?.({ preventScroll: true }));
-  later(showMark, quoteDuration);
-  const narrationFooter = document.createElement('div');
-  narrationFooter.className = 'hapil-prologue-narration';
-  overlay.append(narrationFooter);
-  const stanzaText = element => {
-    const copy = element.cloneNode(true);
-    for (const br of copy.querySelectorAll('br')) br.replaceWith(document.createTextNode('\n'));
-    return copy.textContent;
-  };
-  const stanzas = [quote?.querySelector('.mongse-christian-opening__passing'), quote?.querySelector('.mongse-christian-opening__awakening')];
-  let voiceSettings = window.__HAPIL_CONTROLS_V31329__?.binding?.settings?.current;
-  if (!voiceSettings) { try { voiceSettings = JSON.parse(localStorage.getItem('mongse_settings_v1') || '{}'); } catch { voiceSettings = {}; } }
-  if (stanzas.every(Boolean)) narration = window.__HAPIL_STORY_NARRATION_V1__?.attach({
-    root: overlay, key: 'prologue:quote', text: stanzas.map(stanzaText).join('\n\n'), footer: narrationFooter,
-    ctx: {sound: voiceSettings.sound !== false, voiceVolume: voiceSettings.sfxVolume},
-    onLoading: () => { if (!finished && phase === 'quote') clearTimers(); },
-    onBlocked: () => { if (!finished && phase === 'quote') { clearTimers(); later(showMark, quoteDuration); } },
-    onPlaying: () => { if (!finished && phase === 'quote') clearTimers(); },
-    onEnded: () => { if (!finished && phase === 'quote') { clearTimers(); later(showMark, 750); } },
-    onUserPause: () => { if (!finished && phase === 'quote') clearTimers(); }
-  }) || null;
-
+  // This replacement question is display-only. Never attach prologue:quote
+  // or let a late recording callback schedule the removed scripture segment.
+  for (const side of ["top", "bottom"]) {
+    const lid = document.createElement("div");
+    lid.className = "mongse-eye-lid mongse-eye-lid--" + side;
+    lid.setAttribute("aria-hidden", "true");
+    overlay.append(lid);
+  }
+  later(closeEyes, quoteDuration);
   window.__MONGSE_CHRISTIAN_OPENING_V31236__ = Object.freeze({
     version: VERSION,
     cover: "./assets/title/v31236/mongse-dream-cover.webp",
     quoteDuration,
     markDuration,
-    phases: Object.freeze(["quote", "mark", "title"]),
+    eyeDuration,
+    phases: Object.freeze(["quote", "blink", "mark", "title"]),
     get phase() {
       return finished ? "title" : phase;
     },
