@@ -1,0 +1,499 @@
+[
+  {
+    "id": "mb-dist01",
+    "name": "보라검천사",
+    "zone": "dist01",
+    "mechanic": "chain",
+    "rc196Style": "blade"
+  },
+  {
+    "id": "mb-dist02",
+    "name": "늪의 뿔악마 군주",
+    "zone": "dist02",
+    "mechanic": "contamination",
+    "rc196Style": "root"
+  },
+  {
+    "id": "mb-dist03",
+    "name": "핏빛 수호로 추격자",
+    "zone": "dist03",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "mb-dist04",
+    "name": "첫 동료의 악마잔영",
+    "zone": "dist04",
+    "mechanic": "chain",
+    "rc196Style": "mirror"
+  },
+  {
+    "id": "mb-dist05",
+    "name": "숨이 끊긴 전령의 그림자",
+    "zone": "dist05",
+    "mechanic": "detonation",
+    "rc196Style": "memory"
+  },
+  {
+    "id": "dist06-boss",
+    "name": "발록 · 지옥의 문지기",
+    "zone": "dist06",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "mb-dist06",
+    "name": "소환진 검은기둥",
+    "zone": "dist06",
+    "mechanic": "detonation",
+    "rc196Style": "blade"
+  },
+  {
+    "id": "mb-ep1a07",
+    "name": "무의 기억포식자",
+    "zone": "ep1a07",
+    "mechanic": "contamination",
+    "rc196Style": "hunger"
+  },
+  {
+    "id": "mb-ep1a08",
+    "name": "백의 안정화 감독",
+    "zone": "ep1a08",
+    "mechanic": "chain",
+    "rc196Style": "web"
+  },
+  {
+    "id": "mb-ep1a09",
+    "name": "갈망의 주사실 감시핵",
+    "zone": "ep1a09",
+    "mechanic": "contamination",
+    "rc196Style": "hunger"
+  },
+  {
+    "id": "mb-ep1a10",
+    "name": "오만의 폐허핵",
+    "zone": "ep1a10",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "a11-boss",
+    "name": "루시퍼 · 가면 벗은 초천사",
+    "zone": "ep1a11",
+    "mechanic": "detonation",
+    "rc196Style": "wing"
+  },
+  {
+    "id": "mb-ep1a11",
+    "name": "초천사의 웃는 가면",
+    "zone": "ep1a11",
+    "mechanic": "detonation",
+    "rc196Style": "wing"
+  },
+  {
+    "id": "mb-ep1b01",
+    "name": "교만의 잔향 · 제72문",
+    "zone": "ep1b01",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "b02-boss",
+    "name": "나태에 잠식된 남자",
+    "zone": "ep1b02",
+    "mechanic": "contamination",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "mb-ep1b02",
+    "name": "나태의 껍데기 파수",
+    "zone": "ep1b02",
+    "mechanic": "contamination",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "b03-boss",
+    "name": "호텔 부매니저 · 레비아탄",
+    "zone": "ep1b03",
+    "mechanic": "detonation",
+    "rc196Style": "mirror"
+  },
+  {
+    "id": "mb-ep1b03",
+    "name": "금이 간 비교잔영",
+    "zone": "ep1b03",
+    "mechanic": "detonation",
+    "rc196Style": "mirror"
+  },
+  {
+    "id": "b04-boss",
+    "name": "최고급 호텔의 총주방장 · 탐식의 귀 베엘제붑",
+    "zone": "ep1b04",
+    "mechanic": "contamination",
+    "rc196Style": "hunger"
+  },
+  {
+    "id": "mb-ep1b04",
+    "name": "폐기주방 감독",
+    "zone": "ep1b04",
+    "mechanic": "contamination",
+    "rc196Style": "hunger"
+  },
+  {
+    "id": "b05-boss",
+    "name": "붉은 하이힐의 서윤",
+    "zone": "ep1b05",
+    "mechanic": "chain",
+    "rc196Style": "petal"
+  },
+  {
+    "id": "mb-ep1b05",
+    "name": "심장빛 무대감독",
+    "zone": "ep1b05",
+    "mechanic": "chain",
+    "rc196Style": "petal"
+  },
+  {
+    "id": "b06-boss",
+    "name": "회장에게 고용된 총지배인 · 맘몬",
+    "zone": "ep1b06",
+    "mechanic": "detonation",
+    "rc196Style": "ledger"
+  },
+  {
+    "id": "mb-ep1b06",
+    "name": "금고 장부감시자",
+    "zone": "ep1b06",
+    "mechanic": "detonation",
+    "rc196Style": "ledger"
+  },
+  {
+    "id": "b06b-boss",
+    "name": "소년이 된 총지배인 · 맘몬",
+    "zone": "ep1b06b",
+    "mechanic": "detonation",
+    "rc196Style": "root"
+  },
+  {
+    "id": "mb-ep1b06b",
+    "name": "겨울숲 가시파수",
+    "zone": "ep1b06b",
+    "mechanic": "detonation",
+    "rc196Style": "root"
+  },
+  {
+    "id": "b07-boss",
+    "name": "불을 지른 청소부 · 사탄",
+    "zone": "ep1b07",
+    "mechanic": "detonation",
+    "rc196Style": "flame"
+  },
+  {
+    "id": "mb-ep1b07",
+    "name": "호텔 화염기사",
+    "zone": "ep1b07",
+    "mechanic": "detonation",
+    "rc196Style": "flame"
+  },
+  {
+    "id": "b08-boss",
+    "name": "백색 정장의 호텔 그룹 회장",
+    "zone": "ep1b08",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "mb-ep1b08",
+    "name": "역십자가 시체경호체",
+    "zone": "ep1b08",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "b09-boss",
+    "name": "사이보그 회장 · 생체 부트로더",
+    "zone": "ep1b09",
+    "mechanic": "detonation",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "mb-ep1b09",
+    "name": "생체부트로더 연산핵",
+    "zone": "ep1b09",
+    "mechanic": "detonation",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "u201-mid",
+    "name": "제4단계 전쟁관리자",
+    "zone": "u201",
+    "mechanic": "detonation",
+    "rc196Style": "judgment"
+  },
+  {
+    "id": "u202-mid",
+    "name": "제8단계 자비 교정관",
+    "zone": "u202",
+    "mechanic": "detonation",
+    "rc196Style": "judgment"
+  },
+  {
+    "id": "u203-mid",
+    "name": "기억의 문 수호 프레임",
+    "zone": "u203",
+    "mechanic": "detonation",
+    "rc196Style": "memory"
+  },
+  {
+    "id": "u203-boss",
+    "name": "컨트롤러 · 기억의 문",
+    "zone": "u203",
+    "mechanic": "detonation",
+    "rc196Style": "memory"
+  },
+  {
+    "id": "l301-boss",
+    "name": "타락천사 기사",
+    "zone": "last301",
+    "mechanic": "detonation",
+    "rc196Style": "blade"
+  },
+  {
+    "id": "mb-last302-v31231",
+    "name": "검은 안개 심장 · 불면의 기억",
+    "zone": "last302",
+    "mechanic": "contamination",
+    "rc196Style": "petal"
+  },
+  {
+    "id": "l303-boss",
+    "name": "불면귀",
+    "zone": "last303",
+    "mechanic": "contamination",
+    "rc196Style": "memory"
+  },
+  {
+    "id": "mb-kair01-v31231",
+    "name": "최초명령 코어 오염체",
+    "zone": "kair01",
+    "mechanic": "chain",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "kair-great-03",
+    "name": "아르벨리아, 유예의 수문장",
+    "zone": "kair02",
+    "mechanic": "chain",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "k103-boss",
+    "name": "세이렌 모르",
+    "zone": "kair03",
+    "mechanic": "detonation",
+    "rc196Style": "petal"
+  },
+  {
+    "id": "mb-hando01",
+    "name": "의존 신호 포식자",
+    "zone": "hando01",
+    "mechanic": "detonation",
+    "rc196Style": "hunger"
+  },
+  {
+    "id": "mb-hando02",
+    "name": "코어 운반 집행자",
+    "zone": "hando02",
+    "mechanic": "detonation",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "h103-boss",
+    "name": "EGO 강탈 악몽왕",
+    "zone": "hando03",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "mb-hando03",
+    "name": "환수검 모조체",
+    "zone": "hando03",
+    "mechanic": "detonation",
+    "rc196Style": "blade"
+  },
+  {
+    "id": "mb-murder01",
+    "name": "파란불 역주행 목격자",
+    "zone": "murder01",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "mb-murder02",
+    "name": "공실장부 당직감사",
+    "zone": "murder02",
+    "mechanic": "detonation",
+    "rc196Style": "ledger"
+  },
+  {
+    "id": "mb-murder03",
+    "name": "옥상 인과보관인",
+    "zone": "murder03",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "c101-mid",
+    "name": "칩 제단 방화벽",
+    "zone": "cult01",
+    "mechanic": "detonation",
+    "rc196Style": "flame"
+  },
+  {
+    "id": "c102-boss",
+    "name": "네트워크 합창체",
+    "zone": "cult02",
+    "mechanic": "detonation",
+    "rc196Style": "petal"
+  },
+  {
+    "id": "c103-mid",
+    "name": "이단의목사 한리안",
+    "zone": "cult03",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "c103-boss",
+    "name": "이단의목사 백이온",
+    "zone": "cult03",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "c104-mid",
+    "name": "적그리스도 배양좌",
+    "zone": "cult04",
+    "mechanic": "contamination",
+    "rc196Style": "hunger"
+  },
+  {
+    "id": "c104-boss",
+    "name": "교만의 사이보그 교주",
+    "zone": "cult04",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "u204-mid",
+    "name": "제12단계 기억 검열기",
+    "zone": "u204",
+    "mechanic": "detonation",
+    "rc196Style": "blade"
+  },
+  {
+    "id": "u205-mid",
+    "name": "제14단계 역전 관리자",
+    "zone": "u205",
+    "mechanic": "detonation",
+    "rc196Style": "judgment"
+  },
+  {
+    "id": "u206-mid",
+    "name": "제17단계 중앙이주 코어",
+    "zone": "u206",
+    "mechanic": "detonation",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "l305-boss",
+    "name": "고블린 추장",
+    "zone": "last305",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "mb-kair04-v31231",
+    "name": "휴식 수확관 · 과로의 수문장",
+    "zone": "kair04",
+    "mechanic": "chain",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "kair-great-01",
+    "name": "대수문장 01",
+    "zone": "kair05",
+    "mechanic": "detonation",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "kair-great-02",
+    "name": "대수문장 02",
+    "zone": "kair06",
+    "mechanic": "chain",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "kair-great-04",
+    "name": "대수문장 04",
+    "zone": "kair07",
+    "mechanic": "chain",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "kair-great-05",
+    "name": "대수문장 05",
+    "zone": "kair08",
+    "mechanic": "contamination",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "mb-kair09-v31231",
+    "name": "망각 묘지기 · 삭제된 선택",
+    "zone": "kair09",
+    "mechanic": "detonation",
+    "rc196Style": "memory"
+  },
+  {
+    "id": "kair-great-06",
+    "name": "대수문장 06",
+    "zone": "kair10",
+    "mechanic": "chain",
+    "rc196Style": "clock"
+  },
+  {
+    "id": "murder04-mid",
+    "name": "진술 봉쇄 인과핵",
+    "zone": "murder04",
+    "mechanic": "detonation",
+    "rc196Style": "judgment"
+  },
+  {
+    "id": "c105-mid",
+    "name": "ID 생체조 관리자",
+    "zone": "cult05",
+    "mechanic": "contamination",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "c106-mid",
+    "name": "기계재판 집행핵",
+    "zone": "cult06",
+    "mechanic": "chain",
+    "rc196Style": "signal"
+  },
+  {
+    "id": "blue-executor",
+    "name": "파란불 집행체",
+    "zone": "murder03",
+    "mechanic": "detonation",
+    "rc196Style": "gate"
+  },
+  {
+    "id": "a11-cosmic-v31318",
+    "name": "가면이 깨진 루시퍼",
+    "zone": "ep1a11",
+    "mechanic": "contamination",
+    "rc196Style": "wing"
+  }
+]

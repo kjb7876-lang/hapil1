@@ -118890,6 +118890,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   const hits=s=>[...(s?.pendingHits??[]),...(s?.impactQueue??[])];
   const owned=(s,r)=>hits(s).filter(h=>h.cosmicAttackV31318&&h.bossCastId31210===r.cast&&h.sourceId===r.actor.id);
   function damage(s,mode){const base=mode==="blood-beam"?38:mode==="reliquary"?24:12;return Math.min(mode==="blood-beam"?72:mode==="reliquary"?42:20,Math.max(base,num(s.maxHp,100)*(mode==="blood-beam"?.22:mode==="reliquary"?.13:.07)));}
+  function mouthWorld(s,a){const point=window.__HAPIL_LUCIFER_V31318__?.mouthPoint?.(a,num(s.time));if(!point)return{x:num(a.x),y:num(a.y)};const o=G(0,0),x=G(1,0),y=G(0,1),ax=x.x-o.x,ay=x.y-o.y,bx=y.x-o.x,by=y.y-o.y,det=ax*by-ay*bx;if(Math.abs(det)<1e-9)return{x:num(a.x),y:num(a.y)};const px=point.x-o.x,py=point.y-o.y;return{x:(px*by-py*bx)/det,y:(ax*py-ay*px)/det};}
   function plan(s,a,mode=modes[Math.max(0,Math.floor(num(a?.cosmicCycleV31318)))%modes.length]){
     if(!owner(a)||s?.zone!==ZONE)return null;
     if(mode==="reliquary"){
@@ -118897,10 +118898,12 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
       return {mode,name:"가면의 성유물 · 낙하하는 다섯 비석",points,windup:2.3,spacing:.6,last:4.7,recovery:1.55,sprite:assets.reliquary,color:"#e53b54"};
     }
     if(mode==="blood-beam"){
-      // In the 29.2-square walkable arena, a diagonal band with this half-width
-      // covers 80% exactly; two corner triangles remain safe throughout release.
-      const span=29.2,width=span*(1-Math.sqrt(.2))/Math.SQRT2;
-      return {mode,name:"피의 천문 · 혈광 소멸포",origin:{x:1.4,y:1.4},end:{x:30.6,y:30.6},width,radius:span*Math.SQRT2,windup:3.8,last:3.8,recovery:1.85,sprite:assets.beam,color:"#ff2d4d"};
+      // Lock warning and collision to the visible mouth and the same player-directed ray.
+      const origin=mouthWorld(s,a),dx=num(s.x)-origin.x,dy=num(s.y)-origin.y,d=Math.max(.001,Math.hypot(dx,dy)),ux=dx/d,uy=dy/d;
+      const polygon=window.__HAPIL_PERSONA_DUEL_RC134__?.polygon?.('all',0)??[{x:0,y:0},{x:32,y:0},{x:32,y:32},{x:0,y:32}];
+      let length=0;for(let i=0;i<polygon.length;i++){const p=polygon[i],q=polygon[(i+1)%polygon.length],ex=q.x-p.x,ey=q.y-p.y,den=ux*ey-uy*ex;if(Math.abs(den)<1e-9)continue;const px=p.x-origin.x,py=p.y-origin.y,t=(px*ey-py*ex)/den,u=(px*uy-py*ux)/den;if(t>=0&&u>=-1e-8&&u<=1+1e-8)length=Math.max(length,t);}
+      const end={x:origin.x+ux*length,y:origin.y+uy*length};
+      return {mode,name:"피의 천문 · 혈광 소멸포",origin,end,width:1.35,radius:length,windup:3.8,last:3.8,recovery:1.85,sprite:assets.beam,color:"#ff2d4d"};
     }
     if(mode!=="abyss-fan")return null;
     const ports=[{x:clamp(a.x-2.3,1.8,30.2),y:clamp(a.y+2.3,1.8,30.2)},{x:clamp(a.x+2.3,1.8,30.2),y:clamp(a.y-2.3,1.8,30.2)}],volleys=[];
@@ -119216,7 +119219,8 @@ function bullet(ctx,cache,e,time,settings={}){
  repair(e);const chosen=pick(cache,e);if(!chosen)return true;
  const start=num(e.born,num(e.sourceBorn));
  if(time<start||e.hideUntilRelease31219&&((e.codeNativeBarrage31219===true&&e.bodySpawned31219!==true)||time+1e-9<Math.max(num(e.motionReleaseAt31219,-1),num(e.collisionDisabledUntil31219,-1))))return true;
- const p=G(num(e.x),num(e.y)),dx=num(e.motionVx31219,num(e.vx,num(e.tx)-num(e.x))),dy=num(e.motionVy31219,num(e.vy,num(e.ty)-num(e.y))),q=G(num(e.x)+dx,num(e.y)+dy);
+ const moving=Math.hypot(num(e.vx),num(e.vy))>.001;
+ const p=G(num(e.x),num(e.y)),dx=moving?num(e.vx):num(e.motionVx31219,num(e.tx)-num(e.x)),dy=moving?num(e.vy):num(e.motionVy31219,num(e.ty)-num(e.y)),q=G(num(e.x)+dx,num(e.y)+dy);
  const round=radial(chosen.path),rotation=round?0:Math.atan2(q.y-p.y,q.x-p.x)-heading(chosen.path,e);
  const w=num(chosen.image.naturalWidth,chosen.image.width),h=num(chosen.image.naturalHeight,chosen.image.height),size=clamp(num(e.radius,num(e.r,.5))*64,34,88)*(e.rc133InnerShot&&e.rc150RedPersonaShot?1.2:1),scale=size/Math.max(w,h);
  ctx.save();try{

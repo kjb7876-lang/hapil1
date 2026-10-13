@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "f26367ec44798114a909460412a00270b59e18d6",
+  "baseTree": "334d8efb8b9e8ecf0793039594312c616f327467",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e8778b9f700984cf0157b8a5ce3cfb8f1e862bd9d8226390295e65bc6839a605",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized Cosmic mouth-directed beam, current-velocity bitmap direction and story-based ranged narrow-volley differentiation; canonical assets, damage, saves preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2a579f3eb062d6264debd482b5201cdb1226ac5a"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "1e9eb734cb596c5800d79cb34fae106b3dac0fa7",
+        "sha256": "f7aac47ccd7359b48f7935373f2b4d11a35dc0eaed2b405cec50545ab0dfa585"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: authorized Cosmic mouth-directed beam, current-velocity bitmap direction and story-based ranged narrow-volley differentiation; canonical assets, damage, saves preserved",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "a481bdc4f38d6a81dec9cb389b7f19fe0bbdde56"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "f3ec8bea27dc505cae05988a9911505fff29314e",
+        "sha256": "e097cd1f6f0928298bb93dcda28570033af409c9048e766b5924c78b4431de80"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized Cosmic mouth-directed beam, current-velocity bitmap direction and story-based ranged narrow-volley differentiation; canonical assets, damage, saves preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c38878d8e07f7ce1671a1f5097df02aa976e55f7"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c7a6ddc1e10c1fd428654307731aaff266750869",
+        "sha256": "106141a6f30a488bedfbe5ea54b13642503d461edec4c63210d6aaa9f34d2bc8"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "ceace035d4a883496323eac2b5d25b1ca4579432f01cd26cee8566deaca97e96"
+}
