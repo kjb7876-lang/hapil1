@@ -9,7 +9,7 @@
  const removed=q=>q?.friendly||q?.reflected||q?.cancelled||q?.projectileRemovalReason31215||q?.reachedHero31213||q?.reachedMapBoundary31213;
  const eligible=(s,q)=>!!q&&!(q.rc133InnerShot===true&&q.rc150PersonaAwakeningShot===true)&&!removed(q)&&boss((s.enemies??[]).find(a=>a.id===q.sourceId))&&Math.hypot(n(q.vx),n(q.vy))>.01&&!root.__HAPIL_PRESENTATION_RC130__?.hazard?.(q)&&!q.laserShot&&!q.laserV31330&&!q.bloodV31516&&!q.persistentProjectile31222&&!q.bossImpactTransitV31232&&!q.themeBombV31323&&!q.themePollutionV31323;
  const angle=q=>Math.atan2(q.vy,q.vx),delta=(a,b)=>((a-b+Math.PI*3)%TAU)-Math.PI;
- function lock(q){if(!Number.isFinite(q.rc153ScatterAngle))return;const speed=Math.hypot(n(q.vx),n(q.vy));q.vx=Math.cos(q.rc153ScatterAngle)*speed;q.vy=Math.sin(q.rc153ScatterAngle)*speed;q.curve=0;q.sineAmplitude31212=0;q.homingMode31212='none';q.scatterHomingPrepared31211=true;q.offscreenReturnAllowance31212=0;q.bounceRemaining31212=0;
+ function lock(q){if(!Number.isFinite(q.rc153ScatterAngle)||removed(q))return;const stamp=[n(q.boundaryContactCount31214),n(q.dreamReflectionCountV31346),n(q.offscreenReentries31213)].join(':');if(q.rc194MotionStamp!==undefined&&q.rc194MotionStamp!==stamp&&Math.hypot(n(q.vx),n(q.vy))>.01)q.rc153ScatterAngle=angle(q);q.rc194MotionStamp=stamp;const speed=Math.hypot(n(q.vx),n(q.vy));q.vx=Math.cos(q.rc153ScatterAngle)*speed;q.vy=Math.sin(q.rc153ScatterAngle)*speed;q.curve=0;q.sineAmplitude31212=0;q.homingMode31212='none';q.scatterHomingPrepared31211=true;
   for(const k of ['homeAt31211','homeUntil31211','returnAt','returnUntil','retargetAt31212','orbitUntil31212'])if(q[k]!=null){delete q[k];stats.retargetPrevented++;}
  }
  function scatter(s){if(!s||!root.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s))return;const list=s.hostileProjectiles??[],prior=frames.get(s),key=[s.time,s.fxSerial,list.length,list.at(-1)?.id].join(':');if(prior?.list===list&&prior.key===key)return;frames.set(s,{list,key});const groups=new Map();
@@ -25,6 +25,29 @@
    ordered.forEach((q,i)=>{q.rc153ScatterAngle=center+(ordered.length===2?(i===1?0:(n(ordered[0].id)%2?1:-1)*policy.scatterSpan):(i===Math.floor(ordered.length/2)?0:(i/(ordered.length-1)-.5)*policy.scatterSpan));q.rc153OriginalAngle=angle(q);q.rc153ScatterCount=ordered.length;lock(q);q.danmakuAngleV31316=q.rc153ScatterAngle;if(q.danmakuAimV31316!=null)q.danmakuOffsetV31316=delta(q.rc153ScatterAngle,q.danmakuAimV31316);if(q.cosmicAngleV31318!=null)q.cosmicAngleV31318=q.rc153ScatterAngle;});
    stats.groups++;stats.shots+=ordered.length;stats.owners[qs[0].sourceId]=(stats.owners[qs[0].sourceId]??0)+1;const key=qs[0].rc133Skill??qs[0].danmakuPatternIdV31372??qs[0].densePattern3129??'native';stats.patterns[key]=(stats.patterns[key]??0)+1;
   }
+ }
+ const basicMemory=new WeakMap(),basicPlans=new WeakMap();
+ const basicProfiles=Object.freeze({
+  'b02-boss':{angles:[0,.28,-.28,.56,-.56],lateral:.12,rhythm:[.1,0,-.1,0,0]},
+  'b03-boss':{angles:[-.36,.36,0,.18,-.18],lateral:.24,rhythm:[.06,-.06,0,.06,-.06]},
+  'b07-boss':{angles:[0,-.18,.18,-.4,.4],lateral:.1,rhythm:[.08,-.08,.04,-.04,0]},
+  'l301-boss':{angles:[-.42,0,.42,-.2,.2],lateral:.18,rhythm:[.08,0,-.08,.08,-.08]},
+  'a11-boss':{angles:[0,.24,-.24,.48,-.48],lateral:.18,rhythm:[.1,-.1,0,.05,-.05]},
+  'dist06-boss':{angles:[-.34,.34,-.16,.16,0],lateral:.22,rhythm:[.07,-.07,.07,-.07,0]}
+ });
+ const ordinaryBasic={angles:[0,.26,-.26,.52,-.52],lateral:.16,rhythm:[0,0,0,0,0]};
+ function basicProfile(a){if(basicProfiles[a.id])return basicProfiles[a.id];if(!boss(a))return ordinaryBasic;const seed=[...String(a.id??'')].reduce((v,c)=>(Math.imul(v,33)+c.charCodeAt(0))>>>0,0),factor=.86+(seed%9)*.045,turn=(seed>>>4)%5,angles=ordinaryBasic.angles.map(v=>v*factor);return {angles:angles.slice(turn).concat(angles.slice(0,turn)),lateral:.12+(seed%6)*.025,rhythm:turn%2?[.08,0,-.08,.04,-.04]:[-.06,.06,0,-.06,.06]};}
+
+ function beginBasic(s,a,p){const R=root.__HAPIL_BATTLE_ARENA_RC138__;if(!R?.enabled(s)||!R.hostile(a)||a.cosmicLuciferV31318||a.id==='inner-evil-rc133'||p?.ranged!==true||!(a.attackAt>s.time))return false;
+  let m=basicMemory.get(s);if(!m||m.zone!==s.zone||s.time<m.at){m={zone:s.zone,at:s.time,actors:new Map()};basicMemory.set(s,m);}m.at=s.time;let row=m.actors.get(a.id);if(!row||row.actor!==a){row={actor:a,count:0};m.actors.set(a.id,row);}const profile=basicProfile(a),index=row.count++%profile.angles.length,d=Math.hypot(n(a.attackDx),n(a.attackDy));if(!(d>.001))return false;
+  const aim=Math.atan2(a.attackDy,a.attackDx),side=Math.sign(a.attackDx-a.attackDy),allowed=f=>profile.angles.every(v=>side*(Math.cos(aim+v*f)-Math.sin(aim+v*f))>=.01);let factor=1;if(side&&!allowed(1)){let low=0,high=1;for(let i=0;i<24;i++){const mid=(low+high)/2;if(allowed(mid))low=mid;else high=mid;}factor=low;}const theta=aim+profile.angles[index]*factor,dx=Math.cos(theta),dy=Math.sin(theta);a.attackDx=dx;a.attackDy=dy;
+  // Distinct preparation rhythm within the original start-to-start budget. ReadyAt never advances.
+  const shift=a.boss||a.midboss?Math.max(.42-n(a.attackWindup),Math.min(profile.rhythm[index],Math.max(0,n(a.readyAt)-n(a.recoverUntil)-.05))):0;
+  a.attackWindup+=shift;a.attackAt+=shift;a.attackImpactAt+=shift;a.recoverUntil+=shift;
+  basicPlans.set(a,{world:s,zone:s.zone,started:a.attackStarted,fireAt:a.attackAt,dx,dy,lateral:(index%2?1:-1)*profile.lateral,index});return true;
+ }
+ function placeBasic(s,a,q){const p=basicPlans.get(a);if(!p||p.world!==s||p.zone!==s.zone||p.started!==a.attackStarted||s.time+1e-7<p.fireAt||q?.persistentBasicRanged31221!==true)return false;
+  const origin={x:a.x-p.dy*p.lateral,y:a.y+p.dx*p.lateral},R=root.__HAPIL_BATTLE_ARENA_RC138__,point=R?.contains(origin,'all',0)?origin:{x:a.x,y:a.y};for(const key of ['x','originX','previousX'])q[key]=point.x;for(const key of ['y','originY','previousY'])q[key]=point.y;q.rc194BasicIndex=p.index;q.rc194BasicLateral=p.lateral;return true;
  }
  function position(a,q){if(!boss(a)||a.id==='inner-evil-rc133')return q;const u=Math.max(policy.rightAcrossMin,Math.min(policy.rightAcrossMax,n(q.x)-n(q.y))),v=Math.max(policy.rightDepthMin,Math.min(policy.rightDepthMax,n(q.x)+n(q.y)));return{x:(v+u)/2,y:(v-u)/2};}
  function bounds(s,subjects){const anchors=subjects??[s,...(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly)],rects=anchors.map(a=>{const painted=deps.paintEnvelope?.(s,a,a===s);if(painted)return painted;const p=deps.project(a.x,a.y),size=Math.max(55,n(deps.size(a),a===s?100:210));return{left:p.x-size*policy.bodyWidth/2,right:p.x+size*policy.bodyWidth/2,top:p.y-size*policy.bodyAbove,bottom:p.y+size*policy.bodyBelow};});const nativePaintActors=rects.filter(r=>r.nativePaint).length;let nearbyProjectiles=0;for(const q of s.hostileProjectiles??[]){if(removed(q)||q.kind==='telegraph'||!Number.isFinite(q.x)||!Number.isFinite(q.y)||!anchors.some(a=>Math.hypot(q.x-a.x,q.y-a.y)<=26))continue;const p=deps.project(q.x,q.y),extent=Math.max(72,Math.min(140,n(q.radius,.3)*48));rects.push({left:p.x-extent,right:p.x+extent,top:p.y-extent,bottom:p.y+extent});nearbyProjectiles++;}return{nativePaintActors,nearbyProjectiles,left:Math.min(...rects.map(r=>r.left)),right:Math.max(...rects.map(r=>r.right)),top:Math.min(...rects.map(r=>r.top)),bottom:Math.max(...rects.map(r=>r.bottom))};}
@@ -65,7 +88,7 @@
  }
  function camera(s,view,slot){if(!deps||!root.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s))return null;const actors=slot==='boss'?(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly):slot==='hero'?[s]:null,b=framing(s,actors?.length?actors:null),landscape=!slot&&root.__HAPIL_MOBILE_V31366__?.enabled?.()===true&&innerWidth>innerHeight,insets=landscape?getComputedStyle(document.documentElement):null,inset=k=>Math.max(0,parseFloat(insets?.getPropertyValue('--rc154-safe-'+k))||0),x=n(view.x),k=n(view.k,1),pad=Math.max(landscape?48:12,inset('left')+8,inset('right')+8)/k,width=Math.max(1,n(view.width,1280)-pad*2),vh=n(view.height,720),vy=n(view.y),top=slot?(slot==='boss'?250:196):vy+Math.min((landscape?8+inset('top'):84)/k,vh*.22),bottom=slot?(slot==='hero'?470:524):vy+vh-Math.min((landscape?12+inset('bottom'):100)/k,vh*.24),height=Math.max(1,bottom-top),scale=Math.min(landscape?2.4:.96,width/Math.max(1,slot?b.right-b.left:2*Math.max(Math.abs(640-b.left),Math.abs(b.right-640))),height/Math.max(1,b.bottom-b.top));stats.cameraFits++;return{x:x+n(view.width,1280)/2-(slot?(b.left+b.right)/2:640)*scale,y:(top+bottom)/2-(b.top+b.bottom)*scale/2,scale,battleArenaRC138:true,rc153WholeBody:true,rc153Safe:{left:x+pad,right:x+n(view.width,1280)-pad,top,bottom},...(slot?{rc138Side:root.__HAPIL_BATTLE_ARENA_RC138__.side(s,slot==='hero'),rc138Row:1,rc138Coverage:b}:{})};}
  function bind(api){deps=api;for(const id of api.ranked??[])ranked.add(id);}
- root.__HAPIL_COMBAT_LAYOUT_RC153__=Object.freeze({policy,boss,eligible,scatter,lock,position,bounds,framing,camera,actorScale,envelopePadding,bind,metrics:()=>JSON.parse(JSON.stringify(stats))});
+ root.__HAPIL_COMBAT_LAYOUT_RC153__=Object.freeze({policy,boss,eligible,scatter,lock,basicProfiles,basicProfile,beginBasic,placeBasic,position,bounds,framing,camera,actorScale,envelopePadding,bind,metrics:()=>JSON.parse(JSON.stringify(stats))});
 })(window);
 
 

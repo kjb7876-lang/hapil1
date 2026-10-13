@@ -17,7 +17,7 @@
   const pairs=mode===0?[h(-gap),h(gap)]:mode===1?[vertical(-gap),vertical(gap)]:mode===2?[slash(-gap/2),slash(gap/2)]:[h(0),vertical(0),slash(gap)];
   return pairs.map(([a,b])=>root.__HAPIL_LASERS_V31330__?.clip(a,b)).filter(Boolean).map(l=>({...l,width:c.width}));
  }
- function configure(c,a){if(c.rc175StrokeMode!==undefined&&validMode(c))return;const mode=cycles.get(a)??0;c.rc175StrokeMode=mode;cycles.set(a,(mode+1)%4);}
+ function configure(c,a){if(c.rc175StrokeMode!==undefined&&validMode(c))return;const seed=[...String(a?.id??'')].reduce((v,ch)=>(Math.imul(v,33)+ch.charCodeAt(0))>>>0,0),mode=cycles.get(a)??(seed%4);c.rc175StrokeMode=mode;cycles.set(a,(mode+1)%4);}
  function title(c){return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][strokeMode(c)];}
  function tint(image,color){
   if(!image||image.complete===false||!(image.naturalWidth||image.width)||!root.document?.createElement)return image;

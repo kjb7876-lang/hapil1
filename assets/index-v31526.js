@@ -44580,6 +44580,7 @@ function MONGSE_spawnEnemyCounterProjectile31229(e, t, n, r, i) {
       retirePolicy31222: `hero-or-world-boundary`,
     };
   return (
+    window.__HAPIL_COMBAT_LAYOUT_RC153__?.placeBasic(e,t,u),
     MONGSE_ensureHostileProjectileSprite31222(e, u),
     e.hostileProjectiles.push(u),
     t.boss || t.midboss
@@ -45821,6 +45822,7 @@ function MONGSE_spawnPersistentRangedAttack31221(e, t, n, r, i) {
       retirePolicy31222: `hero-or-world-boundary`,
     };
   return (
+    window.__HAPIL_COMBAT_LAYOUT_RC153__?.placeBasic(e,t,u),
     MONGSE_ensureHostileProjectileSprite31222(e, u),
     e.hostileProjectiles.push(u),
     t.boss
@@ -62743,6 +62745,7 @@ function Ri() {
                           (e.boss || e.midboss ? (c - 1) * 0.09 : 0),
                       )),
                     void 0);
+                  if(window.__HAPIL_COMBAT_LAYOUT_RC153__?.beginBasic(o,e,r))pi(e,e.attackDx,e.attackDy);
                   MONGSE_markEnemyCounterAttackStarted31229(e, r, o.time);
                   window.__HAPIL_SKILL_COMPLETION_V31412__?.beginEnemyCast(o,e,c,e.attackAt);
                 }
@@ -94101,7 +94104,7 @@ queueMicrotask(() =>
           MONGSE_stateV31237,
           MONGSE_projectileV31237,
         ) {
-          if (MONGSE_projectileV31237?.normalEnemyProjectileV31237) {
+          if (MONGSE_projectileV31237?.normalEnemyProjectileV31237 && MONGSE_projectileV31237.retirePolicy31222 !== `hero-or-world-boundary`) {
             const MONGSE_hardExpiryV31237 = Number(
               MONGSE_projectileV31237.hardExpiresAt31214 ??
                 MONGSE_projectileV31237.expiresAt,

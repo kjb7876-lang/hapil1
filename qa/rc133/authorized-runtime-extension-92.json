@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "904a816dc2e71a37f0a222fb33d69b356e1b438a",
+  "baseTree": "c1bddd1b81bd9caa1e47bcbc534d5aa8c08dd1e3",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "bfb2a053a3416155dfee6d6ee33d014357bad61f2fb54cbdabccd0b09a409a50",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC194 explicit user train/scatter and premature disappearance correction; native basic count/readyAt/speed/damage preserved, distinct owner rhythm and straight laser starting mode, reflection and returns retained",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "2e66088be59f0f80b194b07a3957b8a4940e501d"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "686309204f584ac385f44b5e12da3f98676c0010",
+        "sha256": "e3587c3ef929f92509723d011a15828994a419e48bd551964e4e6e85fe005aa4"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: RC194 explicit user train/scatter and premature disappearance correction; native basic count/readyAt/speed/damage preserved, distinct owner rhythm and straight laser starting mode, reflection and returns retained",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "cadafdd824f0acd1a5ab1de1e1d81110a9842b46"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "a481bdc4f38d6a81dec9cb389b7f19fe0bbdde56",
+        "sha256": "032054cbc684c568311fef323e94465219751ce6b3ed186c309b3c907bec6c68"
+      }
+    },
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: RC194 explicit user train/scatter and premature disappearance correction; native basic count/readyAt/speed/damage preserved, distinct owner rhythm and straight laser starting mode, reflection and returns retained",
+      "before": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "84e8c01536e6417711c682c64448d0f159baeffe"
+      },
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "b5a31f24c5b71ed0dd1fdca2c51257d3f3a8a6da",
+        "sha256": "24fa315a63909b54422a02ffc4a0b606775abbfe4f18bb94e7db62c85e1528b8"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC194 explicit user train/scatter and premature disappearance correction; native basic count/readyAt/speed/damage preserved, distinct owner rhythm and straight laser starting mode, reflection and returns retained",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "96ef39a614e9a91a1655db009774ca3d53b271c3"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8ce3bebd89d9be58537af0a61971fab57a3d7e64",
+        "sha256": "e782679462403690720c5bacdcd5bb6a632eacf86e79ca778c3066e0d0d5d39c"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "f931ad54f8157daf2f3e758bd2988922d67d439cf4173f455cefb88b9c00c885"
+}
