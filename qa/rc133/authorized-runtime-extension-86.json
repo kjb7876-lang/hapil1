@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "6864f9647d1e7cd28b799b829f1e22edade875db",
+  "baseTree": "8a72e0c5c28a3028805ceeaf21428d75a6705216",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "6afe1ae651a17f7cde16267621d1fc93a9b8648a344ef7907e886a75ad1ee5d1",
+  "files": [
+    {
+      "file": "assets/combat-v31412/outgoing-native.js",
+      "reason": "RC189: authorized active-runtime correction for zero-damage hit cues and projectile admission sound; existing damage, story and source assets retained",
+      "before": {
+        "file": "assets/combat-v31412/outgoing-native.js",
+        "mode": "100644",
+        "gitBlob": "7ffd55f49848b56d4da3427c619bb585e302fadf"
+      },
+      "after": {
+        "file": "assets/combat-v31412/outgoing-native.js",
+        "mode": "100644",
+        "gitBlob": "42946f472c1df0108870ef8429e001fe6aea7b9b",
+        "sha256": "832e7a18d0bd05021e47cc51b9acd8582c57dbe3561802f58024600db5265201"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "RC189: authorized active-runtime correction for zero-damage hit cues and projectile admission sound; existing damage, story and source assets retained",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "72aececee981058725ffacb887809f800e0ed62d"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7a2082da97d73703ea0ad4088a153b17ffc6a78a",
+        "sha256": "197afb03df3c6b2264681fdadd79b24f10b496c138ea1d416f58c34e2259b714"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "RC189: authorized active-runtime correction for zero-damage hit cues and projectile admission sound; existing damage, story and source assets retained",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ce2a8cb5c458cd805cd0d1e0a36dd2e7de6e01d5"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "1becff627adbf9db0708b3df00426da7fb5694dc",
+        "sha256": "23cb8708de51b5b7807595634f776bf08311388e79ce06548cc0fa4832084145"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "937dc1b18c93235614e104105d1e1d7537fd313f75d2778092749eac2e838589"
+}

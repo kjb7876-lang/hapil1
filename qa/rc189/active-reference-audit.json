@@ -1,0 +1,541 @@
+{
+  "scripts": [
+    {
+      "path": "assets/rc133/samong-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc155/ego-guardian.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc155/ego-art.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc155/combat-provenance.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc133/developer-maps.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/direction-input.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc153/combat-layout.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc138/battle-arena.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc138/map-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc138/map-format.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/enemy-class-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/enemy-classes.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/mob-motion-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc140/story-cycle-mob-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/mob-motions.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/art-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/boss-art.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/awakening-portraits.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc150/awakening-impact.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc137/awakening-rules.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc135/midboss-motion-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc140/story-cycle-midboss-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc135/midboss-motions.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc134/persona-duel.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc158/persona-presentation.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc133/inner-final.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc133/media-art.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc131/hero-images.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc132/dream-balance.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc130/projectile-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc130/audio-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc128/awakening-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc128/combat-feedback.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc127/combat-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc127/dark-jelly.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc126/finite-native.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc126/combat-safety.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc91/samong-awakening.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc79/combat-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc182/ending-flow.js",
+      "exists": true
+    },
+    {
+      "path": "assets/hapil-title-v31342.js",
+      "exists": true
+    },
+    {
+      "path": "assets/foundation-v31400/policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/foundation-v31400/run.js",
+      "exists": true
+    },
+    {
+      "path": "assets/doctrine-v31408/doctrine.js",
+      "exists": true
+    },
+    {
+      "path": "assets/doctrine-v31408/tactical-context.js",
+      "exists": true
+    },
+    {
+      "path": "assets/controller-v31406/action-contract.js",
+      "exists": true
+    },
+    {
+      "path": "assets/controller-v31406/resonance-channel.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc15/hero-controls.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc46/incoming-hit-art.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc47/combat-expansion.js",
+      "exists": true
+    },
+    {
+      "path": "assets/render-v31404/owner-pipeline.js",
+      "exists": true
+    },
+    {
+      "path": "assets/render-v31404/theme-painters.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc20/art.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc20/skill-vfx.js",
+      "exists": true
+    },
+    {
+      "path": "assets/render-v31403/render-pipeline.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-v31402/combat-core.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc34/balance-and-resonance.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-v31412/outgoing-native.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc133/bitmap-contact.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-v31402/contact-geometry.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-v31402/projectile-pipeline.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc43/bloodied-flight.js",
+      "exists": true
+    },
+    {
+      "path": "data/narrative-v31217-exact.js",
+      "exists": true
+    },
+    {
+      "path": "data/world-v31217.js",
+      "exists": true
+    },
+    {
+      "path": "data/actor-canvas-map-v31224.js",
+      "exists": true
+    },
+    {
+      "path": "data/encounter-v31230.js",
+      "exists": true
+    },
+    {
+      "path": "data/encounter-v31238.js",
+      "exists": true
+    },
+    {
+      "path": "data/story-v31300.js",
+      "exists": true
+    },
+    {
+      "path": "data/story-delta-v314rc2.js",
+      "exists": true
+    },
+    {
+      "path": "data/story-delta-v314rc3.js",
+      "exists": true
+    },
+    {
+      "path": "data/patient-journal-v31368.js",
+      "exists": true
+    },
+    {
+      "path": "data/patient-delta-v314rc2.js",
+      "exists": true
+    },
+    {
+      "path": "data/patient-delta-v314rc3.js",
+      "exists": true
+    },
+    {
+      "path": "assets/boss-identity-v31409.js",
+      "exists": true
+    },
+    {
+      "path": "assets/pattern-codex-v31410.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-v31412/skill-completion.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc23/laser.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc23/contact.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc23/feedback.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc25/raid.js",
+      "exists": true
+    },
+    {
+      "path": "data/story-rc51.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc139/display-data.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc139/narration-start.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc177/memory-frame.js",
+      "exists": true
+    },
+    {
+      "path": "assets/story-narration/v1/mixer.js",
+      "exists": true
+    },
+    {
+      "path": "assets/story-narration/v1/player.js",
+      "exists": true
+    },
+    {
+      "path": "assets/story-narration/v1/surfaces.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc51/story.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc179/first-bed-memory.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc77/connected-laser.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc83/startup-diagnostics.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc97/choice-patterns.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc95/combat-flow.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc129/danmaku-director.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc129/danmaku-hud.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc108/laser-topology.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc108/damage-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc108/samong-ricochet.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc108/portrait-split.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc104/combat-viewport.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc115/vertical-poses.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc115/weapon-sockets.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc122/autoplay-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc124/laser-overrun.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc125/adaptive-battlefield.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-audio/v1/catalog.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc133/media-catalog.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-audio/v1/controller.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc133/media-audio.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc141/media-additions.js",
+      "exists": true
+    },
+    {
+      "path": "assets/combat-audio/v1/native-bridge.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc140/story-cycle-runtime.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc145/body-ash.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc175/boss-policy.js",
+      "exists": true
+    },
+    {
+      "path": "assets/index-v31526.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc96/resonance-hud.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc86/samong-cosmic.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc87/episode-cosmic.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc88/danmaku-rpg.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc26/ui.js",
+      "exists": true
+    },
+    {
+      "path": "assets/hapil-party-v31408.js",
+      "exists": true
+    },
+    {
+      "path": "assets/hapil-mobile-v31406.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc49/story-voice.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc32/boss-and-mobile.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc33/boss-laser-render.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc99/battle-layout.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc108/combat-information.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc111/mobile-auto.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc115/map-advance.js",
+      "exists": true
+    },
+    {
+      "path": "assets/rc142/cult-leader-art.js",
+      "exists": true
+    },
+    {
+      "path": "assets/title/v31236/christian-opening-v31236.js",
+      "exists": true
+    },
+    {
+      "path": "assets/hapil-start-v31342.js",
+      "exists": true
+    }
+  ],
+  "activeOutgoing": [
+    "assets/combat-v31412/outgoing-native.js"
+  ],
+  "activeNative": [
+    "assets/index-v31526.js"
+  ],
+  "nativeInstallsOutgoingCreate": true,
+  "allLocalScriptFilesExist": true,
+  "scope": "top-level HTML scripts and outgoing hook only; not a proof of every dynamically selected path"
+}

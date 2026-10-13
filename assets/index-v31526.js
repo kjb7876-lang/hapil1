@@ -62754,7 +62754,6 @@ function Ri() {
                       (t.telekinetic || t.laserV31330) ||
                         MONGSE_spawnBossPatternFollowup31212(o, e, c));
                   } else {
-                    We(MONGSE_enemyAttackSfx(e, o.zone), 1);
                     if (r.lunge > 0) {
                       let t = ft(
                         o.zone,
@@ -62811,6 +62810,8 @@ function Ri() {
                         MONGSE_persistentRanged31221.capRejected31221 !== !0,
                       MONGSE_persistentRangedCapRejected31222 =
                         MONGSE_persistentRanged31221?.capRejected31221 === !0;
+                    !MONGSE_persistentRangedCapRejected31222 && e.hp > 0 && o.hp > 0 &&
+                      We(MONGSE_enemyAttackSfx(e, o.zone), 1);
                     MONGSE_persistentRangedCapRejected31222 &&
                       ((e.readyAt = Math.min(
                         e.readyAt,

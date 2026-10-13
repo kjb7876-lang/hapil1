@@ -76,8 +76,8 @@
           v = MONGSE_counterDamageV31303.appliedDamage;
         if (
           ((o.hp = MONGSE_gatedHp),core.computed(a,o,g),core.mark(a,o,v>0?'HIT':'REJECTED',v>0?'native-enemy-damage':'native-phase-gate',{appliedDamage:v}),window.__HAPIL_LOOP_V31365__?.afterHit(a,o,t,v,HAPIL_hitSourceV31315),
-          (o.hitStarted = a.time),
-          (o.hitUntil = a.time + (r ? 0.28 : 0.17)),
+          (v > 0 && (o.hitStarted = a.time)),
+          (v > 0 && (o.hitUntil = a.time + (r ? 0.28 : 0.17))),
           (o.stagger = Math.min(
             o.maxStagger,
             Math.max(
@@ -124,7 +124,7 @@
               })));
         }
         if (
-          (a.floatTexts.push({
+          (v > 0 && a.floatTexts.push({
             id: a.fxSerial++,
             x: o.x,
             y: o.y,
@@ -134,7 +134,7 @@
             color: r ? `#fff1a8` : n,
             critical: r,
           }),
-          a.effects.push(
+          v > 0 && a.effects.push(
             HAPIL_bindDamageHitV31315(MONGSE_attachEffectTarget(
               {
                 id: a.fxSerial++,
