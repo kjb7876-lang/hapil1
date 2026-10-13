@@ -12,10 +12,12 @@
 
 검사: FINAL-REGRESSION.json의32/32 통과. 코드/native/DOM/RGBA와 의존성 fixture 검사이며 GPU/실기기/자연 플레이 결과가 아니다. 원본 보존은 별도 PRESERVATION-PROOF.json으로 기록한다. Runtime SHA256은 RUNTIME-HASHES.json에 기록한다.
 
-출시를 막는 남은 확인: 후보 실제 스크린샷/짧은 영상 및 모바일 실기기 가독성, 개별 원본 래스터 방향/칼·망토 연결, 사망 이펙트 늦은 정리, 레이저 topology 경고의 실제 형상, 자연 Persona 승리→다음 맵→역행의 연속 기록. 선택 환경은 허용된 브라우저 실행 구성이 없으며 추가 설치/권한변경/대체 환경/샌드박스 우회는 시도하지 않았다. CPU 결과로 시각 검토 완료나 자연 진행 성공을 대신하지 않는다.
+출시를 막는 남은 확인: 후보 실제 스크린샷/짧은 영상 및 모바일 실기기 가독성, 개별 원본 래스터 방향/칼·망토 연결, 사망 이펙트 캡처/재검사 시점 경합, 레이저 topology 경고의 실제 형상, 자연 Persona 승리→다음 맵→역행의 연속 기록. 선택 환경은 허용된 브라우저 실행 구성이 없으며 추가 설치/권한변경/대체 환경/샌드박스 우회는 시도하지 않았다. CPU 결과로 시각 검토 완료나 자연 진행 성공을 대신하지 않는다.
 
 공개4f08 증거: Pages38408578381 success, 배포 단계2026-10-13 13:54:48UTC(22:54:48KST). RC13238408584076은71개 공개 파일 해시와 PC/가로/세로 초기 STORY 시작을 확인했다. 해당 이미지3장은 후보 검증이 아니며 Persona/EGO 전체 진행이나 실제 휴대전화 검증도 아니다. persona-presentation.js는71개 해시 목록에 없으므로 전체 파일 검증이라고 표현하지 않는다.
 
-공개4f08 CI 분석: RC126/127/129는 usable sandbox 부재로 게임 진입 전 실패. RC147/laser/canonical 일부는 역사적 RC133 hash pin이 후속 승인 변경을 반영하지 못함. RC144/146의 늦은 death-FX 정리와 canonical1052 topology 경고는 미해결이다. RC137은 staged Persona/EGO 전환 대기 실패이며 브라우저 설치 실패가 아니다. EGO active와 cult04 visitSerial2 스냅샷은 다음맵 이동 후 역행 가능성을 시사하지만 연속 방문 기록이 없어 확정하지 않는다. RC133은 cancelled이며 성공으로 계산하지 않는다.
+공개4f08 CI 분석: RC126/127/129는 usable sandbox 부재로 게임 진입 전 실패. RC147/laser/canonical 일부는 역사적 RC133 hash pin이 후속 승인 변경을 반영하지 못함. RC144/146은 이펙트 존재 확인→screenshot→count 재검사 사이 count가0이므로 캡처 도중 정상 만료 경합 가능성이 있다. 정리 지연/런타임 결함으로 단정하지 않는다. canonical1052 topology 경고의 실제 형상은 미해결이다. RC137은 staged Persona/EGO 전환 대기 실패이며 브라우저 설치 실패가 아니다. EGO active와 cult04 visitSerial2 스냅샷만으로 village 도달, 다음맵 전환 또는 역행 성공을 입증하지 못한다. cult04 이탈 timeout은 미해결이며 자연 진행도 미검증이다. Canonical death-dialog run38408584142 job115334607971의 RC91 STORY!=DREAM 실패는 VM global localStorage만 제공하고 RC186이 읽는 window.localStorage는 제공하지 않은 fixture 불일치가 확인됐다. 실제 브라우저 해금 실패와 구분하며 성공으로 바꾸지도 않는다. RC133은 cancelled이며 성공으로 계산하지 않는다.
 
 참고한 공식 설명: [TENGAI](https://store.steampowered.com/app/1279370/TENGAI/)의 조준탄/개성 있는 보스와 [동방 풍신록](https://store.steampowered.com/app/1100140/__Mountain_of_Faith/)의 보스 Spell Card 구분. 합일의 구체적 탄 배치와 서사 연결은 우리의 설계 판단이며 원작의 정확한 패턴을 관찰·복제했다고 주장하지 않는다. 원작 영상과 스캔 매뉴얼 이미지는 확인하지 못했다.
+
+RC198 보고 보완: 기존 RC195 네 viewport 검사는 모바일 기능을 false로 뒀으며 실제 모바일 분기를 검증하지 않았다. 별도 mobile-camera-result.json은 기능 true, 실제 가로/세로 분기와 safe-area를 검사한다. RC196의71서사 검사는 각 identity에 합성7발 묶음을 제공해14배치를 검사한 것으로 전체 보스 실전 패턴 검증이 아니다.

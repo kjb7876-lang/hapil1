@@ -1,0 +1,14 @@
+# RC198 independent review follow-up — reports and CPU test only
+
+Reviewed candidate388eb63c8b190e010884561ae4dadb8910e7a15a is preserved. No runtime/image/audio/data/HTML changes, no new browser or public deployment. Main remains4f08e9790f6cf132f1eb4109d571d1b8d744aa02.
+
+Corrections:
+- Canonical death-dialog run38408584142 job115334607971 RC91 STORY!=DREAM uses VM global localStorage while window is a separate object. RC186 reads window.localStorage/sessionStorage. This fixture mismatch is confirmed; it does not establish actual browser unlock failure. The historical failed run remains failed.
+- RC144/146 checks existence, takes a screenshot, then rechecks count. A zero count after screenshot may reflect normal lifetime expiration during capture. Delayed cleanup or an actual visual runtime defect is not established. Candidate visual review remains required.
+- RC137 cult04-exit timeout remains unresolved. EGO active and visitSerial2 are insufficient proof of village/next-map arrival or successful reverse progression. The staged controlled-damage/invulnerability test is not natural play. No continuous transition history is available; no further browser execution was possible or attempted.
+- RC196 checks71 owner identities using a synthetic seven-shot narrow batch for each, resolving14 geometric families. It does not execute the full71 native encounter producers or establish real battle variety.
+- RC195 supplied four viewport dimensions with mobileEnabled=false. It did not run mobile landscape camera fitting. Historical results remain preserved and the report explicitly states this limit.
+
+New test reads HTML-selected native code and executes actual Cosmic makeActor/geometry/tick and actual authored460px pose metadata, actual arena/polygon, camera/framing/actorScale with mobileEnabled=true. Three landscape dimensions and one portrait dimension use native720-height viewport conversion and CSS safe-area fixtures. Assertions verify mobile landscape inset formulas, `(24,14)` after actual ownership guard + Cosmic tick, rightward projected anchor relative to hero, camera stability under hero movement, and floor plus analytic full-canvas four-pose extents inside camera safe rectangle. Each profile checks42points. ActorScale executes its mobile path but returns1 for this Cosmic envelope. Envelope callback is an analytic conservative full-canvas fixture; native bitmap-contact envelope replay, image decode/alpha, actual CSS DOM, font readability, GPU and physical-device behavior are not tested. Portrait orientation pause/UI is not covered by this camera test.
+
+Only new targeted test plus existing RC193 anchor and RC195 camera/blink and RC196 formation regressions are rerun; unchanged runtime hashes are compared against the preserved candidate. This is report/test follow-up, not a new runtime repair or a new claim that release conditions have passed.
