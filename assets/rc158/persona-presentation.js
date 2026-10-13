@@ -31,6 +31,8 @@
  function owns(q){return q?.rc133InnerShot===true&&q.sourceId==='inner-evil-rc133';}
  function draw(ctx,cache,q,time,settings,project,opacity){
   if(!owns(q))return false;
+  // The dedicated painter must share the native visibility boundary. Nominal expiry alone still keeps live shots visible.
+  if(root.__HAPIL_PROJECTILE_PIPELINE_V31402__?.visible(q,time)===false)return true;
   const media=root.__HAPIL_MEDIA_ART_RC133__,path=q.rc158SourceSprite??(q.rc150PersonaAwakeningShot?media?.samongSkills:media?.personaSkills)?.[q.rc133Skill];
   const source=media?.picture(path);if(!source)return true;
   if(q.bodySpawned31219===false||Number(q.frozenUntil??0)>time)return true;

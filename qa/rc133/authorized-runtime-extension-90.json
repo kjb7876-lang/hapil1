@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "2681ee6592979cd57290a5ad4b0ee6f28660ff91",
+  "baseTree": "dca47b052fb3b711cd7a9b1e51ee33100e44a3a9",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "25cb7879c0b03b04429c60b12ffb63df8d9eb31e2daf36886e822ba21a7c6c3b",
+  "files": [
+    {
+      "file": "assets/rc158/persona-presentation.js",
+      "reason": "assets/rc158/persona-presentation.js: RC192 authorized Persona-only shared visibility guard and cache key; preserve ranged gameplay, live nominal-expired flight, source art and all damage/story/storage",
+      "before": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "d695a97fc206c6e914e557e9df6fea25127ab317"
+      },
+      "after": {
+        "file": "assets/rc158/persona-presentation.js",
+        "mode": "100644",
+        "gitBlob": "0f1d13f6f91d12a44ad14fcdd9f93da6d0ac74ac",
+        "sha256": "dbf2f3e2727ef8961fab02a1a209c39dbe5cb7cc354a3b27ed09923d96d1fdba"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC192 authorized Persona-only shared visibility guard and cache key; preserve ranged gameplay, live nominal-expired flight, source art and all damage/story/storage",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "3b4a7d00da8c313128815960c4864b1ae5b146ea"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "fbfaf350b22ef35c48d1475c4abfe9a68602e5d3",
+        "sha256": "970f2ab26aa68c54ade8738b1445aee592e27210a065d22b1c91fe9e5539788d"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "d6bfbc30a091bc9b1f6f24bc53f8d56573c2998b3de20d668a9daf959a812f8e"
+}
