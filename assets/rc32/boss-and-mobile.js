@@ -62,16 +62,17 @@
  }
  function tickBlackholes(s,dt){
   const party=window.__HAPIL_PARTY_V31322__,status=party?.status;
-  if(!s||!Number.isFinite(s.time)||s.hp<=0||s.paused||s.pause||party?.state===s&&(status?.role==='guest'||status?.paused||status?.disconnected))return;
+  if(s?.hp<=0){s.bossBlackHolesRC32=[];s.bossBlackHoleNextRC32=Object.create(null);window.__HAPIL_BOSS_POLICY_RC175__?.dot(s,[]);return;}
+  if(!s||!Number.isFinite(s.time)||s.paused||s.pause||party?.state===s&&(status?.role==='guest'||status?.paused||status?.disconnected)){window.__HAPIL_BOSS_POLICY_RC175__?.dot(s,[]);return;}
   const now=s.time,step=Math.min(.05,Math.max(0,num(dt)))*1.5;if(!(step>0))return;
   const holes=s.bossBlackHolesRC32??(s.bossBlackHolesRC32=[]),next=s.bossBlackHoleNextRC32??(s.bossBlackHoleNextRC32=Object.create(null));
-  s.bossBlackHolesRC32=holes.filter(h=>h.endAt>now&&(s.enemies??[]).some(a=>a.id===h.sourceId&&a.hp>0));
+  s.bossBlackHolesRC32=holes.filter(h=>h.zone===s.zone&&h.endAt>now&&(s.enemies??[]).some(a=>a.id===h.sourceId&&a.hp>0));
   const live=s.bossBlackHolesRC32;
   const persona=a=>a?.id==='inner-evil-rc133'&&a.rc133InnerBoss===true;
   const personaSprite=()=>window.__HAPIL_MEDIA_ART_RC133__?.personaSkills?.vortex||'./assets/rc134/persona-skills/vortex.png?v=43402';
   // This legacy area/pull effect is independent of Persona's projectile deck.
   // Repair its owned presentation on restored/live holes as well as new casts.
-  for(const h of live)if((s.enemies??[]).some(a=>a.id===h.sourceId&&persona(a))){h.sprite=personaSprite();h.color='#ed536b';h.accent='#ffe3e9';}
+  for(const h of live){const actor=(s.enemies??[]).find(a=>a.id===h.sourceId),owner=window.__HAPIL_LASERS_V31330__?.owners?.find(o=>o.id===h.sourceId);h.color=persona(actor)?'#ed536b':owner?.color||actor?.bossColor||actor?.color||actor?.accent||'#a98bff';h.accent=h.color;if(persona(actor))h.sprite=personaSprite();}
   for(const actor of (s.enemies??[])){
    if(!actor?.boss||actor.hp<=0||actor.visualOnly||actor.objectiveStructureV31238||actor.protectedNarrativeTargetV31307)continue;
    if(!Number.isFinite(next[actor.id]))next[actor.id]=now+8+(hash(actor.id)%6);
@@ -83,7 +84,9 @@
    const hole={id:s.fxSerial++,sourceId:actor.id,zone:s.zone,born:now,fireAt:now+1.25,endAt:now+4.35,x:clamp(s.x+dx*lead,1.5,30.5),y:clamp(s.y+dy*lead,1.5,30.5),radius:5.0,color,accent:persona(actor)?'#ffe3e9':owner?.accent||'#f8f1ff',sprite:persona(actor)?personaSprite():BLACKHOLE_ROOT+style+'.webp',label:actor.name||owner?.name||'보스 블랙홀'};
    live.push(hole);loadBlackholeImage(hole.sprite);next[actor.id]=hole.endAt+15+(hash(actor.id+':rc32')%8);stats.blackholesSpawned++;break;
   }
+  window.__HAPIL_BOSS_POLICY_RC175__?.dot(s,live);
   for(const h of live){
+   if(s.hp<=0)break;
    const distance=Math.hypot(s.x-h.x,s.y-h.y);
    if(now<h.fireAt||now>=h.endAt||distance>h.radius||distance<.45)continue;
    if(guarded(s)){h.guardedUntil=now+.14;stats.resonanceBlocks++;continue;}
@@ -112,18 +115,18 @@
    const a=project({x:h.x,y:h.y}),px=project({x:h.x+1,y:h.y}),py=project({x:h.x,y:h.y+1});if(!a||!px||!py)continue;
    const rx=h.radius*Math.hypot(px.x-a.x,py.x-a.x),ry=h.radius*Math.hypot(px.y-a.y,py.y-a.y);
    const warn=s.time<h.fireAt,blocked=num(h.guardedUntil)>s.time,progress=clamp((s.time-h.fireAt)/Math.max(.01,h.endAt-h.fireAt),0,1),pulse=1+Math.sin(s.time*6)*.035;
-   const cx=a.x,cy=a.y+54,low=settings?.lowFx===true,image=loadBlackholeImage(h.sprite||BLACKHOLE_ROOT+'abyssal.webp');
+   const cx=a.x,cy=a.y+54,low=settings?.lowFx===true,rawImage=loadBlackholeImage(h.sprite||BLACKHOLE_ROOT+'abyssal.webp'),image=window.__HAPIL_BOSS_POLICY_RC175__?.tint(rawImage,h.color)??rawImage;
    ctx.save();try{
     ctx.globalCompositeOperation='screen';ctx.globalAlpha=warn?.64:low?.76:.92;
     if(blocked)ctx.globalAlpha=.98;
-    if(image?.complete&&image.naturalWidth>0&&typeof ctx.drawImage==='function'){
+    if(image&&image.complete!==false&&(image.naturalWidth||image.width)>0&&typeof ctx.drawImage==='function'){
      const scale=(warn?.91+progress*.09:1)*pulse;ctx.save();
      try{ctx.translate(cx,cy);ctx.rotate(s.time*.16);ctx.drawImage(image,-rx*.88*scale,-ry*.88*scale,rx*1.76*scale,ry*1.76*scale);stats.blackholeImageDraws++;}
      finally{ctx.restore();}
     }
     // One thin perimeter communicates pull range; the black-hole artwork is the effect itself.
     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=blocked?.88:warn?.36:.52;
-    ctx.strokeStyle=blocked?'#fff0ac':h.color;ctx.lineWidth=warn?1.5:1.25;ctx.setLineDash(warn?[7,8]:[3,6]);
+    ctx.strokeStyle=h.color;ctx.lineWidth=warn?1.5:1.25;ctx.setLineDash(warn?[7,8]:[3,6]);
     ctx.beginPath();ctx.ellipse(cx,cy,rx*pulse,ry*pulse,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
    }finally{ctx.restore();}
   }

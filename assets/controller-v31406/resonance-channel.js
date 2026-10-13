@@ -18,7 +18,7 @@
 (()=>{'use strict';
  const num=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?v:d;
  const config=Object.freeze({blinkCooldown:0,guardCooldown:0,guardSeconds:null,resonanceCost:0,
-  healPerSecond:2,resonancePerContact:12,heavyResonancePerContact:20,healPerContact:3,heavyHealPerContact:7,continuousContactInterval:.35,
+  healPerSecond:14,resonancePerContact:12,heavyResonancePerContact:20,healPerContact:21,heavyHealPerContact:49,continuousContactInterval:.35,
   awakeningReductionPerProjectile:1,maxAwakeningReductionPerCast:5,maxContactRecords:256,
   minimumAwakeningLevel:1,minimumAwakeningSeconds:7.2,conversionGraceSeconds:.12});
  const sessions=new WeakMap(),latched=new WeakSet(),pointerIds=new Set();let currentWorld=null;

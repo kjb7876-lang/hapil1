@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "base": "7a964d534e79c7d2d052f30a89c088470482fb57",
+  "baseTree": "20c39706f896b14d9f7db4f1fe8042b8ca82bc47",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "b199ed4455abbc8e30189939035110659d61e02e2ae2aafcc5050bd59d986a22",
+  "files": [
+    {
+      "file": "assets/controller-v31406/resonance-channel.js",
+      "reason": "assets/controller-v31406/resonance-channel.js: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "assets/controller-v31406/resonance-channel.js",
+        "mode": "100644",
+        "gitBlob": "819a3c79fe8779aa646b021325eda06e6dd00e3e"
+      },
+      "after": {
+        "file": "assets/controller-v31406/resonance-channel.js",
+        "mode": "100644",
+        "gitBlob": "1bb294356078977fcfe1571783a356f7b12fd5c9",
+        "sha256": "78e62b06d9f743eeee1b4c266f969b85246bc22277897fc781b706adcea23cb8"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "f6b41884260eb10dd05ecd0510364266623634c0"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "60eae6d71b8e1623cdc90bac68fc3d2100fb2ac6",
+        "sha256": "47365cbc2b77b5d7408c1dcf14ab2334233627aca6c36d47847a4f9f1158d45a"
+      }
+    },
+    {
+      "file": "assets/rc32/boss-and-mobile.js",
+      "reason": "assets/rc32/boss-and-mobile.js: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "d5e6b627f3374fca8a88810132ef1da1a4b5c12a"
+      },
+      "after": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "40938628cce027437d92fa6aaf85a494a7c6d1a0",
+        "sha256": "1b0abc6474926a7c2fbc8b8ac75569df185f49e01c876902e09db0b12f7aa4cc"
+      }
+    },
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": null,
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "35e5f6dde95fa87a6696780db509eefd046f7674",
+        "sha256": "18280781fb3536e9e6f9080b18bbaf0a33e7df4b65190fcf96581e4daac62e05"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC175 authorized resonance healing, native blackhole DOT, boss tint or shared straight stroke geometry and module cache",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "67727f332983505652615c1c23f814eedd5d73f9"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "5b5bd412af100d3d49147e80bf95f81b5b6ae9fb",
+        "sha256": "632bc213595e644254fbd15e086c670b917c30cc56c32d77e4130ea31b32131e"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "0813a222dd684937c08e83e2fad5b878257b17d6bad5174a5f69ff7f2d630b77"
+}
