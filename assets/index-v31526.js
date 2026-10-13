@@ -51115,6 +51115,7 @@ function ji(e) {
     hp: _i(t.hp, 240, 0, 240 + MONGSE_infiniteStats(h).maxHpBonus),
     clues: u,
     firstBedMemoryRC179: t.firstBedMemoryRC179 === true,
+    storyEndingEyesSeenRC182: t.storyEndingEyesSeenRC182 === true,
     bossDefeated: i < 5 ? s === `village` : !!t.bossDefeated,
     villageTalk: !!t.villageTalk,
     passives: h,
@@ -51234,6 +51235,7 @@ function Fi(e, t, n, r, i) {
     hp: e.hp,
     clues: [...e.clues],
     firstBedMemoryRC179: e.firstBedMemoryRC179 === true,
+    storyEndingEyesSeenRC182: e.storyEndingEyesSeenRC182 === true,
     bossDefeated: e.bossDefeated,
     villageTalk: e.villageTalk,
     passives: r,
@@ -54080,6 +54082,7 @@ function Ri() {
           hp: n.hp,
           clues: new Set(n.clues),
           firstBedMemoryRC179: n.firstBedMemoryRC179 === true,
+          storyEndingEyesSeenRC182: n.storyEndingEyesSeenRC182 === true,
           bossDefeated: n.bossDefeated,
           villageTalk: n.villageTalk,
           enemies: i,
@@ -100338,6 +100341,9 @@ function HAPIL_commitFinalEndingV31301(
   if (!state) return Object.freeze({ ok: false, reason: "state-missing" });
   if(state.egoGuardianRC155?.active||state.egoGuardianRC155?.pendingTransformation)return Object.freeze({ok:false,reason:"ego-journey-active"});
   if((window.__HAPIL_MODES_V31346__?.mode(state)??state.gameModeV31346??'STORY')!=='STORY')return Object.freeze({ok:false,reason:'story-ending-only'});
+  if(state.zone==='village'&&state.hapilTerminalCompleteV31301===true)return Object.freeze({ok:true,alreadyCommitted:true,zone:state.zone});
+  if(!['cult04','village'].includes(state.zone))return Object.freeze({ok:false,reason:'not-final-map'});
+  if(state.zone==='village'&&!state.completedZones?.has?.('cult04')&&!state.hapilFinalCombatClearedV31301)return Object.freeze({ok:false,reason:'final-combat-not-recorded'});
   const finalBattle = state.hapilFinalBattleV31300;
   const finalBossStillPresent = state.enemies?.some((entry) => entry.id === "c104-boss");
   if (
@@ -100392,6 +100398,7 @@ function HAPIL_commitFinalEndingV31301(
   MONGSE_storageSet("hapilCampaignCompleteV31301", "true");
   window.__HAPIL_ENDING_CLEARED_V31300__ = true;
   window.__HAPIL_CAMPAIGN_COMPLETE_V31301__ = true;
+  window.__HAPIL_ENDING_FLOW_RC182__?.reserve(state);
   const payload = Fi(state, heroId, partyIds, passives, shards);
   const saved = MONGSE_writeSave("auto", payload);
   return Object.freeze({
@@ -126954,7 +126961,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
    const damageBase=MONGSE_limitHeroDamage31213;MONGSE_limitHeroDamage31213=function(actor,amount,source){const result=damageBase.call(this,actor,amount,source),party=window.__HAPIL_PARTY_V31322__,s=party?.state??S(),extra=E().additionalHeroTraits(egoActive(s),providerIds(s)),eligible=s&&(actor===s||party?.state===s&&(party.actors??[]).includes(actor));return eligible&&extra.includes('neon')?Math.max(0,n(result)*.92):result;};
    window.__HAPIL_EGO_PARTY_TRAITS_RC155__=Object.freeze({installed:true,heroes:E().heroes,traits:E().traits,providers:effectiveIds,additional:(s)=>E().additionalHeroTraits(egoActive(s),providerIds(s))});
   }
-  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){Art()?.ensure(s);E()?.sync(s,N,window.__MONGSE_NARRATIVE_V395__);E()?.applyEnemyScaling(s);Duel()?.enforce(s);return frameStart.call(this,s,...args);};
+  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){if(s&&s.hp>0&&authority(s)&&s.zone==='cult04'&&(window.__HAPIL_MODES_V31346__?.mode(s)??s.gameModeV31346)==='DREAM'&&E()?.completedPersona(s.innerFinalRC133)&&E()?.state(s).pendingTransformation&&!s.enemies?.some(a=>a.hp>0&&!a.visualOnly)){const route=E().canonicalRoute(window.__MONGSE_NARRATIVE_V395__,N);if(route.includes('village')){s.completedZones?.add('cult04');s.zone='village';s.frontierZone='village';MONGSE_applyPositionRC152(s,ie);hi(s);ii(s,'village',false);}}E()?.sync(s,N,window.__MONGSE_NARRATIVE_V395__);Art()?.ensure(s);E()?.applyEnemyScaling(s);Duel()?.enforce(s);return frameStart.call(this,s,...args);};
   const viewport=window.__HAPIL_VIEWPORT_RC104__,camera=viewport.camera;viewport.camera=function(s,...args){return Duel()?.camera(s,viewport.view?.())??camera.call(this,s,...args);};
   const split=window.__HAPIL_PORTRAIT_SPLIT_RC108__;window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({...split,
    active:s=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.active(s),shouldRender:(canvas,s)=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.shouldRender(canvas,s),

@@ -83,7 +83,8 @@
     return overlay;
   };
 
-  const show = (phase) => {
+  const show = (phase, eyesComplete=false) => {
+    if(phase==='ending-title'&&!eyesComplete){const s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;if(window.__HAPIL_ENDING_FLOW_RC182__?.begin(s,()=>show(phase,true)))return;}
     if(window.__HAPIL_STORY_RC51__?.replacesLegacy && phase!=='ending-title')return;
     const values = phase==='ending-title' && window.__HAPIL_STORY_DATA_RC51__ ? ['合一夢世','合一夢世','사이비는 사라지고 합일몽세만이 남았다. 나는 그 세계를 유지하는 몽세수호자가 되었다.'] : copy[phase];
     if (!values || !document.body) return;
@@ -97,7 +98,7 @@
     window.clearTimeout(hideTimer);
     readingPhase342=phase;readingText342=values.join('\n');if(readingApi342())readingApi342().blocked=true;
     window.__HAPIL_CONTROLS_V31329__?.binding?.input?.current?.clear?.();schedule342();
-    if (phase === "ending-title") updateTitles();
+    if (phase === "ending-title") {overlay.querySelector('[data-reading-next]').textContent='처음으로 돌아가기 · 사몽 열기';updateTitles();}
   };
 
   window.addEventListener("hapil:final-event", (event) => show(event.detail?.phase));

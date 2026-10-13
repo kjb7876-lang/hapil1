@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "base": "42876bca80d9f99c93009c4253fa1996392ce2a3",
+  "baseTree": "aaec92776b4d5a0e423d8ed1fb01970807b897be",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "ee7e6d26a11de9575ead5537d5bbf89aa9bf18e4519770e4ad3d7158be532d7e",
+  "files": [
+    {
+      "file": "assets/rc182/ending-flow.js",
+      "reason": "assets/rc182/ending-flow.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "a15d5d8eded7f6442e5b0fae18ea7317a8dc8f1a",
+        "sha256": "15f04ac7c6b3fd5a38ca567d6f013c751f23f353967e7ee983482b4d80ab6caa"
+      }
+    },
+    {
+      "file": "assets/rc182/ending-flow.css",
+      "reason": "assets/rc182/ending-flow.css: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc182/ending-flow.css",
+        "mode": "100644",
+        "gitBlob": "89eca39caaa85d2f42c360374d5ba77dce39a9fa",
+        "sha256": "28c911be70243a5214d40d47fba2250a7581acd324a997f3048a28383d98c31e"
+      }
+    },
+    {
+      "file": "assets/hapil-title-v31342.js",
+      "reason": "assets/hapil-title-v31342.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/hapil-title-v31342.js",
+        "mode": "100644",
+        "gitBlob": "1353601768529ac6163120848131df98c8c91fb0"
+      },
+      "after": {
+        "file": "assets/hapil-title-v31342.js",
+        "mode": "100644",
+        "gitBlob": "23639d2f1c496433b51dd216b49c397340803ba6",
+        "sha256": "8e41d23212e1503767df1c4e0755044f11b52ca899235e117091aaf5bb9ba218"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "e22f216242d53927444a2b8ebff8542ac5ad73ba"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "5d832d4a1f2ee64000d7c5f0293298fea7486e58",
+        "sha256": "e099c0c131a592b948742cb26e4b05f6016c3298fb328e3aff16331a1aad89db"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "94eefe3877581145c12ba8415128f6d2eaf26851"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "606787530d9ea70aaa04f9e9ea49562e92bc3971",
+        "sha256": "69eb985c9978cf550936961849c3224a3d05585fb41d436a0a7d1093cf4f0c9f"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f2ff647bf0f37d49c711fdc53579ad7450d9dd23"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2f3976aee5b15053068b5fa2dd290e47358bc24a",
+        "sha256": "850cf600df2f9a9faea06a21a04f624ecee3b872bffb539ccb440779edadb8b1"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "0685cbbd7ac26fe70a2f3eb2c2d80c468efb0f72e7fe26fdd6917eab90f73a56"
+}
