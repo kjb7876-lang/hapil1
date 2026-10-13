@@ -119039,12 +119039,13 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     if(!h)return null;
     const now=num(s.time),threats=activeHits(s).filter(q=>num(q.impactAt,q.at)-now<4.1),safe=p=>!threats.some(q=>Di(p,q)),candidates=[];
     if(h.cosmicModeV31318==="blood-beam"){
-      const signed=(s.y-s.x)/Math.SQRT2;
-      for(const side of [-1,1]){const d=side*(h.width+1.1)-signed;candidates.push({x:clamp(s.x-d/Math.SQRT2,2,30),y:clamp(s.y+d/Math.SQRT2,2,30)});}
-      candidates.push({x:2.1,y:29.9},{x:29.9,y:2.1});
+      const dx=num(h.x)-num(h.originX),dy=num(h.y)-num(h.originY),length=Math.max(.001,Math.hypot(dx,dy)),nx=-dy/length,ny=dx/length,signed=(s.x-num(h.originX))*nx+(s.y-num(h.originY))*ny;
+      for(const side of [-1,1]){const distance=side*(num(h.width)+1.1)-signed;candidates.push({x:s.x+nx*distance,y:s.y+ny*distance});}
+      const R=window.__HAPIL_BATTLE_ARENA_RC138__,D=window.__HAPIL_PERSONA_DUEL_RC134__;if(R?.enabled(s)&&D?.polygon)for(const p of D.polygon(R.side(s,true),R.format.playerRadius))candidates.push(p);
     }else for(const radius of [3.4,5.2,7.2])for(let i=0;i<16;i++){const a=i*Math.PI/8;candidates.push({x:clamp(s.x+Math.cos(a)*radius,2,30),y:clamp(s.y+Math.sin(a)*radius,2,30)});}
     if(safe(s))candidates.unshift({x:s.x,y:s.y});
-    return candidates.map(p=>dt(s.zone,p,.48)).filter(safe).sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]??null;
+    const R=window.__HAPIL_BATTLE_ARENA_RC138__,bounded=p=>R?.enabled(s)?R.point(p,R.side(s,true),R.format.playerRadius):p;
+    return candidates.map(p=>bounded(dt(s.zone,p,.48))).filter(p=>safe(p)&&(!R?.enabled(s)||R.contains(p,R.side(s,true),R.format.playerRadius))).sort((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)-Math.hypot(b.x-s.x,b.y-s.y))[0]??null;
   }
   function autoMovement(s,heroId,base){
     if(!s||s.autoCombatEnabled31222!==true||s.target||s.bufferedAction||num(s.manualMovementUntil31222)>num(s.time)||num(s.autoEvadeUntil31223)>num(s.time)||MONGSE_isEncounterLocked31226(s)||suppressed(s))return base;

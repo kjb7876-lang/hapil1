@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "52c9fff21dd1c489d0e7d43533a1b376b4903dc4",
+  "baseTree": "bbecc53d1fd3f5785de21552500b34c7c6098516",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f9da12665c9a383107a8e1e66c2b4422cc2e60bf53a37192795aaad555509f7a",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized Cosmic automatic refuge follows the committed beam and legal player-side arena; manual control, immunity, damage, source assets and saves preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "1e9eb734cb596c5800d79cb34fae106b3dac0fa7"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "5e0519288ecb05e49afb2573b5c4fb2e00db4435",
+        "sha256": "fee5e8d97c4216e7e20cf62aa6d9aa7e0629f0cfb209237841b5301bc0275525"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized Cosmic automatic refuge follows the committed beam and legal player-side arena; manual control, immunity, damage, source assets and saves preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "c7a6ddc1e10c1fd428654307731aaff266750869"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "4f042f23ce90c6b539dce9a8b17b0a101dc98abb",
+        "sha256": "06246301ea0f3266f43fa43dfaf8308bea1315229047952356fd09d5f57b78e6"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "8b10bbf166a24dd1401e23b046180c7fd3e06042364504b97105f9fc65b218c6"
+}
