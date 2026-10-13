@@ -62742,7 +62742,7 @@ function Ri() {
                             : 1) -
                           (e.boss || e.midboss ? (c - 1) * 0.09 : 0),
                       )),
-                    We(MONGSE_enemyAttackSfx(e, o.zone), 1));
+                    void 0);
                   MONGSE_markEnemyCounterAttackStarted31229(e, r, o.time);
                   window.__HAPIL_SKILL_COMPLETION_V31412__?.beginEnemyCast(o,e,c,e.attackAt);
                 }
@@ -62754,6 +62754,7 @@ function Ri() {
                       (t.telekinetic || t.laserV31330) ||
                         MONGSE_spawnBossPatternFollowup31212(o, e, c));
                   } else {
+                    We(MONGSE_enemyAttackSfx(e, o.zone), 1);
                     if (r.lunge > 0) {
                       let t = ft(
                         o.zone,

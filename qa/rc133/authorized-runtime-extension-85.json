@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "cca29a3827ed69e441ef09c5300acc7a737f6bcf",
+  "baseTree": "c414fde631b3456701e9af2d2390f385afb9dacf",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "bed13e353c52c54a764af51314de0201f6789581bbb7516bcfee176115e4af7e",
+  "files": [
+    {
+      "file": "assets/combat-v31402/outgoing-native.js",
+      "reason": "assets/combat-v31402/outgoing-native.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/combat-v31402/outgoing-native.js",
+        "mode": "100644",
+        "gitBlob": "6e1bca4319150fe330261d9acb9ec92a2439070a"
+      },
+      "after": {
+        "file": "assets/combat-v31402/outgoing-native.js",
+        "mode": "100644",
+        "gitBlob": "9170d3c1e0bb45a7777c832cd9952e5a635e3f80",
+        "sha256": "fbaaf40327dcda9a46c177f08a02d20357c4f1d28368840893249883b9abed4f"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "9cab3ebb176a11f75ab3b906bf0ab27b316c2017"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "72aececee981058725ffacb887809f800e0ed62d",
+        "sha256": "a6547999c3ea91d7e3828fc12e75989a1d470b861cee9edc60e808dd4fac3d1f"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ef7861ed112a0597c97faf685da1db8e6562d127"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ce2a8cb5c458cd805cd0d1e0a36dd2e7de6e01d5",
+        "sha256": "2a904918db773f74a229bfe11dc37894369da603591b05083c489c6e5308a8e1"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "9a5e5b74ce4d052b821292dfceba817b3d9441bed79e5c293ea4c5095e8b58a5"
+}
