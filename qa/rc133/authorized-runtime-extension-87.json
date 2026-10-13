@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "base": "b9967485d1a9564cd3a9aeffb86a858275dcb708",
+  "baseTree": "f3be230afa0c183164ee75c5b6ce1d84d5f728bd",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "083efb45ceb82eb2e80b4ab392673fda450f64b8101d83b84373d9d90de16581",
+  "files": [
+    {
+      "file": "assets/rc190/enemy-weapons.js",
+      "reason": "assets/rc190/enemy-weapons.js: RC190 explicitly authorized representative asset-owned stationary blade and locked rune basic attack replacements; original damage/cooldown budget, body/dash ban, story/storage and artwork preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc190/enemy-weapons.js",
+        "mode": "100644",
+        "gitBlob": "ec46a31209b337dbb7f41e501212001e8a52b508",
+        "sha256": "932e23b50d725ca16f22bb874627dd7fdbccf9d220e8d4613642e12215cf5a38"
+      }
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "reason": "assets/rc138/battle-arena.js: RC190 explicitly authorized representative asset-owned stationary blade and locked rune basic attack replacements; original damage/cooldown budget, body/dash ban, story/storage and artwork preserved",
+      "before": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "c0e7c9266465c57ccf58963a874c145a27f939ed"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "30ad9e1c625afc5043e4d80e8898e5e07e3d6859",
+        "sha256": "c5f120f5615aa391bffe78f344d8c3fe62bc68ae1cb694bced4bceb3ce9a6aa1"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC190 explicitly authorized representative asset-owned stationary blade and locked rune basic attack replacements; original damage/cooldown budget, body/dash ban, story/storage and artwork preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7a2082da97d73703ea0ad4088a153b17ffc6a78a"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "374799b5febaa8649c29c7b35aa25b6f9ade3d65",
+        "sha256": "d43b0ad61564bba744a5a340791d91b938e29e58f2b07777100915cd4088e339"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC190 explicitly authorized representative asset-owned stationary blade and locked rune basic attack replacements; original damage/cooldown budget, body/dash ban, story/storage and artwork preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "1becff627adbf9db0708b3df00426da7fb5694dc"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "04b8594efb344ca433be7142b80c4f06eeff06fe",
+        "sha256": "3b4ec9d53013badd8c19978f92d5b644ce74c9e7510cf50dfe6bf118c99f0fbc"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "07c5be48ac5f7181a3ed97d286777351ec1b5322d359d3f528d7cedf2d466b51"
+}

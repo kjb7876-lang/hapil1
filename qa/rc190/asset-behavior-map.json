@@ -1,0 +1,163 @@
+{
+  "scope": "8 explicit owner IDs; inspected idle images; attackRuntimeKey is a virtual canvas extraction key from preserved atlas, not a physical PNG or multi-frame animation",
+  "rows": [
+    {
+      "id": "dist01-s1",
+      "idle": "./assets/dist/skeleton.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M001.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist01"
+      ],
+      "weapon": "sword/shield confirmed from actual idle PNG",
+      "behavior": "near stationary locked cone; far original ranged attack",
+      "hashes": {
+        "./assets/dist/skeleton.png": "b3850066a9ff3ba4cda9458ef73200ac4d7818c4b3b8cb28044534def960cefc",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "dist03-s1",
+      "idle": "./assets/dist/skeleton.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M001.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist03"
+      ],
+      "weapon": "sword/shield confirmed from actual idle PNG",
+      "behavior": "near stationary locked cone; far original ranged attack",
+      "hashes": {
+        "./assets/dist/skeleton.png": "b3850066a9ff3ba4cda9458ef73200ac4d7818c4b3b8cb28044534def960cefc",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "dist04-s1",
+      "idle": "./assets/dist/skeleton.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M001.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist04"
+      ],
+      "weapon": "sword/shield confirmed from actual idle PNG",
+      "behavior": "near stationary locked cone; far original ranged attack",
+      "hashes": {
+        "./assets/dist/skeleton.png": "b3850066a9ff3ba4cda9458ef73200ac4d7818c4b3b8cb28044534def960cefc",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "dist05-s1",
+      "idle": "./assets/dist/skeleton.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M001.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        0,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist05"
+      ],
+      "weapon": "sword/shield confirmed from actual idle PNG",
+      "behavior": "near stationary locked cone; far original ranged attack",
+      "hashes": {
+        "./assets/dist/skeleton.png": "b3850066a9ff3ba4cda9458ef73200ac4d7818c4b3b8cb28044534def960cefc",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "dist02-m1",
+      "idle": "./assets/dist/cult_mage.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M003.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        627,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist02"
+      ],
+      "weapon": "staff/orb confirmed from actual idle PNG",
+      "behavior": "alternate original bolt and locked target circle",
+      "hashes": {
+        "./assets/dist/cult_mage.png": "d01ab8839bcb9e829de07b695c8ddb85630c86195012b80e8bd5eea94c0e3781",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "dist05-m1",
+      "idle": "./assets/dist/cult_mage.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M003.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        627,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist05"
+      ],
+      "weapon": "staff/orb confirmed from actual idle PNG",
+      "behavior": "alternate original bolt and locked target circle",
+      "hashes": {
+        "./assets/dist/cult_mage.png": "d01ab8839bcb9e829de07b695c8ddb85630c86195012b80e8bd5eea94c0e3781",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "dist06-m1",
+      "idle": "./assets/dist/cult_mage.png",
+      "attackRuntimeKey": "./assets/rc137/mob-frames/M003.png",
+      "attackAtlas": "assets/rc137/mob-attacks-01.png",
+      "attackCell": [
+        627,
+        0,
+        313,
+        313
+      ],
+      "zones": [
+        "dist06"
+      ],
+      "weapon": "staff/orb confirmed from actual idle PNG",
+      "behavior": "alternate original bolt and locked target circle",
+      "hashes": {
+        "./assets/dist/cult_mage.png": "d01ab8839bcb9e829de07b695c8ddb85630c86195012b80e8bd5eea94c0e3781",
+        "assets/rc137/mob-attacks-01.png": "a954b1faf3cb22c1e202cf2857776bc57d7a37d4f59b36290b2b40d2fe73fc49"
+      }
+    },
+    {
+      "id": "l301-boss",
+      "idle": "./assets/generated-v31224/actors-normalized/363f780dbb5a_Monster_FallenAngelKnight_Base.webp",
+      "weapon": "sword confirmed from actual idle WebP",
+      "behavior": "near stationary cone: 36deg half-angle phase1, 55deg later; far and dedicated patterns retained",
+      "vfx": "./assets/vfx/v31323/boss/l301-boss/sleepless_six_sword_wave.webp",
+      "hashes": {
+        "./assets/generated-v31224/actors-normalized/363f780dbb5a_Monster_FallenAngelKnight_Base.webp": "6e90a1e9aa520570b002b10650741813a6d2c20520c3317dc4437eb32ccd4de7",
+        "./assets/vfx/v31323/boss/l301-boss/sleepless_six_sword_wave.webp": "81eabc937f901a23963fd7dc5730fbfcfce5da5a817177203f8170e48ebed34b"
+      }
+    }
+  ]
+}
