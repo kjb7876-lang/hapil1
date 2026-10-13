@@ -1,0 +1,5 @@
+# RC183 ending checkpoint result integrity
+
+Follows RC182 without changing eye scene, DREAM/EGO handoff, NPC, bed, narrative or combat. A successful live terminal checkpoint is remembered transiently on the state to keep duplicate callbacks idempotent. If the first save fails, a repeated ending callback retries only the existing checkpoint write and returns its real success/failure; it does not report false success or repeat unlock/state cleanup. Loaded worlds lack the transient success marker and may refresh their existing checkpoint normally. This marker is not a new persisted schema field.
+
+Actual commit reducer failure/retry fixtures pass: first/repeated failed save stays ok:false, recovered retry becomes ok:true, unlock is not repeated. Existing ending/state/scene CPU tests pass. Runtime diff: native commit error path and module cache only; exact extension 80 chains to 79. All browser/natural progression/audio/real save UI limitations in RC182 remain. No main/Pages/StoryWorld changes.

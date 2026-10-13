@@ -100341,7 +100341,11 @@ function HAPIL_commitFinalEndingV31301(
   if (!state) return Object.freeze({ ok: false, reason: "state-missing" });
   if(state.egoGuardianRC155?.active||state.egoGuardianRC155?.pendingTransformation)return Object.freeze({ok:false,reason:"ego-journey-active"});
   if((window.__HAPIL_MODES_V31346__?.mode(state)??state.gameModeV31346??'STORY')!=='STORY')return Object.freeze({ok:false,reason:'story-ending-only'});
-  if(state.zone==='village'&&state.hapilTerminalCompleteV31301===true)return Object.freeze({ok:true,alreadyCommitted:true,zone:state.zone});
+  if(state.zone==='village'&&state.hapilTerminalCompleteV31301===true){
+    if(state.hapilEndingCommitSavedRC182===true)return Object.freeze({ok:true,alreadyCommitted:true,zone:state.zone});
+    const payload=Fi(state,heroId,partyIds,passives,shards),saved=MONGSE_writeSave('auto',payload);state.hapilEndingCommitSavedRC182=saved?.ok===true;
+    return Object.freeze({ok:saved?.ok===true,alreadyCommitted:true,zone:state.zone,payload});
+  }
   if(!['cult04','village'].includes(state.zone))return Object.freeze({ok:false,reason:'not-final-map'});
   if(state.zone==='village'&&!state.completedZones?.has?.('cult04')&&!state.hapilFinalCombatClearedV31301)return Object.freeze({ok:false,reason:'final-combat-not-recorded'});
   const finalBattle = state.hapilFinalBattleV31300;
@@ -100401,6 +100405,7 @@ function HAPIL_commitFinalEndingV31301(
   window.__HAPIL_ENDING_FLOW_RC182__?.reserve(state);
   const payload = Fi(state, heroId, partyIds, passives, shards);
   const saved = MONGSE_writeSave("auto", payload);
+  state.hapilEndingCommitSavedRC182=saved?.ok===true;
   return Object.freeze({
     ok: saved?.ok === true,
     zone: state.zone,
