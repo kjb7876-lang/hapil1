@@ -53933,14 +53933,7 @@ function Ri() {
       }
       t.zone === `village` &&
         J(t, ae) < 2.4 &&
-        (HAPIL_commitFinalEndingV31301(
-          t,
-          L.current,
-          Le.current,
-          R.current,
-          Be.current,
-        ),
-        B(`캠페인 완료.`),
+        (window.__HAPIL_ENDING_FLOW_RC182__?.complete(t,()=>HAPIL_commitFinalEndingV31301(t,L.current,Le.current,R.current,Be.current),B),
         void 0);
     }, [V, Ue, e, We, B, MONGSE_requestInterlude]),
     MONGSE_autoProgressEffectV31301 = (0, l.useEffect)(() => {
@@ -54573,7 +54566,7 @@ function Ri() {
           s = s || document.hidden===true || window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()===true || window.__HAPIL_RECORDS_V31365__?.isOpen()===true || o.practicePatternV31365?.finished===true;
           s = window.__HAPIL_STORY_RC51__?.beforeFrame(o, {
             blocked:s, clear:MONGSE_zoneCombatCleared(o,o.zone), sound:!!ze.current.sound, voiceVolume:ze.current.sfxVolume, selectPhysician:HAPIL_selectPhysicianRC51,
-            finish:()=>{HAPIL_commitFinalEndingV31301(o,L.current,Le.current,R.current,Be.current);window.dispatchEvent(new CustomEvent('hapil:final-event',{detail:{phase:'ending-title'}}));}
+            finish:()=>window.__HAPIL_ENDING_FLOW_RC182__?.complete(o,()=>HAPIL_commitFinalEndingV31301(o,L.current,Le.current,R.current,Be.current),B)
           }) || s;
           s=window.__HAPIL_SAMONG_RC91__?.deathPending(o)===true||s;
           window.__HAPIL_AWAKENING_RULES_RC137__?.prepare(o);
@@ -126966,7 +126959,7 @@ const entry=HAPIL_restoreEntryFlowV31301;HAPIL_restoreEntryFlowV31301=function(s
    const damageBase=MONGSE_limitHeroDamage31213;MONGSE_limitHeroDamage31213=function(actor,amount,source){const result=damageBase.call(this,actor,amount,source),party=window.__HAPIL_PARTY_V31322__,s=party?.state??S(),extra=E().additionalHeroTraits(egoActive(s),providerIds(s)),eligible=s&&(actor===s||party?.state===s&&(party.actors??[]).includes(actor));return eligible&&extra.includes('neon')?Math.max(0,n(result)*.92):result;};
    window.__HAPIL_EGO_PARTY_TRAITS_RC155__=Object.freeze({installed:true,heroes:E().heroes,traits:E().traits,providers:effectiveIds,additional:(s)=>E().additionalHeroTraits(egoActive(s),providerIds(s))});
   }
-  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){if(s&&s.hp>0&&authority(s)&&s.zone==='cult04'&&(window.__HAPIL_MODES_V31346__?.mode(s)??s.gameModeV31346)==='DREAM'&&E()?.completedPersona(s.innerFinalRC133)&&E()?.state(s).pendingTransformation&&!s.enemies?.some(a=>a.hp>0&&!a.visualOnly)){const route=E().canonicalRoute(window.__MONGSE_NARRATIVE_V395__,N);if(route.includes('village')){s.completedZones?.add('cult04');s.zone='village';s.frontierZone='village';MONGSE_applyPositionRC152(s,ie);hi(s);ii(s,'village',false);}}E()?.sync(s,N,window.__MONGSE_NARRATIVE_V395__);Art()?.ensure(s);E()?.applyEnemyScaling(s);Duel()?.enforce(s);return frameStart.call(this,s,...args);};
+  const controls=window.__HAPIL_CONTROLS_V31329__,frameStart=controls.frameStart;controls.frameStart=function(s,...args){if(s&&s.hp>0&&authority(s)&&window.__HAPIL_ENDING_FLOW_RC182__?.localBlocked(s)===false&&s.zone==='cult04'&&(window.__HAPIL_MODES_V31346__?.mode(s)??s.gameModeV31346)==='DREAM'&&E()?.completedPersona(s.innerFinalRC133)&&E()?.state(s).pendingTransformation&&!s.enemies?.some(a=>a.hp>0&&!a.visualOnly)){const route=E().canonicalRoute(window.__MONGSE_NARRATIVE_V395__,N);if(route.includes('village')){s.completedZones?.add('cult04');s.zone='village';s.frontierZone='village';MONGSE_applyPositionRC152(s,ie);hi(s);ii(s,'village',false);}}E()?.sync(s,N,window.__MONGSE_NARRATIVE_V395__);Art()?.ensure(s);E()?.applyEnemyScaling(s);Duel()?.enforce(s);return frameStart.call(this,s,...args);};
   const viewport=window.__HAPIL_VIEWPORT_RC104__,camera=viewport.camera;viewport.camera=function(s,...args){return Duel()?.camera(s,viewport.view?.())??camera.call(this,s,...args);};
   const split=window.__HAPIL_PORTRAIT_SPLIT_RC108__;window.__HAPIL_PORTRAIT_SPLIT_RC108__=Object.freeze({...split,
    active:s=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.active(s),shouldRender:(canvas,s)=>(window.__HAPIL_BATTLE_ARENA_RC138__?.enabled(s)||!Duel()?.active(s))&&split.shouldRender(canvas,s),

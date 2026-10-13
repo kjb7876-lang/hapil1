@@ -34,7 +34,7 @@
 
   let hideTimer = 0, readingPaused342=false, readingPhase342=null, readingText342='';
   const readingApi342=()=>window.__HAPIL_READING_V31342__;
-  const finish342=()=>{const final342=readingPhase342==='ending-title';window.clearTimeout(hideTimer);readingPhase342=null;document.getElementById('hapil-final-overlay-v31300')?.classList.remove('open');if(readingApi342())readingApi342().blocked=false;if(final342)window.location?.reload?.();};
+  const finish342=()=>{const final342=readingPhase342==='ending-title';if(final342&&!window.__HAPIL_ENDING_FLOW_RC182__?.canReturn(window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current))return;window.clearTimeout(hideTimer);readingPhase342=null;document.getElementById('hapil-final-overlay-v31300')?.classList.remove('open');if(readingApi342())readingApi342().blocked=false;if(final342)window.location?.reload?.();};
   const schedule342=()=>{window.clearTimeout(hideTimer);if(!readingPaused342&&readingPhase342!=='ending-title')hideTimer=window.setTimeout(finish342,readingApi342()?.delay(readingText342)??15000);};
   for(const type of ['keydown','keyup'])window.addEventListener(type,event=>{if(!readingPhase342)return;if(event.target?.closest?.('[data-narration-controls]'))return;event.stopImmediatePropagation();event.preventDefault();if(type==='keydown'&&!event.repeat&&['Enter','Space'].includes(event.code)){finish342();}},true);
 

@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "base": "44f9ebe711181265e392cb3c1572ab740b598d9f",
+  "baseTree": "9ed42f3a59739d8d4942b93969295eba24bfe411",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e6f848fd13a0aeea629a7322e3f29a3c8256af393261aeb549a6e7c3704433e0",
+  "files": [
+    {
+      "file": "assets/rc182/ending-flow.js",
+      "reason": "assets/rc182/ending-flow.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "a15d5d8eded7f6442e5b0fae18ea7317a8dc8f1a"
+      },
+      "after": {
+        "file": "assets/rc182/ending-flow.js",
+        "mode": "100644",
+        "gitBlob": "17ae100038965ab2e0d0c405ce849e3e19a72f6f",
+        "sha256": "27cbae71f5dd6dcf7f7f82b798e40696dd60d975652caa6af9d62f1dd79ebdfe"
+      }
+    },
+    {
+      "file": "assets/rc182/ending-flow.css",
+      "reason": "assets/rc182/ending-flow.css: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc182/ending-flow.css",
+        "mode": "100644",
+        "gitBlob": "89eca39caaa85d2f42c360374d5ba77dce39a9fa"
+      },
+      "after": {
+        "file": "assets/rc182/ending-flow.css",
+        "mode": "100644",
+        "gitBlob": "e6cb9893c63ea3f441fc42ab985b15667e52bbe0",
+        "sha256": "bddcbef5f2aff690507e53d7b6d853877c6635c8eb9bdbf342ef3046a57930db"
+      }
+    },
+    {
+      "file": "assets/hapil-title-v31342.js",
+      "reason": "assets/hapil-title-v31342.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/hapil-title-v31342.js",
+        "mode": "100644",
+        "gitBlob": "23639d2f1c496433b51dd216b49c397340803ba6"
+      },
+      "after": {
+        "file": "assets/hapil-title-v31342.js",
+        "mode": "100644",
+        "gitBlob": "55ba0ca60d069419ba24fb2a3ec1554ff2e22ab5",
+        "sha256": "8d2ce979fa2c0716b012dfbc9904c9cc540f6708208f2c7a2b879bb198723bb0"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "418fb3d2bfbee45af8eece69d2dedc88f9636985"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "223b41a55f3964e0b722342823dd3b7ca424bef3",
+        "sha256": "5acd615f57c144e5d27f1c950cf0fb3bcd949c00f4d522040f92fb1578a09cdf"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "606787530d9ea70aaa04f9e9ea49562e92bc3971"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "23fbf6ce95fe0fd7d5d5bb17f6527b08636e2464",
+        "sha256": "d6a5a1f43d3a72df819f3e34fc04713dcb19842f2614538e8c810104c37ad298"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "665310bf474800df65a3e30d05df6a00f3a144e1"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a4353d929f5e7ecd6fddf36738973fa8db2d1b54",
+        "sha256": "d5c701eb3dcde97e417e167532e70582669ff03142a162e13e2ca347282c8618"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "8a9fad56e9eb4c376a0d4fe8a978507a88d3d1661be98640e698acb0a0454fa7"
+}

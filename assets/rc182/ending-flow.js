@@ -1,8 +1,10 @@
 /* RC182: presentation after validated STORY completion; DREAM handoff is separate. */
-(function(root){'use strict';const armed=new WeakSet(),delivered=new WeakSet();let current=null;
+(function(root){'use strict';const armed=new WeakSet(),delivered=new WeakSet();let current=null,retryCurrent=null;const emitted=new WeakSet();
  const mode=s=>root.__HAPIL_MODES_V31346__?.mode(s)??s?.gameModeV31346??'STORY';
  function reserve(s){if(!s||mode(s)!=='STORY'||s.storyEndingEyesSeenRC182===true)return false;s.storyEndingEyesSeenRC182=true;armed.add(s);return true;}
- function begin(s,next){if(!s||mode(s)!=='STORY'||!s.hapilTerminalCompleteV31301||s.zone!=='village'||s.egoGuardianRC155?.active||s.egoGuardianRC155?.pendingTransformation)return true;
+ function canReturn(s){return !!s&&mode(s)==='STORY'&&s.zone==='village'&&s.hapilTerminalCompleteV31301===true&&s.hapilEndingCommitSavedRC182===true&&!s.egoGuardianRC155?.active&&!s.egoGuardianRC155?.pendingTransformation;}
+ function localBlocked(s){const b=root.__HAPIL_CONTROLS_V31329__?.binding;return !b||b.state?.current!==s||b.phase!=='game'||!!b.modal?.current||!!b.blocked?.()||!!s?.paused||!!s?.pause||root.document?.hidden===true||root.__HAPIL_READING_V31342__?.blocked===true||root.__HAPIL_PARTY_UI_V31322__?.isOpen?.()===true;}
+ function begin(s,next){if(!canReturn(s)||!s.hapilTerminalCompleteV31301||s.zone!=='village'||s.egoGuardianRC155?.active||s.egoGuardianRC155?.pendingTransformation)return true;
   if(current?.s===s||delivered.has(s))return true;
   delivered.add(s);if(!armed.has(s))return false;armed.delete(s);
   const document=root.document,overlay=document.createElement('div');overlay.className='hapil-ending-eyes';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-label','오늘은 어떤 꿈을 꾸셨나요?');overlay.setAttribute('tabindex','-1');
@@ -12,6 +14,14 @@
   const key=e=>{if(e.repeat)return;if(['Escape','Enter',' ','Spacebar'].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();finish();}},cancel=()=>finish(false);current={s,finish};root.addEventListener('keydown',key,true);root.addEventListener('pagehide',cancel,{once:true});overlay.addEventListener('click',()=>finish());overlay.focus?.();
   const reduced=root.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches===true;root.requestAnimationFrame?.(()=>{if(!finished)overlay.dataset.open='true';});timer=root.setTimeout(()=>finish(),reduced?1600:2300);return true;
  }
- function cancel(){current?.finish(false);}
- root.__HAPIL_ENDING_FLOW_RC182__=Object.freeze({reserve,begin,cancel,mode});
+ function closeRetry(){if(!retryCurrent)return;const m=retryCurrent;retryCurrent=null;m.element.remove();root.removeEventListener('keydown',m.key,true);root.removeEventListener('pagehide',closeRetry);if(m.reading)m.reading.blocked=m.previous;}
+ function retryNotice(s,commit,notify){if(retryCurrent?.s===s)return;closeRetry();const element=root.document.createElement('section');element.className='hapil-ending-save-retry';element.setAttribute('role','alertdialog');element.setAttribute('aria-label','엔딩 저장 다시 시도');
+  const text=root.document.createElement('p');text.textContent='엔딩을 저장하지 못했습니다. 저장을 다시 시도해 주세요. 기록과 사몽 해금은 유지되며, 저장 성공 전에는 처음으로 돌아가지 않습니다.';
+  const retry=root.document.createElement('button');retry.textContent='저장 다시 시도';retry.type='button';const back=root.document.createElement('button');back.textContent='게임으로 돌아가기';back.type='button';element.append(text,retry,back);root.document.body.append(element);
+  const reading=root.__HAPIL_READING_V31342__,previous=!!reading?.blocked;if(reading)reading.blocked=true;root.__HAPIL_CONTROLS_V31329__?.clear?.();
+  const key=e=>{if(e.target?.tagName==='BUTTON')return;e.preventDefault();e.stopImmediatePropagation();if(!e.repeat&&e.key==='Escape')closeRetry();};retryCurrent={s,element,reading,previous,key};root.addEventListener('keydown',key,true);root.addEventListener('pagehide',closeRetry,{once:true});back.addEventListener('click',closeRetry);retry.addEventListener('click',()=>{const active=root.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;if(active&&active!==s){closeRetry();return;}retry.disabled=true;closeRetry();complete(s,commit,notify);});retry.focus?.();
+ }
+ function complete(s,commit,notify=()=>{}){if(emitted.has(s))return {ok:true,alreadyPresented:true};let result;try{result=commit();}catch(error){result={ok:false,reason:String(error?.message??error)};}if(result?.ok===true&&canReturn(s)){closeRetry();emitted.add(s);root.dispatchEvent(new root.CustomEvent('hapil:final-event',{detail:{phase:'ending-title',zone:s.zone}}));notify('캠페인 완료. 저장을 확인했습니다.');return result;}if(mode(s)==='STORY'&&s?.hapilTerminalCompleteV31301&&s.zone==='village'){notify('엔딩 저장에 실패했습니다. 저장 다시 시도를 눌러 주세요.');retryNotice(s,commit,notify);}return result??{ok:false};}
+ function cancel(){current?.finish(false);closeRetry();}
+ root.__HAPIL_ENDING_FLOW_RC182__=Object.freeze({reserve,begin,canReturn,complete,localBlocked,cancel,mode});
 })(window);

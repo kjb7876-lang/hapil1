@@ -6,3 +6,5 @@
 .hapil-ending-eyes[data-open="true"] .hapil-ending-lid--top{transform:translateY(-102%)}
 .hapil-ending-eyes[data-open="true"] .hapil-ending-lid--bottom{transform:translateY(102%)}
 @media(prefers-reduced-motion:reduce){.hapil-ending-lid{display:none}.hapil-ending-eyes p{transition:none;opacity:1}}
+
+.hapil-ending-save-retry{position:fixed;inset:20% max(20px,15%);z-index:2147483003;background:#101a25;color:#f8fbff;padding:28px;border:1px solid #7e99ae;overflow:auto;font:18px/1.7 system-ui;text-align:center}.hapil-ending-save-retry button{margin:12px;padding:12px 18px;font:inherit}
