@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "base": "66c8d276a153025d3093c407a36b41fc1bba3ab5",
+  "baseTree": "4573977ecf952e3b9ffe53a0a7b9bace1f2050df",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "1e90a16f532a474be6502eae69fb4d5991199689f3283af65a65d953899ebe40",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: preserve original basic attack concurrency admission for RC190 stationary blade replacement; no attack-rate/budget increase",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "374799b5febaa8649c29c7b35aa25b6f9ade3d65"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "809d57e68645fcf96b43fa76b27307d7e66c6c8f",
+        "sha256": "ac0eba17a0d8361287a027e279cba87fbd5ecf7e5a7548988a6ff578165b5145"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "643100c4b3b45a28ca6074fda9769ae4d2127229180af872330dd0af66f7a66b"
+}

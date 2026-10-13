@@ -62709,7 +62709,7 @@ function Ri() {
                   HAPIL_allowNormalRangedStartV31302(
                     o,
                     e,
-                    r,
+                    r.rc190Mode === 'blade' ? {...r,ranged:true} : r,
                     !!ze.current.lowFx,
                   )
                 ) {
