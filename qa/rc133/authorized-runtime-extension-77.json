@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "c6a7261e95a1f4e2b8fb90c5481285eca8f475ab",
+  "baseTree": "c997c966ee4e28aeb5ed4fc72181d67f30a54e8e",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "dfb82f689b201db20cc105fa4a3d11dae281e7683ee3aec3725f6171a57b76ec",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "43ac3d721fd10f6fe14a616ecdb87bc9ea15d9f1"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "e22f216242d53927444a2b8ebff8542ac5ad73ba",
+        "sha256": "0f27436a6ea55de7f2a7cae52c9cecbb72fbd0f246d5319a657a4207d5f62c32"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2c7138f388402a597d3e99bceb62d06f24566e1e"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "add308f9f1c3cc2bc3200f4c475f0be4b4d29877",
+        "sha256": "6c07fd3f5cb9875e17e397f08cd07af72ffa2ddb0bee9b6f5b2a202dbcc4ab3e"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "858c10d83cf0b3d047e65097b6f22f9bd196f1dc408a2307e7d6a5b818592257"
+}

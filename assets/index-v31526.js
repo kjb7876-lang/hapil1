@@ -36759,8 +36759,7 @@ function $n(e, t, n, r, i) {
   }
   if (MONGSE_isRestZone(t.zone)) {
     let e = G(se.x, se.y),
-      MONGSE_restPortalLocked31226 = MONGSE_isRestPortalLocked31226(t),
-      MONGSE_restRecord31226 = MONGSE_encounterData31226()?.rest?.[t.zone];
+      MONGSE_restPortalLocked31226 = MONGSE_isRestPortalLocked31226(t);
     Math.hypot(t.x - se.x, t.y - se.y) < 3.2 &&
       (c.save(),
       (c.fillStyle = `#e8f7ff`),
@@ -36800,24 +36799,7 @@ function $n(e, t, n, r, i) {
           a.y + 34,
         )),
       c.restore());
-    if (MONGSE_restRecord31226 || window.__HAPIL_MODES_V31346__?.installed) {
-      let e = G(ae.x, ae.y);
-      (Ln(c, n, F.find((MONGSE_heroV31353) => MONGSE_heroV31353.id === `michaela`)?.sprite ?? Ut.sourceRecord, ae.x, ae.y, 66, {
-        alpha: 0.98,
-        offsetY: -12,
-        glow: `#d9f7ff`,
-        glowBlur: i.lowFx ? 2 : 6,
-      }),
-        Math.hypot(t.x - ae.x, t.y - ae.y) < 2.8 &&
-          (c.save(),
-          (c.fillStyle = `#e7fbff`),
-          (c.textAlign = `center`),
-          (c.font = `800 11px system-ui,Noto Serif KR,sans-serif`),
-          (c.shadowColor = `#65dfff`),
-          (c.shadowBlur = i.reducedFlash ? 2 : 7),
-          c.fillText(`F · 미카엘라와 대화 · 에피소드 기록`, e.x, e.y - 64),
-          c.restore()));
-    }
+
   }
   if (he.includes(t.zone)) {
     let e = MONGSE_zonePortalAnchors(t.zone).entry,
@@ -53903,12 +53885,6 @@ function Ri() {
             B(`침대에서 호흡을 고르고 EGO를 완전히 회복했습니다.`),
             window.__HAPIL_FIRST_BED_MEMORY_RC179__?.open(t),
             void 0);
-          return;
-        }
-        if (J(t, ae) < 2.8) {
-          if (window.__HAPIL_RECORDS_V31365__?.open(t))
-            B(`미카엘라의 보스 패턴·이야기 기록실을 열었습니다.`);
-          else B(`미카엘라의 기록을 지금은 열 수 없습니다.`);
           return;
         }
         if (J(t, ce) < 3.2) {
@@ -121330,18 +121306,18 @@ return window.__HAPIL_LASER_TOPOLOGY_RC108__?.normalize(c,raw)??raw;}
    npcPositions.set(s.zone,position);
   }
   const phase=((n(s.time)%6)+6)%6,talking=phase<3;
-  return{id:'michaela-rest-v31334',heroId:'michaela',x:position.x,y:position.y,talking,phase,text:talking?'중얼 중얼...':'',targetable:false,collidable:false};
+  return{id:'michaela-rest-v31334',heroId:'michaela',x:position.x,y:position.y,talking,phase,text:talking?'오늘은 어떤 꿈을 꾸셨나요?':'',targetable:false,collidable:false};
  }
  function drawNpc(ctx,cache,s,settings={}){
   const a=npcState(s);if(!a)return false;const h=F.find(h=>h.id==='michaela');if(!h)return false;
   const motion={kind:'idle',started:0,until:s.time+1,facing:-1,dx:-1,dy:1,direction:'left'},sprite=MONGSE_readyHeroSprite(cache,Tn(h,motion,s.time),h.sprite),pose=An(Hn(motion,s.time,true,En(h,motion)),h,motion,sprite);
   ctx.save();try{Rn(ctx,a.x,a.y,20,.28);Ln(ctx,cache,sprite,a.x,a.y,On*.96,{...pose,offsetY:(pose.offsetY??0)-Math.sin(s.time*1.2)*.6,glow:'#c9b276',glowBlur:settings.reducedFlash?0:4});
    const p=G(a.x,a.y);ctx.globalCompositeOperation='source-over';ctx.shadowBlur=0;ctx.globalAlpha=1;ctx.textAlign='center';ctx.font='700 11px system-ui,Noto Serif KR,sans-serif';ctx.fillStyle='#ece5d5';ctx.strokeStyle='#101822';ctx.lineWidth=3;ctx.strokeText('미카엘라',p.x,p.y+14);ctx.fillText('미카엘라',p.x,p.y+14);
-   if(a.talking){ctx.globalAlpha=Math.min(1,a.phase/.16,(3-a.phase)/.2);const w=118,y=p.y-On*.94-25;ctx.fillStyle='rgba(12,19,29,.88)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,27,7);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.65)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f0e5c7';ctx.font='500 12px system-ui,Noto Serif KR,sans-serif';ctx.fillText(a.text,p.x,y+18);}
+   if(a.talking){ctx.globalAlpha=Math.min(1,a.phase/.16,(3-a.phase)/.2);ctx.font='500 12px system-ui,Noto Serif KR,sans-serif';const w=Math.max(118,ctx.measureText(a.text).width+24),y=p.y-On*.94-25;ctx.fillStyle='rgba(12,19,29,.88)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,27,7);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.65)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f0e5c7';ctx.font='500 12px system-ui,Noto Serif KR,sans-serif';ctx.fillText(a.text,p.x,y+18);}
    if(J(s,a)<=3.6){const w=142,y=p.y-On*.94-53;ctx.globalAlpha=1;ctx.fillStyle='rgba(8,14,22,.94)';ctx.beginPath();ctx.roundRect(p.x-w/2,y,w,22,6);ctx.fill();ctx.strokeStyle='rgba(208,193,148,.85)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#f5e8c7';ctx.font='700 11px system-ui,Noto Serif KR,sans-serif';ctx.fillText('F · 전체 서사 기록',p.x,y+15);}
   }finally{ctx.restore();ctx.beginPath();}metrics.npcDraws++;return true;
  }
- function queueNpc(queue,ctx,cache,s,settings){const a=npcState(s);if(a)queue.push({depth:a.x+a.y+.01,draw:()=>drawNpc(ctx,cache,s,settings)});}
+ function queueNpc(queue,ctx,cache,s,settings){const a=npcState(s);if(a&&!queue.some(row=>row.restNpcIdV31334===a.id))queue.push({restNpcIdV31334:a.id,depth:a.x+a.y+.01,draw:()=>drawNpc(ctx,cache,s,settings)});}
  const api=Object.freeze({version:'3.13.34',installed:true,angles:SIX,aimAngle,angleError,worldUnit,candidateCost,guide,motionLocked,dashClear,planDash,npcState,drawNpc,queueNpc,metrics:()=>({...metrics,npcPositions:npcPositions.size})});
  window.__HAPIL_TACTICS_V31334__=api;
  let installed=false,tries=0;function install(){if(installed)return;if(!window.__HAPIL_V31333_RELEASE__?.installed){if(++tries<800)setTimeout(install,0);return;}const base=MONGSE_planHeroAutoDodge31223;MONGSE_planHeroAutoDodge31223=function(s,id,passives){return base(s,id,passives)??planDash(s,id);};
