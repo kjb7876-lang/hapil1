@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "03c09ad63d1e321d58de2bd93e9638ca90572d5b",
+  "baseTree": "9314a325ac26db0a8b57a954530bc0543ca5f7c5",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "cb0465b15bb0b119f247c0133e3f61221120d38eeb41f46211a132967bbd20e5",
+  "files": [
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "d19c558a9698d24e9f4b596f9485bb0cc7ca92de"
+      },
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "84e8c01536e6417711c682c64448d0f159baeffe",
+        "sha256": "e1def30c217a784757bcc1fe745814e37c0c1d1bf394918e4fcf6d86249a0c1c"
+      }
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "86ac6ba850fc2e5b9e879bda41a8e28cd12a8c96"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "9cab3ebb176a11f75ab3b906bf0ab27b316c2017",
+        "sha256": "48912b3a3ba63fa9647c3e46c951ab02eca803095da83d891452b51d45d8d420"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized refuge NPC or opening presentation continuation; original unrelated prose, hero roster and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a65eee37afcbe653cb16582fbc21cddd64132d7c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ef7861ed112a0597c97faf685da1db8e6562d127",
+        "sha256": "7c5e9be718bde26df82df91023fd631e5b5bb2ecc09a03d6a65431dc576b157d"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "a133676a9ef04164d033cd0c008d709e1c03fbc0b0668f50232049250393c1b6"
+}

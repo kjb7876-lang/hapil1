@@ -4,19 +4,21 @@
  const n=(v,d=0)=>Number.isFinite(v)?v:d, clocks=new WeakMap(),tints=[],cycles=new WeakMap();let tintPixels=0;const MAX_TINT_PIXELS=4194304,MAX_TINT_ENTRIES=8;
  const config=Object.freeze({dotDamage:1,dotInterval:.5});
  const world=(u,v)=>({x:v+u/2,y:v-u/2});
+ const validMode=c=>c?.rc175StrokeMode===undefined||Number.isInteger(c.rc175StrokeMode)&&c.rc175StrokeMode>=0&&c.rc175StrokeMode<4;
+ const strokeMode=c=>validMode(c)&&c?.rc175StrokeMode!==undefined?c.rc175StrokeMode:Math.abs(Math.trunc(n(c?.id)))%4;
  function strokes(c){
   const u=n(c.cx,16)-n(c.cy,16),v=(n(c.cx,16)+n(c.cy,16))/2,r=Math.min(18,Math.max(7,n(c.radius,12))),gap=Math.max(5,n(c.width)*3.5);
   // Cast identity selects successive - | / and crossed strokes. Never rotate
   // during a committed cast; warning, body, tail and contact share these lines.
-  const mode=Number.isInteger(c.rc175StrokeMode)&&c.rc175StrokeMode>=0&&c.rc175StrokeMode<4?c.rc175StrokeMode:Math.abs(Math.trunc(n(c.id)))%4;
+  const mode=strokeMode(c);
   const h=offset=>[world(u-r,v+offset),world(u+r,v+offset)];
   const vertical=offset=>[world(u+offset,v-r/2),world(u+offset,v+r/2)];
   const slash=offset=>[world(u-r,v+r/2+offset),world(u+r,v-r/2+offset)];
   const pairs=mode===0?[h(-gap),h(gap)]:mode===1?[vertical(-gap),vertical(gap)]:mode===2?[slash(-gap/2),slash(gap/2)]:[h(0),vertical(0),slash(gap)];
   return pairs.map(([a,b])=>root.__HAPIL_LASERS_V31330__?.clip(a,b)).filter(Boolean).map(l=>({...l,width:c.width}));
  }
- function configure(c,a){if(c.rc175StrokeMode!==undefined)return;const mode=cycles.get(a)??0;c.rc175StrokeMode=mode;cycles.set(a,(mode+1)%4);}
- function title(c){return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][Number.isInteger(c.rc175StrokeMode)?c.rc175StrokeMode:Math.abs(Math.trunc(n(c.id)))%4];}
+ function configure(c,a){if(c.rc175StrokeMode!==undefined&&validMode(c))return;const mode=cycles.get(a)??0;c.rc175StrokeMode=mode;cycles.set(a,(mode+1)%4);}
+ function title(c){return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][strokeMode(c)];}
  function tint(image,color){
   if(!image||image.complete===false||!(image.naturalWidth||image.width)||!root.document?.createElement)return image;
   const index=tints.findIndex(row=>row.image===image&&row.color===color);if(index>=0){const[row]=tints.splice(index,1);tints.push(row);return row.canvas;}
@@ -49,5 +51,5 @@
    }
   }
  }
- root.__HAPIL_BOSS_POLICY_RC175__=Object.freeze({config,configure,title,strokes,tint,dot,tintMetrics:()=>({entries:tints.length,pixels:tintPixels,maxPixels:MAX_TINT_PIXELS,maxEntries:MAX_TINT_ENTRIES})});
+ root.__HAPIL_BOSS_POLICY_RC175__=Object.freeze({config,validMode,configure,title,strokes,tint,dot,tintMetrics:()=>({entries:tints.length,pixels:tintPixels,maxPixels:MAX_TINT_PIXELS,maxEntries:MAX_TINT_ENTRIES})});
 })(window);
