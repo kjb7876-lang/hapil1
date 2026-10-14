@@ -34,6 +34,8 @@
     if(['fill','stroke','fillRect','strokeRect','clearRect','fillText','strokeText','putImageData'].includes(k))return noop;
     const v=Reflect.get(raw,k,raw);return typeof v==='function'?v.bind(raw):v;
    },set(o,k,v){if(k==='drawImage'||typeof v==='function'){o[k]=v;return true;}return Reflect.set(raw,k,v,raw);},defineProperty:(o,k,v)=>Reflect.defineProperty(o,k,v),deleteProperty:(o,k)=>Reflect.deleteProperty(o,k)});
+   // RC204 visual layers do not replace the existing hero contact silhouette.
+   Object.defineProperty(view,'__rc204ContactProbe',{value:!worldOnly});
    raw.save();let base;try{
     raw.setTransform(n(canvas.width,1280)/1280,0,0,n(canvas.height,720)/720,0,0);raw.globalAlpha=1;raw.filter='none';if(!worldOnly){world?.(view,canvas,s);const cam=camera(s);view.translate(cam.x,cam.y);view.scale(cam.scale??1,cam.scale??1);}base=raw.getTransform();
     draw(view,cache,{...actor,rc156PresentationState:s},s.time,settings(s));
@@ -77,10 +79,11 @@
   // No live canvas paint or actor HP/position/time writes occur here.
   const envelopes=new Map();
   function paintEnvelope(s,a,isHero,unscaled=false){
-   const factor=unscaled?1:root.__HAPIL_COMBAT_LAYOUT_RC153__?.actorScale?.(s,a)??1,ego=isHero&&a.egoGuardianRC155?.active===true,body=root.__MONGSE_BALROG_POSE_RC151__?.body,weapon=root.__MONGSE_BALROG_POSE_RC151__?.weapon,key=JSON.stringify([unscaled,factor,root.innerWidth,root.innerHeight,ego,root.__HAPIL_EGO_ART_RC155__?.diagnostics?.().decoded??0,s.zone,a.id,a.activeHeroId,a.heroId,a.sprite,a.currentPhase,a.fixedPhase,a.phaseIndex,a.humanPhase0,a.scale,a.facing,a.maxHp>0?Math.floor(a.hp/a.maxHp*4):0,a.attackAt,a.recoverUntil,a.heroMotion?.kind,a.heroMotion?.until,a.heroMotion?.dx,a.heroMotion?.dy,a.rc133InnerBoss,cache[a.sprite]?.naturalWidth,cache[body]?.naturalWidth,cache[weapon]?.naturalWidth,root.__HAPIL_MEDIA_ART_RC133__?.ready]);
+   const factor=unscaled?1:root.__HAPIL_COMBAT_LAYOUT_RC153__?.actorScale?.(s,a)??1,ego=isHero&&a.egoGuardianRC155?.active===true,body=root.__MONGSE_BALROG_POSE_RC151__?.body,weapon=root.__MONGSE_BALROG_POSE_RC151__?.weapon,key=JSON.stringify([unscaled,factor,root.innerWidth,root.innerHeight,ego,root.__HAPIL_EGO_ART_RC155__?.diagnostics?.().decoded??0,root.__HAPIL_SLAYER_RIG_RC204__?.decoded(cache)??0,s.zone,a.id,a.activeHeroId,a.heroId,a.sprite,a.currentPhase,a.fixedPhase,a.phaseIndex,a.humanPhase0,a.scale,a.facing,a.maxHp>0?Math.floor(a.hp/a.maxHp*4):0,a.attackAt,a.recoverUntil,a.heroMotion?.kind,a.heroMotion?.until,a.heroMotion?.dx,a.heroMotion?.dy,a.rc133InnerBoss,cache[a.sprite]?.naturalWidth,cache[body]?.naturalWidth,cache[weapon]?.naturalWidth,root.__HAPIL_MEDIA_ART_RC133__?.ready]);
    const foot=project(a.x,a.y),pad=root.__HAPIL_COMBAT_LAYOUT_RC153__?.envelopePadding?.()??28,old=envelopes.get(key);if(old)return{left:foot.x+old.left,right:foot.x+old.right,top:foot.y+old.top,bottom:foot.y+old.bottom,nativePaint:true,padding:pad};
    const clone={...a,hitUntil:0,hitFlashUntil:0,rc156EnvelopeProbe:unscaled},rows=measure(s,clone,isHero?heroDraw:enemyDraw,true);
    if(!isHero)rows.push(...measure(s,{...clone,attackAt:s.time+2,recoverUntil:s.time+2},enemyDraw,true));
+   if(isHero&&!ego&&(a.activeHeroId??a.heroId)==='slayer'&&root.__HAPIL_SLAYER_RIG_RC204__)for(const dir of ['left','right'])for(const progress of [0,.125,.25,.375,.5,.62,.75,.875,1])rows.push(...measure(s,{...clone,heroMotion:{kind:'attack',direction:dir,characterCommitV31342:{sector:dir==='left'?'w':'e'},started:s.time-progress,until:s.time+1-progress}},heroDraw,true));
    if(ego)for(const kind of ['move','attack'])for(const [dx,dy]of [[1,-1],[1,1],[-1,1],[-1,-1],[0,-1],[1,0],[0,1],[-1,0]])rows.push(...measure(s,{...clone,heroMotion:{kind,started:s.time,until:s.time+1,dx,dy,phase:1000}},heroDraw,true));
    if(!rows.length)return null;
    const points=rows.flatMap(r=>r.points),value={left:Math.min(...points.map(p=>p.x))-foot.x-pad,right:Math.max(...points.map(p=>p.x))-foot.x+pad,top:Math.min(...points.map(p=>p.y))-foot.y-pad,bottom:Math.max(...points.map(p=>p.y))-foot.y+pad};

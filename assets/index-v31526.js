@@ -124488,9 +124488,10 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   // RC85: use the same four-direction action atlas for every Slayer attack.
   // Guard/charge/hurt intentionally keep the correct costume and weapon at
   // rest; the game's existing guard, charge, hit and EGO VFX supply the cue.
-  return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage};
+  return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage,...(hero==='slayer'&&kind==='attack'&&value(m.until)>value(m.started)?{rigidProgress:(time-value(m.started))/(value(m.until)-value(m.started))}:{})};
  }
  function draw(ctx,cache,x,y,size,opts,p){
+  if(window.__HAPIL_SLAYER_RIG_RC204__?.draw(ctx,cache,x,y,size,opts,p,MONGSE_queueImage,G))return true;
   const path=sheets[p.hero][p.sheet],im=MONGSE_queueImage(cache,path,'eager');
   if(!im?.complete||!(im.naturalWidth||im.width)){counters.fallback++;return false;}
   const w=im.naturalWidth||im.width,h=im.naturalHeight||im.height;
@@ -124564,19 +124565,19 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   MONGSE_liveCriticalAssets31220=function HAPIL_consistentHeroCriticalRC5(s){
    const set=new Set(oldCritical(s));
    for(const id of [s?.activeHeroId,...(window.__HAPIL_PARTY_V31322__?.actors??[]).map(a=>a.heroId)])
-    if(owns(id))for(const path of Object.values(sheets[id]))set.add(path);
+    if(owns(id))for(const path of [...Object.values(sheets[id]),...(id==='slayer'?window.__HAPIL_SLAYER_RIG_RC204__?.assets??[]:[])])set.add(path);
    return set;
   };
   const oldAdd=MONGSE_addHeroAssets31220;
   MONGSE_addHeroAssets31220=function HAPIL_consistentHeroAssetsRC5(set,id,...rest){
    const result=oldAdd(set,id,...rest);
-   if(owns(id))for(const path of Object.values(sheets[id]))set.add(path);
+   if(owns(id))for(const path of [...Object.values(sheets[id]),...(id==='slayer'?window.__HAPIL_SLAYER_RIG_RC204__?.assets??[]:[])])set.add(path);
    return result;
   };
   const oldPlan=MONGSE_zoneAssetPlan31220;
   MONGSE_zoneAssetPlan31220=function HAPIL_consistentHeroPlanRC5(zone,id,party=[],...rest){
    const plan=oldPlan(zone,id,party,...rest),active=[id,...(Array.isArray(party)?party:[])];
-   for(const hero of active)if(owns(hero))for(const path of Object.values(sheets[hero])){
+   for(const hero of active)if(owns(hero))for(const path of [...Object.values(sheets[hero]),...(hero==='slayer'?window.__HAPIL_SLAYER_RIG_RC204__?.assets??[]:[])]){
     plan.all.add(path);plan.A.add(path);plan.pins.add(path);
     plan.B.delete(path);plan.C.delete(path);plan.deferred?.delete(path);
    }

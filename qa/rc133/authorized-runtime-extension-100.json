@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "base": "80fa2e98738b338008e8f20764d09e5711c7d5c4",
+  "baseTree": "ec7533dfb323718c2386742817fa5457b984f6b1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "a8f764a06411812cbf66a094750fbf29f387d0aa37d9f37da5677ba694ba2462",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC204 authorized separate candidate; connect rigid side attack to actual RC5 draw/options/resource pins, preserve all damage and other states",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "31e960e376e7a4df075fd2ace7ec6a907469e86f"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "e81dc2a7070d1e5bae40eda80588b9ce08752166",
+        "sha256": "bac4cae26b70cc011b6d87eb9b8318bf42bce4d0e8f9b401c15163f6c23e63d5"
+      }
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "assets/rc133/bitmap-contact.js: RC204 authorized separate candidate; keep original hero contact probes while measuring complete visual sword sweep; decode-aware envelope",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "4d71fb2ddfbf0db7d4737cca249801946bd57538"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "c524faad8bd6585850a6199c26b41fdc8a6a8478",
+        "sha256": "08e1f81fdc2f971aea598f8abe3986999ef4d5545fba0467561f9f2d40ed9860"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: RC204 authorized separate candidate; include rig decode state in fixed-camera frame cache",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "a618c5f1d1e45e1bb917c57b6834082b5698c527"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "17f876f5f96d24aa957f281fc3de04487245d1c3",
+        "sha256": "7de999e03119c7fc5d87f288e111732c7ebb27d6a10e54d1450ebc6b8ba8742c"
+      }
+    },
+    {
+      "file": "assets/rc204/slayer-rig.js",
+      "reason": "assets/rc204/slayer-rig.js: RC204 authorized separate candidate; new rigid sword/arm renderer for Slayer side attacks only",
+      "before": null,
+      "after": {
+        "file": "assets/rc204/slayer-rig.js",
+        "mode": "100644",
+        "gitBlob": "2313c3788b556c1ab55d11baa7701004cad040ac",
+        "sha256": "a25b6e4625b3ea1508b831c1b6290f302350b138ca3fb70c0bcbba69deb4e67d"
+      }
+    },
+    {
+      "file": "assets/rc204/slayer-body-arms.png",
+      "reason": "assets/rc204/slayer-body-arms.png: RC204 authorized separate candidate; new imagegen-authored body/arms with closed shoulders, original assets preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc204/slayer-body-arms.png",
+        "mode": "100644",
+        "gitBlob": "3e2a7b34a4aed367dc0f30e261490010786a684c",
+        "sha256": "3eb2cb5a33acb8904977d68f656373e579d015177fa9d60666a7da7017bfbe8f"
+      }
+    },
+    {
+      "file": "assets/rc204/slayer-sword.png",
+      "reason": "assets/rc204/slayer-sword.png: RC204 authorized separate candidate; single existing generated sword reused under explicit new-layer authorization",
+      "before": null,
+      "after": {
+        "file": "assets/rc204/slayer-sword.png",
+        "mode": "100644",
+        "gitBlob": "fdfcada6fc2d3c65d218ee2112a61f202029008a",
+        "sha256": "94f2063f8952423fb6e4ed090f1011b1cd589a85295f36a757bfb6a24e0c6909"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC204 authorized separate candidate; load rig and refresh native/contact/layout cache keys",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e8ee754f49d231e1c74426151b224d1c38fa559a"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "4a30e3f6a2a1f74debaadae2850dea96358db3e6",
+        "sha256": "e2da9dae261a48a9abd2d14286ec16b00cb317547d9edeae50005734f4ffc52c"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "dae841983f82b05f36c4c0d0808b90d04f3e25a3e090773133512b6dc6ba03d4"
+}
