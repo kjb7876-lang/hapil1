@@ -1,0 +1,101 @@
+{
+  "scope": "actual PNG bytes and runtime-transform libcairo CPU composites; not browser/game captures",
+  "poses": [
+    0.25,
+    0.6,
+    0.9
+  ],
+  "order": "prepare/strike/recover left to right",
+  "rows": [
+    {
+      "path": "assets/rc205/slayer-front-back.png",
+      "bytes": 1339404,
+      "sha256": "fd59b53cbb504892b7e01e5fb70c7889fc80b46ab847800ad3ed8b984cf0401c",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "qa/rc205/compare-n.png",
+      "bytes": 243678,
+      "sha256": "4f1acbaefa509266cdca4b6fa85e8caacf33306dda5c557b9ba1be0c22ce3857",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-ne.png",
+      "bytes": 294302,
+      "sha256": "500e281fd2436a86acd54b81668511844c835cfc36497a2b574fe55a4d507ba3",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-e.png",
+      "bytes": 296756,
+      "sha256": "8e5aa7ec47022d552bf6a12506cc564803fbe50d4a623723489b77ffc038bf7a",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-se.png",
+      "bytes": 295317,
+      "sha256": "ce0b2245a38d07fa1eede0d7888c5184139099a5fb92cd2d23cde1c5290f9516",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-s.png",
+      "bytes": 241116,
+      "sha256": "c49be160808b7e58d83602b28339d353243528d8a7c764b29166d5b9d312de3d",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-sw.png",
+      "bytes": 293934,
+      "sha256": "7a0e66edf3c7735f666727b2bebd97270f2224f823b51cd9208072a821d754b7",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-w.png",
+      "bytes": 294077,
+      "sha256": "fb0cb8a8242d1f531a55046b00e7e0afcfa987c974ad93add8762c2e2b195be7",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "qa/rc205/compare-nw.png",
+      "bytes": 292393,
+      "sha256": "d5b87f17171c72676fa4914b00a9b87988f7087e96543aad049c8443e46de3f3",
+      "size": [
+        1920,
+        900
+      ],
+      "mode": "RGB"
+    }
+  ]
+}

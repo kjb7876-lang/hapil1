@@ -1,0 +1,73 @@
+{
+  "task": "RC205 Slayer front/back static body direction assets",
+  "result": "candidate produced; visual QA passed for direction, identity, closed shoulder armor, intact cape/boots, and equal overall scale; no second edit used",
+  "generation": {
+    "tool": "official image_gen imagegen edit/generation tool",
+    "calls": 1,
+    "tool_output_path": "/workspace/generated_images/exec-920e737f-aacb-4e49-8a85-f341e83766ae.png",
+    "saved_candidate": "/workspace/rc205-slayer-rig/front-back-body-candidate.png",
+    "prompt_file": "/workspace/rc205-slayer-rig/front-back-body-prompt.txt",
+    "references": [
+      {
+        "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-action-atlas.png",
+        "sha256": "0328fdb22709bfca6d19ad427e6cecb9a6bb4f2d6c7aaef92e2beab6359ba30a",
+        "use": "active RC5 Slayer action/direction and character identity reference"
+      },
+      {
+        "path": "/workspace/rc204-slayer-rig/body-arm-closed-shoulder.png",
+        "sha256": "3eb2cb5a33acb8904977d68f656373e579d015177fa9d60666a7da7017bfbe8f",
+        "use": "closed shoulder armor and identity reference"
+      }
+    ],
+    "reason_no_second_call": "Actual-view QA found clear front/back directions, closed pauldrons, full hair/cape/boots, and no visible clipping. Remaining coordinate differences are suitable for per-direction placement in the rig and did not warrant another image edit."
+  },
+  "candidate_file": {
+    "format": "PNG",
+    "width": 1774,
+    "height": 887,
+    "mode": "RGBA",
+    "bytes": 1339404,
+    "sha256": "fd59b53cbb504892b7e01e5fb70c7889fc80b46ab847800ad3ed8b984cf0401c",
+    "layout": "two equal 887x887 square cells; front at x=[0,887), back at x=[887,1774)",
+    "visual_inspection": "Actual-viewed with transparent background displayed black. Both figures have the same black-haired male Slayer identity, black/gunmetal armor with vivid red details, torn red-black cape, belt, trousers and boots. Left is clearly front-facing; right is clearly back-facing. No weapon or arms are present, shoulder plates are closed, and all hair/cape/boots remain inside the visible silhouettes."
+  },
+  "alpha_qa": {
+    "main_silhouette_threshold": "alpha byte >= 6",
+    "front_bbox_local_half_open": [64, 58, 858, 835],
+    "back_bbox_local_half_open": [30, 57, 825, 835],
+    "back_bbox_global_half_open": [917, 57, 1712, 835],
+    "whole_sheet_bbox_half_open": [64, 57, 1712, 835],
+    "front_padding_left_inner_right_top_bottom_px": [64, 29, 58, 52],
+    "back_padding_left_right_top_bottom_px": [30, 62, 57, 52],
+    "transparent_gap_between_visible_bboxes_px": 59,
+    "seam_alpha_ge6_pixel_count": 0,
+    "notes": "No main-silhouette alpha>=6 touches the cell edges; visually, no body, hair, cape or footwear is clipped. A few alpha-byte-1 fringe pixels occur at the sheet edge and within the central gutter; these are below the visible-silhouette threshold and are not modified."
+  },
+  "landmarks": {
+    "coordinate_system": "Global canvas coordinates unless local cell coordinates are explicitly stated; cell origin x=0 for front, x=887 for back. Head/shoulder landmarks are approximate visual estimates; foot centers are estimated from the bottom sole rows. These are not semantic-model detections.",
+    "front": {
+      "cell_origin_x": 0,
+      "foot_midpoint_estimate_global_xy": [451, 830],
+      "foot_midpoint_estimate_local_xy": [451, 830],
+      "head_top_y": 58,
+      "head_center_x_estimate_global": 473,
+      "head_alpha_bbox_local_half_open_y_lt_160": [395, 58, 550, 160],
+      "image_left_pauldron_lower_arm_root_estimate_global_xy": [378, 288],
+      "image_right_pauldron_lower_arm_root_estimate_global_xy": [566, 288]
+    },
+    "back": {
+      "cell_origin_x": 887,
+      "foot_midpoint_estimate_global_xy": [1322, 830],
+      "foot_midpoint_estimate_local_xy": [435, 830],
+      "head_top_y": 57,
+      "head_center_x_estimate_global": 1307,
+      "head_center_x_estimate_local": 420,
+      "head_alpha_bbox_local_half_open_y_lt_160": [346, 57, 494, 160],
+      "image_left_pauldron_lower_arm_root_estimate_global_xy": [1223, 282],
+      "image_right_pauldron_lower_arm_root_estimate_global_xy": [1402, 282],
+      "image_left_pauldron_lower_arm_root_estimate_local_xy": [336, 282],
+      "image_right_pauldron_lower_arm_root_estimate_local_xy": [515, 282]
+    },
+    "tolerance": "Pauldron/arm roots are visual placement estimates, approximately +/-20 px. Head center is the midpoint of the visible head-region alpha bbox. Sole midpoint is estimated from the two boot sole centers at y around 830; small front/back horizontal offsets are present, while baseline differs by about 0-1 px."
+  }
+}

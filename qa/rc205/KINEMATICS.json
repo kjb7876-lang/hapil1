@@ -1,0 +1,134 @@
+{
+  "status": "passed",
+  "scope": "actual runtime transforms, not browser pixels; fixed .3 intrinsic scale; front/back constant .65 longitudinal projection, side/diagonal 1; no animation scale change",
+  "rows": [
+    {
+      "dir": "n",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 0.65,
+      "projectedLengthRange": [
+        237.66913722455095,
+        237.66913722455124
+      ],
+      "maxHandError": 3.8131724593878115e-13
+    },
+    {
+      "dir": "ne",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 1,
+      "projectedLengthRange": [
+        365.63337682711597,
+        365.6333768271165
+      ],
+      "maxHandError": 5.084229945850415e-13
+    },
+    {
+      "dir": "e",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 1,
+      "projectedLengthRange": [
+        365.6333768271161,
+        365.63337682711654
+      ],
+      "maxHandError": 4.687428401686771e-13
+    },
+    {
+      "dir": "se",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 1,
+      "projectedLengthRange": [
+        365.63337682711597,
+        365.6333768271165
+      ],
+      "maxHandError": 5.084229945850415e-13
+    },
+    {
+      "dir": "s",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 0.65,
+      "projectedLengthRange": [
+        237.66913722455092,
+        237.66913722455132
+      ],
+      "maxHandError": 4.547473508864641e-13
+    },
+    {
+      "dir": "sw",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 1,
+      "projectedLengthRange": [
+        365.6333768271161,
+        365.6333768271164
+      ],
+      "maxHandError": 4.099037227506403e-13
+    },
+    {
+      "dir": "w",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 1,
+      "projectedLengthRange": [
+        365.63337682711614,
+        365.63337682711636
+      ],
+      "maxHandError": 3.595093471822542e-13
+    },
+    {
+      "dir": "nw",
+      "samples": 301,
+      "fixedBody": true,
+      "fixedFoot": [
+        960,
+        1000
+      ],
+      "intrinsicWeaponLength": 487.51116910282167,
+      "directionProjection": 1,
+      "projectedLengthRange": [
+        365.6333768271161,
+        365.63337682711636
+      ],
+      "maxHandError": 3.595093471822542e-13
+    }
+  ]
+}

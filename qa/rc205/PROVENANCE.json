@@ -1,0 +1,16 @@
+{
+  "runtimeCommit": "0727158e35ae59b567397c29566421fd88999dad",
+  "base": "a93f7b94a0375b246b628cb520626d17ad8c85ed",
+  "art": "One official image_gen call by existing art-only agent; no second edit; no source pixel retouch",
+  "asset": "assets/rc205/slayer-front-back.png",
+  "sha256": "fd59b53cbb504892b7e01e5fb70c7889fc80b46ab847800ad3ed8b984cf0401c",
+  "reusedUnchanged": [
+    "assets/rc204/slayer-body-arms.png",
+    "assets/rc204/slayer-sword.png",
+    "assets/rc201/orthogonal-barrage.js"
+  ],
+  "coordinates": "front/back foot/head and shoulder sockets from actual alpha and visual landmark review; shoulder estimates ±20 source px, no claim of anatomical ground truth",
+  "projection": "Same .3 physical sword texture scale, constant longitudinal projection .65 front/back, 1 side/diagonal. Rotation/translation only during each direction animation.",
+  "model": "Requested root model/runtime cannot be independently inspected or changed from this checkout; no claim of runtime model verification",
+  "pixelReview": "All eight CPU libcairo composites opened and visually inspected after final rig changes. Rear arms/hands are partially occluded by body as expected for a back view; shoulders/boots/cape retained."
+}
