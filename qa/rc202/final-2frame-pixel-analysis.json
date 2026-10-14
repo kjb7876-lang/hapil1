@@ -1,0 +1,46 @@
+{
+  "path": "/workspace/generated_images/exec-6e5d3b05-7202-453f-a7d4-48755829022c.png",
+  "size": [
+    1774,
+    887
+  ],
+  "bytes": 920755,
+  "sha256": "53c471fc59ced7ec68dcc1fa322e81dd558e87a088984a72a410c0ff71f60b81",
+  "scope": "root independent read-only RGBA analysis; bbox maxima exclusive; no image resizing/crop written",
+  "frames": [
+    {
+      "frame": 0,
+      "alphaGE2BBox": [
+        130,
+        129,
+        787,
+        795
+      ],
+      "alphaGE6BBox": [
+        132,
+        130,
+        784,
+        793
+      ],
+      "leftEdgeGE6": 0,
+      "rightEdgeGE6": 0
+    },
+    {
+      "frame": 1,
+      "alphaGE2BBox": [
+        30,
+        284,
+        839,
+        795
+      ],
+      "alphaGE6BBox": [
+        32,
+        286,
+        837,
+        793
+      ],
+      "leftEdgeGE6": 0,
+      "rightEdgeGE6": 0
+    }
+  ]
+}

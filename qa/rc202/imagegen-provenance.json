@@ -1,0 +1,37 @@
+{
+  "generation_tool": "official image_gen.imagegen tool (functions.image_gen__imagegen)",
+  "dedicated_imagegen_skill": "None in the available skill catalog; no imagegen SKILL.md was read.",
+  "generation_call_count": 2,
+  "recovery_frame_generated": false,
+  "calls": [
+    {
+      "call": 1,
+      "purpose": "Generate two-frame preparation/downward-slash candidate.",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png"
+      ],
+      "generated_tool_output": "/workspace/generated_images/exec-30049d3b-3c01-41e8-a3ce-fc0ee3302999.png",
+      "copied_candidate": "/workspace/rc202-slayer-art/slayer-attack-2frame.png",
+      "prompt": "Create a TWO-FRAME transparent PNG sprite strip based on the attached original right-facing Slayer sprite sheet. This is a smaller, clean two-pose asset: exactly two equal square cells side-by-side, one complete fighter in each cell, in this order: preparation, active downward sword swing. Request a 1280 x 640 canvas with two 640 x 640 cells; if the image tool uses a different output size, preserve two equal square cells and keep the complete silhouettes inside them.\n\nPreserve the original character design and proportions: same black-haired male, black/gunmetal armor with red glowing cracks, red accents, torn black-red cape, heavy boots, and the same oversized jagged black-steel greatsword with a red core. The sword-to-body size ratio must match the original. Do not enlarge, shrink, stretch, or otherwise resize the sword independently of the complete fighter.\n\nLAYOUT AND MARGINS: leave at least 80 pixels of fully transparent padding between each silhouette and every edge of its own square cell, including the center seam. There must be a clearly visible transparent vertical gutter at the center between the two cells: at least 80 empty pixels on the right side of cell one and at least 80 empty pixels on the left side of cell two. No pixel of hair, cape, hand, sword, glow, or antialiasing may enter that gutter. Leave at least 80 pixels of transparent outer padding around each silhouette. Use a compact side-view pose and angle the sword steeply enough to fit the identical complete blade inside its cell. Keep the full hair, cape, boots, hilt, and sword tip visible. No text, borders, labels, floor, scenery, shadows, or extra effects.\n\nBoth frames face screen-right from the same fixed side-view camera. Keep the boots planted at identical positions on one shared baseline. Keep the head, shoulders, torso height, leg spacing, and full-body scale identical. The body must not crouch, sit, jump, or rise. Animate only shoulder and arm movement and rotate the sword in the hands.\n\nFrame 1: upright planted preparation guard, sword held diagonally up and back near shoulder height. Frame 2: a clearly active downward sword slash, arms swung and the same sword rotated diagonally down and forward toward screen-right. This is the beginning of one grounded attack. Keep the torso mostly steady.\n\nWEAPON RIGIDITY: the exact same one-piece sword in both frames, with identical apparent overall length, width, thickness, serrations, hilt, red core, and perspective. Only rotate it around the grip. Never bend, warp, foreshorten, stretch, duplicate, change perspective, or alter the blade proportions. Preserve the sharp, detailed fantasy-game illustration style and transparent alpha background."
+    },
+    {
+      "call": 2,
+      "purpose": "One final edit to improve per-cell margins and rigid sword matching.",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+        "/workspace/rc202-slayer-art/slayer-attack-2frame.png"
+      ],
+      "generated_tool_output": "/workspace/generated_images/exec-6e5d3b05-7202-453f-a7d4-48755829022c.png",
+      "copied_candidate": "/workspace/rc202-slayer-art/slayer-attack-2frame-edited.png",
+      "prompt": "Correct the supplied two-frame right-facing Slayer strip. Use the original four-frame sheet as the authority for the character, armor, and exact greatsword design and sword-to-body proportions. Use the supplied two-frame strip only as a pose reference for preparation and active downward slash. Return exactly TWO equal square cells side-by-side on a transparent PNG, one preparation pose in cell one and one downward-slash pose in cell two. Aim for a 2:1 wide canvas with two square cells.\n\nCRITICAL SPACING: each cell is its own invisible square frame. Keep the complete silhouette, including hair, cape, boots, hands, hilt, and sword tip, fully inside the central safe rectangle of its cell, with at least 80 pixels of completely transparent space on all four sides. This means at least 80 transparent pixels between each silhouette and the center seam on both sides. No antialiasing or glow may enter the margins. Center both figures within their own cells. If needed, uniformly scale down the complete fighter and sword by the same single scale factor in both cells; keep the sword-to-body ratio from the original unchanged. Make the total silhouette width no greater than about 680 pixels in a 887-pixel cell so there is comfortable extra space. Do not crop or let the sword touch any cell edge.\n\nCHARACTER CONSISTENCY: same black-haired male Slayer, black and gunmetal armor with vivid red cracks and marks, torn black-red cape, heavy boots. Identical full-body scale, head height, shoulder height, torso height, leg spacing, foot placement, and camera in both frames. The boots stay planted on the same baseline. Keep the head and torso upright at the same y position; no crouching, sitting, jumping, rising, or torso bob. Animate the shoulders and arms and rotate the sword only.\n\nFrame 1: planted preparation guard with the sword angled up and back near the shoulder. Frame 2: planted active downward slash, the same sword angled down and forward toward screen-right. Make the arm and sword action clear while the hips, legs, head, torso, and camera remain fixed.\n\nCRITICAL SWORD CONSISTENCY: the same rigid greatsword in both cells, copied in design and relative size from the original: identical tip-to-hilt length, width, thickness, jagged edges, guard, grip, red core, and perspective. Only rotate it in the hands. Never resize the sword separately from the whole character, never enlarge or shorten it, never stretch, bend, foreshorten, warp, duplicate, or change perspective. Use steep enough sword angles that its entire fixed-size shape remains inside the safe rectangle in each cell.\n\nPreserve crisp detailed fantasy-game illustration, true transparent alpha background, and no text, labels, borders, shadows, scenery, or effects."
+    }
+  ],
+  "final_candidate": {
+    "path": "/workspace/rc202-slayer-art/slayer-attack-2frame-edited.png",
+    "dimensions": "1774x887",
+    "sha256": "53c471fc59ced7ec68dcc1fa322e81dd558e87a088984a72a410c0ff71f60b81",
+    "status": "Not approved: the second cell still has less than 80px side margins; visible head/body/sword consistency differences remain."
+  }
+}

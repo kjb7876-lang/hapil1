@@ -1,0 +1,364 @@
+{
+  "scope": "Read-only RGBA alpha analysis. BBox maxima exclusive. No image edit or scaling.",
+  "files": [
+    {
+      "label": "source-right",
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+      "sha256": "f98f4fceadb1d4cf91e243302335694f453ee840db651e9c90ea35ac5fb091f2",
+      "bytes": 819874,
+      "size": [
+        2560,
+        640
+      ],
+      "cellWidth": 640,
+      "frames": [
+        {
+          "frame": 0,
+          "alphaGE2BBox": [
+            37,
+            226,
+            603,
+            616
+          ],
+          "alphaGE6BBox": [
+            37,
+            226,
+            603,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 1,
+          "alphaGE2BBox": [
+            91,
+            147,
+            549,
+            616
+          ],
+          "alphaGE6BBox": [
+            91,
+            147,
+            549,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 2,
+          "alphaGE2BBox": [
+            24,
+            251,
+            616,
+            616
+          ],
+          "alphaGE6BBox": [
+            24,
+            251,
+            616,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 3,
+          "alphaGE2BBox": [
+            89,
+            257,
+            551,
+            616
+          ],
+          "alphaGE6BBox": [
+            89,
+            257,
+            551,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        }
+      ]
+    },
+    {
+      "label": "source-left",
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-left/sprite-sheet-alpha.png",
+      "sha256": "6f8dd1bb90ecdb5228d07f69caf6efa7f977ea907cec694e3a043d83c4aad122",
+      "bytes": 777269,
+      "size": [
+        2560,
+        640
+      ],
+      "cellWidth": 640,
+      "frames": [
+        {
+          "frame": 0,
+          "alphaGE2BBox": [
+            60,
+            238,
+            579,
+            616
+          ],
+          "alphaGE6BBox": [
+            60,
+            238,
+            579,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 1,
+          "alphaGE2BBox": [
+            115,
+            96,
+            525,
+            616
+          ],
+          "alphaGE6BBox": [
+            115,
+            96,
+            525,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 2,
+          "alphaGE2BBox": [
+            60,
+            244,
+            579,
+            616
+          ],
+          "alphaGE6BBox": [
+            60,
+            244,
+            579,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 3,
+          "alphaGE2BBox": [
+            75,
+            240,
+            565,
+            616
+          ],
+          "alphaGE6BBox": [
+            75,
+            240,
+            565,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        }
+      ]
+    },
+    {
+      "label": "previous-v3",
+      "path": "/workspace/rc201-slayer-art/slayer-side-right-candidate-v3.png",
+      "sha256": "86dda851fb1a8ea8140a32b57b1a28e0ece5defe7b598afcc5da5a9e0a59c4c1",
+      "bytes": 906427,
+      "size": [
+        2172,
+        724
+      ],
+      "cellWidth": 543,
+      "frames": [
+        {
+          "frame": 0,
+          "alphaGE2BBox": [
+            67,
+            147,
+            482,
+            618
+          ],
+          "alphaGE6BBox": [
+            71,
+            149,
+            482,
+            616
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 1,
+          "alphaGE2BBox": [
+            59,
+            273,
+            543,
+            619
+          ],
+          "alphaGE6BBox": [
+            61,
+            275,
+            543,
+            618
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 33
+        },
+        {
+          "frame": 2,
+          "alphaGE2BBox": [
+            0,
+            269,
+            543,
+            618
+          ],
+          "alphaGE6BBox": [
+            0,
+            271,
+            543,
+            616
+          ],
+          "leftGE6Rows": 32,
+          "rightGE6Rows": 9
+        },
+        {
+          "frame": 3,
+          "alphaGE2BBox": [
+            0,
+            147,
+            497,
+            618
+          ],
+          "alphaGE6BBox": [
+            0,
+            149,
+            495,
+            618
+          ],
+          "leftGE6Rows": 8,
+          "rightGE6Rows": 0
+        }
+      ]
+    },
+    {
+      "label": "previous-final",
+      "path": "/workspace/rc201-slayer-art/slayer-side-right-final-edit.png",
+      "sha256": "7d0a0a9a55faa0618b7925572f7c26655b74bcb3b5ee9726d46ff89a6f35e278",
+      "bytes": 935524,
+      "size": [
+        2172,
+        724
+      ],
+      "cellWidth": 543,
+      "frames": [
+        {
+          "frame": 0,
+          "alphaGE2BBox": [
+            33,
+            256,
+            543,
+            624
+          ],
+          "alphaGE6BBox": [
+            35,
+            258,
+            543,
+            621
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 48
+        },
+        {
+          "frame": 1,
+          "alphaGE2BBox": [
+            0,
+            140,
+            519,
+            624
+          ],
+          "alphaGE6BBox": [
+            0,
+            143,
+            517,
+            623
+          ],
+          "leftGE6Rows": 47,
+          "rightGE6Rows": 0
+        },
+        {
+          "frame": 2,
+          "alphaGE2BBox": [
+            5,
+            260,
+            543,
+            625
+          ],
+          "alphaGE6BBox": [
+            5,
+            262,
+            543,
+            623
+          ],
+          "leftGE6Rows": 0,
+          "rightGE6Rows": 29
+        },
+        {
+          "frame": 3,
+          "alphaGE2BBox": [
+            0,
+            128,
+            494,
+            624
+          ],
+          "alphaGE6BBox": [
+            0,
+            129,
+            493,
+            623
+          ],
+          "leftGE6Rows": 28,
+          "rightGE6Rows": 0
+        }
+      ]
+    }
+  ],
+  "identityEvidence": {
+    "heroId": "slayer",
+    "heroName": "악몽 사냥꾼 · 검사",
+    "heroDeclaration": "assets/index-v31526.js:25955",
+    "renderSelection": "assets/index-v31526.js:126390 sidePose requires hero.id slayer, attack motion and left/right consistency selection",
+    "rightRuntimeAsset": "assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+    "leftRuntimeAsset": "assets/hero-authored-v314rc81/slayer-side-left/sprite-sheet-alpha.png",
+    "cell": [
+      640,
+      640
+    ],
+    "columns": 4,
+    "nativeFootPivot": [
+      320,
+      616
+    ],
+    "nativeArtHeight": 390,
+    "baseSource": {
+      "path": "assets/hero-authored-v314rc81/slayer-side-right/base-source.webp",
+      "sha256": "31b653b9e1347fc5e5c6be7cf215e2c4800083cbf3c2f1fa224fb770224bae15",
+      "size": [
+        484,
+        325
+      ],
+      "limitation": "Root actual image inspection: horizontal blade meets/crosses right image edge; not accepted as complete sword-tip reference."
+    },
+    "originalPromptLimitation": "Original prompt allows body-height/torso-lean/head-bob variation. New request instead locks torso and head height. No original prompt or asset altered."
+  },
+  "baseCandidate": "25c0e5c625b265205662cd115a4a43522cab60e9",
+  "runtimeBytesUnchanged": true,
+  "notes": [
+    "Only image generation and read-only alpha analysis are being performed in RC202 until acceptance.",
+    "No per-frame resize, sword enlargement, body crop or source overwrite.",
+    "The current skill catalog has no dedicated image generation SKILL.md; official image_gen tool instructions are used."
+  ]
+}

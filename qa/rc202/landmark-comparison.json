@@ -1,0 +1,65 @@
+{
+  "scope": "ROOT visual estimates in local 887px cells (roughly ±20px), not exact anatomical segmentation. Sword guard is red circular guard center; grip is hand center. Cross-section samples actual alpha>=6 along normal to visually estimated tip→guard centerline. No image edit/rescale.",
+  "frames": [
+    {
+      "tip": [
+        132,
+        136
+      ],
+      "guard": [
+        430,
+        231
+      ],
+      "grip": [
+        492,
+        245
+      ],
+      "headTopY": 270,
+      "leftBoot": [
+        274,
+        792
+      ],
+      "rightBoot": [
+        722,
+        792
+      ],
+      "tipToGuardPixels": 312.78,
+      "alphaCrossSectionAtBladeMidpointPixels": 61,
+      "footMidpointX": 498.0,
+      "footToHeadPixels": 522
+    },
+    {
+      "tip": [
+        838,
+        768
+      ],
+      "guard": [
+        548,
+        550
+      ],
+      "grip": [
+        498,
+        514
+      ],
+      "headTopY": 288,
+      "leftBoot": [
+        91,
+        792
+      ],
+      "rightBoot": [
+        552,
+        792
+      ],
+      "tipToGuardPixels": 362.8,
+      "alphaCrossSectionAtBladeMidpointPixels": 67,
+      "footMidpointX": 321.5,
+      "footToHeadPixels": 504
+    }
+  ],
+  "conclusion": "Foot Y agrees; foot X midpoint, body height, sword tip→guard distance and blade cross section differ. Not accepted.",
+  "notes": [
+    "Landmark-derived lengths are approximate; independent art reviewer estimated tip→guard 313 versus349px, root estimated313 versus363px. Both reject constant apparent blade length.",
+    "Alpha cross-section is a sampled width using an approximate manual centerline; it is not a calibrated sword-thickness segmentation.",
+    "Foot X could be aligned by render translation, but that would not repair body height or changing sword geometry. No translation/scale/crop applied."
+  ]
+}

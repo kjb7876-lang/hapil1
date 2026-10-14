@@ -1,0 +1,46 @@
+{
+  "path": "/workspace/rc202-slayer-art/slayer-attack-2frame.png",
+  "size": [
+    1774,
+    887
+  ],
+  "bytes": 925971,
+  "sha256": "eaf1f6399b7db5d39cd2b09c3b558fe171ec9a9bbfe54f3862c65006ab180c3a",
+  "scope": "read-only RGBA analysis; threshold byte values; bbox maxima exclusive",
+  "frames": [
+    {
+      "frame": 0,
+      "alphaGE2BBox": [
+        114,
+        128,
+        772,
+        793
+      ],
+      "alphaGE6BBox": [
+        114,
+        129,
+        770,
+        791
+      ],
+      "leftEdgeGE6": 0,
+      "rightEdgeGE6": 0
+    },
+    {
+      "frame": 1,
+      "alphaGE2BBox": [
+        28,
+        281,
+        845,
+        793
+      ],
+      "alphaGE6BBox": [
+        30,
+        284,
+        843,
+        791
+      ],
+      "leftEdgeGE6": 0,
+      "rightEdgeGE6": 0
+    }
+  ]
+}
