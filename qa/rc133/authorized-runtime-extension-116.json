@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "b0310bd0c43869128076fefff9ec428419d22ab0",
+  "baseTree": "4fd59d4e2608aefcd86fcf9e20ce506d93201490",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "91aa938d2582b2c81ff00ba34880e6afd3e8820910c4c42ef07813e05a72fe96",
+  "files": [
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "assets/rc133/bitmap-contact.js: Sample all reviewed base/awakened Persona body frames at canonical clock before fitting, preserving contact and input assertions.",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "335cba7291e97868e9351e75e99f969ef7904645"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "c24f0b8ecc38370642b0186ad33fab6dcadae837",
+        "sha256": "1ac7539f225c434844f474edcdd9b3cea996d6d980fc238c24ecc12c6294468c"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Invalidate Persona all-frame envelope cache after exact input regression exposed remaining drift.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "13ec93a1224a6d687acd34f26f0abbb2ad603258"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ea196cc37d10689081b4ea92484f1c8fd1ef86a8",
+        "sha256": "b75950b1be414caf82dec6a0a3b06ac6ccb3aebf8ba3c28c774921ddb951e4ee"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "4efc8c93ce65d1c9a5e9d2aa33d9777e559683bb2ad27d74a290d36ca9844061"
+}
