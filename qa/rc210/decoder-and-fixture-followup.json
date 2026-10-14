@@ -1,0 +1,32 @@
+{
+  "base": "f9b7a23b6bf996bae0cfa2cb059572d51fad47e0",
+  "priorCi": "all12 completed;7success/5failure;localCPU74/74",
+  "bodyFit": {
+    "actualBrowserFailure": "full body fit dist06-boss",
+    "independentCacheDefect": "New independent body can replace a complete legacy fallback without invalidating framing/actor-fit cache",
+    "beforeCpu": "12 camera groups pass, new decode regression fails",
+    "afterCpu": "13 camera groups pass;4viewport movement camera ranges remain0",
+    "change": "Include independent Balrog/Slayer/gate/tower image dimensions/readiness in existing fitting cache keys, not actor positions or attack clocks",
+    "nativeFullBodyFitResult": "pending; enriched bounds/camera/actor/projectile diagnostics if still failing"
+  },
+  "mobile": {
+    "actualFailureState": {
+      "phase": "select",
+      "coarse": true,
+      "localTwo": false,
+      "error": "window.__HAPIL_COMBAT_LAYOUT_RC153__?.placeBasic is not a function"
+    },
+    "cause": "Historical comparison injected old layout modules into current native bundle, breaking startup before game",
+    "change": "Serve complete immutable8b24a221 baseline via read-only git show and current checkout separately, with same fixture. No fake API/class or timeout relaxation.",
+    "nativeRerun": "pending"
+  },
+  "animation": {
+    "priorFailure": "Swing not observed by per-screenshot polling;8samples consumed7 native seconds",
+    "change": "Observe unchanged real body renderer on visible native canvas; collect actual RAF frame trace and canvas PNG on each observed pose. Consistent attack/impact/recovery timers seeded; native clock progresses normally. Retain swing/recovery,constant sword length and map containment assertions.",
+    "scope": "QA seeded native presentation and protected hero, not natural campaign or pixel approval",
+    "nativeRerun": "pending"
+  },
+  "deployed": false,
+  "deniedPathsRetried": false,
+  "sandboxChanged": false
+}

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "f9b7a23b6bf996bae0cfa2cb059572d51fad47e0",
+  "baseTree": "73ddaf94cc31ed3a33aa95310edf101cfe061510",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "ea140635a4d56a1ed4f67a24b73adebc7a09947a3a0c31fa9255197e8375e9c8",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: authorized body/weapon fit debugging: invalidate fixed framing and uniform actor-fit caches when independent PNGs replace decoded legacy fallbacks; retain fixed camera during actor movement, original floor/placement/assets/audio/prose/save contracts; update only layout script cache.",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "b75b3e38f9225d39f3a4a92f5c5545a9fe972fb6"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "812981af166b4233b04a369bc7dd612607493bcb",
+        "sha256": "f6c936f21c2b0b46a9a52211e2c18665a0723ad39923cbc44b88822c4e6e71da"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized body/weapon fit debugging: invalidate fixed framing and uniform actor-fit caches when independent PNGs replace decoded legacy fallbacks; retain fixed camera during actor movement, original floor/placement/assets/audio/prose/save contracts; update only layout script cache.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "1e96c9c0b2fc8cf4569182970dc26e7a992def51"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7292a67fa4220e329c9e9a077498bb5cba7f6e03",
+        "sha256": "d3bbdddbd6056b600c3b3389ed81e63b74f92a77a4214a67b4b0fb5329b97a79"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "8a4ad730dcac47b969c591b605e83eea06de0a4dc3085df0dec9a3814c543ae1"
+}

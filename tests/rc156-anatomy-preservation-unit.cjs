@@ -21,4 +21,4 @@ const target45=validate(manifest45);const bytes46=fs.readFileSync(root+'/qa/rc13
 for(const property of ['gitBlob','mode']){const changed=structuredClone(manifest45);changed.files[0].before[property]=property==='mode'?'100755':'0'.repeat(40);throws(()=>validate(changed),'tampered exact preimage '+property);}
 for(const property of ['sha256','gitBlob','mode']){const changed=structuredClone(manifest64);changed.files[0].after[property]=property==='mode'?'100755':'0'.repeat(property==='sha256'?64:40);throws(()=>validate(changed,target63,true),'tampered exact output '+property);}
 const changed=structuredClone(manifest45);changed.targetProtectedRowsSha256='0'.repeat(64);throws(()=>validate(changed),'whole-tree output cannot be relaxed');
-console.log('RC156_ANATOMY_PRESERVATION_UNIT',JSON.stringify({status:'passed',checks,...proof,extension:108,historicalFullProof:false}));
+console.log('RC156_ANATOMY_PRESERVATION_UNIT',JSON.stringify({status:'passed',checks,...proof,extension:109,historicalFullProof:false}));

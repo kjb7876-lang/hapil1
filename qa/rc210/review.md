@@ -56,3 +56,9 @@ Follow-up after direct review of de2aa9aa:
 - Inventory fixture now verifies6 original narrow shots +1 authored density extra exactly; mb-dist04 verifies4 distinct independent body parts and no extra. Original flight/provenance/camera checks remain.
 - Mobile-layout predicate still requires game phase and native mobile class within original timeout. Accurate Android UA and native UI sync added with failure diagnostics; browser cause and result remain pending.
 - Gallery adds native map/actual paint bounds containment,4 controlled Slayer attack phases,8 native advancing-clock Balrog samples and2 staged damage poses. Not natural full campaign or pixel approval.
+
+Follow-up after f9b7a23 (all12 CI completed):
+- Exact localCPU74/74 and original-source preservation passed. Actual gallery map/paint containment passed; sequential screenshot polling missed swing and failed, so it is not a complete gallery success.
+- Mobile before-comparison stayed in select with actual error placeBasic is not a function. Root cause: old layout modules mixed into current native bundle. Serve the complete immutable historical baseline read-only, and current checkout separately, retaining same phase/class/coverage/touch/fit predicates and timeout.
+- Scatter progressed beyond mb-dist01 to full-body fit dist06-boss failure. Added exact diagnostics, and independently reproduced missing decode invalidation when new independent images replace complete old fallbacks. Readiness dimensions now enter framing/actor-fit cache keys.13 CPU camera groups pass including new decode regression; fixed camera under movement remains unchanged. Actual new body-fit result pending.
+- Motion capture now observes actual visible native body draw calls and RAF clock, captures canvas PNG at each observed pose without per-screenshot delay, and retains swing/recovery/constant-sword-length assertions. This is QA-seeded native presentation, not natural campaign or human pixel approval.
