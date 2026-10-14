@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "base": "3e5c63018e9e83131971d2e8fa73583224b4356f",
+  "baseTree": "64c0921a50fdcf917132346ed9bfedad92e2f992",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "475d6a6707b576c7747ed089d8868c1f1cddde2e72d26c1641c92c4dcf71d257",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: RC201 authorized separate review candidate: connect two-owner orthogonal movement and cue to final native lifecycle; preserve reducers, original attack art and damage",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "67d212fb9ec3e67e2286544325bc65d823294387"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "31e960e376e7a4df075fd2ace7ec6a907469e86f",
+        "sha256": "3a62f2e02297212c449da1833de5f60070fc874918ee5838a985edffa19e1ae7"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: RC201 authorized separate review candidate: exclude loading estimates from persistent camera bounds and connect eligible narrow batches to the two-owner route",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "4e0d663d057ee79c2447a5f9ab9a2578dd11b166"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "a618c5f1d1e45e1bb917c57b6834082b5698c527",
+        "sha256": "d86441a55d5f18ff1698084185a75b6cc828b855c0418b922036f5560c756300"
+      }
+    },
+    {
+      "file": "assets/rc201/orthogonal-barrage.js",
+      "reason": "assets/rc201/orthogonal-barrage.js: RC201 authorized separate review candidate: new candidate route for two mechanical bosses; existing packet budgets, art, speed and lifetime preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc201/orthogonal-barrage.js",
+        "mode": "100644",
+        "gitBlob": "7345b24f0bd7edea64f14c02d5a49f5dcbc5e6c2",
+        "sha256": "2370baa533457b84c02a287d75d6c7aa131f485d3daf5aba2acf314881717d0a"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC201 authorized separate review candidate: load candidate route and refresh changed native/layout cache keys",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "95152d1da400c588f4efc453801947e7f2518b99"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "53252bb841e38933648b724114d919cd7c327871",
+        "sha256": "f71bc7459d163e1203fe077ec35ad39ad608b75276581c3f2dd2e710febacd68"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "51dd7e1a2ac15607d26e7f77060d3f6e1ada6df5d9db8c0823bc8cdd9a9ae329"
+}

@@ -127161,3 +127161,9 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
  const wrap=fn=>function(s,...args){const result=fn.call(this,s,...args);L.scatter(s);return result;};Ei=wrap(Ei);bi=wrap(bi);MONGSE_spawnBossCombatPatternV31230=wrap(MONGSE_spawnBossCombatPatternV31230);MONGSE_spawnThemeOrdnanceKind3129=wrap(MONGSE_spawnThemeOrdnanceKind3129);MONGSE_tickBossThemeOrdnance=wrap(MONGSE_tickBossThemeOrdnance);
  const frame=controls.frameStart;controls.frameStart=function(s,...args){L.scatter(s);return frame.call(this,s,...args);};window.__HAPIL_NATIVE_COMBAT_RC153__=Object.freeze({installed:true,version:'RC153'});return true;}
  function ready(){if(install()||++tries>=1200)return;setTimeout(ready,20);}ready();})();
+
+/* RC201_NATIVE_ORTHOGONAL: retain outer admission/collision/expiry reducers. */
+(()=>{'use strict';let tries=0;function install(){const O=window.__HAPIL_ORTHOGONAL_RC201__;if(!O||!window.__HAPIL_NATIVE_COMBAT_RC153__?.installed)return false;
+ const step=MONGSE_stepSignatureProjectile31212;MONGSE_stepSignatureProjectile31212=function(s,q,dt){window.__HAPIL_COMBAT_LAYOUT_RC153__?.scatter(s);if(O.owns(q)){if(MONGSE_isEncounterLocked31226(s))return true;MONGSE_resumeTemporalLagProjectile31214(q,s.time);MONGSE_tickProjectileEgress31215(s,q);if(O.step(s,q,dt))return true;}return step.call(this,s,q,dt);};
+ const draw=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,q,time,...args){O.drawCue(ctx,q,time,G);return draw.call(this,ctx,cache,q,time,...args);};return true;}
+ function ready(){if(install()||++tries>=1200)return;setTimeout(ready,20);}ready();})();
