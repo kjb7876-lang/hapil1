@@ -72526,15 +72526,15 @@ queueMicrotask(() => setTimeout(MONGSE_installBossVisualPatchV31224, 0));
     MONGSE_options31224 = {},
   ) {
     const MONGSE_actor31224 = MONGSE_options31224?.actorV31338;
-    if(window.__HAPIL_WALL_TOWERS_RC210__?.body(MONGSE_context31224,MONGSE_cache31224,MONGSE_actor31224,MONGSE_height31224,MONGSE_options31224,MONGSE_queueImage,()=>({x:MONGSE_x31224,y:MONGSE_y31224})))return;
-    window.__HAPIL_MACHINE_FIELDS_RC210__?.drawGate(MONGSE_context31224,MONGSE_cache31224,MONGSE_actor31224,Number(MONGSE_options31224.actorTimeV31338??0),MONGSE_height31224,MONGSE_options31224,MONGSE_queueImage,()=>({x:MONGSE_x31224,y:MONGSE_y31224}));
+    if(window.__HAPIL_WALL_TOWERS_RC210__?.body(MONGSE_context31224,MONGSE_cache31224,MONGSE_actor31224,MONGSE_height31224,MONGSE_options31224,MONGSE_queueImage,()=>G(MONGSE_x31224,MONGSE_y31224)))return;
+    window.__HAPIL_MACHINE_FIELDS_RC210__?.drawGate(MONGSE_context31224,MONGSE_cache31224,MONGSE_actor31224,Number(MONGSE_options31224.actorTimeV31338??0),MONGSE_height31224,MONGSE_options31224,MONGSE_queueImage,()=>G(MONGSE_x31224,MONGSE_y31224));
     if (
       MONGSE_actor31224?.id === `dist06-boss` &&
       MONGSE_actor31224?.balrogPoseModeRC151 ===
         `upright-body-separated-raised-sword` &&
       MONGSE_balrogPosePathsRC151.has(MONGSE_path31224)
     ) {
-      if (window.__HAPIL_BALROG_BODY_RC210__?.draw(MONGSE_context31224,MONGSE_cache31224,MONGSE_actor31224,Number(MONGSE_options31224.actorTimeV31338??0),MONGSE_height31224,MONGSE_options31224,MONGSE_queueImage,()=>({x:MONGSE_x31224,y:MONGSE_y31224}))){MONGSE_balrogPoseMetricsRC151.bodyDraws++;MONGSE_balrogPoseMetricsRC151.raisedSwordDraws++;MONGSE_balrogPoseMetricsRC151.closedGripBodyDrawsRC210=(MONGSE_balrogPoseMetricsRC151.closedGripBodyDrawsRC210??0)+1;return;}
+      if (window.__HAPIL_BALROG_BODY_RC210__?.draw(MONGSE_context31224,MONGSE_cache31224,MONGSE_actor31224,Number(MONGSE_options31224.actorTimeV31338??0),MONGSE_height31224,MONGSE_options31224,MONGSE_queueImage,()=>G(MONGSE_x31224,MONGSE_y31224))){MONGSE_balrogPoseMetricsRC151.bodyDraws++;MONGSE_balrogPoseMetricsRC151.raisedSwordDraws++;MONGSE_balrogPoseMetricsRC151.closedGripBodyDrawsRC210=(MONGSE_balrogPoseMetricsRC151.closedGripBodyDrawsRC210??0)+1;return;}
       const MONGSE_bodyImage31224 = MONGSE_queueImage(
         MONGSE_cache31224,
         MONGSE_balrogBodyPathRC151,

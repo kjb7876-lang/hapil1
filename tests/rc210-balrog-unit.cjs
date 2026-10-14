@@ -10,3 +10,18 @@ for(const f of art.frames){const b=fs.readFileSync('assets/rc210/'+f.file);asser
 const poses=[['ready',{}],['prepare',{attackStarted:10,attackAt:11}],['swing',{attackStarted:9,attackAt:10.1}],['recovery',{recoverUntil:11}],['hit',{hitUntil:11}],['lightDamage',{hitUntil:11,bleedTicks:1}]],lengths=[];
 for(const [name,a] of poses)for(const flip of [1,-1]){const g=R.geometry(a,10,220,{scaleX:flip});assert.equal(g.name,name);lengths.push(g.weaponLength);assert.equal(g.weaponScale,220*.96*.62/1220);assert.deepEqual(Array.from(g.foot),[0,0]);let swords=0;const ctx={globalAlpha:1,save(){},restore(){},translate(){},rotate(){},scale(){},beginPath(){},rect(){},clip(){},drawImage(im){if(im.path===R.sword)swords++;}};assert(R.draw(ctx,{},a,10,220,{scaleX:flip},(cache,p)=>({path:p,complete:true,naturalWidth:1254,naturalHeight:1254}),()=>({x:0,y:0})));assert.equal(swords,1);}
 assert(lengths.every(n=>n===lengths[0]));console.log(JSON.stringify({status:'passed',generatedBodyHashes:6,poses:6,mirroredTransforms:12,rigidSwordLength:lengths[0],unchangedWeaponSource:R.sword,scope:'Hash/transform/paint fixtures; actual browser grip, continuity and clipping still require review.'}));
+
+// The real native sprite adapter receives WORLD coordinates. New pixel renderers
+// must receive the same projected foot used by the original sprite pipeline.
+const projected={x:920,y:513},adapters=[];
+scope.G=(x,y)=>{assert.equal(x,24);assert.equal(y,14);return projected;};
+scope.window.__HAPIL_BALROG_BODY_RC210__={draw(...args){adapters.push({kind:'balrog',point:args.at(-1)()});return true;}};
+scope.draw({}, {},'pose',24,14,220,{actorV31338:{id:'dist06-boss',balrogPoseModeRC151:'upright-body-separated-raised-sword'},actorTimeV31338:10});
+scope.window.__HAPIL_WALL_TOWERS_RC210__={body(...args){if(args[2]?.id!=='rc210-wall-tower-u201')return false;adapters.push({kind:'tower',point:args.at(-1)()});return true;}};
+scope.draw({}, {},'tower',24,14,140,{actorV31338:{id:'rc210-wall-tower-u201'}});
+const stopGate=Symbol('gate-adapter-recorded');
+scope.window.__HAPIL_MACHINE_FIELDS_RC210__={drawGate(...args){if(args[2]?.id!=='u203-boss')return;adapters.push({kind:'gate',point:args.at(-1)()});throw stopGate;}};
+assert.throws(()=>scope.draw({}, {},'gate',24,14,210,{actorV31338:{id:'u203-boss'}}),e=>e===stopGate);
+assert.deepEqual(adapters.map(a=>a.kind),['balrog','tower','gate']);
+for(const a of adapters){assert.deepEqual(a.point,projected);assert.notDeepEqual(a.point,{x:24,y:14});}
+console.log(JSON.stringify({status:'passed',actualNativeProjectedFootAdapters:adapters,scope:'Extracted native sprite adapter with non-identity projection; browser grounding and animation pixels remain separate'}));

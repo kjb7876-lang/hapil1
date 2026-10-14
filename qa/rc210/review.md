@@ -49,3 +49,10 @@ CI debug after c0ce48af:
 
 - c1f590df gallery confirmed dist06 and all pause/read/input guards passed. Initial sequential-route roster intentionally contains the first wave, so expecting Balrog immediately after entry was an invalid fixture assumption. Use the game's existing QA stageV3128BossShowcase('dist06'), require exact pass/boss ID, and keep all real rift guards and policy. This is explicitly a QA showcase (777/protected paused capture), not natural wave completion. No hand-cloned fallback or production admission change.
 - RC129 exact scale assertion follows the user-approved asset policy: jellybean .33, other shots .66. Failed-case details are saved before assertion.
+
+Follow-up after direct review of de2aa9aa:
+- Prior12 workflows completed7success/5failure, preserved separately. Native scatter and mobile-layout timeout are actual assertions, separate from bundled sandbox failures.
+- Actual production defect confirmed: three new pixel renderers received Ln world coordinates as pixels. Use G(worldX,worldY) for Balrog body/sword, wall tower and controller gate. Same placement/camera/assets remain. Exact old adapter fails new non-identity projection test; all3 corrected adapters pass. Extension108 pins changed bundle and cache21101.
+- Inventory fixture now verifies6 original narrow shots +1 authored density extra exactly; mb-dist04 verifies4 distinct independent body parts and no extra. Original flight/provenance/camera checks remain.
+- Mobile-layout predicate still requires game phase and native mobile class within original timeout. Accurate Android UA and native UI sync added with failure diagnostics; browser cause and result remain pending.
+- Gallery adds native map/actual paint bounds containment,4 controlled Slayer attack phases,8 native advancing-clock Balrog samples and2 staged damage poses. Not natural full campaign or pixel approval.

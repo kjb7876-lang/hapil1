@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "de2aa9aa47e1917356bd3f6deaf4ffb05f010c41",
+  "baseTree": "9c01fe5d63b46f373ad1eab9ec86ddff8ae75b17",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "9263803f91590b4eab1a421e896dacbcbd727fae48566c2eb72d34fe7c1c476d",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: approved CI/visual debugging: project native world sprite anchors before drawing new Balrog bodies, machine towers and controller gate; invalidate changed bundle cache. Preserve original assets/prose/audio/save contracts/StoryWorld and combat placement.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "1a7415ed1267ad09f21dd2cb766648036ba3613b"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "377bc3a8e16881cd95ff85c23252bfe4fd4eedc5",
+        "sha256": "0257d16827115d2d193968774034a9d989290fc62177545ace742ca0c4f82a87"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: approved CI/visual debugging: project native world sprite anchors before drawing new Balrog bodies, machine towers and controller gate; invalidate changed bundle cache. Preserve original assets/prose/audio/save contracts/StoryWorld and combat placement.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cfc58b3d9dcb00c1b510324626a0affc3bcffcc7"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "1e96c9c0b2fc8cf4569182970dc26e7a992def51",
+        "sha256": "f9fb9469600dc2537a70d15481583e7fdd894b229311b448a59d75c2a918ab3c"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "75f8659288e833b5fb1520e3e971647a73ba7b5065df71deea70aa5e57a3dd95"
+}

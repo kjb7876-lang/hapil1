@@ -1,0 +1,41 @@
+{
+  "base": "de2aa9aa47e1917356bd3f6deaf4ffb05f010c41",
+  "preservedPriorCi": {
+    "total": 12,
+    "success": 7,
+    "failure": 5,
+    "allCompleted": true
+  },
+  "actualProductionDefect": {
+    "scope": [
+      "Balrog independent body/sword",
+      "real wall towers",
+      "controller gate backdrop"
+    ],
+    "cause": "Ln receives world x/y, but new pixel renderer callbacks returned those numbers unchanged instead of G(worldX,worldY)",
+    "change": "Use original native G projection in all3 adapters; preserve world placement, camera rules, assets and damage",
+    "regression": "Extracted exact native adapter old baseline fails non-identity projection fixture (24,14 versus920,513); current3 adapters pass"
+  },
+  "scatterFixture": {
+    "failure": "native scatter missing mb-dist01",
+    "change": "Exact6 baseline narrow shots plus exactly1 density shot for ordinary boss/midboss; fragment owner exactly4 independently scattered parts, no extras; source-specific angle/count/owner assertions retained",
+    "nativeRerun": "pending"
+  },
+  "mobileLayout": {
+    "failure": "phase game + mobile class timeout at line13",
+    "change": "Use actual Android mobile UA consistently for before/after, sync existing native mobile.update before unchanged phase/class predicate, record phase/coarse/options/localTwo/story/classes on failure. No forced class, mode, relaxed assertion or timeout increase.",
+    "rootCauseVerifiedInBrowser": false,
+    "nativeRerun": "pending"
+  },
+  "motionEvidence": {
+    "added": "Four controlled native Slayer attack phases; native advancing-clock Balrog attack8samples plus hit/bleed states; actual map/paint-envelope containment assertions",
+    "scope": "QA showcase/seeded attack and protected hero; not natural campaign, actual incoming-damage test, physical device or visual approval"
+  },
+  "blocked": [
+    "Original image15 transfer403",
+    "New TTS model metadata403",
+    "Previously denied artifact binary path not retried",
+    "Known bundled sandbox denial not bypassed"
+  ],
+  "deployed": false
+}
