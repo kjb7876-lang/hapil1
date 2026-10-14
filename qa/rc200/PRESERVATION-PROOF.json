@@ -1,0 +1,16 @@
+{
+  "runtimeCommit": "4ef7ef9203c18b474b75d09f7aff1a66edd423b6",
+  "status": "passed",
+  "currentRuntimeProof": {
+    "checkedFiles": 3348,
+    "checkedDirectories": 533,
+    "workingTreeMatches": true,
+    "committedTreeMatches": true
+  },
+  "historicalProof": {
+    "status": "passed",
+    "base": "0d0017b379ab584e7e791c5bcaea4c54e7fc2b36",
+    "reference": "45adabb6a6c39c25f806568bf9a1c6d3bd27fbf9"
+  },
+  "method": "Exact per-file preimage/output hashes and full committed/working inventory; original published tree pinned to the first approved delta, with each later extension chained from the prior exact tree and file hash; unchanged reviewed-85 and prior preservation guards on detached pinned baseline"
+}
