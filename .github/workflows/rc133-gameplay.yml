@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc133-gameplay-${{ github.ref }}
+  group: rc133-gameplay-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   audit:
