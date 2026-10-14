@@ -97,6 +97,7 @@
    const m=s.innerFinalRC133;
    if(!m.bossRevived&&startClash(s,a,s.hp<=0?'both':'boss'))return true;
    m.phase='complete';m.hp=0;m.awake=0;root.__HAPIL_EGO_GUARDIAN_RC155__?.confirmPersonaVictory(s,m);releaseMoodLayer();cleanup(s);root.__HAPIL_PERSONA_DUEL_RC134__?.release(s);metrics.completed++;
+   if(m.entry==='developer-777'){s.enemies=(s.enemies??[]).filter(actor=>actor.id!==ID);if(s.targetEnemyId===ID)s.targetEnemyId=null;return true;}
   }
   return false;
  }

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "778008294d6bca40139750b0d46f6a7cf95d86b9",
+  "baseTree": "efc47fe2f4385eb0fb94f275f4b932f4e3b6b4af",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "4ce0075027d1c72c3e3369c006b19e12d88598afbbba2ee954bff6a0c23152c9",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: authorized actual low-height viewport fitting and private developer Persona completion interception; compact safe insets counted once, full visible body/weapon bounds and hero size retained. Natural victory, revival, save, art, prose, audio and StoryWorld preserved; exact browser cache invalidation.",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "812981af166b4233b04a369bc7dd612607493bcb"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "214a96798db7b72989a4aa4c3af0c1210c54bd56",
+        "sha256": "ad007652d9a8e186bc8e595536e54b1938234951ba7e51b47f66784d22dada66"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized actual low-height viewport fitting and private developer Persona completion interception; compact safe insets counted once, full visible body/weapon bounds and hero size retained. Natural victory, revival, save, art, prose, audio and StoryWorld preserved; exact browser cache invalidation.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7292a67fa4220e329c9e9a077498bb5cba7f6e03"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "128c4fcf44a12ff7e843ce08efb9b5a4c9237dd2",
+        "sha256": "3facf1321e696b5d27c933384897f94a04ed1f25d8593af24c6b8e8ea8313a6f"
+      }
+    },
+    {
+      "file": "assets/rc133/inner-final.js",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "f427b57baa081feb62d1c26230cc09bdd5a09c59"
+      },
+      "reason": "assets/rc133/inner-final.js: authorized actual low-height viewport fitting and private developer Persona completion interception; compact safe insets counted once, full visible body/weapon bounds and hero size retained. Natural victory, revival, save, art, prose, audio and StoryWorld preserved; exact browser cache invalidation.",
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "683b32e22bfac4e739ad42c2efce1bc8e5ac8152",
+        "sha256": "e06d7e8537a28af9e72941178d8a489d9af78f00feeb10147026fb948c7727fb"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "8ec0c37b9b5fed8b743bba2074ed8b35a83a9cb6f7512194fc9c6e8b5e9b145f"
+}

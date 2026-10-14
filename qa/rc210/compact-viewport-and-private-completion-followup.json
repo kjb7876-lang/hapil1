@@ -1,0 +1,16 @@
+{
+  "base": "778008294d6bca40139750b0d46f6a7cf95d86b9",
+  "baseCI": {"total":12,"success":7,"failure":5,"preserved":true},
+  "compactViewport": {
+    "observedBrowserMapFraction":0.6702123024837031,
+    "viewport":[844,240],
+    "fix":"Only compact heights <=260: visible-envelope padding8; safe vertical margin uses max rather than additive inset. Full visible body and weapon envelopes, hero size, fixed camera, floor and uniform boss scaling bounds retained.",
+    "cpuRecordedEnvelopeCoverage":[0.9011848341627923,0.901184834182033],
+    "browserReplayVerified":false
+  },
+  "assetFixture":"Queue authored manifest eagerly, require actual native painted actor envelopes before binding fixture to live state. Unused deferred normalized alternate paths are not proxies for visible native readiness. No replacement asset and no reduced scatter/containment threshold.",
+  "developerCompletion":"Developer-777 private Persona final defeat now removes only its own boss, clears only its target and returns interception=true. Natural entry still returns false for native progression. Existing one-use awakening/revival remains ahead of completion.",
+  "cacheAssertion":"Compare current native URL cache key with exact previous public9704 key; numeric key ordering is not a cache invalidation contract.",
+  "remaining":["New exact-SHA CI and browser replay required", "RC133 bundled browser sandbox failures remain environment blockers; no alternate browser or security changes", "Memory15 exact image normal transfer403; no repeated or alternate transfer", "New TTS model transfer403", "Actual latest gallery pixel/video review remains pending"],
+  "deploy":false
+}

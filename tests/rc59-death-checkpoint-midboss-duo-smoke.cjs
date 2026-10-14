@@ -145,7 +145,9 @@ for(const sprite of companionAudit.assets)
 assert(bundle.includes('“나는 부활이요 생명이니”'));
 assert(bundle.includes('요한복음 11:25'));
 assert(bundle.includes('로마서 6:23'));
-assert(Number(read('index.html').match(/index-v31526\.js\?v=(\d+)/)?.[1]) >= 36301,
-  'the current release must invalidate the previous browser cache');
+const currentUrl=read('index.html').match(/index-v31526\.js\?v=([^"']+)/)?.[1];
+const priorUrl=require('node:child_process').execFileSync('git',['show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'],{encoding:'utf8'}).match(/index-v31526\.js\?v=([^"']+)/)?.[1];
+assert(currentUrl&&priorUrl&&currentUrl!==priorUrl,
+  'the current release must invalidate the exact previous browser cache key');
 
 console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and 2–3 midboss groups verified.');

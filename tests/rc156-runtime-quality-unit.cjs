@@ -22,6 +22,9 @@ for(const safe of[false,true]){after.safe(safe);const c=after.L.camera(after.s,a
 // Reproduce the actual cache path: the first fit can be published while the
 // raised weapon is undecoded. Loading it must refit once; input cannot do so.
 const provisionalLayout=cp.execFileSync('git',['show','3ab3bfd0adb94d386f70e4a618af85d99b0c3de4:assets/rc153/combat-layout.js'],{encoding:'utf8'}),stale=scene(provisionalLayout,true,cp.execFileSync('git',['show','3ab3bfd0adb94d386f70e4a618af85d99b0c3de4:assets/rc134/persona-duel.js'],{encoding:'utf8'})),decoded=scene(layout,true);
+// Isolate decode-driven camera expansion from the independent adaptive creature fit.
+// On touch low-height screens the new policy can instead retain coverage by shrinking uniformly.
+decoded.window.__HAPIL_MOBILE_V31366__={enabled:()=>false};
 const beforeDecodeCamera=decoded.L.camera(decoded.s,decoded.view()),beforeDecodeTop=decoded.L.framing(decoded.s).top;
 for(const sc of [stale,decoded]){sc.L.camera(sc.s,sc.view());sc.images.weapon.complete=true;sc.images.weapon.naturalWidth=sc.images.weapon.naturalHeight=512;}
 ok(mapFraction(stale)<.9,'prior provisional creature fit survives weapon decode and leaves the actual map small');
