@@ -1,5 +1,5 @@
 'use strict';
-const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),acorn=require('/tmp/rc163-unit-deps/node_modules/acorn');
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),acorn=require(require('node:path').join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/rc163-unit-deps/node_modules','acorn'));
 const source=fs.readFileSync('assets/index-v31526.js','utf8');
 const extract=name=>{const at=source.indexOf('\nfunction '+name+'(')+1;assert(at>0);const ast=acorn.parseExpressionAt(source,at,{ecmaVersion:'latest'});return source.slice(ast.start,ast.end);};
 const root={document:{hidden:false},wn:()=> 'left',MONGSE_COMBAT_PHYSICS_V3128:{enemyDamageMultiplier:1.3},MONGSE_HERO_DAMAGE_WINDOW_RATIO_V31213:.24,MONGSE_HERO_DAMAGE_WINDOW_SECONDS_V31213:1,MONGSE_HAZARD_REHIT_SECONDS_V31215:.1,MONGSE_projectileTelemetryStore31215:()=>null,MONGSE_recordTemporalResonance31215:()=>{},MONGSE_delayPendingBossHits31210:()=>{},yi:()=>{},_n:()=>({fixtureVisual:true})};root.window=root;vm.createContext(root);

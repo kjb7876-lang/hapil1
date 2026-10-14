@@ -29,11 +29,11 @@ async function run(openProbe,out){
    const victory=await page.evaluate(()=>{const Q=window.__RC158_QA__,s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;clearInterval(Q.egoUITimer);return{...Q.egoUI,atVictory:{zone:s.zone,inner:{...s.innerFinalRC133},ego:window.__HAPIL_EGO_GUARDIAN_RC155__.snapshot(s),enemies:s.enemies.map(a=>({id:a.id,hp:a.hp})),drops:s.egoDrops.length,clear:Q.clear(s,s.zone)}};});
    console.log('RC163_FULL_VICTORY',JSON.stringify({name:cfg.name,initial:victory.initial,deaths:victory.deaths,atVictory:victory.atVictory,hits:victory.hits,holes:victory.blackholes}));
    assert.equal(victory.atVictory.inner.entry,'cult-death');assert.equal(victory.atVictory.inner.bossRevived,true,'real first Persona lethal must perform its native revival');assert(victory.deaths.filter(d=>d.pre.id==='inner-evil-rc133').length>=2,'both native Persona death callbacks observed');assert(victory.atVictory.ego.personaVictory,'true native victory grants pending EGO');assert(victory.hits>0);assert(victory.blackholes.length>0,'actual native Persona RC32 blackhole must emit');
-   if(cfg.mode==='manual'){
-    const missing=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return window.__RC158_QA__.clues(s.zone).filter(c=>!s.clues.has(c.id));});
-    for(const clue of missing){await page.evaluate(c=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;s.x=c.x;s.y=c.y;},clue);await interact(page,cfg);for(let k=0;k<40;k++){if(!await advanceStory(page,cfg))break;await page.waitForTimeout(80);}}
-    await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;for(const d of s.egoDrops??[]){s.x=d.x;s.y=d.y;window.__HAPIL_CONTROLS_V31329__.binding.actions.interact();}const exit=window.__RC158_QA__.anchors(s.zone).interactionExit;s.x=exit.x;s.y=exit.y;});
-    await interact(page,cfg);
+   if(cfg.mode==='manual'&&victory.atVictory.zone==='cult04'){
+    const missing=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;if(s.zone!=='cult04')return [];return window.__RC158_QA__.clues(s.zone).filter(c=>!s.clues.has(c.id));});
+    for(const clue of missing){const prepared=await page.evaluate(c=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;if(s.zone!=='cult04')return false;s.x=c.x;s.y=c.y;return true;},clue);if(!prepared)break;await interact(page,cfg);for(let k=0;k<40;k++){if(!await advanceStory(page,cfg))break;await page.waitForTimeout(80);}}
+    const needsExit=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;if(s.zone!=='cult04')return false;for(const d of s.egoDrops??[]){s.x=d.x;s.y=d.y;window.__HAPIL_CONTROLS_V31329__.binding.actions.interact();}const exit=window.__RC158_QA__.anchors(s.zone).interactionExit;s.x=exit.x;s.y=exit.y;return s.zone==='cult04';});
+    if(needsExit)await interact(page,cfg);
    }
    // Use the real rendered record/interlude controls; never call ii/RC69 enter
    // or assign a destination here. Full mode gets no manual portal dispatch.

@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict'),crypto=require('crypto');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8'),storage=new Map();
 const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v))};
-const window={dispatchEvent(){}};
+const window={dispatchEvent(){},localStorage};
 const c={window,localStorage,setTimeout(){},Event:class{},Number,Math,Object,Array,Map,Set,JSON};
 vm.createContext(c);vm.runInContext(read('assets/rc128/awakening-policy.js'),c);vm.runInContext(read('assets/rc91/samong-awakening.js'),c);const api=window.__HAPIL_SAMONG_RC91__;
 const fresh=mode=>({gameModeV31346:mode,activeHeroId:'slayer',hp:240,maxHp:240,time:10,enemies:[]});
@@ -59,5 +59,5 @@ laser.render(ctx,[curve[0]],{width:8,image:{complete:true,width:200,height:48}})
 // All eight generated images are real, distinct, transparent RGBA assets.
 const manifest=JSON.parse(read('assets/rc91/awakening/manifest.json'));assert.equal(manifest.heroes.length,8);const hashes=new Set();
 for(const row of manifest.heroes){const bytes=fs.readFileSync(path.join(root,row.path.replace(/^\.\//,'')));assert.equal(bytes.toString('hex',0,8),'89504e470d0a1a0a');assert.equal(bytes[25],6);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),row.sha256);assert(row.transparent);hashes.add(row.sha256);assert.equal(api.art[row.hero],row.path);}
-assert.equal(hashes.size,8);const html=read('index.html');assert(html.indexOf('rc91/samong-awakening.js')<html.indexOf('index-v31526.js'));assert(Number(html.match(/samong-awakening\.js\?v=(\d+)/)?.[1])>=39301);
+assert.equal(hashes.size,8);const html=read('index.html');assert(html.indexOf('rc91/samong-awakening.js')<html.indexOf('index-v31526.js'));assert.equal(html.match(/samong-awakening\.js\?v=(\d+)/)?.[1],'18601','exact approved RC186 awakening script cache version');
 console.log('RC91 PASS: gated two modes, one lethal revival per encounter plus 77 combat-second cooldown, seven-second buff, pause/load preservation, exact 2x stats, cooperative ordering, continuous curves, eight distinct RGBA assets.');
