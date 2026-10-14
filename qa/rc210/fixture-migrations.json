@@ -1,0 +1,12 @@
+{
+  "base": "3157e662026b2a61d765d4dceecd5d45f978c95a",
+  "previousManifestSha256": "b5eaca0ef9b2ff172e9f0427a09794f907fd218ec02bb9cbba07fbb06d254e49",
+  "files": [
+    {
+      "file": "tests/rc91-samong-and-laser-smoke.cjs",
+      "beforeSha256": "017de48324950957f50b0d0336d8c6c74f30910137f6432b90bd6d3ecd475e98",
+      "afterSha256": "132d23009e12ebd9a5247c56104b2ad513f94e1b037d02327c83c57d7ec84fff",
+      "reason": "Exact RC210 cache invalidation 21001-18601; preserve historical RC186 identity and original gameplay assertions."
+    }
+  ]
+}
