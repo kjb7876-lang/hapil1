@@ -1,10 +1,20 @@
 {
-  "base":"23f5f8ddca219b2bb919b9fe74d255f9a03e2478",
-  "cameraFailure":{"actor":"kair-great-01","requestedWidth":300,"rootCause":"Native Great torso adapter measured screen-space body; bitmap.measure called the real viewport camera and populated the fixed epoch before the outer narrow-view fit. Subsequent camera(s,width300) correctly reused that epoch but now failed the narrow fixture.","beforeCPU":"Exact prior native torso adapter plus current native body/layout and synthetic raster callback: cameraPrimes1, required0; one camera group fails. Current adapter: cameraPrimes0 and narrow full-body containment passes. No camera reset, view-key change or body-fit assertion relaxation."},
-  "runtimeFix":"Add optional worldOnly to native bitmap body measurement/cache, use it only for Great torso probes, retaining normal screen contact default. Use measured body horizontal center and55%-height torso, refresh for image decode/facing, share aim/contact center; existing22%-width and18%-height torso half-extents retained.",
-  "torsoBeforeCPU":"Asymmetric body expected horizontal center10 but old resolve returned0; provisional and decoded shape/mirrored center regressions now pass.",
-  "cacheHistory":{"job":115856281526,"actualError":"fatal: path index.html exists on disk, but not in9704fdb","setup":"RC133 shallow checkout fetched three legacy refs but native-gameplay did not bootstrap new9704 cache baseline. Add normal conditional exact-SHA fetch, then strict blob presence and fixed78046175... HTML SHA256 preflight; no history fallback. Test reads once from explicit repository cwd with --no-replace-objects and exact digest."},
-  "browserVerification":"Existing300/640/1280 body-fit assertions unchanged. Native inventory adds all six Great decoded world-body/native aim/native contact center-hit and outside-miss checks. Gallery adds three paused native Great body snapshots with cyan shared contact polygon and magenta shared aim center overlay; markers are QA DOM overlays, not natural hit effects. Actual browser results and direct raw pixel review remain pending.",
-  "preserved":"Original art/prose/audio/saves/StoryWorld and prior candidates/artifacts. Fixed camera epoch/jitter policy unchanged. Natural/777 victory code unchanged. No denied transfer, HOME/security/permission change, dispatch or sandbox workaround.",
-  "deployment":false
+  "base": "23f5f8ddca219b2bb919b9fe74d255f9a03e2478",
+  "cameraFailure": {
+    "actor": "kair-great-01",
+    "requestedWidth": 300,
+    "rootCause": "Native Great torso adapter measured screen-space body; bitmap.measure called the real viewport camera and populated the fixed epoch before the outer narrow-view fit. Subsequent camera(s,width300) correctly reused that epoch but now failed the narrow fixture.",
+    "beforeCPU": "Exact prior native torso adapter plus current native body/layout and synthetic raster callback: cameraPrimes1, required0; one camera group fails. Current adapter: cameraPrimes0 and narrow full-body containment passes. No camera reset, view-key change or body-fit assertion relaxation."
+  },
+  "runtimeFix": "Add optional worldOnly to native bitmap body measurement/cache, use it only for Great torso probes, retaining normal screen contact default. Use measured body horizontal center and55%-height torso, refresh for image decode/facing, share aim/contact center; existing22%-width and18%-height torso half-extents retained.",
+  "torsoBeforeCPU": "Asymmetric body expected horizontal center10 but old resolve returned0; provisional and decoded shape/mirrored center regressions now pass.",
+  "cacheHistory": {
+    "job": 115856281526,
+    "actualError": "fatal: path index.html exists on disk, but not in9704fdb",
+    "setup": "RC133 shallow checkout fetched three legacy refs but native-gameplay did not bootstrap new9704 cache baseline. Add normal conditional exact-SHA fetch, then strict blob presence and fixed78046175... HTML SHA256 preflight; no history fallback. Test reads once from explicit repository cwd with --no-replace-objects and exact digest."
+  },
+  "browserVerification": "Existing300/640/1280 body-fit assertions unchanged. Native inventory adds all six Great decoded world-body/native aim/native contact center-hit and outside-miss checks. Gallery adds three paused native Great body snapshots with cyan shared contact polygon and magenta shared aim center overlay; markers are QA DOM overlays, not natural hit effects. Actual browser results and direct raw pixel review remain pending.",
+  "preserved": "Original art/prose/audio/saves/StoryWorld and prior candidates/artifacts. Fixed camera epoch/jitter policy unchanged. Natural/777 victory code unchanged. No denied transfer, HOME/security/permission change, dispatch or sandbox workaround.",
+  "deployment": false,
+  "validationCorrections": "1682651 browser passed prior300px body-fit and decoded torso aim equality, then new contact assertion used invalid zero padding (native classifier divides by radii). Use the exact6.75px native committed-attack padding; native classifier CPU center/outside regression added. Great gallery fixture used null heroMotion, invalid for native renderer.until; corrected to a valid paused idle motion object. No runtime contact radius or camera assertion changed."
 }
