@@ -21,8 +21,10 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - name: Install parser for unmodified native extraction tests
+      - name: Install parser and pixel decoder for unmodified native extraction tests
         run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
           npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false acorn@8.15.0
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
       - name: Exact candidate and complete CPU regression
