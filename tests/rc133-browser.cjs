@@ -31,7 +31,7 @@ for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,
   const a=make(row.zone,mode);N.enter(a,row.zone,false);a.time=100;a.encounterLockUntil31226=0;a.encounterDialogue31226=null;
   let delayed=false;if(!a.enemies.some(e=>e.midboss)){a.enemies=[];delayed=true;Q.spawnMidbossWave(a);}N.midpoint(a);A.scaleEnemies(a);
   const leaders=a.enemies.filter(e=>e.midboss&&e.hp>0),entry={mode,zone:row.zone,delayed,count:leaders.length,actors:leaders.map(e=>({id:e.id,sprite:e.sprite,maxHp:e.maxHp}))};mid.push(entry);
-  test(leaders.length===(mode==='DREAM'?3:2),'native initial/delayed midboss count '+mode+' '+row.zone,entry);
+  test(leaders.length===(mode==='DREAM'?2:1),'native initial/delayed midboss count '+mode+' '+row.zone,entry);
   const authored=N.authoredMidboss(row.zone,leaders[0]);
   test(leaders.every(e=>e.sprite===authored.sprite&&e.rc135FissionIdentity===authored.id&&e.rc133TemplateId===authored.id&&e.combatOwnerIdRC69===authored.id),'map-authored same-identity fission '+mode+' '+row.zone,{...entry,expected:authored.id,sprite:authored.sprite});
   test(new Set(leaders.map(e=>e.id)).size===leaders.length,'independent fission entity IDs '+mode+' '+row.zone,entry);
@@ -40,7 +40,7 @@ for(const[name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844,
   test(a.enemies.filter(e=>e.midboss).length===leaders.length-1,'death does not refill '+mode+' '+row.zone);
   const saved=N.normalize(N.save(a,'gunner',[],{},0)),loaded=make(row.zone,mode);loaded.enemies=Q.restoreEnemies(saved);B.restoreEntry(loaded,saved);A.scaleEnemies(loaded);
   test(loaded.enemies.filter(e=>e.midboss&&e.hp>0).length===leaders.length-1,'native load retains surviving count '+mode+' '+row.zone,{actors:loaded.enemies.filter(e=>e.midboss).map(e=>e.id),saved:saved?.midbossEncounterRC133});
-  test(close(loaded.enemies.find(e=>e.id===survivor.id)?.maxHp,survivor.maxHp),'midboss HP not multiplied on load '+mode+' '+row.zone,{before:survivor.maxHp,after:loaded.enemies.find(e=>e.id===survivor.id)?.maxHp});
+  test(leaders.length===1?!loaded.enemies.some(e=>e.id===survivor.id):close(loaded.enemies.find(e=>e.id===survivor.id)?.maxHp,survivor.maxHp),'midboss HP not multiplied on load '+mode+' '+row.zone,{before:survivor.maxHp,after:loaded.enemies.find(e=>e.id===survivor.id)?.maxHp});
   const restoredVisuals=loaded.enemies.filter(a=>a.rc133VisualTemplate).map(a=>Q.midbossPresentation(a,100));test(restoredVisuals.every(a=>a.actual===a.expected),'restored chosen visual remains the attack body '+mode+' '+row.zone,restoredVisuals);
   test(N.foundation(a).regions.includes(row.zone),'visited region foundation '+mode+' '+row.zone);
  }

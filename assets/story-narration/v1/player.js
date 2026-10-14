@@ -180,6 +180,7 @@
       } else { clipIndex = 0; endedAt = now(); display('ended'); onEnded?.(); }
     }
     async function metadata(signal) {
+      if (window.__HAPIL_MEMORY_RC210__?.pendingScenes.includes(sceneKey)) return null;
       if (entry) return entry;
       const data = await manifest(signal), candidate = data.scenes[sceneKey];
       if (!Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) return null;
@@ -354,7 +355,7 @@
     // A partial release omits unfinished routes. Check metadata even for muted cards,
     // without requesting audio, so unavailable controls cannot strand a paused reader.
     void manifest(availabilityController.signal).then(data => {
-      if (!disposed && !Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) unavailable();
+      if (!disposed && (window.__HAPIL_MEMORY_RC210__?.pendingScenes.includes(sceneKey) || !Object.prototype.hasOwnProperty.call(data.scenes, sceneKey))) unavailable();
     }).catch(() => { if (!disposed && (state === 'idle' || resumeWhenContextRunning)) failed(generation); });
     if (interacted && ctx.sound !== false && volume > 0) void play();
     return api;

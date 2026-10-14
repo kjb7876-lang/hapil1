@@ -60,7 +60,7 @@ const snapshotScript = `
   browser=await chromium.launch({chromiumSandbox: true, executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',args:['--disable-dev-shm-usage']});
   report.browser={version:browser.version(),executable:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium'};
   const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
-  const page=await context.newPage(), row={viewport:'portrait-first 390x844',errors:[],httpErrors:[],status:'running',scenario:{kind:lifecycleOnly?'native Dream dist04 route opened for lifecycle checks; no projectile stress sample':'native Dream dist04 midboss trio entered through RC69 native route; manual player controls; player-only invulnerability; no HP edits and no injected projectiles',hiddenScene:'QA stageV3128BossShowcase(cult04) + forceDefeatCurrentBossR4, then staged fight phase, boss awakening timer, Samong timer, and player-only invulnerability; not natural progression',projectileThresholdForDense:24,progressStaging:null}};
+  const page=await context.newPage(), row={viewport:'portrait-first 390x844',errors:[],httpErrors:[],status:'running',scenario:{kind:lifecycleOnly?'native Dream dist04 route opened for lifecycle checks; no projectile stress sample':'native Dream dist04 midboss pair entered through RC69 native route; manual player controls; player-only invulnerability; no HP edits and no injected projectiles',hiddenScene:'QA stageV3128BossShowcase(cult04) + forceDefeatCurrentBossR4, then staged fight phase, boss awakening timer, Samong timer, and player-only invulnerability; not natural progression',projectileThresholdForDense:24,progressStaging:null}};
   report.profiles.push(row); save();
   page.on('pageerror',e=>row.errors.push(String(e.stack||e.message)));
   page.on('response',r=>{if(r.status()>=400)row.httpErrors.push({status:r.status(),url:r.url()});});
@@ -90,7 +90,7 @@ const snapshotScript = `
    return {route,midbosses:live.map(a=>({id:a.id,owner:a.combatOwnerIdRC69??a.templateId??a.id,hp:a.hp,maxHp:a.maxHp,readyAt:a.readyAt,patternReadyAt:a.patternReadyAt})),mode:C.effective(),playerHp:s.hp,playerMaxHp:s.maxHp,time:s.time};
   },lifecycleOnly);
   save();
-  if(row.nativeEntry.midbosses.length!==3) throw Error('native dist04 Dream route did not yield exactly three live midbosses: '+JSON.stringify(row.nativeEntry));
+  if(row.nativeEntry.midbosses.length!==2) throw Error('native dist04 Dream route did not yield exactly two live midbosses: '+JSON.stringify(row.nativeEntry));
   if(lifecycleOnly){
    row.naturalPhase={label:'skipped in lifecycle-only run; no pressure claim'};row.pressureSnapshot=null;row.naturalSnapshot=null;
    row.pressureTiming={status:'not-collected'};row.pressurePeak={status:'not-collected'};row.denseThresholdReached=null;
@@ -100,7 +100,7 @@ const snapshotScript = `
    row.naturalSnapshot=await page.evaluate(code=>eval(code),snapshotScript);
    row.naturalPeak=await page.evaluate(()=>({max:window.__MIDBOSS_PRESSURE_QA__?.max,maxAt:window.__MIDBOSS_PRESSURE_QA__?.maxAt,sourcePeak:window.__MIDBOSS_PRESSURE_QA__?.sourcePeak,samples:window.__MIDBOSS_PRESSURE_QA__?.samples?.length,startTime:window.__MIDBOSS_PRESSURE_QA__?.startTime}));
    if(row.naturalPeak.max<24){
-    row.scenario.progressStaging='After the 20s native-route sample, readiness timers only were moved to within 0.05 game seconds for the three already-live native midbosses. Actor HP, player HP, hostile projectile arrays, source art and attacks were not edited; all subsequent attacks/projectile admissions ran through native frames.';
+    row.scenario.progressStaging='After the 20s native-route sample, readiness timers only were moved to within 0.05 game seconds for the two already-live native midbosses. Actor HP, player HP, hostile projectile arrays, source art and attacks were not edited; all subsequent attacks/projectile admissions ran through native frames.';
     await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;for(const a of s.enemies.filter(a=>a?.midboss&&a.hp>0&&!a.visualOnly&&!a.friendly)){a.readyAt=s.time+.05;a.patternReadyAt=s.time+.05;if(Number.isFinite(a.attackAt))a.attackAt=0;if(Number.isFinite(a.attackStarted))a.attackStarted=0;if(Number.isFinite(a.attackImpactAt))a.attackImpactAt=0;a.recoverUntil=s.time;a.phaseTransitionUntil=0;} });
     await page.waitForTimeout(25000);
    }
@@ -117,15 +117,15 @@ const snapshotScript = `
   for(const [i,size] of [[1,[844,390]],[2,[390,844]],[3,[844,390]],[4,[390,844]],[5,[844,390]]]){
    const landscape=size[0]>size[1];await cdp.send('Emulation.setDeviceMetricsOverride',{width:size[0],height:size[1],deviceScaleFactor:2,mobile:true,screenOrientation:{angle:landscape?90:0,type:landscape?'landscapePrimary':'portraitPrimary'}});await page.waitForTimeout(250);
    const state=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__,c=document.querySelector('.game-stage canvas'),r=c?.getBoundingClientRect(),P=window.__HAPIL_PERSONA_DUEL_RC134__;return{viewport:[innerWidth,innerHeight],screen:{width:screen.width,height:screen.height,orientation:screen.orientation?.type??null,angle:screen.orientation?.angle??null,visualViewport:[visualViewport.width,visualViewport.height]},canvas:r?{x:r.x,y:r.y,width:r.width,height:r.height,backing:[c.width,c.height]}:null,camera:P?.camera(s,{x:0,y:0,width:innerWidth,height:innerHeight})??null,midbosses:s?.enemies?.filter(a=>a.midboss&&a.hp>0&&!a.visualOnly&&!a.friendly).length,projectiles:s?.hostileProjectiles?.length,time:s?.time,inBounds:!!r&&r.x>=-1&&r.y>=-1&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1};});
-   row.orientation.push({iteration:i,size,state,retainedThreeMidbosses:state.midbosses===3,layoutMatchesViewport:state.inBounds});
+   row.orientation.push({iteration:i,size,state,retainedTwoMidbosses:state.midbosses===2,layoutMatchesViewport:state.inBounds});
   }
-  row.orientationSummary={allLayoutsContained:row.orientation.every(x=>x.layoutMatchesViewport),allThreeActorsRetained:row.orientation.every(x=>x.retainedThreeMidbosses),mismatches:row.orientation.filter(x=>!x.layoutMatchesViewport).map(x=>({iteration:x.iteration,size:x.size,viewport:x.state.viewport,screen:x.state.screen,canvas:x.state.canvas}))};
+  row.orientationSummary={allLayoutsContained:row.orientation.every(x=>x.layoutMatchesViewport),allTwoActorsRetained:row.orientation.every(x=>x.retainedTwoMidbosses),mismatches:row.orientation.filter(x=>!x.layoutMatchesViewport).map(x=>({iteration:x.iteration,size:x.size,viewport:x.state.viewport,screen:x.state.screen,canvas:x.state.canvas}))};
   await page.screenshot({path:path.join(out,'dist04-native-trio-pressure-landscape.png'),fullPage:false});
   save();
 
   if(rotationOnly){
    assert.equal(row.orientationSummary.allLayoutsContained,true,'all five live rotations fit at the original 250ms checkpoint');
-   assert.equal(row.orientationSummary.allThreeActorsRetained,true);
+   assert.equal(row.orientationSummary.allTwoActorsRetained,true);
    for(const entry of row.orientation){assert(Math.abs(entry.state.canvas.width-entry.size[0])<1,'canvas uses current width');assert(Math.abs(entry.state.canvas.y+entry.state.canvas.height-entry.size[1])<1,'canvas ends at current viewport bottom');}
    assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);row.status='passed-rotation-only';report.status='passed-rotation-only';save();console.log('PASS RC135 live CDP rotation',JSON.stringify(row.orientationSummary));await context.close();return;
   }
@@ -168,7 +168,7 @@ const snapshotScript = `
    const live=s.enemies.filter(a=>a.midboss&&a.hp>0&&!a.visualOnly&&!a.friendly);
    return{route,zone:s.zone,mode:mode.mode(s)??s.gameModeV31346,time:s.time,hero:s.activeHeroId,midbosses:live.map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,triad:a.isMidbossTrioRC69})),playerHp:s.hp};
   });
-  await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist04'&&window.__MONGSE_QA_STATE__?.enemies.filter(a=>a.midboss&&a.hp>0&&!a.visualOnly&&!a.friendly).length===3,null,{timeout:10000});
+  await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist04'&&window.__MONGSE_QA_STATE__?.enemies.filter(a=>a.midboss&&a.hp>0&&!a.visualOnly&&!a.friendly).length===2,null,{timeout:10000});
   for(let i=0;i<24&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(80);}
   const menuLocator=page.locator('.rc108-settings-trigger');const mobileMenu=page.locator('#hapil-mobile-controls-v31366 [data-mobile-action="Menu"]');
   if(!await menuLocator.isVisible().catch(()=>false))await mobileMenu.click({force:true});else await menuLocator.click({force:true});await page.locator('.settings-layout').waitFor({state:'visible',timeout:8000});
@@ -176,7 +176,7 @@ const snapshotScript = `
   await page.locator('.save-slots article').nth(0).getByRole('button',{name:'저장',exact:true}).click();
   await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mongse_save_v10_slot_1')||'null')!==null,null,{timeout:8000});
   row.nativeSave.slot=await page.evaluate(()=>{const save=JSON.parse(localStorage.getItem('mongse_save_v10_slot_1'));return{zone:save.zone,heroId:save.heroId,savedAt:save.savedAt,midbossTrio:save.midbossTrioRosterRC69?.map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,owner:a.owner}))??null,midbossEncounter:save.midbossEncounterRC133??null};});
-  row.nativeSave.slotSaved=row.nativeSave.slot.zone==='dist04'&&row.nativeSave.slot.midbossTrio?.length===3;
+  row.nativeSave.slotSaved=row.nativeSave.slot.zone==='dist04'&&row.nativeSave.slot.midbossTrio?.length===2;
   save();await page.reload({waitUntil:'load'});await page.waitForTimeout(350);row.nativeSave.titleAfterReload=await page.locator('.title-screen').count();
   // Start a fresh Dream run, then load slot 1 by the in-game native UI.
   await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();await page.locator('[data-game-mode-v31354="DREAM"]').click();await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();await page.waitForFunction(()=>window.__MONGSE_QA_STATE__&&window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');
@@ -187,15 +187,15 @@ const snapshotScript = `
   await page.locator('.save-slots article').nth(0).getByRole('button',{name:'불러오기',exact:true}).click();
   await page.waitForFunction(()=>window.__MONGSE_QA_STATE__?.zone==='dist04',null,{timeout:15000});
   row.nativeSave.restored=await page.evaluate(()=>{const s=window.__MONGSE_QA_STATE__;return{zone:s.zone,time:s.time,mode:window.__HAPIL_MODES_V31346__.mode(s)??s.gameModeV31346,playerHp:s.hp,actors:s.enemies.filter(a=>a.midboss&&a.hp>0&&!a.visualOnly&&!a.friendly).map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,triad:a.isMidbossTrioRC69})),innerMode:window.__HAPIL_PERSONA_DUEL_RC134__?.active(s)??false};});
-  row.nativeSave.restoreMatches=row.nativeSave.restored.actors.length===3&&row.nativeSave.restored.actors.map(a=>a.id).sort().join('|')===row.nativeSave.midbosses.map(a=>a.id).sort().join('|');
+  row.nativeSave.restoreMatches=row.nativeSave.restored.actors.length===2&&row.nativeSave.restored.actors.map(a=>a.id).sort().join('|')===row.nativeSave.midbosses.map(a=>a.id).sort().join('|');
   row.final=await page.evaluate(code=>eval(code),snapshotScript);
   row.status=lifecycleOnly?'completed-lifecycle-only':row.denseThresholdReached?'completed-density-reached':'completed-density-shortfall';row.errorsAtEnd=row.errors.length;row.httpErrorsAtEnd=row.httpErrors.length;
   await page.screenshot({path:path.join(out,'native-save-reloaded-dist04.png'),fullPage:false});
   save();
-  console.log('RC134_LIVE_MOBILE_QUALITY',JSON.stringify({commit:report.commit,lifecycleOnly,denseThresholdReached:row.denseThresholdReached,peak:row.pressurePeak,midbosses:row.final.midbosses.length,orientation:row.orientation.map(x=>({size:x.size,canvas:x.state.canvas,camera:x.state.camera,layoutMatchesViewport:x.layoutMatchesViewport,retainedThreeMidbosses:x.retainedThreeMidbosses})),orientationSummary:row.orientationSummary,visibility:{hidden:row.visibility.hiddenObserved?.state,returned:row.visibility.returned?.state,timeAdvanced:row.visibility.nativeTimeAdvanced,lifecycleControl:row.lifecycleControl},hiddenExit:row.hiddenExit.story,nativeSave:{slotSaved:row.nativeSave.slotSaved,restored:row.nativeSave.restored?.actors?.length,matches:row.nativeSave.restoreMatches},errors:row.errors.length,httpErrors:row.httpErrors.length}));
-  assert.equal(row.nativeEntry.midbosses.length,3,'native Dream route should start 3 midbosses');
+  console.log('RC134_LIVE_MOBILE_QUALITY',JSON.stringify({commit:report.commit,lifecycleOnly,denseThresholdReached:row.denseThresholdReached,peak:row.pressurePeak,midbosses:row.final.midbosses.length,orientation:row.orientation.map(x=>({size:x.size,canvas:x.state.canvas,camera:x.state.camera,layoutMatchesViewport:x.layoutMatchesViewport,retainedTwoMidbosses:x.retainedTwoMidbosses})),orientationSummary:row.orientationSummary,visibility:{hidden:row.visibility.hiddenObserved?.state,returned:row.visibility.returned?.state,timeAdvanced:row.visibility.nativeTimeAdvanced,lifecycleControl:row.lifecycleControl},hiddenExit:row.hiddenExit.story,nativeSave:{slotSaved:row.nativeSave.slotSaved,restored:row.nativeSave.restored?.actors?.length,matches:row.nativeSave.restoreMatches},errors:row.errors.length,httpErrors:row.httpErrors.length}));
+  assert.equal(row.nativeEntry.midbosses.length,2,'native Dream route should start 2 midbosses');
   assert.equal(row.orientationSummary.allLayoutsContained,true,'battlefield must fit each live CDP orientation at the original 250ms checkpoint');
-  assert.equal(row.orientationSummary.allThreeActorsRetained,true,'orientation retains all three live native actors');
+  assert.equal(row.orientationSummary.allTwoActorsRetained,true,'orientation retains all two live native actors');
   for(const entry of row.orientation){assert(Math.abs(entry.state.canvas.width-entry.size[0])<1,'canvas must use the new orientation width');assert(Math.abs(entry.state.canvas.y+entry.state.canvas.height-entry.size[1])<1,'canvas must meet the new viewport bottom');}
   if(!lifecycleOnly)assert.equal(row.denseThresholdReached,true,'dense fixture requires at least 24 actual native projectiles');
   assert.equal(row.lifecycleControl.status,'observed','accepted CDP command is insufficient: real freeze and resume events must be observed');
@@ -207,7 +207,7 @@ const snapshotScript = `
   assert(row.lifecycleControl.afterTime>row.lifecycleControl.beforeTime,'native simulation resumes after thaw');
   assert.deepEqual(row.lifecycleControl.heldKeys,[],'thaw leaves no held input');
   assert.equal(row.final.mode,'DREAM');
-  assert.equal(new Set(row.final.midbosses.map(a=>a.id)).size,3,'three restored actors have independent instance IDs');
+  assert.equal(new Set(row.final.midbosses.map(a=>a.id)).size,2,'two restored actors have independent instance IDs');
   assert.equal(new Set(row.final.midbosses.map(a=>a.identity)).size,1,'restored copies share authored map identity');
   assert.equal(new Set(row.final.midbosses.map(a=>a.sprite)).size,1,'restored copies share authored map sprite');
   assert.equal(row.hiddenExit.hidden.active,true,'hidden camera should be active before Story cleanup');
@@ -215,8 +215,8 @@ const snapshotScript = `
   assert.equal(row.hiddenExit.story.composeApplied,false,'Story must leave opposition compose inactive');assert.equal(row.hiddenExit.story.filterAfter,row.hiddenExit.story.filterBefore,'Story no-op preserves caller filter');assert.equal(row.hiddenExit.story.globalAlphaAfter,row.hiddenExit.story.globalAlphaBefore,'Story no-op preserves caller alpha');
   assert.deepEqual(row.hiddenExit.story.pixelAfter,row.hiddenExit.story.pixelBefore,'Story frame unchanged by hidden composer');
   assert.equal(row.hiddenExit.story.positionDescriptor.get,undefined,'Story releases guarded player coordinates');
-  assert.equal(row.nativeSave.slotSaved,true,'native slot save must contain the three midbosses');
-  assert.equal(row.nativeSave.restoreMatches,true,'native UI reload restores same three midboss identities');
+  assert.equal(row.nativeSave.slotSaved,true,'native slot save must contain the two midbosses');
+  assert.equal(row.nativeSave.restoreMatches,true,'native UI reload restores same two midboss identities');
   assert.deepEqual(row.errors,[]);assert.deepEqual(row.httpErrors,[]);
   report.status=lifecycleOnly?'passed-lifecycle-only':row.denseThresholdReached?'passed':'passed-with-density-shortfall';save();await context.close();
  } catch(error){report.status='failed';report.error=String(error.stack||error);save();throw error;}

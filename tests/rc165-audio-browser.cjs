@@ -324,7 +324,9 @@ async function assertNativeImpact(evidence) {
         const s=__MONGSE_QA_STATE__,keys=new Set(ids.map(id=>String(id)));
         if([...(s.pendingHits??[]),...(s.impactQueue??[])].some(hit=>keys.has(String(hit.id))))return false;
         const effect=s.effects.find(row=>keys.has(String(row.pendingHitId))&&String(row.sourceId)===String(owner)&&row.telegraphImpact===true);
-        return effect?{hp:s.hp,time:s.time,effect:{id:effect.pendingHitId,born:effect.born}}:false;
+        if(!effect)return false;
+        s.invulnerableUntil=Math.max(s.invulnerableUntil,s.time+5);
+        return {hp:s.hp,time:s.time,effect:{id:effect.pendingHitId,born:effect.born}};
       },{ids:suppressed.ids,owner:suppressed.owner},{timeout:8000});
       const immediateSettlement=await settlementHandle.jsonValue();
       const diagnostic=await impactDiagnostics(),targetDamageEvents=diagnostic.combat.filter(event=>String(event.source?.id)===String(suppressed.ids[0])&&event.targetId==='__host'&&event.kind==='CONTACT'&&Number(event.appliedDamage)>0);

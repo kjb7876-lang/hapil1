@@ -1,7 +1,7 @@
 name: RC170 bounded native Persona candidate regression
 on:
   push:
-    branches: [codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter]
+    branches: [codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
 permissions:
   contents: read
 jobs:

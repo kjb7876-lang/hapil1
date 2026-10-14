@@ -1,7 +1,7 @@
 name: RC134 full-auto exact damage balance
 on:
   push:
-    branches: [codex/rc134-fullauto-balance, codex/rc134-integrated, codex/rc137-boss-art-review, codex/rc207-persona-warning-scatter]
+    branches: [codex/rc134-fullauto-balance, codex/rc134-integrated, codex/rc137-boss-art-review, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
   workflow_dispatch:
 permissions:
   contents: read

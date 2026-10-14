@@ -1,0 +1,58 @@
+{
+  "artifact": "/workspace/rc210-rift-art/balrog-spatial-rift.png",
+  "source_original": "/workspace/generated_images/exec-022468a3-74cd-4f67-8661-106c05ec301d.png",
+  "initial_candidate_original_preserved": "/workspace/generated_images/exec-69210884-5d22-4542-942c-68a39eb8ae6c.png",
+  "image_generation": "OpenAI image_gen; transparent_background=true",
+  "source_sha256": "2cfd624b1031d246d2315dd1d8158d793dd143cf720ab8393700e3f16661ebc0",
+  "initial_candidate_sha256": "d3de4f3692da3ac038a52254f4ede74fd735933c76259f598ed9a4d7c00172af",
+  "artifact_sha256": "52378744f4480f3f70bf7c0545fd49ca943fd0efbc84470fda03d37b1bdcb8f4",
+  "dimensions_px": [
+    2172,
+    724
+  ],
+  "mode": "RGBA",
+  "visible_bbox_alpha_ge_2_xyxy": [
+    47,
+    238,
+    2122,
+    484
+  ],
+  "visible_bbox_aspect_ratio": 8.435,
+  "alpha_zero_pixels": 1203941,
+  "alpha_255_pixels": 117,
+  "corner_pixels_rgba": [
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "center_pixel_rgba": [
+    0,
+    0,
+    0,
+    254
+  ],
+  "source_original_preserved": true,
+  "permitted_edit": "Set alpha values 0 and 1 to 0; all RGB pixels and alpha values >=2 preserved.",
+  "prompt": "A single isolated production-ready video game VFX sprite: a horizontal spatial slash cast by the Balrog, matching the reference's dark glossy obsidian and restrained molten orange-red highlights. Keep the complete visible effect extremely low-profile and elongated: target total nontransparent silhouette width-to-height ratio 7.5:1, with all energy, rim, sparks, and wisps contained inside that flat wide oval silhouette. A clean narrow black-hole opening with a genuinely opaque pitch-black interior, surrounded by a dark charcoal/black metallic rift rim, subtle curved gravitational streaks bending inward, and only a few tiny ember-orange cracks and sparks. Make the opening and its surrounding rim form one simple smooth horizontal oval; let the gravitational distortion hug the rim, with no tall spikes, no upward/downward hooks, no large curls, no flames or detached particles. Sharp clean edges, crop-friendly, readable at small game scale, centered with only a small transparent margin. True transparent RGBA background outside the effect; keep the void interior black and opaque. No character, weapon, scenery, floor, text, icon, multiple effects, haze, or frame."
+}

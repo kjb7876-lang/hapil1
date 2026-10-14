@@ -1,7 +1,7 @@
 name: RC207 read-only candidate regression
 on:
   push:
-    branches: [codex/rc207-persona-warning-scatter]
+    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
     paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/**']
 permissions:
   contents: read
@@ -100,5 +100,39 @@ jobs:
         with:
           name: rc207-legacy-${{ matrix.suite }}-${{ github.sha }}
           path: ${{ runner.temp }}/rc207-legacy/
+          if-no-files-found: error
+          retention-days: 14
+  rc210-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install existing normal Chrome Stable validation runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc210" --no-save --package-lock=false playwright@1.55.1
+          node "$RUNNER_TEMP/rc210/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc210/node_modules" >> "$GITHUB_ENV"
+      - name: Capture exact candidate native fixtures
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc210-evidence
+        run: |
+          set -euo pipefail
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc210-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc210-native-fixtures-${{ github.sha }}
+          path: ${{ runner.temp }}/rc210-evidence/
           if-no-files-found: error
           retention-days: 14

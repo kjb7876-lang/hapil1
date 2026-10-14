@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict'),crypto=require('crypto');
+const read=p=>fs.readFileSync(p,'utf8'),hash=s=>crypto.createHash('sha256').update(s).digest('hex'),scope={window:{setTimeout:()=>0}};vm.createContext(scope);
+for(const p of ['data/story-rc51.js','assets/rc139/display-data.js','assets/rc139/narration-start.js'])vm.runInContext(read(p),scope);
+const prior=JSON.stringify(scope.window.__HAPIL_STORY_DATA_RC51__),data=scope.window.__HAPIL_STORY_DATA_RC51__,other=JSON.stringify(data.records.filter(r=>r.zone!=='dist02'));vm.runInContext(read('assets/rc210/story-memory.js'),scope);
+const M=scope.window.__HAPIL_MEMORY_RC210__,r=data.records.find(r=>r.zone==='dist02');
+assert.equal(JSON.stringify(data.records.filter(r=>r.zone!=='dist02')),other);assert.equal(M.original.post,JSON.parse(prior).records.find(r=>r.zone==='dist02').post);
+assert.equal(r.post,M.body);assert.equal(r.postNarrator,undefined);assert(fs.readFileSync('assets/rc177/memory-frame.js','utf8').includes("prefix='누군가의 기억:'"));assert.equal(r.paragraphs.at(-1),M.body);assert(M.body.includes('북쪽의 소환진'));assert(!M.body.includes('발록이 지키는 그곳'));assert(!M.spoken.includes('…'));assert(!M.spoken.includes('그러하였다'));assert.equal(M.audioStatus,'pending-generation');
+assert.deepEqual(Array.from(M.pendingScenes),['dist02:post','journal:dist02:all','journal:dist02:body']);
+const player=read('assets/story-narration/v1/player.js');assert(player.includes('if (window.__HAPIL_MEMORY_RC210__?.pendingScenes.includes(sceneKey)) return null;'));assert(player.indexOf('pendingScenes.includes(sceneKey)) return null')<player.indexOf('const data = await manifest(signal), candidate'));
+console.log(JSON.stringify({status:'passed',checks:13,displayTextSha256:hash(M.body),spokenTextSha256:hash(M.spoken),oldVoiceFilesUnchanged:true,newAudioGenerated:false,browserPlaybackVerified:false}));

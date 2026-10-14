@@ -1,7 +1,7 @@
 name: RC146 global body ash exact candidate
 on:
   push:
-    branches: [main, codex/rc145-body-dissolve-preview, codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter]
+    branches: [main, codex/rc145-body-dissolve-preview, codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
     paths:
       - '.github/workflows/**'
       - 'qa/rc207/**'

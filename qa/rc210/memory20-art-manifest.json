@@ -1,0 +1,31 @@
+{
+  "task": "memory20 ep1b07.post chairman recognition beat",
+  "generation": "Actual ImageGen; both outputs are independent stills, not an extracted sprite sheet.",
+  "reference": {
+    "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/episode1b/generated-v3110/ep1b08_pride_chairman_phase0.webp",
+    "sha256": "1b96b399c7d6d70ca8436550a8f8adcc506f9b9b314d6d66dc22345831dd7352"
+  },
+  "frames": [
+    {
+      "role": "side glance",
+      "path": "memory20-chairman-side.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-4a64f7b4-50d2-48e9-8f8e-6488597c6af9.png",
+      "sha256": "a02fd7011db9a86714c72476b57b1407f9c2cf54abda6b9dcb1f59669dfa314c",
+      "bytes": 1948233,
+      "dimensions": "1672x941",
+      "channels": "RGB (opaque; no alpha channel)",
+      "visual_check": "Chest-up elderly Korean chairman, silver-gray hair, ivory-white suit, gray tie, dark crimson rose pin; head and eyes turned toward screen-right. Dark hotel banquet background with warm amber lights."
+    },
+    {
+      "role": "direct stare",
+      "path": "memory20-chairman-front.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-a4a0d94a-850e-4518-9620-4958b2fde274.png",
+      "sha256": "684007e2d2bab71cf2d8530226f441b5f5f6da275e5eceb75d04ec676af822d7",
+      "bytes": 1938892,
+      "dimensions": "1672x941",
+      "channels": "RGB (opaque; no alpha channel)",
+      "visual_check": "Same chest-up character styling, hotel setting, framing, and warm lighting; head and eyes face the camera with a cold, intent expression."
+    }
+  ],
+  "limits": "Visual inspection confirms the requested beat and close composition match. Generated details are not pixel-identical between frames; root should check the transition/cut timing in the game."
+}

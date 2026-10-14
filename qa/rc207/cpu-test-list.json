@@ -55,5 +55,19 @@
   "tests/rc152-portrait-pause-unit.cjs",
   "tests/rc153-combat-unit.cjs",
   "tests/rc156-runtime-quality-unit.cjs",
-  "tests/rc157-death-restart-unit.cjs"
+  "tests/rc157-death-restart-unit.cjs",
+  "tests/rc210-encounter-unit.cjs",
+  "tests/rc210-fragments-unit.cjs",
+  "tests/rc210-laser-unit.cjs",
+  "tests/rc210-memory-unit.cjs",
+  "tests/rc210-memory-film-unit.cjs",
+  "tests/rc210-movement-unit.cjs",
+  "tests/rc210-rift-unit.cjs",
+  "tests/rc210-standing-unit.cjs",
+  "tests/rc210-balrog-unit.cjs",
+  "tests/rc210-projectile-unit.cjs",
+  "tests/rc210-bootloader-unit.cjs",
+  "tests/rc210-deferred-damage-unit.cjs",
+  "tests/rc210-fields-fog-unit.cjs",
+  "tests/rc210-ornaments-unit.cjs"
 ]

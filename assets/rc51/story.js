@@ -107,7 +107,14 @@
   if(ctx.sound!==false&&volume>0)void play();
   return api;
  }
- function close(commit=true){if(!root)return;const callback=done;stopNarration();if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=previousBlocked;root.remove();root=null;owner=null;done=null;clearInput();previousFocus?.isConnected&&previousFocus.focus?.();if(commit)callback?.();}
+ function close(commit=true){if(!root)return;
+  const film=window.__HAPIL_MEMORY_FILM_RC210__;
+  if(root.memoryFilmRC210){const current=root.memoryFilmRC210;if(!commit){root.memoryFilmRC210=null;current.cancel();}else current.finish();return;}
+  if(commit&&film?.target(root.dataset.zone,root.dataset.phase)&&root.dataset.memoryFilm!=='done'){
+   if(narration?.blocksAdvance===true){root.dataset.rc210WaitForNarration='true';return;}
+   const card=root;stopNarration();card.memoryFilmRC210=film.start(card,finished=>{if(root!==card)return;card.memoryFilmRC210=null;card.dataset.memoryFilm='done';close(finished);});return;
+  }
+  const callback=done;stopNarration();if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=previousBlocked;root.remove();root=null;owner=null;done=null;clearInput();previousFocus?.isConnected&&previousFocus.focus?.();if(commit)callback?.();}
  function show(s,r,kind,text,callback,ctx={}){if(root||!text)return false;owner=s;done=callback;previousFocus=document.activeElement;previousBlocked=!!window.__HAPIL_READING_V31342__?.blocked;if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;clearInput();stopNarration();
   root=el('div','rc51-story');root.id='hapil-story-rc51';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-labelledby','rc51-title');
   root.dataset.zone=s.zone;root.dataset.phase=kind;
@@ -147,7 +154,7 @@
  }
  function beforeFrame(s,ctx={}){
   if(root&&document.getElementById('hapil-death-verse-rc59')){lastUi=performance.now();return true;}
-  if(root){if(owner!==s||!enabled(s)||s.hp<=0||((root.dataset.narration||root.dataset.originalVoice)&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0){if(narration?.blocksAdvance===true)autoLeft=.05;else close();}}return true;}}
+  if(root){if(owner!==s||!enabled(s)||s.hp<=0||((root.dataset.narration||root.dataset.originalVoice)&&root.dataset.zone!==s.zone)){close(false);}else{narration?.setContext?.(ctx);if(root.dataset.rc210WaitForNarration==='true'&&narration?.blocksAdvance!==true&&!document.hidden){close();return true;}const now=performance.now(),dt=Math.min(.1,(now-lastUi)/1000);lastUi=now;if(!document.hidden&&!autoPaused&&autoLeft>0){autoLeft-=dt;if(autoLeft<=0){if(narration?.blocksAdvance===true)autoLeft=.05;else close();}}return true;}}
   document.documentElement.classList.toggle('rc51-samong',storyActive(s));
   document.documentElement.classList.toggle('rc91-samong',window.__HAPIL_SAMONG_RC91__?.active(s)===true);
   if(!enabled(s)||ctx.blocked||s.hp<=0)return false;

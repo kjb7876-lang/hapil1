@@ -1,7 +1,7 @@
 (()=>{'use strict';
  const VERSION='3.25-RAID-RC25',CUT=.6;
  const lustOwners=new Set(['b05-boss','mb-ep1b05']),lustProjectile='./assets/rc24/lust-heel.png';
- const projectileAssets=a=>lustOwners.has(String(a?.id??''))?[lustProjectile]:[];
+ const projectileAssets=a=>window.__HAPIL_LUST_RC210__?.assets(a)??(lustOwners.has(String(a?.id??''))?[lustProjectile]:[]);
  const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
  const mode=s=>window.__HAPIL_MODES_V31346__?.mode?.(s)||s?.gameModeV31346||'STORY';
  const ratios={STORY:.01,DREAM:.01};
@@ -61,7 +61,7 @@
   }
   markLust(s);sweep(s);
  }
- function markProjectile(s,h){if(!h||!lustOwners.has(String(h.sourceId??h.ownerId??''))||h.friendly||h.reflected||h.visualOnly)return h;const path=lustProjectile;h.lustKindRC24='heel';h.raidImageKeyRC24=path;h.sprite=path;h.image=path;h.path=path;h.asset=path;h.projectileSprite=path;h.impactSprite=path;h.impactFallbackSprite=path;h.color='#fa315d';h.accent='#ffe4ed';h.radius=Math.max(num(h.radius),2.05);return h;}
+ function markProjectile(s,h){if(window.__HAPIL_LUST_RC210__)return window.__HAPIL_LUST_RC210__.prepare(s,h);if(!h||!lustOwners.has(String(h.sourceId??h.ownerId??''))||h.friendly||h.reflected||h.visualOnly)return h;const path=lustProjectile;h.lustKindRC24='heel';h.raidImageKeyRC24=path;h.sprite=path;h.image=path;h.path=path;h.asset=path;h.projectileSprite=path;h.impactSprite=path;h.impactFallbackSprite=path;h.color='#fa315d';h.accent='#ffe4ed';h.radius=Math.max(num(h.radius),2.05);return h;}
  function markLust(s){const kinds=['hostileProjectiles','pendingHits','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'];for(const k of kinds)for(const h of s[k]??[])markProjectile(s,h);}
  function sweep(s){const control=window.__HAPIL_CONTROLS_V31329__?.binding;if(control?.state?.current!==s||control.phase!=='game'||!(s.hp>0))return;
   for(const a of s.enemies){if(!(a.hp>0)||a.visualOnly||a.protectedNarrativeTargetV31307||a.friendly||a.objectiveStructureV31238)continue;metrics.bodyChecks++;

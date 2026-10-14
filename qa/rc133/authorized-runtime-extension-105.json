@@ -1,0 +1,651 @@
+{
+  "version": 1,
+  "base": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
+  "baseTree": "42d5c31711cd40d456c51882d01025add3a062d1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "c72a2199f7a724ac9ebb0315d67f5f6699c8d3fd1776e368c0b9f8c94cac18d0",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "bd4f7bb5443576c0f58ae9d5c21c2fccfc2f46dd"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "79ce7c994a5369a8e8a1e8c9ea1b7fc56074ebda",
+        "sha256": "618334d8d83b6f12869ff47adabb60f69618c29a631d96d3a18ee451e53a8d0e"
+      }
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "assets/rc133/bitmap-contact.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "02ac78986749233844df6c4fda93f6e74d75523f"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "56fb720238888d43b8f5f712f42113e08cbc10f5",
+        "sha256": "6d08b95340bffdd0881eb0409cbf30d808998e2dbe2f1e33f7f459422d7c5aa8"
+      }
+    },
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "assets/rc133/native-install.js.txt: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "23fbf6ce95fe0fd7d5d5bb17f6527b08636e2464"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "2b6322dd833d808cf6f9fb5dc0554c4ebbdf03e6",
+        "sha256": "2e95548c865162be1fb76653af02787aa40763375d11ce55b447af1c9e7d8e1a"
+      }
+    },
+    {
+      "file": "assets/rc137/boss-art.js",
+      "reason": "assets/rc137/boss-art.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc137/boss-art.js",
+        "mode": "100644",
+        "gitBlob": "3f350cae35020ffae5f44f1e748c65b66207ac23"
+      },
+      "after": {
+        "file": "assets/rc137/boss-art.js",
+        "mode": "100644",
+        "gitBlob": "09ebaa1d2f1841708c761c9af622be74f1cf86fe",
+        "sha256": "fdfa98eafcd16a1a072e096f92fee9be69715a3f0b67468941557fe4de55ac74"
+      }
+    },
+    {
+      "file": "assets/rc137/direction-input.js",
+      "reason": "assets/rc137/direction-input.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc137/direction-input.js",
+        "mode": "100644",
+        "gitBlob": "198495385d803d8d6dde7b3269ef2a4d923dcb87"
+      },
+      "after": {
+        "file": "assets/rc137/direction-input.js",
+        "mode": "100644",
+        "gitBlob": "e8a73a36886561407d05b2eb434a91a9ef3f8e64",
+        "sha256": "038ef9b6402f1e02918fcb15ae2a66b1e37cf2847f02f478417a9a50b0741908"
+      }
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "reason": "assets/rc138/battle-arena.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "c0e7c9266465c57ccf58963a874c145a27f939ed"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "872b7f4ec505b716a58210903f42ee58794de152",
+        "sha256": "29abad310f93a9260c020aa276ae47a1a7836366b8b440d14ac44addc84ca5ac"
+      }
+    },
+    {
+      "file": "assets/rc138/native-install.js.txt",
+      "reason": "assets/rc138/native-install.js.txt: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc138/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "fbc8e97bae111fb209ab4eb6bc8875fd87bbe6dd"
+      },
+      "after": {
+        "file": "assets/rc138/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "336483b97dc194c8de64a491930ea9e858d9f3d5",
+        "sha256": "98fb05c2f299ef78bc61719540a5ee39b72ac807325d6c8de0a48fc426ef2c7c"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "a31044149290a63f029fa67cfd4044860222b265"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "b75b3e38f9225d39f3a4a92f5c5545a9fe972fb6",
+        "sha256": "2a700b40a88ff644fe137f8f2c6de1e3b4dc42146ab8415fc1997e67ff14213e"
+      }
+    },
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "be05b96c16fcc0546d5829499453cac8ee36966d"
+      },
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "860cc91b5614f4a049ccd1026757b34aff377f59",
+        "sha256": "193549992e87a6f4f0ce93364775b730f1ea4fa6e0efbe668ed19c1a71e98dfb"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body-closed-grip-hit.png",
+      "reason": "assets/rc210/balrog-body-closed-grip-hit.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body-closed-grip-hit.png",
+        "mode": "100644",
+        "gitBlob": "338f5d6c5172c00b1ed5e9d6ad764cb11af679b0",
+        "sha256": "ad957c8840199eb41aa1f9a0928e2ef2ca2bd5eb3c87edcb3b0002c254932c49"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body-closed-grip-light-damage-crossed.png",
+      "reason": "assets/rc210/balrog-body-closed-grip-light-damage-crossed.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body-closed-grip-light-damage-crossed.png",
+        "mode": "100644",
+        "gitBlob": "ad8ccb6057a6db00ffc76e03c0bf6280533b5ad4",
+        "sha256": "d738893b29e396f10ee48d8c48898c3a31e3a02bbb8c44ac93b550daf9630ab4"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body-closed-grip-prepare.png",
+      "reason": "assets/rc210/balrog-body-closed-grip-prepare.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body-closed-grip-prepare.png",
+        "mode": "100644",
+        "gitBlob": "a2f923dee0c6d85b4d21667314112d11bcfdd529",
+        "sha256": "c30e493fdc7e3b0742c299837a5f9f9817b26b2d30914f8ea7e91250f5ff4975"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body-closed-grip-ready.png",
+      "reason": "assets/rc210/balrog-body-closed-grip-ready.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body-closed-grip-ready.png",
+        "mode": "100644",
+        "gitBlob": "c2409f4f6efb330f6866bbce0a2b3e79d1756882",
+        "sha256": "2d599b848e902d65ca6e310dd269a59e6aebee864e80a7d09b6f84775c3dfde6"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body-closed-grip-recovery.png",
+      "reason": "assets/rc210/balrog-body-closed-grip-recovery.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body-closed-grip-recovery.png",
+        "mode": "100644",
+        "gitBlob": "2e81602732aea919333eacb5d59c53d0c99d5f6b",
+        "sha256": "46bb819dee51d71ba2ef7e406c260ce3980621eb250ef04aebf75c55093afaba"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body-closed-grip-swing.png",
+      "reason": "assets/rc210/balrog-body-closed-grip-swing.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body-closed-grip-swing.png",
+        "mode": "100644",
+        "gitBlob": "7c992e2507780fbd644f3c4ba3708b595763a3a1",
+        "sha256": "41bffa38745727a4df714635b7e0d2fbf2f8d4d77c862d3097fbbb9d882757aa"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-body.js",
+      "reason": "assets/rc210/balrog-body.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-body.js",
+        "mode": "100644",
+        "gitBlob": "9c7ffdde6c21b164de87359f29e08901177e0a44",
+        "sha256": "9b1a20b7d9cc838f971bb5d76fa8acfaadf3470151cac4fac3e913b964e24a00"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-rift.js",
+      "reason": "assets/rc210/balrog-rift.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-rift.js",
+        "mode": "100644",
+        "gitBlob": "ce165f2455cf7ab397355fd5b55523ecb91b71f0",
+        "sha256": "5edb7604112d2be2901f34e8c36858ed9a325d32154b706d2216928095d9fb9c"
+      }
+    },
+    {
+      "file": "assets/rc210/balrog-spatial-rift.png",
+      "reason": "assets/rc210/balrog-spatial-rift.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/balrog-spatial-rift.png",
+        "mode": "100644",
+        "gitBlob": "566e7cb2938b7aff39d1d2f2993da00af52c5199",
+        "sha256": "52378744f4480f3f70bf7c0545fd49ca943fd0efbc84470fda03d37b1bdcb8f4"
+      }
+    },
+    {
+      "file": "assets/rc210/bootloader.js",
+      "reason": "assets/rc210/bootloader.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/bootloader.js",
+        "mode": "100644",
+        "gitBlob": "0ae4dea3b06417b8c73d75f8c3181a8badadf46e",
+        "sha256": "285a4e98d8c93097d6279c45c158290444198f529de3c88acd6e328cc5a1abe5"
+      }
+    },
+    {
+      "file": "assets/rc210/boss-fragment-arm.png",
+      "reason": "assets/rc210/boss-fragment-arm.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/boss-fragment-arm.png",
+        "mode": "100644",
+        "gitBlob": "d0bf3a607695ff21106ddb68930c0edc37dbe64c",
+        "sha256": "36b64952e81cab3bbbd1e00ee495f7bda7dd4f11049676a230411d5fc4a85cf2"
+      }
+    },
+    {
+      "file": "assets/rc210/boss-fragment-head.png",
+      "reason": "assets/rc210/boss-fragment-head.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/boss-fragment-head.png",
+        "mode": "100644",
+        "gitBlob": "43c0628a7b46d3e725f71a0e273b1dd617769fd7",
+        "sha256": "dbafb4af89d1fa5189b21beafecaa1a870bec319895ea1cce443de749a51a404"
+      }
+    },
+    {
+      "file": "assets/rc210/boss-fragment-leg.png",
+      "reason": "assets/rc210/boss-fragment-leg.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/boss-fragment-leg.png",
+        "mode": "100644",
+        "gitBlob": "8a51370cdef937fce13bc2358c40519fa9c6bd13",
+        "sha256": "43fb6f31db98ab7507b7a9505bf88ae58b50166dfc12492138e0115c59a77275"
+      }
+    },
+    {
+      "file": "assets/rc210/boss-fragment-torso.png",
+      "reason": "assets/rc210/boss-fragment-torso.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/boss-fragment-torso.png",
+        "mode": "100644",
+        "gitBlob": "8a579cbe37eb705057acd790ab91b5d1dcc3a135",
+        "sha256": "f61ed3d3274032affcd6fca8dbb6f929c403dc2feb548a12d107e066bea1c69d"
+      }
+    },
+    {
+      "file": "assets/rc210/controller-memory-gate.png",
+      "reason": "assets/rc210/controller-memory-gate.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/controller-memory-gate.png",
+        "mode": "100644",
+        "gitBlob": "677b8efb91bcd4db11b5391a449e273f755ce010",
+        "sha256": "ce3bfa2b39fc64d3f886fb286e1b836b7562728c8ab84005d49a91c9fbfb7fb8"
+      }
+    },
+    {
+      "file": "assets/rc210/deferred-damage.js",
+      "reason": "assets/rc210/deferred-damage.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/deferred-damage.js",
+        "mode": "100644",
+        "gitBlob": "f9d02155d47ad1672731156a7fe0258acad04546",
+        "sha256": "b2f368126527c53eedbd854deb3b7d377d0ef70ff84a08982db23c0ba9085417"
+      }
+    },
+    {
+      "file": "assets/rc210/encounter-policy.js",
+      "reason": "assets/rc210/encounter-policy.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/encounter-policy.js",
+        "mode": "100644",
+        "gitBlob": "1f8a9ed3fc903cc9d51091863748eb1970aa3901",
+        "sha256": "a4e98dbb86124fcde961c3d6e63207da12648d38425595f1627e6bb10c740bf1"
+      }
+    },
+    {
+      "file": "assets/rc210/fragments.js",
+      "reason": "assets/rc210/fragments.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/fragments.js",
+        "mode": "100644",
+        "gitBlob": "fe3ee6f2cb7973ac978c62a859f1dc112d801942",
+        "sha256": "9bf54c34ceea16e46c9566bb87580a6392da0767269796a50d239581d186f675"
+      }
+    },
+    {
+      "file": "assets/rc210/insomnia-fog.js",
+      "reason": "assets/rc210/insomnia-fog.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/insomnia-fog.js",
+        "mode": "100644",
+        "gitBlob": "bba62d03a56802ca366e00d993bc851852e25130",
+        "sha256": "0a2f71dca7e699fa4fd0e8a9dfcef29ef3069da67418242a90704f0d230f87db"
+      }
+    },
+    {
+      "file": "assets/rc210/lust-broken-heart.png",
+      "reason": "assets/rc210/lust-broken-heart.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/lust-broken-heart.png",
+        "mode": "100644",
+        "gitBlob": "20f9327edb4400464a0f5a71e322f64a822400c9",
+        "sha256": "aa27c94339236ff6a7e9cb3cded7a31cde203d053f9b20c292812bc5b35de4f4"
+      }
+    },
+    {
+      "file": "assets/rc210/lust-projectiles.js",
+      "reason": "assets/rc210/lust-projectiles.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/lust-projectiles.js",
+        "mode": "100644",
+        "gitBlob": "51c2e3120ccd7c9be10c8f510faacfa7fb04b23e",
+        "sha256": "073c0fa4449e3760675aa9685907846f354c68ab1303a4889970be6efab8f784"
+      }
+    },
+    {
+      "file": "assets/rc210/machine-fields.js",
+      "reason": "assets/rc210/machine-fields.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/machine-fields.js",
+        "mode": "100644",
+        "gitBlob": "7a01354134fa96ec8ad5569d829de9b4e71bd9f8",
+        "sha256": "df671bb41b576dca1cadc62fd0eda2b10e5cfe40f0cd7f9c9841e3f4d4c727cf"
+      }
+    },
+    {
+      "file": "assets/rc210/memory-film.css",
+      "reason": "assets/rc210/memory-film.css: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "gitBlob": "b1a9b04e787973d065ca6f3d5d993da210721385",
+        "sha256": "4a5f11a365e51438031a91a1e9a7466d94b029b8aba728fff86d854b389a55dd"
+      }
+    },
+    {
+      "file": "assets/rc210/memory-film.js",
+      "reason": "assets/rc210/memory-film.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "1864cc437dfb3cd1ea752b7d834e1c9634727320",
+        "sha256": "aaf503aa3c63722cd9114f9f2d5df41d16ed2f4fff4a4012624b4537113cfb2a"
+      }
+    },
+    {
+      "file": "assets/rc210/memory10-moon-road.png",
+      "reason": "assets/rc210/memory10-moon-road.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/memory10-moon-road.png",
+        "mode": "100644",
+        "gitBlob": "62f32bd5ff9554729733986f71b3565993cf62bb",
+        "sha256": "834c8f8f2e22357d8398f5310a713790b06a6662ec0adf4d6a83dcfe89bfb65f"
+      }
+    },
+    {
+      "file": "assets/rc210/memory20-chairman-front.png",
+      "reason": "assets/rc210/memory20-chairman-front.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/memory20-chairman-front.png",
+        "mode": "100644",
+        "gitBlob": "90ff313d115dfd0ef86bcef796f4e95b3aef5d55",
+        "sha256": "684007e2d2bab71cf2d8530226f441b5f5f6da275e5eceb75d04ec676af822d7"
+      }
+    },
+    {
+      "file": "assets/rc210/memory20-chairman-side.png",
+      "reason": "assets/rc210/memory20-chairman-side.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/memory20-chairman-side.png",
+        "mode": "100644",
+        "gitBlob": "872511fcb310215fe5cfe594b0cacb05acbbc3fd",
+        "sha256": "a02fd7011db9a86714c72476b57b1407f9c2cf54abda6b9dcb1f59669dfa314c"
+      }
+    },
+    {
+      "file": "assets/rc210/memory26-door.png",
+      "reason": "assets/rc210/memory26-door.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/memory26-door.png",
+        "mode": "100644",
+        "gitBlob": "751b0736f4edfb26d84a4f1595d8e245b4ed2bb9",
+        "sha256": "7b92475bea91fca0ab301b65c0a8cf69beefc2219a4bafab2e5ee6a70bf7ccaf"
+      }
+    },
+    {
+      "file": "assets/rc210/ornaments.js",
+      "reason": "assets/rc210/ornaments.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/ornaments.js",
+        "mode": "100644",
+        "gitBlob": "43288fd4e6b1d964f8f1ff0ef30d236c3acb1e30",
+        "sha256": "3d579d0294407b5dd70c0d614babff41b6f4c81e90a71b0fc5ebbf4217f8fe2d"
+      }
+    },
+    {
+      "file": "assets/rc210/projectile-balance.js",
+      "reason": "assets/rc210/projectile-balance.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "gitBlob": "0f324a128ec9e2de95400f818b0d60723d4f1e7d",
+        "sha256": "543be5377e0e287bef81884b1545c9018ded5fbc5d63222983c93fda03996996"
+      }
+    },
+    {
+      "file": "assets/rc210/slayer-attack-frame-01-ready-aligned.png",
+      "reason": "assets/rc210/slayer-attack-frame-01-ready-aligned.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/slayer-attack-frame-01-ready-aligned.png",
+        "mode": "100644",
+        "gitBlob": "0c3bf41c73c7e943917d20c668052bbf74453ff1",
+        "sha256": "9281159a32b1fcd0ee383f324fa36bb7237a6b35a366359afdb8ccd87a696c64"
+      }
+    },
+    {
+      "file": "assets/rc210/slayer-attack-frame-02-windup-aligned.png",
+      "reason": "assets/rc210/slayer-attack-frame-02-windup-aligned.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/slayer-attack-frame-02-windup-aligned.png",
+        "mode": "100644",
+        "gitBlob": "eead877a9fdda2e1394d392a4f623389c4b5e68d",
+        "sha256": "f347a9528a9ac691d9cd2bb51c89e5be915091e54881a17a9b1de4862ea8ec8a"
+      }
+    },
+    {
+      "file": "assets/rc210/slayer-attack-frame-03-slash-aligned.png",
+      "reason": "assets/rc210/slayer-attack-frame-03-slash-aligned.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/slayer-attack-frame-03-slash-aligned.png",
+        "mode": "100644",
+        "gitBlob": "8499237df50ff9b4a37a9494dad3b3bcdf0fc007",
+        "sha256": "bef1fe1f15d32f7e83d3a998e4836b1d5c207388e5f995e6909f79025aa6a016"
+      }
+    },
+    {
+      "file": "assets/rc210/slayer-attack-frame-04-recovery-aligned.png",
+      "reason": "assets/rc210/slayer-attack-frame-04-recovery-aligned.png: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/slayer-attack-frame-04-recovery-aligned.png",
+        "mode": "100644",
+        "gitBlob": "bd913f9603b4d9ae0a2aa560c8164db898d7881e",
+        "sha256": "2ff916287dc32d20188fa7fb9f3089baffc7f92ee5ec6a2b37fc2cb68bb3214e"
+      }
+    },
+    {
+      "file": "assets/rc210/slayer-standing.js",
+      "reason": "assets/rc210/slayer-standing.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/slayer-standing.js",
+        "mode": "100644",
+        "gitBlob": "45752c1207b250bfeb828c6d698a3d21609f37fa",
+        "sha256": "61430a63b8ec66a8999669c7d803c2777d8f24b17e4db2022c9af2d9c4b50fa3"
+      }
+    },
+    {
+      "file": "assets/rc210/story-memory.js",
+      "reason": "assets/rc210/story-memory.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/story-memory.js",
+        "mode": "100644",
+        "gitBlob": "abc992ece3a8ee7e9cc817b4dc72dc635774ce4a",
+        "sha256": "fb2fc265641e69fb1d90d30f2ac85093ffdcc8f3443d83ccdb82f884887a846c"
+      }
+    },
+    {
+      "file": "assets/rc25/raid.js",
+      "reason": "assets/rc25/raid.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc25/raid.js",
+        "mode": "100644",
+        "gitBlob": "ec9572e46e78c14472edc3797a30fc8d4bf0282f"
+      },
+      "after": {
+        "file": "assets/rc25/raid.js",
+        "mode": "100644",
+        "gitBlob": "0bf29dcc405d277c6ba79292c4645190309c0a96",
+        "sha256": "bcd52ab4bf5ef28d48dab94a7e7c229738d8787cf2f80832ff363bc6bbc7dd9b"
+      }
+    },
+    {
+      "file": "assets/rc32/boss-and-mobile.js",
+      "reason": "assets/rc32/boss-and-mobile.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "40938628cce027437d92fa6aaf85a494a7c6d1a0"
+      },
+      "after": {
+        "file": "assets/rc32/boss-and-mobile.js",
+        "mode": "100644",
+        "gitBlob": "78af4956b0bba018432b41f7dbea3f5e63aaa132",
+        "sha256": "83b3de50d05ff20131ed974936d023866600e4f1c05f6374c6873f241d81e48e"
+      }
+    },
+    {
+      "file": "assets/rc51/story.js",
+      "reason": "assets/rc51/story.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "43b34fb327d6a67ec9e7f34da9de45c40e3a4b03"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "2f42c25d84741c12fdb675a77d035d57c3a73c7c",
+        "sha256": "3d42858190f4d22ba102445bf827cbae832b3d1882be4db7e79d33cb43911764"
+      }
+    },
+    {
+      "file": "assets/rc79/combat-policy.js",
+      "reason": "assets/rc79/combat-policy.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc79/combat-policy.js",
+        "mode": "100644",
+        "gitBlob": "b372555d14b1f34cfaf340ea623f7fb1b18a362a"
+      },
+      "after": {
+        "file": "assets/rc79/combat-policy.js",
+        "mode": "100644",
+        "gitBlob": "c322620e3b4be0194f5119dd208539810a2478fe",
+        "sha256": "14d13c35e88745aeae2eb4a43b3ccf2c205f18df17f16c0928e1b41a2676e36e"
+      }
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "reason": "assets/rc91/samong-awakening.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "281e19fa9731189fbfa1cbf276590b2fdab5b787"
+      },
+      "after": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "4d34011831481565dc8ebf376b40ad9d35e673db",
+        "sha256": "12b5f970d82b54ab46f04e0f813646df9e816d5a631f0d2c0a56b0d11bca9575"
+      }
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "reason": "assets/story-narration/v1/player.js: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "assets/story-narration/v1/player.js",
+        "mode": "100644",
+        "gitBlob": "87d8ee122f43a250ea9c3b630d34bf247299351e"
+      },
+      "after": {
+        "file": "assets/story-narration/v1/player.js",
+        "mode": "100644",
+        "gitBlob": "3bbbd4d85738933af4efb6f64a624450d8d28705",
+        "sha256": "6c47361db67e6bb6bf54cfd4f6f90b1368cf42ef7c5b1aa998573bc5e04c246a"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: explicitly authorized RC210 encounter/save/movement, standing and boss art, independent projectiles and bullet balance, memory presentation continuation; preserve original source assets, canonical source prose/audio and unrelated runtime.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "786d2e22509ba99c9c63b33155350b6c2a5c7599"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "46eabdeb61f9faa008975ae868c7afd8de80c46b",
+        "sha256": "863ae381eec68abcf67fa50079f53578ce62ec813a63aa50a3cd6f4c07968d8d"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "b3aa442bac7b1035602f1b2886a0d2543d0d238025a9f38b3770a031ac82a255"
+}

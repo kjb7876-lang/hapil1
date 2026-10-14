@@ -28,17 +28,17 @@
  function actorPoint(a,q,which,radius){return point(root.__HAPIL_COMBAT_LAYOUT_RC153__?.position(a,q)??q,which,radius);}
  function applyPosition(a,q){if(D()?.applyPosition(a,q))return true;const g=guards.get(a);if(!g||!locked(g.state)||g.state.zone!==g.zone)return false;g.value=actorPoint(a,q,g.side,g.radius);return true;}
  function enroll(s,a,allied=false){if(!a)return a;if(!allied&&!hostile(a))return a;const r=runs.get(s);if(!r)return a;if(!allied){a.rc138Ranged=true;a.rc138BattleZone=s.zone;}
-  if(!allied&&!r.actors.has(a)&&locked(s)&&a.id!=='inner-evil-rc133'&&root.__HAPIL_COMBAT_LAYOUT_RC153__?.boss(a)){const index=[...r.actors].filter(b=>b.hp>0&&root.__HAPIL_COMBAT_LAYOUT_RC153__.boss(b)).length,v=36+(index%3)*2,q=point({x:(v+10)/2,y:(v-10)/2},'right',format.enemyRadius);if(!applyPosition(a,q)){a.x=q.x;a.y=q.y;}if(a.rc133Anchor)a.rc133Anchor={x:a.x,y:a.y};a.rc153BattlePlacement={zone:s.zone,index};}
+  if(!allied&&!r.placed.has(a)&&locked(s)&&a.id!=='inner-evil-rc133'&&root.__HAPIL_COMBAT_LAYOUT_RC153__?.boss(a)){const roster=r.admitting??s.enemies??[],index=[...r.actors].filter(b=>b!==a&&b.hp>0&&b.rc138BattleZone===s.zone&&roster.includes(b)&&root.__HAPIL_COMBAT_LAYOUT_RC153__.boss(b)).length,v=35+(index%2)*6,u=index%3===2?10:12,q=point({x:(v+u)/2,y:(v-u)/2},'right',format.enemyRadius);if(!applyPosition(a,q)){a.x=q.x;a.y=q.y;}if(a.rc133Anchor)a.rc133Anchor={x:a.x,y:a.y};a.rc153BattlePlacement={zone:s.zone,index};r.placed.add(a);}
   guard(s,a,allied);r.actors.add(a);stats.spawns++;return a;
  }
  function watch(s,r){if(r.watched)return;r.watched=true;
   const descriptor=Object.getOwnPropertyDescriptor(s,'enemies');if(descriptor?.configurable&&Object.hasOwn(descriptor,'value')){
-   let roster;const wrap=value=>{if(!Array.isArray(value))return value;if(arrays.get(value)?.state===s)return value;const proxy=new Proxy(value,{set(list,key,a){if(typeof key==='string'&&/^\d+$/.test(key)&&a&&typeof a==='object')enroll(s,a);list[key]=a;return true;}});arrays.set(proxy,{state:s});for(const a of value)enroll(s,a);return proxy;};roster=wrap(descriptor.value);
+   let roster;const wrap=value=>{if(!Array.isArray(value))return value;if(arrays.get(value)?.state===s)return value;const proxy=new Proxy(value,{set(list,key,a){if(typeof key==='string'&&/^\d+$/.test(key)&&a&&typeof a==='object')enroll(s,a);list[key]=a;return true;}});arrays.set(proxy,{state:s});const previous=r.admitting;r.admitting=value;try{for(const a of value)enroll(s,a);}finally{r.admitting=previous;}return proxy;};roster=wrap(descriptor.value);
    Object.defineProperty(s,'enemies',{configurable:true,enumerable:descriptor.enumerable,get:()=>roster,set:value=>{roster=wrap(value);}});
   }
   const hp=Object.getOwnPropertyDescriptor(s,'hp');if(hp?.configurable&&Object.hasOwn(hp,'value')){let value=hp.value;Object.defineProperty(s,'hp',{configurable:true,enumerable:hp.enumerable,get:()=>value,set(next){const was=value;value=next;if(!(next>0)){release(s);D()?.release(s);if(was>0)stats.deaths++;}else if(!(was>0)){stats.relocks++;enforce(s);}}});}
  }
- function enforce(s){if(!s)return null;let r=runs.get(s);if(!r){r={actors:new Set(),zone:s.zone,watched:false};runs.set(s,r);watch(s,r);}if(r.zone!==s.zone){release(s);r.actors.clear();r.zone=s.zone;}
+ function enforce(s){if(!s)return null;let r=runs.get(s);if(!r){r={actors:new Set(),placed:new WeakSet(),zone:s.zone,watched:false};runs.set(s,r);watch(s,r);}if(r.zone!==s.zone){release(s);r.actors.clear();r.placed=new WeakSet();r.zone=s.zone;}
   if(!locked(s)){release(s);return snapshot(s);}if(D()?.active(s)){release(s);D().enforce(s);}
   enroll(s,s,true);const party=root.__HAPIL_PARTY_V31322__;if(party?.state===s)for(const a of party.actors??[])if(a.hp>0)enroll(s,a,true);
   for(const a of s.enemies??[])if(hostile(a)){enroll(s,a);if(a.hp<=0&&!a.revivalPending)releaseActor(a);}

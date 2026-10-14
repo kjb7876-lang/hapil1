@@ -11,7 +11,7 @@
  function blinkDestination(origin,vector,distance,walkable){
    let result={x:origin.x,y:origin.y};const steps=Math.max(1,Math.ceil(Math.max(0,distance)/.10));
    for(let i=1;i<=steps;i++){const p={x:origin.x+vector.x*distance*i/steps,y:origin.y+vector.y*distance*i/steps};
-     if(!walkable(p))break;result=p;
+     if(!walkable(p)){let low=distance*(i-1)/steps,high=distance*i/steps;for(let j=0;j<18;j++){const mid=(low+high)/2,q={x:origin.x+vector.x*mid,y:origin.y+vector.y*mid};if(walkable(q)){low=mid;result=q;}else high=mid;}break;}result=p;
    }return result;
  }
  function finalFloor(state,enemy){

@@ -1,0 +1,18 @@
+/* RC210: independently generated closed-grip bodies share ONE rigid sword.
+ * Uniform actor calibration; sword scale never depends on pose/progress/hit. */
+(function(root){'use strict';
+ const sword='./assets/actors/v31511/balrog-raised-sword.png',grip=Object.freeze([240,1010]),tip=Object.freeze([1238,22]),sourceAngle=Math.atan2(tip[1]-grip[1],tip[0]-grip[0]);
+ const frames=Object.freeze({"ready":{"path":"./assets/rc210/balrog-body-closed-grip-ready.png","height":1206,"foot":[650,1238],"grip":[685,510],"angle":-0.7853981633974483,"handRadius":32},"prepare":{"path":"./assets/rc210/balrog-body-closed-grip-prepare.png","height":1055,"foot":[645,1205],"grip":[462,50],"angle":0.0,"handRadius":32},"swing":{"path":"./assets/rc210/balrog-body-closed-grip-swing.png","height":1119,"foot":[620,1179],"grip":[675,475],"angle":0.0,"handRadius":32},"recovery":{"path":"./assets/rc210/balrog-body-closed-grip-recovery.png","height":1191,"foot":[690,1205],"grip":[710,540],"angle":2.2689280275926285,"handRadius":32},"hit":{"path":"./assets/rc210/balrog-body-closed-grip-hit.png","height":1083,"foot":[810,1195],"grip":[250,365],"angle":-0.9599310885968813,"handRadius":32},"lightDamage":{"path":"./assets/rc210/balrog-body-closed-grip-light-damage-crossed.png","height":1191,"foot":[680,1215],"grip":[725,550],"angle":0.4363323129985824,"handRadius":32}});
+ const assets=Object.freeze([...Object.values(frames).map(f=>f.path),sword]);
+ function select(a,time,opts={}){if(Object.hasOwn(frames,a.rc210BalrogPose))return a.rc210BalrogPose;if(opts.hit||Number(a.hitUntil)>time)return (Number(a.bleedStacks)>0||Number(a.bleedTicks)>0)?'lightDamage':'hit';if(Number(a.attackAt)>time){const duration=Math.max(.1,a.attackAt-(a.attackStarted??time)),p=Math.max(0,(time-(a.attackStarted??time))/duration);return p<.7?'prepare':'swing';}return Number(a.recoverUntil)>time?'recovery':'ready';}
+ function geometry(a,time,height,opts={}){const name=select(a,time,opts),f=frames[name],bodyScale=height*.96/f.height,weaponScale=height*.96*.62/1220;return{name,frame:f,bodyScale,weaponScale,weaponAngle:f.angle-sourceAngle,foot:[0,0],hand:[(f.grip[0]-f.foot[0])*bodyScale,(f.grip[1]-f.foot[1])*bodyScale],weaponLength:Math.hypot(tip[0]-grip[0],tip[1]-grip[1])*weaponScale};}
+ function draw(ctx,cache,a,time,height,opts,queue,project){const g=geometry(a,time,height,opts),f=g.frame,body=queue(cache,f.path,'eager'),blade=queue(cache,sword,'eager');if(!body?.complete||!body.naturalWidth||!blade?.complete||!blade.naturalWidth)return false;
+  const p=project(a.x,a.y);ctx.save();try{ctx.globalAlpha*=opts?.alpha??1;if(opts?.hit)ctx.filter='brightness(1.3) saturate(1.1)';ctx.translate(p.x+(opts?.offsetX??0),p.y+(opts?.offsetY??0));ctx.rotate(opts?.rotation??0);ctx.scale(Number(opts?.scaleX??1)<0?-1:1,1);
+   const bodyDraw=()=>ctx.drawImage(body,-f.foot[0]*g.bodyScale,-f.foot[1]*g.bodyScale,body.naturalWidth*g.bodyScale,body.naturalHeight*g.bodyScale);bodyDraw();
+   ctx.save();try{ctx.translate(...g.hand);ctx.rotate(g.weaponAngle);ctx.scale(g.weaponScale,g.weaponScale);ctx.drawImage(blade,-grip[0],-grip[1],blade.naturalWidth,blade.naturalHeight);}finally{ctx.restore();}
+   // The same intact hand pixels occlude the grip, never a second weapon.
+   ctx.save();try{ctx.beginPath();ctx.rect((f.grip[0]-f.foot[0]-f.handRadius)*g.bodyScale,(f.grip[1]-f.foot[1]-f.handRadius)*g.bodyScale,f.handRadius*2*g.bodyScale,f.handRadius*2*g.bodyScale);ctx.clip();bodyDraw();}finally{ctx.restore();}
+  }finally{ctx.restore();}return true;
+ }
+ root.__HAPIL_BALROG_BODY_RC210__=Object.freeze({sword,grip,tip,frames,assets,select,geometry,draw});
+})(window);

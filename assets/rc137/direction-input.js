@@ -70,16 +70,19 @@
     s.moveVy = along * v.y;
     return true;
   }
-  function constrain(s, p) {
+  function constrain(s, p, requested = p) {
     const v = memories.get(s);
     if (!v?.held || v.zone !== s.zone || v.hero !== s.activeHeroId) return p;
-    const dx = p.x - s.x,
-      dy = p.y - s.y;
-    // Native obstacle/arena clamps may slide in world axes. A held direction
-    // stops at that boundary instead of changing the requested screen heading.
-    return Math.abs(dx * v.y - dy * v.x) > 1e-7 || dx * v.x + dy * v.y < -1e-7
-      ? { x: s.x, y: s.y }
-      : p;
+    const dx = p.x - s.x, dy = p.y - s.y;
+    const onRay=Math.abs(dx * v.y - dy * v.x) <= 1e-7 && dx * v.x + dy * v.y >= -1e-7;
+    if (requested===p && onRay) return p;
+    if (!native?.walkable) return onRay?p:{ x: s.x, y: s.y };
+    // Search the requested ray instead of rejecting an axis-clamped result.
+    // Stop at its FIRST obstruction; never project through a wall or sideways.
+    const length = Math.max(0,(requested.x-s.x)*v.x+(requested.y-s.y)*v.y);
+    const at=t=>({x:s.x+v.x*t,y:s.y+v.y*t}),steps=Math.max(1,Math.ceil(length/.05));let good=0;
+    for(let i=1;i<=steps;i++){const t=length*i/steps;if(native.walkable(s,at(t))){good=t;continue;}let low=good,high=t;for(let j=0;j<18;j++){const mid=(low+high)/2;if(native.walkable(s,at(mid)))low=mid;else high=mid;}return at(low);}
+    return at(good);
   }
   function held(s) {
     const b = root.__HAPIL_CONTROLS_V31329__?.binding;

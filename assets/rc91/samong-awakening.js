@@ -70,7 +70,7 @@
  }
  function deathPending(s){return !!s&&s.hp<=0&&choices.get(s)!=='checkpoint';}
  function consumeCheckpoint(s){if(!s||s.hp>0||choices.get(s)!=='checkpoint')return false;choices.delete(s);return true;}
- function tryRevive(s){if(!s||s.hp>0||!revivalAuthorized(s))return false;if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
+ function tryRevive(s){if(!s||s.hp>0||!revivalAuthorized(s))return false;window.__HAPIL_DEFERRED_DAMAGE_RC210__?.reset(s);if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
  function tryAutomaticRevival(s){if(!canRevive(s)||automaticRevival.has(s)||choices.has(s))return false;automaticRevival.add(s);choices.set(s,'samong');try{return tryRevive(s);}finally{choices.delete(s);automaticRevival.delete(s);}}
  function tryEgo(s){return activate(s,'ego');}
  function activateFinalClash(s){

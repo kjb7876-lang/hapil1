@@ -1,0 +1,68 @@
+{
+  "task": "Lust boss broken red heart projectile",
+  "file": "lust-broken-heart.png",
+  "absolute_path": "/workspace/rc210-art/lust-broken-heart.png",
+  "imagegen_receipt": "/workspace/generated_images/exec-3c76a203-76f9-4bb9-a5f1-6e221fc3eacf.png",
+  "sha256": "aa27c94339236ff6a7e9cb3cded7a31cde203d053f9b20c292812bc5b35de4f4",
+  "file_bytes": 1433215,
+  "canvas_px": [
+    1254,
+    1254
+  ],
+  "channels": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "transparent_pixel_ratio": 0.57286,
+  "visible_bbox_xyxy_px_alpha_gt_1": [
+    83,
+    138,
+    1170,
+    1134
+  ],
+  "high_opacity_bbox_xyxy_px_alpha_gt_127": [
+    89,
+    141,
+    1165,
+    1131
+  ],
+  "opaque_edge_check_alpha_gt_1": {
+    "top": {
+      "pixels_alpha_gt_1": 0,
+      "max_alpha": 1
+    },
+    "bottom": {
+      "pixels_alpha_gt_1": 0,
+      "max_alpha": 1
+    },
+    "left": {
+      "pixels_alpha_gt_1": 0,
+      "max_alpha": 1
+    },
+    "right": {
+      "pixels_alpha_gt_1": 0,
+      "max_alpha": 0
+    }
+  },
+  "style_references": [
+    {
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/rc24/lust-heel.png",
+      "sha256": "756be6a2f7a812a3f02477540935bfbe823ac80230a248c5fdcb250b76417167"
+    },
+    {
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/rc24/lust-lipstick.png",
+      "sha256": "2616fbb9686ccbfd81cc89a4e7724e19e75cc98d883ee8d9272808a792f44bcd"
+    }
+  ],
+  "visual_pixel_review": {
+    "large": "One centered classic heart silhouette with two lobes, top notch and pointed bottom; glossy ruby-red lacquer, dark red depth, silver/dark-metal edging, prominent jagged central crack from notch to bottom; no extra items, text or opaque background.",
+    "downsized_32_px": "Downscaled from delivered PNG for inspection; at 32x32 the heart silhouette remains clear and central crack remains visible.",
+    "downsized_40_px": "Downscaled from delivered PNG for inspection; heart and fracture read clearly.",
+    "estimated_visible_size_at_32px_display": [
+      28,
+      25
+    ]
+  },
+  "source_files_or_git_modified": false
+}

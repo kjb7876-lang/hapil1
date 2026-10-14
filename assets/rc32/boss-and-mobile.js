@@ -30,6 +30,7 @@
   api.draw=function(ctx,cache,state,settings={}){
    const mobile=window.__HAPIL_MOBILE_V31366__?.enabled?.()===true;
    const opts=mobile?{...settings,lowFx:true,reducedFlash:true,showCombatInfo:false}:settings;
+   window.__HAPIL_BOOTLOADER_RC210__?.draw(ctx,state,opts);window.__HAPIL_INSOMNIA_FOG_RC210__?.draw(ctx,state,opts);
    let result;
    try{result=filterCanvas(ctx,()=>originalDraw.call(this,ctx,cache,state,opts));}
    catch(error){stats.drawErrors++;result=originalDraw.call(this,ctx,cache,state,opts);}
@@ -37,7 +38,7 @@
    return result;
   };
   const originalTick=api.tick;
-  api.tick=function(state,dt,...rest){const result=originalTick.call(this,state,dt,...rest);try{tickBlackholes(state,dt);}catch(error){stats.tickErrors++;}return result;};
+  api.tick=function(state,dt,...rest){window.__HAPIL_DEFERRED_DAMAGE_RC210__?.tick(state,dt);window.__HAPIL_MACHINE_FIELDS_RC210__?.tick(state,dt);window.__HAPIL_INSOMNIA_FOG_RC210__?.tick(state,dt);const result=originalTick.call(this,state,dt,...rest);try{tickBlackholes(state,dt);}catch(error){stats.tickErrors++;}return result;};
   const originalBloodDraw=blood.draw;
   blood.draw=function(ctx,cache,state,cast,settings={}){
    if(cast&&(cast.sourceId==='a11-cosmic-v31318'||cast.ownerIdV31331==='a11-cosmic-v31318'||state?.enemies?.some(actor=>actor.id===cast.sourceId&&actor.cosmicLuciferV31318)))cast.beam=ownerBeam.get('a11-cosmic-v31318');
@@ -61,6 +62,7 @@
   finally{if(own)Object.defineProperty(ctx,'drawImage',own);else delete ctx.drawImage;}
  }
  function tickBlackholes(s,dt){
+  window.__HAPIL_BALROG_RIFT_RC210__?.tick(s,dt);
   const party=window.__HAPIL_PARTY_V31322__,status=party?.status;
   if(s?.hp<=0){s.bossBlackHolesRC32=[];s.bossBlackHoleNextRC32=Object.create(null);window.__HAPIL_BOSS_POLICY_RC175__?.dot(s,[]);return;}
   if(!s||!Number.isFinite(s.time)||s.paused||s.pause||party?.state===s&&(status?.role==='guest'||status?.paused||status?.disconnected)){window.__HAPIL_BOSS_POLICY_RC175__?.dot(s,[]);return;}
@@ -108,6 +110,7 @@
   }catch{blackholeImages.delete(path);return null;}
  }
  function drawBlackholes(ctx,cache,s,settings){
+  window.__HAPIL_BALROG_RIFT_RC210__?.draw(ctx,cache,s,settings);window.__HAPIL_MACHINE_FIELDS_RC210__?.draw(ctx,cache,s,settings);
   if(!ctx||!s?.bossBlackHolesRC32?.length||!window.__HAPIL_COMBAT_V31333__?.core)return;
   const project=p=>window.__HAPIL_COMBAT_V31333__.core(p);
   for(const h of s.bossBlackHolesRC32){

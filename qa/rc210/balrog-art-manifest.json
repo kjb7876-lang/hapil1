@@ -1,0 +1,282 @@
+{
+  "task": "RC210 Balrog weaponless action body frames",
+  "output_directory": "/workspace/rc210-art",
+  "source_code_or_git_modified": false,
+  "source_references": {
+    "body": {
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/actors/v31511/balrog-raised-body.png",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_px": [
+        0,
+        18,
+        1198,
+        1254
+      ],
+      "visual": "front three-quarter volcanic-armored Balrog; raised viewer-left hand is open/splayed; opposite lower hand is clenched"
+    },
+    "separate_sword": {
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/actors/v31511/balrog-raised-sword.png",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_px": [
+        16,
+        17,
+        1254,
+        1254
+      ],
+      "visual": "one long rigid straight black volcanic blade with orange molten detail, diagonal from lower-left hilt to upper-right tip",
+      "parent_estimated_grip_px": [
+        240,
+        1010
+      ],
+      "parent_estimated_tip_px": [
+        1230,
+        20
+      ]
+    }
+  },
+  "approach": "Actual ImageGen body frames only. Blade, crossguard and weapon flames were removed; closed gripping fists/wrists remain for parent to overlay the one unchanged source sword rigidly. No code, source art, or Git state was changed.",
+  "landmark_convention": "Approximate raw-canvas pixels; x increases right, y increases down. Pivot is the estimated midpoint of the planted boot baseline. Blade-axis angle is from screen-right clockwise (negative is upward). Hand centers and angles are visual estimates, not calibrated measurements.",
+  "frames": [
+    {
+      "file": "balrog-body-closed-grip-ready.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-96b42e9d-331b-485f-83c8-8a634414e48c.png",
+      "sha256": "2d599b848e902d65ca6e310dd269a59e6aebee864e80a7d09b6f84775c3dfde6",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_px": [
+        0,
+        21,
+        1234,
+        1254
+      ],
+      "transparent_ratio": 0.5288,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "opaque_border_pixels": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "pose": "upright ready; closed fist in front of upper abdomen/chest",
+      "head_top_y_px_approx": 32,
+      "boot_pivot_px_approx": [
+        650,
+        1238
+      ],
+      "grip_center_px_approx": [
+        685,
+        510
+      ],
+      "intended_blade_axis_deg_approx": -45
+    },
+    {
+      "file": "balrog-body-closed-grip-prepare.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-4609962a-25d1-4222-84a9-ce1ad36b5a75.png",
+      "sha256": "c30e493fdc7e3b0742c299837a5f9f9817b26b2d30914f8ea7e91250f5ff4975",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_px": [
+        0,
+        8,
+        1236,
+        1254
+      ],
+      "transparent_ratio": 0.5748,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "opaque_border_pixels": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "pose": "overhead prepare; sword arm raised and closed fist above head",
+      "head_top_y_px_approx": 150,
+      "boot_pivot_px_approx": [
+        645,
+        1205
+      ],
+      "grip_center_px_approx": [
+        462,
+        50
+      ],
+      "intended_blade_axis_deg_approx": 0
+    },
+    {
+      "file": "balrog-body-closed-grip-swing.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-7b658980-aee5-44be-b47f-ed054ad770a5.png",
+      "sha256": "41bffa38745727a4df714635b7e0d2fbf2f8d4d77c862d3097fbbb9d882757aa",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_px": [
+        0,
+        25,
+        1254,
+        1254
+      ],
+      "transparent_ratio": 0.5668,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "opaque_border_pixels": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 3
+      },
+      "pose": "upright forceful horizontal swing; closed fist cluster in front of torso, may read as a two-hand brace",
+      "head_top_y_px_approx": 60,
+      "boot_pivot_px_approx": [
+        620,
+        1179
+      ],
+      "grip_center_px_approx": [
+        675,
+        475
+      ],
+      "intended_blade_axis_deg_approx": 0,
+      "edge_note": "Three opaque antialias pixels touch right border, likely cape fringe; visual inspection required before use. No sword pixels remain."
+    },
+    {
+      "file": "balrog-body-closed-grip-recovery.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-b4efca3c-d43a-4a99-8036-72bb5a45f90c.png",
+      "sha256": "46bb819dee51d71ba2ef7e406c260ce3980621eb250ef04aebf75c55093afaba",
+      "canvas_px": [
+        1272,
+        1236
+      ],
+      "alpha_bbox_xyxy_px": [
+        33,
+        13,
+        1240,
+        1220
+      ],
+      "transparent_ratio": 0.5423,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "opaque_border_pixels": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "pose": "upright settling recovery; one arm crosses low in front of abdomen with closed grip fist",
+      "head_top_y_px_approx": 14,
+      "boot_pivot_px_approx": [
+        690,
+        1205
+      ],
+      "grip_center_px_approx": [
+        710,
+        540
+      ],
+      "intended_blade_axis_deg_approx": 130
+    },
+    {
+      "file": "balrog-body-closed-grip-hit.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-1313327e-af4e-462c-b13b-2028aa8e24a0.png",
+      "sha256": "ad957c8840199eb41aa1f9a0928e2ef2ca2bd5eb3c87edcb3b0002c254932c49",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "alpha_bbox_xyxy_px": [
+        0,
+        19,
+        1253,
+        1254
+      ],
+      "transparent_ratio": 0.5521,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "opaque_border_pixels": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "pose": "recoiling hit reaction with closed sword fist extended toward viewer-left; small orange armor impact sparks, no wounds",
+      "head_top_y_px_approx": 112,
+      "boot_pivot_px_approx": [
+        810,
+        1195
+      ],
+      "grip_center_px_approx": [
+        250,
+        365
+      ],
+      "intended_blade_axis_deg_approx": -55
+    },
+    {
+      "file": "balrog-body-closed-grip-light-damage-crossed.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-75e17e2e-53ef-4e22-9afd-526700c583ba.png",
+      "sha256": "d738893b29e396f10ee48d8c48898c3a31e3a02bbb8c44ac93b550daf9630ab4",
+      "canvas_px": [
+        1229,
+        1280
+      ],
+      "alpha_bbox_xyxy_px": [
+        60,
+        23,
+        1193,
+        1280
+      ],
+      "transparent_ratio": 0.5663,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "opaque_border_pixels": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "pose": "slightly leaning hurt reaction; arm crosses lower abdomen with closed grip fist; no blood or wounds",
+      "head_top_y_px_approx": 24,
+      "boot_pivot_px_approx": [
+        680,
+        1215
+      ],
+      "grip_center_px_approx": [
+        725,
+        550
+      ],
+      "intended_blade_axis_deg_approx": 25
+    }
+  ],
+  "not_for_application": {
+    "reason": "Independently generated full-sword variants differ in apparent length/thickness and some are near canvas edges; use the six weaponless body frames above plus the one exact original sword asset.",
+    "files": [
+      "balrog-action-ready.png",
+      "balrog-action-prepare.png",
+      "balrog-action-swing.png",
+      "balrog-action-recovery.png",
+      "balrog-action-hit.png",
+      "balrog-action-light-damage.png"
+    ]
+  },
+  "validation_limit": "Receipt, file bytes, SHA-256, RGBA/alpha, and visual hand/head/boot inspection completed. Exact overlay placement and live browser/rig playback have not been validated by this art task. Parent will handle the same-source rigid sword transform and final hand-ROI placement."
+}

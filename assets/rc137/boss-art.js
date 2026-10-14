@@ -14,6 +14,7 @@
  function withPacket(q,fn){const old=packet;packet=q;try{return fn();}finally{packet=old;}}
  function picture(path,s){if(clean(path)!==source)return null;const id=owner(s,packet);return pictures.get(id)??null;}
  function route(s,q){
+  if(root.__HAPIL_FRAGMENTS_RC210__?.owns(s,q)||root.__HAPIL_LUST_RC210__?.owns(s,q)||root.__HAPIL_ORNAMENTS_RC210__?.owns(s,q))return;
   if(!ready||!q||removed(q)||q.rc133InnerShot||q.echoBoltV31368||q.heroSkillVfx||q.heroProjectileTransient||q.heroId31213||q.danmakuV31316||q.rc126CommonSprite||root.__HAPIL_PRESENTATION_RC130__?.hazard(q))return;
   const id=owner(s,q),entry=data.owners[id];if(!entry)return;
   // Preserve common jellybean shots; same-owner repeats and fission copies may
@@ -61,10 +62,10 @@
  function prepare(s){for(const q of s?.hostileProjectiles??[])route(s,q);pace(s);}
  function install(input){
   if(deps)return true;deps=input;
-  for(const row of root.__HAPIL_THEME_V31323__.catalog.owners){const own=data.owners[row.id];if(own&&!row.assets.includes(own.sprite))row.assets.push(own.sprite);}
+  for(const row of root.__HAPIL_THEME_V31323__.catalog.owners){const own=data.owners[row.id];if(own&&!row.assets.includes(own.sprite))row.assets.push(own.sprite);for(const p of [...(root.__HAPIL_FRAGMENTS_RC210__?.assets({id:row.id})??[]),...(root.__HAPIL_LUST_RC210__?.assets({id:row.id})??[]),...(root.__HAPIL_ORNAMENTS_RC210__?.assets({id:row.id})??[])])if(!row.assets.includes(p))row.assets.push(p);}
   // The ordnance renderer keeps its own mutable route snapshot. Register the
   // same owner path there so repair/queueing cannot restore an old recolour.
-  for(const row of root.__HAPIL_ORDNANCE_V31322__?.rows()??[]){const own=data.owners[row.id];if(own&&!row.assets.includes(own.sprite))row.assets.push(own.sprite);}
+  for(const row of root.__HAPIL_ORDNANCE_V31322__?.rows()??[]){const own=data.owners[row.id];if(own&&!row.assets.includes(own.sprite))row.assets.push(own.sprite);for(const p of [...(root.__HAPIL_FRAGMENTS_RC210__?.assets({id:row.id})??[]),...(root.__HAPIL_LUST_RC210__?.assets({id:row.id})??[]),...(root.__HAPIL_ORNAMENTS_RC210__?.assets({id:row.id})??[])])if(!row.assets.includes(p))row.assets.push(p);}
   for(const [id,w]of Object.entries({...data.independentBodies,'mb-ep1b06b':{...data.winter,zone:'ep1b06b'}})){const a=input.maps[w.zone]?.enemies?.find(a=>a.id===id);if(a){a.sprite=w.path;a.phaseSprites=null;a.phaseSpriteFallbacks=null;a.actionSprites={idle:a.sprite,move:a.sprite,windup:a.sprite,attackA:a.sprite,attackB:a.sprite,hit:a.sprite,stagger:a.sprite,death:a.sprite};a.actionSpritesByPhase=null;}}
   const R=root.__HAPIL_COMBAT_SAFETY_RC126__;root.__HAPIL_COMBAT_SAFETY_RC126__=Object.freeze({...R,prepareFrame(s){for(const q of s?.hostileProjectiles??[])route(s,q);R.prepareFrame(s);pace(s);}});
   return true;

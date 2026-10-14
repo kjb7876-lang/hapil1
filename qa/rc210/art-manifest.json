@@ -1,0 +1,110 @@
+{
+  "task": "RC210 art-only assets",
+  "output_directory": "/workspace/rc210-art",
+  "source_code_or_git_modified": false,
+  "style_references_inspected": [
+    "/tmp/rc170-native-audio-fix.7Q6cnd/assets/rc206/slayer-movement-body.png",
+    "/tmp/rc170-native-audio-fix.7Q6cnd/assets/rc206/slayer-rig.js",
+    "/tmp/rc170-native-audio-fix.7Q6cnd/assets/heroes/slayer.png"
+  ],
+  "slayer": {
+    "view": "single three-quarter side view, character faces screen-right; this is not eight independently generated directions",
+    "raw_canvas_px": [1254, 1254],
+    "aligned_canvas_px": [1650, 1550],
+    "aligned_method": "transparent padding only; source image pixels retained at original scale",
+    "aligned_target_foot_pivot_approx_px": [850, 1320],
+    "frames": [
+      {
+        "file": "slayer-attack-frame-01-ready-aligned.png",
+        "raw_file": "slayer-attack-frame-01-ready.png",
+        "imagegen_receipt": "/workspace/generated_images/exec-275dfdb5-a63f-48d6-8673-b378a945252a.png",
+        "sha256_aligned": "9281159a32b1fcd0ee383f324fa36bb7237a6b35a366359afdb8ccd87a696c64",
+        "sha256_raw": "b9722405dfa407bf149131430595765510adcee1b4ea651fff2422cd28baef2c",
+        "raw_visible_bbox_px": [121, 19, 1146, 1254],
+        "head_top_y_raw": 171,
+        "boot_baseline_y_raw": 1087,
+        "body_height_px_approx": 917,
+        "raw_foot_pivot_approx_px": [730, 1087],
+        "aligned_offset_px": [126, 233],
+        "aligned_foot_pivot_approx_px": [856, 1320],
+        "sword_tip_raw_approx_px": [148, 1087],
+        "sword_tip_aligned_approx_px": [274, 1320],
+        "sword_core_aligned_approx_px": [656, 893]
+      },
+      {
+        "file": "slayer-attack-frame-02-windup-aligned.png",
+        "raw_file": "slayer-attack-frame-02-windup.png",
+        "imagegen_receipt": "/workspace/generated_images/exec-923b8a2a-454b-4451-b072-82c6114c73fd.png",
+        "sha256_aligned": "f347a9528a9ac691d9cd2bb51c89e5be915091e54881a17a9b1de4862ea8ec8a",
+        "sha256_raw": "744410214b86be82ee3f3de0ecbc940885579de75d93778aa31bebad7edb1c32",
+        "raw_visible_bbox_px": [0, 20, 1242, 1254],
+        "head_top_y_raw": 253,
+        "boot_baseline_y_raw": 1190,
+        "body_height_px_approx": 937,
+        "raw_foot_pivot_approx_px": [585, 1190],
+        "aligned_offset_px": [267, 129],
+        "aligned_foot_pivot_approx_px": [852, 1319],
+        "sword_tip_raw_approx_px": [1164, 380],
+        "sword_tip_aligned_approx_px": [1431, 509],
+        "sword_core_aligned_approx_px": [892, 266]
+      },
+      {
+        "file": "slayer-attack-frame-03-slash-aligned.png",
+        "raw_file": "slayer-attack-frame-03-slash.png",
+        "imagegen_receipt": "/workspace/generated_images/exec-56a1e391-db4e-4497-9a41-f8bf29638758.png",
+        "sha256_aligned": "bef1fe1f15d32f7e83d3a998e4836b1d5c207388e5f995e6909f79025aa6a016",
+        "sha256_raw": "301b5261da4898f166f4d9bd25754730cebdf03303e8d9bf42948aecdc1395f7",
+        "raw_visible_bbox_px": [0, 9, 1246, 1254],
+        "head_top_y_raw": 126,
+        "boot_baseline_y_raw": 1159,
+        "body_height_px_approx": 1033,
+        "raw_foot_pivot_approx_px": [820, 1159],
+        "aligned_offset_px": [30, 160],
+        "aligned_foot_pivot_approx_px": [850, 1319],
+        "sword_tip_raw_approx_px": [12, 310],
+        "sword_tip_aligned_approx_px": [42, 470],
+        "sword_core_aligned_approx_px": [630, 565]
+      },
+      {
+        "file": "slayer-attack-frame-04-recovery-aligned.png",
+        "raw_file": "slayer-attack-frame-04-recovery.png",
+        "imagegen_receipt": "/workspace/generated_images/exec-602b6ba2-537a-4b4a-baed-391f880bde67.png",
+        "sha256_aligned": "2ff916287dc32d20188fa7fb9f3089baffc7f92ee5ec6a2b37fc2cb68bb3214e",
+        "sha256_raw": "44b4e2e75013a0a8d573fda181d79c18ee932e27743647bce520da68de5474a1",
+        "raw_visible_bbox_px": [0, 32, 1254, 1254],
+        "head_top_y_raw": 112,
+        "boot_baseline_y_raw": 1154,
+        "body_height_px_approx": 1042,
+        "raw_foot_pivot_approx_px": [791, 1154],
+        "aligned_offset_px": [59, 166],
+        "aligned_foot_pivot_approx_px": [850, 1320],
+        "sword_tip_raw_approx_px": [6, 810],
+        "sword_tip_aligned_approx_px": [65, 976],
+        "sword_core_aligned_approx_px": [609, 816]
+      }
+    ],
+    "visual_notes": [
+      "Four distinct poses: ready, upright overhead windup, standing horizontal slash, upright low recovery.",
+      "All poses retain the same Slayer identity and full sword; no sitting or deep crouch.",
+      "The four independent generations differ in character height by about 13 percent from smallest to largest, and the overhead sword appears longer because of generation/perspective. Use the recorded body heights and sword-tip positions for per-frame scale review.",
+      "Aligned pivot estimates are visual estimates with roughly 20 px tolerance."
+    ]
+  },
+  "boss_fragments": {
+    "theme": "separate ossuary/armorer boss, dry bone and cracked dark iron with aged bronze; no blood or organs",
+    "sheet": {
+      "file": "boss-fragments-sheet.png",
+      "imagegen_receipt": "/workspace/generated_images/exec-06b7a802-ff37-42fe-9a7d-35817b6f9a40.png",
+      "sha256": "4202a4dd4b14dc03925e2854c6d64c6d086c13adadf248a618e4a50c90e7b893",
+      "canvas_px": [1254, 1254],
+      "layout": "2 by 2; cells are 627 by 627"
+    },
+    "items": [
+      {"file": "boss-fragment-arm.png", "cell_xy_px": [0, 0], "canvas_px": [627, 627], "visible_bbox_px": [41, 17, 627, 627], "sha256": "36b64952e81cab3bbbd1e00ee495f7bda7dd4f11049676a230411d5fc4a85cf2"},
+      {"file": "boss-fragment-leg.png", "cell_xy_px": [627, 0], "canvas_px": [627, 627], "visible_bbox_px": [3, 11, 613, 627], "sha256": "43fb6f31db98ab7507b7a9505bf88ae58b50166dfc12492138e0115c59a77275"},
+      {"file": "boss-fragment-torso.png", "cell_xy_px": [0, 627], "canvas_px": [627, 627], "visible_bbox_px": [0, 0, 627, 627], "sha256": "f61ed3d3274032affcd6fca8dbb6f929c403dc2feb548a12d107e066bea1c69d"},
+      {"file": "boss-fragment-head.png", "cell_xy_px": [627, 627], "canvas_px": [627, 627], "visible_bbox_px": [0, 0, 607, 627], "sha256": "dbafb4af89d1fa5189b21beafecaa1a870bec319895ea1cce443de749a51a404"}
+    ]
+  },
+  "alpha_verification": "All delivered PNGs are RGBA with alpha range 0..255; transparent pixel ratios are recorded in the work report."
+}

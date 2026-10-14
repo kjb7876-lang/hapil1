@@ -1,0 +1,23 @@
+{
+  "scene": "dist02:post",
+  "title": "전투 후 남겨진 기억 · 늪지대의 뿔악마",
+  "approvedVersion": "Final user version: north summoning circle retained, entire Balrog-place sentence removed",
+  "displayApplied": true,
+  "originalSourceAndAudioPreserved": true,
+  "spokenEllipsis": "Natural pause; replacement spoken text contains no literal ellipsis and no added 그러하였다",
+  "displayTextSha256": "eb2ab3abe3cb8db5f9dde24e4caea54d86aafa6d7706e1ee093a7eb0140b1214",
+  "spokenTextSha256": "665c6e7f04b042dba2b65dbf6a50c4fd46c6acdedaef8c02ef2b4a8d66d25b71",
+  "generation": "blocked-before-model-receipt",
+  "packagesInstalled": ["torch==2.8.0+cpu", "torchaudio==2.8.0+cpu", "qwen-tts==0.1.1"],
+  "model": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+  "modelRevision": "5d83992436eae1d760afd27aff78a71d676296fc",
+  "normalRequest": "https://huggingface.co/api/models/Qwen/Qwen3-TTS-12Hz-0.6B-Base/revision/5d83992436eae1d760afd27aff78a71d676296fc",
+  "failure": "Tunnel connection failed: 403 Forbidden",
+  "denialBypassed": false,
+  "newAudioGenerated": false,
+  "newAudioConnected": false,
+  "actualPlaybackVerified": false,
+  "newTextOldAudioSuppressed": true,
+  "public9704Unchanged": true,
+  "deploymentReady": false
+}

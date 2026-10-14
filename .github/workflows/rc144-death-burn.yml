@@ -1,7 +1,7 @@
 name: RC144 confirmed death and ember VFX
 on:
   push:
-    branches: [main, codex/rc143-persona-mobile-cult, codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter]
+    branches: [main, codex/rc143-persona-mobile-cult, codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
     paths:
       - '.github/workflows/**'
       - 'qa/rc207/**'

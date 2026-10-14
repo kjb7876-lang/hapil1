@@ -1,0 +1,12 @@
+/* RC210: three independent authored Lust objects, never a combined bitmap. */
+(function(root){'use strict';
+ const owners=['b05-boss','mb-ep1b05'],parts=['lipstick','heart','heel'],paths=['./assets/rc24/lust-lipstick.png','./assets/rc210/lust-broken-heart.png','./assets/rc24/lust-heel.png'],n=(v,d=0)=>Number.isFinite(v)?v:d;
+ const frames=[[247,53,844,1135],[83,138,1087,996],[73,0,1122,1242]],sizes=[42,44,54],radii=[.42,.48,.55],turns=[.7,-.42,1.05];let serial=0;
+ function assets(a){const id=a?.rc135FissionIdentity??a?.rc133TemplateId??a?.id;return owners.includes(id)?paths:[];}
+ function owns(s,q){return Number.isInteger(q?.rc210LustPart)&&q.rc210LustPart>=0&&q.rc210LustPart<3&&paths[q.rc210LustPart]===q.sprite;}
+ function prepare(s,q){const a=(s?.enemies??[]).find(a=>a.id===(q?.sourceId??q?.ownerId)),id=a?.rc135FissionIdentity??a?.rc133TemplateId??a?.id??q?.sourceId;if(!owners.includes(id)||!q||q.friendly||q.reflected||q.visualOnly||q.laserV31330||q.bloodV31516||q.themeBombV31323||q.themePollutionV31323||Math.hypot(n(q.vx),n(q.vy))<.01)return q;if(q.rc210LustPart==null)q.rc210LustPart=serial++%3;const i=q.rc210LustPart,path=paths[i];q.lustKindRC24=parts[i];q.raidImageKeyRC24=path;q.sprite=q.fallbackSprite=path;q.rc137Owner=id;delete q.rc137SourceRect;
+  if(!q.rc210BulletBaseline)q.radius=radii[i];q.color=i===0?'#e9b947':'#fa315d';q.accent='#ffe4ed';q.rc210LustAngle??=Math.atan2(n(q.vy),n(q.vx));q.rc210LustReleaseAt??=Math.max(n(s.time),n(q.frozenUntil),n(q.motionReleaseAt31219),n(q.telegraphUntil31210));q.rc210LustLife=7;return q;}
+ function draw(ctx,cache,q,time,queue,project){if(!owns(null,q))return false;const i=q.rc210LustPart,im=queue(cache,paths[i],'eager');if(!im?.complete||!im.naturalWidth)return false;const [sx,sy,sw,sh]=frames[i],scale=sizes[i]/Math.max(sw,sh),p=project(q.x,q.y),age=Math.max(0,time-n(q.rc210LustReleaseAt,time));ctx.save();try{ctx.translate(p.x,p.y+n(q.visualYV31333,-18));ctx.rotate(q.rc210LustAngle+age*turns[i]);ctx.drawImage(im,sx,sy,sw,sh,-sw*scale/2,-sh*scale/2,sw*scale,sh*scale);}finally{ctx.restore();}return true;}
+ function expired(s,q){return owns(s,q)&&!q.friendly&&!q.reflected&&s.time>=Math.max(n(q.rc210LustReleaseAt),n(q.frozenUntil),n(q.motionReleaseAt31219),n(q.telegraphUntil31210),n(q.born))+7;}
+ root.__HAPIL_LUST_RC210__=Object.freeze({owners,parts,paths,frames,sizes,radii,turns,assets,owns,prepare,draw,expired});
+})(window);

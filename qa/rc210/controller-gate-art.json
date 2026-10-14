@@ -1,0 +1,34 @@
+{
+  "task": "u203-boss cosmic controller memory gate and control threads overlay",
+  "generation": "Actual ImageGen transparent PNG; final selection is the padded third composition. Boss remains the original source asset and is not included in this overlay.",
+  "references": [
+    {
+      "role": "original controller boss, style/context only",
+      "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/generated-v3125/boss-actions/controller_transition.webp",
+      "sha256": "09e3d6caea50be2595acccffeeca54d179f5e2b6929ede57a4ef3542a478cdba"
+    },
+    {
+      "role": "memory gate design",
+      "path": "/workspace/rc210-art/memory26-door.png",
+      "sha256": "7b92475bea91fca0ab301b65c0a8cf69beefc2219a4bafab2e5ee6a70bf7ccaf"
+    }
+  ],
+  "asset": {
+    "path": "controller-memory-gate.png",
+    "imagegen_receipt": "/workspace/generated_images/exec-6833c822-6d9e-4214-ae8b-8108f8600dc2.png",
+    "sha256": "ce3bfa2b39fc64d3f886fb286e1b836b7562728c8ab84005d49a91c9fbfb7fb8",
+    "bytes": 414247,
+    "dimensions": "1671x941",
+    "channels": "RGBA with transparency",
+    "alpha_bbox_nonzero": {
+      "xyxy_exclusive": [95, 96, 1625, 931],
+      "margins_left_right_top_bottom_px": [95, 46, 96, 10]
+    },
+    "main_art_bbox_alpha_gt_1": {
+      "xyxy_exclusive": [426, 143, 1251, 807],
+      "margins_left_right_top_bottom_px": [426, 420, 143, 134]
+    },
+    "visual_review": "Isolated ornate blackened-metal memory gate in silver-blue/violet tones with several crossing near-black puppet threads. No boss, person, face, body, limb, text, or background is visible. Main art has generous transparent padding; a few very low-alpha pixels extend beyond the main art bounds, especially near the bottom edge."
+  },
+  "application_note": "Intended for root to composite behind the existing controller boss and validate layer order, scale, and directional judgment in context."
+}

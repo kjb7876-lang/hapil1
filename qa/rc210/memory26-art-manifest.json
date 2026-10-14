@@ -1,0 +1,19 @@
+{
+  "task": "memory26 u204.pre — closed memory door",
+  "generation": "Actual ImageGen; single full-screen still, no synthetic compositing or post-processing.",
+  "reference": {
+    "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/maps/u2_01_observation.jpg",
+    "sha256": "1001026642cd8d5411fc14dfd9674c6781a85921e9ef1b62151b0857f22108a0",
+    "visual_reference": "Dark observation city, navy/charcoal palette, cold violet and silver-blue memory light, intricate gothic metalwork."
+  },
+  "asset": {
+    "path": "memory26-door.png",
+    "imagegen_receipt": "/workspace/generated_images/exec-b0bebacd-f96a-46e1-aa53-c9df818c181b.png",
+    "sha256": "7b92475bea91fca0ab301b65c0a8cf69beefc2219a4bafab2e5ee6a70bf7ccaf",
+    "bytes": 3757077,
+    "dimensions": "1672x941 (near 16:9)",
+    "channels": "RGB, opaque; no alpha channel",
+    "pixel_review": "Viewed the saved PNG. A cold blue-violet vertical seam is centered between columns 835 and 836 in a 1672 px-wide image. Closed, front-facing double door; no visible people, text, hinges, or handles. Left/right ornament is visually balanced; mirrored RGB MAE is 24.48/255 and exact mirrored pixel fraction is 0.0028, so it is not pixel-exact bilateral symmetry."
+  },
+  "application_note": "Suitable as one closed-door screen asset for root's left/right DOM split-and-slide reveal over the existing map; root should review the seam and visual motion in context."
+}
