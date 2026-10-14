@@ -72,5 +72,54 @@
     ],
     "fix": "<=260px landscape minimum top CSS gutter12 to8, extra world-space bitmap gutter8 to6; actual safe inset max remains enforced; ordinary viewports unchanged",
     "browserReplay": "pending final candidate CI"
+  },
+  "exactBrowserEvidence": {
+    "sha": "9d291c9462e4116a79973f49fba4bc8de1280825",
+    "nativeCombatOwners": 70,
+    "boundaryInput": [
+      {
+        "job": 115910272942,
+        "profile": "landscape",
+        "round": 2,
+        "passedAt": "2026-10-14T14:33:10.5314917Z",
+        "cases": 72,
+        "acceptedBlinks": 72
+      },
+      {
+        "job": 115910272982,
+        "profile": "landscape",
+        "round": 1,
+        "passedAt": "2026-10-14T14:36:14.5041235Z",
+        "cases": 72,
+        "acceptedBlinks": 72
+      },
+      {
+        "job": 115910273044,
+        "profile": "pc",
+        "round": 2,
+        "passedAt": "2026-10-14T14:36:39.3712322Z",
+        "cases": 72,
+        "acceptedBlinks": 72
+      }
+    ],
+    "scope": "actual Chrome sandboxed native input in staged combat/Persona states; not natural campaign, physical phone or direct screenshot review",
+    "laterWorkflowFailure": "RC137 art/admission missing pixel evidence for mb-ep1b01,b02-boss,mb-ep1b02,b03-boss,mb-ep1b03 (first5reported), and cross-owner bitmap duplicates; not waived",
+    "fullWorkflowPassed": false
+  },
+  "cpuBySha": {
+    "de6869b2181ff573c49553ba5947f81f80f6f452": "two74 passes executed; each failed exact source synchronization in two tests",
+    "b0310bd0c43869128076fefff9ec428419d22ab0": "failed incomplete fixture dependencies and manifest scoped-reason metadata; diagnostic round2 had changing worktree and is not exactSHA proof",
+    "9d291c9462e4116a79973f49fba4bc8de1280825": "74/74 passed twice on clean exact SHA",
+    "02e15ae66413c2c9b6e4ade28e6217e65d4f1e16": "74 executed twice, stale exact compact gutter and layout cache expectations failed; no guard weakened",
+    "c9e5c3fc15175b73f4673e15a8260990ab6b1bf5": "74/74 passed twice on clean exact SHA; test-only push did not trigger all12CI workflows"
+  },
+  "deliveryState": {
+    "main": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
+    "mainPagesChanged": false,
+    "finalExactShaCi": "normal push of this review record plus test rationale triggers existing path filters, no dispatch/permissions/runner changes",
+    "compactBrowserReplay": "still pending final all12 CI",
+    "directScreenshotPixels": "not inspected; normal binary transfer previously403, no retry or alternative route",
+    "hotelOriginal": "unreceived403; not substituted or connected",
+    "remainingArtAudit": "independent blocker, preserve strict pixel and duplicate-owner checks"
   }
 }
