@@ -1,0 +1,10 @@
+{
+  "base": "ea3b7de4448b50e963871632275e2741fa9ddbd2",
+  "failure": {"zone":"last304","actor":"l304-e1","nativeType":"ordinary slime","shots":6,"nativeAsset":"./assets/generated-v3128/projectiles/sleepless_soul.webp","incorrectOrnamentAllowedAsset":"./assets/props/v3100/signal_requiem_monument.webp"},
+  "rootCause":"Ornament prepare already admitted only explicit boss/midboss actors, but ornament assets exported a map-family pool for every actor. Provenance combined that false boss-only declaration with ranked classification and rejected an ordinary native-selected shot.",
+  "fix":"Scope ornament assets to actual boss/midboss producers exactly like prepare; no allowlist expansion and no ordinary sprite swap. Add independent browser equality against the actual current native theme-projectile selector for every ordinary actor and prohibit ornament tags on those packets.",
+  "cpu":"Reproduced false monument ownership, then verified six unchanged native LAST3 shots, no ordinary ornament ownership, exact native palette/selector, explicit owner-unmapped metadata, boss and midboss exact monument ownership and15-shot/3-ornament ratio. Twice before final regression.",
+  "native777Evidence":{"sha":"ea3b7de4448b50e963871632275e2741fa9ddbd2","job":115856281132,"status":"success","timeUTC":"2026-10-14 12:47:40","rounds":2,"each":{"defeats":1,"duplicateRewardsUnchanged":true,"active":true,"transformed":true,"visitSerial":"1","cutInBefore":0,"cutInAfter":1,"cutInAfterRepeatedFrame":1},"scope":"Actual developerStart/damage/native cleanup/automatic frame village handoff with HP1 and consumed revival fixture; not unassisted natural campaign or physical device"},
+  "preservation":"Original PNG/audio/prose/saves/StoryWorld and previous candidates/artifacts unchanged. Native inner-final and EGO modules unchanged. Normal SHA-scoped automatic CI only; no manual dispatch or denied access retry.",
+  "deployment":false
+}

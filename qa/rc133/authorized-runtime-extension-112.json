@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "ea3b7de4448b50e963871632275e2741fa9ddbd2",
+  "baseTree": "e74e123ecb67f56e7657172ac4cdb525e0caf93f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "7a2e65ad12bcc0b7b535d2a03099a5f2882df5e3c57697b3f1e7765e18f7ed6a",
+  "files": [
+    {
+      "file": "assets/rc210/ornaments.js",
+      "reason": "assets/rc210/ornaments.js: approved l304-e1 root fix: report story ornament assets only for actual boss/midboss producers; ordinary mobs keep exact native theme selector, with independent strict browser equality check. No widened allowlist, new art, ordinary projectile swap, combat/save/777/StoryWorld change; cache invalidation only.",
+      "before": {
+        "file": "assets/rc210/ornaments.js",
+        "mode": "100644",
+        "gitBlob": "43288fd4e6b1d964f8f1ff0ef30d236c3acb1e30"
+      },
+      "after": {
+        "file": "assets/rc210/ornaments.js",
+        "mode": "100644",
+        "gitBlob": "f5231ede3000aed9790a54a7a818f1ac9f8c4cb8",
+        "sha256": "e7051a37f9aafb3a0d7beb613123ed8f93be95a158514d98a444b554b1060dfc"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: approved l304-e1 root fix: report story ornament assets only for actual boss/midboss producers; ordinary mobs keep exact native theme selector, with independent strict browser equality check. No widened allowlist, new art, ordinary projectile swap, combat/save/777/StoryWorld change; cache invalidation only.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7e4e5d6b334b5f27b61dca056171d8b7f41b1db8"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "31e77dcf8041aca95746bd0cd5a1555709b7d043",
+        "sha256": "b7d32573c7a8308e838ba39b264da32d0a94af524a5231f7a5f7d7cce5aab8e0"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "d43605515b6b3fae45e24a90345c57dd3dd93194a9781f60147360442f3c9597"
+}
