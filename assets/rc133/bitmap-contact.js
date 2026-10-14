@@ -83,6 +83,7 @@
    const foot=project(a.x,a.y),pad=root.__HAPIL_COMBAT_LAYOUT_RC153__?.envelopePadding?.()??28,old=envelopes.get(key);if(old)return{left:foot.x+old.left,right:foot.x+old.right,top:foot.y+old.top,bottom:foot.y+old.bottom,nativePaint:true,padding:pad};
    const clone={...a,hitUntil:0,hitFlashUntil:0,rc156EnvelopeProbe:unscaled},rows=measure(s,clone,isHero?heroDraw:enemyDraw,true);
    if(!isHero)rows.push(...measure(s,{...clone,attackAt:s.time+2,recoverUntil:s.time+2},enemyDraw,true));
+   if(!isHero&&(a.boss||a.midboss)&&root.__HAPIL_BOSS_FACING_RC206__)for(const facing of [-1,1])rows.push(...measure(s,{...clone,rc206FacingProbe:facing},enemyDraw,true));
    if(isHero&&!ego&&(a.activeHeroId??a.heroId)==='slayer'&&root.__HAPIL_SLAYER_RIG_RC204__)for(const sector of ['n','ne','e','se','s','sw','w','nw'])for(const progress of [0,.125,.25,.375,.5,.62,.75,.875,1])rows.push(...measure(s,{...clone,heroMotion:{kind:'attack',characterCommitV31342:{sector},started:s.time-progress,until:s.time+1-progress}},heroDraw,true));
    if(ego)for(const kind of ['move','attack'])for(const [dx,dy]of [[1,-1],[1,1],[-1,1],[-1,-1],[0,-1],[1,0],[0,1],[-1,0]])rows.push(...measure(s,{...clone,heroMotion:{kind,started:s.time,until:s.time+1,dx,dy,phase:1000}},heroDraw,true));
    if(!rows.length)return null;

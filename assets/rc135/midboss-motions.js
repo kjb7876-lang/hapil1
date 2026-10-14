@@ -17,7 +17,7 @@
   const image=queue(cache,path,'eager');if(!image?.complete||!image.naturalWidth)return false;
   const [sx,sy,sw,sh]=frame.sourceRect,[px,py]=frame.pivot,scale=size/entry.baseHeight,point=project(actor.x,actor.y);
   ctx.save();try{
-   ctx.globalAlpha*=transform?.alpha??1;ctx.translate(point.x,point.y);ctx.scale(Number(transform?.scaleX)<0?-1:1,1);
+   ctx.globalAlpha*=transform?.alpha??1;ctx.translate(point.x,point.y);ctx.scale(window.__HAPIL_BOSS_FACING_RC206__?.motionScale(entry,key,transform)??(Number(transform?.scaleX)<0?-1:1),1);
    if(transform?.hit)ctx.filter='brightness(1.3) saturate(1.1)';
    ctx.drawImage(image,sx,sy,sw,sh,-px*scale,-py*scale,sw*scale,sh*scale);
   }finally{ctx.restore();}

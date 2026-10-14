@@ -33,7 +33,7 @@
    root.__HAPIL_ORTHOGONAL_RC201__?.arm(s,(s.enemies??[]).find(a=>a.id===ordered[0].sourceId),ordered);
    ordered.forEach((q,i)=>{q.rc153OriginalAngle=angle(q);q.rc153ScatterCount=ordered.length;lock(q);q.danmakuAngleV31316=q.rc153ScatterAngle;if(q.danmakuAimV31316!=null)q.danmakuOffsetV31316=delta(q.rc153ScatterAngle,q.danmakuAimV31316);if(q.cosmicAngleV31318!=null)q.cosmicAngleV31318=q.rc153ScatterAngle;});
    stats.groups++;stats.shots+=ordered.length;stats.owners[qs[0].sourceId]=(stats.owners[qs[0].sourceId]??0)+1;const key=qs[0].rc133Skill??qs[0].danmakuPatternIdV31372??qs[0].densePattern3129??'native';stats.patterns[key]=(stats.patterns[key]??0)+1;
-  }
+  }  root.__HAPIL_COMBAT_REPAIR_RC206__?.serial(s);
  }
  const basicMemory=new WeakMap(),basicPlans=new WeakMap();
  const basicProfiles=Object.freeze({

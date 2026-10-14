@@ -1,0 +1,1537 @@
+[
+  {
+    "id": "mb-dist01",
+    "name": "보라검천사",
+    "zone": "dist01",
+    "mechanic": "chain",
+    "rc196Style": "blade",
+    "actor": {
+      "zone": "dist01",
+      "id": "mb-dist01",
+      "kind": "corruptedGuardian",
+      "name": "보라검 천사",
+      "x": 11,
+      "y": 10,
+      "hp": 360,
+      "sprite": "./assets/episode1a/corrupted_guardian.webp",
+      "facing": -1,
+      "eliteName": "거미동굴의 검광",
+      "midboss": true,
+      "patternSet": "dist01",
+      "scale": 1.08
+    }
+  },
+  {
+    "id": "mb-dist02",
+    "name": "늪의 뿔악마 군주",
+    "zone": "dist02",
+    "mechanic": "contamination",
+    "rc196Style": "root",
+    "actor": {
+      "zone": "dist02",
+      "id": "mb-dist02",
+      "kind": "hornDemon",
+      "name": "늪의 뿔악마 군주",
+      "x": 11,
+      "y": 10,
+      "hp": 390,
+      "sprite": "./assets/episode1a/horned_swamp_demon.webp",
+      "facing": -1,
+      "eliteName": "독수렁 지배",
+      "midboss": true,
+      "patternSet": "dist02",
+      "scale": 1.12
+    }
+  },
+  {
+    "id": "mb-dist03",
+    "name": "핏빛 수호로 추격자",
+    "zone": "dist03",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "zone": "dist03",
+      "id": "mb-dist03",
+      "kind": "corruptedGuardian",
+      "name": "핏빛 수호로 추격자",
+      "x": 11,
+      "y": 10,
+      "hp": 420,
+      "sprite": "./assets/dist/generated-v393/dist_blood_guardian_pursuer.webp",
+      "facing": -1,
+      "eliteName": "동료 호명",
+      "midboss": true,
+      "patternSet": "dist03",
+      "scale": 1.12
+    }
+  },
+  {
+    "id": "mb-dist04",
+    "name": "첫 동료의 악마잔영",
+    "zone": "dist04",
+    "mechanic": "chain",
+    "rc196Style": "mirror",
+    "actor": {
+      "zone": "dist04",
+      "id": "mb-dist04",
+      "kind": "corruptedGuardian",
+      "name": "첫 동료의 악마잔영",
+      "x": 11,
+      "y": 10,
+      "hp": 450,
+      "sprite": "./assets/dist/generated-v393/dist_fallen_comrade_demon_echo.webp",
+      "facing": -1,
+      "eliteName": "두 번째 죽음",
+      "midboss": true,
+      "patternSet": "dist04",
+      "scale": 1.15
+    }
+  },
+  {
+    "id": "mb-dist05",
+    "name": "숨이 끊긴 전령의 그림자",
+    "zone": "dist05",
+    "mechanic": "detonation",
+    "rc196Style": "memory",
+    "actor": {
+      "zone": "dist05",
+      "id": "mb-dist05",
+      "kind": "specter",
+      "name": "숨이 끊긴 전령의 그림자",
+      "x": 11,
+      "y": 10,
+      "hp": 470,
+      "sprite": "./assets/dist/generated-v393/dist_dying_messenger_shadow.webp",
+      "facing": -1,
+      "eliteName": "마지막 유언",
+      "midboss": true,
+      "patternSet": "dist05",
+      "scale": 1.16
+    }
+  },
+  {
+    "id": "dist06-boss",
+    "name": "발록 · 지옥의 문지기",
+    "zone": "dist06",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "dist06-boss",
+      "kind": "balrog",
+      "name": "발록 · 지옥의 문지기",
+      "x": 15,
+      "y": 14,
+      "hp": 720,
+      "sprite": "./assets/episode1a/balrog_gatekeeper.webp",
+      "facing": -1,
+      "eliteName": "포기하면 편하다",
+      "boss": true
+    }
+  },
+  {
+    "id": "mb-dist06",
+    "name": "소환진 검은기둥",
+    "zone": "dist06",
+    "mechanic": "detonation",
+    "rc196Style": "blade",
+    "actor": {
+      "zone": "dist06",
+      "id": "mb-dist06",
+      "kind": "mage",
+      "name": "소환진 검은기둥",
+      "x": 10,
+      "y": 9,
+      "hp": 500,
+      "sprite": "./assets/dist/generated-v393/dist_summoning_black_pillar.webp",
+      "facing": -1,
+      "eliteName": "지옥문 개방",
+      "midboss": true,
+      "patternSet": "dist06",
+      "scale": 1.18
+    }
+  },
+  {
+    "id": "mb-ep1a07",
+    "name": "무의 기억포식자",
+    "zone": "ep1a07",
+    "mechanic": "contamination",
+    "rc196Style": "hunger",
+    "actor": {
+      "zone": "ep1a07",
+      "id": "mb-ep1a07",
+      "kind": "void",
+      "name": "무의 기억포식자",
+      "x": 11,
+      "y": 10,
+      "hp": 510,
+      "sprite": "./assets/episode1a/generated-v393/ep1a_void_memory_devourer.webp",
+      "facing": -1,
+      "eliteName": "이름 소거",
+      "midboss": true,
+      "patternSet": "ep1a07",
+      "scale": 1.18
+    }
+  },
+  {
+    "id": "mb-ep1a08",
+    "name": "백의 안정화 감독",
+    "zone": "ep1a08",
+    "mechanic": "chain",
+    "rc196Style": "web",
+    "actor": {
+      "zone": "ep1a08",
+      "id": "mb-ep1a08",
+      "kind": "orderly",
+      "name": "백의 안정화 감독",
+      "x": 11,
+      "y": 10,
+      "hp": 520,
+      "sprite": "./assets/episode1a/generated-v393/ep1a_stabilization_supervisor.webp",
+      "facing": -1,
+      "eliteName": "현실 왜곡",
+      "midboss": true,
+      "patternSet": "ep1a08",
+      "scale": 1.15
+    }
+  },
+  {
+    "id": "mb-ep1a09",
+    "name": "갈망의 주사실 감시핵",
+    "zone": "ep1a09",
+    "mechanic": "contamination",
+    "rc196Style": "hunger",
+    "actor": {
+      "zone": "ep1a09",
+      "id": "mb-ep1a09",
+      "kind": "void",
+      "name": "갈망의 주사실 감시핵",
+      "x": 11,
+      "y": 10,
+      "hp": 540,
+      "sprite": "./assets/episode1a/generated-v393/ep1a_craving_injection_watcher.webp",
+      "facing": -1,
+      "eliteName": "금단 재구성",
+      "midboss": true,
+      "patternSet": "ep1a09",
+      "scale": 1.2
+    }
+  },
+  {
+    "id": "mb-ep1a10",
+    "name": "오만의 폐허핵",
+    "zone": "ep1a10",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "zone": "ep1a10",
+      "id": "mb-ep1a10",
+      "kind": "hornDemon",
+      "name": "오만의 폐허핵",
+      "x": 11,
+      "y": 10,
+      "hp": 560,
+      "sprite": "./assets/episode1a/generated-v393/ep1a_pride_ruin_core.webp",
+      "facing": -1,
+      "eliteName": "도움 거부",
+      "midboss": true,
+      "patternSet": "ep1a10",
+      "scale": 1.18
+    }
+  },
+  {
+    "id": "a11-boss",
+    "name": "루시퍼 · 가면 벗은 초천사",
+    "zone": "ep1a11",
+    "mechanic": "detonation",
+    "rc196Style": "wing",
+    "actor": {
+      "id": "a11-boss",
+      "kind": "lucifer",
+      "name": "루시퍼 · 가면 벗은 초천사",
+      "x": 15,
+      "y": 14,
+      "hp": 980,
+      "sprite": "./assets/episode1a/lucifer_unmasked.webp",
+      "facing": -1,
+      "eliteName": "회복을 두려워하는 자",
+      "boss": true
+    }
+  },
+  {
+    "id": "mb-ep1a11",
+    "name": "초천사의 웃는 가면",
+    "zone": "ep1a11",
+    "mechanic": "detonation",
+    "rc196Style": "wing",
+    "actor": {
+      "zone": "ep1a11",
+      "id": "mb-ep1a11",
+      "kind": "corruptedGuardian",
+      "name": "초천사의 웃는 가면",
+      "x": 10,
+      "y": 9,
+      "hp": 590,
+      "sprite": "./assets/episode1a/generated-v393/ep1a_false_archangel_smiling_mask.webp",
+      "facing": -1,
+      "eliteName": "666의 균열",
+      "midboss": true,
+      "patternSet": "ep1a11",
+      "scale": 1.22
+    }
+  },
+  {
+    "id": "mb-ep1b01",
+    "name": "교만의 잔향 · 제72문",
+    "zone": "ep1b01",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "zone": "ep1b01",
+      "id": "mb-ep1b01",
+      "kind": "commandBoss",
+      "name": "교만의 잔향 · 제72문",
+      "x": 11,
+      "y": 10,
+      "hp": 720,
+      "sprite": "./assets/episode1b/generated-v393/gate72_pride_echo.webp",
+      "facing": -1,
+      "eliteName": "현실 독점",
+      "midboss": true,
+      "patternSet": "ep1b01",
+      "scale": 1.16,
+      "humanPhase0": true,
+      "narrativeMultiPhase": true,
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v393/gate72_pride_echo.webp",
+        "./assets/episode1b/generated-v394/seal_residual.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v393/gate72_pride_echo.webp",
+        "./assets/episode1b/generated-v394/seal_residual.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp"
+      ],
+      "phaseNames": [
+        "루시퍼의 얼굴을 한 악마",
+        "봉인식의 악마",
+        "나를 흠낸 제72문"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.92,
+        1.02,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "b02-boss",
+    "name": "나태에 잠식된 남자",
+    "zone": "ep1b02",
+    "mechanic": "contamination",
+    "rc196Style": "clock",
+    "actor": {
+      "id": "b02-boss",
+      "kind": "commandBoss",
+      "name": "나태에 잠식된 남자",
+      "x": 15,
+      "y": 14,
+      "hp": 900,
+      "sprite": "./assets/episode1b/boss_sloth_human.webp",
+      "facing": -1,
+      "eliteName": "꺼져! 그냥 내버려 둬!",
+      "boss": true,
+      "patternSet": "ep1b02",
+      "scale": 1.34,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b02_sloth_man_phase0.webp",
+        "./assets/episode1b/boss_sloth_human.webp",
+        "./assets/episode1b/boss_sloth_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_sloth_human.webp",
+        "./assets/episode1b/generated-v394/boss_sloth_human.webp",
+        "./assets/episode1b/generated-v394/boss_sloth_demon.webp"
+      ],
+      "phaseNames": [
+        "낡은 민소매를 걸친 남자",
+        "쓰레기 산의 반인반요",
+        "나태의 악마 벨페고르"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.82,
+        0.94,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b02",
+    "name": "나태의 껍데기 파수",
+    "zone": "ep1b02",
+    "mechanic": "contamination",
+    "rc196Style": "clock",
+    "actor": {
+      "zone": "ep1b02",
+      "id": "mb-ep1b02",
+      "kind": "hornDemon",
+      "name": "나태의 껍데기 파수",
+      "x": 11,
+      "y": 10,
+      "hp": 470,
+      "sprite": "./assets/episode1b/generated-v393/sloth_shell_sentinel.webp",
+      "facing": -1,
+      "eliteName": "무기력 껍데기",
+      "midboss": true,
+      "patternSet": "ep1b02",
+      "scale": 1.18
+    }
+  },
+  {
+    "id": "b03-boss",
+    "name": "호텔 부매니저 · 레비아탄",
+    "zone": "ep1b03",
+    "mechanic": "detonation",
+    "rc196Style": "mirror",
+    "actor": {
+      "id": "b03-boss",
+      "kind": "connector",
+      "name": "호텔 부매니저 · 레비아탄",
+      "x": 15,
+      "y": 14,
+      "hp": 940,
+      "sprite": "./assets/episode1b/boss_envy_human.webp",
+      "facing": -1,
+      "eliteName": "왜 모든 걸 가진 건데?",
+      "boss": true,
+      "patternSet": "ep1b03",
+      "scale": 1.3,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b03_envy_sister_phase0.webp",
+        "./assets/episode1b/boss_envy_human.webp",
+        "./assets/episode1b/boss_envy_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_envy_human.webp",
+        "./assets/episode1b/generated-v394/boss_envy_human.webp",
+        "./assets/episode1b/generated-v394/boss_envy_demon.webp"
+      ],
+      "phaseNames": [
+        "금이 간 안경을 쓴 부매니저",
+        "칼과 불붙은 볼펜의 환영",
+        "질투의 귀 레비아탄"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.94,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b03",
+    "name": "금이 간 비교잔영",
+    "zone": "ep1b03",
+    "mechanic": "detonation",
+    "rc196Style": "mirror",
+    "actor": {
+      "zone": "ep1b03",
+      "id": "mb-ep1b03",
+      "kind": "connector",
+      "name": "금이 간 비교잔영",
+      "x": 11,
+      "y": 10,
+      "hp": 490,
+      "sprite": "./assets/episode1b/generated-v393/cracked_comparison_echo.webp",
+      "facing": -1,
+      "eliteName": "비교의 뱀",
+      "midboss": true,
+      "patternSet": "ep1b03",
+      "scale": 1.14
+    }
+  },
+  {
+    "id": "b04-boss",
+    "name": "최고급 호텔의 총주방장 · 탐식의 귀 베엘제붑",
+    "zone": "ep1b04",
+    "mechanic": "contamination",
+    "rc196Style": "hunger",
+    "actor": {
+      "id": "b04-boss",
+      "kind": "hornDemon",
+      "name": "최고급 호텔의 총주방장 · 탐식의 귀 베엘제붑",
+      "x": 15,
+      "y": 14,
+      "hp": 980,
+      "sprite": "./assets/episode1b/boss_gluttony_human.webp",
+      "facing": -1,
+      "eliteName": "최고가 아니면 쓰레기일뿐.",
+      "boss": true,
+      "patternSet": "ep1b04",
+      "scale": 1.36,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b04_glutton_head_chef_phase0.webp",
+        "./assets/episode1b/boss_gluttony_human.webp",
+        "./assets/episode1b/boss_gluttony_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_gluttony_human.webp",
+        "./assets/episode1b/generated-v394/boss_gluttony_human.webp",
+        "./assets/episode1b/generated-v394/boss_gluttony_demon.webp"
+      ],
+      "phaseNames": [
+        "칼을 든 최고급 호텔의 총주방장",
+        "더러운 요리사 모자의 탐식체",
+        "탐식의 귀 베엘제붑"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.96,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b04",
+    "name": "폐기주방 감독",
+    "zone": "ep1b04",
+    "mechanic": "contamination",
+    "rc196Style": "hunger",
+    "actor": {
+      "zone": "ep1b04",
+      "id": "mb-ep1b04",
+      "kind": "hornDemon",
+      "name": "폐기주방 감독",
+      "x": 11,
+      "y": 10,
+      "hp": 520,
+      "sprite": "./assets/episode1b/generated-v393/discarded_kitchen_overseer.webp",
+      "facing": -1,
+      "eliteName": "완벽 포식",
+      "midboss": true,
+      "patternSet": "ep1b04",
+      "scale": 1.2
+    }
+  },
+  {
+    "id": "b05-boss",
+    "name": "붉은 하이힐의 서윤",
+    "zone": "ep1b05",
+    "mechanic": "chain",
+    "rc196Style": "petal",
+    "actor": {
+      "id": "b05-boss",
+      "kind": "corruptedGuardian",
+      "name": "붉은 하이힐의 서윤",
+      "x": 15,
+      "y": 14,
+      "hp": 1020,
+      "sprite": "./assets/episode1b/boss_lust_human.webp",
+      "facing": -1,
+      "eliteName": "사랑은 원래 그런 거야.",
+      "boss": true,
+      "patternSet": "ep1b05",
+      "scale": 1.34,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b05_lust_seoyun_puppet_phase0.webp",
+        "./assets/episode1b/boss_lust_human.webp",
+        "./assets/episode1b/boss_lust_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_lust_human.webp",
+        "./assets/episode1b/generated-v394/boss_lust_human.webp",
+        "./assets/episode1b/generated-v394/boss_lust_demon.webp"
+      ],
+      "phaseNames": [
+        "흰 셔츠와 검은 스커트의 서윤",
+        "총지배인이 조종하는 인간 꼭두각시",
+        "색욕의 귀 아스모데우스"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.82,
+        0.94,
+        1.08
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b05",
+    "name": "심장빛 무대감독",
+    "zone": "ep1b05",
+    "mechanic": "chain",
+    "rc196Style": "petal",
+    "actor": {
+      "zone": "ep1b05",
+      "id": "mb-ep1b05",
+      "kind": "corruptedGuardian",
+      "name": "심장빛 무대감독",
+      "x": 11,
+      "y": 10,
+      "hp": 540,
+      "sprite": "./assets/episode1b/generated-v393/heartlight_stage_director.webp",
+      "facing": -1,
+      "eliteName": "선택권 탈취",
+      "midboss": true,
+      "patternSet": "ep1b05",
+      "scale": 1.16
+    }
+  },
+  {
+    "id": "b06-boss",
+    "name": "회장에게 고용된 총지배인 · 맘몬",
+    "zone": "ep1b06",
+    "mechanic": "detonation",
+    "rc196Style": "ledger",
+    "actor": {
+      "id": "b06-boss",
+      "kind": "hotelClerk",
+      "name": "회장에게 고용된 총지배인 · 맘몬",
+      "x": 15,
+      "y": 14,
+      "hp": 880,
+      "sprite": "./assets/episode1b/boss_greed_human.webp",
+      "facing": -1,
+      "eliteName": "사람에게는 가격이 있다.",
+      "boss": true,
+      "patternSet": "ep1b06",
+      "scale": 1.28,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b06_greed_general_manager_phase0.webp",
+        "./assets/episode1b/boss_greed_human.webp",
+        "./assets/episode1b/boss_greed_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_demon.webp"
+      ],
+      "phaseNames": [
+        "여우 눈의 회장 직속 총지배인",
+        "총지배인과 똑같은 얼굴의 탐욕",
+        "탐욕의 귀 맘몬"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.96,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b06",
+    "name": "금고 장부감시자",
+    "zone": "ep1b06",
+    "mechanic": "detonation",
+    "rc196Style": "ledger",
+    "actor": {
+      "zone": "ep1b06",
+      "id": "mb-ep1b06",
+      "kind": "hotelClerk",
+      "name": "금고 장부감시자",
+      "x": 11,
+      "y": 10,
+      "hp": 560,
+      "sprite": "./assets/episode1b/generated-v393/vault_ledger_watcher.webp",
+      "facing": -1,
+      "eliteName": "조작된 행운",
+      "midboss": true,
+      "patternSet": "ep1b06",
+      "scale": 1.16
+    }
+  },
+  {
+    "id": "b06b-boss",
+    "name": "소년이 된 총지배인 · 맘몬",
+    "zone": "ep1b06b",
+    "mechanic": "detonation",
+    "rc196Style": "root",
+    "actor": {
+      "id": "b06b-boss",
+      "kind": "commandBoss",
+      "name": "소년이 된 총지배인 · 맘몬",
+      "x": 15,
+      "y": 14,
+      "hp": 1080,
+      "sprite": "./assets/episode1b/boss_greed_demon.webp",
+      "facing": -1,
+      "eliteName": "돈이 없어서 엄마가 죽었어!",
+      "boss": true,
+      "patternSet": "ep1b06b",
+      "scale": 1.4,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b06b_greed_child_phase0.webp",
+        "./assets/episode1b/boss_greed_human.webp",
+        "./assets/episode1b/boss_greed_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_demon.webp"
+      ],
+      "phaseNames": [
+        "겨울 숲에 홀로 남은 소년",
+        "사탕과 요요의 가시 환영",
+        "거대한 여우 꼬리의 맘몬"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.78,
+        0.94,
+        1.14
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b06b",
+    "name": "겨울숲 가시파수",
+    "zone": "ep1b06b",
+    "mechanic": "detonation",
+    "rc196Style": "root",
+    "actor": {
+      "zone": "ep1b06b",
+      "id": "mb-ep1b06b",
+      "kind": "tank",
+      "name": "겨울숲 가시파수",
+      "x": 11,
+      "y": 10,
+      "hp": 590,
+      "sprite": "./assets/episode1b/generated-v393/molten_vault_sentinel.webp",
+      "facing": -1,
+      "eliteName": "결핍 가시",
+      "midboss": true,
+      "patternSet": "ep1b06b",
+      "scale": 1.2
+    }
+  },
+  {
+    "id": "b07-boss",
+    "name": "불을 지른 청소부 · 사탄",
+    "zone": "ep1b07",
+    "mechanic": "detonation",
+    "rc196Style": "flame",
+    "actor": {
+      "id": "b07-boss",
+      "kind": "balrog",
+      "name": "불을 지른 청소부 · 사탄",
+      "x": 15,
+      "y": 14,
+      "hp": 1080,
+      "sprite": "./assets/episode1b/boss_wrath_human.webp",
+      "facing": -1,
+      "eliteName": "이미 늦었어.",
+      "boss": true,
+      "patternSet": "ep1b07",
+      "scale": 1.36,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b07_wrath_janitor_phase0.webp",
+        "./assets/episode1b/boss_wrath_human.webp",
+        "./assets/episode1b/boss_wrath_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_wrath_human.webp",
+        "./assets/episode1b/generated-v394/boss_wrath_human.webp",
+        "./assets/episode1b/generated-v394/boss_wrath_demon.webp"
+      ],
+      "phaseNames": [
+        "눈이 붉어진 호텔 청소부",
+        "분노의 귀가 등에 올라탄 청소부",
+        "분노의 귀 사탄"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.96,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b07",
+    "name": "호텔 화염기사",
+    "zone": "ep1b07",
+    "mechanic": "detonation",
+    "rc196Style": "flame",
+    "actor": {
+      "zone": "ep1b07",
+      "id": "mb-ep1b07",
+      "kind": "balrog",
+      "name": "호텔 화염기사",
+      "x": 11,
+      "y": 10,
+      "hp": 610,
+      "sprite": "./assets/episode1b/generated-v393/hotel_flame_knight.webp",
+      "facing": -1,
+      "eliteName": "전부 소각",
+      "midboss": true,
+      "patternSet": "ep1b07",
+      "scale": 1.2
+    }
+  },
+  {
+    "id": "b08-boss",
+    "name": "백색 정장의 호텔 그룹 회장",
+    "zone": "ep1b08",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "b08-boss",
+      "kind": "commandBoss",
+      "name": "백색 정장의 호텔 그룹 회장",
+      "x": 15,
+      "y": 14,
+      "hp": 1220,
+      "sprite": "./assets/episode1b/boss_pride_human.webp",
+      "facing": -1,
+      "eliteName": "즉, 나는 신이다.",
+      "boss": true,
+      "patternSet": "ep1b08",
+      "scale": 1.4,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 4,
+      "phaseMax": 3,
+      "phaseThresholds": [
+        0.78,
+        0.56,
+        0.31
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b08_pride_chairman_phase0.webp",
+        "./assets/episode1b/boss_pride_human.webp",
+        "./assets/episode1b/seal_residual.webp",
+        "./assets/episode1b/boss_pride_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp"
+      ],
+      "phaseNames": [
+        "백색 정장을 입은 백발의 회장",
+        "몽세 속의 몽세를 연 회장",
+        "거꾸로 세워진 십자가의 제단",
+        "일곱 번째 귀 루시퍼"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.86,
+        0.98,
+        1.06,
+        1.14
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b08",
+    "name": "역십자가 시체경호체",
+    "zone": "ep1b08",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "zone": "ep1b08",
+      "id": "mb-ep1b08",
+      "kind": "tank",
+      "name": "역십자가 시체경호체",
+      "x": 10,
+      "y": 9,
+      "hp": 640,
+      "sprite": "./assets/episode1b/generated-v3102/ep1b08_pride_zombie.webp",
+      "facing": -1,
+      "eliteName": "현실 전도",
+      "midboss": true,
+      "patternSet": "ep1b08",
+      "scale": 1.2
+    }
+  },
+  {
+    "id": "b09-boss",
+    "name": "사이보그 회장 · 생체 부트로더",
+    "zone": "ep1b09",
+    "mechanic": "detonation",
+    "rc196Style": "signal",
+    "actor": {
+      "id": "b09-boss",
+      "kind": "commandBoss",
+      "name": "사이보그 회장 · 생체 부트로더",
+      "x": 15,
+      "y": 14,
+      "hp": 1380,
+      "sprite": "./assets/episode1b/boss_pride_cyborg.webp",
+      "facing": -1,
+      "eliteName": "인간은 반복의 동물이다.",
+      "boss": true,
+      "patternSet": "final-ep1b",
+      "scale": 1.46,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 4,
+      "phaseMax": 3,
+      "phaseThresholds": [
+        0.78,
+        0.52,
+        0.26
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b09_biobootloader_chairman_phase0.webp",
+        "./assets/episode1b/boss_pride_human.webp",
+        "./assets/episode1b/boss_pride_demon.webp",
+        "./assets/episode1b/boss_pride_cyborg.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp",
+        "./assets/episode1b/generated-v394/boss_pride_cyborg.webp"
+      ],
+      "phaseNames": [
+        "인간의 상반신을 남긴 사이보그 회장",
+        "수백 화면의 회장 얼굴",
+        "가짜 동료를 복제하는 연산핵",
+        "현몽합일의 생체 부트로더"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.88,
+        0.98,
+        1.1,
+        1.18
+      ]
+    }
+  },
+  {
+    "id": "mb-ep1b09",
+    "name": "생체부트로더 연산핵",
+    "zone": "ep1b09",
+    "mechanic": "detonation",
+    "rc196Style": "signal",
+    "actor": {
+      "zone": "ep1b09",
+      "id": "mb-ep1b09",
+      "kind": "void",
+      "name": "생체부트로더 연산핵",
+      "x": 10,
+      "y": 9,
+      "hp": 680,
+      "sprite": "./assets/episode1b/generated-v393/ascension_calculation_orb.webp",
+      "facing": -1,
+      "eliteName": "입력 복제",
+      "midboss": true,
+      "patternSet": "ep1b09",
+      "scale": 1.22
+    }
+  },
+  {
+    "id": "u201-mid",
+    "name": "제4단계 전쟁관리자",
+    "zone": "u201",
+    "mechanic": "detonation",
+    "rc196Style": "judgment",
+    "actor": null
+  },
+  {
+    "id": "u202-mid",
+    "name": "제8단계 자비 교정관",
+    "zone": "u202",
+    "mechanic": "detonation",
+    "rc196Style": "judgment",
+    "actor": null
+  },
+  {
+    "id": "u203-mid",
+    "name": "기억의 문 수호 프레임",
+    "zone": "u203",
+    "mechanic": "detonation",
+    "rc196Style": "memory",
+    "actor": null
+  },
+  {
+    "id": "u203-boss",
+    "name": "컨트롤러 · 기억의 문",
+    "zone": "u203",
+    "mechanic": "detonation",
+    "rc196Style": "memory",
+    "actor": {
+      "id": "u203-boss",
+      "kind": "commandBoss",
+      "name": "컨트롤러 · 단일호명 프레임",
+      "x": 15,
+      "y": 14,
+      "hp": 900,
+      "sprite": "./assets/u2/generated-v350/u2_mirror_priest.webp",
+      "facing": -1,
+      "eliteName": "도시 단일호명",
+      "boss": true,
+      "patternSet": "final-u2",
+      "scale": 1.36,
+      "phaseCount": 2,
+      "phaseSprites": [
+        "./assets/u2/generated-v350/u2_mirror_priest.webp",
+        "./assets/u2/generated-v350/u2_suppression_knight.webp"
+      ],
+      "phaseNames": [
+        "컨트롤러의 인간형 제사장",
+        "단일호명 최종프레임"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.98,
+        1.12
+      ]
+    }
+  },
+  {
+    "id": "l301-boss",
+    "name": "타락천사 기사",
+    "zone": "last301",
+    "mechanic": "detonation",
+    "rc196Style": "blade",
+    "actor": {
+      "id": "l301-boss",
+      "kind": "fallen",
+      "name": "타락천사 기사",
+      "x": 15,
+      "y": 14,
+      "hp": 620,
+      "sprite": "./assets/last3/Monster_FallenAngelKnight_Base.png",
+      "facing": -1,
+      "eliteName": "검로 학습",
+      "boss": true
+    }
+  },
+  {
+    "id": "mb-last302-v31231",
+    "name": "검은 안개 심장 · 불면의 기억",
+    "zone": "last302",
+    "mechanic": "contamination",
+    "rc196Style": "petal",
+    "actor": null
+  },
+  {
+    "id": "l303-boss",
+    "name": "불면귀",
+    "zone": "last303",
+    "mechanic": "contamination",
+    "rc196Style": "memory",
+    "actor": {
+      "id": "l303-boss",
+      "kind": "specter",
+      "name": "불면귀",
+      "x": 15,
+      "y": 14,
+      "hp": 720,
+      "sprite": "./assets/last3/Bulmyeongwi_A.png",
+      "facing": -1,
+      "eliteName": "불면의 시선",
+      "boss": true
+    }
+  },
+  {
+    "id": "mb-kair01-v31231",
+    "name": "최초명령 코어 오염체",
+    "zone": "kair01",
+    "mechanic": "chain",
+    "rc196Style": "signal",
+    "actor": null
+  },
+  {
+    "id": "kair-great-03",
+    "name": "아르벨리아, 유예의 수문장",
+    "zone": "kair02",
+    "mechanic": "chain",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "k103-boss",
+    "name": "세이렌 모르",
+    "zone": "kair03",
+    "mechanic": "detonation",
+    "rc196Style": "petal",
+    "actor": {
+      "id": "k103-boss",
+      "kind": "siren",
+      "name": "세이렌 모르",
+      "x": 15,
+      "y": 14,
+      "hp": 580,
+      "sprite": "./assets/kair/bosses/siren-mor.png",
+      "facing": -1,
+      "eliteName": "특이점 전야",
+      "boss": true
+    }
+  },
+  {
+    "id": "mb-hando01",
+    "name": "의존 신호 포식자",
+    "zone": "hando01",
+    "mechanic": "detonation",
+    "rc196Style": "hunger",
+    "actor": {
+      "zone": "hando01",
+      "id": "mb-hando01",
+      "kind": "seal",
+      "name": "의존 신호 포식자",
+      "x": 11,
+      "y": 10,
+      "hp": 370,
+      "sprite": "./assets/hando-v3123/return_coordinate_devourer.webp",
+      "facing": -1,
+      "eliteName": "의존 증폭",
+      "midboss": true,
+      "patternSet": "hando01",
+      "scale": 1.12
+    }
+  },
+  {
+    "id": "mb-hando02",
+    "name": "코어 운반 집행자",
+    "zone": "hando02",
+    "mechanic": "detonation",
+    "rc196Style": "signal",
+    "actor": {
+      "zone": "hando02",
+      "id": "mb-hando02",
+      "kind": "connector",
+      "name": "코어 운반 집행자",
+      "x": 11,
+      "y": 10,
+      "hp": 420,
+      "sprite": "./assets/hando-v3123/order_seal_officer.webp",
+      "facing": -1,
+      "eliteName": "핵심코어 탈취",
+      "midboss": true,
+      "patternSet": "hando02",
+      "scale": 1.14
+    }
+  },
+  {
+    "id": "h103-boss",
+    "name": "EGO 강탈 악몽왕",
+    "zone": "hando03",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "h103-boss",
+      "kind": "commandBoss",
+      "name": "EGO 강탈 악몽왕",
+      "x": 15,
+      "y": 14,
+      "hp": 980,
+      "sprite": "./assets/hando-v3123/ego_usurper_reborn.webp",
+      "facing": -1,
+      "eliteName": "핵심코어 지배",
+      "boss": true
+    }
+  },
+  {
+    "id": "mb-hando03",
+    "name": "환수검 모조체",
+    "zone": "hando03",
+    "mechanic": "detonation",
+    "rc196Style": "blade",
+    "actor": {
+      "zone": "hando03",
+      "id": "mb-hando03",
+      "kind": "slave",
+      "name": "환수검 모조체",
+      "x": 10,
+      "y": 9,
+      "hp": 480,
+      "sprite": "./assets/hando-v3123/phantom_reclaim_blade.webp",
+      "facing": -1,
+      "eliteName": "환수검 반사",
+      "midboss": true,
+      "patternSet": "hando03",
+      "scale": 1.18
+    }
+  },
+  {
+    "id": "mb-murder01",
+    "name": "파란불 역주행 목격자",
+    "zone": "murder01",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "zone": "murder01",
+      "id": "mb-murder01",
+      "kind": "rainWitness",
+      "name": "파란불 역주행 목격자",
+      "x": 11,
+      "y": 10,
+      "hp": 390,
+      "sprite": "./assets/murder/rain_witness.png",
+      "facing": -1,
+      "eliteName": "사고 원인역전",
+      "midboss": true,
+      "patternSet": "murder01",
+      "scale": 1.12
+    }
+  },
+  {
+    "id": "mb-murder02",
+    "name": "공실장부 당직감사",
+    "zone": "murder02",
+    "mechanic": "detonation",
+    "rc196Style": "ledger",
+    "actor": {
+      "zone": "murder02",
+      "id": "mb-murder02",
+      "kind": "hotelClerk",
+      "name": "공실장부 당직감사",
+      "x": 11,
+      "y": 10,
+      "hp": 440,
+      "sprite": "./assets/murder/hotel_clerk.png",
+      "facing": -1,
+      "eliteName": "존재 말소",
+      "midboss": true,
+      "patternSet": "murder02",
+      "scale": 1.15
+    }
+  },
+  {
+    "id": "mb-murder03",
+    "name": "옥상 인과보관인",
+    "zone": "murder03",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "zone": "murder03",
+      "id": "mb-murder03",
+      "kind": "rooftopEcho",
+      "name": "옥상 인과보관인",
+      "x": 10,
+      "y": 9,
+      "hp": 500,
+      "sprite": "./assets/murder/rooftop_echo.png",
+      "facing": -1,
+      "eliteName": "추락 고정점",
+      "midboss": true,
+      "patternSet": "murder03",
+      "scale": 1.18
+    }
+  },
+  {
+    "id": "c101-mid",
+    "name": "칩 제단 방화벽",
+    "zone": "cult01",
+    "mechanic": "detonation",
+    "rc196Style": "flame",
+    "actor": {
+      "id": "c101-mid",
+      "kind": "tank",
+      "name": "흑장미 수문장",
+      "x": 10,
+      "y": 9,
+      "hp": 560,
+      "sprite": "./assets/cult-v3123/black_robed_nightmare_demon.webp",
+      "facing": -1,
+      "eliteName": "의존 봉쇄",
+      "boss": false
+    }
+  },
+  {
+    "id": "c102-boss",
+    "name": "네트워크 합창체",
+    "zone": "cult02",
+    "mechanic": "detonation",
+    "rc196Style": "petal",
+    "actor": {
+      "id": "c102-boss",
+      "kind": "commandBoss",
+      "name": "합일 세라핌 · 신경성가대",
+      "x": 15,
+      "y": 14,
+      "hp": 1430,
+      "sprite": "./assets/cult-v3123/superego_cyborg_cult_leader.webp",
+      "facing": -1,
+      "eliteName": "단일 찬송",
+      "boss": true
+    }
+  },
+  {
+    "id": "c103-mid",
+    "name": "이단의목사 한리안",
+    "zone": "cult03",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "c103-mid",
+      "kind": "void",
+      "name": "삼중자아 배양조",
+      "x": 10,
+      "y": 9,
+      "hp": 670,
+      "sprite": "./assets/cult-v3123/black_rose_crystal_guardian.webp",
+      "facing": -1,
+      "eliteName": "인격 분리",
+      "boss": false
+    }
+  },
+  {
+    "id": "c103-boss",
+    "name": "이단의목사 백이온",
+    "zone": "cult03",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "c103-boss",
+      "kind": "void",
+      "name": "삼중자아 포식핵",
+      "x": 15,
+      "y": 14,
+      "hp": 1560,
+      "sprite": "./assets/cult-v3123/final_pride_cyborg_lord.webp",
+      "facing": -1,
+      "eliteName": "자아 재배열",
+      "boss": true
+    }
+  },
+  {
+    "id": "c104-mid",
+    "name": "적그리스도 배양좌",
+    "zone": "cult04",
+    "mechanic": "contamination",
+    "rc196Style": "hunger",
+    "actor": {
+      "id": "c104-mid",
+      "kind": "tank",
+      "name": "왕좌 신경지",
+      "x": 10,
+      "y": 9,
+      "hp": 740,
+      "sprite": "./assets/cult-v3123/final_pride_cyborg_lord.webp",
+      "facing": -1,
+      "eliteName": "전역 낙하",
+      "boss": false
+    }
+  },
+  {
+    "id": "c104-boss",
+    "name": "교만의 사이보그 교주",
+    "zone": "cult04",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "c104-boss",
+      "kind": "commandBoss",
+      "name": "한시온 · 백색 목자",
+      "x": 15,
+      "y": 14,
+      "hp": 1800,
+      "sprite": "./assets/cult-v3123/pride_cyborg_cult_leader.webp",
+      "facing": -1,
+      "eliteName": "검은 재림",
+      "boss": true
+    }
+  },
+  {
+    "id": "u204-mid",
+    "name": "제12단계 기억 검열기",
+    "zone": "u204",
+    "mechanic": "detonation",
+    "rc196Style": "blade",
+    "actor": null
+  },
+  {
+    "id": "u205-mid",
+    "name": "제14단계 역전 관리자",
+    "zone": "u205",
+    "mechanic": "detonation",
+    "rc196Style": "judgment",
+    "actor": null
+  },
+  {
+    "id": "u206-mid",
+    "name": "제17단계 중앙이주 코어",
+    "zone": "u206",
+    "mechanic": "detonation",
+    "rc196Style": "signal",
+    "actor": null
+  },
+  {
+    "id": "l305-boss",
+    "name": "고블린 추장",
+    "zone": "last305",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": null
+  },
+  {
+    "id": "mb-kair04-v31231",
+    "name": "휴식 수확관 · 과로의 수문장",
+    "zone": "kair04",
+    "mechanic": "chain",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "kair-great-01",
+    "name": "대수문장 01",
+    "zone": "kair05",
+    "mechanic": "detonation",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "kair-great-02",
+    "name": "대수문장 02",
+    "zone": "kair06",
+    "mechanic": "chain",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "kair-great-04",
+    "name": "대수문장 04",
+    "zone": "kair07",
+    "mechanic": "chain",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "kair-great-05",
+    "name": "대수문장 05",
+    "zone": "kair08",
+    "mechanic": "contamination",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "mb-kair09-v31231",
+    "name": "망각 묘지기 · 삭제된 선택",
+    "zone": "kair09",
+    "mechanic": "detonation",
+    "rc196Style": "memory",
+    "actor": null
+  },
+  {
+    "id": "kair-great-06",
+    "name": "대수문장 06",
+    "zone": "kair10",
+    "mechanic": "chain",
+    "rc196Style": "clock",
+    "actor": null
+  },
+  {
+    "id": "murder04-mid",
+    "name": "진술 봉쇄 인과핵",
+    "zone": "murder04",
+    "mechanic": "detonation",
+    "rc196Style": "judgment",
+    "actor": null
+  },
+  {
+    "id": "c105-mid",
+    "name": "ID 생체조 관리자",
+    "zone": "cult05",
+    "mechanic": "contamination",
+    "rc196Style": "signal",
+    "actor": null
+  },
+  {
+    "id": "c106-mid",
+    "name": "기계재판 집행핵",
+    "zone": "cult06",
+    "mechanic": "chain",
+    "rc196Style": "signal",
+    "actor": null
+  },
+  {
+    "id": "blue-executor",
+    "name": "파란불 집행체",
+    "zone": "murder03",
+    "mechanic": "detonation",
+    "rc196Style": "gate",
+    "actor": {
+      "id": "blue-executor",
+      "kind": "loopBoss",
+      "name": "파란불 집행체",
+      "x": 14,
+      "y": 14,
+      "hp": 1160,
+      "sprite": "./assets/episode1b/generated-v394/blue_executor.webp",
+      "facing": -1,
+      "eliteName": "인과순환 알고리즘",
+      "boss": true,
+      "patternSet": "final-murder",
+      "scale": 1.34
+    }
+  },
+  {
+    "id": "a11-cosmic-v31318",
+    "name": "가면이 깨진 루시퍼",
+    "zone": "ep1a11",
+    "mechanic": "contamination",
+    "rc196Style": "wing",
+    "actor": null
+  }
+]

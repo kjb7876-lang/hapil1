@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "base": "bb4696a625d31118a1497dbb6139f2b7a5f6ecd4",
+  "baseTree": "2679182dc99482e39b43ba29adef14f6d05406b1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "965460b4a9d318a9572ed4ec12a88a8060d50a00eeb3894a3da1864539025fed",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "421f042ff66932f430ad50117e149762c0d76037"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "bd4f7bb5443576c0f58ae9d5c21c2fccfc2f46dd",
+        "sha256": "dc5c4cb7aae8524490c86fbcc19c12fc2e2a7422ac32921d6505c442949cbb57"
+      }
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "assets/rc133/bitmap-contact.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "b301a8874ab3305b6bdc00fb6cdb0440f8ac532d"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "02ac78986749233844df6c4fda93f6e74d75523f",
+        "sha256": "2d797342acd419fc3cd6b2a40f7a6211d5a35efcf32b558d88115407283a695e"
+      }
+    },
+    {
+      "file": "assets/rc135/midboss-motions.js",
+      "reason": "assets/rc135/midboss-motions.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": {
+        "file": "assets/rc135/midboss-motions.js",
+        "mode": "100644",
+        "gitBlob": "9e0625ac43f6331bd619a94bb5d222d7776a5b6a"
+      },
+      "after": {
+        "file": "assets/rc135/midboss-motions.js",
+        "mode": "100644",
+        "gitBlob": "e361089206e2fa554278e9b2a2d6ce1a98e23654",
+        "sha256": "c01e1e9f41cfcc314ac3c002914c4ad1c81ae90f102a1ea81539d1bedde83f72"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "17f876f5f96d24aa957f281fc3de04487245d1c3"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "a31044149290a63f029fa67cfd4044860222b265",
+        "sha256": "e473435c8f53b5a1a4c88507680a75050e9ba069620f451be53eb93cd3bd8659"
+      }
+    },
+    {
+      "file": "assets/rc206/combat-repair.js",
+      "reason": "assets/rc206/combat-repair.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc206/combat-repair.js",
+        "mode": "100644",
+        "gitBlob": "b5024a5c27c3f2df3b35b4d8991a9c43cb334889",
+        "sha256": "a0e801cefeb8cece93c4ec56e933ff8e0adb7a6dfab38ba2b259f6009b3d7f5b"
+      }
+    },
+    {
+      "file": "assets/rc206/boss-facing.js",
+      "reason": "assets/rc206/boss-facing.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc206/boss-facing.js",
+        "mode": "100644",
+        "gitBlob": "7171368e36d5cdfbbf93863a0fecd3651b5abef1",
+        "sha256": "73efc5162d1c5d57f89395b1bc517439b21a1679f1c195bcd5626f4e90c3eb2f"
+      }
+    },
+    {
+      "file": "assets/rc206/slayer-rig.js",
+      "reason": "assets/rc206/slayer-rig.js: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc206/slayer-rig.js",
+        "mode": "100644",
+        "gitBlob": "39662c717280121267aff53bc8bd65da2607054f",
+        "sha256": "67ebaee9379f2b0dcee5d70ad532996db0c950f99c6211d58011283813c9bcf3"
+      }
+    },
+    {
+      "file": "assets/rc206/slayer-movement-body.png",
+      "reason": "assets/rc206/slayer-movement-body.png: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc206/slayer-movement-body.png",
+        "mode": "100644",
+        "gitBlob": "1fbe141ae4387f065a7fd8ff4fbbeeeb71e9f68d",
+        "sha256": "2423f34c5bb5d4c85973f33193c486bd88c313866189c60a09f7a8e636f28dfe"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized RC206 target-facing/source-pixel correction, separate Stand/midboss source orientation, grounded walk-ready Slayer attack with rigid weapon, time-staggered serial barrage spread and two-facing camera envelope; original assets, damage, lifetime, reflection and save contracts preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a8b00c82e61ad3f0270d7de09cf59f0e43ec2785"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "abae2ff91229c63a9095c383d2ef5bf85df397ab",
+        "sha256": "7adb6fdf33f242d5a3d0bd7bbe6d25fad0740e3c2781c1275f4e601aef9406c2"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "008da602a0d4e24a4b96b9c508b8d6195b9ffeae52e77422ebc96cbf8b8b7d65"
+}
