@@ -13,13 +13,13 @@ for(const other of [{sourceId:inner.id,rc133InnerShot:true},{sourceId:'other-bos
 
 // The real RC153 scatter source must preserve the authored awakened Persona
 // vectors while continuing to fan an unrelated narrow boss group.
-global.window=global;global.addEventListener=()=>{};global.innerWidth=1280;global.innerHeight=720;global.document={body:null,readyState:'interactive',addEventListener(){},documentElement:{classList:{toggle(){}}}};global.__HAPIL_BATTLE_ARENA_RC138__={enabled:()=>true};delete require.cache[require.resolve('../assets/rc153/combat-layout.js')];require('../assets/rc153/combat-layout.js');const layout=global.__HAPIL_COMBAT_LAYOUT_RC153__;
+global.window=global;global.addEventListener=()=>{};global.innerWidth=1280;global.innerHeight=720;global.document={body:null,readyState:'interactive',addEventListener(){},documentElement:{classList:{toggle(){}}}};const arenaRoot={};arenaRoot.window=arenaRoot;vm.runInNewContext(fs.readFileSync(path.join(root,'assets/rc134/persona-duel.js'),'utf8'),{window:arenaRoot});vm.runInNewContext(fs.readFileSync(path.join(root,'assets/rc138/battle-arena.js'),'utf8'),{window:arenaRoot});global.__HAPIL_BATTLE_ARENA_RC138__={enabled:()=>true,contains:arenaRoot.__HAPIL_BATTLE_ARENA_RC138__.contains};delete require.cache[require.resolve('../assets/rc153/combat-layout.js')];require('../assets/rc153/combat-layout.js');const layout=global.__HAPIL_COMBAT_LAYOUT_RC153__;
 const a={id:'inner-evil-rc133',boss:true},b={id:'other-boss',boss:true},shots=[];
 for(let i=0;i<6;i++)shots.push({id:i+1,sourceId:a.id,born:5,sourceBorn:5,frozenUntil:7,rc133InnerShot:true,rc150PersonaAwakeningShot:true,rc133Skill:'focus',rc133Cycle:2,originX:24,originY:14,x:24,y:14,vx:5,vy:i*.01});
-for(let i=0;i<6;i++)shots.push({id:i+20,sourceId:b.id,born:5,sourceBorn:5,frozenUntil:7,patternKind:'generic',originX:24,originY:14,x:24,y:14,vx:5,vy:i*.01});
+for(let i=0;i<6;i++)shots.push({id:i+20,sourceId:b.id,born:5,sourceBorn:5,frozenUntil:7,patternKind:'generic',bounceRemaining31212:2,offscreenReturnAllowance31212:2,originX:24,originY:14,x:24,y:14,vx:5,vy:i*.01});
 const state={time:5,fxSerial:1,enemies:[a,b],hostileProjectiles:shots};layout.scatter(state);
 eq(shots.slice(0,6).every(q=>q.rc153ScatterAngle==null&&q.bounceRemaining31212!==0),true,'authored red Persona trajectories bypass scatter lock');
-eq(shots.slice(6).every(q=>Number.isFinite(q.rc153ScatterAngle)&&q.bounceRemaining31212===0),true,'unrelated boss group keeps its narrow fan correction');
+eq(shots.slice(6).every(q=>Number.isFinite(q.rc153ScatterAngle)&&q.bounceRemaining31212===2&&q.offscreenReturnAllowance31212===2),true,'unrelated boss fan correction preserves its original return budget');
 
 // Execute the actual death-restart helper from its synchronized bundled source
 // with native map-entry stubs. This checks route ledgers and stored progression.
