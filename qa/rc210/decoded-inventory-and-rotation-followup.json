@@ -1,0 +1,51 @@
+{
+  "base": "2f6ff9a032adf4fe04f67a2833dda7ee5b98f422",
+  "runtimeChanged": false,
+  "confirmedEvidence": {
+    "localCpu": "74/74 including preservation",
+    "nativeGallery": {
+      "job": 115819798279,
+      "status": "success",
+      "captures": 15,
+      "artifact": 11889245893,
+      "actualRasterDraws": 45,
+      "poses": [
+        "prepare",
+        "swing",
+        "recovery",
+        "ready"
+      ],
+      "projectedFoot": [
+        910,
+        553.5
+      ],
+      "logicalSwordLength": 159.22964137520265,
+      "pixelReviewByAgent": false
+    }
+  },
+  "inventoryFailure": {
+    "job": 115819799364,
+    "source": "dist06-boss",
+    "nativePaintActors": 0,
+    "cause": "Fixture compared a large synthetic fallback bound before actual image decode",
+    "change": "Decode real map/hero/enemy assets before installing synthetic state, require exactly2 native-painted actor bounds, then retain all original body/weapon viewport and scatter checks. No production camera relaxation."
+  },
+  "mobile": {
+    "startupTimeout": "resolved with coherent immutable baseline; phase game, mobile UI enabled, no runtime errors",
+    "actual844x390": {
+      "mapFraction": 1,
+      "emptyBlackFractionRange": [
+        0.0051,
+        0.0073
+      ],
+      "bodyWeaponWhole": true,
+      "manualTouchTargets": "48x48 reachable",
+      "currentSafeInsetCases": "passed"
+    },
+    "nextFailure": "Old fill assertion applied to hidden canvas under required portrait freeze/rotation guide",
+    "change": "On portrait require guide exact text/visible, game hidden, input0, time andHP frozen; on landscape retain fill, guide hidden, orientation resumed. All existing visible layout/map/coverage/body/touch thresholds preserved.",
+    "remainingCases": "native rerun pending"
+  },
+  "artifactPackaging": "Require both prerequisite reports before packaging; if earlier audit failed keep that failure and upload full partial captures, avoiding secondary missing-file error. Successful audit missing reports still fails. Original PNG hashes/copy/size/status assertions unchanged.",
+  "deployed": false
+}

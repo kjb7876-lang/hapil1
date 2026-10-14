@@ -249,18 +249,19 @@ jobs:
         env:
           AUDIT_OUTCOME: ${{ steps.runtime_audit.outcome }}
           CORE_PNG_INPUT: ${{ runner.temp }}/rc137-evidence/mobile-layout/results.json
+          CORE_VIEWPORT_INPUT: ${{ runner.temp }}/rc137-evidence/mobile-viewport/results.json
         shell: bash
         run: |
           set -euo pipefail
-          if test -s "$CORE_PNG_INPUT"; then
+          if test -s "$CORE_PNG_INPUT" && test -s "$CORE_VIEWPORT_INPUT"; then
             echo "ready=true" >> "$GITHUB_OUTPUT"
           elif test "$AUDIT_OUTCOME" = success; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::error::Expected mobile-layout results are missing after the audit completed."
+            echo "::error::Expected mobile-layout or mobile-viewport results are missing after the audit completed."
             exit 1
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Skipping core PNG packaging because the earlier audit stopped before producing mobile-layout results."
+            echo "::notice::Skipping core PNG packaging because the earlier failed audit did not produce all required layout/viewport results; full partial evidence remains uploaded."
           fi
 
       - name: Package only original core PNG evidence
