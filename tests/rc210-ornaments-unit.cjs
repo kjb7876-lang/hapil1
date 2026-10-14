@@ -41,3 +41,6 @@ console.log(JSON.stringify({status:'passed',genericAsset,actualNativeEmissionAss
  const detached=observe({sourceId:owner.id,sprite:baseAsset});detached.state.enemies=[];assert(!provenance.current(detached.state)[0].currentMismatch,'valid already-born projectile remains owned after owner removal');detached.q.sprite=foreign;assert(provenance.current(detached.state)[0].currentMismatch,'foreign mutation after owner removal still fails');assert(Object.isFrozen(detached.row.allowedAssets));
  console.log(JSON.stringify({status:'passed',nativeBasePackets:5,storyOrnamentPackets:2,baseAndOrnamentContractsSeparate:true,foreignAndForgedAssetsRejected:true,dedicatedOwnerNotBroadened:true,scope:'CPU actual native provenance binding/resolver, ornament and provenance modules; empty owner catalogs except dedicated negative fixture, synthetic emitted packets; browser replay pending'}));
 }
+
+// Shared story props require both real source actors and immutable native birth roles.
+require('./rc216-native-art-audit-unit.cjs');

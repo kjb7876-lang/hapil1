@@ -1,0 +1,48 @@
+{
+  "base": "a757c562651c09601151bd7696f9b1dba9a8e50e",
+  "baselineFullCi": {
+    "success": 6,
+    "failure": 6
+  },
+  "runtimeChanged": false,
+  "originalMediaChanged": false,
+  "imageAudit": {
+    "findings": [
+      "id-only ornament lookup lacks actual boss/midboss flags required by the native contract",
+      "queued emitted image was inspected before awaiting its decode",
+      "previous duplicate map compared only one retained prior image owner"
+    ],
+    "changes": [
+      "preload approved ornament assets from actual authored source actors",
+      "await the normal native queued image decode, without alternate transport or retry",
+      "distinguish not-queued/decode-failed/empty-image from decoded image without native bitmap draw",
+      "shared ornament requires both actual actors, exact identical path, native marker and immutable birth owner/role/allowlist",
+      "compare all prior owners of identical decoded pixels, including independent rejection of a foreign or unmarked pool asset"
+    ],
+    "cpuNegativeCases": 13,
+    "browserProof": "pending exact new candidate CI"
+  },
+  "portraitStall": {
+    "originalFailureJob": 115920686929,
+    "guardUnchanged": [
+      "any long task strictly >1000ms",
+      "zero observed RAF frames",
+      "required images not ready"
+    ],
+    "diagnostics": [
+      "log each original guard separately before throwing",
+      "log frames, exact maximum long task, RAF summary, volley count and native bitmap metrics",
+      "read existing browser GPU metadata with CDP, report software/hardware identity without changing it"
+    ],
+    "performanceFixClaimed": false,
+    "browserProof": "pending diagnostic CI, no threshold, duration, workload or throttle relaxed"
+  },
+  "environment": {
+    "checkout": "fresh normal git clone because prior /tmp checkout unavailable; old workspaces untouched",
+    "cpuParser": "installed Node bundled acorn8.17.0 source exposed as a local CPU dependency; HOME and caches only read",
+    "browser": "local approved Chrome Stable unavailable, no substitute launch or sandbox changes",
+    "priorJobs": "baseline jobs terminal; no duplicate active local audits found",
+    "serverErrors": "normal transient server failures may be retried after10minutes while working; explicit403/permission refusals are not retried or bypassed"
+  },
+  "deployment": "main9704fdb295a240605dbeb0045c224df8fe4f6ccd and Pages unchanged; all final CI and visual conditions still required"
+}
