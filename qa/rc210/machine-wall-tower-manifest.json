@@ -1,0 +1,22 @@
+{
+  "task": "u201/u202 fixed mechanical wall tower sprite",
+  "generation": "Actual ImageGen transparent RGBA standalone sprite.",
+  "reference": {
+    "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/maps/u2_01_observation.jpg",
+    "sha256": "1001026642cd8d5411fc14dfd9674c6781a85921e9ef1b62151b0857f22108a0"
+  },
+  "asset": {
+    "path": "machine-wall-tower.png",
+    "imagegen_receipt": "/workspace/generated_images/exec-68c5d85b-5918-4de9-96e2-f0e781c65be3.png",
+    "sha256": "7c7ebb8bf1541b90c06839b67cde4a1a8809fc2ba89c9f4cd96a4abf5950ade3",
+    "bytes": 2007952,
+    "dimensions": "1024x1536",
+    "channels": "RGBA with transparent background and semi-transparent glow",
+    "alpha_bbox_nonzero": [0, 16, 1010, 1536],
+    "main_art_bbox_alpha_gt_1": [230, 17, 820, 1511],
+    "main_art_bbox_alpha_gt_128": [233, 20, 817, 1508],
+    "ground_pivot_estimate_px": [512, 1507],
+    "emitter_center_estimate_px": [435, 610],
+    "visual_review": "Tall three-quarter isometric mechanical tower with its bright blue-violet circular emitter facing screen-left, dark metal architecture, and a clear stable base. No character, text, or floor panel. Very faint alpha glow/edge pixels extend beyond the core silhouette, including to the image edge; main silhouette bounds are listed separately."
+  }
+}

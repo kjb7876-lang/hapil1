@@ -1,0 +1,19 @@
+{
+  "task": "ep1b04 glutton chef battle map",
+  "generation": "Actual ImageGen; one 16:9 landscape map image.",
+  "reference": {
+    "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/maps/ep1b_04_glutton_kitchen.jpg",
+    "sha256": "dcbb3335d2bae315448dcf6277a3bcec83210f2e438e187946765ba891efea0b"
+  },
+  "asset": {
+    "path": "glutton-stomach-kitchen.png",
+    "imagegen_receipt": "/workspace/generated_images/exec-ed834b76-d299-4221-b357-9abf270413ca.png",
+    "sha256": "ac1aae5477998840708e144415dcc40ac593a17bb1881164fb4d6230e70ca1a8",
+    "bytes": 3039379,
+    "dimensions": "1672x941",
+    "channels": "RGB, opaque",
+    "visual_review": "Elevated three-quarter/isometric dark-fantasy kitchen fused with symbolic stomach-like burgundy organic walls, hotel-kitchen fixtures around the perimeter, and a broad unobstructed circular combat floor. Left and right archways read as entry/exit. No characters, text, or gore.",
+    "battlefield_anchor_estimate_px": [835, 500],
+    "playable_floor_estimate_px": [350, 220, 1320, 800]
+  }
+}

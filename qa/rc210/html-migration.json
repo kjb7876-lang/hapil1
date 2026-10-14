@@ -1,7 +1,7 @@
 {
   "base": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
   "beforeSha256": "78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1",
-  "afterSha256": "863ae381eec68abcf67fa50079f53578ce62ec813a63aa50a3cd6f4c07968d8d",
+  "afterSha256": "65910c3e26ee29b70cb611b434e2ffb26e0fb46db2e7bc32c2e5226664750b5f",
   "changes": [
     {
       "before": "    <script src=\"./assets/rc133/developer-maps.js?v=43307\"></script>\n<script src=\"./assets/rc137/direction-input.js?v=43701\"></script>\n",
@@ -17,11 +17,11 @@
     },
     {
       "before": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n",
-      "after": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n<script src=\"./assets/rc210/encounter-policy.js?v=21001\"></script>\n<script src=\"./assets/rc210/fragments.js?v=21001\"></script>\n<script src=\"./assets/rc210/projectile-balance.js?v=21001\"></script>\n<script src=\"./assets/rc210/lust-projectiles.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-rift.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-body.js?v=21001\"></script>\n<script src=\"./assets/rc210/bootloader.js?v=21001\"></script>\n<script src=\"./assets/rc210/deferred-damage.js?v=21001\"></script>\n<script src=\"./assets/rc210/machine-fields.js?v=21001\"></script>\n<script src=\"./assets/rc210/insomnia-fog.js?v=21001\"></script>\n<script src=\"./assets/rc210/ornaments.js?v=21001\"></script>\n"
+      "after": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n<script src=\"./assets/rc210/encounter-policy.js?v=21001\"></script>\n<script src=\"./assets/rc210/fragments.js?v=21001\"></script>\n<script src=\"./assets/rc210/projectile-balance.js?v=21001\"></script>\n<script src=\"./assets/rc210/lust-projectiles.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-rift.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-body.js?v=21001\"></script>\n<script src=\"./assets/rc210/bootloader.js?v=21001\"></script>\n<script src=\"./assets/rc210/cosmic-leech.js?v=21001\"></script>\n<script src=\"./assets/rc210/deferred-damage.js?v=21001\"></script>\n<script src=\"./assets/rc210/machine-fields.js?v=21001\"></script>\n<script src=\"./assets/rc210/insomnia-fog.js?v=21001\"></script>\n<script src=\"./assets/rc210/ornaments.js?v=21001\"></script>\n<script src=\"./assets/rc210/morga.js?v=21001\"></script>\n<script src=\"./assets/rc210/great-torso.js?v=21001\"></script>\n<script src=\"./assets/rc210/wall-towers.js?v=21001\"></script>\n"
     },
     {
-      "before": "<script src=\"./assets/rc206/boss-facing.js?v=20601\"></script>\n<script src=\"./assets/rc138/battle-arena.js?v=19101\"></script>\n",
-      "after": "<script src=\"./assets/rc206/boss-facing.js?v=20601\"></script>\n<script src=\"./assets/rc138/battle-arena.js?v=21001\"></script>\n"
+      "before": "<script src=\"./assets/rc206/boss-facing.js?v=20601\"></script>\n<script src=\"./assets/rc138/battle-arena.js?v=19101\"></script>\n<script src=\"./assets/rc138/map-data.js?v=43803\"></script>\n",
+      "after": "<script src=\"./assets/rc206/boss-facing.js?v=20601\"></script>\n<script src=\"./assets/rc138/battle-arena.js?v=21001\"></script>\n<script src=\"./assets/rc138/map-data.js?v=21001-43803\"></script>\n"
     },
     {
       "before": "    <script src=\"./assets/rc137/art-data.js?v=43701\"></script>\n<script src=\"./assets/rc137/boss-art.js?v=43701\"></script>\n",

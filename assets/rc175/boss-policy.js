@@ -37,7 +37,7 @@
   const zone=String(s?.zone??a?.enemyCombatZoneV31237??a?.zone??''),level=/^(last|kair|hando|murder|cult)/.test(zone)?2:/^(ep1b|u20)/.test(zone)?1:0;
   if(level){c.rc210LaserLevel=level;c.rc210LaserKind=['h','ladder','grid','h'][mode];c.rc210LaserSeed=(seed^Math.imul(Math.trunc(n(c.id)),2654435761))>>>0;}
 }
- function title(c){if(c.rc210LaserKind)return ({h:'H자 연결 획',ladder:'엇갈린 사다리',grid:'교차 격자'})[c.rc210LaserKind];return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][strokeMode(c)];}
+ function title(c){if(c.rc210Morga)return '세이렌 모르 · 기억 미로';if(c.rc210LaserKind)return ({h:'H자 연결 획',ladder:'엇갈린 사다리',grid:'교차 격자'})[c.rc210LaserKind];return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][strokeMode(c)];}
  function tint(image,color){
   if(!image||image.complete===false||!(image.naturalWidth||image.width)||!root.document?.createElement)return image;
   const index=tints.findIndex(row=>row.image===image&&row.color===color);if(index>=0){const[row]=tints.splice(index,1);tints.push(row);return row.canvas;}

@@ -22,5 +22,13 @@
   "runtimeHookEnabled": false,
   "latestUserInlinePreviewConfirmed": true,
   "latestLibraryMetadataMatchesPriorDeniedFile": true,
-  "repeatDeniedDownloadAttempted": false
+  "repeatDeniedDownloadAttempted": false,
+  "latestUserInstruction": "Use this exact hotel image after the text of 금이 간 안경; no substitute.",
+  "requestedPlaybackOrder": [
+    "text and narration end",
+    "exact user image: fade in 1 second",
+    "hold 5 seconds",
+    "fade out 1 second",
+    "continue once"
+  ]
 }

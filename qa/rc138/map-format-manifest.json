@@ -767,10 +767,11 @@
         900
       ],
       "sourceSha256": "dcbb3335d2bae315448dcf6277a3bcec83210f2e438e187946765ba891efea0b",
-      "decision": "uniform-reconfiguration",
+      "decision": "new-imagegen",
       "reason": "Existing broad open floor; preserve source pixels, color and environment with uniform scale and floor-center alignment.",
       "floorCenterY": 0.5,
-      "activeMap": "./assets/maps/ep1b_04_glutton_kitchen.jpg"
+      "activeMap": "./assets/rc210/glutton-stomach-kitchen.png",
+      "outputSha256": "ac1aae5477998840708e144415dcc40ac593a17bb1881164fb4d6230e70ca1a8"
     },
     {
       "id": "ep1b05",

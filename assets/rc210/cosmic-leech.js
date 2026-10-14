@@ -1,0 +1,6 @@
+/* RC210: additional cosmic leech is 0.006 of actual HP loss, never reservation. */
+(function(root){'use strict';const caches=new WeakMap(),ids=Object.freeze(['kair-great-01','kair-great-02','kair-great-03','kair-great-04','kair-great-05','kair-great-06','b09-boss','u203-boss','l303-boss','k103-boss','h103-boss','mb-murder03','a11-cosmic-v31318']);
+ function cosmic(a){return !!a&&ids.includes(a.id)&&(a.id==='a11-cosmic-v31318'||a.id.startsWith('kair-great-')||a.dreamCosmicTrialV31349===true||a.episodeCosmicFinalV387===true||a.samongCosmicSummonV386===true||a.cosmicBoss===true);}
+ function token(s,q){if(!q||q.friendly||q.reflected||q.heroSkillVfx||q.heroId31213)return null;const a=(s?.enemies??[]).find(a=>a.id===(q.sourceId??q.ownerId));if(!cosmic(a)||!(a.hp>0))return null;let m=caches.get(s);if(!m){m=new WeakMap();caches.set(s,m);}let t=m.get(a);if(!t||t.zone!==s.zone){t=Object.freeze({owner:a,zone:s.zone});m.set(a,t);}return t;}
+ function credit(s,t,loss){const a=t?.owner;if(!(loss>0)||!a||!(a.hp>0)||!cosmic(a)||s.zone!==t.zone||!(s.enemies??[]).includes(a))return 0;const amount=Math.min(Math.max(0,a.maxHp-a.hp),loss*.006);if(!(amount>0))return 0;a.hp+=amount;return amount;}
+ root.__HAPIL_COSMIC_LEECH_RC210__=Object.freeze({ids,cosmic,token,credit,factor:.006});})(window);

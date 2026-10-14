@@ -38,7 +38,7 @@
    return result;
   };
   const originalTick=api.tick;
-  api.tick=function(state,dt,...rest){window.__HAPIL_DEFERRED_DAMAGE_RC210__?.tick(state,dt);window.__HAPIL_MACHINE_FIELDS_RC210__?.tick(state,dt);window.__HAPIL_INSOMNIA_FOG_RC210__?.tick(state,dt);const result=originalTick.call(this,state,dt,...rest);try{tickBlackholes(state,dt);}catch(error){stats.tickErrors++;}return result;};
+  api.tick=function(state,dt,...rest){window.__HAPIL_DEFERRED_DAMAGE_RC210__?.tick(state,dt);window.__HAPIL_MACHINE_FIELDS_RC210__?.tick(state,dt);window.__HAPIL_INSOMNIA_FOG_RC210__?.tick(state,dt);window.__HAPIL_MORGA_RC210__?.tick(state,dt);window.__HAPIL_WALL_TOWERS_RC210__?.tick(state,dt);const result=originalTick.call(this,state,dt,...rest);try{tickBlackholes(state,dt);}catch(error){stats.tickErrors++;}return result;};
   const originalBloodDraw=blood.draw;
   blood.draw=function(ctx,cache,state,cast,settings={}){
    if(cast&&(cast.sourceId==='a11-cosmic-v31318'||cast.ownerIdV31331==='a11-cosmic-v31318'||state?.enemies?.some(actor=>actor.id===cast.sourceId&&actor.cosmicLuciferV31318)))cast.beam=ownerBeam.get('a11-cosmic-v31318');
@@ -110,7 +110,7 @@
   }catch{blackholeImages.delete(path);return null;}
  }
  function drawBlackholes(ctx,cache,s,settings){
-  window.__HAPIL_BALROG_RIFT_RC210__?.draw(ctx,cache,s,settings);window.__HAPIL_MACHINE_FIELDS_RC210__?.draw(ctx,cache,s,settings);
+  window.__HAPIL_BALROG_RIFT_RC210__?.draw(ctx,cache,s,settings);window.__HAPIL_MACHINE_FIELDS_RC210__?.draw(ctx,cache,s,settings);window.__HAPIL_MORGA_RC210__?.draw(ctx,s);window.__HAPIL_WALL_TOWERS_RC210__?.draw(ctx,s);
   if(!ctx||!s?.bossBlackHolesRC32?.length||!window.__HAPIL_COMBAT_V31333__?.core)return;
   const project=p=>window.__HAPIL_COMBAT_V31333__.core(p);
   for(const h of s.bossBlackHolesRC32){

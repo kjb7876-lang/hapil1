@@ -1,0 +1,398 @@
+{
+  "round1Sha": "3157e662026b2a61d765d4dceecd5d45f978c95a",
+  "round2Sha": null,
+  "round2Status": "pending",
+  "rows": [
+    {
+      "id": "movement",
+      "item": "위/왼쪽 범위·대각 블링크",
+      "applied": "구현·CPU 통과",
+      "round1": "RC137/RC195/RC210 movement",
+      "unverifiedOrBlocked": "실제 이동·화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "구현·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "floor",
+      "item": "실제 맵 범위 소폭 확대",
+      "applied": "기존 RC195 범위 유지",
+      "round1": "기존 CPU 면적+23.959%",
+      "unverifiedOrBlocked": "이번 후보에서 재확대하지 않음·실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 RC195 범위 유지",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "midboss",
+      "item": "Story1/DREAM2·재저장·재소환 방지",
+      "applied": "구현·CPU 통과",
+      "round1": "RC210 encounter",
+      "unverifiedOrBlocked": "자연 진행·실기기 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "구현·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "right",
+      "item": "보스 우측·부활/교체 위치",
+      "applied": "구현·CPU 통과",
+      "round1": "RC138 4222 checks",
+      "unverifiedOrBlocked": "실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "구현·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "facing",
+      "item": "반대 방향 바라봄",
+      "applied": "기존 RC206 경로 보존",
+      "round1": "기존 CPU 통과",
+      "unverifiedOrBlocked": "전 보스 실영상 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 RC206 경로 보존",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "scatter",
+      "item": "보라검 천사 포함 일자 기차 산개",
+      "applied": "기존 RC153/196 + 추가탄 각도 유지",
+      "round1": "CPU 통과",
+      "unverifiedOrBlocked": "전수 자연 진행 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 RC153/196 + 추가탄 각도 유지",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "scale",
+      "item": "전체 보스 탄환66%·수량",
+      "applied": "구현·CPU 통과",
+      "round1": "one-time baseline; 일반 1.25배/추가 admission24/72",
+      "unverifiedOrBlocked": "성능/FPS 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "구현·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "jelly",
+      "item": "젤리빈 최초33%",
+      "applied": "구현·CPU 통과",
+      "round1": "정확 jellybean 경로만 .33",
+      "unverifiedOrBlocked": "작은 화면 식별 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "구현·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "laser",
+      "item": "후반 H/사다리/격자",
+      "applied": "구현·CPU 통과",
+      "round1": "1944+324 native geometry cases",
+      "unverifiedOrBlocked": "실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "구현·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "fragments",
+      "item": "개별 시체 부위·감속",
+      "applied": "4자산 연결·CPU 통과",
+      "round1": "속도2.6/수명6.5/상한4·8",
+      "unverifiedOrBlocked": "실제 회피·FPS 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "4자산 연결·CPU 통과",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "decor",
+      "item": "장식 정적배치 제외·회전탄환",
+      "applied": "기존 필터+서사별 자산 연결",
+      "round1": "CPU mapping/crop/lifetime",
+      "unverifiedOrBlocked": "전체 정적/잔여 충돌·clear 전수 브라우저 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 필터+서사별 자산 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "warp",
+      "item": "왼쪽 작은 워프 제거",
+      "applied": "입구 장식 렌더만 제외",
+      "round1": "정적 검사",
+      "unverifiedOrBlocked": "실제 픽셀 미검증; 출구·좌표 유지",
+      "round2": "pending exact committed revision",
+      "assetConnection": "입구 장식 렌더만 제외",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "slayer",
+      "item": "악몽검사 서서 휘두름",
+      "applied": "4개 실제 신규 포즈 연결",
+      "round1": "해시/피벗/좌우 CPU",
+      "unverifiedOrBlocked": "1시점+mirror; 프레임별 검 길이 시각 검토 필요",
+      "round2": "pending exact committed revision",
+      "assetConnection": "4개 실제 신규 포즈 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "balrog",
+      "item": "발록 동일 곧은 검·공격/피격",
+      "applied": "6body +동일 원본검 연결",
+      "round1": "실제 원본 픽셀·rigid CPU",
+      "unverifiedOrBlocked": "손 중심 추정·swing 망토 edge3px·실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "6body +동일 원본검 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "rift",
+      "item": "발록 공간참 흡인·6배DOT",
+      "applied": "실제 신규 rift 연결",
+      "round1": "10/30/60/144Hz raw36 CPU",
+      "unverifiedOrBlocked": "브라우저 fixture rift not admitted 실패 조사 중",
+      "round2": "pending exact committed revision",
+      "assetConnection": "실제 신규 rift 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "knight",
+      "item": "32~33 타락천사 기사 검",
+      "applied": "last301/l301-boss 실제33 확인; 원본 idle/guard/move 3장 실제 열람",
+      "round1": "원본 칼끝 확인·기존 전체 캔버스/envelope",
+      "unverifiedOrBlocked": "게임내 잘림 해결 판정 미완료;32는last305고블린",
+      "round2": "pending exact committed revision",
+      "assetConnection": "last301/l301-boss 실제33 확인; 원본 idle/guard/move 3장 실제 열람",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "torso",
+      "item": "대수문장 몸통 조준/판정/이펙트",
+      "applied": "6개ID 한정 동일 측정 중심 연결",
+      "round1": "CPU idle/attack/hit center fixtures",
+      "unverifiedOrBlocked": "실제 스프라이트 조준/접촉 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "6개ID 한정 동일 측정 중심 연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "damage",
+      "item": "전 플레이어 피해 분할",
+      "applied": "최종 피해6분할·주기DOT 비재분할",
+      "round1": "10/30/60/144Hz·회복·부활 큐0 CPU",
+      "unverifiedOrBlocked": "실제 native 방어·각성·음향 전체 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "최종 피해6분할·주기DOT 비재분할",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "leech",
+      "item": "코스믹 실제 피해0.6%흡혈",
+      "applied": "소유자 토큰·실제 HP차감 귀속 구현",
+      "round1": "120loss→.72heal CPU;죽음/교체/반사 제외",
+      "unverifiedOrBlocked": "기존 RC25 기본흡혈 별도 유지; 전체 소유자 실제 진행 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "소유자 토큰·실제 HP차감 귀속 구현",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "lucifer",
+      "item": "깨진 가면/피눈물 뒤 전맵 레이저·빛나는 회피",
+      "applied": "기존 각성 자산 + 새3단계 전맵레이저/회피빛 연결",
+      "round1": "기존/공통 CPU",
+      "unverifiedOrBlocked": "가면·피눈물→난사 실제 연속 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 각성 자산 + 새3단계 전맵레이저/회피빛 연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "kitchen",
+      "item": "총주방장 위장형 호텔 주방",
+      "applied": "신규 실제PNG 연결",
+      "round1": "원본 참조/신규 해시/픽셀 열람",
+      "unverifiedOrBlocked": "새 그림·바닥 월드 경계 맞춤 실화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "신규 실제PNG 연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "lust",
+      "item": "립스틱·깨진 하트·하이힐",
+      "applied": "3개 독립자산 연결",
+      "round1": "실제 픽셀/회전/크기/수명 CPU",
+      "unverifiedOrBlocked": "실제 작은 화면·다른스킬시 유지 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "3개 독립자산 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "bootloader",
+      "item": "각성 회장 전맵 난사·느린 적색 맥동",
+      "applied": "각성 플래그 전용 구현",
+      "round1": "3단계 native contact/비중첩 overlay CPU",
+      "unverifiedOrBlocked": "다른 스킬 중첩과 실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "각성 플래그 전용 구현",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "controller",
+      "item": "컨트롤러 기억문/검은실/공간삭제/레이저",
+      "applied": "신규 게이트 연결·한시적 ellipse",
+      "round1": "CPU 고정 위치/탈출",
+      "unverifiedOrBlocked": "실제 바닥·검은실 합성 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "신규 게이트 연결·한시적 ellipse",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "tentacle",
+      "item": "컨트롤러/회장 바닥 촉수DOT",
+      "applied": "기존 실제 기계 촉수·예고/수축",
+      "round1": "고정 위치/overlap ledger CPU",
+      "unverifiedOrBlocked": "실제 뿌리·바닥 일치/전체 해제 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 실제 기계 촉수·예고/수축",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "fog",
+      "item": "불면귀 안개·공이속30%·maxHP1%/초",
+      "applied": "last303각성 전용 구현",
+      "round1": "6초/12초·6 raw ticks·0.7 비누적 CPU",
+      "unverifiedOrBlocked": "기존 실제 피해감소·판독성 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "last303각성 전용 구현",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "morga",
+      "item": "세이렌 모르 미로·안전 위치변환",
+      "applied": "3개 연결구획·안전후보·예고/보호 구현",
+      "round1": "CPU geometry/safe candidate/cleanup",
+      "unverifiedOrBlocked": "native 실제 동시 장판·카메라/자동 경로 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "3개 연결구획·안전후보·예고/보호 구현",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "towers",
+      "item": "24·25 기계 성벽 코어 타워 적",
+      "applied": "u201/u202실제 고정 적·신규RGBA연결",
+      "round1": "CPU template/laser/hash",
+      "unverifiedOrBlocked": "native 저장/clear/초기 AI/바닥 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "u201/u202실제 고정 적·신규RGBA연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "swamp",
+      "item": "늪뿔악마 최종본문/TTS",
+      "applied": "정확 최종본문 연결·북쪽소환진 유지",
+      "round1": "본문 해시/기존원문 보존",
+      "unverifiedOrBlocked": "새TTS 모델 metadata403·미생성",
+      "round2": "pending exact committed revision",
+      "assetConnection": "정확 최종본문 연결·북쪽소환진 유지",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "bedside",
+      "item": "병상 흰가운 여성·이름미언급/TTS",
+      "applied": "기존 여성 외형·본문 이름 삭제",
+      "round1": "원문보존/overlay CPU",
+      "unverifiedOrBlocked": "새TTS403·미생성; 실제 외형 연출 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 여성 외형·본문 이름 삭제",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "fall",
+      "item": "추락 뒤 검은 흡입 소용돌이",
+      "applied": "dist06.post 3.6초 DOM 연출 연결",
+      "round1": "공통 once/timing CPU",
+      "unverifiedOrBlocked": "실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "dist06.post 3.6초 DOM 연출 연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "09",
+      "item": "09 붉은 하늘·성기사 소각·초천사 웃음",
+      "applied": "기존 smiling-mask·실루엣/적색빔 연결",
+      "round1": "DOM lifecycle CPU",
+      "unverifiedOrBlocked": "실제 화면 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 smiling-mask·실루엣/적색빔 연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "10",
+      "item": "10 달빛 주사기/도로 실루엣",
+      "applied": "신규 실제PNG 연결",
+      "round1": "실제 픽셀/해시",
+      "unverifiedOrBlocked": "실제 재생 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "신규 실제PNG 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "11",
+      "item": "11 전투전 초천사→루시퍼",
+      "applied": "기존 두 자산 전환 연결",
+      "round1": "DOM once/timing CPU",
+      "unverifiedOrBlocked": "실제 재생 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "기존 두 자산 전환 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "15",
+      "item": "15 금간안경 정확 사용자PNG 7초",
+      "applied": "타이밍만 준비·runtime 비활성",
+      "round1": "1+5+1 CPU",
+      "unverifiedOrBlocked": "공식 signed transfer403; 원본미수신·미연결·대체없음",
+      "round2": "pending exact committed revision",
+      "assetConnection": "타이밍만 준비·runtime 비활성",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "20",
+      "item": "20 회장이 화면너머 응시",
+      "applied": "신규 2실제PNG 연결",
+      "round1": "실제 픽셀/해시·once CPU",
+      "unverifiedOrBlocked": "실제 재생 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "신규 2실제PNG 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "26",
+      "item": "26 기억의 문 열림",
+      "applied": "신규 실제문 +기존맵 연결",
+      "round1": "실제 픽셀/once CPU",
+      "unverifiedOrBlocked": "실제 재생 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "신규 실제문 +기존맵 연결",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    },
+    {
+      "id": "37",
+      "item": "37 빠른시계→아카데미움",
+      "applied": "kair01.pre 6초 연출 연결",
+      "round1": "공통 timing/once CPU",
+      "unverifiedOrBlocked": "실제 재생 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "kair01.pre 6초 연출 연결",
+      "verificationRevision": "follow-up working tree; pending committed round2"
+    },
+    {
+      "id": "story-once",
+      "item": "본문/TTS끝음·스킵·연타·복원",
+      "applied": "목표 장면은Next도음성끝대기·reading lock 유지",
+      "round1": "실제 close 추출40연타/1회callback CPU",
+      "unverifiedOrBlocked": "full restore/resize/browser 미검증",
+      "round2": "pending exact committed revision",
+      "assetConnection": "목표 장면은Next도음성끝대기·reading lock 유지",
+      "verificationRevision": "3157 candidate; see round1-status.json"
+    }
+  ],
+  "round1Meaning": "Results on 3157 are recorded separately. Follow-up-only rows are working-tree CPU/static checks, not results on 3157."
+}

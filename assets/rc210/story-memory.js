@@ -6,6 +6,7 @@
  if(!record)throw Error('RC210 dist02 source missing');
  const original=Object.freeze({post:record.post,paragraphs:Object.freeze([...record.paragraphs])});
  record.post=body;record.paragraphs=[...record.paragraphs.slice(0,-1),body];
+ const bed=source.records.find(r=>r.zone==='dreamRest'),originalBed=bed?Object.freeze([...bed.paragraphs]):null;if(bed)bed.paragraphs=bed.paragraphs.map(p=>p.replace('그녀의 이름은 미카엘라였다.','').trim());
  const spoken=body.replace(/…+[.!?]*/gu,'.');
- root.__HAPIL_MEMORY_RC210__=Object.freeze({zone:'dist02',phase:'post',body,spoken,original,audioStatus:'pending-generation',pendingScenes:Object.freeze(['dist02:post','journal:dist02:all','journal:dist02:body']),title:'전투 후 남겨진 기억 · 늪지대의 뿔악마'});
+ root.__HAPIL_MEMORY_RC210__=Object.freeze({zone:'dist02',phase:'post',body,spoken,original,originalBed,audioStatus:'pending-generation',pendingScenes:Object.freeze(['dist02:post','journal:dist02:all','journal:dist02:body',...(bed?['journal:dreamRest:all','journal:dreamRest:body']:[])]),title:'전투 후 남겨진 기억 · 늪지대의 뿔악마'});
 })(window);

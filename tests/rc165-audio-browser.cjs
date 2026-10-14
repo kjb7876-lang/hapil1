@@ -326,6 +326,8 @@ async function assertNativeImpact(evidence) {
         const effect=s.effects.find(row=>keys.has(String(row.pendingHitId))&&String(row.sourceId)===String(owner)&&row.telegraphImpact===true);
         if(!effect)return false;
         s.invulnerableUntil=Math.max(s.invulnerableUntil,s.time+5);
+        // Accepted damage continues to discharge despite later invulnerability.
+        if((window.__HAPIL_DEFERRED_DAMAGE_RC210__?.pending(s)??0)>.000001)return false;
         return {hp:s.hp,time:s.time,effect:{id:effect.pendingHitId,born:effect.born}};
       },{ids:suppressed.ids,owner:suppressed.owner},{timeout:8000});
       const immediateSettlement=await settlementHandle.jsonValue();
