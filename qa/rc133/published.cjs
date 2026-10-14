@@ -475,7 +475,7 @@ for(const row of extension64.files){if(row.after===null)runtimeOutputs.delete(ro
 for(const row of extension65.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
 assert.equal(runtimeOutputs.size,308,'exact first65 scoped file inventory');
 for(const extension of require('../../tools/rc206-extension-chain.cjs')(root))for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
-assert.equal(runtimeOutputs.size,329,'exact first102 scoped file inventory');
+assert.equal(runtimeOutputs.size,329,'exact first103 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 

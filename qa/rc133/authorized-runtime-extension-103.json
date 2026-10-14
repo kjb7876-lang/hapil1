@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "b3186f453b67e8d0f70d97f3f46e81f0c37beb9e",
+  "baseTree": "bf6941208e209843b0fb04c89d59e2ea6dcf4597",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "fceb2788177effdfc4e2673b5a56d1bc0f8595abfddd43d2c24ffd440cc8e5ed",
+  "files": [
+    {
+      "file": "assets/rc133/inner-final.js",
+      "reason": "assets/rc133/inner-final.js: authorized Persona ordinary focus/needle warning direction lock and cache refresh; preserve dedicated spread, damage, speed, lifetime, awakening returns and original art",
+      "before": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "ed45a0a3f75a664a4657fb019a97f55a7241c1ef"
+      },
+      "after": {
+        "file": "assets/rc133/inner-final.js",
+        "mode": "100644",
+        "gitBlob": "f427b57baa081feb62d1c26230cc09bdd5a09c59",
+        "sha256": "41f2ff13f31056c6c3dde340e68d879a55b0f8af1eb4736422bcbd89c40f872e"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized Persona ordinary focus/needle warning direction lock and cache refresh; preserve dedicated spread, damage, speed, lifetime, awakening returns and original art",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "abae2ff91229c63a9095c383d2ef5bf85df397ab"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cc37280df9707479a20c75cea310f12bcbaf7dbb",
+        "sha256": "46a5422e6a206705ba306cd185323d4375b0e171e55a1d65c511eba8ab888285"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "79ffbeab504d798377f5ea7dcde9132dc2fcdd01526a4b1685fef20988488e0e"
+}

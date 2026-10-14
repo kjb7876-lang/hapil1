@@ -210,6 +210,15 @@
    (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y-2,born:s.time,duration:.7,text:'붉은 시간 · 0.7초 후 시간 차단',color:'#ff9fb5',critical:true});
   }
   for(const [emittedIndex,q] of emitted.entries()){const theta=Math.atan2(q.vy,q.vx),index=emittedIndex,spiral=skill.formation==='spiral'?1+((index%3)-1)*.08:1,baselineSpeed=Math.min(7.5,(empowered?4.4:3.6)*skill.speed*spiral),speed=red?baselineSpeed*2:baselineSpeed,band={eye:.16,diamond:.62,clock:.46,vortex:.4}[skill.key]??0,lateral=band*(index-(count-1)/2)/Math.max(1,(count-1)/2);Object.assign(q,{rc133InnerShot:true,rc150RedPersonaShot:red,rc150PersonaAwakeningShot:empowered,visualScaleV31224:red?1.2:1,rc133Skill:skill.key,rc133Pattern:skill.key,rc133Cycle:m.cycle,rc133ShotIndex:index,rc134Mutual:mutual,rc158SourceSprite:sprite,sprite,fallbackSprite:sprite,sevenSinImpactSprite:sprite,impactSpriteV31224:sprite,impactFallbackSprite:sprite,telegraphSpriteV31224:sprite,...(root.__HAPIL_PERSONA_PRESENTATION_RC158__?.policy(skill.key)??{spriteHeading:0,screenAligned31222:!['eye','lance'].includes(skill.key)}),bounceRemaining31212:empowered?3:0,offscreenReturnAllowance31212:empowered?3:0,rc147Speed:speed,vx:Math.cos(theta)*speed,vy:Math.sin(theta)*speed,curve:0,homingMode31212:'none'});if(lateral){const dx=-Math.sin(theta)*lateral,dy=Math.cos(theta)*lateral;q.x+=dx;q.y+=dy;q.originX=n(q.originX,q.x-dx)+dx;q.originY=n(q.originY,q.y-dy)+dy;q.previousX=q.x;q.previousY=q.y;}q.radius=Math.min(.32,n(q.radius,.24));q.damage=Math.min(54.6,Math.max(0,n(q.damage)));q.collisionDisabledUntil31219=Math.max(n(q.collisionDisabledUntil31219),n(q.frozenUntil,s.time+warning));}
+  // The authored focus/needle fan already spans .96 radians. Preserve that
+  // completed ordinary volley during its warning instead of feeding it to the
+  // narrow-bundle reshaper (which excludes persistent packets). Empowered
+  // projectiles retain their independent three-return trajectories.
+  if(!empowered&&['focus','needle'].includes(skill.formation))for(const q of emitted){
+   const theta=Math.atan2(q.vy,q.vx);q.rc153OriginalAngle=theta;q.rc153ScatterAngle=theta;q.rc153ScatterCount=emitted.length;
+   q.danmakuAngleV31316=theta;if(q.danmakuAimV31316!=null)q.danmakuOffsetV31316=((theta-q.danmakuAimV31316+Math.PI*3)%(Math.PI*2))-Math.PI;
+   root.__HAPIL_COMBAT_LAYOUT_RC153__?.lock(q);
+  }
   root.__HAPIL_COMBAT_LAYOUT_RC153__?.scatter(s);
   (s.floatTexts??=[]).push({id:s.fxSerial++,sourceId:ID,x:a.x,y:a.y,born:s.time,duration:warning,text:mutual?'純惡意 · '+skill.name:skill.name,color,critical:false});
   root.__HAPIL_MEDIA_AUDIO_RC133__?.event('innerShot',s,a,'volley-'+m.cycle);
