@@ -146,12 +146,13 @@ assert(bundle.includes('“나는 부활이요 생명이니”'));
 assert(bundle.includes('요한복음 11:25'));
 assert(bundle.includes('로마서 6:23'));
 const currentUrl=read('index.html').match(/index-v31526\.js\?v=([^"']+)/)?.[1];
-const priorUrl=require('node:child_process').execFileSync('git',['show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'],{encoding:'utf8'}).match(/index-v31526\.js\?v=([^"']+)/)?.[1];
+const priorHtml=require('node:child_process').execFileSync('git',['--no-replace-objects','show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'],{cwd:root,encoding:'utf8'});
+assert.equal(require('node:crypto').createHash('sha256').update(priorHtml).digest('hex'),'78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1','exact prior public HTML bytes');
+const priorUrl=priorHtml.match(/index-v31526\.js\?v=([^"']+)/)?.[1];
 assert(currentUrl&&priorUrl&&currentUrl!==priorUrl,
   'the current release must invalidate the exact previous browser cache key');
 
 console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and 2–3 midboss groups verified.');
 
-const priorHtml=require('node:child_process').execFileSync('git',['show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'],{encoding:'utf8'});
 const layoutKey=h=>h.match(/combat-layout\.js\?v=([^"']+)/)?.[1];
 assert(layoutKey(read('index.html'))&&layoutKey(priorHtml)&&layoutKey(read('index.html'))!==layoutKey(priorHtml),'current layout script invalidates exact prior public cache key');

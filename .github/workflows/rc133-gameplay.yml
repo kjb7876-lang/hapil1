@@ -40,6 +40,12 @@ jobs:
           git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
           git fetch --no-tags --depth=1 origin 785a2158983412384909cf701a6d8198581ed5f3
           git fetch --no-tags --depth=1 origin 59f5381c046cb4b2416a97c704f34770e887602d
+          RC133_CACHE_BASE=9704fdb295a240605dbeb0045c224df8fe4f6ccd
+          if ! git --no-replace-objects cat-file -e "$RC133_CACHE_BASE:index.html" 2>/dev/null; then
+            git fetch --no-tags --depth=1 origin "$RC133_CACHE_BASE"
+          fi
+          git --no-replace-objects cat-file -e "$RC133_CACHE_BASE:index.html"
+          node -e "const c=require('node:child_process'),h=require('node:crypto');require('node:assert/strict').equal(h.createHash('sha256').update(c.execFileSync('git',['--no-replace-objects','show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'])).digest('hex'),'78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1')"
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"

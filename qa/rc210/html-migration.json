@@ -1,7 +1,7 @@
 {
   "base": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
   "beforeSha256": "78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1",
-  "afterSha256": "b7d32573c7a8308e838ba39b264da32d0a94af524a5231f7a5f7d7cce5aab8e0",
+  "afterSha256": "f79599c7d3d9bf642d18b5b0c921709500defa67d3531f52b2963ae4d8dad47b",
   "changes": [
     {
       "before": "    <script src=\"./assets/rc133/developer-maps.js?v=43307\"></script>\n<script src=\"./assets/rc137/direction-input.js?v=43701\"></script>\n",
@@ -13,7 +13,7 @@
     },
     {
       "before": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n",
-      "after": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n<script src=\"./assets/rc210/encounter-policy.js?v=21001\"></script>\n<script src=\"./assets/rc210/fragments.js?v=21001\"></script>\n<script src=\"./assets/rc210/projectile-balance.js?v=21002\"></script>\n<script src=\"./assets/rc210/lust-projectiles.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-rift.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-body.js?v=21001\"></script>\n<script src=\"./assets/rc210/bootloader.js?v=21001\"></script>\n<script src=\"./assets/rc210/cosmic-leech.js?v=21001\"></script>\n<script src=\"./assets/rc210/deferred-damage.js?v=21001\"></script>\n<script src=\"./assets/rc210/machine-fields.js?v=21001\"></script>\n<script src=\"./assets/rc210/insomnia-fog.js?v=21001\"></script>\n<script src=\"./assets/rc210/ornaments.js?v=21201\"></script>\n<script src=\"./assets/rc210/morga.js?v=21001\"></script>\n<script src=\"./assets/rc210/great-torso.js?v=21001\"></script>\n<script src=\"./assets/rc210/wall-towers.js?v=21001\"></script>\n"
+      "after": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n<script src=\"./assets/rc210/encounter-policy.js?v=21001\"></script>\n<script src=\"./assets/rc210/fragments.js?v=21001\"></script>\n<script src=\"./assets/rc210/projectile-balance.js?v=21002\"></script>\n<script src=\"./assets/rc210/lust-projectiles.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-rift.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-body.js?v=21001\"></script>\n<script src=\"./assets/rc210/bootloader.js?v=21001\"></script>\n<script src=\"./assets/rc210/cosmic-leech.js?v=21001\"></script>\n<script src=\"./assets/rc210/deferred-damage.js?v=21001\"></script>\n<script src=\"./assets/rc210/machine-fields.js?v=21001\"></script>\n<script src=\"./assets/rc210/insomnia-fog.js?v=21001\"></script>\n<script src=\"./assets/rc210/ornaments.js?v=21201\"></script>\n<script src=\"./assets/rc210/morga.js?v=21001\"></script>\n<script src=\"./assets/rc210/great-torso.js?v=21301\"></script>\n<script src=\"./assets/rc210/wall-towers.js?v=21001\"></script>\n"
     },
     {
       "before": "<script src=\"./assets/rc206/boss-facing.js?v=20601\"></script>\n<script src=\"./assets/rc138/battle-arena.js?v=19101\"></script>\n<script src=\"./assets/rc138/map-data.js?v=43803\"></script>\n",
@@ -29,7 +29,7 @@
     },
     {
       "before": "<script src=\"./assets/combat-v31412/outgoing-native.js?v=18901\"></script>\n<script src=\"./assets/rc133/bitmap-contact.js?v=20601-15602\"></script>\n",
-      "after": "<script src=\"./assets/combat-v31412/outgoing-native.js?v=18901\"></script>\n<script src=\"./assets/rc133/bitmap-contact.js?v=21001-20601-15602\"></script>\n"
+      "after": "<script src=\"./assets/combat-v31412/outgoing-native.js?v=18901\"></script>\n<script src=\"./assets/rc133/bitmap-contact.js?v=21301-20601-15602\"></script>\n"
     },
     {
       "before": "    <script src=\"./assets/rc23/feedback.js?v=43001\"></script>\n    <script src=\"./assets/rc25/raid.js?v=15516\"></script>\n",
@@ -49,7 +49,7 @@
     },
     {
       "before": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=20801\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=20601\"></script>\n",
-      "after": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=21001\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=21101\"></script>\n"
+      "after": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=21001\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=21301\"></script>\n"
     },
     {
       "before": "<link rel=\"stylesheet\" href=\"./assets/rc28/mobile-layout.css?v=43502\">\n<script defer src=\"./assets/rc32/boss-and-mobile.js?v=17501\"></script>\n",

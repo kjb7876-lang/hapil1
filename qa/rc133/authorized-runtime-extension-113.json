@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "23f5f8ddca219b2bb919b9fe74d255f9a03e2478",
+  "baseTree": "0cebd8681745d99014856b090d88f9e30bfa71ba",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f5ffc5d1c4cb4748ce9537447d651506be9d611144087fdc1ec9fd6e6c8f944b",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: approved Great Warden torso and viewport root correction: world-only body probe cannot seed viewport camera epoch; measured horizontal center plus decoded-image/facing cache invalidation shared by aim/contact. Original torso ratios, art, damage, fixed camera, saves, natural/777 victory and StoryWorld preserved; exact cache updates only.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "377bc3a8e16881cd95ff85c23252bfe4fd4eedc5"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d85af73bb785850ae725a797510910926e8b7361",
+        "sha256": "5781a4c6abed1062022d9cdcefce97761c1e1594886f545832cb5886737458f9"
+      }
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "assets/rc133/bitmap-contact.js: approved Great Warden torso and viewport root correction: world-only body probe cannot seed viewport camera epoch; measured horizontal center plus decoded-image/facing cache invalidation shared by aim/contact. Original torso ratios, art, damage, fixed camera, saves, natural/777 victory and StoryWorld preserved; exact cache updates only.",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "90ee2476170500cfb11de21f92cd9223d4dbfece"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "f5e08e4c25af16c67cb56e66d7063401b275038f",
+        "sha256": "86bee5bd0eb4223e1447ee60a758526bd11bdfc12ffb25e541e611fb844971fb"
+      }
+    },
+    {
+      "file": "assets/rc210/great-torso.js",
+      "reason": "assets/rc210/great-torso.js: approved Great Warden torso and viewport root correction: world-only body probe cannot seed viewport camera epoch; measured horizontal center plus decoded-image/facing cache invalidation shared by aim/contact. Original torso ratios, art, damage, fixed camera, saves, natural/777 victory and StoryWorld preserved; exact cache updates only.",
+      "before": {
+        "file": "assets/rc210/great-torso.js",
+        "mode": "100644",
+        "gitBlob": "7834e62230a42a8c95764d6fabe1ea06461f60fa"
+      },
+      "after": {
+        "file": "assets/rc210/great-torso.js",
+        "mode": "100644",
+        "gitBlob": "19f97a78c2ab667fc2c3b60526fe9b74a73569a9",
+        "sha256": "ec2b5e135177e0e6392ae23da09e1ec64e6c0df57fae135bb0885aebab2e6e9a"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: approved Great Warden torso and viewport root correction: world-only body probe cannot seed viewport camera epoch; measured horizontal center plus decoded-image/facing cache invalidation shared by aim/contact. Original torso ratios, art, damage, fixed camera, saves, natural/777 victory and StoryWorld preserved; exact cache updates only.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "31e77dcf8041aca95746bd0cd5a1555709b7d043"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "23756f66cbf04eb565dedba21cc88032c280a5f6",
+        "sha256": "f79599c7d3d9bf642d18b5b0c921709500defa67d3531f52b2963ae4d8dad47b"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "13234b49deec973ac02f703b17b83213ddf22304cfcb1d048d6571cfabd03ac8"
+}
