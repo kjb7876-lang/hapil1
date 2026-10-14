@@ -20,7 +20,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc129-${{ github.ref }}
+  group: rc129-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 jobs:
   verify:

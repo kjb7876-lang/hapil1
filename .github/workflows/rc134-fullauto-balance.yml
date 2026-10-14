@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc134-fullauto-${{ github.ref }}
+  group: rc134-fullauto-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   validate:

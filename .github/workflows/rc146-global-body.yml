@@ -27,7 +27,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc146-global-body-${{ github.ref }}
+  group: rc146-global-body-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   native-browser:

@@ -23,7 +23,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: rc144-death-burn-${{ github.ref }}
+  group: rc144-death-burn-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   browser:
