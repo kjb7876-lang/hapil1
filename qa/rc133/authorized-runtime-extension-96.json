@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "824c316f318344e5cf60e9157adb3e5275f4e663",
+  "baseTree": "9de48e4540877aa6ac8c0ed1cacc2aa8b07bee54",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "539752ab18eea120a57d2dff39fa09ac9d3fc6d60b78252e2e79ab291c29106a",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: user-authorized stable combat world-camera epoch with real resize/safe-area/scene refit; original assets, arena, boss placement, saves and combat contracts preserved",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "f3ec8bea27dc505cae05988a9911505fff29314e"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "27c926efdb7f860fecc9e64f49dd4db2232e2f07",
+        "sha256": "874e465645d13aef19deb045bdf1afb9bfddae89c8f987922e372b1a46c4cd88"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: user-authorized stable combat world-camera epoch with real resize/safe-area/scene refit; original assets, arena, boss placement, saves and combat contracts preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "4f042f23ce90c6b539dce9a8b17b0a101dc98abb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6dcbce2d1a467df6728f325b7a31a417ea76839c",
+        "sha256": "ed340c9ccf90e5a0ad88d23a5b905f37dc7685aef538ffc742bdf197cea7729c"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "87ba3dd2b4c9e3722749d80ba791d448605d5edc54b4d6eab2e2c17dfd722faa"
+}

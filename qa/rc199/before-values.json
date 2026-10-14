@@ -1,0 +1,49 @@
+{
+  "scope": "actual layout module with synthetic size/paint/viewport callbacks",
+  "rows": [
+    {
+      "width": 1180,
+      "height": 757,
+      "mobile": false,
+      "frames": 180,
+      "distinctScales": [
+        0.788063160944517,
+        0.9280388556060654
+      ],
+      "range": 0.13997569466154836
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "frames": 180,
+      "distinctScales": [
+        0.8678500986193295,
+        1.0219975406476296
+      ],
+      "range": 0.1541474420283001
+    },
+    {
+      "width": 568,
+      "height": 260,
+      "mobile": true,
+      "frames": 180,
+      "distinctScales": [
+        0.8214410024364777,
+        0.9673452657466869
+      ],
+      "range": 0.14590426331020923
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "frames": 180,
+      "distinctScales": [
+        0.7549212979077233,
+        0.8890103383886689
+      ],
+      "range": 0.1340890404809456
+    }
+  ]
+}
