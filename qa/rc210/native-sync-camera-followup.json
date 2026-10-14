@@ -1,0 +1,35 @@
+{
+  "base": "de6869b2181ff573c49553ba5947f81f80f6f452",
+  "sourceSync": {
+    "cause": "role-aware native provenance binding was updated in bundle but not editable integration",
+    "build": "node tools/rc215-build-native.cjs; --check validates bounded exact synchronization",
+    "checksUnchanged": [
+      "rc134-persona-art.cjs",
+      "rc155-ego-guardian-unit.cjs"
+    ]
+  },
+  "camera": {
+    "job": "https://github.com/kjb7876-lang/hapil1/actions/runs/38577573938/job/115898610162",
+    "observedViewport": [
+      844,
+      390
+    ],
+    "beforeScale": 1.0140686302557864,
+    "afterScale": 1.0116943952654704,
+    "unchangedDOM": true,
+    "reproduction": "actual paintEnvelope function and actual layout, synthetic raster rows; late readiness while idle changes to dash",
+    "beforeCpu": {
+      "passed": 15,
+      "failed": 1
+    },
+    "afterCpu": {
+      "passed": 16,
+      "failed": 0
+    },
+    "fix": "canonical probe clock/state and all-heading move/dash/attack envelopes for non-slayer legacy heroes; existing slayer and EGO all-pose probes retained",
+    "liveActorMutation": false,
+    "contactGeometryChanged": false,
+    "browserValidation": "pending new exact SHA CI; CPU evidence is not browser replay"
+  },
+  "preservation": "all old candidates, media and failed results preserved; extension115 is exact preimage/output pin; no main or Pages change"
+}

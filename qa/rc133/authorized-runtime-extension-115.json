@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "de6869b2181ff573c49553ba5947f81f80f6f452",
+  "baseTree": "b199235df3573d1af2033829d42cffdfae71489a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0dffddeda19d1dcb4c2125e138b3a26cebdffa77f7a1ec8070a437d0df3dcc6f",
+  "files": [
+    {
+      "file": "assets/rc133/native-install.js.txt",
+      "reason": "Synchronize editable native integration with the exact de6869b base/ornament ownership binding; no runtime behavior rollback.",
+      "before": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "67929c8a63826816beb6397e6fe2aa596ab7c833"
+      },
+      "after": {
+        "file": "assets/rc133/native-install.js.txt",
+        "mode": "100644",
+        "gitBlob": "1b6cac56094bb6a6df186e646d6495db4126c17b",
+        "sha256": "32209ba098045ecba87a305ddf75f79dbe0c0b22ad47e53b519662e6a05df2be"
+      }
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "Canonical all-heading hero motion presentation envelope prevents late image readiness from measuring live arrow/blink pose; collision and live actor state unchanged.",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "f5e08e4c25af16c67cb56e66d7063401b275038f"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "335cba7291e97868e9351e75e99f969ef7904645",
+        "sha256": "56b1759d06338af271b78824c371fa5bd66185cb06629f89f07d7264ba0c3afb"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "Invalidate bitmap-contact cache for the canonical hero envelope fix.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8c7818efee0598598225ade1ecf85a3bdeb921fa"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "13ec93a1224a6d687acd34f26f0abbb2ad603258",
+        "sha256": "e6f1f8cae16b0f9239cfe14670b8260d5f50f735c667a01448eeb3f373b6db49"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "822dac313422ad1e5190ceb1e8e89751a8719beced0afb384263fd5190ac28f1"
+}
