@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "runtimeCommit": "11783d04abd2d9a1eab239a8ac62984f0e048ef3",
+  "currentRuntimeProof": {
+    "checkedFiles": 3349,
+    "checkedDirectories": 534,
+    "workingTreeMatches": true,
+    "committedTreeMatches": true
+  },
+  "extension": "qa/rc133/authorized-runtime-extension-99.json",
+  "extensionSha256": "a8f764a06411812cbf66a094750fbf29f387d0aa37d9f37da5677ba694ba2462",
+  "fullLocalLog": "/workspace/rc203-preservation.log",
+  "fullLogSha256": "1017ba54eb361d67691ec830fd7b7130db2d0663bef78a7178fa42351cc15ca1",
+  "scope": "Protected runtime bytes and prior authorized chain; no browser validation"
+}

@@ -1,0 +1,518 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "id": "b09-boss",
+      "phase": 0,
+      "producer": {
+        "projectiles": 3,
+        "lasers": 1,
+        "casts": 1,
+        "patterns": {
+          "snipe-sword-wave": 1
+        }
+      },
+      "originals": [
+        {
+          "speed": 5.1205,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.2668,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.413100000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ],
+      "trace": [
+        {
+          "speed": 5.1205,
+          "warning": 1.1999999999999993,
+          "start": {
+            "x": 11,
+            "y": 21
+          },
+          "centerAt": 13.466666666666839,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        },
+        {
+          "speed": 5.2668,
+          "warning": 1.33,
+          "start": {
+            "x": 21,
+            "y": 11
+          },
+          "centerAt": 13.3333333333335,
+          "nominalExpiresAt": 16.5,
+          "turns": 4
+        },
+        {
+          "speed": 5.413100000000001,
+          "warning": 1.459999999999999,
+          "start": {
+            "x": 27,
+            "y": 17
+          },
+          "centerAt": 13.600000000000179,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "phase": 1,
+      "producer": {
+        "projectiles": 3,
+        "lasers": 1,
+        "casts": 1,
+        "patterns": {
+          "snipe-sword-wave": 1
+        }
+      },
+      "originals": [
+        {
+          "speed": 5.218500000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.3675999999999995,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.5167,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ],
+      "trace": [
+        {
+          "speed": 5.218500000000001,
+          "warning": 1.1999999999999993,
+          "start": {
+            "x": 11,
+            "y": 21
+          },
+          "centerAt": 13.416666666666837,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        },
+        {
+          "speed": 5.3675999999999995,
+          "warning": 1.33,
+          "start": {
+            "x": 21,
+            "y": 11
+          },
+          "centerAt": 13.300000000000164,
+          "nominalExpiresAt": 16.5,
+          "turns": 4
+        },
+        {
+          "speed": 5.5167,
+          "warning": 1.459999999999999,
+          "start": {
+            "x": 27,
+            "y": 17
+          },
+          "centerAt": 13.566666666666844,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "phase": 2,
+      "producer": {
+        "projectiles": 3,
+        "lasers": 1,
+        "casts": 1,
+        "patterns": {
+          "snipe-sword-wave": 1
+        }
+      },
+      "originals": [
+        {
+          "speed": 5.3165000000000004,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.4684,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.620300000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ],
+      "trace": [
+        {
+          "speed": 5.3165000000000004,
+          "warning": 1.1999999999999993,
+          "start": {
+            "x": 11,
+            "y": 21
+          },
+          "centerAt": 13.383333333333502,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        },
+        {
+          "speed": 5.4684,
+          "warning": 1.33,
+          "start": {
+            "x": 21,
+            "y": 11
+          },
+          "centerAt": 13.26666666666683,
+          "nominalExpiresAt": 16.5,
+          "turns": 4
+        },
+        {
+          "speed": 5.620300000000001,
+          "warning": 1.459999999999999,
+          "start": {
+            "x": 27,
+            "y": 17
+          },
+          "centerAt": 13.516666666666842,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "phase": 3,
+      "producer": {
+        "projectiles": 3,
+        "lasers": 1,
+        "casts": 1,
+        "patterns": {
+          "snipe-sword-wave": 1
+        }
+      },
+      "originals": [
+        {
+          "speed": 5.4145,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.5692,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.7239,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ],
+      "trace": [
+        {
+          "speed": 5.4145,
+          "warning": 1.1999999999999993,
+          "start": {
+            "x": 11,
+            "y": 21
+          },
+          "centerAt": 13.3333333333335,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        },
+        {
+          "speed": 5.5692,
+          "warning": 1.33,
+          "start": {
+            "x": 21,
+            "y": 11
+          },
+          "centerAt": 13.216666666666827,
+          "nominalExpiresAt": 16.5,
+          "turns": 4
+        },
+        {
+          "speed": 5.7239,
+          "warning": 1.459999999999999,
+          "start": {
+            "x": 27,
+            "y": 17
+          },
+          "centerAt": 13.483333333333507,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        }
+      ]
+    },
+    {
+      "id": "u203-boss",
+      "phase": 1,
+      "producer": {
+        "projectiles": 3,
+        "lasers": 1,
+        "casts": 1,
+        "patterns": {
+          "snipe-sword-wave": 1
+        }
+      },
+      "originals": [
+        {
+          "speed": 5.390000000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.5440000000000005,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.698000000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        }
+      ],
+      "trace": [
+        {
+          "speed": 5.390000000000001,
+          "warning": 1.1999999999999993,
+          "start": {
+            "x": 11,
+            "y": 21
+          },
+          "centerAt": 13.350000000000167,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        },
+        {
+          "speed": 5.5440000000000005,
+          "warning": 1.33,
+          "start": {
+            "x": 21,
+            "y": 11
+          },
+          "centerAt": 13.233333333333494,
+          "nominalExpiresAt": 16.5,
+          "turns": 4
+        },
+        {
+          "speed": 5.698000000000001,
+          "warning": 1.459999999999999,
+          "start": {
+            "x": 27,
+            "y": 17
+          },
+          "centerAt": 13.500000000000174,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        }
+      ]
+    },
+    {
+      "id": "u203-boss",
+      "phase": 2,
+      "producer": {
+        "projectiles": 3,
+        "lasers": 1,
+        "casts": 1,
+        "patterns": {
+          "snipe-sword-wave": 1
+        }
+      },
+      "originals": [
+        {
+          "speed": 5.488000000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.644800000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.801600000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        }
+      ],
+      "trace": [
+        {
+          "speed": 5.488000000000001,
+          "warning": 1.1999999999999993,
+          "start": {
+            "x": 11,
+            "y": 21
+          },
+          "centerAt": 13.300000000000164,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        },
+        {
+          "speed": 5.644800000000001,
+          "warning": 1.33,
+          "start": {
+            "x": 21,
+            "y": 11
+          },
+          "centerAt": 13.20000000000016,
+          "nominalExpiresAt": 16.5,
+          "turns": 4
+        },
+        {
+          "speed": 5.801600000000001,
+          "warning": 1.459999999999999,
+          "start": {
+            "x": 27,
+            "y": 17
+          },
+          "centerAt": 13.466666666666839,
+          "nominalExpiresAt": 16.5,
+          "turns": 3
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "actualPacketFps": [
+        {
+          "hz": 15,
+          "x": 19.637779180802816,
+          "y": 19.862220819197184
+        },
+        {
+          "hz": 60,
+          "x": 19.63777918080294,
+          "y": 19.86222081919706
+        },
+        {
+          "hz": 144,
+          "x": 19.637779180803136,
+          "y": 19.862220819196864
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "secondActualVolley": "alternate R route reached center",
+      "expiresAt": 26.5
+    },
+    {
+      "id": "u203-boss",
+      "actualPacketFps": [
+        {
+          "hz": 15,
+          "x": 19.066083348213525,
+          "y": 20.066083348213525
+        },
+        {
+          "hz": 60,
+          "x": 19.066083348213525,
+          "y": 20.066083348213525
+        },
+        {
+          "hz": 144,
+          "x": 19.06608334821391,
+          "y": 20.06608334821391
+        }
+      ]
+    },
+    {
+      "id": "u203-boss",
+      "secondActualVolley": "alternate R route reached center",
+      "expiresAt": 26.5
+    },
+    {
+      "reflection": "actual native reflect + route ownership detach",
+      "vx": -6.036800000000001,
+      "vy": 0,
+      "expiresAt": 16.5
+    }
+  ],
+  "scope": "CPU actual native boss row→tickBossCombatPatterns fallback family selection→spawnBossCombatPattern→SnipeSwordWave→pushThemeProjectile→real director/persistence/hardening/expiry, real layout/arena and Dream reflect. Native cadence and final RC153 post-emission hook execute. Bitmap/torso, atomic cast/laser warning, HP scaling/protection admission, cap and telemetry services are fixtures. Optional grammar/adaptive/scheduler modules are absent to test the real native fallback path. No full scheduling-stack, browser, collision pixels or natural encounter claim."
+}

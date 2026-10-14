@@ -1,0 +1,42 @@
+{
+  "scope": "Art-only investigation; no repository source, code, or runtime asset was modified.",
+  "repository_search": {
+    "rc81_right_and_left_dirs": "No standalone sword/weapon layer found. The RC81 sprite sheet, raw attack image, GIF/frames, layout guide, and base-source are composite character art.",
+    "filename_search": "No separately named Slayer sword/weapon layer found. Other sword/weapon-named files are other assets, not an isolated RC81 Slayer layer."
+  },
+  "source": {
+    "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+    "dimensions": "2560x640",
+    "format": "RGBA PNG, four horizontal 640x640 attack cells",
+    "sha256": "f98f4fceadb1d4cf91e243302335694f453ee840db651e9c90ea35ac5fb091f2",
+    "observations": "F0 shows the full right-facing sword, but the hand/gauntlet meets and partly occludes the grip/guard. The sprite is flattened; removing the sword from the body would expose a small missing/overdrawn contact patch that cannot be recovered as original pixels from this file alone. Most of the blade outside the hand is visible and could be isolated, but the occluded grip must be reconstructed or inpainted."
+  },
+  "generation": {
+    "tool": "official image_gen.imagegen tool",
+    "call_count": 1,
+    "referenced_image_paths": [
+      "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png"
+    ],
+    "prompt_file": "/workspace/rc203-slayer-rig/sword-layer-prompt.txt",
+    "generated_tool_output": "/workspace/generated_images/exec-2af715ae-5314-483a-963e-e6eb791a1834.png"
+  },
+  "candidate": {
+    "path": "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png",
+    "dimensions": "2172x724",
+    "format": "RGBA PNG",
+    "bytes": 704927,
+    "sha256": "94f2063f8952423fb6e4ed090f1011b1cd589a85295f36a757bfb6a24e0c6909",
+    "alpha_byte_ge_6_bbox_xyxy_exclusive": [137, 202, 2036, 539],
+    "alpha_byte_ge_6_clearance_px": {"left": 137, "top": 202, "right": 136, "bottom": 185},
+    "edge_note": "Transparent corners and top/right/bottom edges; a single very faint alpha-byte value reaches the left edge. Visual inspection also shows faint isolated specks around the sword.",
+    "visual_assessment": "The output is a single transparent sword with a similar dark jagged blade, silver bevels, red core and circular guard, and a complete reconstructed handle. It is a newly synthesized approximation, not a pixel extraction: some guard, pommel and blade details differ from the source. Do not treat it as preserving original RC81 sword pixels exactly. It may be a concept fallback after artifact cleanup and alignment, but does not meet a strict source-pixel identity requirement.",
+    "estimated_handle_pivot_xy": [410, 365],
+    "pivot_estimate_basis": "Visual estimate in the raw 2172x724 output, center of the reconstructed grip; verify alignment before use."
+  },
+  "source_attachment_estimate": {
+    "frame": "F0, local 640x640 coordinates",
+    "grip_contact_xy": [320, 398],
+    "basis": "Rough visual estimate from the actual source crop, not automated segmentation."
+  },
+  "recommendation": "The fixed-weapon-layer approach is feasible only with a separately prepared sword-free body layer and a reconstructed contact area. The generated sword layer is not pixel-identical and has faint specks, so do not use it as a source-preserving replacement without cleanup and a visual alignment check. No additional generation was performed."
+}

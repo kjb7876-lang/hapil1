@@ -1,0 +1,210 @@
+{
+  "status": "baseline reproduction",
+  "rows": [
+    {
+      "id": "b09-boss",
+      "phase": 0,
+      "armed": 0,
+      "originals": [
+        {
+          "speed": 5.120499999999999,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.2668,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.413100000000002,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "phase": 1,
+      "armed": 0,
+      "originals": [
+        {
+          "speed": 5.218500000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.3675999999999995,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.5167,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "phase": 2,
+      "armed": 0,
+      "originals": [
+        {
+          "speed": 5.3165000000000004,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.468399999999999,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.620300000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ]
+    },
+    {
+      "id": "b09-boss",
+      "phase": 3,
+      "armed": 0,
+      "originals": [
+        {
+          "speed": 5.4145,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.5692,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        },
+        {
+          "speed": 5.7239,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:b09-boss",
+          "radius": 0.6016
+        }
+      ]
+    },
+    {
+      "id": "u203-boss",
+      "phase": 1,
+      "armed": 0,
+      "originals": [
+        {
+          "speed": 5.390000000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.5440000000000005,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.698000000000001,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        }
+      ]
+    },
+    {
+      "id": "u203-boss",
+      "phase": 2,
+      "armed": 0,
+      "originals": [
+        {
+          "speed": 5.488000000000002,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.6448,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        },
+        {
+          "speed": 5.801600000000002,
+          "expiresAt": 16.5,
+          "hard13": 18.5,
+          "hard14": 22.5,
+          "damage": 18,
+          "sprite": "owner:u203-boss",
+          "radius": 0.64
+        }
+      ]
+    }
+  ],
+  "scope": "CPU actual native boss row→tickBossCombatPatterns fallback family selection→spawnBossCombatPattern→SnipeSwordWave→pushThemeProjectile→real director/persistence/hardening/expiry, real layout/arena and Dream reflect. Native cadence and final RC153 post-emission hook execute. Bitmap/torso, atomic cast/laser warning, HP scaling/protection admission, cap and telemetry services are fixtures. Optional grammar/adaptive/scheduler modules are absent to test the real native fallback path. No full scheduling-stack, browser, collision pixels or natural encounter claim."
+}
