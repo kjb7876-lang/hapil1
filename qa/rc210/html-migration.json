@@ -1,8 +1,12 @@
 {
   "base": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
   "beforeSha256": "78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1",
-  "afterSha256": "f79599c7d3d9bf642d18b5b0c921709500defa67d3531f52b2963ae4d8dad47b",
+  "afterSha256": "2e29bd5ef7bbcba5454364135d2ba1a58586af35157d1cf213a8a8090b6ee80e",
   "changes": [
+    {
+      "before": "    <script src=\"./assets/rc155/ego-art.js?v=17401\"></script>\n    <script src=\"./assets/rc155/combat-provenance.js?v=15601\"></script>\n",
+      "after": "    <script src=\"./assets/rc155/ego-art.js?v=17401\"></script>\n    <script src=\"./assets/rc155/combat-provenance.js?v=21401\"></script>\n"
+    },
     {
       "before": "    <script src=\"./assets/rc133/developer-maps.js?v=43307\"></script>\n<script src=\"./assets/rc137/direction-input.js?v=43701\"></script>\n",
       "after": "    <script src=\"./assets/rc133/developer-maps.js?v=43307\"></script>\n<script src=\"./assets/rc137/direction-input.js?v=21001\"></script>\n"
@@ -49,7 +53,7 @@
     },
     {
       "before": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=20801\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=20601\"></script>\n",
-      "after": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=21001\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=21301\"></script>\n"
+      "after": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=21001\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=21401\"></script>\n"
     },
     {
       "before": "<link rel=\"stylesheet\" href=\"./assets/rc28/mobile-layout.css?v=43502\">\n<script defer src=\"./assets/rc32/boss-and-mobile.js?v=17501\"></script>\n",

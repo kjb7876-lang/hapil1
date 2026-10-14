@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "f93166636decd46457714b17cd21fd9df1d5309e",
+  "baseTree": "eec43e8d84fd0e118eac925ef1fada5295fe3546",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "9e9096411a984f04f6d04e9d03a3190d2f9468d7687b0ad34b869092d4b587bc",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: approved dist00 base/rotating-story-ornament ownership contract correction: separate packet roles, preserve existing dedicated catalogs, independently derive exactly one source/zone/skill default only for undeclared native base producers; reject foreign/forged props, retain immutable birth ownership after owner removal. No projectile/art/damage/TTL/camera/save/StoryWorld or security change; cache invalidation only.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d85af73bb785850ae725a797510910926e8b7361"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "549d56b442093dee9b55c76ef69979dd957257aa",
+        "sha256": "98f7bf9c4413adfdf0fd57b33bedb2f8c9d3c6b5361b58f0b19e156d907bd0f1"
+      }
+    },
+    {
+      "file": "assets/rc155/combat-provenance.js",
+      "reason": "assets/rc155/combat-provenance.js: approved dist00 base/rotating-story-ornament ownership contract correction: separate packet roles, preserve existing dedicated catalogs, independently derive exactly one source/zone/skill default only for undeclared native base producers; reject foreign/forged props, retain immutable birth ownership after owner removal. No projectile/art/damage/TTL/camera/save/StoryWorld or security change; cache invalidation only.",
+      "before": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "5f992b2dd3f9aa64bd05f1d4606f96923aa334b8"
+      },
+      "after": {
+        "file": "assets/rc155/combat-provenance.js",
+        "mode": "100644",
+        "gitBlob": "e7476d007cc3a0f4127d6a5b4b8803c94d544715",
+        "sha256": "2d0f393f9ea832254c6261ec7ebe43d33c462a4a2519b05cf31f92531801b562"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: approved dist00 base/rotating-story-ornament ownership contract correction: separate packet roles, preserve existing dedicated catalogs, independently derive exactly one source/zone/skill default only for undeclared native base producers; reject foreign/forged props, retain immutable birth ownership after owner removal. No projectile/art/damage/TTL/camera/save/StoryWorld or security change; cache invalidation only.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "23756f66cbf04eb565dedba21cc88032c280a5f6"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8c7818efee0598598225ade1ecf85a3bdeb921fa",
+        "sha256": "2e29bd5ef7bbcba5454364135d2ba1a58586af35157d1cf213a8a8090b6ee80e"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "3fbb1aa0c2c8c4de0ca6daaab867b0e8c4f7347605e33667f3399405dd8becd5"
+}

@@ -1,0 +1,12 @@
+{
+  "base":"f93166636decd46457714b17cd21fd9df1d5309e",
+  "failure":"dist00-boss default infernal-skull packets were compared against an ornament-only archivist statue list",
+  "rootCause":"Native provenance merged additional rotating ornament assets into one generic owner list. An otherwise unmapped native base producer thereby acquired a nonempty but incomplete list, falsely rejecting its independent native base route.",
+  "fix":"Separate base-projectile and story-ornament roles. Marked ornaments use only the actual owner's story pool; existing dedicated base catalogs remain authoritative. Only an undeclared native base producer gets exactly one independently computed source/zone/skill visual route with its declared normal style route. Input sprite and emitted sprite are never used to authorize themselves. Runtime inspection uses pure catalog reads, no style mutation.",
+  "negativeChecks":["unmarked prop cannot act as a base packet","foreign-story ornament rejected","arbitrary explicitly requested bitmap rejected","forged ornament marker rejected","shared-common cannot bypass ornament ownership","native fallback cannot broaden a dedicated owner's catalog","later foreign mutation remains visible","valid birth ownership survives owner removal without permitting a foreign mutation"],
+  "reproducedBefore":"Exact prior native binding/resolver plus actual ornament/provenance modules: native base/ornament wave fails. Current binding admits5base and2ornament packets independently, with no role union.",
+  "targetedTwice":"Native contract/ornament tests and existing1207-check combat quality suite passed twice; final exactSHA full regression/browser replay still required",
+  "visualReview":{"requested":"Previously generated Great Warden capture PNGs","localCopiesFound":false,"searched":"workspace/tmp known torso-probe or SHA image filenames","directPixelsReviewed":false,"reason":"Normal prior artifact transfer denied; no retry, alternate route or generated substitute. Asked only for an already-delivered local PNG path; independent code work continued."},
+  "preserved":"Original art/prose/audio/saves/StoryWorld, prior SHA/captures, fixed camera and Great torso correction. No physical projectile/path/damage/size/lifetime change, no source ID repair, no security/permissions/HOME changes, no dispatch or denied transfer retry.",
+  "deployment":false
+}
