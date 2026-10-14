@@ -12,7 +12,7 @@
   "files": [
     {
       "file": "assets/rc210/projectile-balance.js",
-      "reason": "RC210 approved CI debugging: preserve RC129 authored refuge while adding outward density shots; invalidate only the changed projectile script cache. Original source assets, prose, audio and saves remain untouched.",
+      "reason": "assets/rc210/projectile-balance.js: RC210 approved CI debugging: preserve RC129 authored refuge while adding outward density shots; invalidate only the changed projectile script cache. Original source assets, prose, audio and saves remain untouched.",
       "before": {
         "file": "assets/rc210/projectile-balance.js",
         "mode": "100644",
@@ -27,7 +27,7 @@
     },
     {
       "file": "index.html",
-      "reason": "RC210 approved CI debugging: preserve RC129 authored refuge while adding outward density shots; invalidate only the changed projectile script cache. Original source assets, prose, audio and saves remain untouched.",
+      "reason": "index.html: RC210 approved CI debugging: preserve RC129 authored refuge while adding outward density shots; invalidate only the changed projectile script cache. Original source assets, prose, audio and saves remain untouched.",
       "before": {
         "file": "index.html",
         "mode": "100644",
