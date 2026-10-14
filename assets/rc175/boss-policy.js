@@ -15,7 +15,11 @@
   const vertical=offset=>[world(u+offset,v-r/2),world(u+offset,v+r/2)];
   const slash=offset=>[world(u-r,v+r/2+offset),world(u+r,v-r/2+offset)];
   const pairs=mode===0?[h(-gap),h(gap)]:mode===1?[vertical(-gap),vertical(gap)]:mode===2?[slash(-gap/2),slash(gap/2)]:[h(0),vertical(0),slash(gap)];
-  return pairs.map(([a,b])=>root.__HAPIL_LASERS_V31330__?.clip(a,b)).filter(Boolean).map(l=>({...l,width:c.width}));
+  const lines=pairs.map(([a,b])=>root.__HAPIL_LASERS_V31330__?.clip(a,b)).filter(Boolean).map(l=>({...l,width:c.width}));
+  // Use the established shared graph for warning, beam and native contact.
+  // Straight primary strokes stay straight; joins are real damaging segments,
+  // rather than paint-only bridges between disconnected attack geometries.
+  return root.__HAPIL_LASER_TOPOLOGY_RC108__?.normalize(c,lines,true)??lines;
  }
  function configure(c,a){if(c.rc175StrokeMode!==undefined&&validMode(c))return;const seed=[...String(a?.id??'')].reduce((v,ch)=>(Math.imul(v,33)+ch.charCodeAt(0))>>>0,0),mode=cycles.get(a)??(seed%4);c.rc175StrokeMode=mode;cycles.set(a,(mode+1)%4);}
  function title(c){return ['가로 두 획','세로 두 획','대각 두 획','교차 세 획'][strokeMode(c)];}

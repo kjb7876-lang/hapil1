@@ -35,8 +35,16 @@ const stanza = cls => {
   assert(match, `missing canonical prologue text: ${cls}`);
   return match[1].replace(/<br\s*\/?>/g, '\n');
 };
-units['prologue.passing'] = stanza('mongse-christian-opening__passing');
-units['prologue.awakening'] = stanza('mongse-christian-opening__awakening');
+// Retired prologue units remain in the immutable119-unit audio catalog;
+// the authorized dream opening is a separate current UI contract.
+const retiredBytes=read('qa/rc207/archived-prologue.json');assert.equal(hash(retiredBytes),'c54f29f3b7b3cb086677c08fa6ff04a66e334b41e5639c54f5a1da65b8dda2fa','exact preserved retired prologue');
+const retired=JSON.parse(retiredBytes);assert.equal(retired.sourceCommit,manifest.sourceCommit);
+Object.assign(units,retired.units);
+assert.equal(stanza('mongse-christian-opening__awakening'),'오늘은 어떤 꿈을 꾸셨나요?','current dream opening text');
+assert(!html.includes('class="mongse-christian-opening__passing"'),'retired passing paragraph is absent from live HTML');
+assert(!/그리스도|잠자는 자여/.test(html),'retired religious opening text cannot reappear');
+assert(!manifest.scenes['prologue:quote'],'retired incomplete prologue has no active audio route');
+for(const id of Object.keys(retired.units))assert(manifest.coverage.pendingUnits.includes(id)!==manifest.coverage.includedUnits.includes(id),'retired unit remains exactly classified in preserved audio catalog: '+id);
 const bundle = read('assets/index-v31526.js').toString();
 const death = bundle.slice(bundle.indexOf('function HAPIL_showDeathVerseRC59('), bundle.indexOf('\n(function HAPIL_installEpisode1DeathAndMidbossDuoRC59'));
 for (const name of ['title', 'verse1', 'verse2']) {

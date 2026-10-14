@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "fe42ca7928f36f81ec837b43e53c0637a8b23102",
+  "baseTree": "72c788d43d44e347ef0073e34f5a692aa118c556",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "73756fce4ab9313cb5012a031d7e87aa9eaef2c3f7a37306c7c658c547a6c225",
+  "files": [
+    {
+      "file": "assets/rc175/boss-policy.js",
+      "reason": "assets/rc175/boss-policy.js: authorized straight laser connection repair through shared warning/render/contact topology; preserve primary stroke modes, owner assets, cast timing and damage",
+      "before": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "b5a31f24c5b71ed0dd1fdca2c51257d3f3a8a6da"
+      },
+      "after": {
+        "file": "assets/rc175/boss-policy.js",
+        "mode": "100644",
+        "gitBlob": "be05b96c16fcc0546d5829499453cac8ee36966d",
+        "sha256": "520a6000cb212f66a2e3a5f50676885fe757bd8dca51e5d1ec365e48c5ade933"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized straight laser connection repair through shared warning/render/contact topology; preserve primary stroke modes, owner assets, cast timing and damage",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cc37280df9707479a20c75cea310f12bcbaf7dbb"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "786d2e22509ba99c9c63b33155350b6c2a5c7599",
+        "sha256": "78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "3f3c9883534e6a08fc73ecb0e39b8b687407f1b8207deb5ebd693e373110fde1"
+}
