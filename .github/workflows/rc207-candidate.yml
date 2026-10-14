@@ -61,6 +61,8 @@ jobs:
           node-version: '22'
       - name: Normal Chrome Stable validation runtime
         run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
           npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
           node "$RUNNER_TEMP/rc207/node_modules/playwright/cli.js" install --with-deps chrome
           node "$RUNNER_TEMP/rc207/node_modules/playwright/cli.js" install chromium

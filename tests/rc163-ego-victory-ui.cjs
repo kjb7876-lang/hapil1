@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict');
 async function interact(page,cfg){if(cfg.isMobile)await page.locator('#hapil-mobile-controls-v31366 [data-mobile-action="F"]').tap();else await page.keyboard.press('KeyF');}
-async function advanceStory(page,cfg){for(const selector of ['#hapil-story-rc51 .rc51-footer button:last-child','.rc26-story-continue','.interlude-next']){const button=page.locator(selector).first();if(await button.isVisible()){if(cfg.isMobile)await button.tap();else await button.click();return true;}}return false;}
+async function advanceStory(page,cfg){for(const selector of ['#hapil-story-rc51 .rc51-footer > button:has-text("계속 · Enter")','.rc26-story-continue','.interlude-next']){const button=page.locator(selector).first();if(await button.isVisible()){if(cfg.isMobile)await button.tap();else await button.click();return true;}}return false;}
 async function run(openProbe,out){
  const results=[];
  for(const cfg of [{name:'pc-manual',mode:'manual',viewport:{width:1280,height:900}},{name:'mobile-full',mode:'full',viewport:{width:844,height:390},isMobile:true,hasTouch:true},{name:'mobile-manual-rotate',mode:'manual',viewport:{width:390,height:844},isMobile:true,hasTouch:true}]){

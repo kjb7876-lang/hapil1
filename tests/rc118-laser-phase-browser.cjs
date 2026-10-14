@@ -25,11 +25,15 @@ async function main(){let browser;try{
  const {s,a}=stateFor('dist06-boss','dist06'),c=L.start(s,a,'fork-link'),cache={};if(!c)throw Error('cast unavailable');
  const tear=R.queue(cache,c.tear,'eager'),beam=R.queue(cache,c.beam,'eager');await Promise.all([tear.decode(),beam.decode()]);
  const cv=document.createElement('canvas');cv.width=1280;cv.height=720;const ctx=cv.getContext('2d');const native=ctx.drawImage.bind(ctx);
+ const joined=window.__HAPIL_CONNECTED_LASER_V31377__,originalRender=joined?.render;let ownedBeamDepth=0;
+ if(originalRender)window.__HAPIL_CONNECTED_LASER_V31377__=Object.freeze({...joined,render(context,lines,options,...rest){const owned=context===ctx&&(options?.image===beam||tintSources.get(options?.image)===beam);if(owned)ownedBeamDepth++;try{return originalRender.call(this,context,lines,options,...rest);}finally{if(owned)ownedBeamDepth--;}}});
+
  for(const [phase,time]of [['warning',c.fireAt-.1],['boundary',c.fireAt],['active',c.fireAt+.05],['concurrent',c.fireAt+.05],['late',c.fireAt+.3],['expired',c.endAt+.01]]){
- s.time=time;s.bossLaserCastsV31330=phase==='concurrent'?[c,{...c,id:c.id+1,born:c.born+1,fireAt:c.fireAt+1,endAt:c.endAt+1}]:[c];ctx.clearRect(0,0,1280,720);let tearDraws=0,beamDraws=0,sources=[];ctx.drawImage=(im,...args)=>{sources.push({src:im.src||null,w:im.width,h:im.height,args});if(args.length===4&&args[2]===12)tearDraws++;if(im===beam||tintSources.get(im)===beam)beamDraws++;return native(im,...args);};
+ s.time=time;s.bossLaserCastsV31330=phase==='concurrent'?[c,{...c,id:c.id+1,born:c.born+1,fireAt:c.fireAt+1,endAt:c.endAt+1}]:[c];ctx.clearRect(0,0,1280,720);let tearDraws=0,beamDraws=0,sources=[];ctx.drawImage=(im,...args)=>{sources.push({src:im.src||null,w:im.width,h:im.height,args});if(args.length===4&&args[2]===12)tearDraws++;if(im===beam||tintSources.get(im)===beam||ownedBeamDepth>0)beamDraws++;return native(im,...args);};
  L.draw(ctx,cache,s,{lowFx,reducedFlash:lowFx});let pixels=0;const data=ctx.getImageData(0,0,1280,720).data;for(let i=3;i<data.length;i+=4)if(data[i]>20)pixels++;
  out.push({lowFx,phase,tearDraws,beamDraws,sources,pixels,png:cv.toDataURL()});
  }
+ if(joined)window.__HAPIL_CONNECTED_LASER_V31377__=joined;
  }
  return out;
  });
