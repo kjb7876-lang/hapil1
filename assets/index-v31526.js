@@ -124460,13 +124460,13 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   if(!owns(hero)||!m)return null;
   const kind=String(m.kind??'idle');
   if(!['idle','move','attack','skill','ultimate','guard','dash','hurt','charge'].includes(kind))return null;
-  let dir=window.__HAPIL_AUTHORED_MOTION_RC4__.direction(m);
+  let dir=window.__HAPIL_AUTHORED_MOTION_RC4__.direction(m),rigidSector=m?.characterCommitV31342?.sector??({front:'s',back:'n',left:'w',right:'e'}[dir]);
   // Action aim is decided at start. Reused motion objects may update facing each tick.
   if(['attack','skill','guard','charge'].includes(kind)){
    const stamp=`${hero}:${kind}:${value(m.started)}:${value(m.until)}`;
    const previous=committedDirections.get(m);
-   if(previous?.stamp===stamp)dir=previous.dir;
-   else committedDirections.set(m,{stamp,dir});
+   if(previous?.stamp===stamp){dir=previous.dir;rigidSector=previous.rigidSector??rigidSector;}
+   else committedDirections.set(m,{stamp,dir,rigidSector});
   }
   const col=headings[dir]??0;
   if(kind==='move'||kind==='dash'){
@@ -124488,7 +124488,7 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   // RC85: use the same four-direction action atlas for every Slayer attack.
   // Guard/charge/hurt intentionally keep the correct costume and weapon at
   // rest; the game's existing guard, charge, hit and EGO VFX supply the cue.
-  return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage,...(hero==='slayer'&&kind==='attack'&&value(m.until)>value(m.started)?{rigidProgress:(time-value(m.started))/(value(m.until)-value(m.started))}:{})};
+  return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage,...(hero==='slayer'&&kind==='attack'&&value(m.until)>value(m.started)?{rigidSector,rigidProgress:(time-value(m.started))/(value(m.until)-value(m.started))}:{})};
  }
  function draw(ctx,cache,x,y,size,opts,p){
   if(window.__HAPIL_SLAYER_RIG_RC204__?.draw(ctx,cache,x,y,size,opts,p,MONGSE_queueImage,G))return true;

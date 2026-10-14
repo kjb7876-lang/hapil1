@@ -83,7 +83,7 @@
    const foot=project(a.x,a.y),pad=root.__HAPIL_COMBAT_LAYOUT_RC153__?.envelopePadding?.()??28,old=envelopes.get(key);if(old)return{left:foot.x+old.left,right:foot.x+old.right,top:foot.y+old.top,bottom:foot.y+old.bottom,nativePaint:true,padding:pad};
    const clone={...a,hitUntil:0,hitFlashUntil:0,rc156EnvelopeProbe:unscaled},rows=measure(s,clone,isHero?heroDraw:enemyDraw,true);
    if(!isHero)rows.push(...measure(s,{...clone,attackAt:s.time+2,recoverUntil:s.time+2},enemyDraw,true));
-   if(isHero&&!ego&&(a.activeHeroId??a.heroId)==='slayer'&&root.__HAPIL_SLAYER_RIG_RC204__)for(const dir of ['left','right'])for(const progress of [0,.125,.25,.375,.5,.62,.75,.875,1])rows.push(...measure(s,{...clone,heroMotion:{kind:'attack',direction:dir,characterCommitV31342:{sector:dir==='left'?'w':'e'},started:s.time-progress,until:s.time+1-progress}},heroDraw,true));
+   if(isHero&&!ego&&(a.activeHeroId??a.heroId)==='slayer'&&root.__HAPIL_SLAYER_RIG_RC204__)for(const sector of ['n','ne','e','se','s','sw','w','nw'])for(const progress of [0,.125,.25,.375,.5,.62,.75,.875,1])rows.push(...measure(s,{...clone,heroMotion:{kind:'attack',characterCommitV31342:{sector},started:s.time-progress,until:s.time+1-progress}},heroDraw,true));
    if(ego)for(const kind of ['move','attack'])for(const [dx,dy]of [[1,-1],[1,1],[-1,1],[-1,-1],[0,-1],[1,0],[0,1],[-1,0]])rows.push(...measure(s,{...clone,heroMotion:{kind,started:s.time,until:s.time+1,dx,dy,phase:1000}},heroDraw,true));
    if(!rows.length)return null;
    const points=rows.flatMap(r=>r.points),value={left:Math.min(...points.map(p=>p.x))-foot.x-pad,right:Math.max(...points.map(p=>p.x))-foot.x+pad,top:Math.min(...points.map(p=>p.y))-foot.y-pad,bottom:Math.max(...points.map(p=>p.y))-foot.y+pad};

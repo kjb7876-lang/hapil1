@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "base": "a93f7b94a0375b246b628cb520626d17ad8c85ed",
+  "baseTree": "38d6c39cc353f07552b28886b1ce8c9047e0926d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "77903f8e5d807c059a04893f10bcc6d6b546da99ed7b6c64ce892971cfbff7c0",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized RC205 eight-direction Slayer fixed-body/rigid-sword attack presentation, atomic asset readiness and all-direction camera envelope; legacy collision, EGO ownership and RC203 barrage preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "e81dc2a7070d1e5bae40eda80588b9ce08752166"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "421f042ff66932f430ad50117e149762c0d76037",
+        "sha256": "2bf06b5889ce559be05c1673ee880f4fd3b4aeef8bb220bdb3d3a067c150ed37"
+      }
+    },
+    {
+      "file": "assets/rc133/bitmap-contact.js",
+      "reason": "assets/rc133/bitmap-contact.js: authorized RC205 eight-direction Slayer fixed-body/rigid-sword attack presentation, atomic asset readiness and all-direction camera envelope; legacy collision, EGO ownership and RC203 barrage preserved",
+      "before": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "c524faad8bd6585850a6199c26b41fdc8a6a8478"
+      },
+      "after": {
+        "file": "assets/rc133/bitmap-contact.js",
+        "mode": "100644",
+        "gitBlob": "b301a8874ab3305b6bdc00fb6cdb0440f8ac532d",
+        "sha256": "f3295ce445db8112fc25555bb26ad1e93f9333373f7732614b0ba252fec029d2"
+      }
+    },
+    {
+      "file": "assets/rc205/slayer-rig.js",
+      "reason": "assets/rc205/slayer-rig.js: authorized RC205 eight-direction Slayer fixed-body/rigid-sword attack presentation, atomic asset readiness and all-direction camera envelope; legacy collision, EGO ownership and RC203 barrage preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc205/slayer-rig.js",
+        "mode": "100644",
+        "gitBlob": "992e66122dd8927e42c97d013f0961baccdfba34",
+        "sha256": "8ac063adc498a5bb6a4e2d92ca3a2769896cefcdfcdfbff348ac5908959b23d1"
+      }
+    },
+    {
+      "file": "assets/rc205/slayer-front-back.png",
+      "reason": "assets/rc205/slayer-front-back.png: authorized RC205 eight-direction Slayer fixed-body/rigid-sword attack presentation, atomic asset readiness and all-direction camera envelope; legacy collision, EGO ownership and RC203 barrage preserved",
+      "before": null,
+      "after": {
+        "file": "assets/rc205/slayer-front-back.png",
+        "mode": "100644",
+        "gitBlob": "ffc9f1fd200b34e101b11b4feeb508f0dbc3eba4",
+        "sha256": "fd59b53cbb504892b7e01e5fb70c7889fc80b46ab847800ad3ed8b984cf0401c"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized RC205 eight-direction Slayer fixed-body/rigid-sword attack presentation, atomic asset readiness and all-direction camera envelope; legacy collision, EGO ownership and RC203 barrage preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "4a30e3f6a2a1f74debaadae2850dea96358db3e6"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a8b00c82e61ad3f0270d7de09cf59f0e43ec2785",
+        "sha256": "105e1b3986d02e1b9fc592e62439b65349f35fc8a8b1890f5d301f83be35a08f"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "732e82ef81e3252df66e6f480548eef4364e702bd1617bda820fb102909bf3dc"
+}
