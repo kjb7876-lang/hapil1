@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "5aabc0b6b125005fa4b827c844a8eda1874466dc",
+  "baseTree": "a785a75b48eeb749c2b0e6afd546e11e5ea244ac",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e797faf7209275bf6c459f643105be896962e956693fca1588321a97c8ea776b",
+  "files": [
+    {
+      "file": "assets/rc201/orthogonal-barrage.js",
+      "reason": "assets/rc201/orthogonal-barrage.js: RC203 authorized separate review candidate; fit actual native 6.5-second packets without extending lifetime or changing speed; hand reflected direction to native scatter lock",
+      "before": {
+        "file": "assets/rc201/orthogonal-barrage.js",
+        "mode": "100644",
+        "gitBlob": "7345b24f0bd7edea64f14c02d5a49f5dcbc5e6c2"
+      },
+      "after": {
+        "file": "assets/rc201/orthogonal-barrage.js",
+        "mode": "100644",
+        "gitBlob": "06c1e076a4b42f5203b23ebe613c31097ff40e9e",
+        "sha256": "64de12df6f81ce81d7d9f257b6a61849da0c5934e1fe16402caf2a39e8c5ab7b"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: RC203 authorized separate review candidate; refresh orthogonal module cache key for the separately authorized RC203 candidate",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "53252bb841e38933648b724114d919cd7c327871"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e8ee754f49d231e1c74426151b224d1c38fa559a",
+        "sha256": "5c3bdce0491e576bd7c736a60afc0baef142cf0124af6ed15eb73e2b34bcc5c9"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "ce5f1be3a7ae2f9a04dbd31aab1551f59516c04f551ae780e059f1a2c231bfdb"
+}
