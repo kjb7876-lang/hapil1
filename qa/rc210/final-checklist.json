@@ -1,7 +1,7 @@
 {
   "round1Sha": "3157e662026b2a61d765d4dceecd5d45f978c95a",
-  "round2Sha": null,
-  "round2Status": "pending",
+  "round2Sha": "4816a4e25218f378114b1a45469e23466fc309e6",
+  "round2Status": "CPU74/74 passed including full historical preservation; CI and actual visual review incomplete",
   "rows": [
     {
       "id": "movement",
@@ -9,7 +9,7 @@
       "applied": "구현·CPU 통과",
       "round1": "RC137/RC195/RC210 movement",
       "unverifiedOrBlocked": "실제 이동·화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "구현·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -19,7 +19,7 @@
       "applied": "기존 RC195 범위 유지",
       "round1": "기존 CPU 면적+23.959%",
       "unverifiedOrBlocked": "이번 후보에서 재확대하지 않음·실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 RC195 범위 유지",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -29,7 +29,7 @@
       "applied": "구현·CPU 통과",
       "round1": "RC210 encounter",
       "unverifiedOrBlocked": "자연 진행·실기기 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "구현·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -39,7 +39,7 @@
       "applied": "구현·CPU 통과",
       "round1": "RC138 4222 checks",
       "unverifiedOrBlocked": "실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "구현·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -49,7 +49,7 @@
       "applied": "기존 RC206 경로 보존",
       "round1": "기존 CPU 통과",
       "unverifiedOrBlocked": "전 보스 실영상 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 RC206 경로 보존",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -59,7 +59,7 @@
       "applied": "기존 RC153/196 + 추가탄 각도 유지",
       "round1": "CPU 통과",
       "unverifiedOrBlocked": "전수 자연 진행 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 RC153/196 + 추가탄 각도 유지",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -69,7 +69,7 @@
       "applied": "구현·CPU 통과",
       "round1": "one-time baseline; 일반 1.25배/추가 admission24/72",
       "unverifiedOrBlocked": "성능/FPS 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "구현·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -79,7 +79,7 @@
       "applied": "구현·CPU 통과",
       "round1": "정확 jellybean 경로만 .33",
       "unverifiedOrBlocked": "작은 화면 식별 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "구현·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -89,7 +89,7 @@
       "applied": "구현·CPU 통과",
       "round1": "1944+324 native geometry cases",
       "unverifiedOrBlocked": "실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "구현·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -99,7 +99,7 @@
       "applied": "4자산 연결·CPU 통과",
       "round1": "속도2.6/수명6.5/상한4·8",
       "unverifiedOrBlocked": "실제 회피·FPS 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "4자산 연결·CPU 통과",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -109,7 +109,7 @@
       "applied": "기존 필터+서사별 자산 연결",
       "round1": "CPU mapping/crop/lifetime",
       "unverifiedOrBlocked": "전체 정적/잔여 충돌·clear 전수 브라우저 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 필터+서사별 자산 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -119,7 +119,7 @@
       "applied": "입구 장식 렌더만 제외",
       "round1": "정적 검사",
       "unverifiedOrBlocked": "실제 픽셀 미검증; 출구·좌표 유지",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "입구 장식 렌더만 제외",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -129,7 +129,7 @@
       "applied": "4개 실제 신규 포즈 연결",
       "round1": "해시/피벗/좌우 CPU",
       "unverifiedOrBlocked": "1시점+mirror; 프레임별 검 길이 시각 검토 필요",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "4개 실제 신규 포즈 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -139,7 +139,7 @@
       "applied": "6body +동일 원본검 연결",
       "round1": "실제 원본 픽셀·rigid CPU",
       "unverifiedOrBlocked": "손 중심 추정·swing 망토 edge3px·실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "6body +동일 원본검 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -149,7 +149,7 @@
       "applied": "실제 신규 rift 연결",
       "round1": "10/30/60/144Hz raw36 CPU",
       "unverifiedOrBlocked": "브라우저 fixture rift not admitted 실패 조사 중",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "실제 신규 rift 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -159,7 +159,7 @@
       "applied": "last301/l301-boss 실제33 확인; 원본 idle/guard/move 3장 실제 열람",
       "round1": "원본 칼끝 확인·기존 전체 캔버스/envelope",
       "unverifiedOrBlocked": "게임내 잘림 해결 판정 미완료;32는last305고블린",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "last301/l301-boss 실제33 확인; 원본 idle/guard/move 3장 실제 열람",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -169,7 +169,7 @@
       "applied": "6개ID 한정 동일 측정 중심 연결",
       "round1": "CPU idle/attack/hit center fixtures",
       "unverifiedOrBlocked": "실제 스프라이트 조준/접촉 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "6개ID 한정 동일 측정 중심 연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -179,7 +179,7 @@
       "applied": "최종 피해6분할·주기DOT 비재분할",
       "round1": "10/30/60/144Hz·회복·부활 큐0 CPU",
       "unverifiedOrBlocked": "실제 native 방어·각성·음향 전체 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "최종 피해6분할·주기DOT 비재분할",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -189,7 +189,7 @@
       "applied": "소유자 토큰·실제 HP차감 귀속 구현",
       "round1": "120loss→.72heal CPU;죽음/교체/반사 제외",
       "unverifiedOrBlocked": "기존 RC25 기본흡혈 별도 유지; 전체 소유자 실제 진행 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "소유자 토큰·실제 HP차감 귀속 구현",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -199,7 +199,7 @@
       "applied": "기존 각성 자산 + 새3단계 전맵레이저/회피빛 연결",
       "round1": "기존/공통 CPU",
       "unverifiedOrBlocked": "가면·피눈물→난사 실제 연속 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 각성 자산 + 새3단계 전맵레이저/회피빛 연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -209,7 +209,7 @@
       "applied": "신규 실제PNG 연결",
       "round1": "원본 참조/신규 해시/픽셀 열람",
       "unverifiedOrBlocked": "새 그림·바닥 월드 경계 맞춤 실화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "신규 실제PNG 연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -219,7 +219,7 @@
       "applied": "3개 독립자산 연결",
       "round1": "실제 픽셀/회전/크기/수명 CPU",
       "unverifiedOrBlocked": "실제 작은 화면·다른스킬시 유지 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "3개 독립자산 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -229,7 +229,7 @@
       "applied": "각성 플래그 전용 구현",
       "round1": "3단계 native contact/비중첩 overlay CPU",
       "unverifiedOrBlocked": "다른 스킬 중첩과 실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "각성 플래그 전용 구현",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -239,7 +239,7 @@
       "applied": "신규 게이트 연결·한시적 ellipse",
       "round1": "CPU 고정 위치/탈출",
       "unverifiedOrBlocked": "실제 바닥·검은실 합성 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "신규 게이트 연결·한시적 ellipse",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -249,7 +249,7 @@
       "applied": "기존 실제 기계 촉수·예고/수축",
       "round1": "고정 위치/overlap ledger CPU",
       "unverifiedOrBlocked": "실제 뿌리·바닥 일치/전체 해제 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 실제 기계 촉수·예고/수축",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -259,7 +259,7 @@
       "applied": "last303각성 전용 구현",
       "round1": "6초/12초·6 raw ticks·0.7 비누적 CPU",
       "unverifiedOrBlocked": "기존 실제 피해감소·판독성 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "last303각성 전용 구현",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -269,7 +269,7 @@
       "applied": "3개 연결구획·안전후보·예고/보호 구현",
       "round1": "CPU geometry/safe candidate/cleanup",
       "unverifiedOrBlocked": "native 실제 동시 장판·카메라/자동 경로 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "3개 연결구획·안전후보·예고/보호 구현",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -279,7 +279,7 @@
       "applied": "u201/u202실제 고정 적·신규RGBA연결",
       "round1": "CPU template/laser/hash",
       "unverifiedOrBlocked": "native 저장/clear/초기 AI/바닥 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "u201/u202실제 고정 적·신규RGBA연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -289,7 +289,7 @@
       "applied": "정확 최종본문 연결·북쪽소환진 유지",
       "round1": "본문 해시/기존원문 보존",
       "unverifiedOrBlocked": "새TTS 모델 metadata403·미생성",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "정확 최종본문 연결·북쪽소환진 유지",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -299,7 +299,7 @@
       "applied": "기존 여성 외형·본문 이름 삭제",
       "round1": "원문보존/overlay CPU",
       "unverifiedOrBlocked": "새TTS403·미생성; 실제 외형 연출 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 여성 외형·본문 이름 삭제",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -309,7 +309,7 @@
       "applied": "dist06.post 3.6초 DOM 연출 연결",
       "round1": "공통 once/timing CPU",
       "unverifiedOrBlocked": "실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "dist06.post 3.6초 DOM 연출 연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -319,7 +319,7 @@
       "applied": "기존 smiling-mask·실루엣/적색빔 연결",
       "round1": "DOM lifecycle CPU",
       "unverifiedOrBlocked": "실제 화면 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 smiling-mask·실루엣/적색빔 연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -329,7 +329,7 @@
       "applied": "신규 실제PNG 연결",
       "round1": "실제 픽셀/해시",
       "unverifiedOrBlocked": "실제 재생 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "신규 실제PNG 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -339,7 +339,7 @@
       "applied": "기존 두 자산 전환 연결",
       "round1": "DOM once/timing CPU",
       "unverifiedOrBlocked": "실제 재생 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "기존 두 자산 전환 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -349,7 +349,7 @@
       "applied": "타이밍만 준비·runtime 비활성",
       "round1": "1+5+1 CPU",
       "unverifiedOrBlocked": "공식 signed transfer403; 원본미수신·미연결·대체없음",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "타이밍만 준비·runtime 비활성",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -359,7 +359,7 @@
       "applied": "신규 2실제PNG 연결",
       "round1": "실제 픽셀/해시·once CPU",
       "unverifiedOrBlocked": "실제 재생 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "신규 2실제PNG 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -369,7 +369,7 @@
       "applied": "신규 실제문 +기존맵 연결",
       "round1": "실제 픽셀/once CPU",
       "unverifiedOrBlocked": "실제 재생 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "신규 실제문 +기존맵 연결",
       "verificationRevision": "3157 candidate; see round1-status.json"
     },
@@ -379,7 +379,7 @@
       "applied": "kair01.pre 6초 연출 연결",
       "round1": "공통 timing/once CPU",
       "unverifiedOrBlocked": "실제 재생 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "kair01.pre 6초 연출 연결",
       "verificationRevision": "follow-up working tree; pending committed round2"
     },
@@ -389,10 +389,11 @@
       "applied": "목표 장면은Next도음성끝대기·reading lock 유지",
       "round1": "실제 close 추출40연타/1회callback CPU",
       "unverifiedOrBlocked": "full restore/resize/browser 미검증",
-      "round2": "pending exact committed revision",
+      "round2": "4816a4e CPU74/74통과; actual browser/natural/device review remains unverified",
       "assetConnection": "목표 장면은Next도음성끝대기·reading lock 유지",
       "verificationRevision": "3157 candidate; see round1-status.json"
     }
   ],
-  "round1Meaning": "Results on 3157 are recorded separately. Follow-up-only rows are working-tree CPU/static checks, not results on 3157."
+  "round1Meaning": "Results on 3157 are recorded separately. Follow-up-only rows are working-tree CPU/static checks, not results on 3157.",
+  "laterBrowserFixtureChange": "Wait for unchanged native frame to synchronize party pause/input before staged rift clock; syntax checked, native rerun pending."
 }
