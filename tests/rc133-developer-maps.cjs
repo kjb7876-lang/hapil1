@@ -281,7 +281,8 @@ function developerSave(overrides = {}) {
   check(!accepted.enemies.some(actor => actor.id === Final.id), 'null inner save removes any existing private boss');
 }
 
-// A private-fight defeat is intercepted and cannot mark campaign completion.
+// Terminal Persona defeat falls through to native cleanup, which owns clear/reward processing.
+// Entry alone must not mint a clear; native victory/EGO reservation is covered by RC170.
 {
   const { Maps, Final } = runtimeEnv();
   const state = gameState({ developerMapsRC133: validGrant(), completedZones: new Set(['dist00']) });
@@ -290,15 +291,15 @@ function developerSave(overrides = {}) {
   const boss = Final.boss(state);
   check(!!boss, 'private boss exists before defeat');
   boss.hp = 0;
-  equal(Final.beforeDeath(state, boss), true, 'developer boss defeat is intercepted');
+  equal(Final.beforeDeath(state, boss), false, 'terminal developer defeat continues native cleanup, matching RC170 victory contract');
   equal(state.innerFinalRC133.phase, 'complete', 'private encounter records its own completion phase');
   equal(state.completedZones.has('cult04'), false, 'developer defeat does not add a campaign clear');
   same([...state.completedZones], ['dist00'], 'developer defeat preserves completed-zone set');
   equal(state.bossDefeated, false, 'developer defeat does not set campaign boss clear');
-  equal(state.targetEnemyId, null, 'private target is cleared on defeat');
+  equal(state.targetEnemyId, Final.id, 'native cleanup retains ownership of clearing the private target');
   equal(state.hp, playerHp, 'private defeat does not alter player HP');
   equal(state.zone, zone, 'private defeat does not move the current zone');
-  check(!state.enemies.some(actor => actor.id === Final.id), 'defeated private boss is removed');
+  check(state.enemies.includes(boss) && boss.hp === 0, 'terminal actor remains available to native death cleanup');
   equal(Final.snapshot(state).entry, 'developer-777', 'completed save retains its private source marker');
 
   const restoredComplete = gameState({ developerMapsRC133: validGrant(), completedZones: new Set(['dist00']) });
