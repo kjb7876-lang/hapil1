@@ -21,13 +21,21 @@
         "binding hero ID slayer",
         "remove synthetic missing-Balrog clone fallback; require native admission"
       ]
+    },
+    "nextActualResult": {
+      "sha": "c1f590dfcc3f2f86bf547e85a78110fc86148434",
+      "job": 115789951446,
+      "pauseZoneGuards": "passed, dist06 confirmed",
+      "failure": "initial sequential route roster contains first wave, not Balrog",
+      "change": "Use existing native QA stageV3128BossShowcase, require pass and exact boss ID. No hand-clone fallback. Explicit boss-art showcase fixture; not natural wave progression."
     }
   },
   "rc129": {
     "legacyJob": 115781673693,
     "failure": "native mode-specific salvo count",
     "cause": "baseline6 STORY/7 DREAM plus RC210 one-per-four additional shot",
-    "change": "assert baseline and exact extra/total counts separately; retain native warning/visibility/contact/owner assertions and add refuge+single-scale checks"
+    "change": "assert baseline and exact extra/total counts separately; retain native warning/visibility/contact/owner assertions and add refuge+single-scale checks",
+    "scaleAssertion": "Exact .33 only for canonical jellybean path, .66 for all other assets; print failed case evidence before asserting."
   },
   "realCombatRegression": {
     "reproducedBeforeFix": true,

@@ -46,3 +46,6 @@ CI debug after c0ce48af:
 
 - d1906f30 native gallery passed all pause/input/read guards, then failed rift admission with diagnostic zone dist00. Entry API initializes a target roster but expects caller to assign state.zone. Gallery now sets/asserts dist04/dist06 and hero ID slayer; removes missing-Balrog clone fallback and requires native admission. This was a fixture error, not proof the production rift fails. Actual new replay still required.
 - d1906f30 CPU73/74: extension107 reason text omitted its required exact filename. Corrected reason strings and matching literal pins without changing production bytes. Exact6cdfb4ed CPU74/74 including full historical preservation passed.
+
+- c1f590df gallery confirmed dist06 and all pause/read/input guards passed. Initial sequential-route roster intentionally contains the first wave, so expecting Balrog immediately after entry was an invalid fixture assumption. Use the game's existing QA stageV3128BossShowcase('dist06'), require exact pass/boss ID, and keep all real rift guards and policy. This is explicitly a QA showcase (777/protected paused capture), not natural wave completion. No hand-cloned fallback or production admission change.
+- RC129 exact scale assertion follows the user-approved asset policy: jellybean .33, other shots .66. Failed-case details are saved before assertion.
