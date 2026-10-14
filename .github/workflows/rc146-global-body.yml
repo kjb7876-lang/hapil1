@@ -3,6 +3,9 @@ on:
   push:
     branches: [main, codex/rc145-body-dissolve-preview, codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
     paths:
+      - 'assets/rc210/**'
+      - 'tests/rc210-*'
+      - 'qa/rc210/**'
       - '.github/workflows/**'
       - 'qa/rc207/**'
       - 'tests/rc207-*'

@@ -36,3 +36,10 @@ Follow-up after 3157 (extension106; not covered by its first CI):
 - First exact3157 CPU:70/71; stale strokes signature assertion corrected. CI2/12 workflows passed. Normal Chrome sandbox smoke passed; legacy bundled sandbox denied. Native gallery failed rift admission.
 - Diagnosed old exact RC186 cache assertion: candidate intentionally uses21001-18601; assertion updated exactly. Audio suppression fixture now waits accepted deferred damage to finish before stable-HP comparison; no damage queue is erased. Real media rerun pending.
 - See final-checklist.json for39 itemized application/asset/round1/round2/blocker rows. No new main/Pages publication.
+
+CI debug after c0ce48af:
+- c0ce48af CPU job115781673424 succeeded. RC170 and RC166 real-media workflows and Laser workflow succeeded; RC207 native gallery and legacy RC129 assertions failed; five narrow-path workflows were not created for this SHA. Do not call it full CI success.
+- Native frame computes pause from practicePatternV31365.finished and passes it to party.capture. Standing paused pose left this property on the same state across entry. Gallery now deletes only that prior fixture state, uses real pre-memory lifecycle and retains all native pause/read/party checks. Error state is recorded. Actual new replay remains pending.
+- RC129 now separately requires exact6/7 baseline, exact1 additional shot and7/8 total, plus original warnings/contact checks, owner, one-time scale and authored refuge. This does not accept arbitrary changed quantities.
+- Additional actual density regression reproduced: alternating offset can turn a later wave's RC129 extra inward across its authored refuge. Fix uses authored side for outward offset;12-wave CPU regression passes21 extras. Unauthored patterns preserve previous alternation. Extension107 pins the two exact runtime outputs and cache invalidation.
+- Five workflows add only RC210 assets/tests/QA paths. No manual dispatch, unrelated dummy change, browser/sandbox/security workaround or deployment.

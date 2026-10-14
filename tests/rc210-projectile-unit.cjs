@@ -5,3 +5,16 @@ let extras=0;for(let i=0;i<40;i++){const p=D.extra(s,a,{vx:2,vy:1});if(p){extras
 const persona={sourceId:a.id,rc133InnerShot:true,vx:2,vy:2,radius:2};D.prepare(s,a,persona);assert.equal(persona.radius,1.32);assert.equal(D.extra(s,a,persona),null);console.log(JSON.stringify({status:'passed',checks,independentAssets:3,linearFactor:.66,repeatApplications:300,normalExtraRatio:extras/40,ownerExtraAdmissionCap:24,globalExtraAdmissionCap:72,scope:'CPU paint/geometry/admission fixtures; actual FPS and pixel review pending'}));
 
 const jelly={sourceId:a.id,vx:2,vy:1,radius:2,sprite:'./assets/rc64/projectiles/danmaku-jellybean.webp'};for(let i=0;i<10;i++)D.prepare(s,a,jelly);assert.equal(jelly.radius,.66);assert.equal(jelly.rc210BulletBaseline.factor,.33);
+
+// A density shot must not turn inward across RC129's authored central refuge.
+const corridorState={zone:'ep1b03',time:100,enemies:[a],hostileProjectiles:[]};let corridorExtras=0;
+for(let wave=0;wave<12;wave++)for(let i=0;i<7;i++){
+ const side=i%2?1:-1,aim=.2,halfGap=.5,offset=halfGap+Math.floor(i/2)*.16;
+ const p={vx:Math.cos(aim+side*offset)*4,vy:Math.sin(aim+side*offset)*4,rc129Plan:{aim,halfGap,side}};
+ const e=D.extra(corridorState,a,p);if(!e)continue;corridorExtras++;
+ const delta=Math.atan2(Math.sin(e.rc210ExtraAngle-aim),Math.cos(e.rc210ExtraAngle-aim));
+ assert(side*delta>=halfGap-1e-9,'additional authored salvo must preserve its side and central refuge across waves');
+}
+assert.equal(corridorExtras,21);
+
+console.log(JSON.stringify({status:'passed',authoredRefugeWaves:12,additionalShots:corridorExtras,scope:'CPU authored side/refuge geometry; native browser count and collision remain separately required'}));

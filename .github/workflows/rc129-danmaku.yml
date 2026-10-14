@@ -3,6 +3,9 @@ on:
   push:
     branches: [fix/rc129-danmaku-phases, main, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
     paths:
+      - 'assets/rc210/**'
+      - 'tests/rc210-*'
+      - 'qa/rc210/**'
       - '.github/workflows/**'
       - 'qa/rc207/**'
       - 'tests/rc207-*'

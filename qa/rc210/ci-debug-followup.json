@@ -1,0 +1,43 @@
+{
+  "base": "c0ce48afa5743444c703ffb6b6572520c2a4ff29",
+  "priorCpu": "74/74 at exact c0ce48af GitHub CPU job115781673424",
+  "gallery": {
+    "run": 38542872086,
+    "job": 115781673404,
+    "failure": "10s native unpause timeout",
+    "cause": "standing fixture retained practicePatternV31365.finished; native frame explicitly treats this as paused and propagates it through party.capture",
+    "change": "delete previous pose fixture property; initialize/cancel pre-memory using real Story.beforeFrame/close; retain native unpause/reading/party assertions; record failure state"
+  },
+  "rc129": {
+    "legacyJob": 115781673693,
+    "failure": "native mode-specific salvo count",
+    "cause": "baseline6 STORY/7 DREAM plus RC210 one-per-four additional shot",
+    "change": "assert baseline and exact extra/total counts separately; retain native warning/visibility/contact/owner assertions and add refuge+single-scale checks"
+  },
+  "realCombatRegression": {
+    "reproducedBeforeFix": true,
+    "scope": "CPU12waves/84 authored packets",
+    "failure": "alternating additional-shot offset could point inward across authored refuge on later waves",
+    "change": "RC129 authored side controls outward additional angle; unplanned theme shots retain original alternating density angle",
+    "afterFix": "21 additional shots preserve authored side and refuge; basic CPU test passes"
+  },
+  "workflowFilters": {
+    "files": [
+      "rc129-danmaku.yml",
+      "rc144-death-burn.yml",
+      "rc146-global-body.yml",
+      "rc147-camera-finale.yml",
+      "story-narration-audit.yml"
+    ],
+    "addedPaths": [
+      "assets/rc210/**",
+      "tests/rc210-*",
+      "qa/rc210/**"
+    ],
+    "manualDispatch": false,
+    "dummyChange": false,
+    "securityChange": false
+  },
+  "nativeBrowserRetest": "pending new exact candidate",
+  "mainDeployment": false
+}

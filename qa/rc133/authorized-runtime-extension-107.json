@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "c0ce48afa5743444c703ffb6b6572520c2a4ff29",
+  "baseTree": "0d69f88b3d9d9c983b66e5d7298cef5556f05aac",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e1bd1a05f115e27f52ef9dffa2dcdd3b92daa2f472d0f50e3908433d52e078d1",
+  "files": [
+    {
+      "file": "assets/rc210/projectile-balance.js",
+      "reason": "RC210 approved CI debugging: preserve RC129 authored refuge while adding outward density shots; invalidate only the changed projectile script cache. Original source assets, prose, audio and saves remain untouched.",
+      "before": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "gitBlob": "0f324a128ec9e2de95400f818b0d60723d4f1e7d"
+      },
+      "after": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "gitBlob": "855da94f9ce509fbcd8eac0822dfcb7bd57b2b0e",
+        "sha256": "be94cc9f3c60a7087c03bd37f53265595a0d17b20c6780be76898e8bac63d1a8"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "RC210 approved CI debugging: preserve RC129 authored refuge while adding outward density shots; invalidate only the changed projectile script cache. Original source assets, prose, audio and saves remain untouched.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "68382b0ad87a17e8c270d165832091f80870e4fc"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cfc58b3d9dcb00c1b510324626a0affc3bcffcc7",
+        "sha256": "2305778f7855da44a5de7c77f29a889be1acb2498ff85927b3c851e007e2cd23"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "48ebe2c7618bf0d249bc9baedea5cd78bfc2b64e22f47a72868a02f161264b5e"
+}
