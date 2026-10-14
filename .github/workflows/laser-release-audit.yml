@@ -3,8 +3,11 @@ name: Laser release audit
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, codex/rc207-persona-warning-scatter]
     paths:
+      - '.github/workflows/**'
+      - 'qa/rc207/**'
+      - 'tests/rc207-*'
       - '.github/workflows/laser-release-audit.yml'
       - 'tests/**'
       - 'assets/rc77/connected-laser.js'

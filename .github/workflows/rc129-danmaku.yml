@@ -1,8 +1,11 @@
 name: RC129 danmaku release verification
 on:
   push:
-    branches: [fix/rc129-danmaku-phases, main]
+    branches: [fix/rc129-danmaku-phases, main, codex/rc207-persona-warning-scatter]
     paths:
+      - '.github/workflows/**'
+      - 'qa/rc207/**'
+      - 'tests/rc207-*'
       - assets/rc129/**
       - assets/rc95/combat-flow.js
       - index.html

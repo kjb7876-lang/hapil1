@@ -1,8 +1,11 @@
 name: RC146 global body ash exact candidate
 on:
   push:
-    branches: [main, codex/rc145-body-dissolve-preview, codex/rc170-persona-ego-native-fixes]
+    branches: [main, codex/rc145-body-dissolve-preview, codex/rc170-persona-ego-native-fixes, codex/rc207-persona-warning-scatter]
     paths:
+      - '.github/workflows/**'
+      - 'qa/rc207/**'
+      - 'tests/rc207-*'
       - 'assets/index-v31526.js'
       - 'assets/rc145/body-ash.js'
       - 'index.html'

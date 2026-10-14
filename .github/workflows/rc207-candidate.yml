@@ -1,0 +1,99 @@
+name: RC207 read-only candidate regression
+on:
+  push:
+    branches: [codex/rc207-persona-warning-scatter]
+    paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/**']
+permissions:
+  contents: read
+concurrency:
+  group: rc207-candidate-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  cpu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install parser for unmodified native extraction tests
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false acorn@8.15.0
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
+      - name: Exact candidate and complete CPU regression
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tools/rc207-cpu-audit.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc207-cpu-${{ github.sha }}
+          path: ${{ runner.temp }}/rc207-cpu/
+          if-no-files-found: error
+          retention-days: 14
+  legacy-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [rc130, hero-images]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Normal Chrome Stable validation runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          node "$RUNNER_TEMP/rc207/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
+          echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc207-legacy" >> "$GITHUB_ENV"
+          echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc207-legacy" >> "$GITHUB_ENV"
+      - name: Verify unchanged sandbox and exact candidate
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Audit only without transformers or Git writes
+        env:
+          SUITE: ${{ matrix.suite }}
+        run: |
+          set -euo pipefail
+          case "$SUITE" in
+            rc130) node tests/rc130-suite.cjs ;;
+            hero-images)
+              node tests/rc131-hero-unit.cjs
+              node tests/rc131-hero-images.cjs
+              node tests/rc115-hero-directions-browser.cjs
+              node tests/rc93-hero-actions-browser.cjs
+              node tests/rc132-unit.cjs
+              node tests/rc132-browser.cjs
+              ;;
+          esac
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc207-legacy-${{ matrix.suite }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc207-legacy/
+          if-no-files-found: error
+          retention-days: 14
