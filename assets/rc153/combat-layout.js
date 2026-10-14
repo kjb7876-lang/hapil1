@@ -61,13 +61,14 @@
  function position(a,q){if(!boss(a)||a.id==='inner-evil-rc133')return q;const u=Math.max(10,Math.min(policy.rightAcrossMax,n(q.x)-n(q.y))),v=Math.max(policy.rightDepthMin,Math.min(policy.rightDepthMax,n(q.x)+n(q.y)));return{x:(v+u)/2,y:(v-u)/2};}
  function bounds(s,subjects){const anchors=subjects??[s,...(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly)],rects=anchors.map(a=>{const painted=deps.paintEnvelope?.(s,a,a===s);if(painted)return painted;const p=deps.project(a.x,a.y),size=Math.max(55,n(deps.size(a),a===s?100:210));return{left:p.x-size*policy.bodyWidth/2,right:p.x+size*policy.bodyWidth/2,top:p.y-size*policy.bodyAbove,bottom:p.y+size*policy.bodyBelow};});const nativePaintActors=rects.filter(r=>r.nativePaint).length;let nearbyProjectiles=0;for(const q of s.hostileProjectiles??[]){if(removed(q)||q.kind==='telegraph'||!Number.isFinite(q.x)||!Number.isFinite(q.y)||!anchors.some(a=>Math.hypot(q.x-a.x,q.y-a.y)<=26))continue;const p=deps.project(q.x,q.y),extent=Math.max(72,Math.min(140,n(q.radius,.3)*48));rects.push({left:p.x-extent,right:p.x+extent,top:p.y-extent,bottom:p.y+extent});nearbyProjectiles++;}return{nativePaintActors,nearbyProjectiles,left:Math.min(...rects.map(r=>r.left)),right:Math.max(...rects.map(r=>r.right)),top:Math.min(...rects.map(r=>r.top)),bottom:Math.max(...rects.map(r=>r.bottom))};}
  const frameCache=new WeakMap(),scaleCache=new WeakMap();
- function envelopePadding(){return root.__HAPIL_MOBILE_V31366__?.enabled?.()===true&&root.innerWidth>root.innerHeight&&root.innerHeight<=260?8:28;}
+ // Compact all-motion bodies need the safe inset plus a small world-space gutter.
+ function envelopePadding(){return root.__HAPIL_MOBILE_V31366__?.enabled?.()===true&&root.innerWidth>root.innerHeight&&root.innerHeight<=260?6:28;}
  function viewportKey(s){const css=root.document&&root.getComputedStyle?.(root.document.documentElement);return [root.innerWidth,root.innerHeight,...['left','right','top','bottom'].map(k=>css?.getPropertyValue('--rc154-safe-'+k)??''),deps?.mapWidth?.(s)].join(':');}
  // Independent RC210 images can decode after a complete legacy fallback.
  // Invalidate both fitting caches on that transition, never on actor motion.
  // Compact view already reserves safe pixels in its small vertical budget;
  // count the inset once, while retaining ordinary viewport spacing unchanged.
- function verticalMargins(inset){return root.innerHeight<=260?{top:Math.max(12,inset('top')),bottom:Math.max(6,inset('bottom'))}:{top:8+inset('top'),bottom:12+inset('bottom')};}
+ function verticalMargins(inset){return root.innerHeight<=260?{top:Math.max(8,inset('top')),bottom:Math.max(6,inset('bottom'))}:{top:8+inset('top'),bottom:12+inset('bottom')};}
  function imageReadiness(cache){return [...new Set([...(root.__HAPIL_BALROG_BODY_RC210__?.assets??[]),...(root.__HAPIL_SLAYER_STANDING_RC210__?.assets??[]),...(root.__HAPIL_MACHINE_FIELDS_RC210__?.assets??[]),root.__HAPIL_WALL_TOWERS_RC210__?.image].filter(Boolean))].map(path=>{const im=cache[path]??cache[String(path).split(/[?#]/)[0]];return[path,im?.complete?n(im.naturalWidth):0,im?.complete?n(im.naturalHeight):0];});}
  function actorScale(s,a){
   // A tall stationary creature can otherwise force the entire 240px-high map

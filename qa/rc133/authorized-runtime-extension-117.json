@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "9d291c9462e4116a79973f49fba4bc8de1280825",
+  "baseTree": "99a0582f67eb432df6d36ae320bf79b7099f8edc",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e62d69c2a5c964fb53931d6908928a677e8f5423c503852d9ef362502a6c8a57",
+  "files": [
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: Rebalance only <=260px landscape presentation gutters for recorded all-motion hero envelope: respect actual safe insets, keep hero scale1 and boss >=.5 while restoring >=90percent map coverage; all camera assertions retained.",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "214a96798db7b72989a4aa4c3af0c1210c54bd56"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "1aac131561a6870f777f6ea05c4fab7706429602",
+        "sha256": "c9b0d3329df04b1b06584bcb2d51bbb80b9eb2073240dd3e996acb362a932dc2"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Invalidate compact layout cache after all-motion body fitting correction.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ea196cc37d10689081b4ea92484f1c8fd1ef86a8"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e8a0304e68b9edf2b279f0f4c1d34709e1fd0d0d",
+        "sha256": "71393885320625a040294b87214618503301cb6e6a95b480745c1917ae9b14c5"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "6c7fd30d817830c4f8061a4f879212fede66236e54cc922a97824ae148824a40"
+}

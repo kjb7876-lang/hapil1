@@ -78,7 +78,7 @@ function verifyRuntimeOutputChain(root,report,file,currentBytes=fs.readFileSync(
    assert.equal(extension9.after.file,file,'Ninth runtime extension output path');extensionOutput=extension9.after.sha256;
   }
   let row=extension9||extension8||extension7||extension6||extension5||extension4||extension3||extension2||extension;
-  for(const number of Array.from({length:107},(_,i)=>i+10)){const next=report['approvedExtension'+number]?.find(r=>r.file===file);if(!next)continue;assert(next.after,'Compatibility path removed by runtime extension '+number);assert.deepEqual({file:next.before?.file,mode:next.before?.mode,gitBlob:next.before?.gitBlob},{file,mode:row.after.mode,gitBlob:row.after.gitBlob},'Exact preceding extension output '+number);assert.equal(next.after.file,file);row=next;extensionOutput=next.after.sha256;}
+  for(const number of Array.from({length:108},(_,i)=>i+10)){const next=report['approvedExtension'+number]?.find(r=>r.file===file);if(!next)continue;assert(next.after,'Compatibility path removed by runtime extension '+number);assert.deepEqual({file:next.before?.file,mode:next.before?.mode,gitBlob:next.before?.gitBlob},{file,mode:row.after.mode,gitBlob:row.after.gitBlob},'Exact preceding extension output '+number);assert.equal(next.after.file,file);row=next;extensionOutput=next.after.sha256;}
   assert.equal(extensionOutput,currentHash,'Current runtime bytes differ from exact authorized extension chain output');
   assert.equal(row.after.gitBlob,gitBlob(currentBytes),'Current runtime Git blob differs from exact authorized extension chain output');
   const stat=fs.statSync(path.join(root,file));assert.equal(row.after.mode,stat.mode&0o111?'100755':'100644','Current runtime mode differs from exact authorized extension chain output');

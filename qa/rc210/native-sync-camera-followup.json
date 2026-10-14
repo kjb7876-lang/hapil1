@@ -46,5 +46,31 @@
     "preservation": "correct extension115 reason strings to contain scoped file path, repin exact digest and extension116 prior link; no guard relaxed",
     "cameraCpuGroups": 17,
     "finalCpuAndCi": "pending exact new commit two clean sequential rounds"
+  },
+  "compactFollowup": {
+    "base": "9d291c9462e4116a79973f49fba4bc8de1280825",
+    "failedBrowserJob": 115910272917,
+    "observedMapFraction": 0.7112149944237316,
+    "viewport": [
+      844,
+      240
+    ],
+    "cpuBefore": {
+      "passed": 17,
+      "failed": 1
+    },
+    "cpuAfter": {
+      "passed": 18,
+      "failed": 0
+    },
+    "cpuRecordedEnvelopeCoverage": 0.9011848346645726,
+    "safeInsetCoverage": 0.9011848346879499,
+    "heroScale": 1,
+    "bossScales": [
+      0.6760177593678236,
+      0.6638297662138939
+    ],
+    "fix": "<=260px landscape minimum top CSS gutter12 to8, extra world-space bitmap gutter8 to6; actual safe inset max remains enforced; ordinary viewports unchanged",
+    "browserReplay": "pending final candidate CI"
   }
 }
