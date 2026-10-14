@@ -19,13 +19,14 @@ async function main(){let browser;try{
    const clean=state=>{Object.assign(state,{time:105,x:18,y:16,hp:100000,maxHp:100000,invulnerableUntil:10000,practiceV31329:true,gameModeV31346:'DREAM',activeHeroId:'hwando',pendingHits:[],impactQueue:[],hostileProjectiles:[],effects:[],bossLaserCastsV31330:[],bossUltimateCastsV31334:[]});state.fxSerial=100;state.enemies=[];return state;};
   function stateFor(id,zone){const s=clean(R.initial());s.zone=zone;const raw=B.actor(zone,id),a=B.cloneEnemy(raw,zone);Object.assign(a,{hp:a.maxHp||100000,maxHp:a.maxHp||100000,humanPhase0:false,fixedPhase:1,currentPhase:1,phaseIndex:1,x:16,y:16,attackAt:0,attackImpactAt:0,readyAt:0,patternReadyAt:0,spectacleReadyAtV31317:0,cosmicArsenalReadyAtV31318:0,invulnerableUntil:0,combatEntryGraceUntilV31239:0,phaseTransitionUntil:0,phaseTransitionActive:false,staggerUntil:0,atomicCastUntil31210:0,castVisualUntil31210:0,activePatternUntil:0,recoverUntil:0});s.enemies=[a];return{s,a};}
 
+ const tintSources=new WeakMap(),policy=window.__HAPIL_BOSS_POLICY_RC175__;if(policy)window.__HAPIL_BOSS_POLICY_RC175__=Object.freeze({...policy,tint(image,...args){const result=policy.tint.call(this,image,...args);if(result&&typeof result==='object')tintSources.set(result,image);return result;}});
  const out=[];
  for(const lowFx of [false,true]){
  const {s,a}=stateFor('dist06-boss','dist06'),c=L.start(s,a,'fork-link'),cache={};if(!c)throw Error('cast unavailable');
  const tear=R.queue(cache,c.tear,'eager'),beam=R.queue(cache,c.beam,'eager');await Promise.all([tear.decode(),beam.decode()]);
  const cv=document.createElement('canvas');cv.width=1280;cv.height=720;const ctx=cv.getContext('2d');const native=ctx.drawImage.bind(ctx);
  for(const [phase,time]of [['warning',c.fireAt-.1],['boundary',c.fireAt],['active',c.fireAt+.05],['concurrent',c.fireAt+.05],['late',c.fireAt+.3],['expired',c.endAt+.01]]){
- s.time=time;s.bossLaserCastsV31330=phase==='concurrent'?[c,{...c,id:c.id+1,born:c.born+1,fireAt:c.fireAt+1,endAt:c.endAt+1}]:[c];ctx.clearRect(0,0,1280,720);let tearDraws=0,beamDraws=0,sources=[];ctx.drawImage=(im,...args)=>{sources.push({src:im.src||null,w:im.width,h:im.height,args});if(args.length===4&&args[2]===12)tearDraws++;if(args.length===8||args.length===9)beamDraws++;return native(im,...args);};
+ s.time=time;s.bossLaserCastsV31330=phase==='concurrent'?[c,{...c,id:c.id+1,born:c.born+1,fireAt:c.fireAt+1,endAt:c.endAt+1}]:[c];ctx.clearRect(0,0,1280,720);let tearDraws=0,beamDraws=0,sources=[];ctx.drawImage=(im,...args)=>{sources.push({src:im.src||null,w:im.width,h:im.height,args});if(args.length===4&&args[2]===12)tearDraws++;if(im===beam||tintSources.get(im)===beam)beamDraws++;return native(im,...args);};
  L.draw(ctx,cache,s,{lowFx,reducedFlash:lowFx});let pixels=0;const data=ctx.getImageData(0,0,1280,720).data;for(let i=3;i<data.length;i+=4)if(data[i]>20)pixels++;
  out.push({lowFx,phase,tearDraws,beamDraws,sources,pixels,png:cv.toDataURL()});
  }
