@@ -1,0 +1,2573 @@
+{
+  "status": "passed",
+  "id": "mb-dist01",
+  "name": "보라검 천사",
+  "zone": "dist01",
+  "source": "./assets/episode1a/corrupted_guardian.webp",
+  "cases": 128,
+  "beforePairs": 64,
+  "afterPairs": 0,
+  "rows": [
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 6,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 0,
+        "changed": 10
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 3,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 0,
+        "changed": 3
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 5,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 0,
+        "changed": 109
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 0,
+        "changed": 56
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 1,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 1,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 6,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 0,
+        "changed": 10
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 3,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 0,
+        "changed": 3
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 5,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 0,
+        "changed": 109
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 0,
+        "changed": 56
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 2,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 2,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 6,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 0,
+        "changed": 10
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 3,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 0,
+        "changed": 3
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 5,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 0,
+        "changed": 109
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 0,
+        "changed": 56
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 3,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 3,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 0,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 1,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 2,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 3,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 4,
+        "family": "danmaku-ring",
+        "count": 20,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 5,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 6,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 7,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 6,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 8,
+        "family": "danmaku-lanes",
+        "count": 18,
+        "pairs": 0,
+        "changed": 10
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 9,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 10,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 11,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 12,
+        "family": "danmaku-spiral",
+        "count": 27,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 13,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 14,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 15,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 3,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 16,
+        "family": "danmaku-rotating",
+        "count": 72,
+        "pairs": 0,
+        "changed": 3
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 17,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 18,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 19,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 5,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 20,
+        "family": "danmaku-scatter",
+        "count": 192,
+        "pairs": 0,
+        "changed": 109
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 21,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 22,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 23,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 1,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 24,
+        "family": "danmaku-petals",
+        "count": 108,
+        "pairs": 0,
+        "changed": 56
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 25,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 26,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 27,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 28,
+        "family": "danmaku-helix",
+        "count": 36,
+        "pairs": 0,
+        "changed": 1
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 29,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 30,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    },
+    {
+      "before": {
+        "on": false,
+        "phase": 4,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      },
+      "after": {
+        "on": true,
+        "phase": 4,
+        "cycle": 31,
+        "family": "snipe-sword-wave",
+        "count": 2,
+        "pairs": 0,
+        "changed": 0
+      }
+    }
+  ],
+  "scope": "Actual grammar/adaptive/danmaku schedule and release tick; source actor metadata, fixture state and installer dependencies. Full native/theme paths separately covered by RC206 tests. Not browser/natural encounter evidence."
+}
