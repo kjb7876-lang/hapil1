@@ -127123,7 +127123,7 @@ function HAPIL_DeathChoiceRC137({state:s}){
   const flow=window.__HAPIL_FLOW_V31343__;for(const p of Object.values(flow.profiles)){p.entryAnchorWorld={...R.format.entry};p.exitAnchorWorld={...R.format.exit};p.routePolyline=[p.entryAnchorWorld,p.exitAnchorWorld];p.length=Math.hypot(p.exitAnchorWorld.x-p.entryAnchorWorld.x,p.exitAnchorWorld.y-p.entryAnchorWorld.y);p.u={x:(p.exitAnchorWorld.x-p.entryAnchorWorld.x)/p.length,y:(p.exitAnchorWorld.y-p.entryAnchorWorld.y)/p.length};p.v={x:-p.u.y,y:p.u.x};p.flowMode='LEFT_RIGHT';}
   MONGSE_zoneCombatCleared=function(s,z=s?.zone){return R.enabled(s)&&z===s.zone?R.clear(s,z):nativeClear.apply(this,arguments);};
   const fg=flow.gate;flow.gate=function(s,z=s?.zone){const old=fg.apply(this,arguments);return R.enabled(s)&&z===s.zone&&(!(s.hp>0)||(s.enemies??[]).some(R.live))?{clear:false,reason:s.hp<=0?'부활 선택 대기':'남은 적'}:old;};
-  const entry=ii;ii=function(s,z,...args){R.release(s);const result=entry.call(this,s,z,...args);R.enforce(s);return result;};
+  const entry=ii;ii=function(s,z,...args){R.release(s);const result=entry.call(this,s,z,...args);window.__HAPIL_COMBAT_LAYOUT_RC153__?.resetCamera?.(s);R.enforce(s);return result;};
   const factory=Jr;Jr=function(row,z,...args){const a=factory.call(this,row,z,...args),s=state();if(s?.zone===z&&R.enabled(s))R.enroll(s,a);return a;};
   const controls=window.__HAPIL_CONTROLS_V31329__,frame=controls.frameStart;controls.frameStart=function(s,...args){R.enforce(s);return frame.call(this,s,...args);};
   const viewport=window.__HAPIL_VIEWPORT_RC104__,camera=viewport.camera;viewport.camera=function(s,...args){return R.camera(s,viewport.view())??camera.call(this,s,...args);};

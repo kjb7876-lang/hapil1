@@ -1,0 +1,67 @@
+{
+  "groups": [
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 1180x757",
+      "status": "failed",
+      "error": "new essential boss/weapon extent must fit"
+    },
+    {
+      "name": "same-object same-map native entry reset 1180x757",
+      "status": "failed",
+      "error": "same-map entry resets camera and framing caches"
+    },
+    {
+      "name": "same-object time rewind reset 1180x757",
+      "status": "failed",
+      "error": "time rollback resets same-zone envelope"
+    },
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 844x390",
+      "status": "failed",
+      "error": "new essential boss/weapon extent must fit"
+    },
+    {
+      "name": "same-object same-map native entry reset 844x390",
+      "status": "failed",
+      "error": "same-map entry resets camera and framing caches"
+    },
+    {
+      "name": "same-object time rewind reset 844x390",
+      "status": "failed",
+      "error": "time rollback resets same-zone envelope"
+    },
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 568x260",
+      "status": "failed",
+      "error": "new essential boss/weapon extent must fit"
+    },
+    {
+      "name": "same-object same-map native entry reset 568x260",
+      "status": "failed",
+      "error": "same-map entry resets camera and framing caches"
+    },
+    {
+      "name": "same-object time rewind reset 568x260",
+      "status": "failed",
+      "error": "time rollback resets same-zone envelope"
+    },
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 390x844",
+      "status": "failed",
+      "error": "new essential boss/weapon extent must fit"
+    },
+    {
+      "name": "same-object same-map native entry reset 390x844",
+      "status": "failed",
+      "error": "same-map entry resets camera and framing caches"
+    },
+    {
+      "name": "same-object time rewind reset 390x844",
+      "status": "failed",
+      "error": "time rollback resets same-zone envelope"
+    }
+  ],
+  "passed": 0,
+  "failed": 12,
+  "scope": "CPU actual camera/framing and final native map-entry wrapper; synthetic full-canvas envelope, image/decode/CSS and map loader. No GPU, real image decode, natural progression or device claim."
+}

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "f3a4db76eb0ea538156a16cefdd0e61d3c77e974",
+  "baseTree": "39472a0294a270494c353e8a47877c10594123b3",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "571c04729e8c0b8cbbdc7be268e3441667edf3e4988e5dca096c4c93670865c5",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: authorized camera same-map entry/time-rollback reset and one-way essential-envelope expansion; original assets, floor, boss position, storage and combat preserved",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "5e0519288ecb05e49afb2573b5c4fb2e00db4435"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "67d212fb9ec3e67e2286544325bc65d823294387",
+        "sha256": "805579a981d586d955dc60e4acef652ae820f326d469cc7224bd53393be6ccda"
+      }
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "reason": "assets/rc153/combat-layout.js: authorized camera same-map entry/time-rollback reset and one-way essential-envelope expansion; original assets, floor, boss position, storage and combat preserved",
+      "before": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "27c926efdb7f860fecc9e64f49dd4db2232e2f07"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "gitBlob": "4e0d663d057ee79c2447a5f9ab9a2578dd11b166",
+        "sha256": "b065a6ca6adba00ed601e5b1465813c4873c3d8599c2e8b9fa4600f5227a7255"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: authorized camera same-map entry/time-rollback reset and one-way essential-envelope expansion; original assets, floor, boss position, storage and combat preserved",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "6dcbce2d1a467df6728f325b7a31a417ea76839c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "95152d1da400c588f4efc453801947e7f2518b99",
+        "sha256": "2e866d5c37d0104b920473c8fb47d15ef0b3e0adf6d109270e260ee6d71cf88b"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "9eadbea26d97e6bd1087673467980e1bbc65484b28ee5d8c694147c48733407d"
+}

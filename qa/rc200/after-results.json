@@ -1,0 +1,323 @@
+{
+  "groups": [
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 1180x757",
+      "status": "passed",
+      "frames": 240,
+      "expansions": 1,
+      "trace": [
+        {
+          "frame": 0,
+          "scale": 0.9563499860394413,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 20,
+          "scale": 0.9563499860394413,
+          "big": true,
+          "decoded": false
+        },
+        {
+          "frame": 21,
+          "scale": 0.44217519560714763,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 79,
+          "scale": 0.44217519560714763,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 80,
+          "scale": 0.44217519560714763,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 120,
+          "scale": 0.44217519560714763,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 179,
+          "scale": 0.44217519560714763,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 180,
+          "scale": 0.44217519560714763,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 239,
+          "scale": 0.44217519560714763,
+          "big": false,
+          "decoded": true
+        }
+      ]
+    },
+    {
+      "name": "same-object same-map native entry reset 1180x757",
+      "status": "passed",
+      "sameTime": 10,
+      "before": 0.44217519560714763,
+      "after": 0.9563499860394413,
+      "entryCalls": 1,
+      "mapLoader": "fixture; actual final native arena ii wrapper executed"
+    },
+    {
+      "name": "same-object time rewind reset 1180x757",
+      "status": "passed",
+      "fromTime": 100,
+      "toTime": 99,
+      "before": 0.44217519560714763,
+      "after": 0.9563499860394413
+    },
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 844x390",
+      "status": "passed",
+      "frames": 240,
+      "expansions": 1,
+      "trace": [
+        {
+          "frame": 0,
+          "scale": 1.0531750129065567,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 20,
+          "scale": 1.0531750129065567,
+          "big": true,
+          "decoded": false
+        },
+        {
+          "frame": 21,
+          "scale": 0.48593860854329607,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 79,
+          "scale": 0.48593860854329607,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 80,
+          "scale": 0.48593860854329607,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 120,
+          "scale": 0.48593860854329607,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 179,
+          "scale": 0.48593860854329607,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 180,
+          "scale": 0.48593860854329607,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 239,
+          "scale": 0.48593860854329607,
+          "big": false,
+          "decoded": true
+        }
+      ]
+    },
+    {
+      "name": "same-object same-map native entry reset 844x390",
+      "status": "passed",
+      "sameTime": 10,
+      "before": 0.48593860854329607,
+      "after": 1.0531750129065567,
+      "entryCalls": 1,
+      "mapLoader": "fixture; actual final native arena ii wrapper executed"
+    },
+    {
+      "name": "same-object time rewind reset 844x390",
+      "status": "passed",
+      "fromTime": 100,
+      "toTime": 99,
+      "before": 0.48593860854329607,
+      "after": 1.0531750129065567
+    },
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 568x260",
+      "status": "passed",
+      "frames": 240,
+      "expansions": 1,
+      "trace": [
+        {
+          "frame": 0,
+          "scale": 0.996855493499789,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 20,
+          "scale": 0.996855493499789,
+          "big": true,
+          "decoded": false
+        },
+        {
+          "frame": 21,
+          "scale": 0.4728051326367204,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 79,
+          "scale": 0.4728051326367204,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 80,
+          "scale": 0.4728051326367204,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 120,
+          "scale": 0.4728051326367204,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 179,
+          "scale": 0.4728051326367204,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 180,
+          "scale": 0.4728051326367204,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 239,
+          "scale": 0.4728051326367204,
+          "big": false,
+          "decoded": true
+        }
+      ]
+    },
+    {
+      "name": "same-object same-map native entry reset 568x260",
+      "status": "passed",
+      "sameTime": 10,
+      "before": 0.4728051326367204,
+      "after": 0.996855493499789,
+      "entryCalls": 1,
+      "mapLoader": "fixture; actual final native arena ii wrapper executed"
+    },
+    {
+      "name": "same-object time rewind reset 568x260",
+      "status": "passed",
+      "fromTime": 100,
+      "toTime": 99,
+      "before": 0.4728051326367204,
+      "after": 0.996855493499789
+    },
+    {
+      "name": "small→unloaded boss→large weapon→small cycles 390x844",
+      "status": "passed",
+      "frames": 240,
+      "expansions": 1,
+      "trace": [
+        {
+          "frame": 0,
+          "scale": 0.9161308490167552,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 20,
+          "scale": 0.9161308490167552,
+          "big": true,
+          "decoded": false
+        },
+        {
+          "frame": 21,
+          "scale": 0.7116296026248633,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 79,
+          "scale": 0.7116296026248633,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 80,
+          "scale": 0.7116296026248633,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 120,
+          "scale": 0.7116296026248633,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 179,
+          "scale": 0.7116296026248633,
+          "big": true,
+          "decoded": true
+        },
+        {
+          "frame": 180,
+          "scale": 0.7116296026248633,
+          "big": false,
+          "decoded": true
+        },
+        {
+          "frame": 239,
+          "scale": 0.7116296026248633,
+          "big": false,
+          "decoded": true
+        }
+      ]
+    },
+    {
+      "name": "same-object same-map native entry reset 390x844",
+      "status": "passed",
+      "sameTime": 10,
+      "before": 0.7116296026248633,
+      "after": 0.9161308490167552,
+      "entryCalls": 1,
+      "mapLoader": "fixture; actual final native arena ii wrapper executed"
+    },
+    {
+      "name": "same-object time rewind reset 390x844",
+      "status": "passed",
+      "fromTime": 100,
+      "toTime": 99,
+      "before": 0.7116296026248633,
+      "after": 0.9161308490167552
+    }
+  ],
+  "passed": 12,
+  "failed": 0,
+  "scope": "CPU actual camera/framing and final native map-entry wrapper; synthetic full-canvas envelope, image/decode/CSS and map loader. No GPU, real image decode, natural progression or device claim."
+}

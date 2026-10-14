@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "width": 1180,
+      "height": 757,
+      "mobile": false,
+      "frames": 180,
+      "distinctScales": [
+        0.788063160944517
+      ],
+      "range": 0
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "frames": 180,
+      "distinctScales": [
+        0.8678500986193295
+      ],
+      "range": 0
+    },
+    {
+      "width": 568,
+      "height": 260,
+      "mobile": true,
+      "frames": 180,
+      "distinctScales": [
+        0.8214410024364777
+      ],
+      "range": 0
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "frames": 180,
+      "distinctScales": [
+        0.7549212979077233
+      ],
+      "range": 0
+    }
+  ],
+  "scope": "CPU actual final native camera entry and arena delegation + actual layout/framing and polygon; synthetic roster/pose/decode/map-width/view callbacks; no browser/DPR-rendering/device claim"
+}
