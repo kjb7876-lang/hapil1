@@ -1,0 +1,11 @@
+# 공개 bb4696의 기존 CI 실패 분류
+
+- RC137 [38506362987](https://github.com/kjb7876-lang/hapil1/actions/runs/38506362987): rc163-ego-victory-ui.cjs:45에서 cult04 이탈 대기30초 초과. 로그 atVictory는 이미 village, EGO transformed/active, 방문1을 기록했고 최종 실패는 cult04, EGO active, 방문2입니다. 따라서 EGO 미전환이라고 단정할 수 없습니다. 테스트는 manual 분기에서 현재 맵 출구를 다시 조작하므로 이미 village인 상황에서 역행 출구를 누르는 관측/하네스 경합 근거가 있습니다. 이번 수정에서는 해당 assertion이나 UI 테스트를 고치지 않았습니다. 전체 자연 승리·왕복의 새 실브라우저 확인은 미완료입니다.
+- RC144 [38506363110](https://github.com/kjb7876-lang/hapil1/actions/runs/38506363110), RC146 [38506363037](https://github.com/kjb7876-lang/hapil1/actions/runs/38506363037): PC에서 rc144-death-burn-browser.cjs:54의 count>=1 실패, count0/liveOwnerfalse. portrait/landscape는 통과했습니다. 시험은 수명.82초인 잔상의43% 시점으로 시계를 맞춰 그린 뒤 비동기 screenshot 후에도 잔상이 남아 있어야 한다고 검사합니다. 기록된 time101.11은 born100인 해당 잔상의 만료 시각100.82 이후입니다. 생성 실패와 정상 만료를 구분해야 하며 screenshot 대기 중 소실이라는 시점 경합 근거가 있습니다. 런타임 수명을 늘리거나 assertion을 완화하지 않았습니다. RC146 PC 초기 checkout RPC/EOF도 로그에 있었지만 최종 중단은 잔불 assertion입니다.
+- Laser [38506363031](https://github.com/kjb7876-lang/hapil1/actions/runs/38506363031): rc133-release-compatibility가 확장64까지만 접어 현재 awakening 파일과 불일치했습니다. 정확한 확장102까지 연결하고 full preservation 결과의 검증된 후속 행을 노출하도록 수정했습니다.6개 경로 통과/변조 입력 거부를 확인했습니다. 별도 rc118 laser-phase 구 기준 실패도 있었으며 그 assertion은 변경하지 않았습니다.
+- RC147 [38506363078](https://github.com/kjb7876-lang/hapil1/actions/runs/38506363078): rc133-published-url의 'exact latest bytes assets/rc91/samong-awakening.js'는 네트워크 공개 파일 검사가 아닌 로컬 확장 이력65 종료가 원인입니다. 이후 승인 이력의 고정 해시·정확한 preimage/삭제·현재 바이트 검사를 추가했습니다. 연결된 오프라인 공개 계획도 같은 누락을 보정해334파일을 검증합니다. 조회/공개 바이트 성공으로 잘못 해석하지 않습니다.
+- Canonical [38506363128](https://github.com/kjb7876-lang/hapil1/actions/runs/38506363128): narration rc75-ending-and-awakening:28 assert(result.ok), death-dialog rc91-samong-and-laser-smoke:11, release의 rc128-candidate/laser-phases, topology에서1052문제 보고. 이번 승인 범위의 이미지/산개 수정과 별도로 남은 회귀입니다. release의 나머지8개 및 꿈/공개 오디오 일부 성공은 전체 성공이 아닙니다.
+- RC126/127/129: Chromium 'No usable sandbox'로 페이지/게임 로딩 전 중단. 권한·샌드박스 변경이나 수동 재실행을 하지 않았습니다.
+- RC133 [38506363029](https://github.com/kjb7876-lang/hapil1/actions/runs/38506363029): cancelled. 성공으로 분류하지 않습니다.
+
+새 후보의 CPU48파일/원본 보존 검사는 별도 결과입니다. 위 브라우저 실패가 전부 해결됐다는 주장은 하지 않습니다. 기존 정적 원화·세이브·무한 역행 계약을 보존하며, 이미지 첨부 Library 연결 오류도 게임 이미지 파일 손상과 별개입니다.

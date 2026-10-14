@@ -1,0 +1,9720 @@
+{
+  "status": "passed",
+  "cases": 1200,
+  "families": [
+    "return-ring",
+    "twin-spiral",
+    "aimed-petals",
+    "edge-convergence",
+    "rotating-cross",
+    "hell-gate-columns",
+    "flame-sword-cone",
+    "cinder-return",
+    "wing-feather-pairs",
+    "halo-safe-seam",
+    "six-wing-cross",
+    "falling-clutter",
+    "stop-go-orbit",
+    "delayed-drowsy-ring",
+    "mirror-fan",
+    "delayed-reflection",
+    "clone-cross",
+    "maw-inhale",
+    "safe-ring-devour",
+    "spit-fan",
+    "puppet-thread-pairs",
+    "heart-track",
+    "thread-snap-cross",
+    "coin-ricochet",
+    "contract-grid",
+    "ledger-fan",
+    "yoyo-true-return",
+    "candy-mine",
+    "frost-spiral",
+    "fire-line-sweep",
+    "beast-triplet-arcs",
+    "dash-trail-converge",
+    "command-cross",
+    "inverted-safe-lane",
+    "corpse-formation",
+    "throne-lattice",
+    "leg-scan",
+    "observed-lane-replay",
+    "polarity-orbit",
+    "black-sun-echo",
+    "deletion-rows",
+    "memory-address-grid",
+    "packet-lock",
+    "draw-slash-lanes",
+    "afterimage-blades",
+    "six-image-charge",
+    "black-mist-orbit",
+    "sleepless-eyes",
+    "black-soul-track",
+    "corridor-shutters",
+    "alternating-gates",
+    "seal-collapse",
+    "expanding-note-wave",
+    "rest-crescendo",
+    "chorus-clock-seams",
+    "white-draw-cut",
+    "copied-skill-geometry",
+    "return-seal",
+    "choir-pulse-bands",
+    "antiphonal-left-right",
+    "three-voice-lattice",
+    "id-chase",
+    "superego-judgment",
+    "ego-triad",
+    "harvest-composite",
+    "human-edict",
+    "shepherd-six-sweep",
+    "ego-shard-orbit",
+    "antichrist-command",
+    "flute-sine-wave",
+    "drum-hop-bomb",
+    "whistle-arrow-volley",
+    "frozen-clock-ring",
+    "slow-fast-alternate",
+    "rewind-same-angles",
+    "water-current-sine",
+    "reverse-current",
+    "undertow-converge",
+    "gear-arcs",
+    "rotating-teeth",
+    "forge-cross",
+    "neuron-chain",
+    "branch-laser",
+    "delayed-synapse",
+    "fractured-clock",
+    "delayed-safe-seam-echo",
+    "collapse-lattice",
+    "traffic-signal-lanes",
+    "causal-coordinate-replay",
+    "reverse-causal-ring"
+  ],
+  "imported": [
+    "MONGSE_spawnThemeOrdnanceKind3129",
+    "MONGSE_spawnReturningBossVolley",
+    "MONGSE_spawnTwinSpiralVolley3129",
+    "MONGSE_spawnAimedPetalStreams3129",
+    "MONGSE_spawnEdgeConvergence3129",
+    "MONGSE_spawnRotatingCrossVolley3129",
+    "MONGSE_spawnBossSignatureKind31212",
+    "MONGSE_spawnSignatureLasers31212",
+    "MONGSE_signatureChoreography31213",
+    "MONGSE_signatureGrammar31212",
+    "MONGSE_signatureGrammarDeck31213",
+    "MONGSE_hashString31211",
+    "MONGSE_SIGNATURE_GRAMMAR_LIBRARY_V31213",
+    "MONGSE_bossRhythmProfile31214",
+    "MONGSE_BOSS_RHYTHM_MOTIFS_V31214",
+    "MONGSE_finishThemeLaserPattern3129",
+    "MONGSE_spawnSignatureBullets31212",
+    "MONGSE_signatureBulletCount31212"
+  ],
+  "rows": [
+    {
+      "id": "mb-dist01",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist01",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist02",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist03",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist04",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist05",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "hell-gate-columns",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "hell-gate-columns",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "hell-gate-columns",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "hell-gate-columns",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "flame-sword-cone",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "flame-sword-cone",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 3
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "flame-sword-cone",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "flame-sword-cone",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "cinder-return",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "cinder-return",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "cinder-return",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "dist06-boss",
+      "kind": "cinder-return",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-dist06",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "wing-feather-pairs",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "wing-feather-pairs",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "wing-feather-pairs",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "wing-feather-pairs",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "halo-safe-seam",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "halo-safe-seam",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "halo-safe-seam",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "halo-safe-seam",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "six-wing-cross",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "six-wing-cross",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "six-wing-cross",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "a11-boss",
+      "kind": "six-wing-cross",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "falling-clutter",
+      "phase": 1,
+      "packets": 9,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "falling-clutter",
+      "phase": 2,
+      "packets": 10,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b02-boss",
+      "kind": "falling-clutter",
+      "phase": 3,
+      "packets": 11,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "falling-clutter",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "b02-boss",
+      "kind": "stop-go-orbit",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "stop-go-orbit",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b02-boss",
+      "kind": "stop-go-orbit",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "stop-go-orbit",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "delayed-drowsy-ring",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "delayed-drowsy-ring",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "delayed-drowsy-ring",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b02-boss",
+      "kind": "delayed-drowsy-ring",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "mirror-fan",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "mirror-fan",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "mirror-fan",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "mirror-fan",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "delayed-reflection",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "delayed-reflection",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "delayed-reflection",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "delayed-reflection",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "clone-cross",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "clone-cross",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "clone-cross",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b03-boss",
+      "kind": "clone-cross",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "maw-inhale",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "maw-inhale",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "maw-inhale",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 3
+    },
+    {
+      "id": "b04-boss",
+      "kind": "maw-inhale",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "b04-boss",
+      "kind": "safe-ring-devour",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b04-boss",
+      "kind": "safe-ring-devour",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b04-boss",
+      "kind": "safe-ring-devour",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "safe-ring-devour",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "spit-fan",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "spit-fan",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b04-boss",
+      "kind": "spit-fan",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "b04-boss",
+      "kind": "spit-fan",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b05-boss",
+      "kind": "puppet-thread-pairs",
+      "phase": 1,
+      "packets": 11,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b05-boss",
+      "kind": "puppet-thread-pairs",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "b05-boss",
+      "kind": "puppet-thread-pairs",
+      "phase": 3,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b05-boss",
+      "kind": "puppet-thread-pairs",
+      "phase": 4,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b05-boss",
+      "kind": "heart-track",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b05-boss",
+      "kind": "heart-track",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 4
+    },
+    {
+      "id": "b05-boss",
+      "kind": "heart-track",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 5
+    },
+    {
+      "id": "b05-boss",
+      "kind": "heart-track",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b05-boss",
+      "kind": "thread-snap-cross",
+      "phase": 1,
+      "packets": 11,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "b05-boss",
+      "kind": "thread-snap-cross",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b05-boss",
+      "kind": "thread-snap-cross",
+      "phase": 3,
+      "packets": 13,
+      "hits": 0,
+      "serial": 4
+    },
+    {
+      "id": "b05-boss",
+      "kind": "thread-snap-cross",
+      "phase": 4,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "coin-ricochet",
+      "phase": 1,
+      "packets": 9,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "coin-ricochet",
+      "phase": 2,
+      "packets": 10,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b06-boss",
+      "kind": "coin-ricochet",
+      "phase": 3,
+      "packets": 11,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "coin-ricochet",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "contract-grid",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "contract-grid",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "contract-grid",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "contract-grid",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "ledger-fan",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "ledger-fan",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "ledger-fan",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06-boss",
+      "kind": "ledger-fan",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "yoyo-true-return",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "yoyo-true-return",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "yoyo-true-return",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "yoyo-true-return",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "candy-mine",
+      "phase": 1,
+      "packets": 9,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "candy-mine",
+      "phase": 2,
+      "packets": 10,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "candy-mine",
+      "phase": 3,
+      "packets": 11,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "candy-mine",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "frost-spiral",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "frost-spiral",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "frost-spiral",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b06b-boss",
+      "kind": "frost-spiral",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "fire-line-sweep",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "fire-line-sweep",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "fire-line-sweep",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "fire-line-sweep",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "beast-triplet-arcs",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "b07-boss",
+      "kind": "beast-triplet-arcs",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "beast-triplet-arcs",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "beast-triplet-arcs",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 3
+    },
+    {
+      "id": "b07-boss",
+      "kind": "dash-trail-converge",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "dash-trail-converge",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "dash-trail-converge",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b07-boss",
+      "kind": "dash-trail-converge",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "command-cross",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "command-cross",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "command-cross",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "command-cross",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "inverted-safe-lane",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "inverted-safe-lane",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "inverted-safe-lane",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "inverted-safe-lane",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "corpse-formation",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "corpse-formation",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "corpse-formation",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "corpse-formation",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "throne-lattice",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "throne-lattice",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "throne-lattice",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b08-boss",
+      "kind": "throne-lattice",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "leg-scan",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "leg-scan",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "leg-scan",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "leg-scan",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "observed-lane-replay",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "observed-lane-replay",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "observed-lane-replay",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "observed-lane-replay",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "polarity-orbit",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "b09-boss",
+      "kind": "polarity-orbit",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "polarity-orbit",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "polarity-orbit",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "black-sun-echo",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "black-sun-echo",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "black-sun-echo",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "b09-boss",
+      "kind": "black-sun-echo",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u201-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u202-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "deletion-rows",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "deletion-rows",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "deletion-rows",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "deletion-rows",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "memory-address-grid",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "memory-address-grid",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "memory-address-grid",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "memory-address-grid",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "packet-lock",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "packet-lock",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "u203-boss",
+      "kind": "packet-lock",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u203-boss",
+      "kind": "packet-lock",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "draw-slash-lanes",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "draw-slash-lanes",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "draw-slash-lanes",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "draw-slash-lanes",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "afterimage-blades",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "afterimage-blades",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "afterimage-blades",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "l301-boss",
+      "kind": "afterimage-blades",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "six-image-charge",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 4
+    },
+    {
+      "id": "l301-boss",
+      "kind": "six-image-charge",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l301-boss",
+      "kind": "six-image-charge",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "l301-boss",
+      "kind": "six-image-charge",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 5
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-mist-orbit",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-mist-orbit",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-mist-orbit",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-mist-orbit",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "sleepless-eyes",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "sleepless-eyes",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "sleepless-eyes",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "sleepless-eyes",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-soul-track",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-soul-track",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-soul-track",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l303-boss",
+      "kind": "black-soul-track",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "corridor-shutters",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "corridor-shutters",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "corridor-shutters",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "corridor-shutters",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "alternating-gates",
+      "phase": 1,
+      "packets": 10,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "alternating-gates",
+      "phase": 2,
+      "packets": 11,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "alternating-gates",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "alternating-gates",
+      "phase": 4,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "seal-collapse",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "seal-collapse",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "seal-collapse",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-03",
+      "kind": "seal-collapse",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "expanding-note-wave",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "expanding-note-wave",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "expanding-note-wave",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "expanding-note-wave",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "rest-crescendo",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "rest-crescendo",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "rest-crescendo",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "rest-crescendo",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "chorus-clock-seams",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "chorus-clock-seams",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "chorus-clock-seams",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "k103-boss",
+      "kind": "chorus-clock-seams",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando01",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando02",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "h103-boss",
+      "kind": "white-draw-cut",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "h103-boss",
+      "kind": "white-draw-cut",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "h103-boss",
+      "kind": "white-draw-cut",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "h103-boss",
+      "kind": "white-draw-cut",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "h103-boss",
+      "kind": "copied-skill-geometry",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 4
+    },
+    {
+      "id": "h103-boss",
+      "kind": "copied-skill-geometry",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "h103-boss",
+      "kind": "copied-skill-geometry",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "h103-boss",
+      "kind": "copied-skill-geometry",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 5
+    },
+    {
+      "id": "h103-boss",
+      "kind": "return-seal",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "h103-boss",
+      "kind": "return-seal",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "h103-boss",
+      "kind": "return-seal",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "h103-boss",
+      "kind": "return-seal",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-hando03",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder01",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder02",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-murder03",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c101-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "choir-pulse-bands",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "choir-pulse-bands",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "choir-pulse-bands",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "choir-pulse-bands",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "antiphonal-left-right",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "antiphonal-left-right",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "antiphonal-left-right",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "antiphonal-left-right",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "three-voice-lattice",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "three-voice-lattice",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "three-voice-lattice",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c102-boss",
+      "kind": "three-voice-lattice",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "id-chase",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 6
+    },
+    {
+      "id": "c103-boss",
+      "kind": "id-chase",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "id-chase",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "c103-boss",
+      "kind": "id-chase",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 6
+    },
+    {
+      "id": "c103-boss",
+      "kind": "superego-judgment",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "superego-judgment",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "superego-judgment",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "superego-judgment",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "ego-triad",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "c103-boss",
+      "kind": "ego-triad",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "c103-boss",
+      "kind": "ego-triad",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "c103-boss",
+      "kind": "ego-triad",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 5
+    },
+    {
+      "id": "c103-boss",
+      "kind": "harvest-composite",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "c103-boss",
+      "kind": "harvest-composite",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c103-boss",
+      "kind": "harvest-composite",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "c103-boss",
+      "kind": "harvest-composite",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 3
+    },
+    {
+      "id": "c104-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "human-edict",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "human-edict",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "human-edict",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "human-edict",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "shepherd-six-sweep",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "shepherd-six-sweep",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "shepherd-six-sweep",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "shepherd-six-sweep",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "ego-shard-orbit",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "ego-shard-orbit",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "ego-shard-orbit",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "c104-boss",
+      "kind": "ego-shard-orbit",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "c104-boss",
+      "kind": "antichrist-command",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "antichrist-command",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c104-boss",
+      "kind": "antichrist-command",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "c104-boss",
+      "kind": "antichrist-command",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u204-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u205-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "u206-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "flute-sine-wave",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "flute-sine-wave",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "flute-sine-wave",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "flute-sine-wave",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "drum-hop-bomb",
+      "phase": 1,
+      "packets": 9,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "drum-hop-bomb",
+      "phase": 2,
+      "packets": 10,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "drum-hop-bomb",
+      "phase": 3,
+      "packets": 11,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "drum-hop-bomb",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "whistle-arrow-volley",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "whistle-arrow-volley",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "whistle-arrow-volley",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "l305-boss",
+      "kind": "whistle-arrow-volley",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "frozen-clock-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "frozen-clock-ring",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "frozen-clock-ring",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "frozen-clock-ring",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "slow-fast-alternate",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "slow-fast-alternate",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "slow-fast-alternate",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "slow-fast-alternate",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "rewind-same-angles",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "rewind-same-angles",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "rewind-same-angles",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-01",
+      "kind": "rewind-same-angles",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "water-current-sine",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "water-current-sine",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "water-current-sine",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "water-current-sine",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "reverse-current",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "reverse-current",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "reverse-current",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "reverse-current",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "undertow-converge",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "undertow-converge",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "undertow-converge",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-02",
+      "kind": "undertow-converge",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "gear-arcs",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "gear-arcs",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "gear-arcs",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "gear-arcs",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "rotating-teeth",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "rotating-teeth",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "rotating-teeth",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 3
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "rotating-teeth",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "forge-cross",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "forge-cross",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 1
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "forge-cross",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-04",
+      "kind": "forge-cross",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "neuron-chain",
+      "phase": 1,
+      "packets": 11,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "neuron-chain",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "neuron-chain",
+      "phase": 3,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "neuron-chain",
+      "phase": 4,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "branch-laser",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "branch-laser",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "branch-laser",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "branch-laser",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "delayed-synapse",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "delayed-synapse",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "delayed-synapse",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-05",
+      "kind": "delayed-synapse",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 2
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "fractured-clock",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "fractured-clock",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "fractured-clock",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "fractured-clock",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "delayed-safe-seam-echo",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "delayed-safe-seam-echo",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "delayed-safe-seam-echo",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "delayed-safe-seam-echo",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "collapse-lattice",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "collapse-lattice",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "collapse-lattice",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "kair-great-06",
+      "kind": "collapse-lattice",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "murder04-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c105-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "return-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "return-ring",
+      "phase": 2,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "return-ring",
+      "phase": 3,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "return-ring",
+      "phase": 4,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "twin-spiral",
+      "phase": 1,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "twin-spiral",
+      "phase": 2,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "twin-spiral",
+      "phase": 3,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "twin-spiral",
+      "phase": 4,
+      "packets": 20,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "aimed-petals",
+      "phase": 1,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "aimed-petals",
+      "phase": 2,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "aimed-petals",
+      "phase": 3,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "aimed-petals",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "edge-convergence",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "edge-convergence",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "edge-convergence",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "edge-convergence",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "rotating-cross",
+      "phase": 1,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "rotating-cross",
+      "phase": 2,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "rotating-cross",
+      "phase": 3,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "c106-mid",
+      "kind": "rotating-cross",
+      "phase": 4,
+      "packets": 16,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "traffic-signal-lanes",
+      "phase": 1,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "traffic-signal-lanes",
+      "phase": 2,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "traffic-signal-lanes",
+      "phase": 3,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "traffic-signal-lanes",
+      "phase": 4,
+      "packets": 0,
+      "hits": 4,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "causal-coordinate-replay",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "causal-coordinate-replay",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "causal-coordinate-replay",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "causal-coordinate-replay",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "reverse-causal-ring",
+      "phase": 1,
+      "packets": 12,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "reverse-causal-ring",
+      "phase": 2,
+      "packets": 13,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "reverse-causal-ring",
+      "phase": 3,
+      "packets": 14,
+      "hits": 0,
+      "serial": 0
+    },
+    {
+      "id": "blue-executor",
+      "kind": "reverse-causal-ring",
+      "phase": 4,
+      "packets": 15,
+      "hits": 0,
+      "serial": 0
+    }
+  ],
+  "failures": [],
+  "scope": "Actual theme dispatcher and native signature deck producers for all70 ordinary owner identities, fixture placement/HP and warning/telemetry dependencies. Cosmic separately covered. Helper imports are unmodified native declarations. No whole-encounter or browser claim."
+}

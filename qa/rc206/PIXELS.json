@@ -1,0 +1,56 @@
+{
+  "scope": "Actual opened PNG source and all8 runtime-transform libcairo CPU sheets. Not browser/game captures.",
+  "poses": [
+    0.25,
+    0.6,
+    0.9
+  ],
+  "order": "prepare, strike, recovery left-to-right",
+  "rows": [
+    {
+      "file": "assets/rc206/slayer-movement-body.png",
+      "bytes": 1259514,
+      "sha256": "2423f34c5bb5d4c85973f33193c486bd88c313866189c60a09f7a8e636f28dfe"
+    },
+    {
+      "file": "qa/rc206/compare-n.png",
+      "bytes": 366675,
+      "sha256": "4f2cc01f8cb9dad4b0ba2ee5b00ec540dc9254a6fffead937ce350924f98ff18"
+    },
+    {
+      "file": "qa/rc206/compare-ne.png",
+      "bytes": 386792,
+      "sha256": "d2bcf36c1cef8d45bdfe4182119a49a1f0a4a98d02ac3da774c2d6552df263fa"
+    },
+    {
+      "file": "qa/rc206/compare-e.png",
+      "bytes": 385736,
+      "sha256": "01c7c627e2b719e741270e26aa835f1f8b99b113865e6d3ee984f966043e51e1"
+    },
+    {
+      "file": "qa/rc206/compare-se.png",
+      "bytes": 382289,
+      "sha256": "70456299e1879afd4afca563b5d693ab05a710aa77e995dc49a364f190e6ceca"
+    },
+    {
+      "file": "qa/rc206/compare-s.png",
+      "bytes": 380920,
+      "sha256": "6558228af3fa801a79cbe89d11f7656f703d60d260256057e3e6a41f4b77171d"
+    },
+    {
+      "file": "qa/rc206/compare-sw.png",
+      "bytes": 381066,
+      "sha256": "69380355b437a47643eec5255889ab55e5270d977bc3308135dec2a1a7b3d8d3"
+    },
+    {
+      "file": "qa/rc206/compare-w.png",
+      "bytes": 384825,
+      "sha256": "45856ceb9774f299c2901f9431b60aff552a73289f9d58c4598fe66167333f6c"
+    },
+    {
+      "file": "qa/rc206/compare-nw.png",
+      "bytes": 388208,
+      "sha256": "0c3dd4bf8cd8fe1cbc67a7e67a6c79f75d856f7dcc97c03bc7badfb7c60090d5"
+    }
+  ]
+}

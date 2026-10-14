@@ -1,0 +1,12 @@
+{
+  "runtimeCommit": "d97c47fe0a7d0029fc508d21e810beecb4c62b5f",
+  "status": "passed",
+  "currentRuntimeProof": {
+    "checkedFiles": 3358,
+    "checkedDirectories": 537,
+    "workingTreeMatches": true,
+    "committedTreeMatches": true
+  },
+  "extension102Sha256": "fceb2788177effdfc4e2673b5a56d1bc0f8595abfddd43d2c24ffd440cc8e5ed",
+  "method": "Exact per-file preimage/output hashes and full committed/working inventory; original published tree pinned to the first approved delta, with each later extension chained from the prior exact tree and file hash; unchanged reviewed-85 and prior preservation guards on detached pinned baseline"
+}

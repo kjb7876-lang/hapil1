@@ -1,0 +1,93 @@
+{
+  "scope": "159 normalized source outputs opened in 8 overview sheets; selected ambiguous profiles enlarged. Front/symmetric art cannot establish a left/right face. Seven confirmed left-facing outputs contradict baked right metadata and are overridden per path, not per owner. 39 three-pose midboss sources also opened. This is source pixel review, not real game camera review.",
+  "corrections": [
+    {
+      "index": 6,
+      "path": "./assets/generated-v31224/actors-normalized/cfb37917e7c0_dist_dying_messenger_shadow.webp",
+      "sourcePath": "./assets/dist/generated-v393/dist_dying_messenger_shadow.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "f2beb2aa2ffdaf1ce302b8f8c92d31a3d1dafb741e90fc142721e38942c3ec0c",
+      "actorIds": [
+        "mb-dist05"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    },
+    {
+      "index": 28,
+      "path": "./assets/generated-v31224/actors-normalized/1a8ca2c5759b_ep1b03_envy_sister_phase0.webp",
+      "sourcePath": "./assets/episode1b/generated-v3110/ep1b03_envy_sister_phase0.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "ef48c98de8ff222572d585ef057d742d21a3469bf923a69ae10cf06625970cfe",
+      "actorIds": [
+        "b03-boss"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    },
+    {
+      "index": 52,
+      "path": "./assets/generated-v31224/actors-normalized/bc3b043bbed6_lust-attack.webp",
+      "sourcePath": "./assets/episode1b/generated-v3126/lust-attack.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "140b3d5a65c9123349e9d235123b699813e260b84be9d55f86af18919db7d33e",
+      "actorIds": [
+        "b05-boss"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    },
+    {
+      "index": 68,
+      "path": "./assets/generated-v31224/actors-normalized/993008dd765e_wrath-attack.webp",
+      "sourcePath": "./assets/episode1b/generated-v3126/wrath-attack.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "f59eca004ec1a2d8f15b08bf7ecb59452285d710e461b31085d298b19584858b",
+      "actorIds": [
+        "b07-boss"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    },
+    {
+      "index": 69,
+      "path": "./assets/generated-v31224/actors-normalized/a735a92c69d1_wrath-hit.webp",
+      "sourcePath": "./assets/episode1b/generated-v3126/wrath-hit.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "9a416dbabcc1f390987bbdb020e4bb6710868bdc7392c3eb041030afbae3d091",
+      "actorIds": [
+        "b07-boss"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    },
+    {
+      "index": 72,
+      "path": "./assets/generated-v31224/actors-normalized/9f845f4d58bf_envy-human-attack.webp",
+      "sourcePath": "./assets/episode1b/generated-v3128/envy-human-attack.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "a2aa8ed8a05a4eedd88cfa7259d2c64c4d15a05bd29867a87f59ef0293e3c875",
+      "actorIds": [
+        "b03-boss"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    },
+    {
+      "index": 80,
+      "path": "./assets/generated-v31224/actors-normalized/b00c6229c058_wrath-human-attack.webp",
+      "sourcePath": "./assets/episode1b/generated-v3128/wrath-human-attack.webp",
+      "actualFacing": "left",
+      "declaredFacing": "right",
+      "sha256": "797b313ca01c1620635e03bfa8444fe228de6d60c1d5081120e091efa85fe9f9",
+      "actorIds": [
+        "b07-boss"
+      ],
+      "basis": "actual opened normalized/close-review CPU contact sheet; visible hood/profile head or mouth/weapon direction"
+    }
+  ],
+  "motionCorrections": [
+    "mb-kair01-v31231",
+    "mb-dist05"
+  ]
+}

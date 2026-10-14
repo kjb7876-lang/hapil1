@@ -1,0 +1,125 @@
+{
+  "task": "RC206 movement-matched Slayer four-view swordless/armless body candidate",
+  "generation": {
+    "tool": "official image_gen imagegen",
+    "calls": 1,
+    "transparent_background": true,
+    "tool_output": "/workspace/generated_images/exec-00160fd1-6888-4f9e-a1c4-def91298263b.png",
+    "candidate": "/workspace/rc206-slayer-art/movement-matched-four-view-candidate.png",
+    "prompt_file": "/workspace/rc206-slayer-art/movement-matched-four-view-body-prompt.txt",
+    "prompt_sha256": "a0996778b4f437962a3e2c445621310802e0465b829502f817257350a3766f85",
+    "references": [
+      {
+        "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-walk-atlas.png",
+        "sha256": "5857d479188adcb546a9239b6c8675bbf3bb050ab4798438da692ac247129640",
+        "actual_viewed": true,
+        "use": "Primary identity, body proportions, walk-ready stance, low carried-weapon body posture, and cape silhouette reference."
+      },
+      {
+        "path": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-action-atlas.png",
+        "sha256": "0328fdb22709bfca6d19ad427e6cecb9a6bb4f2d6c7aaef92e2beab6359ba30a",
+        "actual_viewed": true,
+        "use": "Secondary identity and armor detail reference; the extra-wide action stance was explicitly excluded."
+      }
+    ]
+  },
+  "candidate_file": {
+    "format": "PNG",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "bytes": 1259514,
+    "sha256": "2423f34c5bb5d4c85973f33193c486bd88c313866189c60a09f7a8e636f28dfe",
+    "layout": "2x2 square board; four 627x627 cells at origins (0,0), (627,0), (0,627), (627,627).",
+    "visual_inspection": "Actual-viewed. The upper-left is front, upper-right back, lower-left is front three-quarter but faces screen-left rather than the requested screen-right, and lower-right is rear three-quarter turned toward screen-right. All four are compact walk-ready bodies with close/staggered feet rather than a broad fighting stance. They retain black hair, black/gunmetal and red armor, and red-black cape. All arms and weapons are omitted, with closed shoulder plates and no obvious circular socket or hole. The lower-left cell can be mirrored in the root if desired; no pixel edit was made."
+  },
+  "alpha_qa": {
+    "threshold_for_visible_silhouette": "alpha byte >= 6",
+    "cell_results": [
+      {
+        "view": "front",
+        "cell_origin_xy": [0, 0],
+        "bbox_local_half_open": [61, 34, 571, 608],
+        "padding_left_right_top_bottom": [61, 56, 34, 19]
+      },
+      {
+        "view": "back",
+        "cell_origin_xy": [627, 0],
+        "bbox_local_half_open": [56, 34, 567, 607],
+        "padding_left_right_top_bottom": [56, 60, 34, 20]
+      },
+      {
+        "view": "front_three_quarter_screen_left",
+        "cell_origin_xy": [0, 627],
+        "bbox_local_half_open": [67, 11, 595, 589],
+        "padding_left_right_top_bottom": [67, 32, 11, 38]
+      },
+      {
+        "view": "rear_three_quarter_screen_right",
+        "cell_origin_xy": [627, 627],
+        "bbox_local_half_open": [32, 13, 560, 589],
+        "padding_left_right_top_bottom": [32, 67, 13, 38]
+      }
+    ],
+    "cell_edge_counts_alpha_ge6": {
+      "all_four_cells": 0
+    },
+    "notes": "No visible silhouette alpha>=6 touches a cell edge. Low-alpha (byte 1-5) fringes do touch some outer cell edges and bottom edges, including both lower cells; the visible silhouettes remain inside with 11-38px margins there. Alpha byte>=6 active silhouettes have 64px or more between adjacent columns in the lower row and 112px in the upper row."
+  },
+  "landmarks": {
+    "coordinate_system": "Local coordinates are within a 627x627 cell; global coordinates are on the 1254x1254 board. Head tops are alpha>=6 bounds; head centers are visual estimates from the head region. Sole centers and shoulder attachment points are manual visual estimates, not semantic detections; shoulder estimates are about +/-20px.",
+    "views": [
+      {
+        "view": "front",
+        "head_top_global_y": 34,
+        "head_center_local_x_estimate": 336,
+        "head_center_global_x_estimate": 336,
+        "head_region_alpha_ge6_bbox_local_y_lt_110": [273, 34, 399, 110],
+        "foot_pivot_estimate_local_xy": [338, 607],
+        "foot_pivot_estimate_global_xy": [338, 607],
+        "shoulder_root_estimates_local_xy": [[250, 233], [417, 233]],
+        "shoulder_root_estimates_global_xy": [[250, 233], [417, 233]]
+      },
+      {
+        "view": "back",
+        "head_top_global_y": 34,
+        "head_center_local_x_estimate": 291,
+        "head_center_global_x_estimate": 918,
+        "head_region_alpha_ge6_bbox_local_y_lt_110": [230, 34, 352, 110],
+        "foot_pivot_estimate_local_xy": [294, 607],
+        "foot_pivot_estimate_global_xy": [921, 607],
+        "shoulder_root_estimates_local_xy": [[214, 233], [411, 233]],
+        "shoulder_root_estimates_global_xy": [[841, 233], [1038, 233]]
+      },
+      {
+        "view": "front_three_quarter_screen_left_mirror_for_requested_right",
+        "head_top_global_y": 638,
+        "head_center_local_x_estimate": 335,
+        "head_center_global_x_estimate": 335,
+        "head_center_global_x_after_horizontal_mirror_estimate": 292,
+        "foot_pivot_estimate_local_xy": [320, 1215],
+        "foot_pivot_estimate_global_xy": [320, 1215],
+        "foot_pivot_after_horizontal_mirror_estimate_global_xy": [307, 1215],
+        "shoulder_root_estimates_local_xy_before_mirror": [[261, 862], [416, 862]],
+        "shoulder_root_estimates_local_xy_after_mirror": [[366, 862], [211, 862]]
+      },
+      {
+        "view": "rear_three_quarter_screen_right",
+        "head_top_global_y": 640,
+        "head_center_local_x_estimate": 314,
+        "head_center_global_x_estimate": 941,
+        "head_region_alpha_ge6_bbox_local_y_lt_110": [229, 13, 399, 110],
+        "foot_pivot_estimate_local_xy": [288, 1215],
+        "foot_pivot_estimate_global_xy": [915, 1215],
+        "shoulder_root_estimates_local_xy": [[228, 860], [414, 860]],
+        "shoulder_root_estimates_global_xy": [[855, 860], [1041, 860]]
+      }
+    ],
+    "alignment": "Top-row sole baselines are y=606; lower-row sole baselines are y=588, so moving both lower cells down about 19px aligns soles. After that move, lower-row head tops differ from upper-row tops by about 4px. Visible body heights are similar (approximately 573-578px). Horizontal foot/head pivots vary by view and should be stored per cell."
+  },
+  "limitations": [
+    "The generated lower-left front-three-quarter faces screen-left; a horizontal mirror can orient it toward screen-right if the root accepts that use.",
+    "The generated low-alpha fringe touches some cell borders despite the main alpha>=6 silhouettes having adequate margins.",
+    "No second image generation or source-image modification was performed."
+  ]
+}

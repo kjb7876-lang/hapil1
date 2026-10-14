@@ -1,0 +1,729 @@
+[
+  {
+    "zone": "dist06",
+    "actor": {
+      "id": "dist06-boss",
+      "kind": "balrog",
+      "name": "발록 · 지옥의 문지기",
+      "x": 15,
+      "y": 14,
+      "hp": 720,
+      "sprite": "./assets/episode1a/balrog_gatekeeper.webp",
+      "facing": -1,
+      "eliteName": "포기하면 편하다",
+      "boss": true
+    }
+  },
+  {
+    "zone": "ep1a11",
+    "actor": {
+      "id": "a11-boss",
+      "kind": "lucifer",
+      "name": "루시퍼 · 가면 벗은 초천사",
+      "x": 15,
+      "y": 14,
+      "hp": 980,
+      "sprite": "./assets/episode1a/lucifer_unmasked.webp",
+      "facing": -1,
+      "eliteName": "회복을 두려워하는 자",
+      "boss": true
+    }
+  },
+  {
+    "zone": "ep1b02",
+    "actor": {
+      "id": "b02-boss",
+      "kind": "commandBoss",
+      "name": "나태에 잠식된 남자",
+      "x": 15,
+      "y": 14,
+      "hp": 900,
+      "sprite": "./assets/episode1b/boss_sloth_human.webp",
+      "facing": -1,
+      "eliteName": "꺼져! 그냥 내버려 둬!",
+      "boss": true,
+      "patternSet": "ep1b02",
+      "scale": 1.34,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b02_sloth_man_phase0.webp",
+        "./assets/episode1b/boss_sloth_human.webp",
+        "./assets/episode1b/boss_sloth_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_sloth_human.webp",
+        "./assets/episode1b/generated-v394/boss_sloth_human.webp",
+        "./assets/episode1b/generated-v394/boss_sloth_demon.webp"
+      ],
+      "phaseNames": [
+        "낡은 민소매를 걸친 남자",
+        "쓰레기 산의 반인반요",
+        "나태의 악마 벨페고르"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.82,
+        0.94,
+        1.12
+      ]
+    }
+  },
+  {
+    "zone": "ep1b03",
+    "actor": {
+      "id": "b03-boss",
+      "kind": "connector",
+      "name": "호텔 부매니저 · 레비아탄",
+      "x": 15,
+      "y": 14,
+      "hp": 940,
+      "sprite": "./assets/episode1b/boss_envy_human.webp",
+      "facing": -1,
+      "eliteName": "왜 모든 걸 가진 건데?",
+      "boss": true,
+      "patternSet": "ep1b03",
+      "scale": 1.3,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b03_envy_sister_phase0.webp",
+        "./assets/episode1b/boss_envy_human.webp",
+        "./assets/episode1b/boss_envy_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_envy_human.webp",
+        "./assets/episode1b/generated-v394/boss_envy_human.webp",
+        "./assets/episode1b/generated-v394/boss_envy_demon.webp"
+      ],
+      "phaseNames": [
+        "금이 간 안경을 쓴 부매니저",
+        "칼과 불붙은 볼펜의 환영",
+        "질투의 귀 레비아탄"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.94,
+        1.12
+      ]
+    }
+  },
+  {
+    "zone": "ep1b04",
+    "actor": {
+      "id": "b04-boss",
+      "kind": "hornDemon",
+      "name": "최고급 호텔의 총주방장 · 탐식의 귀 베엘제붑",
+      "x": 15,
+      "y": 14,
+      "hp": 980,
+      "sprite": "./assets/episode1b/boss_gluttony_human.webp",
+      "facing": -1,
+      "eliteName": "최고가 아니면 쓰레기일뿐.",
+      "boss": true,
+      "patternSet": "ep1b04",
+      "scale": 1.36,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b04_glutton_head_chef_phase0.webp",
+        "./assets/episode1b/boss_gluttony_human.webp",
+        "./assets/episode1b/boss_gluttony_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_gluttony_human.webp",
+        "./assets/episode1b/generated-v394/boss_gluttony_human.webp",
+        "./assets/episode1b/generated-v394/boss_gluttony_demon.webp"
+      ],
+      "phaseNames": [
+        "칼을 든 최고급 호텔의 총주방장",
+        "더러운 요리사 모자의 탐식체",
+        "탐식의 귀 베엘제붑"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.96,
+        1.12
+      ]
+    }
+  },
+  {
+    "zone": "ep1b05",
+    "actor": {
+      "id": "b05-boss",
+      "kind": "corruptedGuardian",
+      "name": "붉은 하이힐의 서윤",
+      "x": 15,
+      "y": 14,
+      "hp": 1020,
+      "sprite": "./assets/episode1b/boss_lust_human.webp",
+      "facing": -1,
+      "eliteName": "사랑은 원래 그런 거야.",
+      "boss": true,
+      "patternSet": "ep1b05",
+      "scale": 1.34,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b05_lust_seoyun_puppet_phase0.webp",
+        "./assets/episode1b/boss_lust_human.webp",
+        "./assets/episode1b/boss_lust_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_lust_human.webp",
+        "./assets/episode1b/generated-v394/boss_lust_human.webp",
+        "./assets/episode1b/generated-v394/boss_lust_demon.webp"
+      ],
+      "phaseNames": [
+        "흰 셔츠와 검은 스커트의 서윤",
+        "총지배인이 조종하는 인간 꼭두각시",
+        "색욕의 귀 아스모데우스"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.82,
+        0.94,
+        1.08
+      ]
+    }
+  },
+  {
+    "zone": "ep1b06",
+    "actor": {
+      "id": "b06-boss",
+      "kind": "hotelClerk",
+      "name": "회장에게 고용된 총지배인 · 맘몬",
+      "x": 15,
+      "y": 14,
+      "hp": 880,
+      "sprite": "./assets/episode1b/boss_greed_human.webp",
+      "facing": -1,
+      "eliteName": "사람에게는 가격이 있다.",
+      "boss": true,
+      "patternSet": "ep1b06",
+      "scale": 1.28,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b06_greed_general_manager_phase0.webp",
+        "./assets/episode1b/boss_greed_human.webp",
+        "./assets/episode1b/boss_greed_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_demon.webp"
+      ],
+      "phaseNames": [
+        "여우 눈의 회장 직속 총지배인",
+        "총지배인과 똑같은 얼굴의 탐욕",
+        "탐욕의 귀 맘몬"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.96,
+        1.12
+      ]
+    }
+  },
+  {
+    "zone": "ep1b06b",
+    "actor": {
+      "id": "b06b-boss",
+      "kind": "commandBoss",
+      "name": "소년이 된 총지배인 · 맘몬",
+      "x": 15,
+      "y": 14,
+      "hp": 1080,
+      "sprite": "./assets/episode1b/boss_greed_demon.webp",
+      "facing": -1,
+      "eliteName": "돈이 없어서 엄마가 죽었어!",
+      "boss": true,
+      "patternSet": "ep1b06b",
+      "scale": 1.4,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b06b_greed_child_phase0.webp",
+        "./assets/episode1b/boss_greed_human.webp",
+        "./assets/episode1b/boss_greed_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_human.webp",
+        "./assets/episode1b/generated-v394/boss_greed_demon.webp"
+      ],
+      "phaseNames": [
+        "겨울 숲에 홀로 남은 소년",
+        "사탕과 요요의 가시 환영",
+        "거대한 여우 꼬리의 맘몬"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.78,
+        0.94,
+        1.14
+      ]
+    }
+  },
+  {
+    "zone": "ep1b07",
+    "actor": {
+      "id": "b07-boss",
+      "kind": "balrog",
+      "name": "불을 지른 청소부 · 사탄",
+      "x": 15,
+      "y": 14,
+      "hp": 1080,
+      "sprite": "./assets/episode1b/boss_wrath_human.webp",
+      "facing": -1,
+      "eliteName": "이미 늦었어.",
+      "boss": true,
+      "patternSet": "ep1b07",
+      "scale": 1.36,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.7,
+        0.36
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b07_wrath_janitor_phase0.webp",
+        "./assets/episode1b/boss_wrath_human.webp",
+        "./assets/episode1b/boss_wrath_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_wrath_human.webp",
+        "./assets/episode1b/generated-v394/boss_wrath_human.webp",
+        "./assets/episode1b/generated-v394/boss_wrath_demon.webp"
+      ],
+      "phaseNames": [
+        "눈이 붉어진 호텔 청소부",
+        "분노의 귀가 등에 올라탄 청소부",
+        "분노의 귀 사탄"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.84,
+        0.96,
+        1.12
+      ]
+    }
+  },
+  {
+    "zone": "ep1b08",
+    "actor": {
+      "id": "b08-boss",
+      "kind": "commandBoss",
+      "name": "백색 정장의 호텔 그룹 회장",
+      "x": 15,
+      "y": 14,
+      "hp": 1220,
+      "sprite": "./assets/episode1b/boss_pride_human.webp",
+      "facing": -1,
+      "eliteName": "즉, 나는 신이다.",
+      "boss": true,
+      "patternSet": "ep1b08",
+      "scale": 1.4,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 4,
+      "phaseMax": 3,
+      "phaseThresholds": [
+        0.78,
+        0.56,
+        0.31
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b08_pride_chairman_phase0.webp",
+        "./assets/episode1b/boss_pride_human.webp",
+        "./assets/episode1b/seal_residual.webp",
+        "./assets/episode1b/boss_pride_demon.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp"
+      ],
+      "phaseNames": [
+        "백색 정장을 입은 백발의 회장",
+        "몽세 속의 몽세를 연 회장",
+        "거꾸로 세워진 십자가의 제단",
+        "일곱 번째 귀 루시퍼"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.86,
+        0.98,
+        1.06,
+        1.14
+      ]
+    }
+  },
+  {
+    "zone": "ep1b09",
+    "actor": {
+      "id": "b09-boss",
+      "kind": "commandBoss",
+      "name": "사이보그 회장 · 생체 부트로더",
+      "x": 15,
+      "y": 14,
+      "hp": 1380,
+      "sprite": "./assets/episode1b/boss_pride_cyborg.webp",
+      "facing": -1,
+      "eliteName": "인간은 반복의 동물이다.",
+      "boss": true,
+      "patternSet": "final-ep1b",
+      "scale": 1.46,
+      "humanPhase0": true,
+      "canonHumanTarget": "",
+      "phaseCount": 4,
+      "phaseMax": 3,
+      "phaseThresholds": [
+        0.78,
+        0.52,
+        0.26
+      ],
+      "phaseSprites": [
+        "./assets/episode1b/generated-v3110/ep1b09_biobootloader_chairman_phase0.webp",
+        "./assets/episode1b/boss_pride_human.webp",
+        "./assets/episode1b/boss_pride_demon.webp",
+        "./assets/episode1b/boss_pride_cyborg.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_human.webp",
+        "./assets/episode1b/generated-v394/boss_pride_demon.webp",
+        "./assets/episode1b/generated-v394/boss_pride_cyborg.webp"
+      ],
+      "phaseNames": [
+        "인간의 상반신을 남긴 사이보그 회장",
+        "수백 화면의 회장 얼굴",
+        "가짜 동료를 복제하는 연산핵",
+        "현몽합일의 생체 부트로더"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.88,
+        0.98,
+        1.1,
+        1.18
+      ]
+    }
+  },
+  {
+    "zone": "u203",
+    "actor": {
+      "id": "u203-boss",
+      "kind": "commandBoss",
+      "name": "컨트롤러 · 단일호명 프레임",
+      "x": 15,
+      "y": 14,
+      "hp": 900,
+      "sprite": "./assets/u2/generated-v350/u2_mirror_priest.webp",
+      "facing": -1,
+      "eliteName": "도시 단일호명",
+      "boss": true,
+      "patternSet": "final-u2",
+      "scale": 1.36,
+      "phaseCount": 2,
+      "phaseSprites": [
+        "./assets/u2/generated-v350/u2_mirror_priest.webp",
+        "./assets/u2/generated-v350/u2_suppression_knight.webp"
+      ],
+      "phaseNames": [
+        "컨트롤러의 인간형 제사장",
+        "단일호명 최종프레임"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        0.98,
+        1.12
+      ]
+    }
+  },
+  {
+    "zone": "last301",
+    "actor": {
+      "id": "l301-boss",
+      "kind": "fallen",
+      "name": "타락천사 기사",
+      "x": 15,
+      "y": 14,
+      "hp": 620,
+      "sprite": "./assets/last3/Monster_FallenAngelKnight_Base.png",
+      "facing": -1,
+      "eliteName": "검로 학습",
+      "boss": true,
+      "patternSet": "last301",
+      "scale": 1.35,
+      "phaseCount": 3
+    }
+  },
+  {
+    "zone": "last303",
+    "actor": {
+      "id": "l303-boss",
+      "kind": "specter",
+      "name": "불면귀",
+      "x": 15,
+      "y": 14,
+      "hp": 720,
+      "sprite": "./assets/last3/Bulmyeongwi_A.png",
+      "facing": -1,
+      "eliteName": "불면의 시선",
+      "boss": true,
+      "patternSet": "final-last3",
+      "scale": 1.45,
+      "phaseCount": 3
+    }
+  },
+  {
+    "zone": "kair03",
+    "actor": {
+      "id": "k103-boss",
+      "kind": "siren",
+      "name": "세이렌 모르",
+      "x": 15,
+      "y": 14,
+      "hp": 580,
+      "sprite": "./assets/kair/bosses/siren-mor.png",
+      "facing": -1,
+      "eliteName": "특이점 전야",
+      "boss": true
+    }
+  },
+  {
+    "zone": "hando03",
+    "actor": {
+      "id": "h103-boss",
+      "kind": "commandBoss",
+      "name": "EGO 강탈 악몽왕",
+      "x": 15,
+      "y": 14,
+      "hp": 980,
+      "sprite": "./assets/hando-v3123/ego_usurper_reborn.webp",
+      "facing": -1,
+      "eliteName": "핵심코어 지배",
+      "boss": true,
+      "patternSet": "final-hando",
+      "scale": 1.46,
+      "phaseCount": 3
+    }
+  },
+  {
+    "zone": "cult01",
+    "actor": {
+      "id": "c101-mid",
+      "kind": "tank",
+      "name": "흑장미 수문장",
+      "x": 10,
+      "y": 9,
+      "hp": 560,
+      "sprite": "./assets/cult-v3123/black_robed_nightmare_demon.webp",
+      "facing": -1,
+      "eliteName": "의존 봉쇄",
+      "boss": false,
+      "midboss": true,
+      "patternSet": "ep1b07",
+      "scale": 1.2
+    }
+  },
+  {
+    "zone": "cult01",
+    "actor": {
+      "id": "c101-boss",
+      "kind": "commandBoss",
+      "name": "흑장미 집사 · 의존의 수확자",
+      "x": 15,
+      "y": 14,
+      "hp": 1320,
+      "sprite": "./assets/cult-v3123/pride_cyborg_cult_leader.webp",
+      "facing": -1,
+      "eliteName": "선택지 삭제",
+      "boss": true,
+      "patternSet": "ep1b08",
+      "scale": 1.38,
+      "phaseCount": 3
+    }
+  },
+  {
+    "zone": "cult02",
+    "actor": {
+      "id": "c102-mid",
+      "kind": "mage",
+      "name": "합일 간호집행자",
+      "x": 10,
+      "y": 9,
+      "hp": 610,
+      "sprite": "./assets/cult-v3123/black_ritual_cyborg_boss.webp",
+      "facing": -1,
+      "eliteName": "감정 평준화",
+      "boss": false,
+      "midboss": true,
+      "patternSet": "ep1b05",
+      "scale": 1.18
+    }
+  },
+  {
+    "zone": "cult02",
+    "actor": {
+      "id": "c102-boss",
+      "kind": "commandBoss",
+      "name": "합일 세라핌 · 신경성가대",
+      "x": 15,
+      "y": 14,
+      "hp": 1430,
+      "sprite": "./assets/cult-v3123/superego_cyborg_cult_leader.webp",
+      "facing": -1,
+      "eliteName": "단일 찬송",
+      "boss": true,
+      "patternSet": "final-kairo",
+      "scale": 1.4,
+      "phaseCount": 3
+    }
+  },
+  {
+    "zone": "cult03",
+    "actor": {
+      "id": "c103-mid",
+      "kind": "void",
+      "name": "삼중자아 배양조",
+      "x": 10,
+      "y": 9,
+      "hp": 670,
+      "sprite": "./assets/cult-v3123/black_rose_crystal_guardian.webp",
+      "facing": -1,
+      "eliteName": "인격 분리",
+      "boss": false,
+      "midboss": true,
+      "patternSet": "ep1b09",
+      "scale": 1.22
+    }
+  },
+  {
+    "zone": "cult03",
+    "actor": {
+      "id": "c103-boss",
+      "kind": "void",
+      "name": "삼중자아 포식핵",
+      "x": 15,
+      "y": 14,
+      "hp": 1560,
+      "sprite": "./assets/cult-v3123/final_pride_cyborg_lord.webp",
+      "facing": -1,
+      "eliteName": "자아 재배열",
+      "boss": true,
+      "patternSet": "final-hando",
+      "scale": 1.43,
+      "phaseCount": 3
+    }
+  },
+  {
+    "zone": "cult04",
+    "actor": {
+      "id": "c104-mid",
+      "kind": "tank",
+      "name": "왕좌 신경지",
+      "x": 10,
+      "y": 9,
+      "hp": 740,
+      "sprite": "./assets/cult-v3123/final_pride_cyborg_lord.webp",
+      "facing": -1,
+      "eliteName": "전역 낙하",
+      "boss": false,
+      "midboss": true,
+      "patternSet": "ep1b08",
+      "scale": 1.24
+    }
+  },
+  {
+    "zone": "cult04",
+    "actor": {
+      "id": "c104-boss",
+      "kind": "commandBoss",
+      "name": "한시온 · 백색 목자",
+      "x": 15,
+      "y": 14,
+      "hp": 1800,
+      "sprite": "./assets/cult-v3123/pride_cyborg_cult_leader.webp",
+      "facing": -1,
+      "eliteName": "검은 재림",
+      "boss": true,
+      "patternSet": "final-ep1b",
+      "scale": 1.48,
+      "humanPhase0": true,
+      "narrativeMultiPhase": true,
+      "phaseCount": 3,
+      "phaseMax": 2,
+      "phaseThresholds": [
+        0.68,
+        0.34
+      ],
+      "phaseSprites": [
+        "./assets/cult-v3123/pride_cyborg_cult_leader.webp",
+        "./assets/cult-v3123/superego_cyborg_cult_leader.webp",
+        "./assets/cult-v3123/six_legged_cyborg_lord_final.webp"
+      ],
+      "phaseSpriteFallbacks": [
+        "./assets/cult-v3123/pride_cyborg_cult_leader.webp",
+        "./assets/cult-v3123/superego_cyborg_cult_leader.webp",
+        "./assets/cult-v3123/six_legged_cyborg_lord_final.webp"
+      ],
+      "phaseNames": [
+        "한시온 · 신경공학자",
+        "백색 목자",
+        "적그리스도 왕좌"
+      ],
+      "phaseTexts": [],
+      "phaseScales": [
+        1.08,
+        1.34,
+        1.52
+      ],
+      "episodeFinalBoss": true
+    }
+  }
+]

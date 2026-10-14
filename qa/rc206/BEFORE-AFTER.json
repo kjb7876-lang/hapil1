@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "before": {
+    "result": {
+      "family": "danmaku-gate",
+      "patternId": "gate",
+      "name": "개폐 장벽 · 이동 통로 · ep1b03 · ep1b03",
+      "projectiles": 84,
+      "lasers": 0,
+      "warningAt": 11.120000000000001,
+      "danmakuV31316": true
+    },
+    "trainPairs": 84,
+    "changed": 0,
+    "packets": 84
+  },
+  "after": {
+    "result": {
+      "family": "danmaku-gate",
+      "patternId": "gate",
+      "name": "개폐 장벽 · 이동 통로 · ep1b03 · ep1b03",
+      "projectiles": 84,
+      "lasers": 0,
+      "warningAt": 11.120000000000001,
+      "danmakuV31316": true
+    },
+    "trainPairs": 0,
+    "changed": 56,
+    "packets": 84
+  },
+  "releaseAim": "actual release helper updates prepared angle lock to live aim; old absolute lock is a reproduced conflicting value",
+  "scope": "Actual grammar→danmaku gate plan/emitter→native packet producer and final RC153 path with RC206 on/off, same actor/phase fixture. Tests concrete failure before correction; not whole-game bug absence."
+}

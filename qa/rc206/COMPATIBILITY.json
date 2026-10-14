@@ -1,0 +1,37 @@
+{
+  "runtimeCommit": "d97c47fe0a7d0029fc508d21e810beecb4c62b5f",
+  "status": "passed",
+  "scope": "all six historical compatibility paths folded through102 validated extensions; modified-byte negative rejected; original hash assertions retained",
+  "rows": [
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "status": "passed",
+      "currentOutput": "99e46c3478a95e069ef4420f33abc2c0045791b3278efba61a51c196e84b0d09"
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "status": "passed",
+      "currentOutput": "f22fa153a8465277a68d8479dd1fe5430ef0754f10d72fea58634bede8344795"
+    },
+    {
+      "file": "assets/combat-v31402/combat-core.js",
+      "status": "passed",
+      "currentOutput": "c2962da4b5491182da367c2153646312c333aed4f37344866882c47502b4478f"
+    },
+    {
+      "file": "tests/rc91-samong-and-laser-smoke.cjs",
+      "status": "passed",
+      "currentOutput": "71e2efdd149267bd24ba89c5f2d77602420eb612c646d27ce539a9e2805694e3"
+    },
+    {
+      "file": "assets/rc128/awakening-policy.js",
+      "status": "passed",
+      "currentOutput": "8e3a23fee4c99b275410bde10c7b0f3901f0967dbbd24257d216da65d1ecbce7"
+    },
+    {
+      "file": "index.html",
+      "status": "passed",
+      "currentOutput": "7adb6fdf33f242d5a3d0bd7bbe6d25fad0740e3c2781c1275f4e601aef9406c2"
+    }
+  ]
+}

@@ -1,0 +1,5972 @@
+{
+  "status": "passed",
+  "cases": 852,
+  "failures": [],
+  "rows": [
+    {
+      "id": "mb-dist01",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist01",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 20,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 20,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 20,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist02",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 20,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 18,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 18,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 18,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist03",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 18,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist04",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist05",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "dist06-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-dist06",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 192,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a07",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a08",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 144,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 144,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 144,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a09",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 144,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a10",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "a11-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "a11-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "a11-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "a11-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "a11-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1a11",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 207,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b01",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 90,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b02-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b02-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b02-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b02-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b02-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b02",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b03-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b03-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b03-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b03-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b03-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b03",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b04-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b04-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b04-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b04-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b04-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b04",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b05-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b05-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b05-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b05-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b05-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b05",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b06b-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b06b",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b07-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b07-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b07-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b07-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b07-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b07",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 26,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b08-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b08-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b08-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b08-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b08-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b08",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 27,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b09-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b09-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b09-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "b09-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "b09-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-ep1b09",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 36,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u201-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u201-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u201-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u201-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u201-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u202-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 177,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u202-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 177,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u202-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 177,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u202-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u202-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 177,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u203-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u203-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u203-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u203-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u203-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "u203-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "u203-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "u203-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "u203-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "u203-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l301-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l301-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l301-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l301-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l301-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 135,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 135,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 135,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-last302-v31231",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 135,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l303-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l303-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l303-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l303-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l303-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair01-v31231",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 81,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-03",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "k103-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 117,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "k103-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 117,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "k103-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 117,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "k103-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "k103-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 117,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando01",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 69,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando02",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "h103-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "h103-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "h103-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "h103-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "h103-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-hando03",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 45,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder01",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 28,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 28,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 28,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder02",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 28,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-murder03",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c101-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c101-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c101-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c101-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c101-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c102-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 39,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c102-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 39,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c102-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 39,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c102-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c102-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 39,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c103-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c103-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c103-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c103-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c103-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c103-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c103-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c103-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c103-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c103-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 60,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c104-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c104-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c104-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c104-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c104-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c104-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c104-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c104-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "c104-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "c104-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 180,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u204-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 102,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u204-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 102,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u204-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 102,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u204-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u204-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 102,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u205-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u205-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u205-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u205-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u205-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u206-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 138,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u206-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 138,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u206-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 138,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "u206-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "u206-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 138,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l305-boss",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l305-boss",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l305-boss",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "l305-boss",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "l305-boss",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair04-v31231",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 96,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 96,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 96,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-01",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 96,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 120,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 120,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 120,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-02",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 120,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-04",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 84,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-05",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "mb-kair09-v31231",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 48,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "kair-great-06",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "murder04-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 30,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c105-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c105-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c105-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c105-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c105-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 33,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c106-mid",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 42,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c106-mid",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 42,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c106-mid",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 42,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 2,
+      "lasers": 1
+    },
+    {
+      "id": "c106-mid",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 3,
+      "lasers": 0
+    },
+    {
+      "id": "c106-mid",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 42,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 1,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "blue-executor",
+      "phase": 1,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 1,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 2,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "blue-executor",
+      "phase": 2,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 2,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 3,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "blue-executor",
+      "phase": 3,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 3,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 4,
+      "path": "native-snipe",
+      "projectiles": 3,
+      "lasers": 1
+    },
+    {
+      "id": "blue-executor",
+      "phase": 4,
+      "path": "native-rolling",
+      "projectiles": 5,
+      "lasers": 0
+    },
+    {
+      "id": "blue-executor",
+      "phase": 4,
+      "path": "full-tick",
+      "projectiles": 87,
+      "lasers": 0
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 1,
+      "path": "dedicated-reliquary",
+      "projectiles": 0,
+      "lasers": 5
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 1,
+      "path": "dedicated-blood-beam",
+      "projectiles": 0,
+      "lasers": 1
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 1,
+      "path": "dedicated-abyss-fan",
+      "projectiles": 24,
+      "lasers": 0
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 2,
+      "path": "dedicated-reliquary",
+      "projectiles": 0,
+      "lasers": 5
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 2,
+      "path": "dedicated-blood-beam",
+      "projectiles": 0,
+      "lasers": 1
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 2,
+      "path": "dedicated-abyss-fan",
+      "projectiles": 24,
+      "lasers": 0
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 3,
+      "path": "dedicated-reliquary",
+      "projectiles": 0,
+      "lasers": 5
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 3,
+      "path": "dedicated-blood-beam",
+      "projectiles": 0,
+      "lasers": 1
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 3,
+      "path": "dedicated-abyss-fan",
+      "projectiles": 24,
+      "lasers": 0
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 4,
+      "path": "dedicated-reliquary",
+      "projectiles": 0,
+      "lasers": 5
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 4,
+      "path": "dedicated-blood-beam",
+      "projectiles": 0,
+      "lasers": 1
+    },
+    {
+      "id": "a11-cosmic-v31318",
+      "phase": 4,
+      "path": "dedicated-abyss-fan",
+      "projectiles": 24,
+      "lasers": 0
+    }
+  ],
+  "scope": "CPU actual native tick, snipe/rolling producers, dedicated cosmic three-mode producer, native signature step/bounce, lifetime guard and layout. All71 IDs reached through their relevant scheduling path; 21 actor metadata records remain explicit fixtures. Damage/expiry/returns retained; same native trajectories at15/60/144Hz. Laser warning/atomic admission and movement curve/temporal helpers use fixtures. No collision bitmap, natural full encounter, device or browser claim."
+}
