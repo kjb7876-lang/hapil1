@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   audit:
-    needs: persona-native-rc158
+    # Independent clean checkout; workflow success still requires Persona and audit jobs.
     runs-on: ubuntu-24.04
     # PC round 1 runs the largest integrated audit and the raw comparison capture last.
     timeout-minutes: 40

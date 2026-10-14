@@ -1,0 +1,11 @@
+{
+  "base": "b77fa405148f781b085ced1573d95579e2933abf",
+  "runtimeChanged": false,
+  "cpuFailure": "73/74;rc152 unit expected layout cache21001 while manifest109 pins21101",
+  "cpuFix": "Require exact21101; portrait lifecycle assertions unchanged; targeted unit passed",
+  "galleryFailure": "Native clock advanced but observer found no body frames because it required raw actor and visible-canvas context identity",
+  "observerFix": "Match canonical actor ID, retain actual renderer actor/clock/geometry, include native intermediate raster surfaces, exclude dedicated contact/envelope recorder marked __rc204ContactProbe. Keep swing/recovery/trace length/sword-length/map bounds assertions. Add draw counters/pose metrics/actor diagnostics.",
+  "rc137Scheduling": "Remove unused job data dependency: clean checkouts, no needs outputs or downloaded Persona artifacts. Run independently; workflow success still requires Persona and all6 audit jobs. No manual dispatch, canceled jobs or security changes.",
+  "nativeResult": "pending next exactSHA",
+  "deployed": false
+}
