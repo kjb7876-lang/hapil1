@@ -1,0 +1,92 @@
+{
+  "scope": "Read-only actual PNG samples at manually selected attachment landmarks; does not establish complete silhouette/joint correctness.",
+  "files": [
+    {
+      "path": "assets/rc204/slayer-body-arms.png",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "bytes": 1119714,
+      "sha256": "3eb2cb5a33acb8904977d68f656373e579d015177fa9d60666a7da7017bfbe8f"
+    },
+    {
+      "path": "assets/rc204/slayer-sword.png",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "bytes": 704927,
+      "sha256": "94f2063f8952423fb6e4ed090f1011b1cd589a85295f36a757bfb6a24e0c6909"
+    }
+  ],
+  "samples": [
+    {
+      "landmark": "near-grip",
+      "sourcePoint": [
+        1625,
+        446
+      ],
+      "RGBA": [
+        47,
+        37,
+        33,
+        253
+      ]
+    },
+    {
+      "landmark": "far-grip",
+      "sourcePoint": [
+        1625,
+        756
+      ],
+      "RGBA": [
+        29,
+        20,
+        20,
+        253
+      ]
+    },
+    {
+      "landmark": "closed-near-shoulder",
+      "sourcePoint": [
+        590,
+        213
+      ],
+      "RGBA": [
+        40,
+        33,
+        32,
+        253
+      ]
+    },
+    {
+      "landmark": "weapon-grip",
+      "sourcePoint": [
+        410,
+        365
+      ],
+      "RGBA": [
+        13,
+        1,
+        1,
+        253
+      ]
+    },
+    {
+      "landmark": "actual-alpha>=6-rightmost-weapon-tip",
+      "sourcePoint": [
+        2035,
+        376
+      ],
+      "RGBA": [
+        56,
+        56,
+        56,
+        9
+      ]
+    }
+  ]
+}

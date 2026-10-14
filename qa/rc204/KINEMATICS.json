@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "scope": "Actual RC204 layered renderer kinematics, 602 sampled poses. Hand coordinates are metadata/IK targets, not verified opaque grip pixels. CPU raster PNGs reviewed separately; no native game/browser/damage/contact claim.",
+  "sampledPoses": 602,
+  "bodyFoot": [
+    960,
+    1000
+  ],
+  "bodyHeadPointY": 393.25,
+  "weaponLengthRange": [
+    365.6333768271161,
+    365.63337682711654
+  ],
+  "weaponAreaScaleRange": [
+    0.050624999999999976,
+    0.05062500000000001
+  ],
+  "maxHandPivotError": 4.687428401686771e-13
+}

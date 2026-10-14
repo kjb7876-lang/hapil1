@@ -1,0 +1,24 @@
+{
+  "purpose": "One localized imagegen edit requested to fill the open circular shoulder socket(s) on the swordless body. No frames were generated.",
+  "tool": "official image_gen.imagegen",
+  "edit_generation_calls": 1,
+  "referenced_image_paths": [
+    "/workspace/rc204-slayer-rig/body-arm-layer-final.png"
+  ],
+  "prompt_file": "/workspace/rc204-slayer-rig/closed-shoulder-edit-prompt.txt",
+  "generated_tool_output": "/workspace/generated_images/exec-c398eaef-76d7-4902-88d5-b38fb2700819.png",
+  "candidate": {
+    "path": "/workspace/rc204-slayer-rig/body-arm-closed-shoulder.png",
+    "dimensions": "1774x887",
+    "format": "RGBA PNG with transparent background",
+    "bytes": 1119714,
+    "sha256": "3eb2cb5a33acb8904977d68f656373e579d015177fa9d60666a7da7017bfbe8f",
+    "alpha_byte_ge_6_full_bbox_xyxy_exclusive": [121, 30, 1676, 862],
+    "alpha_byte_ge_6_major_components": [
+      {"part": "body", "bbox_xyxy_exclusive": [121, 31, 1085, 860], "pixels": 314688},
+      {"part": "upper arm", "bbox_xyxy_exclusive": [1141, 116, 1675, 501], "pixels": 66126},
+      {"part": "lower arm", "bbox_xyxy_exclusive": [1135, 447, 1676, 815], "pixels": 65525}
+    ],
+    "visual_qa": "Actual full-size PNG and an enlarged shoulder crop were viewed. The former circular black shoulder void is now covered by a continuous opaque black/gunmetal pauldron and red-accented armor; no open round socket is visible. The swordless body, two detached arm pieces and transparent asset-board layout remain visually present. Imagegen can alter other pixels, so this is not a pixel-preserving edit. No source/code/runtime files were changed."
+  }
+}

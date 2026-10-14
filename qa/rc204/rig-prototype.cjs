@@ -1,0 +1,2 @@
+'use strict';
+const fs=require('fs'),rig=require('../../assets/rc204/slayer-rig.js');module.exports=rig;if(require.main===module)fs.writeFileSync(process.argv[2]||'qa/rc204/frames.json',JSON.stringify({scope:'Actual RC204 renderer layer commands; CPU raster, not browser/game frames',width:1920,height:1080,frames:[...[0,.25,.48,.62,.82,1].map(p=>rig.record(p)),rig.record(.48,'left')]},null,2)+'\n');

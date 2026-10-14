@@ -1,0 +1,64 @@
+{
+  "scope": "Art-only; no repository code, original asset, active RC5 atlas, main pages, or runtime file changed.",
+  "tool": "official image_gen.imagegen",
+  "generation_call_count": 2,
+  "references": {
+    "RC81_identity_source": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+    "RC5_active_action_atlas": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-action-atlas.png",
+    "RC203_isolated_sword": "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png"
+  },
+  "calls": [
+    {
+      "call": 1,
+      "prompt_file": "/workspace/rc204-slayer-rig/body-arm-layer-prompt.txt",
+      "referenced_image_paths": [
+        "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+        "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png"
+      ],
+      "generated_output": "/workspace/generated_images/exec-e8c8da04-d610-46ca-b184-203618b87a99.png",
+      "saved_candidate": "/workspace/rc204-slayer-rig/body-arm-layer-candidate.png",
+      "assessment": "The first board had a swordless body and detached arm pair, but they were too three-quarter/front-facing and the hands did not read as a two-handed sword grip."
+    },
+    {
+      "call": 2,
+      "prompt_file": "/workspace/rc204-slayer-rig/body-arm-layer-edit-prompt.txt",
+      "referenced_image_paths": [
+        "/workspace/rc204-slayer-rig/body-arm-layer-candidate.png",
+        "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-action-atlas.png",
+        "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+        "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png"
+      ],
+      "generated_output": "/workspace/generated_images/exec-d3470bb9-845b-45ee-bf6e-0ccbae29ee3f.png",
+      "saved_candidate": "/workspace/rc204-slayer-rig/body-arm-layer-final.png"
+    }
+  ],
+  "final_candidate": {
+    "path": "/workspace/rc204-slayer-rig/body-arm-layer-final.png",
+    "dimensions": "1774x887",
+    "format": "RGBA PNG, transparent background",
+    "bytes": 1155573,
+    "sha256": "b923449aa7cae2d9c957ee23c4d4083638506f2fa2820f7b9e18936df143bbe4",
+    "alpha_byte_ge_6": {
+      "full_bbox_xyxy_exclusive": [123, 31, 1671, 861],
+      "major_components": [
+        {"part": "swordless body", "bbox_xyxy_exclusive": [123, 31, 1084, 859], "pixels": 307889},
+        {"part": "upper detached arm", "bbox_xyxy_exclusive": [1141, 116, 1671, 500], "pixels": 64179},
+        {"part": "lower detached arm", "bbox_xyxy_exclusive": [1135, 447, 1671, 812], "pixels": 63524}
+      ],
+      "minimum_component_distances_px": {"body_to_upper_arm": 321.9, "body_to_lower_arm": 195.0, "upper_to_lower_arm": 98.2},
+      "note": "The three main parts are disconnected. Many small faint alpha specks remain outside the main components."
+    },
+    "visual_landmark_estimates": {
+      "body_head_top_y": 31,
+      "body_foot_baseline_y": 858,
+      "visible_body_shoulder_socket_center_xy": [590, 213],
+      "far_body_shoulder_socket_center_xy": [746, 205],
+      "upper_arm_shoulder_pivot_xy": [1265, 228],
+      "upper_arm_fist_center_xy": [1625, 446],
+      "lower_arm_shoulder_pivot_xy": [1260, 561],
+      "lower_arm_fist_center_xy": [1625, 756],
+      "basis": "Rough visual estimates from the actual PNG; not automated landmark detection. The source image is still three-quarter rather than a true side profile, so the far shoulder estimate is especially uncertain."
+    },
+    "visual_assessment": "The final board preserves the black-haired male, black/red armor, red cracks and torn cape. It has a swordless body and two separately disconnected arm components. However, the body remains three-quarter/front-facing rather than matching the active RC5 right-facing side profile. Both arm hands are closed fists, not a clear grip around an absent sword handle; the arms are similar duplicates arranged vertically. The candidate is a usable separated-layer concept, but it does not fully satisfy the side-profile and hand-grip requirements. Two calls were used; no further generation was performed."
+  }
+}

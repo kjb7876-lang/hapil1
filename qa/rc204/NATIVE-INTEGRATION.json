@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "rows": [
+    "right actual RC5 option→Ln→six layered draws",
+    "left actual RC5 option→Ln→six layered draws",
+    "front/back and non-attack states keep original renderer",
+    "missing texture falls back atomically before any layer paint",
+    "actual bitmap body contact unchanged; fixed camera envelope includes sampled swing",
+    "native critical asset and zone-plan pins include both layers",
+    "actual outer EGO wrapper keeps ownership before rig"
+  ],
+  "scope": "CPU actual native RC5 options/state/draw installer and EGO wrapper + actual bitmap contact/envelope module. Real PNG dimensions; image decode/alpha bounds/canvas/DOM and other services are fixtures. Pixel composites reviewed separately via libcairo, not browser. Side attacks only; front/back still legacy."
+}

@@ -1,0 +1,202 @@
+{
+  "scope": "Image generation only changed separate candidates; runtime crops/rotation/layering are code. No source pixels retouched with local image tools.",
+  "generationTool": "official image_gen.imagegen",
+  "dedicatedImagegenSkillAvailable": false,
+  "calls": 3,
+  "referencesAndInitialCalls": {
+    "scope": "Art-only; no repository code, original asset, active RC5 atlas, main pages, or runtime file changed.",
+    "tool": "official image_gen.imagegen",
+    "generation_call_count": 2,
+    "references": {
+      "RC81_identity_source": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+      "RC5_active_action_atlas": "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-action-atlas.png",
+      "RC203_isolated_sword": "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png"
+    },
+    "calls": [
+      {
+        "call": 1,
+        "prompt_file": "/workspace/rc204-slayer-rig/body-arm-layer-prompt.txt",
+        "referenced_image_paths": [
+          "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+          "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png"
+        ],
+        "generated_output": "/workspace/generated_images/exec-e8c8da04-d610-46ca-b184-203618b87a99.png",
+        "saved_candidate": "/workspace/rc204-slayer-rig/body-arm-layer-candidate.png",
+        "assessment": "The first board had a swordless body and detached arm pair, but they were too three-quarter/front-facing and the hands did not read as a two-handed sword grip."
+      },
+      {
+        "call": 2,
+        "prompt_file": "/workspace/rc204-slayer-rig/body-arm-layer-edit-prompt.txt",
+        "referenced_image_paths": [
+          "/workspace/rc204-slayer-rig/body-arm-layer-candidate.png",
+          "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc5/slayer-action-atlas.png",
+          "/tmp/rc170-native-audio-fix.7Q6cnd/assets/hero-authored-v314rc81/slayer-side-right/sprite-sheet-alpha.png",
+          "/workspace/rc203-slayer-rig/slayer-sword-isolated-candidate.png"
+        ],
+        "generated_output": "/workspace/generated_images/exec-d3470bb9-845b-45ee-bf6e-0ccbae29ee3f.png",
+        "saved_candidate": "/workspace/rc204-slayer-rig/body-arm-layer-final.png"
+      }
+    ],
+    "final_candidate": {
+      "path": "/workspace/rc204-slayer-rig/body-arm-layer-final.png",
+      "dimensions": "1774x887",
+      "format": "RGBA PNG, transparent background",
+      "bytes": 1155573,
+      "sha256": "b923449aa7cae2d9c957ee23c4d4083638506f2fa2820f7b9e18936df143bbe4",
+      "alpha_byte_ge_6": {
+        "full_bbox_xyxy_exclusive": [
+          123,
+          31,
+          1671,
+          861
+        ],
+        "major_components": [
+          {
+            "part": "swordless body",
+            "bbox_xyxy_exclusive": [
+              123,
+              31,
+              1084,
+              859
+            ],
+            "pixels": 307889
+          },
+          {
+            "part": "upper detached arm",
+            "bbox_xyxy_exclusive": [
+              1141,
+              116,
+              1671,
+              500
+            ],
+            "pixels": 64179
+          },
+          {
+            "part": "lower detached arm",
+            "bbox_xyxy_exclusive": [
+              1135,
+              447,
+              1671,
+              812
+            ],
+            "pixels": 63524
+          }
+        ],
+        "minimum_component_distances_px": {
+          "body_to_upper_arm": 321.9,
+          "body_to_lower_arm": 195.0,
+          "upper_to_lower_arm": 98.2
+        },
+        "note": "The three main parts are disconnected. Many small faint alpha specks remain outside the main components."
+      },
+      "visual_landmark_estimates": {
+        "body_head_top_y": 31,
+        "body_foot_baseline_y": 858,
+        "visible_body_shoulder_socket_center_xy": [
+          590,
+          213
+        ],
+        "far_body_shoulder_socket_center_xy": [
+          746,
+          205
+        ],
+        "upper_arm_shoulder_pivot_xy": [
+          1265,
+          228
+        ],
+        "upper_arm_fist_center_xy": [
+          1625,
+          446
+        ],
+        "lower_arm_shoulder_pivot_xy": [
+          1260,
+          561
+        ],
+        "lower_arm_fist_center_xy": [
+          1625,
+          756
+        ],
+        "basis": "Rough visual estimates from the actual PNG; not automated landmark detection. The source image is still three-quarter rather than a true side profile, so the far shoulder estimate is especially uncertain."
+      },
+      "visual_assessment": "The final board preserves the black-haired male, black/red armor, red cracks and torn cape. It has a swordless body and two separately disconnected arm components. However, the body remains three-quarter/front-facing rather than matching the active RC5 right-facing side profile. Both arm hands are closed fists, not a clear grip around an absent sword handle; the arms are similar duplicates arranged vertically. The candidate is a usable separated-layer concept, but it does not fully satisfy the side-profile and hand-grip requirements. Two calls were used; no further generation was performed."
+    }
+  },
+  "closedShoulderEdit": {
+    "purpose": "One localized imagegen edit requested to fill the open circular shoulder socket(s) on the swordless body. No frames were generated.",
+    "tool": "official image_gen.imagegen",
+    "edit_generation_calls": 1,
+    "referenced_image_paths": [
+      "/workspace/rc204-slayer-rig/body-arm-layer-final.png"
+    ],
+    "prompt_file": "/workspace/rc204-slayer-rig/closed-shoulder-edit-prompt.txt",
+    "generated_tool_output": "/workspace/generated_images/exec-c398eaef-76d7-4902-88d5-b38fb2700819.png",
+    "candidate": {
+      "path": "/workspace/rc204-slayer-rig/body-arm-closed-shoulder.png",
+      "dimensions": "1774x887",
+      "format": "RGBA PNG with transparent background",
+      "bytes": 1119714,
+      "sha256": "3eb2cb5a33acb8904977d68f656373e579d015177fa9d60666a7da7017bfbe8f",
+      "alpha_byte_ge_6_full_bbox_xyxy_exclusive": [
+        121,
+        30,
+        1676,
+        862
+      ],
+      "alpha_byte_ge_6_major_components": [
+        {
+          "part": "body",
+          "bbox_xyxy_exclusive": [
+            121,
+            31,
+            1085,
+            860
+          ],
+          "pixels": 314688
+        },
+        {
+          "part": "upper arm",
+          "bbox_xyxy_exclusive": [
+            1141,
+            116,
+            1675,
+            501
+          ],
+          "pixels": 66126
+        },
+        {
+          "part": "lower arm",
+          "bbox_xyxy_exclusive": [
+            1135,
+            447,
+            1676,
+            815
+          ],
+          "pixels": 65525
+        }
+      ],
+      "visual_qa": "Actual full-size PNG and an enlarged shoulder crop were viewed. The former circular black shoulder void is now covered by a continuous opaque black/gunmetal pauldron and red-accented armor; no open round socket is visible. The swordless body, two detached arm pieces and transparent asset-board layout remain visually present. Imagegen can alter other pixels, so this is not a pixel-preserving edit. No source/code/runtime files were changed."
+    }
+  },
+  "runtimeSources": [
+    {
+      "path": "assets/rc204/slayer-body-arms.png",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "bytes": 1119714,
+      "sha256": "3eb2cb5a33acb8904977d68f656373e579d015177fa9d60666a7da7017bfbe8f"
+    },
+    {
+      "path": "assets/rc204/slayer-sword.png",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "bytes": 704927,
+      "sha256": "94f2063f8952423fb6e4ed090f1011b1cd589a85295f36a757bfb6a24e0c6909"
+    }
+  ]
+}
