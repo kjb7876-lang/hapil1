@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "viewport": [
+        1180,
+        757
+      ],
+      "normal": 0.9563499860394413,
+      "reentry": 0.9563499860394413,
+      "paintCalls": 6
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "normal": 1.0531750129065567,
+      "reentry": 1.0531750129065567,
+      "paintCalls": 6
+    },
+    {
+      "viewport": [
+        568,
+        260
+      ],
+      "normal": 0.996855493499789,
+      "reentry": 0.996855493499789,
+      "paintCalls": 6
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "normal": 0.9161308490167552,
+      "reentry": 0.9161308490167552,
+      "paintCalls": 6
+    }
+  ],
+  "scope": "CPU controlled same-map/viewport/coordinates with delayed paint callback, actual camera and final native ii reset wrapper. Map loader and image readiness are fixtures; not natural revival, browser pixels or device proof."
+}
