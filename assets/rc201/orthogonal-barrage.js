@@ -23,6 +23,8 @@
  }
  function owns(q){return !!q&&plans.has(q);}
  function step(s,q,dt){const p=plans.get(q);if(!p)return false;if(s!==p.state||s.zone!==p.zone||removed(q)||stamp(q)!==p.stamp){plans.delete(q);if(Math.hypot(n(q.vx),n(q.vy))>.01){q.rc153ScatterAngle=Math.atan2(q.vy,q.vx);q.rc194MotionStamp=stamp(q);}return false;}
+  // The route owns direction; discard late native homing reservations before any hold/handoff.
+  for(const key of ['homeAt31211','homeUntil31211','returnAt','returnUntil','retargetAt31212','retargetX31212','retargetY31212','orbitUntil31212'])delete q[key];q.homingMode31212='none';
   if(!(dt>0)||s.paused||s.menuOpen||s.timeStopUntil>s.time||q.temporalLagUntil31214>s.time||q.pauseUntil31212>s.time||release(q)>s.time)return true;
   let distance=p.speed*Math.min(dt,.1),travelled=0;while(distance>1e-9&&p.index<p.points.length){const target=p.points[p.index],dx=target.x-q.x,dy=target.y-q.y,d=Math.hypot(dx,dy);if(d<1e-9){p.index++;continue;}q.vx=dx/d*p.speed;q.vy=dy/d*p.speed;const move=Math.min(distance,d);q.x+=dx/d*move;q.y+=dy/d*move;travelled+=move;distance-=move;if(move>=d-1e-9)p.index++;}
   if(q.bossReachContract31213)q.distanceTravelled31213=n(q.distanceTravelled31213)+travelled;

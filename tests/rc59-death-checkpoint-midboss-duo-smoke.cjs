@@ -151,3 +151,7 @@ assert(currentUrl&&priorUrl&&currentUrl!==priorUrl,
   'the current release must invalidate the exact previous browser cache key');
 
 console.log('RC59 PASS: Episode 1 death/checkpoint rules, scripture card hooks, revived-comrade wave, and 2–3 midboss groups verified.');
+
+const priorHtml=require('node:child_process').execFileSync('git',['show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'],{encoding:'utf8'});
+const layoutKey=h=>h.match(/combat-layout\.js\?v=([^"']+)/)?.[1];
+assert(layoutKey(read('index.html'))&&layoutKey(priorHtml)&&layoutKey(read('index.html'))!==layoutKey(priorHtml),'current layout script invalidates exact prior public cache key');

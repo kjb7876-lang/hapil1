@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "3296789b784ca87ee0b83f34ea0b42f19642a2b9",
+  "baseTree": "6ccb3e6888218ce954e5dfb8ed6bbb203e1cc3a8",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "2f4c26773d1f527c809d4c9d310ecf1437a3219b0d0bc97185b807539aab60e4",
+  "files": [
+    {
+      "file": "assets/rc201/orthogonal-barrage.js",
+      "reason": "assets/rc201/orthogonal-barrage.js: approved b09-boss/u203-boss flight correction: clear late homing reservations while orthogonal route owns direction, preserving timed holds, speed, route, damage, art, lifetime, reflection and native handoff; invalidate exact changed script cache.",
+      "before": {
+        "file": "assets/rc201/orthogonal-barrage.js",
+        "mode": "100644",
+        "gitBlob": "06c1e076a4b42f5203b23ebe613c31097ff40e9e"
+      },
+      "after": {
+        "file": "assets/rc201/orthogonal-barrage.js",
+        "mode": "100644",
+        "gitBlob": "666b2e80ffdc08e76f459b35e66c41ed12e773eb",
+        "sha256": "30ceb2b2923ec838df58c851fcd517ef22dcd3c8e7659b08727439da2c8f369b"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: approved b09-boss/u203-boss flight correction: clear late homing reservations while orthogonal route owns direction, preserving timed holds, speed, route, damage, art, lifetime, reflection and native handoff; invalidate exact changed script cache.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "90dca74131445f8de865bede1ed3ea5dd18d7063"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7e4e5d6b334b5f27b61dca056171d8b7f41b1db8",
+        "sha256": "81a40256cf65db21f6beadbd9e6916efcdeda7bb991b06694089352d1a6052bc"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "3998c60fb0143bf4f87a54fda69b65c88913863867a57447003c37d68f02bad7"
+}
