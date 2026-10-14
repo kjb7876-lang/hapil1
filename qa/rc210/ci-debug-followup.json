@@ -6,7 +6,22 @@
     "job": 115781673404,
     "failure": "10s native unpause timeout",
     "cause": "standing fixture retained practicePatternV31365.finished; native frame explicitly treats this as paused and propagates it through party.capture",
-    "change": "delete previous pose fixture property; initialize/cancel pre-memory using real Story.beforeFrame/close; retain native unpause/reading/party assertions; record failure state"
+    "change": "delete previous pose fixture property; initialize/cancel pre-memory using real Story.beforeFrame/close; retain native unpause/reading/party assertions; record failure state",
+    "subsequentActualResult": {
+      "sha": "d1906f303055ad0f4c1c0118968bf845ded4107c",
+      "job": 115787500884,
+      "pauseGate": "passed",
+      "failure": "rift not admitted; actual zone dist00",
+      "additionalCauses": [
+        "fixture called native roster initializer without assigning state.zone",
+        "fixture assigned hero object where binding expects hero ID"
+      ],
+      "additionalChanges": [
+        "set and assert exact standing dist04 / rift dist06 before native entry",
+        "binding hero ID slayer",
+        "remove synthetic missing-Balrog clone fallback; require native admission"
+      ]
+    }
   },
   "rc129": {
     "legacyJob": 115781673693,
@@ -39,5 +54,12 @@
     "securityChange": false
   },
   "nativeBrowserRetest": "pending new exact candidate",
-  "mainDeployment": false
+  "mainDeployment": false,
+  "latestCpu": {
+    "sha": "6cdfb4eda7823b1494fbd20ce31427d3daf1a8ed",
+    "passed": 74,
+    "total": 74,
+    "fullPreservation": "passed including extension107 and historical guard",
+    "laterChange": "gallery fixture and QA only; exact new candidate CI remains required"
+  }
 }
