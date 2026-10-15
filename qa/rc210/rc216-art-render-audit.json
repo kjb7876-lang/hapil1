@@ -107,5 +107,17 @@
     "cpuProof": "helper unit verifies success, failure and sequential context cleanup without overlap",
     "runtimeChanged": false,
     "browserProof": "pending exact followup CI; no original runtime-stall root-cause or performance improvement claim"
+  },
+  "lifecycleFollowup": {
+    "base": "ab982f5be8bd5b5b8dcbb4f86aa031d95ae5acbe",
+    "failedJob": 116177359877,
+    "file": "tests/rc137-boss-lifecycle-browser.cjs",
+    "problems": [
+      "mb-dist04 next volley admission",
+      "b09-boss/u203-boss/k103-boss warning/recovery preservation and native cannon contact"
+    ],
+    "classification": "unresolved; not treated as sandbox/infrastructure and not yet proven actual runtime defect versus fixture gate timing",
+    "change": "read-only numeric gate/clock receipts before and after next emission, phase tick and contact tick; original assertions and game code unchanged",
+    "browserProof": "pending fresh exact SHA CI"
   }
 }
