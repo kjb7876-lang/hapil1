@@ -70291,6 +70291,7 @@ var MONGSE_EXISTING_BOSS_VISUAL_ASSETS_V31224 = Object.freeze(
 );
 
 var MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224 = Object.freeze({
+  "dist00-boss": { zone: `dist00`, projectile: `./assets/vfx/v31330/dist00-boss/beam_rc25.png`, major: `./assets/vfx/v31330/dist00-boss/beam_rc25.png`, telegraph: `./assets/vfx/v31330/dist00-boss/beam_rc25.png`, impact: `./assets/vfx/v31330/dist00-boss/beam_rc25.png`, scale: 1.16 },
   "dist06-boss": { zone: `dist06`, projectile: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.balrogChainWhipWave, major: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.balrogGateMeteor, telegraph: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.balrogGateMeteor, impact: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.balrogChainWhipWave, scale: 1.45 },
   "a11-boss": { zone: `ep1a11`, projectile: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.luciferFeatherLance, major: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.luciferJudgmentSigil, telegraph: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.luciferJudgmentSigil, impact: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.luciferJudgmentSigil, scale: 1.4 },
   "b02-boss": { zone: `ep1b02`, projectile: MONGSE_BOSS_PROJECTILE_SPRITES3128.telekineticDebris, major: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.memoryCommandSyringe, telegraph: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.memoryCommandSyringe, impact: MONGSE_NEW_BOSS_VISUAL_ASSETS_V31224.memoryCommandSyringe, scale: 1.28 },

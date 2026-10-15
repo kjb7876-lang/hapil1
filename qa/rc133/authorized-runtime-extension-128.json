@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "3c70e9869b8d321fcbc07811ecf2eac774da3a96",
+  "baseTree": "952484653e256915cb5a118b34d208ac5aa7f0f4",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "e0e0aa48866577e1089850a9bbf98ee5d276595c7166d63d6e014b7eeac8a934",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d4e5112bf48cd6fcf4e438c03c2e79536b66bd1f"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "2131ccc817f505ec60dfc04eafa873c4b7acfcc7d5ded6f98292f71ed5fc5df5",
+        "gitBlob": "6f1e6b36cec80abba585c08e1a4216638a4803ac"
+      },
+      "reason": "assets/index-v31526.js: Route every first root-boss projectile channel through the exact declared root atlas."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "7c1377394eeb2ab0b4fb9fa760b7981756d94f63"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "4b511f2e23ab297b4a0645962358458e7ea5255157fe87261ed34b4d715e1351",
+        "gitBlob": "70fbf28ea7689e826f8c1e1d64a343a8fbf7d1af"
+      },
+      "reason": "index.html: Bump the bundle URL after the exact root projectile profile change."
+    }
+  ],
+  "targetProtectedRowsSha256": "2312423a65e96989f423d74d66b8d2e75838610e3943aaa5d558deb6d0d79057"
+}
