@@ -1,0 +1,38 @@
+{
+  "productRequirement": "PC gameplay and mobile landscape gameplay; mobile portrait is rotation guide only",
+  "authorization": "User clarification: 모바일은 가로화면만; 세로화면 동작은 안하기로 했잖아",
+  "runtimeChange": false,
+  "runtimeShaIdenticalTo": "becf37d368fb0e45c94b06ed3d0bdffa7eab4b50",
+  "portraitActualMobileUserAgent": true,
+  "portraitRequiredAssertions": [
+    "Exact guide visible and game hidden",
+    "Keyboard/touch/pointer input blocked; held input released",
+    "Native time, HP, position, boss phase and attack clocks, native projectile position and emission/expiry unchanged for1.2 seconds",
+    "Three portrait sizes each return to landscape without state replacement, duplicate boss, wall-time catchup or held input",
+    "Native simulation advances again in landscape"
+  ],
+  "landscapeAndPcPerformance": "Original complete scene, CPU throttle and strict long-task1000ms/frames/image-ready assertions unchanged",
+  "priorPortraitCombatFailure": {
+    "sha": "becf37d368fb0e45c94b06ed3d0bdffa7eab4b50",
+    "job": 116206278700,
+    "normalNinePatternMaxLongTaskMs": 1018,
+    "instrumentedMaxLongTaskMs": 1105,
+    "status": "failed, preserved",
+    "deploymentApplicability": "Nonapplicable: unsupported mobile portrait gameplay. Replaced by real rotation/freeze/input/resume assertions; no unconditional pass."
+  },
+  "nativeLifecycleConfirmed": {
+    "sha": "becf37d368fb0e45c94b06ed3d0bdffa7eab4b50",
+    "run": 38668642240,
+    "all7Jobs": "success",
+    "pc1": 116206279824,
+    "pc2": 116206279773
+  },
+  "unappliedOptimizationPreserved": [
+    "/workspace/rc218-unapplied-alpha-bounds.patch",
+    "/workspace/rc218-unapplied-alpha-bounds-unit.cjs"
+  ],
+  "tts": "Two replacement portions remain ungenerated/unconnected; explicit model403 not retried or bypassed",
+  "screenshots": "New orientation browser test captures guide/landscape before/landscape resume in CI; actual pixel review/bytes not yet obtained",
+  "physicalDeviceVerified": false,
+  "naturalFullCampaignVerified": false
+}

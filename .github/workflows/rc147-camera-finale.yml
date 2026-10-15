@@ -107,14 +107,14 @@ jobs:
           node --check qa/rc130/public-smoke.cjs
           node tests/rc133-published-url.cjs
           node tests/rc156-camera-capture-unit.cjs
+          if test "$RC147_PROFILE" = portrait; then
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc218-orientation" node tests/rc142-persona-volley-browser.cjs
+            test -z "$(git status --porcelain)"
+            exit 0
+          fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-cosmic" node tests/rc148-six-cosmic-perf-browser.cjs
-          if test "$RC147_PROFILE" = portrait; then
-            RC148_DISPATCH=1 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-dense" node tests/rc148-six-cosmic-perf-browser.cjs
-            RC142_PERF_ONLY=1 RC142_SEED=132148 RC142_HEAP_PROBE=1 RC142_SEQUENCE_TIMEOUT_MS=240000 HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-persona-nine" node tests/rc142-persona-volley-browser.cjs
-            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-persona-memory" node tests/rc148-persona-memory-browser.cjs
-          fi
           if test "$RC147_PROFILE" = pc; then
             node tests/rc150-awakening-impact.cjs
             node tests/rc133-feedback-unit.cjs
@@ -134,18 +134,6 @@ jobs:
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-legacy" node tests/rc128-candidate.cjs
           fi
           test -z "$(git status --porcelain)"
-      - name: Diagnose portrait rendering with CPU and canvas samples
-        if: ${{ always() && matrix.profile == 'portrait' }}
-        env:
-          EXPECTED_SHA: ${{ github.sha }}
-          RC142_PROFILE: portrait
-          RC142_CPU_PROFILE: '1'
-          RC142_CANVAS_PROBE: '1'
-          RC142_SEED: '132148'
-          RC142_MOBILE_CPU: '4'
-        run: |
-          set -euo pipefail
-          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc217-render-diagnostic" node tests/rc142-persona-volley-browser.cjs
       - uses: actions/upload-artifact@v7
         if: always()
         with:
