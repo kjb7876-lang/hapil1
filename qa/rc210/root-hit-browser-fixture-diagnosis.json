@@ -40,11 +40,27 @@
     "sourcePreserved": true,
     "candidatePreservedAsAncestor": true
   },
+  "browserRerunFailure": {
+    "sha": "1f0c62809107ccacec62df10170a66a343ef48b0",
+    "runId": 38722222118,
+    "failedJobId": 116379310062,
+    "message": "Native damage path rejected the generated root projectile",
+    "state": {
+      "time": 4.500000000000002,
+      "paused": true,
+      "partyPaused": true,
+      "nativeEventReason": "authority-or-contact-ineligible",
+      "heroHpBefore": 240,
+      "heroHpAfter": 240
+    },
+    "diagnosis": "Fixture kept the native party bridge paused while invoking the real damage reducer; the reducer correctly rejected damage during pause. This is a test-control defect, not evidence that live unpaused gameplay rejects root damage.",
+    "fixStatus": "implemented locally; awaiting exact-SHA official Chrome rerun"
+  },
   "fixtureChanges": {
     "status": "implemented; awaiting official Chrome Stable browser rerun",
     "path": "tests/rc210-browser.cjs",
     "details": [
-      "Hold the actual live pause ref during asynchronous root-atlas decode and through the controlled bind/DOT fixture; assert simulation time and emitted projectile identity remain fixed.",
+      "Hold the actual live pause ref during asynchronous root-atlas decode and through the controlled bind/DOT fixture; open the native party bridge only synchronously for reducer calls while the live modal still prevents RAF gameplay; assert simulation time and emitted projectile identity remain fixed.",
       "Move a generated root projectile through native contact geometry and host-contact preparation before the native damage reducer; verify HP loss, exact one-second root expiry, movement lock, contact mark, and projectile retirement.",
       "Apply the three queued DOT packets at their authored due times through the native damage reducer, verify no recursive packets, and verify one-second movement release and zero remaining root packets."
     ],
