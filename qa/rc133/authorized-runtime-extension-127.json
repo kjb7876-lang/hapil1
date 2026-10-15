@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "bf5c15063c9c34045c1f11018ac210942c672180",
+  "baseTree": "8c88eec42fbcd4dab7a95907f04bbb832464a50a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "cd575f56ef3e7e1c8c200ba64183f20ccefcbea09bbd4cf9b637fd5f5ac889e1",
+  "files": [
+    {
+      "file": "assets/rc210/root-hit-runtime.js",
+      "before": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "gitBlob": "a09d7a05e76f27a022fd45b665f72e4bec4b25c8"
+      },
+      "after": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "sha256": "23c83ee7819a6da837d4aafee557f6d3bca6a63cbf66a530b742f909e9a8ebc8",
+        "gitBlob": "84ea995f1f1f316e57b93e09b3e5b95fc6fc0f95"
+      },
+      "reason": "assets/rc210/root-hit-runtime.js: Resolve root-owned projectile sprites to the declared root atlas before strict provenance is stamped."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "3c5e91b6943c9752ccf3cacc686c154e78047f10"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "51f427763d898549d9cfdd360592bfd22c1747d57fb94ccc9ecc2e9a275faa5b",
+        "gitBlob": "7c1377394eeb2ab0b4fb9fa760b7981756d94f63"
+      },
+      "reason": "index.html: Bump the exact root-hit runtime URL so clients load root-owned projectile art routing."
+    }
+  ],
+  "targetProtectedRowsSha256": "bbff25e2b1c0e3c5c0eaac531302d86a48a655bb67536cb4f90f39de83a1741d"
+}

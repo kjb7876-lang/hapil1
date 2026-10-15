@@ -33,7 +33,22 @@
   function ownerId(value) {
     return typeof value === 'string'
       ? value
-      : String(value?.themeOwnerV31323 ?? value?.sourceBossId ?? sourceId(value));
+      : String(value?.themeOwnerV31323 ?? value?.sourceBossId ?? value?.rootOwnerId ??
+        value?.ownerId ?? value?.actorId ?? value?.id ?? sourceId(value));
+  }
+
+  function installRootProjectileVisualResolver() {
+    const resolve = window.MONGSE_resolveBossVisualV31224;
+    if (typeof resolve !== 'function') return false;
+    if (resolve.__rootOwnerRC210) return true;
+    const resolveRootProjectile = function resolveRootProjectileVisualRC210(actor, ...args) {
+      const visual = resolve.call(this, actor, ...args);
+      if (ownerId(actor) !== ROOT_ID || !visual || typeof visual !== 'object') return visual;
+      return { ...visual, projectile: ROOT_ART };
+    };
+    Object.defineProperty(resolveRootProjectile, '__rootOwnerRC210', { value: true });
+    window.MONGSE_resolveBossVisualV31224 = resolveRootProjectile;
+    return true;
   }
 
   function installRootProjectileRenderer() {
@@ -148,7 +163,8 @@
   function ready() {
     const combatReady = install();
     const rendererReady = installRootProjectileRenderer();
-    if (combatReady && rendererReady) return;
+    const visualReady = installRootProjectileVisualResolver();
+    if (combatReady && rendererReady && visualReady) return;
     if (++attempts < 640) setTimeout(ready, 0);
   }
   ready();

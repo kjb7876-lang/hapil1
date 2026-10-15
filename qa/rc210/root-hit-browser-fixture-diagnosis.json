@@ -1,10 +1,10 @@
 {
-  "recordedAt": "2026-10-15T10:10:00Z",
+  "recordedAt": "2026-10-15T11:21:11Z",
   "repository": "kjb7876-lang/hapil1",
   "remoteMainSha": "737d79242ea73b4ebcfa3409baf505e0d34581f3",
-  "latestRemoteRootCandidateSha": "b4a4a145c39337aaab5a8eaf7fc60bddfbc87e4b",
-  "latestCandidateCommitAt": "2026-10-15T09:12:25Z",
-  "laterCandidateShaObserved": false,
+  "latestRemoteRootCandidateSha": "bf5c15063c9c34045c1f11018ac210942c672180",
+  "latestCandidateCommitAt": "2026-10-15T10:56:19Z",
+  "laterCandidateShaObserved": true,
   "priorFailures": [
     {
       "runId": 38711234400,
@@ -74,7 +74,7 @@
     "fixStatus": "implemented locally: acquire the live modal pause before async asset preloads and assert no prior root hit/DOT; awaiting exact-SHA Chrome rerun"
   },
   "fixtureChanges": {
-    "status": "implemented; awaiting official Chrome Stable browser rerun",
+    "status": "implemented locally; earlier official Chrome run passed controlled native damage/DOT, new exact-sprite assertion awaits exact-SHA official Chrome rerun",
     "path": "tests/rc210-browser.cjs",
     "details": [
       "Acquire the actual live pause ref immediately after entering combat, before asynchronous asset preloads; assert no prior root hit/DOT and hold time/projectiles fixed through the root-atlas decode and controlled bind/DOT fixture. Open the native party bridge only synchronously for reducer calls while the live modal still prevents RAF gameplay.",
@@ -85,14 +85,90 @@
   },
   "localChecks": {
     "browserSyntax": "passed: node --check tests/rc210-browser.cjs",
-    "rootHitUnit": "passed: one-second bind, five-second immunity, three delayed finite packets",
-    "projectileAndScatterUnits": "passed: rc210-projectile-unit and rc194-ranged-scatter-unit",
-    "standingAndSlayerUnits": "passed: root art/source, 28 major bosses, 448 signature cases, 2,408 poses, eight directions, and facing checks",
-    "fallAndMobileUnits": "passed: fall progression and 22 portrait-pause assertions",
-    "officialChromeBrowser": "pending"
+    "rootHitUnit": "passed: native damage, one-second bind, five-second immunity, three finite DOT packets, root resolver selects exact image while other bosses remain unchanged",
+    "projectileAndScatterUnits": "passed: rc210-projectile-unit and rc194-ranged-scatter-unit with the read-only provided dependency path",
+    "fallAndPortraitUnits": "passed: fall-progression recovery, standing and portrait pause unit assertions",
+    "slayerUnits": "passed: RC204 rig; RC205 eight directions and 2,408 poses; RC206 falling/standing distinction",
+    "sourceProvenance": "passed: projectile, ornaments, danmaku restore units; exact HTML history helper accepts runtime v21002 and cache normalization",
+    "officialChromeBrowser": "pending exact new-SHA workflow"
   },
   "deployment": {
     "status": "not deployed",
-    "requiredEvidence": "Official Chrome Stable rerun and Pages success for the exact production SHA"
+    "requiredEvidence": "Exact final SHA official Chrome browser validation and Pages success; changes after candidate validation require fresh checks."
+  },
+  "remoteCandidateObservation": {
+    "branch": "codex/rc210-fragment-standing-combat",
+    "headSha": "bf5c15063c9c34045c1f11018ac210942c672180",
+    "confirmedBy": "git ls-remote origin",
+    "publicMainSha": "737d79242ea73b4ebcfa3409baf505e0d34581f3",
+    "candidateContainsPublicMain": true,
+    "note": "Preserves b4a4a145 and subsequent work as descendants; latest branch head is bf5c150."
+  },
+  "candidateAudits": {
+    "sha": "bf5c15063c9c34045c1f11018ac210942c672180",
+    "successfulRootBrowser": {
+      "runId": 38723789111,
+      "jobId": 116384542696,
+      "browser": "Google Chrome Stable 155.0.8059.79, chromiumSandbox=true, no fallback",
+      "status": "passed",
+      "note": "Root damage fixture passed before the additional root visual-provenance fix; requires exact new-SHA rerun."
+    },
+    "portraitAndLandscape": {
+      "runId": 38723789208,
+      "jobs": [
+        116384543330,
+        116384543553,
+        116384543666
+      ],
+      "status": "passed",
+      "scopes": [
+        "portrait",
+        "landscape",
+        "PC"
+      ]
+    },
+    "genuineRootVisualFailure": {
+      "runId": 38723789116,
+      "jobs": [
+        116384542175,
+        116384542201,
+        116384542224
+      ],
+      "status": "failed",
+      "evidence": "Each viewport emitted seven dist00-boss projectiles whose selected sprite was /assets/vfx/rc50/infernal-skull-clean.png while owner inventory allowed /assets/vfx/v31330/dist00-boss/beam_rc25.png; owner-mismatch.",
+      "diagnosis": "Real projectile visual-resolution defect, separate from the earlier fixture timing failures.",
+      "fix": "Root runtime now resolves root-owned boss and child-emitter projectiles to beam_rc25.png before strict ownership provenance is applied; browser assertion checks exact emitted sprite and rendered root atlas.",
+      "fixStatus": "implemented locally; exact-SHA official Chrome rerun pending"
+    },
+    "unrelatedCandidateFailures": [
+      {
+        "runId": 38723789098,
+        "jobId": 116384542398,
+        "check": "rc135-midboss-motions-browser",
+        "failure": "native midboss triad diagnostics reported allMidboss=[] and live=[] in dist01",
+        "classification": "test failed; cause not yet established"
+      },
+      {
+        "runId": 38723789098,
+        "jobId": 116384542586,
+        "check": "rc134-render-equivalence-browser",
+        "failure": "portrait low-quality exact-pixel row reported different=2183338, maxDifference=252, alpha difference=0",
+        "classification": "non-requested portrait compositor audit failure; not cleared by this task and must remain visible"
+      },
+      {
+        "runId": 38723789098,
+        "jobId": 116384542586,
+        "check": "rc133-exit-damage-browser",
+        "failure": "Chromium reported no usable sandbox; the job did not produce gameplay assertions",
+        "classification": "runner/environment failure; no sandbox fallback used"
+      },
+      {
+        "runId": 38723789420,
+        "jobId": 116384543799,
+        "check": "rc130/public-smoke and rc132/published",
+        "failure": "public-contract checks failed while public main still pointed to 737d79242ea73b4ebcfa3409baf505e0d34581f3",
+        "classification": "public-byte mismatch against candidate is plausible but not proven; repeat against deployed exact SHA"
+      }
+    ]
   }
 }

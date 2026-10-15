@@ -7,6 +7,9 @@ const assert = require('node:assert/strict');
 let baseCalls = 0;
 let renderedRootShots = 0;
 const world = {
+  MONGSE_resolveBossVisualV31224(actor, zone, signature) {
+    return { actorId: actor?.id ?? actor, zone, signature, projectile: './generic-projectile.webp', telegraph: './generic-warning.webp' };
+  },
   __HAPIL_RC15__: {
     drawRootProjectile(ctx, cache, projectile) {
       assert.equal(projectile.sourceId, 'dist00-boss');
@@ -39,6 +42,12 @@ const api = world.__HAPIL_ROOT_HIT_RC210__;
 assert.equal(api?.installed, true, 'root hit adapter installs after theme mechanics');
 assert.equal(api.ownerFor('dist00-boss').mechanic, 'chain');
 assert.equal(api.ownerFor('mb-dist01').id, 'mb-dist01', 'other owner routing is unchanged');
+assert.equal(world.MONGSE_resolveBossVisualV31224({ id: 'dist00-boss' }, 'dist00', 'rc153-native-inventory').projectile, api.rootArt,
+  'every root-owned native projectile selects the exact root art before emission');
+assert.equal(world.MONGSE_resolveBossVisualV31224({ id: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss' }, 'dist00', 'rc153-native-inventory').projectile, api.rootArt,
+  'child emitter projectiles resolve through their root owner');
+assert.equal(world.MONGSE_resolveBossVisualV31224({ id: 'mb-dist01' }, 'dist01', 'rc153-native-inventory').projectile, './generic-projectile.webp',
+  'other boss projectile routing is unchanged');
 assert.equal(world.__HAPIL_RC15__.drawRootProjectile({}, {}, {
   sourceId: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss', vx: 1, vy: 0,
 }, 0, {}), true, 'native root emitter projectiles use the root visual renderer');
