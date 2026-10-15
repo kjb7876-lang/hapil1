@@ -27,6 +27,7 @@ jobs:
           sudo apt-get install -y ffmpeg
           npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false acorn@8.15.0
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
       - name: Exact candidate and complete CPU regression
         env:
           EXPECTED_SHA: ${{ github.sha }}
@@ -68,6 +69,7 @@ jobs:
           CHROME="$(command -v google-chrome)"
           test -x "$CHROME"
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
+          echo "RC132_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
           echo "HAPIL_CHROMIUM=$CHROME" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc207-legacy" >> "$GITHUB_ENV"
           echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc207-legacy" >> "$GITHUB_ENV"

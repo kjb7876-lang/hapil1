@@ -31,9 +31,9 @@ jobs:
           set -euo pipefail
           R="$RUNNER_TEMP/rc133-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
-          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
+          node "$R/node_modules/playwright/cli.js" install --with-deps chrome
+          CHROME="$(command -v google-chrome)"
+          test -x "$CHROME"
           sudo mkdir -p /workspace/hapil-deliverables/RC119-body
           sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
           sudo apt-get update -qq && sudo apt-get install -y ffmpeg
@@ -48,7 +48,7 @@ jobs:
           node -e "const c=require('node:child_process'),h=require('node:crypto');require('node:assert/strict').equal(h.createHash('sha256').update(c.execFileSync('git',['--no-replace-objects','show','9704fdb295a240605dbeb0045c224df8fe4f6ccd:index.html'])).digest('hex'),'78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1')"
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
           echo "RC132_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROME" >> "$GITHUB_ENV"
           echo "HAPIL_QA_OUTPUT=$RUNNER_TEMP/rc133-evidence" >> "$GITHUB_ENV"
       - name: Verify exact checkout and run regressions
         env:
