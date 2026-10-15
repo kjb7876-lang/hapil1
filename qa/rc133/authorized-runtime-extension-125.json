@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "base": "905f64feaaf7a8042c81bcd53137412e85e6d379",
+  "baseTree": "e7944522978800747672dcca3f8ae6f24f4ebd04",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "b8b6fbf8a32418625c65a5b90455b326104df6b8a9fb734a14c83296cb37830b",
+  "files": [
+    {
+      "file": "assets/rc210/ornaments.js",
+      "before": {
+        "file": "assets/rc210/ornaments.js",
+        "mode": "100644",
+        "gitBlob": "f5231ede3000aed9790a54a7a818f1ac9f8c4cb8"
+      },
+      "after": {
+        "file": "assets/rc210/ornaments.js",
+        "mode": "100644",
+        "sha256": "2e2e6ef2f9b4468785fbf8a169f961628d718ae7f9e00d327930ea254f0ba36c",
+        "gitBlob": "37e938854bde74a443c0c573ba336ec013d2d81c"
+      },
+      "reason": "assets/rc210/ornaments.js: Keep regional story-prop decorations off the root boss so the native thorn projectile is never replaced with chair or scenery art."
+    },
+    {
+      "file": "assets/rc210/root-hit-runtime.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "sha256": "fc26edc22262e1cca81228caebea4bba9d1b97fa14bce981a00679f4c650a0ac",
+        "gitBlob": "356c2c6b96bb9a70e4eae3e6b9e891cc161d0ad2"
+      },
+      "reason": "assets/rc210/root-hit-runtime.js: Route root-boss hits through the one-second bind mechanic and add three finite, invulnerability-respecting damage-over-time ticks."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "3f329056d546615dd53964d65d7c86f585678fb2"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "ce99beb5db8660794123e5c8141c092b019bf516900f9ddd98c51885e7f44c7c",
+        "gitBlob": "05fb981b6c93c4b9865d7077384beff23072a9c5"
+      },
+      "reason": "index.html: Load the root-boss hit adapter after the native combat bundle."
+    }
+  ],
+  "targetProtectedRowsSha256": "2d575cf823fbf4d5ee2a359658ecf2f0abb12d1ac4dcb6e7f25eca931d204380"
+}
