@@ -115,6 +115,7 @@
   skip.onclick=()=>{if(root!==card)return;recovery.explicitSkips++;stopNarration();delete card.dataset.rc210WaitForNarration;card.rc219Wait=null;close();};footer.append(skip);
  }
  function pollNarrationWait(card,dt){
+  if(!window.__HAPIL_MEMORY_FILM_RC210__?.target(card.dataset.zone,card.dataset.phase))return false;
   if(narration?.blocksAdvance!==true||!(card.dataset.rc210WaitForNarration==='true'||(!autoPaused&&autoLeft>0&&autoLeft<=.05)))return false;
   beginNarrationWait(card);const wait=card.rc219Wait,position=Number(narration?.position),status=narration?.status;
   if(status!==wait.status||(Number.isFinite(position)&&(!Number.isFinite(wait.position)||position>wait.position+.001))){wait.elapsed=0;wait.position=position;wait.status=status;}

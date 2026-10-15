@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "ee41aceec52e185a277a48486bfc0cfef7ade5e4",
+  "baseTree": "423c94809bc75f14c8e9881421292defff47b9e4",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "b75869b8c718c5edcebf41dc9f06803a1a253ec2ca72b397eb8521df95029a45",
+  "files": [
+    {
+      "file": "assets/rc51/story.js",
+      "reason": "assets/rc51/story.js: Scope stalled advance recovery strictly to authored memory films, preserving the original dist00 intentional voice pause behavior. No speech assets or story text changed.",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "a137885c632560c86da2d1ebdcf92a1ffdb4e7db"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "3bf6fe2d3bf0d10d16e31c51db3732fbaa28b84f",
+        "sha256": "4172320aaba7c7d01923a43ee0ac5d1911759d99eb311969aca89b103ed138bf"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Scope stalled advance recovery strictly to authored memory films, preserving the original dist00 intentional voice pause behavior. No speech assets or story text changed.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ec05daf7667250834b34522d36916ea86981267c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "eb3bd4880ffd0803b0ba8be25ce7c66f37b00628",
+        "sha256": "b795da0f922e58669bef55c94021f11a9e0db29bb5a6d2f71408608047120450"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "d42589d668e2293b9dbb60d4535efd52f446443540e21bbe23f1359c88d0dd21"
+}
