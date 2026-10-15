@@ -56,11 +56,28 @@
     "diagnosis": "Fixture kept the native party bridge paused while invoking the real damage reducer; the reducer correctly rejected damage during pause. This is a test-control defect, not evidence that live unpaused gameplay rejects root damage.",
     "fixStatus": "implemented locally; awaiting exact-SHA official Chrome rerun"
   },
+  "browserRerunFailure2": {
+    "sha": "68da4c56043546d03cf388d0b2bf54fddc650516",
+    "runId": 38722711565,
+    "failedJobId": 116380946792,
+    "browser": "Google Chrome Stable 155.0.8059.39 with chromiumSandbox=true and no no-sandbox fallback",
+    "message": "Native root projectile contact must cause real damage, bind for one second, queue three finite DOT ticks, lock movement and retire the projectile",
+    "state": {
+      "time": 4.2063000000000015,
+      "heroHp": 231.5,
+      "themeRootUntil": 2.6163000000000007,
+      "rootImmuneUntil": 6.616300000000001,
+      "contactEvidence": "native bitmap projectile contact; hit=true, heart=true",
+      "controlledFollowup": "correctly blocked by the five-second re-hit immunity"
+    },
+    "diagnosis": "A real root projectile had already reduced HP during the initial async image-preload window. The one-second bind then expired before the controlled fixture reached the reducer; the reducer correctly suppressed the later hit during native five-second immunity. This is another fixture-start timing defect, not evidence of a gameplay damage failure.",
+    "fixStatus": "implemented locally: acquire the live modal pause before async asset preloads and assert no prior root hit/DOT; awaiting exact-SHA Chrome rerun"
+  },
   "fixtureChanges": {
     "status": "implemented; awaiting official Chrome Stable browser rerun",
     "path": "tests/rc210-browser.cjs",
     "details": [
-      "Hold the actual live pause ref during asynchronous root-atlas decode and through the controlled bind/DOT fixture; open the native party bridge only synchronously for reducer calls while the live modal still prevents RAF gameplay; assert simulation time and emitted projectile identity remain fixed.",
+      "Acquire the actual live pause ref immediately after entering combat, before asynchronous asset preloads; assert no prior root hit/DOT and hold time/projectiles fixed through the root-atlas decode and controlled bind/DOT fixture. Open the native party bridge only synchronously for reducer calls while the live modal still prevents RAF gameplay.",
       "Move a generated root projectile through native contact geometry and host-contact preparation before the native damage reducer; verify HP loss, exact one-second root expiry, movement lock, contact mark, and projectile retirement.",
       "Apply the three queued DOT packets at their authored due times through the native damage reducer, verify no recursive packets, and verify one-second movement release and zero remaining root packets."
     ],
