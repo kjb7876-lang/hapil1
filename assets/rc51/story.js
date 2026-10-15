@@ -127,7 +127,7 @@
   if(root.memoryFilmRC210){const current=root.memoryFilmRC210;if(!commit){root.memoryFilmRC210=null;current.cancel();}else current.finish();return;}
   if(commit&&film?.target(root.dataset.zone,root.dataset.phase)&&root.dataset.memoryFilm!=='done'){
    if(narration?.blocksAdvance===true){root.dataset.rc210WaitForNarration='true';beginNarrationWait(root);return;}
-   const card=root;delete card.dataset.rc210WaitForNarration;card.rc219Wait=null;stopNarration();let started=null;
+   const card=root;autoLeft=0;delete card.dataset.rc210WaitForNarration;card.rc219Wait=null;stopNarration();let started=null;
    try{started=film.start(card,finished=>{if(root!==card)return;card.memoryFilmRC210=null;card.dataset.memoryFilm='done';close(finished);});}catch{card.dataset.rc219FilmFailed='true';}
    if(root!==card)return;if(started)card.memoryFilmRC210=started;else{if(card.dataset.memoryFilm!=='done')recovery.filmFailures++;card.dataset.memoryFilm='done';close(commit);}return;
   }

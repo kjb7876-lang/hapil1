@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "dfa13539ad79106c859ba7d3c429c0a898560e94",
+  "baseTree": "5ac71cb30f163ce499e7c19056dfd7f182d47a6d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "518c6920befdcafd7f26e9f062251c2068ff8996926a6881dc351c6ec21ed87a",
+  "files": [
+    {
+      "file": "assets/rc51/story.js",
+      "reason": "assets/rc51/story.js: Stop the expired story auto-advance timer when the fall film takes ownership, so a recovered narration wait cannot skip the film on its next frame. Preserve all voice and native combat clocks.",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "8f8e3d2e3f5f47a2d68ed137081d4a9968f0a225"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "a137885c632560c86da2d1ebdcf92a1ffdb4e7db",
+        "sha256": "2843a0eed52c15939a9ef6b44d264973d19ed20a01b4d93994801d40669e14bd"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Stop the expired story auto-advance timer when the fall film takes ownership, so a recovered narration wait cannot skip the film on its next frame. Preserve all voice and native combat clocks.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f88066ef8e90ddb68512d69231fc641f35d0b844"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "ec05daf7667250834b34522d36916ea86981267c",
+        "sha256": "5409d7598fa6f474389f490a92b853511b29ea81a914ec43f269f435bc6ee599"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "d4ba045721c68b2668da62154e873143c9e26fda38142afcbcdc7cf82b2d6228"
+}
