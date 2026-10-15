@@ -116499,6 +116499,11 @@ function HAPIL_bindDamageHitV31315(effect, state, target, source) {
   }
   function styleShot(object,actor,zone) {
     if(!object||hero(object)||!actor)return object;
+    if(String(actor.id)==="dist00-boss"){
+      const rootAsset=MONGSE_rootProjectileAssetV3129(actor);
+      if(rootAsset)Object.assign(object,{sprite:rootAsset,fallbackSprite:rootAsset});
+      return object;
+    }
     const enrolled=owners.get(String(actor.id))??normals.get(String(actor.id));
     if(!enrolled)return object;
     if((actor.boss||actor.midboss)&&!["mb-dist05","mb-dist06"].includes(actor.id)&&!object.dynamicBossAttackV31315)return object;

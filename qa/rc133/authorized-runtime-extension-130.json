@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "60669ae2f494338ccc46dec2c46f3ab2f1a756d3",
+  "baseTree": "1a60b65ec90a1e44383c7a12a738be42332858ce",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "626de3ed4311ceef1fb43889a5939e920eb22280a8ccb73a048bc13bae0e6630",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "a3e1b714003a053834d0f28695d5cd8b68d0a830"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "1ec6834b5c6fd3f4afbf188d330a57979fc561ea14090554cba0e046b536bf6c",
+        "gitBlob": "c9f2cce6e85ce86486236a1bcd86418e8f6192ce"
+      },
+      "reason": "assets/index-v31526.js: Keep the first root boss projectile on its exact atlas after late owner styling."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "0a55d668a824f88286ac2decc3075d9338ff86cf"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "e5236e13c0f24502d0bc8e75fafb992d5e167ca91a72b723f14da185c8c9ae61",
+        "gitBlob": "b7427b7e08bc8d27b29366e4e1f72fb79f7efcf3"
+      },
+      "reason": "index.html: Keep the first root boss projectile on its exact atlas after late owner styling."
+    }
+  ],
+  "targetProtectedRowsSha256": "d68530a1c31082116201b0c43cc4e08056c4ce2ac22cd189821bcdf2ab52285b"
+}
