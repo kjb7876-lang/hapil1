@@ -101,7 +101,7 @@ html.rc125-adaptive.hapil-touch-v31366.rc108-wide-layout body.rc15-playing #rc10
 /* RC152: orientation pause screen and safe-area text */
 #rc152-orientation-gate{display:none;position:fixed;inset:0;z-index:2147483647;box-sizing:border-box;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 20px) calc(env(safe-area-inset-right,0px) + 20px) calc(env(safe-area-inset-bottom,0px) + 20px) calc(env(safe-area-inset-left,0px) + 20px);background:#03050c;color:#f4f7ff;font:700 clamp(20px,5vw,30px)/1.4 system-ui,sans-serif;text-align:center;touch-action:none;overscroll-behavior:contain;}
 html.rc152-portrait-paused #rc152-orientation-gate{display:grid}
-html.rc152-portrait-paused body.rc15-playing .game,html.rc152-portrait-paused body.rc15-playing #hapil-mobile-controls-v31366,html.rc152-portrait-paused body.rc15-playing #rc108-control-overlay,html.rc152-portrait-paused body.rc15-playing #rc15-sidepanels{visibility:hidden!important}
+html.rc152-portrait-paused .game,html.rc152-portrait-paused #hapil-mobile-controls-v31366,html.rc152-portrait-paused #rc108-control-overlay,html.rc152-portrait-paused #rc15-sidepanels{visibility:hidden!important}
 
 /* Use the bundled Korean glyph fallback without depending on OS fonts. */
 body.rc15-playing{font-family:Pretendard,"Noto Sans KR",Inter,system-ui,"Noto Serif KR",sans-serif}

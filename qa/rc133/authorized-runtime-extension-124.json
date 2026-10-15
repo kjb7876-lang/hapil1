@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "8c541b7f3c3e053d1e2449e4439a0f69e0493b72",
+  "baseTree": "7196faea92fb9ff28a878a62dd729edee12c9be3",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "518f970bd502c845e780a4547dd32107377b1fb92222771775e2b4c0ea081b61",
+  "files": [
+    {
+      "file": "assets/rc125/adaptive-battlefield.css",
+      "before": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "gitBlob": "63694fc312ed78094af521bcdff4ca97c31deae0"
+      },
+      "after": {
+        "file": "assets/rc125/adaptive-battlefield.css",
+        "mode": "100644",
+        "sha256": "0fe360f34bc206214713231905d9d9ee92cc8d4ec9a552ca531a03e0de0e2183",
+        "gitBlob": "75e78993a89487914d283a7a7258fa5a51e1be4d"
+      },
+      "reason": "assets/rc125/adaptive-battlefield.css: Remove stale body-class dependence so the portrait pause immediately hides the live battlefield and controls."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "a8f52879809423e6ba3021c27a46a25dc2ed9bab"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "a486e8a27cbf6da72bada3dc64a80f90cfa10effa40bb8e758c93a791919aa8e",
+        "gitBlob": "3f329056d546615dd53964d65d7c86f585678fb2"
+      },
+      "reason": "index.html: Bump the adaptive battlefield stylesheet cache key for the portrait pause visibility fix."
+    }
+  ],
+  "targetProtectedRowsSha256": "309bbb1bf3c2ec786db3e819c9a3c13757619be6e73b01b49b56d54f2c1317ad"
+}

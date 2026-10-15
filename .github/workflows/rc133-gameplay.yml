@@ -39,6 +39,7 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y ffmpeg
           git fetch --no-tags --depth=1 origin 19a4c1f92df16559e43ba822ae0f7b8e74a5c47a
           git fetch --no-tags --depth=1 origin 785a2158983412384909cf701a6d8198581ed5f3
+          git fetch --no-tags --depth=1 origin 8c541b7f3c3e053d1e2449e4439a0f69e0493b72
           git fetch --no-tags --depth=1 origin 59f5381c046cb4b2416a97c704f34770e887602d
           RC133_CACHE_BASE=9704fdb295a240605dbeb0045c224df8fe4f6ccd
           if ! git --no-replace-objects cat-file -e "$RC133_CACHE_BASE:index.html" 2>/dev/null; then
