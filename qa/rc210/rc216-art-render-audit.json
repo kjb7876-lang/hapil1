@@ -44,5 +44,41 @@
     "priorJobs": "baseline jobs terminal; no duplicate active local audits found",
     "serverErrors": "normal transient server failures may be retried after10minutes while working; explicit403/permission refusals are not retried or bypassed"
   },
-  "deployment": "main9704fdb295a240605dbeb0045c224df8fe4f6ccd and Pages unchanged; all final CI and visual conditions still required"
+  "deployment": {
+    "latestApprovalUtc": "2026-10-15T00:03:00Z",
+    "condition": "implement requested list, then pass two full mock tests on final unchanged revision; remaining CI/infrastructure/device limits disclosed separately",
+    "allCiSuccessNoLongerIndependentGate": true,
+    "stillIncomplete": [
+      "replacement TTS dist02 post pending-generation: pinned model normal request403",
+      "replacement bedside TTS pending-generation: same denied model access",
+      "memory15 exact user image not received through normal transfer403; disabled, not substituted"
+    ],
+    "incompleteItemsCountAsDone": false,
+    "main": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
+    "pagesChanged": false
+  },
+  "followup": {
+    "sourceOwner": "dist00-boss absent from legacy atlas; resolve from the actual native actor identity, never the emitted asset or a blanket allowlist",
+    "scratchPositiveControl": "new Balrog frames can fit old scratch; retain all72 native comparisons and separately require preserved raised-sword PNG overflow to clip in old module and retain every pixel in fixed module",
+    "previousCandidate": "8361663bad4ebc8c07d748737c57c8e1082e46f3",
+    "previousCpu": "74/74 twice clean",
+    "portraitBrowser": {
+      "job": 116169655120,
+      "status": "success",
+      "cpuThrottle": 4,
+      "gpu": "SwiftShader software renderer",
+      "ordinary": {
+        "frames": 27,
+        "maxLongTaskMs": 681,
+        "allImagesReady": true
+      },
+      "ninePattern": {
+        "frames": 473,
+        "maxLongTaskMs": 667,
+        "volleyCount": 9,
+        "allImagesReady": true
+      },
+      "conditions": "all three original failure predicates false in both; no runtime performance change or original-stall root-cause claim"
+    }
+  }
 }
