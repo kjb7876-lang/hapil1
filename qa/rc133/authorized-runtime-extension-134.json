@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "b90e0398375e02f3a69d271a1b80e1269ecc86fc",
+  "baseTree": "4161a0044ce2aa109f895f8e70c05f9ad27a76cd",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5c6010c571c5cbcbbfc4c5dad8b41c618dd61c7b98b80d20cee9fd912cb863d9",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "7e4870a3d590b4799ca1ae216ff13459e4b0a14d"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "d44563497e8a0d9b76585dfcd4f30a64d178d8128c386131a1370789398de522",
+        "gitBlob": "c3b5bb57723c22f1342bd1f277fee855c17b47d4"
+      },
+      "reason": "assets/index-v31526.js: Prevent periodic damage from adding a fresh max-HP heart-hit bonus while preserving ordinary direct-hit bonuses."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "19ed460067ac62aa1e8dd7661c8dbe81879855f8"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "a303ed04a72280332dc849e8ee29e0e26de370a8e17741d03344c90e337dd620",
+        "gitBlob": "cd9726d4cd396ea803b6a64faed66f3206021d65"
+      },
+      "reason": "index.html: Prevent periodic damage from adding a fresh max-HP heart-hit bonus while preserving ordinary direct-hit bonuses."
+    }
+  ],
+  "targetProtectedRowsSha256": "82d4d0ca2e53769006e6f6467a6380e4e9f9670cfdeb56f501c293b2cfa5866f"
+}

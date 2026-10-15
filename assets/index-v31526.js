@@ -121603,7 +121603,8 @@ function packet(s,a,h,base,raw=base){
  let bonus=0;
  // A derived weak exit has already been reduced to 8% (1–12 base damage).
  // It must not gain a fresh max-HP heart bonus when its parent attack expires.
- if(isHeart&&!h?.exitDamageV31327&&key&&!s.heartDamageLedgerV31336.some(r=>r.key===key&&r.target===target)){
+ // Periodic damage continues an accepted hit; it is not a new direct heart hit.
+ if(isHeart&&!h?.exitDamageV31327&&!window.__HAPIL_DEFERRED_DAMAGE_RC210__?.periodic(h)&&key&&!s.heartDamageLedgerV31336.some(r=>r.key===key&&r.target===target)){
    bonus=Math.max(0,num(a.maxHp))*config.ratio;
    if(bonus>0){s.heartDamageLedgerV31336.push({key,target,at:num(s.time)});a.heartHitUntilV31336=num(s.time)+config.feedbackSeconds;
      (s.floatTexts??=[]).push({id:s.fxSerial++,x:a.x,y:a.y-.2,born:s.time,duration:.65,text:'심장 피격 +'+Number(bonus.toFixed(2)),color:'#ffe49a',critical:true,heartDamageV31336:true});}
