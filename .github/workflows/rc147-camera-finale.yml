@@ -112,6 +112,14 @@ jobs:
             test -z "$(git status --porcelain)"
             exit 0
           fi
+          if test "$RC147_PROFILE" = pc; then
+            node tests/rc210-root-boss-scatter-unit.cjs
+            node tests/rc203-native-barrage-unit.cjs
+            node tests/rc210-ornaments-unit.cjs
+            node tests/rc210-standing-unit.cjs
+            node tests/rc210-memory-film-unit.cjs
+            HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc210-images-and-boss" EXPECTED_SHA="$EXPECTED_SHA" node tests/rc210-browser.cjs
+          fi
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc219-fall" node tests/rc210-fall-progression-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs

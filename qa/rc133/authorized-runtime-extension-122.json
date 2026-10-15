@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "base": "737d79242ea73b4ebcfa3409baf505e0d34581f3",
+  "baseTree": "e1f164460282626029a3737aaa6208bed9141443",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "252dc118849effcd0f0bb9793f608836fe74249ca319c8d881090f7c350b3315",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: Correct the verified root-boss ordnance and scattered boss-bullet presentation; keep the approved laser/root-art renderers and original art files intact. Adjust the side-view slayer attack art only for its supported horizontal directions, retain the existing directional rig elsewhere, and correct the explicit guardian/survivor effect target plus the cache key for these runtime files.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "451f2e7e8a3dc0f56b718484edefd00d0bff52c5"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "d4e5112bf48cd6fcf4e438c03c2e79536b66bd1f",
+        "sha256": "fde9a4e9f50a0fdfa1477d01138fadf0b0bd4f96b0126870095241d880c42b79"
+      }
+    },
+    {
+      "file": "assets/rc210/memory-film.css",
+      "reason": "assets/rc210/memory-film.css: Correct the verified root-boss ordnance and scattered boss-bullet presentation; keep the approved laser/root-art renderers and original art files intact. Adjust the side-view slayer attack art only for its supported horizontal directions, retain the existing directional rig elsewhere, and correct the explicit guardian/survivor effect target plus the cache key for these runtime files.",
+      "before": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "gitBlob": "49ff4f4f3f61877f3498b8e7cba5a3b81a6e13d9"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "gitBlob": "0f942976ef7f555acf263fee0ca62bf0c2e66fbe",
+        "sha256": "08b7ff2a36dcf7af16b247f046bc92c359154ed29c4e534ddfd6cd282d37ed2f"
+      }
+    },
+    {
+      "file": "assets/rc210/memory-film.js",
+      "reason": "assets/rc210/memory-film.js: Correct the verified root-boss ordnance and scattered boss-bullet presentation; keep the approved laser/root-art renderers and original art files intact. Adjust the side-view slayer attack art only for its supported horizontal directions, retain the existing directional rig elsewhere, and correct the explicit guardian/survivor effect target plus the cache key for these runtime files.",
+      "before": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "03aa03cd469227e2efa07f976360414336fa2405"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "4155ac57fc6f4d19732cfddf831e1192d103aa45",
+        "sha256": "2ad1f021e4d67d9da06f3331b3dfafcf3c48e0ce39418bfc66690b4e134aa640"
+      }
+    },
+    {
+      "file": "assets/rc210/slayer-standing.js",
+      "reason": "assets/rc210/slayer-standing.js: Correct the verified root-boss ordnance and scattered boss-bullet presentation; keep the approved laser/root-art renderers and original art files intact. Adjust the side-view slayer attack art only for its supported horizontal directions, retain the existing directional rig elsewhere, and correct the explicit guardian/survivor effect target plus the cache key for these runtime files.",
+      "before": {
+        "file": "assets/rc210/slayer-standing.js",
+        "mode": "100644",
+        "gitBlob": "45752c1207b250bfeb828c6d698a3d21609f37fa"
+      },
+      "after": {
+        "file": "assets/rc210/slayer-standing.js",
+        "mode": "100644",
+        "gitBlob": "49d908f497af052502f45eb76f60ab7404504e7d",
+        "sha256": "8fc4de7b1ab0bc9ce40410d8cb2d08307a17c12849a9f1849c01e1b14e587d80"
+      }
+    },
+    {
+      "file": "data/story-rc51.js",
+      "reason": "data/story-rc51.js: Correct the verified root-boss ordnance and scattered boss-bullet presentation; keep the approved laser/root-art renderers and original art files intact. Adjust the side-view slayer attack art only for its supported horizontal directions, retain the existing directional rig elsewhere, and correct the explicit guardian/survivor effect target plus the cache key for these runtime files.",
+      "before": {
+        "file": "data/story-rc51.js",
+        "mode": "100644",
+        "gitBlob": "b665f36e3420233287811edf4e235d4f863265a6"
+      },
+      "after": {
+        "file": "data/story-rc51.js",
+        "mode": "100644",
+        "gitBlob": "b5045f7add4c02503ace0095bbb493c2a58a983e",
+        "sha256": "ea23fee32a0ed8079ef592d6aae36ed3b7a7c15a6f03fcfc3d63eae333998957"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Correct the verified root-boss ordnance and scattered boss-bullet presentation; keep the approved laser/root-art renderers and original art files intact. Adjust the side-view slayer attack art only for its supported horizontal directions, retain the existing directional rig elsewhere, and correct the explicit guardian/survivor effect target plus the cache key for these runtime files.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "eb3bd4880ffd0803b0ba8be25ce7c66f37b00628"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2cc0116ffc4d7d775085a390e3c55d2a3fad8544",
+        "sha256": "cf3c531795adce72904558458fec0c484841fd63529ff06793d30a2e598b5093"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "22389c0ba17940e22cac4f95666142f355d674777b5ed17e51499a89a564249b"
+}

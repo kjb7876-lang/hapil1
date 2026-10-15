@@ -29911,24 +29911,11 @@ function MONGSE_projectileLifecycleKey31215(e, t) {
   return ((t.projectileLifecycleKey31215 = r), r);
 }
 function MONGSE_bossOrdnanceBitmap31226(e, t, n, r) {
-  let i = MONGSE_themePropCandidates(et(t)).map((e) => ({
-      sprite: e.source,
-      source: `scenery`,
-    })),
-    a =
-      e?.actionSprites?.attackB ??
-      e?.actionSprites?.attackA ??
-      e?.actionSprites?.windup ??
-      e?.sprite,
-    o = [
-      { sprite: r, source: `weapon-or-theme` },
-      ...i,
-      { sprite: a, source: `boss-image` },
-    ].filter((e) => typeof e.sprite == `string` && e.sprite.length > 0),
-    s = o[Math.max(0, Number(n) - 1) % Math.max(1, o.length)] ?? {
-      sprite: r,
-      source: `weapon-or-theme`,
-    };
+  if (e?.id === 'dist00-boss') return { sprite: r, source: 'weapon-or-theme' };
+  let i = MONGSE_themePropCandidates(et(t)).map((e) => ({ sprite: e.source, source: 'scenery' })),
+    a = e?.actionSprites?.attackB ?? e?.actionSprites?.attackA ?? e?.actionSprites?.windup ?? e?.sprite,
+    o = [{ sprite: r, source: 'weapon-or-theme' }, ...i, { sprite: a, source: 'boss-image' }].filter((e) => typeof e.sprite == 'string' && e.sprite.length > 0),
+    s = o[Math.max(0, Number(n) - 1) % Math.max(1, o.length)] ?? { sprite: r, source: 'weapon-or-theme' };
   return s;
 }
 function MONGSE_trackHostileProjectile31215(e, t) {
@@ -48245,47 +48232,16 @@ function MONGSE_spawnTwinSpiralVolley3129(e, t) {
 }
 function MONGSE_spawnAimedPetalStreams3129(e, t) {
   if (!e || !t || t.hp <= 0) return 0;
-  let n = t.boss ? 7 : 5,
-    r = t.boss ? 4 : 3,
-    i = MONGSE_projectileBudget3129(
-      e,
-      n * r,
-      t,
-      t.boss ? 14 : 8,
-    ),
-    a =
-      Math.atan2(
-        e.y + Number(e.moveVy ?? 0) * 0.38 - t.y,
-        e.x + Number(e.moveVx ?? 0) * 0.38 - t.x,
-      ) + MONGSE_bossDirectorProfile31210(t).angleBias;
+  let n = t.boss ? 7 : 5, r = t.boss ? 4 : 3, i = MONGSE_projectileBudget3129(e, n * r, t, t.boss ? 14 : 8),
+    a = Math.atan2(e.y + Number(e.moveVy ?? 0) * 0.38 - t.y, e.x + Number(e.moveVx ?? 0) * 0.38 - t.x) + MONGSE_bossDirectorProfile31210(t).angleBias,
+    hand = t.boss ? 0.56 : 0.42, launchX = t.x + Math.cos(a) * hand, launchY = t.y + Math.sin(a) * hand;
   for (let o = 0; o < i; o++) {
-    let s = Math.floor(o / n),
-      c = o % n,
-      l = a + (c - (n - 1) / 2) * (t.boss ? 0.145 : 0.17) +
-        (s % 2 ? 0.035 : -0.035),
-      u = (t.boss ? 2.45 : 2.28) + s * 0.68;
-    MONGSE_pushThemeProjectile3129(e, t, {
-      vx: Math.cos(l) * u,
-      vy: Math.sin(l) * u,
-      curve: (c - (n - 1) / 2) * 0.012,
-      radius: t.boss ? 0.5 : 0.42,
-      damage: t.boss ? 13 : 9,
-      life: 5.2,
-      frozenUntil: e.time + s * 0.13,
-      label: '조준 꽃잎 연사',
-      visualShape: 'spear',
-      status: c === Math.floor(n / 2) && s === r - 1 ? 'drain' : 'none',
-      statusValue: c === Math.floor(n / 2) && s === r - 1 ? 10 : 0,
-      patternKind: 'aimed-petals',
-    });
+    let wave = Math.floor(o / n), c = o % n, spread = t.boss ? 0.25 : 0.29,
+      waveShift = (wave % 2 ? 1 : -1) * (t.boss ? 0.20 : 0.23),
+      angle = a + (c - (n - 1) / 2) * spread + waveShift, u = (t.boss ? 2.45 : 2.28) + wave * 0.68;
+    MONGSE_pushThemeProjectile3129(e, t, { x: launchX, y: launchY, vx: Math.cos(angle) * u, vy: Math.sin(angle) * u, curve: (c - (n - 1) / 2) * 0.012, radius: t.boss ? 0.5 : 0.42, damage: t.boss ? 13 : 9, life: 5.2, frozenUntil: e.time + wave * 0.13, label: '조준 꽃잎 연사', visualShape: 'spear', status: c === Math.floor(n / 2) && wave === r - 1 ? 'drain' : 'none', statusValue: c === Math.floor(n / 2) && wave === r - 1 ? 10 : 0, patternKind: 'aimed-petals' });
   }
-  return MONGSE_finishThemeBulletPattern3129(
-    e,
-    t,
-    i,
-    '예측 조준 · 꽃잎 연속파',
-    'themed-aimed-petals',
-  );
+  return MONGSE_finishThemeBulletPattern3129(e, t, i, '예측 조준 · 꽃잎 연속파', 'themed-aimed-petals');
 }
 function MONGSE_spawnEdgeConvergence3129(e, t) {
   if (!e || !t || t.hp <= 0) return 0;
@@ -48552,8 +48508,8 @@ function MONGSE_spawnSignatureBullets31212(e, t, n) {
       p = d % 2 ? 1 : -1,
       m = s,
       h = 2.35 + (d % 4) * 0.18,
-      g = t.x,
-      _ = t.y,
+      g = t.x + Math.cos(s) * 0.56,
+      _ = t.y + Math.sin(s) * 0.56,
       v = 0,
       y = 0,
       x = {},
@@ -48573,15 +48529,10 @@ function MONGSE_spawnSignatureBullets31212(e, t, n) {
             ? `return-only`
             : `delayed`;
     if (MONGSE_grammarAct31213 === `gate`) {
-      let a = d % 2,
-        i = Math.floor(d / 2),
-        o = Math.max(1, Math.ceil(MONGSE_signatureBulletCount31212(t, `lane`) / 2)),
-        p = 2.4 + (i / o) * 25.6;
-      ((g = a ? p : d % 4 < 2 ? 1.3 : 30.7),
-        (_ = a ? (d % 4 < 2 ? 1.3 : 30.7) : p),
-        (m = Math.atan2(e.y - _, e.x - g)),
-        (h = 2.55),
-        (x.pauseUntil31212 = e.time + 0.34 + (i % 3) * 0.08));
+      let MONGSE_gateRank31212 = Math.floor(d / 2), MONGSE_gateSide31212 = d % 2 ? 1 : -1, MONGSE_gateSteps31212 = Math.max(1, Math.ceil(a / 2));
+      m = s + MONGSE_gateSide31212 * (0.34 + Math.min(MONGSE_gateSteps31212 - 1, MONGSE_gateRank31212) * 0.12);
+      h = 2.55 + MONGSE_gateRank31212 * 0.12;
+      x.pauseUntil31212 = e.time + 0.34 + (MONGSE_gateRank31212 % 3) * 0.08;
     } else if (MONGSE_grammarAct31213 === `replay`) {
       m = c * 0.19 + f * Math.PI * 2;
       h = d % 2 ? 3.05 : 1.78;
@@ -48622,11 +48573,10 @@ function MONGSE_spawnSignatureBullets31212(e, t, n) {
         orbitSpeed31212: p * (1.7 + (d % 3) * 0.18),
       });
     } else if (MONGSE_grammarAct31213 === `thread`) {
-      let a = Math.floor(d / 3),
-        o = d % 3;
-      ((m = s + (o - 1) * 0.22 + (a % 2 ? 0.08 : -0.08)),
-        (h = 2.2 + a * 0.14),
-        (x.pauseUntil31212 = e.time + a * 0.1));
+      let a = Math.floor(d / 3), o = d % 3;
+      m = s + (o - 1) * 0.46 + (a % 2 ? 0.28 : -0.28);
+      h = 2.2 + (a % 4) * 0.16;
+      x.pauseUntil31212 = e.time + a * 0.1;
     } else if (MONGSE_grammarAct31213 === `ricochet`) {
       m = c * 0.31 + f * Math.PI * 2;
       h = 1.35 + (d % 3) * 0.12;
@@ -48646,13 +48596,12 @@ function MONGSE_spawnSignatureBullets31212(e, t, n) {
       x.retargetX31212 = e.x + Number(e.moveVx ?? 0) * 0.62;
       x.retargetY31212 = e.y + Number(e.moveVy ?? 0) * 0.62;
     } else if (MONGSE_grammarAct31213 === `duel`) {
-      m = s + (d % 2 ? 1 : -1) * (0.1 + Math.floor(d / 2) * 0.025);
+      m = s + (d % 2 ? 1 : -1) * (0.34 + Math.floor(d / 2) * 0.065);
       h = 3.05 + (d % 3) * 0.24;
       x.pauseUntil31212 = e.time + Math.floor(d / 2) * 0.075;
     } else if (MONGSE_grammarAct31213 === `formation`) {
-      let MONGSE_rank31212 = d % 3,
-        MONGSE_file31212 = Math.floor(d / 3);
-      m = s + (MONGSE_rank31212 - 1) * 0.26 + (MONGSE_file31212 % 2 ? 0.08 : -0.08);
+      let MONGSE_rank31212 = d % 3, MONGSE_file31212 = Math.floor(d / 3);
+      m = s + (MONGSE_rank31212 - 1) * 0.48 + (MONGSE_file31212 % 2 ? 0.20 : -0.20);
       h = 2.12 + MONGSE_file31212 * 0.13;
       x.pauseUntil31212 = e.time + MONGSE_file31212 * 0.09;
     } else if (MONGSE_grammarAct31213 === `return`) {
