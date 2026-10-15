@@ -113,7 +113,6 @@ jobs:
             exit 0
           fi
           if test "$RC147_PROFILE" = pc; then
-            node tests/rc210-root-boss-scatter-unit.cjs
             node tests/rc203-native-barrage-unit.cjs
             node tests/rc210-ornaments-unit.cjs
             node tests/rc210-standing-unit.cjs

@@ -475,7 +475,7 @@ for(const row of extension64.files){if(row.after===null)runtimeOutputs.delete(ro
 for(const row of extension65.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
 assert.equal(runtimeOutputs.size,308,'exact first65 scoped file inventory');
 for(const extension of require('../../tools/rc206-extension-chain.cjs')(root))for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
-assert.equal(runtimeOutputs.size,372,'exact first106 scoped file inventory');
+assert.equal(runtimeOutputs.size,373,'exact extension122 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -498,9 +498,9 @@ assert.equal(runtimeOutputs.size,372,'exact first106 scoped file inventory');
     const personaAreaFile='assets/rc32/boss-and-mobile.js';
     assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
     assert(extension55.files.some(row=>row.file===personaAreaFile&&row.before&&row.after),'RC32 inclusion retains its existing pinned preimage');
-    assert.equal(expected.size-egoOriginalFiles.length,370,'prior set plus scoped Persona presentation helper and RC32 area renderer');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,368,'exact prior runtime set plus the two scoped renderers');
-    assert.equal(expected.size,377,'exact public set including the RC32 area renderer');
+    assert.equal(expected.size-egoOriginalFiles.length,371,'prior set plus the scoped data/story-rc51 runtime update, Persona presentation helper and RC32 area renderer');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,369,'exact prior runtime set plus the data/story update and two scoped renderers');
+    assert.equal(expected.size,378,'exact public set including the RC32 area renderer');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
