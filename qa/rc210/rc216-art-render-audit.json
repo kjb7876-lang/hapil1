@@ -80,5 +80,32 @@
       },
       "conditions": "all three original failure predicates false in both; no runtime performance change or original-stall root-cause claim"
     }
+  },
+  "contextIsolationFollowup": {
+    "base": "3ffbff1cef94c7aa383594a785583f6c8c907f8c",
+    "observedFailure": {
+      "job": 116173159375,
+      "profile": "portrait",
+      "cpuThrottle": 4,
+      "longTaskOver1000ms": true,
+      "zeroFrames": false,
+      "imagesNotReady": false,
+      "frames": 15,
+      "maxLongTaskMs": 1174,
+      "gpu": "SwiftShader software"
+    },
+    "finding": "combined PC/portrait/landscape harness retained all previous active game contexts; single-profile RC147 portrait run passed the same predicate",
+    "fix": "close each completed or failed browser context in finally before next viewport; assert one active context per measured profile",
+    "unchanged": [
+      "1000ms threshold",
+      "frame/image readiness guards",
+      "CPU throttle",
+      "native scene, packets and simulation timing",
+      "5.2second stress window and separate nine-pattern sequence",
+      "browser channel and sandbox flags"
+    ],
+    "cpuProof": "helper unit verifies success, failure and sequential context cleanup without overlap",
+    "runtimeChanged": false,
+    "browserProof": "pending exact followup CI; no original runtime-stall root-cause or performance improvement claim"
   }
 }

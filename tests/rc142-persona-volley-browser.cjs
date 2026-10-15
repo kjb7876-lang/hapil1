@@ -23,7 +23,7 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
 
  const mobileCpu=Math.max(1,Number(process.env.RC142_MOBILE_CPU)||4);
  for(const [name,width,height,mobile,cpu] of [['pc',1280,900,false,1],['portrait',390,844,true,mobileCpu],['landscape',844,390,true,mobileCpu]].filter(p=>!profileOnly||p[0]===profileOnly)){
-  const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile}),page=await context.newPage(),row={name,cpuThrottle:cpu,errors:[],httpErrors:[]};report.profiles.push(row);
+  await makeArtAudit().withContext(browser,{viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile},async context=>{const page=await context.newPage(),row={name,cpuThrottle:cpu,errors:[],httpErrors:[]};report.profiles.push(row);row.contextIsolation={activeContexts:browser.contexts().length};assert.equal(row.contextIsolation.activeContexts,1,'viewport stress must not retain completed game contexts');console.log('RC216_PROFILE_ISOLATION',JSON.stringify({commit:report.commit,profile:name,...row.contextIsolation}));
   if(process.env.RC142_LEGACY_SCOPE==='1')await page.addInitScript(()=>{window.__HAPIL_RC142_LEGACY_PROJECTILE_SCOPE__=true;});
   if(process.env.RC142_SEED)await page.addInitScript(seed=>{let value=seed>>>0;Math.random=()=>((value=Math.imul(value,1664525)+1013904223>>>0)/4294967296);},Number(process.env.RC142_SEED));
   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate:cpu});
@@ -92,6 +92,7 @@ function cpuProfileSummary(profile){const nodes=new Map((profile.nodes??[]).map(
   if(heapTimer){clearInterval(heapTimer);row.heapSamples=heapSamples;}
   if(cpuProfile){const collected=await cdp.send('Profiler.stop');row.cpuProfile=cpuProfileSummary(collected.profile);await cdp.send('Profiler.disable');}
   const conditions=makeArtAudit().stallConditions(row.frameStress);row.frameStress.conditions=conditions;save();console.log('RC216_FRAME_STRESS_DIAGNOSTIC',JSON.stringify({commit:report.commit,profile:name,cpuThrottle:row.cpuThrottle,gpu:report.gpu,conditions,frames:row.frameStress.frames,allImagesReady:row.frameStress.allImagesReady,longTasks:row.frameStress.longTaskDurations.length,maxLongTaskMs:Math.max(0,...row.frameStress.longTaskDurations),rafMs:row.frameStress.rafMs,volleyCount:row.frameStress.volleyCount,bitmapContactMetrics:row.frameStress.bitmapContactMetrics,canvas:row.frameStress.canvas}));if(Object.values(conditions).some(Boolean))throw Error('browser volley frame stress encountered a rendering stall '+name+' '+JSON.stringify(conditions));save();
+  }); // Always close this completed profile before the next viewport starts.
  }
  report.status='passed';save();console.log('RC142_PERSONA_VOLLEY',JSON.stringify({status:report.status,commit:report.commit,profiles:report.profiles.map(p=>({profile:p.name,cpu:p.cpuThrottle,scenarios:p.scenarios,frameStress:p.frameStress,errors:p.errors.length,httpErrors:p.httpErrors.length})),staged:true}));
  }catch(error){report.status='failed';report.failure=error.stack||String(error);save();console.error(report.failure);process.exitCode=1;}finally{await browser?.close();server.close();}})();
