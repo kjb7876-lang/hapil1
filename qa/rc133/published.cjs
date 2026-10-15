@@ -476,8 +476,8 @@ for(const row of extension65.files){if(row.after===null)runtimeOutputs.delete(ro
 assert.equal(runtimeOutputs.size,308,'exact first65 scoped file inventory');
     const laterExtensions=require('../../tools/rc206-extension-chain.cjs')(root);
 for(const extension of laterExtensions)for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
-const extension124=laterExtensions.at(-3),extension125=laterExtensions.at(-2),extension126=laterExtensions.at(-1);assert.equal(extension125.base,'905f64feaaf7a8042c81bcd53137412e85e6d379');assert.equal(extension126.base,'db74d2bd953d888312954fbdbb94eca9f3a0bd41');
-assert.equal(runtimeOutputs.size,374,'exact extension126 scoped file inventory');
+const extension124=laterExtensions.at(-4),extension125=laterExtensions.at(-3),extension126=laterExtensions.at(-2),extension127=laterExtensions.at(-1);assert.equal(extension125.base,'905f64feaaf7a8042c81bcd53137412e85e6d379');assert.equal(extension126.base,'db74d2bd953d888312954fbdbb94eca9f3a0bd41');assert.equal(extension127.base,'bf5c15063c9c34045c1f11018ac210942c672180');
+assert.equal(runtimeOutputs.size,374,'exact extension127 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
