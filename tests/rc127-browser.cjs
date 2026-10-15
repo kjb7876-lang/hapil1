@@ -25,7 +25,11 @@ for(const [name,width,height,mobile]of[['pc',1180,757,false],['portrait',390,844
    Object.assign(s,{zone,time:100,hp:10000,maxHp:10000,x:24,y:23,activeHeroId:'hwando',gameModeV31346:mode,hellModeV31322:mode==='HELL',practiceV31329:true,enemySkillsSuppressedUntilV31309:0,timeStopUntil:0});
    Object.assign(a,{x:8,y:8,hp:a.maxHp,humanPhase0:false,fixedPhase:1,currentPhase:1,attackAt:0,attackStarted:0,readyAt:0,patternReadyAt:0,recoverUntil:0,atomicCastUntil31210:0,staggerUntil:0,invulnerableUntil:0,phaseTransitionUntil:0,combatEntryGraceUntilV31239:0});s.enemies=[a];return{s,a};
   }
-  function cosmic(mode='STORY'){const f=make('ep1a11','a11-boss',mode);f.a.hp=0;test(L.beforeDeath(f.s,f.a)===true,'native mask death creates cosmic form');const a=f.s.enemies.find(x=>x.cosmicLuciferV31318);if(!a)throw Error('native cosmic form absent');f.s.time=105;a.readyAt=a.patternReadyAt=a.recoverUntil=a.staggerUntil=0;a.cosmicArsenalReadyAtV31318=0;return{s:f.s,a};}
+  function cosmic(mode='STORY'){const f=make('ep1a11','a11-boss',mode);f.a.hp=0;test(L.beforeDeath(f.s,f.a)===true,'native mask death creates cosmic form');const a=f.s.enemies.find(x=>x.cosmicLuciferV31318);if(!a)throw Error('native cosmic form absent');f.s.time=105;a.readyAt=a.patternReadyAt=a.recoverUntil=a.staggerUntil=0;a.cosmicArsenalReadyAtV31318=0;
+   // Exercise the mandatory native opening before testing the later rotation.
+   const first=A.trySchedule(f.s,a,'reliquary'),opening=f.s.pendingHits.find(h=>h.rc220LuciferField);test(first?.family==='cosmic-blood-beam'&&!!opening,'fresh cosmic always starts with the required blood beam',{mode});
+   if(!opening)throw Error('mandatory opening packet missing');f.s.time=opening.at+.01;f.s.pendingHits=f.s.pendingHits.filter(h=>h!==opening);T.impact(f.s,opening);test(a.cosmicOpeningFiredRC220===true,'actual opening impact unlocks later attacks',{mode});
+   f.s.time=Math.max(a.cosmicArsenalReadyAtV31318,f.s.time)+.1;a.cosmicArsenalReadyAtV31318=f.s.time+1;A.tick(f.s);test(!A.active(f.s),'completed opening ledger retires before later rotation',{mode});a.cosmicArsenalReadyAtV31318=0;a.readyAt=a.patternReadyAt=a.recoverUntil=a.staggerUntil=0;return{s:f.s,a};}
   for(const mode of ['STORY','HELL','DREAM'])for(const action of A.modes){
    const {s,a}=cosmic(mode),now=s.time,plan=A.plan(s,a,action),before=A.metrics(),result=A.trySchedule(s,a,action);
    test(!!result,'native cosmic action admitted',{mode,action});
