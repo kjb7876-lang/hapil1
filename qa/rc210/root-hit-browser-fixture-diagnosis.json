@@ -1,0 +1,65 @@
+{
+  "recordedAt": "2026-10-15T10:10:00Z",
+  "repository": "kjb7876-lang/hapil1",
+  "remoteMainSha": "737d79242ea73b4ebcfa3409baf505e0d34581f3",
+  "latestRemoteRootCandidateSha": "b4a4a145c39337aaab5a8eaf7fc60bddfbc87e4b",
+  "latestCandidateCommitAt": "2026-10-15T09:12:25Z",
+  "laterCandidateShaObserved": false,
+  "priorFailures": [
+    {
+      "runId": 38711234400,
+      "jobId": 116342825408,
+      "failedAt": "2026-10-15T09:19:21Z",
+      "message": "Root hit must bind for one second and queue three finite DOT ticks",
+      "state": {
+        "time": 5.053300000000003,
+        "themeRootUntil": 3.553300000000002,
+        "active": false,
+        "rootDotPackets": 0,
+        "heroHp": 235.5,
+        "heroMaxHp": 240
+      }
+    },
+    {
+      "runId": 38711234064,
+      "jobId": 116342823854,
+      "failedAt": "2026-10-15T09:20:48Z",
+      "message": "native renderer must draw the root atlas for root-boss ordnance",
+      "state": {
+        "time": 4.540000000000002,
+        "rootFrames": 0,
+        "rootShotsAtFailure": 0,
+        "rootBossZone": "dist00"
+      }
+    }
+  ],
+  "diagnosis": {
+    "cause": "Browser fixture timing defect; not an established root combat or atlas bug.",
+    "evidence": "The fixture awaited Image.decode() while the native RAF loop remained active. The first run took a real native root hit at simulation time 2.5533, then checked it at 5.0533 after the one-second bind and three queued packets had elapsed. Its later direct damage was correctly rejected by the five-second re-hit immunity. In the atlas run, native projectiles were consumed before the fixture rendered them.",
+    "pauseContract": "The game loop blocks through the live modal ref (the same ref read as Ve.current in the frame loop); setting state.paused=true alone does not freeze that loop.",
+    "sourcePreserved": true,
+    "candidatePreservedAsAncestor": true
+  },
+  "fixtureChanges": {
+    "status": "implemented; awaiting official Chrome Stable browser rerun",
+    "path": "tests/rc210-browser.cjs",
+    "details": [
+      "Hold the actual live pause ref during asynchronous root-atlas decode and through the controlled bind/DOT fixture; assert simulation time and emitted projectile identity remain fixed.",
+      "Move a generated root projectile through native contact geometry and host-contact preparation before the native damage reducer; verify HP loss, exact one-second root expiry, movement lock, contact mark, and projectile retirement.",
+      "Apply the three queued DOT packets at their authored due times through the native damage reducer, verify no recursive packets, and verify one-second movement release and zero remaining root packets."
+    ],
+    "limitation": "The DOT fixture exercises the queued packet data and native damage reducer at authored due times; it does not claim an unassisted natural encounter or physical-device run."
+  },
+  "localChecks": {
+    "browserSyntax": "passed: node --check tests/rc210-browser.cjs",
+    "rootHitUnit": "passed: one-second bind, five-second immunity, three delayed finite packets",
+    "projectileAndScatterUnits": "passed: rc210-projectile-unit and rc194-ranged-scatter-unit",
+    "standingAndSlayerUnits": "passed: root art/source, 28 major bosses, 448 signature cases, 2,408 poses, eight directions, and facing checks",
+    "fallAndMobileUnits": "passed: fall progression and 22 portrait-pause assertions",
+    "officialChromeBrowser": "pending"
+  },
+  "deployment": {
+    "status": "not deployed",
+    "requiredEvidence": "Official Chrome Stable rerun and Pages success for the exact production SHA"
+  }
+}
