@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "base": "7a0c519d67409d99e5a6cfd90e61205c5a843c44",
+  "baseTree": "6fbbeff3d8fa3a8a1aae25ec866a889aa18f4308",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "ec06ee0a2aabed84f74d178629958a19bbaf08c541646655cc4edc09234215be",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "reason": "assets/index-v31526.js: Scoped staged cannon clock validation repair; approved memory15 DOM hotel alternative after original transfer failure; cache versions follow exact changed assets. Preserve legacy guards, authored attack clocks and originals.",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "549d56b442093dee9b55c76ef69979dd957257aa"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "451f2e7e8a3dc0f56b718484edefd00d0bff52c5",
+        "sha256": "0bfed73ea318df4af9e24541adad9456e6a0f620140106bba06a54bc05e33212"
+      }
+    },
+    {
+      "file": "assets/rc210/bootloader.js",
+      "reason": "assets/rc210/bootloader.js: Scoped staged cannon clock validation repair; approved memory15 DOM hotel alternative after original transfer failure; cache versions follow exact changed assets. Preserve legacy guards, authored attack clocks and originals.",
+      "before": {
+        "file": "assets/rc210/bootloader.js",
+        "mode": "100644",
+        "gitBlob": "a34c3529716eb73ade154bce7e86e239f6e65c1e"
+      },
+      "after": {
+        "file": "assets/rc210/bootloader.js",
+        "mode": "100644",
+        "gitBlob": "d0885deb27d48291a66cd8f6cb0dcf0bcdef9abc",
+        "sha256": "e0cb5b328e60963b5df21ef1e1c26e20fa5e31a40301907ecb07d28f51631f74"
+      }
+    },
+    {
+      "file": "assets/rc210/memory-film.css",
+      "reason": "assets/rc210/memory-film.css: Scoped staged cannon clock validation repair; approved memory15 DOM hotel alternative after original transfer failure; cache versions follow exact changed assets. Preserve legacy guards, authored attack clocks and originals.",
+      "before": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "gitBlob": "e5fd1393491a7f295a74bfdef5b90cb561fc91ff"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "gitBlob": "49ff4f4f3f61877f3498b8e7cba5a3b81a6e13d9",
+        "sha256": "eaeaed85ef7202de634b5bdee5e698b63406eac774331483d557db42382cbdd3"
+      }
+    },
+    {
+      "file": "assets/rc210/memory-film.js",
+      "reason": "assets/rc210/memory-film.js: Scoped staged cannon clock validation repair; approved memory15 DOM hotel alternative after original transfer failure; cache versions follow exact changed assets. Preserve legacy guards, authored attack clocks and originals.",
+      "before": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "f8f2e2bd8ff4ac1fddfa648a4c2390a4a68b1b1a"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "03aa03cd469227e2efa07f976360414336fa2405",
+        "sha256": "efc93e3dc5b716d4a80233259e8a196ec469d9b3595a04dd97e0716e129db6f1"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Scoped staged cannon clock validation repair; approved memory15 DOM hotel alternative after original transfer failure; cache versions follow exact changed assets. Preserve legacy guards, authored attack clocks and originals.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "e8a0304e68b9edf2b279f0f4c1d34709e1fd0d0d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "280f5f8d952b3e96cf4d43da9e454c6022de1eb4",
+        "sha256": "71fcec77f453697b4f0f7ea9efad285f0303ccef11d76d76f85256515f6466ae"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "120e8dbe3229ab172bb9d8bd1f40c159060ceae20af60092a80e246eefba85d7"
+}

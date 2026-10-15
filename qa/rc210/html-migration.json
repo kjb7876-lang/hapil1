@@ -1,7 +1,7 @@
 {
   "base": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
   "beforeSha256": "78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1",
-  "afterSha256": "71393885320625a040294b87214618503301cb6e6a95b480745c1917ae9b14c5",
+  "afterSha256": "71fcec77f453697b4f0f7ea9efad285f0303ccef11d76d76f85256515f6466ae",
   "changes": [
     {
       "before": "    <script src=\"./assets/rc155/ego-art.js?v=17401\"></script>\n    <script src=\"./assets/rc155/combat-provenance.js?v=15601\"></script>\n",
@@ -17,7 +17,7 @@
     },
     {
       "before": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n",
-      "after": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n<script src=\"./assets/rc210/encounter-policy.js?v=21001\"></script>\n<script src=\"./assets/rc210/fragments.js?v=21001\"></script>\n<script src=\"./assets/rc210/projectile-balance.js?v=21002\"></script>\n<script src=\"./assets/rc210/lust-projectiles.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-rift.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-body.js?v=21001\"></script>\n<script src=\"./assets/rc210/bootloader.js?v=21001\"></script>\n<script src=\"./assets/rc210/cosmic-leech.js?v=21001\"></script>\n<script src=\"./assets/rc210/deferred-damage.js?v=21001\"></script>\n<script src=\"./assets/rc210/machine-fields.js?v=21001\"></script>\n<script src=\"./assets/rc210/insomnia-fog.js?v=21001\"></script>\n<script src=\"./assets/rc210/ornaments.js?v=21201\"></script>\n<script src=\"./assets/rc210/morga.js?v=21001\"></script>\n<script src=\"./assets/rc210/great-torso.js?v=21301\"></script>\n<script src=\"./assets/rc210/wall-towers.js?v=21001\"></script>\n"
+      "after": "<script src=\"./assets/rc206/combat-repair.js?v=20601\"></script>\n<script src=\"./assets/rc210/encounter-policy.js?v=21001\"></script>\n<script src=\"./assets/rc210/fragments.js?v=21001\"></script>\n<script src=\"./assets/rc210/projectile-balance.js?v=21002\"></script>\n<script src=\"./assets/rc210/lust-projectiles.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-rift.js?v=21001\"></script>\n<script src=\"./assets/rc210/balrog-body.js?v=21001\"></script>\n<script src=\"./assets/rc210/bootloader.js?v=21701\"></script>\n<script src=\"./assets/rc210/cosmic-leech.js?v=21001\"></script>\n<script src=\"./assets/rc210/deferred-damage.js?v=21001\"></script>\n<script src=\"./assets/rc210/machine-fields.js?v=21001\"></script>\n<script src=\"./assets/rc210/insomnia-fog.js?v=21001\"></script>\n<script src=\"./assets/rc210/ornaments.js?v=21201\"></script>\n<script src=\"./assets/rc210/morga.js?v=21001\"></script>\n<script src=\"./assets/rc210/great-torso.js?v=21301\"></script>\n<script src=\"./assets/rc210/wall-towers.js?v=21001\"></script>\n"
     },
     {
       "before": "<script src=\"./assets/rc206/boss-facing.js?v=20601\"></script>\n<script src=\"./assets/rc138/battle-arena.js?v=19101\"></script>\n<script src=\"./assets/rc138/map-data.js?v=43803\"></script>\n",
@@ -41,7 +41,7 @@
     },
     {
       "before": "    <script src=\"./assets/rc139/narration-start.js?v=43902\"></script>\n",
-      "after": "    <script src=\"./assets/rc139/narration-start.js?v=43902\"></script>\n    <script src=\"./assets/rc210/story-memory.js?v=21001\"></script>\n    <script src=\"./assets/rc210/memory-film.js?v=21001\"></script>\n    <link rel=\"stylesheet\" href=\"./assets/rc210/memory-film.css?v=21001\">\n"
+      "after": "    <script src=\"./assets/rc139/narration-start.js?v=43902\"></script>\n    <script src=\"./assets/rc210/story-memory.js?v=21001\"></script>\n    <script src=\"./assets/rc210/memory-film.js?v=21701\"></script>\n    <link rel=\"stylesheet\" href=\"./assets/rc210/memory-film.css?v=21701\">\n"
     },
     {
       "before": "    <script src=\"./assets/story-narration/v1/mixer.js?v=2026100302\"></script>\n    <script src=\"./assets/story-narration/v1/player.js?v=2026100502\"></script>\n",
@@ -53,7 +53,7 @@
     },
     {
       "before": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=20801\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=20601\"></script>\n",
-      "after": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=21001\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=21401\"></script>\n"
+      "after": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=21001\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=21701\"></script>\n"
     },
     {
       "before": "<link rel=\"stylesheet\" href=\"./assets/rc28/mobile-layout.css?v=43502\">\n<script defer src=\"./assets/rc32/boss-and-mobile.js?v=17501\"></script>\n",

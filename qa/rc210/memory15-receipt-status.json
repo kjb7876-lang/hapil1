@@ -19,16 +19,34 @@
     "totalSeconds": 7
   },
   "actualBrowserSevenSecondPlaybackVerified": false,
-  "runtimeHookEnabled": false,
+  "runtimeHookEnabled": true,
   "latestUserInlinePreviewConfirmed": true,
   "latestLibraryMetadataMatchesPriorDeniedFile": true,
   "repeatDeniedDownloadAttempted": false,
-  "latestUserInstruction": "Use this exact hotel image after the text of 금이 간 안경; no substitute.",
+  "latestUserInstruction": "Use exact original if normal transfer succeeds; otherwise approved scene-appropriate alternative.",
   "requestedPlaybackOrder": [
     "text and narration end",
     "exact user image: fade in 1 second",
     "hold 5 seconds",
     "fade out 1 second",
     "continue once"
-  ]
+  ],
+  "newOfficialFile": {
+    "libraryFileId": "libfile_4d5a02c0f99c819194956f1e1dc44744",
+    "fileId": "file_00000000d22c81fba9b97237eec7af66",
+    "filename": "image(4).png",
+    "reportedBytes": 2364934,
+    "reportedSha256": "3e4339b579d9850828835c1f37501f91301c15b959ad3314ea6a7f7ce86dd787",
+    "officialPrepareSucceeded": true,
+    "normalHelperTransfer": "download failed",
+    "actualBytesReceived": false,
+    "retryOrAlternateTransferAttempted": false
+  },
+  "approvedAlternative": {
+    "enabled": true,
+    "source": "existing assets/maps/ep1b_03_cracked_glasses.jpg with DOM cracked glasses",
+    "approval": "Parent delegation: if exact hotel image transfer fails, implement meaningful alternative autonomously",
+    "exactOriginal": false,
+    "order": "text and narration end, fade1s/hold5s/fade1s, advance once"
+  }
 }
