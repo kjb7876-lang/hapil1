@@ -12,7 +12,7 @@
     "Missing ended event recovered at actual decoded/media duration through existing generation/once playlist finish and750ms tail"
   ],
   "targetedCpu": {"storyAndFilm": "passed twice", "transportRaces": "46passed0failed twice; includes existing30second interruption/resume assertions unchanged", "wholeSuite": "pending exact final SHA"},
-  "browserScope": "Natural UI startup only, then explicit native-entry dist06 post-story fixture; real canonical voice QA interruption, real film timer, subsequent native ep1a01 story/clock/input. Not a natural full-campaign/Balrog clear, not777.",
+  "browserScope": "Natural UI startup only, then explicit native-entry dist06 post-story fixture; real canonical voice QA interruption, real film timer, subsequent native ep1a08 story/clock/input. Not a natural full-campaign/Balrog clear, not777.",
   "browserResult": "pending automatic PC/landscape Chrome CI; no local alternate browser/sandbox route",
   "originalAudioAndTextPreserved": true,
   "newTtsDeferred": true,
