@@ -476,8 +476,9 @@ for(const row of extension65.files){if(row.after===null)runtimeOutputs.delete(ro
 assert.equal(runtimeOutputs.size,308,'exact first65 scoped file inventory');
     const laterExtensions=require('../../tools/rc206-extension-chain.cjs')(root);
 for(const extension of laterExtensions)for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
-const extension124=laterExtensions.at(-7),extension125=laterExtensions.at(-6),extension126=laterExtensions.at(-5),extension127=laterExtensions.at(-4),extension128=laterExtensions.at(-3),extension129=laterExtensions.at(-2),extension130=laterExtensions.at(-1);assert.equal(extension125.base,'905f64feaaf7a8042c81bcd53137412e85e6d379');assert.equal(extension126.base,'db74d2bd953d888312954fbdbb94eca9f3a0bd41');assert.equal(extension127.base,'bf5c15063c9c34045c1f11018ac210942c672180');assert.equal(extension128.base,'3c70e9869b8d321fcbc07811ecf2eac774da3a96');assert.equal(extension129.base,'0df500795d15c5b1daec306c1370f45bf89c9a15');assert.equal(extension130.base,'60669ae2f494338ccc46dec2c46f3ab2f1a756d3');
-assert.equal(runtimeOutputs.size,374,'exact extension130 scoped file inventory');
+const extension124=laterExtensions[58],extension125=laterExtensions[59],extension126=laterExtensions[60],extension127=laterExtensions[61],extension128=laterExtensions[62],extension129=laterExtensions[63],extension130=laterExtensions[64];assert.equal(extension125.base,'905f64feaaf7a8042c81bcd53137412e85e6d379');assert.equal(extension126.base,'db74d2bd953d888312954fbdbb94eca9f3a0bd41');assert.equal(extension127.base,'bf5c15063c9c34045c1f11018ac210942c672180');assert.equal(extension128.base,'3c70e9869b8d321fcbc07811ecf2eac774da3a96');assert.equal(extension129.base,'0df500795d15c5b1daec306c1370f45bf89c9a15');assert.equal(extension130.base,'60669ae2f494338ccc46dec2c46f3ab2f1a756d3');
+assert.equal(laterExtensions[131-66].base,'eb11167b6fc903f00d780eb99e684972a5be6db9');
+assert.equal(runtimeOutputs.size,378,'exact extension131 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -500,9 +501,9 @@ assert.equal(runtimeOutputs.size,374,'exact extension130 scoped file inventory')
     const personaAreaFile='assets/rc32/boss-and-mobile.js';
     assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
     assert(extension55.files.some(row=>row.file===personaAreaFile&&row.before&&row.after),'RC32 inclusion retains its existing pinned preimage');
-    assert.equal(expected.size-egoOriginalFiles.length,372,'prior set plus the scoped data/story-rc51 runtime update, Persona presentation helper, RC32 area renderer and root-hit runtime');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,370,'exact prior runtime set plus the data/story update and three scoped renderers');
-    assert.equal(expected.size,379,'exact public set including the RC32 area renderer and root-hit runtime');
+    assert.equal(expected.size-egoOriginalFiles.length,376,'prior set plus the scoped data/story-rc51 runtime update, Persona presentation helper, RC32 area renderer and root-hit runtime');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,374,'exact prior runtime set plus the data/story update and three scoped renderers');
+    assert.equal(expected.size,383,'exact public set including the RC32 area renderer and root-hit runtime');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
