@@ -48063,7 +48063,8 @@ function MONGSE_laserBudget31210(e, t, n, r = 1) {
 }
 function MONGSE_pushThemeProjectile3129(e, t, n) {
   const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(flow?.enabled(e)&&!flow.executing(e)&&!flow.allowed(e,'bullet')&&!(Number(t.atomicCastUntil31210)>e.time))return null;
-  let r = MONGSE_themeProjectileSprite3128(t, e.zone),
+  const rootSprite = MONGSE_rootProjectileAssetV3129(t);
+  let r = rootSprite ?? MONGSE_themeProjectileSprite3128(t, e.zone),
     i = MONGSE_enemyTorsoOffset(t).y,
     a = MONGSE_bossDirectorProfile31210(t),
     o = n.patternKind==='rc95-volley' ? 0 : t.boss ? .44 : .32,
@@ -48096,7 +48097,8 @@ function MONGSE_pushThemeProjectile3129(e, t, n) {
     accent: n.accent ?? s.accent,
     label: n.label,
     visualShape: n.visualShape ?? 'orb',
-    sprite: n.sprite ?? r,
+    sprite: rootSprite ?? n.sprite ?? r,
+    fallbackSprite: rootSprite ?? n.fallbackSprite ?? n.sprite ?? r,
     spriteHeading: Number.isFinite(Number(n.spriteHeading))
       ? Number(n.spriteHeading)
       : void 0,
@@ -48156,6 +48158,12 @@ function MONGSE_pushThemeProjectile3129(e, t, n) {
   };
   ((e.hostileProjectiles ??= []).push(MONGSE_projectile31213),
     MONGSE_markBossProjectile31213(e, MONGSE_projectile31213));
+}
+function MONGSE_rootProjectileAssetV3129(actor) {
+  if (String(actor?.id ?? '') !== 'dist00-boss') return null;
+  return MONGSE_EXACT_BOSS_VISUAL_PROFILES_V31224?.['dist00-boss']?.projectile ??
+    window.__HAPIL_ROOT_HIT_RC210__?.rootArt ??
+    './assets/vfx/v31330/dist00-boss/beam_rc25.png';
 }
 function MONGSE_finishThemeBulletPattern3129(e, t, n, r, i) {
   if (!n) return 0;
@@ -71350,7 +71358,8 @@ function MONGSE_installBossVisualPatchV31224() {
     MONGSE_actorV31224,
     MONGSE_specV31224,
   ) {
-    const MONGSE_skillIdV31224 =
+    const MONGSE_rootProjectileV31224 = MONGSE_rootProjectileAssetV3129(MONGSE_actorV31224),
+      MONGSE_skillIdV31224 =
         MONGSE_specV31224?.signatureKind31212 ??
         MONGSE_specV31224?.patternKind ??
         MONGSE_specV31224?.label ??
@@ -71360,19 +71369,23 @@ function MONGSE_installBossVisualPatchV31224() {
         MONGSE_stateV31224?.zone,
         MONGSE_skillIdV31224,
       ),
+      MONGSE_projectileSpriteV31224 = MONGSE_rootProjectileV31224 ??
+        MONGSE_specV31224?.sprite ?? MONGSE_visualV31224.projectile,
       MONGSE_beforeV31224 = new Set(MONGSE_stateV31224?.hostileProjectiles ?? []),
       MONGSE_resultV31224 = MONGSE_pushThemeProjectileBaseV31224(
         MONGSE_stateV31224,
         MONGSE_actorV31224,
         {
           ...MONGSE_specV31224,
-          sprite: MONGSE_specV31224?.sprite ?? MONGSE_visualV31224.projectile,
+          sprite: MONGSE_projectileSpriteV31224,
+          ...(MONGSE_rootProjectileV31224 ? { fallbackSprite: MONGSE_rootProjectileV31224 } : {}),
         },
       );
     for (const MONGSE_projectileV31224 of MONGSE_stateV31224?.hostileProjectiles ?? [])
       if (!MONGSE_beforeV31224.has(MONGSE_projectileV31224)) {
-        MONGSE_projectileV31224.sprite =
-          MONGSE_specV31224?.sprite ?? MONGSE_visualV31224.projectile;
+        MONGSE_projectileV31224.sprite = MONGSE_projectileSpriteV31224;
+        if (MONGSE_rootProjectileV31224)
+          MONGSE_projectileV31224.fallbackSprite = MONGSE_rootProjectileV31224;
         MONGSE_projectileV31224.telegraphSpriteV31224 = MONGSE_visualV31224.telegraph;
         MONGSE_projectileV31224.impactSpriteV31224 = MONGSE_visualV31224.impact;
         MONGSE_projectileV31224.visualScaleV31224 = MONGSE_visualV31224.scale;

@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "base": "0df500795d15c5b1daec306c1370f45bf89c9a15",
+  "baseTree": "3f9787a12fa2867bd176de7691dca4ead294038e",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d807c387f9dd5af6940df959e7272494b7743f21691f76bb7c9bc300bf7d4e70",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "2131ccc817f505ec60dfc04eafa873c4b7acfcc7d5ded6f98292f71ed5fc5df5",
+        "gitBlob": "6f1e6b36cec80abba585c08e1a4216638a4803ac"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "395c1ce3877663caf71a34e26bddc896b3ffece139c31ed6860614dd1d6121b3",
+        "gitBlob": "a3e1b714003a053834d0f28695d5cd8b68d0a830"
+      },
+      "reason": "assets/index-v31526.js: Route the actual dist00 root-boss projectile through the exact root artwork with strict sprite and fallback assertions."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "4b511f2e23ab297b4a0645962358458e7ea5255157fe87261ed34b4d715e1351",
+        "gitBlob": "70fbf28ea7689e826f8c1e1d64a343a8fbf7d1af"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "7f4809909810020c7164723b79b24b80408dfd029fc2eac12a9d02ca54a499ae",
+        "gitBlob": "0a55d668a824f88286ac2decc3075d9338ff86cf"
+      },
+      "reason": "index.html: Route the actual dist00 root-boss projectile through the exact root artwork with strict sprite and fallback assertions."
+    }
+  ],
+  "targetProtectedRowsSha256": "ae78b69aef20cd02332108bdf543aec54ce5cdcd18ddffbbeaa7278531c30be3"
+}
