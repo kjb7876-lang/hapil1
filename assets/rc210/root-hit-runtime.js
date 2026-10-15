@@ -119,7 +119,7 @@
         themeRootDotRC210: true,
         rootFollowupRC210: true,
         rootDotTickRC210: tick,
-        rootTargetRC220: target === state ? "__host" : String(target.id ?? target.heroId),
+        rootTargetRC220: target === state ? "__host" : String(target.slotId ?? target.id ?? target.heroId),
         perfectWindow: .17,
         sprite: ROOT_ART,
         telegraphSpriteV31224: ROOT_ART,

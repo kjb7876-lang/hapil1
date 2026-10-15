@@ -18,9 +18,9 @@
    copies.push(copy);
   }(s.hostileProjectiles??=[]).push(...copies);counters.copies+=copies.length;rootDots(s);
  }
- function rootTarget(s,h){return h.rootTargetRC220==='__host'?s:(root.__HAPIL_PARTY_V31322__?.actors??[]).find(a=>String(a.id??a.heroId)===h.rootTargetRC220);}
+ function rootTarget(s,h){return h.rootTargetRC220==='__host'?s:(root.__HAPIL_PARTY_V31322__?.actors??[]).find(a=>String(a.slotId??a.id??a.heroId)===h.rootTargetRC220);}
  function rootDots(s){for(const key of ['pendingHits','impactQueue'])for(const h of s[key]??[]){if(!h.rootTargetRC220)continue;const a=rootTarget(s,h);if(!a||!(a.hp>0)||h.themeZoneV31323!==s.zone||!s.enemies?.some(e=>e.id==='dist00-boss'&&e.hp>0)){h.damageSuppressedV31226=true;h.cancelled=true;continue;}h.x=h.originX=a.x;h.y=h.originY=a.y;}}
- function rootContact(a,h){return h.rootTargetRC220==='__host'?!a.heroId&&a.activeHeroId!=null:String(a.id??a.heroId)===h.rootTargetRC220;}
+ function rootContact(a,h){return h.rootTargetRC220==='__host'?!a.heroId&&a.activeHeroId!=null:String(a.slotId??a.id??a.heroId)===h.rootTargetRC220;}
  function rootDraw(ctx,cache,s,a,settings,queue,project){if(!(a.hp>0)||a.rootZoneRC220!==s.zone||!(a.rootFeedbackUntilRC220>s.time))return false;const bound=a.themeRootUntilV31323>s.time,p=project(a.x,a.y),im=queue(cache,root.__HAPIL_ROOT_HIT_RC210__?.rootArt,'eager');ctx.save();try{ctx.globalAlpha=.85;ctx.strokeStyle=bound?'#ed986e':'#eaa180';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(p.x,p.y-3,27,12,0,0,Math.PI*2);ctx.stroke();if(im?.complete&&im.naturalWidth){for(const sign of [-1,1]){ctx.save();ctx.translate(p.x+sign*14,p.y-25);ctx.rotate(sign*.9);ctx.drawImage(im,-32,-10,64,20);ctx.restore();}}ctx.fillStyle='#ffdbb9';ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillText(bound?'뿌리 속박':'뿌리 지속 피해',p.x,p.y-72);}finally{ctx.restore();}counters.rootDraws++;return true;}
  function opening(a){return a?.cosmicLuciferV31318===true&&a.cosmicOpeningFiredRC220!==true;}
  function field(s){const D=root.__HAPIL_PERSONA_DUEL_RC134__,p=D?.point({x:s.x,y:s.y},'left',1.2);if(!p)return null;return{polygon:D.polygon('all',.8).map(p=>({...p})),safe:{...plane(p),halfU:3.4,halfV:2.3}};}

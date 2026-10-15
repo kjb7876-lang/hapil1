@@ -5,5 +5,6 @@ const pins=[[66,"3ebd0b6f157361e2813790240b087f721efb28bebd45c8b17e23e9122c0c02c
 pins.push([127,"e0e0aa48866577e1089850a9bbf98ee5d276595c7166d63d6e014b7eeac8a934"],[128,"d807c387f9dd5af6940df959e7272494b7743f21691f76bb7c9bc300bf7d4e70"],[129,"626de3ed4311ceef1fb43889a5939e920eb22280a8ccb73a048bc13bae0e6630"],[130,"81bbefe6784b0111015828f25372f209076cc5a063d4271e7ddffcc7d4683fbb"]);
 pins.push([131,"c3f3e45cea3bc5123143f51e1f3517259346360cec5854f6814221e96b2ade4c"]);
 pins.push([132,"025fd3a71da67617d1d16a9662f636b12284eaf5ab651c79e7d1c55d42b6b208"]);
+pins.push([133,"5c6010c571c5cbcbbfc4c5dad8b41c618dd61c7b98b80d20cee9fd912cb863d9"]);
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
 module.exports=function(root){let previous=digest(fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-65.json')));return pins.map(([number,hash])=>{const bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-'+number+'.json'));assert.equal(digest(bytes),hash,'exact later extension '+number);const row=JSON.parse(bytes);assert.equal(row.previousExtensionSha256,previous,'exact later extension chain '+number);previous=hash;return row;});};

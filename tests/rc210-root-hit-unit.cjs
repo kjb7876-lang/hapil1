@@ -111,6 +111,11 @@ assert.equal(world.__HAPIL_THEME_V31323__.afterDamage(state, state,
 assert.equal(state.pendingHits.length, 3);
 assert.equal(baseCalls, callsBeforeOtherBoss + 2);
 
+state.time=21;state.pendingHits=[];boss.themeFollowupReadyV31323=0;
+const ally={slotId:'p3',heroId:'slayer',hp:100,x:12,y:22};
+assert(world.__HAPIL_THEME_V31323__.afterDamage(state,ally,{sourceId:'dist00-boss',damage:12}));
+assert(state.pendingHits.every(packet=>packet.rootTargetRC220==='p3'),'production DOT queue carries the hit party slot');
+
 const ornamentWorld = { window: {} };
 ornamentWorld.window = ornamentWorld;
 vm.createContext(ornamentWorld);

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "e9996bcb95311a68ca1d5498370b873e53bce416",
+  "baseTree": "c4603905e8dba8e43fa3da56d7a562d1b4530ca7",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "025fd3a71da67617d1d16a9662f636b12284eaf5ab651c79e7d1c55d42b6b208",
+  "files": [
+    {
+      "file": "assets/rc210/root-hit-runtime.js",
+      "before": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "gitBlob": "2f64c8f62be4614fb89c5905a9c0568ef5fc0eea"
+      },
+      "after": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "sha256": "4a14ff5b89a99aa9d31c000d52b1905d46848f0c2f4153920308dc227ae45f72",
+        "gitBlob": "6fd14435785012fd0517f156e02dcec1339520a5"
+      },
+      "reason": "assets/rc210/root-hit-runtime.js: Attach root DOT to the exact party slot so duplicate heroes cannot receive or redirect another target’s periodic damage."
+    },
+    {
+      "file": "assets/rc220/combat.js",
+      "before": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "gitBlob": "440dcbe5ba9be6e6408b3bf841184f12aa4fbb69"
+      },
+      "after": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "sha256": "a06a9bad1aa5c126cf5adf977be06ece1211b2d6a5bca372a3385ad0247621cd",
+        "gitBlob": "38931cd0adb85dfa3b28696fbba57c3bb42c6572"
+      },
+      "reason": "assets/rc220/combat.js: Attach root DOT to the exact party slot so duplicate heroes cannot receive or redirect another target’s periodic damage."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "d44b0788f66f0dd4a4d4c4aa1fda9a833e3547ad"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "a056a2760c35dec4bac3f5edbce872eae27322414000309bae50dabc12f64a05",
+        "gitBlob": "19ed460067ac62aa1e8dd7661c8dbe81879855f8"
+      },
+      "reason": "index.html: Attach root DOT to the exact party slot so duplicate heroes cannot receive or redirect another target’s periodic damage."
+    }
+  ],
+  "targetProtectedRowsSha256": "e3498edcb212eaff696d18873d441a04385f4d52f1f73f057017b7c3ef9abfdb"
+}
