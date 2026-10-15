@@ -1,0 +1,47 @@
+name: RC220 exact public combat verification
+on:
+  push:
+    branches: [main]
+    paths: ['assets/**', 'index.html', 'tests/rc220*.cjs', 'tests/rc210-browser.cjs', '.github/workflows/rc220-public.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc220-public-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  public-combat:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Use runner official Chrome with its unchanged sandbox
+        run: |
+          command -v google-chrome
+          google-chrome --version
+          npm install --prefix "$RUNNER_TEMP/rc220" --cache "$RUNNER_TEMP/rc220-npm-cache" --no-save --package-lock=false playwright@1.55.1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc220/node_modules" >> "$GITHUB_ENV"
+      - name: Verify exact public bytes and repeat native combat fixtures on Pages
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc220-public
+          HAPIL_TEST_BASE: https://kjb7876-lang.github.io/hapil1/
+        run: |
+          set -euo pipefail
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc220-public.cjs
+          node tests/rc210-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc220-public-${{ github.sha }}
+          path: ${{ runner.temp }}/rc220-public/
+          if-no-files-found: error
+          retention-days: 14
