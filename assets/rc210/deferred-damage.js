@@ -1,7 +1,7 @@
 /* RC210: accepted final player damage only. Never re-enter contact/defense/SFX. */
 (function(root){'use strict';
  const runs=new WeakMap(),interval=.1,slices=6,n=(v,d=0)=>Number.isFinite(v)?v:d;
- const periodic=q=>q?.blackHoleDotRC175===true||q?.balrogSpatialRiftRC210===true||q?.machineTentacleDotRC210===true||q?.spaceDeletionDotRC210===true||q?.nativeStatusDotRC210===true||q?.insomniaFogDotRC210===true;
+ const periodic=q=>q?.themeRootDotRC210===true||q?.blackHoleDotRC175===true||q?.balrogSpatialRiftRC210===true||q?.machineTentacleDotRC210===true||q?.spaceDeletionDotRC210===true||q?.nativeStatusDotRC210===true||q?.insomniaFogDotRC210===true;
  function reset(s){runs.delete(s);root.__HAPIL_MACHINE_FIELDS_RC210__?.reset(s);root.__HAPIL_INSOMNIA_FOG_RC210__?.reset(s);root.__HAPIL_MORGA_RC210__?.reset(s);root.__HAPIL_WALL_TOWERS_RC210__?.reset(s);if(root.document){const el=root.document.getElementById('rc210-pending-damage');if(el)el.remove();}}
  function run(s){let m=runs.get(s);if(!m||m.zone!==s.zone||s.time<m.last){m={zone:s.zone,last:n(s.time),clock:0,step:0,actors:new Map()};runs.set(s,m);}return m;}
  function pending(s,a=s){const m=runs.get(s),r=m?.zone===s?.zone?m.actors.get(a):null;return r?[...r.buckets.values()].reduce((a,b)=>a+b,0):0;}

@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "base": "eb11167b6fc903f00d780eb99e684972a5be6db9",
+  "baseTree": "eaa67767050e3b942df9fdcb4fd954458c754789",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "81bbefe6784b0111015828f25372f209076cc5a063d4271e7ddffcc7d4683fbb",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "c9f2cce6e85ce86486236a1bcd86418e8f6192ce"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "1123a14ab1b7ec0866fbf3c3aaa76ed3cfb8aefbe51850c114c7347383484adb",
+        "gitBlob": "7e4870a3d590b4799ca1ae216ff13459e4b0a14d"
+      },
+      "reason": "assets/index-v31526.js: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc210/deferred-damage.js",
+      "before": {
+        "file": "assets/rc210/deferred-damage.js",
+        "mode": "100644",
+        "gitBlob": "2cb18794e30fdda291dcc393f794058f125b636c"
+      },
+      "after": {
+        "file": "assets/rc210/deferred-damage.js",
+        "mode": "100644",
+        "sha256": "d68bb313de51e7c5217653ed3a3d635dbb36c068e9e9e979ba072aa74feb1a71",
+        "gitBlob": "0de09d03e7ffe33e86bd608ec13643bf398234f5"
+      },
+      "reason": "assets/rc210/deferred-damage.js: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc210/memory-film.js",
+      "before": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "942ca83b4953df1916f18b16bfb6b85c883c5c19"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "sha256": "9d35ac88bc7b7666c40bd1cca642174ae41e80e081e847d855db7d6d0caa355d",
+        "gitBlob": "67551684789335db1d40734f4e328eab923f226b"
+      },
+      "reason": "assets/rc210/memory-film.js: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc210/root-hit-runtime.js",
+      "before": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "gitBlob": "e0aab1beea47c5ed374bac9dc46b0e075341efce"
+      },
+      "after": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "sha256": "16774be9238d55c5b452db34fb21155cc320a09dd50ac0988ce2a96662ee6cf5",
+        "gitBlob": "2f64c8f62be4614fb89c5905a9c0568ef5fc0eea"
+      },
+      "reason": "assets/rc210/root-hit-runtime.js: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc220/combat.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "sha256": "c3e8927a1aa4d86e03733ee45b2d80444ec5034f64e5e24bb8d96f629da8091e",
+        "gitBlob": "9eb9f7249f8fc3c49bd76b4cbf2a58b701d76758"
+      },
+      "reason": "assets/rc220/combat.js: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc220/guardian-silhouette.svg",
+      "before": null,
+      "after": {
+        "file": "assets/rc220/guardian-silhouette.svg",
+        "mode": "100644",
+        "sha256": "a5653ef8bc87e5ffd4d038001b2a586306b8326e1e9c3244ecbc95d7ca676514",
+        "gitBlob": "28b7e9706df1f341d7d35212efe0dc34506b4898"
+      },
+      "reason": "assets/rc220/guardian-silhouette.svg: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc220/presentation.css",
+      "before": null,
+      "after": {
+        "file": "assets/rc220/presentation.css",
+        "mode": "100644",
+        "sha256": "8d23e420828bd720c5d0bf3d61c80995e498282d75b0a041720dbe503395ccb2",
+        "gitBlob": "e443b956ee3636ed258e28528aaa5895c3b725ed"
+      },
+      "reason": "assets/rc220/presentation.css: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "assets/rc220/slayer-motion.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc220/slayer-motion.js",
+        "mode": "100644",
+        "sha256": "223f313494e0ad3939e28c6ac2817bab325db08cea6bdf08822c926d1b610724",
+        "gitBlob": "39f375fb29818dfadf62671380ad3e5e73b47cc5"
+      },
+      "reason": "assets/rc220/slayer-motion.js: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "b7427b7e08bc8d27b29366e4e1f72fb79f7efcf3"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "d1d827f079e50b665556c266d16b1b56ffa4afee2475ea26a5ecd1d6f0d995ab",
+        "gitBlob": "d951d6bc5f8f12128ba2a8947c721b73393909c7"
+      },
+      "reason": "index.html: User-authorized guardian/transform, mandatory Lucifer beam, attached roots, consistent Slayer and half-size double-density boss projectiles."
+    }
+  ],
+  "targetProtectedRowsSha256": "d26379d9486f50b63f61c8e06bedeb84f8901cdff07ca6c0e5a1626f4ecc4571"
+}

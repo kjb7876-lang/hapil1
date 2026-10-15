@@ -119,6 +119,7 @@
         themeRootDotRC210: true,
         rootFollowupRC210: true,
         rootDotTickRC210: tick,
+        rootTargetRC220: target === state ? "__host" : String(target.id ?? target.heroId),
         perfectWindow: .17,
         sprite: ROOT_ART,
         telegraphSpriteV31224: ROOT_ART,
@@ -149,6 +150,8 @@
       }
       const rooted = baseAfterDamage(state, target, packet);
       if (rooted) {
+        target.rootZoneRC220 = state.zone;
+        target.rootFeedbackUntilRC220 = state.time + 2.3;
         const text = state.floatTexts?.at?.(-1);
         if (text?.text === '사슬 속박 · 1초') text.text = '뿌리 속박 · 1초';
         queueRootDots(state, target, packet);

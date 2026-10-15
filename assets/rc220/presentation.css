@@ -1,0 +1,8 @@
+/* Full artwork stays inside the film at every viewport aspect ratio. */
+.rc210-memory-film .rc210-memory-angel{top:3%;height:65%}
+.rc210-memory-film-transform .rc210-memory-transform-masked,
+.rc210-memory-film-transform .rc210-memory-transform-lucifer{inset:5% 8% 15%;width:84%;height:80%;object-fit:contain;object-position:center;transform:none}
+.rc220-mask-fracture{position:absolute;inset:8% 12% 18%;border:2px solid #e4d2bb99;border-radius:50%;opacity:clamp(0,calc(1 - (var(--progress) - .38)*4),1);transform:scale(calc(.3 + var(--progress)*1.8)) rotate(calc(var(--progress)*36deg));background:repeating-conic-gradient(from 17deg,transparent 0deg 44deg,#f5c2bb33 45deg 46deg,transparent 47deg 90deg);pointer-events:none}
+.rc220-transform-halo{position:absolute;inset:6% 6% 14%;border-radius:50%;background:radial-gradient(ellipse,#ff343b33,transparent 65%);opacity:clamp(0,calc((var(--progress) - .28)*2),1);transform:scale(calc(.75 + var(--progress)*.25));pointer-events:none}
+.rc220-transform-caption{position:absolute;bottom:7%;left:8%;right:120px;color:#ffe0da;font:600 clamp(13px,2.6vh,22px)/1.4 system-ui;text-align:center;opacity:clamp(0,calc((var(--progress) - .45)*4),1);text-shadow:0 2px 5px #000}
+@media(prefers-reduced-motion:reduce){.rc220-mask-fracture,.rc220-transform-halo{transform:none}}

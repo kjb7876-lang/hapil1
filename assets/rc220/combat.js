@@ -1,0 +1,30 @@
+/* RC220: final producer packets, attached finite roots, and one opening field. */
+(function(root){'use strict';
+ const n=(v,d=0)=>Number.isFinite(v)?v:d,world=(u,v)=>({x:v+u/2,y:v-u/2}),plane=p=>({u:p.x-p.y,v:(p.x+p.y)/2});
+ const counters={scaled:0,copies:0,rootDraws:0,fieldDraws:0};
+ function owner(s,q){const ids=[q.sourceBossId,q.rootOwnerId,q.themeOwnerV31323,q.sourceId,q.ownerId];return(s.enemies??[]).find(a=>(a.boss||a.midboss)&&a.hp>0&&ids.includes(a.id));}
+ function scale(s,a,q){const D=root.__HAPIL_BULLET_BALANCE_RC210__;if(!D?.eligible(a,q)||q.rc220HalfSize)return false;D.prepare(s,a,q);const b=q.rc210BulletBaseline;if(!b)return false;q.rc210BulletBaseline=Object.freeze({...b,factor:b.factor*.5});for(const k of ['radius','hitRadius','collisionRadius','bodyRadius'])if(Number.isFinite(b[k]))q[k]=b[k]*b.factor*.5;q.rc220HalfSize=true;counters.scaled++;return true;}
+ function prepareFrame(s){if(!s||!(s.hp>0))return;const D=root.__HAPIL_BULLET_BALANCE_RC210__,copies=[];
+  for(const q of s.hostileProjectiles??[]){if(q.cancelled||q.projectileRemovalReason31215)continue;const a=owner(s,q);if(!a||!D?.eligible(a,q))continue;scale(s,a,q);if(q.rc220DensityProcessed)continue;q.rc220DensityProcessed=true;
+   // Preserve the authored safe corridor. A fan's extra lane turns outward.
+   const aim=Number.isFinite(q.cosmicAimV31318)?q.cosmicAimV31318:Math.atan2(s.y-q.y,s.x-q.x),angle=Math.atan2(q.vy,q.vx),delta=Math.atan2(Math.sin(angle-aim),Math.cos(angle-aim)),side=q.rc129Plan?.side??(delta<0?-1:1),next=angle+side*.085,speed=Math.hypot(q.vx,q.vy);
+   const copy={...q,id:s.fxSerial++,rc220DensityCopy:true,rc220ParentId:q.id,vx:Math.cos(next)*speed,vy:Math.sin(next)*speed,rc153ScatterAngle:next,danmakuAngleV31316:next,cosmicAngleV31318:next};
+   // Contact ownership must never be shared between two bodies.
+   for(const key of ['hitTargets','hitActors','contactTargets','rc133Hits'])if(q[key] instanceof Set)copy[key]=new Set(q[key]);
+   copies.push(copy);
+  }(s.hostileProjectiles??=[]).push(...copies);counters.copies+=copies.length;rootDots(s);
+ }
+ function rootTarget(s,h){return h.rootTargetRC220==='__host'?s:(root.__HAPIL_PARTY_V31322__?.actors??[]).find(a=>String(a.id??a.heroId)===h.rootTargetRC220);}
+ function rootDots(s){for(const key of ['pendingHits','impactQueue'])for(const h of s[key]??[]){if(!h.rootTargetRC220)continue;const a=rootTarget(s,h);if(!a||!(a.hp>0)||h.themeZoneV31323!==s.zone||!s.enemies?.some(e=>e.id==='dist00-boss'&&e.hp>0)){h.damageSuppressedV31226=true;h.cancelled=true;continue;}h.x=h.originX=a.x;h.y=h.originY=a.y;}}
+ function rootContact(a,h){return h.rootTargetRC220==='__host'?!a.heroId&&a.activeHeroId!=null:String(a.id??a.heroId)===h.rootTargetRC220;}
+ function rootDraw(ctx,cache,s,a,settings,queue,project){if(!(a.hp>0)||a.rootZoneRC220!==s.zone||!(a.rootFeedbackUntilRC220>s.time))return false;const bound=a.themeRootUntilV31323>s.time,p=project(a.x,a.y),im=queue(cache,root.__HAPIL_ROOT_HIT_RC210__?.rootArt,'eager');ctx.save();try{ctx.globalAlpha=.85;ctx.strokeStyle=bound?'#ed986e':'#eaa180';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(p.x,p.y-3,27,12,0,0,Math.PI*2);ctx.stroke();if(im?.complete&&im.naturalWidth){for(const sign of [-1,1]){ctx.save();ctx.translate(p.x+sign*14,p.y-25);ctx.rotate(sign*.9);ctx.drawImage(im,-32,-10,64,20);ctx.restore();}}ctx.fillStyle='#ffdbb9';ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillText(bound?'뿌리 속박':'뿌리 지속 피해',p.x,p.y-72);}finally{ctx.restore();}counters.rootDraws++;return true;}
+ function opening(a){return a?.cosmicLuciferV31318===true&&a.cosmicOpeningFiredRC220!==true;}
+ function field(s){const D=root.__HAPIL_PERSONA_DUEL_RC134__,p=D?.point({x:s.x,y:s.y},'left',1.2);if(!p)return null;return{polygon:D.polygon('all',.8).map(p=>({...p})),safe:{...plane(p),halfU:3.4,halfV:2.3}};}
+ function inside(p,poly){let sign=0;for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],v=(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);if(Math.abs(v)<1e-8)continue;if(sign&&Math.sign(v)!==sign)return false;sign=Math.sign(v);}return true;}
+ function fieldContact(a,h){const f=h.rc220LuciferField;if(!f||!inside(a,f.polygon))return false;const p=plane(a),b=f.safe;return Math.abs(p.u-b.u)>b.halfU||Math.abs(p.v-b.v)>b.halfV;}
+ function fieldDraw(ctx,h,time,settings,project,impact=false){const f=h.rc220LuciferField;if(!f)return false;const b=f.safe,safe=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([u,v])=>world(b.u+u*b.halfU,b.v+v*b.halfV));ctx.save();try{
+   const path=poly=>{const points=poly.map(p=>project(p.x,p.y));ctx.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))ctx.lineTo(p.x,p.y);ctx.closePath();};ctx.beginPath();path(f.polygon);path(safe);ctx.fillStyle=impact?'#f02f4c':'#9e173b';ctx.globalAlpha=impact?(settings.reducedFlash?.26:.4):.18;ctx.fill('evenodd');ctx.clip('evenodd');
+   const pts=f.polygon.map(p=>project(p.x,p.y)),xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys);ctx.globalAlpha=impact?.85:.45;ctx.strokeStyle=impact?'#ffb0a0':'#ef6c80';ctx.lineWidth=impact?9:1.5;ctx.setLineDash(impact?[]:[9,8]);for(let y=top;y<=bottom;y+=18){ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke();}
+  }finally{ctx.restore();}ctx.save();try{ctx.beginPath();const pp=safe.map(p=>project(p.x,p.y));ctx.moveTo(pp[0].x,pp[0].y);for(const p of pp.slice(1))ctx.lineTo(p.x,p.y);ctx.closePath();ctx.strokeStyle='#fff4bb';ctx.lineWidth=2;ctx.stroke();const at=project((safe[0].x+safe[2].x)/2,(safe[0].y+safe[2].y)/2);ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillStyle='#fff4bb';ctx.fillText(impact?'안전 지대':'혈광포 · 이 안으로',at.x,at.y);}finally{ctx.restore();}counters.fieldDraws++;return true;}
+ root.__HAPIL_COMBAT_RC220__=Object.freeze({prepareFrame,scale,owner,rootDots,rootTarget,rootContact,rootDraw,opening,field,fieldContact,fieldDraw,world,metrics:()=>({...counters})});
+})(window);

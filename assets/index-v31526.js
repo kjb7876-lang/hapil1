@@ -49947,6 +49947,8 @@ function MONGSE_spawnTelegraphedImpact(e, t) {
   window.__HAPIL_ENEMY_FEEL_V31361__?.strike(e,t);
 }
 function Di(e, t) {
+  if(t?.rootTargetRC220)return !t.cancelled&&!t.damageSuppressedV31226&&window.__HAPIL_COMBAT_RC220__?.rootContact(e,t)===true;
+  if(t?.rc220LuciferField)return window.__HAPIL_COMBAT_RC220__?.fieldContact(e,t)===true;
   if(window.__HAPIL_FINITE_NATIVE_RC126__?.handles(t))return window.__HAPIL_FINITE_NATIVE_RC126__.contains(e,t);
   if (!e || !t || ![e.x,e.y,t.x,t.y,t.radius].every(Number.isFinite) || t.radius < 0) return !1;
   if ([`line`,`cone`,`fan`,`sector`].includes(t.shape) && (![t.originX,t.originY,t.width].every(Number.isFinite) || t.width < 0 || Math.hypot(t.x-t.originX,t.y-t.originY)<1e-8)) return !1;
@@ -62127,6 +62129,7 @@ function Ri() {
               window.__HAPIL_PRESENTATION_RC130__?.prepare(o);
                window.__HAPIL_COMBAT_SAFETY_RC126__?.spaceFreshEnemies(o);
                window.__HAPIL_COMBAT_SAFETY_RC126__?.thinDuplicateCosmetics(o);
+               window.__HAPIL_COMBAT_RC220__?.prepareFrame(o);
                let s = new Set();
                for (let e of o.hostileProjectiles) {
                 if(window.__HAPIL_AWAKENING_RULES_RC137__?.expired(o,e)){MONGSE_recordProjectileRemoval31215(o,e,'awakening-lifetime');s.add(e);continue;}
@@ -62870,6 +62873,7 @@ function Ri() {
               }
               window.__HAPIL_AWAKENING_RULES_RC137__?.prepare(o);
               window.__HAPIL_THEME_V31323__?.prepareHits(o);
+              window.__HAPIL_COMBAT_RC220__?.rootDots(o);
               HAPIL_preserveCommittedCombatQueuesV31303(o);
               let MONGSE_combatReleased31226 =
                   !MONGSE_isEncounterLocked31226(o),
@@ -118677,6 +118681,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
       cosmicPoseV31318:'idle',cosmicPoseUntilV31318:now+INTRO,
       cosmicArsenalReadyAtV31318:now+INTRO+.3,
       cosmicCycleV31318:Math.max(0,Math.floor(finite(snapshot?.cycle))),
+      cosmicOpeningFiredRC220:snapshot?.openingFired===true,
       cosmicRegenElapsedV31318:clamp(finite(snapshot?.elapsed),0,INTERVAL-.000001),
       cosmicRegenCountV31318:Math.max(0,Math.floor(finite(snapshot?.regenCount))),
       attackTerrainPolicyV31217:'pierce',bossNonReflectable31213:true,
@@ -118695,6 +118700,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   function beforeDeath(s,a) {
     if(!s||s.zone!==ZONE||!a||a.hp>0||!(s.enemies??[]).includes(a))return false;
     if(own(a)) {
+      if(window.__HAPIL_COMBAT_RC220__?.opening(a)){a.hp=Math.max(1,a.maxHp);return true;}
       s.cosmicEncounterV31318={stage:'complete'};
       s.clues?.add?.(DONE);
       clearOwner(s,ID);
@@ -118744,7 +118750,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     const a=actorFor(s);
     if(!active(s)||!a||a.hp<=0)return null;
     return {stage:'active',hp:a.hp,elapsed:clamp(finite(a.cosmicRegenElapsedV31318),0,INTERVAL-.000001),
-      cycle:Math.max(0,Math.floor(finite(a.cosmicCycleV31318))),regenCount:Math.max(0,Math.floor(finite(a.cosmicRegenCountV31318)))};
+      cycle:Math.max(0,Math.floor(finite(a.cosmicCycleV31318))),openingFired:a.cosmicOpeningFiredRC220===true,regenCount:Math.max(0,Math.floor(finite(a.cosmicRegenCountV31318)))};
   }
   function sanitizeInto(raw,n) {
     const r=raw?.cosmicLuciferV31318;
@@ -118756,7 +118762,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     // Legitimate active saves cannot complete the zone while this boss is alive.
     n.cosmicLuciferV31318={stage:'active',hp:clamp(Number(r.hp),.001,baseMaxHp),
       elapsed:clamp(finite(r.elapsed),0,INTERVAL-.000001),cycle:clamp(Math.floor(finite(r.cycle)),0,1000000),
-      regenCount:clamp(Math.floor(finite(r.regenCount)),0,10000000)};
+      regenCount:clamp(Math.floor(finite(r.regenCount)),0,10000000),openingFired:r.openingFired===true};
     n.bossDefeated=false;
     n.completedZones=(n.completedZones??[]).filter(z=>z!==ZONE);
     n.enemies=(n.enemies??[]).filter(a=>a.id!==MASK&&a.id!==ID);
@@ -118801,6 +118807,11 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
       bodyCtx.globalAlpha=1;bodyCtx.globalCompositeOperation='source-over';bodyCtx.filter='none';bodyCtx.shadowBlur=0;
       bodyCtx.translate(g.x+g.width/2,g.y+g.height/2);bodyCtx.rotate(g.tilt);
       bodyCtx.drawImage(im,-g.width/2,-g.height/2,g.width,g.height);
+      if(g.pose==='charge'||g.pose==='fire'){
+        const growth=g.pose==='fire'?1:Math.min(1,Math.max(0,(now-(a.cosmicPoseUntilV31318-4.1))/2));
+        bodyCtx.strokeStyle='#a30d2f';bodyCtx.lineWidth=2.6;bodyCtx.lineCap='round';
+        for(const side of [-1,1]){const x=side*g.width*.092,y=g.height*.127;bodyCtx.beginPath();bodyCtx.moveTo(x,y);bodyCtx.bezierCurveTo(x-side*3,y+g.height*.035,x+side*3,y+g.height*.07,x+side*2,y+g.height*.13*growth);bodyCtx.stroke();}
+      }
     }finally{bodyCtx.restore();}return true;};
     const ash=window.__HAPIL_BODY_ASH_RC145__;
     if(!ash?.living({ctx,actor:a,sprite:path,size:g.height,center:{x:g.x+g.width/2,y:g.y+g.height},time:now,drawBody}))drawBody(ctx);
@@ -118824,7 +118835,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     const baseNarrative=MONGSE_beginNarrativeAttack;
     MONGSE_beginNarrativeAttack=function(s,a,...args){return own(a)?null:baseNarrative(s,a,...args);};
     const baseDamage=MONGSE_phaseGateHealth;
-    MONGSE_phaseGateHealth=function(s,a,damage){return own(a)?Math.max(0,a.hp-Math.max(0,finite(damage))):baseDamage(s,a,damage);};
+    MONGSE_phaseGateHealth=function(s,a,damage){return own(a)?(window.__HAPIL_COMBAT_RC220__?.opening(a)?a.hp:Math.max(0,a.hp-Math.max(0,finite(damage)))):baseDamage(s,a,damage);};
     const baseTorso=MONGSE_enemyTorsoOffset;
     MONGSE_enemyTorsoOffset=function(a){return own(a)?{x:0,y:-5}:baseTorso(a);};
     const baseMove=ft;
@@ -118890,14 +118901,16 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   function busy(s,a){return !valid(s,a)||num(s.timeStopUntil)>num(s.time)||MONGSE_isEncounterLocked31226(s)||num(a.staggerUntil)>num(s.time)||live.has(s)||num(a.cosmicArsenalReadyAtV31318)>num(s.time)||(s.hostileProjectiles?.length??0)>24||hits(s).length>12||hits(s).some(h=>h.sourceId===a.id)||(s.hostileProjectiles??[]).some(q=>q.sourceId===a.id);}
   function trySchedule(s,a,...args){const p=window.__HAPIL_POLICY_RC127__;return p?p.schedule(s,a,()=>tryScheduleBaseRC127(s,a,...args),'cosmic-lucifer'):tryScheduleBaseRC127(s,a,...args);}
   function tryScheduleBaseRC127(s,a,forcedMode){
-    if(window.__HAPIL_AWAKENING_RULES_RC137__?.awake(s))return null;
+    const opening=window.__HAPIL_COMBAT_RC220__?.opening(a);
+    if(window.__HAPIL_AWAKENING_RULES_RC137__?.awake(s)&&!opening)return null;
+    if(opening)forcedMode="blood-beam";
     const flow=window.__HAPIL_COMBAT_FLOW_RC95__;if(!forcedMode&&flow?.enabled(s)){forcedMode=flow.phase(s).index===1?'blood-beam':flow.phase(s).index===0?'abyss-fan':forcedMode;}
     if(busy(s,a))return null;
     const p=plan(s,a,forcedMode);if(!p)return null;
     const now=num(s.time),last=now+p.last,before=new Set(s.effects??[]),cast=MONGSE_lockAtomicBossCast31210(s,a,"cosmic-v31318-"+p.mode,last+p.recovery,"rain");
     s.effects=(s.effects??[]).filter(e=>before.has(e));
     const attacks=p.mode==="reliquary"?p.points.map((point,i)=>({...baseHit(s,a,p,now+p.windup+i*p.spacing),...point,shape:"circle",radius:2.3,width:0,innerRadius:0,cosmicIndexV31318:i})):p.mode==="blood-beam"?[{...baseHit(s,a,p,last),x:p.end.x,y:p.end.y,originX:p.origin.x,originY:p.origin.y,shape:"line",radius:p.radius,width:p.width,innerRadius:0}]:[];
-    for(const hit of attacks)Object.assign(hit,{bossCastId31210:cast,bossCastResolveAt31210:last+p.recovery,interruptProtectedUntil31210:last+p.recovery,raidUltimateRC25:p.mode==='reliquary',raidUltimateCastIdRC25:cast});
+    for(const hit of attacks){if(opening&&p.mode==="blood-beam")hit.rc220LuciferField=window.__HAPIL_COMBAT_RC220__?.field(s);Object.assign(hit,{bossCastId31210:cast,bossCastResolveAt31210:last+p.recovery,interruptProtectedUntil31210:last+p.recovery,raidUltimateRC25:p.mode==='reliquary',raidUltimateCastIdRC25:cast});}
     (s.pendingHits??=[]).push(...attacks);
     const shots=[];
     if(p.mode==="abyss-fan"){
@@ -118958,8 +118971,9 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     const a=s.enemies?.find(a=>a.id===h.sourceId);
     if(!a||num(a.hp)<=0||num(s.hp)<=0||s.zone!==ZONE){h.damageSuppressedV31226=true;return;}
     const before=new Set(s.effects??[]),result=base(s,h,...args);s.effects=(s.effects??[]).filter(e=>before.has(e));
-    s.effects.push({id:s.fxSerial++,kind:"cosmicImpactV31318",cosmicImpactV31318:true,cosmicModeV31318:h.cosmicModeV31318,cosmicAssetV31318:h.cosmicAssetV31318,sourceId:h.sourceId,bossCastId31210:h.bossCastId31210,x:h.x,y:h.y,originX:h.originX,originY:h.originY,radius:h.radius,width:h.width,born:s.time,duration:h.cosmicModeV31318==="blood-beam"?1.05:.8,sprite:h.cosmicAssetV31318,imageOnly:true,forceFront:true});
-    a.cosmicPoseV31318=h.cosmicModeV31318==="blood-beam"?"fire":"raise";a.cosmicPoseUntilV31318=s.time+.85;return result;
+    s.effects.push({id:s.fxSerial++,kind:"cosmicImpactV31318",cosmicImpactV31318:true,cosmicModeV31318:h.cosmicModeV31318,cosmicAssetV31318:h.cosmicAssetV31318,rc220LuciferField:h.rc220LuciferField,sourceId:h.sourceId,bossCastId31210:h.bossCastId31210,x:h.x,y:h.y,originX:h.originX,originY:h.originY,radius:h.radius,width:h.width,born:s.time,duration:h.cosmicModeV31318==="blood-beam"?1.05:.8,sprite:h.cosmicAssetV31318,imageOnly:true,forceFront:true});
+    if(h.cosmicModeV31318==="blood-beam"&&!h.cancelled&&!h.damageSuppressedV31226){a.cosmicOpeningFiredRC220=true;a.invulnerableUntil=Math.max(num(a.invulnerableUntil),s.time+1.05);}
+    a.cosmicPoseV31318=h.cosmicModeV31318==="blood-beam"?"fire":"raise";a.cosmicPoseUntilV31318=s.time+1.05;return result;
   }
   const raster=(cache,path)=>{const im=MONGSE_queueImage(cache,path,"eager");return im?.complete&&num(im.naturalWidth,im.width)>0?im:null;};
   function scope(ctx,settings,fn){const shared=window.__HAPIL_VISUAL_V31317__?.withBitmaps;if(shared)return shared(ctx,settings,fn);ctx.save();try{ctx.globalAlpha=MONGSE_skillFxOpacity(settings);ctx.globalCompositeOperation="source-over";ctx.shadowBlur=0;return fn();}finally{ctx.restore();}}
@@ -118967,6 +118981,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   function draw(ctx,cache,e,time,settings={}){
     if(!e?.cosmicCueV31318&&!e?.cosmicImpactV31318)return false;
     const age=num(time)-num(e.born);if(age<0||age>=num(e.duration))return true;
+    if(e.cosmicImpactV31318&&window.__HAPIL_COMBAT_RC220__?.fieldDraw(ctx,e,time,settings,G,true))return true;
     const im=raster(cache,e.cosmicAssetV31318);if(!im)return true;
     scope(ctx,settings,()=>{
       if(e.cosmicCueV31318){
@@ -118989,6 +119004,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   }
   function drawTelegraph(ctx,h,time,settings={}){
     if(!h?.cosmicAttackV31318)return false;
+    if(window.__HAPIL_COMBAT_RC220__?.fieldDraw(ctx,h,time,settings,G,false))return true;
     if(h.shape!=='line'||num(h.at)<=num(time))return true;
     // The old binder identifies unregistered owners as a generic infernal boss.
     // This authored boss owns its warning geometry and bypasses that binder.
@@ -119009,6 +119025,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
   function activeHits(s){return hits(s).filter(h=>h.cosmicAttackV31318&&!h.damageSuppressedV31226&&num(h.impactAt,h.at)>=num(s.time)&&s.enemies?.some(a=>a.id===h.sourceId&&a.hp>0));}
   function refugeGoal(s,h=activeHits(s).find(h=>h.cosmicModeV31318==="blood-beam")){
     if(!h)return null;
+    if(h.rc220LuciferField){const b=h.rc220LuciferField.safe;return window.__HAPIL_COMBAT_RC220__.world(b.u,b.v);}
     const now=num(s.time),threats=activeHits(s).filter(q=>num(q.impactAt,q.at)-now<4.1),safe=p=>!threats.some(q=>Di(p,q)),candidates=[];
     if(h.cosmicModeV31318==="blood-beam"){
       const dx=num(h.x)-num(h.originX),dy=num(h.y)-num(h.originY),length=Math.max(.001,Math.hypot(dx,dy)),nx=-dy/length,ny=dx/length,signed=(s.x-num(h.originX))*nx+(s.y-num(h.originY))*ny;
@@ -119942,7 +119959,7 @@ for(const a of allies(s)){keepRoot(s,a);commitFacing(s,a);}separate(s,mem.dt);s.
 const themePainters=window.__HAPIL_THEME_PAINTERS_V31404__.create({G,num,clamp,drawSprite,W,
  opacity:(...args)=>MONGSE_skillFxOpacity(...args),queueImage:(...args)=>MONGSE_queueImage(...args),budget:()=>terminalBudget,metrics});
 const {drawTerminal,drawBomb,drawPollution,drawCollab}=themePainters;
-function chains(ctx,cache,s,a,settings){if(!rootActive(s,a))return;const p=G(a.x,a.y),remain=a.themeRootUntilV31323-s.time,alpha=Math.min(1,remain/.18);ctx.save();try{ctx.globalAlpha=alpha*clamp(MONGSE_skillFxOpacity(settings),0,1);const path=CATALOG.chain;for(let i=0;i<2;i++)drawSprite(ctx,cache,path,p.x,p.y-23-i*26,i?61:57,i?-.14:.1,.86);ctx.strokeStyle=a.themeRootColor323??'#b9b7d7';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(p.x,p.y-2,26,11,0,0,Math.PI*2);ctx.stroke();}finally{ctx.restore();}}
+function chains(ctx,cache,s,a,settings){if(window.__HAPIL_COMBAT_RC220__?.rootDraw(ctx,cache,s,a,settings,MONGSE_queueImage,G))return;if(!rootActive(s,a))return;const p=G(a.x,a.y),remain=a.themeRootUntilV31323-s.time,alpha=Math.min(1,remain/.18);ctx.save();try{ctx.globalAlpha=alpha*clamp(MONGSE_skillFxOpacity(settings),0,1);const path=CATALOG.chain;for(let i=0;i<2;i++)drawSprite(ctx,cache,path,p.x,p.y-23-i*26,i?61:57,i?-.14:.1,.86);ctx.strokeStyle=a.themeRootColor323??'#b9b7d7';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(p.x,p.y-2,26,11,0,0,Math.PI*2);ctx.stroke();}finally{ctx.restore();}}
 function extras(z){return[...CATALOG.owners.filter(r=>r.zone===z).flatMap(r=>r.assets),...Object.values(CATALOG.heroes).map(h=>h.clock),...(window.__HAPIL_COLLAB_V31315__?.pairTable??[]).map(p=>window.__HAPIL_PATTERNS_V31317__?.resolveAsset?.(p.image)??p.image),...Object.entries(CATALOG.mobs).filter(([,p])=>p.zones.includes(z)).map(([k,p])=>ZONE_MOB_SPRITES[k]?.[z]??p.sprite),CATALOG.chain].filter(Boolean);}
 function install(){if(installed)return;if(!window.__HAPIL_CONTINUITY_V31322__||!window.__HAPIL_V31322_RELEASE__?.allPass){if(++tries<512)setTimeout(install,0);return;}
 for(const row of window.__HAPIL_ORDNANCE_V31322__.rows()){const next=owners.get(row.id);if(!next)continue;row.assets=[...next.assets];for(const route of Object.values(row.routes)){route.projectile=mapAsset(next,route.projectile);route.telegraph=mapAsset(next,route.telegraph);route.impact=mapAsset(next,route.impact,'impact');}}
@@ -124462,8 +124479,9 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
   // rest; the game's existing guard, charge, hit and EGO VFX supply the cue.
   return{hero,kind,dir,sheet:'action',frame:col+((stage==='STRIKE'||hero==='hwando'&&['attack','skill','ultimate'].includes(kind))?4:0),stage,...(hero==='slayer'&&kind==='attack'&&value(m.until)>value(m.started)?{rigidSector,rigidProgress:(time-value(m.started))/(value(m.until)-value(m.started))}:{})};
  }
- function draw(ctx,cache,x,y,size,opts,p){
-  if(window.__HAPIL_SLAYER_RIG_RC204__?.draw(ctx,cache,x,y,size,opts,p,MONGSE_queueImage,G))return true;
+ function draw(ctx,cache,x,y,size,opts,p,canonicalOnly=false){
+  if(!canonicalOnly&&window.__HAPIL_SLAYER_MOTION_RC220__?.draw(ctx,p,pose=>draw(ctx,cache,x,y,size,opts,pose,true)))return true;
+  if(!canonicalOnly&&window.__HAPIL_SLAYER_RIG_RC204__?.draw(ctx,cache,x,y,size,opts,p,MONGSE_queueImage,G))return true;
   const path=sheets[p.hero][p.sheet],im=MONGSE_queueImage(cache,path,'eager');
   if(!im?.complete||!(im.naturalWidth||im.width)){counters.fallback++;return false;}
   const w=im.naturalWidth||im.width,h=im.naturalHeight||im.height;
@@ -124492,6 +124510,7 @@ window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__=Object.freeze({installed:true,
    view.globalAlpha*=opts?.alpha??1;
    if(opts?.hit)view.filter='brightness(1.3) saturate(1.1)';
    view.translate(at.x,at.y);
+   if(p.hero==='slayer'&&p.kind==='attack'&&Number.isFinite(p.rigidProgress)){const progress=Math.max(0,Math.min(1,p.rigidProgress)),side=p.dir==='left'?-1:1;view.rotate(Math.sin(progress*Math.PI*2)*.035*side);}
    const tip=swordTips[p.hero]?.[p.sheet]?.[p.frame];
    if(tip){
     const [sx,sy,ex,ey]=tip;

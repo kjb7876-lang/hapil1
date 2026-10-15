@@ -36,6 +36,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test -z "$(git status --porcelain)"
           node tools/rc207-cpu-audit.cjs
+          node tests/rc220-combat-unit.cjs
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
