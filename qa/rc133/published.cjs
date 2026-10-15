@@ -474,8 +474,10 @@ for(const row of extension63.files){if(row.after===null)runtimeOutputs.delete(ro
 for(const row of extension64.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
 for(const row of extension65.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
 assert.equal(runtimeOutputs.size,308,'exact first65 scoped file inventory');
-for(const extension of require('../../tools/rc206-extension-chain.cjs')(root))for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
-assert.equal(runtimeOutputs.size,373,'exact extension123 scoped file inventory');
+const laterExtensions=require('../../tools/rc206-extension-chain.cjs')(root);
+for(const extension of laterExtensions)for(const row of extension.files){if(row.after===null)runtimeOutputs.delete(row.file);else runtimeOutputs.set(row.file,row.after);}
+const extension124=laterExtensions.at(-1);assert.equal(extension124.base,'8c541b7f3c3e053d1e2449e4439a0f69e0493b72');
+assert.equal(runtimeOutputs.size,373,'exact extension124 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -493,7 +495,7 @@ assert.equal(runtimeOutputs.size,373,'exact extension123 scoped file inventory')
     }
 
     const addedLayoutFiles=['assets/rc108/hud.css','assets/rc125/adaptive-battlefield.css'];
-    for(const file of addedLayoutFiles){assert(expected.has(file),'required RC154 layout file '+file);const owner=file==='assets/rc125/adaptive-battlefield.css'?extension36:extension16;if(owner===extension36)assert.equal(owner.files.find(r=>r.file===file).before.gitBlob,extension20.files.find(r=>r.file===file).after.gitBlob,'layout keeps the exact previous authorized preimage');assert(owner.files.some(row=>row.file===file&&row.after?.sha256===expected.get(file).sha256),'layout file matches its exact pinned runtime extension '+file);}
+    for(const file of addedLayoutFiles){assert(expected.has(file),'required RC154 layout file '+file);const owner=file==='assets/rc125/adaptive-battlefield.css'?extension124:extension16;if(file==='assets/rc125/adaptive-battlefield.css')assert.equal(owner.files.find(r=>r.file===file).before.gitBlob,extension36.files.find(r=>r.file===file).after.gitBlob,'portrait CSS update begins at the exact prior approved bytes');assert(owner.files.some(row=>row.file===file&&row.after?.sha256===expected.get(file).sha256),'layout file matches its exact pinned runtime extension '+file);}
     const egoOriginalFiles=extension22.files.filter(row=>row.before===null).map(row=>row.file);assert.equal(egoOriginalFiles.length,7,'four raw images, original manifest and two runtime modules');for(const file of egoOriginalFiles)assert(expected.has(file),'added EGO original/runtime file '+file);
     const personaAreaFile='assets/rc32/boss-and-mobile.js';
     assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
