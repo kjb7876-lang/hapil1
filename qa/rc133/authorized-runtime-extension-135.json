@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "ceda77420a6e471adcdbb1595cbb892aa66b578d",
+  "baseTree": "2c4cd11e8227066adc79a7cee5ceefd4894bf863",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "13d7bca052d395711fd201b82042ee1736853500d7667f5337542012f8fd04e4",
+  "files": [
+    {
+      "file": "assets/rc220/combat.js",
+      "before": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "gitBlob": "38931cd0adb85dfa3b28696fbba57c3bb42c6572"
+      },
+      "after": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "sha256": "2a78ca8c6d1a04105f2609994214191c953108b86470dbf1b7bc28dc5856178e",
+        "gitBlob": "f3ed994b0018c33b0634409db656383acde135fe"
+      },
+      "reason": "assets/rc220/combat.js: Keep the complete Lucifer opening safe rectangle inside the native arena at every player position."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "cd9726d4cd396ea803b6a64faed66f3206021d65"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "2571cfb95b16848e8e6ca02c9530ae426c3613badfe4c15e3417e0f4363e28e4",
+        "gitBlob": "114b9eaca0e400094b0c0c2a268515a1f2f24d6c"
+      },
+      "reason": "index.html: Keep the complete Lucifer opening safe rectangle inside the native arena at every player position."
+    }
+  ],
+  "targetProtectedRowsSha256": "b8b6b765d99fe3f1d2821a30c338fea7c7aa521f3e38cb2e4ef0095cc4a8bf00"
+}
