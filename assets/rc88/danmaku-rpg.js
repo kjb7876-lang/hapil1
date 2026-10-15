@@ -1,7 +1,9 @@
 /* RC88: ordinary enemy HP, native bullets and native hero echo contacts. */
 (() => {
   'use strict';
-  const ROOT = './assets/props/v31307/marionette-thread-anchor.webp';
+  // These are rooted tree emitters. The old marionette spool looked like a
+  // chair being thrown and belonged to a different encounter.
+  const ROOT = './assets/props/v290/dead_tree.webp';
   const COMMAND = './assets/props/v31307/deletion-command-obelisk.webp';
   const profiles = Object.freeze([
     {zone:'dist00',id:'dist00-boss',kind:'roots',count:3,label:'뿌리 핵',sprite:ROOT},

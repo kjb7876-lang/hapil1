@@ -23,6 +23,7 @@ for(const p of api.profiles){const s=state(p.zone,p.id);api.tick(s);s.time=12;ap
 }
 const tree=state('dist00','dist00-boss');api.tick(tree);tree.time=12;api.tick(tree);
 const part=tree.enemies.find(a=>a.rc88Part),committed=[...tree.hostileProjectiles];
+assert(part.sprite.endsWith('/dead_tree.webp'),'root emitters use tree art rather than the marionette spool/chair prop');
 const queued={sourceId:part.id,damage:9};tree.pendingHits=[queued];part.hp=0;
 assert(api.beforeDeath(tree,part));assert.equal(tree.enemies.filter(a=>a.rc88Part).length,2);
 assert.deepEqual(tree.hostileProjectiles,committed);assert.equal(tree.pendingHits[0],queued);

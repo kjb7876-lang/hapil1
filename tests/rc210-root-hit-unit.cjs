@@ -5,7 +5,15 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 
 let baseCalls = 0;
+let renderedRootShots = 0;
 const world = {
+  __HAPIL_RC15__: {
+    drawRootProjectile(ctx, cache, projectile) {
+      assert.equal(projectile.sourceId, 'dist00-boss');
+      renderedRootShots++;
+      return true;
+    },
+  },
   __HAPIL_THEME_V31323__: {
     installed: true,
     owner(id) { return id === 'mb-dist01' ? { id, mechanic: 'chain' } : null; },
@@ -31,15 +39,20 @@ const api = world.__HAPIL_ROOT_HIT_RC210__;
 assert.equal(api?.installed, true, 'root hit adapter installs after theme mechanics');
 assert.equal(api.ownerFor('dist00-boss').mechanic, 'chain');
 assert.equal(api.ownerFor('mb-dist01').id, 'mb-dist01', 'other owner routing is unchanged');
+assert.equal(world.__HAPIL_RC15__.drawRootProjectile({}, {}, {
+  sourceId: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss', vx: 1, vy: 0,
+}, 0, {}), true, 'native root emitter projectiles use the root visual renderer');
+assert.equal(renderedRootShots, 1);
 
 const boss = { id: 'dist00-boss', boss: true, hp: 500, themeFollowupReadyV31323: 0 };
 const state = {
   zone: 'dist00', time: 10, x: 16, y: 24, hp: 200, fxSerial: 1,
   enemies: [boss], pendingHits: [], floatTexts: [],
 };
-const hit = { id: 9, sourceId: 'dist00-boss', damage: 20, x: 16, y: 24, color: '#a56' };
+const hit = { id: 9, sourceId: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss', damage: 20, x: 16, y: 24, color: '#a56' };
 assert.equal(world.__HAPIL_THEME_V31323__.afterDamage(state, state, hit), true);
 assert.equal(hit.themeMechanicV31323, 'chain', 'native damage log receives the root mechanic label');
+assert.equal(hit.themeOwnerV31323, 'dist00-boss', 'child emitter retains its root-boss damage ownership');
 assert.equal(state.themeRootUntilV31323, 11, 'native root lock lasts one simulation second');
 assert.equal(state.themeRootImmuneV31323, 15, 'root re-hit immunity is five seconds');
 assert.equal(state.themeRootZoneV31323, 'dist00');

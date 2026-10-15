@@ -3,7 +3,7 @@
 
   const KEY = '__HAPIL_ROOT_HIT_RC210__';
   const ROOT_ID = 'dist00-boss';
-  const ROOT_ART = './assets/rc15/root-attacks.png';
+  const ROOT_ART = './assets/vfx/v31330/dist00-boss/beam_rc25.png';
   const ROOT_DOT_TICKS = 3;
   const ROOT_DOT_INTERVAL = 0.7;
   const ROOT_OWNER = Object.freeze({
@@ -23,13 +23,32 @@
   function sourceId(hit) {
     return String(hit?.sourceId ?? hit?.sourceBossId ?? hit?.ownerId ?? hit?.actorId ?? '');
   }
+  function rootSourceId(hit) {
+    return String(hit?.themeOwnerV31323 ?? hit?.sourceBossId ?? hit?.rootOwnerId ??
+      hit?.sourceId ?? hit?.ownerId ?? hit?.actorId ?? '');
+  }
   function isRootHit(hit) {
-    return sourceId(hit) === ROOT_ID;
+    return rootSourceId(hit) === ROOT_ID;
   }
   function ownerId(value) {
     return typeof value === 'string'
       ? value
-      : String(value?.themeOwnerV31323 ?? sourceId(value));
+      : String(value?.themeOwnerV31323 ?? value?.sourceBossId ?? sourceId(value));
+  }
+
+  function installRootProjectileRenderer() {
+    const renderer = window.__HAPIL_RC15__;
+    if (!renderer?.drawRootProjectile || renderer.drawRootProjectile.__rootOwnerRC210) return true;
+    const drawBase = renderer.drawRootProjectile;
+    const drawRoot = function drawRootOwnedProjectileRC210(ctx, cache, projectile, time, settings) {
+      if (isRootHit(projectile)) {
+        return drawBase(ctx, cache, { ...projectile, sourceId: ROOT_ID }, time, settings);
+      }
+      return drawBase(ctx, cache, projectile, time, settings);
+    };
+    Object.defineProperty(drawRoot, '__rootOwnerRC210', { value: true });
+    window.__HAPIL_RC15__ = Object.freeze({ ...renderer, drawRootProjectile: drawRoot });
+    return true;
   }
 
   function queueRootDots(state, target, hit) {
@@ -92,9 +111,9 @@
         return baseAfterDamage(state, target, hit);
 
       let packet = hit;
-      if (hit.themeMechanicV31323 !== 'chain' || !hit.color) {
-        packet = { ...hit, themeMechanicV31323: 'chain', color: hit.color ?? ROOT_OWNER.color };
-        try { hit.themeMechanicV31323 = 'chain'; hit.color ??= ROOT_OWNER.color; }
+      if (hit.themeMechanicV31323 !== 'chain' || !hit.color || hit.themeOwnerV31323 !== ROOT_ID) {
+        packet = { ...hit, themeOwnerV31323: ROOT_ID, themeMechanicV31323: 'chain', color: hit.color ?? ROOT_OWNER.color };
+        try { hit.themeOwnerV31323 = ROOT_ID; hit.themeMechanicV31323 = 'chain'; hit.color ??= ROOT_OWNER.color; }
         catch { /* immutable source packets use the tagged copy for mechanic routing */ }
       }
       const rooted = baseAfterDamage(state, target, packet);
@@ -127,7 +146,9 @@
   }
 
   function ready() {
-    if (install()) return;
+    const combatReady = install();
+    const rendererReady = installRootProjectileRenderer();
+    if (combatReady && rendererReady) return;
     if (++attempts < 640) setTimeout(ready, 0);
   }
   ready();

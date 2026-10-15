@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "db74d2bd953d888312954fbdbb94eca9f3a0bd41",
+  "baseTree": "c3e10275901e0f7eac4f560829236cb0e7500e15",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "5eadd552c0636f9af3429fb254f31c6790d2f06c0b6641453d2f0062fbce5481",
+  "files": [
+    {
+      "file": "assets/rc210/root-hit-runtime.js",
+      "before": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "gitBlob": "356c2c6b96bb9a70e4eae3e6b9e891cc161d0ad2"
+      },
+      "after": {
+        "file": "assets/rc210/root-hit-runtime.js",
+        "mode": "100644",
+        "sha256": "eed42b4ad03918934a4b2f0ee0af46766a462b413b74a78001727e250b3523b6",
+        "gitBlob": "a09d7a05e76f27a022fd45b665f72e4bec4b25c8"
+      },
+      "reason": "assets/rc210/root-hit-runtime.js: Attribute RC88 child-emitter bullets to the root for native thorn rendering, one-second bind and finite DOT."
+    },
+    {
+      "file": "assets/rc88/danmaku-rpg.js",
+      "before": {
+        "file": "assets/rc88/danmaku-rpg.js",
+        "mode": "100644",
+        "gitBlob": "1c04850c43eb974c008bf79fed05f66fae5d6242"
+      },
+      "after": {
+        "file": "assets/rc88/danmaku-rpg.js",
+        "mode": "100644",
+        "sha256": "f8805127c229d1ebfad680f96aea9f599b126ecd0d0f296aa3d582d3e4d1c192",
+        "gitBlob": "440741ac49de494dc348ac13e9e026d572ca6f0d"
+      },
+      "reason": "assets/rc88/danmaku-rpg.js: Replace the unrelated marionette-thread spool art on the first boss root emitters with existing dead-tree art."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "05fb981b6c93c4b9865d7077384beff23072a9c5"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "6bee4eb0d13ec1544ad958adfbdd2e827741a14318b5f14175377996e4e161cd",
+        "gitBlob": "3c5e91b6943c9752ccf3cacc686c154e78047f10"
+      },
+      "reason": "index.html: Bump the RC88 module URL so browsers load the corrected root-emitter art."
+    }
+  ],
+  "targetProtectedRowsSha256": "8a0b494901eca7a243e1f8b99d7204e2f781e7e3225b8194b5edcb06e06d79e6"
+}
