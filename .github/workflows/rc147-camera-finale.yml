@@ -112,6 +112,7 @@ jobs:
             test -z "$(git status --porcelain)"
             exit 0
           fi
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc219-fall" node tests/rc210-fall-progression-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-camera" node tests/rc147-camera-finale-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-persona" node tests/rc142-persona-volley-browser.cjs
           HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc148-six-cosmic" node tests/rc148-six-cosmic-perf-browser.cjs

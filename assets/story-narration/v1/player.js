@@ -204,7 +204,10 @@
         progressWatch = null;
         if (disposed || request !== generation || state !== 'playing') return;
         if (!media && contextInterrupted()) { contextChanged(); return; }
-        const current = position();
+        const current = position(), duration = media && Number.isFinite(media.duration) ? media.duration : buffer?.duration ?? entry?.clips[clipIndex]?.duration;
+        // Some transports lose ended while their clock reaches the real decoded
+        // duration. Commit the existing once/generation guarded playlist finish.
+        if (Number.isFinite(duration) && duration > 0 && current >= duration) { finished(request); return; }
         if (current > lastPosition + .005) { lastPosition = current; lastProgress = now(); }
         if (now() - lastProgress >= LOAD_TIMEOUT_MS) { failed(request); return; }
         progressWatch = window.setTimeout(check, 1000);

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "2ea7e9690a9df88c4632bcf1fc97270083523bd3",
+  "baseTree": "f459a9367666c57deaacd83009388a48ab90b114",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "3a86d5d886abd52e6d6692d0ea84141afc862e6dba0290aa456679eec33e8e97",
+  "files": [
+    {
+      "file": "assets/rc51/story.js",
+      "reason": "assets/rc51/story.js: Repair dist06 post-story voice wait deadlock, consume narration wait before timed film, recover failed film starts, and recover missing ended at exact decoded duration. Preserve healthy speech, intentional transport pause semantics, original audio and story text. Cache only changed reader/player scripts.",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "2f42c25d84741c12fdb675a77d035d57c3a73c7c"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "8f8e3d2e3f5f47a2d68ed137081d4a9968f0a225",
+        "sha256": "7d73665f2ec77e14fa4fe05d5cc4622c1dcf846c56aa012937ffa9f1a25405c6"
+      }
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "reason": "assets/story-narration/v1/player.js: Repair dist06 post-story voice wait deadlock, consume narration wait before timed film, recover failed film starts, and recover missing ended at exact decoded duration. Preserve healthy speech, intentional transport pause semantics, original audio and story text. Cache only changed reader/player scripts.",
+      "before": {
+        "file": "assets/story-narration/v1/player.js",
+        "mode": "100644",
+        "gitBlob": "3bbbd4d85738933af4efb6f64a624450d8d28705"
+      },
+      "after": {
+        "file": "assets/story-narration/v1/player.js",
+        "mode": "100644",
+        "gitBlob": "a5b106b22498ada9d28ed37169ba27ed1fb2ca18",
+        "sha256": "5eeab93450f4665839dd61744bd6475def8d8337ab9025cd8d50326473cd62ac"
+      }
+    },
+    {
+      "file": "index.html",
+      "reason": "index.html: Repair dist06 post-story voice wait deadlock, consume narration wait before timed film, recover failed film starts, and recover missing ended at exact decoded duration. Preserve healthy speech, intentional transport pause semantics, original audio and story text. Cache only changed reader/player scripts.",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "280f5f8d952b3e96cf4d43da9e454c6022de1eb4"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "f88066ef8e90ddb68512d69231fc641f35d0b844",
+        "sha256": "f09888865b1ef9e361e71af213a5bc31c718887e361004c4e0de3afaaaa8e5a3"
+      }
+    }
+  ],
+  "targetProtectedRowsSha256": "c63f32675f8902216411c47df32767819ca189892fb580658d6c9d66cc384176"
+}

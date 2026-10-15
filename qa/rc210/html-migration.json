@@ -1,7 +1,7 @@
 {
   "base": "9704fdb295a240605dbeb0045c224df8fe4f6ccd",
   "beforeSha256": "78046175e540a0bb309ea3b916737b6a6e0bff0c2be512ba8e556c0c30df7dc1",
-  "afterSha256": "71fcec77f453697b4f0f7ea9efad285f0303ccef11d76d76f85256515f6466ae",
+  "afterSha256": "f09888865b1ef9e361e71af213a5bc31c718887e361004c4e0de3afaaaa8e5a3",
   "changes": [
     {
       "before": "    <script src=\"./assets/rc155/ego-art.js?v=17401\"></script>\n    <script src=\"./assets/rc155/combat-provenance.js?v=15601\"></script>\n",
@@ -45,11 +45,11 @@
     },
     {
       "before": "    <script src=\"./assets/story-narration/v1/mixer.js?v=2026100302\"></script>\n    <script src=\"./assets/story-narration/v1/player.js?v=2026100502\"></script>\n",
-      "after": "    <script src=\"./assets/story-narration/v1/mixer.js?v=2026100302\"></script>\n    <script src=\"./assets/story-narration/v1/player.js?v=21001\"></script>\n"
+      "after": "    <script src=\"./assets/story-narration/v1/mixer.js?v=2026100302\"></script>\n    <script src=\"./assets/story-narration/v1/player.js?v=21901\"></script>\n"
     },
     {
       "before": "    <script defer src=\"./assets/story-narration/v1/surfaces.js?v=17801\"></script>\n    <script src=\"./assets/rc51/story.js?v=17901\"></script>\n",
-      "after": "    <script defer src=\"./assets/story-narration/v1/surfaces.js?v=17801\"></script>\n    <script src=\"./assets/rc51/story.js?v=21001\"></script>\n"
+      "after": "    <script defer src=\"./assets/story-narration/v1/surfaces.js?v=17801\"></script>\n    <script src=\"./assets/rc51/story.js?v=21901\"></script>\n"
     },
     {
       "before": "    <script src=\"./assets/rc145/body-ash.js?v=45302\"></script>\n    <script src=\"./assets/rc175/boss-policy.js?v=20801\"></script>\n    <script type=\"module\" crossorigin src=\"./assets/index-v31526.js?v=20601\"></script>\n",

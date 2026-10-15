@@ -377,3 +377,7 @@ test('a card first mounted while hidden holds without a media fallback and start
   assert.equal(f.narrationSources().length, 1);
   assert.deepEqual(f.currentSource().startArgs, [0, 0]);
 });
+
+test('a missing ended callback recovers at actual decoded duration and retains the final tail once', async t => {
+ let ended=0;const f=fixture({callbacks:{onEnded:()=>ended++}});t.after(f.clean);await f.player.play();const stale=f.currentSource().onended;f.currentSource().onended=null;f.context.currentTime=9.999;f.advance(1000);assert.equal(ended,0);assert(f.player.blocksAdvance);f.context.currentTime=10;f.advance(1000);assert.equal(ended,1);assert(f.player.ended);assert(f.player.blocksAdvance);f.advance(750);assert(!f.player.blocksAdvance);stale();assert.equal(ended,1);
+});

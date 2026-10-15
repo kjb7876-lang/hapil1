@@ -1,0 +1,21 @@
+{
+  "baseline": "2ea7e9690a9df88c4632bcf1fc97270083523bd3",
+  "scene": "dist06 post / 07 추락",
+  "reportedNaturalUserFailure": "User reports no transition after 추락; exact device/audio state not supplied",
+  "confirmedCpuReproduction": "Actual extracted story close/beforeFrame remains stuck when canonical narrator has resumable interrupted blocksAdvance=true; old test actual film-start0 vs expected1 after17visible seconds",
+  "confirmedContractInteraction": "Canonical audio deliberately retains resumable device interruption beyond15s; new memory-film gate waits unconditionally. Transport's intentional pause/resume contract remains unchanged.",
+  "fixes": [
+    "Explicit keyboard-accessible 음성 건너뛰고 계속 choice after an advance request",
+    "Only pending advance or expired auto-advance: visible-frame15s without narrator position/status progress releases the voice hold; healthy advancing speech remains intact",
+    "Consume narration wait before starting film so later frames cannot immediately skip it",
+    "Null/throwing film start releases only its own reader once; retry is not an eternal input lock",
+    "Missing ended event recovered at actual decoded/media duration through existing generation/once playlist finish and750ms tail"
+  ],
+  "targetedCpu": {"storyAndFilm": "passed twice", "transportRaces": "46passed0failed twice; includes existing30second interruption/resume assertions unchanged", "wholeSuite": "pending exact final SHA"},
+  "browserScope": "Natural UI startup only, then explicit native-entry dist06 post-story fixture; real canonical voice QA interruption, real film timer, subsequent native ep1a01 story/clock/input. Not a natural full-campaign/Balrog clear, not777.",
+  "browserResult": "pending automatic PC/landscape Chrome CI; no local alternate browser/sandbox route",
+  "originalAudioAndTextPreserved": true,
+  "newTtsDeferred": true,
+  "mobile": "landscape play; portrait guide/pause unchanged",
+  "storyWorldChanged": false
+}

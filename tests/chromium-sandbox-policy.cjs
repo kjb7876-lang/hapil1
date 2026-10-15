@@ -26,7 +26,7 @@ const chromeStableWorkflowFiles = [
   'tests/rc153-combat-browser.cjs', 'tests/rc153-boundary-input-browser.cjs',
   'tests/rc153-portrait-composition-browser.cjs', 'tests/rc154-mobile-layout-browser.cjs',
   'tests/rc138-arena-browser.cjs', 'tests/rc152-image-browser.cjs', 'tests/rc137-audit-browser.cjs',
-  'tests/rc139-narration-browser.cjs', 'tests/rc137-boss-lifecycle-browser.cjs',
+  'tests/rc139-narration-browser.cjs', 'tests/rc210-fall-progression-browser.cjs', 'tests/rc137-boss-lifecycle-browser.cjs',
   'tests/rc134-persona-effects-browser.cjs', 'tests/rc137-direct-admission-browser.cjs',
   'tests/rc142-gameplay-browser.cjs', 'tests/rc143-persona-live-browser.cjs',
   'tests/rc142-persona-volley-browser.cjs', 'tests/rc143-mobile-viewport-browser.cjs',
