@@ -6,10 +6,21 @@ const assert = require('node:assert/strict');
 
 let baseCalls = 0;
 let renderedRootShots = 0;
+let nativePersistentTick = function nativePersistentTick(state) {
+  state.hostileProjectiles.push(
+    { sourceId: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss', rc88Bullet: true, sprite: './generic-projectile.webp' },
+    { sourceId: 'mb-dist01', sourceBossId: 'mb-dist01', rc88Bullet: true, sprite: './other-boss.webp' },
+  );
+  return 'native-tick-result';
+};
+const rc86Bridge = Object.freeze(Object.defineProperty({}, 'persistentTick', {
+  enumerable: true,
+  get() { return nativePersistentTick; },
+  set(value) { nativePersistentTick = value; },
+}));
 const world = {
-  MONGSE_resolveBossVisualV31224(actor, zone, signature) {
-    return { actorId: actor?.id ?? actor, zone, signature, projectile: './generic-projectile.webp', telegraph: './generic-warning.webp' };
-  },
+  __HAPIL_DANMAKU_RPG_RC88__: { installed: true },
+  __HAPIL_RC86_BRIDGE__: rc86Bridge,
   __HAPIL_RC15__: {
     drawRootProjectile(ctx, cache, projectile) {
       assert.equal(projectile.sourceId, 'dist00-boss');
@@ -42,12 +53,16 @@ const api = world.__HAPIL_ROOT_HIT_RC210__;
 assert.equal(api?.installed, true, 'root hit adapter installs after theme mechanics');
 assert.equal(api.ownerFor('dist00-boss').mechanic, 'chain');
 assert.equal(api.ownerFor('mb-dist01').id, 'mb-dist01', 'other owner routing is unchanged');
-assert.equal(world.MONGSE_resolveBossVisualV31224({ id: 'dist00-boss' }, 'dist00', 'rc153-native-inventory').projectile, api.rootArt,
-  'every root-owned native projectile selects the exact root art before emission');
-assert.equal(world.MONGSE_resolveBossVisualV31224({ id: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss' }, 'dist00', 'rc153-native-inventory').projectile, api.rootArt,
-  'child emitter projectiles resolve through their root owner');
-assert.equal(world.MONGSE_resolveBossVisualV31224({ id: 'mb-dist01' }, 'dist01', 'rc153-native-inventory').projectile, './generic-projectile.webp',
-  'other boss projectile routing is unchanged');
+assert.equal(world.__HAPIL_ROOT_PROJECTILE_ART_RC210__?.installed, true,
+  'root projectile asset hook installs on the native RC86 tick bridge');
+const tickState = { hostileProjectiles: [] };
+assert.equal(world.__HAPIL_RC86_BRIDGE__.persistentTick(tickState), 'native-tick-result');
+assert.equal(tickState.hostileProjectiles[0].sprite, api.rootArt,
+  'native root emitter projectile is tagged with exact root art after emission');
+assert.equal(tickState.hostileProjectiles[0].fallbackSprite, api.rootArt,
+  'native root emitter fallback also points to exact root art');
+assert.equal(tickState.hostileProjectiles[1].sprite, './other-boss.webp',
+  'unrelated boss projectile routing is unchanged');
 assert.equal(world.__HAPIL_RC15__.drawRootProjectile({}, {}, {
   sourceId: 'rc88:dist00-boss:1:0', sourceBossId: 'dist00-boss', vx: 1, vy: 0,
 }, 0, {}), true, 'native root emitter projectiles use the root visual renderer');

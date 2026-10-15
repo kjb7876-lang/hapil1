@@ -1,9 +1,9 @@
 {
-  "recordedAt": "2026-10-15T11:21:11Z",
+  "recordedAt": "2026-10-15T11:29:05Z",
   "repository": "kjb7876-lang/hapil1",
   "remoteMainSha": "737d79242ea73b4ebcfa3409baf505e0d34581f3",
-  "latestRemoteRootCandidateSha": "bf5c15063c9c34045c1f11018ac210942c672180",
-  "latestCandidateCommitAt": "2026-10-15T10:56:19Z",
+  "latestRemoteRootCandidateSha": "4641c620c44df0da54207c1522a732aef1265c4a",
+  "latestCandidateCommitAt": "2026-10-15T11:23:22Z",
   "laterCandidateShaObserved": true,
   "priorFailures": [
     {
@@ -74,7 +74,7 @@
     "fixStatus": "implemented locally: acquire the live modal pause before async asset preloads and assert no prior root hit/DOT; awaiting exact-SHA Chrome rerun"
   },
   "fixtureChanges": {
-    "status": "implemented locally; earlier official Chrome run passed controlled native damage/DOT, new exact-sprite assertion awaits exact-SHA official Chrome rerun",
+    "status": "implemented locally; exact-SHA official Chrome rerun pending after fixing the ESM-module resolver assumption",
     "path": "tests/rc210-browser.cjs",
     "details": [
       "Acquire the actual live pause ref immediately after entering combat, before asynchronous asset preloads; assert no prior root hit/DOT and hold time/projectiles fixed through the root-atlas decode and controlled bind/DOT fixture. Open the native party bridge only synchronously for reducer calls while the live modal still prevents RAF gameplay.",
@@ -85,24 +85,24 @@
   },
   "localChecks": {
     "browserSyntax": "passed: node --check tests/rc210-browser.cjs",
-    "rootHitUnit": "passed: native damage, one-second bind, five-second immunity, three finite DOT packets, root resolver selects exact image while other bosses remain unchanged",
+    "rootHitUnit": "passed: native damage and finite DOT; actual RC86 persistentTick wrapper forces exact root sprite/fallback on root-owned RC88 packets and leaves another boss unchanged",
     "projectileAndScatterUnits": "passed: rc210-projectile-unit and rc194-ranged-scatter-unit with the read-only provided dependency path",
     "fallAndPortraitUnits": "passed: fall-progression recovery, standing and portrait pause unit assertions",
     "slayerUnits": "passed: RC204 rig; RC205 eight directions and 2,408 poses; RC206 falling/standing distinction",
     "sourceProvenance": "passed: projectile, ornaments, danmaku restore units; exact HTML history helper accepts runtime v21002 and cache normalization",
-    "officialChromeBrowser": "pending exact new-SHA workflow"
+    "officialChromeBrowser": "candidate 4641c62 failed exact emitted-sprite assertion; rerun after tick-bridge correction is pending"
   },
   "deployment": {
     "status": "not deployed",
-    "requiredEvidence": "Exact final SHA official Chrome browser validation and Pages success; changes after candidate validation require fresh checks."
+    "requiredEvidence": "Exact final SHA official Chrome root/browser validation and Pages success. The failed 4641c62 run remains recorded and must not be treated as a pass."
   },
   "remoteCandidateObservation": {
     "branch": "codex/rc210-fragment-standing-combat",
-    "headSha": "bf5c15063c9c34045c1f11018ac210942c672180",
-    "confirmedBy": "git ls-remote origin",
+    "headSha": "4641c620c44df0da54207c1522a732aef1265c4a",
+    "confirmedBy": "git ls-remote origin and GitHub Actions push event",
     "publicMainSha": "737d79242ea73b4ebcfa3409baf505e0d34581f3",
     "candidateContainsPublicMain": true,
-    "note": "Preserves b4a4a145 and subsequent work as descendants; latest branch head is bf5c150."
+    "note": "Latest remote candidate before the RC86 tick-bridge correction; contains b4a4a145 and intervening work as ancestors."
   },
   "candidateAudits": {
     "sha": "bf5c15063c9c34045c1f11018ac210942c672180",
@@ -169,6 +169,20 @@
         "failure": "public-contract checks failed while public main still pointed to 737d79242ea73b4ebcfa3409baf505e0d34581f3",
         "classification": "public-byte mismatch against candidate is plausible but not proven; repeat against deployed exact SHA"
       }
-    ]
+    ],
+    "candidateRevalidationFailure": {
+      "sha": "4641c620c44df0da54207c1522a732aef1265c4a",
+      "runId": 38726998780,
+      "failedJobId": 116395221840,
+      "browser": "Official Chrome Stable on GitHub runner; chromiumSandbox=true, no fallback",
+      "message": "Each emitted root projectile must carry the exact root art",
+      "state": {
+        "rootArt": "./assets/vfx/v31330/dist00-boss/beam_rc25.png",
+        "emittedSprite": "./assets/generated-v31224/boss-vfx/balrog_chain_whip_wave.webp"
+      },
+      "diagnosis": "The ESM bundle keeps MONGSE_resolveBossVisualV31224 module-scoped, so assigning a window.MONGSE_resolveBossVisualV31224 wrapper did not intercept RC88 emission. Native RC88 tree emitters already rendered through the root atlas; their sprite metadata remained on the inherited Balrog route and correctly failed the strict root-owner contract.",
+      "fix": "Replace the inaccessible resolver wrapper with a wrapper on the actual RC86 persistentTick getter/setter after RC88 installation. Tag only emitted rc88Bullet packets whose sourceBossId is dist00-boss; set sprite and fallbackSprite to the root image. Browser fixture now triggers the same bridge tick path used by runtime.",
+      "fixStatus": "implemented locally; unit passed; exact-SHA official Chrome rerun pending"
+    }
   }
 }

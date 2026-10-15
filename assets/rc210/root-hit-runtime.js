@@ -37,17 +37,33 @@
         value?.ownerId ?? value?.actorId ?? value?.id ?? sourceId(value));
   }
 
-  function installRootProjectileVisualResolver() {
-    const resolve = window.MONGSE_resolveBossVisualV31224;
-    if (typeof resolve !== 'function') return false;
-    if (resolve.__rootOwnerRC210) return true;
-    const resolveRootProjectile = function resolveRootProjectileVisualRC210(actor, ...args) {
-      const visual = resolve.call(this, actor, ...args);
-      if (ownerId(actor) !== ROOT_ID || !visual || typeof visual !== 'object') return visual;
-      return { ...visual, projectile: ROOT_ART };
+  function installRootProjectileEmissionTagger() {
+    const bridge = window.__HAPIL_RC86_BRIDGE__;
+    if (!window.__HAPIL_DANMAKU_RPG_RC88__?.installed ||
+        typeof bridge?.persistentTick !== 'function') return false;
+    const tick = bridge.persistentTick;
+    if (tick.__rootOwnerRC210) {
+      window.__HAPIL_ROOT_PROJECTILE_ART_RC210__ = Object.freeze({
+        installed: true, rootArt: ROOT_ART,
+      });
+      return true;
+    }
+    const tagRootEmitterAssets = function tagRootEmitterAssetsRC210(state, ...args) {
+      const result = tick.apply(this, [state, ...args]);
+      for (const projectile of state?.hostileProjectiles ?? []) {
+        if (projectile?.rc88Bullet !== true ||
+            String(projectile.sourceBossId ?? projectile.rootOwnerId ?? '') !== ROOT_ID) continue;
+        projectile.sprite = ROOT_ART;
+        projectile.fallbackSprite = ROOT_ART;
+      }
+      return result;
     };
-    Object.defineProperty(resolveRootProjectile, '__rootOwnerRC210', { value: true });
-    window.MONGSE_resolveBossVisualV31224 = resolveRootProjectile;
+    Object.defineProperty(tagRootEmitterAssets, '__rootOwnerRC210', { value: true });
+    bridge.persistentTick = tagRootEmitterAssets;
+    if (bridge.persistentTick?.__rootOwnerRC210 !== true) return false;
+    window.__HAPIL_ROOT_PROJECTILE_ART_RC210__ = Object.freeze({
+      installed: true, rootArt: ROOT_ART,
+    });
     return true;
   }
 
@@ -163,8 +179,8 @@
   function ready() {
     const combatReady = install();
     const rendererReady = installRootProjectileRenderer();
-    const visualReady = installRootProjectileVisualResolver();
-    if (combatReady && rendererReady && visualReady) return;
+    const emissionReady = installRootProjectileEmissionTagger();
+    if (combatReady && rendererReady && emissionReady) return;
     if (++attempts < 640) setTimeout(ready, 0);
   }
   ready();
