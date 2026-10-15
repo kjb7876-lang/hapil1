@@ -4,13 +4,17 @@
  const counters={scaled:0,copies:0,rootDraws:0,fieldDraws:0};
  function owner(s,q){const ids=[q.sourceBossId,q.rootOwnerId,q.themeOwnerV31323,q.sourceId,q.ownerId];return(s.enemies??[]).find(a=>(a.boss||a.midboss)&&a.hp>0&&ids.includes(a.id));}
  function scale(s,a,q){const D=root.__HAPIL_BULLET_BALANCE_RC210__;if(!D?.eligible(a,q)||q.rc220HalfSize)return false;D.prepare(s,a,q);const b=q.rc210BulletBaseline;if(!b)return false;q.rc210BulletBaseline=Object.freeze({...b,factor:b.factor*.5});for(const k of ['radius','hitRadius','collisionRadius','bodyRadius'])if(Number.isFinite(b[k]))q[k]=b[k]*b.factor*.5;q.rc220HalfSize=true;counters.scaled++;return true;}
- function prepareFrame(s){if(!s||!(s.hp>0))return;const D=root.__HAPIL_BULLET_BALANCE_RC210__,copies=[];
+ function syncCopies(s){const packets=s.hostileProjectiles??[],parents=new Map(packets.filter(q=>!q.rc220DensityCopy).map(q=>[q.id,q]));for(const q of packets){if(!q.rc220AwaitParent)continue;if(q.bodySpawned31219===true){q.rc220AwaitParent=false;continue;}const p=parents.get(q.rc220ParentId);if(!p||p.cancelled||p.projectileRemovalReason31215){q.cancelled=true;q.rc220AwaitParent=false;continue;}
+   for(const key of ['x','y','originX','originY','previousX','previousY','bodySpawned31219','frozenUntil','motionReleaseAt31219','collisionDisabledUntil31219','collisionDisabledUntilV31226','telegraphUntil31210','cosmicReleaseV31318','bossCastResolveAt31210','interruptProtectedUntil31210'])if(p[key]!==undefined)q[key]=p[key];
+   const angle=Math.atan2(p.vy,p.vx)+q.rc220AngleOffset,speed=Math.hypot(p.vx,p.vy);q.vx=Math.cos(angle)*speed;q.vy=Math.sin(angle)*speed;q.rc153ScatterAngle=q.danmakuAngleV31316=q.cosmicAngleV31318=angle;if(p.bodySpawned31219===true)q.rc220AwaitParent=false;
+  }}
+ function prepareFrame(s){if(!s||!(s.hp>0))return;syncCopies(s);const D=root.__HAPIL_BULLET_BALANCE_RC210__,copies=[];
   for(const q of s.hostileProjectiles??[]){if(q.cancelled||q.projectileRemovalReason31215)continue;const a=owner(s,q);if(!a||!D?.eligible(a,q))continue;scale(s,a,q);if(q.rc220DensityProcessed)continue;q.rc220DensityProcessed=true;
    // Preserve the authored safe corridor. A fan's extra lane turns outward.
    const aim=Number.isFinite(q.cosmicAimV31318)?q.cosmicAimV31318:Math.atan2(s.y-q.y,s.x-q.x),angle=Math.atan2(q.vy,q.vx),delta=Math.atan2(Math.sin(angle-aim),Math.cos(angle-aim)),side=q.rc129Plan?.side??(delta<0?-1:1),next=angle+side*.085,speed=Math.hypot(q.vx,q.vy);
-   const copy={...q,id:s.fxSerial++,rc220DensityCopy:true,rc220ParentId:q.id,vx:Math.cos(next)*speed,vy:Math.sin(next)*speed,rc153ScatterAngle:next,danmakuAngleV31316:next,cosmicAngleV31318:next};
+   const copy={...q,id:s.fxSerial++,rc220DensityCopy:true,rc220ParentId:q.id,rc220AwaitParent:q.bodySpawned31219===false,rc220AngleOffset:side*.085,vx:Math.cos(next)*speed,vy:Math.sin(next)*speed,rc153ScatterAngle:next,danmakuAngleV31316:next,cosmicAngleV31318:next};
    // Contact ownership must never be shared between two bodies.
-   for(const key of ['hitTargets','hitActors','contactTargets','rc133Hits'])if(q[key] instanceof Set)copy[key]=new Set(q[key]);
+   for(const key of ['hitTargets','hitActors','contactTargets','rc133Hits','coreContactsV31333']){if(q[key] instanceof Set)copy[key]=new Set(q[key]);else if(Array.isArray(q[key]))copy[key]=[...q[key]];}
    copies.push(copy);
   }(s.hostileProjectiles??=[]).push(...copies);counters.copies+=copies.length;rootDots(s);
  }

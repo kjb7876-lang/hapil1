@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "4972b86afee6d9b69f6fcbf2c355db84b8b6c162",
+  "baseTree": "95111caf4e14e8ef63ab79d94aa518611202cd5f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "c3f3e45cea3bc5123143f51e1f3517259346360cec5854f6814221e96b2ade4c",
+  "files": [
+    {
+      "file": "assets/rc210/memory-film.js",
+      "before": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "67551684789335db1d40734f4e328eab923f226b"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "sha256": "aae99b966b8a5cd7ae81ec6f41fc6a49f19ae937e9c70af1ddeae69fb053ed9e",
+        "gitBlob": "289c238e932eb4bad85cfcd7fd8caef53a07fcf8"
+      },
+      "reason": "assets/rc210/memory-film.js: Preserve delayed additional projectile launches and cancellation, and use the existing mobile-only orientation gate for memory animation."
+    },
+    {
+      "file": "assets/rc220/combat.js",
+      "before": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "gitBlob": "9eb9f7249f8fc3c49bd76b4cbf2a58b701d76758"
+      },
+      "after": {
+        "file": "assets/rc220/combat.js",
+        "mode": "100644",
+        "sha256": "d5e8296e3a8c27d5229b408c5a33f0719e3865e35f4b7e2a007e4af088e7ce85",
+        "gitBlob": "440dcbe5ba9be6e6408b3bf841184f12aa4fbb69"
+      },
+      "reason": "assets/rc220/combat.js: Preserve delayed additional projectile launches and cancellation, and use the existing mobile-only orientation gate for memory animation."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "d951d6bc5f8f12128ba2a8947c721b73393909c7"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "b8bb66364ed7cbf9cf492b2710d996c91cb3fa8f211accc9a67f1f150ec88841",
+        "gitBlob": "d44b0788f66f0dd4a4d4c4aa1fda9a833e3547ad"
+      },
+      "reason": "index.html: Preserve delayed additional projectile launches and cancellation, and use the existing mobile-only orientation gate for memory animation."
+    }
+  ],
+  "targetProtectedRowsSha256": "db3a4dec8c812a3006066278f51b1ebe0111df19f6d3a01a90550c123684b96e"
+}
