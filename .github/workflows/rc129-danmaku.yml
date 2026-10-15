@@ -49,13 +49,12 @@ jobs:
           git fetch --no-tags --depth=1 origin 257b920a470e0ee6a04e5a52d71157f66232682c
           R="$RUNNER_TEMP/rc129-runtime"
           npm install --prefix "$R" --no-save --package-lock=false playwright@1.55.1
-          node "$R/node_modules/playwright/cli.js" install --with-deps chromium > "$RUNNER_TEMP/rc129-results/browser-install.log" 2>&1
-          CHROMIUM=$(node -e 'console.log(require(process.argv[1]).chromium.executablePath())' "$R/node_modules/playwright")
-          sudo ln -sf "$CHROMIUM" /usr/bin/chromium
-          sudo mkdir -p /workspace/hapil-deliverables/RC119-body
-          sudo chown -R "$(id -u):$(id -g)" /workspace/hapil-deliverables
+          node "$R/node_modules/playwright/cli.js" install --with-deps chrome > "$RUNNER_TEMP/rc129-results/browser-install.log" 2>&1
+          CHROME="$(command -v google-chrome)"
+          test -x "$CHROME"
+          mkdir -p "$RUNNER_TEMP/rc129-results/release"
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$R/node_modules" >> "$GITHUB_ENV"
-          echo "HAPIL_CHROMIUM=$CHROMIUM" >> "$GITHUB_ENV"
+          echo "HAPIL_CHROMIUM=$CHROME" >> "$GITHUB_ENV"
           echo "HAPIL_RELEASE_OUTPUT=$RUNNER_TEMP/rc129-results/release" >> "$GITHUB_ENV"
       - name: Fail-fast actual native startup
         run: |

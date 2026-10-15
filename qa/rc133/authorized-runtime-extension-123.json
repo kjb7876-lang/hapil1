@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "f4af36238ef1b1c70d0e7ef68b5bddadba58364d",
+  "baseTree": "c35c0464ae7dad21c80aa6b35c1dbd63f9029263",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "2ab84e29ba1ad64b32b231c35fbb178e48feced8d1e89910a500807119dbc708",
+  "files": [
+    {
+      "file": "assets/rc210/memory-film.css",
+      "before": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "gitBlob": "0f942976ef7f555acf263fee0ca62bf0c2e66fbe"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.css",
+        "mode": "100644",
+        "sha256": "1b0155e2d75a8d773b1504e4e58d3e01ebbecc99b8c05d07ba1ecbf7792051d1",
+        "gitBlob": "8733a59768603d551ba2f9dbc48deec6d2148c2d"
+      },
+      "reason": "assets/rc210/memory-film.css: Keep all recorded narration words tied to their existing audio. Restore the approved source text and show the guardian-only red effect in the memory film caption while the fallen archangel visibly survives."
+    },
+    {
+      "file": "assets/rc210/memory-film.js",
+      "before": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "4155ac57fc6f4d19732cfddf831e1192d103aa45"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "sha256": "3423f2ba71936ea4eb097ca95f7f62c3da604d5587a5ff7e65c9a3ab9d16fd76",
+        "gitBlob": "942ca83b4953df1916f18b16bfb6b85c883c5c19"
+      },
+      "reason": "assets/rc210/memory-film.js: Keep all recorded narration words tied to their existing audio. Restore the approved source text and show the guardian-only red effect in the memory film caption while the fallen archangel visibly survives."
+    },
+    {
+      "file": "data/story-rc51.js",
+      "before": {
+        "file": "data/story-rc51.js",
+        "mode": "100644",
+        "gitBlob": "b5045f7add4c02503ace0095bbb493c2a58a983e"
+      },
+      "after": {
+        "file": "data/story-rc51.js",
+        "mode": "100644",
+        "sha256": "a358f8ea6c415d3e975ab682a07105fe671cbdd1d89fc83a430a8a9413221202",
+        "gitBlob": "b665f36e3420233287811edf4e235d4f863265a6"
+      },
+      "reason": "data/story-rc51.js: Keep all recorded narration words tied to their existing audio. Restore the approved source text and show the guardian-only red effect in the memory film caption while the fallen archangel visibly survives."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "2cc0116ffc4d7d775085a390e3c55d2a3fad8544"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "676de6a70d45e0fc6c9d01e49527f69e709a9b7fe652a5094ed13cdd3b3afebb",
+        "gitBlob": "a8f52879809423e6ba3021c27a46a25dc2ed9bab"
+      },
+      "reason": "index.html: Keep all recorded narration words tied to their existing audio. Restore the approved source text and show the guardian-only red effect in the memory film caption while the fallen archangel visibly survives."
+    }
+  ],
+  "targetProtectedRowsSha256": "320403e0c73903095ac9cd49f6224e39ac8fd1ba9cb64060292c6cd9f2a69cda"
+}
