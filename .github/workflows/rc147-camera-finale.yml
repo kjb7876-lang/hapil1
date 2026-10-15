@@ -134,6 +134,18 @@ jobs:
             HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc147-legacy" node tests/rc128-candidate.cjs
           fi
           test -z "$(git status --porcelain)"
+      - name: Diagnose portrait rendering with CPU and canvas samples
+        if: ${{ always() && matrix.profile == 'portrait' }}
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          RC142_PROFILE: portrait
+          RC142_CPU_PROFILE: '1'
+          RC142_CANVAS_PROBE: '1'
+          RC142_SEED: '132148'
+          RC142_MOBILE_CPU: '4'
+        run: |
+          set -euo pipefail
+          HAPIL_QA_OUTPUT="$RUNNER_TEMP/rc217-render-diagnostic" node tests/rc142-persona-volley-browser.cjs
       - uses: actions/upload-artifact@v7
         if: always()
         with:
