@@ -32,11 +32,14 @@
     const native=()=>env.__HAPIL_RC222_NATIVE__??{};
     const contexts=new WeakMap(), incoming=new Map(), held=new Set(), inputEdges=[];let interpolation=[],buffAdapter=null;
     let room=null, currentRole='offline', epoch=0, wireSeq=-1, nativeSeq=0, transaction=null, capture=null, attached=false, localAuto='manual', inputSeq=0, hostZone=null,rosterSignature='',narrative=null,narrativeKey='',localWorldRef=null,nativeStarted=false,nativeGameObserved=false;
-    const stats={nativeSteps:0,nativeCasts:0,ownedHits:0,rejected:0,snapshots:0,transitions:0,faults:[]};
+    const stats={nativeSteps:0,nativeCasts:0,ownedHits:0,rejected:0,snapshots:0,transitions:0,nativeActorEntries:0,skippedSteps:{},rejectionReasons:{},inputAccepted:0,inputBySlot:Object.create(null),actorSteps:Object.create(null),contextRejected:{},faults:[]};
     const portrait=()=>env.matchMedia?.('(pointer:coarse)')?.matches===true&&num(env.innerHeight)>num(env.innerWidth);
     const status=()=>{if(nativeStarted&&binding()?.phase==='game')nativeGameObserved=true;const ended=room?.isHost===true&&nativeStarted&&nativeGameObserved&&binding()?.phase!=='game',nativePaused=currentRole==='host'&&(nativeStarted&&binding()?.phase!=='game'||native().paused?.()===true||!!binding()?.modal?.current||binding()?.blocked?.()===true),remotePaused=room?.isHost!==true&&(room?.hostPaused===true||room?.hostHidden===true);return {version:VERSION,ready:!!getParty()?.state,paused:currentRole==='disconnected'||room?.stale===true||remotePaused||nativePaused||portrait(),nativePaused,ended,nativeStarted,portrait:portrait(),role:currentRole,zone:getParty()?.state?.zone??null,epoch,autoMode:localAuto,slotId:room?.slotId??'p1',inActorTransaction:!!transaction};};
     const fault=(error,stage,slotId)=>{stats.faults.push({stage,slotId,message:String(error?.stack??error).slice(0,1200)});stats.faults=stats.faults.slice(-8);};
     const authority=()=>attached&&currentRole==='host'&&!status().paused;
+    const authorityDiagnostic=()=>{const s=status(),b=binding();return {attached,role:currentRole,paused:s.paused,nativePaused:s.nativePaused,phase:b?.phase,nativeStarted,modal:!!b?.modal?.current,blocked:b?.blocked?.()===true,bridgePaused:native().paused?.()===true,stale:room?.stale===true,roomHost:room?.isHost===true,portrait:s.portrait,hidden:env.document?.hidden===true};};
+    const rejected=(reason,detail)=>{stats.rejected++;stats.rejectionReasons[reason]=(stats.rejectionReasons[reason]??0)+1;stats.lastRejection={reason,...detail};return false;};
+    const contextRejected=reason=>{stats.contextRejected[reason]=(stats.contextRejected[reason]??0)+1;stats.lastContextRejection={reason,...authorityDiagnostic()};return false;};
     function actorContext(world,actor) {
       let ctx=contexts.get(actor);
       if(ctx&&ctx.world===world&&ctx.hero===actor.heroId)return ctx;
@@ -57,16 +60,20 @@
       contexts.set(actor,ctx);return ctx;
     }
     function tagOwners(world,actor,before) {
-      for(const key of ['pendingStrikes','resonanceThreads','effects','hostileProjectiles','pendingSpawns'])for(const row of world[key]??[])if(row&&typeof row==='object'&&!before[key]?.has(row)){
+      for(const key of ['pendingStrikes','resonanceThreads','effects','hostileProjectiles','pendingSpawns'])for(const row of world[key]??[])if(row&&typeof row==='object'){
+        const previous=key==='hostileProjectiles'?before.projectileAllegiances?.get(row):null,converted=!!previous&&(!previous.reflected&&row.reflected===true||!previous.friendly&&row.friendly===true);
+        if(before[key]?.has(row)&&!converted)continue;
         const hostileOwner=(world.enemies??[]).some(e=>e.id===row.sourceId||e.id===row.ownerId),eligible=key==='pendingStrikes'||key==='resonanceThreads'||row.friendly||row.reflected||(!hostileOwner&&!row.hostile&&!row.enemyAttackV31323);
-        if(eligible){row.partySlotV31322=actor.slotId;row.nativeActorRC222=true;row.heroId??=actor.heroId;}
+        if(eligible){row.partySlotV31322=actor.slotId;row.nativeActorRC222=true;if(converted){row.heroId=actor.heroId;row.sourceHeroId=actor.heroId;row.impactHeroIdV31315=actor.heroId;}else row.heroId??=actor.heroId;}
       }
       for(const key of ['pendingHits','impactQueue'])for(const row of world[key]??[])if(row&&!before[key]?.has(row)&&row.rootTargetRC220==='__host')row.rootTargetRC220=actor.slotId;
       const call=actor.supportCall;if(call){call.partySlotV31322=actor.slotId;call.nativeActorRC222=true;}
     }
     function withActor(world,actor,fn) {
-      if(!authority()||getParty()?.state!==world||!actor||!HEROES.includes(actor.heroId))return false;
-      const b=binding();if(!b?.state||!b.hero||!b.input||!b.settings||!b.actions)return false;
+      if(!authority())return contextRejected('authority');
+      if(getParty()?.state!==world)return contextRejected('canonical-world-mismatch');
+      if(!actor||!HEROES.includes(actor.heroId))return contextRejected('actor');
+      const b=binding();if(!b?.state||!b.hero||!b.input||!b.settings||!b.actions)return contextRejected('binding');
       const buffs=env.__HAPIL_PARTY_BUFFS_V31322__;
       if(buffs&&buffs!==buffAdapter){const original=buffs;buffAdapter=Object.freeze({...buffs,providers:s=>original.providers(s?.rc222CanonicalWorld??s),power:(s,target,critical,source)=>original.power(s?.rc222CanonicalWorld??s,target,critical,source??(s?.rc222ActorSlot?{heroId:s.activeHeroId,partySlotV31322:s.rc222ActorSlot}:source))});env.__HAPIL_PARTY_BUFFS_V31322__=buffAdapter;}
       const ctx=actorContext(world,actor);
@@ -75,6 +82,7 @@
       const controller=controls(),heldReader=controller.hasHeldLogical,effectiveReader=controller.effective;
       const prior=transaction,before={};
       for(const key of ['pendingStrikes','resonanceThreads','effects','hostileProjectiles','pendingSpawns','pendingHits','impactQueue'])before[key]=new Set(world[key]??[]);
+      before.projectileAllegiances=new Map((world.hostileProjectiles??[]).map(q=>[q,{reflected:q?.reflected===true,friendly:q?.friendly===true}]));
       transaction={world,actor,view:ctx.view};
       try {
         b.state.current=ctx.view;b.hero.current=actor.heroId;b.input.current=ctx.input;
@@ -100,9 +108,12 @@
       return {seq:raw.seq,moveX:clamp(raw.moveX),moveY:clamp(raw.moveY),aimX:num(raw.aimX),aimY:num(raw.aimY),actions:[...new Set(names.filter(k=>ACTIONS.has(k)))],guardHeld:raw.guardHeld===true||names.includes('guard'),attackHeld:raw.attackHeld===true||names.includes('attack'),attackReleased:raw.attackReleased===true,combatMode:['manual','semi','full'].includes(raw.combatMode)?raw.combatMode:typeof raw.autoMode==='boolean'?(raw.autoMode?'full':'manual'):null};
     }
     function input(slotId,raw={}) {
-      if(!authority()||!getParty()?.roster?.some(r=>r.slotId===slotId&&r.control==='remote')||!Number.isSafeInteger(raw.seq)||raw.seq<0){stats.rejected++;return false;}
-      const old=incoming.get(slotId);if(old&&raw.seq<=old.seq){stats.rejected++;return false;}
-      const v=normalizeInput(raw);v.actions=[...new Set([...(old?.edges??[]),...v.actions])];v.edges=v.actions;v.received=(env.performance?.now?.()??Date.now());incoming.set(slotId,v);return true;
+      const receipt=stats.inputBySlot[slotId]??={received:0,accepted:0};receipt.received++;receipt.lastSeq=raw.seq;receipt.lastActions=Array.isArray(raw.actions)?[...raw.actions]:Object.keys(raw.actions??{});receipt.lastAt=env.performance?.now?.()??Date.now();
+      if(!authority())return rejected('input-authority',{slotId,seq:raw.seq,authority:authorityDiagnostic()});
+      if(!getParty()?.roster?.some(r=>r.slotId===slotId&&r.control==='remote'))return rejected('input-slot',{slotId,seq:raw.seq,roster:(getParty()?.roster??[]).map(r=>({slotId:r.slotId,control:r.control}))});
+      if(!Number.isSafeInteger(raw.seq)||raw.seq<0)return rejected('input-sequence',{slotId,seq:raw.seq});
+      const old=incoming.get(slotId);if(old&&raw.seq<=old.seq)return rejected('input-stale-sequence',{slotId,seq:raw.seq,previous:old.seq});
+      const v=normalizeInput(raw);v.actions=[...new Set([...(old?.edges??[]),...v.actions])];v.edges=v.actions;v.received=(env.performance?.now?.()??Date.now());incoming.set(slotId,v);stats.inputAccepted++;receipt.accepted++;receipt.lastAcceptedSeq=raw.seq;return true;
     }
     function move(view,actor,wire,dt) {
       if(typeof native().moveActor==='function')return native().moveActor(view,actor,wire,dt);
@@ -120,12 +131,14 @@
     }
     function stepActor(world,actor,_legacyInput,dt,index,rawHeroDelta=dt,rawElapsed=rawHeroDelta) {
       if(!attached||actor?.control!=='remote')return false;
-      if(!authority())return true;
+      stats.nativeActorEntries++;
+      if(!authority()){const state=authorityDiagnostic(),reason=state.nativePaused?'native-paused':state.role!=='host'?'role':state.portrait?'portrait':'authority';stats.skippedSteps[reason]=(stats.skippedSteps[reason]??0)+1;stats.lastSkippedStep={slotId:actor.slotId,...state};return true;}
       const raw=incoming.get(actor.slotId),fresh=raw&&(env.performance?.now?.()??Date.now())-raw.received<800;
       const wire=fresh?{...raw,actions:[...raw.edges]}:{moveX:0,moveY:0,actions:[],attackHeld:false,guardHeld:false};
       if(raw)raw.edges=[];
       try {
         withActor(world,actor,(view,ctx,b)=>{
+          const diagnostic=stats.actorSteps[actor.slotId]??={entries:0,basicAttempts:0,basicCommits:0};diagnostic.entries++;Object.assign(diagnostic,{seq:raw?.seq,fresh:!!fresh,attackHeld:wire.attackHeld===true,guardHeld:wire.guardHeld===true,actions:[...wire.actions],worldTime:world.time,dt,rawHeroDelta,rawElapsed,bindingPhase:b.phase,bindingWorldMatches:b.state.current===view,nativeInputBlocked:getParty()?.blocksNativeInput?.()===true,buffered:!!view.bufferedAction,hp:actor.hp});
           if(ctx.zone!==world.zone){ctx.zone=world.zone;ctx.input.clear();ctx.lastAttackHeld=false;env.__HAPIL_LOOP_V31365__?.cancelCharge(view,'map-transition');}
           if(wire.combatMode)ctx.auto=wire.combatMode;actor.rc222CombatMode=ctx.auto;b.settings.current.combatMode=ctx.auto;b.settings.current.autoCombat=ctx.auto==='full';if(b.auto)b.auto.current=ctx.auto==='full';
           view.combatModeV31329=ctx.auto;ctx.input.clear();
@@ -155,7 +168,7 @@
           if(actions.has('chargeRelease')||wire.attackReleased||!wire.attackHeld&&ctx.lastAttackHeld)loop?.releaseA(view);
           ctx.lastAttackHeld=wire.attackHeld;
           env.__HAPIL_SIMPLE_V31368__?.tick(view,rawHeroDelta);
-          controls()?.tickBasic?.(view,rawHeroDelta,{...b,paused:false});
+          const beforeBasic=num(actor.basicAttackCount);diagnostic.basicAttempts++;diagnostic.basicResult=controls()?.tickBasic?.(view,rawHeroDelta,{...b,paused:false});diagnostic.basicCommits+=Math.max(0,num(actor.basicAttackCount)-beforeBasic);Object.assign(diagnostic,{mode:ctx.auto,basicAttackCount:actor.basicAttackCount,lastAttack:actor.lastAttack,manualUntil:view.manualControlUntilV31329,motion:actor.heroMotion?.kind,motionUntil:actor.heroMotion?.until,targetId:view.targetEnemyId,nearest:(world.enemies??[]).filter(a=>a.hp>0).map(a=>({id:a.id,distance:Math.hypot(a.x-actor.x,a.y-actor.y),invulnerableUntil:a.invulnerableUntil,phaseTransition:!!a.phaseTransitionActive,targetable:a.targetable})).sort((a,b)=>a.distance-b.distance).slice(0,1)});
           stats.nativeSteps++;
         });
       }catch(error){fault(error,'native-actor-step',actor.slotId);releaseInputs('native-actor-fault',actor.slotId);}
@@ -169,7 +182,7 @@
       stats.ownedHits++;return withActor(world,actor,view=>callback(view));
     }
     function ownsActor(world,actor){return attached&&getParty()?.state===world&&actor?.control==='remote'&&getParty()?.actors?.includes(actor);}
-    function parryActor(world,q,actor,verified=true){if(!ownsActor(world,actor))return undefined;return withActor(world,actor,view=>{const result=env.__HAPIL_CHANNEL_V31364__?.tryParry(view,q,view,verified)??false;if(result)q.parriedByV31356=actor.slotId;return result;});}
+    function parryActor(world,q,actor,verified=true){if(!ownsActor(world,actor))return undefined;return withActor(world,actor,view=>{const hostSeen=q.coreContactsV31333?.includes('__host')===true,result=env.__HAPIL_CHANNEL_V31364__?.tryParry(view,q,view,verified)??false;if(result){q.parriedByV31356=actor.slotId;const contacts=q.coreContactsV31333??[];q.coreContactsV31333=[...new Set([...contacts.map(k=>!hostSeen&&k==='__host'?actor.slotId:k),actor.slotId])].slice(0,8);}return result;});}
     function blockActorDamage(world,actor,source,damage){if(!ownsActor(world,actor))return undefined;return withActor(world,actor,view=>env.__HAPIL_CHANNEL_V31364__?.blockDamage(view,view,source,damage)??false);}
     function incomingActor(world,actor,damage,source={}){
       if(!ownsActor(world,actor))return undefined;

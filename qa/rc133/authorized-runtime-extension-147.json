@@ -83,8 +83,8 @@
       "after": {
         "file": "assets/rc222/runtime.js",
         "mode": "100644",
-        "sha256": "6ef45e725b390a52d21ea2a0e2be119dd665c8fbeb632567f4f1c758f43e1105",
-        "gitBlob": "4fe878eda45dc687abcc0d7ef8a870814baf74d7"
+        "sha256": "51cfa5e6ab6825b1485ed967105428cab27394eedae4ac97fc7394bd438441e1",
+        "gitBlob": "3b3e498a39d43f50145d273f462dc5643a7df07e"
       },
       "reason": "assets/rc222/runtime.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     },
@@ -141,5 +141,5 @@
       "reason": "index.html: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     }
   ],
-  "targetProtectedRowsSha256": "c937f71a92d57181ecc5249ba758ec8e9aa585d7087e0663bfce1420b0de6935"
+  "targetProtectedRowsSha256": "8e0caedbc3fbdaaa30398b1f6f3060746a5708e1d74c36fd18e247b152b7df71"
 }

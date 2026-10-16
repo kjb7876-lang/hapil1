@@ -78,12 +78,13 @@ test('actual native held-D module retains facade session across collision transa
   for(const file of ['assets/controller-v31406/action-contract.js','assets/controller-v31406/resonance-channel.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
   e.__HAPIL_COMBAT_CORE_V31401__={credit:(s,a,h,fn)=>fn(),resource(){},convert:(s,a,fn)=>fn(),ego(){}};
   e.__HAPIL_LOOP_V31365__={cancelCharge(){},heal:(s,a,hp)=>{a.hp=Math.min(a.maxHp,a.hp+hp);},blockReward(){}};
-  const functions={F:[{id:'hwando'},{id:'seoha'}],HAPIL_effectiveGrowthV31400:v=>v,HAPIL_projectileVisibleV31355:()=>true,MONGSE_isEncounterLocked31226:()=>false,MONGSE_recordProjectileRemoval31215:(s,q)=>{q.removed=true;},hi:()=>{},sr:()=>({duration:7.2,cooldown:5,profile:{name:'native'}})};
+  const functions={F:[{id:'hwando'},{id:'seoha'},{id:'neon'}],HAPIL_effectiveGrowthV31400:v=>v,HAPIL_projectileVisibleV31355:()=>true,MONGSE_isEncounterLocked31226:()=>false,MONGSE_recordProjectileRemoval31215:(s,q)=>{q.removed=true;},hi:()=>{},sr:()=>({duration:7.2,cooldown:5,profile:{name:'native'}})};
   const native={};for(const [key,value]of Object.entries(functions))Object.defineProperty(native,key,{get:()=>value});
   e.__HAPIL_CHANNEL_FACTORY_V31406__.install(native);
   f.rt.input('p2',{seq:1,actions:['guard']});f.rt.stepActor(f.world,f.actor,null,.02,0);
   const q={id:77,born:10,x:7,y:7,damage:20};assert.equal(f.rt.parryActor(f.world,q,f.actor,true),true);assert.equal(q.parriedByV31356,'p2');assert.equal(f.actor.resonance,12);assert.equal(f.world.resonance,15);assert.equal(q.removed,true);
-  assert.equal(f.rt.parryActor(f.world,q,f.actor,true),false);assert.equal(f.actor.resonance,12);
+  assert.deepEqual(q.coreContactsV31333,['p2']);assert.equal(f.rt.parryActor(f.world,q,f.actor,true),false);assert.equal(f.actor.resonance,12);
+  const other={slotId:'p3',heroId:'neon',control:'remote',x:8,y:8,hp:200,maxHp:240};f.p.actors.push(other);f.p.roster.push(other);f.rt.input('p3',{seq:1,actions:['guard']});f.rt.stepActor(f.world,other,null,.02,1);assert.equal(f.rt.parryActor(f.world,q,other,true),false);assert.equal(other.resonance,0);const ownQ={id:78,born:10,x:8,y:8,damage:20,coreContactsV31333:['__host']};assert.equal(f.rt.parryActor(f.world,ownQ,other,true),true);assert.equal(ownQ.parriedByV31356,'p3');assert.deepEqual(ownQ.coreContactsV31333,['__host','p3']);assert.equal(other.resonance,12);assert.equal(f.world.resonance,15);
 });
 test('actual native deferred damage ticks only owning facade across frames',()=>{
   const f=fixture();vm.runInNewContext(fs.readFileSync('assets/rc210/deferred-damage.js','utf8'),{window:f.env});
@@ -153,5 +154,18 @@ test('host native title exit is ended only after observing a launched game',asyn
 });
 test('failed local restore keeps authority disconnected and surfaces the storage error',()=>{
   const f=fixture();f.env.__HAPIL_COOP_STORAGE_RC222__={configure(){},leave:()=>({ok:false,reason:'restore-failed'})};assert.throws(()=>f.rt.leave(),/restore-failed/);assert.equal(f.rt.status().role,'disconnected');assert.equal(f.rt.withActor(f.world,f.actor,()=>{throw Error('must not run');}),false);
+});
+test('in-place friendly or reflected conversion assigns existing packet to the converting hero',()=>{
+  const f=fixture(),q={id:1,sourceId:'boss',ownerId:'boss',heroId:'enemy-art',reflected:false,friendly:false};f.world.hostileProjectiles.push(q);f.rt.withActor(f.world,f.actor,()=>{q.reflected=true;});assert.equal(q.partySlotV31322,'p2');assert.equal(q.nativeActorRC222,true);assert.equal(q.heroId,'seoha');assert.equal(q.sourceHeroId,'seoha');assert.equal(q.impactHeroIdV31315,'seoha');assert.equal(q.sourceId,'boss');assert.equal(q.ownerId,'boss');
+  const second={slotId:'p3',heroId:'neon',control:'remote',x:8,y:8,hp:200,maxHp:240};f.p.actors.push(second);f.rt.withActor(f.world,second,()=>{q.x=9;});assert.equal(q.partySlotV31322,'p2');assert.equal(q.heroId,'seoha');
+  const friendly={id:2,sourceId:'boss',friendly:false};f.world.hostileProjectiles.push(friendly);f.rt.withActor(f.world,second,()=>{friendly.friendly=true;});assert.equal(friendly.partySlotV31322,'p3');assert.equal(friendly.heroId,'neon');
+  f.rt.resolveOutgoing(f.world,q,view=>{view.resonance+=7;});assert.equal(f.actor.resonance,7);assert.equal(f.world.resonance,15);
+});
+test('native deflection and Dream wall reflection retain hostile allegiance',()=>{
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),start=source.indexOf('function MONGSE_deflectHostileProjectile31211('),end=source.indexOf('\nfunction MONGSE_shouldSkillDelayProjectile31214(',start);let delayed=0;const sandbox={MONGSE_TEMPORAL_LAG_V31214:{fieldDuration:.5},MONGSE_delayHostileProjectile31214:(s,q,options)=>{delayed++;q.frozenUntil=s.time+options.duration;return true;}};vm.runInNewContext(source.slice(start,end),sandbox);const q={reflected:false,sourceId:'boss'},s={time:10};assert.equal(sandbox.MONGSE_deflectHostileProjectile31211(s,q),true);assert.equal(delayed,1);assert.equal(q.reflected,false);assert.equal(q.friendly,undefined);
+  const reflect=source.slice(source.indexOf(' function reflect(s,p){'),source.indexOf(' const TRIAL_ZONES=',source.indexOf(' function reflect(s,p){')));assert.ok(reflect.includes('dreamReflectionCountV31346'));assert.ok(!/\.reflected\s*=|\.friendly\s*=/.test(reflect));
+});
+test('diagnostic input reasons distinguish authority slot and duplicate sequence without accepting them',()=>{
+  const f=fixture();assert.equal(f.rt.input('p1',{seq:1,actions:['attack']}),false);assert.equal(f.rt.input('p2',{seq:1,actions:['attack']}),true);assert.equal(f.rt.input('p2',{seq:1,actions:['attack']}),false);f.rt.role('guest');assert.equal(f.rt.input('p2',{seq:2,actions:['attack']}),false);const t=f.rt.telemetry();assert.equal(t.inputAccepted,1);assert.equal(t.inputBySlot.p2.received,3);assert.equal(t.inputBySlot.p2.accepted,1);assert.equal(t.rejectionReasons['input-slot'],1);assert.equal(t.rejectionReasons['input-stale-sequence'],1);assert.equal(t.rejectionReasons['input-authority'],1);assert.equal(t.lastRejection.authority.role,'guest');
 });
 (async()=>{for(const [name,fn]of tests){await fn();process.stdout.write('ok '+name+'\n');}process.stdout.write(JSON.stringify({ok:true,suite:'rc222-runtime-unit',tests:tests.length})+'\n');})().catch(error=>{console.error(error);process.exitCode=1;});
