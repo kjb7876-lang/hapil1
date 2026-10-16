@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "base": "fd9728958b23cdd271d6d1bf6078f0e54184165a",
+  "baseTree": "d47073fca0ca512e227838abdb4d2a1d38d14d0d",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "c4afd2b179d0e932729bfe71d04a949c2adcff218a4eb0fa2416aa318fe404d5",
+  "files": [
+    {
+      "file": "assets/combat-v31412/outgoing-native.js",
+      "before": {
+        "file": "assets/combat-v31412/outgoing-native.js",
+        "mode": "100644",
+        "gitBlob": "42946f472c1df0108870ef8429e001fe6aea7b9b"
+      },
+      "after": {
+        "file": "assets/combat-v31412/outgoing-native.js",
+        "mode": "100644",
+        "sha256": "6efb0f1d113d9d82dd2adf10f344dd320544f839fa89eaed6aaced464f885928",
+        "gitBlob": "d6be4aa1d16bfc3508b97202a2573ec81122aeff"
+      },
+      "reason": "assets/combat-v31412/outgoing-native.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "29eea70c07572b87ca9a0954b94316f51cdff246"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "8cdb72bb66096edf47bb9f99474d8d6db423249f610452a802167eddbe3aefc9",
+        "gitBlob": "3c9467db563ac8ddf99a1cd8bb3253073e1d56c5"
+      },
+      "reason": "assets/index-v31526.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/pattern-codex-v31410.js",
+      "before": {
+        "file": "assets/pattern-codex-v31410.js",
+        "mode": "100644",
+        "gitBlob": "e97604a1c848956dd5fa10060ba763a8a6a5c628"
+      },
+      "after": {
+        "file": "assets/pattern-codex-v31410.js",
+        "mode": "100644",
+        "sha256": "95f76b13d49dde7dc87c1b89346ae372d5a891cdd42744294079bbc7b051c990",
+        "gitBlob": "a2bd84c14a732568de2e09a55010d012dd784c04"
+      },
+      "reason": "assets/pattern-codex-v31410.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/rc222/coop.css",
+      "before": null,
+      "after": {
+        "file": "assets/rc222/coop.css",
+        "mode": "100644",
+        "sha256": "607c63b49f6e917f3dc5aac593f76fa5d2a9278f065273653ceeedd30a912af0",
+        "gitBlob": "37c7f9bb05e38707b09662dfc18f92fff6f660e9"
+      },
+      "reason": "assets/rc222/coop.css: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/rc222/lobby.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc222/lobby.js",
+        "mode": "100644",
+        "sha256": "4c9bf44af93f5deea42b13aab553c79ce1201db94c9e118ea4dafec13e596338",
+        "gitBlob": "83ab8f195a4c77e2efd15402061ea8831c7131d4"
+      },
+      "reason": "assets/rc222/lobby.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/rc222/runtime.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc222/runtime.js",
+        "mode": "100644",
+        "sha256": "12059681a8ad97b7d66fe26ef0f4d120dbd5e7707ac6939eed32a1fb82ab480c",
+        "gitBlob": "4c1bc57f568649cc023517de625384196eb97156"
+      },
+      "reason": "assets/rc222/runtime.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/rc222/storage.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc222/storage.js",
+        "mode": "100644",
+        "sha256": "2268e89d86e10d8e419800c9009e59b34a13263dea7d78b79133885d6b8ed723",
+        "gitBlob": "fff2d0cc0515020e88fae1a69b42908fa540750a"
+      },
+      "reason": "assets/rc222/storage.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/rc222/transport.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc222/transport.js",
+        "mode": "100644",
+        "sha256": "dadade95e92d6553125e448aa8be85d34f81a03cd20240f3065c20fa91eff89f",
+        "gitBlob": "8b830dbdff7d9be7723ad91245a8520bb8accc94"
+      },
+      "reason": "assets/rc222/transport.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "assets/rc91/samong-awakening.js",
+      "before": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "gitBlob": "4d34011831481565dc8ebf376b40ad9d35e673db"
+      },
+      "after": {
+        "file": "assets/rc91/samong-awakening.js",
+        "mode": "100644",
+        "sha256": "e5645526508b38e4032e4fce3d234676fd9d4485133e101a36756ff46923ec6e",
+        "gitBlob": "22eff24687df90e56aec623f544ba193ed9b0f94"
+      },
+      "reason": "assets/rc91/samong-awakening.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8afedaca750e9278338ca21569c1b5e171e47b05"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "a4fbdc61321bb90ff4ff320224cdb53bf515aa3696b1bd0f38bcf8429a2bb0d6",
+        "gitBlob": "9eded09fa7729bd78457a480a542d503ba03c08d"
+      },
+      "reason": "index.html: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
+    }
+  ],
+  "targetProtectedRowsSha256": "188588b28388c73e4a012b282b69420cb0648c16ff0f752b03514eb4c86a2731"
+}

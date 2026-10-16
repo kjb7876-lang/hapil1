@@ -3,9 +3,11 @@
  const VERSION='3.14.10-dev',KEY='hapil.pattern-codex.v1';let old=null,installed=false,overlay=null;
  const num=(x,d=0)=>typeof x==='number'&&Number.isFinite(x)?x:d;
  const C=()=>window.__HAPIL_CONTROLS_V31329__,B=()=>window.__HAPIL_PATTERN_CODEX_BRIDGE_V31410__;
+ const storage=()=>window.__HAPIL_COOP_STORAGE_RC222__?.area('localStorage')??localStorage;
  let data={version:1,records:{}};
- function reload(){try{const x=JSON.parse(localStorage.getItem(KEY)??'null');if(x?.version===1&&x.records&&typeof x.records==='object')data={version:1,records:Object.fromEntries(Object.entries(x.records).filter(([k,v])=>k!=='__proto__'&&v&&typeof v==='object').slice(0,2000))};}catch{}return records();}
- function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true;}catch{return false;}}
+ function restoreRecords(value){data={version:1,records:{}};if(value?.version===1&&value.records&&typeof value.records==='object'&&!Array.isArray(value.records))data.records=Object.fromEntries(Object.entries(value.records).filter(([k,v])=>!['__proto__','constructor','prototype'].includes(k)&&v&&typeof v==='object'&&!Array.isArray(v)).slice(0,2000).map(([k,v])=>[k,JSON.parse(JSON.stringify(v))]));return records();}
+ function reload(){let value=null;try{value=JSON.parse(storage().getItem(KEY)??'null');}catch{}return restoreRecords(value);}
+ function save(){try{return storage().setItem(KEY,JSON.stringify(data))!==false;}catch{return false;}}
  function records(){return JSON.parse(JSON.stringify(data));}
  function nativeRows(){return window.__HAPIL_THEME_V31323__?.debug?.rankedRows?.()??[];}
  function rowFor(id){return nativeRows().find(r=>r.actor.id===id);}
@@ -92,7 +94,7 @@
    onDeath:(s,a)=>onDeath(s,a)||old.onDeath(s,a),onHurt:(s,loss)=>{onHurt(s,loss);old.onHurt(s,loss);},
    onGraze:s=>{onGraze(s);old.onGraze(s);},onBlock:s=>{onBlock(s);old.onBlock(s);},tick:(s,dt)=>{old.tick(s,dt);tick(s);}
   });
-  window.__HAPIL_PATTERN_CODEX_V31410__=Object.freeze({version:VERSION,installed:true,key:KEY,open,close,start,entries,records,reload,save,tick,complete,onDeath,resolve});
+  window.__HAPIL_PATTERN_CODEX_V31410__=Object.freeze({version:VERSION,installed:true,key:KEY,open,close,start,entries,records,reload,restoreRecords,save,tick,complete,onDeath,resolve});
   document.addEventListener('keydown',e=>{if(overlay&&e.code==='Escape'){e.preventDefault();e.stopImmediatePropagation();close();}},true);
   installed=true;return true;
  }

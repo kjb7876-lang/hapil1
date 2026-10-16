@@ -1,0 +1,61 @@
+/* RC222 online lobby, scoped to preserve native solo/local screens. */
+#rc222-menu {display:contents}
+#rc222-menu button {min-height:44px}
+#rc222-backdrop[hidden],#rc222-lobby [hidden],#rc222-session[hidden] {display:none!important}
+#rc222-backdrop {position:fixed;inset:0;z-index:9800;display:grid;place-items:center;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(2,5,13,.86);backdrop-filter:blur(8px)}
+#rc222-lobby {box-sizing:border-box;width:min(620px,100%);max-height:calc(100dvh - 32px);overflow:auto;overscroll-behavior:contain;background:#101725;color:#edf4ff;border:1px solid #526680;border-radius:16px;padding:22px;box-shadow:0 16px 80px #000b;font:15px/1.5 system-ui,sans-serif;text-align:left}
+#rc222-lobby * {box-sizing:border-box}
+.rc222-header {display:flex;align-items:center;justify-content:space-between;gap:16px}
+#rc222-title {margin:0;color:#fff;font-size:24px}
+#rc222-lobby button,#rc222-lobby input,#rc222-lobby select {font:inherit}
+#rc222-lobby button {min-height:44px;border:1px solid #61748e;border-radius:8px;padding:9px 14px;color:#f1f6ff;background:#243249;cursor:pointer}
+#rc222-lobby button:hover:not(:disabled) {background:#354c6b}
+#rc222-lobby button:disabled {opacity:.5;cursor:default}
+#rc222-lobby :focus-visible,#rc222-session button:focus-visible {outline:3px solid #85e9dc;outline-offset:3px}
+#rc222-connect,#rc222-start {background:#6de1cb!important;color:#06221f!important;font-weight:700!important;border-color:#aaf8ea!important}
+.rc222-help {color:#b6c6d9;font-size:13px;line-height:1.6;white-space:normal;margin:10px 0}
+.rc222-tabs,.rc222-actions {display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.rc222-tabs button {flex:1}
+.rc222-tabs [aria-pressed=true] {border-color:#89e9de!important;background:#2b454c!important}
+.rc222-fields {display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rc222-field {display:flex;flex-direction:column;gap:5px;color:#dce7f5;font-size:13px;margin:8px 0}
+#rc222-lobby input,#rc222-lobby select {min-width:0;min-height:44px;width:100%;border:1px solid #60738e;border-radius:7px;padding:8px 10px;background:#0b111d;color:#fff}
+#rc222-lobby input::placeholder {color:#a5b5c9}
+#rc222-settings {margin:12px 0;padding:10px 12px;background:#0b121f;border:1px solid #34445d;border-radius:8px}
+#rc222-settings summary {cursor:pointer;min-height:28px;color:#c4d6ec}
+#rc222-room {border-top:1px solid #3c4e67;margin-top:14px;padding-top:12px}
+#rc222-room-code {font-size:23px;letter-spacing:.05em;margin:0}
+#rc222-roster {display:grid;grid-template-columns:1fr 1fr;list-style:none;margin:16px 0;padding:0;gap:8px}
+#rc222-roster li {display:flex;flex-direction:column;gap:5px;border:1px solid #41556e;border-radius:9px;padding:12px;min-height:78px;overflow-wrap:anywhere}
+#rc222-roster strong {font-size:14px}
+#rc222-roster span {font-size:12px;color:#b6d0e7}
+#rc222-roster .rc222-empty {border-style:dashed;opacity:.62}
+#rc222-status {min-height:24px;font-size:14px;color:#aaf1df;white-space:pre-wrap;overflow-wrap:anywhere}
+#rc222-status.rc222-error {color:#ffc2b5}
+#rc222-session {position:fixed;left:max(12px,env(safe-area-inset-left));top:max(10px,env(safe-area-inset-top));z-index:2500;display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:calc(100vw - 24px);pointer-events:none;color:#d1e5fa;text-shadow:0 1px 4px #000;font:12px/1.4 system-ui,sans-serif}
+#rc222-session button {pointer-events:auto;background:#101c2ce8;color:#d8f9f1;border:1px solid #6fa99f;border-radius:8px;padding:8px 12px;min-height:42px;font:inherit}
+#rc222-session-status {background:#08121cbb;padding:3px 7px;border-radius:5px}
+@media(max-width:480px) {#rc222-lobby {padding:16px;border-radius:12px;max-height:calc(100dvh - 24px)}.rc222-fields {grid-template-columns:1fr}#rc222-roster {gap:6px}#rc222-roster li {padding:9px}.rc222-actions button {flex:1 1 42%}#rc222-title {font-size:21px}}
+@media(prefers-reduced-motion:reduce) {#rc222-backdrop {backdrop-filter:none}}
+#rc222-checkpoints {border-top:1px solid #3c4e67;margin-top:16px;padding-top:8px}
+#rc222-save-list {overflow-wrap:anywhere}
+#rc222-touch {display:none;position:fixed;inset:0;pointer-events:none;z-index:2600}
+#rc222-touch[hidden] {display:none!important}
+#rc222-touch button {pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;min-width:44px;min-height:44px;border-radius:10px;border:1px solid #83b9c8;background:#102a3cdb;color:#effaff;text-shadow:0 1px 3px #000;font:bold 13px/1.2 system-ui,sans-serif;padding:8px}
+#rc222-touch button.rc222-held {background:#478b92;color:#fff;border-color:#c2fff1}
+.rc222-touch-move {position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(14px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:5px}
+#rc222-touch-ArrowUp {grid-column:2}
+#rc222-touch-ArrowLeft {grid-column:1;grid-row:2}
+#rc222-touch-ArrowDown {grid-column:2;grid-row:2}
+#rc222-touch-ArrowRight {grid-column:3;grid-row:2}
+.rc222-touch-actions {position:absolute;right:max(12px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,44px);gap:5px}
+#rc222-touch-KeyA {grid-column:4 / 6;min-height:48px!important;background:#17564fdd!important}
+@media(pointer:coarse) and (orientation:landscape) {#rc222-touch {display:block}body.rc222-guest .mobile-pad,body.rc222-guest .action-stack .skills {visibility:hidden!important;pointer-events:none!important}}
+#rc222-local-status {display:flex;flex-direction:column;gap:2px;pointer-events:auto;max-width:min(300px,calc(100vw - 24px));padding:8px 10px;background:#08121ce8;border:1px solid #47647c;border-radius:8px;color:#e2f2ff}
+#rc222-local-status[hidden] {display:none!important}
+#rc222-local-hero {color:#aaf2df}
+#rc222-local-cooldowns {font-size:11px;color:#c6dcf2}
+#rc222-local-status .rc222-field {flex-direction:row;align-items:center;gap:6px;margin:3px 0 0;font-size:11px}
+@media(pointer:coarse) and (orientation:landscape) {#rc222-local-status {gap:0;padding:5px 8px;font-size:10px;max-width:245px}#rc222-session {gap:2px}}
+
+body.rc222-active #hapil-party-launcher {display:none!important;pointer-events:none!important}

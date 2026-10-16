@@ -1,0 +1,26 @@
+# Configuration only: deployment requires a separate, explicit approval.
+services:
+  - type: web
+    name: hapil-relay
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm ci --omit=dev --cache /tmp/hapil-npm-cache
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: ALLOWED_ORIGINS
+        value: https://kjb7876-lang.github.io
+      - key: ALLOWED_GAME_IDS
+        value: hapil
+      - key: MAX_ROOMS
+        value: "16"
+      - key: MAX_CONNECTIONS
+        value: "128"
+      - key: MAX_CONNECTIONS_PER_IP
+        value: "16"

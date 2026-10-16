@@ -9,13 +9,14 @@
  const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,n(v)));
  const pictures=new Map(),tempo=new WeakMap(),automaticRevival=new WeakSet();let installed=false,tries=0,mobileHud=null;
  function unlocked(s){
-  if(s?.hapilEndingCleared===true||s?.samongUnlockedRC91===true||window.__HAPIL_ENDING_CLEARED_V31300__===true)return true;
-  for(const name of ['localStorage','sessionStorage'])try{if(window[name]?.getItem(KEY)==='true'||window[name]?.getItem('hapilEndingCleared')==='true')return true;}catch(_){}return false;
+  if(s?.hapilEndingCleared===true||s?.samongUnlockedRC91===true||!window.__HAPIL_COOP_STORAGE_RC222__?.status().active&&window.__HAPIL_ENDING_CLEARED_V31300__===true)return true;
+  for(const name of ['localStorage','sessionStorage'])try{const storage=window.__HAPIL_COOP_STORAGE_RC222__?.area(name)??window[name];if(storage?.getItem(KEY)==='true'||storage?.getItem('hapilEndingCleared')==='true')return true;}catch(_){}return false;
  }
  function unlock(s,reason){
   if(!['777','story-ending','validated-save'].includes(reason))return false;
+  if(window.__HAPIL_COOP_STORAGE_RC222__?.status().role==='guest')return false;
   if(s)s.samongUnlockedRC91=true;
-  for(const name of ['localStorage','sessionStorage'])try{window[name]?.setItem(KEY,'true');}catch(_){}
+  for(const name of ['localStorage','sessionStorage'])try{(window.__HAPIL_COOP_STORAGE_RC222__?.area(name)??window[name])?.setItem(KEY,'true');}catch(_){}
   window.dispatchEvent?.(new Event('hapil-samong-unlocked-rc91'));return true;
  }
  function select(value,s){return ['DREAM','SAMONG'].includes(String(value).toUpperCase())&&unlocked(s)?'DREAM':'STORY';}
@@ -68,7 +69,7 @@
   if(choice==='checkpoint')return true;
   try{return tryRevive(s);}finally{choices.delete(s);}
  }
- function deathPending(s){return !!s&&s.hp<=0&&choices.get(s)!=='checkpoint';}
+ function deathPending(s){const remote=window.__HAPIL_REMOTE_RC222_RUNTIME__?.status?.(),party=window.__HAPIL_PARTY_V31322__;if(party?.state===s&&(remote?.role==='guest'||remote?.role==='host'&&(party.actors??[]).some(a=>a.hp>0)))return false;return !!s&&s.hp<=0&&choices.get(s)!=='checkpoint';}
  function consumeCheckpoint(s){if(!s||s.hp>0||choices.get(s)!=='checkpoint')return false;choices.delete(s);return true;}
  function tryRevive(s){if(!s||s.hp>0||!revivalAuthorized(s))return false;window.__HAPIL_DEFERRED_DAMAGE_RC210__?.reset(s);if(window.__HAPIL_INNER_FINAL_RC133__?.onPlayerLethal?.(s))return true;return activate(s,'revival');}
  function tryAutomaticRevival(s){if(!canRevive(s)||automaticRevival.has(s)||choices.has(s))return false;automaticRevival.add(s);choices.set(s,'samong');try{return tryRevive(s);}finally{choices.delete(s);automaticRevival.delete(s);}}

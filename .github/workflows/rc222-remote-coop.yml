@@ -1,0 +1,139 @@
+name: RC222 remote co-op candidate verification
+on:
+  push:
+    branches: [codex/rc222-remote-coop]
+    paths: ['assets/**', 'data/**', 'index.html', 'server/**', 'tests/**', 'tools/**', 'qa/**', 'docs/remote-coop*.md', 'render.yaml', '.github/workflows/rc222-remote-coop.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc222-candidate-${{ github.sha }}
+  cancel-in-progress: false
+env:
+  EXPECTED_SHA: ${{ github.sha }}
+jobs:
+  cpu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      RC222_TASK_DIR: /tmp/rc222-cpu-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Record exact candidate
+        run: |
+          set -euo pipefail
+          mkdir -p "$RC222_TASK_DIR/evidence"
+          git rev-parse HEAD | tee "$RC222_TASK_DIR/evidence/sha.txt"
+          date -u +%FT%TZ > "$RC222_TASK_DIR/evidence/started-at.txt"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install locked relay dependencies and parser under tmp
+        run: |
+          set -euo pipefail
+          mkdir -p "$RC222_TASK_DIR/server"
+          cp server/package.json server/package-lock.json "$RC222_TASK_DIR/server/"
+          npm ci --prefix "$RC222_TASK_DIR/server" --cache "$RC222_TASK_DIR/npm-cache" 2>&1 | tee "$RC222_TASK_DIR/evidence/server-install.log"
+          ln -s "$RC222_TASK_DIR/server/node_modules" server/node_modules
+          npm install --prefix "$RC222_TASK_DIR/runtime" --cache "$RC222_TASK_DIR/npm-cache" --no-save --package-lock=false acorn@8.15.0 2>&1 | tee "$RC222_TASK_DIR/evidence/runtime-install.log"
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RC222_TASK_DIR/runtime/node_modules" >> "$GITHUB_ENV"
+      - name: Run relay and RC222 CPU checks with individual exit records
+        run: |
+          set -uo pipefail
+          status=0
+          run_check() {
+            local name="$1"
+            shift
+            "$@" 2>&1 | tee "$RC222_TASK_DIR/evidence/$name.log"
+            local result=$?
+            echo "$name $result" >> "$RC222_TASK_DIR/evidence/exit-codes.txt"
+            if [ "$result" -ne 0 ]; then status=1; fi
+          }
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA" || exit 1
+          test -z "$(git status --porcelain)" || exit 1
+          run_check relay node --test server/test/*.test.js
+          run_check storage node tests/rc222-storage-unit.cjs
+          run_check runtime node tests/rc222-runtime-unit.cjs
+          run_check transport node tests/rc222-transport-unit.cjs
+          run_check native-combat-regression node tests/rc220-combat-unit.cjs
+          run_check root-hit-regression node tests/rc210-root-hit-unit.cjs
+          run_check deferred-damage-regression node tests/rc210-deferred-damage-unit.cjs
+          run_check fall-progression-regression node tests/rc210-fall-progression-unit.cjs
+          HAPIL_QA_OUTPUT="$RC222_TASK_DIR/evidence/coverage" run_check coverage node tests/rc222-coverage.cjs
+          test -z "$(git status --porcelain)" || status=1
+          date -u +%FT%TZ > "$RC222_TASK_DIR/evidence/ended-at.txt"
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc222-cpu-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ env.RC222_TASK_DIR }}/evidence/
+          if-no-files-found: error
+          retention-days: 14
+  official-chrome:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      RC222_TASK_DIR: /tmp/rc222-browser-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Record exact candidate
+        run: |
+          set -euo pipefail
+          mkdir -p "$RC222_TASK_DIR/evidence"
+          git rev-parse HEAD | tee "$RC222_TASK_DIR/evidence/sha.txt"
+          date -u +%FT%TZ > "$RC222_TASK_DIR/evidence/started-at.txt"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install runtime dependencies under tmp
+        id: runtime
+        id: runtime
+        run: |
+          set -euo pipefail
+          mkdir -p "$RC222_TASK_DIR/server"
+          cp server/package.json server/package-lock.json "$RC222_TASK_DIR/server/"
+          npm ci --prefix "$RC222_TASK_DIR/server" --cache "$RC222_TASK_DIR/npm-cache" 2>&1 | tee "$RC222_TASK_DIR/evidence/server-install.log"
+          ln -s "$RC222_TASK_DIR/server/node_modules" server/node_modules
+          npm install --prefix "$RC222_TASK_DIR/runtime" --cache "$RC222_TASK_DIR/npm-cache" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0 2>&1 | tee "$RC222_TASK_DIR/evidence/runtime-install.log"
+          PLAYWRIGHT_BROWSERS_PATH="$RC222_TASK_DIR/browser-cache" node "$RC222_TASK_DIR/runtime/node_modules/playwright/cli.js" install ffmpeg 2>&1 | tee "$RC222_TASK_DIR/evidence/ffmpeg-install.log"
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RC222_TASK_DIR/runtime/node_modules" >> "$GITHUB_ENV"
+          echo "PLAYWRIGHT_BROWSERS_PATH=$RC222_TASK_DIR/browser-cache" >> "$GITHUB_ENV"
+      - name: Verify official Chrome and unchanged sandbox policy
+        env:
+          HAPIL_QA_OUTPUT: ${{ env.RC222_TASK_DIR }}/evidence/sandbox
+        run: |
+          set -euo pipefail
+          command -v google-chrome | tee "$RC222_TASK_DIR/evidence/chrome-path.txt"
+          google-chrome --version | tee "$RC222_TASK_DIR/evidence/chrome-version.txt"
+          node tests/chromium-sandbox-policy.cjs 2>&1 | tee "$RC222_TASK_DIR/evidence/sandbox-policy.log"
+          node tests/rc153-chrome-sandbox-smoke.cjs 2>&1 | tee "$RC222_TASK_DIR/evidence/sandbox-smoke.log"
+      - name: Capture RC222 local relay and four isolated Chrome contexts
+        if: ${{ !cancelled() && steps.runtime.outcome == 'success' }}
+        env:
+          HAPIL_QA_OUTPUT: ${{ env.RC222_TASK_DIR }}/evidence/browser
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/rc222-browser.cjs 2>&1 | tee "$RC222_TASK_DIR/evidence/browser.log"
+          test -z "$(git status --porcelain)"
+          date -u +%FT%TZ > "$RC222_TASK_DIR/evidence/ended-at.txt"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc222-official-chrome-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ env.RC222_TASK_DIR }}/evidence/
+          if-no-files-found: error
+          retention-days: 14

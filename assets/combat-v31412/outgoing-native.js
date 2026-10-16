@@ -9,6 +9,8 @@
  function create({P,R,Re,Ke,native}){
   if(!P||!R||!Re||typeof Ke!=='function'||!native||required.some(k=>typeof native[k]!=='function'))throw Error('Outgoing reducer dependency missing');
   return function outgoing(e,t,n,r=false,i=0,HAPIL_hitSourceV31315=null){
+   const rc222=root.__HAPIL_REMOTE_RC222_RUNTIME__;
+   if(HAPIL_hitSourceV31315?.nativeActorRC222&&rc222&&!rc222.inActorTransaction)return rc222.resolveOutgoing(rc222.canonicalWorld(P.current),HAPIL_hitSourceV31315,()=>outgoing(e,t,n,r,i,HAPIL_hitSourceV31315));
    const world=P.current,core=root.__HAPIL_COMBAT_CORE_V31401__;
    const lifestealRate=Number.isFinite(i)?Math.max(0,i)*0.5:0;
    return core.enemy(world,e,t,HAPIL_hitSourceV31315,()=>{
