@@ -3,12 +3,12 @@
  const P=root.__HAPIL_POLICY_V31400__;if(!P)throw Error('HAPIL player policy missing');
  const worlds=new WeakMap(),views=new WeakMap(),restorePending=new WeakSet(),rings=new WeakMap();let current=null;
  const DEFAULT={aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'new'};let draft={...DEFAULT};
- try{const x=JSON.parse(localStorage.getItem('hapil.run-draft.v31400')||'{}');draft={...P.normalizePolicy(x,DEFAULT),origin:'new'};}catch{}
+ try{const x=JSON.parse((root.__HAPIL_COOP_STORAGE_RC222__?.area('localStorage')??localStorage).getItem('hapil.run-draft.v31400')||'{}');draft={...P.normalizePolicy(x,DEFAULT),origin:'new'};}catch{}
  const C=()=>root.__HAPIL_CONTROLS_V31329__,Party=()=>root.__HAPIL_PARTY_V31322__;
  const same=(a,b)=>a.aiEnabled===b.aiEnabled&&a.humanPlayers===b.humanPlayers&&JSON.stringify(a.aiHeroes)===JSON.stringify(b.aiHeroes)&&JSON.stringify(a.humanHeroes)===JSON.stringify(b.humanHeroes);
  const nowState=()=>C()?.binding?.state?.current;
  function get(s=current){if(!s)return null;let p=worlds.get(s);if(!p){p=P.normalizePolicy(s.runPolicyV31400,{aiEnabled:true,origin:'legacy'});worlds.set(s,p);s.runPolicyV31400=p;}return p;}
- function select(value){draft={...P.normalizePolicy({...draft,...value},DEFAULT),origin:value.origin==='network'?'network':'new'};try{localStorage.setItem('hapil.run-draft.v31400',JSON.stringify(draft));}catch{}root.dispatchEvent?.(new CustomEvent('hapil-run-options-v31400'));return {...draft,aiHeroes:[...draft.aiHeroes]};}
+ function select(value){draft={...P.normalizePolicy({...draft,...value},DEFAULT),origin:value.origin==='network'?'network':'new'};try{(root.__HAPIL_COOP_STORAGE_RC222__?.area('localStorage')??localStorage).setItem('hapil.run-draft.v31400',JSON.stringify(draft));}catch{}root.dispatchEvent?.(new CustomEvent('hapil-run-options-v31400'));return {...draft,aiHeroes:[...draft.aiHeroes]};}
  function init(s,hero,config=draft){if(!s)throw Error('Run requires a world');const p=P.normalizePolicy(config,{...DEFAULT});worlds.set(s,p);s.runPolicyV31400=p;s.activeHeroId=P.safe(hero);current=s;return p;}
  function serialize(s){const p=get(s);return p?{...p,aiHeroes:[...p.aiHeroes]}:null;}
  function restore(s,raw){if(!s||!raw)return;const p=P.normalizePolicy(raw.runPolicyV31400,{aiEnabled:true,origin:'legacy'});worlds.set(s,p);s.runPolicyV31400=p;s.legacyRosterV31400=P.legacy(raw);restorePending.add(s);}

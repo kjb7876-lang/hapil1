@@ -19,6 +19,30 @@ function fixture(){
   const rt=createRuntime(env);rt.attach({isHost:true,slotId:'p1',epoch:1,session:{sessionId:'test'},roster});
   return {rt,env,p,b,world,actor,events,listeners,clock:v=>{clock=v;}};
 }
+function installNativeRosterFixture(f){
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),begin=source.indexOf('  function spawn(r,index,s=world){'),end=source.indexOf('  const assetPathsByHero=',begin);
+  assert(begin>=0&&end>begin);
+  // Exercise the production spawn/syncRoster functions with image loading omitted.
+  const sandbox={world:f.world,bridge:{heroRef:f.b.hero},initialActors:f.p.actors,initialRoster:f.p.roster,b:v=>v,dt:(zone,p)=>p,preload:()=>{}};
+  vm.runInNewContext(`let role='host',actors=initialActors,roster=initialRoster;${source.slice(begin,end)};globalThis.rosterBridge={configure(rows){roster=rows;syncRoster();},replace(rows,saved){roster=rows;actors=saved;},get actors(){return actors;},get roster(){return roster;}};`,sandbox);
+  const bridge=sandbox.rosterBridge;
+  f.p.configure=config=>{bridge.configure(config.roster);f.p.roster=bridge.roster;f.p.actors=bridge.actors;};
+  f.p.applySnapshot=snap=>{Object.assign(f.world,portable(Object.fromEntries(snap.world.fields),true));f.b.hero.current=f.world.activeHeroId;bridge.replace(portable(snap.party.roster,true),portable(snap.party.actors,true));f.p.roster=bridge.roster;f.p.actors=bridge.actors;f.p.applied=snap;return true;};
+  return bridge;
+}
+function installNativeOutgoingFixture(f){
+  const sandbox={window:f.env};vm.createContext(sandbox);
+  for(const file of ['assets/combat-v31402/combat-core.js','assets/combat-v31412/outgoing-native.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
+  f.env.__HAPIL_REMOTE_RC222_RUNTIME__=f.rt;f.p.blocksSave=()=>false;
+  Object.assign(f.world,{fxSerial:1,comboUntil:0,counterUntil:0,damageBuffUntil:0,awakeningUntil:0,lastLifestealTextAt:-99});
+  Object.assign(f.world.enemies[0],{stagger:0,maxStagger:100000,staggerUntil:0,invulnerableUntil:0});
+  const native={};for(const key of f.env.__HAPIL_OUTGOING_V31402__.dependencies)native[key]=()=>{};
+  Object.assign(native,{MONGSE_objectiveDamageAllowedV31309:()=>true,HAPIL_claimCounterWindowV31303:()=>({damageMultiplier:1}),sr:()=>({damageMultiplier:1}),ir:()=>0,HAPIL_effectiveGrowthV31400:v=>v,gr:()=>({powerMultiplier:1,level:0}),MONGSE_infiniteStats:()=>({powerMultiplier:1}),MONGSE_heroOutgoingModeMultiplier31213:()=>1,HAPIL_applyCounterDamageV31303:(s,target,power)=>{const after=Math.max(0,target.hp-power);return {hpAfter:after,appliedDamage:target.hp-after};},HAPIL_bindDamageHitV31315:(effect,s,target,source)=>({...effect,...source}),MONGSE_attachEffectTarget:effect=>effect});
+  const outgoing=f.env.__HAPIL_OUTGOING_V31402__.create({P:f.b.state,R:f.b.passives,Re:f.b.settings,Ke:()=>{},native});
+  return {outgoing,native,target:f.world.enemies[0]};
+}
+test('resumed host status clears paused guest room flags without a roster update',()=>{const f=fixture();f.rt.updateRoom({isHost:false,slotId:'p2',hostPaused:true,hostHidden:true});f.rt.role('guest');assert.equal(f.rt.status().paused,true);f.rt.hostStatus({hidden:false,paused:false});assert.equal(f.rt.status().paused,false);f.rt.virtualKey('ArrowRight',true);assert.equal(f.rt.readInput().moveX,1);});
+test('guest Samong revival control sends an owned command without local health mutation',()=>{const f=fixture();f.rt.updateRoom({isHost:false,slotId:'p2',mode:'DREAM'});f.rt.role('guest');f.actor.hp=0;assert.equal(f.rt.requestRevive('samong'),true);assert.equal(f.actor.hp,0);assert(f.rt.readInput().actions.includes('reviveSamong'));f.actor.hp=100;assert.equal(f.rt.requestRevive('samong'),false);f.actor.hp=0;f.rt.updateRoom({mode:'STORY'});assert.equal(f.rt.requestRevive('samong'),false);f.rt.updateRoom({mode:'DREAM'});f.rt.hostStatus({paused:true});assert.equal(f.rt.requestRevive('samong'),false);});
 test('native actor context isolates hero health resources and refs',()=>{
   const f=fixture(),input=f.b.input.current,settings=f.b.settings.current,passives=f.b.passives.current;
   f.rt.withActor(f.world,f.actor,(view,ctx,b)=>{assert.equal(view.activeHeroId,'seoha');assert.equal(view.enemies,f.world.enemies);b.actions.attack();b.passives.current.damage=9;});
@@ -35,6 +59,29 @@ test('delayed native hit uses owning hero and own lifesteal or resonance state',
   const f=fixture(),source={partySlotV31322:'p2',nativeActorRC222:true};
   f.rt.resolveOutgoing(f.world,source,view=>{assert.equal(f.b.state.current,view);view.hp+=12;view.resonance+=9;view.enemies[0].hp-=40;});
   assert.equal(f.actor.hp,142);assert.equal(f.actor.resonance,9);assert.equal(f.world.hp,240);assert.equal(f.world.resonance,15);assert.equal(f.world.enemies[0].hp,960);
+});
+test('actual outgoing reducer attributes immediate HP commits to each active remote actor',()=>{
+  const f=fixture(),{outgoing,target}=installNativeOutgoingFixture(f);
+  for(const [slotId,heroId]of [['p3','neon'],['p4','hunter']]){const a={...f.actor,slotId,heroId};f.p.actors.push(a);f.p.roster.push(a);}
+  const before=target.hp;for(const actor of f.p.actors)f.rt.withActor(f.world,actor,()=>outgoing(target,10,'#fff',false,0,null));
+  const metrics=f.rt.telemetry();assert.equal(metrics.ownedHits,3);assert.deepEqual(metrics.outgoingEvents.map(e=>e.slotId),['p2','p3','p4']);assert.equal(metrics.outgoingEvents.reduce((sum,e)=>sum+e.damage,0),before-target.hp);
+  for(const event of metrics.outgoingEvents){assert(event.damage>0);assert.equal(event.targetId,'boss');assert.equal(event.damage,event.hpBefore-event.hpAfter);}
+  assert.equal(f.world.combo,1);assert.equal(f.b.state.current,f.world);
+});
+test('actual outgoing reducer switches delayed ownership inside another actor transaction and restores it',()=>{
+  const f=fixture(),{outgoing,target}=installNativeOutgoingFixture(f),other={...f.actor,slotId:'p3',heroId:'neon',combo:0};f.p.actors.push(other);f.p.roster.push(other);
+  const source={id:'p3-delayed',nativeActorRC222:true,partySlotV31322:'p3',heroId:'neon'},before=target.hp;
+  f.rt.withActor(f.world,f.actor,view=>{outgoing(target,10,'#fff',false,.4,source);assert.equal(f.rt.activeActor,f.actor);assert.equal(f.b.state.current,view);});
+  assert.equal(other.combo,1);assert.equal(f.actor.combo,0);assert(other.hp>130);assert.equal(f.actor.hp,130);assert.equal(f.world.hp,240);
+  const events=f.rt.telemetry().outgoingEvents;assert.equal(events.length,1);assert.equal(events[0].slotId,'p3');assert.equal(events[0].sourceId,'p3-delayed');assert.equal(events[0].damage,before-target.hp);
+  assert.equal(f.world.effects.at(-1).partySlotV31322,'p3');assert.equal(f.b.state.current,f.world);assert.equal(f.rt.activeActor,null);
+});
+test('owned outgoing diagnostics exclude rejected damage and retain a bounded sequence of actual HP commits',()=>{
+  const f=fixture(),{outgoing,native,target}=installNativeOutgoingFixture(f);native.HAPIL_applyCounterDamageV31303=(s,target)=>({hpAfter:target.hp,appliedDamage:0});
+  f.rt.withActor(f.world,f.actor,()=>outgoing(target,10,'#fff'));assert.equal(f.rt.telemetry().ownedHits,0);
+  native.HAPIL_applyCounterDamageV31303=(s,target)=>({hpAfter:target.hp-1,appliedDamage:1});
+  f.rt.withActor(f.world,f.actor,()=>{for(let i=0;i<260;i++)outgoing(target,10,'#fff',false,0,{id:i});});
+  const metrics=f.rt.telemetry();assert.equal(metrics.ownedHits,260);assert.equal(metrics.outgoingEvents.length,256);assert.equal(metrics.outgoingEvents[0].seq,5);assert.equal(metrics.outgoingEvents.at(-1).seq,260);assert(metrics.outgoingEvents.every(e=>e.damage===1));
 });
 test('guest and disconnected roles never execute native damage or actor inputs',()=>{
   const f=fixture();f.rt.role('guest');assert.equal(f.rt.input('p2',{seq:1,actions:['attack']}),false);assert.equal(f.rt.withActor(f.world,f.actor,()=>{throw Error('must not run');}),false);f.rt.role('disconnected');assert.equal(f.rt.resolveOutgoing(f.world,{nativeActorRC222:true,partySlotV31322:'p2'},()=>{throw Error('must not run');}),false);
@@ -63,8 +110,36 @@ test('snapshot validator rejects incomplete duplicate or corrupt actor state',()
 test('snapshots reject old epochs and duplicate wire seq but allow host checkpoint resequence',()=>{
   const f=fixture(),snap=f.rt.exportSnapshot();f.rt.role('guest');assert.equal(f.rt.snapshot(snap,{seq:7,epoch:1,full:true}),true);assert.equal(f.rt.snapshot(snap,{seq:7,epoch:1,full:true}),false);assert.equal(f.rt.snapshot(snap,{seq:8,epoch:0,full:true}),false);assert.equal(f.rt.snapshot(snap,{seq:1,epoch:2,full:false}),false);assert.equal(f.rt.snapshot(snap,{seq:1,epoch:2,full:true}),true);const first=f.p.applied.seq;f.rt.role('host');assert.equal(f.rt.snapshot(snap,{seq:2,epoch:2,full:true,allowHost:true}),true);assert.ok(f.p.applied.seq>first);assert.equal(f.rt.status().role,'host');
 });
+test('host loading a two-human checkpoint reconciles all four live humans with native actor spawning',()=>{
+  const f=fixture(),snap=f.rt.exportSnapshot();installNativeRosterFixture(f);
+  const live=[{slotId:'p1',heroId:'hwando'},{slotId:'p2',heroId:'seoha'},{slotId:'p3',heroId:'neon'},{slotId:'p4',heroId:'hunter'}];
+  f.rt.updateRoom({roster:live});assert.equal(f.p.actors.length,3);
+  assert.equal(f.rt.snapshot(snap,{seq:1,epoch:1,full:true,allowHost:true}),true);
+  assert.deepEqual(Array.from(f.p.roster,r=>r.slotId),['p1','p2','p3','p4']);
+  assert.equal(f.p.actors[0].hp,130);assert.equal(f.p.actors[0].downUntil,18);
+  for(const actor of f.p.actors.slice(1)){assert.equal(actor.hp,240);assert.equal(actor.control,'remote');assert.equal(actor.invulnerableUntil,f.world.time+1.2);assert(Number.isFinite(actor.x)&&Number.isFinite(actor.y));assert.equal(f.rt.input(actor.slotId,{seq:1,actions:['attack']}),true);}
+  const restored=f.p.actors[0];f.rt.updateRoom({hostPaused:false});assert.equal(f.p.actors[0],restored);
+});
+test('host checkpoint imports keep live hero and slot identities while preserving the native story companion',()=>{
+  const f=fixture(),snap=f.rt.exportSnapshot();installNativeRosterFixture(f);
+  const live=[{slotId:'p1',heroId:'hwando'},{slotId:'p2',heroId:'seoha'},{slotId:'p3',heroId:'neon'},{slotId:'p4',heroId:'hunter'}];f.rt.updateRoom({roster:live});
+  snap.world.fields.find(row=>row[0]==='activeHeroId')[1]='gunner';snap.party.roster[0].heroId='gunner';snap.party.roster[1].heroId='lauren';snap.party.actors[0].heroId='lauren';snap.party.actors[0].hp=1;
+  snap.party.roster.push({slotId:'saved-guest',heroId:'michaela',control:'remote'},{slotId:'story68',heroId:'slayer',control:'ai'});
+  snap.party.actors.push({slotId:'saved-guest',heroId:'michaela',control:'remote',x:4,y:4,hp:100,maxHp:240},{slotId:'story68',heroId:'slayer',control:'ai',x:6,y:6,hp:77,maxHp:240});
+  assert.equal(f.rt.snapshot(snap,{seq:1,epoch:1,full:true,allowHost:true}),true);
+  assert.equal(f.world.activeHeroId,'hwando');assert.equal(f.b.hero.current,'hwando');
+  assert.deepEqual(Array.from(f.p.roster,r=>[r.slotId,r.heroId,r.control]),[['p1','hwando','host'],['p2','seoha','remote'],['p3','neon','remote'],['p4','hunter','remote'],['story68','slayer','ai']]);
+  assert.equal(f.p.actors.find(a=>a.slotId==='p2').hp,240);assert.equal(f.p.actors.find(a=>a.slotId==='story68').hp,77);assert.equal(f.rt.input('saved-guest',{seq:1,actions:['attack']}),false);
+});
 test('portable Set Map and Infinity survive local capture and restore',()=>{
   const f=fixture();f.world.hostDownUntil=Infinity;const saved=f.rt.captureLocal();assert.deepEqual(saved.world.clues,{$hapilSet:['a']});f.world.clues.clear();f.world.nested.clear();f.world.hp=1;f.b.passives.current.damage=99;f.rt.restoreLocal(saved);assert.equal(f.world.hp,240);assert.ok(f.world.clues.has('a'));assert.ok(f.world.nested.get('a') instanceof Set);assert.equal(f.world.hostDownUntil,Infinity);assert.equal(f.b.passives.current.damage,4);
+});
+test('local restore reapplies the captured launch mode and React view after restoring native refs',()=>{
+  const f=fixture();let mode='STORY',viewRestored=false;const calls=[];
+  f.env.__HAPIL_PARTY_LAUNCH_V31322__={getGameMode:()=>mode,setGameMode:value=>{calls.push(['mode',value]);assert.equal(f.env.__HAPIL_ENDING_CLEARED_V31300__,true);assert.equal(f.b.hero.current,'hwando');mode=value;}};
+  const saved=f.rt.captureLocal();assert.equal(saved.modeChoice,'STORY');mode='DREAM';f.env.__HAPIL_ENDING_CLEARED_V31300__=false;f.b.hero.current='gunner';f.b.passives.current={damage:99};
+  f.b.actions.restoreView=value=>{assert.equal(f.rt.inActorTransaction,false);assert.equal(mode,'STORY');assert.equal(value.hero,'hwando');assert.deepEqual(value.passives,{damage:4});assert.equal(f.b.hero.current,value.hero);assert.deepEqual(f.b.passives.current,value.passives);assert(value.world.clues instanceof Set);calls.push(['view',value.modeChoice]);viewRestored=true;};
+  assert.equal(f.rt.restoreLocal(saved),true);assert.equal(viewRestored,true);assert.deepEqual(calls,[['mode','STORY'],['view','STORY']]);
 });
 test('pure host snapshot remains available while transition simulation is disconnected',()=>{
   const f=fixture();f.rt.role('disconnected');assert.ok(f.rt.exportSnapshot({full:true}));assert.equal(f.rt.withActor(f.world,f.actor,()=>true),false);

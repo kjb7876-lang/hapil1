@@ -10,7 +10,8 @@
   if(!P||!R||!Re||typeof Ke!=='function'||!native||required.some(k=>typeof native[k]!=='function'))throw Error('Outgoing reducer dependency missing');
   return function outgoing(e,t,n,r=false,i=0,HAPIL_hitSourceV31315=null){
    const rc222=root.__HAPIL_REMOTE_RC222_RUNTIME__;
-   if(HAPIL_hitSourceV31315?.nativeActorRC222&&rc222&&!rc222.inActorTransaction)return rc222.resolveOutgoing(rc222.canonicalWorld(P.current),HAPIL_hitSourceV31315,()=>outgoing(e,t,n,r,i,HAPIL_hitSourceV31315));
+   HAPIL_hitSourceV31315=rc222?.ownOutgoingSource?.(HAPIL_hitSourceV31315)??HAPIL_hitSourceV31315;
+   if(HAPIL_hitSourceV31315?.nativeActorRC222&&rc222&&rc222.activeActor?.slotId!==HAPIL_hitSourceV31315.partySlotV31322)return rc222.resolveOutgoing(rc222.canonicalWorld(P.current),HAPIL_hitSourceV31315,()=>outgoing(e,t,n,r,i,HAPIL_hitSourceV31315));
    const world=P.current,core=root.__HAPIL_COMBAT_CORE_V31401__;
    const lifestealRate=Number.isFinite(i)?Math.max(0,i)*0.5:0;
    return core.enemy(world,e,t,HAPIL_hitSourceV31315,()=>{
@@ -66,6 +67,7 @@
                 )),
             ),
           ),
+          HAPIL_hpBeforeRC222 = o.hp,
           _ = o.hp / o.maxHp,
           MONGSE_counterDamageV31303 = HAPIL_applyCounterDamageV31303(
             a,
@@ -77,7 +79,7 @@
           MONGSE_gatedHp = MONGSE_counterDamageV31303.hpAfter,
           v = MONGSE_counterDamageV31303.appliedDamage;
         if (
-          ((o.hp = MONGSE_gatedHp),core.computed(a,o,g),core.mark(a,o,v>0?'HIT':'REJECTED',v>0?'native-enemy-damage':'native-phase-gate',{appliedDamage:v}),window.__HAPIL_LOOP_V31365__?.afterHit(a,o,t,v,HAPIL_hitSourceV31315),
+          ((o.hp = MONGSE_gatedHp),rc222?.recordOutgoing?.(a,o,HAPIL_hitSourceV31315,HAPIL_hpBeforeRC222),core.computed(a,o,g),core.mark(a,o,v>0?'HIT':'REJECTED',v>0?'native-enemy-damage':'native-phase-gate',{appliedDamage:v}),window.__HAPIL_LOOP_V31365__?.afterHit(a,o,t,v,HAPIL_hitSourceV31315),
           (v > 0 && (o.hitStarted = a.time)),
           (v > 0 && (o.hitUntil = a.time + (r ? 0.28 : 0.17))),
           (o.stagger = Math.min(

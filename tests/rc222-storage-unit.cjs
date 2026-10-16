@@ -174,4 +174,17 @@ function nativeFunction(name) {
   const restored = vm.runInContext('restore(JSON.parse(JSON.stringify(safeCopy({cooldown:Infinity,lastAttack:-Infinity,zones:new Set(["hub"])}))))', root);
   assert.equal(restored.cooldown, Infinity); assert.equal(restored.lastAttack, -Infinity); assert.equal(restored.zones.has('hub'), true);
 }
+{
+  const f=fixture(),{root,api}=f,key='hapil.run-draft.v31400',solo=JSON.stringify({humanPlayers:1,humanHeroes:[],aiEnabled:false,origin:'new'});
+  root.localStorage.setItem(key,solo);root.CustomEvent=function(){};root.dispatchEvent=()=>{};
+  vm.runInContext(fs.readFileSync('assets/foundation-v31400/policy.js','utf8'),root);vm.runInContext(fs.readFileSync('assets/foundation-v31400/run.js','utf8'),root);
+  assert.equal(root.__HAPIL_RUN_V31400__.draft().humanPlayers,1);api.enter('host','draft-host');root.__HAPIL_RUN_V31400__.select({humanPlayers:4,humanHeroes:['gunner','seoha','neon'],origin:'network'});assert.equal(root.localStorage.getItem(key),solo,'host network draft never overwrites solo draft before refresh');assert.equal(JSON.parse(api.area('localStorage').getItem(key)).humanPlayers,4);api.leave();
+  api.enter('guest','draft-guest');root.__HAPIL_RUN_V31400__.select({humanPlayers:4,humanHeroes:['gunner','seoha','neon'],origin:'network'});assert.equal(root.localStorage.getItem(key),solo,'guest network draft never overwrites solo draft before refresh');api.leave();
+  const reloaded={localStorage:root.localStorage};reloaded.window=reloaded;vm.runInNewContext(fs.readFileSync('assets/foundation-v31400/policy.js','utf8'),reloaded);vm.runInNewContext(fs.readFileSync('assets/foundation-v31400/run.js','utf8'),reloaded);assert.equal(reloaded.__HAPIL_RUN_V31400__.draft().humanPlayers,1,'fresh page uses unchanged solo draft');
+}
+{
+  const {root,api}=fixture();root.KEY='hapil.gameMode.v31346';root.valid=v=>v;root.preference='STORY';root.lastState=null;
+  const start=nativeSource.indexOf(' function set(value,s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current)'),end=nativeSource.indexOf(' function suppressFullNarrative',start);assert(start>0&&end>start);vm.runInContext(nativeSource.slice(start,end),root);
+  root.localStorage.setItem(root.KEY,'STORY');api.enter('host','mode-host');root.set('DREAM',{});assert.equal(root.localStorage.getItem(root.KEY),'STORY');assert.equal(api.area('localStorage').getItem(root.KEY),'DREAM');api.leave();api.enter('guest','mode-guest');root.set('DREAM',{});assert.equal(root.localStorage.getItem(root.KEY),'STORY');api.leave();
+}
 console.log('RC222_STORAGE passed: native helpers, solo isolation, per-session saves, host checkpoint import/export/load, guest write rejection, local restoration, repeat load, malformed data, rollback, Infinity and local/session/memory fallback.');

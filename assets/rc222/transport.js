@@ -126,7 +126,7 @@
         await this.syncPhase();this.scheduleTick();
       } else if(message.type==='room') {
         if(!this.session)return;
-        this.error='';const nextRoster=(message.roster||this.roster).slice(0,4);for(const row of nextRoster){const previous=this.roster.find(r=>r.slotId===row.slotId);if(row.connected===false||previous?.connected===false&&row.connected!==false){this.inputSequences.delete(row.slotId);this.lastInput.delete(row.slotId);this.call('releaseInputs','member-reconnect',row.slotId);}}this.roster=nextRoster;this.phase=message.phase||this.phase;this.epoch=Math.max(this.epoch,finite(message.epoch));if(message.mode)this.session.mode=message.mode;
+        this.error='';const nextRoster=(message.roster||this.roster).slice(0,4);for(const previous of this.roster)if(!nextRoster.some(row=>row.slotId===previous.slotId)){this.inputSequences.delete(previous.slotId);this.lastInput.delete(previous.slotId);this.call('releaseInputs','member-left',previous.slotId);}for(const row of nextRoster){const previous=this.roster.find(r=>r.slotId===row.slotId);if(row.connected===false||previous?.connected===false&&row.connected!==false){this.inputSequences.delete(row.slotId);this.lastInput.delete(row.slotId);this.call('releaseInputs','member-reconnect',row.slotId);}}this.roster=nextRoster;this.phase=message.phase||this.phase;this.epoch=Math.max(this.epoch,finite(message.epoch));if(message.mode)this.session.mode=message.mode;
         await this.call('updateRoom',this.runtimeState());await this.syncPhase();
       } else if(message.type==='input') {
         if(!this.session?.isHost||!/^p[2-4]$/.test(message.slotId)||this.phase!=='playing')return;

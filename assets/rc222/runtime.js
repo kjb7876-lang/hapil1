@@ -32,7 +32,7 @@
     const native=()=>env.__HAPIL_RC222_NATIVE__??{};
     const contexts=new WeakMap(), incoming=new Map(), held=new Set(), inputEdges=[];let interpolation=[],buffAdapter=null;
     let room=null, currentRole='offline', epoch=0, wireSeq=-1, nativeSeq=0, transaction=null, capture=null, attached=false, localAuto='manual', inputSeq=0, hostZone=null,rosterSignature='',narrative=null,narrativeKey='',localWorldRef=null,nativeStarted=false,nativeGameObserved=false;
-    const stats={nativeSteps:0,nativeCasts:0,ownedHits:0,rejected:0,snapshots:0,transitions:0,nativeActorEntries:0,skippedSteps:{},rejectionReasons:{},inputAccepted:0,inputBySlot:Object.create(null),actorSteps:Object.create(null),contextRejected:{},faults:[]};
+    const stats={nativeSteps:0,nativeCasts:0,ownedHits:0,outgoingSequence:0,outgoingEvents:[],rejected:0,snapshots:0,transitions:0,nativeActorEntries:0,skippedSteps:{},rejectionReasons:{},inputAccepted:0,inputBySlot:Object.create(null),actorSteps:Object.create(null),contextRejected:{},faults:[]};
     const portrait=()=>env.matchMedia?.('(pointer:coarse)')?.matches===true&&num(env.innerHeight)>num(env.innerWidth);
     const status=()=>{if(nativeStarted&&binding()?.phase==='game')nativeGameObserved=true;const ended=room?.isHost===true&&nativeStarted&&nativeGameObserved&&binding()?.phase!=='game',nativePaused=currentRole==='host'&&(nativeStarted&&binding()?.phase!=='game'||native().paused?.()===true||!!binding()?.modal?.current||binding()?.blocked?.()===true),remotePaused=room?.isHost!==true&&(room?.hostPaused===true||room?.hostHidden===true);return {version:VERSION,ready:!!getParty()?.state,paused:currentRole==='disconnected'||room?.stale===true||remotePaused||nativePaused||portrait(),nativePaused,ended,nativeStarted,portrait:portrait(),role:currentRole,zone:getParty()?.state?.zone??null,epoch,autoMode:localAuto,slotId:room?.slotId??'p1',inActorTransaction:!!transaction};};
     const fault=(error,stage,slotId)=>{stats.faults.push({stage,slotId,message:String(error?.stack??error).slice(0,1200)});stats.faults=stats.faults.slice(-8);};
@@ -63,6 +63,7 @@
       for(const key of ['pendingStrikes','resonanceThreads','effects','hostileProjectiles','pendingSpawns'])for(const row of world[key]??[])if(row&&typeof row==='object'){
         const previous=key==='hostileProjectiles'?before.projectileAllegiances?.get(row):null,converted=!!previous&&(!previous.reflected&&row.reflected===true||!previous.friendly&&row.friendly===true);
         if(before[key]?.has(row)&&!converted)continue;
+        if(!converted&&row.nativeActorRC222&&row.partySlotV31322)continue;
         const hostileOwner=(world.enemies??[]).some(e=>e.id===row.sourceId||e.id===row.ownerId),eligible=key==='pendingStrikes'||key==='resonanceThreads'||row.friendly||row.reflected||(!hostileOwner&&!row.hostile&&!row.enemyAttackV31323);
         if(eligible){row.partySlotV31322=actor.slotId;row.nativeActorRC222=true;if(converted){row.heroId=actor.heroId;row.sourceHeroId=actor.heroId;row.impactHeroIdV31315=actor.heroId;}else row.heroId??=actor.heroId;}
       }
@@ -179,7 +180,18 @@
       if(transaction?.actor?.slotId===source.partySlotV31322)return callback(transaction.view);
       const actor=getParty()?.actors?.find(a=>a.slotId===source.partySlotV31322);
       if(!authority()||!actor||!(actor.hp>0)){stats.rejected++;return false;}
-      stats.ownedHits++;return withActor(world,actor,view=>callback(view));
+      return withActor(world,actor,view=>callback(view));
+    }
+    function ownOutgoingSource(source) {
+      if(source?.nativeActorRC222&&source.partySlotV31322||!transaction)return source;
+      return {...(source&&typeof source==='object'?source:{}),partySlotV31322:transaction.actor.slotId,nativeActorRC222:true,heroId:source?.heroId??transaction.actor.heroId};
+    }
+    function recordOutgoing(world,target,source,hpBefore) {
+      const actor=transaction?.actor,canonical=world?.rc222CanonicalWorld??world;
+      if(!actor||transaction.world!==canonical||getParty()?.state!==canonical||!source?.nativeActorRC222||source.partySlotV31322!==actor.slotId||!(canonical.enemies??[]).includes(target)||!Number.isFinite(hpBefore)||!Number.isFinite(target.hp)||!(hpBefore>target.hp))return false;
+      const text=v=>typeof v==='string'||typeof v==='number'?String(v).slice(0,160):null;
+      const event={seq:++stats.outgoingSequence,slotId:actor.slotId,heroId:actor.heroId,targetId:text(target.id),sourceId:text(source.id??source.attackInstanceIdV31336??source.sourceId??source.ownerId),damage:hpBefore-target.hp,hpBefore,hpAfter:target.hp,zone:canonical.zone,time:canonical.time};
+      stats.ownedHits++;stats.outgoingEvents.push(event);if(stats.outgoingEvents.length>256)stats.outgoingEvents.shift();return true;
     }
     function ownsActor(world,actor){return attached&&getParty()?.state===world&&actor?.control==='remote'&&getParty()?.actors?.includes(actor);}
     function parryActor(world,q,actor,verified=true){if(!ownsActor(world,actor))return undefined;return withActor(world,actor,view=>{const hostSeen=q.coreContactsV31333?.includes('__host')===true,result=env.__HAPIL_CHANNEL_V31364__?.tryParry(view,q,view,verified)??false;if(result){q.parriedByV31356=actor.slotId;const contacts=q.coreContactsV31333??[];q.coreContactsV31333=[...new Set([...contacts.map(k=>!hostSeen&&k==='__host'?actor.slotId:k),actor.slotId])].slice(0,8);}return result;});}
@@ -200,14 +212,16 @@
       return true;
     }
     function captureLocal() {
-      const p=getParty(),b=binding(),world=b?.state?.current??p?.state;return portable({world:world?clone(world):null,runDraft:env.__HAPIL_RUN_V31400__?.draft?.(),phase:b?.phase??'title',auto:b?.auto?.current,hero:b?.hero?.current,settings:clone(b?.settings?.current),passives:clone(b?.passives?.current),shards:b?.shards?.current,partyIds:clone(b?.partyIds?.current),roster:clone(p?.roster??[]),mode:p?.status?.mode??'solo',endingFlag:env.__HAPIL_ENDING_CLEARED_V31300__,records:native().captureRecords?.()});
+      const p=getParty(),b=binding(),world=b?.state?.current??p?.state;return portable({world:world?clone(world):null,runDraft:env.__HAPIL_RUN_V31400__?.draft?.(),phase:b?.phase??'title',auto:b?.auto?.current,hero:b?.hero?.current,settings:clone(b?.settings?.current),passives:clone(b?.passives?.current),shards:b?.shards?.current,partyIds:clone(b?.partyIds?.current),roster:clone(p?.roster??[]),mode:p?.status?.mode??'solo',modeChoice:env.__HAPIL_PARTY_LAUNCH_V31322__?.getGameMode?.(),endingFlag:env.__HAPIL_ENDING_CLEARED_V31300__,records:native().captureRecords?.()});
     }
     function restoreLocal(saved) {
       if(!saved)return false;saved=portable(saved,true);const p=getParty(),b=binding();releaseInputs('leave');
       p?.leave?.();if(saved.runDraft)env.__HAPIL_RUN_V31400__?.select?.(saved.runDraft);const target=localWorldRef??b?.state?.current??p?.state;if(saved.world&&target){for(const key of Object.keys(target))delete target[key];Object.assign(target,clone(saved.world));if(b?.state)b.state.current=target;env.__HAPIL_RUN_V31400__?.init?.(target,saved.hero,saved.world.runPolicyV31400??saved.runDraft??{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'new'});p?.capture?.(target,{damage:b?.actions?.damage,heroRef:b?.hero,cache:b?.cache?.current},saved.phase!=='game');}
       for(const key of ['hero','settings','passives','shards','partyIds','auto'])if(b?.[key]&&Object.hasOwn(saved,key))b[key].current=clone(saved[key]);
       env.__HAPIL_ENDING_CLEARED_V31300__=saved.endingFlag;if(saved.records!==undefined)native().restoreRecords?.(saved.records);
+      if(saved.modeChoice!==undefined)env.__HAPIL_PARTY_LAUNCH_V31322__?.setGameMode?.(saved.modeChoice);
       if(saved.roster?.length)p?.configure?.({mode:saved.mode,roster:saved.roster});
+      b?.actions?.restoreView?.(saved);
       if(saved.phase!=='game'){b?.actions?.returnTitle?.();if(b)b.phase=saved.phase??'title';}
       return true;
     }
@@ -216,10 +230,16 @@
       return s;
     }
     function role(next) {if(!['host','guest','disconnected','offline'].includes(next))return false;if(next!==currentRole)releaseInputs('role-change');currentRole=next;getParty()?.setNetworkRole?.(next==='offline'?'local':next);return status();}
-    function configureRoster(next) {
+    function configureRoster(next,preserveStory=false) {
       if(!Array.isArray(next.roster)||!next.roster.length)return;
       const rows=next.roster.map((r,i)=>({slotId:r.slotId??'p'+(i+1),heroId:r.heroId,name:r.nickname??r.name??r.heroId,control:i===0?'host':r.kind==='ai'?'ai':r.kind==='local'&&next.isHost?'local':'remote'}));
-      const signature=JSON.stringify(rows);if(signature!==rosterSignature&&getParty()){getParty().configure({mode:'network',roster:rows});rosterSignature=signature;}
+      const signature=JSON.stringify(rows);if(signature!==rosterSignature&&getParty()){
+        // Checkpoints own actor state; the connected room owns human identities.
+        // A native story companion can accompany those humans outside the four room slots.
+        const story=preserveStory?getParty().roster?.find(r=>r.slotId==='story68'&&r.control==='ai'):null;
+        const configured=story&&rows.length<8&&!rows.some(r=>r.slotId===story.slotId||r.heroId===story.heroId)?[...rows,{...story}]:rows;
+        getParty().configure({mode:'network',roster:configured});rosterSignature=signature;
+      }
     }
     function updateRoom(next={}) {const oldEpoch=epoch;room={...(room??{}),...next};if(Number.isSafeInteger(next.epoch)&&next.epoch>=epoch)epoch=next.epoch;if(oldEpoch!==epoch){wireSeq=-1;releaseInputs('epoch');stats.transitions++;}if(attached)configureRoster(room);return status();}
     function attach(next={}) {
@@ -267,7 +287,12 @@
       let accepted=false;
       try{accepted=p.applySnapshot(candidate)!==false;}finally{if(meta.allowHost)role(savedRole);}
       if(!accepted){stats.rejected++;return false;}
-      if(meta.allowHost){releaseInputs('checkpoint-load');controls()?.clear?.('checkpoint-load');native().resetPlayerTransient?.(p.state);for(const actor of p.actors??[])native().resetPlayerTransient?.(actorContext(p.state,actor).view);}
+      if(meta.allowHost){
+        // Native applySnapshot restores its saved roster too. Reconfigure even when
+        // room membership has not changed since the last ordinary room update.
+        rosterSignature='';configureRoster(room,true);
+        releaseInputs('checkpoint-load');controls()?.clear?.('checkpoint-load');native().resetPlayerTransient?.(p.state);for(const actor of p.actors??[])native().resetPlayerTransient?.(actorContext(p.state,actor).view);
+      }
       nativeSeq=candidate.seq;wireSeq=seq;
       const transition=nextEpoch!==epoch||meta.transition||hostZone!==snap.zone;
       if(transition){releaseInputs('snapshot-transition');interpolation=[];stats.transitions++;}
@@ -297,8 +322,10 @@
       if(status().paused)return {seq:++inputSeq,moveX:0,moveY:0,actions:[],autoMode:localAuto==='full',combatMode:localAuto};
       return {seq:++inputSeq,moveX,moveY,actions:[...new Set([...edges,...(attack?['attack']:[]),...(guard?['guard']:[])])],attackHeld:attack,guardHeld:guard,combatMode:localAuto,autoMode:localAuto==='full'};
     }
+    function requestRevive(choice='samong') {const actor=getParty()?.actors?.find(a=>a.slotId===room?.slotId);if(choice!=='samong'||!attached||room?.isHost||currentRole!=='guest'||status().paused||!actor||actor.hp>0||!['DREAM'].includes(room?.mode??getParty()?.state?.gameModeV31346))return false;if(!inputEdges.includes('reviveSamong'))inputEdges.push('reviveSamong');return true;}
+    function hostStatus(value={}) {return updateRoom({hostHidden:value.hidden===true,hostPaused:value.paused===true});}
     function setAutoMode(mode) {if(!['manual','semi','full'].includes(mode))return false;localAuto=mode;return mode;}
-    const api={version:VERSION,attach,updateRoom,start,input,snapshot,exportSnapshot,status,releaseInputs,role,leave,readInput,stepActor,resolveOutgoing,withActor,tagOwners,captureLocal,restoreLocal,validateCheckpoint,setAutoMode,normalizeInput,ownsActor,parryActor,blockActorDamage,incomingActor,
+    const api={version:VERSION,attach,updateRoom,start,input,snapshot,exportSnapshot,status,releaseInputs,role,leave,readInput,stepActor,resolveOutgoing,ownOutgoingSource,recordOutgoing,withActor,tagOwners,captureLocal,restoreLocal,validateCheckpoint,setAutoMode,requestRevive,hostStatus,normalizeInput,ownsActor,parryActor,blockActorDamage,incomingActor,
       passiveFrame:()=>attached&&(currentRole==='guest'||currentRole==='disconnected'),guestFrame:()=>{if(attached&&currentRole==='guest'){interpolate();mirrorNarrative();}return attached&&(currentRole==='guest'||currentRole==='disconnected');},
       canonicalWorld:s=>s?.rc222CanonicalWorld??s,actorFor:s=>s?.rc222ActorSlot?getParty()?.actors?.find(a=>a.slotId===s.rc222ActorSlot):null,get inActorTransaction(){return !!transaction;},get activeActor(){return transaction?.actor??null;},get session(){return room;},telemetry:()=>clone(stats),debug:{actorContext,owned,clone,incoming,held}};
     const physical={KeyA:'attack',KeyS:'dash',Space:'dash',KeyD:'guard',KeyQ:'q',KeyW:'w',KeyE:'e',KeyR:'r',Digit1:'resonance',Digit2:'collab'};
