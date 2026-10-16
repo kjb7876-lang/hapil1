@@ -20,8 +20,8 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "sha256": "34d120d8834446915e6cdf26d4b54ced7d49983fb86c5f0cb7fdfed917fc820b",
-        "gitBlob": "b48bf53b939cd05671afe6ceedc584bf2350fbaa"
+        "sha256": "dc56cea84d5b6a49878b41933b31a337bc9a2c2071d8cda6059912f6c0e66f4b",
+        "gitBlob": "e0de2a2940c60102986ea4533593b2ec2948b174"
       },
       "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
@@ -164,5 +164,5 @@
       "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     }
   ],
-  "targetProtectedRowsSha256": "04259e86cc13d18103c5e1e13a5805984de62404a9f313c0e672e195f1e38075"
+  "targetProtectedRowsSha256": "831155e983e1d8003d4a5520dbd4eddd0d3321c8739348a60fc8259da2e70fbe"
 }

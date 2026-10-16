@@ -46890,7 +46890,24 @@ function HAPIL_bossCastDamageFactorV31342(state, boss) {
   // Clearing an atomic cast releases protection immediately; no presentation timer is read.
   const atomicStart = Math.max(Number(boss.attackStarted) || 0, Number(boss.castPresentationStarted31211) || 0);
   const atomicCast = atomicStart <= now && now < Number(boss.atomicCastUntil31210);
-  return ruleCast || atomicCast ? (window.__HAPIL_COMBAT_FLOW_RC95__?.enabled(state) ? .65 : .01) : 1;
+  if (!(ruleCast || atomicCast)) return 1;
+  const flow = window.__HAPIL_COMBAT_FLOW_RC95__;
+  if (flow?.enabled?.(state)) return .65;
+  const party = window.__HAPIL_PARTY_V31322__;
+  if (!party || party.state !== state || typeof flow?.enabled !== 'function') return .01;
+  const status = party.status;
+  if (status?.enabled !== true || status.disconnected === true || !['host', 'offline'].includes(status.role)) return .01;
+  const actor = party.outgoingActor;
+  if (!actor || !Array.isArray(party.actors) || !party.actors.includes(actor) || !Number.isFinite(Number(actor.hp)) || !(Number(actor.hp) > 0)) return .01;
+  if (actor.downUntil != null && (!Number.isFinite(Number(actor.downUntil)) || Number(actor.downUntil) > now)) return .01;
+  const runtime = window.__HAPIL_REMOTE_RC222_RUNTIME__;
+  const runtimeRole = runtime?.status?.()?.role;
+  if (status.role === 'host') {
+    const session = runtime?.session;
+    if (runtimeRole !== 'host' || session?.isHost !== true || session.stale === true) return .01;
+  } else if (runtime && runtimeRole !== 'offline') return .01;
+  const actorState = Object.freeze(Object.assign(Object.create(state), { hp: actor.hp }));
+  return flow.enabled(actorState) ? .65 : .01;
 }
 
 function MONGSE_lockAtomicBossCast31210(e, t, n, r, i = `rain`) {
