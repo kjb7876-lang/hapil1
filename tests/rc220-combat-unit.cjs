@@ -60,7 +60,7 @@ counterState.time=counterHit.at-.55;assert(native.counterStatus(counterState).re
  legacyRoot.window=legacyRoot;
  vm.runInNewContext(fs.readFileSync('assets/rc221/resonance-counter.js','utf8'),{window:legacyRoot,document:legacyDoc});
  const api=legacyRoot.__HAPIL_RESONANCE_COUNTER_RC221__;
- assert.equal(api.version,'3.13.21-RC3');
+ assert.equal(api.version,'3.13.21-RC4');
  assert.equal(api.state(),null,'legacy approved bundles without counterStatus are treated as unavailable');
  api.refresh();
  assert.equal(legacyDoc.body.child.hidden,true,'legacy bundle hides the unavailable counter without throwing');

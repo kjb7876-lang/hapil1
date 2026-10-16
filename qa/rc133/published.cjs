@@ -480,7 +480,7 @@ const extension124=laterExtensions[58],extension125=laterExtensions[59],extensio
 assert.equal(laterExtensions[131-66].base,'eb11167b6fc903f00d780eb99e684972a5be6db9');
 assert.equal(laterExtensions[141-66].base,'dda26a02f1247f231898fd2b9629465dbfb6fc14');
 assert.equal(laterExtensions[142-66].base,'4ea2fe207c3cf79e77c566645fcaa5a30c6035ae');
-assert.equal(runtimeOutputs.size,380,'exact extension142 scoped file inventory');
+assert.equal(runtimeOutputs.size,380,'exact extension143 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 

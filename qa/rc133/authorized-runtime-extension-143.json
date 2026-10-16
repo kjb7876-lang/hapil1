@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "c21d61c063ca1498d0f3cdc8bced197e1b22e65c",
+  "baseTree": "4f889280cfd53784db1e14301bd6b397a2cd0282",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "44be48c729034c9f00b688886aa7d350814fd7ecfdd4c4d400c21854e0d433fd",
+  "files": [
+    {
+      "file": "assets/rc221/resonance-counter.css",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "71f005ffb7430cf43e996c3e2af4db0b0566957a",
+        "file": "assets/rc221/resonance-counter.css"
+      },
+      "after": {
+        "file": "assets/rc221/resonance-counter.css",
+        "mode": "100644",
+        "sha256": "edc767d57199cd03d57f6d50b3151dfcb3e69fb7be4164de778f09213d543a45",
+        "gitBlob": "ebc2ccccc0f74d6daaa3b9ca77012e09a68d79f0"
+      },
+      "reason": "assets/rc221/resonance-counter.css : launch the old blood-beam asset as the successful timed resonance parry’s brief full-screen cut, with reduced-flash handling."
+    },
+    {
+      "file": "assets/rc221/resonance-counter.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "639aeb600750f5a0b0649e0bd185d7a569c01eff",
+        "file": "assets/rc221/resonance-counter.js"
+      },
+      "after": {
+        "file": "assets/rc221/resonance-counter.js",
+        "mode": "100644",
+        "sha256": "e9b083c43f4e13254fbaed687abc106b1d16682714c380676edcd5ab8603a283",
+        "gitBlob": "643592f446a70a4b796c95b9447c6ad1ae1ae800"
+      },
+      "reason": "assets/rc221/resonance-counter.js : launch the old blood-beam asset as the successful timed resonance parry’s brief full-screen cut, with reduced-flash handling."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "6743f57d726bd5eda87f62402af1b776ccc6303e",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "d01a1b11994ad1a7b3e71c2cc2260b48acf4044e394a6d8e10710c2e087ff1cd",
+        "gitBlob": "bdfd63a340b8879e5efd6e43c2a182ace3d3b02d"
+      },
+      "reason": "index.html: rev the exact RC221 loader keys for the blood-beam hero-cut continuation."
+    }
+  ],
+  "targetProtectedRowsSha256": "e987fe2242b994ebabf33cd3f0b2174c70f19b995288d6f4b655c9ce704ed756"
+}
