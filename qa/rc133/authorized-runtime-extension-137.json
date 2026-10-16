@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "3202d8da1537dd00af9eef670d1763ed57cbb3de",
+  "baseTree": "55305f9759816208142d8a9689c9463bd97dca1f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "7ddbc0d82c02242e977df204106d961b4726a75dc997da3af886e76b350c3bde",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "09b5bfaf5c21600adc22d6a18d2f644a6b284715"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "61058c0e5f1328f15dc847d5b8b28089d1c55fa5ea87e4012ebd730d64cd7dc6",
+        "gitBlob": "468258021fd23d5b1d04fc5f23a53737f9dcac9e"
+      },
+      "reason": "assets/index-v31526.js: approved RC221 continuation fixes null-body UI lifecycle and uses the original cosmic blood-beam atlas for the mapwide laser/parry."
+    },
+    {
+      "file": "assets/rc221/resonance-counter.js",
+      "before": {
+        "file": "assets/rc221/resonance-counter.js",
+        "mode": "100644",
+        "gitBlob": "2fd934e4ad34f8629b96e52e36d8e99af7c8f20a"
+      },
+      "after": {
+        "file": "assets/rc221/resonance-counter.js",
+        "mode": "100644",
+        "sha256": "b70d33d30e06ce9e013c750094846c64a243d7069c8c303aa2daa24484bcc14b",
+        "gitBlob": "64783c23e7942b110881026930f728b6eff25210"
+      },
+      "reason": "assets/rc221/resonance-counter.js: approved RC221 continuation fixes null-body UI lifecycle and uses the original cosmic blood-beam atlas for the mapwide laser/parry."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "321d960ebcb886d110db8488f7e14ad1af636a0e"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "4cadc0bcb959b1504e9d30c9fec9d16e501b2f3709b08c3245d2e6f24eb674d6",
+        "gitBlob": "265ded0a79884be58641f4b34fc8eed144989ad4"
+      },
+      "reason": "index.html: approved RC221 continuation fixes null-body UI lifecycle and uses the original cosmic blood-beam atlas for the mapwide laser/parry."
+    }
+  ],
+  "targetProtectedRowsSha256": "192915d9d9cd2646f7ce0b9ac52c7b98e3540fd0ecd382e30f871eebdd66c216"
+}
