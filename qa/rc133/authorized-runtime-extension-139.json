@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "2dde1b10297ad5c5b43052af021a63c771c9a490",
+  "baseTree": "b3b0360f2ac723082f9fc8335f5faf04c08f4a52",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "27e93d2a4d294aa083d34f942e00927ca2f097b7bbceaef2a2a9bf1507f9fc5c",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "468258021fd23d5b1d04fc5f23a53737f9dcac9e",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "088897ddbca7327cd327a159bd890223a5e50472a43e6afe40d0565b33bb2589",
+        "gitBlob": "9c83fd7e7695fa007fa0646de7fa661963f6cd99"
+      },
+      "reason": "assets/index-v31526.js: keep the first mandatory Lucifer blood beam uncounterable until its native laser impact, then expose the timed resonance parry."
+    },
+    {
+      "file": "assets/rc221/resonance-counter.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "6a47a8eec96751b0f63a1ca81b0d55c34ac34580",
+        "file": "assets/rc221/resonance-counter.js"
+      },
+      "after": {
+        "file": "assets/rc221/resonance-counter.js",
+        "mode": "100644",
+        "sha256": "1fbe5c8c599df09c8b3ea5528105af585323b033e38ec08e79feb55738b85533",
+        "gitBlob": "639aeb600750f5a0b0649e0bd185d7a569c01eff"
+      },
+      "reason": "assets/rc221/resonance-counter.js: keep the first mandatory Lucifer blood beam uncounterable until its native laser impact, then expose the timed resonance parry."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "e1cb65a97de915cc4e779f8a5fb25f59a52734b5",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "8643a49371490939d0ad934cc999830ed83e37690d8ca1fda10501e01c3ace08",
+        "gitBlob": "bd4de29da8a88cbbd975f6823bbf0f876cc36d00"
+      },
+      "reason": "index.html: keep the first mandatory Lucifer blood beam uncounterable until its native laser impact, then expose the timed resonance parry."
+    }
+  ],
+  "targetProtectedRowsSha256": "462677d8da1b33f0d639c46f9c425682a54ec81ad086f6ecf3226b2522a24b0b"
+}
