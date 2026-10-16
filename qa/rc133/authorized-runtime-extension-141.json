@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "dda26a02f1247f231898fd2b9629465dbfb6fc14",
+  "baseTree": "d2d965ff801957858363979283bc80e2ff158fbe",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "62751c2dc4792ab6488e2d332d7067e02f4ca7fff75c3587a1f686eacaace360",
+  "files": [
+    {
+      "file": "assets/controller-v31406/resonance-channel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1bb294356078977fcfe1571783a356f7b12fd5c9",
+        "file": "assets/controller-v31406/resonance-channel.js"
+      },
+      "after": {
+        "file": "assets/controller-v31406/resonance-channel.js",
+        "mode": "100644",
+        "sha256": "040d45d5c54bb0cca27a6fde9e0edf08df974b99aece7db3b71bacb884e2e1fb",
+        "gitBlob": "84bed7050d629f96c1f4f34f36e3b9caed4ccbc1"
+      },
+      "reason": "assets/controller-v31406/resonance-channel.js: keep full resonance available for Cosmic Lucifer's mandatory blood-beam counter before automatic EGO conversion."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "3c602c8c652de30c427d6864dba564624e62c0af",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "e4bd26e0353fac5ab508b552ae630cfd907163bb9b7b9a782f1a9de09d61f293",
+        "gitBlob": "c5fa8e4a5a26b647fc9c0079a9c8f7db2fb21742"
+      },
+      "reason": "index.html: keep full resonance available for Cosmic Lucifer's mandatory blood-beam counter before automatic EGO conversion."
+    }
+  ],
+  "targetProtectedRowsSha256": "104680170edd2a3d870d2a69d5301a4777fc3c4417e874944975803fc8f4e129"
+}

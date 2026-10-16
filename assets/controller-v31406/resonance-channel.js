@@ -78,7 +78,13 @@
   if(q.parriedV31356||q.projectileRemovalReason31215||q.themeTerminalV31323||q.themeEndedV31323||q.damageSuppressedV31226||q.reachedHero31213||q.reachedMapBoundary31213)return false;
   return (0,native.HAPIL_projectileVisibleV31355)(q,s.time)&&num(q.frozenUntil)<=s.time&&num(s.timeStopUntil)<=s.time&&num(q.collisionDisabledUntilV31226)<=s.time&&num(q.collisionDisabledUntil31219)<=s.time;
  }
- function convert(s,a){if(session(s,a))return false;const before=num(a.awakeningUntil),wasAwake=before>s.time;const result=window.__HAPIL_COMBAT_CORE_V31401__.convert(s,a,()=>reduceConvertV31401(s,a));if(a===s)window.__HAPIL_DAMAGE_RC108__?.egoEntered(s,wasAwake,before,num(a.awakeningUntil));return result;}
+ function reservesLuciferCounter(s,a){
+  if(a!==s||!s||num(s.resonance)<100)return false;
+  const actor=window.__HAPIL_LUCIFER_V31318__?.actorFor?.(s);if(!actor||!(num(actor.hp)>0))return false;
+  if(window.__HAPIL_COMBAT_RC220__?.opening?.(actor)===true)return true;
+  return !!window.__HAPIL_ARSENAL_V31318__?.counterStatus?.(s)?.hit;
+ }
+ function convert(s,a){if(session(s,a)||reservesLuciferCounter(s,a))return false;const before=num(a.awakeningUntil),wasAwake=before>s.time;const result=window.__HAPIL_COMBAT_CORE_V31401__.convert(s,a,()=>reduceConvertV31401(s,a));if(a===s)window.__HAPIL_DAMAGE_RC108__?.egoEntered(s,wasAwake,before,num(a.awakeningUntil));return result;}
  function reduceConvertV31401(s,a){
   if(num(a.awakeningUntil)>s.time)return false;
   const b=controls()?.binding,level=a===s&&b?.state?.current===s?num((0,native.HAPIL_effectiveGrowthV31400)(b.passives?.current??{},s).awakening):0,p=(0,native.sr)(Math.max(1,level),heroId(s,a));

@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{verify}=require('../tools/rc154-cosmic-loader.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f));
 const input={html:read('index.html').toString(),bundle:read('assets/index-v31526.js').toString()};
-for(let n=15;n<=140;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
+for(let n=15;n<=141;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
 let checks=0;
 assert.equal(verify(input),'exact-chained-RC155+RC152+EGO+resume');checks++;
 const patches=[
