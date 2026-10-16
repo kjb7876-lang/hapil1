@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "4ea2fe207c3cf79e77c566645fcaa5a30c6035ae",
+  "baseTree": "22e291cb94d4550c9ce183c1af6b4ff922ad1e6b",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "7100e9c66ad346c25751c60ed7b45763a59c99a79fb80ee80448fd59a67eda00",
+  "files": [
+    {
+      "file": "assets/controller-v31406/resonance-channel.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "84bed7050d629f96c1f4f34f36e3b9caed4ccbc1",
+        "file": "assets/controller-v31406/resonance-channel.js"
+      },
+      "after": {
+        "file": "assets/controller-v31406/resonance-channel.js",
+        "mode": "100644",
+        "sha256": "7f10bf511d6989e1448a79af579a864aa4c2004c5f4466a8b854c41eb88a76fa",
+        "gitBlob": "3f00646deb4f217ab5d3ac22ea922719e8ab21ae"
+      },
+      "reason": "assets/controller-v31406/resonance-channel.js: reserve full resonance only through the next scheduled Cosmic Lucifer blood-beam counter, so automatic EGO conversion cannot preempt the parry."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c5fa8e4a5a26b647fc9c0079a9c8f7db2fb21742",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "7311ff3f7a260edcc2781d2b41b91500ebad41d5d383de136b14c9078474e22c",
+        "gitBlob": "6743f57d726bd5eda87f62402af1b776ccc6303e"
+      },
+      "reason": "index.html: reserve full resonance only through the next scheduled Cosmic Lucifer blood-beam counter, so automatic EGO conversion cannot preempt the parry."
+    }
+  ],
+  "targetProtectedRowsSha256": "92b9ddeed50cc10812580c3d6b455f0c22f55b283e611b9b0131d2cb800b491f"
+}

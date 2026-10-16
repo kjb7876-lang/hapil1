@@ -479,7 +479,7 @@ for(const extension of laterExtensions)for(const row of extension.files){if(row.
 const extension124=laterExtensions[58],extension125=laterExtensions[59],extension126=laterExtensions[60],extension127=laterExtensions[61],extension128=laterExtensions[62],extension129=laterExtensions[63],extension130=laterExtensions[64];assert.equal(extension125.base,'905f64feaaf7a8042c81bcd53137412e85e6d379');assert.equal(extension126.base,'db74d2bd953d888312954fbdbb94eca9f3a0bd41');assert.equal(extension127.base,'bf5c15063c9c34045c1f11018ac210942c672180');assert.equal(extension128.base,'3c70e9869b8d321fcbc07811ecf2eac774da3a96');assert.equal(extension129.base,'0df500795d15c5b1daec306c1370f45bf89c9a15');assert.equal(extension130.base,'60669ae2f494338ccc46dec2c46f3ab2f1a756d3');
 assert.equal(laterExtensions[131-66].base,'eb11167b6fc903f00d780eb99e684972a5be6db9');
 assert.equal(laterExtensions[141-66].base,'dda26a02f1247f231898fd2b9629465dbfb6fc14');
-assert.equal(runtimeOutputs.size,380,'exact extension141 scoped file inventory');
+assert.equal(runtimeOutputs.size,380,'exact extension142 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 

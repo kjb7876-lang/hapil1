@@ -80,7 +80,13 @@
  }
  function reservesLuciferCounter(s,a){
   if(a!==s||!s||num(s.resonance)<100)return false;
-  const actor=window.__HAPIL_LUCIFER_V31318__?.actorFor?.(s);if(!actor||!(num(actor.hp)>0))return false;
+  const lucifer=window.__HAPIL_LUCIFER_V31318__;
+  const actor=lucifer?.actorFor?.(s);if(!actor||!(num(actor.hp)>0))return false;
+  // Keep charge between a parry and the next blood beam without blocking EGO
+  // through the rest of the encounter. The flow phase can override the cycle.
+  const flow=window.__HAPIL_COMBAT_FLOW_RC95__,phase=flow?.enabled?.(s)?flow.phase?.(s):null;
+  const nextIsBloodBeam=phase?.index===1||Math.floor(num(actor.cosmicCycleV31318))%3===1;
+  if(lucifer?.active?.(s)===true&&nextIsBloodBeam)return true;
   if(window.__HAPIL_COMBAT_RC220__?.opening?.(actor)===true)return true;
   return !!window.__HAPIL_ARSENAL_V31318__?.counterStatus?.(s)?.hit;
  }

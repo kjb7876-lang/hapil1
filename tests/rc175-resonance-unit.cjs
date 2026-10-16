@@ -14,8 +14,9 @@ s.hp=239;C.credit(s,s,{id:3,damage:10,born:1});assert.equal(s.hp,240);s.hp=0;s.t
 for(const kind of ['zone','hero','clock','load']){s=state();C.cast(s);const old=s.hp;if(kind==='zone')s.zone='next';if(kind==='hero')s.activeHeroId='other';if(kind==='clock')s.time=0;else s.time+=.1;if(kind==='load'){s=JSON.parse(JSON.stringify(s));root.__HAPIL_CONTROLS_V31329__.binding.state.current=s;}C.tick(s);assert.equal(s.hp,old,kind);}
 s=state();C.cast(s);s.heroHealingBlockedUntil=10;s.time+=.1;C.tick(s);C.credit(s,s,{id:4,damage:40,born:1});assert.equal(s.hp,10);
 assert.equal(C.config.healPerSecond,14);assert.equal(C.config.healPerContact,21);assert.equal(C.config.heavyHealPerContact,49);
-root.__HAPIL_LUCIFER_V31318__={actorFor:s=>s.cosmicActor??null};root.__HAPIL_COMBAT_RC220__={opening:a=>a?.cosmicLuciferV31318===true&&a.cosmicOpeningFiredRC220!==true};
+root.__HAPIL_LUCIFER_V31318__={actorFor:s=>s.cosmicActor??null,active:s=>s.cosmicActive===true};root.__HAPIL_COMBAT_RC220__={opening:a=>a?.cosmicLuciferV31318===true&&a.cosmicOpeningFiredRC220!==true};
 s=state();s.resonance=100;s.cosmicActor={cosmicLuciferV31318:true,hp:500};assert.equal(C.convert(s,s),false,'mandatory Lucifer opening reserves 100 resonance');assert.equal(s.resonance,100);assert.equal(s.awakeningUntil,undefined);
 s.cosmicActor.cosmicOpeningFiredRC220=true;root.__HAPIL_ARSENAL_V31318__={counterStatus:()=>({hit:{id:'blood-beam'}})};assert.equal(C.convert(s,s),false,'an active blood beam reserves the timed counter resource');assert.equal(s.resonance,100);
-root.__HAPIL_ARSENAL_V31318__.counterStatus=()=>null;assert.equal(C.convert(s,s),true,'ordinary EGO conversion resumes after the opening counter ends');assert.equal(s.resonance,0);assert(s.awakeningUntil>s.time);
-console.log('RC175_RESONANCE_UNIT passed: channel/heal reducers, finite contacts, HP cap and cleanup plus automatic-conversion reservation during Lucifer opening and live beam.');
+root.__HAPIL_ARSENAL_V31318__.counterStatus=()=>null;s.cosmicActive=true;s.cosmicActor.cosmicCycleV31318=1;assert.equal(C.convert(s,s),false,'active Lucifer fight preserves resonance for its next scheduled blood beam');assert.equal(s.resonance,100);
+s.cosmicActor.cosmicCycleV31318=2;assert.equal(C.convert(s,s),true,'automatic EGO resumes after the next-beam window passes');assert.equal(s.resonance,0);assert(s.awakeningUntil>s.time);
+console.log('RC175_RESONANCE_UNIT passed: channel/heal reducers, finite contacts, HP cap and cleanup plus resonance reservation for the next scheduled Lucifer blood beam.');
