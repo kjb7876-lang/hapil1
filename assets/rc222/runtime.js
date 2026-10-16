@@ -244,7 +244,7 @@
     function updateRoom(next={}) {const oldEpoch=epoch;room={...(room??{}),...next};if(Number.isSafeInteger(next.epoch)&&next.epoch>=epoch)epoch=next.epoch;if(oldEpoch!==epoch){wireSeq=-1;releaseInputs('epoch');stats.transitions++;}if(attached)configureRoster(room);return status();}
     function attach(next={}) {
       if(!attached){localWorldRef=binding()?.state?.current??getParty()?.state??null;capture=captureLocal();localAuto=controls()?.choice?.(binding()?.settings?.current)??'manual';const result=connectStorage()?.enter?.(next.isHost?'host':'guest',next.session??next);if(result?.ok===false)throw Error('Cooperative storage isolation failed: '+result.reason);native().reloadRecordScopes?.();attached=true;}
-      updateRoom(next);role(next.isHost?'host':'guest');return status();
+      updateRoom(next);role(next.isHost?'host':'guest');binding()?.actions?.refreshScope?.();return status();
     }
     async function start(next=room??{}) {
       if(!attached)attach(next);else updateRoom(next);
@@ -318,7 +318,7 @@
     }
     function leave() {
       releaseInputs('leave');const storage=connectStorage();try{const result=storage?.leave?storage.leave():restoreLocal(capture);if(result===false||result?.ok===false)throw Error('Local state restore failed: '+(result?.reason??'runtime-restore'));}catch(error){role('disconnected');throw error;}
-      attached=false;capture=null;room=null;epoch=0;wireSeq=-1;hostZone=null;rosterSignature='';currentRole='offline';narrative=null;narrativeKey='';localWorldRef=null;nativeStarted=false;nativeGameObserved=false;interpolation=[];env.document?.getElementById?.('hapil-remote-narrative-rc222')?.remove();return status();
+      attached=false;capture=null;room=null;epoch=0;wireSeq=-1;hostZone=null;rosterSignature='';currentRole='offline';narrative=null;narrativeKey='';localWorldRef=null;nativeStarted=false;nativeGameObserved=false;interpolation=[];env.document?.getElementById?.('hapil-remote-narrative-rc222')?.remove();binding()?.actions?.refreshScope?.();return status();
     }
     function readInput() {
       if(portrait())releaseInputs('portrait');

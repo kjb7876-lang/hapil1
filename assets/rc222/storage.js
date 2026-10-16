@@ -241,6 +241,6 @@
       return { ...checkpoint, persistent, reloadSafe: persistent || sessionSafe };
     } catch (error) { return fail(error.message); }
   }
-  const status = () => ({ active: !!current, role: current?.role ?? 'solo', session: current?.session ?? null, keyPrefix: current ? scope() : null, restoring, blockedWrites, lastError });
+  const status = () => ({ generation, active: !!current, role: current?.role ?? 'solo', session: current?.session ?? null, keyPrefix: current ? scope() : null, restoring, blockedWrites, lastError });
   root.__HAPIL_COOP_STORAGE_RC222__ = Object.freeze({ version: 1, configure, enter, leave, save, export: exportCheckpoint, import: importCheckpoint, load, list, status, read, write, getItem, setItem, removeItem, area, nativeSave, codec: Object.freeze({ encode, decode, clone }) });
 })();

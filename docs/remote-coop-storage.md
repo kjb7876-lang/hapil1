@@ -30,7 +30,7 @@ variables by itself; the runtime bridge owns those references.
 | `export(slot='auto')` | Return a validated checkpoint JSON string, or `null`. |
 | `import(json, slot='auto')` | Validate and store a checkpoint in the current host session. Loading is an explicit second action. |
 | `list()` | Current host session checkpoint summaries: `{slot, savedAt, zone}`. |
-| `status()` | `{active, role, session, keyPrefix, restoring, blockedWrites, lastError}`. |
+| `status()` | `{generation, active, role, session, keyPrefix, restoring, blockedWrites, lastError}`. |
 | `read(key)`, `write(key,value)` | Native local/session/memory fallback contract under a scoped key. |
 | `area(name)` | `getItem`, `setItem`, `removeItem` facade for a direct local or session storage caller. |
 | `nativeSave(slot,payload)` | Native host save plus full checkpoint; guest calls fail without writing. |
@@ -96,3 +96,5 @@ Browser persistence and peer synchronization require the broader runtime and
 browser integration checks.
 
 Active Balrog spatial rifts serialize their hazard geometry and lifetime. Per-actor fractional contact clocks live outside the checkpoint and begin fresh after host load, so no native WeakMap is restored as a plain object. This can discard less than one DOT interval of contact remainder; an uninterrupted live session retains it. The actual snapshot-codec regression verifies continued finite host/guest damage and expiry at equal paused world time.
+
+The monotonic storage `generation` changes on session entry and successful leave. Native autosave and automatic progression callbacks capture it, so callbacks created under a departed co-op scope cannot write into solo storage during React cleanup. A new solo callback is established after restoration; normal solo saves and page-hide saves remain enabled.

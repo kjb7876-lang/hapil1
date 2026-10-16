@@ -200,4 +200,11 @@ function nativeFunction(name) {
   env.__HAPIL_REMOTE_RC222_RUNTIME__={canonicalWorld:s=>s===view?world:s};
   assert.equal(safety.nextGroup(view),'volley:10');assert.equal(world.rc126AssetLedger,ledger,'facades share the canonical admission cache without recloning the ledger');
 }
+{
+  const {api}=fixture(),initial=api.status().generation;
+  assert.equal(initial,0);assert.equal(api.enter('host','epoch-owner').ok,true);assert.equal(api.status().generation,initial+1);
+  api.enter('host','epoch-owner');assert.equal(api.status().generation,initial+1,'unchanged session does not invalidate live callbacks');
+  api.save('1');api.load('1');assert.equal(api.status().generation,initial+1,'checkpoint load stays in the same storage scope');
+  api.leave();assert.equal(api.status().generation,initial+2);api.enter('guest','epoch-guest');assert.equal(api.status().generation,initial+3);api.leave();assert.equal(api.status().generation,initial+4);
+}
 console.log('RC222_STORAGE passed: native helpers, solo isolation, per-session saves, host checkpoint import/export/load, guest write rejection, local restoration, repeat load, malformed data, rollback, Infinity and local/session/memory fallback.');
