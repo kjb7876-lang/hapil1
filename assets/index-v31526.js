@@ -42877,6 +42877,7 @@ function MONGSE_initialRosterPlanV31228(e) {
 }
 function HAPIL_resetEncounterOnEntryRC133(s) {
   window.__HAPIL_AWAKENING_RULES_RC137__?.reset(s);
+  window.__HAPIL_ENEMY_FEEL_V31361__?.reset?.(s);
   // A fresh roster owns fresh casts and admission clocks, including same-zone
   // death restarts whose actor IDs intentionally match the previous roster.
   s.bossLaserCastsV31330 = [];
@@ -63189,7 +63190,7 @@ function Ri() {
                 !o.enemies.some((e) => e.id === o.targetEnemyId) &&
                 (o.targetEnemyId = null),
               (window.__HAPIL_SAMONG_RC91__?.tryRevive(o)),
-              (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) && window.__HAPIL_SAMONG_RC91__?.consumeCheckpoint(o) &&
+              window.__HAPIL_SAMONG_RC91__?.consumeCheckpoint(o) && (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) &&
                 ((window.__HAPIL_EPISODE1_RC59__?.beforeRespawn(o)),
                 (window.__HAPIL_EXIT_V31327__?.reset(o)),
                 (window.__HAPIL_RC133_NATIVE__?.restartAfterDeath?window.__HAPIL_RC133_NATIVE__.restartAfterDeath(o):ii(o,o.zone,false)),

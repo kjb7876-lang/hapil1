@@ -41,6 +41,26 @@ function installNativeOutgoingFixture(f){
   const outgoing=f.env.__HAPIL_OUTGOING_V31402__.create({P:f.b.state,R:f.b.passives,Re:f.b.settings,Ke:()=>{},native});
   return {outgoing,native,target:f.world.enemies[0]};
 }
+function nativeDeathFixture(options={}){
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),condition=source.split('\n').find(line=>line.includes('consumeCheckpoint(o) &&'))?.trim().replace(/\s*&&$/,'');assert(condition);
+  const section=(from,to)=>{const begin=source.indexOf(from),end=source.indexOf(to,begin);assert(begin>=0&&end>begin);return source.slice(begin,end);};
+  const world={zone:'dist02',time:10,x:5,y:5,hp:240,maxHp:240,activeHeroId:'hwando',effects:[],enemies:[],heroMotion:{}},env={};
+  const sandbox={window:env,world,initialRole:options.role??'host',initialEnabled:options.enabled!==false,setTimeout:()=>{},dt:(zone,p)=>p,b:v=>v,MONGSE_applyPositionRC152:(s,p)=>Object.assign(s,p),MONGSE_isEncounterLocked31226:()=>false};vm.createContext(sandbox);
+  vm.runInContext(`let role=initialRole,enabled=initialEnabled,bridge={},disconnected=false,scopedTarget=null,hostDownUntil=0,hostDownPosition=null,wipeCount=0,wipePending=false,lastZone=world.zone,lastTime=world.time,spawns=0,restarts=0;
+    const stats={wipes:0,revives:0},inputs=new Map(),strikes=[],roster=[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:'p2',heroId:'seoha',control:'remote'},{slotId:'p3',heroId:'neon',control:'remote'}];let actors=roster.slice(1).map(r=>({...r,x:6,y:6,hp:0,maxHp:240,downUntil:18}));
+    const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,clamp=(v,a,b)=>Math.max(a,Math.min(b,num(v))),alive=a=>a&&num(a.hp)>0,active=()=>enabled&&role!=='guest'&&!disconnected&&world;
+    const preload=()=>{};
+    ${section('  function spawn(r,index,s=world){','  function syncRoster(){')}
+    const nativeSpawn=spawn;spawn=function(...args){spawns++;return nativeSpawn(...args);};
+    ${section('  function tick(s,dtSeconds,rawHeroDelta=dtSeconds','  function primaryDamage(s,base,args){')}
+    ${section('  function primaryDamage(s,base,args){','  function enemyTargetScope(s,e,pattern,forced){')}
+    window.__HAPIL_COMBAT_CORE_V31401__={mark(){}};
+    window.__HAPIL_REMOTE_RC222_RUNTIME__={status:()=>({role}),stepActor:()=>true};
+    window.__HAPIL_PARTY_V31322__={get state(){return world;},get actors(){return actors;},get status(){return {role};},shouldRespawn};
+    globalThis.deathFixture={knockdown(){return primaryDamage(world,s=>{s.hp=0;return true;},[]);},frame(){tick(world,.02);const o=world;if(${condition}){restarts++;o.hp=o.maxHp;}endFrame(world);},get actors(){return actors;},get metrics(){return {hostDownUntil,hostDownPosition,wipeCount,wipePending,spawns,restarts,wipes:stats.wipes,revives:stats.revives};}};`,sandbox);
+  vm.runInContext(fs.readFileSync('assets/rc91/samong-awakening.js','utf8'),sandbox);
+  return {world,party:sandbox.deathFixture,samong:env.__HAPIL_SAMONG_RC91__};
+}
 test('resumed host status clears paused guest room flags without a roster update',()=>{const f=fixture();f.rt.updateRoom({isHost:false,slotId:'p2',hostPaused:true,hostHidden:true});f.rt.role('guest');assert.equal(f.rt.status().paused,true);f.rt.hostStatus({hidden:false,paused:false});assert.equal(f.rt.status().paused,false);f.rt.virtualKey('ArrowRight',true);assert.equal(f.rt.readInput().moveX,1);});
 test('guest Samong revival control sends an owned command without local health mutation',()=>{const f=fixture();f.rt.updateRoom({isHost:false,slotId:'p2',mode:'DREAM'});f.rt.role('guest');f.actor.hp=0;assert.equal(f.rt.requestRevive('samong'),true);assert.equal(f.actor.hp,0);assert(f.rt.readInput().actions.includes('reviveSamong'));f.actor.hp=100;assert.equal(f.rt.requestRevive('samong'),false);f.actor.hp=0;f.rt.updateRoom({mode:'STORY'});assert.equal(f.rt.requestRevive('samong'),false);f.rt.updateRoom({mode:'DREAM'});f.rt.hostStatus({paused:true});assert.equal(f.rt.requestRevive('samong'),false);});
 test('native actor context isolates hero health resources and refs',()=>{
@@ -101,9 +121,40 @@ test('full and semi auto modes are actor owned and snapshot fields retain them',
 test('cooperative down actor revives after eight seconds only with a survivor',()=>{
   const f=fixture();f.actor.hp=0;f.world.time=18;f.rt.stepActor(f.world,f.actor,null,.02,0);assert.equal(f.actor.hp,120);f.actor.hp=0;f.world.hp=0;f.rt.stepActor(f.world,f.actor,null,.02,0);assert.equal(f.actor.hp,0);
 });
+test('actual main death condition waits for checkpoint choice before native all-wipe mutation or actor rebuild',()=>{
+  const f=nativeDeathFixture();f.party.knockdown();const deadActors=f.party.actors;
+  assert.equal(f.party.metrics.hostDownUntil,18);assert.equal(f.samong.deathPending(f.world),true);
+  for(let i=0;i<12;i++){f.world.time+=1;f.party.frame();assert.equal(f.samong.deathPending(f.world),true);assert.equal(f.party.actors,deadActors);assert(f.party.actors.every(a=>a.hp===0));assert.equal(f.party.metrics.hostDownUntil,18);assert.equal(f.party.metrics.wipePending,false);}
+  assert.equal(f.party.metrics.wipes,0);assert.equal(f.party.metrics.spawns,0);assert.equal(f.party.metrics.restarts,0);
+  assert.equal(f.samong.chooseRevival(f.world,'checkpoint'),true);assert.equal(f.samong.deathPending(f.world),false);f.party.frame();
+  assert.equal(f.world.hp,240);assert(f.party.actors.every(a=>a.hp===240));assert.equal(f.party.metrics.wipeCount,1);assert.equal(f.party.metrics.wipes,1);assert.equal(f.party.metrics.restarts,1);assert.equal(f.party.metrics.spawns,2);assert.equal(f.party.metrics.hostDownUntil,0);assert.equal(f.party.metrics.wipePending,false);assert.equal(f.samong.consumeCheckpoint(f.world),false);
+  f.party.frame();assert.equal(f.party.metrics.wipes,1);assert.equal(f.party.metrics.restarts,1);assert.equal(f.party.metrics.spawns,2);
+});
+test('actual native host eight-second survivor revival still bypasses the checkpoint choice',()=>{
+  const f=nativeDeathFixture();f.party.actors[0].hp=100;f.party.knockdown();assert.equal(f.samong.deathPending(f.world),false);
+  f.world.time=17.99;f.party.frame();assert.equal(f.world.hp,0);assert.equal(f.party.metrics.hostDownUntil,18);assert.equal(f.party.metrics.restarts,0);
+  f.world.time=18;f.party.frame();assert.equal(f.world.hp,120);assert.equal(f.party.metrics.hostDownUntil,0);assert.equal(f.party.metrics.revives,1);assert.equal(f.party.metrics.wipes,0);assert.equal(f.party.metrics.restarts,0);assert.equal(f.party.metrics.spawns,0);
+});
+test('actual death choice order preserves solo checkpoint handling and prevents guest native respawn',()=>{
+  const solo=nativeDeathFixture({role:'offline',enabled:false});solo.party.knockdown();solo.party.frame();assert.equal(solo.world.hp,0);assert.equal(solo.samong.deathPending(solo.world),true);solo.samong.chooseRevival(solo.world,'checkpoint');solo.party.frame();assert.equal(solo.world.hp,240);assert.equal(solo.party.metrics.restarts,1);assert.equal(solo.party.metrics.wipes,0);
+  const guest=nativeDeathFixture({role:'guest'});guest.world.hp=0;assert.equal(guest.samong.deathPending(guest.world),false);guest.samong.chooseRevival(guest.world,'checkpoint');guest.party.frame();assert.equal(guest.world.hp,0);assert(guest.party.actors.every(a=>a.hp===0));assert.equal(guest.party.metrics.restarts,0);assert.equal(guest.party.metrics.spawns,0);assert.equal(guest.party.metrics.wipes,0);
+});
+test('actual native entry clears stale feedback before the strict transition snapshot wrapper runs',()=>{
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),feedback=source.slice(source.indexOf("const KEY='enemyFeedbackV31361'"));
+  const valid=feedback.split('\n').find(line=>line.trim().startsWith('function valid(e,s)')),wrapper=feedback.split('\n').find(line=>line.includes('const p=party();if(p?.applySnapshot)')),reset=feedback.match(/reset:s=>\{memories\.delete\(s\);if\(s\)s\[KEY\]=\[\];\}/)?.[0];assert(valid&&wrapper&&reset);
+  const begin=source.indexOf('function HAPIL_resetEncounterOnEntryRC133(s) {'),end=source.indexOf('\nvar ii =',begin);assert(begin>=0&&end>begin);
+  const env={},sandbox={window:env};vm.createContext(sandbox);
+  vm.runInContext(`const KEY='enemyFeedbackV31361',MAX=28,memories=new WeakMap(),nativePayloads=[];const nativeParty={applySnapshot:s=>{nativePayloads.push(s.zone);return true;}},party=()=>nativeParty;${valid}\n${wrapper}\nwindow.__HAPIL_ENEMY_FEEL_V31361__={${reset}};${source.slice(begin,end)};globalThis.feedbackFixture={apply:nativeParty.applySnapshot,reset:HAPIL_resetEncounterOnEntryRC133,nativePayloads,remember:s=>memories.set(s,{}),remembered:s=>memories.has(s)};`,sandbox);
+  const fixture=sandbox.feedbackFixture,event={id:'dist02-feedback',kind:'hurt',sound:'kinetic',family:'kinetic',zone:'dist02',hero:'hwando',slot:'__host',x:10,y:10,angle:0,born:1,duration:.23,strength:.3,color:'#aabbcc',accent:'#ddeeff'},world={zone:'dist02',activeHeroId:'hwando',enemyFeedbackV31361:[event]};
+  const snap=()=>({zone:world.zone,world:{fields:Object.entries(world)}});assert.equal(fixture.apply(snap()),true);world.zone='dist03';assert.equal(fixture.apply(snap()),false);assert.deepEqual(Array.from(fixture.nativePayloads),['dist02']);
+  fixture.remember(world);fixture.reset(world);assert.equal(fixture.remembered(world),false);assert.equal(world.enemyFeedbackV31361.length,0);assert.equal(fixture.apply(snap()),true);
+  const fresh={...event,id:'dist03-feedback',zone:'dist03'};world.enemyFeedbackV31361.push(fresh);assert.equal(fixture.apply(snap()),true);assert.equal(world.enemyFeedbackV31361[0],fresh);
+  fresh.strength=2;assert.equal(fixture.apply(snap()),false);assert.deepEqual(Array.from(fixture.nativePayloads),['dist02','dist03','dist03']);
+});
 test('native Samong choice routes through own facade',()=>{
   const f=fixture();f.actor.hp=0;let actor;f.env.__HAPIL_SAMONG_RC91__={chooseRevival:(s,choice)=>{actor=s;assert.equal(choice,'samong');s.hp=120;}};f.rt.input('p2',{seq:1,actions:['reviveSamong']});f.rt.stepActor(f.world,f.actor,null,.02,0);assert.equal(actor.activeHeroId,'seoha');assert.equal(f.actor.hp,120);assert.equal(f.world.hp,240);
 });
+test('snapshot rejection diagnostics tolerate malformed containers without changing validation',()=>{const f=fixture();f.rt.role('guest');for(const snap of [null,{}, {world:{fields:{}},party:{actors:{}}}, {world:{fields:[['bossLaserCastsV31330',{}],['bossUltimateCastsV31334',{}]]},party:{actors:[null]}}])assert.equal(f.rt.snapshot(snap,{seq:1,epoch:1,full:true}),false);assert.equal(f.rt.telemetry().lastSnapshotRejection.reason,'validation');});
 test('snapshot validator rejects incomplete duplicate or corrupt actor state',()=>{
   const f=fixture(),snap=f.rt.exportSnapshot();assert.equal(f.rt.validateCheckpoint(snap),true);const bad=structuredClone(snap);bad.world.fields=[];assert.equal(f.rt.validateCheckpoint(bad),false);const duplicate=structuredClone(snap);duplicate.world.fields.push(['zone','dist02']);assert.equal(f.rt.validateCheckpoint(duplicate),false);snap.party.actors[0].hp=NaN;assert.equal(f.rt.validateCheckpoint(snap),false);
 });

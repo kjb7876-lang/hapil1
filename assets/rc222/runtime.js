@@ -277,8 +277,12 @@
       snap.rc222={version:1,epoch,full:options.full!==false,zone:snap.zone,actorModes:(p.actors??[]).map(a=>({slotId:a.slotId,combatMode:contexts.get(a)?.auto??'manual'})),narrative:story,checkpointBoundary:{privateActions:'clear-on-host-load',remainingDamageSaved:false}};
       return snap;
     }
+    function snapshotRejected(reason,snap,meta={}) {
+      const fields=Object.fromEntries((Array.isArray(snap?.world?.fields)?snap.world.fields:[]).filter(row=>Array.isArray(row)&&row.length===2)),feedback=fields.enemyFeedbackV31361;
+      stats.rejected++;stats.lastSnapshotRejection={reason,zone:snap?.zone,epoch:meta.epoch,seq:meta.seq,role:currentRole,fieldCount:snap?.world?.fields?.length,world:{zone:fields.zone,hp:fields.hp,maxHp:fields.maxHp,hero:fields.activeHeroId},actors:(Array.isArray(snap?.party?.actors)?snap.party.actors:[]).map(a=>({slot:a?.slotId,hero:a?.heroId,hp:a?.hp,maxHp:a?.maxHp})),feedback:Array.isArray(feedback)?feedback.map(e=>({zone:e?.zone,hero:e?.hero,valid:env.__HAPIL_ENEMY_FEEL_V31361__?.valid?.(e,{zone:snap?.zone,activeHeroId:fields.activeHeroId})})):null,lasers:(Array.isArray(fields.bossLaserCastsV31330)?fields.bossLaserCastsV31330:[]).map(c=>({id:c?.id,zone:c?.zone})),ultimates:(Array.isArray(fields.bossUltimateCastsV31334)?fields.bossUltimateCastsV31334:[]).map(c=>({id:c?.id,zone:c?.zone}))};return false;
+    }
     function snapshot(snap,meta={}) {
-      if(!attached||currentRole==='host'&&!meta.allowHost||!validateCheckpoint(snap)){stats.rejected++;return false;}
+      if(!attached||currentRole==='host'&&!meta.allowHost||!validateCheckpoint(snap))return snapshotRejected(!attached?'not-attached':currentRole==='host'&&!meta.allowHost?'host-role':'validation',snap,meta);
       const nextEpoch=Number.isSafeInteger(meta.epoch)?meta.epoch:epoch,seq=Number.isSafeInteger(meta.seq)?meta.seq:snap.seq;
       if(nextEpoch<epoch||nextEpoch===epoch&&seq<=wireSeq&&!(meta.resync===true&&meta.full===true)||nextEpoch>epoch&&!meta.full){stats.rejected++;return false;}
       if(!getParty()?.state){stats.rejected++;return false;}
@@ -286,7 +290,7 @@
       const candidate={...snap,seq:Math.max(nativeSeq,num(p.status?.snapshotSeq))+1};
       let accepted=false;
       try{accepted=p.applySnapshot(candidate)!==false;}finally{if(meta.allowHost)role(savedRole);}
-      if(!accepted){stats.rejected++;return false;}
+      if(!accepted)return snapshotRejected('native-apply',snap,meta);
       if(meta.allowHost){
         // Native applySnapshot restores its saved roster too. Reconfigure even when
         // room membership has not changed since the last ordinary room update.

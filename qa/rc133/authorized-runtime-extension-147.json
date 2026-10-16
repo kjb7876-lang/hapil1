@@ -50,8 +50,8 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "sha256": "59e04724caec54dfa71397510ca74d6c530df9d09d45488f06f0a3b63003559f",
-        "gitBlob": "3b71240a424619bad25199bb37b62ca0d45274a2"
+        "sha256": "e5731ef0d3e8cd43d55a5d901bd50a511c564a7ed4767ac8af9bf14bc82857a5",
+        "gitBlob": "5babb167ee0714ae733fddf9634730de27fe6cb3"
       },
       "reason": "assets/index-v31526.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     },
@@ -128,8 +128,8 @@
       "after": {
         "file": "assets/rc222/runtime.js",
         "mode": "100644",
-        "sha256": "2096daf523b9bad8ee217bd702a1cb544a201e18ff1ba234b7fbb4e6bd75734d",
-        "gitBlob": "19dee1366d34fc5b0da9befff7dd2b1e51572f62"
+        "sha256": "62929745febd9505a34a186b6d896423be1cfc15fd91136d738b09eb0fd9c034",
+        "gitBlob": "672bd4b51093d692dd84ad26405b44ec1cd89050"
       },
       "reason": "assets/rc222/runtime.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     },
@@ -186,5 +186,5 @@
       "reason": "index.html: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     }
   ],
-  "targetProtectedRowsSha256": "f3a0ee3d7a2a926c7be258edbc3d08762e927e7d1427482bb1a5c517f378b2ca"
+  "targetProtectedRowsSha256": "71ce404089eab32dede2bbb0b8769c980231ebd8b297ee37bf54a581acbbe505"
 }
