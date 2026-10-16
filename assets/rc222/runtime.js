@@ -4,7 +4,7 @@
   const VERSION = 'RC222';
   const HEROES = ['hwando','gunner','seoha','neon','michaela','lauren','hunter','slayer'];
   const ACTIONS = new Set(['attack','q','w','e','r','dash','guard','resonance','time','collab','chargeStart','chargeRelease','reviveSamong','reviveCheckpoint']);
-  const OWN = new Set(['x','y','hp','maxHp','facing','direction','directionLockUntil','moveVx','moveVy','target','targetEnemyId','path','stuckFor','bufferedAction','cooldowns','combo','comboUntil','counterUntil','damageBuffUntil','resonance','graze','invulnerableUntil','slowUntil','staggerUntil','hitUntil','hitStarted','dashingUntil','downUntil','readyAt','skillReady','ultimateReady','dashReady','supportReadyAt','supportRollAt','supportCall','activeHeroId','activeHeroMastery','activeTimeMastery','lifestealSuppressedUntil','lifestealMultiplier','temporalHistory','temporalRecordAt','temporalLagPassiveReadyAt31214','temporalLagFieldReadyAt31214','temporalResumeSoundReadyAt31215','projectileStasisReadyAt','timeAccelerationUntil','timeAccelerationReadyAt','timeLaybackReadyAt','timeStopReadyAt','timeRewindReadyAt','samongPassiveRC91','samongEgoRC133','samongDamageRC108','chargePointersV31365','shmupSanctuaryV31365','shmupFxV31365','combatModeV31329','basicAttackCount','autoSkillNextAt','autoSkillCycle','autoSkillHistory','manualControlUntilV31329','chargeStartV31365','chargeLevelV31365','egoChargeAwakenUntilV31364','procAttackV31513','heroDoctrineV31400']);
+  const OWN = new Set(['x','y','hp','maxHp','facing','direction','directionLockUntil','moveVx','moveVy','target','targetEnemyId','path','stuckFor','bufferedAction','cooldowns','combo','comboUntil','counterUntil','damageBuffUntil','resonance','graze','invulnerableUntil','slowUntil','staggerUntil','hitUntil','hitStarted','dashingUntil','downUntil','readyAt','skillReady','ultimateReady','dashReady','supportReadyAt','supportRollAt','supportCall','activeHeroId','activeHeroMastery','activeTimeMastery','prideCommandPressureUntil','lifestealSuppressedUntil','lifestealMultiplier','temporalHistory','temporalRecordAt','temporalLagPassiveReadyAt31214','temporalLagFieldReadyAt31214','temporalResumeSoundReadyAt31215','projectileStasisReadyAt','timeAccelerationUntil','timeAccelerationReadyAt','timeLaybackReadyAt','timeStopReadyAt','timeRewindReadyAt','samongPassiveRC91','samongEgoRC133','samongDamageRC108','chargePointersV31365','shmupSanctuaryV31365','shmupFxV31365','combatModeV31329','basicAttackCount','autoSkillNextAt','autoSkillCycle','autoSkillHistory','manualControlUntilV31329','chargeStartV31365','chargeLevelV31365','egoChargeAwakenUntilV31364','procAttackV31513','heroDoctrineV31400']);
   const owned = key => typeof key === 'string' && (OWN.has(key) || /^(?:hero(?!Id)|awakening|egoCharge|blinkResonance|resonanceOrigin|temporal(?:Hud|Resonance)|last(?:Attack|Dodge|Manual|Lifesteal|Auto|AcceptedContact)|auto(?:Decision|Evade|Dodge|Combat|Growth)|channelD|shmupRelease|simpleDodge|charge(?:Start|Level)|graze(?:Chain|Reward)|comboReward|chainRewardZone|lifestealSuppression|blackSun|sevenSinMechanicHits|samongDamage|guardianGrace|consecutiveContact|contactDamage|heavyHitDamage|rangedStart|themeRoot|themeAim|root(?:Zone|Feedback)|manualMovement|rc127(?:Defense|MovementSpeed)|timeLaybackField|alignmentDash)/.test(key));
   const num = (v, d=0) => typeof v === 'number' && Number.isFinite(v) ? v : d;
   const clamp = v => Math.max(-1, Math.min(1,num(v)));
@@ -31,7 +31,7 @@
     const getParty=()=>env.__HAPIL_PARTY_V31322__, controls=()=>env.__HAPIL_CONTROLS_V31329__, binding=()=>controls()?.binding;
     const native=()=>env.__HAPIL_RC222_NATIVE__??{};
     const contexts=new WeakMap(), incoming=new Map(), held=new Set(), inputEdges=[];let interpolation=[],buffAdapter=null;
-    let room=null, currentRole='offline', epoch=0, wireSeq=-1, nativeSeq=0, transaction=null, capture=null, attached=false, localAuto='manual', inputSeq=0, hostZone=null,rosterSignature='',narrative=null,narrativeKey='',localWorldRef=null,nativeStarted=false,nativeGameObserved=false;
+    let room=null, currentRole='offline', epoch=0, wireSeq=-1, nativeSeq=0, transaction=null, capture=null, attached=false, localAuto='manual', inputSeq=0, hostZone=null,rosterSignature='',narrative=null,narrativeKey='',localWorldRef=null,nativeStarted=false,nativeGameObserved=false,voiceSnapshotSeen=false,hostCueSequence=0,hostCueNodes=new WeakMap();
     const stats={nativeSteps:0,nativeCasts:0,ownedHits:0,outgoingSequence:0,outgoingEvents:[],rejected:0,snapshots:0,transitions:0,nativeActorEntries:0,skippedSteps:{},rejectionReasons:{},inputAccepted:0,inputBySlot:Object.create(null),actorSteps:Object.create(null),contextRejected:{},faults:[]};
     const portrait=()=>env.matchMedia?.('(pointer:coarse)')?.matches===true&&num(env.innerHeight)>num(env.innerWidth);
     const status=()=>{if(nativeStarted&&binding()?.phase==='game')nativeGameObserved=true;const ended=room?.isHost===true&&nativeStarted&&nativeGameObserved&&binding()?.phase!=='game',nativePaused=currentRole==='host'&&(nativeStarted&&binding()?.phase!=='game'||native().paused?.()===true||!!binding()?.modal?.current||binding()?.blocked?.()===true),remotePaused=room?.isHost!==true&&(room?.hostPaused===true||room?.hostHidden===true);return {version:VERSION,ready:!!getParty()?.state,paused:currentRole==='disconnected'||room?.stale===true||remotePaused||nativePaused||portrait(),nativePaused,ended,nativeStarted,portrait:portrait(),role:currentRole,zone:getParty()?.state?.zone??null,epoch,autoMode:localAuto,slotId:room?.slotId??'p1',inActorTransaction:!!transaction};};
@@ -241,9 +241,9 @@
         getParty().configure({mode:'network',roster:configured});rosterSignature=signature;
       }
     }
-    function updateRoom(next={}) {const oldEpoch=epoch;room={...(room??{}),...next};if(Number.isSafeInteger(next.epoch)&&next.epoch>=epoch)epoch=next.epoch;if(oldEpoch!==epoch){wireSeq=-1;releaseInputs('epoch');stats.transitions++;}if(attached)configureRoster(room);return status();}
+    function updateRoom(next={}) {const oldEpoch=epoch;room={...(room??{}),...next};if(Number.isSafeInteger(next.epoch)&&next.epoch>=epoch)epoch=next.epoch;if(oldEpoch!==epoch){env.__HAPIL_GUEST_VOICE_RC223__?.invalidate?.(epoch);wireSeq=-1;releaseInputs('epoch');stats.transitions++;}if(attached)configureRoster(room);return status();}
     function attach(next={}) {
-      if(!attached){localWorldRef=binding()?.state?.current??getParty()?.state??null;capture=captureLocal();localAuto=controls()?.choice?.(binding()?.settings?.current)??'manual';const result=connectStorage()?.enter?.(next.isHost?'host':'guest',next.session??next);if(result?.ok===false)throw Error('Cooperative storage isolation failed: '+result.reason);native().reloadRecordScopes?.();attached=true;}
+      if(!attached){voiceSnapshotSeen=false;localWorldRef=binding()?.state?.current??getParty()?.state??null;capture=captureLocal();localAuto=controls()?.choice?.(binding()?.settings?.current)??'manual';const result=connectStorage()?.enter?.(next.isHost?'host':'guest',next.session??next);if(result?.ok===false)throw Error('Cooperative storage isolation failed: '+result.reason);native().reloadRecordScopes?.();attached=true;}
       updateRoom(next);role(next.isHost?'host':'guest');binding()?.actions?.refreshScope?.();return status();
     }
     async function start(next=room??{}) {
@@ -272,10 +272,24 @@
       for(const [i,a]of snap.party.actors.entries()){const r=snap.party.roster[i+1];if(!a||a.slotId!==r.slotId||a.heroId!==r.heroId||![a.x,a.y,a.hp,a.maxHp].every(Number.isFinite)||a.maxHp<=0||a.hp<0||a.hp>a.maxHp)return false;}
       return native().validateSnapshot?native().validateSnapshot(snap)===true:true;
     }
+    function wireNarrativeVoice(card,description,zone,phase){
+      if(!description||typeof description.key!=='string'||typeof description.text!=='string'||!description.text)return null;
+      const signature=JSON.stringify([description.key,description.text]);let cues=hostCueNodes.get(card);if(!cues){cues=new Map();hostCueNodes.set(card,cues);}if(!cues.has(signature))cues.set(signature,++hostCueSequence);
+      return {cueId:cues.get(signature),key:description.key,text:description.text,zone,phase,status:description.status};
+    }
+    function exportNarrative(zone){
+      const doc=env.document,primary=doc?.getElementById?.('hapil-story-rc51');
+      if(primary)return {zone:primary.dataset.zone,phase:primary.dataset.phase,title:primary.querySelector?.('h1')?.textContent??'',paragraphs:[...(primary.querySelectorAll?.('.rc51-copy p')??[])].map(p=>p.textContent),voice:wireNarrativeVoice(primary,env.__HAPIL_STORY_RC51__?.currentNarrative?.(),primary.dataset.zone,primary.dataset.phase)};
+      const active=env.__HAPIL_STORY_NARRATION_V1__?.currentNarrative?.(),allowed={'death:verse':'hapil-death-verse-rc59','ending:title':'hapil-final-overlay-v31300'};
+      if(!active||allowed[active.key]!==active.rootId)return null;
+      const surface=doc?.getElementById?.(active.rootId);if(!surface?.isConnected)return null;
+      const phase=active.key==='death:verse'?'death':'ending',title=(surface.querySelector?.('#hapil-death-verse-title-rc59')??surface.querySelector?.('h1')??surface.querySelector?.('h2'))?.textContent??(phase==='death'?'다시 남은 기억':'합일');
+      return {zone,phase,title,paragraphs:active.text.split(/\n\s*\n/),voice:wireNarrativeVoice(surface,active,zone,phase)};
+    }
     function exportSnapshot(options={}) {
       if(!attached||!room?.isHost||currentRole==='guest')return null;const p=getParty(),snap=p?.exportSnapshot?.();if(!snap)return null;
       if(hostZone!==null&&hostZone!==snap.zone){releaseInputs('zone');stats.transitions++;}hostZone=snap.zone;
-      const card=env.document?.getElementById?.('hapil-story-rc51'),story=card?{zone:card.dataset.zone,phase:card.dataset.phase,title:card.querySelector?.('h1')?.textContent??'',paragraphs:[...(card.querySelectorAll?.('.rc51-copy p')??[])].map(p=>p.textContent)}:null;
+      const story=exportNarrative(snap.zone);
       snap.rc222={version:1,epoch,full:options.full!==false,zone:snap.zone,actorModes:(p.actors??[]).map(a=>({slotId:a.slotId,combatMode:contexts.get(a)?.auto??'manual'})),narrative:story,checkpointBoundary:{privateActions:'clear-on-host-load',remainingDamageSaved:false}};
       return snap;
     }
@@ -301,25 +315,26 @@
       }
       nativeSeq=candidate.seq;wireSeq=seq;
       const transition=nextEpoch!==epoch||meta.transition||hostZone!==snap.zone;
-      if(transition){releaseInputs('snapshot-transition');interpolation=[];stats.transitions++;}
+      if(transition){env.__HAPIL_GUEST_VOICE_RC223__?.invalidate?.(nextEpoch);releaseInputs('snapshot-transition');interpolation=[];stats.transitions++;}
       else if(!meta.allowHost&&currentRole==='guest'){
         const started=env.performance?.now?.()??Date.now();interpolation=[];
         for(const [key,row]of positions()){const from=beforePositions.get(key);if(!from||Math.hypot(row.x-from.x,row.y-from.y)>10)continue;interpolation.push({row:row.object,x:from.x,y:from.y,tx:row.x,ty:row.y,started});row.object.x=from.x;row.object.y=from.y;}
       }
-      epoch=nextEpoch;hostZone=snap.zone;narrative=snap.rc222?.narrative??null;mirrorNarrative();stats.snapshots++;return true;
+      epoch=nextEpoch;hostZone=snap.zone;narrative=snap.rc222?.narrative??null;voiceSnapshotSeen=true;mirrorNarrative();stats.snapshots++;return true;
     }
     function positions(){const p=getParty(),s=p?.state,out=new Map();if(!s)return out;const add=(key,a)=>{if(a&&Number.isFinite(a.x)&&Number.isFinite(a.y))out.set(key,{object:a,x:a.x,y:a.y});};add('host',s);for(const a of p.actors??[])add('actor:'+a.slotId,a);for(const a of s.enemies??[])add('enemy:'+a.id,a);for(const a of s.hostileProjectiles??[])add('projectile:'+a.id+':'+a.born,a);return out;}
     function interpolate(){if(currentRole!=='guest')return;const at=env.performance?.now?.()??Date.now();for(const q of interpolation){const u=Math.max(0,Math.min(1,(at-q.started)/100));q.row.x=q.x+(q.tx-q.x)*u;q.row.y=q.y+(q.ty-q.y)*u;}interpolation=interpolation.filter(q=>at-q.started<100);}
     function mirrorNarrative(){
       const doc=env.document;if(!doc?.createElement||room?.isHost)return;
-      const valid=narrative&&narrative.zone===getParty()?.state?.zone&&typeof narrative.title==='string'&&Array.isArray(narrative.paragraphs)&&narrative.paragraphs.length<=128&&narrative.paragraphs.every(p=>typeof p==='string'&&p.length<=20000),key=valid?JSON.stringify(narrative):'';
-      if(key===narrativeKey)return;narrativeKey=key;doc.getElementById?.('hapil-remote-narrative-rc222')?.remove();if(!valid)return;
+      const valid=narrative&&narrative.zone===getParty()?.state?.zone&&typeof narrative.title==='string'&&Array.isArray(narrative.paragraphs)&&narrative.paragraphs.length<=128&&narrative.paragraphs.every(p=>typeof p==='string'&&p.length<=20000),key=valid?JSON.stringify([narrative.zone,narrative.phase,narrative.title,narrative.paragraphs,narrative.voice?.cueId,narrative.voice?.key,narrative.voice?.text]):'';
+      const syncVoice=card=>env.__HAPIL_GUEST_VOICE_RC223__?.sync?.({sessionKey:room?.session?.sessionId??room?.sessionId??room?.roomCode??room?.code,epoch,isHost:room?.isHost,hasSnapshot:voiceSnapshotSeen,cue:valid?narrative.voice:null,root:card,ctx:{sound:binding()?.settings?.current?.sound!==false,voiceVolume:binding()?.settings?.current?.sfxVolume}});
+      if(key===narrativeKey){syncVoice(doc.getElementById?.('hapil-remote-narrative-rc222'));return;}narrativeKey=key;doc.getElementById?.('hapil-remote-narrative-rc222')?.remove();if(!valid){syncVoice(null);return;}
       const node=(tag,cls,text)=>{const el=doc.createElement(tag);el.className=cls;if(text!==undefined)el.textContent=text;return el;};
       const card=node('div','rc51-story'),panel=node('section','rc51-panel'),head=node('header','rc51-header'),title=node('h1','',narrative.title),box=node('div','rc51-copybox'),copy=node('article','rc51-copy');
-      card.id='hapil-remote-narrative-rc222';card.setAttribute('role','dialog');card.setAttribute('aria-label',narrative.title);for(const p of narrative.paragraphs)copy.append(node('p','',p));head.append(title);box.append(copy);panel.append(head,box);card.append(panel);doc.body.append(card);
+      card.id='hapil-remote-narrative-rc222';card.setAttribute('role','dialog');card.setAttribute('aria-label',narrative.title);for(const p of narrative.paragraphs)copy.append(node('p','',p));head.append(title);box.append(copy);const footer=node('footer','rc51-footer');panel.append(head,box,footer);card.append(panel);doc.body.append(card);syncVoice(card);
     }
     function leave() {
-      releaseInputs('leave');const storage=connectStorage();try{const result=storage?.leave?storage.leave():restoreLocal(capture);if(result===false||result?.ok===false)throw Error('Local state restore failed: '+(result?.reason??'runtime-restore'));}catch(error){role('disconnected');throw error;}
+      env.__HAPIL_GUEST_VOICE_RC223__?.leave?.();voiceSnapshotSeen=false;hostCueSequence=0;hostCueNodes=new WeakMap();releaseInputs('leave');const storage=connectStorage();try{const result=storage?.leave?storage.leave():restoreLocal(capture);if(result===false||result?.ok===false)throw Error('Local state restore failed: '+(result?.reason??'runtime-restore'));}catch(error){role('disconnected');throw error;}
       attached=false;capture=null;room=null;epoch=0;wireSeq=-1;hostZone=null;rosterSignature='';currentRole='offline';narrative=null;narrativeKey='';localWorldRef=null;nativeStarted=false;nativeGameObserved=false;interpolation=[];env.document?.getElementById?.('hapil-remote-narrative-rc222')?.remove();binding()?.actions?.refreshScope?.();return status();
     }
     function readInput() {

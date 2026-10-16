@@ -6,7 +6,7 @@
   const manifestURL = new URL('manifest.json', base);
   if (script?.src) manifestURL.search = new URL(script.src).search;
   const LOAD_TIMEOUT_MS = 15000, END_TAIL_MS = 750;
-  let audioContext = null, interacted = false, primed = false, manifestRequest = null, active = null;
+  let audioContext = null, interacted = false, primed = false, manifestRequest = null, active = null, activeDescriptor = null;
 
   function unlock() {
     const Constructor = window.AudioContext || window.webkitAudioContext;
@@ -63,9 +63,12 @@
   }
   const volumeValue = value => Number.isFinite(Number(value)) ? Math.max(0, Math.min(1, Number(value))) : .8;
 
-  function attach({root, text, zone, phase, key, footer: targetFooter, ctx = {}, onPlaying, onUserPause, onLoading, onBlocked, onEnded} = {}) {
+  function attach({root, text, zone, phase, key, autoplay=true, originalScene=false, footer: targetFooter, ctx = {}, onPlaying, onUserPause, onLoading, onBlocked, onEnded} = {}) {
     // These two recorded performances and their existing controls are immutable.
-    if (!root || !text || (zone === 'dist00' && (phase === 'pre' || phase === 'post'))) return null;
+    const original=zone==='dist00'&&(phase==='pre'||phase==='post');
+    const originalKey=phase==='pre'?'opening':'root',trustedOriginal=original?window.__HAPIL_STORY_DATA_RC51__?.openingVoice?.[originalKey]:null;
+    const originalTextMatches=()=>Array.isArray(trustedOriginal?.paragraphs)&&(text===trustedOriginal.paragraphs.join('\n\n')||text===[trustedOriginal.title,...trustedOriginal.paragraphs].join('\n\n'));
+    if (!root || !text || (original && (originalScene!==true||!originalTextMatches()||key&&key!==`dist00:${phase}`))) return null;
     const footer = targetFooter || root.querySelector('.rc51-footer') || root.querySelector('[data-narration-footer]');
     if (!footer) return null;
     active?.pause(false, true);
@@ -182,11 +185,12 @@
     async function metadata(signal) {
       if (window.__HAPIL_MEMORY_RC210__?.pendingScenes.includes(sceneKey)) return null;
       if (entry) return entry;
-      const data = await manifest(signal), candidate = data.scenes[sceneKey];
-      if (!Object.prototype.hasOwnProperty.call(data.scenes, sceneKey)) return null;
-      if (!candidate || candidate.textSha256 !== await sha256(window.__HAPIL_NARRATION_START_RC139__?.voiceText(text)??text)) throw new Error('Narration does not match this text');
+      const data = await manifest(signal), entries=original?data.originals:data.scenes,candidate=entries?.[original?`dist00.${phase}`:sceneKey];
+      if (!Object.prototype.hasOwnProperty.call(entries||{}, original?`dist00.${phase}`:sceneKey)) return null;
+      if(original){const expected=new URL(`../../../assets/rc26/audio/${phase==='pre'?'opening':'root'}-memory.wav`,base);if(!candidate||new URL(candidate.audio,manifestURL).href!==expected.href||!originalTextMatches())throw new Error('Original narration does not match this scene');}
+      else if (!candidate || candidate.textSha256 !== await sha256(window.__HAPIL_NARRATION_START_RC139__?.voiceText(text)??text)) throw new Error('Narration does not match this text');
       if (signal.aborted) throw new Error('Narration cancelled');
-      const clips = (candidate.clips || [candidate]).map(clip => {
+      const clips = (original?[candidate]:(candidate.clips || [candidate])).map(clip => {
         const url = new URL(clip.audio, manifestURL);
         const original = ['opening-memory.wav', 'root-memory.wav'].some(name => url.href === new URL('../../../assets/rc26/audio/' + name, base).href);
         if (url.origin !== base.origin || (!url.pathname.startsWith(base.pathname + 'audio/') && !original)) throw new Error('Invalid narration asset');
@@ -259,7 +263,7 @@
     }
     async function play() {
       if (disposed || state === 'unavailable' || state === 'playing' || state === 'loading') return false;
-      if (active !== api) { active?.pause(false, true); active = api; }
+      if (active !== api) { active?.pause(false, true); active = api; activeDescriptor=describe; }
       if (state === 'ended') { offset = 0; clipIndex = 0; }
       // A card can mount after visibilitychange already fired. Hold it before
       // unlock/fetch; a cancelled WebAudio wait must not fall through to media.
@@ -316,6 +320,7 @@
         return failed(request);
       }
     }
+    function describe(){return !disposed&&active===api&&root.isConnected?Object.freeze({rootId:root.id||'',key:sceneKey,text,status:state}):null;}
     const api = Object.freeze({
       play, pause,
       stop() {
@@ -324,7 +329,7 @@
         availabilityController.abort();
         releaseMedia();
         for (const remove of listeners) remove();
-        controls.remove(); if (active === api) active = null;
+        controls.remove(); if (active === api) {active = null;activeDescriptor = null;}
       },
       setContext(next = {}) {
         if (disposed) return;
@@ -354,14 +359,14 @@
     const removed = new MutationObserver(() => { if (!root.isConnected) api.stop(); });
     removed.observe(document.body, {childList: true, subtree: true});
     listeners.push(() => removed.disconnect());
-    active = api; updateVolume();
+    active = api; activeDescriptor=describe;updateVolume();
     // A partial release omits unfinished routes. Check metadata even for muted cards,
     // without requesting audio, so unavailable controls cannot strand a paused reader.
     void manifest(availabilityController.signal).then(data => {
-      if (!disposed && (window.__HAPIL_MEMORY_RC210__?.pendingScenes.includes(sceneKey) || !Object.prototype.hasOwnProperty.call(data.scenes, sceneKey))) unavailable();
+      if (!disposed && (window.__HAPIL_MEMORY_RC210__?.pendingScenes.includes(sceneKey) || !Object.prototype.hasOwnProperty.call((original?data.originals:data.scenes)||{}, original?`dist00.${phase}`:sceneKey))) unavailable();
     }).catch(() => { if (!disposed && (state === 'idle' || resumeWhenContextRunning)) failed(generation); });
-    if (interacted && ctx.sound !== false && volume > 0) void play();
+    if (autoplay!==false && interacted && ctx.sound !== false && volume > 0) void play();
     return api;
   }
-  window.__HAPIL_STORY_NARRATION_V1__ = Object.freeze({attach});
+  window.__HAPIL_STORY_NARRATION_V1__ = Object.freeze({attach,currentNarrative:()=>activeDescriptor?.()??null});
 })();

@@ -32,13 +32,15 @@
  function mirror(q){return{x:policy.centerSum-finite(q?.x,19),y:policy.centerSum-finite(q?.y,19)};}
  function face(s,a){const dx=a.x-s.x,dy=a.y-s.y,h=dx-dy,v=(dx+dy)*.5,dir=Math.abs(h)>Math.abs(v)*1.12?(h<0?'left':'right'):(v<0?'back':'front');s.facing=h<0?-1:1;s.direction=dir;if(s.heroMotion)s.heroMotion.direction=dir;a.facing=-s.facing;a.direction=dir==='left'?'right':dir==='right'?'left':dir==='back'?'front':'back';}
  function releaseActor(a){const g=guards.get(a);if(!g)return;for(const key of['x','y'])Object.defineProperty(a,key,{...g.original[key],value:g.value[key]});guards.delete(a);stats.releases++;}
+ function admitted(s,a,q,radius){return root.__HAPIL_LEFT_ZONE_NATIVE_RC223__?.allowed?.(s,a,q,radius)===true;}
+ function guardedPoint(s,a,q,side,radius){return admitted(s,a,q,radius)?{x:q.x,y:q.y}:point(q,side,radius);}
  function guard(s,a,side,radius){if(!a)return false;const old=guards.get(a);if(old?.state===s&&old.side===side)return true;if(old)releaseActor(a);
   const original={x:Object.getOwnPropertyDescriptor(a,'x'),y:Object.getOwnPropertyDescriptor(a,'y')};if(!original.x?.configurable||!original.y?.configurable||!Object.hasOwn(original.x,'value')||!Object.hasOwn(original.y,'value'))return false;
-  const g={state:s,side,radius,original,value:point(a,side,radius)};guards.set(a,g);
-  for(const key of['x','y'])Object.defineProperty(a,key,{configurable:true,enumerable:original[key].enumerable,get(){return g.value[key];},set(v){if(!active(s)||!(s.hp>0)){releaseActor(a);a[key]=v;return;}const next=point({...g.value,[key]:finite(v,g.value[key])},side,radius);if(next.x!==v&&key==='x'||next.y!==v&&key==='y')stats.repairs++;g.value=next;}});stats.guards++;return true;
+  const g={state:s,side,radius,original,value:guardedPoint(s,a,a,side,radius)};guards.set(a,g);
+  for(const key of['x','y'])Object.defineProperty(a,key,{configurable:true,enumerable:original[key].enumerable,get(){return g.value[key];},set(v){if(!active(s)||!(s.hp>0)){releaseActor(a);a[key]=v;return;}const q={...g.value,[key]:finite(v,g.value[key])},next=guardedPoint(s,a,q,side,radius);if(next.x!==v&&key==='x'||next.y!==v&&key==='y')stats.repairs++;g.value=next;}});stats.guards++;return true;
  }
- function position(a,q){const g=guards.get(a);return g&&active(g.state)?point(q,g.side,g.radius):q;}
- function applyPosition(a,q){const g=guards.get(a);if(!g||!active(g.state)||!(g.state.hp>0))return false;g.value=point(q,g.side,g.radius);return true;}
+ function position(a,q){const g=guards.get(a);return g&&active(g.state)?guardedPoint(g.state,a,q,g.side,g.radius):q;}
+ function applyPosition(a,q){const g=guards.get(a);if(!g||!active(g.state)||!(g.state.hp>0))return false;g.value=guardedPoint(g.state,a,q,g.side,g.radius);return true;}
  function set(a,q,side,radius){const g=guards.get(a),p=point(q,side,radius);if(g)g.value=p;else{a.x=p.x;a.y=p.y;}return p;}
  function release(s){const run=runs.get(s);if(!run)return;const undo=s.innerFinalRC133?.duelSwap===true;for(const a of run.actors){const p=undo?mirror(a):null;releaseActor(a);if(p){a.x=p.x;a.y=p.y;}}if(s.innerFinalRC133){s.innerFinalRC133.duelSwap=false;s.innerFinalRC133.tempoActive=false;s.innerFinalRC133.duelSwapPhase=null;s.innerFinalRC133.duelSwapAt=0;s.innerFinalRC133.duelSwapReturnAt=0;}runs.delete(s);}
  function enforce(s,spawn=false){if(!active(s)||!(s.hp>0)){release(s);return null;}if(swapped(s)&&!mutual(s)){const m=s.innerFinalRC133;if(swap(s,false)){m.duelSwapPhase='return';m.duelSwapReturnAt=finite(m.tempoClock)-finite(m.tempoMutualStart);cue(s,'맵 원위치 · 안전 착지','#c9f2ff');}}let run=runs.get(s);if(!run){run={actors:new Set()};runs.set(s,run);}

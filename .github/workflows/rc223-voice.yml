@@ -1,0 +1,179 @@
+name: RC223 voice camera and left-zone candidate verification
+on:
+  push:
+    branches: [codex/rc223-voice-coop]
+    paths: ['assets/**', 'data/**', 'index.html', 'server/**', 'tests/**', 'tools/**', 'qa/**', 'docs/**', '.github/workflows/rc223-voice.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rc223-voice-${{ github.sha }}
+  cancel-in-progress: false
+env:
+  EXPECTED_SHA: ${{ github.sha }}
+jobs:
+  cpu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated parser and locked relay dependencies
+        run: |
+          set -euo pipefail
+          task_dir="$RUNNER_TEMP/rc223-cpu"
+          mkdir -p "$task_dir/server" "$task_dir/evidence"
+          cp server/package.json server/package-lock.json "$task_dir/server/"
+          npm ci --prefix "$task_dir/server" --cache "$task_dir/npm-cache"
+          ln -s "$task_dir/server/node_modules" server/node_modules
+          npm install --prefix "$task_dir/runtime" --cache "$task_dir/npm-cache" --no-save --package-lock=false acorn@8.15.0
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$task_dir/runtime/node_modules" >> "$GITHUB_ENV"
+      - name: Run actual-module voice and cooperative regressions
+        run: |
+          set -uo pipefail
+          task_dir="$RUNNER_TEMP/rc223-cpu"
+          status=0
+          run_check() {
+            local name="$1"
+            shift
+            "$@" > "$task_dir/evidence/$name.log" 2>&1
+            local result=$?
+            echo "$name $result" | tee -a "$task_dir/evidence/exit-codes.txt"
+            tail -n 4 "$task_dir/evidence/$name.log"
+            if [ "$result" -ne 0 ]; then status=1; fi
+          }
+          git rev-parse HEAD | tee "$task_dir/evidence/sha.txt"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA" || exit 1
+          test -z "$(git status --porcelain)" || exit 1
+          for test_file in tests/rc223-*-unit.cjs; do run_check "$(basename "$test_file" .cjs)" node "$test_file"; done
+          run_check rc139 node tests/rc139-narration-unit.cjs
+          run_check narration-manifest node tests/story-narration-manifest.cjs
+          run_check narration-text node tests/story-narration-text.cjs
+          run_check narration-proofreads node tests/story-narration-proofreads.cjs
+          run_check narration-mixing node tests/story-narration-mixing.cjs
+          run_check narration-media-races node tests/story-narration-media-races.cjs
+          run_check narration-webaudio-races node tests/story-narration-webaudio-races.cjs
+          run_check narration-overlap node tests/story-narration-overlap.cjs
+          run_check narration-original-timing node tests/story-narration-original-timing.cjs
+          run_check decoder-fixture node tests/story-narration-decoder-edges.cjs --validate-fixture
+          run_check coop-runtime node tests/rc222-runtime-unit.cjs
+          run_check coop-storage node tests/rc222-storage-unit.cjs
+          run_check coop-transport node tests/rc222-transport-unit.cjs
+          run_check support-draw node tests/rc222-support-draw-unit.cjs
+          run_check rift-checkpoint node tests/rc222-rift-checkpoint-unit.cjs
+          run_check native-combat-regression node tests/rc220-combat-unit.cjs
+          run_check root-hit-regression node tests/rc210-root-hit-unit.cjs
+          run_check deferred-damage-regression node tests/rc210-deferred-damage-unit.cjs
+          run_check fall-progression-regression node tests/rc210-fall-progression-unit.cjs
+          run_check mobile-orientation node tests/rc152-portrait-pause-unit.cjs
+          run_check scoped-loader node tests/rc154-cosmic-loader-unit.cjs
+          run_check relay node --test server/test/*.test.js
+          run_check chrome-policy node tests/chromium-sandbox-policy.cjs
+          test -z "$(git status --porcelain)" || status=1
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc223-cpu-${{ github.sha }}
+          path: ${{ runner.temp }}/rc223-cpu/evidence/
+          retention-days: 14
+          if-no-files-found: error
+  official-chrome:
+    name: official-chrome (${{ matrix.suite }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, coop]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install isolated browser tooling and locked relay
+        run: |
+          set -euo pipefail
+          task_dir="$RUNNER_TEMP/rc223-browser"
+          mkdir -p "$task_dir/server" "$task_dir/evidence"
+          cp server/package.json server/package-lock.json "$task_dir/server/"
+          npm ci --prefix "$task_dir/server" --cache "$task_dir/npm-cache"
+          ln -s "$task_dir/server/node_modules" server/node_modules
+          npm install --prefix "$task_dir/runtime" --cache "$task_dir/npm-cache" --no-save --package-lock=false playwright@1.55.1 acorn@8.15.0
+          PLAYWRIGHT_BROWSERS_PATH="$task_dir/browser-cache" node "$task_dir/runtime/node_modules/playwright/cli.js" install ffmpeg
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$task_dir/runtime/node_modules" >> "$GITHUB_ENV"
+          echo "PLAYWRIGHT_BROWSERS_PATH=$task_dir/browser-cache" >> "$GITHUB_ENV"
+      - name: Verify official Chrome and ordinary sandbox
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc223-browser/evidence/sandbox
+        run: |
+          set -euo pipefail
+          command -v google-chrome
+          google-chrome --version
+          node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Exercise actual native candidate behavior
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc223-browser/evidence/${{ matrix.suite }}
+          HAPIL_QA_LOG_PREVIEW: '1'
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          case '${{ matrix.suite }}' in
+            voice) test_file=tests/rc223-voice-browser.cjs ;;
+            camera) test_file=tests/rc223-camera-browser.cjs ;;
+            left-zone)
+              git fetch --no-tags --depth=1 origin 199402a0ece0747d2d354e8881e4a77910fb2423
+              test_file=tests/rc223-left-zone-browser.cjs
+              ;;
+            checkpoint) test_file=tests/rc223-checkpoint-browser.cjs ;;
+            checkpoint-baseline)
+              baseline_sha=199402a0ece0747d2d354e8881e4a77910fb2423
+              git fetch --no-tags --depth=1 origin "$baseline_sha"
+              git worktree add --detach "$RUNNER_TEMP/rc223-published-baseline" "$baseline_sha"
+              export HAPIL_TEST_BASE="$RUNNER_TEMP/rc223-published-baseline"
+              export EXPECTED_SHA="$baseline_sha"
+              test_file=tests/rc223-checkpoint-browser.cjs
+              ;;
+            coop) test_file=tests/rc222-browser.cjs ;;
+          esac
+          node "$test_file" 2>&1 | tee "$RUNNER_TEMP/rc223-browser/evidence/browser.log"
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc223-official-chrome-${{ matrix.suite }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc223-browser/evidence/
+          retention-days: 14
+          if-no-files-found: error
+  published-baseline:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Verify all thirteen published RC222 files
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc223-public-baseline
+        run: node tests/rc223-public-baseline.cjs
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc223-published-baseline-${{ github.sha }}
+          path: ${{ runner.temp }}/rc223-public-baseline/
+          retention-days: 14
+          if-no-files-found: error

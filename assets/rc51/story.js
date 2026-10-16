@@ -2,6 +2,7 @@
 (()=>{'use strict';
  const data=window.__HAPIL_STORY_DATA_RC51__, records=new Map(data.records.map(r=>[r.zone,r]));
  const sessions=new WeakMap();let root=null,owner=null,done=null,previousFocus=null,autoLeft=0,autoPaused=false,lastUi=0,previousBlocked=false,narration=null,narrationToken=0;
+ let cueSequence=0,currentCue=null;
  const recovery={narrationTimeouts:0,filmFailures:0,explicitSkips:0};
  const openingVoice=data.openingVoice?.opening.audio??'./assets/rc26/audio/opening-memory.wav',rootVoice=data.openingVoice?.root.audio??'./assets/rc26/audio/root-memory.wav';
  const enabled=s=>!!s&&!s.practiceV31329&&(window.__HAPIL_MODES_V31346__?.mode(s)??s.gameModeV31346??(s.hellModeV31322?'HELL':'STORY'))==='STORY';
@@ -21,13 +22,13 @@
  // Keep the original recordings and transport. The host owns the reader's
  // lifetime, so neither a slow download nor an intentional pause can skip speech.
  function originalNarration(s,card,path,button,manager,ctx){
-  const token=++narrationToken,volume=Number.isFinite(Number(ctx.voiceVolume))?Math.max(0,Math.min(1,Number(ctx.voiceVolume))):.8;
+  const token=++narrationToken;let volume=Number.isFinite(Number(ctx.voiceVolume))?Math.max(0,Math.min(1,Number(ctx.voiceVolume))):.8,sound=ctx.sound!==false;const effectiveVolume=()=>sound?volume:0;
   let state='idle',disposed=false,generation=0,endedAt=0,lastProgress=0,progressAt=0,resumeVisible=false,resumeContext=false,observedContext=null,pendingPlay=null,gesturePause=null;
   const listeners=[],mixOwner={},now=()=>performance.now();
   const valid=()=>!disposed&&token===narrationToken&&root===card&&owner===s&&card.isConnected&&enabled(s)&&s.hp>0&&card.dataset.zone===s.zone&&!document.getElementById('hapil-death-verse-rc59');
   function listen(target,event,callback){target.addEventListener(event,callback);listeners.push(()=>target.removeEventListener(event,callback));}
-  function display(next){state=next;card.dataset.originalVoiceState=next;button.textContent=({idle:'음성 재생',loading:'음성 불러오는 중…',playing:'음성 일시정지',paused:'음성 이어 듣기',interrupted:'음성 이어 듣기',ended:'다시 듣기',blocked:'음성 재생 · 눌러서 다시 시도'})[next]||'음성 재생';window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner,next==='playing'&&volume>0);}
-  const clip=manager.create(path,{volume,
+  function display(next){state=next;card.dataset.originalVoiceState=next;button.textContent=({idle:'음성 재생',loading:'음성 불러오는 중…',playing:'음성 일시정지',paused:'음성 이어 듣기',interrupted:'음성 이어 듣기',ended:'다시 듣기',blocked:'음성 재생 · 눌러서 다시 시도'})[next]||'음성 재생';window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner,next==='playing'&&effectiveVolume()>0);}
+  const clip=manager.create(path,{volume:effectiveVolume(),mutableVolume:true,
    onPlaying(){
     if(!valid()){stop();return;}
     if(state!=='loading'&&state!=='playing'){clip.pause();return;}
@@ -104,7 +105,8 @@
   listen(button,'pointerdown',event=>{if(event.button==null||event.button===0)captureGesture();});
   listen(button,'pointercancel',()=>{gesturePause=null;});listen(button,'blur',()=>{gesturePause=null;});
   button.onclick=()=>{const shouldPause=gesturePause??(state==='playing'||state==='loading');gesturePause=null;if(shouldPause)pause();else void play();};
-  const api={play,pause,stop,captureGesture,setContext:check,get playing(){return state==='playing';},get status(){return state;},get blocksAdvance(){return !disposed&&(state==='loading'||state==='playing'||state==='paused'||state==='interrupted'||(state==='ended'&&now()-endedAt<750));}};
+  function setContext(next=ctx){if(disposed)return;sound=next.sound!==false;volume=Number.isFinite(Number(next.voiceVolume))?Math.max(0,Math.min(1,Number(next.voiceVolume))):.8;clip.setVolume?.(effectiveVolume());window.__HAPIL_NARRATION_MIX_V1__?.set(mixOwner,state==='playing'&&effectiveVolume()>0);check();}
+  const api={play,pause,stop,captureGesture,setContext,get playing(){return state==='playing';},get status(){return state;},get blocksAdvance(){return !disposed&&(state==='loading'||state==='playing'||state==='paused'||state==='interrupted'||(state==='ended'&&now()-endedAt<750));}};
   if(ctx.sound!==false&&volume>0)void play();
   return api;
  }
@@ -132,8 +134,8 @@
    try{started=film.start(card,finished=>{if(root!==card)return;card.memoryFilmRC210=null;card.dataset.memoryFilm='done';close(finished);});}catch{card.dataset.rc219FilmFailed='true';}
    if(root!==card)return;if(started)card.memoryFilmRC210=started;else{if(card.dataset.memoryFilm!=='done')recovery.filmFailures++;card.dataset.memoryFilm='done';close(commit);}return;
   }
-  const callback=done;stopNarration();if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=previousBlocked;root.remove();root=null;owner=null;done=null;clearInput();previousFocus?.isConnected&&previousFocus.focus?.();if(commit)callback?.();}
- function show(s,r,kind,text,callback,ctx={}){if(root||!text)return false;owner=s;done=callback;previousFocus=document.activeElement;previousBlocked=!!window.__HAPIL_READING_V31342__?.blocked;if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;clearInput();stopNarration();
+  const callback=done;stopNarration();if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=previousBlocked;root.remove();root=null;currentCue=null;owner=null;done=null;clearInput();previousFocus?.isConnected&&previousFocus.focus?.();if(commit)callback?.();}
+ function show(s,r,kind,text,callback,ctx={}){if(root||!text)return false;currentCue={cueId:++cueSequence,text,zone:s.zone,phase:kind,key:`${r.zone}:${kind}`};owner=s;done=callback;previousFocus=document.activeElement;previousBlocked=!!window.__HAPIL_READING_V31342__?.blocked;if(window.__HAPIL_READING_V31342__)window.__HAPIL_READING_V31342__.blocked=true;clearInput();stopNarration();
   root=el('div','rc51-story');root.id='hapil-story-rc51';root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');root.setAttribute('aria-labelledby','rc51-title');
   root.dataset.zone=s.zone;root.dataset.phase=kind;
   if(kind==='post'&&r.postBackdrop){root.style.backgroundImage=`linear-gradient(rgba(3,5,12,.55),rgba(3,5,12,.75)),url("${r.postBackdrop}")`;root.style.backgroundSize='cover';root.style.backgroundPosition='center';root.dataset.flashback='medieval';}
@@ -213,7 +215,7 @@
  }
  window.addEventListener('resize',fit);window.visualViewport?.addEventListener('resize',fit);
  for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(!root||document.getElementById('hapil-death-verse-rc59'))return;e.stopImmediatePropagation();const voiced=root.dataset.narration||root.dataset.originalVoice;if(e.code==='Tab'){if(type==='keyup'&&voiced){e.preventDefault();return;}const nodes=[...root.querySelectorAll(root.dataset.narration?'button:not([hidden]),input:not([hidden])':'button:not([hidden])')],at=nodes.indexOf(document.activeElement);e.preventDefault();nodes[(at+(e.shiftKey?-1:1)+nodes.length)%nodes.length]?.focus();return;}const originalControl=root.dataset.originalVoice&&e.target?.closest?.('[data-original-voice-control]');if((root.dataset.narration&&e.target?.closest?.('[data-narration-controls]')||originalControl)&&e.code!=='Escape'){if(originalControl&&type==='keydown'&&!e.repeat&&['Enter','Space'].includes(e.code))narration?.captureGesture?.();return;}e.preventDefault();if(type==='keydown'&&!e.repeat&&(['Enter','Space'].includes(e.code)||(voiced&&e.code==='Escape')))close();},true);
- window.__HAPIL_STORY_RC51__=Object.freeze({enabled,active,beforeFrame,clock,show,close,pauseNarration:()=>narration?.pause?.(),fit,records,isOpen:()=>!!root,recovery:()=>({...recovery}),replacesLegacy:true,suppressEntry,
+ window.__HAPIL_STORY_RC51__=Object.freeze({currentNarrative:()=>root&&currentCue?Object.freeze({...currentCue,status:narration?.status??'unavailable'}):null,enabled,active,beforeFrame,clock,show,close,pauseNarration:()=>narration?.pause?.(),fit,records,isOpen:()=>!!root,recovery:()=>({...recovery}),replacesLegacy:true,suppressEntry,
   heroNow:s=>active(s)?(memory(s).startTime??s.time)+memory(s).elapsed*2.2:s.time,heroSpeed:s=>active(s)?1.7:1,heroSize:s=>active(s)?1.3:1,power:s=>active(s)?5:1,incoming:s=>active(s)?.12:1,trails:s=>active(s)?memory(s).trails:[]});
  // The opening voice monologue and map cards share the same uploaded source.
  window.__HAPIL_PATIENT_DATA_RC51__={...data,records:[{zone:'hub',index:0,title:'남아 있는 기억',entry:'',body:rawPrologue()},...data.records.map(r=>({...r,entry:r.paragraphs[0]??'',body:r.paragraphs.slice(1).join('\n\n')}))]};

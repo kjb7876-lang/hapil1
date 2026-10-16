@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "base": "199402a0ece0747d2d354e8881e4a77910fb2423",
+  "baseTree": "5e2df6a3b82ae0fab5e57da0ee20f8131c4c5d62",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f3a0e8f84194033748be278288a5149d521acd1005e1093c27f6770132578d73",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "683432273b993e199625a70d77ef7e7c22e5d7fa"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "77f20b118b0c200f9006050b058718d88baddd5f284e7e2b2ef5acc237476fff",
+        "gitBlob": "7242d539c5605917c26ec5aeb35a87ded1ded2eb"
+      },
+      "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "before": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "gitBlob": "fcad81186db3afebe953a1d3305cc61b13916bdf"
+      },
+      "after": {
+        "file": "assets/rc134/persona-duel.js",
+        "mode": "100644",
+        "sha256": "68db7c8f1265636c8e4875c9932d18098c57cc608bd4b41aeb5d5abe0f94943d",
+        "gitBlob": "eda17234ca6b1dac8a856ff12fc69ae40683adc5"
+      },
+      "reason": "assets/rc134/persona-duel.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "before": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "gitBlob": "872b7f4ec505b716a58210903f42ee58794de152"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "sha256": "b74055a76105f770297e590913631f80233923f6c747fff875906e02c1c0b616",
+        "gitBlob": "2af03f35cc63e03c9a42249c920017559953ee57"
+      },
+      "reason": "assets/rc138/battle-arena.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc139/narration-start.js",
+      "before": {
+        "file": "assets/rc139/narration-start.js",
+        "mode": "100644",
+        "gitBlob": "1c9ab3907ce65f3c92275b9cf93f2fb1e3e68610"
+      },
+      "after": {
+        "file": "assets/rc139/narration-start.js",
+        "mode": "100644",
+        "sha256": "293f5ff26e3748dfb831c01409f36915e899889ec48b9b601ee65f6ec77ce864",
+        "gitBlob": "eedb9810f4d4365a4923f9a5331de2312dbe7789"
+      },
+      "reason": "assets/rc139/narration-start.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc222/runtime.js",
+      "before": {
+        "file": "assets/rc222/runtime.js",
+        "mode": "100644",
+        "gitBlob": "386feb45e274a05a1548cce44007674d20de3c7f"
+      },
+      "after": {
+        "file": "assets/rc222/runtime.js",
+        "mode": "100644",
+        "sha256": "242ea3ccf903e8103142e98a03ffba2b45d2fb4d9d6987ee3d81e8cc15c456e0",
+        "gitBlob": "f7ceb26ad3c426295d7ef20ae298bb94c36a0d1a"
+      },
+      "reason": "assets/rc222/runtime.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc223/camera.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc223/camera.js",
+        "mode": "100644",
+        "sha256": "5248b5d226e6bda0219178fa3b35cd7cfaf8fa2800f85916f2b543fd2474f731",
+        "gitBlob": "7c4f2a27a79a430352a0eed1d15eac8a8b34eb7b"
+      },
+      "reason": "assets/rc223/camera.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc223/guest-voice.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc223/guest-voice.js",
+        "mode": "100644",
+        "sha256": "c842612738bfa24b30ccfcd1cc2943c3039738f297a79ac7c20f0bde1ba4abf1",
+        "gitBlob": "beef21bd0bcc9d447e2de0fdd48a01e7e8d850f8"
+      },
+      "reason": "assets/rc223/guest-voice.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc223/left-zone.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc223/left-zone.js",
+        "mode": "100644",
+        "sha256": "9ee4cdc41830ed875725097acf28f8b3f4048236dd39a76b0f74847a167d9f0a",
+        "gitBlob": "fc0a402dd30a9d4176d4aa75a17c93bc44381459"
+      },
+      "reason": "assets/rc223/left-zone.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc51/story.js",
+      "before": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "gitBlob": "3bf6fe2d3bf0d10d16e31c51db3732fbaa28b84f"
+      },
+      "after": {
+        "file": "assets/rc51/story.js",
+        "mode": "100644",
+        "sha256": "e1b5b5e69ca57845206edb91f0ced98bf028c1511fed91e9988a22921b7d6204",
+        "gitBlob": "c68507facaf53721feecea0271afc66a1e380de5"
+      },
+      "reason": "assets/rc51/story.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/story-narration/v1/player.js",
+      "before": {
+        "file": "assets/story-narration/v1/player.js",
+        "mode": "100644",
+        "gitBlob": "a5b106b22498ada9d28ed37169ba27ed1fb2ca18"
+      },
+      "after": {
+        "file": "assets/story-narration/v1/player.js",
+        "mode": "100644",
+        "sha256": "8cfe829143c4c34c4f38d623652a07ae7fdeba6063a016a39a59fa2763b39e90",
+        "gitBlob": "7b72a4869cb1399f365db65f04b0fea2cbc66b29"
+      },
+      "reason": "assets/story-narration/v1/player.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "93c7c1ceca134b5cb5a44cc446cc5127c6c2ee8d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "c67a95f1bdd45d6ab808ce8625aeecca2bc6a425fd3bcfd4e0a754bad2c36c6c",
+        "gitBlob": "9a32eb5c0e14ddcbb2ef46472e5f519e5f4a0fd3"
+      },
+      "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    }
+  ],
+  "targetProtectedRowsSha256": "35bb16c6a566d4f7c8902368ab74fcc91972a3d47f6625bff16c145779791f87"
+}

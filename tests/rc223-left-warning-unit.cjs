@@ -1,0 +1,32 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const acorn=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'acorn'));
+const source=fs.readFileSync(path.join(__dirname,'../assets/index-v31526.js'),'utf8').split('/* RC223_LEFT_ZONE_NATIVE:')[1];
+assert(source,'native RC223 hook exists');
+const code='/* RC223_LEFT_ZONE_NATIVE:'+source,ast=acorn.parse(code,{ecmaVersion:'latest'}),functions=new Map();
+function visit(node){if(!node||typeof node!=='object')return;if(node.type==='FunctionDeclaration')functions.set(node.id.name,code.slice(node.start,node.end));for(const value of Object.values(node)){if(Array.isArray(value))value.forEach(visit);else if(value&&typeof value==='object')visit(value);}}
+visit(ast);
+const native=names=>names.map(name=>{assert(functions.has(name),'actual function '+name);return functions.get(name);}).join('\n');
+let checks=0;
+const host={hp:100,x:18,y:22,zone:'dist01',time:5},remote={slotId:'p2',hp:100,x:15,y:14};
+const p={state:host,status:{role:'host'},actors:[remote]},rt={session:{slotId:'p2'}},shown=[],ticks=[];
+const context=vm.createContext({party:()=>p,runtime:()=>rt,worldOf:s=>s,showBadge:(s,a)=>shown.push({s,a}),controller:{tick:(s,a,dt,key)=>{ticks.push({s,a,dt,key});return true;}}});
+vm.runInContext(native(['tick','showForLocalOrGuest'])+'\nthis.tickNative=tick;',context);
+context.tickNative(host,remote,.04);
+assert.equal(ticks[0].a,remote,'the clock still belongs to the processed remote actor');checks++;
+assert.equal(shown.at(-1).a,host,'a host sees its own warning after a remote actor frame');checks++;
+p.status.role='guest';context.tickNative(host,remote,.04);
+assert.equal(shown.at(-1).a,remote,'a guest sees its assigned actor warning');checks++;
+assert.equal(ticks[1].a,remote,'presentation selection does not change the damage owner');checks++;
+
+let writes=0,removes=0;
+const game={append(el){el.isConnected=true;}},C={binding:{phase:'game'}};
+const document={querySelector:()=>game,createElement(){let text='';return{style:{},isConnected:false,setAttribute(){},remove(){this.isConnected=false;removes++;},get textContent(){return text;},set textContent(value){writes++;text=value;}};}};
+const dom=vm.createContext({document,C,worldOf:s=>s,controller:{regionAt:(s,a)=>!a.safe},host,remote});
+vm.runInContext('let badge=null,badgeGame=null;\n'+native(['clearBadge','showBadge'])+'\nthis.paint=showBadge;',dom);
+dom.paint(host,remote);assert.equal(writes,1,'first active warning writes its label');checks++;
+dom.paint(host,remote);assert.equal(writes,1,'unchanged frames do not repeat live-region DOM mutations');checks++;
+remote.safe=true;dom.paint(host,remote);assert.equal(removes,1,'exit clears the existing warning');checks++;
+remote.safe=false;dom.paint(host,remote);assert.equal(writes,2,'a fresh entry displays one fresh warning');checks++;
+C.binding.phase='title';dom.paint(host,remote);assert.equal(removes,2,'a title view removes the warning');checks++;
+console.log('RC223_LEFT_WARNING_UNIT',JSON.stringify({status:'passed',checks,nativeHookSha256:crypto.createHash('sha256').update(code).digest('hex'),scope:'Extracted actual native viewer selection and DOM warning functions; browser rendering is separate'}));

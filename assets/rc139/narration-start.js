@@ -43,9 +43,103 @@
   if(!cache.has(path))cache.set(path,root.fetch(path).then(r=>{if(!r.ok)throw Error('Original narration unavailable');return r.arrayBuffer();}).then(bytes=>context.decodeAudioData(bytes)).then(()=>true).catch(e=>{cache.delete(path);throw e;}));
   await cache.get(path);if(signal.aborted)throw cancelled();await context.resume();if(signal.aborted||context.state!=='running')throw cancelled();return true;
  }
+ function mutableOriginal(original,path,options={}){
+  const volumeValue=value=>Number.isFinite(Number(value))?Math.max(0,Math.min(1,Number(value))):1;
+  const callbacks=options, native=original.create(path,{volume:volumeValue(options.volume)});
+  let volume=volumeValue(options.volume),context=native.audioContext,state='paused',backend=null;
+  let pending=false,stopped=false,generation=0,controller=null,failed=false,offset=0,mediaOffset=0,duration=0,buffer=null,source=null,gain=null,media=null,mediaStatus='paused',startedAt=0;
+  const cancel=()=>{generation++;controller?.abort();controller=null;pending=false;};
+  const position=()=>{
+   if(media)return mediaStatus==='playing'&&Number.isFinite(Number(media.currentTime))?Number(media.currentTime):mediaOffset;
+   if(source&&context&&state==='playing')return Math.min(duration||Infinity,offset+Math.max(0,context.currentTime-startedAt));
+   return offset;
+  };
+  const stopSource=()=>{
+   if(source){const current=source;source=null;current.onended=null;try{current.stop();}catch{}try{current.disconnect();}catch{}}
+   if(gain){try{gain.disconnect();}catch{}gain=null;}
+  };
+  const releaseMedia=()=>{
+   if(!media)return;
+   const current=media;media=null;current.onplaying=current.onended=current.onerror=null;
+   current.pause();current.removeAttribute?.('src');current.load?.();
+  };
+  const currentRequest=(signal,request)=>!stopped&&!signal.aborted&&request===generation&&!root.document.hidden;
+  function block(request){
+   if(stopped||request!==generation||failed)return false;
+   failed=true;state='blocked';mediaStatus='blocked';callbacks.onBlocked?.();return false;
+  }
+  function finish(request,endedSource){
+   if(stopped||request!==generation||source!==endedSource||state!=='playing')return;
+   stopSource();offset=mediaOffset=0;duration=0;buffer=null;state='ended';callbacks.onEnded?.();
+  }
+  async function fallback(signal,request){
+   stopSource();buffer=null;duration=0;backend='media';
+   releaseMedia();const clip=new root.Audio(path);media=clip;mediaStatus='loading';clip.preload='auto';clip.volume=volume;clip.setAttribute?.('playsinline','');
+   const isCurrent=()=>currentRequest(signal,request)&&media===clip;
+   clip.onplaying=()=>{if(isCurrent()&&mediaStatus==='loading'){mediaStatus='playing';state='playing';callbacks.onPlaying?.();}};
+   clip.onended=()=>{if(isCurrent()&&mediaStatus==='playing'){mediaStatus='ended';state='ended';offset=mediaOffset=0;callbacks.onEnded?.();}};
+   clip.onerror=()=>{if(isCurrent()&&!failed){if(mediaStatus==='playing'&&Number.isFinite(Number(clip.currentTime)))mediaOffset=Number(clip.currentTime);failed=true;mediaStatus=state='blocked';callbacks.onBlocked?.();}};
+   await mediaReady(clip,signal,isCurrent);await wait({signal,isCurrent});
+   if(!isCurrent())return false;
+   if(mediaOffset>0)clip.currentTime=mediaOffset;
+   await clip.play();
+   if(!isCurrent()){clip.pause();return false;}
+   if(mediaStatus==='loading'){mediaStatus=state='playing';callbacks.onPlaying?.();}
+   return true;
+  }
+  async function play(){
+   if(stopped||pending||state==='playing')return false;
+   if(state==='ended'){offset=mediaOffset=0;buffer=null;duration=0;}
+   pending=true;failed=false;state='loading';const request=++generation,playController=new AbortController();controller=playController;const signal=playController.signal;
+   try{
+    if(media)return await fallback(signal,request);
+    original.unlock();context=native.audioContext||context;
+    if(!context)return await fallback(signal,request);
+    backend='webaudio';
+    if(!buffer){
+     const response=await root.fetch(path,{signal});if(!response.ok)throw Error('Original narration unavailable');
+     const bytes=await response.arrayBuffer(),decodedBuffer=await context.decodeAudioData(bytes);
+     if(!currentRequest(signal,request))return false;
+     buffer=decodedBuffer;duration=decodedBuffer.duration;
+    }
+    if(!currentRequest(signal,request))return false;
+    await context.resume();if(!currentRequest(signal,request))return false;
+    if(context.state!=='running')throw Error('Original WebAudio suspended');
+    await wait({signal,isCurrent:()=>currentRequest(signal,request)});
+    if(!currentRequest(signal,request))return false;
+    const node=context.createBufferSource(),amplifier=context.createGain();
+    source=node;gain=amplifier;node.buffer=buffer;amplifier.gain.value=volume;node.connect(amplifier);amplifier.connect(context.destination);
+    node.onended=()=>finish(request,node);startedAt=context.currentTime;
+    node.start(0,Math.min(offset,Math.max(0,buffer.duration-.001)));
+    state='playing';stats.originals++;callbacks.onPlaying?.();return true;
+   }catch{
+    if(!currentRequest(signal,request))return false;
+    stopSource();mediaOffset=offset;buffer=null;duration=0;
+    try{return await fallback(signal,request);}catch{return block(request);}
+   }finally{if(request===generation)pending=false;}
+  }
+  function pause(){
+   if(stopped)return;
+   if(state==='playing'){
+    if(media&&Number.isFinite(Number(media.currentTime)))mediaOffset=Number(media.currentTime);
+    else offset=position();
+   }
+   cancel();stopSource();native.pause();
+   if(media){media.pause();if(!failed)mediaStatus='paused';}
+   if(!failed&&state!=='ended')state='paused';
+  }
+  function setVolume(value){
+   const next=Number(value);if(!Number.isFinite(next))return;
+   volume=Math.max(0,Math.min(1,next));if(gain)gain.gain.value=volume;if(media)media.volume=volume;
+  }
+  return Object.freeze({play,pause,setVolume,stop(){if(stopped)return;cancel();stopped=true;state='stopped';stopSource();releaseMedia();buffer=null;duration=0;native.stop();},
+   get paused(){return !pending&&state!=='playing';},get playing(){return state==='playing';},get ended(){return state==='ended';},get status(){return pending?'loading':failed?'blocked':state;},get position(){return position();},
+   get duration(){return media&&Number.isFinite(media.duration)?media.duration:duration||native.duration;},get backend(){return backend||(context?'webaudio':native.backend);},get contextState(){return context?.state??native.contextState;},get audioContext(){return context||native.audioContext;}});
+ }
  function installOriginal(){
   const original=root.__HAPIL_STORY_VOICE_RC49__;if(!original||original.startRC139)return false;
   root.__HAPIL_STORY_VOICE_RC49__=Object.freeze({...original,startRC139:true,create(path,callbacks={}){
+   if(callbacks.mutableVolume===true)return mutableOriginal(original,path,callbacks);
    const native=original.create(path,callbacks);let pending=false,stopped=false,generation=0,controller=null,failed=false,media=null,mediaStatus='paused',mediaOffset=0;
    const cancel=()=>{generation++;controller?.abort();controller=null;pending=false;};
    const releaseMedia=()=>{if(!media)return;media.onplaying=media.onended=media.onerror=null;media.pause();media.removeAttribute('src');media.load();media=null;};
@@ -54,7 +148,7 @@
     const current=()=>!stopped&&!signal.aborted&&request===generation&&media===clip&&!root.document.hidden;
     clip.onplaying=()=>{if(current()&&mediaStatus==='loading'){mediaStatus='playing';callbacks.onPlaying?.();}};
     clip.onended=()=>{if(current()&&mediaStatus==='playing'){mediaStatus='ended';mediaOffset=0;callbacks.onEnded?.();}};
-    clip.onerror=()=>{if(current()&&!failed){failed=true;mediaStatus='blocked';callbacks.onBlocked?.();}};
+    clip.onerror=()=>{if(current()&&!failed){if(mediaStatus==='playing'&&Number.isFinite(Number(clip.currentTime)))mediaOffset=Number(clip.currentTime);failed=true;mediaStatus='blocked';callbacks.onBlocked?.();}};
     await mediaReady(clip,signal,current);await wait({signal,isCurrent:current});if(!current())return false;if(mediaOffset>0)clip.currentTime=mediaOffset;await clip.play();if(!current()){clip.pause();return false;}if(mediaStatus==='loading'){mediaStatus='playing';callbacks.onPlaying?.();}return true;
    }
    return Object.freeze({async play(){if(stopped||pending||native.playing)return false;pending=true;failed=false;const request=++generation;controller=new AbortController();const signal=controller.signal;original.unlock(path);

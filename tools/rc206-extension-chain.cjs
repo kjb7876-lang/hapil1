@@ -15,4 +15,5 @@ pins.push([145,"103d80e56b871049694d5fa6a97e54eec66b5f66fb0b56cd31b8a24ab1cd9b81
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
 pins.push([146,"c4afd2b179d0e932729bfe71d04a949c2adcff218a4eb0fa2416aa318fe404d5"]);
 pins.push([147,"f3a0e8f84194033748be278288a5149d521acd1005e1093c27f6770132578d73"]);
+pins.push([148,"90798a83cbe90b2959c0cbe2a047cd3b5faec0f98a34acff6d84b81abd105a0e"]);
 module.exports=function(root){let previous=digest(fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-65.json')));return pins.map(([number,hash])=>{const bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-'+number+'.json'));assert.equal(digest(bytes),hash,'exact later extension '+number);const row=JSON.parse(bytes);assert.equal(row.previousExtensionSha256,previous,'exact later extension chain '+number);previous=hash;return row;});};
