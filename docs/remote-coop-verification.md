@@ -8,13 +8,13 @@ Official Chrome is launched with `channel: 'chrome'`, `chromiumSandbox: true`, a
 
 Tests require a committed checkout by default. `HAPIL_ALLOW_DIRTY=1` is a development-only override recorded in the report; its result is not final commit evidence. `EXPECTED_SHA` pins both suites to the intended commit. No test deploys, publishes, pushes, or dispatches a workflow.
 
-## Current local execution
+## Current execution evidence
 
-- `node tests/rc222-coverage.cjs`: passed at base `fd9728958b23cdd271d6d1bf6078f0e54184165a` during implementation; final changes were still uncommitted. Evidence: `/tmp/rc222-coverage/coverage.json`.
-- `node --check tests/rc222-browser.cjs`: passed.
-- `node tests/chromium-sandbox-policy.cjs`: passed; explicit sandbox configuration retained.
-- `HAPIL_ALLOW_DIRTY=1 node tests/rc222-browser.cjs`: blocked before creating any browser context. The actual relay started and `/healthz` returned HTTP 200 with `ok: true`. Official Chrome was absent at `/opt/google/chrome/chrome`. Evidence: `/tmp/rc222-browser/results.json`.
-- Final SHA Chrome CI execution, screenshots, videos, and independent four-network acceptance remain pending. No browser gameplay pass is claimed by the local run.
+- Current local CPU results reported by the integration run: runtime **42 tests passed**, transport **85 checks passed**, relay **10 tests passed**. These are deterministic contract/module tests with disclosed fixture dependencies; they are not a Chrome combat or independent-network pass.
+- `tests/rc222-coverage.cjs`, browser syntax checking, and `tests/chromium-sandbox-policy.cjs` passed during implementation. The initial local browser attempt reached the actual relay's HTTP 200 health response, then stopped because official Chrome was absent at `/opt/google/chrome/chrome`; it created no browser contexts. Initial local reports are `/tmp/rc222-coverage/coverage.json` and `/tmp/rc222-browser/results.json` and describe their own earlier SHA/dirty state.
+- Exact `eb6c6e1a1e9aaf124e9af762f1b10bd621ebad37`: [CI run 38867865985](https://github.com/kjb7876-lang/hapil1/actions/runs/38867865985) had a green CPU job and a browser failure. The simultaneous attack case observed `ownedHits: 0`; a room connection or an increased attack counter did not establish attributed positive enemy HP commits. Later browser cases were not reached.
+- The current implementation assigns an outgoing source to the active native actor before reduction, resolves delayed hits under their actual owner even inside another actor transaction, and records ownership only after a positive HP commit. New CPU cases exercise the actual outgoing reducer for p2–p4, nested delayed ownership, lifesteal isolation, rejected damage and the bounded commit event history. The browser still requires positive commit events for **each** remote human slot; the assertion has not been relaxed.
+- The ownership fix and the revised passive-guest inventory fixture await an exact-SHA Chrome CI rerun. No corrected browser gameplay pass, full suite pass, or real four-network acceptance is claimed. Screenshots/video from earlier failures support only their recorded revisions and outcomes.
 
 ## Inventory and integration matrix
 
@@ -36,7 +36,9 @@ The source bundle starts with ten hero bodies, including removed `rian` and `ion
 
 The historical owner inventory contains 50 source literal/factory rows and 21 explicit identity/geometry rows. These provenance labels come from the existing scheduling fixture inventory. A row in this matrix is not evidence that its native installer, authored encounter, every phase, every cast, or natural defeat was exercised remotely.
 
-When Chrome can execute, the browser suite also runs 61 maps × 2 modes × 8 heroes = **976 native snapshot roundtrip fixtures**, plus 71 explicit owner identity snapshots. The matrix changes exported map/mode/hero fields while native simulation is held by a modal. It uses the actual native serializer, native snapshot validator, and runtime adapter, then restores the complete original snapshot. Owner rows use explicit controlled actor and projectile identities. This checks snapshot fidelity only: it does not call native map entry for every row, cast every owner's spells, or fight all combinations.
+The browser suite defines 61 maps × 2 modes × 8 heroes = **976 native snapshot roundtrip fixtures**, plus 71 explicit owner identity snapshots. This case has not yet completed in the recorded Chrome runs. Its current implementation pauses the host modal and performs serialization on **guest p2**, which stays passive: the native party role is temporarily set to host only to call the serializer and is restored to guest immediately. Each explicit map/mode/hero or owner fixture is applied through the guest runtime validator. No AI, damage, native map entry, owner cast, or natural traversal runs on that guest.
+
+The fixture restores the original snapshot, then leaves and rejoins p2 so its synthetic high wire sequence cannot suppress subsequent real relay snapshots. The host modal is restored and native client state must converge again. Loading a host checkpoint while keeping current room members is a separate browser case. The inventory matrix does not prove checkpoint membership, native encounter behavior or all-map completion.
 
 ## Browser cases
 
@@ -44,18 +46,39 @@ When Chrome can execute, the browser suite also runs 61 maps × 2 modes × 8 her
 | --- | --- | --- |
 | Two players start | Actual menu create/join/ready/start with actual relay; both reach playing | Same machine, separate storage contexts |
 | Two become four | Third/fourth join a running room and receive native full snapshots | Late join, no natural progression claim |
+| Host checkpoint with late members | Save with two humans, join to four, load through the host UI, retain all four live room members and advance the transition epoch | Current room identities are reconciled with saved actor data; pending browser rerun |
 | Fifth denied | Extra isolated context receives denial; existing roster remains four | Capacity attempt uses public client API |
-| Simultaneous attack | Four real `A` keyboard inputs; actual native enemy HP decreases; remote actor steps and attributed outgoing hits are observed; guests agree on IDs/HP | `777`, native QA `dist02` showcase, controlled health/positions, entry UI suppression and invulnerability setup |
+| Simultaneous attack | Four real `A` keyboard inputs; actual native enemy HP decreases; each of p2–p4 must increase its native attack count and produce a positive attributed HP commit; guests agree on IDs/HP | `777`, native QA `dist02` showcase, native story initialization/dismissal, settled native boss HP, controlled human positions/invulnerability, and story AI held during measurement |
 | Guest movement | Actual guest arrow key changes its host-owned native actor position; guest snapshot converges | Controlled map/starting position from the combat fixture |
 | Boss death and reward | Controlled low boss HP, then actual native attack; native death/completion/reward IDs agree across clients | HP and phase guard setup are explicit; no forced defeat helper is called |
 | Transition barrier | Native map entry, host transition publication, all clients return to playing with an advanced epoch and matching map | Map entry is staged; native map exit progression is not claimed |
 | Guest down/revive | Actual native incoming ally damage downs a guest, native co-op revival runs after its timer, all clients see the living actor | Explicit lethal source packet and health setup; not a naturally landed enemy attack |
 | Resume | Guest refreshes and uses the stored session to recover the same room and slot within 60 seconds | Actual refresh; exact expiration boundary belongs to relay CPU tests |
-| Inventory snapshot contract | Actual native serialization and apply for 976 field combinations and 71 owner identities | Direct adapter fixture; no remote combat or natural traversal claim |
+| Inventory snapshot contract | Actual native serializer plus passive guest p2 apply for 976 field combinations and 71 owner identities; leave/rejoin clears synthetic sequence | Host modal held; serializer role switch only; no AI, damage, native map entry or owner casts |
 | Host leaves | Guests return offline; runtime returns offline | Explicit host leave; socket-loss behavior belongs to relay/transport tests |
 | Solo storage isolation | Actual native save/settings/progress keys are captured before entry and compared after leaving; distinct context sentinels remain | Detailed key routing, backup/mirror, malformed import, and unavailable-storage cases belong to storage tests |
 
 Native combat fixtures preserve the actual input, action, incoming/outgoing damage, death, snapshot, and rendering implementations. They deliberately alter setup fields, and failures retain the actual states instead of changing expectations to obtain a green result.
+
+## Native combat ownership and verification scope
+
+The host owns simulation, damage, deaths and rewards. `assets/rc222/runtime.js` supplies a persistent actor facade and temporarily binds the existing native state, hero, input, settings and growth refs for a remote slot. `assets/index-v31526.js` calls that adapter from the native party tick, incoming/contact paths and delayed strike/thread resolvers. Its `__HAPIL_RC222_NATIVE__` bridge exposes the extracted native player frame, movement, incoming damage, status and cooperative revival functions. `assets/combat-v31412/outgoing-native.js` retains the native outgoing formula and associates immediate and delayed HP commits with the correct slot. Guests apply snapshots and render; they do not own AI or damage.
+
+| Existing feature | Native owner / remote hook | Exactly exercised by current CPU tests | Chrome evidence still required |
+| --- | --- | --- | --- |
+| Attack and charge | Existing control actions, basic tick and `__HAPIL_LOOP_V31365__`; actor facade and outgoing reducer | Actor/ref isolation; command edges; actual reducer positive/rejected HP commits for p2–p4 and delayed ownership | Current simultaneous human attacks and charge behavior; earlier case failed ownership telemetry |
+| Blink/dash and movement | Existing dash action and extracted native `moveActor` | Dispatch and input isolation with fixture bindings; original frame/movement source retained | Native remote movement and blink geometry across maps |
+| Resonance and parry/guard | Existing resonance action and `__HAPIL_CHANNEL_V31364__`; `parryActor` / `blockActorDamage` | Dispatch fixture; actual held-D module, persistent session/contact identity and per-slot resonance; guard suppresses casts | Real enemy projectile/laser contacts, visible feedback and timing on remote actors |
+| EGO and Samong | Existing awakening/charge modules, native actor frame and story clock | Actor-owned fields; actual native clock advances only the owner's cooldowns/queues; Samong command/revival routing uses controlled dependencies | Full EGO conversion, charged release, Samong activation/revival visuals and damage for all heroes/modes |
+| Manual/semi/full auto | Existing native control tick, per-actor combat mode | Mode/ref isolation and snapshot fields; guest/disconnected authority rejection | Natural auto decisions and combat parity for each remote hero |
+| Projectiles and lasers | Native producer/collision/render paths; source tagging and delayed outgoing resolver | Delayed source ownership and contact identity; source-level wiring | Actual projectile/laser damage, rendering, warning/contact timing and cleanup across owners |
+| Reflection and deflection | Existing hostile projectile rules; conversion tagging in actor transactions | In-place friendly/reflected conversion retains converting slot; actual native deflection and Dream wall reflection retain hostile allegiance | Real reflected/deflected packets, visual ownership and outcomes over the relay |
+| Lifesteal and hit resources | Native outgoing reducer under the owning actor facade | Actual outgoing reducer restores the delayed owner's HP/combo while preserving host and other actor state | Natural lifesteal/resource gains from real remote hits |
+| Status, roots and deferred damage | Native incoming/status hooks, SevenSin functions and RC210 deferred module | Actual SevenSin stacks/DOT and deferred ticks isolate actor HP; root fields and DOT targets map to the correct slot | Real enemy-applied statuses, movement lock and feedback on remote actors |
+| Summons and collaboration | Existing collab action, support call and pending-spawn ownership tagging | Collab dispatch and actor/source context with fixture bindings; no exhaustive summon lifecycle case | Native summon creation, targeting, damage, cleanup and visuals for each hero |
+| Revival | Native incoming hook, Samong choice and cooperative `reviveActor` | Command authority; actor facade; eight-second survivor condition with controlled revival dependency | Actual incoming damage, down timer and revival synchronization; browser case is staged and pending |
+
+“Actual module/reducer” above identifies code loaded from the shipped implementation inside a deterministic fixture. Native services and React bindings may be controlled dependencies; it does not mean the complete production browser or a natural encounter ran. Features listed as wired or retained have not all received a dedicated behavioral test. The browser's later movement, death/reward, transition, revival, inventory, resume, host-exit and storage assertions remain required after the current failing combat gate passes.
 
 ## Running
 
@@ -85,3 +108,8 @@ Use four devices on four independently connected networks against a configured p
 Active late joins and guest reconnects receive the host's current combat snapshot; the host retains native charge, guard and deferred damage memory. Host checkpoint loading intentionally releases held charge/guard and clears deferred damage remainder according to the existing native policy (`remainingDamageSaved:false`). Checkpoints preserve campaign state and actor fields, but do not resume an in-flight held input or every private WeakMap combat session. This boundary must remain disclosed.
 
 - `7ee6ce6582cc70f24639f6314ab7909a6e910dc0`: CPU passed in [run 38866788151](https://github.com/kjb7876-lang/hapil1/actions/runs/38866788151). The same first three Chrome cases passed; combat then failed the native attack-count assertion. The failure record contained a preserved story AI actor (`story68`) that the assertion incorrectly treated as a human, and the fixture's artificial boss maximum HP was normalized by native balancing. The next fixture requires exactly human slots p2–p4, their actual attack-count increases and owned outgoing hits, and damage from the settled native boss HP; story AI is held during this measurement. It retains the AI in the game roster. No combat success is inferred from these fixture corrections. Runtime input rejection telemetry was added without changing the game gates. The captured failure preview for this SHA was inspected locally (`a9e97bd65997736129131b02e9baa9d9dedb56ea5c650156293d4466e9a7bcda`).
+
+### Additional exact revision checks
+
+- `50db861be42bd255078dd442c298400267d8665c`, run [38869544314](https://github.com/kjb7876-lang/hapil1/actions/runs/38869544314): CPU passed; browser two-player start and four-player late join passed. The newly added checkpoint UI case stopped because the initial native story dialog intercepted the party button. The subsequent fixture dismisses that story explicitly before checking checkpoint membership and closes the lobby afterward; combat assertions are unchanged. This run does not verify the later cases.
+- Exact protected-tree preservation verification passed locally at `50db861`; 22 cosmic loader, RC188, and RC210 unit files plus RC34 balance/resonance smoke passed. These are CPU checks, not live encounter or mobile evidence.
