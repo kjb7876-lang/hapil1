@@ -179,6 +179,7 @@
       if(this.session.isHost) {
         for(const [slot,last] of this.lastInput)if(now-last>300){this.call('releaseInputs','stale-input',slot);this.lastInput.delete(slot);}
         const status=this.call('status')||{};
+        if(status.ended===true){await this.leave();return;}
         const hidden=this.hidden,paused=this.phase==='playing'&&!!status.paused;
         if(hidden!==this.hostHidden||paused!==this.hostPaused||!this.lastHostStatus||now-this.lastHostStatus>=1000){this.hostHidden=hidden;this.hostPaused=paused;this.lastHostStatus=now;this.send('host_status',{hidden,paused});}
         if(this.phase==='loading'&&this.loadedEpoch!==this.epoch)await this.publishTransition(status.zone);

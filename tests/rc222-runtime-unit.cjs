@@ -125,4 +125,33 @@ test('native foundation network draft survives launch and accepts a late human r
 test('runtime start recaptures replacement native world and reapplies room roster',async()=>{
   const f=fixture();let configured=0;f.p.configure=()=>{configured++;};f.b.phase='title';f.p.startGame=async()=>{f.b.state.current={...f.world,zone:'dist00'};};f.p.capture=(s)=>{f.p.state=s;};await f.rt.start({isHost:true,roster:f.p.roster,epoch:1});assert.equal(f.p.state.zone,'dist00');assert.ok(configured>=1);
 });
+test('actual native actor clock accelerates only owning queues using raw elapsed time',()=>{
+  const f=fixture(),classNames=new Set(['rc51-samong']),classes={contains:k=>classNames.has(k),toggle:(k,on)=>on?classNames.add(k):classNames.delete(k),remove:k=>classNames.delete(k)},doc={documentElement:{classList:classes}},e=f.env;
+  e.__HAPIL_STORY_DATA_RC51__={records:[],raw:''};e.__HAPIL_SAMONG_RC91__={active:s=>s.samongPassiveRC91?.active>0,delta:(s,d)=>s.samongPassiveRC91.lastDelta??d,advance:(s,d)=>{s.samongPassiveRC91.active-=d;s.samongPassiveRC91.lastDelta=d;}};
+  e.document=doc;vm.runInNewContext(fs.readFileSync('assets/rc51/story.js','utf8'),{window:e,document:doc,performance:e.performance});
+  e.__HAPIL_RC222_NATIVE__.actorClock=(s,d)=>e.__HAPIL_STORY_RC51__.clock(s,d);
+  Object.assign(f.actor,{samongPassiveRC91:{active:7},cooldowns:{Q:20},lastAttack:9});const ownHit={partySlotV31322:'p2',at:20},hostHit={at:20},ownFx={partySlotV31322:'p2',heroSkillVfx:true,born:10},hostFx={heroSkillVfx:true,born:10};f.world.pendingStrikes.push(ownHit,hostHit);f.world.effects.push(ownFx,hostFx);
+  f.rt.stepActor(f.world,f.actor,null,0,0,.04,.04);
+  assert.ok(Math.abs(f.actor.cooldowns.Q-19.912)<1e-8);assert.ok(Math.abs(ownHit.at-19.912)<1e-8);assert.equal(hostHit.at,20);assert.equal(hostFx.born,10);assert.ok(Math.abs(ownFx.born-9.912)<1e-8);assert.equal(ownHit.partySlotV31322,'p2');assert.equal(f.world.cooldowns.Q,12);assert.equal(f.world.time,10);assert.equal(f.actor.samongPassiveRC91.active,6.96);
+  f.rt.withActor(f.world,f.actor,view=>assert.ok(Math.abs(e.__HAPIL_STORY_RC51__.heroNow(view)-10.088)<1e-8));assert.deepEqual([...classNames],['rc51-samong']);
+});
+test('leaving a title-origin room restores original title world and never saves coop state',()=>{
+  const f=fixture();f.rt.leave();const title={...f.world,zone:'hub'},coop={...f.world,zone:'cult04'};f.b.state.current=title;f.b.phase='title';f.p.state=null;let titles=0,saves=0;f.b.actions.returnTitle=()=>{titles++;};f.b.actions.save=()=>{saves++;};f.p.capture=s=>{f.p.state=s;};f.rt.attach({isHost:true,slotId:'p1',epoch:2,roster:f.p.roster});f.p.state=coop;f.b.state.current=coop;f.b.phase='game';f.rt.leave();assert.equal(f.b.state.current,title);assert.equal(f.b.state.current.zone,'hub');assert.equal(f.b.phase,'title');assert.equal(titles,1);assert.equal(saves,0);
+  const bundle=fs.readFileSync('assets/index-v31526.js','utf8'),start=bundle.indexOf('returnTitle:()=>{'),end=bundle.indexOf('},dash:',start);assert.ok(start>0&&end>start);assert.ok(!bundle.slice(start,end).includes('MONGSE_writeSave'));
+});
+test('host checkpoint load has explicit safe boundary for unsaved held sessions',()=>{
+  const f=fixture(),seen=[];f.env.__HAPIL_RC222_NATIVE__.resetPlayerTransient=s=>{seen.push(s);s.channelDActiveV31364=false;s.bufferedAction=null;};const snap=f.rt.exportSnapshot();assert.equal(snap.rc222.checkpointBoundary.privateActions,'clear-on-host-load');assert.equal(f.rt.snapshot(snap,{seq:1,epoch:1,full:true,allowHost:true}),true);assert.equal(seen.length,2);assert.equal(f.rt.status().role,'host');
+});
+test('held guard preserves raw Samong cooldown clock while blocking casts',()=>{
+  const f=fixture();let elapsed=0;f.env.__HAPIL_SAMONG_RC91__={advance:(s,dt)=>{elapsed+=dt;}};f.env.__HAPIL_CHANNEL_V31364__={companion:()=>true};f.rt.input('p2',{seq:1,actions:['guard','q']});f.rt.stepActor(f.world,f.actor,null,0,0,.04,.2);assert.equal(elapsed,.2);assert.equal(f.events.length,0);
+});
+test('leaving restores native run draft so the next solo run cannot inherit network humans',()=>{
+  const f=fixture();f.rt.leave();const e=f.env;e.dispatchEvent=()=>{};const sandbox={window:e,localStorage:{getItem:()=>null,setItem(){}},CustomEvent:function(){}};vm.createContext(sandbox);for(const file of ['assets/foundation-v31400/policy.js','assets/foundation-v31400/run.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);const R=e.__HAPIL_RUN_V31400__;R.select({humanPlayers:1,humanHeroes:[],origin:'new'});f.b.phase='title';f.rt.attach({isHost:true,slotId:'p1',epoch:2,roster:f.p.roster});R.select({humanPlayers:4,humanHeroes:['seoha','neon','hunter'],origin:'network'});assert.equal(R.draft().humanPlayers,4);f.rt.leave();assert.equal(R.draft().humanPlayers,1);assert.equal(R.draft().origin,'new');assert.equal(R.get(f.b.state.current).humanPlayers,1);
+});
+test('host native title exit is ended only after observing a launched game',async()=>{
+  const f=fixture();f.b.phase='title';assert.equal(f.rt.status().ended,false);await f.rt.start({isHost:true,roster:f.p.roster});assert.equal(f.rt.status().ended,false);assert.equal(f.rt.status().nativePaused,true);f.b.phase='game';assert.equal(f.rt.status().ended,false);f.b.phase='title';assert.equal(f.rt.status().ended,true);assert.equal(f.rt.status().paused,true);
+});
+test('failed local restore keeps authority disconnected and surfaces the storage error',()=>{
+  const f=fixture();f.env.__HAPIL_COOP_STORAGE_RC222__={configure(){},leave:()=>({ok:false,reason:'restore-failed'})};assert.throws(()=>f.rt.leave(),/restore-failed/);assert.equal(f.rt.status().role,'disconnected');assert.equal(f.rt.withActor(f.world,f.actor,()=>{throw Error('must not run');}),false);
+});
 (async()=>{for(const [name,fn]of tests){await fn();process.stdout.write('ok '+name+'\n');}process.stdout.write(JSON.stringify({ok:true,suite:'rc222-runtime-unit',tests:tests.length})+'\n');})().catch(error=>{console.error(error);process.exitCode=1;});

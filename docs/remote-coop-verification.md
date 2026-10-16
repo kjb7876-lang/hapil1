@@ -72,3 +72,14 @@ The browser suite starts its own loopback static server and actual relay. Its st
 ## Independent network acceptance still required
 
 Use four devices on four independently connected networks against a configured public `wss://` relay and the same exact game revision. Record the client revision, relay revision, UTC interval, device/browser versions, room code with credentials omitted, each role, network description, and observed latency/reconnect outcomes. Repeat two-player start, late join to four, fifth rejection, simultaneous damage, death/reward equality, transition barrier, guest refresh/resume, and host exit. Keep the natural versus staged setup distinction for each capture. Run an actual natural campaign sample separately if claiming progression coverage. Local four-context CI cannot supply this acceptance evidence.
+
+## Initial committed candidate evidence
+
+- `b831b0e` retained the first candidate. Its workflow was rejected for a duplicate step identifier; no game checks ran.
+- `1dd41f4` corrected that identifier. Dependency symlink visibility failed the clean-tree precondition; game checks did not run. `c600f1f` ignores only the isolated dependency link and retains the same strict clean-tree check.
+- Exact `c600f1f4c0343c06ee2727b4149d7b0d7e1b0c73`: [candidate run 38866183500](https://github.com/kjb7876-lang/hapil1/actions/runs/38866183500), CPU job passed. Official Chrome launched with the normal sandbox; two-player start, late join to four, and fifth-player denial passed. The simultaneous native attack check failed waiting for boss HP loss. Later checks did not run. [Screenshots/video artifact](https://github.com/kjb7876-lang/hapil1/actions/runs/38866183500/artifacts/12031740208) was captured for that exact SHA; the local artifact download returned HTTP 403 and those images were not locally inspected.
+- The initial combat fixture dismissed the old story card before initializing the new map's native story memory. The production `beforeFrame` sets the new map's pre-entry flag and opens its card. The revised fixture calls that actual helper and dismisses the resulting card, then explicitly requires native time to advance before real A-key attacks. HP, per-actor attack, ownership, death/reward and later assertions remain required. A later exact-SHA run must establish the result; this diagnosis alone is not a gameplay pass.
+
+## Checkpoint boundary
+
+Active late joins and guest reconnects receive the host's current combat snapshot; the host retains native charge, guard and deferred damage memory. Host checkpoint loading intentionally releases held charge/guard and clears deferred damage remainder according to the existing native policy (`remainingDamageSaved:false`). Checkpoints preserve campaign state and actor fields, but do not resume an in-flight held input or every private WeakMap combat session. This boundary must remain disclosed.

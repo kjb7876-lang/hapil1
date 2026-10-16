@@ -1,0 +1,9 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const acorn=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||'/tmp/hapil1-rc221-runtime/node_modules','acorn')),source=fs.readFileSync(path.join(__dirname,'../assets/index-v31526.js'),'utf8'),at=source.indexOf('function drawRemoteSupportRC222('),node=acorn.parseExpressionAt(source,at,{ecmaVersion:'latest'}),calls=[];
+const sandbox={F:[{id:'gunner',name:'기억사수',sprite:'body.png',color:'#fff',passiveName:'support'}],On:90,Rn:(...args)=>calls.push(['shadow',...args]),Tn:(_h,m)=>'gunner-'+m.kind+'.png',MONGSE_heroFallbackSprite:()=> 'fallback.png',MONGSE_readyHeroSprite:(_c,p)=>p,En:()=>({}),Hn:()=>({}),An:()=>({alpha:1}),Ln:(...args)=>calls.push(['image',...args]),Un:(...args)=>calls.push(['label',...args])};
+vm.runInNewContext(source.slice(node.start,node.end)+';this.draw=drawRemoteSupportRC222;',sandbox);
+let depth=0;const ctx={globalAlpha:1,save(){depth++;},restore(){depth--;}};const queue=[],state={time:10},actor={rc222NativeActor:true,supportCall:{heroId:'gunner',born:9.5,until:11,x:12,y:14,facing:1,dx:1,dy:0}};
+assert.equal(sandbox.draw(queue,ctx,{},state,{showCombatInfo:true},actor),true);assert.equal(queue.length,1);assert.equal(queue[0].depth,26.01);queue[0].draw();assert.equal(depth,0);const shot=calls.find(r=>r[0]==='image');assert.equal(shot[3],'gunner-skill.png');assert.equal(shot[4],12);assert.equal(shot[5],14);assert(calls.some(r=>r[0]==='label'&&r[2]==='기억사수'));
+const count=queue.length;assert.equal(sandbox.draw(queue,ctx,{}, {time:12},{},actor),false);assert.equal(sandbox.draw(queue,ctx,{},state,{}, {...actor,rc222NativeActor:false}),false);assert.equal(queue.length,count);
+console.log('RC222_SUPPORT_DRAW passed: actual native support image queued, own position, motion, fade, label, balanced canvas and finite expiry. GPU rendering not verified.');

@@ -31,10 +31,10 @@
     const getParty=()=>env.__HAPIL_PARTY_V31322__, controls=()=>env.__HAPIL_CONTROLS_V31329__, binding=()=>controls()?.binding;
     const native=()=>env.__HAPIL_RC222_NATIVE__??{};
     const contexts=new WeakMap(), incoming=new Map(), held=new Set(), inputEdges=[];let interpolation=[],buffAdapter=null;
-    let room=null, currentRole='offline', epoch=0, wireSeq=-1, nativeSeq=0, transaction=null, capture=null, attached=false, localAuto='manual', inputSeq=0, hostZone=null,rosterSignature='',narrative=null,narrativeKey='';
+    let room=null, currentRole='offline', epoch=0, wireSeq=-1, nativeSeq=0, transaction=null, capture=null, attached=false, localAuto='manual', inputSeq=0, hostZone=null,rosterSignature='',narrative=null,narrativeKey='',localWorldRef=null,nativeStarted=false,nativeGameObserved=false;
     const stats={nativeSteps:0,nativeCasts:0,ownedHits:0,rejected:0,snapshots:0,transitions:0,faults:[]};
     const portrait=()=>env.matchMedia?.('(pointer:coarse)')?.matches===true&&num(env.innerHeight)>num(env.innerWidth);
-    const status=()=>{const nativePaused=currentRole==='host'&&(native().paused?.()===true||!!binding()?.modal?.current||binding()?.blocked?.()===true),remotePaused=room?.isHost!==true&&(room?.hostPaused===true||room?.hostHidden===true);return {version:VERSION,ready:!!getParty()?.state,paused:currentRole==='disconnected'||room?.stale===true||remotePaused||nativePaused||portrait(),nativePaused,portrait:portrait(),role:currentRole,zone:getParty()?.state?.zone??null,epoch,autoMode:localAuto,slotId:room?.slotId??'p1',inActorTransaction:!!transaction};};
+    const status=()=>{if(nativeStarted&&binding()?.phase==='game')nativeGameObserved=true;const ended=room?.isHost===true&&nativeStarted&&nativeGameObserved&&binding()?.phase!=='game',nativePaused=currentRole==='host'&&(nativeStarted&&binding()?.phase!=='game'||native().paused?.()===true||!!binding()?.modal?.current||binding()?.blocked?.()===true),remotePaused=room?.isHost!==true&&(room?.hostPaused===true||room?.hostHidden===true);return {version:VERSION,ready:!!getParty()?.state,paused:currentRole==='disconnected'||room?.stale===true||remotePaused||nativePaused||portrait(),nativePaused,ended,nativeStarted,portrait:portrait(),role:currentRole,zone:getParty()?.state?.zone??null,epoch,autoMode:localAuto,slotId:room?.slotId??'p1',inActorTransaction:!!transaction};};
     const fault=(error,stage,slotId)=>{stats.faults.push({stage,slotId,message:String(error?.stack??error).slice(0,1200)});stats.faults=stats.faults.slice(-8);};
     const authority=()=>attached&&currentRole==='host'&&!status().paused;
     function actorContext(world,actor) {
@@ -47,7 +47,7 @@
       ctx={world,hero:actor.heroId,input:new Set(),auto:actor.rc222CombatMode??'manual',passives:null,shards:null,lastAttackHeld:false,zone:world.zone};
       const target={};
       ctx.view=new Proxy(target,{
-        get(_,key){if(key==='rc222ActorSlot')return actor.slotId;if(key==='rc222CanonicalWorld')return world;if(key==='activeHeroId')return actor.heroId;return owned(key)?actor[key]:world[key];},
+        get(_,key){if(key==='rc222ActorSlot')return actor.slotId;if(key==='rc222CanonicalWorld')return world;if(key==='activeHeroId')return actor.heroId;if(ctx.clockRows&&Object.hasOwn(ctx.clockRows,key))return ctx.clockRows[key];return owned(key)?actor[key]:world[key];},
         set(_,key,value){if(key==='activeHeroId'){if(value!==actor.heroId)throw Error('Remote hero identity is fixed for this run');return true;}(owned(key)?actor:world)[key]=value;return true;},
         deleteProperty(_,key){return delete (owned(key)?actor:world)[key];},
         has(_,key){return key==='activeHeroId'||key in (owned(key)?actor:world);},
@@ -110,7 +110,15 @@
       if(Math.hypot(wire.moveX,wire.moveY)>.001)throw Error('RC222 native moveActor binding is missing');
       actor.moveVx=actor.moveVy=0;
     }
-    function stepActor(world,actor,_legacyInput,dt,index) {
+    function actorClock(view,ctx,delta){
+      if(typeof native().actorClock!=='function')return delta;
+      const clockRows={pendingStrikes:(ctx.world.pendingStrikes??[]).filter(q=>q.partySlotV31322===view.rc222ActorSlot),effects:(ctx.world.effects??[]).filter(q=>q.partySlotV31322===view.rc222ActorSlot)},rows=[...clockRows.pendingStrikes,...clockRows.effects],tags=rows.map(q=>[q,q.partySlotV31322]);
+      const classes=env.document?.documentElement?.classList,flags=['rc51-samong','rc91-samong','rc51-time-stop'].map(k=>[k,classes?.contains?.(k)]);
+      ctx.clockRows=clockRows;
+      try{for(const [q]of tags)delete q.partySlotV31322;return native().actorClock(view,delta);}
+      finally{for(const [q,slot]of tags)q.partySlotV31322=slot;ctx.clockRows=null;for(const [key,on]of flags)if(typeof on==='boolean')classes.toggle(key,on);}
+    }
+    function stepActor(world,actor,_legacyInput,dt,index,rawHeroDelta=dt,rawElapsed=rawHeroDelta) {
       if(!attached||actor?.control!=='remote')return false;
       if(!authority())return true;
       const raw=incoming.get(actor.slotId),fresh=raw&&(env.performance?.now?.()??Date.now())-raw.received<800;
@@ -131,11 +139,13 @@
             if(!(actor.hp>0)&&num(actor.downUntil,Infinity)<=world.time&&(world.hp>0||(getParty()?.actors??[]).some(a=>a!==actor&&a.hp>0)))native().reviveActor?.(view,actor,'cooperative');
             return;
           }
-          if(channel?.companion(view,view,wire.guardHeld))return;
-          samong?.advance(view,Math.max(0,dt),false);loop?.tick(view,dt);
+          samong?.advance(view,Math.max(0,rawElapsed),false);
+          const guarding=channel?.companion(view,view,wire.guardHeld)===true;
+          actorClock(view,ctx,Math.max(0,rawHeroDelta));loop?.tick?.(view,dt);
           if(typeof native().actorFrame==='function')native().actorFrame(view,actor,dt,index,wire);
           if(!(actor.hp>0)){actor.downUntil=world.time+8;return;}
-          move(view,actor,wire,dt);
+          if(guarding)return;
+          move(view,actor,wire,Math.max(0,rawHeroDelta));
           if(actions.has('dash')){loop?.cancelCharge(view,'manual-blink');b.actions.dash();stats.nativeCasts++;}
           if(actions.has('resonance')||actions.has('time')){b.actions.resonance();stats.nativeCasts++;}
           if(actions.has('collab')){b.actions.collab();stats.nativeCasts++;}
@@ -144,8 +154,8 @@
           if(pressed){env.__HAPIL_SIMPLE_V31368__?.noteA(view);if(!loop?.pressA(view)&&ctx.auto==='manual')b.actions.attack();}
           if(actions.has('chargeRelease')||wire.attackReleased||!wire.attackHeld&&ctx.lastAttackHeld)loop?.releaseA(view);
           ctx.lastAttackHeld=wire.attackHeld;
-          env.__HAPIL_SIMPLE_V31368__?.tick(view,dt);
-          controls()?.tickBasic?.(view,dt,{...b,paused:false});
+          env.__HAPIL_SIMPLE_V31368__?.tick(view,rawHeroDelta);
+          controls()?.tickBasic?.(view,rawHeroDelta,{...b,paused:false});
           stats.nativeSteps++;
         });
       }catch(error){fault(error,'native-actor-step',actor.slotId);releaseInputs('native-actor-fault',actor.slotId);}
@@ -177,14 +187,15 @@
       return true;
     }
     function captureLocal() {
-      const p=getParty(),b=binding();return portable({world:p?.state?clone(p.state):null,hero:b?.hero?.current,settings:clone(b?.settings?.current),passives:clone(b?.passives?.current),shards:b?.shards?.current,partyIds:clone(b?.partyIds?.current),roster:clone(p?.roster??[]),mode:p?.status?.mode??'solo',endingFlag:env.__HAPIL_ENDING_CLEARED_V31300__,records:native().captureRecords?.()});
+      const p=getParty(),b=binding(),world=b?.state?.current??p?.state;return portable({world:world?clone(world):null,runDraft:env.__HAPIL_RUN_V31400__?.draft?.(),phase:b?.phase??'title',auto:b?.auto?.current,hero:b?.hero?.current,settings:clone(b?.settings?.current),passives:clone(b?.passives?.current),shards:b?.shards?.current,partyIds:clone(b?.partyIds?.current),roster:clone(p?.roster??[]),mode:p?.status?.mode??'solo',endingFlag:env.__HAPIL_ENDING_CLEARED_V31300__,records:native().captureRecords?.()});
     }
     function restoreLocal(saved) {
       if(!saved)return false;saved=portable(saved,true);const p=getParty(),b=binding();releaseInputs('leave');
-      p?.leave?.();if(saved.world&&p?.state){for(const key of Object.keys(p.state))delete p.state[key];Object.assign(p.state,clone(saved.world));}
-      for(const key of ['hero','settings','passives','shards','partyIds'])if(b?.[key]&&Object.hasOwn(saved,key))b[key].current=clone(saved[key]);
+      p?.leave?.();if(saved.runDraft)env.__HAPIL_RUN_V31400__?.select?.(saved.runDraft);const target=localWorldRef??b?.state?.current??p?.state;if(saved.world&&target){for(const key of Object.keys(target))delete target[key];Object.assign(target,clone(saved.world));if(b?.state)b.state.current=target;env.__HAPIL_RUN_V31400__?.init?.(target,saved.hero,saved.world.runPolicyV31400??saved.runDraft??{aiEnabled:false,aiHeroes:[],humanPlayers:1,humanHeroes:[],origin:'new'});p?.capture?.(target,{damage:b?.actions?.damage,heroRef:b?.hero,cache:b?.cache?.current},saved.phase!=='game');}
+      for(const key of ['hero','settings','passives','shards','partyIds','auto'])if(b?.[key]&&Object.hasOwn(saved,key))b[key].current=clone(saved[key]);
       env.__HAPIL_ENDING_CLEARED_V31300__=saved.endingFlag;if(saved.records!==undefined)native().restoreRecords?.(saved.records);
       if(saved.roster?.length)p?.configure?.({mode:saved.mode,roster:saved.roster});
+      if(saved.phase!=='game'){b?.actions?.returnTitle?.();if(b)b.phase=saved.phase??'title';}
       return true;
     }
     function connectStorage() {
@@ -199,7 +210,7 @@
     }
     function updateRoom(next={}) {const oldEpoch=epoch;room={...(room??{}),...next};if(Number.isSafeInteger(next.epoch)&&next.epoch>=epoch)epoch=next.epoch;if(oldEpoch!==epoch){wireSeq=-1;releaseInputs('epoch');stats.transitions++;}if(attached)configureRoster(room);return status();}
     function attach(next={}) {
-      if(!attached){capture=captureLocal();localAuto=controls()?.choice?.(binding()?.settings?.current)??'manual';const result=connectStorage()?.enter?.(next.isHost?'host':'guest',next.session??next);if(result?.ok===false)throw Error('Cooperative storage isolation failed: '+result.reason);native().reloadRecordScopes?.();attached=true;}
+      if(!attached){localWorldRef=binding()?.state?.current??getParty()?.state??null;capture=captureLocal();localAuto=controls()?.choice?.(binding()?.settings?.current)??'manual';const result=connectStorage()?.enter?.(next.isHost?'host':'guest',next.session??next);if(result?.ok===false)throw Error('Cooperative storage isolation failed: '+result.reason);native().reloadRecordScopes?.();attached=true;}
       updateRoom(next);role(next.isHost?'host':'guest');return status();
     }
     async function start(next=room??{}) {
@@ -213,6 +224,7 @@
       // Bind that replacement before publishing the initial authoritative frame.
       const current=binding();if(current?.state?.current&&p.state!==current.state.current)p.capture?.(current.state.current,{damage:current.actions?.damage,heroRef:current.hero,cache:current.cache?.current},currentRole!=='host');
       rosterSignature='';configureRoster(next);
+      nativeStarted=true;if(binding()?.phase==='game')nativeGameObserved=true;
       return status();
     }
     function validateCheckpoint(snap) {
@@ -229,7 +241,7 @@
       if(!attached||!room?.isHost||currentRole==='guest')return null;const p=getParty(),snap=p?.exportSnapshot?.();if(!snap)return null;
       if(hostZone!==null&&hostZone!==snap.zone){releaseInputs('zone');stats.transitions++;}hostZone=snap.zone;
       const card=env.document?.getElementById?.('hapil-story-rc51'),story=card?{zone:card.dataset.zone,phase:card.dataset.phase,title:card.querySelector?.('h1')?.textContent??'',paragraphs:[...(card.querySelectorAll?.('.rc51-copy p')??[])].map(p=>p.textContent)}:null;
-      snap.rc222={version:1,epoch,full:options.full!==false,zone:snap.zone,actorModes:(p.actors??[]).map(a=>({slotId:a.slotId,combatMode:contexts.get(a)?.auto??'manual'})),narrative:story};
+      snap.rc222={version:1,epoch,full:options.full!==false,zone:snap.zone,actorModes:(p.actors??[]).map(a=>({slotId:a.slotId,combatMode:contexts.get(a)?.auto??'manual'})),narrative:story,checkpointBoundary:{privateActions:'clear-on-host-load',remainingDamageSaved:false}};
       return snap;
     }
     function snapshot(snap,meta={}) {
@@ -242,6 +254,7 @@
       let accepted=false;
       try{accepted=p.applySnapshot(candidate)!==false;}finally{if(meta.allowHost)role(savedRole);}
       if(!accepted){stats.rejected++;return false;}
+      if(meta.allowHost){releaseInputs('checkpoint-load');controls()?.clear?.('checkpoint-load');native().resetPlayerTransient?.(p.state);for(const actor of p.actors??[])native().resetPlayerTransient?.(actorContext(p.state,actor).view);}
       nativeSeq=candidate.seq;wireSeq=seq;
       const transition=nextEpoch!==epoch||meta.transition||hostZone!==snap.zone;
       if(transition){releaseInputs('snapshot-transition');interpolation=[];stats.transitions++;}
@@ -262,8 +275,8 @@
       card.id='hapil-remote-narrative-rc222';card.setAttribute('role','dialog');card.setAttribute('aria-label',narrative.title);for(const p of narrative.paragraphs)copy.append(node('p','',p));head.append(title);box.append(copy);panel.append(head,box);card.append(panel);doc.body.append(card);
     }
     function leave() {
-      releaseInputs('leave');const storage=connectStorage();if(storage?.leave)storage.leave();else restoreLocal(capture);
-      attached=false;capture=null;room=null;epoch=0;wireSeq=-1;hostZone=null;rosterSignature='';currentRole='offline';narrative=null;narrativeKey='';interpolation=[];env.document?.getElementById?.('hapil-remote-narrative-rc222')?.remove();return status();
+      releaseInputs('leave');const storage=connectStorage();try{const result=storage?.leave?storage.leave():restoreLocal(capture);if(result===false||result?.ok===false)throw Error('Local state restore failed: '+(result?.reason??'runtime-restore'));}catch(error){role('disconnected');throw error;}
+      attached=false;capture=null;room=null;epoch=0;wireSeq=-1;hostZone=null;rosterSignature='';currentRole='offline';narrative=null;narrativeKey='';localWorldRef=null;nativeStarted=false;nativeGameObserved=false;interpolation=[];env.document?.getElementById?.('hapil-remote-narrative-rc222')?.remove();return status();
     }
     function readInput() {
       if(portrait())releaseInputs('portrait');
