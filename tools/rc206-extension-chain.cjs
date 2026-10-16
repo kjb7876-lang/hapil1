@@ -10,6 +10,6 @@ pins.push([134,"13d7bca052d395711fd201b82042ee1736853500d7667f5337542012f8fd04e4
 pins.push([135,"d98d1db00aa7c1232ddffd5dbaa9641c0043697803f59546860d9b80c6ffe32c"]);
 pins.push([136,"7ddbc0d82c02242e977df204106d961b4726a75dc997da3af886e76b350c3bde"],[137,"3c1e0bd4a2081dcab2015a24f8bf8bd8b6f2e0aeb0ba635dfdecc42efaf95c1f"],[138,"27e93d2a4d294aa083d34f942e00927ca2f097b7bbceaef2a2a9bf1507f9fc5c"],[139,"a0d16aa49b6ef043d408a3880fee2beb257e486d6e84565b34100235bfb276ff"]);
 pins.push([140,"62751c2dc4792ab6488e2d332d7067e02f4ca7fff75c3587a1f686eacaace360"],[141,"7100e9c66ad346c25751c60ed7b45763a59c99a79fb80ee80448fd59a67eda00"],[142,"44be48c729034c9f00b688886aa7d350814fd7ecfdd4c4d400c21854e0d433fd"],[143,"072eb81c91f9abb319e29b02e4c56c9683cede4dde98522c51c0c58291327d2f"]);
-pins.push([144,"c8aa84c93c94ae26ae0f49a3b13e2aad67b0f41d8ab766b60e3fb0c2291b8886"]);
+pins.push([144,"0e2d0bcd82f48ea91bda5a5167b167535f786237a84a74a75a8e984f3008fb39"]);
 const digest=b=>crypto.createHash('sha256').update(b).digest('hex');
 module.exports=function(root){let previous=digest(fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-65.json')));return pins.map(([number,hash])=>{const bytes=fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-extension-'+number+'.json'));assert.equal(digest(bytes),hash,'exact later extension '+number);const row=JSON.parse(bytes);assert.equal(row.previousExtensionSha256,previous,'exact later extension chain '+number);previous=hash;return row;});};
