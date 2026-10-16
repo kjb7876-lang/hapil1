@@ -54265,6 +54265,8 @@ function Ri() {
     }, [B]),
     at = (0, l.useCallback)(async () => {
       if (typeof window !== `undefined` && window.__MONGSE_DEPLOYING__) return;
+      const selectedHeroId=L.current;
+      const launchHeroId=F.some(h=>h.id===selectedHeroId)?selectedHeroId:i;
       const HAPIL_launchGenerationRC222=HAPIL_scopeGenerationRC222();
       typeof window !== `undefined` && (window.__MONGSE_DEPLOYING__ = !0);
       HAPIL_setLaunchRC52({busy:true,error:false,message:'전투 자료를 준비하고 있습니다…'});
@@ -54276,7 +54278,7 @@ function Ri() {
         HAPIL_setLaunchRC52({busy:true,error:false,message:'영웅과 첫 맵을 불러오고 있습니다…'});
         let e =
             MONGSE_corePlayableRosterV31235().find(
-              (MONGSE_heroV31235) => MONGSE_heroV31235.id === i,
+              (MONGSE_heroV31235) => MONGSE_heroV31235.id === launchHeroId,
             ) ?? MONGSE_corePlayableRosterV31235()[0],
           n = [
             N.dist00.map,
@@ -54326,15 +54328,15 @@ function Ri() {
             launchMode,
             P.current,
           ),
-          window.__HAPIL_RUN_V31400__.init(P.current,i),
-          (P.current.activeHeroId=i),
+          window.__HAPIL_RUN_V31400__.init(P.current,launchHeroId),
+          (P.current.activeHeroId=launchHeroId),
           (P.current.zone='dist00'),
           (P.current.frontierZone='dist00'),
           window.__HAPIL_DEVELOPER_MAPS_RC133__.beginRun(P.current,window.__HAPIL_DEVELOPER_MAPS_RC133__.frontier(N)),
           ii(P.current,'dist00',false),
-          (Le.current=[window.__HAPIL_POLICY_V31400__.partner(i)]),
+          (Le.current=[window.__HAPIL_POLICY_V31400__.partner(launchHeroId)]),
           window.__HAPIL_PARTY_V31322__?.configure?.({
-            ...window.__HAPIL_RUN_V31400__.configFor(P.current,i),
+            ...window.__HAPIL_RUN_V31400__.configFor(P.current,launchHeroId),
             hell: launchMode !== `STORY`,
           }),
           (Be.current = 0),
@@ -123248,6 +123250,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  const color=(v,f)=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v)?v:f;
  const hidden=s=>!s||!Number.isFinite(s.time)||!Number.isFinite(s.x)||!Number.isFinite(s.y)||MONGSE_isEncounterLocked31226(s);
  function authority(s){const p=party();return !hidden(s)&&p?.status?.role!=='guest'&&!p?.status?.disconnected&&!(p?.state===s&&p?.status?.paused);}
+ function contactContext(s,a){const original=s,runtime=window.__HAPIL_REMOTE_RC222_RUNTIME__,world=runtime?.canonicalWorld?.(original)??original,actor=a===original?(runtime?.actorFor?.(original)??a):a;return{s:world,a:actor};}
  function meta(s){
   if(!s||!Number.isFinite(s.time))return null;
   let m=memories.get(s);const hero=String(s.activeHeroId??''),zone=String(s.zone??'');
@@ -123299,6 +123302,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   s[KEY].push(event);return event;
  }
  function hit(s,a,q,damage,origin={}){
+  ({s,a}=contactContext(s,a));
   if(!authority(s)||!a||n(a.hp)<=0||!(n(damage)>0))return null;
   const m=meta(s);if(!m)return null;q=q&&typeof q==='object'?q:{};
   const id=slot(s,a),seen=m.contacts.get(q)??new Map();if(s.time-n(seen.get(id),-99)<.06)return null;seen.set(id,s.time);m.contacts.set(q,seen);
@@ -123306,6 +123310,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
   const event=push(s,m,'hurt',point(s,a,q),q,a,intensity,origin);if(event){stats.hurts++;m.hudDirty=true;}return event;
  }
  function protect(s,a,q,damage,origin={}){
+  ({s,a}=contactContext(s,a));
   if(!authority(s)||!a||n(a.hp)<=0||!(n(damage)>0)||s.time>=n(a.invulnerableUntil)||window.__HAPIL_DEFENSE_V31356__?.active(s,a))return null;
   if(!q||typeof q!=='object'||q.parriedV31356||q.damageSuppressedV31226)return null;
   const evidence=window.__HAPIL_CONTACT_V31336__?.classify(s,a,q);if(evidence?.hit!==true)return null;

@@ -106,7 +106,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, host-down-reward, host-down-reward-baseline, coop, combat]
+        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, host-down-reward, host-down-reward-baseline, coop, coop-mixed, combat]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -171,6 +171,7 @@ jobs:
               test_file=tests/rc223-host-down-reward-browser.cjs
               ;;
             coop) test_file=tests/rc222-browser.cjs ;;
+            coop-mixed) export HAPIL_COOP_MIXED_HEROES=1; test_file=tests/rc222-browser.cjs ;;
             combat) test_file=tests/rc210-browser.cjs ;;
           esac
           node "$test_file" 2>&1 | tee "$RUNNER_TEMP/rc223-browser/evidence/browser.log"

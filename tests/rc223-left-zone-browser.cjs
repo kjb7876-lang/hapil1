@@ -69,13 +69,13 @@ const server = http.createServer((req,res) => {
 const report = {
   schema:1,status:'running',runnerSha:git(['rev-parse','HEAD']),appSha,expectedSha,appRoot,
   startedAt:new Date().toISOString(),
-  scope:'Actual RC138 dist01 floor union, RC223 host, remote, and local P2 frames, real remote keyboard movement, Playwright ArrowLeft events through the native local P2 Party keyboard/setInput/tick path, native local strike, incoming damage, and native checkpoint re-entry in official Chrome with a loopback two-context WebSocket relay. Local P2 starts through the native preparation UI with a fixed two-human run policy. Positions and selected HP fixtures are staged.',
+  scope:'Actual RC138 dist01 floor union, RC223 host, remote, and local P2 frames, real remote keyboard movement, Playwright ArrowLeft events through the native local P2 Party keyboard/setInput/tick path, native local strike, incoming damage, and native checkpoint re-entry in official Chrome with a loopback two-context WebSocket relay. For local P2, the fixture opens the production Party modal through its exported QA API because the app has no visible title-screen opener; hero selection, P2 selection, policy preparation, and Apply then use the real Party controls and handler. Positions and selected HP fixtures are staged.',
   limitations:[
     'Official Chrome contexts share one local loopback relay; this is not a physical four-network deployment.',
     'No physical phone or GPU coverage is included.',
     'Player positions and enemy readiness are staged to isolate native geometry and timers; movement, frame ticks, incoming reducers, co-op ownership, and checkpoint selection remain production paths.',
     'The checkpoint cleanup case stages both actors at 1 HP before applying real native incoming reducers; it does not claim a naturally reached lethal encounter.',
-    'The local P2 case starts from the native Party preparation UI with a two-human run policy and P2 gunner, then stages actor/enemy coordinates and HP for repeatable probes. P2 movement uses Playwright-generated ArrowLeft key events captured by the native Party UI; the real 50 ms PARTY.setInput packets and keyup zero packet are recorded. This is not a physical keyboard or device test. Death cleanup is exercised through native incoming and revive frames; lifecycle cleanup uses the native return-to-title action because the run policy locks the human roster.',
+    'The local P2 case opens the production Party modal with the exported __HAPIL_PARTY_UI_V31322__.open() QA API; this is not a visible title-screen user route. The modal’s hero/P2 selections, two-human run policy, Apply handler, launch, and strict Slayer-host/Gunner-local/no-extra-AI roster assertion are production paths. Actor/enemy coordinates and HP are staged for repeatable probes. P2 movement uses Playwright-generated ArrowLeft key events captured by the native Party UI; the real 50 ms PARTY.setInput packets and keyup zero packet are recorded. This is not a physical keyboard or device test. Death cleanup is exercised through native incoming and revive frames; lifecycle cleanup uses the native return-to-title action because the run policy locks the human roster.',
     'After the native checkpoint flow, the Episode 1 death-verse dialog is acknowledged with its visible native restart button so later browser probes can continue; this is explicitly scripted manual progression.'
   ],
   environment:{officialChrome:false,isolatedContexts:0,actualWebSocketRelay:false,realFourNetworks:false,physicalDevice:false,physicalGPU:false},
@@ -117,6 +117,9 @@ async function makePage(label){
 }
 async function startLocalGame(page){
   await page.waitForFunction(()=>typeof window.__HAPIL_PARTY_UI_V31322__?.open==='function',null,{timeout:10000});
+  // QA-only opener: the production modal API is exported, but the visible
+  // Party launcher is hidden and the title screen has no user-facing opener.
+  // Everything after opening uses the real modal controls and Apply handler.
   await page.evaluate(()=>window.__HAPIL_PARTY_UI_V31322__.open());
   await page.locator('#hapil-party-dialog').waitFor({state:'visible',timeout:8000});
   await page.locator('#hapil-party-dialog select[aria-label="플레이 방식"]').selectOption('local');
