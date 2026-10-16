@@ -20,8 +20,8 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "sha256": "77f20b118b0c200f9006050b058718d88baddd5f284e7e2b2ef5acc237476fff",
-        "gitBlob": "7242d539c5605917c26ec5aeb35a87ded1ded2eb"
+        "sha256": "8f6940fc74064b5b696984652f6dff3f58e4e0a4f77acfaed97d048724d76942",
+        "gitBlob": "85724a3705d56642bfbe3941bc50993afe1294be"
       },
       "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
@@ -164,5 +164,5 @@
       "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, and newly opened world-left physical-floor exposure with owner-isolated state; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     }
   ],
-  "targetProtectedRowsSha256": "35bb16c6a566d4f7c8902368ab74fcc91972a3d47f6625bff16c145779791f87"
+  "targetProtectedRowsSha256": "3de110c02b0ea9b7c0acfd5d56310fcdf31fcf46e5f35d5aedfc16a046cf21d5"
 }

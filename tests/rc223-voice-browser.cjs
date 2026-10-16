@@ -194,27 +194,58 @@ async function nativeRelayCase() {
   for (const page of [host, guest]) {await wait(page, () => window.__HAPIL_RC133_NATIVE__?.installed && window.__HAPIL_REMOTE_RC222_RUNTIME__ && window.__HAPIL_REMOTE_RC222__); await page.keyboard.press('Escape'); await page.evaluate(endpoint => __HAPIL_REMOTE_RC222__.setEndpoint(endpoint), endpoint);}
   await host.evaluate(() => __HAPIL_REMOTE_RC222__.create({nickname: 'voice-host', heroId: 'gunner', mode: 'STORY'}));
   const code = await host.evaluate(() => __HAPIL_REMOTE_RC222__.status().code);
-  await guest.evaluate(code => __HAPIL_REMOTE_RC222__.join({code, nickname: 'voice-guest', heroId: 'seoha'}), code);
-  await guest.evaluate(() => __HAPIL_REMOTE_RC222__.ready(true));
-  await wait(host, () => __HAPIL_REMOTE_RC222__.status().roster.length === 2 && __HAPIL_REMOTE_RC222__.status().roster.every(row => row.ready));
   await host.evaluate(() => __HAPIL_REMOTE_RC222__.start());
-  await Promise.all([host, guest].map(page => wait(page, () => __HAPIL_REMOTE_RC222__.status().phase === 'playing' && __HAPIL_REMOTE_RC222_RUNTIME__.status().ready, null, 45000)));
+  await wait(host, () => __HAPIL_REMOTE_RC222__.status().phase === 'playing' && __HAPIL_REMOTE_RC222_RUNTIME__.status().ready, null, 45000);
   await wait(host, () => !!__HAPIL_STORY_RC51__.currentNarrative(), null, 30000);
   const hostNativeCue = await host.evaluate(() => __HAPIL_STORY_RC51__.currentNarrative());
-  const hostCue = await host.evaluate(() => __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true})?.rc222?.narrative?.voice);
-  assert(hostCue && hostCue.cueId > 0, 'native primary cue is present in wire snapshot');
-  assert.equal(hostCue.text, hostNativeCue.text); assert.equal(hostCue.key, hostNativeCue.key);
-  await wait(guest, cue => __HAPIL_GUEST_VOICE_RC223__.status().highestCue === cue.cueId && document.querySelector('#hapil-remote-narrative-rc222 [data-narration-play]'), hostCue, 30000);
+  const hostCue = await host.evaluate(() => {
+    const transport = __HAPIL_REMOTE_RC222__, snapshot = __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true}), cue = snapshot?.rc222?.narrative?.voice;
+    const seq = ++transport.snapshotSeq;
+    if (!cue?.cueId || !transport.send('snapshot', {seq, epoch: transport.epoch, snapshot})) throw Error('Could not publish the active native cue before late join');
+    return {cue, seq};
+  });
+  assert(hostCue.cue && hostCue.cue.cueId > 0, 'native primary cue is present in wire snapshot');
+  assert.equal(hostCue.cue.text, hostNativeCue.text); assert.equal(hostCue.cue.key, hostNativeCue.key);
+  await guest.evaluate(code => __HAPIL_REMOTE_RC222__.join({code, nickname: 'voice-guest', heroId: 'seoha'}), code);
+  await Promise.all([
+    wait(host, () => __HAPIL_REMOTE_RC222__.status().roster.length === 2, null, 30000),
+    wait(guest, () => __HAPIL_REMOTE_RC222__.status().phase === 'playing' && __HAPIL_REMOTE_RC222_RUNTIME__.status().ready, null, 45000)
+  ]);
+  await wait(guest, cue => __HAPIL_GUEST_VOICE_RC223__.status().highestCue === cue.cueId && document.querySelector('#hapil-remote-narrative-rc222 [data-narration-play]'), hostCue.cue, 30000);
+  assert(await guest.evaluate(() => __HAPIL_REMOTE_RC222__.receivedSeq) >= hostCue.seq, 'late join accepted the active cue snapshot sequence');
   const before = await snapshot(guest);
-  assert.equal(before.guest.playerStatus, 'idle', 'first actual guest snapshot offers manual playback');
-  assert.equal(before.audio.sources.length, 0, 'first actual guest cue does not autoplay');
+  assert.equal(before.guest.playerStatus, 'idle', 'late join sees the current active cue as a manual first snapshot');
+  assert.equal(before.audio.sources.length, 0, 'late-join baseline does not autoplay the current active cue');
   await guest.locator('#hapil-remote-narrative-rc222 [data-narration-play]').click();
   await wait(guest, () => __HAPIL_GUEST_VOICE_RC223__.status().playerStatus === 'playing' && __RC223_READ_AUDIO__().sources.some(row => row.contextNow - row.contextTime > .1), null, 30000);
   const started = await snapshot(guest), count = started.audio.sources.length;
+  await guest.evaluate(() => {
+    const transport = __HAPIL_REMOTE_RC222__, apply = transport.applySnapshot;
+    window.__RC223_GUEST_ACCEPTED_SEQS__ = [];
+    transport.applySnapshot = async function(message, transition) {
+      const previous = this.receivedSeq, result = await apply.call(this, message, transition), seq = Number(message.seq);
+      if (this.receivedSeq > previous && this.receivedSeq === seq) window.__RC223_GUEST_ACCEPTED_SEQS__.push(seq);
+      return result;
+    };
+  });
+  async function resendNativeSnapshot(label) {
+    const previous = await guest.evaluate(() => __HAPIL_REMOTE_RC222__.receivedSeq);
+    const seq = await host.evaluate(() => {
+      const transport = __HAPIL_REMOTE_RC222__, snapshot = __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true}), next = ++transport.snapshotSeq;
+      if (!snapshot || !transport.send('snapshot', {seq: next, epoch: transport.epoch, snapshot})) throw Error('Native host snapshot unavailable');
+      return next;
+    });
+    assert(seq > previous, `${label} snapshot sequence advances past the guest's accepted sequence`);
+    await wait(guest, target => window.__RC223_GUEST_ACCEPTED_SEQS__?.includes(target), seq, 10000);
+    const accepted = await guest.evaluate(() => ({seq: __HAPIL_REMOTE_RC222__.receivedSeq, history: window.__RC223_GUEST_ACCEPTED_SEQS__}));
+    assert(accepted.history.includes(seq), `${label} snapshot sequence was accepted by the guest`);
+    assert(accepted.seq >= seq, `${label} guest accepted sequence reaches the published snapshot`);
+    return seq;
+  }
   // These are actual host exports sent through the real relay; no fabricated cue is supplied.
-  for (let i = 0; i < 4; i++) {await host.evaluate(() => {const t = __HAPIL_REMOTE_RC222__, snap = __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true}); if (!snap) throw Error('Native host snapshot unavailable'); t.send('snapshot', {seq: ++t.snapshotSeq, epoch: t.epoch, full: true, snapshot: snap});}); await sleep(120);}
+  const repeatedSeqs = []; for (let i = 0; i < 4; i++) repeatedSeqs.push(await resendNativeSnapshot('Repeated native cue'));
   const repeated = await snapshot(guest);
-  assert.equal(repeated.guest.highestCue, hostCue.cueId); assert.equal(repeated.audio.sources.length, count, 'same native cue snapshots never restart guest speech');
+  assert.equal(repeated.guest.highestCue, hostCue.cue.cueId); assert.equal(repeated.audio.sources.length, count, 'same native cue snapshots never restart guest speech');
   assert.equal(repeated.guest.playerStatus, 'playing');
   await capture('native-host-current-narrative', host); await capture('native-guest-real-voice', guest);
   // Explicit lifecycle fixture: call the existing native respawn hooks. This is
@@ -229,7 +260,7 @@ async function nativeRelayCase() {
   await wait(host, () => __HAPIL_STORY_NARRATION_V1__.currentNarrative?.()?.key === 'death:verse');
   const sharedHost = await host.evaluate(() => ({player: __HAPIL_STORY_NARRATION_V1__.currentNarrative(), wire: __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true})?.rc222?.narrative}));
   assert.equal(sharedHost.wire?.voice?.key, 'death:verse', 'shared death surface enters actual native snapshot');
-  for (let i = 0; i < 3; i++) {await host.evaluate(() => {const t = __HAPIL_REMOTE_RC222__, snap = __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true}); if (!snap) throw Error('Shared surface snapshot unavailable'); t.send('snapshot', {seq: ++t.snapshotSeq, epoch: t.epoch, full: true, snapshot: snap});}); await sleep(120);}
+  const sharedSeqs = []; for (let i = 0; i < 3; i++) sharedSeqs.push(await resendNativeSnapshot('Shared death surface'));
   await wait(guest, () => __HAPIL_STORY_NARRATION_V1__.currentNarrative?.()?.key === 'death:verse' && __HAPIL_GUEST_VOICE_RC223__.status().playerStatus === 'playing' && __RC223_READ_AUDIO__().sources.some(row => row.url?.includes('/death-title-') && row.contextNow - row.contextTime > .1));
   const sharedGuest = await snapshot(guest), deathStarts = sharedGuest.audio.sources.filter(row => row.url.includes('/death-title-'));
   assert.equal(deathStarts.length, 1, 'same shared cue snapshots produce one first-clip start');
@@ -240,7 +271,7 @@ async function nativeRelayCase() {
   await wait(guest, () => !__HAPIL_REMOTE_RC222__.status().connected && !__HAPIL_GUEST_VOICE_RC223__.status().hasCue);
   const left = await snapshot(guest); assert(left.audio.sources.every(row => row.stopped || row.ended), 'room leave cancels the actual guest voice');
   report.scopes.nativeRelayTwoClients = true; report.scopes.nativeSharedSurface = true;
-  return {scope: 'Actual loopback relay and two isolated desktop Chrome contexts; no independent-network claim', hostNativeCue, hostCue, before, started, repeated, sharedSetup, sharedHost, sharedGuest, left};
+  return {scope: 'Actual loopback relay and two isolated desktop Chrome contexts; no independent-network claim', hostNativeCue, hostCue, before, started, repeatedSeqs, repeated, sharedSetup, sharedSeqs, sharedHost, sharedGuest, left};
 }
 
 (async () => {

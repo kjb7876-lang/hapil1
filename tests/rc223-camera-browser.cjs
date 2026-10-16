@@ -119,6 +119,8 @@ async function check(name, page, fn) {
     row.actual = await page.evaluate(() => ({
       camera: window.__HAPIL_CAMERA_RC223__?.diagnostics?.(),
       cameraSnapshot: window.__HAPIL_CAMERA_RC223__?.snapshot?.(),
+      adaptive: window.__HAPIL_ADAPTIVE_RC125__?.snapshot?.(),
+      viewport: window.__HAPIL_VIEWPORT_RC104__?.last ?? null,
       state: (() => {const s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;return s?{zone:s.zone,x:s.x,y:s.y,hp:s.hp,time:s.time,target:s.target}:null;})(),
       phase: window.__HAPIL_CONTROLS_V31329__?.binding?.phase,
       visibleText: (document.body.innerText || '').slice(0, 1800)
@@ -224,15 +226,18 @@ async function pointerProjection(page, useTouch) {
     const enemyDistance=p=>Math.min(Infinity,...(s.enemies||[]).filter(a=>a.hp>0).map(a=>Math.hypot(a.x-p.x,a.y-p.y)));
     const target=candidates.find(p=>enemyDistance(p)>2.8)||candidates[0],g={x:640+(target.x-target.y)*27,y:13.5*(target.x+target.y)},cam=d.adjusted;
     const logical={x:cam.x+g.x*cam.scale,y:cam.y+g.y*cam.scale};
-    const V=window.__HAPIL_VIEWPORT_RC104__,touch=document.documentElement.classList.contains('hapil-touch-v31366');
-    const nativeView=touch?V.view(r.width,r.height):null;
-    const client=touch
-      ?{x:r.left+(logical.x-nativeView.x)*nativeView.k,y:r.top+(logical.y-nativeView.y)*nativeView.k}
-      :{x:r.left+logical.x*r.width/1280,y:r.top+logical.y*r.height/720};
+    const V=window.__HAPIL_VIEWPORT_RC104__,touch=document.documentElement.classList.contains('hapil-touch-v31366'),adaptive=window.__HAPIL_ADAPTIVE_RC125__?.snapshot?.(),lastWorld=adaptive?.lastWorld;
+    if(!adaptive?.wide||!lastWorld?.view||lastWorld.zone!==s.zone)throw Error('actual adaptive battlefield render view is unavailable for '+JSON.stringify({zone:s.zone,adaptive}));
+    if(Math.abs(lastWorld.cssWidth-r.width)>.5||Math.abs(lastWorld.cssHeight-r.height)>.5)throw Error('adaptive render CSS box does not match the clicked canvas '+JSON.stringify({lastWorld:{cssWidth:lastWorld.cssWidth,cssHeight:lastWorld.cssHeight},rect:{width:r.width,height:r.height}}));
+    const nativeView=lastWorld.view;
+    // Invert the actual adaptive RC125 render transform. Wide layouts are
+    // letterboxed to an isotropic logical view even on desktop; the canvas
+    // backing bitmap dimensions are not the pointer coordinate system.
+    const client={x:r.left+(logical.x-nativeView.x)*nativeView.k,y:r.top+(logical.y-nativeView.y)*nativeView.k};
     const projected=V.pointer({clientX:client.x,clientY:client.y},r);
-    if(Math.hypot(projected.x-logical.x,projected.y-logical.y)>.02)throw Error('pointer coordinate fixture disagrees with the native RC104 inverse '+JSON.stringify({logical,projected,touch}));
+    if(Math.hypot(projected.x-logical.x,projected.y-logical.y)>.02)throw Error('pointer coordinate fixture disagrees with the native adaptive RC104 inverse '+JSON.stringify({logical,projected,touch,nativeView,lastWorld:{cssWidth:lastWorld.cssWidth,cssHeight:lastWorld.cssHeight,zone:lastWorld.zone},rect:{left:r.left,top:r.top,width:r.width,height:r.height},client}));
     s.target=null;s.path=[];s.targetEnemyId=null;
-    return {target,enemyDistance:enemyDistance(target),logical,projected,client,rect:{x:r.x,y:r.y,width:r.width,height:r.height},camera:cam,factor:d.factor,zone:s.zone,coordinateMethod:touch?'inverse of native RC104 touch view()':'inverse of native RC104 fixed logical canvas mapping'};
+    return {target,enemyDistance:enemyDistance(target),logical,projected,client,rect:{x:r.x,y:r.y,width:r.width,height:r.height},camera:cam,factor:d.factor,zone:s.zone,nativeView,lastWorld:{cssWidth:lastWorld.cssWidth,cssHeight:lastWorld.cssHeight,backingWidth:lastWorld.backingWidth,backingHeight:lastWorld.backingHeight,zone:lastWorld.zone,revision:lastWorld.revision},coordinateMethod:'inverse of actual adaptive RC125 world render CSS transform, verified by native RC104 pointer()'};
   });
   assert(plan.client.x>plan.rect.x+5&&plan.client.x<plan.rect.x+plan.rect.width-5&&plan.client.y>plan.rect.y+5&&plan.client.y<plan.rect.y+plan.rect.height-5, 'projected native world target lies inside game canvas');
   if(useTouch) await page.touchscreen.tap(plan.client.x, plan.client.y);

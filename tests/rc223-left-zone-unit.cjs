@@ -224,6 +224,7 @@ const arenaPath=require.resolve('../assets/rc138/battle-arena.js');
 delete require.cache[arenaPath];require(arenaPath);
 const arena=globalThis.__HAPIL_BATTLE_ARENA_RC138__;
 globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__={
+  policy:leftZone.policy,
   allowed:(s,a,p,r)=>controller.allowed(s,a,p,r),
   canMove:(s,a,p,r)=>controller.canMove(s,a,p,r),
   regionAt:(s,a,p)=>controller.regionAt(s,a,p),
@@ -241,6 +242,103 @@ guarded.x=15;guarded.y=14;
 assert.deepEqual({x:guarded.x,y:guarded.y},newlyOpenedPoint,'native x/y property setters admit the exact newly opened floor');
 assert.equal(D.contains(guarded,'all',.8),true);
 assert.equal(D.contains(guarded,'left',.8),false);
+
+// Evaluate the production RC138 `ft` wrapper with the real RC137 directional
+// constraint. Its final requested endpoint must retain the 0.9 factor instead
+// of restoring the original full step along a clear input ray.
+const directionPath=require.resolve('../assets/rc137/direction-input.js');
+delete require.cache[directionPath];require(directionPath);
+const direction=globalThis.__HAPIL_DIRECTION_INPUT_RC137__;
+direction.bind({project:(x,y)=>({x,y}),clearTarget:()=>{},resetDodge:()=>{},walkable:(s,p)=>D.contains(p,'all',.8)});
+const heldRight=new Set(['ArrowRight']);
+globalThis.__HAPIL_CONTROLS_V31329__={binding:{state:{current:guarded},input:{current:heldRight}}};
+direction.acquire(guarded,heldRight);
+const movementStart={x:guarded.x,y:guarded.y},movementDelta={x:.2,y:0};
+const nativeWrapperStart=bundleSource.indexOf('ft=function(z,a,v,r=.45){',bundleSource.indexOf('/* RC138_NATIVE_ARENA:'));
+const nativeWrapperEnd=bundleSource.indexOf('};\n  const portals',nativeWrapperStart);
+assert.ok(nativeWrapperStart>=0&&nativeWrapperEnd>nativeWrapperStart,'production RC138 movement wrapper is available for the regression');
+const nativeWrapperExpression=bundleSource.slice(nativeWrapperStart,nativeWrapperEnd+1).replace(/^ft=/,'');
+const nativeMovementFor=actor=>new Function('move','state','R','window',`return (${nativeWrapperExpression});`)(
+  (zone,subject,delta)=>({x:subject.x+delta.x,y:subject.y+delta.y}),()=>actor,arena,globalThis
+);
+const nativeMovement=nativeMovementFor(guarded);
+const constrainedMovement=nativeMovement('dist01',guarded,movementDelta,.8);
+assert.ok(Math.abs((constrainedMovement.x-movementStart.x)/movementDelta.x-.9)<1e-8,'production RC138 + real RC137 constrain preserves the 0.9 exposed movement rate');
+assert.ok(Math.abs(constrainedMovement.y-movementStart.y)<1e-8);
+
+// Cover the same actual native ft wrapper without directional-key ownership:
+// mouse/target velocity must still receive one .9 factor, not .81.
+const movementActor=(p)=>{
+  const actor={combat:true,role:'host',zone:'dist01',time:31,hp:1000,maxHp:1000,x:p.x,y:p.y,enemies:[]};
+  arena.enforce(actor);
+  assert.equal(D.contains(actor,'all',.8),true,'movement fixture begins on the physical floor');
+  return actor;
+};
+const runMovement=(actor,delta,keys)=>{
+  globalThis.__HAPIL_CONTROLS_V31329__={binding:{state:{current:actor},input:{current:keys}}};
+  direction.acquire(actor,keys);
+  return nativeMovementFor(actor)('dist01',actor,delta,.8);
+};
+const factorRatio=(start,end,delta)=>{
+  const length=Math.hypot(delta.x,delta.y);
+  return Math.hypot(end.x-start.x,end.y-start.y)/length;
+};
+const noHeldKeys=new Set();
+const mouseDangerStart={...newlyOpenedPoint},mouseDangerDelta={x:.2,y:0};
+const mouseDangerActor=movementActor(mouseDangerStart);
+assert.equal(controller.exposed(mouseDangerActor,mouseDangerActor),true);
+const mouseDangerEnd=runMovement(mouseDangerActor,mouseDangerDelta,noHeldKeys);
+assert.ok(Math.abs(factorRatio(mouseDangerStart,mouseDangerEnd,mouseDangerDelta)-.9)<1e-8,
+  'no-held mouse/target movement in the new area receives exactly one .9 factor');
+
+// The first step entering the newly opened polygon slows, even though the
+// actor started on previously allowed floor. It must not be slowed twice by
+// RC138 plus the direction constraint.
+const entryStart={x:18,y:19.5},entryDelta={x:0,y:-.2};
+const entryActor=movementActor(entryStart);
+assert.equal(D.contains(entryStart,'left',.8),true,'entry starts in the original allowed polygon');
+assert.equal(controller.regionAt(entryActor,entryActor,{x:entryStart.x+entryDelta.x,y:entryStart.y+entryDelta.y}),true,
+  'entry endpoint is in the exact new polygon');
+const entryEnd=runMovement(entryActor,entryDelta,new Set(['ArrowUp']));
+assert.ok(Math.abs(factorRatio(entryStart,entryEnd,entryDelta)-.9)<1e-8,
+  'the entry step receives exactly one .9 factor');
+assert.equal(controller.exposed(entryActor,entryActor,entryEnd),true);
+
+// While leaving, the step that starts exposed still receives one .9 factor;
+// the following step on old floor returns immediately to native speed.
+const exitStart={x:18,y:19.3},exitDelta={x:0,y:.2};
+const exitActor=movementActor(exitStart);
+assert.equal(controller.exposed(exitActor,exitActor),true);
+const exitEnd=runMovement(exitActor,exitDelta,new Set(['ArrowDown']));
+assert.ok(Math.abs(factorRatio(exitStart,exitEnd,exitDelta)-.9)<1e-8,
+  'the step leaving the new polygon receives exactly one .9 factor');
+assert.equal(D.contains(exitEnd,'left',.8),true,'the exit step ends back in previously allowed floor');
+const afterExitActor=movementActor(exitEnd);
+const afterExitEnd=runMovement(afterExitActor,exitDelta,new Set(['ArrowDown']));
+assert.ok(Math.abs(factorRatio(exitEnd,afterExitEnd,exitDelta)-1)<1e-8,
+  'movement returns to full native speed immediately after leaving the new polygon');
+
+// Existing allowed floor is never slowed, both on the opposite side and in
+// the world-left portion of the original polygon.
+for(const [safeStart,safeDelta,safeKeys] of [[{x:22,y:24},{x:.2,y:0},new Set(['ArrowRight'])],[exitEnd,{x:0,y:.2},new Set(['ArrowDown'])]]){
+  const safeActor=movementActor(safeStart);
+  assert.equal(D.contains(safeStart,'left',.8),true,'old-floor speed fixture remains in the original allowed set');
+  const safeEnd=runMovement(safeActor,safeDelta,safeKeys);
+  assert.ok(Math.abs(factorRatio(safeStart,safeEnd,safeDelta)-1)<1e-8,
+    'previously allowed floor keeps full native movement speed');
+}
+
+// At the physical outside edge, the held ray stops at the original all-floor
+// boundary. Slowdown cannot push the actor beyond the physical platform.
+const edgeStart={x:17.8,y:8.1},edgeDelta={x:0,y:-.8};
+const edgeActor=movementActor(edgeStart);
+assert.equal(controller.exposed(edgeActor,edgeActor),true,'outer-edge fixture is in the newly opened portion');
+const edgeEnd=runMovement(edgeActor,edgeDelta,new Set(['ArrowUp']));
+assert.equal(D.contains(edgeEnd,'all',.8),true,'edge collision keeps the endpoint on native physical floor');
+assert.ok(edgeEnd.y>=7.6-1e-6,'edge collision never crosses the native platform boundary');
+assert.ok(Math.abs(edgeEnd.x-edgeStart.x)<1e-8,'edge collision does not project sideways');
+assert.ok(factorRatio(edgeStart,edgeEnd,edgeDelta)<=.9+1e-8,'edge collision never exceeds the slowed requested distance');
+assert.ok(factorRatio(edgeStart,edgeEnd,edgeDelta)>.4,'edge collision advances to the first physical obstruction');
 
 // A guest can retain a host-replicated newly opened point, but native input
 // from the guest cannot enter that region.

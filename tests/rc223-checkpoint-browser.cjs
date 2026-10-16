@@ -83,13 +83,15 @@ async function diagnostic(stage){
    const C=window.__HAPIL_CONTROLS_V31329__,s=C?.binding?.state?.current,Q=window.__RC223_QA__;
    const dialog=document.querySelector('[role="dialog"][aria-label="부활 선택"]');
    const story=document.querySelector('#hapil-story-rc51');
+   const party=window.__HAPIL_PARTY_V31322__;
    const roster=(s?.enemies??[]).slice(0,24).map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,phase:a.phase??null,invulnerableUntil:a.invulnerableUntil??null,rc95Balance:a.rc95Balance?.version??null}));
    return{
     document:{hidden:document.hidden,visibilityState:document.visibilityState},
     state:s?{zone:s.zone,hp:s.hp,maxHp:s.maxHp,time:s.time,paused:!!(s.paused||s.pause),timeStopUntil:s.timeStopUntil??null,phase:C?.binding?.phase??null,mode:window.__HAPIL_MODES_V31346__?.mode?.(s)??s.gameModeV31346??null,roster}:null,
     modal:dialog?{present:true,visible:!!(dialog.getClientRects().length),text:(dialog.innerText||'').slice(0,500),buttons:[...dialog.querySelectorAll('button')].map(b=>({text:b.innerText,disabled:b.disabled}))}:{present:false},
     story:story?{present:true,text:(story.innerText||'').slice(0,500)}:{present:false},
-    instrumentation:Q?{bridge:true,awaitScale:Q.awaitScale===s,restartCalls:Q.restartCalls??0,balanceCalls:Q.balanceCalls??0,restartSamples:Q.restartSamples??[],scaledSamples:Q.scaledSamples??[],restartErrors:Q.restartErrors??[],balanceErrors:Q.balanceErrors??[],stageRealMs:Q.lethalAt?Math.round(performance.now()-Q.lethalAt):null}:{bridge:false},
+    party:party?{status:party.status??null,stateIsCurrent:party.state===s,actorCount:party.actors?.length??null,aliveActors:(party.actors??[]).filter(a=>a.hp>0).length,diagnostics:party.diagnostics?.()??null}:null,
+    instrumentation:Q?{bridge:true,awaitScale:Q.awaitScale===s,restartCalls:Q.restartCalls??0,balanceCalls:Q.balanceCalls??0,restartSamples:Q.restartSamples??[],scaledSamples:Q.scaledSamples??[],restartErrors:Q.restartErrors??[],balanceErrors:Q.balanceErrors??[],choiceCalls:Q.choiceCalls??[],consumeAttempts:Q.consumeAttempts??0,consumeSamples:Q.consumeSamples??[],lastConsume:Q.lastConsume??null,deathPendingDeadCalls:Q.deathPendingDeadCalls??0,lastDeathPending:Q.lastDeathPending??null,partyRespawnCalls:Q.partyRespawnCalls??0,partyRespawnSamples:Q.partyRespawnSamples??[],stageRealMs:Q.lethalAt?Math.round(performance.now()-Q.lethalAt):null}:{bridge:false},
     runTTL:{wallClockMs:Q?.testStartedAt?Math.round(performance.now()-Q.testStartedAt):null,worldTimeSeconds:s?.time??null}
    };
   })};
@@ -154,6 +156,45 @@ async function waitFor(label,predicate,timeoutMs){
    s.hp=1;s.invulnerableUntil=0;s.awakeningUntil=0;
    s.samongPassiveRC91={version:1,active:0,grace:0,revivalCooldown:77,encounterRC128:{used:true}};
    s.innerFinalRC133=null;
+   // Install before lethal HP so the React death component captures the probe
+   // methods on its next render. Every probe calls through unchanged.
+   const originalSamong=window.__HAPIL_SAMONG_RC91__,samongDescriptors=Object.getOwnPropertyDescriptors(originalSamong);
+   Q.choiceCalls=[];Q.consumeAttempts=0;Q.consumeSamples=[];Q.deathPendingDeadCalls=0;Q.lastDeathPending=null;
+   samongDescriptors.deathPending={...samongDescriptors.deathPending,value:function(state){
+    const result=originalSamong.deathPending(state);
+    if(state?.hp<=0){Q.deathPendingDeadCalls++;Q.lastDeathPending={sameAsCurrent:state===C.binding.state.current,hp:state.hp,result,time:state.time};}
+    return result;
+   }};
+   samongDescriptors.chooseRevival={...samongDescriptors.chooseRevival,value:function(state,choice){
+    const current=C.binding.state.current,row={choice,sameAsCurrent:state===current,hp:state?.hp,currentHp:current?.hp,pendingBefore:originalSamong.deathPending(state),livePendingBefore:originalSamong.deathPending(current),time:state?.time};
+    try{row.result=originalSamong.chooseRevival(state,choice);}
+    catch(error){row.error=error.stack||String(error);Q.choiceCalls.push(row);throw error;}
+    row.pendingAfter=originalSamong.deathPending(state);row.livePendingAfter=originalSamong.deathPending(C.binding.state.current);Q.choiceCalls.push(row);return row.result;
+   }};
+   samongDescriptors.consumeCheckpoint={...samongDescriptors.consumeCheckpoint,value:function(state){
+    const before=originalSamong.deathPending(state),result=originalSamong.consumeCheckpoint(state),row={sameAsCurrent:state===C.binding.state.current,hp:state?.hp,pendingBefore:before,result,pendingAfter:originalSamong.deathPending(state),time:state?.time};
+    Q.consumeAttempts++;Q.lastConsume=row;
+    if(Q.consumeSamples.length<4||result){Q.consumeSamples.push(row);if(Q.consumeSamples.length>12)Q.consumeSamples.shift();}
+    else{Q.consumeSamples=Q.consumeSamples.slice(-11).concat(row);}
+    return result;
+   }};
+   const samongProbe=Object.create(Object.getPrototypeOf(originalSamong));
+   Object.defineProperties(samongProbe,samongDescriptors);
+   window.__HAPIL_SAMONG_RC91__=samongProbe;
+   const originalParty=window.__HAPIL_PARTY_V31322__;
+   Q.partyRespawnCalls=0;Q.partyRespawnSamples=[];
+   if(originalParty&&typeof originalParty.shouldRespawn==='function'){
+    const partyDescriptors=Object.getOwnPropertyDescriptors(originalParty);
+    partyDescriptors.shouldRespawn={...partyDescriptors.shouldRespawn,value:function(state){
+     const result=originalParty.shouldRespawn(state);
+     if(state?.hp<=0){Q.partyRespawnCalls++;const sample={sameAsCurrent:state===C.binding.state.current,stateIsPartyWorld:originalParty.state===state,hp:state.hp,result,status:originalParty.status??null,actorCount:originalParty.actors?.length??null,aliveActors:(originalParty.actors??[]).filter(a=>a.hp>0).length,time:state.time};Q.partyRespawnSamples.push(sample);if(Q.partyRespawnSamples.length>12)Q.partyRespawnSamples.shift();}
+     return result;
+    }};
+    const partyProbe=Object.create(Object.getPrototypeOf(originalParty));
+    Object.defineProperties(partyProbe,partyDescriptors);
+    window.__HAPIL_PARTY_V31322__=partyProbe;
+   }
+   Q.choiceInstrumentationInstalled=true;
    Q.testStartedAt=performance.now();Q.lethalAt=performance.now();
    const accepted=Q.playerDamage(s,999,s.x,s.y,false);
    const observed={zone:s.zone,hp:s.hp,maxHp:s.maxHp,accepted,roster:fresh,growth,method:'native incoming reducer Y; actual checkpoint UI; no roster stub'};

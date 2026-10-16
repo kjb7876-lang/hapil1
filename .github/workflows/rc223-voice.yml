@@ -23,6 +23,14 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
+      - name: Provide the native audio metadata verifier
+        run: |
+          set -euo pipefail
+          if ! command -v ffprobe >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          ffprobe -version
       - name: Install isolated parser and locked relay dependencies
         run: |
           set -euo pipefail
@@ -41,10 +49,18 @@ jobs:
           run_check() {
             local name="$1"
             shift
-            "$@" > "$task_dir/evidence/$name.log" 2>&1
-            local result=$?
+            local result=0
+            if "$@" > "$task_dir/evidence/$name.log" 2>&1; then
+              result=0
+            else
+              result=$?
+            fi
             echo "$name $result" | tee -a "$task_dir/evidence/exit-codes.txt"
-            tail -n 4 "$task_dir/evidence/$name.log"
+            if [ "$result" -eq 0 ]; then
+              tail -n 4 "$task_dir/evidence/$name.log"
+            else
+              cat "$task_dir/evidence/$name.log"
+            fi
             if [ "$result" -ne 0 ]; then status=1; fi
           }
           git rev-parse HEAD | tee "$task_dir/evidence/sha.txt"

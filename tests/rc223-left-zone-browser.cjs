@@ -83,6 +83,7 @@ const report = {
 let browser,relay,web,base='';
 const pages=[],contexts=[];
 const save = () => fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
+function progress(name,value){const row=report.checks.at(-1);if(row){row.observations??=[];row.observations.push({name,at:new Date().toISOString(),value});save();}return value;}
 async function verifyHttpSourceBytes(){
   const rows=[];
   for(const file of sourceFiles){const response=await fetch(base+'/'+file);assert.equal(response.status,200,'served source: '+file);const bytes=Buffer.from(await response.arrayBuffer()),digest=sha256(bytes);assert.equal(digest,hashes[file],'served bytes equal disk bytes: '+file);rows.push({file,status:response.status,bytes:bytes.length,sha256:digest,unchangedServedBytes:true});}
@@ -98,7 +99,7 @@ async function capture(name,page=pages[0]){
 const check=async(name,page,fn)=>{
   const row={name,status:'running',startedAt:new Date().toISOString()};report.checks.push(row);
   try{row.evidence=await fn();row.status='passed';}
-  catch(error){row.status='failed';row.error=error.stack||String(error);row.diagnostics=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,s=P?.state??C?.binding?.state?.current,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return{runtime:window.__HAPIL_REMOTE_RC222_RUNTIME__?.status?.(),party:P?.status,phase:C?.binding?.phase,zone:s?.zone,time:s?.time,hp:s?.hp,maxHp:s?.maxHp,position:{x:s?.x,y:s?.y},leftZone:L?.snapshot?.(),player:L?.inspect?.(s,s),warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent,enemies:(s?.enemies||[]).slice(0,8).map(a=>({id:a.id,hp:a.hp,x:a.x,y:a.y,readyAt:a.readyAt}))};}).catch(e=>({diagnosticError:String(e)}));await capture('failed-'+name,page).catch(()=>{});throw error;}
+  catch(error){row.status='failed';row.error=error.stack||String(error);row.observations??=[];row.diagnostics=await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,s=P?.state??C?.binding?.state?.current,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,R=window.__HAPIL_BATTLE_ARENA_RC138__,runtime=window.__HAPIL_REMOTE_RC222_RUNTIME__;return{runtime:runtime?.status?.(),runtimeTelemetry:runtime?.telemetry?.(),party:P?.status,phase:C?.binding?.phase,zone:s?.zone,time:s?.time,hp:s?.hp,maxHp:s?.maxHp,position:{x:s?.x,y:s?.y,moveVx:s?.moveVx,moveVy:s?.moveVy,moveDx:s?.moveDx,moveDy:s?.moveDy},actors:(P?.actors||[]).map(a=>({slotId:a.slotId,heroId:a.heroId,x:a.x,y:a.y,hp:a.hp,moveVx:a.moveVx,moveVy:a.moveVy,moveDx:a.moveDx,moveDy:a.moveDy,inspection:L?.inspect?.(s,a),factors:L?.factors?.(s,a)})),battleArena:R?.snapshot?.(s),leftZone:L?.snapshot?.(),player:L?.inspect?.(s,s),warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent,enemies:(s?.enemies||[]).slice(0,8).map(a=>({id:a.id,hp:a.hp,x:a.x,y:a.y,readyAt:a.readyAt}))};}).catch(e=>({diagnosticError:String(e)}));row.diagnostics.observations=row.observations;console.error('RC223_LEFT_CHECK_FAILURE '+JSON.stringify({name,error:row.error,diagnostics:row.diagnostics}));await capture('failed-'+name,page).catch(()=>{});throw error;}
   finally{row.endedAt=new Date().toISOString();save();}
 };
 async function makePage(label){
@@ -210,14 +211,17 @@ async function remoteMove(guest,host,key,slot,minSeconds=.35){
       const safeSnapshot=await actorEvidence(host,'p2');assert.equal(safeSnapshot.inspection.owner,'host');assert.equal(safeSnapshot.inspection.exposed,false);assert.equal(safeSnapshot.inspection.outgoingMultiplier,1);assert.equal(safeSnapshot.inspection.movementMultiplier,1);
       const safeMultiplier=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,hero=a.heroId;return{actual:R.withActor(s,a,()=>L.outgoingMultiplier(hero,false)),base:window.__MONGSE_HERO_RANGED_QA_V31213__?.outgoingMultiplier?.(hero,false)};});
       assert.equal(safeMultiplier.actual,safeMultiplier.base,'previously admitted area keeps the original native outgoing multiplier');
-      const baselineMove=await remoteMove(guest,host,'ArrowDown','p2',.35);
+      const baselineMove=progress('baselineMove',await remoteMove(guest,host,'ArrowDown','p2',.35));
       const movedTo=await stageActor(host,'p2',{x:15,y:14});
       const before=await actorEvidence(host,'p2');assert.equal(before.inspection.inRegion,true);assert.equal(before.inspection.exposed,true);assert.equal(before.inspection.owner,'host');
       const mobileFactor=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,a=P.actors.find(q=>q.slotId==='p2');return{factors:L.factors(s,a),outgoing:R.withActor(s,a,()=>L.outgoingMultiplier(a.heroId,false)),base:window.__MONGSE_HERO_RANGED_QA_V31213__?.outgoingMultiplier?.(a.heroId,false)};});
       assert.deepEqual(mobileFactor.factors,{active:true,exposed:true,outgoing:.9,movement:.9,status:'left-zone'});
       assert(Math.abs(mobileFactor.outgoing/mobileFactor.base-.9)<1e-9,'actual native outgoing multiplier wrapper applies exactly 0.9 in exposed region');
-      const exposedMove=await remoteMove(guest,host,'ArrowDown','p2',.35);
-      assert(Math.abs(exposedMove.worldSpeedPerSimSecond/baselineMove.worldSpeedPerSimSecond-.9)<.22,'actual native remote world movement speed applies the 0.9 factor');
+      const exposedMove=progress('exposedMove',await remoteMove(guest,host,'ArrowDown','p2',.35));
+      const movementRatio=exposedMove.worldSpeedPerSimSecond/baselineMove.worldSpeedPerSimSecond;
+      progress('nativeRemoteMovementRatio',{baselineMove,exposedMove,movementRatio,expectedFactor:mobileFactor.factors.movement,assertion:'abs(ratio - 0.9) < 0.22'});
+      console.log('RC223_LEFT_REMOTE_MOVEMENT '+JSON.stringify({baselineMove,exposedMove,movementRatio,expectedFactor:mobileFactor.factors.movement}));
+      assert(Math.abs(movementRatio-.9)<.22,'actual native remote world movement speed applies the 0.9 factor');
       const hostAfter=await actorEvidence(host,'p2'),guestAfter=await guest.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return{actor:{x:a.x,y:a.y,hp:a.hp},inspection:L.inspect(s,a),inRegion:L.inRegion(s,a),exposed:L.exposed(s,a),metrics:L.metrics()};});
       assert(guestAfter.inRegion);assert.equal(guestAfter.exposed,false,'replicated guest only renders geometry and never owns the hazard tick');assert.equal(hostAfter.inspection.owner,'host');
       await capture('left-zone-coop-exposed',host);await capture('left-zone-coop-guest-readonly',guest);
