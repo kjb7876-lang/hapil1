@@ -30,6 +30,24 @@ function installNativeRosterFixture(f){
   f.p.applySnapshot=snap=>{Object.assign(f.world,portable(Object.fromEntries(snap.world.fields),true));f.b.hero.current=f.world.activeHeroId;bridge.replace(portable(snap.party.roster,true),portable(snap.party.actors,true));f.p.roster=bridge.roster;f.p.actors=bridge.actors;f.p.applied=snap;return true;};
   return bridge;
 }
+function nativePartyDamageFixture(f){
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),begin=source.indexOf('  function down(a,s){'),end=source.indexOf('  function projectileContact(s,q){',begin);assert(begin>=0&&end>begin);
+  const counters={nativeIncoming:0,fallback:0};
+  f.env.__HAPIL_REMOTE_RC222_RUNTIME__=f.rt;
+  f.env.__HAPIL_COMBAT_CORE_V31401__={ally:(s,a,damage,source,reduce)=>{counters.fallback++;return reduce(s,a,damage,source);},finalDamage:(_s,_a,value)=>value,mark(){},markIfUnset(){}};
+  f.env.__HAPIL_RC222_NATIVE__={createState:()=>({}),incoming:(view,damage)=>{counters.nativeIncoming++;view.hp=Math.max(0,view.hp-damage);return true;},applyStatus(){}};
+  f.env.__HAPIL_CONTROLS_V31329__.recordDamage=()=>{};
+  const sandbox={env:f.env,initialWorld:f.world,initialActors:f.p.actors,num:(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,alive:a=>a&&Number(a.hp)>0,MONGSE_isEncounterLocked31226:()=>false,MONGSE_reserveHostileHit31215:()=>true,MONGSE_COMBAT_PHYSICS_V3128:{enemyDamageMultiplier:1},MONGSE_limitHeroDamage31213:(_a,applied)=>({applied}),motion(){}};
+  vm.runInNewContext(`const window=env,world=initialWorld,actors=initialActors,inputs=new Map(),stats={allyDamage:0};${source.slice(begin,end)};globalThis.partyDamageFixture={allyDamage};`,sandbox);
+  return {allyDamage:sandbox.partyDamageFixture.allyDamage,counters};
+}
+function nativePartyApplyStrikeFixture(){
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),begin=source.indexOf('  function applyStrike(s,h){'),end=source.indexOf('  function danger(s,a){',begin),getter=source.match(/get outgoingActor\(\)\{return scopedOutgoingActor;\}/)?.[0];assert(begin>=0&&end>begin&&getter);
+  const actor={slotId:'p2',heroId:'seoha',hp:120,maxHp:120},target={id:'enemy',hp:100},world={zone:'dist02',activeHeroId:'hwando',enemies:[target]},calls=[],sandbox={initialActor:actor,initialWorld:world,damageThrows:false};
+  const bridge={damage(victim,power){calls.push({actor:sandbox.partyApplyStrikeFixture.api.outgoingActor,hero:world.activeHeroId});if(sandbox.damageThrows)throw Error('damage failure');victim.hp-=power;}};sandbox.initialBridge=bridge;
+  vm.runInNewContext(`let scopedOutgoingActor=null,bridge=initialBridge;const actors=[initialActor],stats={hits:0},alive=a=>a&&a.hp>0,canTarget=()=>true,window={};${source.slice(begin,end)};const api={${getter}};globalThis.partyApplyStrikeFixture={applyStrike,api,setScope(value){scopedOutgoingActor=value;},actor:initialActor,world:initialWorld};`,sandbox);
+  return {sandbox,test:sandbox.partyApplyStrikeFixture,actor,target,world,calls};
+}
 function installNativeOutgoingFixture(f){
   const sandbox={window:f.env};vm.createContext(sandbox);
   for(const file of ['assets/combat-v31402/combat-core.js','assets/combat-v31412/outgoing-native.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
@@ -42,12 +60,14 @@ function installNativeOutgoingFixture(f){
   return {outgoing,native,target:f.world.enemies[0]};
 }
 function nativeDeathFixture(options={}){
-  const source=fs.readFileSync('assets/index-v31526.js','utf8'),condition=source.split('\n').find(line=>line.includes('consumeCheckpoint(o) &&'))?.trim().replace(/\s*&&$/,'');assert(condition);
+  const source=fs.readFileSync('assets/index-v31526.js','utf8'),condition=source.split('\n').find(line=>line.includes('consumeCheckpointRespawn(o) ??'))?.trim().replace(/\s*&&$/,'');assert(condition);
   const section=(from,to)=>{const begin=source.indexOf(from),end=source.indexOf(to,begin);assert(begin>=0&&end>begin);return source.slice(begin,end);};
   const world={zone:'dist02',time:10,x:5,y:5,hp:240,maxHp:240,activeHeroId:'hwando',effects:[],enemies:[],heroMotion:{}},env={};
-  const sandbox={window:env,world,initialRole:options.role??'host',initialEnabled:options.enabled!==false,setTimeout:()=>{},dt:(zone,p)=>p,b:v=>v,MONGSE_applyPositionRC152:(s,p)=>Object.assign(s,p),MONGSE_isEncounterLocked31226:()=>false};vm.createContext(sandbox);
-  vm.runInContext(`let role=initialRole,enabled=initialEnabled,bridge={},disconnected=false,scopedTarget=null,hostDownUntil=0,hostDownPosition=null,wipeCount=0,wipePending=false,lastZone=world.zone,lastTime=world.time,spawns=0,restarts=0;
-    const stats={wipes:0,revives:0},inputs=new Map(),strikes=[],roster=[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:'p2',heroId:'seoha',control:'remote'},{slotId:'p3',heroId:'neon',control:'remote'}];let actors=roster.slice(1).map(r=>({...r,x:6,y:6,hp:0,maxHp:240,downUntil:18}));
+  const roster=options.roster??[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:'p2',heroId:'seoha',control:options.ai?'ai':'remote'},{slotId:'p3',heroId:'neon',control:options.ai?'ai':'remote'}];
+  const actors=roster.slice(1).map(r=>({...r,x:6,y:6,hp:0,maxHp:240,downUntil:18}));
+  const sandbox={window:env,world,initialRole:options.role??'host',initialMode:options.mode??(options.enabled===false?'solo':'party'),initialEnabled:options.enabled!==false,initialRoster:roster,initialActors:actors,setTimeout:()=>{},dt:(zone,p)=>p,b:v=>v,MONGSE_applyPositionRC152:(s,p)=>Object.assign(s,p),MONGSE_isEncounterLocked31226:()=>false};vm.createContext(sandbox);
+  vm.runInContext(`let role=initialRole,mode=initialMode,enabled=initialEnabled,bridge={},disconnected=false,scopedTarget=null,hostDownUntil=0,hostDownPosition=null,wipeCount=0,wipePending=false,lastZone=world.zone,lastTime=world.time,spawns=0,restarts=0;
+    const stats={wipes:0,revives:0},inputs=new Map(),strikes=[],roster=initialRoster;let actors=initialActors;
     const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,clamp=(v,a,b)=>Math.max(a,Math.min(b,num(v))),alive=a=>a&&num(a.hp)>0,active=()=>enabled&&role!=='guest'&&!disconnected&&world;
     const preload=()=>{};
     ${section('  function spawn(r,index,s=world){','  function syncRoster(){')}
@@ -56,8 +76,8 @@ function nativeDeathFixture(options={}){
     ${section('  function primaryDamage(s,base,args){','  function enemyTargetScope(s,e,pattern,forced){')}
     window.__HAPIL_COMBAT_CORE_V31401__={mark(){}};
     window.__HAPIL_REMOTE_RC222_RUNTIME__={status:()=>({role}),stepActor:()=>true};
-    window.__HAPIL_PARTY_V31322__={get state(){return world;},get actors(){return actors;},get status(){return {role};},shouldRespawn};
-    globalThis.deathFixture={knockdown(){return primaryDamage(world,s=>{s.hp=0;return true;},[]);},frame(){tick(world,.02);const o=world;if(${condition}){restarts++;o.hp=o.maxHp;}endFrame(world);},get actors(){return actors;},get metrics(){return {hostDownUntil,hostDownPosition,wipeCount,wipePending,spawns,restarts,wipes:stats.wipes,revives:stats.revives};}};`,sandbox);
+    window.__HAPIL_PARTY_V31322__={get state(){return world;},get actors(){return actors;},get roster(){return roster;},get status(){return {role,mode,enabled};},shouldRespawn,consumeCheckpointRespawn,checkpointRespawned};
+    globalThis.deathFixture={knockdown(){return primaryDamage(world,s=>{s.hp=0;return true;},[]);},frame(){tick(world,.02);const o=world;if(${condition}){restarts++;o.hp=o.maxHp;o.x=10;o.y=11;checkpointRespawned(o);}endFrame(world);},get actors(){return actors;},get roster(){return roster;},get status(){return window.__HAPIL_PARTY_V31322__.status;},get metrics(){return {hostDownUntil,hostDownPosition,wipeCount,wipePending,spawns,restarts,wipes:stats.wipes,revives:stats.revives};}};`,sandbox);
   vm.runInContext(fs.readFileSync('assets/rc91/samong-awakening.js','utf8'),sandbox);
   return {world,party:sandbox.deathFixture,samong:env.__HAPIL_SAMONG_RC91__};
 }
@@ -143,6 +163,35 @@ test('actual native host eight-second survivor revival still bypasses the checkp
   const f=nativeDeathFixture();f.party.actors[0].hp=100;f.party.knockdown();assert.equal(f.samong.deathPending(f.world),false);
   f.world.time=17.99;f.party.frame();assert.equal(f.world.hp,0);assert.equal(f.party.metrics.hostDownUntil,18);assert.equal(f.party.metrics.restarts,0);
   f.world.time=18;f.party.frame();assert.equal(f.world.hp,120);assert.equal(f.party.metrics.hostDownUntil,0);assert.equal(f.party.metrics.revives,1);assert.equal(f.party.metrics.wipes,0);assert.equal(f.party.metrics.restarts,0);assert.equal(f.party.metrics.spawns,0);
+});
+test('actual offline checkpoint admits a living AI story companion and clears party down state at the checkpoint',()=>{
+  const roster=[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:'story68',heroId:'slayer',control:'ai',name:'Story Companion',storyCompanionV31368:true}];
+  const f=nativeDeathFixture({role:'offline',enabled:true,roster}),actor=f.party.actors[0];actor.hp=73;
+  const rosterBefore=f.party.roster.map(r=>[r.slotId,r.heroId,r.control,r.storyCompanionV31368===true]);
+  f.party.knockdown();assert.equal(f.world.hp,0);assert.equal(f.party.metrics.hostDownUntil,Infinity);assert.equal(f.samong.deathPending(f.world),true);
+  assert.equal(f.samong.chooseRevival(f.world,'checkpoint'),true);f.party.frame();
+  assert.equal(f.world.hp,240);assert.deepEqual([f.world.x,f.world.y],[10,11],'native checkpoint coordinates remain after Party endFrame');
+  assert.equal(f.party.metrics.restarts,1);assert.equal(f.party.metrics.wipes,0);assert.equal(f.party.metrics.hostDownUntil,0);assert.equal(f.party.metrics.hostDownPosition,null);assert.equal(f.party.metrics.wipePending,false);
+  assert.deepEqual(f.party.roster.map(r=>[r.slotId,r.heroId,r.control,r.storyCompanionV31368===true]),rosterBefore,'the original roster and story companion marker survive');
+  assert.equal(f.party.actors.length,1);assert.equal(f.party.actors[0].slotId,'story68');assert.equal(f.party.actors[0].heroId,'slayer');assert.equal(f.party.actors[0].control,'ai');assert.equal(f.party.actors[0].storyCompanionV31368,true);assert.equal(f.party.actors[0].hp,240);
+  assert(Math.hypot(f.party.actors[0].x-10,f.party.actors[0].y-11)>0,'companion is respawned around the new checkpoint location');
+});
+test('actual offline party checkpoint admits living AI teammates and rebuilds the full roster',()=>{
+  const roster=[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:'p2',heroId:'seoha',control:'ai'},{slotId:'p3',heroId:'neon',control:'ai'}];
+  const f=nativeDeathFixture({role:'offline',mode:'party',enabled:true,roster});f.party.actors[0].hp=88;f.party.actors[1].hp=41;f.party.knockdown();
+  assert.equal(f.party.status.mode,'party');assert.equal(f.samong.chooseRevival(f.world,'checkpoint'),true);f.party.frame();
+  assert.equal(f.world.hp,240);assert.equal(f.party.metrics.restarts,1);assert.equal(f.party.metrics.hostDownUntil,0);assert.equal(f.party.metrics.hostDownPosition,null);
+  assert.deepEqual(f.party.roster.map(r=>r.slotId),['p1','p2','p3']);assert.deepEqual(f.party.actors.map(a=>a.slotId),['p2','p3']);assert(f.party.actors.every(a=>a.control==='ai'&&a.hp===240));
+});
+test('actual offline checkpoint keeps the existing local-human survivor gate',()=>{
+  const roster=[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:'p2',heroId:'seoha',control:'local'}];
+  const f=nativeDeathFixture({role:'offline',enabled:true,roster});f.party.actors[0].hp=73;f.party.knockdown();
+  assert.equal(f.samong.chooseRevival(f.world,'checkpoint'),true);f.party.frame();
+  assert.equal(f.world.hp,0);assert.equal(f.party.metrics.restarts,0);assert.equal(f.party.metrics.hostDownUntil,Infinity);assert.equal(f.party.actors[0].hp,73);
+  assert.equal(f.samong.deathPending(f.world),false,'the accepted checkpoint choice remains pending while a local human is alive');
+  f.party.actors[0].hp=0;f.party.frame();
+  assert.equal(f.world.hp,240);assert.equal(f.party.metrics.restarts,1);assert.equal(f.party.metrics.wipes,1);assert.equal(f.party.metrics.hostDownUntil,0);assert.equal(f.party.metrics.hostDownPosition,null);
+  assert.equal(f.party.actors[0].hp,240);assert.equal(f.samong.consumeCheckpoint(f.world),false,'the checkpoint choice is consumed exactly once after the gate opens');
 });
 test('actual death choice order preserves solo checkpoint handling and prevents guest native respawn',()=>{
   const solo=nativeDeathFixture({role:'offline',enabled:false});solo.party.knockdown();solo.party.frame();assert.equal(solo.world.hp,0);assert.equal(solo.samong.deathPending(solo.world),true);solo.samong.chooseRevival(solo.world,'checkpoint');solo.party.frame();assert.equal(solo.world.hp,240);assert.equal(solo.party.metrics.restarts,1);assert.equal(solo.party.metrics.wipes,0);
@@ -401,5 +450,24 @@ test('native deflection and Dream wall reflection retain hostile allegiance',()=
 });
 test('diagnostic input reasons distinguish authority slot and duplicate sequence without accepting them',()=>{
   const f=fixture();assert.equal(f.rt.input('p1',{seq:1,actions:['attack']}),false);assert.equal(f.rt.input('p2',{seq:1,actions:['attack']}),true);assert.equal(f.rt.input('p2',{seq:1,actions:['attack']}),false);f.rt.role('guest');assert.equal(f.rt.input('p2',{seq:2,actions:['attack']}),false);const t=f.rt.telemetry();assert.equal(t.inputAccepted,1);assert.equal(t.inputBySlot.p2.received,3);assert.equal(t.inputBySlot.p2.accepted,1);assert.equal(t.rejectionReasons['input-slot'],1);assert.equal(t.rejectionReasons['input-stale-sequence'],1);assert.equal(t.rejectionReasons['input-authority'],1);assert.equal(t.lastRejection.authority.role,'guest');
+});
+test('reused roster actor drops native remote marker for AI/local damage and regains it on remote promotion',()=>{
+  const f=fixture();installNativeRosterFixture(f);const damage=nativePartyDamageFixture(f),actor=f.actor;
+  assert.equal(actor.control,'remote');assert.equal(f.rt.withActor(f.world,actor,()=>true),true);assert.equal(actor.rc222NativeActor,true);
+  const initialHp=actor.hp;assert.equal(damage.allyDamage(f.world,actor,5,{}),true);assert.equal(actor.hp,initialHp-5);assert.equal(damage.counters.nativeIncoming,1);assert.equal(damage.counters.fallback,0);
+  const roster=(kind)=>[{slotId:'p1',heroId:'hwando'},{slotId:'p2',heroId:'seoha',kind}];
+  f.rt.updateRoom({isHost:true,roster:roster('ai')});assert.strictEqual(f.p.actors[0],actor);assert.equal(actor.control,'ai');assert.equal(actor.rc222NativeActor,undefined);
+  assert.equal(f.rt.withActor(f.world,actor,()=>true),true,'a nonremote context access must not restore the remote marker');assert.equal(actor.rc222NativeActor,undefined);
+  let hp=actor.hp;assert.equal(damage.allyDamage(f.world,actor,7,{}),true);assert.equal(actor.hp,hp-7);assert.equal(damage.counters.nativeIncoming,1);assert.equal(damage.counters.fallback,1);
+  f.rt.updateRoom({roster:roster('local')});assert.strictEqual(f.p.actors[0],actor);assert.equal(actor.control,'local');assert.equal(actor.rc222NativeActor,undefined);
+  actor.invulnerableUntil=0;hp=actor.hp;assert.equal(damage.allyDamage(f.world,actor,3,{}),true);assert.equal(actor.hp,hp-3);assert.equal(damage.counters.nativeIncoming,1);assert.equal(damage.counters.fallback,2);
+  f.rt.updateRoom({roster:roster('remote')});assert.strictEqual(f.p.actors[0],actor);assert.equal(actor.control,'remote');assert.equal(actor.rc222NativeActor,undefined);
+  assert.equal(f.rt.withActor(f.world,actor,()=>true),true);assert.equal(actor.rc222NativeActor,true,'cached remote context restores ownership on promotion');
+  hp=actor.hp;assert.equal(damage.allyDamage(f.world,actor,4,{}),true);assert.equal(actor.hp,hp-4);assert.equal(damage.counters.nativeIncoming,2);assert.equal(damage.counters.fallback,2);
+});
+test('actual applyStrike scopes outgoingActor to native damage and restores nested scope on throw',()=>{
+  const f=nativePartyApplyStrikeFixture(),hit={slotId:'p2',zone:'dist02',targetId:'enemy',power:12,key:'A'};assert.equal(f.test.api.outgoingActor,null);
+  f.test.applyStrike(f.world,hit);assert.strictEqual(f.calls[0].actor,f.actor);assert.equal(f.calls[0].hero,'seoha');assert.equal(f.target.hp,88);assert.equal(f.world.activeHeroId,'hwando');assert.equal(f.test.api.outgoingActor,null);
+  const previous={slotId:'prior',heroId:'hunter'};f.test.setScope(previous);f.sandbox.damageThrows=true;assert.throws(()=>f.test.applyStrike(f.world,hit),/damage failure/);assert.strictEqual(f.test.api.outgoingActor,previous);assert.equal(f.world.activeHeroId,'hwando');assert.equal(f.calls[1].actor,f.actor);assert.equal(f.calls[1].hero,'seoha');
 });
 (async()=>{for(const [name,fn]of tests){await fn();process.stdout.write('ok '+name+'\n');}process.stdout.write(JSON.stringify({ok:true,suite:'rc222-runtime-unit',tests:tests.length})+'\n');})().catch(error=>{console.error(error);process.exitCode=1;});

@@ -312,6 +312,19 @@ async function performanceSamples(page) {
 }
 
 async function collisionEvidence(page) {
+  // Hold native simulation with the real settings modal while the regular
+  // adaptive renderer keeps painting. The bitmap/contact probes below then
+  // compare identical world pose/time across presentation factors.
+  const pauseBefore=await page.evaluate(()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__,s=C?.binding?.state?.current;
+    if(!C||!s)throw Error('native game state unavailable before collision freeze');
+    C.binding.actions.settings();
+    return{time:s.time,x:s.x,y:s.y,hp:s.hp};
+  });
+  await page.locator('.settings-layout').waitFor({state:'visible',timeout:10000});
+  await page.waitForTimeout(250);
+  const pauseAfter=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
+  assert.deepEqual(pauseAfter,pauseBefore,'native settings modal freezes the controlled collision fixture before measuring camera factors');
   const result=await page.evaluate(async()=>{
     const C=window.__HAPIL_CONTROLS_V31329__,B=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,M=window.__HAPIL_MEDIA_ART_RC133__,V=window.__HAPIL_BITMAP_NATIVE_RC133__,G=window.__HAPIL_CONTACT_V31336__;
     const s=C.binding.state.current;
@@ -335,32 +348,50 @@ async function collisionEvidence(page) {
     let visual=null;const deadline=performance.now()+8000;
     while(!visual&&performance.now()<deadline){visual=V.projectile(s,q);if(!visual)await new Promise(r=>setTimeout(r,30));}
     if(!visual?.points?.length)throw Error('native Persona bitmap contact silhouette did not decode');
-    const hp=s.hp,rows=[],canvas=document.querySelector('.game-stage canvas');
+    const hp=s.hp,rows=[];
     const baseState={time:s.time,x:s.x,y:s.y,hp:s.hp,enemyPose:(s.enemies||[]).map(a=>({id:a.id,x:a.x,y:a.y,hp:a.hp,phase:a.phase,currentPhase:a.currentPhase}))};
     for(const factor of [1,1.5,2]){
+      const prior=window.__HAPIL_CAMERA_RC223__.diagnostics(),priorAdaptive=window.__HAPIL_ADAPTIVE_RC125__?.snapshot?.();
       window.__HAPIL_CAMERA_RC223__.setFactor(factor);
-      // Observe the real production render synchronously for all factors in
-      // this one JS turn. No RAF or simulation time can change between probes.
-      B.renderFrame(canvas,s,cache,s.activeHeroId,C.binding.settings.current);
+      // Wait for a real native/adaptive game RAF to apply the selected factor.
+      // B.renderFrame is only an internal bridge render and does not prove that
+      // the actual screen renderer called HAPIL_viewCameraRC104.
+      await new Promise((resolve,reject)=>{
+        const deadline=performance.now()+10000;
+        const poll=()=>{
+          const d=window.__HAPIL_CAMERA_RC223__.diagnostics(),a=window.__HAPIL_ADAPTIVE_RC125__?.snapshot?.();
+          if(d.applied>prior.applied&&d.last?.factor===factor&&a?.frames>(priorAdaptive?.frames??0)){resolve();return;}
+          if(performance.now()>deadline){reject(Error('native adaptive renderer did not observe factor '+factor));return;}
+          requestAnimationFrame(poll);
+        };
+        requestAnimationFrame(poll);
+      });
       const currentPose=(s.enemies||[]).map(a=>({id:a.id,x:a.x,y:a.y,hp:a.hp,phase:a.phase,currentPhase:a.currentPhase}));
-      if(s.time!==baseState.time||s.x!==baseState.x||s.y!==baseState.y||s.hp!==baseState.hp||JSON.stringify(currentPose)!==JSON.stringify(baseState.enemyPose))throw Error('native collision comparison state advanced inside controlled synchronous render');
-      if(window.__HAPIL_CAMERA_RC223__.diagnostics().last?.factor!==factor)throw Error('native renderer did not observe factor '+factor);
+      if(s.time!==baseState.time||s.x!==baseState.x||s.y!==baseState.y||s.hp!==baseState.hp||JSON.stringify(currentPose)!==JSON.stringify(baseState.enemyPose))throw Error('native collision comparison state advanced while waiting for the paused production render');
+      const rendered=window.__HAPIL_CAMERA_RC223__.diagnostics(),adaptive=window.__HAPIL_ADAPTIVE_RC125__?.snapshot?.();
+      if(rendered.last?.factor!==factor||rendered.last?.base?.scale==null||rendered.last?.adjusted?.scale==null||adaptive?.frames<=(priorAdaptive?.frames??0))throw Error('native adaptive renderer camera evidence is incomplete for factor '+factor);
       const before=window.__HAPIL_CAMERA_RC223__.diagnostics().probeCameraCalls,
         bitmap=V.projectile(s,q),contact=G.projectile(s,s,q),heroBody=V.body(s,s,true),boss=H.boss(s),bossBody=boss?V.body(s,boss,false):null,
         bossContact=boss?V.enemyContact(s,boss,s.x,s.y,-5,6.75):null,d=window.__HAPIL_CAMERA_RC223__.diagnostics(),
         range=window.__HAPIL_RANGES_V31337__?.radius?.(s.activeHeroId)??null;
       if(!bitmap?.points?.length||!heroBody?.points?.length||!bossBody?.points?.length)throw Error('native Persona/player bitmap body probe missing at factor '+factor);
-      rows.push({factor,bitmap:{points:bitmap.points,area:bitmap.area,path:bitmap.path},contact:{hit:contact.hit,heart:contact.heart,bitmap:contact.bitmap,bodyGap:contact.bodyGap,kind:contact.kind},heroBody:heroBody.points,bossBody:bossBody.points,bossContact,range,screenBodyScale:d.last?.adjusted?.scale??null,probeCallsBefore:before,probeCallsAfter:d.probeCameraCalls,lastProbeCamera:d.lastProbeCamera,baseCameraDepth:d.baseCameraDepth,hp:s.hp,simulationState:{time:s.time,x:s.x,y:s.y}});
+      rows.push({factor,renderObservation:{source:'actual native game RAF + RC125 adaptive world render',appliedBefore:prior.applied,applied:rendered.applied,adaptiveFramesBefore:priorAdaptive?.frames??0,adaptiveFrames:adaptive.frames,last:rendered.last},bitmap:{points:bitmap.points,area:bitmap.area,path:bitmap.path},contact:{hit:contact.hit,heart:contact.heart,bitmap:contact.bitmap,bodyGap:contact.bodyGap,kind:contact.kind},heroBody:heroBody.points,bossBody:bossBody.points,bossContact,range,screenBodyScale:rendered.last.adjusted.scale,probeCallsBefore:before,probeCallsAfter:d.probeCameraCalls,lastProbeCamera:d.lastProbeCamera,baseCameraDepth:d.baseCameraDepth,hp:s.hp,simulationState:{time:s.time,x:s.x,y:s.y}});
     }
-    return {fixture:'actual HAPIL_INNER_FINAL_RC133 start/tick native Persona emission; projectile position moved to current player for a deterministic contact probe; staged only',comparison:'production renderFrame and collision probes are synchronous within one JS turn at an identical native simulation time and pose',baseState,zone:s.zone,phase:s.innerFinalRC133.phase,sourceId:q.sourceId,skill:q.rc133Skill,sprite:q.sprite,emittedProjectiles:emitted.length,rows,hpBefore:hp,hpAfter:s.hp,hitPointsUnchanged:s.hp===hp};
+    return {fixture:'actual HAPIL_INNER_FINAL_RC133 start/tick native Persona emission; projectile position moved to current player for a deterministic contact probe; staged only',comparison:'real native adaptive RAF observation and native bitmap/contact probes at an identical simulation time and pose; native settings modal holds the world clock',baseState,zone:s.zone,phase:s.innerFinalRC133.phase,sourceId:q.sourceId,skill:q.rc133Skill,sprite:q.sprite,emittedProjectiles:emitted.length,rows,hpBefore:hp,hpAfter:s.hp,hitPointsUnchanged:s.hp===hp};
   });
   assert.equal(result.hitPointsUnchanged,true,'read-only actual contact probe does not change HP');
   assert.equal(result.rows.length,3);
   for(const row of result.rows){
+    const render=row.renderObservation,last=render.last;
+    assert.equal(last.factor,row.factor,'native RAF recorded the selected final-render factor');
+    assert(render.applied>render.appliedBefore,'native camera integration ran after the factor change');
+    assert(render.adaptiveFrames>render.adaptiveFramesBefore,'RC125 adaptive world rendering advanced with the native game frame');
+    assert(Math.abs(last.adjusted.scale-last.base.scale/row.factor)<1e-9,'actual screen-render camera has the requested inverse-scale factor');
     assert.equal(row.contact.bitmap,true,'actual contact response is derived from the decoded native bitmap at factor '+row.factor);
     assert.equal(row.contact.hit,true,'controlled native Persona projectile contacts the real native player body at factor '+row.factor);
     assert.equal(row.baseCameraDepth,0,'native contact leaves original-camera scope balanced at factor '+row.factor);
     assert(row.probeCallsAfter>row.probeCallsBefore,'production contact probe records the unscaled camera at factor '+row.factor);
+    assert.deepEqual(row.lastProbeCamera,last.base,'native collision geometry receives the unscaled base camera at factor '+row.factor);
     assert(Number.isFinite(row.range)&&row.range>0,'native attack range is measurable at factor '+row.factor);
   }
   const reference=result.rows[0];
@@ -371,6 +402,8 @@ async function collisionEvidence(page) {
     assert.deepEqual(row.contact,reference.contact,'native projectile hit/heart/body-gap result is unchanged across camera factors');
     assert.equal(row.range,reference.range,'native attack range is unchanged across camera factors');
   }
+  await page.evaluate(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.actions?.dismiss?.());
+  await page.waitForFunction(()=>!document.querySelector('.settings-layout'),null,{timeout:8000});
   return result;
 }
 

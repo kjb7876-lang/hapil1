@@ -28,7 +28,11 @@
  function snapshot(){return Object.freeze({factor:factor(),saved:persisted,mobile:mobile(),key:KEY,step:.05});}
  function notify(){const value=snapshot();for(const listener of [...listeners])try{listener(value);}catch{}}
  function setFactor(value){const next=normalize(value);if(next===null)return factor();choice=next;persisted=false;try{if(root.localStorage){root.localStorage.setItem(KEY,String(next));persisted=true;}}catch{}notify();return next;}
- function onStorage(event){if(event?.key!==KEY)return;choice=normalize(event.newValue);persisted=choice!==null;notify();}
+ function onStorage(event){
+  if(!event)return;let local;try{local=root.localStorage;}catch{return;}
+  if(event.storageArea!==local||(event.key!==KEY&&event.key!==null))return;
+  choice=event.key===null?null:normalize(event.newValue);persisted=choice!==null;notify();
+ }
  try{root.addEventListener?.('storage',onStorage);}catch{}
  function applyCamera(camera,anchor){
   if(!camera||typeof camera!=='object'||!Number.isFinite(camera.scale))return camera;

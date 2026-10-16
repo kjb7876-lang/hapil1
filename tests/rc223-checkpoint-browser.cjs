@@ -28,6 +28,7 @@ const qaBridge=Buffer.from(`\n;window.__RC223_QA__={
  get initial(){return oi;},
  get enter(){return ii;},
  get playerDamage(){return Y;},
+ get checkpointAnchor(){return zone=>({...MONGSE_zonePortalAnchors(zone).interactionEntry});},
  get world(){return N;}
 };\n`);
 const servedBundle=Buffer.concat([originalBundle,qaBridge]);
@@ -91,7 +92,7 @@ async function diagnostic(stage){
     modal:dialog?{present:true,visible:!!(dialog.getClientRects().length),text:(dialog.innerText||'').slice(0,500),buttons:[...dialog.querySelectorAll('button')].map(b=>({text:b.innerText,disabled:b.disabled}))}:{present:false},
     story:story?{present:true,text:(story.innerText||'').slice(0,500)}:{present:false},
     party:party?{status:party.status??null,stateIsCurrent:party.state===s,actorCount:party.actors?.length??null,aliveActors:(party.actors??[]).filter(a=>a.hp>0).length,diagnostics:party.diagnostics?.()??null}:null,
-    instrumentation:Q?{bridge:true,awaitScale:Q.awaitScale===s,restartCalls:Q.restartCalls??0,balanceCalls:Q.balanceCalls??0,restartSamples:Q.restartSamples??[],scaledSamples:Q.scaledSamples??[],restartErrors:Q.restartErrors??[],balanceErrors:Q.balanceErrors??[],choiceCalls:Q.choiceCalls??[],consumeAttempts:Q.consumeAttempts??0,consumeSamples:Q.consumeSamples??[],lastConsume:Q.lastConsume??null,deathPendingDeadCalls:Q.deathPendingDeadCalls??0,lastDeathPending:Q.lastDeathPending??null,partyRespawnCalls:Q.partyRespawnCalls??0,partyRespawnSamples:Q.partyRespawnSamples??[],stageRealMs:Q.lethalAt?Math.round(performance.now()-Q.lethalAt):null}:{bridge:false},
+    instrumentation:Q?{bridge:true,awaitScale:Q.awaitScale===s,restartCalls:Q.restartCalls??0,balanceCalls:Q.balanceCalls??0,restartSamples:Q.restartSamples??[],scaledSamples:Q.scaledSamples??[],restartErrors:Q.restartErrors??[],balanceErrors:Q.balanceErrors??[],choiceCalls:Q.choiceCalls??[],consumeAttempts:Q.consumeAttempts??0,consumeSamples:Q.consumeSamples??[],lastConsume:Q.lastConsume??null,deathPendingDeadCalls:Q.deathPendingDeadCalls??0,lastDeathPending:Q.lastDeathPending??null,partyRespawnCalls:Q.partyRespawnCalls??0,partyRespawnSamples:Q.partyRespawnSamples??[],checkpointAdmissionCalls:Q.checkpointAdmissionCalls??0,checkpointAdmissionSamples:Q.checkpointAdmissionSamples??[],stageRealMs:Q.lethalAt?Math.round(performance.now()-Q.lethalAt):null}:{bridge:false},
     runTTL:{wallClockMs:Q?.testStartedAt?Math.round(performance.now()-Q.testStartedAt):null,worldTimeSeconds:s?.time??null}
    };
   })};
@@ -148,11 +149,14 @@ async function waitFor(label,predicate,timeoutMs){
   activeStage='native-lethal-input';
   report.fixture=await page.evaluate(previous=>{
    const Q=window.__RC223_QA__,C=window.__HAPIL_CONTROLS_V31329__,s=C.binding.state.current;
+   const party=window.__HAPIL_PARTY_V31322__;
    const fresh=s.enemies.map(a=>({id:a.id,hp:a.maxHp,maxHp:a.maxHp,phase:a.phase??null}));
    if(!fresh.length)throw Error('native cult01 entry produced no enemies');
    for(const a of s.enemies){a.hp=Math.max(1,a.maxHp*.1);a.phase=5;a.readyAt=999;}
    C.binding.passives.current.damage=3;C.binding.shards.current=7;s.loopCycles.cult01=4;
    const growth={passives:JSON.stringify(C.binding.passives.current),shards:C.binding.shards.current,loop:s.loopCycles.cult01};
+   const partyBefore={status:{role:party.status.role,mode:party.status.mode,enabled:party.status.enabled,slots:party.status.slots.map(a=>({slotId:a.slotId,heroId:a.heroId,control:a.control,hp:a.hp,maxHp:a.maxHp,down:a.down}))},roster:party.roster.map(r=>({slotId:r.slotId,heroId:r.heroId,control:r.control,storyCompanion:!!r.storyCompanionV31368})),actors:party.actors.map(a=>({slotId:a.slotId,heroId:a.heroId,control:a.control,hp:a.hp,maxHp:a.maxHp,storyCompanion:!!a.storyCompanionV31368}))};
+   Q.partyBefore=partyBefore;Q.deathPosition={x:s.x,y:s.y};Q.expectedCheckpointAnchor=Q.checkpointAnchor(s.zone);
    s.hp=1;s.invulnerableUntil=0;s.awakeningUntil=0;
    s.samongPassiveRC91={version:1,active:0,grace:0,revivalCooldown:77,encounterRC128:{used:true}};
    s.innerFinalRC133=null;
@@ -182,7 +186,7 @@ async function waitFor(label,predicate,timeoutMs){
    Object.defineProperties(samongProbe,samongDescriptors);
    window.__HAPIL_SAMONG_RC91__=samongProbe;
    const originalParty=window.__HAPIL_PARTY_V31322__;
-   Q.partyRespawnCalls=0;Q.partyRespawnSamples=[];
+   Q.partyRespawnCalls=0;Q.partyRespawnSamples=[];Q.checkpointAdmissionCalls=0;Q.checkpointAdmissionSamples=[];
    if(originalParty&&typeof originalParty.shouldRespawn==='function'){
     const partyDescriptors=Object.getOwnPropertyDescriptors(originalParty);
     partyDescriptors.shouldRespawn={...partyDescriptors.shouldRespawn,value:function(state){
@@ -190,6 +194,13 @@ async function waitFor(label,predicate,timeoutMs){
      if(state?.hp<=0){Q.partyRespawnCalls++;const sample={sameAsCurrent:state===C.binding.state.current,stateIsPartyWorld:originalParty.state===state,hp:state.hp,result,status:originalParty.status??null,actorCount:originalParty.actors?.length??null,aliveActors:(originalParty.actors??[]).filter(a=>a.hp>0).length,time:state.time};Q.partyRespawnSamples.push(sample);if(Q.partyRespawnSamples.length>12)Q.partyRespawnSamples.shift();}
      return result;
     }};
+    if(typeof originalParty.consumeCheckpointRespawn==='function'){
+     const originalAdmission=originalParty.consumeCheckpointRespawn;
+     partyDescriptors.consumeCheckpointRespawn={...partyDescriptors.consumeCheckpointRespawn,value:function(state){
+      const pendingBefore=originalSamong.deathPending(state),result=originalAdmission.call(originalParty,state),row={sameAsCurrent:state===C.binding.state.current,hp:state?.hp,pendingBefore,result,pendingAfter:originalSamong.deathPending(state),status:originalParty.status??null,aliveActors:(originalParty.actors??[]).filter(a=>a.hp>0).map(a=>({slotId:a.slotId,control:a.control,hp:a.hp})),time:state?.time};
+      Q.checkpointAdmissionCalls++;if(state?.hp<=0){Q.checkpointAdmissionSamples.push(row);if(Q.checkpointAdmissionSamples.length>12)Q.checkpointAdmissionSamples.shift();}return result;
+     }};
+    }
     const partyProbe=Object.create(Object.getPrototypeOf(originalParty));
     Object.defineProperties(partyProbe,partyDescriptors);
     window.__HAPIL_PARTY_V31322__=partyProbe;
@@ -197,7 +208,7 @@ async function waitFor(label,predicate,timeoutMs){
    Q.choiceInstrumentationInstalled=true;
    Q.testStartedAt=performance.now();Q.lethalAt=performance.now();
    const accepted=Q.playerDamage(s,999,s.x,s.y,false);
-   const observed={zone:s.zone,hp:s.hp,maxHp:s.maxHp,accepted,roster:fresh,growth,method:'native incoming reducer Y; actual checkpoint UI; no roster stub'};
+   const observed={zone:s.zone,hp:s.hp,maxHp:s.maxHp,accepted,roster:fresh,growth,party:partyBefore,deathPosition:Q.deathPosition,expectedCheckpointAnchor:Q.expectedCheckpointAnchor,method:'native incoming reducer Y; actual checkpoint UI; actual offline AI companion; no roster stub'};
    if(s.hp>0)throw Error('native incoming reducer did not cause lethal HP '+JSON.stringify(observed));
    return observed;
   },report.fixture);
@@ -206,6 +217,11 @@ async function waitFor(label,predicate,timeoutMs){
   report.dialog={visible:true,checkpointButtonCount:await page.getByRole('button',{name:'체크포인트에서 부활',exact:true}).count(),crisisButtonCount:await page.getByRole('button',{name:'사몽 위기 부활',exact:true}).count()};
   assert.equal(report.dialog.checkpointButtonCount,1,'native death UI exposes exactly one checkpoint choice');
   assert.equal(report.dialog.crisisButtonCount,0,'used crisis token prevents a second crisis choice');
+  assert.equal(report.fixture.party.status.mode,'solo','reproduced mode is solo with its native companion');
+  assert.equal(report.fixture.party.status.role,'offline','reproduced Party role is offline');
+  assert.equal(report.fixture.party.status.enabled,true,'the story companion enables the native Party gate');
+  assert(report.fixture.party.roster.some(a=>a.slotId==='story68'&&a.storyCompanion&&a.control==='ai'),'the original roster contains the living story companion');
+  assert(report.fixture.party.actors.some(a=>a.slotId==='story68'&&a.hp>0&&a.control==='ai'),'the story companion survives the lethal host hit');
   await takeScreenshot('checkpoint-choice');
 
   await page.evaluate(()=>{
@@ -251,6 +267,22 @@ async function waitFor(label,predicate,timeoutMs){
   assert.deepEqual(reset[0].enemies,report.fixture.roster,'native map entry restores the complete initial roster, full HP, and initial phases');
   assert.deepEqual(reset[0].growth,report.fixture.growth,'native restart retains passives, shards, and loop progress');
 
+  report.partyReset=await page.evaluate(()=>{
+   const Q=window.__RC223_QA__,C=window.__HAPIL_CONTROLS_V31329__,s=C.binding.state.current,p=window.__HAPIL_PARTY_V31322__;
+   return{status:{role:p.status.role,mode:p.status.mode,enabled:p.status.enabled,slots:p.status.slots.map(a=>({slotId:a.slotId,heroId:a.heroId,control:a.control,hp:a.hp,maxHp:a.maxHp,down:a.down}))},roster:p.roster.map(r=>({slotId:r.slotId,heroId:r.heroId,control:r.control,storyCompanion:!!r.storyCompanionV31368})),actors:p.actors.map(a=>({slotId:a.slotId,heroId:a.heroId,control:a.control,hp:a.hp,maxHp:a.maxHp,storyCompanion:!!a.storyCompanionV31368,x:a.x,y:a.y})),host:{x:s.x,y:s.y,hp:s.hp},deathPosition:Q.deathPosition,expectedCheckpointAnchor:Q.expectedCheckpointAnchor,nativeInputBlocked:p.blocksNativeInput()};
+  });
+  assert.equal(report.partyReset.status.role,'offline','offline role remains local after reset');
+  assert.equal(report.partyReset.status.mode,'solo','solo mode remains unchanged');
+  assert.equal(report.partyReset.status.enabled,true,'Party remains enabled after reset');
+  assert.deepEqual(report.partyReset.roster,report.fixture.party.roster,'checkpoint reset preserves the complete original roster');
+  assert.equal(report.partyReset.actors.length,report.fixture.party.roster.length-1,'exactly one actor is rebuilt for each original non-host roster slot');
+  assert.deepEqual(report.partyReset.actors.map(a=>[a.slotId,a.heroId,a.control,a.storyCompanion]),report.fixture.party.roster.slice(1).map(a=>[a.slotId,a.heroId,a.control,a.storyCompanion]),'actor identities and story companion marker match the original roster');
+  assert(report.partyReset.actors.every(a=>a.hp===a.maxHp&&a.hp>0),'all party companions are restored at full HP');
+  assert.deepEqual([report.partyReset.host.x,report.partyReset.host.y],[report.partyReset.expectedCheckpointAnchor.x,report.partyReset.expectedCheckpointAnchor.y],'Party endFrame does not snap the player back to the lethal hit position');
+  assert.notDeepEqual([report.partyReset.host.x,report.partyReset.host.y],[report.partyReset.deathPosition.x,report.partyReset.deathPosition.y],'the player leaves the lethal hit position');
+  assert.equal(report.partyReset.status.slots[0].down,false,'Party no longer marks the host as down');
+  assert.equal(report.partyReset.nativeInputBlocked,false,'native input is unblocked after checkpoint restart');
+
   await waitFor('rc95-balance-observed',()=>window.__RC223_QA__?.scaledSamples?.length>=1,12000);
   const balance=await page.evaluate(()=>({calls:window.__RC223_QA__.balanceCalls,samples:window.__RC223_QA__.scaledSamples.slice()}));
   report.balance=balance;
@@ -282,6 +314,6 @@ async function waitFor(label,predicate,timeoutMs){
   await browser?.close();
   await new Promise(resolve=>server.close(resolve));
  }
- console.log('RC223_CHECKPOINT_BROWSER',JSON.stringify({status:report.status,source,fixture:report.fixture?{zone:report.fixture.zone,roster:report.fixture.roster?.length}:null,restartCalls:report.restart?.calls,balanceSamples:report.balance?.samples?.length,postResetDamage:report.postResetDamage,diagnostics:report.status==='failed'?report.diagnostics:null,results:path.join(out,'results.json')}));
+ console.log('RC223_CHECKPOINT_BROWSER',JSON.stringify({status:report.status,source,fixture:report.fixture?{zone:report.fixture.zone,roster:report.fixture.roster?.length,party:report.fixture.party?.status}:null,restartCalls:report.restart?.calls,partyReset:report.partyReset?{host:report.partyReset.host,actors:report.partyReset.actors,status:report.partyReset.status,nativeInputBlocked:report.partyReset.nativeInputBlocked}:null,balanceSamples:report.balance?.samples?.length,postResetDamage:report.postResetDamage,diagnostics:report.status==='failed'?report.diagnostics:null,results:path.join(out,'results.json')}));
  if(report.status!=='passed')process.exitCode=1;
 })().catch(error=>{console.error('RC223_CHECKPOINT_BROWSER_FATAL',error);process.exitCode=1;try{server.close();writeReport();}catch{}});

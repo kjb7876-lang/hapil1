@@ -251,15 +251,22 @@ async function nativeRelayCase() {
   // Explicit lifecycle fixture: call the existing native respawn hooks. This is
   // not a naturally suffered death, fabricated recording, or private journal.
   const sharedSetup = await host.evaluate(() => {
-    const s = __HAPIL_PARTY_V31322__.state, hooks = __HAPIL_RC59_RELEASE__;
+    const s = __HAPIL_PARTY_V31322__.state, hooks = __HAPIL_EPISODE1_RC59__;
     __HAPIL_STORY_RC51__.close(false);
-    if (!hooks?.beforeRespawn?.(s) || !hooks.afterRespawn(s)) throw Error('Native respawn scripture surface unavailable');
-    return {fixture: 'Explicit native beforeRespawn/afterRespawn hooks; no natural death', zone: s.zone, nativeSurfacePresent: !!document.getElementById('hapil-death-verse-rc59')};
+    if (typeof hooks?.beforeRespawn !== 'function' || typeof hooks?.afterRespawn !== 'function') throw Error('Native RC59 respawn hooks unavailable');
+    const beforeResult = hooks.beforeRespawn(s);
+    if (beforeResult !== true) throw Error('Native respawn setup was rejected');
+    const afterResult = hooks.afterRespawn(s);
+    if (afterResult !== true) throw Error('Native respawn surface hook was rejected');
+    const nativeSurfacePresent = !!document.getElementById('hapil-death-verse-rc59');
+    if (!nativeSurfacePresent) throw Error('Native respawn scripture surface unavailable');
+    return {fixture: 'Explicit native beforeRespawn/afterRespawn hooks; no natural death', zone: s.zone, hookResults: [beforeResult, afterResult], nativeSurfacePresent};
   });
   assert.equal(sharedSetup.nativeSurfacePresent, true);
   await wait(host, () => __HAPIL_STORY_NARRATION_V1__.currentNarrative?.()?.key === 'death:verse');
   const sharedHost = await host.evaluate(() => ({player: __HAPIL_STORY_NARRATION_V1__.currentNarrative(), wire: __HAPIL_REMOTE_RC222_RUNTIME__.exportSnapshot({full: true})?.rc222?.narrative}));
   assert.equal(sharedHost.wire?.voice?.key, 'death:verse', 'shared death surface enters actual native snapshot');
+  assert.equal(sharedHost.wire.voice.text, sharedHost.player.text, 'shared native voice preserves the actual death-surface text');
   const sharedSeqs = []; for (let i = 0; i < 3; i++) sharedSeqs.push(await resendNativeSnapshot('Shared death surface'));
   await wait(guest, () => __HAPIL_STORY_NARRATION_V1__.currentNarrative?.()?.key === 'death:verse' && __HAPIL_GUEST_VOICE_RC223__.status().playerStatus === 'playing' && __RC223_READ_AUDIO__().sources.some(row => row.url?.includes('/death-title-') && row.contextNow - row.contextTime > .1));
   const sharedGuest = await snapshot(guest), deathStarts = sharedGuest.audio.sources.filter(row => row.url.includes('/death-title-'));

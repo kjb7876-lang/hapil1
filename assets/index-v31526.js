@@ -63205,7 +63205,7 @@ function Ri() {
                 !o.enemies.some((e) => e.id === o.targetEnemyId) &&
                 (o.targetEnemyId = null),
               (window.__HAPIL_SAMONG_RC91__?.tryRevive(o)),
-              window.__HAPIL_SAMONG_RC91__?.consumeCheckpoint(o) && (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)) &&
+              (window.__HAPIL_PARTY_V31322__?.consumeCheckpointRespawn(o) ?? (window.__HAPIL_SAMONG_RC91__?.consumeCheckpoint(o) && (window.__HAPIL_PARTY_V31322__?.shouldRespawn(o) ?? (o.hp <= 0)))) &&
                 ((window.__HAPIL_EPISODE1_RC59__?.beforeRespawn(o)),
                 (window.__HAPIL_EXIT_V31327__?.reset(o)),
                 (window.__HAPIL_RC133_NATIVE__?.restartAfterDeath?window.__HAPIL_RC133_NATIVE__.restartAfterDeath(o):ii(o,o.zone,false)),
@@ -63217,6 +63217,7 @@ function Ri() {
                   ? MONGSE_zonePortalAnchors(o.zone).interactionEntry.y
                   : MONGSE_isRestZone(o.zone) ? oe.y : te.y),
                 hi(o),
+                window.__HAPIL_PARTY_V31322__?.checkpointRespawned?.(o),
                 (o.moveVx = 0),
                 (o.moveVy = 0),
                 MONGSE_resetInterruptedEpisodeShowcaseOnRespawn(o),
@@ -119582,7 +119583,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
   const now=()=>typeof performance!=='undefined'?performance.now():Date.now();
   let world=null,bridge=null,role='offline',mode='solo',roster=[],actors=[],enabled=false,lastZone=null,lastTime=-1;
   let hostDownUntil=0,hostDownPosition=null,wipeCount=0,wipePending=false,serial=0,snapshotSeq=0,lastSnapshotSeq=-1,pendingSnapshot=null,guestBackup=null;
-  let scopedTarget=null,disconnected=false,hostPaused=false;
+  let scopedTarget=null,scopedOutgoingActor=null,disconnected=false,hostPaused=false;
   const aggro=new WeakMap(),inputs=new Map(),strikes=[],projectileContacts=new WeakMap(),impactContacts=new WeakSet(),stats={attacks:0,hits:0,allyDamage:0,revives:0,wipes:0,snapshots:0,rejected:0,aiSearches:0,castImages:0,preventedDuplicateImages:0,recoveries:0};
   const hero=id=>F.find(h=>h.id===id)||F[0],alive=a=>a&&num(a.hp)>0;
   const active=()=>enabled&&role!=='guest'&&!disconnected&&world;
@@ -119715,9 +119716,9 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
   function applyStrike(s,h){
     const a=actors.find(a=>a.slotId===h.slotId),target=s.enemies.find(e=>e.id===h.targetId);
     if(!a||!alive(a)||h.zone!==s.zone||!target||!canTarget(s,a,target,50)||!bridge?.damage||window.__HAPIL_COMBAT_V31333__?.strikeValid(s,h,target)===false)return;
-    const oldHero=s.activeHeroId,oldHp=target.hp;
-    try{s.activeHeroId=a.heroId;bridge.damage(target,h.power,h.color,h.key==='R',0,{heroId:a.heroId,heroId31213:a.heroId,impactHeroIdV31315:a.heroId,actionKey:h.key,partySlotV31322:a.slotId});}
-    finally{s.activeHeroId=oldHero;}
+    const oldHero=s.activeHeroId,oldHp=target.hp,previousOutgoingActor=scopedOutgoingActor;
+    try{s.activeHeroId=a.heroId;scopedOutgoingActor=a;bridge.damage(target,h.power,h.color,h.key==='R',0,{heroId:a.heroId,heroId31213:a.heroId,impactHeroIdV31315:a.heroId,actionKey:h.key,partySlotV31322:a.slotId});}
+    finally{scopedOutgoingActor=previousOutgoingActor;s.activeHeroId=oldHero;}
     const dealt=Math.max(0,oldHp-target.hp);if(dealt>0){stats.hits++;if(['slayer','hunter'].includes(a.heroId)){const scale=window.__HAPIL_HELL_V31322__?.lifestealMultiplier?.(s)??1;/* RC132_PARTY_SUSTAIN */const healing=window.__HAPIL_DREAM_BALANCE_RC132__?.lifesteal(s,a,dealt*.08*scale)??dealt*.08*scale;a.hp=Math.min(a.maxHp,a.hp+healing);}}
   }
   function danger(s,a){const hs=[...(s.pendingHits??[]),...(s.impactQueue??[])].filter(h=>num(h.impactAt,h.at)>s.time&&num(h.impactAt,h.at)<s.time+1.2&&!h.damageSuppressedV31226);return hs.find(h=>Di(a,h));}
@@ -119831,9 +119832,24 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
     if(hostDownUntil){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,s,'INVULNERABLE','cooperative-down-state');return false;}
     const result=base(s,...args);if(s.hp<=0){window.__HAPIL_COMBAT_CORE_V31401__.mark(s,s,'HIT','cooperative-knockdown',{downed:true});hostDownUntil=window.__HAPIL_REMOTE_RC222_RUNTIME__?.status?.().role==='host'?s.time+8:Infinity;hostDownPosition={x:s.x,y:s.y};s.hp=0;}return result;
   }
-  function shouldRespawn(s){
+  function shouldRespawn(s,options={}){
     if(role==='guest')return false;if(!enabled||s!==world)return s.hp<=0;
+    if(hostDownUntil&&options?.checkpoint===true&&role==='offline'&&actors.some(alive)&&actors.filter(alive).every(a=>a.control==='ai'))return true;
     if(hostDownUntil&&actors.every(a=>!alive(a))){wipeCount++;stats.wipes++;wipePending=true;hostDownUntil=0;hostDownPosition=null;s.hp=0;return true;}if(hostDownUntil&&actors.some(alive))return false;return s.hp<=0;
+  }
+  function consumeCheckpointRespawn(s){
+    const samong=window.__HAPIL_SAMONG_RC91__;
+    if(!s||s.hp>0||samong?.deathPending?.(s)!==false)return false;
+    const allowed=shouldRespawn(s,{checkpoint:true});
+    if(!allowed)return false;
+    return samong?.consumeCheckpoint?.(s)===true;
+  }
+  function checkpointRespawned(s){
+    if(!enabled||s!==world||role!=='offline')return false;
+    hostDownUntil=0;hostDownPosition=null;wipePending=false;
+    actors=roster.slice(1).map((r,i)=>spawn(r,i+1,s));inputs.clear();strikes.length=0;
+    lastZone=s.zone;lastTime=num(s.time,lastTime);
+    return true;
   }
   function endFrame(s){
     if(!enabled||s!==world||role==='guest')return;
@@ -119885,7 +119901,7 @@ function schedule(){if(install()||++attempts>=128)return;setTimeout(schedule,0);
   }
   function setNetworkRole(next){if(next==='local')next='offline';if(next==='disconnected'){disconnected=true;inputs.clear();return status();}if(!['offline','host','guest'].includes(next))throw new Error('잘못된 네트워크 역할');disconnected=false;if(next!==role){inputs.clear();if(next==='guest')lastSnapshotSeq=-1;else snapshotSeq=Math.max(snapshotSeq,lastSnapshotSeq);if(next==='guest'&&world&&!guestBackup)guestBackup={world:safeCopy(world),hero:bridge?.heroRef?.current};}role=next;if(next==='host'&&world?.partySupportChoiceV31322)window.__HAPIL_PARTY_LAUNCH_V31322__?.setSupport?.(world.partySupportChoiceV31322,world.activeHeroId);return status();}
   function leave(){if(role==='host'&&window.__HAPIL_CONTROLS_V31329__?.hasPractice?.())window.__HAPIL_CONTROLS_V31329__.practiceEnd();if(guestBackup&&world){const old=restore(guestBackup.world);for(const k of Object.keys(world))delete world[k];Object.assign(world,old);if(bridge?.heroRef)bridge.heroRef.current=guestBackup.hero;}guestBackup=null;pendingSnapshot=null;role='offline';disconnected=false;hostPaused=false;mode='solo';enabled=false;roster=[];actors=[];inputs.clear();strikes.length=0;hostDownUntil=0;hostDownPosition=null;lastSnapshotSeq=-1;lastZone=null;return status();}
-  const api={version:VERSION,installed:true,routeIncoming:primaryDamage,incomingTarget:s=>scopedTarget&&s===world?scopedTarget:s,configure,setStoryCompanion,setInput,selectSupport,supportOptions,diagnostics,get supportHeroId(){return window.__HAPIL_PARTY_LAUNCH_V31322__?.getSupport?.()??chosenSupport;},startGame:async()=>{const launch=window.__HAPIL_PARTY_LAUNCH_V31322__;if(!launch?.start)throw new Error('게임 화면을 준비 중입니다. 잠시 후 다시 눌러 주세요.');if(role==='guest')launch.dismissGuestUI?.();return launch.start();},exportSnapshot,applySnapshot,setNetworkRole,leave,capture,tick,projectileContact,areaImpact,shouldRespawn,endFrame,queueDraw,enemyTargetScope,blocksNativeInput:()=>disconnected||role==='guest'||enabled&&!!hostDownUntil&&!window.__HAPIL_REMOTE_RC222_RUNTIME__?.inActorTransaction,blocksSave:()=>role==='guest'||disconnected,get status(){return status();},get state(){return world;},get roster(){return roster.map(r=>({...r}));},get actors(){return actors;},telemetry:()=>({...stats}),debug:{targets,attack,aiInput,allyDamage,safeCopy,restore,assetPaths,partyCamera,move,keepOnScreen,motion,spawn}};
+  const api={version:VERSION,installed:true,routeIncoming:primaryDamage,incomingTarget:s=>scopedTarget&&s===world?scopedTarget:s,configure,setStoryCompanion,setInput,selectSupport,supportOptions,diagnostics,get supportHeroId(){return window.__HAPIL_PARTY_LAUNCH_V31322__?.getSupport?.()??chosenSupport;},startGame:async()=>{const launch=window.__HAPIL_PARTY_LAUNCH_V31322__;if(!launch?.start)throw new Error('게임 화면을 준비 중입니다. 잠시 후 다시 눌러 주세요.');if(role==='guest')launch.dismissGuestUI?.();return launch.start();},exportSnapshot,applySnapshot,setNetworkRole,leave,capture,tick,projectileContact,areaImpact,shouldRespawn,consumeCheckpointRespawn,checkpointRespawned,endFrame,queueDraw,enemyTargetScope,blocksNativeInput:()=>disconnected||role==='guest'||enabled&&!!hostDownUntil&&!window.__HAPIL_REMOTE_RC222_RUNTIME__?.inActorTransaction,blocksSave:()=>role==='guest'||disconnected,get outgoingActor(){return scopedOutgoingActor;},get status(){return status();},get state(){return world;},get roster(){return roster.map(r=>({...r}));},get actors(){return actors;},telemetry:()=>({...stats}),debug:{targets,attack,aiInput,allyDamage,safeCopy,restore,assetPaths,partyCamera,move,keepOnScreen,motion,spawn}};
   window.__HAPIL_PARTY_V31322__=api;
   let attempts=0;function install(){if(!window.__HAPIL_V31318_RELEASE__?.allPass){if(++attempts<128)setTimeout(install,0);return;}const driveBase=HAPIL_driveAutoProgressV31301;HAPIL_driveAutoProgressV31301=function HAPIL_partyAutoProgressV31322(s,settings,blocked,interact){if(api.blocksNativeInput())return {action:'wait',reason:'party-authority'};return driveBase(s,settings,blocked,interact);};const cameraBase=w;w=function HAPIL_partyCameraV31322(x,y,state){const s=state??(enabled?world:undefined);return partyCamera(s,cameraBase(x,y,s));};const planBase=MONGSE_zoneAssetPlan31220;MONGSE_zoneAssetPlan31220=function HAPIL_partyAssetPlanV31322(...args){const p=planBase(...args);if(enabled){for(const r of roster)for(const path of assetPaths(r.heroId)){p.all.add(path);p.A.add(path);p.pins.add(path);p.B.delete(path);p.C.delete(path);p.deferred?.delete(path);MONGSE_PINNED_ASSETS?.add(path);}}return p;};// Party routing is invoked explicitly by combat-core-v31401.
 const ownerEffects=window.__HAPIL_OWNER_PIPELINE_V31404__.startEffects(Gn,drawLaser);Gn=function HAPIL_ownerEffectsV31404(ctx,cache,e,time,settings={}){return ownerEffects.draw(ctx,cache,e,time,settings);};const statusBase=Ti;Ti=function HAPIL_partyTargetStatusV31322(s,type,value,label){if(scopedTarget&&s===world){if(type==='slow')scopedTarget.slowUntil=s.time+Math.max(.3,num(value,1));return;}return statusBase(s,type,value,label);};const save=MONGSE_writeSave;MONGSE_writeSave=function HAPIL_partyGuestSaveBlockV31322(...args){if(role==='guest')return false;return save(...args);};api.nativeInstalled=true;}install();
@@ -127649,7 +127665,7 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
 /* RC223_LEFT_ZONE_NATIVE: host-owned extension admission and finite exposure. */
 (()=>{'use strict';let attempts=0;
  const controls=()=>window.__HAPIL_CONTROLS_V31329__,runtime=()=>window.__HAPIL_REMOTE_RC222_RUNTIME__,party=()=>window.__HAPIL_PARTY_V31322__,arena=()=>window.__HAPIL_BATTLE_ARENA_RC138__;
- const worldOf=s=>runtime()?.canonicalWorld?.(s)??s;
+ const worldOf=s=>runtime()?.canonicalWorld?.(s)??s,actorOf=a=>arena()?.actorIdentity?.(a)??runtime()?.actorFor?.(a)??a;
  function install(){
   const API=window.__HAPIL_LEFT_ZONE_RC223__,R=arena(),nativeArena=window.__HAPIL_NATIVE_ARENA_RC138__,native=window.__HAPIL_RC222_NATIVE__,C=controls();
   if(!API?.createController||!R?.enabled||!R?.player||!nativeArena?.installed||!native?.actorFrame||!C?.frameStart)return false;
@@ -127670,7 +127686,7 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
    const game=document.querySelector('.game'),present=C.binding?.phase==='game'&&!!s&&!!a&&a.hp>0&&controller.regionAt(worldOf(s),a,{x:a.x,y:a.y});
    if(!present||!game){if(!present||C.binding?.phase!=='game')clearBadge();return;}
    if(badgeGame!==game||!badge?.isConnected){clearBadge();badge=document.createElement('div');badge.id='hapil-left-zone-warning-rc223';badge.className='hapil-left-zone-warning-rc223';badge.setAttribute('role','status');badge.setAttribute('aria-live','polite');Object.assign(badge.style,{position:'absolute',zIndex:'80',top:'78px',left:'50%',transform:'translateX(-50%)',maxWidth:'calc(100% - 32px)',padding:'5px 10px',border:'1px solid rgba(255,174,158,.78)',borderRadius:'4px',background:'rgba(43,12,20,.88)',color:'#ffe2dc',font:'600 13px system-ui, sans-serif',letterSpacing:'.01em',textAlign:'center',pointerEvents:'none',whiteSpace:'nowrap',boxShadow:'0 2px 10px rgba(0,0,0,.3)'});game.append(badge);badgeGame=game;}
-   const label='위험 지대 · 체력·공격·이동 감소';if(badge.textContent!==label)badge.textContent=label;
+   const label=a?.control==='local'?'위험 지대 · P2 · 체력·공격·이동 감소':'위험 지대 · 체력·공격·이동 감소';if(badge.textContent!==label)badge.textContent=label;
   }
   function tick(s,a,dt){const world=worldOf(s),frame=Number.isFinite(Number(world?.time))?[world.zone,world.time,a?.slotId??(a===world?'host':'actor')].join(':'):null,result=controller.tick(world,a,dt,frame);showForLocalOrGuest(world);return result;}
   function showForLocalOrGuest(s){
@@ -127678,7 +127694,8 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
    if(p?.status?.role==='guest'){
     const slot=rt?.session?.slotId,actor=(p?.actors??[]).find(a=>a.slotId===slot);showBadge(world,actor);return;
    }
-   showBadge(world,world);
+   const local=p?.state===world?(p.actors??[]).find(a=>a?.control==='local'&&a.hp>0&&controller.regionAt(world,a,{x:a.x,y:a.y})):null;
+   showBadge(world,local??world);
   }
   // Existing battle movement uses native ft -> RC138.movement. Preserve its
   // all-floor and pt body-collision tests; expose only the explicit floor union.
@@ -127688,19 +127705,25 @@ function MONGSE_applyPositionRC152(actor,point){if(!window.__HAPIL_BATTLE_ARENA_
   const replacementNative=Object.freeze({...native,actorFrame:function(view,actor,dt,...args){const result=nativeFrame.call(this,view,actor,dt,...args);tick(view,actor,dt);return result;},resetPlayerTransient:function(view,...args){controller.reset(worldOf(view));return native.resetPlayerTransient?.call(this,view,...args);}});
   window.__HAPIL_RC222_NATIVE__=replacementNative;
   const frame=C.frameStart;C.frameStart=function(s,dt,...args){const result=frame.call(this,s,dt,...args);const rt=runtime();if(rt?.status?.().role==='guest'||rt?.status?.().role==='disconnected')controller.reset(worldOf(s));else if(dt>0)tick(s,worldOf(s),dt);showForLocalOrGuest(s);return result;};
-  const outgoing=MONGSE_heroOutgoingModeMultiplier31213;MONGSE_heroOutgoingModeMultiplier31213=function(heroId,auto){const value=outgoing.call(this,heroId,auto),world=liveWorld(),rt=runtime(),actor=rt?.activeActor&&worldOf(C.binding?.state?.current)===world?rt.activeActor:world;return value*(controller.factors(world,actor).outgoing??1);};
+  const P=party();
+  function cleanupActorClocks(beforeWorld,beforeActors,beforeControls,afterWorld,afterActors){if(beforeWorld&&beforeWorld!==afterWorld){controller.reset(beforeWorld);return;}const after=new Set(afterActors??[]);for(const actor of beforeActors??[])if(!after.has(actor)||(['remote','local'].includes(beforeControls.get(actor))&&!['remote','local'].includes(actor?.control)))controller.reset(beforeWorld,actor);}
+  if(P?.tick){const partyTick=P.tick;P.tick=function(s,dt,...args){const beforeWorld=worldOf(P.state??s),beforeActors=new Set(P.actors??[]),beforeControls=new Map([...beforeActors].map(actor=>[actor,actor?.control])),result=partyTick.apply(this,arguments),world=worldOf(s);cleanupActorClocks(beforeWorld,beforeActors,beforeControls,world,new Set(P.actors??[]));if(world&&world===P.state&&Number(dt)>0)for(const actor of P.actors??[])if(actor?.control==='local')tick(world,actor,dt);return result;};}
+  for(const method of ['checkpointRespawned','endFrame','applySnapshot'])if(typeof P?.[method]==='function'){const base=P[method];P[method]=function(...args){const beforeWorld=worldOf(P.state??liveWorld()),beforeActors=new Set(P.actors??[]),beforeControls=new Map([...beforeActors].map(actor=>[actor,actor?.control]));let result;try{result=base.apply(this,args);}finally{const afterWorld=worldOf(P.state??liveWorld());cleanupActorClocks(beforeWorld,beforeActors,beforeControls,afterWorld,new Set(P.actors??[]));}return result;};}
+  const outgoingActor=(world=liveWorld())=>actorOf(runtime()?.activeActor??P?.outgoingActor??world)??world;
+  const outgoing=MONGSE_heroOutgoingModeMultiplier31213;MONGSE_heroOutgoingModeMultiplier31213=function(heroId,auto){const value=outgoing.call(this,heroId,auto),world=liveWorld();return value*(controller.factors(world,outgoingActor(world)).outgoing??1);};
   const rt=runtime();
   if(rt?.incomingActor){const incomingActor=rt.incomingActor;rt.incomingActor=function(world,actor,...args){const result=incomingActor.call(this,world,actor,...args);if(actor&&!(actor.hp>0))controller.reset(worldOf(world),actor);return result;};}
   if(rt?.guestFrame){const guestFrame=rt.guestFrame;rt.guestFrame=function(...args){const result=guestFrame.apply(this,args);showForLocalOrGuest(args[0]??liveWorld());return result;};}
   if(rt?.leave){const leave=rt.leave;rt.leave=function(...args){controller.reset(liveWorld());clearBadge();return leave.apply(this,args);};}
   if(rt?.role){const role=rt.role;rt.role=function(...args){if(args[0]!=='host')controller.reset(liveWorld());const result=role.apply(this,args);if(args[0]!=='host')clearBadge();return result;};}
-  if(rt?.updateRoom){const updateRoom=rt.updateRoom;rt.updateRoom=function(...args){const before=rt.session?.sessionId??rt.session?.roomCode??rt.session?.code;const result=updateRoom.apply(this,args);const after=rt.session?.sessionId??rt.session?.roomCode??rt.session?.code;if(before!==after||rt.status?.().role!=='host')controller.reset(liveWorld());return result;};}
+  if(P?.configure){const configure=P.configure;P.configure=function(...args){const beforeWorld=worldOf(P.state??liveWorld()),beforeActorRefs=new Set(P.actors??[]),beforeControls=new Map([...beforeActorRefs].map(actor=>[actor,actor?.control]));let result;try{result=configure.apply(this,args);}finally{const afterWorld=worldOf(P.state??liveWorld()),afterActorRefs=new Set(P.actors??[]);cleanupActorClocks(beforeWorld,beforeActorRefs,beforeControls,afterWorld,afterActorRefs);}return result;};}
+  if(rt?.updateRoom){const updateRoom=rt.updateRoom;rt.updateRoom=function(...args){const before=rt.session?.sessionId??rt.session?.roomCode??rt.session?.code,beforeWorld=worldOf(party()?.state??liveWorld()),beforeActorRefs=new Set(party()?.actors??[]),beforeControls=new Map([...beforeActorRefs].map(actor=>[actor,actor?.control]));const result=updateRoom.apply(this,args),after=rt.session?.sessionId??rt.session?.roomCode??rt.session?.code,afterWorld=worldOf(party()?.state??liveWorld()),afterActorRefs=new Set(party()?.actors??[]);cleanupActorClocks(beforeWorld,beforeActorRefs,beforeControls,afterWorld,afterActorRefs);if(before!==after||rt.status?.().role!=='host')controller.reset(afterWorld);return result;};}
   const surface=Object.freeze({installed:true,version:'RC223',policy:API.policy,
    snapshot(s=liveWorld()){const world=worldOf(s),actors=party()?.state===world?(party()?.actors??[]):[];return Object.freeze({version:'RC223',zone:world?.zone??null,owner:world&&isHost(world,world)?'host':'none',paused:!!(party()?.status?.paused||runtime()?.status?.().paused),host:world?controller.snapshot(world,world):null,actors:Object.freeze(actors.map(a=>controller.snapshot(world,a))),metrics:controller.metrics()});},
-   inspect(s,a){return controller.snapshot(worldOf(s??liveWorld()),a??worldOf(s??liveWorld()));},metrics:controller.metrics,
-   allowed:(s,a,p,r=API.policy.clearance)=>controller.allowed(worldOf(s),a,p,r),canMove:(s,a,p,r=API.policy.clearance)=>controller.canMove(worldOf(s),a,p,r),factors:(s,a)=>controller.factors(worldOf(s),a),outgoingMultiplier:(heroId,auto)=>MONGSE_heroOutgoingModeMultiplier31213(heroId,auto),blinkWalkable:(s,p)=>HAPIL_blinkWalkableRC85(s.zone,p,s),
-   regionAt:(s,a,p)=>controller.regionAt(worldOf(s),a,p??{x:a?.x,y:a?.y}),inRegion:(s,a,p)=>controller.regionAt(worldOf(s),a,p??{x:a?.x,y:a?.y}),exposed:(s,a,p)=>controller.exposedAt(worldOf(s),a,p??{x:a?.x,y:a?.y}),
-   hooks:Object.freeze({movement:'ft -> HAPIL_BATTLE_ARENA_RC138.movement',blink:'HAPIL_blinkWalkableRC85',outgoing:'MONGSE_heroOutgoingModeMultiplier31213',hostFrame:'HAPIL_CONTROLS_V31329.frameStart',remoteFrame:'RC222_NATIVE.actorFrame',hostIncoming:'NATIVE_ARENA_RC138.bodyDamage -> Y',remoteIncoming:'REMOTE_RC222_RUNTIME.incomingActor'})});
+  inspect(s,a){const world=worldOf(s??liveWorld()),actor=actorOf(a??world);return controller.snapshot(world,actor);},metrics:controller.metrics,
+   allowed:(s,a,p,r=API.policy.clearance)=>controller.allowed(worldOf(s),actorOf(a),p,r),canMove:(s,a,p,r=API.policy.clearance)=>controller.canMove(worldOf(s),actorOf(a),p,r),factors:(s,a)=>controller.factors(worldOf(s),actorOf(a)),outgoingMultiplier:(heroId,auto)=>MONGSE_heroOutgoingModeMultiplier31213(heroId,auto),blinkWalkable:(s,p)=>HAPIL_blinkWalkableRC85(s.zone,p,s),
+   regionAt:(s,a,p)=>{const actor=actorOf(a);return controller.regionAt(worldOf(s),actor,p??{x:actor?.x,y:actor?.y});},inRegion:(s,a,p)=>{const actor=actorOf(a);return controller.regionAt(worldOf(s),actor,p??{x:actor?.x,y:actor?.y});},exposed:(s,a,p)=>{const actor=actorOf(a);return controller.exposedAt(worldOf(s),actor,p??{x:actor?.x,y:actor?.y});},
+   hooks:Object.freeze({movement:'ft -> HAPIL_BATTLE_ARENA_RC138.movement',blink:'HAPIL_blinkWalkableRC85',outgoing:'MONGSE_heroOutgoingModeMultiplier31213',hostFrame:'HAPIL_CONTROLS_V31329.frameStart',localFrame:'HAPIL_PARTY_V31322.tick',remoteFrame:'RC222_NATIVE.actorFrame',hostIncoming:'NATIVE_ARENA_RC138.bodyDamage -> Y',remoteIncoming:'REMOTE_RC222_RUNTIME.incomingActor',localIncoming:'HAPIL_PARTY_V31322.debug.allyDamage'})});
   window.__HAPIL_LEFT_ZONE_NATIVE_RC223__=surface;showForLocalOrGuest(liveWorld());return true;
  }
  function ready(){if(install()||++attempts>=1200)return;setTimeout(ready,20);}ready();

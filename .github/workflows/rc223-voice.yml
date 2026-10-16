@@ -106,7 +106,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, coop]
+        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, coop, combat]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -161,6 +161,7 @@ jobs:
               test_file=tests/rc223-checkpoint-browser.cjs
               ;;
             coop) test_file=tests/rc222-browser.cjs ;;
+            combat) test_file=tests/rc210-browser.cjs ;;
           esac
           node "$test_file" 2>&1 | tee "$RUNNER_TEMP/rc223-browser/evidence/browser.log"
           test -z "$(git status --porcelain)"

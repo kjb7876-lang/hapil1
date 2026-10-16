@@ -47,11 +47,11 @@ assert.equal(D.contains(newlyOpenedPoint,'left',.8),false);
 
 const physicalAll=(s,p,r)=>D.contains(p,'all',r);
 const oldAllowed=(s,a,p,r)=>D.contains(p,D.swapped(s)||s?.swapped===true?'right':'left',r);
-const hits=[],warnings=[];
+const hits=[],warnings=[],testPartyActors=new Set();
 const controller=leftZone.createController({
   inScope:s=>s?.combat===true&&!s?.rest,
   isHost:s=>s?.role==='host',
-  isPlayer:(s,a)=>a===s||a?.rc222NativeActor===true,
+  isPlayer:(s,a)=>a===s||a?.control==='remote'&&a?.rc222NativeActor===true||a?.control==='local'&&testPartyActors.has(a),
   nativeAll:physicalAll,
   originalAllowed:oldAllowed,
   applyDamage:(s,a,raw,source)=>{hits.push({actor:a,raw,source});a.hp=Math.max(0,a.hp-raw);return true;},
@@ -111,7 +111,7 @@ assert.equal(hits.length,1);
 
 // Each remote player has its own exposure clock, but guest simulations never
 // apply damage or derived multipliers.
-const remote={id:'p2',slotId:'p2',rc222NativeActor:true,x:newlyOpenedPoint.x,y:newlyOpenedPoint.y,hp:800,maxHp:800};
+const remote={id:'p2',slotId:'p2',control:'remote',rc222NativeActor:true,x:newlyOpenedPoint.x,y:newlyOpenedPoint.y,hp:800,maxHp:800};
 assert.equal(controller.exposed(state,remote),true);
 assert.equal(controller.tick(state,remote,.25,10).due,false);
 assert.equal(controller.snapshot(state,remote).elapsedSeconds,.25);
@@ -147,7 +147,7 @@ assert.equal(typeof metrics.authoritySkips,'number');
 // Remote allies remain clocked when the canonical host actor is down. A
 // backwards canonical clock indicates a restore and starts a fresh grace.
 const downWorld={combat:true,rest:false,role:'host',zone:'dist01',time:12,hp:0,maxHp:1000,x:22,y:24};
-const livingRemote={id:'p-down-host',slotId:'p-down-host',rc222NativeActor:true,x:15,y:14,hp:800,maxHp:800};
+const livingRemote={id:'p-down-host',slotId:'p-down-host',control:'remote',rc222NativeActor:true,x:15,y:14,hp:800,maxHp:800};
 const downFirst=controller.tick(downWorld,livingRemote,.25,'down-host-1');
 assert.equal(downFirst.active,true,'living remote exposure does not depend on host HP');
 assert.equal(controller.snapshot(downWorld,livingRemote).owner,'host');
@@ -223,13 +223,16 @@ assert.equal(pauseHits.length,1,'the existing grace clock continues after pause'
 const arenaPath=require.resolve('../assets/rc138/battle-arena.js');
 delete require.cache[arenaPath];require(arenaPath);
 const arena=globalThis.__HAPIL_BATTLE_ARENA_RC138__;
+const controllerWorld=s=>globalThis.__HAPIL_REMOTE_RC222_RUNTIME__?.canonicalWorld?.(s)??s;
+const controllerActor=a=>arena.actorIdentity(a);
 globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__={
   policy:leftZone.policy,
-  allowed:(s,a,p,r)=>controller.allowed(s,a,p,r),
-  canMove:(s,a,p,r)=>controller.canMove(s,a,p,r),
-  regionAt:(s,a,p)=>controller.regionAt(s,a,p),
-  exposed:(s,a,p)=>controller.exposedAt(s,a,p),
-  factors:(s,a)=>controller.factors(s,a)
+  allowed:(s,a,p,r)=>controller.allowed(controllerWorld(s),controllerActor(a),p,r),
+  canMove:(s,a,p,r)=>controller.canMove(controllerWorld(s),controllerActor(a),p,r),
+  regionAt:(s,a,p)=>controller.regionAt(controllerWorld(s),controllerActor(a),p),
+  exposed:(s,a,p)=>{const actor=controllerActor(a);return controller.exposedAt(controllerWorld(s),actor,p??{x:actor?.x,y:actor?.y});},
+  factors:(s,a)=>controller.factors(controllerWorld(s),controllerActor(a)),
+  inspect:(s,a)=>controller.snapshot(controllerWorld(s),controllerActor(a))
 };
 arena.bind({combat:['dist01','cult04'],clear:()=>false});
 const guarded={combat:true,role:'host',zone:'dist01',time:30,hp:1000,maxHp:1000,x:18,y:22,enemies:[]};
@@ -339,6 +342,281 @@ assert.ok(edgeEnd.y>=7.6-1e-6,'edge collision never crosses the native platform 
 assert.ok(Math.abs(edgeEnd.x-edgeStart.x)<1e-8,'edge collision does not project sideways');
 assert.ok(factorRatio(edgeStart,edgeEnd,edgeDelta)<=.9+1e-8,'edge collision never exceeds the slowed requested distance');
 assert.ok(factorRatio(edgeStart,edgeEnd,edgeDelta)>.4,'edge collision advances to the first physical obstruction');
+
+// Use the real RC222 runtime proxy and its actorFor resolver. Native context
+// proxies route owned coordinates/HP to the actor and world fields elsewhere;
+// controller identity and clocks must still belong to the real party actor.
+const {createRuntime}=require('../assets/rc222/runtime.js');
+const proxyWorld={combat:true,role:'host',zone:'dist01',time:60,hp:1000,maxHp:1000,x:22,y:24,activeHeroId:'hwando',enemies:[],
+  effects:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],floatTexts:[],egoDrops:[],defeated:[],pendingStrikes:[],resonanceThreads:[],telekineticCasts:[]};
+const proxyActor={slotId:'proxy-p2',heroId:'seoha',control:'remote',x:18,y:19.5,hp:900,maxHp:1000};
+const survivorActor={slotId:'proxy-p3',heroId:'neon',control:'remote',x:15,y:14,hp:850,maxHp:1000};
+const proxyRoster=[{slotId:'p1',heroId:'hwando',control:'host'},{slotId:proxyActor.slotId,heroId:proxyActor.heroId,control:'remote'},{slotId:survivorActor.slotId,heroId:survivorActor.heroId,control:'remote'}];
+const proxyBinding={phase:'game',state:{current:proxyWorld},hero:{current:'hwando'},input:{current:new Set()},settings:{current:{}},auto:{current:false},passives:{current:{}},shards:{current:0},partyIds:{current:[]},actions:{}};
+const proxyControls={binding:proxyBinding,choice:()=> 'manual'};
+const proxyParty={state:proxyWorld,actors:[proxyActor,survivorActor],roster:proxyRoster,status:{role:'host'},
+  replaceWorldOnConfigure:null,
+  configure({roster}){const prior=new Map(this.actors.map(actor=>[actor.slotId,actor]));this.roster=roster;this.actors=roster.slice(1).map(row=>{let actor=prior.get(row.slotId);if(!actor||actor.heroId!==row.heroId)actor={slotId:row.slotId,heroId:row.heroId,x:15,y:14,hp:850,maxHp:1000};actor.control=row.control;return actor;});if(this.replaceWorldOnConfigure){this.state=this.replaceWorldOnConfigure;proxyBinding.state.current=this.state;this.replaceWorldOnConfigure=null;}},
+  setNetworkRole(){},leave(){}};
+const proxyEnv={performance:{now:()=>100},addEventListener(){},document:{hidden:false},__HAPIL_PARTY_V31322__:proxyParty,
+  __HAPIL_CONTROLS_V31329__:proxyControls,__HAPIL_RC222_NATIVE__:{createState:()=>({cooldowns:{}})}};
+const proxyRuntime=createRuntime(proxyEnv);
+proxyEnv.__HAPIL_REMOTE_RC222_RUNTIME__=proxyRuntime;
+const priorRuntime=globalThis.__HAPIL_REMOTE_RC222_RUNTIME__,priorParty=globalThis.__HAPIL_PARTY_V31322__,priorControls=globalThis.__HAPIL_CONTROLS_V31329__;
+globalThis.__HAPIL_REMOTE_RC222_RUNTIME__=proxyRuntime;globalThis.__HAPIL_PARTY_V31322__=proxyParty;globalThis.__HAPIL_CONTROLS_V31329__=proxyControls;
+proxyRuntime.attach({isHost:true,slotId:'p1',epoch:1,session:{sessionId:'left-zone-proxy-unit'},roster:proxyRoster});
+arena.enforce(proxyWorld);
+const localP2={slotId:'proxy-local-p2',heroId:'seoha',control:'local',x:18,y:19.5,hp:900,maxHp:1000};
+testPartyActors.add(localP2);
+proxyParty.actors.push(localP2);
+assert.equal(arena.player(proxyWorld,localP2),true,'an existing native local P2 actor is admitted as a human player');
+assert.equal(arena.isAlly(proxyWorld,localP2),true,'local P2 keeps the native allied geometry path');
+const localMoved=arena.movement(proxyWorld,localP2,{x:18,y:19.3},.8);
+assert.ok(Math.abs(localMoved.x-18)<1e-8&&Math.abs(localMoved.y-19.32)<1e-8,'native local P2 movement receives the same .9 factor in new floor');
+localP2.control='ai';
+assert.equal(arena.player(proxyWorld,localP2),false,'a local actor demoted to AI is no longer exposed as a player');
+localP2.control='local';proxyParty.actors.pop();testPartyActors.delete(localP2);
+const staleAi={slotId:'proxy-ai',heroId:'neon',control:'ai',rc222NativeActor:true,x:18,y:19.3,hp:800,maxHp:800};
+proxyParty.actors.push(staleAi);
+const aiProxyResult=proxyRuntime.withActor(proxyWorld,staleAi,view=>{assert.equal(arena.player(view,view),false,'AI proxy is rejected even when its actor context carries the stale native marker');return true;});
+assert.equal(aiProxyResult,true,'actual RC222 actor context can exercise stale AI identity');
+const nativeMovementForCurrent=()=>new Function('move','state','R','window',`return (${nativeWrapperExpression});`)(
+  (zone,subject,delta)=>({x:subject.x+delta.x,y:subject.y+delta.y}),
+  ()=>globalThis.__HAPIL_CONTROLS_V31329__.binding.state.current,arena,globalThis
+);
+let actualProxyView=null;
+proxyRuntime.withActor(proxyWorld,proxyActor,view=>{
+  actualProxyView=view;
+  assert.notEqual(view,proxyActor,'RC222 supplies a transient proxy distinct from the actor object');
+  assert.equal(proxyRuntime.actorFor(view),proxyActor,'real RC222 actorFor recovers the underlying slot actor');
+  assert.equal(arena.actorIdentity(view),proxyActor,'RC138 uses real actor identity for proxy admission');
+  assert.equal(arena.player(proxyWorld,view),true,'remote actor proxy remains a playable actor');
+  assert.equal(arena.isAlly(proxyWorld,view),true,'remote actor proxy retains allied arena geometry');
+  assert.equal(arena.player(proxyWorld,staleAi),false,'stale RC222 marker cannot promote an AI actor to player');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.allowed(view,view,{x:18,y:19.3},.8),true,
+    'native left-zone admission resolves a real RC222 proxy');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.canMove(view,view,{x:18,y:19.3},.8),true,
+    'native left-zone movement admission resolves a real RC222 proxy');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.regionAt(view,view,{x:18,y:19.3}),true,
+    'native danger-region query resolves a real RC222 proxy');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.exposed(view,view,{x:18,y:19.3}),true,
+    'native exposure query resolves a real RC222 proxy');
+  const delta={x:0,y:-.2};direction.acquire(view,new Set(['ArrowUp']));
+  const proxyEnd=nativeMovementForCurrent()('dist01',view,delta,.8);
+  assert.ok(Math.abs(proxyEnd.x-18)<1e-8&&Math.abs(proxyEnd.y-19.32)<1e-8,
+    'real withActor proxy movement enters danger at exactly native speed times .9');
+  proxyActor.x=proxyEnd.x;proxyActor.y=proxyEnd.y;
+  controller.tick(proxyWorld,proxyActor,.25,'proxy-actor-frame-1');
+  assert.equal(controller.snapshot(proxyWorld,proxyActor).elapsedSeconds,.25,'remote clock remains keyed by real actor identity');
+  assert.equal(controller.snapshot(proxyWorld,proxyWorld).elapsedSeconds,0,'remote clock does not alias the canonical host actor');
+  assert.equal(controller.snapshot(proxyWorld,view).elapsedSeconds,0,'controller WeakMap does not store elapsed time under the transient proxy');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.inspect(view,view).elapsedSeconds,.25,
+    'read-only surface resolves the proxy back to its actor clock');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.factors(view,view).active,true,
+    'derived exposure factors resolve the actual remote actor');
+});
+assert.equal(proxyRuntime.actorFor(actualProxyView),proxyActor,'RC222 proxy remains slot-resolvable after its callback');
+proxyRuntime.withActor(proxyWorld,survivorActor,()=>{survivorActor.x=15;survivorActor.y=14;});
+controller.tick(proxyWorld,survivorActor,.25,'survivor-before-roster-refresh');
+const updateRoomHookStart=bundleSource.indexOf('if(rt?.updateRoom){const updateRoom=rt.updateRoom;');
+const updateRoomHookEnd=bundleSource.indexOf('\n  const surface=',updateRoomHookStart);
+assert.ok(updateRoomHookStart>=0&&updateRoomHookEnd>updateRoomHookStart,'production RC223 updateRoom lifecycle hook is available');
+const updateRoomHook=bundleSource.slice(updateRoomHookStart,updateRoomHookEnd);
+const lifecycleFnStart=bundleSource.indexOf('function cleanupActorClocks(');
+const lifecycleFnEnd=bundleSource.indexOf('\n  if(P?.tick)',lifecycleFnStart);
+const lifecycleFnSource=bundleSource.slice(lifecycleFnStart,lifecycleFnEnd);
+const cleanupProxyClocks=new Function('controller',lifecycleFnSource+';return cleanupActorClocks;')(controller);
+new Function('rt','party','controller','liveWorld','worldOf','cleanupActorClocks',`${updateRoomHook};return rt;`)(
+  proxyRuntime,()=>proxyParty,controller,()=>proxyBinding.state.current,s=>proxyRuntime.canonicalWorld(s)??s,cleanupProxyClocks
+);
+const rosterRow=(slotId,heroId,name,kind='remote')=>({slotId,heroId,nickname:name,kind});
+const hostRow=rosterRow('p1','hwando','Host');
+const survivorRow=rosterRow(survivorActor.slotId,survivorActor.heroId,'Survivor');
+const exitsBeforeMetadata=controller.metrics().exits;
+proxyRuntime.updateRoom({roster:[hostRow,rosterRow(proxyActor.slotId,proxyActor.heroId,'Renamed peer'),{...survivorRow,nickname:'Ready survivor'}]});
+assert.equal(controller.metrics().exits,exitsBeforeMetadata,'same-room metadata refresh retains all actor clocks');
+assert.equal(controller.snapshot(proxyWorld,proxyActor).elapsedSeconds,.25,'renamed surviving actor keeps its clock');
+assert.equal(controller.snapshot(proxyWorld,survivorActor).elapsedSeconds,.25,'ready surviving actor keeps its clock');
+const exitsBeforeRemoval=controller.metrics().exits;
+proxyRuntime.updateRoom({roster:[hostRow,survivorRow]});
+assert.equal(proxyParty.actors.includes(proxyActor),false,'same-room roster removal drops the departed actor reference');
+assert.equal(controller.snapshot(proxyWorld,proxyActor).elapsedSeconds,0,'departed actor clock is reset immediately');
+assert.equal(controller.snapshot(proxyWorld,survivorActor).elapsedSeconds,.25,'surviving actor clock survives another member leaving');
+assert.equal(controller.metrics().exits,exitsBeforeRemoval+1,'roster removal releases exactly the departed exposure clock');
+proxyRuntime.updateRoom({roster:[hostRow,survivorRow,rosterRow(proxyActor.slotId,proxyActor.heroId,'Rejoined peer')]});
+const rejoinedActor=proxyParty.actors.find(actor=>actor.slotId===proxyActor.slotId);
+assert.ok(rejoinedActor&&rejoinedActor!==proxyActor,'same-slot rejoin receives a fresh actor object');
+proxyRuntime.withActor(proxyWorld,rejoinedActor,view=>{
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.inspect(view,view).elapsedSeconds,0,
+    'same-slot rejoin begins without the departed actor clock');
+  controller.tick(proxyWorld,rejoinedActor,.25,'same-slot-rejoin-first-frame');
+  assert.equal(globalThis.__HAPIL_LEFT_ZONE_NATIVE_RC223__.inspect(view,view).elapsedSeconds,.25,
+    'same-slot rejoin starts an independent new exposure clock');
+});
+const exitsBeforeDowngrade=controller.metrics().exits;
+proxyRuntime.updateRoom({roster:[hostRow,{...survivorRow,kind:'ai'},rosterRow(proxyActor.slotId,proxyActor.heroId,'Rejoined peer')]});
+assert.equal(survivorActor.control,'ai','roster transition demotes the existing actor in place');
+assert.equal(arena.player(proxyWorld,survivorActor),false,'demoted actor no longer qualifies as a player');
+assert.equal(controller.snapshot(proxyWorld,survivorActor).elapsedSeconds,0,'human-to-AI demotion releases its old exposure clock');
+assert.equal(controller.snapshot(proxyWorld,rejoinedActor).elapsedSeconds,.25,'other human clock survives AI demotion');
+assert.equal(controller.metrics().exits,exitsBeforeDowngrade+1,'control demotion releases only its actor clock');
+const replacedWorld={...proxyWorld,time:70,x:22,y:24,enemies:[],effects:[],hostileProjectiles:[],pendingHits:[],impactQueue:[],floatTexts:[],egoDrops:[],defeated:[],pendingStrikes:[],resonanceThreads:[],telekineticCasts:[]};
+proxyParty.replaceWorldOnConfigure=replacedWorld;
+proxyRuntime.updateRoom({roster:[hostRow,{...survivorRow,nickname:'World replacement refresh'},rosterRow(proxyActor.slotId,proxyActor.heroId,'Rejoined peer')]});
+assert.equal(controller.snapshot(proxyWorld,rejoinedActor).elapsedSeconds,0,'world replacement releases the previous world clock set');
+assert.equal(controller.snapshot(replacedWorld,rejoinedActor).elapsedSeconds,0,'new world starts with no inherited actor clock');
+if(priorRuntime===undefined)delete globalThis.__HAPIL_REMOTE_RC222_RUNTIME__;else globalThis.__HAPIL_REMOTE_RC222_RUNTIME__=priorRuntime;
+if(priorParty===undefined)delete globalThis.__HAPIL_PARTY_V31322__;else globalThis.__HAPIL_PARTY_V31322__=priorParty;
+if(priorControls===undefined)delete globalThis.__HAPIL_CONTROLS_V31329__;else globalThis.__HAPIL_CONTROLS_V31329__=priorControls;
+assert.ok(bundleSource.includes('actorOf=a=>arena()?.actorIdentity?.(a)'),
+  'production RC223 surface normalizes proxy identity before controller lookups');
+
+// Run the production PARTY.tick wrapper and actual RC223 tick helper with a
+// native-shaped fixture. Local actors tick after native movement; the wrapper
+// does not double-count remote actors or AI.
+const rc223Start=bundleSource.indexOf('/* RC223_LEFT_ZONE_NATIVE:');
+const cleanupStart=bundleSource.indexOf('function cleanupActorClocks(',rc223Start);
+const cleanupEnd=bundleSource.indexOf('\n  if(P?.tick)',cleanupStart);
+const localTickHelperStart=bundleSource.indexOf('function tick(s,a,dt){',rc223Start);
+const localTickHelperEnd=bundleSource.indexOf('\n  function showForLocalOrGuest(s)',localTickHelperStart);
+const localPartyHookStart=bundleSource.indexOf('if(P?.tick){const partyTick=P.tick;',cleanupEnd);
+const localPartyHookEnd=bundleSource.indexOf('\n  const outgoingActor=',localPartyHookStart);
+assert.ok(cleanupStart>=0&&cleanupEnd>cleanupStart&&localTickHelperStart>=0&&localTickHelperEnd>localTickHelperStart&&localPartyHookStart>=0&&localPartyHookEnd>localPartyHookStart,
+  'actual native local PARTY tick and clock-cleanup snippets are available');
+const cleanupSource=bundleSource.slice(cleanupStart,cleanupEnd);
+const localTickHelperSource=bundleSource.slice(localTickHelperStart,localTickHelperEnd);
+const localWorld={combat:true,role:'offline',zone:'dist01',time:0,hp:1000,maxHp:1000,x:22,y:24,enemies:[]};
+const tickLocalP2={slotId:'local-p2',control:'local',hp:1000,maxHp:1000,x:15,y:14};
+const remotePartyActor={slotId:'remote-p2',control:'remote',rc222NativeActor:true,hp:1000,maxHp:1000,x:15,y:14};
+const aiPartyActor={slotId:'ai-p3',control:'ai',rc222NativeActor:true,hp:1000,maxHp:1000,x:15,y:14};
+const nativeLocalMembers=new Set([tickLocalP2,remotePartyActor,aiPartyActor]),localHits=[],localTickTrace=[];
+const localController=leftZone.createController({
+  inScope:s=>s?.combat===true,isHost:s=>s?.role==='host'||s?.role==='offline',
+  isPlayer:(s,a)=>a===s||a?.control==='remote'&&a?.rc222NativeActor===true&&nativeLocalMembers.has(a)||a?.control==='local'&&nativeLocalMembers.has(a),
+  isPaused:nativePaused,nativeAll:physicalAll,originalAllowed:oldAllowed,
+  applyDamage:(s,a,raw,source)=>{localHits.push({actor:a,raw,source});a.hp=Math.max(0,a.hp-raw);return true;}
+});
+const cleanupActorClocks=new Function('controller',cleanupSource+';return cleanupActorClocks;')(localController);
+const tracedLocalController=Object.create(localController);
+Object.defineProperty(tracedLocalController,'tick',{value:(s,a,dt,key)=>{localTickTrace.push({s,a,dt,key});return localController.tick(s,a,dt,key);}});
+const localTickHelper=new Function('worldOf','controller','showForLocalOrGuest',localTickHelperSource+';return tick;')(s=>s,tracedLocalController,()=>{});
+const nativeParty={state:localWorld,actors:[tickLocalP2,remotePartyActor,aiPartyActor],status:{role:'offline'},nativeFrames:0,nativeArgs:null,
+  tick(s,dt,...args){this.nativeFrames++;this.nativeArgs=[s,dt,...args];return 'native-party-result';},
+  checkpointRespawned(){this.actors=this.actors.map(actor=>actor===this.testLocal?this.checkpointLocal:actor);return true;},
+  endFrame(){this.actors=this.actors.map(actor=>actor===this.testLocal?this.endLocal:actor);return true;},
+  applySnapshot(){this.actors=this.actors.map(actor=>actor===this.testLocal?this.snapshotLocal:actor);return 'native-snapshot-result';}};
+nativeParty.testLocal=tickLocalP2;
+assert.ok(localPartyHookStart>=0&&localPartyHookEnd>localPartyHookStart,'actual native PARTY tick and actor-rebuild wrappers are extractable');
+const localPartyHook=bundleSource.slice(localPartyHookStart,localPartyHookEnd);
+new Function('P','worldOf','tick','cleanupActorClocks','liveWorld',localPartyHook+';return P.tick;')(nativeParty,s=>s,localTickHelper,cleanupActorClocks,()=>localWorld);
+for(let i=0;i<8;i++){
+  localWorld.time=(i+1)*.25;
+  assert.equal(nativeParty.tick(localWorld,.25,'native-hero-dt',.25),'native-party-result','the PARTY wrapper returns native result');
+}
+assert.equal(nativeParty.nativeFrames,8,'the original PARTY.tick runs exactly once per invocation');
+assert.deepEqual(nativeParty.nativeArgs,[localWorld,.25,'native-hero-dt',.25],'the native PARTY.tick arguments are preserved');
+assert.equal(localTickTrace.length,8,'the local actor is ticked once on each native party frame');
+assert.ok(localTickTrace.every((row,i)=>row.a===tickLocalP2&&row.dt===.25&&row.key===`dist01:${(i+1)*.25}:local-p2`),'local clock uses actual actor and native zone/time/slot frame key');
+assert.equal(localHits.length,1,'local P2 receives one finite native DOT tick after the 2 second grace-plus-interval');
+assert.equal(localHits[0].actor,tickLocalP2,'native local DOT owner is P2, not the canonical world');
+assert.equal(localHits[0].raw,5,'local DOT raw damage remains 0.5 percent of max HP');
+assert.equal(localController.snapshot(localWorld,localWorld).elapsedSeconds,0,'local P2 clock does not alias host clock');
+const duplicateBefore=localController.metrics().duplicateFrames;
+nativeParty.tick(localWorld,.25,'duplicate-native-frame',.25);
+assert.equal(localController.metrics().duplicateFrames,duplicateBefore+1,'same native time does not accrue a duplicate local frame');
+assert.equal(localController.snapshot(localWorld,tickLocalP2).elapsedSeconds,2,'duplicate native PARTY frame leaves local elapsed time unchanged');
+partyFixture.status.paused=true;
+nativeParty.tick(localWorld,.25,'paused-native-frame',.25);
+assert.equal(localController.snapshot(localWorld,tickLocalP2).elapsedSeconds,2,'native local PARTY tick honors pause without resetting the clock');
+partyFixture.status.paused=false;
+const exitsBeforeLocalDeath=localController.metrics().exits;
+tickLocalP2.hp=0;localWorld.time+=.25;nativeParty.tick(localWorld,.25,'local-death-frame',.25);
+assert.equal(localController.metrics().exits,exitsBeforeLocalDeath+1,'native local tick resets the actor clock on death before any readout');
+tickLocalP2.hp=1000;localWorld.time+=.25;nativeParty.tick(localWorld,.25,'local-revive-frame',.25);
+assert.equal(localController.snapshot(localWorld,tickLocalP2).elapsedSeconds,.25,'a revived local actor begins a fresh exposure clock');
+const exitsBeforeCheckpoint=localController.metrics().exits;
+nativeParty.checkpointLocal={slotId:'local-p2',control:'local',hp:1000,maxHp:1000,x:15,y:14};
+nativeLocalMembers.add(nativeParty.checkpointLocal);
+nativeParty.checkpointRespawned(localWorld);
+assert.equal(localController.metrics().exits,exitsBeforeCheckpoint+1,'checkpoint actor replacement releases the previous local clock');
+assert.equal(localController.snapshot(localWorld,nativeParty.checkpointLocal).elapsedSeconds,0,'checkpoint local actor replacement starts without a prior clock');
+nativeParty.testLocal=nativeParty.checkpointLocal;localWorld.time+=.25;
+nativeParty.tick(localWorld,.25,'checkpoint-first-frame',.25);
+assert.equal(localController.snapshot(localWorld,nativeParty.checkpointLocal).elapsedSeconds,.25,'replacement local actor receives a fresh native frame clock');
+const exitsBeforeEndFrame=localController.metrics().exits;
+nativeParty.endLocal={slotId:'local-p2',control:'local',hp:1000,maxHp:1000,x:15,y:14};
+nativeLocalMembers.add(nativeParty.endLocal);
+nativeParty.endFrame(localWorld);
+assert.equal(localController.metrics().exits,exitsBeforeEndFrame+1,'endFrame roster rebuild releases the replaced local clock');
+nativeParty.testLocal=nativeParty.endLocal;localWorld.time+=.25;
+nativeParty.tick(localWorld,.25,'endFrame-first-frame',.25);
+assert.equal(localController.snapshot(localWorld,nativeParty.endLocal).elapsedSeconds,.25,'endFrame replacement actor starts a fresh native clock');
+nativeParty.snapshotLocal={slotId:'local-p2',control:'local',hp:1000,maxHp:1000,x:15,y:14};
+nativeLocalMembers.add(nativeParty.snapshotLocal);
+const exitsBeforeSnapshot=localController.metrics().exits;
+assert.equal(nativeParty.applySnapshot({world:{fields:[]}}),'native-snapshot-result','the PARTY.applySnapshot wrapper preserves the native result');
+assert.equal(localController.metrics().exits,exitsBeforeSnapshot+1,'native snapshot actor replacement immediately releases the old local clock');
+assert.equal(localController.snapshot(localWorld,nativeParty.snapshotLocal).elapsedSeconds,0,'snapshot-rebuilt local actor starts without an inherited clock');
+
+// The production outgoing selector resolves the scoped actor first. An AI
+// source gets a neutral factor and never inherits the host actor penalty.
+const outgoingActorStart=bundleSource.indexOf('const outgoingActor=(world=liveWorld())=>',rc223Start);
+const outgoingActorEnd=bundleSource.indexOf('\n  const outgoing=',outgoingActorStart);
+const outgoingHookStart=outgoingActorEnd+1;
+const outgoingHookEnd=bundleSource.indexOf('\n  const rt=',outgoingHookStart);
+assert.ok(outgoingActorStart>=0&&outgoingActorEnd>outgoingActorStart&&outgoingHookEnd>outgoingHookStart,'actual native outgoing actor and multiplier hooks are extractable');
+const outgoingActorSource=bundleSource.slice(outgoingActorStart,outgoingActorEnd);
+const outgoingHookSource=bundleSource.slice(outgoingHookStart,outgoingHookEnd);
+const outgoingWorld={combat:true,role:'offline',zone:'dist01',time:90,hp:1000,maxHp:1000,x:15,y:14,enemies:[]};
+tickLocalP2.x=15;tickLocalP2.y=14;tickLocalP2.hp=1000;
+const safeRemote={slotId:'safe-remote',control:'remote',rc222NativeActor:true,hp:1000,maxHp:1000,x:22,y:24};
+const aiSource={slotId:'ai-source',control:'ai',rc222NativeActor:true,hp:1000,maxHp:1000,x:22,y:24};
+nativeLocalMembers.add(safeRemote);nativeLocalMembers.add(aiSource);
+const outgoingParty={outgoingActor:null},outgoingRuntime={activeActor:null};
+const outgoingResolver=new Function('actorOf','runtime','P','liveWorld',outgoingActorSource+';return outgoingActor;')(a=>a,()=>outgoingRuntime,outgoingParty,()=>outgoingWorld);
+const nativeOutgoing=new Function('MONGSE_heroOutgoingModeMultiplier31213','liveWorld','runtime','party','actorOf','controller','outgoingActor',outgoingHookSource+';return MONGSE_heroOutgoingModeMultiplier31213;')(()=>1,()=>outgoingWorld,()=>outgoingRuntime,()=>outgoingParty,a=>a,localController,outgoingResolver);
+outgoingParty.outgoingActor=tickLocalP2;
+assert.equal(nativeOutgoing('seoha',false),.9,'scoped local PARTY.outgoingActor receives the active outgoing penalty');
+outgoingParty.outgoingActor=aiSource;
+assert.equal(nativeOutgoing('neon',false),1,'an AI outgoing source gets neutral factor instead of borrowing host penalty');
+outgoingParty.outgoingActor=tickLocalP2;outgoingRuntime.activeActor=safeRemote;
+assert.equal(outgoingResolver(outgoingWorld),safeRemote,'active remote actor takes precedence over a local scoped actor');
+assert.equal(nativeOutgoing('seoha',false),1,'remote active actor factor is evaluated on its own position');
+outgoingRuntime.activeActor=null;outgoingParty.outgoingActor=null;
+assert.equal(outgoingResolver(outgoingWorld),outgoingWorld,'native outgoing selector falls back to world when no actor is scoped');
+assert.equal(nativeOutgoing('hwando',false),.9,'world-host outgoing penalty remains available for host attacks');
+
+// PARTY.configure catches offline actor removal/demotion while preserving
+// metadata refresh clocks for actors that remain in the roster.
+const configureStart=bundleSource.indexOf('if(P?.configure){',localPartyHookEnd);
+const configureEnd=bundleSource.indexOf('\n  if(rt?.updateRoom)',configureStart);
+assert.ok(configureStart>=0&&configureEnd>configureStart,'actual native PARTY.configure lifecycle wrapper is extractable');
+const configureSource=bundleSource.slice(configureStart,configureEnd);
+const configureWorld={combat:true,role:'offline',zone:'dist01',time:100,hp:1000,maxHp:1000,x:22,y:24,enemies:[]};
+const departingLocal={slotId:'departing-local',control:'local',hp:1000,maxHp:1000,x:15,y:14};
+const survivingLocal={slotId:'surviving-local',control:'local',hp:1000,maxHp:1000,x:15,y:14};
+nativeLocalMembers.add(departingLocal);nativeLocalMembers.add(survivingLocal);
+const configureParty={state:configureWorld,actors:[departingLocal,survivingLocal],configure({actors=this.actors,world,demote=[]}={}){this.actors=actors;if(world)this.state=world;for(const actor of demote)actor.control='ai';}};
+new Function('P','party','worldOf','liveWorld','controller',cleanupSource+';'+configureSource+';return P.configure;')(configureParty,()=>configureParty,s=>s,()=>configureParty.state,localController);
+localController.tick(configureWorld,departingLocal,.25,'configure-departing-frame');
+localController.tick(configureWorld,survivingLocal,.25,'configure-survivor-frame');
+const configureExitsBeforeRefresh=localController.metrics().exits;
+configureParty.configure({actors:[departingLocal,survivingLocal]});
+assert.equal(localController.metrics().exits,configureExitsBeforeRefresh,'offline configure metadata refresh preserves surviving actor clocks');
+const configureExitsBeforeLeave=localController.metrics().exits;
+configureParty.configure({actors:[survivingLocal]});
+assert.equal(localController.metrics().exits,configureExitsBeforeLeave+1,'PARTY.configure releases a removed local actor immediately');
+assert.equal(localController.snapshot(configureWorld,survivingLocal).elapsedSeconds,.25,'PARTY.configure keeps the continuing local actor clock');
+const configureExitsBeforeDemote=localController.metrics().exits;
+configureParty.configure({actors:[survivingLocal],demote:[survivingLocal]});
+assert.equal(localController.metrics().exits,configureExitsBeforeDemote+1,'PARTY.configure releases a human-to-AI demotion clock');
+assert.equal(localController.snapshot(configureWorld,survivingLocal).elapsedSeconds,0,'demoted local actor has no lingering clock');
+survivingLocal.control='local';localController.tick(configureWorld,survivingLocal,.25,'configure-before-world-change');
+const replacedLocalWorld={...configureWorld,time:110};
+const configureExitsBeforeWorld=localController.metrics().exits;
+configureParty.configure({actors:[survivingLocal],world:replacedLocalWorld});
+assert.equal(localController.metrics().exits,configureExitsBeforeWorld+1,'PARTY.configure world replacement clears old actor clocks');
+assert.equal(localController.snapshot(replacedLocalWorld,survivingLocal).elapsedSeconds,0,'new local world starts without an inherited exposure clock');
 
 // A guest can retain a host-replicated newly opened point, but native input
 // from the guest cannot enter that region.

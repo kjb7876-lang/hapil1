@@ -41,12 +41,16 @@
     const rejected=(reason,detail)=>{stats.rejected++;stats.rejectionReasons[reason]=(stats.rejectionReasons[reason]??0)+1;stats.lastRejection={reason,...detail};return false;};
     const contextRejected=reason=>{stats.contextRejected[reason]=(stats.contextRejected[reason]??0)+1;stats.lastContextRejection={reason,...authorityDiagnostic()};return false;};
     function actorContext(world,actor) {
+      // The Party object survives host control changes when slot and hero remain
+      // the same. Keep the native delegation marker aligned with its live role,
+      // including when a remote context is reused after an AI/local interval.
+      if(actor.control==='remote')actor.rc222NativeActor=true;else delete actor.rc222NativeActor;
       let ctx=contexts.get(actor);
       if(ctx&&ctx.world===world&&ctx.hero===actor.heroId)return ctx;
       const defaults=native().createState?.()??{};
       for(const key of Object.keys(defaults))if(owned(key)&&!Object.hasOwn(actor,key))actor[key]=clone(defaults[key]);
       actor.cooldowns??={};actor.resonance??=0;actor.combo??=0;actor.basicAttackCount??=0;actor.lastAttack??=-2;actor.lastDodgeAt??=-99;
-      actor.activeHeroId=actor.heroId;actor.rc222NativeActor=true;
+      actor.activeHeroId=actor.heroId;
       ctx={world,hero:actor.heroId,input:new Set(),auto:actor.rc222CombatMode??'manual',passives:null,shards:null,lastAttackHeld:false,zone:world.zone};
       const target={};
       ctx.view=new Proxy(target,{
@@ -238,7 +242,12 @@
         // A native story companion can accompany those humans outside the four room slots.
         const story=preserveStory?getParty().roster?.find(r=>r.slotId==='story68'&&r.control==='ai'):null;
         const configured=story&&rows.length<8&&!rows.some(r=>r.slotId===story.slotId||r.heroId===story.heroId)?[...rows,{...story}]:rows;
-        getParty().configure({mode:'network',roster:configured});rosterSignature=signature;
+        const party=getParty();party.configure({mode:'network',roster:configured});
+        for(const actor of party.actors??[])if(actor.control!=='remote'){
+          if(actor.rc222NativeActor||contexts.has(actor))releaseInputs('controller-change',actor.slotId);
+          delete actor.rc222NativeActor;
+        }
+        rosterSignature=signature;
       }
     }
     function updateRoom(next={}) {const oldEpoch=epoch;room={...(room??{}),...next};if(Number.isSafeInteger(next.epoch)&&next.epoch>=epoch)epoch=next.epoch;if(oldEpoch!==epoch){env.__HAPIL_GUEST_VOICE_RC223__?.invalidate?.(epoch);wireSeq=-1;releaseInputs('epoch');stats.transitions++;}if(attached)configureRoster(room);return status();}
