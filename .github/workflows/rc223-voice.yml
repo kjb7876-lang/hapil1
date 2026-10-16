@@ -106,7 +106,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, host-down-reward, host-down-reward-baseline, laser-relay, coop, coop-mixed, combat]
+        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, host-down-reward, host-down-reward-baseline, laser-relay, laser-relay-prep, coop, coop-mixed, combat]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -171,6 +171,7 @@ jobs:
               test_file=tests/rc223-host-down-reward-browser.cjs
               ;;
             laser-relay) test_file=tests/rc223-laser-relay-browser.cjs ;;
+            laser-relay-prep) export HAPIL_LASER_RELAY_LEGACY_PREP=1; test_file=tests/rc223-laser-relay-browser.cjs ;;
             coop) test_file=tests/rc222-browser.cjs ;;
             coop-mixed) export HAPIL_COOP_MIXED_HEROES=1; test_file=tests/rc222-browser.cjs ;;
             combat) test_file=tests/rc210-browser.cjs ;;
