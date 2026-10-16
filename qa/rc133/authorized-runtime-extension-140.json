@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "fecf21108e28677562475d0cd1a87f993e9187b0",
+  "baseTree": "609272ce13baad5d2a6ae86ab9d6d131f58394e4",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "a0d16aa49b6ef043d408a3880fee2beb257e486d6e84565b34100235bfb276ff",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "9c83fd7e7695fa007fa0646de7fa661963f6cd99",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "3709b1b21a84a50a50dd4b04be5da44a471661ffd40d1292b1d52ef89f18d215",
+        "gitBlob": "3ad0d1e6fcf4e4d13edec398d28c72eefd0ebca1"
+      },
+      "reason": "assets/index-v31526.js: expand Cosmic Lucifer's original blood-beam resonance parry into an arena-wide convergence and edge-to-edge final cut."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "bd4de29da8a88cbbd975f6823bbf0f876cc36d00",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "cd06fa24c8760c4dcbda47466ad909a712b2aaa3b3b43717037860487259691c",
+        "gitBlob": "3c602c8c652de30c427d6864dba564624e62c0af"
+      },
+      "reason": "index.html: expand Cosmic Lucifer's original blood-beam resonance parry into an arena-wide convergence and edge-to-edge final cut."
+    }
+  ],
+  "targetProtectedRowsSha256": "6dff1d14852e31d484b91232810323e1457d61528e73bb49d8722ab9982cd0c8"
+}
