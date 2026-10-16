@@ -146,36 +146,70 @@ async function createNativePage({name, mobile = false, width, height}) {
   return page;
 }
 
-async function startGame(page) {
+async function startGame(page, profile) {
   await page.keyboard.press('Escape');
   await page.getByRole('button', {name:'새 게임 시작', exact:true}).click();
   await page.getByRole('button', {name:'이 편성으로 접속', exact:true}).click();
   await page.waitForFunction(() => window.__HAPIL_CONTROLS_V31329__?.binding?.phase === 'game' && !!window.__HAPIL_CONTROLS_V31329__.binding.state.current, null, {timeout: 30000});
-  for (let i = 0; i < 22 && await page.locator('#hapil-story-rc51').count(); i++) {
-    await page.keyboard.press('Enter'); await page.waitForTimeout(70);
-  }
-  await page.evaluate(() => {
+  const setup=await page.evaluate(() => {
     const C=window.__HAPIL_CONTROLS_V31329__,s=C.binding.state.current;
+    const S=window.__HAPIL_STORY_RC51__;
     window.__HAPIL_PARTY_LAUNCH_V31322__?.dismissGuestUI?.();
-    window.__HAPIL_STORY_RC51__?.close?.(false);
+    S?.suppressEntry?.(s);
+    S?.close?.(false);
+    S?.beforeFrame?.(s,{blocked:false,clear:false,sound:false});
+    S?.close?.(false);
     C.binding.actions.dismiss(); C.setMode('manual');
     s.invulnerableUntil=s.time+120;
+    return {startTime:s.time,invulnerableUntil:s.invulnerableUntil,invulnerabilityMethod:'state.invulnerableUntil = state.time + 120'};
   });
   await page.locator('.game-stage canvas').waitFor({state:'visible'});
+  try {
+    await page.waitForFunction(setup => {
+      const C=window.__HAPIL_CONTROLS_V31329__,s=C?.binding?.state?.current,S=window.__HAPIL_STORY_RC51__;
+      return !!s&&s.time>setup.startTime+.1&&!S?.isOpen?.()&&window.__HAPIL_READING_V31342__?.blocked!==true&&!C.binding.modal?.current;
+    }, setup, {timeout: 15000});
+  } catch(error) {
+    report.setupFailure={profile,error:error.stack||String(error),state:await cameraSettingsState(page).catch(e=>({diagnosticError:String(e)}))};
+    throw error;
+  }
   await page.waitForFunction(() => !!window.__HAPIL_CAMERA_RC223__?.diagnostics?.().last, null, {timeout: 15000});
+  return {...await cameraSettingsState(page),startTime:setup.startTime,invulnerableUntil:setup.invulnerableUntil,invulnerabilityMethod:setup.invulnerabilityMethod};
 }
 
-async function setViaNativeSlider(page, factor) {
-  await page.evaluate(() => window.__HAPIL_CONTROLS_V31329__.binding.actions.settings());
+async function cameraSettingsState(page) {
+  return await page.evaluate(() => {
+    const C=window.__HAPIL_CONTROLS_V31329__,S=window.__HAPIL_STORY_RC51__,s=C?.binding?.state?.current,
+      slider=document.querySelector('input[type="range"][aria-label="전장 시야 범위"]'),active=document.activeElement,
+      story=document.querySelector('#hapil-story-rc51');
+    return {
+      time:s?.time??null,zone:s?.zone??null,factor:window.__HAPIL_CAMERA_RC223__?.factor?.()??null,
+      sliderValue:slider?Number(slider.value):null,sliderOutput:document.querySelector('.rc223-view-settings output')?.textContent??null,
+      sliderVisible:!!(slider&&slider.getClientRects().length),
+      focus:active?{tag:active.tagName,id:active.id??'',type:active.type??'',ariaLabel:active.getAttribute?.('aria-label')??'',isSlider:active===slider}:null,
+      story:{open:S?.isOpen?.()===true,element:!!story,phase:story?.dataset?.phase??null,title:story?.querySelector?.('#rc51-title')?.textContent??null},
+      readingBlocked:window.__HAPIL_READING_V31342__?.blocked===true,modal:!!C?.binding?.modal?.current,
+      settingsOpen:!!document.querySelector('.settings-layout')
+    };
+  });
+}
+
+async function setViaNativeSlider(page, factor, profile) {
   const slider = page.locator('input[type="range"][aria-label="전장 시야 범위"]');
-  await slider.waitFor({state:'visible'});
-  await slider.focus();
-  await slider.press('Home');
-  for (let i=0; i<Math.round((factor-1)/.05); i++) await slider.press('ArrowRight');
-  await page.waitForFunction(expected => {
-    const a=window.__HAPIL_CAMERA_RC223__, el=document.querySelector('input[aria-label="전장 시야 범위"]');
-    return a?.factor?.()===expected && Number(el?.value)===expected && document.querySelector('.rc223-view-settings output')?.textContent===Math.round(expected*100)+'%';
-  }, factor, {timeout: 8000});
+  try {
+    await page.evaluate(() => window.__HAPIL_CONTROLS_V31329__.binding.actions.settings());
+    await slider.waitFor({state:'visible'});
+    await slider.focus();
+    await slider.press('Home');
+    for (let i=0; i<Math.round((factor-1)/.05); i++) await slider.press('ArrowRight');
+    await page.waitForFunction(expected => {
+      const a=window.__HAPIL_CAMERA_RC223__, el=document.querySelector('input[aria-label="전장 시야 범위"]');
+      return a?.factor?.()===expected && Number(el?.value)===expected && document.querySelector('.rc223-view-settings output')?.textContent===Math.round(expected*100)+'%';
+    }, factor, {timeout: 8000});
+  } catch(error) {
+    report.sliderFailure={profile,expectedFactor:factor,error:error.stack||String(error),state:await cameraSettingsState(page).catch(e=>({diagnosticError:String(e)}))};
+    throw error;
+  }
   return await page.evaluate(() => ({value:Number(document.querySelector('input[aria-label="전장 시야 범위"]').value),min:Number(document.querySelector('input[aria-label="전장 시야 범위"]').min),max:Number(document.querySelector('input[aria-label="전장 시야 범위"]').max),step:Number(document.querySelector('input[aria-label="전장 시야 범위"]').step),output:document.querySelector('.rc223-view-settings output')?.textContent,snapshot:window.__HAPIL_CAMERA_RC223__.snapshot(),stored:localStorage.getItem('hapil.rc223.viewFactor')}));
 }
 
@@ -427,7 +461,7 @@ async function runProfile({name,mobile,width,height}) {
   assert.equal(defaultSnapshot.factor,mobile?2:1,'default view factor follows mobile/PC profile');
   assert.equal(defaultSnapshot.saved,false,'fresh profile has no persisted factor');
   row.default=defaultSnapshot;
-  await startGame(page);
+  row.setup=await startGame(page,name);
   const originalCSS=await page.evaluate(()=>{
     const out={};for(const sel of ['.game-stage','.game-stage canvas','.topbar','.mission-tag','.minimap','.rc108-settings-trigger','.mobile-system-menu']){const e=document.querySelector(sel);if(e){const r=e.getBoundingClientRect(),s=getComputedStyle(e);out[sel]={width:r.width,height:r.height,fontSize:s.fontSize,lineHeight:s.lineHeight,padding:s.padding,borderRadius:s.borderRadius};}}
     return out;
@@ -436,7 +470,7 @@ async function runProfile({name,mobile,width,height}) {
 
   for(const factor of [1,1.5,2]) {
     row.slider??=[];
-    row.slider.push(await setViaNativeSlider(page,factor));
+    row.slider.push(await setViaNativeSlider(page,factor,name));
     await closeNativeSettings(page);
     await page.waitForTimeout(180);
     const evidence=await cameraEvidence(page,factor);assertCameraFormula(evidence,factor);
@@ -524,11 +558,14 @@ async function runProfile({name,mobile,width,height}) {
       appSha,
       profiles:report.profiles.map(profile=>({
         name:profile.name,
+        setup:profile.setup??null,
         collision:{status:profile.collision?(profile.collision.rows?.length===3?'passed':'incomplete'):'not-run',factors:profile.collision?.rows?.map(row=>row.factor)??[]},
         portraitCombatBlocked:profile.portraitCombatGate?.blocked??null,
         captures:report.captures.filter(capture=>capture.name.startsWith(profile.name+'-')).length
       })),
       captureCount:report.captures.length,
+      setupFailure:report.setupFailure??null,
+      sliderFailure:report.sliderFailure??null,
       failure:failure?.error??null
     }));
     await Promise.all(contexts.map(context=>context.close().catch(()=>{})));

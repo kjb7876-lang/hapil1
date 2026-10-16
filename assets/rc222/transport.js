@@ -119,12 +119,16 @@
       if(message.type==='session') {
         if(!data.sessionId||!data.resumeToken||!/^p[1-4]$/.test(data.slotId))throw new Error('중계 서버의 참가 정보가 올바르지 않습니다.');
         const continuing=this.session?.sessionId===data.sessionId;
+        // Reattachment resets the relay's loaded flag even when this exact
+        // transition is already applied locally. Confirm that state again;
+        // ordinary duplicate/stale snapshots still follow the sequence guard.
+        const alreadyLoaded=continuing&&this.session.isHost===false&&data.isHost===false&&this.session.roomCode===(data.roomCode||data.code)&&this.session.slotId===data.slotId&&Number.isSafeInteger(data.epoch)&&data.epoch>0&&data.epoch===this.epoch&&data.epoch===this.loadedEpoch&&data.seq===this.receivedSeq;
         this.session=session={sessionId:data.sessionId,resumeToken:data.resumeToken,slotId:data.slotId,isHost:data.isHost===true,roomCode:data.roomCode||data.code,mode:data.mode||'STORY'};
         this.roster=(data.roster||[]).slice(0,4);this.phase=data.phase||'lobby';this.epoch=finite(data.epoch);this.snapshotSeq=Math.max(this.snapshotSeq,finite(data.seq));this.retries=0;this.retrySince=0;this.error='';this.hostHidden=!!(data.hostStatus?.hidden??data.hostHidden);this.hostPaused=!!(data.hostStatus?.paused??data.hostPaused);
         if(!continuing){this.started=false;this.receivedSeq=-1;this.loadedEpoch=-1;this.transitionEpoch=-1;this.lastZone=null;this.lastSentSnapshot=0;this.lastFullSnapshot=0;this.inputSeq=0;this.inputSequences.clear();}
         this.persist();await this.call('attach',this.runtimeState());if(!this.isCurrent(generation,session))return;await this.call('updateRoom',this.runtimeState());if(!this.isCurrent(generation,session))return;
         this.call('role',this.phase==='playing'?(this.session.isHost?'host':'guest'):'disconnected');
-        if(data.snapshot&&!this.session.isHost)await this.applySnapshot({...data,type:'transition'},true);
+        if(data.snapshot&&!this.session.isHost){if(alreadyLoaded){this.lastSnapshot=this.now();this.send('loaded',{epoch:this.loadedEpoch});}else await this.applySnapshot({...data,type:'transition'},true);}
         if(!this.isCurrent(generation,session))return;
         await this.syncPhase();if(!this.isCurrent(generation,session))return;this.scheduleTick();
       } else if(message.type==='room') {

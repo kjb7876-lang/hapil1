@@ -7,6 +7,7 @@
   'kair-great-01':'kair-great-01.webp','kair-great-02':'kair-great-02.webp','kair-great-03':'kair-great-03.webp','kair-great-04':'kair-great-04.webp','kair-great-05':'kair-great-05.webp','kair-great-06':'kair-great-06.webp'
  };
  const ownerBeam=new Map(Object.entries(CUSTOM).map(([id,file])=>[id,BEAM_ROOT+file]));
+ const routedBeam=id=>{const legacy=ownerBeam.get(id);return legacy?(window.__HAPIL_RC33__?.beamPathFor?.(id)||legacy):'';};
  const BLACKHOLE_ROOT='./assets/vfx/rc32/blackholes/',BLACKHOLE_STYLE=Object.freeze({
   'dist00-boss':'infernal','dist06-boss':'infernal',
   'a11-boss':'celestial','a11-cosmic-v31318':'celestial',
@@ -22,9 +23,9 @@
   const api=window.__HAPIL_LASERS_V31330__,blood=window.__HAPIL_BLOOD_RC16__;
   if(!api?.installed||!api.owners||!api.tick||!api.draw||!blood?.draw){if(attempt<240)setTimeout(()=>install(attempt+1),25);return;}
   let routed=0;
-  for(const owner of api.owners){const path=ownerBeam.get(owner.id);if(!path)continue;owner.beam=path;routed++;}
+  for(const owner of api.owners){const path=routedBeam(owner.id);if(!path)continue;owner.beam=path;routed++;}
   const bloodOwner=api.owners.find(owner=>owner.id==='a11-cosmic-v31318');
-  if(bloodOwner){bloodOwner.beam=ownerBeam.get(bloodOwner.id);try{blood.asset=ownerBeam.get(bloodOwner.id);}catch{}}
+  if(bloodOwner){const path=routedBeam(bloodOwner.id);bloodOwner.beam=path;try{blood.asset=path;}catch{}}
   stats.beamsRouted=routed;
   const originalDraw=api.draw;
   api.draw=function(ctx,cache,state,settings={}){
@@ -41,7 +42,7 @@
   api.tick=function(state,dt,...rest){window.__HAPIL_DEFERRED_DAMAGE_RC210__?.tick(state,dt);window.__HAPIL_MACHINE_FIELDS_RC210__?.tick(state,dt);window.__HAPIL_INSOMNIA_FOG_RC210__?.tick(state,dt);window.__HAPIL_MORGA_RC210__?.tick(state,dt);window.__HAPIL_WALL_TOWERS_RC210__?.tick(state,dt);const result=originalTick.call(this,state,dt,...rest);try{tickBlackholes(state,dt);}catch(error){stats.tickErrors++;}return result;};
   const originalBloodDraw=blood.draw;
   blood.draw=function(ctx,cache,state,cast,settings={}){
-   if(cast&&(cast.sourceId==='a11-cosmic-v31318'||cast.ownerIdV31331==='a11-cosmic-v31318'||state?.enemies?.some(actor=>actor.id===cast.sourceId&&actor.cosmicLuciferV31318)))cast.beam=ownerBeam.get('a11-cosmic-v31318');
+   if(cast&&(cast.sourceId==='a11-cosmic-v31318'||cast.ownerIdV31331==='a11-cosmic-v31318'||state?.enemies?.some(actor=>actor.id===cast.sourceId&&actor.cosmicLuciferV31318)))cast.beam=routedBeam('a11-cosmic-v31318');
    return originalBloodDraw.call(this,ctx,cache,state,cast,settings);
   };
   window.__HAPIL_RC32__=Object.freeze({installed:true,version:VERSION,customBossBeams:routed,owners:Object.freeze([...ownerBeam.keys()]),blackholeStyles:BLACKHOLE_STYLE,fixText,stats:()=>({...stats})});

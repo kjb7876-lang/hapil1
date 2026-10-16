@@ -6,6 +6,10 @@ for(let n=15;n<=148;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-e
 let checks=0;
 assert.equal(verify(input),'exact-chained-RC155+RC152+EGO+resume');checks++;
 const patches=[
+ {html:input.html.replace('rc222/transport.js?v=22301','rc222/transport.js?v=22201')},
+ {html:input.html.replace('rc222/transport.js?v=22301','rc222/transport.js?v=22300')},
+ {html:input.html.replace('rc32/boss-and-mobile.js?v=22301','rc32/boss-and-mobile.js?v=21001')},
+ {html:input.html.replace('rc32/boss-and-mobile.js?v=22301','rc32/boss-and-mobile.js?v=22300')},
  {html:input.html.replace('index-v31526.js?v=22301','index-v31526.js?v=22009')},
  {html:input.html.replace('index-v31526.js?v=22301','index-v31526.js?v=22002')},
  {html:input.html.replace('index-v31526.js?v=22301','index-v31526.js?v=21401')},
