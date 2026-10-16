@@ -26,8 +26,8 @@ const server=http.createServer((req,res)=>{
   try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.setHeader('Cache-Control','no-store');res.end(fs.readFileSync(file));}catch{return res.writeHead(404).end();}
 });
 const report={schema:1,status:'running',appSha,sourceFiles:sourceFiles.map(file=>({file,sha256:sourceHashes[file]})),
-  method:'one fresh host/guest RC222 room, native dist06 entry at 15% boss HP with explicitly dismissed pre-entry reader, real transition and native boss timers; receiver records the original Party.applySnapshot call-through result and raw laser cast without changing it',
-  fixture:{zone:'dist06',bossId:'dist06-boss',bossHpRatio:.15,expectedNativePhase:3,wait:'up to 30 simulation seconds or 60 wall seconds after peer transition',attackTimers:'left to the native QA map entry and game loop'},
+  method:'one fresh host/guest RC222 room, native dist06 entry with explicitly staged 15% boss HP/final-phase fields and dismissed pre-entry reader, real transition and native boss timers; receiver records the original Party.applySnapshot call-through result and raw laser cast without changing it',
+  fixture:{zone:'dist06',bossId:'dist06-boss',bossHpRatio:.15,explicitFinalPhaseFields:3,expectedNativePhase:3,wait:'up to 30 simulation seconds or 60 wall seconds after peer transition',attackTimers:'left to the native QA map entry and game loop'},
   environment:{officialChrome:false,contexts:0,actualWebSocketRelay:false},pageErrors:[],httpErrors:[],requestFailures:[],hostCasts:[],receiver:{applyEvents:[],failedLaserApplications:[]}};
 let browser,relay,host,guest,base,failure;
 const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
@@ -81,7 +81,7 @@ async function main(){
       const validFor=c=>{try{return L.valid(c,snap?.zone);}catch(e){return{error:String(e?.message??e)};}};
       const row={wireSeq:meta?.seq??null,wireEpoch:meta?.epoch??null,transition:meta?.transition??false,snapshotSeq:snap?.seq??null,zone:snap?.zone??null,laserFieldEntryCount:laserEntries.length,castCount:Array.isArray(raw)?raw.length:null,rawCastListTruncated:Array.isArray(raw)&&raw.length>8,rawLaserCasts:casts,rawLaserEntries:laserEntries.slice(0,4).map(e=>({count:Array.isArray(e[1])?e[1].length:null,truncated:Array.isArray(e[1])&&e[1].length>8,casts:cloneList(e[1])})),activeHeroId:world.activeHeroId??null,partyActors:(snap?.party?.actors??[]).slice(0,8).map(a=>({slotId:a.slotId,heroId:a.heroId,hp:a.hp,maxHp:a.maxHp})),
         castOwners:casts.map(c=>{const owner=Array.isArray(world.enemies)?world.enemies.find(e=>e?.id===c?.sourceId):null;return{sourceId:c?.sourceId??null,owner:owner?{id:owner.id,hp:owner.hp,maxHp:owner.maxHp,phase:(()=>{try{return window.__HAPIL_RC86_BRIDGE__?.phase?.(owner)??null;}catch(e){return{error:String(e?.message??e)};}})(),attackAt:owner.attackAt,readyAt:owner.readyAt,recoverUntil:owner.recoverUntil}:null,profile:profileFor(c)};}),
-        validResults:casts.map(c=>({id:c?.id??null,sourceId:c?.sourceId??null,valid:validFor(c),profileKey:c?.profileKeyV31332??null,profile:profileFor(c)})),bossOwner:boss?{id:boss.id,hp:boss.hp,maxHp:boss.maxHp,phase:(()=>{try{return window.__HAPIL_RC86_BRIDGE__?.phase?.(boss)??null;}catch(e){return{error:String(e?.message??e)};}})(),attackAt:boss.attackAt,readyAt:boss.readyAt,recoverUntil:boss.recoverUntil}:null,
+        validResults:casts.map(c=>({id:c?.id??null,sourceId:c?.sourceId??null,valid:validFor(c),ownerConfig:JSON.parse(JSON.stringify((L.owners??[]).find(owner=>owner.id===c?.sourceId)??null)),policyValid:window.__HAPIL_BOSS_POLICY_RC175__?.validMode?.(c)??null,profileKey:c?.profileKeyV31332??null,profile:profileFor(c)})),bossOwner:boss?{id:boss.id,hp:boss.hp,maxHp:boss.maxHp,phase:(()=>{try{return window.__HAPIL_RC86_BRIDGE__?.phase?.(boss)??null;}catch(e){return{error:String(e?.message??e)};}})(),attackAt:boss.attackAt,readyAt:boss.readyAt,recoverUntil:boss.recoverUntil}:null,
         lasersBefore:statsBefore,nativeRejectedBefore:P.telemetry?.().rejected??null};
       let result,error;try{result=nativeApply.call(this,snap,...args);return result;}catch(e){error=e;throw e;}finally{
         row.applyAccepted=!error&&result!==false;row.applyResult=error?'threw':result===false?false:result===true?true:(result??null);row.thrown=error?String(error.stack||error).slice(0,1200):null;
@@ -101,10 +101,10 @@ async function main(){
     if(!result?.pass||result.bossId!=='dist06-boss')throw Error('native dist06 QA entry failed '+JSON.stringify(result));
     const current=P.state,C=window.__HAPIL_CONTROLS_V31329__;window.__HAPIL_STORY_RC51__?.suppressEntry?.(current);window.__HAPIL_STORY_RC51__?.close?.(false);window.__HAPIL_STORY_RC51__?.beforeFrame?.(current,{blocked:false,clear:false,sound:false});window.__HAPIL_STORY_RC51__?.close?.(false);C.binding.actions.dismiss();C.binding.modal.current=null;C.setMode('manual');Object.assign(current,{paused:false,pause:false,encounterLockUntil31226:0,encounterWallUnlockAtV31227:0,encounterDialogue31226:null,timeStopUntil:0});
     const boss=P.state.enemies.find(e=>e.id==='dist06-boss');if(!boss||!(boss.maxHp>0))throw Error('staged native boss missing maximum HP');
-    boss.hp=boss.maxHp*.15;
+    boss.hp=boss.maxHp*.15;boss.currentPhase=3;boss.phaseIndex=3;
     return{result,zone:P.state.zone,time:P.state.time,boss:{id:boss.id,hp:boss.hp,maxHp:boss.maxHp,hpRatio:boss.hp/boss.maxHp,phase:window.__HAPIL_RC86_BRIDGE__?.phase?.(boss)??null,phaseCount:boss.phaseCount,attackAt:boss.attackAt,readyAt:boss.readyAt,recoverUntil:boss.recoverUntil},nativeTimersUnchangedByFixture:true};
   });
-  report.fixture.staged=stage;assert.equal(stage.zone,'dist06');assert.equal(stage.boss.id,'dist06-boss');assert(Math.abs(stage.boss.hpRatio-.15)<1e-10);assert.equal(stage.boss.phase,3,'15% native boss HP selects phase 3');
+  report.fixture.staged=stage;assert.equal(stage.zone,'dist06');assert.equal(stage.boss.id,'dist06-boss');assert(Math.abs(stage.boss.hpRatio-.15)<1e-10);assert.equal(stage.boss.phase,3,'explicit final-phase fields and 15% boss HP match the retained failing relay scenario');
   const transition=await host.evaluate(()=>window.__HAPIL_REMOTE_RC222__?.publishTransition?.('dist06'));
   assert.equal(transition,true,'host published the actual native dist06 transition');
   await Promise.all([host,guest].map(p=>p.waitForFunction(()=>window.__HAPIL_PARTY_V31322__?.state?.zone==='dist06'&&window.__HAPIL_REMOTE_RC222__.status().phase==='playing'&&!window.__HAPIL_REMOTE_RC222__.status().stale,null,{timeout:30000})));
@@ -115,7 +115,7 @@ async function main(){
     const sample=()=>{const P=window.__HAPIL_PARTY_V31322__,s=P?.state,L=window.__HAPIL_LASERS_V31330__;if(!s||s.zone!=='dist06')return;
       for(const c of s.bossLaserCastsV31330??[]){const key=String(c.id)+'/'+String(c.sourceId);if(probe.seen.has(key))continue;probe.seen.add(key);
         const owner=(s.enemies??[]).find(e=>e.id===c.sourceId),profiles=window.__HAPIL_LASERS_V31331__?.profiles?.get?.(c.sourceId)??[],profile=profiles.find(p=>p.key===c.profileKeyV31332)||profiles.find(p=>p.type===c.type)||null;
-        const event={at:s.time,zone:s.zone,wireSeq:null,rawLaserCast:JSON.parse(JSON.stringify(c)),valid:L.valid(c,s.zone),laserStats:L.stats(),bossOwner:owner?{id:owner.id,hp:owner.hp,maxHp:owner.maxHp,phase:window.__HAPIL_RC86_BRIDGE__?.phase?.(owner)??null,attackAt:owner.attackAt,readyAt:owner.readyAt,recoverUntil:owner.recoverUntil}:null,profile};
+        const event={at:s.time,zone:s.zone,wireSeq:null,rawLaserCast:JSON.parse(JSON.stringify(c)),valid:L.valid(c,s.zone),ownerConfig:JSON.parse(JSON.stringify((L.owners??[]).find(row=>row.id===c.sourceId)??null)),laserStats:L.stats(),bossOwner:owner?{id:owner.id,hp:owner.hp,maxHp:owner.maxHp,phase:window.__HAPIL_RC86_BRIDGE__?.phase?.(owner)??null,attackAt:owner.attackAt,readyAt:owner.readyAt,recoverUntil:owner.recoverUntil}:null,profile};
         if(probe.events.length<12)probe.events.push(event);
       }
     };sample();probe.timer=setInterval(sample,80);

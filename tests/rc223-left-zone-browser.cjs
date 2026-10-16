@@ -535,7 +535,7 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
         target.x=24;target.y=24;const point={x:15,y:14};
         return{runPolicy:window.__HAPIL_RUN_V31400__?.get?.(s),party:P.status,roster:P.roster,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,hp:actor.hp,maxHp:actor.maxHp},target:{id:target.id,hp:target.hp,maxHp:target.maxHp,boss:!!target.boss,midboss:!!target.midboss},openFloor:{physicalAll:R.contains(point,'all',.8),previousSide:R.contains(point,R.side(s,true),.8),allowed:L.allowed(s,actor,point,.8),canMove:L.canMove(s,actor,point,.8),inRegion:L.regionAt(s,actor,point),exposed:L.exposed(s,actor,point)},npcNeutral:{isPlayer:R.player(s,target),inRegion:L.regionAt(s,target,point),exposed:L.exposed(s,target,point),factors:L.factors(s,target)},hooks:L.hooks};
       });
-      const setup={...setupPrefix,...nativeRebuild,...setupStage,startupQueueDrained};
+      const setup={...setupPrefix,...nativeRebuild,...setupStage,nativeRebuild,startupQueueDrained};
       assert.equal(setup.nativeRebuild.actorReferenceChanged,true,'native zone tick replaces the P2 registry object through PARTY.spawn before fixture cooldown staging');
       assert.equal(setup.nativeActorRebuild.timeAdvancedFromFixtureStart,true,'fresh P2 identity appears only after an actual game simulation frame advances in dist01');
       assert.equal(setup.startupQueueDrained.actorSame,true,'fresh native local P2 actor remains registered after its startup queue resolves');
