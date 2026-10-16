@@ -119090,7 +119090,7 @@ function HAPIL_allowMidbossTorsoOverlayV31318(actor, presentation) {
     r.mode="countered";r.last=num(s.time);r.recovery=1.15;
     for(const key of ["atomicCastUntil31210","castVisualUntil31210","skillCastLockUntilV31412","skillCastPhaseLockUntilV31412","cosmicPoseUntilV31318"])boss[key]=Math.min(num(boss[key]),num(s.time)+1.15);
     boss.readyAt=Math.max(num(boss.readyAt),num(s.time)+1.15);boss.recoverUntil=Math.max(num(boss.recoverUntil),num(s.time)+1.15);boss.cosmicPoseV31318="recovery";boss.cosmicPoseUntilV31318=num(s.time)+1.15;boss.staggerUntil=Math.max(num(boss.staggerUntil),num(s.time)+.8);
-    const effect={id:s.fxSerial++,kind:"cosmicCounterRC221",cosmicCounterRC221:true,cosmicAssetV31318:assets.beam,rc220LuciferField:h.rc220LuciferField,sourceId:boss.id,bossCastId31210:r.cast,x:h.x,y:h.y,originX:h.originX,originY:h.originY,counterX:s.x,counterY:s.y,bossX:boss.x,bossY:boss.y,born:s.time,duration:1.45,imageOnly:true,forceFront:true};(s.effects??[]).push(effect);
+    const effect={id:s.fxSerial++,kind:"cosmicCounterRC221",cosmicCounterRC221:true,cosmicAssetV31318:assets.beam,sprite:assets.beam,heroId31213:s.activeHeroId,rc220LuciferField:h.rc220LuciferField,sourceId:s.activeHeroId??"__host",cosmicCounterBossIdRC221:boss.id,cosmicCounterSourceCastRC221:r.cast,x:h.x,y:h.y,originX:h.originX,originY:h.originY,counterX:s.x,counterY:s.y,bossX:boss.x,bossY:boss.y,born:s.time,duration:1.45,imageOnly:true,forceFront:true};(s.effects??[]).push(effect);
     (s.floatTexts??[]).push({id:s.fxSerial++,x:boss.x,y:boss.y,born:s.time,duration:.95,text:"공명 파훼 · 천문 역광",color:"#fff1b5",critical:true});metrics.cancelled++;metrics.countered=(metrics.countered??0)+1;
     return{handled:true,success:true,damage:damageBefore-num(boss.hp),bossHpBefore:damageBefore,bossHpAfter:num(boss.hp),resonance:s.resonance,cast:r.cast};
   }
@@ -119919,7 +119919,7 @@ const ownerEffects=window.__HAPIL_OWNER_PIPELINE_V31404__.startEffects(Gn,drawLa
    }finally{ctx.restore();}
    e.deliveryRenderedV31322=true;e.deliveryRenderedRoutesV31322=rows.length;return true;
  }
- function essential(e){return !!(e?.deliveryRoutesV31322?.length||e?.bossImpactTransitV31232||e?.postTelegraphCoverageImageV31233||e?.cosmicShotV31318||e?.cosmicAttackV31318||e?.spectacleV31317||e?.actualBossSkillVfx||e?.heroUltimateVolleyV31309);}
+ function essential(e){return !!(e?.cosmicCounterRC221||e?.deliveryRoutesV31322?.length||e?.bossImpactTransitV31232||e?.postTelegraphCoverageImageV31233||e?.cosmicShotV31318||e?.cosmicAttackV31318||e?.spectacleV31317||e?.actualBossSkillVfx||e?.heroUltimateVolleyV31309);}
  const buffs=Object.freeze({
   hwando:{name:'흰 칼의 결속',text:'파티 피해 +6%'},gunner:{name:'기억 탄도',text:'원거리 영웅 피해 +8%'},seoha:{name:'시간의 맥박',text:'Q/W/E 재사용 회복 +6%'},neon:{name:'성기사의 맹세',text:'받는 피해 −8%'},michaela:{name:'세라핌의 온기',text:'전투 중 초당 최대 체력 0.3% 회복'},lauren:{name:'심판의 표식',text:'보스·중간보스 피해 +8%'},hunter:{name:'혈흔 추적',text:'치명 피해 +8%'},slayer:{name:'검붉은 투지',text:'체력 절반 이하인 파티원 피해 +12%'}
  });

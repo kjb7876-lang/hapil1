@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "53caf325ced0217f73c19f1a1803b70a29ef6748",
+  "baseTree": "6b381b2b624bc0e3280d4a69d7c3477cff0b1a94",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "103d80e56b871049694d5fa6a97e54eec66b5f66fb0b56cd31b8a24ab1cd9b81",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "8b5bdb1cd3d79deaf9c56ab74b0604cabe45735a"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "40e1c6f90c00fc55ea66d64fbd879ba269ac75a8bd707484a29b9233bedf7362",
+        "gitBlob": "29eea70c07572b87ca9a0954b94316f51cdff246"
+      },
+      "reason": "assets/index-v31526.js: keep the player resonance counter image through hostile theme binding, boss-cast cleanup and crowded native effect trimming while preserving its 1.45-second expiry."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8fe5fc52cd9a4424375b1e71d296a1ce2b154a2e"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "1e73f25e6f859e8f2b525af9b03fbcd5187cb719f5ef2acfff0b43b3d3407225",
+        "gitBlob": "8afedaca750e9278338ca21569c1b5e171e47b05"
+      },
+      "reason": "index.html: invalidate the corrected native resonance-counter visual cache."
+    }
+  ],
+  "targetProtectedRowsSha256": "07fff1953831798b63cd05506cd28b5015842441caf29d52dfd94e36be86ab6a"
+}

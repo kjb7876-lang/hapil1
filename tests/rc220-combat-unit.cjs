@@ -64,6 +64,37 @@ const secondBoss={id:'a11-cosmic-v31318-counter-test',cosmicLuciferV31318:true,h
 w.__HAPIL_COMBAT_RC220__=Object.freeze({...A,opening:()=>false,field:()=>field});w.__HAPIL_COMBAT_CORE_V31401__={transaction:(_s,_a,_source,_origin,fn)=>{transactions++;return fn();},resource:(_s,_a,key,value)=>{if(key==='resonanceSpent')spent+=value;},mark:()=>{}};w.__HAPIL_CONTROLS_V31329__={localInputBlocked:()=>inputBlocked,binding:{state:{current:counterState},phase:'game',actions:{damage:(target,amount,color,critical,lifesteal,source)=>{nativeDamageCalls++;assert.equal(target,secondBoss);assert.equal(color,'#fff1b5');assert(critical);assert.equal(lifesteal,0);assert(source.luciferResonanceCounterRC221);target.hp=Math.max(0,target.hp-amount);}}}};
 const legacyBeam='./assets/vfx/v31318/cosmic-lucifer-blood-beam.webp';assert.equal(native.assets.beam,legacyBeam,'Cosmic Lucifer must use the original blood-beam art');assert(native.zoneAssets(counterState.zone).includes(legacyBeam),'original blood-beam art must be in the Lucifer preload plan');const scheduled=native.tryScheduleBaseRC127(counterState,secondBoss,'blood-beam'),counterHit=counterState.pendingHits[0];assert.equal(scheduled.family,'cosmic-blood-beam');assert(counterHit.rc220LuciferField,'every blood-beam cast receives a map-wide field');assert.equal(native.counterStatus(counterState).ready,false);const early=native.counter(counterState);assert.equal(early.reason,'timing');assert.equal(counterState.resonance,100);assert.equal(counterState.pendingHits.length,1,'an early R press does not cancel the laser');
 counterState.time=counterHit.at-.55;assert(native.counterStatus(counterState).ready);inputBlocked=true;const blocked=native.counter(counterState);assert.equal(blocked.reason,'blocked');assert.equal(counterState.resonance,100);assert(!counterHit.cancelled,'blocked local input must not cancel the laser');inputBlocked=false;w.MONGSE_objectiveDamageAllowedV31309=()=>false;const protectedTarget=native.counter(counterState);assert.equal(protectedTarget.reason,'damage-protected');assert.equal(counterState.resonance,100);assert(!counterHit.cancelled,'protected native target must not consume or cancel');w.MONGSE_objectiveDamageAllowedV31309=()=>true;const hpBefore=secondBoss.hp,result=native.counter(counterState);assert(result.success);assert.equal(counterState.resonance,0);assert.equal(spent,100);assert.equal(transactions,1);assert.equal(nativeDamageCalls,1);assert(secondBoss.hp<hpBefore,'counter damage routes through the native outgoing action');assert(counterHit.cancelled&&counterHit.damageSuppressedV31226);assert.equal(counterState.pendingHits.length,0);assert(counterState.effects.some(e=>e.cosmicCounterRC221&&e.cosmicAssetV31318===legacyBeam));assert.equal(native.assets.beam,legacyBeam);
+// The player counter retains the original atlas through hostile theme binding,
+// native crowded-frame trimming, and boss-cast cleanup. Its finite lifetime remains.
+{
+ const effect=counterState.effects.find(e=>e.cosmicCounterRC221);
+ assert.equal(effect.sprite,legacyBeam);assert.equal(effect.heroId31213,'hwando');
+ assert.equal(effect.sourceId,'hwando');assert.equal(effect.cosmicCounterBossIdRC221,secondBoss.id);
+ assert.equal(effect.cosmicCounterSourceCastRC221,counterHit.bossCastId31210);
+ assert.equal(effect.bossCastId31210,undefined,'counter is independent of its cancelled enemy cast');
+ const expr=marker=>{const at=source.indexOf(marker)+marker.length;assert(at>=marker.length);const node=acorn.parseExpressionAt(source,at,{ecmaVersion:'latest'});return source.slice(node.start,node.end);};
+ const scope={state:counterState,metrics:{retainedImages:0},window:w};vm.createContext(scope);
+ for(const name of ['MONGSE_effectPriority','MONGSE_trimEffects','essential']){
+  const at=source.indexOf('function '+name+'('),node=acorn.parseExpressionAt(source,at,{ecmaVersion:'latest'});
+  vm.runInContext(source.slice(node.start,node.end),scope);
+ }
+ scope.trim=scope.MONGSE_trimEffects;
+ const retain=vm.runInContext('('+expr('MONGSE_trimEffects=')+')',scope);
+ for(const limit of [14,40]){
+  const crowd=Array.from({length:90},(_,i)=>({id:i,ultimate:true,born:effect.born,duration:5}));crowd.unshift(effect);
+  const kept=retain(crowd,limit);assert(kept.includes(effect),'counter survives native crowded-frame limit '+limit);assert.equal(kept.length,limit);
+  assert(kept.filter(e=>effect.born+.12-e.born<e.duration).includes(effect));
+  assert(!kept.filter(e=>effect.born+1.46-e.born<e.duration).includes(effect),'counter still expires after 1.45 seconds');
+ }
+ const themeStart=source.indexOf('const allied=e=>!!(e?.heroSkillVfx||e?.heroId31213||e?.heroIdV31313||e?.deliveryRoutesV31322');
+ const alliedNode=acorn.parseExpressionAt(source,themeStart+'const allied='.length,{ecmaVersion:'latest'});
+ scope.allied=vm.runInContext('('+source.slice(alliedNode.start,alliedNode.end)+')',scope);
+ scope.owner=()=>{throw Error('player counter must not enter hostile remapping');};
+ const bindAt=source.indexOf('function bind(e,s=state)'),bindNode=acorn.parseExpressionAt(source,bindAt,{ecmaVersion:'latest'});
+ vm.runInContext(source.slice(bindNode.start,bindNode.end),scope);
+ assert.equal(scope.bind(effect,counterState),effect);assert.equal(effect.cosmicAssetV31318,legacyBeam);
+ assert.notEqual(effect.sourceId,secondBoss.id,'boss ownership cleanup cannot remove the player counter');
+}
 // The counter's interval starts before an optional QA document has a body. It must recover once the body appears.
 {const uiDoc={body:null,hidden:false,createElement(){const nodes=new Map();return{isConnected:false,style:{setProperty(){}},dataset:{},setAttribute(){},addEventListener(){},querySelector(key){if(!nodes.has(key))nodes.set(key,{textContent:''});return nodes.get(key);}};}},uiRoot={addEventListener(){},setInterval(fn){fn();return 1;}};uiRoot.window=uiRoot;vm.runInNewContext(fs.readFileSync('assets/rc221/resonance-counter.js','utf8'),{window:uiRoot,document:uiDoc});uiDoc.body={appendChild(node){node.isConnected=true;this.child=node;}};uiRoot.__HAPIL_RESONANCE_COUNTER_RC221__.refresh();assert(uiDoc.body.child,'counter UI mounts after document.body becomes available');assert.equal(uiDoc.body.child.hidden,true,'counter stays hidden without an active Lucifer cast');}
 {
