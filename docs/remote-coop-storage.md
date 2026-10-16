@@ -94,3 +94,5 @@ It also executes the actual Samong unlock functions and pattern codex
 reload/save/restore functions to verify direct progression store isolation.
 Browser persistence and peer synchronization require the broader runtime and
 browser integration checks.
+
+Active Balrog spatial rifts serialize their hazard geometry and lifetime. Per-actor fractional contact clocks live outside the checkpoint and begin fresh after host load, so no native WeakMap is restored as a plain object. This can discard less than one DOT interval of contact remainder; an uninterrupted live session retains it. The actual snapshot-codec regression verifies continued finite host/guest damage and expiry at equal paused world time.

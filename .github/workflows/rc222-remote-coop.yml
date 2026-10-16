@@ -60,6 +60,7 @@ jobs:
           run_check storage node tests/rc222-storage-unit.cjs
           run_check runtime node tests/rc222-runtime-unit.cjs
           run_check support-draw node tests/rc222-support-draw-unit.cjs
+          run_check rift-checkpoint node tests/rc222-rift-checkpoint-unit.cjs
           run_check transport node tests/rc222-transport-unit.cjs
           run_check native-combat-regression node tests/rc220-combat-unit.cjs
           run_check root-hit-regression node tests/rc210-root-hit-unit.cjs

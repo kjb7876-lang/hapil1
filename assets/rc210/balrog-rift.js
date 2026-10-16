@@ -1,7 +1,7 @@
 /* RC210: independent Balrog spatial slash. Normal black-hole policy is unchanged.
  * Ellipse uses projected floor axes; simulation alone owns damage and pull. */
 (function(root){'use strict';
- const image='./assets/rc210/balrog-spatial-rift.png',sourceRect=Object.freeze([47,238,2075,246]),runs=new WeakMap(),n=(v,d=0)=>Number.isFinite(v)?v:d;
+ const image='./assets/rc210/balrog-spatial-rift.png',sourceRect=Object.freeze([47,238,2075,246]),runs=new WeakMap(),contacts=new WeakMap(),n=(v,d=0)=>Number.isFinite(v)?v:d;
  const policy=Object.freeze({warning:1.25,active:3.1,tail:.35,cooldown:18,across:6.2,depth:1.6,pullSpeed:3.15,damageMultiplier:6});let deps=null;
  const inside=(h,a)=>{const dx=a.x-h.x,dy=a.y-h.y;return ((dx-dy)/policy.across)**2+(((dx+dy)*.5)/policy.depth)**2<=1;};
  function reset(s){runs.delete(s);s.balrogRiftsRC210=[];}
@@ -11,12 +11,15 @@
   const elapsed=Math.max(0,s.time-m.time);m.time=s.time;if(blocked||!(dt>0)){for(const h of s.balrogRiftsRC210??[])h.last=s.time;return;}
   const holes=s.balrogRiftsRC210=(s.balrogRiftsRC210??[]).filter(h=>h.zone===s.zone&&h.endAt>s.time);
   if(s.time>=m.next&&!holes.length&&Math.max(n(a.attackAt),n(a.recoverUntil),n(a.atomicCastUntil31210),n(a.phaseTransitionUntil))<=s.time){
-   const fireAt=s.time+policy.warning,h={id:s.fxSerial++,sourceId:a.id,zone:s.zone,x:s.x,y:s.y,born:s.time,fireAt,endAt:fireAt+policy.active+policy.tail,last:s.time,actors:new WeakMap()};holes.push(h);m.next=h.endAt+policy.cooldown;
+   const fireAt=s.time+policy.warning,h={id:s.fxSerial++,sourceId:a.id,zone:s.zone,x:s.x,y:s.y,born:s.time,fireAt,endAt:fireAt+policy.active+policy.tail,last:s.time};holes.push(h);m.next=h.endAt+policy.cooldown;
    a.attackStarted=s.time;a.attackAt=a.attackImpactAt=fireAt;a.recoverUntil=fireAt+.35;a.atomicCastUntil31210=fireAt+.35;a.activePattern='발록 공간참';a.activePatternUntil=fireAt+.35;a.rc210RiftSwingAt=fireAt;
   }
   for(const h of holes){const until=Math.min(s.time,h.fireAt+policy.active),from=Math.max(h.last,h.fireAt);h.last=s.time;if(!(until>from)||elapsed>1)continue;
    const base=root.__HAPIL_BOSS_POLICY_RC175__?.config??{dotDamage:1,dotInterval:.5};
-   for(const actor of [s,...(party?.state===s?party.actors??[]:[])]){if(!(actor.hp>0)||!inside(h,actor)){h.actors.delete(actor);continue;}let rec=h.actors.get(actor);if(!rec){rec={elapsed:0};h.actors.set(actor,rec);}rec.elapsed+=until-from;
+   // Actor references and fractional contact clocks are transient. A restored
+   // hazard gets fresh contacts; no WeakMap enters the checkpoint world.
+   let actors=contacts.get(h);if(!actors){actors=new WeakMap();contacts.set(h,actors);}
+   for(const actor of [s,...(party?.state===s?party.actors??[]:[])]){if(!(actor.hp>0)||!inside(h,actor)){actors.delete(actor);continue;}let rec=actors.get(actor);if(!rec){rec={elapsed:0};actors.set(actor,rec);}rec.elapsed+=until-from;
     while(rec.elapsed+1e-9>=base.dotInterval&&actor.hp>0){rec.elapsed-=base.dotInterval;const damage=base.dotDamage*policy.damageMultiplier,packet={id:s.fxSerial++,sourceId:a.id,born:s.time,at:s.time,x:actor.x,y:actor.y,originX:h.x,originY:h.y,shape:'ellipse',damage,boss:true,status:'none',label:'발록 공간참',balrogSpatialRiftRC210:true};if(actor===s)root.__HAPIL_NATIVE_ARENA_RC138__?.bodyDamage(s,damage,actor.x,actor.y,packet);else party?.debug?.allyDamage(s,actor,damage,packet);}
     const dx=h.x-actor.x,dy=h.y-actor.y,d=Math.hypot(dx,dy);if(d>.45&&!(n(actor.invulnerableUntil)>s.time)){const amount=Math.min(d-.35,policy.pullSpeed*Math.min(.1,until-from)*Math.max(.22,Math.min(1,d/5))),to={x:actor.x+dx/d*amount,y:actor.y+dy/d*amount};if(!root.__HAPIL_BATTLE_ARENA_RC138__?.applyPosition(actor,to)){actor.x=to.x;actor.y=to.y;}}
    }
