@@ -312,11 +312,23 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
     });
 
     await check('remote-exposure-dot-once-and-exit-reset',host,async()=>{
-      const before=await actorEvidence(host,'p2'),metricsBefore=before.metrics;
-      await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);return v.appliedTicks>=1&&v.ticks>=1&&v.elapsedSeconds>=2;},null,{timeout:50000});
-      const firstTick=await actorEvidence(host,'p2');assert.equal(firstTick.inspection.appliedTicks,1);assert.equal(firstTick.inspection.ticks,1);assert.equal(firstTick.inspection.lastRawDamage,firstTick.actor.maxHp*.005,'first remote tick uses exactly 0.5% max HP raw');
-      await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);return v.appliedTicks>=2&&v.ticks>=2&&v.elapsedSeconds>=3;},null,{timeout:30000});
-      const after=await actorEvidence(host,'p2');
+      // The previous case already held movement and captured two screenshots
+      // while this actor was exposed. Start an independent DOT sample by
+      // exiting through the real host frame, confirming cleanup metrics, then
+      // re-entering before taking the zero-tick baseline.
+      const prior=await actorEvidence(host,'p2'),safeStage=await stageActor(host,'p2',{x:22,y:24});
+      await host.waitForFunction(baseExits=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return a&&R.contains({x:a.x,y:a.y},R.side(s,true),.8)&&L.metrics().exits>baseExits;},prior.metrics.exits,{timeout:10000});
+      const cleared=await actorEvidence(host,'p2');assert.equal(cleared.inspection.exposed,false);assert.equal(cleared.inspection.elapsedSeconds,0);assert.equal(cleared.inspection.ticks,0);assert(cleared.metrics.exits>prior.metrics.exits,'native host actorFrame clears the earlier remote exposure clock before a new DOT sample');
+      const entryMetrics=cleared.metrics,reentry=await stageActor(host,'p2',{x:15,y:14});
+      const entryHandle=await host.waitForFunction(baseEntries=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),metrics=L.metrics();if(!a||metrics.entries<=baseEntries)return false;return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},inspection:L.inspect(s,a),metrics,time:s.time};},entryMetrics.entries,{timeout:10000});
+      const before=await entryHandle.jsonValue();await entryHandle.dispose();
+      assert.equal(before.inspection.exposed,true);assert.equal(before.inspection.ticks,0);assert.equal(before.inspection.appliedTicks,0);assert(before.inspection.elapsedSeconds>0&&before.inspection.elapsedSeconds<.5,'remote DOT baseline captures the first native exposure frame, before its grace period can expire');
+      const metricsBefore=before.metrics;
+      const firstHandle=await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);if(v.appliedTicks<1)return false;return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},inspection:v,metrics:L.metrics(),time:s.time};},null,{timeout:50000});
+      const firstTick=await firstHandle.jsonValue();await firstHandle.dispose();
+      assert.equal(firstTick.inspection.appliedTicks,1);assert.equal(firstTick.inspection.ticks,1);assert.equal(firstTick.inspection.lastRawDamage,before.actor.maxHp*.005,'first remote tick uses exactly 0.5% max HP raw');
+      const secondHandle=await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);if(v.appliedTicks<2)return false;return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},inspection:v,metrics:L.metrics(),time:s.time};},null,{timeout:30000});
+      const after=await secondHandle.jsonValue();await secondHandle.dispose();
       const afterGuest=await guest.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return{actor:{hp:a.hp,maxHp:a.maxHp,x:a.x,y:a.y},view:L.inspect(s,a),inRegion:L.inRegion(s,a),exposed:L.exposed(s,a),metrics:L.metrics()};});
       assert.equal(after.inspection.owner,'host');assert.equal(after.inspection.appliedTicks,2,'two remote ticks committed by its host owner');assert.equal(after.inspection.ticks,2,'actual native DOT repeats once per second after the first tick');
       assert.equal(after.inspection.lastRawDamage,after.actor.maxHp*.005,'raw DOT uses exactly 0.5% of actor max HP');
@@ -331,25 +343,30 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       assert.equal(exited.inspection.exposed,false,'real directional movement exits the exposed set into previously allowed floor');
       assert.equal(exited.inspection.ticks,0,'exit clears the prior damage clock');assert(exited.metrics.exits>after.metrics.exits,'native exit path records clock cleanup');
       await capture('left-zone-coop-exit',host);
-      return{before,firstTick,after,afterGuest,remoteExitStart,exited,metricsDelta:{entries:after.metrics.entries-metricsBefore.entries,damageApplied:after.metrics.damageApplied-metricsBefore.damageApplied,exits:exited.metrics.exits-after.metrics.exits},method:'host RC222 actorFrame owns the 2s and 3s remote DOT events; guest reads geometry only; real ArrowLeft input exits into old admitted half'};
+      return{prior,safeStage,cleared,reentry,before,firstTick,after,afterGuest,remoteExitStart,exited,metricsDelta:{entries:after.metrics.entries-metricsBefore.entries,damageApplied:after.metrics.damageApplied-metricsBefore.damageApplied,exits:exited.metrics.exits-after.metrics.exits},method:'host RC222 actorFrame owns the 2s and 3s remote DOT events; guest reads geometry only; real ArrowLeft input exits into old admitted half'};
     });
 
     await check('host-frame-pause-incoming-and-reset',host,async()=>{
       const safe=await stageActor(host,'host',{x:22,y:24});
       const oldMultiplier=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return{actual:L.outgoingMultiplier(s.activeHeroId,false),base:window.__MONGSE_HERO_RANGED_QA_V31213__?.outgoingMultiplier?.(s.activeHeroId,false)};});
       assert.equal(oldMultiplier.actual,oldMultiplier.base,'host outgoing wrapper equals the original native value in the old admitted area');
+      const entryMetrics=await host.evaluate(()=>window.__HAPIL_LEFT_ZONE_NATIVE_RC223__.metrics());
       await stageActor(host,'host',{x:15,y:14});
-      const entered=await actorEvidence(host,'host');assert.equal(entered.inspection.exposed,true);assert.equal(entered.inspection.owner,'host');
-      await host.waitForFunction(()=>document.querySelector('#hapil-left-zone-warning-rc223')?.textContent==='위험 지대 · 체력·공격·이동 감소',null,{timeout:8000});
-      entered.warning=await host.locator('#hapil-left-zone-warning-rc223').innerText();
+      const entryHandle=await host.waitForFunction(baseEntries=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,v=L.inspect(s,s),metrics=L.metrics();if(metrics.entries<=baseEntries)return false;return{inspection:v,metrics,time:s.time,hp:s.hp,warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent??null};},entryMetrics.entries,{timeout:10000});
+      const entered=await entryHandle.jsonValue();await entryHandle.dispose();
+      assert.equal(entered.inspection.exposed,true);assert.equal(entered.inspection.owner,'host');assert.equal(entered.inspection.ticks,0);assert(entered.inspection.elapsedSeconds>0&&entered.inspection.elapsedSeconds<.5,'host pause sample starts from the first live exposure frame');
       await host.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.actions.settings());
       await host.waitForFunction(()=>window.__HAPIL_PARTY_V31322__.status.paused===true,null,{timeout:6000});
-      const pausedBefore=await actorEvidence(host,'host');await host.waitForTimeout(500);const pausedAfter=await actorEvidence(host,'host');
+      await host.waitForFunction(()=>document.querySelector('#hapil-left-zone-warning-rc223')?.textContent==='위험 지대 · 체력·공격·이동 감소',null,{timeout:8000});
+      entered.warning=await host.locator('#hapil-left-zone-warning-rc223').innerText();
+      const pausedBefore=await actorEvidence(host,'host');assert(pausedBefore.inspection.elapsedSeconds>0&&pausedBefore.inspection.elapsedSeconds<2,'actual settings pause begins before the first one-second-grace-plus-interval DOT');assert.equal(pausedBefore.inspection.ticks,0);
+      await host.waitForTimeout(500);const pausedAfter=await actorEvidence(host,'host');
       assert.equal(pausedAfter.time,pausedBefore.time,'native modal pause freezes the simulation clock');assert.equal(pausedAfter.inspection.elapsedSeconds,pausedBefore.inspection.elapsedSeconds,'native modal pause preserves exposure clock');assert.equal(pausedAfter.inspection.ticks,pausedBefore.inspection.ticks);assert.equal(pausedAfter.actor.hp,pausedBefore.actor.hp);
       await capture('left-zone-paused',host);await host.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.actions.dismiss());
       await host.waitForFunction(()=>window.__HAPIL_PARTY_V31322__.status.paused!==true&&!window.__HAPIL_REMOTE_RC222_RUNTIME__.status().paused,null,{timeout:8000});
-      await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return L.inspect(P.state,P.state).appliedTicks>=1;},null,{timeout:50000});
-      const afterTick=await actorEvidence(host,'host'),newMultiplier=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return L.outgoingMultiplier(s.activeHeroId,false);});
+      const firstHandle=await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,v=L.inspect(s,s);if(v.appliedTicks<1)return false;return{actor:{x:s.x,y:s.y,hp:s.hp,maxHp:s.maxHp},inspection:v,metrics:L.metrics(),time:s.time};},null,{timeout:50000});
+      const afterTick=await firstHandle.jsonValue();await firstHandle.dispose();
+      const newMultiplier=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__;return L.outgoingMultiplier(s.activeHeroId,false);});
       assert.equal(afterTick.inspection.owner,'host');assert.equal(afterTick.inspection.ticks,1);assert.equal(afterTick.inspection.appliedTicks,1);
       assert.equal(afterTick.inspection.lastRawDamage,afterTick.actor.maxHp*.005,'host native frame sends the exact raw DOT into native incoming');
       assert(afterTick.actor.hp<pausedAfter.actor.hp,'host loses HP through NATIVE_ARENA_RC138.bodyDamage -> Y');
@@ -480,10 +497,21 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       assert.equal(exposed.npc.player,false);assert.equal(exposed.npc.region,false);assert.equal(exposed.npc.exposed,false);assert.deepEqual(exposed.npc.factors,{active:false,exposed:false,outgoing:1,movement:1,status:'clear'},'NPCs remain neutral while local P2 is exposed');
       await localPage.waitForFunction(()=>document.querySelector('#hapil-left-zone-warning-rc223')?.textContent==='위험 지대 · P2 · 체력·공격·이동 감소',null,{timeout:8000});
       exposed.warning=await localPage.locator('#hapil-left-zone-warning-rc223').innerText();assert.equal(exposed.warning,'위험 지대 · P2 · 체력·공격·이동 감소','shared screen badge identifies the exposed local P2 while host remains safe');
-      const dotStart=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{hp:a.hp,maxHp:a.maxHp,time:s.time,inspection:L.inspect(s,a),metrics:L.metrics()};});
-      await localPage.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);return v.appliedTicks>=1&&v.ticks>=1&&v.elapsedSeconds>=2;},null,{timeout:50000});
-      const firstLocalTick=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{hp:a.hp,time:s.time,inspection:L.inspect(s,a),metrics:L.metrics()};});
-      assert.equal(firstLocalTick.inspection.ticks,1);assert.equal(firstLocalTick.inspection.appliedTicks,1,'local Party tick commits one native DOT after grace');assert.equal(firstLocalTick.inspection.lastRawDamage,dotStart.maxHp*.005,'local frame passes exactly 0.5% max HP raw damage to native ally reducer');assert(firstLocalTick.hp<dotStart.hp,'local P2 HP falls through HAPIL_PARTY_V31322.debug.allyDamage');assert.equal(firstLocalTick.metrics.damageApplied-dotStart.metrics.damageApplied,1,'one local owner tick applies one DOT event');
+      // Prior outgoing strikes, the shared warning render, and the screenshot
+      // can consume exposure time. Start a separate DOT sample only after the
+      // actual local PARTY tick exits and reports native cleanup.
+      const priorDotMetrics=await localPage.evaluate(()=>window.__HAPIL_LEFT_ZONE_NATIVE_RC223__.metrics());
+      const safeDotStage=await stageActor(localPage,'p2',{x:22,y:24});
+      await localPage.waitForFunction(baseExits=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return a&&R.contains({x:a.x,y:a.y},R.side(s,true),.8)&&L.metrics().exits>baseExits;},priorDotMetrics.exits,{timeout:10000});
+      const safeDot=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},inspection:L.inspect(s,a),metrics:L.metrics(),time:s.time};});
+      assert.equal(safeDot.inspection.exposed,false);assert.equal(safeDot.inspection.elapsedSeconds,0);assert.equal(safeDot.inspection.ticks,0);assert(safeDot.metrics.exits>priorDotMetrics.exits,'native local PARTY tick clears the earlier exposure before the independent DOT sample');
+      const dotEntryMetrics=safeDot.metrics,dotReentry=await stageActor(localPage,'p2',{x:15,y:14});
+      const dotStartHandle=await localPage.waitForFunction(baseEntries=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),metrics=L.metrics();if(!a||metrics.entries<=baseEntries)return false;return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},time:s.time,inspection:L.inspect(s,a),metrics};},dotEntryMetrics.entries,{timeout:10000});
+      const dotStart=await dotStartHandle.jsonValue();await dotStartHandle.dispose();
+      assert.equal(dotStart.inspection.exposed,true);assert.equal(dotStart.inspection.ticks,0);assert.equal(dotStart.inspection.appliedTicks,0);assert(dotStart.inspection.elapsedSeconds>0&&dotStart.inspection.elapsedSeconds<.5,'local DOT baseline captures a fresh native exposure frame before grace expires');
+      const firstLocalTickHandle=await localPage.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);if(v.appliedTicks<1)return false;return{hp:a.hp,time:s.time,inspection:v,metrics:L.metrics()};},null,{timeout:50000});
+      const firstLocalTick=await firstLocalTickHandle.jsonValue();await firstLocalTickHandle.dispose();
+      assert.equal(firstLocalTick.inspection.ticks,1);assert.equal(firstLocalTick.inspection.appliedTicks,1,'local Party tick commits one native DOT after grace');assert.equal(firstLocalTick.inspection.lastRawDamage,dotStart.actor.maxHp*.005,'local frame passes exactly 0.5% max HP raw damage to native ally reducer');assert(firstLocalTick.hp<dotStart.actor.hp,'local P2 HP falls through HAPIL_PARTY_V31322.debug.allyDamage');assert.equal(firstLocalTick.metrics.damageApplied-dotStart.metrics.damageApplied,1,'one local owner tick applies one DOT event');
       await localPage.waitForTimeout(250);const noDuplicate=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{inspection:L.inspect(s,a),metrics:L.metrics()};});
       assert.equal(noDuplicate.inspection.ticks,1,'a single local native sim frame key cannot duplicate DOT while still inside the same tick interval');assert.equal(noDuplicate.metrics.damageApplied,firstLocalTick.metrics.damageApplied);
 
@@ -526,7 +554,7 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       const removal=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,oldActor=P.actors.find(q=>q.slotId==='p2'),metricsBefore=L.metrics(),result=P.configure({mode:'solo',roster:[{slotId:'p1',heroId:s.activeHeroId,control:'host'}]}),metricsAfter=L.metrics(),removed=!P.actors.some(a=>a.slotId==='p2'),oldActorInspection=L.inspect(s,oldActor);return{result,removed,oldActorInspection,metricsBefore,metricsAfter,mode:P.status.mode,roster:P.roster};});
       assert.equal(removal.removed,true);assert.equal(removal.mode,'solo');assert.equal(removal.roster.length,1);assert(removal.metricsAfter.exits>removal.metricsBefore.exits,'native PARTY.configure increments cleanup before readout inspects the departed local actor');assert.equal(removal.oldActorInspection.exposed,false);assert.equal(removal.oldActorInspection.elapsedSeconds,0);assert.equal(removal.oldActorInspection.ticks,0);
       await capture('left-zone-local-p2-roster-removed',localPage);
-      return{setup,localStage,probe,safeStrike,safeOutgoing,exposedStage,exposed,dotStart,firstLocalTick,noDuplicate,exposedStrike,exposedOutgoing,movementStart,movement,exited,reenter,death,dead,removalStage,beforeRemoval:{inspection:beforeRemoval.inspection,metrics:beforeRemoval.metrics},removal,scope:'isolated fresh campaign; native PARTY.configure local2 roster, staged dist01 actor/target coordinates, PARTY.setInput movement, actual Party tick DOT and Party applyStrike target damage, native ally reducer lethality; no physical P2 keyboard claim'};
+      return{setup,localStage,probe,safeStrike,safeOutgoing,exposedStage,exposed,safeDotStage,safeDot,dotReentry,dotStart,firstLocalTick,noDuplicate,exposedStrike,exposedOutgoing,movementStart,movement,exited,reenter,death,dead,removalStage,beforeRemoval:{inspection:beforeRemoval.inspection,metrics:beforeRemoval.metrics},removal,scope:'isolated fresh campaign; native PARTY.configure local2 roster, staged dist01 actor/target coordinates, PARTY.setInput movement, actual Party tick DOT and Party applyStrike target damage, native ally reducer lethality; no physical P2 keyboard claim'};
     });
 
     assert.deepEqual(report.errors,[],'browser page errors');assert.deepEqual(report.httpErrors,[],'HTTP errors');report.status='passed';

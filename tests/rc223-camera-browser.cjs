@@ -517,6 +517,18 @@ async function runProfile({name,mobile,width,height}) {
   } finally {
     report.finishedAt=new Date().toISOString();
     save();
+    console.log('RC223_CAMERA_BROWSER '+JSON.stringify({
+      status:report.status,
+      appSha,
+      profiles:report.profiles.map(profile=>({
+        name:profile.name,
+        collision:{status:profile.collision?(profile.collision.rows?.length===3?'passed':'incomplete'):'not-run',factors:profile.collision?.rows?.map(row=>row.factor)??[]},
+        portraitCombatBlocked:profile.portraitCombatGate?.blocked??null,
+        captures:report.captures.filter(capture=>capture.name.startsWith(profile.name+'-')).length
+      })),
+      captureCount:report.captures.length,
+      failure:failure?.error??null
+    }));
     await Promise.all(contexts.map(context=>context.close().catch(()=>{})));
     await browser?.close().catch(()=>{});
     server.close();
