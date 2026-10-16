@@ -249,7 +249,7 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       assert.equal(geometry.outside.blinkWalkable,false,'native blink admission cannot escape the physical platform');
       assert.equal(geometry.center.inRegion,false,'exact x=19 centerline is excluded from the x<19 region');assert.equal(geometry.center.allowed,false,'centerline cannot pass the left-floor admission union');
       assert.equal(typeof geometry.baselineMultiplier,'number','native outgoing multiplier function is exposed by the unchanged application');
-      assert.deepEqual(geometry.actualHooks,{movement:'ft -> HAPIL_BATTLE_ARENA_RC138.movement',blink:'HAPIL_blinkWalkableRC85',outgoing:'MONGSE_heroOutgoingModeMultiplier31213',hostFrame:'HAPIL_CONTROLS_V31329.frameStart',remoteFrame:'RC222_NATIVE.actorFrame',hostIncoming:'NATIVE_ARENA_RC138.bodyDamage -> Y',remoteIncoming:'REMOTE_RC222_RUNTIME.incomingActor'});
+      assert.deepEqual(geometry.actualHooks,{movement:'ft -> HAPIL_BATTLE_ARENA_RC138.movement',blink:'HAPIL_blinkWalkableRC85',outgoing:'MONGSE_heroOutgoingModeMultiplier31213',hostFrame:'HAPIL_CONTROLS_V31329.frameStart',localFrame:'HAPIL_PARTY_V31322.tick',remoteFrame:'RC222_NATIVE.actorFrame',hostIncoming:'NATIVE_ARENA_RC138.bodyDamage -> Y',localIncoming:'HAPIL_PARTY_V31322.debug.allyDamage',remoteIncoming:'REMOTE_RC222_RUNTIME.incomingActor'});
       return geometry;
     });
 

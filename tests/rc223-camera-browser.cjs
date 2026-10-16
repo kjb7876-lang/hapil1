@@ -315,13 +315,17 @@ async function collisionEvidence(page) {
   // Hold native simulation with the real settings modal while the regular
   // adaptive renderer keeps painting. The bitmap/contact probes below then
   // compare identical world pose/time across presentation factors.
-  const pauseBefore=await page.evaluate(()=>{
-    const C=window.__HAPIL_CONTROLS_V31329__,s=C?.binding?.state?.current;
-    if(!C||!s)throw Error('native game state unavailable before collision freeze');
+  await page.evaluate(()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__;
+    if(!C?.binding?.state?.current)throw Error('native game state unavailable before collision freeze');
     C.binding.actions.settings();
-    return{time:s.time,x:s.x,y:s.y,hp:s.hp};
   });
   await page.locator('.settings-layout').waitFor({state:'visible',timeout:10000});
+  await page.waitForFunction(()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__;
+    return P?.status?.paused===true||!!C?.binding?.modal?.current;
+  },null,{timeout:10000});
+  const pauseBefore=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
   await page.waitForTimeout(250);
   const pauseAfter=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
   assert.deepEqual(pauseAfter,pauseBefore,'native settings modal freezes the controlled collision fixture before measuring camera factors');

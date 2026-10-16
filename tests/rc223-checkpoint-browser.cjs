@@ -143,7 +143,8 @@ async function waitFor(label,predicate,timeoutMs){
    Q.enter(s,'cult01',false);
    C.binding.state.current=s;C.binding.hero.current='gunner';C.setMode('manual');
    s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.invulnerableUntil=s.time+30;
-   return{zone:s.zone,time:s.time,mode:s.gameModeV31346,method:'native ii map entry'};
+   const nativeEntryRoster=s.enemies.map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp,phase:a.phase??null}));
+   return{zone:s.zone,time:s.time,mode:s.gameModeV31346,nativeEntryRoster,method:'native ii map entry captured synchronously before RAF/RC95 calibration'};
   });
   await page.waitForTimeout(300);
   activeStage='native-lethal-input';
@@ -208,7 +209,7 @@ async function waitFor(label,predicate,timeoutMs){
    Q.choiceInstrumentationInstalled=true;
    Q.testStartedAt=performance.now();Q.lethalAt=performance.now();
    const accepted=Q.playerDamage(s,999,s.x,s.y,false);
-   const observed={zone:s.zone,hp:s.hp,maxHp:s.maxHp,accepted,roster:fresh,growth,party:partyBefore,deathPosition:Q.deathPosition,expectedCheckpointAnchor:Q.expectedCheckpointAnchor,method:'native incoming reducer Y; actual checkpoint UI; actual offline AI companion; no roster stub'};
+   const observed={zone:s.zone,hp:s.hp,maxHp:s.maxHp,accepted,roster:fresh,nativeEntryRoster:previous.nativeEntryRoster,growth,party:partyBefore,deathPosition:Q.deathPosition,expectedCheckpointAnchor:Q.expectedCheckpointAnchor,method:'native incoming reducer Y; actual checkpoint UI; actual offline AI companion; no roster stub'};
    if(s.hp>0)throw Error('native incoming reducer did not cause lethal HP '+JSON.stringify(observed));
    return observed;
   },report.fixture);
@@ -264,7 +265,7 @@ async function waitFor(label,predicate,timeoutMs){
   assert.equal(reset.length,1,'one native restart observation');
   assert.equal(reset[0].result,true,'native same-map restart accepted');
   assert.equal(reset[0].zone,'cult01','native restart stays on cult01');
-  assert.deepEqual(reset[0].enemies,report.fixture.roster,'native map entry restores the complete initial roster, full HP, and initial phases');
+  assert.deepEqual(reset[0].enemies,report.fixture.nativeEntryRoster,'native restart immediately restores the raw roster created by native ii, before RC95 calibration');
   assert.deepEqual(reset[0].growth,report.fixture.growth,'native restart retains passives, shards, and loop progress');
 
   report.partyReset=await page.evaluate(()=>{
@@ -314,6 +315,6 @@ async function waitFor(label,predicate,timeoutMs){
   await browser?.close();
   await new Promise(resolve=>server.close(resolve));
  }
- console.log('RC223_CHECKPOINT_BROWSER',JSON.stringify({status:report.status,source,fixture:report.fixture?{zone:report.fixture.zone,roster:report.fixture.roster?.length,party:report.fixture.party?.status}:null,restartCalls:report.restart?.calls,partyReset:report.partyReset?{host:report.partyReset.host,actors:report.partyReset.actors,status:report.partyReset.status,nativeInputBlocked:report.partyReset.nativeInputBlocked}:null,balanceSamples:report.balance?.samples?.length,postResetDamage:report.postResetDamage,diagnostics:report.status==='failed'?report.diagnostics:null,results:path.join(out,'results.json')}));
+ console.log('RC223_CHECKPOINT_BROWSER',JSON.stringify({status:report.status,source,fixture:report.fixture?{zone:report.fixture.zone,roster:report.fixture.roster?.length,nativeEntryRoster:report.fixture.nativeEntryRoster,party:report.fixture.party?.status}:null,restartCalls:report.restart?.calls,partyReset:report.partyReset?{host:report.partyReset.host,actors:report.partyReset.actors,status:report.partyReset.status,nativeInputBlocked:report.partyReset.nativeInputBlocked}:null,balanceSamples:report.balance?.samples?.length,postResetDamage:report.postResetDamage,failure:report.failure??null,diagnostics:report.status==='failed'?report.diagnostics:null,results:path.join(out,'results.json')}));
  if(report.status!=='passed')process.exitCode=1;
 })().catch(error=>{console.error('RC223_CHECKPOINT_BROWSER_FATAL',error);process.exitCode=1;try{server.close();writeReport();}catch{}});
