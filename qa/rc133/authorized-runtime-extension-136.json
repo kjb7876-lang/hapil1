@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "base": "2509426ed3a9eba6d5d83c86349570dcb332865d",
+  "baseTree": "571668a3c7809ada4ee020730e5bce1f806277a7",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "d98d1db00aa7c1232ddffd5dbaa9641c0043697803f59546860d9b80c6ffe32c",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "c3b5bb57723c22f1342bd1f277fee855c17b47d4"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "393843581f9ddc56b2b06a12d23aa94a1877d02e8ca2a9354bd85113393a4f9b",
+        "gitBlob": "09b5bfaf5c21600adc22d6a18d2f644a6b284715"
+      },
+      "reason": "assets/index-v31526.js: scoped RC221 runtime for the Cosmic Lucifer blood-beam counter and its exact public asset loaders."
+    },
+    {
+      "file": "assets/rc221/resonance-counter.css",
+      "before": null,
+      "after": {
+        "file": "assets/rc221/resonance-counter.css",
+        "mode": "100644",
+        "sha256": "ac0d877278c65bcf8eddc1c200b24798882951e03e09ba75d6a7c4cc178b90db",
+        "gitBlob": "71f005ffb7430cf43e996c3e2af4db0b0566957a"
+      },
+      "reason": "assets/rc221/resonance-counter.css: scoped RC221 runtime for the Cosmic Lucifer blood-beam counter and its exact public asset loaders."
+    },
+    {
+      "file": "assets/rc221/resonance-counter.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc221/resonance-counter.js",
+        "mode": "100644",
+        "sha256": "9bd2825b52fa51927befe2a5a2f80ef2f14e19dfb9e905e81716b9ff5197d39b",
+        "gitBlob": "2fd934e4ad34f8629b96e52e36d8e99af7c8f20a"
+      },
+      "reason": "assets/rc221/resonance-counter.js: scoped RC221 runtime for the Cosmic Lucifer blood-beam counter and its exact public asset loaders."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "114b9eaca0e400094b0c0c2a268515a1f2f24d6c"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "903eb080d7bd1edfcdef74ad32172986b73546454095be7130e04ec6c926ff64",
+        "gitBlob": "321d960ebcb886d110db8488f7e14ad1af636a0e"
+      },
+      "reason": "index.html: scoped RC221 runtime for the Cosmic Lucifer blood-beam counter and its exact public asset loaders."
+    }
+  ],
+  "targetProtectedRowsSha256": "1105805278e7a9d6ef5d98ba4dc61ccf9d3881d288fbe5fda325172c1836f54c"
+}
