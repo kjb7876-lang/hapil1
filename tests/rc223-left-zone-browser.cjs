@@ -330,12 +330,32 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
 
     await check('remote-exposure-dot-once-and-exit-reset',host,async()=>{
       // The previous case already held movement and captured two screenshots
-      // while this actor was exposed. Start an independent DOT sample by
-      // exiting through the real host frame, confirming cleanup metrics, then
-      // re-entering before taking the zero-tick baseline.
-      const prior=await actorEvidence(host,'p2'),safeStage=await stageActor(host,'p2',{x:22,y:24});
-      await host.waitForFunction(baseExits=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return a&&R.contains({x:a.x,y:a.y},R.side(s,true),.8)&&L.metrics().exits>baseExits;},prior.metrics.exits,{timeout:10000});
-      const cleared=await actorEvidence(host,'p2');assert.equal(cleared.inspection.exposed,false);assert.equal(cleared.inspection.elapsedSeconds,0);assert.equal(cleared.inspection.ticks,0);assert(cleared.metrics.exits>prior.metrics.exits,'native host actorFrame clears the earlier remote exposure clock before a new DOT sample');
+      // while this actor was exposed, but the last real movement frame may
+      // already have exited and cleared its clock. Read metrics/geometric
+      // state before inspect(), which is intentionally not used to infer
+      // whether native cleanup has happened.
+      const prior=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),point={x:a.x,y:a.y},metrics=L.metrics();return{zone:s.zone,time:s.time,actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},oldFloor:R.contains(point,R.side(s,true),.8),inRegion:L.regionAt(s,a,point),exposed:L.exposed(s,a,point),metrics};});
+      const priorClockCount=prior.metrics.entries-prior.metrics.exits;
+      assert(priorClockCount===0||priorClockCount===1,'remote DOT fixture has at most one live remote exposure clock before safe staging: '+JSON.stringify(prior));
+      const priorClockActive=priorClockCount===1,baseMetrics=prior.metrics;
+      progress('remote-dot-prior-clock-before-inspect',{prior,priorClockActive,interpretation:priorClockActive?'native exit is still required before the fresh sample':'previous native frames already cleared exposure; balanced counters are the cleanup evidence'});
+      const safeStage=await stageActor(host,'p2',{x:22,y:24});
+      progress('remote-dot-safe-stage-request',{safeStage,priorClockActive});
+      let safeHandle,safeAfterNative;
+      try{
+        safeHandle=await host.waitForFunction(({baseMetrics,priorClockActive})=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');if(!a||s.zone!=='dist01'||a.hp<=0)return false;const point={x:a.x,y:a.y},metrics=L.metrics(),oldFloor=R.contains(point,R.side(s,true),.8),inRegion=L.regionAt(s,a,point),cleanupObserved=priorClockActive?metrics.exits>baseMetrics.exits:metrics.entries===baseMetrics.entries&&metrics.exits===baseMetrics.exits;if(!oldFloor||inRegion||!cleanupObserved)return false;return{zone:s.zone,time:s.time,actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},oldFloor,inRegion,exposed:L.exposed(s,a,point),metrics,priorClockActive};},{baseMetrics,priorClockActive},{timeout:10000});
+        safeAfterNative=await safeHandle.jsonValue();await safeHandle.dispose();
+      }catch(error){
+        const diagnostic=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),point={x:a.x,y:a.y};return{zone:s.zone,time:s.time,actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},oldFloor:R.contains(point,R.side(s,true),.8),inRegion:L.regionAt(s,a,point),exposed:L.exposed(s,a,point),metrics:L.metrics()};}).catch(e=>({diagnosticError:String(e)}));
+        progress('remote-dot-safe-stage-timeout',{prior,priorClockActive,safeStage,diagnostic});throw error;
+      }
+      progress('remote-dot-safe-stage-native-cleanup',{prior,priorClockActive,safeStage,safeAfterNative});
+      assert.equal(safeAfterNative.oldFloor,true,'canonical remote actor is on previously admitted floor after native frame');assert.equal(safeAfterNative.inRegion,false,'canonical safe staging point is outside the new exposure region');
+      if(priorClockActive){assert.equal(safeAfterNative.metrics.entries,baseMetrics.entries,'safe staging does not create another exposure clock');assert.equal(safeAfterNative.metrics.exits,baseMetrics.exits+1,'native host actorFrame clears the earlier remote exposure clock before a new DOT sample');}
+      else{assert.equal(safeAfterNative.metrics.entries,baseMetrics.entries,'balanced prior counters show no clock to clear');assert.equal(safeAfterNative.metrics.exits,baseMetrics.exits,'no artificial exit is required when prior native frames already cleaned up');}
+      const cleared=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),point={x:a.x,y:a.y},metricsBeforeInspect=L.metrics(),geometry={oldFloor:R.contains(point,R.side(s,true),.8),inRegion:L.regionAt(s,a,point),exposed:L.exposed(s,a,point)},inspection=L.inspect(s,a),metrics=L.metrics();return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},geometry,inspection,metricsBeforeInspect,metrics};});
+      assert.equal(cleared.geometry.oldFloor,true);assert.equal(cleared.geometry.inRegion,false);assert.equal(cleared.geometry.exposed,false);assert.deepEqual(cleared.metrics,cleared.metricsBeforeInspect,'diagnostic inspect observes cleanup without creating the exit evidence');assert.equal(cleared.inspection.exposed,false);assert.equal(cleared.inspection.elapsedSeconds,0);assert.equal(cleared.inspection.ticks,0);
+      assert.equal(cleared.metrics.entries,baseMetrics.entries);assert.equal(cleared.metrics.exits,baseMetrics.exits+(priorClockActive?1:0),'only a clock active at the start requires a new native exit event');
       const entryMetrics=cleared.metrics,reentry=await stageActor(host,'p2',{x:15,y:14});
       const entryHandle=await host.waitForFunction(baseEntries=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),metrics=L.metrics();if(!a||metrics.entries<=baseEntries)return false;return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp},inspection:L.inspect(s,a),metrics,time:s.time};},entryMetrics.entries,{timeout:10000});
       const before=await entryHandle.jsonValue();await entryHandle.dispose();
@@ -360,7 +380,7 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       assert.equal(exited.inspection.exposed,false,'real directional movement exits the exposed set into previously allowed floor');
       assert.equal(exited.inspection.ticks,0,'exit clears the prior damage clock');assert(exited.metrics.exits>after.metrics.exits,'native exit path records clock cleanup');
       await capture('left-zone-coop-exit',host);
-      return{prior,safeStage,cleared,reentry,before,firstTick,after,afterGuest,remoteExitStart,exited,metricsDelta:{entries:after.metrics.entries-metricsBefore.entries,damageApplied:after.metrics.damageApplied-metricsBefore.damageApplied,exits:exited.metrics.exits-after.metrics.exits},method:'host RC222 actorFrame owns the 2s and 3s remote DOT events; guest reads geometry only; real ArrowLeft input exits into old admitted half'};
+      return{prior,priorClockActive,safeStage,safeAfterNative,cleared,reentry,before,firstTick,after,afterGuest,remoteExitStart,exited,metricsDelta:{entries:after.metrics.entries-metricsBefore.entries,damageApplied:after.metrics.damageApplied-metricsBefore.damageApplied,exits:exited.metrics.exits-after.metrics.exits},method:'host RC222 actorFrame owns the 2s and 3s remote DOT events; guest reads geometry only; a prior active clock requires a native safe-side exit, while an already-clean prior frame requires balanced counters and canonical old-floor location; real ArrowLeft input exits into old admitted half'};
     });
 
     await check('host-frame-pause-incoming-and-reset',host,async()=>{
