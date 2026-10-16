@@ -176,11 +176,12 @@ async function stageActor(page,slot,point){
   },{slot,point});
 }
 async function actorEvidence(page,slot){
-  return page.evaluate(slot=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,s=P.state,a=slot==='host'?s:P.actors.find(q=>q.slotId===slot),telemetry=R?.telemetry?.();return{slot,zone:s.zone,time:s.time,actor:a&&{id:a.slotId??'host',x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp,invulnerableUntil:a.invulnerableUntil,moveVx:a.moveVx,moveVy:a.moveVy,moveDx:a.moveDx,moveDy:a.moveDy,heroMotion:a.heroMotion&&{kind:a.heroMotion.kind,started:a.heroMotion.started,until:a.heroMotion.until,dx:a.heroMotion.dx,dy:a.heroMotion.dy},combatMode:a.rc222CombatMode??a.combatModeV31329??null},inspection:a?L.inspect(s,a):null,metrics:L.metrics(),remoteMode:R?.status?.().autoMode??null,actorFrame:telemetry?.actorSteps?.[slot]??null,inputReceipt:telemetry?.inputBySlot?.[slot]??null,warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent??null};},slot);
+  return page.evaluate(slot=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,s=P.state,a=slot==='host'?s:P.actors.find(q=>q.slotId===slot),telemetry=R?.telemetry?.();return{slot,zone:s.zone,time:s.time,actor:a&&{id:a.slotId??'host',x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp,invulnerableUntil:a.invulnerableUntil,moveVx:a.moveVx,moveVy:a.moveVy,moveDx:a.moveDx,moveDy:a.moveDy,heroMotion:a.heroMotion&&{kind:a.heroMotion.kind,started:a.heroMotion.started,until:a.heroMotion.until,dx:a.heroMotion.dx,dy:a.heroMotion.dy},combatMode:a.rc222CombatMode??a.combatModeV31329??null},inspection:a?L.inspect(s,a):null,metrics:L.metrics(),hostRuntimeAutoMode:R?.status?.().autoMode??null,actorFrame:telemetry?.actorSteps?.[slot]??null,inputReceipt:telemetry?.inputBySlot?.[slot]??null,warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent??null};},slot);
 }
 async function remoteMove(guest,host,key,slot,windowSeconds=.6){
   const before=await actorEvidence(host,slot);assert(before.actor,'remote actor exists before keyboard input');
-  assert.equal(before.remoteMode,'manual','remote move starts with guest set to manual');
+  const guestModeBefore=await guest.evaluate(()=>window.__HAPIL_REMOTE_RC222_RUNTIME__?.status?.().autoMode??null);
+  assert.equal(guestModeBefore,'manual','remote movement guest runtime starts in manual mode');
   assert.equal(before.actorFrame?.mode,'manual','host native RC222 actor frame has entered manual mode');
   assert(Math.hypot(before.actor.moveVx,before.actor.moveVy)<1e-9,'staged actor has no residual native velocity before held input');
   assert(['idle','move'].includes(before.actor.heroMotion?.kind),'held-input comparison begins from an idle/move pose, not a skill or dash');
@@ -193,8 +194,8 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       const current={x:live.x,y:live.y,time:world.time};
       if(!start&&previous&&current.time>previous.time&&Math.hypot(current.x-previous.x,current.y-previous.y)>.0001)start={...previous};
       if(start&&current.time-start.time>=windowSeconds){
-        const telemetry=R.telemetry(),step=telemetry.actorSteps?.[slot],mode=R.status().autoMode;
-        resolve({start,end:{...current,actor:{x:live.x,y:live.y,moveVx:live.moveVx,moveVy:live.moveVy,moveDx:live.moveDx,moveDy:live.moveDy,heroMotion:live.heroMotion&&{kind:live.heroMotion.kind,until:live.heroMotion.until},combatMode:live.rc222CombatMode??live.combatModeV31329??null},inspection:L.inspect(world,live),metrics:L.metrics(),actorFrame:step??null,remoteMode:mode},simSeconds:current.time-start.time,windowSeconds,mode:step?.mode??null,seq:step?.seq??null,dt:step?.dt??null,rawHeroDelta:step?.rawHeroDelta??null,method:'host samples canonical actor positions on RAF after the first real relayed movement delta; guest key remains held for a fixed native simulation-time window'});return;
+        const telemetry=R.telemetry(),step=telemetry.actorSteps?.[slot],hostRuntimeAutoMode=R.status().autoMode;
+        resolve({start,end:{...current,actor:{x:live.x,y:live.y,moveVx:live.moveVx,moveVy:live.moveVy,moveDx:live.moveDx,moveDy:live.moveDy,heroMotion:live.heroMotion&&{kind:live.heroMotion.kind,until:live.heroMotion.until},combatMode:live.rc222CombatMode??live.combatModeV31329??null},inspection:L.inspect(world,live),metrics:L.metrics(),actorFrame:step??null,hostRuntimeAutoMode},simSeconds:current.time-start.time,windowSeconds,mode:step?.mode??null,seq:step?.seq??null,dt:step?.dt??null,rawHeroDelta:step?.rawHeroDelta??null,method:'host samples canonical actor positions on RAF after the first real relayed movement delta; guest key remains held for a fixed native simulation-time window'});return;
       }
       if(at>deadline){reject(Error('native remote held-input movement window timed out'));return;}
       previous=current;requestAnimationFrame(frame);
@@ -214,11 +215,13 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
     sample=await samplePromise;
   }finally{await guest.keyboard.up(key);}
   const afterRelease=await actorEvidence(host,slot),distance=Math.hypot(sample.end.x-sample.start.x,sample.end.y-sample.start.y);
+  const guestModeAfter=await guest.evaluate(()=>window.__HAPIL_REMOTE_RC222_RUNTIME__?.status?.().autoMode??null);
+  assert.equal(guestModeAfter,'manual','remote movement guest runtime remains in manual mode after the held input');
   assert(sample.simSeconds>=windowSeconds&&sample.simSeconds<windowSeconds+.12,'native held-input sample ends within three capped simulation frames of the fixed '+windowSeconds+' second window');
   assert.equal(sample.mode,'manual','host native RC222 actor frame keeps the same manual combat mode through the measured window');
   assert.equal(sample.end.inspection.exposed,before.inspection.exposed,'exposure classification remains fixed for the complete movement window');
   assert(distance>.05,'real guest keyboard input changes canonical host world coordinates during the sample');
-  return{key,before,after:sample.end,afterRelease,worldDistance:distance,simSeconds:sample.simSeconds,requestedSimWindow:windowSeconds,worldSpeedPerSimSecond:distance/sample.simSeconds,actualInput:{mode:input.combatMode,moveX:input.moveX,moveY:input.moveY,seq:input.seq},nativeActorFrame:{mode:sample.mode,seq:sample.seq,dt:sample.dt,rawHeroDelta:sample.rawHeroDelta},method:sample.method};
+  return{key,before,after:sample.end,afterRelease,worldDistance:distance,simSeconds:sample.simSeconds,requestedSimWindow:windowSeconds,worldSpeedPerSimSecond:distance/sample.simSeconds,guestModeBefore,guestModeAfter,actualInput:{mode:input.combatMode,moveX:input.moveX,moveY:input.moveY,seq:input.seq},nativeActorFrame:{mode:sample.mode,seq:sample.seq,dt:sample.dt,rawHeroDelta:sample.rawHeroDelta,hostRuntimeAutoMode:sample.end.hostRuntimeAutoMode},method:sample.method};
 }
 
 (async()=>{

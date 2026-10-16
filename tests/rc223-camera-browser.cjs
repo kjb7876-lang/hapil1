@@ -312,27 +312,14 @@ async function performanceSamples(page) {
 }
 
 async function collisionEvidence(page) {
-  // Hold native simulation with the real settings modal while the regular
-  // adaptive renderer keeps painting. The bitmap/contact probes below then
-  // compare identical world pose/time across presentation factors.
+  // Start the actual native Persona emitter while gameplay is unpaused, then
+  // hold the ordinary modal ref before returning control to the browser. This
+  // avoids any image decode/RAF gap between emission and the native pause.
   await page.evaluate(()=>{
-    const C=window.__HAPIL_CONTROLS_V31329__;
-    if(!C?.binding?.state?.current)throw Error('native game state unavailable before collision freeze');
-    C.binding.actions.settings();
-  });
-  await page.locator('.settings-layout').waitFor({state:'visible',timeout:10000});
-  await page.waitForFunction(()=>{
-    const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__;
-    return P?.status?.paused===true||!!C?.binding?.modal?.current;
-  },null,{timeout:10000});
-  const pauseBefore=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
-  await page.waitForTimeout(250);
-  const pauseAfter=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
-  assert.deepEqual(pauseAfter,pauseBefore,'native settings modal freezes the controlled collision fixture before measuring camera factors');
-  const result=await page.evaluate(async()=>{
-    const C=window.__HAPIL_CONTROLS_V31329__,B=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,M=window.__HAPIL_MEDIA_ART_RC133__,V=window.__HAPIL_BITMAP_NATIVE_RC133__,G=window.__HAPIL_CONTACT_V31336__;
-    const s=C.binding.state.current;
-    if(!B?.actor||!B?.cloneEnemy||!H?.start||!H?.tick||!M?.ready||!V?.projectile||!G?.projectile)throw Error('native Persona/bitmap/collision APIs are unavailable');
+    const C=window.__HAPIL_CONTROLS_V31329__,B=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__;
+    const s=C?.binding?.state?.current,P=window.__HAPIL_PARTY_V31322__;
+    if(!s||!B?.actor||!B?.cloneEnemy||!H?.start||!H?.tick)throw Error('native game/Persona API unavailable before collision freeze');
+    if(P?.status?.paused===true||C.binding.modal?.current)throw Error('Persona projectile fixture must start while native gameplay is unpaused');
     // Deterministic staging through production state and encounter APIs. This
     // is explicitly not a naturally reached Persona fight.
     s.zone='cult04';s.gameModeV31346='DREAM';s.samongUnlockedRC91=true;s.hp=Math.max(1000,s.hp);s.maxHp=Math.max(s.maxHp,s.hp);s.activeHeroId='gunner';s.time=Math.max(100,s.time);s.hostileProjectiles=[];s.pendingHits=[];s.impactQueue=[];s.enemies=[];s.spawnedWaves=new Set([1,2,3,4]);s.invulnerableUntil=s.time+100;
@@ -346,6 +333,26 @@ async function collisionEvidence(page) {
     const q=emitted[0];if(!q)throw Error('actual native Persona emitter did not produce a projectile');
     q.previousX=q.x=s.x;q.previousY=q.y=s.y;q.vx=0;q.vy=0;q.visualYV31333=0;q.frozenUntil=s.time-1;q.collisionDisabledUntil31219=0;q.removed=false;q.cancelled=false;q.hitResolved=false;
     q.born=s.time-1;q.sourceBorn=q.born;
+    window.__RC223_CAMERA_COLLISION_FIXTURE__={s,q,cult,emittedCount:emitted.length};
+    // Hold the real native modal ref until the settings action commits its UI
+    // state. No PARTY status, encounter lock, or camera function is replaced.
+    C.binding.modal.current='rc223-camera-fixture-freeze';
+    C.binding.actions.settings();
+  });
+  await page.locator('.settings-layout').waitFor({state:'visible',timeout:10000});
+  await page.waitForFunction(()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__;
+    return P?.status?.paused===true&&!!C?.binding?.modal?.current;
+  },null,{timeout:10000});
+  const pauseBefore=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
+  await page.waitForTimeout(250);
+  const pauseAfter=await page.evaluate(()=>{const s=window.__HAPIL_CONTROLS_V31329__.binding.state.current;return{time:s.time,x:s.x,y:s.y,hp:s.hp};});
+  assert.deepEqual(pauseAfter,pauseBefore,'native settings modal freezes the controlled collision fixture before measuring camera factors');
+  const result=await page.evaluate(async()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__,B=window.__HAPIL_RC86_BRIDGE__,H=window.__HAPIL_INNER_FINAL_RC133__,M=window.__HAPIL_MEDIA_ART_RC133__,V=window.__HAPIL_BITMAP_NATIVE_RC133__,G=window.__HAPIL_CONTACT_V31336__;
+    const fixture=window.__RC223_CAMERA_COLLISION_FIXTURE__,s=C.binding.state.current,q=fixture?.q,cult=fixture?.cult,emittedCount=fixture?.emittedCount;
+    if(!B?.actor||!B?.cloneEnemy||!H?.start||!H?.tick||!M?.ready||!V?.projectile||!G?.projectile)throw Error('native Persona/bitmap/collision APIs are unavailable');
+    if(!fixture||fixture.s!==s||!q||!cult||emittedCount<1)throw Error('pre-pause native Persona fixture references are missing or stale');
     // Capture real native image bytes through the existing map cache if it has
     // not already been requested. The game renderer remains the decoder.
     const cache=C.binding.cache.current,im=M.picture(q.sprite);if(im&&im.complete&&im.naturalWidth>0)cache[q.sprite]=im;
@@ -381,7 +388,7 @@ async function collisionEvidence(page) {
       if(!bitmap?.points?.length||!heroBody?.points?.length||!bossBody?.points?.length)throw Error('native Persona/player bitmap body probe missing at factor '+factor);
       rows.push({factor,renderObservation:{source:'actual native game RAF + RC125 adaptive world render',appliedBefore:prior.applied,applied:rendered.applied,adaptiveFramesBefore:priorAdaptive?.frames??0,adaptiveFrames:adaptive.frames,last:rendered.last},bitmap:{points:bitmap.points,area:bitmap.area,path:bitmap.path},contact:{hit:contact.hit,heart:contact.heart,bitmap:contact.bitmap,bodyGap:contact.bodyGap,kind:contact.kind},heroBody:heroBody.points,bossBody:bossBody.points,bossContact,range,screenBodyScale:rendered.last.adjusted.scale,probeCallsBefore:before,probeCallsAfter:d.probeCameraCalls,lastProbeCamera:d.lastProbeCamera,baseCameraDepth:d.baseCameraDepth,hp:s.hp,simulationState:{time:s.time,x:s.x,y:s.y}});
     }
-    return {fixture:'actual HAPIL_INNER_FINAL_RC133 start/tick native Persona emission; projectile position moved to current player for a deterministic contact probe; staged only',comparison:'real native adaptive RAF observation and native bitmap/contact probes at an identical simulation time and pose; native settings modal holds the world clock',baseState,zone:s.zone,phase:s.innerFinalRC133.phase,sourceId:q.sourceId,skill:q.rc133Skill,sprite:q.sprite,emittedProjectiles:emitted.length,rows,hpBefore:hp,hpAfter:s.hp,hitPointsUnchanged:s.hp===hp};
+    return {fixture:'actual HAPIL_INNER_FINAL_RC133 start/tick native Persona emission before pause; projectile position moved to current player for a deterministic contact probe; staged only',comparison:'real native adaptive RAF observation and native bitmap/contact probes at an identical simulation time and pose; actual settings UI plus native modal ref holds the world clock',baseState,zone:s.zone,phase:s.innerFinalRC133.phase,sourceId:q.sourceId,skill:q.rc133Skill,sprite:q.sprite,emittedProjectiles:emittedCount,rows,hpBefore:hp,hpAfter:s.hp,hitPointsUnchanged:s.hp===hp};
   });
   assert.equal(result.hitPointsUnchanged,true,'read-only actual contact probe does not change HP');
   assert.equal(result.rows.length,3);
