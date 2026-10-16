@@ -25,6 +25,26 @@ const deferred=w.__HAPIL_DEFERRED_DAMAGE_RC210__;assert(deferred.periodic(dot));
 const firstAlly={slotId:'p2',heroId:'slayer',hp:100,x:12,y:22},hitAlly={slotId:'p3',heroId:'slayer',hp:100,x:10,y:20};w.__HAPIL_PARTY_V31322__={actors:[firstAlly,hitAlly]};s.zone='dist00';const allyDot={themeRootDotRC210:true,rootTargetRC220:'p3',themeZoneV31323:'dist00'};s.pendingHits=[allyDot];A.rootDots(s);assert.equal(allyDot.x,hitAlly.x,'DOT follows the hit slot, not the first matching hero');assert(A.rootContact(hitAlly,allyDot));assert(!A.rootContact(firstAlly,allyDot));assert(!A.rootContact(s,allyDot));
 for(const dir of ['front','back','left','right'])for(const t of [0,.1,.2,.5,.8,.99]){const p=w.__HAPIL_SLAYER_MOTION_RC220__.pose({hero:'slayer',kind:'attack',dir,sheet:'action',rigidProgress:t});assert.equal(p.frame,4+['front','back','left','right'].indexOf(dir));assert.equal(p.sheet,'action');}assert.equal(w.__HAPIL_SLAYER_MOTION_RC220__.pose({hero:'hwando'}),null);
 const source=fs.readFileSync('assets/index-v31526.js','utf8');const at=source.indexOf('function Di('),node=acorn.parseExpressionAt(source,at,{ecmaVersion:'latest'});vm.runInContext(source.slice(node.start,node.end),w);assert(w.Di({x:24,y:14},h));assert(!w.Di(A.world(field.safe.u,field.safe.v),h));
+// Reproduce the deferred owner's outer warning wrapper with the default
+// preference off. Mandatory lasers must reach the captured native renderer.
+{
+ const start=source.indexOf('qn=function HAPIL_warningV31322(')+3;
+ assert(start>3,'production owner warning wrapper exists');
+ const node=acorn.parseExpressionAt(source,start,{ecmaVersion:'latest'}),calls=[],cache={};
+ const render=vm.runInNewContext('('+source.slice(node.start,node.end)+')',{
+  window:{__HAPIL_RC79__:{isLaser:h=>h?.shape==='line'}},repair(){},
+  withOwner:(_h,_purpose,draw)=>draw(),owner:()=>null,special:()=>false,
+  warning:(ctx,hit,time,settings,images)=>{calls.push({hit,settings,images});return true;},
+ });
+ render({}, {shape:'circle'},10,{showAttackTelegraphs:false},cache);
+ assert.equal(calls.length,0,'ordinary optional ground warnings retain the preference');
+ for(const hit of [{shape:'line'},{rc133Skill:'required'},{cosmicAttackV31318:true}]){
+  assert.equal(render({},hit,10,{showAttackTelegraphs:false},cache),true);
+  assert.equal(calls.at(-1).hit,hit);assert.equal(calls.at(-1).settings.showAttackTelegraphs,true);
+  assert.equal(calls.at(-1).images,cache,'warning renderer receives the native image cache');
+ }
+ assert.equal(calls.length,3,'all mandatory warnings survive deferred owner installation');
+}
 // Execute the production heart-damage packet with a measured central contact.
 // Periodic ticks are already accepted damage and must not add a new max-HP hit.
 const heartAt=source.indexOf('function packet(s,a,h,base,raw=base)'),heartNode=acorn.parseExpressionAt(source,heartAt,{ecmaVersion:'latest'}),heart={window:w,num:(v,d=0)=>Number.isFinite(Number(v))?Number(v):d,permit:()=>true,state:s=>{s.heartDamageLedgerV31336??=[];},classified:()=>true,instance:(_s,h)=>String(h.id),targetId:(s,a)=>a===s?'__host':a.slotId,config:{ratio:.1,feedbackSeconds:.6,logLimit:20}};vm.createContext(heart);vm.runInContext(source.slice(heartNode.start,heartNode.end),heart);

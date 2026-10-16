@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "6fa72c4d4ddd3f40aef179e5908dec806d2022f0",
+  "baseTree": "cae55a7f3d16ebffbd73a74055f1ca00599c527a",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "0e2d0bcd82f48ea91bda5a5167b167535f786237a84a74a75a8e984f3008fb39",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "9d155b21acd1befbc37b10bb114bedb5ed31dd22"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "2c971e12881dc50b193e3f8d9d178a2502c34469309f4ad4b1a9c491613586e2",
+        "gitBlob": "8b5bdb1cd3d79deaf9c56ab74b0604cabe45735a"
+      },
+      "reason": "assets/index-v31526.js: preserve mandatory laser and skill warnings through the deferred owner wrapper and render queued cosmic blood-beam artwork at the native pending-hit loop."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "8a139f0e60d2bfba64c7193e03706061018e00e0"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "bb5371c2a77e0120e969d91c4a1eca47ef3c563688e4feead58fcb3d6a99f116",
+        "gitBlob": "8fe5fc52cd9a4424375b1e71d296a1ce2b154a2e"
+      },
+      "reason": "index.html: invalidate the repaired warning renderer cache key and load the full-artwork transformation styles after the base film stylesheet."
+    }
+  ],
+  "targetProtectedRowsSha256": "bd433dcfda4e353df0eeb4f6f13f7da6ff50438a0ce6dfe2d29ba8efdf6062f3"
+}

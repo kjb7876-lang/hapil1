@@ -36669,7 +36669,11 @@ function $n(e, t, n, r, i) {
   );
   if (
     (b.filter((e) => !x.has(e.id)).forEach((e) => Bn(c, n, e, t.time, i)),
-    MONGSE_pendingHits.forEach((e) => qn(c, e, t.time, i, n)),
+    MONGSE_pendingHits.forEach((e) => {
+      const arsenal = window.__HAPIL_ARSENAL_V31318__;
+      if (e.cosmicAttackV31318 && arsenal?.drawTelegraph(c, e, t.time, {...i, showAttackTelegraphs:true}, n)) return;
+      qn(c, e, t.time, i, n);
+    }),
     MONGSE_hostileProjectiles.filter((e) => !e.narrativeAttack && !e.cosmicShotV31318).forEach((e) =>
       HAPIL_drawProjectileRC13(c, n, e, t.time, MONGSE_projectileRenderOptionsSmartR1),
     ),
@@ -119308,7 +119312,7 @@ function install(){if(installed)return true;if(!window.__HAPIL_V31318_RELEASE__?
  const gn=Gn,jn=Jn,warning=qn,coverage=MONGSE_drawResolvedCoverageImageV31233;
  Gn=function HAPIL_ordnanceV31322(ctx,cache,e,time,settings={}){if(owner(e)&&e.persistentProjectile31222&&!e.bossImpactTransitV31232)return;if(draw(ctx,cache,e,time,settings))return;repair(e);return withOwner(e,'projectile',()=>gn(ctx,cache,e,time,settings));};
  Jn=function HAPIL_projectileV31322(ctx,cache,e,time,settings={}){if(bullet(ctx,cache,e,time,settings))return;repair(e);return withOwner(e,'projectile',()=>jn(ctx,cache,e,time,settings));};
- qn=function HAPIL_warningV31322(ctx,e,time,settings={},cache){if(settings.showAttackTelegraphs===false)return;repair(e,'telegraph');return withOwner(e,'telegraph',()=>{if(!owner(e)||special(e))return warning(ctx,e,time,settings,cache);const descriptor=Object.getOwnPropertyDescriptor(ctx,'drawImage');const original=ctx.drawImage;ctx.drawImage=function(){};try{return warning(ctx,e,time,settings,cache);}finally{if(descriptor)Object.defineProperty(ctx,'drawImage',descriptor);else{delete ctx.drawImage;if(ctx.drawImage!==original)ctx.drawImage=original;}}});};
+ qn=function HAPIL_warningV31322(ctx,e,time,settings={},cache){const required=!!(e?.cosmicAttackV31318||e?.rc133Skill||window.__HAPIL_RC79__?.isLaser(e));if(settings.showAttackTelegraphs===false&&!required)return;if(required)settings={...settings,showAttackTelegraphs:true};repair(e,'telegraph');return withOwner(e,'telegraph',()=>{if(!owner(e)||special(e))return warning(ctx,e,time,settings,cache);const descriptor=Object.getOwnPropertyDescriptor(ctx,'drawImage');const original=ctx.drawImage;ctx.drawImage=function(){};try{return warning(ctx,e,time,settings,cache);}finally{if(descriptor)Object.defineProperty(ctx,'drawImage',descriptor);else{delete ctx.drawImage;if(ctx.drawImage!==original)ctx.drawImage=original;}}});};
  MONGSE_drawResolvedCoverageImageV31233=function(ctx,cache,e,time,settings={}){return draw(ctx,cache,e,time,settings)||coverage(ctx,cache,e,time,settings);};
  for(const key of ['Qn','MONGSE_drawNarrativeCast','MONGSE_drawSpatialRiftCast']){const base=window[key];if(typeof base==='function')window[key]=function(ctx,cache,e,...args){repair(e);return withOwner(e,'projectile',()=>base(ctx,cache,e,...args));};}
  const transit=MONGSE_spawnImpactTransitV31232,impact=MONGSE_spawnTelegraphedImpact;
@@ -126689,7 +126693,7 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   'use strict';
   const policy=window.__HAPIL_RC79__;
   const warning=qn,safety=MONGSE_drawTelegraphSafetyOverlay;
-  qn=function(ctx,hit,time,settings={},...args){const visible={...settings,showAttackTelegraphs:true};if(hit?.cosmicAttackV31318&&window.__HAPIL_ARSENAL_V31318__?.installed)return HAPIL_presentationContextV31317(ctx,visible.showCombatInfo===false,false,c=>window.__HAPIL_ARSENAL_V31318__.drawTelegraph(c,hit,time,visible,args[0]));if(!policy.isLaser(hit)&&!hit.rc133Skill)return false;return warning(ctx,hit,time,visible,...args);};
+  qn=function(ctx,hit,time,settings={},...args){if(!policy.isLaser(hit)&&!hit.rc133Skill)return false;return warning(ctx,hit,time,{...settings,showAttackTelegraphs:true},...args);};
   MONGSE_drawTelegraphSafetyOverlay=function(ctx,hit,time,settings={},...args){if(!policy.isLaser(hit)&&!hit.rc133Skill)return false;return safety(ctx,hit,time,{...settings,showAttackTelegraphs:true},...args);};
   const cast=Ei;
   Ei=function(state,actor,...args){
