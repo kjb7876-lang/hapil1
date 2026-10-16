@@ -475,9 +475,12 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
     const localPage=await makePage('local-p2');report.environment.isolatedContexts=3;
     const localPreparation=await startLocalGame(localPage);report.localPreparation=localPreparation;
     await check('local-p2-party-frame-dot-strike-and-cleanup',localPage,async()=>{
-      const setup=await localPage.evaluate(()=>{
+      const setupPrefix=await localPage.evaluate(()=>{
         const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,N=window.__HAPIL_RC133_NATIVE__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state??C.binding.state.current;
         if(C.binding.phase!=='game'||!s||s.hp<=0)throw Error('fresh native campaign is not live before local P2 setup');
+        const previousActor=P.actors.find(a=>a.slotId==='p2');if(!previousActor||previousActor.control!=='local')throw Error('native Party preparation did not create a local P2 actor before zone entry');
+        window.__RC223_LOCAL_PRE_REBUILD_ACTOR__=previousActor;
+        window.__RC223_LOCAL_PRE_REBUILD_TIME__=s.time;
         const story=window.__HAPIL_STORY_RC51__;
         story?.suppressEntry?.(s);const nativeEntry=N.enter(s,'dist01',false);s.zone='dist01';
         story?.close?.(false);
@@ -487,32 +490,65 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
         const storyDismissal={staged:true,readerOpened:storyReaderOpened,cue:storyCue,readerOpenAfterClose:story?.isOpen?.()===true,readingBlockedAfterClose:window.__HAPIL_READING_V31342__?.blocked===true,partyPausedAfterClose:P.status.paused===true,partyUIOpenAfterClose:window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()===true,modalOpenAfterClose:!!C.binding.modal.current,naturalCompletion:false,method:'native dist01 beforeFrame opened the RC51 pre-entry reader; fixture explicitly called close(false) to continue'};
         s.paused=false;s.pause=false;s.timeStopUntil=0;s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.encounterWallUnlockAtV31227=0;
         for(const q of ['pendingHits','hostileProjectiles','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'])if(Array.isArray(s[q]))s[q]=[];
-        const policy=window.__HAPIL_RUN_V31400__?.get?.(s),actor=P.actors.find(a=>a.slotId==='p2');
-        if(!actor||actor.control!=='local')throw Error('native Party preparation did not create a local P2 actor');
         s.x=22;s.y=24;s.moveVx=s.moveVy=s.moveDx=s.moveDy=0;s.invulnerableUntil=s.time+120;
-        actor.x=22;actor.y=24;actor.hp=actor.maxHp=s.maxHp;actor.invulnerableUntil=s.time;actor.moveVx=actor.moveVy=actor.moveDx=actor.moveDy=0;actor.target=null;actor.targetEnemyId=null;actor.path=[];actor.lastDodgeAt=-99;actor.readyAt=s.time;actor.skillReady=[s.time,s.time,s.time];actor.ultimateReady=s.time;
-        // Isolate the local P2 integration probe through native cooldown gates:
-        // Ye() reads host state.lastAttack; PARTY.attack() reads actor.readyAt.
-        // No HP, damage, enemy admission, or combat policy is rewritten here.
-        const cooldownHoldUntil=s.time+120,hostLastAttackBefore=s.lastAttack,p2ReadyAtBefore=actor.readyAt;
-        s.lastAttack=cooldownHoldUntil;actor.readyAt=cooldownHoldUntil;
-        const cooldownIsolation={durationSimSeconds:120,host:{field:'state.lastAttack',before:hostLastAttackBefore,stagedAt:s.time,heldUntil:s.lastAttack},p2:{slotId:actor.slotId,field:'actor.readyAt',before:p2ReadyAtBefore,stagedAt:s.time,heldUntil:actor.readyAt},policy:'native cooldown fields only; no damage/policy/HP override'};
-        actor.heroMotion={kind:'idle',started:s.time,until:s.time,dx:0,dy:0,facing:1};
+        const hostLastAttackBefore=s.lastAttack;s.lastAttack=s.time+120;
+        return{nativeEntry,storyDismissal,zone:s.zone,phase:C.binding.phase,preRebuildTime:window.__RC223_LOCAL_PRE_REBUILD_TIME__,hostStage:{x:s.x,y:s.y,hp:s.hp,maxHp:s.maxHp},hostCooldown:{field:'state.lastAttack',before:hostLastAttackBefore,heldUntil:s.lastAttack},preRebuildActor:{slotId:previousActor.slotId,heroId:previousActor.heroId,control:previousActor.control,readyAt:previousActor.readyAt},party:P.status,roster:P.roster,runPolicy:window.__HAPIL_RUN_V31400__?.get?.(s),hooks:L.hooks};
+      });
+      const nativeRebuild=await localPage.evaluate(()=>new Promise((resolve,reject)=>{
+        const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,previous=window.__RC223_LOCAL_PRE_REBUILD_ACTOR__,deadline=performance.now()+12000;
+        const stageFresh=()=>{
+          const s=P.state,actor=P.actors.find(a=>a.slotId==='p2');
+          if(C.binding.phase!=='game'||s.zone!=='dist01'||!(s.time>window.__RC223_LOCAL_PRE_REBUILD_TIME__)||!actor||actor===previous||actor.control!=='local'||actor.heroId!=='gunner')return false;
+          const nativeReadyAt=actor.readyAt,nativeQueue=P.exportSnapshot()?.party?.strikes??[],timeBefore=s.time;
+          s.x=22;s.y=24;s.moveVx=s.moveVy=s.moveDx=s.moveDy=0;s.invulnerableUntil=s.time+120;
+          actor.x=22;actor.y=24;actor.hp=actor.maxHp=s.maxHp;actor.invulnerableUntil=s.time;actor.moveVx=actor.moveVy=actor.moveDx=actor.moveDy=0;actor.target=null;actor.targetEnemyId=null;actor.path=[];actor.lastDodgeAt=-99;actor.skillReady=[s.time,s.time,s.time];actor.ultimateReady=s.time;
+          // The first real native zone frame replaces PARTY actors via spawn().
+          // Apply bounded cooldown holds to that live replacement in this same
+          // browser task, after its spawn and any ordinary native input.
+          const cooldownHoldUntil=s.time+120,hostLastAttackBefore=s.lastAttack;
+          s.lastAttack=cooldownHoldUntil;actor.readyAt=cooldownHoldUntil;
+          actor.heroMotion={kind:'idle',started:s.time,until:s.time,dx:0,dy:0,facing:1};
+          window.__RC223_LOCAL_REBUILD_ACTOR__=actor;
+          const cooldownIsolation={durationSimSeconds:120,host:{field:'state.lastAttack',before:hostLastAttackBefore,stagedAt:s.time,heldUntil:s.lastAttack},p2:{slotId:actor.slotId,field:'actor.readyAt',before:nativeReadyAt,stagedAt:s.time,heldUntil:actor.readyAt,nativeRebuildReadyAt:nativeReadyAt},policy:'bounded native cooldown fields applied to the actual replacement actor after its real zone spawn; no damage/policy/HP override'};
+          return{actorReferenceChanged:actor!==previous,previousActor:{slotId:previous?.slotId,heroId:previous?.heroId,control:previous?.control},freshActor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,readyAtBeforeHold:nativeReadyAt,x:actor.x,y:actor.y},nativeQueuedStrikes:nativeQueue.map(h=>({slotId:h.slotId,targetId:h.targetId,key:h.key,at:h.at,zone:h.zone})),nativeActorRebuild:{zone:s.zone,timeBefore,timeAfter:s.time,timeAdvancedFromFixtureStart:s.time>window.__RC223_LOCAL_PRE_REBUILD_TIME__,partyMode:P.status.mode},cooldownIsolation};
+        };
+        const check=()=>{
+          try{
+            const evidence=stageFresh();if(evidence){resolve(evidence);return;}
+            if(performance.now()>deadline){reject(Error('timed out waiting for the actual native dist01 PARTY actor rebuild; '+JSON.stringify({zone:P.state?.zone,phase:C.binding.phase,priorActor:previous&&{slotId:previous.slotId,heroId:previous.heroId},currentActor:P.actors.find(a=>a.slotId==='p2')&&{slotId:P.actors.find(a=>a.slotId==='p2').slotId,heroId:P.actors.find(a=>a.slotId==='p2').heroId,control:P.actors.find(a=>a.slotId==='p2').control}})));return;}
+            requestAnimationFrame(check);
+          }catch(error){reject(error);}
+        };
+        check();
+      }));
+      const startupDrainHandle=await localPage.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,actor=P.actors.find(a=>a.slotId==='p2'),expected=window.__RC223_LOCAL_REBUILD_ACTOR__,strikes=P.exportSnapshot()?.party?.strikes??[],local=strikes.filter(h=>h.slotId==='p2');if(!actor||actor!==expected||actor.control!=='local'||actor.heroId!=='gunner'||local.length)return false;return{zone:s.zone,time:s.time,actorSame:true,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,readyAt:actor.readyAt},hostLastAttack:s.lastAttack,remainingLocalStrikes:local,nativePartyAttacks:P.telemetry().attacks};},null,{timeout:10000});
+      const startupQueueDrained=await startupDrainHandle.jsonValue();await startupDrainHandle.dispose();
+      const setupStage=await localPage.evaluate(()=>{
+        const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,actor=P.actors.find(a=>a.slotId==='p2'),expected=window.__RC223_LOCAL_REBUILD_ACTOR__;
+        if(actor!==expected||actor.control!=='local'||actor.heroId!=='gunner')throw Error('native dist01 P2 replacement changed before final fixture staging');
+        s.x=22;s.y=24;s.moveVx=s.moveVy=s.moveDx=s.moveDy=0;s.invulnerableUntil=s.time+120;
+        actor.x=22;actor.y=24;actor.hp=actor.maxHp=s.maxHp;actor.invulnerableUntil=s.time;actor.moveVx=actor.moveVy=actor.moveDx=actor.moveDy=0;actor.target=null;actor.targetEnemyId=null;actor.path=[];actor.lastDodgeAt=-99;actor.heroMotion={kind:'idle',started:s.time,until:s.time,dx:0,dy:0,facing:1};
         const target=s.enemies.find(e=>e.hp>0&&!e.boss&&!e.midboss&&!e.visualOnly&&!e.protectedNarrativeTargetV31307);
         if(!target)throw Error('dist01 native map has no ordinary combat target for local P2 strike');
         for(const enemy of s.enemies){enemy.readyAt=s.time+120;enemy.patternReadyAt=s.time+120;enemy.themedOrdnanceAt=s.time+120;enemy.themedSummonAt=s.time+120;enemy.movingUntil=s.time+120;enemy.moveDx=enemy.moveDy=enemy.moveVx=enemy.moveVy=0;if(enemy!==target)enemy.invulnerableUntil=s.time+120;}
-        // Stage only the target position. Keep the native entry/admission
-        // fields intact; RC3.13.43 rejects attacks until flowEnteringUntil.
-        target.x=24;target.y=24;
-        const point={x:15,y:14};
-        return{nativeEntry,storyDismissal,cooldownIsolation,zone:s.zone,phase:C.binding.phase,runPolicy:policy,party:P.status,roster:P.roster,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,hp:actor.hp,maxHp:actor.maxHp},target:{id:target.id,hp:target.hp,maxHp:target.maxHp,boss:!!target.boss,midboss:!!target.midboss},openFloor:{physicalAll:R.contains(point,'all',.8),previousSide:R.contains(point,R.side(s,true),.8),allowed:L.allowed(s,actor,point,.8),canMove:L.canMove(s,actor,point,.8),inRegion:L.regionAt(s,actor,point),exposed:L.exposed(s,actor,point)},npcNeutral:{isPlayer:R.player(s,target),inRegion:L.regionAt(s,target,point),exposed:L.exposed(s,target,point),factors:L.factors(s,target)},hooks:L.hooks};
+        // Stage only the target position. Keep native entry/admission fields intact.
+        target.x=24;target.y=24;const point={x:15,y:14};
+        return{runPolicy:window.__HAPIL_RUN_V31400__?.get?.(s),party:P.status,roster:P.roster,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,hp:actor.hp,maxHp:actor.maxHp},target:{id:target.id,hp:target.hp,maxHp:target.maxHp,boss:!!target.boss,midboss:!!target.midboss},openFloor:{physicalAll:R.contains(point,'all',.8),previousSide:R.contains(point,R.side(s,true),.8),allowed:L.allowed(s,actor,point,.8),canMove:L.canMove(s,actor,point,.8),inRegion:L.regionAt(s,actor,point),exposed:L.exposed(s,actor,point)},npcNeutral:{isPlayer:R.player(s,target),inRegion:L.regionAt(s,target,point),exposed:L.exposed(s,target,point),factors:L.factors(s,target)},hooks:L.hooks};
       });
+      const setup={...setupPrefix,...nativeRebuild,...setupStage,startupQueueDrained};
+      assert.equal(setup.nativeRebuild.actorReferenceChanged,true,'native zone tick replaces the P2 registry object through PARTY.spawn before fixture cooldown staging');
+      assert.equal(setup.nativeActorRebuild.timeAdvancedFromFixtureStart,true,'fresh P2 identity appears only after an actual game simulation frame advances in dist01');
+      assert.equal(setup.startupQueueDrained.actorSame,true,'fresh native local P2 actor remains registered after its startup queue resolves');
+      assert.equal(setup.startupQueueDrained.remainingLocalStrikes.length,0,'ordinary startup P2 strike queue drains through native PARTY.tick before measured strikes');
+      assert.equal(setup.startupQueueDrained.actor.readyAt,setup.cooldownIsolation.p2.heldUntil,'bounded cooldown hold remains on the fresh native P2 actor after queued startup strikes drain');
+      assert.equal(setup.startupQueueDrained.hostLastAttack,setup.cooldownIsolation.host.heldUntil,'host native cooldown hold remains after the rebuild frame');
       assert.equal(setup.phase,'game');assert.equal(setup.zone,'dist01');assert.equal(setup.party.mode,'local2');assert.equal(setup.party.enabled,true);assert.equal(setup.party.role,'offline');
       assert.equal(setup.storyDismissal.readerOpened,true,'native RC51 beforeFrame opens the dist01 pre-entry reader before the fixture explicitly dismisses it');assert.equal(setup.storyDismissal.cue?.zone,'dist01');assert.equal(setup.storyDismissal.cue?.phase,'pre');assert.equal(setup.storyDismissal.readerOpenAfterClose,false);assert.equal(setup.storyDismissal.naturalCompletion,false,'the fixture records manual reader dismissal rather than natural completion');
       assert.equal(setup.storyDismissal.readingBlockedAfterClose,false);assert.equal(setup.storyDismissal.partyPausedAfterClose,false);assert.equal(setup.storyDismissal.partyUIOpenAfterClose,false);assert.equal(setup.storyDismissal.modalOpenAfterClose,false);
-      setup.storyDismissal.afterNativeFrame=await localPage.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>{const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,story=window.__HAPIL_STORY_RC51__;resolve({time:P.state.time,storyIsOpen:story?.isOpen?.()??false,storyCue:story?.currentNarrative?.()??null,readingBlocked:window.__HAPIL_READING_V31342__?.blocked??false,partyPaused:P.status.paused,partyUIOpen:window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()??false,modalOpen:!!C.binding.modal.current,effectiveMode:C.effective(),autoCombatEnabled:C.binding.auto?.current??null,hostLastAttack:P.state.lastAttack,p2ReadyAt:P.actors.find(a=>a.slotId==='p2')?.readyAt,autoSkillNextAt:P.state.autoSkillNextAt??null,lastAutoSkillAt:P.state.lastAutoSkillAt??null});})));
+      setup.storyDismissal.afterNativeFrame=await localPage.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>{const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,story=window.__HAPIL_STORY_RC51__,actor=P.actors.find(a=>a.slotId==='p2');resolve({time:P.state.time,storyIsOpen:story?.isOpen?.()??false,storyCue:story?.currentNarrative?.()??null,readingBlocked:window.__HAPIL_READING_V31342__?.blocked??false,partyPaused:P.status.paused,partyUIOpen:window.__HAPIL_PARTY_UI_V31322__?.isOpen?.()??false,modalOpen:!!C.binding.modal.current,effectiveMode:C.effective(),autoCombatEnabled:C.binding.auto?.current??null,hostLastAttack:P.state.lastAttack,p2ReadyAt:actor?.readyAt,p2ActorSame:actor===window.__RC223_LOCAL_REBUILD_ACTOR__,autoSkillNextAt:P.state.autoSkillNextAt??null,lastAutoSkillAt:P.state.lastAutoSkillAt??null});})));
       assert.equal(setup.storyDismissal.afterNativeFrame.storyIsOpen,false,'the next native animation frame does not reopen the staged dist01 entry reader');assert.equal(setup.storyDismissal.afterNativeFrame.readingBlocked,false);assert.equal(setup.storyDismissal.afterNativeFrame.partyPaused,false,'native Party is unpaused on the frame before the real strike test');assert.equal(setup.storyDismissal.afterNativeFrame.partyUIOpen,false);assert.equal(setup.storyDismissal.afterNativeFrame.modalOpen,false);
       assert.equal(setup.cooldownIsolation.host.field,'state.lastAttack');assert.equal(setup.cooldownIsolation.host.heldUntil,setup.cooldownIsolation.host.stagedAt+120);assert.equal(setup.cooldownIsolation.p2.field,'actor.readyAt');assert.equal(setup.cooldownIsolation.p2.heldUntil,setup.cooldownIsolation.p2.stagedAt+120);assert.equal(setup.storyDismissal.afterNativeFrame.autoCombatEnabled,false,'native auto-skill mode is off after the manual-selected local2 setup');assert.equal(setup.storyDismissal.afterNativeFrame.hostLastAttack,setup.cooldownIsolation.host.heldUntil);assert.equal(setup.storyDismissal.afterNativeFrame.p2ReadyAt,setup.cooldownIsolation.p2.heldUntil);
+      assert.equal(setup.storyDismissal.afterNativeFrame.p2ActorSame,true,'native PARTY registry preserves the freshly rebuilt P2 object through the next real RAF');
       assert.equal(setup.runPolicy?.humanPlayers,2);assert.deepEqual(setup.runPolicy?.humanHeroes,['gunner'],'local P2 is approved by the locked new-run human roster');
       assert.deepEqual(setup.roster.map(row=>({slotId:row.slotId,heroId:row.heroId,control:row.control})),[{slotId:'p1',heroId:'slayer',control:'host'},{slotId:'p2',heroId:'gunner',control:'local'}],'new game retains the selected native human roster without adding a story companion');
       assert.deepEqual(setup.actor,{slotId:'p2',heroId:'gunner',control:'local',x:22,y:24,hp:setup.actor.maxHp,maxHp:setup.actor.maxHp},'fresh local2 roster contains the staged P2 actor');
