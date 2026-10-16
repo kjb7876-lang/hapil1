@@ -45,4 +45,23 @@ const legacyBeam='./assets/vfx/v31318/cosmic-lucifer-blood-beam.webp';assert.equ
 counterState.time=counterHit.at-.55;assert(native.counterStatus(counterState).ready);inputBlocked=true;const blocked=native.counter(counterState);assert.equal(blocked.reason,'blocked');assert.equal(counterState.resonance,100);assert(!counterHit.cancelled,'blocked local input must not cancel the laser');inputBlocked=false;w.MONGSE_objectiveDamageAllowedV31309=()=>false;const protectedTarget=native.counter(counterState);assert.equal(protectedTarget.reason,'damage-protected');assert.equal(counterState.resonance,100);assert(!counterHit.cancelled,'protected native target must not consume or cancel');w.MONGSE_objectiveDamageAllowedV31309=()=>true;const hpBefore=secondBoss.hp,result=native.counter(counterState);assert(result.success);assert.equal(counterState.resonance,0);assert.equal(spent,100);assert.equal(transactions,1);assert.equal(nativeDamageCalls,1);assert(secondBoss.hp<hpBefore,'counter damage routes through the native outgoing action');assert(counterHit.cancelled&&counterHit.damageSuppressedV31226);assert.equal(counterState.pendingHits.length,0);assert(counterState.effects.some(e=>e.cosmicCounterRC221&&e.cosmicAssetV31318===legacyBeam));assert.equal(native.assets.beam,legacyBeam);
 // The counter's interval starts before an optional QA document has a body. It must recover once the body appears.
 {const uiDoc={body:null,hidden:false,createElement(){const nodes=new Map();return{isConnected:false,style:{setProperty(){}},dataset:{},setAttribute(){},addEventListener(){},querySelector(key){if(!nodes.has(key))nodes.set(key,{textContent:''});return nodes.get(key);}};}},uiRoot={addEventListener(){},setInterval(fn){fn();return 1;}};uiRoot.window=uiRoot;vm.runInNewContext(fs.readFileSync('assets/rc221/resonance-counter.js','utf8'),{window:uiRoot,document:uiDoc});uiDoc.body={appendChild(node){node.isConnected=true;this.child=node;}};uiRoot.__HAPIL_RESONANCE_COUNTER_RC221__.refresh();assert(uiDoc.body.child,'counter UI mounts after document.body becomes available');assert.equal(uiDoc.body.child.hidden,true,'counter stays hidden without an active Lucifer cast');}
+{
+ const nodes=new Map(),legacyDoc={
+  hidden:false,
+  body:{appendChild(node){node.isConnected=true;this.child=node;}},
+  createElement(){return{isConnected:false,style:{setProperty(){}},dataset:{},setAttribute(){},addEventListener(){},querySelector(key){if(!nodes.has(key))nodes.set(key,{textContent:''});return nodes.get(key);}};},
+ },
+ legacyRoot={
+  __HAPIL_CONTROLS_V31329__:{binding:{state:{current:{zone:'ep1a11'}},phase:'game',modal:{current:null},blocked:()=>false},localInputBlocked:()=>false},
+  __HAPIL_ARSENAL_V31318__:{installed:true},
+  addEventListener(){},setInterval(fn){fn();return 1;},
+ };
+ legacyRoot.window=legacyRoot;
+ vm.runInNewContext(fs.readFileSync('assets/rc221/resonance-counter.js','utf8'),{window:legacyRoot,document:legacyDoc});
+ const api=legacyRoot.__HAPIL_RESONANCE_COUNTER_RC221__;
+ assert.equal(api.version,'3.13.21-RC2');
+ assert.equal(api.state(),null,'legacy approved bundles without counterStatus are treated as unavailable');
+ api.refresh();
+ assert.equal(legacyDoc.body.child.hidden,true,'legacy bundle hides the unavailable counter without throwing');
+}
 console.log('RC220_UNIT',JSON.stringify({status:'passed',densityIdempotent:true,attachedFiniteDots:true,nativeOpeningCast:true,allBloodBeamsMapWide:true,timedCounter:true,earlyPressNoSpend:true,blockedInputNoSpend:true,protectedTargetNoSpend:true,resonanceSpent:spent,nativeDamageCalls,transactions,arenaDangerFraction:danger/total}));

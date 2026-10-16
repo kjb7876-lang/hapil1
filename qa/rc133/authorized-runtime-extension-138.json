@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "188697771d87a0ea37ed7bfa2edb01078717d057",
+  "baseTree": "7592261c5665c9904920e0f7db24973058c798b1",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "3c1e0bd4a2081dcab2015a24f8bf8bd8b6f2e0aeb0ba635dfdecc42efaf95c1f",
+  "files": [
+    {
+      "file": "assets/rc221/resonance-counter.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "64783c23e7942b110881026930f728b6eff25210",
+        "file": "assets/rc221/resonance-counter.js"
+      },
+      "after": {
+        "file": "assets/rc221/resonance-counter.js",
+        "mode": "100644",
+        "sha256": "324d1f11ab5923af633fa1af37207370fc4499f8d0902954d7c7f37689b1cabb",
+        "gitBlob": "6a47a8eec96751b0f63a1ca81b0d55c34ac34580"
+      },
+      "reason": "assets/rc221/resonance-counter.js: guard the resonance UI against historical bundles without the RC221 API and advance its exact cache key."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "265ded0a79884be58641f4b34fc8eed144989ad4",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "9a942c737ef9772ae7ba07af0f457399b692d3b9d716957f78c94b70e8f672d1",
+        "gitBlob": "e1cb65a97de915cc4e779f8a5fb25f59a52734b5"
+      },
+      "reason": "index.html: guard the resonance UI against historical bundles without the RC221 API and advance its exact cache key."
+    }
+  ],
+  "targetProtectedRowsSha256": "e1017bf470731a2268de5d12535cf5b5e721474c7514264917bbf9acfb0e2906"
+}
