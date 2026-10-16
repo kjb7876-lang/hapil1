@@ -106,7 +106,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, coop, combat]
+        suite: [voice, camera, left-zone, checkpoint, checkpoint-baseline, host-down-reward, host-down-reward-baseline, coop, combat]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -159,6 +159,16 @@ jobs:
               export HAPIL_TEST_BASE="$RUNNER_TEMP/rc223-published-baseline"
               export EXPECTED_SHA="$baseline_sha"
               test_file=tests/rc223-checkpoint-browser.cjs
+              ;;
+            host-down-reward) test_file=tests/rc223-host-down-reward-browser.cjs ;;
+            host-down-reward-baseline)
+              baseline_sha=199402a0ece0747d2d354e8881e4a77910fb2423
+              git fetch --no-tags --depth=1 origin "$baseline_sha"
+              git worktree add --detach "$RUNNER_TEMP/rc223-published-baseline" "$baseline_sha"
+              ln -s "$RUNNER_TEMP/rc223-browser/server/node_modules" "$RUNNER_TEMP/rc223-published-baseline/server/node_modules"
+              export HAPIL_TEST_BASE="$RUNNER_TEMP/rc223-published-baseline"
+              export EXPECTED_SHA="$baseline_sha"
+              test_file=tests/rc223-host-down-reward-browser.cjs
               ;;
             coop) test_file=tests/rc222-browser.cjs ;;
             combat) test_file=tests/rc210-browser.cjs ;;

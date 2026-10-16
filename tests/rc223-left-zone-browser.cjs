@@ -69,13 +69,13 @@ const server = http.createServer((req,res) => {
 const report = {
   schema:1,status:'running',runnerSha:git(['rev-parse','HEAD']),appSha,expectedSha,appRoot,
   startedAt:new Date().toISOString(),
-  scope:'Actual RC138 dist01 floor union, RC223 host, remote, and local P2 frames, real remote keyboard movement, native local PARTY.setInput movement/strike, native incoming damage, and native checkpoint re-entry in official Chrome with a loopback two-context WebSocket relay. Positions and selected HP fixtures are staged.',
+  scope:'Actual RC138 dist01 floor union, RC223 host, remote, and local P2 frames, real remote keyboard movement, Playwright ArrowLeft events through the native local P2 Party keyboard/setInput/tick path, native local strike, incoming damage, and native checkpoint re-entry in official Chrome with a loopback two-context WebSocket relay. Local P2 starts through the native preparation UI with a fixed two-human run policy. Positions and selected HP fixtures are staged.',
   limitations:[
     'Official Chrome contexts share one local loopback relay; this is not a physical four-network deployment.',
     'No physical phone or GPU coverage is included.',
     'Player positions and enemy readiness are staged to isolate native geometry and timers; movement, frame ticks, incoming reducers, co-op ownership, and checkpoint selection remain production paths.',
     'The checkpoint cleanup case stages both actors at 1 HP before applying real native incoming reducers; it does not claim a naturally reached lethal encounter.',
-    'The local P2 case uses an isolated fresh native campaign, calls PARTY.configure for local2, stages actor/enemy coordinates and HP for repeatable probes, and injects local input through PARTY.setInput. It does not claim physical keyboard play for P2.',
+    'The local P2 case starts from the native Party preparation UI with a two-human run policy and P2 gunner, then stages actor/enemy coordinates and HP for repeatable probes. P2 movement uses Playwright-generated ArrowLeft key events captured by the native Party UI; the real 50 ms PARTY.setInput packets and keyup zero packet are recorded. This is not a physical keyboard or device test. Death cleanup is exercised through native incoming and revive frames; lifecycle cleanup uses the native return-to-title action because the run policy locks the human roster.',
     'After the native checkpoint flow, the Episode 1 death-verse dialog is acknowledged with its visible native restart button so later browser probes can continue; this is explicitly scripted manual progression.'
   ],
   environment:{officialChrome:false,isolatedContexts:0,actualWebSocketRelay:false,realFourNetworks:false,physicalDevice:false,physicalGPU:false},
@@ -116,12 +116,26 @@ async function makePage(label){
   return page;
 }
 async function startLocalGame(page){
-  await page.getByRole('button',{name:'새 게임 시작',exact:true}).click();
-  await page.getByRole('button',{name:'이 편성으로 접속',exact:true}).click();
+  await page.waitForFunction(()=>typeof window.__HAPIL_PARTY_UI_V31322__?.open==='function',null,{timeout:10000});
+  await page.evaluate(()=>window.__HAPIL_PARTY_UI_V31322__.open());
+  await page.locator('#hapil-party-dialog').waitFor({state:'visible',timeout:8000});
+  await page.locator('#hapil-party-dialog select[aria-label="플레이 방식"]').selectOption('local');
+  // Slayer is the native Episode 1 story-companion alternative, so the fresh
+  // campaign does not add an unrelated AI actor beside the selected humans.
+  await page.locator('#hapil-party-dialog select[aria-label="대표 영웅"]').selectOption('slayer');
+  await page.locator('#hapil-party-dialog .hapil-party-field').filter({hasText:'두 번째 플레이어'}).locator('select').selectOption('gunner');
+  await page.locator('#hapil-party-dialog select[aria-label="게임 모드"]').selectOption('STORY');
+  const preparation=await page.evaluate(()=>{const dialog=document.querySelector('#hapil-party-dialog'),p2=[...(dialog?.querySelectorAll('.hapil-party-field')??[])].find(field=>field.textContent.includes('두 번째 플레이어'));return{mode:dialog?.querySelector('select[aria-label="플레이 방식"]')?.value,hero:dialog?.querySelector('select[aria-label="대표 영웅"]')?.value,p2Hero:p2?.querySelector('select')?.value,gameMode:dialog?.querySelector('select[aria-label="게임 모드"]')?.value};});
+  assert.deepEqual(preparation,{mode:'local',hero:'slayer',p2Hero:'gunner',gameMode:'STORY'},'native Party preparation form selects local two-player mode and P2 hero before starting');
+  await page.getByRole('button',{name:'적용하고 돌아가기',exact:true}).click();
   await page.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game'&&!!window.__HAPIL_CONTROLS_V31329__.binding.state.current,null,{timeout:30000});
   for(let i=0;i<22&&await page.locator('#hapil-story-rc51').count();i++){await page.keyboard.press('Enter');await page.waitForTimeout(70);}
   await page.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__;window.__HAPIL_STORY_RC51__?.close?.(false);C.binding.actions.dismiss();C.setMode('manual');});
   await page.locator('.game-stage canvas').waitFor({state:'visible'});
+  const started=await page.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state;return{phase:window.__HAPIL_CONTROLS_V31329__?.binding?.phase,party:P.status,roster:P.roster,policy:window.__HAPIL_RUN_V31400__?.get?.(s)};});
+  assert.equal(started.phase,'game');assert.equal(started.party.mode,'local2');assert.equal(started.policy?.humanPlayers,2);assert.deepEqual(started.policy?.humanHeroes,['gunner']);
+  assert.deepEqual(started.roster.map(row=>({slotId:row.slotId,heroId:row.heroId,control:row.control})),[{slotId:'p1',heroId:'slayer',control:'host'},{slotId:'p2',heroId:'gunner',control:'local'}],'native launch carries the selected human roster into the new campaign without an extra AI actor');
+  return{preparation,started};
 }
 async function readyPages(host,guest,roomCode){
   await host.locator('#rc222-create').click();await host.locator('#rc222-nickname').fill('left-zone-host');
@@ -436,7 +450,7 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
     });
 
     const localPage=await makePage('local-p2');report.environment.isolatedContexts=3;
-    await startLocalGame(localPage);
+    const localPreparation=await startLocalGame(localPage);report.localPreparation=localPreparation;
     await check('local-p2-party-frame-dot-strike-and-cleanup',localPage,async()=>{
       const setup=await localPage.evaluate(()=>{
         const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,N=window.__HAPIL_RC133_NATIVE__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state??C.binding.state.current;
@@ -445,8 +459,8 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
         window.__HAPIL_STORY_RC51__?.close?.(false);C.binding.actions.dismiss();C.binding.modal.current=null;C.setMode('manual');
         s.paused=false;s.pause=false;s.timeStopUntil=0;s.encounterDialogue31226=null;s.encounterLockUntil31226=0;s.encounterWallUnlockAtV31227=0;
         for(const q of ['pendingHits','hostileProjectiles','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts'])if(Array.isArray(s[q]))s[q]=[];
-        const hostHero=s.activeHeroId||'hwando',configuration=P.configure({mode:'local2',roster:[{slotId:'p1',heroId:hostHero,control:'host'},{slotId:'p2',heroId:'gunner',control:'local'}]}),actor=P.actors.find(a=>a.slotId==='p2');
-        if(!actor||actor.control!=='local')throw Error('native PARTY.configure did not create a local P2 actor');
+        const policy=window.__HAPIL_RUN_V31400__?.get?.(s),actor=P.actors.find(a=>a.slotId==='p2');
+        if(!actor||actor.control!=='local')throw Error('native Party preparation did not create a local P2 actor');
         s.x=22;s.y=24;s.moveVx=s.moveVy=s.moveDx=s.moveDy=0;s.invulnerableUntil=s.time+120;
         actor.x=22;actor.y=24;actor.hp=actor.maxHp=s.maxHp;actor.invulnerableUntil=s.time;actor.moveVx=actor.moveVy=actor.moveDx=actor.moveDy=0;actor.target=null;actor.targetEnemyId=null;actor.path=[];actor.lastDodgeAt=-99;actor.readyAt=s.time;actor.skillReady=[s.time,s.time,s.time];actor.ultimateReady=s.time;
         actor.heroMotion={kind:'idle',started:s.time,until:s.time,dx:0,dy:0,facing:1};
@@ -455,9 +469,11 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
         for(const enemy of s.enemies){enemy.readyAt=s.time+120;enemy.patternReadyAt=s.time+120;enemy.themedOrdnanceAt=s.time+120;enemy.themedSummonAt=s.time+120;enemy.movingUntil=s.time+120;enemy.moveDx=enemy.moveDy=enemy.moveVx=enemy.moveVy=0;if(enemy!==target)enemy.invulnerableUntil=s.time+120;}
         target.x=24;target.y=24;target.invulnerableUntil=s.time-1;target.phaseTransitionActive=false;target.phaseTransitionUntil=0;
         const point={x:15,y:14};
-        return{nativeEntry,zone:s.zone,phase:C.binding.phase,hostHero,configuration,party:P.status,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,hp:actor.hp,maxHp:actor.maxHp},target:{id:target.id,hp:target.hp,maxHp:target.maxHp,boss:!!target.boss,midboss:!!target.midboss},openFloor:{physicalAll:R.contains(point,'all',.8),previousSide:R.contains(point,R.side(s,true),.8),allowed:L.allowed(s,actor,point,.8),canMove:L.canMove(s,actor,point,.8),inRegion:L.regionAt(s,actor,point),exposed:L.exposed(s,actor,point)},npcNeutral:{isPlayer:R.player(s,target),inRegion:L.regionAt(s,target,point),exposed:L.exposed(s,target,point),factors:L.factors(s,target)},hooks:L.hooks};
+        return{nativeEntry,zone:s.zone,phase:C.binding.phase,runPolicy:policy,party:P.status,roster:P.roster,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,hp:actor.hp,maxHp:actor.maxHp},target:{id:target.id,hp:target.hp,maxHp:target.maxHp,boss:!!target.boss,midboss:!!target.midboss},openFloor:{physicalAll:R.contains(point,'all',.8),previousSide:R.contains(point,R.side(s,true),.8),allowed:L.allowed(s,actor,point,.8),canMove:L.canMove(s,actor,point,.8),inRegion:L.regionAt(s,actor,point),exposed:L.exposed(s,actor,point)},npcNeutral:{isPlayer:R.player(s,target),inRegion:L.regionAt(s,target,point),exposed:L.exposed(s,target,point),factors:L.factors(s,target)},hooks:L.hooks};
       });
       assert.equal(setup.phase,'game');assert.equal(setup.zone,'dist01');assert.equal(setup.party.mode,'local2');assert.equal(setup.party.enabled,true);assert.equal(setup.party.role,'offline');
+      assert.equal(setup.runPolicy?.humanPlayers,2);assert.deepEqual(setup.runPolicy?.humanHeroes,['gunner'],'local P2 is approved by the locked new-run human roster');
+      assert.deepEqual(setup.roster.map(row=>({slotId:row.slotId,heroId:row.heroId,control:row.control})),[{slotId:'p1',heroId:'slayer',control:'host'},{slotId:'p2',heroId:'gunner',control:'local'}],'new game retains the selected native human roster without adding a story companion');
       assert.deepEqual(setup.actor,{slotId:'p2',heroId:'gunner',control:'local',x:22,y:24,hp:setup.actor.maxHp,maxHp:setup.actor.maxHp},'fresh local2 roster contains the staged P2 actor');
       assert(setup.openFloor.physicalAll);assert.equal(setup.openFloor.previousSide,false);assert.equal(setup.openFloor.allowed,true);assert.equal(setup.openFloor.canMove,true);assert.equal(setup.openFloor.inRegion,true);assert.equal(setup.openFloor.exposed,true,'host authority admits and exposes the local actor on the newly opened physical floor');
       assert.equal(setup.npcNeutral.isPlayer,false);assert.equal(setup.npcNeutral.inRegion,false);assert.equal(setup.npcNeutral.exposed,false);assert.deepEqual(setup.npcNeutral.factors,{active:false,exposed:false,outgoing:1,movement:1,status:'clear'},'native NPC actors remain neutral under the local player rule');
@@ -522,13 +538,37 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
       assert(exposedOutgoing.targetHp<exposedStrike.hpBefore,'exposed local Party strike deals real native damage');assert(exposedOutgoing.rows.length>0);for(const row of exposedOutgoing.rows){assert.equal(row.ownerSlot,'p2');assert.equal(row.heroId,'gunner');assert(Math.abs(row.ratio-.9)<1e-9,'actual Party applyStrike scope selects the local P2 0.9 multiplier rather than the host factor');}assert.equal(exposedOutgoing.scopeAfter,null);
       await capture('left-zone-local-p2-exposed',localPage);
 
-      const movementStart=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{x:a.x,y:a.y,time:s.time};});
-      const movement=await localPage.evaluate(async({start})=>{
-        const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),R=window.__HAPIL_BATTLE_ARENA_RC138__;let seq=0,stopped=false,frames=0;const send=()=>{if(stopped)return;P.setInput('p2',{seq:++seq,moveX:-1,moveY:0,aimX:start.x-6,aimY:start.y,actions:{},cancelActions:true});};
-        const oldSide=()=>R.contains({x:a.x,y:a.y},R.side(s,true),.8);send();const timer=setInterval(send,120),begin=performance.now(),deadline=begin+12000;
-        try{while(performance.now()<deadline&&!oldSide()){await new Promise(resolve=>requestAnimationFrame(resolve));frames++;if(P.state!==s||!P.actors.includes(a))throw Error('native local2 actor/world changed during held P2 input');}return{start,end:{x:a.x,y:a.y,time:s.time,hp:a.hp},simSeconds:s.time-start.time,wallMs:performance.now()-begin,frames,lastInputSeq:seq,previouslyAllowed:oldSide(),exposed:window.__HAPIL_LEFT_ZONE_NATIVE_RC223__.inspect(s,a).exposed,inspection:window.__HAPIL_LEFT_ZONE_NATIVE_RC223__.inspect(s,a),method:'PARTY.setInput held in manual local2 mode and consumed by the native PARTY.tick path'};}finally{stopped=true;clearInterval(timer);P.setInput('p2',{seq:++seq,moveX:0,moveY:0,aimX:a.x,aimY:a.y,actions:{},cancelActions:true});}
-      },{start:movementStart});
-      assert(movement.end.x<movementStart.x-.5,'native local PARTY.setInput moves P2 through the actual local tick');assert.equal(movement.previouslyAllowed,true,'held local P2 input crosses into the previously admitted half');assert.equal(movement.exposed,false);
+      const movementStart=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),C=window.__HAPIL_CONTROLS_V31329__;return{x:a.x,y:a.y,time:s.time,wallTime:performance.now(),host:{x:s.x,y:s.y},hostHeld:C.inputSnapshot().held,hostInput:[...(C.binding.input.current??[])]};});
+      const movementProbe=await localPage.evaluate(()=>{
+        const P=window.__HAPIL_PARTY_V31322__,C=window.__HAPIL_CONTROLS_V31329__,originalSetInput=P.setInput,originalStop=Event.prototype.stopImmediatePropagation;
+        const probe={inputs:[],stoppedEvents:[],rafSamples:0,hostHeldBefore:C.inputSnapshot().held,hostInputBefore:[...(C.binding.input.current??[])]};
+        P.setInput=function(slotId,input,...args){if(slotId==='p2')probe.inputs.push({seq:input?.seq,moveX:input?.moveX??0,moveY:input?.moveY??0,actions:input?.actions??null});return originalSetInput.call(this,slotId,input,...args);};
+        Event.prototype.stopImmediatePropagation=function(...args){if((this.type==='keydown'||this.type==='keyup')&&this.code==='ArrowLeft')probe.stoppedEvents.push({type:this.type,code:this.code});return originalStop.apply(this,args);};
+        probe.restore=()=>{P.setInput=originalSetInput;Event.prototype.stopImmediatePropagation=originalStop;};
+        window.__RC223_LOCAL_KEYBOARD_MOVEMENT_PROBE__=probe;
+        return{effectiveMode:C.effective(),localTwo:C.localTwo(),hostHeld:probe.hostHeldBefore,hostInput:probe.hostInputBefore};
+      });
+      assert.equal(movementProbe.localTwo,true,'the fixture is running the native local two-player Party input path');assert.equal(movementProbe.effectiveMode,'semi','local2 policy promotes manual selection to its effective semi combat mode');
+      await localPage.bringToFront();let movement,keyHeld=false,inputEvidence,releaseInputStart=0;
+      try{
+        await localPage.keyboard.down('ArrowLeft');keyHeld=true;
+        const movementHandle=await localPage.waitForFunction(start=>{
+          const P=window.__HAPIL_PARTY_V31322__,C=window.__HAPIL_CONTROLS_V31329__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,probe=window.__RC223_LOCAL_KEYBOARD_MOVEMENT_PROBE__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');
+          if(!a||!probe)throw Error('native local2 actor or keyboard probe disappeared during actual P2 input');probe.rafSamples++;
+          const previouslyAllowed=R.contains({x:a.x,y:a.y},R.side(s,true),.8);if(!previouslyAllowed)return false;
+          return{start,end:{x:a.x,y:a.y,time:s.time,hp:a.hp},simSeconds:s.time-start.time,wallMs:performance.now()-start.wallTime,frames:probe.rafSamples,previouslyAllowed,exposed:L.inspect(s,a).exposed,inspection:L.inspect(s,a),effectiveMode:C.effective(),host:{x:s.x,y:s.y},sampledBy:'Playwright waitForFunction with polling=raf at first native old-side sample'};
+        },movementStart,{polling:'raf',timeout:12000});
+        movement=await movementHandle.jsonValue();await movementHandle.dispose();
+        releaseInputStart=await localPage.evaluate(()=>window.__RC223_LOCAL_KEYBOARD_MOVEMENT_PROBE__?.inputs.length??0);
+        await localPage.keyboard.up('ArrowLeft');keyHeld=false;
+        await localPage.waitForFunction(startCount=>window.__RC223_LOCAL_KEYBOARD_MOVEMENT_PROBE__?.inputs.slice(startCount).some(row=>Math.abs(row.moveX)<.01&&Math.abs(row.moveY)<.01),releaseInputStart,{timeout:3000});
+      }finally{
+        if(keyHeld)await localPage.keyboard.up('ArrowLeft').catch(()=>{});
+        inputEvidence=await localPage.evaluate(startCount=>{const C=window.__HAPIL_CONTROLS_V31329__,probe=window.__RC223_LOCAL_KEYBOARD_MOVEMENT_PROBE__;if(!probe)return null;const result={inputs:[...probe.inputs],releaseInputStart:startCount,stoppedEvents:[...probe.stoppedEvents],rafSamples:probe.rafSamples,hostHeldBefore:probe.hostHeldBefore,hostHeldAfter:C.inputSnapshot().held,hostInputBefore:probe.hostInputBefore,hostInputAfter:[...(C.binding.input.current??[])]};probe.restore();delete window.__RC223_LOCAL_KEYBOARD_MOVEMENT_PROBE__;return result;},releaseInputStart).catch(()=>null);
+      }
+      assert(movement.end.x<movementStart.x-.5,'actual local P2 ArrowLeft input moves the actor through native local PARTY.tick');assert.equal(movement.previouslyAllowed,true,'RAF sample confirms held P2 input crosses into the previously admitted half');assert.equal(movement.exposed,false);assert(movement.frames>0,'old-side evidence was sampled on a native animation frame');
+      const nonzeroP2Inputs=inputEvidence?.inputs.filter(row=>Math.abs(row.moveX)>.5||Math.abs(row.moveY)>.5)??[],releaseZeroP2Input=inputEvidence?.inputs.slice(inputEvidence.releaseInputStart).find(row=>Math.abs(row.moveX)<.01&&Math.abs(row.moveY)<.01);
+      assert(nonzeroP2Inputs.length>0,'native Party UI converts the real ArrowLeft key into nonzero P2 setInput packets');assert(releaseZeroP2Input,'after keyup, the native Party UI sends a zero P2 movement packet');assert(releaseZeroP2Input.seq>nonzeroP2Inputs[nonzeroP2Inputs.length-1].seq,'the observed keyup zero packet follows the held directional P2 packet');assert(inputEvidence.stoppedEvents.some(row=>row.type==='keydown')&&inputEvidence.stoppedEvents.some(row=>row.type==='keyup'),'the native Party UI stopImmediatePropagation owns the P2 keydown and keyup');assert.deepEqual(inputEvidence.hostInputAfter,inputEvidence.hostInputBefore,'P2 arrow input does not enter the host movement-input set');assert.deepEqual(inputEvidence.hostHeldAfter,inputEvidence.hostHeldBefore,'P2 arrow input does not enter native host held-key state');assert.equal(movement.effectiveMode,'semi');
       await localPage.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_BATTLE_ARENA_RC138__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return a&&R.contains({x:a.x,y:a.y},R.side(s,true),.8)&&!L.inspect(s,a).exposed&&L.inspect(s,a).ticks===0;},null,{timeout:8000});
       const exited=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{actor:{x:a.x,y:a.y,hp:a.hp},inspection:L.inspect(s,a),metrics:L.metrics(),warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent??null};});
       assert.equal(exited.inspection.exposed,false);assert.equal(exited.inspection.elapsedSeconds,0);assert.equal(exited.inspection.ticks,0);assert(exited.metrics.exits>noDuplicate.metrics.exits,'actual native local movement out of added floor clears the P2 exposure clock');
@@ -540,21 +580,32 @@ async function remoteMove(guest,host,key,slot,windowSeconds=.6){
         // HP=1 is an explicit fixture; lethality is caused by the production
         // native ally reducer, not a direct HP commit.
         a.hp=1;a.invulnerableUntil=s.time-1;const source={id:'rc223-local-p2-lethal-fixture-'+Date.now(),sourceId:s.enemies.find(e=>e.hp>0)?.id??'dist01-native-enemy',damage:100000,born:s.time,boss:true},accepted=P.debug.allyDamage(s,a,100000,source);
-        return{accepted,hp:a.hp,downUntil:a.downUntil,before,metrics:L.metrics(),source,method:'staged HP=1 followed by native PARTY.debug.allyDamage'};
+        return{accepted,hp:a.hp,downUntil:a.downUntil,before,metrics:L.metrics(),partyRevivesBefore:P.telemetry().revives,source,method:'staged HP=1 followed by native PARTY.debug.allyDamage'};
       });
       assert.equal(death.accepted,true,'native PARTY ally reducer accepts lethal incoming for local P2');assert(death.hp<=0,'native incoming reducer downs the explicitly staged local actor');
       await localPage.waitForFunction(baseExits=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,a=P.actors.find(q=>q.slotId==='p2');return a&&a.hp<=0&&L.metrics().exits>baseExits;},death.metrics.exits,{timeout:8000});
       const dead=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,a=P.actors.find(q=>q.slotId==='p2'),metrics=L.metrics();return{hp:a.hp,metrics,inspection:L.inspect(P.state,a)};});
       assert.equal(dead.inspection.exposed,false);assert.equal(dead.inspection.elapsedSeconds,0);assert.equal(dead.inspection.ticks,0);assert(dead.metrics.exits>death.metrics.exits,'native PARTY tick increments exit cleanup before readout can inspect the dead actor');
+      const reviveHandle=await localPage.waitForFunction(baseRevives=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),revives=P.telemetry().revives;if(!a||a.hp<=0||revives<=baseRevives)return false;return{hp:a.hp,maxHp:a.maxHp,downUntil:a.downUntil,time:s.time,revives};},death.partyRevivesBefore,{timeout:30000});
+      const revived=await reviveHandle.jsonValue();await reviveHandle.dispose();
+      assert(revived.hp>=revived.maxHp*.49&&revived.hp<=revived.maxHp*.51,'native PARTY tick revives local P2 at its production half-health');assert(revived.downUntil<=revived.time);assert(revived.revives>death.partyRevivesBefore,'P2 revival is observed through native Party telemetry');
+      const reviveEvidence=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),metrics=L.metrics(),inspection=L.inspect(s,a);return{actor:{x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp,downUntil:a.downUntil},inspection,metrics,revives:P.telemetry().revives,time:s.time};});
+      assert.equal(reviveEvidence.actor.hp,revived.hp);assert.equal(reviveEvidence.inspection.elapsedSeconds,0);assert.equal(reviveEvidence.inspection.ticks,0);
 
-      await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');a.hp=a.maxHp;s.hp=Math.max(s.hp,1);P.configure({mode:'local2',roster:[{slotId:'p1',heroId:s.activeHeroId,control:'host'},{slotId:'p2',heroId:'gunner',control:'local'}]});});
-      const removalStage=await stageActor(localPage,'p2',{x:15,y:14});
-      await localPage.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,a=P.actors.find(q=>q.slotId==='p2');return a&&L.inspect(P.state,a).elapsedSeconds>0;},null,{timeout:8000});
-      const beforeRemoval=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{actor:{slotId:a.slotId,control:a.control,x:a.x,y:a.y,hp:a.hp},inspection:L.inspect(s,a),metrics:L.metrics()};});
-      const removal=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,oldActor=P.actors.find(q=>q.slotId==='p2'),metricsBefore=L.metrics(),result=P.configure({mode:'solo',roster:[{slotId:'p1',heroId:s.activeHeroId,control:'host'}]}),metricsAfter=L.metrics(),removed=!P.actors.some(a=>a.slotId==='p2'),oldActorInspection=L.inspect(s,oldActor);return{result,removed,oldActorInspection,metricsBefore,metricsAfter,mode:P.status.mode,roster:P.roster};});
-      assert.equal(removal.removed,true);assert.equal(removal.mode,'solo');assert.equal(removal.roster.length,1);assert(removal.metricsAfter.exits>removal.metricsBefore.exits,'native PARTY.configure increments cleanup before readout inspects the departed local actor');assert.equal(removal.oldActorInspection.exposed,false);assert.equal(removal.oldActorInspection.elapsedSeconds,0);assert.equal(removal.oldActorInspection.ticks,0);
-      await capture('left-zone-local-p2-roster-removed',localPage);
-      return{setup,localStage,probe,safeStrike,safeOutgoing,exposedStage,exposed,safeDotStage,safeDot,dotReentry,dotStart,firstLocalTick,noDuplicate,exposedStrike,exposedOutgoing,movementStart,movement,exited,reenter,death,dead,removalStage,beforeRemoval:{inspection:beforeRemoval.inspection,metrics:beforeRemoval.metrics},removal,scope:'isolated fresh campaign; native PARTY.configure local2 roster, staged dist01 actor/target coordinates, PARTY.setInput movement, actual Party tick DOT and Party applyStrike target damage, native ally reducer lethality; no physical P2 keyboard claim'};
+      const lifecycleStage=await stageActor(localPage,'p2',{x:15,y:14});
+      const lifecycleHandle=await localPage.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),v=L.inspect(s,a);return v.exposed&&v.elapsedSeconds>0;},null,{timeout:8000});
+      const lifecycleExposure=await lifecycleHandle.jsonValue();await lifecycleHandle.dispose();
+      const lifecycleBefore=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2');return{phase:window.__HAPIL_CONTROLS_V31329__.binding.phase,actor:{x:a.x,y:a.y,hp:a.hp},inspection:L.inspect(s,a),metrics:L.metrics(),warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent??null};});
+      assert.equal(lifecycleBefore.phase,'game');assert.equal(lifecycleBefore.inspection.exposed,true);assert(lifecycleBefore.inspection.elapsedSeconds>0);assert.equal(lifecycleBefore.inspection.ticks,0);
+      await localPage.evaluate(()=>window.__HAPIL_CONTROLS_V31329__.binding.actions.settings());
+      const titleButton=localPage.locator('.return-title-button');await titleButton.waitFor({state:'visible',timeout:10000});
+      localPage.once('dialog',dialog=>dialog.accept());await titleButton.click();
+      await localPage.waitForFunction(()=>window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='title',null,{timeout:15000});
+      await localPage.waitForFunction(baseExits=>window.__HAPIL_LEFT_ZONE_NATIVE_RC223__?.metrics?.().exits>baseExits,lifecycleBefore.metrics.exits,{timeout:10000});
+      const lifecycleAfter=await localPage.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,C=window.__HAPIL_CONTROLS_V31329__,L=window.__HAPIL_LEFT_ZONE_NATIVE_RC223__,s=P.state,a=P.actors.find(q=>q.slotId==='p2'),metrics=L.metrics(),inspection=L.inspect(s,a);return{phase:C.binding.phase,inspection,metrics,warning:document.querySelector('#hapil-left-zone-warning-rc223')?.textContent??null};});
+      assert.equal(lifecycleAfter.phase,'title');assert(lifecycleAfter.metrics.exits>lifecycleBefore.metrics.exits,'native title transition clears the live local P2 clock before inspection');assert.equal(lifecycleAfter.inspection.exposed,false);assert.equal(lifecycleAfter.inspection.elapsedSeconds,0);assert.equal(lifecycleAfter.inspection.ticks,0);assert.equal(lifecycleAfter.warning,null);
+      await capture('left-zone-local-p2-title-cleanup',localPage);
+      return{setup,localPreparation,localStage,probe,safeStrike,safeOutgoing,exposedStage,exposed,safeDotStage,safeDot,dotReentry,dotStart,firstLocalTick,noDuplicate,exposedStrike,exposedOutgoing,movementStart,movement,inputEvidence,exited,reenter,death,dead,revived,reviveEvidence,lifecycleStage,lifecycleExposure,lifecycleBefore,lifecycleAfter,scope:'isolated fresh campaign launched through native Party preparation UI (humanPlayers=2, P1 Slayer/P2 Gunner), staged dist01 actor/enemy coordinates and HP, real P2 ArrowLeft key captured by the native Party UI and sampled on RAF through PARTY.tick in effective semi mode, native Party applyStrike target damage, actual local ally DOT/death/revive, and native return-to-title clock cleanup'};
     });
 
     assert.deepEqual(report.errors,[],'browser page errors');assert.deepEqual(report.httpErrors,[],'HTTP errors');report.status='passed';

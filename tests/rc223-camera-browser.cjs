@@ -460,6 +460,8 @@ async function runProfile({name,mobile,width,height}) {
   } else {
     row.pointer=await pointerProjection(page,true);
     // The mobile profile first exercises the real canvas while landscape.
+    // Check the same native collision invariants before the portrait gate.
+    row.collision=await collisionEvidence(page);
     // Portrait is checked only for its native input/render gate.
     await page.setViewportSize({width:390,height:844});
     await page.waitForTimeout(350);

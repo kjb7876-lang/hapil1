@@ -51254,6 +51254,26 @@ function Fi(e, t, n, r, i) {
     loopCycles: { ...e.loopCycles },
   };
 }
+function MONGSE_reconcileHostBossRewardV31217(state, party, shardsRef, setShards, notify) {
+  if (
+    !state ||
+    !(state.hp > 0) ||
+    state.bossDefeated !== !0 ||
+    !state.clues ||
+    state.clues.has(`ego-reward-v31217:${state.zone}`) ||
+    party?.state !== state
+  ) return !1;
+  let partyStatus = party.status;
+  if (partyStatus?.role !== `host` || partyStatus.enabled !== !0) return !1;
+  if (!MONGSE_zoneCombatCleared(state, state.zone)) return !1;
+  let reward = MONGSE_unlockZoneEgoRewardV31217(state, state.zone);
+  if (!(reward.shards > 0)) return !1;
+  let next = Math.min(MONGSE_INFINITE_STAT_MAX, shardsRef.current + reward.shards);
+  shardsRef.current = next;
+  setShards(next);
+  notify(`${N[state.zone].name} 완전 클리어 · EGO 파편 ${reward.shards}개를 획득했습니다.`);
+  return !0;
+}
 function MONGSE_savedEnemyHpScale(e, t) {
   let n =
       e.balanceRevision < kr
@@ -61225,6 +61245,7 @@ function Ri() {
             window.__HAPIL_THEME_V31323__?.begin(o, a);
             window.__HAPIL_EXIT_V31327__?.begin(o, a);
             window.__HAPIL_PARTY_V31322__?.tick(o, a, HAPIL_heroDeltaRC51, MONGSE_frameDeltaMs31220/1000);
+            MONGSE_reconcileHostBossRewardV31217(o, window.__HAPIL_PARTY_V31322__, Be, _, B);
             ((o.impactQueue ??= []),
               MONGSE_tickZoneEntryFlow31226(
                 o,

@@ -20,10 +20,10 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "sha256": "3e8ec0499666ecc38d5fc8d2f2114c25729a5b449e0a66337e36ef5c4e628552",
-        "gitBlob": "707697b6807975afd90b57af531cdbeda11ffff0"
+        "sha256": "d49028be278671485b5126ec16e89a507a5fc9334ceddb53cba8769915af7b05",
+        "gitBlob": "9d3cbb44a9c8ca912b7d68577f366defe41354f8"
       },
-      "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc134/persona-duel.js",
@@ -38,7 +38,7 @@
         "sha256": "68db7c8f1265636c8e4875c9932d18098c57cc608bd4b41aeb5d5abe0f94943d",
         "gitBlob": "eda17234ca6b1dac8a856ff12fc69ae40683adc5"
       },
-      "reason": "assets/rc134/persona-duel.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc134/persona-duel.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc138/battle-arena.js",
@@ -53,7 +53,7 @@
         "sha256": "f0dad7ddabdd9a99a2748bc99edfa33825e365e0e9c8e10085fa132598d00b11",
         "gitBlob": "bdd34da290fa46f4fd19add131df1a9883722888"
       },
-      "reason": "assets/rc138/battle-arena.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc138/battle-arena.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc139/narration-start.js",
@@ -68,7 +68,7 @@
         "sha256": "293f5ff26e3748dfb831c01409f36915e899889ec48b9b601ee65f6ec77ce864",
         "gitBlob": "eedb9810f4d4365a4923f9a5331de2312dbe7789"
       },
-      "reason": "assets/rc139/narration-start.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc139/narration-start.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc222/runtime.js",
@@ -83,7 +83,7 @@
         "sha256": "074221a53a3bba4db9e5c64c3de737538e2a740000b048cfa678d614a6f5314e",
         "gitBlob": "c16175752b843b52e9c68784ca119197c906380c"
       },
-      "reason": "assets/rc222/runtime.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc222/runtime.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc223/camera.js",
@@ -94,7 +94,7 @@
         "sha256": "29c54d7c2af464f230dbc85eb10cb486d36b68a99b8ff713b380917c740cfe2d",
         "gitBlob": "c8ca7734e43e8cd0458888ae35367686ae9acda2"
       },
-      "reason": "assets/rc223/camera.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc223/camera.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc223/guest-voice.js",
@@ -105,7 +105,7 @@
         "sha256": "c842612738bfa24b30ccfcd1cc2943c3039738f297a79ac7c20f0bde1ba4abf1",
         "gitBlob": "beef21bd0bcc9d447e2de0fdd48a01e7e8d850f8"
       },
-      "reason": "assets/rc223/guest-voice.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc223/guest-voice.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc223/left-zone.js",
@@ -116,7 +116,7 @@
         "sha256": "9ee4cdc41830ed875725097acf28f8b3f4048236dd39a76b0f74847a167d9f0a",
         "gitBlob": "fc0a402dd30a9d4176d4aa75a17c93bc44381459"
       },
-      "reason": "assets/rc223/left-zone.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc223/left-zone.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc51/story.js",
@@ -131,7 +131,7 @@
         "sha256": "e1b5b5e69ca57845206edb91f0ced98bf028c1511fed91e9988a22921b7d6204",
         "gitBlob": "c68507facaf53721feecea0271afc66a1e380de5"
       },
-      "reason": "assets/rc51/story.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc51/story.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/story-narration/v1/player.js",
@@ -146,7 +146,7 @@
         "sha256": "8cfe829143c4c34c4f38d623652a07ae7fdeba6063a016a39a59fa2763b39e90",
         "gitBlob": "7b72a4869cb1399f365db65f04b0fea2cbc66b29"
       },
-      "reason": "assets/story-narration/v1/player.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/story-narration/v1/player.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "index.html",
@@ -161,8 +161,8 @@
         "sha256": "c67a95f1bdd45d6ab808ce8625aeecca2bc6a425fd3bcfd4e0a754bad2c36c6c",
         "gitBlob": "9a32eb5c0e14ddcbb2ef46472e5f519e5f4a0fd3"
       },
-      "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, and the reproduced offline companion checkpoint repair; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     }
   ],
-  "targetProtectedRowsSha256": "ec8ad06f723eb71bd84cb1aa54b35c002b5b0151f7969d2f33c7c304f67e6379"
+  "targetProtectedRowsSha256": "27008cad9874039827ec840eb1470a82a50c98a969e339c35a2ca62c1f1a798c"
 }

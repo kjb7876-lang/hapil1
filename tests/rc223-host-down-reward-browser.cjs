@@ -1,0 +1,370 @@
+'use strict';
+
+// Focused RC223 browser regression: two fresh two-client dist06 rooms exercise
+// the real guest actor path and the canonical-host Party AI strike path while
+// host HP is zero during the native eight-second cooperative revive window.
+const fs=require('node:fs');
+const path=require('node:path');
+const http=require('node:http');
+const cp=require('node:child_process');
+const crypto=require('node:crypto');
+const assert=require('node:assert/strict');
+const {pathToFileURL}=require('node:url');
+const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
+
+const runnerRoot=path.resolve(__dirname,'..');
+const appRoot=path.resolve(process.env.HAPIL_TEST_BASE||runnerRoot);
+const out=path.resolve(process.env.HAPIL_QA_OUTPUT||'/tmp/rc223-host-down-reward-browser');
+fs.mkdirSync(out,{recursive:true});
+const sha256=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+const read=file=>fs.readFileSync(path.join(appRoot,file));
+const git=args=>{try{return cp.execFileSync('git',args,{cwd:appRoot,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}catch{return null;}};
+const runnerSha=cp.execFileSync('git',['rev-parse','HEAD'],{cwd:runnerRoot,encoding:'utf8'}).trim();
+const appSha=git(['rev-parse','HEAD']);
+const expectedSha=process.env.EXPECTED_SHA||null;
+if(expectedSha)assert.equal(appSha,expectedSha,'served application checkout must match EXPECTED_SHA');
+
+const sourceFiles=['index.html','assets/index-v31526.js','assets/rc222/runtime.js','assets/rc138/native-install.js.txt','server/src/relay.js'];
+const sourceHashes=Object.fromEntries(sourceFiles.map(file=>[file,sha256(read(file))]));
+const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.mp3':'audio/mpeg','.wav':'audio/wav','.woff2':'font/woff2'};
+const server=http.createServer((req,res)=>{
+  let file;
+  try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);file=path.resolve(appRoot,'.'+(pathname==='/'?'/index.html':pathname));}
+  catch{return res.writeHead(400).end();}
+  if(!file.startsWith(appRoot+path.sep))return res.writeHead(403).end();
+  try{res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.setHeader('Cache-Control','no-store');res.end(fs.readFileSync(file));}
+  catch{return res.writeHead(404).end();}
+});
+
+const report={
+  schema:1,status:'running',runnerSha,appSha,expectedSha,appRoot,startedAt:new Date().toISOString(),
+  scope:'Two fresh isolated two-client rooms in official Chrome with one real loopback WebSocket relay. Case 1 kills the final dist06 boss through the guest RC222 keyboard actor while host HP is zero; case 2 queues one native story68 AI basic attack and lets Party.tick/applyStrike kill the boss against canonical host HP zero. Both use native host incoming damage, eight-second revive, the native post-clear card path, exact reward/claim ownership checks, shared snapshot replication, and native exit readiness.',
+  fixture:{zone:'dist06',nativeBossId:'dist06-boss',rooms:2,contextsPerRoom:2,mapEntry:'__MONGSE_QA_API__.stageV3128BossShowcase("dist06") invokes native ii entry',unlock:'__HAPIL_SAMONG_RC91__.unlock(state,"777")',hostHp:1,finalBossHp:1,guestPosition:'guest is staged beside the native boss inside basic-attack range only in the guest-owned case',story68Position:'story68 is staged beside the native boss only after host HP reaches zero in the AI-owned case',enemyReadiness:'native boss attack/cast readiness is moved beyond the short probe; native targeting, attack, strike, death, and reward paths remain active',postClearScene:'wait for actual __HAPIL_STORY_RC51__.beforeFrame to open dist06:post after host revive, capture it, then explicitly close(false) without waiting for narration'},
+  environment:{officialChrome:false,isolatedContexts:0,actualWebSocketRelay:false,realFourNetworks:false,physicalDevice:false,physicalGPU:false},
+  sources:sourceFiles.map(file=>({file,bytes:read(file).length,sha256:sourceHashes[file]})),
+  checks:[],cases:[],captures:[],errors:[],httpErrors:[],requestFailures:[]
+};
+let browser,relay,base='',failure=null;
+const contexts=[],pages=[];
+const save=()=>fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2));
+const soloKeys=()=>Object.fromEntries(Object.entries(localStorage).filter(([key])=>/^mongse_save_v\d+_|^(?:mongse_settings_v1|hapilEndingCleared|hapilCampaignCompleteV31301|hapil\.samongUnlocked\.rc91|hapil\.pattern-codex\.v1|hapil\.pattern-records\.v1|hapil\.run-draft\.v31400|hapil\.gameMode\.v31346)$/.test(key)).sort(([a],[b])=>a.localeCompare(b)));
+
+async function verifySourceBytes(){
+  const served=[];
+  for(const file of sourceFiles){const response=await fetch(base+'/'+file);assert.equal(response.status,200,'served source: '+file);const bytes=Buffer.from(await response.arrayBuffer()),digest=sha256(bytes);assert.equal(digest,sourceHashes[file],'served source bytes match selected checkout: '+file);served.push({file,status:response.status,bytes:bytes.length,sha256:digest});}
+  report.httpSourceBytes=served;
+}
+async function capture(name,page=pages[0]){
+  if(!page)return null;
+  const file=name+'.png',bytes=await page.screenshot({path:path.join(out,file),timeout:20000});
+  const row={name,file,bytes:bytes.length,sha256:sha256(bytes),appSha,at:new Date().toISOString()};report.captures.push(row);save();
+  if(process.env.HAPIL_QA_LOG_PREVIEW==='1'&&(name.startsWith('failed-')||name.includes('host-down-last-boss-kill')||name.includes('host-revived-reward-exit-ready'))){
+    const jpeg=await page.screenshot({type:'jpeg',quality:30,timeout:20000}),encoded=jpeg.toString('base64');
+    console.log('RC223_HOST_DOWN_PREVIEW_META '+JSON.stringify({name,appSha,sha256:sha256(jpeg),bytes:jpeg.length,chunks:Math.ceil(encoded.length/4000)}));
+    for(let i=0;i<encoded.length;i+=4000)console.log('RC223_HOST_DOWN_PREVIEW_CHUNK '+name+' '+(i/4000)+' '+encoded.slice(i,i+4000));
+  }
+  return row;
+}
+async function makePage(label){
+  const context=await browser.newContext({viewport:{width:1280,height:900}});contexts.push(context);
+  report.environment.isolatedContexts=contexts.length;
+  const page=await context.newPage();pages.push(page);page.setDefaultTimeout(20000);
+  page.on('pageerror',error=>report.errors.push({label,error:error.stack||error.message,at:new Date().toISOString()}));
+  page.on('response',response=>{if(response.status()>=400)report.httpErrors.push({label,url:response.url(),status:response.status()});});
+  page.on('requestfailed',request=>report.requestFailures.push({label,url:request.url(),failure:request.failure()}));
+  await page.goto(base+'/?qa=1',{waitUntil:'domcontentloaded'});
+  await page.waitForFunction(()=>window.__HAPIL_REMOTE_RC222__&&window.__HAPIL_REMOTE_RC222_RUNTIME__&&window.__HAPIL_NATIVE_ARENA_RC138__?.installed&&window.__HAPIL_PARTY_V31322__,null,{timeout:60000});
+  await page.keyboard.press('Escape');
+  return page;
+}
+async function startRoom(host,guest,caseId){
+  const short=caseId==='guest-owned'?'gd':'ai';
+  await host.locator('#rc222-create').click();await host.locator('#rc222-nickname').fill('host-'+short);
+  await host.locator('#rc222-settings').evaluate(node=>node.open=true);await host.locator('#rc222-endpoint').fill(report.relayURL);await host.locator('#rc222-connect').click();
+  await host.waitForFunction(()=>window.__HAPIL_REMOTE_RC222__.status().connected,null,{timeout:15000});
+  const roomCode=await host.evaluate(()=>window.__HAPIL_REMOTE_RC222__.status().code);assert.match(roomCode,/^[A-F0-9]{16}$/,'host opened a real RC222 relay room');
+  await guest.locator('#rc222-join').click();await guest.locator('#rc222-nickname').fill('guest-'+short);await guest.locator('#rc222-code').fill(roomCode);
+  await guest.locator('#rc222-settings').evaluate(node=>node.open=true);await guest.locator('#rc222-endpoint').fill(report.relayURL);await guest.locator('#rc222-connect').click();
+  await guest.waitForFunction(()=>window.__HAPIL_REMOTE_RC222__.status().connected,null,{timeout:15000});await guest.locator('#rc222-ready').click();
+  await host.waitForFunction(()=>window.__HAPIL_REMOTE_RC222__.status().roster.length===2&&window.__HAPIL_REMOTE_RC222__.status().roster[1].ready,null,{timeout:15000});
+  await host.locator('#rc222-start').click();
+  const playing=page=>page.waitForFunction(()=>{const t=window.__HAPIL_REMOTE_RC222__.status();return t.phase==='playing'&&window.__HAPIL_REMOTE_RC222_RUNTIME__.status().ready&&!t.stale;},null,{timeout:30000});
+  await Promise.all([playing(host),playing(guest)]);
+  await host.evaluate(()=>{window.__HAPIL_STORY_RC51__?.close?.(false);const C=window.__HAPIL_CONTROLS_V31329__;C.binding.actions.dismiss();C.setMode('manual');});
+  await guest.evaluate(()=>{window.__HAPIL_STORY_RC51__?.close?.(false);window.__HAPIL_CONTROLS_V31329__?.binding?.actions?.dismiss?.();});
+  const manual=await guest.evaluate(()=>({selected:window.__HAPIL_REMOTE_RC222_RUNTIME__.setAutoMode('manual'),status:window.__HAPIL_REMOTE_RC222_RUNTIME__.status()}));
+  assert.equal(manual.selected,'manual');assert.equal(manual.status.autoMode,'manual');
+  await host.waitForFunction(()=>window.__HAPIL_REMOTE_RC222_RUNTIME__?.telemetry?.().actorSteps?.p2?.mode==='manual',null,{timeout:12000});
+  return{roomCode,hostStatus:await host.evaluate(()=>window.__HAPIL_REMOTE_RC222__.status()),guestStatus:await guest.evaluate(()=>window.__HAPIL_REMOTE_RC222__.status()),guestManual:manual};
+}
+async function hostEvidence(page){
+  return page.evaluate(()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,T=window.__HAPIL_REMOTE_RC222__,N=window.__HAPIL_NATIVE_ARENA_RC138__,F=window.__HAPIL_FLOW_V31343__,s=P?.state,boss=s?.enemies?.find(e=>e.id==='dist06-boss'),telemetry=R?.telemetry?.(),snap=P?.exportSnapshot?.(),fields=new Map(snap?.world?.fields??[]),marker='ego-reward-v31217:dist06',clues=s?.clues;
+    const localSaveKeys=()=>Object.fromEntries(Object.entries(localStorage).filter(([key])=>/^mongse_save_v\d+_|^(?:mongse_settings_v1|hapilEndingCleared|hapilCampaignCompleteV31301|hapil\.samongUnlocked\.rc91|hapil\.pattern-codex\.v1|hapil\.pattern-records\.v1|hapil\.run-draft\.v31400|hapil\.gameMode\.v31346)$/.test(key)).sort(([a],[b])=>a.localeCompare(b)));
+    const deathRows=(s?.defeated??[]).filter(row=>row.sourceActorIdRC145==='dist06-boss'),progressionRewards=window.__RC223_HOST_DOWN_REWARD_PROBE__?.calls??[];
+    return{zone:s?.zone,time:s?.time,hp:s?.hp,maxHp:s?.maxHp,position:{x:s?.x,y:s?.y},boss:boss?{id:boss.id,hp:boss.hp,maxHp:boss.maxHp,phaseCount:boss.phaseCount,currentPhase:boss.currentPhase,phaseIndex:boss.phaseIndex,phaseApi:window.__HAPIL_RC86_BRIDGE__?.phase?.(boss),phaseTransitionActive:!!boss.phaseTransitionActive,invulnerableUntil:boss.invulnerableUntil}:null,bossDefeated:s?.bossDefeated===true,enemies:(s?.enemies??[]).map(e=>({id:e.id,hp:e.hp,boss:!!e.boss})),defeatedBossRows:deathRows.map(row=>({id:row.id,sourceActorIdRC145:row.sourceActorIdRC145,boss:!!row.boss,damageSource:row.damageSource??null})),claimMarker:{key:marker,isSet:clues instanceof Set&&clues.has(marker),count:clues instanceof Set?[...clues].filter(v=>v===marker).length:null},cluesIsSet:clues instanceof Set,egoDrops:(s?.egoDrops??[]).map(row=>({id:row.id,amount:row.amount,sourceId:row.sourceId})),hostShardCounter:C?.binding?.shards?.current??null,actorShardCounters:(P?.actors??[]).map(a=>({slotId:a.slotId,rc222Shards:Number.isFinite(a.rc222Shards)?a.rc222Shards:null})),progressionRewardCalls:progressionRewards.map(row=>({...row})),ownership:{runtimeActiveActor:R?.activeActor?.slotId??null,partyOutgoingActor:P?.outgoingActor?.slotId??null},partyStatus:P?.status??null,partyTelemetry:P?.telemetry?.()??null,network:{status:T?.status?.()??null,telemetry:telemetry?{outgoingSequence:telemetry.outgoingSequence,ownedHits:telemetry.ownedHits,revives:telemetry.revives,outgoingEvents:telemetry.outgoingEvents??[],actorSteps:telemetry.actorSteps??{},nativeSteps:telemetry.nativeSteps,faults:telemetry.faults??[]}:null,snapshot:snap?{protocol:snap.protocol,zone:snap.zone,seq:snap.seq,partyFields:Object.keys(snap.party??{}),worldFieldKeys:[...fields.keys()],worldShardFields:[...fields.keys()].filter(key=>/shard|egoCurrency/i.test(key)),partyShardFields:Object.keys(snap.party??{}).filter(key=>/shard|egoCurrency/i.test(key)),hostDownUntil:snap.party?.hostDownUntil??null,actorRows:(snap.party?.actors??[]).map(a=>({slotId:a.slotId,hp:a.hp,maxHp:a.maxHp,downUntil:a.downUntil??0}))}:null},clear:{native:N?.clear?.(s,s?.zone)??null,flow:F?.gate?.(s)??null},exit:F?.ready?.(s)??null,localSaveKeys:localSaveKeys()};
+  });
+}
+async function guestEvidence(page){
+  return page.evaluate(()=>{
+    const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,T=window.__HAPIL_REMOTE_RC222__,s=P?.state,clues=s?.clues,marker='ego-reward-v31217:dist06';
+    const localSaveKeys=()=>Object.fromEntries(Object.entries(localStorage).filter(([key])=>/^mongse_save_v\d+_|^(?:mongse_settings_v1|hapilEndingCleared|hapilCampaignCompleteV31301|hapil\.samongUnlocked\.rc91|hapil\.pattern-codex\.v1|hapil\.pattern-records\.v1|hapil\.run-draft\.v31400|hapil\.gameMode\.v31346)$/.test(key)).sort(([a],[b])=>a.localeCompare(b)));
+    return{zone:s?.zone,time:s?.time,hp:s?.hp,bossDefeated:s?.bossDefeated===true,enemies:(s?.enemies??[]).map(e=>({id:e.id,hp:e.hp})),claimMarker:{key:marker,isSet:clues instanceof Set&&clues.has(marker),count:clues instanceof Set?[...clues].filter(v=>v===marker).length:null},actors:(P?.actors??[]).map(a=>({slotId:a.slotId,hp:a.hp,maxHp:a.maxHp,downUntil:a.downUntil??0,x:a.x,y:a.y})),partyStatus:P?.status??null,runtime:R?.status?.()??null,transport:T?.status?.()??null,guestShardCounter:C?.binding?.shards?.current??null,localSaveKeys:localSaveKeys()};
+  });
+}
+async function check(name,host,guest,fn){
+  const row={name,status:'running',startedAt:new Date().toISOString()};report.checks.push(row);save();
+  try{row.evidence=await fn();row.status='passed';return row.evidence;}
+  catch(error){row.status='failed';row.error=error.stack||String(error);try{row.diagnostics={host:await hostEvidence(host),guest:await guestEvidence(guest)};}catch(diagnosticError){row.diagnosticsError=String(diagnosticError);}console.error('RC223_HOST_DOWN_CHECK_FAILURE '+JSON.stringify({name,error:row.error,diagnostics:row.diagnostics??null}));await capture('failed-'+name,host).catch(()=>{});throw error;}
+  finally{row.endedAt=new Date().toISOString();save();}
+}
+async function runCase(kind,index){
+  const caseId=kind==='guest'?'guest-owned':'story68-ai-canonical';
+  const checkName='host-down-'+caseId+'-final-boss-reward';
+  const row={name:caseId,status:'running',caseNumber:index+1,startedAt:new Date().toISOString(),method:kind==='guest'?'real guest KeyA through RC222 actor transaction':'one explicit native P.debug.attack(s,story68,"A") followed by Party.tick/applyStrike'};
+  report.cases.push(row);save();
+  let host=null,guest=null;
+  try{
+    host=await makePage(caseId+'-host');guest=await makePage(caseId+'-guest');
+    row.room=await startRoom(host,guest,caseId);
+    row.guestSaveKeysAtStart=await guest.evaluate(soloKeys);
+    if(report.cases.length>1&&report.cases[0].room?.roomCode)assert.notEqual(row.room.roomCode,report.cases[0].room.roomCode,'each scenario uses a fresh relay room');
+    row.evidence=await check(checkName,host,guest,async()=>{
+      const staged=await host.evaluate(kind=>{
+        const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,s=P?.state;
+        if(!s||C.binding.phase!=='game'||P.status.role!=='host'||R.status().role!=='host')throw Error('native host game and host role are required');
+        const marker='ego-reward-v31217:dist06',claim=()=>s.clues instanceof Set&&s.clues.has(marker),claimBefore777=claim();
+        const unlock=window.__HAPIL_SAMONG_RC91__?.unlock?.(s,'777'),claimAfter777=claim();
+        const result=window.__MONGSE_QA_API__?.stageV3128BossShowcase?.('dist06');
+        if(!result?.pass||result.bossId!=='dist06-boss')throw Error('native dist06 boss showcase failed '+JSON.stringify(result));
+        window.__HAPIL_STORY_RC51__?.suppressEntry?.(s);window.__HAPIL_STORY_RC51__?.close?.(false);window.__HAPIL_STORY_RC51__?.beforeFrame?.(s,{blocked:false,clear:false,sound:false});window.__HAPIL_STORY_RC51__?.close?.(false);
+        C.binding.actions.dismiss();C.binding.modal.current=null;C.setMode('manual');
+        Object.assign(s,{paused:false,pause:false,encounterLockUntil31226:0,encounterWallUnlockAtV31227:0,encounterDialogue31226:null,timeStopUntil:0});
+        const boss=s.enemies.find(e=>e.id===result.bossId);if(!boss)throw Error('native entry lost the dist06 boss');
+        for(const key of ['pendingHits','hostileProjectiles','impactQueue','telekineticCasts','spatialRiftCasts','narrativeCasts','pendingStrikes'])if(Array.isArray(s[key]))s[key]=[];
+        for(const key of ['readyAt','patternReadyAt','themedOrdnanceAt','themedSummonAt','bossCombatPatternReadyAtV31230'])boss[key]=s.time+120;
+        boss.recoverUntil=s.time+120;boss.attackAt=s.time+120;boss.attackStarted=s.time;boss.attackImpactAt=s.time;boss.phaseTransitionActive=false;boss.phaseTransitionUntil=s.time;boss.invulnerableUntil=s.time;
+        const actor=P.actors.find(a=>a.slotId==='p2');if(!actor)throw Error('native two-player roster lacks remote p2');
+        const flow=window.__HAPIL_FLOW_V31343__,profile=flow?.profile?.('dist06');if(!profile)throw Error('native dist06 flow profile missing');
+        return{kind,unlock,staged:result,zone:s.zone,time:s.time,hostHp:s.hp,hostMaxHp:s.maxHp,hostPosition:{x:s.x,y:s.y},guestActor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,x:actor.x,y:actor.y,hp:actor.hp,maxHp:actor.maxHp},boss:{id:boss.id,hp:boss.hp,maxHp:boss.maxHp,phaseCount:boss.phaseCount,currentPhase:boss.currentPhase,readyAt:boss.readyAt,invulnerableUntil:boss.invulnerableUntil},claimBefore777,claimAfter777,claimAfterNativeStage:claim(),flowExit:{...profile.exitAnchorWorld},shardsBeforeHostIncoming:C.binding.shards.current,partyStatus:P.status,gameMode:window.__HAPIL_MODES_V31346__?.mode?.(s)??null,hostDownInitial:P.exportSnapshot()?.party?.hostDownUntil??null,method:'native 777 unlock + native QA boss showcase/map entry; explicit low HP and actor positions are staged separately from live native attack, incoming, strike, death, revive, and reward paths'};
+      },kind);
+      assert.equal(staged.zone,'dist06');assert.equal(staged.boss.id,'dist06-boss');assert.equal(staged.claimBefore777,false);assert.equal(staged.claimAfter777,false,'777 alone does not preclaim dist06 reward');assert.equal(staged.claimAfterNativeStage,false,'native map entry still leaves the dist06 reward claim unclaimed');
+      await host.evaluate(zone=>window.__HAPIL_REMOTE_RC222__.publishTransition(zone),'dist06');
+      await Promise.all([host,guest].map(page=>page.waitForFunction(()=>window.__HAPIL_PARTY_V31322__?.state?.zone==='dist06'&&window.__HAPIL_REMOTE_RC222_RUNTIME__?.status?.().ready&&!window.__HAPIL_REMOTE_RC222__.status().stale,null,{timeout:20000})));
+      await host.waitForFunction(start=>{const P=window.__HAPIL_PARTY_V31322__,s=P.state;return s.time>=start+14&&!P.status.paused&&!window.__HAPIL_STORY_RC51__?.isOpen?.()&&!(window.__HAPIL_CONTROLS_V31329__?.binding?.modal?.current);},staged.time,{timeout:90000});
+      const aiReadiness=await host.evaluate(()=>{
+        const P=window.__HAPIL_PARTY_V31322__,s=P?.state,mode=window.__HAPIL_MODES_V31346__?.mode?.(s)??null,ai=P?.actors?.find(a=>a.slotId==='story68'&&a.control==='ai')??null;
+        if(ai){ai.recoveryUntilV31322=s.time+120;ai.target=null;ai.targetEnemyId=null;ai.moveVx=ai.moveVy=0;}
+        const pending=()=>P.exportSnapshot()?.party?.strikes?.filter(hit=>hit.slotId==='story68')??[];
+        return{time:s.time,mode,ai:ai?{slotId:ai.slotId,heroId:ai.heroId,control:ai.control,hp:ai.hp,maxHp:ai.maxHp,recoveryUntilV31322:ai.recoveryUntilV31322}:null,pendingStoryStrikes:pending()};
+      });
+      if(kind==='story68-ai')assert.equal(aiReadiness.mode,'STORY','the AI case retains the native story game mode');
+      if(kind==='story68-ai')assert(aiReadiness.ai?.hp>0&&aiReadiness.ai.control==='ai','the native story68 AI companion remains alive in the fresh room');
+      if(aiReadiness.ai){
+        await host.waitForFunction(start=>{const P=window.__HAPIL_PARTY_V31322__,pending=P.exportSnapshot()?.party?.strikes??[];return P.state.time>=start+.4&&!pending.some(hit=>hit.slotId==='story68');},aiReadiness.time,{timeout:15000});
+      }
+      await host.waitForFunction(()=>Number.isFinite(window.__HAPIL_PARTY_V31322__?.actors?.find(a=>a.slotId==='p2')?.rc222Shards),null,{timeout:20000});
+      const stable=await host.evaluate(kind=>{
+        const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,s=P.state,b=s.enemies.find(e=>e.id==='dist06-boss'),a=P.actors.find(e=>e.slotId==='p2'),story=P.actors.find(e=>e.slotId==='story68'&&e.control==='ai');
+        if(!b||!a||s.time<=s.invulnerableUntil)throw Error('native showcase safety window must elapse before incoming damage '+JSON.stringify({time:s.time,playerInvulnerability:s.invulnerableUntil,boss:b&&{id:b.id,hp:b.hp}}));
+        if(kind==='story68-ai'&&(!story||story.hp<=0))throw Error('live native story68 AI actor is required by this case');
+        const phaseCount=Math.max(1,Number(b.phaseCount??3));
+        // Explicit one-HP final-phase boss fixture. Native phase gate and death interception remain enabled.
+        b.hp=1;b.currentPhase=phaseCount;b.phaseIndex=phaseCount;b.phaseTransitionActive=false;b.phaseTransitionUntil=s.time;b.invulnerableUntil=s.time;b.readyAt=s.time+120;b.patternReadyAt=s.time+120;b.themedOrdnanceAt=s.time+120;b.themedSummonAt=s.time+120;b.bossCombatPatternReadyAtV31230=s.time+120;b.recoverUntil=s.time+120;
+        if(kind==='guest'){
+          const point={x:b.x-2.2,y:b.y+1.1};Object.assign(a,{x:point.x,y:point.y,target:null,targetEnemyId:b.id,path:[],moveDx:0,moveDy:0,moveVx:0,moveVy:0,readyAt:s.time,invulnerableUntil:s.time+120,downUntil:0,heroMotion:{kind:'idle',started:s.time,until:s.time,facing:1,dx:1,dy:-1,direction:'right'}});
+          for(const key of ['readyAt','attackAt','attackStarted','attackImpactAt','recoverUntil','hitUntil','staggerUntil'])a[key]=s.time;
+        }else{
+          a.invulnerableUntil=s.time+120;a.downUntil=0;
+          if(story){story.recoveryUntilV31322=s.time+120;story.moveVx=story.moveVy=0;}
+        }
+        C.setMode('manual');
+        const phaseApi=window.__HAPIL_RC86_BRIDGE__?.phase?.(b),marker='ego-reward-v31217:dist06',p2Shards=Number.isFinite(a.rc222Shards)?a.rc222Shards:null;
+        return{kind,zone:s.zone,time:s.time,hostHp:s.hp,playerInvulnerabilityExpired:s.time>=s.invulnerableUntil,guest:{slotId:a.slotId,heroId:a.heroId,control:a.control,x:a.x,y:a.y,hp:a.hp,maxHp:a.maxHp,rc222Shards:p2Shards},story68:story?{slotId:story.slotId,heroId:story.heroId,control:story.control,x:story.x,y:story.y,hp:story.hp,maxHp:story.maxHp,recoveryUntilV31322:story.recoveryUntilV31322}:null,boss:{id:b.id,hp:b.hp,maxHp:b.maxHp,phaseCount,phaseMax:b.phaseMax,currentPhase:b.currentPhase,phaseIndex:b.phaseIndex,phaseApi,finalPhase:phaseApi===phaseCount,phaseTransitionActive:!!b.phaseTransitionActive,invulnerableUntil:b.invulnerableUntil,readyAt:b.readyAt},claimMarkerBeforeKill:s.clues instanceof Set&&s.clues.has(marker),shardsBeforeKill:C.binding.shards.current,partyStrikes:P.exportSnapshot()?.party?.strikes??[],fixture:'boss HP=1 and final phase fields are explicit deterministic fixture values; native damage, final-phase interception, defeat commit, claim, and exit paths remain live'};
+      },kind);
+      assert.equal(stable.zone,'dist06');assert.equal(stable.playerInvulnerabilityExpired,true,'native map-entry invulnerability expires naturally before host incoming damage');assert.equal(stable.boss.hp,1);assert.equal(stable.boss.phaseApi,stable.boss.phaseCount,'native phase API confirms the final boss phase while native phase/death chain remains active');assert.equal(stable.boss.finalPhase,true);assert.equal(stable.boss.phaseTransitionActive,false);assert.equal(stable.claimMarkerBeforeKill,false);assert(Number.isFinite(stable.guest.rc222Shards),'remote p2 actor currency was initialized by its native idle actor transaction before the kill fixture');
+      if(kind==='story68-ai')assert(stable.story68?.hp>0&&stable.story68.control==='ai','the AI-owned case keeps the story68 actor alive and ready for a native Party strike');
+      await Promise.all([host,guest].map(page=>page.waitForFunction(()=>window.__HAPIL_PARTY_V31322__?.state?.enemies?.some(e=>e.id==='dist06-boss'&&e.hp===1),null,{timeout:8000})));
+      const rewardProbe=await host.evaluate(bossId=>{
+        const original=window.__HAPIL_PROGRESSION_V31338__,descriptor=Object.getOwnPropertyDescriptor(window,'__HAPIL_PROGRESSION_V31338__'),calls=[];
+        if(!original||typeof original.reward!=='function')throw Error('native progression reward API is unavailable');
+        if(!descriptor?.writable&&!descriptor?.set)throw Error('native progression reward API global is not temporarily replaceable for read-only instrumentation');
+        const passThrough=function(state,enemy,passives){
+          const runtime=window.__HAPIL_REMOTE_RC222_RUNTIME__,party=window.__HAPIL_PARTY_V31322__,controls=window.__HAPIL_CONTROLS_V31329__,activeActor=runtime?.activeActor??null,outgoingActor=party?.outgoingActor??null,bindingState=controls?.binding?.state?.current??null,stateActor=runtime?.actorFor?.(bindingState)??null,canonicalState=runtime?.canonicalWorld?.(bindingState)??null,binding=controls?.binding?.shards,bindingCurrentBefore=binding?.current??null,activeActorShardsBefore=activeActor?.rc222Shards??null;
+          const result=original.reward(state,enemy,passives),bindingCurrentAfterHook=binding?.current??null;
+          if(enemy?.id===bossId)calls.push({bossId:enemy.id,zone:state?.zone,hpVisibleToReward:state?.hp,hostCanonicalHp:party?.state?.hp,time:state?.time,result:Number(result),activeActor:activeActor?{slotId:activeActor.slotId,heroId:activeActor.heroId,hp:activeActor.hp,rc222ShardsBefore:activeActorShardsBefore}:null,outgoingActor:outgoingActor?{slotId:outgoingActor.slotId,heroId:outgoingActor.heroId,control:outgoingActor.control}:null,stateView:{isActorProxy:bindingState!==canonicalState,hp:bindingState?.hp??null,canonicalHp:canonicalState?.hp??null,actorForState:stateActor?{slotId:stateActor.slotId,heroId:stateActor.heroId}:null,actorMatchesActiveActor:!!activeActor&&stateActor===activeActor,canonicalIsPartyState:canonicalState===party?.state,hpMatchesActor:!!activeActor&&bindingState?.hp===activeActor.hp},shardBinding:{sameControlsBinding:binding===controls?.binding?.shards,currentBefore:bindingCurrentBefore,activeActorRc222ShardsBefore:activeActorShardsBefore,currentIsActiveActorCurrency:!!activeActor&&bindingCurrentBefore===activeActorShardsBefore,currentAfterHook:bindingCurrentAfterHook},nativeRewardCallThrough:true});
+          return result;
+        };
+        const facade=Object.create(original);Object.defineProperty(facade,'reward',{value:passThrough,writable:false,enumerable:true,configurable:false});
+        window.__RC223_HOST_DOWN_REWARD_PROBE__={calls,original,restored:false};window.__HAPIL_PROGRESSION_V31338__=facade;
+        return{installed:window.__HAPIL_PROGRESSION_V31338__===facade,method:'temporary facade calls the frozen native reward function unchanged and records its numeric return and runtime/Party actor ownership',originalObjectFrozen:Object.isFrozen(original),globalWritable:descriptor.writable===true};
+      },'dist06-boss');assert.equal(rewardProbe.installed,true);assert.equal(rewardProbe.originalObjectFrozen,true,'native progression API remains frozen; instrumentation uses a separate call-through facade');assert.equal(rewardProbe.globalWritable,true,'only the writable global reference is temporarily replaced for call-through observation');
+      let aiProbeSetup=null;
+      if(kind==='story68-ai'){
+        aiProbeSetup=await host.evaluate(()=>{
+          const P=window.__HAPIL_PARTY_V31322__,originalCapture=P.capture,observations=[],bindings=[];
+          if(typeof originalCapture!=='function')throw Error('native Party.capture is not callable');
+          P.capture=function(s,binding,...args){
+            if(typeof binding?.damage==='function'&&binding.damage.__rc223HostDownAiProbe!==true){
+              const originalDamage=binding.damage,wrapped=function(...damageArgs){
+                const target=damageArgs[0],source=damageArgs.at(-1),party=window.__HAPIL_PARTY_V31322__,state=party?.state,owner=party?.outgoingActor??null,hpBefore=target?.hp;
+                const result=originalDamage.apply(this,damageArgs);
+                if(target?.id==='dist06-boss')observations.push({time:state?.time,owner:owner?{slotId:owner.slotId,heroId:owner.heroId,control:owner.control}:null,source:source?{partySlotV31322:source.partySlotV31322??null,nativeActorRC222:source.nativeActorRC222===true,nativeActor:source.nativeActor??null,heroId:source.heroId??null,actionKey:source.actionKey??null}:null,targetId:target.id,targetHpBefore:hpBefore,targetHpAfter:target?.hp,targetRemoved:!!state&&!state.enemies.includes(target),damageArguments:damageArgs.length});
+                return result;
+              };
+              Object.defineProperty(wrapped,'__rc223HostDownAiProbe',{value:true});Object.defineProperty(wrapped,'__rc223HostDownAiOriginal',{value:originalDamage});binding.damage=wrapped;bindings.push(binding);
+            }
+            return originalCapture.call(this,s,binding,...args);
+          };
+          const restore=()=>{P.capture=originalCapture;for(const binding of bindings)if(binding.damage?.__rc223HostDownAiProbe)binding.damage=binding.damage.__rc223HostDownAiOriginal;return{captureRestored:P.capture===originalCapture,wrappedBindingsRestored:bindings.every(binding=>!binding.damage?.__rc223HostDownAiProbe),observations:observations.length};};
+          window.__RC223_HOST_DOWN_AI_DAMAGE_PROBE__={observations,bindings,restore};return{installed:true,callThrough:true,bindings:bindings.length,originalCaptureWritable:Object.getOwnPropertyDescriptor(P,'capture')?.writable===true};
+        });
+        assert.equal(aiProbeSetup.installed,true);assert.equal(aiProbeSetup.callThrough,true);assert.equal(aiProbeSetup.originalCaptureWritable,true,'only the temporary P.capture wrapper is replaced and restored');
+        await host.waitForFunction(()=>window.__RC223_HOST_DOWN_AI_DAMAGE_PROBE__?.bindings?.length>0,null,{timeout:10000});
+      }
+      const incoming=await host.evaluate(()=>{
+        const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,N=window.__HAPIL_NATIVE_ARENA_RC138__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,s=P.state,b=s.enemies.find(e=>e.id==='dist06-boss'),beforeRevives=P.telemetry().revives;
+        if(!b||s.hp<=0||s.time<s.invulnerableUntil)throw Error('host must be alive and vulnerable before native bodyDamage');
+        s.hp=1;s.invulnerableUntil=0;s.awakeningUntil=0;s.guardianGraceReadyAt=s.time;
+        const source={id:'rc223-host-down-native-incoming',sourceId:b.id,born:s.time,damage:100000,boss:true},accepted=N.bodyDamage(s,100000,s.x,s.y,source),snapshot=P.exportSnapshot(),telemetry=R.telemetry();
+        return{accepted,hostHp:s.hp,hostTime:s.time,maxHp:s.maxHp,downUntil:snapshot?.party?.hostDownUntil??null,hostDownPosition:snapshot?.party?.hostDownPosition??null,aliveGuestActors:P.actors.filter(a=>a.hp>0).map(a=>({slotId:a.slotId,heroId:a.heroId,control:a.control,hp:a.hp,downUntil:a.downUntil})),revivesBefore:beforeRevives,revivesNow:telemetry.revives,claimMarkerPresent:s.clues instanceof Set&&s.clues.has('ego-reward-v31217:dist06'),shards:C.binding.shards.current,zone:s.zone,hostRuntimeRole:R.status().role};
+      });
+      assert.equal(incoming.hostRuntimeRole,'host');assert.equal(incoming.hostHp,0,'actual RC138 bodyDamage takes host to zero HP');assert(Number.isFinite(incoming.downUntil)&&incoming.downUntil>incoming.hostTime,'native Party snapshot records the real eight-second host revive deadline');assert(incoming.downUntil-incoming.hostTime>=7.95&&incoming.downUntil-incoming.hostTime<=8.05,'host revive window is the native eight seconds');assert(incoming.aliveGuestActors.some(a=>a.slotId==='p2'&&a.hp>0),'remote guest remains alive through native host incoming damage');assert.equal(incoming.claimMarkerPresent,false);assert.equal(incoming.shards,stable.shardsBeforeKill,'host receives no reward before the final boss kill');
+      if(kind==='story68-ai')assert(incoming.aliveGuestActors.some(a=>a.slotId==='story68'&&a.hp>0),'native story68 AI remains alive during the host down window');
+      const downBefore=await hostEvidence(host);assert.equal(downBefore.hp,0);assert(downBefore.network.snapshot?.hostDownUntil>downBefore.time);assert.equal(downBefore.clear.flow?.clear,false,'native exit clear gate stays closed while canonical host HP is zero');
+      await capture(caseId+'-host-down-before-kill',host);
+      const guestBefore=await guestEvidence(guest);assert.equal(guestBefore.runtime?.role,'guest');assert.equal(guestBefore.partyStatus?.role,'guest');assert(guestBefore.actors.some(a=>a.slotId==='p2'&&a.hp>0));
+      let kill,aiQueued=null;
+      if(kind==='guest'){
+        const attackBefore=downBefore.network.telemetry;
+        await guest.keyboard.down('KeyA');
+        try{
+          const input=await guest.waitForFunction(()=>{const v=window.__HAPIL_REMOTE_RC222_RUNTIME__?.readInput?.();return v?.attackHeld===true&&v?.combatMode==='manual'?v:false;},null,{timeout:8000});
+          const guestInput=await input.jsonValue();await input.dispose();assert.equal(guestInput.combatMode,'manual','guest sent a real manual-mode attack input');
+          const handle=await host.waitForFunction(({bossId,downUntil,seq})=>{
+            const P=window.__HAPIL_PARTY_V31322__,R=window.__HAPIL_REMOTE_RC222_RUNTIME__,s=P?.state,t=R?.telemetry?.(),events=t?.outgoingEvents??[],owned=events.filter(e=>e.seq>seq&&e.slotId==='p2'&&e.targetId===bossId&&e.damage>0&&e.zone==='dist06'),deaths=(s?.defeated??[]).filter(row=>row.sourceActorIdRC145===bossId);
+            if(s&&s.hp===0&&s.time<downUntil&&s.bossDefeated===true&&!s.enemies?.some(e=>e.id===bossId)&&owned.length>0&&deaths.length>0)return{time:s.time,hostHp:s.hp,downUntil,hostStillDown:s.time<downUntil,zone:s.zone,bossDefeated:s.bossDefeated,enemies:s.enemies.map(e=>({id:e.id,hp:e.hp})),deathRows:deaths.map(row=>({id:row.id,sourceActorIdRC145:row.sourceActorIdRC145,boss:!!row.boss})),ownedGuestHits:owned.map(e=>({seq:e.seq,slotId:e.slotId,heroId:e.heroId,targetId:e.targetId,damage:e.damage,hpBefore:e.hpBefore,hpAfter:e.hpAfter,zone:e.zone,time:e.time})),outgoingSequence:t.outgoingSequence,revives:t.revives,claimMarker:s.clues instanceof Set&&s.clues.has('ego-reward-v31217:dist06'),claimCount:s.clues instanceof Set?[...s.clues].filter(v=>v==='ego-reward-v31217:dist06').length:null,shards:window.__HAPIL_CONTROLS_V31329__?.binding?.shards?.current??null,clear:window.__HAPIL_FLOW_V31343__?.gate?.(s)??null};
+            return false;
+          },{bossId:'dist06-boss',downUntil:incoming.downUntil,seq:attackBefore?.outgoingSequence??0},{timeout:30000});
+          kill=await handle.jsonValue();await handle.dispose();
+        }finally{await guest.keyboard.up('KeyA');}
+      }else{
+        aiQueued=await host.evaluate(()=>{
+          const P=window.__HAPIL_PARTY_V31322__,s=P.state,actor=P.actors.find(a=>a.slotId==='story68'&&a.control==='ai'),boss=s.enemies.find(e=>e.id==='dist06-boss');
+          if(s.hp!==0||!boss||s.time>=P.exportSnapshot()?.party?.hostDownUntil)throw Error('AI final strike must be staged within the live canonical-host down window');
+          if(!actor||actor.hp<=0)throw Error('native story68 AI actor is missing or down');
+          Object.assign(actor,{x:boss.x-1.05,y:boss.y+1.05,target:null,targetEnemyId:boss.id,path:[],moveDx:0,moveDy:0,moveVx:0,moveVy:0,readyAt:s.time,invulnerableUntil:s.time+120,autoEvadeUntil31223:s.time,dashingUntil:s.time,heroSleepUntil:s.time,heroCharmUntil:s.time,heroMotion:{kind:'idle',started:s.time,until:s.time,facing:1,dx:1,dy:-1,direction:'right'}});
+          actor.recoveryUntilV31322=s.time;
+          const before=(P.exportSnapshot()?.party?.strikes??[]).filter(hit=>hit.slotId==='story68').length,queued=P.debug.attack(s,actor,'A'),strikes=(P.exportSnapshot()?.party?.strikes??[]).filter(hit=>hit.slotId==='story68');
+          actor.recoveryUntilV31322=s.time+120;
+          return{queued,hostHp:s.hp,time:s.time,downUntil:P.exportSnapshot()?.party?.hostDownUntil??null,actor:{slotId:actor.slotId,heroId:actor.heroId,control:actor.control,hp:actor.hp,x:actor.x,y:actor.y,recoveryUntilBeforeAttack:s.time,recoveryUntilAfterQueue:actor.recoveryUntilV31322,autoEvadeUntil31223:actor.autoEvadeUntil31223,dashingUntil:actor.dashingUntil,heroSleepUntil:actor.heroSleepUntil,heroCharmUntil:actor.heroCharmUntil,heroMotion:{...actor.heroMotion}},boss:{id:boss.id,hp:boss.hp,phase:window.__HAPIL_RC86_BRIDGE__?.phase?.(boss),phaseCount:boss.phaseCount},pendingStrikeCountBefore:before,pendingStrikeCountAfter:strikes.length,strikes,fixture:'hard-lock fields are cleared only for the synchronous native debug.attack call; story68 recovery is restored immediately after the one strike queues to prevent autonomous extra attacks'};
+        });
+        assert.equal(aiQueued.hostHp,0);assert(aiQueued.time<aiQueued.downUntil,'AI strike is queued before the native host revive deadline');assert.equal(aiQueued.actor.slotId,'story68');assert.equal(aiQueued.actor.control,'ai');assert.equal(aiQueued.boss.hp,1);assert.equal(aiQueued.boss.phase,stable.boss.phaseCount);assert.equal(aiQueued.queued,true,'the fixture action calls native Party.debug.attack once');assert.equal(aiQueued.pendingStrikeCountAfter,aiQueued.pendingStrikeCountBefore+1,'one and only one story68 native A strike was queued');assert.equal(aiQueued.strikes.length,1);assert.equal(aiQueued.strikes[0].targetId,'dist06-boss');assert.equal(aiQueued.strikes[0].key,'A');
+        const handle=await host.waitForFunction(({bossId,downUntil})=>{
+          const P=window.__HAPIL_PARTY_V31322__,s=P?.state,trace=window.__RC223_HOST_DOWN_AI_DAMAGE_PROBE__?.observations??[],hits=trace.filter(row=>row.targetId===bossId&&row.owner?.slotId==='story68'&&row.source?.partySlotV31322==='story68'&&row.targetHpBefore>row.targetHpAfter&&row.targetRemoved),deaths=(s?.defeated??[]).filter(row=>row.sourceActorIdRC145===bossId);
+          if(s&&s.hp===0&&s.time<downUntil&&s.bossDefeated===true&&!s.enemies?.some(e=>e.id===bossId)&&hits.length>0&&deaths.length>0)return{time:s.time,hostHp:s.hp,downUntil,hostStillDown:s.time<downUntil,zone:s.zone,bossDefeated:s.bossDefeated,enemies:s.enemies.map(e=>({id:e.id,hp:e.hp})),deathRows:deaths.map(row=>({id:row.id,sourceActorIdRC145:row.sourceActorIdRC145,boss:!!row.boss})),aiDamageHits:hits.map(row=>({...row})),pendingStrikes:P.exportSnapshot()?.party?.strikes??[],claimMarker:s.clues instanceof Set&&s.clues.has('ego-reward-v31217:dist06'),claimCount:s.clues instanceof Set?[...s.clues].filter(v=>v==='ego-reward-v31217:dist06').length:null,shards:window.__HAPIL_CONTROLS_V31329__?.binding?.shards?.current??null,clear:window.__HAPIL_FLOW_V31343__?.gate?.(s)??null};
+          return false;
+        },{bossId:'dist06-boss',downUntil:incoming.downUntil},{timeout:30000});
+        kill=await handle.jsonValue();await handle.dispose();
+      }
+      assert.equal(kill.hostHp,0);assert(kill.time<kill.downUntil,'boss removal/death commit is sampled while canonical host HP is zero and before native downUntil');assert.equal(kill.bossDefeated,true);assert.deepEqual(kill.enemies,[],'native final boss death removes the last required enemy');assert.equal(kill.deathRows.length,1,'native beforeDeath/death chain commits exactly one boss removal');
+      if(kind==='guest'){
+        assert.equal(kill.ownedGuestHits.length,1,'one real guest-owned native hit committed the boss kill');assert.equal(kill.ownedGuestHits[0].targetId,'dist06-boss');assert(kill.ownedGuestHits[0].damage>0);assert.equal(kill.claimMarker,true,'guest actor view passes the native clear gate and claims the shared marker during the host down window');assert.equal(kill.claimCount,1);assert.equal(kill.clear?.clear,false,'canonical host clear gate stays closed while host HP is zero');
+      }else{
+        assert.equal(kill.aiDamageHits.length,1,'one native story68 Party.applyStrike damage callback commits the AI kill');const hit=kill.aiDamageHits[0];assert.equal(hit.owner?.slotId,'story68');assert.equal(hit.owner?.control,'ai');assert.equal(hit.source?.partySlotV31322,'story68');assert.equal(hit.source?.nativeActorRC222,false,'canonical AI Party strike carries no RC222 remote-native actor marker');assert(hit.targetHpBefore>0&&hit.targetHpAfter<=0);assert.equal(hit.targetRemoved,true);assert.equal(kill.claimMarker,false,'canonical host clear gate keeps the dist06 claim false while host HP is zero');assert.equal(kill.claimCount,0);assert.equal(kill.clear?.clear,false,'native clear/exit gate remains closed until host revive');
+      }
+      const downAfterKill=await hostEvidence(host),progressionRows=downAfterKill.progressionRewardCalls.filter(call=>call.bossId==='dist06-boss'),progressionReward=progressionRows.reduce((sum,call)=>sum+call.result,0);
+      assert.equal(downAfterKill.hp,0);assert.equal(downAfterKill.bossDefeated,true);assert.equal(downAfterKill.enemies.length,0);assert.equal(progressionRows.length,1,'actual Ke calls the existing progression reward hook exactly once for this boss');assert(Number.isFinite(progressionReward)&&progressionReward>=0,'call-through hook records the native progression reward return without changing it');
+      assert.equal(progressionRows[0].nativeRewardCallThrough,true);assert.equal(progressionRows[0].shardBinding.sameControlsBinding,true);
+      const p2Before=stable.guest.rc222Shards,p2After=downAfterKill.actorShardCounters.find(actor=>actor.slotId==='p2')?.rc222Shards??null,p2Delta=p2After===null?null:p2After-p2Before,hostDeltaAtKill=downAfterKill.hostShardCounter-stable.shardsBeforeKill;
+      const progressionCurrencyEvidence={recipient:null,returnedAmount:progressionReward,hostBeBefore:stable.shardsBeforeKill,hostBeAfterBossKill:downAfterKill.hostShardCounter,hostDeltaAtKill,p2ShardBaseline:p2Before,p2ShardCounterAfterBossKill:p2After,p2DeltaAtKill:p2Delta,hookContext:progressionRows[0]};
+      if(kind==='guest'){
+        const context=progressionRows[0],stateView=context.stateView,shardBinding=context.shardBinding;
+        assert.equal(kill.claimMarker,true);assert.equal(context.activeActor?.slotId,'p2','Ke runs in the live remote guest actor transaction');assert.equal(stateView?.actorForState?.slotId,'p2','RC222 actorFor resolves P.current actor proxy to remote guest p2');assert.equal(stateView?.actorMatchesActiveActor,true,'P.current proxy owner matches runtime.activeActor');assert.equal(stateView?.isActorProxy,true,'Ke reads the actor transaction view rather than canonical state');assert.equal(stateView?.canonicalIsPartyState,true,'actor proxy canonicalWorld resolves to the shared Party state');assert.equal(stateView?.canonicalHp,0,'canonical host HP remains zero during the guest-owned final kill');assert.equal(stateView?.hp,context.activeActor.hp,'P.current proxy HP is the live p2 guest HP');assert.equal(stateView?.hpMatchesActor,true);assert.equal(shardBinding?.currentIsActiveActorCurrency,true,'controls.binding.shards.current is switched to the active p2 rc222Shards value');assert.equal(shardBinding?.currentBefore,p2Before);assert.equal(shardBinding?.activeActorRc222ShardsBefore,p2Before);assert.equal(progressionRows[0].outgoingActor,null,'remote RC222 transaction does not use the local Party.applyStrike outgoingActor scope');
+        assert.equal(hostDeltaAtKill,0,'the guest actor transaction does not credit host Be.current');assert.equal(p2Delta,progressionReward+3,'p2 receives the native progression return plus the existing exact three-shard dist06 claim');assert.equal(p2Delta-progressionReward,3,'the guest-owned native claim contributes exactly three shards, separately from progression 3.13.38');progressionCurrencyEvidence.recipient='p2.rc222Shards';progressionCurrencyEvidence.zoneClaimDelta=p2Delta-progressionReward;
+      }else{
+        assert.equal(kill.claimMarker,false);assert.equal(progressionRows[0].activeActor,null,'canonical AI strike does not enter an RC222 actor currency transaction');assert.equal(progressionRows[0].outgoingActor?.slotId,'story68','Party outgoingActor records story68 during the native damage call');assert.equal(hostDeltaAtKill,progressionReward,'only the actual native progression reward return changes host Be.current during the down-window kill');assert.equal(p2Delta,0,'the idle remote guest receives no currency from the native AI strike');progressionCurrencyEvidence.recipient='host Be.current';progressionCurrencyEvidence.progressionOnlyDelta=hostDeltaAtKill;
+      }
+      const progressRestore=await host.evaluate(()=>{const probe=window.__RC223_HOST_DOWN_REWARD_PROBE__;if(probe?.original)window.__HAPIL_PROGRESSION_V31338__=probe.original;probe.restored=window.__HAPIL_PROGRESSION_V31338__===probe.original;return{restored:probe.restored};});assert.equal(progressRestore.restored,true,'temporary read-only instrumentation restores the original native progression API immediately after the kill is recorded');
+      let aiProbeRestore=null;
+      if(kind==='story68-ai'){
+        aiProbeRestore=await host.evaluate(()=>window.__RC223_HOST_DOWN_AI_DAMAGE_PROBE__?.restore?.()??null);assert.equal(aiProbeRestore?.captureRestored,true);assert.equal(aiProbeRestore?.wrappedBindingsRestored,true);assert.equal(aiProbeRestore?.observations,1,'AI damage probe call-through recorded exactly one native boss hit');
+      }
+      await Promise.all([host,guest].map(page=>page.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P?.state;return s?.hp===0&&s?.bossDefeated===true&&s?.enemies?.length===0;},null,{timeout:8000})));
+      const guestDown=await guestEvidence(guest);
+      if(kind==='guest')assert.equal(guestDown.claimMarker.isSet,true,'guest sees the same one-time claim marker from the native host snapshot during the down window');
+      else assert.equal(guestDown.claimMarker.isSet,false,'AI canonical path does not publish the zone claim before host revival');
+      assert(guestDown.actors.some(actor=>actor.slotId==='p2'&&actor.hp>0));
+      await capture(caseId+'-host-down-last-boss-kill',host);
+      const revivedHandle=await host.waitForFunction(({revivesBefore,downUntil})=>{const P=window.__HAPIL_PARTY_V31322__,s=P?.state,snap=P?.exportSnapshot?.(),telemetry=P?.telemetry?.(),deadline=snap?.party?.hostDownUntil;return s?.hp>0&&Number(telemetry?.revives)>=revivesBefore+1&&deadline===0&&s.time>=downUntil?{time:s.time,hp:s.hp,maxHp:s.maxHp,deadline,revives:telemetry.revives,party:P.status}:false;},{revivesBefore:incoming.revivesBefore,downUntil:incoming.downUntil},{timeout:90000});
+      const revived=await revivedHandle.jsonValue();await revivedHandle.dispose();assert(revived.hp>0);assert(revived.time>=incoming.downUntil,'native host revive occurs only after its stored eight-second deadline');
+      const postCardHandle=await host.waitForFunction(()=>{const P=window.__HAPIL_PARTY_V31322__,s=P?.state,story=window.__HAPIL_STORY_RC51__,cue=story?.currentNarrative?.(),F=window.__HAPIL_FLOW_V31343__;return s?.hp>0&&s?.bossDefeated===true&&cue?.zone==='dist06'&&cue?.phase==='post'&&story?.isOpen?.()?{zone:s.zone,time:s.time,hp:s.hp,phase:cue.phase,key:cue.key,cueId:cue.cueId,storyOpen:story.isOpen(),nativeBeforeFramePostGate:true,flowGate:F?.gate?.(s)??null,flowReady:F?.ready?.(s)??null}:false;},null,{timeout:15000});
+      const nativePostCard=await postCardHandle.jsonValue();await postCardHandle.dispose();assert.equal(nativePostCard.phase,'post');assert.equal(nativePostCard.key,'dist06:post');assert(nativePostCard.nativeBeforeFramePostGate,'real native beforeFrame opens the dist06 post-clear scene after the host revive');await capture(caseId+'-native-dist06-post-card',host);
+      const postCardDismissal=await host.evaluate(()=>{const story=window.__HAPIL_STORY_RC51__,cue=story?.currentNarrative?.();if(cue?.zone!=='dist06'||cue?.phase!=='post')throw Error('native dist06 post card changed before explicit close');story.close(false);return{cue:{zone:cue.zone,phase:cue.phase,key:cue.key,cueId:cue.cueId},closed:!story.isOpen(),method:'native story.close(false) after recording beforeFrame-opened post card; no audio timeout or synthetic card completion'};});
+      assert.equal(postCardDismissal.closed,true,'native post card is explicitly dismissed so simulation can resume for reward/exit assertions');
+      const postReviveSetup=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,C=window.__HAPIL_CONTROLS_V31329__,F=window.__HAPIL_FLOW_V31343__,s=P.state,exit=F.profile('dist06').exitAnchorWorld;C.setMode('manual');return{hostHp:s.hp,hostPosition:{x:s.x,y:s.y},time:s.time,hostDownUntil:P.exportSnapshot()?.party?.hostDownUntil??null,shards:C.binding.shards.current,flowGate:F.gate(s),flowReady:F.ready(s),exitAnchor:{...exit},distanceFromExit:Math.hypot(s.x-exit.x,s.y-exit.y),revives:P.telemetry().revives,staging:'host remains away from the native exit until reward reconciliation and duplicate checks finish'};});
+      assert.equal(postReviveSetup.hostDownUntil,0);assert(postReviveSetup.hostHp>0);assert.equal(postReviveSetup.flowGate.clear,true,'native flow clear predicate reopens only after host has revived');
+      const expectedHostAfterKill=downAfterKill.hostShardCounter,expectedGuestAfterKill=p2After;
+      const rewardHandle=await host.waitForFunction(({kind,before,p2AfterKill})=>{
+        const P=window.__HAPIL_PARTY_V31322__,C=window.__HAPIL_CONTROLS_V31329__,s=P.state,F=window.__HAPIL_FLOW_V31343__,flowReady=F.ready(s),marker='ego-reward-v31217:dist06',claim=s.clues instanceof Set&&s.clues.has(marker),hostExpected=kind==='story68-ai'?before+3:before,p2=P.actors.find(a=>a.slotId==='p2')?.rc222Shards??null;
+        return C.binding.shards.current===hostExpected&&(!Number.isFinite(p2AfterKill)||p2===p2AfterKill)&&claim&&flowReady.ready?{shards:C.binding.shards.current,p2Shards:p2,time:s.time,claimCount:[...s.clues].filter(value=>value===marker).length,egoDrops:s.egoDrops.length,bossDefeated:s.bossDefeated,flowGate:F.gate(s),flowReady,revives:P.telemetry().revives}:false;
+      },{kind,before:expectedHostAfterKill,p2AfterKill:expectedGuestAfterKill},{timeout:90000});
+      const reward=await rewardHandle.jsonValue();await rewardHandle.dispose();
+      if(kind==='story68-ai')assert.equal(reward.shards,expectedHostAfterKill+3,'the native reconciler grants exactly +3 to host Be.current after host revival');
+      else assert.equal(reward.shards,expectedHostAfterKill,'a guest-owned claim is not paid a second time to host Be.current after host revival');
+      assert.equal(reward.claimCount,1,'native dist06 claim marker exists exactly once');assert.equal(reward.bossDefeated,true);assert.equal(reward.flowGate.clear,true);assert.equal(reward.flowReady.ready,true);assert.equal(reward.flowReady.near,false,'native exit is ready while host stays outside its transition radius');
+      if(kind==='guest')assert.equal(reward.p2Shards,expectedGuestAfterKill,'p2 keeps its guest-owned one-time claim and progression reward after host revive');
+      await host.waitForFunction(time=>window.__HAPIL_PARTY_V31322__.state.time>=time+1.2,reward.time,{timeout:15000});
+      const hostAfter=await hostEvidence(host),guestAfter=await guestEvidence(guest);
+      assert.equal(hostAfter.hp>0,true);assert.equal(hostAfter.bossDefeated,true);assert.deepEqual(hostAfter.enemies,[]);assert.equal(hostAfter.claimMarker.count,1);assert.equal(hostAfter.claimMarker.isSet,true);assert.equal(hostAfter.network.snapshot?.hostDownUntil,0);assert.equal(hostAfter.clear.flow?.clear,true);assert.equal(hostAfter.exit.ready,true);assert.equal(hostAfter.exit.near,false);
+      if(kind==='story68-ai'){
+        assert.equal(hostAfter.hostShardCounter,downAfterKill.hostShardCounter+3,'one post-revive reconciliation pass adds exactly three EGO shards to host Be.current');progressionCurrencyEvidence.zoneClaimDelta=hostAfter.hostShardCounter-downAfterKill.hostShardCounter;assert.equal(progressionCurrencyEvidence.zoneClaimDelta,3);
+      }else{
+        assert.equal(hostAfter.hostShardCounter,downAfterKill.hostShardCounter,'guest-owned claim does not also credit host after revival');assert.equal(hostAfter.actorShardCounters.find(actor=>actor.slotId==='p2')?.rc222Shards,p2After,'guest actor currency does not receive a duplicate reward on host revival');progressionCurrencyEvidence.zoneClaimDelta=p2Delta-progressionReward;assert.equal(progressionCurrencyEvidence.zoneClaimDelta,3);
+      }
+      assert.equal(guestAfter.runtime?.role,'guest');assert.equal(guestAfter.zone,'dist06');assert.equal(guestAfter.hp,hostAfter.hp,'guest receives the host revive HP in the native world snapshot');assert.equal(guestAfter.bossDefeated,true);assert.deepEqual(guestAfter.enemies,[]);assert.equal(guestAfter.claimMarker.isSet,true);assert.equal(guestAfter.claimMarker.count,1,'shared native clue snapshot carries one claim marker');assert.deepEqual(guestAfter.localSaveKeys,row.guestSaveKeysAtStart,'guest did not create or modify an independent campaign save');
+      if(kind==='guest'){
+        const guestHits=(hostAfter.network.telemetry?.outgoingEvents??[]).filter(e=>e.slotId==='p2'&&e.targetId==='dist06-boss'&&e.damage>0);assert.equal(guestHits.length,1,'the removed boss receives no retry/duplicate guest hit');
+      }else{
+        const guestHits=(hostAfter.network.telemetry?.outgoingEvents??[]).filter(e=>e.slotId==='p2'&&e.targetId==='dist06-boss'&&e.damage>0);assert.equal(guestHits.length,0,'idle remote guest did not attack or share ownership of the native AI final kill');
+      }
+      const snapshot=hostAfter.network.snapshot;assert(snapshot?.worldFieldKeys?.includes('clues'),'host native snapshot includes the shared clue set');
+      const duplicateCheck=await host.evaluate(()=>{const P=window.__HAPIL_PARTY_V31322__,C=window.__HAPIL_CONTROLS_V31329__,F=window.__HAPIL_FLOW_V31343__,s=P.state,marker='ego-reward-v31217:dist06',before={zone:s.zone,time:s.time,hostShards:C.binding.shards.current,p2Shards:P.actors.find(a=>a.slotId==='p2')?.rc222Shards??null,claimCount:[...s.clues].filter(v=>v===marker).length,revives:P.telemetry().revives,transition:F.record(s)?.transition??null};return new Promise(resolve=>setTimeout(()=>{const after={zone:s.zone,time:s.time,hostShards:C.binding.shards.current,p2Shards:P.actors.find(a=>a.slotId==='p2')?.rc222Shards??null,claimCount:[...s.clues].filter(v=>v===marker).length,revives:P.telemetry().revives,transition:F.record(s)?.transition??null,flowReady:F.ready(s)};resolve({before,after});},1200));});
+      assert(duplicateCheck.after.time>=duplicateCheck.before.time+1,'native world advances through a full duplicate-check window while host remains away from the portal');assert.equal(duplicateCheck.after.zone,'dist06');assert.equal(duplicateCheck.after.hostShards,hostAfter.hostShardCounter,'no repeated native shard award after the claim marker is set');assert.equal(duplicateCheck.after.p2Shards,hostAfter.actorShardCounters.find(actor=>actor.slotId==='p2')?.rc222Shards??null,'remote actor currency remains stable during duplicate window');assert.equal(duplicateCheck.after.claimCount,1);assert.equal(duplicateCheck.after.revives,duplicateCheck.before.revives,'host revive event does not repeat');assert.equal(duplicateCheck.after.transition,null,'no automatic map transition occurs while host remains away from the exit');assert.equal(duplicateCheck.after.flowReady.ready,true);assert.equal(duplicateCheck.after.flowReady.near,false);
+      const exitReadyProof=await host.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,F=window.__HAPIL_FLOW_V31343__,s=P.state,modal=C.binding.modal,exit=F.profile('dist06').exitAnchorWorld;Object.assign(s,{x:exit.x,y:exit.y,moveVx:0,moveVy:0});const readyBeforePause=F.ready(s),snapshot=P.exportSnapshot(),modalBefore=modal.current;C.binding.actions.settings();modal.current='settings';const uiReadyAfterPause=F.ready(s,true);return{zone:s.zone,position:{x:s.x,y:s.y},exitAnchor:{...exit},readyBeforePause,uiReadyAfterPause,modalBefore,modalRefImmediatelyAfterAction:modal.current,settingsActionCalled:true,partyPausedAtSynchronousSample:P.status.paused===true,hostHp:s.hp,claimCount:[...s.clues].filter(v=>v==='ego-reward-v31217:dist06').length,shards:C.binding.shards.current,hostDownUntil:snapshot?.party?.hostDownUntil??null,transition:F.record(s)?.transition??null,staging:'same synchronous task samples native ready at exit before pause, calls native Settings action and sets its modal ref immediately so the React render gap cannot advance the map'};});
+      assert.equal(exitReadyProof.zone,'dist06');assert.equal(exitReadyProof.hostHp,hostAfter.hp);assert.equal(exitReadyProof.claimCount,1);assert.equal(exitReadyProof.shards,hostAfter.hostShardCounter);assert.equal(exitReadyProof.hostDownUntil,0);assert.equal(exitReadyProof.transition,null);assert.equal(exitReadyProof.modalBefore,null);assert.equal(exitReadyProof.modalRefImmediatelyAfterAction,'settings');assert.equal(exitReadyProof.partyPausedAtSynchronousSample,false,'exit ready is sampled before the Party frame consumes the modal ref as a pause');assert.equal(exitReadyProof.readyBeforePause.ready,true,'native exit readiness is measured while the world and UI are still unpaused');assert.equal(exitReadyProof.readyBeforePause.near,true,'native ready predicate reports the staged host inside the exit radius before pause');assert.equal(exitReadyProof.uiReadyAfterPause.ready,false,'native UI-aware readiness is blocked immediately after the Settings action');assert.match(exitReadyProof.uiReadyAfterPause.reason,/선택 또는 장면 진행 중/);
+      await host.getByRole('dialog',{name:'설정',exact:true}).waitFor({state:'visible',timeout:10000});
+      await host.waitForFunction(()=>window.__HAPIL_PARTY_V31322__?.status?.paused===true&&window.__HAPIL_CONTROLS_V31329__?.binding?.modal?.current==='settings',null,{timeout:10000});
+      const exitPauseProof=await host.evaluate(()=>{const C=window.__HAPIL_CONTROLS_V31329__,P=window.__HAPIL_PARTY_V31322__,F=window.__HAPIL_FLOW_V31343__,s=P.state;return{settingsVisible:!!document.querySelector('.modal[aria-label="설정"]'),modal:C.binding.modal.current,partyPaused:P.status.paused===true,uiReady:F.ready(s,true),transition:F.record(s)?.transition??null,zone:s.zone,position:{x:s.x,y:s.y},hostHp:s.hp,claimCount:[...s.clues].filter(v=>v==='ego-reward-v31217:dist06').length,shards:C.binding.shards.current,hostDownUntil:P.exportSnapshot()?.party?.hostDownUntil??null,method:'after React renders the native Settings dialog and Party.capture reports paused, re-sample UI-aware native ready(s,true)'};});
+      assert.equal(exitPauseProof.settingsVisible,true);assert.equal(exitPauseProof.modal,'settings');assert.equal(exitPauseProof.partyPaused,true);assert.equal(exitPauseProof.uiReady.ready,false);assert.match(exitPauseProof.uiReady.reason,/선택 또는 장면 진행 중/);assert.equal(exitPauseProof.transition,null);assert.equal(exitPauseProof.zone,'dist06');assert.equal(exitPauseProof.hostHp,hostAfter.hp);assert.equal(exitPauseProof.claimCount,1);assert.equal(exitPauseProof.shards,hostAfter.hostShardCounter);assert.equal(exitPauseProof.hostDownUntil,0);
+      progressionCurrencyEvidence.nativeSnapshotWorldShardFields=snapshot?.worldShardFields??[];progressionCurrencyEvidence.nativeSnapshotPartyShardFields=snapshot?.partyShardFields??[];progressionCurrencyEvidence.hostZoneRewardDelta=kind==='story68-ai'?hostAfter.hostShardCounter-downAfterKill.hostShardCounter:0;progressionCurrencyEvidence.note='Native progression 3.13.38 return is recorded separately from the exact +3 dist06 claim; guest RC222 actor currency ownership is measured against host Be.current.';
+      await capture(caseId+'-host-revived-reward-exit-ready',host);await capture(caseId+'-guest-shared-reward-marker',guest);
+      assert.deepEqual(report.errors,[],'no browser page errors');assert.deepEqual(report.httpErrors,[],'no failed HTTP responses');
+      return{staged,aiReadiness,stable,rewardProbe,aiProbeSetup,aiProbeRestore,incoming,downBefore,guestBefore,aiQueued:kind==='story68-ai'?aiQueued:null,kill,downAfterKill,progressionCurrencyEvidence,guestDown,revived,nativePostCard,postCardDismissal,postReviveSetup,reward,hostAfter,guestAfter,duplicateCheck,exitReadyProof,exitPauseProof,method:kind==='guest'?'real guest KeyA -> RC222 input/actor transaction -> native Party strike/Ke death chain; native host bodyDamage and eight-second Party revive; production shared claim path':'one native P.debug.attack(s,story68,"A") queues a real strike; Party.tick/applyStrike -> call-through binding.damage -> native Ke death chain while canonical host HP is zero; native eight-second Party revive and production reward reconciliation; no direct damage, kill helper, enemy removal, or reward write'};
+    });
+    row.status='passed';
+  }catch(error){row.status='failed';row.error=error.stack||String(error);if(!report.failure)report.failure=row.error;process.exitCode=1;}
+  finally{row.endedAt=new Date().toISOString();if(guest)await guest.context().close().catch(()=>{});if(host)await host.context().close().catch(()=>{});save();}
+}
+(async()=>{
+  try{
+    await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));base='http://127.0.0.1:'+server.address().port;
+    await verifySourceBytes();
+    const relayModule=await import(pathToFileURL(path.join(appRoot,'server/src/relay.js')).href);
+    relay=await relayModule.start({port:0,host:'127.0.0.1',allowedOrigins:[new URL(base).origin]});report.relayURL='ws://127.0.0.1:'+relay.server.address().port+'/relay';
+    const health=await fetch('http://127.0.0.1:'+relay.server.address().port+'/healthz');report.relayHealth={status:health.status,body:await health.json()};assert.equal(health.status,200);assert.equal(report.relayHealth.body.ok,true);report.environment.actualWebSocketRelay=true;
+    browser=await chromium.launch({chromiumSandbox:true,channel:'chrome',headless:true,args:[]});report.environment.officialChrome=true;report.browserVersion=browser.version();
+    await runCase('guest',0);
+    await runCase('story68-ai',1);
+    assert.equal(report.cases.length,2,'exactly two independently initialized host/guest room cases run');assert.equal(report.environment.isolatedContexts,4,'the two fresh rooms use four isolated official Chrome contexts');
+    assert.deepEqual(report.errors,[],'browser page errors');assert.deepEqual(report.httpErrors,[],'HTTP errors');
+    if(report.cases.some(row=>row.status!=='passed'))throw new Error('one or more host-down reward regression cases failed');
+    report.status='passed';
+  }catch(error){failure=error;report.status=report.environment.officialChrome?'failed':'blocked';report.failure=error.stack||String(error);process.exitCode=1;}
+  finally{
+    report.finishedAt=new Date().toISOString();save();
+    for(const context of contexts)await context.close().catch(()=>{});
+    await browser?.close().catch(()=>{});if(relay)await relay.close();server.close();
+    console.log('RC223_HOST_DOWN_REWARD_BROWSER '+JSON.stringify({status:report.status,appSha,browserVersion:report.browserVersion,cases:report.cases.map(row=>({name:row.name,status:row.status,roomCode:row.room?.roomCode,killTime:row.evidence?.kill?.time,downUntil:row.evidence?.incoming?.downUntil,claimAtKill:row.evidence?.kill?.claimMarker??null,hostRewardDeltaAfterRevive:row.evidence?.progressionCurrencyEvidence?.hostZoneRewardDelta??null,actorRewardDelta:row.evidence?.progressionCurrencyEvidence?.zoneClaimDelta??null})),checks:report.checks.map(check=>({name:check.name,status:check.status})),captures:report.captures.length,results:path.join(out,'results.json'),failure:failure?String(failure.stack||failure):null}));
+  }
+})().catch(error=>{console.error(error);process.exitCode=1;});
