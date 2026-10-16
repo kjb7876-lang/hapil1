@@ -99,7 +99,6 @@ jobs:
           node-version: '22'
       - name: Install runtime dependencies under tmp
         id: runtime
-        id: runtime
         run: |
           set -euo pipefail
           mkdir -p "$RC222_TASK_DIR/server"
