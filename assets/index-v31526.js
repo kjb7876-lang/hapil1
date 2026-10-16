@@ -126689,7 +126689,7 @@ window.__HAPIL_BOSS_PATTERN_NAMES_RC62__=Object.freeze({
   'use strict';
   const policy=window.__HAPIL_RC79__;
   const warning=qn,safety=MONGSE_drawTelegraphSafetyOverlay;
-  qn=function(ctx,hit,time,settings={},...args){if(!policy.isLaser(hit)&&!hit.rc133Skill)return false;return warning(ctx,hit,time,{...settings,showAttackTelegraphs:true},...args);};
+  qn=function(ctx,hit,time,settings={},...args){const visible={...settings,showAttackTelegraphs:true};if(hit?.cosmicAttackV31318&&window.__HAPIL_ARSENAL_V31318__?.installed)return HAPIL_presentationContextV31317(ctx,visible.showCombatInfo===false,false,c=>window.__HAPIL_ARSENAL_V31318__.drawTelegraph(c,hit,time,visible,args[0]));if(!policy.isLaser(hit)&&!hit.rc133Skill)return false;return warning(ctx,hit,time,visible,...args);};
   MONGSE_drawTelegraphSafetyOverlay=function(ctx,hit,time,settings={},...args){if(!policy.isLaser(hit)&&!hit.rc133Skill)return false;return safety(ctx,hit,time,{...settings,showAttackTelegraphs:true},...args);};
   const cast=Ei;
   Ei=function(state,actor,...args){

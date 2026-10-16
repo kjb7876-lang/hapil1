@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "f6769257dae8f9db6a31f36feee2e0323faab6ab",
+  "baseTree": "0c174ed74bf314e1e6613dae82f637024c00ae83",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "072eb81c91f9abb319e29b02e4c56c9683cede4dde98522c51c0c58291327d2f",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "gitBlob": "3ad0d1e6fcf4e4d13edec398d28c72eefd0ebca1"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "78b48adfb82efff2921c8677456cd6caf3f79a96067124678e88d90e3ce3ce2e",
+        "gitBlob": "9d155b21acd1befbc37b10bb114bedb5ed31dd22"
+      },
+      "reason": "assets/index-v31526.js: route cosmic Lucifer blood-beam warnings through the map-wide beam renderer and invalidate the exact bundle loader cache key."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "file": "index.html",
+        "mode": "100644",
+        "gitBlob": "bdfd63a340b8879e5efd6e43c2a182ace3d3b02d"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "22ce35d82573da4407e78dd540355b0943564443865151439cf921d279c3147d",
+        "gitBlob": "8a139f0e60d2bfba64c7193e03706061018e00e0"
+      },
+      "reason": "index.html: route cosmic Lucifer blood-beam warnings through the map-wide beam renderer and invalidate the exact bundle loader cache key."
+    }
+  ],
+  "targetProtectedRowsSha256": "d25e677efce9b4c14c5cb49f5e08d24ecb71106cc129f87bd46c0ade41f850ad"
+}
