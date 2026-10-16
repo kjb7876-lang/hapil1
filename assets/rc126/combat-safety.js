@@ -20,7 +20,7 @@
    }out.zones[zone]=entry;
   }return out;
  }
- function memory(s){let m=stateMemory.get(s);if(!m){s.rc126AssetLedger=cleanLedger(s.rc126AssetLedger);m={seen:new WeakSet(),enemies:new WeakSet(),groups:new Map(),zone:s.zone};stateMemory.set(s,m);}if(m.zone!==s.zone){m.zone=s.zone;m.groups.clear();m.enemies=new WeakSet();}return m;}
+ function memory(s){s=root.__HAPIL_REMOTE_RC222_RUNTIME__?.canonicalWorld?.(s)??s;let m=stateMemory.get(s);if(!m||m.ledger!==s.rc126AssetLedger||finite(s.time)<m.time){s.rc126AssetLedger=cleanLedger(s.rc126AssetLedger);m={seen:new WeakSet(),enemies:new WeakSet(),groups:new Map(),zone:s.zone,ledger:s.rc126AssetLedger,time:finite(s.time)};stateMemory.set(s,m);}if(m.zone!==s.zone){m.zone=s.zone;m.groups.clear();m.enemies=new WeakSet();}m.time=finite(s.time);return m;}
  function nextGroup(s,prefix='volley'){memory(s);return prefix+':'+(++s.rc126AssetLedger.sequence);}
  function common(){return deps?.common?.()??root.__HAPIL_DANMAKU_V31316__?.commonAsset??null;}
  function claimAsset(s,packet,path,group){

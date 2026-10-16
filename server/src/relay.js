@@ -128,7 +128,7 @@ export function createServer(options = {}) {
       if (c.member) fail('already_in_room', 'Leave the current room first.');
       if (m.type === 'create') {
         if (rooms.size >= cfg.maxRooms) fail('room_limit', 'Relay room capacity reached.');
-        profile(m, m.gameId); if (m.mode !== undefined && !str(m.mode, 32)) fail('invalid_message', 'Invalid mode.');
+        profile(m, m.gameId); if (m.mode !== undefined && (!str(m.mode, 32) || m.gameId === 'hapil' && !['STORY', 'DREAM'].includes(m.mode))) fail('invalid_message', 'Invalid mode.');
         let code; do { code = token(8).toUpperCase(); } while (rooms.has(`${m.gameId}:${code}`));
         const r = { code, gameId: m.gameId, mode: m.mode ?? 'STORY', phase: 'lobby', members: new Map(), epoch: 0, seq: -1, latest: null, hostStatus: { hidden: false, paused: false }, lastActive: Date.now() };
         rooms.set(`${m.gameId}:${code}`, r); addMember(c, r, m, true);

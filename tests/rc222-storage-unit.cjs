@@ -187,4 +187,17 @@ function nativeFunction(name) {
   const start=nativeSource.indexOf(' function set(value,s=window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current)'),end=nativeSource.indexOf(' function suppressFullNarrative',start);assert(start>0&&end>start);vm.runInContext(nativeSource.slice(start,end),root);
   root.localStorage.setItem(root.KEY,'STORY');api.enter('host','mode-host');root.set('DREAM',{});assert.equal(root.localStorage.getItem(root.KEY),'STORY');assert.equal(api.area('localStorage').getItem(root.KEY),'DREAM');api.leave();api.enter('guest','mode-guest');root.set('DREAM',{});assert.equal(root.localStorage.getItem(root.KEY),'STORY');api.leave();
 }
+{
+  const env={};env.window=env;vm.runInNewContext(fs.readFileSync('assets/rc126/combat-safety.js','utf8'),env);
+  const safety=env.__HAPIL_COMBAT_SAFETY_RC126__,world={zone:'dist02',time:10,hostileProjectiles:[]},q={x:1,y:1,vx:1,vy:0,damage:1};
+  assert.equal(safety.prepareVolley(world,null,[q]).group,'salvo:1');assert.equal(safety.prepareVolley(world,null,[q]),null);
+  delete world.rc126AssetLedger;world.time=1;
+  assert.equal(safety.nextGroup(world),'volley:1','loading an early checkpoint recreates a missing ledger despite an existing WeakMap entry');
+  assert.equal(safety.prepareVolley(world,null,[q]).group,'salvo:2','rewind clears packet admission cache');
+  world.rc126AssetLedger={version:1,sequence:8,zones:{}};
+  assert.equal(safety.nextGroup(world),'volley:9','loading a replacement ledger preserves its checkpoint sequence');
+  const ledger=world.rc126AssetLedger,view=new Proxy({}, {get:(_,key)=>world[key],set:(_,key,value)=>(world[key]=value,true)});
+  env.__HAPIL_REMOTE_RC222_RUNTIME__={canonicalWorld:s=>s===view?world:s};
+  assert.equal(safety.nextGroup(view),'volley:10');assert.equal(world.rc126AssetLedger,ledger,'facades share the canonical admission cache without recloning the ledger');
+}
 console.log('RC222_STORAGE passed: native helpers, solo isolation, per-session saves, host checkpoint import/export/load, guest write rejection, local restoration, repeat load, malformed data, rollback, Infinity and local/session/memory fallback.');

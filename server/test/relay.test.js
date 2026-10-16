@@ -134,6 +134,8 @@ test('origin, namespace, profile, malformed, prototype, depth and control-size v
   const c = await f.connect();
   assert.equal((await c.request('create', { heroId: 'unknown' })).code, 'invalid_profile');
   assert.equal((await c.request('create', { nickname: 'x'.repeat(25) })).code, 'invalid_profile');
+  assert.equal((await c.request('create', { mode: 'UNKNOWN' })).code, 'invalid_message');
+  assert.equal((await c.request('create', { mode: null })).code, 'invalid_message');
   c.ws.send('{'); assert.equal((await c.take((m) => m.type === 'error')).code, 'invalid_message');
   c.ws.send('{"v":1,"gameId":"hapil","type":"create","__proto__":{"polluted":true}}');
   assert.equal((await c.take((m) => m.type === 'error')).code, 'invalid_payload'); assert.equal({}.polluted, undefined);

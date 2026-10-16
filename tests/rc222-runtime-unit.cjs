@@ -193,6 +193,34 @@ test('actual native SevenSin stacks and status DOT mutate only the selected acto
   f.rt.withActor(f.world,f.actor,view=>{for(let i=0;i<3;i++)sandbox.MONGSE_applySevenSinHitMechanic(view,{sevenSinMechanic:'sloth-drowsy'});assert.ok(view.heroSleepUntil>view.time);sandbox.MONGSE_applySevenSinHitMechanic(view,{sevenSinMechanic:'envy-mirror-bleed',sourceId:'boss'});});
   f.world.time=10.85;f.rt.withActor(f.world,f.actor,view=>{const ticks=sandbox.MONGSE_tickSevenSinHeroEffects(view);assert.equal(ticks.bleedTicks,1);assert.equal(ticks.poisonTicks,1);});assert.equal(f.actor.hp,125);assert.equal(f.world.hp,240);assert.equal(f.world.heroSleepUntil,undefined);assert.equal(f.actor.heroBleedSourceIdRC108,'boss');
 });
+test('actual temporal lag helpers keep passive and dynamic cooldowns independent for each native actor',()=>{
+  const f=fixture(),source=fs.readFileSync('assets/index-v31526.js','utf8'),begin=source.indexOf('var MONGSE_TEMPORAL_LAG_V31214 ='),end=source.indexOf('\nfunction MONGSE_deflectHostileProjectile31211(',begin);
+  assert(begin>=0&&end>begin);const sandbox={J:(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),MONGSE_markBossProjectile31213:()=>false,MONGSE_prepareHostileProjectilePersistence31214:()=>{}};vm.createContext(sandbox);vm.runInContext(source.slice(begin,end),sandbox);
+  Object.assign(f.world,{fxSerial:1,temporalLagPassiveReadyAt31214:999,temporalLagFieldReadyAt31214:999,timeStopUntil:12});
+  const other={...f.actor,slotId:'p3',heroId:'neon',x:20,y:20};f.p.actors.push(other);f.p.roster.push(other);
+  const projectile=(id,a)=>({id,x:a.x-1,y:a.y,vx:1,vy:0,expiresAt:20});const first=projectile('p2-near',f.actor),second=projectile('p3-near',other);f.world.hostileProjectiles.push(first,second);
+  f.rt.withActor(f.world,f.actor,view=>{assert.equal(sandbox.MONGSE_tickTemporalLagPassive31214(view),1);assert.equal(view.timeStopUntil,12);});
+  f.rt.withActor(f.world,other,view=>assert.equal(sandbox.MONGSE_tickTemporalLagPassive31214(view),1));
+  for(const actor of [f.actor,other])assert.equal(actor.temporalLagPassiveReadyAt31214,13.1);
+  assert.equal(f.world.temporalLagPassiveReadyAt31214,999);assert.equal(first.frozenUntil,10.58);assert.equal(second.frozenUntil,10.58);
+  const extra=projectile('p2-extra',f.actor);f.world.hostileProjectiles.push(extra);f.rt.withActor(f.world,f.actor,view=>{assert.equal(sandbox.MONGSE_tickTemporalLagPassive31214(view),0);assert.equal(sandbox.MONGSE_applyTemporalLagField31214(view,4.6,4,.72,'native-field'),1);});
+  assert.equal(f.actor.temporalLagFieldReadyAt31214,12.4);assert.equal(other.temporalLagFieldReadyAt31214,undefined);assert.equal(f.world.temporalLagFieldReadyAt31214,999);assert.equal(f.world.timeStopUntil,12);
+  const saved=f.rt.exportSnapshot();assert.equal(saved.party.actors[0].temporalLagPassiveReadyAt31214,13.1);assert.equal(saved.party.actors[0].temporalLagFieldReadyAt31214,12.4);
+});
+test('actual temporal resonance and HUD helpers update actor resources and timing without touching the host',()=>{
+  const f=fixture(),source=fs.readFileSync('assets/index-v31526.js','utf8'),sandbox={};vm.createContext(sandbox);
+  const begin=source.indexOf('var MONGSE_TEMPORAL_HUD_CONFIG_V31215 ='),end=source.indexOf('\nfunction MONGSE_pushTemporalEffect31215(',begin);assert(begin>=0&&end>begin);vm.runInContext(source.slice(begin,end),sandbox);
+  for(const [name,next]of [['MONGSE_pushTemporalEffect31215','MONGSE_applyTemporalResonanceAssist31215'],['MONGSE_temporalHudTelemetry31215','MONGSE_updateTemporalHudDom31215']]){const at=source.indexOf('function '+name+'('),stop=source.indexOf('\nfunction '+next+'(',at);vm.runInContext(source.slice(at,stop),sandbox);}
+  const at=source.indexOf('function MONGSE_tickTemporalHud31215('),stop=source.indexOf('\n(() => {',at);assert(at>=0&&stop>at);vm.runInContext(source.slice(at,stop),sandbox);
+  Object.assign(sandbox,{MONGSE_hideTemporalHudDom31216:()=>{},MONGSE_applyTemporalResonanceAssist31215:()=>null,MONGSE_updateTemporalHudDom31215:()=>null,MONGSE_SFX:{ticking1:'a',ticking2:'b',ticking3:'c'}});
+  Object.assign(f.world,{fxSerial:1,temporalResonance31215:41,temporalHudPulseUntil31215:99,temporalHudNextDomAt31215:99});
+  f.world.hostileProjectiles.push({x:6,y:7,temporalMotionSnapshot31214:{vx:1},temporalLagSource31214:'near-miss-passive',temporalLagAppliedAt31214:10,temporalLagUntil31214:12});
+  f.rt.withActor(f.world,f.actor,view=>{for(let i=0;i<9;i++)sandbox.MONGSE_recordTemporalResonance31215(view,'near-miss',{});assert.equal(sandbox.MONGSE_temporalHudTelemetry31215(view).resonance,100);sandbox.MONGSE_tickTemporalHud31215(view);});
+  assert.equal(f.actor.temporalResonance31215,100);assert.equal(f.actor.temporalResonanceGainCount31215,9);assert.equal(f.actor.temporalHudActivationAt31215,10);assert.equal(f.actor.temporalHudPulseUntil31215,10.4);assert.equal(f.actor.temporalHudNextDomAt31215,10.05);
+  assert.equal(f.world.temporalResonance31215,41);assert.equal(f.world.temporalHudPulseUntil31215,99);assert.equal(f.world.temporalHudNextDomAt31215,99);
+  f.world.temporalResumeSoundReadyAt31215=999;f.world.hostileProjectiles[0].temporalLagUntil31214=10.05;let sounds=0;f.rt.withActor(f.world,f.actor,view=>sandbox.MONGSE_tickTemporalHud31215(view,{},()=>{sounds++;}));assert.equal(sounds,1);assert.equal(f.actor.temporalResumeSoundReadyAt31215,10.24);assert.equal(f.world.temporalResumeSoundReadyAt31215,999);
+  f.actor.hp=0;f.rt.withActor(f.world,f.actor,view=>sandbox.MONGSE_tickTemporalHud31215(view));assert.equal(f.actor.temporalHudHiddenAt31216,10);assert.equal(f.world.temporalHudHiddenAt31216,undefined);
+});
 test('native foundation network draft survives launch and accepts a late human roster',()=>{
   const e={dispatchEvent(){},__HAPIL_CONTROLS_V31329__:{binding:{phase:'title',state:{current:null}}},__HAPIL_PARTY_V31322__:{status:{role:'host'}}},sandbox={window:e,localStorage:{getItem:()=>null,setItem(){}},CustomEvent:function(){}};vm.createContext(sandbox);
   for(const file of ['assets/foundation-v31400/policy.js','assets/foundation-v31400/run.js'])vm.runInContext(fs.readFileSync(file,'utf8'),sandbox);
