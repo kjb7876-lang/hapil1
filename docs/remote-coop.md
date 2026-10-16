@@ -60,6 +60,12 @@ The browser test uses four isolated contexts and a temporary fifth context on on
 
 Before public availability, preserve the exact frontend/relay SHAs, CI run and artifact links, UTC interval, and four-device/four-network acceptance results. Exercise two-player start, late join to four, fifth denial, simultaneous damage, boss death/rewards, map barrier, guest down/revival, guest refresh/resume, and host departure. Keep staged fixtures distinct from natural gameplay in every report.
 
+## Remaining parity and acceptance work
+
+The shared native adapter is common to the authored maps, canonical heroes and modes. The browser encounter sample is not an exhaustive skill, boss phase or natural progression certification. Guest story panels mirror the host's text; synchronized guest narration playback and host-only DOM film/cinematic sequences are not implemented. Original host/solo narration and cinematics remain native.
+
+Some supplemental patterns and ground hazards pause/reset during the host's eight-second down window, while native enemy AI and surviving remote actor damage continue. A dedicated surviving-guest boss defeat while the host is down has not been exercised end to end. Full per-hero skill/pattern parity and real four-network/mobile acceptance remain follow-up work; snapshot inventory results alone do not establish them.
+
 ## Rollback after an approved deployment
 
 1. Record the failing frontend SHA, relay SHA, actual endpoint, UTC interval, browser errors, and CI artifacts. Export a host checkpoint if available. Omit bearer resume credentials from shared reports.

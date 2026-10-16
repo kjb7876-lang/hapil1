@@ -41028,7 +41028,9 @@ function MONGSE_saveStorageKeys(e) {
       ];
 }
 function MONGSE_writeSave(e, t) {
-  if(typeof window!=="undefined"&&window.__HAPIL_COOP_STORAGE_RC222__?.status().active)return window.__HAPIL_COOP_STORAGE_RC222__.nativeSave(e,t);
+  const HAPIL_scopeRC222=typeof window!=="undefined"?window.__HAPIL_COOP_STORAGE_RC222__?.status():null;
+  if(HAPIL_scopeRC222?.active)return window.__HAPIL_COOP_STORAGE_RC222__.nativeSave(e,t);
+  if(HAPIL_scopeRC222?.soloSaveBlocked)return {ok:false,persistent:false,reason:'solo-start-required'};
   const notice = result => { window.__HAPIL_READABILITY_V31336__?.saveResult(result); return result; };
   try {
     let n = MONGSE_saveStorageKey(e),
@@ -51583,8 +51585,9 @@ function HAPIL_combatAudioContextV1(state, phase, settings, blocked) {
     fallbackGain:fallbackProfile?MONGSE_bgmStateGain(zone,boss,!!blocked,settings.bgmVolume):0};
 }
 function HAPIL_partyUiSetterRC222(setter){return (...args)=>{if(window.__HAPIL_REMOTE_RC222_RUNTIME__?.activeActor)return;return setter(...args);};}
+function HAPIL_phaseSetterRC222(setter){return (next,...args)=>{if(next==='game')window.__HAPIL_COOP_STORAGE_RC222__?.allowSoloSaves?.();return setter(next,...args);};}
 function HAPIL_scopeGenerationRC222(){return window.__HAPIL_COOP_STORAGE_RC222__?.status?.().generation??0;}
-function HAPIL_scopeActiveRC222(generation,cleanup=false){const scope=window.__HAPIL_COOP_STORAGE_RC222__?.status?.();return (scope?.generation??0)===generation&&scope?.restoring!==true&&(cleanup===true||window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');}
+function HAPIL_scopeActiveRC222(generation,cleanup=false){const scope=window.__HAPIL_COOP_STORAGE_RC222__?.status?.();return (scope?.generation??0)===generation&&scope?.restoring!==true&&!(scope?.soloSaveBlocked===true&&!scope?.active)&&(cleanup===true||window.__HAPIL_CONTROLS_V31329__?.binding?.phase==='game');}
 function Ri() {
   let [e, t] = (0, l.useState)(`title`),
     [n, r] = (0, l.useState)(0),
@@ -54240,6 +54243,7 @@ function Ri() {
     }, [B]),
     at = (0, l.useCallback)(async () => {
       if (typeof window !== `undefined` && window.__MONGSE_DEPLOYING__) return;
+      const HAPIL_launchGenerationRC222=HAPIL_scopeGenerationRC222();
       typeof window !== `undefined` && (window.__MONGSE_DEPLOYING__ = !0);
       HAPIL_setLaunchRC52({busy:true,error:false,message:'전투 자료를 준비하고 있습니다…'});
       try {
@@ -54294,6 +54298,7 @@ function Ri() {
           ),
         );
         if(!await window.__HAPIL_RECOVERY_V31369__.prepareMap(Pe.current,'dist00'))throw new Error('첫 맵을 불러오지 못했습니다. 다시 접속해주세요.');
+        if(HAPIL_scopeGenerationRC222()!==HAPIL_launchGenerationRC222)throw new Error('접속을 완료하지 못했습니다. 다시 시도해주세요.');
         ((P.current = oi()),
           window.__HAPIL_MODES_V31346__?.set?.(
             launchMode,
@@ -54332,7 +54337,7 @@ function Ri() {
         HAPIL_setLaunchRC52(value=>({...value,busy:false}));
       }
     }, [i, V, B, MONGSE_unlockAudio, MONGSE_modeChoiceV31353]);
-  h=HAPIL_partyUiSetterRC222(h);_=HAPIL_partyUiSetterRC222(_);
+  t=HAPIL_phaseSetterRC222(t);h=HAPIL_partyUiSetterRC222(h);_=HAPIL_partyUiSetterRC222(_);
   window.__HAPIL_CONTROLS_V31329__?.bind({phase:e,state:P,settings:ze,auto:Re,input:I,hero:L,passives:R,shards:Be,partyIds:Le,cache:Pe,modal:Ve,blocked:()=>!!O,unlockAudio:MONGSE_unlockAudio,setSettings:MONGSE_updateSettings31229,notify:B,actions:{death:Ke,attack:()=>Ye(),rawAttack:Ye,sound:We,refreshScope:()=>S(value=>({...value})),restoreView:saved=>{if(saved.settings){y(saved.settings);window.__MONGSE_NARRATIVE_DIALOGUE_SETTINGS_STATE_V31229__=Object.freeze({interludeText:saved.settings.interludeText===true,mapEntryDialogue:saved.settings.mapEntryDialogue!==false,appliedSynchronously:true});}if(saved.hero)a(saved.hero);if(saved.partyIds)s(saved.partyIds);if(saved.passives)h(saved.passives);if(saved.shards!==undefined)_(saved.shards);if(saved.auto!==undefined)p(saved.auto);},returnTitle:()=>{I.current.clear();Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);t('title');},dash:Xe,guard:Ze,resonance:Qe,skill:et,damage:qe,interact:tt,target:$e,map:()=>M(v=>!v),settings:()=>{I.current.clear();u(`settings`);},escape:()=>{if(MONGSE_interludeRef.current)return;I.current.clear();O?ue(null):u(v=>v?null:e===`game`?`menu`:null);},collab:()=>{const id=Le.current.find(id=>id!==L.current);if(id)Je(id);},dismiss:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}}});
   window.__HAPIL_PARTY_LAUNCH_V31322__ = {phase:e, start:()=>e===`game`?Promise.resolve():at(), getSupport:()=>window.__HAPIL_POLICY_V31400__.partner(L.current), setSupport:(id,leader=L.current)=>{const next=MONGSE_coreApplySupportChoiceV31235(leader,Le.current,id);Le.current=next;s(next);}, setLeader:(id)=>{if(F.some(h=>h.id===id)){L.current=id;a(id);}}, setGameMode:(value)=>{const next=window.__HAPIL_SAMONG_RC91__?.select(value,P.current)??'STORY';MONGSE_modeChoiceRefV31353.current=next;MONGSE_setModeChoiceV31353(next);window.__HAPIL_MODES_V31346__?.set?.(next);return next;}, getGameMode:()=>MONGSE_modeChoiceRefV31353.current, dismissGuestUI:()=>{Ve.current=null;MONGSE_interludeRef.current=null;MONGSE_setInterlude(null);u(null);ue(null);M(!1);}};
   ((0, l.useEffect)(() => {

@@ -10,7 +10,7 @@
   const forbidden = new Set(['__proto__', 'prototype', 'constructor']);
   const memory = new Map(), guests = new Map(), areas = new Map();
   let bridge = {}, current = null, local = null, restoring = false, generation = 0;
-  let blockedWrites = 0, lastError = null;
+  let blockedWrites = 0, lastError = null, soloSaveBlocked = false;
   function fail(reason) { lastError = reason; return { ok: false, persistent: false, reason }; }
   function scope() { return PREFIX + encodeURIComponent(current.session) + '.'; }
   function keyFor(key) { return scope() + 'native.' + encodeURIComponent(String(key)); }
@@ -162,7 +162,7 @@
     restoring = true;
     try {
       if (sync(bridge.restoreLocal(localClone(local))) === false) throw Error('restore-failed');
-      current = null; local = null; guests.clear(); generation++; lastError = null; return { ok: true };
+      soloSaveBlocked = local?.phase !== 'game'; current = null; local = null; guests.clear(); generation++; lastError = null; return { ok: true };
     } catch (error) { return fail(error.message); }
     finally { restoring = false; }
   }
@@ -241,6 +241,7 @@
       return { ...checkpoint, persistent, reloadSafe: persistent || sessionSafe };
     } catch (error) { return fail(error.message); }
   }
-  const status = () => ({ generation, active: !!current, role: current?.role ?? 'solo', session: current?.session ?? null, keyPrefix: current ? scope() : null, restoring, blockedWrites, lastError });
-  root.__HAPIL_COOP_STORAGE_RC222__ = Object.freeze({ version: 1, configure, enter, leave, save, export: exportCheckpoint, import: importCheckpoint, load, list, status, read, write, getItem, setItem, removeItem, area, nativeSave, codec: Object.freeze({ encode, decode, clone }) });
+  function allowSoloSaves() { if (current || restoring) return false; soloSaveBlocked = false; return true; }
+  const status = () => ({ generation, soloSaveBlocked, active: !!current, role: current?.role ?? 'solo', session: current?.session ?? null, keyPrefix: current ? scope() : null, restoring, blockedWrites, lastError });
+  root.__HAPIL_COOP_STORAGE_RC222__ = Object.freeze({ version: 1, configure, enter, leave, save, export: exportCheckpoint, import: importCheckpoint, load, list, status, read, write, getItem, setItem, removeItem, area, nativeSave, allowSoloSaves, codec: Object.freeze({ encode, decode, clone }) });
 })();

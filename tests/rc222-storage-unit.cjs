@@ -207,4 +207,13 @@ function nativeFunction(name) {
   api.save('1');api.load('1');assert.equal(api.status().generation,initial+1,'checkpoint load stays in the same storage scope');
   api.leave();assert.equal(api.status().generation,initial+2);api.enter('guest','epoch-guest');assert.equal(api.status().generation,initial+3);api.leave();assert.equal(api.status().generation,initial+4);
 }
+{
+  const {api}=fixture();assert.equal(api.status().soloSaveBlocked,false);api.enter('guest','returned-title');api.leave();assert.equal(api.status().soloSaveBlocked,true);
+  api.enter('host','next-coop');assert.equal(api.allowSoloSaves(),false,'cooperative launch cannot release a solo save boundary');assert.equal(api.status().soloSaveBlocked,true);api.leave();
+  assert.equal(api.allowSoloSaves(),true,'explicit solo start releases the title boundary');assert.equal(api.status().soloSaveBlocked,false);
+}
+{
+  const f=fixture(),{api}=f;api.configure({captureLocal:()=>({phase:'game',protocol:1,zone:f.world.zone,world:api.codec.clone(f.world),settings:api.codec.clone(f.settings),hero:f.hero})});
+  api.enter('host','ongoing-solo');api.leave();assert.equal(api.status().soloSaveBlocked,false,'an originally active solo run can continue normal saving immediately');
+}
 console.log('RC222_STORAGE passed: native helpers, solo isolation, per-session saves, host checkpoint import/export/load, guest write rejection, local restoration, repeat load, malformed data, rollback, Infinity and local/session/memory fallback.');
