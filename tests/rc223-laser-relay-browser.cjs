@@ -147,6 +147,7 @@ async function main(){
     try{if(host)report.failureHostEvidence=await host.evaluate(()=>({status:window.__HAPIL_REMOTE_RC222__?.status?.()??null,party:window.__HAPIL_PARTY_V31322__?.telemetry?.()??null,lasers:window.__HAPIL_LASERS_V31330__?.stats?.()??null,probe:window.__RC223_LASER_HOST_PROBE__?.events??[]}));}catch{}
   }
   finally{report.finishedAt=new Date().toISOString();save();await guest?.context().close().catch(()=>{});await host?.context().close().catch(()=>{});await browser?.close().catch(()=>{});if(relay)await relay.close();server.close();
+    const evidence=JSON.stringify(report);for(let offset=0,part=0;offset<evidence.length;offset+=6000,part++)console.log('RC223_LASER_RELAY_EVIDENCE '+JSON.stringify({part,data:evidence.slice(offset,offset+6000)}));
     console.log('RC223_LASER_RELAY_BROWSER '+JSON.stringify({status:report.status,appSha,browserVersion:report.browserVersion,roomCode:report.roomCode,wait:report.fixture.wait,hostCastCount:report.hostCasts?.events?.length??0,acceptedCastSnapshots:report.receiver?.final?.applyEvents?.filter(e=>e.castCount>0&&e.applyAccepted).length??0,failedLaserApplications:report.receiver?.final?.failedLaserApplications??report.failureDiagnostics?.probe?.failedLaserApplications??[],results:path.join(out,'results.json'),failure:failure?String(failure.stack||failure):null}));
   }
 })();
