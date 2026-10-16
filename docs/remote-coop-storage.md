@@ -100,3 +100,7 @@ Active Balrog spatial rifts serialize their hazard geometry and lifetime. Per-ac
 The monotonic storage `generation` changes on session entry and successful leave. Native autosave and automatic progression callbacks capture it, so callbacks created under a departed co-op scope cannot write into solo storage during React cleanup. A new solo callback is established after restoration; normal solo saves and page-hide saves remain enabled.
 
 A title-origin return additionally blocks native game saves until an explicit native solo start/load intent. This covers a transient React game render during rapid guest leave/rejoin, which can otherwise create a new callback in the latest generation. Ongoing solo restoration remains writable. Settings and ordinary title preferences are unaffected. Deferred native launches are cancelled if their storage generation changed before world initialization.
+
+## Pending launch and connection cancellation
+
+Native new-game and solo-slot-load callbacks capture the storage generation before their first launch wait. A generation change cancels the continuation before save reads or world/phase replacement. The runtime also rejects a native startup continuation after detach or session replacement, and the transport discards queued frames from an obsolete socket generation. This prevents a leave/rejoin from applying an earlier launch or room state to restored solo or a new room. Dedicated deferred-callback and queued-frame regressions preserve normal current-session startup/load behavior.

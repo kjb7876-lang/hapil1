@@ -50,8 +50,8 @@
       "after": {
         "file": "assets/index-v31526.js",
         "mode": "100644",
-        "sha256": "217eea371e517d0d750da0fde903aabaa5a6849a253f47613678b2f78b49a3b2",
-        "gitBlob": "76144955404c521a4812e80401c949da3a2e1d6d"
+        "sha256": "637dadf42d9f720712d9640c6a39fab84ef85251e15c5b48b9ca67d99c6e656f",
+        "gitBlob": "683432273b993e199625a70d77ef7e7c22e5d7fa"
       },
       "reason": "assets/index-v31526.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     },
@@ -128,8 +128,8 @@
       "after": {
         "file": "assets/rc222/runtime.js",
         "mode": "100644",
-        "sha256": "c30377e5d81bf8c36a437bb290502af4d192d7e4bc8b6aae56a2f985243b320f",
-        "gitBlob": "fab25c5fd019e462c1919619eec6baf27141e23a"
+        "sha256": "7d1d8300475ca031e721738dbc66b74401e80c56d9f141263ba6d5cb4ad1c946",
+        "gitBlob": "386feb45e274a05a1548cce44007674d20de3c7f"
       },
       "reason": "assets/rc222/runtime.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     },
@@ -150,8 +150,8 @@
       "after": {
         "file": "assets/rc222/transport.js",
         "mode": "100644",
-        "sha256": "c22a4abedef4ee5385381ce2d7816b621d333c44992eddc2d661a36fc3ac5d5f",
-        "gitBlob": "a3f79258428d67e1860a611957533865dcaa29c3"
+        "sha256": "e44dc074170e04f3d3f2a518f33da591960e7b49904091d9489de38699fd975d",
+        "gitBlob": "fc585fbd336a270390b1b9483ac58394be8bb5d6"
       },
       "reason": "assets/rc222/transport.js: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     },
@@ -186,5 +186,5 @@
       "reason": "index.html: implement the user-requested four-person host-authoritative remote cooperative mode, isolated saves, native actor ownership, lifecycle guards and client loading; preserve existing single-player behavior."
     }
   ],
-  "targetProtectedRowsSha256": "bd54e57c0aa9bf7364ae4b085966cafec56ab6ed7c6dc2fcb0bb9869c0734446"
+  "targetProtectedRowsSha256": "ab8fe763aaf4078225abb111c712f831b1dbe113abc8714a1eb3573b2b9455af"
 }

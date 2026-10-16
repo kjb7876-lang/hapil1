@@ -54019,9 +54019,11 @@ function Ri() {
     ),
     rt = (0, l.useCallback)(
       async (e) => {
+        const HAPIL_loadGenerationRC222=HAPIL_scopeGenerationRC222();
         // Read the raw slot only after every mode/save wrapper is installed.
         try { await HAPIL_waitForLaunchRC61(); }
         catch (_) { B(`저장 자료를 준비하지 못했습니다. 잠시 후 다시 불러와 주세요.`); return; }
+        if(HAPIL_scopeGenerationRC222()!==HAPIL_loadGenerationRC222)return;
         let n = MONGSE_coreSanitizeLoadedSaveV31235(Mi(e));
         if (!n) {
           B(`이 슬롯은 비어 있습니다.`);

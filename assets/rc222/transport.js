@@ -49,6 +49,7 @@
     setRuntimeAdapter(adapter) { this.adapter=adapter||{}; if(this.session) { this.call('attach',this.runtimeState()); this.call('updateRoom',this.runtimeState()); } return this; }
     setInputReader(reader) { this.inputReader=reader; return this; }
     call(method,...args) { return this.adapter?.[method]?.(...args); }
+    isCurrent(generation,session) { return generation===this.generation&&session===this.session; }
     runtimeState() { return {...this.status(),session:this.session ? {...this.session} : null}; }
     setEndpoint(value) { this.endpoint=value ? endpointURL(value) : ''; write(this.preferencesStore,KEYS.endpoint,this.endpoint); this.emit(); return this.endpoint; }
     savedSession() { const saved=read(this.sessionStore,KEYS.session); return saved?.sessionId && saved?.resumeToken && !saved.isHost ? saved : null; }
@@ -73,14 +74,14 @@
       const endpoint=endpointURL(this.endpoint);
       if(!this.WebSocket)throw new Error('이 브라우저는 WebSocket 연결을 지원하지 않습니다.');
       if(this.socket?.readyState===1)return;
-      this.manualClose=false;const generation=++this.generation;
+      this.manualClose=false;const generation=++this.generation;this.messageChain=Promise.resolve();
       await new Promise((resolve,reject)=>{
         const socket=new this.WebSocket(endpoint);this.socket=socket;let opened=false;
         const connectTimer=this.setTimer(()=>{reject(new Error('중계 서버에 연결하지 못했습니다. 주소와 서버 상태를 확인해 주세요.'));socket.close();},10000);
         socket.onopen=()=>{if(generation!==this.generation){socket.close();return;}opened=true;this.clearTimer(connectTimer);this.lastReceive=this.now();resolve();};
         socket.onmessage=event=>{if(generation!==this.generation)return;this.bytesReceived+=wireBytes(event.data);this.messagesReceived++;let message;try{message=JSON.parse(event.data);}catch(_){return;}
           if(message.v!==VERSION||message.gameId!==GAME)return;
-          this.lastReceive=this.now();this.messageChain=this.messageChain.then(()=>this.receive(message)).catch(error=>{this.error=error.message;this.releaseInputs('sync-error');this.emit();});
+          this.lastReceive=this.now();this.messageChain=this.messageChain.then(()=>{if(generation===this.generation)return this.receive(message,generation);}).catch(error=>{if(generation!==this.generation)return;this.error=error.message;this.releaseInputs('sync-error');this.emit();});
         };
         socket.onerror=()=>{if(!opened){this.clearTimer(connectTimer);reject(new Error('중계 서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.'));}};
         socket.onclose=()=>{this.clearTimer(connectTimer);if(!opened)reject(new Error('중계 서버 연결이 닫혔습니다.'));if(generation===this.generation)this.disconnected();};
@@ -104,7 +105,9 @@
     ready(ready=true) { return this.request('ready',{ready:!!ready}); }
     profile(profile) { return this.request('profile',{nickname:String(profile.nickname||'플레이어').trim().slice(0,24),heroId:profile.heroId||'hwando'}); }
     start() { if(!this.session?.isHost)return Promise.reject(new Error('호스트만 출발할 수 있습니다.'));return this.request('start'); }
-    async receive(message) {
+    async receive(message,generation=this.generation) {
+      if(generation!==this.generation)return;
+      let session=this.session;
       const data=message.session||message;
       if(message.type==='error') {
         const error=new Error(message.message||message.error||message.code||'연결 요청에 실패했습니다.');
@@ -116,18 +119,18 @@
       if(message.type==='session') {
         if(!data.sessionId||!data.resumeToken||!/^p[1-4]$/.test(data.slotId))throw new Error('중계 서버의 참가 정보가 올바르지 않습니다.');
         const continuing=this.session?.sessionId===data.sessionId;
-        this.session={sessionId:data.sessionId,resumeToken:data.resumeToken,slotId:data.slotId,isHost:data.isHost===true,roomCode:data.roomCode||data.code,mode:data.mode||'STORY'};
+        this.session=session={sessionId:data.sessionId,resumeToken:data.resumeToken,slotId:data.slotId,isHost:data.isHost===true,roomCode:data.roomCode||data.code,mode:data.mode||'STORY'};
         this.roster=(data.roster||[]).slice(0,4);this.phase=data.phase||'lobby';this.epoch=finite(data.epoch);this.snapshotSeq=Math.max(this.snapshotSeq,finite(data.seq));this.retries=0;this.retrySince=0;this.error='';this.hostHidden=!!(data.hostStatus?.hidden??data.hostHidden);this.hostPaused=!!(data.hostStatus?.paused??data.hostPaused);
         if(!continuing){this.started=false;this.receivedSeq=-1;this.loadedEpoch=-1;this.transitionEpoch=-1;this.lastZone=null;this.lastSentSnapshot=0;this.lastFullSnapshot=0;this.inputSeq=0;this.inputSequences.clear();}
-        this.persist();await this.call('attach',this.runtimeState());await this.call('updateRoom',this.runtimeState());
+        this.persist();await this.call('attach',this.runtimeState());if(!this.isCurrent(generation,session))return;await this.call('updateRoom',this.runtimeState());if(!this.isCurrent(generation,session))return;
         this.call('role',this.phase==='playing'?(this.session.isHost?'host':'guest'):'disconnected');
         if(data.snapshot&&!this.session.isHost)await this.applySnapshot({...data,type:'transition'},true);
-        if(!this.session)return;
-        await this.syncPhase();this.scheduleTick();
+        if(!this.isCurrent(generation,session))return;
+        await this.syncPhase();if(!this.isCurrent(generation,session))return;this.scheduleTick();
       } else if(message.type==='room') {
         if(!this.session)return;
         this.error='';const nextRoster=(message.roster||this.roster).slice(0,4);for(const previous of this.roster)if(!nextRoster.some(row=>row.slotId===previous.slotId)){this.inputSequences.delete(previous.slotId);this.lastInput.delete(previous.slotId);this.call('releaseInputs','member-left',previous.slotId);}for(const row of nextRoster){const previous=this.roster.find(r=>r.slotId===row.slotId);if(row.connected===false||previous?.connected===false&&row.connected!==false){this.inputSequences.delete(row.slotId);this.lastInput.delete(row.slotId);this.call('releaseInputs','member-reconnect',row.slotId);}}this.roster=nextRoster;this.phase=message.phase||this.phase;this.epoch=Math.max(this.epoch,finite(message.epoch));if(message.mode)this.session.mode=message.mode;
-        await this.call('updateRoom',this.runtimeState());await this.syncPhase();
+        await this.call('updateRoom',this.runtimeState());if(!this.isCurrent(generation,session))return;await this.syncPhase();
       } else if(message.type==='input') {
         if(!this.session?.isHost||!/^p[2-4]$/.test(message.slotId)||this.phase!=='playing')return;
         const seq=finite(message.seq,-1);if(seq<=(this.inputSequences.get(message.slotId)??-1))return;
@@ -144,37 +147,43 @@
         this.call('hostStatus',{hidden:this.hostHidden,paused:this.hostPaused});
       } else if(message.type==='resync_required') {this.releaseInputs('resync-required');this.call('role','disconnected');this.receivedSeq=-1;} else if(message.type==='pong') {this.latency=Math.max(0,this.now()-finite(message.sentAt,this.now()));}
       else if(['closed','room_closed','host_left'].includes(message.type)){this.finish(message.message||'호스트가 방을 닫았습니다. 방 만들기 또는 방 코드로 참가해 주세요.');return;}
+      if(!this.isCurrent(generation,session))return;
       const pending=this.pending.get(message.requestId);if(pending){this.clearTimer(pending.timer);this.pending.delete(message.requestId);pending.resolve(message);}
       this.emit();
     }
     async syncPhase() {
-      if(!this.session)return;
-      if(['loading','playing'].includes(this.phase)&&!this.started){await this.call('start',this.runtimeState());this.started=true;}
+      const generation=this.generation,session=this.session;
+      if(!session)return;
+      if(['loading','playing'].includes(this.phase)&&!this.started){const started=await this.call('start',this.runtimeState());if(!this.isCurrent(generation,session)||started===false)return;this.started=true;}
       this.call('role',this.phase==='playing'&&(this.session.isHost||!this.hostPaused&&!this.hostHidden)?(this.session.isHost?'host':'guest'):'disconnected');
       if(this.phase==='loading'&&this.session.isHost&&this.loadedEpoch!==this.epoch)await this.publishTransition();
     }
     async applySnapshot(message,transition) {
+      const generation=this.generation,session=this.session;if(!session)return;
       const epoch=finite(message.epoch),seq=finite(message.seq,-1);
       if(epoch<this.epoch||epoch===this.epoch&&seq<=this.receivedSeq)return;
       if(epoch>this.epoch||seq>this.receivedSeq+1)this.releaseInputs('snapshot-gap');
-      if(!this.started){await this.call('start',this.runtimeState());this.started=true;}
+      if(!this.started){const started=await this.call('start',this.runtimeState());if(!this.isCurrent(generation,session)||started===false)return;this.started=true;}
       let accepted;try{accepted=await this.call('snapshot',message.snapshot,{seq,epoch,full:message.full===true||message.snapshot?.rc222?.full===true||transition||message.resync===true,resync:message.resync===true,transition});}catch(_){accepted=false;}
+      if(!this.isCurrent(generation,session))return;
       if(accepted===false){this.send('leave');this.finish('호스트의 전투 상태를 불러오지 못해 방에서 나왔습니다. 게임을 새로고침한 뒤 방 코드로 다시 참가해 주세요.');return false;}
       this.error='';this.epoch=epoch;this.receivedSeq=seq;this.lastSnapshot=this.now();
       if(transition||this.loadedEpoch!==epoch){this.loadedEpoch=epoch;this.send('loaded',{epoch});}
       this.call('role',this.phase==='playing'&&!this.hostPaused&&!this.hostHidden?'guest':'disconnected');
     }
     async publishTransition(zone) {
-      if(!this.session?.isHost)return false;
-      const snapshot=await this.call('exportSnapshot',{full:true});if(!snapshot)return false;
+      const generation=this.generation,session=this.session;
+      if(!session?.isHost)return false;
+      const snapshot=await this.call('exportSnapshot',{full:true});if(!this.isCurrent(generation,session)||!snapshot)return false;
       const epoch=this.epoch+1;this.transitionEpoch=epoch;this.epoch=epoch;this.loadedEpoch=epoch;this.lastZone=zone??this.call('status')?.zone;
       this.releaseInputs('transition');this.phase='loading';this.call('role','disconnected');
       const sent=this.send('transition',{epoch,zone:this.lastZone??null,seq:++this.snapshotSeq,snapshot});
       if(sent)this.send('loaded',{epoch});this.emit();return sent;
     }
-    scheduleTick() { this.timer('tick',()=>{this.tick().catch(error=>{this.error=error.message;this.emit();}).finally(()=>{if(this.session&&this.socket?.readyState===1)this.scheduleTick();});},50); }
+    scheduleTick() { const generation=this.generation,session=this.session;this.timer('tick',()=>{if(!this.isCurrent(generation,session))return;this.tick().catch(error=>{if(!this.isCurrent(generation,session))return;this.error=error.message;this.emit();}).finally(()=>{if(this.isCurrent(generation,session)&&this.session&&this.socket?.readyState===1)this.scheduleTick();});},50); }
     async tick() {
-      if(!this.session||this.socket?.readyState!==1)return;
+      const generation=this.generation,session=this.session;
+      if(!session||this.socket?.readyState!==1)return;
       const now=this.now();
       if(this.session.isHost) {
         for(const [slot,last] of this.lastInput)if(now-last>300){this.call('releaseInputs','stale-input',slot);this.lastInput.delete(slot);}
@@ -182,14 +191,15 @@
         if(status.ended===true){await this.leave();return;}
         const hidden=this.hidden,paused=this.phase==='playing'&&!!status.paused;
         if(hidden!==this.hostHidden||paused!==this.hostPaused||!this.lastHostStatus||now-this.lastHostStatus>=1000){this.hostHidden=hidden;this.hostPaused=paused;this.lastHostStatus=now;this.send('host_status',{hidden,paused});}
-        if(this.phase==='loading'&&this.loadedEpoch!==this.epoch)await this.publishTransition(status.zone);
+        if(this.started&&this.phase==='loading'&&this.loadedEpoch!==this.epoch)await this.publishTransition(status.zone);
+        if(!this.isCurrent(generation,session))return;
         if(this.phase==='playing'&&status.ready!==false) {
           const changedZone=status.zone!==undefined&&this.lastZone!==null&&status.zone!==this.lastZone;
           if(changedZone&&!hidden){await this.publishTransition(status.zone);return;}
           if(this.lastZone===null)this.lastZone=status.zone??null;
           const snapshotInterval=hidden?1000:paused?500:100;
           // Paused exports capture the current story/HUD without stepping native simulation.
-          if(!(changedZone&&hidden)&&(!this.lastSentSnapshot||now-this.lastSentSnapshot>=snapshotInterval)){const full=!this.lastFullSnapshot||now-this.lastFullSnapshot>=2000;const snapshot=await this.call('exportSnapshot',{full});if(snapshot){this.send('snapshot',{seq:++this.snapshotSeq,epoch:this.epoch,snapshot});this.lastSentSnapshot=now;if(full)this.lastFullSnapshot=now;}}
+          if(!(changedZone&&hidden)&&(!this.lastSentSnapshot||now-this.lastSentSnapshot>=snapshotInterval)){const full=!this.lastFullSnapshot||now-this.lastFullSnapshot>=2000;const snapshot=await this.call('exportSnapshot',{full});if(!this.isCurrent(generation,session))return;if(snapshot){this.send('snapshot',{seq:++this.snapshotSeq,epoch:this.epoch,snapshot});this.lastSentSnapshot=now;if(full)this.lastFullSnapshot=now;}}
         }
       } else if(this.phase==='playing') {
         const stale=now-this.lastSnapshot>3000;

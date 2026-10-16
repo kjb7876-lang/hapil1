@@ -252,11 +252,13 @@
       role(next.isHost?'host':'guest');
       if(next.isHost&&next.mode)env.__HAPIL_PARTY_LAUNCH_V31322__?.setGameMode?.(next.mode);
       configureRoster(next);
+      const launchCapture=capture,launchGeneration=env.__HAPIL_COOP_STORAGE_RC222__?.status?.().generation??0,launchSession=room?.session?.sessionId??room?.session?.id,launchRoom=room?.roomCode??room?.code,launchSlot=room?.slotId,launchHost=room?.isHost;
       if(binding()?.phase!=='game')await p.startGame?.();
+      if(!attached||capture!==launchCapture||getParty()!==p||(env.__HAPIL_COOP_STORAGE_RC222__?.status?.().generation??0)!==launchGeneration||(room?.session?.sessionId??room?.session?.id)!==launchSession||(room?.roomCode??room?.code)!==launchRoom||room?.slotId!==launchSlot||room?.isHost!==launchHost)return false;
       // Native launch replaces the React world and configures its run roster.
       // Bind that replacement before publishing the initial authoritative frame.
       const current=binding();if(current?.state?.current&&p.state!==current.state.current)p.capture?.(current.state.current,{damage:current.actions?.damage,heroRef:current.hero,cache:current.cache?.current},currentRole!=='host');
-      rosterSignature='';configureRoster(next);
+      rosterSignature='';configureRoster(room);
       nativeStarted=true;if(binding()?.phase==='game')nativeGameObserved=true;
       return status();
     }
