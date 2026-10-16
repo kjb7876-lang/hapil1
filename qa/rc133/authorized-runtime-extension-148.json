@@ -23,7 +23,7 @@
         "sha256": "dc56cea84d5b6a49878b41933b31a337bc9a2c2071d8cda6059912f6c0e66f4b",
         "gitBlob": "e0de2a2940c60102986ea4533593b2ec2948b174"
       },
-      "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/index-v31526.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc134/persona-duel.js",
@@ -38,7 +38,7 @@
         "sha256": "68db7c8f1265636c8e4875c9932d18098c57cc608bd4b41aeb5d5abe0f94943d",
         "gitBlob": "eda17234ca6b1dac8a856ff12fc69ae40683adc5"
       },
-      "reason": "assets/rc134/persona-duel.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc134/persona-duel.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc138/battle-arena.js",
@@ -53,7 +53,7 @@
         "sha256": "f0dad7ddabdd9a99a2748bc99edfa33825e365e0e9c8e10085fa132598d00b11",
         "gitBlob": "bdd34da290fa46f4fd19add131df1a9883722888"
       },
-      "reason": "assets/rc138/battle-arena.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc138/battle-arena.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc139/narration-start.js",
@@ -68,7 +68,22 @@
         "sha256": "293f5ff26e3748dfb831c01409f36915e899889ec48b9b601ee65f6ec77ce864",
         "gitBlob": "eedb9810f4d4365a4923f9a5331de2312dbe7789"
       },
-      "reason": "assets/rc139/narration-start.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc139/narration-start.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc210/memory-film.js",
+      "before": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "gitBlob": "289c238e932eb4bad85cfcd7fd8caef53a07fcf8"
+      },
+      "after": {
+        "file": "assets/rc210/memory-film.js",
+        "mode": "100644",
+        "sha256": "82a43636990698b47edae90cc84d4a886111bd747bd88866c31399bb79283ed7",
+        "gitBlob": "2e1542ae72fc887f5f0488a005e61ae99df7af45"
+      },
+      "reason": "assets/rc210/memory-film.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc222/runtime.js",
@@ -83,7 +98,18 @@
         "sha256": "074221a53a3bba4db9e5c64c3de737538e2a740000b048cfa678d614a6f5314e",
         "gitBlob": "c16175752b843b52e9c68784ca119197c906380c"
       },
-      "reason": "assets/rc222/runtime.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc222/runtime.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc223/archangel-transform-contained.webp",
+      "before": null,
+      "after": {
+        "file": "assets/rc223/archangel-transform-contained.webp",
+        "mode": "100644",
+        "sha256": "a642c29e883072f343854d474416503f32c41c0c853ec1f484170932e8a83fd5",
+        "gitBlob": "d33fef392746ac4c280548a8da6e6a9a848e67d6"
+      },
+      "reason": "assets/rc223/archangel-transform-contained.webp: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc223/camera.js",
@@ -94,7 +120,7 @@
         "sha256": "29c54d7c2af464f230dbc85eb10cb486d36b68a99b8ff713b380917c740cfe2d",
         "gitBlob": "c8ca7734e43e8cd0458888ae35367686ae9acda2"
       },
-      "reason": "assets/rc223/camera.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc223/camera.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc223/guest-voice.js",
@@ -105,7 +131,7 @@
         "sha256": "c842612738bfa24b30ccfcd1cc2943c3039738f297a79ac7c20f0bde1ba4abf1",
         "gitBlob": "beef21bd0bcc9d447e2de0fdd48a01e7e8d850f8"
       },
-      "reason": "assets/rc223/guest-voice.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc223/guest-voice.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc223/left-zone.js",
@@ -116,7 +142,18 @@
         "sha256": "9ee4cdc41830ed875725097acf28f8b3f4048236dd39a76b0f74847a167d9f0a",
         "gitBlob": "fc0a402dd30a9d4176d4aa75a17c93bc44381459"
       },
-      "reason": "assets/rc223/left-zone.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc223/left-zone.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+    },
+    {
+      "file": "assets/rc223/lucifer-transform-contained.webp",
+      "before": null,
+      "after": {
+        "file": "assets/rc223/lucifer-transform-contained.webp",
+        "mode": "100644",
+        "sha256": "534242f9d7145c53b64b47389febde5123b18dd3e2da6239063497594102cb6f",
+        "gitBlob": "5a23ab6e6fe620667ec1be60dc852c2e1b215ffc"
+      },
+      "reason": "assets/rc223/lucifer-transform-contained.webp: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/rc51/story.js",
@@ -131,7 +168,7 @@
         "sha256": "e1b5b5e69ca57845206edb91f0ced98bf028c1511fed91e9988a22921b7d6204",
         "gitBlob": "c68507facaf53721feecea0271afc66a1e380de5"
       },
-      "reason": "assets/rc51/story.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/rc51/story.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "assets/story-narration/v1/player.js",
@@ -146,7 +183,7 @@
         "sha256": "8cfe829143c4c34c4f38d623652a07ae7fdeba6063a016a39a59fa2763b39e90",
         "gitBlob": "7b72a4869cb1399f365db65f04b0fea2cbc66b29"
       },
-      "reason": "assets/story-narration/v1/player.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "assets/story-narration/v1/player.js: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     },
     {
       "file": "index.html",
@@ -158,11 +195,11 @@
       "after": {
         "file": "index.html",
         "mode": "100644",
-        "sha256": "c67a95f1bdd45d6ab808ce8625aeecca2bc6a425fd3bcfd4e0a754bad2c36c6c",
-        "gitBlob": "9a32eb5c0e14ddcbb2ef46472e5f519e5f4a0fd3"
+        "sha256": "a2b8c3a762db7af4d07268c93f81b735ce577e6f828eebcbb3f02ce8a4692247",
+        "gitBlob": "1295ac60d74f11716384b9237312ffdc1d203598"
       },
-      "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, and exactly-once host reward reconciliation after normal co-op revival; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
+      "reason": "index.html: implement the user-requested narration and guest voice lifecycle, saved presentation camera, world-left physical-floor exposure with resolved native actor ownership and lifecycle cleanup, the reproduced offline companion checkpoint repair, exactly-once host reward reconciliation after normal co-op revival, and full-wing transformation artwork variants with their exact scene wiring while preserving clipped original assets; preserve published recordings, canonical text, existing allowed floor and unrelated native behavior."
     }
   ],
-  "targetProtectedRowsSha256": "831155e983e1d8003d4a5520dbd4eddd0d3321c8739348a60fc8259da2e70fbe"
+  "targetProtectedRowsSha256": "9f5a7bf6df81984d33df2d5643ae6aff293e92b8d341548013adc978d0838b89"
 }
