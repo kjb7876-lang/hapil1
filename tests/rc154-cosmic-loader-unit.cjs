@@ -2,26 +2,26 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{verify}=require('../tools/rc154-cosmic-loader.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f));
 const input={html:read('index.html').toString(),bundle:read('assets/index-v31526.js').toString()};
-for(let n=15;n<=151;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
+for(let n=15;n<=152;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
 let checks=0;
 assert.equal(verify(input),'exact-chained-RC155+RC152+EGO+resume');checks++;
 const patches=[
  {html:input.html.replace('rc222/transport.js?v=22301','rc222/transport.js?v=22201')},
- {html:input.html.replace('rc223/camera.js?v=22501','rc223/camera.js?v=22401')},
+ {html:input.html.replace('rc223/camera.js?v=22601','rc223/camera.js?v=22401')},
  {html:input.html.replace('rc222/transport.js?v=22301','rc222/transport.js?v=22300')},
  {html:input.html.replace('rc32/boss-and-mobile.js?v=22301','rc32/boss-and-mobile.js?v=21001')},
  {html:input.html.replace('rc32/boss-and-mobile.js?v=22301','rc32/boss-and-mobile.js?v=22300')},
- {html:input.html.replace('index-v31526.js?v=22601','index-v31526.js?v=22009')},
- {html:input.html.replace('index-v31526.js?v=22601','index-v31526.js?v=22002')},
- {html:input.html.replace('index-v31526.js?v=22601','index-v31526.js?v=21401')},
+ {html:input.html.replace('index-v31526.js?v=22701','index-v31526.js?v=22009')},
+ {html:input.html.replace('index-v31526.js?v=22701','index-v31526.js?v=22002')},
+ {html:input.html.replace('index-v31526.js?v=22701','index-v31526.js?v=21401')},
  {html:input.html.replace('combat-provenance.js?v=21401','combat-provenance.js?v=15601')},
- {html:input.html.replace('index-v31526.js?v=22601','index-v31526.js?v=21301')},
+ {html:input.html.replace('index-v31526.js?v=22701','index-v31526.js?v=21301')},
  {html:input.html.replace('combat-layout.js?v=22401','combat-layout.js?v=21102')},
  {html:input.html.replace('controller.js?v=16601','controller.js?v=43304')},
  {html:input.html.replace('adaptive-battlefield.css?v=15525','adaptive-battlefield.css?v=15524')},
  {html:input.html.replace('danmaku-rpg.js?v=45002','danmaku-rpg.js?v=45001')},
- {html:input.html.replace('index-v31526.js?v=22601','index-v31526.js?v=45001')},
- {html:input.html.replace('index-v31526.js?v=22601','index-v31526.js?v=15505')},
+ {html:input.html.replace('index-v31526.js?v=22701','index-v31526.js?v=45001')},
+ {html:input.html.replace('index-v31526.js?v=22701','index-v31526.js?v=15505')},
  {html:input.html.replace('ego-art.js?v=17401','ego-art.js?v=15603')},
  {html:input.html.replace('root-hit-runtime.js?v=22002','root-hit-runtime.js?v=21002')},
  {html:input.html.replace('rc220/combat.js?v=22004','rc220/combat.js?v=22001')},

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "7842ffa2f6f0de21df747ff299435f5a145fed43",
+  "baseTree": "1f919b49d9b1f0a78abd56a1bac97a6f94b48560",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f8dd3ef7daecc8de23bd0791e8542c2f8cbb81286d5f3284200d3eac743f28d5",
+  "files": [
+    {
+      "file": "assets/rc223/camera.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "a57847e9fa0aadabb1e93dedb54a5ccd180e3a17",
+        "file": "assets/rc223/camera.js"
+      },
+      "after": {
+        "file": "assets/rc223/camera.js",
+        "mode": "100644",
+        "sha256": "519724a778322457d5309d082d4094ca3d81022b8f7411a5ee9c18976100bc6b",
+        "gitBlob": "c0f53f20a5b2d1555765987c222af76726a87b61"
+      },
+      "reason": "assets/rc223/camera.js: Preserve >=90% authored arena width on ultra-wide short landscape and keep the Settings readout synchronized with adaptive framing."
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "7d71c8643759b22cdc2e2910e591e2fbdf8308a5",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "5de7c13643b62d335c92ace3b1adecd9810b25a313f8b71ca07c827aab9308d2",
+        "gitBlob": "3f05ccb23a527123057892b531046956a4b003d7"
+      },
+      "reason": "assets/index-v31526.js: Preserve >=90% authored arena width on ultra-wide short landscape and keep the Settings readout synchronized with adaptive framing."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "504ca2fa0d507c72367dcda19fc19f1097737dbe",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "80d92914f6b84a8c20b3266db7cac3dab32d97a8de92d49c352f2a343c0d7cec",
+        "gitBlob": "51ee28feb359ca0446d858be1e6f7bf4e45461c8"
+      },
+      "reason": "index.html: Preserve >=90% authored arena width on ultra-wide short landscape and keep the Settings readout synchronized with adaptive framing."
+    }
+  ],
+  "targetProtectedRowsSha256": "0abb312d26511ba55ecb8de996a9fdde0c1ea70dde7155bc7ed9f4f144138e7c"
+}

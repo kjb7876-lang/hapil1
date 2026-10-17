@@ -65709,7 +65709,7 @@ function HAPILCameraSettingsSectionRC223(){
   (0,q.jsx)('h3',{children:'전장 시야'}),
   (0,q.jsx)('div',{className:'settings-list',children:(0,q.jsxs)('label',{className:'settings-range',children:[
    (0,q.jsxs)('span',{children:[(0,q.jsx)('b',{children:'전장 시야 범위'}),(0,q.jsx)('small',{children:'배경을 크게 유지하며 가로와 세로 시야를 넓힙니다.'})]}),
-   (0,q.jsxs)('div',{children:[(0,q.jsx)('input',{type:'range',min:1,max:2,step:.05,'aria-label':'전장 시야 범위','data-rc223-view-factor':'',value,onChange:change}),(0,q.jsx)('output',{'aria-live':'off',children:Math.round((1+(value-1)*.05)*100)+'%'})]})
+   (0,q.jsxs)('div',{children:[(0,q.jsx)('input',{type:'range',min:1,max:2,step:.05,'aria-label':'전장 시야 범위','data-rc223-view-factor':'',value,onChange:change}),(0,q.jsx)('output',{'aria-live':'off',children:Math.round((window.__HAPIL_CAMERA_RC223__&&window.__HAPIL_CAMERA_RC223__.appliedZoom?window.__HAPIL_CAMERA_RC223__.appliedZoom(value):1+(value-1)*.05)*100)+'%'})]})
   ]})})
  ]});
 }

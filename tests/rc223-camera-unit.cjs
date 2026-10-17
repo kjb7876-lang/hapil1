@@ -10,10 +10,10 @@ const comparable=value=>value&&typeof value==='object'?JSON.parse(JSON.stringify
 const eq=(actual,expected,message)=>{assert.deepStrictEqual(comparable(actual),comparable(expected),message);checks++;};
 const same=(actual,expected,message)=>{assert.equal(actual,expected,message);checks++;};
 const ok=(value,message)=>{assert.ok(value,message);checks++;};
-function fixture({stored=null,navigator={},view=null,storageThrows=false}={}){
+function fixture({stored=null,navigator={},view=null,viewport=null,storageThrows=false}={}){
  const values=new Map(),events=new Map();if(stored!==null)values.set('hapil.rc223.viewFactor',String(stored));
  const localStorage={getItem(key){if(storageThrows)throw Error('blocked');return values.get(key)??null;},setItem(key,value){if(storageThrows)throw Error('blocked');values.set(key,String(value));},removeItem(key){values.delete(key);}};
- const win={navigator,localStorage,__HAPIL_VIEWPORT_RC104__:view?{view:()=>view}:undefined,addEventListener(type,fn){events.set(type,fn);}};
+ const win={navigator,localStorage,innerWidth:viewport?.width,innerHeight:viewport?.height,visualViewport:viewport??undefined,__HAPIL_VIEWPORT_RC104__:view?{view:()=>view}:undefined,addEventListener(type,fn){events.set(type,fn);}};
  const scope={window:win,Number,Object,Math,Set,TypeError};vm.createContext(scope);vm.runInContext(source,scope);
  return{api:win.__HAPIL_CAMERA_RC223__,values,events,win};
 }
@@ -75,6 +75,11 @@ const autoAnchored=fixture({stored:'2',view:{x:100,y:80,width:800,height:500}}),
 eq(autoAnchored.api.diagnostics().last.anchor,{x:500,y:330},'native viewport view center supplies the default anchor');
 eq(autoAnchored.api.appliedZoom(),1.05,'maximum setting caps scenery shrink to five percent');
 ok(Math.abs(anchored.x-(500+(base.x-500)/1.05))<1e-12&&Math.abs(anchored.y-(330+(base.y-330)/1.05))<1e-12,'view-center anchoring respects non-default safe-area framing');
+const shortWide=fixture({stored:'2',viewport:{width:844,height:240}}),shortWideBase={x:-238.70187805526814,y:-283.7921653958564,scale:1.4416202686844244};
+eq(shortWide.api.appliedZoom(),1,'ultra-wide short landscapes keep the authored map at full scale');
+same(shortWide.api.applyCamera(shortWideBase),shortWideBase,'ultra-wide map coverage takes priority over the optional scenery shrink');
+const regularLandscape=fixture({stored:'2',viewport:{width:844,height:390}});
+eq(regularLandscape.api.appliedZoom(),1.05,'regular landscape retains the full saved view range');
 const one=fixture({stored:'1'});same(one.api.applyCamera(base),base,'factor one returns the original camera without changes');
 eq(one.api.applyCamera({x:1,y:2}),{x:1,y:2},'a camera without scale remains unchanged');
 
@@ -93,7 +98,7 @@ assert.throws(()=>probe.api.withBaseCamera(null),/requires a function/);checks++
 const cameraFn=/function HAPIL_viewCameraRC104\([^\n]+/.exec(bundle)?.[0];
 ok(cameraFn&&cameraFn.indexOf('portrait')<cameraFn.indexOf('applyCamera'),'camera factor is applied after portrait composition');
 ok(bundle.includes("'aria-label':'전장 시야 범위'")&&bundle.includes("min:1,max:2,step:.05"),'the native Settings UI exposes the saved 1..2 range');
-ok(bundle.includes("Math.round((1+(value-1)*.05)*100)+'%'"),'the settings readout displays the applied scenery zoom, not the raw slider factor');
+ok(bundle.includes("window.__HAPIL_CAMERA_RC223__.appliedZoom(value):1+(value-1)*.05"),'the settings readout displays the actual aspect-aware scenery zoom');
 ok(bundle.includes("scoped('projectile')")&&bundle.includes("scoped('body')")&&bundle.includes("scoped('paintEnvelope')")&&bundle.includes("scoped('enemyContact')"),'all native bitmap contact and envelope methods use the scoped base camera');
 
 console.log('RC223_CAMERA_UNIT',JSON.stringify({status:'passed',checks,storageKey:loaded.api.key,defaultDesktop:1,defaultMobile:2,step:.05,browserVerified:false}));
