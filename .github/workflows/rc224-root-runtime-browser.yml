@@ -22,7 +22,6 @@ jobs:
     timeout-minutes: 30
     env:
       EXPECTED_SHA: ${{ github.sha }}
-      HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc224-root-browser
     steps:
       - uses: actions/checkout@v6
         with:
@@ -40,6 +39,8 @@ jobs:
           node "$RUNNER_TEMP/rc224-root-browser/node_modules/playwright/cli.js" install --with-deps chrome
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc224-root-browser/node_modules" >> "$GITHUB_ENV"
       - name: Verify exact candidate, normal Chrome sandbox and real root-hit behavior
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc224-root-browser
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
