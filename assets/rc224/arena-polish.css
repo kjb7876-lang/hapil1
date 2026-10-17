@@ -1,0 +1,5 @@
+/* RC224: the open left floor remains a gameplay rule, not a painted zone. */
+#hapil-left-zone-warning-rc223 {
+  display: none !important;
+  visibility: hidden !important;
+}

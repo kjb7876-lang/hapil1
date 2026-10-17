@@ -56,7 +56,9 @@
   return{x:640-center*scale,y:360-focusY*scale,scale,rc138Side:which,rc138Row:row,rc138Coverage:{left:which==='left'?40:620,right:which==='left'?660:1240,top:355,bottom:673}};
  }
  function leftContour(points){const out=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],ia=a.x<=19+1e-9,ib=b.x<=19+1e-9;if(ia)out.push({x:a.x,y:a.y});if(ia!==ib){const t=(19-a.x)/(b.x-a.x);out.push({x:19,y:a.y+(b.y-a.y)*t});}}return out;}
- function drawBoundary(ctx,s,project){const inCombat=enabled(s)&&(locked(s)||!(s.hp>0)&&(s.enemies??[]).some(live));if(!inCombat)return false;const duel=D(),outer=leftContour(duel?.polygon?.('all',format.playerRadius)??[]),hole=leftContour(duel?.polygon?.(side(s,true),format.playerRadius)??[]);if(outer.length<3)return false;ctx.save();try{ctx.beginPath();for(const poly of[outer,hole])if(poly.length>=3){poly.forEach((p,i)=>{const q=project(p.x,p.y);if(i===0)ctx.moveTo(q.x,q.y);else ctx.lineTo(q.x,q.y);});ctx.closePath();}ctx.globalAlpha=.13;ctx.fillStyle='#ff9d91';ctx.fill('evenodd');ctx.globalAlpha=.52;ctx.strokeStyle='#f1a69b';ctx.lineWidth=1.25;ctx.setLineDash([]);ctx.stroke();}finally{ctx.restore();}return true;}
+ // The floor rule is mechanical; a visible polygon or divider is unnecessary
+ // and makes the expanded route look like a locked region.
+ function drawBoundary(){return false;}
  function snapshot(s){return{version:1,zone:s?.zone,enabled:enabled(s),locked:locked(s),clear:enabled(s)&&clear(s),reason:!enabled(s)?'rest':s.hp<=0?'death-choice':clear(s)?'clear':'combat',playerSide:side(s,true),enemySide:side(s,false),hostiles:(s?.enemies??[]).filter(live).length,entry:{...format.entry},exit:{...format.exit}};}
  function bind(api){native={...api,combat:new Set(api.combat)};}
  const canonical=s=>root.__HAPIL_REMOTE_RC222_RUNTIME__?.canonicalWorld?.(s)??s,actorIdentity=a=>root.__HAPIL_REMOTE_RC222_RUNTIME__?.actorFor?.(a)??a;

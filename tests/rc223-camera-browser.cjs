@@ -204,7 +204,7 @@ async function setViaNativeSlider(page, factor, profile) {
     for (let i=0; i<Math.round((factor-1)/.05); i++) await slider.press('ArrowRight');
     await page.waitForFunction(expected => {
       const a=window.__HAPIL_CAMERA_RC223__, el=document.querySelector('input[aria-label="전장 시야 범위"]');
-      return a?.factor?.()===expected && Number(el?.value)===expected && document.querySelector('.rc223-view-settings output')?.textContent===Math.round(expected*100)+'%';
+      return a?.factor?.()===expected && Number(el?.value)===expected && document.querySelector('.rc223-view-settings output')?.textContent===Math.round((1+(expected-1)*.25)*100)+'%';
     }, factor, {timeout: 8000});
   } catch(error) {
     report.sliderFailure={profile,expectedFactor:factor,error:error.stack||String(error),state:await cameraSettingsState(page).catch(e=>({diagnosticError:String(e)}))};
@@ -238,9 +238,11 @@ async function cameraEvidence(page, factor) {
 function assertCameraFormula(row, factor) {
   const {base,adjusted,anchor}=row.last;
   assert.equal(row.factor, factor);
-  assert(Math.abs(adjusted.scale - base.scale/factor) < 1e-9, 'final native view scale follows inverse range factor');
-  assert(Math.abs(adjusted.x - (anchor.x+(base.x-anchor.x)/factor)) < 1e-7, 'final native camera x is anchored');
-  assert(Math.abs(adjusted.y - (anchor.y+(base.y-anchor.y)/factor)) < 1e-7, 'final native camera y is anchored');
+  const applied=1+(factor-1)*.25;
+  assert(Math.abs(row.last.appliedZoom-applied)<1e-9, 'view setting uses the documented gentle world zoom');
+  assert(Math.abs(adjusted.scale - base.scale/applied) < 1e-9, 'final native view scale follows the eased range factor');
+  assert(Math.abs(adjusted.x - (anchor.x+(base.x-anchor.x)/applied)) < 1e-7, 'final native camera x is anchored');
+  assert(Math.abs(adjusted.y - (anchor.y+(base.y-anchor.y)/applied)) < 1e-7, 'final native camera y is anchored');
   if(row.view) {
     assert(Math.abs(anchor.x-(row.view.x+row.view.width/2))<1e-6, 'camera anchor is the native safe viewport center x');
     assert(Math.abs(anchor.y-(row.view.y+row.view.height/2))<1e-6, 'camera anchor is the native safe viewport center y');

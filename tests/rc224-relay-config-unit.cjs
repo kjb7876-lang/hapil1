@@ -1,0 +1,26 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const html=fs.readFileSync('index.html','utf8');
+const source=fs.readFileSync('assets/rc224/relay-default.js','utf8');
+const url='wss://hapil-relay.onrender.com/relay';
+assert(html.includes('assets/rc224/relay-default.js?v=22401'),'the endpoint default is loaded by the real Pages entry point');
+assert(html.indexOf('assets/rc224/relay-default.js')<html.indexOf('assets/rc222/transport.js'),'relay configuration loads before the opt-in transport');
+function runDefault(saved=null,existing={}){const scope={__HAPIL_REMOTE_CONFIG_RC222__:existing,localStorage:{getItem:()=>saved===null?null:JSON.stringify(saved)}};scope.window=scope;vm.runInNewContext(source,scope);return scope.__HAPIL_REMOTE_CONFIG_RC222__;}
+assert.equal(runDefault().relayURL,url,'the supplied relay is the default when no local choice exists');
+assert.equal(runDefault('wss://my-relay.example/relay').relayURL,undefined,'a saved player endpoint is not overwritten');
+assert.equal(runDefault(null,{relayURL:'wss://operator.example/relay'}).relayURL,'wss://operator.example/relay','an explicit operator endpoint stays authoritative');
+global.__HAPIL_REMOTE_CONFIG_RC222__=runDefault();
+const api=require('../assets/rc222/transport.js');
+const transport=new api.RemoteTransport({WebSocket:class {constructor(){throw new Error('idle transport must not open a socket');}}});
+assert.equal(transport.status().endpoint,url,'lobby defaults to the confirmed relay address');
+assert.equal(transport.status().phase,'offline','configuring a relay does not start network activity');
+assert.equal(transport.socket,null,'solo and title screens remain offline');
+global.localStorage={getItem:()=>JSON.stringify('wss://my-relay.example/relay')};
+global.__HAPIL_REMOTE_CONFIG_RC222__=runDefault('wss://my-relay.example/relay');
+const savedChoice=new api.RemoteTransport({WebSocket:class {constructor(){throw new Error('idle transport must not open a socket');}}});
+assert.equal(savedChoice.status().endpoint,'wss://my-relay.example/relay','a saved user endpoint suppresses the fallback config');
+delete global.localStorage;
+delete global.__HAPIL_REMOTE_CONFIG_RC222__;
+console.log('RC224_RELAY_CONFIG_UNIT',JSON.stringify({status:'passed',url,automaticConnection:false,savedChoicePreserved:true}));

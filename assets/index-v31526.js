@@ -21017,8 +21017,8 @@ var te = S(10, 10),
           `b05-p1`,
           `specter`,
           `얼굴 없는 남자의 박수`,
-          5,
-          7,
+          27,
+          9,
           176,
           epB + `lust_heart_marionette.webp`,
           1,
@@ -21027,8 +21027,8 @@ var te = S(10, 10),
           `b05-a1`,
           `corruptedGuardian`,
           `붉은 하이힐 칼날`,
-          14,
-          6,
+          29,
+          15,
           204,
           epB + `lust_asmodai.webp`,
           -1,
@@ -21038,8 +21038,8 @@ var te = S(10, 10),
           `b05-p2`,
           `specter`,
           `공중을 가르는 립스틱 탄환`,
-          8,
-          14,
+          30,
+          20,
           174,
           epB + `lust_heart_marionette.webp`,
           1,
@@ -65708,8 +65708,8 @@ function HAPILCameraSettingsSectionRC223(){
  return (0,q.jsxs)('section',{className:'rc223-view-settings','data-rc223-camera-settings':'',children:[
   (0,q.jsx)('h3',{children:'전장 시야'}),
   (0,q.jsx)('div',{className:'settings-list',children:(0,q.jsxs)('label',{className:'settings-range',children:[
-   (0,q.jsxs)('span',{children:[(0,q.jsx)('b',{children:'전장 시야 범위'}),(0,q.jsx)('small',{children:'가로와 세로 시야를 함께 넓힙니다.'})]}),
-   (0,q.jsxs)('div',{children:[(0,q.jsx)('input',{type:'range',min:1,max:2,step:.05,'aria-label':'전장 시야 범위','data-rc223-view-factor':'',value,onChange:change}),(0,q.jsx)('output',{'aria-live':'off',children:Math.round(value*100)+'%'})]})
+   (0,q.jsxs)('span',{children:[(0,q.jsx)('b',{children:'전장 시야 범위'}),(0,q.jsx)('small',{children:'배경을 크게 유지하며 가로와 세로 시야를 넓힙니다.'})]}),
+   (0,q.jsxs)('div',{children:[(0,q.jsx)('input',{type:'range',min:1,max:2,step:.05,'aria-label':'전장 시야 범위','data-rc223-view-factor':'',value,onChange:change}),(0,q.jsx)('output',{'aria-live':'off',children:Math.round((1+(value-1)*.25)*100)+'%'})]})
   ]})})
  ]});
 }

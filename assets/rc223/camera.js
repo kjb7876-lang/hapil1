@@ -21,6 +21,9 @@
   return copy;
  }
  function anchorCopy(anchor){return{x:finite(anchor?.x,640),y:finite(anchor?.y,360)};}
+ // The view slider expands composition gently so the full-stage background
+ // does not collapse into a small centered island at the upper setting.
+ function appliedZoom(value=factor()){return 1+(value-1)*.25;}
  function defaultAnchor(){
   try{const view=root.__HAPIL_VIEWPORT_RC104__?.view?.();if(view&&[view.x,view.y,view.width,view.height].every(Number.isFinite)&&view.width>0&&view.height>0)return{x:view.x+view.width/2,y:view.y+view.height/2};}catch{}
   return{x:640,y:360};
@@ -37,9 +40,9 @@
  function applyCamera(camera,anchor){
   if(!camera||typeof camera!=='object'||!Number.isFinite(camera.scale))return camera;
   if(probeDepth>0){metrics.probeCameraCalls++;metrics.lastProbeCamera=cameraCopy(camera);return camera;}
-  const viewAnchor=anchorCopy(anchor??defaultAnchor()),zoom=factor();
-  const adjusted=zoom===1?camera:{...camera,x:viewAnchor.x+(finite(camera.x,viewAnchor.x)-viewAnchor.x)/zoom,y:viewAnchor.y+(finite(camera.y,viewAnchor.y)-viewAnchor.y)/zoom,scale:camera.scale/zoom};
-  metrics.applied++;metrics.last={base:cameraCopy(camera),adjusted:cameraCopy(adjusted),anchor:viewAnchor,factor:zoom,portraitSplitRC108:camera.portraitSplitRC108??null};
+  const viewAnchor=anchorCopy(anchor??defaultAnchor()),zoom=factor(),scaleFactor=appliedZoom(zoom);
+  const adjusted=scaleFactor===1?camera:{...camera,x:viewAnchor.x+(finite(camera.x,viewAnchor.x)-viewAnchor.x)/scaleFactor,y:viewAnchor.y+(finite(camera.y,viewAnchor.y)-viewAnchor.y)/scaleFactor,scale:camera.scale/scaleFactor};
+  metrics.applied++;metrics.last={base:cameraCopy(camera),adjusted:cameraCopy(adjusted),anchor:viewAnchor,factor:zoom,appliedZoom:scaleFactor,portraitSplitRC108:camera.portraitSplitRC108??null};
   return adjusted;
  }
  function withBaseCamera(callback){
@@ -49,5 +52,5 @@
  }
  function subscribe(listener){if(typeof listener!=='function')return()=>{};listeners.add(listener);return()=>listeners.delete(listener);}
  function diagnostics(){return Object.freeze({...metrics,last:metrics.last?Object.freeze({...metrics.last,base:cameraCopy(metrics.last.base),adjusted:cameraCopy(metrics.last.adjusted),anchor:{...metrics.last.anchor}}):null,lastProbeCamera:cameraCopy(metrics.lastProbeCamera),baseCameraDepth:probeDepth});}
- root.__HAPIL_CAMERA_RC223__=Object.freeze({installed:true,version:'RC223',key:KEY,mobile,factor,snapshot,setFactor,applyCamera,withBaseCamera,baseCameraActive:()=>probeDepth>0,subscribe,diagnostics});
+ root.__HAPIL_CAMERA_RC223__=Object.freeze({installed:true,version:'RC223',key:KEY,mobile,factor,appliedZoom,snapshot,setFactor,applyCamera,withBaseCamera,baseCameraActive:()=>probeDepth>0,subscribe,diagnostics});
 })();
