@@ -1,0 +1,70 @@
+name: RC224 exact root and fall browser verification
+on:
+  push:
+    branches: [codex/rc224-critical-debug-20261017]
+    paths:
+      - 'assets/**'
+      - 'index.html'
+      - 'tests/rc210-browser.cjs'
+      - 'tests/rc210-root-hit-unit.cjs'
+      - 'tests/rc210-fall-progression-browser.cjs'
+      - 'tests/chromium-sandbox-policy.cjs'
+      - 'tests/rc153-chrome-sandbox-smoke.cjs'
+      - '.github/workflows/rc224-root-runtime-browser.yml'
+permissions:
+  contents: read
+concurrency:
+  group: rc224-root-browser-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  official-chrome:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      EXPECTED_SHA: ${{ github.sha }}
+      HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc224-root-browser
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install official Chrome test runtime under runner temp
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rc224-root-browser"
+          npm install --prefix "$RUNNER_TEMP/rc224-root-browser" --cache "$RUNNER_TEMP/rc224-root-cache" --no-save --package-lock=false playwright@1.55.1
+          node "$RUNNER_TEMP/rc224-root-browser/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc224-root-browser/node_modules" >> "$GITHUB_ENV"
+      - name: Verify exact candidate, normal Chrome sandbox and real root-hit behavior
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          command -v google-chrome
+          google-chrome --version
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc210-root-hit-unit.cjs
+          node tests/rc210-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Verify fall progression in PC and landscape Chrome
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc224-fall-browser
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc210-fall-progression-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc224-root-fall-chrome-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/rc224-root-browser/
+            ${{ runner.temp }}/rc224-fall-browser/
+          if-no-files-found: warn
+          retention-days: 14
