@@ -48,4 +48,9 @@ check(!D.graze(beam,{laser:true,id:'unstable-segment',sourceId:'b03-boss',born:3
 for(const id of ['bullet-a','bullet-b']){tick(beam,.15);check(D.graze(beam,{id,bossCastId31210:'shared-salvo',sourceId:'b03-boss',born:4,damage:10,vx:1,vy:0}),'different bullets of one salvo stay independently grazeable');}
 const ids=beam.rc129Danmaku.graze.seen;tick(beam,.5);check(beam.rc129Danmaku.graze.seen===ids,'steady frames do not clone source ledger');
 check(window.__HAPIL_DANMAKU_HUD_RC129__.snapshot().metrics.errors===0,'no optional hook errors');
+const compatibility=require('../tools/rc133-release-compatibility.cjs'),delta=JSON.parse(fs.readFileSync(path.join(root,'qa/rc133/authorized-runtime-delta.json'))),chainReport={approvedDelta:delta.files};
+for(let n=1;n<=153;n++){const file=n===1?'qa/rc133/authorized-runtime-extension.json':`qa/rc133/authorized-runtime-extension-${n}.json`;if(!fs.existsSync(path.join(root,file)))continue;const extension=JSON.parse(fs.readFileSync(path.join(root,file)));chainReport['approvedExtension'+(n===1?'':n)]=extension.files;}
+const chain=compatibility.verifyRuntimeOutputChain(root,chainReport,'index.html',fs.readFileSync(path.join(root,'index.html'))),ext153=chainReport.approvedExtension153.find(row=>row.file==='index.html');
+check(chain.extensionOutput===ext153.after.sha256,'RC128 compatibility chain includes the exact 153rd runtime extension');
+const staleChain={...chainReport};delete staleChain.approvedExtension153;assert.throws(()=>compatibility.verifyRuntimeOutputChain(root,staleChain,'index.html',fs.readFileSync(path.join(root,'index.html'))),/Current runtime bytes differ from exact authorized extension chain output/);checks++;
 console.log('RC129_UNIT_RESULT',JSON.stringify({status:'passed',checks,corridorSamples:corridors,minClearance,scope:'VM policies and geometric fixtures; not native campaign traversal',stats:D.snapshot(s).stats}));
