@@ -134,3 +134,11 @@ still needs committed-tree preservation, updated RC137 and mobile-layout
 official Chrome matrices, and its own exact-SHA Pages success. Earlier
 RC146/RC153 test corrections remain subject to their exact-SHA workflow results;
 unit success alone is not being counted as browser proof.
+
+The official Chrome RC147 matrix on `9de11719692ed284ff6b657b8d8b08ece3bf3ada`
+completed the browser scenarios in PC, portrait, and landscape, then stopped at
+the publication URL unit's stale `385` manifest-file expectation. The pinned
+public manifest currently contains 401 unique runtime paths, and its local
+exact-commit manifest-only preflight is clean. The unit now pins that 401-file
+inventory; its 2,020 URL and manifest assertions pass locally. A new exact-SHA
+Chrome rerun and exact-SHA Pages deployment are required to close this finding.
