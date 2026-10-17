@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "base": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+  "baseTree": "9734e75661b65c14e6d8ecabebabf08b9b50c1aa",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "cd8f8c982b04e52693b0e3a4b6d28e9a3bd6355433ffa95738ada1ff338b2316",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "3f05ccb23a527123057892b531046956a4b003d7",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "f0738f47a310269e218c7c2bc4ae814c933366545e76551153e6a0fc33bb586f",
+        "gitBlob": "6320e6e2eccc8921bec1c1616aebc476aee1cfd9"
+      },
+      "reason": "assets/index-v31526.js: Enforce the tested boss projectile admission cap and keep the canonical native installation source synchronized."
+    },
+    {
+      "file": "assets/rc210/projectile-balance.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "10653cd6bad3a687e8e5764e80d0d286f6f4dc21",
+        "file": "assets/rc210/projectile-balance.js"
+      },
+      "after": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "sha256": "dc458d9c811354e660aa59374a5c2ccef9f2b1b6668c8751ff2d22a2846dff74",
+        "gitBlob": "35fcc8da308855f217c0ec8179ebcfef3b20e225"
+      },
+      "reason": "assets/rc210/projectile-balance.js: Enforce the tested boss projectile admission cap and keep the canonical native installation source synchronized."
+    },
+    {
+      "file": "assets/rc133/native-install-v2.js.txt",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "2ede3327e1bb36453590072ecef0148a40739754",
+        "file": "assets/rc133/native-install-v2.js.txt"
+      },
+      "after": {
+        "file": "assets/rc133/native-install-v2.js.txt",
+        "mode": "100644",
+        "sha256": "e52f88a92d1d69e4f51df025e85235eab1836064956daa2badd56f798748e8ba",
+        "gitBlob": "e5d5586bae328fe05fa33efa2b5fe7f799571449"
+      },
+      "reason": "assets/rc133/native-install-v2.js.txt: Enforce the tested boss projectile admission cap and keep the canonical native installation source synchronized."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "51ee28feb359ca0446d858be1e6f7bf4e45461c8",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "87fa611be1730847b78cdd7aef049f3af8d7b5d18fd9823781631fa7315382ed",
+        "gitBlob": "eccd1ad18c174613aeb1b1b141eb5cd22eaa3edd"
+      },
+      "reason": "index.html: Enforce the tested boss projectile admission cap and keep the canonical native installation source synchronized."
+    }
+  ],
+  "targetProtectedRowsSha256": "cb6b1881a093370d3fb7b37cba1e2d15b5ad819baa0a5b7d1f59511d50a973f8"
+}

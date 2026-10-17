@@ -67,7 +67,9 @@ for(const role of ['boss','midboss']){
 }
 eq(balance.policy.extraOwnerCap,48,'owner admission cap follows the doubled ordinary volley');
 eq(balance.policy.extraGlobalCap,144,'global admission cap follows the doubled ordinary volley');
-ok(html.includes('assets/rc210/projectile-balance.js?v=22401'),'page loads the half-size/density projectile policy');
+eq(balance.policy.mobileBossAdmissionCap,40,'mobile boss volleys preserve the tested 40-shot bound');
+eq(balance.policy.desktopBossAdmissionCap,56,'desktop boss volleys preserve the tested 56-shot bound');
+ok(html.includes('assets/rc210/projectile-balance.js?v=22402'),'page loads the half-size/density projectile policy');
 
 // The real combat-layout scatterer produces a wide b05 fan while retaining
 // projectile count, speed, damage, owner side and per-shot identity.
