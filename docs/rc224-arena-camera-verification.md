@@ -124,10 +124,11 @@ other recorded frames to remain on an admitted floor.
 
 The same run measured `0.7544` authored-map coverage on an 844×390 mobile
 landscape viewport, below the 90% full-screen target. This is a real camera
-shortfall, not a fixture mismatch. The maximum camera shrink is reduced from
-25% to 10% so the map stays larger as the view range increases. The updated
-camera unit and official browser layout run still need to pass on the exact
-resulting SHA before the change is verified.
+shortfall, not a fixture mismatch. The maximum camera shrink was reduced from
+25% to 10%, but the next Chrome run still measured 87.9% at 667×300. It is now
+reduced to 5%, and the settings percentage is synchronized to the applied zoom.
+The updated camera unit and official browser layout run still need to pass on
+the exact resulting SHA before the change is verified.
 
 The 6a6cf79 Pages success is not the final verified release. The new candidate
 still needs committed-tree preservation, updated RC137 and mobile-layout

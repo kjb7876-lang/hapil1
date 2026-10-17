@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "base": "5e2a6a5bc6f968e04aa7f1c381c85bed7761c7b3",
+  "baseTree": "fcade900b0df0cab4a4ba161804d9a404b5918cc",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "81d6491c5c22202cf73233bcace4588f4b31e30e833c56c0382493c653f3068e",
+  "files": [
+    {
+      "file": "assets/rc223/camera.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "772f6d8b2bde72cf35c30b5df7a91acb1c44e43e",
+        "file": "assets/rc223/camera.js"
+      },
+      "after": {
+        "file": "assets/rc223/camera.js",
+        "mode": "100644",
+        "sha256": "0515191199383b60dff1dce7bc176909abb0dbbad29d0b1de89a439135b7045b",
+        "gitBlob": "a57847e9fa0aadabb1e93dedb54a5ccd180e3a17"
+      },
+      "reason": "assets/rc223/camera.js: Keep the configured maximum map coverage above 90% on narrow landscapes and match the displayed applied zoom."
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "b0b6b2d28225f6a385fe51410392531f51651b65",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "8407102ed7df7a04d8a2aa8cb2bc663a114239ea6fe2cdee4d2ae3136c15e2cd",
+        "gitBlob": "7d71c8643759b22cdc2e2910e591e2fbdf8308a5"
+      },
+      "reason": "assets/index-v31526.js: Keep the configured maximum map coverage above 90% on narrow landscapes and match the displayed applied zoom."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "9863cefea1ea57c2a5e502c99fe2318afa9de34e",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "7830fc2cd41880a0efb9ca7fe4feea036d4ea46e1e41db0e037ee783375d36a1",
+        "gitBlob": "504ca2fa0d507c72367dcda19fc19f1097737dbe"
+      },
+      "reason": "index.html: Keep the configured maximum map coverage above 90% on narrow landscapes and match the displayed applied zoom."
+    }
+  ],
+  "targetProtectedRowsSha256": "3318f9ce31535d2ceca37e34e5a9383ff90fac64d5460a20a82525dc2e74dc8e"
+}

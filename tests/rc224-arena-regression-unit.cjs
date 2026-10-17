@@ -44,12 +44,12 @@ ok(battlefieldCss.includes('width:100%!important;height:100%!important')&&battle
 
 // The zoom control still scales actors and shots together, with only a small
 // maximum shrink so the authored map remains near full-screen on mobile.
-for(const [range,expected] of [[1,1],[1.5,1.05],[2,1.1]]){
+for(const [range,expected] of [[1,1],[1.5,1.025],[2,1.05]]){
  eq(camera.appliedZoom(range),expected,'eased camera factor '+range);
  camera.setFactor(range);const base={x:120,y:90,scale:1.8},anchor={x:640,y:360},adjusted=camera.applyCamera(base,anchor);
  ok(Math.abs(adjusted.scale-base.scale/expected)<1e-10,'map and actor camera scales stay aligned at '+range);
 }
-ok(html.includes('assets/rc223/camera.js?v=22401'),'page loads the updated camera implementation');
+ok(html.includes('assets/rc223/camera.js?v=22501'),'page loads the updated camera implementation');
 
 // Standard boss and miniboss shots halve their real collision radii and gain
 // one matching spread shot. Special laser and field paths remain excluded.
