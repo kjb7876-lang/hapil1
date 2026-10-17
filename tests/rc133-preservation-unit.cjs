@@ -26,6 +26,10 @@ try{
  assert(Object.isFrozen(required));checks++;
  assert.equal(new Set(required).size,154);checks++;
  const migration=require('../tools/rc133-preservation.cjs').verify(repo).report;
+ const extension153Bytes=fs.readFileSync(path.join(repo,'qa/rc133/authorized-runtime-extension-153.json'));const extension153=JSON.parse(extension153Bytes);
+ assert.equal(migration.extension153Base,extension153.base,'Proof report must retain the exact 153rd extension base');checks++;
+ assert.equal(migration.extension153Sha256,crypto.createHash('sha256').update(extension153Bytes).digest('hex'),'Proof report must retain the exact 153rd extension digest');checks++;
+ assert.deepEqual(migration.approvedExtension153,extension153.files,'Proof report must pass through every exact 153rd extension output row');checks++;
  for(const file of Object.keys(compatibility.revisions)){
   const chain=compatibility.verifyRuntimeOutputChain(repo,migration,file),current=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');
   assert.equal(chain.currentOutput,current,'Exact compatibility output chain: '+file);checks++;

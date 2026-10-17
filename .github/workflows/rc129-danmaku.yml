@@ -7,6 +7,8 @@ on:
       - 'tests/rc210-*'
       - 'qa/rc210/**'
       - 'tools/rc133-release-compatibility.cjs'
+      - 'tools/rc133-preservation.cjs'
+      - 'tests/rc133-preservation-unit.cjs'
       - '.github/workflows/**'
       - 'qa/rc207/**'
       - 'tests/rc207-*'
