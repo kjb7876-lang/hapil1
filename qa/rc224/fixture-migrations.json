@@ -1,0 +1,12 @@
+{
+  "base": "5b608be4fe1ee86439c25a18ea30b33a8463ea2c",
+  "previousManifestSha256": "897b6da07d892fa964c6330f212f4ced1c6775d45bf7772f3c82c23b3fe630de",
+  "files": [
+    {
+      "file": "tests/rc91-samong-and-laser-smoke.cjs",
+      "beforeSha256": "132d23009e12ebd9a5247c56104b2ad513f94e1b037d02327c83c57d7ec84fff",
+      "afterSha256": "c202725c0c3735b216fce150dd3e2b41b701c2a1bf1eb0fac660b97df4942266",
+      "reason": "Pin the live RC91 v22201 script URL and preserve the independent RC186 v18601 ending-flow identity assertion."
+    }
+  ]
+}
