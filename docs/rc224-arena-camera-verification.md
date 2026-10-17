@@ -73,6 +73,10 @@ final candidate deployment.
   doubled boss volleys. The fixture now checks two emitted shots, one
   parry-marked packet, and an untouched density companion. That exact-SHA
   browser rerun is pending after this test correction.
+- The next official RC137 run found the parallel stale assertion in the
+  71-owner native scatter audit (`expectedExtra: 1`). It now requires the
+  density companion count to equal each eligible boss's six base shots;
+  the exact-SHA Chrome rerun is pending.
 - `tests/rc138-arena-unit.cjs`: 4,224 checks passed. Its stale whole-file
   equality was replaced with an exact check of the RC138 installer plus its
   sole later RC223 left-zone movement-penalty overlay.
