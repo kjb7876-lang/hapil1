@@ -6,6 +6,7 @@ on:
       - 'assets/rc210/**'
       - 'tests/rc210-*'
       - 'qa/rc210/**'
+      - 'tools/rc133-release-compatibility.cjs'
       - '.github/workflows/**'
       - 'qa/rc207/**'
       - 'tests/rc207-*'
