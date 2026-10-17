@@ -23,7 +23,7 @@
         "sha256": "05c073ae4dfdca4ca4e6edfdcdc2c621cc8be164c8b6d768ebc77d1a8f49aa35",
         "gitBlob": "772f6d8b2bde72cf35c30b5df7a91acb1c44e43e"
       },
-      "reason": "Reduce maximum view-factor zoom-out so authored battle map art continues to fill the mobile screen."
+      "reason": "assets/rc223/camera.js: Reduce maximum view-factor zoom-out so authored battle map art continues to fill the mobile screen."
     },
     {
       "file": "index.html",
@@ -38,8 +38,8 @@
         "sha256": "a533e02a382bdf468cd4eb17bf9f2e6591b62d70e6bfd54cffb9ba864b19e798",
         "gitBlob": "9863cefea1ea57c2a5e502c99fe2318afa9de34e"
       },
-      "reason": "Load the exact cache-busted map-coverage camera correction."
+      "reason": "index.html: Load the exact cache-busted map-coverage camera correction."
     }
   ],
-  "targetProtectedRowsSha256": "ba68473a9ed5f3eedd97ff88845717717eea00cf605a7ed4c73fd59bd6175d1e"
+  "targetProtectedRowsSha256": "3cd032c95e42507750f02aba53ab23e0acbe49e2d0626f1052ef82f98e7f5425"
 }
