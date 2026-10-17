@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "base": "b2cc6048792be30f4daf802857ebab06ba3b4ee7",
+  "baseTree": "0be3d3fc56226c36bb50fee8ae787302ecca191f",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "a985e9a932545e0c1561d0871e09c917678985d381d1506e077b8b3f0fa4cac7",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "e0de2a2940c60102986ea4533593b2ec2948b174",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "d82b307ea0601835a92ea8b140f7c4d1a1d4754f00fdbc131a8d4e9883880620",
+        "gitBlob": "b0b6b2d28225f6a385fe51410392531f51651b65"
+      },
+      "reason": "assets/index-v31526.js: Keep the requested enemy placement, applied camera value and exact cache-busted RC224 loaders."
+    },
+    {
+      "file": "assets/rc133/native-install-v2.js.txt",
+      "before": null,
+      "after": {
+        "file": "assets/rc133/native-install-v2.js.txt",
+        "mode": "100644",
+        "sha256": "91fa78aca0eadaf1fa1a4813145ac5b873f841a1e51b41bd70e548d7b50c2d39",
+        "gitBlob": "2ede3327e1bb36453590072ecef0148a40739754"
+      },
+      "reason": "assets/rc133/native-install-v2.js.txt: Preserve the previous installer as history and provide the exact current embedded EGO source to the release builder and source-parity checks."
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "bdd34da290fa46f4fd19add131df1a9883722888",
+        "file": "assets/rc138/battle-arena.js"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "sha256": "18cc59c232cae6a4c71250519ba0217138b43bd3a8d6d8aa1d1499f4ee4bcf95",
+        "gitBlob": "6785d5364b721755421a92c1858ce679911a0943"
+      },
+      "reason": "assets/rc138/battle-arena.js: Keep the left side traversable under its existing penalty rules while removing the painted boundary indicator."
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "1aac131561a6870f777f6ea05c4fab7706429602",
+        "file": "assets/rc153/combat-layout.js"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "sha256": "bb43624993843d1a111ecf1aeb32371940fa0c5b45cd6055b6ecd705052da495",
+        "gitBlob": "f9eb9816586c5c8797fd3abf77eff79e10cce0f1"
+      },
+      "reason": "assets/rc153/combat-layout.js: Change the linear boss volley to the requested wider spread pattern."
+    },
+    {
+      "file": "assets/rc210/lust-projectiles.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "51c2e3120ccd7c9be10c8f510faacfa7fb04b23e",
+        "file": "assets/rc210/lust-projectiles.js"
+      },
+      "after": {
+        "file": "assets/rc210/lust-projectiles.js",
+        "mode": "100644",
+        "sha256": "42cc201e5f8b5e4493f7ca4003ab283281dc9c813a05d5903e42cc39805a2ced",
+        "gitBlob": "6f26499b52bd1fba0d2fff964d8d04ccdfdb95d3"
+      },
+      "reason": "assets/rc210/lust-projectiles.js: Align the heel projectile toe with its direction of travel."
+    },
+    {
+      "file": "assets/rc210/projectile-balance.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "855da94f9ce509fbcd8eac0822dfcb7bd57b2b0e",
+        "file": "assets/rc210/projectile-balance.js"
+      },
+      "after": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "sha256": "da78b9e4828370a51186d22df72b2f9a0b58f99f45c06a4225f15afca175745b",
+        "gitBlob": "10653cd6bad3a687e8e5764e80d0d286f6f4dc21"
+      },
+      "reason": "assets/rc210/projectile-balance.js: Halve ordinary boss projectile size and increase count while preserving special projectile classes."
+    },
+    {
+      "file": "assets/rc223/camera.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c8ca7734e43e8cd0458888ae35367686ae9acda2",
+        "file": "assets/rc223/camera.js"
+      },
+      "after": {
+        "file": "assets/rc223/camera.js",
+        "mode": "100644",
+        "sha256": "4b4b26367ce49a2c7385fa7369c15efaa8f28a12e1e0655b4f501e25d79c501e",
+        "gitBlob": "51f47950a79452cb2f7f8dfbc3ac3d239169e6a7"
+      },
+      "reason": "assets/rc223/camera.js: Keep the battlefield full-stage while limiting the view-factor zoom and preserving camera anchoring."
+    },
+    {
+      "file": "assets/rc224/arena-polish.css",
+      "before": null,
+      "after": {
+        "file": "assets/rc224/arena-polish.css",
+        "mode": "100644",
+        "sha256": "1e83f81c543c863a94af65037c78703af1cf8c8567fa86f11a1dbc9ad5413dc2",
+        "gitBlob": "f058ef084e16f8e0182c9a33010241d3700a7319"
+      },
+      "reason": "assets/rc224/arena-polish.css: Hide only the left-zone warning badge while retaining the gameplay penalty."
+    },
+    {
+      "file": "assets/rc224/relay-default.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc224/relay-default.js",
+        "mode": "100644",
+        "sha256": "656aebcd86e624a64688f6badbac8d0bb8f80901046d2dabf3dbc953effef8c8",
+        "gitBlob": "cb4e12ba876c17794475f49cc0c24fced1b1901e"
+      },
+      "reason": "assets/rc224/relay-default.js: Use the confirmed relay only as an opt-in default and preserve saved endpoint choices."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "99a18bf597bd99cd20ae28d21e7a6c814f341fc3",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "308ef67ddd2206b147b26914d1a64cb7d8ead40bbb966d99f2a2f9bd1aa4f02e",
+        "gitBlob": "2b7e5b61205d2d4688a53df70b2d59c0f3e2b3f0"
+      },
+      "reason": "index.html: Load the exact cache-busted RC224 gameplay assets without changing the existing Pages structure."
+    }
+  ],
+  "targetProtectedRowsSha256": "e82074dee3584291c84950c7a199090a265d418de4efe658f04af3d8f260a684"
+}

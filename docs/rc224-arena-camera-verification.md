@@ -1,9 +1,12 @@
 # RC224 arena, camera and projectile candidate
 
 Verification record: 2026-10-17 UTC. This is a local candidate on
-`codex/rc224-arena-camera-heel-fix`, based on `b2cc6048792be30f4daf802857ebab06ba3b4ee7`.
-At inspection time `origin/main` still resolved to that base SHA. The record
-does not claim a Pages or relay deployment.
+`codex/rc224-arena-camera-heel-fix`, based on
+`b2cc6048792be30f4daf802857ebab06ba3b4ee7`. The intermediate test-only
+checkpoint `548a9d7b4a2e1231b787b7e736867f81520f9472` reached `main` and its
+Pages workflow succeeded, but the final source-sync and audit-chain changes
+below are not yet published. Do not treat that earlier Pages success as the
+final candidate deployment.
 
 ## Changes under review
 
@@ -29,6 +32,11 @@ does not claim a Pages or relay deployment.
 - Default online-lobby connections to the owner-supplied relay URL only when
   no explicit operator or saved player endpoint exists. Do not open a socket
   until the player starts an online room action.
+- Preserve the current 49,933-byte EGO installer that is already embedded in
+  the deployed bundle, and add it as `native-install-v2.js.txt`. The older
+  49,559-byte installer remains untouched as historical source. Point the
+  rebuild helper and exact-source checks at v2 so a future rebuild cannot
+  silently remove camera/contact handling while copying the stale installer.
 
 ## Passing checks
 
@@ -56,21 +64,26 @@ does not claim a Pages or relay deployment.
   The inventory reports 61 maps, 71 owners and 8 heroes; it is not a natural
   campaign run.
 - JavaScript syntax checks and `git diff --check` passed.
+- `tests/rc155-ego-guardian-unit.cjs`: 12,408 checks passed against the exact
+  current installer source; `tests/rc137-art-unit.cjs`: 201 checks passed.
+- `tests/rc223-camera-unit.cjs`: 44 checks passed after confirming the deployed
+  bundle's camera-aware EGO integration was preserved byte-for-byte.
+- `tests/rc138-arena-unit.cjs`: 4,224 checks passed. Its stale whole-file
+  equality was replaced with an exact check of the RC138 installer plus its
+  sole later RC223 left-zone movement-penalty overlay.
+- `tests/rc156-anatomy-preservation-unit.cjs`: 641 checks passed;
+  `qa/rc133/published.cjs --manifest-only`: exact local inventory and bytes
+  passed for 401 expected files and 44 art outputs.
 
 ## Retained failures and unverified behavior
 
-- `tests/rc138-arena-unit.cjs` still fails its existing `final lexical
-  installation exact` assertion. The source fixture mismatch predates this
-  candidate; this assertion was not relaxed.
-- `tests/rc155-ego-guardian-unit.cjs` fails its existing exact embedded-source
-  comparison. The RC224 bundle diff does not touch that EGO integration. The
-  guardian-silhouette DOM fixture runs only partially before its missing-Acorn
-  parser step; the full presentation browser fixture needs unavailable Google
-  Chrome.
-- `tests/rc137-art-unit.cjs` also fails its existing `canonical native
-  integration synchronized` exact-source fixture. The RC224 diff does not
-  touch that integration. These lexical fixture failures remain visible and
-  were not edited to pass.
+- The final full preservation test checks the committed Git tree, so it must
+  be rerun after the source-sync and extension-149 changes are committed.
+- The published-byte audit's full URL/browser mode cannot reach Pages from this
+  shell: every outbound `fetch` failed. Its local manifest-only preflight did
+  pass. The exact-SHA GitHub Pages and official-Chrome jobs are the next remote
+  checks; earlier runs on `548a9d7` correctly failed because extension 149 was
+  not yet recorded and because the EGO bundle was stale.
 - `tests/rc210-fall-progression-unit.cjs`, `tests/rc220-combat-unit.cjs`, and
   `tests/rc222-support-draw-unit.cjs` cannot start here because they require
   Acorn from `/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/acorn`,

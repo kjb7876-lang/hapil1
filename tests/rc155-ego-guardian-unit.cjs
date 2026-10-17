@@ -8,7 +8,7 @@ function ok(value,message){checks++;assert.ok(value,message);}
 function eq(actual,expected,message){checks++;assert.equal(actual,expected,message);}
 function deep(actual,expected,message){checks++;assert.deepEqual(actual,expected,message);}
 const source=fs.readFileSync(require('node:path').join(__dirname,'../data/narrative-v31217-exact.js'),'utf8');
-const installSource=fs.readFileSync(require('node:path').join(__dirname,'../assets/rc133/native-install.js.txt'),'utf8');
+const installSource=fs.readFileSync(require('node:path').join(__dirname,'../assets/rc133/native-install-v2.js.txt'),'utf8');
 const bundle=fs.readFileSync(require('node:path').join(__dirname,'../assets/index-v31526.js'),'utf8');
 const installStart=bundle.indexOf('/* RC133_NATIVE_INTEGRATION: final lexical bindings, not copied legacy APIs. */');
 const installEnd=bundle.indexOf('\n\n/* RC137_DIRECTION_INPUT_NATIVE:',installStart);

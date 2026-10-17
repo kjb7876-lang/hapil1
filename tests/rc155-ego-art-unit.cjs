@@ -28,7 +28,7 @@ const rgba=new Uint8ClampedArray(7*7*4);for(let i=0;i<49;i++){rgba[i*4]=30;rgba[
 for(let y=1;y<=5;y++)for(let x=1;x<=5;x++){if(x===1||x===5||y===1||y===5){const i=(y*7+x)*4;rgba[i]=180;rgba[i+1]=40;rgba[i+2]=40;}}
 const touching=new Uint8ClampedArray(7*7*4);for(let p=0;p<touching.length;p+=4){touching[p]=25;touching[p+1]=22;touching[p+2]=22;touching[p+3]=217;}const touchingBefore=touching.slice();Art.exteriorMatte({data:touching},7,7,[[2,0],[5,0],[5,6],[2,6]]);eq(Array.from(touching.slice((3*7+3)*4,(3*7+3)*4+4)),Array.from(touchingBefore.slice((3*7+3)*4,(3*7+3)*4+4)),'protected black anatomy touching the boundary survives unlike a blanket darkness flood');eq(touching[3],0,'explicit neutral exterior clears beside edge-touching anatomy');
 eq(Art.clearMatte({data:rgba},7,7),24,'flood removes only edge-connected matte');eq(rgba[(3*7+3)*4+3],255,'enclosed black cloth stays opaque');eq(rgba[3],0,'outer background becomes transparent');eq(rgba[(1*7+1)*4+3],255,'red outline stays opaque');
-const native=fs.readFileSync(path.join(root,'assets/rc133/native-install.js.txt'),'utf8'),bundle=fs.readFileSync(path.join(root,'assets/index-v31526.js'),'utf8'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const native=fs.readFileSync(path.join(root,'assets/rc133/native-install-v2.js.txt'),'utf8'),bundle=fs.readFileSync(path.join(root,'assets/index-v31526.js'),'utf8'),html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 // Execute the native projection used by dash afterimages. The incomplete old
 // fixture produced NaN offsets, which Canvas ignores rather than translating
 // to the hero. This proves the fixture defect without weakening containment.
