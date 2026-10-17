@@ -23,7 +23,7 @@
  function anchorCopy(anchor){return{x:finite(anchor?.x,640),y:finite(anchor?.y,360)};}
  // The view slider expands composition gently so the full-stage background
  // does not collapse into a small centered island at the upper setting.
- function appliedZoom(value=factor()){return 1+(value-1)*.25;}
+ function appliedZoom(value=factor()){return 1+(value-1)*.1;}
  function defaultAnchor(){
   try{const view=root.__HAPIL_VIEWPORT_RC104__?.view?.();if(view&&[view.x,view.y,view.width,view.height].every(Number.isFinite)&&view.width>0&&view.height>0)return{x:view.x+view.width/2,y:view.y+view.height/2};}catch{}
   return{x:640,y:360};

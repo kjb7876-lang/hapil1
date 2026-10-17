@@ -25,10 +25,11 @@ final candidate deployment.
   already smaller jellybean shot retains its 0.33 scale.
 - Rotate the heel artwork so the toe points along projectile travel, based on
   the actual source PNG orientation.
-- Ease the camera range to `1 + (requested - 1) * 0.25`. Actors, attacks and map
+- Ease the camera range to `1 + (requested - 1) * 0.10`. Actors, attacks and map
   still share the same camera transform; at the maximum setting the world
-  shrinks by 20%. The canvas remains full-sized in its available stage. Pixel
-  coverage of the map art has not been browser-verified.
+  shrinks by 9.1%. The canvas remains full-sized in its available stage. The
+  exact-SHA browser run measured map coverage before the latest correction; the
+  updated coverage remains pending.
 - Default online-lobby connections to the owner-supplied relay URL only when
   no explicit operator or saved player endpoint exists. Do not open a socket
   until the player starts an online room action.
@@ -108,5 +109,28 @@ final candidate deployment.
   was blocked by its outbound proxy with HTTP 403 `CONNECT tunnel failed`.
   No WSS handshake, four-player browser session, or deployed relay SHA was
   verified here.
-- Pages has not been published from this candidate. All visual claims above
-  are source/CPU evidence until an exact-SHA official Chrome run is available.
+- The Pages deployment for `6a6cf79fed65a639b3e4a9b8cf57067adb2567d3`
+  completed, but it is an intermediate deployment; its exact-SHA Chrome
+  matrices exposed the issues recorded below.
+
+## Latest exact-SHA debug findings
+
+The RC137 official Chrome matrix for `6a6cf79fed65a639b3e4a9b8cf57067adb2567d3`
+failed when the player entered the RC223 host-authorized left floor, where the
+requested exposure penalty applies. The fixture had counted only the original
+Persona side polygon as legal. It now accepts that exact RC223 exposed/native
+floor exception and checks the 0.9 movement multiplier while requiring all
+other recorded frames to remain on an admitted floor.
+
+The same run measured `0.7544` authored-map coverage on an 844×390 mobile
+landscape viewport, below the 90% full-screen target. This is a real camera
+shortfall, not a fixture mismatch. The maximum camera shrink is reduced from
+25% to 10% so the map stays larger as the view range increases. The updated
+camera unit and official browser layout run still need to pass on the exact
+resulting SHA before the change is verified.
+
+The 6a6cf79 Pages success is not the final verified release. The new candidate
+still needs committed-tree preservation, updated RC137 and mobile-layout
+official Chrome matrices, and its own exact-SHA Pages success. Earlier
+RC146/RC153 test corrections remain subject to their exact-SHA workflow results;
+unit success alone is not being counted as browser proof.

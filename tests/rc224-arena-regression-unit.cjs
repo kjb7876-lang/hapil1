@@ -42,9 +42,9 @@ ok(arenaCss.includes('#hapil-left-zone-warning-rc223')&&arenaCss.includes('displ
 ok(html.includes('rc224/arena-polish.css?v=22401'),'region marker rule is loaded by the real page');
 ok(battlefieldCss.includes('width:100%!important;height:100%!important')&&battlefieldCss.includes('min-width:0!important;min-height:0!important'),'native canvas remains full-size in its full-width stage');
 
-// The zoom control still scales actors and shots together, with a capped
-// twenty-percent maximum shrink of the complete world backdrop.
-for(const [range,expected] of [[1,1],[1.5,1.125],[2,1.25]]){
+// The zoom control still scales actors and shots together, with only a small
+// maximum shrink so the authored map remains near full-screen on mobile.
+for(const [range,expected] of [[1,1],[1.5,1.05],[2,1.1]]){
  eq(camera.appliedZoom(range),expected,'eased camera factor '+range);
  camera.setFactor(range);const base={x:120,y:90,scale:1.8},anchor={x:640,y:360},adjusted=camera.applyCamera(base,anchor);
  ok(Math.abs(adjusted.scale-base.scale/expected)<1e-10,'map and actor camera scales stay aligned at '+range);

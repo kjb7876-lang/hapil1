@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "base": "6a6cf79fed65a639b3e4a9b8cf57067adb2567d3",
+  "baseTree": "b7a2d168c45cdc76b3cd2f57e67c832940f3e7cd",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "f151b7eb0cab7fb6f6f2c4016ea057a2782194a43905b1aaecc50108b0a61377",
+  "files": [
+    {
+      "file": "assets/rc223/camera.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "51f47950a79452cb2f7f8dfbc3ac3d239169e6a7",
+        "file": "assets/rc223/camera.js"
+      },
+      "after": {
+        "file": "assets/rc223/camera.js",
+        "mode": "100644",
+        "sha256": "05c073ae4dfdca4ca4e6edfdcdc2c621cc8be164c8b6d768ebc77d1a8f49aa35",
+        "gitBlob": "772f6d8b2bde72cf35c30b5df7a91acb1c44e43e"
+      },
+      "reason": "Reduce maximum view-factor zoom-out so authored battle map art continues to fill the mobile screen."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "2b7e5b61205d2d4688a53df70b2d59c0f3e2b3f0",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "a533e02a382bdf468cd4eb17bf9f2e6591b62d70e6bfd54cffb9ba864b19e798",
+        "gitBlob": "9863cefea1ea57c2a5e502c99fe2318afa9de34e"
+      },
+      "reason": "Load the exact cache-busted map-coverage camera correction."
+    }
+  ],
+  "targetProtectedRowsSha256": "ba68473a9ed5f3eedd97ff88845717717eea00cf605a7ed4c73fd59bd6175d1e"
+}
