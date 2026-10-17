@@ -1,7 +1,7 @@
 name: RC222 remote co-op candidate verification
 on:
   push:
-    branches: [codex/rc222-remote-coop]
+    branches: [codex/rc222-remote-coop, codex/rc224-critical-debug-20261017]
     paths: ['assets/**', 'data/**', 'index.html', 'server/**', 'tests/**', 'tools/**', 'qa/**', 'docs/remote-coop*.md', 'render.yaml', '.github/workflows/rc222-remote-coop.yml']
 permissions:
   contents: read

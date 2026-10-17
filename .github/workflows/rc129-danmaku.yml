@@ -1,7 +1,7 @@
 name: RC129 danmaku release verification
 on:
   push:
-    branches: [fix/rc129-danmaku-phases, main, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
+    branches: [fix/rc129-danmaku-phases, main, codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/rc224-critical-debug-20261017]
     paths:
       - 'assets/rc210/**'
       - 'tests/rc210-*'
