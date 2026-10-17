@@ -68,6 +68,11 @@ final candidate deployment.
   current installer source; `tests/rc137-art-unit.cjs`: 201 checks passed.
 - `tests/rc223-camera-unit.cjs`: 44 checks passed after confirming the deployed
   bundle's camera-aware EGO integration was preserved byte-for-byte.
+- The first official-Chrome RC146 run reached the actual D-parry fixture and
+  showed its old `one boss shot` expectation conflicted with the requested
+  doubled boss volleys. The fixture now checks two emitted shots, one
+  parry-marked packet, and an untouched density companion. That exact-SHA
+  browser rerun is pending after this test correction.
 - `tests/rc138-arena-unit.cjs`: 4,224 checks passed. Its stale whole-file
   equality was replaced with an exact check of the RC138 installer plus its
   sole later RC223 left-zone movement-penalty overlay.
