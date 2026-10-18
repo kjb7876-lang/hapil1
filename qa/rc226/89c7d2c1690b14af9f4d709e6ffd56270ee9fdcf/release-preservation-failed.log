@@ -1,0 +1,92 @@
+RC128_PREPARATION_STAGE {"commit":"89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf","name":"viewport-reference","at":"2026-10-18T06:42:49.797Z"}
+RC128_PREPARATION_STAGE {"commit":"89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf","name":"build-current-candidate","at":"2026-10-18T06:42:49.808Z"}
+RC128_PREPARATION_STAGE {"commit":"89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf","name":"full-preservation-proof","at":"2026-10-18T06:42:49.812Z"}
+AssertionError [ERR_ASSERTION]: Committed runtime differs from exact 152nd extension chain
++ actual - expected
+... Skipped lines
+
+  [
+    {
+      file: 'assets/actors/v31317/deletion-command-obelisk.webp',
+      gitBlob: '2e3deb884167645f7767e56a034045e95ac92f78',
+      mode: '100644'
+...
+      file: 'assets/index-v31526.js',
++     gitBlob: '1235f664450fee754c478fefe2e8a891747468d0',
+-     gitBlob: '3f05ccb23a527123057892b531046956a4b003d7',
+      mode: '100644'
+    },
+    {
+      file: 'assets/items/ego-ampoule.webp',
+      gitBlob: '1e956b2bbe0fb457816bc1a974ad71caafc6c90e',
+...
+      file: 'assets/rc128/combat-feedback.js',
++     gitBlob: 'ca6565339cbe9b9f4036088ec517a4ca87dc8e0b',
+-     gitBlob: '0fe743b00f39ff793ba8150ed8613afec12ae36d',
+      mode: '100644'
+    },
+    {
+      file: 'assets/rc129/danmaku-director.js',
+      gitBlob: 'f0c3798233a0810ea8ba4208857bb747e3c88674',
+...
+      file: 'assets/rc138/battle-arena.js',
++     gitBlob: '6e0b44f41956b3542f953a7772b27b83cbb6b410',
+-     gitBlob: '6785d5364b721755421a92c1858ce679911a0943',
+      mode: '100644'
+    },
+    {
+      file: 'assets/rc138/map-data.js',
+      gitBlob: '4c58c76812dc5fdbf1e9b46ee97509a5e22c63ff',
+...
+      file: 'assets/rc153/combat-layout.js',
++     gitBlob: '97702c841a5d9741a6628147f6017eefeb704aa7',
+-     gitBlob: 'f9eb9816586c5c8797fd3abf77eff79e10cce0f1',
+      mode: '100644'
+    },
+    {
+      file: 'assets/rc155/combat-provenance.js',
+      gitBlob: 'e7476d007cc3a0f4127d6a5b4b8803c94d544715',
+...
+    {
++     file: 'assets/rc225/shooter.js',
++     gitBlob: 'df43a5dcfa53df3acd2c2838b1bf55a76de4b937',
++     mode: '100644'
++   },
++   {
++     file: 'assets/rc226/shooting-completion.js',
++     gitBlob: 'a5e6198de369db7b3a076e70a8c89b2fc9dd826a',
++     mode: '100644'
++   },
++   {
+      file: 'assets/rc23/contact.js',
+      gitBlob: 'fc998df970f53319ee3911e4664e6f39c2ceae50',
+      mode: '100644'
+    },
+    {
+...
+      file: 'index.html',
++     gitBlob: '22e73b9e5de4dea7bd5c2a242d07d002431d4ba7',
+-     gitBlob: '51ee28feb359ca0446d858be1e6f7bf4e45461c8',
+      mode: '100644'
+    }
+  ]
+
+    at Object.verify (/workspace/hapil1/tools/rc133-preservation.cjs:509:2082)
+    at Object.verify (/workspace/hapil1/tools/rc130-preservation.cjs:348:154)
+    at Object.<anonymous> (/workspace/hapil1/tests/rc128-candidate.cjs:46:138)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Array],
+  expected: [Array],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+RC128_PREPARATION_STAGE {"commit":"89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf","name":"cleanup","at":"2026-10-18T06:42:55.342Z"}
+RC128_CANDIDATE_RESULT {"commit":"89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf","scope":"isolated candidate; staged browser fixtures and regressions are not full-campaign natural play","startedAt":"2026-10-18T06:42:49.796Z","status":"failed","suites":[],"files":{"index.html":"b7ee6b2a1ea31237a98b608ead137bf310529bb696532472f531f92dd195225e","assets/rc91/samong-awakening.js":"e5645526508b38e4032e4fce3d234676fd9d4485133e101a36756ff46923ec6e","assets/combat-v31402/combat-core.js":"c2962da4b5491182da367c2153646312c333aed4f37344866882c47502b4478f","assets/rc23/feedback.js":"7fb5256bd537a47a1ea5690a124ade614a8406083a3af20ca32bf6fc31f9e655","tests/rc91-samong-and-laser-smoke.cjs":"c202725c0c3735b216fce150dd3e2b41b701c2a1bf1eb0fac660b97df4942266"},"protectedFiles":{},"stage":"cleanup","stages":[{"name":"viewport-reference","at":"2026-10-18T06:42:49.797Z"},{"name":"build-current-candidate","at":"2026-10-18T06:42:49.808Z"},{"name":"full-preservation-proof","at":"2026-10-18T06:42:49.812Z"},{"name":"cleanup","at":"2026-10-18T06:42:55.342Z"}],"viewportReference":"257b920a470e0ee6a04e5a52d71157f66232682c","error":"AssertionError [ERR_ASSERTION]: Committed runtime differs from exact 152nd extension chain\n+ actual - expected\n... Skipped lines\n\n  [\n    {\n      file: 'assets/actors/v31317/deletion-command-obelisk.webp',\n      gitBlob: '2e3deb884167645f7767e56a034045e95ac92f78',\n      mode: '100644'\n...\n      file: 'assets/index-v31526.js',\n+     gitBlob: '1235f664450fee754c478fefe2e8a891747468d0',\n-     gitBlob: '3f05ccb23a527123057892b531046956a4b003d7',\n      mode: '100644'\n    },\n    {\n      file: 'assets/items/ego-ampoule.webp',\n      gitBlob: '1e956b2bbe0fb457816bc1a974ad71caafc6c90e',\n...\n      file: 'assets/rc128/combat-feedback.js',\n+     gitBlob: 'ca6565339cbe9b9f4036088ec517a4ca87dc8e0b',\n-     gitBlob: '0fe743b00f39ff793ba8150ed8613afec12ae36d',\n      mode: '100644'\n    },\n    {\n      file: 'assets/rc129/danmaku-director.js',\n      gitBlob: 'f0c3798233a0810ea8ba4208857bb747e3c88674',\n...\n      file: 'assets/rc138/battle-arena.js',\n+     gitBlob: '6e0b44f41956b3542f953a7772b27b83cbb6b410',\n-     gitBlob: '6785d5364b721755421a92c1858ce679911a0943',\n      mode: '100644'\n    },\n    {\n      file: 'assets/rc138/map-data.js',\n      gitBlob: '4c58c76812dc5fdbf1e9b46ee97509a5e22c63ff',\n...\n      file: 'assets/rc153/combat-layout.js',\n+     gitBlob: '97702c841a5d9741a6628147f6017eefeb704aa7',\n-     gitBlob: 'f9eb9816586c5c8797fd3abf77eff79e10cce0f1',\n      mode: '100644'\n    },\n    {\n      file: 'assets/rc155/combat-provenance.js',\n      gitBlob: 'e7476d007cc3a0f4127d6a5b4b8803c94d544715',\n...\n    {\n+     file: 'assets/rc225/shooter.js',\n+     gitBlob: 'df43a5dcfa53df3acd2c2838b1bf55a76de4b937',\n+     mode: '100644'\n+   },\n+   {\n+     file: 'assets/rc226/shooting-completion.js',\n+     gitBlob: 'a5e6198de369db7b3a076e70a8c89b2fc9dd826a',\n+     mode: '100644'\n+   },\n+   {\n      file: 'assets/rc23/contact.js',\n      gitBlob: 'fc998df970f53319ee3911e4664e6f39c2ceae50',\n      mode: '100644'\n    },\n    {\n...\n      file: 'index.html',\n+     gitBlob: '22e73b9e5de4dea7bd5c2a242d07d002431d4ba7',\n-     gitBlob: '51ee28feb359ca0446d858be1e6f7bf4e45461c8',\n      mode: '100644'\n    }\n  ]\n\n    at Object.verify (/workspace/hapil1/tools/rc133-preservation.cjs:509:2082)\n    at Object.verify (/workspace/hapil1/tools/rc130-preservation.cjs:348:154)\n    at Object.<anonymous> (/workspace/hapil1/tests/rc128-candidate.cjs:46:138)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47","finishedAt":"2026-10-18T06:42:55.342Z","cleanupWarning":"Error: fatal: '/tmp/hapil-rc128-P5VP58/candidate' is not a working tree\n"}

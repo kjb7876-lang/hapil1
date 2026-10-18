@@ -1,0 +1,150 @@
+{
+  "appSha": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+  "branch": "codex/hapil-combat-shooter-20261018",
+  "environment": "Node.js v24.19.0 / CPU VM; no new browser test",
+  "results": [
+    {
+      "name": "rc225-shooter-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 65,
+      "log": "rc225-shooter-unit.log"
+    },
+    {
+      "name": "rc226-shooting-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 182,
+      "log": "rc226-shooting-unit.log"
+    },
+    {
+      "name": "rc128-policy",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 77,
+      "log": "rc128-policy.log"
+    },
+    {
+      "name": "rc133-feedback-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 72,
+      "log": "rc133-feedback-unit.log"
+    },
+    {
+      "name": "rc161-persona-feedback-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 77,
+      "log": "rc161-persona-feedback-unit.log"
+    },
+    {
+      "name": "rc162-feedback-priority-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 89,
+      "log": "rc162-feedback-priority-unit.log"
+    },
+    {
+      "name": "rc223-feedback-owner-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2299,
+      "log": "rc223-feedback-owner-unit.log"
+    },
+    {
+      "name": "rc153-combat-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 349,
+      "log": "rc153-combat-unit.log"
+    },
+    {
+      "name": "rc138-arena-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 517,
+      "log": "rc138-arena-unit.log"
+    },
+    {
+      "name": "rc223-left-zone-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 229,
+      "log": "rc223-left-zone-unit.log"
+    },
+    {
+      "name": "rc224-arena-regression-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 137,
+      "log": "rc224-arena-regression-unit.log"
+    },
+    {
+      "name": "rc199-stable-combat-zoom-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 400,
+      "log": "rc199-stable-combat-zoom-unit.log"
+    },
+    {
+      "name": "rc195-blink-arena-unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2284,
+      "log": "rc195-blink-arena-unit.log"
+    },
+    {
+      "name": "rc226-floor-audit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3772,
+      "log": "rc226-floor-audit.log"
+    },
+    {
+      "name": "rc79-combat-presentation",
+      "status": "failed",
+      "exitCode": 1,
+      "durationMs": 127,
+      "log": "rc79-combat-presentation.log"
+    }
+  ],
+  "sources": [
+    {
+      "file": "assets/index-v31526.js",
+      "sha256": "5b8f03898e53348ed16616cd43001a622b1ff0118c8cf06884b7e9574139547e"
+    },
+    {
+      "file": "index.html",
+      "sha256": "b7ee6b2a1ea31237a98b608ead137bf310529bb696532472f531f92dd195225e"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "sha256": "7d8f3377b4a17a85cf560c45dcef91da6330cc640c99b2390e11a6f4a9c94fc6"
+    },
+    {
+      "file": "assets/rc225/shooter.js",
+      "sha256": "46c3ab425724a4a1ed8c2373fd5baedec43dca6d2fba02731c162baf0fa9c777"
+    },
+    {
+      "file": "assets/rc226/shooting-completion.js",
+      "sha256": "7cb6599cadb6608a7e0c0ebedd696853a652de9049c7865c83d84bb084ed4563"
+    },
+    {
+      "file": "assets/rc134/persona-duel.js",
+      "sha256": "68db7c8f1265636c8e4875c9932d18098c57cc608bd4b41aeb5d5abe0f94943d"
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "sha256": "4414ee29c070a971088eaa51a67f443fb0a39d995891e9eff3f6017daf5d3396"
+    },
+    {
+      "file": "assets/rc137/direction-input.js",
+      "sha256": "038ef9b6402f1e02918fcb15ae2a66b1e37cf2847f02f478417a9a50b0741908"
+    },
+    {
+      "file": "assets/rc223/left-zone.js",
+      "sha256": "9ee4cdc41830ed875725097acf28f8b3f4048236dd39a76b0f74847a167d9f0a"
+    }
+  ]
+}

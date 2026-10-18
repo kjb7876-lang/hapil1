@@ -1,0 +1,64 @@
+[
+  {
+    "file": "dist00-floor-source-overlay.png",
+    "kind": "CPU source overlay, not browser screenshot",
+    "sourceCommit": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+    "art": "assets/maps/rc53/dist00-demon-tree.webp",
+    "artSha256": "63223c3c97905da217cd69ea111faa222bbc73ae90987f25dd1a8faf92b52d26",
+    "rect": {
+      "x": -152.0,
+      "y": 67.26315789473682,
+      "width": 1584,
+      "height": 891.4736842105264
+    },
+    "sha256": "8d853c7f35310f476bde7dec1c650c9178e45f81523fa0336ab4b98add129556"
+  },
+  {
+    "file": "dist01-floor-source-overlay.png",
+    "kind": "CPU source overlay, not browser screenshot",
+    "sourceCommit": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+    "art": "assets/maps/rc53/dist01-spider-cave.webp",
+    "artSha256": "921ac7d2a2893aa53374a459b27d9ae87e4cc5c50cbdf0281259875820e72526",
+    "rect": {
+      "x": -151.4012096774194,
+      "y": 18.0,
+      "width": 1582.8024193548388,
+      "height": 990.0
+    },
+    "sha256": "5740ad3e5601751df7a83f9446faa3a58b3b90c07188c4aba9ba15ba3ccc2cd6"
+  },
+  {
+    "file": "ep1b07-floor-source-overlay.png",
+    "kind": "CPU source overlay, not browser screenshot",
+    "sourceCommit": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+    "art": "assets/rc138/map-ep1b07.png",
+    "artSha256": "88c59fac3a5affe32c790f1123ac77683f0380d7841556319b5a45141ab30d32",
+    "rect": {
+      "x": -152.0,
+      "y": 4.860000000000014,
+      "width": 1584,
+      "height": 891.4736842105264
+    },
+    "sha256": "ebf12c6629da948da36fd66811ff7472d7f5be18fd82e7404d76e00fdb337a9f"
+  },
+  {
+    "file": "cult04-floor-source-overlay.png",
+    "kind": "CPU source overlay, not browser screenshot",
+    "sourceCommit": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+    "art": "assets/maps/rc53/cult04-final-judgment.jpg",
+    "artSha256": "109d98ffb6a61c1b53862a75d06124d0f603b5a56617f4220750023afe22c794",
+    "rect": {
+      "x": -152.0,
+      "y": 18.0,
+      "width": 1584,
+      "height": 990.0
+    },
+    "sha256": "0360ceefd499374b8c04b603e167e7860877718d7eeb9594efbe68ea7c2348d3"
+  },
+  {
+    "file": "pc-mobile-floor-projection.png",
+    "kind": "CPU camera projection; not browser screenshot",
+    "sourceCommit": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+    "sha256": "9698fa344e082d37f74e56ec2a528608e1ba6a7fa6cd7cb64604cc32c3ce2954"
+  }
+]

@@ -1,0 +1,186 @@
+{
+  "sourceCommit": "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf",
+  "branch": "codex/hapil-combat-shooter-20261018",
+  "priorSourceCommit": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+  "priorEvidenceCommit": "80a8eff32cc57fb0b920131f1bc4b2e9bfe38ae7",
+  "status": "review candidate; movement symptom unresolved; new browser verification blocked",
+  "movement": {
+    "userReportedBlockageReproducedInNewBrowser": false,
+    "newBrowserRan": false,
+    "sourceFinding": "Map artwork depicts continuous ground above and northwest of the shared Persona ellipse / mirrored-square foot polygon. Normal combat delegates its physical floor to this same polygon.",
+    "exactSourceStop": {
+      "zone": "dist01",
+      "mode": "manual",
+      "phase": "entry",
+      "keys": [
+        "ArrowUp",
+        "ArrowLeft"
+      ],
+      "origin": {
+        "x": 13.8,
+        "y": 24.2
+      },
+      "stop": {
+        "before": {
+          "x": 7.6000000997289066,
+          "y": 22.133333366576366
+        },
+        "requested": {
+          "x": 7.543079101845875,
+          "y": 22.114359700615356
+        },
+        "gates": {
+          "nativeAll": false,
+          "oldLeft": false,
+          "allowed": false,
+          "canMove": false,
+          "finalWalkable": false
+        },
+        "applied": {
+          "x": 7.6000000997289066,
+          "y": 22.133333366576366
+        }
+      }
+    },
+    "gridAllowedPoints": 3949,
+    "allowedButFinalWalkableFalse": 0,
+    "rays": 216,
+    "mapVisuals": 4,
+    "viewportFixtures": [
+      [
+        1280,
+        800
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        568,
+        260
+      ]
+    ],
+    "limitations": "Native functions execute in Node VM with staged rosters and body envelopes. No new trusted PC/mobile input, actual phase-controller run or device capture.",
+    "geometryChangedInThisContinuation": false,
+    "geometryUnchangedFiles": [
+      "assets/rc134/persona-duel.js",
+      "assets/rc137/direction-input.js",
+      "assets/rc138/battle-arena.js",
+      "assets/rc153/combat-layout.js",
+      "assets/rc223/left-zone.js"
+    ]
+  },
+  "implementation": [
+    "Native host A: burst, fan, homing, pierce and ricochet use real native strike IDs, route binding, contact times, and fixed versus homing native contact checks; at most two extra shots per volley; preserve planned raw power. Pierce/ricochet origins use the captured native impact endpoint, bypassing hero muzzle offsets.",
+    "Normal and EGO retain the same native weapon art and existing awakening damage/resource rules. Additional host shot shapes do not extend companion/remote-actor A.",
+    "Play native per-hero A sound at launch; skip repeating that firing sound at the marked strike contact; leave native skill sound routes intact. Actual audibility is unverified.",
+    "Manual/semi S: actual displacement >=1 enables one 8% focused A volley within 1.3s from a valid ranged firing lane. No S cooldown/resource/invulnerability change.",
+    "Semi-auto retains a selected valid target and reacquires only when it becomes invalid or out of range.",
+    "Ordinary critical A keeps compact flash, zero hitstop and zero screen shake; explicit heavy/charged attacks and defeats retain bounded feedback; Persona feedback shape is preserved.",
+    "An ally D contact cannot grant the host a countershot; native resonance meter rules retain ownership.",
+    "Three sequential wave-3/4 interlude actors remain native; exclude protected/objective/ally templates; invalidate stale alive transient actor references after same-world restore."
+  ],
+  "validation": {
+    "cpuPassed": 14,
+    "cpuFailed": [
+      "rc79-combat-presentation"
+    ],
+    "baselineFailure": "rc79 blink-vector assertion fails at line 9 identically in archived b0b919d4 and candidate.",
+    "releaseGate": "rc128-candidate fails exact 152nd extension runtime inventory on both prior candidate and final source. Preservation pins were not overwritten.",
+    "newBrowser": "System Chromium sandbox helper ownership is invalid; launch aborted before page creation. Sandbox remained enabled. Official Firefox download was network-forbidden.",
+    "newGameErrors": "not measurable: app never loaded in the new browser attempt",
+    "trustedTouch": "unverified",
+    "naturalCampaign": "unverified",
+    "hardwareGpu": "unverified",
+    "physicalDevice": "unverified"
+  },
+  "performance": {
+    "historicalReferenceSha": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+    "historicalCandidateSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+    "historical": {
+      "referenceAppSha": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+      "candidateAppSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "reference": {
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "maxMs": 166.6999999999989,
+        "longFramesOver33ms": 20,
+        "frames": 103
+      },
+      "candidate": {
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.29999999999927,
+        "maxMs": 66.69999999999982,
+        "longFramesOver33ms": 7,
+        "frames": 135
+      },
+      "candidateWithoutShooter": {
+        "medianMs": 16.69999999999891,
+        "p95Ms": 16.799999999999272,
+        "maxMs": 66.70000000000073,
+        "longFramesOver33ms": 4,
+        "frames": 139
+      },
+      "caveat": "Short headless frame samples vary with page and renderer scheduling; median stayed at one 60 Hz frame. Do not treat this as a hardware performance benchmark."
+    },
+    "currentSourceFrameMeasurements": null,
+    "currentSourceNote": "No new browser frame, audio latency, GPU, power or real-device measurement is available. Prior frame samples do not verify RC226 performance."
+  },
+  "delivery": {
+    "status": "failed-before-upload",
+    "library_file_ids": [],
+    "reason": "Official Library prepared-upload helper could not connect at tools/list: network; no upload session or file identity was returned. No direct fallback write was attempted.",
+    "files": [
+      {
+        "file": "pc-left-floor-and-extension-penalty.png",
+        "sha256": "1cc3718aa9fa3c78ba12dc42b760436cc1b602c976635aab76d7549fea9ebe8d",
+        "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+        "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-left-floor-and-extension-penalty.png",
+        "library_file_id": null
+      },
+      {
+        "file": "pc-boss-right-band.png",
+        "sha256": "65a11d6d9da81803d7d0e9cbe63f138d5f3ba7126f69329a8bcbb591a696e498",
+        "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+        "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-boss-right-band.png",
+        "library_file_id": null
+      },
+      {
+        "file": "pc-basic-fire.png",
+        "sha256": "ee6aabbcf69ec139401a7ccc090dfa82dacff029a7cfeb93575d6797130ff1fa",
+        "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+        "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-basic-fire.png",
+        "library_file_id": null
+      },
+      {
+        "file": "pc-interlude-next-target.png",
+        "sha256": "3ea3c97f0c4fe4ba94071ce896628a631cc5f20367fdfc691d34b3e432e236e2",
+        "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+        "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-interlude-next-target.png",
+        "library_file_id": null
+      },
+      {
+        "file": "mobile-landscape-emulated.png",
+        "sha256": "89913913152061701ccec1c6e9f452f0cfc387f1e30617913ed485166ef45ea5",
+        "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+        "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/mobile-landscape-emulated.png",
+        "library_file_id": null
+      }
+    ],
+    "fallback": {
+      "kind": "workspace file/archive; availability to the user depends on the host workspace file-link support",
+      "path": "/workspace/hapil-deliverables/HAPIL-RC225-03edd0d3-browser-evidence.zip",
+      "bytes": 4568208,
+      "sha256": "da63d682d6a08de2af8ec03d049346ce5c4749b80db9ca0c5f7a8360778f9c07"
+    }
+  },
+  "noMainMerge": true,
+  "noPublicDeployment": true,
+  "storyWorldUntouched": true,
+  "candidate64eeMerged": false,
+  "generatedAt": "2026-10-18T06:43:59.715391+00:00",
+  "continuationCommits": [
+    "b3ddecc8267c5aaecfca4b887b28f4428bd77ba7",
+    "89c7d2c1690b14af9f4d709e6ffd56270ee9fdcf"
+  ]
+}

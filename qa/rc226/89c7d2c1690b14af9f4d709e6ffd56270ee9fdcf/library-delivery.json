@@ -1,0 +1,48 @@
+{
+  "status": "failed-before-upload",
+  "library_file_ids": [],
+  "reason": "Official Library prepared-upload helper could not connect at tools/list: network; no upload session or file identity was returned. No direct fallback write was attempted.",
+  "files": [
+    {
+      "file": "pc-left-floor-and-extension-penalty.png",
+      "sha256": "1cc3718aa9fa3c78ba12dc42b760436cc1b602c976635aab76d7549fea9ebe8d",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-left-floor-and-extension-penalty.png",
+      "library_file_id": null
+    },
+    {
+      "file": "pc-boss-right-band.png",
+      "sha256": "65a11d6d9da81803d7d0e9cbe63f138d5f3ba7126f69329a8bcbb591a696e498",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-boss-right-band.png",
+      "library_file_id": null
+    },
+    {
+      "file": "pc-basic-fire.png",
+      "sha256": "ee6aabbcf69ec139401a7ccc090dfa82dacff029a7cfeb93575d6797130ff1fa",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-basic-fire.png",
+      "library_file_id": null
+    },
+    {
+      "file": "pc-interlude-next-target.png",
+      "sha256": "3ea3c97f0c4fe4ba94071ce896628a631cc5f20367fdfc691d34b3e432e236e2",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-interlude-next-target.png",
+      "library_file_id": null
+    },
+    {
+      "file": "mobile-landscape-emulated.png",
+      "sha256": "89913913152061701ccec1c6e9f452f0cfc387f1e30617913ed485166ef45ea5",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "local_path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/mobile-landscape-emulated.png",
+      "library_file_id": null
+    }
+  ],
+  "fallback": {
+    "kind": "workspace file/archive; availability to the user depends on the host workspace file-link support",
+    "path": "/workspace/hapil-deliverables/HAPIL-RC225-03edd0d3-browser-evidence.zip",
+    "bytes": 4568208,
+    "sha256": "da63d682d6a08de2af8ec03d049346ce5c4749b80db9ca0c5f7a8360778f9c07"
+  }
+}
