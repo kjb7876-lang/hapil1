@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "status": "completed",
+  "appSha": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+  "startedAt": "2026-10-18T06:02:49.637Z",
+  "environment": {
+    "browser": "Chromium",
+    "executablePath": "/usr/bin/chromium",
+    "physicalDevice": false,
+    "hardwareGpu": false,
+    "mobile": "emulated landscape viewport with touch APIs",
+    "workflow": "visible title route into hero selector; native local two-player party configuration and launch; direct native dist01 fixture entry"
+  },
+  "scope": "Actual bundled RC138/RC137/RC223 movement, RC153 actor ownership and camera, native player attack/strike/effect paths, RC225 countershot and wave gate. The DIST01 entry, enemy roster, penalty location, and midboss-to-boss pack are staged fixtures. Not a natural campaign completion, physical phone, hardware GPU, official Chrome, or deployment claim.",
+  "screenshots": [],
+  "checks": [],
+  "errors": [],
+  "httpErrors": [],
+  "requestFailures": [
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:33785/assets/rc26/audio/opening-memory.wav",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:33785/audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:33785/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    }
+  ],
+  "performance": {
+    "baseline": {
+      "launch": {
+        "phase": "game",
+        "party": {
+          "ready": true,
+          "enabled": true,
+          "mode": "local2",
+          "role": "offline",
+          "disconnected": false,
+          "zone": "dist00",
+          "slots": [
+            {
+              "slotId": "p1",
+              "heroId": "gunner",
+              "name": "기억사수",
+              "control": "host",
+              "x": 15.275000000000004,
+              "y": 16.725000000000005,
+              "hp": 240,
+              "maxHp": 240,
+              "down": false
+            },
+            {
+              "slotId": "p2",
+              "heroId": "slayer",
+              "name": "악몽 사냥꾼 · 검사",
+              "control": "local",
+              "x": 12.472998263302388,
+              "y": 19.291863118193795,
+              "hp": 240,
+              "maxHp": 240,
+              "facing": 1,
+              "direction": "right",
+              "moveVx": 0,
+              "moveVy": 0,
+              "readyAt": 0.32482857142857197,
+              "skillReady": [
+                0,
+                0,
+                0
+              ],
+              "ultimateReady": 0,
+              "dashReady": 0,
+              "invulnerableUntil": 1.24,
+              "downUntil": 0,
+              "lastDodgeAt": -99,
+              "heroMotion": {
+                "kind": "attack",
+                "started": 0.19340000000000054,
+                "until": 0.5134000000000005,
+                "facing": 1,
+                "dx": 10.809732882006939,
+                "dy": -7.57074049926598,
+                "direction": "right",
+                "skillIndex": 3,
+                "phase": 2.3208000000000064,
+                "characterSectorV31342": "e",
+                "characterCommitV31342": {
+                  "at": 0.19340000000000054,
+                  "dx": 10.809732882006939,
+                  "dy": -7.57074049926598,
+                  "sector": "e"
+                },
+                "themeAimLockV31323": true
+              },
+              "themeAimV31323": {
+                "x": 12.472998263302388,
+                "y": 19.291863118193795,
+                "dx": 10.809732882006939,
+                "dy": -7.57074049926598,
+                "sx": 0.9961408046247672,
+                "sy": 0.0877695696783415,
+                "at": 0.19340000000000054,
+                "born": 0.19340000000000054,
+                "key": "A",
+                "until": 0.4934000000000005,
+                "characterSectorV31342": "e"
+              },
+              "themeRootUntilV31323": 0,
+              "themeRootImmuneV31323": 0,
+              "themeRootZoneV31323": null,
+              "down": false
+            }
+          ],
+          "wipeCount": 0,
+          "snapshotSeq": -1,
+          "paused": false,
+          "inputBlocked": false,
+          "waitingForHost": false
+        },
+        "roster": [
+          {
+            "heroId": "gunner",
+            "control": "host"
+          },
+          {
+            "heroId": "slayer",
+            "control": "local"
+          }
+        ],
+        "zone": "dist00",
+        "gameMode": "STORY"
+      },
+      "entry": {
+        "zone": "dist01",
+        "time": 0.23340000000000055,
+        "position": {
+          "x": 13.8,
+          "y": 24.2
+        },
+        "campaignFields": {
+          "spawnedWaves": [
+            1
+          ],
+          "bossDefeated": false
+        },
+        "nativeArena": {
+          "version": 1,
+          "zone": "dist01",
+          "enabled": true,
+          "locked": true,
+          "clear": false,
+          "reason": "combat",
+          "playerSide": "left",
+          "enemySide": "right",
+          "hostiles": 0,
+          "entry": {
+            "x": 13.8,
+            "y": 24.2
+          },
+          "exit": {
+            "x": 24.8,
+            "y": 13.2
+          }
+        }
+      },
+      "frameSample": {
+        "frames": 103,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "maxMs": 166.6999999999989,
+        "longFramesOver33ms": 20,
+        "webglRenderer": "WebKit WebGL",
+        "canvasBacking": [
+          [
+            1050,
+            590
+          ]
+        ]
+      },
+      "moduleDisabledByRoute": true
+    }
+  },
+  "browserVersion": "151.0.7922.173",
+  "sources": [
+    {
+      "file": "index.html",
+      "bytes": 14600,
+      "sha256": "80d92914f6b84a8c20b3266db7cac3dab32d97a8de92d49c352f2a343c0d7cec"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "bytes": 6304137,
+      "sha256": "5de7c13643b62d335c92ace3b1adecd9810b25a313f8b71ca07c827aab9308d2"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "bytes": 24256,
+      "sha256": "99e46c3478a95e069ef4420f33abc2c0045791b3278efba61a51c196e84b0d09"
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "bytes": 10991,
+      "sha256": "18cc59c232cae6a4c71250519ba0217138b43bd3a8d6d8aa1d1499f4ee4bcf95"
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "bytes": 26991,
+      "sha256": "bb43624993843d1a111ecf1aeb32371940fa0c5b45cd6055b6ecd705052da495"
+    },
+    {
+      "file": "assets/rc223/left-zone.js",
+      "bytes": 9339,
+      "sha256": "9ee4cdc41830ed875725097acf28f8b3f4048236dd39a76b0f74847a167d9f0a"
+    },
+    {
+      "file": "assets/rc225/shooter.js",
+      "missing": true
+    }
+  ],
+  "finishedAt": "2026-10-18T06:03:00.701Z"
+}

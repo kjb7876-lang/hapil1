@@ -1,0 +1,132 @@
+[
+  {
+    "path": "assets/index-v31526.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "assets/rc128/combat-feedback.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "assets/rc138/battle-arena.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "assets/rc153/combat-layout.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "assets/rc225/shooter.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "assets/rc226/shooting-completion.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "assets/rc227/floor-patches.js",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "qa/rc133/published.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc133-feedback-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc133-preservation-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc133-published-url.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc153-combat-browser.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc153-combat-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc161-persona-feedback-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc199-stable-combat-zoom-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc225-combat-browser.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc225-shooter-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc226-floor-audit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc226-shooting-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc227-floor-unit.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tests/rc79-combat-presentation.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tools/rc133-preservation.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tools/rc133-release-compatibility.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tools/rc206-extension-chain.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "path": "tools/rc227-build-extension.cjs",
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "command": "git diff --check",
+    "exitCode": 0,
+    "output": ""
+  }
+]

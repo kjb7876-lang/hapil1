@@ -1,7 +1,7 @@
 name: RC207 read-only candidate regression
 on:
   push:
-    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
+    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/hapil-combat-shooter-20261018]
     paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/**']
 permissions:
   contents: read
@@ -28,6 +28,33 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false acorn@8.15.0
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
           echo "RC132_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
+      - name: Exact approved shooting and floor CPU regression
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc227-cpu
+          HAPIL_FLOOR_BENCH: '1'
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          export NODE_PATH="$CODEX_PRIMARY_RUNTIME_NODE_MODULES"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          node tools/rc227-build-extension.cjs --check
+          node tools/rc215-build-native.cjs --check
+          node tests/rc225-shooter-unit.cjs
+          node tests/rc226-shooting-unit.cjs
+          node tests/rc227-floor-unit.cjs
+          node tests/rc223-feedback-owner-unit.cjs
+          node tests/rc195-blink-arena-unit.cjs
+          node tests/rc224-arena-regression-unit.cjs
+          node tests/rc79-combat-presentation.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc227-cpu-${{ github.sha }}
+          path: ${{ runner.temp }}/rc227-cpu/
+          if-no-files-found: error
+          retention-days: 14
       - name: Exact candidate and complete CPU regression
         env:
           EXPECTED_SHA: ${{ github.sha }}
@@ -83,6 +110,25 @@ jobs:
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs
           node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Compare legacy danmaku failure with pinned published main
+        if: matrix.suite == 'rc130'
+        env:
+          BASELINE_SHA: b0b919d4e18c2e93f871606ece0744d077ff7239
+        run: |
+          set -euo pipefail
+          BASELINE_DIR="$RUNNER_TEMP/rc227-main-baseline"
+          BASELINE_OUT="$HAPIL_QA_OUTPUT/published-main-rc129"
+          mkdir -p "$BASELINE_OUT"
+          git worktree add --detach "$BASELINE_DIR" "$BASELINE_SHA"
+          set +e
+          (cd "$BASELINE_DIR" && EXPECTED_SHA="$BASELINE_SHA" HAPIL_QA_OUTPUT="$BASELINE_OUT" node tests/rc129-browser.cjs) > "$BASELINE_OUT/execution.log" 2>&1
+          BASELINE_EXIT=$?
+          set -e
+          printf '{"sha":"%s","exitCode":%s,"scope":"same sandbox-enabled CI Chrome, pinned published main"}\n' "$BASELINE_SHA" "$BASELINE_EXIT" > "$BASELINE_OUT/baseline-exit.json"
+          cat "$BASELINE_OUT/baseline-exit.json"
+          tail -n 30 "$BASELINE_OUT/execution.log"
+          HAPIL_APP_ROOT="$BASELINE_DIR" HAPIL_APP_SHA="$BASELINE_SHA" HAPIL_ONLY_BASELINE=1 HAPIL_QA_OUTPUT="$HAPIL_QA_OUTPUT/published-main-performance" node tests/rc225-combat-browser.cjs
+          git worktree remove "$BASELINE_DIR"
       - name: Audit only without transformers or Git writes
         env:
           SUITE: ${{ matrix.suite }}
@@ -133,11 +179,49 @@ jobs:
           node tests/chromium-sandbox-policy.cjs
           node tests/rc153-chrome-sandbox-smoke.cjs
           node tests/rc210-browser.cjs
+          HAPIL_QA_OUTPUT="$HAPIL_QA_OUTPUT/persona-native" node tests/rc158-native-browser.cjs
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: rc210-native-fixtures-${{ github.sha }}
           path: ${{ runner.temp }}/rc210-evidence/
+          if-no-files-found: error
+          retention-days: 14
+  rc227-combat-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Use runner Chrome Stable with unchanged sandbox
+        run: |
+          command -v google-chrome
+          google-chrome --version
+          npm install --prefix "$RUNNER_TEMP/rc227" --no-save --package-lock=false playwright@1.55.1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc227/node_modules" >> "$GITHUB_ENV"
+      - name: Verify exact shooting and movement candidate
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc227-browser
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc225-combat-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc227-combat-browser-${{ github.sha }}
+          path: ${{ runner.temp }}/rc227-browser/
           if-no-files-found: error
           retention-days: 14

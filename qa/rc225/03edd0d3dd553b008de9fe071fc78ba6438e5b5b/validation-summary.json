@@ -1,0 +1,121 @@
+{
+  "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+  "branch": "codex/hapil-combat-shooter-20261018",
+  "status": "passed-with-limitations",
+  "sourceChanges": [
+    "Widen normal-boss foot band to x-y 14..16 at depth 35..41; Persona remains exempt.",
+    "Tag native basic projectile flight by hero, add a small focus bonus only for manual/semi while holding a firing lane, scale the same EGO projectile, and convert accepted D contact into one short-lived +25% basic shot.",
+    "Insert three sequential low-HP native enemies between waves 3 and 4; checkpoint normalization drops their transient state, the original wave set is retained, and native kill handling grants its normal +10 resonance per enemy.",
+    "Limit ordinary hit pause and screen shake; keep stronger reaction for heavy attacks, critical hits and defeats."
+  ],
+  "browser": {
+    "chromium": "151.0.7922.173",
+    "renderer": "WebKit WebGL",
+    "hardwareGpu": false,
+    "physicalDevice": false,
+    "pc": "RC225 integrated browser scenario passed; RC153 native inventory passed 70 owners",
+    "mobileLandscape": "emulated Chromium run passed, movement used keyboard; trusted touchscreen input remains unverified because the sandboxed runner Chromium could not start the touch suite"
+  },
+  "performance": {
+    "referenceAppSha": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+    "candidateAppSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+    "reference": {
+      "medianMs": 16.699999999999818,
+      "p95Ms": 50,
+      "maxMs": 166.6999999999989,
+      "longFramesOver33ms": 20,
+      "frames": 103
+    },
+    "candidate": {
+      "medianMs": 16.699999999999818,
+      "p95Ms": 33.29999999999927,
+      "maxMs": 66.69999999999982,
+      "longFramesOver33ms": 7,
+      "frames": 135
+    },
+    "candidateWithoutShooter": {
+      "medianMs": 16.69999999999891,
+      "p95Ms": 16.799999999999272,
+      "maxMs": 66.70000000000073,
+      "longFramesOver33ms": 4,
+      "frames": 139
+    },
+    "caveat": "Short headless frame samples vary with page and renderer scheduling; median stayed at one 60 Hz frame. Do not treat this as a hardware performance benchmark."
+  },
+  "counts": {
+    "browserErrors": 0,
+    "httpErrors": 0,
+    "screenshots": 5
+  },
+  "limitations": [
+    "The reported general-combat movement blockage was not reproduced; no failing coordinate/root cause was found.",
+    "The full campaign/boss scheduler was not advanced naturally; interlude timing was a staged browser fixture calling the native wave gate.",
+    "No real phone, hardware GPU, public Pages publish or merge to main was performed.",
+    "Existing rc79 blink-vector test fails identically at the b0b919d4 baseline and candidate."
+  ],
+  "screenshotFiles": [
+    {
+      "file": "pc-left-floor-and-extension-penalty.png",
+      "sha256": "1cc3718aa9fa3c78ba12dc42b760436cc1b602c976635aab76d7549fea9ebe8d",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b"
+    },
+    {
+      "file": "pc-boss-right-band.png",
+      "sha256": "65a11d6d9da81803d7d0e9cbe63f138d5f3ba7126f69329a8bcbb591a696e498",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b"
+    },
+    {
+      "file": "pc-basic-fire.png",
+      "sha256": "ee6aabbcf69ec139401a7ccc090dfa82dacff029a7cfeb93575d6797130ff1fa",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b"
+    },
+    {
+      "file": "pc-interlude-next-target.png",
+      "sha256": "3ea3c97f0c4fe4ba94071ce896628a631cc5f20367fdfc691d34b3e432e236e2",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b"
+    },
+    {
+      "file": "mobile-landscape-emulated.png",
+      "sha256": "89913913152061701ccec1c6e9f452f0cfc387f1e30617913ed485166ef45ea5",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b"
+    }
+  ],
+  "movementP1": {
+    "source": "prior integrated browser probe reported in the task thread",
+    "player": "P1 host",
+    "path": "x crossed 19 and reached about 17.36",
+    "points": [
+      18.9,
+      18.5,
+      17,
+      14
+    ],
+    "checks": "nativeAll -> RC223 allowed -> RC137 final walkable were true",
+    "finding": "reported blockage not reproduced; no failing coordinate/root cause available"
+  },
+  "branchStatus": {
+    "branch": "codex/hapil-combat-shooter-20261018",
+    "codeCommit": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+    "reviewCandidate": "codex/rc224-critical-debug-20261017 was read-only compared; no merge or overwrite performed",
+    "storyWorld": "untouched",
+    "publicDeployment": false,
+    "mainMerge": false
+  },
+  "failuresAndLimits": [
+    {
+      "test": "tests/rc79-combat-presentation.cjs",
+      "baseline": "b0b919d4 failed exact blink-vector assertion at line 9",
+      "candidate": "same assertion fails at line 9; baseline failure, not a new regression"
+    },
+    {
+      "test": "tests/rc151-mobile-a-touch-browser.cjs",
+      "status": "blocked",
+      "reason": "system Chromium sandbox helper initialization failed; run stopped without disabling sandbox"
+    },
+    {
+      "test": "reported general-combat left-movement issue",
+      "status": "not reproduced",
+      "reason": "P1 parent probe and this browser P2 path passed all recorded floor/allowed/walkable checks; no coordinate existed to trace as a blocker"
+    }
+  ]
+}

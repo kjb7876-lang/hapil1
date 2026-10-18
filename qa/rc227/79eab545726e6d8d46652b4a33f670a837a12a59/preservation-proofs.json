@@ -1,0 +1,63 @@
+{
+  "finalAppSha": "79eab545726e6d8d46652b4a33f670a837a12a59",
+  "finalRuntimeMatchesPinnedSource": "443d511bdfe3345be5b4a04b893d69fcfd2d1529",
+  "equivalenceCheck": "rc227-build-extension.log at finalAppSha checks committed and working runtime against the exact pinned source",
+  "executions": [
+    {
+      "executionSource": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+      "command": "node tools/rc133-preservation.cjs",
+      "log": "baseline-preservation.log.gz",
+      "uncompressedLogSha256": "d40cbfb6ed3a56d00c93b16ecc330ee13a19c0c918a10debf335b93ba5a3776d",
+      "compressedLogSha256": "2312567145f7d11c02ceb5b0cc903a4b3383e169f63a44afa2d367b3b5380d2a",
+      "result": {
+        "status": "passed",
+        "base": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
+        "extension152Base": "7842ffa2f6f0de21df747ff299435f5a145fed43",
+        "extension152Sha256": "cd8f8c982b04e52693b0e3a4b6d28e9a3bd6355433ffa95738ada1ff338b2316"
+      }
+    },
+    {
+      "executionSource": "443d511bdfe3345be5b4a04b893d69fcfd2d1529 (extension tools later committed as 47e886e)",
+      "command": "node tools/rc133-preservation.cjs",
+      "log": "preservation-current.log.gz",
+      "uncompressedLogSha256": "d68c7a7967387a55f53b1300a51ef1a20ea469e9d96b800fa5684673963f0f62",
+      "compressedLogSha256": "b39b26e3468ee46902a6be09ad432b853f60bd46287e6db564b43c80fdb96387",
+      "result": {
+        "status": "passed",
+        "base": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
+        "extension152Base": "7842ffa2f6f0de21df747ff299435f5a145fed43",
+        "extension152Sha256": "cd8f8c982b04e52693b0e3a4b6d28e9a3bd6355433ffa95738ada1ff338b2316",
+        "extension153Base": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+        "extension153Sha256": "3b9164d3d30d084195e52664cc1d95f50a170da998fba4727c3df2a6613b7e03",
+        "extension153Files": 9
+      }
+    },
+    {
+      "executionSource": "47e886e30fead4fd51700962ca3c8ade646d6de3",
+      "command": "node tools/rc130-preservation.cjs",
+      "log": "full-preservation-final.log.gz",
+      "uncompressedLogSha256": "144cd387256d396285e632d10dff2d60a33499131046051ad3f836a9704fd04a",
+      "compressedLogSha256": "da7605b9de1600881ff770f345e14c3b7b18a2f65e6c1248c80f02dede3d561d",
+      "result": {
+        "status": "passed",
+        "base": "4670211fcd1a2e5076a3f9c57fc67e55cd0486a9",
+        "extension152Base": "7842ffa2f6f0de21df747ff299435f5a145fed43",
+        "extension152Sha256": "cd8f8c982b04e52693b0e3a4b6d28e9a3bd6355433ffa95738ada1ff338b2316",
+        "extension153Base": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+        "extension153Sha256": "3b9164d3d30d084195e52664cc1d95f50a170da998fba4727c3df2a6613b7e03",
+        "extension153Files": 9
+      }
+    },
+    {
+      "executionSource": "443d511bdfe3345be5b4a04b893d69fcfd2d1529 (extension tools later committed as 47e886e)",
+      "command": "node tests/rc133-preservation-unit.cjs",
+      "log": "preservation-unit.log.gz",
+      "uncompressedLogSha256": "f2e7a5add6d891c1865f77437555152833ab129b6c968760e187146da70b29fc",
+      "compressedLogSha256": "cdd55bfc78962e3520e8f17a75a206b16b1a67b47b8bcf34d1ef1a2ff8556008",
+      "result": {
+        "status": "passed",
+        "checks": 46
+      }
+    }
+  ]
+}

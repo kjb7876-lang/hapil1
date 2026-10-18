@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "base": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+  "baseTree": "9734e75661b65c14e6d8ecabebabf08b9b50c1aa",
+  "sourceCommit": "443d511bdfe3345be5b4a04b893d69fcfd2d1529",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "cd8f8c982b04e52693b0e3a4b6d28e9a3bd6355433ffa95738ada1ff338b2316",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "3f05ccb23a527123057892b531046956a4b003d7",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "a4cc838e1f955b6d5e1ebf6c446b47f302fb806e673d070625972ffbc689904d",
+        "gitBlob": "3c227319a13140a842cc3db82fbf58affd400c61"
+      },
+      "reason": "assets/index-v31526.js: Preserve the selected semi-auto target, connect manual S and native A launch/contact audio, anchor follow-up shots at actual contact, and compose the reviewed cave floor with unchanged authority and exposure."
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "0fe743b00f39ff793ba8150ed8613afec12ae36d",
+        "file": "assets/rc128/combat-feedback.js"
+      },
+      "after": {
+        "file": "assets/rc128/combat-feedback.js",
+        "mode": "100644",
+        "sha256": "7d8f3377b4a17a85cf560c45dcef91da6330cc640c99b2390e11a6f4a9c94fc6",
+        "gitBlob": "ca6565339cbe9b9f4036088ec517a4ca87dc8e0b"
+      },
+      "reason": "assets/rc128/combat-feedback.js: Keep ordinary and critical basic fire compact without hitstop or screen shake; retain explicit heavy, charged, defeat and Persona feedback."
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "6785d5364b721755421a92c1858ce679911a0943",
+        "file": "assets/rc138/battle-arena.js"
+      },
+      "after": {
+        "file": "assets/rc138/battle-arena.js",
+        "mode": "100644",
+        "sha256": "e844a9b98c7df589ad800e85603caff8d1aeaff6e0d0adc5c58870c43645fa07",
+        "gitBlob": "a176aa03347dfe4d7264542eaf6e8b5caa1bec56"
+      },
+      "reason": "assets/rc138/battle-arena.js: Keep normal bosses at the reviewed right band and compose only the DIST01 paving cell with native actor ownership, radius and guest authority."
+    },
+    {
+      "file": "assets/rc138/native-install.js.txt",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "336483b97dc194c8de64a491930ea9e858d9f3d5",
+        "file": "assets/rc138/native-install.js.txt"
+      },
+      "after": {
+        "file": "assets/rc138/native-install.js.txt",
+        "mode": "100644",
+        "sha256": "7252f4e39a664ad5a91eb8ecb731c8f6efd84c92c32551bca5fa75f6076f2277",
+        "gitBlob": "06eb93c6b3d75f710df80acd592c561849b7636f"
+      },
+      "reason": "assets/rc138/native-install.js.txt: Pass the native map zone to physical containment and legal-point queries, preserving the existing native integration source."
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "f9eb9816586c5c8797fd3abf77eff79e10cce0f1",
+        "file": "assets/rc153/combat-layout.js"
+      },
+      "after": {
+        "file": "assets/rc153/combat-layout.js",
+        "mode": "100644",
+        "sha256": "2c98dfe8ee28b64bff4ac12cbc71a77ba1b0b3319b9bf2f6fcb4400d36a6fb1d",
+        "gitBlob": "97702c841a5d9741a6628147f6017eefeb704aa7"
+      },
+      "reason": "assets/rc153/combat-layout.js: Retain the normal-boss 14..16 across band and existing whole-body camera envelopes."
+    },
+    {
+      "file": "assets/rc225/shooter.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc225/shooter.js",
+        "mode": "100644",
+        "sha256": "46c3ab425724a4a1ed8c2373fd5baedec43dca6d2fba02731c162baf0fa9c777",
+        "gitBlob": "df43a5dcfa53df3acd2c2838b1bf55a76de4b937"
+      },
+      "reason": "assets/rc225/shooter.js: Add native firing-lane focus, host-owned countershots and three sequential interlude actors with protected-template and checkpoint-restore handling."
+    },
+    {
+      "file": "assets/rc226/shooting-completion.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc226/shooting-completion.js",
+        "mode": "100644",
+        "sha256": "7cb6599cadb6608a7e0c0ebedd696853a652de9049c7865c83d84bb084ed4563",
+        "gitBlob": "a5e6198de369db7b3a076e70a8c89b2fc9dd826a"
+      },
+      "reason": "assets/rc226/shooting-completion.js: Bind host weapon styles to native strike/contact routes, preserve planned raw power and EGO identity, and connect actual S landings and per-hero firing sounds."
+    },
+    {
+      "file": "assets/rc227/floor-patches.js",
+      "before": null,
+      "after": {
+        "file": "assets/rc227/floor-patches.js",
+        "mode": "100644",
+        "sha256": "347bdc0a749112d30dede6cbb94547765adc6e44038a16b88f8c071b335bc77d",
+        "gitBlob": "166dfd39376ebcaaeebba39d01a4bfa285f66c64"
+      },
+      "reason": "assets/rc227/floor-patches.js: Admit only the reviewed source-image cave paving cell, inset by actor radius and intersected with the old ellipse, retaining Persona and all other maps."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "51ee28feb359ca0446d858be1e6f7bf4e45461c8",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "c0bd71726cdd2dca26f8bb5b1bf506431e2fe6585ba39b6c3303e8a733c0e102",
+        "gitBlob": "150823f50638237a60ee15041fc7a1d3ec290f8a"
+      },
+      "reason": "index.html: Load the authorized shooting and cave-floor modules and update the corresponding cache versions."
+    }
+  ],
+  "targetProtectedRowsSha256": "41655bbc5e9d876bf3a0e47dd99661cd39b0a1f69c52de231e2a09a1600c6b5e"
+}

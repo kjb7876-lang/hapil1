@@ -71,7 +71,7 @@ for (const fixture of [
 
 // A positive outgoing HIT is distinct from the parry/dodge cancellation paths.
 for (const fixture of [
-  { result: 'HIT', kind: 'heavy', targetId: 'victim', hpBefore: 100, hpAfter: 65,
+  { result: 'HIT', kind: 'hit', targetId: 'victim', hpBefore: 100, hpAfter: 65,
     appliedDamage: 35, source: { family: 'actor' } },
   { result: 'PARRY', kind: 'parry', targetId: '__host', appliedDamage: 0,
     reason: 'native-credited-contact', source: { family: 'contact', ownerId: 'parry-source' } },
@@ -194,7 +194,7 @@ for (const fixture of [
       attackerHeroId: 'hwando', hpBefore: 100, hpAfter: 65, appliedDamage: 35,
       source: { family: 'actor' }
     };
-    Feedback.record(s, { id: row.targetId, x: 8, y: 8 }, row, {});
+    Feedback.record(s, { id: row.targetId, x: 8, y: 8 }, row, { heavyHitClass31220: 'telegraphed-major' });
   }
   const view = snapshot(s);
   eq(view.effects, 32, 'strong-hit burst retains no more than 32 effects');

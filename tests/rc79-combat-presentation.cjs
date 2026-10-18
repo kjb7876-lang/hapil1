@@ -6,7 +6,9 @@ const ctx={window,Math,Number,Object};
 const a=main.indexOf('function HAPIL_blinkVectorV31345('),b=main.indexOf('\nfunction MONGSE_planAutoSkill',a);
 vm.runInNewContext(main.slice(a,b)+'\nglobalThis.vector=HAPIL_blinkVectorV31345;',ctx);
 for(const [keys,x,y] of [[['ArrowRight'],1,0],[['ArrowLeft'],-1,0],[['ArrowUp'],0,-1],[['ArrowDown'],0,1],[['ArrowUp','ArrowRight'],Math.SQRT1_2,-Math.SQRT1_2]]){
- const v=ctx.vector(new Set(keys),-1,{x:-1,y:1});assert(Math.abs(v.x-x)<1e-10&&Math.abs(v.y-y)<1e-10);
+ const v=ctx.vector(new Set(keys),-1,{x:-1,y:1}),screen={x:(v.x-v.y)*27,y:(v.x+v.y)*13.5},length=Math.hypot(screen.x,screen.y);
+ assert(Math.abs(Math.hypot(v.x,v.y)-1)<1e-10,'world blink speed remains normalized');
+ assert(Math.abs(screen.x/length-x)<1e-10&&Math.abs(screen.y/length-y)<1e-10,'physical arrows specify screen headings through the native isometric projection');
  const end=p.blinkDestination({x:10,y:10},v,3,q=>q.x<11);
  assert(Math.abs((end.x-10)*v.y-(end.y-10)*v.x)<1e-10,'blocked blink may not snap sideways');
  assert((end.x-10)*v.x+(end.y-10)*v.y>=0,'blocked blink may not reverse');
@@ -18,7 +20,8 @@ for(const automatic of [false,true]){
  const start=main.indexOf('  const basePhaseGateHealthV31300 ='),end=main.indexOf('  MONGSE_tickPersistentBossCastProtection = function HAPIL_tickNonInterruptAndFinalV31300',start);
  vm.runInContext(main.slice(start,end),c);
  const ws=main.indexOf('  const basePhaseGateHealth = MONGSE_phaseGateHealth;'),we=main.indexOf('  const basePersistentTick =',ws);vm.runInContext(main.slice(ws,we),c);
- const enemy={id:'c104-boss',hp:10000,maxHp:10000,hapilSecondPhaseV31300:true},state={zone:'cult04',time:3,hapilFinalBattleV31300:{stage:7,startedAt:0,monochromeActiveV31377:true,combatElapsedRC79:0,finalHitCommittedV31377:false}};
+ const enemy={id:'c104-boss',hp:10000,maxHp:10000,hapilSecondPhaseV31300:true},state={zone:'cult04',time:3,hapilSamongCosmicWaveV386:{status:'complete'},hapilFinalBattleV31300:{stage:7,startedAt:0,monochromeActiveV31377:true,combatElapsedRC79:0,finalHitCommittedV31377:false}};
+ if(!automatic){state.hapilFinalBattleV31300.combatElapsedRC79=60;state.hapilSamongCosmicWaveV386.status='crisis';assert.equal(c.MONGSE_phaseGateHealth(state,enemy,1e15),1,'manual final hit retains the native cosmic-wave completion gate');assert.equal(state.hapilFinalBattleV31300.finalHitCommittedV31377,false);state.hapilSamongCosmicWaveV386.status='complete';}
  for(const elapsed of [0,1,30,59.999]){state.hapilFinalBattleV31300.combatElapsedRC79=elapsed;const hp=c.MONGSE_phaseGateHealth(state,enemy,1e15);assert(hp>=1);assert.equal(state.hapilFinalBattleV31300.finalHitCommittedV31377,false);enemy.hp=hp;}
  state.hapilFinalBattleV31300.combatElapsedRC79=60;assert.equal(c.MONGSE_phaseGateHealth(state,enemy,1e15),0);assert.equal(state.hapilFinalBattleV31300.finalHitCommittedV31377,true);
 }
