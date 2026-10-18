@@ -3,7 +3,7 @@
  * Boss floor ownership and body/weapon viewport fitting use separate bounds. */
 (function(root){'use strict';
  const n=(v,d=0)=>Number.isFinite(v)?v:d,TAU=Math.PI*2;
- const policy=Object.freeze({narrowSpan:.34,scatterSpan:.96,rightAcrossMin:6,rightAcrossMax:12,rightDepthMin:35,rightDepthMax:41,bodyWidth:3,bodyAbove:2.4,bodyBelow:.6});
+ const policy=Object.freeze({narrowSpan:.34,scatterSpan:.96,rightAcrossMin:14,rightAcrossMax:16,rightDepthMin:35,rightDepthMax:41,bodyWidth:3,bodyAbove:2.4,bodyBelow:.6});
  const stats={groups:0,shots:0,retargetPrevented:0,owners:{},patterns:{},cameraFits:0};let deps=null;const ranked=new Set(),frames=new WeakMap();
  const boss=a=>a&&(a.boss||a.midboss||a.rc133InnerBoss||a.rc133Midboss||a.specialBoss||a.cosmicBoss||ranked.has(a.id)||ranked.has(a.rc133TemplateId)||root.__HAPIL_LASERS_V31330__?.ranks?.has(a.id)||root.__HAPIL_LASERS_V31330__?.ranks?.has(a.rc133TemplateId))&&!a.friendly&&!a.visualOnly&&!a.neutral&&!a.ally&&!a.canonAlly&&!a.canonAllyV31217&&!a.canonicalAllyV31217&&!a.protectedNarrativeTargetV31307&&!a.protectedNarrativeTargetV31238;
  const removed=q=>q?.friendly||q?.reflected||q?.cancelled||q?.projectileRemovalReason31215||q?.reachedHero31213||q?.reachedMapBoundary31213;
@@ -59,7 +59,7 @@
  function placeBasic(s,a,q){const p=basicPlans.get(a);if(!p||p.world!==s||p.zone!==s.zone||p.started!==a.attackStarted||s.time+1e-7<p.fireAt||q?.persistentBasicRanged31221!==true)return false;
   const origin={x:a.x-p.dy*p.lateral,y:a.y+p.dx*p.lateral},R=root.__HAPIL_BATTLE_ARENA_RC138__,point=R?.contains(origin,'all',0)?origin:{x:a.x,y:a.y};for(const key of ['x','originX','previousX'])q[key]=point.x;for(const key of ['y','originY','previousY'])q[key]=point.y;q.rc194BasicIndex=p.index;q.rc194BasicLateral=p.lateral;return true;
  }
- function position(a,q){if(!boss(a)||a.id==='inner-evil-rc133')return q;const u=Math.max(10,Math.min(policy.rightAcrossMax,n(q.x)-n(q.y))),v=Math.max(policy.rightDepthMin,Math.min(policy.rightDepthMax,n(q.x)+n(q.y)));return{x:(v+u)/2,y:(v-u)/2};}
+ function position(a,q){if(!boss(a)||a.id==='inner-evil-rc133')return q;const u=Math.max(policy.rightAcrossMin,Math.min(policy.rightAcrossMax,n(q.x)-n(q.y))),v=Math.max(policy.rightDepthMin,Math.min(policy.rightDepthMax,n(q.x)+n(q.y)));return{x:(v+u)/2,y:(v-u)/2};}
  function bounds(s,subjects){const anchors=subjects??[s,...(s.enemies??[]).filter(a=>a.hp>0&&!a.friendly&&!a.visualOnly)],rects=anchors.map(a=>{const painted=deps.paintEnvelope?.(s,a,a===s);if(painted)return painted;const p=deps.project(a.x,a.y),size=Math.max(55,n(deps.size(a),a===s?100:210));return{left:p.x-size*policy.bodyWidth/2,right:p.x+size*policy.bodyWidth/2,top:p.y-size*policy.bodyAbove,bottom:p.y+size*policy.bodyBelow};});const nativePaintActors=rects.filter(r=>r.nativePaint).length;let nearbyProjectiles=0;for(const q of s.hostileProjectiles??[]){if(removed(q)||q.kind==='telegraph'||!Number.isFinite(q.x)||!Number.isFinite(q.y)||!anchors.some(a=>Math.hypot(q.x-a.x,q.y-a.y)<=26))continue;const p=deps.project(q.x,q.y),extent=Math.max(72,Math.min(140,n(q.radius,.3)*48));rects.push({left:p.x-extent,right:p.x+extent,top:p.y-extent,bottom:p.y+extent});nearbyProjectiles++;}return{nativePaintActors,nearbyProjectiles,left:Math.min(...rects.map(r=>r.left)),right:Math.max(...rects.map(r=>r.right)),top:Math.min(...rects.map(r=>r.top)),bottom:Math.max(...rects.map(r=>r.bottom))};}
  const frameCache=new WeakMap(),scaleCache=new WeakMap();
  // Compact all-motion bodies need the safe inset plus a small world-space gutter.

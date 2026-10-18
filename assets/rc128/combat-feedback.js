@@ -64,13 +64,13 @@
    const ratio=n(row.appliedDamage)/Math.max(1,n(row.hpBefore,1));
    const danger=incoming&&(ratio>=.2||n(row.hpAfter)/Math.max(1,n(s.maxHp,1))<.25);
    const crit=outgoing&&row.criticalRequested===true;
-   const strong=outgoing&&(crit||row.defeated||ratio>=.12||source?.ultimate===true);
+   const strong=outgoing&&(crit||row.defeated||source?.ultimate===true||source?.heavyBossSkill===true||source?.heavyHitClass31220==='telegraphed-major');
    const ranged=row.source?.family==='projectile'||['hunter','gunner','neon'].includes(row.attackerHeroId);
    return {kind:incoming?(danger?'danger':'hurt'):(crit?'critical':strong?'heavy':ranged?'shot':'hit'),
     color:incoming?(danger?'#ed7882':'#f4baa0'):profile.color,accent:profile.accent,
     label:incoming?(danger?'위험':row.before?.guardActive?'공명 방어':n(s.rc127Defense?.reduction)>0?'피해 감소':'피격'):(crit?'치명':strong?'강타':''),
     power:danger||strong?1:.55,duration:danger||strong?.3:.2,
-    pause:continuous(row,source)?0:danger?.032:incoming?.014:crit?.026:strong?.036:ranged?.009:.014,
+    pause:continuous(row,source)?0:danger?.032:incoming?.014:crit?.026:strong?.03:0,
     sound:incoming?(danger?'heavy':'hurt'):strong?'heavy':profile.sound,priority:incoming?6:strong?4:2,
     boss:target?.boss===true,outgoing,hero:profile};
   }
@@ -121,8 +121,8 @@
   if(persona)m.effects.sort((a,b)=>n(a.presentationPriority)-n(b.presentationPriority));
   if(m.effects.length>32)m.effects.splice(0,m.effects.length-32);
   if(visible)pause(s,m,f.pause);
-  if(visible&&f.outgoing&&!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&f.kind!=='guard'&&(!persona||!f.outgoing)){
-   m.shake=Math.max(m.shake,f.boss&&!f.outgoing?1.3:f.power>=1?1:.35);m.shakeUntil=t+.085;
+  if(visible&&f.outgoing&&(f.kind==='critical'||f.kind==='heavy')&&!reduced()&&m.settings.shake!==false&&m.settings.screenShake!==false&&(!persona||!f.outgoing)){
+   m.shake=Math.max(m.shake,row.defeated?1:(f.boss?0.72:0.6));m.shakeUntil=t+.065;
   }
   const channel=f.outgoing?'nextPersonaSound':row.result==='HIT'?'nextPersonaHurtSound':'nextPersonaDefenseSound';
   const audible=!persona||t>=n(m[channel]);
