@@ -1,7 +1,7 @@
 name: RC207 read-only candidate regression
 on:
   push:
-    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat]
+    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/hapil-combat-shooter-20261018]
     paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/**']
 permissions:
   contents: read
@@ -28,6 +28,33 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/rc207" --no-save --package-lock=false acorn@8.15.0
           echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
           echo "RC132_MODULES=$RUNNER_TEMP/rc207/node_modules" >> "$GITHUB_ENV"
+      - name: Exact approved shooting and floor CPU regression
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc227-cpu
+          HAPIL_FLOOR_BENCH: '1'
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          export NODE_PATH="$CODEX_PRIMARY_RUNTIME_NODE_MODULES"
+          mkdir -p "$HAPIL_QA_OUTPUT"
+          node tools/rc227-build-extension.cjs --check
+          node tools/rc215-build-native.cjs --check
+          node tests/rc225-shooter-unit.cjs
+          node tests/rc226-shooting-unit.cjs
+          node tests/rc227-floor-unit.cjs
+          node tests/rc223-feedback-owner-unit.cjs
+          node tests/rc195-blink-arena-unit.cjs
+          node tests/rc224-arena-regression-unit.cjs
+          node tests/rc79-combat-presentation.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc227-cpu-${{ github.sha }}
+          path: ${{ runner.temp }}/rc227-cpu/
+          if-no-files-found: error
+          retention-days: 14
       - name: Exact candidate and complete CPU regression
         env:
           EXPECTED_SHA: ${{ github.sha }}
@@ -139,5 +166,42 @@ jobs:
         with:
           name: rc210-native-fixtures-${{ github.sha }}
           path: ${{ runner.temp }}/rc210-evidence/
+          if-no-files-found: error
+          retention-days: 14
+  rc227-combat-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Use runner Chrome Stable with unchanged sandbox
+        run: |
+          command -v google-chrome
+          google-chrome --version
+          npm install --prefix "$RUNNER_TEMP/rc227" --no-save --package-lock=false playwright@1.55.1
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc227/node_modules" >> "$GITHUB_ENV"
+      - name: Verify exact shooting and movement candidate
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc227-browser
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test -z "$(git status --porcelain)"
+          node tests/chromium-sandbox-policy.cjs
+          node tests/rc153-chrome-sandbox-smoke.cjs
+          node tests/rc225-combat-browser.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc227-combat-browser-${{ github.sha }}
+          path: ${{ runner.temp }}/rc227-browser/
           if-no-files-found: error
           retention-days: 14
