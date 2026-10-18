@@ -1,0 +1,2570 @@
+{
+  "schema": 1,
+  "status": "completed",
+  "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+  "startedAt": "2026-10-18T06:11:27.376Z",
+  "environment": {
+    "browser": "Chromium",
+    "executablePath": "/usr/bin/chromium",
+    "physicalDevice": false,
+    "hardwareGpu": false,
+    "mobile": "844x390 landscape viewport emulation with touch APIs enabled; movement used Playwright keyboard input, not trusted touchscreen events",
+    "workflow": "visible title route into hero selector; native local two-player party configuration and launch; direct native dist01 fixture entry"
+  },
+  "scope": "Actual bundled RC138/RC137/RC223 movement, RC153 actor ownership and camera, native player attack/strike/effect paths, RC225 countershot and wave gate. The DIST01 entry, enemy roster, penalty location, and midboss-to-boss pack are staged fixtures. Not a natural campaign completion, physical phone, hardware GPU, official Chrome, or deployment claim.",
+  "screenshots": [
+    {
+      "name": "pc-left-floor-and-extension-penalty",
+      "file": "pc-left-floor-and-extension-penalty.png",
+      "path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-left-floor-and-extension-penalty.png",
+      "bytes": 1259759,
+      "sha256": "1cc3718aa9fa3c78ba12dc42b760436cc1b602c976635aab76d7549fea9ebe8d",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "at": "2026-10-18T06:11:57.789Z"
+    },
+    {
+      "name": "pc-boss-right-band",
+      "file": "pc-boss-right-band.png",
+      "path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-boss-right-band.png",
+      "bytes": 1314806,
+      "sha256": "65a11d6d9da81803d7d0e9cbe63f138d5f3ba7126f69329a8bcbb591a696e498",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "at": "2026-10-18T06:11:58.528Z"
+    },
+    {
+      "name": "pc-basic-fire",
+      "file": "pc-basic-fire.png",
+      "path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-basic-fire.png",
+      "bytes": 1277312,
+      "sha256": "ee6aabbcf69ec139401a7ccc090dfa82dacff029a7cfeb93575d6797130ff1fa",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "at": "2026-10-18T06:12:02.424Z"
+    },
+    {
+      "name": "pc-interlude-next-target",
+      "file": "pc-interlude-next-target.png",
+      "path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/pc-interlude-next-target.png",
+      "bytes": 293129,
+      "sha256": "3ea3c97f0c4fe4ba94071ce896628a631cc5f20367fdfc691d34b3e432e236e2",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "at": "2026-10-18T06:12:02.951Z"
+    },
+    {
+      "name": "mobile-landscape-emulated",
+      "file": "mobile-landscape-emulated.png",
+      "path": "/workspace/hapil1/qa/rc225/03edd0d3dd553b008de9fe071fc78ba6438e5b5b/mobile-landscape-emulated.png",
+      "bytes": 412081,
+      "sha256": "89913913152061701ccec1c6e9f452f0cfc387f1e30617913ed485166ef45ea5",
+      "appSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "at": "2026-10-18T06:12:14.581Z"
+    }
+  ],
+  "checks": [
+    {
+      "name": "PC browser initializes the integrated native movement and shooter modules",
+      "status": "passed",
+      "evidence": {
+        "browser": "151.0.7922.173",
+        "phase": "game",
+        "zone": "dist01",
+        "nativeArena": true,
+        "leftZone": true,
+        "shooter": "RC225"
+      }
+    },
+    {
+      "name": "left floor movement, true native clamp, and intended penalty",
+      "status": "passed",
+      "evidence": {
+        "movement": {
+          "start": {
+            "x": 20.4729982633,
+            "y": 27.2918631182,
+            "time": 2.706599999999998
+          },
+          "end": {
+            "x": 17.46737974478146,
+            "y": 29.702744599681466,
+            "time": 3.8231999999999955
+          },
+          "simSeconds": 1.1165999999999974,
+          "changed": 3.8530627034363003,
+          "crossedExtension": true,
+          "reachedTarget": true,
+          "floorAtEnd": true,
+          "allowedAtEnd": true,
+          "canMoveAtEnd": true,
+          "finalWalkable": true,
+          "samples": [
+            {
+              "x": 18.864113078114805,
+              "y": 28.51647793301481,
+              "time": 3.3065999999999964,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.818961226262957,
+              "y": 28.554826081162954,
+              "time": 3.3232999999999953,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.7738093744111,
+              "y": 28.593174229311103,
+              "time": 3.339999999999996,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.72892789292962,
+              "y": 28.631292747829622,
+              "time": 3.3565999999999963,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.68377604107777,
+              "y": 28.669640895977768,
+              "time": 3.373299999999995,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.638894559596288,
+              "y": 28.707759414496287,
+              "time": 3.3898999999999955,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.593742707744433,
+              "y": 28.746107562644436,
+              "time": 3.406599999999996,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.548590855892584,
+              "y": 28.78445571079258,
+              "time": 3.423299999999995,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.50343900404073,
+              "y": 28.82280385894073,
+              "time": 3.4399999999999955,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.458557522559246,
+              "y": 28.86092237745925,
+              "time": 3.456599999999996,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.413676041077764,
+              "y": 28.89904089597777,
+              "time": 3.4731999999999963,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.368524189225916,
+              "y": 28.937389044125915,
+              "time": 3.489899999999995,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.32337233737406,
+              "y": 28.975737192274064,
+              "time": 3.5065999999999957,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.278220485522212,
+              "y": 29.01408534042221,
+              "time": 3.5232999999999945,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.233068633670356,
+              "y": 29.052433488570358,
+              "time": 3.539999999999995,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.188187152188874,
+              "y": 29.090552007088878,
+              "time": 3.5565999999999955,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.143035300337026,
+              "y": 29.128900155237023,
+              "time": 3.5732999999999944,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.098153818855543,
+              "y": 29.167018673755543,
+              "time": 3.5898999999999948,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.053001967003688,
+              "y": 29.20536682190369,
+              "time": 3.6065999999999954,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 18.008120485522205,
+              "y": 29.24348534042221,
+              "time": 3.6231999999999958,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.962698263299984,
+              "y": 29.282063118199986,
+              "time": 3.6399999999999952,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.9178167818185,
+              "y": 29.320181636718505,
+              "time": 3.6565999999999956,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.872664929966653,
+              "y": 29.35852978486665,
+              "time": 3.6732999999999945,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.82778344848517,
+              "y": 29.39664830338517,
+              "time": 3.689899999999995,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.782631596633315,
+              "y": 29.43499645153332,
+              "time": 3.7065999999999955,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.737750115151833,
+              "y": 29.47311497005184,
+              "time": 3.723199999999996,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.692598263299985,
+              "y": 29.511463118199984,
+              "time": 3.7398999999999947,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.64744641144813,
+              "y": 29.549811266348133,
+              "time": 3.7565999999999953,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.602564929966647,
+              "y": 29.587929784866652,
+              "time": 3.7731999999999957,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.5574130781148,
+              "y": 29.626277933014798,
+              "time": 3.7898999999999945,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.512261226262943,
+              "y": 29.664626081162947,
+              "time": 3.806599999999995,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            },
+            {
+              "x": 17.46737974478146,
+              "y": 29.702744599681466,
+              "time": 3.8231999999999955,
+              "physical": true,
+              "allowed": true,
+              "canMove": true,
+              "walkable": true
+            }
+          ],
+          "input": null
+        },
+        "points": [
+          {
+            "p": {
+              "x": 18.9,
+              "y": 27.2918631182
+            },
+            "nativeAll": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "p": {
+              "x": 18.5,
+              "y": 27.2918631182
+            },
+            "nativeAll": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "p": {
+              "x": 17,
+              "y": 27.2918631182
+            },
+            "nativeAll": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "p": {
+              "x": 14,
+              "y": 27.2918631182
+            },
+            "nativeAll": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          }
+        ],
+        "penalty": {
+          "before": {
+            "point": {
+              "x": 15,
+              "y": 14
+            },
+            "oldLeftAllowed": false,
+            "nativeAll": true,
+            "allowed": true,
+            "region": true,
+            "factors": {
+              "active": true,
+              "exposed": true,
+              "outgoing": 0.9,
+              "movement": 0.9,
+              "status": "left-zone"
+            },
+            "startHp": 240,
+            "startTime": 3.8231999999999955,
+            "metrics": {
+              "entries": 0,
+              "exits": 0,
+              "tickAttempts": 0,
+              "damageApplied": 0,
+              "duplicateFrames": 0,
+              "authoritySkips": 0
+            }
+          },
+          "after": {
+            "hp": 239.66666666666666,
+            "time": 5.823200000000015,
+            "metrics": {
+              "entries": 1,
+              "exits": 0,
+              "tickAttempts": 1,
+              "damageApplied": 1,
+              "duplicateFrames": 0,
+              "authoritySkips": 0
+            },
+            "readout": {
+              "version": "RC223",
+              "zone": "dist01",
+              "actorId": "__host",
+              "owner": "host",
+              "inRegion": true,
+              "exposed": true,
+              "active": true,
+              "elapsedSeconds": 2.000000000000003,
+              "graceRemainingSeconds": 0,
+              "nextDamageSeconds": 0.9999999999999969,
+              "ticks": 1,
+              "appliedTicks": 1,
+              "lastRawDamage": 1.2,
+              "lastDamageAt": 5.806500000000014,
+              "outgoingMultiplier": 0.9,
+              "movementMultiplier": 0.9,
+              "warning": "위험 지대 · 체력과 전투력이 감소합니다"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ordinary boss right placement and Persona exception",
+      "status": "passed",
+      "evidence": {
+        "source": {
+          "id": "mb-dist01",
+          "boss": false,
+          "midboss": true
+        },
+        "spawn": {
+          "x": 24.5,
+          "y": 10.5,
+          "across": 14,
+          "depth": 35,
+          "inside": true,
+          "playerDistance": 17.383325343558404
+        },
+        "transformed": {
+          "x": 27.5,
+          "y": 13.5,
+          "across": 14,
+          "depth": 41,
+          "inside": true,
+          "playerDistance": 17.383325343558404
+        },
+        "teleportOk": true,
+        "teleport": {
+          "x": 24.5,
+          "y": 10.5,
+          "across": 14,
+          "depth": 35,
+          "inside": true,
+          "playerDistance": 17.383325343558404
+        },
+        "fullAuto": {
+          "x": 24.5,
+          "y": 10.5,
+          "across": 14,
+          "depth": 35,
+          "inside": true,
+          "playerDistance": 17.383325343558404
+        },
+        "personaStable": true,
+        "policy": {
+          "narrowSpan": 0.34,
+          "scatterSpan": 0.96,
+          "rightAcrossMin": 14,
+          "rightAcrossMax": 16,
+          "rightDepthMin": 35,
+          "rightDepthMax": 41,
+          "bodyWidth": 3,
+          "bodyAbove": 2.4,
+          "bodyBelow": 0.6
+        },
+        "locked": true
+      }
+    },
+    {
+      "name": "native basic fire, focus, EGO and D countershot",
+      "status": "passed",
+      "evidence": {
+        "mode": "semi",
+        "attacks": 5,
+        "time": 9.700300000000011,
+        "beforeHp": 3178.348038837999,
+        "bossHp": 2629.786727344008,
+        "metrics": {
+          "installed": true,
+          "focusedVolleys": 40,
+          "parryContacts": 0,
+          "resonanceShots": 0,
+          "interludesStarted": 0,
+          "interludeActors": 0,
+          "interludesCompleted": 0,
+          "interludesSkipped": 0
+        },
+        "lastStrikes": [
+          {
+            "targetId": "mb-dist01",
+            "power": 83.14099200000003,
+            "style": "rapid-fire",
+            "focus": 0.08
+          },
+          {
+            "targetId": "mb-dist01",
+            "power": 50.38848,
+            "style": "rapid-fire",
+            "focus": 0.08
+          },
+          {
+            "targetId": "mb-dist01",
+            "power": 50.38848,
+            "style": "rapid-fire",
+            "focus": 0.08
+          },
+          {
+            "targetId": "mb-dist01",
+            "power": 83.14099200000003,
+            "style": "rapid-fire",
+            "focus": 0.08
+          }
+        ],
+        "flightEffects": [
+          {
+            "kind": "projectile",
+            "born": 8.821800000000016,
+            "duration": 0.48500000000000015,
+            "tx": 25.798819776991195,
+            "ty": 11.542911477171508,
+            "profile": "rapid-fire",
+            "focus": 0.08,
+            "ego": false,
+            "arrivalAt": 9.106800000000016,
+            "targetAdjusted": true
+          },
+          {
+            "kind": "projectile",
+            "born": 8.955100000000016,
+            "duration": 0.48500000000000015,
+            "tx": 25.798819776991195,
+            "ty": 11.542911477171508,
+            "profile": "rapid-fire",
+            "focus": 0.08,
+            "ego": false,
+            "arrivalAt": 9.240100000000016,
+            "targetAdjusted": true
+          },
+          {
+            "kind": "projectile",
+            "born": 9.061800000000016,
+            "duration": 0.48500000000000015,
+            "tx": 25.798819776991195,
+            "ty": 11.542911477171508,
+            "profile": "rapid-fire",
+            "focus": 0.08,
+            "ego": false,
+            "arrivalAt": 9.346800000000016,
+            "targetAdjusted": true
+          },
+          {
+            "kind": "projectile",
+            "born": 9.168500000000014,
+            "duration": 0.48500000000000015,
+            "tx": 25.798819776991195,
+            "ty": 11.542911477171508,
+            "profile": "rapid-fire",
+            "focus": 0.08,
+            "ego": false,
+            "arrivalAt": 9.453500000000014,
+            "targetAdjusted": true
+          },
+          {
+            "kind": "projectile",
+            "born": 9.281900000000014,
+            "duration": 0.31700000000000017,
+            "tx": 25.798819776991195,
+            "ty": 11.542911477171508,
+            "profile": "rapid-fire",
+            "focus": 0.08,
+            "ego": false,
+            "arrivalAt": 9.566900000000015,
+            "targetAdjusted": true
+          }
+        ],
+        "pending": 1,
+        "defenseDiagnostics": {
+          "apiMetrics": {
+            "casts": 1,
+            "contacts": 1,
+            "duplicates": 0,
+            "healed": 0,
+            "conversions": 0,
+            "ended": 1
+          },
+          "wrapped": true,
+          "active": false,
+          "snapshot": null,
+          "world": {
+            "hp": 240,
+            "timeStopUntil": 9.700300000000011,
+            "paused": false,
+            "pause": false,
+            "mode": "semi",
+            "targetId": "mb-dist01"
+          },
+          "attackReadinessBefore": {
+            "time": 9.700300000000011,
+            "lastAttack": 9.700300000000011,
+            "targetId": "mb-dist01",
+            "enemies": 1,
+            "controlMode": "semi",
+            "blocked": false,
+            "partyBlocks": false,
+            "channelActive": false,
+            "arenaLocked": true,
+            "hardLocked": false
+          },
+          "attackReadinessAfter": {
+            "time": 9.700300000000011,
+            "lastAttack": 9.700300000000011,
+            "pending": [
+              {
+                "actionKey": "A",
+                "targetId": "mb-dist01",
+                "power": 43.199999999999996,
+                "counter": false
+              },
+              {
+                "actionKey": "A",
+                "targetId": "mb-dist01",
+                "power": 43.199999999999996,
+                "counter": false
+              },
+              {
+                "actionKey": "A",
+                "targetId": "mb-dist01",
+                "power": 53.99999999999999,
+                "counter": true
+              },
+              {
+                "actionKey": "A",
+                "targetId": "mb-dist01",
+                "power": 43.99917059486673,
+                "counter": false
+              }
+            ]
+          }
+        },
+        "fullAuto": {
+          "mode": "full",
+          "focus": null,
+          "shotCount": 1
+        },
+        "counter": {
+          "cast": true,
+          "contact": true,
+          "resonanceAfterContact": 54,
+          "countershotsAtRelease": 1,
+          "countershots": 0,
+          "shot": {
+            "power": 53.99999999999999,
+            "boosted": true
+          },
+          "metrics": {
+            "installed": true,
+            "focusedVolleys": 42,
+            "parryContacts": 1,
+            "resonanceShots": 1,
+            "interludesStarted": 0,
+            "interludeActors": 0,
+            "interludesCompleted": 0,
+            "interludesSkipped": 0
+          },
+          "resonanceBeforeShot": 54,
+          "resonanceAfterShot": 54
+        },
+        "ego": {
+          "awake": true,
+          "strike": true,
+          "shot": {
+            "profile": "rapid-fire",
+            "boosted": true,
+            "size": 1.0304000000000002
+          }
+        },
+        "projectileDamageLinked": true,
+        "focusStyle": "rapid-fire"
+      }
+    },
+    {
+      "name": "sequential interlude native kill rewards and checkpoint isolation",
+      "status": "passed",
+      "evidence": {
+        "initial": {
+          "entered": false,
+          "first": {
+            "id": "rc225-interlude-dist01-1",
+            "hp": 28,
+            "maxHp": 28,
+            "required": false,
+            "zone": "dist01"
+          },
+          "gateWithActor": false,
+          "saveEvidence": {
+            "waves": [
+              1,
+              2,
+              3
+            ],
+            "serializedTransient": true,
+            "normalizedTransient": true,
+            "restoredTransient": false
+          },
+          "initialMetrics": {
+            "installed": true,
+            "focusedVolleys": 56,
+            "parryContacts": 1,
+            "resonanceShots": 1,
+            "interludesStarted": 1,
+            "interludeActors": 1,
+            "interludesCompleted": 0,
+            "interludesSkipped": 0
+          }
+        },
+        "kills": [
+          {
+            "held": false,
+            "actor": "rc225-interlude-dist01-1",
+            "liveAfter": [],
+            "time": 10.8234,
+            "resonanceBefore": 0,
+            "resonanceAfter": 10,
+            "nativeResonanceAward": 10,
+            "removed": true,
+            "metrics": {
+              "installed": true,
+              "focusedVolleys": 56,
+              "parryContacts": 1,
+              "resonanceShots": 1,
+              "interludesStarted": 1,
+              "interludeActors": 1,
+              "interludesCompleted": 0,
+              "interludesSkipped": 0
+            }
+          },
+          {
+            "held": false,
+            "actor": "rc225-interlude-dist01-2",
+            "liveAfter": [],
+            "time": 11.523399999999999,
+            "resonanceBefore": 10,
+            "resonanceAfter": 20,
+            "nativeResonanceAward": 10,
+            "removed": true,
+            "metrics": {
+              "installed": true,
+              "focusedVolleys": 56,
+              "parryContacts": 1,
+              "resonanceShots": 1,
+              "interludesStarted": 1,
+              "interludeActors": 2,
+              "interludesCompleted": 0,
+              "interludesSkipped": 0
+            }
+          },
+          {
+            "held": false,
+            "actor": "rc225-interlude-dist01-3",
+            "liveAfter": [],
+            "time": 12.223399999999998,
+            "resonanceBefore": 20,
+            "resonanceAfter": 30,
+            "nativeResonanceAward": 10,
+            "removed": true,
+            "metrics": {
+              "installed": true,
+              "focusedVolleys": 56,
+              "parryContacts": 1,
+              "resonanceShots": 1,
+              "interludesStarted": 1,
+              "interludeActors": 3,
+              "interludesCompleted": 0,
+              "interludesSkipped": 0
+            }
+          }
+        ],
+        "release": {
+          "ready": true,
+          "waves": [
+            1,
+            2,
+            3
+          ],
+          "metrics": {
+            "installed": true,
+            "focusedVolleys": 56,
+            "parryContacts": 1,
+            "resonanceShots": 1,
+            "interludesStarted": 1,
+            "interludeActors": 3,
+            "interludesCompleted": 1,
+            "interludesSkipped": 0
+          }
+        },
+        "progression": "fixture calls the real wrapped waveAdvanceReady; the native scheduler/boss entrance was not advanced by natural play"
+      }
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "requestFailures": [
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:41601/assets/rc225/shooter.js?v=22501",
+      "failure": "net::ERR_FAILED",
+      "expected": true
+    },
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:41601/assets/rc26/audio/opening-memory.wav",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:41601/audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "baseline",
+      "url": "http://127.0.0.1:41601/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "desktop",
+      "url": "http://127.0.0.1:41601/audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "desktop",
+      "url": "http://127.0.0.1:41601/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "desktop",
+      "url": "http://127.0.0.1:41601/audio/rc133/processed/bgm/Clockwork_Ticks_1_1-ae97c712.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "mobile",
+      "url": "http://127.0.0.1:41601/audio/rc133/processed/bgm/Folding_Space_1-c535f55c.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "page": "mobile",
+      "url": "http://127.0.0.1:41601/audio/v3127/bgm-nightmare-blade.mp3?v=31332",
+      "failure": "net::ERR_ABORTED",
+      "expected": false
+    }
+  ],
+  "performance": {
+    "baseline": {
+      "launch": {
+        "phase": "game",
+        "party": {
+          "ready": true,
+          "enabled": true,
+          "mode": "local2",
+          "role": "offline",
+          "disconnected": false,
+          "zone": "dist00",
+          "slots": [
+            {
+              "slotId": "p1",
+              "heroId": "gunner",
+              "name": "기억사수",
+              "control": "host",
+              "x": 15.275000000000004,
+              "y": 16.725000000000005,
+              "hp": 240,
+              "maxHp": 240,
+              "down": false
+            },
+            {
+              "slotId": "p2",
+              "heroId": "slayer",
+              "name": "악몽 사냥꾼 · 검사",
+              "control": "local",
+              "x": 12.472998263302388,
+              "y": 19.291863118193795,
+              "hp": 240,
+              "maxHp": 240,
+              "facing": 1,
+              "direction": "right",
+              "moveVx": 0,
+              "moveVy": 0,
+              "readyAt": 0.3314285714285714,
+              "skillReady": [
+                0,
+                0,
+                0
+              ],
+              "ultimateReady": 0,
+              "dashReady": 0,
+              "invulnerableUntil": 1.24,
+              "downUntil": 0,
+              "lastDodgeAt": -99,
+              "heroMotion": {
+                "kind": "attack",
+                "started": 0.2,
+                "until": 0.52,
+                "facing": 1,
+                "dx": 12.051915290595415,
+                "dy": -8.766949564295992,
+                "direction": "right",
+                "skillIndex": 3,
+                "phase": 2.4000000000000004,
+                "characterSectorV31342": "e",
+                "characterCommitV31342": {
+                  "at": 0.2,
+                  "dx": 12.051915290595415,
+                  "dy": -8.766949564295992,
+                  "sector": "e"
+                },
+                "themeAimLockV31323": true
+              },
+              "themeAimV31323": {
+                "x": 12.472998263302388,
+                "y": 19.291863118193795,
+                "dx": 12.051915290595415,
+                "dy": -8.766949564295992,
+                "sx": 0.9969023239602163,
+                "sy": 0.07864958030860507,
+                "at": 0.2,
+                "born": 0.2,
+                "key": "A",
+                "until": 0.5,
+                "characterSectorV31342": "e"
+              },
+              "themeRootUntilV31323": 0,
+              "themeRootImmuneV31323": 0,
+              "themeRootZoneV31323": null,
+              "down": false
+            }
+          ],
+          "wipeCount": 0,
+          "snapshotSeq": -1,
+          "paused": false,
+          "inputBlocked": false,
+          "waitingForHost": false
+        },
+        "roster": [
+          {
+            "heroId": "gunner",
+            "control": "host"
+          },
+          {
+            "heroId": "slayer",
+            "control": "local"
+          }
+        ],
+        "zone": "dist00",
+        "gameMode": "STORY"
+      },
+      "entry": {
+        "zone": "dist01",
+        "time": 0.36,
+        "position": {
+          "x": 13.8,
+          "y": 24.2
+        },
+        "campaignFields": {
+          "spawnedWaves": [
+            1
+          ],
+          "bossDefeated": false
+        },
+        "nativeArena": {
+          "version": 1,
+          "zone": "dist01",
+          "enabled": true,
+          "locked": true,
+          "clear": false,
+          "reason": "combat",
+          "playerSide": "left",
+          "enemySide": "right",
+          "hostiles": 0,
+          "entry": {
+            "x": 13.8,
+            "y": 24.2
+          },
+          "exit": {
+            "x": 24.8,
+            "y": 13.2
+          }
+        }
+      },
+      "frameSample": {
+        "frames": 139,
+        "medianMs": 16.69999999999891,
+        "p95Ms": 16.799999999999272,
+        "maxMs": 66.70000000000073,
+        "longFramesOver33ms": 4,
+        "webglRenderer": "WebKit WebGL",
+        "canvasBacking": [
+          [
+            1050,
+            590
+          ]
+        ]
+      },
+      "moduleDisabledByRoute": true
+    },
+    "rc225": {
+      "frameSample": {
+        "frames": 135,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.29999999999927,
+        "maxMs": 66.69999999999982,
+        "longFramesOver33ms": 7,
+        "webglRenderer": "WebKit WebGL",
+        "canvasBacking": [
+          [
+            1050,
+            590
+          ]
+        ]
+      },
+      "shooter": {
+        "installed": true,
+        "focusedVolleys": 0,
+        "parryContacts": 0,
+        "resonanceShots": 0,
+        "interludesStarted": 0,
+        "interludeActors": 0,
+        "interludesCompleted": 0,
+        "interludesSkipped": 0
+      }
+    },
+    "referenceBefore": {
+      "appSha": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+      "frameSample": {
+        "frames": 103,
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "maxMs": 166.6999999999989,
+        "longFramesOver33ms": 20,
+        "webglRenderer": "WebKit WebGL",
+        "canvasBacking": [
+          [
+            1050,
+            590
+          ]
+        ]
+      },
+      "route": "same title and native local2 launch into a staged dist01 fixture",
+      "method": "1.6 s warmup followed by 2.4 s requestAnimationFrame sample"
+    },
+    "comparison": {
+      "referenceAppSha": "b0b919d4e18c2e93f871606ece0744d077ff7239",
+      "candidateAppSha": "03edd0d3dd553b008de9fe071fc78ba6438e5b5b",
+      "reference": {
+        "medianMs": 16.699999999999818,
+        "p95Ms": 50,
+        "maxMs": 166.6999999999989,
+        "longFramesOver33ms": 20,
+        "frames": 103
+      },
+      "candidate": {
+        "medianMs": 16.699999999999818,
+        "p95Ms": 33.29999999999927,
+        "maxMs": 66.69999999999982,
+        "longFramesOver33ms": 7,
+        "frames": 135
+      },
+      "candidateWithoutShooter": {
+        "medianMs": 16.69999999999891,
+        "p95Ms": 16.799999999999272,
+        "maxMs": 66.70000000000073,
+        "longFramesOver33ms": 4,
+        "frames": 139
+      },
+      "caveat": "Short headless frame samples vary with page and renderer scheduling; median stayed at one 60 Hz frame. Do not treat this as a hardware performance benchmark."
+    }
+  },
+  "browserVersion": "151.0.7922.173",
+  "sources": [
+    {
+      "file": "index.html",
+      "bytes": 14662,
+      "sha256": "6f542d704c67f063908851357ba444a16236a0e500657f6326b0aa52c6651c03"
+    },
+    {
+      "file": "assets/index-v31526.js",
+      "bytes": 6304137,
+      "sha256": "5de7c13643b62d335c92ace3b1adecd9810b25a313f8b71ca07c827aab9308d2"
+    },
+    {
+      "file": "assets/rc128/combat-feedback.js",
+      "bytes": 24324,
+      "sha256": "ea096c8a5ff4dd92de4a11ffc98d69d29d140a4304b39158af7dc06275d4991d"
+    },
+    {
+      "file": "assets/rc138/battle-arena.js",
+      "bytes": 10993,
+      "sha256": "4414ee29c070a971088eaa51a67f443fb0a39d995891e9eff3f6017daf5d3396"
+    },
+    {
+      "file": "assets/rc153/combat-layout.js",
+      "bytes": 27011,
+      "sha256": "2c98dfe8ee28b64bff4ac12cbc71a77ba1b0b3319b9bf2f6fcb4400d36a6fb1d"
+    },
+    {
+      "file": "assets/rc223/left-zone.js",
+      "bytes": 9339,
+      "sha256": "9ee4cdc41830ed875725097acf28f8b3f4048236dd39a76b0f74847a167d9f0a"
+    },
+    {
+      "file": "assets/rc225/shooter.js",
+      "bytes": 10002,
+      "sha256": "367a4a5711c13ad2f6069ffefcd19c657d375f5f596af90a91b8bffc3fb0096a"
+    }
+  ],
+  "launch": {
+    "phase": "game",
+    "party": {
+      "ready": true,
+      "enabled": true,
+      "mode": "local2",
+      "role": "offline",
+      "disconnected": false,
+      "zone": "dist00",
+      "slots": [
+        {
+          "slotId": "p1",
+          "heroId": "gunner",
+          "name": "기억사수",
+          "control": "host",
+          "x": 15.275000000000004,
+          "y": 16.725000000000005,
+          "hp": 240,
+          "maxHp": 240,
+          "down": false
+        },
+        {
+          "slotId": "p2",
+          "heroId": "slayer",
+          "name": "악몽 사냥꾼 · 검사",
+          "control": "local",
+          "x": 12.472998263302388,
+          "y": 19.291863118193795,
+          "hp": 240,
+          "maxHp": 240,
+          "facing": 1,
+          "direction": "right",
+          "moveVx": 0,
+          "moveVy": 0,
+          "readyAt": 0.3314285714285714,
+          "skillReady": [
+            0,
+            0,
+            0
+          ],
+          "ultimateReady": 0,
+          "dashReady": 0,
+          "invulnerableUntil": 1.24,
+          "downUntil": 0,
+          "lastDodgeAt": -99,
+          "heroMotion": {
+            "kind": "attack",
+            "started": 0.2,
+            "until": 0.52,
+            "facing": 1,
+            "dx": 12.051915290595415,
+            "dy": -8.766949564295992,
+            "direction": "right",
+            "skillIndex": 3,
+            "phase": 2.4000000000000004,
+            "characterSectorV31342": "e",
+            "characterCommitV31342": {
+              "at": 0.2,
+              "dx": 12.051915290595415,
+              "dy": -8.766949564295992,
+              "sector": "e"
+            },
+            "themeAimLockV31323": true
+          },
+          "themeAimV31323": {
+            "x": 12.472998263302388,
+            "y": 19.291863118193795,
+            "dx": 12.051915290595415,
+            "dy": -8.766949564295992,
+            "sx": 0.9969023239602163,
+            "sy": 0.07864958030860507,
+            "at": 0.2,
+            "born": 0.2,
+            "key": "A",
+            "until": 0.5,
+            "characterSectorV31342": "e"
+          },
+          "themeRootUntilV31323": 0,
+          "themeRootImmuneV31323": 0,
+          "themeRootZoneV31323": null,
+          "down": false
+        }
+      ],
+      "wipeCount": 0,
+      "snapshotSeq": -1,
+      "paused": false,
+      "inputBlocked": false,
+      "waitingForHost": false
+    },
+    "roster": [
+      {
+        "heroId": "gunner",
+        "control": "host"
+      },
+      {
+        "heroId": "slayer",
+        "control": "local"
+      }
+    ],
+    "zone": "dist00",
+    "gameMode": "STORY"
+  },
+  "entry": {
+    "zone": "dist01",
+    "time": 0.24000000000000002,
+    "position": {
+      "x": 13.8,
+      "y": 24.2
+    },
+    "campaignFields": {
+      "spawnedWaves": [
+        1
+      ],
+      "bossDefeated": false
+    },
+    "nativeArena": {
+      "version": 1,
+      "zone": "dist01",
+      "enabled": true,
+      "locked": true,
+      "clear": false,
+      "reason": "combat",
+      "playerSide": "left",
+      "enemySide": "right",
+      "hostiles": 0,
+      "entry": {
+        "x": 13.8,
+        "y": 24.2
+      },
+      "exit": {
+        "x": 24.8,
+        "y": 13.2
+      }
+    }
+  },
+  "movement": {
+    "trace": {
+      "start": {
+        "x": 20.4729982633,
+        "y": 27.2918631182,
+        "time": 2.706599999999998
+      },
+      "end": {
+        "x": 17.46737974478146,
+        "y": 29.702744599681466,
+        "time": 3.8231999999999955
+      },
+      "simSeconds": 1.1165999999999974,
+      "changed": 3.8530627034363003,
+      "crossedExtension": true,
+      "reachedTarget": true,
+      "floorAtEnd": true,
+      "allowedAtEnd": true,
+      "canMoveAtEnd": true,
+      "finalWalkable": true,
+      "samples": [
+        {
+          "x": 18.864113078114805,
+          "y": 28.51647793301481,
+          "time": 3.3065999999999964,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.818961226262957,
+          "y": 28.554826081162954,
+          "time": 3.3232999999999953,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.7738093744111,
+          "y": 28.593174229311103,
+          "time": 3.339999999999996,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.72892789292962,
+          "y": 28.631292747829622,
+          "time": 3.3565999999999963,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.68377604107777,
+          "y": 28.669640895977768,
+          "time": 3.373299999999995,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.638894559596288,
+          "y": 28.707759414496287,
+          "time": 3.3898999999999955,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.593742707744433,
+          "y": 28.746107562644436,
+          "time": 3.406599999999996,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.548590855892584,
+          "y": 28.78445571079258,
+          "time": 3.423299999999995,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.50343900404073,
+          "y": 28.82280385894073,
+          "time": 3.4399999999999955,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.458557522559246,
+          "y": 28.86092237745925,
+          "time": 3.456599999999996,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.413676041077764,
+          "y": 28.89904089597777,
+          "time": 3.4731999999999963,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.368524189225916,
+          "y": 28.937389044125915,
+          "time": 3.489899999999995,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.32337233737406,
+          "y": 28.975737192274064,
+          "time": 3.5065999999999957,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.278220485522212,
+          "y": 29.01408534042221,
+          "time": 3.5232999999999945,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.233068633670356,
+          "y": 29.052433488570358,
+          "time": 3.539999999999995,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.188187152188874,
+          "y": 29.090552007088878,
+          "time": 3.5565999999999955,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.143035300337026,
+          "y": 29.128900155237023,
+          "time": 3.5732999999999944,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.098153818855543,
+          "y": 29.167018673755543,
+          "time": 3.5898999999999948,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.053001967003688,
+          "y": 29.20536682190369,
+          "time": 3.6065999999999954,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 18.008120485522205,
+          "y": 29.24348534042221,
+          "time": 3.6231999999999958,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.962698263299984,
+          "y": 29.282063118199986,
+          "time": 3.6399999999999952,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.9178167818185,
+          "y": 29.320181636718505,
+          "time": 3.6565999999999956,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.872664929966653,
+          "y": 29.35852978486665,
+          "time": 3.6732999999999945,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.82778344848517,
+          "y": 29.39664830338517,
+          "time": 3.689899999999995,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.782631596633315,
+          "y": 29.43499645153332,
+          "time": 3.7065999999999955,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.737750115151833,
+          "y": 29.47311497005184,
+          "time": 3.723199999999996,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.692598263299985,
+          "y": 29.511463118199984,
+          "time": 3.7398999999999947,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.64744641144813,
+          "y": 29.549811266348133,
+          "time": 3.7565999999999953,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.602564929966647,
+          "y": 29.587929784866652,
+          "time": 3.7731999999999957,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.5574130781148,
+          "y": 29.626277933014798,
+          "time": 3.7898999999999945,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.512261226262943,
+          "y": 29.664626081162947,
+          "time": 3.806599999999995,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        {
+          "x": 17.46737974478146,
+          "y": 29.702744599681466,
+          "time": 3.8231999999999955,
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        }
+      ],
+      "input": null
+    },
+    "integratedPoints": [
+      {
+        "p": {
+          "x": 18.9,
+          "y": 27.2918631182
+        },
+        "nativeAll": true,
+        "allowed": true,
+        "canMove": true,
+        "walkable": true
+      },
+      {
+        "p": {
+          "x": 18.5,
+          "y": 27.2918631182
+        },
+        "nativeAll": true,
+        "allowed": true,
+        "canMove": true,
+        "walkable": true
+      },
+      {
+        "p": {
+          "x": 17,
+          "y": 27.2918631182
+        },
+        "nativeAll": true,
+        "allowed": true,
+        "canMove": true,
+        "walkable": true
+      },
+      {
+        "p": {
+          "x": 14,
+          "y": 27.2918631182
+        },
+        "nativeAll": true,
+        "allowed": true,
+        "canMove": true,
+        "walkable": true
+      }
+    ],
+    "penalty": {
+      "before": {
+        "point": {
+          "x": 15,
+          "y": 14
+        },
+        "oldLeftAllowed": false,
+        "nativeAll": true,
+        "allowed": true,
+        "region": true,
+        "factors": {
+          "active": true,
+          "exposed": true,
+          "outgoing": 0.9,
+          "movement": 0.9,
+          "status": "left-zone"
+        },
+        "startHp": 240,
+        "startTime": 3.8231999999999955,
+        "metrics": {
+          "entries": 0,
+          "exits": 0,
+          "tickAttempts": 0,
+          "damageApplied": 0,
+          "duplicateFrames": 0,
+          "authoritySkips": 0
+        }
+      },
+      "after": {
+        "hp": 239.66666666666666,
+        "time": 5.823200000000015,
+        "metrics": {
+          "entries": 1,
+          "exits": 0,
+          "tickAttempts": 1,
+          "damageApplied": 1,
+          "duplicateFrames": 0,
+          "authoritySkips": 0
+        },
+        "readout": {
+          "version": "RC223",
+          "zone": "dist01",
+          "actorId": "__host",
+          "owner": "host",
+          "inRegion": true,
+          "exposed": true,
+          "active": true,
+          "elapsedSeconds": 2.000000000000003,
+          "graceRemainingSeconds": 0,
+          "nextDamageSeconds": 0.9999999999999969,
+          "ticks": 1,
+          "appliedTicks": 1,
+          "lastRawDamage": 1.2,
+          "lastDamageAt": 5.806500000000014,
+          "outgoingMultiplier": 0.9,
+          "movementMultiplier": 0.9,
+          "warning": "위험 지대 · 체력과 전투력이 감소합니다"
+        }
+      }
+    },
+    "reproducedBlockage": false,
+    "baselineReproduction": "No full route blockage was found; real Playwright local-player input crosses x=19 and reaches x≈17.46 while the final applied point passes the physical floor, RC223 and walkable checks."
+  },
+  "boss": {
+    "source": {
+      "id": "mb-dist01",
+      "boss": false,
+      "midboss": true
+    },
+    "spawn": {
+      "x": 24.5,
+      "y": 10.5,
+      "across": 14,
+      "depth": 35,
+      "inside": true,
+      "playerDistance": 17.383325343558404
+    },
+    "transformed": {
+      "x": 27.5,
+      "y": 13.5,
+      "across": 14,
+      "depth": 41,
+      "inside": true,
+      "playerDistance": 17.383325343558404
+    },
+    "teleportOk": true,
+    "teleport": {
+      "x": 24.5,
+      "y": 10.5,
+      "across": 14,
+      "depth": 35,
+      "inside": true,
+      "playerDistance": 17.383325343558404
+    },
+    "fullAuto": {
+      "x": 24.5,
+      "y": 10.5,
+      "across": 14,
+      "depth": 35,
+      "inside": true,
+      "playerDistance": 17.383325343558404
+    },
+    "personaStable": true,
+    "policy": {
+      "narrowSpan": 0.34,
+      "scatterSpan": 0.96,
+      "rightAcrossMin": 14,
+      "rightAcrossMax": 16,
+      "rightDepthMin": 35,
+      "rightDepthMax": 41,
+      "bodyWidth": 3,
+      "bodyAbove": 2.4,
+      "bodyBelow": 0.6
+    },
+    "locked": true
+  },
+  "shooting": {
+    "mode": "semi",
+    "attacks": 5,
+    "time": 9.700300000000011,
+    "beforeHp": 3178.348038837999,
+    "bossHp": 2629.786727344008,
+    "metrics": {
+      "installed": true,
+      "focusedVolleys": 40,
+      "parryContacts": 0,
+      "resonanceShots": 0,
+      "interludesStarted": 0,
+      "interludeActors": 0,
+      "interludesCompleted": 0,
+      "interludesSkipped": 0
+    },
+    "lastStrikes": [
+      {
+        "targetId": "mb-dist01",
+        "power": 83.14099200000003,
+        "style": "rapid-fire",
+        "focus": 0.08
+      },
+      {
+        "targetId": "mb-dist01",
+        "power": 50.38848,
+        "style": "rapid-fire",
+        "focus": 0.08
+      },
+      {
+        "targetId": "mb-dist01",
+        "power": 50.38848,
+        "style": "rapid-fire",
+        "focus": 0.08
+      },
+      {
+        "targetId": "mb-dist01",
+        "power": 83.14099200000003,
+        "style": "rapid-fire",
+        "focus": 0.08
+      }
+    ],
+    "flightEffects": [
+      {
+        "kind": "projectile",
+        "born": 8.821800000000016,
+        "duration": 0.48500000000000015,
+        "tx": 25.798819776991195,
+        "ty": 11.542911477171508,
+        "profile": "rapid-fire",
+        "focus": 0.08,
+        "ego": false,
+        "arrivalAt": 9.106800000000016,
+        "targetAdjusted": true
+      },
+      {
+        "kind": "projectile",
+        "born": 8.955100000000016,
+        "duration": 0.48500000000000015,
+        "tx": 25.798819776991195,
+        "ty": 11.542911477171508,
+        "profile": "rapid-fire",
+        "focus": 0.08,
+        "ego": false,
+        "arrivalAt": 9.240100000000016,
+        "targetAdjusted": true
+      },
+      {
+        "kind": "projectile",
+        "born": 9.061800000000016,
+        "duration": 0.48500000000000015,
+        "tx": 25.798819776991195,
+        "ty": 11.542911477171508,
+        "profile": "rapid-fire",
+        "focus": 0.08,
+        "ego": false,
+        "arrivalAt": 9.346800000000016,
+        "targetAdjusted": true
+      },
+      {
+        "kind": "projectile",
+        "born": 9.168500000000014,
+        "duration": 0.48500000000000015,
+        "tx": 25.798819776991195,
+        "ty": 11.542911477171508,
+        "profile": "rapid-fire",
+        "focus": 0.08,
+        "ego": false,
+        "arrivalAt": 9.453500000000014,
+        "targetAdjusted": true
+      },
+      {
+        "kind": "projectile",
+        "born": 9.281900000000014,
+        "duration": 0.31700000000000017,
+        "tx": 25.798819776991195,
+        "ty": 11.542911477171508,
+        "profile": "rapid-fire",
+        "focus": 0.08,
+        "ego": false,
+        "arrivalAt": 9.566900000000015,
+        "targetAdjusted": true
+      }
+    ],
+    "pending": 1,
+    "defenseDiagnostics": {
+      "apiMetrics": {
+        "casts": 1,
+        "contacts": 1,
+        "duplicates": 0,
+        "healed": 0,
+        "conversions": 0,
+        "ended": 1
+      },
+      "wrapped": true,
+      "active": false,
+      "snapshot": null,
+      "world": {
+        "hp": 240,
+        "timeStopUntil": 9.700300000000011,
+        "paused": false,
+        "pause": false,
+        "mode": "semi",
+        "targetId": "mb-dist01"
+      },
+      "attackReadinessBefore": {
+        "time": 9.700300000000011,
+        "lastAttack": 9.700300000000011,
+        "targetId": "mb-dist01",
+        "enemies": 1,
+        "controlMode": "semi",
+        "blocked": false,
+        "partyBlocks": false,
+        "channelActive": false,
+        "arenaLocked": true,
+        "hardLocked": false
+      },
+      "attackReadinessAfter": {
+        "time": 9.700300000000011,
+        "lastAttack": 9.700300000000011,
+        "pending": [
+          {
+            "actionKey": "A",
+            "targetId": "mb-dist01",
+            "power": 43.199999999999996,
+            "counter": false
+          },
+          {
+            "actionKey": "A",
+            "targetId": "mb-dist01",
+            "power": 43.199999999999996,
+            "counter": false
+          },
+          {
+            "actionKey": "A",
+            "targetId": "mb-dist01",
+            "power": 53.99999999999999,
+            "counter": true
+          },
+          {
+            "actionKey": "A",
+            "targetId": "mb-dist01",
+            "power": 43.99917059486673,
+            "counter": false
+          }
+        ]
+      }
+    },
+    "fullAuto": {
+      "mode": "full",
+      "focus": null,
+      "shotCount": 1
+    },
+    "counter": {
+      "cast": true,
+      "contact": true,
+      "resonanceAfterContact": 54,
+      "countershotsAtRelease": 1,
+      "countershots": 0,
+      "shot": {
+        "power": 53.99999999999999,
+        "boosted": true
+      },
+      "metrics": {
+        "installed": true,
+        "focusedVolleys": 42,
+        "parryContacts": 1,
+        "resonanceShots": 1,
+        "interludesStarted": 0,
+        "interludeActors": 0,
+        "interludesCompleted": 0,
+        "interludesSkipped": 0
+      },
+      "resonanceBeforeShot": 54,
+      "resonanceAfterShot": 54
+    },
+    "ego": {
+      "awake": true,
+      "strike": true,
+      "shot": {
+        "profile": "rapid-fire",
+        "boosted": true,
+        "size": 1.0304000000000002
+      }
+    },
+    "projectileDamageLinked": true,
+    "focusStyle": "rapid-fire"
+  },
+  "pack": {
+    "initial": {
+      "entered": false,
+      "first": {
+        "id": "rc225-interlude-dist01-1",
+        "hp": 28,
+        "maxHp": 28,
+        "required": false,
+        "zone": "dist01"
+      },
+      "gateWithActor": false,
+      "saveEvidence": {
+        "waves": [
+          1,
+          2,
+          3
+        ],
+        "serializedTransient": true,
+        "normalizedTransient": true,
+        "restoredTransient": false
+      },
+      "initialMetrics": {
+        "installed": true,
+        "focusedVolleys": 56,
+        "parryContacts": 1,
+        "resonanceShots": 1,
+        "interludesStarted": 1,
+        "interludeActors": 1,
+        "interludesCompleted": 0,
+        "interludesSkipped": 0
+      }
+    },
+    "kills": [
+      {
+        "held": false,
+        "actor": "rc225-interlude-dist01-1",
+        "liveAfter": [],
+        "time": 10.8234,
+        "resonanceBefore": 0,
+        "resonanceAfter": 10,
+        "nativeResonanceAward": 10,
+        "removed": true,
+        "metrics": {
+          "installed": true,
+          "focusedVolleys": 56,
+          "parryContacts": 1,
+          "resonanceShots": 1,
+          "interludesStarted": 1,
+          "interludeActors": 1,
+          "interludesCompleted": 0,
+          "interludesSkipped": 0
+        }
+      },
+      {
+        "held": false,
+        "actor": "rc225-interlude-dist01-2",
+        "liveAfter": [],
+        "time": 11.523399999999999,
+        "resonanceBefore": 10,
+        "resonanceAfter": 20,
+        "nativeResonanceAward": 10,
+        "removed": true,
+        "metrics": {
+          "installed": true,
+          "focusedVolleys": 56,
+          "parryContacts": 1,
+          "resonanceShots": 1,
+          "interludesStarted": 1,
+          "interludeActors": 2,
+          "interludesCompleted": 0,
+          "interludesSkipped": 0
+        }
+      },
+      {
+        "held": false,
+        "actor": "rc225-interlude-dist01-3",
+        "liveAfter": [],
+        "time": 12.223399999999998,
+        "resonanceBefore": 20,
+        "resonanceAfter": 30,
+        "nativeResonanceAward": 10,
+        "removed": true,
+        "metrics": {
+          "installed": true,
+          "focusedVolleys": 56,
+          "parryContacts": 1,
+          "resonanceShots": 1,
+          "interludesStarted": 1,
+          "interludeActors": 3,
+          "interludesCompleted": 0,
+          "interludesSkipped": 0
+        }
+      }
+    ],
+    "release": {
+      "ready": true,
+      "waves": [
+        1,
+        2,
+        3
+      ],
+      "metrics": {
+        "installed": true,
+        "focusedVolleys": 56,
+        "parryContacts": 1,
+        "resonanceShots": 1,
+        "interludesStarted": 1,
+        "interludeActors": 3,
+        "interludesCompleted": 1,
+        "interludesSkipped": 0
+      }
+    },
+    "progression": "fixture calls the real wrapped waveAdvanceReady; the native scheduler/boss entrance was not advanced by natural play"
+  },
+  "mobile": {
+    "launch": {
+      "phase": "game",
+      "party": {
+        "ready": true,
+        "enabled": true,
+        "mode": "local2",
+        "role": "offline",
+        "disconnected": false,
+        "zone": "dist00",
+        "slots": [
+          {
+            "slotId": "p1",
+            "heroId": "gunner",
+            "name": "기억사수",
+            "control": "host",
+            "x": 15.275000000000004,
+            "y": 16.725000000000005,
+            "hp": 240,
+            "maxHp": 240,
+            "down": false
+          },
+          {
+            "slotId": "p2",
+            "heroId": "slayer",
+            "name": "악몽 사냥꾼 · 검사",
+            "control": "local",
+            "x": 12.472998263302388,
+            "y": 19.291863118193795,
+            "hp": 240,
+            "maxHp": 240,
+            "facing": 1,
+            "direction": "right",
+            "moveVx": 0,
+            "moveVy": 0,
+            "readyAt": 0.3247285714285716,
+            "skillReady": [
+              0,
+              0,
+              0
+            ],
+            "ultimateReady": 0,
+            "dashReady": 0,
+            "invulnerableUntil": 1.24,
+            "downUntil": 0,
+            "lastDodgeAt": -99,
+            "heroMotion": {
+              "kind": "attack",
+              "started": 0.1933000000000002,
+              "until": 0.5133000000000002,
+              "facing": 1,
+              "dx": 12.051915290595415,
+              "dy": -8.766949564295992,
+              "direction": "right",
+              "skillIndex": 3,
+              "phase": 2.319600000000002,
+              "characterSectorV31342": "e",
+              "characterCommitV31342": {
+                "at": 0.1933000000000002,
+                "dx": 12.051915290595415,
+                "dy": -8.766949564295992,
+                "sector": "e"
+              },
+              "themeAimLockV31323": true
+            },
+            "themeAimV31323": {
+              "x": 12.472998263302388,
+              "y": 19.291863118193795,
+              "dx": 12.051915290595415,
+              "dy": -8.766949564295992,
+              "sx": 0.9969023239602163,
+              "sy": 0.07864958030860507,
+              "at": 0.1933000000000002,
+              "born": 0.1933000000000002,
+              "key": "A",
+              "until": 0.4933000000000002,
+              "characterSectorV31342": "e"
+            },
+            "themeRootUntilV31323": 0,
+            "themeRootImmuneV31323": 0,
+            "themeRootZoneV31323": null,
+            "down": false
+          }
+        ],
+        "wipeCount": 0,
+        "snapshotSeq": -1,
+        "paused": false,
+        "inputBlocked": false,
+        "waitingForHost": false
+      },
+      "roster": [
+        {
+          "heroId": "gunner",
+          "control": "host"
+        },
+        {
+          "heroId": "slayer",
+          "control": "local"
+        }
+      ],
+      "zone": "dist00",
+      "gameMode": "STORY"
+    },
+    "entry": {
+      "zone": "dist01",
+      "time": 0.3133000000000002,
+      "position": {
+        "x": 13.8,
+        "y": 24.2
+      },
+      "campaignFields": {
+        "spawnedWaves": [
+          1
+        ],
+        "bossDefeated": false
+      },
+      "nativeArena": {
+        "version": 1,
+        "zone": "dist01",
+        "enabled": true,
+        "locked": true,
+        "clear": false,
+        "reason": "combat",
+        "playerSide": "left",
+        "enemySide": "right",
+        "hostiles": 0,
+        "entry": {
+          "x": 13.8,
+          "y": 24.2
+        },
+        "exit": {
+          "x": 24.8,
+          "y": 13.2
+        }
+      }
+    },
+    "movement": {
+      "setup": {
+        "start": {
+          "x": 20.4729982633,
+          "y": 27.2918631182,
+          "time": 0.35330000000000017
+        },
+        "mode": "semi",
+        "actor": "p2"
+      },
+      "trace": {
+        "start": {
+          "x": 20.4729982633,
+          "y": 27.2918631182,
+          "time": 0.43330000000000013
+        },
+        "end": {
+          "x": 17.48756461752319,
+          "y": 29.705929472423204,
+          "time": 1.5132000000000005
+        },
+        "simSeconds": 1.0799000000000003,
+        "crossedExtension": true,
+        "reachedTarget": true,
+        "final": {
+          "physical": true,
+          "allowed": true,
+          "canMove": true,
+          "walkable": true
+        },
+        "samples": [
+          {
+            "x": 18.34355721011579,
+            "y": 28.9789220650158,
+            "time": 1.1965999999999999,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.298405358263935,
+            "y": 29.01727021316395,
+            "time": 1.2133000000000007,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.253523876782452,
+            "y": 29.05538873168247,
+            "time": 1.229900000000001,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.20810165456023,
+            "y": 29.093966509460245,
+            "time": 1.2467000000000004,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.16322017307875,
+            "y": 29.132085027978764,
+            "time": 1.2633000000000008,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.1180683212269,
+            "y": 29.17043317612691,
+            "time": 1.2799999999999996,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.073186839745418,
+            "y": 29.20855169464543,
+            "time": 1.2966,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 18.028034987893562,
+            "y": 29.246899842793578,
+            "time": 1.3133000000000008,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.982883136041714,
+            "y": 29.285247990941723,
+            "time": 1.3299999999999996,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.93800165456023,
+            "y": 29.323366509460243,
+            "time": 1.3466,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.892849802708376,
+            "y": 29.361714657608392,
+            "time": 1.3633000000000008,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.847968321226894,
+            "y": 29.39983317612691,
+            "time": 1.3799000000000012,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.802816469375045,
+            "y": 29.438181324275057,
+            "time": 1.3966,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.75766461752319,
+            "y": 29.476529472423206,
+            "time": 1.4133000000000009,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.712783136041708,
+            "y": 29.514647990941725,
+            "time": 1.4299000000000013,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.667360913819486,
+            "y": 29.5532257687195,
+            "time": 1.4467000000000005,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.622479432338004,
+            "y": 29.59134428723802,
+            "time": 1.463300000000001,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.577327580486156,
+            "y": 29.629692435386165,
+            "time": 1.4799999999999998,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.532446099004673,
+            "y": 29.667810953904684,
+            "time": 1.4966000000000002,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          },
+          {
+            "x": 17.48756461752319,
+            "y": 29.705929472423204,
+            "time": 1.5132000000000005,
+            "physical": true,
+            "allowed": true,
+            "canMove": true,
+            "walkable": true
+          }
+        ]
+      }
+    },
+    "view": {
+      "viewport": [
+        844,
+        390
+      ],
+      "touch": true,
+      "mobile": true,
+      "shooter": "RC225"
+    },
+    "frameSample": {
+      "frames": 146,
+      "medianMs": 16.69999999999891,
+      "p95Ms": 16.700000000000728,
+      "maxMs": 16.80000000000109,
+      "longFramesOver33ms": 0,
+      "webglRenderer": "WebKit WebGL",
+      "canvasBacking": [
+        [
+          601,
+          338
+        ]
+      ]
+    }
+  },
+  "finalState": {
+    "zone": "dist01",
+    "time": 12.823399999999998,
+    "hp": 240,
+    "activeHero": "gunner",
+    "mode": "semi",
+    "bosses": [],
+    "shooter": {
+      "installed": true,
+      "focusedVolleys": 56,
+      "parryContacts": 1,
+      "resonanceShots": 1,
+      "interludesStarted": 1,
+      "interludeActors": 3,
+      "interludesCompleted": 1,
+      "interludesSkipped": 0
+    },
+    "errors": null
+  },
+  "finishedAt": "2026-10-18T06:12:14.585Z",
+  "additionalVerification": {
+    "movement": {
+      "reproducedReportedBlockage": false,
+      "blockedPoint": null,
+      "manualLocalP2": {
+        "start": {
+          "x": 20.4729982633,
+          "y": 27.2918631182
+        },
+        "end": {
+          "x": 17.46737974478146,
+          "y": 29.702744599681466,
+          "time": 3.8231999999999955
+        },
+        "enteredXLessThan19": true,
+        "physicalFloor": true,
+        "rc223Allowed": true,
+        "rc223CanMove": true,
+        "finalWalkable": true
+      },
+      "note": "All recorded integrated samples passed native floor, RC223 and final walkable. No failing coordinate was available to prove a root cause, so gameplay movement geometry was left unchanged."
+    },
+    "touchInput": {
+      "status": "blocked-by-runner-browser-sandbox",
+      "test": "tests/rc151-mobile-a-touch-browser.cjs",
+      "detail": "The installed Chrome channel is absent; system Chromium terminated on sandbox-helper initialization. The touch-specific run was stopped without disabling its sandbox."
+    },
+    "baselineComparison": {
+      "test": "tests/rc79-combat-presentation.cjs",
+      "baselineStatus": "failed at exact blink-vector assertion on b0b919d4",
+      "candidateStatus": "same failure at line 9 on this branch; no new regression indicated by this check."
+    },
+    "parentMovementProbe": {
+      "source": "prior integrated browser probe reported in the task thread",
+      "player": "P1 host",
+      "path": "x crossed 19 and reached about 17.36",
+      "points": [
+        18.9,
+        18.5,
+        17,
+        14
+      ],
+      "checks": "nativeAll -> RC223 allowed -> RC137 final walkable were true",
+      "finding": "reported blockage not reproduced; no failing coordinate/root cause available"
+    }
+  }
+}
