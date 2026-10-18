@@ -1,7 +1,7 @@
 name: RC229 admission and D differential verification
 on:
   push:
-    branches: [codex/rc228-legacy-audit-fixture-20261018]
+    branches: [codex/rc228-legacy-audit-fixture-20261018, codex/rc230-narrow-admission-20261018]
 permissions:
   contents: read
 concurrency:
@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [b0b919d4e18c2e93f871606ece0744d077ff7239, a33b0efc71f8b9666c3995f148dec2f8bba2c869]
+        app: [b0b919d4e18c2e93f871606ece0744d077ff7239, a33b0efc71f8b9666c3995f148dec2f8bba2c869, a06fd95385c9f9cdea53979d3970f638cb075f22]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -89,7 +89,7 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           node tests/chromium-sandbox-policy.cjs
-          node tools/rc229-build-extension.cjs --check
+          node tools/rc230-build-extension.cjs --check
           node tests/rc229-admission-unit.cjs
           OUT="$RUNNER_TEMP/rc229-candidate"
           HAPIL_QA_OUTPUT="$OUT/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs

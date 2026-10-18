@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "base": "a06fd95385c9f9cdea53979d3970f638cb075f22",
+  "baseTree": "e71904a97fb234a9e90fd3154bc70ff7d51b6851",
+  "sourceCommit": "2ee18f20a3f16cfe1704fe8ffebbd8a27d761b26",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "8b47362a63abe4b2d7b3835a333e3046180b402d8bb26959dddc1c40f87b9753",
+  "files": [
+    {
+      "file": "assets/rc210/projectile-balance.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "4480361aed89f2e3f1d9c60e4f735521087a8375",
+        "file": "assets/rc210/projectile-balance.js"
+      },
+      "after": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "sha256": "2d05c82ed66592cc466db2354360871825f59306b7c886f7f6df163f138629f6",
+        "gitBlob": "9dcdb3b25651c577d1176b4283fd25c230fcd514"
+      },
+      "reason": "assets/rc210/projectile-balance.js: Preserve the existing native under800px cap40 for fine-pointer desktop as well as touch mobile, with cap56 for wide desktop."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "15bf012a173c933b5f3a39e4acc02db502c348eb",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "98f998e8e48554fb270e9f46d132d5c0d21776a41f26fbf7daa1e1830abf9c0d",
+        "gitBlob": "1a92dd2db8386d0b352ad9fe61fe7e1b3e025c29"
+      },
+      "reason": "index.html: Cache-bust only the exact updated admission policy output."
+    }
+  ],
+  "targetProtectedRowsSha256": "35c378b181a33b5d77d8b3cf472a34dfb83a4afcada32ef3726f9673ac0f3470"
+}
