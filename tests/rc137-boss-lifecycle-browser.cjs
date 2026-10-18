@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright'));
 const crypto=require('node:crypto'),cp=require('node:child_process');
-const root=path.resolve(__dirname,'..'),out=process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results/rc137-lifecycle');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(process.env.HAPIL_APP_ROOT||path.resolve(__dirname,'..')),out=process.env.HAPIL_QA_OUTPUT||path.join(root,'qa-results/rc137-lifecycle');fs.mkdirSync(out,{recursive:true});
 const bridge='\nwindow.__RC137_LIFECYCLE__={initial:oi,remove:(...a)=>MONGSE_recordProjectileRemoval31215(...a),impact:(...a)=>MONGSE_spawnTelegraphedImpact(...a),incoming:(...a)=>Y(...a),queue:MONGSE_queueImage,project:G,hit:Di,expire:(...a)=>MONGSE_shouldExpireBossProjectile31213(...a),step:(...a)=>MONGSE_stepSignatureProjectile31212(...a)};const rc137Render=$n;$n=function(...a){if(window.__RC137_LIFECYCLE_SCENE__)a[1]=window.__RC137_LIFECYCLE_SCENE__;return rc137Render(...a);};';
 const mime={'.js':'text/javascript','.html':'text/html','.css':'text/css','.webp':'image/webp','.png':'image/png','.wav':'audio/wav','.mp3':'audio/mpeg','.woff2':'font/woff2','.svg':'image/svg+xml'};
 const server=http.createServer((req,res)=>{try{const file=path.resolve(root,'.'+new URL(req.url,'http://localhost').pathname.replace(/^\/$/,'/index.html'));if(!file.startsWith(root+'/'))return res.writeHead(403).end();res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');const b=fs.readFileSync(file);res.end(file.endsWith('/assets/index-v31526.js')?b.toString()+bridge:b);}catch{res.writeHead(404).end();}});
