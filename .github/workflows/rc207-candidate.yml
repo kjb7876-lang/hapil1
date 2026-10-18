@@ -1,7 +1,7 @@
 name: RC207 read-only candidate regression
 on:
   push:
-    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/hapil-combat-shooter-20261018]
+    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/hapil-combat-shooter-20261018, codex/rc228-review-fixes-20261018]
     paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/**']
 permissions:
   contents: read
@@ -38,7 +38,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           export NODE_PATH="$CODEX_PRIMARY_RUNTIME_NODE_MODULES"
           mkdir -p "$HAPIL_QA_OUTPUT"
-          node tools/rc227-build-extension.cjs --check
+          node tools/rc228-build-extension.cjs --check
           node tools/rc215-build-native.cjs --check
           node tests/rc225-shooter-unit.cjs
           node tests/rc226-shooting-unit.cjs
@@ -47,6 +47,7 @@ jobs:
           node tests/rc195-blink-arena-unit.cjs
           node tests/rc224-arena-regression-unit.cjs
           node tests/rc79-combat-presentation.cjs
+          node tests/rc154-cosmic-loader-unit.cjs
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
@@ -223,5 +224,34 @@ jobs:
         with:
           name: rc227-combat-browser-${{ github.sha }}
           path: ${{ runner.temp }}/rc227-browser/
+          if-no-files-found: error
+          retention-days: 14
+  current-public-byte-proof:
+    if: github.ref == 'refs/heads/codex/rc228-review-fixes-20261018'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Inspect exact currently published merge without deploying fixes
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc228-current-public
+          HAPIL_PUBLISHED_ROOT: ${{ runner.temp }}/rc228-published-main
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$HAPIL_PUBLISHED_ROOT" c6a085d49a7690e8631d9bb9add90613b6881887
+          node tests/rc228/public-current.cjs
+          git worktree remove "$HAPIL_PUBLISHED_ROOT"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc228-current-public-c6a085d4-${{ github.sha }}
+          path: ${{ runner.temp }}/rc228-current-public/
           if-no-files-found: error
           retention-days: 14

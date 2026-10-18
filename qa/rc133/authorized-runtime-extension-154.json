@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "base": "c6a085d49a7690e8631d9bb9add90613b6881887",
+  "baseTree": "a974f6b807d112aafb2b3a2e2caedb44df49a56e",
+  "sourceCommit": "82aa6e58d9219f1399af37ccf9486e01636ca8ac",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "3b9164d3d30d084195e52664cc1d95f50a170da998fba4727c3df2a6613b7e03",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "3c227319a13140a842cc3db82fbf58affd400c61",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "ace6614fde02d5bd6366e80ecea4c929a6b1a0f7a98464af679db25bddd6d5a4",
+        "gitBlob": "c960bf3ae2a4e750d8f78c470775efe65187e331"
+      },
+      "reason": "assets/index-v31526.js: Restore a canceled follow-up share at the native raw-power read before adaptive scaling and outgoing damage commits."
+    },
+    {
+      "file": "assets/rc225/shooter.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "df43a5dcfa53df3acd2c2838b1bf55a76de4b937",
+        "file": "assets/rc225/shooter.js"
+      },
+      "after": {
+        "file": "assets/rc225/shooter.js",
+        "mode": "100644",
+        "sha256": "b30876dac761195612db8815eeabc4da1efaede5f1ceccd3d5728c69b090b079",
+        "gitBlob": "aad6880ef0bf0be2dbece81032c41ca2334e9590"
+      },
+      "reason": "assets/rc225/shooter.js: Admit interludes only for authored pending boss waves and retain completion across repeated clear/camera reads until native wave consumption or checkpoint reset."
+    },
+    {
+      "file": "assets/rc226/shooting-completion.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "a5e6198de369db7b3a076e70a8c89b2fc9dd826a",
+        "file": "assets/rc226/shooting-completion.js"
+      },
+      "after": {
+        "file": "assets/rc226/shooting-completion.js",
+        "mode": "100644",
+        "sha256": "9d77b8444c9bc6d9d5484466d165fd33dee0f4e5fd03f47bcf3d2fa2f2ac33fc",
+        "gitBlob": "b87659fda94950c690d8f19eae993abf53af567d"
+      },
+      "reason": "assets/rc226/shooting-completion.js: Restore reserved primary power exactly once when a follow-up recipient expires or disappears before contact, keeping rejected contacts and native resource awards unchanged."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "150823f50638237a60ee15041fc7a1d3ec290f8a",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "fd70297497c3017e1c1a2c6d28dce4b9296ae23ad2ec7e80c70d1398f8d4ab91",
+        "gitBlob": "43a589ef6aa72e563f1fb3e9ebd1f6e3e99ed4b1"
+      },
+      "reason": "index.html: Cache-bust only the four exact reviewed runtime outputs."
+    }
+  ],
+  "targetProtectedRowsSha256": "ff39f0498495d1ad86d1bbadf0859397b9c5e48161b998f0d12b6c4f91e3d4a5"
+}

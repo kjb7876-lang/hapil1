@@ -50794,6 +50794,7 @@ function MONGSE_EP1B_tick(e) {
   e.ep1bHazardAt = e.time + 5.8;
 }
 function MONGSE_EP1B_adaptivePower(e, t, n) {
+  window.__HAPIL_SHOOTER_RC226__?.prepareHit?.(e,t);
   if (e.zone !== `ep1b09` || !n?.boss || !t?.actionKey) return t.power;
   let r = t.actionKey,
     i = e.blackSunMemory ?? (e.blackSunMemory = {}),
