@@ -1,0 +1,114 @@
+{
+  "appSha": "79eab545726e6d8d46652b4a33f670a837a12a59",
+  "scope": "CPU/local manifest only; no browser/device/GPU claim",
+  "results": [
+    {
+      "command": "node tests/rc225-shooter-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 105,
+      "log": "rc225-shooter-unit.log"
+    },
+    {
+      "command": "node tests/rc128-policy.cjs",
+      "exitCode": 0,
+      "durationMs": 102,
+      "log": "rc128-policy.log"
+    },
+    {
+      "command": "node tests/rc161-persona-feedback-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 60,
+      "log": "rc161-persona-feedback-unit.log"
+    },
+    {
+      "command": "node tests/rc133-feedback-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 71,
+      "log": "rc133-feedback-unit.log"
+    },
+    {
+      "command": "node tests/rc226-shooting-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 204,
+      "log": "rc226-shooting-unit.log"
+    },
+    {
+      "command": "node tests/rc162-feedback-priority-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 86,
+      "log": "rc162-feedback-priority-unit.log"
+    },
+    {
+      "command": "node tests/rc153-combat-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 474,
+      "log": "rc153-combat-unit.log"
+    },
+    {
+      "command": "node tests/rc138-arena-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 535,
+      "log": "rc138-arena-unit.log"
+    },
+    {
+      "command": "node tests/rc223-left-zone-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 285,
+      "log": "rc223-left-zone-unit.log"
+    },
+    {
+      "command": "node tests/rc224-arena-regression-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 177,
+      "log": "rc224-arena-regression-unit.log"
+    },
+    {
+      "command": "node tests/rc199-stable-combat-zoom-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 379,
+      "log": "rc199-stable-combat-zoom-unit.log"
+    },
+    {
+      "command": "node tests/rc79-combat-presentation.cjs",
+      "exitCode": 0,
+      "durationMs": 162,
+      "log": "rc79-combat-presentation.log"
+    },
+    {
+      "command": "node tests/rc223-feedback-owner-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 2421,
+      "log": "rc223-feedback-owner-unit.log"
+    },
+    {
+      "command": "node tests/rc133-published-url.cjs",
+      "exitCode": 0,
+      "durationMs": 1159,
+      "log": "rc133-published-url.log"
+    },
+    {
+      "command": "node tools/rc215-build-native.cjs --check",
+      "exitCode": 0,
+      "durationMs": 103,
+      "log": "rc215-build-native.log"
+    },
+    {
+      "command": "node tests/rc195-blink-arena-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 2246,
+      "log": "rc195-blink-arena-unit.log"
+    },
+    {
+      "command": "node tests/rc227-floor-unit.cjs",
+      "exitCode": 0,
+      "durationMs": 3581,
+      "log": "rc227-floor-unit.log"
+    },
+    {
+      "command": "node tools/rc227-build-extension.cjs --check",
+      "exitCode": 0,
+      "durationMs": 1480,
+      "log": "rc227-build-extension.log"
+    }
+  ]
+}
