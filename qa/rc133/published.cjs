@@ -264,7 +264,7 @@ async function runProfile(browser, profile, outputRows) {
       return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:entries.length,newImages:images,ep1a10:rows.ep1a10,murder01:rows.murder01,reusedRoad:{path:rows.murder01.activeMap,width:road.naturalWidth,height:road.naturalHeight},split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics()};
     });
     assert.equal(row.arena138.maps,55);
-    assert.deepEqual(row.arena138.newImages.map(image=>image.zone).sort(),['ep1a08','ep1a10','ep1b07','kair02','kair04','murder02']);
+    assert.deepEqual(row.arena138.newImages.map(image=>image.zone).sort(),['ep1a08','ep1a10','ep1b04','ep1b07','kair02','kair04','murder02']);
     assert.equal(row.arena138.ep1a10.decision,'story-aligned-art');
     assert.equal(row.arena138.ep1a10.activeMap,'./assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png');
     assert.equal(row.arena138.murder01.decision,'reassigned-original-ep1a10-road');
