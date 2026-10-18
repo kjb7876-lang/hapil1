@@ -1,7 +1,7 @@
 name: RC207 read-only candidate regression
 on:
   push:
-    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/hapil-combat-shooter-20261018, codex/rc228-review-fixes-20261018, codex/rc228-legacy-audit-fixture-20261018]
+    branches: [codex/rc207-persona-warning-scatter, codex/rc210-fragment-standing-combat, codex/hapil-combat-shooter-20261018, codex/rc228-review-fixes-20261018, codex/rc228-legacy-audit-fixture-20261018, codex/rc230-narrow-admission-20261018]
     paths: ['assets/**', 'audio/**', 'data/**', 'index.html', 'tests/**', 'tools/**', 'qa/**', '.github/workflows/**']
 permissions:
   contents: read
@@ -38,7 +38,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           export NODE_PATH="$CODEX_PRIMARY_RUNTIME_NODE_MODULES"
           mkdir -p "$HAPIL_QA_OUTPUT"
-          node tools/rc229-build-extension.cjs --check
+          node tools/rc230-build-extension.cjs --check
           node tests/rc229-admission-unit.cjs
           node tools/rc215-build-native.cjs --check
           node tests/rc225-shooter-unit.cjs
