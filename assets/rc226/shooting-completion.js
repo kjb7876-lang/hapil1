@@ -68,6 +68,12 @@
    row.power=power*.78;plans.set(row,{world:s,zone:s.zone,hero:s.activeHeroId,target:others[0],power:power*.22,template,homing:profile.homing,expires:row.at+1});
   }
  }
+ // Called by the native adaptive-power boundary immediately before outgoing
+ // damage reads source.power. No second damage event or resource award occurs.
+ function prepareHit(s,source){const p=source&&plans.get(source);if(!p)return false;
+  if(p.world===s&&p.zone===s.zone&&p.hero===s.activeHeroId&&s.time<=p.expires&&valid(s,p.target)&&(s.pendingStrikes?.length??0)<96&&(s.effects?.length??0)<64)return false;
+  source.power+=p.power;plans.delete(source);return true;
+ }
  function afterHit(s,target,applied,source){const p=source&&plans.get(source);if(!p)return;plans.delete(source);
   if(!(applied>0)||p.world!==s||p.zone!==s.zone||p.hero!==s.activeHeroId||s.time>p.expires||!valid(s,p.target))return;
   const endpoint=p.template.deliveryRoutesV31322?.find(r=>r.strikeId===source.id),contactOrigin={x:target.x,y:target.y,offsetX:n(endpoint?.endOffsetX,n(p.template.endOffsetX)),offsetY:n(endpoint?.endOffsetY,n(p.template.endOffsetY,-49))};
@@ -80,9 +86,9 @@
  function install(){const api=root.__HAPIL_LOOP_V31365__;if(!api?.rc225Wrapped||!root.__HAPIL_CONTINUITY_V31322__?.partyRoute)return false;if(api.rc226Wrapped)return true;
   const next={...api,decorateAttack(s,before){api.decorateAttack(s,before);const rows=(s.pendingStrikes??[]).filter(r=>!before?.has?.(r)&&r.actionKey==='A'&&!r.shmupEchoV31365&&!r.rc226Applied&&!r.nativeActorRC222&&!r.partySlotV31322);
     if(rows.length){for(const row of rows)row.rc226Applied=true;decorate(s,rows);if(launch(s))for(const row of s.pendingStrikes??[])if(!before?.has?.(row)&&row.actionKey==='A')row.rc226LaunchSound=true;}
-   },afterHit(s,target,raw,applied,source){api.afterHit?.(s,target,raw,applied,source);afterHit(s,target,applied,source);}};
+   },afterHit(s,target,raw,applied,source){afterHit(s,target,applied,source);api.afterHit?.(s,target,raw,applied,source);}};
   Object.defineProperties(next,{rc225Wrapped:{value:true},rc226Wrapped:{value:true}});root.__HAPIL_LOOP_V31365__=Object.freeze(next);metrics.installed=true;return true;
  }
- root.__HAPIL_SHOOTER_RC226__=Object.freeze({weapons,blink,install,metrics:()=>({...metrics})});
+ root.__HAPIL_SHOOTER_RC226__=Object.freeze({weapons,blink,prepareHit,install,metrics:()=>({...metrics})});
  let tries=0;function ready(){if(install()||++tries>=1200)return;root.setTimeout?.(ready,25);}ready();
 })(typeof window==='object'?window:globalThis);

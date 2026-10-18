@@ -55,7 +55,7 @@
  function packTemplate(a){return !!a&&!a.boss&&!a.midboss&&!a.cosmicBoss&&!a.objectiveStructureV31238&&!a.protectedNarrativeTargetV31307&&!a.protectedNarrativeTargetV31238&&root.__HAPIL_BATTLE_ARENA_RC138__?.hostile?.(a)!==false;}
  function interludeAllowed(s,flow){
   const arena=root.__HAPIL_NATIVE_ARENA_RC138__,map=arena?.maps?.[s.zone],rows=map?.enemies;
-  return !!s&&flow?.profile?.(s.zone)&&s.gameModeV31346!=='PRACTICE'&&!s.practiceV31329&&!s.requiredScene&&s.hp>0&&!s.bossDefeated&&s.spawnedWaves?.has?.(3)&&!s.spawnedWaves?.has?.(4)&&root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)!==true&&Array.isArray(rows)&&rows.some(packTemplate);
+  return !!s&&flow?.profile?.(s.zone)&&s.gameModeV31346!=='PRACTICE'&&!s.practiceV31329&&!s.requiredScene&&s.hp>0&&!s.bossDefeated&&s.spawnedWaves?.has?.(3)&&!s.spawnedWaves?.has?.(4)&&root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)!==true&&Array.isArray(rows)&&rows.some(a=>a?.boss)&&rows.some(packTemplate);
  }
  function cue(s,text,color='#aaf9ee',duration=.48){(s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration,text,color});}
  function spawnNext(s,state){
@@ -71,12 +71,12 @@
  function wrapFlow(){
   const flow=root.__HAPIL_FLOW_V31343__;if(!flow||flow===installedFlow||flow.rc225Wrapped)return !!flow;const base=flow.waveAdvanceReady;
   function waveAdvanceReady(s,...args){
-   let state=packsByWorld.get(s);if(state&&(state.zone!==s.zone||s.time<state.lastTime||s.bossDefeated||s.spawnedWaves?.has?.(4)||state.actor?.hp>0&&!(s.enemies??[]).includes(state.actor))){packsByWorld.delete(s);state=null;}
-   const ready=base.call(flow,s,...args);if(!state){if(!ready||!interludeAllowed(s,flow))return ready;state={zone:s.zone,index:0,actor:null,nextAt:s.time,finishAt:null,lastTime:s.time};packsByWorld.set(s,state);metrics.interludesStarted++;}
+   let state=packsByWorld.get(s);if(state&&(state.zone!==s.zone||s.time<state.lastTime||state.waves!==s.spawnedWaves||s.bossDefeated||s.spawnedWaves?.has?.(4)||state.actor?.hp>0&&!(s.enemies??[]).includes(state.actor))){packsByWorld.delete(s);state=null;}
+   const ready=base.call(flow,s,...args);if(!state){if(!ready||!interludeAllowed(s,flow))return ready;state={zone:s.zone,waves:s.spawnedWaves,index:0,actor:null,nextAt:s.time,finishAt:null,lastTime:s.time,complete:false};packsByWorld.set(s,state);metrics.interludesStarted++;}
    state.lastTime=s.time;
    if(state.actor&&state.actor.hp>0)return false;
    if(state.actor){state.actor=null;state.index++;state.nextAt=s.time+.32;}
-   if(state.index>=3){if(state.finishAt===null){state.finishAt=s.time+.52;cue(s,'편대 돌파','#fff0a8',.5);}if(s.time<state.finishAt)return false;packsByWorld.delete(s);metrics.interludesCompleted++;return base.call(flow,s,...args);}
+   if(state.index>=3){if(state.finishAt===null){state.finishAt=s.time+.52;cue(s,'편대 돌파','#fff0a8',.5);}if(s.time<state.finishAt)return false;if(!state.complete){state.complete=true;metrics.interludesCompleted++;}return base.call(flow,s,...args);}
    if(s.time>=state.nextAt&&!spawnNext(s,state)){packsByWorld.delete(s);return base.call(flow,s,...args);}
    return false;
   }

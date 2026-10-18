@@ -13,6 +13,7 @@ const sounds=[],C={binding:{state:{current:null},actions:{sound:(...args)=>sound
 C.effective=()=>C.binding.state.current?.combatModeV31329??'manual';w.__HAPIL_CONTROLS_V31329__=C;w.__HAPIL_DEFENSE_V31356__=D;
 w.__HAPIL_LOOP_V31365__={decorateAttack(){},afterHit(){}};w.__HAPIL_FLOW_V31343__={profile:()=>null,waveAdvanceReady:()=>true};w.__HAPIL_ADDITIONAL_AUDIO_RC141__={routeHeroAttack:id=>'./audio/test-'+id+'.wav'};
 for(const file of ['assets/rc225/shooter.js','assets/rc226/shooting-completion.js','assets/rc128/combat-feedback.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+const adaptiveAt=bundle.indexOf('function MONGSE_EP1B_adaptivePower('),adaptiveEnd=bundle.indexOf('\nfunction ki(',adaptiveAt);assert(adaptiveAt>0&&adaptiveEnd>adaptiveAt);vm.runInContext(bundle.slice(adaptiveAt,adaptiveEnd),context);
 const L=w.__HAPIL_LOOP_V31365__,H=w.__HAPIL_SHOOTER_RC226__,N=w.__HAPIL_CONTINUITY_V31322__;
 assert(H.metrics().installed&&L.rc225Wrapped&&L.rc226Wrapped,'both wrappers remain installed without wrapping one another again');
 function fresh(hero='gunner',ego=false){const s={zone:'dist01',time:10,hp:240,x:13,y:24,moveVx:0,moveVy:0,activeHeroId:hero,combatModeV31329:'manual',awakeningUntil:ego?17:0,resonance:42,fxSerial:10,floatTexts:[],pendingStrikes:[],effects:[],enemies:[{id:'primary',hp:1000,x:24,y:12},{id:'secondary',hp:1000,x:26.2,y:9.6},{id:'third',hp:1000,x:24,y:14},{id:'friend',hp:100,x:24.1,y:12,ally:true}]};s.targetEnemyId='primary';C.binding.state.current=s;return s;}
@@ -44,7 +45,8 @@ for(const [hero,profile]of Object.entries(H.weapons))for(const ego of [false,tru
 }
 {
  for(const hero of ['gunner','hwando']){const s=fresh(hero);s.effects=Array.from({length:64},()=>({kind:'fixture'}));const row=fire(s);assert.equal(s.pendingStrikes.length,1,'effect limit never adds more shots');assert.equal(row.power,100,'queue pressure keeps the original raw strike power');}
- const s=fresh('hwando'),row=fire(s);s.enemies=s.enemies.filter(t=>t.id!=='secondary');s.time=row.at;L.afterHit(s,s.enemies[0],row.power,row.power,row);assert.equal(s.pendingStrikes.length,1,'a removed secondary actor cannot emit a stale follow-up');
+ for(const hero of ['hwando','rian'])for(const stale of ['dead','removed','queue-full','expired']){const s=fresh(hero);s.enemies=s.enemies.filter(t=>t.id!=='third');const row=fire(s);assert.equal(row.power,78);s.time=row.at;if(stale==='dead')s.enemies[1].hp=0;if(stale==='removed')s.enemies=s.enemies.filter(t=>t.id!=='secondary');if(stale==='queue-full')s.effects=Array.from({length:64},()=>({kind:'fixture'}));if(stale==='expired')s.time+=1.1;const raw=context.MONGSE_EP1B_adaptivePower(s,row,s.enemies[0]);assert.equal(raw,100,'native power read restores all reserved damage: '+hero+'/'+stale);assert.equal(context.MONGSE_EP1B_adaptivePower(s,row,s.enemies[0]),100,'restoring is exactly once');L.afterHit(s,s.enemies[0],raw,raw,row);assert.equal(s.pendingStrikes.length,1,'no stale follow-up');}
+
 }
 {
  const s=fresh();w.__HAPIL_DEFENSE_V31356__.blockDamage(s,{id:'ally'}, {},10);assert.equal(w.__HAPIL_SHOOTER_RC225__.snapshot(s).countershots,0,'an ally block cannot grant host countershots');
