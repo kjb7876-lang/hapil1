@@ -110,6 +110,24 @@ jobs:
           test -z "$(git status --porcelain)"
           node tests/chromium-sandbox-policy.cjs
           node tests/rc153-chrome-sandbox-smoke.cjs
+      - name: Compare legacy danmaku failure with pinned published main
+        if: matrix.suite == 'rc130'
+        env:
+          BASELINE_SHA: b0b919d4e18c2e93f871606ece0744d077ff7239
+        run: |
+          set -euo pipefail
+          BASELINE_DIR="$RUNNER_TEMP/rc227-main-baseline"
+          BASELINE_OUT="$HAPIL_QA_OUTPUT/published-main-rc129"
+          mkdir -p "$BASELINE_OUT"
+          git worktree add --detach "$BASELINE_DIR" "$BASELINE_SHA"
+          set +e
+          (cd "$BASELINE_DIR" && EXPECTED_SHA="$BASELINE_SHA" HAPIL_QA_OUTPUT="$BASELINE_OUT" node tests/rc129-browser.cjs) > "$BASELINE_OUT/execution.log" 2>&1
+          BASELINE_EXIT=$?
+          set -e
+          printf '{"sha":"%s","exitCode":%s,"scope":"same sandbox-enabled CI Chrome, pinned published main"}\n' "$BASELINE_SHA" "$BASELINE_EXIT" > "$BASELINE_OUT/baseline-exit.json"
+          cat "$BASELINE_OUT/baseline-exit.json"
+          tail -n 30 "$BASELINE_OUT/execution.log"
+          git worktree remove "$BASELINE_DIR"
       - name: Audit only without transformers or Git writes
         env:
           SUITE: ${{ matrix.suite }}
