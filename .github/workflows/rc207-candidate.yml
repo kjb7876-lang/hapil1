@@ -127,6 +127,7 @@ jobs:
           printf '{"sha":"%s","exitCode":%s,"scope":"same sandbox-enabled CI Chrome, pinned published main"}\n' "$BASELINE_SHA" "$BASELINE_EXIT" > "$BASELINE_OUT/baseline-exit.json"
           cat "$BASELINE_OUT/baseline-exit.json"
           tail -n 30 "$BASELINE_OUT/execution.log"
+          HAPIL_APP_ROOT="$BASELINE_DIR" HAPIL_APP_SHA="$BASELINE_SHA" HAPIL_ONLY_BASELINE=1 HAPIL_QA_OUTPUT="$HAPIL_QA_OUTPUT/published-main-performance" node tests/rc225-combat-browser.cjs
           git worktree remove "$BASELINE_DIR"
       - name: Audit only without transformers or Git writes
         env:
