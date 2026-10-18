@@ -23,11 +23,12 @@
   e.deliverySeedV31322={heroId:s.activeHeroId,key:'A',x:origin.x,y:origin.y,tx:target.x,ty:target.y,born:e.born};
   root.__HAPIL_CONTINUITY_V31322__.partyRoute(s,e,row,{...origin,slotId:undefined},target);
  }
- function extra(s,base,target,origin,at,power,template,homing){
+ function extra(s,base,target,origin,at,power,template,homing,contactOrigin=null){
   if(!valid(s,target)||!root.__HAPIL_CONTINUITY_V31322__?.partyRoute||(s.pendingStrikes?.length??0)>=96||(s.effects?.length??0)>=64)return false;
   const row={...base,id:s.fxSerial++,at,power,targetId:target.id,homing,critical:base.critical===true,shmupEchoV31365:true,rc226ExtraShot:true,deliveryBoundV31322:false,shmupOriginV31365:{x:origin.x,y:origin.y}};
   for(const key of ['committedRouteV31333','deliveryRouteV31322','deliveryBoundV31322'])delete row[key];
   const e={...template,id:s.fxSerial++,born:s.time,homing,shmupEchoV31365:true,rc226ExtraShot:true};
+  if(contactOrigin)e.rc226ContactOrigin=contactOrigin;
   for(const key of ['deliveryRoutesV31322','deliveryEndV31322','deliveryRenderedV31322','deliveryRenderedRoutesV31322','deliveryZoneV31322'])delete e[key];
   route(s,e,row,origin,target);s.effects.push(e);s.pendingStrikes.push(row);metrics.extraShots++;return true;
  }
@@ -69,7 +70,8 @@
  }
  function afterHit(s,target,applied,source){const p=source&&plans.get(source);if(!p)return;plans.delete(source);
   if(!(applied>0)||p.world!==s||p.zone!==s.zone||p.hero!==s.activeHeroId||s.time>p.expires||!valid(s,p.target))return;
-  if(extra(s,source,p.target,target,s.time+Math.max(.1,distance(target,p.target)/45),p.power,p.template,p.homing))metrics.followups++;
+  const endpoint=p.template.deliveryRoutesV31322?.find(r=>r.strikeId===source.id),contactOrigin={x:target.x,y:target.y,offsetX:n(endpoint?.endOffsetX,n(p.template.endOffsetX)),offsetY:n(endpoint?.endOffsetY,n(p.template.endOffsetY,-49))};
+  if(extra(s,source,p.target,target,s.time+Math.max(.1,distance(target,p.target)/45),p.power,p.template,p.homing,contactOrigin))metrics.followups++;
  }
  function launch(s){const c=root.__HAPIL_CONTROLS_V31329__,b=c?.binding;if(b?.state?.current!==s||typeof b.actions?.sound!=='function'||b.settings?.current?.sound===false||!(n(b.settings?.current?.sfxVolume,1)>0))return;
   const path=root.__HAPIL_ADDITIONAL_AUDIO_RC141__?.routeHeroAttack?.(s.activeHeroId,'A')??root.__HAPIL_RC86_BRIDGE__?.routeHeroSfx?.(s.activeHeroId,'A');

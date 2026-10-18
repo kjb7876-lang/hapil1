@@ -6,7 +6,7 @@ const bundle=fs.readFileSync('assets/index-v31526.js','utf8');let clock=100;
 const w={setInterval:()=>1,clearInterval(){},setTimeout(){},performance:{now:()=>clock*1000}};w.window=w;
 const context=vm.createContext({window:w,performance:w.performance,Set,WeakMap,Map,Math,Number,Object,Array,JSON,F:['hwando','seoha','rian','ion','neon','michaela','lauren','hunter','slayer','gunner'].map(id=>({id})),G:(x,y)=>({x:640+(x-y)*27,y:(x+y)*13.5}),MONGSE_enemyTorsoOffset:()=>({x:0,y:-44}),W:(id,key)=>id+'/'+key+'.webp'});
 const deliveryAt=bundle.indexOf('/* HAPIL v3.13.22 — queue-owned skill delivery.'),prefixAt=bundle.indexOf(" const VERSION='3.13.22'",deliveryAt),prefixEnd=bundle.indexOf(' const muzzles=new WeakMap()',prefixAt);
-assert(prefixAt>0&&prefixEnd>prefixAt);vm.runInContext('(()=>{'+bundle.slice(prefixAt,prefixEnd)+'window.__HAPIL_CONTINUITY_V31322__={partyRoute,prepareStrikes,plans};})();',context);
+assert(prefixAt>0&&prefixEnd>prefixAt);const muzzleEnd=bundle.indexOf(' function sprite(',prefixEnd);assert(muzzleEnd>prefixEnd);vm.runInContext('(()=>{'+bundle.slice(prefixAt,muzzleEnd)+'window.__HAPIL_CONTINUITY_V31322__={partyRoute,prepareStrikes,plans,muzzle};})();',context);
 const contactAt=bundle.indexOf(' function bindRoute(h,r){'),contactEnd=bundle.indexOf(' function branchGeometry(',contactAt);assert(contactAt>0&&contactEnd>contactAt);
 vm.runInContext('(()=>{const Nn=(v,d=0)=>Number.isFinite(v)?v:d,stats={missedCommitted:0},MONGSE_enemyHitRadius=()=>.65;'+bundle.slice(contactAt,contactEnd)+'window.__HAPIL_COMBAT_V31333__={bindRoute,strikeValid};})();',context);
 const sounds=[],C={binding:{state:{current:null},actions:{sound:(...args)=>sounds.push(args)},settings:{current:{sound:true,sfxVolume:1}}}},D={metrics:()=>({contacts:D.count}),count:0,tryParry(){D.count++;return true;},blockDamage(){D.count++;return true;},credit(){D.count++;return true;}};
@@ -27,6 +27,7 @@ for(const [hero,profile]of Object.entries(H.weapons))for(const ego of [false,tru
  for(const strike of s.pendingStrikes){const effect=s.effects.find(e=>e.deliveryRoutesV31322?.some(r=>r.strikeId===strike.id));assert(effect,'every real strike has a native rendered route');assert.equal(effect.sprite,hero+'/a.webp','normal and EGO retain the same weapon art');assert.equal(effect.homing,profile.homing);
   const plan=N.plans(effect,strike.at).find(p=>p.route.strikeId===strike.id);assert(plan?.arrived);assert.equal(plan.u,1);assert.equal(plan.x,plan.end.x);assert.equal(plan.y,plan.end.y);routeChecks++;
   assert(strike.committedRouteV31333,'native delivery captures a committed damage route');assert(w.__HAPIL_COMBAT_V31333__.strikeValid(s,strike,s.enemies.find(t=>t.id===strike.targetId)));
+  if(effect.rc226ContactOrigin){const p=effect.rc226ContactOrigin,m=N.muzzle(effect,{},s.time,plan.route),q=context.G(p.x,p.y);assert.equal(m.x,q.x+p.offsetX);assert.equal(m.y,q.y+p.offsetY,'pierce/bounce launch at the captured impact point, not a virtual hero muzzle');}
  }
  if(['orb','bolt','fan','burst'].includes(profile.kind)){
   const target=s.enemies[0],effect=s.effects.find(e=>e.deliveryRoutesV31322?.some(r=>r.strikeId===row.id)),r=effect.deliveryRoutesV31322.find(r=>r.strikeId===row.id),old=r.tx;s.time=10.05;target.x+=.75;N.prepareStrikes(s);assert.equal(r.tx,profile.homing?target.x:old,'native homing follows while ballistic shots keep the committed line');
