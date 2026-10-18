@@ -2,9 +2,9 @@
 (()=>{'use strict';let attempts=0;const Arena=()=>window.__HAPIL_BATTLE_ARENA_RC138__,state=()=>window.__HAPIL_CONTROLS_V31329__?.binding?.state?.current;
  function install(){if(!window.__HAPIL_RC133_NATIVE__?.installed||!window.__HAPIL_MAP_FORMAT_RC138__||!Arena())return false;
   const R=Arena(),nativeClear=MONGSE_zoneCombatCleared;R.bind({combat:[...he],clear:(...args)=>nativeClear(...args)});window.__HAPIL_MAP_FORMAT_RC138__.install(N);
-  const contains=ot;ot=function(z,x,y){return R.enabledZone(z)?R.contains({x,y},'all',0):contains.apply(this,arguments);};
-  const blocked=ut;ut=function(z,x,y,r=.45){return R.enabledZone(z)?!R.contains({x,y},'all',r):blocked.apply(this,arguments);};
-  const legal=dt;dt=function(z,p,r=.45){return R.enabledZone(z)?R.point(p,'all',r):legal.apply(this,arguments);};
+  const contains=ot;ot=function(z,x,y){return R.enabledZone(z)?R.contains({x,y},'all',0,z):contains.apply(this,arguments);};
+  const blocked=ut;ut=function(z,x,y,r=.45){return R.enabledZone(z)?!R.contains({x,y},'all',r,z):blocked.apply(this,arguments);};
+  const legal=dt;dt=function(z,p,r=.45){return R.enabledZone(z)?R.point(p,'all',r,z):legal.apply(this,arguments);};
   const move=ft;ft=function(z,a,v,r=.45){const result=move.apply(this,arguments),s=state();if(s?.zone!==z||!R.enabled(s))return result;const owned=R.movement(s,a,result,r);return a===s?window.__HAPIL_DIRECTION_INPUT_RC137__?.constrain(s,owned,{x:a.x+v.x,y:a.y+v.y})??owned:owned;};
   const portals=MONGSE_zonePortalAnchors;MONGSE_zonePortalAnchors=function(z){if(!R.enabledZone(z))return portals.apply(this,arguments);const entry=R.point(R.format.entry,'left',.8),exit=R.point(R.format.exit,'right',.8);return{zone:z,theme:'left-right',entry,exit,interactionEntry:entry,interactionExit:exit};};
   const flow=window.__HAPIL_FLOW_V31343__;for(const p of Object.values(flow.profiles)){p.entryAnchorWorld={...R.format.entry};p.exitAnchorWorld={...R.format.exit};p.routePolyline=[p.entryAnchorWorld,p.exitAnchorWorld];p.length=Math.hypot(p.exitAnchorWorld.x-p.entryAnchorWorld.x,p.exitAnchorWorld.y-p.entryAnchorWorld.y);p.u={x:(p.exitAnchorWorld.x-p.entryAnchorWorld.x)/p.length,y:(p.exitAnchorWorld.y-p.entryAnchorWorld.y)/p.length};p.v={x:-p.u.y,y:p.u.x};p.flowMode='LEFT_RIGHT';}
