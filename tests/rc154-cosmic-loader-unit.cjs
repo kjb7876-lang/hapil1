@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{verify}=require('../tools/rc154-cosmic-loader.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f));
 const input={html:read('index.html').toString(),bundle:read('assets/index-v31526.js').toString()};
-for(let n=15;n<=154;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
+for(let n=15;n<=155;n++)input['extension'+n]=read(`qa/rc133/authorized-runtime-extension-${n}.json`);
 let checks=0;
 assert.equal(verify(input),'exact-chained-RC155+RC152+EGO+resume');checks++;
 const patches=[
@@ -32,7 +32,7 @@ const patches=[
  {html:input.html.replace('resonance-counter.js?v=22105','resonance-counter.js?v=22101')},
  {html:input.html.replace('resonance-counter.css?v=22102','resonance-counter.css?v=22101')},
  {html:input.html+' '},{bundle:input.bundle+' '},
- ...Array.from({length:140},(_,i)=>{const n=i+15;return{['extension'+n]:Buffer.concat([input['extension'+n],Buffer.from('\n')])};})
+ ...Array.from({length:141},(_,i)=>{const n=i+15;return{['extension'+n]:Buffer.concat([input['extension'+n],Buffer.from('\n')])};})
 ];
 for(const patch of patches){assert.throws(()=>verify({...input,...patch}));checks++;}
 assert.equal(verify({html:'<script src="./assets/index-v31526.js?v=45001"></script>',bundle:'historical source-only fixture'}),'historical-45001');checks++;

@@ -21,10 +21,10 @@ try{
  assert.throws(()=>compatibility.validate('assets/rc133/arbitrary.js','0'.repeat(64),'0'.repeat(64)));checks++;
  const repo=path.resolve(__dirname,'..');
  const required=require('../tools/rc133-preservation.cjs').REQUIRED_BASES;
- const manifestBases=['authorized-runtime-delta.json',...Array.from({length:154},(_,i)=>'authorized-runtime-extension'+(i?'-'+(i+1):'')+'.json')].map(file=>JSON.parse(fs.readFileSync(path.join(repo,'qa/rc133',file),'utf8')).base);
+ const manifestBases=['authorized-runtime-delta.json',...Array.from({length:155},(_,i)=>'authorized-runtime-extension'+(i?'-'+(i+1):'')+'.json')].map(file=>JSON.parse(fs.readFileSync(path.join(repo,'qa/rc133',file),'utf8')).base);
  assert.deepEqual([...required],manifestBases,'Every pinned base must be fetched on a shallow CI checkout');checks++;
  assert(Object.isFrozen(required));checks++;
- assert.equal(new Set(required).size,155);checks++;
+ assert.equal(new Set(required).size,156);checks++;
  const migration=require('../tools/rc133-preservation.cjs').verify(repo).report;
  for(const file of Object.keys(compatibility.revisions)){
   const chain=compatibility.verifyRuntimeOutputChain(repo,migration,file),current=crypto.createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');
@@ -38,13 +38,13 @@ try{
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,brokenLink,'index.html'));checks++;
  const brokenHistorical=structuredClone(migration);brokenHistorical.approvedDelta.find(row=>row.file==='index.html').after.sha256='0'.repeat(64);
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,brokenHistorical,'index.html'));checks++;
- const latest=structuredClone(migration);latest.approvedExtension154.find(row=>row.file==='index.html').before.gitBlob='0'.repeat(40);
+ const latest=structuredClone(migration);latest.approvedExtension155.find(row=>row.file==='index.html').before.gitBlob='0'.repeat(40);
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,latest,'index.html'),'latest extension cannot start at arbitrary prior bytes');checks++;
- const latestBytes=structuredClone(migration);latestBytes.approvedExtension154.find(row=>row.file==='index.html').after.sha256='0'.repeat(64);
+ const latestBytes=structuredClone(migration);latestBytes.approvedExtension155.find(row=>row.file==='index.html').after.sha256='0'.repeat(64);
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,latestBytes,'index.html'),'latest extension cannot authorize arbitrary output bytes');checks++;
- const latestMode=structuredClone(migration);latestMode.approvedExtension154.find(row=>row.file==='index.html').after.mode='100755';
+ const latestMode=structuredClone(migration);latestMode.approvedExtension155.find(row=>row.file==='index.html').after.mode='100755';
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,latestMode,'index.html'),'latest extension retains exact output mode');checks++;
- const missingLatest=structuredClone(migration);delete missingLatest.approvedExtension154;
+ const missingLatest=structuredClone(migration);delete missingLatest.approvedExtension155;
  assert.throws(()=>compatibility.verifyRuntimeOutputChain(repo,missingLatest,'index.html'),'omitting the latest extension cannot fall back to accepting current bytes');checks++;
  console.log('RC133_PRESERVATION_UNIT',JSON.stringify({status:'passed',checks,scope:'Exact working inventory/bytes/modes and negative cases; detached full baseline proof is a separate exact-commit check'}));
 }finally{fs.rmSync(root,{recursive:true,force:true});}

@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "base": "a33b0efc71f8b9666c3995f148dec2f8bba2c869",
+  "baseTree": "e1ea290fafba20620304fd07bd4d6f57d8237729",
+  "sourceCommit": "d3528a3fd9306a9d2feeff262502253c8a0df2f9",
+  "protectedRoots": [
+    "assets",
+    "audio",
+    "data",
+    "index.html"
+  ],
+  "previousExtensionSha256": "372e96a30571daf2a2fcf16f356d34b9426729b12eebc527155b427c5c76c17f",
+  "files": [
+    {
+      "file": "assets/index-v31526.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "c960bf3ae2a4e750d8f78c470775efe65187e331",
+        "file": "assets/index-v31526.js"
+      },
+      "after": {
+        "file": "assets/index-v31526.js",
+        "mode": "100644",
+        "sha256": "5adb83c5c3ebc57536c790794420a85b83c9a55d48c0f6a67beec8543735ebdb",
+        "gitBlob": "0eae7e35914baec1c0e261c4ffd31c592351e011"
+      },
+      "reason": "assets/index-v31526.js: Check admission before each ordinary primary and density packet; only add a companion after actual primary admission; retain every committed packet."
+    },
+    {
+      "file": "assets/rc133/native-install-v2.js.txt",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "2ede3327e1bb36453590072ecef0148a40739754",
+        "file": "assets/rc133/native-install-v2.js.txt"
+      },
+      "after": {
+        "file": "assets/rc133/native-install-v2.js.txt",
+        "mode": "100644",
+        "sha256": "e52f88a92d1d69e4f51df025e85235eab1836064956daa2badd56f798748e8ba",
+        "gitBlob": "e5d5586bae328fe05fa33efa2b5fe7f799571449"
+      },
+      "reason": "assets/rc133/native-install-v2.js.txt: Keep the exact bounded native installation source identical to the primary/density admission wrapper."
+    },
+    {
+      "file": "assets/rc210/projectile-balance.js",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "10653cd6bad3a687e8e5764e80d0d286f6f4dc21",
+        "file": "assets/rc210/projectile-balance.js"
+      },
+      "after": {
+        "file": "assets/rc210/projectile-balance.js",
+        "mode": "100644",
+        "sha256": "b2ad7483165279dee3c35e59ae4d383eb0f2b4acd5bbd7662e1c319054a851c1",
+        "gitBlob": "4480361aed89f2e3f1d9c60e4f735521087a8375"
+      },
+      "reason": "assets/rc210/projectile-balance.js: Apply existing desktop56/mobile40 ordinary boss caps at native creation, preserving Persona/persistent owner admission and existing size/volley identities."
+    },
+    {
+      "file": "index.html",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "43a589ef6aa72e563f1fb3e9ebd1f6e3e99ed4b1",
+        "file": "index.html"
+      },
+      "after": {
+        "file": "index.html",
+        "mode": "100644",
+        "sha256": "010e257b8c63989ced36255faa2e376ee9cc21a35d661c61890b0ee7db638c22",
+        "gitBlob": "15bf012a173c933b5f3a39e4acc02db502c348eb"
+      },
+      "reason": "index.html: Cache-bust only the native bundle and ordinary projectile balance outputs."
+    }
+  ],
+  "targetProtectedRowsSha256": "315a8cefda668827b986971e9dbf7899f2311c53282fb8cd16a9144bdfe6a902"
+}

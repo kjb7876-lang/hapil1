@@ -44,16 +44,18 @@ jobs:
           HAPIL_QA_OUTPUT="$OUT/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs > "$OUT/lifecycle.log" 2>&1
           LIFECYCLE_EXIT=$?
           for PROFILE in pc portrait landscape; do
-            RC137_PROFILE="$PROFILE" HAPIL_QA_OUTPUT="$OUT/d-$PROFILE" node tests/rc142-gameplay-browser.cjs > "$OUT/d-$PROFILE.log" 2>&1
-            RESULT=$?
-            printf 'RC229_BASELINE_EXIT sha=%s case=D-%s exit=%s\n' "$APP_SHA" "$PROFILE" "$RESULT"
-            rg 'RC229_D_CONTACT_RECEIPT|RC142_GAMEPLAY_BROWSER|AssertionError|Error:' "$OUT/d-$PROFILE.log" || true
+            for FIXTURE in original swept; do
+              HAPIL_D_FIXTURE="$FIXTURE" RC137_PROFILE="$PROFILE" HAPIL_QA_OUTPUT="$OUT/d-$PROFILE-$FIXTURE" node tests/rc142-gameplay-browser.cjs > "$OUT/d-$PROFILE-$FIXTURE.log" 2>&1
+              RESULT=$?
+              printf 'RC229_BASELINE_EXIT sha=%s case=D-%s-%s exit=%s\n' "$APP_SHA" "$PROFILE" "$FIXTURE" "$RESULT"
+              grep -E 'RC229_D_CONTACT_RECEIPT|RC142_GAMEPLAY_BROWSER|AssertionError|Error:' "$OUT/d-$PROFILE-$FIXTURE.log" || true
+            done
           done
           set -e
           printf 'RC229_BASELINE_EXIT sha=%s case=lifecycle exit=%s\n' "$APP_SHA" "$LIFECYCLE_EXIT"
-          rg 'RC137_LIFECYCLE_PROFILE|AssertionError|Error:' "$OUT/lifecycle.log" || true
+          grep -E 'RC137_LIFECYCLE_PROFILE|AssertionError|Error:' "$OUT/lifecycle.log" || true
           test -f "$OUT/lifecycle/results.json"
-          test -f "$OUT/d-landscape/rc142-gameplay.json"
+          test -f "$OUT/d-landscape-swept/rc142-gameplay.json"
           git worktree remove "$APP_ROOT"
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
@@ -87,6 +89,8 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           node tests/chromium-sandbox-policy.cjs
+          node tools/rc229-build-extension.cjs --check
+          node tests/rc229-admission-unit.cjs
           OUT="$RUNNER_TEMP/rc229-candidate"
           HAPIL_QA_OUTPUT="$OUT/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs
           for PROFILE in pc portrait landscape; do
