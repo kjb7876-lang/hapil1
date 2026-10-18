@@ -1,0 +1,108 @@
+name: RC229 admission and D differential verification
+on:
+  push:
+    branches: [codex/rc228-legacy-audit-fixture-20261018]
+permissions:
+  contents: read
+concurrency:
+  group: rc229-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  baseline-forensics:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [b0b919d4e18c2e93f871606ece0744d077ff7239, a33b0efc71f8b9666c3995f148dec2f8bba2c869]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Normal Chrome Stable with its sandbox
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc229" --no-save --package-lock=false playwright@1.55.1
+          node "$RUNNER_TEMP/rc229/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc229/node_modules" >> "$GITHUB_ENV"
+          node tests/chromium-sandbox-policy.cjs
+      - name: Observe immutable baseline failures without changing assertions
+        env:
+          APP_SHA: ${{ matrix.app }}
+        run: |
+          set -euo pipefail
+          APP_ROOT="$RUNNER_TEMP/rc229-app"
+          OUT="$RUNNER_TEMP/rc229-baseline"
+          mkdir -p "$OUT"
+          git worktree add --detach "$APP_ROOT" "$APP_SHA"
+          export HAPIL_APP_ROOT="$APP_ROOT" EXPECTED_SHA="$APP_SHA"
+          set +e
+          HAPIL_QA_OUTPUT="$OUT/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs > "$OUT/lifecycle.log" 2>&1
+          LIFECYCLE_EXIT=$?
+          for PROFILE in pc portrait landscape; do
+            for FIXTURE in original swept; do
+              HAPIL_D_FIXTURE="$FIXTURE" RC137_PROFILE="$PROFILE" HAPIL_QA_OUTPUT="$OUT/d-$PROFILE-$FIXTURE" node tests/rc142-gameplay-browser.cjs > "$OUT/d-$PROFILE-$FIXTURE.log" 2>&1
+              RESULT=$?
+              printf 'RC229_BASELINE_EXIT sha=%s case=D-%s-%s exit=%s\n' "$APP_SHA" "$PROFILE" "$FIXTURE" "$RESULT"
+              grep -E 'RC229_D_CONTACT_RECEIPT|RC142_GAMEPLAY_BROWSER|AssertionError|Error:' "$OUT/d-$PROFILE-$FIXTURE.log" || true
+            done
+          done
+          set -e
+          printf 'RC229_BASELINE_EXIT sha=%s case=lifecycle exit=%s\n' "$APP_SHA" "$LIFECYCLE_EXIT"
+          grep -E 'RC137_LIFECYCLE_PROFILE|AssertionError|Error:' "$OUT/lifecycle.log" || true
+          test -f "$OUT/lifecycle/results.json"
+          test -f "$OUT/d-landscape-swept/rc142-gameplay.json"
+          git worktree remove "$APP_ROOT"
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc229-baseline-${{ matrix.app }}-${{ github.sha }}
+          path: ${{ runner.temp }}/rc229-baseline/
+          if-no-files-found: error
+          retention-days: 14
+  candidate-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Normal Chrome Stable with its sandbox
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc229" --no-save --package-lock=false playwright@1.55.1
+          node "$RUNNER_TEMP/rc229/node_modules/playwright/cli.js" install --with-deps chrome
+          echo "CODEX_PRIMARY_RUNTIME_NODE_MODULES=$RUNNER_TEMP/rc229/node_modules" >> "$GITHUB_ENV"
+      - name: Require the actual candidate assertions to pass
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/chromium-sandbox-policy.cjs
+          node tools/rc229-build-extension.cjs --check
+          node tests/rc229-admission-unit.cjs
+          OUT="$RUNNER_TEMP/rc229-candidate"
+          HAPIL_QA_OUTPUT="$OUT/lifecycle" node tests/rc137-boss-lifecycle-browser.cjs
+          for PROFILE in pc portrait landscape; do
+            RC137_PROFILE="$PROFILE" HAPIL_QA_OUTPUT="$OUT/d-$PROFILE" node tests/rc142-gameplay-browser.cjs
+          done
+          node tests/rc86-samong-cosmic-smoke.cjs
+          node tests/rc154-cosmic-loader-unit.cjs
+          test -z "$(git status --porcelain)"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc229-candidate-${{ github.sha }}
+          path: ${{ runner.temp }}/rc229-candidate/
+          if-no-files-found: error
+          retention-days: 14

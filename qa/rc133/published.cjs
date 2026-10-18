@@ -264,7 +264,7 @@ async function runProfile(browser, profile, outputRows) {
       return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:entries.length,newImages:images,ep1a10:rows.ep1a10,murder01:rows.murder01,reusedRoad:{path:rows.murder01.activeMap,width:road.naturalWidth,height:road.naturalHeight},split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics()};
     });
     assert.equal(row.arena138.maps,55);
-    assert.deepEqual(row.arena138.newImages.map(image=>image.zone).sort(),['ep1a08','ep1a10','ep1b07','kair02','kair04','murder02']);
+    assert.deepEqual(row.arena138.newImages.map(image=>image.zone).sort(),['ep1a08','ep1a10','ep1b04','ep1b07','kair02','kair04','murder02']);
     assert.equal(row.arena138.ep1a10.decision,'story-aligned-art');
     assert.equal(row.arena138.ep1a10.activeMap,'./assets/generated-story10-cycle-20261005/ep1a10/ep1a10-hospital-denial-map.png');
     assert.equal(row.arena138.murder01.decision,'reassigned-original-ep1a10-road');
@@ -483,7 +483,8 @@ assert.equal(laterExtensions[142-66].base,'4ea2fe207c3cf79e77c566645fcaa5a30c603
 assert.equal(laterExtensions[152-66].base,'7842ffa2f6f0de21df747ff299435f5a145fed43','exact RC152 camera extension base');
 assert.equal(laterExtensions[153-66].base,'b0b919d4e18c2e93f871606ece0744d077ff7239','exact RC227 floor/shooting extension base');
 assert.equal(laterExtensions[154-66].base,'c6a085d49a7690e8631d9bb9add90613b6881887','exact reviewed RC228 extension base');
-assert.equal(runtimeOutputs.size,399,'exact extension154 scoped file inventory');
+assert.equal(laterExtensions[155-66].base,'a33b0efc71f8b9666c3995f148dec2f8bba2c869','exact reviewed RC229 admission extension base');
+assert.equal(runtimeOutputs.size,399,'exact extension155 scoped file inventory');
     for(const row of runtimeOutputs.values()){const file=row.file;assert(/^(assets\/|audio\/|data\/|index\.html$)/.test(file));const checked=expectedFile(file);assert.equal(checked.sha256,row.sha256,'current exact authorized bytes '+file);expected.set(file,checked);}
     for(const file of ['qa/rc137/mob-motion-manifest.json','qa/rc137/enemy-classes.json'])expected.set(file,expectedFile(file));
 
@@ -506,9 +507,9 @@ assert.equal(runtimeOutputs.size,399,'exact extension154 scoped file inventory')
     const personaAreaFile='assets/rc32/boss-and-mobile.js';
     assert(expected.has(personaAreaFile),'the existing RC32 area renderer is included in the exact public plan');
     assert(extension55.files.some(row=>row.file===personaAreaFile&&row.before&&row.after),'RC32 inclusion retains its existing pinned preimage');
-    assert.equal(expected.size-egoOriginalFiles.length,397,'prior set plus exact scoped runtime extensions through extension154');
-    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,395,'exact prior runtime set plus the scoped runtime extensions through extension154');
-    assert.equal(expected.size,404,'exact public set including the RC32 area renderer, root-hit runtime and resonance-counter runtime through extension154');
+    assert.equal(expected.size-egoOriginalFiles.length,397,'prior set plus exact scoped runtime extensions through extension155');
+    assert.equal(expected.size-egoOriginalFiles.length-addedLayoutFiles.length,395,'exact prior runtime set plus the scoped runtime extensions through extension155');
+    assert.equal(expected.size,404,'exact public set including the RC32 area renderer, root-hit runtime and resonance-counter runtime through extension155');
     const localIndexHash = sha256(localBytes('index.html'));
     report.expectedFiles = expected.size;
     report.expectedArtOutputs = outputRows.length;
