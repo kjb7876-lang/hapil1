@@ -4,7 +4,7 @@
  const excluded=q=>!q||q.laserV31330||q.laserShot||q.themedLaser||q.bloodV31516||q.themeBombV31323||q.themePollutionV31323||q.bossImpactTransitV31232||q.heroSkillVfx||q.heroProjectileTransient||q.visualOnly||q.blackHoleDotRC175||q.rc210SpatialRift||q.spatialRiftV31232||q.kind==='blackhole'||q.kind==='spatial-rift';
  const boss=a=>!!(a?.boss||a?.midboss);
  const special=q=>!!(q?.rc133InnerShot||q?.danmakuV31316||q?.persistentProjectile31222||q?.rc150PersonaAwakeningShot);
- function admissionCap(){return root.__HAPIL_COMBAT_RC47__?.mobile?.()===true?40:56;}
+ function admissionCap(){return root.innerWidth<800||root.__HAPIL_COMBAT_RC47__?.mobile?.()===true?40:56;}
  function canEmit(s,a,q){return !eligible(a,q)||special(q)||(s?.hostileProjectiles?.length??0)<admissionCap();}
  function eligible(a,q){return boss(a)&&!excluded(q)&&!q.friendly&&!q.reflected&&Math.hypot(n(q.vx),n(q.vy))>.01;}
  function prepare(s,a,q){if(!q||q.rc210BulletBaseline||!eligible(a,q))return q;const appliedFactor=String(q.sprite??'').split(/[?#]/)[0]==='./assets/rc64/projectiles/danmaku-jellybean.webp'?.33:factor,baseline={factor:appliedFactor,radius:n(q.radius,.34)};for(const k of ['hitRadius','collisionRadius','bodyRadius'])if(Number.isFinite(q[k]))baseline[k]=q[k];q.rc210BulletBaseline=Object.freeze(baseline);for(const k of ['radius','hitRadius','collisionRadius','bodyRadius'])if(Number.isFinite(baseline[k]))q[k]=baseline[k]*baseline.factor;return q;}
