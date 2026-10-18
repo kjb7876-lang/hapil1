@@ -179,6 +179,7 @@ jobs:
           node tests/chromium-sandbox-policy.cjs
           node tests/rc153-chrome-sandbox-smoke.cjs
           node tests/rc210-browser.cjs
+          HAPIL_QA_OUTPUT="$HAPIL_QA_OUTPUT/persona-native" node tests/rc158-native-browser.cjs
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
