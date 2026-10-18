@@ -53126,6 +53126,7 @@ function Ri() {
           MONGSE_heroAttackSfx(n.id, `E`),
           n.id === `gunner` ? 0.16 : n.id === `hwando` ? 0.48 : 0.72,
         ));
+      window.__HAPIL_SHOOTER_RC226__?.blink(t,{x:c,y:l});
     }, [e, We]),
     Ze = (0, l.useCallback)(() => {
       if (e !== `game` || Ve.current) return;
@@ -62132,7 +62133,7 @@ function Ri() {
               for (let e of r) {const HAPIL_resolveOwnedRC222=(o)=>{
                 let t = o.enemies.find((t) => t.id === e.targetId);
                 t && (window.__HAPIL_COMBAT_V31333__?.strikeValid(o,e,t) !== false) &&
-                  (We(
+                  (e.rc226LaunchSound===true?void 0:We(
                     MONGSE_heroAttackSfx(e.heroId, e.actionKey),
                     e.heroId === `gunner`
                       ? 0.24
@@ -124060,7 +124061,7 @@ window.__HAPIL_CHANNEL_FACTORY_V31406__.install({
  function tick(s,dt){const m=mem(s);if(!(dt>0)||blocked(s)){m.intent=-1;return;}
   const b=C().binding,mode=C().effective(b.settings?.current),held=C().hasHeldLogical('KeyA')||b.input.current.has('KeyA');
   if(mode==='full')dodge(s);
-  if(mode==='semi'){const nearest=(s.enemies??[]).filter(e=>valid(s,e)&&J(s,e)<=L().role(s.activeHeroId).range*1.3).sort((a,b)=>J(s,a)-J(s,b))[0];if(nearest)s.targetEnemyId=nearest.id;}
+  if(mode==='semi'){const available=(s.enemies??[]).filter(e=>valid(s,e)&&J(s,e)<=L().role(s.activeHeroId).range*1.3),selected=available.find(e=>e.id===s.targetEnemyId),nearest=selected??available.sort((a,b)=>J(s,a)-J(s,b))[0];if(nearest)s.targetEnemyId=nearest.id;}
   if(!held&&mode==='manual'&&s.time>m.intent)return;
   const attackMarker=window.__HAPIL_STORY_RC51__?.active(s)?s.basicAttackCount:s.lastAttack;
   if(!Number.isFinite(s.lastAttack)||attackMarker===m.procAttack||s.time-s.lastAttack>.3)return;m.procAttack=attackMarker;

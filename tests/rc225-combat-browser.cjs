@@ -34,7 +34,7 @@ function check(name,evidence){report.checks.push({name,status:'passed',evidence}
 
 (async()=>{
  const contexts=[];try{
-  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));base='http://127.0.0.1:'+server.address().port;browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});report.browserVersion=browser.version();report.sources=sourceRows();
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));base='http://127.0.0.1:'+server.address().port;browser=await chromium.launch({executablePath:process.env.HAPIL_CHROMIUM||'/usr/bin/chromium',headless:true,chromiumSandbox:true});report.browserVersion=browser.version();report.sources=sourceRows();
   if(process.env.HAPIL_SKIP_BASELINE!=='1'){const baseline=await newPage({withoutShooter:true});contexts.push(baseline.context);const baselineLaunch=await startStory(baseline.page);const baselineEntry=await enterFixture(baseline.page);await baseline.page.waitForTimeout(1600);report.performance.baseline={launch:baselineLaunch,entry:baselineEntry,frameSample:await perf(baseline.page),moduleDisabledByRoute:true};await baseline.context.close();}
   if(process.env.HAPIL_ONLY_BASELINE==='1'){report.status='completed';report.finishedAt=new Date().toISOString();save();console.log('RC225_PERFORMANCE_BASELINE',JSON.stringify({status:report.status,appSha:sha,performance:report.performance.baseline}));return;}
   const desktop=await newPage();contexts.push(desktop.context);const launch=await startStory(desktop.page),entry=await enterFixture(desktop.page);report.launch=launch;report.entry=entry;

@@ -31,7 +31,7 @@
  }
  function wrapDefense(){
   const api=root.__HAPIL_DEFENSE_V31356__;if(!api||api===installedDefense||api.rc225Wrapped)return !!api;
-  const wrap=name=>typeof api[name]!=='function'?api[name]:function(...args){const s=args[0],before=contacts(api),result=api[name](...args),after=contacts(api);if(result===true||name==='credit'&&result!==false)grantCountershot(s,before,after);return result;};
+  const wrap=name=>typeof api[name]!=='function'?api[name]:function(...args){const s=args[0],actor=name==='tryParry'?(args[2]??s):(args[1]??s),before=contacts(api),result=api[name](...args),after=contacts(api);if(actor===s&&(result===true||name==='credit'&&result!==false))grantCountershot(s,before,after);return result;};
   const next={...api,tryParry:wrap('tryParry'),blockDamage:wrap('blockDamage'),credit:wrap('credit')};Object.defineProperty(next,'rc225Wrapped',{value:true});
   root.__HAPIL_DEFENSE_V31356__=root.__HAPIL_CHANNEL_V31364__=Object.freeze(next);installedDefense=root.__HAPIL_DEFENSE_V31356__;return true;
  }
@@ -52,13 +52,14 @@
     if(bonus>0)metrics.focusedVolleys++;
    }};Object.defineProperty(next,'rc225Wrapped',{value:true});root.__HAPIL_LOOP_V31365__=Object.freeze(next);installedLoop=root.__HAPIL_LOOP_V31365__;return true;
  }
+ function packTemplate(a){return !!a&&!a.boss&&!a.midboss&&!a.cosmicBoss&&!a.objectiveStructureV31238&&!a.protectedNarrativeTargetV31307&&!a.protectedNarrativeTargetV31238&&root.__HAPIL_BATTLE_ARENA_RC138__?.hostile?.(a)!==false;}
  function interludeAllowed(s,flow){
   const arena=root.__HAPIL_NATIVE_ARENA_RC138__,map=arena?.maps?.[s.zone],rows=map?.enemies;
-  return !!s&&flow?.profile?.(s.zone)&&s.gameModeV31346!=='PRACTICE'&&!s.practiceV31329&&!s.requiredScene&&s.hp>0&&!s.bossDefeated&&s.spawnedWaves?.has?.(3)&&!s.spawnedWaves?.has?.(4)&&root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)!==true&&Array.isArray(rows)&&rows.some(a=>!a.boss&&!a.midboss&&!a.cosmicBoss);
+  return !!s&&flow?.profile?.(s.zone)&&s.gameModeV31346!=='PRACTICE'&&!s.practiceV31329&&!s.requiredScene&&s.hp>0&&!s.bossDefeated&&s.spawnedWaves?.has?.(3)&&!s.spawnedWaves?.has?.(4)&&root.__HAPIL_INNER_FINAL_RC133__?.encounter?.(s)!==true&&Array.isArray(rows)&&rows.some(packTemplate);
  }
  function cue(s,text,color='#aaf9ee',duration=.48){(s.floatTexts??=[]).push({id:s.fxSerial++,x:s.x,y:s.y,born:s.time,duration,text,color});}
  function spawnNext(s,state){
-  const arena=root.__HAPIL_NATIVE_ARENA_RC138__,geometry=root.__HAPIL_BATTLE_ARENA_RC138__,bridge=root.__HAPIL_RC86_BRIDGE__,rows=arena?.maps?.[s.zone]?.enemies??[],row=rows.find(a=>!a.boss&&!a.midboss&&!a.cosmicBoss);
+  const arena=root.__HAPIL_NATIVE_ARENA_RC138__,geometry=root.__HAPIL_BATTLE_ARENA_RC138__,bridge=root.__HAPIL_RC86_BRIDGE__,rows=arena?.maps?.[s.zone]?.enemies??[],row=rows.find(packTemplate);
   if(!row||typeof bridge?.cloneEnemy!=='function'){metrics.interludesSkipped++;return false;}
   let actor;try{actor=bridge.cloneEnemy(row,s.zone);}catch{return false;}if(!actor||typeof actor!=='object')return false;
   const index=state.index,id=`rc225-interlude-${s.zone}-${++actorSerial}`;actor.id=id;actor.boss=false;actor.midboss=false;actor.cosmicBoss=false;actor.requiredForClear=false;actor.rc225Interlude=true;actor.rc225InterludeIndex=index;
@@ -70,7 +71,7 @@
  function wrapFlow(){
   const flow=root.__HAPIL_FLOW_V31343__;if(!flow||flow===installedFlow||flow.rc225Wrapped)return !!flow;const base=flow.waveAdvanceReady;
   function waveAdvanceReady(s,...args){
-   let state=packsByWorld.get(s);if(state&&(state.zone!==s.zone||s.time<state.lastTime||s.bossDefeated||s.spawnedWaves?.has?.(4))){packsByWorld.delete(s);state=null;}
+   let state=packsByWorld.get(s);if(state&&(state.zone!==s.zone||s.time<state.lastTime||s.bossDefeated||s.spawnedWaves?.has?.(4)||state.actor?.hp>0&&!(s.enemies??[]).includes(state.actor))){packsByWorld.delete(s);state=null;}
    const ready=base.call(flow,s,...args);if(!state){if(!ready||!interludeAllowed(s,flow))return ready;state={zone:s.zone,index:0,actor:null,nextAt:s.time,finishAt:null,lastTime:s.time};packsByWorld.set(s,state);metrics.interludesStarted++;}
    state.lastTime=s.time;
    if(state.actor&&state.actor.hp>0)return false;
