@@ -47,6 +47,7 @@ jobs:
           node tests/rc195-blink-arena-unit.cjs
           node tests/rc224-arena-regression-unit.cjs
           node tests/rc79-combat-presentation.cjs
+          node tests/rc154-cosmic-loader-unit.cjs
           test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
