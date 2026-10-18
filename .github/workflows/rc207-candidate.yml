@@ -226,3 +226,32 @@ jobs:
           path: ${{ runner.temp }}/rc227-browser/
           if-no-files-found: error
           retention-days: 14
+  current-public-byte-proof:
+    if: github.ref == 'refs/heads/codex/rc228-review-fixes-20261018'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Inspect exact currently published merge without deploying fixes
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc228-current-public
+          HAPIL_PUBLISHED_ROOT: ${{ runner.temp }}/rc228-published-main
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$HAPIL_PUBLISHED_ROOT" c6a085d49a7690e8631d9bb9add90613b6881887
+          node tests/rc228/public-current.cjs
+          git worktree remove "$HAPIL_PUBLISHED_ROOT"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: rc228-current-public-c6a085d4-${{ github.sha }}
+          path: ${{ runner.temp }}/rc228-current-public/
+          if-no-files-found: error
+          retention-days: 14
