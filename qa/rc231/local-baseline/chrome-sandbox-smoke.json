@@ -1,0 +1,12 @@
+{
+  "status": "blocked",
+  "commit": "59598c41d747819590ca4b0c90cb0cd3b5f3c4b0",
+  "browserChannel": "chrome",
+  "chromiumSandbox": true,
+  "usedNoSandboxFallback": false,
+  "error": {
+    "name": "Error",
+    "message": "browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome\nRun \"npx playwright install chrome\"",
+    "stack": "browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome\nRun \"npx playwright install chrome\"\n    at /workspace/hapil1/tests/rc153-chrome-sandbox-smoke.cjs:33:30\n    at Object.<anonymous> (/workspace/hapil1/tests/rc153-chrome-sandbox-smoke.cjs:56:3)"
+  }
+}
