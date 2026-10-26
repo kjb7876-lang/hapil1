@@ -8,6 +8,7 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 const cp = require('node:child_process');
 const { checkedUrl } = require('./public-url.cjs');
+const { beforeLoad, contract } = require('../../tests/helpers/landscape-orientation.cjs');
 
 const root = path.resolve(__dirname, '../..');
 const base = 'https://kjb7876-lang.github.io/hapil1/';
@@ -192,6 +193,7 @@ async function runProfile(browser, profile, outputRows) {
     if (response.status() >= 400) row.httpErrors.push({ url: response.url(), status: response.status() });
   });
   try {
+    row.combatViewport = await beforeLoad(page);
     const url = new URL(baseUrl);
     url.searchParams.set('qa', '1');
     url.searchParams.set('rc133-qa', name + '-' + Date.now());
@@ -229,14 +231,18 @@ async function runProfile(browser, profile, outputRows) {
     // Enter a fresh ordinary STORY game using only the normal UI. No save or
     // gameplay fields are injected; ordinary autosaves stay inside this fresh
     // ephemeral browser context.
+    row.orientation = { title: await contract(page, { width, height }) };
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: '새 게임 시작', exact: true }).click();
     await page.getByRole('button', { name: '이 편성으로 접속', exact: true }).click();
     await page.waitForFunction(() => window.__MONGSE_QA_STATE__?.zone === 'dist00', null, { timeout: 30000 });
+    await page.waitForSelector('#hapil-story-rc51');
     for (let i = 0; i < 12 && await page.locator('#hapil-story-rc51').count(); i++) {
       await page.keyboard.press('Enter');
       await page.waitForTimeout(100);
     }
+    await page.waitForFunction(() => !document.querySelector('#hapil-story-rc51'));
+    row.orientation.gameplay = await contract(page, { width, height });
     const canvas = page.locator('.game-stage canvas:visible').first();
     await canvas.waitFor({ state: 'visible', timeout: 15000 });
     const live = await page.evaluate(() => {
@@ -261,7 +267,7 @@ async function runProfile(browser, profile, outputRows) {
       const R=window.__HAPIL_BATTLE_ARENA_RC138__,s=window.__MONGSE_QA_STATE__,rows=window.__HAPIL_MAP_DATA_RC138__,entries=Object.entries(rows),generated=entries.filter(([zone,row])=>row.decision==='new-imagegen'||(zone==='ep1a10'&&row.decision==='story-aligned-art')),images=[];
       for(const[zone,row]of generated){const im=new Image();im.src=row.activeMap;await im.decode();images.push({zone,path:row.activeMap,width:im.naturalWidth,height:im.naturalHeight});}
       const road=new Image();road.src=rows.murder01.activeMap;await road.decode();
-      return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:entries.length,newImages:images,ep1a10:rows.ep1a10,murder01:rows.murder01,reusedRoad:{path:rows.murder01.activeMap,width:road.naturalWidth,height:road.naturalHeight},split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics()};
+      return{snapshot:R.snapshot(s),playerValid:R.contains(s,'left',.8),enemyValid:s.enemies.filter(R.live).every(a=>R.contains(a,'right',.72)),maps:entries.length,newImages:images,ep1a10:rows.ep1a10,murder01:rows.murder01,reusedRoad:{path:rows.murder01.activeMap,width:road.naturalWidth,height:road.naturalHeight},split:window.__HAPIL_PORTRAIT_SPLIT_RC108__.metrics(),splitActive:window.__HAPIL_PORTRAIT_SPLIT_RC108__.active(s),camera:window.__HAPIL_VIEWPORT_RC104__.camera(s)};
     });
     assert.equal(row.arena138.maps,55);
     assert.deepEqual(row.arena138.newImages.map(image=>image.zone).sort(),['ep1a08','ep1a10','ep1b04','ep1b07','kair02','kair04','murder02']);
@@ -270,7 +276,14 @@ async function runProfile(browser, profile, outputRows) {
     assert.equal(row.arena138.murder01.decision,'reassigned-original-ep1a10-road');
     assert.equal(row.arena138.reusedRoad.path,'./assets/v31345/maps/ep1a10.webp');
     assert(row.arena138.snapshot.locked&&row.arena138.playerValid&&row.arena138.enemyValid,'normal public Story owns actual halves');
-    if(name.includes('portrait')){assert.equal(row.arena138.split.cameras.hero.side,'left');assert.equal(row.arena138.split.cameras.boss.side,'right');}
+    if(name.includes('portrait')){
+      assert(row.combatViewport.width>row.combatViewport.height,'portrait guide resumes supported landscape combat');
+      assert.equal(row.arena138.snapshot.playerSide,'left');assert.equal(row.arena138.snapshot.enemySide,'right');
+      assert.equal(row.arena138.splitActive,false,'landscape uses the shared native camera');
+      const camera=row.arena138.camera;
+      assert(camera.battleArenaRC138&&camera.rc153WholeBody&&[camera.x,camera.y,camera.scale].every(Number.isFinite)&&camera.scale>0,'actual shared native camera has a finite whole-body fit');
+      assert(Object.values(camera.rc153Safe).every(Number.isFinite)&&camera.rc153Safe.left<camera.rc153Safe.right&&camera.rc153Safe.top<camera.rc153Safe.bottom,'shared camera preserves a finite valid safe viewport');
+    }
     row.game = live;
     assert.deepEqual(row.errors, [], 'no browser page errors');
     assert.deepEqual(row.httpErrors, [], 'no HTTP errors');

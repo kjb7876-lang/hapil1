@@ -142,6 +142,24 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           node tests/rc137-death-choice-browser.cjs
           test -z "$(git status --porcelain)"
+      - name: Verify original death rendering after portrait resume
+        env:
+          RC144_PROFILE: ${{ matrix.profile }}
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/legacy-death-${{ matrix.profile }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc144-death-burn-browser.cjs
+          test -z "$(git status --porcelain)"
+      - name: Verify original global body matrix after portrait resume
+        if: matrix.profile == 'pc'
+        env:
+          HAPIL_QA_OUTPUT: ${{ runner.temp }}/rc231-browser/legacy-body
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node tests/rc146-global-body-browser.cjs
+          test -z "$(git status --porcelain)"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
