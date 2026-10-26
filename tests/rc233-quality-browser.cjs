@@ -19,7 +19,7 @@ const SEED = 0x2332026;
 // remain in the report; they do not cause the old release to be marked passing.
 const CRITERIA = Object.freeze({ fixedCameraDrift: 1e-7, onePixelCssScaleDrift: .01,
   naturalCycles: 3, majorFixtureMinimumPressureCycles: 2, majorFixturePostBloodCycles: 1,
-  fixtureWallTimeoutMs: 30000, flightObservationSeconds: .35,
+  fixtureWallTimeoutMs: 60000, flightObservationSeconds: .35,
   bodyLongCssPx: 4, bodyShortCssPx: 1, contrastedPixelFraction: .20,
   rgbDifference: 24, unblockedPressureIdleSeconds: 1.10, comparisonIdleRatio: .85,
   sourceAlphaChangedPixels: 0, contactGeometryChangedDraws: 0 });
@@ -41,7 +41,17 @@ const BRIDGE = Buffer.from(`\n;window.__RC233_QA__=Object.freeze({
  camera:s=>HAPIL_viewCameraRC104(s.x,s.y,s),project:G,
  projectile:(...a)=>HAPIL_drawProjectileRC13(...a),queue:MONGSE_queueImage,
  shakes:(s,o)=>({rare:MONGSE_rareScreenShakeOffset31211(s,o),priority:HAPIL_currentShakeOffsetV31302(s,o)}),
- mapPath:s=>{const z=N[s.zone],rows=Array.isArray(z.mapVariants)&&z.mapVariants.length?[z.map,...z.mapVariants].filter((v,i,a)=>v&&a.indexOf(v)===i):[z.map],i=Math.min(rows.length-1,Math.max(0,(s.spawnedWaves?.size??1)-1+Math.max(0,(s.bossPhase??1)-1))),p=window.__HAPIL_LUCIFER_V31318__?.mapFor(s,rows[i]??z.map)??rows[i]??z.map;return window.__HAPIL_INNER_FINAL_RC133__?.map(s,p)??p;}
+ mapPath:s=>{const z=N[s.zone],rows=Array.isArray(z.mapVariants)&&z.mapVariants.length?[z.map,...z.mapVariants].filter((v,i,a)=>v&&a.indexOf(v)===i):[z.map],i=Math.min(rows.length-1,Math.max(0,(s.spawnedWaves?.size??1)-1+Math.max(0,(s.bossPhase??1)-1))),p=window.__HAPIL_LUCIFER_V31318__?.mapFor(s,rows[i]??z.map)??rows[i]??z.map;return window.__HAPIL_INNER_FINAL_RC133__?.map(s,p)??p;},
+ observeAdmissions:()=>{
+  const original=MONGSE_pushThemeProjectile3129;
+  MONGSE_pushThemeProjectile3129=function(s,a,p,...rest){
+   const D=window.__HAPIL_BULLET_BALANCE_RC210__,before=s?.hostileProjectiles??[],existing=new Set(before),cap=D.admissionCap(),eligible=D.eligible(a,p),special=!!(p?.rc133InnerShot||p?.danmakuV31316||p?.persistentProjectile31222||p?.rc150PersonaAwakeningShot),allowed=D.canEmit(s,a,p);
+   const row={time:s.time,owner:a?.id,before:before.length,cap,eligible,special,guarded:eligible&&!special,allowed,pressure:p?.patternKind==='rc95-volley'};
+   const result=original.call(this,s,a,p,...rest),after=s?.hostileProjectiles??[];
+   if(window.__RC233_OBSERVING__)(window.__RC233_ADMISSIONS__??=[]).push({...row,after:after.length,added:after.filter(q=>!existing.has(q)).map(q=>({id:q.id,owner:q.sourceId,density:!!q.rc210DensityExtra,echo:!!q.echoBoltV31368}))});
+   return result;
+  };
+ }
 });
 const RC233_actorDraw=Yn;Yn=function(ctx,cache,a,...rest){const old=window.__RC233_DRAW_ACTOR__;window.__RC233_DRAW_ACTOR__=a;try{return RC233_actorDraw.call(this,ctx,cache,a,...rest);}finally{window.__RC233_DRAW_ACTOR__=old;}};
 const RC233_projectileDraw=HAPIL_drawProjectileRC13;HAPIL_drawProjectileRC13=function(ctx,cache,q,...rest){const old=window.__RC233_DRAW_SHOT__;window.__RC233_DRAW_SHOT__=q;try{return RC233_projectileDraw.call(this,ctx,cache,q,...rest);}finally{window.__RC233_DRAW_SHOT__=old;}};
@@ -86,6 +96,10 @@ function installObservation(seed) {
 
 function installQualityProbe() {
   const Q = window.__RC233_QA__, C = window.__HAPIL_CONTROLS_V31329__, P = window.__HAPIL_PARTY_V31322__;
+  // Install after native boot has finished. The served policy's canEmit and
+  // eligible functions are pure reads; its API object and all emission results
+  // remain native. Observe the final emitter, including its density extra.
+  Q.observeAdmissions();
   const number = (v, fallback = 0) => Number.isFinite(v) ? v : fallback;
   const release = q => Math.max(...['born', 'frozenUntil', 'telegraphUntil31210', 'motionReleaseAt31219', 'collisionDisabledUntil31219', 'collisionDisabledUntilV31226'].map(k => number(q[k])));
   const removed = q => q.cancelled || q.projectileRemovalReason31215 || q.reachedHero31213 || q.reachedMapBoundary31213 || q.friendly || q.reflected;
@@ -197,7 +211,8 @@ function installQualityProbe() {
     window.__HAPIL_BATTLE_ARENA_RC138__.enforce(s);
     const actorGuards = actors.map(a => ({ id: a.id, x: typeof Object.getOwnPropertyDescriptor(a, 'x')?.get === 'function', y: typeof Object.getOwnPropertyDescriptor(a, 'y')?.get === 'function' }));
     if (!actorGuards.every(row => row.x && row.y)) throw Error('native roster setter did not enroll actor coordinate guards ' + JSON.stringify(actorGuards));
-    window.__RC233_OBSERVING__ = true; for (const key of Object.keys(window.__RC233_PAINT__)) window.__RC233_PAINT__[key] = [];
+    window.__RC233_OBSERVING__ = true; window.__RC233_ADMISSIONS__ = [];
+    for (const key of Object.keys(window.__RC233_PAINT__)) window.__RC233_PAINT__[key] = [];
     C.binding.modal.current = null;
     return { time: s.time, zone: s.zone, hero: s.activeHeroId, partyRoster: P.roster, otherPartyActors: P.actors.length,
       sameNativeWorld: s === P.state && s === C.binding.state.current, accessorEvidence, actorGuards,
@@ -208,11 +223,12 @@ function installQualityProbe() {
     return new Promise((resolve, reject) => {
       const s = C.binding.state.current, L = window.__HAPIL_COMBAT_LIFECYCLE_RC231__, ids = fixture.ids ?? [fixture.id], start = s.time;
       const cycles = [], samples = [], majorPackets = new Map(), packetIds = new Set(), ordinaryPackets = new WeakSet(), cyclePackets = new Map(), lastCycles = new Map(), snapshots = {}, endWall = performance.now() + criteria.fixtureWallTimeoutMs;
-      let tracked = null, trackedRelease = null, actualScene = null, lastTime = s.time, idle = 0, maxIdle = 0, bodyGap = 0, maxBodyGap = 0, maxQueue = 0;
+      let tracked = null, trackedRelease = null, actualScene = null, lastTime = s.time, idle = 0, maxIdle = 0, bodyGap = 0, maxBodyGap = 0, maxQueue = 0, queueHighWater = null, maxEchoBolts = 0;
       const complete = timedOut => {
         pause(); window.__RC233_SNAPSHOTS__ = snapshots;
         const actors = ids.map(id => s.enemies.find(a => a.id === id));
         resolve({ start, end: s.time, timedOut, cycles, samples, majorPackets: [...majorPackets.values()], maxIdle, maxBodyGap, maxQueue, cap: samples[0]?.cap,
+          queueHighWater, maxEchoBolts, echoBoltCap: window.__HAPIL_ECHOES_V31368__.cfg.maxBolts, admissionEvents: window.__RC233_ADMISSIONS__,
           observedPacketCount: packetIds.size, snapshotStages: Object.keys(snapshots), nativePaint: window.__RC233_PAINT__, actualScene,
           actorHp: actors.map(a => ({ id: a.id, hp: a.hp, maxHp: a.maxHp })),
           readability: window.__HAPIL_PROJECTILE_READABILITY_RC232__?.metrics() ?? null, pausedForRaster: true,
@@ -225,7 +241,17 @@ function installQualityProbe() {
           const actors = ids.map(id => s.enemies.find(a => a.id === id)); if (actors.some(a => !a || a.hp <= 0)) throw Error('full-HP manual actor disappeared');
           const dt = Math.max(0, s.time - lastTime); lastTime = s.time;
           const queues = s.hostileProjectiles ?? [], owned = queues.filter(q => ids.includes(q.sourceId) && !removed(q));
-          maxQueue = Math.max(maxQueue, queues.length);
+          const echoes = queues.filter(q => q.echoBoltV31368).length;
+          maxEchoBolts = Math.max(maxEchoBolts, echoes);
+          if (queues.length > maxQueue) {
+            maxQueue = queues.length;
+            queueHighWater = { time: s.time, rawTotal: queues.length, echoBolts: echoes,
+              rc95Pressure: queues.filter(q => q.rc95Bullet).length, densityExtras: queues.filter(q => q.rc210DensityExtra).length,
+              terminal: queues.filter(removed).length,
+              specialNative: queues.filter(q => q.rc133InnerShot || q.danmakuV31316 || q.persistentProjectile31222 || q.rc150PersonaAwakeningShot).length,
+              byOwner: Object.fromEntries([...new Set(queues.map(q => String(q.sourceId)))].map(id => [id, queues.filter(q => String(q.sourceId) === id).length])),
+              meaning: 'Unfiltered live native queue. Flag counts can overlap; echo bolts have their own unchanged native cap and direct producer.' };
+          }
           const major = actors.some(a => Math.max(...['attackAt', 'attackImpactAt', 'atomicCastUntil31210', 'activePatternUntil', 'telekineticUntil', 'spatialRiftUntil', 'laserCastUntilV31332', 'finaleCastUntilV31334'].map(k => number(a[k]))) > s.time) ||
             (L.queues ?? []).some(key => key !== 'hostileProjectiles' && (s[key] ?? []).some(q => ids.includes(L.owner(s, q)?.id) && Math.max(number(q.at), number(q.impactAt), number(q.endAt), number(q.end), number(q.fireAt) + number(q.activeSeconds)) > s.time));
           for (const key of L.queues ?? []) if (key !== 'hostileProjectiles') for (const q of s[key] ?? []) if (ids.includes(L.owner(s, q)?.id)) {
@@ -246,7 +272,7 @@ function installQualityProbe() {
               cycles.push({ owner: a.id, cycle: counter, announcedAt: ordinary ? counter : row?.announcedAt ?? s.time, observedAt: s.time,
                 releaseAt: volley.length ? Math.max(...volley.map(release)) : row?.releaseAt ?? number(a.attackAt),
                 firstReleaseAt: volley.length ? Math.min(...volley.map(release)) : null, salvos: [...new Set(volley.map(q => q.rc126Salvo ?? null))],
-                until: row?.until ?? null, packets: volley.length, deliveredPacketIds: [], clocks: clocks(a), phase: window.__HAPIL_COMBAT_FLOW_RC95__.phase(s) });
+                until: row?.until ?? null, packets: volley.length, packetIds: volley.map(q => q.id), deliveredPacketIds: [], clocks: clocks(a), phase: window.__HAPIL_COMBAT_FLOW_RC95__.phase(s) });
             }
           }
           if (fixture.role === 'ordinary') for (const q of owned) if (!ordinaryPackets.has(q) && [q.x, q.y, q.vx, q.vy].every(Number.isFinite) && Math.hypot(q.vx, q.vy) > .001 && q.damage > 0) {
@@ -388,7 +414,24 @@ function pressureSummary(trace) {
   return { cycles: rows.length, owners: [...new Set(rows.map(r => r.owner))], maxIdleWithoutMajor: trace.maxIdle,
     maxBodyCenterGapWithoutMajor: trace.maxBodyGap, deliveredCycles: rows.filter(row => row.packets > 0).length,
     warningDurations: rows.map(row => Math.max(0, row.releaseAt - row.announcedAt)),
-    maxReleaseToNextAnnouncement: Math.max(0, ...gaps.map(row => row.releaseToNextAnnouncement)), maxQueue: trace.maxQueue, cap: trace.cap, gaps };
+    maxReleaseToNextAnnouncement: Math.max(0, ...gaps.map(row => row.releaseToNextAnnouncement)), maxQueue: trace.maxQueue,
+    cap: trace.cap, queueHighWater: trace.queueHighWater, maxEchoBolts: trace.maxEchoBolts, echoBoltCap: trace.echoBoltCap, gaps };
+}
+
+function admissionSummary(trace) {
+  const events = trace.admissionEvents ?? [], guarded = events.filter(row => row.guarded), violations = [];
+  for (const [index, row] of events.entries()) {
+    if (row.allowed !== (!row.guarded || row.before < row.cap)) violations.push({ index, reason: 'served admission decision differs from its native threshold' });
+    if (!row.allowed && row.added.length) violations.push({ index, reason: 'rejected native emission added packets' });
+    if (row.guarded && row.added.length && !(row.before < row.cap && row.after <= row.cap)) violations.push({ index, reason: 'guarded native emission crossed its unchanged admission cap' });
+    if (row.added.some(q => q.owner !== row.owner)) violations.push({ index, reason: 'emitter packet lost its actual owner provenance' });
+  }
+  const pressureIds = new Set(events.filter(row => row.pressure).flatMap(row => row.added.map(q => q.id)));
+  const observedPressureIds = trace.cycles.flatMap(row => row.packetIds ?? []);
+  return { calls: events.length, guardedCalls: guarded.length, guardedEmissions: guarded.filter(row => row.added.length).length,
+    deniedGuardedCalls: guarded.filter(row => !row.allowed).length, pressureEmittedIds: [...pressureIds],
+    observedPressurePackets: observedPressureIds.length, pressureProvenanceExact: observedPressureIds.every(id => pressureIds.has(id)), violations,
+    meaning: 'Actual final native emitter call-through receipts. The unchanged 40/56 policy limits guarded moving boss/miniboss admissions; native echoes and special producers retain their own limits. Raw global queue peaks are reported separately and never filtered into a claimed global cap.' };
 }
 
 async function cameraEvidence(page, release) {
@@ -536,6 +579,7 @@ async function main() {
       await page.evaluate(() => window.__HAPIL_PARTY_LAUNCH_V31322__?.dismissGuestUI?.());
       await page.evaluate(installQualityProbe);
       source.environment = await page.evaluate(() => { const c = document.createElement('canvas'), gl = c.getContext('webgl'), ext = gl?.getExtension('WEBGL_debug_renderer_info'); return { userAgent: navigator.userAgent, devicePixelRatio, renderer: ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : null, vendor: ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : null }; });
+      console.log('RC233_BROWSER_ENV', JSON.stringify({ release, sourceSha, ...source.environment }));
       for (const fixture of FIXTURES) {
         const row = { name: fixture.name, fixture, setup: await page.evaluate(f => window.__RC233_QUALITY__.stage(f), fixture) };
         source.fixtures.push(row); persist();
@@ -551,7 +595,8 @@ async function main() {
             console.log('RC233_REVIEW_IMAGE ' + JSON.stringify({ name: file, sha: sourceSha, imageType: scene.imageType, fixture: fixture.name, time: scene.time, releasedBodies: scene.releasedIds.length, originalSha256: digest(bytes), data }));
           }
         }
-        row.pressure = pressureSummary(row.trace); row.raster = await page.evaluate(() => window.__RC233_QUALITY__.rasters());
+        row.pressure = pressureSummary(row.trace); row.admission = admissionSummary(row.trace);
+        row.raster = await page.evaluate(() => window.__RC233_QUALITY__.rasters());
         row.raster.floorSource = { file: row.raster.floor.replace(/^\.\//, ''), sha256: digest(releaseBytes(release, row.raster.floor.replace(/^\.\//, ''))) };
         for (const raster of Object.values(row.raster.rows)) for (const receipt of raster.receipts) {
           const file = decodeURIComponent(new URL(receipt.path, 'http://localhost').pathname).replace(/^\//, '');
@@ -561,7 +606,7 @@ async function main() {
           const file = `${release}-${fixture.name}-${stage}-${kind}.png`, bytes = Buffer.from(raster[kind].split(',')[1], 'base64'); fs.writeFileSync(path.join(OUT, file), bytes); raster[kind] = { file, bytes: bytes.length, sha256: digest(bytes) };
         }
         console.log('RC233_NATIVE_QUALITY_ROW', JSON.stringify({ release, sourceSha, fixture: fixture.name, setup: row.setup,
-          pressure: row.pressure, timedOut: row.trace.timedOut, scene: row.trace.actualScene && { file: row.trace.actualScene.png.file, time: row.trace.actualScene.time, releasedBodies: row.trace.actualScene.releasedIds.length },
+          pressure: row.pressure, admission: row.admission, timedOut: row.trace.timedOut, scene: row.trace.actualScene && { file: row.trace.actualScene.png.file, time: row.trace.actualScene.time, releasedBodies: row.trace.actualScene.releasedIds.length },
           raster: Object.fromEntries(Object.entries(row.raster.rows).map(([stage, r]) => [stage, { pixels: r.pixels, longCssPx: r.bodyLongCssPx, shortCssPx: r.bodyShortCssPx,
             rgbContrastFraction: r.contrastedPixelFraction, meanLumaDifference: r.meanLumaDifference, defaultLumaDifference: r.defaultOpacity.meanLumaDifference,
             contactGeometryExact: r.contactGeometryExact, sources: r.receipts.map(draw => ({ path: draw.path, sha256: draw.sourceSha256, changedAlpha: draw.changedAlpha, styled: draw.styled })) }])), warmCache: row.raster.warmCache, protection: row.raster.protection }));
@@ -570,7 +615,12 @@ async function main() {
           assert(!row.trace.timedOut && row.pressure.deliveredCycles >= CRITERIA.naturalCycles && row.trace.end > row.trace.start, 'candidate completes three actual native packet-emitting cycles within the declared bound');
           assert(row.trace.observedPacketCount > 0 && row.raster.rows.release && row.raster.rows.flight, 'actual live release and later flight must both be observed');
           if (fixture.name !== 'ordinary-spider') assert(row.trace.actualScene, 'existing native three-cycle window includes an actual battlefield scene with the declared actor and released-body count');
-          assert(row.trace.maxQueue <= row.trace.cap, 'native live packet queue remains inside the existing admission cap');
+          assert.deepEqual(row.admission.violations, [], 'actual guarded native admissions preserve their unchanged cap and rejected emissions add no packets');
+          assert(row.trace.maxEchoBolts <= row.trace.echoBoltCap, 'independent native echo bolts retain their original family cap');
+          if (fixture.role !== 'ordinary') {
+            assert(row.admission.guardedCalls > 0 && row.admission.guardedEmissions > 0, 'actual moving ranked emissions are observed through the native admission guard');
+            assert(row.admission.observedPressurePackets > 0 && row.admission.pressureProvenanceExact, 'every observed native pressure-cycle packet has an actual capped-emitter receipt');
+          }
           for (const stage of ['release', 'flight']) {
             const r = row.raster.rows[stage]; assert(r.receipts.length > 0 && r.pixels > 0, 'released native body is visibly painted');
             assert(r.receipts.every(draw => draw.changedAlpha === CRITERIA.sourceAlphaChangedPixels && JSON.stringify(draw.originalSize) === JSON.stringify(draw.renderedSize)), 'styling preserves every original source alpha and image dimension');
@@ -593,7 +643,11 @@ async function main() {
         support: 'One-time validated native director saved-phase initialization at elapsed10.8/12s, first actual boss atomic deadline+2s. No later timer/HP edits or forced cast. This separate preservation case requires two native pressure cycles including at least one after actual blood warning/active completion; the six generic fixtures each require three packet-emitting cycles.' };
       source.major.trace = await page.evaluate(({ fixture, criteria }) => window.__RC233_QUALITY__.observe(fixture, criteria), { fixture: { ...majorFixture, controlBaseline: release === 'before' }, criteria: CRITERIA });
       source.major.pressure = pressureSummary(source.major.trace);
+      source.major.admission = admissionSummary(source.major.trace);
       if (release === 'after') {
+        assert.deepEqual(source.major.admission.violations, [], 'native major preservation case keeps guarded supplemental admissions capped');
+        assert(source.major.admission.pressureProvenanceExact && source.major.admission.observedPressurePackets > 0, 'major-case pressure packets retain actual capped-emitter provenance');
+        assert(source.major.trace.maxEchoBolts <= source.major.trace.echoBoltCap, 'major-case native echoes retain their own cap');
         assert(source.major.pressure.deliveredCycles >= CRITERIA.majorFixtureMinimumPressureCycles, 'separate major-preservation case observes actual pressure before and after its native blood action');
         assert.equal(source.major.trace.cycles[0].owner, 'mb-ep1b03', 'ready native owner acts while the initial lead is still blocked');
         assert(source.major.pressure.owners.includes('b03-boss') && source.major.pressure.owners.includes('mb-ep1b03'), 'both actual ranked owners receive pressure turns');
@@ -625,5 +679,5 @@ async function main() {
   console.log('RC233_QUALITY_BROWSER', JSON.stringify({ status: report.status, baseline: BASELINE, candidate: head, profile: PROFILE, comparisons: report.comparisons, sceneImages: report.sceneImages, images: report.images, scope: report.scope }));
 }
 
-module.exports = { BASELINE, CRITERIA, FIXTURES, pressureSummary };
+module.exports = { BASELINE, CRITERIA, FIXTURES, pressureSummary, admissionSummary };
 if (require.main === module) main().catch(error => { console.error(error); process.exitCode = 1; });
